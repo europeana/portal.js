@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Eemalda filter {filterLabel}",
   "reset": "Lähtesta",
   "resourceWikimedia": "Wikimedia Commonsist saadud ressurss",
-  "results": "Tulemused",
-  "resultsFor": "Tulemused päringule {0}",
-  "resultsLimitWarning": "Täiendavaid tulemusi ei kuvata, kuna kuvatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te pole leidnud seda, mida otsite, kaaluge oma otsingu täpsustamist.",
-  "resultsWithin": "Tulemused vahemikus {0} {1} päringule {2}",
   "search": {
     "boost": {
       "placeholder": "Sisestage välja võimendamise päring"
+    },
+    "results": {
+      "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
+      "withinCollection": "{count} tulemust jaotises {type} {collection}",
+      "withinCollectionWithQuery": "{count} tulemust jaotises {type} {collection} jaoks {query}",
+      "withoutQuery": "{count} tulemust",
+      "withQuery": "{count} tulemust jaoks {query}"
     },
     "title": "Otsing"
   },

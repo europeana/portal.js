@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Verwijder het filter {filterLabel}",
   "reset": "Opnieuw instellen",
   "resourceWikimedia": "Bron van Wikimedia Commons",
-  "results": "Resultaten",
-  "resultsFor": "Resultaten voor {0}",
-  "resultsLimitWarning": "Aanvullende resultaten worden niet getoond, aangezien alleen de 1000 meest relevante resultaten worden getoond. Indien u niet hebt gevonden wat u zoekt, overweeg dan om uw zoekopdracht te verfijnen.",
-  "resultsWithin": "Resultaten binnen {0} {1} voor {2}",
   "search": {
     "boost": {
       "placeholder": "Voer veldversterkende query in"
+    },
+    "results": {
+      "limitWarning": "Aanvullende resultaten worden niet getoond, omdat alleen de eerste 1000 meest relevante resultaten worden getoond. Als u niet heeft gevonden wat u zocht, kunt u overwegen uw zoekopdracht te verfijnen.",
+      "withinCollection": "{count} resultaten binnen {type} {collection}",
+      "withinCollectionWithQuery": "{count} resultaten binnen {type} {collection} voor {query}",
+      "withoutQuery": "{count} resultaten",
+      "withQuery": "{count} resultaten voor {query}"
     },
     "title": "Zoeken"
   },

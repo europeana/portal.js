@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Ta bort filter {filterLabel}",
   "reset": "Återställ",
   "resourceWikimedia": "Resurs från Wikimedia Commons",
-  "results": "Resultat",
-  "resultsFor": "Resultat för {0}",
-  "resultsLimitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
-  "resultsWithin": "Resultat inom {0} {1} för {2}",
   "search": {
     "boost": {
       "placeholder": "Ange fältförstärkningsfråga"
+    },
+    "results": {
+      "limitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
+      "withinCollection": "{count} resultat inom {type} {collection}",
+      "withinCollectionWithQuery": "{count} resultat inom {type} {collection} för {query}",
+      "withoutQuery": "{count} resultat",
+      "withQuery": "{count} resultat för {query}"
     },
     "title": "Sök"
   },
