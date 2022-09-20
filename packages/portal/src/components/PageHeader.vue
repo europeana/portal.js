@@ -8,12 +8,13 @@
     data-qa="header"
   >
     <div
-      v-if="showSearch"
+      v-if="showSearchBar"
       class="d-flex justify-content-center w-100"
       data-qa="search form wrapper"
     >
       <SearchForm
         :in-top-nav="true"
+        @hide="toggleSearchBar"
       />
     </div>
     <template
@@ -106,7 +107,6 @@
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
   import FilterToggleButton from '@/components/search/FilterToggleButton';
-  import { mapState } from 'vuex';
 
   export default {
     name: 'PageHeader',
@@ -120,17 +120,14 @@
 
     data() {
       return {
+        showSearchBar: false,
         windowWidth: 0
       };
     },
 
-    computed: {
-      ...mapState({ showSearch: state => state.search.showSearchBar })
-    },
-
     methods: {
       toggleSearchBar() {
-        this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
+        this.showSearchBar = !this.showSearchBar;
       }
     }
   };

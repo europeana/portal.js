@@ -17,7 +17,6 @@ export default {
     overrideParams: {},
     collectionLabel: null,
     results: [],
-    showSearchBar: false,
     allThemes: [],
     totalResults: null,
     userParams: {},
@@ -50,9 +49,6 @@ export default {
     },
     setResults(state, value) {
       state.results = value;
-    },
-    setShowSearchBar(state, value) {
-      state.showSearchBar = value;
     },
     setTotalResults(state, value) {
       state.totalResults = value;
