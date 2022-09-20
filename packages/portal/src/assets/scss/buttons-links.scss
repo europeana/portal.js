@@ -144,6 +144,7 @@
 // Expected ".btn-outline-primary:hover" to come before
 // @at-root  ".btn-outline-primary:hover:not([disabled])"
 .btn-outline-primary {
+  background-color: $white;
   border-color: $blue;
   color: $blue;
   font-size: $font-size-small;
