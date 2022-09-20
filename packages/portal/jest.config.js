@@ -1,8 +1,7 @@
 export default {
   coveragePathIgnorePatterns: [
     '<rootDir>/src/plugins/i18n/locales.js',
-    '<rootDir>/src/lang/',
-    '<rootDir>/src/migrations/'
+    '<rootDir>/src/lang/'
   ],
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{cjs,js,vue}'
