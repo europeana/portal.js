@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Poista {filterLabel} -suodatin",
   "reset": "Nollaa",
   "resourceWikimedia": "Sisältö Wikimedia Commonsista",
-  "results": "Tulokset",
-  "resultsFor": "Tulokset {0}",
-  "resultsLimitWarning": "Enempää tuloksia ei näytetä, koska vain ensimmäiset 1000 merkityksellisintä tulosta näytetään. Jos et löytänyt etsimääsi, voit tarkentaa hakuasi.",
-  "resultsWithin": "tulokset {0} {1} sisällä {2}",
   "search": {
     "boost": {
       "placeholder": "Syötä kentän tehostamiskysely"
+    },
+    "results": {
+      "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",
+      "withinCollection": "{count} tulokset sisällä {type} {collection}",
+      "withinCollectionWithQuery": "{count} tulokset sisällä {type} {collection} for {query}",
+      "withoutQuery": "{count} tulokset",
+      "withQuery": "{count} tulokset :lle {query}"
     },
     "title": "Hae"
   },

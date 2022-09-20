@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Noņemt filtru {filterLabel}",
   "reset": "Atiestatīt",
   "resourceWikimedia": "Resurss no Wikimedia Commons",
-  "results": "Rezultāti",
-  "resultsFor": "Rezultāti vaicājumam {0}",
-  "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
-  "resultsWithin": "Rezultāti {0} {1} ietvaros {2}",
   "search": {
     "boost": {
       "placeholder": "Ievadiet lauka pastiprināšanas vaicājumu"
+    },
+    "results": {
+      "limitWarning": "Papildu rezultāti netiek rādīti, jo tiek rādīti tikai pirmie 1000 visatbilstošākie rezultāti. Ja neatradāt to, ko meklējat, lūdzu, apsveriet iespēju uzlabot meklēšanu.",
+      "withinCollection": "{count} rezultāti sadaļā {type} {collection}",
+      "withinCollectionWithQuery": "{count} rezultāti sadaļā {type} {collection} par {query}",
+      "withoutQuery": "{count} rezultāti",
+      "withQuery": "{count} rezultāti {query}"
     },
     "title": "Meklēt"
   },
