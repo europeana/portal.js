@@ -6,12 +6,6 @@
     :class="cardClass"
   >
     <div class="card-wrapper">
-      <SmartLink
-        :destination="url"
-        link-class="card-link"
-        :aria-label="displayTitle ? displayTitle.value : null"
-        :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
-      />
       <MediaDefaultThumbnail
         v-if="variant !== 'mini'"
         v-show="!cardImageUrl"
@@ -44,6 +38,19 @@
           @load="imageLoaded"
         />
       </div>
+      <SmartLink
+        v-if="variant === 'mosaic'"
+        :destination="url"
+        link-class="card-link mosaic"
+        :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
+      >
+        <span
+          v-if="displayTitle"
+          :lang="displayTitle.code"
+        >
+          {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
+        </span>
+      </SmartLink>
       <b-card-body
         v-if="variant !== 'mosaic'"
         data-qa="card body"
@@ -57,16 +64,22 @@
           {{ displaySubTitle }}
         </b-card-sub-title>
         <div class="title-texts-wrapper">
-          <b-card-title
-            v-if="displayTitle"
-            title-tag="div"
-            data-qa="card title"
-            :lang="displayTitle.code"
+          <SmartLink
+            :destination="url"
+            link-class="card-link"
+            :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
           >
-            <span>
-              {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
-            </span>
-          </b-card-title>
+            <b-card-title
+              v-if="displayTitle"
+              title-tag="div"
+              data-qa="card title"
+              :lang="displayTitle.code"
+            >
+              <span>
+                {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
+              </span>
+            </b-card-title>
+          </SmartLink>
           <b-card-text
             v-if="hitsText"
             text-tag="div"
