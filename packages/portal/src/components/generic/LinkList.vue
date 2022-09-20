@@ -78,7 +78,7 @@
     border-radius: $border-radius;
     text-decoration: none;
     background-color: $offwhite;
-    color: $black;
+    color: $greyblack;
 
     &:hover {
       background-color: rgb(0 0 0 / 70%);

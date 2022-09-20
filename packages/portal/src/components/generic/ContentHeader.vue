@@ -23,27 +23,29 @@
         v-html="description"
       />
       <!-- eslint-enable vue/no-v-html -->
-    </b-col>
-    <b-col
-      v-if="mediaUrl"
-      cols="12"
-      lg="3"
-      class="pt-0 pb-3 py-lg-3 text-left text-lg-right"
-    >
-      <SocialShare
-        :media-url="mediaUrl"
-      />
+      <template v-if="mediaUrl">
+        <ShareButton
+          variant="outline-primary"
+          class="mt-4"
+        />
+        <SocialShareModal :media-url="mediaUrl" />
+      </template>
     </b-col>
   </header>
 </template>
 
 <script>
-  import SocialShare from '../../components/sharing/SocialShare';
+  import ShareButton from '../../components/sharing/ShareButton';
+  import SocialShareModal from '../../components/sharing/SocialShareModal';
 
   export default {
+    name: 'ContentHeader',
+
     components: {
-      SocialShare
+      ShareButton,
+      SocialShareModal
     },
+
     props: {
       title: {
         type: String,

@@ -1,6 +1,7 @@
 <template>
   <b-button
     v-b-modal.share-modal
+    :variant="variant"
     data-qa="share button"
     class="share-button d-inline-flex align-items-center"
   >
@@ -13,7 +14,16 @@
   /**
    * Button for opening the social media share modal.
    */
-  export default {};
+  export default {
+    name: 'ShareButton',
+
+    props: {
+      variant: {
+        type: String,
+        default: ''
+      }
+    }
+  };
 </script>
 
 <style lang="scss" scoped>

@@ -76,7 +76,7 @@ pre {
 }
 
 blockquote {
-  color: $black;
+  color: $greyblack;
   font-size: 1.5rem;
   font-style: italic;
   font-weight: 600;
@@ -103,7 +103,7 @@ blockquote {
 }
 
 cite {
-  color: $black;
+  color: $greyblack;
   display: block;
   font-size: $font-size-small;
   font-style: normal;
@@ -204,7 +204,7 @@ video {
 }
 
 a {
-  color: $black;
+  color: $greyblack;
   text-decoration: underline;
 
   &:hover {

@@ -242,7 +242,7 @@
           @extend %icon-font;
 
           content: '';
-          color: $black;
+          color: $greyblack;
           transition: $standard-transition;
           font-size: 1.5rem;
 
