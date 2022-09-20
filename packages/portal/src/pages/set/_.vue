@@ -86,6 +86,15 @@
                   >
                     {{ $t('actions.edit') }}
                   </b-button>
+                  <b-button
+                    v-if="set.visibility === 'public'"
+                    variant="outline-primary"
+                    class="text-decoration-none mr-2"
+                    data-qa="weave set button"
+                    @click="weaveIt"
+                  >
+                    WEAVE
+                  </b-button>
                   <SetFormModal
                     :set-id="set.id"
                     :modal-id="setFormModalId"
@@ -153,7 +162,8 @@
   // TODO: This file will be deprecated when set-driven galleries are in production.
   // TODO: Also move the beforeRouteEnter redirect to the legacy middleware.
   import ClientOnly from 'vue-client-only';
-  import createHttpError from 'http-errors';
+  import createHttpError from 'http-errors'
+  import axios from 'axios';;
 
   import {
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
@@ -294,6 +304,19 @@
     },
 
     methods: {
+      weaveIt() {
+        axios({
+          method: 'get',
+          baseURL: 'https://experience.weave-culture.eu/import/europeana/set/',
+          url: this.setId,
+          withCredentials: true
+        })
+          .then((response) => {
+            console.log(response.status);
+            console.log(response.data);
+          });
+      },
+
       validateRoute() {
         if (!/^\d+$/.test(this.$route.params.pathMatch)) {
           throw createHttpError(400, 'Invalid set ID');
