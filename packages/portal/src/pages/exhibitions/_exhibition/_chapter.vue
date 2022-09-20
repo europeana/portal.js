@@ -214,13 +214,9 @@
         return this.hero?.image || null;
       },
       optimisedImageUrl() {
-        if (!this.heroImage) {
-          return null;
-        }
-        return this.$options.filters.optimisedImageUrl(
-          this.heroImage.url,
-          this.heroImage.contentType,
-          { width: 800, height: 800 }
+        return this.$contentful.assets.optimisedSrc(
+          this.heroImage,
+          { w: 800, h: 800 }
         );
       }
     },

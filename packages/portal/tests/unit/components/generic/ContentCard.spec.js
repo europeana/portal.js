@@ -21,6 +21,12 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
   propsData,
   mocks: {
     $config: { app: { internalLinkDomain: null } },
+    $contentful: {
+      assets: {
+        isValidUrl: (url) => url.includes('images.ctfassets.net'),
+        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
+      }
+    },
     $i18n: {
       locale: 'en'
     },
@@ -41,6 +47,8 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
 });
 
 describe('components/generic/ContentCard', () => {
+  afterEach(sinon.resetHistory);
+
   describe('template', () => {
     describe('card title', () => {
       it('is displayed as-is if a string', async() => {
@@ -188,27 +196,24 @@ describe('components/generic/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ imageUrl: 'https://example.org' });
 
-        const image =  wrapper.find('[data-qa="content card"] .card-img img');
+        const image = wrapper.find('[data-qa="content card"] .card-img img');
         expect(image).toBeDefined();
         expect(image.attributes('src')).toBe('https://example.org');
       });
 
-      it('may have an optimised image', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({ imageUrl: '//images.ctfassets.net/example/example.jpg', imageContentType: 'image/jpeg' });
-
-        expect(wrapper.vm.optimisedImageUrl).toContain('fm=jpg&fl=progressive&q=50');
-      });
-
-      it('may have an optimised image with max width', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          imageUrl: '//images.ctfassets.net/example/example.jpg',
+      it('may have an optimised image, if for Contentful asset', () => {
+        const wrapper = factory({ propsData: {
+          imageUrl: 'https://images.ctfassets.net/example/example.jpg',
           imageContentType: 'image/jpeg',
           imageOptimisationOptions: { width: 510 }
-        });
+        } });
 
-        expect(wrapper.vm.optimisedImageUrl).toContain('fm=jpg&fl=progressive&q=50&w=510');
+        expect(wrapper.vm.optimisedImageUrl).toContain('?optimised');
+        expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({
+          url: 'https://images.ctfassets.net/example/example.jpg',
+          contentType: 'image/jpeg'
+        },
+        { w: 510, h: undefined })).toBe(true);
       });
 
       it('may have no image and is of variant mini', async() => {

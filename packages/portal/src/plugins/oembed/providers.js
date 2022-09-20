@@ -6,10 +6,7 @@ export default [
       'http://archives.crem-cnrs.fr/archives/items/*/',
       'http://www.ccma.cat/tv3/alacarta/programa/titol/video/*/',
       'http://www.ina.fr/video/*',
-      'http://www.ina.fr/*/video/*',
-      'http://api.picturepipe.net/api/html/widgets/public/playout_cloudfront?token=*',
-      'https://api.picturepipe.net/api/html/widgets/public/playout_cloudfront?token=*',
-      'http://www.theeuropeanlibrary.org/tel4/newspapers/issue/fullscreen/*'
+      'http://www.ina.fr/*/video/*'
     ]
   },
   {

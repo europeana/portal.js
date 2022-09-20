@@ -38,7 +38,7 @@ const factory = (options = {}) => {
           userParams: {},
           apiParams: {},
           results: [],
-          entity: {},
+          totalResults: 1,
           ...options.storeState
         },
         getters: {
@@ -54,6 +54,12 @@ const factory = (options = {}) => {
           activate: () => null,
           run: () => null
         }
+      },
+      entity: {
+        namespaced: true,
+        state: {
+          entity: {}
+        }
       }
     },
     getters: {
@@ -68,7 +74,7 @@ const factory = (options = {}) => {
     mocks,
     store,
     propsData: options.propsData,
-    stubs: ['SideFilters']
+    stubs: ['SideFilters', 'i18n']
   });
 };
 

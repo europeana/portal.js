@@ -1,66 +1,53 @@
 <template>
-  <h1
-    class="context-label"
-    data-qa="context label"
-  >
-    <template
-      v-if="hasEntity"
+  <div class="overflow-hidden">
+    <i18n
+      :path="i18nPath"
+      tag="h1"
+      class="context-label"
+      data-qa="context label"
     >
-      <i18n
-        v-if="hasQuery"
-        path="resultsWithin"
-        :tag="false"
-      >
-        {{ entityTypeLabel }}
-        <RemovalChip
-          :title="entityLabel"
-          :link-to="entityRemovalLink"
-          :img="entityImage"
-          :type="entity.type"
-          data-qa="entity removal badge"
-          class="mt-1 mx-1"
-        />
-        <RemovalChip
-          :title="query"
-          :link-to="queryRemovalLink"
-          data-qa="query removal badge"
-          class="mt-1 mx-1"
-        />
-      </i18n>
-      <span
-        v-else
-      >
-        {{ entityTypeLabel }}
-        <RemovalChip
-          :title="entityLabel"
-          :link-to="entityRemovalLink"
-          :img="entityImage"
-          :type="entity.type"
-          data-qa="entity removal badge"
-          class="mt-1 mx-1"
-        />
-      </span>
-    </template>
-    <template
-      v-else
-    >
-      <i18n
-        v-if="hasQuery"
-        path="resultsFor"
-        :tag="false"
-      >
-        <RemovalChip
-          :title="query"
-          :link-to="queryRemovalLink"
-          data-qa="query removal badge"
-          class="mt-1 mx-1"
-        />
-      </i18n>
-      <template v-else>
-        {{ $t('results') }}
+      <template #count>
+        {{ totalResultsLocalised }}
       </template>
-    </template>
-  </h1>
+      <template
+        v-if="hasEntity"
+        #type
+      >
+        {{ entityTypeLabel }}
+      </template>
+      <template
+        v-if="hasEntity"
+        #collection
+      >
+        <RemovalChip
+          :title="entityLabel"
+          :link-to="entityRemovalLink"
+          :img="entityImage"
+          :type="entity.type"
+          data-qa="entity removal badge"
+          class="mt-1 mx-1"
+        />
+      </template>
+      <template
+        v-if="hasQuery"
+        #query
+      >
+        <RemovalChip
+          :title="query"
+          :link-to="queryRemovalLink"
+          data-qa="query removal badge"
+          class="mt-1 mx-1"
+        />
+      </template>
+    </i18n>
+    <div
+      class="visually-hidden"
+      role="status"
+      data-qa="results status message"
+    >
+      {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -68,8 +55,6 @@
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
-  import { mapState } from 'vuex';
-  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'SearchResultsContext',
@@ -83,6 +68,30 @@
     ],
 
     props: {
+      /**
+       * Total number of results from the current search.
+       */
+      totalResults: {
+        type: Number,
+        required: true
+      },
+
+      /**
+       * The search term(s).
+       */
+      query: {
+        type: String,
+        default: null
+      },
+
+      /**
+       * The entity theme/collection within which the search has been made.
+       */
+      entity: {
+        type: Object,
+        default: null
+      },
+
       /**
        * Editorial overrides
        *
@@ -101,15 +110,25 @@
     },
 
     computed: {
-      ...mapState({
-        query: state => state.search.userParams.query,
-        entity: state => state.entity?.entity
-      }),
+      i18nPath() {
+        if (this.hasEntity && this.hasQuery) {
+          return 'search.results.withinCollectionWithQuery';
+        } else if (this.hasEntity) {
+          return 'search.results.withinCollection';
+        } else if (this.hasQuery) {
+          return 'search.results.withQuery';
+        } else {
+          return 'search.results.withoutQuery';
+        }
+      },
+      totalResultsLocalised() {
+        return this.$options.filters.localise(this.totalResults);
+      },
       hasQuery() {
         return this.query && this.query !== '';
       },
       hasEntity() {
-        return this.entity && this.entity.id;
+        return this.entity?.id;
       },
       entityLabel() {
         return this.editorialOverrides?.title ||
@@ -117,8 +136,11 @@
           this.entity?.prefLabel;
       },
       entityImage() {
-        if (this.editorialOverrides?.image && urlIsContentfulAsset(this.editorialOverrides.image.url)) {
-          return optimisedSrcForContentfulAsset(this.editorialOverrides.image, { w: 28, h: 28, fit: 'thumb' });
+        if (this.editorialOverrides?.image && this.$contentful.assets.isValidUrl(this.editorialOverrides.image.url)) {
+          return this.$contentful.assets.optimisedSrc(
+            this.editorialOverrides.image,
+            { w: 28, h: 28, fit: 'thumb' }
+          );
         }
         return this.$apis.entity.imageUrl(this.entity);
       },

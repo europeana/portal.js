@@ -10,6 +10,11 @@ const factory = (propsData) => shallowMount(HomeHero, {
   localVue,
   propsData,
   mocks: {
+    $contentful: {
+      assets: {
+        responsiveBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
+      }
+    },
     $t: () => {}
   }
 });

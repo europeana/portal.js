@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Colecții care ți-ar putea plăcea",
   "colourSwatch": "Specimen de culoare",
-  "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Mai multe informații",
       "about": "Despre colecțiile Europeana",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
       "meetUs": "Faceți cunoștință cu echipa",
+      "MoreInfoLabel": "Mai multe informații",
       "provide": "Deveni un furnizor de date",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "terms": "Termeni de utilizare și Politica de confidențialitate"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Profesori"
     }
   },
+  "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "curatedAutomatically": "Curat automat de Europeana",
   "dateFilter": {
     "endDate": "Data de încheiere",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Explora",
   "facets": {
+    "api": {
+      "name": "Căutare după",
+      "options": {
+        "fulltext": "Înregistrări cu text integral",
+        "metadata": "Înregistrări doar pentru metadate"
+      },
+      "switch": "Căutați numai în conținutul articolelor cu text integral",
+      "switchMoreInfo": "În această colecție, puteți alege ceea ce doriți să căutați: dacă acest comutator este pornit, atunci veți căuta în ziar și în textul documentului; dacă este oprit, atunci veți căuta în schimb în informațiile care descriu elementul, la fel cum faceți întotdeauna în majoritatea celorlalte colecții."
+    },
+    "button": {
+      "apply": "Aplică",
+      "cancel": "Anulează",
+      "morefilters": "Mai multe filtre",
+      "reset": "Resetează",
+      "showAll": "Afișează tot {label}",
+      "showLess": "Afișează mai puțin {label}"
+    },
+    "collection": {
+      "name": "Temă",
+      "options": {
+        "archaeology": "Arheologie",
+        "art": "Artă",
+        "fashion": "Modă",
+        "industrial": "Patrimoniu industrial",
+        "manuscript": "Manuscrise",
+        "map": "Hărți și Geografie",
+        "migration": "Migrație",
+        "music": "Muzică",
+        "nature": "Istorie naturală",
+        "newspaper": "Ziare",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "Primul Război Mondial"
+      },
+      "select": "Selectați o temă"
+    },
     "COLOURPALETTE": {
       "moreName": "culori",
       "name": "Culoare | Culori",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Selectați culorile"
     },
+    "contentTier": {
+      "name": "Calitatea articolelor",
+      "options": {
+        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
+        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare",
+        "1": "Calitate scăzută",
+        "2": "Calitate medie",
+        "3": "De înaltă calitate și reutilizabil cu condiții",
+        "4": "De înaltă calitate și reutilizabil gratuit"
+      },
+      "select": "Selectați calitățile articolului"
+    },
     "COUNTRY": {
       "name": "Țara de proveniență",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Selectați formatele de fișiere"
     },
+    "moreOptions": "Căutați pentru a găsi {0} mai mult {1}.",
     "PROVIDER": {
       "moreName": "agregatoare",
       "name": "Agregator",
       "select": "Selectați agregatorii"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formate",
+      "select": "Selectați formate"
+    },
+    "proxy_dc_type": {
+      "name": "Tip | Tipuri",
+      "select": "Selectați tipuri"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data emiterii"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medii | Media",
+      "select": "Selectați media"
     },
     "REUSABILITY": {
       "name": "Pot reutiliza acest lucru?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Video"
       },
       "select": "Selectați tipurile de media"
-    },
-    "api": {
-      "name": "Căutare după",
-      "options": {
-        "fulltext": "Înregistrări cu text integral",
-        "metadata": "Înregistrări doar pentru metadate"
-      },
-      "switch": "Căutați numai în conținutul articolelor cu text integral",
-      "switchMoreInfo": "În această colecție, puteți alege ceea ce doriți să căutați: dacă acest comutator este pornit, atunci veți căuta în ziar și în textul documentului; dacă este oprit, atunci veți căuta în schimb în informațiile care descriu elementul, la fel cum faceți întotdeauna în majoritatea celorlalte colecții."
-    },
-    "button": {
-      "apply": "Aplică",
-      "cancel": "Anulează",
-      "morefilters": "Mai multe filtre",
-      "reset": "Resetează",
-      "showAll": "Afișează tot {label}",
-      "showLess": "Afișează mai puțin {label}"
-    },
-    "collection": {
-      "name": "Temă",
-      "options": {
-        "archaeology": "Arheologie",
-        "art": "Artă",
-        "fashion": "Modă",
-        "industrial": "Patrimoniu industrial",
-        "manuscript": "Manuscrise",
-        "map": "Hărți și Geografie",
-        "migration": "Migrație",
-        "music": "Muzică",
-        "nature": "Istorie naturală",
-        "newspaper": "Ziare",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "Primul Război Mondial"
-      },
-      "select": "Selectați o temă"
-    },
-    "contentTier": {
-      "name": "Calitatea articolelor",
-      "options": {
-        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
-        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare",
-        "1": "Calitate scăzută",
-        "2": "Calitate medie",
-        "3": "De înaltă calitate și reutilizabil cu condiții",
-        "4": "De înaltă calitate și reutilizabil gratuit"
-      },
-      "select": "Selectați calitățile articolului"
-    },
-    "moreOptions": "Căutați pentru a găsi {0} mai mult {1}.",
-    "proxy_dc_format": {
-      "name": "Format | Formate",
-      "select": "Selectați formate"
-    },
-    "proxy_dc_type": {
-      "name": "Tip | Tipuri",
-      "select": "Selectați tipuri"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Data emiterii"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medii | Media",
-      "select": "Selectați media"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Drepturi",
       "dcSource": "Sursă",
       "dcSubject": "Subiect",
-      "dcTitle": "Titlu",
-      "dcType": "Tipul obiectului",
       "dctermsCreated": "Data creării",
       "dctermsExtent": "Măsură",
       "dctermsHasPart": "Este format din",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Provenienţă",
       "dctermsReferences": "Referințe",
       "dctermsSpatial": "Locații",
-      "dctermsTOC": "Cuprins",
       "dctermsTemporal": "Temporal",
+      "dctermsTOC": "Cuprins",
+      "dcTitle": "Titlu",
+      "dcType": "Tipul obiectului",
       "edmCountry": "Țara de proveniență",
       "edmCurrentLocation": "Locația curenta",
       "edmDataProvider": "Instituția de proveniență",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
-      "MoreInfoLabel": "Mai multe informații",
       "about": "Despre noi",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
+      "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
       "provide": "Deveni un furnizor de date",
       "subscribe": "Abonează-te la buletinul nostru de știri",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "Vizualizator IIIF",
     "actions": {
       "pin": "Fixați elementul la entitățile disponibile"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
+    "IIIFViewer": "Vizualizator IIIF",
     "location": "Locație",
     "locationOnMap": "Localizare pe hartă",
     "mediaPlayer": "Media Player",
@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Elimină filtrul {filterLabel}",
   "reset": "Resetează",
   "resourceWikimedia": "Material de la Wikimedia Commons",
-  "results": "Rezultate",
-  "resultsFor": "Rezultate pentru {0}",
-  "resultsLimitWarning": "Nu sunt afișate rezultate suplimentare deoarece sunt afișate doar primele 1000 dintre cele mai relevante rezultate. Dacă nu ai găsit ceea ce căutai, te rugăm să restrângi căutarea.",
-  "resultsWithin": "Rezultatele în cadrul {0} {1} pentru {2}",
   "search": {
     "boost": {
       "placeholder": "Introduceți interogarea de creștere a câmpului"
+    },
+    "results": {
+      "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
+      "withinCollection": "{count} rezultate în cadrul {type} {collection}",
+      "withinCollectionWithQuery": "{count} rezultate în {type} {collection} pentru {query}",
+      "withoutQuery": "{count} rezultate",
+      "withQuery": "{count} rezultate pentru {query}"
     },
     "title": "Căutare"
   },

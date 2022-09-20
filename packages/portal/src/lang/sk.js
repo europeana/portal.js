@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Zbierky, ktoré by sa vám mohli páčiť",
   "colourSwatch": "Farebná vzorkovník",
-  "contentYouMightLike": "Obsah, ktorý by sa vám mohol páčiť",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Ďalšie informácie",
       "about": "Informácie o zbierkach Europeana",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "meetUs": "Spoznajte členov tímu",
+      "MoreInfoLabel": "Ďalšie informácie",
       "provide": "Staňte sa poskytovateľom údajov",
       "subscribe": "Prihlásiť sa na odber newslettra",
       "terms": "Podmienky používania služby a zásady ochrany osobných údajov"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Učitelia"
     }
   },
+  "contentYouMightLike": "Obsah, ktorý by sa vám mohol páčiť",
   "curatedAutomatically": "Spravované automaticky spol. Europeana",
   "dateFilter": {
     "endDate": "Dátum ukončenia",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Preskúmať",
   "facets": {
+    "api": {
+      "name": "Vyhľadávať",
+      "options": {
+        "fulltext": "Záznamy s plným textom",
+        "metadata": "Výhradne záznamy s metaúdajmi"
+      },
+      "switch": "Vyhľadávanie len v obsahu položiek s plným textom",
+      "switchMoreInfo": "V tejto zbierke si môžete vybrať, čo chcete vyhľadávať: ak je tento prepínač zapnutý, budete vyhľadávať v texte novín a dokumentov; ak je vypnutý, budete namiesto toho vyhľadávať v informáciách popisujúcich položku, rovnako ako vždy vo väčšine iných zbierok."
+    },
+    "button": {
+      "apply": "Použiť",
+      "cancel": "Zrušiť",
+      "morefilters": "Viac filtrov",
+      "reset": "Obnoviť",
+      "showAll": "Zobraziť všetko {label}",
+      "showLess": "Zobraziť menej {label}"
+    },
+    "collection": {
+      "name": "Téma",
+      "options": {
+        "archaeology": "Archeológia",
+        "art": "Umenie",
+        "fashion": "Móda",
+        "industrial": "Priemyselné dedičstvo",
+        "manuscript": "Rukopisy",
+        "map": "Mapy a geografia",
+        "migration": "Migrácia",
+        "music": "Hudba",
+        "nature": "Prírodná história",
+        "newspaper": "Noviny",
+        "photography": "Fotografie",
+        "sport": "Šport",
+        "ww1": "Prvá svetová vojna"
+      },
+      "select": "Vyberte tému"
+    },
     "COLOURPALETTE": {
       "moreName": "farby",
       "name": "Farba | Farby",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Vyberte farby"
     },
+    "contentTier": {
+      "name": "Kvalita položky",
+      "options": {
+        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
+        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia",
+        "1": "Nízka kvalita",
+        "2": "Stredná kvalita",
+        "3": "Vysoká kvalita a opakované použitie s podmienkami",
+        "4": "Vysoká kvalita a voľné opakované použitie"
+      },
+      "select": "Vyberte vlastnosti položky"
+    },
     "COUNTRY": {
       "name": "Poskytujúca krajina",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Vyberte formáty súborov"
     },
+    "moreOptions": "Hľadajte, aby ste našli {0} viac {1}.",
     "PROVIDER": {
       "moreName": "agregátory",
       "name": "Agregátor",
       "select": "Vyberte agregátory"
+    },
+    "proxy_dc_format": {
+      "name": "Formát | Formáty",
+      "select": "Vyberte formáty"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typy",
+      "select": "Vyberte typy"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Dátum vydania"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Médium | Mediá",
+      "select": "Vyberte média"
     },
     "REUSABILITY": {
       "name": "Môžem to znova použiť?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Video"
       },
       "select": "Vyberte typy médií"
-    },
-    "api": {
-      "name": "Vyhľadávať",
-      "options": {
-        "fulltext": "Záznamy s plným textom",
-        "metadata": "Výhradne záznamy s metaúdajmi"
-      },
-      "switch": "Vyhľadávanie len v obsahu položiek s plným textom",
-      "switchMoreInfo": "V tejto zbierke si môžete vybrať, čo chcete vyhľadávať: ak je tento prepínač zapnutý, budete vyhľadávať v texte novín a dokumentov; ak je vypnutý, budete namiesto toho vyhľadávať v informáciách popisujúcich položku, rovnako ako vždy vo väčšine iných zbierok."
-    },
-    "button": {
-      "apply": "Použiť",
-      "cancel": "Zrušiť",
-      "morefilters": "Viac filtrov",
-      "reset": "Obnoviť",
-      "showAll": "Zobraziť všetko {label}",
-      "showLess": "Zobraziť menej {label}"
-    },
-    "collection": {
-      "name": "Téma",
-      "options": {
-        "archaeology": "Archeológia",
-        "art": "Umenie",
-        "fashion": "Móda",
-        "industrial": "Priemyselné dedičstvo",
-        "manuscript": "Rukopisy",
-        "map": "Mapy a geografia",
-        "migration": "Migrácia",
-        "music": "Hudba",
-        "nature": "Prírodná história",
-        "newspaper": "Noviny",
-        "photography": "Fotografie",
-        "sport": "Šport",
-        "ww1": "Prvá svetová vojna"
-      },
-      "select": "Vyberte tému"
-    },
-    "contentTier": {
-      "name": "Kvalita položky",
-      "options": {
-        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
-        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia",
-        "1": "Nízka kvalita",
-        "2": "Stredná kvalita",
-        "3": "Vysoká kvalita a opakované použitie s podmienkami",
-        "4": "Vysoká kvalita a voľné opakované použitie"
-      },
-      "select": "Vyberte vlastnosti položky"
-    },
-    "moreOptions": "Hľadajte, aby ste našli {0} viac {1}.",
-    "proxy_dc_format": {
-      "name": "Formát | Formáty",
-      "select": "Vyberte formáty"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typy",
-      "select": "Vyberte typy"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Dátum vydania"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Médium | Mediá",
-      "select": "Vyberte média"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Práva",
       "dcSource": "Zdroj",
       "dcSubject": "Predmet",
-      "dcTitle": "Názov",
-      "dcType": "Typ objektu",
       "dctermsCreated": "Dátum vytvorenia",
       "dctermsExtent": "Rozsah",
       "dctermsHasPart": "Pozostáva z",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Proveniencia",
       "dctermsReferences": "Odkazy",
       "dctermsSpatial": "Miesta",
-      "dctermsTOC": "Obsah",
       "dctermsTemporal": "Časové obdobie",
+      "dctermsTOC": "Obsah",
+      "dcTitle": "Názov",
+      "dcType": "Typ objektu",
       "edmCountry": "Poskytujúca krajina",
       "edmCurrentLocation": "Aktuálna poloha",
       "edmDataProvider": "Poskytujúca inštitúcia",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Nájdite nás aj inde",
     "imageDescription": "Financované Európskou úniou",
     "navigation": {
-      "MoreInfoLabel": "Ďalšie informácie",
       "about": "O nás",
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
+      "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Zásady ochrany osobných údajov",
       "provide": "Staňte sa poskytovateľom údajov",
       "subscribe": "Prihlásiť sa na odber newslettra",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "Divák IIIF",
     "actions": {
       "pin": "Pripnúť položku k dostupným entitám"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",
+    "IIIFViewer": "Divák IIIF",
     "location": "Poloha",
     "locationOnMap": "Poloha na mape",
     "mediaPlayer": "Prehrávač médií",
@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Odstrániť filter {filterLabel}",
   "reset": "Obnoviť",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
-  "results": "Výsledky",
-  "resultsFor": "Výsledky pre {0}",
-  "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
-  "resultsWithin": "Výsledky v rámci {0} {1} pre {2}",
   "search": {
     "boost": {
       "placeholder": "Zadajte dopyt na zvýšenie poľa"
+    },
+    "results": {
+      "limitWarning": "Ďalšie výsledky sa nezobrazujú, pretože je zobrazených iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli to, čo ste hľadali, zvážte spresnenie vyhľadávania.",
+      "withinCollection": "{count} výsledkov v rámci {type} {collection}",
+      "withinCollectionWithQuery": "{count} výsledkov v rámci {type} {collection} pre {query}",
+      "withoutQuery": "{count} výsledkov",
+      "withQuery": "{count} výsledkov pre {query}"
     },
     "title": "Vyhľadávanie"
   },

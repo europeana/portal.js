@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Coleções que poderá gostar",
   "colourSwatch": "Amostra de cores",
-  "contentYouMightLike": "Conteúdo de que pode gostar",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Mais informações",
       "about": "Sobre Europeana",
       "forDevelopers": "Para desenvolvedores",
       "help": "Ajuda",
       "meetUs": "Conheça a equipa",
+      "MoreInfoLabel": "Mais informações",
       "provide": "Torne-se um fornecedor de dados",
       "subscribe": "Subscreva na nossa newsletter",
       "terms": "Termos de uso e política de privacidade"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Professores"
     }
   },
+  "contentYouMightLike": "Conteúdo de que pode gostar",
   "curatedAutomatically": "Com curadoria automática de Europeana",
   "dateFilter": {
     "endDate": "Data de conclusão",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Explorar",
   "facets": {
+    "api": {
+      "name": "Procurar por",
+      "options": {
+        "fulltext": "Itens com texto completo",
+        "metadata": "Apenas registos de metadados"
+      },
+      "switch": "Pesquise apenas no conteúdo de itens com texto completo",
+      "switchMoreInfo": "Nesta coleção, você pode escolher o que deseja pesquisar: se esta opção estiver ativada, você pesquisará no jornal e no texto do documento; se estiver desativado, você pesquisará nas informações que descrevem o item, assim como sempre faz na maioria das outras coleções."
+    },
+    "button": {
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "morefilters": "Mais filtros",
+      "reset": "Repor",
+      "showAll": "Mostrar todos {label}",
+      "showLess": "Mostrar menos {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arqueologia",
+        "art": "Arte",
+        "fashion": "Moda",
+        "industrial": "Património Industrial",
+        "manuscript": "Manuscritos",
+        "map": "Mapas e Geografia",
+        "migration": "Migração",
+        "music": "Música",
+        "nature": "História Natural",
+        "newspaper": "Jornais",
+        "photography": "Fotografia",
+        "sport": "Desporto",
+        "ww1": "Primeira Guerra Mundial"
+      },
+      "select": "Selecione um tema"
+    },
     "COLOURPALETTE": {
       "moreName": "cores",
       "name": "Cor | Cores",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Selecionar cores"
     },
+    "contentTier": {
+      "name": "Qualidade do item",
+      "options": {
+        "*": "Inclui itens que não atendem aos nossos critérios de publicação",
+        "0": "Mostrar apenas itens que não correspondem aos nossos critérios de publicação",
+        "1": "Baixa qualidade",
+        "2": "Qualidade média",
+        "3": "Alta qualidade & reutilizável com condições",
+        "4": "Alta qualidade & livremente reutilizável"
+      },
+      "select": "Selecione as qualidades do item"
+    },
     "COUNTRY": {
       "name": "País fornecedor",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Selecione os formatos de arquivo"
     },
+    "moreOptions": "Pesquise para encontrar {0} mais {1}.",
     "PROVIDER": {
       "moreName": "agregadores",
       "name": "Agregador | Agregadores",
       "select": "Selecionar agregadores"
+    },
+    "proxy_dc_format": {
+      "name": "Formato | Formatos",
+      "select": "Selecionar formatos"
+    },
+    "proxy_dc_type": {
+      "name": "Tipo | Tipos",
+      "select": "Selecionar tipos"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data de emissão"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Médio | Meios de comunicação",
+      "select": "Selecionar mídia"
     },
     "REUSABILITY": {
       "name": "Posso usar isto?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Vídeo"
       },
       "select": "Selecione os tipos de media"
-    },
-    "api": {
-      "name": "Procurar por",
-      "options": {
-        "fulltext": "Itens com texto completo",
-        "metadata": "Apenas registos de metadados"
-      },
-      "switch": "Pesquise apenas no conteúdo de itens com texto completo",
-      "switchMoreInfo": "Nesta coleção, você pode escolher o que deseja pesquisar: se esta opção estiver ativada, você pesquisará no jornal e no texto do documento; se estiver desativado, você pesquisará nas informações que descrevem o item, assim como sempre faz na maioria das outras coleções."
-    },
-    "button": {
-      "apply": "Aplicar",
-      "cancel": "Cancelar",
-      "morefilters": "Mais filtros",
-      "reset": "Repor",
-      "showAll": "Mostrar todos {label}",
-      "showLess": "Mostrar menos {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arqueologia",
-        "art": "Arte",
-        "fashion": "Moda",
-        "industrial": "Património Industrial",
-        "manuscript": "Manuscritos",
-        "map": "Mapas e Geografia",
-        "migration": "Migração",
-        "music": "Música",
-        "nature": "História Natural",
-        "newspaper": "Jornais",
-        "photography": "Fotografia",
-        "sport": "Desporto",
-        "ww1": "Primeira Guerra Mundial"
-      },
-      "select": "Selecione um tema"
-    },
-    "contentTier": {
-      "name": "Qualidade do item",
-      "options": {
-        "*": "Inclui itens que não atendem aos nossos critérios de publicação",
-        "0": "Mostrar apenas itens que não correspondem aos nossos critérios de publicação",
-        "1": "Baixa qualidade",
-        "2": "Qualidade média",
-        "3": "Alta qualidade & reutilizável com condições",
-        "4": "Alta qualidade & livremente reutilizável"
-      },
-      "select": "Selecione as qualidades do item"
-    },
-    "moreOptions": "Pesquise para encontrar {0} mais {1}.",
-    "proxy_dc_format": {
-      "name": "Formato | Formatos",
-      "select": "Selecionar formatos"
-    },
-    "proxy_dc_type": {
-      "name": "Tipo | Tipos",
-      "select": "Selecionar tipos"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Data de emissão"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Médio | Meios de comunicação",
-      "select": "Selecionar mídia"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Direitos",
       "dcSource": "Fonte",
       "dcSubject": "Assunto",
-      "dcTitle": "Título",
-      "dcType": "Tipo de objeto",
       "dctermsCreated": "Data de criação",
       "dctermsExtent": "Extensão",
       "dctermsHasPart": "Consiste em",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Proveniência",
       "dctermsReferences": "Referências",
       "dctermsSpatial": "Locais",
-      "dctermsTOC": "Tabela de conteúdos",
       "dctermsTemporal": "Temporal",
+      "dctermsTOC": "Tabela de conteúdos",
+      "dcTitle": "Título",
+      "dcType": "Tipo de objeto",
       "edmCountry": "País fornecedor",
       "edmCurrentLocation": "Localização atual",
       "edmDataProvider": "Instituição fornecedora",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Encontre-nos em outro lugar",
     "imageDescription": "Financiado pela União Europeia",
     "navigation": {
-      "MoreInfoLabel": "Mais informações",
       "about": "Saiba mais sobre nós",
       "accessibility": "Acessibilidade",
       "cookies": "Biscoitos",
       "forDevelopers": "Para desenvolvedores",
       "help": "Ajuda",
+      "MoreInfoLabel": "Mais informações",
       "privacy": "Política de Privacidade",
       "provide": "Torne-se um fornecedor de dados",
       "subscribe": "Subscreva na nossa newsletter",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "Visualizador IIIF",
     "actions": {
       "pin": "Pino item para Entidades disponíveis"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Informação detalhada",
     "goodToKnow": "Bom saber",
     "hideAll": "Ocultar todas as informações",
+    "IIIFViewer": "Visualizador IIIF",
     "location": "Localização",
     "locationOnMap": "Localização no mapa",
     "mediaPlayer": "Reprodutor de mídia",
@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Remover o filtro {filterLabel}",
   "reset": "Repor",
   "resourceWikimedia": "Recurso do Wikimedia Commons",
-  "results": "Resultados",
-  "resultsFor": "Resultados para {0}",
-  "resultsLimitWarning": "Resultados adicionais não são mostrados, apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que procurava, considere refinar a sua pesquisa.",
-  "resultsWithin": "Resultados dentro de {0} {1} para {2}",
   "search": {
     "boost": {
       "placeholder": "Digite consulta de reforço de campo"
+    },
+    "results": {
+      "limitWarning": "Resultados adicionais não são mostrados como apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que está a procurar, por favor, considere refinar a sua pesquisa.",
+      "withinCollection": "{count} resultados dentro do {type} {collection}",
+      "withinCollectionWithQuery": "{count} resultados em {type} {collection} para {query}",
+      "withoutQuery": "{count} resultados",
+      "withQuery": "{count} resultados para {query}"
     },
     "title": "Procurar"
   },

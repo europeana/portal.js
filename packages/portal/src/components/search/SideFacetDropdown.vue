@@ -10,13 +10,14 @@
       <template
         #default="{ tags, addTag, removeTag }"
       >
-        <label
+        <h3
           class="facet-label"
           :class="{ 'facet-label-active' : activeLabel }"
         >
-          {{ facetName }}
-        </label>
-
+          <label>
+            {{ facetName }}
+          </label>
+        </h3>
         <b-container v-if="$fetchState.error">
           <AlertMessage
             :error="$fetchState.error.message"
@@ -24,7 +25,7 @@
         </b-container>
         <template v-else>
           <ul
-            v-if="tags.length > 0"
+            v-if="tags && tags.length > 0"
           >
             <li
               v-for="tag in tags"

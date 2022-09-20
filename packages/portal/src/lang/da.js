@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Samlinger, du måske vil synes om",
   "colourSwatch": "Farveprøve",
-  "contentYouMightLike": "Indhold, du måske vil synes om",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Flere oplysninger",
       "about": "Om Europeana",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
       "meetUs": "Mød holdet",
+      "MoreInfoLabel": "Flere oplysninger",
       "provide": "Bliv dataleverandør",
       "subscribe": "Abonner på vores nyhedsbrev",
       "terms": "Vilkår for brug og Fortrolighedspolitik"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Lærere"
     }
   },
+  "contentYouMightLike": "Indhold, du måske vil synes om",
   "curatedAutomatically": "Kurateret automatisk af Europeana",
   "dateFilter": {
     "endDate": "Slutdato",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Udforske",
   "facets": {
+    "api": {
+      "name": "Søg efter",
+      "options": {
+        "fulltext": "Poster med fuldtekst",
+        "metadata": "Kun metadata-poster"
+      },
+      "switch": "Søg kun i indholdet af elementer med fuldtekst",
+      "switchMoreInfo": "I denne samling kan du vælge, hvad du vil søge efter: Hvis denne knap er slået til, vil du søge i avis- og dokumentteksten; hvis den er slået fra, vil du i stedet søge i de oplysninger, der beskriver emnet, ligesom du altid gør i de fleste andre samlinger."
+    },
+    "button": {
+      "apply": "Anvend",
+      "cancel": "Annuller",
+      "morefilters": "Flere filtre",
+      "reset": "Nulstil",
+      "showAll": "Vis alle {label}",
+      "showLess": "Vis mindre {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arkæologi",
+        "art": "Kunst",
+        "fashion": "Mode",
+        "industrial": "Industriel kulturarv",
+        "manuscript": "Manuskripter",
+        "map": "Kort og geografi",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturhistorie",
+        "newspaper": "Aviser",
+        "photography": "Fotografi",
+        "sport": "Sport",
+        "ww1": "Første Verdenskrig"
+      },
+      "select": "Vælg et tema"
+    },
     "COLOURPALETTE": {
       "moreName": "farver",
       "name": "Farve | Farver",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Vælg farver"
     },
+    "contentTier": {
+      "name": "Varekvalitet",
+      "options": {
+        "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
+        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier",
+        "1": "Lav kvalitet",
+        "2": "Mellem kvalitet",
+        "3": "Høj kvalitet og genanvendelig med betingelser",
+        "4": "Høj kvalitet og frit genanvendelig"
+      },
+      "select": "Vælg varekvaliteter"
+    },
     "COUNTRY": {
       "name": "Leverende land",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Vælg filformater"
     },
+    "moreOptions": "Søg for at finde {0} mere {1}.",
     "PROVIDER": {
       "moreName": "aggregatorer",
       "name": "Aggregator",
       "select": "Vælg aggregatorer"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formater",
+      "select": "Vælg formater"
+    },
+    "proxy_dc_type": {
+      "name": "Type | typer",
+      "select": "Vælg typer"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Udstedelsesdato"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medie | Medier",
+      "select": "Vælg medie"
     },
     "REUSABILITY": {
       "name": "Må jeg videreformidle dette?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Video"
       },
       "select": "Vælg typer af medier"
-    },
-    "api": {
-      "name": "Søg efter",
-      "options": {
-        "fulltext": "Poster med fuldtekst",
-        "metadata": "Kun metadata-poster"
-      },
-      "switch": "Søg kun i indholdet af elementer med fuldtekst",
-      "switchMoreInfo": "I denne samling kan du vælge, hvad du vil søge efter: Hvis denne knap er slået til, vil du søge i avis- og dokumentteksten; hvis den er slået fra, vil du i stedet søge i de oplysninger, der beskriver emnet, ligesom du altid gør i de fleste andre samlinger."
-    },
-    "button": {
-      "apply": "Anvend",
-      "cancel": "Annuller",
-      "morefilters": "Flere filtre",
-      "reset": "Nulstil",
-      "showAll": "Vis alle {label}",
-      "showLess": "Vis mindre {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arkæologi",
-        "art": "Kunst",
-        "fashion": "Mode",
-        "industrial": "Industriel kulturarv",
-        "manuscript": "Manuskripter",
-        "map": "Kort og geografi",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturhistorie",
-        "newspaper": "Aviser",
-        "photography": "Fotografi",
-        "sport": "Sport",
-        "ww1": "Første Verdenskrig"
-      },
-      "select": "Vælg et tema"
-    },
-    "contentTier": {
-      "name": "Varekvalitet",
-      "options": {
-        "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
-        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier",
-        "1": "Lav kvalitet",
-        "2": "Mellem kvalitet",
-        "3": "Høj kvalitet og genanvendelig med betingelser",
-        "4": "Høj kvalitet og frit genanvendelig"
-      },
-      "select": "Vælg varekvaliteter"
-    },
-    "moreOptions": "Søg for at finde {0} mere {1}.",
-    "proxy_dc_format": {
-      "name": "Format | Formater",
-      "select": "Vælg formater"
-    },
-    "proxy_dc_type": {
-      "name": "Type | typer",
-      "select": "Vælg typer"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Udstedelsesdato"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medie | Medier",
-      "select": "Vælg medie"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Rettigheder",
       "dcSource": "Kilde",
       "dcSubject": "Emne",
-      "dcTitle": "Titel",
-      "dcType": "Objekttype",
       "dctermsCreated": "Oprettelsesdato",
       "dctermsExtent": "Omfang",
       "dctermsHasPart": "Består af",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Oprindelse",
       "dctermsReferences": "Referencer",
       "dctermsSpatial": "Steder",
-      "dctermsTOC": "Indholdsfortegnelse",
       "dctermsTemporal": "Tidsmæssig",
+      "dctermsTOC": "Indholdsfortegnelse",
+      "dcTitle": "Titel",
+      "dcType": "Objekttype",
       "edmCountry": "Leverende land",
       "edmCurrentLocation": "Nuværende placering",
       "edmDataProvider": "Leverende institution",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Find os et andet sted",
     "imageDescription": "Finansieret af Den Europæiske Union",
     "navigation": {
-      "MoreInfoLabel": "Flere oplysninger",
       "about": "Om os",
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
+      "MoreInfoLabel": "Flere oplysninger",
       "privacy": "Fortrolighedspolitik",
       "provide": "Bliv dataleverandør",
       "subscribe": "Abonner på vores nyhedsbrev",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "IIIF-fremviser",
     "actions": {
       "pin": "Fastgør element til tilgængelige enheder"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",
+    "IIIFViewer": "IIIF-fremviser",
     "location": "Placering",
     "locationOnMap": "Placering på kort",
     "mediaPlayer": "Medie afspiller",
@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Fjern {filterLabel} filter",
   "reset": "Nulstil",
   "resourceWikimedia": "Ressource fra Wikimedia Commons",
-  "results": "Resultater",
-  "resultsFor": "Resultater for {0}",
-  "resultsLimitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at præcisere søgningen.",
-  "resultsWithin": "Resultater inden for {0} {1} for {2}",
   "search": {
     "boost": {
       "placeholder": "Indtast feltforøgende forespørgsel"
+    },
+    "results": {
+      "limitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at justere din søgning.",
+      "withinCollection": "{count} resultater inden for {type} {collection}",
+      "withinCollectionWithQuery": "{count} resultater inden for {type} {collection} for {query}",
+      "withoutQuery": "{count} resultater",
+      "withQuery": "{count} resultater for {query}"
     },
     "title": "Søg"
   },

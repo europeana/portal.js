@@ -29,10 +29,7 @@
         v-if="browsePage"
         :name="page.name"
         :headline="page.headline"
-        :description="page.description"
         :has-part-collection="page.hasPartCollection"
-        :hero="hero"
-        :hero-image="heroImage"
       />
       <StaticPage
         v-else-if="staticPage"
@@ -40,7 +37,6 @@
         :description="page.description"
         :has-part-collection="page.hasPartCollection"
         :related-links="page.relatedLinks"
-        :hero="hero"
       />
     </template>
   </div>
@@ -73,8 +69,7 @@
         browsePage: false,
         staticPage: false,
         page: {},
-        // TODO: clean up when new home is enabled
-        identifier: this.slug || this.$route.params.pathMatch || 'home'
+        identifier: this.slug || this.$route.params.pathMatch
       };
     },
 
@@ -120,23 +115,17 @@
 
     computed: {
       socialMediaImage() {
-        // use social media image if set in Contentful, otherwise use hero image, else null
-        return this.page.image || this.heroImage?.image || null;
+        // use social media image if set in Contentful, else null
+        return this.page.image || null;
       },
       socialMediaImageOptimisedUrl() {
-        return this.$options.filters.optimisedImageUrl(this.socialMediaImage.url, this.socialMediaImage.contentType, {
-          width: 800,
-          height: 800
-        });
+        return this.$contentful.assets.optimisedSrc(
+          this.socialMediaImage,
+          { w: 800, h: 800 }
+        );
       },
       socialMediaImageAlt() {
         return this.socialMediaImage?.description || '';
-      },
-      hero() {
-        return this.page.primaryImageOfPage || null;
-      },
-      heroImage() {
-        return this.hero?.image || null;
       },
       pageTitle() {
         return this.$fetchState.error ? this.$t('error') : this.page.name;

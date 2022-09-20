@@ -17,7 +17,6 @@
 </template>
 
 <script>
-  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
   export default {
     name: 'OptimisedImage',
 
@@ -71,10 +70,13 @@
       },
 
       optimisedSrc() {
-        if (typeof this.contentType !== 'string' || !urlIsContentfulAsset(this.src)) {
+        if (typeof this.contentType !== 'string' || !this.$contentful.assets.isValidUrl(this.src)) {
           return this.src;
         }
-        return optimisedSrcForContentfulAsset({ url: this.src, contentType: this.contentType }, { w: this.maxWidth, q: this.quality });
+        return this.$contentful.assets.optimisedSrc(
+          { url: this.src, contentType: this.contentType },
+          { w: this.maxWidth, q: this.quality }
+        );
       }
     }
   };

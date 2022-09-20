@@ -113,7 +113,11 @@ const factory = ({ propsData, mocks, storeData } = {}) => {
         commit: storeCommit
       },
       $contentful: {
-        query: contentfulQuery
+        query: contentfulQuery,
+        assets: {
+          isValidUrl: (url) => url.includes('images.ctfassets.net'),
+          optimisedSrc: (img) => `${img.url}?optimised`
+        }
       },
       $link: {
         to: route => route,

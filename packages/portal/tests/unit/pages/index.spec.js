@@ -8,7 +8,6 @@ import page from '@/pages/index';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const heroImageUrl = 'http://example.org/contentful/asset.jpg';
 const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
 
 const factory = ({
@@ -19,7 +18,12 @@ const factory = ({
     return data;
   },
   mocks: {
-    $contentful: { query: sinon.stub().resolves(contentfulQueryResponse) },
+    $contentful: {
+      assets: {
+        optimisedSrc: (img) => `${img?.url}?optimised`
+      },
+      query: sinon.stub().resolves(contentfulQueryResponse)
+    },
     $features: {},
     $fetchState: {},
     $i18n: { isoLocale: () => 'en-GB' },
@@ -130,38 +134,10 @@ describe('IndexPage', () => {
       const headMeta = wrapper.vm.head().meta;
 
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(socialMediaImageUrl);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(`${socialMediaImageUrl}?optimised`);
     });
 
-    it('uses hero image for og:image when no social media image is set', () => {
-      const wrapper = factory({
-        data: {
-          ...data,
-          page: {
-            ...data.page,
-            primaryImageOfPage: {
-              image: {
-                image: {
-                  url: heroImageUrl,
-                  description: 'Hero image description'
-                }
-              },
-              link: {
-                text: 'Go',
-                url: 'https://example.org/explore'
-              }
-            }
-          }
-        }
-      });
-
-      const headMeta = wrapper.vm.head().meta;
-
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(heroImageUrl);
-    });
-
-    it('does not set og image info when no relevant images exist', () => {
+    it('does not set og:image info when no relevant images exist', () => {
       const wrapper = factory({ data });
 
       const headMeta = wrapper.vm.head().meta;

@@ -5,7 +5,7 @@ Feature: Entity page
     Then I see the `entity page`
     And I see an `entity title`
     And I see an `entity description`
-    And I see `total results`
+    And I see the `context label`
     And I see a `search list view toggle`
     And I see the `side filters`
     And I should see 24 `item preview`s
