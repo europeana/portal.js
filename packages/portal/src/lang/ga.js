@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Bain {filterLabel} scagaire",
   "reset": "Athshocraigh",
   "resourceWikimedia": "Acmhainn ó Wikimedia Commons",
-  "results": "Torthaí",
-  "resultsFor": "Torthaí le haghaidh {0}",
-  "resultsLimitWarning": "Ní thaispeántar torthaí breise óir nach dtaispeántar ach amháin an chéad 1000 toradh is ábhartha. Murar aimsigh tú a raibh uait, déan machnamh do chuardach a leasú.",
-  "resultsWithin": "Torthaí laistigh de {0} {1} le haghaidh {2}",
   "search": {
     "boost": {
       "placeholder": "Cuir isteach ceist treisithe réimse"
+    },
+    "results": {
+      "limitWarning": "Ní thaispeántar torthaí breise mar ní léirítear ach an chéad 1000 toradh is ábhartha. Mura bhfuil a bhfuil uait aimsithe agat, smaoinigh ar do chuardach a bheachtú.",
+      "withinCollection": "{count} torthaí laistigh de {type} {collection}",
+      "withinCollectionWithQuery": "{count} torthaí laistigh de {type} {collection} le haghaidh {query}",
+      "withoutQuery": "{count} torthaí",
+      "withQuery": "{count} torthaí do {query}"
     },
     "title": "Cuardaigh"
   },
