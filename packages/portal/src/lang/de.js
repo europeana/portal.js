@@ -945,13 +945,16 @@ export default {
   "removeFilter": "{filterLabel}-Filter entfernen",
   "reset": "Zurücksetzen",
   "resourceWikimedia": "Ressource aus Wikimedia Commons",
-  "results": "Ergebnisse",
-  "resultsFor": "Ergebnisse für {0}",
-  "resultsLimitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, können Sie Ihre Suche verfeinern.",
-  "resultsWithin": "Ergebnisse innerhalb {0} {1} für {2}",
   "search": {
     "boost": {
       "placeholder": "Geben Sie die Feldverstärkungsabfrage ein"
+    },
+    "results": {
+      "limitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, verfeinern Sie bitte Ihre Suche.",
+      "withinCollection": "{count} Ergebnisse innerhalb von {type} {collection}",
+      "withinCollectionWithQuery": "{count} Ergebnisse innerhalb von {type} {collection} für {query}",
+      "withoutQuery": "{count} Ergebnisse",
+      "withQuery": "{count} Ergebnisse für {query}"
     },
     "title": "Suche"
   },

@@ -949,13 +949,16 @@ export default {
   "removeFilter": "Kendu {filterLabel} iragazkia",
   "reset": "Berrezarri",
   "resourceWikimedia": "Wikimedia Commons-eko baliabidea",
-  "results": "Emaitzak",
-  "resultsFor": "{0} emaitzak",
-  "resultsLimitWarning": "Emaitza osagarriak ez dira erakusten, izan ere, bakarrik erakusten dira lehenengo 1000 emaitza garrantzitsuenak. BIlatzen duzuna aurkitu ez baduzu, bilaketa zehatzagoa egin.",
-  "resultsWithin": "{0} {1} barruko emaitzak {2}",
   "search": {
     "boost": {
       "placeholder": "Sartu eremua sustatzeko kontsulta"
+    },
+    "results": {
+      "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
+      "withinCollection": "{count} emaitza barruan {type} {collection}",
+      "withinCollectionWithQuery": "{count} emaitza {type} {collection} barruan {query}",
+      "withoutQuery": "{count} emaitza",
+      "withQuery": "{count} emaitza rentzat {query}"
     },
     "title": "Bilatu"
   },

@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Uklonite filtar {filterLabel} ",
   "reset": "Resetiraj",
   "resourceWikimedia": "Resurs s Wikimedia Commonsa",
-  "results": "Rezultati",
-  "resultsFor": "Rezultati za {0}",
-  "resultsLimitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o preciziranju pretraživanja.",
-  "resultsWithin": "Rezultati unutar {0} {1} za {2}",
   "search": {
     "boost": {
       "placeholder": "Unesite upit za povećanje polja"
+    },
+    "results": {
+      "limitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o suženju pretraživanja.",
+      "withinCollection": "{count} rezultata unutar {type} {collection}",
+      "withinCollectionWithQuery": "{count} rezultata unutar {type} {collection} za {query}",
+      "withoutQuery": "{count} rezultata",
+      "withQuery": "{count} rezultata za {query}"
     },
     "title": "Traži"
   },

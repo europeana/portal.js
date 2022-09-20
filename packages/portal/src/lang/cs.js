@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Odstranit {filterLabel} filtr",
   "reset": "Obnovit",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
-  "results": "Výsledky",
-  "resultsFor": "Výsledky pro {0}",
-  "resultsLimitWarning": "Zobrazuje se pouze prvních tisíc nejvhodnějších výsledků, další výsledky se nezobrazují. Pokud jste nenašli, co jste hledali, zvažte upřesnění vyhledávání.",
-  "resultsWithin": "Výsledky v rámci {0} {1} pro {2}",
   "search": {
     "boost": {
       "placeholder": "Zadejte dotaz pro posílení pole"
+    },
+    "results": {
+      "limitWarning": "Další výsledky nejsou zobrazeny, protože je zobrazeno pouze prvních 1000 nejrelevantnějších výsledků. Pokud jste nenašli, co jste hledali, zvažte prosím upřesnění vyhledávání.",
+      "withinCollection": "{count} výsledků v rámci {type} {collection}",
+      "withinCollectionWithQuery": "{count} výsledků v rámci {type} {collection} pro {query}",
+      "withoutQuery": "{count} výsledků",
+      "withQuery": "{count} výsledků pro {query}"
     },
     "title": "Vyhledat"
   },

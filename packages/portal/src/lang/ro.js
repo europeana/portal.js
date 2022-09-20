@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Elimină filtrul {filterLabel}",
   "reset": "Resetează",
   "resourceWikimedia": "Material de la Wikimedia Commons",
-  "results": "Rezultate",
-  "resultsFor": "Rezultate pentru {0}",
-  "resultsLimitWarning": "Nu sunt afișate rezultate suplimentare deoarece sunt afișate doar primele 1000 dintre cele mai relevante rezultate. Dacă nu ai găsit ceea ce căutai, te rugăm să restrângi căutarea.",
-  "resultsWithin": "Rezultatele în cadrul {0} {1} pentru {2}",
   "search": {
     "boost": {
       "placeholder": "Introduceți interogarea de creștere a câmpului"
+    },
+    "results": {
+      "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
+      "withinCollection": "{count} rezultate în cadrul {type} {collection}",
+      "withinCollectionWithQuery": "{count} rezultate în {type} {collection} pentru {query}",
+      "withoutQuery": "{count} rezultate",
+      "withQuery": "{count} rezultate pentru {query}"
     },
     "title": "Căutare"
   },

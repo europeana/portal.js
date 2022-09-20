@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Neħħi l-filtru {filterLabel}",
   "reset": "Irrisettja",
   "resourceWikimedia": "Riżorsa minn Wikimedia Commons",
-  "results": "Riżultati",
-  "resultsFor": "Riżultati għal {0}",
-  "resultsLimitWarning": "Riżultati addizzjonali ma jidhrux minħabba li l-ewwel 1000 riżultat l-aktar rilevanti jintwerew. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina it-tfittxija tiegħek.",
-  "resultsWithin": "Riżultati fi ħdan {0} {1} għal {2}",
   "search": {
     "boost": {
       "placeholder": "Daħħal mistoqsija li tagħti spinta lill-qasam"
+    },
+    "results": {
+      "limitWarning": "Riżultati addizzjonali mhumiex murija peress li jintwerew biss l-ewwel 1000 riżultat l-aktar rilevanti. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina t-tfittxija tiegħek.",
+      "withinCollection": "{count} riżultati fi ħdan {type} {collection}",
+      "withinCollectionWithQuery": "{count} riżultati fi ħdan {type} {collection} għal {query}",
+      "withoutQuery": "{count} riżultati",
+      "withQuery": "{count} riżultati għal {query}"
     },
     "title": "Fittex"
   },
