@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Pašalinkite filtrą {filterLabel}",
   "reset": "Atstatyti",
   "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
-  "results": "Rezultatai",
-  "resultsFor": "Rezultatai pagal užklausą {0}",
-  "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
-  "resultsWithin": "Rezultatai pagal {0} {1} už {2}",
   "search": {
     "boost": {
       "placeholder": "Įveskite lauko didinimo užklausą"
+    },
+    "results": {
+      "limitWarning": "Papildomi rezultatai nerodomi, nes rodomi tik pirmieji 1000 aktualiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
+      "withinCollection": "{count} rezultatų pagal {type} {collection}",
+      "withinCollectionWithQuery": "{count} rezultatų pagal {type} {collection} dėl {query}",
+      "withoutQuery": "{count} rezultatai",
+      "withQuery": "{count} rezultatai pagal {query}"
     },
     "title": "Paieška"
   },

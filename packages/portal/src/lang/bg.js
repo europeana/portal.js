@@ -945,13 +945,16 @@ export default {
   "removeFilter": "Премахване на филтъра {filterLabel}",
   "reset": "Нулиране",
   "resourceWikimedia": "Източник от Wikimedia Commons",
-  "results": "Резултати",
-  "resultsFor": "Резултати за {0}",
-  "resultsLimitWarning": "Допълнителните резултати не са показани, тъй като са показани само първите 1000 най-подходящи резултата. Ако не сте намерили това, което търсите, моля, помислете за прецизиране на търсенето.",
-  "resultsWithin": "Резултати в рамките на {0} {1} за {2}",
   "search": {
     "boost": {
       "placeholder": "Въведете заявка за повишаване на полето"
+    },
+    "results": {
+      "limitWarning": "Допълнителни резултати не се показват, тъй като се показват само първите 1000 най-подходящи резултата. Ако не сте намерили това, което търсите, моля, помислете за прецизиране на търсенето.",
+      "withinCollection": "{count} резултати в рамките на {type} {collection}",
+      "withinCollectionWithQuery": "{count} резултати в рамките на {type} {collection} за {query}",
+      "withoutQuery": "{count} резултати",
+      "withQuery": "{count} резултата за {query}"
     },
     "title": "Търсене"
   },
