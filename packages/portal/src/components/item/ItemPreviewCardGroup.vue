@@ -21,12 +21,12 @@
       <template
         v-for="(card, index) in cards"
       >
-        <template
+        <aside
           v-if="card === 'related'"
+          :key="index"
         >
           <b-card
             v-show="showRelated"
-            :key="index"
             class="text-left related-collections-card mb-4"
           >
             <slot
@@ -34,7 +34,7 @@
               name="related"
             />
           </b-card>
-        </template>
+        </aside>
         <ItemPreviewCard
           v-else
           :key="index"

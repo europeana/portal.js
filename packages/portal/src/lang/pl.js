@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Kolekcje, które mogą Ci się spodobać",
   "colourSwatch": "Próbka koloru",
-  "contentYouMightLike": "Treści, które mogą Ci się spodobać",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Więcej informacji",
       "about": "O kolekcjach Europeana",
       "forDevelopers": "Dla deweloperów",
       "help": "Pomoc",
       "meetUs": "Poznaj zespół",
+      "MoreInfoLabel": "Więcej informacji",
       "provide": "Zostań dostawcą danych",
       "subscribe": "Zapisz się do naszego newslettera",
       "terms": "Regulamin i Polityka prywatności"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Nauczyciele"
     }
   },
+  "contentYouMightLike": "Treści, które mogą Ci się spodobać",
   "curatedAutomatically": "Wyselekcjonowane automatycznie przez Europeana",
   "dateFilter": {
     "endDate": "Data końcowa",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Badać",
   "facets": {
+    "api": {
+      "name": "Szukaj",
+      "options": {
+        "fulltext": "Zapisy z pełnym tekstem",
+        "metadata": "Zapisy tylko z metadanymi"
+      },
+      "switch": "Wyszukiwanie tylko w treści artykułów z pełnym tekstem",
+      "switchMoreInfo": "W tej kolekcji możesz wybrać, czego chcesz szukać: jeśli ten przełącznik jest włączony, wtedy będziesz szukał w tekście gazety i dokumentu; jeśli jest wyłączony, wtedy będziesz szukał w informacjach opisujących dany artykuł, tak jak zawsze robisz to w większości innych kolekcji."
+    },
+    "button": {
+      "apply": "Zastosuj",
+      "cancel": "Anuluj",
+      "morefilters": "Więcej filtrów",
+      "reset": "Resetuj",
+      "showAll": "Pokaż wszystko {label}",
+      "showLess": "Pokaż mniej {label}"
+    },
+    "collection": {
+      "name": "Temat",
+      "options": {
+        "archaeology": "Archeologia",
+        "art": "Sztuka",
+        "fashion": "Moda",
+        "industrial": "Dziedzictwo przemysłowe",
+        "manuscript": "Rękopisy",
+        "map": "Mapy i geografia",
+        "migration": "Migracja",
+        "music": "Muzyka",
+        "nature": "Historia naturalna",
+        "newspaper": "Gazety",
+        "photography": "Fotografia",
+        "sport": "Sport",
+        "ww1": "I wojna światowa"
+      },
+      "select": "Wybierz motyw"
+    },
     "COLOURPALETTE": {
       "moreName": "kolory",
       "name": "Kolor | Kolory",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Wybierz kolory"
     },
+    "contentTier": {
+      "name": "Jakość obiektu",
+      "options": {
+        "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
+        "0": "Pokaż tylko elementy, które nie spełniają naszych kryteriów publikacji",
+        "1": "Niska jakość",
+        "2": "Średnia jakość",
+        "3": "Wysoka jakość & wielokrotnego użytku z warunkami",
+        "4": "Wysoka jakość & swobodnie wielokrotnego użytku"
+      },
+      "select": "Wybierz jakość pozycji"
+    },
     "COUNTRY": {
       "name": "Kraj dostarczający",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Wybierz formaty plików"
     },
+    "moreOptions": "Wyszukaj, aby znaleźć {0} więcej {1}.",
     "PROVIDER": {
       "moreName": "agregatory",
       "name": "Agregator | Agregatorzy",
       "select": "Wybierz agregatorów"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formaty",
+      "select": "Wybierz formaty"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typy",
+      "select": "Wybierz typy"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data wydania"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media",
+      "select": "Wybierz media"
     },
     "REUSABILITY": {
       "name": "Czy mogę to wykorzystać?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Wideo"
       },
       "select": "Wybierz rodzaje mediów"
-    },
-    "api": {
-      "name": "Szukaj",
-      "options": {
-        "fulltext": "Zapisy z pełnym tekstem",
-        "metadata": "Zapisy tylko z metadanymi"
-      },
-      "switch": "Wyszukiwanie tylko w treści artykułów z pełnym tekstem",
-      "switchMoreInfo": "W tej kolekcji możesz wybrać, czego chcesz szukać: jeśli ten przełącznik jest włączony, wtedy będziesz szukał w tekście gazety i dokumentu; jeśli jest wyłączony, wtedy będziesz szukał w informacjach opisujących dany artykuł, tak jak zawsze robisz to w większości innych kolekcji."
-    },
-    "button": {
-      "apply": "Zastosuj",
-      "cancel": "Anuluj",
-      "morefilters": "Więcej filtrów",
-      "reset": "Resetuj",
-      "showAll": "Pokaż wszystko {label}",
-      "showLess": "Pokaż mniej {label}"
-    },
-    "collection": {
-      "name": "Temat",
-      "options": {
-        "archaeology": "Archeologia",
-        "art": "Sztuka",
-        "fashion": "Moda",
-        "industrial": "Dziedzictwo przemysłowe",
-        "manuscript": "Rękopisy",
-        "map": "Mapy i geografia",
-        "migration": "Migracja",
-        "music": "Muzyka",
-        "nature": "Historia naturalna",
-        "newspaper": "Gazety",
-        "photography": "Fotografia",
-        "sport": "Sport",
-        "ww1": "I wojna światowa"
-      },
-      "select": "Wybierz motyw"
-    },
-    "contentTier": {
-      "name": "Jakość obiektu",
-      "options": {
-        "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
-        "0": "Pokaż tylko elementy, które nie spełniają naszych kryteriów publikacji",
-        "1": "Niska jakość",
-        "2": "Średnia jakość",
-        "3": "Wysoka jakość & wielokrotnego użytku z warunkami",
-        "4": "Wysoka jakość & swobodnie wielokrotnego użytku"
-      },
-      "select": "Wybierz jakość pozycji"
-    },
-    "moreOptions": "Wyszukaj, aby znaleźć {0} więcej {1}.",
-    "proxy_dc_format": {
-      "name": "Format | Formaty",
-      "select": "Wybierz formaty"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typy",
-      "select": "Wybierz typy"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Data wydania"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media",
-      "select": "Wybierz media"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Prawa autorskie",
       "dcSource": "Źródło",
       "dcSubject": "Temat",
-      "dcTitle": "Tytuł",
-      "dcType": "Rodzaj przedmiotu",
       "dctermsCreated": "Data utworzenia",
       "dctermsExtent": "Zakres",
       "dctermsHasPart": "Składa się z",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Pochodzenie",
       "dctermsReferences": "Przywołuje",
       "dctermsSpatial": "Miejsca",
-      "dctermsTOC": "Spis treści",
       "dctermsTemporal": "Okres",
+      "dctermsTOC": "Spis treści",
+      "dcTitle": "Tytuł",
+      "dcType": "Rodzaj przedmiotu",
       "edmCountry": "Kraj dostarczający",
       "edmCurrentLocation": "Aktualna lokalizacja",
       "edmDataProvider": "Instytucja dostarczająca",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Znajdź nas w innych miejscach",
     "imageDescription": "Finansowane przez Unię Europejską",
     "navigation": {
-      "MoreInfoLabel": "Więcej informacji",
       "about": "O nas",
       "accessibility": "Dostępność",
       "cookies": "Pliki cookie",
       "forDevelopers": "Dla deweloperów",
       "help": "Pomoc",
+      "MoreInfoLabel": "Więcej informacji",
       "privacy": "Polityka prywatności",
       "provide": "Zostań dostawcą danych",
       "subscribe": "Zapisz się do naszego newslettera",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "Przeglądarka IIIF",
     "actions": {
       "pin": "Przypinanie elementu do dostępnych encji"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
+    "IIIFViewer": "Przeglądarka IIIF",
     "location": "Lokalizacja",
     "locationOnMap": "Lokalizacja na mapie",
     "mediaPlayer": "Odtwarzacz multimediów",

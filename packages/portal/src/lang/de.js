@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Kollektionen, die Ihnen gefallen könnten",
   "colourSwatch": "Farbmuster",
-  "contentYouMightLike": "Inhalte, die Ihnen gefallen könnten",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Mehr Infos",
       "about": "Über Europeana",
       "forDevelopers": "Für Entwickler",
       "help": "Hilfe",
       "meetUs": "Lernen Sie das Team kennen",
+      "MoreInfoLabel": "Mehr Infos",
       "provide": "Werden Sie Datenanbieter",
       "subscribe": "Abonnieren Sie unseren Newsletter",
       "terms": "Nutzungsbedingungen und Datenschutzerklärung"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Lehrerinnen und Lehrerinnen"
     }
   },
+  "contentYouMightLike": "Inhalte, die Ihnen gefallen könnten",
   "curatedAutomatically": "Automatisch von Europeana kuratiert",
   "dateFilter": {
     "endDate": "Enddatum",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Erforschen",
   "facets": {
+    "api": {
+      "name": "Suche nach",
+      "options": {
+        "fulltext": "Aufzeichnungen mit Volltext",
+        "metadata": "Nur-Metadaten Aufzeichnungen"
+      },
+      "switch": "Suchen Sie nur im Inhalt von Artikeln mit Volltext",
+      "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn es deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
+    },
+    "button": {
+      "apply": "Anwenden",
+      "cancel": "Abbrechen",
+      "morefilters": "Weitere Filter",
+      "reset": "Zurücksetzen",
+      "showAll": "Alle {label} anzeigen",
+      "showLess": "Weniger anzeigen {label}"
+    },
+    "collection": {
+      "name": "Thema",
+      "options": {
+        "archaeology": "Archäologie",
+        "art": "Kunst",
+        "fashion": "Mode",
+        "industrial": "Industrielles Erbe",
+        "manuscript": "Manuskripte",
+        "map": "Karten und Geographie",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturgeschichte",
+        "newspaper": "Zeitungen",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "Erster Weltkrieg"
+      },
+      "select": "Ein thema auswählen"
+    },
     "COLOURPALETTE": {
       "moreName": "Farben",
       "name": "Farbe | Farben",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Farben auswählen"
     },
+    "contentTier": {
+      "name": "Objektqualität",
+      "options": {
+        "*": "Enthält Objekte, die nicht unseren Veröffentlichungskriterien entsprechen",
+        "0": "Nur Objekte anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen",
+        "1": "Geringe Qualität",
+        "2": "Mittlere Qualität",
+        "3": "Hohe Qualität & wiederverwendbar mit Bedingungen",
+        "4": "Hohe Qualität & frei wiederverwendbar"
+      },
+      "select": "Objektqualitäten auswählen"
+    },
     "COUNTRY": {
       "name": "Bereitstellendes Land",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Dateiformate auswählen"
     },
+    "moreOptions": "Suchen, um {0} mehr {1} zu finden.",
     "PROVIDER": {
       "moreName": "Aggregatoren",
       "name": "Aggregator | Aggregatoren",
       "select": "Aggregatoren auswählen"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formate",
+      "select": "Formate auswählen"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typen",
+      "select": "Typen auswählen"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Ausstellungsdatum"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Medien",
+      "select": "Medien auswählen"
     },
     "REUSABILITY": {
       "name": "Kann ich es wiederverwenden?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Video"
       },
       "select": "Medientypen auswählen"
-    },
-    "api": {
-      "name": "Suche nach",
-      "options": {
-        "fulltext": "Aufzeichnungen mit Volltext",
-        "metadata": "Nur-Metadaten Aufzeichnungen"
-      },
-      "switch": "Suchen Sie nur im Inhalt von Artikeln mit Volltext",
-      "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn es deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
-    },
-    "button": {
-      "apply": "Anwenden",
-      "cancel": "Abbrechen",
-      "morefilters": "Weitere Filter",
-      "reset": "Zurücksetzen",
-      "showAll": "Alle {label} anzeigen",
-      "showLess": "Weniger anzeigen {label}"
-    },
-    "collection": {
-      "name": "Thema",
-      "options": {
-        "archaeology": "Archäologie",
-        "art": "Kunst",
-        "fashion": "Mode",
-        "industrial": "Industrielles Erbe",
-        "manuscript": "Manuskripte",
-        "map": "Karten und Geographie",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturgeschichte",
-        "newspaper": "Zeitungen",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "Erster Weltkrieg"
-      },
-      "select": "Ein thema auswählen"
-    },
-    "contentTier": {
-      "name": "Objektqualität",
-      "options": {
-        "*": "Enthält Objekte, die nicht unseren Veröffentlichungskriterien entsprechen",
-        "0": "Nur Objekte anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen",
-        "1": "Geringe Qualität",
-        "2": "Mittlere Qualität",
-        "3": "Hohe Qualität & wiederverwendbar mit Bedingungen",
-        "4": "Hohe Qualität & frei wiederverwendbar"
-      },
-      "select": "Objektqualitäten auswählen"
-    },
-    "moreOptions": "Suchen, um {0} mehr {1} zu finden.",
-    "proxy_dc_format": {
-      "name": "Format | Formate",
-      "select": "Formate auswählen"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typen",
-      "select": "Typen auswählen"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Ausstellungsdatum"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Medien",
-      "select": "Medien auswählen"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Rechte",
       "dcSource": "Quelle",
       "dcSubject": "Betreff",
-      "dcTitle": "Titel",
-      "dcType": "Art des Objekts",
       "dctermsCreated": "Erstellungsdatum",
       "dctermsExtent": "Umfang",
       "dctermsHasPart": "Besteht aus",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Herkunft",
       "dctermsReferences": "Verweisen auf",
       "dctermsSpatial": "Orte",
-      "dctermsTOC": "Inhaltsverzeichnis",
       "dctermsTemporal": "Zeitlich",
+      "dctermsTOC": "Inhaltsverzeichnis",
+      "dcTitle": "Titel",
+      "dcType": "Art des Objekts",
       "edmCountry": "Bereitstellendes Land",
       "edmCurrentLocation": "Aktueller Standort",
       "edmDataProvider": "Bereitstellende Institution",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Finden Sie uns anderswo",
     "imageDescription": "Finanziert von der Europäischen Union",
     "navigation": {
-      "MoreInfoLabel": "Mehr Infos",
       "about": "Über uns",
       "accessibility": "Barrierefreiheit",
       "cookies": "Cookies",
       "forDevelopers": "Für Entwickler",
       "help": "Hilfe",
+      "MoreInfoLabel": "Mehr Infos",
       "privacy": "Datenschutz-Bestimmungen",
       "provide": "Werden Sie Datenanbieter",
       "subscribe": "Abonnieren Sie unseren Newsletter",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "IIIF-Viewer",
     "actions": {
       "pin": "Objekt an verfügbare Entitäten anheften"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",
+    "IIIFViewer": "IIIF-Viewer",
     "location": "Ort",
     "locationOnMap": "Standort auf der Karte",
     "mediaPlayer": "Media Player",

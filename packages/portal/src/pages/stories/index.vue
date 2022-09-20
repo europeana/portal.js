@@ -58,6 +58,7 @@
           :url="entryUrl(entry)"
           :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
           :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
+          :image-optimisation-options="entryImageOptions(entry.primaryImageOfPage.image)"
         />
       </b-card-group>
       <PaginationNavInput
@@ -233,6 +234,10 @@
         }
 
         return `${urlPrefix}/${entry.identifier}`;
+      },
+
+      entryImageOptions(image) {
+        return image.width <= image.height ? { width: 660 } : { height: 620 };
       }
     }
   };
