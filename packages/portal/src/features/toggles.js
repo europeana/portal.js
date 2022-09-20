@@ -5,6 +5,7 @@ export default [
   { name: 'entityManagement' },
   { name: 'fieldBoosting' },
   { name: 'jiraServiceDeskFeedbackForm' },
+  { name: 'randomisedSearchResultsOrder' },
   { name: 'rejectEntityRecommendations' },
   { name: 'setGalleries' },
   { name: 'storiesPageAllTags' },

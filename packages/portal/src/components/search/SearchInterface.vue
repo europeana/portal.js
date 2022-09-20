@@ -186,6 +186,14 @@
       this.$store.dispatch('search/activate');
       this.$store.commit('search/set', ['userParams', this.$route.query]);
 
+      if (this.$features.randomisedSearchResultsOrder && !this.$route.query.sort) {
+        const overrideParams = {
+          ...this.$store.state.search.overrideParams,
+          sort: 'score desc,contentTier desc,metadataTier desc, random_ asc, timestamp_update desc,europeana_id asc'
+        };
+        this.$store.commit('search/set', ['overrideParams', overrideParams]);
+      }
+
       await this.$store.dispatch('search/run');
 
       if (this.$store.state.search.error) {
