@@ -118,7 +118,6 @@
 
 .content-card {
   $card-line-height: 1.1875rem;
-
   background: $white;
   border: 0;
   border-radius: $border-radius-small;
@@ -232,6 +231,10 @@
       right: 0;
       bottom: 0;
       z-index: 1;
+    }
+
+    &:focus::after {
+      outline: auto;
     }
   }
 
