@@ -26,7 +26,8 @@ $path.withArgs({
 const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchForm, {
   localVue,
   propsData: {
-    inTopNav: propsData ? propsData.inTopNav : true
+    inTopNav: propsData ? propsData.inTopNav : true,
+    ...propsData
   },
   data: () => (data || {}),
   stubs: { ...stubs },
@@ -400,7 +401,7 @@ describe('components/search/SearchForm', () => {
     });
   });
 
-  it('suggestions and quick search is navigable by keyboard arrows', async() => {
+  it('suggestions and quick search are navigable by keyboard arrows', async() => {
     const componentWithOptions = { template: '<ul><li v-for="(option, index) in [{ $el: {focus: () => {} } }, { $el: { focus: () => {} } }]" ref="options"></li></ul>' };
     const arrowDownEvent = new KeyboardEvent('keydown', { 'key': 'ArrowDown' });
 
@@ -417,6 +418,17 @@ describe('components/search/SearchForm', () => {
     expect(focus1.called).toBe(true);
     wrapper.vm.handleKeyDown({ key: 'ArrowUp', target: wrapper.vm.$refs.searchoptions.$refs.options[1], preventDefault: () => {} });
     expect(focus0.called).toBe(true);
+  });
+
+  it('re-shows the form when prop updates', async() => {
+    const wrapper = factory({ propsData: { show: false } });
+
+    const searchForm = wrapper.find('[data-qa="search form"]');
+
+    expect(searchForm.isVisible()).toBe(false);
+
+    await wrapper.setProps({ show: true });
+    expect(searchForm.isVisible()).toBe(true);
   });
 
   describe('when pressing the Escape key', () => {
