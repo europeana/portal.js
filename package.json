@@ -13,6 +13,7 @@
     "start:inspect": "npm run -w packages/portal start:inspect",
     "start": "npm run -w packages/portal start",
     "styleguide": "npm run -w packages/styleguide start",
+    "styleguide:build": "npm run -w packages/styleguide build",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.cjs",
     "test:e2e": "npm run test:e2e:init && npm run test:e2e:run",
     "test:e2e:init": "touch tests/e2e/docker/nightwatch/.env tests/e2e/docker/nightwatch-visual/.env",
