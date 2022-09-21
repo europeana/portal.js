@@ -23,12 +23,13 @@ $path.withArgs({
   }
 }).returns('/collections/person/59981-frank-sinatra');
 
-const factory = (options = {}) => shallowMount(SearchForm, {
+const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchForm, {
   localVue,
   propsData: {
-    inTopNav: options.propsData ? options.propsData.inTopNav : true
+    inTopNav: propsData ? propsData.inTopNav : true
   },
-  stubs: { ...options.stubs },
+  data: () => (data || {}),
+  stubs: { ...stubs },
   mocks: {
     $i18n: { locale: 'en' },
     $t: () => {},
@@ -38,16 +39,16 @@ const factory = (options = {}) => shallowMount(SearchForm, {
     $matomo: {
       trackEvent: sinon.spy()
     },
-    ...(options.mocks || {}),
+    ...(mocks || {}),
     $store: {
       getters: {
         'search/activeView': 'grid',
-        ...options.mocks?.$store?.getters || {}
+        ...mocks?.$store?.getters || {}
       },
       state: {
         entity: {},
         search: {},
-        ...options.mocks?.$store?.state || {}
+        ...mocks?.$store?.state || {}
       }
     }
   }
@@ -418,15 +419,37 @@ describe('components/search/SearchForm', () => {
     expect(focus0.called).toBe(true);
   });
 
-  it('blurs the search input on pressing Escape', async() => {
+  describe('when pressing the Escape key', () => {
     const escapeEvent = new KeyboardEvent('keydown', { 'key': 'Escape' });
-    const wrapper = factory();
 
-    await wrapper.setData({ showSearchOptions: true });
+    it('blurs the search input', async() => {
+      const wrapper = factory({ data: { showSearchOptions: true } });
 
-    wrapper.vm.handleKeyDown(escapeEvent);
+      expect(wrapper.vm.showSearchOptions).toBe(true);
+      expect(wrapper.vm.show).toBe(true);
 
-    expect(wrapper.vm.showSearchOptions).toBe(false);
+      await wrapper.vm.handleKeyDown(escapeEvent);
+
+      expect(wrapper.vm.showSearchOptions).toBe(false);
+      expect(wrapper.vm.show).toBe(false);
+    });
+
+    it('hides the form', async() => {
+      const wrapper = factory({ data: { showSearchOptions: true } });
+
+      await wrapper.vm.handleKeyDown(escapeEvent);
+      const searchForm = wrapper.find('[data-qa="search form"]');
+
+      expect(searchForm.isVisible()).toBe(false);
+    });
+
+    it('emits hide event', async() => {
+      const wrapper = factory({ data: { showSearchOptions: true } });
+
+      await wrapper.vm.handleKeyDown(escapeEvent);
+
+      expect(wrapper.emitted('hide').length).toBe(1);
+    });
   });
 
   describe('when clicking the clear button', () => {

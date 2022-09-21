@@ -1,5 +1,6 @@
 <template>
   <div
+    v-show="show"
     ref="searchdropdown"
     class="open"
     :class="{
@@ -103,7 +104,8 @@
         gettingSuggestions: false,
         suggestions: {},
         activeSuggestionsQueryTerm: null,
-        showSearchOptions: false
+        showSearchOptions: false,
+        show: true
       };
     },
 
@@ -348,6 +350,7 @@
       handleHide() {
         this.blurInput();
         this.showSearchOptions = false;
+        this.show = false;
         this.$emit('hide');
       },
 
