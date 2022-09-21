@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - 'master'
-      # TODO: remove before merging
-      - 'chore/EC-6003-build-styleguide'
     paths-ignore:
     - 'packages/contentful/**'
 
