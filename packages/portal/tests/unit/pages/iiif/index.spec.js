@@ -143,7 +143,7 @@ describe('pages/iiif/index.vue', () => {
 
     describe('postUpdatedDownloadLinkMessage', () => {
       const pageId = 'https://iiif.europeana.eu/presentation/123/abc/canvas/p1';
-      const imageUrl = 'https://iiif.europeana.eu/image/123/abc/default.jpg'
+      const imageUrl = 'https://iiif.europeana.eu/image/123/abc/default.jpg';
 
       describe('when manifest is for IIIF Presentation API v2', () => {
         const manifest = {
