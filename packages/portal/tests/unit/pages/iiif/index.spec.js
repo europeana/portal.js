@@ -5,10 +5,11 @@ import sinon from 'sinon';
 
 import page from '@/pages/iiif/index';
 
-const factory = () => shallowMountNuxt(page, {
+const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   data() {
     return {
-      uri: 'http://example.org/iiif/manifest.json'
+      uri: 'http://example.org/iiif/manifest.json',
+      ...data
     };
   },
   mocks: {
@@ -137,6 +138,85 @@ describe('pages/iiif/index.vue', () => {
           { resource: { '@id': 'http://example.org/fulltext/123#char=0,7', chars: 'Fulltext' } },
           { resource: { '@id': 'http://example.org/fulltext/123#char=9,21', chars: 'transcription' } }
         ]);
+      });
+    });
+
+    describe('postUpdatedDownloadLinkMessage', () => {
+      const pageId = 'https://iiif.europeana.eu/presentation/123/abc/canvas/p1';
+      const imageUrl = 'https://iiif.europeana.eu/image/123/abc/default.jpg'
+
+      describe('when manifest is for IIIF Presentation API v2', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/2/context.json',
+          sequences: [
+            {
+              canvases: [
+                {
+                  '@id': pageId,
+                  images: [
+                    {
+                      resource: {
+                        '@id': imageUrl
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        };
+
+        it('posts image URL from sequences canvas matching page ID', () => {
+          const wrapper = factory({ data: { manifest } });
+          sinon.spy(window.parent, 'postMessage');
+
+          wrapper.vm.postUpdatedDownloadLinkMessage(pageId);
+
+          expect(window.parent.postMessage.calledWith(
+            {
+              event: 'updateDownloadLink',
+              id: imageUrl
+            },
+            'http://localhost'
+          )).toBe(true);
+        });
+      });
+
+      describe('when manifest is for IIIF Presentation API v3', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/3/context.json',
+          items: [
+            {
+              id: pageId,
+              items: [
+                {
+                  items: [
+                    {
+                      body: {
+                        id: imageUrl
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        };
+
+        it('posts image URL from canvas item matching page ID', () => {
+          const wrapper = factory({ data: { manifest } });
+          sinon.spy(window.parent, 'postMessage');
+
+          wrapper.vm.postUpdatedDownloadLinkMessage(pageId);
+
+          expect(window.parent.postMessage.calledWith(
+            {
+              event: 'updateDownloadLink',
+              id: imageUrl
+            },
+            'http://localhost'
+          )).toBe(true);
+        });
       });
     });
   });
