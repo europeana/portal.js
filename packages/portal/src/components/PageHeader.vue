@@ -14,6 +14,7 @@
     >
       <SearchForm
         :in-top-nav="true"
+        :show="showSearchBar"
         @hide="toggleSearchBar"
       />
     </div>
@@ -120,14 +121,19 @@
 
     data() {
       return {
-        showSearchBar: false,
         windowWidth: 0
       };
     },
 
+    computed: {
+      showSearchBar() {
+        return this.$store.state.search.showSearchBar;
+      }
+    },
+
     methods: {
       toggleSearchBar() {
-        this.showSearchBar = !this.showSearchBar;
+        this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
       }
     }
   };

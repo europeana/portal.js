@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="show"
+    v-show="showForm"
     ref="searchdropdown"
     class="open"
     :class="{
@@ -92,6 +92,11 @@
     },
 
     props: {
+      show: {
+        type: Boolean,
+        default: false
+      },
+
       inTopNav: {
         type: Boolean,
         default: false
@@ -105,7 +110,7 @@
         suggestions: {},
         activeSuggestionsQueryTerm: null,
         showSearchOptions: false,
-        show: true
+        showForm: this.show
       };
     },
 
@@ -182,6 +187,7 @@
       routePath() {
         return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
       },
+
       showQuickSearch() {
         return this.inTopNav && !this.onSearchableCollectionPage && !this.query;
       }
@@ -202,6 +208,9 @@
         } else {
           window.removeEventListener('click', this.handleClickOrTabOutside);
         }
+      },
+      show(newVal) {
+        this.showForm = newVal;
       }
     },
 
@@ -350,7 +359,7 @@
       handleHide() {
         this.blurInput();
         this.showSearchOptions = false;
-        this.show = false;
+        this.showForm = false;
         this.$emit('hide');
       },
 
