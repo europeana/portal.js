@@ -42,7 +42,6 @@
         <p>{{ $t(`newFeatureNotification.text.${featureNotification.name}`) }}</p>
       </NewFeatureNotification>
     </client-only>
-    <!-- TODO: does this need to be client-only still given no CTF requests? -->
     <client-only>
       <PageFooter />
       <ApiRequests />
