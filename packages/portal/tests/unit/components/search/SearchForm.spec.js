@@ -426,12 +426,12 @@ describe('components/search/SearchForm', () => {
       const wrapper = factory({ data: { showSearchOptions: true } });
 
       expect(wrapper.vm.showSearchOptions).toBe(true);
-      expect(wrapper.vm.show).toBe(true);
+      expect(wrapper.vm.showForm).toBe(true);
 
       await wrapper.vm.handleKeyDown(escapeEvent);
 
       expect(wrapper.vm.showSearchOptions).toBe(false);
-      expect(wrapper.vm.show).toBe(false);
+      expect(wrapper.vm.showForm).toBe(false);
     });
 
     it('hides the form', async() => {

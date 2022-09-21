@@ -12,7 +12,15 @@ const factory = () => shallowMount(PageHeader, {
     $t: (key) => {
       return `TRANSLATED: ${key}`;
     },
-    $path: (code) => window.location.href + code
+    $path: (code) => window.location.href + code,
+    $store: {
+      commit(mutation, payload) {
+        if (mutation === 'search/setShowSearchBar') {
+          this.state.search.showSearchBar = payload;
+        }
+      },
+      state: { search: { showSearchBar: false } }
+    }
   },
   stubs: { transition: true }
 });
