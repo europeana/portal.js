@@ -73,7 +73,7 @@
        */
       totalResults: {
         type: Number,
-        required: true
+        default: null
       },
 
       /**

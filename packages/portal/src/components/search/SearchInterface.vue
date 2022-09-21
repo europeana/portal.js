@@ -25,7 +25,7 @@
               <!-- This div prevents ViewToggles jumping around as SearchResultsContext is shown & hidden -->
               <div v-show="$fetchState.pending" />
               <SearchResultsContext
-                v-show="!$fetchState.pending && (totalResults !== null)"
+                v-show="!$fetchState.pending"
                 :total-results="totalResults"
                 :entity="$store.state.entity.entity"
                 :query="query"
