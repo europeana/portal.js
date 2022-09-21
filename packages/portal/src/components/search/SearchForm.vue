@@ -464,7 +464,7 @@
           justify-content: flex-start;
 
           &:focus {
-            color: $black;
+            color: $greyblack;
             background-color: $offwhite;
 
             ~ span {

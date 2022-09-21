@@ -118,7 +118,7 @@
       @media (min-width: $bp-xxxl) {
         border-bottom-width: calc(209 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
         border-left-width: calc(95 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
-        top: calc(100% - (209 / 16 * 1vw));
+        top: calc(100% - (209 / 16 * 1vw) + 1px); // Adding one pixel so as to prevent a black line due to rounding
       }
     }
 
@@ -151,7 +151,7 @@
     }
 
     @media (min-width: $bp-xxxl) {
-      padding: 6em 0 3em;
+      padding: 6em 0 5em;
       font-size: 2vw;
 
       h1 {

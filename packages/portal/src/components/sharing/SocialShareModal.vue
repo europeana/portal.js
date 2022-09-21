@@ -9,7 +9,6 @@
     <div class="icon-wrapper">
       <SocialShare
         :media-url="mediaUrl"
-        with-text
       />
     </div>
     <slot />
@@ -53,57 +52,9 @@
           justify-content: space-between;
         }
 
-        a {
-          border-radius: 0.25rem;
-          width: calc(100% / 3 - 10px);
-          height: 3rem;
-          margin-right: 0 !important;
-          justify-content: flex-start;
-          padding-left: 1rem;
-
-          &.facebook {
-            border: solid 1px #4064ac;
-
-            span {
-              color: #4064ac;
-            }
-          }
-
-          &.twitter {
-            border: solid 1px #1c9ceb;
-
-            span {
-              color: #1c9ceb;
-            }
-          }
-
-          &.pinterest {
-            border: solid 1px #ba0a21;
-
-            span {
-              color: #ba0a21;
-            }
-          }
-
-          &:hover {
-            background: $white;
-          }
-
-          span.text {
-            font-family: $font-family-sans-serif;
-            font-weight: 600;
-            padding-left: 0.75rem;
-          }
-        }
-
         @media (max-width: $bp-small) {
           .icon-wrapper > div {
             flex-direction: column;
-
-            a {
-              width: 100%;
-              margin-bottom: 10px;
-            }
           }
         }
       }

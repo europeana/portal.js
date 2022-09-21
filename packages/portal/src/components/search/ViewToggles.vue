@@ -126,7 +126,7 @@
 
     &:hover .icon-view-toggle,
     &.active .icon-view-toggle {
-      color: $black;
+      color: $greyblack;
     }
 
     &.active {

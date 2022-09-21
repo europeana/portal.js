@@ -127,7 +127,7 @@
 
   &.multilingual-dropdown {
     padding: 0;
-    color: $black;
+    color: $greyblack;
     text-decoration: underline;
 
     &::after {
@@ -144,6 +144,7 @@
 // Expected ".btn-outline-primary:hover" to come before
 // @at-root  ".btn-outline-primary:hover:not([disabled])"
 .btn-outline-primary {
+  background-color: $white;
   border-color: $blue;
   color: $blue;
   font-size: $font-size-small;
@@ -167,7 +168,7 @@
 
 .btn-outline-secondary {
   border: 1px solid $mediumgrey;
-  color: $black;
+  color: $greyblack;
   transition: $standard-transition;
   font-weight: 700;
   padding: 0.5em 0.75em;
@@ -204,7 +205,7 @@
 .btn-light-flat {
   background: $white;
   border: 0;
-  color: $black;
+  color: $greyblack;
   font-size: $font-size-small;
   text-decoration: none;
   transition: $standard-transition;
@@ -342,7 +343,7 @@ a {
   &.skip-main:focus,
   &.skip-main:active {
     color: $white;
-    background-color: $black;
+    background-color: $greyblack;
     left: auto;
     top: 70px;
     width: 30%;
@@ -372,11 +373,11 @@ a {
 }
 
 .page-link {
-  color: $black;
+  color: $greyblack;
   text-decoration: none;
 
   &:hover {
-    color: $black;
+    color: $greyblack;
   }
 }
 

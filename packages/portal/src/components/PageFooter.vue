@@ -1,103 +1,112 @@
 <template>
   <footer
     data-qa="footer"
-    class="page-footer py-5 px-3"
+    class="page-footer responsive-font"
   >
-    <b-container>
-      <b-row>
-        <b-col
-          lg="5"
-          class="pb-4"
-        >
-          <div class="mb-3">
-            <div class="group-title text-uppercase font-weight-bold">
-              {{ $t('footer.ourMission') }}
-            </div>
-            <p class="font-italic mb-0">
-              {{ $t('footer.ourMissionQuote') }}
-            </p>
-          </div>
-          <LinkGroup
-            list-class="footer-link-list social-links"
-            link-class="footer-link"
-            :caption="$t('footer.findUsElsewhere')"
-            :links="social"
-          />
-        </b-col>
-        <b-col
-          lg="4"
-          class="pb-4"
-        >
-          <b-row>
-            <b-col
-              cols="6"
-              lg="12"
-              class="mb-3"
-            >
-              <LinkGroup
-                v-if="footerMoreInfo"
-                list-class="footer-link-list"
-                link-class="footer-link"
-                :caption="footerMoreInfo.name"
-                :links="footerMoreInfo.links"
-              />
-            </b-col>
-            <b-col
-              cols="6"
-              lg="12"
-            >
-              <LinkGroup
-                v-if="footerHelp"
-                list-class="footer-link-list"
-                link-class="footer-link"
-                :caption="footerHelp.name"
-                :links="footerHelp.links"
-              />
-            </b-col>
-          </b-row>
-        </b-col>
-        <b-col lg="3">
-          <b-row>
-            <b-col
-              cols="6"
-              lg="12"
-              class="mb-3"
-            >
-              <div class="group-title text-uppercase font-weight-bold pr-2">
-                {{ $t('footer.customiseWebsiteLanguage') }}
+    <div class="footer-wrapper py-5">
+      <b-container>
+        <b-row>
+          <b-col
+            lg="5"
+            class="left-col pb-4"
+          >
+            <div class="mb-3 pr-5 pr-lg-3">
+              <div class="group-title text-uppercase font-weight-bold">
+                {{ $t('footer.ourMission') }}
               </div>
-              <LangSelector data-qa="language selector" />
-            </b-col>
-            <b-col
-              cols="6"
-              lg="12"
-            >
-              <LinkGroup
-                v-if="showDebugLinkGroup"
-                list-class="footer-link-list"
-                link-class="footer-link"
-                :caption="debugLinkGroup.name"
-                :links="debugLinkGroup.links"
-                data-qa="debug link group"
-              />
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-      <hr class="my-5">
-      <b-row>
-        <b-col lg="6">
-          <div class="sub-footer">
-            <EULogo
-              class="mb-3"
+              <p class="font-italic mb-0">
+                {{ $t('footer.ourMissionQuote') }}
+              </p>
+            </div>
+            <LinkGroup
+              list-class="footer-link-list social-links"
+              link-class="footer-link"
+              :caption="$t('footer.findUsElsewhere')"
+              :links="social"
             />
-            <p>{{ $t('footer.disclaimerLine1') }}</p>
+          </b-col>
+          <b-col
+            lg="4"
+            class="middle-col pb-4"
+          >
+            <b-row>
+              <b-col
+                cols="12"
+                lg="12"
+                sm="6"
+                class="mb-3"
+              >
+                <LinkGroup
+                  v-if="footerMoreInfo"
+                  list-class="footer-link-list"
+                  link-class="footer-link"
+                  :caption="footerMoreInfo.name"
+                  :links="footerMoreInfo.links"
+                />
+              </b-col>
+              <b-col
+                cols="12"
+                lg="12"
+                sm="6"
+              >
+                <LinkGroup
+                  v-if="footerHelp"
+                  list-class="footer-link-list"
+                  link-class="footer-link"
+                  :caption="footerHelp.name"
+                  :links="footerHelp.links"
+                />
+              </b-col>
+            </b-row>
+          </b-col>
+          <b-col
+            lg="3"
+            class="right-col"
+          >
+            <b-row>
+              <b-col
+                cols="12"
+                sm="6"
+                lg="12"
+                class="mb-3"
+              >
+                <div class="group-title text-uppercase font-weight-bold pr-2">
+                  {{ $t('footer.customiseWebsiteLanguage') }}
+                </div>
+                <LangSelector data-qa="language selector" />
+              </b-col>
+              <b-col
+                cols="12"
+                sm="6"
+                lg="12"
+              >
+                <LinkGroup
+                  v-if="showDebugLinkGroup"
+                  list-class="footer-link-list"
+                  link-class="footer-link"
+                  :caption="debugLinkGroup.name"
+                  :links="debugLinkGroup.links"
+                  data-qa="debug link group"
+                />
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+        <hr class="my-5">
+        <b-row>
+          <b-col lg="6">
+            <div class="sub-footer">
+              <EULogo
+                class="mb-3"
+              />
+              <p>{{ $t('footer.disclaimerLine1') }}</p>
 
-            <p>{{ $t('footer.disclaimerLine2') }}</p>
-          </div>
-        </b-col>
-      </b-row>
-    </b-container>
+              <p>{{ $t('footer.disclaimerLine2') }}</p>
+            </div>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
   </footer>
 </template>
 
