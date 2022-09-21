@@ -31,7 +31,7 @@
         id="dialogHeader"
         class="feedback-header"
       >
-        <h5>{{ $t('feedback.title') }}</h5>
+        <h2><label for="feedback-widget-feedback-input">{{ $t('feedback.title') }}</label></h2>
       </div>
       <b-form
         class="feedback-form"
@@ -43,6 +43,7 @@
             <div class="form-fields">
               <div v-if="currentStep === 1">
                 <b-form-textarea
+                  id="feedback-widget-feedback-input"
                   ref="input"
                   v-model="feedback"
                   name="feedback"
@@ -380,7 +381,7 @@
       position: fixed;
       right: 1rem;
       bottom: 1rem;
-      z-index: 1000;
+      z-index: 10000;
       text-transform: capitalize;
       padding: 0.875rem;
       line-height: 1;
@@ -467,12 +468,16 @@
       background-color: $innovationblue;
       padding: 0.75rem 1rem;
 
-      h5 {
+      h2 {
         color: $white;
         font-size: 1rem;
         line-height: 1.5;
         font-weight: 600;
         margin: 0;
+
+        label {
+          display: inline;
+        }
       }
     }
 

@@ -18,13 +18,6 @@
       {{ $t('layout.skipToMain') }}
     </a>
     <PageHeader />
-    <client-only
-      v-if="feedbackEnabled"
-    >
-      <FeedbackWidget
-        data-qa="feedback widget"
-      />
-    </client-only>
     <main
       id="default"
       role="main"
@@ -49,6 +42,7 @@
         <p>{{ $t(`newFeatureNotification.text.${featureNotification.name}`) }}</p>
       </NewFeatureNotification>
     </client-only>
+    <!-- TODO: does this need to be client-only still given no CTF requests? -->
     <client-only>
       <PageFooter />
       <ApiRequests />
@@ -79,7 +73,6 @@
       ClientOnly,
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      FeedbackWidget: () => import('../components/feedback/FeedbackWidget'),
       NewFeatureNotification: () => import('../components/generic/NewFeatureNotification')
     },
 
@@ -135,10 +128,6 @@
 
       canonicalUrlWithoutLocale() {
         return this.$store.getters['http/canonicalUrlWithoutLocale'];
-      },
-
-      feedbackEnabled() {
-        return this.$features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
       },
 
       newFeatureNotificationEnabled() {
