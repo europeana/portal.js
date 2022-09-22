@@ -45,7 +45,6 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $announcer: {
       setComplementRoute: () => {}
     },
-    $features: options.features || {},
     $exp: {
       $variantIndexes: [0]
     },
@@ -62,7 +61,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
       get: (key) => options.cookies[key] || {},
       set: () => {}
     },
-    $config: { app: { baseUrl: 'https://www.example.eu' } },
+    $config: { app: {} },
     $nuxtI18nHead: () => nuxtI18nHead,
     ...options.mocks
   },
@@ -175,24 +174,6 @@ describe('layouts/default.vue', () => {
         wrapper.vm.trackKlaroClickEvent(eventName);
 
         expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', eventName)).toBe(true);
-      });
-    });
-  });
-
-  describe('FeedbackWidget', () => {
-    describe('when feedback toggle disabled', () => {
-      it('is not loaded', () => {
-        const wrapper = factory();
-        const feedbackWidget = wrapper.find('[data-qa="feedback widget"]');
-        expect(feedbackWidget.exists()).toBe(false);
-      });
-    });
-    describe('when feedback toggle enabled', () => {
-      it('is rendered', () => {
-        const wrapper = factory({ features: { jiraServiceDeskFeedbackForm: true } });
-
-        const feedbackWidget = wrapper.find('[data-qa="feedback widget"]');
-        expect(feedbackWidget.exists()).toBe(true);
       });
     });
   });

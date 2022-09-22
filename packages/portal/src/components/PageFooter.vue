@@ -107,6 +107,13 @@
         </b-row>
       </b-container>
     </div>
+    <client-only
+      v-if="feedbackEnabled"
+    >
+      <FeedbackWidget
+        data-qa="feedback widget"
+      />
+    </client-only>
   </footer>
 </template>
 
@@ -119,7 +126,8 @@
     components: {
       LangSelector,
       LinkGroup,
-      EULogo
+      EULogo,
+      FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
     },
 
     data() {
@@ -155,6 +163,9 @@
     },
 
     computed: {
+      feedbackEnabled() {
+        return this.$features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+      },
       debugSettings() {
         return this.$store.getters['debug/settings'];
       },

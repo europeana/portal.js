@@ -6,6 +6,7 @@
       ref="button"
       variant="primary"
       data-qa="feedback button"
+      :aria-label="$t('actions.feedback')"
       size="lg"
       class="feedback-button text-decoration-none"
       :class="buttonClasses"
@@ -31,7 +32,7 @@
         id="dialogHeader"
         class="feedback-header"
       >
-        <h5>{{ $t('feedback.title') }}</h5>
+        <h2><label for="feedback-widget-feedback-input">{{ $t('feedback.title') }}</label></h2>
       </div>
       <b-form
         class="feedback-form"
@@ -43,6 +44,7 @@
             <div class="form-fields">
               <div v-if="currentStep === 1">
                 <b-form-textarea
+                  id="feedback-widget-feedback-input"
                   ref="input"
                   v-model="feedback"
                   name="feedback"
@@ -467,12 +469,16 @@
       background-color: $innovationblue;
       padding: 0.75rem 1rem;
 
-      h5 {
+      h2 {
         color: $white;
         font-size: 1rem;
         line-height: 1.5;
         font-weight: 600;
         margin: 0;
+
+        label {
+          display: inline;
+        }
       }
     }
 
