@@ -113,12 +113,12 @@
 
 .badge-secondary {
   background-color: $bodygrey;
-  color: $black;
+  color: $greyblack;
 
   &[href] {
     &:hover,
     &:focus {
-      color: $black;
+      color: $greyblack;
       background: $middlegrey !important;
       box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
     }
@@ -127,7 +127,7 @@
 
 .badge-light {
   background-color: $white;
-  color: $black;
+  color: $greyblack;
   padding: 0.25rem 0.75rem;
   height: 2.25rem;
   min-width: 4rem;
@@ -175,7 +175,7 @@
   }
 
   .icon-clear {
-    color: $black;
+    color: $greyblack;
     font-size: 1.25rem;
     margin-left: 0.25rem;
   }

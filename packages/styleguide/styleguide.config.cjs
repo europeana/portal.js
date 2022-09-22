@@ -7,7 +7,7 @@ const bootstrapVueVersion = require('bootstrap-vue/package.json').version;
 module.exports = async() => {
   // get the webpack config directly from nuxt
   const nuxtWebpackConfig = await getWebpackConfig('client', {
-    for: 'dev',
+    for: process.env.NODE_ENV === 'production' ? 'build' : 'dev',
     rootDir: '../portal'
   });
 
@@ -95,9 +95,9 @@ module.exports = async() => {
     skipComponentsWithoutExample: true,
     require: [
       resolve(__dirname, '../portal/src/assets/scss/style.scss'),
-      resolve(__dirname, './styleguide/style.scss')
+      resolve(__dirname, './style.scss')
     ],
-    renderRootJsx: resolve(__dirname, './styleguide/styleguide.root.js'),
+    renderRootJsx: resolve(__dirname, './styleguide.root.js'),
     template: {
       head: {
         links: [

@@ -58,7 +58,7 @@
   }
 
   .alert-light {
-    color: $black;
+    color: $greyblack;
   }
 </style>
 

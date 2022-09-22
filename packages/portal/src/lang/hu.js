@@ -945,13 +945,16 @@ export default {
   "removeFilter": "{filterLabel} szűrő eltávolítása",
   "reset": "Visszaállítás",
   "resourceWikimedia": "Forrás: Wikimedia Commons",
-  "results": "Találatok",
-  "resultsFor": "Találatok a következőre: {0}",
-  "resultsLimitWarning": "Nem jelennek meg további eredmények, mivel csak az első 1000 legrelevánsabb eredmény látható. Ha nem találta meg azt, amit keres, kérjük, finomítsa a keresést.",
-  "resultsWithin": "Találatok a következőn belül {0} {1} a következőre: {2}",
   "search": {
     "boost": {
       "placeholder": "Adja meg a mezőt növelő lekérdezést"
+    },
+    "results": {
+      "limitWarning": "A további eredmények nem jelennek meg, mivel csak az első 1000 legrelevánsabb eredmény jelenik meg. Ha nem találta meg, amit keres, kérjük, fontolja meg a keresés finomítását.",
+      "withinCollection": "{count} eredmények a belül {type} {collection}",
+      "withinCollectionWithQuery": "{count} eredmények a {type} belül {collection} a {query} számára",
+      "withoutQuery": "{count} eredmények",
+      "withQuery": "{count} eredmények a következőhöz: {query}"
     },
     "title": "Keresés"
   },

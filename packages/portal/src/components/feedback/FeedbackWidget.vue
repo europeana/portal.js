@@ -508,7 +508,7 @@
         border-radius: 0.375rem;
         font-size: $font-size-base;
         height: 3rem;
-        color: $black;
+        color: $greyblack;
 
         &:focus {
           border-color: $innovationblue;
@@ -538,7 +538,7 @@
     }
 
     .feedback-success {
-      color: $black;
+      color: $greyblack;
     }
 
     .icon-check-circle::before {

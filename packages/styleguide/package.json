@@ -4,6 +4,7 @@
   "description": "Europeana styleguide",
   "private": true,
   "scripts": {
+    "build": "vue-styleguidist build --config ./styleguide.config.cjs",
     "start": "vue-styleguidist server --config ./styleguide.config.cjs"
   },
   "devDependencies": {
