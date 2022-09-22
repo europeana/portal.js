@@ -359,7 +359,9 @@
       handleHide() {
         this.blurInput();
         this.showSearchOptions = false;
-        this.showForm = false;
+        if (this.inTopNav) {
+          this.showForm = false;
+        }
         this.$emit('hide');
       },
 
