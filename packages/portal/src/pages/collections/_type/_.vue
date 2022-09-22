@@ -310,8 +310,7 @@
         return null;
       },
       editable() {
-        return this.$features.entityManagement &&
-          this.entity &&
+        return this.entity &&
           this.userIsEntitiesEditor &&
           ['topic', 'organisation'].includes(this.collectionType);
       },

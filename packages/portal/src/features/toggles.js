@@ -2,7 +2,6 @@ export default [
   { name: 'abTests' },
   { name: 'acceptEntityRecommendations' },
   { name: 'acceptSetRecommendations' },
-  { name: 'entityManagement' },
   { name: 'fieldBoosting' },
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'rejectEntityRecommendations' },
