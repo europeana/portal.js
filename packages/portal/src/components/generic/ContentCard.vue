@@ -39,9 +39,9 @@
         />
       </div>
       <SmartLink
-        v-if="variant === 'mosaic'"
+        v-if="(variant === 'mosaic') || !displayTitle"
         :destination="url"
-        link-class="card-link mosaic"
+        link-class="card-link no-title"
         :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
       >
         <span
@@ -64,22 +64,22 @@
           {{ displaySubTitle }}
         </b-card-sub-title>
         <div class="title-texts-wrapper">
-          <SmartLink
-            :destination="url"
-            link-class="card-link"
-            :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
+          <b-card-title
+            v-if="displayTitle"
+            title-tag="div"
+            data-qa="card title"
+            :lang="displayTitle.code"
           >
-            <b-card-title
-              v-if="displayTitle"
-              title-tag="div"
-              data-qa="card title"
-              :lang="displayTitle.code"
+            <SmartLink
+              :destination="url"
+              link-class="card-link"
+              :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
             >
               <span>
                 {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
               </span>
-            </b-card-title>
-          </SmartLink>
+            </SmartLink>
+          </b-card-title>
           <b-card-text
             v-if="hitsText"
             text-tag="div"
