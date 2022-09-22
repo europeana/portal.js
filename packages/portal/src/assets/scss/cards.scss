@@ -219,12 +219,35 @@
   }
 
   .card-link {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
+    &.mosaic {
+      height: 0;
+      overflow: hidden;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: none;
+
+      &::after {
+        outline: auto;
+
+        /* stylelint-disable */
+        @media (-webkit-min-device-pixel-ratio: 0) {
+          outline: -webkit-focus-ring-color auto 5px;
+        }
+        /* stylelint-enable */
+      }
+    }
   }
 
   .is-external-link .card-title {
