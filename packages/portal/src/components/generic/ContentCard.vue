@@ -384,7 +384,7 @@
           } else {
             return langMapValueForLocale(value, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
           }
-        });
+        }).filter((displayText) => displayText.values.length > 0);
       },
 
       optimisedImageUrl() {
