@@ -6,6 +6,7 @@
       ref="button"
       variant="primary"
       data-qa="feedback button"
+      :aria-label="$t('actions.feedback')"
       size="lg"
       class="feedback-button text-decoration-none"
       :class="buttonClasses"
