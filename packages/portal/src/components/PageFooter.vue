@@ -8,9 +8,9 @@
         <b-row>
           <b-col
             lg="5"
-            class="left-col pb-4"
+            class="left-col pb-4 order-lg-1"
           >
-            <div class="mb-3 pr-5 pr-lg-3">
+            <div class="pr-5 pr-lg-3">
               <div class="group-title text-uppercase font-weight-bold">
                 {{ $t('footer.ourMission') }}
               </div>
@@ -18,6 +18,11 @@
                 {{ $t('footer.ourMissionQuote') }}
               </p>
             </div>
+          </b-col>
+          <b-col
+            lg="5"
+            class="left-col pb-4 order-lg-4"
+          >
             <LinkGroup
               list-class="footer-link-list social-links"
               link-class="footer-link"
@@ -26,70 +31,54 @@
             />
           </b-col>
           <b-col
+            sm="6"
             lg="4"
-            class="middle-col pb-4"
+            class="middle-col pb-4  order-sm-1 order-lg-2"
           >
-            <b-row>
-              <b-col
-                cols="12"
-                lg="12"
-                sm="6"
-                class="mb-3"
-              >
-                <LinkGroup
-                  v-if="footerMoreInfo"
-                  list-class="footer-link-list"
-                  link-class="footer-link"
-                  :caption="footerMoreInfo.name"
-                  :links="footerMoreInfo.links"
-                />
-              </b-col>
-              <b-col
-                cols="12"
-                lg="12"
-                sm="6"
-              >
-                <LinkGroup
-                  v-if="footerHelp"
-                  list-class="footer-link-list"
-                  link-class="footer-link"
-                  :caption="footerHelp.name"
-                  :links="footerHelp.links"
-                />
-              </b-col>
-            </b-row>
+            <LinkGroup
+              v-if="footerMoreInfo"
+              list-class="footer-link-list"
+              link-class="footer-link"
+              :caption="footerMoreInfo.name"
+              :links="footerMoreInfo.links"
+            />
           </b-col>
           <b-col
-            lg="3"
-            class="right-col"
+            sm="6"
+            lg="4"
+            class="middle-col pb-4 order-sm-3 order-lg-5 order-wqhd-3"
           >
-            <b-row>
-              <b-col
-                cols="12"
-                sm="6"
-                lg="12"
-                class="mb-3"
-              >
-                <div class="group-title text-uppercase font-weight-bold pr-2">
-                  {{ $t('footer.customiseWebsiteLanguage') }}
-                </div>
-                <LangSelector data-qa="language selector" />
-              </b-col>
-              <b-col
-                cols="12"
-                sm="6"
-                lg="12"
-              >
-                <LinkGroup
-                  v-if="showDebugLinkGroup"
-                  list-class="footer-link-list"
-                  link-class="footer-link"
-                  :caption="debugLinkGroup.name"
-                  :links="debugLinkGroup.links"
-                  data-qa="debug link group"
-                />
-              </b-col>
-            </b-row>
+            <LinkGroup
+              v-if="footerHelp"
+              list-class="footer-link-list"
+              link-class="footer-link"
+              :caption="footerHelp.name"
+              :links="footerHelp.links"
+            />
+          </b-col>
+          <b-col
+            sm="6"
+            lg="3"
+            class="right-col pb-4  order-sm-2 order-lg-3"
+          >
+            <div class="group-title text-uppercase font-weight-bold pr-2">
+              {{ $t('footer.customiseWebsiteLanguage') }}
+            </div>
+            <LangSelector data-qa="language selector" />
+          </b-col>
+          <b-col
+            sm="6"
+            lg="3"
+            class="right-col pb-4  order-sm-4 order-lg-6"
+          >
+            <LinkGroup
+              v-if="showDebugLinkGroup"
+              list-class="footer-link-list"
+              link-class="footer-link"
+              :caption="debugLinkGroup.name"
+              :links="debugLinkGroup.links"
+              data-qa="debug link group"
+            />
           </b-col>
         </b-row>
         <hr class="my-5">
