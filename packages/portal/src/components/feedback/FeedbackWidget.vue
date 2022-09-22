@@ -381,7 +381,7 @@
       position: fixed;
       right: 1rem;
       bottom: 1rem;
-      z-index: 10000;
+      z-index: 1000;
       text-transform: capitalize;
       padding: 0.875rem;
       line-height: 1;
