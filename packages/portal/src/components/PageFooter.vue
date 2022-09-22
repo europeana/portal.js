@@ -25,7 +25,7 @@
           >
             <LinkGroup
               list-class="footer-link-list social-links"
-              link-class="footer-link"
+              link-class="footer-link mt-1"
               :caption="$t('footer.findUsElsewhere')"
               :links="social"
             />
@@ -64,7 +64,10 @@
             <div class="group-title text-uppercase font-weight-bold pr-2">
               {{ $t('footer.customiseWebsiteLanguage') }}
             </div>
-            <LangSelector data-qa="language selector" />
+            <LangSelector
+              class="mt-1"
+              data-qa="language selector"
+            />
           </b-col>
           <b-col
             sm="6"
