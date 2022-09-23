@@ -3,6 +3,7 @@
     <SearchInterface
       id="search-interface"
       :show-related="showRelated"
+      @resultsUpdated="handleSearchResultsUpdated"
     >
       <template
         v-if="searchQuery"
@@ -56,6 +57,7 @@
 
     data() {
       return {
+        pageChanged: false,
         showRelated: false
       };
     },
@@ -80,7 +82,24 @@
       this.$store.commit('search/enableCollectionFacet');
     },
 
+    watch: {
+      '$route.query.page': 'watchRouteQueryPage'
+    },
+
     methods: {
+      watchRouteQueryPage() {
+        this.pageChanged = true;
+      },
+
+      handleSearchResultsUpdated(cardRefs) {
+        if (this.pageChanged) {
+          // Move the focus to the first item
+          const cardLink = cardRefs[0].$el.getElementsByTagName('a')[0];
+          cardLink?.focus();
+          this.pageChanged = false;
+        }
+      },
+
       showRelatedSection() {
         this.showRelated = true;
       },

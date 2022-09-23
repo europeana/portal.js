@@ -38,6 +38,7 @@
         <ItemPreviewCard
           v-else
           :key="index"
+          ref="cards"
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
@@ -85,6 +86,7 @@
       <ItemPreviewCard
         v-else
         :key="card.id"
+        ref="cards"
         :item="card"
         class="item"
         :hit-selector="itemHitSelector(card)"
@@ -193,8 +195,9 @@
       }
     },
 
-    mounted() {
-      this.redrawMasonry();
+    async mounted() {
+      await this.redrawMasonry();
+      this.$emit('drawn', this.$refs.cards);
     },
 
     methods: {

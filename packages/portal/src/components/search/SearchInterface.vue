@@ -80,6 +80,7 @@
                           :view="view"
                           :show-pins="showPins"
                           :show-related="showRelated"
+                          @drawn="handleItemPreviewCardGroupDrawn"
                         >
                           <slot />
                           <template
@@ -196,7 +197,10 @@
       } else if (this.noResults) {
         throw new Error(this.$t('noResults'));
       }
+
+      this.$emit('fetched');
     },
+
     computed: {
       ...mapState({
         userParams: state => state.search.userParams,
@@ -286,6 +290,10 @@
           this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
           this.$store.commit('search/set', ['userParams', this.$route.query]);
         }
+      },
+
+      handleItemPreviewCardGroupDrawn(cardRefs) {
+        this.$emit('resultsUpdated', cardRefs);
       }
     }
   };
