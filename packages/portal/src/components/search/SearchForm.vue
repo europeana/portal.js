@@ -100,6 +100,11 @@
       inTopNav: {
         type: Boolean,
         default: false
+      },
+
+      hidableForm: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -359,7 +364,7 @@
       handleHide() {
         this.blurInput();
         this.showSearchOptions = false;
-        if (this.inTopNav) {
+        if (this.hidableForm) {
           this.showForm = false;
         }
         this.$emit('hide');

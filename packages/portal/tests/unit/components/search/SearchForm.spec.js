@@ -434,7 +434,7 @@ describe('components/search/SearchForm', () => {
   describe('when pressing the Escape key', () => {
     const escapeEvent = new KeyboardEvent('keydown', { 'key': 'Escape' });
 
-    it('blurs the search input', async() => {
+    it('hides the search options', async() => {
       const wrapper = factory({ data: { showSearchOptions: true } });
 
       expect(wrapper.vm.showSearchOptions).toBe(true);
@@ -443,24 +443,38 @@ describe('components/search/SearchForm', () => {
       await wrapper.vm.handleKeyDown(escapeEvent);
 
       expect(wrapper.vm.showSearchOptions).toBe(false);
-      expect(wrapper.vm.showForm).toBe(false);
-    });
-
-    it('hides the form', async() => {
-      const wrapper = factory({ data: { showSearchOptions: true } });
-
-      await wrapper.vm.handleKeyDown(escapeEvent);
-      const searchForm = wrapper.find('[data-qa="search form"]');
-
-      expect(searchForm.isVisible()).toBe(false);
     });
 
     it('emits hide event', async() => {
-      const wrapper = factory({ data: { showSearchOptions: true } });
+      const wrapper = factory();
 
       await wrapper.vm.handleKeyDown(escapeEvent);
 
       expect(wrapper.emitted('hide').length).toBe(1);
+    });
+
+    describe('when the search form is hidable', () => {
+      it('hides it', async() => {
+        const wrapper = factory({ propsData: { hidableForm: true } });
+
+        await wrapper.vm.handleKeyDown(escapeEvent);
+        const searchForm = wrapper.find('[data-qa="search form"]');
+
+        expect(wrapper.vm.showForm).toBe(false);
+        expect(searchForm.isVisible()).toBe(false);
+      });
+    });
+
+    describe('when the search form is not hidable', () => {
+      it('does not hide it', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.handleKeyDown(escapeEvent);
+        const searchForm = wrapper.find('[data-qa="search form"]');
+
+        expect(wrapper.vm.showForm).toBe(true);
+        expect(searchForm.isVisible()).toBe(true);
+      });
     });
   });
 
