@@ -143,14 +143,6 @@ describe('components/browse/AutomatedCardGroup', () => {
         expect(wrapper.vm.entries).toEqual(entries.featuredTopics);
       });
     });
-    // describe('when rendering on the server', () => {
-    // TODO: SET SERVER HERE AND STUB CACHE
-    // it('gets the data from the cache', async() => {
-    //   const wrapper = factory({ sectionType: 'Featured topics' });
-    //   await wrapper.vm.fetch();
-    //   expect(wrapper.vm.entries).toBe(entries.featuredTopics);
-    // });
-    // });
   });
 
   describe('contentCardSection()', () => {

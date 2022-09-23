@@ -222,19 +222,6 @@ describe('components/account/UserButtons', () => {
               expect(bvModalShow.calledWith(wrapper.vm.likeLimitModalId)).toBe(true);
             });
           });
-          describe('when there is any other error', () => {
-            // TODO: this tests nothing, fix it.
-            // it('throws an error', async() => {
-            //   const wrapper = factory({ $auth,
-            //     storeState: { liked: [] },
-            //     storeDispatch: sinon.stub().rejects() });
-            //
-            //   const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-            //   await likeButton.trigger('click');
-            //
-            //   await expect(wrapper.vm.$store.dispatch()).rejects.toThrowError();
-            // });
-          });
         });
       });
 
@@ -357,18 +344,6 @@ describe('components/account/UserButtons', () => {
 
               expect(bvModalShow.calledWith(`pinned-limit-modal-${identifier}`)).toBe(true);
             });
-          });
-          describe('when there is any other error', () => {
-            // TODO: this tests nothing, fix it.
-            // it('throws an error', async() => {
-            //   const wrapper = factory({ storeDispatch: sinon.stub().rejects() });
-            //   await wrapper.setProps({ showPins: true });
-            //
-            //   const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
-            //   await pinButton.trigger('click');
-            //
-            //   await expect(wrapper.vm.$store.dispatch()).rejects.toThrowError();
-            // });
           });
         });
       });

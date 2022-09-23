@@ -97,11 +97,7 @@ describe('middleware/legacy', () => {
       const toQuery = qs.parse(rule.to.split('?')[1], { depth: 0 });
       const status = rule.status || 301;
 
-      if (Object.keys(toQuery).length > 0) {
-        expect(redirect.calledWith(status, { path: toPath, query: toQuery })).toBe(true);
-      } else {
-        expect(redirect.calledWith(status, { path: toPath, query: {} })).toBe(true);
-      }
+      expect(redirect.calledWith(status, { path: toPath, query: toQuery })).toBe(true);
     });
   }
 });

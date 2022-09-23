@@ -69,70 +69,96 @@ describe('components/generic/ContentCard', () => {
     });
 
     describe('card subtitle', () => {
-      const tests = [
-        {
-          type: 'blog',
-          urls: [
-            'https://blog.europeana.eu/2019/11/vespa-and-piaggio-icons-of-italian-industrial-design/',
-            'https://www.europeana.eu/en/blog/introducing-the-new-europeana-demo',
-            { name: 'blog___en', params: { pathMatch: 'introducing-the-new-europeana-demo' } }
-          ]
-        },
-        {
-          type: 'exhibitions',
-          urls: [
-            'https://www.europeana.eu/en/exhibitions/pioneers',
-            { name: 'exhibitions___en', params: { exhibition: 'pioneeers' } }
-          ]
-        },
-        {
-          type: 'galleries',
-          urls: [
-            'https://www.europeana.eu/en/galleries/board-games',
-            { name: 'galleries___en', params: { pathMatch: 'board-games' } }
-          ]
-        },
-        {
-          type: 'collections',
-          urls: [
-            'https://www.europeana.eu/en/collections/topic/207-byzantine-art',
-            { name: 'collections___en', params: { type: 'topic' } }
-          ]
-        },
-        {
-          type: 'collections',
-          urls: [
-            'https://www.europeana.eu/en/collections/topic/83-world-war-i',
-            { name: 'collections___en', params: { type: 'topic', pathMatch: '83' } }
-          ]
+      describe('for blog', () => {
+        const urls = [
+          'https://blog.europeana.eu/2019/11/vespa-and-piaggio-icons-of-italian-industrial-design/',
+          'https://www.europeana.eu/en/blog/introducing-the-new-europeana-demo',
+          { name: 'blog___en', params: { pathMatch: 'introducing-the-new-europeana-demo' } }
+        ];
+
+        for (const url of urls) {
+          it(`is shown for ${JSON.stringify(url)}`, async() => {
+            const wrapper = factory();
+            await wrapper.setProps({ url });
+
+            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
+
+            expect(subtitle.text()).toBe('blog.posts');
+          });
         }
-      ];
+      });
 
-      for (const test of tests) {
-        describe(`for ${test.type}`, () => {
-          for (const url of test.urls) {
-            it(`is shown for ${JSON.stringify(url)}`, async() => {
-              const wrapper = factory();
-              await wrapper.setProps({ url });
+      describe('for exhibitions', () => {
+        const urls = [
+          'https://www.europeana.eu/en/exhibitions/pioneers',
+          { name: 'exhibitions___en', params: { exhibition: 'pioneeers' } }
+        ];
 
-              const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
-              if (test.type === 'collections') {
-                if (wrapper.vm.themes.some(theme => (typeof url === 'string' && url.includes(theme))
-                || theme === url.params?.pathMatch)) {
-                  // TO DO remove when thematic collections topics get there own 'theme' type
-                  expect(subtitle.text()).toBe('cardLabels.theme');
-                } else {
-                  expect(subtitle.text()).toBe(`cardLabels.${test.urls[1].params.type}`);
-                }
-              } else if (test.type === 'blog') {
-                expect(subtitle.text()).toBe('blog.posts');
-              } else {
-                expect(subtitle.text()).toBe(`${test.type}.${test.type}`);
-              }
-            });
-          }
-        });
-      }
+        for (const url of urls) {
+          it(`is shown for ${JSON.stringify(url)}`, async() => {
+            const wrapper = factory();
+            await wrapper.setProps({ url });
+
+            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
+
+            expect(subtitle.text()).toBe('exhibitions.exhibitions');
+          });
+        }
+      });
+
+      describe('for galleries', () => {
+        const urls = [
+          'https://www.europeana.eu/en/galleries/board-games',
+          { name: 'galleries___en', params: { pathMatch: 'board-games' } }
+        ];
+
+        for (const url of urls) {
+          it(`is shown for ${JSON.stringify(url)}`, async() => {
+            const wrapper = factory();
+            await wrapper.setProps({ url });
+
+            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
+
+            expect(subtitle.text()).toBe('galleries.galleries');
+          });
+        }
+      });
+
+      describe('for themes', () => {
+        const urls = [
+          'https://www.europeana.eu/en/collections/topic/83-world-war-i',
+          { name: 'collections___en', params: { type: 'topic', pathMatch: '83' } }
+        ];
+
+        for (const url of urls) {
+          it(`is shown for ${JSON.stringify(url)}`, async() => {
+            const wrapper = factory();
+            await wrapper.setProps({ url });
+
+            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
+
+            expect(subtitle.text()).toBe('cardLabels.theme');
+          });
+        }
+      });
+
+      describe('for collections', () => {
+        const urls = [
+          'https://www.europeana.eu/en/collections/topic/207-byzantine-art',
+          { name: 'collections___en', params: { type: 'topic' } }
+        ];
+
+        for (const url of urls) {
+          it(`is shown for ${JSON.stringify(url)}`, async() => {
+            const wrapper = factory();
+            await wrapper.setProps({ url });
+
+            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
+
+            expect(subtitle.text()).toBe('cardLabels.topic');
+          });
+        }
+      });
     });
 
     describe('card body', () => {

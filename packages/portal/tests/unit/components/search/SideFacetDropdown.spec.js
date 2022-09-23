@@ -619,21 +619,6 @@ describe('components/search/SideFacetDropdown', () => {
           expect(wrapper.vm.activeLabel).toBe(true);
         });
       });
-      // describe('when a search term is inserted', () => {
-      //   it('returns true', () => {
-      // const wrapper = factory({
-      //   propsData: {
-      //     search: true
-      //   }
-      // });
-      // wrapper.setData({ fields: countryFields });
-
-      // const searchInput = wrapper.find('[data-qa="side facet dropdown input"]');
-      // searchInput.trigger('keydown.e');
-
-      // expect(wrapper.vm.activeLabel).toBe(true);
-      // });
-      // });
     });
 
     describe('isColourPalette', () => {
