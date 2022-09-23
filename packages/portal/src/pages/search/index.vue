@@ -78,12 +78,12 @@
       }
     },
 
-    mounted() {
-      this.$store.commit('search/enableCollectionFacet');
-    },
-
     watch: {
       '$route.query.page': 'watchRouteQueryPage'
+    },
+
+    mounted() {
+      this.$store.commit('search/enableCollectionFacet');
     },
 
     methods: {
