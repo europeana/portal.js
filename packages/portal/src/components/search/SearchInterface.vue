@@ -74,12 +74,12 @@
                           {{ $t('noMoreResults') }}
                         </p>
                         <ItemPreviewCardGroup
+                          id="item-search-results"
                           :items="results"
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
                           :show-related="showRelated"
-                          id="item-search-results"
                         >
                           <slot />
                           <template

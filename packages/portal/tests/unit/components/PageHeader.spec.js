@@ -1,68 +1,83 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import PageHeader from '@/components/PageHeader.vue';
 import BootstrapVue from 'bootstrap-vue';
-import Vuex from 'vuex';
 
 const localVue = createLocalVue();
-localVue.use(Vuex);
 localVue.use(BootstrapVue);
 localVue.directive('visible-on-scroll', () => { });
 
-const factory = (options = {}) => shallowMount(PageHeader, {
+const factory = () => shallowMount(PageHeader, {
   localVue,
   mocks: {
     $t: (key) => {
       return `TRANSLATED: ${key}`;
     },
-    $path: (code) => window.location.href + code
+    $path: (code) => window.location.href + code,
+    $store: {
+      commit(mutation, payload) {
+        if (mutation === 'search/setShowSearchBar') {
+          this.state.search.showSearchBar = payload;
+        }
+      },
+      state: { search: { showSearchBar: false } }
+    }
   },
-  stubs: { transition: true },
-  store: options.store || store({ showSearchBar: options.showSearch || false })
+  stubs: { transition: true }
 });
 
-const store = (searchState = {}) => {
-  return new Vuex.Store({
-    state: {
-      search: searchState
-    },
-    mutations: {
-      'search/setShowFiltersSheet': () => null
-    }
-  });
-};
-
 describe('components/PageHeader', () => {
-  it('contains a search form', () => {
-    const wrapper = factory({ showSearch: true });
+  describe('template', () => {
+    describe('search form', () => {
+      it('is hidden by default', () => {
+        const wrapper = factory();
 
-    const form = wrapper.find('[data-qa="search form wrapper"]');
-    expect(form.isVisible()).toBe(true);
-  });
+        const form = wrapper.find('[data-qa="search form wrapper"]');
 
-  it('contains the logo', () => {
-    const wrapper = factory();
-    const logo = wrapper.find('[data-qa="logo"]');
-    expect(logo.attributes().src).toMatch(/\/logo\.svg$/);
-  });
+        expect(form.exists()).toBe(false);
+      });
 
-  it('contains the top nav', () => {
-    const wrapper = factory();
+      it('is shown when toggled by the search button', async() => {
+        const wrapper = factory();
 
-    const nav = wrapper.find('[data-qa="top navigation"]');
-    expect(nav.isVisible()).toBe(true);
-  });
+        const button = wrapper.find('[data-qa="show search button"]');
+        await button.trigger('click');
 
-  it('contains the sidebar hamburger button', () => {
-    const wrapper = factory();
+        const form = wrapper.find('[data-qa="search form wrapper"]');
 
-    const sidebarButton = wrapper.find('b-button-stub.navbar-toggle');
-    expect(sidebarButton.isVisible()).toBe(true);
-  });
+        expect(form.isVisible()).toBe(true);
+      });
+    });
 
-  it('shows the sidebar when the sidebar is set to visible', () => {
-    const wrapper = factory();
+    it('contains the logo', () => {
+      const wrapper = factory();
 
-    const nav = wrapper.find('[data-qa="sidebar navigation"]');
-    expect(nav.isVisible()).toBe(true);
+      const logo = wrapper.find('[data-qa="logo"]');
+
+      expect(logo.attributes().src).toMatch(/\/logo\.svg$/);
+    });
+
+    it('contains the top nav', () => {
+      const wrapper = factory();
+
+      const nav = wrapper.find('[data-qa="top navigation"]');
+
+      expect(nav.isVisible()).toBe(true);
+    });
+
+    it('contains the sidebar hamburger button', () => {
+      const wrapper = factory();
+
+      const sidebarButton = wrapper.find('b-button-stub.navbar-toggle');
+
+      expect(sidebarButton.isVisible()).toBe(true);
+    });
+
+    it('shows the sidebar when the sidebar is set to visible', () => {
+      const wrapper = factory();
+
+      const nav = wrapper.find('[data-qa="sidebar navigation"]');
+
+      expect(nav.isVisible()).toBe(true);
+    });
   });
 });

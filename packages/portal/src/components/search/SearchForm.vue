@@ -1,11 +1,13 @@
 <template>
   <div
+    v-show="showForm"
     ref="searchdropdown"
     class="open"
     :class="{
       'top-search': inTopNav,
       'suggestions-open': showSearchOptions
     }"
+    @keydown="handleKeyDown"
   >
     <b-button
       v-if="inTopNav"
@@ -13,7 +15,7 @@
       class="button-icon-only icon-back back-button"
       variant="light-flat"
       :aria-label="$t('header.backToMenu')"
-      @click="toggleSearchBar()"
+      @click.prevent="handleHide"
     />
     <b-form
       ref="form"
@@ -77,7 +79,6 @@
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
-  import { mapGetters } from 'vuex';
   import match from 'autosuggest-highlight/match';
   import parse from 'autosuggest-highlight/parse';
 
@@ -91,7 +92,17 @@
     },
 
     props: {
+      show: {
+        type: Boolean,
+        default: true
+      },
+
       inTopNav: {
+        type: Boolean,
+        default: false
+      },
+
+      hidableForm: {
         type: Boolean,
         default: false
       }
@@ -103,14 +114,15 @@
         gettingSuggestions: false,
         suggestions: {},
         activeSuggestionsQueryTerm: null,
-        showSearchOptions: false
+        showSearchOptions: false,
+        showForm: this.show
       };
     },
 
     computed: {
-      ...mapGetters({
-        view: 'search/activeView'
-      }),
+      view() {
+        return this.$store.getters['search/activeView'];
+      },
 
       onSearchableCollectionPage() {
         // Auto suggest on search form will be disabled on entity pages.
@@ -180,6 +192,7 @@
       routePath() {
         return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
       },
+
       showQuickSearch() {
         return this.inTopNav && !this.onSearchableCollectionPage && !this.query;
       }
@@ -196,12 +209,13 @@
       },
       showSearchOptions(newVal) {
         if (newVal === true) {
-          window.addEventListener('click', this.clickOutside);
-          window.addEventListener('keydown', this.handleKeyDown);
+          window.addEventListener('click', this.handleClickOrTabOutside);
         } else {
-          window.removeEventListener('click', this.clickOutside);
-          window.removeEventListener('keydown', this.handleKeyDown);
+          window.removeEventListener('click', this.handleClickOrTabOutside);
         }
+      },
+      show(newVal) {
+        this.showForm = newVal;
       }
     },
 
@@ -329,27 +343,31 @@
         });
       },
 
-      clickOutside(event) {
+      handleClickOrTabOutside(event) {
         const targetOutsideSearchDropdown = event.target?.id !== 'show-search-button' && this.$refs.searchdropdown && !this.$refs.searchdropdown.contains(event.target);
         if ((event.type === 'click' || event.key === 'Tab') && targetOutsideSearchDropdown) {
           this.showSearchOptions = false;
         }
       },
 
-      toggleSearchBar() {
-        this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
-      },
-
       handleKeyDown(event) {
-        this.clickOutside(event);
+        this.handleClickOrTabOutside(event);
         if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
           event.preventDefault();
           this.navigateWithArrowKeys(event);
         }
         if (event.key === 'Escape') {
-          this.blurInput();
-          this.showSearchOptions = false;
+          this.handleHide();
         }
+      },
+
+      handleHide() {
+        this.blurInput();
+        this.showSearchOptions = false;
+        if (this.hidableForm) {
+          this.showForm = false;
+        }
+        this.$emit('hide');
       },
 
       navigateWithArrowKeys(event) {
