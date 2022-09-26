@@ -31,7 +31,7 @@ export default {
       return translateWithFallbackOrNull(this, key, (locale) => this.$tc(key, count, locale, values));
     },
 
-    tFacetKey(facetName, key, { count = 1, collection = null }) {
+    tFacetKey(facetName, key, { count = 1, collection = null } = {}) {
       const facetNameKey = facetName.replace(/\..*$/, '');
 
       if (collection) {
