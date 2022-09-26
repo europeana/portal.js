@@ -338,7 +338,7 @@ describe('components/search/SearchInterface', () => {
           expect(wrapper.vm.apiParams.api).toBe('metadata');
         });
 
-        it('applies user selection if present', () => {
+        it('falls back to collection-specific default', () => {
           const $route = { query: { qf: ['collection:newspaper'] } };
 
           const wrapper = factory({
