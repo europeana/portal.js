@@ -290,6 +290,126 @@ describe('components/search/SearchInterface', () => {
       });
     });
   });
+
+  describe('deriveApiSettings', () => {
+    it('combines userParams and overrideParams into apiParams', () => {
+      const userQuery = 'calais';
+      const userQf = 'TYPE:"IMAGE"';
+      const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
+      const profile = 'minimal';
+      const wrapper = factory({
+        mocks: {
+          $route: {
+            query: {
+              query: userQuery,
+              qf: userQf
+            }
+          }
+        },
+        propsData: {
+          overrideParams: {
+            qf: [overrideQf]
+          }
+        }
+      });
+
+      wrapper.vm.deriveApiSettings();
+
+      expect(wrapper.vm.apiParams).toEqual({
+        query: userQuery,
+        qf: [userQf, overrideQf],
+        profile
+      });
+    });
+
+    describe('within a theme having fulltext API support', () => {
+      describe('metadata/fulltext API selection', () => {
+        it('applies user selection if present', () => {
+          const $route = { query: { qf: ['collection:newspaper'], api: 'metadata' } };
+
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+
+          wrapper.vm.deriveApiSettings();
+
+          expect(wrapper.vm.apiParams.api).toBe('metadata');
+        });
+
+        it('applies user selection if present', () => {
+          const $route = { query: { qf: ['collection:newspaper'] } };
+
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+
+          wrapper.vm.deriveApiSettings();
+
+          expect(wrapper.vm.apiParams.api).toBe('fulltext');
+        });
+      });
+
+      describe('and fulltext API is selected', () => {
+        const $route = { query: { qf: ['collection:newspaper'], api: 'fulltext' } };
+
+        it('sets profile param to "minimal,hits"', () => {
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+
+          wrapper.vm.deriveApiSettings();
+
+          expect(wrapper.vm.apiParams.profile).toBe('minimal,hits');
+        });
+
+        it('sets fulltext API URL option', () => {
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+
+          wrapper.vm.deriveApiSettings();
+
+          expect(wrapper.vm.apiOptions.url).toBe('https://newspapers.eanadev.org/api/v2');
+        });
+      });
+
+      describe('and metadata API is selected', () => {
+        const $route = { query: { qf: ['collection:newspaper'], api: 'metadata' } };
+
+        it('does not set profile param to "minimal,hits"', () => {
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+
+          wrapper.vm.deriveApiSettings();
+
+          expect(wrapper.vm.apiParams.profile).toBe('minimal');
+        });
+
+        it('does not set fulltext API URL option', () => {
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+
+          wrapper.vm.deriveApiSettings();
+
+          expect(wrapper.vm.apiOptions.url).not.toBe('https://newspapers.eanadev.org/api/v2');
+        });
+      });
+    });
+  });
 });
 
 // FIXME: rewrite, refactored from search store
@@ -362,117 +482,6 @@ describe('components/search/SearchInterface', () => {
 //         await store.actions.queryItems({ dispatch, state, getters, commit });
 //
 //         expect(dispatch.calledWith('updateForFailure')).toBe(true);
-//       });
-//     });
-//   });
-//
-//   describe('deriveApiSettings', () => {
-//     const commit = sinon.spy();
-//     const dispatch = sinon.stub().resolves();
-//     const state = {};
-//     const getters = sinon.spy();
-//     const rootGetters = sinon.spy();
-//
-//     it('combines userParams and overrideParams into apiParams', () => {
-//       const userQuery = 'calais';
-//       const userQf = 'TYPE:"IMAGE"';
-//       const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
-//       const profile = 'minimal';
-//
-//       const state = {
-//         userParams: {
-//           query: userQuery,
-//           qf: userQf
-//         },
-//         overrideParams: {
-//           qf: [overrideQf]
-//         }
-//       };
-//
-//       store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-//
-//       expect(commit.calledWith('set', [
-//         'apiParams',
-//         {
-//           query: userQuery,
-//           qf: [userQf, overrideQf],
-//           profile
-//         }
-//       ])).toBe(true);
-//     });
-//
-//     describe('within a theme having fulltext API support', () => {
-//       const getters = { theme: { filters: { api: {} } } };
-//
-//       describe('metadata/fulltext API selection', () => {
-//         it('applies user selection if present', () => {
-//           const state = { userParams: { api: 'metadata' } };
-//           const getters = { theme: { filters: { api: { default: 'fulltext' } } } };
-//
-//           store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-//
-//           expect(
-//             commit.calledWith('set', ['apiParams', sinon.match.has('api', 'metadata')])
-//           ).toBe(true);
-//         });
-//
-//         it('falls back to theme-specific default if set', () => {
-//           const getters = { theme: { filters: { api: { default: 'metadata' } } } };
-//
-//           store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-//
-//           expect(
-//             commit.calledWith('set', ['apiParams', sinon.match.has('api', 'metadata')])
-//           ).toBe(true);
-//         });
-//
-//         it('falls back to fulltext if no theme-specific default', () => {
-//           store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-//
-//           expect(
-//             commit.calledWith('set', ['apiParams', sinon.match.has('api', 'fulltext')])
-//           ).toBe(true);
-//         });
-//       });
-//
-//       describe('and fulltext API is selected', () => {
-//         const state = { userParams: { api: 'fulltext' } };
-//
-//         it('sets profile param to "minimal,hits"', () => {
-//           store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-//
-//           expect(
-//             commit.calledWith('set', ['apiParams', sinon.match.has('profile', 'minimal,hits')])
-//           ).toBe(true);
-//         });
-//
-//         it('sets fulltext API URL option', () => {
-//           store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-//
-//           expect(
-//             commit.calledWith('set', ['apiOptions', sinon.match.has('url', 'https://newspapers.eanadev.org/api/v2')])
-//           ).toBe(true);
-//         });
-//       });
-//
-//       describe('and metadata API is selected', () => {
-//         const state = { userParams: { api: 'metadata' } };
-//
-//         it('does not set profile param to "minimal,hits"', () => {
-//           store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-//
-//           expect(
-//             commit.calledWith('set', ['apiParams', sinon.match.has('profile', 'minimal,hits')])
-//           ).toBe(false);
-//         });
-//
-//         it('does not set fulltext API URL option', () => {
-//           store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-//
-//           expect(
-//             commit.calledWith('set', ['apiOptions', sinon.match.has('url', 'https://newspapers.eanadev.org/api/v2')])
-//           ).toBe(false);
-//         });
 //       });
 //     });
 //   });
