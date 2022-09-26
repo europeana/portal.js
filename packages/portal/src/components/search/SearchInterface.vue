@@ -305,11 +305,11 @@
       // TODO: could this be refactored into two computed properties, for
       //       apiOptions, and apiParams?
       deriveApiSettings() {
-        const userParams = Object.assign({}, this.userParams || {});
+        const userParams = { ...this.userParams };
         // Coerce qf from user input into an array as it may be a single string
         userParams.qf = [].concat(userParams.qf || []);
 
-        const apiParams = merge(userParams, this.overrideParams || {});
+        const apiParams = merge(userParams, this.overrideParams);
 
         if (!apiParams.profile) {
           apiParams.profile = 'minimal';
@@ -324,7 +324,7 @@
         if (this.theme?.filters?.api) {
           // Set default API (of fulltext or metadata), from theme config
           if (!apiParams.api) {
-            apiParams.api = this.theme.filters.api.default || 'fulltext';
+            apiParams.api = this.theme.filters.api.default
           }
           if (apiParams.api === 'fulltext') {
             apiParams.profile = 'minimal,hits';
