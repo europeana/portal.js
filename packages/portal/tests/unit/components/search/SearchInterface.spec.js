@@ -228,6 +228,16 @@ describe('components/search/SearchInterface', () => {
     });
   });
 
+  describe('destroyed', () => {
+    it('stores that the search is inactive', async() => {
+      const wrapper = factory();
+
+      await wrapper.destroy();
+
+      expect(wrapper.vm.$store.commit.calledWith('search/setActive', false)).toBe(true);
+    });
+  });
+
   describe('methods', () => {
     describe('setViewFromRouteQuery', () => {
       describe('with view in route query', () => {
