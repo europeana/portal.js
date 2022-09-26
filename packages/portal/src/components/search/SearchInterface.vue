@@ -324,7 +324,7 @@
         if (this.theme?.filters?.api) {
           // Set default API (of fulltext or metadata), from theme config
           if (!apiParams.api) {
-            apiParams.api = this.theme.filters.api.default
+            apiParams.api = this.theme.filters.api.default;
           }
           if (apiParams.api === 'fulltext') {
             apiParams.profile = 'minimal,hits';

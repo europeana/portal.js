@@ -54,23 +54,6 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
 describe('components/search/SearchInterface', () => {
   beforeEach(() => sinon.resetHistory());
 
-  describe('template', () => {
-    describe('with `error` in search state', () => {
-      it('displays the message', () => {
-        const errorMessage = 'Something went very wrong';
-        const wrapper = factory({
-          storeState: {
-            error: errorMessage
-          }
-        });
-
-        const errorNotice = wrapper.find(`[error="${errorMessage}"]`);
-
-        expect(errorNotice).toBeDefined();
-      });
-    });
-  });
-
   describe('fetch', () => {
     it('activates the search in the store', async() => {
       const wrapper = factory();
@@ -80,19 +63,6 @@ describe('components/search/SearchInterface', () => {
       expect(wrapper.vm.$store.commit.calledWith('search/setActive')).toBe(true);
     });
 
-    // FIXME: update
-    // it('commits user params to the store from the route query', async() => {
-    //   const wrapper = factory();
-    //   sinon.spy(wrapper.vm.$store, 'commit');
-    //   const routeQuery = { query: 'history', page: 2 };
-    //   wrapper.vm.$route = { query: routeQuery };
-    //
-    //   await wrapper.vm.fetch();
-    //
-    //   expect(wrapper.vm.$store.commit.calledWith('search/set', ['userParams', routeQuery])).toBe(true);
-    // });
-    //
-
     it('runs the search via the Record API', async() => {
       const wrapper = factory();
 
@@ -101,22 +71,38 @@ describe('components/search/SearchInterface', () => {
       expect(wrapper.vm.$apis.record.search.called).toBe(true);
     });
 
-    // FIXME: update
-    // it('handles search API errors', async() => {
-    //   const wrapper = factory({ storeState: { error: new Error('API error'), errorStatusCode: 400 } });
-    //   process.server = true;
-    //
-    //   let error;
-    //
-    //   try {
-    //     await wrapper.vm.fetch();
-    //   } catch (e) {
-    //     error = e;
-    //   }
-    //
-    //   expect(error.message).toBe('API error');
-    //   expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(400);
-    // });
+    it('stores the results', async() => {
+      const results = [
+        {
+          europeanaId: '/123/abc',
+          dcTitle: { def: ['Record 123/abc'] },
+          edmPreview: 'https://www.example.org/abc.jpg',
+          edmDataProvider: ['Provider 123']
+        }
+      ];
+      const wrapper = factory();
+      wrapper.vm.$apis.record.search.resolves({ items: results });
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.results).toEqual(results);
+    });
+
+    it('handles search API errors', async() => {
+      const wrapper = factory();
+      process.server = true;
+      wrapper.vm.$apis.record.search.throws({ statusCode: 400, message: 'Client error' });
+
+      let error;
+      try {
+        await wrapper.vm.fetch();
+      } catch (e) {
+        error = e;
+      }
+
+      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(400);
+      expect(error.message).toBe('Client error');
+    });
 
     it('treats no results as an error', async() => {
       const wrapper = factory();
@@ -411,78 +397,3 @@ describe('components/search/SearchInterface', () => {
     });
   });
 });
-
-// FIXME: rewrite, refactored from search store
-// describe('actions', () => {
-//   describe('run', () => {
-//     it('derives the API params', async() => {
-//       const dispatch = sinon.stub().resolves();
-//
-//       await store.actions.run({ dispatch, getters: {} });
-//
-//       expect(dispatch.calledWith('deriveApiSettings')).toBe(true);
-//     });
-//
-//     it('queries for items', async() => {
-//       const dispatch = sinon.stub().resolves();
-//
-//       await store.actions.run({ dispatch });
-//
-//       expect(dispatch.calledWith('queryItems')).toBe(true);
-//     });
-//   });
-//
-//   describe('queryItems', () => {
-//     const dispatch = sinon.stub().resolves();
-//     const commit = sinon.spy();
-//     const getters = {};
-//     const searchQuery = 'anything';
-//     const typeQf = 'TYPE:"IMAGE"';
-//     const collectionQf = 'collection:"migration"';
-//     const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
-//
-//     it('searches the Record API', async() => {
-//       store.actions.$apis = {
-//         record: {
-//           search: sinon.stub().resolves({})
-//         }
-//       };
-//
-//       await store.actions.queryItems({ dispatch, state, getters, commit });
-//
-//       expect(store.actions.$apis.record.search.called).toBe(true);
-//     });
-//
-//     describe('on success', () => {
-//       beforeAll(() => {
-//         store.actions.$apis = {
-//           record: {
-//             search: sinon.stub().resolves({})
-//           }
-//         };
-//       });
-//
-//       it('dispatches updateForSuccess', async() => {
-//         await store.actions.queryItems({ dispatch, state, getters, commit });
-//
-//         expect(dispatch.calledWith('updateForSuccess')).toBe(true);
-//       });
-//     });
-//
-//     describe('on failure', () => {
-//       beforeAll(() => {
-//         store.actions.$apis = {
-//           record: {
-//             search: sinon.stub().rejects({})
-//           }
-//         };
-//       });
-//
-//       it('dispatches updateForFailure', async() => {
-//         await store.actions.queryItems({ dispatch, state, getters, commit });
-//
-//         expect(dispatch.calledWith('updateForFailure')).toBe(true);
-//       });
-//     });
-//   });
-// });
