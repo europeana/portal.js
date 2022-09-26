@@ -22,7 +22,7 @@
               {{ $t('filterResults') }}
             </h2>
             <button
-              v-if="hasResettableFilters()"
+              v-if="hasResettableFilters"
               class="btn btn-outline-primary mr-3"
               data-qa="reset filters button"
               @click="resetFilters"
@@ -288,6 +288,9 @@
         const range = rangeFromQueryParam(dateFilterValue[0]);
 
         return range ? { ...range, specific: false } : { start: dateFilterValue[0], end: null, specific: true };
+      },
+      hasResettableFilters() {
+        return this.resettableFilters.length > 0;
       }
     },
     watch: {
@@ -413,9 +416,6 @@
           filters[filterName] = [];
         }
         return this.rerouteSearch(this.queryUpdatesForFilters(filters));
-      },
-      hasResettableFilters() {
-        return this.resettableFilters.length > 0;
       },
       dateFilterSelected(facetName, dateRange) {
         let dateQuery = [];
