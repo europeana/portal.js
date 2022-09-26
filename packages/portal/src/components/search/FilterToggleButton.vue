@@ -21,7 +21,7 @@
 
       hasSelectedFilters() {
         return Object.keys(this.$route.query)
-          .some((key) => ['qf', 'query', 'api', 'reusability'].includes(key));
+          .some((key) => ['qf', 'api', 'reusability'].includes(key));
       }
     },
 
