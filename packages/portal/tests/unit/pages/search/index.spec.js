@@ -73,19 +73,7 @@ const factory = (query) => shallowMountNuxt(page, {
 });
 
 describe('pages/item/_.vue', () => {
-  afterEach(() => {
-    sinon.resetHistory();
-  });
-
-  describe('fetch()', () => {
-    it('resets overrideParams on the search store', async() => {
-      const wrapper = factory();
-
-      await wrapper.vm.fetch();
-
-      expect(searchSet.called).toBe(true);
-    });
-  });
+  afterEach(sinon.resetHistory);
 
   describe('methods', () => {
     describe('showRelatedSection()', () => {

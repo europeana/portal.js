@@ -11,26 +11,20 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import themes from '@/plugins/europeana/themes';
-
   export default {
+    name: 'FilterToggleButton',
+
     computed: {
-      ...mapState({
-        showFiltersToggle: state => state.search.showFiltersToggle,
-        userParams: state => state.search.userParams
-      }),
+      showFiltersToggle() {
+        return this.$store.state.search.showFiltersToggle;
+      },
+
       hasSelectedFilters() {
-        return this.userParams?.qf || this.userParams?.reusability ||
-          (this.userParams?.api && this.themeDefaultApi && this.userParams?.api !== this.themeDefaultApi);
-      },
-      collection() {
-        return this.$store.getters['search/collection'];
-      },
-      themeDefaultApi() {
-        return themes.find(theme => theme.qf === this.collection)?.filters?.api?.default;
+        return Object.keys(this.$route.query)
+          .some((key) => ['qf', 'query', 'api', 'reusability'].includes(key));
       }
     },
+
     methods: {
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);

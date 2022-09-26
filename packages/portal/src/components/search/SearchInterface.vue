@@ -121,6 +121,10 @@
       </b-col>
       <SideFilters
         :route="route"
+        :collection="collection"
+        :api-params="apiParams"
+        :api-options="apiOptions"
+        :user-params="userParams"
       />
     </b-row>
   </b-container>
@@ -131,9 +135,12 @@
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
 
+  import { BASE_URL as FULLTEXT_BASE_URL } from '@/plugins/europeana/newspaper';
   import makeToastMixin from '@/mixins/makeToast';
+  import themes from '@/plugins/europeana/themes';
+  import { filtersFromQf } from '@/plugins/europeana/search';
 
-  import { mapState } from 'vuex';
+  import merge from 'deepmerge';
 
   export default {
     name: 'SearchInterface',
@@ -149,9 +156,11 @@
       SideFilters: () => import('./SideFilters'),
       ViewToggles
     },
+
     mixins: [
       makeToastMixin
     ],
+
     props: {
       perPage: {
         type: Number,
@@ -159,9 +168,7 @@
       },
       route: {
         type: Object,
-        default: () => {
-          return { name: 'search' };
-        }
+        default: () => ({ name: 'search' })
       },
       showPins: {
         type: Boolean,
@@ -174,37 +181,52 @@
       editorialOverrides: {
         type: Object,
         default: null
+      },
+      overrideParams: {
+        type: Object,
+        default: () => ({})
       }
+    },
+
+    data() {
+      return {
+        apiOptions: {},
+        apiParams: {},
+        collection: null,
+        hits: null,
+        lastAvailablePage: null,
+        results: [],
+        theme: null,
+        totalResults: null
+      };
     },
 
     async fetch() {
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
       this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
-      this.viewFromRouteQuery();
+      this.setViewFromRouteQuery();
 
-      this.$store.dispatch('search/activate');
-      this.$store.commit('search/set', ['userParams', this.$route.query]);
+      this.$store.commit('search/setActive', true);
 
-      await this.$store.dispatch('search/run');
-
-      if (this.$store.state.search.error) {
+      try {
+        await this.runSearch();
+      } catch (error) {
         if (process.server) {
-          this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
+          this.$nuxt.context.res.statusCode = error.statusCode || 500;
         }
-        throw this.$store.state.search.error;
-      } else if (this.noResults) {
+        throw error;
+      }
+
+      if (this.noResults) {
         throw new Error(this.$t('noResults'));
       }
     },
+
     computed: {
-      ...mapState({
-        userParams: state => state.search.userParams,
-        hits: state => state.search.hits,
-        lastAvailablePage: state => state.search.lastAvailablePage,
-        results: state => state.search.results,
-        totalResults: state => state.search.totalResults
-      }),
+      userParams() {
+        return this.$route.query;
+      },
       qf() {
         return this.userParams.qf;
       },
@@ -250,7 +272,7 @@
         return this.$store.getters['debug/settings'];
       },
       showSearchBoostingForm() {
-        return this.debugSettings?.boosting;
+        return !!this.debugSettings?.boosting;
       },
       routeQueryView() {
         return this.$route.query.view;
@@ -266,7 +288,7 @@
     },
 
     watch: {
-      routeQueryView: 'viewFromRouteQuery',
+      routeQueryView: 'setViewFromRouteQuery',
       '$route.query.api': '$fetch',
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
@@ -276,15 +298,59 @@
     },
 
     destroyed() {
-      this.$store.dispatch('search/deactivate');
+      this.$store.commit('search/setActive', false);
     },
 
     methods: {
-      viewFromRouteQuery() {
+      // TODO: could this be refactored into two computed properties, for
+      //       apiOptions, and apiParams?
+      deriveApiSettings() {
+        const userParams = Object.assign({}, this.userParams || {});
+        // Coerce qf from user input into an array as it may be a single string
+        userParams.qf = [].concat(userParams.qf || []);
+
+        const apiParams = merge(userParams, this.overrideParams || {});
+
+        if (!apiParams.profile) {
+          apiParams.profile = 'minimal';
+        }
+
+        const collectionFilter = filtersFromQf(apiParams.qf).collection;
+        this.collection = collectionFilter ? collectionFilter[0] : null;
+        this.theme = themes.find(theme => theme.qf === this.collection);
+
+        const apiOptions = {};
+
+        if (this.theme?.filters?.api) {
+          // Set default API (of fulltext or metadata), from theme config
+          if (!apiParams.api) {
+            apiParams.api = this.theme.filters.api.default || 'fulltext';
+          }
+          if (apiParams.api === 'fulltext') {
+            apiParams.profile = 'minimal,hits';
+            apiOptions.url = FULLTEXT_BASE_URL;
+          }
+        }
+
+        this.apiOptions = apiOptions;
+        this.apiParams = apiParams;
+      },
+
+      async runSearch() {
+        this.deriveApiSettings();
+
+        const response = await this.$apis.record.search(this.apiParams, { ...this.apiOptions, locale: this.$i18n.locale });
+
+        this.hits = response.hits;
+        this.lastAvailablePage = response.lastAvailablePage;
+        this.results = response.items;
+        this.totalResults = response.totalResults;
+      },
+
+      setViewFromRouteQuery() {
         if (this.routeQueryView) {
           this.view = this.routeQueryView;
           this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
-          this.$store.commit('search/set', ['userParams', this.$route.query]);
         }
       }
     }

@@ -40,7 +40,7 @@
                 @remove="removeOption({ tag, removeTag })"
               >
                 <span>
-                  {{ tFacetOption(name, tag, true) }}
+                  {{ tFacetOption(name, tag, { escaped: true, collection }) }}
                 </span>
               </b-form-tag>
             </li>
@@ -58,7 +58,7 @@
           >
             <template #button-content>
               <span class="select-label">
-                {{ tFacetKey(name, 'select') }}
+                {{ tFacetKey(name, 'select', { collection }) }}
               </span>
             </template>
             <template
@@ -92,7 +92,7 @@
               @click="selectOption({ option, addTag, removeTag })"
             >
               <span v-if="isRadio">
-                {{ tFacetOption(name, option) }}
+                {{ tFacetOption(name, option, { collection }) }}
               </span>
               <template v-else>
                 <ColourSwatch
@@ -100,7 +100,7 @@
                   :hex-code="option.label"
                 />
                 <span>
-                  {{ tFacetOption(name, option.label) }}
+                  {{ tFacetOption(name, option.label, { collection }) }}
                 </span>
                 <span>({{ option.count | localise }})</span>
               </template>
@@ -146,7 +146,6 @@
   import { unquotableFacets } from '@/plugins/europeana/search';
   import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils';
   import facetsMixin from '@/mixins/facets';
-  import { mapState } from 'vuex';
 
   /**
    * Dropdown for search facet, with removable tags and optional search.
@@ -213,6 +212,30 @@
       groupBy: {
         type: Array,
         default: null
+      },
+
+      /**
+       * Collection searched within
+       */
+      collection: {
+        type: String,
+        default: null
+      },
+
+      /**
+       * API parameters for a facet search
+       */
+      apiParams: {
+        type: Object,
+        default: () => ({})
+      },
+
+      /**
+       * API options for a facet search
+       */
+      apiOptions: {
+        type: Object,
+        default: () => ({})
       }
     },
 
@@ -285,7 +308,10 @@
       sortedOptions() {
         if (this.isRadio) {
           // Slice to make a copy, as sort occurs in place
-          return this.fields.slice(0).sort((a, b) => this.tFacetOption(this.name, a).localeCompare(this.tFacetOption(this.name, b)));
+          return this.fields.slice(0).sort((a, b) => {
+            return this.tFacetOption(this.name, a, { collection: this.collection })
+              .localeCompare(this.tFacetOption(this.name, b, { collection: this.collection }));
+          });
         }
 
         const fields = this.groupedOptions;
@@ -311,7 +337,7 @@
         if (criteria) {
           return options.filter(option => {
             const optionLabel = this.isRadio ? option : option.label;
-            const optionLocalisedLabel = this.tFacetOption(this.name, optionLabel);
+            const optionLocalisedLabel = this.tFacetOption(this.name, optionLabel, { collection: this.collection });
             const exactMatch = optionLocalisedLabel.toLowerCase().indexOf(criteria) > -1;
             const facetValueMatch = optionLabel.toLowerCase().indexOf(criteria) > -1;
             return exactMatch || facetValueMatch;
@@ -340,19 +366,15 @@
       },
 
       facetName() {
-        return this.tFacetName(this.name);
+        return this.tFacetName(this.name, { collection: this.collection });
       },
 
       facetNameNoSpaces() {
-        return this.tFacetName(this.name).replace(/\s/g, '-').toLowerCase();
+        return this.facetName.replace(/\s/g, '-').toLowerCase();
       },
 
       isRadio() {
         return this.type === this.RADIO;
-      },
-
-      collection() {
-        return this.$store.getters['search/collection'];
       },
 
       theme() {
@@ -360,7 +382,7 @@
       },
 
       moreOptionsName() {
-        return this.tFacetKey(this.name, 'moreName');
+        return this.tFacetKey(this.name, 'moreName', { collection: this.collection });
       },
 
       themeSpecificFieldLabelPattern() {
@@ -386,11 +408,7 @@
 
       activeLabel() {
         return this.selectedFilters[this.name].length > 0 || this.activeSearchInput;
-      },
-      ...mapState({
-        apiOptions: state => state.search.apiOptions,
-        apiParams: state => state.search.apiParams
-      })
+      }
     },
 
     watch: {

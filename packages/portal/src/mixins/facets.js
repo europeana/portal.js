@@ -31,10 +31,9 @@ export default {
       return translateWithFallbackOrNull(this, key, (locale) => this.$tc(key, count, locale, values));
     },
 
-    tFacetKey(facetName, key, count = 1) {
+    tFacetKey(facetName, key, { count = 1, collection = null }) {
       const facetNameKey = facetName.replace(/\..*$/, '');
 
-      const collection = this.$store.getters['search/collection'];
       if (collection) {
         const collectionLabel = this.tcNull(`collections.${collection}.facets.${facetNameKey}.${key}`, count);
         if (collectionLabel) {
@@ -47,14 +46,13 @@ export default {
       return genericLabel || facetNameKey;
     },
 
-    tFacetName(facetName, count = 1) {
-      return this.tFacetKey(facetName, 'name', count);
+    tFacetName(facetName, { count = 1, collection = null } = {}) {
+      return this.tFacetKey(facetName, 'name', { count, collection });
     },
 
-    tFacetOption(facetName, fieldValue, escaped) {
+    tFacetOption(facetName, fieldValue, { escaped = false, collection = null } = {}) {
       const MIME_TYPE = 'MIME_TYPE';
 
-      const collection = this.$store.getters['search/collection'];
       const selectedTheme = themes.find(theme => theme.qf === collection);
       const themeSpecificFieldLabelPattern = (selectedTheme?.facets || []).find((facet) => facet.field === facetName)?.label;
 
