@@ -8,14 +8,13 @@ localVue.use(BootstrapVue);
 
 const gotoSpy = sinon.spy();
 
-const factory = (options = {}) => shallowMount(PaginationNavInput, {
+const factory = ({ mocks } = {}) => shallowMount(PaginationNavInput, {
   localVue,
   mocks: {
-    ...{
-      $t: () => {},
-      $route: { query: { page: 1 } },
-      $goto: gotoSpy
-    }, ...(options.mocks || {})
+    $t: () => {},
+    $route: { query: { page: 1 } },
+    $goto: gotoSpy,
+    ...mocks
   }
 });
 
@@ -88,10 +87,19 @@ describe('components/generic/PaginationNavInput', () => {
       it('triggers a redirect to the new page', async() => {
         const wrapper = factory();
         await wrapper.setProps({ totalResults: 240, perPage: 24 });
-        await wrapper.setData({ page: 2 });
 
         wrapper.vm.changePaginationNav();
+
         expect(gotoSpy.called).toBe(true);
+      });
+
+      it('emits "change" event', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ totalResults: 240, perPage: 24 });
+
+        wrapper.vm.changePaginationNav();
+
+        expect(wrapper.emitted('change').length).toBe(1);
       });
     });
 
