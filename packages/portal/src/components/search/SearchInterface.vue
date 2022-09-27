@@ -299,7 +299,7 @@
       handleResultsDrawn(cardRefs) {
         if (this.paginationChanged) {
           // Move the focus to the first item
-          const cardLink = cardRefs[0].$el.getElementsByTagName('a')[0];
+          const cardLink = cardRefs?.[0]?.$el?.getElementsByTagName('a')?.[0];
           cardLink?.focus();
           this.paginationChanged = false;
         }

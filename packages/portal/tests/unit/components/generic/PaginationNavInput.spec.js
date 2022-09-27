@@ -101,6 +101,16 @@ describe('components/generic/PaginationNavInput', () => {
 
         expect(wrapper.emitted('change').length).toBe(1);
       });
+
+      it('does nothing if page is blank', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ totalResults: 240, perPage: 24 });
+        await wrapper.setData({ page: '' });
+
+        wrapper.vm.changePaginationNav();
+
+        expect(gotoSpy.called).toBe(false);
+      });
     });
 
     describe('linkGen', () => {
