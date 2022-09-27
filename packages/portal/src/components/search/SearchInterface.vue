@@ -80,7 +80,7 @@
                           :view="view"
                           :show-pins="showPins"
                           :show-related="showRelated"
-                          @drawn="handleItemPreviewCardGroupDrawn"
+                          @drawn="handleResultsDrawn"
                         >
                           <slot />
                           <template
@@ -108,6 +108,7 @@
                         :per-page="perPage"
                         :max-results="1000"
                         aria-controls="item-search-results"
+                        @change="handlePaginationChanged"
                       />
                     </b-col>
                   </b-row>
@@ -150,9 +151,11 @@
       SideFilters: () => import('./SideFilters'),
       ViewToggles
     },
+
     mixins: [
       makeToastMixin
     ],
+
     props: {
       perPage: {
         type: Number,
@@ -176,6 +179,12 @@
         type: Object,
         default: null
       }
+    },
+
+    data() {
+      return {
+        paginationChanged: false
+      };
     },
 
     async fetch() {
@@ -273,8 +282,7 @@
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
-      '$route.query.qf': '$fetch',
-      '$route.query.page': '$fetch'
+      '$route.query.qf': '$fetch'
     },
 
     destroyed() {
@@ -282,16 +290,26 @@
     },
 
     methods: {
+      handlePaginationChanged() {
+        this.paginationChanged = true;
+        this.$fetch();
+      },
+
+      handleResultsDrawn(cardRefs) {
+        if (this.paginationChanged) {
+          // Move the focus to the first item
+          const cardLink = cardRefs[0].$el.getElementsByTagName('a')[0];
+          cardLink?.focus();
+          this.paginationChanged = false;
+        }
+      },
+
       viewFromRouteQuery() {
         if (this.routeQueryView) {
           this.view = this.routeQueryView;
           this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
           this.$store.commit('search/set', ['userParams', this.$route.query]);
         }
-      },
-
-      handleItemPreviewCardGroupDrawn(cardRefs) {
-        this.$emit('resultsUpdated', cardRefs);
       }
     }
   };
