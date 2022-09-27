@@ -1,22 +1,30 @@
 <template>
-  <b-nav
-    align="right"
-  >
-    <b-nav-item
-      v-for="view in views"
-      :key="view"
-      :to="linkGen(view)"
-      :active="activeView === view"
-      :data-qa="`search ${view} view toggle`"
-      class="pl-3"
+  <div>
+    <b-form-group
+      align="right"
     >
-      <span
-        :class="view"
-        class="icon-view-toggle"
-        :title="$t(`searchViews.${view}`)"
-      />
-    </b-nav-item>
-  </b-nav>
+      <b-form-radio
+        v-for="view in views"
+        v-model="value"
+        :key="view"
+        :value="view"
+        :active="value === view"
+        :data-qa="`search ${view} view toggle`"
+        class="pl-3"
+      >
+        <span
+          :class="view"
+          class="icon-view-toggle"
+          :title="$t(`searchViews.${view}`)"
+        >
+          {{ view }}
+        </span>
+      </b-form-radio>
+    </b-form-group>
+    <div class="mt-3">
+      value: <strong>{{ value }}</strong>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,36 +44,20 @@
       value: {
         type: String,
         default: 'grid'
-      },
-
-      /**
-       * Vue route to generate a link for switching the view
-       */
-      linkGenRoute: {
-        type: Object,
-        default: () => {
-          return { name: 'search' };
-        }
       }
     },
     data() {
       return {
-        views: ['list', 'grid', 'mosaic'],
-        activeView: this.value
+        views: ['list', 'grid', 'mosaic']
       };
     },
     watch: {
       value() {
-        this.activeView = this.value;
+        this.$router.push({ ...this.$route, ...{  query: { ...this.$route.query, ...{ view: this.value } } } });
 
         this.$cookies && this.$cookies.set('searchResultsView', this.value);
 
         this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.value);
-      }
-    },
-    methods: {
-      linkGen(view) {
-        return this.$path({ ...this.linkGenRoute, ...{ query: { ...this.$route.query, ...{ view } } } });
       }
     }
   };
