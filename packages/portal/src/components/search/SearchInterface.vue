@@ -108,6 +108,7 @@
                         :per-page="perPage"
                         :max-results="1000"
                         aria-controls="item-search-results"
+                        data-qa="search results pagination"
                         @change="handlePaginationChanged"
                       />
                     </b-col>

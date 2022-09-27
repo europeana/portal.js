@@ -268,6 +268,20 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('methods', () => {
+    describe('handlePaginationChanged', () => {
+      it('is triggered by "change" event on search results pagination', () => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, '$fetch');
+        expect(wrapper.vm.paginationChanged).toBe(false);
+
+        const pagination = wrapper.find('[data-qa="search results pagination"]');
+        pagination.vm.$emit('change');
+
+        expect(wrapper.vm.paginationChanged).toBe(true);
+        expect(wrapper.vm.$fetch.called).toBe(true);
+      });
+    });
+
     describe('viewFromRouteQuery', () => {
       describe('with view in route query', () => {
         const route = { query: { view: 'mosaic', query: 'sport' } };
