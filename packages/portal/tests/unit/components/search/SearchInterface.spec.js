@@ -282,6 +282,42 @@ describe('components/search/SearchInterface', () => {
       });
     });
 
+    describe('handleResultsDrawn', () => {
+      const linkStub = { focus: sinon.spy() };
+      const cardRefs = [
+        { $el: { getElementsByTagName: sinon.stub().withArgs('a').returns([linkStub]) } }
+      ];
+
+      describe('when pagination changed', () => {
+        it('sets focus to link in first card element from refs', () => {
+          const wrapper = factory();
+          wrapper.setData({ paginationChanged: true });
+
+          wrapper.vm.handleResultsDrawn(cardRefs);
+
+          expect(linkStub.focus.called).toBe(true);
+        });
+
+        it('resets paginationChanged', () => {
+          const wrapper = factory();
+          wrapper.setData({ paginationChanged: true });
+
+          wrapper.vm.handleResultsDrawn(cardRefs);
+
+          expect(wrapper.vm.paginationChanged).toBe(false);
+        });
+      });
+
+      it('does not change the focus', () => {
+        const wrapper = factory();
+        wrapper.setData({ paginationChanged: false });
+
+        wrapper.vm.handleResultsDrawn(cardRefs);
+
+        expect(linkStub.focus.called).toBe(false);
+      });
+    });
+
     describe('viewFromRouteQuery', () => {
       describe('with view in route query', () => {
         const route = { query: { view: 'mosaic', query: 'sport' } };
