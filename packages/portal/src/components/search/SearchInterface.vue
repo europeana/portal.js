@@ -197,8 +197,6 @@
       } else if (this.noResults) {
         throw new Error(this.$t('noResults'));
       }
-
-      this.$emit('fetched');
     },
 
     computed: {
