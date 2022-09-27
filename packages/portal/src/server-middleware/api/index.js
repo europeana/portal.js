@@ -32,16 +32,8 @@ app.use((req, res, next) => {
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
-// Redirection of some deprecated API URL paths.
-//
-// TODO: remove redirection of deprecated routes after new routes are
-//       well-established in production
-//
-// Deprecated with v1.63.0:
-app.get('/items/typeCounts', (req, res) => res.redirect('/_api/cache/items/type-counts'));
-
 import cache from './cache/index.js';
-app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
+app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig.redis)(req, res));
 
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));

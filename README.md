@@ -12,7 +12,7 @@
 
 ## Configuration
 
-Configuration options can be set in a .env file (see [.env.example](/.env.example))
+Configuration options can be set in a .env file (see [.env.example](./packages/portal/.env.example))
 or via ENV variables on your machine.
 
 Some core features such as authentication and editorial content require the

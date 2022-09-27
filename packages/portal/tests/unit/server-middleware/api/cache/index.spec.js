@@ -8,7 +8,7 @@ const expressResStub = {
   send: sinon.stub()
 };
 
-const config = { redis: { url: 'redis://localhost:6379' } };
+const config = { url: 'redis://localhost:6379' };
 
 const id = 'items';
 const cached = JSON.stringify([

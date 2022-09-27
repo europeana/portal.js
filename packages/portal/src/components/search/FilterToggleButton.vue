@@ -47,6 +47,10 @@
     &.filters-applied {
       position: relative;
 
+      @at-root .top-search.open & {
+        position: absolute;
+      }
+
       &::after {
         content: '';
         width: 6px;

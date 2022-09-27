@@ -7,10 +7,10 @@ export const cached = (id, config = {}, options = {}) => {
   const defaults = { parse: true };
   const settings = { ...defaults, ...options };
 
-  if (!config.redis.url) {
+  if (!config.url) {
     return Promise.reject(new Error('No cache configured.'));
   }
-  const redisClient = createRedisClient(config.redis);
+  const redisClient = createRedisClient(config);
 
   const key = cacheKey(id);
 
