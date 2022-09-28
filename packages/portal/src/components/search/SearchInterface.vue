@@ -79,7 +79,6 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
-                          :show-related="showRelated"
                         >
                           <slot />
                           <template
@@ -166,10 +165,6 @@
       showPins: {
         type: Boolean,
         default: false
-      },
-      showRelated: {
-        type: Boolean,
-        default: true
       },
       editorialOverrides: {
         type: Object,
