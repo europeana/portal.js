@@ -266,7 +266,7 @@
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
-      '$route.query.qf': '$fetch',
+      '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': '$fetch'
     },
 
@@ -275,6 +275,23 @@
     },
 
     methods: {
+      watchRouteQueryQf(newVal, oldVal) {
+        // Coerce into arrays, handling undefined
+        const newVals = newVal ? [].concat(newVal) : [];
+        const oldVals = oldVal ? [].concat(oldVal) : [];
+
+        // Test that the values in the two arrays have in fact changed in their
+        // contents, as the watch gets triggered by other changes to the route
+        // which result in new array objects being constructed for qf, but having
+        // the same contents.
+        const addedVals = newVals.filter((val) => !oldVals.includes(val));
+        const removedVals = oldVals.filter((val) => !newVals.includes(val));
+        if (addedVals.length === 0 && removedVals.length === 0) {
+          return;
+        }
+
+        this.$fetch();
+      },
       viewFromRouteQuery() {
         if (this.routeQueryView) {
           this.view = this.routeQueryView;
