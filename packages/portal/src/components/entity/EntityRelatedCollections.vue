@@ -7,6 +7,7 @@
       :title="$t('youMightAlsoLike')"
       :related-collections="relatedCollections"
       :entity-uris="entityUris"
+      data-qa="related collections"
       @fetched="handleRelatedCollectionsFetched"
     />
   </b-card>
