@@ -4,7 +4,7 @@
       align="right"
     >
       <b-form-radio-group
-        v-model="value"
+        v-model="selectedValue"
         buttons
       >
         <b-form-radio
@@ -18,8 +18,7 @@
             :class="view"
             class="icon-view-toggle"
             :title="$t(`searchViews.${view}`)"
-          >
-          </span>
+          />
         </b-form-radio>
       </b-form-radio-group>
     </b-form-group>
@@ -27,13 +26,8 @@
 </template>
 
 <script>
-  import { BNav } from 'bootstrap-vue';
-
   export default {
     name: 'ViewToggles',
-    components: {
-      BNav
-    },
     props: {
       /**
        * Selected search results view
@@ -47,16 +41,17 @@
     },
     data() {
       return {
-        views: ['list', 'grid', 'mosaic']
+        views: ['list', 'grid', 'mosaic'],
+        selectedValue: this.value
       };
     },
     watch: {
-      value() {
-        this.$goto({ ...this.$route, ...{  query: { ...this.$route.query, ...{ view: this.value } } } });
+      selectedValue() {
+        this.$cookies && this.$cookies.set('searchResultsView', this.selectedValue);
 
-        this.$cookies && this.$cookies.set('searchResultsView', this.value);
+        this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.selectedValue);
 
-        this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.value);
+        this.$goto({ ...this.$route, ...{  query: { ...this.$route.query, ...{ view: this.selectedValue } } } });
       }
     }
   };
@@ -91,41 +86,55 @@
       }
     }
 
-    label.btn {
+    label.btn, {
       line-height: 1;
       background: none;
       border: 0;
+      padding: 0;
 
       input {
         display: none;
       }
-      // &::before {
-      //   background: $white;
-      //   border-radius: 50%;
-      //   box-sizing: border-box;
-      //   content: '';
-      //   display: block;
-      //   opacity: 0;
-      //   position: absolute;
-      //   transform: scale(0);
-      //   transition-duration: 0.15s;
-      //   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      //   transition-property: transform, opacity;
-      //   bottom: -10px;
-      //   left: -10px;
-      //   right: -10px;
-      //   top: -10px;
-      //   z-index: -1;
-      // }
-      //
-      // &:hover::before {
-      //   opacity: 1;
-      //   transform: scale(1);
-      //   box-shadow: none;
-      // }
+
+      &:hover {
+        box-shadow: none;
+        .icon-view-toggle {
+          color: $greyblack;
+        }
+      }
+
+      &::before {
+        background: $white;
+        border-radius: 50%;
+        box-sizing: border-box;
+        content: '';
+        display: block;
+        opacity: 0;
+        position: absolute;
+        transform: scale(0);
+        transition-duration: 0.15s;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-property: transform, opacity;
+        bottom: -10px;
+        left: -10px;
+        right: -10px;
+        top: -10px;
+        z-index: -1;
+      }
+
+      &:hover::before {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: none;
+      }
 
       &.active {
-        background: none;
+        background: none !important;
+
+        &:hover {
+          box-shadow: none !important;
+        }
+
         .icon-view-toggle {
           color: $greyblack;
         }
