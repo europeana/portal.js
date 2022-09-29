@@ -118,7 +118,14 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       commit: sinon.spy()
     },
     ...options.mocks
-  }
+  },
+  stubs: {
+    'client-only': true,
+    'EntityRelatedCollections': true,
+    'SearchInterface': {
+      template: '<div><slot /><slot name="related" /><slot name="after-results" /></div>'
+    }
+  },
 });
 
 describe('pages/collections/_type/_', () => {
@@ -532,6 +539,18 @@ describe('pages/collections/_type/_', () => {
         wrapper.vm.proxyUpdated();
 
         expect(wrapper.vm.$fetch.called).toBe(true);
+      });
+    });
+
+    describe('handleEntityRelatedCollectionsFetched', () => {
+      it('is triggered by fetched event on related entities component', () => {
+        const wrapper = factory(topicEntity);
+        const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];
+
+        const relatedEntitiesComponent = wrapper.find('[data-qa="related entities"]');
+        relatedEntitiesComponent.vm.$emit('fetched', relatedCollections);
+
+        expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
       });
     });
   });
