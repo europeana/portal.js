@@ -54,9 +54,6 @@
 
     methods: {
       getSearchSuggestions(query) {
-        if (!query) {
-          return Promise.resolve([]);
-        }
         return this.$apis.entity.suggest(query, {
           language: this.$i18n.locale,
           rows: 4
