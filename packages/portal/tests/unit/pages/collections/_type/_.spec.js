@@ -125,7 +125,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     'SearchInterface': {
       template: '<div><slot /><slot name="related" /><slot name="after-results" /></div>'
     }
-  },
+  }
 });
 
 describe('pages/collections/_type/_', () => {

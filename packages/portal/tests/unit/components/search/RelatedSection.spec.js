@@ -74,7 +74,7 @@ describe('components/search/RelatedSection', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.emitted('fetched')).not.toBeDefined;
+        expect(wrapper.emitted('fetched')).toBeUndefined();
       });
     });
 
