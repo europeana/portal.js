@@ -1,28 +1,28 @@
 <template>
-  <div>
-    <b-form-group
-      align="right"
+  <b-form-group
+    align="right"
+  >
+    <b-form-radio-group
+      v-model="activeView"
+      buttons
     >
-      <b-form-radio-group
-        v-model="selectedValue"
-        buttons
+      <b-form-radio
+        v-for="view in views"
+        :key="view"
+        :value="view"
+        :data-qa="`search ${view} view toggle`"
+        :yes="'okay'"
+        no="nope"
+        class="ml-3"
       >
-        <b-form-radio
-          v-for="view in views"
-          :key="view"
-          :value="view"
-          :data-qa="`search ${view} view toggle`"
-          class="pl-3"
-        >
-          <span
-            :class="view"
-            class="icon-view-toggle"
-            :title="$t(`searchViews.${view}`)"
-          />
-        </b-form-radio>
-      </b-form-radio-group>
-    </b-form-group>
-  </div>
+        <span
+          :class="view"
+          class="icon-view-toggle"
+          :title="$t(`searchViews.${view}`)"
+        />
+      </b-form-radio>
+    </b-form-radio-group>
+  </b-form-group>
 </template>
 
 <script>
@@ -42,16 +42,16 @@
     data() {
       return {
         views: ['list', 'grid', 'mosaic'],
-        selectedValue: this.value
+        activeView: this.value
       };
     },
     watch: {
-      selectedValue() {
-        this.$cookies && this.$cookies.set('searchResultsView', this.selectedValue);
+      activeView() {
+        this.$cookies && this.$cookies.set('searchResultsView', this.activeView);
 
-        this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.selectedValue);
+        this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.activeView);
 
-        this.$goto({ ...this.$route, ...{  query: { ...this.$route.query, ...{ view: this.selectedValue } } } });
+        this.$goto({ ...this.$route, ...{  query: { ...this.$route.query, ...{ view: this.activeView } } } });
       }
     }
   };
@@ -60,6 +60,11 @@
 <style lang="scss">
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
+
+  .form-group {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
 
   .btn-group-toggle {
     padding: 0;
@@ -87,14 +92,9 @@
     }
 
     label.btn, {
-      line-height: 1;
       background: none;
       border: 0;
       padding: 0;
-
-      input {
-        display: none;
-      }
 
       &:hover {
         box-shadow: none;
@@ -133,6 +133,11 @@
 
         &:hover {
           box-shadow: none !important;
+          cursor: default;
+
+          &::before {
+            opacity: 0;
+          }
         }
 
         .icon-view-toggle {
