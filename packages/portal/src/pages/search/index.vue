@@ -11,12 +11,13 @@
           <RelatedSection
             :query="searchQuery"
             :overrides="relatedCollections"
+            data-qa="related section"
             @fetched="handleRelatedSectionFetched"
           />
         </client-only>
       </template>
       <template
-        v-if="searchQuery"
+        v-if="!!searchQuery"
         #after-results
       >
         <client-only>
