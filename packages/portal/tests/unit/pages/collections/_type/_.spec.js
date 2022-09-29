@@ -524,26 +524,6 @@ describe('pages/collections/_type/_', () => {
   });
 
   describe('methods', () => {
-    describe('showRelatedCollections()', () => {
-      it('sets showRelated to true', async() => {
-        const wrapper = factory(topicEntity);
-
-        await wrapper.vm.showRelatedCollections();
-
-        expect(wrapper.vm.showRelated).toBe(true);
-      });
-    });
-
-    describe('hideRelatedCollections()', () => {
-      it('sets showRelated to true', async() => {
-        const wrapper = factory(topicEntity);
-
-        await wrapper.vm.hideRelatedCollections();
-
-        expect(wrapper.vm.showRelated).toBe(false);
-      });
-    });
-
     describe('proxyUpdated', () => {
       it('triggers $fetch', () => {
         const wrapper = factory(topicEntity);

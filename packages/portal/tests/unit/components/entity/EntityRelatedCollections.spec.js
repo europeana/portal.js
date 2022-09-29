@@ -16,7 +16,8 @@ const factory = ({ propsData, responses } = {}) => {
       },
       $fetchState: {},
       $t: key => key
-    }
+    },
+    stubs: ['b-card']
   });
 };
 

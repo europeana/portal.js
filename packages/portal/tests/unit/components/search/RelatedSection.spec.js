@@ -42,7 +42,8 @@ const factory = (options = {}) => {
           }
         }
       }
-    }
+    },
+    stubs: ['b-card']
   });
 };
 

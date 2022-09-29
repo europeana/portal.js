@@ -87,28 +87,6 @@ describe('pages/item/_.vue', () => {
     });
   });
 
-  describe('methods', () => {
-    describe('showRelatedSection()', () => {
-      it('sets showRelated to true', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.showRelatedSection();
-
-        expect(wrapper.vm.showRelated).toBe(true);
-      });
-    });
-
-    describe('hideRelatedSection()', () => {
-      it('sets showRelated to true', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.hideRelatedSection();
-
-        expect(wrapper.vm.showRelated).toBe(false);
-      });
-    });
-  });
-
   describe('head()', () => {
     describe('with no query', () => {
       it('is only "search"', async() => {
