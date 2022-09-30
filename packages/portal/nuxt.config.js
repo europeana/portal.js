@@ -350,6 +350,10 @@ export default {
         _scheme: '~/plugins/authScheme'
       }
     },
+    // it should be okay to use cookies to store tokens etc, we just don't want
+    // the initial SSR response to include Set-Cookie with the auth strategy...
+    // TODO: figure out how to do so
+    cookie: false,
     defaultStrategy: 'keycloak',
     plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
   },
