@@ -19,6 +19,7 @@
           :class="view"
           class="icon-view-toggle"
           :title="$t(`searchViews.${view}`)"
+          :data-qa="`search ${view} view toggle icon`"
         />
       </b-form-radio>
     </b-form-radio-group>

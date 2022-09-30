@@ -13,7 +13,7 @@ Feature: Newspapers collection
 
   Scenario: Fulltext search shows hit highlights
     Given I am on the `Newspapers collection page`
-    And I click the `search list view toggle`
+    And I click the `search list view toggle icon`
     When I click the `show search button`
     And I enter "zeitung" in the `search box`
     And I press the ENTER key
@@ -21,7 +21,7 @@ Feature: Newspapers collection
 
   Scenario: Newspapers collection API toggle changes API
     Given I am on the `Newspapers collection page`
-    And I click the `search grid view toggle`
+    And I click the `search grid view toggle icon`
     And I click the `api switch filter`
     Then I should be on `/en/collections/topic/18-newspapers?page=1&view=grid&api=metadata`
 
