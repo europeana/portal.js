@@ -278,37 +278,8 @@ describe('components/related/RelatedCollections', () => {
     });
   });
 
-  describe('beforeDestroy', () => {
-    it('triggers `draw` to hide component', async() => {
-      const wrapper = factory();
-      wrapper.vm.draw = sinon.spy();
-
-      await wrapper.destroy();
-
-      expect(wrapper.vm.draw.calledWith('hide')).toBe(true);
-    });
-  });
-
   describe('methods', () => {
     describe('draw', () => {
-      it('emits "show" when relatedCollections has members', async() => {
-        const wrapper = factory({ propsData: { relatedCollections } });
-
-        await wrapper.vm.draw();
-
-        expect(wrapper.emitted('show').length).toBeGreaterThanOrEqual(1);
-        expect(wrapper.emitted('hide')).toBe(undefined);
-      });
-
-      it('emits "hide" when relatedCollections is blank', async() => {
-        const wrapper = factory({ propsData: { relatedCollections: [] } });
-
-        await wrapper.vm.draw();
-
-        expect(wrapper.emitted('hide').length).toBeGreaterThanOrEqual(1);
-        expect(wrapper.emitted('show')).toBe(undefined);
-      });
-
       it('redraws Masonry', async() => {
         const wrapper = factory({ propsData: { relatedCollections } });
         wrapper.vm.$redrawVueMasonry = sinon.spy();

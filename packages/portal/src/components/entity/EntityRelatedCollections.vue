@@ -1,12 +1,16 @@
 <template>
-  <RelatedCollections
-    v-if="!$fetchState.pending"
-    :title="$t('youMightAlsoLike')"
-    :related-collections="relatedCollections"
-    :entity-uris="entityUris"
-    @show="$emit('show')"
-    @hide="$emit('hide')"
-  />
+  <b-card
+    v-if="relatedCollections.length > 0 || entityUris.length > 0"
+    class="text-left related-collections-card mb-4"
+  >
+    <RelatedCollections
+      :title="$t('youMightAlsoLike')"
+      :related-collections="relatedCollections"
+      :entity-uris="entityUris"
+      data-qa="related collections"
+      @fetched="handleRelatedCollectionsFetched"
+    />
+  </b-card>
 </template>
 
 <script>
@@ -94,6 +98,13 @@
     watch: {
       type: '$fetch',
       identifier: '$fetch'
+    },
+
+    methods: {
+      handleRelatedCollectionsFetched(relatedCollections) {
+        this.relatedCollections = relatedCollections;
+        this.$emit('fetched', relatedCollections);
+      }
     }
   };
 </script>

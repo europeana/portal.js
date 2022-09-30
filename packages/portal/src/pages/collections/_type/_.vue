@@ -24,7 +24,6 @@
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
         :editorial-overrides="editorialOverrides"
-        :show-related="showRelated"
       >
         <EntityHeader
           v-if="entity"
@@ -49,10 +48,9 @@
             <EntityRelatedCollections
               :type="$route.params.type"
               :identifier="$route.params.pathMatch"
-              :overrides="relatedCollectionCards"
+              :overrides="relatedCollectionCards || relatedCollections"
               data-qa="related entities"
-              @show="showRelatedCollections"
-              @hide="hideRelatedCollections"
+              @fetched="handleEntityRelatedCollectionsFetched"
             />
           </client-only>
         </template>
@@ -126,8 +124,8 @@
       return {
         page: null,
         proxy: null,
-        showRelated: false,
-        themes: themes.map(theme => theme.id)
+        themes: themes.map(theme => theme.id),
+        relatedCollections: null
       };
     },
 
@@ -403,6 +401,9 @@
       }
     },
     methods: {
+      handleEntityRelatedCollectionsFetched(relatedCollections) {
+        this.relatedCollections = relatedCollections;
+      },
       storeSearchOverrides() {
         this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
       },
@@ -411,12 +412,6 @@
           values: [title],
           code: null
         };
-      },
-      showRelatedCollections() {
-        this.showRelated = true;
-      },
-      hideRelatedCollections() {
-        this.showRelated = false;
       },
       proxyUpdated() {
         this.$fetch();

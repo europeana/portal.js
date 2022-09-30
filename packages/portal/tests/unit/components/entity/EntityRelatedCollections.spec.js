@@ -6,17 +6,19 @@ import EntityRelatedCollections from '@/components/entity/EntityRelatedCollectio
 
 const localVue = createLocalVue();
 
-const factory = ({ propsData, responses } = {}) => {
+const factory = ({ propsData = {}, data = {}, responses } = {}) => {
   return shallowMountNuxt(EntityRelatedCollections, {
     localVue,
     propsData,
+    data: () => ({ ...data }),
     mocks: {
       $apis: {
         record: { search: sinon.stub().resolves(responses?.record?.search || {}) }
       },
       $fetchState: {},
       $t: key => key
-    }
+    },
+    stubs: ['b-card']
   });
 };
 
@@ -111,6 +113,29 @@ describe('components/entity/EntityRelatedCollections', () => {
 
           expect(wrapper.vm.relatedCollections).toEqual([]);
         });
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('handleRelatedCollectionsFetched', () => {
+      const propsData = {
+        type: 'topic',
+        identifier: '3012-fishing'
+      };
+      const data = { entityUris: ['http://data.europeana.eu/concept/48'] };
+      const relatedCollections = [{ id: 'http://data.europeana.eu/concept/48' }];
+
+      it('is triggered by fetched event on related collections component', () => {
+        const mocks = { handleRelatedCollectionsFetched: sinon.spy() };
+        const wrapper = factory({ propsData, data, mocks });
+
+        const relatedCollectionsComponent = wrapper.find('[data-qa="related collections"]');
+
+        relatedCollectionsComponent.vm.$emit('fetched', relatedCollections);
+
+        expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
+        expect(wrapper.emitted('fetched')[0][0]).toEqual(relatedCollections);
       });
     });
   });
