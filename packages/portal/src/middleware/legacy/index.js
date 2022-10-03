@@ -36,11 +36,11 @@ const updateRoute = ({ status, route, req, redirect, app }) => {
 };
 
 export default ({ redirect, route, query, req, app }) => {
-  if (/^\/[a-z]{2}\/portal(\/$|$)/.test(route.path)) {
-    updateRoute({ status: 302, route: route.path.match(/^(\/[a-z]{2})/)[1], req, redirect, app });
+  if (route.path.slice(3, 10) === '/portal' && (route.path.length === 10 || route.path.slice(10, 11) === '/')) {
+    updateRoute({ status: 302, route: route.path.slice(0, 3) + route.path.slice(10), req, redirect, app });
     return;
   }
-  if (!/^\/portal(\/|$)/.test(route.path)) {
+  if (!(route.path.slice(0, 7) === '/portal' && (route.path.length === 7 || route.path.slice(7, 8) === '/'))) {
     return;
   }
 
