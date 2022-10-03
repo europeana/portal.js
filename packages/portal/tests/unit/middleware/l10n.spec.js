@@ -1,4 +1,3 @@
-import qs from 'qs';
 import sinon from 'sinon';
 
 import middleware from '@/middleware/l10n';
