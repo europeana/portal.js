@@ -262,9 +262,6 @@
       descriptionText() {
         return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
       },
-      editorialAttribution() {
-        return this.page.primaryImageOfPage.url;
-      },
       // Description from the Contentful entry
       editorialDescription() {
         if (!this.hasEditorialDescription) {
