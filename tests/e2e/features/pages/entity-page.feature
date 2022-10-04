@@ -9,7 +9,7 @@ Feature: Entity page
     And I see a `search list view toggle`
     And I see the `side filters`
     And I should see 24 `item preview`s
-    And I see a `pagination navigation`
+    And I see a `search results pagination`
     And I don't have a `contentTier facet`
     And I am on an accessible page
     And I should have a Europeana branded page title
@@ -48,11 +48,11 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     And I see a `item preview`
-    Then I see a link to "/en/collections/person/60305-william-shakespeare?page=2" in the `pagination navigation`
+    Then I see a link to "/en/collections/person/60305-william-shakespeare?page=2" in the `search results pagination`
 
   Scenario: Pagination links work when the page was accessed from the url
     When I visit `/en/collections/person/60305-william-shakespeare?page=2`
-    And I see the `pagination navigation`
+    And I see the `search results pagination`
     And I go to page number 3
     Then I should be on `/en/collections/person/60305-william-shakespeare?page=3`
 

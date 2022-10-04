@@ -199,7 +199,7 @@ module.exports = {
     /* eslint-enable prefer-arrow-callback */
   },
   async paginateToPage(page) {
-    const containerSelector = qaSelector('pagination navigation');
+    const containerSelector = qaSelector('search results pagination');
 
     await client.waitForElementVisible(containerSelector);
     const selector = containerSelector + ' ' + qaSelector('pagination input');
