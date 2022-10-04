@@ -49,16 +49,14 @@ export const apiConfig = ($config, id) => {
 const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
   const config = apiConfig($config, id);
 
-  const httpAgent = new http.Agent({ keepAlive: true });
-  const httpsAgent = new https.Agent({ keepAlive: true });
 
   return {
     baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
       wskey: config.key
     },
-    httpAgent,
-    httpsAgent
+    httpAgent: new http.Agent({ keepAlive: true }),
+    httpsAgent: new https.Agent({ keepAlive: true })
   };
 };
 
