@@ -35,33 +35,71 @@ const updateRoute = ({ status, route, req, redirect, app }) => {
   redirect(status, route);
 };
 
-export default ({ redirect, route, query, req, app }) => {
-  // redirect e.g. /en/portal/about to /en/about
-  if (route.path.slice(3, 10) === '/portal' && (route.path.length === 10 || route.path.slice(10, 11) === '/')) {
-    updateRoute({ status: 302, route: { path: route.path.slice(0, 3) + route.path.slice(10), query: {} }, req, redirect, app });
-    return;
-  }
-  // if URL does not equal "/portal", or start with "/portal/", nothing for us to do
-  if (!(route.path.slice(0, 7) === '/portal' && (route.path.length === 7 || route.path.slice(7, 8) === '/'))) {
-    return;
-  }
+const pathStartsWithLocaleThenPortal = (path) => {
+  return path.slice(3, 10) === '/portal' && (path.length === 10 || path.slice(10, 11) === '/');
+};
 
+const pathStartsWithPortal = (path) => {
+  return path.slice(0, 7) === '/portal' && (path.length === 7 || path.slice(7, 8) === '/');
+};
+
+const normalizeRedirectRoute = (redirectRoute, { query }) => {
+  if (Array.isArray(redirectRoute.path)) {
+    redirectRoute.path = stringifyPathChunks(redirectRoute.path);
+  }
+  if (!redirectRoute.query && query) {
+    redirectRoute.query = query;
+  }
+  if (!redirectRoute.status) {
+    redirectRoute.status = 301;
+  }
+  return redirectRoute;
+};
+
+const findRedirectRoute = (route, query) => {
   for (const rule of rules) {
     const redirectRoute = rule(route, query);
 
     if (redirectRoute) {
-      if (Array.isArray(redirectRoute.path)) {
-        redirectRoute.path = stringifyPathChunks(redirectRoute.path);
-      }
-      if (!redirectRoute.query && query) {
-        redirectRoute.query = query;
-      }
-      if (!redirectRoute.status) {
-        redirectRoute.status = 301;
-      }
-
-      updateRoute({ status: redirectRoute.status, route: { path: redirectRoute.path, query: redirectRoute.query }, req, redirect, app });
-      return;
+      return normalizeRedirectRoute(redirectRoute, { query });
     }
+  }
+
+  return null;
+};
+
+export default ({ redirect, route, query, req, app }) => {
+  // redirect e.g. /en/portal/about to /en/about
+  if (pathStartsWithLocaleThenPortal(route.path)) {
+    updateRoute({
+      status: 302,
+      route: {
+        path: route.path.slice(0, 3) + route.path.slice(10),
+        query: {}
+      },
+      req,
+      redirect,
+      app
+    });
+    return;
+  }
+
+  // if URL does not equal "/portal", or start with "/portal/", nothing for us to do
+  if (!(pathStartsWithPortal(route.path))) {
+    return;
+  }
+
+  const redirectRoute = findRedirectRoute(route, query);
+  if (redirectRoute) {
+    updateRoute({
+      status: redirectRoute.status,
+      route: {
+        path: redirectRoute.path,
+        query: redirectRoute.query
+      },
+      req,
+      redirect,
+      app
+    });
   }
 };
