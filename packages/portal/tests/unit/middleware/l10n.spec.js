@@ -11,34 +11,70 @@ describe('middleware/legacy', () => {
 
   describe('if route path seems to include a locale', () => {
     describe('and that locale is supported', () => {
-      const route = { path: '/en/item/123/abc' };
+      describe('and it is the root path for that locale', () => {
+        const route = { path: '/de' };
 
-      it('is stored in the cookie', () => {
-        middleware({ app, route, redirect, req });
+        it('is stored in the cookie', () => {
+          middleware({ app, route, redirect, req });
 
-        expect(app.$cookies.set.calledWith('i18n_locale_code', 'en')).toBe(true);
+          expect(app.$cookies.set.calledWith('i18n_locale_code', 'de')).toBe(true);
+        });
+
+        it('does not redirect', () => {
+          middleware({ app, route, redirect, req });
+
+          expect(redirect.called).toBe(false);
+        });
       });
 
-      it('does not redirect', () => {
-        middleware({ app, route, redirect, req });
+      describe('and it is a sub- path for that locale', () => {
+        const route = { path: '/en/item/123/abc' };
 
-        expect(redirect.called).toBe(false);
+        it('is stored in the cookie', () => {
+          middleware({ app, route, redirect, req });
+
+          expect(app.$cookies.set.calledWith('i18n_locale_code', 'en')).toBe(true);
+        });
+
+        it('does not redirect', () => {
+          middleware({ app, route, redirect, req });
+
+          expect(redirect.called).toBe(false);
+        });
       });
     });
 
     describe('but that locale is not supported', () => {
-      const route = { path: '/ja/item/123/abc' };
+      describe('and it is the root path for that locale', () => {
+        const route = { path: '/ja' };
 
-      it('is is not stored in the cookie', () => {
-        middleware({ app, route, redirect, req });
+        it('is is not stored in the cookie', () => {
+          middleware({ app, route, redirect, req });
 
-        expect(app.$cookies.set.called).toBe(false);
+          expect(app.$cookies.set.called).toBe(false);
+        });
+
+        it('redirects to path without locale', () => {
+          middleware({ app, route, redirect, req });
+
+          expect(redirect.calledWith(sinon.match.has('path', '/'))).toBe(true);
+        });
       });
 
-      it('redirects to path without locale', () => {
-        middleware({ app, route, redirect, req });
+      describe('and it is a sub- path for that locale', () => {
+        const route = { path: '/ja/item/123/abc' };
 
-        expect(redirect.calledWith(sinon.match.has('path', '/item/123/abc'))).toBe(true);
+        it('is is not stored in the cookie', () => {
+          middleware({ app, route, redirect, req });
+
+          expect(app.$cookies.set.called).toBe(false);
+        });
+
+        it('redirects to path without locale', () => {
+          middleware({ app, route, redirect, req });
+
+          expect(redirect.calledWith(sinon.match.has('path', '/item/123/abc'))).toBe(true);
+        });
       });
     });
   });
