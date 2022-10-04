@@ -9,7 +9,7 @@ import { isIIIFPresentation, isIIIFImage } from '../media';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
 
-export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
+export const BASE_URL = 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
 
 /**

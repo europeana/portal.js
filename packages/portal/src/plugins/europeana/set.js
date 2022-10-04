@@ -1,7 +1,7 @@
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
 import { apiError, createKeycloakAuthAxios } from './utils';
 
-export const BASE_URL = process.env.EUROPEANA_SET_API_URL || 'https://api.europeana.eu/set';
+export const BASE_URL = 'https://api.europeana.eu/set';
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
