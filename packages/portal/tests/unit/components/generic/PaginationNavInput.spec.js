@@ -93,15 +93,6 @@ describe('components/generic/PaginationNavInput', () => {
         expect(gotoSpy.called).toBe(true);
       });
 
-      it('emits "change" event', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({ totalResults: 240, perPage: 24 });
-
-        wrapper.vm.changePaginationNav();
-
-        expect(wrapper.emitted('change').length).toBe(1);
-      });
-
       it('does nothing if page is blank', async() => {
         const wrapper = factory();
         await wrapper.setProps({ totalResults: 240, perPage: 24 });

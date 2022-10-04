@@ -108,7 +108,6 @@
                         :max-results="1000"
                         aria-controls="item-search-results"
                         data-qa="search results pagination"
-                        @change="handlePaginationChanged"
                       />
                     </b-col>
                   </b-row>
@@ -278,7 +277,8 @@
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
-      '$route.query.qf': 'watchRouteQueryQf'
+      '$route.query.qf': 'watchRouteQueryQf',
+      '$route.query.page': 'handlePaginationChanged'
     },
 
     destroyed() {

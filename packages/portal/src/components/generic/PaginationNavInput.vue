@@ -129,7 +129,6 @@
         if (this.page) {
           const newRouteQuery = {  ...this.$route.query, page: this.page };
           const newRoute = { path: this.$route.path, query: newRouteQuery };
-          this.$emit('change');
           this.$goto(newRoute);
         }
       },

@@ -269,13 +269,12 @@ describe('components/search/SearchInterface', () => {
 
   describe('methods', () => {
     describe('handlePaginationChanged', () => {
-      it('is triggered by "change" event on search results pagination', () => {
+      it('is records pagination changed then triggers fetch', async() => {
         const wrapper = factory();
         sinon.spy(wrapper.vm, '$fetch');
         expect(wrapper.vm.paginationChanged).toBe(false);
 
-        const pagination = wrapper.find('[data-qa="search results pagination"]');
-        pagination.vm.$emit('change');
+        wrapper.vm.handlePaginationChanged();
 
         expect(wrapper.vm.paginationChanged).toBe(true);
         expect(wrapper.vm.$fetch.called).toBe(true);
