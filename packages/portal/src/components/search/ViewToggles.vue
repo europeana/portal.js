@@ -154,3 +154,9 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <ViewToggles />
+  ```
+</docs>
