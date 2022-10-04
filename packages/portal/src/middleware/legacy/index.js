@@ -36,10 +36,12 @@ const updateRoute = ({ status, route, req, redirect, app }) => {
 };
 
 export default ({ redirect, route, query, req, app }) => {
+  // redirect e.g. /en/portal/about to /en/about
   if (route.path.slice(3, 10) === '/portal' && (route.path.length === 10 || route.path.slice(10, 11) === '/')) {
-    updateRoute({ status: 302, route: route.path.slice(0, 3) + route.path.slice(10), req, redirect, app });
+    updateRoute({ status: 302, route: { path: route.path.slice(0, 3) + route.path.slice(10), query: {} }, req, redirect, app });
     return;
   }
+  // if URL does not equal "/portal", or start with "/portal/", nothing for us to do
   if (!(route.path.slice(0, 7) === '/portal' && (route.path.length === 7 || route.path.slice(7, 8) === '/'))) {
     return;
   }
