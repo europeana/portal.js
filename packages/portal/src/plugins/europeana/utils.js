@@ -1,3 +1,5 @@
+import http from 'http';
+import https from 'https';
 import axios from 'axios';
 import locales from '../i18n/locales.js';
 import { keycloakResponseErrorHandler } from './auth.js';
@@ -46,11 +48,17 @@ export const apiConfig = ($config, id) => {
 
 const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
   const config = apiConfig($config, id);
+
+  const httpAgent = new http.Agent({ keepAlive: true });
+  const httpsAgent = new https.Agent({ keepAlive: true });
+
   return {
     baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
       wskey: config.key
-    }
+    },
+    httpAgent,
+    httpsAgent
   };
 };
 
