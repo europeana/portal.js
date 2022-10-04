@@ -9,10 +9,9 @@
         :key="view"
         :value="view"
         :data-qa="`search ${view} view toggle`"
-        :yes="'okay'"
-        no="nope"
         class="ml-3"
       >
+        <span class="visually-hidden">{{ $t(`searchViews.${view}`) }} </span>
         <span
           :class="view"
           class="icon-view-toggle"
@@ -105,6 +104,10 @@
         .icon-view-toggle {
           color: $greyblack;
         }
+      }
+
+      &.focus {
+        outline: auto;
       }
 
       &::before {
