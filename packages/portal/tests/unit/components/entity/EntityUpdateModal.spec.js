@@ -34,7 +34,8 @@ const fixtures = {
           id: 'http://data.europeana.eu/concept/190#proxy_europeana',
           type: 'Concept',
           prefLabel: { en: 'Art' },
-          note: { en: ['English note'], fr: ['French note'] }
+          note: { en: ['English note'], fr: ['French note'] },
+          exactMatch: ['http://www.wikidata.org/entity/Q735']
         },
         {
           id: 'http://www.wikidata.org/entity/Q735',
@@ -56,7 +57,8 @@ const fixtures = {
       proxies: [
         {
           id: 'http://data.europeana.eu/organization/1482250000001710507#proxy_europeana',
-          type: 'Organization'
+          type: 'Organization',
+          sameAs: ['https://crm.zoho.com/crm/org51823723/tab/Accounts/1482250000001710507']
         },
         {
           id: 'https://crm.zoho.com/crm/org51823723/tab/Accounts/1482250000001710507',
@@ -172,30 +174,6 @@ describe('components/entity/EntityUpdateModal', () => {
     });
 
     describe('updatedBody', () => {
-      it('includes exactMatch from the internal profile entity root, if present', () => {
-        const wrapper = factory({
-          propsData: fixtures.concept.propsData,
-          data: { entity: fixtures.concept.profileInternalEntity, descriptionValue: 'Updated' }
-        });
-
-        const updatedBody = wrapper.vm.updatedBody;
-
-        expect(updatedBody.exactMatch).toBeDefined();
-        expect(updatedBody.exactMatch).toEqual(fixtures.concept.profileInternalEntity.exactMatch);
-      });
-
-      it('includes sameAs from the internal profile entity root, if present', () => {
-        const wrapper = factory({
-          propsData: fixtures.organization.propsData,
-          data: { entity: fixtures.organization.profileInternalEntity, descriptionValue: 'Updated' }
-        });
-
-        const updatedBody = wrapper.vm.updatedBody;
-
-        expect(updatedBody.sameAs).toBeDefined();
-        expect(updatedBody.sameAs).toEqual(fixtures.organization.profileInternalEntity.sameAs);
-      });
-
       it('preserves all pre-existing non-description data from Europeana proxy', () => {
         const wrapper = factory({
           propsData: fixtures.concept.propsData,
