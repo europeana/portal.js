@@ -318,6 +318,98 @@ describe('components/search/SearchInterface', () => {
       });
     });
 
+    describe('watchRouteQueryQf', () => {
+      describe('when values have been added', () => {
+        describe('and old value was `undefined`', () => {
+          const oldVal = undefined;
+          const newVal = 'TYPE:"TEXT"';
+
+          it('triggers $fetch', () => {
+            const wrapper = factory();
+            sinon.spy(wrapper.vm, '$fetch');
+
+            wrapper.vm.watchRouteQueryQf(newVal, oldVal);
+
+            expect(wrapper.vm.$fetch.called).toBe(true);
+          });
+        });
+
+        describe('and old value was present', () => {
+          const oldVal = 'TYPE:"TEXT"';
+          const newVal = ['TYPE:"TEXT"', 'TYPE:"IMAGE"'];
+
+          it('triggers $fetch', () => {
+            const wrapper = factory();
+            sinon.spy(wrapper.vm, '$fetch');
+
+            wrapper.vm.watchRouteQueryQf(newVal, oldVal);
+
+            expect(wrapper.vm.$fetch.called).toBe(true);
+          });
+        });
+      });
+
+      describe('when values have been removed', () => {
+        describe('and new value is `undefined`', () => {
+          const oldVal = 'TYPE:"TEXT"';
+          const newVal = undefined;
+
+          it('triggers $fetch', () => {
+            const wrapper = factory();
+            sinon.spy(wrapper.vm, '$fetch');
+
+            wrapper.vm.watchRouteQueryQf(newVal, oldVal);
+
+            expect(wrapper.vm.$fetch.called).toBe(true);
+          });
+        });
+
+        describe('and new value is present', () => {
+          const oldVal = ['TYPE:"TEXT"', 'TYPE:"IMAGE"'];
+          const newVal = 'TYPE:"TEXT"';
+
+          it('triggers $fetch', () => {
+            const wrapper = factory();
+            sinon.spy(wrapper.vm, '$fetch');
+
+            wrapper.vm.watchRouteQueryQf(newVal, oldVal);
+
+            expect(wrapper.vm.$fetch.called).toBe(true);
+          });
+        });
+      });
+
+      describe('when values have not changed', () => {
+        describe('and both are `undefined`', () => {
+          const oldVal = undefined;
+          const newVal = undefined;
+
+          it('does not trigger $fetch', () => {
+            const wrapper = factory();
+            sinon.spy(wrapper.vm, '$fetch');
+
+            wrapper.vm.watchRouteQueryQf(newVal, oldVal);
+
+            expect(wrapper.vm.$fetch.called).toBe(false);
+          });
+        });
+
+        describe('and both are present', () => {
+          const oldVal = ['TYPE:"TEXT"', 'TYPE:"IMAGE"'];
+          const newVal = ['TYPE:"TEXT"', 'TYPE:"IMAGE"'];
+
+          it('does not trigger $fetch', () => {
+            const wrapper = factory();
+            sinon.spy(wrapper.vm, '$fetch');
+
+            wrapper.vm.watchRouteQueryQf(newVal, oldVal);
+
+            expect(wrapper.vm.$fetch.called).toBe(false);
+          });
+        });
+      });
+    });
+
     describe('viewFromRouteQuery', () => {
       describe('with view in route query', () => {
         const route = { query: { view: 'mosaic', query: 'sport' } };

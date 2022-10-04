@@ -509,10 +509,10 @@
           removeTag(this.selectedOptions[0]);
         }
 
-        const selected = this.isRadio ? option : option.label;
-
-        addTag(selected);
+        addTag(option);
         this.searchFacet = '';
+
+        const selected = this.isRadio ? option : option.label;
 
         this.$emit('changed', this.name, this.isRadio ? selected : this.selected.concat(this.enquoteFacetFieldFilterValue(selected)));
       },
