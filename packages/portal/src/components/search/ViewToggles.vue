@@ -63,24 +63,29 @@
   @import '@/assets/scss/icons';
 
   .form-group {
-    margin-bottom: 0;
-    margin-top: 0;
+    margin: 0;
+    flex-shrink: 0;
   }
 
   .btn-group-toggle {
     padding: 0;
     position: relative;
     text-decoration: none;
+    height: 2.25rem;
+    align-items: center;
 
     .icon-view-toggle {
       color: $grey;
       font-size: 1.5rem;
-      z-index: 1;
+      line-height: 1;
 
       &::before {
         @extend %icon-font;
 
         content: '\e929';
+        vertical-align: baseline;
+        width: 1.5rem;
+        display: inline-block;
       }
 
       &.grid::before {
@@ -92,7 +97,7 @@
       }
     }
 
-    label.btn, {
+    label.btn {
       background: none;
       border: 0;
       padding: 0;

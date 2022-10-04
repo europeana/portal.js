@@ -33,7 +33,6 @@
               />
               <ViewToggles
                 v-model="view"
-                class="flex-nowrap mt-md-2"
               />
             </div>
             <b-row
