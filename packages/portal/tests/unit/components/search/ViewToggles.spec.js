@@ -54,7 +54,7 @@ describe('components/search/ViewToggles', () => {
       it('displays icon', () => {
         const wrapper = factory();
 
-        const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle"] + span.icon-view-toggle`);
+        const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle icon"]`);
         expect(viewToggleIcon.attributes('class')).toBe(`icon-view-toggle ${view}`);
       });
     });
