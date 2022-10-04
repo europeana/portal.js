@@ -79,7 +79,6 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
-                          :show-related="showRelated"
                         >
                           <slot />
                           <template
@@ -173,10 +172,6 @@
       showPins: {
         type: Boolean,
         default: false
-      },
-      showRelated: {
-        type: Boolean,
-        default: true
       },
       editorialOverrides: {
         type: Object,
@@ -293,7 +288,7 @@
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
-      '$route.query.qf': '$fetch',
+      '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': '$fetch'
     },
 
@@ -345,6 +340,24 @@
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
+      },
+
+      watchRouteQueryQf(newVal, oldVal) {
+        // Coerce into arrays, handling undefined
+        const newVals = newVal ? [].concat(newVal) : [];
+        const oldVals = oldVal ? [].concat(oldVal) : [];
+
+        // Test that the values in the two arrays have in fact changed in their
+        // contents, as the watch gets triggered by other changes to the route
+        // which result in new array objects being constructed for qf, but having
+        // the same contents.
+        const addedVals = newVals.filter((val) => !oldVals.includes(val));
+        const removedVals = oldVals.filter((val) => !newVals.includes(val));
+        if (addedVals.length === 0 && removedVals.length === 0) {
+          return;
+        }
+
+        this.$fetch();
       },
 
       setViewFromRouteQuery() {

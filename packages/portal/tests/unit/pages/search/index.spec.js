@@ -42,7 +42,13 @@ const store = new Vuex.Store({
 
 const factory = (query) => shallowMountNuxt(page, {
   localVue,
-  stubs: ['client-only'],
+  stubs: {
+    'client-only': true,
+    'RelatedSection': true,
+    'SearchInterface': {
+      template: '<div><slot name="related" /><slot name="after-results" /></div>'
+    }
+  },
   mocks: {
     $features: {},
     $pageHeadTitle: key => key,
@@ -74,28 +80,6 @@ const factory = (query) => shallowMountNuxt(page, {
 
 describe('pages/item/_.vue', () => {
   afterEach(sinon.resetHistory);
-
-  describe('methods', () => {
-    describe('showRelatedSection()', () => {
-      it('sets showRelated to true', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.showRelatedSection();
-
-        expect(wrapper.vm.showRelated).toBe(true);
-      });
-    });
-
-    describe('hideRelatedSection()', () => {
-      it('sets showRelated to true', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.hideRelatedSection();
-
-        expect(wrapper.vm.showRelated).toBe(false);
-      });
-    });
-  });
 
   describe('head()', () => {
     describe('with no query', () => {
@@ -130,6 +114,20 @@ describe('pages/item/_.vue', () => {
 
       expect(setShowSearchBar.calledWith(false)).toBe(true);
       expect(next.called).toBe(true);
+    });
+  });
+
+  describe('methods', () => {
+    describe('handleRelatedSectionFetched', () => {
+      it('is triggered by fetched event on related section component', () => {
+        const wrapper = factory('fish');
+        const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];
+
+        const relatedSectionComponent = wrapper.find('[data-qa="related section"]');
+        relatedSectionComponent.vm.$emit('fetched', relatedCollections);
+
+        expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
+      });
     });
   });
 });

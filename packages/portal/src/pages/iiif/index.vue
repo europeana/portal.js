@@ -80,6 +80,16 @@
         };
 
         return options;
+      },
+
+      iiifPresentationApiVersion() {
+        if (this.manifest['@context'] === 'http://iiif.io/api/presentation/2/context.json') {
+          return 2;
+        } else if (this.manifest['@context'] === 'http://iiif.io/api/presentation/3/context.json') {
+          return 3;
+        } else {
+          return undefined;
+        }
       }
     },
 
@@ -100,7 +110,7 @@
             if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
               this.memoiseImageToCanvasMap();
               this.page = miradorWindow.canvasId;
-              this.fetchImageData(this.uri, this.page);
+              this.postUpdatedDownloadLinkMessage(this.page);
             }
           }
         }
@@ -172,20 +182,20 @@
           }
         }
 
-      // Add textGranularity filter to search service URI
-      //
-      // NOTE: this does not work, due to Mirador not expecting a service URI
-      //       to already contain '?' with parameters.
-      //       https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/components/SearchPanelControls.js#L91
-      //
-      //       If it in future becomes possible to use this, then `filterSearchHitsByTextGranularity`
-      //       becomes redundant and may be removed, as pre-filtering on the
-      //       service side is preferrable.
-      //
-      // if ((manifestJson.service || {}).profile === 'http://iiif.io/api/search/1/search') {
-      //   const paramSeparator = manifestJson.service['@id'].includes('?') ? '&' : '?';
-      //   manifestJson.service['@id'] = `${manifestJson.service['@id']}${paramSeparator}textGranularity=${textGranularity}`;
-      // }
+        // Add textGranularity filter to search service URI
+        //
+        // NOTE: this does not work, due to Mirador not expecting a service URI
+        //       to already contain '?' with parameters.
+        //       https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/components/SearchPanelControls.js#L91
+        //
+        //       If it in future becomes possible to use this, then `filterSearchHitsByTextGranularity`
+        //       becomes redundant and may be removed, as pre-filtering on the
+        //       service side is preferrable.
+        //
+        // if ((manifestJson.service || {}).profile === 'http://iiif.io/api/search/1/search') {
+        //   const paramSeparator = manifestJson.service['@id'].includes('?') ? '&' : '?';
+        //   manifestJson.service['@id'] = `${manifestJson.service['@id']}${paramSeparator}textGranularity=${textGranularity}`;
+        // }
       },
 
       filterSearchHitsByTextGranularity(searchJson, textGranularity = 'Line') {
@@ -199,14 +209,17 @@
       },
 
       memoiseImageToCanvasMap() {
-        this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
-          for (const canvas of sequence.canvases) {
-            for (const image of canvas.images) {
-              memo[image.resource['@id']] = canvas['@id'];
+        if (this.iiifPresentationApiVersion === 2) {
+          this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
+            for (const canvas of sequence.canvases) {
+              for (const image of canvas.images) {
+                memo[image.resource['@id']] = canvas['@id'];
+              }
             }
-          }
-          return memo;
-        }, {});
+            return memo;
+          }, {});
+        }
+        // TODO: do we also need memoisation for v3?
       },
 
       canvasForImage(imageId) {
@@ -314,15 +327,25 @@
         }
       },
 
-      fetchImageData(url, pageId) {
+      postUpdatedDownloadLinkMessage(pageId) {
         if (!this.manifest) {
           return;
         }
 
-        const page = this.manifest.sequences[0].canvases.filter(canvas => canvas['@id'] === pageId);
+        let link;
 
-        if (page && page[0]) {
-          window.parent.postMessage({ 'event': 'updateDownloadLink', 'id': page[0].images[0].resource['@id'] }, window.location.origin);
+        if (this.iiifPresentationApiVersion === 2) {
+          link = this.manifest.sequences[0].canvases
+            .find(canvas => canvas['@id'] === pageId)
+            ?.images?.[0]?.resource?.['@id'];
+        } else if (this.iiifPresentationApiVersion === 3) {
+          link = this.manifest.items
+            .find(canvas => canvas.id === pageId)
+            ?.items?.[0]?.items?.[0]?.body?.id;
+        }
+
+        if (link) {
+          window.parent.postMessage({ event: 'updateDownloadLink', id: link }, window.location.origin);
         }
       }
     }

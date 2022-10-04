@@ -2,22 +2,22 @@
   <div data-qa="search page">
     <SearchInterface
       id="search-interface"
-      :show-related="showRelated"
     >
       <template
-        v-if="searchQuery"
+        v-if="!!searchQuery"
         #related
       >
         <client-only>
           <RelatedSection
             :query="searchQuery"
-            @show="showRelatedSection"
-            @hide="hideRelatedSection"
+            :overrides="relatedCollections"
+            data-qa="related section"
+            @fetched="handleRelatedSectionFetched"
           />
         </client-only>
       </template>
       <template
-        v-if="searchQuery"
+        v-if="!!searchQuery"
         #after-results
       >
         <client-only>
@@ -56,7 +56,7 @@
 
     data() {
       return {
-        showRelated: false
+        relatedCollections: null
       };
     },
 
@@ -77,12 +77,8 @@
     },
 
     methods: {
-      showRelatedSection() {
-        this.showRelated = true;
-      },
-
-      hideRelatedSection() {
-        this.showRelated = false;
+      handleRelatedSectionFetched(relatedCollections) {
+        this.relatedCollections = relatedCollections;
       }
     }
   };

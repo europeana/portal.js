@@ -90,18 +90,7 @@
         return this.entity?.proxies?.find(proxy => proxy.id.endsWith('#proxy_europeana'));
       },
       updatedBody() {
-        const body = {};
-        // NOTE: exactMatch & sameAs handling are workarounds until the upstream
-        //       Europeana proxies always include those fields. See
-        //       https://europeana.atlassian.net/browse/EA-3103
-        if (this.entity.exactMatch) {
-          body.exactMatch = this.entity.exactMatch;
-        }
-        if (this.entity.sameAs) {
-          body.sameAs = this.entity.sameAs;
-        }
         return {
-          ...body,
           ...this.europeanaProxy,
           [this.descriptionFieldName]: {
             ...this.europeanaProxy[this.descriptionFieldName] || {},

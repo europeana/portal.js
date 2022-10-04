@@ -5,10 +5,11 @@ import sinon from 'sinon';
 
 import page from '@/pages/iiif/index';
 
-const factory = () => shallowMountNuxt(page, {
+const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   data() {
     return {
-      uri: 'http://example.org/iiif/manifest.json'
+      uri: 'http://example.org/iiif/manifest.json',
+      ...data
     };
   },
   mocks: {
@@ -29,6 +30,40 @@ describe('pages/iiif/index.vue', () => {
 
   afterEach(() => {
     sinon.restore();
+  });
+
+  describe('computed', () => {
+    describe('iiifPresentationApiVersion', () => {
+      it('is 2 for IIIF Presentation API v2 manifests', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/2/context.json'
+        };
+
+        const wrapper = factory({ data: { manifest } });
+
+        expect(wrapper.vm.iiifPresentationApiVersion).toBe(2);
+      });
+
+      it('is 3 for IIIF Presentation API v2 manifests', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/3/context.json'
+        };
+
+        const wrapper = factory({ data: { manifest } });
+
+        expect(wrapper.vm.iiifPresentationApiVersion).toBe(3);
+      });
+
+      it('is undefined otherwise', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/4/context.json'
+        };
+
+        const wrapper = factory({ data: { manifest } });
+
+        expect(wrapper.vm.iiifPresentationApiVersion).toBe(undefined);
+      });
+    });
   });
 
   describe('methods', () => {
@@ -137,6 +172,92 @@ describe('pages/iiif/index.vue', () => {
           { resource: { '@id': 'http://example.org/fulltext/123#char=0,7', chars: 'Fulltext' } },
           { resource: { '@id': 'http://example.org/fulltext/123#char=9,21', chars: 'transcription' } }
         ]);
+      });
+    });
+
+    describe('memoiseImageToCanvasMap', () => {
+      const canvasId = 'https://iiif.europeana.eu/presentation/123/abc/canvas/p1';
+      const imageUrl = 'https://iiif.europeana.eu/image/123/abc/default.jpg';
+
+      describe('when manifest is for IIIF Presentation API v2', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/2/context.json',
+          sequences: [{ canvases: [{ '@id': canvasId, images: [{ resource: { '@id': imageUrl } }] }] }]
+        };
+
+        it('memoises image to canvas map', () => {
+          const wrapper = factory({ data: { manifest } });
+
+          wrapper.vm.memoiseImageToCanvasMap();
+
+          expect(wrapper.vm.imageToCanvasMap).toEqual({
+            [imageUrl]: canvasId
+          });
+        });
+      });
+
+      describe('when manifest is for IIIF Presentation API v3', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/3/context.json',
+          items: [{ id: canvasId, items: [{ items: [{ body: { id: imageUrl } }] }] }]
+        };
+
+        it('does not memoise image to canvas map', () => {
+          const wrapper = factory({ data: { manifest } });
+
+          wrapper.vm.memoiseImageToCanvasMap();
+
+          expect(wrapper.vm.imageToCanvasMap).toEqual({});
+        });
+      });
+    });
+
+    describe('postUpdatedDownloadLinkMessage', () => {
+      const pageId = 'https://iiif.europeana.eu/presentation/123/abc/canvas/p1';
+      const imageUrl = 'https://iiif.europeana.eu/image/123/abc/default.jpg';
+
+      describe('when manifest is for IIIF Presentation API v2', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/2/context.json',
+          sequences: [{ canvases: [{ '@id': pageId, images: [{ resource: { '@id': imageUrl } }] }] }]
+        };
+
+        it('posts image URL from sequences canvas matching page ID', () => {
+          const wrapper = factory({ data: { manifest } });
+          sinon.spy(window.parent, 'postMessage');
+
+          wrapper.vm.postUpdatedDownloadLinkMessage(pageId);
+
+          expect(window.parent.postMessage.calledWith(
+            {
+              event: 'updateDownloadLink',
+              id: imageUrl
+            },
+            'http://localhost'
+          )).toBe(true);
+        });
+      });
+
+      describe('when manifest is for IIIF Presentation API v3', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/3/context.json',
+          items: [{ id: pageId, items: [{ items: [{ body: { id: imageUrl } }] }] }]
+        };
+
+        it('posts image URL from canvas item matching page ID', () => {
+          const wrapper = factory({ data: { manifest } });
+          sinon.spy(window.parent, 'postMessage');
+
+          wrapper.vm.postUpdatedDownloadLinkMessage(pageId);
+
+          expect(window.parent.postMessage.calledWith(
+            {
+              event: 'updateDownloadLink',
+              id: imageUrl
+            },
+            'http://localhost'
+          )).toBe(true);
+        });
       });
     });
   });

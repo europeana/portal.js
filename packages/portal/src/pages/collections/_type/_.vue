@@ -24,7 +24,6 @@
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
         :editorial-overrides="editorialOverrides"
-        :show-related="showRelated"
         :override-params="searchOverrides"
       >
         <EntityHeader
@@ -50,10 +49,9 @@
             <EntityRelatedCollections
               :type="$route.params.type"
               :identifier="$route.params.pathMatch"
-              :overrides="relatedCollectionCards"
+              :overrides="relatedCollectionCards || relatedCollections"
               data-qa="related entities"
-              @show="showRelatedCollections"
-              @hide="hideRelatedCollections"
+              @fetched="handleEntityRelatedCollectionsFetched"
             />
           </client-only>
         </template>
@@ -127,8 +125,8 @@
       return {
         page: null,
         proxy: null,
-        showRelated: false,
-        themes: themes.map(theme => theme.id)
+        themes: themes.map(theme => theme.id),
+        relatedCollections: null
       };
     },
 
@@ -263,9 +261,6 @@
       descriptionText() {
         return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
       },
-      editorialAttribution() {
-        return this.page.primaryImageOfPage.url;
-      },
       // Description from the Contentful entry
       editorialDescription() {
         if (!this.hasEditorialDescription) {
@@ -311,8 +306,7 @@
         return null;
       },
       editable() {
-        return this.$features.entityManagement &&
-          this.entity &&
+        return this.entity &&
           this.userIsEntitiesEditor &&
           ['topic', 'organisation'].includes(this.collectionType);
       },
@@ -400,17 +394,14 @@
       }
     },
     methods: {
+      handleEntityRelatedCollectionsFetched(relatedCollections) {
+        this.relatedCollections = relatedCollections;
+      },
       titleFallback(title) {
         return {
           values: [title],
           code: null
         };
-      },
-      showRelatedCollections() {
-        this.showRelated = true;
-      },
-      hideRelatedCollections() {
-        this.showRelated = false;
       },
       proxyUpdated() {
         this.$fetch();

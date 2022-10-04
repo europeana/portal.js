@@ -25,15 +25,10 @@
           v-if="card === 'related'"
           :key="index"
         >
-          <b-card
-            v-show="showRelated"
-            class="text-left related-collections-card mb-4"
-          >
-            <slot
-              v-masonry-tile
-              name="related"
-            />
-          </b-card>
+          <slot
+            v-masonry-tile
+            name="related"
+          />
         </aside>
         <ItemPreviewCard
           v-else
@@ -69,19 +64,14 @@
     <template
       v-for="(card, index) in cards"
     >
-      <template
+      <aside
         v-if="card === 'related'"
+        :key="index"
       >
-        <b-card
-          v-show="showRelated"
-          :key="index"
-          class="text-left related-collections-card mb-4"
-        >
-          <slot
-            name="related"
-          />
-        </b-card>
-      </template>
+        <slot
+          name="related"
+        />
+      </aside>
       <ItemPreviewCard
         v-else
         :key="card.id"
@@ -130,10 +120,6 @@
         default: 'grid'
       },
       showPins: {
-        type: Boolean,
-        default: false
-      },
-      showRelated: {
         type: Boolean,
         default: false
       },
@@ -210,11 +196,9 @@
         return hit ? hit.selectors[0] : null;
       },
       redrawMasonry() {
-        if (typeof this.$redrawVueMasonry === 'function' && this.masonryActive) {
-          this.$nextTick(() => {
-            this.$redrawVueMasonry();
-          });
-        }
+        this.$nextTick(() => {
+          this.$redrawVueMasonry && this.$redrawVueMasonry();
+        });
       }
     }
   };

@@ -42,19 +42,49 @@ const factory = (options = {}) => {
           }
         }
       }
-    }
+    },
+    stubs: ['b-card']
   });
 };
 
 describe('components/search/RelatedSection', () => {
   describe('fetch', () => {
+    describe('with overrides', () => {
+      const overrides = relatedCollections;
+      const propsData = { overrides };
+
+      it('stores them as relatedCollections', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
+      });
+
+      it('does not query the Entity API', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$apis.entity.suggest.called).toBe(false);
+      });
+
+      it('does not emit fetched event', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.emitted('fetched')).toBeUndefined();
+      });
+    });
+
     describe('with a query', () => {
       const propsData = { query: 'art' };
 
-      it('queries the Entity API for suggestions via $apis plugin', () => {
+      it('queries the Entity API for suggestions via $apis plugin', async() => {
         const wrapper = factory({ propsData });
 
-        wrapper.vm.fetch();
+        await wrapper.vm.fetch();
 
         expect(wrapper.vm.$apis.entity.suggest.calledWith(propsData.query, {
           language: wrapper.vm.$i18n.locale,
@@ -66,9 +96,18 @@ describe('components/search/RelatedSection', () => {
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetch();
+
         const expectedRelated = relatedCollections;
         expectedRelated[3].prefLabel = { en: 'Manuscripts' };
         expect(wrapper.vm.relatedCollections).toEqual(expectedRelated);
+      });
+
+      it('emits fetched event with response', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.emitted('fetched')[0][0]).toEqual(relatedCollections);
       });
     });
 
