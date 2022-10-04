@@ -64,8 +64,6 @@ const findRedirectRoute = (route, query) => {
       return normalizeRedirectRoute(redirectRoute, { query });
     }
   }
-
-  return null;
 };
 
 export default ({ redirect, route, query, req, app }) => {
