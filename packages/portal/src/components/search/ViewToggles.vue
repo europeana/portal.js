@@ -1,7 +1,5 @@
 <template>
-  <b-form-group
-    align="right"
-  >
+  <b-form-group>
     <b-form-radio-group
       v-model="activeView"
       buttons
@@ -58,7 +56,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
 
