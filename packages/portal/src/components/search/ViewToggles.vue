@@ -101,6 +101,7 @@
 
       &:hover {
         box-shadow: none;
+
         .icon-view-toggle {
           color: $greyblack;
         }
