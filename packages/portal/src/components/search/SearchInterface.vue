@@ -79,6 +79,7 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
+                          @drawn="handleResultsDrawn"
                         >
                           <slot />
                           <template
@@ -106,6 +107,7 @@
                         :per-page="perPage"
                         :max-results="1000"
                         aria-controls="item-search-results"
+                        data-qa="search results pagination"
                       />
                     </b-col>
                   </b-row>
@@ -192,7 +194,8 @@
         lastAvailablePage: null,
         results: [],
         theme: null,
-        totalResults: null
+        totalResults: null,
+        paginationChanged: false
       };
     },
 
@@ -289,7 +292,7 @@
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
-      '$route.query.page': '$fetch'
+      '$route.query.page': 'handlePaginationChanged'
     },
 
     destroyed() {
@@ -340,6 +343,20 @@
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
+      },
+
+      handlePaginationChanged() {
+        this.paginationChanged = true;
+        this.$fetch();
+      },
+
+      handleResultsDrawn(cardRefs) {
+        if (this.paginationChanged) {
+          // Move the focus to the first item
+          const cardLink = cardRefs?.[0]?.$el?.getElementsByTagName('a')?.[0];
+          cardLink?.focus();
+          this.paginationChanged = false;
+        }
       },
 
       watchRouteQueryQf(newVal, oldVal) {
