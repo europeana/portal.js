@@ -57,7 +57,6 @@ export const apiConfig = ($config, id) => {
 const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
   const config = apiConfig($config, id);
 
-
   return {
     baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
