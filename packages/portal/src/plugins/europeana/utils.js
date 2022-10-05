@@ -4,24 +4,17 @@ import axios from 'axios';
 import locales from '../i18n/locales.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
-const axiosInstances = {};
-
 export const createAxios = ({ id, baseURL, $axios }, context) => {
   const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
-  const axiosInstanceUri = axios.getUri({ url: axiosOptions.baseURL, params: axiosOptions.params });
 
-  if (!axiosInstances[axiosInstanceUri]) {
-    const axiosInstance = ($axios || axios).create(axiosOptions);
+  const axiosInstance = ($axios || axios).create(axiosOptions);
 
-    const app = context.app;
-    if (app && app.$axiosLogger) {
-      axiosInstance.interceptors.request.use(app.$axiosLogger);
-    }
-
-    axiosInstances[axiosInstanceUri] = axiosInstance;
+  const app = context.app;
+  if (app && app.$axiosLogger) {
+    axiosInstance.interceptors.request.use(app.$axiosLogger);
   }
 
-  return axiosInstances[axiosInstanceUri];
+  return axiosInstance;
 };
 
 export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
@@ -54,6 +47,9 @@ export const apiConfig = ($config, id) => {
   }
 };
 
+const httpAgent = new http.Agent({ keepAlive: true });
+const httpsAgent = new https.Agent({ keepAlive: true });
+
 const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
   const config = apiConfig($config, id);
 
@@ -62,8 +58,8 @@ const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
     params: {
       wskey: config.key
     },
-    httpAgent: new http.Agent({ keepAlive: true }),
-    httpsAgent: new https.Agent({ keepAlive: true })
+    httpAgent,
+    httpsAgent
   };
 };
 
