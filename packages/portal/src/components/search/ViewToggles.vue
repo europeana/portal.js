@@ -109,6 +109,11 @@
 
       &.focus {
         outline: auto;
+        /* stylelint-disable */
+        @media (-webkit-min-device-pixel-ratio: 0) {
+          outline: -webkit-focus-ring-color auto 5px;
+        }
+        /* stylelint-enable */
       }
 
       &::before {
@@ -123,17 +128,17 @@
         transition-duration: 0.15s;
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-property: transform, opacity;
+        z-index: -1;
+      }
+
+      &:not(.active):hover::before {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: none;
         bottom: -10px;
         left: -10px;
         right: -10px;
         top: -10px;
-        z-index: -1;
-      }
-
-      &:hover::before {
-        opacity: 1;
-        transform: scale(1);
-        box-shadow: none;
       }
 
       &.active {
@@ -142,10 +147,6 @@
         &:hover {
           box-shadow: none !important;
           cursor: default;
-
-          &::before {
-            opacity: 0;
-          }
         }
 
         .icon-view-toggle {
