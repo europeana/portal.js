@@ -3,8 +3,14 @@ import axiosRetry from 'axios-retry';
 
 import queries from './queries';
 
+const httpAgent = new http.Agent({ keepAlive: true });
+const httpsAgent = new https.Agent({ keepAlive: true });
+
 export default ({ $apm, $config }) => {
-  const $axios = axios.create();
+  const $axios = axios.create({
+    httpAgent,
+    httpsAgent
+  });
   axiosRetry($axios);
   const config = $config.contentful;
   const origin = config.graphQlOrigin || 'https://graphql.contentful.com';
