@@ -5,8 +5,8 @@ export const BASE_URL = 'https://api.europeana.eu/set';
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
-export default (context = {}) => {
-  const $axios = createKeycloakAuthAxios(
+export default async(context = {}) => {
+  const $axios = await createKeycloakAuthAxios(
     { id: 'set', baseURL: BASE_URL, $axios: context.$axios },
     context
   );

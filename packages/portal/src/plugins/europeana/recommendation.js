@@ -2,8 +2,8 @@ import { apiError, createKeycloakAuthAxios } from './utils';
 
 export const BASE_URL = 'https://api.europeana.eu/recommend';
 
-export default (context = {}) => {
-  const $axios = createKeycloakAuthAxios(
+export default async(context = {}) => {
+  const $axios = await createKeycloakAuthAxios(
     { id: 'recommendation', baseURL: BASE_URL, $axios: context.$axios },
     context
   );

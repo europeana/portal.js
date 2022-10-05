@@ -1,11 +1,9 @@
-import http from 'http';
-import https from 'https';
 import axios from 'axios';
 import locales from '../i18n/locales.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
-export const createAxios = ({ id, baseURL, $axios }, context) => {
-  const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
+export const createAxios = async({ id, baseURL, $axios }, context) => {
+  const axiosOptions = await axiosInstanceOptions({ id, baseURL }, context);
 
   const axiosInstance = ($axios || axios).create(axiosOptions);
 
@@ -17,8 +15,8 @@ export const createAxios = ({ id, baseURL, $axios }, context) => {
   return axiosInstance;
 };
 
-export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
-  const axiosInstance = createAxios({ id, baseURL, $axios }, context);
+export const createKeycloakAuthAxios = async({ id, baseURL, $axios }, context) => {
+  const axiosInstance = await createAxios({ id, baseURL, $axios }, context);
 
   if (typeof axiosInstance.onResponseError === 'function') {
     axiosInstance.onResponseError(error => keycloakResponseErrorHandler(context, error));
@@ -47,20 +45,34 @@ export const apiConfig = ($config, id) => {
   }
 };
 
-const httpAgent = new http.Agent({ keepAlive: true });
-const httpsAgent = new https.Agent({ keepAlive: true });
+let httpAgent;
+let httpsAgent;
 
-const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
+const axiosInstanceOptions = async({ id, baseURL }, { store, $config }) => {
   const config = apiConfig($config, id);
 
-  return {
+  const axiosOptions = {
     baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
       wskey: config.key
-    },
-    httpAgent,
-    httpsAgent
+    }
   };
+
+  if (process.server) {
+    if (!httpAgent) {
+      const http = await import('http');
+      httpAgent = new http.Agent({ keepAlive: true });
+    }
+    axiosOptions.httpAgent = httpAgent;
+
+    if (!httpsAgent) {
+      const https = await import('https');
+      httpsAgent = new https.Agent({ keepAlive: true });
+    }
+    axiosOptions.httpsAgent = httpsAgent;
+  }
+
+  return axiosOptions;
 };
 
 // TODO: extend to be more verbose in development environments, e.g. with stack trace

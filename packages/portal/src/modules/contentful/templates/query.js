@@ -1,19 +1,25 @@
-import http from 'http';
-import https from 'https';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 
 import queries from './queries';
 
-const httpAgent = new http.Agent({ keepAlive: true });
-const httpsAgent = new https.Agent({ keepAlive: true });
+const axiosOptions = {};
 
-export default ({ $apm, $config }) => {
-  const $axios = axios.create({
-    httpAgent,
-    httpsAgent
-  });
+export default async({ $apm, $config }) => {
+  if (process.server) {
+    if (!axiosOptions.httpAgent) {
+      const http = await import('http');
+      axiosOptions.httpAgent = new http.Agent({ keepAlive: true });
+    }
+    if (!axiosOptions.httpsAgent) {
+      const https = await import('https');
+      axiosOptions.httpsAgent = new https.Agent({ keepAlive: true });
+    }
+  }
+
+  const $axios = axios.create(axiosOptions);
   axiosRetry($axios);
+
   const config = $config.contentful;
   const origin = config.graphQlOrigin || 'https://graphql.contentful.com';
   const path = `/content/v1/spaces/${config.spaceId}/environments/${config.environmentId || 'master'}`;
