@@ -4,16 +4,24 @@ import axios from 'axios';
 import locales from '../i18n/locales.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
+const axiosInstances = {};
+
 export const createAxios = ({ id, baseURL, $axios }, context) => {
   const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
-  const axiosInstance = ($axios || axios).create(axiosOptions);
+  const axiosInstanceUri = axios.getUri({ url: axiosOptions.baseURL, params: axiosOptions.params });
 
-  const app = context.app;
-  if (app && app.$axiosLogger) {
-    axiosInstance.interceptors.request.use(app.$axiosLogger);
+  if (!axiosInstances[axiosInstanceUri]) {
+    const axiosInstance = ($axios || axios).create(axiosOptions);
+
+    const app = context.app;
+    if (app && app.$axiosLogger) {
+      axiosInstance.interceptors.request.use(app.$axiosLogger);
+    }
+
+    axiosInstances[axiosInstanceUri] = axiosInstance;
   }
 
-  return axiosInstance;
+  return axiosInstances[axiosInstanceUri];
 };
 
 export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
