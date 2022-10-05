@@ -8,10 +8,10 @@
     position: absolute;
     top: 12px;
     left: 0;
-    right: -18px;
+    right: 0;
     bottom: 0;
     background-color: $innovationblue;
-    clip-path: polygon(0 0, calc(100% - 95px) 0, 100% 209px, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, calc(100% - 77px) 0, 100% 170px, 100% 100%, 0 100%);
 
     @media (min-width: $bp-xxxl) {
       top: 0.75vw;
