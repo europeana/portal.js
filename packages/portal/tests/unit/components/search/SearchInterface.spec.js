@@ -37,6 +37,15 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
         ...mocks.$store?.state
       }
     },
+    $config: {
+      europeana: {
+        apis: {
+          record: {
+            fulltextUrl: 'https://newspapers.eanadev.org/api/v2'
+          }
+        }
+      }
+    },
     $apis: {
       record: {
         search: sinon.stub().resolves({})

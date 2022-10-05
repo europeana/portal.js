@@ -10,6 +10,7 @@ import { isIIIFPresentation, isIIIFImage } from '../media';
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
 
 export const BASE_URL = 'https://api.europeana.eu/record';
+export const FULLTEXT_BASE_URL = 'https://newspapers.eanadev.org/api/v2';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
 
 /**

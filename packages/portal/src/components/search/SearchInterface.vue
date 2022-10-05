@@ -136,7 +136,6 @@
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
 
-  import { BASE_URL as FULLTEXT_BASE_URL } from '@/plugins/europeana/newspaper';
   import makeToastMixin from '@/mixins/makeToast';
   import themes from '@/plugins/europeana/themes';
   import { filtersFromQf } from '@/plugins/europeana/search';
@@ -326,7 +325,7 @@
           }
           if (apiParams.api === 'fulltext') {
             apiParams.profile = 'minimal,hits';
-            apiOptions.url = FULLTEXT_BASE_URL;
+            apiOptions.url = this.$config.europeana.apis.record.fulltextUrl;
           }
         }
 
