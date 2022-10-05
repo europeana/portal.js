@@ -32,14 +32,18 @@ To update the Open sans font:
 
 /* stylelint-disable max-line-length */
 
+@font-face {
+  font-family: 'Open Sans';
+  font-stretch: 100%;
+  font-display: swap;
+}
+
 /* cyrillic-ext */
 @font-face {
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWV0ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-italic-cyrillic-ext.woff2') format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
@@ -48,9 +52,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWVQewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-italic-cyrillic.woff2') format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -59,9 +61,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWVwewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-italic-greek-ext.woff2') format('woff2');
   unicode-range: U+1F00-1FFF;
 }
 
@@ -70,9 +70,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWVMewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-italic-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
 }
 
@@ -81,9 +79,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWVIewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-italic-hebrew.woff2') format('woff2');
   unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
@@ -92,9 +88,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWV8ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-italic-vietnamese.woff2') format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
@@ -103,9 +97,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWV4ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -114,9 +106,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWVAewA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-italic-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -125,9 +115,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWV0ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-italic-cyrillic-ext.woff2') format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
@@ -136,9 +124,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWVQewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-italic-cyrillic.woff2') format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -147,9 +133,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWVwewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-italic-greek-ext.woff2') format('woff2');
   unicode-range: U+1F00-1FFF;
 }
 
@@ -158,9 +142,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWVMewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-italic-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
 }
 
@@ -169,9 +151,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWVIewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-italic-hebrew.woff2') format('woff2');
   unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
@@ -180,9 +160,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWV8ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-italic-vietnamese.woff2') format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
@@ -191,9 +169,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWV4ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -202,9 +178,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWVAewA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-italic-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -213,9 +187,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWV0ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-italic-cyrillic-ext.woff2') format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
@@ -224,9 +196,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWVQewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-italic-cyrillic.woff2') format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -235,9 +205,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWVwewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-italic-greek-ext.woff2') format('woff2');
   unicode-range: U+1F00-1FFF;
 }
 
@@ -246,9 +214,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWVMewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-italic-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
 }
 
@@ -257,9 +223,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWVIewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-italic-hebrew.woff2') format('woff2');
   unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
@@ -268,9 +232,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWV8ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-italic-vietnamese.woff2') format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
@@ -279,9 +241,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWV4ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -290,9 +250,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWVAewA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-italic-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -301,9 +259,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWV0ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-italic-cyrillic-ext.woff2') format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
@@ -312,9 +268,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWVQewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-italic-cyrillic.woff2') format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -323,9 +277,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWVwewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-italic-greek-ext.woff2') format('woff2');
   unicode-range: U+1F00-1FFF;
 }
 
@@ -334,9 +286,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWVMewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-italic-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
 }
 
@@ -345,9 +295,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWVIewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-italic-hebrew.woff2') format('woff2');
   unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
@@ -356,9 +304,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWV8ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-italic-vietnamese.woff2') format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
@@ -367,9 +313,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWV4ewJER.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -378,9 +322,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWVAewA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-italic-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -389,9 +331,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4taVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-normal-cyrillic-ext.woff2') format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
@@ -400,9 +340,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4kaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-normal-cyrillic.woff2') format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -411,9 +349,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4saVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-normal-greek-ext.woff2') format('woff2');
   unicode-range: U+1F00-1FFF;
 }
 
@@ -422,9 +358,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4jaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-normal-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
 }
 
@@ -433,9 +367,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4iaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-normal-hebrew.woff2') format('woff2');
   unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
@@ -444,9 +376,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4vaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-normal-vietnamese.woff2') format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
@@ -455,9 +385,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4uaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-normal-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -466,9 +394,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVI.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/400-normal-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -477,9 +403,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4taVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-normal-cyrillic-ext.woff2') format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
@@ -488,9 +412,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4kaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-normal-cyrillic.woff2') format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -499,9 +421,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4saVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-normal-greek-ext.woff2') format('woff2');
   unicode-range: U+1F00-1FFF;
 }
 
@@ -510,9 +430,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4jaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-normal-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
 }
 
@@ -521,9 +439,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4iaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-normal-hebrew.woff2') format('woff2');
   unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
@@ -532,9 +448,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4vaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-normal-vietnamese.woff2') format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
@@ -543,9 +457,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4uaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-normal-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -554,9 +466,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4gaVI.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/600-normal-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -565,9 +475,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4taVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-normal-cyrillic-ext.woff2') format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
@@ -576,9 +484,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4kaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-normal-cyrillic.woff2') format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -587,9 +493,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4saVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-normal-greek-ext.woff2') format('woff2');
   unicode-range: U+1F00-1FFF;
 }
 
@@ -598,9 +502,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4jaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-normal-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
 }
 
@@ -609,9 +511,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4iaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-normal-hebrew.woff2') format('woff2');
   unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
@@ -620,9 +520,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4vaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-normal-vietnamese.woff2') format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
@@ -631,9 +529,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4uaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-normal-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -642,9 +538,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4gaVI.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/700-normal-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -653,9 +547,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4taVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-normal-cyrillic-ext.woff2') format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
@@ -664,9 +556,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4kaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-normal-cyrillic.woff2') format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
@@ -675,9 +565,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4saVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-normal-greek-ext.woff2') format('woff2');
   unicode-range: U+1F00-1FFF;
 }
 
@@ -686,9 +574,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4jaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-normal-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
 }
 
@@ -697,9 +583,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4iaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-normal-hebrew.woff2') format('woff2');
   unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
@@ -708,9 +592,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4vaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-normal-vietnamese.woff2') format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
@@ -719,9 +601,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4uaVIGxA.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-normal-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -730,9 +610,7 @@ To update the Open sans font:
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 800;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('~assets/fonts/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4gaVI.woff2') format('woff2');
+  src: url('~/assets/fonts/opensans/v34/800-normal-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
