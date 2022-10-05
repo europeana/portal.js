@@ -6,14 +6,6 @@
     >
       {{ title }}
     </h2>
-    <b-button
-      v-if="cta"
-      variant="outline-secondary"
-      class="cta"
-      :to="cta.url"
-    >
-      {{ cta.text }}
-    </b-button>
     <div
       v-show="swiperReady"
       class="swiper swiper-container"
@@ -64,6 +56,14 @@
         </div>
       </div>
     </div>
+    <b-button
+      v-if="cta"
+      variant="outline-secondary"
+      class="cta"
+      :to="cta.url"
+    >
+      {{ cta.text }}
+    </b-button>
   </div>
 </template>
 
@@ -211,7 +211,7 @@
 
   .cta {
     font-size: 1em;
-    margin: 1.5em auto;
+    margin: 1.5em 0 auto auto;
   }
 
   .slide-link {
