@@ -1,4 +1,13 @@
 .pagination-nav-input {
+  .page-link {
+    color: $greyblack;
+    text-decoration: none;
+
+    &:hover {
+      color: $greyblack;
+    }
+  }
+
   .page-item {
     font-weight: 600;
     padding: 0.5rem 0.75rem;
@@ -7,6 +16,12 @@
     align-items: center;
     white-space: nowrap;
 
+    &.active {
+      .page-link {
+        background-color: $darkblue;
+        border-color: $darkblue;
+      }
+    }
     &.disabled {
       a {
         color: $mediumgrey;
