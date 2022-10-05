@@ -1,6 +1,5 @@
 .page-footer {
   position: relative;
-  overflow: hidden;
 
   // This creates a blue shadow with cutout.
   // Drop-shadow does not work on clip-path element and drop-shadow filter is broken in Safari
@@ -28,7 +27,7 @@
     background: $black;
     color: $white;
     position: relative;
-    clip-path: polygon(0 0, calc(100% - 95px) 0, 100% 209px, 100% 100%, 0 100%);
+    clip-path: polygon(0 -100vh, calc(100% - 95px) -100vh, calc(100% - 95px) 0, 100% 209px, 100% 100%, 0 100%);
     z-index: 2;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -38,7 +37,7 @@
     }
 
     @media (min-width: $bp-xxxl) {
-      clip-path: polygon(0 0, calc(100% - calc(95 / 16 * 1vw)) 0, 100% calc(209 / 16 * 1vw), 100% 100%, 0 100%);
+      clip-path: polygon(0 -100vh, calc(100% - calc(95 / 16 * 1vw)) -100vh, calc(100% - calc(95 / 16 * 1vw)) 0, 100% calc(209 / 16 * 1vw), 100% 100%, 0 100%);
       padding-left: 18vw !important;
       padding-right: 18vw !important;
     }
