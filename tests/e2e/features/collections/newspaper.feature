@@ -20,8 +20,7 @@ Feature: Newspapers collection
     Then I see a `highlighted search term` with the text "Zeitung"
 
   Scenario: Newspapers collection API toggle changes API
-    Given I am on the `Newspapers collection page`
-    And I click the `search grid view toggle icon`
+    Given I am on `/en/collections/topic/18-newspapers?view=grid`
     And I click the `api switch filter`
     Then I should be on `/en/collections/topic/18-newspapers?page=1&view=grid&api=metadata`
 
