@@ -6,22 +6,23 @@ describe('modules/http/templates/plugin.http', () => {
   afterEach(sinon.resetHistory);
 
   describe('default export', () => {
+    const context = {
+      store: {
+        registerModule: sinon.spy()
+      }
+    };
     const inject = sinon.spy();
 
     it('injects the plugin into the context as "http"', () => {
-      plugin({}, inject);
+      plugin(context, inject);
 
-      expect(inject.calledWith(sinon.match.object, 'http'));
+      expect(inject.calledWith('http', sinon.match.object)).toBe(true);
     });
 
     it('registers the store module', () => {
-      const store = {
-        registerModule: sinon.spy()
-      };
+      plugin(context, inject);
 
-      plugin({ store }, inject);
-
-      expect(store.registerModule.calledWith('http', sinon.match.object));
+      expect(context.store.registerModule.calledWith('http', sinon.match.object)).toBe(true);
     });
   });
 });
