@@ -102,7 +102,7 @@
   }
 
   .cta {
-    margin: 1.5em auto;
+    margin: 1.5em 0 auto auto;
 
     @media (min-width: $bp-xxxl) {
       font-size: 1vw;
