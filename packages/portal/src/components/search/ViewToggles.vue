@@ -1,32 +1,37 @@
 <template>
-  <b-nav
-    align="right"
-  >
-    <b-nav-item
-      v-for="view in views"
-      :key="view"
-      :to="linkGen(view)"
-      :active="activeView === view"
-      :data-qa="`search ${view} view toggle`"
-      class="pl-3"
+  <b-form-group>
+    <b-form-radio-group
+      v-model="activeView"
+      buttons
     >
-      <span
-        :class="view"
-        class="icon-view-toggle"
-        :title="$t(`searchViews.${view}`)"
-      />
-    </b-nav-item>
-  </b-nav>
+      <b-form-radio
+        v-for="view in views"
+        :key="view"
+        :value="view"
+        :data-qa="`search ${view} view toggle`"
+        :aria-labelledby="`${view}-label`"
+        class="ml-3"
+      >
+        <span
+          :id="`${view}-label`"
+          class="visually-hidden"
+        >
+          {{ $t(`searchViews.${view}`) }}
+        </span>
+        <span
+          :class="view"
+          class="icon-view-toggle"
+          :title="$t(`searchViews.${view}`)"
+          :data-qa="`search ${view} view toggle icon`"
+        />
+      </b-form-radio>
+    </b-form-radio-group>
+  </b-form-group>
 </template>
 
 <script>
-  import { BNav } from 'bootstrap-vue';
-
   export default {
     name: 'ViewToggles',
-    components: {
-      BNav
-    },
     props: {
       /**
        * Selected search results view
@@ -36,16 +41,6 @@
       value: {
         type: String,
         default: 'grid'
-      },
-
-      /**
-       * Vue route to generate a link for switching the view
-       */
-      linkGenRoute: {
-        type: Object,
-        default: () => {
-          return { name: 'search' };
-        }
       }
     },
     data() {
@@ -55,17 +50,12 @@
       };
     },
     watch: {
-      value() {
-        this.activeView = this.value;
+      activeView() {
+        this.$cookies && this.$cookies.set('searchResultsView', this.activeView);
 
-        this.$cookies && this.$cookies.set('searchResultsView', this.value);
+        this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.activeView);
 
-        this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.value);
-      }
-    },
-    methods: {
-      linkGen(view) {
-        return this.$path({ ...this.linkGenRoute, ...{ query: { ...this.$route.query, ...{ view } } } });
+        this.$goto({ ...this.$route, ...{  query: { ...this.$route.query, ...{ view: this.activeView } } } });
       }
     }
   };
@@ -75,20 +65,30 @@
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
 
-  .nav-link {
+  .form-group {
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .btn-group-toggle {
     padding: 0;
     position: relative;
     text-decoration: none;
+    height: 2.25rem;
+    align-items: center;
 
     .icon-view-toggle {
       color: $grey;
       font-size: 1.5rem;
-      z-index: 1;
+      line-height: 1;
 
       &::before {
         @extend %icon-font;
 
         content: '\e929';
+        vertical-align: baseline;
+        width: 1.5rem;
+        display: inline-block;
       }
 
       &.grid::before {
@@ -100,42 +100,71 @@
       }
     }
 
-    &::before {
-      background: $white;
-      border-radius: 50%;
-      box-sizing: border-box;
-      content: '';
-      display: block;
-      opacity: 0;
-      position: absolute;
-      transform: scale(0);
-      transition-duration: 0.15s;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-property: transform, opacity;
-      bottom: -10px;
-      left: -10px;
-      right: -10px;
-      top: -10px;
-      z-index: -1;
-    }
+    label.btn {
+      background: none;
+      border: 0;
+      padding: 0;
 
-    &:hover::before {
-      opacity: 1;
-      transform: scale(1);
-    }
+      &:hover {
+        box-shadow: none;
 
-    &:hover .icon-view-toggle,
-    &.active .icon-view-toggle {
-      color: $greyblack;
-    }
+        .icon-view-toggle {
+          color: $greyblack;
+        }
+      }
 
-    &.active {
-      cursor: default;
+      &.focus {
+        outline: auto;
+        /* stylelint-disable */
+        @media (-webkit-min-device-pixel-ratio: 0) {
+          outline: -webkit-focus-ring-color auto 5px;
+        }
+        /* stylelint-enable */
+      }
 
       &::before {
+        background: $white;
+        border-radius: 50%;
+        box-sizing: border-box;
+        content: '';
+        display: block;
         opacity: 0;
+        position: absolute;
         transform: scale(0);
+        transition-duration: 0.15s;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-property: transform, opacity;
+        z-index: -1;
+      }
+
+      &:not(.active):hover::before {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: none;
+        bottom: -10px;
+        left: -10px;
+        right: -10px;
+        top: -10px;
+      }
+
+      &.active {
+        background: none !important;
+
+        &:hover {
+          box-shadow: none !important;
+          cursor: default;
+        }
+
+        .icon-view-toggle {
+          color: $greyblack;
+        }
       }
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <ViewToggles />
+  ```
+</docs>
