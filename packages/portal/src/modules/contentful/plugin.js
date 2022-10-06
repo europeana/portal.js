@@ -5,14 +5,14 @@ import storeModule from './store';
 
 const MODULE_NAME = 'contentful';
 
-export default async({ $config, $apm, store }, inject) => {
+export default ({ $config, $apm, store }, inject) => {
   if (store) {
     store.registerModule(MODULE_NAME, storeModule);
   }
 
   const plugin = {
     assets: assets({ store }),
-    query: await query({ $apm, $config })
+    query: query({ $apm, $config })
   };
 
   inject(MODULE_NAME, plugin);

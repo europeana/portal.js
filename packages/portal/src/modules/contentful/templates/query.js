@@ -3,7 +3,7 @@ import axiosRetry from 'axios-retry';
 
 import queries from './queries';
 
-export default async({ $apm, $config }) => {
+export default ({ $apm, $config }) => {
   const axiosInstance = axios.create();
   axiosRetry(axiosInstance);
 

@@ -48,14 +48,12 @@ export const apiConfig = ($config, id) => {
 const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
   const config = apiConfig($config, id);
 
-  const axiosOptions = {
+  return {
     baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
       wskey: config.key
     }
   };
-
-  return axiosOptions;
 };
 
 // TODO: extend to be more verbose in development environments, e.g. with stack trace
