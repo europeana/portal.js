@@ -9,9 +9,15 @@
         :key="view"
         :value="view"
         :data-qa="`search ${view} view toggle`"
+        :aria-labelledby="`${view}-label`"
         class="ml-3"
       >
-        <span class="visually-hidden">{{ $t(`searchViews.${view}`) }} </span>
+        <span
+          :id="`${view}-label`"
+          class="visually-hidden"
+        >
+            {{ $t(`searchViews.${view}`) }}
+        </span>
         <span
           :class="view"
           class="icon-view-toggle"
