@@ -16,7 +16,7 @@
           :id="`${view}-label`"
           class="visually-hidden"
         >
-            {{ $t(`searchViews.${view}`) }}
+          {{ $t(`searchViews.${view}`) }}
         </span>
         <span
           :class="view"
