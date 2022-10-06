@@ -5,8 +5,8 @@ import md5 from 'md5';
 
 export const BASE_URL = 'https://api.europeana.eu/entity';
 
-export default async(context = {}) => {
-  const $axios = await createAxios({ id: 'entity', baseURL: BASE_URL }, context);
+export default (context = {}) => {
+  const $axios = createAxios({ id: 'entity', baseURL: BASE_URL }, context);
 
   return {
     $axios,

@@ -4,8 +4,8 @@ import { apiError, createAxios } from './utils';
 
 export const BASE_URL = 'https://api.europeana.eu/annotation';
 
-export default async(context = {}) => {
-  const $axios = await createAxios({ id: 'annotation', baseURL: BASE_URL }, context);
+export default (context = {}) => {
+  const $axios = createAxios({ id: 'annotation', baseURL: BASE_URL }, context);
 
   return {
     $axios,

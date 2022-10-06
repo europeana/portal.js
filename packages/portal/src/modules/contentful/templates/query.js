@@ -3,22 +3,9 @@ import axiosRetry from 'axios-retry';
 
 import queries from './queries';
 
-const axiosOptions = {};
-
 export default async({ $apm, $config }) => {
-  if (process.server) {
-    if (!axiosOptions.httpAgent) {
-      const http = await import('http');
-      axiosOptions.httpAgent = new http.Agent({ keepAlive: true });
-    }
-    if (!axiosOptions.httpsAgent) {
-      const https = await import('https');
-      axiosOptions.httpsAgent = new https.Agent({ keepAlive: true });
-    }
-  }
-
-  const $axios = axios.create(axiosOptions);
-  axiosRetry($axios);
+  const axiosInstance = axios.create();
+  axiosRetry(axiosInstance);
 
   const config = $config.contentful;
   const origin = config.graphQlOrigin || 'https://graphql.contentful.com';
@@ -44,7 +31,7 @@ export default async({ $apm, $config }) => {
       ...variables
     };
 
-    return $axios.post(`${origin}${path}`, body, { headers, params })
+    return axiosInstance.post(`${origin}${path}`, body, { headers, params })
       .catch((error) => {
         if ($apm?.captureError) {
           $apm.captureError(error, {

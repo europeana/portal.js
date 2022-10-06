@@ -139,8 +139,8 @@ const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
   return (!proxy[field]?.[targetLanguage] && fallbackProxy[field]?.['en']);
 };
 
-export default async(context = {}) => {
-  const $axios = await createAxios({ id: 'record', baseURL: BASE_URL }, context);
+export default (context = {}) => {
+  const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
   const thumbnailUrl = thumbnail(context).media;
 
   return {

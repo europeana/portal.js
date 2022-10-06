@@ -39,16 +39,16 @@ const storeModule = {
   }
 };
 
-export default async(context, inject) => {
+export default (context, inject) => {
   context.store.registerModule(MODULE_NAME, storeModule);
 
   const plugin = {
-    annotation: await annotation(context),
-    entity: await entity(context),
-    recommendation: await recommendation(context),
-    record: await record(context),
-    set: await set(context),
-    entityManagement: await entityManagement(context),
+    annotation: annotation(context),
+    entity: entity(context),
+    recommendation: recommendation(context),
+    record: record(context),
+    set: set(context),
+    entityManagement: entityManagement(context),
     thumbnail: thumbnail(context)
   };
 
