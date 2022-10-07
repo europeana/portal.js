@@ -13,6 +13,8 @@ To update the Open sans font:
      https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700;1,800&display=swap
    copy/paste the contents of that into this file below this comment.
 
+   Only include the subsets cyrillic, greek and latin, plus their -ext subsets.
+
 2. Retrieve all the linked font files. Use a regex like:
      https:\/\/fonts\.gstatic\.com\/s\/opensans\/.*\.woff2
    to extract the urls.
@@ -29,6 +31,8 @@ To update the Open sans font:
 */
 
 // Open Sans v34
+
+/* stylelint-disable max-line-length */
 
 /* cyrillic-ext */
 @font-face {
@@ -68,26 +72,6 @@ To update the Open sans font:
   font-weight: 400;
   src: url('~assets/fonts/opensans/v34/400-italic-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
-}
-
-/* hebrew */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: italic;
-  font-weight: 400;
-  src: url('~assets/fonts/opensans/v34/400-italic-hebrew.woff2') format('woff2');
-  unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
-}
-
-/* vietnamese */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: italic;
-  font-weight: 400;
-  src: url('~assets/fonts/opensans/v34/400-italic-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
 /* latin-ext */
@@ -150,26 +134,6 @@ To update the Open sans font:
   unicode-range: U+0370-03FF;
 }
 
-/* hebrew */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: italic;
-  font-weight: 600;
-  src: url('~assets/fonts/opensans/v34/600-italic-hebrew.woff2') format('woff2');
-  unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
-}
-
-/* vietnamese */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: italic;
-  font-weight: 600;
-  src: url('~assets/fonts/opensans/v34/600-italic-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
-}
-
 /* latin-ext */
 @font-face {
   font-family: 'Open Sans';
@@ -228,26 +192,6 @@ To update the Open sans font:
   font-weight: 700;
   src: url('~assets/fonts/opensans/v34/700-italic-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
-}
-
-/* hebrew */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: italic;
-  font-weight: 700;
-  src: url('~assets/fonts/opensans/v34/700-italic-hebrew.woff2') format('woff2');
-  unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
-}
-
-/* vietnamese */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: italic;
-  font-weight: 700;
-  src: url('~assets/fonts/opensans/v34/700-italic-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
 /* latin-ext */
@@ -310,26 +254,6 @@ To update the Open sans font:
   unicode-range: U+0370-03FF;
 }
 
-/* hebrew */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: italic;
-  font-weight: 800;
-  src: url('~assets/fonts/opensans/v34/800-italic-hebrew.woff2') format('woff2');
-  unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
-}
-
-/* vietnamese */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: italic;
-  font-weight: 800;
-  src: url('~assets/fonts/opensans/v34/800-italic-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
-}
-
 /* latin-ext */
 @font-face {
   font-family: 'Open Sans';
@@ -388,26 +312,6 @@ To update the Open sans font:
   font-weight: 400;
   src: url('~assets/fonts/opensans/v34/400-normal-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
-}
-
-/* hebrew */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: normal;
-  font-weight: 400;
-  src: url('~assets/fonts/opensans/v34/400-normal-hebrew.woff2') format('woff2');
-  unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
-}
-
-/* vietnamese */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: normal;
-  font-weight: 400;
-  src: url('~assets/fonts/opensans/v34/400-normal-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
 /* latin-ext */
@@ -470,26 +374,6 @@ To update the Open sans font:
   unicode-range: U+0370-03FF;
 }
 
-/* hebrew */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: normal;
-  font-weight: 600;
-  src: url('~assets/fonts/opensans/v34/600-normal-hebrew.woff2') format('woff2');
-  unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
-}
-
-/* vietnamese */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: normal;
-  font-weight: 600;
-  src: url('~assets/fonts/opensans/v34/600-normal-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
-}
-
 /* latin-ext */
 @font-face {
   font-family: 'Open Sans';
@@ -550,26 +434,6 @@ To update the Open sans font:
   unicode-range: U+0370-03FF;
 }
 
-/* hebrew */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: normal;
-  font-weight: 700;
-  src: url('~assets/fonts/opensans/v34/700-normal-hebrew.woff2') format('woff2');
-  unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
-}
-
-/* vietnamese */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: normal;
-  font-weight: 700;
-  src: url('~assets/fonts/opensans/v34/700-normal-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
-}
-
 /* latin-ext */
 @font-face {
   font-family: 'Open Sans';
@@ -628,26 +492,6 @@ To update the Open sans font:
   font-weight: 800;
   src: url('~assets/fonts/opensans/v34/800-normal-greek.woff2') format('woff2');
   unicode-range: U+0370-03FF;
-}
-
-/* hebrew */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: normal;
-  font-weight: 800;
-  src: url('~assets/fonts/opensans/v34/800-normal-hebrew.woff2') format('woff2');
-  unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
-}
-
-/* vietnamese */
-@font-face {
-  font-family: 'Open Sans';
-  font-display: swap;
-  font-style: normal;
-  font-weight: 800;
-  src: url('~assets/fonts/opensans/v34/800-normal-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
 /* latin-ext */
