@@ -1,12 +1,12 @@
 <template>
   <b-button
-    v-b-modal.download-modal
+    ref="downloadButton"
     :href="url"
     :disabled="disabled"
     data-qa="download button"
     class="download-button d-inline-flex align-items-center"
     :target="target"
-    @click.native="trackDownload"
+    @click.native="handleClickDownloadButton"
   >
     <span class="icon-ic-download d-inline-flex pr-1" />
     {{ $t('actions.download') }}
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     props: {
       url: {
@@ -31,10 +33,30 @@
     },
     data() {
       return {
-        clicked: false
+        clicked: false,
+        urlValidated: false
       };
     },
     methods: {
+      async handleClickDownloadButton(event) {
+        if (this.urlValidated) {
+          this.$bvModal.show('download-modal');
+          this.trackDownload();
+        } else {
+          try {
+            event.preventDefault();
+            await axios({
+              method: 'head',
+              url: this.url
+            });
+          } catch (e) {
+            this.$bvModal.show('download-failed-modal');
+            return;
+          }
+          this.urlValidated = true;
+          this.$refs.downloadButton.$el.click();
+        }
+      },
       trackDownload() {
         if (!this.disabled && this.$matomo && !this.clicked) {
           this.$matomo.trackEvent('Item_download', 'Click download button', this.url);

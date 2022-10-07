@@ -63,6 +63,9 @@
         :rights="rightsNameAndIcon(rightsStatement).name"
         :url="attributionFields.url"
       />
+      <DownloadFailedModal
+        v-if="downloadEnabled"
+      />
     </b-container>
   </div>
 </template>
@@ -71,7 +74,8 @@
   import ClientOnly from 'vue-client-only';
   import ItemMediaSwiper from './ItemMediaSwiper';
   import DownloadButton from '../generic/DownloadButton';
-  import DownloadModal from '../generic/DownloadModal.vue';
+  import DownloadModal from '../generic/DownloadModal';
+  import DownloadFailedModal from '../generic/DownloadFailedModal';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ItemEmbedCode from './ItemEmbedCode';
   import SocialShareModal from '../sharing/SocialShareModal';
@@ -83,14 +87,15 @@
 
   export default {
     components: {
-      ItemMediaSwiper,
       ClientOnly,
       DownloadButton,
-      RightsStatementButton,
-      ItemEmbedCode,
-      SocialShareModal,
+      DownloadFailedModal,
       DownloadModal,
+      ItemEmbedCode,
+      ItemMediaSwiper,
+      RightsStatementButton,
       ShareButton,
+      SocialShareModal,
       UserButtons: () => import('../account/UserButtons')
     },
 
