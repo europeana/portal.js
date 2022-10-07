@@ -466,7 +466,7 @@ describe('components/search/SideFilters', () => {
           ]
         };
         const wrapper = factory({ searchStoreState: { userParams } });
-        sinon.spy(wrapper.vm, 'rerouteSearch')
+        sinon.spy(wrapper.vm, 'rerouteSearch');
 
         wrapper.vm.resetFilters();
 
