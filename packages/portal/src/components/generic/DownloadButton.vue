@@ -17,6 +17,7 @@
   import axios from 'axios';
 
   export default {
+    name: 'DownloadButton',
     props: {
       url: {
         type: String,
@@ -29,6 +30,10 @@
       target: {
         type: String,
         default: '_blank'
+      },
+      identifier: {
+        type: String,
+        required: true
       }
     },
     data() {
@@ -54,6 +59,7 @@
               name: 'DownloadError',
               message: error.message,
               status: error.response.status,
+              item: this.identifier,
               url: this.url
             });
             this.$bvModal.show('download-failed-modal');

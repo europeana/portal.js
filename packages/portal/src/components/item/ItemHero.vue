@@ -41,6 +41,7 @@
               <DownloadButton
                 v-if="downloadEnabled"
                 :url="downloadUrl"
+                :identifier="identifier"
               />
             </div>
           </div>
