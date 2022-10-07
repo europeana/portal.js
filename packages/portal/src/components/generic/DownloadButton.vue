@@ -49,7 +49,13 @@
               method: 'head',
               url: this.url
             });
-          } catch (e) {
+          } catch (error) {
+            this.$apm?.captureError({
+              name: 'DownloadError',
+              message: error.message,
+              status: error.response.status,
+              url: this.url
+            });
             this.$bvModal.show('download-failed-modal');
             return;
           }
