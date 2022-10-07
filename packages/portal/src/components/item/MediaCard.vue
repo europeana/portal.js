@@ -1,6 +1,15 @@
 <template>
+  <iframe
+    v-if="isIIIFImage || isIIIFPresentation"
+    data-qa="IIIF viewer"
+    allowfullscreen="true"
+    class="iiif-iframe"
+    :src="$path({ name: 'iiif', query: { uri: iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
+    :aria-label="$t('actions.viewDocument')"
+    :title="$t('record.IIIFViewer')"
+  />
   <MediaCardImage
-    v-if="displayImage"
+    v-else-if="displayImage"
     :europeana-identifier="europeanaIdentifier"
     :edm-type="edmType"
     :media="media"
@@ -45,15 +54,6 @@
     :height="oEmbedData.height"
     :width="oEmbedData.width"
     :error="oEmbedData.error"
-  />
-  <iframe
-    v-else-if="isIIIFImage || isIIIFPresentation"
-    data-qa="IIIF viewer"
-    allowfullscreen="true"
-    class="iiif-iframe"
-    :src="$path({ name: 'iiif', query: { uri: iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
-    :aria-label="$t('actions.viewDocument')"
-    :title="$t('record.IIIFViewer')"
   />
 </template>
 
