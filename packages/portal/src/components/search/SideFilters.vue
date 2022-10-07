@@ -390,11 +390,11 @@
         return updated;
       },
       resetFilters() {
-        const filters = Object.assign({}, this.filters);
+        const filters = Object.keys(this.filters).reduce((memo, filterName) => {
+          memo[filterName] = null;
+          return memo;
+        }, {});
 
-        for (const filterName of this.resettableFilters) {
-          filters[filterName] = [];
-        }
         return this.rerouteSearch(this.queryUpdatesForFilters(filters));
       },
       hasResettableFilters() {
