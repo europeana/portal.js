@@ -30,8 +30,8 @@ const factory = (options = {}) => {
     $tc: (key) => key,
     $te: () => true,
     $features: { entityHeaderCards: true },
-    $path: () => '/',
-    $goto: () => null,
+    $path: sinon.stub().returns('/'),
+    $goto: sinon.spy(),
     ...options.mocks
   };
 
@@ -455,6 +455,25 @@ describe('components/search/SideFilters', () => {
   });
 
   describe('methods', () => {
+    describe('resetFilters', () => {
+      it('removes all current filters from route', () => {
+        const userParams = {
+          api: 'fulltext',
+          qf: [
+            'collection:newspaper',
+            'COUNTRY:"Netherlands"',
+            'proxy_dcterms_issued:1871-12-12'
+          ]
+        };
+        const wrapper = factory({ searchStoreState: { userParams } });
+        sinon.spy(wrapper.vm, 'rerouteSearch')
+
+        wrapper.vm.resetFilters();
+
+        expect(wrapper.vm.rerouteSearch.calledWith({ qf: [], page: 1 })).toBe(true);
+      });
+    });
+
     describe('changeFacet', () => {
       const facetName = 'TYPE';
 
