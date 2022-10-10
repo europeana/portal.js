@@ -268,6 +268,55 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('methods', () => {
+    describe('handlePaginationChanged', () => {
+      it('is records pagination changed then triggers fetch', async() => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, '$fetch');
+        expect(wrapper.vm.paginationChanged).toBe(false);
+
+        wrapper.vm.handlePaginationChanged();
+
+        expect(wrapper.vm.paginationChanged).toBe(true);
+        expect(wrapper.vm.$fetch.called).toBe(true);
+      });
+    });
+
+    describe('handleResultsDrawn', () => {
+      const linkStub = { focus: sinon.spy() };
+      const cardRefs = [
+        { $el: { getElementsByTagName: sinon.stub().withArgs('a').returns([linkStub]) } }
+      ];
+
+      describe('when pagination changed', () => {
+        it('sets focus to link in first card element from refs', () => {
+          const wrapper = factory();
+          wrapper.setData({ paginationChanged: true });
+
+          wrapper.vm.handleResultsDrawn(cardRefs);
+
+          expect(linkStub.focus.called).toBe(true);
+        });
+
+        it('resets paginationChanged', () => {
+          const wrapper = factory();
+          wrapper.setData({ paginationChanged: true });
+
+          wrapper.vm.handleResultsDrawn(cardRefs);
+
+          expect(wrapper.vm.paginationChanged).toBe(false);
+        });
+      });
+
+      it('does not change the focus', () => {
+        const wrapper = factory();
+        wrapper.setData({ paginationChanged: false });
+
+        wrapper.vm.handleResultsDrawn(cardRefs);
+
+        expect(linkStub.focus.called).toBe(false);
+      });
+    });
+
     describe('watchRouteQueryQf', () => {
       describe('when values have been added', () => {
         describe('and old value was `undefined`', () => {
