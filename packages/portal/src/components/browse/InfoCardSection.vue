@@ -66,3 +66,26 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
+  .info-card-section {
+    .card-deck-3-cols {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      margin-right: -$grid-gutter;
+      margin-left: -$grid-gutter;
+
+      .card {
+        flex: 0 0 calc(100% / 2 - #{$grid-gutter * 2});
+        margin: $grid-gutter;
+
+        @media (min-width: $bp-medium) {
+          flex: 0 0 calc(100% / 3 - #{$grid-gutter * 2});
+        }
+      }
+    }
+  }
+</style>

@@ -76,6 +76,87 @@
   };
 </script>
 
+<style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
+
+  .info-card {
+    background: $white;
+    border-radius: $border-radius-large;
+    box-shadow: none;
+    color: $greyblack;
+    border: none;
+    transition: box-shadow 0.25s;
+
+    &.dark-card {
+      background: $bodygrey;
+    }
+
+    &:hover {
+      box-shadow: $boxshadow-small;
+      transition: box-shadow 0.25s;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .card-body {
+      padding: 0.625rem 1rem 0.5rem;
+    }
+
+    .card-title {
+      color: $blue;
+      font-size: 1.5rem;
+      line-height: 1.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-text {
+      font-weight: 700;
+      font-size: $font-size-extrasmall;
+      line-height: 1.75rem;
+    }
+
+    .card-img {
+      @extend %icon-font;
+
+      font-size: 2rem;
+      margin-top: 1rem;
+
+      .ic-3d {
+        &::after {
+          content: '\e942';
+        }
+      }
+
+      .ic-video {
+        &::after {
+          content: '\e943';
+        }
+      }
+
+      .ic-sound {
+        &::after {
+          content: '\e944';
+        }
+      }
+
+      .ic-text {
+        &::after {
+          content: '\e945';
+        }
+      }
+
+      .ic-image {
+        &::after {
+          content: '\e946';
+        }
+      }
+    }
+  }
+</style>
+
 <docs lang="md">
   Variant "default":
   ```jsx
