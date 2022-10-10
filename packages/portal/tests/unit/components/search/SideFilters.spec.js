@@ -459,6 +459,7 @@ describe('components/search/SideFilters', () => {
       it('removes all current filters from route', () => {
         const userParams = {
           api: 'fulltext',
+          reusability: 'open',
           qf: [
             'collection:newspaper',
             'COUNTRY:"Netherlands"',
@@ -470,7 +471,7 @@ describe('components/search/SideFilters', () => {
 
         wrapper.vm.resetFilters();
 
-        expect(wrapper.vm.rerouteSearch.calledWith({ qf: [], page: 1 })).toBe(true);
+        expect(wrapper.vm.rerouteSearch.calledWith({ page: 1, qf: null, api: null, reusability: null })).toBe(true);
       });
     });
 

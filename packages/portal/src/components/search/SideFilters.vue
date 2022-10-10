@@ -337,7 +337,7 @@
           switch (name) {
           case 'REUSABILITY':
             // `reusability` has its own API parameter and can not be queried in `qf`
-            queryUpdates.reusability = filters[name].length > 0 ? filters[name].join(',') : null;
+            queryUpdates.reusability = (filters[name]?.length || 0) > 0 ? filters[name].join(',') : null;
             break;
           case 'api':
             // `api` is an option to /plugins/europeana/search/search()
@@ -390,12 +390,12 @@
         return updated;
       },
       resetFilters() {
-        const filters = Object.keys(this.filters).reduce((memo, filterName) => {
-          memo[filterName] = null;
-          return memo;
-        }, {});
-
-        return this.rerouteSearch(this.queryUpdatesForFilters(filters));
+        this.rerouteSearch({
+          page: 1,
+          qf: null,
+          api: null,
+          reusability: null
+        });
       },
       hasResettableFilters() {
         return this.resettableFilters.length > 0;
