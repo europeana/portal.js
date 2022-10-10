@@ -17,8 +17,10 @@ import features, { featureIsEnabled, featureNotificationExpiration } from './src
 
 import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './src/plugins/europeana/entity.js';
 import { BASE_URL as EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL } from './src/plugins/europeana/entity-management.js';
-import { BASE_URL as EUROPEANA_RECORD_API_BASE_URL } from './src/plugins/europeana/record.js';
-import { FULLTEXT_BASE_URL as EUROPEANA_RECORD_API_FULLTEXT_URL } from './src/plugins/europeana/record.js';
+import {
+  BASE_URL as EUROPEANA_RECORD_API_BASE_URL,
+  FULLTEXT_BASE_URL as EUROPEANA_RECORD_API_FULLTEXT_URL
+} from './src/plugins/europeana/record.js';
 import { PRESENTATION_URL as EUROPEANA_IIIF_PRESENTATION_URL } from './src/plugins/europeana/iiif.js';
 
 const buildPublicPath = () => {
