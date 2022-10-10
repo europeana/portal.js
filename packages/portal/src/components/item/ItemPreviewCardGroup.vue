@@ -68,6 +68,7 @@
       <aside
         v-if="card === 'related'"
         :key="index"
+        class="aside-card-wrapper"
       >
         <slot
           name="related"

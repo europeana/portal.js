@@ -28,13 +28,14 @@ const factory = (propsData = {}) => {
       $path: (args) => args,
       $matomo: {
         trackEvent: sinon.spy()
-      }
+      },
+      $goto: sinon.spy()
     }
   });
 };
 
 describe('components/search/ViewToggles', () => {
-  for (const view of ['list', 'grid']) {
+  for (const view of ['list', 'grid', 'mosaic']) {
     describe(`${view} view`, () => {
       it('has a toggle', () => {
         const wrapper = factory();
@@ -43,35 +44,37 @@ describe('components/search/ViewToggles', () => {
         expect(viewToggle.exists()).toBe(true);
       });
 
-      it('links to route with view parameter set', () => {
+      it('has a radio button with a value of the view', () => {
         const wrapper = factory();
 
-        const viewToggleLink = wrapper.find(`[data-qa="search ${view} view toggle"] a`);
-        expect(viewToggleLink.attributes('href')).toMatch(new RegExp(`[?&]view=${view}(&|$)`));
+        const viewToggleLink = wrapper.find(`[data-qa="search ${view} view toggle"]`);
+        expect(viewToggleLink.attributes('value')).toMatch(view);
       });
 
       it('displays icon', () => {
         const wrapper = factory();
 
-        const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle"] .icon-view-toggle`);
+        const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle icon"]`);
         expect(viewToggleIcon.attributes('class')).toBe(`icon-view-toggle ${view}`);
       });
     });
   }
 
-  describe('when v-model changes', () => {
-    it('updates active view', async() => {
+  describe('when the activeView changes', () => {
+    it('redirects the page', async() => {
+      const expectedGoToArgs = { name: null, meta: {}, path: '/', hash: '', query: { view: 'list' }, params: {}, fullPath: '/', matched: [] };
+
       const wrapper = factory({ value: 'grid' });
 
-      await wrapper.setProps({ value: 'list' });
+      await wrapper.setData({ activeView: 'list' });
 
-      expect(wrapper.vm.activeView).toBe('list');
+      expect(wrapper.vm.$goto.calledWith(expectedGoToArgs)).toBe(true);
     });
 
     it('tracks the event in Matomo', async() => {
       const wrapper = factory({ value: 'grid' });
 
-      await wrapper.setProps({ value: 'list' });
+      await wrapper.setData({ activeView: 'list' });
 
       expect(wrapper.vm.$matomo.trackEvent.calledWith('View search results', 'Select view', 'list')).toBe(true);
     });

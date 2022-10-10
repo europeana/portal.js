@@ -33,8 +33,6 @@
               />
               <ViewToggles
                 v-model="view"
-                :link-gen-route="route"
-                class="flex-nowrap mt-md-2"
               />
             </div>
             <b-row
