@@ -101,7 +101,6 @@
   }
 
   .cta {
-
     @media (min-width: $bp-xxxl) {
       font-size: 1vw;
     }
