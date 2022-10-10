@@ -4,8 +4,9 @@ import axiosRetry from 'axios-retry';
 import queries from './queries';
 
 export default ({ $apm, $config }) => {
-  const $axios = axios.create();
-  axiosRetry($axios);
+  const axiosInstance = axios.create();
+  axiosRetry(axiosInstance);
+
   const config = $config.contentful;
   const origin = config.graphQlOrigin || 'https://graphql.contentful.com';
   const path = `/content/v1/spaces/${config.spaceId}/environments/${config.environmentId || 'master'}`;
@@ -30,7 +31,7 @@ export default ({ $apm, $config }) => {
       ...variables
     };
 
-    return $axios.post(`${origin}${path}`, body, { headers, params })
+    return axiosInstance.post(`${origin}${path}`, body, { headers, params })
       .catch((error) => {
         if ($apm?.captureError) {
           $apm.captureError(error, {
