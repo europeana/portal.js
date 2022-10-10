@@ -211,7 +211,6 @@
 
   .cta {
     font-size: 1em;
-    margin: 1.5em 0 auto auto;
   }
 
   .slide-link {
@@ -223,7 +222,13 @@
   .swiper-container {
     width: 100%;
     padding: 0;
-    padding-top: 1rem;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-xxxl) {
+      margin-top: 2.25vw;
+      margin-bottom: 2.25vw;
+    }
   }
 
   .swiper-slide {

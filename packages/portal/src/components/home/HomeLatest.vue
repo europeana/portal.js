@@ -8,7 +8,7 @@
       {{ $t('homePage.discoverEditorial') }}
     </h2>
     <b-card-group
-      class="mt-3 card-deck-3-cols justify-content-center gridless-browse-cards"
+      class="card-deck-3-cols justify-content-center gridless-browse-cards"
       deck
     >
       <!-- TODO: use/add image alt description -->
@@ -90,7 +90,6 @@
   h2 {
     color: $mediumgrey;
     font-size: 2rem;
-    margin: 0.5em 0 !important;
 
     @media (min-width: $bp-extralarge) {
       font-size: 2.375rem;
@@ -102,7 +101,6 @@
   }
 
   .cta {
-    margin: 1.5em 0 auto auto;
 
     @media (min-width: $bp-xxxl) {
       font-size: 1vw;
@@ -111,7 +109,13 @@
 
   .card-deck {
     flex-flow: row wrap;
-    padding-top: 1rem;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-xxxl) {
+      margin-top: 2.25vw;
+      margin-bottom: 2.25vw;
+    }
 
     .content-card.card {
       &:last-child {
