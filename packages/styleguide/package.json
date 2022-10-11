@@ -1,6 +1,6 @@
 {
   "name": "@europeana/styleguide",
-  "version": "1.85.0",
+  "version": "1.87.0",
   "description": "Europeana styleguide",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "vue-styleguidist server --config ./styleguide.config.cjs"
   },
   "devDependencies": {
-    "@europeana/portal": "^1.85.0",
+    "@europeana/portal": "^1.87.0",
     "vue": "2.6.14",
     "vue-server-renderer": "2.6.14",
     "vue-styleguidist": "4.48.0",

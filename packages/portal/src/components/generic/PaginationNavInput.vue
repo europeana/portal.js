@@ -126,9 +126,11 @@
 
     methods: {
       changePaginationNav() {
-        const newRouteQuery = {  ...this.$route.query, page: this.page };
-        const newRoute = { path: this.$route.path, query: newRouteQuery };
-        this.$goto(newRoute);
+        if (this.page) {
+          const newRouteQuery = {  ...this.$route.query, page: this.page };
+          const newRoute = { path: this.$route.path, query: newRouteQuery };
+          this.$goto(newRoute);
+        }
       },
 
       linkGen(pageNo) {

@@ -25,7 +25,7 @@
           :img="entityImage"
           :type="entity.type"
           data-qa="entity removal badge"
-          class="mt-1 mx-1"
+          class="mb-1 mx-1"
         />
       </template>
       <template
@@ -36,7 +36,7 @@
           :title="query"
           :link-to="queryRemovalLink"
           data-qa="query removal badge"
-          class="mt-1 mx-1"
+          class="mb-1 mx-1"
         />
       </template>
     </i18n>

@@ -166,6 +166,16 @@ describe('components/item/ItemPreviewCardGroup', () => {
     });
   });
 
+  describe('mounted', () => {
+    it('emits "drawn" event', async() => {
+      const wrapper = factory({ propsData: { items: results, view: 'grid' } });
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.emitted('drawn').length).toBe(1);
+    });
+  });
+
   describe('methods', () => {
     describe('itemHitSelector', () => {
       describe('when no hits are present', () => {
