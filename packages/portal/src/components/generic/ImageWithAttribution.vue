@@ -88,3 +88,56 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
+  .figure-attribution {
+    .jumbotron {
+      height: auto;
+      background: $white;
+
+      &::before {
+        display: none;
+      }
+
+      &.hero {
+        min-height: initial;
+
+        figure {
+          height: 0;
+          padding-top: 56.25%;
+          position: relative;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+
+          &::before {
+            background: rgb(41 55 69 / 35%);
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            z-index: 3;
+          }
+
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+          }
+        }
+      }
+
+      .container {
+        max-width: none;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+</style>
