@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@europeana/utils';
   import EntityField from './EntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';

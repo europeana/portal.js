@@ -10,8 +10,7 @@ const APP_PKG_NAME = '@europeana/portal';
 
 import versions from './pkg-versions.js';
 
-import i18nLocales from './src/plugins/i18n/locales.js';
-import i18nDateTime from './src/plugins/i18n/datetime.js';
+import { locales as i18nLocales, datetime as i18nDateTime } from '@europeana/i18n';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
@@ -282,7 +281,7 @@ export default {
   */
   plugins: [
     '~/plugins/vue-matomo.client',
-    '~/plugins/i18n/iso-locale',
+    '~/plugins/i18n.iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/link',
     '~/plugins/page',
@@ -370,7 +369,7 @@ export default {
   },
 
   router: {
-    middleware: ['trailing-slash', 'legacy/index', 'l10n'],
+    middleware: ['trailing-slash', 'l10n'],
     extendRoutes(routes) {
       const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
       routes[nuxtHomeRouteIndex] = {

@@ -2,8 +2,8 @@
 
 import qs from 'qs';
 
-import { unquotableFacets } from '../../../plugins/europeana/search';
-import { escapeLuceneSpecials } from '../../../plugins/europeana/utils';
+import { UNQUOTABLE_FACETS } from '@europeana/constants';
+import { escapeLuceneSpecials } from '@europeana/utils';
 
 export const collectionToThemeMap = {
   'world-war-I': 'ww1',
@@ -22,7 +22,7 @@ const queryFacetParameterMappings = {
   default(query, key, value) {
     for (const filterValue of [].concat(value)) {
       let queryFilterValue;
-      if (unquotableFacets.includes(key) || filterValue.includes('*')) {
+      if (UNQUOTABLE_FACETS.includes(key) || filterValue.includes('*')) {
         queryFilterValue = filterValue;
       } else {
         queryFilterValue = '"' + escapeLuceneSpecials(filterValue) + '"';
@@ -93,7 +93,7 @@ function mapQueryParameter(query, key, value) {
   }
 }
 
-function baseRedirect(route, query = {}) {
+function baseRedirect(req, query = {}) {
   const redirect = {
     query: {
       query: [],
@@ -102,12 +102,12 @@ function baseRedirect(route, query = {}) {
   };
 
   const pattern = /^\/portal(\/[a-z]{2})?(\/search)$/;
-  const match = route.path.match(pattern);
+  const match = req.path.match(pattern);
   if (match) {
     redirect.path = match.slice(1);
   } else {
     const collectionPattern = /^\/portal(\/[a-z]{2})?\/collections\/([^/]+)$/;
-    const collectionMatch = route.path.match(collectionPattern);
+    const collectionMatch = req.path.match(collectionPattern);
     if (collectionMatch && Object.prototype.hasOwnProperty.call(query, 'q')) {
       redirect.path = [collectionMatch[1], '/search'];
       redirect.query.qf.push(`collection:${mapCollectionToTheme(collectionMatch[2])}`);
@@ -117,10 +117,10 @@ function baseRedirect(route, query = {}) {
   return redirect;
 }
 
-export default (route) => {
-  const query = qs.parse(route.fullPath.split('?')[1] || '');
+export default (req) => {
+  const query = qs.parse(req.url.split('?')[1] || '');
 
-  const redirect = baseRedirect(route, query);
+  const redirect = baseRedirect(req, query);
 
   if (!redirect.path) {
     return null;

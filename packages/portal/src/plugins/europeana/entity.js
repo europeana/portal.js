@@ -1,5 +1,5 @@
 import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
-import { apiError, createAxios } from './utils.js';
+import { apiError, createAxios } from '@europeana/utils';
 import thumbnail from './thumbnail.js';
 import md5 from 'md5';
 

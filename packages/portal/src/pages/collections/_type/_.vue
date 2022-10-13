@@ -87,7 +87,7 @@
   import {
     getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale, uriRegex } from  '@europeana/utils';
 
   export default {
     name: 'CollectionPage',

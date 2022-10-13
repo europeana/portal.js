@@ -143,8 +143,8 @@
   import ColourSwatch from '../generic/ColourSwatch';
   import { BFormTags, BFormTag } from 'bootstrap-vue';
   import themes from '@/plugins/europeana/themes';
-  import { unquotableFacets } from '@/plugins/europeana/search';
-  import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils';
+  import { UNQUOTABLE_FACETS } from '@europeana/constants';
+  import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@europeana/utils';
   import facetsMixin from '@/mixins/facets';
   import { mapState } from 'vuex';
 
@@ -463,7 +463,7 @@
       },
 
       enquoteFacetFieldFilterValue(value) {
-        if (unquotableFacets.includes(this.name) || this.groupBy) {
+        if (UNQUOTABLE_FACETS.includes(this.name) || this.groupBy) {
           return value;
         } else {
           return `"${escapeLuceneSpecials(value)}"`;

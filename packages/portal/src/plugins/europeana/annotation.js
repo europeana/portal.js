@@ -1,6 +1,6 @@
 import qs from 'qs';
 
-import { apiError, createAxios } from './utils';
+import { apiError, createAxios } from '@europeana/utils';
 
 export const BASE_URL = 'https://api.europeana.eu/annotation';
 

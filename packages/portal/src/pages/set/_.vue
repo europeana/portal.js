@@ -159,7 +159,7 @@
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
     SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
   } from '@/plugins/europeana/data';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@europeana/utils';
 
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';

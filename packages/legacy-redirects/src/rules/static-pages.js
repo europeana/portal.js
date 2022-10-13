@@ -1,6 +1,6 @@
 // Static page redirects
 
-import escapeRegExp from 'lodash/escapeRegExp';
+import escapeRegExp from 'lodash.escaperegexp';
 
 const redirects = {
   '/about': '/about-us',
@@ -36,12 +36,12 @@ const redirects = {
   '/rights/terms': '/rights/terms-of-use'
 };
 
-export default (route) => {
+export default (req) => {
   for (const redirectFrom in redirects) {
     const redirectTo = typeof redirects[redirectFrom] === 'string' ? { path: redirects[redirectFrom] } : redirects[redirectFrom];
 
     const pattern = new RegExp(`^/portal(/[a-z]{2})?${escapeRegExp(redirectFrom)}(.html)?$`);
-    const match = route.path.match(pattern);
+    const match = req.path.match(pattern);
 
     if (match) {
       return {

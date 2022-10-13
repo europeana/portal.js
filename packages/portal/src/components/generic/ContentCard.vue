@@ -121,7 +121,7 @@
   import ClientOnly from 'vue-client-only';
   import SmartLink from './SmartLink';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@europeana/utils';
   import themes from '@/plugins/europeana/themes';
 
   export default {

@@ -2,7 +2,7 @@ import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
+import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from '@europeana/utils';
 import search from './search';
 import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail';
 import { isIIIFPresentation, isIIIFImage } from '../media';

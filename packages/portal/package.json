@@ -14,6 +14,8 @@
     "version": "node bin/pkg-versions.js && node bin/sonar-project-version.js && git add pkg-versions.js sonar-project.properties"
   },
   "dependencies": {
+    "@europeana/constants": "^1.87.0",
+    "@europeana/i18n": "^1.87.0",
     "@elastic/apm-rum-vue": "^1.3.1",
     "@nuxt/cli": "^2.15.8",
     "@nuxt/core": "^2.15.8",

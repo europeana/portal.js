@@ -30,10 +30,14 @@
     "test": "npm run lint && npm run stylelint && npm run test:unit && npm run -w packages/portal test:size && npm run test:stack:rebuild && npm run test:e2e"
   },
   "resolutions": {
+    "@europeana/api": "link:./packages/api",
+    "@europeana/constants": "link:./packages/constants",
     "@europeana/contentful": "link:./packages/contentful",
+    "@europeana/express": "link:./packages/express",
+    "@europeana/i18n": "link:./packages/i18n",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/styleguide": "link:./packages/styleguide",
-    "@europeana/portal-api": "link:./packages/api"
+    "@europeana/utils": "link:./packages/utils"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",

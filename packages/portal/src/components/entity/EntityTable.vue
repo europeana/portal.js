@@ -61,7 +61,7 @@
   import LoadingSpinner from '../generic/LoadingSpinner';
   import SmartLink from '../generic/SmartLink';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/utils';
 
   export default {
     name: 'EntityTable',

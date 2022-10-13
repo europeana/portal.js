@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 export default () => ({
   jira: {
     origin: process.env.JIRA_API_ORIGIN,

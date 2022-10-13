@@ -5,7 +5,7 @@
 
 import md5 from 'md5';
 
-import { preferredAPIBaseURL } from './utils.js';
+import { preferredAPIBaseURL } from '@europeana/utils';
 import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
 
 // TODO: switch to v3 when v2 support is deprecated

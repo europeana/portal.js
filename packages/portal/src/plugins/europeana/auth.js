@@ -82,23 +82,3 @@ const refreshAccessTokenRequestOptions = ($auth) => {
     }).toString()
   };
 };
-
-export const keycloakResponseErrorHandler = (context, error) => {
-  if (error.response.status === 401) {
-    return keycloakUnauthorizedResponseErrorHandler(context, error);
-  } else {
-    return Promise.reject(error);
-  }
-};
-
-const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect, route }, error) => {
-  if ($auth.getRefreshToken($auth.strategy.name)) {
-    // User has previously logged in, and we have a refresh token, e.g.
-    // access token has expired
-    return refreshAccessToken({ $auth, $axios, redirect, route }, error.config);
-  } else {
-    // User has not already logged in, or we have no refresh token:
-    // redirect to OIDC login URL
-    return redirect($auth.options.redirect.login, { redirect: route.path });
-  }
-};

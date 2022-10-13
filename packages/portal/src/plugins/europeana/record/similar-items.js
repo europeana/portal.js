@@ -1,4 +1,4 @@
-import { escapeLuceneSpecials } from '../utils';
+import { escapeLuceneSpecials } from '@europeana/utils';
 
 // Configuration for constructing similar items queries
 const SIMILAR_ITEMS_FIELDS = {

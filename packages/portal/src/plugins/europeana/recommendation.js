@@ -1,4 +1,4 @@
-import { apiError, createKeycloakAuthAxios } from './utils';
+import { apiError, createKeycloakAuthAxios } from '@europeana/utils';
 
 export const BASE_URL = 'https://api.europeana.eu/recommend';
 

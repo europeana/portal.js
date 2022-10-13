@@ -1,6 +1,5 @@
 import axios from 'axios';
-import locales from '../i18n/locales.js';
-import { keycloakResponseErrorHandler } from './auth.js';
+import { locales } from '@europeana/i18n';
 
 export const createAxios = ({ id, baseURL, $axios }, context) => {
   const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
@@ -355,7 +354,7 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
         [selectedLocale]: value[selectedLocale]
       };
       if (value.translationSource) {
-        langMap['translationSource'] = value.translationSource;
+        langMap.translationSource = value.translationSource;
       }
       // Preserve entities from .def property
       if (selectedLocale !== 'def' && Array.isArray(value.def)) {
@@ -372,5 +371,25 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
     }
   } else {
     return value;
+  }
+};
+
+export const keycloakResponseErrorHandler = (context, error) => {
+  if (error.response.status === 401) {
+    return keycloakUnauthorizedResponseErrorHandler(context, error);
+  } else {
+    return Promise.reject(error);
+  }
+};
+
+const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect, route }, error) => {
+  if ($auth.getRefreshToken($auth.strategy.name)) {
+    // User has previously logged in, and we have a refresh token, e.g.
+    // access token has expired
+    return refreshAccessToken({ $auth, $axios, redirect, route }, error.config);
+  } else {
+    // User has not already logged in, or we have no refresh token:
+    // redirect to OIDC login URL
+    return redirect($auth.options.redirect.login, { redirect: route.path });
   }
 };

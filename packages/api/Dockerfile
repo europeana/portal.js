@@ -4,15 +4,15 @@ FROM node:16-alpine AS dependencies
 
 WORKDIR /app
 
-RUN mkdir -p packages/api
+RUN mkdir -p packages/api packages/express
 
-COPY package*.json ./
-COPY packages/api/package*.json ./packages/api/
+COPY LICENSE.md package*.json ./
+COPY packages/express/ ./packages/express/
+COPY packages/api/package.json ./packages/api/
 
 RUN npm ci -w packages/api
 
-COPY LICENSE.md ./
-COPY packages/api/src ./packages/api/src
+COPY packages/api/ ./packages/api/
 
 RUN npm prune --omit dev
 
@@ -31,4 +31,4 @@ COPY --from=dependencies /app .
 
 USER 1000
 
-CMD ["packages/api/src/index.js"]
+CMD ["packages/express/bin/start.js"]

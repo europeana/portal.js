@@ -75,7 +75,7 @@
 </template>
 
 <script>
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@europeana/utils';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
 

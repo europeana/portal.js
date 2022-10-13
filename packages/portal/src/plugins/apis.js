@@ -6,7 +6,7 @@ import set from './europeana/set.js';
 import entityManagement from './europeana/entity-management.js';
 import thumbnail from './europeana/thumbnail.js';
 
-import { apiUrlFromRequestHeaders } from './europeana/utils.js';
+import { apiUrlFromRequestHeaders } from '@europeana/utils';
 
 const MODULE_NAME = 'apis';
 

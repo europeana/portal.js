@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import errorHandler from '../error.js';
+import errorHandler from '@europeana/express/src/error.js';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
 const JSON_CONTENT_TYPE = 'application/json';

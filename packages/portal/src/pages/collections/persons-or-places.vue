@@ -34,7 +34,7 @@
 
 <script>
   import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@europeana/utils';
 
   import ContentHeader from '@/components/generic/ContentHeader';
   import ContentCard from '@/components/generic/ContentCard';

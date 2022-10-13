@@ -44,7 +44,7 @@
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatest from '@/components/home/HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@europeana/utils';
 
   export default {
     name: 'HomePage',

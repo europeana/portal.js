@@ -1,5 +1,5 @@
+import expressApp from '@europeana/express/src/app.js';
+import expressServer from '@europeana/express/src/server.js';
 import app from './app.js';
 
-const server = app.listen(process.env.PORT || 4000, () => {
-  console.log('Listening on port ' + server.address().port);
-});
+expressServer(expressApp(app));

@@ -24,7 +24,7 @@
 
 <script>
   import similarItemsQuery from '@/plugins/europeana/record/similar-items';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
 
   export default {

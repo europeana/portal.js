@@ -1,5 +1,5 @@
 import redis from 'redis';
-import errorHandler from '../error.js';
+import errorHandler from '@europeana/express/src/error.js';
 import { promisify } from 'util';
 
 const cacheKey = (id) => `@europeana:portal.js:${id.replace(/\//g, ':')}`;

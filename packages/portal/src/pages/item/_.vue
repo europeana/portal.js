@@ -133,7 +133,7 @@
   import MetadataBox from '@/components/item/MetadataBox';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@europeana/utils';
   import stringify from '@/mixins/stringify';
 
   export default {

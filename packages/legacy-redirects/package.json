@@ -1,0 +1,33 @@
+{
+  "name": "@europeana/legacy-redirects",
+  "version": "1.87.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node -r dotenv/config bin/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/europeana/portal.js.git"
+  },
+  "contributors": [
+    "Richard Doe <richard.doe@europeana.eu>",
+    "Lutz Biedinger <lutz.biedinger@europeana.eu>",
+    "Mirjam Verloop <mirjam.verloop@europeana.eu>",
+    "Leonie Peters <leonie.peters@europeana.eu>"
+  ],
+  "dependencies": {
+    "@europeana/constants": "^1.87.0",
+    "@europeana/express": "^1.87.0",
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "lodash.escaperegexp": "^4.1.2",
+    "redis": "^3.1.2"
+  },
+  "license": "EUPL-1.2",
+  "bugs": {
+    "url": "https://github.com/europeana/portal.js/issues"
+  },
+  "homepage": "https://github.com/europeana/portal.js#readme",
+  "type": "module"
+}

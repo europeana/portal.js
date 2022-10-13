@@ -7,25 +7,8 @@ import pick from 'lodash/pick';
 
 import {
   apiError, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
-} from './utils';
+} from '@europeana/utils';
 import { truncate } from '../vue-filters';
-
-// Some facets do not support enquoting of their field values.
-export const unquotableFacets = [
-  'collection', // it _may_ be quoted, but our prewarmed filters are without
-  'COLOURPALETTE',
-  'IMAGE_COLOUR',
-  'IMAGE_GREYSCALE', // WARNING: always returns zero results anyway
-  'IMAGE_SIZE',
-  'MEDIA',
-  'MIME_TYPE',
-  'REUSABILITY',
-  'SOUND_DURATION',
-  'SOUND_HQ',
-  'TEXT_FULLTEXT',
-  'THUMBNAIL',
-  'VIDEO_HD'
-];
 
 export const filtersFromQf = (qfs) => {
   const filters = {};

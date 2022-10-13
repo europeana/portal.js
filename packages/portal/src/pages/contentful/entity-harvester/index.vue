@@ -31,7 +31,7 @@
     entityParamsFromUri
   } from '@/plugins/europeana/entity';
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
-  import { langMapValueForLocale, getLabelledSlug } from '@/plugins/europeana/utils';
+  import { langMapValueForLocale, getLabelledSlug } from '@europeana/utils';
   import { BASE_URL } from '@/plugins/europeana/data';
 
   export default {

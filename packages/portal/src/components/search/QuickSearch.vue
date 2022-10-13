@@ -14,7 +14,7 @@
 <script>
   import RelatedCollections from '../related/RelatedCollections';
   import allThemes from '@/mixins/allThemes';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@europeana/utils';
 
   export default {
     name: 'QuickSearch',
