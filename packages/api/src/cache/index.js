@@ -1,7 +1,34 @@
-import { createRedisClient } from '../../../cachers/utils.js';
-import { errorHandler } from '../index.js';
+import redis from 'redis';
+import errorHandler from '../error.js';
+import { promisify } from 'util';
 
 const cacheKey = (id) => `@europeana:portal.js:${id.replace(/\//g, ':')}`;
+
+const redisConfig = (config = {}) => {
+  const redisOptions = {
+    url: config.url
+  };
+
+  if (config.tlsCa) {
+    redisOptions.tls = {
+      ca: [Buffer.from(config.tlsCa, 'base64')]
+    };
+  }
+
+  return redisOptions;
+};
+
+const createRedisClient = (config = {}) => {
+  const redisClient = redis.createClient(redisConfig(config));
+
+  redisClient.on('error', console.error);
+
+  for (const fn of ['get', 'set', 'quit']) {
+    redisClient[`${fn}Async`] = promisify(redisClient[fn]).bind(redisClient);
+  }
+
+  return redisClient;
+};
 
 export const cached = (id, config = {}, options = {}) => {
   const defaults = { parse: true };
@@ -10,6 +37,7 @@ export const cached = (id, config = {}, options = {}) => {
   if (!config.url) {
     return Promise.reject(new Error('No cache configured.'));
   }
+  // TODO: reuse client if already instantiated?
   const redisClient = createRedisClient(config);
 
   const key = cacheKey(id);

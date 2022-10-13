@@ -1,25 +1,18 @@
+import config from './config.js';
+
 import express from 'express';
-import defu  from 'defu';
 import apm from 'elastic-apm-node';
-import logging from '../logging.js';
+import morgan from 'morgan';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
 app.use(express.json());
-app.use(logging);
+app.use(morgan('combined')); // Use morgan for request logging
 
-import nuxtConfig from '../../../nuxt.config.js';
-let runtimeConfig;
-
-app.use((res, req, next) => {
-  if (!runtimeConfig) {
-    // Load Nuxt config once, at runtime
-    runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
-  }
-  next();
-});
+const runtimeConfig = config();
 
 app.use((req, res, next) => {
+  // TODO: configure and start APM somewhere...
   if (apm.isStarted())  {
     // Elastic APM Node agent instruments Express requests automatically, but
     // omits any prefix such as /_api/, so override the transactions name here
@@ -42,17 +35,5 @@ import version from './version.js';
 app.get('/version', version);
 
 app.all('/*', (req, res) => res.sendStatus(404));
-
-export const errorHandler = (res, error) => {
-  let status = error.status || 500;
-  let message = error.message;
-
-  if (error.response) {
-    status = error.response.status;
-    message = error.response.data.errorMessage;
-  }
-
-  res.status(status).set('Content-Type', 'text/plain').send(message);
-};
 
 export default app;

@@ -354,12 +354,12 @@
         //   delete postData.summary;
         // }
 
-        return axios.create({
-          baseURL: this.$config.app.baseUrl
-        }).post(
-          '/_api/jira/service-desk',
-          postData
-        );
+        return axios({
+          method: 'post',
+          baseURL: this.$config.europeana.apis.portal.url,
+          url: '/jira/service-desk',
+          data: postData
+        });
       }
     }
   };

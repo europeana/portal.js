@@ -1,10 +1,18 @@
 import axios from 'axios';
 
-import { errorHandler } from '../';
-import { truncate, wordLength } from '../../../plugins/vue-filters';
+import errorHandler from '../error.js';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
 const JSON_CONTENT_TYPE = 'application/json';
+
+const truncate = (text, length, ellipsis = '…') => {
+  if (!text) {
+    return null;
+  }
+  return text.length > length ? text.substring(0, length) + ellipsis : text;
+};
+
+const wordLength = text => text?.trim()?.match(/\w+/g)?.length || 0;
 
 const jiraData = (options, req) => {
   const { customFields } = options.serviceDesk;

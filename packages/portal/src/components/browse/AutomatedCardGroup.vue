@@ -77,20 +77,14 @@
     },
 
     fetch() {
-      if (process.server) {
-        return import('@/server-middleware/api/cache/index.js')
-          .then(module => {
-            return module.cached(this.key, this.$config)
-              .then(entries => {
-                this.entries = entries;
-              });
-          });
-      } else {
-        return this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
-          .then(response => {
-            this.entries = response.data;
-          });
-      }
+      return this.$axios({
+        method: 'get',
+        baseURL: this.$config.europeana.apis.portal.url,
+        url: `/cache/${this.key}`
+      })
+        .then(response => {
+          this.entries = response.data;
+        });
     },
 
     computed: {

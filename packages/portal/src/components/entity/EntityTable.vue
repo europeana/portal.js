@@ -103,7 +103,11 @@
     },
     async fetch() {
       try {
-        const response = await this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin });
+        const response = await this.$axios({
+          method: 'get',
+          baseURL: this.$config.europeana.apis.portal.url,
+          url: this.apiEndpoint
+        });
         let collections = response.data;
         if (this.type === 'organisations') {
           collections = collections.map(this.organisationData);
@@ -119,8 +123,8 @@
       apiEndpoint() {
         // For organisations, get unlocalised labels, for both English and native.
         return this.type === 'organisations' ?
-          '/_api/cache/collections/organisations' :
-          `/_api/cache/${this.$i18n.locale}/collections/${this.type}`;
+          '/cache/collections/organisations' :
+          `/cache/${this.$i18n.locale}/collections/${this.type}`;
       }
     },
     methods: {

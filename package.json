@@ -5,6 +5,7 @@
   ],
   "scripts": {
     "analyze": "npm run -w packages/portal analyze",
+    "api:start": "npm run -w packages/api start",
     "build": "npm run -w packages/portal build",
     "cache": "npm run -w packages/portal cache",
     "dev": "npm run -w packages/portal dev",
@@ -31,7 +32,8 @@
   "resolutions": {
     "@europeana/contentful": "link:./packages/contentful",
     "@europeana/portal": "link:./packages/portal",
-    "@europeana/styleguide": "link:./packages/styleguide"
+    "@europeana/styleguide": "link:./packages/styleguide",
+    "@europeana/portal-api": "link:./packages/api"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",

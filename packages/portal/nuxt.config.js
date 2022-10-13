@@ -110,6 +110,9 @@ export default {
         newspaper: {
           url: process.env.EUROPEANA_NEWSPAPER_API_URL
         },
+        portal: {
+          url: process.env.EUROPEANA_PORTAL_API_URL || '/_api'
+        },
         recommendation: {
           url: process.env.EUROPEANA_RECOMMENDATION_API_URL
         },
@@ -169,6 +172,13 @@ export default {
   privateRuntimeConfig: {
     contentful: {
       graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE || process.env.CTF_GRAPHQL_ORIGIN
+    },
+    europeana: {
+      apis: {
+        portal: {
+          url: process.env.EUROPEANA_PORTAL_API_URL_PRIVATE || process.env.EUROPEANA_PORTAL_API_URL
+        }
+      }
     },
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
@@ -396,9 +406,6 @@ export default {
   },
 
   serverMiddleware: [
-    // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
-    // access to Europeana APIs.
-    { path: '/_api', handler: '~/server-middleware/api' },
     { path: '/robots.txt', handler: '~/server-middleware/robots.txt' },
     '~/server-middleware/logging',
     '~/server-middleware/referrer-policy',
