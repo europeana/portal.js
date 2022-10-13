@@ -162,7 +162,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: ./packages/portal/Dockerfile
@@ -195,7 +195,7 @@ jobs:
             type=ref,event=pr
       -
         name: Build and load app image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: ./packages/portal/Dockerfile
@@ -205,7 +205,7 @@ jobs:
           cache-to: type=gha,mode=max
       -
         name: Build and load size test image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: ./packages/portal/tests/size
           load: true
