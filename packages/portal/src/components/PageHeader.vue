@@ -140,9 +140,24 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
+
+  .b-sidebar-backdrop.bg-black {
+    background-color: rgb(0 0 0);
+    opacity: 0.7;
+  }
+
+  #sidebar {
+    width: 16rem;
+    max-height: 100vh;
+    transition: $standard-transition; // fixes header appear/disappear
+
+    @media (min-width: $bp-xxxl) {
+      width: 16em;
+    }
+  }
 
   .container-fluid {
     background: $white;
@@ -157,6 +172,14 @@
 
     @media (min-width: $bp-large) {
       transition: $standard-transition;
+    }
+
+    &:not(.show) {
+      #sidebar,
+      .b-sidebar-backdrop {
+        transform: translateY(3.5rem);
+        transition: $standard-transition;
+      }
     }
 
     &:not(.show) ::v-deep .search-query,
