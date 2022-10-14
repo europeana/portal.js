@@ -50,14 +50,22 @@
         } else {
           try {
             event.preventDefault();
-            await axios({
-              method: 'head',
-              url: this.url
-            });
+            if (this.url.startsWith(this.$config.europeana.proxy.media.url)) {
+              const response = await axios({
+                method: 'get',
+                url: `${this.url}&profile=debug`
+              });
+            } else {
+              // TODO: should we not do this, in case of no CORS?
+              await axios({
+                method: 'head',
+                url: this.url
+              });
+            }
           } catch (error) {
             this.$apm?.captureError({
               name: 'DownloadError',
-              message: error.message,
+              message: error.response.data?.error || error.message,
               status: error.response.status,
               item: this.identifier,
               url: this.url

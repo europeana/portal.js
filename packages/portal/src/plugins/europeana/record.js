@@ -8,6 +8,7 @@ import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail';
 import { isIIIFPresentation, isIIIFImage } from '../media';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
+import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './proxy.js';
 
 export const BASE_URL = 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
@@ -385,7 +386,7 @@ export default (context = {}) => {
         params['api_url'] = new URL(this.$axios.defaults.baseURL).origin + '/api';
       }
 
-      const proxyUrl = new URL(context.$config?.europeana?.proxy?.media?.url || 'https://proxy.europeana.eu');
+      const proxyUrl = new URL(context.$config?.europeana?.proxy?.media?.url || EUROPEANA_MEDIA_PROXY_URL);
       proxyUrl.pathname = europeanaId;
       proxyUrl.searchParams.append('view', mediaUrl);
 

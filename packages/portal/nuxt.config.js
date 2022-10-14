@@ -17,6 +17,7 @@ import features, { featureIsEnabled, featureNotificationExpiration } from './src
 
 import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './src/plugins/europeana/entity.js';
 import { BASE_URL as EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL } from './src/plugins/europeana/entity-management.js';
+import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './src/plugins/europeana/proxy.js';
 import { BASE_URL as EUROPEANA_RECORD_API_BASE_URL } from './src/plugins/europeana/record.js';
 import { PRESENTATION_URL as EUROPEANA_IIIF_PRESENTATION_URL } from './src/plugins/europeana/iiif.js';
 
@@ -127,7 +128,7 @@ export default {
       },
       proxy: {
         media: {
-          url: process.env.EUROPEANA_MEDIA_PROXY_URL
+          url: process.env.EUROPEANA_MEDIA_PROXY_URL || EUROPEANA_MEDIA_PROXY_URL
         }
       }
     },
