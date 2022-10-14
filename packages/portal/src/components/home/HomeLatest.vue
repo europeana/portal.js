@@ -7,15 +7,8 @@
     <h2>
       {{ $t('homePage.discoverEditorial') }}
     </h2>
-    <b-button
-      variant="outline-secondary"
-      class="cta"
-      :to="'/stories'"
-    >
-      {{ $t('homePage.storiesCTA') }}
-    </b-button>
     <b-card-group
-      class="mt-3 card-deck-3-cols justify-content-center gridless-browse-cards"
+      class="card-deck-3-cols justify-content-center gridless-browse-cards"
       deck
     >
       <!-- TODO: use/add image alt description -->
@@ -28,6 +21,13 @@
         :url="cardLink(card)"
       />
     </b-card-group>
+    <b-button
+      variant="outline-secondary"
+      class="cta"
+      :to="'/stories'"
+    >
+      {{ $t('homePage.storiesCTA') }}
+    </b-button>
   </section>
 </template>
 
@@ -101,8 +101,6 @@
   }
 
   .cta {
-    margin: 1.5em auto;
-
     @media (min-width: $bp-xxxl) {
       font-size: 1vw;
     }
@@ -110,6 +108,13 @@
 
   .card-deck {
     flex-flow: row wrap;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-xxxl) {
+      margin-top: 2.25vw;
+      margin-bottom: 2.25vw;
+    }
 
     .content-card.card {
       &:last-child {
