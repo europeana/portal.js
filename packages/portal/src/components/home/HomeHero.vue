@@ -77,6 +77,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/responsive-background-image';
 
   .hero {
     margin-top: -70px;
