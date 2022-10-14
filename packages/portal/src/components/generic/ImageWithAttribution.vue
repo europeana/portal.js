@@ -100,7 +100,6 @@
 
     @media (min-width: $bp-medium) {
       margin-left: -1rem;
-
       margin-right: -1rem;
     }
 
@@ -111,6 +110,10 @@
 
     &::before {
       display: none;
+    }
+
+    figure {
+      margin: 0;
     }
 
     &.hero {
@@ -133,10 +136,6 @@
           width: 100%;
         }
       }
-    }
-
-    figure {
-      margin: 0;
     }
 
     .container {
