@@ -300,6 +300,15 @@
 
     display: inline-block;
     overflow: hidden;
+    margin: 0;
+    width: auto;
+    height: 100%;
+    background: $white;
+
+    img {
+      width: auto;
+      object-fit: contain;
+    }
 
     figcaption {
       cite {
@@ -323,8 +332,6 @@
       overflow: hidden;
 
       img {
-        width: auto;
-
         &:nth-child(1) {
           position: absolute;
           top: 0;

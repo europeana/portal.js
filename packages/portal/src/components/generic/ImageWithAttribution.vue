@@ -113,7 +113,17 @@
     }
 
     figure {
+      overflow: hidden;
       margin: 0;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
     }
 
     &.hero {
@@ -123,9 +133,6 @@
         height: 0;
         padding-top: 56.25%;
         position: relative;
-        width: 100%;
-        display: flex;
-        justify-content: center;
 
         img {
           position: absolute;
