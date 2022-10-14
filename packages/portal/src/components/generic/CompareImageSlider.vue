@@ -298,9 +298,8 @@
   .compare-image-wrapper {
     $slider-dimensions: 48px;
 
-    figure {
-      display: inline-block;
-    }
+    display: inline-block;
+    overflow: hidden;
 
     figcaption {
       cite {

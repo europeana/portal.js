@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hero figure-attribution responsive-backround-image responsive-font"
+    class="hero  responsive-backround-image responsive-font"
     :style="imageCSSVars"
   >
     <div

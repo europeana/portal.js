@@ -6,13 +6,11 @@
     <b-jumbotron
       fluid
       text-variant="white"
-      class="mt-2"
+      class="mt-0"
       :class="hero ? 'hero' : ''"
       @click="!citeCollapsed ? toggleCite : null"
     >
-      <figure
-        :class="{ empty: !src }"
-      >
+      <figure>
         <OptimisedImage
           v-if="src"
           :src="src"
@@ -92,52 +90,59 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
-  .figure-attribution {
-    .jumbotron {
-      height: auto;
-      background: $white;
+  .image-wrapper {
+    padding: 0;
+  }
 
-      &::before {
-        display: none;
-      }
+  .jumbotron {
+    height: auto;
+    background: $white;
 
-      &.hero {
-        min-height: initial;
+    @media (min-width: $bp-medium) {
+      margin-left: -1rem;
 
-        figure {
-          height: 0;
-          padding-top: 56.25%;
-          position: relative;
+      margin-right: -1rem;
+    }
+
+    @media (min-width: $bp-large) {
+      margin-left: -3rem;
+      margin-right: -3rem;
+    }
+
+    &::before {
+      display: none;
+    }
+
+    &.hero {
+      min-height: initial;
+
+      figure {
+        height: 0;
+        padding-top: 56.25%;
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          object-fit: cover;
           width: 100%;
-          display: flex;
-          justify-content: center;
-
-          &::before {
-            background: rgb(41 55 69 / 35%);
-            content: '';
-            display: block;
-            height: 100%;
-            position: absolute;
-            width: 100%;
-            z-index: 3;
-          }
-
-          img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            object-fit: cover;
-            width: 100%;
-          }
         }
       }
+    }
 
-      .container {
-        max-width: none;
-        justify-content: center;
-        align-items: center;
-      }
+    figure {
+      margin: 0;
+    }
+
+    .container {
+      max-width: none;
+      justify-content: center;
+      align-items: center;
     }
   }
 </style>

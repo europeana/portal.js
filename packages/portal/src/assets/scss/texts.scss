@@ -56,31 +56,6 @@ header .col {
     }
   }
 
-  &.figure-attribution {
-    .image-wrapper {
-      max-width: initial;
-      padding: 0;
-
-      .jumbotron {
-        margin-top: 0 !important;
-      }
-
-      @media (min-width: $bp-medium) {
-        .jumbotron {
-          margin-left: -1rem;
-          margin-right: -1rem;
-        }
-      }
-
-      @media (min-width: $bp-large) {
-        .jumbotron {
-          margin-left: -3rem;
-          margin-right: -3rem;
-        }
-      }
-    }
-  }
-
   .authored-section {
     text-align: center;
 
