@@ -140,16 +140,16 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
 
-  .b-sidebar-backdrop.bg-black {
+  ::v-deep .b-sidebar-backdrop.bg-black {
     background-color: rgb(0 0 0);
     opacity: 0.7;
   }
 
-  #sidebar {
+  ::v-deep #sidebar {
     width: 16rem;
     max-height: 100vh;
     transition: $standard-transition; // fixes header appear/disappear
@@ -175,8 +175,8 @@
     }
 
     &:not(.show) {
-      #sidebar,
-      .b-sidebar-backdrop {
+      ::v-deep #sidebar,
+      ::v-deep .b-sidebar-backdrop {
         transform: translateY(3.5rem);
         transition: $standard-transition;
       }
