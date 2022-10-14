@@ -51,6 +51,8 @@
           try {
             event.preventDefault();
             if (this.url.startsWith(this.$config.europeana.proxy.media.url)) {
+              // TODO: check if this results in the media proxy making a HEAD or
+              //       GET request to the upstream, as we don't want duplicate GETs
               const response = await axios({
                 method: 'get',
                 url: `${this.url}&profile=debug`
