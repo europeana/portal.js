@@ -32,4 +32,4 @@ COPY --from=dependencies /app .
 
 USER 1000
 
-CMD ["packages/express/bin/start.js"]
+CMD ["packages/legacy-redirects/bin/start.js"]

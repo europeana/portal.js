@@ -19,10 +19,8 @@
   "dependencies": {
     "@europeana/constants": "^1.87.0",
     "@europeana/express": "^1.87.0",
-    "axios": "^0.21.4",
     "dotenv": "^10.0.0",
-    "lodash.escaperegexp": "^4.1.2",
-    "redis": "^3.1.2"
+    "lodash.escaperegexp": "^4.1.2"
   },
   "license": "EUPL-1.2",
   "bugs": {
