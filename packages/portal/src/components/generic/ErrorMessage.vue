@@ -34,6 +34,7 @@
       </section>
     </div>
     <AlertMessage
+      v-show="error"
       :error="error"
     />
   </div>

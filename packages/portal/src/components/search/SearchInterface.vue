@@ -58,12 +58,14 @@
                     class="mb-3"
                   >
                     <b-col>
-                      <AlertMessage
-                        v-show="$fetchState.error"
-                        :error="errorMessage"
+                      <ErrorMessage
+                        v-if="$fetchState.error"
+                        :title-path="$fetchState.error.titlePath"
+                        :description-path="$fetchState.error.descriptionPath"
+                        :illustration-src="$fetchState.error.illustrationSrc"
                       />
                       <template
-                        v-if="!$fetchState.error"
+                        v-else
                       >
                         <p
                           v-show="noMoreResults"
@@ -138,7 +140,7 @@
     name: 'SearchInterface',
 
     components: {
-      AlertMessage: () => import('../generic/AlertMessage'),
+      ErrorMessage: () => import('../generic/ErrorMessage'),
       SearchBoostingForm: () => import('./SearchBoostingForm'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
@@ -197,7 +199,11 @@
         }
         throw this.$store.state.search.error;
       } else if (this.noResults) {
-        throw new Error(this.$t('noResults'));
+        const error = new Error();
+        error.titlePath = 'errorMessage.searchResultsNotFound.title';
+        error.descriptionPath = 'errorMessage.searchResultsNotFound.description';
+        error.illustrationSrc = require('@/assets/img/illustrations/il-search-results-not-found.svg');
+        throw error;
       }
     },
 
