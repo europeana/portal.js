@@ -1,16 +1,10 @@
 .pagination-nav-input {
-  .page-item {
-    font-weight: 600;
-    padding: 0.5rem 0.75rem;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
+  .page-link {
+    color: $greyblack;
+    text-decoration: none;
 
-    &.disabled {
-      a {
-        color: $mediumgrey;
-      }
+    &:hover {
+      color: $greyblack;
     }
   }
 
@@ -25,6 +19,28 @@
 
       @media (min-width: $bp-xxxl) {
         font-size: 1vw;
+      }
+    }
+  }
+
+  .page-item {
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+
+    &.active {
+      .page-link {
+        background-color: $darkblue;
+        border-color: $darkblue;
+      }
+    }
+
+    &.disabled {
+      a {
+        color: $mediumgrey;
       }
     }
   }
