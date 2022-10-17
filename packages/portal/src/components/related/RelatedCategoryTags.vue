@@ -4,10 +4,14 @@
       v-if="tags.length > 0"
       data-qa="related category tags"
       cols="12"
-      class="d-flex"
     >
-      <span class="icon-ic-tag" />
-      <div>
+      <h2 class="related-heading text-uppercase mb-2">
+        {{ $t('related.categoryTags.title') }}
+      </h2>
+      <div
+        class="d-flex"
+      >
+        <span class="icon-ic-tag" />
         <b-badge
           v-for="(tag, index) in tags.filter((tag) => !!tag)"
           :key="index"

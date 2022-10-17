@@ -71,7 +71,6 @@
           <client-only>
             <RelatedCollections
               :entity-uris="relatedLink"
-              :title="$t('youMightAlsoLike')"
             />
           </client-only>
         </b-col>

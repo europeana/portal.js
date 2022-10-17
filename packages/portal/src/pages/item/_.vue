@@ -68,7 +68,6 @@
               class="col-lg-10 mt-4"
             >
               <RelatedCollections
-                :title="$t('collectionsYouMightLike')"
                 :entity-uris="relatedEntityUris"
                 data-qa="related entities"
                 badge-variant="light"
