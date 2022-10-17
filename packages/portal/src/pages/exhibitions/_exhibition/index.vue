@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="text-page white-page figure-attribution"
+    class="text-page white-page "
   >
     <ContentWarningModal
       v-if="contentWarning"

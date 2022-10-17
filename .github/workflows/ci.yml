@@ -51,7 +51,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Setup Node
         uses: actions/setup-node@v3
@@ -77,7 +77,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Setup Node
         uses: actions/setup-node@v3
@@ -90,7 +90,7 @@ jobs:
           npm install --prefix tmp \
             stylelint@$(jq -Mr '.packages["node_modules/stylelint"].version' package-lock.json) \
             stylelint-config-recommended-vue@$(jq -Mr '.packages["node_modules/stylelint-config-recommended-vue"].version' package-lock.json) \ \
-            stylelint-config-standard-scss@$(jq -Mr '.packages["node_modules/stylelint-config-standard-scss"].version' package-lock.json)
+            stylelint-config-recommended-scss@$(jq -Mr '.packages["node_modules/stylelint-config-recommended-scss"].version' package-lock.json)
           mv tmp/node_modules ./
       -
         name: Run stylelint
@@ -104,7 +104,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # For SonarCloud to blame culprits
           fetch-depth: 0
@@ -139,14 +139,14 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
       -
         name: Docker meta
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
@@ -156,13 +156,13 @@ jobs:
             type=semver,pattern={{version}}
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: ./packages/portal/Dockerfile
@@ -181,21 +181,21 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
       -
         name: Docker meta
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
             type=ref,event=pr
       -
         name: Build and load app image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: ./packages/portal/Dockerfile
@@ -205,7 +205,7 @@ jobs:
           cache-to: type=gha,mode=max
       -
         name: Build and load size test image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: ./packages/portal/tests/size
           load: true
@@ -234,14 +234,14 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
       -
         name: Docker meta
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
@@ -275,14 +275,14 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
       -
         name: Docker meta
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
@@ -334,14 +334,14 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
       -
         name: Docker meta
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |

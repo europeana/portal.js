@@ -144,3 +144,9 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
+  @import '@/assets/scss/table';
+</style>

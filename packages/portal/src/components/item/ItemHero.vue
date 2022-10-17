@@ -198,3 +198,99 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@/assets/scss/variables';
+
+  .item-hero {
+    padding-top: 2.25rem;
+    padding-bottom: 1.625rem;
+
+    .media-bar {
+      margin-top: 2.5rem;
+    }
+
+    .swiper-pagination {
+      display: inline-flex;
+
+      &.swiper-pagination-fraction {
+        left: auto;
+        width: auto;
+        bottom: auto;
+      }
+    }
+
+    .user-buttons {
+      display: inline-flex;
+
+      .container {
+        padding: 0;
+      }
+
+      .btn {
+        color: $mediumgrey;
+        background: $offwhite;
+        border: 1px solid transparent;
+        font-size: $font-size-large;
+        height: 2.25rem;
+        min-width: 2.25rem;
+        line-height: 1;
+        padding: 0.375rem;
+        margin-right: 0.5rem;
+
+        &:hover:not(.active) {
+          color: $mediumgrey;
+        }
+      }
+    }
+
+    .rights-wrapper,
+    .pagination-wrapper,
+    .button-wrapper {
+      flex: 1;
+    }
+
+    @media (max-width: $bp-medium) {
+      .media-bar {
+        flex-direction: column;
+
+        a,
+        button {
+          text-align: center;
+          justify-content: center;
+          margin-bottom: 1rem;
+          width: 100%;
+        }
+
+        .pagination-wrapper {
+          order: 1;
+          margin-bottom: 1.125rem;
+
+          .swiper-pagination {
+            position: relative;
+            margin: auto;
+          }
+        }
+
+        .rights-wrapper {
+          order: 2;
+        }
+
+        .button-wrapper {
+          order: 3;
+          margin-left: 0;
+          flex-direction: column;
+
+          .user-buttons {
+            justify-content: space-between;
+          }
+
+          .share-button,
+          .download-button {
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+</style>

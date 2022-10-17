@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hero figure-attribution responsive-backround-image responsive-font"
+    class="hero  responsive-backround-image responsive-font"
     :style="imageCSSVars"
   >
     <div
@@ -77,6 +77,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/responsive-background-image';
 
   .hero {
     margin-top: -70px;
