@@ -34,7 +34,7 @@ jobs:
         run: echo "JIRA_TICKET_NUMBER=$(echo ${{ github.head_ref }} | sed -r 's|^.*/(EC-[0-9]+).*$|\1|')" >> $GITHUB_ENV
       -
         name: Link to JIRA ticket on pull request
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             github.rest.issues.createComment({
@@ -407,7 +407,7 @@ jobs:
       -
         name: Comment with deployment link on pull request
         if: env.K8S_NEW_DEPLOYMENT == 'true'
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             github.rest.issues.createComment({
