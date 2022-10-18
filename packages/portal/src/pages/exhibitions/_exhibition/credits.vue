@@ -61,7 +61,7 @@
       >
         <b-col
           cols="12"
-          class="mt-3 col-lg-8"
+          class="mt-4 col-lg-8"
         >
           <client-only>
             <RelatedCollections

@@ -48,7 +48,7 @@
         </b-col>
       </b-row>
       <b-row
-        v-if="categoriesCollection && categoriesCollection.items"
+        v-if="hasRelatedCategoryTags"
         class="justify-content-center"
       >
         <b-col
@@ -158,6 +158,9 @@
       };
     },
     computed: {
+      hasRelatedCategoryTags() {
+        return (this.categoriesCollection?.items?.length || 0) > 0;
+      },
       hero() {
         return this.primaryImageOfPage || null;
       },

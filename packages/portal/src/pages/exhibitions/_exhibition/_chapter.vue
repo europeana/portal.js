@@ -47,24 +47,22 @@
           </article>
         </b-col>
       </b-row>
-      <client-only>
-        <b-row
-          v-if="chapters"
-          class="justify-content-center mt-3"
-        >
-          <b-col
-            cols="12"
-            class="mt-3 col-lg-8"
-          >
-            <LinkList
-              :items="chapterPagesToLinkListItems(chapters, exhibitionIdentifier)"
-              :title="$t('exhibitions.chapters')"
-            />
-          </b-col>
-        </b-row>
-      </client-only>
       <b-row
-        v-if="page.categoriesCollection && page.categoriesCollection.items"
+        v-if="chapters"
+        class="justify-content-center mt-3"
+      >
+        <b-col
+          cols="12"
+          class="mt-3 col-lg-8"
+        >
+          <LinkList
+            :items="chapterPagesToLinkListItems(chapters, exhibitionIdentifier)"
+            :title="$t('exhibitions.chapters')"
+          />
+        </b-col>
+      </b-row>
+      <b-row
+        v-if="hasRelatedCategoryTags"
         class="justify-content-center"
       >
         <b-col
@@ -82,7 +80,7 @@
       >
         <b-col
           cols="12"
-          class="mt-3 col-lg-8"
+          class="mt-4 col-lg-8"
         >
           <client-only>
             <RelatedCollections
@@ -199,6 +197,9 @@
       };
     },
     computed: {
+      hasRelatedCategoryTags() {
+        return (this.page?.categoriesCollection?.items?.length || 0) > 0;
+      },
       chapterNavigation() {
         return this.chapters.map((chapter) => {
           return {
