@@ -80,6 +80,12 @@
       this.$store.commit('search/enableCollectionFacet');
     },
 
+    watch: {
+      searchQuery() {
+        this.relatedCollections = null;
+      }
+    },
+
     methods: {
       handleRelatedSectionFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;

@@ -129,6 +129,22 @@ describe('pages/item/_.vue', () => {
     });
   });
 
+  describe('watch', () => {
+    describe('searchQuery', () => {
+      it('resets the related collections to `null`', async() => {
+        const wrapper = factory('fish');
+        await wrapper.setData({
+          relatedCollections: [{ id: 'http://data.europeana.eu/concept/3012' }]
+        });
+
+        wrapper.vm.$route.query = 'frank';
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.vm.relatedCollections).toBe(null);
+      });
+    });
+  });
+
   describe('methods', () => {
     describe('handleRelatedSectionFetched', () => {
       it('is triggered by fetched event on related section component', () => {
