@@ -63,11 +63,11 @@
       </b-row>
       <b-row
         v-if="hasRelatedCategoryTags"
-        class="justify-content-center"
+        class="related-container justify-content-center"
       >
         <b-col
           cols="12"
-          class="mt-4 col-lg-8"
+          class="col-lg-8"
         >
           <RelatedCategoryTags
             :tags="page.categoriesCollection.items"
@@ -76,11 +76,11 @@
       </b-row>
       <b-row
         v-if="relatedLink"
-        class="justify-content-center"
+        class="related-container justify-content-center"
       >
         <b-col
           cols="12"
-          class="mt-4 col-lg-8"
+          class="col-lg-8"
         >
           <client-only>
             <RelatedCollections

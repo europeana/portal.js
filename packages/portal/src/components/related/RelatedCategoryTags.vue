@@ -78,10 +78,6 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
-  .related-category-tags {
-    margin-bottom: 0.5rem;
-  }
-
   .icon-ic-tag {
     color: $mediumgrey;
     display: inline-block;
@@ -97,7 +93,7 @@
   }
 
   .badge-outline-light {
-    margin: 0 0.25rem 0.5rem;
+    margin: 0 0.25rem;
 
     @media (min-width: $bp-medium) {
       overflow: visible;
@@ -110,7 +106,7 @@
 
     @at-root .responsive-font & {
       @media (min-width: $bp-xxxl) {
-        margin: 0 0.25vw 0.5vw;
+        margin: 0 0.25vw;
       }
     }
   }

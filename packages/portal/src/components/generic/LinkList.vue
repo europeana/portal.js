@@ -80,6 +80,10 @@
     background-color: $offwhite;
     color: $greyblack;
 
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
     &:hover {
       background-color: rgb(0 0 0 / 70%);
       box-shadow: 2px 2px 6px 0 rgb(0 0 0 / 15%);

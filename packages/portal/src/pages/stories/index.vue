@@ -40,7 +40,7 @@
         v-if="($features.storiesPageAllTags || selectedTags.length > 0) && (displayTags.length > 0)"
         :tags="displayTags"
         :selected="selectedTags"
-        class="responsive-font"
+        class="responsive-font mb-2"
       />
       <div
         class="mb-4 context-label"

@@ -11,6 +11,14 @@ header .col {
   }
 }
 
+.related-container {
+  margin-top: 2.625rem;
+
+  ~ .related-container {
+    margin-top: 2rem;
+  }
+}
+
 .related-heading {
   color: $mediumgrey;
   font-size: $font-size-small;
@@ -53,6 +61,13 @@ header .col {
     cite p {
       font-size: 0.75rem;
       line-height: initial;
+    }
+
+    > :last-child {
+      > :last-child,
+      > :last-child :last-child {
+        margin-bottom: 0;
+      }
     }
   }
 
