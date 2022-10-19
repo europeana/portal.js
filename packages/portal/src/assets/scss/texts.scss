@@ -62,7 +62,9 @@ header .col {
       font-size: 0.75rem;
       line-height: initial;
     }
+  }
 
+  .footer-margin article {
     > :last-child {
       > :last-child,
       > :last-child :last-child {
