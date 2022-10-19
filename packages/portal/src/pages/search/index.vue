@@ -76,14 +76,14 @@
       }
     },
 
-    mounted() {
-      this.$store.commit('search/enableCollectionFacet');
-    },
-
     watch: {
       searchQuery() {
         this.relatedCollections = null;
       }
+    },
+
+    mounted() {
+      this.$store.commit('search/enableCollectionFacet');
     },
 
     methods: {
