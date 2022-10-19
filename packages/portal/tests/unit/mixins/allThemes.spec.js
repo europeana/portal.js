@@ -65,9 +65,8 @@ const factory = (options = {}) => shallowMountNuxt(component, {
 });
 
 describe('mixins/allThemes', () => {
-  beforeEach(() => {
-    sinon.resetHistory();
-  });
+  afterEach(sinon.resetHistory);
+
   describe('displaying quick search for the first time', () => {
     it('fetches the overrides and saves them in search and entity store', async() => {
       const wrapper = factory();
@@ -76,9 +75,10 @@ describe('mixins/allThemes', () => {
 
       expect(contentfulQuery.called).toBe(true);
       expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(true);
-      expect(storeCommit.calledWith('search/set', ['allThemes', sinon.match.any])).toBe(true);
+      expect(storeCommit.calledWith('search/setAllThemes', sinon.match.any)).toBe(true);
     });
   });
+
   describe('displaying quick search with curatedEntities already stored', () => {
     it('saves the overrides in search store, does not refetch curated data', async() => {
       const wrapper = factory({ curatedEntities: contentfulResponse.data.data.curatedEntities.items });
@@ -87,9 +87,10 @@ describe('mixins/allThemes', () => {
 
       expect(contentfulQuery.called).toBe(false);
       expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(false);
-      expect(storeCommit.calledWith('search/set', ['allThemes', sinon.match.any])).toBe(true);
+      expect(storeCommit.calledWith('search/setAllThemes', sinon.match.any)).toBe(true);
     });
   });
+
   describe('displaying quick search with themes already stored', () => {
     it('does not fetch or store anything', async() => {
       const wrapper = factory({ themes: ['theme1', 'theme2'] });
@@ -98,7 +99,7 @@ describe('mixins/allThemes', () => {
 
       expect(contentfulQuery.called).toBe(false);
       expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(false);
-      expect(storeCommit.calledWith('search/set', ['allThemes', sinon.match.any])).toBe(false);
+      expect(storeCommit.calledWith('search/setAllThemes', sinon.match.any)).toBe(false);
     });
   });
 });

@@ -1,193 +1,22 @@
 import store from '@/store/search';
-import sinon from 'sinon';
 
 describe('store/search', () => {
-  beforeAll(() => {
-    store.actions.$i18n = { locale: 'es' };
-  });
-  beforeEach(sinon.resetHistory);
+  describe('getters', () => {
+    describe('activeView', () => {
+      it('returns view from state if set', () => {
+        const state = { view: 'list' };
 
-  describe('actions', () => {
-    describe('run', () => {
-      it('derives the API params', async() => {
-        const dispatch = sinon.stub().resolves();
+        const activeView = store.getters.activeView(state);
 
-        await store.actions.run({ dispatch, getters: {} });
-
-        expect(dispatch.calledWith('deriveApiSettings')).toBe(true);
+        expect(activeView).toBe(state.view);
       });
 
-      it('queries for items', async() => {
-        const dispatch = sinon.stub().resolves();
+      it('defaults to grid view', () => {
+        const state = {};
 
-        await store.actions.run({ dispatch });
+        const activeView = store.getters.activeView(state);
 
-        expect(dispatch.calledWith('queryItems')).toBe(true);
-      });
-    });
-
-    describe('queryItems', () => {
-      const dispatch = sinon.stub().resolves();
-      const commit = sinon.spy();
-      const getters = {};
-      const searchQuery = 'anything';
-      const typeQf = 'TYPE:"IMAGE"';
-      const collectionQf = 'collection:"migration"';
-      const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
-
-      it('searches the Record API', async() => {
-        store.actions.$apis = {
-          record: {
-            search: sinon.stub().resolves({})
-          }
-        };
-
-        await store.actions.queryItems({ dispatch, state, getters, commit });
-
-        expect(store.actions.$apis.record.search.called).toBe(true);
-      });
-
-      describe('on success', () => {
-        beforeAll(() => {
-          store.actions.$apis = {
-            record: {
-              search: sinon.stub().resolves({})
-            }
-          };
-        });
-
-        it('dispatches updateForSuccess', async() => {
-          await store.actions.queryItems({ dispatch, state, getters, commit });
-
-          expect(dispatch.calledWith('updateForSuccess')).toBe(true);
-        });
-      });
-
-      describe('on failure', () => {
-        beforeAll(() => {
-          store.actions.$apis = {
-            record: {
-              search: sinon.stub().rejects({})
-            }
-          };
-        });
-
-        it('dispatches updateForFailure', async() => {
-          await store.actions.queryItems({ dispatch, state, getters, commit });
-
-          expect(dispatch.calledWith('updateForFailure')).toBe(true);
-        });
-      });
-    });
-
-    describe('deriveApiSettings', () => {
-      const commit = sinon.spy();
-      const dispatch = sinon.stub().resolves();
-      const state = {};
-      const getters = sinon.spy();
-      const rootGetters = sinon.spy();
-
-      it('combines userParams and overrideParams into apiParams', () => {
-        const userQuery = 'calais';
-        const userQf = 'TYPE:"IMAGE"';
-        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
-        const profile = 'minimal';
-
-        const state = {
-          userParams: {
-            query: userQuery,
-            qf: userQf
-          },
-          overrideParams: {
-            qf: [overrideQf]
-          }
-        };
-
-        store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-
-        expect(commit.calledWith('set', [
-          'apiParams',
-          {
-            query: userQuery,
-            qf: [userQf, overrideQf],
-            profile
-          }
-        ])).toBe(true);
-      });
-
-      describe('within a theme having fulltext API support', () => {
-        const getters = { theme: { filters: { api: {} } } };
-
-        describe('metadata/fulltext API selection', () => {
-          it('applies user selection if present', () => {
-            const state = { userParams: { api: 'metadata' } };
-            const getters = { theme: { filters: { api: { default: 'fulltext' } } } };
-
-            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-
-            expect(
-              commit.calledWith('set', ['apiParams', sinon.match.has('api', 'metadata')])
-            ).toBe(true);
-          });
-
-          it('falls back to theme-specific default if set', () => {
-            const getters = { theme: { filters: { api: { default: 'metadata' } } } };
-
-            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-
-            expect(
-              commit.calledWith('set', ['apiParams', sinon.match.has('api', 'metadata')])
-            ).toBe(true);
-          });
-
-          it('falls back to fulltext if no theme-specific default', () => {
-            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-
-            expect(
-              commit.calledWith('set', ['apiParams', sinon.match.has('api', 'fulltext')])
-            ).toBe(true);
-          });
-        });
-
-        describe('and fulltext API is selected', () => {
-          const state = { userParams: { api: 'fulltext' } };
-
-          it('sets profile param to "minimal,hits"', () => {
-            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-
-            expect(
-              commit.calledWith('set', ['apiParams', sinon.match.has('profile', 'minimal,hits')])
-            ).toBe(true);
-          });
-
-          it('sets fulltext API URL option', () => {
-            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-
-            expect(
-              commit.calledWith('set', ['apiOptions', sinon.match.has('url', 'https://newspapers.eanadev.org/api/v2')])
-            ).toBe(true);
-          });
-        });
-
-        describe('and metadata API is selected', () => {
-          const state = { userParams: { api: 'metadata' } };
-
-          it('does not set profile param to "minimal,hits"', () => {
-            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-
-            expect(
-              commit.calledWith('set', ['apiParams', sinon.match.has('profile', 'minimal,hits')])
-            ).toBe(false);
-          });
-
-          it('does not set fulltext API URL option', () => {
-            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
-
-            expect(
-              commit.calledWith('set', ['apiOptions', sinon.match.has('url', 'https://newspapers.eanadev.org/api/v2')])
-            ).toBe(false);
-          });
-        });
+        expect(activeView).toBe('grid');
       });
     });
   });
