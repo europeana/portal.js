@@ -7,7 +7,9 @@
       :title="name"
       :description="description"
     />
-    <b-container>
+    <b-container
+      class="footer-margin"
+    >
       <b-row class="justify-content-center">
         <b-col
           cols="12"
@@ -39,7 +41,6 @@
           />
         </b-col>
       </b-row>
-      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>

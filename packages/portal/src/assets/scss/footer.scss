@@ -223,5 +223,6 @@
 }
 
 .footer-margin {
-  height: 7rem;
+  // TODO: replace with margin-bottom once white background becomes the default
+  padding-bottom: 5.375rem;
 }

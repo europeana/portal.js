@@ -15,7 +15,9 @@
       :hero="hero"
       :context-label="$tc('exhibitions.exhibitions')"
     />
-    <b-container>
+    <b-container
+      class="footer-margin"
+    >
       <b-row class="justify-content-center">
         <b-col
           cols="12"
@@ -75,7 +77,6 @@
           </client-only>
         </b-col>
       </b-row>
-      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>

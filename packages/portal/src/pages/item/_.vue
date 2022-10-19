@@ -45,7 +45,9 @@
           :entities="europeanaEntities"
         />
       </b-container>
-      <b-container>
+      <b-container
+        class="footer-margin"
+      >
         <b-row class="mb-3 justify-content-center">
           <b-col
             cols="12"
@@ -107,7 +109,6 @@
             :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
           />
         </client-only>
-        <b-row class="footer-margin" />
       </b-container>
     </template>
     <client-only>
