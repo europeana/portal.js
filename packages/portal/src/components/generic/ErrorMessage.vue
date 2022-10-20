@@ -1,11 +1,15 @@
 <template>
   <div
-    class="error-container gridless-container responsive-font"
-    :class="{'pt-5': !errorExplanationAvailable}"
+    class="error-container"
+    :class="{
+      'pt-5': !errorExplanationAvailable,
+      'gridless-container responsive-font': gridless
+    }"
   >
     <div
       v-if="errorExplanationAvailable"
       class="error-explanation d-flex"
+      :class="{ '100-vh': fullHeight }"
     >
       <b-img
         v-if="illustrationSrc"
@@ -66,6 +70,14 @@
       error: {
         type: String,
         default: null
+      },
+      gridless: {
+        type: Boolean,
+        default: true
+      },
+      fullHeight: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -93,15 +105,20 @@
       max-width: 75%;
     }
 
-    @media (min-width: $bp-xxxl) {
-      padding-bottom: 1vw;
+    &.gridless-container {
+      @media (min-width: $bp-xxxl) {
+        padding-bottom: 1vw;
+      }
     }
   }
 
   .error-explanation {
-    min-height: 100vh;
     padding-top: 5rem;
     padding-bottom: 5rem;
+
+    &.full-height {
+      min-height: 100vh;
+    }
 
     @media (orientation: portrait) {
       flex-wrap: wrap;
@@ -115,9 +132,11 @@
       justify-content: space-between;
     }
 
-    @media (min-width: $bp-xxxl) {
-      padding-top: 5vw;
-      padding-bottom: 5vw;
+    &.gridless-container {
+      @media (min-width: $bp-xxxl) {
+        padding-top: 5vw;
+        padding-bottom: 5vw;
+      }
     }
   }
 
@@ -139,8 +158,10 @@
       font-size: 1.375rem;
     }
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 1.375vw;
+    &.gridless-container {
+      @media (min-width: $bp-xxxl) {
+        font-size: 1.375vw;
+      }
     }
 
     h1 {
@@ -152,8 +173,10 @@
         font-size: 2.375rem;
       }
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 2.375vw;
+    &.gridless-container {
+        @media (min-width: $bp-xxxl) {
+          font-size: 2.375vw;
+        }
       }
     }
   }

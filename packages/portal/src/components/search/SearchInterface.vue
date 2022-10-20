@@ -15,7 +15,6 @@
       >
         <b-container
           class="px-0 pb-3"
-          :class="{ 'gridless-container': $fetchState.error }"
         >
           <client-only>
             <SearchBoostingForm
@@ -69,6 +68,8 @@
                         :title-path="$fetchState.error.titlePath"
                         :description-path="$fetchState.error.descriptionPath"
                         :illustration-src="$fetchState.error.illustrationSrc"
+                        :gridless="false"
+                        :full-height="false"
                       />
                       <template
                         v-else
