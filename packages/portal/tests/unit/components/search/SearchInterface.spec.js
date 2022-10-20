@@ -125,7 +125,7 @@ describe('components/search/SearchInterface', () => {
         error = e;
       }
 
-      expect(error.message).toBe('noResults');
+      expect(error.titlePath).toBe('errorMessage.searchResultsNotFound.title');
     });
 
     it('scrolls to the page header element', async() => {
