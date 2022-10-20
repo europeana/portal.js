@@ -2,6 +2,10 @@
   <b-container
     data-qa="search interface"
     class="page-container side-filters-enabled"
+    :class="{
+      'white-page': $fetchState.error,
+      'pt-5': $fetchState.error
+    }"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -11,6 +15,7 @@
       >
         <b-container
           class="px-0 pb-3"
+          :class="{ 'gridless-container': $fetchState.error }"
         >
           <client-only>
             <SearchBoostingForm
@@ -30,6 +35,7 @@
                 :entity="$store.state.entity.entity"
                 :query="query"
                 :editorial-overrides="editorialOverrides"
+                :badge-variant="$fetchState.error ? 'primary-light' : 'light'"
               />
               <ViewToggles
                 v-model="view"
