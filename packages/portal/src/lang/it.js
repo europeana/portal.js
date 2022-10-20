@@ -847,7 +847,7 @@ export default {
     "download": {
       "clickToCopy": "Clicca sull'attribuzione per copiarla",
       "modalIntro": "Se utilizzi questo elemento sul Web o altrove, non dimenticare di utilizzare la seguente attribuzione accanto a esso:",
-      "modalTitle": "Di grazie"
+      "modalTitle": "Di' grazie"
     }
   },
   "multilingual": {
