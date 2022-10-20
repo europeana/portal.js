@@ -24,6 +24,7 @@
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
         :editorial-overrides="editorialOverrides"
+        :override-params="searchOverrides"
       >
         <EntityHeader
           v-if="entity"
@@ -387,11 +388,7 @@
         return labelledMoreInfo;
       }
     },
-    watch: {
-      searchOverrides: 'storeSearchOverrides'
-    },
     mounted() {
-      this.storeSearchOverrides();
       if (this.userIsEntitiesEditor) {
         this.$store.dispatch('entity/getFeatured');
       }
@@ -399,9 +396,6 @@
     methods: {
       handleEntityRelatedCollectionsFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
-      },
-      storeSearchOverrides() {
-        this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
       },
       titleFallback(title) {
         return {
