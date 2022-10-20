@@ -43,35 +43,35 @@
           </article>
         </b-col>
       </b-row>
-      <b-row
-        v-if="hasPartCollection"
-        class="justify-content-center mt-3"
-      >
-        <b-col
-          cols="12"
-          class="mt-3 col-lg-8"
+      <client-only>
+        <b-row
+          v-if="hasPartCollection"
+          class="justify-content-center mt-3"
         >
-          <LinkList
-            :items="chapterPagesToLinkListItems(hasPartCollection.items, identifier)"
-            :title="$t('exhibitions.chapters')"
-          />
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="relatedLink"
-        class="related-container justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="col-lg-8"
+          <b-col
+            cols="12"
+            class="mt-3 col-lg-8"
+          >
+            <LinkList
+              :items="chapterPagesToLinkListItems(hasPartCollection.items, identifier)"
+              :title="$t('exhibitions.chapters')"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="relatedLink"
+          class="related-container justify-content-center"
         >
-          <client-only>
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
             <RelatedCollections
               :entity-uris="relatedLink"
             />
-          </client-only>
-        </b-col>
-      </b-row>
+          </b-col>
+        </b-row>
+      </client-only>
     </b-container>
   </div>
 </template>

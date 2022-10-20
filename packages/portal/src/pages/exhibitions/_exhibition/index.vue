@@ -49,34 +49,34 @@
           />
         </b-col>
       </b-row>
-      <b-row
-        v-if="hasRelatedCategoryTags"
-        class="related-container justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="col-lg-8"
+      <client-only>
+        <b-row
+          v-if="hasRelatedCategoryTags"
+          class="related-container justify-content-center"
         >
-          <RelatedCategoryTags
-            :tags="categoriesCollection.items"
-          />
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="relatedLink"
-        class="related-container justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="col-lg-8"
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <RelatedCategoryTags
+              :tags="categoriesCollection.items"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="relatedLink"
+          class="related-container justify-content-center"
         >
-          <client-only>
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
             <RelatedCollections
               :entity-uris="relatedLink"
             />
-          </client-only>
-        </b-col>
-      </b-row>
+          </b-col>
+        </b-row>
+      </client-only>
     </b-container>
   </div>
 </template>
