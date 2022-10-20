@@ -5,7 +5,10 @@
       data-qa="related category tags"
       cols="12"
     >
-      <h2 class="related-heading text-uppercase mb-2">
+      <h2
+        v-if="heading"
+        class="related-heading text-uppercase mb-2"
+      >
         {{ $t('related.categoryTags.title') }}
       </h2>
       <div
@@ -44,6 +47,11 @@
       selected: {
         type: Array,
         default: () => []
+      },
+
+      heading: {
+        type: Boolean,
+        default: true
       }
     },
 
