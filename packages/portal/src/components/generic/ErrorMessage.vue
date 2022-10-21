@@ -179,10 +179,10 @@
       }
 
       &.gridless-container {
-          @media (min-width: $bp-xxxl) {
-            font-size: 2.375vw;
-          }
+        @media (min-width: $bp-xxxl) {
+          font-size: 2.375vw;
         }
+      }
     }
   }
 
