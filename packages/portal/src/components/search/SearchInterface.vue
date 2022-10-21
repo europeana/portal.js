@@ -70,7 +70,7 @@
                         :illustration-src="$fetchState.error.illustrationSrc"
                         :gridless="false"
                         :full-height="false"
-                        :error="!noResultsFound ? $fetchState.error.message : null"
+                        :error="!noResultsFound ? errorMessage : null"
                       />
                       <template
                         v-else
