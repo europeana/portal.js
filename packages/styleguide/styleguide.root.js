@@ -4,38 +4,14 @@ import BootstrapVue from 'bootstrap-vue';
 import { VueMasonryPlugin } from 'vue-masonry';
 import VueI18n from 'vue-i18n';
 
+import contentfulModuleAssets from '@europeana/portal/src/modules/contentful/templates/assets.js';
+
 Vue.use(VueI18n);
 Vue.use(Vuex);
 Vue.use(BootstrapVue);
 Vue.use(VueMasonryPlugin);
 
 Vue.directive('visible-on-scroll', () => {});
-
-Object.assign(Vue.prototype, {
-  $apis:
-  {
-    entity: {
-      suggest(query) {
-        return Promise.resolve([
-          { prefLabel: { en: `suggestion for ${query}` } }
-        ]);
-      },
-      imageUrl: (entity) => entity.image?.url
-    },
-    thumbnail: { edmPreview: (img) => img }
-  },
-  $auth: { $storage: { setUniversal: () => {} }, loginWith: () => {} },
-  $fetchState: {},
-  $link: {
-    to: route => route,
-    href: () => null
-  },
-  $path: () => {
-    return '/';
-  },
-  $route: { query: {} },
-  switchLocalePath: () => '/'
-});
 
 const store = new Vuex.Store({
   modules: {
@@ -83,6 +59,36 @@ const store = new Vuex.Store({
       }
     }
   }
+});
+
+Object.assign(Vue.prototype, {
+  $apis:{
+    entity: {
+      suggest(query) {
+        return Promise.resolve([
+          { prefLabel: { en: `suggestion for ${query}` } }
+        ]);
+      },
+      imageUrl: (entity) => entity.image?.url
+    },
+    thumbnail: { edmPreview: (img) => img }
+  },
+  $auth: { $storage: { setUniversal: () => {} }, loginWith: () => {} },
+  $config: {},
+  $contentful: {
+    assets: contentfulModuleAssets({ store })
+  },
+  $features: {},
+  $fetchState: {},
+  $link: {
+    to: route => route,
+    href: () => null
+  },
+  $path: () => {
+    return '/';
+  },
+  $route: { query: {} },
+  switchLocalePath: () => '/'
 });
 
 import messages from '@europeana/portal/src/lang/en.js';
