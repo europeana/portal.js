@@ -1,7 +1,7 @@
 <template>
   <div
-    class="error-container"
     :class="{
+      'error-container': errorExplanationAvailable,
       'pt-5': !errorExplanationAvailable,
       'gridless-container responsive-font': gridless
     }"

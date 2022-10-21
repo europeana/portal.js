@@ -3,8 +3,8 @@
     data-qa="search interface"
     class="page-container side-filters-enabled"
     :class="{
-      'white-page': $fetchState.error,
-      'pt-5': $fetchState.error
+      'white-page': noResultsFound,
+      'pt-5': noResultsFound
     }"
   >
     <b-row
@@ -34,7 +34,7 @@
                 :entity="$store.state.entity.entity"
                 :query="query"
                 :editorial-overrides="editorialOverrides"
-                :badge-variant="$fetchState.error ? 'primary-light' : 'light'"
+                :badge-variant="noResultsFound ? 'primary-light' : 'light'"
               />
               <ViewToggles
                 v-model="view"
@@ -70,6 +70,7 @@
                         :illustration-src="$fetchState.error.illustrationSrc"
                         :gridless="false"
                         :full-height="false"
+                        :error="!noResultsFound ? $fetchState.error.message : null"
                       />
                       <template
                         v-else
@@ -149,6 +150,8 @@
 
   import merge from 'deepmerge';
 
+  const NO_RESULTS_FOUND = 'no results found';
+
   export default {
     name: 'SearchInterface',
 
@@ -227,6 +230,7 @@
         error.titlePath = 'errorMessage.searchResultsNotFound.title';
         error.descriptionPath = 'errorMessage.searchResultsNotFound.description';
         error.illustrationSrc = require('@/assets/img/illustrations/il-search-results-not-found.svg');
+        error.message = NO_RESULTS_FOUND;
         throw error;
       }
     },
@@ -274,7 +278,10 @@
         return this.hasAnyResults && this.results.length === 0;
       },
       noResults() {
-        return this.totalResults === 0;
+        return this.totalResults === 0 || !this.totalResults;
+      },
+      noResultsFound() {
+        return this.$fetchState?.error?.message === NO_RESULTS_FOUND;
       },
       debugSettings() {
         return this.$store.getters['debug/settings'];

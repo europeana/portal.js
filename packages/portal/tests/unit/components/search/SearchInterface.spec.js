@@ -11,6 +11,18 @@ localVue.filter('truncate', (string) => string);
 localVue.filter('optimisedImageUrl', (string) => string);
 localVue.use(BootstrapVue);
 
+const searchResult = {
+  totalResults: 1,
+  items: [
+    {
+      europeanaId: '/123/abc',
+      dcTitle: { def: ['Record 123/abc'] },
+      edmPreview: 'https://www.example.org/abc.jpg',
+      edmDataProvider: ['Provider 123']
+    }
+  ]
+};
+
 const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {}) => shallowMountNuxt(SearchInterface, {
   localVue,
   mocks: {
@@ -48,7 +60,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     },
     $apis: {
       record: {
-        search: sinon.stub().resolves({})
+        search: sinon.stub().resolves(searchResult)
       }
     },
     $i18n: {
@@ -81,20 +93,11 @@ describe('components/search/SearchInterface', () => {
     });
 
     it('stores the results', async() => {
-      const results = [
-        {
-          europeanaId: '/123/abc',
-          dcTitle: { def: ['Record 123/abc'] },
-          edmPreview: 'https://www.example.org/abc.jpg',
-          edmDataProvider: ['Provider 123']
-        }
-      ];
       const wrapper = factory();
-      wrapper.vm.$apis.record.search.resolves({ items: results });
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.results).toEqual(results);
+      expect(wrapper.vm.results).toEqual(searchResult.items);
     });
 
     it('handles search API errors', async() => {
