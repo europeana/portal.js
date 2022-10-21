@@ -178,11 +178,11 @@
         font-size: 2.375rem;
       }
 
-    &.gridless-container {
-        @media (min-width: $bp-xxxl) {
-          font-size: 2.375vw;
+      &.gridless-container {
+          @media (min-width: $bp-xxxl) {
+            font-size: 2.375vw;
+          }
         }
-      }
     }
   }
 
