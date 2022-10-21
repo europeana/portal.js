@@ -25,7 +25,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="hero.image.url" />
+            <SocialShareModal :media-url="heroImage && heroImage.url" />
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
@@ -52,6 +52,7 @@
       <client-only>
         <b-row
           v-if="hasRelatedCategoryTags"
+          data-qa="related category tags"
           class="related-container justify-content-center"
         >
           <b-col
