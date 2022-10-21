@@ -15,20 +15,22 @@
         class="d-flex"
       >
         <span class="icon-ic-tag" />
-        <b-badge
-          v-for="(tag, index) in tags.filter((tag) => !!tag)"
-          :key="index"
-          variant="outline-light"
-          :active="isActive(tag.identifier)"
-          :to="badgeLink(tag.identifier)"
-          @click.native="clickBadge(tag.identifier)"
-        >
-          <span>{{ tag.name }}</span>
-          <span
-            v-if="isActive(tag.identifier)"
-            class="icon icon-clear clear-indicator"
-          />
-        </b-badge>
+        <div>
+          <b-badge
+            v-for="(tag, index) in tags.filter((tag) => !!tag)"
+            :key="index"
+            variant="outline-light"
+            :active="isActive(tag.identifier)"
+            :to="badgeLink(tag.identifier)"
+            @click.native="clickBadge(tag.identifier)"
+          >
+            <span>{{ tag.name }}</span>
+            <span
+              v-if="isActive(tag.identifier)"
+              class="icon icon-clear clear-indicator"
+            />
+          </b-badge>
+        </div>
       </div>
     </b-col>
   </b-row>
@@ -101,7 +103,7 @@
   }
 
   .badge-outline-light {
-    margin: 0 0.25rem;
+    margin: 0.25rem 0.25rem 0 0.25rem;
 
     @media (min-width: $bp-medium) {
       overflow: visible;
