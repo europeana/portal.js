@@ -44,26 +44,17 @@
     },
     methods: {
       async handleClickDownloadButton(event) {
-        if (this.urlValidated) {
+        // We can not validate non-proxied media with this technique because
+        // we can not assume that other providers' servers all support CORS.
+        if (!this.url.startsWith(this.$config.europeana.proxy.media.url) || this.urlValidated) {
           this.$bvModal.show('download-modal');
           this.trackDownload();
         } else {
           try {
-            event.preventDefault();
-            if (this.url.startsWith(this.$config.europeana.proxy.media.url)) {
-              // TODO: check if this results in the media proxy making a HEAD or
-              //       GET request to the upstream, as we don't want duplicate GETs
-              const response = await axios({
-                method: 'get',
-                url: `${this.url}&profile=debug`
-              });
-            } else {
-              // TODO: should we not do this, in case of no CORS?
-              await axios({
-                method: 'head',
-                url: this.url
-              });
-            }
+            const response = await axios({
+              method: 'head',
+              url: this.url
+            });
           } catch (error) {
             this.$apm?.captureError({
               name: 'DownloadError',
