@@ -113,8 +113,13 @@
   }
 
   .error-explanation {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 3.125rem;
+    padding-bottom: 3.125rem;
+
+    @media (min-width: $bp-large) {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
 
     &.full-height {
       min-height: 100vh;
