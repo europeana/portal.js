@@ -1,11 +1,12 @@
 name: Style guide
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'master'
     paths-ignore:
-    - 'packages/contentful/**'
+      - 'packages/contentful/**'
 
 env:
   DOCKER_REPOSITORY: europeana/styleguide
@@ -13,6 +14,8 @@ env:
 jobs:
   docker-build:
     runs-on: ubuntu-latest
+    outputs:
+      docker-metadata-version: steps.meta.outputs.version
     steps:
       -
         name: Checkout
@@ -27,6 +30,7 @@ jobs:
         with:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
+            type=ref,event=pr
             type=ref,event=branch
       -
         name: Login to DockerHub
@@ -59,15 +63,19 @@ jobs:
       K8S_DEPLOYMENT_NAME: styleguide
     steps:
       -
-        name: Install ibmcloud CLI
+        name: Docker metadata version
         run: |
-          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
-          ibmcloud plugin install container-service
-      -
-        name: Login to IBM Cloud
-        run: |
-          ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
-          ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
-      -
-        name: Restart deployment
-        run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_DEPLOYMENT_NAME}
+          echo ${{needs.docker-build.outputs.docker-metadata-version}}
+      # -
+      #   name: Install ibmcloud CLI
+      #   run: |
+      #     curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+      #     ibmcloud plugin install container-service
+      # -
+      #   name: Login to IBM Cloud
+      #   run: |
+      #     ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
+      #     ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
+      # -
+      #   name: Restart deployment
+      #   run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_DEPLOYMENT_NAME}
