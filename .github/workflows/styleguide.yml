@@ -1,7 +1,8 @@
 name: Style guide
 
 on:
-  workflow_dispatch:
+  pull_request:
+    types: [labeled]
   push:
     branches:
       - 'master'
@@ -13,11 +14,10 @@ env:
 
 jobs:
   docker-build:
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event.label.name == 'styleguide')
     runs-on: ubuntu-latest
     outputs:
       docker-metadata-version: ${{ steps.meta.outputs.version }}
-      docker-metadata-tags: ${{ steps.meta.outputs.tags }}
-      docker-metadata-labels: ${{ steps.meta.outputs.labels }}
     steps:
       -
         name: Checkout
@@ -54,6 +54,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy-ibm-cloud:
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event.label.name == 'styleguide')
     runs-on: ubuntu-latest
     needs: [docker-build]
     env:
@@ -65,11 +66,9 @@ jobs:
       K8S_DEPLOYMENT_NAME: styleguide
     steps:
       -
-        name: Docker metadata
+        name: Docker metadata version
         run: |
           echo ${{needs.docker-build.outputs.docker-metadata-version}}
-          echo ${{needs.docker-build.outputs.docker-metadata-tags}}
-          echo ${{needs.docker-build.outputs.docker-metadata-labels}}
       # -
       #   name: Install ibmcloud CLI
       #   run: |
