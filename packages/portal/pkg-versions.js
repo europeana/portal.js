@@ -9,7 +9,7 @@
 // TODO: it should also be auto-updated when running npm install/update/etc
 
 export default {
-  '@europeana/portal': '1.87.0',
+  '@europeana/portal': '1.88.0',
   '@nuxt/core': '2.15.8',
   'bootstrap': '4.6.2',
   'bootstrap-vue': '2.22.0'
