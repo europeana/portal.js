@@ -29,7 +29,7 @@ jobs:
         id: git
         run: |
           echo ${{ github.event.pull_request.labels }}
-          echo ${{ contains(github.event.pull_request.labels, 'styleguide') }}
+          echo ${{ contains(github.event.pull_request.labels.*.name, 'styleguide') }}
           if [ "${{ (github.event_name == 'push' && github.event.ref == 'refs/heads/master') }}" == "true" ]; then
             echo "event=master-push" >> $GITHUB_OUTPUT
           elif [ "${{ contains(github.event.pull_request.labels, 'styleguide') }}" == "true" ]; then
@@ -52,7 +52,7 @@ jobs:
       -
         name: Check metadata output
         run: |
-          echo ${ needs.metadata.git.event }
+          echo ${{ needs.metadata.git.event }}
 
   docker-build:
     if: needs.metadata.git.event == 'master-push' || needs.metadata.git.event == 'labeled-pr'
