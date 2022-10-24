@@ -18,7 +18,7 @@ spec:
           service:
             name: ${K8S_RESOURCE_NAME}
             port:
-              number: 8080
+              number: 80
         path: /
         pathType: Prefix
   tls:

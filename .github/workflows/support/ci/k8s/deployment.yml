@@ -6,7 +6,7 @@ metadata:
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       workload.user.cattle.io/workloadselector: apps.deployment-dev-${K8S_RESOURCE_NAME}
@@ -22,24 +22,17 @@ spec:
     spec:
       affinity: {}
       containers:
-      - env:
-        - name: PORTAL_BASE_URL
-          value: https://${K8S_INGRESS_HOST}
-        envFrom:
-        - configMapRef:
-            name: portal-js-env
-            optional: false
-        image: ${DOCKER_IMAGE_TAG}
+      - image: ${DOCKER_IMAGE_TAG}
         imagePullPolicy: Always
-        name: portal-js-web
+        name: styleguide-nginx
         ports:
-        - containerPort: 8080
-          name: 8080tcp
+        - containerPort: 80
+          name: 80tcp
           protocol: TCP
         readinessProbe:
           failureThreshold: 3
           httpGet:
-            path: /_api/version
+            path: /
             port: 8080
             scheme: HTTP
           periodSeconds: 10
@@ -47,11 +40,11 @@ spec:
           timeoutSeconds: 1
         resources:
           limits:
-            cpu: 200m
-            memory: 200Mi
+            cpu: 10m
+            memory: 64Mi
           requests:
             cpu: 1m
-            memory: 100Mi
+            memory: 32Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst

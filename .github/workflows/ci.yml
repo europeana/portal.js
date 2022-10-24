@@ -372,9 +372,9 @@ jobs:
         name: Create K8s resource manifests for dev deployments
         if: github.event_name == 'pull_request'
         run: |
-          envsubst < .github/workflows/support/ci/deploy/deployment.yml > deployment.yml
-          envsubst < .github/workflows/support/ci/deploy/service.yml > service.yml
-          envsubst < .github/workflows/support/ci/deploy/ingress.yml > ingress.yml
+          envsubst < .github/workflows/support/ci/k8s/deployment.yml > deployment.yml
+          envsubst < .github/workflows/support/ci/k8s/service.yml > service.yml
+          envsubst < .github/workflows/support/ci/k8s/ingress.yml > ingress.yml
       -
         name: Install ibmcloud CLI
         run: |
