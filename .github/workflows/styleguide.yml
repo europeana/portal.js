@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       docker-metadata-version: ${{ steps.meta.outputs.version }}
+      docker-metadata-tags: ${{ steps.meta.outputs.tags }}
+      docker-metadata-labels: ${{ steps.meta.outputs.labels }}
     steps:
       -
         name: Checkout
@@ -63,9 +65,11 @@ jobs:
       K8S_DEPLOYMENT_NAME: styleguide
     steps:
       -
-        name: Docker metadata version
+        name: Docker metadata
         run: |
           echo ${{needs.docker-build.outputs.docker-metadata-version}}
+          echo ${{needs.docker-build.outputs.docker-metadata-tags}}
+          echo ${{needs.docker-build.outputs.docker-metadata-labels}}
       # -
       #   name: Install ibmcloud CLI
       #   run: |
