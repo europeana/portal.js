@@ -62,7 +62,7 @@ const store = new Vuex.Store({
 });
 
 Object.assign(Vue.prototype, {
-  $apis:{
+  $apis: {
     entity: {
       suggest(query) {
         return Promise.resolve([
