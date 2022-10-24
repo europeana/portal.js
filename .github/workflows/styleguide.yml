@@ -1,7 +1,6 @@
 name: Style guide
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - 'master'
