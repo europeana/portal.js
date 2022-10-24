@@ -12,7 +12,7 @@
     "size-limit": "^5.0.5"
   },
   "engines": {
-    "node": "^16",
+    "node": "^18",
     "npm": "^8"
   }
 }
