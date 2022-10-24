@@ -16,7 +16,8 @@ jobs:
   metadata:
     runs-on: ubuntu-latest
     outputs:
-      git-event: ${{ steps.git.outputs.event }}
+      git-master-push: ${{ steps.git-master-push.outputs.status }}
+      git-pr-labeled: ${{ steps.git-pr-labeled.outputs.status }}
       docker-labels: ${{ steps.docker.outputs.labels }}
       docker-tags: ${{ steps.docker.outputs.tags }}
       docker-version: ${{ steps.docker.outputs.version }}
@@ -25,14 +26,15 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       -
-        name: Git metadata
-        id: git
-        run: |
-          if [ "${{ (github.event_name == 'push' && github.event.ref == 'refs/heads/master') }}" = "true" ]; then
-            echo "event=master-push" >> $GITHUB_OUTPUT
-          elif [ "${{ contains(github.event.pull_request.labels.*.name, 'styleguide') }}" = "true" ]; then
-            echo "event=labeled-pr" >> $GITHUB_OUTPUT
-          fi
+        name: Git metadata, master push
+        id: git-master-push
+        if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master')
+        run: echo "status=true" >> $GITHUB_OUTPUT
+      -
+        name: Git metadata, PR labeled
+        id: git-pr-labeled
+        if: contains(github.event.pull_request.labels.*.name, 'styleguide')
+        run: echo "status=true" >> $GITHUB_OUTPUT
       -
         name: Docker metadata
         id: docker
@@ -50,10 +52,11 @@ jobs:
       -
         name: Check metadata output
         run: |
-          echo ${{ needs.metadata.git.event }}
+          echo ${{ needs.metadata.outputs.git-master-push }}
+          echo ${{ needs.metadata.outputs.git-pr-labeled }}
 
   docker-build:
-    if: needs.metadata.git.event == 'master-push' || needs.metadata.git.event == 'labeled-pr'
+    if: needs.metadata.outputs.git-master-push == 'true' || needs.metadata.outputs.git-pr-labeled == 'true'
     runs-on: ubuntu-latest
     needs: [metadata]
     steps:
@@ -83,7 +86,6 @@ jobs:
           labels: ${{ needs.metadata.outputs.docker-labels }}
 
   deploy-ibm-cloud:
-    if: needs.metadata.git.event == 'master-push' || needs.metadata.git.event == 'labeled-pr'
     runs-on: ubuntu-latest
     needs: [metadata, docker-build]
     env:
@@ -100,13 +102,13 @@ jobs:
         run: echo "DOCKER_IMAGE_TAG=${{ env.DOCKER_REPOSITORY }}:${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
       -
         name: Prepare env for internal namespace
-        if: needs.metadata.git.event == 'master-push'
+        if: needs.metadata.outputs.git-master-push == 'true'
         run: |
           echo "K8S_NAMESPACE=internal" >> $GITHUB_ENV
           echo "K8S_RESOURCE_NAME=styleguide" >> $GITHUB_ENV
       -
         name: Prepare env for dev namespace
-        if: needs.metadata.git.event == 'labeled-pr'
+        if: needs.metadata.outputs.git-pr-labeled == 'true'
         run: |
           echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
           echo "K8S_RESOURCE_NAME=styleguide" >> $GITHUB_ENV
@@ -114,7 +116,7 @@ jobs:
           echo "K8S_INGRESS_HOST=${{ needs.docker-build.outputs.docker-metadata-version }}.styleguide.dev.eanadev.org" >> $GITHUB_ENV
       -
         name: Create K8s resource manifests for dev namespace
-        if: needs.metadata.git.event == 'labeled-pr'
+        if: needs.metadata.outputs.git-pr-labeled == 'true'
         run: |
           envsubst < .github/workflows/support/styleguide/k8s/deployment.yml > deployment.yml
           envsubst < .github/workflows/support/styleguide/k8s/service.yml > service.yml
@@ -131,7 +133,7 @@ jobs:
           ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
       -
         name: Detect new deployment
-        if: needs.metadata.git.event == 'labeled-pr'
+        if: needs.metadata.outputs.git-pr-labeled == 'true'
         run: |
           set +e
           kubectl --namespace ${K8S_NAMESPACE} get deployment ${K8S_RESOURCE_NAME}
@@ -140,7 +142,7 @@ jobs:
           echo K8S_NEW_DEPLOYMENT=${K8S_NEW_DEPLOYMENT} >> $GITHUB_ENV
       -
         name: Create new dev resources on IBM Cloud K8s
-        if: needs.metadata.git.event == 'labeled-pr'
+        if: needs.metadata.outputs.git-pr-labeled == 'true'
         run: |
           kubectl apply -f deployment.yml
           kubectl apply -f service.yml
