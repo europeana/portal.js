@@ -111,9 +111,8 @@ jobs:
         if: needs.metadata.outputs.git-pr-labeled == 'true'
         run: |
           echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
-          echo "K8S_RESOURCE_NAME=styleguide" >> $GITHUB_ENV
-          echo "K8S_RESOURCE_NAME=styleguide-${{ needs.docker-build.outputs.docker-metadata-version }}" >> $GITHUB_ENV
-          echo "K8S_INGRESS_HOST=${{ needs.docker-build.outputs.docker-metadata-version }}.styleguide.dev.eanadev.org" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAME=styleguide-${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
+          echo "K8S_INGRESS_HOST=${{ needs.metadata.outputs.docker-version }}.styleguide.dev.eanadev.org" >> $GITHUB_ENV
       -
         name: Create K8s resource manifests for dev namespace
         if: needs.metadata.outputs.git-pr-labeled == 'true'
