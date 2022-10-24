@@ -15,7 +15,7 @@ jobs:
   docker-build:
     runs-on: ubuntu-latest
     outputs:
-      docker-metadata-version: steps.meta.outputs.version
+      docker-metadata-version: ${{ steps.meta.outputs.version }}
     steps:
       -
         name: Checkout
