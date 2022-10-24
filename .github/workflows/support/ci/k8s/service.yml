@@ -5,10 +5,10 @@ metadata:
   namespace: dev
 spec:
   ports:
-  - name: 80tcp
-    port: 80
+  - name: 8080tcp
+    port: 8080
     protocol: TCP
-    targetPort: 80
+    targetPort: 8080
   selector:
     workload.user.cattle.io/workloadselector: apps.deployment-dev-${K8S_RESOURCE_NAME}
   sessionAffinity: None

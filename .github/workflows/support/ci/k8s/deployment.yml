@@ -22,17 +22,24 @@ spec:
     spec:
       affinity: {}
       containers:
-      - image: ${DOCKER_IMAGE_TAG}
+      - env:
+        - name: PORTAL_BASE_URL
+          value: https://${K8S_INGRESS_HOST}
+        envFrom:
+        - configMapRef:
+            name: portal-js-env
+            optional: false
+        image: ${DOCKER_IMAGE_TAG}
         imagePullPolicy: Always
-        name: styleguide-nginx
+        name: portal-js-web
         ports:
-        - containerPort: 80
-          name: 80tcp
+        - containerPort: 8080
+          name: 8080tcp
           protocol: TCP
         readinessProbe:
           failureThreshold: 3
           httpGet:
-            path: /
+            path: /_api/version
             port: 8080
             scheme: HTTP
           periodSeconds: 10
@@ -40,11 +47,11 @@ spec:
           timeoutSeconds: 1
         resources:
           limits:
-            cpu: 10m
-            memory: 64Mi
+            cpu: 200m
+            memory: 200Mi
           requests:
             cpu: 1m
-            memory: 32Mi
+            memory: 100Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
