@@ -1,6 +1,7 @@
 name: Style guide
 
 on:
+  # TODO: also trigger if PR already has the "styleguide" label and is synced?
   pull_request:
     types: [labeled]
   push:
@@ -58,12 +59,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [docker-build]
     env:
-      DOCKER_IMAGE_TAG: ${{ env.DOCKER_REPOSITORY }}:${{ needs.docker-build.outputs.docker-metadata-version }}
       IBMCLOUD_API_URL: https://cloud.ibm.com
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
       IBMCLOUD_CLUSTER_NAME: europeana-web
       IBMCLOUD_REGION: eu-de
     steps:
+      -
+        name: Set image tag for deployment
+        run: echo "DOCKER_IMAGE_TAG=${{ env.DOCKER_REPOSITORY }}:${{ needs.docker-build.outputs.docker-metadata-version }} >> $GITHUB_ENV
       -
         name: Prepare env for internal namespace
         if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master')
