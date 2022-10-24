@@ -63,23 +63,66 @@ jobs:
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
       IBMCLOUD_CLUSTER_NAME: europeana-web
       IBMCLOUD_REGION: eu-de
-      K8S_NAMESPACE: internal
-      K8S_DEPLOYMENT_NAME: styleguide
     steps:
       -
-        name: Docker metadata version
+        name: Prepare env for internal namespace
+        if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master')
         run: |
-          echo ${{ env.DOCKER_IMAGE_TAG }}
-      # -
-      #   name: Install ibmcloud CLI
-      #   run: |
-      #     curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
-      #     ibmcloud plugin install container-service
-      # -
-      #   name: Login to IBM Cloud
-      #   run: |
-      #     ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
-      #     ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
-      # -
-      #   name: Restart deployment
-      #   run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_DEPLOYMENT_NAME}
+          echo "K8S_NAMESPACE=internal" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAME=styleguide" >> $GITHUB_ENV
+      -
+        name: Prepare env for dev namespace
+        if: (github.event.label.name == 'styleguide')
+        run: |
+          echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAME=styleguide" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAME=styleguide-${{ needs.docker-build.outputs.docker-metadata-version }}" >> $GITHUB_ENV
+          echo "K8S_INGRESS_HOST=${{ needs.docker-build.outputs.docker-metadata-version }}.styleguide.dev.eanadev.org" >> $GITHUB_ENV
+      -
+        name: Create K8s resource manifests for dev namespace
+        if: (github.event.label.name == 'styleguide')
+        run: |
+          envsubst < .github/workflows/support/styleguide/k8s/deployment.yml > deployment.yml
+          envsubst < .github/workflows/support/styleguide/k8s/service.yml > service.yml
+          envsubst < .github/workflows/support/styleguide/k8s/ingress.yml > ingress.yml
+      -
+        name: Install ibmcloud CLI
+        run: |
+          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud plugin install container-service
+      -
+        name: Login to IBM Cloud
+        run: |
+          ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
+          ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
+      -
+        name: Detect new deployment
+        if: (github.event.label.name == 'styleguide')
+        run: |
+          set +e
+          kubectl --namespace ${K8S_NAMESPACE} get deployment ${K8S_RESOURCE_NAME}
+          if [ $? -eq 1 ]; then K8S_NEW_DEPLOYMENT="true"; else K8S_NEW_DEPLOYMENT="false"; fi
+          set -e
+          echo K8S_NEW_DEPLOYMENT=${K8S_NEW_DEPLOYMENT} >> $GITHUB_ENV
+      -
+        name: Create new dev resources on IBM Cloud K8s
+        if: (github.event.label.name == 'styleguide')
+        run: |
+          kubectl apply -f deployment.yml
+          kubectl apply -f service.yml
+          kubectl apply -f ingress.yml
+      -
+        name: Restart deployment
+        run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_RESOURCE_NAME}
+      -
+        name: Comment with deployment link on pull request
+        if: env.K8S_NEW_DEPLOYMENT == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Preview deployment: https://${process.env.K8S_INGRESS_HOST}/`
+            })
