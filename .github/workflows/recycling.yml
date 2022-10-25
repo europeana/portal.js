@@ -40,8 +40,7 @@ jobs:
         ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
         ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
     -
-      # TODO: remove this step once all old-naming resources have gone
-      name: Delete portal.js resources from K8s (old naming)
+      name: Delete portal.js resources from K8s
       run: |
         set +e
         kubectl --namespace dev delete ingress/portal-js-pr-${PULL_REQUEST_NUMBER}
@@ -49,18 +48,10 @@ jobs:
         kubectl --namespace dev delete service/portal-js-pr-${PULL_REQUEST_NUMBER}
         kubectl --namespace dev delete deployment/portal-js-pr-${PULL_REQUEST_NUMBER}
     -
-      name: Delete portal.js resources from K8s
-      run: |
-        set +e
-        kubectl --namespace dev delete ingress/pr-${PULL_REQUEST_NUMBER}.portal-js
-        kubectl --namespace dev delete secret/pr-${PULL_REQUEST_NUMBER}.portal-js.dev.eanadev.org
-        kubectl --namespace dev delete service/pr-${PULL_REQUEST_NUMBER}.portal-js
-        kubectl --namespace dev delete deployment/pr-${PULL_REQUEST_NUMBER}.portal-js
-    -
       name: Delete style guide resources from K8s
       run: |
         set +e
-        kubectl --namespace dev delete ingress/pr-${PULL_REQUEST_NUMBER}.styleguide
+        kubectl --namespace dev delete ingress/styleguide-pr-${PULL_REQUEST_NUMBER}
         kubectl --namespace dev delete secret/pr-${PULL_REQUEST_NUMBER}.styleguide.dev.eanadev.org
-        kubectl --namespace dev delete service/pr-${PULL_REQUEST_NUMBER}.styleguide
-        kubectl --namespace dev delete deployment/pr-${PULL_REQUEST_NUMBER}.styleguide
+        kubectl --namespace dev delete service/styleguide-pr-${PULL_REQUEST_NUMBER}
+        kubectl --namespace dev delete deployment/styleguide-pr-${PULL_REQUEST_NUMBER}

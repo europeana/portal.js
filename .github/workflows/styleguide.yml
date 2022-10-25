@@ -103,7 +103,7 @@ jobs:
         if: needs.metadata.outputs.git-pr-labeled == 'true'
         run: |
           echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
-          echo "K8S_RESOURCE_NAME=${{ needs.metadata.outputs.docker-version }}.styleguide" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAME=styleguide-${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
           echo "K8S_INGRESS_HOST=${{ needs.metadata.outputs.docker-version }}.styleguide.dev.eanadev.org" >> $GITHUB_ENV
       -
         name: Create K8s resource manifests
