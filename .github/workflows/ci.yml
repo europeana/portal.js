@@ -54,7 +54,7 @@ jobs:
       docker-labels: ${{ steps.docker.outputs.labels }}
       docker-tags: ${{ steps.docker.outputs.tags }}
       docker-version: ${{ steps.docker.outputs.version }}
-      docker-full-tag: ${{ steps.docker-image.outputs.full-tag }}
+      docker-full-tag: ${{ steps.docker-image.outputs.full_tag }}
     steps:
       -
         name: Checkout
@@ -89,7 +89,7 @@ jobs:
         name: Output Docker image full tag
         id: docker-image
         run: |
-          run: echo "full-tag=${{ env.DOCKER_REPOSITORY }}:${{ steps.metadata.outputs.version }}" >> $GITHUB_OUTPUT
+          run: echo "full_tag=${{ env.DOCKER_REPOSITORY }}:${{ steps.docker.outputs.version }}" >> $GITHUB_OUTPUT
 
 
   # Run code linting on master and all PRs (including drafts)
