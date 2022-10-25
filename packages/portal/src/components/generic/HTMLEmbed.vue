@@ -61,7 +61,7 @@
 
     computed: {
       responsiveProvider() {
-        const responsive = ['YouTube', 'Vimeo'];
+        const responsive = ['YouTube', 'Vimeo', 'Sketchfab'];
         return responsive.includes(this.provider);
       },
       heightAsPercentOfWidth() {
