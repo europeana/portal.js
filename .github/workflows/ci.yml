@@ -105,9 +105,6 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
-        with:
-          # For SonarCloud to blame culprits
-          fetch-depth: 0
       -
         name: Setup Node
         uses: actions/setup-node@v3
@@ -121,8 +118,32 @@ jobs:
         name: Run unit tests
         run: npm run test:coverage
       -
-        # TODO: make into separate job, depending on test-unit, and being supplied
-        #       its coverage output?
+        name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: packages/portal/coverage
+
+  sonarcloud:
+    runs-on: ubuntu-latest
+    needs: [test-unit]
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+        with:
+          # For SonarCloud to blame culprits
+          fetch-depth: 0
+      -
+        name: Download code coverage results
+        uses: actions/download-artifact@v3
+        with:
+          name: code-coverage-report
+          path: packages/portal/coverage
+      -
+        name: Check for code coverage
+        run: ls -l packages/portal/coverage
+      -
         name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v1.6
         with:
