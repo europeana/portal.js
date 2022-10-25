@@ -14,6 +14,7 @@ env:
 
 jobs:
   metadata:
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || contains(github.event.pull_request.labels.*.name, 'styleguide')
     runs-on: ubuntu-latest
     outputs:
       git-master-push: ${{ steps.git-master-push.outputs.status }}
