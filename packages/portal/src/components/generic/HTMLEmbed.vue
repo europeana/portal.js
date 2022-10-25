@@ -2,8 +2,9 @@
   <!-- eslint-disable vue/no-v-html -->
   <div
     v-if="html && responsiveProvider"
+    ref="responsiveWrapper"
     class="responsive-embed-wrapper"
-    :style="`max-width:${maxWidthWrapper}rem`"
+    :style="`max-width:${maxWidthWrapper}px`"
     data-qa="responsive embed wrapper"
   >
     <div
@@ -59,6 +60,12 @@
       }
     },
 
+    data() {
+      return {
+        maxWidthWrapper: 0
+      };
+    },
+
     computed: {
       responsiveProvider() {
         const responsive = ['YouTube', 'Vimeo', 'Sketchfab'];
@@ -66,10 +73,20 @@
       },
       heightAsPercentOfWidth() {
         return (this.height * 100) / this.width;
-      },
-      maxWidthWrapper() {
-        const wrapperHeight = window.innerWidth <= 768 ? 22.5 : 35.5;
-        return (this.width * wrapperHeight) / this.height;
+      }
+    },
+
+    mounted() {
+      if (this.$refs.responsiveWrapper.clientHeight) {
+        this.setMaxWidthWrapper();
+        window.addEventListener('resize', this.setMaxWidthWrapper);
+      }
+    },
+
+    methods: {
+      setMaxWidthWrapper() {
+        const wrapperHeight = this.$refs.responsiveWrapper.clientHeight;
+        this.maxWidthWrapper = (this.width * wrapperHeight) / this.height;
       }
     }
   };
