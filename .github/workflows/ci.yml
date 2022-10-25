@@ -360,7 +360,7 @@ jobs:
         name: Prepare env for dev deployments, step 2
         if: github.event_name == 'pull_request'
         run: |
-          echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAME=pr-${PULL_REQUEST_NUMBER}.portal-js" >> $GITHUB_ENV
           echo "K8S_INGRESS_HOST=pr-${PULL_REQUEST_NUMBER}.portal-js.dev.eanadev.org" >> $GITHUB_ENV
       -
         name: Prepare env for test deployment

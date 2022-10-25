@@ -22,11 +22,13 @@ jobs:
       name: Checkout
       uses: actions/checkout@v3
     -
-      name: Prepare env for resource deletion, step 1
+      name: Prepare env for resource deletion
       run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
     -
       name: Prepare env for resource deletion, step 2
-      run: echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+      run: |
+        echo "K8S_PORTAL_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+        echo "K8S_STYLEGUIDE_RESOURCE_NAME=styleguide-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
     -
       name: Install ibmcloud CLI
       run: |
@@ -38,8 +40,27 @@ jobs:
         ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
         ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
     -
-      name: Delete from K8s
+      # TODO: remove this step once all old-naming resources have gone
+      name: Delete portal.js resources from K8s (old naming)
       run: |
-        kubectl --namespace dev delete ingress/${K8S_RESOURCE_NAME}
-        kubectl --namespace dev delete service/${K8S_RESOURCE_NAME}
-        kubectl --namespace dev delete deployment/${K8S_RESOURCE_NAME}
+        set +e
+        kubectl --namespace dev delete ingress/portal-js-pr-${PULL_REQUEST_NUMBER}
+        kubectl --namespace dev delete secret/pr-${PULL_REQUEST_NUMBER}.portal-js.dev.eanadev.org
+        kubectl --namespace dev delete service/portal-js-pr-${PULL_REQUEST_NUMBER}
+        kubectl --namespace dev delete deployment/portal-js-pr-${PULL_REQUEST_NUMBER}
+    -
+      name: Delete portal.js resources from K8s
+      run: |
+        set +e
+        kubectl --namespace dev delete ingress/pr-${PULL_REQUEST_NUMBER}.portal-js
+        kubectl --namespace dev delete secret/pr-${PULL_REQUEST_NUMBER}.portal-js.dev.eanadev.org
+        kubectl --namespace dev delete service/pr-${PULL_REQUEST_NUMBER}.portal-js
+        kubectl --namespace dev delete deployment/pr-${PULL_REQUEST_NUMBER}.portal-js
+    -
+      name: Delete style guide resources from K8s
+      run: |
+        set +e
+        kubectl --namespace dev delete ingress/pr-${PULL_REQUEST_NUMBER}.styleguide
+        kubectl --namespace dev delete secret/pr-${PULL_REQUEST_NUMBER}.styleguide.dev.eanadev.org
+        kubectl --namespace dev delete service/pr-${PULL_REQUEST_NUMBER}.styleguide
+        kubectl --namespace dev delete deployment/pr-${PULL_REQUEST_NUMBER}.styleguide
