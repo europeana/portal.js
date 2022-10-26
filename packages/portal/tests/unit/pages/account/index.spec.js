@@ -24,6 +24,7 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
       origin: 'https://auth.example.eu', realm: 'europeana', 'client_id': 'portal.js'
     } } },
     $config: { app: { baseUrl: 'https://www.example.eu' } },
+    $features: {},
     $fetchState: options.fetchState,
     $pageHeadTitle: key => key,
     $path: (path) => path,

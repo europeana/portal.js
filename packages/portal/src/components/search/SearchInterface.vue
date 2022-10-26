@@ -3,6 +3,12 @@
     data-qa="search interface"
     class="page-container side-filters-enabled"
   >
+    <!-- TODO: Clean up when API issues are resolved -->
+    <NotificationBanner
+      v-if="$features.setsBroken"
+      :notification-text="$t('notification.api')"
+      class="mb-3"
+    />
     <b-row
       class="flex-row flex-nowrap"
     >
@@ -152,7 +158,8 @@
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
       SideFilters: () => import('./SideFilters'),
-      ViewToggles
+      ViewToggles,
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
     mixins: [
