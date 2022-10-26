@@ -87,7 +87,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
   .image-wrapper {
@@ -114,11 +114,6 @@
 
     figure {
       overflow: hidden;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
 
       img {
         width: 100%;
@@ -133,6 +128,11 @@
         height: 0;
         padding-top: 56.25%;
         position: relative;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
 
         img {
           position: absolute;
