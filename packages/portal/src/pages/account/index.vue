@@ -3,6 +3,11 @@
     data-qa="account page"
     class="mt-n3"
   >
+    <!-- TODO: Clean up when API issues are resolved -->
+    <NotificationBanner
+      v-if="$fetchState.error && $features.setsBroken"
+      :notification-text="$t('notification.account')"
+    />
     <b-container fluid>
       <b-row class="bg-white">
         <b-col class="pt-5 pb-4">
@@ -151,6 +156,7 @@
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
+  import NotificationBanner from '@/components/generic/NotificationBanner';
 
   export default {
     name: 'AccountIndexPage',
@@ -160,7 +166,8 @@
       ItemPreviewCardGroup,
       UserSets,
       AlertMessage,
-      LoadingSpinner
+      LoadingSpinner,
+      NotificationBanner
     },
 
     mixins: [

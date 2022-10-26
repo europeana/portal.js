@@ -895,6 +895,9 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "notification": {
+    "account": "We are experiencing some issues. The likes and galleries currently don't work. We are working to get this fixed as quickly as possible."
+  },
   "of": "Of",
   "organisation": {
     "city": "City",

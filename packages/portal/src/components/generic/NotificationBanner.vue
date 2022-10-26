@@ -1,12 +1,13 @@
 <template>
   <b-container
     fluid
-    class="border-bottom"
+    class="border-bottom align-items-center"
     data-qa="notification banner"
+    :class="{'d-none': hide, 'd-flex': !hide }"
   >
     <b-container>
       <b-row>
-        <b-col class="col-12 pb-3">
+        <b-col class="col-12 py-3">
           <p class="mb-0">
             {{ notificationText }}
             <a
@@ -19,15 +20,24 @@
         </b-col>
       </b-row>
     </b-container>
+    <b-button
+      v-if="ignorable"
+      class="button-icon-only icon-clear"
+      variant="light-flat"
+      :aria-label="$t('actions.close')"
+      @click="hide = !hide"
+    />
   </b-container>
 </template>
 
 <script>
   export default {
+    name: 'NotificationBanner',
+
     props: {
       notificationUrl: {
         type: String,
-        required: true
+        default: null
       },
       notificationText: {
         type: String,
@@ -35,8 +45,18 @@
       },
       notificationLinkText: {
         type: String,
-        required: true
+        default: null
+      },
+      ignorable: {
+        type: Boolean,
+        default: true
       }
+    },
+
+    data() {
+      return {
+        hide: false
+      };
     }
   };
 </script>
@@ -57,6 +77,10 @@
 
         @extend %icon-font;
       }
+    }
+
+    .icon-clear {
+      background: none;
     }
   }
 </style>
