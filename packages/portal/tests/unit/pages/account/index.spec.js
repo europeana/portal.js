@@ -25,6 +25,7 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     } } },
     $config: { app: { baseUrl: 'https://www.example.eu' } },
     $fetchState: options.fetchState,
+    $features: {},
     $pageHeadTitle: key => key,
     $path: (path) => path,
     $route: {
