@@ -5,8 +5,8 @@
   >
     <!-- TODO: Clean up when API issues are resolved -->
     <NotificationBanner
-      v-if="$fetchState.error && $features.setsBroken"
-      :notification-text="$t('notification.account')"
+      v-if="$features.setsBroken"
+      :notification-text="$t('notification.api')"
     />
     <b-container fluid>
       <b-row class="bg-white">
@@ -156,7 +156,6 @@
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
-  import NotificationBanner from '@/components/generic/NotificationBanner';
 
   export default {
     name: 'AccountIndexPage',
@@ -167,7 +166,7 @@
       UserSets,
       AlertMessage,
       LoadingSpinner,
-      NotificationBanner
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
     mixins: [

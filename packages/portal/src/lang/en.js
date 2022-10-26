@@ -896,7 +896,7 @@ export default {
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
   "notification": {
-    "account": "We are experiencing some issues. The likes and galleries currently don't work. We are working to get this fixed as quickly as possible."
+    "api": "We are experiencing some issues. Likes, galleries, audio/video media and IIIF are affected. We are working to get this fixed as quickly as possible."
   },
   "of": "Of",
   "organisation": {

@@ -3,6 +3,11 @@
     data-qa="item page"
     :class="$fetchState.error && 'white-page'"
   >
+    <!-- TODO: Clean up when API issues are resolved -->
+    <NotificationBanner
+      v-if="$features.setsBroken"
+      :notification-text="$t('notification.api')"
+    />
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -146,7 +151,8 @@
       LoadingSpinner,
       MetadataBox,
       RelatedCollections: () => import('@/components/related/RelatedCollections'),
-      SummaryInfo: () => import('@/components/item/SummaryInfo')
+      SummaryInfo: () => import('@/components/item/SummaryInfo'),
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
     mixins: [
