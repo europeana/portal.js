@@ -66,6 +66,7 @@
   @import '@/assets/scss/icons';
 
   .container-fluid {
+    background-color: $bodygrey;
     margin-top: -1rem;
 
     p {
