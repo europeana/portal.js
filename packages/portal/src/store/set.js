@@ -118,6 +118,8 @@ export default {
       const likes = await this.$apis.set.get(state.likesId, {
         pageSize: 100,
         profile: 'itemDescriptions'
+      }).catch(() => {
+        return {};
       });
       return commit('setLikedItems', likes.items || []);
     },
