@@ -2,12 +2,6 @@
   <div
     :class="$fetchState.error && 'white-page'"
   >
-    <!-- TODO: Clean up when API issues are resolved -->
-    <NotificationBanner
-      v-if="$features.setsBroken"
-      :notification-text="$t('notification.api')"
-      style="padding-top: 2rem;"
-    />
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -180,8 +174,7 @@
       ItemPreviewCardGroup,
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
-      SetRecommendations: () => import('@/components/set/SetRecommendations'),
-      NotificationBanner: () => import('@/components/generic/NotificationBanner')
+      SetRecommendations: () => import('@/components/set/SetRecommendations')
     },
 
     async beforeRouteLeave(to, from, next) {
