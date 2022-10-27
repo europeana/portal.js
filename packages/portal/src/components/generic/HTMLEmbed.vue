@@ -77,7 +77,7 @@
     },
 
     mounted() {
-      if (this.$refs.responsiveWrapper.clientHeight) {
+      if (this.$refs?.responsiveWrapper) {
         this.setMaxWidthWrapper();
         window.addEventListener('resize', this.setMaxWidthWrapper);
       }

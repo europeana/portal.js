@@ -1,6 +1,8 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue } from '@vue/test-utils';
+import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import HTMLEmbed from '@/components/generic/HTMLEmbed.vue';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -26,7 +28,7 @@ const fixtures = {
   }
 };
 
-const factory = (propsData = {}) => shallowMount(HTMLEmbed, {
+const factory = (propsData = {}) => shallowMountNuxt(HTMLEmbed, {
   propsData,
   localVue
 });
@@ -77,34 +79,22 @@ describe('components/media/HTMLEmbed', () => {
     });
 
     describe('max width', () => {
-      let windowInnerWidthWas;
+      it('sets a max width for the wrapper', () => {
+        const wrapper = factory(fixtures.vimeo);
 
-      beforeEach(() => {
-        windowInnerWidthWas = window.innerWidth;
+        wrapper.vm.mounted();
+        const responsive = wrapper.find('[data-qa="responsive embed wrapper"]');
+        expect(responsive.attributes('style')).toBe('max-width: 0px;');
       });
 
-      afterEach(() => {
-        window.innerWidth = windowInnerWidthWas;
-      });
+      it('is recalculated on window resize', () => {
+        const wrapper = factory(fixtures.vimeo);
+        sinon.spy(wrapper.vm, 'setMaxWidthWrapper');
 
-      describe('when window is at or below medium breakpoint', () => {
-        it('is calculated from height of 22.5rem', () => {
-          window.innerWidth = 700;
-          const wrapper = factory(fixtures.vimeo);
+        wrapper.vm.mounted();
+        window.dispatchEvent(new Event('resize'));
 
-          const responsive = wrapper.find('[data-qa="responsive embed wrapper"]');
-          expect(responsive.attributes('style')).toBe('max-width: 40rem;');
-        });
-      });
-
-      describe('when window is above medium breakpoint', () => {
-        it('is calculated from height of 35.5rem', () => {
-          window.innerWidth = 1600;
-          const wrapper = factory(fixtures.vimeo);
-
-          const responsive = wrapper.find('[data-qa="responsive embed wrapper"]');
-          expect(responsive.attributes('style')).toBe('max-width: 63.111111111111114rem;');
-        });
+        expect(wrapper.vm.setMaxWidthWrapper.called).toBe(true);
       });
     });
   });
