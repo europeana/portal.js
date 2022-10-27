@@ -9,7 +9,10 @@ const factory = () => shallowMount(NotificationBanner, {
   localVue,
   propsData: { notificationUrl: 'https://classic.europeana.eu?utm_source=new-website&utm_medium=button',
     notificationText: 'You\'re viewing the new Europeana experience.',
-    notificationLinkText: 'Go to the original Europeana' }
+    notificationLinkText: 'Go to the original Europeana' },
+  mocks: {
+    $t: () => {}
+  }
 });
 
 describe('components/generic/NotificationBanner', () => {

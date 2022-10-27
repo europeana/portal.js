@@ -3,6 +3,11 @@
     data-qa="account page"
     class="mt-n3"
   >
+    <!-- TODO: Clean up when API issues are resolved -->
+    <NotificationBanner
+      v-if="$features.setsBroken"
+      :notification-text="$t('notification.api')"
+    />
     <b-container fluid>
       <b-row class="bg-white">
         <b-col class="pt-5 pb-4">
@@ -160,7 +165,8 @@
       ItemPreviewCardGroup,
       UserSets,
       AlertMessage,
-      LoadingSpinner
+      LoadingSpinner,
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
     mixins: [
