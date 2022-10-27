@@ -35,18 +35,30 @@
     name: 'NotificationBanner',
 
     props: {
+      /**
+       * URL that linktext will link to
+       */
       notificationUrl: {
         type: String,
         default: null
       },
+      /**
+       * Notification message that explains the issue
+       */
       notificationText: {
         type: String,
         default: null
       },
+      /**
+       * Text that forms a link. Placed after notification text
+       */
       notificationLinkText: {
         type: String,
         default: null
       },
+      /**
+       * If `true` a close button will be added which when clicked will hide the notification banner
+       */
       ignorable: {
         type: Boolean,
         default: true
@@ -87,3 +99,22 @@
     }
   }
 </style>
+
+<docs lang="md">
+With a link
+  ```jsx
+  <NotificationBanner
+    notification-url="https://www.europeana.eu"
+    notification-text="You're viewing the new Europeana experience."
+    notification-link-text="Go to Europeana"
+    :ignorable="false"
+  />
+  ```
+
+  With a close button
+  ```jsx
+  <NotificationBanner
+    notification-text="This is a notification about something you should know about the website"
+  />
+  ```
+  </docs>
