@@ -118,6 +118,7 @@
 
   .related-editorial-card {
     border: 0;
+    box-shadow: $boxshadow-small;
 
     h2 {
       font-size: $font-size-extrasmall;

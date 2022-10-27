@@ -58,6 +58,7 @@
       :title-path="$fetchState.error.titlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
+      class="pt-5"
     />
     <div
       v-else-if="set.id"
@@ -258,7 +259,7 @@
           if (process.server) {
             this.$nuxt.context.res.statusCode = error.statusCode || 500;
           }
-          if (error.statusCode === 403) {
+          if (error.statusCode === 403 || error.statusCode === 401) {
             error.titlePath = 'errorMessage.galleryUnauthorised.title';
             error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
             error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';

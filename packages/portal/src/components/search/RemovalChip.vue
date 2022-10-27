@@ -4,11 +4,11 @@
     :link-to="linkTo"
     :img="img"
     :type="type"
-    badge-variant="light"
+    :badge-variant="badgeVariant"
     data-qa="removal chip"
     :click-event-handler="clickEventHandler"
   >
-    <span class="icon icon-clear clear-indicator" />
+    <span class="icon close" />
   </LinkBadge>
 </template>
 
@@ -38,6 +38,13 @@
       type: {
         type: String,
         default: null
+      },
+      /**
+       * The variant used for the badge.
+       */
+      badgeVariant: {
+        type: String,
+        default: 'light'
       }
     },
 
@@ -50,17 +57,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
-  // TODO: Remove the .clear-indicator, prefer to use the .close style from EC-5678
-  .clear-indicator {
-    background-color: $mediumgrey;
-    color: $white;
-    border-radius: $border-radius-large;
-    margin-left: 4px;
-    flex-shrink: 0;
-  }
-  .badge-light { text-transform: none; }
-</style>
