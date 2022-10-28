@@ -217,6 +217,10 @@ export default {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
       "metaTitle": "Objektet hittades inte",
       "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
+    },
+    "searchResultsNotFound": {
+      "description": "Justera söktermen eller återställ filtren för att försöka igen.",
+      "title": "Vi verkar inte kunna hitta det du letar efter."
     }
   },
   "exhibitions": {

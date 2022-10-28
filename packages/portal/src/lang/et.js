@@ -217,6 +217,10 @@ export default {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
       "metaTitle": "Üksust ei leitud",
       "title": "Oh ei! {newline} Me ei leidnud seda üksust."
+    },
+    "searchResultsNotFound": {
+      "description": "Palun kohandage otsingusõna või lähtestage filtrid, et proovida uuesti.",
+      "title": "Tundub, et me ei leia seda, mida otsite."
     }
   },
   "exhibitions": {

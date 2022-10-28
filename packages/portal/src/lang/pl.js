@@ -217,6 +217,10 @@ export default {
       "description": "Może to być spowodowane następującymi przyczynami: ten element nie istnieje lub; został wycofany z publikacji, ponieważ nie spełniał naszych kryteriów jakości lub; został zaktualizowany i ponownie opublikowany z nowym unikalnym identyfikatorem, w takim przypadku spróbuj ponownie znaleźć przedmiot.",
       "metaTitle": "Nie znaleziono przedmiotu",
       "title": "O nie! {newline} Nie mogliśmy znaleźć tego przedmiotu."
+    },
+    "searchResultsNotFound": {
+      "description": "Dostosuj wyszukiwane hasło lub zresetuj filtry, aby spróbować ponownie.",
+      "title": "Nie możemy znaleźć tego, czego szukasz."
     }
   },
   "exhibitions": {

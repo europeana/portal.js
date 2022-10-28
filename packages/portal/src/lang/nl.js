@@ -217,6 +217,10 @@ export default {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    },
+    "searchResultsNotFound": {
+      "description": "Pas de zoekterm aan of reset de filters om het opnieuw te proberen.",
+      "title": "We kunnen blijkbaar niet vinden wat u zoekt."
     }
   },
   "exhibitions": {

@@ -217,6 +217,10 @@ export default {
       "description": "Ennek a következő okai lehetnek: ez az elem nem létezik, vagy; közzétételre került, mert nem felelt meg minőségi kritériumainknak, vagy; frissítve lett, és új egyedi azonosítóval újból közzétéve, ebben az esetben próbálja meg újra megtalálni az elemet.",
       "metaTitle": "Az elem nem található",
       "title": "Ó, nem! {newline} Nem találtuk meg ezt a tételt."
+    },
+    "searchResultsNotFound": {
+      "description": "Kérjük, módosítsa a keresési kifejezést, vagy állítsa vissza a szűrőket az újrapróbálkozáshoz.",
+      "title": "Úgy tűnik, nem találjuk, amit keres."
     }
   },
   "exhibitions": {
