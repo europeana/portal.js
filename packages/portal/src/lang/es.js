@@ -217,6 +217,10 @@ export default {
       "description": "Esto podría deberse a las siguientes razones: este elemento no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el elemento nuevamente.",
       "metaTitle": "Elemento no encontrado",
       "title": "¡Oh, no! {newline} No pudimos encontrar este elemento."
+    },
+    "searchResultsNotFound": {
+      "description": "Por favor, ajuste el término de búsqueda o restablezca los filtros para volver a intentarlo.",
+      "title": "Parece que no podemos encontrar lo que está buscando."
     }
   },
   "exhibitions": {

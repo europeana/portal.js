@@ -217,6 +217,10 @@ export default {
       "description": "Isso pode ser devido aos seguintes motivos: este item não existe, ou; foi despublicado porque não atendeu aos nossos critérios de qualidade, ou; ele foi atualizado e republicado com um novo identificador exclusivo, nesse caso, tente encontrar o item novamente.",
       "metaTitle": "Item não encontrado",
       "title": "Oh não! {newline} Não foi possível encontrar este item."
+    },
+    "searchResultsNotFound": {
+      "description": "Por favor ajustar o termo de pesquisa ou reiniciar os filtros para tentar novamente.",
+      "title": "Não conseguimos encontrar o que está a procurar."
     }
   },
   "exhibitions": {

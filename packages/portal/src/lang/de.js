@@ -217,6 +217,10 @@ export default {
       "description": "Dies kann folgende Gründe haben: Diesem Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
       "metaTitle": "Objekt nicht gefunden",
       "title": "Ach nein! {newline} Wir konnten dies Objekt nicht finden."
+    },
+    "searchResultsNotFound": {
+      "description": "Bitte passen Sie den Suchbegriff an oder setzen Sie die Filter zurück, um es erneut zu versuchen.",
+      "title": "Wir können anscheinend nicht finden, was Sie suchen."
     }
   },
   "exhibitions": {
