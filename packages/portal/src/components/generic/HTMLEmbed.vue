@@ -83,6 +83,12 @@
       }
     },
 
+    updated() {
+      if (this.$refs?.responsiveWrapper) {
+        this.setMaxWidthWrapper();
+      }
+    },
+
     methods: {
       setMaxWidthWrapper() {
         const wrapperHeight = this.$refs.responsiveWrapper.clientHeight;
