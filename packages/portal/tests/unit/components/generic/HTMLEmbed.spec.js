@@ -83,6 +83,7 @@ describe('components/media/HTMLEmbed', () => {
         const wrapper = factory(fixtures.vimeo);
 
         wrapper.vm.mounted();
+        wrapper.vm.updated();
         const responsive = wrapper.find('[data-qa="responsive embed wrapper"]');
         expect(responsive.attributes('style')).toBe('max-width: 0px;');
       });
