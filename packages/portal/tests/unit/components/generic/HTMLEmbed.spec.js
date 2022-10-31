@@ -83,16 +83,17 @@ describe('components/media/HTMLEmbed', () => {
         const wrapper = factory(fixtures.vimeo);
 
         wrapper.vm.mounted();
-        wrapper.vm.updated();
         const responsive = wrapper.find('[data-qa="responsive embed wrapper"]');
         expect(responsive.attributes('style')).toBe('max-width: 0px;');
       });
 
       it('is recalculated on window resize', () => {
+        jest.useFakeTimers();
         const wrapper = factory(fixtures.vimeo);
         sinon.spy(wrapper.vm, 'setMaxWidthWrapper');
 
         wrapper.vm.mounted();
+        jest.advanceTimersByTime(900);
         window.dispatchEvent(new Event('resize'));
 
         expect(wrapper.vm.setMaxWidthWrapper.called).toBe(true);

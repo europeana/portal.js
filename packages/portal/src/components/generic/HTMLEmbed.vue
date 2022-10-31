@@ -77,16 +77,13 @@
     },
 
     mounted() {
-      if (this.$refs?.responsiveWrapper) {
-        this.setMaxWidthWrapper();
-        window.addEventListener('resize', this.setMaxWidthWrapper);
-      }
-    },
-
-    updated() {
-      if (this.$refs?.responsiveWrapper) {
-        this.setMaxWidthWrapper();
-      }
+      const interval = setInterval(() => {
+        if (this.$refs.responsiveWrapper) {
+          this.setMaxWidthWrapper();
+          window.addEventListener('resize', this.setMaxWidthWrapper);
+          clearInterval(interval);
+        }
+      }, 100);
     },
 
     methods: {
