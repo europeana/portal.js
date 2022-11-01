@@ -52,7 +52,7 @@
       <client-only>
         <b-row
           v-if="chapters"
-          class="justify-content-center mt-3"
+          class="justify-content-center"
         >
           <b-col
             cols="12"

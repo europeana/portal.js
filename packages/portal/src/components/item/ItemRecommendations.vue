@@ -1,7 +1,7 @@
 <template>
   <b-row
     v-if="!$fetchState.pending && !$fetchState.error && items.length > 0"
-    class="mt-3 mb-0 justify-content-center"
+    class="mb-3 justify-content-center"
   >
     <b-col
       cols="12"

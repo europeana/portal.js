@@ -81,7 +81,7 @@
           v-else
           class="mb-3"
         />
-        <b-row class="mb-0 justify-content-center">
+        <b-row class="mb-3 justify-content-center">
           <b-col
             cols="12"
             class="col-lg-10"

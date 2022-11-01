@@ -12,10 +12,11 @@ header .col {
 }
 
 .related-container {
-  margin-top: 2.625rem;
+  margin-top: 0.625rem;
+  margin-bottom: 2rem;
 
   ~ .related-container {
-    margin-top: 2rem;
+    margin-top: 0;
   }
 }
 
@@ -61,15 +62,6 @@ header .col {
     cite p {
       font-size: 0.75rem;
       line-height: initial;
-    }
-  }
-
-  .footer-margin article {
-    > :last-child {
-      > :last-child,
-      > :last-child :last-child {
-        margin-bottom: 0;
-      }
     }
   }
 

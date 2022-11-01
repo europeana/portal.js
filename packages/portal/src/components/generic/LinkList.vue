@@ -81,7 +81,7 @@
     color: $greyblack;
 
     &:last-of-type {
-      margin-bottom: 0;
+      margin-bottom: 2rem;
     }
 
     &:hover {
