@@ -21,7 +21,7 @@
       <b-row class="justify-content-center">
         <b-col
           cols="12"
-          class="col-lg-8"
+          class="col-lg-8 mb-3"
         >
           <article>
             <ShareButton class="mb-4" />
