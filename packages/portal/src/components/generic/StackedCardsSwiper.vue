@@ -185,6 +185,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/swiper';
 
   .stacked-cards-wrapper {
     font-size: 1rem;

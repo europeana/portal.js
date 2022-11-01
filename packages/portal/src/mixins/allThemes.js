@@ -1,10 +1,11 @@
-import { mapState } from 'vuex';
 import { getEntityUri  } from '@/plugins/europeana/entity';
 import themes, { withEditorialContent } from '@/plugins/europeana/themes';
 
 export default {
   computed: {
-    ...mapState({ allThemes: state => state.search.allThemes })
+    allThemes() {
+      return this.$store.state.search.allThemes;
+    }
   },
 
   methods: {
@@ -13,7 +14,7 @@ export default {
         const themesForStore = await withEditorialContent(this, themes.map((theme) => {
           return { id: getEntityUri('topic', theme.id) };
         }));
-        this.$store.commit('search/set', ['allThemes', themesForStore]);
+        this.$store.commit('search/setAllThemes', themesForStore);
       }
     }
   }

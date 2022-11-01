@@ -217,6 +217,10 @@ export default {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
+    },
+    "searchResultsNotFound": {
+      "description": "Juster søgeordet, eller nulstil filtrene for at prøve igen.",
+      "title": "Vi kan tilsyneladende ikke finde det, du leder efter."
     }
   },
   "exhibitions": {

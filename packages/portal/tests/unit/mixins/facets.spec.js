@@ -8,18 +8,10 @@ const component = {
   mixins: [mixin]
 };
 
-const defaultMocks = {
-  $store: {
-    getters: {
-      'search/collection': null
-    }
-  }
-};
-
 const localVue = createLocalVue();
 localVue.use(VueI18n);
 
-const factory = (mocks = {}, i18nOptions = {}) => shallowMount(component, {
+const factory = ({ mocks = {}, i18nOptions = {} } = {}) => shallowMount(component, {
   localVue,
   i18n: new VueI18n({
     locale: 'en',
@@ -27,7 +19,6 @@ const factory = (mocks = {}, i18nOptions = {}) => shallowMount(component, {
     ...i18nOptions
   }),
   mocks: {
-    ...defaultMocks,
     ...mocks
   }
 });
@@ -44,7 +35,7 @@ describe('mixins/vue/facets', () => {
         const i18nOptions = { locale: currentLocale, fallbackLocale, messages: { [currentLocale]: { [keyArg]: translation } } };
 
         it('translates with that key', () => {
-          const wrapper = factory({}, i18nOptions);
+          const wrapper = factory({ i18nOptions });
 
           expect(wrapper.vm.tNull(keyArg)).toBe(translation);
         });
@@ -59,7 +50,7 @@ describe('mixins/vue/facets', () => {
         const i18nOptions = { locale: currentLocale, fallbackLocale, messages: { [fallbackLocale]: { [keyArg]: translation } } };
 
         it('translates with that key', () => {
-          const wrapper = factory({}, i18nOptions);
+          const wrapper = factory({ i18nOptions });
 
           expect(wrapper.vm.tNull(keyArg)).toBe(translation);
         });
@@ -72,7 +63,7 @@ describe('mixins/vue/facets', () => {
         };
 
         it('is null', () => {
-          const wrapper = factory(mocks);
+          const wrapper = factory({ mocks });
 
           expect(wrapper.vm.tNull(keyArg)).toBe(null);
         });
@@ -82,37 +73,25 @@ describe('mixins/vue/facets', () => {
     describe('tFacetName', () => {
       const facetName = 'CREATOR';
 
-      describe('when collection is set in store, and collection-specific l10n key exists for the facet', () => {
+      describe('when collection is specified, and collection-specific l10n key exists for the facet', () => {
         const mocks = {
-          $tcNull: (key) => key === 'collections.fashion.facets.CREATOR.name' ? 'Designer' : null,
-          $store: {
-            getters: {
-              'search/collection': 'fashion'
-            }
-          }
+          $tcNull: (key) => key === 'collections.fashion.facets.CREATOR.name' ? 'Designer' : null
         };
+        const collection = 'fashion';
 
         it('uses that key', () => {
           const i18nOptions = { messages: { en: { collections: { fashion: { facets: { 'CREATOR': { name: 'Designer' } } } } }  } };
-          const wrapper = factory(mocks, i18nOptions);
+          const wrapper = factory({ mocks, i18nOptions });
 
-          expect(wrapper.vm.tFacetName(facetName)).toBe('Designer');
+          expect(wrapper.vm.tFacetName(facetName, { collection })).toBe('Designer');
         });
       });
 
-      describe('when collection is not set in store', () => {
+      describe('when collection is not specified', () => {
         describe('but generic l10n key exists for the facet', () => {
-          const mocks = {
-            $store: {
-              getters: {
-                'search/collection': null
-              }
-            }
-          };
-
           it('uses that key', () => {
             const i18nOptions = { messages: { en: { facets: { 'CREATOR': { name: 'Creator' } } } } };
-            const wrapper = factory(mocks, i18nOptions);
+            const wrapper = factory({ i18nOptions });
 
             expect(wrapper.vm.tFacetName(facetName)).toBe('Creator');
           });
@@ -142,13 +121,7 @@ describe('mixins/vue/facets', () => {
         describe('mediaTypeLabel', () => {
           it('favours translated value', () => {
             const i18nOptions = { messages: { en: { facets: { 'MIME_TYPE': { options: { 'text/plain': 'Plain text' } } } } } };
-            const wrapper = factory({
-              $store: {
-                getters: {
-                  'search/collection': null
-                }
-              }
-            }, i18nOptions);
+            const wrapper = factory({ i18nOptions });
 
             const facetName = 'MIME_TYPE';
             const fieldValue = 'text/plain';
@@ -194,7 +167,7 @@ describe('mixins/vue/facets', () => {
             const facetName = 'TYPE';
             const fieldValue = '"IMAGE"';
 
-            expect(wrapper.vm.tFacetOption(facetName, fieldValue, true)).toBe('IMAGE');
+            expect(wrapper.vm.tFacetOption(facetName, fieldValue, { escaped: true })).toBe('IMAGE');
           });
 
           it('removes Lucene special character escaping', () => {
@@ -203,19 +176,13 @@ describe('mixins/vue/facets', () => {
             const facetName = 'DATA_PROVIDER';
             const fieldValue = '"Nederlands Bakkerijmuseum \\"Het Warme Land\\""';
 
-            expect(wrapper.vm.tFacetOption(facetName, fieldValue, true)).toBe('Nederlands Bakkerijmuseum "Het Warme Land"');
+            expect(wrapper.vm.tFacetOption(facetName, fieldValue, { escaped: true })).toBe('Nederlands Bakkerijmuseum "Het Warme Land"');
           });
         });
 
         it('translates the field value', () => {
           const i18nOptions = { messages: { en: { facets: { 'TYPE': { options: { 'IMAGE': 'Image' } } } } } };
-          const wrapper = factory({
-            $store: {
-              getters: {
-                'search/collection': null
-              }
-            }
-          }, i18nOptions);
+          const wrapper = factory({ i18nOptions });
 
           const facetName = 'TYPE';
           const fieldValue = 'IMAGE';
@@ -234,18 +201,13 @@ describe('mixins/vue/facets', () => {
 
         describe('with theme-specific field label pattern', () => {
           it('removes it', () => {
-            const wrapper = factory({
-              $store: {
-                getters: {
-                  'search/collection': 'fashion'
-                }
-              }
-            });
+            const wrapper = factory();
 
             const facetName = 'CREATOR';
             const fieldValue = 'Chanel (Designer)';
+            const collection = 'fashion';
 
-            expect(wrapper.vm.tFacetOption(facetName, fieldValue)).toBe('Chanel');
+            expect(wrapper.vm.tFacetOption(facetName, fieldValue, { collection })).toBe('Chanel');
           });
         });
       });

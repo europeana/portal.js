@@ -216,9 +216,26 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
-  .header-card .btn {
-    margin-right: 0.5rem;
-    margin-top: 0.5rem;
+  .header-card {
+    border: 0;
+    box-shadow: $boxshadow-small;
+
+    h2 {
+      font-size: $font-size-medium;
+      margin-bottom: 0.375rem;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    .card-text {
+      font-size: $font-size-small;
+      color: $mediumgrey;
+    }
+
+    .btn {
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+    }
   }
 
   .card-subtitle {

@@ -372,20 +372,6 @@ a {
   }
 }
 
-.page-link {
-  color: $greyblack;
-  text-decoration: none;
-
-  &:hover {
-    color: $greyblack;
-  }
-}
-
-.page-item.active .page-link {
-  background-color: $darkblue;
-  border-color: $darkblue;
-}
-
 .info-panel,
 .header-card {
   .btn-link {

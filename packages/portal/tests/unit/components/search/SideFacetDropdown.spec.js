@@ -741,9 +741,9 @@ describe('components/search/SideFacetDropdown', () => {
         it('limits contentTier options to fields "2", "3" and "4" in a thematic collection', async() => {
           const wrapper = factory();
           await wrapper.setProps({
+            collection: 'fashion',
             name: 'contentTier'
           });
-          wrapper.vm.$store.getters['search/collection'] = true;
 
           const filtered = wrapper.vm.filterFacetFields(fields);
 
@@ -800,8 +800,8 @@ describe('components/search/SideFacetDropdown', () => {
 
         it('limits to the options matching the pattern', async() => {
           const wrapper = factory();
-          wrapper.vm.$store.getters['search/collection'] = 'fashion';
           await wrapper.setProps({
+            collection: 'fashion',
             name: 'CREATOR'
           });
 

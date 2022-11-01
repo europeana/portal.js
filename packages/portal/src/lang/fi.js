@@ -217,6 +217,10 @@ export default {
       "description": "Tämä voi johtua seuraavista syistä: tätä kohdetta ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää kohde uudelleen.",
       "metaTitle": "Kohdetta ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä kohdetta."
+    },
+    "searchResultsNotFound": {
+      "description": "Muokkaa hakusanaa tai nollaa suodattimet ja yritä uudelleen.",
+      "title": "Emme näytä löytävän etsimääsi."
     }
   },
   "exhibitions": {

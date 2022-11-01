@@ -217,6 +217,10 @@ export default {
       "description": "Tam var būt šādi iemesli: šis vienums neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast vienumu vēlreiz.",
       "metaTitle": "Vienums nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo vienumu."
+    },
+    "searchResultsNotFound": {
+      "description": "Lūdzu, pielāgojiet meklēšanas vienumu vai atiestatiet filtrus, lai mēģinātu vēlreiz.",
+      "title": "Šķiet, ka mēs nevaram atrast to, ko meklējat."
     }
   },
   "exhibitions": {

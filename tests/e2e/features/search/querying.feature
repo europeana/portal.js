@@ -22,7 +22,7 @@ Feature: Search querying
     And I press the ENTER key
     And I see a `context label` with the text "no results for GIBBERISHABCDEFGHIJKLMONP"
     Then I don't have a `item preview`
-    And I see an `error notice` with the text "Error: No results"
+    And I see an `error explanation` with the text "We can't seem to find what you are looking for."
 
   Scenario: Search with invalid query syntax
     When I visit a `search page`

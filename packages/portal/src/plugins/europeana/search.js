@@ -115,6 +115,7 @@ export default (context) => ($axios, params, options = {}) => {
     const targetLocale = 'en';
     if (localOptions.locale !== targetLocale) {
       searchParams.profile = `${searchParams.profile},translate`;
+      searchParams.lang = localOptions.locale;
       searchParams['q.source'] = localOptions.locale;
       searchParams['q.target'] = targetLocale;
     }

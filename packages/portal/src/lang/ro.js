@@ -217,6 +217,10 @@ export default {
       "description": "Acest lucru se poate datora următoarelor motive: acest articol nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți elementul din nou.",
       "metaTitle": "Element nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest articol."
+    },
+    "searchResultsNotFound": {
+      "description": "Vă rugăm să ajustați termenul de căutare sau să resetați filtrele pentru a încerca din nou.",
+      "title": "Se pare că nu găsim ceea ce cauți."
     }
   },
   "exhibitions": {

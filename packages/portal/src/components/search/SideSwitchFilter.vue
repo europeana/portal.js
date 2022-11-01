@@ -1,6 +1,6 @@
 <template>
   <b-form-group
-    :label="tFacetName(name)"
+    :label="tFacetName(name, { collection })"
     label-class="facet-label"
     :data-qa="`${name} switch filter`"
   >
@@ -99,6 +99,11 @@
        * Text for the switch tooltip
        */
       tooltip: {
+        type: String,
+        default: null
+      },
+
+      collection: {
         type: String,
         default: null
       }
