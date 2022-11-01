@@ -217,6 +217,10 @@ export default {
       "description": "Razlogi za to so lahko naslednji: ta element ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite element poiskati znova.",
       "metaTitle": "Element ni bil najden",
       "title": "Oh ne! {newline} Tega predmeta nismo mogli najti."
+    },
+    "searchResultsNotFound": {
+      "description": "Prosimo, prilagodite iskalni izraz ali po nastavite filtre, da poskusite znova.",
+      "title": "Zdi se, da ne moremo najti, kar iščete."
     }
   },
   "exhibitions": {

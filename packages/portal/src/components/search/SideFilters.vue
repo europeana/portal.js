@@ -530,6 +530,7 @@
       max-width: 320px;
       min-width: 220px;
       min-height: 31rem;
+      box-shadow: $boxshadow-small;
 
       @include white-cutout;
 

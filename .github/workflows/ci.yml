@@ -208,8 +208,8 @@ jobs:
           file: ./packages/portal/Dockerfile
           pull: true
           push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:latest
+          cache-to: type=inline
           tags: ${{ needs.metadata.outputs.docker-tags }}
           labels: ${{ needs.metadata.outputs.docker-labels }}
 
@@ -233,8 +233,7 @@ jobs:
           file: ./packages/portal/Dockerfile
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:latest
       -
         name: Build and load size test image
         uses: docker/build-push-action@v3
@@ -242,8 +241,6 @@ jobs:
           context: ./packages/portal/tests/size
           load: true
           tags: ${{ env.DOCKER_REPOSITORY }}-test-size
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
       -
         name: Prepare resources for size tests
         run: |

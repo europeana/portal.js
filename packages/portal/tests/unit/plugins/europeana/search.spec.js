@@ -146,7 +146,7 @@ describe('plugins/europeana/search', () => {
 
           baseRequest()
             .query(query => {
-              return query['q.source'] === locale && query['q.target'] === 'en';
+              return query['q.source'] === locale && query['q.target'] === 'en' && query.lang === locale;
             })
             .reply(200, defaultResponse);
 

@@ -217,6 +217,10 @@ export default {
       "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
       "metaTitle": "Položka nenalezena",
       "title": "Ach ne! {newline} Tuto položku se nám nepodařilo najít."
+    },
+    "searchResultsNotFound": {
+      "description": "Upravte prosím hledaný výraz nebo resetujte filtry a zkuste to znovu.",
+      "title": "Zdá se, že nemůžeme najít to, co hledáte."
     }
   },
   "exhibitions": {

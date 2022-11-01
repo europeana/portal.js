@@ -217,6 +217,10 @@ export default {
       "description": "Taip gali nutikti dėl šių priežasčių: šio elemento nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti elementą dar kartą.",
       "metaTitle": "Prekė nerasta",
       "title": "O ne! {newline} Mums nepavyko rasti šio elemento."
+    },
+    "searchResultsNotFound": {
+      "description": "Pakeiskite paieškos žodį arba iš naujo nustatykite filtrus ir bandykite dar kartą.",
+      "title": "Atrodo, kad negalime rasti to, ko ieškote."
     }
   },
   "exhibitions": {
