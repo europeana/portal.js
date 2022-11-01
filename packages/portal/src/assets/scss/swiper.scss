@@ -68,7 +68,7 @@
     height: $swiper-height;
     max-height: $swiper-height-max;
     margin: 0 auto;
-    max-width: 100%;
+    width: 100%;
 
     @media (max-width: $bp-medium) {
       height: 22.5rem;
@@ -86,7 +86,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-        max-height: $swiper-height;
 
         @media (max-height: $bp-medium) {
           max-height: $swiper-height;
@@ -100,6 +99,13 @@
           max-height: $swiper-height-medium;
         }
       }
+    }
+  }
+
+  // specific width for responsive embed inside a multi webresource swiper.
+  .swiper-slide > .responsive-embed-wrapper {
+    @media (min-width: $bp-medium) {
+      width: 75vw;
     }
   }
 
