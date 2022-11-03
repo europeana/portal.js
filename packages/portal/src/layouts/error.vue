@@ -1,27 +1,24 @@
 <template>
   <div
     data-qa="error page"
+    class="white-page"
   >
-    <b-container>
-      <b-row>
-        <b-col>
-          <main role="main">
-            <h1>{{ $t('error') }}</h1>
-            <div data-qa="error notice">
-              <p class="lead">
-                {{ error.message }}
-              </p>
-            </div>
-          </main>
-        </b-col>
-      </b-row>
-    </b-container>
+    <ErrorMessage
+      data-qa="error message container"
+      :error="error.message"
+      :title-path="errorExplanation ? errorExplanation.titlePath : null"
+      :illustration-src="errorExplanation ? errorExplanation.illustrationSrc : null"
+    />
   </div>
 </template>
 
 <script>
   export default {
     name: 'ErrorPage',
+
+    components: {
+      ErrorMessage: () => import('@/components/generic/ErrorMessage')
+    },
 
     props: {
       error: {
@@ -32,8 +29,21 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.$t('error'))
+        title: this.$pageHeadTitle(this.$t(this.errorExplanation?.metaTitlePath || 'error'))
       };
+    },
+
+    computed: {
+      errorExplanation() {
+        if (this.error.statusCode === 404) {
+          return {
+            titlePath: 'errorMessage.pageNotFound.title',
+            metaTitlePath: 'errorMessage.pageNotFound.metaTitle',
+            illustrationSrc: require('@/assets/img/illustrations/il-page-not-found.svg')
+          };
+        }
+        return null;
+      }
     }
   };
 </script>

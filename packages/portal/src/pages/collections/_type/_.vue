@@ -2,20 +2,15 @@
   <div
     data-qa="entity page"
     class="entity-page"
+    :class="$fetchState.error && 'white-page'"
   >
-    <b-container
+    <ErrorMessage
       v-if="$fetchState.error"
-    >
-      <b-row
-        class="flex-md-row py-4"
-      >
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :title-path="$fetchState.error.titlePath"
+      :illustration-src="$fetchState.error.illustrationSrc"
+    />
     <client-only v-else>
       <SearchInterface
         v-if="!$fetchState.pending"
@@ -94,7 +89,7 @@
     name: 'CollectionPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
@@ -175,6 +170,14 @@
           this.$store.commit('search/setCollectionLabel', this.title.values[0]);
           const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
           return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+        })
+        .catch((error) => {
+          if (error.statusCode === 404) {
+            error.titlePath = 'errorMessage.pageNotFound.title';
+            error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
+            error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
+          }
+          throw error;
         });
     },
 
@@ -201,7 +204,7 @@
         return this.$store.state.entity.recordsPerPage;
       },
       pageTitle() {
-        return this.$fetchState.error ? this.$t('error') : this.title.values[0];
+        return this.$fetchState.error ? this.$t(this.$fetchState.error.metaTitlePath || 'error') : this.title.values[0];
       },
       searchOverrides() {
         const overrideParams = {

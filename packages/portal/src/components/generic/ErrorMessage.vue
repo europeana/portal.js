@@ -9,7 +9,7 @@
     <div
       v-if="errorExplanationAvailable"
       class="error-explanation d-flex"
-      :class="{ '100-vh': fullHeight }"
+      :class="{ 'full-height': fullHeight }"
       data-qa="error explanation"
     >
       <b-img

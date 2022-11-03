@@ -1,29 +1,24 @@
 <template>
   <div class="collections-page white-page">
-    <b-container>
-      <b-row
-        v-if="$fetchState.error"
-        class="flex-md-row py-4"
-      >
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-      <template
-        v-else
-      >
-        <ContentHeader
-          :title="pageTitle"
+    <ErrorMessage
+      v-if="$fetchState.error"
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :title-path="$fetchState.error.titlePath"
+      :illustration-src="$fetchState.error.illustrationSrc"
+    />
+    <b-container
+      v-else
+    >
+      <ContentHeader
+        :title="pageTitle"
+      />
+      <client-only>
+        <EntityTable
+          :type="$route.params.type"
+          data-qa="collections table"
         />
-        <client-only>
-          <EntityTable
-            :type="$route.params.type"
-            data-qa="collections table"
-          />
-        </client-only>
-      </template>
+      </client-only>
     </b-container>
   </div>
 </template>
@@ -36,7 +31,7 @@
     name: 'CollectionsIndexPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       ContentHeader,
       ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
@@ -46,7 +41,12 @@
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        throw new Error('Unknown collection type');
+        const error = new Error('Unknown collection type');
+        error.statusCode = 404;
+        error.titlePath = 'errorMessage.pageNotFound.title';
+        error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
+        error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
+        throw error;
       }
     },
     head() {
@@ -56,7 +56,7 @@
     },
     computed: {
       pageTitle() {
-        return this.$fetchState.error ? 'Error' : this.$t(`pages.collections.${this.$route.params.type}.title`);
+        return this.$fetchState.error ? this.$t(this.$fetchState.error.metaTitlePath || 'error') : this.$t(`pages.collections.${this.$route.params.type}.title`);
       }
     },
     watch: {

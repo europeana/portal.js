@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$fetchState.error && 'white-page'">
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -10,18 +10,12 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container
+    <ErrorMessage
       v-else-if="$fetchState.error"
-      data-qa="alert message container"
-    >
-      <b-row class="flex-md-row py-4">
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      data-qa="error message container"
+      :title-path="$fetchState.error.titlePath"
+      :illustration-src="$fetchState.error.illustrationSrc"
+    />
     <template
       v-else
     >
@@ -51,7 +45,7 @@
     name: 'IndexPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       BrowsePage,
       LoadingSpinner,
       StaticPage
@@ -92,7 +86,13 @@
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        throw new Error(this.$t('messages.notFound'));
+        const error = new Error(this.$t('messages.notFound'));
+        error.statusCode = 404;
+        error.titlePath = 'errorMessage.pageNotFound.title';
+        error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
+        error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
+
+        throw error;
       }
     },
 
@@ -128,7 +128,10 @@
         return this.socialMediaImage?.description || '';
       },
       pageTitle() {
-        return this.$fetchState.error ? this.$t('error') : this.page.name;
+        if (this.$fetchState.error) {
+          return this.$t(this.$fetchState.error.metaTitlePath || 'error');
+        }
+        return this.page.name;
       }
     }
   };
