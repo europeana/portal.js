@@ -46,7 +46,6 @@ jobs:
 
   metadata:
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request')
     outputs:
       git-master-push: ${{ steps.git-master-push.outputs.status }}
       git-pr-draft: ${{ steps.git-pr-draft.outputs.status }}
