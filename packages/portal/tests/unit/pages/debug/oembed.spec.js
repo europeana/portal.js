@@ -1,106 +1,120 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import nock from 'nock';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 import DebugOEmbedPage from '@/pages/debug/oembed';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(DebugOEmbedPage, {
-  localVue,
-  data() {
-    return data;
-  },
-  mocks: {
-    $pageHeadTitle: (text) => text,
-    $route: {
-      query: {}
+const factory = async({ data = {}, mocks = {} } = {}) => {
+  const wrapper = shallowMountNuxt(DebugOEmbedPage, {
+    localVue,
+    data() {
+      return data;
     },
-    $t: (key) => key,
-    ...mocks
-  }
-});
+    mocks: {
+      $pageHeadTitle: (text) => text,
+      $route: {
+        query: {}
+      },
+      $goto: sinon.spy(),
+      $t: (key) => key,
+      ...mocks
+    },
+    stubs: ['EmbedOEmbed']
+  });
+  wrapper.vm.fetch();
+  await wrapper.vm.$nextTick();
+  return wrapper;
+};
 
 describe('pages/debug/oembed', () => {
-  const endpointOrigin = 'https://example.org';
-  const endpointPath = '/oembed';
-  const endpoint = `${endpointOrigin}${endpointPath}`;
+  const endpoint = 'https://example.org/oembed';
   const url = 'https://example.org/media/123';
-  const response = {
-    type: 'rich',
-    html: '<iframe src="https://example.org/embed/123"></iframe>'
-  };
 
-  beforeAll(() => {
-    nock.disableNetConnect();
+  describe('template', () => {
+    describe('when query url and endpoint are not present', () => {
+      const query = { url: null, endpoint: null };
+
+      it('renders blank form to input url and endpoint', async() => {
+        const wrapper = await factory({ mocks: { $route: { query } } });
+
+        const urlInput = wrapper.find('[id="debug-oembed-url"]');
+        expect(urlInput.exists()).toBe(true);
+        expect(urlInput.attributes('value')).toBeUndefined();
+
+        const endpointInput = wrapper.find('[id="debug-oembed-endpoint"]');
+        expect(endpointInput.exists()).toBe(true);
+        expect(endpointInput.attributes('value')).toBeUndefined();
+      });
+
+      it('does not render OEmbed component', async() => {
+        const wrapper = await factory({ mocks: { $route: { query } } });
+
+        const oEmbedComponent = wrapper.find('embedoembed-stub');
+        expect(oEmbedComponent.exists()).toBe(false);
+      });
+    });
+
+    describe('when query url and endpoint are present', () => {
+      const query = { url, endpoint };
+
+      it('renders pre-filled form to input url and endpoint', async() => {
+        const wrapper = await factory({ mocks: { $route: { query } } });
+
+        const urlInput = wrapper.find('[id="debug-oembed-url"]');
+        expect(urlInput.exists()).toBe(true);
+        expect(urlInput.attributes('value')).toBe(url);
+
+        const endpointInput = wrapper.find('[id="debug-oembed-endpoint"]');
+        expect(endpointInput.exists()).toBe(true);
+        expect(endpointInput.attributes('value')).toBe(endpoint);
+      });
+
+      it('renders OEmbed component', async() => {
+        const wrapper = await factory({ mocks: { $route: { query } } });
+
+        const oEmbedComponent = wrapper.find('embedoembed-stub');
+        expect(oEmbedComponent.exists()).toBe(true);
+        expect(oEmbedComponent.vm.url).toBe(url);
+        expect(oEmbedComponent.vm.endpoint).toBe(endpoint);
+      });
+    });
   });
 
-  afterEach(nock.cleanAll);
+  describe('fetch', () => {
+    it('sets url and endpoint from route query', async() => {
+      const query = { url, endpoint };
+      const wrapper = await factory({ mocks: { $route: { query } } });
 
-  afterAll(() => {
-    nock.enableNetConnect();
+      expect(wrapper.vm.url).toBe(url);
+      expect(wrapper.vm.formUrl).toBe(url);
+      expect(wrapper.vm.endpoint).toBe(endpoint);
+      expect(wrapper.vm.formEndpoint).toBe(endpoint);
+    });
   });
-
-  const nockRequest = () => {
-    return nock(endpointOrigin)
-      .get(endpointPath)
-      .query(query => (query.url === url) && (query.format === 'json'));
-  };
 
   describe('methods', () => {
-    describe('fetchOEmbedData', () => {
-      const data = {
-        endpoint,
-        url
-      };
+    describe('handleSubmitForm', () => {
+      it('goes to route with url and endpoint from form', async() => {
+        const wrapper = await factory();
+        await wrapper.setData({
+          formUrl: url,
+          formEndpoint: endpoint
+        });
 
-      it('makes an oEmbed request for the endpoint and URL', async() => {
-        const wrapper = factory();
-        nockRequest().reply(200, response);
-        await wrapper.setData(data);
+        wrapper.vm.handleSubmitForm();
 
-        await wrapper.vm.fetchOEmbedData();
-
-        expect(nock.isDone()).toBe(true);
-      });
-
-      it('stores the html from the oEmbed response', async() => {
-        const wrapper = factory();
-        nockRequest().reply(200, response);
-        await wrapper.setData(data);
-
-        await wrapper.vm.fetchOEmbedData();
-
-        expect(wrapper.vm.oEmbedData).toEqual(response);
-      });
-
-      it('stores an error message if no html in oEmbed response', async() => {
-        const wrapper = factory();
-        nockRequest().reply(200, { type: 'unexpected' });
-        await wrapper.setData(data);
-
-        await wrapper.vm.fetchOEmbedData();
-
-        expect(wrapper.vm.oEmbedData).toEqual({ error: 'messages.externalContentError' });
-      });
-
-      it('stores an error message if the oEmbed request failed', async() => {
-        const wrapper = factory();
-        nockRequest().replyWithError('Not Found');
-        await wrapper.setData(data);
-
-        await wrapper.vm.fetchOEmbedData();
-
-        expect(wrapper.vm.oEmbedData).toEqual({ error: 'Not Found' });
+        expect(wrapper.vm.$goto.calledWith({ query: { url, endpoint } })).toBe(true);
       });
     });
   });
 
   describe('head', () => {
-    it('sets title', () => {
-      const wrapper = factory();
+    it('sets title', async() => {
+      const wrapper = await factory();
 
       const headTitle = wrapper.vm.head().title;
 

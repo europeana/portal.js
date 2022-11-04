@@ -35,7 +35,7 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
-    name: 'MapEmbed',
+    name: 'EmbedMap',
 
     props: {
       prefLabel: {
