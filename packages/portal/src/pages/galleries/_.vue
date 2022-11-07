@@ -255,21 +255,7 @@
             await this.$store.dispatch('entity/getPins');
           }
         } catch (error) {
-          if (process.server) {
-            this.$nuxt.context.res.statusCode = error.statusCode || 500;
-          }
-          if (error.statusCode === 403 || error.statusCode === 401) {
-            error.titlePath = 'errorMessage.galleryUnauthorised.title';
-            error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
-            error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
-            error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
-          }
-          if (error.statusCode === 404) {
-            error.titlePath = 'errorMessage.pageNotFound.title';
-            error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
-            error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
-          }
-          throw error;
+          this.handleFetchError(error);
         }
       } else {
         await this.fetchContentfulGallery();
@@ -437,6 +423,23 @@
       imageUrl(data) {
         const edmPreview = data.encoding?.edmPreview?.[0] || data.thumbnailUrl;
         return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
+      },
+      handleFetchError(error) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        }
+        if (error.statusCode === 403 || error.statusCode === 401) {
+          error.titlePath = 'errorMessage.galleryUnauthorised.title';
+          error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
+          error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
+          error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
+        }
+        if (error.statusCode === 404) {
+          error.titlePath = 'errorMessage.pageNotFound.title';
+          error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
+          error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
+        }
+        throw error;
       }
     }
   };
