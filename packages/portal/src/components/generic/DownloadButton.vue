@@ -66,7 +66,7 @@
             // Other errors mean that the media can not be downloaded. Advise
             // the user, and log the error.
             } else {
-              captureDownloadError(error);
+              this.captureDownloadError(error);
               this.$bvModal.show('download-failed-modal');
               return;
             }
