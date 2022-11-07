@@ -62,7 +62,7 @@
     methods: {
       copyEmbedCode() {
         this.$refs.shareEmbed.select();
-        document.execCommand('copy');
+        navigator.clipboard.writeText(this.embedHtml);
         this.embedCopied = true;
       }
     }
