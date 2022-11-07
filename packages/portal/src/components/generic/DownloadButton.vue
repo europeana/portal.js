@@ -43,11 +43,18 @@
         validationNetworkError: false
       };
     },
+    computed: {
+      shouldSkipDownloadValidation() {
+        return !this.$features.downloadValidation ||
+          this.urlValidated ||
+          this.validationNetworkError;
+      }
+    },
     methods: {
       async handleClickDownloadButton(event) {
         // Either URL has been validated, or validation hit a network error, so
         // show the download modal and track it.
-        if (this.urlValidated || this.validationNetworkError) {
+        if (this.shouldSkipDownloadValidation) {
           this.$bvModal.show('download-modal');
           this.trackDownload();
         } else {
