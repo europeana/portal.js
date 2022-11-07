@@ -4,7 +4,6 @@
     class="text-left related-collections-card mb-4"
   >
     <RelatedCollections
-      :title="$t('youMightAlsoLike')"
       :related-collections="relatedCollections"
       :entity-uris="entityUris"
       data-qa="related collections"

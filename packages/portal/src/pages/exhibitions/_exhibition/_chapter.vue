@@ -16,7 +16,9 @@
       :hero="hero"
       :context-label="$tc('exhibitions.exhibitions', 1)"
     />
-    <b-container>
+    <b-container
+      class="footer-margin"
+    >
       <b-row>
         <b-col
           cols="12"
@@ -50,7 +52,7 @@
       <client-only>
         <b-row
           v-if="chapters"
-          class="justify-content-center mt-3"
+          class="justify-content-center"
         >
           <b-col
             cols="12"
@@ -62,37 +64,33 @@
             />
           </b-col>
         </b-row>
-      </client-only>
-      <b-row
-        v-if="page.categoriesCollection && page.categoriesCollection.items"
-        class="justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="mt-4 col-lg-8"
+        <b-row
+          v-if="hasRelatedCategoryTags"
+          class="related-container justify-content-center"
         >
-          <RelatedCategoryTags
-            :tags="page.categoriesCollection.items"
-          />
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="relatedLink"
-        class="justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="mt-3 col-lg-8"
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <RelatedCategoryTags
+              :tags="page.categoriesCollection.items"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="relatedLink"
+          class="related-container justify-content-center"
         >
-          <client-only>
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
             <RelatedCollections
               :entity-uris="relatedLink"
-              :title="$t('youMightAlsoLike')"
             />
-          </client-only>
-        </b-col>
-      </b-row>
-      <b-row class="footer-margin" />
+          </b-col>
+        </b-row>
+      </client-only>
     </b-container>
   </div>
 </template>
@@ -200,6 +198,9 @@
       };
     },
     computed: {
+      hasRelatedCategoryTags() {
+        return (this.page?.categoriesCollection?.items?.length || 0) > 0;
+      },
       chapterNavigation() {
         return this.chapters.map((chapter) => {
           return {

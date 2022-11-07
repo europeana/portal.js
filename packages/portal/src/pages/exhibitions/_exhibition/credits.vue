@@ -4,7 +4,9 @@
     class="text-page white-page"
   >
     <!-- TODO: use the AuthoredHead component here, so it matches the exhibition chapters -->
-    <b-container>
+    <b-container
+      class="footer-margin"
+    >
       <b-row class="justify-content-center">
         <b-col
           cols="12"
@@ -27,7 +29,7 @@
       <b-row class="justify-content-center">
         <b-col
           cols="12"
-          class="col-lg-8"
+          class="col-lg-8 mb-3"
         >
           <article>
             <ShareButton class="mb-4" />
@@ -41,37 +43,35 @@
           </article>
         </b-col>
       </b-row>
-      <b-row
-        v-if="hasPartCollection"
-        class="justify-content-center mt-3"
-      >
-        <b-col
-          cols="12"
-          class="mt-3 col-lg-8"
+      <client-only>
+        <b-row
+          v-if="hasPartCollection"
+          class="justify-content-center"
         >
-          <LinkList
-            :items="chapterPagesToLinkListItems(hasPartCollection.items, identifier)"
-            :title="$t('exhibitions.chapters')"
-          />
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="relatedLink"
-        class="justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="mt-3 col-lg-8"
+          <b-col
+            cols="12"
+            class="mt-3 col-lg-8"
+          >
+            <LinkList
+              :items="chapterPagesToLinkListItems(hasPartCollection.items, identifier)"
+              :title="$t('exhibitions.chapters')"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="relatedLink"
+          class="related-container justify-content-center"
         >
-          <client-only>
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
             <RelatedCollections
               :entity-uris="relatedLink"
-              :title="$t('youMightAlsoLike')"
             />
-          </client-only>
-        </b-col>
-      </b-row>
-      <b-row class="footer-margin" />
+          </b-col>
+        </b-row>
+      </client-only>
     </b-container>
   </div>
 </template>
