@@ -103,7 +103,7 @@
   }
 
   .badge-outline-light {
-    margin: 0.25rem 0.25rem 0 0.25rem;
+    margin: 0 0.25rem 0.5rem;
 
     @media (min-width: $bp-medium) {
       overflow: visible;
@@ -116,7 +116,7 @@
 
     @at-root .responsive-font & {
       @media (min-width: $bp-xxxl) {
-        margin: 0 0.25vw;
+        margin: 0 0.25vw 0.25vw;
       }
     }
   }
