@@ -21,7 +21,11 @@
     props: {
       url: {
         type: String,
-        default: ''
+        required: true
+      },
+      identifier: {
+        type: String,
+        required: true
       },
       disabled: {
         type: Boolean,
@@ -30,10 +34,6 @@
       target: {
         type: String,
         default: '_blank'
-      },
-      identifier: {
-        type: String,
-        required: true
       }
     },
     data() {
