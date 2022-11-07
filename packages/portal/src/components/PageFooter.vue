@@ -201,6 +201,12 @@
   };
 </script>
 
+<style lang="scss">
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
+  @import '@/assets/scss/footer';
+</style>
+
 <docs lang="md">
   ```jsx
   <PageFooter />

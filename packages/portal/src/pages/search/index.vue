@@ -60,10 +60,6 @@
       };
     },
 
-    fetch() {
-      this.$store.commit('search/set', ['overrideParams', {}]);
-    },
-
     head() {
       return {
         title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search.title'))
@@ -73,6 +69,12 @@
     computed: {
       searchQuery() {
         return this.$route.query.query;
+      }
+    },
+
+    watch: {
+      searchQuery() {
+        this.relatedCollections = null;
       }
     },
 

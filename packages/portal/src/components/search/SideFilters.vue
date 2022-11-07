@@ -22,8 +22,7 @@
               {{ $t('filterResults') }}
             </h2>
             <button
-              v-if="hasResettableFilters()"
-              :disabled="resetButtonDisabled"
+              v-if="hasResettableFilters"
               class="btn btn-outline-primary mr-3"
               data-qa="reset filters button"
               @click="resetFilters"
@@ -52,6 +51,7 @@
                   checked-value="fulltext"
                   unchecked-value="metadata"
                   :default-value="apiFilterDefaultValue"
+                  :collection="collection"
                   @changed="changeFacet"
                 />
                 <SideDateFilter
@@ -72,6 +72,9 @@
                   :search="facet.search"
                   :group-by="sideFacetDropdownGroupBy(facet.name)"
                   :aria-label="facet.name"
+                  :collection="collection"
+                  :api-params="apiParams"
+                  :api-options="apiOptions"
                   @changed="changeFacet"
                 />
                 <SideSwitchFilter
@@ -82,6 +85,7 @@
                   checked-value="&quot;0&quot;"
                   :unchecked-value="null"
                   :default-value="null"
+                  :collection="collection"
                   @changed="changeFacet"
                 />
               </div>
@@ -96,7 +100,6 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
-  import { mapState, mapGetters } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
   import SideFacetDropdown from './SideFacetDropdown';
@@ -116,6 +119,26 @@
         default: () => {
           return { name: 'search' };
         }
+      },
+
+      collection: {
+        type: String,
+        default: null
+      },
+
+      apiParams: {
+        type: Object,
+        default: () => ({})
+      },
+
+      apiOptions: {
+        type: Object,
+        default: () => ({})
+      },
+
+      userParams: {
+        type: Object,
+        default: () => ({})
       }
     },
     data() {
@@ -150,24 +173,22 @@
       };
     },
     computed: {
-      ...mapState({
-        collectionFacetEnabled: state => state.search.collectionFacetEnabled,
-        showFiltersSheet: state => state.search.showFiltersSheet,
-        userParams: state => state.search.userParams
-      }),
-      ...mapGetters({
-        collection: 'search/collection'
-      }),
+      collectionFacetEnabled() {
+        return this.$store.state.search.collectionFacetEnabled;
+      },
+      showFiltersSheet() {
+        return this.$store.state.search.showFiltersSheet;
+      },
       // TODO: do not assume filters are fielded, e.g. `qf=whale`
       filters() {
-        const filters = filtersFromQf(this.$store.state.search.userParams?.qf);
+        const filters = filtersFromQf(this.userParams?.qf);
 
-        if (this.$store.state.search.userParams?.reusability) {
-          filters['REUSABILITY'] = this.$store.state.search.userParams.reusability.split(',');
+        if (this.userParams?.reusability) {
+          filters['REUSABILITY'] = this.userParams.reusability.split(',');
         }
 
-        if (this.$store.state.search.apiParams?.api) {
-          filters['api'] = this.$store.state.search.apiParams.api;
+        if (this.apiParams?.api) {
+          filters['api'] = this.apiParams.api;
         }
 
         return filters;
@@ -198,10 +219,6 @@
       facetNames() {
         return this.themeSpecificFacetNames.concat(this.DEFAULT_FACET_NAMES);
       },
-      resetButtonDisabled() {
-        // Disable reset button while queries are running
-        return this.$store.state.search.liveQueries.length > 0;
-      },
       filterableFacets() {
         let facets = this.facetNames.map(facetName => ({
           name: facetName,
@@ -222,7 +239,7 @@
         return facets;
       },
       contentTierFacetSwitch() {
-        return !this.$store.getters['search/collection'] && !this.$store.getters['entity/id'];
+        return !this.collection && !this.$store.getters['entity/id'];
       },
       boost() {
         return this.userParams.boost;
@@ -271,6 +288,9 @@
         const range = rangeFromQueryParam(dateFilterValue[0]);
 
         return range ? { ...range, specific: false } : { start: dateFilterValue[0], end: null, specific: true };
+      },
+      hasResettableFilters() {
+        return this.resettableFilters.length > 0;
       }
     },
     watch: {
@@ -337,7 +357,7 @@
           switch (name) {
           case 'REUSABILITY':
             // `reusability` has its own API parameter and can not be queried in `qf`
-            queryUpdates.reusability = filters[name].length > 0 ? filters[name].join(',') : null;
+            queryUpdates.reusability = (filters[name]?.length || 0) > 0 ? filters[name].join(',') : null;
             break;
           case 'api':
             // `api` is an option to /plugins/europeana/search/search()
@@ -390,15 +410,12 @@
         return updated;
       },
       resetFilters() {
-        const filters = Object.assign({}, this.filters);
-
-        for (const filterName of this.resettableFilters) {
-          filters[filterName] = [];
-        }
-        return this.rerouteSearch(this.queryUpdatesForFilters(filters));
-      },
-      hasResettableFilters() {
-        return this.resettableFilters.length > 0;
+        this.rerouteSearch({
+          page: 1,
+          qf: null,
+          api: null,
+          reusability: null
+        });
       },
       dateFilterSelected(facetName, dateRange) {
         let dateQuery = [];
@@ -513,6 +530,7 @@
       max-width: 320px;
       min-width: 220px;
       min-height: 31rem;
+      box-shadow: $boxshadow-small;
 
       @include white-cutout;
 

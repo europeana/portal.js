@@ -6,14 +6,6 @@
     >
       {{ title }}
     </h2>
-    <b-button
-      v-if="cta"
-      variant="outline-secondary"
-      class="cta"
-      :to="cta.url"
-    >
-      {{ cta.text }}
-    </b-button>
     <div
       v-show="swiperReady"
       class="swiper swiper-container"
@@ -64,6 +56,14 @@
         </div>
       </div>
     </div>
+    <b-button
+      v-if="cta"
+      variant="outline-secondary"
+      class="cta"
+      :to="cta.url"
+    >
+      {{ cta.text }}
+    </b-button>
   </div>
 </template>
 
@@ -185,6 +185,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/swiper';
 
   .stacked-cards-wrapper {
     font-size: 1rem;
@@ -211,7 +212,6 @@
 
   .cta {
     font-size: 1em;
-    margin: 1.5em auto;
   }
 
   .slide-link {
@@ -223,7 +223,13 @@
   .swiper-container {
     width: 100%;
     padding: 0;
-    padding-top: 1rem;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-xxxl) {
+      margin-top: 2.25vw;
+      margin-bottom: 2.25vw;
+    }
   }
 
   .swiper-slide {

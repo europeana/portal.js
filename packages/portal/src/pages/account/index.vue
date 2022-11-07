@@ -223,7 +223,10 @@
 
 </script>
 
-<style>
+<style lang="scss">
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/tabs';
+
   h1 {
     margin-bottom: 0.75rem;
   }

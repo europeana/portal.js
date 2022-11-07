@@ -79,19 +79,7 @@ const factory = (query) => shallowMountNuxt(page, {
 });
 
 describe('pages/item/_.vue', () => {
-  afterEach(() => {
-    sinon.resetHistory();
-  });
-
-  describe('fetch()', () => {
-    it('resets overrideParams on the search store', async() => {
-      const wrapper = factory();
-
-      await wrapper.vm.fetch();
-
-      expect(searchSet.called).toBe(true);
-    });
-  });
+  afterEach(sinon.resetHistory);
 
   describe('head()', () => {
     describe('with no query', () => {
@@ -126,6 +114,22 @@ describe('pages/item/_.vue', () => {
 
       expect(setShowSearchBar.calledWith(false)).toBe(true);
       expect(next.called).toBe(true);
+    });
+  });
+
+  describe('watch', () => {
+    describe('searchQuery', () => {
+      it('resets the related collections to `null`', async() => {
+        const wrapper = factory('fish');
+        await wrapper.setData({
+          relatedCollections: [{ id: 'http://data.europeana.eu/concept/3012' }]
+        });
+
+        wrapper.vm.$route.query = 'frank';
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.vm.relatedCollections).toBe(null);
+      });
     });
   });
 

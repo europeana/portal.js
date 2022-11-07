@@ -144,6 +144,21 @@
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
 
+  ::v-deep .b-sidebar-backdrop.bg-black {
+    background-color: rgb(0 0 0);
+    opacity: 0.7;
+  }
+
+  ::v-deep #sidebar {
+    width: 16rem;
+    max-height: 100vh;
+    transition: $standard-transition; // fixes header appear/disappear
+
+    @media (min-width: $bp-xxxl) {
+      width: 16em;
+    }
+  }
+
   .container-fluid {
     background: $white;
     height: 3.5em;
@@ -157,6 +172,14 @@
 
     @media (min-width: $bp-large) {
       transition: $standard-transition;
+    }
+
+    &:not(.show) {
+      ::v-deep #sidebar,
+      ::v-deep .b-sidebar-backdrop {
+        transform: translateY(3.5rem);
+        transition: $standard-transition;
+      }
     }
 
     &:not(.show) ::v-deep .search-query,
