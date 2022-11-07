@@ -39,36 +39,58 @@
     data() {
       return {
         clicked: false,
-        urlValidated: false
+        urlValidated: false,
+        validationNetworkError: false
       };
     },
     methods: {
       async handleClickDownloadButton(event) {
-        // We can not validate non-proxied media with this technique because
-        // we can not assume that other providers' servers all support CORS.
-        if (!this.url.startsWith(this.$config.europeana.proxy.media.url) || this.urlValidated) {
+        // Either URL has been validated, or validation hit a network error, so
+        // show the download modal and track it.
+        if (this.urlValidated || this.validationNetworkError) {
           this.$bvModal.show('download-modal');
           this.trackDownload();
         } else {
+          // Prevent the native click event, i.e. the download
+          event.preventDefault();
           try {
-            const response = await axios({
-              method: 'head',
-              url: this.url
-            });
+            // Validate the URL with a HEAD request
+            await axios({ method: 'head', url: this.url });
+            this.urlValidated = true;
           } catch (error) {
-            this.$apm?.captureError({
-              name: 'DownloadError',
-              message: error.response.data?.error || error.message,
-              status: error.response.status,
-              item: this.identifier,
-              url: this.url
-            });
-            this.$bvModal.show('download-failed-modal');
-            return;
+            // These will typically be CORS errors preventing validation. Skip
+            // validation and just open the link, and log validation failure.
+            if (error.message === 'Network Error') {
+              this.captureDownloadValidationNetworkError(error);
+              this.validationNetworkError = true;
+            // Other errors mean that the media can not be downloaded. Advise
+            // the user, and log the error.
+            } else {
+              captureDownloadError(error);
+              this.$bvModal.show('download-failed-modal');
+              return;
+            }
           }
-          this.urlValidated = true;
+          // Re-click the button, to trigger the download.
           this.$refs.downloadButton.$el.click();
         }
+      },
+      captureDownloadValidationNetworkError(error) {
+        this.$apm?.captureError({
+          name: 'DownloadValidationNetworkError',
+          message: error.message,
+          item: this.identifier,
+          url: this.url
+        });
+      },
+      captureDownloadError(error) {
+        this.$apm?.captureError({
+          name: 'DownloadError',
+          message: error.response?.data?.error || error.message,
+          status: error.response.status,
+          item: this.identifier,
+          url: this.url
+        });
       },
       trackDownload() {
         if (!this.disabled && this.$matomo && !this.clicked) {
