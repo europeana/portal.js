@@ -1,6 +1,6 @@
 import axios from 'axios';
-import escapeRegExp from 'lodash/escapeRegExp';
-import providers from './providers';
+import escapeRegExp from 'lodash/escapeRegExp.js';
+import providers from './providers.js';
 
 for (const provider of providers) {
   provider.schemeRegExps = provider.schemes.map((scheme) => {
