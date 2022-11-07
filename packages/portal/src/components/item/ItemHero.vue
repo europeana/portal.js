@@ -74,9 +74,9 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import ItemMediaSwiper from './ItemMediaSwiper';
-  import DownloadButton from '../generic/DownloadButton';
-  import DownloadModal from '../generic/DownloadModal';
-  import DownloadFailedModal from '../generic/DownloadFailedModal';
+  import DownloadButton from '../download/DownloadButton';
+  import DownloadModal from '../download/DownloadModal';
+  import DownloadFailedModal from '../download/DownloadFailedModal';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ItemEmbedCode from './ItemEmbedCode';
   import SocialShareModal from '../sharing/SocialShareModal';

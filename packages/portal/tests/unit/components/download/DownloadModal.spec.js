@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import DownloadModal from '@/components/generic/DownloadModal.vue';
+import DownloadModal from '@/components/download/DownloadModal.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -13,7 +13,7 @@ const factory = (propsData) => shallowMount(DownloadModal, {
   }
 });
 
-describe('components/generic/DownloadModal', () => {
+describe('components/download/DownloadModal', () => {
   it('shows a formatted attribution snippet', () => {
     const propsData = {
       title: 'Fåtölj',
