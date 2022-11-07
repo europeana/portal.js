@@ -44,42 +44,46 @@
       };
     },
     computed: {
-      shouldSkipDownloadValidation() {
-        return !this.$features.downloadValidation ||
-          this.urlValidated ||
-          this.validationNetworkError;
+      isDownloadValidationRequired() {
+        return this.$features.downloadValidation &&
+          !this.urlValidated &&
+          !this.validationNetworkError;
       }
     },
     methods: {
       async handleClickDownloadButton(event) {
-        // Either URL has been validated, or validation hit a network error, so
-        // show the download modal and track it.
-        if (this.shouldSkipDownloadValidation) {
-          this.$bvModal.show('download-modal');
-          this.trackDownload();
-        } else {
+        if (this.isDownloadValidationRequired) {
           // Prevent the native click event, i.e. the download
           event.preventDefault();
-          try {
-            // Validate the URL with a HEAD request
-            await axios({ method: 'head', url: this.url });
-            this.urlValidated = true;
-          } catch (error) {
-            // These will typically be CORS errors preventing validation. Skip
-            // validation and just open the link, and log validation failure.
-            if ((error.message === 'Network Error') && !error.response.data) {
-              this.captureDownloadValidationNetworkError(error);
-              this.validationNetworkError = true;
-            // Other errors mean that the media can not be downloaded. Advise
-            // the user, and log the error.
-            } else {
-              this.captureDownloadError(error);
-              this.$bvModal.show('download-failed-modal');
-              return;
-            }
+          await this.validateDownloadUrl();
+          if (!this.isDownloadValidationRequired) {
+            // Re-click the button, to trigger the download.
+            this.$refs.downloadButton.$el.click();
           }
-          // Re-click the button, to trigger the download.
-          this.$refs.downloadButton.$el.click();
+        // Either URL has been validated, or validation hit a network error, so
+        // show the download modal and track it.
+        } else {
+          this.$bvModal.show('download-modal');
+          this.trackDownload();
+        }
+      },
+      async validateDownloadUrl() {
+        try {
+          // Validate the URL with a HEAD request
+          await axios({ method: 'head', url: this.url });
+          this.urlValidated = true;
+        } catch (error) {
+          // These will typically be CORS errors preventing validation. Skip
+          // validation and just open the link, and log validation failure.
+          if ((error.message === 'Network Error') && !error.response?.data) {
+            this.captureDownloadValidationNetworkError(error);
+            this.validationNetworkError = true;
+          // Other errors mean that the media can not be downloaded. Advise
+          // the user, and log the error.
+          } else {
+            this.captureDownloadError(error);
+            this.$bvModal.show('download-failed-modal');
+          }
         }
       },
       captureDownloadValidationNetworkError(error) {
