@@ -339,11 +339,11 @@
         return this.$tc(label, this.set.total, { max });
       },
       displayTitle() {
+        if (this.$fetchState.error) {
+          return { values: [this.$t(this.$fetchState.error.metaTitlePath || 'error')] };
+        }
         // TODO: remove contentful gallery fallback
         if (this.setGalleriesEnabled) {
-          if (this.$fetchState.error) {
-            return { values: [this.$t('error')] };
-          }
           return langMapValueForLocale(this.set.title, this.$i18n.locale);
         }
         return { values: [this.title] };
