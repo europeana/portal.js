@@ -143,6 +143,7 @@
     methods: {
       copySnippet() {
         this.$refs.attributionSnippet.select();
+        // TODO: replace w/ navigator.clipboard.writeText('snippet')
         document.execCommand('copy');
         this.snippetCopied = true;
       }

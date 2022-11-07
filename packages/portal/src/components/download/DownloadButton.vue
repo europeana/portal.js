@@ -67,7 +67,7 @@
           } catch (error) {
             // These will typically be CORS errors preventing validation. Skip
             // validation and just open the link, and log validation failure.
-            if (error.message === 'Network Error') {
+            if ((error.message === 'Network Error') && !error.response.data) {
               this.captureDownloadValidationNetworkError(error);
               this.validationNetworkError = true;
             // Other errors mean that the media can not be downloaded. Advise
