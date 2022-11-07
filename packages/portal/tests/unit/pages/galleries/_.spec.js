@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 import page from '@/pages/galleries/_';
 
@@ -9,16 +10,17 @@ localVue.directive('masonry', {});
 localVue.directive('masonry-tile', {});
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMountNuxt(page, {
-  localVue,
-  data() {
-    return {
+const contentfulGalleryMock = { data: { data: {
+  imageGalleryCollection: {
+    items: [{
       contentWarning: {
         name: 'Warning title',
         description: 'Warning description'
       },
       identifier: 'fake-gallery',
-      images: [
+      name: 'Fake gallery title',
+      description: 'Fake gallery description',
+      hasPartCollection: { items: [
         {
           identifier: '/123/ABC',
           encoding: {
@@ -85,42 +87,59 @@ const factory = () => shallowMountNuxt(page, {
           thumbnailUrl: null,
           name: 'fake Title two'
         }
-      ],
-      rawDescription: 'Fake gallery description',
-      title: 'Fake gallery title'
-    };
-  },
+
+      ] }
+    }]
+  }
+} } };
+
+const contentfulEmptyGalleryMock = { data: { data: {
+  imageGalleryCollection: {
+    items: []
+  }
+} } };
+
+const contentfulQueryStub = sinon.stub().resolves(contentfulGalleryMock);
+const contentfulQueryEmptyStub = sinon.stub().resolves(contentfulEmptyGalleryMock);
+
+const factory = (contentfulQuery = contentfulQueryStub) => shallowMountNuxt(page, {
+  localVue,
   mocks: {
     $apis: {
       thumbnail: { edmPreview: (img) => img }
+    },
+    $auth: {
+      loggedIn: false
     },
     $contentful: {
       assets: {
         isValidUrl: (url) => url.includes('images.ctfassets.net'),
         optimisedSrc: (img) => `${img.url}?optimised`
-      }
+      },
+      query: contentfulQuery
     },
     $features: {},
-    $pageHeadTitle: key => key,
-    $t: key => key,
-    $tc: key => key,
-    $path: () => '/',
+    $fetchState: {},
     $i18n: {
-      locale: () => 'en'
+      locale: 'en',
+      isoLocale: () => 'en-GB'
     },
+    $nuxt: { context: { res: {} } },
+    $pageHeadTitle: key => key,
+    $path: () => '/',
     $$redrawVueMasonry: () => true,
-    $auth: {
-      loggedIn: false
-    },
-    asyncData: () => true,
-    $fetchState: {}
+    $route: { query: '', params: { pathMatch: 'fake-gallery' } },
+    $t: key => key,
+    $tc: key => key
   }
 });
 
 describe('Gallery post page', () => {
   describe('head()', () => {
-    it('uses the first image for og:image', () => {
+    it('uses the first image for og:image', async() => {
       const wrapper = factory();
+
+      await wrapper.vm.$fetch();
 
       const headMeta = wrapper.vm.head().meta;
 
@@ -130,18 +149,39 @@ describe('Gallery post page', () => {
   });
 
   describe('Content warning modal', () => {
-    it('is present with the galleries identifier set', () => {
+    it('is present with the galleries identifier set', async() => {
       const wrapper = factory();
+
+      await wrapper.vm.$fetch();
+
       const warningModal = wrapper.find('#content-warning-modal');
       expect(warningModal.exists()).toBe(true);
     });
   });
 
   describe('Content Cards', () => {
-    it('has as many cards as there are images', () => {
+    it('has as many cards as there are images', async() => {
       const wrapper = factory();
+
+      await wrapper.vm.$fetch();
+
       const cards = wrapper.findAllComponents('[data-qa="content card"]');
       expect(cards).toHaveLength(2);
     });
+  });
+
+  it('displays an illustrated error message for 404 status', async() => {
+    const wrapper = factory(contentfulQueryEmptyStub);
+
+    let error;
+    try {
+      await wrapper.vm.$fetch();
+    } catch (e) {
+      error = e;
+    }
+
+    expect(error.statusCode).toBe(404);
+    expect(error.titlePath).toBe('errorMessage.pageNotFound.title');
+    expect(error.illustrationSrc).toBe('il-page-not-found.svg');
   });
 });

@@ -62,7 +62,7 @@
               />
               <BrowseSections
                 v-if="page"
-                :sections="page.hasPartCollection.items"
+                :sections="page.hasPartCollection && page.hasPartCollection.items"
               />
             </b-container>
           </client-only>

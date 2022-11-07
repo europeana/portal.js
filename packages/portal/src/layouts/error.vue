@@ -13,11 +13,13 @@
 </template>
 
 <script>
+  import ErrorMessage from '@/components/generic/ErrorMessage';
+
   export default {
     name: 'ErrorPage',
 
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage')
+      ErrorMessage
     },
 
     props: {
