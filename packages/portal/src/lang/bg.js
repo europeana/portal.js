@@ -123,7 +123,6 @@ export default {
       "update": "Колекцията е актуализирана"
     }
   },
-  "collectionsYouMightLike": "Колекции, които може да ви харесат",
   "colourSwatch": "Цветен образец",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Това съдържание е добавено от обществеността, а не от институцията, която е предоставила този елемент."
   },
   "related": {
+    "categoryTags": {
+      "title": "Открийте свързани истории"
+    },
+    "collections": {
+      "title": "Открийте сродни колекции"
+    },
     "editorial": {
       "title": "Истории, които може да ви харесат"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Разкази"
   },
-  "website": "Уебсайт",
-  "youMightAlsoLike": "Може да харесате също и"
+  "website": "Уебсайт"
 };

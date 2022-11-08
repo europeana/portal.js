@@ -123,7 +123,6 @@ export default {
       "update": "Rinneadh nuashonrú ar an mbailiúchán"
     }
   },
-  "collectionsYouMightLike": "Bailiúcháin b’fhéidir gur mhaith leat",
   "colourSwatch": "Swatch dath",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Is é an pobal a chuireann an t-ábhar seo ar fáil, ní ag an institiúid a chuir an mhír seo ar fáil."
   },
   "related": {
+    "categoryTags": {
+      "title": "Faigh amach scéalta gaolmhara"
+    },
+    "collections": {
+      "title": "Faigh amach bailiúcháin ghaolmhara"
+    },
     "editorial": {
       "title": "Scéalta b’fhéidir gur mhaith leat"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Scéalta"
   },
-  "website": "Suíomh Gréasáin",
-  "youMightAlsoLike": "B'fhéidir gur mhaith leat freisin"
+  "website": "Suíomh Gréasáin"
 };

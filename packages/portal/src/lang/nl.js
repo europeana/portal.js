@@ -123,7 +123,6 @@ export default {
       "update": "De collectie is bijgewerkt"
     }
   },
-  "collectionsYouMightLike": "Collecties die u misschien interessant vindt",
   "colourSwatch": "Kleurstaal",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Deze content is een bijdrage van ons publiek, niet door de instelling die dit artikel heeft verstrekt."
   },
   "related": {
+    "categoryTags": {
+      "title": "Ontdek gerelateerde verhalen"
+    },
+    "collections": {
+      "title": "Ontdek gerelateerde collecties"
+    },
     "editorial": {
       "title": "Verhalen die u misschien leuk vindt"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Verhalen"
   },
-  "website": "Website",
-  "youMightAlsoLike": "Misschien vind je dit ook leuk"
+  "website": "Website"
 };

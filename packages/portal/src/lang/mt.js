@@ -123,7 +123,6 @@ export default {
       "update": "Il-kollezzjoni ġiet aġġornata"
     }
   },
-  "collectionsYouMightLike": "Kollezzjonijiet li jistgħu jinteressawk",
   "colourSwatch": "Swatch tal-kuluri",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Dan il-kontenut huwa ġie kkontribwit mill-pubbliku, mhux mill-instituzzjoni li pprovdiet dan l-oġġett."
   },
   "related": {
+    "categoryTags": {
+      "title": "Skopri stejjer relatati"
+    },
+    "collections": {
+      "title": "Skopri kollezzjonijiet relatati"
+    },
     "editorial": {
       "title": "Stejjer li tista' togħġobkom"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Ġrajjiet"
   },
-  "website": "Websajt",
-  "youMightAlsoLike": "Inti tista 'wkoll tixtieq"
+  "website": "Websajt"
 };
