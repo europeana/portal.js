@@ -123,7 +123,6 @@ export default {
       "update": "Η συλλογή έχει ενημερωθεί"
     }
   },
-  "collectionsYouMightLike": "Συλλογές που μπορεί να σας αρέσουν",
   "colourSwatch": "Δείγμα χρώματος",
   "contentfulManual": {
     "footerNavigation": {
@@ -945,6 +944,12 @@ export default {
     "transcriptionDisclaimer": "Το περιεχόμενο προέρχεται από το κοινό και όχι από το ίδρυμα που παρείχε το αντικείμενο."
   },
   "related": {
+    "categoryTags": {
+      "title": "Ανακαλύψτε σχετικές ιστορίες"
+    },
+    "collections": {
+      "title": "Ανακαλύψτε σχετικές συλλογές"
+    },
     "editorial": {
       "title": "Ιστορίες που μπορεί να σας αρέσουν"
     }
@@ -1030,6 +1035,5 @@ export default {
   "storiesPage": {
     "title": "Ιστορίες"
   },
-  "website": "Δικτυακός τόπος",
-  "youMightAlsoLike": "Μπορεί επίσης να σας αρέσει"
+  "website": "Δικτυακός τόπος"
 };

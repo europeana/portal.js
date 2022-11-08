@@ -123,7 +123,6 @@ export default {
       "update": "Kollektsiooni on uuendatud"
     }
   },
-  "collectionsYouMightLike": "Kollektsioonid, mis võivad teile meeldida",
   "colourSwatch": "Värvivalik",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "See sisu on saadud eraisikult, mitte eset pakkunud institutsioonilt."
   },
   "related": {
+    "categoryTags": {
+      "title": "Avastage seotud lugusid"
+    },
+    "collections": {
+      "title": "Avastage seotud kogud"
+    },
     "editorial": {
       "title": "Lood, mis teile võivad meeldida"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Lood"
   },
-  "website": "Veebisait",
-  "youMightAlsoLike": "Sulle võib ka meeldida"
+  "website": "Veebisait"
 };

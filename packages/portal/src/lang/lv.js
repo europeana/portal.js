@@ -123,7 +123,6 @@ export default {
       "update": "Kolekcija ir atjaunināta"
     }
   },
-  "collectionsYouMightLike": "Tev varētu patikt šīs kolekcijas",
   "colourSwatch": "Krāsu paraugs",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Šī satura veidošanā līdzdarbojušies iedzīvotāji, nevis šo vienumu nodrošinošā iestāde."
   },
   "related": {
+    "categoryTags": {
+      "title": "Atklājiet saistītos stāstus"
+    },
+    "collections": {
+      "title": "Atklājiet saistītās kolekcijas"
+    },
     "editorial": {
       "title": "Stāsti, kas jums varētu patikt"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Stāsti"
   },
-  "website": "Vietne",
-  "youMightAlsoLike": "Jums varētu arī patikt"
+  "website": "Vietne"
 };
