@@ -123,7 +123,6 @@ export default {
       "update": "Kolekcia bola aktualizovaná"
     }
   },
-  "collectionsYouMightLike": "Zbierky, ktoré by sa vám mohli páčiť",
   "colourSwatch": "Farebná vzorkovník",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Obsah pridáva verejnosť, nie inštitúcia, ktorá túto položku poskytla."
   },
   "related": {
+    "categoryTags": {
+      "title": "Objavte súvisiace príbehy"
+    },
+    "collections": {
+      "title": "Objavte súvisiace zbierky"
+    },
     "editorial": {
       "title": "Príbehy, ktoré sa vám môžu páčiť"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Príbehy"
   },
-  "website": "Webové stránky",
-  "youMightAlsoLike": "Tiež sa vám môže páčiť"
+  "website": "Webové stránky"
 };

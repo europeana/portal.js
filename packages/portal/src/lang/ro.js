@@ -123,7 +123,6 @@ export default {
       "update": "Colecția a fost actualizată"
     }
   },
-  "collectionsYouMightLike": "Colecții care ți-ar putea plăcea",
   "colourSwatch": "Specimen de culoare",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "La acest conținut a contribuit publicul, nu instituția care a furnizat acest articol."
   },
   "related": {
+    "categoryTags": {
+      "title": "Descoperiți poveștile conexe"
+    },
+    "collections": {
+      "title": "Descoperiți colecții conexe"
+    },
     "editorial": {
       "title": "Povești care s-ar putea să vă placă"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Povești"
   },
-  "website": "Site-ul web",
-  "youMightAlsoLike": "S-ar putea să vă placă și"
+  "website": "Site-ul web"
 };

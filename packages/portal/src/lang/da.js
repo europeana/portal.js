@@ -123,7 +123,6 @@ export default {
       "update": "Samlingen er blevet opdateret"
     }
   },
-  "collectionsYouMightLike": "Samlinger, du måske vil synes om",
   "colourSwatch": "Farveprøve",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den institution, der leverede denne artikel."
   },
   "related": {
+    "categoryTags": {
+      "title": "Oplev relaterede historier"
+    },
+    "collections": {
+      "title": "Oplev relaterede samlinger"
+    },
     "editorial": {
       "title": "Historier, du måske kan lide"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Historier"
   },
-  "website": "Websted",
-  "youMightAlsoLike": "Du vil måske også kunne lide"
+  "website": "Websted"
 };
