@@ -73,3 +73,75 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
+  .html-embed {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ::v-deep iframe {
+      display: inline;
+      margin-right: auto;
+      margin-left: auto;
+      border: 0;
+      box-shadow: none;
+    }
+
+    ::v-deep .sketchfab-embed-wrapper {
+      width: 100%;
+
+      iframe {
+        width: 100%;
+        max-height: $swiper-height-max;
+        height: $swiper-height;
+
+        @media (max-width: $bp-medium) {
+          height: 22.5rem;
+        }
+      }
+    }
+  }
+
+  .responsive-embed-wrapper {
+    height: $swiper-height;
+    max-height: $swiper-height-max;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+
+    @media (max-width: $bp-medium) {
+      height: 22.5rem;
+    }
+
+    .html-embed {
+      display: block;
+      position: relative;
+      height: 0;
+      overflow: hidden;
+
+      ::v-deep iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        @media (max-height: $bp-medium) {
+          max-height: $swiper-height;
+        }
+
+        @media (min-height: $bp-medium) {
+          max-height: $swiper-height-max;
+        }
+
+        @media (max-width: $bp-medium) {
+          max-height: $swiper-height-medium;
+        }
+      }
+    }
+  }
+</style>
