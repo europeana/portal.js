@@ -3,16 +3,13 @@
     v-if="$fetchState.error"
     :error="$fetchState.error"
   />
-  <div
+  <EmbedHTML
     v-else-if="!$fetchState.pending"
-  >
-    <EmbedHTML
-      :html="html"
-      :responsive="responsiveProvider"
-      :height="height"
-      :width="width"
-    />
-  </div>
+    :html="html"
+    :responsive="responsiveProvider"
+    :height="height"
+    :width="width"
+  />
 </template>
 
 <script>
