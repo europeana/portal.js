@@ -62,31 +62,33 @@
 </script>
 
 <docs lang="md">
-  **FIXME: these buttons don't open the modals for some reason.**
-
   Without provider URL:
   ```jsx
-  <b-button
-    @click="$bvModal.show('download-failed-modal-without-provider-url')"
-  >
-    Show
-  </b-button>
-  <DownloadFailedModal
-    modal-id="download-failed-modal-without-provider-url"
-  />
+  <div>
+    <b-button
+      @click="$bvModal.show('download-failed-modal-without-provider-url')"
+    >
+      Show
+    </b-button>
+    <DownloadFailedModal
+      modal-id="download-failed-modal-without-provider-url"
+    />
+  </div>
   ```
 
   With provider URL:
   ```jsx
-  <b-button
-    @click="$bvModal.show('download-failed-modal-with-provider-url')"
-  >
-    Show
-  </b-button>
-  <DownloadFailedModal
-    modal-id="download-failed-modal-with-provider-url"
-    provider-url="https://example.org/"
-  />
+  <div>
+    <b-button
+      @click="$bvModal.show('download-failed-modal-with-provider-url')"
+    >
+      Show
+    </b-button>
+    <DownloadFailedModal
+      modal-id="download-failed-modal-with-provider-url"
+      provider-url="https://example.org/"
+    />
+  </div>
   ```
 </docs>
 
