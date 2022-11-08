@@ -1,10 +1,10 @@
 <template>
   <b-modal
-    id="download-modal"
+    id="download-success-modal"
     :title="$t('modal.download.modalTitle')"
     hide-header-close
     hide-footer
-    data-qa="download modal"
+    data-qa="download success modal"
     @hidden="snippetCopied = false"
   >
     <b-form
@@ -39,7 +39,7 @@
     <b-button
       variant="outline-primary"
       data-qa="attribution snippet close"
-      @click="$bvModal.hide('download-modal')"
+      @click="$bvModal.hide('download-success-modal')"
     >
       {{ $t('actions.close') }}
     </b-button>
@@ -153,7 +153,7 @@
 <style lang="scss">
   @import '@/assets/scss/variables';
 
-  #download-modal {
+  #download-success-modal {
     font-size: $font-size-small;
 
     .modal-title {

@@ -10,7 +10,6 @@ localVue.use(BootstrapVue);
 const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
   const wrapper = shallowMount(DownloadButton, {
     localVue,
-    attachTo: document.body,
     propsData,
     data: () => ({ ...data }),
     mocks: {
@@ -22,7 +21,6 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     }
   });
   wrapper.vm.$refs.downloadButton.$el = { click: sinon.spy() };
-  sinon.spy(wrapper.vm.$bvModal, 'show');
   return wrapper;
 };
 
@@ -125,12 +123,12 @@ describe('components/download/DownloadButton', () => {
       describe('when validation is not required', () => {
         const $features = { downloadValidation: false };
 
-        it('shows the download modal', async() => {
+        it('emits the `download` event', async() => {
           const wrapper = factory({ propsData, mocks: { $features } });
 
           await wrapper.vm.handleClickDownloadButton(event);
 
-          expect(wrapper.vm.$bvModal.show.calledWith('download-modal')).toBe(true);
+          expect(wrapper.emitted('download').length).toBe(1);
         });
 
         it('tracks the event in Matomo', async() => {
@@ -261,12 +259,12 @@ describe('components/download/DownloadButton', () => {
             })).toBe(true);
           });
 
-          it('shows the download failed modal', async() => {
+          it('emits the `downloadError` event', async() => {
             const wrapper = factory({ propsData, mocks: { $features } });
 
             await wrapper.vm.handleClickDownloadButton(event);
 
-            expect(wrapper.vm.$bvModal.show.calledWith('download-failed-modal')).toBe(true);
+            expect(wrapper.emitted('downloadError').length).toBe(1);
           });
         });
       });

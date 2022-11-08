@@ -61,10 +61,10 @@
             this.$refs.downloadButton.$el.click();
           }
         // Either URL has been validated, or validation hit a network error, so
-        // show the download modal and track it.
+        // let the native link click event trigger the download, and track it.
         } else {
-          this.$bvModal.show('download-modal');
           this.trackDownload();
+          this.$emit('download');
         }
       },
       async validateDownloadUrl() {
@@ -78,11 +78,11 @@
           if ((error.message === 'Network Error') && !error.response) {
             this.captureDownloadValidationNetworkError(error);
             this.validationNetworkError = true;
-          // Other errors mean that the media can not be downloaded. Advise
-          // the user, and log the error.
+            this.$emit('validationNetworkError');
+          // Other errors mean that the media can not be downloaded.
           } else {
             this.captureDownloadError(error);
-            this.$bvModal.show('download-failed-modal');
+            this.$emit('downloadError');
           }
         }
       },

@@ -7,6 +7,9 @@
       :identifier="identifier"
       :disabled="buttonDisabled"
       :target="buttonTarget"
+      data-qa="download button"
+      @download="$bvModal.show('download-success-modal')"
+      @downloadError="$bvModal.show('download-failed-modal')"
     />
     <DownloadSuccessModal
       :title="attributionFields.title"
@@ -17,7 +20,9 @@
       :rights="rightsNameAndIcon(rightsStatement).name"
       :url="attributionFields.url"
     />
-    <DownloadFailedModal />
+    <DownloadFailedModal
+      :provider-url="providerUrl"
+    />
   </div>
 </template>
 
@@ -61,6 +66,10 @@
       buttonTarget: {
         type: String,
         default: '_blank'
+      },
+      providerUrl: {
+        type: String,
+        default: null
       }
     }
   };

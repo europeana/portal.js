@@ -41,6 +41,7 @@
               <DownloadWidget
                 v-if="downloadEnabled"
                 :url="downloadUrl"
+                :provider-url="providerUrl"
                 :identifier="identifier"
                 :rights-statement="rightsStatement"
                 :attribution-fields="attributionFields"
@@ -118,6 +119,10 @@
       entities: {
         type: Array,
         default: () => []
+      },
+      providerUrl: {
+        type: String,
+        default: null
       }
     },
     data() {
