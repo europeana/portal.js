@@ -2,7 +2,7 @@
   <b-button
     ref="downloadButton"
     :href="url"
-    :disabled="disabled"
+    :disabled="disabled || validating"
     data-qa="download button"
     class="ml-2 d-inline-flex align-items-center"
     :target="target"
@@ -10,14 +10,22 @@
   >
     <span class="icon-ic-download d-inline-flex pr-1" />
     {{ $t('actions.download') }}
+    <LoadingSpinner
+      v-show="validating"
+      class="ml-2"
+    />
   </b-button>
 </template>
 
 <script>
   import axios from 'axios';
+  import LoadingSpinner from '../generic/LoadingSpinner';
 
   export default {
     name: 'DownloadButton',
+    components: {
+      LoadingSpinner
+    },
     props: {
       url: {
         type: String,
@@ -39,6 +47,7 @@
     data() {
       return {
         clicked: false,
+        validating: false,
         urlValidated: false,
         validationNetworkError: false
       };
@@ -66,6 +75,8 @@
         }
       },
       async validateDownloadUrl() {
+        this.validating = true;
+
         try {
           // Validate the URL with a HEAD request
           await axios({ method: 'head', url: this.url, timeout: 15000 });
@@ -83,6 +94,8 @@
             this.$emit('downloadError');
           }
         }
+
+        this.validating = false;
       },
       captureDownloadValidationNetworkError(error) {
         this.$apm?.captureError({

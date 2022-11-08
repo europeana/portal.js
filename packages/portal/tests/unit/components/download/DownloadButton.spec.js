@@ -56,6 +56,24 @@ describe('components/download/DownloadButton', () => {
         expect(button.exists()).toBe(true);
         expect(button.attributes('href')).toBe(propsData.url);
       });
+
+      describe('while validating URL', () => {
+        it('is disabled', () => {
+          const wrapper = factory({ propsData, data: { validating: true } });
+
+          const button = wrapper.find('[data-qa="download button"]');
+
+          expect(button.attributes('disabled')).toBe('true');
+        });
+
+        it('shows the loading spinner', () => {
+          const wrapper = factory({ propsData, data: { validating: true } });
+
+          const loadingSpinner = wrapper.find('[data-qa="download button"] loadingspinner-stub');
+
+          expect(loadingSpinner.isVisible()).toBe(true);
+        });
+      });
     });
   });
 
