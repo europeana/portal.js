@@ -1,13 +1,13 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import DownloadModal from '@/components/download/DownloadModal.vue';
+import DownloadSuccessModal from '@/components/download/DownloadSuccessModal.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = (propsData) => {
-  const wrapper = shallowMount(DownloadModal, {
+  const wrapper = shallowMount(DownloadSuccessModal, {
     localVue,
     propsData,
     mocks: {
@@ -18,7 +18,7 @@ const factory = (propsData) => {
   return wrapper;
 };
 
-describe('components/download/DownloadModal', () => {
+describe('components/download/DownloadSuccessModal', () => {
   const propsData = {
     title: 'Fåtölj',
     year: '1700',

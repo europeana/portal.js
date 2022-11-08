@@ -50,7 +50,7 @@
   import stringify from '@/mixins/stringify';
 
   export default {
-    name: 'DownloadModal',
+    name: 'DownloadSuccessModal',
 
     mixins: [
       stringify

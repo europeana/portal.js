@@ -54,7 +54,7 @@
           :identifier="identifier"
         />
       </SocialShareModal>
-      <DownloadModal
+      <DownloadSuccessModal
         v-if="downloadEnabled"
         :title="attributionFields.title"
         :creator="attributionFields.creator"
@@ -75,7 +75,7 @@
   import ClientOnly from 'vue-client-only';
   import ItemMediaSwiper from './ItemMediaSwiper';
   import DownloadButton from '../download/DownloadButton';
-  import DownloadModal from '../download/DownloadModal';
+  import DownloadSuccessModal from '../download/DownloadSuccessModal';
   import DownloadFailedModal from '../download/DownloadFailedModal';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ItemEmbedCode from './ItemEmbedCode';
@@ -91,7 +91,7 @@
       ClientOnly,
       DownloadButton,
       DownloadFailedModal,
-      DownloadModal,
+      DownloadSuccessModal,
       ItemEmbedCode,
       ItemMediaSwiper,
       RightsStatementButton,
