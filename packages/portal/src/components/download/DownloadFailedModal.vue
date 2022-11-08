@@ -17,7 +17,7 @@
       <b-button
         variant="outline-primary"
         data-qa="close button"
-        @click="$bvModal.hide('download-failed-modal')"
+        @click="$bvModal.hide(modalId)"
       >
         {{ $t('actions.close') }}
       </b-button>
