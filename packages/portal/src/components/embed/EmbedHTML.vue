@@ -4,7 +4,7 @@
     v-if="responsive && height && width"
     ref="responsiveWrapper"
     class="responsive-embed-wrapper"
-    :style="`max-width:${maxWidthWrapper}px`"
+    :style="`width:${widthWrapper}px`"
     data-qa="responsive embed wrapper"
   >
     <div
@@ -48,7 +48,7 @@
 
     data() {
       return {
-        maxWidthWrapper: 0
+        widthWrapper: 0
       };
     },
 
@@ -59,15 +59,15 @@
     },
 
     mounted() {
-      this.setMaxWidthWrapper();
-      window.addEventListener('resize', this.setMaxWidthWrapper);
+      this.setWidthWrapper();
+      window.addEventListener('resize', this.setWidthWrapper);
     },
 
     methods: {
-      setMaxWidthWrapper() {
+      setWidthWrapper() {
         if (this.$refs.responsiveWrapper) {
           const wrapperHeight = this.$refs.responsiveWrapper.clientHeight;
-          this.maxWidthWrapper = (this.width * wrapperHeight) / this.height;
+          this.widthWrapper = (this.width * wrapperHeight) / this.height;
         }
       }
     }

@@ -102,10 +102,13 @@
     }
   }
 
-  // specific width for responsive embed inside a multi webresource swiper.
-  .swiper-slide .responsive-embed-wrapper {
-    @media (min-width: $bp-medium) {
-      width: 75vw;
+  .swiper-slide {
+    .responsive-embed-wrapper {
+      max-width: 90vw;
+    }
+
+    .container .responsive-embed-wrapper {
+      max-width: 100%;
     }
   }
 
