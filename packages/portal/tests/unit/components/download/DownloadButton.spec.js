@@ -14,7 +14,6 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     data: () => ({ ...data }),
     mocks: {
       $apm: { captureError: sinon.spy() },
-      $features: {},
       $matomo: { trackEvent: sinon.spy() },
       $t: (key) => key,
       ...mocks
@@ -62,11 +61,11 @@ describe('components/download/DownloadButton', () => {
 
   describe('computed', () => {
     describe('isDownloadValidationRequired', () => {
-      describe('when feature is disabled', () => {
-        const $features = { downloadValidation: false };
+      describe('when URL is already validated', () => {
+        const data = { urlValidated: true, validationNetworkError: false };
 
         it('is `false`', () => {
-          const wrapper = factory({ propsData, mocks: { $features } });
+          const wrapper = factory({ propsData, data });
 
           const isDownloadValidationRequired = wrapper.vm.isDownloadValidationRequired;
 
@@ -74,43 +73,27 @@ describe('components/download/DownloadButton', () => {
         });
       });
 
-      describe('when feature is enabled', () => {
-        const $features = { downloadValidation: true };
+      describe('when URL validatation attempt failed with network error', () => {
+        const data = { urlValidated: false, validationNetworkError: true };
 
-        describe('but URL is already validated', () => {
-          const data = { urlValidated: true, validationNetworkError: false };
+        it('is `false`', () => {
+          const wrapper = factory({ propsData, data });
 
-          it('is `false`', () => {
-            const wrapper = factory({ propsData, data, mocks: { $features } });
+          const isDownloadValidationRequired = wrapper.vm.isDownloadValidationRequired;
 
-            const isDownloadValidationRequired = wrapper.vm.isDownloadValidationRequired;
-
-            expect(isDownloadValidationRequired).toBe(false);
-          });
+          expect(isDownloadValidationRequired).toBe(false);
         });
+      });
 
-        describe('but URL validatation attempt failed with network error', () => {
-          const data = { urlValidated: false, validationNetworkError: true };
+      describe('when URL validatation has not been attempted', () => {
+        const data = { urlValidated: false, validationNetworkError: false };
 
-          it('is `false`', () => {
-            const wrapper = factory({ propsData, data, mocks: { $features } });
+        it('is `true`', () => {
+          const wrapper = factory({ propsData, data });
 
-            const isDownloadValidationRequired = wrapper.vm.isDownloadValidationRequired;
+          const isDownloadValidationRequired = wrapper.vm.isDownloadValidationRequired;
 
-            expect(isDownloadValidationRequired).toBe(false);
-          });
-        });
-
-        describe('and URL validatation has not been attempted', () => {
-          const data = { urlValidated: false, validationNetworkError: false };
-
-          it('is `true`', () => {
-            const wrapper = factory({ propsData, data, mocks: { $features } });
-
-            const isDownloadValidationRequired = wrapper.vm.isDownloadValidationRequired;
-
-            expect(isDownloadValidationRequired).toBe(true);
-          });
+          expect(isDownloadValidationRequired).toBe(true);
         });
       });
     });
@@ -121,10 +104,10 @@ describe('components/download/DownloadButton', () => {
       const event = { preventDefault: sinon.spy() };
 
       describe('when validation is not required', () => {
-        const $features = { downloadValidation: false };
+        const data = { urlValidated: true };
 
         it('emits the `download` event', async() => {
-          const wrapper = factory({ propsData, mocks: { $features } });
+          const wrapper = factory({ propsData, data });
 
           await wrapper.vm.handleClickDownloadButton(event);
 
@@ -132,7 +115,7 @@ describe('components/download/DownloadButton', () => {
         });
 
         it('tracks the event in Matomo', async() => {
-          const wrapper = factory({ propsData, mocks: { $features } });
+          const wrapper = factory({ propsData, data });
 
           await wrapper.vm.handleClickDownloadButton(event);
 
@@ -142,7 +125,7 @@ describe('components/download/DownloadButton', () => {
         });
 
         it('does not prevent the event default', async() => {
-          const wrapper = factory({ propsData, mocks: { $features } });
+          const wrapper = factory({ propsData, data });
 
           await wrapper.vm.handleClickDownloadButton(event);
 
@@ -150,7 +133,7 @@ describe('components/download/DownloadButton', () => {
         });
 
         it('does not validate the URL', async() => {
-          const wrapper = factory({ propsData, mocks: { $features } });
+          const wrapper = factory({ propsData, data });
           nockRequest().reply(200);
 
           await wrapper.vm.handleClickDownloadButton(event);
@@ -160,10 +143,8 @@ describe('components/download/DownloadButton', () => {
       });
 
       describe('when validation is required', () => {
-        const $features = { downloadValidation: true };
-
         it('prevents the event default', async() => {
-          const wrapper = factory({ propsData, mocks: { $features } });
+          const wrapper = factory({ propsData });
           nockRequest().reply(200);
 
           await wrapper.vm.handleClickDownloadButton(event);
@@ -172,7 +153,7 @@ describe('components/download/DownloadButton', () => {
         });
 
         it('validates the URL', async() => {
-          const wrapper = factory({ propsData, mocks: { $features } });
+          const wrapper = factory({ propsData });
           nockRequest().reply(200);
 
           await wrapper.vm.handleClickDownloadButton(event);
@@ -184,7 +165,7 @@ describe('components/download/DownloadButton', () => {
           beforeEach(() => nockRequest().reply(200));
 
           it('re-clicks the download button', async() => {
-            const wrapper = factory({ propsData, mocks: { $features } });
+            const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
 
@@ -192,7 +173,7 @@ describe('components/download/DownloadButton', () => {
           });
 
           it('records that the download has been validated', async() => {
-            const wrapper = factory({ propsData, mocks: { $features } });
+            const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
 
@@ -205,7 +186,7 @@ describe('components/download/DownloadButton', () => {
           beforeEach(() => nockRequest().replyWithError({ message }));
 
           it('re-clicks the download button', async() => {
-            const wrapper = factory({ propsData, mocks: { $features } });
+            const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
 
@@ -213,7 +194,7 @@ describe('components/download/DownloadButton', () => {
           });
 
           it('records that the download validation failed with a network error', async() => {
-            const wrapper = factory({ propsData, mocks: { $features } });
+            const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
 
@@ -221,7 +202,7 @@ describe('components/download/DownloadButton', () => {
           });
 
           it('captures the network error to APM', async() => {
-            const wrapper = factory({ propsData, mocks: { $features } });
+            const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
 
@@ -238,7 +219,7 @@ describe('components/download/DownloadButton', () => {
           beforeEach(() => nockRequest().reply(400));
 
           it('does not re-click the download button', async() => {
-            const wrapper = factory({ propsData, mocks: { $features } });
+            const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
 
@@ -246,7 +227,7 @@ describe('components/download/DownloadButton', () => {
           });
 
           it('captures the validation error to APM', async() => {
-            const wrapper = factory({ propsData, mocks: { $features } });
+            const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
 
@@ -260,7 +241,7 @@ describe('components/download/DownloadButton', () => {
           });
 
           it('emits the `downloadError` event', async() => {
-            const wrapper = factory({ propsData, mocks: { $features } });
+            const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
 

@@ -45,9 +45,7 @@
     },
     computed: {
       isDownloadValidationRequired() {
-        return this.$features.downloadValidation &&
-          !this.urlValidated &&
-          !this.validationNetworkError;
+        return !this.urlValidated && !this.validationNetworkError;
       }
     },
     methods: {

@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    id="download-failed-modal"
+    :id="modalId"
     :title="$t('modal.downloadFailed.title')"
     hide-footer
     hide-header-close
@@ -41,6 +41,17 @@
     name: 'DownloadFailedModal',
 
     props: {
+      /**
+       * ID of the modal
+       */
+      modalId: {
+        type: String,
+        default: 'download-failed-modal'
+      },
+
+      /**
+       * URL to the media on the provider's site
+       */
       providerUrl: {
         type: String,
         default: null
@@ -48,3 +59,32 @@
     }
   };
 </script>
+
+<docs lang="md">
+  **FIXME: these buttons don't open the modals for some reason.**
+
+  Without provider URL:
+  ```jsx
+  <b-button
+    @click="$bvModal.show('download-failed-modal-without-provider-url')"
+  >
+    Show
+  </b-button>
+  <DownloadFailedModal
+    id="download-failed-modal-without-provider-url"
+  />
+  ```
+
+  With provider URL:
+  ```jsx
+  <b-button
+    @click="$bvModal.show('download-failed-modal-with-provider-url')"
+  >
+    Show
+  </b-button>
+  <DownloadFailedModal
+    id="download-failed-modal-with-provider-url"
+    providerUrl="https://example.org/"
+  />
+  ```
+</docs>
