@@ -71,7 +71,7 @@
     Show
   </b-button>
   <DownloadFailedModal
-    id="download-failed-modal-without-provider-url"
+    modal-id="download-failed-modal-without-provider-url"
   />
   ```
 
@@ -83,8 +83,8 @@
     Show
   </b-button>
   <DownloadFailedModal
-    id="download-failed-modal-with-provider-url"
-    providerUrl="https://example.org/"
+    modal-id="download-failed-modal-with-provider-url"
+    provider-url="https://example.org/"
   />
   ```
 </docs>
