@@ -68,7 +68,7 @@
       async validateDownloadUrl() {
         try {
           // Validate the URL with a HEAD request
-          await axios({ method: 'head', url: this.url });
+          await axios({ method: 'head', url: this.url, timeout: 15000 });
           this.urlValidated = true;
         } catch (error) {
           // These will typically be CORS errors preventing validation. Skip
