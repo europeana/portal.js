@@ -47,25 +47,25 @@ describe('components/embed/EmbedHTML', () => {
       expect(iframe.exists()).toBe(true);
     });
 
-    describe('max width', () => {
-      it('sets a max width for the wrapper', () => {
+    describe('width', () => {
+      it('sets a width for the wrapper', () => {
         const wrapper = factory(fixtures.responsive);
 
         wrapper.vm.mounted();
         const responsive = wrapper.find('[data-qa="responsive embed wrapper"]');
-        expect(responsive.attributes('style')).toBe('max-width: 0px;');
+        expect(responsive.attributes('style')).toBe('width: 0px;');
       });
 
       it('is recalculated on window resize', () => {
         jest.useFakeTimers();
         const wrapper = factory(fixtures.responsive);
-        sinon.spy(wrapper.vm, 'setMaxWidthWrapper');
+        sinon.spy(wrapper.vm, 'setWidthWrapper');
 
         wrapper.vm.mounted();
         jest.advanceTimersByTime(900);
         window.dispatchEvent(new Event('resize'));
 
-        expect(wrapper.vm.setMaxWidthWrapper.called).toBe(true);
+        expect(wrapper.vm.setWidthWrapper.called).toBe(true);
       });
     });
   });
