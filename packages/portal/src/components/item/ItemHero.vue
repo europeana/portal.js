@@ -38,10 +38,12 @@
                 />
               </client-only>
               <ShareButton />
-              <DownloadButton
+              <DownloadWidget
                 v-if="downloadEnabled"
                 :url="downloadUrl"
                 :identifier="identifier"
+                :rights-statement="rightsStatement"
+                :attribution-fields="attributionFields"
               />
             </div>
           </div>
@@ -54,19 +56,6 @@
           :identifier="identifier"
         />
       </SocialShareModal>
-      <DownloadSuccessModal
-        v-if="downloadEnabled"
-        :title="attributionFields.title"
-        :creator="attributionFields.creator"
-        :year="attributionFields.year"
-        :provider="attributionFields.provider"
-        :country="attributionFields.country"
-        :rights="rightsNameAndIcon(rightsStatement).name"
-        :url="attributionFields.url"
-      />
-      <DownloadFailedModal
-        v-if="downloadEnabled"
-      />
     </b-container>
   </div>
 </template>
@@ -74,9 +63,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import ItemMediaSwiper from './ItemMediaSwiper';
-  import DownloadButton from '../download/DownloadButton';
-  import DownloadSuccessModal from '../download/DownloadSuccessModal';
-  import DownloadFailedModal from '../download/DownloadFailedModal';
+  import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ItemEmbedCode from './ItemEmbedCode';
   import SocialShareModal from '../sharing/SocialShareModal';
@@ -89,9 +76,7 @@
   export default {
     components: {
       ClientOnly,
-      DownloadButton,
-      DownloadFailedModal,
-      DownloadSuccessModal,
+      DownloadWidget,
       ItemEmbedCode,
       ItemMediaSwiper,
       RightsStatementButton,
