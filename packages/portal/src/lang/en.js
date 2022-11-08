@@ -123,7 +123,6 @@ export default {
       "update": "The collection has been updated"
     }
   },
-  "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
   "contentYouMightLike": "Content you might like",
   "contentfulManual": {
@@ -973,6 +972,12 @@ export default {
     "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
   },
   "related": {
+    "categoryTags": {
+      "title": "Discover related stories"
+    },
+    "collections": {
+      "title": "Discover related collections"
+    },
     "editorial": {
       "title": "Stories you may like"
     }
@@ -1058,6 +1063,5 @@ export default {
   "storiesPage": {
     "title": "Stories"
   },
-  "website": "Website",
-  "youMightAlsoLike": "You might also like"
+  "website": "Website"
 };
