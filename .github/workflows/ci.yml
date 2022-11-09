@@ -152,6 +152,8 @@ jobs:
     # for test coverage reporting using Jest's v8 coverageProvider
     runs-on: macos-latest
     if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
+    env:
+      NODE_OPTIONS: "--max-old-space-size=6144"
     steps:
       -
         name: Checkout
@@ -169,11 +171,15 @@ jobs:
         name: Run unit tests
         run: npm run test:coverage
       -
-        name: Archive code coverage results
+        name: Archive code coverage
+        run: |
+          tar -cf packages-portal-coverage.tar packages/portal/coverage
+      -
+        name: Upload code coverage
         uses: actions/upload-artifact@v3
         with:
-          name: code-coverage-report
-          path: packages/portal/coverage
+          name: packages-portal-coverage
+          path: packages-portal-coverage.tar
 
   sonarcloud:
     runs-on: ubuntu-latest
@@ -186,11 +192,14 @@ jobs:
           # For SonarCloud to blame culprits
           fetch-depth: 0
       -
-        name: Download code coverage results
+        name: Download code coverage
         uses: actions/download-artifact@v3
         with:
-          name: code-coverage-report
-          path: packages/portal/coverage
+          name: packages-portal-coverage
+          path: packages-portal-coverage.tar
+      -
+        name: Unarchive code coverage
+        run: tar -xf packages-portal-coverage.tar && rm packages-portal-coverage.tar
       -
         name: Check for code coverage
         run: ls -l packages/portal/coverage
