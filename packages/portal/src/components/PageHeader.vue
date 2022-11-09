@@ -127,6 +127,9 @@
     },
 
     computed: {
+      unusedAttribute() {
+        return 'unused';
+      },
       showSearchBar() {
         return this.$store.state.search.showSearchBar;
       }
