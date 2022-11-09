@@ -8,7 +8,6 @@
     :image-width="imageWidth"
     :image-height="imageHeight"
     :image-alt="imageAlt"
-    :variant="cardVariant"
     :omit-all-uris="true"
     :image-optimisation-options="{ width: 510 }"
     :logo="fields.logo"
@@ -31,10 +30,6 @@
         default: () => ({})
       },
       cardType: {
-        type: String,
-        default: null
-      },
-      variant: {
         type: String,
         default: null
       }
@@ -125,12 +120,6 @@
           }
         }
         return texts;
-      },
-      cardVariant() {
-        if (this.variant) {
-          return this.variant;
-        }
-        return this.cardType === 'AutomatedEntityCard' ? 'entity' : 'default';
       }
     },
     methods: {

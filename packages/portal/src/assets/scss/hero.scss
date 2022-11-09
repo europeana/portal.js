@@ -28,29 +28,6 @@
     z-index: 2;
   }
 
-  &.browse-jumbotron {
-    margin-top: 2rem;
-    border-radius: 0.5rem;
-
-    &::before {
-      display: none;
-    }
-
-    .container {
-      .card {
-        margin: 1rem;
-        max-width: 50%;
-        border: none;
-        color: $greyblack;
-
-        .btn {
-          text-decoration: none;
-          margin: 0;
-        }
-      }
-    }
-  }
-
   h1 {
     font-size: 1.5rem;
     line-height: 1.05;
@@ -122,47 +99,6 @@
   @media (min-width: $bp-large) {
     .lead {
       font-size: 1rem;
-    }
-  }
-}
-
-@media (max-width: $bp-medium) {
-  .hero-wrapper {
-    padding: 0;
-
-    .jumbotron.browse-jumbotron {
-      margin-top: 0;
-      background-position: center top;
-      height: $jumbotron-height-min;
-
-      .card {
-        max-width: 70%;
-      }
-    }
-  }
-}
-
-@media (max-width: $bp-small) {
-  .hero-wrapper {
-    .jumbotron.browse-jumbotron {
-      border-radius: 0;
-      height: 50vh;
-
-      .card {
-        max-width: 100%;
-        width: 100%;
-        margin: 0;
-        border-radius: 0;
-
-        h1 {
-          font-size: 1rem;
-        }
-
-        p,
-        .btn {
-          font-size: 0.875rem;
-        }
-      }
     }
   }
 }

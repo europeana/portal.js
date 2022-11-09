@@ -30,19 +30,6 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
-
-    &.active {
-      .page-link {
-        background-color: $darkblue;
-        border-color: $darkblue;
-      }
-    }
-
-    &.disabled {
-      a {
-        color: $mediumgrey;
-      }
-    }
   }
 
   .btn-prev {
