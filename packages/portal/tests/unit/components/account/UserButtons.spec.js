@@ -55,16 +55,16 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
   }
 });
 
-// describe('components/account/UserButtons', () => {
-//   describe('collection modal', () => {
-//     it('is not present', () => {
-//       const wrapper = factory();
-//
-//       const collectionModal = wrapper.find('[data-qa="collection modal"]');
-//
-//       expect(collectionModal.exists()).toBe(false);
-//     });
-//   });
+describe('components/account/UserButtons', () => {
+  describe('collection modal', () => {
+    it('is not present', () => {
+      const wrapper = factory();
+
+      const collectionModal = wrapper.find('[data-qa="collection modal"]');
+
+      expect(collectionModal.exists()).toBe(false);
+    });
+  });
 //
 //   describe('add button', () => {
 //     it('is visible', () => {
@@ -504,4 +504,4 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
 //       });
 //     });
 //   });
-// });
+});
