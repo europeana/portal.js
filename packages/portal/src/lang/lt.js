@@ -123,7 +123,6 @@ export default {
       "update": "Kolekcija buvo atnaujinta"
     }
   },
-  "collectionsYouMightLike": "Kolekcijos, kurios jums gali patikti",
   "colourSwatch": "Spalvų pavyzdys",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga."
   },
   "related": {
+    "categoryTags": {
+      "title": "Atraskite susijusias istorijas"
+    },
+    "collections": {
+      "title": "Atraskite susijusias kolekcijas"
+    },
     "editorial": {
       "title": "Istorijos, kurios jums gali patikti"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Istorijos"
   },
-  "website": "Interneto svetainė",
-  "youMightAlsoLike": "Jums taip pat gali patikti"
+  "website": "Interneto svetainė"
 };

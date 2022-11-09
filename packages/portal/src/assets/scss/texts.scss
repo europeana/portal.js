@@ -11,6 +11,15 @@ header .col {
   }
 }
 
+.related-container {
+  margin-top: 0.625rem;
+  margin-bottom: 1.75rem;
+
+  ~ .related-container {
+    margin-top: 0;
+  }
+}
+
 .related-heading {
   color: $mediumgrey;
   font-size: $font-size-small;

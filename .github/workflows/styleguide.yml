@@ -1,18 +1,55 @@
 name: Style guide
 
 on:
+  pull_request:
+    types: [labeled, opened, synchronize, reopened]
   push:
     branches:
       - 'master'
     paths-ignore:
-    - 'packages/contentful/**'
+      - 'packages/contentful/**'
 
 env:
   DOCKER_REPOSITORY: europeana/styleguide
 
 jobs:
-  docker-build:
+  metadata:
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || contains(github.event.pull_request.labels.*.name, 'styleguide')
     runs-on: ubuntu-latest
+    outputs:
+      git-master-push: ${{ steps.git-master-push.outputs.status }}
+      git-pr-labeled: ${{ steps.git-pr-labeled.outputs.status }}
+      docker-labels: ${{ steps.docker.outputs.labels }}
+      docker-tags: ${{ steps.docker.outputs.tags }}
+      docker-version: ${{ steps.docker.outputs.version }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Git metadata, master push
+        id: git-master-push
+        if: github.event_name == 'push' && github.event.ref == 'refs/heads/master'
+        run: echo "status=true" >> $GITHUB_OUTPUT
+      -
+        name: Git metadata, PR labeled
+        id: git-pr-labeled
+        if: contains(github.event.pull_request.labels.*.name, 'styleguide')
+        run: echo "status=true" >> $GITHUB_OUTPUT
+      -
+        name: Docker metadata
+        id: docker
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr
+            type=ref,event=branch
+
+  docker-build:
+    if: needs.metadata.outputs.git-master-push == 'true' || needs.metadata.outputs.git-pr-labeled == 'true'
+    runs-on: ubuntu-latest
+    needs: [metadata]
     steps:
       -
         name: Checkout
@@ -20,14 +57,6 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=branch
       -
         name: Login to DockerHub
         uses: docker/login-action@v2
@@ -44,20 +73,44 @@ jobs:
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ needs.metadata.outputs.docker-tags }}
+          labels: ${{ needs.metadata.outputs.docker-labels }}
 
   deploy-ibm-cloud:
     runs-on: ubuntu-latest
-    needs: [docker-build]
+    needs: [metadata, docker-build]
     env:
       IBMCLOUD_API_URL: https://cloud.ibm.com
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
       IBMCLOUD_CLUSTER_NAME: europeana-web
       IBMCLOUD_REGION: eu-de
-      K8S_NAMESPACE: internal
-      K8S_DEPLOYMENT_NAME: styleguide
     steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set image tag for deployment
+        run: echo "DOCKER_IMAGE_TAG=${{ env.DOCKER_REPOSITORY }}:${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
+      -
+        name: Prepare env for internal namespace
+        if: needs.metadata.outputs.git-master-push == 'true'
+        run: |
+          echo "K8S_NAMESPACE=internal" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAME=styleguide" >> $GITHUB_ENV
+          echo "K8S_INGRESS_HOST=styleguide.eanadev.org" >> $GITHUB_ENV
+      -
+        name: Prepare env for dev namespace
+        if: needs.metadata.outputs.git-pr-labeled == 'true'
+        run: |
+          echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAME=styleguide-${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
+          echo "K8S_INGRESS_HOST=${{ needs.metadata.outputs.docker-version }}.styleguide.dev.eanadev.org" >> $GITHUB_ENV
+      -
+        name: Create K8s resource manifests
+        run: |
+          envsubst < .github/workflows/support/styleguide/k8s/deployment.yml > deployment.yml
+          envsubst < .github/workflows/support/styleguide/k8s/service.yml > service.yml
+          envsubst < .github/workflows/support/styleguide/k8s/ingress.yml > ingress.yml
       -
         name: Install ibmcloud CLI
         run: |
@@ -69,5 +122,33 @@ jobs:
           ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
           ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
       -
+        name: Detect new deployment
+        if: needs.metadata.outputs.git-pr-labeled == 'true'
+        run: |
+          set +e
+          kubectl --namespace ${K8S_NAMESPACE} get deployment ${K8S_RESOURCE_NAME}
+          if [ $? -eq 1 ]; then K8S_NEW_DEPLOYMENT="true"; else K8S_NEW_DEPLOYMENT="false"; fi
+          set -e
+          echo K8S_NEW_DEPLOYMENT=${K8S_NEW_DEPLOYMENT} >> $GITHUB_ENV
+      -
+        name: Apply resource manifests to K8s
+        if: needs.metadata.outputs.git-pr-labeled == 'true'
+        run: |
+          kubectl apply -f deployment.yml
+          kubectl apply -f service.yml
+          kubectl apply -f ingress.yml
+      -
         name: Restart deployment
-        run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_DEPLOYMENT_NAME}
+        run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_RESOURCE_NAME}
+      -
+        name: Comment with deployment link on pull request
+        if: env.K8S_NEW_DEPLOYMENT == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Style guide deployment: https://${process.env.K8S_INGRESS_HOST}/`
+            })

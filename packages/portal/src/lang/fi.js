@@ -123,7 +123,6 @@ export default {
       "update": "Kokoelma on päivitetty"
     }
   },
-  "collectionsYouMightLike": "Saattaisit tykätä näistä kokoelmista",
   "colourSwatch": "Värimalli",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksittäinen henkilö, ei kulttuuriperintölaitos"
   },
   "related": {
+    "categoryTags": {
+      "title": "Tutustu aiheeseen liittyviin tarinoihin"
+    },
+    "collections": {
+      "title": "Tutustu aiheeseen liittyviin kokoelmiin"
+    },
     "editorial": {
       "title": "Tarinoita, joista saatat pitää"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Tarinoita"
   },
-  "website": "Verkkosivusto",
-  "youMightAlsoLike": "Saatat myös pitää"
+  "website": "Verkkosivusto"
 };

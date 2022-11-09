@@ -4,24 +4,33 @@
       v-if="tags.length > 0"
       data-qa="related category tags"
       cols="12"
-      class="d-flex"
     >
-      <span class="icon-ic-tag" />
-      <div>
-        <b-badge
-          v-for="(tag, index) in tags.filter((tag) => !!tag)"
-          :key="index"
-          variant="outline-light"
-          :active="isActive(tag.identifier)"
-          :to="badgeLink(tag.identifier)"
-          @click.native="clickBadge(tag.identifier)"
-        >
-          <span>{{ tag.name }}</span>
-          <span
-            v-if="isActive(tag.identifier)"
-            class="icon icon-clear clear-indicator"
-          />
-        </b-badge>
+      <h2
+        v-if="heading"
+        class="related-heading text-uppercase mb-2"
+      >
+        {{ $t('related.categoryTags.title') }}
+      </h2>
+      <div
+        class="d-flex"
+      >
+        <span class="icon-ic-tag" />
+        <div>
+          <b-badge
+            v-for="(tag, index) in tags.filter((tag) => !!tag)"
+            :key="index"
+            variant="outline-light"
+            :active="isActive(tag.identifier)"
+            :to="badgeLink(tag.identifier)"
+            @click.native="clickBadge(tag.identifier)"
+          >
+            <span>{{ tag.name }}</span>
+            <span
+              v-if="isActive(tag.identifier)"
+              class="icon icon-clear clear-indicator"
+            />
+          </b-badge>
+        </div>
       </div>
     </b-col>
   </b-row>
@@ -40,6 +49,11 @@
       selected: {
         type: Array,
         default: () => []
+      },
+
+      heading: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -74,10 +88,6 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
-  .related-category-tags {
-    margin-bottom: 0.5rem;
-  }
-
   .icon-ic-tag {
     color: $mediumgrey;
     display: inline-block;
@@ -106,7 +116,7 @@
 
     @at-root .responsive-font & {
       @media (min-width: $bp-xxxl) {
-        margin: 0 0.25vw 0.5vw;
+        margin: 0 0.25vw 0.25vw;
       }
     }
   }

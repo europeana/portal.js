@@ -15,15 +15,17 @@
       :hero="hero"
       :context-label="$tc('exhibitions.exhibitions')"
     />
-    <b-container>
+    <b-container
+      class="footer-margin"
+    >
       <b-row class="justify-content-center">
         <b-col
           cols="12"
-          class="col-lg-8"
+          class="col-lg-8 mb-3"
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="hero.image.url" />
+            <SocialShareModal :media-url="heroImage && heroImage.url" />
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
@@ -35,7 +37,7 @@
       </b-row>
       <b-row
         v-if="hasPartCollection"
-        class="justify-content-center mt-3"
+        class="justify-content-center"
       >
         <b-col
           cols="12"
@@ -47,36 +49,35 @@
           />
         </b-col>
       </b-row>
-      <b-row
-        v-if="categoriesCollection && categoriesCollection.items"
-        class="justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="mt-4 col-lg-8"
+      <client-only>
+        <b-row
+          v-if="hasRelatedCategoryTags"
+          data-qa="related category tags"
+          class="related-container justify-content-center"
         >
-          <RelatedCategoryTags
-            :tags="categoriesCollection.items"
-          />
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="relatedLink"
-        class="justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="mt-4 col-lg-8"
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <RelatedCategoryTags
+              :tags="categoriesCollection.items"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="relatedLink"
+          class="related-container justify-content-center"
         >
-          <client-only>
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
             <RelatedCollections
               :entity-uris="relatedLink"
-              :title="$t('youMightAlsoLike')"
             />
-          </client-only>
-        </b-col>
-      </b-row>
-      <b-row class="footer-margin" />
+          </b-col>
+        </b-row>
+      </client-only>
     </b-container>
   </div>
 </template>
@@ -159,6 +160,9 @@
       };
     },
     computed: {
+      hasRelatedCategoryTags() {
+        return (this.categoriesCollection?.items?.length || 0) > 0;
+      },
       hero() {
         return this.primaryImageOfPage || null;
       },

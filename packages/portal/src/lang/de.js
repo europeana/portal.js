@@ -123,7 +123,6 @@ export default {
       "update": "Die Kollektion wurde aktualisiert"
     }
   },
-  "collectionsYouMightLike": "Kollektionen, die Ihnen gefallen könnten",
   "colourSwatch": "Farbmuster",
   "contentfulManual": {
     "footerNavigation": {
@@ -220,7 +219,7 @@ export default {
     },
     "searchResultsNotFound": {
       "description": "Bitte passen Sie den Suchbegriff an oder setzen Sie die Filter zurück, um es erneut zu versuchen.",
-      "title": "Wir können anscheinend nicht finden, was Sie suchen."
+      "title": "Wir können, was Sie suchen, anscheinend nicht finden."
     }
   },
   "exhibitions": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Dieser Inhalt wird von der Öffentlichkeit bereitgestellt, nicht von der Institution, die dieses Objekt bereitgestellt hat."
   },
   "related": {
+    "categoryTags": {
+      "title": "Entdecken Sie verwandte Geschichten"
+    },
+    "collections": {
+      "title": "Entdecken Sie verwandte Sammlungen"
+    },
     "editorial": {
       "title": "Geschichten, die Ihnen gefallen könnten"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Geschichten"
   },
-  "website": "Webseite",
-  "youMightAlsoLike": "Das könnte Ihnen auch gefallen"
+  "website": "Webseite"
 };

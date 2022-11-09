@@ -123,7 +123,6 @@ export default {
       "update": "La collezione è stata aggiornata"
     }
   },
-  "collectionsYouMightLike": "Collezioni che potrebbero piacerti",
   "colourSwatch": "Campione di colore",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Questo contenuto è stato creato dagli utenti, non dall'istituzione che ha fornito l'articolo."
   },
   "related": {
+    "categoryTags": {
+      "title": "Scopri le storie correlate"
+    },
+    "collections": {
+      "title": "Scopri le collezioni correlate"
+    },
     "editorial": {
       "title": "Storie che potrebbero piacerti"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Storie"
   },
-  "website": "Sito web",
-  "youMightAlsoLike": "Potrebbe piacerti anche"
+  "website": "Sito web"
 };

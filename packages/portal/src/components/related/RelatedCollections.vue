@@ -5,7 +5,7 @@
     class="related-collections"
   >
     <h2 class="related-heading text-uppercase mb-2">
-      {{ title }}
+      {{ title || $t('related.collections.title') }}
     </h2>
     <div
       class="badges-wrapper d-flex"
