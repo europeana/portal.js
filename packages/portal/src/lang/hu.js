@@ -123,7 +123,6 @@ export default {
       "update": "A gyűjtemény frissült"
     }
   },
-  "collectionsYouMightLike": "Gyűjtemények, amelyek tetszhetnek Önnek",
   "colourSwatch": "Színminta",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Ennek a következő okai lehetnek: ez az elem nem létezik, vagy; közzétételre került, mert nem felelt meg minőségi kritériumainknak, vagy; frissítve lett, és új egyedi azonosítóval újból közzétéve, ebben az esetben próbálja meg újra megtalálni az elemet.",
       "metaTitle": "Az elem nem található",
       "title": "Ó, nem! {newline} Nem találtuk meg ezt a tételt."
+    },
+    "searchResultsNotFound": {
+      "description": "Kérjük, módosítsa a keresési kifejezést, vagy állítsa vissza a szűrőket az újrapróbálkozáshoz.",
+      "title": "Úgy tűnik, nem találjuk, amit keres."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Ezt a tartalmat a nyilvánosság hozza létre, nem az intézmény, amely a cikket szolgáltatta."
   },
   "related": {
+    "categoryTags": {
+      "title": "Fedezze fel a kapcsolódó történeteket"
+    },
+    "collections": {
+      "title": "Fedezze fel a kapcsolódó gyűjteményeket"
+    },
     "editorial": {
       "title": "Történetek, amelyek tetszhetnek"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Történetek"
   },
-  "website": "Weboldal",
-  "youMightAlsoLike": "Ez is érdekelheti Önt"
+  "website": "Weboldal"
 };

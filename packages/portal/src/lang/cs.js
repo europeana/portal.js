@@ -123,7 +123,6 @@ export default {
       "update": "Sbírka byla aktualizována"
     }
   },
-  "collectionsYouMightLike": "Sbírky, které by se vám mohly líbit",
   "colourSwatch": "Vzorník barev",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
       "metaTitle": "Položka nenalezena",
       "title": "Ach ne! {newline} Tuto položku se nám nepodařilo najít."
+    },
+    "searchResultsNotFound": {
+      "description": "Upravte prosím hledaný výraz nebo resetujte filtry a zkuste to znovu.",
+      "title": "Zdá se, že nemůžeme najít to, co hledáte."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Tento obsah pochází z veřejných zdrojů, nikoliv od poskytovatelské instituce."
   },
   "related": {
+    "categoryTags": {
+      "title": "Objevte související příběhy"
+    },
+    "collections": {
+      "title": "Objevte související sbírky"
+    },
     "editorial": {
       "title": "Příběhy, které se vám mohou líbit"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Příběhy"
   },
-  "website": "Webové stránky",
-  "youMightAlsoLike": "Mohlo by se vám také líbit"
+  "website": "Webové stránky"
 };

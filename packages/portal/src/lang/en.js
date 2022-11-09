@@ -123,7 +123,6 @@ export default {
       "update": "The collection has been updated"
     }
   },
-  "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
   "contentYouMightLike": "Content you might like",
   "contentfulManual": {
@@ -221,6 +220,10 @@ export default {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
       "metaTitle": "Item not found",
       "title": "Oh no! {newline} We were not able to find this item."
+    },
+    "searchResultsNotFound": {
+      "description": "Please adjust the search term or reset the filters to try again.",
+      "title": "We can't seem to find what you are looking for."
     }
   },
   "exhibitions": {
@@ -964,6 +967,12 @@ export default {
     "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
   },
   "related": {
+    "categoryTags": {
+      "title": "Discover related stories"
+    },
+    "collections": {
+      "title": "Discover related collections"
+    },
     "editorial": {
       "title": "Stories you may like"
     }
@@ -1049,6 +1058,5 @@ export default {
   "storiesPage": {
     "title": "Stories"
   },
-  "website": "Website",
-  "youMightAlsoLike": "You might also like"
+  "website": "Website"
 };

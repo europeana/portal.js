@@ -123,7 +123,6 @@ export default {
       "update": "La colección se ha actualizado"
     }
   },
-  "collectionsYouMightLike": "Colecciones que quizá te gusten",
   "colourSwatch": "Muestra de color",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Esto podría deberse a las siguientes razones: este elemento no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el elemento nuevamente.",
       "metaTitle": "Elemento no encontrado",
       "title": "¡Oh, no! {newline} No pudimos encontrar este elemento."
+    },
+    "searchResultsNotFound": {
+      "description": "Por favor, ajuste el término de búsqueda o restablezca los filtros para volver a intentarlo.",
+      "title": "Parece que no podemos encontrar lo que está buscando."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Este contenido ha sido aportado por el público, no por la institución que ha proporcionado este artículo."
   },
   "related": {
+    "categoryTags": {
+      "title": "Descubre historias relacionadas"
+    },
+    "collections": {
+      "title": "Descubre colecciones relacionadas"
+    },
     "editorial": {
       "title": "Historias que te pueden gustar"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Historias"
   },
-  "website": "Sitio web",
-  "youMightAlsoLike": "También podría gustarte"
+  "website": "Sitio web"
 };

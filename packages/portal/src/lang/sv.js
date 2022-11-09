@@ -123,7 +123,6 @@ export default {
       "update": "Samlingen har uppdaterats"
     }
   },
-  "collectionsYouMightLike": "Samlingar du kanske skulle gilla",
   "colourSwatch": "Färgprov",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
       "metaTitle": "Objektet hittades inte",
       "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
+    },
+    "searchResultsNotFound": {
+      "description": "Justera söktermen eller återställ filtren för att försöka igen.",
+      "title": "Vi verkar inte kunna hitta det du letar efter."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Innehållet har lagts till av allmänheten, inte av institutionen som tillhandahåller detta föremål."
   },
   "related": {
+    "categoryTags": {
+      "title": "Upptäck relaterade berättelser"
+    },
+    "collections": {
+      "title": "Upptäck relaterade samlingar"
+    },
     "editorial": {
       "title": "Berättelser du kanske gillar"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Berättelser"
   },
-  "website": "Webbplats",
-  "youMightAlsoLike": "Du kanske också gillar"
+  "website": "Webbplats"
 };

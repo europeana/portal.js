@@ -123,7 +123,6 @@ export default {
       "update": "Kokoelma on päivitetty"
     }
   },
-  "collectionsYouMightLike": "Saattaisit tykätä näistä kokoelmista",
   "colourSwatch": "Värimalli",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Tämä voi johtua seuraavista syistä: tätä kohdetta ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää kohde uudelleen.",
       "metaTitle": "Kohdetta ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä kohdetta."
+    },
+    "searchResultsNotFound": {
+      "description": "Muokkaa hakusanaa tai nollaa suodattimet ja yritä uudelleen.",
+      "title": "Emme näytä löytävän etsimääsi."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksittäinen henkilö, ei kulttuuriperintölaitos"
   },
   "related": {
+    "categoryTags": {
+      "title": "Tutustu aiheeseen liittyviin tarinoihin"
+    },
+    "collections": {
+      "title": "Tutustu aiheeseen liittyviin kokoelmiin"
+    },
     "editorial": {
       "title": "Tarinoita, joista saatat pitää"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Tarinoita"
   },
-  "website": "Verkkosivusto",
-  "youMightAlsoLike": "Saatat myös pitää"
+  "website": "Verkkosivusto"
 };

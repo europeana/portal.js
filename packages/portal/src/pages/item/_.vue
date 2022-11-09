@@ -20,6 +20,7 @@
       :title-path="$fetchState.error.titlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
+      class="pt-5"
     />
     <template
       v-else
@@ -45,7 +46,9 @@
           :entities="europeanaEntities"
         />
       </b-container>
-      <b-container>
+      <b-container
+        class="footer-margin"
+      >
         <b-row class="mb-3 justify-content-center">
           <b-col
             cols="12"
@@ -68,7 +71,6 @@
               class="col-lg-10 mt-4"
             >
               <RelatedCollections
-                :title="$t('collectionsYouMightLike')"
                 :entity-uris="relatedEntityUris"
                 data-qa="related entities"
                 badge-variant="light"
@@ -80,7 +82,7 @@
           v-else
           class="mb-3"
         />
-        <b-row class="mb-0 justify-content-center">
+        <b-row class="mb-3 justify-content-center">
           <b-col
             cols="12"
             class="col-lg-10"
@@ -108,7 +110,6 @@
             :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
           />
         </client-only>
-        <b-row class="footer-margin" />
       </b-container>
     </template>
     <client-only>

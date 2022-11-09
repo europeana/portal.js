@@ -123,7 +123,6 @@ export default {
       "update": "De collectie is bijgewerkt"
     }
   },
-  "collectionsYouMightLike": "Collecties die u misschien interessant vindt",
   "colourSwatch": "Kleurstaal",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    },
+    "searchResultsNotFound": {
+      "description": "Pas de zoekterm aan of reset de filters om het opnieuw te proberen.",
+      "title": "We kunnen blijkbaar niet vinden wat u zoekt."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Deze content is een bijdrage van ons publiek, niet door de instelling die dit artikel heeft verstrekt."
   },
   "related": {
+    "categoryTags": {
+      "title": "Ontdek gerelateerde verhalen"
+    },
+    "collections": {
+      "title": "Ontdek gerelateerde collecties"
+    },
     "editorial": {
       "title": "Verhalen die u misschien leuk vindt"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Verhalen"
   },
-  "website": "Website",
-  "youMightAlsoLike": "Misschien vind je dit ook leuk"
+  "website": "Website"
 };

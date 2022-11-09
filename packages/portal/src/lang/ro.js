@@ -123,7 +123,6 @@ export default {
       "update": "Colecția a fost actualizată"
     }
   },
-  "collectionsYouMightLike": "Colecții care ți-ar putea plăcea",
   "colourSwatch": "Specimen de culoare",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Acest lucru se poate datora următoarelor motive: acest articol nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți elementul din nou.",
       "metaTitle": "Element nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest articol."
+    },
+    "searchResultsNotFound": {
+      "description": "Vă rugăm să ajustați termenul de căutare sau să resetați filtrele pentru a încerca din nou.",
+      "title": "Se pare că nu găsim ceea ce cauți."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "La acest conținut a contribuit publicul, nu instituția care a furnizat acest articol."
   },
   "related": {
+    "categoryTags": {
+      "title": "Descoperiți poveștile conexe"
+    },
+    "collections": {
+      "title": "Descoperiți colecții conexe"
+    },
     "editorial": {
       "title": "Povești care s-ar putea să vă placă"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Povești"
   },
-  "website": "Site-ul web",
-  "youMightAlsoLike": "S-ar putea să vă placă și"
+  "website": "Site-ul web"
 };

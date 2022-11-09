@@ -44,10 +44,58 @@ jobs:
               body: `JIRA ticket: ${process.env.JIRA_TICKET_NUMBER}`
             })
 
+  metadata:
+    runs-on: ubuntu-latest
+    outputs:
+      git-master-push: ${{ steps.git-master-push.outputs.status }}
+      git-pr-draft: ${{ steps.git-pr-draft.outputs.status }}
+      git-pr-ready: ${{ steps.git-pr-ready.outputs.status }}
+      docker-labels: ${{ steps.docker.outputs.labels }}
+      docker-tags: ${{ steps.docker.outputs.tags }}
+      docker-version: ${{ steps.docker.outputs.version }}
+      docker-full-tag: ${{ steps.docker-image.outputs.full-tag }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Git metadata, master push
+        id: git-master-push
+        if: github.event_name == 'push' && github.event.ref == 'refs/heads/master'
+        run: echo "status=true" >> $GITHUB_OUTPUT
+      -
+        name: Git metadata, PR draft
+        id: git-pr-draft
+        if: github.event_name == 'pull_request' && github.event.pull_request.draft == true
+        run: echo "status=true" >> $GITHUB_OUTPUT
+      -
+        name: Git metadata, PR ready for review
+        id: git-pr-ready
+        if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+        run: echo "status=true" >> $GITHUB_OUTPUT
+      -
+        name: Docker metadata
+        id: docker
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr
+            type=ref,event=branch
+            type=ref,event=tag
+            type=semver,pattern={{version}}
+      -
+        name: Output Docker image full tag
+        id: docker-image
+        run: |
+          echo "full-tag=${{ env.DOCKER_REPOSITORY }}:${{ steps.docker.outputs.version }}" >> $GITHUB_OUTPUT
+
+
   # Run code linting on master and all PRs (including drafts)
   lint-code:
+    needs: [metadata]
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request')
+    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
     steps:
       -
         name: Checkout
@@ -72,8 +120,9 @@ jobs:
 
   # Run style linting on master and all PRs (including drafts)
   lint-style:
+    needs: [metadata]
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request')
+    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
     steps:
       -
         name: Checkout
@@ -96,11 +145,11 @@ jobs:
         name: Run stylelint
         run: npm run stylelint
 
-
   # Run unit tests on master (for coverage reports), and all pull requests
   test-unit:
+    needs: [metadata]
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request')
+    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
     steps:
       -
         name: Checkout
@@ -155,8 +204,9 @@ jobs:
   # Build, and push to Docker Hub, the final-stage production-ready Docker image,
   # for use throughout other jobs, and for deployment.
   docker-build:
+    needs: [metadata]
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event.pull_request.draft == false
+    if: (github.event_name == 'push') || (needs.metadata.outputs.git-pr-ready == 'true')
     steps:
       -
         name: Checkout
@@ -164,17 +214,6 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr
-            type=ref,event=branch
-            type=ref,event=tag
-            type=semver,pattern={{version}}
       -
         name: Login to DockerHub
         uses: docker/login-action@v2
@@ -189,16 +228,16 @@ jobs:
           file: ./packages/portal/Dockerfile
           pull: true
           push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:latest
+          cache-to: type=inline
+          tags: ${{ needs.metadata.outputs.docker-tags }}
+          labels: ${{ needs.metadata.outputs.docker-labels }}
 
   # Run size tests on non-draft pull requests
   test-size:
     runs-on: ubuntu-latest
-    needs: [docker-build]
-    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+    needs: [metadata, docker-build]
+    if: (needs.metadata.outputs.git-pr-ready == 'true')
     steps:
       -
         name: Checkout
@@ -207,23 +246,14 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr
-      -
         name: Build and load app image
         uses: docker/build-push-action@v3
         with:
           context: .
           file: ./packages/portal/Dockerfile
           load: true
-          tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          tags: ${{ needs.metadata.outputs.docker-tags }}
+          cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:latest
       -
         name: Build and load size test image
         uses: docker/build-push-action@v3
@@ -231,12 +261,10 @@ jobs:
           context: ./packages/portal/tests/size
           load: true
           tags: ${{ env.DOCKER_REPOSITORY }}-test-size
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
       -
         name: Prepare resources for size tests
         run: |
-          docker run --name portal.js --rm -d ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
+          docker run --name portal.js --rm -d ${{ needs.metadata.outputs.docker-full-tag }}
           docker cp portal.js:/app/packages/portal/.nuxt ./.nuxt
           docker stop portal.js
       -
@@ -250,26 +278,15 @@ jobs:
   # Run e2e tests on non-draft pull requests
   test-e2e:
     runs-on: ubuntu-latest
-    needs: [docker-build]
-    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+    needs: [metadata, docker-build]
+    if: (needs.metadata.outputs.git-pr-ready == 'true')
     steps:
       -
         name: Checkout
         uses: actions/checkout@v3
       -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr
-      -
         name: Prepare env for e2e tests
-        run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
+        run: echo "APP_IMAGE_VERSION=${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
       -
         name: Create e2e test container .env files
         run: |
@@ -289,8 +306,8 @@ jobs:
   # Run visual tests on non-draft pull requests, and pushes to master
   test-visual:
     runs-on: ubuntu-latest
-    needs: [docker-build]
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
+    needs: [metadata, docker-build]
+    if: (needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true')
     env:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     steps:
@@ -298,21 +315,9 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr
-            type=ref,event=branch
-      -
         name: Prepare env for visual tests
         run: |
-          echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
+          echo "APP_IMAGE_VERSION=${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
           echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
           echo "PERCY_BRANCH=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF}} | sed 's|refs/heads/||')" >> $GITHUB_ENV
       -
@@ -320,10 +325,6 @@ jobs:
         if: github.event_name == 'pull_request'
         run:
           echo "PERCY_PULL_REQUEST=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-      -
-        name: Check Percy env vars
-        run:
-          echo
       -
         name: Create visual test container .env files
         run: |
@@ -345,9 +346,10 @@ jobs:
   # * Pushes to master update the deployment in the test namespace
   deploy-ibm-cloud:
     runs-on: ubuntu-latest
-    needs: [docker-build]
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
+    needs: [metadata, docker-build]
+    if: (needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true')
     env:
+      DOCKER_IMAGE_TAG: ${{ needs.metadata.outputs.docker-full-tag }}
       IBMCLOUD_API_URL: https://cloud.ibm.com
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
       IBMCLOUD_CLUSTER_NAME: europeana-web
@@ -357,32 +359,12 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr
-            type=ref,event=branch
-      -
-        name: Set image tag for deployment
-        run: echo "DOCKER_IMAGE_TAG=${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
-      -
-        name: Prepare env for dev deployments, step 1
+        name: Prepare env for dev deployments
         if: github.event_name == 'pull_request'
         run: |
           echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
-          echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-      -
-        name: Prepare env for dev deployments, step 2
-        if: github.event_name == 'pull_request'
-        run: |
-          echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
-          echo "K8S_INGRESS_HOST=pr-${PULL_REQUEST_NUMBER}.portal-js.dev.eanadev.org" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAME=portal-js-${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
+          echo "K8S_INGRESS_HOST=${{ needs.metadata.outputs.docker-version }}.portal-js.dev.eanadev.org" >> $GITHUB_ENV
       -
         name: Prepare env for test deployment
         if: github.event_name == 'push'
@@ -393,9 +375,9 @@ jobs:
         name: Create K8s resource manifests for dev deployments
         if: github.event_name == 'pull_request'
         run: |
-          envsubst < .github/workflows/support/ci/deploy/deployment.yml > deployment.yml
-          envsubst < .github/workflows/support/ci/deploy/service.yml > service.yml
-          envsubst < .github/workflows/support/ci/deploy/ingress.yml > ingress.yml
+          envsubst < .github/workflows/support/ci/k8s/deployment.yml > deployment.yml
+          envsubst < .github/workflows/support/ci/k8s/service.yml > service.yml
+          envsubst < .github/workflows/support/ci/k8s/ingress.yml > ingress.yml
       -
         name: Install ibmcloud CLI
         run: |

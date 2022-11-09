@@ -6,7 +6,9 @@
       :hero="hero"
       :context-label="$tc('blog.posts', 1)"
     />
-    <b-container>
+    <b-container
+      class="footer-margin"
+    >
       <b-row class="justify-content-center">
         <b-col
           cols="12"
@@ -51,18 +53,18 @@
             <!-- eslint-enable vue/no-v-html -->
           </article>
           <RelatedCategoryTags
-            v-if="tags"
+            v-if="tags.length"
             :tags="tags"
+            class="related-container"
           />
           <client-only>
             <RelatedCollections
               :entity-uris="relatedLink"
-              :title="$t('youMightAlsoLike')"
+              class="related-container"
             />
           </client-only>
         </b-col>
       </b-row>
-      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>
