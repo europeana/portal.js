@@ -1,0 +1,296 @@
+<template>
+  <div class="item-hero">
+    <ItemMediaSwiper
+      :europeana-identifier="identifier"
+      :edm-type="edmType"
+      :displayable-media="media"
+      @select="selectMedia"
+    />
+    <b-container>
+      <b-row>
+        <b-col
+          cols="12"
+          class="col-lg-10 media-bar d-flex mx-auto"
+          data-qa="action bar"
+        >
+          <div class="d-flex justify-content-md-center align-items-center rights-wrapper">
+            <RightsStatementButton
+              :disabled="!rightsStatementIsUrl"
+              :rights-statement="rightsStatement"
+              class="mr-auto"
+              data-qa="provider name"
+            />
+          </div>
+          <div
+            v-if="media.length !== 1"
+            class="d-flex justify-content-md-center align-items-center pagination-wrapper"
+          >
+            <div class="swiper-pagination" />
+          </div>
+          <div class="d-flex justify-content-md-center align-items-center button-wrapper">
+            <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
+              <client-only>
+                <UserButtons
+                  :identifier="identifier"
+                  :show-pins="showPins"
+                  :entities="entities"
+                  button-variant="secondary"
+                />
+              </client-only>
+              <ShareButton />
+              <DownloadButton
+                v-if="downloadEnabled"
+                :url="downloadUrl"
+              />
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+      <SocialShareModal
+        :media-url="selectedMedia.about"
+      >
+        <ItemEmbedCode
+          :identifier="identifier"
+        />
+      </SocialShareModal>
+      <DownloadModal
+        v-if="downloadEnabled"
+        :title="attributionFields.title"
+        :creator="attributionFields.creator"
+        :year="attributionFields.year"
+        :provider="attributionFields.provider"
+        :country="attributionFields.country"
+        :rights="rightsNameAndIcon(rightsStatement).name"
+        :url="attributionFields.url"
+      />
+    </b-container>
+  </div>
+</template>
+
+<script>
+  import ClientOnly from 'vue-client-only';
+  import ItemMediaSwiper from './ItemMediaSwiper';
+  import DownloadButton from '../generic/DownloadButton';
+  import DownloadModal from '../generic/DownloadModal.vue';
+  import RightsStatementButton from '../generic/RightsStatementButton';
+  import ItemEmbedCode from './ItemEmbedCode';
+  import SocialShareModal from '../sharing/SocialShareModal';
+  import ShareButton from '../sharing/ShareButton';
+
+  import rightsStatementMixin from '@/mixins/rightsStatement';
+
+  import has from 'lodash/has';
+
+  export default {
+    components: {
+      ItemMediaSwiper,
+      ClientOnly,
+      DownloadButton,
+      RightsStatementButton,
+      ItemEmbedCode,
+      SocialShareModal,
+      DownloadModal,
+      ShareButton,
+      UserButtons: () => import('../account/UserButtons')
+    },
+
+    mixins: [
+      rightsStatementMixin
+    ],
+
+    props: {
+      allMediaUris: {
+        type: Array,
+        default: () => []
+      },
+      identifier: {
+        type: String,
+        required: true
+      },
+      edmType: {
+        type: String,
+        default: null
+      },
+      edmRights: {
+        type: String,
+        default: ''
+      },
+      media: {
+        type: Array,
+        default: () => []
+      },
+      attributionFields: {
+        type: Object,
+        default: () => ({})
+      },
+      // Entities related to the item, used for pinning.
+      entities: {
+        type: Array,
+        default: () => []
+      }
+    },
+    data() {
+      return {
+        selectedMediaItem: null,
+        selectedCanvas: null
+      };
+    },
+    computed: {
+      downloadUrl() {
+        const url = (this.selectedCanvas || this.selectedMedia).about;
+        return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
+      },
+      rightsStatementIsUrl() {
+        return RegExp('^https?://*').test(this.rightsStatement);
+      },
+      rightsStatement() {
+        if (has(this.selectedMedia, 'webResourceEdmRights')) {
+          return this.selectedMedia.webResourceEdmRights.def[0];
+        } else if (this.edmRights !== '') {
+          return this.edmRights;
+        }
+        return '';
+      },
+      selectedMedia: {
+        get() {
+          return this.selectedMediaItem || this.media[0] || {};
+        },
+        set(about) {
+          this.selectedCanvas = null;
+          this.selectedMediaItem = this.media.find((item) => item.about === about) || {};
+        }
+      },
+      downloadEnabled() {
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
+      },
+      showPins() {
+        return this.userIsEditor && this.userIsSetsEditor && this.entities.length > 0;
+      },
+      userIsEditor() {
+        // TODO: check if this can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
+        return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
+      },
+      userIsSetsEditor() {
+        // TODO: check if theis can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
+        return this.$store.state.auth.user?.resource_access?.usersets?.roles.includes('editor') || false;
+      }
+    },
+    mounted() {
+      window.addEventListener('message', msg => {
+        if (msg.origin !== window.location.origin) {
+          return;
+        }
+        if (msg.data.event === 'updateDownloadLink') {
+          this.selectedCanvas = { about: msg.data.id };
+        }
+      });
+    },
+    methods: {
+      // Ensure we only proxy web resource media, preventing proxying of
+      // arbitrary other resources such as images linked from (non-Europeana-hosted)
+      // IIIF manifests.
+      downloadViaProxy(url) {
+        return this.allMediaUris.some(uri => uri === url);
+      },
+      selectMedia(about) {
+        this.selectedMedia = about;
+      }
+    }
+  };
+</script>
+
+<style lang="scss">
+  @import '@/assets/scss/variables';
+
+  .item-hero {
+    padding-top: 2.25rem;
+    padding-bottom: 1.625rem;
+
+    .media-bar {
+      margin-top: 2.5rem;
+    }
+
+    .swiper-pagination {
+      display: inline-flex;
+
+      &.swiper-pagination-fraction {
+        left: auto;
+        width: auto;
+        bottom: auto;
+      }
+    }
+
+    .user-buttons {
+      display: inline-flex;
+
+      .container {
+        padding: 0;
+      }
+
+      .btn {
+        color: $mediumgrey;
+        background: $offwhite;
+        border: 1px solid transparent;
+        font-size: $font-size-large;
+        height: 2.25rem;
+        min-width: 2.25rem;
+        line-height: 1;
+        padding: 0.375rem;
+        margin-right: 0.5rem;
+
+        &:hover:not(.active) {
+          color: $mediumgrey;
+        }
+      }
+    }
+
+    .rights-wrapper,
+    .pagination-wrapper,
+    .button-wrapper {
+      flex: 1;
+    }
+
+    @media (max-width: $bp-medium) {
+      .media-bar {
+        flex-direction: column;
+
+        a,
+        button {
+          text-align: center;
+          justify-content: center;
+          margin-bottom: 1rem;
+          width: 100%;
+        }
+
+        .pagination-wrapper {
+          order: 1;
+          margin-bottom: 1.125rem;
+
+          .swiper-pagination {
+            position: relative;
+            margin: auto;
+          }
+        }
+
+        .rights-wrapper {
+          order: 2;
+        }
+
+        .button-wrapper {
+          order: 3;
+          margin-left: 0;
+          flex-direction: column;
+
+          .user-buttons {
+            justify-content: space-between;
+          }
+
+          .share-button,
+          .download-button {
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+</style>

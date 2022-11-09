@@ -145,11 +145,11 @@ module.exports = {
     const pattern = new RegExp(altValue ? `${value}|${altValue}` : value);
     await client.expect.element(`[data-field-name="${field}"]`).text.to.match(pattern);
   },
-  doNotSeeATarget(qaElementNames) {
-    client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
+  async doNotSeeATarget(qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
   },
-  doNotHaveATarget(qaElementNames) {
-    client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
+  async doNotHaveATarget(qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
   async enterTextInTarget(text, qaElementName) {
     const selector = qaSelector(qaElementName);
@@ -199,7 +199,7 @@ module.exports = {
     /* eslint-enable prefer-arrow-callback */
   },
   async paginateToPage(page) {
-    const containerSelector = qaSelector('pagination navigation');
+    const containerSelector = qaSelector('search results pagination');
 
     await client.waitForElementVisible(containerSelector);
     const selector = containerSelector + ' ' + qaSelector('pagination input');
@@ -208,7 +208,7 @@ module.exports = {
     // where the first clear results in a redirect to page 1.
     await client.clearValue(selector);
     await client.clearValue(selector);
-    await client.setValue(selector, [`${page}` , client.Keys.ENTER]);
+    await client.setValue(selector, [`${page}`, client.Keys.ENTER]);
   },
   async preferBrowserLanguage(locale) {
     const nightwatchApiOptions = {

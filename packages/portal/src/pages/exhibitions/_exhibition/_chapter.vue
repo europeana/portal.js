@@ -1,0 +1,249 @@
+<template>
+  <div
+    data-qa="exhibition chapter"
+    class="text-page white-page "
+  >
+    <ContentWarningModal
+      v-if="exhibitionContentWarning"
+      :title="exhibitionContentWarning.name"
+      :description="exhibitionContentWarning.description"
+      :page-slug="`exhibition/${exhibitionIdentifier}`"
+    />
+    <AuthoredHead
+      :title="page.name"
+      :exhibition-title="exhibitionTitle"
+      :description="page.headline"
+      :hero="hero"
+      :context-label="$tc('exhibitions.exhibitions', 1)"
+    />
+    <b-container
+      class="footer-margin"
+    >
+      <b-row>
+        <b-col
+          cols="12"
+          class="col-lg-8"
+        >
+          <h1
+            v-if="!hero"
+            data-qa="exhibition chapter title"
+          >
+            {{ page.name }}
+          </h1>
+        </b-col>
+      </b-row>
+      <b-row class="justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-8"
+        >
+          <article>
+            <ShareButton class="mb-4" />
+            <SocialShareModal :media-url="optimisedImageUrl" />
+            <BrowseSections
+              v-if="page"
+              :sections="page.hasPartCollection.items"
+              :rich-text-is-card="false"
+              class="authored-section"
+            />
+          </article>
+        </b-col>
+      </b-row>
+      <client-only>
+        <b-row
+          v-if="chapters"
+          class="justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="mt-3 col-lg-8"
+          >
+            <LinkList
+              :items="chapterPagesToLinkListItems(chapters, exhibitionIdentifier)"
+              :title="$t('exhibitions.chapters')"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="hasRelatedCategoryTags"
+          class="related-container justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <RelatedCategoryTags
+              :tags="page.categoriesCollection.items"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="relatedLink"
+          class="related-container justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <RelatedCollections
+              :entity-uris="relatedLink"
+            />
+          </b-col>
+        </b-row>
+      </client-only>
+    </b-container>
+  </div>
+</template>
+
+<script>
+  import ClientOnly from 'vue-client-only';
+  import BrowseSections from '../../../components/browse/BrowseSections';
+  import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
+  import ShareButton from '../../../components/sharing/ShareButton.vue';
+  import exhibitionChapters from '../../../mixins/exhibitionChapters';
+
+  export default {
+    name: 'ExhibitionChapterPage',
+
+    components: {
+      BrowseSections,
+      ClientOnly,
+      ShareButton,
+      SocialShareModal,
+      AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
+      LinkList: () => import('../../../components/generic/LinkList'),
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
+      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
+      RelatedCollections: () => import('@/components/related/RelatedCollections')
+    },
+    mixins: [
+      exhibitionChapters
+    ],
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
+    },
+    asyncData({ params, query, error, app, store }) {
+      const variables = {
+        identifier: params.exhibition,
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview'
+      };
+
+      return app.$contentful.query('exhibitionChapterPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          let chapter;
+          let exhibition;
+
+          if (data.exhibitionPageCollection.total === 1) {
+            exhibition = data.exhibitionPageCollection.items[0];
+            chapter = exhibition.hasPartCollection.items.find(item => item.identifier === params.chapter);
+          }
+
+          if (!chapter || !exhibition) {
+            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+            return {};
+          }
+
+          store.commit('breadcrumb/setBreadcrumbs', [
+            {
+              text: app.i18n.tc('exhibitions.exhibitions', 2),
+              to: app.$path({ name: 'exhibitions' })
+            },
+            {
+              text: exhibition.name,
+              to: app.$path({
+                name: 'exhibitions-exhibition',
+                params: {
+                  exhibition: exhibition.identifier
+                }
+              })
+            },
+            {
+              text: chapter.name,
+              active: true
+            }
+          ]);
+          return {
+            chapters: exhibition.hasPartCollection.items,
+            credits: exhibition.credits,
+            exhibitionIdentifier: params.exhibition,
+            exhibitionTitle: exhibition.name,
+            exhibitionContentWarning: exhibition.contentWarning,
+            relatedLink: exhibition.relatedLink,
+            page: chapter
+          };
+        })
+        .catch((e) => {
+          error({ statusCode: 500, message: e.toString() });
+        });
+    },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.page.name),
+        meta: [
+          { hid: 'title', name: 'title', content: this.page.name },
+          { hid: 'og:title', property: 'og:title', content: this.page.name },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.heroImage ? [
+            { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
+            { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description || '' }
+          ] : [])
+          .concat(this.page.description ? [
+            { hid: 'description', name: 'description', content: this.page.description },
+            { hid: 'og:description', property: 'og:description', content: this.page.description }
+          ] : [])
+      };
+    },
+    computed: {
+      hasRelatedCategoryTags() {
+        return (this.page?.categoriesCollection?.items?.length || 0) > 0;
+      },
+      chapterNavigation() {
+        return this.chapters.map((chapter) => {
+          return {
+            identifier: chapter.identifier, name: chapter.name, url: this.chapterUrl(chapter.identifier)
+          };
+        });
+      },
+      hero() {
+        return this.page.primaryImageOfPage || null;
+      },
+      heroImage() {
+        return this.hero?.image || null;
+      },
+      optimisedImageUrl() {
+        return this.$contentful.assets.optimisedSrc(
+          this.heroImage,
+          { w: 800, h: 800 }
+        );
+      }
+    },
+    methods: {
+      chapterUrl(identifier) {
+        return this.$path({
+          name: 'exhibitions-exhibition-chapter',
+          params: {
+            exhibition: this.exhibitionIdentifier, chapter: identifier
+          }
+        });
+      }
+    }
+  };
+</script>
+
+<style lang="scss" scoped>
+  ::v-deep .related-collections {
+    &.container {
+      padding: 0;
+    }
+
+    .badge-pill {
+      margin-top: 0.25rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+</style>

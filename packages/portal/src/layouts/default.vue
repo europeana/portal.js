@@ -1,0 +1,223 @@
+<template>
+  <div>
+    <client-only>
+      <VueAnnouncer
+        v-if="enableAnnouncer"
+        data-qa="vue announcer"
+      />
+    </client-only>
+    <div
+      ref="resetfocus"
+      data-qa="top page"
+    />
+    <a
+      class="skip-main"
+      href="#main"
+      data-qa="main content accessibility link"
+    >
+      {{ $t('layout.skipToMain') }}
+    </a>
+    <PageHeader />
+    <main
+      id="default"
+      role="main"
+    >
+      <b-breadcrumb
+        v-if="breadcrumbs"
+        :items="breadcrumbs"
+        class="mb-5"
+      />
+      <nuxt
+        id="main"
+      />
+    </main>
+    <client-only
+      v-if="newFeatureNotificationEnabled"
+    >
+      <NewFeatureNotification
+        :feature="featureNotification.name"
+        :url="featureNotification.url"
+        data-qa="new feature notification"
+      >
+        <p>{{ $t(`newFeatureNotification.text.${featureNotification.name}`) }}</p>
+      </NewFeatureNotification>
+    </client-only>
+    <client-only>
+      <PageFooter />
+      <ApiRequests />
+    </client-only>
+    <b-toaster
+      name="b-toaster-bottom-left-dynamic"
+      class="b-toaster-bottom-left-dynamic"
+      :style="{'--bottom': toastBottomOffset }"
+    />
+    <client-only>
+      <PageCookieConsent
+        v-if="cookieConsentRequired"
+      />
+    </client-only>
+  </div>
+</template>
+
+<script>
+  import { BBreadcrumb } from 'bootstrap-vue';
+  import ClientOnly from 'vue-client-only';
+  import PageHeader from '../components/PageHeader';
+  import makeToastMixin from '@/mixins/makeToast';
+  import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
+  import versions from '../../pkg-versions';
+  import featureNotifications from '@/features/notifications';
+
+  export default {
+    name: 'DefaultLayout',
+
+    components: {
+      ApiRequests: () => import('../components/debug/ApiRequests'),
+      BBreadcrumb,
+      ClientOnly,
+      PageCookieConsent: () => import('../components/PageCookieConsent'),
+      PageHeader,
+      PageFooter: () => import('../components/PageFooter'),
+      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification')
+    },
+
+    mixins: [
+      makeToastMixin
+    ],
+
+    data() {
+      return {
+        dateNow: Date.now(),
+        linkGroups: {},
+        enableAnnouncer: true,
+        klaro: null,
+        cookieConsentRequired: false,
+        toastBottomOffset: '20px',
+        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
+        featureNotificationExpiration: this.$config.app.featureNotificationExpiration
+      };
+    },
+
+    head() {
+      const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
+
+      return {
+        htmlAttrs: {
+          ...i18nHead.htmlAttrs
+        },
+        link: [
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
+          ...i18nHead.link
+        ],
+        script: [
+          { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
+        ],
+        meta: [
+          { hid: 'description', property: 'description', content: 'Europeana' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
+          ...i18nHead.meta
+        ]
+      };
+    },
+
+    computed: {
+      breadcrumbs() {
+        return this.$store.state.breadcrumb.data;
+      },
+
+      canonicalUrl() {
+        return this.$store.getters['http/canonicalUrl'];
+      },
+
+      canonicalUrlWithoutLocale() {
+        return this.$store.getters['http/canonicalUrlWithoutLocale'];
+      },
+
+      newFeatureNotificationEnabled() {
+        return !!this.featureNotification &&
+          (!this.featureNotificationExpiration || (this.dateNow < this.featureNotificationExpiration)) &&
+          (!this.$cookies.get('new_feature_notification') || this.$cookies.get('new_feature_notification') !== this.featureNotification.name);
+      }
+    },
+
+    watch: {
+      '$i18n.locale': 'renderKlaro',
+
+      $route(to, from) {
+        this.$nextTick(() => {
+          if (to.path === from.path) {
+            this.enableAnnouncer = false;
+          } else {
+            this.$refs.resetfocus.setAttribute('tabindex', '0');
+            this.$refs.resetfocus.focus();
+            this.enableAnnouncer = true;
+          }
+        });
+      }
+    },
+
+    mounted() {
+      if (!this.klaro) {
+        this.klaro = window.klaro;
+      }
+
+      // If Matomo plugin is installed, wait for Matomo to load, but still render
+      // Klaro if it fails to.
+      const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
+      renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
+
+      if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
+        this.makeToast(this.$t('account.notifications.loggedIn'));
+        this.$auth.$storage.removeUniversal('portalLoggingIn');
+      }
+      if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
+        this.makeToast(this.$t('account.notifications.loggedOut'));
+        this.$auth.$storage.removeUniversal('portalLoggingOut');
+      }
+    },
+
+    methods: {
+      renderKlaro() {
+        if (this.klaro) {
+          const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);
+          const manager = this.klaro.getManager(config);
+
+          this.cookieConsentRequired = !manager.confirmed;
+
+          this.klaro.render(config, true);
+          manager.watch({ update: this.watchKlaroManagerUpdate });
+          this.setToastBottomOffset();
+        }
+      },
+
+      watchKlaroManagerUpdate(manager, eventType, data) {
+        let eventName;
+
+        if (eventType === 'saveConsents') {
+          eventName = {
+            accept: 'Okay/Accept all',
+            decline: 'Decline',
+            save: 'Accept selected'
+          }[data.type];
+        }
+
+        eventName && this.trackKlaroClickEvent(eventName);
+
+        setTimeout(() => {
+          this.setToastBottomOffset();
+        }, 10);
+      },
+
+      trackKlaroClickEvent(eventName) {
+        this.$matomo && this.$matomo.trackEvent('Klaro', 'Clicked', eventName);
+      },
+
+      setToastBottomOffset() {
+        const cookieNoticeHeight = document.getElementsByClassName('cookie-notice')[0]?.offsetHeight;
+        this.toastBottomOffset = cookieNoticeHeight ? `${cookieNoticeHeight + 40}px` : '20px';
+      }
+    }
+  };
+</script>
