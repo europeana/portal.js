@@ -151,7 +151,7 @@ jobs:
     runs-on: ubuntu-latest
     if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
     env:
-      NODE_OPTIONS: "--max_old_space_size=4096"
+      NODE_OPTIONS: "--max-old-space-size=6144"
     steps:
       -
         name: Checkout
