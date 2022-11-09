@@ -163,9 +163,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          # Locked to < 16.11 due to memory constraints
-          # See https://github.com/facebook/jest/issues/11956
-          node-version: 16.10
+          node-version: 16
           cache: 'npm'
       -
         name: NPM install
