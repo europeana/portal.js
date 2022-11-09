@@ -148,7 +148,7 @@ jobs:
   # Run unit tests on master (for coverage reports), and all pull requests
   test-unit:
     needs: [metadata]
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
     steps:
       -
