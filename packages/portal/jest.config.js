@@ -6,7 +6,7 @@ export default {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{cjs,js,vue}'
   ],
-  // coverageProvider: 'v8',
+  coverageProvider: 'v8',
   coverageReporters: [
     'html',
     'lcov',

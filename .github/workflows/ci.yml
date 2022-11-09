@@ -148,7 +148,9 @@ jobs:
   # Run unit tests on master (for coverage reports), and all pull requests
   test-unit:
     needs: [metadata]
-    runs-on: ubuntu-latest
+    # macos-latest has more memory available than ubuntu-latest, which is needed
+    # for test coverage reporting using Jest's v8 coverageProvider
+    runs-on: macos-latest
     if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
     steps:
       -
