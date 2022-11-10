@@ -80,13 +80,4 @@ describe('components/PageHeader', () => {
       expect(nav.isVisible()).toBe(true);
     });
   });
-
-  describe('computed', () => {
-    describe('testedAttribute', () => {
-      it('equals "testedAttribute"', () => {
-        const wrapper = factory();
-        expect(wrapper.vm.testedAttribute).toBe('testedAttribute');
-      });
-    });
-  });
 });
