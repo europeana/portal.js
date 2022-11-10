@@ -1,10 +1,10 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 
-import MapEmbed from '@/components/geo/MapEmbed';
+import EmbedMap from '@/components/embed/EmbedMap';
 
 const localVue = createLocalVue();
 
-const factory = () => shallowMount(MapEmbed, {
+const factory = () => shallowMount(EmbedMap, {
   localVue,
   propsData: {
     prefLabel: {
@@ -21,7 +21,7 @@ const factory = () => shallowMount(MapEmbed, {
   }
 });
 
-describe('components/geo/MapEmbed', () => {
+describe('components/embed/EmbedMap', () => {
   it('renders an iframe', () => {
     const wrapper = factory();
 

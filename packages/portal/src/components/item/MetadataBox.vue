@@ -76,7 +76,7 @@
           <b-card-text
             text-tag="div"
           >
-            <MapEmbed
+            <EmbedMap
               v-if="mappableLocation && showLocationMap"
               :pref-label="mappableLocation.prefLabel"
               :latitude="mappableLocation.latitude"
@@ -100,7 +100,7 @@
       BTab,
       BTabs,
       MetadataField,
-      MapEmbed: () => import('../geo/MapEmbed')
+      EmbedMap: () => import('../embed/EmbedMap')
     },
 
     props: {
