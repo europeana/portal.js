@@ -87,6 +87,6 @@ describe('components/PageHeader', () => {
         const wrapper = factory();
         expect(wrapper.vm.testedAttribute).toBe('testedAttribute');
       });
-    })
+    });
   });
 });
