@@ -74,7 +74,7 @@
         data.key = 'items/type-counts';
         data.cardType = 'InfoCard';
       } else if (this.$features.setGalleries && this.sectionType === LATEST_GALLERIES) {
-        data.key = 'galleries';
+        data.key = 'galleries/recent';
         data.cardType = 'AutomatedGalleryCard';
         data.headline = this.$i18n.t('automatedCardGroup.gallery');
       }
@@ -83,18 +83,7 @@
     },
 
     fetch() {
-      if (this.sectionType === LATEST_GALLERIES) {
-        const searchParams = {
-          query: 'visibility:published',
-          pageSize: 4,
-          profile: 'standard'
-        };
-
-        return this.$apis.set.search(searchParams, { withMinimalItemPreviews: true })
-          .then(setResponse => {
-            this.entries = setResponse.data.items;
-          });
-      } else if (process.server) {
+      if (process.server) {
         return import('@/server-middleware/api/cache/index.js')
           .then(module => {
             return module.cached(this.key, this.$config)
@@ -136,7 +125,7 @@
                 __variant: null,
                 name: set.title,
                 identifier: set.id,
-                image: this.$apis.thumbnail.edmPreview(set.items[0].edmPreview, { size: 400 }),
+                image: this.$apis.thumbnail.edmPreview(set.items?.[0].edmPreview, { size: 400 }),
                 url: `galleries/${getLabelledSlug(set.id, set.title.en)}`,
                 description: set.description
               }))
