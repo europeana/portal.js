@@ -40,6 +40,7 @@
 <script>
   import allThemesMixin from '@/mixins/allThemes';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
+  import pageMixin from '@/mixins/page';
   import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatest from '@/components/home/HomeLatest';
@@ -56,7 +57,7 @@
       StackedCardsSwiper
     },
 
-    mixins: [allThemesMixin, collectionLinkGenMixin],
+    mixins: [allThemesMixin, collectionLinkGenMixin, pageMixin],
 
     data() {
       return {
@@ -72,11 +73,8 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.pageTitle),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.pageTitle },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle },
           { hid: 'description', name: 'description', content: this.pageSubHeadline },
           { hid: 'og:description', property: 'og:description', content: this.pageSubHeadline },
           { hid: 'og:image', property: 'og:image', content: this.headMetaOgImage }

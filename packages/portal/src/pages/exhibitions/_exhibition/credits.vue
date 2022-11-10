@@ -140,12 +140,12 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    fetch() {
+      this.$store.commit('page/setTitle', `${this.name} - ${this.$t('exhibitions.credits')}`);
+    },
     head() {
       return {
-        title: this.$pageHeadTitle(this.title),
         meta: [
-          { hid: 'title', name: 'title', content: this.title },
-          { hid: 'og:title', property: 'og:title', content: this.title },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
@@ -156,9 +156,6 @@
           return false;
         }
         return marked.parse(this.credits);
-      },
-      title() {
-        return `${this.name} - ${this.$t('exhibitions.credits')}`;
       },
       exhibitionTitle() {
         return this.name;

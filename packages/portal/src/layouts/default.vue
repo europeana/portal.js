@@ -102,6 +102,7 @@
       const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
 
       return {
+        title: this.headTitle,
         htmlAttrs: {
           ...i18nHead.htmlAttrs
         },
@@ -116,6 +117,8 @@
         ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
+          { hid: 'title', name: 'title', content: this.title },
+          { hid: 'og:title', property: 'og:title', content: this.title },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
           ...i18nHead.meta
         ]
@@ -123,6 +126,14 @@
     },
 
     computed: {
+      headTitle() {
+        return [this.title, this.$config.app.siteName].filter((part) => !!part).join(' | ');
+      },
+
+      title() {
+        return this.$store.state.page.title;
+      },
+
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
       },

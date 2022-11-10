@@ -1,8 +1,6 @@
 <template>
   <b-container data-qa="blog">
-    <ContentHeader
-      :title="$t('blog.blog')"
-    />
+    <ContentHeader />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
@@ -40,6 +38,7 @@
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNavInput from '../../components/generic/PaginationNavInput';
+  import pageMixin from '@/mixins/page';
 
   const PER_PAGE = 20;
 
@@ -51,6 +50,8 @@
       ContentCard,
       PaginationNavInput
     },
+
+    mixins: [pageMixin],
 
     middleware: 'sanitisePageQuery',
 
@@ -84,13 +85,13 @@
       };
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('blog.blog'))
-      };
-    },
-
     watchQuery: ['page'],
+
+    computed: {
+      pageTitle() {
+        return this.$t('blog.blog');
+      }
+    },
 
     methods: {
       imageUrl(post) {

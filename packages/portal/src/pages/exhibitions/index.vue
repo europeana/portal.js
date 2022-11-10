@@ -82,15 +82,13 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    fetch() {
+      this.$store.commit('page/setTitle', this.$tc('exhibitions.exhibitions', 2));
+    },
     data() {
       return {
         perPage: PER_PAGE,
         page: null
-      };
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$tc('exhibitions.exhibitions', 2))
       };
     },
     watchQuery: ['page'],

@@ -1,8 +1,6 @@
 <template>
   <b-container data-qa="debug page">
-    <ContentHeader
-      :title="title"
-    />
+    <ContentHeader />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-form
@@ -54,6 +52,7 @@
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
   import EmbedOEmbed from '@/components/embed/EmbedOEmbed';
+  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'DebugOEmbedPage',
@@ -63,13 +62,14 @@
       EmbedOEmbed
     },
 
+    mixins: [pageMixin],
+
     data() {
       return {
         endpoint: null,
         url: null,
         formEndpoint: null,
-        formUrl: null,
-        title: 'oEmbed'
+        formUrl: null
       };
     },
 
@@ -81,15 +81,15 @@
       this.formEndpoint = this.endpoint;
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title)
-      };
-    },
-
     watch: {
       '$route.query.url': '$fetch',
       '$route.query.endpoint': '$fetch'
+    },
+
+    computed: {
+      pageTitle() {
+        return 'oEmbed';
+      }
     },
 
     methods: {

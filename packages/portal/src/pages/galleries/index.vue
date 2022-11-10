@@ -78,6 +78,7 @@
   import { getLabelledSlug } from '@/plugins/europeana/utils';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
+  import pageMixin from '@/mixins/page';
 
   const PER_PAGE = 20;
 
@@ -90,6 +91,7 @@
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       PaginationNavInput: () => import('../../components/generic/PaginationNavInput')
     },
+    mixins: [pageMixin],
     middleware: 'sanitisePageQuery',
     data() {
       return {
@@ -106,12 +108,10 @@
       }
       this.$scrollTo && this.$scrollTo('#header');
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$tc('galleries.galleries', 2))
-      };
-    },
     computed: {
+      pageTitle() {
+        return this.$tc('galleries.galleries', 2);
+      },
       setGalleriesEnabled() {
         return this.$features.setGalleries;
       },

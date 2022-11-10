@@ -46,6 +46,7 @@
 </template>
 
 <script>
+  import pageMixin from '@/mixins/page';
   import AlertMessage from '@/components/generic/AlertMessage';
 
   export default {
@@ -54,6 +55,8 @@
     components: {
       AlertMessage
     },
+
+    mixins: [pageMixin],
 
     props: {
       titlePath: {
@@ -79,10 +82,17 @@
       fullHeight: {
         type: Boolean,
         default: true
+      },
+      pageTitlePath: {
+        type: String,
+        default: null
       }
     },
 
     computed: {
+      pageTitle() {
+        return this.$t(this.pageTitlePath || 'error');
+      },
       errorExplanationAvailable() {
         return this.illustrationSrc || this.titlePath || this.descriptionPath;
       }

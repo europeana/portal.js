@@ -101,6 +101,7 @@
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'ExhibitionChapterPage',
@@ -117,7 +118,7 @@
       RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
     mixins: [
-      exhibitionChapters
+      exhibitionChapters, pageMixin
     ],
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -181,10 +182,7 @@
     },
     head() {
       return {
-        title: this.$pageHeadTitle(this.page.name),
         meta: [
-          { hid: 'title', name: 'title', content: this.page.name },
-          { hid: 'og:title', property: 'og:title', content: this.page.name },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
           .concat(this.heroImage ? [
@@ -198,6 +196,9 @@
       };
     },
     computed: {
+      pageTitle() {
+        return this.page.name;
+      },
       hasRelatedCategoryTags() {
         return (this.page?.categoriesCollection?.items?.length || 0) > 0;
       },

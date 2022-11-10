@@ -161,6 +161,7 @@
     SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
   } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import pageMixin from '@/mixins/page';
 
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
@@ -177,6 +178,8 @@
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations')
     },
+
+    mixins: [pageMixin],
 
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
@@ -218,7 +221,6 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0]),
         meta: [
           { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
           { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
@@ -233,6 +235,9 @@
     },
 
     computed: {
+      pageTitle() {
+        return this.displayTitle.values[0];
+      },
       fetchState() {
         return this.$fetchState;
       },

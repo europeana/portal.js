@@ -151,6 +151,7 @@
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
+  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'AccountIndexPage',
@@ -164,7 +165,8 @@
     },
 
     mixins: [
-      keycloak
+      keycloak,
+      pageMixin
     ],
 
     middleware: 'auth',
@@ -191,13 +193,10 @@
 
     fetchOnServer: false,
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('account.title'))
-      };
-    },
-
     computed: {
+      pageTitle() {
+        return this.$t('account.title');
+      },
       userIsEditor() {
         return this.loggedInUser?.resource_access?.entities?.roles?.includes('editor') &&
           this.loggedInUser?.resource_access?.usersets?.roles?.includes('editor');

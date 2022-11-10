@@ -276,7 +276,6 @@ export default {
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/link',
-    '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',

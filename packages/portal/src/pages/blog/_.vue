@@ -25,6 +25,7 @@
 
 <script>
   import BlogPost from '@/components/blog/BlogPost';
+  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'BlogPostPage',
@@ -33,6 +34,8 @@
       BlogPost,
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
+
+    mixins: [pageMixin],
 
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -85,11 +88,8 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.post.name),
         meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.post.name },
-          { hid: 'og:title', property: 'og:title', content: this.post.name }
+          { hid: 'og:type', property: 'og:type', content: 'article' }
         ].concat(this.post.description ? [
           { hid: 'description', name: 'description', content: this.post.description },
           { hid: 'og:description', property: 'og:description', content: this.post.description }
@@ -102,6 +102,9 @@
     },
 
     computed: {
+      pageTitle() {
+        return this.post.name;
+      },
       hero() {
         return this.post.primaryImageOfPage || null;
       }

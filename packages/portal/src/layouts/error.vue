@@ -32,8 +32,18 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.$t('error'))
+        title: this.headTitle
       };
+    },
+
+    computed: {
+      headTitle() {
+        return [this.title, this.$config.app.siteName].filter((part) => !!part).join(' | ');
+      },
+
+      title() {
+        return this.$store.state.page.title || this.$t('error');
+      }
     }
   };
 </script>

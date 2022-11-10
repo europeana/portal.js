@@ -143,12 +143,12 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    fetch() {
+      this.$store.commit('page/setTitle', this.name);
+    },
     head() {
       return {
-        title: this.$pageHeadTitle(this.name),
         meta: [
-          { hid: 'title', name: 'title', content: this.name },
-          { hid: 'og:title', property: 'og:title', content: this.name },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ].concat(this.description ? [
           { hid: 'description', name: 'description', content: this.description },

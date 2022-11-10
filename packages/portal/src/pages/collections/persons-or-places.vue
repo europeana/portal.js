@@ -1,8 +1,6 @@
 <template>
   <b-container>
-    <ContentHeader
-      :title="title"
-    />
+    <ContentHeader />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
@@ -39,6 +37,7 @@
   import ContentHeader from '@/components/generic/ContentHeader';
   import ContentCard from '@/components/generic/ContentCard';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
+  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'CollectionsPersonsOrPlacesIndexPage',
@@ -50,6 +49,8 @@
     },
 
     middleware: 'sanitisePageQuery',
+
+    mixins: [pageMixin],
 
     data() {
       return {
@@ -81,13 +82,10 @@
       }
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title)
-      };
-    },
-
     computed: {
+      pageTitle() {
+        return this.$t(`pages.collections.${this.personsOrPlaces}.title`);
+      },
       personsOrPlaces() {
         return this.$route.path.split('/').pop();
       },
@@ -96,9 +94,6 @@
       },
       entityTypeApi() {
         return getEntityTypeApi(this.entityTypeHumanReadable);
-      },
-      title() {
-        return this.$t(`pages.collections.${this.personsOrPlaces}.title`);
       },
       page() {
         return this.$store.state.sanitised.page;

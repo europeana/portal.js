@@ -46,6 +46,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import BrowsePage from '@/components/browse/BrowsePage';
   import StaticPage from '@/components/static/StaticPage';
+  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'IndexPage',
@@ -56,6 +57,8 @@
       LoadingSpinner,
       StaticPage
     },
+
+    mixins: [pageMixin],
 
     props: {
       slug: {
@@ -98,11 +101,8 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.pageTitle),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.pageTitle },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
         ].concat(this.page.description ? [
           { hid: 'description', name: 'description', content: this.page.description },
           { hid: 'og:description', property: 'og:description', content: this.page.description }

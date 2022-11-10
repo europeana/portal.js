@@ -77,6 +77,7 @@
   import ContentHeader from '@/components/generic/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
+  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'StoriesPage',
@@ -90,6 +91,8 @@
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
       PaginationNavInput
     },
+
+    mixins: [pageMixin],
 
     data() {
       return {
@@ -115,11 +118,8 @@
     head() {
       // TODO: add description, social media image, etc
       return {
-        title: this.$pageHeadTitle(this.pageTitle),
         meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.pageTitle },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
+          { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
     },
