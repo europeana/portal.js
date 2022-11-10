@@ -19,6 +19,7 @@
     "test:e2e:init": "touch tests/e2e/docker/nightwatch/.env tests/e2e/docker/nightwatch-visual/.env",
     "test:e2e:run": "docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features",
     "test:coverage": "npm run -w packages/portal test:coverage",
+    "test:coverage:ci": "npm run -w packages/portal test:coverage:ci",
     "test:stack:build": "docker-compose -f ./tests/e2e/docker/docker-compose.yml build",
     "test:stack:down": "docker-compose -f ./tests/e2e/docker/docker-compose.yml down",
     "test:stack:rebuild": "docker-compose -f ./tests/e2e/docker/docker-compose.yml down && npm run test:stack:build",

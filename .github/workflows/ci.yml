@@ -164,8 +164,11 @@ jobs:
         name: NPM install
         run: npm ci --include-workspace-root -w packages/portal
       -
-        name: Run unit tests
-        run: node --expose-gc --no-compilation-cache node_modules/jest/bin/jest.js --config packages/portal/jest.config.js --coverage --maxWorkers 2
+        name: Run unit tests with coverage reporting
+        run: npm run test:coverage:ci
+      -
+        name: Debug
+        run: grep SF packages/portal/coverage/lcov.info
       -
         name: Archive code coverage
         run: |
@@ -197,8 +200,8 @@ jobs:
         name: Unarchive code coverage
         run: tar -xf packages-portal-coverage.tar && rm packages-portal-coverage.tar
       -
-        name: Check for code coverage
-        run: ls -l packages/portal/coverage
+        name: Debug
+        run: grep SF packages/portal/coverage/lcov.info
       -
         name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v1.7
