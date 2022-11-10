@@ -165,7 +165,7 @@ jobs:
         run: npm ci --include-workspace-root -w packages/portal
       -
         name: Run unit tests
-        run: npm run test:coverage
+        run: node --expose-gc --no-compilation-cache node_modules/jest/bin/jest.js --config packages/portal/jest.config.js --coverage --maxWorkers 2
       -
         name: Archive code coverage
         run: |
