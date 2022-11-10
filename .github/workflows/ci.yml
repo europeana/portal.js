@@ -154,9 +154,6 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
-        with:
-          # For SonarCloud to blame culprits
-          fetch-depth: 0
       -
         name: Setup Node
         uses: actions/setup-node@v3
@@ -167,13 +164,41 @@ jobs:
         name: NPM install
         run: npm ci --include-workspace-root -w packages/portal
       -
-        name: Run unit tests
-        run: node --expose-gc --no-compilation-cache node_modules/jest/bin/jest.js --config packages/portal/jest.config.js --coverage --maxWorkers 2
+        name: Run unit tests with coverage reporting
+        run: npm run test:coverage:ci
       -
-        # TODO: make into separate job, depending on test-unit, and being supplied
-        #       its coverage output?
+        name: Archive code coverage
+        run: |
+          tar -cf packages-portal-coverage.tar packages/portal/coverage
+      -
+        name: Upload code coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: packages-portal-coverage
+          path: packages-portal-coverage.tar
+
+  sonarcloud:
+    runs-on: ubuntu-latest
+    needs: [test-unit]
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+        with:
+          # For SonarCloud to blame culprits
+          fetch-depth: 0
+      -
+        name: Download code coverage
+        uses: actions/download-artifact@v3
+        with:
+          name: packages-portal-coverage
+          path: .
+      -
+        name: Unarchive code coverage
+        run: tar -xf packages-portal-coverage.tar && rm packages-portal-coverage.tar
+      -
         name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v1.6
+        uses: sonarsource/sonarcloud-github-action@v1.7
         with:
           projectBaseDir: packages/portal
         env:

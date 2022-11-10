@@ -10,7 +10,10 @@
     "lokalise": "node --require dotenv/config bin/lokalise.js",
     "start:inspect": "node --inspect node_modules/.bin/nuxt-cli start",
     "start": "nuxt-cli start",
+    "test:coverage": "npm run test:unit -- --coverage",
+    "test:coverage:ci": "npm run test:unit -- --coverage --maxWorkers 2",
     "test:size": "docker build -t europeana/portal.js-test-size tests/size && [ -e .nuxt/dist ] || npm run build && docker run --mount type=bind,source=\"$(pwd)\"/.nuxt,target=/app/.nuxt --mount type=bind,source=\"$(pwd)\"/tests/size/.size-limit.json,target=/app/.size-limit.json europeana/portal.js-test-size",
+    "test:unit": "node --expose-gc --no-compilation-cache ../../node_modules/jest/bin/jest.js --config jest.config.js",
     "version": "node bin/pkg-versions.js && node bin/sonar-project-version.js && git add pkg-versions.js sonar-project.properties"
   },
   "dependencies": {
