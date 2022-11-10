@@ -192,7 +192,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: packages-portal-coverage
-          path: packages-portal-coverage.tar
+          path: .
       -
         name: Unarchive code coverage
         run: tar -xf packages-portal-coverage.tar && rm packages-portal-coverage.tar
