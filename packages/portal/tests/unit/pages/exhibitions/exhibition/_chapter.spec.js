@@ -2,6 +2,7 @@ import exhibitionChapters from '@/mixins/exhibitionChapters';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../../utils';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 import page from '@/pages/exhibitions/_exhibition/_chapter';
 
@@ -45,12 +46,23 @@ const factory = (heroImage) => shallowMountNuxt(page, {
         optimisedSrc: (img) => `${img?.url}?optimised`
       }
     },
+    $store: {
+      commit: sinon.spy()
+    },
     $t: key => key,
     $tc: () => {}
   }
 });
 
 describe('pages/exhibitions/_exhibition/_chapter', () => {
+  it('stores pageMeta', async() => {
+    const wrapper = factory();
+
+    await wrapper.vm.fetch();
+
+    expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
+  });
+
   describe('pageMeta', () => {
     it('uses optimised hero image for og:image', () => {
       const wrapper = factory(heroImageExample);

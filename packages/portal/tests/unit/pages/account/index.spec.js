@@ -50,16 +50,26 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
 });
 
 describe('pages/account/index.vue', () => {
-  describe('when visiting the account page', () => {
-    const wrapper = factory();
+  describe('fetch', () => {
+    it('writes pageMeta to the store', async() => {
+      const wrapper = factory();
 
-    it('fetches the likes of the logged in user', async() => {
       await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
+    });
+  });
+
+  describe('when visiting the account page', () => {
+    it('fetches the likes of the logged in user', () => {
+      const wrapper = factory();
 
       expect(wrapper.vm.$store.dispatch.calledWith('set/fetchLikes')).toBe(true);
     });
 
     it('sets the page meta title to the localised account title key', () => {
+      const wrapper = factory();
+
       expect(wrapper.vm.pageMeta.title).toBe('account.title');
     });
   });

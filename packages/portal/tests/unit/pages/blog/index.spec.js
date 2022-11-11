@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 import page from '@/pages/blog/index';
 
@@ -32,6 +33,9 @@ const factory = () => shallowMountNuxt(page, {
     };
   },
   mocks: {
+    $store: {
+      commit: sinon.spy()
+    },
     $t: key => key,
     $route: { query: null },
     $auth: {
@@ -41,6 +45,16 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('Blog post index page', () => {
+  describe('fetch', () => {
+    it('stores pageMeta', () => {
+      const wrapper = factory();
+
+      wrapper.vm.fetch();
+
+      expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
+    });
+  });
+  
   describe('pagination', () => {
     it('has a pagination nav', () => {
       const wrapper = factory();

@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 import page from '@/pages/blog/_';
 
@@ -31,6 +32,9 @@ const factory = () => shallowMountNuxt(page, {
   },
   mocks: {
     $features: {},
+    $store: {
+      commit: sinon.spy()
+    },
     $t: key => key,
     $auth: {
       loggedIn: false
@@ -39,6 +43,16 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('Blog post page', () => {
+  describe('fetch', () => {
+    it('stores pageMeta', () => {
+      const wrapper = factory();
+
+      wrapper.vm.fetch();
+
+      expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
+    });
+  });
+
   describe('pageMeta()', () => {
     it('uses hero image for og:image', () => {
       const wrapper = factory();
