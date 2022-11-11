@@ -58,7 +58,7 @@
     props: {
       titlePath: {
         type: String,
-        required: true
+        default: null
       },
       descriptionPath: {
         type: String,

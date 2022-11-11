@@ -104,8 +104,8 @@
           title: this.page.name,
           description: this.page.description,
           ogType: 'article',
-          ogImage: this.socialMediaImageOptimisedUrl,
-          ogImageAlt: this.socialMediaImageAlt
+          ogImage: this.socialMediaImage ? this.socialMediaImageOptimisedUrl : null,
+          ogImageAlt: this.socialMediaImage ? this.socialMediaImageAlt : null
         };
       },
       socialMediaImage() {

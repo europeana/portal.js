@@ -556,21 +556,11 @@ describe('pages/collections/_type/_', () => {
   });
 
   describe('the head title', () => {
-    describe('when fetchState has error', () => {
-      it('uses translation of "Error"', () => {
-        const wrapper = factory({ ...topicEntity, mocks: { $fetchState: { error: true } } });
-
-        const headTitle = wrapper.vm.head().title;
-
-        expect(headTitle).toBe('error');
-      });
-    });
-
     describe('when fetchState has no error', () => {
       it('uses entity title', () => {
         const wrapper = factory(topicEntity);
 
-        const headTitle = wrapper.vm.head().title;
+        const headTitle = wrapper.vm.pageMeta.title;
 
         expect(headTitle).toBe('Topic');
       });

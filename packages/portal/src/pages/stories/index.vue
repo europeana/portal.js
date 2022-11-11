@@ -26,9 +26,7 @@
       v-else
       class="page white-page gridless-container responsive-font"
     >
-      <ContentHeader
-        :title="pageTitle"
-      />
+      <ContentHeader />
       <CallToActionBanner
         v-if="callsToAction[0]"
         :name="callsToAction[0].name"

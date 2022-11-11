@@ -26,12 +26,12 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     $config: { app: { baseUrl: 'https://www.example.eu' } },
     $features: {},
     $fetchState: options.fetchState,
-    $pageHeadTitle: key => key,
     $path: (path) => path,
     $route: {
       hash: options.hash
     },
     $store: {
+      commit: sinon.spy(),
       dispatch: storeDispatch,
       state: {
         auth: { loggedIn: true,
@@ -59,8 +59,8 @@ describe('pages/account/index.vue', () => {
       expect(wrapper.vm.$store.dispatch.calledWith('set/fetchLikes')).toBe(true);
     });
 
-    it('sets the head title to the localised account title key', () => {
-      expect(wrapper.vm.head().title).toBe('account.title');
+    it('sets the page meta title to the localised account title key', () => {
+      expect(wrapper.vm.pageMeta.title).toBe('account.title');
     });
   });
 

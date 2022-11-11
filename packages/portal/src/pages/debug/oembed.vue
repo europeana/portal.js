@@ -80,17 +80,17 @@
       this.$store.commit('pageMeta/set', this.pageMeta);
     },
 
-    watch: {
-      '$route.query.url': '$fetch',
-      '$route.query.endpoint': '$fetch'
-    },
-
     computed: {
       pageMeta() {
         return {
           title: 'oEmbed'
         };
       }
+    },
+
+    watch: {
+      '$route.query.url': '$fetch',
+      '$route.query.endpoint': '$fetch'
     },
 
     methods: {

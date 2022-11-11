@@ -82,16 +82,15 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-    fetch() {
-      this.$store.commit('pageMeta/set', this.pageMeta);
-    },
     data() {
       return {
         perPage: PER_PAGE,
         page: null
       };
     },
-    watchQuery: ['page'],
+    fetch() {
+      this.$store.commit('pageMeta/set', this.pageMeta);
+    },
     computed: {
       pageMeta() {
         return {
@@ -99,6 +98,7 @@
         };
       }
     },
+    watchQuery: ['page'],
     methods: {
       imageUrl(image) {
         return image?.image?.url;

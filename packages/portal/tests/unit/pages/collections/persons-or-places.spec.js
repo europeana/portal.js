@@ -46,6 +46,7 @@ const factory = () => shallowMountNuxt(page, {
     },
     $pageHeadTitle: key => key,
     $store: {
+      commit: sinon.spy(),
       state: {
         sanitised: {
           page: 1
@@ -97,7 +98,7 @@ describe('pages/collections/persons-or-places', () => {
     it('includes translated title', () => {
       const wrapper = factory();
 
-      expect(wrapper.vm.head().title).toBe('pages.collections.persons.title');
+      expect(wrapper.vm.pageMeta.title).toBe('pages.collections.persons.title');
     });
   });
 });

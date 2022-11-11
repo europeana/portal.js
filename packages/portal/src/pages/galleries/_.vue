@@ -278,7 +278,7 @@
           title: this.displayTitle.values[0],
           description: this.displayDescription?.values?.[0],
           ogType: 'article',
-          ogImage: { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl }
+          ogImage: this.shareMediaUrl
         };
       },
       setGalleriesEnabled() {

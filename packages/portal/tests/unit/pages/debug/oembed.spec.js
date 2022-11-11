@@ -20,6 +20,9 @@ const factory = async({ data = {}, mocks = {} } = {}) => {
         query: {}
       },
       $goto: sinon.spy(),
+      $store: {
+        commit: sinon.spy()
+      },
       $t: (key) => key,
       ...mocks
     },
@@ -116,7 +119,7 @@ describe('pages/debug/oembed', () => {
     it('sets title', async() => {
       const wrapper = await factory();
 
-      const headTitle = wrapper.vm.head().title;
+      const headTitle = wrapper.vm.pageMeta.title;
 
       expect(headTitle).toBe('oEmbed');
     });

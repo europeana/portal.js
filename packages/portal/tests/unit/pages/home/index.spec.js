@@ -89,6 +89,7 @@ const factory = ({ themes = [], $features = {}, data = {} } = {}) => shallowMoun
     $route: { query: {} },
     $t: (key) => key,
     $store: {
+      commit: sinon.spy(),
       state: {
         search: { allThemes: themes }
       }
@@ -138,22 +139,22 @@ describe('pages/home/index', () => {
     });
   });
 
-  describe('head', () => {
-    describe('meta', () => {
+  describe('computed', () => {
+    describe('pageMeta', () => {
       it('uses localised page title for title field', () => {
         const wrapper = factory();
 
-        const headMeta = wrapper.vm.head().meta;
+        const pageMeta = wrapper.vm.pageMeta;
 
-        expect(headMeta.find(meta => meta.name === 'title')?.content).toBe('homePage.title');
+        expect(pageMeta.title).toBe('homePage.title');
       });
 
       it('uses localised page sub-headline for description field', () => {
         const wrapper = factory();
 
-        const headMeta = wrapper.vm.head().meta;
+        const pageMeta = wrapper.vm.pageMeta;
 
-        expect(headMeta.find(meta => meta.name === 'description')?.content).toBe('homePage.subHeadline');
+        expect(pageMeta.description).toBe('homePage.subHeadline');
       });
 
       describe('og:image', () => {
@@ -168,9 +169,9 @@ describe('pages/home/index', () => {
           await wrapper.setData({ socialMediaImage: image });
           await wrapper.vm.$nextTick();
 
-          const headMeta = wrapper.vm.head().meta;
+          const pageMeta = wrapper.vm.pageMeta;
 
-          expect(headMeta.find(meta => meta.property === 'og:image')?.content).toBe(expected);
+          expect(pageMeta.ogImage).toBe(expected);
         });
 
         it('falls back to CTF background image', async() => {
@@ -178,15 +179,13 @@ describe('pages/home/index', () => {
           await wrapper.setData({ backgroundImage: { image } });
           await wrapper.vm.$nextTick();
 
-          const headMeta = wrapper.vm.head().meta;
+          const pageMeta = wrapper.vm.pageMeta;
 
-          expect(headMeta.find(meta => meta.property === 'og:image')?.content).toBe(expected);
+          expect(pageMeta.ogImage).toBe(expected);
         });
       });
     });
-  });
 
-  describe('computed', () => {
     describe('callsToAction', () => {
       it('returns the PrimaryCallToAction-type sections', () => {
         const data = {

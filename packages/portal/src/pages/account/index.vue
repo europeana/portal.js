@@ -181,14 +181,6 @@
       };
     },
 
-    async mounted() {
-      this.fetchLikes();
-      await this.$store.dispatch('set/fetchCreations');
-      if (this.userIsEditor) {
-        await this.$store.dispatch('set/fetchCurations');
-      }
-    },
-
     fetch() {
       this.$store.commit('pageMeta/set', this.pageMeta);
     },
@@ -212,6 +204,14 @@
       }),
       activeTab() {
         return this.$route.hash || this.tabHashes.likes;
+      }
+    },
+
+    async mounted() {
+      this.fetchLikes();
+      await this.$store.dispatch('set/fetchCreations');
+      if (this.userIsEditor) {
+        await this.$store.dispatch('set/fetchCurations');
       }
     },
 

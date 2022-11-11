@@ -38,7 +38,7 @@
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNavInput from '../../components/generic/PaginationNavInput';
-  
+
   const PER_PAGE = 20;
 
   export default {
@@ -75,10 +75,6 @@
         });
     },
 
-    fetch() {
-      this.$store.commit('pageMeta/set', this.pageMeta);
-    },
-
     data() {
       return {
         perPage: PER_PAGE,
@@ -86,7 +82,9 @@
       };
     },
 
-    watchQuery: ['page'],
+    fetch() {
+      this.$store.commit('pageMeta/set', this.pageMeta);
+    },
 
     computed: {
       pageMeta() {
@@ -95,6 +93,8 @@
         };
       }
     },
+
+    watchQuery: ['page'],
 
     methods: {
       imageUrl(post) {

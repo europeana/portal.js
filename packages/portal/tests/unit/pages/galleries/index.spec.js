@@ -146,6 +146,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     },
     $pageHeadTitle: key => key,
     $store: {
+      commit: sinon.spy(),
       state: {
         sanitised: {
           page: 1
@@ -168,11 +169,11 @@ const factory = (options = {}) => shallowMountNuxt(page, {
 });
 
 describe('Gallery index page', () => {
-  describe('head()', () => {
+  describe('pageMeta', () => {
     it('sets the page title as galleries.galleries(from locale file)', () => {
       const wrapper = factory();
 
-      const headTitle = wrapper.vm.head().title;
+      const headTitle = wrapper.vm.pageMeta.title;
 
       expect(headTitle).toEqual('galleries.galleries');
     });

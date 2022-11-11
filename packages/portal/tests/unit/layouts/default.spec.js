@@ -29,6 +29,9 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
   mocks: {
     $store: {
       state: {
+        pageMeta: {
+          data: {}
+        },
         breadcrumb: {}
       },
       getters: {

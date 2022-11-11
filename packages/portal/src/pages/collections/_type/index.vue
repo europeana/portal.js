@@ -48,17 +48,17 @@
       }
       this.$store.commit('pageMeta/set', this.pageMeta);
     },
-    watch: {
-      '$route': '$fetch'
-    },
-    watchQuery: ['page'],
     computed: {
       pageMeta() {
         return {
           title: this.$t(`pages.collections.${this.$route.params.type}.title`)
         };
       }
-    }
+    },
+    watch: {
+      '$route': '$fetch'
+    },
+    watchQuery: ['page']
   };
   </script>
 

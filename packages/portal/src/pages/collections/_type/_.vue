@@ -83,7 +83,7 @@
   import SearchInterface from '@/components/search/SearchInterface';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
-  
+
   import themes from '@/plugins/europeana/themes';
   import {
     getEntityUri, getEntityQuery, normalizeEntityId

@@ -26,6 +26,9 @@ const record = {
 };
 
 const store = new Vuex.Store({
+  mutations: {
+    'pageMeta/set': () => {}
+  },
   getters: {
     'http/canonicalUrlWithoutLocale': () => 'https://www.example.org/item/123/abc'
   }
@@ -314,48 +317,24 @@ describe('pages/item/_.vue', () => {
     });
   });
 
-  describe('head', () => {
-    it('uses first media large thumbnail for og:image', async() => {
-      const thumbnailUrl = 'http://example.org/image/large.jpg';
-      const wrapper = factory();
-      await wrapper.setData({
-        media: [
-          {
-            thumbnails: {
-              large: thumbnailUrl
+  describe('computed', () => {
+    describe('pageMeta', () => {
+      it('uses first media large thumbnail for og:image', async() => {
+        const thumbnailUrl = 'http://example.org/image/large.jpg';
+        const wrapper = factory();
+        await wrapper.setData({
+          media: [
+            {
+              thumbnails: {
+                large: thumbnailUrl
+              }
             }
-          }
-        ]
-      });
-
-      const headMeta = wrapper.vm.head().meta;
-
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(thumbnailUrl);
-    });
-
-    describe('meta title', () => {
-      describe('when fetch errored', () => {
-        it('uses custom meta title path, if set', () => {
-          const mocks = { $fetchState: { error: { message: 'Item not found', metaTitlePath: 'error.itemNotFound.metaTitle' } } };
-          const wrapper = factory({ mocks });
-
-          const headMeta = wrapper.vm.head().meta;
-
-          expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
-          expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('error.itemNotFound.metaTitle');
+          ]
         });
 
-        it('falls back to generic error title', () => {
-          const mocks = { $fetchState: { error: { message: 'Error' } } };
+        const pageMeta = wrapper.vm.pageMeta;
 
-          const wrapper = factory({ mocks });
-
-          const headMeta = wrapper.vm.head().meta;
-
-          expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
-          expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('error');
-        });
+        expect(pageMeta.ogImage).toBe(thumbnailUrl);
       });
 
       it('uses the title in current language', async() => {
@@ -363,10 +342,9 @@ describe('pages/item/_.vue', () => {
 
         await wrapper.vm.fetch();
 
-        const headMeta = wrapper.vm.head().meta;
+        const pageMeta = wrapper.vm.pageMeta;
 
-        expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
-        expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('Item example');
+        expect(pageMeta.title).toBe('Item example');
       });
     });
   });

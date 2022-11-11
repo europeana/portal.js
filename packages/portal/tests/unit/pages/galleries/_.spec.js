@@ -118,14 +118,13 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('Gallery post page', () => {
-  describe('head()', () => {
+  describe('pageMeta', () => {
     it('uses the first image for og:image', () => {
       const wrapper = factory();
 
-      const headMeta = wrapper.vm.head().meta;
+      const pageMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https://example.org/image&type=IMAGE');
+      expect(pageMeta.ogImage).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https://example.org/image&type=IMAGE');
     });
   });
 

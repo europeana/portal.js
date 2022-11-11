@@ -40,14 +40,13 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('Blog post page', () => {
-  describe('head()', () => {
+  describe('pageMeta()', () => {
     it('uses hero image for og:image', () => {
       const wrapper = factory();
 
-      const headMeta = wrapper.vm.head().meta;
+      const pageMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(heroImageUrl);
+      expect(pageMeta.ogImage).toBe(heroImageUrl);
     });
   });
 });

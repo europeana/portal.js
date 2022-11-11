@@ -76,15 +76,15 @@
         });
     },
 
-    fetch() {
-      this.$store.commit('pageMeta/set', this.pageMeta);
-    },
-
     data() {
       return {
         post: null,
         error: null
       };
+    },
+
+    fetch() {
+      this.$store.commit('pageMeta/set', this.pageMeta);
     },
 
     computed: {
