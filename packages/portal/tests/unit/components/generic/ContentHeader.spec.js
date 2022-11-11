@@ -17,7 +17,16 @@ const factory = (propsData = {}) => mount(ContentHeader, {
     $config: { app: { internalLinkDomain: null } },
     $t: (val) => val,
     $i18n,
-    $path: () => '/'
+    $path: () => '/',
+    $store: {
+      state: {
+        pageMeta: {
+          data: {
+            title: 'stored title'
+          }
+        }
+      }
+    }
   }
 });
 
@@ -27,9 +36,23 @@ const details = {
 };
 
 describe('components/generic/ContentHeader', () => {
-  it('shows a label', () => {
-    const wrapper = factory(details);
+  describe('template', () => {
+    it('shows the page title in an h1', () => {
+      const wrapper = factory(details);
 
-    expect(wrapper.find('[data-qa="context label"]').text()).toBe(details.contextLabel);
+      expect(wrapper.find('h1[data-qa="page title"]').text()).toBe(details.title);
+    });
+
+    it('falls back to the pageMeta store if no title supplied', () => {
+      const wrapper = factory();
+
+      expect(wrapper.find('h1[data-qa="page title"]').text()).toBe('stored title');
+    });
+
+    it('shows a label', () => {
+      const wrapper = factory(details);
+
+      expect(wrapper.find('[data-qa="context label"]').text()).toBe(details.contextLabel);
+    });
   });
 });
