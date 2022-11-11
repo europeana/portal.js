@@ -64,7 +64,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
       get: (key) => options.cookies[key] || {},
       set: () => {}
     },
-    $config: { app: {} },
+    $config: { app: { siteName: 'Europeana' } },
     $nuxtI18nHead: () => nuxtI18nHead,
     ...options.mocks
   },
@@ -227,21 +227,74 @@ describe('layouts/default.vue', () => {
     });
   });
 
-  describe('head()', () => {
-    it('sets i18nHead html attributes', () => {
-      const wrapper = factory();
+  describe('head', () => {
+    describe('title', () => {
+      it('combines page title and site name', () => {
+        const wrapper = factory();
+        const pageTitle = 'Home';
+        wrapper.vm.$store.state.pageMeta.data = { title: pageTitle };
 
-      expect(wrapper.vm.head().htmlAttrs).toEqual(nuxtI18nHead.htmlAttrs);
+        expect(wrapper.vm.head().title).toBe('Home | Europeana');
+      });
     });
-    it('sets i18nHead head links', () => {
-      const wrapper = factory();
+    describe('htmlAttrs', () => {
+      it('includes i18nHead html attributes', () => {
+        const wrapper = factory();
 
-      expect(wrapper.vm.head().link.filter(anylink => nuxtI18nHead.link.some(i18nLink => i18nLink.hid === anylink.hid))).toEqual(nuxtI18nHead.link);
+        expect(wrapper.vm.head().htmlAttrs).toEqual(nuxtI18nHead.htmlAttrs);
+      });
     });
-    it('sets i18nHead head meta tags', () => {
-      const wrapper = factory();
+    describe('link', () => {
+      it('includes i18nHead head links', () => {
+        const wrapper = factory();
 
-      expect(wrapper.vm.head().meta.filter(anyTag => nuxtI18nHead.meta.some(i18nTag => i18nTag.hid === anyTag.hid))).toEqual(nuxtI18nHead.meta);
+        expect(wrapper.vm.head().link.filter(anylink => nuxtI18nHead.link.some(i18nLink => i18nLink.hid === anylink.hid))).toEqual(nuxtI18nHead.link);
+      });
+    });
+    describe('meta', () => {
+      it('includes i18nHead head meta tags', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.head().meta.filter(anyTag => nuxtI18nHead.meta.some(i18nTag => i18nTag.hid === anyTag.hid))).toEqual(nuxtI18nHead.meta);
+      });
+
+      it('includes og:url with canonical URL', () => {
+        const wrapper = factory();
+
+        const headMeta = wrapper.vm.head().meta;
+
+        expect(headMeta.find((tag) => tag.property === 'og:url').content).toBe('/fr');
+      });
+
+      it('defaults description to "Europeana"', () => {
+        const wrapper = factory();
+
+        const headMeta = wrapper.vm.head().meta;
+
+        expect(headMeta.find((tag) => tag.name === 'description').content).toBe('Europeana');
+      });
+
+      it('includes meta tags for pageMeta store', () => {
+        const wrapper = factory();
+        const pageMeta = {
+          title: 'Home',
+          description: 'Europeana',
+          ogImage: 'https://www.example.org/image.jpeg',
+          ogImageAlt: '',
+          ogType: 'website'
+        };
+        wrapper.vm.$store.state.pageMeta.data = pageMeta;
+
+        const headMeta = wrapper.vm.head().meta;
+
+        expect(headMeta.find((tag) => tag.name === 'title').content).toBe(pageMeta.title);
+        expect(headMeta.find((tag) => tag.property === 'og:title').content).toBe(pageMeta.title);
+        expect(headMeta.find((tag) => tag.name === 'description').content).toBe(pageMeta.description);
+        expect(headMeta.find((tag) => tag.property === 'og:description').content).toBe(pageMeta.description);
+        expect(headMeta.find((tag) => tag.property === 'og:type').content).toBe(pageMeta.ogType);
+        expect(headMeta.find((tag) => tag.property === 'og:image').content).toBe(pageMeta.ogImage);
+        expect(headMeta.find((tag) => tag.property === 'og:image:alt').content).toBe(pageMeta.ogImageAlt);
+      });
     });
   });
 });

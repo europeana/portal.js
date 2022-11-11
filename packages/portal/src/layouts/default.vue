@@ -142,7 +142,7 @@
           headMeta.push({ hid: 'description', name: 'description', content: this.pageMeta.data.description });
           headMeta.push({ hid: 'og:description', property: 'og:description', content: this.pageMeta.data.description });
         } else {
-          headMeta.push({ hid: 'description', property: 'description', content: 'Europeana' });
+          headMeta.push({ hid: 'description', name: 'description', content: 'Europeana' });
         }
 
         if (this.pageMeta.data.ogType) {
@@ -152,8 +152,8 @@
         if (this.pageMeta.data.ogImage) {
           headMeta.push({ hid: 'og:image', property: 'og:image', content: this.pageMeta.data.ogImage });
         }
-        if (this.pageMeta.data.ogImageAlt) {
-          headMeta.push({ hid: 'og:image:alt', property: 'og:image', content: this.pageMeta.data.ogImageAlt });
+        if (this.pageMeta.data.ogImageAlt || (this.pageMeta.data.ogImageAlt === '')) {
+          headMeta.push({ hid: 'og:image:alt', property: 'og:image:alt', content: this.pageMeta.data.ogImageAlt });
         }
 
         return headMeta;
