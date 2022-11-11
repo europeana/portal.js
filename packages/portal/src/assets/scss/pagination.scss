@@ -1,11 +1,11 @@
 .pagination-nav-input {
-  .page-link {
-    color: $greyblack;
-    text-decoration: none;
-
-    &:hover {
-      color: $greyblack;
-    }
+  .page-item {
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
   }
 
   .btn-next,
@@ -16,20 +16,23 @@
       background: none;
       border: 0;
       padding: 0;
+      color: $greyblack;
+      text-decoration: none;
+  
+      &:hover {
+        color: $greyblack;
+      }
 
       @media (min-width: $bp-xxxl) {
         font-size: 1vw;
       }
     }
-  }
 
-  .page-item {
-    font-weight: 600;
-    padding: 0.5rem 0.75rem;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
+    &.disabled {
+      .page-link {
+        color: $mediumgrey;
+      }
+    }
   }
 
   .btn-prev {
