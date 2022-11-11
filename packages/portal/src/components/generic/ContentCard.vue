@@ -239,7 +239,7 @@
       },
       /**
        * Style variant to use
-       * @values default, entity, mini, list, mosaic
+       * @values default, mini, list, mosaic
        */
       variant: {
         type: String,

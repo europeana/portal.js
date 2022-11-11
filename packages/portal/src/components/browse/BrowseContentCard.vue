@@ -11,6 +11,7 @@
     :omit-all-uris="true"
     :image-optimisation-options="{ width: 510 }"
     :logo="fields.logo"
+    :variant="variant"
   />
 </template>
 
@@ -30,6 +31,10 @@
         default: () => ({})
       },
       cardType: {
+        type: String,
+        default: null
+      },
+      variant: {
         type: String,
         default: null
       }

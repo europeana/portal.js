@@ -37,6 +37,7 @@
             :key="index"
             :fields="card"
             :card-type="card['__typename']"
+            :variant="card['__variant']"
           />
         </template>
       </b-card-group>
