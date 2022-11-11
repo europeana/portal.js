@@ -70,7 +70,7 @@
 
     computed: {
       localTitle() {
-        return this.title || this.$store.state.page.title;
+        return this.title || this.$store.state.pageMeta.data.title;
       }
     }
   };

@@ -83,7 +83,7 @@
         });
     },
     fetch() {
-      this.$store.commit('page/setTitle', this.$tc('exhibitions.exhibitions', 2));
+      this.$store.commit('pageMeta/set', this.pageMeta);
     },
     data() {
       return {
@@ -92,6 +92,13 @@
       };
     },
     watchQuery: ['page'],
+    computed: {
+      pageMeta() {
+        return {
+          title: this.$tc('exhibitions.exhibitions', 2)
+        };
+      }
+    },
     methods: {
       imageUrl(image) {
         return image?.image?.url;

@@ -52,7 +52,6 @@
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
   import EmbedOEmbed from '@/components/embed/EmbedOEmbed';
-  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'DebugOEmbedPage',
@@ -61,8 +60,6 @@
       ContentHeader,
       EmbedOEmbed
     },
-
-    mixins: [pageMixin],
 
     data() {
       return {
@@ -79,6 +76,8 @@
 
       this.endpoint = this.$route.query.endpoint;
       this.formEndpoint = this.endpoint;
+
+      this.$store.commit('pageMeta/set', this.pageMeta);
     },
 
     watch: {
@@ -87,8 +86,10 @@
     },
 
     computed: {
-      pageTitle() {
-        return 'oEmbed';
+      pageMeta() {
+        return {
+          title: 'oEmbed'
+        };
       }
     },
 

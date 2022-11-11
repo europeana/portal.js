@@ -141,16 +141,15 @@
         });
     },
     fetch() {
-      this.$store.commit('page/setTitle', `${this.name} - ${this.$t('exhibitions.credits')}`);
-    },
-    head() {
-      return {
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-      };
+      this.$store.commit('pageMeta/set', this.pageMeta);
     },
     computed: {
+      pageMeta() {
+        return {
+          title: `${this.name} - ${this.$t('exhibitions.credits')}`,
+          ogType: 'article'
+        };
+      },
       htmlCredits() {
         if (this.credits === undefined) {
           return false;

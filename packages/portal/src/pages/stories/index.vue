@@ -77,7 +77,6 @@
   import ContentHeader from '@/components/generic/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
-  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'StoriesPage',
@@ -91,8 +90,6 @@
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
       PaginationNavInput
     },
-
-    mixins: [pageMixin],
 
     data() {
       return {
@@ -112,21 +109,17 @@
         this.fetchPage(),
         this.fetchStories()
       ]);
+      this.$store.commit('pageMeta/set', this.pageMeta);
       this.$scrollTo && this.$scrollTo('#header');
     },
 
-    head() {
-      // TODO: add description, social media image, etc
-      return {
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-      };
-    },
-
     computed: {
-      pageTitle() {
-        return this.$t('storiesPage.title');
+      // TODO: add description, social media image, etc
+      pageMeta() {
+        return {
+          title: this.$t('storiesPage.title'),
+          ogType: 'article'
+        };
       },
       callsToAction() {
         return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');

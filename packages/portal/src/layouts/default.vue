@@ -116,10 +116,7 @@
           { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
         ],
         meta: [
-          { hid: 'description', property: 'description', content: 'Europeana' },
-          { hid: 'title', name: 'title', content: this.title },
-          { hid: 'og:title', property: 'og:title', content: this.title },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
+          ...this.headMeta,
           ...i18nHead.meta
         ]
       };
@@ -127,11 +124,39 @@
 
     computed: {
       headTitle() {
-        return [this.title, this.$config.app.siteName].filter((part) => !!part).join(' | ');
+        return [this.pageMeta.data.title, this.$config.app.siteName].filter((part) => !!part).join(' | ');
       },
 
-      title() {
-        return this.$store.state.page.title;
+      pageMeta() {
+        return this.$store.state.pageMeta;
+      },
+
+      headMeta() {
+        const headMeta = [
+          { hid: 'title', name: 'title', content: this.pageMeta.data.title },
+          { hid: 'og:title', property: 'og:title', content: this.pageMeta.data.title },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+        ];
+
+        if (this.pageMeta.data.description) {
+          headMeta.push({ hid: 'description', name: 'description', content: this.pageMeta.data.description });
+          headMeta.push({ hid: 'og:description', property: 'og:description', content: this.pageMeta.data.description });
+        } else {
+          headMeta.push({ hid: 'description', property: 'description', content: 'Europeana' });
+        }
+
+        if (this.pageMeta.data.ogType) {
+          headMeta.push({ hid: 'og:type', property: 'og:type', content: this.pageMeta.data.ogType });
+        }
+
+        if (this.pageMeta.data.ogImage) {
+          headMeta.push({ hid: 'og:image', property: 'og:image', content: this.pageMeta.data.ogImage });
+        }
+        if (this.pageMeta.data.ogImageAlt) {
+          headMeta.push({ hid: 'og:image:alt', property: 'og:image', content: this.pageMeta.data.ogImageAlt });
+        }
+
+        return headMeta;
       },
 
       breadcrumbs() {

@@ -144,22 +144,18 @@
         });
     },
     fetch() {
-      this.$store.commit('page/setTitle', this.name);
-    },
-    head() {
-      return {
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ].concat(this.description ? [
-          { hid: 'description', name: 'description', content: this.description },
-          { hid: 'og:description', property: 'og:description', content: this.description }
-        ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
-          { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description || '' }
-        ] : [])
-      };
+      this.$store.commit('pageMeta/set', this.pageMeta);
     },
     computed: {
+      pageMeta() {
+        return {
+          title: this.name,
+          description: this.description,
+          ogType: 'article',
+          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
+        };
+      },
       hasRelatedCategoryTags() {
         return (this.categoriesCollection?.items?.length || 0) > 0;
       },

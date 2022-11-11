@@ -46,7 +46,6 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import BrowsePage from '@/components/browse/BrowsePage';
   import StaticPage from '@/components/static/StaticPage';
-  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'IndexPage',
@@ -57,8 +56,6 @@
       LoadingSpinner,
       StaticPage
     },
-
-    mixins: [pageMixin],
 
     props: {
       slug: {
@@ -97,23 +94,20 @@
         }
         throw new Error(this.$t('messages.notFound'));
       }
-    },
 
-    head() {
-      return {
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-        ].concat(this.page.description ? [
-          { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:description', property: 'og:description', content: this.page.description }
-        ] : []).concat(this.socialMediaImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.socialMediaImageOptimisedUrl },
-          { hid: 'og:image:alt', property: 'og:image:alt', content: this.socialMediaImageAlt }
-        ] : [])
-      };
+      this.$store.commit('pageMeta/set', this.pageMeta);
     },
 
     computed: {
+      pageMeta() {
+        return {
+          title: this.page.name,
+          description: this.page.description,
+          ogType: 'article',
+          ogImage: this.socialMediaImageOptimisedUrl,
+          ogImageAlt: this.socialMediaImageAlt
+        };
+      },
       socialMediaImage() {
         // use social media image if set in Contentful, else null
         return this.page.image || null;
@@ -126,9 +120,6 @@
       },
       socialMediaImageAlt() {
         return this.socialMediaImage?.description || '';
-      },
-      pageTitle() {
-        return this.$fetchState.error ? this.$t('error') : this.page.name;
       }
     }
   };

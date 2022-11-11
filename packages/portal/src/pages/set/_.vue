@@ -17,6 +17,7 @@
       data-qa="error message container"
       :error="$fetchState.error.message"
       :title-path="$fetchState.error.titlePath"
+      :page-title-path="$fetchState.error.pageTitlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
       class="pt-5"
@@ -161,7 +162,6 @@
     SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
   } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import pageMixin from '@/mixins/page';
 
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
@@ -178,8 +178,6 @@
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations')
     },
-
-    mixins: [pageMixin],
 
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
@@ -205,6 +203,8 @@
           await this.$store.commit('entity/setFeaturedSetId', this.setId);
           await this.$store.dispatch('entity/getPins');
         }
+
+        this.$store.commit('pageMeta/set', this.pageMeta);
       } catch (error) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = error.statusCode || 500;
@@ -212,31 +212,21 @@
         if (error.statusCode === 403) {
           error.titlePath = 'errorMessage.galleryUnauthorised.title';
           error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
-          error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
+          error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
         }
         throw error;
       }
     },
 
-    head() {
-      return {
-        meta: [
-          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
-          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.displayDescription && this.displayDescription.values[0] ? [
-            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
-            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
-          ] : [])
-      };
-    },
-
     computed: {
-      pageTitle() {
-        return this.displayTitle.values[0];
+      pageMeta() {
+        return {
+          title: this.displayTitle.values[0],
+          description: this.displayDescription?.values?.[0],
+          ogType: 'article',
+          ogImage: this.shareMediaUrl
+        };
       },
       fetchState() {
         return this.$fetchState;

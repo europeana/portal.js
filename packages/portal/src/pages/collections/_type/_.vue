@@ -83,8 +83,7 @@
   import SearchInterface from '@/components/search/SearchInterface';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
-  import pageMixin from '@/mixins/page';
-
+  
   import themes from '@/plugins/europeana/themes';
   import {
     getEntityUri, getEntityQuery, normalizeEntityId
@@ -106,7 +105,6 @@
 
     mixins: [
       europeanaEntitiesOrganizationsMixin,
-      pageMixin,
       redirectToPrefPathMixin
     ],
 
@@ -177,25 +175,19 @@
           this.$store.commit('search/setCollectionLabel', this.title.values[0]);
           const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
 
+          this.$store.commit('pageMeta/set', this.pageMeta);
+
           return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
         });
     },
 
-    head() {
-      return {
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.descriptionText ? [
-            { hid: 'description', name: 'description', content: this.descriptionText },
-            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-          ] : [])
-      };
-    },
-
     computed: {
-      pageTitle() {
-        return this.$fetchState.error ? this.$t('error') : this.title.values[0];
+      pageMeta() {
+        return {
+          title: this.title.values?.[0],
+          description: this.descriptionText,
+          ogType: 'article'
+        };
       },
       _page() {
         return this.$page;

@@ -40,7 +40,6 @@
 <script>
   import allThemesMixin from '@/mixins/allThemes';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-  import pageMixin from '@/mixins/page';
   import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatest from '@/components/home/HomeLatest';
@@ -57,7 +56,7 @@
       StackedCardsSwiper
     },
 
-    mixins: [allThemesMixin, collectionLinkGenMixin, pageMixin],
+    mixins: [allThemesMixin, collectionLinkGenMixin],
 
     data() {
       return {
@@ -69,22 +68,17 @@
 
     async fetch() {
       await this.fetchContentfulEntry();
-    },
-
-    head() {
-      return {
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'description', name: 'description', content: this.pageSubHeadline },
-          { hid: 'og:description', property: 'og:description', content: this.pageSubHeadline },
-          { hid: 'og:image', property: 'og:image', content: this.headMetaOgImage }
-        ]
-      };
+      this.$store.commit('pageMeta/set', this.pageMeta);
     },
 
     computed: {
-      pageTitle() {
-        return this.$t('homePage.title', { digital: this.$t('homePage.titleDigital') });
+      pageMeta() {
+        return {
+          title: this.$t('homePage.title', { digital: this.$t('homePage.titleDigital') }),
+          description: this.pageSubHeadline,
+          ogType: 'website',
+          ogImage: this.headMetaOgImage
+        };
       },
 
       pageSubHeadline() {

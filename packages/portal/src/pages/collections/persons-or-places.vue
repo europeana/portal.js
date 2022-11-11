@@ -37,7 +37,6 @@
   import ContentHeader from '@/components/generic/ContentHeader';
   import ContentCard from '@/components/generic/ContentCard';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
-  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'CollectionsPersonsOrPlacesIndexPage',
@@ -49,8 +48,6 @@
     },
 
     middleware: 'sanitisePageQuery',
-
-    mixins: [pageMixin],
 
     data() {
       return {
@@ -77,14 +74,18 @@
 
         this.entities = response.entities;
         this.total = response.total;
+
+        this.$store.commit('pageMeta/set', this.pageMeta);
       } finally {
         this.$scrollTo && this.$scrollTo('#header');
       }
     },
 
     computed: {
-      pageTitle() {
-        return this.$t(`pages.collections.${this.personsOrPlaces}.title`);
+      pageMeta() {
+        return {
+          title: this.$t(`pages.collections.${this.personsOrPlaces}.title`)
+        };
       },
       personsOrPlaces() {
         return this.$route.path.split('/').pop();

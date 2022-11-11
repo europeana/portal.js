@@ -137,7 +137,6 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import stringify from '@/mixins/stringify';
-  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'ItemPage',
@@ -153,8 +152,7 @@
     },
 
     mixins: [
-      stringify,
-      pageMixin
+      stringify
     ],
 
     data() {
@@ -192,6 +190,7 @@
         for (const key in response.record) {
           this[key] = response.record[key];
         }
+        this.$store.commit('pageMeta/set', this.pageMeta);
         if (process.client) {
           this.trackCustomDimensions();
         }
@@ -209,20 +208,14 @@
       }
     },
 
-    head() {
-      return {
-        meta: [
-          { hid: 'description', name: 'description', content: this.metaDescription },
-          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-      };
-    },
-
     computed: {
-      pageTitle() {
-        return this.titlesInCurrentLanguage[0]?.value || this.$t('record.record');
+      pageMeta() {
+        return {
+          title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
+          description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
+          ogType: 'article',
+          ogImage: this.media[0]?.thumbnails?.large
+        };
       },
       keywords() {
         // Convert collection of annotations' prefLabels into a single langMap
@@ -286,15 +279,6 @@
           return null;
         }
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
-      },
-      metaDescription() {
-        if (isEmpty(this.descriptionInCurrentLanguage)) {
-          return '';
-        }
-        return this.descriptionInCurrentLanguage.values[0] || '';
-      },
-      pageHeadMetaOgImage() {
-        return this.media[0]?.thumbnails?.large || null;
       },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');

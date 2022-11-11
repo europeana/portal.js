@@ -38,8 +38,7 @@
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNavInput from '../../components/generic/PaginationNavInput';
-  import pageMixin from '@/mixins/page';
-
+  
   const PER_PAGE = 20;
 
   export default {
@@ -50,8 +49,6 @@
       ContentCard,
       PaginationNavInput
     },
-
-    mixins: [pageMixin],
 
     middleware: 'sanitisePageQuery',
 
@@ -78,6 +75,10 @@
         });
     },
 
+    fetch() {
+      this.$store.commit('pageMeta/set', this.pageMeta);
+    },
+
     data() {
       return {
         perPage: PER_PAGE,
@@ -88,8 +89,10 @@
     watchQuery: ['page'],
 
     computed: {
-      pageTitle() {
-        return this.$t('blog.blog');
+      pageMeta() {
+        return {
+          title: this.$t('blog.blog')
+        };
       }
     },
 

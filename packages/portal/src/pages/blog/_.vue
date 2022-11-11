@@ -25,7 +25,6 @@
 
 <script>
   import BlogPost from '@/components/blog/BlogPost';
-  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'BlogPostPage',
@@ -34,8 +33,6 @@
       BlogPost,
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
-
-    mixins: [pageMixin],
 
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -79,6 +76,10 @@
         });
     },
 
+    fetch() {
+      this.$store.commit('pageMeta/set', this.pageMeta);
+    },
+
     data() {
       return {
         post: null,
@@ -86,24 +87,15 @@
       };
     },
 
-    head() {
-      return {
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ].concat(this.post.description ? [
-          { hid: 'description', name: 'description', content: this.post.description },
-          { hid: 'og:description', property: 'og:description', content: this.post.description }
-        ] : [])
-          .concat(this.post.primaryImageOfPage ? [
-            { hid: 'og:image', property: 'og:image', content: this.post.primaryImageOfPage.image.url },
-            { hid: 'og:image:alt', property: 'og:image:alt', content: this.post.primaryImageOfPage.image.description || '' }
-          ] : [])
-      };
-    },
-
     computed: {
-      pageTitle() {
-        return this.post.name;
+      pageMeta() {
+        return {
+          title: this.post.name,
+          description: this.post.description,
+          ogType: 'article',
+          ogImage: this.post.primaryImageOfPage?.image?.url,
+          ogImageAlt: this.post.primaryImageOfPage?.image?.description || ''
+        };
       },
       hero() {
         return this.post.primaryImageOfPage || null;

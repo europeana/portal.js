@@ -200,7 +200,6 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
-  import pageMixin from '@/mixins/page';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
   // TODO: the following imports are only needed for contentful Galleries.
@@ -226,8 +225,7 @@
     mixins: [
       redirectToPrefPathMixin,
       // TODO: markdown is only used in contentful galleries
-      stripMarkdown,
-      pageMixin
+      stripMarkdown
     ],
     async beforeRouteLeave(_to, _from, next) {
       if (this.setGalleriesEnabled) {
@@ -272,22 +270,16 @@
       } else {
         await this.fetchContentfulGallery();
       }
-    },
-    head() {
-      return {
-        meta: [
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.displayDescription && this.displayDescription.values[0] ? [
-            { hid: 'description', name: 'description', content: this.displayDescription.values[0] },
-            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0] }
-          ] : [])
-      };
+      this.$store.commit('pageMeta/set', this.pageMeta);
     },
     computed: {
-      pageTitle() {
-        return this.displayTitle.values[0];
+      pageMeta() {
+        return {
+          title: this.displayTitle.values[0],
+          description: this.displayDescription?.values?.[0],
+          ogType: 'article',
+          ogImage: { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl }
+        };
       },
       setGalleriesEnabled() {
         return this.$features.setGalleries;

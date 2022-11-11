@@ -151,7 +151,6 @@
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
-  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'AccountIndexPage',
@@ -165,8 +164,7 @@
     },
 
     mixins: [
-      keycloak,
-      pageMixin
+      keycloak
     ],
 
     middleware: 'auth',
@@ -183,7 +181,7 @@
       };
     },
 
-    async fetch() {
+    async mounted() {
       this.fetchLikes();
       await this.$store.dispatch('set/fetchCreations');
       if (this.userIsEditor) {
@@ -191,11 +189,15 @@
       }
     },
 
-    fetchOnServer: false,
+    fetch() {
+      this.$store.commit('pageMeta/set', this.pageMeta);
+    },
 
     computed: {
-      pageTitle() {
-        return this.$t('account.title');
+      pageMeta() {
+        return {
+          title: this.$t('account.title')
+        };
       },
       userIsEditor() {
         return this.loggedInUser?.resource_access?.entities?.roles?.includes('editor') &&

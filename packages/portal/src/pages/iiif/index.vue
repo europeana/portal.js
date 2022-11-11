@@ -6,14 +6,11 @@
 
 <script>
   import uniq from 'lodash/uniq';
-  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'IIIFPage',
 
     layout: 'minimal',
-
-    mixins: [pageMixin],
 
     asyncData({ query }) {
       return {
@@ -36,6 +33,9 @@
 
     head() {
       return {
+        meta: [
+          { hid: 'title', name: 'title', content: 'IIIF' }
+        ],
         script: [
           { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
         ]
@@ -43,9 +43,6 @@
     },
 
     computed: {
-      pageTitle() {
-        return 'IIIF'
-      },
       miradorViewerOptions() {
         // Doc: https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/config/settings.js
         const options = {

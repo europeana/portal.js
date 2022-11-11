@@ -29,7 +29,6 @@
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
   import ClientOnly from 'vue-client-only';
-  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'CollectionsIndexPage',
@@ -40,23 +39,24 @@
       ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
     },
-    mixins: [pageMixin],
     fetch() {
       if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        this.$store.commit('page/setTitle', this.$t('error'));
         throw new Error('Unknown collection type');
       }
+      this.$store.commit('pageMeta/set', this.pageMeta);
     },
     watch: {
       '$route': '$fetch'
     },
     watchQuery: ['page'],
     computed: {
-      pageTitle() {
-        return this.$t(`pages.collections.${this.$route.params.type}.title`);
+      pageMeta() {
+        return {
+          title: this.$t(`pages.collections.${this.$route.params.type}.title`)
+        };
       }
     }
   };

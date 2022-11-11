@@ -46,7 +46,6 @@
 </template>
 
 <script>
-  import pageMixin from '@/mixins/page';
   import AlertMessage from '@/components/generic/AlertMessage';
 
   export default {
@@ -56,14 +55,16 @@
       AlertMessage
     },
 
-    mixins: [pageMixin],
-
     props: {
       titlePath: {
         type: String,
-        default: null
+        required: true
       },
       descriptionPath: {
+        type: String,
+        default: null
+      },
+      pageTitlePath: {
         type: String,
         default: null
       },
@@ -82,16 +83,19 @@
       fullHeight: {
         type: Boolean,
         default: true
-      },
-      pageTitlePath: {
-        type: String,
-        default: null
       }
     },
 
+    fetch() {
+      this.$store.commit('pageMeta/set', this.pageMeta);
+    },
+
     computed: {
-      pageTitle() {
-        return this.$t(this.pageTitlePath || 'error');
+      pageMeta() {
+        return {
+          title: this.$t(this.pageTitlePath || 'error'),
+          description: this.$t(this.titlePath)
+        };
       },
       errorExplanationAvailable() {
         return this.illustrationSrc || this.titlePath || this.descriptionPath;

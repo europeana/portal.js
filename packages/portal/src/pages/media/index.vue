@@ -8,14 +8,11 @@
 
 <script>
   import { requiresDashJS } from '../../plugins/media';
-  import pageMixin from '@/mixins/page';
 
   export default {
     name: 'MediaPage',
 
     layout: 'minimal',
-
-    mixins: [pageMixin],
 
     data() {
       return {
@@ -32,6 +29,10 @@
 
     head() {
       return {
+        meta: [
+          { hid: 'title', name: 'title', content: 'Media player' }
+        ],
+
         link: [
           { rel: 'stylesheet', href: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/themes/base/jquery-ui.css` }
         ],
@@ -47,9 +48,6 @@
     },
 
     computed: {
-      pageTitle() {
-        return 'Media player';
-      },
       manifest() {
         return `${this.$config.europeana.apis.iiifPresentation.media.url}${this.id}/manifest?format=3`;
       },
