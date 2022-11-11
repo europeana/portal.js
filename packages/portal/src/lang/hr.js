@@ -123,7 +123,6 @@ export default {
       "update": "Zbirka je ažurirana"
     }
   },
-  "collectionsYouMightLike": "Kolekcije koje vam se mogu sviđati",
   "colourSwatch": "Uzorak u boji",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Ovaj sadržaj je ponudila javnost, a ne institucija koja je pružila ovu stavku."
   },
   "related": {
+    "categoryTags": {
+      "title": "Otkrijte povezane priče"
+    },
+    "collections": {
+      "title": "Otkrijte povezane kolekcije"
+    },
     "editorial": {
       "title": "Priče koje bi vam se mogle svidjeti"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Priče"
   },
-  "website": "Web stranica",
-  "youMightAlsoLike": "Možda će vam se također svidjeti"
+  "website": "Web stranica"
 };

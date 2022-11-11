@@ -3,12 +3,12 @@
  */
 
 import qs from 'qs';
-import pick from 'lodash/pick';
+import pick from 'lodash/pick.js';
 
 import {
   apiError, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
-} from './utils';
-import { truncate } from '../vue-filters';
+} from './utils.js';
+import { truncate } from '../vue-filters.js';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [

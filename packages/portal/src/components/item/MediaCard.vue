@@ -38,13 +38,9 @@
       :type="media.ebucoreHasMimeType"
     />
   </div>
-  <HTMLEmbed
+  <EmbedOEmbed
     v-else-if="isOEmbed"
-    :html="oEmbedData.html"
-    :provider="oEmbedData.provider_name"
-    :height="oEmbedData.height"
-    :width="oEmbedData.width"
-    :error="oEmbedData.error"
+    :url="media.about"
   />
   <iframe
     v-else-if="isIIIFImage || isIIIFPresentation"
@@ -67,18 +63,14 @@
     isPlayableMedia,
     isRichMedia
   } from '@/plugins/media';
-  import HTMLEmbed from '../generic/HTMLEmbed';
-  import VideoPlayer from '../../components/media/VideoPlayer';
-  import AudioPlayer from '../../components/media/AudioPlayer';
-  import oEmbed from '@/plugins/oembed';
 
   export default {
     name: 'MediaCard',
     components: {
-      MediaCardImage: () => import('../../components/item/MediaCardImage'),
-      HTMLEmbed,
-      VideoPlayer,
-      AudioPlayer
+      MediaCardImage: () => import('../item/MediaCardImage'),
+      EmbedOEmbed: () => import('../embed/EmbedOEmbed'),
+      VideoPlayer: () => import('../media/VideoPlayer'),
+      AudioPlayer: () => import('../media/AudioPlayer')
     },
     props: {
       media: {
@@ -109,7 +101,7 @@
 
     data() {
       return {
-        oEmbedData: {}
+        oEmbedData: null
       };
     },
 
@@ -137,20 +129,6 @@
       },
       isOEmbed() {
         return isOEmbed(this.media);
-      }
-    },
-
-    created() {
-      if (this.isOEmbed) {
-        oEmbed(this.media.about).then((response) => {
-          if (response.data && response.data.html) {
-            this.oEmbedData = response.data;
-          } else {
-            this.oEmbedData = { error: this.$t('messages.externalContentError') };
-          }
-        }).catch((err) => {
-          this.oEmbedData = { error: err };
-        });
       }
     }
   };

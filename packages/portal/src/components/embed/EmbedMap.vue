@@ -20,10 +20,6 @@
         id="map-embed"
         data-qa="map embed"
         class="embed-responsive-item"
-        frameborder="0"
-        scrolling="no"
-        marginheight="0"
-        marginwidth="0"
         :src="iframeSrc"
         :title="$t('record.locationOnMap')"
       />
@@ -35,7 +31,7 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
-    name: 'MapEmbed',
+    name: 'EmbedMap',
 
     props: {
       prefLabel: {

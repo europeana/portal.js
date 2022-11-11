@@ -41,6 +41,7 @@ export default [
     name: 'Sketchfab',
     endpoint: 'https://sketchfab.com/oembed',
     schemes: [
+      'https://sketchfab.com/3d-models/*',
       'https://sketchfab.com/models/*',
       'https://sketchfab.com/show/*'
     ]

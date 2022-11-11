@@ -123,7 +123,6 @@ export default {
       "update": "Kolekcja została zaktualizowana"
     }
   },
-  "collectionsYouMightLike": "Kolekcje, które mogą Ci się spodobać",
   "colourSwatch": "Próbka koloru",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Treść ta jest tworzona przez społeczeństwo, a nie przez instytucję, która dostarczyła tę pozycję."
   },
   "related": {
+    "categoryTags": {
+      "title": "Odkryj powiązane historie"
+    },
+    "collections": {
+      "title": "Odkryj powiązane kolekcje"
+    },
     "editorial": {
       "title": "Historie, które mogą Ci się spodobać"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Historie"
   },
-  "website": "Strona internetowa",
-  "youMightAlsoLike": "Możesz też polubić"
+  "website": "Strona internetowa"
 };
