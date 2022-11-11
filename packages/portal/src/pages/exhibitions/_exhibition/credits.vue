@@ -98,16 +98,6 @@
       next();
     },
 
-    data() {
-      return {
-        name: null,
-        identifier: null,
-        credits: '',
-        relatedLink: null,
-        hasPartCollection: null
-      };
-    },
-
     asyncData({ params, query, error, app, store }) {
       const variables = {
         identifier: params.exhibition,
@@ -149,6 +139,16 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+
+    data() {
+      return {
+        name: null,
+        identifier: null,
+        credits: '',
+        relatedLink: null,
+        hasPartCollection: null
+      };
     },
     fetch() {
       this.$store.commit('pageMeta/set', this.pageMeta);

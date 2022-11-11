@@ -54,7 +54,7 @@ describe('Blog post index page', () => {
       expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
     });
   });
-  
+
   describe('pagination', () => {
     it('has a pagination nav', () => {
       const wrapper = factory();
