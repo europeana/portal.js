@@ -98,6 +98,16 @@
       next();
     },
 
+    data() {
+      return {
+        name: null,
+        identifier: null,
+        credits: '',
+        relatedLink: null,
+        hasPartCollection: null
+      };
+    },
+
     asyncData({ params, query, error, app, store }) {
       const variables = {
         identifier: params.exhibition,
