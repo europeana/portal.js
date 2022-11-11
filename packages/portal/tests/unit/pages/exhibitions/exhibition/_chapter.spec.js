@@ -44,8 +44,7 @@ const factory = (heroImage) => shallowMountNuxt(page, {
       }
     },
     $t: key => key,
-    $tc: () => {},
-    $pageHeadTitle: key => key
+    $tc: () => {}
   }
 });
 

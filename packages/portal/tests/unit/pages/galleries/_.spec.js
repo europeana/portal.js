@@ -101,7 +101,6 @@ const factory = () => shallowMountNuxt(page, {
       }
     },
     $features: {},
-    $pageHeadTitle: key => key,
     $t: key => key,
     $tc: key => key,
     $path: () => '/',

@@ -66,6 +66,6 @@ describe('layouts/error.vue', () => {
 
         expect(headTitle).toBe('error | Europeana');
       });
-    })
-  })
+    });
+  });
 });

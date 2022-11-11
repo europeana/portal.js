@@ -51,7 +51,6 @@ const factory = (query) => shallowMountNuxt(page, {
   },
   mocks: {
     $features: {},
-    $pageHeadTitle: key => key,
     $route: {
       query: {
         query

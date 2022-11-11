@@ -79,7 +79,6 @@ const factory = () => shallowMountNuxt(page, {
   localVue,
   mocks: {
     $t: key => key,
-    $pageHeadTitle: key => key,
     $i18n: {
       locale: 'en',
       isoLocale: () => 'en-GB'
@@ -99,6 +98,16 @@ const imageWithAttributionFields = ['name', 'image', 'creator', 'provider', 'lic
 describe('pages/contentful/image-harvester/index', () => {
   beforeAll(() => {
     window.contentfulExtension = fakeContentfulExtension({ entryFields: imageWithAttributionFields });
+  });
+
+  describe('head', () => {
+    describe('title', () => {
+      it('is "Image harvester - Contentful app"', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.head().title).toBe('Image harvester - Contentful app');
+      });
+    });
   });
 
   describe('methods', () => {

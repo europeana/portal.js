@@ -31,7 +31,6 @@ const factory = () => shallowMountNuxt(page, {
   },
   mocks: {
     $features: {},
-    $pageHeadTitle: key => key,
     $t: key => key,
     $auth: {
       loggedIn: false

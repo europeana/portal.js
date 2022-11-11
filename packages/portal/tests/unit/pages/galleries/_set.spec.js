@@ -57,7 +57,6 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   mocks: {
     $features: { setGalleries: true, ...options.features },
-    $pageHeadTitle: key => key,
     $t: key => key,
     $tc: key => key,
     $i18n,

@@ -85,7 +85,6 @@ const factory = ({ themes = [], $features = {}, data = {} } = {}) => shallowMoun
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
-    $pageHeadTitle: (text) => text,
     $route: { query: {} },
     $t: (key) => key,
     $store: {

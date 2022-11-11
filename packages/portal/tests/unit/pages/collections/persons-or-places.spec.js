@@ -44,7 +44,6 @@ const factory = () => shallowMountNuxt(page, {
     $i18n: {
       locale: 'es'
     },
-    $pageHeadTitle: key => key,
     $store: {
       commit: sinon.spy(),
       state: {

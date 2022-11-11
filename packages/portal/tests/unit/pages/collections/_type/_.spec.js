@@ -102,7 +102,6 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
-    $pageHeadTitle: key => key,
     $path: () => '/',
     $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
     $store: {

@@ -15,7 +15,6 @@ const factory = async({ data = {}, mocks = {} } = {}) => {
       return data;
     },
     mocks: {
-      $pageHeadTitle: (text) => text,
       $route: {
         query: {}
       },

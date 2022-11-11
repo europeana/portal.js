@@ -139,7 +139,6 @@ const factory = ({ $features = {}, data = {}, $fetchState = {}, mocks = {} } = {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
-    $pageHeadTitle: (text) => text,
     $route: { query: {} },
     $scrollTo: sinon.spy(),
     $store: {

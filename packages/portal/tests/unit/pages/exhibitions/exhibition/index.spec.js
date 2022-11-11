@@ -67,7 +67,6 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     },
     $t: key => key,
     $tc: () => {},
-    $pageHeadTitle: key => key,
     $path: () => '/',
     $store: {
       commit: sinon.spy()

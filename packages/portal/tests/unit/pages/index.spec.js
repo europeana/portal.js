@@ -28,7 +28,6 @@ const factory = ({
     $fetchState: {},
     $i18n: { isoLocale: () => 'en-GB' },
     $nuxt: { context: { res: {} } },
-    $pageHeadTitle: key => key,
     $route,
     $store: {
       commit: sinon.spy()

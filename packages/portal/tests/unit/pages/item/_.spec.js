@@ -39,7 +39,6 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
   stubs: ['client-only', 'i18n', 'ErrorMessage'],
   mocks: {
     $features: { translatedItems: true },
-    $pageHeadTitle: key => key,
     $route: {
       params: { pathMatch: '123/abc' },
       query: {}
