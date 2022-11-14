@@ -43,7 +43,7 @@
     data() {
       return {
         clicked: false,
-        target: '_self',
+        target: this.url.startsWith(this.$config.europeana.proxy.media.url) ? '_self' : '_blank',
         validating: false,
         urlValidated: false,
         validationNetworkError: false
@@ -77,7 +77,6 @@
         try {
           // Validate the URL with a HEAD request
           await axios({ method: 'head', url: this.url, timeout: 15000 });
-          this.target = '_self';
           this.urlValidated = true;
         } catch (error) {
           // These will typically be CORS errors preventing validation. Skip

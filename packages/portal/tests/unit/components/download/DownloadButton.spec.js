@@ -14,6 +14,7 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     data: () => ({ ...data }),
     mocks: {
       $apm: { captureError: sinon.spy() },
+      $config: { europeana: { proxy: { media: { url: 'https://proxy.europeana.eu' } } } },
       $matomo: { trackEvent: sinon.spy() },
       $t: (key) => key,
       ...mocks
@@ -72,6 +73,30 @@ describe('components/download/DownloadButton', () => {
           const loadingSpinner = wrapper.find('[data-qa="download button"] loadingspinner-stub');
 
           expect(loadingSpinner.isVisible()).toBe(true);
+        });
+      });
+    });
+  });
+
+  describe('data', () => {
+    describe('target', () => {
+      describe('when URL is via media proxy', () => {
+        it('defaults to "_self"', () => {
+          const propsData = {
+            identifier: '/123/abc',
+            url: 'https://proxy.europeana.eu/123/abc'
+          };
+          const wrapper = factory({ propsData });
+
+          expect(wrapper.vm.target).toBe('_self');
+        });
+      });
+
+      describe('when URL is not via media proxy', () => {
+        it('defaults to "_blank"', () => {
+          const wrapper = factory({ propsData });
+
+          expect(wrapper.vm.target).toBe('_blank');
         });
       });
     });
@@ -188,14 +213,6 @@ describe('components/download/DownloadButton', () => {
             await wrapper.vm.handleClickDownloadButton(event);
 
             expect(wrapper.vm.$refs.downloadButton.$el.click.called).toBe(true);
-          });
-
-          it('sets the download link target to "_self"', async() => {
-            const wrapper = factory({ propsData });
-
-            await wrapper.vm.handleClickDownloadButton(event);
-
-            expect(wrapper.vm.target).toBe('_self');
           });
 
           it('records that the download has been validated', async() => {
