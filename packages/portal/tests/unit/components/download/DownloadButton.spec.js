@@ -190,6 +190,14 @@ describe('components/download/DownloadButton', () => {
             expect(wrapper.vm.$refs.downloadButton.$el.click.called).toBe(true);
           });
 
+          it('sets the download link target to "_self"', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.vm.handleClickDownloadButton(event);
+
+            expect(wrapper.vm.target).toBe('_self');
+          });
+
           it('records that the download has been validated', async() => {
             const wrapper = factory({ propsData });
 
@@ -217,6 +225,14 @@ describe('components/download/DownloadButton', () => {
             await wrapper.vm.handleClickDownloadButton(event);
 
             expect(wrapper.vm.validationNetworkError).toBe(true);
+          });
+
+          it('sets the download link target to "_blank"', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.vm.handleClickDownloadButton(event);
+
+            expect(wrapper.vm.target).toBe('_blank');
           });
 
           it('captures the network error to APM', async() => {
