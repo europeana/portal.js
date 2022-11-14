@@ -132,6 +132,36 @@ export default (context = {}) => {
     },
 
     /**
+     * Publish a set
+     * @param {string} id the set's id
+     * @return {Object} API response data
+     */
+    publish(id = '') {
+      return $axios.put(
+        `/${setIdFromUri(id)}/publish`
+      )
+        .then(response => response.data)
+        .catch(error => {
+          throw apiError(error, context);
+        });
+    },
+
+    /**
+     * Unpublish a set
+     * @param {string} id the set's id
+     * @return {Object} API response data
+     */
+    unpublish(id = '') {
+      return $axios.put(
+        `/${setIdFromUri(id)}/unpublish`
+      )
+        .then(response => response.data)
+        .catch(error => {
+          throw apiError(error, context);
+        });
+    },
+
+    /**
      * Delete a set
      * @param {string} id the set's id
      * @return {Object} API response data

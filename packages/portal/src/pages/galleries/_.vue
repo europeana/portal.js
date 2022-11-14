@@ -142,6 +142,11 @@
                   {{ $t('actions.share') }}
                 </b-button>
                 <SocialShareModal :media-url="shareMediaUrl" />
+                <PublishSetButton
+                  v-if="set.visibility !== 'private' && userIsPublisher"
+                  :set-id="set.id"
+                  :visibility="set.visibility"
+                />
               </div>
             </b-container>
           </b-col>
@@ -219,7 +224,9 @@
       // TODO: The following components are only used in contentful galleries
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard'),
-      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
+      PublishSetButton: () => import('@/components/set/PublishSetButton')
+
     },
     mixins: [
       redirectToPrefPathMixin,
@@ -312,6 +319,11 @@
         const entitiesEditor = user?.resource_access?.entities?.roles?.includes('editor');
         const usersetsEditor = user?.resource_access?.usersets?.roles?.includes('editor');
         return entitiesEditor && usersetsEditor;
+      },
+      userIsPublisher() {
+        const user = this.$store.state.auth.user;
+        const publisher = user?.resource_access?.usersets?.roles?.includes('publisher');
+        return !!publisher;
       },
       userCanEdit() {
         return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
