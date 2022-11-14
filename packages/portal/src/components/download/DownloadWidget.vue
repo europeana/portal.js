@@ -5,8 +5,6 @@
     <DownloadButton
       :url="url"
       :identifier="identifier"
-      :disabled="buttonDisabled"
-      :target="buttonTarget"
       data-qa="download button"
       @download="$bvModal.show('download-success-modal')"
       @downloadError="$bvModal.show('download-failed-modal')"
@@ -58,14 +56,6 @@
       attributionFields: {
         type: Object,
         default: () => ({})
-      },
-      buttonDisabled: {
-        type: Boolean,
-        default: false
-      },
-      buttonTarget: {
-        type: String,
-        default: '_blank'
       },
       providerUrl: {
         type: String,

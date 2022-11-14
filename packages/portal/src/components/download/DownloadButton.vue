@@ -2,7 +2,7 @@
   <b-button
     ref="downloadButton"
     :href="url"
-    :disabled="disabled || validating"
+    :disabled="validating"
     data-qa="download button"
     class="ml-2 d-inline-flex align-items-center h-100"
     :target="target"
@@ -38,15 +38,12 @@
       disabled: {
         type: Boolean,
         default: false
-      },
-      target: {
-        type: String,
-        default: '_blank'
       }
     },
     data() {
       return {
         clicked: false,
+        target: '_self',
         validating: false,
         urlValidated: false,
         validationNetworkError: false
@@ -80,6 +77,7 @@
         try {
           // Validate the URL with a HEAD request
           await axios({ method: 'head', url: this.url, timeout: 15000 });
+          this.target = '_self';
           this.urlValidated = true;
         } catch (error) {
           // These will typically be CORS errors preventing validation. Skip
@@ -87,6 +85,7 @@
           if ((error.message === 'Network Error') && !error.response) {
             this.captureDownloadValidationNetworkError(error);
             this.validationNetworkError = true;
+            this.target = '_blank';
             this.$emit('validationNetworkError');
           // Other errors mean that the media can not be downloaded.
           } else {
