@@ -152,7 +152,7 @@
           type: this.type,
           title: { ...this.title },
           description: { ...this.description },
-          visibility: this.isPrivate ? 'private' : 'public'
+          visibility: this.isPrivate ? 'private' : this.visibility
         };
         if (this.isNew && this.itemContext) {
           setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
@@ -180,7 +180,7 @@
               // The value is still changed from undefined to empty string.
               (this.descriptionValue === '' && this.description[this.$i18n.locale] === undefined)) &&
             ((this.isPrivate && this.visibility === 'private') ||
-              (!this.isPrivate && this.visibility === 'public'))
+              (!this.isPrivate && this.visibility === ('public' || 'published)')))
           );
       }
     },
