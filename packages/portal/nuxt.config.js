@@ -361,7 +361,7 @@ export default {
   },
 
   router: {
-    middleware: ['trailing-slash', 'legacy/index', 'l10n'],
+    middleware: ['trailing-slash', 'legacy/index', 'l10n', 'contentful-galleries'],
     extendRoutes(routes) {
       const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
       routes[nuxtHomeRouteIndex] = {
