@@ -43,7 +43,6 @@
     data() {
       return {
         clicked: false,
-        target: this.url.startsWith(this.$config.europeana.proxy.media.url) ? '_self' : '_blank',
         validating: false,
         urlValidated: false,
         validationNetworkError: false
@@ -52,6 +51,18 @@
     computed: {
       isDownloadValidationRequired() {
         return !this.urlValidated && !this.validationNetworkError;
+      },
+      target() {
+        if (this.validationNetworkError || !this.url.startsWith(this.$config.europeana.proxy.media.url)) {
+          return '_blank';
+        }
+        return '_self';
+      }
+    },
+    watch: {
+      url() {
+        this.urlValidated = false;
+        this.validationNetworkError = false;
       }
     },
     methods: {
@@ -84,7 +95,6 @@
           if ((error.message === 'Network Error') && !error.response) {
             this.captureDownloadValidationNetworkError(error);
             this.validationNetworkError = true;
-            this.target = '_blank';
             this.$emit('validationNetworkError');
           // Other errors mean that the media can not be downloaded.
           } else {

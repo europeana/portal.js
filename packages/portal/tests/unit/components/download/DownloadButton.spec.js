@@ -79,27 +79,16 @@ describe('components/download/DownloadButton', () => {
   });
 
   describe('data', () => {
-    describe('target', () => {
-      describe('when URL is via media proxy', () => {
-        it('defaults to "_self"', () => {
-          const propsData = {
-            identifier: '/123/abc',
-            url: 'https://proxy.europeana.eu/123/abc'
-          };
-          const wrapper = factory({ propsData });
+    describe('defaults', () => {
+      it('initialises flags as `false`', () => {
+        const wrapper = factory({ propsData });
 
-          expect(wrapper.vm.target).toBe('_self');
-        });
+        expect(wrapper.vm.clicked).toBe(false);
+        expect(wrapper.vm.validating).toBe(false);
+        expect(wrapper.vm.urlValidated).toBe(false);
+        expect(wrapper.vm.validationNetworkError).toBe(false);
       });
-
-      describe('when URL is not via media proxy', () => {
-        it('defaults to "_blank"', () => {
-          const wrapper = factory({ propsData });
-
-          expect(wrapper.vm.target).toBe('_blank');
-        });
-      });
-    });
+    })
   });
 
   describe('computed', () => {
@@ -138,6 +127,44 @@ describe('components/download/DownloadButton', () => {
 
           expect(isDownloadValidationRequired).toBe(true);
         });
+      });
+    });
+
+    describe('target', () => {
+      describe('when URL is via media proxy', () => {
+        it('defaults to "_self"', () => {
+          const propsData = {
+            identifier: '/123/abc',
+            url: 'https://proxy.europeana.eu/123/abc'
+          };
+          const wrapper = factory({ propsData });
+
+          expect(wrapper.vm.target).toBe('_self');
+        });
+      });
+
+      describe('when URL is not via media proxy', () => {
+        it('defaults to "_blank"', () => {
+          const wrapper = factory({ propsData });
+
+          expect(wrapper.vm.target).toBe('_blank');
+        });
+      });
+    });
+  });
+
+  describe('watch', () => {
+    describe('watches for changes in the url prop', () => {
+      const data = { urlValidated: true, validationNetworkError: true };
+
+      it('resets urlValidated and validationNetworkError', async() => {
+        const wrapper = factory({ propsData, data });
+
+        await wrapper.setProps({ url: 'new URL' });
+
+
+        expect(wrapper.vm.urlValidated).toBe(false);
+        expect(wrapper.vm.validationNetworkError).toBe(false);
       });
     });
   });
