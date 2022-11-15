@@ -88,7 +88,7 @@ describe('components/download/DownloadButton', () => {
         expect(wrapper.vm.urlValidated).toBe(false);
         expect(wrapper.vm.validationNetworkError).toBe(false);
       });
-    })
+    });
   });
 
   describe('computed', () => {
@@ -161,7 +161,6 @@ describe('components/download/DownloadButton', () => {
         const wrapper = factory({ propsData, data });
 
         await wrapper.setProps({ url: 'new URL' });
-
 
         expect(wrapper.vm.urlValidated).toBe(false);
         expect(wrapper.vm.validationNetworkError).toBe(false);
