@@ -15,7 +15,7 @@
       <h1
         data-qa="page title"
       >
-        {{ localTitle }}
+        {{ title }}
       </h1>
       <!-- eslint-disable vue/no-v-html -->
       <div
@@ -65,12 +65,6 @@
       contextLabel: {
         type: String,
         default: null
-      }
-    },
-
-    computed: {
-      localTitle() {
-        return this.title || this.$store.state.pageMeta.data.title;
       }
     }
   };

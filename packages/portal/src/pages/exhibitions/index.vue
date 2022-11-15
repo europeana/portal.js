@@ -3,7 +3,7 @@
     data-qa="exhibitions"
   >
     <ContentHeader
-      :title="$tc('exhibitions.exhibitions', 2)"
+      :title="pageMeta.title"
       :description="$t('exhibitions.description')"
     />
     <b-row class="flex-md-row pb-5">

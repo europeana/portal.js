@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <ContentHeader
-      :title="$tc('galleries.galleries', 2)"
+      :title="pageMeta.title"
       :description="$t('galleries.description')"
     />
     <b-row class="flex-md-row pb-5">

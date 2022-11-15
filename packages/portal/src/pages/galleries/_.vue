@@ -12,7 +12,7 @@
         :page-slug="`galleries/${identifier}`"
       />
       <ContentHeader
-        :title="title"
+        :title="pageMeta.title"
         :description="htmlDescription"
         :media-url="shareMediaUrl"
         :context-label="$tc('galleries.galleries', 1)"

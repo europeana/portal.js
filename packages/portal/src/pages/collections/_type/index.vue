@@ -14,7 +14,9 @@
       <template
         v-else
       >
-        <ContentHeader />
+        <ContentHeader
+          :title="pageMeta.title"
+        />
         <client-only>
           <EntityTable
             :type="$route.params.type"

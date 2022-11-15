@@ -1,6 +1,8 @@
 <template>
   <b-container data-qa="blog">
-    <ContentHeader />
+    <ContentHeader
+      :title="pageMeta.title"
+    />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
         <b-card-group
