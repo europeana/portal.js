@@ -254,7 +254,6 @@
         button {
           text-align: center;
           justify-content: center;
-          margin-bottom: 1rem;
           width: 100%;
         }
 
@@ -270,6 +269,7 @@
 
         .rights-wrapper {
           order: 2;
+          margin-bottom: 1rem;
         }
 
         .button-wrapper {
@@ -279,11 +279,16 @@
 
           .user-buttons {
             justify-content: space-between;
+            margin-bottom: 1rem;
           }
 
-          .share-button,
-          .download-button {
+          .share-button {
+            margin-bottom: 1rem;
             width: auto;
+          }
+
+          .download-widget {
+            margin-bottom: 1rem;
           }
         }
       }

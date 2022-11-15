@@ -4,7 +4,7 @@
     :href="url"
     :disabled="validating"
     data-qa="download button"
-    class="ml-2 d-inline-flex align-items-center h-100"
+    class="ml-2 d-inline-flex align-items-center download-button"
     :target="target"
     @click.native="handleClickDownloadButton"
   >
@@ -133,6 +133,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
   .icon-ic-download::before {
     font-size: 1.125rem;
     line-height: 1;

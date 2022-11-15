@@ -1,5 +1,6 @@
 <template>
   <div
+    class="download-widget"
     data-qa="download widget"
   >
     <DownloadButton
