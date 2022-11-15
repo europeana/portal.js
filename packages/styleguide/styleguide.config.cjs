@@ -87,6 +87,10 @@ module.exports = async() => {
           {
             name: 'Search',
             components: '../portal/src/components/search/[A-Z]*.vue'
+          },
+          {
+            name: 'Set',
+            components: '../portal/src/components/set/[A-Z]*.vue'
           }
         ]
       }

@@ -14,10 +14,16 @@
     name: 'PublishSetButton',
 
     props: {
+      /**
+       * Id of the set
+       */
       setId: {
         type: String,
         required: true
       },
+      /**
+       * Active visibility status: public, private or published
+       */
       visibility: {
         type: String,
         default: 'public'
@@ -40,3 +46,12 @@
     }
   };
 </script>
+
+<docs lang="md">
+  ```jsx
+  <PublishSetButton
+    set-id="001"
+    :visibility="$store.state.set.active.visibility"
+  />
+  ```
+</docs>
