@@ -4,7 +4,7 @@
     :href="url"
     :disabled="validating"
     data-qa="download button"
-    class="ml-2 d-inline-flex align-items-center download-button"
+    class="ml-2 d-inline-flex align-items-center download-button h-100"
     :target="target"
     @click.native="handleClickDownloadButton"
   >
