@@ -33,7 +33,7 @@ describe('mixins/pageMeta', () => {
           pageMeta() {
             return {
               title: 'Home'
-            }
+            };
           }
         };
 

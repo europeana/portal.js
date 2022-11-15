@@ -45,16 +45,6 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('Blog post index page', () => {
-  describe('fetch', () => {
-    it('stores pageMeta', () => {
-      const wrapper = factory();
-
-      wrapper.vm.fetch();
-
-      expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
-    });
-  });
-
   describe('pagination', () => {
     it('has a pagination nav', () => {
       const wrapper = factory();

@@ -26,9 +26,6 @@ const record = {
 };
 
 const store = new Vuex.Store({
-  mutations: {
-    'pageMeta/set': () => {}
-  },
   getters: {
     'http/canonicalUrlWithoutLocale': () => 'https://www.example.org/item/123/abc'
   }

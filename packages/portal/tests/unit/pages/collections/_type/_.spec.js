@@ -155,14 +155,6 @@ describe('pages/collections/_type/_', () => {
       expect(wrapper.vm.$store.commit.calledWith('search/setCollectionLabel', 'Topic')).toBe(true);
     });
 
-    it('stores pageMeta', async() => {
-      const wrapper = factory(topicEntity);
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
-    });
-
     describe('collection page', () => {
       const requestMade = async(curatedEntities) => {
         const wrapper = factory(topicEntity);

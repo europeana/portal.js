@@ -75,16 +75,6 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
 });
 
 describe('exhibitionChapters mixin', () => {
-  describe('fetch', () => {
-    it('writes pageMeta to the store', async() => {
-      const wrapper = factory();
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
-    });
-  });
-
   it('chapterPagesToLinkListItems returns a url for each chapter', async() => {
     const wrapper = factory();
     const chapterList = wrapper.vm.hasPartCollection.items;

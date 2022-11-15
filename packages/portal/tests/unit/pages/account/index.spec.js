@@ -50,19 +50,11 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
 });
 
 describe('pages/account/index.vue', () => {
-  describe('fetch', () => {
-    it('writes pageMeta to the store', async() => {
-      const wrapper = factory();
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
-    });
-  });
-
   describe('when visiting the account page', () => {
     it('fetches the likes of the logged in user', () => {
       const wrapper = factory();
+
+      wrapper.vm.fetch();
 
       expect(wrapper.vm.$store.dispatch.calledWith('set/fetchLikes')).toBe(true);
     });

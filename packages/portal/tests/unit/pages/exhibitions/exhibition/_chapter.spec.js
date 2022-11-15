@@ -55,14 +55,6 @@ const factory = (heroImage) => shallowMountNuxt(page, {
 });
 
 describe('pages/exhibitions/_exhibition/_chapter', () => {
-  it('stores pageMeta', async() => {
-    const wrapper = factory();
-
-    await wrapper.vm.fetch();
-
-    expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
-  });
-
   describe('pageMeta', () => {
     it('uses optimised hero image for og:image', () => {
       const wrapper = factory(heroImageExample);

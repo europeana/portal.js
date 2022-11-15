@@ -48,9 +48,9 @@
       PaginationNavInput
     },
 
-    middleware: 'sanitisePageQuery',
-
     mixins: [pageMetaMixin],
+
+    middleware: 'sanitisePageQuery',
 
     data() {
       return {

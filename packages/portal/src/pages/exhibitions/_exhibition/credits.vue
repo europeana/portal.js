@@ -152,7 +152,7 @@
         hasPartCollection: null
       };
     },
-    
+
     computed: {
       pageMeta() {
         return {

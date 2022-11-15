@@ -38,16 +38,6 @@ describe('pages/exhibitions/_exhibition/credits', () => {
     });
   });
 
-  describe('fetch', () => {
-    it('stores pageMeta', () => {
-      const wrapper = factory();
-
-      wrapper.vm.fetch();
-
-      expect(wrapper.vm.$store.commit.calledWith('pageMeta/set', sinon.match.object)).toBe(true);
-    });
-  });
-
   describe('pageMeta', () => {
     const data = {
       name: 'Exhibition of things'
