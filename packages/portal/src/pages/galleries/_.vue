@@ -119,11 +119,11 @@
                   v-if="userIsOwner"
                 >
                   <b-button
-                    variant="outline-primary"
-                    class="text-decoration-none mr-2"
+                    class="d-inline-flex align-items-center mr-2"
                     data-qa="edit set button"
                     @click="$bvModal.show(setFormModalId)"
                   >
+                    <span class="icon-edit pr-1" />
                     {{ $t('actions.edit') }}
                   </b-button>
                   <SetFormModal
@@ -134,13 +134,7 @@
                     :visibility="set.visibility"
                   />
                 </template>
-                <b-button
-                  v-b-modal.share-modal
-                  variant="outline-primary"
-                  class="text-decoration-none"
-                >
-                  {{ $t('actions.share') }}
-                </b-button>
+                <ShareButton />
                 <SocialShareModal :media-url="shareMediaUrl" />
                 <PublishSetButton
                   v-if="set.visibility !== 'private' && userIsPublisher"
@@ -203,6 +197,7 @@
   } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ShareButton from '@/components/sharing/ShareButton.vue';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
@@ -218,6 +213,7 @@
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       ItemPreviewCardGroup,
+      ShareButton,
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations'),
