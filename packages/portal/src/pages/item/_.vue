@@ -18,7 +18,6 @@
       data-qa="error message container"
       :error="$fetchState.error.message"
       :title-path="$fetchState.error.titlePath"
-      :page-title-path="$fetchState.error.pageTitlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
       class="pt-5"
@@ -137,6 +136,7 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import stringify from '@/mixins/stringify';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ItemPage',
@@ -152,7 +152,8 @@
     },
 
     mixins: [
-      stringify
+      stringify,
+      pageMetaMixin
     ],
 
     data() {
@@ -190,7 +191,6 @@
         for (const key in response.record) {
           this[key] = response.record[key];
         }
-        this.$store.commit('pageMeta/set', this.pageMeta);
         if (process.client) {
           this.trackCustomDimensions();
         }

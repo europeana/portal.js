@@ -88,6 +88,7 @@
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ExhibitionPage',
@@ -102,7 +103,8 @@
       RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
     mixins: [
-      exhibitionChapters
+      exhibitionChapters,
+      pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -142,9 +144,6 @@
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
-    },
-    fetch() {
-      this.$store.commit('pageMeta/set', this.pageMeta);
     },
     computed: {
       pageMeta() {

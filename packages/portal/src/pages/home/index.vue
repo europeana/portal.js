@@ -39,6 +39,7 @@
 
 <script>
   import allThemesMixin from '@/mixins/allThemes';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
@@ -56,7 +57,7 @@
       StackedCardsSwiper
     },
 
-    mixins: [allThemesMixin, collectionLinkGenMixin],
+    mixins: [allThemesMixin, collectionLinkGenMixin, pageMetaMixin],
 
     data() {
       return {
@@ -68,7 +69,6 @@
 
     async fetch() {
       await this.fetchContentfulEntry();
-      this.$store.commit('pageMeta/set', this.pageMeta);
     },
 
     computed: {

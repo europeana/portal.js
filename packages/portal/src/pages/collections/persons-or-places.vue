@@ -33,6 +33,7 @@
 <script>
   import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
   import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   import ContentHeader from '@/components/generic/ContentHeader';
   import ContentCard from '@/components/generic/ContentCard';
@@ -48,6 +49,8 @@
     },
 
     middleware: 'sanitisePageQuery',
+
+    mixins: [pageMetaMixin],
 
     data() {
       return {
@@ -74,8 +77,6 @@
 
         this.entities = response.entities;
         this.total = response.total;
-
-        this.$store.commit('pageMeta/set', this.pageMeta);
       } finally {
         this.$scrollTo && this.$scrollTo('#header');
       }

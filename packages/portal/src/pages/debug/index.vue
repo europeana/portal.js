@@ -55,6 +55,7 @@
 
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'DebugIndexPage',
@@ -62,6 +63,8 @@
     components: {
       ContentHeader
     },
+
+    mixins: [pageMetaMixin],
 
     beforeRouteEnter(to, from, next) {
       next(vm => {
@@ -74,10 +77,6 @@
         settings: { ...this.$store.getters['debug/settings'] },
         redirect: null
       };
-    },
-
-    fetch() {
-      this.$store.commit('pageMeta/set', this.pageMeta);
     },
 
     computed: {

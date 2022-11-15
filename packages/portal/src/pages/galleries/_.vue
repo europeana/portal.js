@@ -56,7 +56,6 @@
       data-qa="error message container"
       :error="$fetchState.error.message"
       :title-path="$fetchState.error.titlePath"
-      :page-title-path="$fetchState.error.pageTitlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
       class="pt-5"
@@ -201,6 +200,7 @@
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   // TODO: the following imports are only needed for contentful Galleries.
   import ContentHeader from '../../components/generic/ContentHeader';
@@ -224,6 +224,7 @@
     },
     mixins: [
       redirectToPrefPathMixin,
+      pageMetaMixin,
       // TODO: markdown is only used in contentful galleries
       stripMarkdown
     ],
@@ -270,7 +271,6 @@
       } else {
         await this.fetchContentfulGallery();
       }
-      this.$store.commit('pageMeta/set', this.pageMeta);
     },
     computed: {
       pageMeta() {

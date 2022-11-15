@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import pageMetaMixin from '@/mixins/pageMeta';
   import BlogPost from '@/components/blog/BlogPost';
 
   export default {
@@ -33,6 +34,8 @@
       BlogPost,
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
+
+    mixins: [pageMetaMixin],
 
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -81,10 +84,6 @@
         post: null,
         error: null
       };
-    },
-
-    fetch() {
-      this.$store.commit('pageMeta/set', this.pageMeta);
     },
 
     computed: {

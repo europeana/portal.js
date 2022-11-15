@@ -8,7 +8,8 @@ import layout from '@/layouts/default';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const nuxtI18nHead = { htmlAttrs: { lang: 'en-GB' },
+const nuxtI18nHead = {
+  htmlAttrs: { lang: 'en-GB' },
   link: [{
     hid: 'i18n-alt-bg',
     rel: 'alternate',
@@ -19,7 +20,8 @@ const nuxtI18nHead = { htmlAttrs: { lang: 'en-GB' },
     hid: 'i18n-og',
     property: 'og:locale',
     content: 'en_GB'
-  }] };
+  }]
+};
 
 const factory = (options = {}) => shallowMountNuxt(layout, {
   localVue,
@@ -229,12 +231,10 @@ describe('layouts/default.vue', () => {
 
   describe('head', () => {
     describe('title', () => {
-      it('combines page title and site name', () => {
+      it('uses site name', () => {
         const wrapper = factory();
-        const pageTitle = 'Home';
-        wrapper.vm.$store.state.pageMeta.data = { title: pageTitle };
 
-        expect(wrapper.vm.head().title).toBe('Home | Europeana');
+        expect(wrapper.vm.head().title).toBe('Europeana');
       });
     });
     describe('htmlAttrs', () => {
@@ -266,7 +266,7 @@ describe('layouts/default.vue', () => {
         expect(headMeta.find((tag) => tag.property === 'og:url').content).toBe('/fr');
       });
 
-      it('defaults description to "Europeana"', () => {
+      it('includes description "Europeana"', () => {
         const wrapper = factory();
 
         const headMeta = wrapper.vm.head().meta;
@@ -274,26 +274,12 @@ describe('layouts/default.vue', () => {
         expect(headMeta.find((tag) => tag.name === 'description').content).toBe('Europeana');
       });
 
-      it('includes meta tags for pageMeta store', () => {
+      it('includes og:description "Europeana"', () => {
         const wrapper = factory();
-        const pageMeta = {
-          title: 'Home',
-          description: 'Europeana',
-          ogImage: 'https://www.example.org/image.jpeg',
-          ogImageAlt: '',
-          ogType: 'website'
-        };
-        wrapper.vm.$store.state.pageMeta.data = pageMeta;
 
         const headMeta = wrapper.vm.head().meta;
 
-        expect(headMeta.find((tag) => tag.name === 'title').content).toBe(pageMeta.title);
-        expect(headMeta.find((tag) => tag.property === 'og:title').content).toBe(pageMeta.title);
-        expect(headMeta.find((tag) => tag.name === 'description').content).toBe(pageMeta.description);
-        expect(headMeta.find((tag) => tag.property === 'og:description').content).toBe(pageMeta.description);
-        expect(headMeta.find((tag) => tag.property === 'og:type').content).toBe(pageMeta.ogType);
-        expect(headMeta.find((tag) => tag.property === 'og:image').content).toBe(pageMeta.ogImage);
-        expect(headMeta.find((tag) => tag.property === 'og:image:alt').content).toBe(pageMeta.ogImageAlt);
+        expect(headMeta.find((tag) => tag.property === 'og:description').content).toBe('Europeana');
       });
     });
   });

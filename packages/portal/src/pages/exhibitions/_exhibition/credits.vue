@@ -81,6 +81,7 @@
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ExhibitionCreditsPage',
@@ -91,7 +92,8 @@
       RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
     mixins: [
-      exhibitionChapters
+      exhibitionChapters,
+      pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -150,9 +152,7 @@
         hasPartCollection: null
       };
     },
-    fetch() {
-      this.$store.commit('pageMeta/set', this.pageMeta);
-    },
+    
     computed: {
       pageMeta() {
         return {

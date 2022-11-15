@@ -147,6 +147,7 @@
   import { mapState } from 'vuex';
 
   import keycloak from '../../mixins/keycloak';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
@@ -164,7 +165,8 @@
     },
 
     mixins: [
-      keycloak
+      keycloak,
+      pageMetaMixin
     ],
 
     middleware: 'auth',
@@ -181,9 +183,15 @@
       };
     },
 
-    fetch() {
-      this.$store.commit('pageMeta/set', this.pageMeta);
+    async fetch() {
+      this.fetchLikes();
+      await this.$store.dispatch('set/fetchCreations');
+      if (this.userIsEditor) {
+        await this.$store.dispatch('set/fetchCurations');
+      }
     },
+
+    fetchOnServer: false,
 
     computed: {
       pageMeta() {
@@ -204,14 +212,6 @@
       }),
       activeTab() {
         return this.$route.hash || this.tabHashes.likes;
-      }
-    },
-
-    async mounted() {
-      this.fetchLikes();
-      await this.$store.dispatch('set/fetchCreations');
-      if (this.userIsEditor) {
-        await this.$store.dispatch('set/fetchCurations');
       }
     },
 

@@ -75,6 +75,7 @@
   import ContentHeader from '@/components/generic/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'StoriesPage',
@@ -88,6 +89,8 @@
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
       PaginationNavInput
     },
+
+    mixins: [pageMetaMixin],
 
     data() {
       return {
@@ -107,7 +110,6 @@
         this.fetchPage(),
         this.fetchStories()
       ]);
-      this.$store.commit('pageMeta/set', this.pageMeta);
       this.$scrollTo && this.$scrollTo('#header');
     },
 

@@ -82,6 +82,7 @@
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
   import themes from '@/plugins/europeana/themes';
@@ -105,6 +106,7 @@
 
     mixins: [
       europeanaEntitiesOrganizationsMixin,
+      pageMetaMixin,
       redirectToPrefPathMixin
     ],
 
@@ -174,8 +176,6 @@
           }
           this.$store.commit('search/setCollectionLabel', this.title.values[0]);
           const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
-
-          this.$store.commit('pageMeta/set', this.pageMeta);
 
           return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
         });

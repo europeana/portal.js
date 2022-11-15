@@ -64,10 +64,6 @@
         type: String,
         default: null
       },
-      pageTitlePath: {
-        type: String,
-        default: null
-      },
       illustrationSrc: {
         type: String,
         default: null
@@ -86,17 +82,7 @@
       }
     },
 
-    fetch() {
-      this.$store.commit('pageMeta/set', this.pageMeta);
-    },
-
     computed: {
-      pageMeta() {
-        return {
-          title: this.$t(this.pageTitlePath || 'error'),
-          description: this.$t(this.titlePath)
-        };
-      },
       errorExplanationAvailable() {
         return this.illustrationSrc || this.titlePath || this.descriptionPath;
       }

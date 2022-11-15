@@ -17,7 +17,6 @@
       data-qa="error message container"
       :error="$fetchState.error.message"
       :title-path="$fetchState.error.titlePath"
-      :page-title-path="$fetchState.error.pageTitlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
       class="pt-5"
@@ -156,6 +155,7 @@
   // TODO: Also move the beforeRouteEnter redirect to the legacy middleware.
   import ClientOnly from 'vue-client-only';
   import createHttpError from 'http-errors';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   import {
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
@@ -178,6 +178,8 @@
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations')
     },
+
+    mixins: [pageMetaMixin],
 
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
@@ -203,8 +205,6 @@
           await this.$store.commit('entity/setFeaturedSetId', this.setId);
           await this.$store.dispatch('entity/getPins');
         }
-
-        this.$store.commit('pageMeta/set', this.pageMeta);
       } catch (error) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = error.statusCode || 500;

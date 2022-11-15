@@ -29,6 +29,7 @@
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
   import ClientOnly from 'vue-client-only';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'CollectionsIndexPage',
@@ -39,6 +40,9 @@
       ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
     },
+
+    mixins: [pageMetaMixin],
+
     fetch() {
       if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
         if (process.server) {
@@ -46,8 +50,8 @@
         }
         throw new Error('Unknown collection type');
       }
-      this.$store.commit('pageMeta/set', this.pageMeta);
     },
+
     computed: {
       pageMeta() {
         return {

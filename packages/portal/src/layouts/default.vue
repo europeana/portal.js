@@ -102,7 +102,7 @@
       const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
 
       return {
-        title: this.headTitle,
+        title: this.$config.app.siteName,
         htmlAttrs: {
           ...i18nHead.htmlAttrs
         },
@@ -116,49 +116,15 @@
           { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
         ],
         meta: [
-          ...this.headMeta,
-          ...i18nHead.meta
+          ...i18nHead.meta,
+          { hid: 'description', name: 'description', content: this.$config.app.siteName },
+          { hid: 'og:description', property: 'og:description', content: this.$config.app.siteName },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
         ]
       };
     },
 
     computed: {
-      headTitle() {
-        return [this.pageMeta.data.title, this.$config.app.siteName].filter((part) => !!part).join(' | ');
-      },
-
-      pageMeta() {
-        return this.$store.state.pageMeta;
-      },
-
-      headMeta() {
-        const headMeta = [
-          { hid: 'title', name: 'title', content: this.pageMeta.data.title },
-          { hid: 'og:title', property: 'og:title', content: this.pageMeta.data.title },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
-        ];
-
-        if (this.pageMeta.data.description) {
-          headMeta.push({ hid: 'description', name: 'description', content: this.pageMeta.data.description });
-          headMeta.push({ hid: 'og:description', property: 'og:description', content: this.pageMeta.data.description });
-        } else {
-          headMeta.push({ hid: 'description', name: 'description', content: 'Europeana' });
-        }
-
-        if (this.pageMeta.data.ogType) {
-          headMeta.push({ hid: 'og:type', property: 'og:type', content: this.pageMeta.data.ogType });
-        }
-
-        if (this.pageMeta.data.ogImage) {
-          headMeta.push({ hid: 'og:image', property: 'og:image', content: this.pageMeta.data.ogImage });
-        }
-        if (this.pageMeta.data.ogImageAlt || (this.pageMeta.data.ogImageAlt === '')) {
-          headMeta.push({ hid: 'og:image:alt', property: 'og:image:alt', content: this.pageMeta.data.ogImageAlt });
-        }
-
-        return headMeta;
-      },
-
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
       },

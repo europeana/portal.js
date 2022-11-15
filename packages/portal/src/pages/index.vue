@@ -46,6 +46,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import BrowsePage from '@/components/browse/BrowsePage';
   import StaticPage from '@/components/static/StaticPage';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'IndexPage',
@@ -56,6 +57,8 @@
       LoadingSpinner,
       StaticPage
     },
+
+    mixins: [pageMetaMixin],
 
     props: {
       slug: {
@@ -94,8 +97,6 @@
         }
         throw new Error(this.$t('messages.notFound'));
       }
-
-      this.$store.commit('pageMeta/set', this.pageMeta);
     },
 
     computed: {

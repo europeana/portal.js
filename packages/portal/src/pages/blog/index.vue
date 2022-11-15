@@ -38,6 +38,7 @@
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNavInput from '../../components/generic/PaginationNavInput';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   const PER_PAGE = 20;
 
@@ -49,6 +50,8 @@
       ContentCard,
       PaginationNavInput
     },
+
+    mixins: [pageMetaMixin],
 
     middleware: 'sanitisePageQuery',
 
@@ -80,10 +83,6 @@
         perPage: PER_PAGE,
         page: null
       };
-    },
-
-    fetch() {
-      this.$store.commit('pageMeta/set', this.pageMeta);
     },
 
     computed: {
