@@ -1,11 +1,9 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../utils';
-// import BootstrapVue from 'bootstrap-vue';
 
 import layout from '@/layouts/error';
 
 const localVue = createLocalVue();
-// localVue.use(BootstrapVue);
 
 const error = { message: 'something went wrong' };
 const notFoundError = { message: 'Page not found', statusCode: 404 };
