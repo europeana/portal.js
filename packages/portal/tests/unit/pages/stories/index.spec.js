@@ -141,9 +141,6 @@ const factory = ({ $features = {}, data = {}, $fetchState = {}, mocks = {} } = {
     },
     $route: { query: {} },
     $scrollTo: sinon.spy(),
-    $store: {
-      commit: sinon.spy()
-    },
     $t: (key) => key,
     $tc: (key) => key,
     ...mocks

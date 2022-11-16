@@ -145,7 +145,6 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       setGalleries: options.setGalleries
     },
     $store: {
-      commit: sinon.spy(),
       state: {
         sanitised: {
           page: 1

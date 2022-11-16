@@ -19,9 +19,6 @@ const factory = async({ data = {}, mocks = {} } = {}) => {
         query: {}
       },
       $goto: sinon.spy(),
-      $store: {
-        commit: sinon.spy()
-      },
       $t: (key) => key,
       ...mocks
     },

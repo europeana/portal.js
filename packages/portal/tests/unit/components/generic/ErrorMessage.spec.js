@@ -1,6 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 import ErrorMessage from '@/components/generic/ErrorMessage.vue';
 
@@ -11,9 +10,6 @@ const factory = (propsData = {}) => shallowMountNuxt(ErrorMessage, {
   localVue,
   propsData,
   mocks: {
-    $store: {
-      commit: sinon.spy()
-    },
     $t: (key) => key
   },
   stubs: ['i18n']

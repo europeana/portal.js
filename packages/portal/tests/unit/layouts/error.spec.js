@@ -19,13 +19,6 @@ const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(layout,
         siteName: 'Europeana'
       }
     },
-    $store: {
-      state: {
-        pageMeta: {
-          data: {}
-        }
-      }
-    },
     $t: (key) => key
   }
 });
@@ -48,7 +41,6 @@ describe('layouts/error.vue', () => {
       it('defaults to "Error" (translated)', () => {
         const pageMeta = {};
         const wrapper = factory({ propsData: { error } });
-        wrapper.vm.$store.state.pageMeta.data = pageMeta;
 
         const headTitle = wrapper.vm.head().title;
 

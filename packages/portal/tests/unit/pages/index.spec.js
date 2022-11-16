@@ -29,9 +29,6 @@ const factory = ({
     $i18n: { isoLocale: () => 'en-GB' },
     $nuxt: { context: { res: {} } },
     $route,
-    $store: {
-      commit: sinon.spy()
-    },
     $t: key => key
   }
 });

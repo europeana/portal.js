@@ -88,7 +88,6 @@ const factory = ({ themes = [], $features = {}, data = {} } = {}) => shallowMoun
     $route: { query: {} },
     $t: (key) => key,
     $store: {
-      commit: sinon.spy(),
       state: {
         search: { allThemes: themes }
       }

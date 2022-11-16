@@ -2,7 +2,6 @@ import exhibitionChapters from '@/mixins/exhibitionChapters';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../../utils';
 import BootstrapVue from 'bootstrap-vue';
-import sinon from 'sinon';
 
 import page from '@/pages/exhibitions/_exhibition/_chapter';
 
@@ -45,9 +44,6 @@ const factory = (heroImage) => shallowMountNuxt(page, {
       assets: {
         optimisedSrc: (img) => `${img?.url}?optimised`
       }
-    },
-    $store: {
-      commit: sinon.spy()
     },
     $t: key => key,
     $tc: () => {}

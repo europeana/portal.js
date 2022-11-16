@@ -31,7 +31,6 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
       hash: options.hash
     },
     $store: {
-      commit: sinon.spy(),
       dispatch: storeDispatch,
       state: {
         auth: { loggedIn: true,

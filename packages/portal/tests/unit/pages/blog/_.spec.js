@@ -1,7 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
-import sinon from 'sinon';
 
 import page from '@/pages/blog/_';
 
@@ -32,9 +31,6 @@ const factory = () => shallowMountNuxt(page, {
   },
   mocks: {
     $features: {},
-    $store: {
-      commit: sinon.spy()
-    },
     $t: key => key,
     $auth: {
       loggedIn: false
