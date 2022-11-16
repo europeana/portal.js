@@ -127,29 +127,55 @@ describe('components/set/SetFormModal', () => {
         expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
       });
     });
-    describe('when there are no updates made', () => {
-      it('is disabled', () => {
-        const wrapper = factory({ propsData: existingSetPropsData });
-
-        wrapper.find('#set-title').setValue(existingSetPropsData.title.en);
-        wrapper.find('#set-description').setValue(existingSetPropsData.description.en);
-        wrapper.find('#set-private').setChecked(false);
-
-        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
-      });
-    });
-    describe('when description is filled with emptry string', () => {
-      it('is disabled', () => {
-        const wrapper = factory({ propsData: { description: { en: undefined } } });
-
-        wrapper.find('#set-description').setValue('');
-
-        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
-      });
-    });
   });
 
   describe('computed', () => {
+    describe('hasTitleInSomeLanguage', () => {
+      describe('when `titleValue` has text', () => {
+        const data = {
+          titleValue: 'fish'
+        };
+
+        it('is `true`', async() => {
+          const wrapper = factory();
+
+          await wrapper.setData(data);
+
+          expect(wrapper.vm.hasTitleInSomeLanguage).toBe(true);
+        });
+      });
+
+      describe('when `titleValue` has no text', () => {
+        const data = {
+          titleValue: ''
+        };
+
+        describe('but `title` has text for some language', () => {
+          const propsData = { title: { es: 'pez' } };
+
+          it('is `true`', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.setData(data);
+
+            expect(wrapper.vm.hasTitleInSomeLanguage).toBe(true);
+          });
+        });
+
+        describe('and `title` has no text for any language', () => {
+          const propsData = { title: {} };
+
+          it('is `true`', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.setData(data);
+
+            expect(wrapper.vm.hasTitleInSomeLanguage).toBe(false);
+          });
+        });
+      });
+    });
+
     describe('visibilityValue', () => {
       describe('when `isPrivate` is `true`', () => {
         const data = {

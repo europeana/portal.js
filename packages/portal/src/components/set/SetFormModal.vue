@@ -19,10 +19,13 @@
             v-model="titleValue"
             type="text"
             maxlength="35"
-            required
+            :required="!hasTitleInSomeLanguage"
             aria-describedby="input-live-help"
           />
-          <b-form-text id="input-live-help">
+          <b-form-text
+            v-show="!hasTitleInSomeLanguage"
+            id="input-live-help"
+          >
             {{ $t('set.form.required') }}
           </b-form-text>
         </b-form-group>
@@ -156,15 +159,20 @@
       setBody() {
         const setBody = {
           type: this.type,
-          title: { ...this.title },
-          description: { ...this.description },
+          title: {
+            ...this.title,
+            [this.$i18n.locale]: this.titleValue
+          },
+          description: {
+            ...this.description,
+            [this.$i18n.locale]: this.descriptionValue
+          },
           visibility: this.visibilityValue
         };
+
         if (this.isNew && this.itemContext) {
           setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
         }
-        setBody.title[this.$i18n.locale] = this.titleValue;
-        setBody.description[this.$i18n.locale] = this.descriptionValue;
 
         return setBody;
       },
@@ -189,15 +197,11 @@
 
       disableSubmitButton() {
         // Disable submit button when no title (required field)
-        return !this.titleValue ||
-          // Or when none of the fields have changed
-          (this.titleValue === this.title[this.$i18n.locale] &&
-            (this.descriptionValue === this.description[this.$i18n.locale] ||
-              // Needed for the case a user starts typing a description but then removes it again.
-              // The value is still changed from undefined to empty string.
-              (this.descriptionValue === '' && this.description[this.$i18n.locale] === undefined)) &&
-            (this.visibility === this.visibilityValue)
-          );
+        return !this.hasTitleInSomeLanguage;
+      },
+
+      hasTitleInSomeLanguage() {
+        return !!this.titleValue || Object.values(this.title).some((val) => !!val);
       }
     },
 
