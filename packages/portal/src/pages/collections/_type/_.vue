@@ -189,9 +189,6 @@
           ogType: 'article'
         };
       },
-      _page() {
-        return this.$page;
-      },
       entity() {
         return this.$store.state.entity.entity;
       },

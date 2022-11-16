@@ -42,7 +42,7 @@
       },
 
       title() {
-        return this.$store.state.pageMeta.data.title || this.$t('error');
+        return this.$t('error');
       }
     }
   };
