@@ -87,6 +87,12 @@
 </template>
 
 <script>
+  import {
+    EUROPEANA_SET_VISIBILITY_PRIVATE,
+    EUROPEANA_SET_VISIBILITY_PUBLIC,
+    EUROPEANA_SET_VISIBILITY_PUBLISHED
+  } from '@/plugins/europeana/set';
+
   export default {
     name: 'SetFormModal',
 
@@ -122,7 +128,7 @@
 
       visibility: {
         type: String,
-        default: 'public'
+        default: EUROPEANA_SET_VISIBILITY_PUBLIC
       },
 
       type: {
@@ -152,7 +158,7 @@
           type: this.type,
           title: { ...this.title },
           description: { ...this.description },
-          visibility: this.isPrivate ? 'private' : this.visibility
+          visibility: this.visibilityValue
         };
         if (this.isNew && this.itemContext) {
           setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
@@ -163,6 +169,16 @@
         return setBody;
       },
 
+      visibilityValue() {
+        if (this.isPrivate) {
+          return EUROPEANA_SET_VISIBILITY_PRIVATE;
+        } else if (this.visibility === EUROPEANA_SET_VISIBILITY_PUBLISHED) {
+          return EUROPEANA_SET_VISIBILITY_PUBLISHED;
+        } else {
+          return EUROPEANA_SET_VISIBILITY_PUBLIC;
+        }
+      },
+
       isNew() {
         return this.setId === null;
       },
@@ -170,6 +186,7 @@
       modalTitle() {
         return this.isNew ? this.$t('set.actions.create') : this.$t('set.actions.edit');
       },
+
       disableSubmitButton() {
         // Disable submit button when no title (required field)
         return !this.titleValue ||
@@ -179,8 +196,7 @@
               // Needed for the case a user starts typing a description but then removes it again.
               // The value is still changed from undefined to empty string.
               (this.descriptionValue === '' && this.description[this.$i18n.locale] === undefined)) &&
-            ((this.isPrivate && this.visibility === 'private') ||
-              (!this.isPrivate && this.visibility === ('public' || 'published)')))
+            (this.visibility === this.visibilityValue)
           );
       }
     },
@@ -194,7 +210,7 @@
       init() {
         this.titleValue = (this.title || {})[this.$i18n.locale];
         this.descriptionValue = (this.description || {})[this.$i18n.locale];
-        this.isPrivate = this.visibility === 'private';
+        this.isPrivate = this.visibility === EUROPEANA_SET_VISIBILITY_PRIVATE;
       },
 
       // TODO: error handling

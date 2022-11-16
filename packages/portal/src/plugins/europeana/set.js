@@ -2,6 +2,9 @@ import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
 import { apiError, createKeycloakAuthAxios } from './utils';
 
 export const BASE_URL = 'https://api.europeana.eu/set';
+export const EUROPEANA_SET_VISIBILITY_PRIVATE = 'private';
+export const EUROPEANA_SET_VISIBILITY_PUBLIC = 'public';
+export const EUROPEANA_SET_VISIBILITY_PUBLISHED = 'published';
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
@@ -93,7 +96,7 @@ export default (context = {}) => {
         title: {
           en: 'LIKES'
         },
-        visibility: 'private'
+        visibility: EUROPEANA_SET_VISIBILITY_PRIVATE
       });
     },
 
