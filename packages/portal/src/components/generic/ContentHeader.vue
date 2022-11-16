@@ -49,7 +49,7 @@
     props: {
       title: {
         type: String,
-        default: null
+        required: true
       },
 
       description: {
