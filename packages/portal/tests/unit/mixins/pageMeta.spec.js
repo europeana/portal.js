@@ -71,4 +71,54 @@ describe('mixins/pageMeta', () => {
       });
     });
   });
+
+  describe('computed', () => {
+    describe('pageTitle', () => {
+      const computed = {
+        pageMeta() {
+          return {
+            title: 'Home'
+          };
+        }
+      };
+
+      describe('when fetchState has error', () => {
+        describe('and error has pageTitlePath', () => {
+          const mocks = { $fetchState: { error: { pageTitlePath: 'item-not-found' } } };
+
+          it('uses translated pageTitlePath', () => {
+            const wrapper = factory({ mocks, computed });
+
+            const pageTitle = wrapper.vm.pageTitle;
+
+            expect(pageTitle).toBe('item-not-found');
+          });
+        });
+
+        describe('but error has no pageTitlePath', () => {
+          const mocks = { $fetchState: { error: {} } };
+
+          it('uses translated "error"', () => {
+            const wrapper = factory({ mocks, computed });
+
+            const pageTitle = wrapper.vm.pageTitle;
+
+            expect(pageTitle).toBe('error');
+          });
+        });
+      });
+
+      describe('when fetchState has no error', () => {
+        const mocks = { $fetchState: {} };
+
+        it('uses pageMeta title', () => {
+          const wrapper = factory({ mocks, computed });
+
+          const pageTitle = wrapper.vm.pageTitle;
+
+          expect(pageTitle).toBe('Home');
+        });
+      });
+    });
+  });
 });

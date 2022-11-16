@@ -16,8 +16,12 @@ export default {
     },
 
     pageTitle() {
-      if (this.$fetchState?.error?.pageTitlePath) {
-        return this.$t(this.$fetchState.error.pageTitlePath);
+      if (this.$fetchState?.error) {
+        if (this.$fetchState.error.pageTitlePath) {
+          return this.$t(this.$fetchState.error.pageTitlePath);
+        } else {
+          return this.$t('error');
+        }
       } else {
         return this.pageMeta.title;
       }
