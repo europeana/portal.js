@@ -45,19 +45,7 @@ describe('layouts/error.vue', () => {
 
   describe('head', () => {
     describe('title', () => {
-      it('uses pageMeta from store if present', () => {
-        const pageMeta = {
-          title: 'Item not found'
-        };
-        const wrapper = factory({ propsData: { error } });
-        wrapper.vm.$store.state.pageMeta.data = pageMeta;
-
-        const headTitle = wrapper.vm.head().title;
-
-        expect(headTitle).toBe('Item not found | Europeana');
-      });
-
-      it('falls back to "Error" (translated)', () => {
+      it('defaults to "Error" (translated)', () => {
         const pageMeta = {};
         const wrapper = factory({ propsData: { error } });
         wrapper.vm.$store.state.pageMeta.data = pageMeta;
