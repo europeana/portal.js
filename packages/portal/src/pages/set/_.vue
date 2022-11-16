@@ -19,7 +19,6 @@
       :title-path="$fetchState.error.titlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
-      class="pt-5"
     />
     <div
       v-else-if="set.id"
@@ -215,6 +214,11 @@
           error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
         }
+        if (error.statusCode === 404) {
+          error.titlePath = 'errorMessage.pageNotFound.title';
+          error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
+          error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
+        }
         throw error;
       }
     },
@@ -261,9 +265,6 @@
         return this.set.type === 'EntityBestItemsSet';
       },
       displayTitle() {
-        if (this.$fetchState.error) {
-          return { values: [this.$t(this.$fetchState.error.metaTitlePath ? this.$fetchState.error.metaTitlePath : 'error')] };
-        }
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
       },
       displayDescription() {

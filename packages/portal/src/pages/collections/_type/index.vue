@@ -1,29 +1,24 @@
 <template>
   <div class="collections-page white-page">
-    <b-container>
-      <b-row
-        v-if="$fetchState.error"
-        class="flex-md-row py-4"
-      >
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-      <template
-        v-else
-      >
-        <ContentHeader
-          :title="pageMeta.title"
+    <ErrorMessage
+      v-if="$fetchState.error"
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :title-path="$fetchState.error.titlePath"
+      :illustration-src="$fetchState.error.illustrationSrc"
+    />
+    <b-container
+      v-else
+    >
+      <ContentHeader
+        :title="pageMeta.title"
+      />
+      <client-only>
+        <EntityTable
+          :type="$route.params.type"
+          data-qa="collections table"
         />
-        <client-only>
-          <EntityTable
-            :type="$route.params.type"
-            data-qa="collections table"
-          />
-        </client-only>
-      </template>
+      </client-only>
     </b-container>
   </div>
 </template>
@@ -37,7 +32,7 @@
     name: 'CollectionsIndexPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       ContentHeader,
       ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
@@ -50,7 +45,12 @@
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        throw new Error('Unknown collection type');
+        const error = new Error('Unknown collection type');
+        error.statusCode = 404;
+        error.titlePath = 'errorMessage.pageNotFound.title';
+        error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
+        error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
+        throw error;
       }
     },
 

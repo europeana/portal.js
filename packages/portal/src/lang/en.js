@@ -221,6 +221,10 @@ export default {
       "metaTitle": "Item not found",
       "title": "Oh no! {newline} We were not able to find this item."
     },
+    "pageNotFound": {
+      "metaTitle": "Page not found",
+      "title": "The page you are looking for doesn't exist."
+    },
     "searchResultsNotFound": {
       "description": "Please adjust the search term or reset the filters to try again.",
       "title": "We can't seem to find what you are looking for."

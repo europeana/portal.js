@@ -177,29 +177,6 @@
     }
   }
 
-  // TODO: is this ever used?
-  &.entity-card {
-    .card-img {
-      position: relative;
-
-      &::after {
-        border-bottom: 88px solid $white;
-        border-left: 44px solid transparent;
-        bottom: 0;
-        content: '';
-        display: block;
-        height: 0;
-        position: absolute;
-        right: 0;
-        width: 0;
-      }
-    }
-
-    @media (min-width: $bp-medium) {
-      min-height: auto;
-    }
-  }
-
   &.explore-card {
     flex: 100%;
     margin-bottom: 1rem;
