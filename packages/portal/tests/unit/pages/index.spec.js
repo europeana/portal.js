@@ -144,5 +144,41 @@ describe('IndexPage', () => {
 
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(0);
     });
+
+    describe('when page errors', () => {
+      it('uses error meta title', async() => {
+        const wrapper = factory();
+
+        try {
+          await wrapper.vm.fetch();
+        } catch (e) {
+          wrapper.vm.$fetchState.error = e;
+        }
+
+        const headTitle = wrapper.vm.head().title;
+
+        expect(headTitle).toEqual('error');
+      });
+      describe('when 404 error', () => {
+        it('uses custom error meta title', async() => {
+          process.server = true;
+          const slug = 'not-found';
+          const wrapper = factory({
+            contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [] }, staticPageCollection: { items: [] } } } },
+            $route: { params: { pathMatch: slug }, query: {} }
+          });
+
+          try {
+            await wrapper.vm.fetch();
+          } catch (e) {
+            wrapper.vm.$fetchState.error = e;
+          }
+
+          const headTitle = wrapper.vm.head().title;
+
+          expect(headTitle).toEqual(wrapper.vm.$fetchState.error.metaTitlePath);
+        });
+      });
+    });
   });
 });
