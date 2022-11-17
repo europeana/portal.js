@@ -3,7 +3,25 @@
     :class="$fetchState.error && 'white-page'"
   >
     <b-container
-      v-if="!setGalleriesEnabled"
+      v-if="$fetchState.pending"
+      data-qa="loading spinner container"
+    >
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
+        </b-col>
+      </b-row>
+    </b-container>
+    <ErrorMessage
+      v-else-if="$fetchState.error"
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :title-path="$fetchState.error.titlePath"
+      :description-path="$fetchState.error.descriptionPath"
+      :illustration-src="$fetchState.error.illustrationSrc"
+    />
+    <b-container
+      v-else-if="!setGalleriesEnabled"
     >
       <ContentWarningModal
         v-if="contentWarning"
@@ -12,7 +30,7 @@
         :page-slug="`galleries/${identifier}`"
       />
       <ContentHeader
-        :title="title"
+        :title="pageMeta.title"
         :description="htmlDescription"
         :media-url="shareMediaUrl"
         :context-label="$tc('galleries.galleries', 1)"
@@ -41,25 +59,6 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container
-      v-else-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
-    <ErrorMessage
-      v-else-if="$fetchState.error"
-      data-qa="error message container"
-      :error="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :description-path="$fetchState.error.descriptionPath"
-      :illustration-src="$fetchState.error.illustrationSrc"
-      class="pt-5"
-    />
     <div
       v-else-if="set.id"
       class="mt-n3"
@@ -180,7 +179,7 @@
         <client-only>
           <SetRecommendations
             v-if="displayRecommendations"
-            :identifier="`/${$route.params.pathMatch}`"
+            :identifier="`/${setId}`"
             :type="set.type"
           />
         </client-only>
@@ -200,6 +199,7 @@
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   // TODO: the following imports are only needed for contentful Galleries.
   import ContentHeader from '../../components/generic/ContentHeader';
@@ -223,9 +223,9 @@
     },
     mixins: [
       redirectToPrefPathMixin,
+      pageMetaMixin,
       // TODO: markdown is only used in contentful galleries
       stripMarkdown
-
     ],
     async beforeRouteLeave(_to, _from, next) {
       if (this.setGalleriesEnabled) {
@@ -256,37 +256,21 @@
             await this.$store.dispatch('entity/getPins');
           }
         } catch (error) {
-          if (process.server) {
-            this.$nuxt.context.res.statusCode = error.statusCode || 500;
-          }
-          if (error.statusCode === 403 || error.statusCode === 401) {
-            error.titlePath = 'errorMessage.galleryUnauthorised.title';
-            error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
-            error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
-            error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
-          }
-          throw error;
+          this.handleFetchError(error);
         }
       } else {
         await this.fetchContentfulGallery();
       }
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0]),
-        meta: [
-          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
-          { hid: 'og:title', property: 'og:title', content: this.displayTitle.values[0] },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.displayDescription && this.displayDescription.values[0] ? [
-            { hid: 'description', name: 'description', content: this.displayDescription.values[0] },
-            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0] }
-          ] : [])
-      };
-    },
     computed: {
+      pageMeta() {
+        return {
+          title: this.displayTitle.values[0],
+          description: this.displayDescription?.values?.[0],
+          ogType: 'article',
+          ogImage: this.shareMediaUrl
+        };
+      },
       setGalleriesEnabled() {
         return this.$features.setGalleries;
       },
@@ -337,9 +321,6 @@
       displayTitle() {
         // TODO: remove contentful gallery fallback
         if (this.setGalleriesEnabled) {
-          if (this.$fetchState.error) {
-            return { values: [this.$t('error')] };
-          }
           return langMapValueForLocale(this.set.title, this.$i18n.locale);
         }
         return { values: [this.title] };
@@ -404,8 +385,12 @@
           .then(response => response.data.data)
           .then(data => {
             if (data.imageGalleryCollection.items.length === 0) {
-              this.error({ statusCode: 404, message: this.i18n.t('messages.notFound') });
-              return null;
+              const error = new Error(this.$t('messages.notFound'));
+              error.statusCode = 404;
+              error.titlePath = 'errorMessage.pageNotFound.title';
+              error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
+              error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
+              throw error;
             }
 
             const gallery = data.imageGalleryCollection.items[0];
@@ -417,7 +402,7 @@
             this.title = gallery.name;
           })
           .catch((e) => {
-            this.error({ statusCode: 500, message: e.toString() });
+            throw e;
           });
       },
       imageTitle(data) {
@@ -429,6 +414,23 @@
       imageUrl(data) {
         const edmPreview = data.encoding?.edmPreview?.[0] || data.thumbnailUrl;
         return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
+      },
+      handleFetchError(error) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        }
+        if (error.statusCode === 403 || error.statusCode === 401) {
+          error.titlePath = 'errorMessage.galleryUnauthorised.title';
+          error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
+          error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
+          error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
+        }
+        if (error.statusCode === 404) {
+          error.titlePath = 'errorMessage.pageNotFound.title';
+          error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
+          error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
+        }
+        throw error;
       }
     }
   };

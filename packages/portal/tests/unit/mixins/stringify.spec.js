@@ -13,7 +13,7 @@ const factory = () => shallowMount(component, {
   localVue
 });
 
-describe('mixins/vue/facets', () => {
+describe('mixins/stringify', () => {
   describe('stringify()', () => {
     describe('when field is not a literal', () => {
       it('returns a literal value', () => {

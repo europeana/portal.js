@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <ContentHeader
-      :title="$tc('galleries.galleries', 2)"
+      :title="pageMeta.title"
       :description="$t('galleries.description')"
     />
     <b-row class="flex-md-row pb-5">
@@ -78,6 +78,7 @@
   import { getLabelledSlug } from '@/plugins/europeana/utils';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   const PER_PAGE = 20;
 
@@ -90,6 +91,7 @@
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       PaginationNavInput: () => import('../../components/generic/PaginationNavInput')
     },
+    mixins: [pageMetaMixin],
     middleware: 'sanitisePageQuery',
     data() {
       return {
@@ -106,12 +108,12 @@
       }
       this.$scrollTo && this.$scrollTo('#header');
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$tc('galleries.galleries', 2))
-      };
-    },
     computed: {
+      pageMeta() {
+        return {
+          title: this.$tc('galleries.galleries', 2)
+        };
+      },
       setGalleriesEnabled() {
         return this.$features.setGalleries;
       },

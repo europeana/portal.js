@@ -88,6 +88,7 @@
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ExhibitionPage',
@@ -102,7 +103,8 @@
       RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
     mixins: [
-      exhibitionChapters
+      exhibitionChapters,
+      pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -143,23 +145,16 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.name),
-        meta: [
-          { hid: 'title', name: 'title', content: this.name },
-          { hid: 'og:title', property: 'og:title', content: this.name },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ].concat(this.description ? [
-          { hid: 'description', name: 'description', content: this.description },
-          { hid: 'og:description', property: 'og:description', content: this.description }
-        ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
-          { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description || '' }
-        ] : [])
-      };
-    },
     computed: {
+      pageMeta() {
+        return {
+          title: this.name,
+          description: this.description,
+          ogType: 'article',
+          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
+        };
+      },
       hasRelatedCategoryTags() {
         return (this.categoriesCollection?.items?.length || 0) > 0;
       },

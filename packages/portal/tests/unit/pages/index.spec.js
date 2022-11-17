@@ -28,7 +28,6 @@ const factory = ({
     $fetchState: {},
     $i18n: { isoLocale: () => 'en-GB' },
     $nuxt: { context: { res: {} } },
-    $pageHeadTitle: key => key,
     $route,
     $t: key => key
   }
@@ -104,7 +103,7 @@ describe('IndexPage', () => {
     });
   });
 
-  describe('head', () => {
+  describe('pageMeta', () => {
     const data = {
       browsePage: true,
       page: {
@@ -131,18 +130,17 @@ describe('IndexPage', () => {
         }
       });
 
-      const headMeta = wrapper.vm.head().meta;
+      const pageMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(`${socialMediaImageUrl}?optimised`);
+      expect(pageMeta.ogImage).toBe(`${socialMediaImageUrl}?optimised`);
     });
 
-    it('does not set og:image info when no relevant images exist', () => {
+    it('does not set og:image info when no relevant image exist', () => {
       const wrapper = factory({ data });
 
-      const headMeta = wrapper.vm.head().meta;
+      const pageMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(0);
+      expect(pageMeta.ogImage).toBeNull();
     });
   });
 });

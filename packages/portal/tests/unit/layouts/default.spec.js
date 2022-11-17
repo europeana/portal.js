@@ -8,7 +8,8 @@ import layout from '@/layouts/default';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const nuxtI18nHead = { htmlAttrs: { lang: 'en-GB' },
+const nuxtI18nHead = {
+  htmlAttrs: { lang: 'en-GB' },
   link: [{
     hid: 'i18n-alt-bg',
     rel: 'alternate',
@@ -19,7 +20,8 @@ const nuxtI18nHead = { htmlAttrs: { lang: 'en-GB' },
     hid: 'i18n-og',
     property: 'og:locale',
     content: 'en_GB'
-  }] };
+  }]
+};
 
 const factory = (options = {}) => shallowMountNuxt(layout, {
   localVue,
@@ -61,7 +63,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
       get: (key) => options.cookies[key] || {},
       set: () => {}
     },
-    $config: { app: {} },
+    $config: { app: { siteName: 'Europeana' } },
     $nuxtI18nHead: () => nuxtI18nHead,
     ...options.mocks
   },
@@ -224,21 +226,58 @@ describe('layouts/default.vue', () => {
     });
   });
 
-  describe('head()', () => {
-    it('sets i18nHead html attributes', () => {
-      const wrapper = factory();
+  describe('head', () => {
+    describe('title', () => {
+      it('uses site name', () => {
+        const wrapper = factory();
 
-      expect(wrapper.vm.head().htmlAttrs).toEqual(nuxtI18nHead.htmlAttrs);
+        expect(wrapper.vm.head().title).toBe('Europeana');
+      });
     });
-    it('sets i18nHead head links', () => {
-      const wrapper = factory();
+    describe('htmlAttrs', () => {
+      it('includes i18nHead html attributes', () => {
+        const wrapper = factory();
 
-      expect(wrapper.vm.head().link.filter(anylink => nuxtI18nHead.link.some(i18nLink => i18nLink.hid === anylink.hid))).toEqual(nuxtI18nHead.link);
+        expect(wrapper.vm.head().htmlAttrs).toEqual(nuxtI18nHead.htmlAttrs);
+      });
     });
-    it('sets i18nHead head meta tags', () => {
-      const wrapper = factory();
+    describe('link', () => {
+      it('includes i18nHead head links', () => {
+        const wrapper = factory();
 
-      expect(wrapper.vm.head().meta.filter(anyTag => nuxtI18nHead.meta.some(i18nTag => i18nTag.hid === anyTag.hid))).toEqual(nuxtI18nHead.meta);
+        expect(wrapper.vm.head().link.filter(anylink => nuxtI18nHead.link.some(i18nLink => i18nLink.hid === anylink.hid))).toEqual(nuxtI18nHead.link);
+      });
+    });
+    describe('meta', () => {
+      it('includes i18nHead head meta tags', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.head().meta.filter(anyTag => nuxtI18nHead.meta.some(i18nTag => i18nTag.hid === anyTag.hid))).toEqual(nuxtI18nHead.meta);
+      });
+
+      it('includes og:url with canonical URL', () => {
+        const wrapper = factory();
+
+        const headMeta = wrapper.vm.head().meta;
+
+        expect(headMeta.find((tag) => tag.property === 'og:url').content).toBe('/fr');
+      });
+
+      it('includes description "Europeana"', () => {
+        const wrapper = factory();
+
+        const headMeta = wrapper.vm.head().meta;
+
+        expect(headMeta.find((tag) => tag.name === 'description').content).toBe('Europeana');
+      });
+
+      it('includes og:description "Europeana"', () => {
+        const wrapper = factory();
+
+        const headMeta = wrapper.vm.head().meta;
+
+        expect(headMeta.find((tag) => tag.property === 'og:description').content).toBe('Europeana');
+      });
     });
   });
 });

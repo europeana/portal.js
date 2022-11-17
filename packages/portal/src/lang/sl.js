@@ -123,7 +123,6 @@ export default {
       "update": "Zbirka je bila posodobljena"
     }
   },
-  "collectionsYouMightLike": "Zbirke, ki vam bodo mogoče všeč",
   "colourSwatch": "Barvni vzorec",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta predmet."
   },
   "related": {
+    "categoryTags": {
+      "title": "Odkrijte povezane zgodbe"
+    },
+    "collections": {
+      "title": "Odkrijte povezane zbirke"
+    },
     "editorial": {
       "title": "Zgodbe, ki vam bodo morda všeč"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Zgodbe"
   },
-  "website": "Spletno mesto",
-  "youMightAlsoLike": "Morda bi vam bilo všeč tudi"
+  "website": "Spletno mesto"
 };

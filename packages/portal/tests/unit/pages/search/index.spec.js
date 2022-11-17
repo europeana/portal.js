@@ -51,7 +51,6 @@ const factory = (query) => shallowMountNuxt(page, {
   },
   mocks: {
     $features: {},
-    $pageHeadTitle: key => key,
     $route: {
       query: {
         query
@@ -81,12 +80,12 @@ const factory = (query) => shallowMountNuxt(page, {
 describe('pages/item/_.vue', () => {
   afterEach(sinon.resetHistory);
 
-  describe('head()', () => {
+  describe('pageMeta', () => {
     describe('with no query', () => {
       it('is only "search"', async() => {
         const wrapper = factory();
 
-        const headTitle = wrapper.vm.head().title;
+        const headTitle = wrapper.vm.pageMeta.title;
 
         expect(headTitle).toBe('search.title');
       });
@@ -96,7 +95,7 @@ describe('pages/item/_.vue', () => {
       it('uses the search query in the title', async() => {
         const wrapper = factory('test');
 
-        const headTitle = wrapper.vm.head().title;
+        const headTitle = wrapper.vm.pageMeta.title;
 
         expect(headTitle).toBe('searchResultsFor test');
       });

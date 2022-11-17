@@ -1,18 +1,20 @@
 <template>
   <b-container data-qa="debug page">
     <ContentHeader
-      :title="title"
+      :title="pageMeta.title"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <b-form>
+        <b-form
+          @submit.stop.prevent="handleSubmitForm"
+        >
           <b-form-group
             label="Endpoint"
             label-for="debug-oembed-endpoint"
           >
             <b-form-input
               id="debug-oembed-endpoint"
-              v-model="endpoint"
+              v-model="formEndpoint"
               name="endpoint"
             />
           </b-form-group>
@@ -23,7 +25,7 @@
           >
             <b-form-input
               id="debug-oembed-url"
-              v-model="url"
+              v-model="formUrl"
               name="url"
             />
           </b-form-group>
@@ -39,13 +41,10 @@
     </b-row>
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <HTMLEmbed
-          v-if="oEmbedData"
-          :html="oEmbedData.html"
-          :provider="oEmbedData.provider_name"
-          :height="oEmbedData.height"
-          :width="oEmbedData.width"
-          :error="oEmbedData.error"
+        <EmbedOEmbed
+          v-if="url && endpoint"
+          :url="url"
+          :endpoint="endpoint"
         />
       </b-col>
     </b-row>
@@ -54,52 +53,52 @@
 
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
-  import HTMLEmbed from '@/components/generic/HTMLEmbed';
-  import oEmbed from '@/plugins/oembed';
+  import EmbedOEmbed from '@/components/embed/EmbedOEmbed';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'DebugOEmbedPage',
 
     components: {
       ContentHeader,
-      HTMLEmbed
+      EmbedOEmbed
     },
+
+    mixins: [pageMetaMixin],
 
     data() {
       return {
-        endpoint: this.$route.query.endpoint,
-        url: this.$route.query.url,
-        oEmbedData: null,
-        title: 'oEmbed'
+        endpoint: null,
+        url: null,
+        formEndpoint: null,
+        formUrl: null
       };
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title)
-      };
+    fetch() {
+      this.url = this.$route.query.url;
+      this.formUrl = this.url;
+
+      this.endpoint = this.$route.query.endpoint;
+      this.formEndpoint = this.endpoint;
     },
 
-    mounted() {
-      this.fetchOEmbedData();
+    computed: {
+      pageMeta() {
+        return {
+          title: 'oEmbed'
+        };
+      }
+    },
+
+    watch: {
+      '$route.query.url': '$fetch',
+      '$route.query.endpoint': '$fetch'
     },
 
     methods: {
-      async fetchOEmbedData() {
-        if (!this.endpoint || !this.url) {
-          return;
-        }
-
-        try {
-          const response = await oEmbed(this.url, this.endpoint);
-          if (response.data && response.data.html) {
-            this.oEmbedData = response.data;
-          } else {
-            this.oEmbedData = { error: this.$t('messages.externalContentError') };
-          }
-        } catch (error) {
-          this.oEmbedData = { error: error.message };
-        }
+      handleSubmitForm() {
+        this.$goto({ ...this.$route, ...{ query: { url: this.formUrl, endpoint: this.formEndpoint } } });
       }
     }
   };

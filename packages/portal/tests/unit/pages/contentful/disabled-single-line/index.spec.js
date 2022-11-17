@@ -11,7 +11,6 @@ const factory = () => shallowMountNuxt(page, {
   localVue,
   mocks: {
     $t: key => key,
-    $pageHeadTitle: key => key,
     $i18n: {
       locale: 'en',
       isoLocale: () => 'en-GB'
@@ -22,6 +21,16 @@ const factory = () => shallowMountNuxt(page, {
 describe('pages/contentful/disabled-single-line/index', () => {
   beforeAll(() => {
     window.contentfulExtension = fakeContentfulExtension({ location: 'field', entryFields: ['identifier'], fieldReturnValue: 'original value' });
+  });
+
+  describe('head', () => {
+    describe('title', () => {
+      it('is "Disabled single line - Contentful app"', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.head().title).toBe('Disabled single line - Contentful app');
+      });
+    });
   });
 
   describe('methods', () => {

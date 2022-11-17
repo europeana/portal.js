@@ -139,7 +139,6 @@ const factory = ({ $features = {}, data = {}, $fetchState = {}, mocks = {} } = {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
-    $pageHeadTitle: (text) => text,
     $route: { query: {} },
     $scrollTo: sinon.spy(),
     $t: (key) => key,
@@ -269,13 +268,13 @@ describe('pages/stories/index', () => {
     });
   });
 
-  describe('head', () => {
+  describe('pageMeta', () => {
     it('uses localised page title for title meta field', () => {
       const wrapper = factory();
 
-      const headMeta = wrapper.vm.head().meta;
+      const pageMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.find(meta => meta.name === 'title')?.content).toBe('storiesPage.title');
+      expect(pageMeta.title).toBe('storiesPage.title');
     });
   });
 

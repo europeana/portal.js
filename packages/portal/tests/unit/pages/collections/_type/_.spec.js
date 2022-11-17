@@ -90,7 +90,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     },
     $apis: {
       entity: {
-        get: sinon.stub().resolves({}),
+        get: options.get || sinon.stub().resolves({}),
         facets: sinon.stub().resolves([]),
         imageUrl: sinon.spy()
       },
@@ -102,7 +102,6 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
-    $pageHeadTitle: key => key,
     $path: () => '/',
     $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
     $store: {
@@ -154,6 +153,34 @@ describe('pages/collections/_type/_', () => {
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.$store.commit.calledWith('search/setCollectionLabel', 'Topic')).toBe(true);
+    });
+
+    describe('on errors', () => {
+      it('throws an error', async() => {
+        const apiError = new Error({ message: 'No collection found' });
+
+        const wrapper = factory({ get: sinon.stub().rejects(apiError) });
+
+        await expect(wrapper.vm.fetch()).rejects.toThrowError();
+        await expect(wrapper.vm.fetch()).rejects.toEqual(apiError);
+      });
+
+      it('displays an illustrated error message for 404 status', async() => {
+        const apiError = new Error({ message: 'No collection found' });
+        apiError.statusCode = 404;
+
+        const wrapper = factory({ get: sinon.stub().rejects(apiError) });
+
+        let error;
+        try {
+          await wrapper.vm.$fetch();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.titlePath).toBe('errorMessage.pageNotFound.title');
+        expect(error.illustrationSrc).toBe('il-page-not-found.svg');
+      });
     });
 
     describe('collection page', () => {
@@ -556,21 +583,11 @@ describe('pages/collections/_type/_', () => {
   });
 
   describe('the head title', () => {
-    describe('when fetchState has error', () => {
-      it('uses translation of "Error"', () => {
-        const wrapper = factory({ ...topicEntity, mocks: { $fetchState: { error: true } } });
-
-        const headTitle = wrapper.vm.head().title;
-
-        expect(headTitle).toBe('error');
-      });
-    });
-
     describe('when fetchState has no error', () => {
       it('uses entity title', () => {
         const wrapper = factory(topicEntity);
 
-        const headTitle = wrapper.vm.head().title;
+        const headTitle = wrapper.vm.pageMeta.title;
 
         expect(headTitle).toBe('Topic');
       });

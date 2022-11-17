@@ -123,7 +123,6 @@ export default {
       "update": "A gyűjtemény frissült"
     }
   },
-  "collectionsYouMightLike": "Gyűjtemények, amelyek tetszhetnek Önnek",
   "colourSwatch": "Színminta",
   "contentfulManual": {
     "footerNavigation": {
@@ -941,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Ezt a tartalmat a nyilvánosság hozza létre, nem az intézmény, amely a cikket szolgáltatta."
   },
   "related": {
+    "categoryTags": {
+      "title": "Fedezze fel a kapcsolódó történeteket"
+    },
+    "collections": {
+      "title": "Fedezze fel a kapcsolódó gyűjteményeket"
+    },
     "editorial": {
       "title": "Történetek, amelyek tetszhetnek"
     }
@@ -1026,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Történetek"
   },
-  "website": "Weboldal",
-  "youMightAlsoLike": "Ez is érdekelheti Önt"
+  "website": "Weboldal"
 };

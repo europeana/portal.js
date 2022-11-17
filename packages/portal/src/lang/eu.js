@@ -123,7 +123,6 @@ export default {
       "update": "Bilduma eguneratu egin da"
     }
   },
-  "collectionsYouMightLike": "Gustatu ahal zaizkizun bildumak",
   "colourSwatch": "Kolore swatch",
   "contentfulManual": {
     "footerNavigation": {
@@ -945,6 +944,12 @@ export default {
     "transcriptionDisclaimer": "Eduki hori jendeak egin du, eta ez elementu hau eman duen erakundeak"
   },
   "related": {
+    "categoryTags": {
+      "title": "Ezagutu erlazionatutako istorioak"
+    },
+    "collections": {
+      "title": "Ezagutu erlazionatutako bildumak"
+    },
     "editorial": {
       "title": "Gustuko izan ditzakezun istorioak"
     }
@@ -1030,6 +1035,5 @@ export default {
   "storiesPage": {
     "title": "Istorioak"
   },
-  "website": "Webgunea",
-  "youMightAlsoLike": "Baliteke ere gustatzea"
+  "website": "Webgunea"
 };
