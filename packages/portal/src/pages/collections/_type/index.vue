@@ -4,8 +4,7 @@
       v-if="$fetchState.error"
       data-qa="error message container"
       :error="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :status-code="$fetchState.error.statusCode"
     />
     <b-container
       v-else
@@ -24,8 +23,9 @@
 </template>
 
 <script>
-  import ContentHeader from '@/components/generic/ContentHeader';
+  import createHttpError from 'http-errors';
   import ClientOnly from 'vue-client-only';
+  import ContentHeader from '@/components/generic/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -45,12 +45,7 @@
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        const error = new Error('Unknown collection type');
-        error.statusCode = 404;
-        error.titlePath = 'errorMessage.pageNotFound.title';
-        error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
-        error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
-        throw error;
+        throw createHttpError(404, 'Unknown collection type'); // TODO: i18n
       }
     },
 

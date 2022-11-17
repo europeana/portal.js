@@ -164,23 +164,6 @@ describe('pages/collections/_type/_', () => {
         await expect(wrapper.vm.fetch()).rejects.toThrowError();
         await expect(wrapper.vm.fetch()).rejects.toEqual(apiError);
       });
-
-      it('displays an illustrated error message for 404 status', async() => {
-        const apiError = new Error({ message: 'No collection found' });
-        apiError.statusCode = 404;
-
-        const wrapper = factory({ get: sinon.stub().rejects(apiError) });
-
-        let error;
-        try {
-          await wrapper.vm.$fetch();
-        } catch (e) {
-          error = e;
-        }
-
-        expect(error.titlePath).toBe('errorMessage.pageNotFound.title');
-        expect(error.illustrationSrc).toBe('il-page-not-found.svg');
-      });
     });
 
     describe('collection page', () => {

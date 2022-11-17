@@ -30,5 +30,16 @@ describe('components/generic/ErrorMessage', () => {
 
       expect(text).toEqual(propsData.descriptionPath);
     });
+
+    it('has reusable message for 404 HTTP status code', () => {
+      const propsData = {
+        statusCode: 404
+      };
+      const wrapper = factory(propsData);
+
+      const heading = wrapper.find('i18n-stub[tag="h1"]');
+
+      expect(heading.attributes('path')).toEqual('errorMessage.pageNotFound.title');
+    });
   });
 });

@@ -151,25 +151,6 @@ describe('SetPage', () => {
         expect(error.titlePath).toBe('errorMessage.galleryUnauthorised.title');
         expect(error.illustrationSrc).toBe('il-gallery-unauthorised.svg');
       });
-
-      it('displays an illustrated error message for 404 status', async() => {
-        const notFoundError = { statusCode: 404, message: 'Page not found' };
-        const wrapper = factory();
-        process.server = true;
-        wrapper.vm.$store.dispatch = sinon.stub().throws(() => notFoundError);
-        wrapper.vm.$fetchState.error = notFoundError;
-
-        let error;
-        try {
-          await wrapper.vm.$fetch();
-        } catch (e) {
-          error = e;
-        }
-
-        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(404);
-        expect(error.titlePath).toBe('errorMessage.pageNotFound.title');
-        expect(error.illustrationSrc).toBe('il-page-not-found.svg');
-      });
     });
   });
 

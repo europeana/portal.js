@@ -19,6 +19,7 @@
       :title-path="$fetchState.error.titlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
+      :status-code="$fetchState.error.statusCode"
     />
     <b-container
       v-else-if="!setGalleriesEnabled"
@@ -385,12 +386,7 @@
           .then(response => response.data.data)
           .then(data => {
             if (data.imageGalleryCollection.items.length === 0) {
-              const error = new Error(this.$t('messages.notFound'));
-              error.statusCode = 404;
-              error.titlePath = 'errorMessage.pageNotFound.title';
-              error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
-              error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
-              throw error;
+              throw createHttpError(404, this.$t('messages.notFound'));
             }
 
             const gallery = data.imageGalleryCollection.items[0];
@@ -400,9 +396,6 @@
             this.images = gallery.hasPartCollection.items.filter(image => image !== null);
             this.rawDescription = gallery.description;
             this.title = gallery.name;
-          })
-          .catch((e) => {
-            throw e;
           });
       },
       imageTitle(data) {
@@ -424,11 +417,6 @@
           error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
           error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
-        }
-        if (error.statusCode === 404) {
-          error.titlePath = 'errorMessage.pageNotFound.title';
-          error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
-          error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
         }
         throw error;
       }

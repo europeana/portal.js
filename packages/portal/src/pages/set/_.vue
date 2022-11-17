@@ -19,6 +19,7 @@
       :title-path="$fetchState.error.titlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
+      :status-code="$fetchState.error.statusCode"
     />
     <div
       v-else-if="set.id"
@@ -213,11 +214,6 @@
           error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
           error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
-        }
-        if (error.statusCode === 404) {
-          error.titlePath = 'errorMessage.pageNotFound.title';
-          error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
-          error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
         }
         throw error;
       }
