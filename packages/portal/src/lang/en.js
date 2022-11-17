@@ -1045,7 +1045,8 @@ export default {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
       },
-      "updated": "The item was added to the gallery."
+      "updated": "The item was added to the gallery.",
+      "visibilityChanged": "Warning: set visibility already changed and is currently \"{visibility}\"."
     },
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."

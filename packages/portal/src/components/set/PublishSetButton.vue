@@ -10,6 +10,8 @@
 </template>
 
 <script>
+  import makeToastMixin from '@/mixins/makeToast';
+
   export default {
     name: 'PublishSetButton',
 
@@ -29,6 +31,9 @@
         default: 'public'
       }
     },
+
+    mixins: [makeToastMixin],
+
     computed: {
       publishedSet() {
         return this.visibility === 'published';
@@ -36,11 +41,19 @@
     },
 
     methods: {
-      togglePublishedSet() {
-        if (this.publishedSet) {
-          this.$store.dispatch('set/unpublish', this.setId);
+      async togglePublishedSet() {
+        const visibilityWas = this.visibility;
+        await this.$store.dispatch('set/fetchActive', this.setId);
+        if (visibilityWas === this.$store.state.set.active.visibility) {
+          if (this.publishedSet) {
+            this.$store.dispatch('set/unpublish', this.setId);
+          } else {
+            this.$store.dispatch('set/publish', this.setId);
+          }
         } else {
-          this.$store.dispatch('set/publish', this.setId);
+          this.makeToast(this.$t('set.notifications.visibilityChanged', { visibility: this.$store.state.set.active.visibility }), {
+            variant: 'warning'
+          });
         }
       }
     }
