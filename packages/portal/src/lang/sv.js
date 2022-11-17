@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Objektet hittades inte",
       "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
     },
+    "pageNotFound": {
+      "metaTitle": "Sidan har inte hittats",
+      "title": "Sidan du letar efter finns inte."
+    },
     "searchResultsNotFound": {
       "description": "Justera söktermen eller återställ filtren för att försöka igen.",
       "title": "Vi verkar inte kunna hitta det du letar efter."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Klicka på attributionen för att kopiera den",
       "modalIntro": "Om du använder det här objektet på webben eller någon annanstans ska du inte glömma att visa följande attribution bredvid det:",
       "modalTitle": "Säg tack"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Vi rekommenderar att du klickar på knappen \"Tillhandahållande institution\" nedan för att kontrollera om objektet kan laddas ner på den tillhandahållande institutionens webbplats.",
+      "message": "Om nedladdningen inte fungerar kan det bero på att den har tagits bort av den tillhandahållande institutionen, eller så kan det vara ett tekniskt problem med deras tjänst.",
+      "title": "Nedladdningen fungerar inte"
     }
   },
   "multilingual": {

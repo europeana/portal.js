@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
     },
+    "pageNotFound": {
+      "metaTitle": "Pagina niet gevonden",
+      "title": "De pagina die u zoekt, bestaat niet."
+    },
     "searchResultsNotFound": {
       "description": "Pas de zoekterm aan of reset de filters om het opnieuw te proberen.",
       "title": "We kunnen blijkbaar niet vinden wat u zoekt."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Klik op de toeschrijving om deze te kopiëren",
       "modalIntro": "Als u dit item op internet of ergens anders gebruikt, vergeet dan niet de volgende toeschrijving ernaast weer te geven:",
       "modalTitle": "Zeg bedankt"
+    },
+    "downloadFailed": {
+      "linkPrompt": "We raden u aan op de onderstaande knop 'Instituut' te klikken om na te gaan of het item kan worden gedownload op de website van de verstrekkende instelling.",
+      "message": "Als de download niet werkt, kan het zijn dat deze is verwijderd door de verstrekkende instelling of dat er een technisch probleem is met hun service.",
+      "title": "Downloaden werkt niet"
     }
   },
   "multilingual": {

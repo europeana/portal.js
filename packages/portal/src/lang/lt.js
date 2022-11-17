@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Prekė nerasta",
       "title": "O ne! {newline} Mums nepavyko rasti šio elemento."
     },
+    "pageNotFound": {
+      "metaTitle": "Puslapis nerastas",
+      "title": "Puslapis, kurio ieškote, neegzistuoja."
+    },
     "searchResultsNotFound": {
       "description": "Pakeiskite paieškos žodį arba iš naujo nustatykite filtrus ir bandykite dar kartą.",
       "title": "Atrodo, kad negalime rasti to, ko ieškote."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Spustelėkite priskyrimą, kad jį nukopijuotumėte",
       "modalIntro": "Jei šį elementą naudojate žiniatinklyje ar kitur, nepamirškite šalia jo rodyti šio priskyrimo:",
       "modalTitle": "Pasakykite ačiū"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"Teikianti institucija“, kad patikrintumėte, ar elementą galima atsisiųsti iš teikiančios institucijos svetainės.",
+      "message": "Jei atsisiuntimas neveikia, gali būti, kad jį pašalino teikianti institucija, arba gali kilti techninių problemų, susijusių su jų paslauga.",
+      "title": "Atsisiųsti neveikia"
     }
   },
   "multilingual": {

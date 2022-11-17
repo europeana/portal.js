@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Elemento no encontrado",
       "title": "¡Oh, no! {newline} No pudimos encontrar este elemento."
     },
+    "pageNotFound": {
+      "metaTitle": "Página no encontrada",
+      "title": "La página que buscas no existe."
+    },
     "searchResultsNotFound": {
       "description": "Por favor, ajuste el término de búsqueda o restablezca los filtros para volver a intentarlo.",
       "title": "Parece que no podemos encontrar lo que está buscando."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Haga clic en la atribución para copiarla",
       "modalIntro": "Si usa este elemento en la web o en otro lugar, no olvide mostrar la siguiente atribución junto a él:",
       "modalTitle": "Di gracias"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Le recomendamos que haga clic en el botón \"Institución proveedora\" a continuación para verificar si el artículo se puede descargar en el sitio web de la institución proveedora.",
+      "message": "Si la descarga no funciona, puede deberse a que la institución proveedora la eliminó o puede haber un problema técnico con su servicio.",
+      "title": "Descarga no funciona"
     }
   },
   "multilingual": {

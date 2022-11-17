@@ -221,6 +221,10 @@ export default {
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
     },
+    "pageNotFound": {
+      "metaTitle": "Ez da orria aurkitu",
+      "title": "Bilatzen ari zaren orria ez da existitzen."
+    },
     "searchResultsNotFound": {
       "description": "Mesedez, egokitu bilaketa-terminoa edo berrezarri iragazkiak berriro saiatzeko.",
       "title": "Badirudi ezin dugula bilatzen ari zarena aurkitu."
@@ -855,6 +859,11 @@ export default {
       "clickToCopy": "Egin klik atribuzioan kopiatzeko",
       "modalIntro": "Elementu hau webean edo beste nonbait erabiltzen baduzu, ez ahaztu atribuzio hau bistaratzea ondoan:",
       "modalTitle": "Eskerrik asko"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Beheko \"Erakunde hornitzailea\" botoian klik egitea gomendatzen dizugu, elementua erakunde hornitzailearen webgunean deskargatu daitekeen egiaztatzeko.",
+      "message": "Deskargak ez badu funtzionatzen, baliteke erakunde hornitzaileak kendu duelako edo haien zerbitzuarekin arazo tekniko bat egotea.",
+      "title": "Deskargak ez du funtzionatzen"
     }
   },
   "multilingual": {

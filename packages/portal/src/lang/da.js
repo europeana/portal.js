@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
     },
+    "pageNotFound": {
+      "metaTitle": "Siden blev ikke fundet",
+      "title": "Den side du leder efter eksisterer ikke."
+    },
     "searchResultsNotFound": {
       "description": "Juster søgeordet, eller nulstil filtrene for at prøve igen.",
       "title": "Vi kan tilsyneladende ikke finde det, du leder efter."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Klik på tilskrivningen for at kopiere den",
       "modalIntro": "Hvis du bruger dette element på nettet eller andre steder, skal du ikke glemme at vise følgende tilskrivning ved siden af det:",
       "modalTitle": "Sig tak"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Vi råder dig til at klikke på knappen 'Leverende institution' nedenfor for at kontrollere, om varen kan downloades på den udbyders hjemmeside.",
+      "message": "Hvis overførslen ikke virker, kan det skyldes, at den er blevet fjernet af den leverede institution, eller der kan være et teknisk problem med deres service.",
+      "title": "Download virker ikke"
     }
   },
   "multilingual": {
