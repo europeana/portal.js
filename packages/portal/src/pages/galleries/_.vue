@@ -179,7 +179,7 @@
         <client-only>
           <SetRecommendations
             v-if="displayRecommendations"
-            :identifier="`/${$route.params.pathMatch}`"
+            :identifier="`/${setId}`"
             :type="set.type"
           />
         </client-only>
