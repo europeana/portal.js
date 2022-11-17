@@ -15,6 +15,8 @@
   export default {
     name: 'PublishSetButton',
 
+    mixins: [makeToastMixin],
+
     props: {
       /**
        * Id of the set
@@ -31,8 +33,6 @@
         default: 'public'
       }
     },
-
-    mixins: [makeToastMixin],
 
     computed: {
       publishedSet() {
