@@ -289,6 +289,10 @@
 
           .download-widget {
             margin-bottom: 1rem;
+
+            .download-button {
+              width: auto;
+            }
           }
         }
       }
