@@ -16,14 +16,23 @@ function appSupportsLocale(locale) {
   return locale && localeCodes.includes(locale);
 }
 
-const localiseRoute = ({ route, req, redirect, app }) => {
+const localiseRoute = ({ route, req, redirect, app, res }) => {
   if (app.$apm && process.server) {
     app.$apm.setTransactionName(`${req.method} [l10n]`);
+  }
+  if (process.server && res) {
+    const vary = res.getHeader('vary');
+    if (vary) {
+      res.setHeader('vary', `${vary}, accept-language`);
+    } else {
+      res.setHeader('vary', 'accept-language');
+    }
+    console.log('vary', vary)
   }
   redirect(route);
 };
 
-export default ({ app, route, redirect, req }) => {
+export default ({ app, route, redirect, req, res }) => {
   // Exit early if this is an auth callback
   if (app.$auth && [
     app.$auth.options.redirect.callback,
@@ -38,7 +47,9 @@ export default ({ app, route, redirect, req }) => {
     if (appSupportsLocale(routePathLocale)) {
       // Store it in the cookie, indicating user's current preference e.g. from
       // using language selector
-      app.$cookies.set(COOKIE_NAME, routePathLocale);
+      if (process.client) {
+        app.$cookies.set(COOKIE_NAME, routePathLocale);
+      }
       // Carry on processing the request.
       return;
     } else {
@@ -50,7 +61,8 @@ export default ({ app, route, redirect, req }) => {
         },
         req,
         redirect,
-        app
+        app,
+        res
       });
       return;
     }
@@ -73,7 +85,9 @@ export default ({ app, route, redirect, req }) => {
     }
 
     // Store in the cookie for future requests
-    app.$cookies.set(COOKIE_NAME, browserLocale);
+    if (process.client) {
+      app.$cookies.set(COOKIE_NAME, browserLocale);
+    }
   }
 
   const i18nPath = route.path === '/' ? `/${browserLocale}` : `/${browserLocale}${route.path}`;
@@ -84,6 +98,7 @@ export default ({ app, route, redirect, req }) => {
     },
     req,
     redirect,
-    app
+    app,
+    res
   });
 };
