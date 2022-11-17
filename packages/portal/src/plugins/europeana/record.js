@@ -1,15 +1,16 @@
-import pick from 'lodash/pick';
-import uniq from 'lodash/uniq';
+import pick from 'lodash/pick.js';
+import uniq from 'lodash/uniq.js';
 import merge from 'deepmerge';
 
-import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
-import search from './search';
-import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail';
-import { isIIIFPresentation, isIIIFImage } from '../media';
+import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
+import search from './search.js';
+import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail.js';
+import { isIIIFPresentation, isIIIFImage } from '../media.js';
 
-import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
+import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 
-export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
+export const BASE_URL = 'https://api.europeana.eu/record';
+export const FULLTEXT_BASE_URL = 'https://newspapers.eanadev.org/api/v2';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
 
 /**

@@ -6,12 +6,6 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
-
-    &.disabled {
-      a {
-        color: $mediumgrey;
-      }
-    }
   }
 
   .btn-next,
@@ -22,9 +16,21 @@
       background: none;
       border: 0;
       padding: 0;
+      color: $greyblack;
+      text-decoration: none;
+  
+      &:hover {
+        color: $greyblack;
+      }
 
       @media (min-width: $bp-xxxl) {
         font-size: 1vw;
+      }
+    }
+
+    &.disabled {
+      .page-link {
+        color: $mediumgrey;
       }
     }
   }

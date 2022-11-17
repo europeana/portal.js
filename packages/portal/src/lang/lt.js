@@ -123,7 +123,6 @@ export default {
       "update": "Kolekcija buvo atnaujinta"
     }
   },
-  "collectionsYouMightLike": "Kolekcijos, kurios jums gali patikti",
   "colourSwatch": "Spalvų pavyzdys",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Taip gali nutikti dėl šių priežasčių: šio elemento nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti elementą dar kartą.",
       "metaTitle": "Prekė nerasta",
       "title": "O ne! {newline} Mums nepavyko rasti šio elemento."
+    },
+    "searchResultsNotFound": {
+      "description": "Pakeiskite paieškos žodį arba iš naujo nustatykite filtrus ir bandykite dar kartą.",
+      "title": "Atrodo, kad negalime rasti to, ko ieškote."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga."
   },
   "related": {
+    "categoryTags": {
+      "title": "Atraskite susijusias istorijas"
+    },
+    "collections": {
+      "title": "Atraskite susijusias kolekcijas"
+    },
     "editorial": {
       "title": "Istorijos, kurios jums gali patikti"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Istorijos"
   },
-  "website": "Interneto svetainė",
-  "youMightAlsoLike": "Jums taip pat gali patikti"
+  "website": "Interneto svetainė"
 };

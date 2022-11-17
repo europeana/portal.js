@@ -90,7 +90,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     },
     $apis: {
       entity: {
-        get: sinon.stub().resolves({}),
+        get: options.get || sinon.stub().resolves({}),
         facets: sinon.stub().resolves([]),
         imageUrl: sinon.spy()
       },
@@ -102,7 +102,6 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
-    $pageHeadTitle: key => key,
     $path: () => '/',
     $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
     $store: {
@@ -118,6 +117,13 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       commit: sinon.spy()
     },
     ...options.mocks
+  },
+  stubs: {
+    'client-only': true,
+    'EntityRelatedCollections': true,
+    'SearchInterface': {
+      template: '<div><slot /><slot name="related" /><slot name="after-results" /></div>'
+    }
   }
 });
 
@@ -147,6 +153,34 @@ describe('pages/collections/_type/_', () => {
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.$store.commit.calledWith('search/setCollectionLabel', 'Topic')).toBe(true);
+    });
+
+    describe('on errors', () => {
+      it('throws an error', async() => {
+        const apiError = new Error({ message: 'No collection found' });
+
+        const wrapper = factory({ get: sinon.stub().rejects(apiError) });
+
+        await expect(wrapper.vm.fetch()).rejects.toThrowError();
+        await expect(wrapper.vm.fetch()).rejects.toEqual(apiError);
+      });
+
+      it('displays an illustrated error message for 404 status', async() => {
+        const apiError = new Error({ message: 'No collection found' });
+        apiError.statusCode = 404;
+
+        const wrapper = factory({ get: sinon.stub().rejects(apiError) });
+
+        let error;
+        try {
+          await wrapper.vm.$fetch();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.titlePath).toBe('errorMessage.pageNotFound.title');
+        expect(error.illustrationSrc).toBe('il-page-not-found.svg');
+      });
     });
 
     describe('collection page', () => {
@@ -524,26 +558,6 @@ describe('pages/collections/_type/_', () => {
   });
 
   describe('methods', () => {
-    describe('showRelatedCollections()', () => {
-      it('sets showRelated to true', async() => {
-        const wrapper = factory(topicEntity);
-
-        await wrapper.vm.showRelatedCollections();
-
-        expect(wrapper.vm.showRelated).toBe(true);
-      });
-    });
-
-    describe('hideRelatedCollections()', () => {
-      it('sets showRelated to true', async() => {
-        const wrapper = factory(topicEntity);
-
-        await wrapper.vm.hideRelatedCollections();
-
-        expect(wrapper.vm.showRelated).toBe(false);
-      });
-    });
-
     describe('proxyUpdated', () => {
       it('triggers $fetch', () => {
         const wrapper = factory(topicEntity);
@@ -554,24 +568,26 @@ describe('pages/collections/_type/_', () => {
         expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
+
+    describe('handleEntityRelatedCollectionsFetched', () => {
+      it('is triggered by fetched event on related entities component', () => {
+        const wrapper = factory(topicEntity);
+        const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];
+
+        const relatedEntitiesComponent = wrapper.find('[data-qa="related entities"]');
+        relatedEntitiesComponent.vm.$emit('fetched', relatedCollections);
+
+        expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
+      });
+    });
   });
 
   describe('the head title', () => {
-    describe('when fetchState has error', () => {
-      it('uses translation of "Error"', () => {
-        const wrapper = factory({ ...topicEntity, mocks: { $fetchState: { error: true } } });
-
-        const headTitle = wrapper.vm.head().title;
-
-        expect(headTitle).toBe('error');
-      });
-    });
-
     describe('when fetchState has no error', () => {
       it('uses entity title', () => {
         const wrapper = factory(topicEntity);
 
-        const headTitle = wrapper.vm.head().title;
+        const headTitle = wrapper.vm.pageMeta.title;
 
         expect(headTitle).toBe('Topic');
       });

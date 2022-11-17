@@ -4,6 +4,8 @@ import sinon from 'sinon';
 import middleware from '@/middleware/legacy';
 
 const rules = [
+  { from: '/fr/portal', to: '/fr', status: 302 },
+  { from: '/en/portal/about', to: '/en/about', status: 302 },
   { from: '/portal/en/about-us', to: '/en/about-us' },
   { from: '/portal/en/explore/colours.html', to: '/en/collections', status: 302 },
   { from: '/portal/en/explore/periods.html', to: '/en/collections', status: 302 },
@@ -76,6 +78,22 @@ const rules = [
 ];
 
 describe('middleware/legacy', () => {
+  it('does not redirect without "/portal" at start of URL', () => {
+    const redirect = sinon.spy();
+
+    middleware({
+      redirect,
+      route: {
+        path: '/fr',
+        fullPath: '/fr'
+      },
+      query: {},
+      app: {}
+    });
+
+    expect(redirect.called).toBe(false);
+  });
+
   for (const rule of rules) {
     it(`redirects ${rule.from} to ${rule.to}`, () => {
       const redirect = sinon.spy();
@@ -90,7 +108,7 @@ describe('middleware/legacy', () => {
           fullPath: rule.from
         },
         query: fromQuery || {},
-        app: { $features: {} }
+        app: {}
       });
 
       const toPath = rule.to.split('?')[0];

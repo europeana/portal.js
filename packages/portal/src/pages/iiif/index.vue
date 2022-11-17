@@ -33,7 +33,9 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle('IIIF'),
+        meta: [
+          { hid: 'title', name: 'title', content: 'IIIF' }
+        ],
         script: [
           { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
         ]

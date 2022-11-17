@@ -15,6 +15,14 @@ import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
+import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './src/plugins/europeana/entity.js';
+import { BASE_URL as EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL } from './src/plugins/europeana/entity-management.js';
+import {
+  BASE_URL as EUROPEANA_RECORD_API_BASE_URL,
+  FULLTEXT_BASE_URL as EUROPEANA_RECORD_API_FULLTEXT_URL
+} from './src/plugins/europeana/record.js';
+import { PRESENTATION_URL as EUROPEANA_IIIF_PRESENTATION_URL } from './src/plugins/europeana/iiif.js';
+
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
 };
@@ -91,17 +99,23 @@ export default {
           key: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
         },
         entity: {
-          url: process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity',
+          url: process.env.EUROPEANA_ENTITY_API_URL || EUROPEANA_ENTITY_API_BASE_URL,
           key: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
         },
-        newspaper: {
-          url: process.env.EUROPEANA_NEWSPAPER_API_URL
+        entityManagement: {
+          url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL || process.env.EUROPEANA_ENTITY_API_URL || EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL
+        },
+        iiifPresentation: {
+          media: {
+            url: process.env.EUROPEANA_MEDIA_IIIF_PRESENTATION_API_URL || EUROPEANA_IIIF_PRESENTATION_URL
+          }
         },
         recommendation: {
           url: process.env.EUROPEANA_RECOMMENDATION_API_URL
         },
         record: {
-          url: process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record',
+          fulltextUrl: process.env.EUROPEANA_RECORD_API_FULLTEXT_URL || EUROPEANA_RECORD_API_FULLTEXT_URL,
+          url: process.env.EUROPEANA_RECORD_API_URL || EUROPEANA_RECORD_API_BASE_URL,
           key: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
         },
         thumbnail: {
@@ -110,14 +124,6 @@ export default {
         set: {
           url: process.env.EUROPEANA_SET_API_URL,
           key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
-        },
-        entityManagement: {
-          url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
-        },
-        iiifPresentation: {
-          media: {
-            url: process.env.EUROPEANA_MEDIA_IIIF_PRESENTATION_API_URL || 'https://iiif.europeana.eu/presentation'
-          }
         }
       },
       proxy: {
@@ -270,7 +276,6 @@ export default {
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/link',
-    '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',

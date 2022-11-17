@@ -12,7 +12,6 @@ const factory = () => shallowMountNuxt(page, {
   localVue,
   mocks: {
     $t: key => key,
-    $pageHeadTitle: key => key,
     $apis: {
       entity: {
         suggest: sinon.spy()
@@ -24,6 +23,16 @@ const factory = () => shallowMountNuxt(page, {
 describe('pages/contentful/entity-suggest/index', () => {
   beforeAll(() => {
     window.contentfulExtension = fakeContentfulExtension();
+  });
+
+  describe('head', () => {
+    describe('title', () => {
+      it('is "Entity suggest - Contentful app"', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.head().title).toBe('Entity suggest - Contentful app');
+      });
+    });
   });
 
   describe('methods', () => {
@@ -38,14 +47,6 @@ describe('pages/contentful/entity-suggest/index', () => {
           text, { type: 'agent,concept,timespan,organization,place' }
         )).toBe(true);
       });
-    });
-  });
-
-  describe('head', () => {
-    it('sets the title to: Entity suggest - Contentful app', () => {
-      const wrapper = factory();
-
-      expect(wrapper.vm.head().title).toBe('Entity suggest - Contentful app');
     });
   });
 });

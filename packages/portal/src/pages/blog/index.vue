@@ -1,7 +1,7 @@
 <template>
   <b-container data-qa="blog">
     <ContentHeader
-      :title="$t('blog.blog')"
+      :title="pageMeta.title"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
@@ -40,6 +40,7 @@
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNavInput from '../../components/generic/PaginationNavInput';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   const PER_PAGE = 20;
 
@@ -51,6 +52,8 @@
       ContentCard,
       PaginationNavInput
     },
+
+    mixins: [pageMetaMixin],
 
     middleware: 'sanitisePageQuery',
 
@@ -84,10 +87,12 @@
       };
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('blog.blog'))
-      };
+    computed: {
+      pageMeta() {
+        return {
+          title: this.$t('blog.blog')
+        };
+      }
     },
 
     watchQuery: ['page'],

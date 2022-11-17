@@ -25,7 +25,7 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle('Disabled single line - Contentful app'),
+        title: 'Disabled single line - Contentful app',
         bodyAttrs: {
           class: '',
           style: 'background: transparent;'

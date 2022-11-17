@@ -8,10 +8,12 @@ import page from '@/pages/exhibitions/_exhibition/_chapter';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const heroImageExample =           { image: {
-  url: 'http://example.org/contentful/asset.jpg',
-  description: 'Hero image description'
-} };
+const heroImageExample = {
+  image: {
+    url: 'http://example.org/contentful/asset.jpg',
+    description: 'Hero image description'
+  }
+};
 
 const factory = (heroImage) => shallowMountNuxt(page, {
   localVue,
@@ -44,28 +46,26 @@ const factory = (heroImage) => shallowMountNuxt(page, {
       }
     },
     $t: key => key,
-    $tc: () => {},
-    $pageHeadTitle: key => key
+    $tc: () => {}
   }
 });
 
 describe('pages/exhibitions/_exhibition/_chapter', () => {
-  describe('head()', () => {
+  describe('pageMeta', () => {
     it('uses optimised hero image for og:image', () => {
       const wrapper = factory(heroImageExample);
 
-      const headMeta = wrapper.vm.head().meta;
+      const pageMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(`${heroImageExample.image.url}?optimised`);
+      expect(pageMeta.ogImage).toBe(`${heroImageExample.image.url}?optimised`);
     });
 
     it('does not set og:image when no hero image', () => {
       const wrapper = factory();
 
-      const headMeta = wrapper.vm.head().meta;
+      const pageMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(0);
+      expect(pageMeta.ogImage).toBe(null);
     });
   });
 });

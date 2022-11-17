@@ -25,19 +25,15 @@
           v-if="card === 'related'"
           :key="index"
         >
-          <b-card
-            v-show="showRelated"
-            class="text-left related-collections-card mb-4"
-          >
-            <slot
-              v-masonry-tile
-              name="related"
-            />
-          </b-card>
+          <slot
+            v-masonry-tile
+            name="related"
+          />
         </aside>
         <ItemPreviewCard
           v-else
           :key="index"
+          ref="cards"
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
@@ -69,22 +65,19 @@
     <template
       v-for="(card, index) in cards"
     >
-      <template
+      <aside
         v-if="card === 'related'"
+        :key="index"
+        class="aside-card-wrapper"
       >
-        <b-card
-          v-show="showRelated"
-          :key="index"
-          class="text-left related-collections-card mb-4"
-        >
-          <slot
-            name="related"
-          />
-        </b-card>
-      </template>
+        <slot
+          name="related"
+        />
+      </aside>
       <ItemPreviewCard
         v-else
         :key="card.id"
+        ref="cards"
         :item="card"
         class="item"
         :hit-selector="itemHitSelector(card)"
@@ -130,10 +123,6 @@
         default: 'grid'
       },
       showPins: {
-        type: Boolean,
-        default: false
-      },
-      showRelated: {
         type: Boolean,
         default: false
       },
@@ -193,8 +182,9 @@
       }
     },
 
-    mounted() {
-      this.redrawMasonry();
+    async mounted() {
+      await this.redrawMasonry();
+      this.$emit('drawn', this.$refs.cards);
     },
 
     methods: {
@@ -210,12 +200,15 @@
         return hit ? hit.selectors[0] : null;
       },
       redrawMasonry() {
-        if (typeof this.$redrawVueMasonry === 'function' && this.masonryActive) {
-          this.$nextTick(() => {
-            this.$redrawVueMasonry();
-          });
-        }
+        this.$nextTick(() => {
+          this.$redrawVueMasonry && this.$redrawVueMasonry();
+        });
       }
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/masonry';
+</style>

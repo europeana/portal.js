@@ -1,5 +1,5 @@
 <template>
-  <div class="figure-attribution">
+  <div>
     <div
       v-for="(section, index) in content"
       :key="index"
@@ -24,7 +24,7 @@
         :section-type="section.genre"
         :more-button="section.moreButton"
       />
-      <HTMLEmbed
+      <EmbedHTML
         v-else-if="contentType(section, 'Embed')"
         :html="section.embed"
       />
@@ -71,7 +71,7 @@
       CompareImageSlider: () => import('../generic/CompareImageSlider'),
       ContentCardSection: () => import('./ContentCardSection'),
       LatestSection: () => import('./LatestSection'),
-      HTMLEmbed: () => import('../generic/HTMLEmbed'),
+      EmbedHTML: () => import('../embed/EmbedHTML'),
       ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),

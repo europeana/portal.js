@@ -51,6 +51,11 @@
       class="b-toaster-bottom-left-dynamic"
       :style="{'--bottom': toastBottomOffset }"
     />
+    <client-only>
+      <PageCookieConsent
+        v-if="cookieConsentRequired"
+      />
+    </client-only>
   </div>
 </template>
 
@@ -70,6 +75,7 @@
       ApiRequests: () => import('../components/debug/ApiRequests'),
       BBreadcrumb,
       ClientOnly,
+      PageCookieConsent: () => import('../components/PageCookieConsent'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
       NewFeatureNotification: () => import('../components/generic/NewFeatureNotification')
@@ -85,6 +91,7 @@
         linkGroups: {},
         enableAnnouncer: true,
         klaro: null,
+        cookieConsentRequired: false,
         toastBottomOffset: '20px',
         featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
         featureNotificationExpiration: this.$config.app.featureNotificationExpiration
@@ -95,12 +102,12 @@
       const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
 
       return {
+        title: this.$config.app.siteName,
         htmlAttrs: {
           ...i18nHead.htmlAttrs
         },
         link: [
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nHead.link
@@ -109,9 +116,10 @@
           { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
         ],
         meta: [
-          { hid: 'description', property: 'description', content: 'Europeana' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
-          ...i18nHead.meta
+          ...i18nHead.meta,
+          { hid: 'description', name: 'description', content: this.$config.app.siteName },
+          { hid: 'og:description', property: 'og:description', content: this.$config.app.siteName },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
         ]
       };
     },
@@ -177,6 +185,8 @@
         if (this.klaro) {
           const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);
           const manager = this.klaro.getManager(config);
+
+          this.cookieConsentRequired = !manager.confirmed;
 
           this.klaro.render(config, true);
           manager.watch({ update: this.watchKlaroManagerUpdate });

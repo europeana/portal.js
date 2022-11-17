@@ -123,7 +123,6 @@ export default {
       "update": "La collezione è stata aggiornata"
     }
   },
-  "collectionsYouMightLike": "Collezioni che potrebbero piacerti",
   "colourSwatch": "Campione di colore",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Ciò potrebbe essere dovuto ai seguenti motivi: questo elemento non esiste, o; è stato ritirato dalla pubblicazione perché non corrispondeva ai nostri criteri di qualità, oppure; è stato aggiornato e ripubblicato con un nuovo identificatore univoco, nel qual caso prova a ritrovare l'elemento.",
       "metaTitle": "Elemento non trovato",
       "title": "Oh no! {newline} Non siamo riusciti a trovare questo elemento."
+    },
+    "searchResultsNotFound": {
+      "description": "Modifica il termine di ricerca o reimposta i filtri per riprovare.",
+      "title": "Non riusciamo a trovare quello che stai cercando."
     }
   },
   "exhibitions": {
@@ -847,7 +850,7 @@ export default {
     "download": {
       "clickToCopy": "Clicca sull'attribuzione per copiarla",
       "modalIntro": "Se utilizzi questo elemento sul Web o altrove, non dimenticare di utilizzare la seguente attribuzione accanto a esso:",
-      "modalTitle": "Di grazie"
+      "modalTitle": "Di' grazie"
     }
   },
   "multilingual": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Questo contenuto è stato creato dagli utenti, non dall'istituzione che ha fornito l'articolo."
   },
   "related": {
+    "categoryTags": {
+      "title": "Scopri le storie correlate"
+    },
+    "collections": {
+      "title": "Scopri le collezioni correlate"
+    },
     "editorial": {
       "title": "Storie che potrebbero piacerti"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Storie"
   },
-  "website": "Sito web",
-  "youMightAlsoLike": "Potrebbe piacerti anche"
+  "website": "Sito web"
 };

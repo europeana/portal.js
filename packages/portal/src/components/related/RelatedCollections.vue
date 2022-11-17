@@ -5,7 +5,7 @@
     class="related-collections"
   >
     <h2 class="related-heading text-uppercase mb-2">
-      {{ title }}
+      {{ title || $t('related.collections.title') }}
     </h2>
     <div
       class="badges-wrapper d-flex"
@@ -84,6 +84,7 @@
       let entities = await this.$apis.entity.find(this.entityUris);
       entities = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
       this.collections = await withEditorialContent(this, entities);
+      this.$emit('fetched', this.collections);
     },
 
     mounted() {
@@ -94,13 +95,8 @@
       this.draw();
     },
 
-    beforeDestroy() {
-      this.draw('hide');
-    },
-
     methods: {
-      draw(showOrHide) {
-        this.$emit(showOrHide || (this.collections.length > 0 ? 'show' : 'hide'));
+      draw() {
         this.$nextTick(() => {
           this.$redrawVueMasonry && this.$redrawVueMasonry();
         });

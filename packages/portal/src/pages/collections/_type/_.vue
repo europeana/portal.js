@@ -2,20 +2,15 @@
   <div
     data-qa="entity page"
     class="entity-page"
+    :class="$fetchState.error && 'white-page'"
   >
-    <b-container
+    <ErrorMessage
       v-if="$fetchState.error"
-    >
-      <b-row
-        class="flex-md-row py-4"
-      >
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :title-path="$fetchState.error.titlePath"
+      :illustration-src="$fetchState.error.illustrationSrc"
+    />
     <client-only v-else>
       <SearchInterface
         v-if="!$fetchState.pending"
@@ -24,7 +19,7 @@
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
         :editorial-overrides="editorialOverrides"
-        :show-related="showRelated"
+        :override-params="searchOverrides"
       >
         <EntityHeader
           v-if="entity"
@@ -49,10 +44,9 @@
             <EntityRelatedCollections
               :type="$route.params.type"
               :identifier="$route.params.pathMatch"
-              :overrides="relatedCollectionCards"
+              :overrides="relatedCollectionCards || relatedCollections"
               data-qa="related entities"
-              @show="showRelatedCollections"
-              @hide="hideRelatedCollections"
+              @fetched="handleEntityRelatedCollectionsFetched"
             />
           </client-only>
         </template>
@@ -68,7 +62,7 @@
               />
               <BrowseSections
                 v-if="page"
-                :sections="page.hasPartCollection.items"
+                :sections="page.hasPartCollection && page.hasPartCollection.items"
               />
             </b-container>
           </client-only>
@@ -83,6 +77,7 @@
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
   import themes from '@/plugins/europeana/themes';
@@ -95,7 +90,7 @@
     name: 'CollectionPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
@@ -106,6 +101,7 @@
 
     mixins: [
       europeanaEntitiesOrganizationsMixin,
+      pageMetaMixin,
       redirectToPrefPathMixin
     ],
 
@@ -126,8 +122,8 @@
       return {
         page: null,
         proxy: null,
-        showRelated: false,
-        themes: themes.map(theme => theme.id)
+        themes: themes.map(theme => theme.id),
+        relatedCollections: null
       };
     },
 
@@ -175,34 +171,32 @@
           }
           this.$store.commit('search/setCollectionLabel', this.title.values[0]);
           const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
+
           return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+        })
+        .catch((error) => {
+          if (error.statusCode === 404) {
+            error.titlePath = 'errorMessage.pageNotFound.title';
+            error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
+            error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
+          }
+          throw error;
         });
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.pageTitle),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.pageTitle },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
-        ]
-          .concat(this.descriptionText ? [
-            { hid: 'description', name: 'description', content: this.descriptionText },
-            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-          ] : [])
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.title.values[0],
+          description: this.descriptionText,
+          ogType: 'article'
+        };
+      },
       entity() {
         return this.$store.state.entity.entity;
       },
       recordsPerPage() {
         return this.$store.state.entity.recordsPerPage;
-      },
-      pageTitle() {
-        return this.$fetchState.error ? this.$t('error') : this.title.values[0];
       },
       searchOverrides() {
         const overrideParams = {
@@ -262,9 +256,6 @@
       descriptionText() {
         return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
       },
-      editorialAttribution() {
-        return this.page.primaryImageOfPage.url;
-      },
       // Description from the Contentful entry
       editorialDescription() {
         if (!this.hasEditorialDescription) {
@@ -310,8 +301,7 @@
         return null;
       },
       editable() {
-        return this.$features.entityManagement &&
-          this.entity &&
+        return this.entity &&
           this.userIsEntitiesEditor &&
           ['topic', 'organisation'].includes(this.collectionType);
       },
@@ -393,30 +383,20 @@
         return labelledMoreInfo;
       }
     },
-    watch: {
-      searchOverrides: 'storeSearchOverrides'
-    },
     mounted() {
-      this.storeSearchOverrides();
       if (this.userIsEntitiesEditor) {
         this.$store.dispatch('entity/getFeatured');
       }
     },
     methods: {
-      storeSearchOverrides() {
-        this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
+      handleEntityRelatedCollectionsFetched(relatedCollections) {
+        this.relatedCollections = relatedCollections;
       },
       titleFallback(title) {
         return {
           values: [title],
           code: null
         };
-      },
-      showRelatedCollections() {
-        this.showRelated = true;
-      },
-      hideRelatedCollections() {
-        this.showRelated = false;
       },
       proxyUpdated() {
         this.$fetch();

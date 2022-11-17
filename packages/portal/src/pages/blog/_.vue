@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="blog post"
-    class="text-page white-page figure-attribution"
+    class="text-page white-page "
   >
     <ContentWarningModal
       v-if="post.contentWarning"
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import pageMetaMixin from '@/mixins/pageMeta';
   import BlogPost from '@/components/blog/BlogPost';
 
   export default {
@@ -33,6 +34,8 @@
       BlogPost,
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
+
+    mixins: [pageMetaMixin],
 
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -83,25 +86,16 @@
       };
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.post.name),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.post.name },
-          { hid: 'og:title', property: 'og:title', content: this.post.name }
-        ].concat(this.post.description ? [
-          { hid: 'description', name: 'description', content: this.post.description },
-          { hid: 'og:description', property: 'og:description', content: this.post.description }
-        ] : [])
-          .concat(this.post.primaryImageOfPage ? [
-            { hid: 'og:image', property: 'og:image', content: this.post.primaryImageOfPage.image.url },
-            { hid: 'og:image:alt', property: 'og:image:alt', content: this.post.primaryImageOfPage.image.description || '' }
-          ] : [])
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.post.name,
+          description: this.post.description,
+          ogType: 'article',
+          ogImage: this.post.primaryImageOfPage?.image?.url,
+          ogImageAlt: this.post.primaryImageOfPage?.image?.description || ''
+        };
+      },
       hero() {
         return this.post.primaryImageOfPage || null;
       }

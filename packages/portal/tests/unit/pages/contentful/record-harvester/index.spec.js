@@ -48,7 +48,6 @@ const factory = (data) => shallowMountNuxt(page, {
   },
   mocks: {
     $t: key => key,
-    $pageHeadTitle: key => key,
     $i18n: {
       locale: 'en'
     },
@@ -96,6 +95,16 @@ describe('pages/contentful/record-harvester/index', () => {
         const image = await wrapper.find('img');
         expect(image.isVisible()).toBe(true);
         expect(image.attributes('src')).toEqual('https://api.europeana.eu/thumbnail/v2/url.jsonsize=w200');
+      });
+    });
+  });
+
+  describe('head', () => {
+    describe('title', () => {
+      it('is "Record harvester - Contentful app"', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.head().title).toBe('Record harvester - Contentful app');
       });
     });
   });

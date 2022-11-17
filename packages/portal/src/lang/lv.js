@@ -123,7 +123,6 @@ export default {
       "update": "Kolekcija ir atjaunināta"
     }
   },
-  "collectionsYouMightLike": "Tev varētu patikt šīs kolekcijas",
   "colourSwatch": "Krāsu paraugs",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Tam var būt šādi iemesli: šis vienums neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast vienumu vēlreiz.",
       "metaTitle": "Vienums nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo vienumu."
+    },
+    "searchResultsNotFound": {
+      "description": "Lūdzu, pielāgojiet meklēšanas vienumu vai atiestatiet filtrus, lai mēģinātu vēlreiz.",
+      "title": "Šķiet, ka mēs nevaram atrast to, ko meklējat."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Šī satura veidošanā līdzdarbojušies iedzīvotāji, nevis šo vienumu nodrošinošā iestāde."
   },
   "related": {
+    "categoryTags": {
+      "title": "Atklājiet saistītos stāstus"
+    },
+    "collections": {
+      "title": "Atklājiet saistītās kolekcijas"
+    },
     "editorial": {
       "title": "Stāsti, kas jums varētu patikt"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Stāsti"
   },
-  "website": "Vietne",
-  "youMightAlsoLike": "Jums varētu arī patikt"
+  "website": "Vietne"
 };

@@ -1,12 +1,13 @@
 <template>
-  <RelatedCollections
-    v-if="!$fetchState.pending && (relatedCollections.length > 0)"
-    :title="$t('collectionsYouMightLike')"
-    :related-collections="relatedCollections"
-    :badge-variant="badgeVariant"
-    @show="$emit('show')"
-    @hide="$emit('hide')"
-  />
+  <b-card
+    v-if="relatedCollections.length > 0"
+    class="text-left related-collections-card mb-4"
+  >
+    <RelatedCollections
+      :related-collections="relatedCollections"
+      badge-variant="secondary"
+    />
+  </b-card>
 </template>
 
 <script>
@@ -25,9 +26,9 @@
         type: String,
         default: null
       },
-      badgeVariant: {
-        type: String,
-        default: 'secondary'
+      overrides: {
+        type: Array,
+        default: null
       }
     },
 
@@ -37,11 +38,13 @@
       };
     },
 
-    fetch() {
-      return this.getSearchSuggestions(this.query)
-        .then(response => {
-          this.relatedCollections = response;
-        });
+    async fetch() {
+      if (this.overrides) {
+        this.relatedCollections = this.overrides;
+      } else if (this.query && this.query !== '') {
+        this.relatedCollections = await this.getSearchSuggestions(this.query);
+        this.$emit('fetched', this.relatedCollections);
+      }
     },
 
     watch: {
@@ -50,9 +53,6 @@
 
     methods: {
       getSearchSuggestions(query) {
-        if (!query) {
-          return Promise.resolve([]);
-        }
         return this.$apis.entity.suggest(query, {
           language: this.$i18n.locale,
           rows: 4

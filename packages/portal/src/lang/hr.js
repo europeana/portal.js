@@ -123,7 +123,6 @@ export default {
       "update": "Zbirka je ažurirana"
     }
   },
-  "collectionsYouMightLike": "Kolekcije koje vam se mogu sviđati",
   "colourSwatch": "Uzorak u boji",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "To može biti zbog sljedećih razloga: ova stavka ne postoji ili; povučeno je iz objave jer nije odgovaralo našim kriterijima kvalitete ili; ažuriran je i ponovno objavljen s novim jedinstvenim identifikatorom, u kojem slučaju ponovno pokušajte pronaći stavku.",
       "metaTitle": "Stavka nije pronađena",
       "title": "O ne! {newline} Nismo uspjeli pronaći ovu stavku."
+    },
+    "searchResultsNotFound": {
+      "description": "Prilagodite pojam za pretraživanje ili ponovno postavite filtre da biste pokušali ponovno.",
+      "title": "Čini se da ne možemo pronaći ono što tražite."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Ovaj sadržaj je ponudila javnost, a ne institucija koja je pružila ovu stavku."
   },
   "related": {
+    "categoryTags": {
+      "title": "Otkrijte povezane priče"
+    },
+    "collections": {
+      "title": "Otkrijte povezane kolekcije"
+    },
     "editorial": {
       "title": "Priče koje bi vam se mogle svidjeti"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Priče"
   },
-  "website": "Web stranica",
-  "youMightAlsoLike": "Možda će vam se također svidjeti"
+  "website": "Web stranica"
 };

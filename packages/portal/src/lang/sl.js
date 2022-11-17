@@ -123,7 +123,6 @@ export default {
       "update": "Zbirka je bila posodobljena"
     }
   },
-  "collectionsYouMightLike": "Zbirke, ki vam bodo mogoče všeč",
   "colourSwatch": "Barvni vzorec",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Razlogi za to so lahko naslednji: ta element ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite element poiskati znova.",
       "metaTitle": "Element ni bil najden",
       "title": "Oh ne! {newline} Tega predmeta nismo mogli najti."
+    },
+    "searchResultsNotFound": {
+      "description": "Prosimo, prilagodite iskalni izraz ali po nastavite filtre, da poskusite znova.",
+      "title": "Zdi se, da ne moremo najti, kar iščete."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta predmet."
   },
   "related": {
+    "categoryTags": {
+      "title": "Odkrijte povezane zgodbe"
+    },
+    "collections": {
+      "title": "Odkrijte povezane zbirke"
+    },
     "editorial": {
       "title": "Zgodbe, ki vam bodo morda všeč"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Zgodbe"
   },
-  "website": "Spletno mesto",
-  "youMightAlsoLike": "Morda bi vam bilo všeč tudi"
+  "website": "Spletno mesto"
 };

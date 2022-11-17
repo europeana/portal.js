@@ -123,7 +123,6 @@ export default {
       "update": "Rinneadh nuashonrú ar an mbailiúchán"
     }
   },
-  "collectionsYouMightLike": "Bailiúcháin b’fhéidir gur mhaith leat",
   "colourSwatch": "Swatch dath",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "D'fhéadfadh sé seo a bheith mar gheall ar na cúiseanna seo a leanas: níl an mhír seo ann, nó; dífhoilsíodh é toisc nach raibh sé ag teacht lenár gcritéir cháilíochta, nó; Rinneadh é a nuashonrú agus a athfhoilsiú le haitheantóir uathúil nua, agus sa chás sin, déan iarracht an mhír a aimsiú arís.",
       "metaTitle": "Ní bhfuarthas an mhír",
       "title": "Ó níl! {newline} Ní rabhamar in ann an mhír seo a aimsiú."
+    },
+    "searchResultsNotFound": {
+      "description": "Athraigh an téarma cuardaigh nó athshocraigh na scagairí chun triail eile a bhaint as.",
+      "title": "Is cosúil nach féidir linn teacht ar a bhfuil á lorg agat."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Is é an pobal a chuireann an t-ábhar seo ar fáil, ní ag an institiúid a chuir an mhír seo ar fáil."
   },
   "related": {
+    "categoryTags": {
+      "title": "Faigh amach scéalta gaolmhara"
+    },
+    "collections": {
+      "title": "Faigh amach bailiúcháin ghaolmhara"
+    },
     "editorial": {
       "title": "Scéalta b’fhéidir gur mhaith leat"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Scéalta"
   },
-  "website": "Suíomh Gréasáin",
-  "youMightAlsoLike": "B'fhéidir gur mhaith leat freisin"
+  "website": "Suíomh Gréasáin"
 };

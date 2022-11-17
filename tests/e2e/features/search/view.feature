@@ -16,32 +16,32 @@ Feature: View styles (List and Grid)
 
   Scenario: Switching to the list view
     When I visit the `search page`
-    And I click the `search list view toggle`
+    And I click the `search list view toggle icon`
     Then I see a `item previews list`
     And I am on an accessible page
 
   Scenario: Switching to the mosaic view
     When I open `/search?view=grid`
-    And I click the `search mosaic view toggle`
+    And I click the `search mosaic view toggle icon`
     And I wait for the `item previews mosaic`
     Then I see a `item previews mosaic`
     And I am on an accessible page
 
   Scenario: Switching to the grid view
     When I open `/search?view=list`
-    And I click the `search grid view toggle`
+    And I click the `search grid view toggle icon`
     Then I see a `item previews grid`
     And I am on an accessible page
 
   Scenario: Switching to the list view and paginating
     When I visit the `search page`
-    And I click the `search list view toggle`
+    And I click the `search list view toggle icon`
     And I go to page number 2
     Then I see a `item previews list`
 
   Scenario: Switching to the mosaic view and paginating
     When I open `/search?view=grid`
-    And I click the `search mosaic view toggle`
+    And I click the `search mosaic view toggle icon`
     And I wait for the `item previews mosaic`
     And I go to page number 2
     Then I see a `item previews mosaic`
@@ -75,7 +75,7 @@ Feature: View styles (List and Grid)
 
   Scenario: Back button restores previous view
     Given I am on `/search?view=grid`
-    When I click the `search list view toggle`
+    When I click the `search list view toggle icon`
     And I see a `item previews list`
     And I go back
     Then I see a `item previews grid`

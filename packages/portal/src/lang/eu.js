@@ -123,7 +123,6 @@ export default {
       "update": "Bilduma eguneratu egin da"
     }
   },
-  "collectionsYouMightLike": "Gustatu ahal zaizkizun bildumak",
   "colourSwatch": "Kolore swatch",
   "contentfulManual": {
     "footerNavigation": {
@@ -221,6 +220,10 @@ export default {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
+    },
+    "searchResultsNotFound": {
+      "description": "Mesedez, egokitu bilaketa-terminoa edo berrezarri iragazkiak berriro saiatzeko.",
+      "title": "Badirudi ezin dugula bilatzen ari zarena aurkitu."
     }
   },
   "exhibitions": {
@@ -941,6 +944,12 @@ export default {
     "transcriptionDisclaimer": "Eduki hori jendeak egin du, eta ez elementu hau eman duen erakundeak"
   },
   "related": {
+    "categoryTags": {
+      "title": "Ezagutu erlazionatutako istorioak"
+    },
+    "collections": {
+      "title": "Ezagutu erlazionatutako bildumak"
+    },
     "editorial": {
       "title": "Gustuko izan ditzakezun istorioak"
     }
@@ -1026,6 +1035,5 @@ export default {
   "storiesPage": {
     "title": "Istorioak"
   },
-  "website": "Webgunea",
-  "youMightAlsoLike": "Baliteke ere gustatzea"
+  "website": "Webgunea"
 };

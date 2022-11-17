@@ -1,13 +1,15 @@
 <template>
   <div
     data-qa="static page"
-    class="text-page white-page figure-attribution"
+    class="text-page white-page "
   >
     <AuthoredHead
       :title="name"
       :description="description"
     />
-    <b-container>
+    <b-container
+      class="footer-margin"
+    >
       <b-row class="justify-content-center">
         <b-col
           cols="12"
@@ -27,7 +29,7 @@
       </b-row>
       <b-row
         v-if="relatedLinks"
-        class="justify-content-center mt-3"
+        class="justify-content-center"
       >
         <b-col
           cols="12"
@@ -39,7 +41,6 @@
           />
         </b-col>
       </b-row>
-      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>

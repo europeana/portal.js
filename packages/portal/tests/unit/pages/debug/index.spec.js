@@ -15,7 +15,6 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   },
   mocks: {
     $goto: sinon.spy(),
-    $pageHeadTitle: key => key,
     $store: {
       getters: {
         'debug/settings': {

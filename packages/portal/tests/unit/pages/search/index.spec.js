@@ -42,10 +42,15 @@ const store = new Vuex.Store({
 
 const factory = (query) => shallowMountNuxt(page, {
   localVue,
-  stubs: ['client-only'],
+  stubs: {
+    'client-only': true,
+    'RelatedSection': true,
+    'SearchInterface': {
+      template: '<div><slot name="related" /><slot name="after-results" /></div>'
+    }
+  },
   mocks: {
     $features: {},
-    $pageHeadTitle: key => key,
     $route: {
       query: {
         query
@@ -73,48 +78,14 @@ const factory = (query) => shallowMountNuxt(page, {
 });
 
 describe('pages/item/_.vue', () => {
-  afterEach(() => {
-    sinon.resetHistory();
-  });
+  afterEach(sinon.resetHistory);
 
-  describe('fetch()', () => {
-    it('resets overrideParams on the search store', async() => {
-      const wrapper = factory();
-
-      await wrapper.vm.fetch();
-
-      expect(searchSet.called).toBe(true);
-    });
-  });
-
-  describe('methods', () => {
-    describe('showRelatedSection()', () => {
-      it('sets showRelated to true', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.showRelatedSection();
-
-        expect(wrapper.vm.showRelated).toBe(true);
-      });
-    });
-
-    describe('hideRelatedSection()', () => {
-      it('sets showRelated to true', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.hideRelatedSection();
-
-        expect(wrapper.vm.showRelated).toBe(false);
-      });
-    });
-  });
-
-  describe('head()', () => {
+  describe('pageMeta', () => {
     describe('with no query', () => {
       it('is only "search"', async() => {
         const wrapper = factory();
 
-        const headTitle = wrapper.vm.head().title;
+        const headTitle = wrapper.vm.pageMeta.title;
 
         expect(headTitle).toBe('search.title');
       });
@@ -124,7 +95,7 @@ describe('pages/item/_.vue', () => {
       it('uses the search query in the title', async() => {
         const wrapper = factory('test');
 
-        const headTitle = wrapper.vm.head().title;
+        const headTitle = wrapper.vm.pageMeta.title;
 
         expect(headTitle).toBe('searchResultsFor test');
       });
@@ -142,6 +113,36 @@ describe('pages/item/_.vue', () => {
 
       expect(setShowSearchBar.calledWith(false)).toBe(true);
       expect(next.called).toBe(true);
+    });
+  });
+
+  describe('watch', () => {
+    describe('searchQuery', () => {
+      it('resets the related collections to `null`', async() => {
+        const wrapper = factory('fish');
+        await wrapper.setData({
+          relatedCollections: [{ id: 'http://data.europeana.eu/concept/3012' }]
+        });
+
+        wrapper.vm.$route.query = 'frank';
+
+        await wrapper.vm.$nextTick();
+        expect(wrapper.vm.relatedCollections).toBe(null);
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('handleRelatedSectionFetched', () => {
+      it('is triggered by fetched event on related section component', () => {
+        const wrapper = factory('fish');
+        const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];
+
+        const relatedSectionComponent = wrapper.find('[data-qa="related section"]');
+        relatedSectionComponent.vm.$emit('fetched', relatedCollections);
+
+        expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
+      });
     });
   });
 });

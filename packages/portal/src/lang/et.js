@@ -123,7 +123,6 @@ export default {
       "update": "Kollektsiooni on uuendatud"
     }
   },
-  "collectionsYouMightLike": "Kollektsioonid, mis võivad teile meeldida",
   "colourSwatch": "Värvivalik",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
       "metaTitle": "Üksust ei leitud",
       "title": "Oh ei! {newline} Me ei leidnud seda üksust."
+    },
+    "searchResultsNotFound": {
+      "description": "Palun kohandage otsingusõna või lähtestage filtrid, et proovida uuesti.",
+      "title": "Tundub, et me ei leia seda, mida otsite."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "See sisu on saadud eraisikult, mitte eset pakkunud institutsioonilt."
   },
   "related": {
+    "categoryTags": {
+      "title": "Avastage seotud lugusid"
+    },
+    "collections": {
+      "title": "Avastage seotud kogud"
+    },
     "editorial": {
       "title": "Lood, mis teile võivad meeldida"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Lood"
   },
-  "website": "Veebisait",
-  "youMightAlsoLike": "Sulle võib ka meeldida"
+  "website": "Veebisait"
 };

@@ -2,22 +2,22 @@
   <div data-qa="search page">
     <SearchInterface
       id="search-interface"
-      :show-related="showRelated"
     >
       <template
-        v-if="searchQuery"
+        v-if="!!searchQuery"
         #related
       >
         <client-only>
           <RelatedSection
             :query="searchQuery"
-            @show="showRelatedSection"
-            @hide="hideRelatedSection"
+            :overrides="relatedCollections"
+            data-qa="related section"
+            @fetched="handleRelatedSectionFetched"
           />
         </client-only>
       </template>
       <template
-        v-if="searchQuery"
+        v-if="!!searchQuery"
         #after-results
       >
         <client-only>
@@ -35,6 +35,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'SearchPage',
@@ -46,6 +47,8 @@
       RelatedSection: () => import('@/components/search/RelatedSection')
     },
 
+    mixins: [pageMetaMixin],
+
     async beforeRouteLeave(to, from, next) {
       // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.
       this.$store.commit('search/setShowSearchBar', false);
@@ -56,23 +59,24 @@
 
     data() {
       return {
-        showRelated: false
-      };
-    },
-
-    fetch() {
-      this.$store.commit('search/set', ['overrideParams', {}]);
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search.title'))
+        relatedCollections: null
       };
     },
 
     computed: {
+      pageMeta() {
+        return {
+          title: this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search.title')
+        };
+      },
       searchQuery() {
         return this.$route.query.query;
+      }
+    },
+
+    watch: {
+      searchQuery() {
+        this.relatedCollections = null;
       }
     },
 
@@ -81,12 +85,8 @@
     },
 
     methods: {
-      showRelatedSection() {
-        this.showRelated = true;
-      },
-
-      hideRelatedSection() {
-        this.showRelated = false;
+      handleRelatedSectionFetched(relatedCollections) {
+        this.relatedCollections = relatedCollections;
       }
     }
   };

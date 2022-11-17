@@ -147,6 +147,7 @@
   import { mapState } from 'vuex';
 
   import keycloak from '../../mixins/keycloak';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
@@ -164,7 +165,8 @@
     },
 
     mixins: [
-      keycloak
+      keycloak,
+      pageMetaMixin
     ],
 
     middleware: 'auth',
@@ -191,13 +193,12 @@
 
     fetchOnServer: false,
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('account.title'))
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.$t('account.title')
+        };
+      },
       userIsEditor() {
         return this.loggedInUser?.resource_access?.entities?.roles?.includes('editor') &&
           this.loggedInUser?.resource_access?.usersets?.roles?.includes('editor');
@@ -223,7 +224,10 @@
 
 </script>
 
-<style>
+<style lang="scss">
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/tabs';
+
   h1 {
     margin-bottom: 0.75rem;
   }

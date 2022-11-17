@@ -123,7 +123,6 @@ export default {
       "update": "La collection a été mise à jour"
     }
   },
-  "collectionsYouMightLike": "Collections qui pourraient vous intéresser",
   "colourSwatch": "Échantillon de couleur",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +216,10 @@ export default {
       "description": "Cela peut être dû aux raisons suivantes : cet élément n’existe pas, ou ; il a été publié parce qu’il ne correspondait pas à nos critères de qualité, ou; il a été mis à jour et republié avec un nouvel identifiant unique, auquel cas, essayez de retrouver l’élément.",
       "metaTitle": "Objet non-trouvé",
       "title": "Oh non! {newline} Nous n'avons pas pu trouver cet élément."
+    },
+    "searchResultsNotFound": {
+      "description": "Veuillez ajuster le terme de recherche ou réinitialiser les filtres pour réessayer.",
+      "title": "Nous n'arrivons pas à trouver ce que vous cherchez."
     }
   },
   "exhibitions": {
@@ -937,6 +940,12 @@ export default {
     "transcriptionDisclaimer": "Ce contenu est fourni par le public, et non par l'institution qui a fourni cet article."
   },
   "related": {
+    "categoryTags": {
+      "title": "Découvrez des histoires connexes"
+    },
+    "collections": {
+      "title": "Découvrez les collections associées"
+    },
     "editorial": {
       "title": "Histoires que vous aimerez peut-être"
     }
@@ -1022,6 +1031,5 @@ export default {
   "storiesPage": {
     "title": "Histoires"
   },
-  "website": "Site Internet",
-  "youMightAlsoLike": "Vous pourriez aussi aimer"
+  "website": "Site Internet"
 };
