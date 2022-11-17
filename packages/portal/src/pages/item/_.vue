@@ -44,6 +44,7 @@
           :edm-type="type"
           :attribution-fields="attributionFields"
           :entities="europeanaEntities"
+          :provider-url="isShownAt"
         />
       </b-container>
       <b-container

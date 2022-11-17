@@ -38,6 +38,15 @@ const factory = (propsData, options = {}) => mount(ItemHero, {
       record: {
         mediaProxyUrl: (val) => `proxied - ${val}`
       }
+    },
+    $config: {
+      europeana: {
+        proxy: {
+          media: {
+            url: 'https://proxy.europeana.eu'
+          }
+        }
+      }
     }
   }
 });

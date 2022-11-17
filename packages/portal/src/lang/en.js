@@ -882,6 +882,11 @@ export default {
       "clickToCopy": "Click on the attribution to copy it",
       "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
       "modalTitle": "Say thanks"
+    },
+    "downloadFailed": {
+      "linkPrompt": "We advise you to click on the ‘providing institution’ button below to check if the item can be downloaded on the website of the providing institution.",
+      "message": "If the download does not work, it may be because it has been removed by the providing institution, or there may be a technical problem with their service.",
+      "title": "Download not working"
     }
   },
   "multilingual": {

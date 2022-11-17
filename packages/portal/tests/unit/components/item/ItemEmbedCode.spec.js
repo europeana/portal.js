@@ -70,7 +70,7 @@ describe('components/item/ItemEmbedCode', () => {
       it('copies the embed code to the clipboard', async() => {
         await wrapper.find('#share-embed').trigger('click');
 
-        expect(document.execCommand.calledWith('copy')).toBe(true);
+        expect(global.navigator.clipboard.writeText.calledWith(html)).toBe(true);
       });
 
       it('shows a notification message', async() => {
