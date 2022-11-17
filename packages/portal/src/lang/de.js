@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Objekt nicht gefunden",
       "title": "Ach nein! {newline} Wir konnten dies Objekt nicht finden."
     },
+    "pageNotFound": {
+      "metaTitle": "Seite nicht gefunden",
+      "title": "Die gesuchte Seite existiert nicht."
+    },
     "searchResultsNotFound": {
       "description": "Bitte passen Sie den Suchbegriff an oder setzen Sie die Filter zurück, um es erneut zu versuchen.",
       "title": "Wir können, was Sie suchen, anscheinend nicht finden."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Klicken Sie auf die Namensnennung, um sie zu kopieren",
       "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Attribution daneben anzuzeigen:",
       "modalTitle": "Dank sagen"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Wir empfehlen Ihnen, unten auf die Schaltfläche \"Bereitstellende Institution\" zu klicken, um zu prüfen, ob der Artikel auf der Website der anbietenden Institution heruntergeladen werden kann.",
+      "message": "Wenn der Download nicht funktioniert, kann es daran liegen, dass er von der anbietenden Einrichtung entfernt wurde, oder es liegt ein technisches Problem mit ihrem Dienst vor.",
+      "title": "Download funktioniert nicht"
     }
   },
   "multilingual": {

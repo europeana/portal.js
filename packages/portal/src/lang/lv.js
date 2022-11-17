@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Vienums nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo vienumu."
     },
+    "pageNotFound": {
+      "metaTitle": "Lapa nav atrasta",
+      "title": "Lapa, kuru meklējat, neeksistē."
+    },
     "searchResultsNotFound": {
       "description": "Lūdzu, pielāgojiet meklēšanas vienumu vai atiestatiet filtrus, lai mēģinātu vēlreiz.",
       "title": "Šķiet, ka mēs nevaram atrast to, ko meklējat."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Noklikšķiniet uz attiecinājuma, lai to kopētu",
       "modalIntro": "Ja izmantojat šo vienumu tīmeklī vai citur, neaizmirstiet blakus tam parādīt šādu attiecinājumu:",
       "modalTitle": "Sakiet paldies"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Mēs iesakām noklikšķināt uz tālāk esošās pogas “Nodrošinošā iestāde”, lai pārbaudītu, vai vienumu var lejupielādēt sniedzējas iestādes tīmekļa vietnē.",
+      "message": "Ja lejupielāde nedarbojas, tas var būt tāpēc, ka pakalpojumu sniedzošā iestāde to ir noņēmusi, vai arī ir radusies tehniska problēma ar tās pakalpojumu.",
+      "title": "Lejupielāde nedarbojas"
     }
   },
   "multilingual": {

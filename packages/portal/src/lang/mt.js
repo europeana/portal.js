@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Oġġett mhux misjub",
       "title": "Oh le! {newline} Ma stajniex insibu dan l-oġġett."
     },
+    "pageNotFound": {
+      "metaTitle": "Paġna mhux misjuba",
+      "title": "Il-paġna li qed tfittex ma teżistix."
+    },
     "searchResultsNotFound": {
       "description": "Jekk jogħġbok aġġusta t-terminu tat-tfittxija jew reset il-filtri biex terġa' tipprova.",
       "title": "Ma nistgħux jidher li nsibu dak li qed tfittex."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Ikklikkja fuq l-attribuzzjoni biex tikkopjaha",
       "modalIntro": "Jekk tuża dan l-oġġett fuq il-web jew x'imkien ieħor, tinsiex turi l-attribuzzjoni li ġejja ħdejha:",
       "modalTitle": "Għid grazzi"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Aħna nagħtuk parir biex tikklikkja fuq il-buttuna \"Istituzzjoni fornitriċi\" hawn taħt biex tiċċekkja jekk l-oġġett jistax jitniżżel fuq il-websajt tal-istituzzjoni li tipprovdi.",
+      "message": "Jekk it-tniżżil ma taħdimx, jista 'jkun minħabba li tneħħa mill-istituzzjoni li tipprovdi, jew jista' jkun hemm problema teknika bis-servizz tagħhom.",
+      "title": "Niżżel mhux qed taħdem"
     }
   },
   "multilingual": {

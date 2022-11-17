@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Üksust ei leitud",
       "title": "Oh ei! {newline} Me ei leidnud seda üksust."
     },
+    "pageNotFound": {
+      "metaTitle": "lehte ei leitud",
+      "title": "Lehte, mida otsite, pole olemas."
+    },
     "searchResultsNotFound": {
       "description": "Palun kohandage otsingusõna või lähtestage filtrid, et proovida uuesti.",
       "title": "Tundub, et me ei leia seda, mida otsite."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Selle kopeerimiseks klõpsake omistusel",
       "modalIntro": "Kui kasutate seda üksust veebis või mujal, ärge unustage selle kõrval kuvada järgmist omistust:",
       "modalTitle": "Ütle aitäh"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Soovitame teil klõpsata alloleval nupul „Pakkuja institutsioon”, et kontrollida, kas üksust saab pakkuva asutuse veebisaidilt alla laadida.",
+      "message": "Kui allalaadimine ei tööta, võib põhjuseks olla see, et pakkuv asutus on selle eemaldanud või nende teenuses võib olla tehniline probleem.",
+      "title": "Allalaadimine ei tööta"
     }
   },
   "multilingual": {

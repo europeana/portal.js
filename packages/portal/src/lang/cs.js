@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Položka nenalezena",
       "title": "Ach ne! {newline} Tuto položku se nám nepodařilo najít."
     },
+    "pageNotFound": {
+      "metaTitle": "Stránka nenalezena",
+      "title": "Stránka, kterou hledáte, neexistuje."
+    },
     "searchResultsNotFound": {
       "description": "Upravte prosím hledaný výraz nebo resetujte filtry a zkuste to znovu.",
       "title": "Zdá se, že nemůžeme najít to, co hledáte."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Kliknutím na atribut jej zkopírujete",
       "modalIntro": "Pokud používáte tuto položku na webu nebo jinde, nezapomeňte vedle ní zobrazit následující uvedení zdroje:",
       "modalTitle": "Řekni díky."
+    },
+    "downloadFailed": {
+      "linkPrompt": "Doporučujeme vám kliknout na tlačítko „Poskytovatelská instituce“ níže a zkontrolovat, zda lze položku stáhnout na webové stránce poskytující instituce.",
+      "message": "Pokud stahování nefunguje, může to být způsobeno tím, že jej odstranila poskytující instituce, nebo může nastat technický problém s jejich službou.",
+      "title": "Stahování nefunguje"
     }
   },
   "multilingual": {

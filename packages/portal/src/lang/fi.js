@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Kohdetta ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä kohdetta."
     },
+    "pageNotFound": {
+      "metaTitle": "Sivua ei löydy",
+      "title": "Etsimääsi sivua ei ole olemassa."
+    },
     "searchResultsNotFound": {
       "description": "Muokkaa hakusanaa tai nollaa suodattimet ja yritä uudelleen.",
       "title": "Emme näytä löytävän etsimääsi."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Kopioi attribuutti napsauttamalla sitä",
       "modalIntro": "Jos käytät tätä kohdetta verkossa tai muualla, älä unohda näyttää seuraavaa attribuutiota sen vieressä:",
       "modalTitle": "Sano kiitos"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Suosittelemme, että napsautat alla olevaa \"kulttuuriperintölaitos\" -painiketta tarkistaaksesi, voidaanko kohde ladata tarjoavan laitoksen verkkosivustolta.",
+      "message": "Jos lataus ei toimi, se voi johtua siitä, että tarjoava laitos on poistanut sen tai sen palvelussa voi olla tekninen ongelma.",
+      "title": "Lataus ei toimi"
     }
   },
   "multilingual": {

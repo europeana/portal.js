@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Stavka nije pronađena",
       "title": "O ne! {newline} Nismo uspjeli pronaći ovu stavku."
     },
+    "pageNotFound": {
+      "metaTitle": "Stranica nije pronađena",
+      "title": "Stranica koju tražite ne postoji."
+    },
     "searchResultsNotFound": {
       "description": "Prilagodite pojam za pretraživanje ili ponovno postavite filtre da biste pokušali ponovno.",
       "title": "Čini se da ne možemo pronaći ono što tražite."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Kliknite na atribuciju da biste je kopirali",
       "modalIntro": "Ako ovu stavku koristite na webu ili negdje drugdje, ne zaboravite pored nje prikazati sljedeću atribuciju:",
       "modalTitle": "Reci hvala"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Savjetujemo vam da kliknete na gumb 'Institucija iz koje dolazi' u nastavku kako biste provjerili može li se predmet preuzeti na web stranici institucije koja pruža.",
+      "message": "Ako preuzimanje ne radi, to može biti zato što ga je uklonila institucija koja pruža zahtjev ili može postojati tehnički problem s njihovom uslugom.",
+      "title": "Preuzimanje ne radi"
     }
   },
   "multilingual": {

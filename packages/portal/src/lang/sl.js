@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Element ni bil najden",
       "title": "Oh ne! {newline} Tega predmeta nismo mogli najti."
     },
+    "pageNotFound": {
+      "metaTitle": "Stran ni najdena",
+      "title": "Stran, ki jo iščete, ne obstaja."
+    },
     "searchResultsNotFound": {
       "description": "Prosimo, prilagodite iskalni izraz ali po nastavite filtre, da poskusite znova.",
       "title": "Zdi se, da ne moremo najti, kar iščete."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Kliknite na pripis, da ga kopirate",
       "modalIntro": "Če uporabljate ta izdelek v spletu ali drugje, ne pozabite prikazati naslednjega atributa zraven:",
       "modalTitle": "Reci hvala"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Svetujemo vam, da kliknete spodnji gumb \"Ustanova izvora\" in preverite, ali lahko predmet prenesete na spletnem mestu ustanove, ki zagotavlja informacije.",
+      "message": "Če prenos ne deluje, je to morda zato, ker ga je institucija, ki je zagotovila, odstranila, ali pa je prišlo do tehnične težave z njihovo storitvijo.",
+      "title": "Prenos ne deluje"
     }
   },
   "multilingual": {

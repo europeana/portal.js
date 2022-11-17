@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Az elem nem található",
       "title": "Ó, nem! {newline} Nem találtuk meg ezt a tételt."
     },
+    "pageNotFound": {
+      "metaTitle": "Az oldal nem található",
+      "title": "A keresett oldal nem létezik."
+    },
     "searchResultsNotFound": {
       "description": "Kérjük, módosítsa a keresési kifejezést, vagy állítsa vissza a szűrőket az újrapróbálkozáshoz.",
       "title": "Úgy tűnik, nem találjuk, amit keres."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Kattintson az attribútumra a másoláshoz",
       "modalIntro": "Ha ezt az elemet használja az interneten vagy máshol, ne felejtse el megjeleníteni a következő attribútumot mellette:",
       "modalTitle": "Mondj köszönetet"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Javasoljuk, hogy kattintson az alábbi \"szolgáltató intézmény\" gombra, és ellenőrizze, hogy a termék letölthető-e a szolgáltató intézmény honlapjáról.",
+      "message": "Ha a letöltés nem működik, annak az lehet az oka, hogy a szolgáltató intézmény eltávolította, vagy a szolgáltatásukkal van műszaki probléma.",
+      "title": "A letöltés nem működik"
     }
   },
   "multilingual": {

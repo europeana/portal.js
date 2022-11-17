@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Položka sa nenašla",
       "title": "Ó nie! {newline} Túto položku sa nám nepodarilo nájsť."
     },
+    "pageNotFound": {
+      "metaTitle": "Stránka nenájdená",
+      "title": "Stránka, ktorú hľadáte, neexistuje."
+    },
     "searchResultsNotFound": {
       "description": "Upravte hľadaný výraz alebo restujte filtre a skúste to znova.",
       "title": "Zdá sa, že nemôžeme nájsť to, čo hľadáte."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Kliknutím na atribút ho skopírujete",
       "modalIntro": "Ak používate túto položku na webe alebo kdekoľvek inde, nezabudnite vedľa nej zobraziť nasledujúce priradenie:",
       "modalTitle": "Povedz ďakujem"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Odporúčame vám kliknúť na tlačidlo „Poskytujúca inštitúcia“ nižšie a skontrolovať, či je možné položku stiahnuť na webovej stránke poskytujúcej inštitúcie.",
+      "message": "Ak sťahovanie nefunguje, môže to byť spôsobené tým, že ho odstránila poskytujúca inštitúcia, alebo môže nastať technický problém s jej službou.",
+      "title": "Sťahovanie nefunguje"
     }
   },
   "multilingual": {

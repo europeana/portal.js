@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Element nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest articol."
     },
+    "pageNotFound": {
+      "metaTitle": "Pagina nu a fost găsita",
+      "title": "Pagina pe care o cauți nu există."
+    },
     "searchResultsNotFound": {
       "description": "Vă rugăm să ajustați termenul de căutare sau să resetați filtrele pentru a încerca din nou.",
       "title": "Se pare că nu găsim ceea ce cauți."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Faceți clic pe atribuire pentru ao copia",
       "modalIntro": "Dacă folosiți acest articol pe internet sau în altă parte, nu uitați să afișați următoarea atribuție lângă el:",
       "modalTitle": "Spune multumesc"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Vă sfătuim să faceți clic pe butonul „Instituția de proveniență” de mai jos pentru a verifica dacă articolul poate fi descărcat de pe site-ul instituției furnizoare.",
+      "message": "Dacă descărcarea nu funcționează, poate fi din cauză că a fost eliminată de instituția furnizoare sau poate exista o problemă tehnică cu serviciul acestora.",
+      "title": "Descărcarea nu funcționează"
     }
   },
   "multilingual": {

@@ -217,6 +217,10 @@ export default {
       "metaTitle": "Ní bhfuarthas an mhír",
       "title": "Ó níl! {newline} Ní rabhamar in ann an mhír seo a aimsiú."
     },
+    "pageNotFound": {
+      "metaTitle": "Níor aimsíodh an leathanach",
+      "title": "Níl an leathanach atá á lorg agat ann."
+    },
     "searchResultsNotFound": {
       "description": "Athraigh an téarma cuardaigh nó athshocraigh na scagairí chun triail eile a bhaint as.",
       "title": "Is cosúil nach féidir linn teacht ar a bhfuil á lorg agat."
@@ -851,6 +855,11 @@ export default {
       "clickToCopy": "Cliceáil ar an sannadh chun é a chóipeáil",
       "modalIntro": "Má úsáideann tú an t-earra seo ar an ngréasán nó in áit eile, ná déan dearmad an sannadh seo a leanas a thaispeáint in aice leis:",
       "modalTitle": "Abair go raibh maith agat"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Molaimid duit cliceáil ar an gcnaipe ‘Institiúid sholáthair’ thíos le seiceáil an féidir an mhír a íoslódáil ó shuíomh Gréasáin na hinstitiúide soláthair.",
+      "message": "Mura n-oibríonn an t-íoslódáil, b'fhéidir gurb é an fáth gur bhain an institiúid sholáthair é, nó d'fhéadfadh fadhb theicniúil a bheith ann maidir lena seirbhís.",
+      "title": "Íoslódáil nach bhfuil ag obair"
     }
   },
   "multilingual": {
