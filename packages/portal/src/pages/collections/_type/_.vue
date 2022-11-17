@@ -213,15 +213,14 @@
         };
 
         if (this.entity) {
+          const entityQuery = getEntityQuery(this.entity.id);
           const curatedEntity = this.$store.getters['entity/curatedEntity'](this.entity.id);
-          if (curatedEntity && curatedEntity.genre) {
+          if (curatedEntity?.genre) {
             overrideParams.qf.push(`collection:${curatedEntity.genre}`);
-          } else {
-            const entityQuery = getEntityQuery(this.entity.id);
+          } else if (this.$route.query.query) {
             overrideParams.qf.push(entityQuery);
-            if (!this.$route.query.query) {
-              overrideParams.query = entityQuery; // Triggering best bets.
-            }
+          } else {
+            overrideParams.query = entityQuery; // Triggering best bets.
           }
         }
 
