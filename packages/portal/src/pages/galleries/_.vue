@@ -30,7 +30,7 @@
         :page-slug="`galleries/${identifier}`"
       />
       <ContentHeader
-        :title="title"
+        :title="pageMeta.title"
         :description="htmlDescription"
         :media-url="shareMediaUrl"
         :context-label="$tc('galleries.galleries', 1)"
@@ -199,6 +199,7 @@
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   // TODO: the following imports are only needed for contentful Galleries.
   import ContentHeader from '../../components/generic/ContentHeader';
@@ -222,9 +223,9 @@
     },
     mixins: [
       redirectToPrefPathMixin,
+      pageMetaMixin,
       // TODO: markdown is only used in contentful galleries
       stripMarkdown
-
     ],
     async beforeRouteLeave(_to, _from, next) {
       if (this.setGalleriesEnabled) {
@@ -261,22 +262,15 @@
         await this.fetchContentfulGallery();
       }
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0]),
-        meta: [
-          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
-          { hid: 'og:title', property: 'og:title', content: this.displayTitle.values[0] },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.displayDescription && this.displayDescription.values[0] ? [
-            { hid: 'description', name: 'description', content: this.displayDescription.values[0] },
-            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0] }
-          ] : [])
-      };
-    },
     computed: {
+      pageMeta() {
+        return {
+          title: this.displayTitle.values[0],
+          description: this.displayDescription?.values?.[0],
+          ogType: 'article',
+          ogImage: this.shareMediaUrl
+        };
+      },
       setGalleriesEnabled() {
         return this.$features.setGalleries;
       },
@@ -325,9 +319,6 @@
         return this.$tc(label, this.set.total, { max });
       },
       displayTitle() {
-        if (this.$fetchState.error) {
-          return { values: [this.$t(this.$fetchState.error.metaTitlePath || 'error')] };
-        }
         // TODO: remove contentful gallery fallback
         if (this.setGalleriesEnabled) {
           return langMapValueForLocale(this.set.title, this.$i18n.locale);
@@ -397,7 +388,7 @@
               const error = new Error(this.$t('messages.notFound'));
               error.statusCode = 404;
               error.titlePath = 'errorMessage.pageNotFound.title';
-              error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
+              error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
               error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
               throw error;
             }
@@ -431,12 +422,12 @@
         if (error.statusCode === 403 || error.statusCode === 401) {
           error.titlePath = 'errorMessage.galleryUnauthorised.title';
           error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
-          error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
+          error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
         }
         if (error.statusCode === 404) {
           error.titlePath = 'errorMessage.pageNotFound.title';
-          error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
+          error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
         }
         throw error;

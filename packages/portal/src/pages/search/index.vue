@@ -35,6 +35,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'SearchPage',
@@ -45,6 +46,8 @@
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       RelatedSection: () => import('@/components/search/RelatedSection')
     },
+
+    mixins: [pageMetaMixin],
 
     async beforeRouteLeave(to, from, next) {
       // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.
@@ -60,13 +63,12 @@
       };
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search.title'))
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search.title')
+        };
+      },
       searchQuery() {
         return this.$route.query.query;
       }

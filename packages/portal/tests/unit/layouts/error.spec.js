@@ -1,51 +1,68 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../utils';
+import BootstrapVue from 'bootstrap-vue';
 
 import layout from '@/layouts/error';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
-const error = { message: 'something went wrong' };
-const notFoundError = { message: 'Page not found', statusCode: 404 };
-
-const factory = (propsData = { error }) => shallowMountNuxt(layout, {
+const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(layout, {
   localVue,
   propsData,
+  data() {
+    return { ...data };
+  },
   mocks: {
-    $pageHeadTitle: key => key,
-    $t: key => key
+    $config: {
+      app: {
+        siteName: 'Europeana'
+      }
+    },
+    $t: (key) => key
   },
   stubs: {
     ErrorMessage: true
   }
 });
 
-describe('layouts/default.vue', () => {
-  it('shows an error message', () => {
-    const wrapper = factory();
-    const errorMessage = wrapper.find('[data-qa="error message container"]');
+describe('layouts/error.vue', () => {
+  const error = { message: 'Not Found' };
 
-    expect(errorMessage.exists()).toBe(true);
-  });
+  describe('template', () => {
+    it('includes error message', () => {
+      const wrapper = factory({ propsData: { error } });
 
-  describe('head()', () => {
-    it('sets meta title', () => {
-      const wrapper = factory();
+      const errorMessage = wrapper.find('[data-qa="error message container"]');
 
-      expect(wrapper.vm.head().title).toEqual('error');
+      expect(errorMessage.exists()).toBe(true);
+    });
+
+    describe('when there is a 404 error', () => {
+      const error = { statusCode: 404, message: 'Not Found' };
+
+      it('has an error explanation', () => {
+        const wrapper = factory({ propsData: { error } });
+        expect(wrapper.vm.errorExplanation).toBeTruthy();
+      });
+
+      it('sets custom meta title', () => {
+        const wrapper = factory({ propsData: { error } });
+
+        expect(wrapper.vm.head().title).toBe('errorMessage.pageNotFound.metaTitle | Europeana');
+      });
     });
   });
 
-  describe('when there is a 404 error', () => {
-    it('has an error explanation', () => {
-      const wrapper = factory({ error: notFoundError });
-      expect(wrapper.vm.errorExplanation).toBeTruthy();
-    });
+  describe('head', () => {
+    describe('title', () => {
+      it('defaults to "Error" (translated)', () => {
+        const wrapper = factory({ propsData: { error } });
 
-    it('sets custom meta title', () => {
-      const wrapper = factory({ error: notFoundError });
+        const headTitle = wrapper.vm.head().title;
 
-      expect(wrapper.vm.head().title).toEqual(wrapper.vm.errorExplanation.metaTitlePath);
+        expect(headTitle).toBe('error | Europeana');
+      });
     });
   });
 });

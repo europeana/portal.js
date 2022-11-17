@@ -54,7 +54,7 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle('Category suggest - Contentful app')
+        title: 'Category suggest - Contentful app'
       };
     },
 

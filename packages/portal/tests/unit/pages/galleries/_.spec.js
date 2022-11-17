@@ -119,6 +119,9 @@ const factory = (contentfulQuery = contentfulQueryStub) => shallowMountNuxt(page
       query: contentfulQuery
     },
     $features: {},
+    $t: key => key,
+    $tc: key => key,
+    $path: () => '/',
     $fetchState: {},
     $i18n: {
       locale: 'en',
@@ -126,25 +129,21 @@ const factory = (contentfulQuery = contentfulQueryStub) => shallowMountNuxt(page
     },
     $nuxt: { context: { res: {} } },
     $pageHeadTitle: key => key,
-    $path: () => '/',
     $$redrawVueMasonry: () => true,
-    $route: { query: '', params: { pathMatch: 'fake-gallery' } },
-    $t: key => key,
-    $tc: key => key
+    $route: { query: '', params: { pathMatch: 'fake-gallery' } }
   }
 });
 
 describe('Gallery post page', () => {
-  describe('head()', () => {
+  describe('pageMeta', () => {
     it('uses the first image for og:image', async() => {
       const wrapper = factory();
 
       await wrapper.vm.$fetch();
 
-      const headMeta = wrapper.vm.head().meta;
+      const pageMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https://example.org/image&type=IMAGE');
+      expect(pageMeta.ogImage).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https://example.org/image&type=IMAGE');
     });
   });
 

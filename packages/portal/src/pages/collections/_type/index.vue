@@ -11,7 +11,7 @@
       v-else
     >
       <ContentHeader
-        :title="pageTitle"
+        :title="pageMeta.title"
       />
       <client-only>
         <EntityTable
@@ -26,6 +26,7 @@
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
   import ClientOnly from 'vue-client-only';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'CollectionsIndexPage',
@@ -36,6 +37,9 @@
       ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
     },
+
+    mixins: [pageMetaMixin],
+
     fetch() {
       if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
         if (process.server) {
@@ -44,19 +48,17 @@
         const error = new Error('Unknown collection type');
         error.statusCode = 404;
         error.titlePath = 'errorMessage.pageNotFound.title';
-        error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
+        error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
         error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
         throw error;
       }
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.pageTitle)
-      };
-    },
+
     computed: {
-      pageTitle() {
-        return this.$fetchState.error ? this.$t(this.$fetchState.error.metaTitlePath || 'error') : this.$t(`pages.collections.${this.$route.params.type}.title`);
+      pageMeta() {
+        return {
+          title: this.$t(`pages.collections.${this.$route.params.type}.title`)
+        };
       }
     },
     watch: {

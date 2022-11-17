@@ -27,7 +27,7 @@
       class="page white-page gridless-container responsive-font"
     >
       <ContentHeader
-        :title="pageTitle"
+        :title="pageMeta.title"
       />
       <CallToActionBanner
         v-if="callsToAction[0]"
@@ -77,6 +77,7 @@
   import ContentHeader from '@/components/generic/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'StoriesPage',
@@ -90,6 +91,8 @@
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
       PaginationNavInput
     },
+
+    mixins: [pageMetaMixin],
 
     data() {
       return {
@@ -112,21 +115,13 @@
       this.$scrollTo && this.$scrollTo('#header');
     },
 
-    head() {
-      // TODO: add description, social media image, etc
-      return {
-        title: this.$pageHeadTitle(this.pageTitle),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.pageTitle },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
-        ]
-      };
-    },
-
     computed: {
-      pageTitle() {
-        return this.$t('storiesPage.title');
+      // TODO: add description, social media image, etc
+      pageMeta() {
+        return {
+          title: this.$t('storiesPage.title'),
+          ogType: 'article'
+        };
       },
       callsToAction() {
         return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');

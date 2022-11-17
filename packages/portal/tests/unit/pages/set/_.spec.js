@@ -56,7 +56,6 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   mocks: {
     $features: options.features || {},
-    $pageHeadTitle: key => key,
     $t: key => key,
     $tc: key => key,
     $i18n,
@@ -213,14 +212,6 @@ describe('SetPage', () => {
 
         expect(errorMessage.exists()).toBe(true);
       });
-
-      it('sets the head title and meta tag titles', () => {
-        const headTitle = wrapper.vm.head().title;
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headTitle).toEqual('error');
-        expect(headMeta.find(meta => meta.name === 'title').content).toBe('error');
-      });
     });
 
     describe('when the user is the set\'s owner', () => {
@@ -255,22 +246,14 @@ describe('SetPage', () => {
     });
   });
 
-  describe('head', () => {
+  describe('pageMeta', () => {
     describe('when the set has a description', () => {
       const wrapper = factory(defaultOptions);
 
       it('is used as the content for the description meta tag', () => {
-        const headMeta = wrapper.vm.head().meta;
+        const pageMeta = wrapper.vm.pageMeta;
 
-        expect(headMeta.filter(meta => meta.name === 'description').length).toBe(1);
-        expect(headMeta.find(meta => meta.name === 'description').content).toBe('A test set');
-      });
-
-      it('is used as the content for the og:description meta tag', () => {
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headMeta.filter(meta => meta.property === 'og:description').length).toBe(1);
-        expect(headMeta.find(meta => meta.property === 'og:description').content).toBe('A test set');
+        expect(pageMeta.description).toBe('A test set');
       });
     });
 
@@ -279,15 +262,9 @@ describe('SetPage', () => {
       const wrapper = factory({ set: testSetWithoutDescription });
 
       it('omits the description meta tag', () => {
-        const headMeta = wrapper.vm.head().meta;
+        const pageMeta = wrapper.vm.pageMeta;
 
-        expect(headMeta.filter(meta => meta.name === 'description').length).toBe(0);
-      });
-
-      it('omits the og:description meta tag', () => {
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headMeta.filter(meta => meta.property === 'og:description').length).toBe(0);
+        expect(pageMeta.description).toBeUndefined();
       });
     });
   });

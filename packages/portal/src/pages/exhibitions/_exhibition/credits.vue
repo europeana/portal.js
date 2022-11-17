@@ -81,6 +81,7 @@
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ExhibitionCreditsPage',
@@ -91,7 +92,8 @@
       RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
     mixins: [
-      exhibitionChapters
+      exhibitionChapters,
+      pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -140,25 +142,29 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-    head() {
+
+    data() {
       return {
-        title: this.$pageHeadTitle(this.title),
-        meta: [
-          { hid: 'title', name: 'title', content: this.title },
-          { hid: 'og:title', property: 'og:title', content: this.title },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
+        name: null,
+        identifier: null,
+        credits: '',
+        relatedLink: null,
+        hasPartCollection: null
       };
     },
+
     computed: {
+      pageMeta() {
+        return {
+          title: `${this.name} - ${this.$t('exhibitions.credits')}`,
+          ogType: 'article'
+        };
+      },
       htmlCredits() {
         if (this.credits === undefined) {
           return false;
         }
         return marked.parse(this.credits);
-      },
-      title() {
-        return `${this.name} - ${this.$t('exhibitions.credits')}`;
       },
       exhibitionTitle() {
         return this.name;

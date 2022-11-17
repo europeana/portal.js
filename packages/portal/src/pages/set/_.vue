@@ -154,6 +154,7 @@
   // TODO: Also move the beforeRouteEnter redirect to the legacy middleware.
   import ClientOnly from 'vue-client-only';
   import createHttpError from 'http-errors';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   import {
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
@@ -176,6 +177,8 @@
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations')
     },
+
+    mixins: [pageMetaMixin],
 
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
@@ -208,35 +211,27 @@
         if (error.statusCode === 403) {
           error.titlePath = 'errorMessage.galleryUnauthorised.title';
           error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
-          error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
+          error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
         }
         if (error.statusCode === 404) {
           error.titlePath = 'errorMessage.pageNotFound.title';
-          error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
+          error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
         }
         throw error;
       }
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0]),
-        meta: [
-          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
-          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.displayDescription && this.displayDescription.values[0] ? [
-            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
-            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
-          ] : [])
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.displayTitle.values[0],
+          description: this.displayDescription?.values?.[0],
+          ogType: 'article',
+          ogImage: this.shareMediaUrl
+        };
+      },
       fetchState() {
         return this.$fetchState;
       },
@@ -270,9 +265,6 @@
         return this.set.type === 'EntityBestItemsSet';
       },
       displayTitle() {
-        if (this.$fetchState.error) {
-          return { values: [this.$t(this.$fetchState.error.metaTitlePath ? this.$fetchState.error.metaTitlePath : 'error')] };
-        }
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
       },
       displayDescription() {
