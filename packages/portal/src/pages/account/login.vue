@@ -12,11 +12,11 @@
       keycloak
     ],
 
+    layout: 'minimal',
+
     middleware: [
       'cache-control-private'
     ],
-
-    layout: 'minimal',
 
     mounted() {
       this.keycloakLogin();

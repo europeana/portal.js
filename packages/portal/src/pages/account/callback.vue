@@ -5,10 +5,10 @@
 <script>
   export default {
     name: 'AccountCallbackPage',
+    layout: 'minimal',
     middleware: [
       'cache-control-private'
     ],
-    auth: false,
-    layout: 'minimal'
+    auth: false
   };
 </script>

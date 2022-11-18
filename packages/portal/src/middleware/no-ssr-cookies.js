@@ -1,4 +1,4 @@
-export default ({ res, store, $auth }) => {
+export default ({ res }) => {
   if (process.server && res) {
     res.removeHeader('Set-Cookie');
   }
