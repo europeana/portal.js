@@ -14,7 +14,7 @@
               <div class="group-title text-uppercase font-weight-bold">
                 {{ $t('footer.ourMission') }}
               </div>
-              <p class="font-italic mb-0">
+              <p class="mission font-italic mb-0">
                 {{ $t('footer.ourMissionQuote') }}
               </p>
             </div>
