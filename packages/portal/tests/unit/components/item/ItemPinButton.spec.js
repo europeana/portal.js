@@ -8,9 +8,7 @@ localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
 const storeDispatchSuccess = sinon.spy();
-const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
-const storeItemIdGetter = sinon.stub();
 const makeToastSpy = sinon.spy();
 const $goto = sinon.spy();
 let storeEntityId = 'http://data.europeana.eu/topic/123';
@@ -24,34 +22,25 @@ const mixins = [
   }
 ];
 
-const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemPinButton, {
+const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemPinButton, {
   localVue,
   propsData: { identifier },
   mixins,
   mocks: {
-    $auth,
     $goto,
-    $matomo: {
-      trackEvent: sinon.spy()
-    },
     $path: () => 'mocked path',
     $store: {
       state: {
-        set: { ...{ liked: [] }, ...storeState },
-        entity: { ...{ pinned: [] }, ...storeState },
-        item: { ...storeState }
+        entity: { ...{ pinned: [] }, ...storeState }
       },
       getters: {
-        'set/isLiked': storeIsLikedGetter,
         'entity/isPinned': storeIsPinnedGetter,
         'entity/featuredSetId': storeFeaturedSetId,
-        'entity/id': storeEntityId,
-        'item/id': storeItemIdGetter
+        'entity/id': storeEntityId
       },
       dispatch: storeDispatch
     },
-    $t: (key) => key,
-    $i18n: { locale: 'en' }
+    $t: (key) => key
   }
 });
 
@@ -218,7 +207,6 @@ describe('components/item/ItemPinButton', () => {
 
     describe('when on an item page', () => {
       beforeEach(() => {
-        storeItemIdGetter.returns('/123/abc');
         storeFeaturedSetId = null;
         storeEntityId = null;
       });
