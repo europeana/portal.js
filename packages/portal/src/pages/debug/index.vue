@@ -74,6 +74,10 @@
       });
     },
 
+    middleware: [
+      'cache-control-private'
+    ],
+
     data() {
       return {
         settings: { ...this.$store.getters['debug/settings'] },
