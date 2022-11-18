@@ -183,7 +183,7 @@
               target="_blank"
               class="faq-link mt-4 mb-2 p-0 w-100 text-decoration-none"
             >
-              <span>{{ $t('feedback.faq') }}</span>
+              {{ $t('feedback.faq') }}
               <span class="icon-external-link ml-2" />
             </b-link>
           </div>
@@ -572,6 +572,10 @@
     &:hover {
       color: $blue;
       transition: $standard-transition;
+    }
+
+    .icon-external-link {
+      vertical-align: baseline;
     }
   }
 </style>
