@@ -145,7 +145,7 @@
                   :disabled="disableSkipButton"
                   @click="skipEmail"
                 >
-                  {{ $t('actions.skip') }}
+                  {{ $t('actions.skipSend') }}
                 </b-button><!-- This comment removes white space
                 --><b-button
                   v-if="showNextButton"
@@ -219,7 +219,7 @@
       },
 
       showNextButton() {
-        return this.currentStep < 3;
+        return this.currentStep < 2;
       },
 
       disableNextButton() {
@@ -241,7 +241,7 @@
       },
 
       showSendButton() {
-        return (this.currentStep === 3) && !this.requestSuccess;
+        return this.currentStep === 2 || ((this.currentStep === 3) && !this.requestSuccess);
       },
 
       showCloseButton() {
@@ -474,12 +474,11 @@
     }
 
     .feedback-header {
-      background-color: $innovationblue;
-      padding: 0.75rem 1rem;
+      padding: 1.5rem 1rem 0;
 
       h2 {
-        color: $white;
-        font-size: 1rem;
+        color: $greyblack;
+        font-size: $font-size-large;
         line-height: 1.5;
         font-weight: 600;
         margin: 0;
@@ -518,7 +517,7 @@
       .form-control {
         padding: 0.75rem;
         background: $white;
-        border: 1px solid $mediumgrey;
+        border: 1px solid $middlegrey;
         border-radius: 0.375rem;
         font-size: $font-size-base;
         height: 3rem;

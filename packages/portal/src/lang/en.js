@@ -49,7 +49,7 @@ export default {
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
-    "skip": "Skip",
+    "skipSend": "Skip and send",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
