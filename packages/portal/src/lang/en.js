@@ -639,7 +639,7 @@ export default {
   "feedback": {
     "emailOptional": "We may wish to follow up. Enter your email if you're happy for us to contact you.",
     "failed": "The request failed. Please try again.",
-    "faq": "Go to Frequently Asked Questions",
+    "faq": "Go to Frequently asked questions",
     "form": {
       "placeholders": {
         "email": "Enter your email address",
@@ -732,6 +732,7 @@ export default {
       "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
+      "faq": "Frequently asked questions",
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",

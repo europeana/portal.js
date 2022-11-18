@@ -183,7 +183,8 @@
             { url: '/rights', text: this.$t('footer.navigation.terms') },
             { url: '/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
             { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
-            { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
+            { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') },
+            { url: '/faq', text: this.$t('footer.navigation.faq') }
           ]
         };
       },
