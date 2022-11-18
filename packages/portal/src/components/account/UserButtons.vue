@@ -32,18 +32,11 @@
       <span class="icon-ic-add" />
       {{ buttonText ? $t('actions.save') : '' }}
     </b-button>
-    <b-button
-      class="like-button text-uppercase d-inline-flex align-items-center"
-      :class="{ 'button-icon-only': !buttonText }"
-      :pressed="liked"
-      :variant="buttonVariant"
-      data-qa="like button"
-      :aria-label="$t('actions.like')"
-      @click="toggleLiked"
-    >
-      <span class="icon-heart" />
-      {{ likeButtonText }}
-    </b-button>
+    <ItemLikeButton
+      :identifier="identifier"
+      :button-variant="buttonVariant"
+      :button-text="buttonText"
+    />
     <template
       v-if="$auth.loggedIn"
     >
@@ -60,14 +53,6 @@
         :item-context="identifier"
         @response="setCreatedOrUpdated"
       />
-      <!-- TODO: remove when 100-item like limit removed -->
-      <b-modal
-        :id="likeLimitModalId"
-        :title="$t('set.notifications.likeLimit.title')"
-        hide-footer
-      >
-        <p>{{ $t('set.notifications.likeLimit.body') }}</p>
-      </b-modal>
     </template>
   </div>
 </template>
@@ -82,6 +67,7 @@
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
       SetFormModal: () => import('../set/SetFormModal'),
+      ItemLikeButton: () => import('../item/ItemLikeButton'),
       ItemPinButton: () => import('../item/ItemPinButton')
     },
 
@@ -137,26 +123,11 @@
       return {
         addItemToSetModalId: `add-item-to-set-modal-${this.identifier}`,
         setFormModalId: `set-form-modal-${this.identifier}`,
-        likeLimitModalId: `like-limit-modal-${this.identifier}`,
         showFormModal: false,
         newSetCreated: false
       };
     },
 
-    computed: {
-      liked() {
-        return this.$store.getters['set/isLiked'](this.identifier);
-      },
-      likesId() {
-        return this.$store.state.set.likesId;
-      },
-      likeButtonText() {
-        if (this.buttonText) {
-          return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
-        }
-        return '';
-      }
-    },
     methods: {
       clickCreateSet() {
         if (this.showFormModal === false) {
@@ -175,45 +146,6 @@
         if (!this.showFormModal) {
           this.$store.dispatch('set/refreshSet');
         }
-      },
-      async toggleLiked() {
-        if (this.$auth.loggedIn) {
-          await (this.liked ? this.unlike() : this.like());
-        } else {
-          this.keycloakLogin();
-        }
-      },
-      async like() {
-        if (this.likesId === null) {
-          await this.$store.dispatch('set/createLikes');
-        }
-
-        try {
-          await this.$store.dispatch('set/like', this.identifier);
-          /**
-           * triggers on like button click when not yet liked
-           * @event like
-           * @property {string} identifier - identifier of the item to be liked
-           */
-          this.$emit('like', this.identifier);
-          this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.identifier);
-        } catch (e) {
-          // TODO: remove when 100 item like limit is removed
-          if (e.message === '100 likes') {
-            this.$bvModal.show(this.likeLimitModalId);
-          } else {
-            throw e;
-          }
-        }
-      },
-      async unlike() {
-        await this.$store.dispatch('set/unlike', this.identifier);
-        /**
-         * triggers on like button click when already liked
-         * @event unlike
-         * @property {string} identifier - identifier of the item to be unliked
-         */
-        this.$emit('unlike', this.identifier);
       },
       addToSet() {
         if (this.$auth.loggedIn) {
