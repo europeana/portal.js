@@ -178,6 +178,14 @@
                 </b-button>
               </div>
             </div>
+            <b-link
+              :to="$path('/faq')"
+              target="_blank"
+              class="faq-link mt-4 mb-2 p-0 w-100 text-decoration-none"
+            >
+              <span>{{ $t('feedback.faq') }}</span>
+              <span class="icon-external-link ml-2" />
+            </b-link>
           </div>
         </b-form-group>
       </b-form>
@@ -555,6 +563,15 @@
     .icon-cancel-circle::before {
       color: $red;
       font-size: 2.0625rem;
+    }
+  }
+
+  .faq-link {
+    transition: $standard-transition;
+
+    &:hover {
+      color: $blue;
+      transition: $standard-transition;
     }
   }
 </style>
