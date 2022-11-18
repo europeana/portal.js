@@ -15,12 +15,21 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
   propsData: { identifier },
   mocks: {
     $auth,
+    $apis: {
+      set: {
+        modifyItems: sinon.spy()
+      }
+    },
     $matomo: {
       trackEvent: sinon.spy()
     },
     $store: {
       state: {
-        set: { ...{ liked: [] }, ...storeState }
+        set: {
+          liked: [],
+          likedItems: [],
+          ...storeState
+        }
       },
       getters: {
         'set/isLiked': storeIsLikedGetter
@@ -32,6 +41,8 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
 });
 
 describe('components/item/ItemLikeButton', () => {
+  afterEach(sinon.resetHistory);
+
   describe('template', () => {
     it('is visible', () => {
       const wrapper = factory();
@@ -85,39 +96,39 @@ describe('components/item/ItemLikeButton', () => {
         });
 
         describe('when pressed', () => {
-          it('dispatches to create likes set if needed', () => {
+          it('dispatches to create likes set if needed', async() => {
             const wrapper = factory({ $auth, storeState: { liked: [], likesId: null } });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-            likeButton.trigger('click');
+            await likeButton.trigger('click');
 
             expect(storeDispatchSuccess.calledWith('set/createLikes')).toBe(true);
           });
 
-          it('dispatches to add item to likes set', () => {
-            const wrapper = factory({ $auth, storeState: { liked: [] } });
+          it('adds item to likes set', async() => {
+            const wrapper = factory({ $auth, storeState: { liked: [], likesId: 123 } });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-            likeButton.trigger('click');
+            await likeButton.trigger('click');
 
-            expect(storeDispatchSuccess.calledWith('set/like', identifier)).toBe(true);
+            expect(wrapper.vm.$apis.set.modifyItems.calledWith('add', 123, identifier)).toBe(true);
           });
 
           it('tracks the event in Matomo', async() => {
             const wrapper = factory({ $auth, storeState: { liked: [] } });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-            likeButton.trigger('click');
-
-            await wrapper.vm.$nextTick();
+            await likeButton.trigger('click');
 
             expect(wrapper.vm.$matomo.trackEvent.called).toBe(true);
           });
+
           describe('when the like limit is reached', () => {
             it('shows the like limit modal', async() => {
-              const wrapper = factory({ $auth,
-                storeState: { liked: [] },
-                storeDispatch: sinon.stub().rejects({ message: '100 likes' }) });
+              const wrapper = factory({
+                $auth,
+                storeState: { likedItems: Array.from(Array(100).keys()) }
+              });
 
               const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
               const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
@@ -144,20 +155,16 @@ describe('components/item/ItemLikeButton', () => {
         });
 
         describe('when pressed', () => {
-          it('dispatches to remove item from likes set', () => {
-            const wrapper = factory({ $auth, storeState: { liked: [identifier] } });
+          it('removes item from likes set', async() => {
+            const wrapper = factory({ $auth, storeState: { liked: [identifier], likesId: 123 } });
 
             const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-            likeButton.trigger('click');
+            await likeButton.trigger('click');
 
-            expect(storeDispatchSuccess.calledWith('set/unlike', identifier)).toBe(true);
+            expect(wrapper.vm.$apis.set.modifyItems.calledWith('delete', 123, identifier)).toBe(true);
           });
         });
       });
     });
-  });
-
-  describe('methods', () => {
-
   });
 });

@@ -20,12 +20,6 @@ export default {
         state.likedItemIds = value.map(item => item.id);
       }
     },
-    like(state, itemId) {
-      state.likedItemIds.push(itemId);
-    },
-    unlike(state, itemId) {
-      state.likedItemIds.splice(state.likedItemIds.indexOf(itemId), 1);
-    },
     setActive(state, value) {
       state.active = value;
     },
@@ -55,31 +49,6 @@ export default {
       commit('setLikedItems', null);
       commit('setCreations', []);
       commit('setCurations', []);
-    },
-    like({ dispatch, commit, state }, itemId) {
-      // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
-      return dispatch('fetchLikes')
-        .then(() => {
-          if (state.likedItems && state.likedItems.length >= 100) {
-            return Promise.reject(new Error('100 likes'));
-          } else {
-            return this.$apis.set.modifyItems('add', state.likesId, itemId)
-              .then(commit('like', itemId));
-          }
-        })
-        .catch((e) => {
-          dispatch('fetchLikes');
-          throw e;
-        });
-    },
-    async unlike({ dispatch, commit, state }, itemId) {
-      try {
-        await this.$apis.set.modifyItems('delete', state.likesId, itemId);
-        commit('unlike', itemId);
-        dispatch('fetchLikes');
-      } catch (e) {
-        dispatch('fetchLikes');
-      }
     },
     async addItem({ dispatch }, { setId, itemId }) {
       try {

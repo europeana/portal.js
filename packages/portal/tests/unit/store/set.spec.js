@@ -35,20 +35,6 @@ describe('store/set', () => {
         expect(state.likedItemIds).toEqual(['006']);
       });
     });
-    describe('like()', () => {
-      it('pushes the liked item id to likedItemIds state', () => {
-        const state = { likedItems: [{ id: '006' }], likedItemIds: ['006'] };
-        store.mutations.like(state, '007');
-        expect(state.likedItemIds).toEqual(['006', '007']);
-      });
-    });
-    describe('unlike()', () => {
-      it('removes the unliked item id from likedItemIds state', () => {
-        const state = { likedItems: [{ id: '006' }], likedItemIds: ['006', '007'] };
-        store.mutations.unlike(state, '007');
-        expect(state.likedItemIds).toEqual(['006']);
-      });
-    });
     describe('setActive()', () => {
       it('sets the setActive state', () => {
         const state = { active: null };
@@ -151,53 +137,6 @@ describe('store/set', () => {
           expect(commit.calledWith(commitName, commitValue)).toBe(true);
         });
       }
-    });
-
-    describe('like()', () => {
-      describe('when amount of likes limit is reached', () => {
-        it('throws an error', async() => {
-          const likedItems = Array.from(Array(100).keys()).map(item => {
-            return { id: `${item}` };
-          });
-          const state = { likedItems };
-
-          await expect(store.actions.like({ dispatch, commit, state }, itemId)).rejects.toThrowError();
-          await expect(store.actions.like({ dispatch, state, commit }, itemId)).rejects.toEqual(new Error('100 likes'));
-          expect(dispatch.calledWith('fetchLikes')).toBe(true);
-        });
-      });
-
-      it('adds to likes set via $apis.set, then commits with "like"', async() => {
-        store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
-        const state = { likesId: setId };
-
-        await store.actions.like({ dispatch, commit, state }, itemId);
-
-        expect(store.actions.$apis.set.modifyItems.calledWith('add', state.likesId, itemId)).toBe(true);
-        expect(commit.calledWith('like', itemId)).toBe(true);
-      });
-    });
-
-    describe('unlike()', () => {
-      it('removes from likes set via $apis.set, then commits with "unlike"', async() => {
-        store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
-        const state = { likesId: setId };
-
-        await store.actions.unlike({ dispatch, commit, state }, itemId);
-
-        expect(store.actions.$apis.set.modifyItems.calledWith('delete', state.likesId, itemId)).toBe(true);
-        expect(commit.calledWith('unlike', itemId)).toBe(true);
-      });
-      describe('when api call errors', () => {
-        it('fetches likes', async() => {
-          store.actions.$apis.set.modifyItems = sinon.stub().rejects({});
-          const state = { likesId: setId };
-
-          await store.actions.unlike({ dispatch, commit, state }, itemId);
-
-          expect(dispatch.calledWith('fetchLikes')).toBe(true);
-        });
-      });
     });
 
     describe('addItem()', () => {
