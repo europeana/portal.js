@@ -45,8 +45,6 @@
           :show-move="draggableItems"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
-          @like="$emit('like', card.id)"
-          @unlike="$emit('unlike', card.id)"
         />
       </template>
     </component>
@@ -86,8 +84,6 @@
         :show-move="draggableItems"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
-        @like="$emit('like', card.id)"
-        @unlike="$emit('unlike', card.id)"
       />
     </template>
   </component>

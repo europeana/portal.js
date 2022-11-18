@@ -93,12 +93,6 @@
 
         try {
           await this.$store.dispatch('set/like', this.identifier);
-          /**
-           * triggers on like button click when not yet liked
-           * @event like
-           * @property {string} identifier - identifier of the item to be liked
-           */
-          this.$emit('like', this.identifier);
           this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.identifier);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
@@ -111,12 +105,6 @@
       },
       async unlike() {
         await this.$store.dispatch('set/unlike', this.identifier);
-        /**
-         * triggers on like button click when already liked
-         * @event unlike
-         * @property {string} identifier - identifier of the item to be unliked
-         */
-        this.$emit('unlike', this.identifier);
       }
     }
   };
