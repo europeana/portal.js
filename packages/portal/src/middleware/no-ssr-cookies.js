@@ -1,11 +1,5 @@
-export default ({ res }) => {
+export default ({ res, store, $auth }) => {
   if (process.server && res) {
-    res.removeHeader('set-cookie');
-    const vary = res.getHeader('vary');
-    if (vary) {
-      res.setHeader('vary', `${vary}, cookie`);
-    } else {
-      res.setHeader('vary', 'cookie');
-    }
+    res.removeHeader('Set-Cookie');
   }
 };
