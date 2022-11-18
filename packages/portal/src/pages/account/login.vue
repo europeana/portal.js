@@ -12,6 +12,10 @@
       keycloak
     ],
 
+    middleware: [
+      'cache-control-private'
+    ],
+
     layout: 'minimal',
 
     mounted() {

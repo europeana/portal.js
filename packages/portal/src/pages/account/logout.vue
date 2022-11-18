@@ -6,6 +6,10 @@
   export default {
     name: 'AccountLogoutPage',
 
+    middleware: [
+      'cache-control-private'
+    ],
+
     beforeRouteEnter(to, from, next) {
       next(vm => {
         const redirectPath = /^account___[a-z]{2}$/.test(from.name) ? `/${vm.$i18n.locale}` : from.fullPath;
