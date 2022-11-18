@@ -12,7 +12,7 @@ const recentlyPublishedSets = async() => {
     pageSize: 4,
     profile: 'itemDescriptions'
   };
-  const response = await  axiosClient.get('/search.json', { params });
+  const response = await axiosClient.get('/search.json', { params });
   return response.data.items;
 };
 
