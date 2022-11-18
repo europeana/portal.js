@@ -126,7 +126,10 @@
                 </span>
               </div>
             </div>
-            <div class="form-buttons d-flex justify-content-between align-items-end">
+            <div
+              class="form-buttons d-flex align-items-end"
+              :class="showCloseButton ? 'justify-content-end' : 'justify-content-between'"
+            >
               <b-button
                 v-if="showCancelButton"
                 data-qa="feedback cancel button"
@@ -223,13 +226,11 @@
       },
 
       disableNextButton() {
-        return ((this.currentStep === 1) && (this.feedback === '')) ||
-          ((this.currentStep === 2) && (this.email === '')) ||
-          this.sending;
+        return ((this.currentStep === 1) && (this.feedback === '')) || this.sending;
       },
 
       disableSendButton() {
-        return this.sending;
+        return ((this.currentStep === 2) && (this.email === '')) || this.sending;
       },
 
       disableSkipButton() {
@@ -555,7 +556,6 @@
     }
 
     .icon-check-circle::before {
-      color: $innovationblue;
       font-size: 2.0625rem;
     }
 
