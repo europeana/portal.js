@@ -38,13 +38,17 @@
 </template>
 
 <script>
+  import ItemAddButton from '../item/ItemAddButton';
+  import ItemLikeButton from '../item/ItemLikeButton';
+  import ItemPinButton from '../item/ItemPinButton';
+
   export default {
     name: 'UserButtons',
 
     components: {
-      ItemAddButton: () => import('../item/ItemAddButton'),
-      ItemLikeButton: () => import('../item/ItemLikeButton'),
-      ItemPinButton: () => import('../item/ItemPinButton')
+      ItemAddButton,
+      ItemLikeButton,
+      ItemPinButton
     },
 
     props: {

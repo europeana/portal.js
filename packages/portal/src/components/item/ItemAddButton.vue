@@ -33,13 +33,15 @@
 
 <script>
   import keycloak from '@/mixins/keycloak';
+  import AddItemToSetModal from '../set/AddItemToSetModal';
+  import SetFormModal from '../set/SetFormModal';
 
   export default {
     name: 'ItemAddButton',
 
     components: {
-      AddItemToSetModal: () => import('../set/AddItemToSetModal'),
-      SetFormModal: () => import('../set/SetFormModal')
+      AddItemToSetModal,
+      SetFormModal
     },
 
     mixins: [
