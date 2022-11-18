@@ -1,6 +1,6 @@
 export default ({ res }) => {
   if (process.server && res) {
     res.removeHeader('Cache-Control');
-    res.setHeader('Cache-Control', 'public');
+    res.setHeader('Cache-Control', 'public, max-age=0');
   }
 };
