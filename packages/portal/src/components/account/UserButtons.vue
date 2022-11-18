@@ -3,19 +3,13 @@
     class="user-buttons"
     data-qa="user buttons"
   >
-    <b-button
+    <ItemPinButton
       v-show="showPins"
-      class="pin-button text-uppercase"
-      :class="{ 'button-icon-only': !buttonText }"
-      :variant="buttonVariant"
-      :pressed="pinned"
-      data-qa="pin button"
-      :aria-label="$t('entity.actions.pin')"
-      @click="pinAction"
-    >
-      <span class="icon-push-pin" />
-      {{ pinButtonText }}
-    </b-button>
+      :identifier="identifier"
+      :entities="entities"
+      :button-variant="buttonVariant"
+      :button-text="buttonText"
+    />
     <b-button
       v-if="showMove"
       class="move-button text-uppercase d-inline-flex align-items-center"
@@ -74,43 +68,11 @@
       >
         <p>{{ $t('set.notifications.likeLimit.body') }}</p>
       </b-modal>
-      <b-modal
-        v-if="showPins && entity"
-        :id="pinnedLimitModalId"
-        :title="$t('entity.notifications.pinLimit.title')"
-        hide-footer
-        hide-header-close
-      >
-        {{ $t('entity.notifications.pinLimit.body') }}
-        <div class="modal-footer">
-          <b-button
-            variant="outline-primary"
-            data-qa="cancel button"
-            @click="$bvModal.hide(pinnedLimitModalId)"
-          >
-            {{ $t('actions.close') }}
-          </b-button>
-          <b-button
-            variant="primary"
-            @click="goToPins"
-          >
-            {{ $t('entity.actions.viewPinned') }}
-          </b-button>
-        </div>
-      </b-modal>
-      <ItemPinModal
-        v-if="showPins && identifier && entities.length > 0"
-        :identifier="identifier"
-        :modal-id="pinModalId"
-        :entities="entities"
-        data-qa="pin item to entities modal"
-      />
     </template>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
   import keycloak from '@/mixins/keycloak';
   import makeToastMixin from '@/mixins/makeToast';
 
@@ -120,8 +82,9 @@
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
       SetFormModal: () => import('../set/SetFormModal'),
-      ItemPinModal: () => import('../item/ItemPinModal')
+      ItemPinButton: () => import('../item/ItemPinButton')
     },
+
     mixins: [
       keycloak,
       makeToastMixin
@@ -175,8 +138,6 @@
         addItemToSetModalId: `add-item-to-set-modal-${this.identifier}`,
         setFormModalId: `set-form-modal-${this.identifier}`,
         likeLimitModalId: `like-limit-modal-${this.identifier}`,
-        pinModalId: `pin-modal-${this.identifier}`,
-        pinnedLimitModalId: `pinned-limit-modal-${this.identifier}`,
         showFormModal: false,
         newSetCreated: false
       };
@@ -189,25 +150,12 @@
       likesId() {
         return this.$store.state.set.likesId;
       },
-      pinned() {
-        return this.$store.getters['entity/isPinned'](this.identifier);
-      },
-      pinButtonText() {
-        if (this.buttonText) {
-          return this.pinned ? this.$t('statuses.pinned') : this.$t('actions.pin');
-        }
-        return '';
-      },
       likeButtonText() {
         if (this.buttonText) {
           return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
-      },
-      ...mapGetters({
-        entity: 'entity/id',
-        featuredSet: 'entity/featuredSetId'
-      })
+      }
     },
     methods: {
       clickCreateSet() {
@@ -234,10 +182,6 @@
         } else {
           this.keycloakLogin();
         }
-      },
-      goToPins() {
-        const path = this.$path(`/set/${this.featuredSet}`);
-        this.$goto(path);
       },
       async like() {
         if (this.likesId === null) {
@@ -283,39 +227,6 @@
           this.$matomo && this.$matomo.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
           this.keycloakLogin();
-        }
-      },
-      async pin() {
-        if (this.featuredSet === null) {
-          await this.$store.dispatch('entity/createFeaturedSet');
-        }
-        try {
-          await this.$store.dispatch('entity/pin', this.identifier);
-          this.makeToast(this.$t('entity.notifications.pinned', { entity: this.$store.getters['entity/englishPrefLabel'] }));
-        } catch (e) {
-          if (e.message === 'too many pins') {
-            this.$bvModal.show(`pinned-limit-modal-${this.identifier}`);
-          } else {
-            throw e;
-          }
-        }
-      },
-      async unpin() {
-        await this.$store.dispatch('entity/unpin', this.identifier);
-        this.makeToast(this.$t('entity.notifications.unpinned'));
-      },
-      async pinAction() {
-        if (this.entity || this.featuredSet) {
-          await this.togglePin(); // On an entity/entity set page all info is in the store.
-        } else {
-          await this.$bvModal.show(this.pinModalId); // Open the modal to find which entity to pin to.
-        }
-      },
-      async togglePin() {
-        if (this.pinned) {
-          await this.unpin();
-        } else {
-          await this.pin();
         }
       }
     }
