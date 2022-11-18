@@ -103,16 +103,6 @@ describe('components/item/ItemLikeButton', () => {
             expect(storeDispatchSuccess.calledWith('set/like', identifier)).toBe(true);
           });
 
-          it('emits "like" event', async() => {
-            const wrapper = factory({ $auth, storeState: { liked: [] } });
-
-            const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-            likeButton.trigger('click');
-
-            await wrapper.vm.$nextTick();
-            expect(wrapper.emitted('like')).toEqual([[identifier]]);
-          });
-
           it('tracks the event in Matomo', async() => {
             const wrapper = factory({ $auth, storeState: { liked: [] } });
 
@@ -161,16 +151,6 @@ describe('components/item/ItemLikeButton', () => {
             likeButton.trigger('click');
 
             expect(storeDispatchSuccess.calledWith('set/unlike', identifier)).toBe(true);
-          });
-
-          it('emits "unlike" event', async() => {
-            const wrapper = factory({ $auth, storeState: { liked: [identifier] } });
-
-            const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-            likeButton.trigger('click');
-
-            await wrapper.vm.$nextTick();
-            expect(wrapper.emitted('unlike')).toEqual([[identifier]]);
           });
         });
       });

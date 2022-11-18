@@ -37,8 +37,6 @@
           :show-move="showMove"
           :button-text="true"
           button-variant="light-flat"
-          @like="$emit('like', identifier)"
-          @unlike="$emit('unlike', identifier)"
         />
       </div>
     </template>
@@ -57,8 +55,6 @@
         :identifier="identifier"
         :show-pins="showPins"
         :show-move="showMove"
-        @like="$emit('like', identifier)"
-        @unlike="$emit('unlike', identifier)"
       />
     </template>
   </ContentCard>
