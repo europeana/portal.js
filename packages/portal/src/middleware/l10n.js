@@ -27,7 +27,6 @@ const localiseRoute = ({ route, req, redirect, app, res }) => {
     } else {
       res.setHeader('vary', 'accept-language');
     }
-    console.log('vary', vary)
   }
   redirect(route);
 };
