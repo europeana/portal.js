@@ -188,11 +188,15 @@
       next();
     },
 
-    middleware({ app, params, redirect }) {
-      if (app.$features.setGalleries) {
-        redirect({ name: `galleries-all___${app.i18n.locale}`, params });
+    middleware: [
+      'cache-control-private',
+
+      function({ app, params, redirect }) {
+        if (app.$features.setGalleries) {
+          redirect({ name: `galleries-all___${app.i18n.locale}`, params });
+        }
       }
-    },
+    ],
 
     async fetch() {
       try {
