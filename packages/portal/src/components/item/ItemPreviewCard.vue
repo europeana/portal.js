@@ -31,15 +31,17 @@
         >
           <span class="icon-file" />{{ type }}
         </span>
-        <UserButtons
-          :identifier="identifier"
-          :show-pins="showPins"
-          :show-move="showMove"
-          :button-text="true"
-          button-variant="light-flat"
-          @like="$emit('like', identifier)"
-          @unlike="$emit('unlike', identifier)"
-        />
+        <client-only>
+          <UserButtons
+            :identifier="identifier"
+            :show-pins="showPins"
+            :show-move="showMove"
+            :button-text="true"
+            button-variant="light-flat"
+            @like="$emit('like', identifier)"
+            @unlike="$emit('unlike', identifier)"
+          />
+        </client-only>
       </div>
     </template>
     <template
@@ -52,14 +54,15 @@
         :enable-accept-button="enableAcceptRecommendation"
         :enable-reject-button="enableRejectRecommendation"
       />
-      <UserButtons
-        v-else
-        :identifier="identifier"
-        :show-pins="showPins"
-        :show-move="showMove"
-        @like="$emit('like', identifier)"
-        @unlike="$emit('unlike', identifier)"
-      />
+      <client-only v-else>
+        <UserButtons
+          :identifier="identifier"
+          :show-pins="showPins"
+          :show-move="showMove"
+          @like="$emit('like', identifier)"
+          @unlike="$emit('unlike', identifier)"
+        />
+      </client-only>
     </template>
   </ContentCard>
 </template>
