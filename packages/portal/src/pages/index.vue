@@ -13,8 +13,7 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
-      :title-path="$fetchState.error.titlePath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :status-code="$fetchState.error.statusCode"
     />
     <template
       v-else
@@ -37,6 +36,7 @@
 </template>
 
 <script>
+  import createHttpError from 'http-errors';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import BrowsePage from '@/components/browse/BrowsePage';
   import StaticPage from '@/components/static/StaticPage';
@@ -89,13 +89,7 @@
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        const error = new Error(this.$t('messages.notFound'));
-        error.statusCode = 404;
-        error.titlePath = 'errorMessage.pageNotFound.title';
-        error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
-        error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
-
-        throw error;
+        throw createHttpError(404, this.$t('messages.notFound'));
       }
     },
 

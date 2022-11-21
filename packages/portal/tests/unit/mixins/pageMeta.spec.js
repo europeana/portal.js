@@ -96,14 +96,28 @@ describe('mixins/pageMeta', () => {
         });
 
         describe('but error has no pageTitlePath', () => {
-          const mocks = { $fetchState: { error: {} } };
+          describe('but error does have a supported HTTP status code', () => {
+            const mocks = { $fetchState: { error: { statusCode: 404 } } };
 
-          it('uses translated "error"', () => {
-            const wrapper = factory({ mocks, computed });
+            it('uses error message for that status code', () => {
+              const wrapper = factory({ mocks, computed });
 
-            const pageTitle = wrapper.vm.pageTitle;
+              const pageTitle = wrapper.vm.pageTitle;
 
-            expect(pageTitle).toBe('error');
+              expect(pageTitle).toBe('errorMessage.pageNotFound.metaTitle');
+            });
+          });
+
+          describe('and error does not have a supported HTTP status code', () => {
+            const mocks = { $fetchState: { error: { statusCode: 500 } } };
+
+            it('uses translated "error"', () => {
+              const wrapper = factory({ mocks, computed });
+
+              const pageTitle = wrapper.vm.pageTitle;
+
+              expect(pageTitle).toBe('error');
+            });
           });
         });
       });

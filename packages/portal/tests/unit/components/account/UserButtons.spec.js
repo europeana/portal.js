@@ -28,7 +28,7 @@ describe('components/account/UserButtons', () => {
     it('does not exist by default', () => {
       const wrapper = factory();
 
-      const button = wrapper.find('[data-qa="pin button"]');
+      const button = wrapper.find('[data-qa="item pin button"]');
 
       expect(button.exists()).toBe(false);
     });
@@ -36,7 +36,7 @@ describe('components/account/UserButtons', () => {
     it('exists if enabled by `showPins` prop', () => {
       const wrapper = factory({ propsData: { showPins: true } });
 
-      const button = wrapper.find('[data-qa="pin button"]');
+      const button = wrapper.find('[data-qa="item pin button"]');
 
       expect(button.exists()).toBe(true);
     });
@@ -46,7 +46,7 @@ describe('components/account/UserButtons', () => {
     it('does not exist by default', () => {
       const wrapper = factory();
 
-      const button = wrapper.find('[data-qa="move button"]');
+      const button = wrapper.find('[data-qa="item move button"]');
 
       expect(button.exists()).toBe(false);
     });
@@ -54,7 +54,7 @@ describe('components/account/UserButtons', () => {
     it('exists if enabled by `showMove` prop', () => {
       const wrapper = factory({ propsData: { showMove: true } });
 
-      const button = wrapper.find('[data-qa="move button"]');
+      const button = wrapper.find('[data-qa="item move button"]');
 
       expect(button.exists()).toBe(true);
     });
@@ -64,7 +64,7 @@ describe('components/account/UserButtons', () => {
     it('exists', () => {
       const wrapper = factory();
 
-      const button = wrapper.find('[data-qa="add button"]');
+      const button = wrapper.find('[data-qa="item add button"]');
 
       expect(button.exists()).toBe(true);
     });
@@ -74,7 +74,7 @@ describe('components/account/UserButtons', () => {
     it('exists', () => {
       const wrapper = factory();
 
-      const button = wrapper.find('[data-qa="like button"]');
+      const button = wrapper.find('[data-qa="item like button"]');
 
       expect(button.exists()).toBe(true);
     });
