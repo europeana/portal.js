@@ -465,7 +465,7 @@
 
     @media (min-width: $bp-small) {
       left: auto;
-      min-width: 360px;
+      width: 360px;
     }
 
     &.show-feedback-widget {
@@ -567,6 +567,7 @@
 
   .faq-link {
     transition: $standard-transition;
+    font-size: $font-size-base;
 
     &:hover {
       color: $blue;
