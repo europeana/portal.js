@@ -38,13 +38,14 @@
             v-if="setGalleriesEnabled"
           >
             <ContentCard
-              v-for="gallery in galleries"
+              v-for="(gallery, index) in galleries"
               :key="gallery.slug"
               :title="gallery.title"
               :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
               :image-url="gallery.thumbnail"
               :texts="[gallery.description]"
               :show-subtitle="false"
+              :offset="index"
             />
           </template>
           <template
