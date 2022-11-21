@@ -150,7 +150,7 @@
             url: 'https://www.linkedin.com/company/europeana',
             icon: 'icon-linkedin'
           }
-        ]
+        ].map(link => ({ ...link, hideExternalIcon: true }))
       };
     },
 
