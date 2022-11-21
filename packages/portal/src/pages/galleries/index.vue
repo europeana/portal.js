@@ -135,7 +135,7 @@
         };
 
         const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-        this.galleries = this.parseSets(setResponse.data.items);
+        this.galleries = setResponse.data.items && this.parseSets(setResponse.data.items);
         this.total = setResponse.data.partOf.total;
         this.perPage = PER_PAGE;
       },

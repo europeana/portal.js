@@ -53,9 +53,18 @@ const store = new Vuex.Store({
     },
     set: {
       namespaced: true,
-      state: { liked: [] },
+      state: { liked: [], active: { visibility: 'public' } },
+      mutations: {
+        setActive(state, value) {
+          state.active = value;
+        }
+      },
       getters: {
         isLiked: () => (value) => !!value
+      },
+      actions: {
+        publish: ({ state, commit }) => commit('setActive', { ...state.active, visibility: 'published' }),
+        unpublish: ({ state, commit }) => commit('setActive', { ...state.active, visibility: 'public' })
       }
     }
   }

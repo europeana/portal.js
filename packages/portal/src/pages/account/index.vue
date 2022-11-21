@@ -207,7 +207,7 @@
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems,
         curations: state => state.set.curations,
-        publicCreations: state => state.set.creations.filter(set => set.visibility === 'public'),
+        publicCreations: state => state.set.creations.filter(set => set.visibility === ('public' || 'published')),
         privateCreations: state => state.set.creations.filter(set => set.visibility === 'private')
       }),
       activeTab() {

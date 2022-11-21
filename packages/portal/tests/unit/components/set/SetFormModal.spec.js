@@ -25,11 +25,16 @@ const existingSetPropsData = {
   visibility: 'public'
 };
 
-const factory = (propsData = {}) => mount(SetFormModal, {
+const factory = ({ propsData = {}, data = {} } = {}) => mount(SetFormModal, {
   localVue,
   propsData: {
     modalStatic: true,
     ...propsData
+  },
+  data() {
+    return {
+      ...data
+    };
   },
   i18n,
   mocks: {
@@ -62,7 +67,7 @@ describe('components/set/SetFormModal', () => {
     });
 
     it('updates existing sets', async() => {
-      const wrapper = factory(existingSetPropsData);
+      const wrapper = factory({ propsData: existingSetPropsData });
 
       await wrapper.find('#set-title').setValue('A better title');
       await wrapper.find('#set-private').setChecked();
@@ -94,7 +99,7 @@ describe('components/set/SetFormModal', () => {
     });
 
     it('is shown for existing sets', async() => {
-      const wrapper = factory(existingSetPropsData);
+      const wrapper = factory({ propsData: existingSetPropsData });
 
       const deleteButton = wrapper.find('[data-qa="delete button"]');
 
@@ -102,7 +107,7 @@ describe('components/set/SetFormModal', () => {
     });
 
     it('opens the confirmation modal when pressed', () => {
-      const wrapper = factory(existingSetPropsData);
+      const wrapper = factory({ propsData: existingSetPropsData });
       const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
       const deleteButton = wrapper.find('[data-qa="delete button"]');
@@ -122,26 +127,131 @@ describe('components/set/SetFormModal', () => {
         expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
       });
     });
-    describe('when there are no updates made', () => {
-      it('is disabled', () => {
-        const wrapper = factory(existingSetPropsData);
+  });
 
-        wrapper.find('#set-title').setValue(existingSetPropsData.title.en);
-        wrapper.find('#set-description').setValue(existingSetPropsData.description.en);
-        wrapper.find('#set-private').setChecked(false);
+  describe('computed', () => {
+    describe('hasTitleInSomeLanguage', () => {
+      describe('when `titleValue` has text', () => {
+        const data = {
+          titleValue: 'fish'
+        };
 
-        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
+        it('is `true`', async() => {
+          const wrapper = factory();
+
+          await wrapper.setData(data);
+
+          expect(wrapper.vm.hasTitleInSomeLanguage).toBe(true);
+        });
+      });
+
+      describe('when `titleValue` has no text', () => {
+        const data = {
+          titleValue: ''
+        };
+
+        describe('but `title` has text for some language', () => {
+          const propsData = { title: { es: 'pez' } };
+
+          it('is `true`', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.setData(data);
+
+            expect(wrapper.vm.hasTitleInSomeLanguage).toBe(true);
+          });
+        });
+
+        describe('and `title` has no text for any language', () => {
+          const propsData = { title: {} };
+
+          it('is `true`', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.setData(data);
+
+            expect(wrapper.vm.hasTitleInSomeLanguage).toBe(false);
+          });
+        });
       });
     });
-    describe('when description is filled with emptry string', () => {
-      it('is disabled', () => {
-        const wrapper = factory({ description: {
-          en: undefined
-        } });
 
-        wrapper.find('#set-description').setValue('');
+    describe('visibilityValue', () => {
+      describe('when `isPrivate` is `true`', () => {
+        const data = {
+          isPrivate: true
+        };
 
-        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
+        describe('and `visibility` is "private"', () => {
+          const propsData = {
+            visibility: 'private'
+          };
+          it('is "private"', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.setData(data);
+
+            expect(wrapper.vm.visibilityValue).toBe('private');
+          });
+        });
+
+        describe('and `visibility` is not "private"', () => {
+          const propsData = {
+            visibility: 'public'
+          };
+          it('is "private"', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.setData(data);
+
+            expect(wrapper.vm.visibilityValue).toBe('private');
+          });
+        });
+      });
+
+      describe('when `isPrivate` is `false`', () => {
+        const data = {
+          isPrivate: false
+        };
+
+        describe('and `visibility` is "private"', () => {
+          const propsData = {
+            visibility: 'private'
+          };
+          it('is "public"', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.setData(data);
+
+            expect(wrapper.vm.visibilityValue).toBe('public');
+          });
+        });
+
+        describe('and `visibility` is "public"', () => {
+          const propsData = {
+            visibility: 'public'
+          };
+          it('is "public"', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.setData(data);
+
+            expect(wrapper.vm.visibilityValue).toBe('public');
+          });
+        });
+
+        describe('and `visibility` is "published"', () => {
+          const propsData = {
+            visibility: 'published'
+          };
+          it('is "published"', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.setData(data);
+
+            expect(wrapper.vm.visibilityValue).toBe('published');
+          });
+        });
       });
     });
   });

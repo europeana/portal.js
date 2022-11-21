@@ -119,11 +119,11 @@
                   v-if="userIsOwner"
                 >
                   <b-button
-                    variant="outline-primary"
-                    class="text-decoration-none mr-2"
+                    class="d-inline-flex align-items-center mr-2"
                     data-qa="edit set button"
                     @click="$bvModal.show(setFormModalId)"
                   >
+                    <span class="icon-edit pr-1" />
                     {{ $t('actions.edit') }}
                   </b-button>
                   <SetFormModal
@@ -134,14 +134,13 @@
                     :visibility="set.visibility"
                   />
                 </template>
-                <b-button
-                  v-b-modal.share-modal
-                  variant="outline-primary"
-                  class="text-decoration-none"
-                >
-                  {{ $t('actions.share') }}
-                </b-button>
+                <ShareButton />
                 <SocialShareModal :media-url="shareMediaUrl" />
+                <PublishSetButton
+                  v-if="set.visibility !== 'private' && userIsPublisher"
+                  :set-id="set.id"
+                  :visibility="set.visibility"
+                />
               </div>
             </b-container>
           </b-col>
@@ -198,6 +197,7 @@
   } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ShareButton from '@/components/sharing/ShareButton.vue';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -214,13 +214,16 @@
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       ItemPreviewCardGroup,
+      ShareButton,
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations'),
       // TODO: The following components are only used in contentful galleries
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard'),
-      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
+      PublishSetButton: () => import('@/components/set/PublishSetButton')
+
     },
     mixins: [
       redirectToPrefPathMixin,
@@ -297,6 +300,11 @@
         const entitiesEditor = user?.resource_access?.entities?.roles?.includes('editor');
         const usersetsEditor = user?.resource_access?.usersets?.roles?.includes('editor');
         return entitiesEditor && usersetsEditor;
+      },
+      userIsPublisher() {
+        const user = this.$store.state.auth.user;
+        const publisher = user?.resource_access?.usersets?.roles?.includes('publisher');
+        return !!publisher;
       },
       userCanEdit() {
         return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
