@@ -5,7 +5,7 @@
   >
     <ItemPinButton
       v-if="showPins"
-      data-qa="pin button"
+      data-qa="item pin button"
       :identifier="identifier"
       :entities="entities"
       :button-variant="buttonVariant"
@@ -15,7 +15,7 @@
       v-if="showMove"
       class="move-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
-      data-qa="move button"
+      data-qa="item move button"
       :variant="buttonVariant"
       :aria-label="$t('actions.move')"
     >
@@ -23,13 +23,13 @@
       {{ buttonText ? $t('actions.move') : '' }}
     </b-button>
     <ItemAddButton
-      data-qa="add button"
+      data-qa="item add button"
       :identifier="identifier"
       :button-variant="buttonVariant"
       :button-text="buttonText"
     />
     <ItemLikeButton
-      data-qa="like button"
+      data-qa="item like button"
       :identifier="identifier"
       :button-variant="buttonVariant"
       :button-text="buttonText"
