@@ -15,6 +15,7 @@ const cacherNames = [
   'collections:times:featured',
   'collections:topics',
   'collections:topics:featured',
+  'galleries:recent',
   'items:recent',
   'items:type-counts'
 ];
