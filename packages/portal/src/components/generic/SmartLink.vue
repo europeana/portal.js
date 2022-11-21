@@ -14,6 +14,10 @@
   >
     <slot /><!-- This comment removes white space which gets underlined
  --><span
+      v-if="isExternalLink && !hideExternalIcon"
+      class="icon-external-link"
+    /><!-- This comment removes white space which gets underlined
+ --><span
       v-if="isExternalLink"
       class="sr-only"
     >
