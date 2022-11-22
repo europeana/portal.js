@@ -193,6 +193,11 @@
           content: ';';
           padding: 0 0.2rem;
         }
+
+        ::v-deep .icon-external-link {
+          vertical-align: initial;
+          font-size: 0.75rem;
+        }
       }
     }
 
