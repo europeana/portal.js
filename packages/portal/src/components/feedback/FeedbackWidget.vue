@@ -468,6 +468,11 @@
       width: 360px;
     }
 
+    // This overrides the responsive font-size inherited from the footer.
+    @media (min-width: $bp-xxxl) {
+      font-size: $font-size-base;
+    }
+
     &.show-feedback-widget {
       opacity: 1;
       visibility: visible;
@@ -567,7 +572,6 @@
 
   .faq-link {
     transition: $standard-transition;
-    font-size: $font-size-base;
 
     &:hover {
       color: $blue;
