@@ -93,14 +93,7 @@ const contentfulGalleryMock = { data: { data: {
   }
 } } };
 
-const contentfulEmptyGalleryMock = { data: { data: {
-  imageGalleryCollection: {
-    items: []
-  }
-} } };
-
 const contentfulQueryStub = sinon.stub().resolves(contentfulGalleryMock);
-const contentfulQueryEmptyStub = sinon.stub().resolves(contentfulEmptyGalleryMock);
 
 const factory = (contentfulQuery = contentfulQueryStub) => shallowMountNuxt(page, {
   localVue,
@@ -167,20 +160,5 @@ describe('Gallery post page', () => {
       const cards = wrapper.findAllComponents('[data-qa="content card"]');
       expect(cards).toHaveLength(2);
     });
-  });
-
-  it('displays an illustrated error message for 404 status', async() => {
-    const wrapper = factory(contentfulQueryEmptyStub);
-
-    let error;
-    try {
-      await wrapper.vm.$fetch();
-    } catch (e) {
-      error = e;
-    }
-
-    expect(error.statusCode).toBe(404);
-    expect(error.titlePath).toBe('errorMessage.pageNotFound.title');
-    expect(error.illustrationSrc).toBe('il-page-not-found.svg');
   });
 });

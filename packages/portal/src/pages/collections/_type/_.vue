@@ -8,8 +8,7 @@
       v-if="$fetchState.error"
       data-qa="error message container"
       :error="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :status-code="$fetchState.error.statusCode"
     />
     <client-only v-else>
       <SearchInterface
@@ -173,14 +172,6 @@
           const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
 
           return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
-        })
-        .catch((error) => {
-          if (error.statusCode === 404) {
-            error.titlePath = 'errorMessage.pageNotFound.title';
-            error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
-            error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
-          }
-          throw error;
         });
     },
 

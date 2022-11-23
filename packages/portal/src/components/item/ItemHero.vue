@@ -223,6 +223,10 @@
         padding: 0;
       }
 
+      > div {
+        display: inherit;
+      }
+
       .btn {
         color: $mediumgrey;
         background: $offwhite;

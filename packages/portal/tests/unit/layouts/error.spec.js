@@ -37,31 +37,16 @@ describe('layouts/error.vue', () => {
 
       expect(errorMessage.exists()).toBe(true);
     });
-
-    describe('when there is a 404 error', () => {
-      const error = { statusCode: 404, message: 'Not Found' };
-
-      it('has an error explanation', () => {
-        const wrapper = factory({ propsData: { error } });
-        expect(wrapper.vm.errorExplanation).toBeTruthy();
-      });
-
-      it('sets custom meta title', () => {
-        const wrapper = factory({ propsData: { error } });
-
-        expect(wrapper.vm.head().title).toBe('errorMessage.pageNotFound.metaTitle | Europeana');
-      });
-    });
   });
 
-  describe('head', () => {
-    describe('title', () => {
-      it('defaults to "Error" (translated)', () => {
+  describe('computed', () => {
+    describe('pageMeta', () => {
+      it('defaults title to "Error" (translated)', () => {
         const wrapper = factory({ propsData: { error } });
 
-        const headTitle = wrapper.vm.head().title;
+        const headTitle = wrapper.vm.pageMeta.title;
 
-        expect(headTitle).toBe('error | Europeana');
+        expect(headTitle).toBe('error');
       });
     });
   });

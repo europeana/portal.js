@@ -130,6 +130,72 @@ describe('@/plugins/europeana/set', () => {
     });
   });
 
+  describe('publish()', () => {
+    it('publishes the set', async() => {
+      nock(BASE_URL)
+        .put(`/${setId}/publish`)
+        .query(true)
+        .reply(200);
+
+      await plugin({ $config }).publish(setId);
+      expect(nock.isDone()).toBe(true);
+    });
+    describe('when request errors', () => {
+      it('throws an error', async() => {
+        const errorMessage = 'Set already published';
+        nock(BASE_URL)
+          .put(`/${setId}/publish`)
+          .query(true)
+          .reply(400, {
+            error: errorMessage
+          });
+
+        let error;
+        try {
+          await plugin({ $config }).publish(setId);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.message).toBe(errorMessage);
+        expect(error.statusCode).toBe(400);
+      });
+    });
+  });
+
+  describe('unpublish()', () => {
+    it('unpublishes the set', async() => {
+      nock(BASE_URL)
+        .put(`/${setId}/unpublish`)
+        .query(true)
+        .reply(200);
+
+      await plugin({ $config }).unpublish(setId);
+      expect(nock.isDone()).toBe(true);
+    });
+    describe('when request errors', () => {
+      it('throws an error', async() => {
+        const errorMessage = 'Set not published';
+        nock(BASE_URL)
+          .put(`/${setId}/unpublish`)
+          .query(true)
+          .reply(400, {
+            error: errorMessage
+          });
+
+        let error;
+        try {
+          await plugin({ $config }).unpublish(setId);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.message).toBe(errorMessage);
+        expect(error.statusCode).toBe(400);
+      });
+    });
+  });
+
   describe('search()', () => {
     it('queries the Set API for sets matching the params', async() => {
       const searchParams = {

@@ -19,10 +19,13 @@
             v-model="titleValue"
             type="text"
             maxlength="35"
-            required
+            :required="!hasTitleInSomeLanguage"
             aria-describedby="input-live-help"
           />
-          <b-form-text id="input-live-help">
+          <b-form-text
+            v-show="!hasTitleInSomeLanguage"
+            id="input-live-help"
+          >
             {{ $t('set.form.required') }}
           </b-form-text>
         </b-form-group>
@@ -87,6 +90,12 @@
 </template>
 
 <script>
+  import {
+    EUROPEANA_SET_VISIBILITY_PRIVATE,
+    EUROPEANA_SET_VISIBILITY_PUBLIC,
+    EUROPEANA_SET_VISIBILITY_PUBLISHED
+  } from '@/plugins/europeana/set';
+
   export default {
     name: 'SetFormModal',
 
@@ -122,7 +131,7 @@
 
       visibility: {
         type: String,
-        default: 'public'
+        default: EUROPEANA_SET_VISIBILITY_PUBLIC
       },
 
       type: {
@@ -150,17 +159,32 @@
       setBody() {
         const setBody = {
           type: this.type,
-          title: { ...this.title },
-          description: { ...this.description },
-          visibility: this.isPrivate ? 'private' : 'public'
+          title: {
+            ...this.title,
+            [this.$i18n.locale]: this.titleValue
+          },
+          description: {
+            ...this.description,
+            [this.$i18n.locale]: this.descriptionValue
+          },
+          visibility: this.visibilityValue
         };
+
         if (this.isNew && this.itemContext) {
           setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
         }
-        setBody.title[this.$i18n.locale] = this.titleValue;
-        setBody.description[this.$i18n.locale] = this.descriptionValue;
 
         return setBody;
+      },
+
+      visibilityValue() {
+        if (this.isPrivate) {
+          return EUROPEANA_SET_VISIBILITY_PRIVATE;
+        } else if (this.visibility === EUROPEANA_SET_VISIBILITY_PUBLISHED) {
+          return EUROPEANA_SET_VISIBILITY_PUBLISHED;
+        } else {
+          return EUROPEANA_SET_VISIBILITY_PUBLIC;
+        }
       },
 
       isNew() {
@@ -170,18 +194,14 @@
       modalTitle() {
         return this.isNew ? this.$t('set.actions.create') : this.$t('set.actions.edit');
       },
+
       disableSubmitButton() {
         // Disable submit button when no title (required field)
-        return !this.titleValue ||
-          // Or when none of the fields have changed
-          (this.titleValue === this.title[this.$i18n.locale] &&
-            (this.descriptionValue === this.description[this.$i18n.locale] ||
-              // Needed for the case a user starts typing a description but then removes it again.
-              // The value is still changed from undefined to empty string.
-              (this.descriptionValue === '' && this.description[this.$i18n.locale] === undefined)) &&
-            ((this.isPrivate && this.visibility === 'private') ||
-              (!this.isPrivate && this.visibility === 'public'))
-          );
+        return !this.hasTitleInSomeLanguage;
+      },
+
+      hasTitleInSomeLanguage() {
+        return !!this.titleValue || Object.values(this.title).some((val) => !!val);
       }
     },
 
@@ -194,7 +214,7 @@
       init() {
         this.titleValue = (this.title || {})[this.$i18n.locale];
         this.descriptionValue = (this.description || {})[this.$i18n.locale];
-        this.isPrivate = this.visibility === 'private';
+        this.isPrivate = this.visibility === EUROPEANA_SET_VISIBILITY_PRIVATE;
       },
 
       // TODO: error handling

@@ -16,9 +16,15 @@ export default {
     },
 
     pageTitle() {
+      const httpErrorPageTitlePaths = {
+        404: 'errorMessage.pageNotFound.metaTitle'
+      };
+
       if (this.$fetchState?.error) {
         if (this.$fetchState.error.pageTitlePath) {
           return this.$t(this.$fetchState.error.pageTitlePath);
+        } else if (httpErrorPageTitlePaths[this.$fetchState.error.statusCode]) {
+          return this.$t(httpErrorPageTitlePaths[this.$fetchState.error.statusCode]);
         } else {
           return this.$t('error');
         }
