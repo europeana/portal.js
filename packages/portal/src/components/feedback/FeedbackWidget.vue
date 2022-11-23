@@ -505,9 +505,9 @@
       .form-fields {
         flex: 0 1 100%;
         width: 0; // width will grow to space available in flexbox
-        p, .invalid-feedback  {
-          padding-left: .75rem;
-          padding-right: .75rem;
+        p, .invalid-feedback {
+          padding-left: 0.75rem;
+          padding-right: 0.75rem;
         }
 
       }
