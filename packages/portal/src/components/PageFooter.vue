@@ -14,7 +14,7 @@
               <div class="group-title text-uppercase font-weight-bold">
                 {{ $t('footer.ourMission') }}
               </div>
-              <p class="font-italic mb-0">
+              <p class="mission font-italic mb-0">
                 {{ $t('footer.ourMissionQuote') }}
               </p>
             </div>
@@ -183,7 +183,8 @@
             { url: '/rights', text: this.$t('footer.navigation.terms') },
             { url: '/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
             { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
-            { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
+            { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') },
+            { url: '/faq', text: this.$t('footer.navigation.faq') }
           ]
         };
       },

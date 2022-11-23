@@ -51,7 +51,7 @@ export default {
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
-    "skip": "Skip",
+    "skipSend": "Skip and send",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
@@ -642,6 +642,7 @@ export default {
   "feedback": {
     "emailOptional": "We may wish to follow up. Enter your email if you're happy for us to contact you.",
     "failed": "The request failed. Please try again.",
+    "faq": "Go to frequently asked questions",
     "form": {
       "placeholders": {
         "email": "Enter your email address",
@@ -734,6 +735,7 @@ export default {
       "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
+      "faq": "Frequently asked questions",
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
