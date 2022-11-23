@@ -87,24 +87,25 @@
                 <b-form-text id="input-live-help">
                   <p class="mb-0">
                     {{ $t('feedback.emailOptional') }}
+                    <i18n
+                      path="feedback.policies"
+                      tag="span"
+                    >
+                      <b-link
+                        :to="$path('/rights')"
+                        target="_blank"
+                      >
+                        {{ $t('feedback.termsOfService') }}
+                      </b-link>
+                      <b-link
+                        :to="$path('/rights/privacy-policy')"
+                        target="_blank"
+                      >
+                        {{ $t('feedback.privacyPolicy') }}
+                      </b-link>
+                    </i18n>
                   </p>
-                  <i18n
-                    path="feedback.policies"
-                    tag="span"
-                  >
-                    <b-link
-                      :to="$path('/rights')"
-                      target="_blank"
-                    >
-                      {{ $t('feedback.termsOfService') }}
-                    </b-link>
-                    <b-link
-                      :to="$path('/rights/privacy-policy')"
-                      target="_blank"
-                    >
-                      {{ $t('feedback.privacyPolicy') }}
-                    </b-link>
-                  </i18n>
+
                 </b-form-text>
               </div>
               <div
@@ -122,7 +123,7 @@
                 <span
                   v-else-if="requestSuccess === false"
                 >
-                  <p class="mb-0">{{ $t('feedback.failed') }}</p>
+                  <span class="mb-0">{{ $t('feedback.failed') }}</span>
                 </span>
               </div>
             </div>
@@ -504,6 +505,11 @@
       .form-fields {
         flex: 0 1 100%;
         width: 0; // width will grow to space available in flexbox
+        p, .invalid-feedback  {
+          padding-left: .75rem;
+          padding-right: .75rem;
+        }
+
       }
 
       .form-buttons {
