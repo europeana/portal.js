@@ -465,7 +465,7 @@
 
     @media (min-width: $bp-small) {
       left: auto;
-      width: 360px;
+      width: 540px;
     }
 
     // This overrides the responsive font-size inherited from the footer.
