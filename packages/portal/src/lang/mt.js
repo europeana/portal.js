@@ -49,7 +49,7 @@ export default {
     "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
-    "skip": "Aqbeż",
+    "skipSend": "Aqbeż u ibgħat",
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
+    "gallery": "Galleriji",
     "item": "Oġġetti reċenti",
     "organisation": "Organizzazzjonijiet",
     "place": "Postijiet",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Aħna jista 'jkun li nixtiequ nsegwu. Daħħal l-email tiegħek jekk int kuntent li aħna nikkuntattjawk.",
     "failed": "It-talba falliet. Jekk jogħġbok erġa pprova.",
+    "faq": "Mur għall-mistoqsijiet frekwenti",
     "form": {
       "placeholders": {
         "email": "Daħħal l-indirizz tal-email tiegħek",
@@ -703,6 +705,7 @@ export default {
       "about": "Dwarna",
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
+      "faq": "Mistoqsijiet frekwenti",
       "forDevelopers": "Għall-iżviluppaturi",
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",

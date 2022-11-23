@@ -49,7 +49,7 @@ export default {
     "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
-    "skip": "Saltatu",
+    "skipSend": "Saltatu eta bidali",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Izenburua:"
   },
   "automatedCardGroup": {
+    "gallery": "Galeriak",
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
     "place": "Lekuak",
@@ -616,6 +617,7 @@ export default {
   "feedback": {
     "emailOptional": "Baliteke jarraipena egitea nahi izatea. Idatzi zure posta elektronikoa gu zurekin harremanetan jartzeko pozik bazaude.",
     "failed": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+    "faq": "Joan maiz egindako galderak",
     "form": {
       "placeholders": {
         "email": "Idatzi zure helbide elektronikoa",
@@ -707,6 +709,7 @@ export default {
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
+      "faq": "Maiz Egindako Galderak",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",

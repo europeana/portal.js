@@ -49,7 +49,7 @@ export default {
     "send": "Изпрати",
     "share": "Споделяне",
     "shareOn": "Споделяне в/във {social}",
-    "skip": "Пропуснете",
+    "skipSend": "Пропускане и изпращане",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Заглавие:"
   },
   "automatedCardGroup": {
+    "gallery": "Галерии",
     "item": "Скорошни елементи",
     "organisation": "Организации",
     "place": "Места",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Може да пожелаем да проследим. Въведете имейл адреса си, ако желаете да се свържем с вас.",
     "failed": "Заявката не е успешна. Моля, опитайте отново.",
+    "faq": "Отидете на често задавани въпроси",
     "form": {
       "placeholders": {
         "email": "Въведете вашия имейл адрес",
@@ -703,6 +705,7 @@ export default {
       "about": "За нас",
       "accessibility": "Достъпност",
       "cookies": "Бисквитки",
+      "faq": "Често задавани въпроси",
       "forDevelopers": "За разработчици",
       "help": "Помощ",
       "MoreInfoLabel": "Повече информация",

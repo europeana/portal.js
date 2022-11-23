@@ -49,7 +49,7 @@ export default {
     "send": "Seol",
     "share": "Roinn",
     "shareOn": "Roinn ar {social}",
-    "skip": "Scipeáil",
+    "skipSend": "Scipeáil agus seol",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Teideal:"
   },
   "automatedCardGroup": {
+    "gallery": "Gailearaithe",
     "item": "Míreanna le déanaí",
     "organisation": "Eagraíochtaí",
     "place": "Áiteanna",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "B’fhéidir gur mhaith linn obair leantach a dhéanamh. Cuir isteach do r-phost má tá tú sásta go ndéanfaimis teagmháil leat.",
     "failed": "Theip ar an iarraidh. Arís, le do thoil.",
+    "faq": "Téigh go dtí ceisteanna coitianta",
     "form": {
       "placeholders": {
         "email": "Cuir isteach do sheoladh ríomhphoist",
@@ -703,6 +705,7 @@ export default {
       "about": "Maidir linne",
       "accessibility": "Inrochtaineacht",
       "cookies": "Fianáin",
+      "faq": "Ceisteanna Coitianta",
       "forDevelopers": "Faoi chomhair forbróirí",
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",

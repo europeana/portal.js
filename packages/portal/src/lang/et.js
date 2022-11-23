@@ -49,7 +49,7 @@ export default {
     "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
-    "skip": "Vahele jätma",
+    "skipSend": "Jäta vahele ja saada",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Pealkiri:"
   },
   "automatedCardGroup": {
+    "gallery": "Galeriid",
     "item": "Hiljutised esemed",
     "organisation": "Organisatsioonid",
     "place": "Kohad",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Võime soovida jätkata. Sisestage oma e-posti aadress, kui olete rahul, et meiega ühendust võtame.",
     "failed": "Taotlus nurjus. Palun proovi uuesti.",
+    "faq": "Minge korduma kippuvate küsimuste juurde",
     "form": {
       "placeholders": {
         "email": "Sisestage oma e-posti aadress",
@@ -703,6 +705,7 @@ export default {
       "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
+      "faq": "Korduma kippuvad küsimused",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",

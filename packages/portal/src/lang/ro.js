@@ -49,7 +49,7 @@ export default {
     "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
-    "skip": "Skip",
+    "skipSend": "Săriți și trimiteți",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerii",
     "item": "Articole recente",
     "organisation": "Organizații",
     "place": "Locuri",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "S-ar putea să dorim să urmărim acest lucru. Introduceți adresa dvs. de e-mail dacă sunteți de acord să vă contactăm.",
     "failed": "Solicitarea nu a reușit. Încercați din nou.",
+    "faq": "Accesați întrebările frecvente",
     "form": {
       "placeholders": {
         "email": "Introduceți adresa de e-mail",
@@ -703,6 +705,7 @@ export default {
       "about": "Despre noi",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
+      "faq": "Întrebări frecvente",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
       "MoreInfoLabel": "Mai multe informații",

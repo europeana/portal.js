@@ -49,7 +49,7 @@ export default {
     "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
-    "skip": "Ohita",
+    "skipSend": "Ohita ja lähetä",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Nimi:"
   },
   "automatedCardGroup": {
+    "gallery": "Galleriat",
     "item": "Viimeisimmät kohdetta",
     "organisation": "Organisaatiot",
     "place": "Paikat",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Saatamme haluta seurata asiaa. Kirjoita sähköpostiosoitteesi, jos olet iloinen siitä, että voimme ottaa sinuun yhteyttä.",
     "failed": "Pyyntö epäonnistui. Yritä uudelleen.",
+    "faq": "Siirry usein kysyttyihin kysymyksiin",
     "form": {
       "placeholders": {
         "email": "Syötä sähköpostiosoitteesi",
@@ -703,6 +705,7 @@ export default {
       "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
+      "faq": "Usein kysytyt kysymykset",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",

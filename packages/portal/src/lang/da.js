@@ -49,7 +49,7 @@ export default {
     "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
-    "skip": "Springe",
+    "skipSend": "Spring over og send",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Gallerier",
     "item": "Seneste varer",
     "organisation": "Organisationer",
     "place": "Steder",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Vi ønsker måske at følge op. Indtast din e-mail, hvis du er glad for, at vi kontakter dig.",
     "failed": "Anmodningen mislykkedes. Prøv igen.",
+    "faq": "Gå til ofte stillede spørgsmål",
     "form": {
       "placeholders": {
         "email": "Indtast din e-mailadresse",
@@ -703,6 +705,7 @@ export default {
       "about": "Om os",
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
+      "faq": "Ofte stillede spørgsmål",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",

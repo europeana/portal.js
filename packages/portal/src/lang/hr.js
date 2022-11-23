@@ -49,7 +49,7 @@ export default {
     "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
-    "skip": "Preskakati",
+    "skipSend": "Preskoči i pošalji",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Naslov:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerije",
     "item": "Nedavne stavke",
     "organisation": "Organizacije",
     "place": "Mjesta",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Možda bismo željeli pratiti. Unesite svoju e-poštu ako ste sretni da vas kontaktiramo.",
     "failed": "Zahtjev nije uspio. Pokušajte ponovo.",
+    "faq": "Idi na često postavljana pitanja",
     "form": {
       "placeholders": {
         "email": "Unesite svoju adresu e-pošte",
@@ -703,6 +705,7 @@ export default {
       "about": "O nama",
       "accessibility": "Pristupačnost",
       "cookies": "Kolačići",
+      "faq": "Često postavljana pitanja",
       "forDevelopers": "Za programere",
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",

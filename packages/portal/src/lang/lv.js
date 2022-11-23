@@ -49,7 +49,7 @@ export default {
     "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
-    "skip": "Izlaist",
+    "skipSend": "Izlaist un nosūtīt",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Nosaukums:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijas",
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
     "place": "Vietas",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Mēs varētu vēlēties sekot. Ievadiet savu e-pasta adresi, ja esat priecīgs, ka mēs ar jums sazināsimies.",
     "failed": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
+    "faq": "Dodieties uz bieži uzdotajiem jautājumiem",
     "form": {
       "placeholders": {
         "email": "ievadiet savu e-pasta adresi",
@@ -703,6 +705,7 @@ export default {
       "about": "Par mums",
       "accessibility": "Pieejamība",
       "cookies": "Sīkfaili",
+      "faq": "Bieži uzdotie jautājumi",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",

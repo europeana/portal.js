@@ -49,7 +49,7 @@ export default {
     "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
-    "skip": "Pominąć",
+    "skipSend": "Pomiń i wyślij",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Tytuł:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerie",
     "item": "Ostatnie pozycje",
     "organisation": "Organizacje",
     "place": "Miejsca",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Możemy chcieć podjąć działania następcze. Jeśli chcesz się z Nami skontaktować, wpisz swój adres e-mail.",
     "failed": "Żądanie nie powiodło się. Proszę spróbować ponownie.",
+    "faq": "Przejdź do najczęściej zadawanych pytań",
     "form": {
       "placeholders": {
         "email": "Wpisz swój adres e-mail",
@@ -703,6 +705,7 @@ export default {
       "about": "O nas",
       "accessibility": "Dostępność",
       "cookies": "Pliki cookie",
+      "faq": "Najczęściej zadawane pytania",
       "forDevelopers": "Dla deweloperów",
       "help": "Pomoc",
       "MoreInfoLabel": "Więcej informacji",

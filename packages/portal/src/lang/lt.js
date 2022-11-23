@@ -49,7 +49,7 @@ export default {
     "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
-    "skip": "Praleisti",
+    "skipSend": "Praleisti ir siųsti",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Pavadinimas:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijos",
     "item": "Naujausi prekių",
     "organisation": "Organizacijos",
     "place": "Vietos",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Galbūt norėsime tęsti. Įveskite savo el. Pašto adresą, jei džiaugiatės, kad susisieksime su jumis.",
     "failed": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
+    "faq": "Eikite į dažniausiai užduodamus klausimus",
     "form": {
       "placeholders": {
         "email": "Įveskite savo elektroninio pašto adresą",
@@ -703,6 +705,7 @@ export default {
       "about": "Apie mus",
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
+      "faq": "Dažnai užduodami klausimai",
       "forDevelopers": "Programuotojams",
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",

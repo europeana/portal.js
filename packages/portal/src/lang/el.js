@@ -49,7 +49,7 @@ export default {
     "send": "Στείλετε",
     "share": "Κοινοποίηση",
     "shareOn": "Κοινοποίηση στο {social}",
-    "skip": "Παραλείπω",
+    "skipSend": "Παράλειψη και αποστολή",
     "viewAt": "Προβολή στο {link}",
     "viewDocument": "Προβολή εγγράφου"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Τίτλος:"
   },
   "automatedCardGroup": {
+    "gallery": "Γκαλερί",
     "item": "Πρόσφατα αντικείμενα",
     "organisation": "Οργανώσεις",
     "place": "Μέρη",
@@ -616,6 +617,7 @@ export default {
   "feedback": {
     "emailOptional": "Μπορεί να θέλουμε να επικοινωνήσουμε. Εισάγετε το email σας εάν δέχεστε να επικοινωνήσουμε μαζί σας.",
     "failed": "Το αίτημα απέτυχε. Προσπαθήστε ξανά.",
+    "faq": "Μεταβείτε στις Συχνές Ερωτήσεις",
     "form": {
       "placeholders": {
         "email": "εισάγετε την ηλεκτρονική σας διεύθυνση",
@@ -707,6 +709,7 @@ export default {
       "about": "Σχετικά με εμάς",
       "accessibility": "Προσβασιμότητα",
       "cookies": "Cookies",
+      "faq": "Συχνέςερωτήσεις",
       "forDevelopers": "Για προγραμματιστές",
       "help": "Βοήθεια",
       "MoreInfoLabel": "Περισσότερες πληροφορίες",

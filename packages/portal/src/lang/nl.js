@@ -49,7 +49,7 @@ export default {
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
-    "skip": "Overslaan",
+    "skipSend": "Overslaan en verzenden",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijen",
     "item": "Recente items",
     "organisation": "Organisaties",
     "place": "Plaatsen",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "We willen hier misschien een vervolg aan geven. Voer uw e-mailadres in als u het niet erg vindt als wij contact met u opnemen.",
     "failed": "Het verzoek is mislukt. Probeer het opnieuw.",
+    "faq": "Ga naar veelgestelde vragen",
     "form": {
       "placeholders": {
         "email": "Voer uw e-mailadres in",
@@ -703,6 +705,7 @@ export default {
       "about": "Over ons",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
+      "faq": "Veelgestelde vragen",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",

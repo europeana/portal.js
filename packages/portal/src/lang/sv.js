@@ -49,7 +49,7 @@ export default {
     "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
-    "skip": "Hoppa",
+    "skipSend": "Hoppa över och skicka",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Gallerier",
     "item": "Senaste objekt",
     "organisation": "Organisationer",
     "place": "Platser",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Vi kanske vill följa upp detta. Ange din e-postadress om du vill att vi ska kontakta dig.",
     "failed": "Begäran misslyckades. Var god försök igen.",
+    "faq": "Gå till vanliga frågor",
     "form": {
       "placeholders": {
         "email": "Ange din e-postadress",
@@ -703,6 +705,7 @@ export default {
       "about": "Om oss",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
+      "faq": "Vanliga frågor",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",

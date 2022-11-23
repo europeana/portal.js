@@ -49,7 +49,7 @@ export default {
     "send": "Poslat",
     "share": "Sdílejte",
     "shareOn": "Sdílet na {social}",
-    "skip": "Přeskočit",
+    "skipSend": "Přeskočit a odeslat",
     "viewAt": "Zobrazit na stránce {link}",
     "viewDocument": "Zobrazit dokument"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Název:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerie",
     "item": "Poslední položky",
     "organisation": "Organizace",
     "place": "Místa",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Možná budeme chtít navázat. Pokud si přejete, abychom vás kontaktovali, zadejte svůj e-mail.",
     "failed": "Požadavek se nezdařil. Zkuste to znovu.",
+    "faq": "Přejít na často kladené dotazy",
     "form": {
       "placeholders": {
         "email": "Zadejte svou e-mailovou adresu",
@@ -703,6 +705,7 @@ export default {
       "about": "O nás",
       "accessibility": "Přístupnost",
       "cookies": "Cookies",
+      "faq": "Často kladené dotazy",
       "forDevelopers": "Pro vývojáře",
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",

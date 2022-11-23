@@ -49,7 +49,7 @@ export default {
     "send": "Invia",
     "share": "Condividi",
     "shareOn": "Condividi su {social}",
-    "skip": "Salta",
+    "skipSend": "Salta e invia",
     "viewAt": "Vedi su {link}",
     "viewDocument": "Visualizza documento"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Titolo:"
   },
   "automatedCardGroup": {
+    "gallery": "Gallerie",
     "item": "Oggetti recenti",
     "organisation": "Organizzazioni",
     "place": "Posti",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Potremmo voler seguire. Inserisci la tua email se sei felice di essere contattato.",
     "failed": "La richiesta è fallita. Per favore riprova.",
+    "faq": "Vai alle domande frequenti",
     "form": {
       "placeholders": {
         "email": "Inserisci il tuo indirizzo email",
@@ -703,6 +705,7 @@ export default {
       "about": "Chi siamo",
       "accessibility": "Accessibilità",
       "cookies": "Cookie",
+      "faq": "Domande frequenti",
       "forDevelopers": "Per gli sviluppatori",
       "help": "Aiuto",
       "MoreInfoLabel": "Maggiori informazioni",

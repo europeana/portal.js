@@ -49,7 +49,7 @@ export default {
     "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
-    "skip": "Passer",
+    "skipSend": "Ignorer et envoyer",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },
@@ -61,6 +61,7 @@ export default {
     "title": "Titre :"
   },
   "automatedCardGroup": {
+    "gallery": "Galeries",
     "item": "Éléments récents",
     "organisation": "Organisations",
     "place": "Des endroits",
@@ -612,6 +613,7 @@ export default {
   "feedback": {
     "emailOptional": "Nous souhaiterions peut-être faire un suivi. Entrez votre e-mail si vous souhaitez que nous vous contactions.",
     "failed": "La demande a échoué. Veuillez réessayer.",
+    "faq": "Aller à la foire aux questions",
     "form": {
       "placeholders": {
         "email": "Entrez votre adresse email",
@@ -703,6 +705,7 @@ export default {
       "about": "À propos d'Europeana",
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
+      "faq": "Foire aux questions",
       "forDevelopers": "Pour les développeurs",
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
