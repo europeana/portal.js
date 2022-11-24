@@ -105,7 +105,6 @@
                       </b-link>
                     </i18n>
                   </p>
-
                 </b-form-text>
               </div>
               <div
