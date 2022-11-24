@@ -115,11 +115,13 @@
                 </b-col>
               </b-row>
               <div class="d-inline-flex collection-buttons">
+                <ShareButton />
+                <SocialShareModal :media-url="shareMediaUrl" />
                 <template
                   v-if="userIsOwner"
                 >
                   <b-button
-                    class="d-inline-flex align-items-center mr-2"
+                    class="d-inline-flex align-items-center ml-2"
                     data-qa="edit set button"
                     @click="$bvModal.show(setFormModalId)"
                   >
@@ -133,16 +135,11 @@
                     :description="set.description"
                     :visibility="set.visibility"
                   />
-                  <b-button
+                  <RequestPublishSetButton
                     v-if="set.visibility !== 'private'"
-                    :disabled="submitted"
-                    @click="submitForPublication"
-                  >
-                    submit for publication
-                  </b-button>
+                    :set="set"
+                  />
                 </template>
-                <ShareButton />
-                <SocialShareModal :media-url="shareMediaUrl" />
                 <PublishSetButton
                   v-if="set.visibility !== 'private' && userIsPublisher"
                   :set-id="set.id"
@@ -213,7 +210,6 @@
   import ContentHeader from '../../components/generic/ContentHeader';
   import { marked } from 'marked';
   import stripMarkdown from '@/mixins/stripMarkdown';
-  import axios from 'axios';
 
   export default {
     name: 'GalleryPage',
@@ -230,7 +226,8 @@
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
-      PublishSetButton: () => import('@/components/set/PublishSetButton')
+      PublishSetButton: () => import('@/components/set/PublishSetButton'),
+      RequestPublishSetButton: () => import('@/components/set/RequestPublishSetButton')
 
     },
     mixins: [
@@ -254,8 +251,7 @@
         images: [],
         title: '',
         rawDescription: '',
-        contentWarning: null,
-        submitted: false
+        contentWarning: null
       };
     },
     async fetch() {
@@ -436,21 +432,6 @@
           error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
         }
         throw error;
-      },
-      submitForPublication() {
-        this.submitted = true;
-
-        const postData = {
-          submission: this.set.id,
-          email: this.$store.state.auth.user.email
-        };
-
-        return axios.create({
-          baseURL: this.$config.app.baseUrl
-        }).post(
-          '/_api/jira/gallery-publication',
-          postData
-        );
       }
     }
   };
