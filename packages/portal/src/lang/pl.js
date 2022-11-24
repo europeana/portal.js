@@ -31,6 +31,7 @@ export default {
     "cancel": "Anuluj",
     "close": "zamknij",
     "continue": "kontynuuj",
+    "depublish": "Depublikuj",
     "download": "Ściągnij",
     "edit": "Edytuj",
     "feedback": "Twoja opinia",
@@ -44,12 +45,13 @@ export default {
     "preview": "Podgląd",
     "previous": "Poprzedni",
     "providedBy": "Dostarczone przez {provider}",
+    "publish": "Publikować",
     "reject": "Odrzuć",
     "save": "Zapisać",
     "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
-    "skip": "Pominąć",
+    "skipSend": "Pomiń i wyślij",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Tytuł:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerie",
     "item": "Ostatnie pozycje",
     "organisation": "Organizacje",
     "place": "Miejsca",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Możemy chcieć podjąć działania następcze. Jeśli chcesz się z Nami skontaktować, wpisz swój adres e-mail.",
     "failed": "Żądanie nie powiodło się. Proszę spróbować ponownie.",
+    "faq": "Przejdź do najczęściej zadawanych pytań",
     "form": {
       "placeholders": {
         "email": "Wpisz swój adres e-mail",
@@ -703,6 +707,7 @@ export default {
       "about": "O nas",
       "accessibility": "Dostępność",
       "cookies": "Pliki cookie",
+      "faq": "Najczęściej zadawane pytania",
       "forDevelopers": "Dla deweloperów",
       "help": "Pomoc",
       "MoreInfoLabel": "Więcej informacji",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Przepraszamy, ale w tej chwili możesz polubić maksymalnie 100 pozycji. Wkrótce usuniemy ten limit!",
         "title": "100 polubień"
       },
-      "updated": "Obiekt został dodany do galerii."
+      "updated": "Obiekt został dodany do galerii.",
+      "visibilityChanged": "Ostrzeżenie: zestaw widoczności już się zmienił i obecnie wynosi „ {visibility} ”."
     },
     "prompts": {
       "delete": "Czy na pewno chcesz usunąć tę galerię? Jeśli ją usuniesz, utracisz wszystkie dodane do niej elementy."

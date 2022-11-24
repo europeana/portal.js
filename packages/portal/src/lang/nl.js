@@ -31,6 +31,7 @@ export default {
     "cancel": "Annuleren",
     "close": "sluiten",
     "continue": "doorgaan",
+    "depublish": "Depubliceren",
     "download": "Download",
     "edit": "Bewerken",
     "feedback": "Feedback",
@@ -44,12 +45,13 @@ export default {
     "preview": "Voorbeeld",
     "previous": "Vorige",
     "providedBy": "Aangeboden door {provider}",
+    "publish": "Publiceren",
     "reject": "Afwijzen",
     "save": "Opslaan",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
-    "skip": "Overslaan",
+    "skipSend": "Overslaan en verzenden",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijen",
     "item": "Recente items",
     "organisation": "Organisaties",
     "place": "Plaatsen",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "We willen hier misschien een vervolg aan geven. Voer uw e-mailadres in als u het niet erg vindt als wij contact met u opnemen.",
     "failed": "Het verzoek is mislukt. Probeer het opnieuw.",
+    "faq": "Ga naar veelgestelde vragen",
     "form": {
       "placeholders": {
         "email": "Voer uw e-mailadres in",
@@ -703,6 +707,7 @@ export default {
       "about": "Over ons",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
+      "faq": "Veelgestelde vragen",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 artikelen liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"
       },
-      "updated": "Het item is toegevoegd aan de galerij."
+      "updated": "Het item is toegevoegd aan de galerij.",
+      "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
       "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd."

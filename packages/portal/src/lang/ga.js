@@ -44,12 +44,13 @@ export default {
     "preview": "Réamhamharc",
     "previous": "Roimhe Seo",
     "providedBy": "Arna sholáthar ag {provider}",
+    "publish": "Foilsiú",
     "reject": "Diúltaigh",
     "save": "Sábháil",
     "send": "Seol",
     "share": "Roinn",
     "shareOn": "Roinn ar {social}",
-    "skip": "Scipeáil",
+    "skipSend": "Scipeáil agus seol",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad"
   },
@@ -61,6 +62,7 @@ export default {
     "title": "Teideal:"
   },
   "automatedCardGroup": {
+    "gallery": "Gailearaithe",
     "item": "Míreanna le déanaí",
     "organisation": "Eagraíochtaí",
     "place": "Áiteanna",
@@ -612,6 +614,7 @@ export default {
   "feedback": {
     "emailOptional": "B’fhéidir gur mhaith linn obair leantach a dhéanamh. Cuir isteach do r-phost má tá tú sásta go ndéanfaimis teagmháil leat.",
     "failed": "Theip ar an iarraidh. Arís, le do thoil.",
+    "faq": "Téigh go dtí ceisteanna coitianta",
     "form": {
       "placeholders": {
         "email": "Cuir isteach do sheoladh ríomhphoist",
@@ -703,6 +706,7 @@ export default {
       "about": "Maidir linne",
       "accessibility": "Inrochtaineacht",
       "cookies": "Fianáin",
+      "faq": "Ceisteanna Coitianta",
       "forDevelopers": "Faoi chomhair forbróirí",
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",
@@ -1021,7 +1025,8 @@ export default {
         "body": "Tá brón orainn, ach tá tú teoranta i láthair na huaire chun uasmhéid 100 earra a thaitin.Bainfimid an teorainn seo go luath!",
         "title": "100 Is maith liom"
       },
-      "updated": "Cuireadh an mhír leis an ngailearaí."
+      "updated": "Cuireadh an mhír leis an ngailearaí.",
+      "visibilityChanged": "Rabhadh: socraigh infheictheacht athraithe cheana féin agus tá sé \"{visibility}\" faoi láthair."
     },
     "prompts": {
       "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis."

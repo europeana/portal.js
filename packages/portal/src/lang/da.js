@@ -31,6 +31,7 @@ export default {
     "cancel": "Annuller",
     "close": "luk",
     "continue": "fortsæt",
+    "depublish": "Depublicer",
     "download": "Hent",
     "edit": "Rediger",
     "feedback": "Feedback",
@@ -44,12 +45,13 @@ export default {
     "preview": "Forhåndsvisning",
     "previous": "Forrige",
     "providedBy": "Leveret af {provider}",
+    "publish": "Offentliggøre",
     "reject": "Afvise",
     "save": "Gem",
     "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
-    "skip": "Springe",
+    "skipSend": "Spring over og send",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Gallerier",
     "item": "Seneste varer",
     "organisation": "Organisationer",
     "place": "Steder",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Vi ønsker måske at følge op. Indtast din e-mail, hvis du er glad for, at vi kontakter dig.",
     "failed": "Anmodningen mislykkedes. Prøv igen.",
+    "faq": "Gå til ofte stillede spørgsmål",
     "form": {
       "placeholders": {
         "email": "Indtast din e-mailadresse",
@@ -703,6 +707,7 @@ export default {
       "about": "Om os",
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
+      "faq": "Ofte stillede spørgsmål",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 artikler. Vi fjerner denne begrænsning snart!",
         "title": "100 synes om'er"
       },
-      "updated": "Elementet blev føjet til galleriet."
+      "updated": "Elementet blev føjet til galleriet.",
+      "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
     },
     "prompts": {
       "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det."

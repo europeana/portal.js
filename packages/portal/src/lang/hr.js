@@ -44,12 +44,13 @@ export default {
     "preview": "Pregled",
     "previous": "Prethodni",
     "providedBy": "Omogućio {provider}",
+    "publish": "Objaviti",
     "reject": "Odbiti",
     "save": "Uštedjeti",
     "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
-    "skip": "Preskakati",
+    "skipSend": "Preskoči i pošalji",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument"
   },
@@ -61,6 +62,7 @@ export default {
     "title": "Naslov:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerije",
     "item": "Nedavne stavke",
     "organisation": "Organizacije",
     "place": "Mjesta",
@@ -612,6 +614,7 @@ export default {
   "feedback": {
     "emailOptional": "Možda bismo željeli pratiti. Unesite svoju e-poštu ako ste sretni da vas kontaktiramo.",
     "failed": "Zahtjev nije uspio. Pokušajte ponovo.",
+    "faq": "Idi na često postavljana pitanja",
     "form": {
       "placeholders": {
         "email": "Unesite svoju adresu e-pošte",
@@ -703,6 +706,7 @@ export default {
       "about": "O nama",
       "accessibility": "Pristupačnost",
       "cookies": "Kolačići",
+      "faq": "Često postavljana pitanja",
       "forDevelopers": "Za programere",
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
@@ -1021,7 +1025,8 @@ export default {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 stavke. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 sviđanja"
       },
-      "updated": "Predmet je dodan u galeriju."
+      "updated": "Predmet je dodan u galeriju.",
+      "visibilityChanged": "Upozorenje: postavljena vidljivost je već promijenjena i trenutno je \" {visibility} \"."
     },
     "prompts": {
       "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve stavke koje ste joj dodali."

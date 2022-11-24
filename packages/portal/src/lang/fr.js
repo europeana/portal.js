@@ -31,6 +31,7 @@ export default {
     "cancel": "Annuler",
     "close": "fermer",
     "continue": "continuer",
+    "depublish": "Dépublier",
     "download": "Télécharger",
     "edit": "Modifier",
     "feedback": "Commentaires",
@@ -44,12 +45,13 @@ export default {
     "preview": "Prévisualisation",
     "previous": "Précédent",
     "providedBy": "Fourni par {provider}",
+    "publish": "Publier",
     "reject": "Rejeter",
     "save": "Sauvegarder",
     "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
-    "skip": "Passer",
+    "skipSend": "Ignorer et envoyer",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Titre :"
   },
   "automatedCardGroup": {
+    "gallery": "Galeries",
     "item": "Éléments récents",
     "organisation": "Organisations",
     "place": "Des endroits",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Nous souhaiterions peut-être faire un suivi. Entrez votre e-mail si vous souhaitez que nous vous contactions.",
     "failed": "La demande a échoué. Veuillez réessayer.",
+    "faq": "Aller à la foire aux questions",
     "form": {
       "placeholders": {
         "email": "Entrez votre adresse email",
@@ -703,6 +707,7 @@ export default {
       "about": "À propos d'Europeana",
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
+      "faq": "Foire aux questions",
       "forDevelopers": "Pour les développeurs",
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 articles pour le moment. Nous allons bientôt supprimer cette limite !",
         "title": "100 mentions J’aime"
       },
-      "updated": "L'élément a été ajouté à la galerie."
+      "updated": "L'élément a été ajouté à la galerie.",
+      "visibilityChanged": "Attention : la visibilité définie a déjà changé et est actuellement \" {visibility} \"."
     },
     "prompts": {
       "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les éléments que vous y avez ajoutés."
