@@ -133,6 +133,13 @@
                     :description="set.description"
                     :visibility="set.visibility"
                   />
+                  <b-button
+                    v-if="set.visibility !== 'private'"
+                    :disabled="submitted"
+                    @click="submitForPublication"
+                  >
+                    submit for publication
+                  </b-button>
                 </template>
                 <ShareButton />
                 <SocialShareModal :media-url="shareMediaUrl" />
@@ -206,6 +213,7 @@
   import ContentHeader from '../../components/generic/ContentHeader';
   import { marked } from 'marked';
   import stripMarkdown from '@/mixins/stripMarkdown';
+  import axios from 'axios';
 
   export default {
     name: 'GalleryPage',
@@ -246,7 +254,8 @@
         images: [],
         title: '',
         rawDescription: '',
-        contentWarning: null
+        contentWarning: null,
+        submitted: false
       };
     },
     async fetch() {
@@ -427,6 +436,21 @@
           error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
         }
         throw error;
+      },
+      submitForPublication() {
+        this.submitted = true;
+
+        const postData = {
+          submission: this.set.id,
+          email: this.$store.state.auth.user.email
+        };
+
+        return axios.create({
+          baseURL: this.$config.app.baseUrl
+        }).post(
+          '/_api/jira/gallery-publication',
+          postData
+        );
       }
     }
   };

@@ -184,6 +184,10 @@ export default {
           browser: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_BROWSER,
           screensize: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_SCREENSIZE
         }
+      },
+      galleryPublication: {
+        serviceDeskId: process.env.JIRA_API_GALLERY_PUBLICATION_ID,
+        requestTypeId: process.env.JIRA_API_GALLERY_PUBLICATION_REQUEST_TYPE_ID
       }
     },
     redis: {
