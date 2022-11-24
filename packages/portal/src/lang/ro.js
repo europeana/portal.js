@@ -757,7 +757,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Ultimele povești",
     "storiesCTA": "Vezi toate poveștile",
-    "subHeadline": "Căutați, salvațișidistribuițiartă, cărți, filme și muzică de la mii de instituții culturale",
+    "subHeadline": "Căutați, salvați și distribuiți opere de artă, cărți, filme și muzică de la mii de instituții culturale",
     "themesCTA": "Vezi toate temele",
     "themesTitle": "Explorați după temă",
     "title": "Descoperiți patrimoniul cultural {digital} al Europei",
