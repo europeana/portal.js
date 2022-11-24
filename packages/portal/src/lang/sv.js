@@ -31,6 +31,7 @@ export default {
     "cancel": "Avbryt",
     "close": "stäng",
     "continue": "Fortsätt",
+    "depublish": "Avpublicera",
     "download": "Ladda ner",
     "edit": "Redigera",
     "feedback": "Feedback",
@@ -44,12 +45,13 @@ export default {
     "preview": "Förhandsvisning",
     "previous": "Föregående",
     "providedBy": "Tillhandahålls av {provider}",
+    "publish": "Publicera",
     "reject": "Avvisa",
     "save": "Spara",
     "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
-    "skip": "Hoppa",
+    "skipSend": "Hoppa över och skicka",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Gallerier",
     "item": "Senaste objekt",
     "organisation": "Organisationer",
     "place": "Platser",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Vi kanske vill följa upp detta. Ange din e-postadress om du vill att vi ska kontakta dig.",
     "failed": "Begäran misslyckades. Var god försök igen.",
+    "faq": "Gå till vanliga frågor",
     "form": {
       "placeholders": {
         "email": "Ange din e-postadress",
@@ -703,6 +707,7 @@ export default {
       "about": "Om oss",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
+      "faq": "Vanliga frågor",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 likes"
       },
-      "updated": "Objektet lades till i galleriet."
+      "updated": "Objektet lades till i galleriet.",
+      "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
     },
     "prompts": {
       "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."

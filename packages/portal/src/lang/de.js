@@ -31,6 +31,7 @@ export default {
     "cancel": "Abbrechen",
     "close": "schließen",
     "continue": "Fortfahren",
+    "depublish": "Veröffentlichung aufheben",
     "download": "Herunterladen",
     "edit": "Bearbeiten",
     "feedback": "Feedback",
@@ -44,12 +45,13 @@ export default {
     "preview": "Vorschau",
     "previous": "Vorherige",
     "providedBy": "Bereitgestellt von {provider}",
+    "publish": "Veröffentlichen",
     "reject": "Ablehnen",
     "save": "Speichern",
     "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
-    "skip": "Überspringen",
+    "skipSend": "Überspringen und senden",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerien",
     "item": "Aktuelle Objekte",
     "organisation": "Organisationen",
     "place": "Orte",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Möglicherweise möchten wir nachfassen. Geben Sie Ihre E-Mail-Adresse ein, wenn Sie damit einverstanden sind, dass wir Sie kontaktieren.",
     "failed": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+    "faq": "Gehen Sie zu den häufig gestellten Fragen",
     "form": {
       "placeholders": {
         "email": "Geben sie ihre E-Mailadresse ein",
@@ -703,6 +707,7 @@ export default {
       "about": "Über uns",
       "accessibility": "Barrierefreiheit",
       "cookies": "Cookies",
+      "faq": "Häufig gestellte Fragen",
       "forDevelopers": "Für Entwickler",
       "help": "Hilfe",
       "MoreInfoLabel": "Mehr Infos",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Objekte liken. Wir werden dieses Limit bald aufheben!",
         "title": "100 Likes"
       },
-      "updated": "Das Objekt wurde der Galerie hinzugefügt."
+      "updated": "Das Objekt wurde der Galerie hinzugefügt.",
+      "visibilityChanged": "Warnung: Set-Sichtbarkeit wurde bereits geändert und ist derzeit \" {visibility} \"."
     },
     "prompts": {
       "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben."

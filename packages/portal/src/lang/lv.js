@@ -31,6 +31,7 @@ export default {
     "cancel": "Atcelt",
     "close": "aizvērt",
     "continue": "turpināt",
+    "depublish": "Depublicēt",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
     "feedback": "Atsauksmes",
@@ -44,12 +45,13 @@ export default {
     "preview": "Priekšskatījums",
     "previous": "Iepriekšējais",
     "providedBy": "Nodrošina {provider}",
+    "publish": "Publicēt",
     "reject": "Noraidīt",
     "save": "Glābt",
     "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
-    "skip": "Izlaist",
+    "skipSend": "Izlaist un nosūtīt",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Nosaukums:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijas",
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
     "place": "Vietas",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Mēs varētu vēlēties sekot. Ievadiet savu e-pasta adresi, ja esat priecīgs, ka mēs ar jums sazināsimies.",
     "failed": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
+    "faq": "Dodieties uz bieži uzdotajiem jautājumiem",
     "form": {
       "placeholders": {
         "email": "ievadiet savu e-pasta adresi",
@@ -703,6 +707,7 @@ export default {
       "about": "Par mums",
       "accessibility": "Pieejamība",
       "cookies": "Sīkfaili",
+      "faq": "Bieži uzdotie jautājumi",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 vienumiem. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"
       },
-      "updated": "Vienums tika pievienots galerijai."
+      "updated": "Vienums tika pievienots galerijai.",
+      "visibilityChanged": "Brīdinājums: iestatītā redzamība jau ir mainīta un pašlaik ir \" {visibility} \"."
     },
     "prompts": {
       "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie vienumi."

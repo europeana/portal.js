@@ -31,6 +31,7 @@ export default {
     "cancel": "Cancelar",
     "close": "fechar",
     "continue": "continuar",
+    "depublish": "Despublicar",
     "download": "Descarregar",
     "edit": "Editar",
     "feedback": "Comentários",
@@ -44,12 +45,13 @@ export default {
     "preview": "Visualizar",
     "previous": "Anterior",
     "providedBy": "Fornecido por {provider}",
+    "publish": "Publicar",
     "reject": "Rejeitar",
     "save": "Salve",
     "send": "Enviar",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
-    "skip": "Saltar passo",
+    "skipSend": "Ignorar e enviar",
     "viewAt": "Ver em {link}",
     "viewDocument": "Ver documento"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Título:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerias",
     "item": "Itens recentes",
     "organisation": "Organizações",
     "place": "Lugares",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Poderemos desejar fazer um seguimento. Introduza o seu e-mail se lhe agradar que entremos em contacto.",
     "failed": "O pedido falhou. Por favor, tente novamente.",
+    "faq": "Ir para perguntas frequentes",
     "form": {
       "placeholders": {
         "email": "Digite seu endereço de e-mail",
@@ -703,6 +707,7 @@ export default {
       "about": "Saiba mais sobre nós",
       "accessibility": "Acessibilidade",
       "cookies": "Biscoitos",
+      "faq": "Perguntas frequentes",
       "forDevelopers": "Para desenvolvedores",
       "help": "Ajuda",
       "MoreInfoLabel": "Mais informações",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Pedimos desculpa, mas está limitado no momento a gostar de no máximo 100 itens. Removeremos esse limite em breve!",
         "title": "100 gostos"
       },
-      "updated": "O item foi adicionado à galeria."
+      "updated": "O item foi adicionado à galeria.",
+      "visibilityChanged": "Aviso: o conjunto de visibilidade já foi alterado e atualmente é \" {visibility} \"."
     },
     "prompts": {
       "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela."
