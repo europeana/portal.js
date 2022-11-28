@@ -187,7 +187,7 @@
               class="faq-link mt-4 mb-2 p-0 w-100 text-decoration-none"
             >
               {{ $t('feedback.faq') }}
-              <span class="icon-external-link"/>
+              <span class="icon-external-link" />
             </b-link>
           </div>
         </b-form-group>

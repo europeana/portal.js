@@ -128,29 +128,34 @@
           {
             text: 'Facebook',
             url: 'https://www.facebook.com/Europeana',
-            icon: 'icon-facebook'
+            icon: 'icon-facebook',
+            hideExternalIcon: true
           },
           {
             text: 'Twitter',
             url: 'https://twitter.com/europeanaeu',
-            icon: 'icon-twitter'
+            icon: 'icon-twitter',
+            hideExternalIcon: true
           },
           {
             text: 'Pinterest',
             url: 'https://www.pinterest.com/europeana',
-            icon: 'icon-pinterest'
+            icon: 'icon-pinterest',
+            hideExternalIcon: true
           },
           {
             text: 'Instagram',
             url: 'https://www.instagram.com/europeana_eu/',
-            icon: 'icon-instagram'
+            icon: 'icon-instagram',
+            hideExternalIcon: true
           },
           {
             text: 'LinkedIn',
             url: 'https://www.linkedin.com/company/europeana',
-            icon: 'icon-linkedin'
+            icon: 'icon-linkedin',
+            hideExternalIcon: true
           }
-        ].map(link => ({ ...link, hideExternalIcon: true }))
+        ]
       };
     },
 
