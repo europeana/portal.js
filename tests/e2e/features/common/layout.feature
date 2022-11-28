@@ -59,5 +59,5 @@ Feature: Page layout on all pages.
     And I enter "Feature testing this site is great!" in the `feedback textarea`
     And I click the `feedback next button`
     Then I enter "thisisnotanemail" in the `feedback email input`
-    And I click the `feedback next button`
+    And I click the `feedback send button`
     Then I see `feedback email invalid`

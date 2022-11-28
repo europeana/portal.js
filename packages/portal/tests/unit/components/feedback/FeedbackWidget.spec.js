@@ -147,7 +147,7 @@ describe('components/feedback/FeedbackWidget', () => {
           email: ''
         });
 
-        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled')).toBe('disabled');
+        expect(wrapper.find('[data-qa="feedback send button"]').attributes('disabled')).toBe('disabled');
       });
     });
     describe('when there is a value for email', () => {
@@ -159,7 +159,7 @@ describe('components/feedback/FeedbackWidget', () => {
           email: 'example@mail.com'
         });
 
-        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled')).toBe(undefined);
+        expect(wrapper.find('[data-qa="feedback send button"]').attributes('disabled')).toBe(undefined);
       });
     });
   });

@@ -31,6 +31,7 @@ export default {
     "cancel": "Zrušiť",
     "close": "zatvoriť",
     "continue": "pokračovať",
+    "depublish": "Zrušiť zverejnenie",
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "feedback": "Spätná väzba",
@@ -44,12 +45,13 @@ export default {
     "preview": "Náhľad",
     "previous": "Predchádzajúce",
     "providedBy": "Poskytovateľ:  {provider}",
+    "publish": "Publikovať",
     "reject": "Odmietnuť",
     "save": "Uložiť",
     "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
-    "skip": "Preskočiť",
+    "skipSend": "Preskočiť a odoslať",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Názov:"
   },
   "automatedCardGroup": {
+    "gallery": "Galérie",
     "item": "Nedávne položky",
     "organisation": "Organizácie",
     "place": "Miesta",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Možno budeme chcieť nadviazať ďalšie kroky. Ak chcete, aby sme vás kontaktovali, zadajte svoj e-mail.",
     "failed": "Žiadosť zlyhala. Prosím skúste znova.",
+    "faq": "Prejdite na často kladené otázky",
     "form": {
       "placeholders": {
         "email": "Zadajte svoju e-mailovú adresu",
@@ -703,6 +707,7 @@ export default {
       "about": "O nás",
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
+      "faq": "Často kladené otázky",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 položiek, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
         "title": "100 označení Páči sa mi"
       },
-      "updated": "Položka bola pridaná do galérie."
+      "updated": "Položka bola pridaná do galérie.",
+      "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
     },
     "prompts": {
       "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali."
