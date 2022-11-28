@@ -222,12 +222,6 @@
         }
       }
 
-      &.is-external-link::after {
-        @extend %icon-font;
-
-        content: '\e900';
-      }
-
       .nav-link-icon {
         display: inline-block;
         font-size: 1rem;

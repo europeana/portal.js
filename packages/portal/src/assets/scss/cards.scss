@@ -94,6 +94,22 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+
+    .is-external-link {
+      display: flex;
+      align-items: flex-end;
+  
+      span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+  
+        &.icon-external-link { 
+          flex-shrink: 0;
+          margin-left: 5px;
+        }
+      }
+    }
   }
 
   .card-subtitle {
@@ -155,25 +171,6 @@
         }
         /* stylelint-enable */
       }
-    }
-  }
-
-  .is-external-link .card-title {
-    display: flex;
-    align-items: flex-end;
-
-    span {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    &::after {
-      content: '\e900';
-
-      @extend %icon-font;
-
-      margin-left: 5px;
     }
   }
 

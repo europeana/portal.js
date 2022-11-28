@@ -30,6 +30,7 @@
         :destination="link.url"
         data-qa="call to action"
         class="btn btn-cta btn-primary"
+        hide-external-icon
       >
         {{ link.text }}
       </SmartLink>

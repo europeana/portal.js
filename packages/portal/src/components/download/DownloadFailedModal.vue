@@ -27,10 +27,13 @@
           :href="providerUrl"
           variant="primary"
           target="_blank"
-          class="is-external-link"
+          class="d-inline-flex align-items-center"
           data-qa="provider link button"
         >
           {{ $t('fieldLabels.default.edmDataProvider') }}
+          <span
+            class="icon-external-link ml-2"
+          />
         </b-button>
       </div>
     </div>
@@ -91,17 +94,3 @@
   </div>
   ```
 </docs>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
-
-  // TODO: DRY up the repeated duplication of this external link SCSS
-  .is-external-link::after {
-    content: '\e900';
-    font-size: $font-size-small;
-    padding-left: 0.5rem;
-
-    @extend %icon-font;
-  }
-</style>
