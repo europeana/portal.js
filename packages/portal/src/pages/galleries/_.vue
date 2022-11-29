@@ -134,14 +134,16 @@
                     :visibility="set.visibility"
                   />
                 </template>
-                <SmartLink
+                <b-button
                   v-if="set.visibility === 'public' || set.visibility === 'published'"
-                  :destination="weaveUrl"
-                  class="btn btn-secondary text-nowrap mr-2"
+                  :href="weaveUrl"
+                  target="_blank"
+                  class="d-inline-flex align-items-center text-nowrap mr-2"
                   data-qa="weave button"
                 >
+                  <span class="icon-external-link pr-1" />
                   {{ $t('actions.createWeaveExperience') }}
-                </SmartLink>
+                </b-button>
                 <ShareButton />
                 <SocialShareModal :media-url="shareMediaUrl" />
                 <PublishSetButton
