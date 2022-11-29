@@ -39,9 +39,7 @@
         return this.set.visibility === 'published';
       },
       buttonText() {
-        if (this.publishedSet) {
-          return this.$t('actions.requestDepublication');
-        } else if (this.submitted) {
+        if (this.submitted) {
           return this.$t('actions.submittedForPublication');
         } else {
           return this.$t('actions.submitForPublication');
@@ -59,7 +57,6 @@
           Set creator email: ${this.$store.state.auth.user.email}`
         };
 
-        console.log('running');
         return axios.create({
           baseURL: this.$config.app.baseUrl
         }).post(

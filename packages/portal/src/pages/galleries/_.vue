@@ -136,7 +136,7 @@
                     :visibility="set.visibility"
                   />
                   <RequestPublishSetButton
-                    v-if="set.visibility !== 'private'"
+                    v-if="set.visibility === 'public'"
                     :set="set"
                   />
                 </template>
