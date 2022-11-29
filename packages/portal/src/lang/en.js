@@ -1043,6 +1043,7 @@ export default {
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
+      "privateWarning": "This action will depublish the gallery.",
       "required": "Required field",
       "title": "Gallery name"
     },

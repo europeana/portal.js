@@ -49,6 +49,12 @@
           >
             {{ $t('set.form.private') }}
           </b-form-checkbox>
+          <b-form-invalid-feedback
+            v-if="visibility === 'published'"
+            :state="!isPrivate"
+          >
+            {{ $t('set.form.privateWarning') }}
+          </b-form-invalid-feedback>
         </b-form-group>
         <div class="modal-footer">
           <b-button
