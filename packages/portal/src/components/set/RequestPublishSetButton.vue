@@ -3,7 +3,7 @@
     class="text-decoration-none text-nowrap ml-2"
     data-qa="request publish set button"
     :disabled="submitted"
-    @click="handleClick"
+    @click="submitForPublication"
   >
     {{ buttonText }}
   </b-button>
@@ -30,7 +30,6 @@
 
     data() {
       return {
-        // TODO: logic to check if set is submitted
         submitted: false
       };
     },
@@ -51,15 +50,13 @@
     },
 
     methods: {
-      handleClick() {
-        this.set.visibility === 'published' ? this.requestDepublication() : this.submitForPublication();
-      },
       submitForPublication() {
         this.submitted = true;
 
         const postData = {
-          submission: this.set.id,
-          email: this.$store.state.auth.user.email
+          submission: `Set ID: ${this.set.id}\
+          Set creator: ${this.set.creator.nickname}\
+          Set creator email: ${this.$store.state.auth.user.email}`
         };
 
         console.log('running');
@@ -70,9 +67,6 @@
           postData
         )
           .then(this.makeToast('This gallery is now submitted for publication. You can check Europeana.eu/galleries to see if it has been published.'));
-      },
-      requestDepublication() {
-        // TODO: create depublication request
       }
     }
   };
