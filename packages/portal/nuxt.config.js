@@ -186,6 +186,8 @@ export default {
         }
       },
       galleryPublication: {
+        username: process.env.JIRA_API_GALLERIES_USERNAME,
+        password: process.env.JIRA_API_GALLERIES_PASSWORD,
         serviceDeskId: process.env.JIRA_API_GALLERY_PUBLICATION_ID,
         requestTypeId: process.env.JIRA_API_GALLERY_PUBLICATION_REQUEST_TYPE_ID
       }

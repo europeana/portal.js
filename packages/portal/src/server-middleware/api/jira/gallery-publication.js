@@ -23,9 +23,8 @@ const jiraData = (options, req) => {
 
 const jiraOptions = options => ({
   auth: {
-    // TODO: use separate account for gallery publication than feedback
-    username: options.username,
-    password: options.password
+    username: options.galleryPublication.username,
+    password: options.galleryPublication.password
   },
   headers: {
     'Accept': JSON_CONTENT_TYPE,
