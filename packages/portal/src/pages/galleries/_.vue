@@ -135,7 +135,7 @@
                     :description="set.description"
                     :visibility="set.visibility"
                   />
-                  <RequestPublishSetButton
+                  <RequestPublishSetWidget
                     v-if="set.visibility === 'public'"
                     :set="set"
                   />
@@ -227,7 +227,7 @@
       ContentCard: () => import('../../components/generic/ContentCard'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
       PublishSetButton: () => import('@/components/set/PublishSetButton'),
-      RequestPublishSetButton: () => import('@/components/set/RequestPublishSetButton')
+      RequestPublishSetWidget: () => import('@/components/set/RequestPublishSetWidget')
 
     },
     mixins: [
