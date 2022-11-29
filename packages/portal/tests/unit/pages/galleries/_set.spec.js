@@ -22,16 +22,28 @@ const testSet1 = {
   description: { en: 'A test set' },
   creator: { id: 'http://data.europeana.eu/user/0123', nickname: 'Tester' },
   type: 'Collection',
+  visibility: 'public',
   total: 1,
   items: [{ id: '001', edmPreview: ['https://www.example.eu'] }]
 };
 
 const testSet2 = {
   id: '234',
-  title: { en: 'My set' },
+  title: { en: 'My published set' },
   description: { en: 'A test set' },
   creator: 'http://data.europeana.eu/user/0123',
   type: 'Collection',
+  visibility: 'published',
+  total: 1000
+};
+
+const testSet3 = {
+  id: '345',
+  title: { en: 'My private set' },
+  description: { en: 'A private test set' },
+  creator: { id: 'http://data.europeana.eu/user/0123', nickname: 'Tester' },
+  type: 'Collection',
+  visibility: 'private',
   total: 1000
 };
 
@@ -155,6 +167,16 @@ describe('SetPage', () => {
     });
   });
 
+  describe('computed properties', () => {
+    describe('weaveUrl', () => {
+      it('uses the setId', () => {
+        const wrapper = factory(defaultOptions);
+
+        expect(wrapper.vm.weaveUrl).toEqual('https://experience.weave-culture.eu/import/europeana/set/123');
+      });
+    });
+  });
+
   describe('template', () => {
     describe('item count heading', () => {
       describe('when less than max amount of items in set', () => {
@@ -224,6 +246,38 @@ describe('SetPage', () => {
 
           expect(recommendations.exists()).toBe(true);
         });
+      });
+    });
+  });
+
+  describe('weave button', () => {
+    describe('when the set is public', () => {
+      const wrapper = factory(defaultOptions);
+
+      it('shows the weave button', () => {
+        const weaveButton = wrapper.find('[data-qa="weave button"]');
+
+        expect(weaveButton.exists()).toBe(true);
+      });
+    });
+
+    describe('when the set is published', () => {
+      const wrapper = factory({ set: testSet2, user: testSetCreator });
+
+      it('shows the weave button', () => {
+        const weaveButton = wrapper.find('[data-qa="weave button"]');
+
+        expect(weaveButton.exists()).toBe(true);
+      });
+    });
+
+    describe('when the set is private', () => {
+      const wrapper = factory({ set: testSet3, user: testSetCreator });
+
+      it('does not show the weave button', () => {
+        const weaveButton = wrapper.find('[data-qa="weave button"]');
+
+        expect(weaveButton.exists()).toBe(false);
       });
     });
   });

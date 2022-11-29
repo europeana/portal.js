@@ -228,7 +228,6 @@
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations'),
-      SmartLink: () => import('@/components/generic/SmartLink'),
       // TODO: The following components are only used in contentful galleries
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard'),
