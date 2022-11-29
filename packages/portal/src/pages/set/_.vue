@@ -95,6 +95,14 @@
                     :visibility="set.visibility"
                   />
                 </template>
+                <SmartLink
+                  v-if="set.visibility === 'public' || set.visibility === 'published'"
+                  :destination="weaveUrl"
+                  class="btn btn-outline-primary text-nowrap mr-2"
+                  data-qa="weave button"
+                >
+                  {{ $t('actions.createWeaveExperience') }}
+                </SmartLink>
                 <b-button
                   v-b-modal.share-modal
                   variant="outline-primary"
@@ -176,7 +184,8 @@
       ItemPreviewCardGroup,
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
-      SetRecommendations: () => import('@/components/set/SetRecommendations')
+      SetRecommendations: () => import('@/components/set/SetRecommendations'),
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [pageMetaMixin],
@@ -283,6 +292,9 @@
       },
       shareMediaUrl() {
         return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
+      },
+      weaveUrl() {
+        return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
       }
     },
 

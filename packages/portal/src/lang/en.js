@@ -53,7 +53,8 @@ export default {
     "shareOn": "Share on {social}",
     "skipSend": "Skip and send",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "createWeaveExperience": "Create Experience Tour"
   },
   "attribution": {
     "country": "Country:",

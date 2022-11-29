@@ -134,6 +134,14 @@
                     :visibility="set.visibility"
                   />
                 </template>
+                <SmartLink
+                  v-if="set.visibility === 'public' || set.visibility === 'published'"
+                  :destination="weaveUrl"
+                  class="btn btn-secondary text-nowrap mr-2"
+                  data-qa="weave button"
+                >
+                  {{ $t('actions.createWeaveExperience') }}
+                </SmartLink>
                 <ShareButton />
                 <SocialShareModal :media-url="shareMediaUrl" />
                 <PublishSetButton
@@ -218,6 +226,7 @@
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations'),
+      SmartLink: () => import('@/components/generic/SmartLink'),
       // TODO: The following components are only used in contentful galleries
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard'),
@@ -354,6 +363,9 @@
       },
       htmlDescription() {
         return marked.parse(this.rawDescription);
+      },
+      weaveUrl() {
+        return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
       }
     },
 
