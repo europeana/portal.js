@@ -1049,7 +1049,8 @@ export default {
     },
     "labels": {
       "curatedBy": "Curated by",
-      "private": "Private gallery"
+      "private": "Private gallery",
+      "published": "Published gallery"
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",

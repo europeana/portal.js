@@ -95,7 +95,7 @@
                       This can be changed when this functionality is further developed
                   -->
                   <div
-                    v-if="set.visibility === 'private' || set.creator.nickname"
+                    v-if="set.visibility === ('private' || 'published') || set.creator.nickname"
                     class="usergallery-metadata mb-2"
                   >
                     <span
@@ -106,10 +106,17 @@
                     </span>
                     <span
                       v-if="set.visibility === 'private'"
-                      class="
-                      visibility mb-2"
+                      class="visibility mb-2"
                     >
+                      <span class="icon-lock" />
                       {{ $t('set.labels.private') }}
+                    </span>
+                    <span
+                      v-if="set.visibility === 'published'"
+                      class="visibility mb-2"
+                    >
+                      <span class="icon-ic-download" />
+                      {{ $t('set.labels.published') }}
                     </span>
                   </div>
                 </b-col>
@@ -475,11 +482,18 @@
     }
 
     .visibility {
-      &::before {
-        @extend %icon-font;
-
-        content: '\e92d';
+      .icon-lock,
+      .icon-ic-download {
         font-size: 1.125rem;
+      }
+
+      .icon-lock {
+        padding-right: 0.2rem;
+      }
+
+      .icon-ic-download {
+        transform: rotate(180deg);
+        padding-left: 0.2rem;
       }
     }
   }
