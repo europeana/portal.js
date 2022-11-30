@@ -15,6 +15,10 @@ const jiraData = (options, req) => {
     }
   };
 
+  if (req.body.email) {
+    data.raiseOnBehalfOf = req.body.email;
+  }
+
   return data;
 };
 

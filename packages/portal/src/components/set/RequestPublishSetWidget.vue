@@ -88,8 +88,8 @@
 
         const postData = {
           submission: `Set ID: ${this.set.id}\
-          Set creator: ${this.set.creator.nickname}\
-          Set creator email: ${this.$store.state.auth.user.email}`
+          Set creator: ${this.set.creator.nickname}`,
+          email: this.$store.state.auth.user.email
         };
 
         return axios.create({
