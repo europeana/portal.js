@@ -37,17 +37,43 @@
         </b-button>
       </div>
     </b-modal>
+    <b-toast
+      id="submit-publication-toast"
+      auto-hide-delay="60000"
+      is-status
+      no-close-button
+      solid
+      toast-class="brand-toast-white"
+      append-toast
+      toaster="b-toaster-bottom-left-dynamic"
+    >
+      <i18n
+        path="set.publication.toastMessage"
+        tag="p"
+      >
+        <b-link
+          class="text-decoration-none"
+          :to="$path('/galleries')"
+        >
+          {{ 'Europeana.eu/galleries' }}
+        </b-link>
+      </i18n>
+      <b-button
+        variant="primary"
+        class="d-block ml-auto mr-0"
+        @click="$bvToast.hide('submit-publication-toast')"
+      >
+        {{ $t('set.publication.toastButton') }}
+      </b-button>
+    </b-toast>
   </div>
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
   import axios from 'axios';
 
   export default {
     name: 'RequestPublishSetWidget',
-
-    mixins: [makeToastMixin],
 
     props: {
       /**
@@ -98,8 +124,11 @@
           '/_api/jira/gallery-publication',
           postData
         )
-          .then(this.$bvModal.hide('request-publish-set-modal'))
-          .then(this.makeToast('This gallery is now submitted for publication. You can check Europeana.eu/galleries to see if it has been published.'));
+          .then(
+            this.$bvModal.hide('request-publish-set-modal'),
+            this.$bvToast.show('submit-publication-toast'),
+            this.submitted = true
+          );
       }
     }
   };
