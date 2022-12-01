@@ -143,7 +143,7 @@
                     :visibility="set.visibility"
                   />
                   <RequestPublishSetWidget
-                    v-if="set.visibility === 'public'"
+                    v-if="$features.galleryPublicationSubmissions && set.visibility === 'public'"
                     :set="set"
                   />
                 </template>
