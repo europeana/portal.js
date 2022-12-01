@@ -116,7 +116,7 @@
               </b-row>
               <div class="d-inline-flex collection-buttons">
                 <template
-                  v-if="userIsOwner"
+                  v-if="userCanEdit"
                 >
                   <b-button
                     class="d-inline-flex align-items-center mr-2"
@@ -306,14 +306,20 @@
         const publisher = user?.resource_access?.usersets?.roles?.includes('publisher');
         return !!publisher;
       },
-      userCanEdit() {
+      userCanEditRecommendations() {
         return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
+      },
+      userCanEdit() {
+        return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published'));
+      },
+      setIsEntityBestItems() {
+        return this.set.type === 'EntityBestItemsSet';
       },
       setIsEntityBestItems() {
         return this.set.type === 'EntityBestItemsSet';
       },
       displayRecommendations() {
-        return this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit;
+        return this.enableRecommendations && this.$auth.loggedIn && this.userCanEditRecommendations;
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
