@@ -6,7 +6,8 @@ export default {
     active: null,
     activeRecommendations: [],
     creations: [],
-    curations: []
+    curations: [],
+    publishedGalleries: []
   }),
 
   mutations: {
@@ -34,6 +35,9 @@ export default {
     },
     addItemToActive(state, item) {
       state.active.items.push(item);
+    },
+    setPublishedGalleries(state, value) {
+      state.publishedGalleries = value;
     },
     setCreations(state, value) {
       state.creations = value;
@@ -211,6 +215,20 @@ export default {
 
       const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
       commit('setCurations', searchResponse.data.items || []);
+    },
+    async fetchPublishedGalleries({ commit }) {
+      const publisherId = '6486c2f3-f0df-421d-8581-395679ceda3d'; // TODO: set via env, or get via lookup
+      const searchParams = {
+        query: `creator:${publisherId}`,
+        profile: 'standard',
+        pageSize: 100, // TODO: pagination!
+        qf: 'type:Collection',
+        qf: 'visibility:published'
+      };
+
+      const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      const sets = searchResponse.data.items || [];
+      commit('setPublishedGalleries', sets);
     },
     async reviewRecommendation({ state, commit }, params) {
       const response = await this.$apis.recommendation[params.action]('set', params.setId, params.itemIds);

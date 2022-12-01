@@ -55,6 +55,14 @@
               {{ $t('account.privateCollections') }}
             </b-nav-item>
             <b-nav-item
+              v-if="userIsPublisher"
+              data-qa="published collections"
+              :to="$path({ hash: tabHashes.publishedGalleries})"
+              :active="activeTab === tabHashes.publishedGalleries"
+            >
+              {{ $t('account.publishedCollections') }}
+            </b-nav-item>
+            <b-nav-item
               v-if="userIsEditor"
               data-qa="curated collections"
               :to="$path({ hash: tabHashes.curatedCollections})"
@@ -135,6 +143,27 @@
                 </template>
               </UserSets>
             </template>
+            <template v-else-if="userIsPublisher && activeTab === tabHashes.publishedGalleries">
+              <UserSets
+                :sets="publishedGalleries"
+                :show-create-set-button="false"
+                :empty-text="$t('account.notifications.noCollections.published')"
+                data-qa="published sets"
+              >
+                <template slot="header">
+                  <b-row
+                    class="w-100 px-3"
+                  >
+                    <b-col class="related-heading d-inline-flex px-0">
+                      <span class="icon-info mr-1" />
+                      <h2 class="related-heading text-uppercase">
+                        {{ $t('account.publishedGalleriesInfo') }}
+                      </h2>
+                    </b-col>
+                  </b-row>
+                </template>
+              </UserSets>
+            </template>
           </client-only>
         </b-col>
       </b-row>
@@ -177,6 +206,7 @@
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
+          publishedGalleries: '#published-galleries',
           privateGalleries: '#private-galleries',
           curatedCollections: '#curated-collections'
         }
@@ -188,6 +218,9 @@
       await this.$store.dispatch('set/fetchCreations');
       if (this.userIsEditor) {
         await this.$store.dispatch('set/fetchCurations');
+      }
+      if (this.userIsPublisher) {
+        await this.$store.dispatch('set/fetchPublishedGalleries');
       }
     },
 
@@ -203,11 +236,17 @@
         return this.loggedInUser?.resource_access?.entities?.roles?.includes('editor') &&
           this.loggedInUser?.resource_access?.usersets?.roles?.includes('editor');
       },
+      userIsPublisher() {
+        const user = this.$store.state.auth.user;
+        const publisher = user?.resource_access?.usersets?.roles?.includes('publisher');
+        return !!publisher;
+      },
       ...mapState({
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems,
         curations: state => state.set.curations,
         publicCreations: state => state.set.creations.filter(set => set.visibility === ('public' || 'published')),
+        publishedGalleries: state => state.set.publishedGalleries,
         privateCreations: state => state.set.creations.filter(set => set.visibility === 'private')
       }),
       activeTab() {
