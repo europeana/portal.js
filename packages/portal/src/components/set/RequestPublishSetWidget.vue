@@ -1,17 +1,14 @@
 <template>
   <div>
     <b-button
+      v-b-modal.request-publish-set-modal
       class="text-decoration-none text-nowrap ml-2 h-100"
-      data-qa="request publish set button"
-      :disabled="submitted"
-      @click="$bvModal.show('request-publish-set-modal')"
     >
-      {{ buttonText }}
+      {{ $t('actions.submitForPublication') }}
     </b-button>
     <b-modal
       id="request-publish-set-modal"
       :title="$t('set.publication.title')"
-      :static="modalStatic"
       hide-header-close
       hide-footer
     >
@@ -37,6 +34,7 @@
         </b-button>
       </div>
     </b-modal>
+    <!-- TODO: Refactor into reusable toast component with white background + buttons as also used for NewFeatureNotification -->
     <b-toast
       id="submit-publication-toast"
       auto-hide-delay="60000"
@@ -82,29 +80,6 @@
       set: {
         type: Object,
         required: true
-      },
-      modalStatic: {
-        type: Boolean,
-        default: false
-      }
-    },
-
-    data() {
-      return {
-        submitted: false
-      };
-    },
-
-    computed: {
-      publishedSet() {
-        return this.set.visibility === 'published';
-      },
-      buttonText() {
-        if (this.submitted) {
-          return this.$t('actions.submittedForPublication');
-        } else {
-          return this.$t('actions.submitForPublication');
-        }
       }
     },
 
@@ -125,7 +100,6 @@
 
         this.$bvModal.hide('request-publish-set-modal');
         this.$bvToast.show('submit-publication-toast');
-        this.submitted = true;
       }
     }
   };
