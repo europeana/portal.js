@@ -109,26 +109,23 @@
     },
 
     methods: {
-      submitForPublication() {
-        this.submitted = true;
-
+      async submitForPublication() {
         const postData = {
           submission: `Set ID: ${this.set.id}\
           Set creator: ${this.set.creator.nickname}`,
-          email: this.$store.state.auth.user.email
+          email: this.$store.state.auth.user.email_verified && this.$store.state.auth.user.email
         };
 
-        return axios.create({
+        await axios.create({
           baseURL: this.$config.app.baseUrl
         }).post(
           '/_api/jira/gallery-publication',
           postData
-        )
-          .then(
-            this.$bvModal.hide('request-publish-set-modal'),
-            this.$bvToast.show('submit-publication-toast'),
-            this.submitted = true
-          );
+        );
+
+        this.$bvModal.hide('request-publish-set-modal');
+        this.$bvToast.show('submit-publication-toast');
+        this.submitted = true;
       }
     }
   };
