@@ -61,7 +61,8 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $tc: key => key,
     $i18n,
     $auth: {
-      loggedIn: true
+      loggedIn: true,
+      ...options.user || {}
     },
     $fetchState: options.fetchState || {},
     $route: {
@@ -73,7 +74,6 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       commit: storeCommit,
       dispatch: storeDispatch,
       state: {
-        auth: options.user || {},
         set: { active: options.set || null }
       }
     },
@@ -91,7 +91,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   stubs: ['SetRecommendations']
 });
 
-describe('SetPage', () => {
+describe('GalleryPage (Set)', () => {
   afterEach(sinon.resetHistory);
 
   describe('fetch', () => {
