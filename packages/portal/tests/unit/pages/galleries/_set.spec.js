@@ -37,16 +37,6 @@ const testSet2 = {
 
 const testSetCreator = { loggedIn: true, user: { sub: '0123' } };
 
-const entityEditor = {
-  loggedIn: true,
-  user: {
-    'resource_access': {
-      entities: { roles: ['editor'] },
-      usersets: { roles: ['editor'] }
-    }
-  }
-};
-
 const defaultOptions = {
   set: testSet1,
   user: { loggedIn: false },
@@ -61,7 +51,8 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $tc: key => key,
     $i18n,
     $auth: {
-      loggedIn: true
+      loggedIn: true,
+      userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
     },
     $fetchState: options.fetchState || {},
     $route: {
@@ -208,18 +199,31 @@ describe('SetPage', () => {
 
     describe('when user is entity editor and set is a curated collection', () => {
       const testSetEntityBestItems = { ...testSet1, type: 'EntityBestItemsSet' };
-      const wrapper = factory({ set: testSetEntityBestItems, user: entityEditor });
+      const userHasClientRoleStub = sinon.stub().returns(false)
+        .withArgs('entities', 'editor').returns(true)
+        .withArgs('usersets', 'editor').returns(true);
 
       it('gets the pinned items', async() => {
+        const wrapper = factory({
+          set: testSetEntityBestItems,
+          user: { loggedIn: true },
+          userHasClientRoleStub
+        });
+
         await wrapper.vm.fetch();
 
         expect(storeDispatch.calledWith('entity/getPins')).toBe(true);
       });
 
       describe('when accept entity recommendations is enabled', () => {
-        const wrapper = factory({ set: testSetEntityBestItems, user: entityEditor, features: { acceptEntityRecommendations: true } });
-
         it('renders the recommendations', () => {
+          const wrapper = factory({
+            set: testSetEntityBestItems,
+            user: { loggedIn: true },
+            userHasClientRoleStub,
+            features: { acceptEntityRecommendations: true }
+          });
+
           const recommendations = wrapper.find('setrecommendations-stub');
 
           expect(recommendations.exists()).toBe(true);

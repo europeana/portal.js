@@ -296,15 +296,11 @@
           this.setCreatorId.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       userIsEntityEditor() {
-        const user = this.$store.state.auth.user;
-        const entitiesEditor = user?.resource_access?.entities?.roles?.includes('editor');
-        const usersetsEditor = user?.resource_access?.usersets?.roles?.includes('editor');
-        return entitiesEditor && usersetsEditor;
+        return this.$auth.userHasClientRole('entities', 'editor') &&
+          this.$auth.userHasClientRole('usersets', 'editor');
       },
       userIsPublisher() {
-        const user = this.$store.state.auth.user;
-        const publisher = user?.resource_access?.usersets?.roles?.includes('publisher');
-        return !!publisher;
+        return this.$auth.userHasClientRole('usersets', 'publisher');
       },
       userCanEdit() {
         return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
