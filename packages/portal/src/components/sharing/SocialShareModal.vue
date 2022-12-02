@@ -9,6 +9,7 @@
     <div class="icon-wrapper">
       <SocialShare
         :media-url="mediaUrl"
+        :share-to="shareTo"
       />
     </div>
     <slot />
@@ -36,6 +37,10 @@
       mediaUrl: {
         type: String,
         default: null
+      },
+      shareTo: {
+        type: Array,
+        default: () => []
       }
     }
   };

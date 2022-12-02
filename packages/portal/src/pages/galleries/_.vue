@@ -134,18 +134,15 @@
                     :visibility="set.visibility"
                   />
                 </template>
-                <b-button
-                  v-if="set.visibility === 'public' || set.visibility === 'published'"
-                  :href="weaveUrl"
-                  target="_blank"
-                  class="d-inline-flex align-items-center text-nowrap mr-2"
-                  data-qa="weave button"
-                >
-                  <span class="icon-external-link pr-1" />
-                  {{ $t('actions.createWeaveExperience') }}
-                </b-button>
                 <ShareButton />
-                <SocialShareModal :media-url="shareMediaUrl" />
+                <SocialShareModal
+                  :media-url="shareMediaUrl"
+                  :shareTo="[{
+                    identifier: 'weavex',
+                    name: 'WEAVEx',
+                    url: weaveUrl
+                  }]"
+                />
                 <PublishSetButton
                   v-if="set.visibility !== 'private' && userIsPublisher"
                   :set-id="set.id"

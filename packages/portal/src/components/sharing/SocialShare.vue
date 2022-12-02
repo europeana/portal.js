@@ -28,6 +28,10 @@
       mediaUrl: {
         type: String,
         default: ''
+      },
+      shareTo: {
+        type: Array,
+        default: () => []
       }
     },
 
@@ -52,7 +56,7 @@
             name: 'Pinterest',
             url: `https://pinterest.com/pin/create/link/?url=${this.shareUrl}` + (this.mediaUrl ? `&media=${this.mediaUrl}` : '')
           }
-        ];
+        ].concat(this.shareTo);
       }
     }
   };
@@ -81,7 +85,6 @@
 
       span {
         color: #4064ac;
-        background-color: $white;
       }
     }
 
@@ -98,7 +101,14 @@
 
       span {
         color: #ba0a21;
-        background-color: $white;
+      }
+    }
+
+    &.weavex {
+      border: solid 1px #4f46e5;
+
+      span {
+        color: #4f46e5;
       }
     }
 
