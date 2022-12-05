@@ -1075,7 +1075,7 @@ export default {
         "title": "How long it takes",
         "description": "1-3 days."
       },
-      "toastMessage": "This gallery is now submitted for publication. You can check {0} to see if it has been published.",
+      "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
       "toastButton": "Okay"
     }
   },

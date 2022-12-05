@@ -50,12 +50,14 @@
         path="set.publication.toastMessage"
         tag="p"
       >
-        <b-link
-          class="text-decoration-none"
-          :to="$path('/galleries')"
-        >
-          {{ 'Europeana.eu/galleries' }}
-        </b-link>
+        <template #galleries>
+          <b-link
+            class="text-decoration-none"
+            :to="$path('/galleries')"
+          >
+            {{ 'Europeana.eu/galleries' }}
+          </b-link>
+        </template>
       </i18n>
       <b-button
         variant="primary"
