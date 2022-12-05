@@ -95,7 +95,7 @@
                       This can be changed when this functionality is further developed
                   -->
                   <div
-                    v-if="set.visibility === ('private' || 'published') || set.creator.nickname"
+                    v-if="displayMetadata"
                     class="usergallery-metadata mb-2"
                   >
                     <span
@@ -366,6 +366,9 @@
       },
       htmlDescription() {
         return marked.parse(this.rawDescription);
+      },
+      displayMetadata() {
+        return this.set.visibility === ('private' || 'published') || this.set.creator.nickname;
       }
     },
 
