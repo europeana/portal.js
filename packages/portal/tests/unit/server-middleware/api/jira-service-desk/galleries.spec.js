@@ -11,7 +11,11 @@ const options = {
       username: 'example@europeana.eu',
       password: 'YOUR_TOKEN',
       serviceDeskId: '01',
-      requestTypeId: '02'
+      requestTypeId: '02',
+      customFields: {
+        setId: 'custom_field_001',
+        setCreatorNicknames: 'custom_field_002'
+      }
     }
   }
 };

@@ -10,7 +10,7 @@ const testSet =
   {
     id: '001',
     items: ['http://data.europeana.eu/item/000/aaa'],
-    title: 'Test set',
+    title: { en: 'Test set' },
     total: 1,
     visibility: 'public',
     creator: { nickname: 'user1' }
@@ -30,8 +30,7 @@ const factory = (propsData = {}) => shallowMount(SetPublicationRequestWidget, {
       state: {
         auth: {
           user: {
-            email: userEmailMock,
-            'email_verified': true
+            email: userEmailMock
           }
         }
       }
@@ -46,10 +45,13 @@ describe('components/set/SetPublicationRequestWidget', () => {
   describe('submitForPublication', () => {
     it('submits set for publication', async() => {
       const baseUrl = 'http://www.example.org';
-      nock(baseUrl).post('/_api/jira-service-desk/galleries', body => (
-        (body.submission === `Set ID: ${testSet.id}\
-        Set creator: ${testSet.creator.nickname}`) && (body.email === userEmailMock)
-      )).reply(201);
+      nock(baseUrl).post('/_api/jira-service-desk/galleries', {
+        setTitle: 'Test set',
+        setId: '001',
+        setCreatorNickname: 'user1',
+        email: 'user@example.eu'
+      }
+      ).reply(201);
 
       const wrapper = factory({ set: testSet });
       wrapper.vm.$config = { app: { baseUrl } };
