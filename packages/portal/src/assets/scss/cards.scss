@@ -353,6 +353,11 @@
       }
     }
 
+    .user-buttons {
+      white-space: nowrap;
+      display: inline-flex;
+    }
+
     @media (min-width: $bp-medium) {
       min-height: 0;
 
@@ -442,40 +447,34 @@
     &:hover {
       box-shadow: $boxshadow-large;
 
-      .user-buttons .btn {
-        visibility: visible;
-        margin-right: 0.5rem;
+      .user-buttons {
+        .btn {
+          visibility: visible;
+          margin-right: 0.5rem;
 
-        &:last-of-type {
-          margin-right: 1rem;
-        }
-
-        &:first-of-type {
-          &.pin-button {
-            margin-left: 1rem;
-
-            &.active {
-              visibility: visible;
-            }
-
-            +.btn {
-              margin-left: auto;
-            }
+          &.pin-button.active {
+            visibility: visible;
           }
         }
 
-        &.recommendation-button {
-          &:first-of-type {
+        .pin-button-wrapper {
+          margin-left: 1rem;
+
+          + div,
+          + .btn {
             margin-left: auto;
+          }
+        }
+
+        > :last-child {
+          margin-right: 1rem;
+
+          .btn {
+            margin-right: 0;
           }
         }
       }
     }
-  }
-
-  &.list-card .user-buttons {
-    white-space: nowrap;
-    display: inline-flex;
   }
 }
 
