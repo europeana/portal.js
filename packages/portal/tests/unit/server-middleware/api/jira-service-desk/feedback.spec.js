@@ -1,4 +1,4 @@
-import serviceDesk from '@/server-middleware/api/jira/service-desk';
+import serviceDesk from '@/server-middleware/api/jira-service-desk/feedback';
 
 import nock from 'nock';
 nock.disableNetConnect();
@@ -6,11 +6,13 @@ import sinon from 'sinon';
 
 const options = {
   origin: 'https://jira.example.org',
-  username: 'example@europeana.eu',
-  password: 'YOUR_TOKEN',
   serviceDesk: {
-    serviceDeskId: '7',
-    requestTypeId: '81'
+    feedback: {
+      username: 'example@europeana.eu',
+      password: 'YOUR_TOKEN',
+      serviceDeskId: '7',
+      requestTypeId: '81'
+    }
   }
 };
 const middleware = serviceDesk(options);
@@ -26,7 +28,7 @@ const mockResponse = () => {
 };
 const mockJiraApiRequest = body => nock(options.origin).post('/rest/servicedeskapi/request', body);
 
-describe('server-middleware/api/jira/service-desk', () => {
+describe('server-middleware/api/jira-service-desk/feedback', () => {
   afterEach(() => {
     nock.cleanAll();
   });
@@ -48,8 +50,8 @@ describe('server-middleware/api/jira/service-desk', () => {
           const req = mockRequest();
           const res = mockResponse();
           mockJiraApiRequest(body => (
-            (body.serviceDeskId === options.serviceDesk.serviceDeskId) &&
-            (body.requestTypeId === options.serviceDesk.requestTypeId)
+            (body.serviceDeskId === options.serviceDesk.feedback.serviceDeskId) &&
+            (body.requestTypeId === options.serviceDesk.feedback.requestTypeId)
           )).reply(201);
 
           await middleware(req, res);

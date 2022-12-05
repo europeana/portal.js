@@ -1,4 +1,4 @@
-import galleryPublicationServiceDesk from '@/server-middleware/api/jira/gallery-publication';
+import galleryPublicationServiceDesk from '@/server-middleware/api/jira-service-desk/galleries';
 
 import nock from 'nock';
 nock.disableNetConnect();
@@ -6,11 +6,13 @@ import sinon from 'sinon';
 
 const options = {
   origin: 'https://jira.example.org',
-  galleryPublication: {
-    username: 'example@europeana.eu',
-    password: 'YOUR_TOKEN',
-    serviceDeskId: '01',
-    requestTypeId: '02'
+  serviceDesk: {
+    galleries: {
+      username: 'example@europeana.eu',
+      password: 'YOUR_TOKEN',
+      serviceDeskId: '01',
+      requestTypeId: '02'
+    }
   }
 };
 const middleware = galleryPublicationServiceDesk(options);
@@ -24,7 +26,7 @@ const mockResponse = () => {
 };
 const mockJiraApiRequest = body => nock(options.origin).post('/rest/servicedeskapi/request', body);
 
-describe('server-middleware/api/jira/service-desk', () => {
+describe('server-middleware/api/jira-service-desk/galleries', () => {
   afterEach(() => {
     nock.cleanAll();
   });

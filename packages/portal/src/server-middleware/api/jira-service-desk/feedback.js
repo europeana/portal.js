@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-import { errorHandler } from '../';
+import { errorHandler } from '..';
 import { truncate, wordLength } from '../../../plugins/vue-filters';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
 const JSON_CONTENT_TYPE = 'application/json';
 
 const jiraData = (options, req) => {
-  const { customFields } = options.serviceDesk;
+  const { customFields } = options.serviceDesk.feedback;
   const data = {
-    serviceDeskId: options.serviceDesk.serviceDeskId,
-    requestTypeId: options.serviceDesk.requestTypeId,
+    serviceDeskId: options.serviceDesk.feedback.serviceDeskId,
+    requestTypeId: options.serviceDesk.feedback.requestTypeId,
     requestFieldValues: {
       summary: truncate(req.body.feedback, 50),
       description: req.body.feedback
@@ -45,8 +45,8 @@ const validateFeedback = feedback => new Promise((resolve, reject) => {
 
 const jiraOptions = options => ({
   auth: {
-    username: options.username,
-    password: options.password
+    username: options.serviceDesk.feedback.username,
+    password: options.serviceDesk.feedback.password
   },
   headers: {
     'Accept': JSON_CONTENT_TYPE,

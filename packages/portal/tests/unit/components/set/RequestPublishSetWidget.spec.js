@@ -46,7 +46,7 @@ describe('components/set/RequestPublishSetWidget', () => {
   describe('submitForPublication', () => {
     it('submits set for publication', async() => {
       const baseUrl = 'http://www.example.org';
-      nock(baseUrl).post('/_api/jira/gallery-publication', body => (
+      nock(baseUrl).post('/_api/jira-service-desk/galleries', body => (
         (body.submission === `Set ID: ${testSet.id}\
         Set creator: ${testSet.creator.nickname}`) && (body.email === userEmailMock)
       )).reply(201);

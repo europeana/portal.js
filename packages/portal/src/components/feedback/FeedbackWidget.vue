@@ -105,7 +105,6 @@
                       </b-link>
                     </i18n>
                   </p>
-
                 </b-form-text>
               </div>
               <div
@@ -367,7 +366,7 @@
         return axios.create({
           baseURL: this.$config.app.baseUrl
         }).post(
-          '/_api/jira/service-desk',
+          '/_api/jira-service-desk/feedback',
           postData
         );
       }

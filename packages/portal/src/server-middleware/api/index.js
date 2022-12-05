@@ -35,11 +35,11 @@ app.get('/debug/memory-usage', debugMemoryUsage);
 import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig.redis)(req, res));
 
-import jiraServiceDesk from './jira/service-desk.js';
-app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
+import jiraServiceDesk from './jira-service-desk/feedback.js';
+app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
 
-import jiraGalleryPublication from './jira/gallery-publication.js';
-app.post('/jira/gallery-publication', (req, res) => jiraGalleryPublication(runtimeConfig.jira)(req, res));
+import jiraGalleryPublication from './jira-service-desk/galleries.js';
+app.post('/jira-service-desk/galleries', (req, res) => jiraGalleryPublication(runtimeConfig.jira)(req, res));
 
 import version from './version.js';
 app.get('/version', version);

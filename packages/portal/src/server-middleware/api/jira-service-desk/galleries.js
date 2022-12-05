@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { errorHandler } from '../';
+import { errorHandler } from '..';
 import { truncate } from '../../../plugins/vue-filters';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
@@ -8,8 +8,8 @@ const JSON_CONTENT_TYPE = 'application/json';
 
 const jiraData = (options, req) => {
   const data = {
-    serviceDeskId: options.galleryPublication.serviceDeskId,
-    requestTypeId: options.galleryPublication.requestTypeId,
+    serviceDeskId: options.serviceDesk.galleries.serviceDeskId,
+    requestTypeId: options.serviceDesk.galleries.requestTypeId,
     requestFieldValues: {
       summary: truncate(req.body.submission, 50),
       description: req.body.submission
@@ -25,8 +25,8 @@ const jiraData = (options, req) => {
 
 const jiraOptions = options => ({
   auth: {
-    username: options.galleryPublication.username,
-    password: options.galleryPublication.password
+    username: options.serviceDesk.galleries.username,
+    password: options.serviceDesk.galleries.password
   },
   headers: {
     'Accept': JSON_CONTENT_TYPE,

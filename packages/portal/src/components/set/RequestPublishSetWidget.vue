@@ -94,7 +94,7 @@
         await axios.create({
           baseURL: this.$config.app.baseUrl
         }).post(
-          '/_api/jira/gallery-publication',
+          '/_api/jira-service-desk/galleries',
           postData
         );
 
