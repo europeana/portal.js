@@ -1,28 +1,29 @@
 <template>
   <div>
     <b-button
-      v-b-modal.request-publish-set-modal
+      v-b-modal.set-publication-request-modal
       class="text-decoration-none text-nowrap ml-2 h-100"
     >
       {{ $t('actions.submitForPublication') }}
     </b-button>
     <b-modal
-      id="request-publish-set-modal"
+      id="set-publication-request-modal"
       :title="$t('set.publication.title')"
+      title-tag="h2"
       hide-header-close
       hide-footer
     >
       <p>{{ $t('set.publication.description') }}</p>
-      <h6>{{ $t('set.publication.process.title') }}</h6>
+      <h3>{{ $t('set.publication.process.title') }}</h3>
       <p>{{ $t('set.publication.process.description') }}</p>
-      <h6>{{ $t('set.publication.time.title') }}</h6>
+      <h3>{{ $t('set.publication.time.title') }}</h3>
       <p>{{ $t('set.publication.time.description') }}</p>
 
       <div class="modal-footer">
         <b-button
           variant="outline-primary"
           data-qa="close button"
-          @click="$bvModal.hide('request-publish-set-modal')"
+          @click="$bvModal.hide('set-publication-request-modal')"
         >
           {{ $t('actions.goBack') }}
         </b-button>
@@ -97,7 +98,7 @@
           { baseURL: this.$config.app.baseUrl }
         );
 
-        this.$bvModal.hide('request-publish-set-modal');
+        this.$bvModal.hide('set-publication-request-modal');
         this.$bvToast.show('submit-publication-toast');
       }
     }
@@ -107,15 +108,20 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
-  #request-publish-set-modal {
+  ::v-deep #set-publication-request-modal {
 
-    h6 {
+    .modal-body {
+      padding-top: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1rem;
       font-weight: 600;
+      margin-bottom: 0.25rem;
     }
 
     p {
       color: $mediumgrey;
-      margin-top: 0.25rem;
     }
   }
 </style>
