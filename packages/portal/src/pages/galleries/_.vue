@@ -142,7 +142,7 @@
                     :description="set.description"
                     :visibility="set.visibility"
                   />
-                  <RequestPublishSetWidget
+                  <SetPublicationRequestWidget
                     v-if="$features.galleryPublicationSubmissions && set.visibility === 'public'"
                     :set="set"
                   />
@@ -234,7 +234,7 @@
       ContentCard: () => import('../../components/generic/ContentCard'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
       PublishSetButton: () => import('@/components/set/PublishSetButton'),
-      RequestPublishSetWidget: () => import('@/components/set/RequestPublishSetWidget')
+      SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget')
 
     },
     mixins: [

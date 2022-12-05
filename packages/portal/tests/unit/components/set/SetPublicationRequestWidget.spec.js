@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import RequestPublishSetWidget from '@/components/set/RequestPublishSetWidget';
+import SetPublicationRequestWidget from '@/components/set/SetPublicationRequestWidget';
 import nock from 'nock';
 
 const localVue = createLocalVue();
@@ -18,7 +18,7 @@ const testSet =
 
 const userEmailMock = 'user@example.eu';
 
-const factory = (propsData = {}) => shallowMount(RequestPublishSetWidget, {
+const factory = (propsData = {}) => shallowMount(SetPublicationRequestWidget, {
   localVue,
   propsData: {
     ...propsData
@@ -42,7 +42,7 @@ const factory = (propsData = {}) => shallowMount(RequestPublishSetWidget, {
   stubs: ['i18n']
 });
 
-describe('components/set/RequestPublishSetWidget', () => {
+describe('components/set/SetPublicationRequestWidget', () => {
   describe('submitForPublication', () => {
     it('submits set for publication', async() => {
       const baseUrl = 'http://www.example.org';

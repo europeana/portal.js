@@ -71,7 +71,7 @@
   import axios from 'axios';
 
   export default {
-    name: 'RequestPublishSetWidget',
+    name: 'SetPublicationRequestWidget',
 
     props: {
       /**
@@ -88,14 +88,13 @@
         const postData = {
           submission: `Set ID: ${this.set.id}\
           Set creator: ${this.set.creator.nickname}`,
-          email: this.$store.state.auth.user.email_verified && this.$store.state.auth.user.email
+          email: this.$store.state.auth.user.email
         };
 
-        await axios.create({
-          baseURL: this.$config.app.baseUrl
-        }).post(
+        await axios.post(
           '/_api/jira-service-desk/galleries',
-          postData
+          postData,
+          { baseURL: this.$config.app.baseUrl }
         );
 
         this.$bvModal.hide('request-publish-set-modal');
