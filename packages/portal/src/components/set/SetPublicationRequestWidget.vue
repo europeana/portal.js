@@ -69,6 +69,7 @@
 </template>
 
 <script>
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import axios from 'axios';
 
   export default {
@@ -87,8 +88,9 @@
     methods: {
       async submitForPublication() {
         const postData = {
-          submission: `Set ID: ${this.set.id}\
-          Set creator: ${this.set.creator.nickname}`,
+          setTitle: langMapValueForLocale(this.set.title, this.$i18n.locale).values[0],
+          setId: this.set.id,
+          setCreatorNickname: this.set.creator.nickname,
           email: this.$store.state.auth.user.email
         };
 

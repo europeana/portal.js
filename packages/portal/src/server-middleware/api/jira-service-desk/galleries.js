@@ -7,12 +7,15 @@ const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
 const JSON_CONTENT_TYPE = 'application/json';
 
 const jiraData = (options, req) => {
+  const { customFields } = options.serviceDesk.galleries;
   const data = {
     serviceDeskId: options.serviceDesk.galleries.serviceDeskId,
     requestTypeId: options.serviceDesk.galleries.requestTypeId,
     requestFieldValues: {
-      summary: truncate(req.body.submission, 50),
-      description: req.body.submission
+      summary: truncate(req.body.setTitle, 50),
+      description: req.body.setTitle,
+      [customFields.setId]: req.body.setId,
+      [customFields.setCreatorNickname]: req.body.setCreatorNickname
     }
   };
 

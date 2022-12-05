@@ -192,7 +192,11 @@ export default {
           username: process.env.JIRA_API_SERVICE_DESK_GALLERIES_USERNAME || process.env.JIRA_API_USERNAME,
           password: process.env.JIRA_API_SERVICE_DESK_GALLERIES_PASSWORD || process.env.JIRA_API_PASSWORD,
           serviceDeskId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_ID,
-          requestTypeId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_REQUEST_TYPE_ID
+          requestTypeId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_REQUEST_TYPE_ID,
+          customFields: {
+            setId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_CUSTOM_FIELD_SET_ID,
+            setCreatorNickname: process.env.JIRA_API_SERVICE_DESK_GALLERIES_CUSTOM_FIELD_SET_CREATOR_NICKNAME
+          }
         }
       }
     },
