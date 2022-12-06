@@ -18,7 +18,7 @@
             :title="entry.name"
             :url="entryUrl(entry)"
             :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
-            :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : 'image'"
+            :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : 'image/jpeg'"
             variant="list"
           />
         </b-card-group>
