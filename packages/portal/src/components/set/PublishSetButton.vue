@@ -11,6 +11,7 @@
 
 <script>
   import makeToastMixin from '@/mixins/makeToast';
+  import axios from 'axios';
 
   export default {
     name: 'PublishSetButton',
@@ -47,6 +48,7 @@
         if (visibilityWas === this.$store.state.set.active.visibility) {
           if (this.publishedSet) {
             this.$store.dispatch('set/unpublish', this.setId);
+            this.transitionJiraIssue();
           } else {
             this.$store.dispatch('set/publish', this.setId);
           }
@@ -55,6 +57,25 @@
             variant: 'warning'
           });
         }
+      },
+      async transitionJiraIssue() {
+        const relatedJiraIssues = await this.getJiraIssueIdsBySetId();
+
+        console.log(relatedJiraIssues);
+      },
+      async getJiraIssueIdsBySetId() {
+        const jqlQuery = `project=UGP AND cf[10841]~"${this.setId}"`;
+        const jiraIssues = await axios.get(
+          '/_api/jira/galleries/get-issues',
+          { baseURL: this.$config.app.baseUrl,
+            params: {
+              jql: jqlQuery,
+              fields: 'id'
+            } }
+        );
+
+        const jiraIssueIds = jiraIssues.data.issues.map(issue => issue.id);
+        return jiraIssueIds;
       }
     }
   };

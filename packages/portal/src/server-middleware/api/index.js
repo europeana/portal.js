@@ -38,6 +38,9 @@ app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig.redis)(req,
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
 
+import jiraGalleriesGet from './jira/galleries/get-issues.js';
+app.get('/jira/galleries/get-issues', (req, res) => jiraGalleriesGet(runtimeConfig.jira)(req, res));
+
 import version from './version.js';
 app.get('/version', version);
 

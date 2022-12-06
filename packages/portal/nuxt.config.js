@@ -177,12 +177,26 @@ export default {
       username: process.env.JIRA_API_USERNAME,
       password: process.env.JIRA_API_PASSWORD,
       serviceDesk: {
-        serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
-        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID,
-        customFields: {
-          pageUrl: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_PAGE_URL,
-          browser: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_BROWSER,
-          screensize: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_SCREENSIZE
+        feedback: {
+          username: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_USERNAME || process.env.JIRA_API_USERNAME,
+          password: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_PASSWORD || process.env.JIRA_API_PASSWORD,
+          serviceDeskId: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_ID,
+          requestTypeId: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_REQUEST_TYPE_ID,
+          customFields: {
+            pageUrl: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_CUSTOM_FIELD_PAGE_URL,
+            browser: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_CUSTOM_FIELD_BROWSER,
+            screensize: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_CUSTOM_FIELD_SCREENSIZE
+          }
+        },
+        galleries: {
+          username: process.env.JIRA_API_SERVICE_DESK_GALLERIES_USERNAME || process.env.JIRA_API_USERNAME,
+          password: process.env.JIRA_API_SERVICE_DESK_GALLERIES_PASSWORD || process.env.JIRA_API_PASSWORD,
+          serviceDeskId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_ID,
+          requestTypeId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_REQUEST_TYPE_ID,
+          customFields: {
+            setId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_CUSTOM_FIELD_SET_ID,
+            setCreatorNickname: process.env.JIRA_API_SERVICE_DESK_GALLERIES_CUSTOM_FIELD_SET_CREATOR_NICKNAME
+          }
         }
       }
     },
