@@ -141,7 +141,7 @@
         @media (min-width: $bp-medium) {
           flex: calc(50% - 1rem);
           margin-bottom: 0.5rem;
-          max-width: 50%;
+          flex-grow: 0;
         }
 
         &:hover {
