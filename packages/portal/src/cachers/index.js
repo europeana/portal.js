@@ -74,6 +74,9 @@ const runSetCacher = async(cacherName) => {
 };
 
 const writeCacheKey = async(cacheKey, data) => {
+  if (!data) {
+    return;
+  }
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
   await redisClient.setAsync(cacheKey, JSON.stringify(data));
   await redisClient.quitAsync();
