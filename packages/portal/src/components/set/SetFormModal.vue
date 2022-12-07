@@ -60,7 +60,7 @@
           </b-button>
           <div class="d-flex">
             <b-button
-              v-if="!isNew"
+              v-if="displayDeleteButton"
               variant="danger"
               data-qa="delete button"
               @click="clickDelete"
@@ -95,6 +95,7 @@
     EUROPEANA_SET_VISIBILITY_PUBLIC,
     EUROPEANA_SET_VISIBILITY_PUBLISHED
   } from '@/plugins/europeana/set';
+  import omit from 'lodash/omit';
 
   export default {
     name: 'SetFormModal',
@@ -127,6 +128,11 @@
       description: {
         type: Object,
         default: () => ({})
+      },
+
+      userIsOwner: {
+        type: Boolean,
+        default: true
       },
 
       visibility: {
@@ -195,13 +201,19 @@
         return this.isNew ? this.$t('set.actions.create') : this.$t('set.actions.edit');
       },
 
+      displayDeleteButton() {
+        // Display if this is an existing set and the user owns it.
+        return !this.isNew && this.userIsOwner;
+      },
+
       disableSubmitButton() {
         // Disable submit button when no title (required field)
         return !this.hasTitleInSomeLanguage;
       },
 
       hasTitleInSomeLanguage() {
-        return !!this.titleValue || Object.values(this.title).some((val) => !!val);
+        const otherLanguageTitles = omit(this.title, this.$i18n.locale);
+        return !!this.titleValue || Object.values(otherLanguageTitles).some((val) => !!val);
       }
     },
 
