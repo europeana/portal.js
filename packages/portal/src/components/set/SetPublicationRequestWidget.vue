@@ -91,9 +91,10 @@
       async submitForPublication() {
         const postData = {
           setTitle: langMapValueForLocale(this.set.title, this.$i18n.locale).values[0],
+          setDescription: langMapValueForLocale(this.set.description, this.$i18n.locale).values[0],
           setId: this.set.id,
           setCreatorNickname: this.set.creator.nickname,
-          email: this.$store.state.auth.user.email
+          email: this.$auth.user.email
         };
 
         await axios.post(

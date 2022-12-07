@@ -8,12 +8,18 @@ const JSON_CONTENT_TYPE = 'application/json';
 
 const jiraData = (options, req) => {
   const { customFields } = options.serviceDesk.galleries;
+
+  let description = `h2. ${req.body.setTitle}`;
+  if (req.body.setDescription) {
+    description = `${description}\n\n${req.body.setDescription}`;
+  }
+
   const data = {
     serviceDeskId: options.serviceDesk.galleries.serviceDeskId,
     requestTypeId: options.serviceDesk.galleries.requestTypeId,
     requestFieldValues: {
       summary: truncate(req.body.setTitle, 50),
-      description: req.body.setTitle,
+      description,
       [customFields.setId]: req.body.setId,
       [customFields.setCreatorNickname]: req.body.setCreatorNickname
     }
