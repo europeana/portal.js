@@ -48,9 +48,10 @@
         if (visibilityWas === this.$store.state.set.active.visibility) {
           if (this.publishedSet) {
             this.$store.dispatch('set/unpublish', this.setId);
+            this.transitionJiraIssue('Depublished');
           } else {
             this.$store.dispatch('set/publish', this.setId);
-            this.transitionJiraIssue();
+            this.transitionJiraIssue('Published');
           }
         } else {
           this.makeToast(this.$t('set.notifications.visibilityChanged', { visibility: this.$store.state.set.active.visibility }), {
@@ -58,7 +59,7 @@
           });
         }
       },
-      async transitionJiraIssue() {
+      async transitionJiraIssue(resolution) {
         const relatedJiraIssues = await this.getJiraIssueIdsBySetId();
 
         console.log(relatedJiraIssues);
@@ -67,7 +68,7 @@
           relatedJiraIssues.forEach(async issueId => {
             const postData = { issueId,
                                transition:
-                                 { transition: { id: '231' }, fields: { resolution: { name: 'Published' } } } };
+                                 { transition: { id: '231' }, fields: { resolution: { name: resolution } } } };
 
             await axios.post(
               '/_api/jira/galleries/transition-issue',
