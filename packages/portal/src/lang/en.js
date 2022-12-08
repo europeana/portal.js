@@ -1075,5 +1075,6 @@ export default {
   "storiesPage": {
     "title": "Stories"
   },
-  "website": "Website"
+  "website": "Website",
+  "whatIsWeavex": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
 };

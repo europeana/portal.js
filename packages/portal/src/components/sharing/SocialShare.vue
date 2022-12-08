@@ -3,12 +3,14 @@
     <b-button
       v-for="(network, index) in networks"
       :key="index"
-      :title="$t('actions.shareOn', { social: network.name })"
-      :href="network.url"
+      v-b-tooltip.bottom
+      :title="network.identifier === 'weavex' ? $t('whatIsWeavex') : ''"
       :class="`social-share mr-2 ${network.identifier}`"
       :data-qa="`share ${network.identifier} button`"
+      :href="network.url"
       variant="outline-primary"
-      @click.native="$matomo && $matomo.trackEvent('Item_share', 'Click social share button', network.url);"
+      :aria-label="$t('actions.shareOn', { social: network.name })"
+      @click.native="trackShare(network)"
     >
       <span :class="`icon-${network.identifier}`" />
       <span
@@ -21,9 +23,14 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  import { VBTooltip } from 'bootstrap-vue';
 
   export default {
     name: 'SocialShare',
+
+    directives: {
+      'b-tooltip': VBTooltip
+    },
 
     props: {
       mediaUrl: {
@@ -58,6 +65,12 @@
             url: `https://pinterest.com/pin/create/link/?url=${this.shareUrl}` + (this.mediaUrl ? `&media=${this.mediaUrl}` : '')
           }
         ].concat(this.shareTo);
+      }
+    },
+
+    methods: {
+      trackShare(network) {
+        this.$matomo && this.$matomo.trackEvent('Item_share', 'Click social share button', network.url);
       }
     }
   };

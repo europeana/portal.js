@@ -137,7 +137,7 @@
                 <ShareButton />
                 <SocialShareModal
                   :media-url="shareMediaUrl"
-                  :shareTo="[{
+                  :share-to="[{
                     identifier: 'weavex',
                     name: 'WEAVEx',
                     url: weaveUrl
