@@ -37,16 +37,6 @@ const testSet2 = {
   total: 1000
 };
 
-const testSet3 = {
-  id: '345',
-  title: { en: 'My private set' },
-  description: { en: 'A private test set' },
-  creator: { id: 'http://data.europeana.eu/user/0123', nickname: 'Tester' },
-  type: 'Collection',
-  visibility: 'private',
-  total: 1000
-};
-
 const testSetCreator = { loggedIn: true, user: { sub: '0123' } };
 
 const entityEditor = {
