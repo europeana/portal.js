@@ -95,14 +95,6 @@
                     :visibility="set.visibility"
                   />
                 </template>
-                <SmartLink
-                  v-if="set.visibility === 'public' || set.visibility === 'published'"
-                  :destination="weaveUrl"
-                  class="btn btn-outline-primary text-nowrap mr-2"
-                  data-qa="weave button"
-                >
-                  {{ $t('actions.createWeaveExperience') }}
-                </SmartLink>
                 <b-button
                   v-b-modal.share-modal
                   variant="outline-primary"
@@ -110,7 +102,14 @@
                 >
                   {{ $t('actions.share') }}
                 </b-button>
-                <SocialShareModal :media-url="shareMediaUrl" />
+                <SocialShareModal
+                  :media-url="shareMediaUrl"
+                  :share-to="[{
+                    identifier: 'weavex',
+                    name: 'WEAVEx',
+                    url: weaveUrl
+                  }]"
+                />
               </div>
             </b-container>
           </b-col>
@@ -177,16 +176,13 @@
   export default {
     name: 'SetPage',
 
-    components: {
-      ClientOnly,
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      ItemPreviewCardGroup,
-      SocialShareModal,
-      SetFormModal: () => import('@/components/set/SetFormModal'),
-      SetRecommendations: () => import('@/components/set/SetRecommendations'),
-      SmartLink: () => import('@/components/generic/SmartLink')
-    },
+    components: { ClientOnly,
+                  ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+                  LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
+                  ItemPreviewCardGroup,
+                  SocialShareModal,
+                  SetFormModal: () => import('@/components/set/SetFormModal'),
+                  SetRecommendations: () => import('@/components/set/SetRecommendations') },
 
     mixins: [pageMetaMixin],
 
