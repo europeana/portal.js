@@ -91,7 +91,7 @@
     }
 
     &:hover {
-      background: $lightblue-light;
+      background: $white;
     }
 
     &:last-child {
