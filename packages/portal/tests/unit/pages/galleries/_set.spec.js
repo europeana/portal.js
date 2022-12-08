@@ -250,38 +250,6 @@ describe('SetPage', () => {
     });
   });
 
-  describe('weave button', () => {
-    describe('when the set is public', () => {
-      const wrapper = factory(defaultOptions);
-
-      it('shows the weave button', () => {
-        const weaveButton = wrapper.find('[data-qa="weave button"]');
-
-        expect(weaveButton.exists()).toBe(true);
-      });
-    });
-
-    describe('when the set is published', () => {
-      const wrapper = factory({ set: testSet2, user: testSetCreator });
-
-      it('shows the weave button', () => {
-        const weaveButton = wrapper.find('[data-qa="weave button"]');
-
-        expect(weaveButton.exists()).toBe(true);
-      });
-    });
-
-    describe('when the set is private', () => {
-      const wrapper = factory({ set: testSet3, user: testSetCreator });
-
-      it('does not show the weave button', () => {
-        const weaveButton = wrapper.find('[data-qa="weave button"]');
-
-        expect(weaveButton.exists()).toBe(false);
-      });
-    });
-  });
-
   describe('pageMeta', () => {
     describe('when the set has a description', () => {
       const wrapper = factory(defaultOptions);
