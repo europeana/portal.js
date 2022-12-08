@@ -1,5 +1,5 @@
-import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
-import { apiError, createKeycloakAuthAxios } from './utils';
+import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
+import { apiError, createKeycloakAuthAxios } from './utils.js';
 
 export const BASE_URL = 'https://api.europeana.eu/set';
 export const EUROPEANA_SET_VISIBILITY_PRIVATE = 'private';
