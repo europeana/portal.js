@@ -41,6 +41,9 @@ app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)
 import jiraGalleriesGet from './jira/galleries/get-issues.js';
 app.get('/jira/galleries/get-issues', (req, res) => jiraGalleriesGet(runtimeConfig.jira)(req, res));
 
+import jiraGalleriesTransitionIssue from './jira/transition-issue.js';
+app.post('/jira/galleries/transition-issue', (req, res) => jiraGalleriesTransitionIssue(runtimeConfig.jira)(req, res));
+
 import version from './version.js';
 app.get('/version', version);
 
