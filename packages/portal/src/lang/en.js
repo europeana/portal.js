@@ -1061,6 +1061,7 @@ export default {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     }
   },
+  "shareWhere": "Where would you like to share this gallery?",
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {

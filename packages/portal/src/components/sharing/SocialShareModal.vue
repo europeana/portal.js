@@ -5,8 +5,10 @@
     hide-header-close
     hide-footer
     data-qa="share modal"
+    title-tag="h2"
   >
-    <div class="icon-wrapper">
+    <p>{{ $t('shareWhere') }}</p>
+    <div class="icon-wrapper pt-1">
       <SocialShare
         :media-url="mediaUrl"
         :share-to="shareTo"

@@ -1,12 +1,13 @@
 <template>
   <div>
-    <b-link
+    <b-button
       v-for="(network, index) in networks"
       :key="index"
       :title="$t('actions.shareOn', { social: network.name })"
       :href="network.url"
-      :class="`social-share mr-1 ${network.identifier}`"
+      :class="`social-share mr-2 ${network.identifier}`"
       :data-qa="`share ${network.identifier} button`"
+      variant="outline-primary"
       @click.native="$matomo && $matomo.trackEvent('Item_share', 'Click social share button', network.url);"
     >
       <span :class="`icon-${network.identifier}`" />
@@ -14,7 +15,7 @@
         class="text"
       >{{ network.name }}
       </span>
-    </b-link>
+    </b-button>
   </div>
 </template>
 
@@ -64,60 +65,71 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
-  a {
+  .btn {
     align-items: center;
     display: inline-flex;
-    text-decoration: none;
-    border-radius: 0.25rem;
     width: calc(100% / 3 - 10px);
-    margin-right: 0 !important;
-    justify-content: flex-start;
-    padding: 0.75rem 0.625rem;
 
     @media (max-width: $bp-small) {
       width: 100%;
       margin-bottom: 10px;
     }
 
+    &:hover {
+      background: $lightblue-light;
+    }
+
+    &:last-child {
+      margin-right: 0 !important;
+    }
+
     &.facebook {
-      border: solid 1px #4064ac;
+      border: solid 1px #3B5998;
 
       span {
-        color: #4064ac;
+        color: #3B5998;
       }
     }
 
     &.twitter {
-      border: solid 1px #1c9ceb;
+      border: solid 1px #00acee;
 
       span {
-        color: #1c9ceb;
+        color: #00acee;
       }
     }
 
     &.pinterest {
-      border: solid 1px #ba0a21;
+      border: solid 1px #e60023;
 
       span {
-        color: #ba0a21;
+        color: #e60023;
       }
     }
 
     &.weavex {
-      border: solid 1px #4f46e5;
+      border: solid 1px #3E861C;
+      text-transform: none;
 
       span {
-        color: #4f46e5;
+        color: #3E861C;
+      }
+
+      .icon-weavex {
+        font-size: $font-size-small;
+        &::before {
+          content: 'W';
+          font-family: $font-family-sans-serif;
+          font-weight: 800;
+          font-style: italic;
+        }
       }
     }
 
-    &:hover {
-      background: $white;
-    }
-
     [class^='icon'] {
-      font-size: 1.125rem;
+      font-size: 1rem;
     }
 
     span.text {
