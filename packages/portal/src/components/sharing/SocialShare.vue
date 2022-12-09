@@ -100,35 +100,65 @@
     }
 
     &.facebook {
-      border: solid 1px #3B5998;
+      $facebook-blue: #3b5998;
 
-      span {
-        color: #3B5998;
+      border: solid 1px $facebook-blue;
+      color: $facebook-blue;
+
+      &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+          color: $facebook-blue;
+          background-color: $white;
+          border-color: $facebook-blue;
+        }
       }
     }
 
     &.twitter {
-      border: solid 1px #00acee;
+      $twitter-blue: #00acee;
+      border: solid 1px $twitter-blue;
+      color: $twitter-blue;
 
-      span {
-        color: #00acee;
+      &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+          color: $twitter-blue;
+          background-color: $white;
+          border-color: $twitter-blue;
+        }
       }
     }
 
     &.pinterest {
-      border: solid 1px #e60023;
+      $pinterest-red: #e60023;
 
-      span {
-        color: #e60023;
+      border: solid 1px $pinterest-red;
+      color: $pinterest-red;
+
+      &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+          color: $pinterest-red;
+          background-color: $white;
+          border-color: $pinterest-red;
+        }
       }
     }
 
     &.weavex {
-      border: solid 1px #3E861C;
-      text-transform: none;
+      $weavex-green: #3e861c;
 
-      span {
-        color: #3E861C;
+      border: solid 1px $weavex-green;
+      color: $weavex-green;
+
+      &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+          color: $weavex-green;
+          background-color: $white;
+          border-color: $weavex-green;
+        }
       }
 
       .icon-weavex {
