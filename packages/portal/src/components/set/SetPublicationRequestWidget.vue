@@ -23,7 +23,7 @@
         <b-button
           variant="outline-primary"
           data-qa="close button"
-          @click="$bvModal.hide('set-publication-request-modal')"
+          @click="$bvModal.hide('set-publication-request-modal'), submitFailed = false"
         >
           {{ $t('actions.goBack') }}
         </b-button>
@@ -33,6 +33,14 @@
         >
           {{ $t('actions.submitForPublication') }}
         </b-button>
+        <p
+          v-if="submitFailed"
+          data-qa="failed submission message"
+          class="request-failed mb-0 d-flex align-items-center justify-content-end"
+        >
+          <span class="icon-cancel-circle mr-2" />
+          {{ $t('set.publication.failedSubmission') }}
+        </p>
       </div>
     </b-modal>
     <!-- TODO: Refactor into reusable toast component with white background + buttons as also used for NewFeatureNotification -->
@@ -87,6 +95,12 @@
       }
     },
 
+    data() {
+      return {
+        submitFailed: false
+      };
+    },
+
     methods: {
       async submitForPublication() {
         const postData = {
@@ -96,15 +110,17 @@
           setCreatorNickname: this.set.creator.nickname,
           email: this.$auth.user.email
         };
-
-        await axios.post(
-          '/_api/jira-service-desk/galleries',
-          postData,
-          { baseURL: this.$config.app.baseUrl }
-        );
-
-        this.$bvModal.hide('set-publication-request-modal');
-        this.$bvToast.show('submit-publication-toast');
+        try {
+          await axios.post(
+            '/_api/jira-service-desk/galleries',
+            postData,
+            { baseURL: this.$config.app.baseUrl }
+          );
+          this.$bvModal.hide('set-publication-request-modal');
+          this.$bvToast.show('submit-publication-toast');
+        } catch (e) {
+          this.submitFailed = true;
+        }
       }
     }
   };
@@ -127,6 +143,16 @@
 
     p {
       color: $mediumgrey;
+
+      &.request-failed {
+        font-size: $font-size-small;
+        flex: 0 0 100%
+      }
+    }
+
+    .icon-cancel-circle::before {
+      color: $red;
+      font-size: 1rem;
     }
   }
 </style>

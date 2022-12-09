@@ -1065,8 +1065,8 @@ export default {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     },
     "publication": {
-      "title": "Submit gallery for publication",
       "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
+      "failedSubmission": "The request failed. Please try again.",
       "process": {
         "title": "How the process works",
         "description": "When you submit a gallery for publication, a publisher at Europeana will be notified and review the gallery before publishing it. This publisher can also edit your submitted gallery. If the gallery is not published, it could be that it does not conform to our editorial guidelines."
@@ -1075,6 +1075,7 @@ export default {
         "title": "How long it takes",
         "description": "1-3 days."
       },
+      "title": "Submit gallery for publication",
       "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
       "toastButton": "Okay"
     }

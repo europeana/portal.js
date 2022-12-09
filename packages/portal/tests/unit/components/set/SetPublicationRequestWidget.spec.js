@@ -60,4 +60,33 @@ describe('components/set/SetPublicationRequestWidget', () => {
       expect(nock.isDone()).toBe(true);
     });
   });
+
+  describe('when submission request fails', () => {
+    it('shows an error message', async() => {
+      const baseUrl = 'http://www.example.org';
+      nock(baseUrl)
+        .post('/_api/jira-service-desk/galleries', {
+          setTitle: 'Test set',
+          setDescription: 'About the set',
+          setId: '001',
+          setCreatorNickname: 'user1',
+          email: 'user@example.eu'
+        })
+        .reply(500);
+
+      const wrapper = factory({ set: testSet });
+      wrapper.vm.$config = { app: { baseUrl } };
+
+      try {
+        await wrapper.vm.submitForPublication();
+      } catch (e) {
+        error = e;
+      }
+
+      const errorMessage = wrapper.find('[data-qa="failed submission message"]');
+
+      expect(nock.isDone()).toBe(true);
+      expect(errorMessage.exists()).toBe(true);
+    });
+  });
 });
