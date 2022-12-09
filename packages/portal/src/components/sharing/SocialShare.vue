@@ -4,7 +4,7 @@
       v-for="(network, index) in networks"
       :key="index"
       v-b-tooltip.bottom
-      :title="network.tooltip ? $t(network.tooltip) : ''"
+      :title="network.tooltip || ''"
       :class="`social-share mr-2 ${network.identifier}`"
       :data-qa="`share ${network.identifier} button`"
       :href="network.url"
