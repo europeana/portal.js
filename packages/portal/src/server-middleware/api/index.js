@@ -36,7 +36,7 @@ import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig.redis)(req, res));
 
 // TODO: Remove on subsequent release as only needed to suppor the switch to the new URL '/jira-service-desk/feedback'
-import jiraServiceDesk from './jira/service-desk.js';
+import jiraServiceDesk from './jira-service-desk/feedback.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
