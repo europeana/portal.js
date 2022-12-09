@@ -44,6 +44,7 @@ describe('components/set/SetPublicationRequestWidget', () => {
       const baseUrl = 'http://www.example.org';
       nock(baseUrl)
         .post('/_api/jira-service-desk/galleries', {
+          pageUrl: window.location.href,
           setTitle: 'Test set',
           setDescription: 'About the set',
           setId: '001',
@@ -66,6 +67,7 @@ describe('components/set/SetPublicationRequestWidget', () => {
       const baseUrl = 'http://www.example.org';
       nock(baseUrl)
         .post('/_api/jira-service-desk/galleries', {
+          pageUrl: window.location.href,
           setTitle: 'Test set',
           setDescription: 'About the set',
           setId: '001',

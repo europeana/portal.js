@@ -21,7 +21,8 @@ const jiraData = (options, req) => {
       summary: truncate(req.body.setTitle, 50),
       description,
       [customFields.setId]: req.body.setId,
-      [customFields.setCreatorNickname]: req.body.setCreatorNickname
+      [customFields.setCreatorNickname]: req.body.setCreatorNickname,
+      [customFields.pageUrl]: req.body.pageUrl
     }
   };
 

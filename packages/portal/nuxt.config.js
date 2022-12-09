@@ -195,6 +195,7 @@ export default {
           serviceDeskId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_ID,
           requestTypeId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_REQUEST_TYPE_ID,
           customFields: {
+            pageUrl: process.env.JIRA_API_SERVICE_DESK_GALLERIES_CUSTOM_FIELD_PAGE_URL,
             setId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_CUSTOM_FIELD_SET_ID,
             setCreatorNickname: process.env.JIRA_API_SERVICE_DESK_GALLERIES_CUSTOM_FIELD_SET_CREATOR_NICKNAME
           }

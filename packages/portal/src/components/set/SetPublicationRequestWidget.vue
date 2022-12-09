@@ -104,6 +104,7 @@
     methods: {
       async submitForPublication() {
         const postData = {
+          pageUrl: window.location.href,
           setTitle: langMapValueForLocale(this.set.title, this.$i18n.locale).values[0],
           setDescription: langMapValueForLocale(this.set.description, this.$i18n.locale).values[0],
           setId: this.set.id,
