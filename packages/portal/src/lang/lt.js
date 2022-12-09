@@ -44,12 +44,13 @@ export default {
     "preview": "Peržiūra",
     "previous": "Ankstesnis",
     "providedBy": "Tiekėjas {provider}",
+    "publish": "Publikuoti",
     "reject": "Atmesti",
     "save": "Išsaugoti",
     "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
-    "skip": "Praleisti",
+    "skipSend": "Praleisti ir siųsti",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
@@ -61,6 +62,7 @@ export default {
     "title": "Pavadinimas:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijos",
     "item": "Naujausi prekių",
     "organisation": "Organizacijos",
     "place": "Vietos",
@@ -612,6 +614,7 @@ export default {
   "feedback": {
     "emailOptional": "Galbūt norėsime tęsti. Įveskite savo el. Pašto adresą, jei džiaugiatės, kad susisieksime su jumis.",
     "failed": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
+    "faq": "Eikite į dažniausiai užduodamus klausimus",
     "form": {
       "placeholders": {
         "email": "Įveskite savo elektroninio pašto adresą",
@@ -703,6 +706,7 @@ export default {
       "about": "Apie mus",
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
+      "faq": "Dažnai užduodami klausimai",
       "forDevelopers": "Programuotojams",
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
@@ -1021,7 +1025,8 @@ export default {
         "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių prekių. Greitai šį apribojimą panaikinsime!",
         "title": "100 patinka"
       },
-      "updated": "Elementas buvo įtrauktas į galeriją."
+      "updated": "Elementas buvo įtrauktas į galeriją.",
+      "visibilityChanged": "Įspėjimas: nustatytas matomumas jau pakeistas ir šiuo metu yra \" {visibility} \"."
     },
     "prompts": {
       "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes."

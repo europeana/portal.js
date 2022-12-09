@@ -125,7 +125,7 @@
                 <ShareButton />
                 <SocialShareModal :media-url="shareMediaUrl" />
                 <template
-                  v-if="userIsOwner"
+                  v-if="userCanEditSet"
                 >
                   <b-button
                     class="d-inline-flex align-items-center ml-2"
@@ -303,29 +303,30 @@
         return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
       },
       userIsOwner() {
-        return this.$auth.loggedIn && this.$store.state.auth.user &&
-          this.setCreatorId &&
-          this.setCreatorId.endsWith(`/${this.$store.state.auth.user.sub}`);
+        return this.$auth.loggedIn && this.$auth.user &&
+          this.setCreatorId?.endsWith(`/${this.$auth.user.sub}`);
       },
       userIsEntityEditor() {
-        const user = this.$store.state.auth.user;
-        const entitiesEditor = user?.resource_access?.entities?.roles?.includes('editor');
-        const usersetsEditor = user?.resource_access?.usersets?.roles?.includes('editor');
+        const entitiesEditor = this.$auth.user?.resource_access?.entities?.roles?.includes('editor');
+        const usersetsEditor = this.$auth.user?.resource_access?.usersets?.roles?.includes('editor');
         return entitiesEditor && usersetsEditor;
       },
       userIsPublisher() {
-        const user = this.$store.state.auth.user;
+        const user = this.$auth.user;
         const publisher = user?.resource_access?.usersets?.roles?.includes('publisher');
         return !!publisher;
       },
-      userCanEdit() {
+      userCanHandleRecommendations() {
         return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
+      },
+      userCanEditSet() {
+        return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published');
       },
       setIsEntityBestItems() {
         return this.set.type === 'EntityBestItemsSet';
       },
       displayRecommendations() {
-        return this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit;
+        return this.enableRecommendations && this.$auth.loggedIn && this.userCanHandleRecommendations;
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {

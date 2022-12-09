@@ -94,6 +94,22 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+
+    .is-external-link {
+      display: flex;
+      align-items: flex-end;
+  
+      span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+  
+        &.icon-external-link { 
+          flex-shrink: 0;
+          margin-left: 5px;
+        }
+      }
+    }
   }
 
   .card-subtitle {
@@ -155,25 +171,6 @@
         }
         /* stylelint-enable */
       }
-    }
-  }
-
-  .is-external-link .card-title {
-    display: flex;
-    align-items: flex-end;
-
-    span {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    &::after {
-      content: '\e900';
-
-      @extend %icon-font;
-
-      margin-left: 5px;
     }
   }
 
@@ -356,6 +353,11 @@
       }
     }
 
+    .user-buttons {
+      white-space: nowrap;
+      display: inline-flex;
+    }
+
     @media (min-width: $bp-medium) {
       min-height: 0;
 
@@ -445,40 +447,34 @@
     &:hover {
       box-shadow: $boxshadow-large;
 
-      .user-buttons .btn {
-        visibility: visible;
-        margin-right: 0.5rem;
+      .user-buttons {
+        .btn {
+          visibility: visible;
+          margin-right: 0.5rem;
 
-        &:last-of-type {
-          margin-right: 1rem;
-        }
-
-        &:first-of-type {
-          &.pin-button {
-            margin-left: 1rem;
-
-            &.active {
-              visibility: visible;
-            }
-
-            +.btn {
-              margin-left: auto;
-            }
+          &.pin-button.active {
+            visibility: visible;
           }
         }
 
-        &.recommendation-button {
-          &:first-of-type {
+        .pin-button-wrapper {
+          margin-left: 1rem;
+
+          + div,
+          + .btn {
             margin-left: auto;
+          }
+        }
+
+        > :last-child {
+          margin-right: 1rem;
+
+          .btn {
+            margin-right: 0;
           }
         }
       }
     }
-  }
-
-  &.list-card .user-buttons {
-    white-space: nowrap;
-    display: inline-flex;
   }
 }
 

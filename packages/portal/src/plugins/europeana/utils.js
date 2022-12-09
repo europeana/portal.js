@@ -52,7 +52,8 @@ const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
     baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
       wskey: config.key
-    }
+    },
+    timeout: 10000
   };
 };
 

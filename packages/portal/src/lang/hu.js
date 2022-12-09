@@ -31,6 +31,7 @@ export default {
     "cancel": "Mégse",
     "close": "bezárás",
     "continue": "folytatás",
+    "depublish": "Közzététel visszavonása",
     "download": "Letöltés",
     "edit": "Szerkesztés",
     "feedback": "Visszacsatolás",
@@ -44,12 +45,13 @@ export default {
     "preview": "Előnézet",
     "previous": "Előző",
     "providedBy": "Szolgáltató: {provider}",
+    "publish": "Közzététel",
     "reject": "Elutasít",
     "save": "Mentse",
     "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
-    "skip": "Skip",
+    "skipSend": "Kihagyás és küldés",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Cím:"
   },
   "automatedCardGroup": {
+    "gallery": "Galériák",
     "item": "Legutóbbi cikk",
     "organisation": "Szervezetek",
     "place": "Helyek",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Érdemes lehet utánajárnunk. Írja be az e-mail címét, ha örül, hogy kapcsolatba lépünk Önnel.",
     "failed": "A kérés nem sikerült. Kérlek próbáld újra.",
+    "faq": "Ugrás a gyakran ismételt kérdésekre",
     "form": {
       "placeholders": {
         "email": "Adja meg e-mail címét",
@@ -703,6 +707,7 @@ export default {
       "about": "Rólunk",
       "accessibility": "Hozzáférhetőség",
       "cookies": "Sütik",
+      "faq": "Gyakori kérdések",
       "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Sajnáljuk, de jelenleg legfeljebb 100 cikket kedvelhet. Hamarosan eltávolítjuk ezt a korlátozást!",
         "title": "100 kedvelés"
       },
-      "updated": "Az elem felkerült a galériába."
+      "updated": "Az elem felkerült a galériába.",
+      "visibilityChanged": "Figyelmeztetés: a beállított láthatóság már megváltozott, és jelenleg \" {visibility} \"."
     },
     "prompts": {
       "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet."

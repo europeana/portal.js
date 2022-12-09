@@ -31,6 +31,7 @@ export default {
     "cancel": "Utzi",
     "close": "itxi",
     "continue": "jarraitu",
+    "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
     "edit": "Editatu",
     "feedback": "Iritzia",
@@ -44,12 +45,13 @@ export default {
     "preview": "Aurrebista",
     "previous": "Aurrekoa",
     "providedBy": "{provider} emanda",
+    "publish": "Argitaratu",
     "reject": "Baztertu",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
-    "skip": "Saltatu",
+    "skipSend": "Saltatu eta bidali",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Izenburua:"
   },
   "automatedCardGroup": {
+    "gallery": "Galeriak",
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
     "place": "Lekuak",
@@ -616,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "Baliteke jarraipena egitea nahi izatea. Idatzi zure posta elektronikoa gu zurekin harremanetan jartzeko pozik bazaude.",
     "failed": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+    "faq": "Joan maiz egindako galderak",
     "form": {
       "placeholders": {
         "email": "Idatzi zure helbide elektronikoa",
@@ -707,6 +711,7 @@ export default {
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
+      "faq": "Maiz Egindako Galderak",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
@@ -1025,7 +1030,8 @@ export default {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
       },
-      "updated": "Elementua galerian gehitu da."
+      "updated": "Elementua galerian gehitu da.",
+      "visibilityChanged": "Abisua: ezarri ikusgarritasuna dagoeneko aldatu da eta une honetan \" {visibility} \" da."
     },
     "prompts": {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."

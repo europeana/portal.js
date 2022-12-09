@@ -194,11 +194,7 @@
           padding: 0 0.2rem;
         }
 
-        a.is-external-link::after {
-          content: '\e900';
-
-          @extend %icon-font;
-
+        ::v-deep .icon-external-link {
           vertical-align: initial;
           font-size: 0.75rem;
         }

@@ -145,7 +145,7 @@
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
             description: set.description,
-            thumbnail: this.setPreviewUrl(set.items[0].edmPreview)
+            thumbnail: this.setPreviewUrl(set.items?.[0].edmPreview)
           };
         });
       },

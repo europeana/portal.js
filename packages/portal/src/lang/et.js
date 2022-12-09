@@ -31,6 +31,7 @@ export default {
     "cancel": "Tühista",
     "close": "Sulge",
     "continue": "jätka",
+    "depublish": "Tühista avaldamine",
     "download": "Lae alla",
     "edit": "Muuda",
     "feedback": "Tagasiside",
@@ -44,12 +45,13 @@ export default {
     "preview": "Eelvaade",
     "previous": "Eelmine",
     "providedBy": "Pakub {provider}",
+    "publish": "Avalda",
     "reject": "Tagasi lükata",
     "save": "Salvesta",
     "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
-    "skip": "Vahele jätma",
+    "skipSend": "Jäta vahele ja saada",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Pealkiri:"
   },
   "automatedCardGroup": {
+    "gallery": "Galeriid",
     "item": "Hiljutised esemed",
     "organisation": "Organisatsioonid",
     "place": "Kohad",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Võime soovida jätkata. Sisestage oma e-posti aadress, kui olete rahul, et meiega ühendust võtame.",
     "failed": "Taotlus nurjus. Palun proovi uuesti.",
+    "faq": "Minge korduma kippuvate küsimuste juurde",
     "form": {
       "placeholders": {
         "email": "Sisestage oma e-posti aadress",
@@ -703,6 +707,7 @@ export default {
       "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
+      "faq": "Korduma kippuvad küsimused",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Vabandame, kuid praegu piirdute maksimaalselt 100 toote meeldimisega. Varsti eemaldame selle limiidi!",
         "title": "100 meeldimist"
       },
-      "updated": "Üksus lisati galeriisse."
+      "updated": "Üksus lisati galeriisse.",
+      "visibilityChanged": "Hoiatus: määratud nähtavus on juba muudetud ja on praegu \" {visibility} \"."
     },
     "prompts": {
       "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."

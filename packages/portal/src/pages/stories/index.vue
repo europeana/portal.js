@@ -59,7 +59,7 @@
           :url="entryUrl(entry)"
           :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
           :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
-          :image-optimisation-options="entryImageOptions(entry.primaryImageOfPage.image)"
+          :image-optimisation-options="entry.primaryImageOfPage ? entryImageOptions(entry.primaryImageOfPage.image) : {}"
         />
       </b-card-group>
       <PaginationNavInput

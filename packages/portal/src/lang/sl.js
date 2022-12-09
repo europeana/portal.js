@@ -31,6 +31,7 @@ export default {
     "cancel": "Prekliči",
     "close": "zapri",
     "continue": "nadaljuj",
+    "depublish": "Depubliš",
     "download": "Prenos",
     "edit": "Uredi",
     "feedback": "Povratne informacije",
@@ -44,12 +45,13 @@ export default {
     "preview": "Predogled",
     "previous": "Prejšnji",
     "providedBy": "Zagotavlja {provider}",
+    "publish": "Objavi",
     "reject": "Zavrne",
     "save": "Shrani",
     "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
-    "skip": "Preskoči",
+    "skipSend": "Preskoči in pošlji",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Naslov:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerije",
     "item": "Nedavni predmeti",
     "organisation": "Organizacije",
     "place": "Mesta",
@@ -612,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Morda bi želeli slediti. Vnesite svojo e-pošto, če ste veseli, da vas kontaktiramo.",
     "failed": "Zahteva ni uspela. Prosim poskusite ponovno.",
+    "faq": "Pojdite na pogosto zastavljena vprašanja",
     "form": {
       "placeholders": {
         "email": "Vnesite svoj e-poštni naslov",
@@ -703,6 +707,7 @@ export default {
       "about": "O nas",
       "accessibility": "Dostopnost",
       "cookies": "Piškotki",
+      "faq": "Pogosto zastavljena vprašanja",
       "forDevelopers": "Za razvijalce",
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
@@ -1021,7 +1026,8 @@ export default {
         "body": "Se opravičujemo, a trenutno lahko všečkate največ 100 predmetov. Kmalu bomo odstranili to omejitev!",
         "title": "100 všečkov"
       },
-      "updated": "Element je bil dodan v galerijo."
+      "updated": "Element je bil dodan v galerijo.",
+      "visibilityChanged": "Opozorilo: nastavljena vidnost je že spremenjena in je trenutno \" {visibility} \"."
     },
     "prompts": {
       "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse predmete, ki ste jih dodali."
