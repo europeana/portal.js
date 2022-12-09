@@ -8,6 +8,7 @@
       :class="`social-share mr-2 ${network.identifier}`"
       :data-qa="`share ${network.identifier} button`"
       :href="network.url"
+      target="_blank"
       variant="outline-primary"
       :aria-label="$t('actions.shareOn', { social: network.name })"
       @click.native="trackShare(network)"
