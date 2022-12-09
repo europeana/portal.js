@@ -134,15 +134,17 @@
                     :visibility="set.visibility"
                   />
                 </template>
-                <ShareButton />
-                <SocialShareModal
-                  :media-url="shareMediaUrl"
-                  :share-to="[{
-                    identifier: 'weavex',
-                    name: 'WEAVEx',
-                    url: weaveUrl
-                  }]"
-                />
+                <template v-if="set.visibility !== 'private'">
+                  <ShareButton />
+                  <SocialShareModal
+                    :media-url="shareMediaUrl"
+                    :share-to="[{
+                      identifier: 'weavex',
+                      name: 'WEAVEx',
+                      url: weaveUrl
+                    }]"
+                  />
+                </template>
                 <PublishSetButton
                   v-if="set.visibility !== 'private' && userIsPublisher"
                   :set-id="set.id"
