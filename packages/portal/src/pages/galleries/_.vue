@@ -134,8 +134,18 @@
                     :visibility="set.visibility"
                   />
                 </template>
-                <ShareButton />
-                <SocialShareModal :media-url="shareMediaUrl" />
+                <template v-if="set.visibility !== 'private'">
+                  <ShareButton />
+                  <SocialShareModal
+                    :media-url="shareMediaUrl"
+                    :share-to="[{
+                      identifier: 'weavex',
+                      name: 'WEAVEx',
+                      url: weaveUrl,
+                      tooltip: $t('set.shareTo.weavex.tooltip')
+                    }]"
+                  />
+                </template>
                 <PublishSetButton
                   v-if="set.visibility !== 'private' && userIsPublisher"
                   :set-id="set.id"
@@ -355,6 +365,9 @@
       },
       htmlDescription() {
         return marked.parse(this.rawDescription);
+      },
+      weaveUrl() {
+        return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
       }
     },
 
