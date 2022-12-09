@@ -95,7 +95,6 @@
     EUROPEANA_SET_VISIBILITY_PUBLIC,
     EUROPEANA_SET_VISIBILITY_PUBLISHED
   } from '@/plugins/europeana/set';
-  import omit from 'lodash/omit';
 
   export default {
     name: 'SetFormModal',
@@ -212,8 +211,8 @@
       },
 
       hasTitleInSomeLanguage() {
-        const otherLanguageTitles = omit(this.title, this.$i18n.locale);
-        return !!this.titleValue || Object.values(otherLanguageTitles).some((val) => !!val);
+        const titleValues = { ...this.title, [this.$i18n.locale]: this.titleValue };
+        return Object.values(titleValues).some((val) => !!val);
       }
     },
 
