@@ -151,7 +151,8 @@
   text-transform: uppercase;
   font-weight: 600;
 
-  &:hover {
+  &:hover,
+  &:focus {
     box-shadow: none;
   }
 
@@ -163,6 +164,15 @@
   &.disabled {
     color: $grey;
     border-color: $grey;
+  }
+
+  &:not(:disabled):not(.disabled) {
+    &:active,
+    &.active {
+      &:focus {
+        box-shadow: none;
+      }
+    }
   }
 }
 
