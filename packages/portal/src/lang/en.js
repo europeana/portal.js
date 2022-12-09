@@ -53,8 +53,7 @@ export default {
     "shareOn": "Share on {social}",
     "skipSend": "Skip and send",
     "viewAt": "View at {link}",
-    "viewDocument": "View document",
-    "createWeaveExperience": "Create Experience Tour"
+    "viewDocument": "View document"
   },
   "attribution": {
     "country": "Country:",
@@ -1059,6 +1058,11 @@ export default {
     },
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
+      }
     }
   },
   "shareWhere": "Where would you like to share this gallery?",
@@ -1075,6 +1079,5 @@ export default {
   "storiesPage": {
     "title": "Stories"
   },
-  "website": "Website",
-  "whatIsWeavex": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
+  "website": "Website"
 };

@@ -141,7 +141,8 @@
                     :share-to="[{
                       identifier: 'weavex',
                       name: 'WEAVEx',
-                      url: weaveUrl
+                      url: weaveUrl,
+                      tooltip: $t('set.shareTo.weavex.tooltip')
                     }]"
                   />
                 </template>
