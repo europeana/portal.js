@@ -132,6 +132,7 @@
                     :title="set.title"
                     :description="set.description"
                     :visibility="set.visibility"
+                    :user-is-owner="userIsOwner"
                   />
                 </template>
                 <template v-if="set.visibility !== 'private'">
