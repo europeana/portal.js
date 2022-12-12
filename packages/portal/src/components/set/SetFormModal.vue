@@ -66,7 +66,7 @@
           </b-button>
           <div class="d-flex">
             <b-button
-              v-if="!isNew"
+              v-if="displayDeleteButton"
               variant="danger"
               data-qa="delete button"
               @click="clickDelete"
@@ -135,6 +135,11 @@
         default: () => ({})
       },
 
+      userIsOwner: {
+        type: Boolean,
+        default: true
+      },
+
       visibility: {
         type: String,
         default: EUROPEANA_SET_VISIBILITY_PUBLIC
@@ -201,13 +206,19 @@
         return this.isNew ? this.$t('set.actions.create') : this.$t('set.actions.edit');
       },
 
+      displayDeleteButton() {
+        // Display if this is an existing set and the user owns it.
+        return !this.isNew && this.userIsOwner;
+      },
+
       disableSubmitButton() {
         // Disable submit button when no title (required field)
         return !this.hasTitleInSomeLanguage;
       },
 
       hasTitleInSomeLanguage() {
-        return !!this.titleValue || Object.values(this.title).some((val) => !!val);
+        const titleValues = { ...this.title, [this.$i18n.locale]: this.titleValue };
+        return Object.values(titleValues).some((val) => !!val);
       }
     },
 

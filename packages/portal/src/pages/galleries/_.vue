@@ -141,6 +141,19 @@
                     :title="set.title"
                     :description="set.description"
                     :visibility="set.visibility"
+                    :user-is-owner="userIsOwner"
+                  />
+                </template>
+                <template v-if="set.visibility !== 'private'">
+                  <ShareButton />
+                  <SocialShareModal
+                    :media-url="shareMediaUrl"
+                    :share-to="[{
+                      identifier: 'weavex',
+                      name: 'WEAVEx',
+                      url: weaveUrl,
+                      tooltip: $t('set.shareTo.weavex.tooltip')
+                    }]"
                   />
                   <SetPublicationRequestWidget
                     v-if="$features.galleryPublicationSubmissions && set.visibility === 'public'"
@@ -370,6 +383,9 @@
       },
       displayMetadata() {
         return this.set.visibility === ('private' || 'published') || this.set.creator.nickname;
+      },
+      weaveUrl() {
+        return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
       }
     },
 

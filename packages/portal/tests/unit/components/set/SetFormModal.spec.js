@@ -106,6 +106,16 @@ describe('components/set/SetFormModal', () => {
       expect(deleteButton.exists()).toBe(true);
     });
 
+    it('is not shown for existing sets when the user does NOT own the set', async() => {
+      const wrapper = factory({ propsData: existingSetPropsData });
+
+      await wrapper.setProps({ userIsOwner: false });
+
+      const deleteButton = wrapper.find('[data-qa="delete button"]');
+
+      expect(deleteButton.exists()).toBe(false);
+    });
+
     it('opens the confirmation modal when pressed', () => {
       const wrapper = factory({ propsData: existingSetPropsData });
       const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
@@ -118,13 +128,39 @@ describe('components/set/SetFormModal', () => {
   });
 
   describe('create/update button', () => {
-    describe('when there is no value for title', () => {
-      it('is disabled', () => {
+    describe('when there is a title value', () => {
+      it('is disabled', async() => {
+        const wrapper = factory({ propsData: existingSetPropsData });
+
+        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe(undefined);
+      });
+    });
+
+    describe('when there is no title value', () => {
+      it('is disabled', async() => {
         const wrapper = factory();
 
-        wrapper.find('#set-title').setValue('');
+        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
+      });
+    });
+
+    describe('when the title value is removed', () => {
+      it('is disabled', async() => {
+        const wrapper = factory({ propsData: existingSetPropsData });
+
+        await wrapper.find('#set-title').setValue('');
 
         expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
+      });
+    });
+
+    describe('when a title value is added', () => {
+      it('is disabled', async() => {
+        const wrapper = factory();
+
+        await wrapper.find('#set-title').setValue('Title');
+
+        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe(undefined);
       });
     });
   });
@@ -171,6 +207,32 @@ describe('components/set/SetFormModal', () => {
             await wrapper.setData(data);
 
             expect(wrapper.vm.hasTitleInSomeLanguage).toBe(false);
+          });
+        });
+
+        describe('and `title` has text for the current language', () => {
+          describe('and `title` has text for some language', () => {
+            const propsData = { title: { es: 'pez', en: 'fish' } };
+
+            it('is `true`', async() => {
+              const wrapper = factory({ propsData });
+
+              await wrapper.setData(data);
+
+              expect(wrapper.vm.hasTitleInSomeLanguage).toBe(true);
+            });
+          });
+
+          describe('and `title` has no text for any language', () => {
+            const propsData = { title: { en: 'fish' } };
+
+            it('is `true`', async() => {
+              const wrapper = factory({ propsData });
+
+              await wrapper.setData(data);
+
+              expect(wrapper.vm.hasTitleInSomeLanguage).toBe(false);
+            });
           });
         });
       });

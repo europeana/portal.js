@@ -1078,8 +1078,14 @@ export default {
       "title": "Submit gallery for publication",
       "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
       "toastButton": "Okay"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
+      }
     }
   },
+  "shareWhere": "Where would you like to share this gallery?",
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {

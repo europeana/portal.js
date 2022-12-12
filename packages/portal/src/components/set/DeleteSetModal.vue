@@ -19,7 +19,7 @@
         <b-button
           variant="danger"
           type="submit"
-          data-qa="delete button"
+          data-qa="delete confirmation button"
         >
           {{ $t('set.actions.delete') }}
         </b-button>
