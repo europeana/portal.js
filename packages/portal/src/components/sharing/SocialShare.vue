@@ -1,33 +1,46 @@
 <template>
   <div>
-    <b-link
+    <b-button
       v-for="(network, index) in networks"
       :key="index"
-      :title="$t('actions.shareOn', { social: network.name })"
-      :href="network.url"
-      :class="`social-share mr-1 ${network.identifier}`"
+      v-b-tooltip.bottom
+      :title="network.tooltip || ''"
+      :class="`social-share mr-2 ${network.identifier}`"
       :data-qa="`share ${network.identifier} button`"
-      @click.native="$matomo && $matomo.trackEvent('Item_share', 'Click social share button', network.url);"
+      :href="network.url"
+      target="_blank"
+      variant="outline-primary"
+      :aria-label="$t('actions.shareOn', { social: network.name })"
+      @click.native="trackShare(network)"
     >
       <span :class="`icon-${network.identifier}`" />
       <span
         class="text"
       >{{ network.name }}
       </span>
-    </b-link>
+    </b-button>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
+  import { VBTooltip } from 'bootstrap-vue';
 
   export default {
     name: 'SocialShare',
+
+    directives: {
+      'b-tooltip': VBTooltip
+    },
 
     props: {
       mediaUrl: {
         type: String,
         default: ''
+      },
+      shareTo: {
+        type: Array,
+        default: () => []
       }
     },
 
@@ -52,7 +65,13 @@
             name: 'Pinterest',
             url: `https://pinterest.com/pin/create/link/?url=${this.shareUrl}` + (this.mediaUrl ? `&media=${this.mediaUrl}` : '')
           }
-        ];
+        ].concat(this.shareTo);
+      }
+    },
+
+    methods: {
+      trackShare(network) {
+        this.$matomo && this.$matomo.trackEvent('Item_share', 'Click social share button', network.url);
       }
     }
   };
@@ -60,54 +79,101 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
-  a {
+  .btn {
     align-items: center;
     display: inline-flex;
-    text-decoration: none;
-    border-radius: 0.25rem;
     width: calc(100% / 3 - 10px);
-    margin-right: 0 !important;
-    justify-content: flex-start;
-    padding: 0.75rem 0.625rem;
 
     @media (max-width: $bp-small) {
       width: 100%;
       margin-bottom: 10px;
     }
 
-    &.facebook {
-      border: solid 1px #4064ac;
-
-      span {
-        color: #4064ac;
-        background-color: $white;
-      }
-    }
-
-    &.twitter {
-      border: solid 1px #1c9ceb;
-
-      span {
-        color: #1c9ceb;
-      }
-    }
-
-    &.pinterest {
-      border: solid 1px #ba0a21;
-
-      span {
-        color: #ba0a21;
-        background-color: $white;
-      }
-    }
-
     &:hover {
       background: $white;
     }
 
+    &:last-child {
+      margin-right: 0 !important;
+    }
+
+    &.facebook {
+      $facebook-blue: #3b5998;
+
+      border: solid 1px $facebook-blue;
+      color: $facebook-blue;
+
+      &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+          color: $facebook-blue;
+          background-color: $white;
+          border-color: $facebook-blue;
+        }
+      }
+    }
+
+    &.twitter {
+      $twitter-blue: #00acee;
+      border: solid 1px $twitter-blue;
+      color: $twitter-blue;
+
+      &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+          color: $twitter-blue;
+          background-color: $white;
+          border-color: $twitter-blue;
+        }
+      }
+    }
+
+    &.pinterest {
+      $pinterest-red: #e60023;
+
+      border: solid 1px $pinterest-red;
+      color: $pinterest-red;
+
+      &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+          color: $pinterest-red;
+          background-color: $white;
+          border-color: $pinterest-red;
+        }
+      }
+    }
+
+    &.weavex {
+      $weavex-green: #3e861c;
+
+      border: solid 1px $weavex-green;
+      color: $weavex-green;
+
+      &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+          color: $weavex-green;
+          background-color: $white;
+          border-color: $weavex-green;
+        }
+      }
+
+      .icon-weavex {
+        font-size: $font-size-small;
+        &::before {
+          content: 'W';
+          font-family: $font-family-sans-serif;
+          font-weight: 800;
+          font-style: italic;
+        }
+      }
+    }
+
     [class^='icon'] {
-      font-size: 1.125rem;
+      font-size: 1rem;
     }
 
     span.text {
