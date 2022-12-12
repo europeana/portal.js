@@ -49,6 +49,15 @@ const entityEditor = {
   }
 };
 
+const publisher = {
+  loggedIn: true,
+  user: {
+    'resource_access': {
+      usersets: { roles: ['publisher'] }
+    }
+  }
+};
+
 const defaultOptions = {
   set: testSet1,
   user: { loggedIn: false },
@@ -90,7 +99,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       }
     }
   },
-  stubs: ['SetRecommendations']
+  stubs: ['SetRecommendations', 'SetPublicationRequestWidget']
 });
 
 describe('GalleryPage (Set)', () => {
@@ -209,7 +218,26 @@ describe('GalleryPage (Set)', () => {
     });
 
     describe('when the user is the set\'s owner', () => {
-      const wrapper = factory({ set: testSet1, user: testSetCreator });
+      it('the set is editable', () => {
+        const wrapper = factory({ set: testSet1, user: testSetCreator });
+        const editButton = wrapper.find('[data-qa="edit set button"]');
+
+        expect(editButton.exists()).toBe(true);
+      });
+
+      describe('and the set is public', () => {
+        it('the set can be submitted for publication', () => {
+          const wrapper = factory({ set: testSet1, user: testSetCreator, features: { galleryPublicationSubmissions: true } });
+
+          const submitForPublicationButton = wrapper.find('[data-qa="set request publication button"]');
+
+          expect(submitForPublicationButton.exists()).toBe(true);
+        });
+      });
+    });
+
+    describe('when the user is a publisher', () => {
+      const wrapper = factory({ set: testSet2, user: publisher });
 
       it('the set is editable', () => {
         const editButton = wrapper.find('[data-qa="edit set button"]');

@@ -157,12 +157,13 @@
                   />
                 </template>
                 <SetPublicationRequestWidget
-                  v-if="$features.galleryPublicationSubmissions && set.visibility === 'public'"
+                  v-if="userCanRequestSetPublication"
                   :set="set"
+                  data-qa="set request publication button"
                   class="mr-2 mt-2"
                 />
                 <PublishSetButton
-                  v-if="set.visibility !== 'private' && userIsPublisher"
+                  v-if="userCanPublishSet"
                   :set-id="set.id"
                   :visibility="set.visibility"
                   class="mr-2 mt-2"
@@ -336,6 +337,12 @@
       },
       userCanEditSet() {
         return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published');
+      },
+      userCanRequestSetPublication() {
+        return this.$features.galleryPublicationSubmissions && this.userIsOwner && this.set.visibility === 'public';
+      },
+      userCanPublishSet() {
+        return this.userIsPublisher && this.set.visibility !== 'private';
       },
       setIsEntityBestItems() {
         return this.set.type === 'EntityBestItemsSet';
