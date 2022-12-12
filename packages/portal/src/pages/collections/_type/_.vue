@@ -200,10 +200,12 @@
           const curatedEntity = this.$store.getters['entity/curatedEntity'](this.entity.id);
           if (curatedEntity?.genre) {
             overrideParams.qf.push(`collection:${curatedEntity.genre}`);
-          } else if (this.$route.query.query) {
-            overrideParams.qf.push(entityQuery);
           } else {
-            overrideParams.query = entityQuery; // Triggering best bets.
+            // Trigger "best bets" because items may not have been explicitly linked to entities. :o(
+            overrideParams.query = entityQuery;
+            if (this.$route.query.query) {
+              overrideParams.qf.push(this.$route.query.query);
+            }
           }
         }
 

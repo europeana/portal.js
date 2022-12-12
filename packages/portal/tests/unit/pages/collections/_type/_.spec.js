@@ -84,7 +84,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     $features: {},
     $fetchState: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
-    $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
+    $route: { query: options.query || {}, params: { type: options.type, pathMatch: options.pathMatch } },
     $contentful: {
       query: contentfulQueryStub
     },
@@ -230,6 +230,41 @@ describe('pages/collections/_type/_', () => {
   });
 
   describe('computed', () => {
+    describe('searchOverrides', () => {
+      describe('when curated entity has a thematic collection', () => {
+        it('filters by theme in qf', () => {
+          const wrapper = factory(themeEntity);
+          wrapper.vm.$store.getters['entity/curatedEntity'] = sinon.stub()
+            .withArgs(themeEntity.entity.id).returns({ genre: 'music' });
+
+          const searchOverrides = wrapper.vm.searchOverrides;
+
+          expect(searchOverrides.qf).toEqual(['collection:music']);
+          expect(searchOverrides.query).toBeUndefined();
+        });
+      });
+
+      describe('when no curated entity, or no thematic collection', () => {
+        it('filters by entity URI in query', () => {
+          const wrapper = factory(topicEntity);
+
+          const searchOverrides = wrapper.vm.searchOverrides;
+
+          expect(searchOverrides.query).toBe('skos_concept:"http://data.europeana.eu/concept/01234567890"');
+          expect(searchOverrides.qf).toEqual([]);
+        });
+
+        it('puts the user\'s query into qf', () => {
+          const wrapper = factory({ ...topicEntity, query: { query: 'water' } });
+
+          const searchOverrides = wrapper.vm.searchOverrides;
+
+          expect(searchOverrides.query).toBe('skos_concept:"http://data.europeana.eu/concept/01234567890"');
+          expect(searchOverrides.qf).toEqual(['water']);
+        });
+      });
+    });
+
     describe('editable', () => {
       const editableOptions = {
         ...organisationEntity,
