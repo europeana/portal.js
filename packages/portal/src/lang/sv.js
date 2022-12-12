@@ -1030,7 +1030,13 @@ export default {
       "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
+      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade.",
+      "shareWhere": "Var vill du dela detta galleri?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) är ett webbaserat verktyg för att hantera innehåll av olika typer (inklusive 3D), dokumentera kulturarv genom digitala gemenskapsutrymmen och kurera digitala berättelser och upplevelser."
+      }
     }
   },
   "showLess": "Visa mindre",

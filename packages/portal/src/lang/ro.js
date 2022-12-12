@@ -1030,7 +1030,13 @@ export default {
       "visibilityChanged": "Avertisment: setarea vizibilității a fost deja schimbată și este în prezent „ {visibility} ”."
     },
     "prompts": {
-      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat."
+      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat.",
+      "shareWhere": "Unde ați dori să distribuiți această galerie?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) este un instrument bazat pe web pentru gestionarea conținutului de diferite tipuri (inclusiv 3D), documentarea moștenirii culturale prin spații comunitare digitale și curatarea poveștilor și experiențelor digitale."
+      }
     }
   },
   "showLess": "Afișează mai puțin",
