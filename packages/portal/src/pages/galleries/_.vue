@@ -122,8 +122,18 @@
                 </b-col>
               </b-row>
               <div class="d-inline-flex collection-buttons">
-                <ShareButton />
-                <SocialShareModal :media-url="shareMediaUrl" />
+                <template v-if="set.visibility !== 'private'">
+                  <ShareButton />
+                  <SocialShareModal
+                    :media-url="shareMediaUrl"
+                    :share-to="[{
+                      identifier: 'weavex',
+                      name: 'WEAVEx',
+                      url: weaveUrl,
+                      tooltip: $t('set.shareTo.weavex.tooltip')
+                    }]"
+                  />
+                </template>
                 <template
                   v-if="userCanEditSet"
                 >
@@ -144,22 +154,10 @@
                     :user-is-owner="userIsOwner"
                   />
                 </template>
-                <template v-if="set.visibility !== 'private'">
-                  <ShareButton />
-                  <SocialShareModal
-                    :media-url="shareMediaUrl"
-                    :share-to="[{
-                      identifier: 'weavex',
-                      name: 'WEAVEx',
-                      url: weaveUrl,
-                      tooltip: $t('set.shareTo.weavex.tooltip')
-                    }]"
-                  />
-                  <SetPublicationRequestWidget
-                    v-if="$features.galleryPublicationSubmissions && set.visibility === 'public'"
-                    :set="set"
-                  />
-                </template>
+                <SetPublicationRequestWidget
+                  v-if="$features.galleryPublicationSubmissions && set.visibility === 'public'"
+                  :set="set"
+                />
                 <PublishSetButton
                   v-if="set.visibility !== 'private' && userIsPublisher"
                   :set-id="set.id"
