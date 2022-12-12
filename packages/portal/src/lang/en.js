@@ -1069,7 +1069,7 @@ export default {
       "failedSubmission": "The request failed. Please try again.",
       "process": {
         "title": "How the process works",
-        "description": "When you submit a gallery for publication, a publisher at Europeana will be notified and review the gallery before publishing it. This publisher can also edit your submitted gallery. If the gallery is not published, it could be that it does not conform to our editorial guidelines."
+        "description": "When you submit a gallery for publication, a publisher at Europeana will be notified and review the gallery before publishing it. This publisher can also edit your submitted gallery. You will receive email notifications of the status of your submitted gallery. If the gallery is not published, it could be that it does not conform to our editorial guidelines."
       },
       "time": {
         "title": "How long it takes",
