@@ -19,7 +19,7 @@
         <b-button
           variant="danger"
           type="submit"
-          data-qa="delete button"
+          data-qa="delete confirmation button"
         >
           {{ $t('set.actions.delete') }}
         </b-button>
@@ -69,9 +69,10 @@
         this.makeToast(this.toastMsg);
         this.hide();
         // redirect away from deleted set page
-        if (this.setId.endsWith(`/${this.$route?.params?.pathMatch}`)) {
-          const path = this.$path({ name: 'account' });
-          this.$goto(path);
+        // TODO: remove set-all when CTF galleries are migrated to Set API,
+        //       and /set URLs deprecated
+        if (this.$route.name.startsWith('galleries-all___') || this.$route.name.startsWith('set-all___')) {
+          this.$goto(this.$path({ name: 'account' }));
         }
       },
 

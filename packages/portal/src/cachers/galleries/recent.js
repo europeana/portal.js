@@ -13,7 +13,7 @@ const recentlyPublishedSets = async() => {
     profile: 'itemDescriptions'
   };
   const response = await axiosClient.get('/search.json', { params });
-  return response.data.items;
+  return response.data.items || [];
 };
 
 const data = (config = {}) => {

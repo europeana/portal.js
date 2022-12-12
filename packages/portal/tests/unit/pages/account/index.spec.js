@@ -134,4 +134,34 @@ describe('pages/account/index.vue', () => {
       expect(privateGalleries.exists()).toBe(true);
     });
   });
+
+  describe('computed', () => {
+    describe('publicCreations', () => {
+      it('includes only created sets with visibility "public" or "published"', () => {
+        const privateSet = { visibility: 'private' };
+        const publicSet = { visibility: 'public' };
+        const publishedSet = { visibility: 'published' };
+        const creations = [privateSet, publicSet, publishedSet];
+
+        const wrapper = factory();
+        wrapper.vm.$store.state.set.creations = creations;
+
+        expect(wrapper.vm.publicCreations).toEqual([publicSet, publishedSet]);
+      });
+    });
+
+    describe('privateCreations', () => {
+      it('includes only created sets with visibility "private"', () => {
+        const privateSet = { visibility: 'private' };
+        const publicSet = { visibility: 'public' };
+        const publishedSet = { visibility: 'published' };
+        const creations = [privateSet, publicSet, publishedSet];
+
+        const wrapper = factory();
+        wrapper.vm.$store.state.set.creations = creations;
+
+        expect(wrapper.vm.privateCreations).toEqual([privateSet]);
+      });
+    });
+  });
 });

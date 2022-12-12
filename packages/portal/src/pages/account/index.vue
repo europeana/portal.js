@@ -203,12 +203,16 @@
         return this.$auth.userHasClientRole('entities', 'editor') &&
           this.$auth.userHasClientRole('usersets', 'editor');
       },
+      publicCreations() {
+        return this.$store.state.set.creations.filter(set => ['public', 'published'].includes(set.visibility));
+      },
+      privateCreations() {
+        return this.$store.state.set.creations.filter(set => set.visibility === 'private');
+      },
       ...mapState({
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems,
-        curations: state => state.set.curations,
-        publicCreations: state => state.set.creations.filter(set => set.visibility === ('public' || 'published')),
-        privateCreations: state => state.set.creations.filter(set => set.visibility === 'private')
+        curations: state => state.set.curations
       }),
       activeTab() {
         return this.$route.hash || this.tabHashes.likes;

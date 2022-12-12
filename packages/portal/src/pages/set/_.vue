@@ -95,14 +95,24 @@
                     :visibility="set.visibility"
                   />
                 </template>
-                <b-button
-                  v-b-modal.share-modal
-                  variant="outline-primary"
-                  class="text-decoration-none"
-                >
-                  {{ $t('actions.share') }}
-                </b-button>
-                <SocialShareModal :media-url="shareMediaUrl" />
+                <template v-if="set.visibility !== 'private'">
+                  <b-button
+                    v-b-modal.share-modal
+                    variant="outline-primary"
+                    class="text-decoration-none"
+                  >
+                    {{ $t('actions.share') }}
+                  </b-button>
+                  <SocialShareModal
+                    :media-url="shareMediaUrl"
+                    :share-to="[{
+                      identifier: 'weavex',
+                      name: 'WEAVEx',
+                      url: weaveUrl,
+                      tooltip: $t('set.shareTo.weavex.tooltip')
+                    }]"
+                  />
+                </template>
               </div>
             </b-container>
           </b-col>
@@ -169,15 +179,13 @@
   export default {
     name: 'SetPage',
 
-    components: {
-      ClientOnly,
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      ItemPreviewCardGroup,
-      SocialShareModal,
-      SetFormModal: () => import('@/components/set/SetFormModal'),
-      SetRecommendations: () => import('@/components/set/SetRecommendations')
-    },
+    components: { ClientOnly,
+                  ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+                  LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
+                  ItemPreviewCardGroup,
+                  SocialShareModal,
+                  SetFormModal: () => import('@/components/set/SetFormModal'),
+                  SetRecommendations: () => import('@/components/set/SetRecommendations') },
 
     mixins: [pageMetaMixin],
 
@@ -281,6 +289,9 @@
       },
       shareMediaUrl() {
         return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
+      },
+      weaveUrl() {
+        return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
       }
     },
 

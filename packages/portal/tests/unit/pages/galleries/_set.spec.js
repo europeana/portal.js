@@ -22,16 +22,18 @@ const testSet1 = {
   description: { en: 'A test set' },
   creator: { id: 'http://data.europeana.eu/user/0123', nickname: 'Tester' },
   type: 'Collection',
+  visibility: 'public',
   total: 1,
   items: [{ id: '001', edmPreview: ['https://www.example.eu'] }]
 };
 
 const testSet2 = {
   id: '234',
-  title: { en: 'My set' },
+  title: { en: 'My published set' },
   description: { en: 'A test set' },
   creator: 'http://data.europeana.eu/user/0123',
   type: 'Collection',
+  visibility: 'published',
   total: 1000
 };
 
@@ -51,7 +53,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $tc: key => key,
     $i18n,
     $auth: {
-      loggedIn: true,
+      ...options.user || {},
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
     },
     $fetchState: options.fetchState || {},
@@ -64,7 +66,6 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       commit: storeCommit,
       dispatch: storeDispatch,
       state: {
-        auth: options.user || {},
         set: { active: options.set || null }
       }
     },
@@ -82,7 +83,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   stubs: ['SetRecommendations']
 });
 
-describe('SetPage', () => {
+describe('GalleryPage (Set)', () => {
   afterEach(sinon.resetHistory);
 
   describe('fetch', () => {
@@ -142,6 +143,16 @@ describe('SetPage', () => {
         expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(403);
         expect(error.titlePath).toBe('errorMessage.galleryUnauthorised.title');
         expect(error.illustrationSrc).toBe('il-gallery-unauthorised.svg');
+      });
+    });
+  });
+
+  describe('computed properties', () => {
+    describe('weaveUrl', () => {
+      it('uses the setId', () => {
+        const wrapper = factory(defaultOptions);
+
+        expect(wrapper.vm.weaveUrl).toEqual('https://experience.weave-culture.eu/import/europeana/set/123');
       });
     });
   });

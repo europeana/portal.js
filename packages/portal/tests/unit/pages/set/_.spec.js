@@ -145,6 +145,16 @@ describe('SetPage', () => {
     });
   });
 
+  describe('computed properties', () => {
+    describe('weaveUrl', () => {
+      it('uses the setId', () => {
+        const wrapper = factory(defaultOptions);
+
+        expect(wrapper.vm.weaveUrl).toEqual('https://experience.weave-culture.eu/import/europeana/set/123');
+      });
+    });
+  });
+
   describe('template', () => {
     describe('item count heading', () => {
       describe('when less than max amount of items in set', () => {

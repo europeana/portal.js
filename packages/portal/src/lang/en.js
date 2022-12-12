@@ -1058,8 +1058,14 @@ export default {
     },
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
+      }
     }
   },
+  "shareWhere": "Where would you like to share this gallery?",
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {

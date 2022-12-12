@@ -116,7 +116,7 @@
               </b-row>
               <div class="d-inline-flex collection-buttons">
                 <template
-                  v-if="userIsOwner"
+                  v-if="userCanEditSet"
                 >
                   <b-button
                     class="d-inline-flex align-items-center mr-2"
@@ -132,10 +132,21 @@
                     :title="set.title"
                     :description="set.description"
                     :visibility="set.visibility"
+                    :user-is-owner="userIsOwner"
                   />
                 </template>
-                <ShareButton />
-                <SocialShareModal :media-url="shareMediaUrl" />
+                <template v-if="set.visibility !== 'private'">
+                  <ShareButton />
+                  <SocialShareModal
+                    :media-url="shareMediaUrl"
+                    :share-to="[{
+                      identifier: 'weavex',
+                      name: 'WEAVEx',
+                      url: weaveUrl,
+                      tooltip: $t('set.shareTo.weavex.tooltip')
+                    }]"
+                  />
+                </template>
                 <PublishSetButton
                   v-if="set.visibility !== 'private' && userIsPublisher"
                   :set-id="set.id"
@@ -291,9 +302,8 @@
         return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
       },
       userIsOwner() {
-        return this.$auth.loggedIn && this.$store.state.auth.user &&
-          this.setCreatorId &&
-          this.setCreatorId.endsWith(`/${this.$store.state.auth.user.sub}`);
+        return this.$auth.loggedIn && this.$auth.user &&
+          this.setCreatorId?.endsWith(`/${this.$auth.user.sub}`);
       },
       userIsEntityEditor() {
         return this.$auth.userHasClientRole('entities', 'editor') &&
@@ -302,14 +312,17 @@
       userIsPublisher() {
         return this.$auth.userHasClientRole('usersets', 'publisher');
       },
-      userCanEdit() {
+      userCanHandleRecommendations() {
         return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
+      },
+      userCanEditSet() {
+        return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published');
       },
       setIsEntityBestItems() {
         return this.set.type === 'EntityBestItemsSet';
       },
       displayRecommendations() {
-        return this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit;
+        return this.enableRecommendations && this.$auth.loggedIn && this.userCanHandleRecommendations;
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
@@ -350,6 +363,9 @@
       },
       htmlDescription() {
         return marked.parse(this.rawDescription);
+      },
+      weaveUrl() {
+        return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
       }
     },
 
