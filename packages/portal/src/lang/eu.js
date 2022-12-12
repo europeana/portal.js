@@ -1034,7 +1034,13 @@ export default {
       "visibilityChanged": "Abisua: ezarri ikusgarritasuna dagoeneko aldatu da eta une honetan \" {visibility} \" da."
     },
     "prompts": {
-      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
+      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu.",
+      "shareWhere": "Non partekatu nahiko zenuke galeria hau?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) web-oinarritutako tresna bat da, mota ezberdinetako edukiak (3D barne) kudeatzeko, kultur ondarea dokumentatzeko komunitate digitalen espazioen bidez eta istorio eta esperientzia digitalak komisariotzeko."
+      }
     }
   },
   "showLess": "Gutxiago erakutsi",

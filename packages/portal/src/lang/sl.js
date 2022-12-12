@@ -1030,7 +1030,13 @@ export default {
       "visibilityChanged": "Opozorilo: nastavljena vidnost je že spremenjena in je trenutno \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse predmete, ki ste jih dodali."
+      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse predmete, ki ste jih dodali.",
+      "shareWhere": "Kje želite deliti to galerijo?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) je spletno orodje za upravljanje različnih vrst vsebin (vključno s 3D), dokumentiranje kulturne dediščine prek prostorov digitalne skupnosti ter kuriranje digitalnih zgodb in izkušenj."
+      }
     }
   },
   "showLess": "Prikaži manj",

@@ -1029,7 +1029,13 @@ export default {
       "visibilityChanged": "Įspėjimas: nustatytas matomumas jau pakeistas ir šiuo metu yra \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes."
+      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes.",
+      "shareWhere": "Kur norėtumėte pasidalinti šia galerija?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) - tai žiniatinklio įrankis, skirtas įvairių tipų turiniui (įskaitant 3D) tvarkyti, kultūros paveldui dokumentuoti skaitmeninėse bendruomenės erdvėse ir skaitmeninėms istorijoms bei patirtims kuruoti."
+      }
     }
   },
   "showLess": "Rodyti mažiau",

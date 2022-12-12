@@ -1030,7 +1030,13 @@ export default {
       "visibilityChanged": "Hoiatus: määratud nähtavus on juba muudetud ja on praegu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
+      "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted.",
+      "shareWhere": "Kus soovite seda galeriid jagada?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) on veebipõhine tööriist erinevat tüüpi (sh 3D) sisu haldamiseks, kultuuripärandi dokumenteerimiseks digitaalsete kogukonnaruumide kaudu ning digitaalsete lugude ja kogemuste kureerimiseks."
+      }
     }
   },
   "showLess": "Näita vähem",

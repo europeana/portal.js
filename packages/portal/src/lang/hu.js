@@ -1030,7 +1030,13 @@ export default {
       "visibilityChanged": "Figyelmeztetés: a beállított láthatóság már megváltozott, és jelenleg \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet."
+      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet.",
+      "shareWhere": "Hol szeretnéd megosztani ezt a galériát?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "A WEAVExperience (WEAVEx) egy webalapú eszköz a különböző típusú (beleértve a 3D-s) tartalmak kezelésére, a kulturális örökség digitális közösségi tereken keresztüli dokumentálására, valamint digitális történetek és élmények gondozására."
+      }
     }
   },
   "showLess": "Kevesebb megjelenítése",

@@ -1030,7 +1030,13 @@ export default {
       "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd."
+      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd.",
+      "shareWhere": "Waar wilt u deze galerij delen?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) is een webtool voor het beheer van verschillende soorten inhoud (waaronder 3D), het documenteren van cultureel erfgoed via digitale gemeenschapsruimtes en het cureren van digitale verhalen en ervaringen."
+      }
     }
   },
   "showLess": "Minder weergeven",

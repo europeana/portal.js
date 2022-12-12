@@ -1030,7 +1030,13 @@ export default {
       "visibilityChanged": "Varoitus: asetettu näkyvyys on jo muuttunut ja on tällä hetkellä \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."
+      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet.",
+      "shareWhere": "Missä haluaisit jakaa tämän gallerian?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) on verkkopohjainen työkalu erityyppisten (mukaan lukien 3D) sisällön hallintaan, kulttuuriperinnön dokumentointiin digitaalisten yhteisötilojen kautta sekä digitaalisten tarinoiden ja kokemusten kuratoimiseen."
+      }
     }
   },
   "showLess": "Näytä vähemmän",

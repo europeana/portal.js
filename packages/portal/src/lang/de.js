@@ -1030,7 +1030,13 @@ export default {
       "visibilityChanged": "Warnung: Set-Sichtbarkeit wurde bereits geändert und ist derzeit \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben."
+      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben.",
+      "shareWhere": "Wo möchten Sie diese Galerie teilen?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) ist ein webbasiertes Tool zum Verwalten von Inhalten unterschiedlicher Art (einschließlich 3D), zum Dokumentieren des kulturellen Erbes durch digitale Gemeinschaftsräume und zum Kuratieren digitaler Geschichten und Erfahrungen."
+      }
     }
   },
   "showLess": "Weniger anzeigen",

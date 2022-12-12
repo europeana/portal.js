@@ -1030,7 +1030,13 @@ export default {
       "visibilityChanged": "Attenzione: l'impostazione della visibilità è già stata modificata ed è attualmente \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto."
+      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto.",
+      "shareWhere": "Dove vorresti condividere questa galleria?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) è uno strumento basato sul Web per la gestione di contenuti di diverso tipo (incluso il 3D), la documentazione del patrimonio culturale attraverso gli spazi della comunità digitale e la cura di storie ed esperienze digitali."
+      }
     }
   },
   "showLess": "Mostra meno",

@@ -1030,7 +1030,13 @@ export default {
       "visibilityChanged": "Twissija: il-viżibilità tas-sett diġà nbidlet u bħalissa hija \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha."
+      "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha.",
+      "shareWhere": "Fejn tixtieq taqsam din il-gallerija?"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) hija għodda bbażata fuq il-web għall-ġestjoni ta' kontenut ta' tipi differenti (inkluż 3D), id-dokumentazzjoni tal-wirt kulturali permezz ta' spazji tal-komunità diġitali, u l-kura ta' stejjer u esperjenzi diġitali."
+      }
     }
   },
   "showLess": "Uri inqas",
