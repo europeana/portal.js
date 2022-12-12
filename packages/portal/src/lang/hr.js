@@ -44,12 +44,13 @@ export default {
     "preview": "Pregled",
     "previous": "Prethodni",
     "providedBy": "Omogućio {provider}",
+    "publish": "Objaviti",
     "reject": "Odbiti",
     "save": "Uštedjeti",
     "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
-    "skip": "Preskakati",
+    "skipSend": "Preskoči i pošalji",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument"
   },
@@ -61,6 +62,7 @@ export default {
     "title": "Naslov:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerije",
     "item": "Nedavne stavke",
     "organisation": "Organizacije",
     "place": "Mjesta",
@@ -216,6 +218,10 @@ export default {
       "description": "To može biti zbog sljedećih razloga: ova stavka ne postoji ili; povučeno je iz objave jer nije odgovaralo našim kriterijima kvalitete ili; ažuriran je i ponovno objavljen s novim jedinstvenim identifikatorom, u kojem slučaju ponovno pokušajte pronaći stavku.",
       "metaTitle": "Stavka nije pronađena",
       "title": "O ne! {newline} Nismo uspjeli pronaći ovu stavku."
+    },
+    "pageNotFound": {
+      "metaTitle": "Stranica nije pronađena",
+      "title": "Stranica koju tražite ne postoji."
     },
     "searchResultsNotFound": {
       "description": "Prilagodite pojam za pretraživanje ili ponovno postavite filtre da biste pokušali ponovno.",
@@ -608,6 +614,7 @@ export default {
   "feedback": {
     "emailOptional": "Možda bismo željeli pratiti. Unesite svoju e-poštu ako ste sretni da vas kontaktiramo.",
     "failed": "Zahtjev nije uspio. Pokušajte ponovo.",
+    "faq": "Idi na često postavljana pitanja",
     "form": {
       "placeholders": {
         "email": "Unesite svoju adresu e-pošte",
@@ -699,6 +706,7 @@ export default {
       "about": "O nama",
       "accessibility": "Pristupačnost",
       "cookies": "Kolačići",
+      "faq": "Često postavljana pitanja",
       "forDevelopers": "Za programere",
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
@@ -851,6 +859,11 @@ export default {
       "clickToCopy": "Kliknite na atribuciju da biste je kopirali",
       "modalIntro": "Ako ovu stavku koristite na webu ili negdje drugdje, ne zaboravite pored nje prikazati sljedeću atribuciju:",
       "modalTitle": "Reci hvala"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Savjetujemo vam da kliknete na gumb 'Institucija iz koje dolazi' u nastavku kako biste provjerili može li se predmet preuzeti na web stranici institucije koja pruža.",
+      "message": "Ako preuzimanje ne radi, to može biti zato što ga je uklonila institucija koja pruža zahtjev ili može postojati tehnički problem s njihovom uslugom.",
+      "title": "Preuzimanje ne radi"
     }
   },
   "multilingual": {
@@ -1012,7 +1025,8 @@ export default {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 stavke. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 sviđanja"
       },
-      "updated": "Predmet je dodan u galeriju."
+      "updated": "Predmet je dodan u galeriju.",
+      "visibilityChanged": "Upozorenje: postavljena vidljivost je već promijenjena i trenutno je \" {visibility} \"."
     },
     "prompts": {
       "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve stavke koje ste joj dodali."

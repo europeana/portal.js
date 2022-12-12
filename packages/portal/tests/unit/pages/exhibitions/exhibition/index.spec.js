@@ -67,7 +67,6 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     },
     $t: key => key,
     $tc: () => {},
-    $pageHeadTitle: key => key,
     $path: () => '/',
     $store: {
       commit: sinon.spy()
@@ -117,35 +116,32 @@ describe('Exhibition landing page', () => {
     it('uses optimised hero image for og:image', () => {
       const wrapper = factory();
 
-      const headMeta = wrapper.vm.head().meta;
+      const headMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(`${primaryImageOfPage.url}?optimised`);
+      expect(headMeta.ogImage).toBe(`${primaryImageOfPage.url}?optimised`);
     });
     it('uses optimised hero image description for og:image:alt', () => {
       primaryImageOfPage.image.description = 'alt description for hero image';
       const wrapper = factory();
 
-      const headMeta = wrapper.vm.head().meta;
+      const headMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:image:alt').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image:alt').content).toBe(primaryImageOfPage.image.description);
+      expect(headMeta.ogImageAlt).toBe(primaryImageOfPage.image.description);
     });
     it('uses description for og:description', () => {
       const wrapper = factory();
 
-      const headMeta = wrapper.vm.head().meta;
+      const headMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:description').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:description').content).toBe(description);
+      expect(headMeta.description).toBe(description);
     });
     it('does not populate metatags when no data available', () => {
       const wrapper = factory({});
 
-      const headMeta = wrapper.vm.head().meta;
+      const headMeta = wrapper.vm.pageMeta;
 
-      expect(headMeta.filter(meta => meta.property === 'og:description').length).toBe(0);
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(0);
+      expect(headMeta.description).toBeUndefined();
+      expect(headMeta.ogImage).toBe(null);
     });
   });
 

@@ -4,14 +4,13 @@
       v-if="$fetchState.error"
       data-qa="error message container"
       :error="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :status-code="$fetchState.error.statusCode"
     />
     <b-container
       v-else
     >
       <ContentHeader
-        :title="pageTitle"
+        :title="pageMeta.title"
       />
       <client-only>
         <EntityTable
@@ -24,8 +23,10 @@
 </template>
 
 <script>
-  import ContentHeader from '@/components/generic/ContentHeader';
+  import createHttpError from 'http-errors';
   import ClientOnly from 'vue-client-only';
+  import ContentHeader from '@/components/generic/ContentHeader';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'CollectionsIndexPage',
@@ -36,27 +37,23 @@
       ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
     },
+
+    mixins: [pageMetaMixin],
+
     fetch() {
       if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        const error = new Error('Unknown collection type');
-        error.statusCode = 404;
-        error.titlePath = 'errorMessage.pageNotFound.title';
-        error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
-        error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
-        throw error;
+        throw createHttpError(404, 'Unknown collection type'); // TODO: i18n
       }
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.pageTitle)
-      };
-    },
+
     computed: {
-      pageTitle() {
-        return this.$fetchState.error ? this.$t(this.$fetchState.error.metaTitlePath || 'error') : this.$t(`pages.collections.${this.$route.params.type}.title`);
+      pageMeta() {
+        return {
+          title: this.$t(`pages.collections.${this.$route.params.type}.title`)
+        };
       }
     },
     watch: {

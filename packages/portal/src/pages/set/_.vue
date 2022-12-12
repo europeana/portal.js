@@ -19,6 +19,7 @@
       :title-path="$fetchState.error.titlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
+      :status-code="$fetchState.error.statusCode"
     />
     <div
       v-else-if="set.id"
@@ -94,14 +95,24 @@
                     :visibility="set.visibility"
                   />
                 </template>
-                <b-button
-                  v-b-modal.share-modal
-                  variant="outline-primary"
-                  class="text-decoration-none"
-                >
-                  {{ $t('actions.share') }}
-                </b-button>
-                <SocialShareModal :media-url="shareMediaUrl" />
+                <template v-if="set.visibility !== 'private'">
+                  <b-button
+                    v-b-modal.share-modal
+                    variant="outline-primary"
+                    class="text-decoration-none"
+                  >
+                    {{ $t('actions.share') }}
+                  </b-button>
+                  <SocialShareModal
+                    :media-url="shareMediaUrl"
+                    :share-to="[{
+                      identifier: 'weavex',
+                      name: 'WEAVEx',
+                      url: weaveUrl,
+                      tooltip: $t('set.shareTo.weavex.tooltip')
+                    }]"
+                  />
+                </template>
               </div>
             </b-container>
           </b-col>
@@ -154,6 +165,7 @@
   // TODO: Also move the beforeRouteEnter redirect to the legacy middleware.
   import ClientOnly from 'vue-client-only';
   import createHttpError from 'http-errors';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   import {
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
@@ -167,15 +179,15 @@
   export default {
     name: 'SetPage',
 
-    components: {
-      ClientOnly,
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      ItemPreviewCardGroup,
-      SocialShareModal,
-      SetFormModal: () => import('@/components/set/SetFormModal'),
-      SetRecommendations: () => import('@/components/set/SetRecommendations')
-    },
+    components: { ClientOnly,
+                  ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+                  LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
+                  ItemPreviewCardGroup,
+                  SocialShareModal,
+                  SetFormModal: () => import('@/components/set/SetFormModal'),
+                  SetRecommendations: () => import('@/components/set/SetRecommendations') },
+
+    mixins: [pageMetaMixin],
 
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
@@ -208,35 +220,22 @@
         if (error.statusCode === 403) {
           error.titlePath = 'errorMessage.galleryUnauthorised.title';
           error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
-          error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
+          error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
-        }
-        if (error.statusCode === 404) {
-          error.titlePath = 'errorMessage.pageNotFound.title';
-          error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
-          error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
         }
         throw error;
       }
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0]),
-        meta: [
-          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
-          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.displayDescription && this.displayDescription.values[0] ? [
-            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
-            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
-          ] : [])
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.displayTitle.values[0],
+          description: this.displayDescription?.values?.[0],
+          ogType: 'article',
+          ogImage: this.shareMediaUrl
+        };
+      },
       fetchState() {
         return this.$fetchState;
       },
@@ -270,9 +269,6 @@
         return this.set.type === 'EntityBestItemsSet';
       },
       displayTitle() {
-        if (this.$fetchState.error) {
-          return { values: [this.$t(this.$fetchState.error.metaTitlePath ? this.$fetchState.error.metaTitlePath : 'error')] };
-        }
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
       },
       displayDescription() {
@@ -295,6 +291,9 @@
       },
       shareMediaUrl() {
         return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
+      },
+      weaveUrl() {
+        return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
       }
     },
 

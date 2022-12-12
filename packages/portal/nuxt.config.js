@@ -17,10 +17,12 @@ import features, { featureIsEnabled, featureNotificationExpiration } from './src
 
 import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './src/plugins/europeana/entity.js';
 import { BASE_URL as EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL } from './src/plugins/europeana/entity-management.js';
+import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './src/plugins/europeana/proxy.js';
 import {
   BASE_URL as EUROPEANA_RECORD_API_BASE_URL,
   FULLTEXT_BASE_URL as EUROPEANA_RECORD_API_FULLTEXT_URL
 } from './src/plugins/europeana/record.js';
+import { BASE_URL as EUROPEANA_SET_API_BASE_URL } from './src/plugins/europeana/set.js';
 import { PRESENTATION_URL as EUROPEANA_IIIF_PRESENTATION_URL } from './src/plugins/europeana/iiif.js';
 
 const buildPublicPath = () => {
@@ -122,13 +124,13 @@ export default {
           url: process.env.EUROPEANA_THUMBNAIL_API_URL
         },
         set: {
-          url: process.env.EUROPEANA_SET_API_URL,
+          url: process.env.EUROPEANA_SET_API_URL || EUROPEANA_SET_API_BASE_URL,
           key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
         }
       },
       proxy: {
         media: {
-          url: process.env.EUROPEANA_MEDIA_PROXY_URL
+          url: process.env.EUROPEANA_MEDIA_PROXY_URL || EUROPEANA_MEDIA_PROXY_URL
         }
       }
     },
@@ -276,7 +278,6 @@ export default {
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/link',
-    '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',

@@ -102,6 +102,7 @@
       const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
 
       return {
+        title: this.$config.app.siteName,
         htmlAttrs: {
           ...i18nHead.htmlAttrs
         },
@@ -115,9 +116,10 @@
           { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
         ],
         meta: [
-          { hid: 'description', property: 'description', content: 'Europeana' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
-          ...i18nHead.meta
+          ...i18nHead.meta,
+          { hid: 'description', name: 'description', content: this.$config.app.siteName },
+          { hid: 'og:description', property: 'og:description', content: this.$config.app.siteName },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
         ]
       };
     },

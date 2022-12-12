@@ -19,6 +19,7 @@
       :title-path="$fetchState.error.titlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
+      :status-code="$fetchState.error.statusCode"
     />
     <b-container
       v-else-if="!setGalleriesEnabled"
@@ -30,7 +31,7 @@
         :page-slug="`galleries/${identifier}`"
       />
       <ContentHeader
-        :title="title"
+        :title="pageMeta.title"
         :description="htmlDescription"
         :media-url="shareMediaUrl"
         :context-label="$tc('galleries.galleries', 1)"
@@ -115,14 +116,14 @@
               </b-row>
               <div class="d-inline-flex collection-buttons">
                 <template
-                  v-if="userIsOwner"
+                  v-if="userCanEditSet"
                 >
                   <b-button
-                    variant="outline-primary"
-                    class="text-decoration-none mr-2"
+                    class="d-inline-flex align-items-center mr-2"
                     data-qa="edit set button"
                     @click="$bvModal.show(setFormModalId)"
                   >
+                    <span class="icon-edit pr-1" />
                     {{ $t('actions.edit') }}
                   </b-button>
                   <SetFormModal
@@ -133,14 +134,23 @@
                     :visibility="set.visibility"
                   />
                 </template>
-                <b-button
-                  v-b-modal.share-modal
-                  variant="outline-primary"
-                  class="text-decoration-none"
-                >
-                  {{ $t('actions.share') }}
-                </b-button>
-                <SocialShareModal :media-url="shareMediaUrl" />
+                <template v-if="set.visibility !== 'private'">
+                  <ShareButton />
+                  <SocialShareModal
+                    :media-url="shareMediaUrl"
+                    :share-to="[{
+                      identifier: 'weavex',
+                      name: 'WEAVEx',
+                      url: weaveUrl,
+                      tooltip: $t('set.shareTo.weavex.tooltip')
+                    }]"
+                  />
+                </template>
+                <PublishSetButton
+                  v-if="set.visibility !== 'private' && userIsPublisher"
+                  :set-id="set.id"
+                  :visibility="set.visibility"
+                />
               </div>
             </b-container>
           </b-col>
@@ -197,8 +207,10 @@
   } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ShareButton from '@/components/sharing/ShareButton.vue';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   // TODO: the following imports are only needed for contentful Galleries.
   import ContentHeader from '../../components/generic/ContentHeader';
@@ -212,19 +224,22 @@
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       ItemPreviewCardGroup,
+      ShareButton,
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations'),
       // TODO: The following components are only used in contentful galleries
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard'),
-      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
+      PublishSetButton: () => import('@/components/set/PublishSetButton')
+
     },
     mixins: [
       redirectToPrefPathMixin,
+      pageMetaMixin,
       // TODO: markdown is only used in contentful galleries
       stripMarkdown
-
     ],
     async beforeRouteLeave(_to, _from, next) {
       if (this.setGalleriesEnabled) {
@@ -261,22 +276,15 @@
         await this.fetchContentfulGallery();
       }
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0]),
-        meta: [
-          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
-          { hid: 'og:title', property: 'og:title', content: this.displayTitle.values[0] },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.displayDescription && this.displayDescription.values[0] ? [
-            { hid: 'description', name: 'description', content: this.displayDescription.values[0] },
-            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0] }
-          ] : [])
-      };
-    },
     computed: {
+      pageMeta() {
+        return {
+          title: this.displayTitle.values[0],
+          description: this.displayDescription?.values?.[0],
+          ogType: 'article',
+          ogImage: this.shareMediaUrl
+        };
+      },
       setGalleriesEnabled() {
         return this.$features.setGalleries;
       },
@@ -293,24 +301,30 @@
         return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
       },
       userIsOwner() {
-        return this.$auth.loggedIn && this.$store.state.auth.user &&
-          this.setCreatorId &&
-          this.setCreatorId.endsWith(`/${this.$store.state.auth.user.sub}`);
+        return this.$auth.loggedIn && this.$auth.user &&
+          this.setCreatorId?.endsWith(`/${this.$auth.user.sub}`);
       },
       userIsEntityEditor() {
-        const user = this.$store.state.auth.user;
-        const entitiesEditor = user?.resource_access?.entities?.roles?.includes('editor');
-        const usersetsEditor = user?.resource_access?.usersets?.roles?.includes('editor');
+        const entitiesEditor = this.$auth.user?.resource_access?.entities?.roles?.includes('editor');
+        const usersetsEditor = this.$auth.user?.resource_access?.usersets?.roles?.includes('editor');
         return entitiesEditor && usersetsEditor;
       },
-      userCanEdit() {
+      userIsPublisher() {
+        const user = this.$auth.user;
+        const publisher = user?.resource_access?.usersets?.roles?.includes('publisher');
+        return !!publisher;
+      },
+      userCanHandleRecommendations() {
         return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
+      },
+      userCanEditSet() {
+        return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published');
       },
       setIsEntityBestItems() {
         return this.set.type === 'EntityBestItemsSet';
       },
       displayRecommendations() {
-        return this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit;
+        return this.enableRecommendations && this.$auth.loggedIn && this.userCanHandleRecommendations;
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
@@ -325,9 +339,6 @@
         return this.$tc(label, this.set.total, { max });
       },
       displayTitle() {
-        if (this.$fetchState.error) {
-          return { values: [this.$t(this.$fetchState.error.metaTitlePath || 'error')] };
-        }
         // TODO: remove contentful gallery fallback
         if (this.setGalleriesEnabled) {
           return langMapValueForLocale(this.set.title, this.$i18n.locale);
@@ -354,6 +365,9 @@
       },
       htmlDescription() {
         return marked.parse(this.rawDescription);
+      },
+      weaveUrl() {
+        return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
       }
     },
 
@@ -394,12 +408,7 @@
           .then(response => response.data.data)
           .then(data => {
             if (data.imageGalleryCollection.items.length === 0) {
-              const error = new Error(this.$t('messages.notFound'));
-              error.statusCode = 404;
-              error.titlePath = 'errorMessage.pageNotFound.title';
-              error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
-              error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
-              throw error;
+              throw createHttpError(404, this.$t('messages.notFound'));
             }
 
             const gallery = data.imageGalleryCollection.items[0];
@@ -409,9 +418,6 @@
             this.images = gallery.hasPartCollection.items.filter(image => image !== null);
             this.rawDescription = gallery.description;
             this.title = gallery.name;
-          })
-          .catch((e) => {
-            throw e;
           });
       },
       imageTitle(data) {
@@ -431,13 +437,8 @@
         if (error.statusCode === 403 || error.statusCode === 401) {
           error.titlePath = 'errorMessage.galleryUnauthorised.title';
           error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
-          error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
+          error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
-        }
-        if (error.statusCode === 404) {
-          error.titlePath = 'errorMessage.pageNotFound.title';
-          error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
-          error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
         }
         throw error;
       }

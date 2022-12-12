@@ -31,6 +31,7 @@ export default {
     "cancel": "Zrušiť",
     "close": "zatvoriť",
     "continue": "pokračovať",
+    "depublish": "Zrušiť zverejnenie",
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "feedback": "Spätná väzba",
@@ -44,12 +45,13 @@ export default {
     "preview": "Náhľad",
     "previous": "Predchádzajúce",
     "providedBy": "Poskytovateľ:  {provider}",
+    "publish": "Publikovať",
     "reject": "Odmietnuť",
     "save": "Uložiť",
     "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
-    "skip": "Preskočiť",
+    "skipSend": "Preskočiť a odoslať",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Názov:"
   },
   "automatedCardGroup": {
+    "gallery": "Galérie",
     "item": "Nedávne položky",
     "organisation": "Organizácie",
     "place": "Miesta",
@@ -216,6 +219,10 @@ export default {
       "description": "Môže to byť z nasledujúcich dôvodov: táto položka neexistuje alebo; bolo zrušené, pretože nezodpovedalo našim kritériám kvality, alebo; bola aktualizovaná a znovu publikovaná s novým jedinečným identifikátorom, v takom prípade skúste položku znova nájsť.",
       "metaTitle": "Položka sa nenašla",
       "title": "Ó nie! {newline} Túto položku sa nám nepodarilo nájsť."
+    },
+    "pageNotFound": {
+      "metaTitle": "Stránka nenájdená",
+      "title": "Stránka, ktorú hľadáte, neexistuje."
     },
     "searchResultsNotFound": {
       "description": "Upravte hľadaný výraz alebo restujte filtre a skúste to znova.",
@@ -608,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Možno budeme chcieť nadviazať ďalšie kroky. Ak chcete, aby sme vás kontaktovali, zadajte svoj e-mail.",
     "failed": "Žiadosť zlyhala. Prosím skúste znova.",
+    "faq": "Prejdite na často kladené otázky",
     "form": {
       "placeholders": {
         "email": "Zadajte svoju e-mailovú adresu",
@@ -699,6 +707,7 @@ export default {
       "about": "O nás",
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
+      "faq": "Často kladené otázky",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
@@ -851,6 +860,11 @@ export default {
       "clickToCopy": "Kliknutím na atribút ho skopírujete",
       "modalIntro": "Ak používate túto položku na webe alebo kdekoľvek inde, nezabudnite vedľa nej zobraziť nasledujúce priradenie:",
       "modalTitle": "Povedz ďakujem"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Odporúčame vám kliknúť na tlačidlo „Poskytujúca inštitúcia“ nižšie a skontrolovať, či je možné položku stiahnuť na webovej stránke poskytujúcej inštitúcie.",
+      "message": "Ak sťahovanie nefunguje, môže to byť spôsobené tým, že ho odstránila poskytujúca inštitúcia, alebo môže nastať technický problém s jej službou.",
+      "title": "Sťahovanie nefunguje"
     }
   },
   "multilingual": {
@@ -1012,7 +1026,8 @@ export default {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 položiek, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
         "title": "100 označení Páči sa mi"
       },
-      "updated": "Položka bola pridaná do galérie."
+      "updated": "Položka bola pridaná do galérie.",
+      "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
     },
     "prompts": {
       "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali."

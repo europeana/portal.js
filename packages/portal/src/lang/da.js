@@ -31,6 +31,7 @@ export default {
     "cancel": "Annuller",
     "close": "luk",
     "continue": "fortsæt",
+    "depublish": "Depublicer",
     "download": "Hent",
     "edit": "Rediger",
     "feedback": "Feedback",
@@ -44,12 +45,13 @@ export default {
     "preview": "Forhåndsvisning",
     "previous": "Forrige",
     "providedBy": "Leveret af {provider}",
+    "publish": "Offentliggøre",
     "reject": "Afvise",
     "save": "Gem",
     "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
-    "skip": "Springe",
+    "skipSend": "Spring over og send",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Gallerier",
     "item": "Seneste varer",
     "organisation": "Organisationer",
     "place": "Steder",
@@ -216,6 +219,10 @@ export default {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
+    },
+    "pageNotFound": {
+      "metaTitle": "Siden blev ikke fundet",
+      "title": "Den side du leder efter eksisterer ikke."
     },
     "searchResultsNotFound": {
       "description": "Juster søgeordet, eller nulstil filtrene for at prøve igen.",
@@ -608,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Vi ønsker måske at følge op. Indtast din e-mail, hvis du er glad for, at vi kontakter dig.",
     "failed": "Anmodningen mislykkedes. Prøv igen.",
+    "faq": "Gå til ofte stillede spørgsmål",
     "form": {
       "placeholders": {
         "email": "Indtast din e-mailadresse",
@@ -699,6 +707,7 @@ export default {
       "about": "Om os",
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
+      "faq": "Ofte stillede spørgsmål",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
@@ -851,6 +860,11 @@ export default {
       "clickToCopy": "Klik på tilskrivningen for at kopiere den",
       "modalIntro": "Hvis du bruger dette element på nettet eller andre steder, skal du ikke glemme at vise følgende tilskrivning ved siden af det:",
       "modalTitle": "Sig tak"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Vi råder dig til at klikke på knappen 'Leverende institution' nedenfor for at kontrollere, om varen kan downloades på den udbyders hjemmeside.",
+      "message": "Hvis overførslen ikke virker, kan det skyldes, at den er blevet fjernet af den leverede institution, eller der kan være et teknisk problem med deres service.",
+      "title": "Download virker ikke"
     }
   },
   "multilingual": {
@@ -1012,7 +1026,8 @@ export default {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 artikler. Vi fjerner denne begrænsning snart!",
         "title": "100 synes om'er"
       },
-      "updated": "Elementet blev føjet til galleriet."
+      "updated": "Elementet blev føjet til galleriet.",
+      "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
     },
     "prompts": {
       "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det."

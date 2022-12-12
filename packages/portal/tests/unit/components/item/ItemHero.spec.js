@@ -38,6 +38,15 @@ const factory = (propsData, options = {}) => mount(ItemHero, {
       record: {
         mediaProxyUrl: (val) => `proxied - ${val}`
       }
+    },
+    $config: {
+      europeana: {
+        proxy: {
+          media: {
+            url: 'https://proxy.europeana.eu'
+          }
+        }
+      }
     }
   }
 });
@@ -177,7 +186,7 @@ describe('components/item/ItemHero', () => {
     });
   });
 
-  describe('UserButtons', () => {
+  describe('showPins', () => {
     describe('when the user is an editor', () => {
       const store = {
         state: {
@@ -196,31 +205,30 @@ describe('components/item/ItemHero', () => {
           }
         }
       };
-      it('shows the pinning, add and like buttons', () => {
+      it('is `true`', () => {
         const wrapper = factory({ media, identifier, entities }, { store });
 
-        const userButtons = wrapper.find('[data-qa="user buttons"]');
-        expect(userButtons.find('[data-qa="pin button"]').isVisible()).toBe(true);
-        expect(userButtons.find('[data-qa="add button"]').isVisible()).toBe(true);
-        expect(userButtons.find('[data-qa="like button"]').isVisible()).toBe(true);
+        const showPins = wrapper.vm.showPins;
+
+        expect(showPins).toBe(true);
       });
 
-      it('omits the pinning button if there are no entities', () => {
+      it('is `false` if no entities', () => {
         const wrapper = factory({ media, identifier, entities: [] }, { store });
 
-        const userButtons = wrapper.find('[data-qa="user buttons"]');
-        expect(userButtons.find('[data-qa="pin button"]').isVisible()).toBe(false);
+        const showPins = wrapper.vm.showPins;
+
+        expect(showPins).toBe(false);
       });
     });
 
     describe('when the user is NOT an editor', () => {
-      it('shows add and like buttons only', () => {
+      it('is `false`', () => {
         const wrapper = factory({ media, identifier, entities });
 
-        const userButtons = wrapper.find('[data-qa="user buttons"]');
-        expect(userButtons.find('[data-qa="pin button"]').isVisible()).toBe(false);
-        expect(userButtons.find('[data-qa="add button"]').isVisible()).toBe(true);
-        expect(userButtons.find('[data-qa="like button"]').isVisible()).toBe(true);
+        const showPins = wrapper.vm.showPins;
+
+        expect(showPins).toBe(false);
       });
     });
   });

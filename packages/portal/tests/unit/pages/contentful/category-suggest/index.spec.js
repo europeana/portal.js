@@ -34,8 +34,7 @@ const factory = () => shallowMountNuxt(page, {
     $t: key => key,
     $i18n: {
       isoLocale: () => 'en-GB'
-    },
-    $pageHeadTitle: key => key
+    }
   }
 });
 
@@ -43,6 +42,16 @@ describe('pages/contentful/category-suggest/index', () => {
   beforeEach(sinon.resetHistory);
   beforeAll(() => {
     window.contentfulExtension = fakeContentfulExtension({ location: 'field' });
+  });
+
+  describe('head', () => {
+    describe('title', () => {
+      it('is "Category suggest - Contentful app"', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.head().title).toBe('Category suggest - Contentful app');
+      });
+    });
   });
 
   describe('mounted', () => {
@@ -166,14 +175,6 @@ describe('pages/contentful/category-suggest/index', () => {
           contentfulEntryLink(fixtures.nature)
         ])).toBe(true);
       });
-    });
-  });
-
-  describe('head', () => {
-    it('sets the title to: Category suggest - Contentful app', () => {
-      const wrapper = factory();
-
-      expect(wrapper.vm.head().title).toBe('Category suggest - Contentful app');
     });
   });
 });

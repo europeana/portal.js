@@ -6,13 +6,13 @@
     <ErrorMessage
       data-qa="error message container"
       :error="error.message"
-      :title-path="errorExplanation ? errorExplanation.titlePath : null"
-      :illustration-src="errorExplanation ? errorExplanation.illustrationSrc : null"
+      :status-code="error.statusCode"
     />
   </div>
 </template>
 
 <script>
+  import pageMetaMixin from '@/mixins/pageMeta';
   import ErrorMessage from '@/components/generic/ErrorMessage';
 
   export default {
@@ -22,6 +22,8 @@
       ErrorMessage
     },
 
+    mixins: [pageMetaMixin],
+
     props: {
       error: {
         type: Object,
@@ -29,22 +31,16 @@
       }
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t(this.errorExplanation?.metaTitlePath || 'error'))
-      };
+    fetch() {
+      // so that pageMetaMixin can detect and use the error
+      throw this.error;
     },
 
     computed: {
-      errorExplanation() {
-        if (this.error.statusCode === 404) {
-          return {
-            titlePath: 'errorMessage.pageNotFound.title',
-            metaTitlePath: 'errorMessage.pageNotFound.metaTitle',
-            illustrationSrc: require('@/assets/img/illustrations/il-page-not-found.svg')
-          };
-        }
-        return null;
+      pageMeta() {
+        return {
+          title: this.$t('error')
+        };
       }
     }
   };

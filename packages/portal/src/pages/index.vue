@@ -13,8 +13,7 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
-      :title-path="$fetchState.error.titlePath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :status-code="$fetchState.error.statusCode"
     />
     <template
       v-else
@@ -37,9 +36,11 @@
 </template>
 
 <script>
+  import createHttpError from 'http-errors';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import BrowsePage from '@/components/browse/BrowsePage';
   import StaticPage from '@/components/static/StaticPage';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'IndexPage',
@@ -50,6 +51,8 @@
       LoadingSpinner,
       StaticPage
     },
+
+    mixins: [pageMetaMixin],
 
     props: {
       slug: {
@@ -86,34 +89,20 @@
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        const error = new Error(this.$t('messages.notFound'));
-        error.statusCode = 404;
-        error.titlePath = 'errorMessage.pageNotFound.title';
-        error.metaTitlePath = 'errorMessage.pageNotFound.metaTitle';
-        error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
-
-        throw error;
+        throw createHttpError(404, this.$t('messages.notFound'));
       }
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.pageTitle),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.pageTitle },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
-        ].concat(this.page.description ? [
-          { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:description', property: 'og:description', content: this.page.description }
-        ] : []).concat(this.socialMediaImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.socialMediaImageOptimisedUrl },
-          { hid: 'og:image:alt', property: 'og:image:alt', content: this.socialMediaImageAlt }
-        ] : [])
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.page.name,
+          description: this.page.description,
+          ogType: 'article',
+          ogImage: this.socialMediaImage ? this.socialMediaImageOptimisedUrl : null,
+          ogImageAlt: this.socialMediaImage ? this.socialMediaImageAlt : null
+        };
+      },
       socialMediaImage() {
         // use social media image if set in Contentful, else null
         return this.page.image || null;
@@ -126,12 +115,6 @@
       },
       socialMediaImageAlt() {
         return this.socialMediaImage?.description || '';
-      },
-      pageTitle() {
-        if (this.$fetchState.error) {
-          return this.$t(this.$fetchState.error.metaTitlePath || 'error');
-        }
-        return this.page.name;
       }
     }
   };

@@ -406,6 +406,68 @@ describe('store/set', () => {
       });
     });
 
+    describe('publish()', () => {
+      it('publishes the set via $apis.set', async() => {
+        store.actions.$apis.set.publish = sinon.stub().resolves({});
+        const state = {};
+
+        await store.actions.publish({ state, commit }, setId);
+
+        expect(store.actions.$apis.set.publish.calledWith(setId)).toBe(true);
+      });
+
+      describe('when set is active', () => {
+        it('commits with "setActive", preserving what has not been updated', async() => {
+          const activeWas = {
+            ...set
+          };
+          const activeResponse = { id: setId, visibility: 'published' };
+          const activeWillBe = {
+            ...set,
+            id: setId,
+            visibility: 'published'
+          };
+          store.actions.$apis.set.publish = sinon.stub().resolves(activeResponse);
+          const state = { active: activeWas };
+
+          await store.actions.publish({ commit, state }, setId);
+
+          expect(commit.calledWith('setActive', activeWillBe)).toBe(true);
+        });
+      });
+    });
+
+    describe('unpublish()', () => {
+      it('unpublishes the set via $apis.set', async() => {
+        store.actions.$apis.set.unpublish = sinon.stub().resolves({});
+        const state = {};
+
+        await store.actions.unpublish({ state, commit }, setId);
+
+        expect(store.actions.$apis.set.unpublish.calledWith(setId)).toBe(true);
+      });
+
+      describe('when set is active', () => {
+        it('commits with "setActive", preserving what has not been updated', async() => {
+          const activeWas = {
+            ...set
+          };
+          const activeResponse = { id: setId, visibility: 'public' };
+          const activeWillBe = {
+            ...set,
+            id: setId,
+            visibility: 'public'
+          };
+          store.actions.$apis.set.unpublish = sinon.stub().resolves(activeResponse);
+          const state = { active: activeWas };
+
+          await store.actions.unpublish({ commit, state }, setId);
+
+          expect(commit.calledWith('setActive', activeWillBe)).toBe(true);
+        });
+      });
+    });
+
     describe('delete()', () => {
       it('deletes the set via $apis.set', async() => {
         store.actions.$apis.set.delete = sinon.stub().resolves();

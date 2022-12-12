@@ -31,6 +31,7 @@ export default {
     "cancel": "Cancelar",
     "close": "cerrar",
     "continue": "continuar",
+    "depublish": "Despublicar",
     "download": "Descargar",
     "edit": "Editar",
     "feedback": "Comentarios",
@@ -44,12 +45,13 @@ export default {
     "preview": "Vista previa",
     "previous": "Anterior",
     "providedBy": "Proporcionado por {provider}",
+    "publish": "Publicar",
     "reject": "Rechazar",
     "save": "Salvar",
     "send": "Enviar",
     "share": "Compartir",
     "shareOn": "Compartir en {social}",
-    "skip": "Saltar",
+    "skipSend": "Saltar y enviar",
     "viewAt": "Ver en {link}",
     "viewDocument": "Ver documento"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Título:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerías",
     "item": "Elementos recientes",
     "organisation": "Organizaciones",
     "place": "Lugares",
@@ -216,6 +219,10 @@ export default {
       "description": "Esto podría deberse a las siguientes razones: este elemento no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el elemento nuevamente.",
       "metaTitle": "Elemento no encontrado",
       "title": "¡Oh, no! {newline} No pudimos encontrar este elemento."
+    },
+    "pageNotFound": {
+      "metaTitle": "Página no encontrada",
+      "title": "La página que buscas no existe."
     },
     "searchResultsNotFound": {
       "description": "Por favor, ajuste el término de búsqueda o restablezca los filtros para volver a intentarlo.",
@@ -608,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Es posible que queremos hacer un seguimiento. Introduce tu correo electrónico si estás de acuerdo en que nos pongamos en contacto contigo.",
     "failed": "La solicitud falló. Inténtalo de nuevo.",
+    "faq": "Ir a preguntas frecuentes",
     "form": {
       "placeholders": {
         "email": "Ingrese su dirección de correo electrónico",
@@ -699,6 +707,7 @@ export default {
       "about": "¿Qué es Europeana?",
       "accessibility": "Accesibilidad",
       "cookies": "Cookies",
+      "faq": "Preguntas frecuentes",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "MoreInfoLabel": "Más información",
@@ -851,6 +860,11 @@ export default {
       "clickToCopy": "Haga clic en la atribución para copiarla",
       "modalIntro": "Si usa este elemento en la web o en otro lugar, no olvide mostrar la siguiente atribución junto a él:",
       "modalTitle": "Di gracias"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Le recomendamos que haga clic en el botón \"Institución proveedora\" a continuación para verificar si el artículo se puede descargar en el sitio web de la institución proveedora.",
+      "message": "Si la descarga no funciona, puede deberse a que la institución proveedora la eliminó o puede haber un problema técnico con su servicio.",
+      "title": "Descarga no funciona"
     }
   },
   "multilingual": {
@@ -1012,7 +1026,8 @@ export default {
         "body": "Lo sentimos, pero en este momento el límite de \"Me gusta\" está establecido en un máximo de 100 artículos. ¡Pronto eliminaremos este límite!",
         "title": "100 \"Me gusta\""
       },
-      "updated": "El elemento se agregó a la galería."
+      "updated": "El elemento se agregó a la galería.",
+      "visibilityChanged": "Advertencia: la visibilidad establecida ya cambió y actualmente es \" {visibility} \"."
     },
     "prompts": {
       "delete": "¿Estás seguro de que quieres eliminar esta galería? Si eliminas esta galería, perderás todos los elementos que le hayas agregado."

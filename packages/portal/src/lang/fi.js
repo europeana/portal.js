@@ -31,6 +31,7 @@ export default {
     "cancel": "Peruuttaa",
     "close": "sulje",
     "continue": "jatka",
+    "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
     "edit": "Muokkaa",
     "feedback": "Palaute",
@@ -44,12 +45,13 @@ export default {
     "preview": "Esikatselu",
     "previous": "Edellinen",
     "providedBy": "Tarjoaa {provider}",
+    "publish": "Julkaista",
     "reject": "Hylätä",
     "save": "Tallenna",
     "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
-    "skip": "Ohita",
+    "skipSend": "Ohita ja lähetä",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Nimi:"
   },
   "automatedCardGroup": {
+    "gallery": "Galleriat",
     "item": "Viimeisimmät kohdetta",
     "organisation": "Organisaatiot",
     "place": "Paikat",
@@ -216,6 +219,10 @@ export default {
       "description": "Tämä voi johtua seuraavista syistä: tätä kohdetta ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää kohde uudelleen.",
       "metaTitle": "Kohdetta ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä kohdetta."
+    },
+    "pageNotFound": {
+      "metaTitle": "Sivua ei löydy",
+      "title": "Etsimääsi sivua ei ole olemassa."
     },
     "searchResultsNotFound": {
       "description": "Muokkaa hakusanaa tai nollaa suodattimet ja yritä uudelleen.",
@@ -608,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Saatamme haluta seurata asiaa. Kirjoita sähköpostiosoitteesi, jos olet iloinen siitä, että voimme ottaa sinuun yhteyttä.",
     "failed": "Pyyntö epäonnistui. Yritä uudelleen.",
+    "faq": "Siirry usein kysyttyihin kysymyksiin",
     "form": {
       "placeholders": {
         "email": "Syötä sähköpostiosoitteesi",
@@ -699,6 +707,7 @@ export default {
       "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
+      "faq": "Usein kysytyt kysymykset",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
@@ -851,6 +860,11 @@ export default {
       "clickToCopy": "Kopioi attribuutti napsauttamalla sitä",
       "modalIntro": "Jos käytät tätä kohdetta verkossa tai muualla, älä unohda näyttää seuraavaa attribuutiota sen vieressä:",
       "modalTitle": "Sano kiitos"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Suosittelemme, että napsautat alla olevaa \"kulttuuriperintölaitos\" -painiketta tarkistaaksesi, voidaanko kohde ladata tarjoavan laitoksen verkkosivustolta.",
+      "message": "Jos lataus ei toimi, se voi johtua siitä, että tarjoava laitos on poistanut sen tai sen palvelussa voi olla tekninen ongelma.",
+      "title": "Lataus ei toimi"
     }
   },
   "multilingual": {
@@ -1012,7 +1026,8 @@ export default {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 kohteeseen. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"
       },
-      "updated": "Kohde on lisätty galleriaan."
+      "updated": "Kohde on lisätty galleriaan.",
+      "visibilityChanged": "Varoitus: asetettu näkyvyys on jo muuttunut ja on tällä hetkellä \" {visibility} \"."
     },
     "prompts": {
       "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."

@@ -31,6 +31,7 @@ export default {
     "cancel": "Annuleren",
     "close": "sluiten",
     "continue": "doorgaan",
+    "depublish": "Depubliceren",
     "download": "Download",
     "edit": "Bewerken",
     "feedback": "Feedback",
@@ -44,12 +45,13 @@ export default {
     "preview": "Voorbeeld",
     "previous": "Vorige",
     "providedBy": "Aangeboden door {provider}",
+    "publish": "Publiceren",
     "reject": "Afwijzen",
     "save": "Opslaan",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
-    "skip": "Overslaan",
+    "skipSend": "Overslaan en verzenden",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijen",
     "item": "Recente items",
     "organisation": "Organisaties",
     "place": "Plaatsen",
@@ -216,6 +219,10 @@ export default {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    },
+    "pageNotFound": {
+      "metaTitle": "Pagina niet gevonden",
+      "title": "De pagina die u zoekt, bestaat niet."
     },
     "searchResultsNotFound": {
       "description": "Pas de zoekterm aan of reset de filters om het opnieuw te proberen.",
@@ -608,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "We willen hier misschien een vervolg aan geven. Voer uw e-mailadres in als u het niet erg vindt als wij contact met u opnemen.",
     "failed": "Het verzoek is mislukt. Probeer het opnieuw.",
+    "faq": "Ga naar veelgestelde vragen",
     "form": {
       "placeholders": {
         "email": "Voer uw e-mailadres in",
@@ -699,6 +707,7 @@ export default {
       "about": "Over ons",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
+      "faq": "Veelgestelde vragen",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
@@ -851,6 +860,11 @@ export default {
       "clickToCopy": "Klik op de toeschrijving om deze te kopiëren",
       "modalIntro": "Als u dit item op internet of ergens anders gebruikt, vergeet dan niet de volgende toeschrijving ernaast weer te geven:",
       "modalTitle": "Zeg bedankt"
+    },
+    "downloadFailed": {
+      "linkPrompt": "We raden u aan op de onderstaande knop 'Instituut' te klikken om na te gaan of het item kan worden gedownload op de website van de verstrekkende instelling.",
+      "message": "Als de download niet werkt, kan het zijn dat deze is verwijderd door de verstrekkende instelling of dat er een technisch probleem is met hun service.",
+      "title": "Downloaden werkt niet"
     }
   },
   "multilingual": {
@@ -1012,7 +1026,8 @@ export default {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 artikelen liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"
       },
-      "updated": "Het item is toegevoegd aan de galerij."
+      "updated": "Het item is toegevoegd aan de galerij.",
+      "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
       "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd."

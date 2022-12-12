@@ -1,7 +1,7 @@
 <template>
   <b-container data-qa="debug page">
     <ContentHeader
-      :title="title"
+      :title="pageMeta.title"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
@@ -54,6 +54,7 @@
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
   import EmbedOEmbed from '@/components/embed/EmbedOEmbed';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'DebugOEmbedPage',
@@ -63,13 +64,14 @@
       EmbedOEmbed
     },
 
+    mixins: [pageMetaMixin],
+
     data() {
       return {
         endpoint: null,
         url: null,
         formEndpoint: null,
-        formUrl: null,
-        title: 'oEmbed'
+        formUrl: null
       };
     },
 
@@ -81,10 +83,12 @@
       this.formEndpoint = this.endpoint;
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title)
-      };
+    computed: {
+      pageMeta() {
+        return {
+          title: 'oEmbed'
+        };
+      }
     },
 
     watch: {

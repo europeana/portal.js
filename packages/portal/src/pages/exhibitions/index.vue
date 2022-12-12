@@ -3,7 +3,7 @@
     data-qa="exhibitions"
   >
     <ContentHeader
-      :title="$tc('exhibitions.exhibitions', 2)"
+      :title="pageMeta.title"
       :description="$t('exhibitions.description')"
     />
     <b-row class="flex-md-row pb-5">
@@ -43,6 +43,7 @@
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNavInput from '../../components/generic/PaginationNavInput';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   const PER_PAGE = 20;
 
@@ -53,6 +54,7 @@
       ContentCard,
       PaginationNavInput
     },
+    mixins: [pageMetaMixin],
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
       next();
@@ -88,10 +90,12 @@
         page: null
       };
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$tc('exhibitions.exhibitions', 2))
-      };
+    computed: {
+      pageMeta() {
+        return {
+          title: this.$tc('exhibitions.exhibitions', 2)
+        };
+      }
     },
     watchQuery: ['page'],
     methods: {

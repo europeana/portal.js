@@ -46,7 +46,7 @@
         </button>
       </div>
     </div>
-    <figcaption>
+    <figcaption :style="`max-width: ${imageWidth}px`">
       <CiteAttribution
         :name="leftImageAttribution.name"
         :creator="leftImageAttribution.creator"

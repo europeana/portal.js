@@ -31,6 +31,7 @@ export default {
     "cancel": "Annulla",
     "close": "chiudi",
     "continue": "continua",
+    "depublish": "Depubblicare",
     "download": "Scarica",
     "edit": "Modifica",
     "feedback": "Feedback",
@@ -44,12 +45,13 @@ export default {
     "preview": "Anteprima",
     "previous": "Precedente",
     "providedBy": "Fornito da {provider}",
+    "publish": "Pubblicare",
     "reject": "Rifiuta",
     "save": "Salva",
     "send": "Invia",
     "share": "Condividi",
     "shareOn": "Condividi su {social}",
-    "skip": "Salta",
+    "skipSend": "Salta e invia",
     "viewAt": "Vedi su {link}",
     "viewDocument": "Visualizza documento"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Titolo:"
   },
   "automatedCardGroup": {
+    "gallery": "Gallerie",
     "item": "Oggetti recenti",
     "organisation": "Organizzazioni",
     "place": "Posti",
@@ -216,6 +219,10 @@ export default {
       "description": "Ciò potrebbe essere dovuto ai seguenti motivi: questo elemento non esiste, o; è stato ritirato dalla pubblicazione perché non corrispondeva ai nostri criteri di qualità, oppure; è stato aggiornato e ripubblicato con un nuovo identificatore univoco, nel qual caso prova a ritrovare l'elemento.",
       "metaTitle": "Elemento non trovato",
       "title": "Oh no! {newline} Non siamo riusciti a trovare questo elemento."
+    },
+    "pageNotFound": {
+      "metaTitle": "Pagina non trovata",
+      "title": "La pagina che stai cercando non esiste."
     },
     "searchResultsNotFound": {
       "description": "Modifica il termine di ricerca o reimposta i filtri per riprovare.",
@@ -608,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Potremmo voler seguire. Inserisci la tua email se sei felice di essere contattato.",
     "failed": "La richiesta è fallita. Per favore riprova.",
+    "faq": "Vai alle domande frequenti",
     "form": {
       "placeholders": {
         "email": "Inserisci il tuo indirizzo email",
@@ -699,6 +707,7 @@ export default {
       "about": "Chi siamo",
       "accessibility": "Accessibilità",
       "cookies": "Cookie",
+      "faq": "Domande frequenti",
       "forDevelopers": "Per gli sviluppatori",
       "help": "Aiuto",
       "MoreInfoLabel": "Maggiori informazioni",
@@ -851,6 +860,11 @@ export default {
       "clickToCopy": "Clicca sull'attribuzione per copiarla",
       "modalIntro": "Se utilizzi questo elemento sul Web o altrove, non dimenticare di utilizzare la seguente attribuzione accanto a esso:",
       "modalTitle": "Di' grazie"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Ti consigliamo di cliccare sul pulsante \"Istituzione fornitrice\" qui sotto per verificare se l'articolo può essere scaricato sul sito web dell'istituto erogatore.",
+      "message": "Se il download non funziona, potrebbe essere perché è stato rimosso dall'istituto che lo ha fornito o potrebbe essersi verificato un problema tecnico con il servizio.",
+      "title": "Download non funzionante"
     }
   },
   "multilingual": {
@@ -1012,7 +1026,8 @@ export default {
         "body": "Siamo spiacenti, ma al momento puoi mettere Mi piace a un massimo di 100 oggetti. Presto elimineremo questo limite!",
         "title": "100 Mi piace"
       },
-      "updated": "L'elemento è stato aggiunto alla galleria."
+      "updated": "L'elemento è stato aggiunto alla galleria.",
+      "visibilityChanged": "Attenzione: l'impostazione della visibilità è già stata modificata ed è attualmente \" {visibility} \"."
     },
     "prompts": {
       "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto."

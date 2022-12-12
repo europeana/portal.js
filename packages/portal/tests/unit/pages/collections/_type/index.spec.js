@@ -74,14 +74,4 @@ describe('pages/collections/_type/index', () => {
       });
     });
   });
-
-  describe('the head title', () => {
-    it('uses entity type title', () => {
-      const wrapper = factory({ type: 'topics' });
-
-      const headTitle = wrapper.vm.head().title;
-
-      expect(headTitle).toBe('pages.collections.topics.title');
-    });
-  });
 });

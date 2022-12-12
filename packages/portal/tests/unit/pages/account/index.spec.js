@@ -26,7 +26,6 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     $config: { app: { baseUrl: 'https://www.example.eu' } },
     $features: {},
     $fetchState: options.fetchState,
-    $pageHeadTitle: key => key,
     $path: (path) => path,
     $route: {
       hash: options.hash
@@ -51,16 +50,18 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
 
 describe('pages/account/index.vue', () => {
   describe('when visiting the account page', () => {
-    const wrapper = factory();
+    it('fetches the likes of the logged in user', () => {
+      const wrapper = factory();
 
-    it('fetches the likes of the logged in user', async() => {
-      await wrapper.vm.fetch();
+      wrapper.vm.fetch();
 
       expect(wrapper.vm.$store.dispatch.calledWith('set/fetchLikes')).toBe(true);
     });
 
-    it('sets the head title to the localised account title key', () => {
-      expect(wrapper.vm.head().title).toBe('account.title');
+    it('sets the page meta title to the localised account title key', () => {
+      const wrapper = factory();
+
+      expect(wrapper.vm.pageMeta.title).toBe('account.title');
     });
   });
 
@@ -134,6 +135,36 @@ describe('pages/account/index.vue', () => {
     it('shows the private galleries', () => {
       const privateGalleries = wrapper.find('[data-qa="private sets"]');
       expect(privateGalleries.exists()).toBe(true);
+    });
+  });
+
+  describe('computed', () => {
+    describe('publicCreations', () => {
+      it('includes only created sets with visibility "public" or "published"', () => {
+        const privateSet = { visibility: 'private' };
+        const publicSet = { visibility: 'public' };
+        const publishedSet = { visibility: 'published' };
+        const creations = [privateSet, publicSet, publishedSet];
+
+        const wrapper = factory();
+        wrapper.vm.$store.state.set.creations = creations;
+
+        expect(wrapper.vm.publicCreations).toEqual([publicSet, publishedSet]);
+      });
+    });
+
+    describe('privateCreations', () => {
+      it('includes only created sets with visibility "private"', () => {
+        const privateSet = { visibility: 'private' };
+        const publicSet = { visibility: 'public' };
+        const publishedSet = { visibility: 'published' };
+        const creations = [privateSet, publicSet, publishedSet];
+
+        const wrapper = factory();
+        wrapper.vm.$store.state.set.creations = creations;
+
+        expect(wrapper.vm.privateCreations).toEqual([privateSet]);
+      });
     });
   });
 });

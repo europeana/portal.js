@@ -31,6 +31,7 @@ export default {
     "cancel": "Cancel",
     "close": "close",
     "continue": "continue",
+    "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
     "feedback": "Feedback",
@@ -44,12 +45,13 @@ export default {
     "preview": "Preview",
     "previous": "Previous",
     "providedBy": "Provided by {provider}",
+    "publish": "Publish",
     "reject": "Reject",
     "save": "Save",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
-    "skip": "Skip",
+    "skipSend": "Skip and send",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
@@ -62,6 +64,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recent items",
+    "gallery": "Galleries",
     "organisation": "Organisations",
     "place": "Places",
     "time": "Centuries",
@@ -639,6 +642,7 @@ export default {
   "feedback": {
     "emailOptional": "We may wish to follow up. Enter your email if you're happy for us to contact you.",
     "failed": "The request failed. Please try again.",
+    "faq": "Go to frequently asked questions",
     "form": {
       "placeholders": {
         "email": "Enter your email address",
@@ -731,6 +735,7 @@ export default {
       "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
+      "faq": "Frequently asked questions",
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
@@ -882,6 +887,11 @@ export default {
       "clickToCopy": "Click on the attribution to copy it",
       "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
       "modalTitle": "Say thanks"
+    },
+    "downloadFailed": {
+      "linkPrompt": "We advise you to click on the ‘providing institution’ button below to check if the item can be downloaded on the website of the providing institution.",
+      "message": "If the download does not work, it may be because it has been removed by the providing institution, or there may be a technical problem with their service.",
+      "title": "Download not working"
     }
   },
   "multilingual": {
@@ -1043,12 +1053,19 @@ export default {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
       },
-      "updated": "The item was added to the gallery."
+      "updated": "The item was added to the gallery.",
+      "visibilityChanged": "Warning: set visibility already changed and is currently \"{visibility}\"."
     },
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
+      }
     }
   },
+  "shareWhere": "Where would you like to share this gallery?",
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {

@@ -22,6 +22,7 @@
           :destination="link.url"
           :link-class="linkClass"
           :data-qa="link.dataQa"
+          :hide-external-icon="link.hideExternalIcon"
         >
           <span
             v-if="link.icon"

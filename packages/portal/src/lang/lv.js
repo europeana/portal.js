@@ -31,6 +31,7 @@ export default {
     "cancel": "Atcelt",
     "close": "aizvērt",
     "continue": "turpināt",
+    "depublish": "Depublicēt",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
     "feedback": "Atsauksmes",
@@ -44,12 +45,13 @@ export default {
     "preview": "Priekšskatījums",
     "previous": "Iepriekšējais",
     "providedBy": "Nodrošina {provider}",
+    "publish": "Publicēt",
     "reject": "Noraidīt",
     "save": "Glābt",
     "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
-    "skip": "Izlaist",
+    "skipSend": "Izlaist un nosūtīt",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Nosaukums:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijas",
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
     "place": "Vietas",
@@ -216,6 +219,10 @@ export default {
       "description": "Tam var būt šādi iemesli: šis vienums neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast vienumu vēlreiz.",
       "metaTitle": "Vienums nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo vienumu."
+    },
+    "pageNotFound": {
+      "metaTitle": "Lapa nav atrasta",
+      "title": "Lapa, kuru meklējat, neeksistē."
     },
     "searchResultsNotFound": {
       "description": "Lūdzu, pielāgojiet meklēšanas vienumu vai atiestatiet filtrus, lai mēģinātu vēlreiz.",
@@ -608,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Mēs varētu vēlēties sekot. Ievadiet savu e-pasta adresi, ja esat priecīgs, ka mēs ar jums sazināsimies.",
     "failed": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
+    "faq": "Dodieties uz bieži uzdotajiem jautājumiem",
     "form": {
       "placeholders": {
         "email": "ievadiet savu e-pasta adresi",
@@ -699,6 +707,7 @@ export default {
       "about": "Par mums",
       "accessibility": "Pieejamība",
       "cookies": "Sīkfaili",
+      "faq": "Bieži uzdotie jautājumi",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
@@ -851,6 +860,11 @@ export default {
       "clickToCopy": "Noklikšķiniet uz attiecinājuma, lai to kopētu",
       "modalIntro": "Ja izmantojat šo vienumu tīmeklī vai citur, neaizmirstiet blakus tam parādīt šādu attiecinājumu:",
       "modalTitle": "Sakiet paldies"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Mēs iesakām noklikšķināt uz tālāk esošās pogas “Nodrošinošā iestāde”, lai pārbaudītu, vai vienumu var lejupielādēt sniedzējas iestādes tīmekļa vietnē.",
+      "message": "Ja lejupielāde nedarbojas, tas var būt tāpēc, ka pakalpojumu sniedzošā iestāde to ir noņēmusi, vai arī ir radusies tehniska problēma ar tās pakalpojumu.",
+      "title": "Lejupielāde nedarbojas"
     }
   },
   "multilingual": {
@@ -1012,7 +1026,8 @@ export default {
         "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 vienumiem. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"
       },
-      "updated": "Vienums tika pievienots galerijai."
+      "updated": "Vienums tika pievienots galerijai.",
+      "visibilityChanged": "Brīdinājums: iestatītā redzamība jau ir mainīta un pašlaik ir \" {visibility} \"."
     },
     "prompts": {
       "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie vienumi."

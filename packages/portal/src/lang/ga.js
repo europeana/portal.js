@@ -44,12 +44,13 @@ export default {
     "preview": "Réamhamharc",
     "previous": "Roimhe Seo",
     "providedBy": "Arna sholáthar ag {provider}",
+    "publish": "Foilsiú",
     "reject": "Diúltaigh",
     "save": "Sábháil",
     "send": "Seol",
     "share": "Roinn",
     "shareOn": "Roinn ar {social}",
-    "skip": "Scipeáil",
+    "skipSend": "Scipeáil agus seol",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad"
   },
@@ -61,6 +62,7 @@ export default {
     "title": "Teideal:"
   },
   "automatedCardGroup": {
+    "gallery": "Gailearaithe",
     "item": "Míreanna le déanaí",
     "organisation": "Eagraíochtaí",
     "place": "Áiteanna",
@@ -216,6 +218,10 @@ export default {
       "description": "D'fhéadfadh sé seo a bheith mar gheall ar na cúiseanna seo a leanas: níl an mhír seo ann, nó; dífhoilsíodh é toisc nach raibh sé ag teacht lenár gcritéir cháilíochta, nó; Rinneadh é a nuashonrú agus a athfhoilsiú le haitheantóir uathúil nua, agus sa chás sin, déan iarracht an mhír a aimsiú arís.",
       "metaTitle": "Ní bhfuarthas an mhír",
       "title": "Ó níl! {newline} Ní rabhamar in ann an mhír seo a aimsiú."
+    },
+    "pageNotFound": {
+      "metaTitle": "Níor aimsíodh an leathanach",
+      "title": "Níl an leathanach atá á lorg agat ann."
     },
     "searchResultsNotFound": {
       "description": "Athraigh an téarma cuardaigh nó athshocraigh na scagairí chun triail eile a bhaint as.",
@@ -608,6 +614,7 @@ export default {
   "feedback": {
     "emailOptional": "B’fhéidir gur mhaith linn obair leantach a dhéanamh. Cuir isteach do r-phost má tá tú sásta go ndéanfaimis teagmháil leat.",
     "failed": "Theip ar an iarraidh. Arís, le do thoil.",
+    "faq": "Téigh go dtí ceisteanna coitianta",
     "form": {
       "placeholders": {
         "email": "Cuir isteach do sheoladh ríomhphoist",
@@ -699,6 +706,7 @@ export default {
       "about": "Maidir linne",
       "accessibility": "Inrochtaineacht",
       "cookies": "Fianáin",
+      "faq": "Ceisteanna Coitianta",
       "forDevelopers": "Faoi chomhair forbróirí",
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",
@@ -851,6 +859,11 @@ export default {
       "clickToCopy": "Cliceáil ar an sannadh chun é a chóipeáil",
       "modalIntro": "Má úsáideann tú an t-earra seo ar an ngréasán nó in áit eile, ná déan dearmad an sannadh seo a leanas a thaispeáint in aice leis:",
       "modalTitle": "Abair go raibh maith agat"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Molaimid duit cliceáil ar an gcnaipe ‘Institiúid sholáthair’ thíos le seiceáil an féidir an mhír a íoslódáil ó shuíomh Gréasáin na hinstitiúide soláthair.",
+      "message": "Mura n-oibríonn an t-íoslódáil, b'fhéidir gurb é an fáth gur bhain an institiúid sholáthair é, nó d'fhéadfadh fadhb theicniúil a bheith ann maidir lena seirbhís.",
+      "title": "Íoslódáil nach bhfuil ag obair"
     }
   },
   "multilingual": {
@@ -1012,7 +1025,8 @@ export default {
         "body": "Tá brón orainn, ach tá tú teoranta i láthair na huaire chun uasmhéid 100 earra a thaitin.Bainfimid an teorainn seo go luath!",
         "title": "100 Is maith liom"
       },
-      "updated": "Cuireadh an mhír leis an ngailearaí."
+      "updated": "Cuireadh an mhír leis an ngailearaí.",
+      "visibilityChanged": "Rabhadh: socraigh infheictheacht athraithe cheana féin agus tá sé \"{visibility}\" faoi láthair."
     },
     "prompts": {
       "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis."

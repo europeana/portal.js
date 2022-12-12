@@ -31,6 +31,7 @@ export default {
     "cancel": "Ikkanċella",
     "close": "agħlaq",
     "continue": "kompli",
+    "depublish": "Tneħħi l-pubblikazzjoni",
     "download": "Niżżel",
     "edit": "Editja",
     "feedback": "Feedback",
@@ -44,12 +45,13 @@ export default {
     "preview": "Preview",
     "previous": "Preċedenti",
     "providedBy": "Ipprovdut minn {provider}",
+    "publish": "Ippubblika",
     "reject": "Irrifjuta",
     "save": "Tissejvja",
     "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
-    "skip": "Aqbeż",
+    "skipSend": "Aqbeż u ibgħat",
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
+    "gallery": "Galleriji",
     "item": "Oġġetti reċenti",
     "organisation": "Organizzazzjonijiet",
     "place": "Postijiet",
@@ -216,6 +219,10 @@ export default {
       "description": "Dan jista' jkun minħabba r-raġunijiet li ġejjin: dan l-oġġett ma jeżistix, jew; tneħħiet il-pubblikazzjoni għax ma kinitx taqbel mal-kriterji ta’ kwalità tagħna, jew; ġie aġġornat u ppubblikat mill-ġdid b'identifikatur uniku ġdid, f'liema każ, ipprova erġa' sib l-oġġett.",
       "metaTitle": "Oġġett mhux misjub",
       "title": "Oh le! {newline} Ma stajniex insibu dan l-oġġett."
+    },
+    "pageNotFound": {
+      "metaTitle": "Paġna mhux misjuba",
+      "title": "Il-paġna li qed tfittex ma teżistix."
     },
     "searchResultsNotFound": {
       "description": "Jekk jogħġbok aġġusta t-terminu tat-tfittxija jew reset il-filtri biex terġa' tipprova.",
@@ -608,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "Aħna jista 'jkun li nixtiequ nsegwu. Daħħal l-email tiegħek jekk int kuntent li aħna nikkuntattjawk.",
     "failed": "It-talba falliet. Jekk jogħġbok erġa pprova.",
+    "faq": "Mur għall-mistoqsijiet frekwenti",
     "form": {
       "placeholders": {
         "email": "Daħħal l-indirizz tal-email tiegħek",
@@ -699,6 +707,7 @@ export default {
       "about": "Dwarna",
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
+      "faq": "Mistoqsijiet frekwenti",
       "forDevelopers": "Għall-iżviluppaturi",
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
@@ -851,6 +860,11 @@ export default {
       "clickToCopy": "Ikklikkja fuq l-attribuzzjoni biex tikkopjaha",
       "modalIntro": "Jekk tuża dan l-oġġett fuq il-web jew x'imkien ieħor, tinsiex turi l-attribuzzjoni li ġejja ħdejha:",
       "modalTitle": "Għid grazzi"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Aħna nagħtuk parir biex tikklikkja fuq il-buttuna \"Istituzzjoni fornitriċi\" hawn taħt biex tiċċekkja jekk l-oġġett jistax jitniżżel fuq il-websajt tal-istituzzjoni li tipprovdi.",
+      "message": "Jekk it-tniżżil ma taħdimx, jista 'jkun minħabba li tneħħa mill-istituzzjoni li tipprovdi, jew jista' jkun hemm problema teknika bis-servizz tagħhom.",
+      "title": "Niżżel mhux qed taħdem"
     }
   },
   "multilingual": {
@@ -1012,7 +1026,8 @@ export default {
         "body": "Jiddispjaċina, iżda bħalissa hemm limitu fuq kemm tista' titfa' likes fuq oġġetti, li huwa ta' massimu ta' 100 like. Dan il-limitu dalwaqt se jitneħħa!",
         "title": "100 like"
       },
-      "updated": "L-oġġett ġie miżjud mal-gallerija."
+      "updated": "L-oġġett ġie miżjud mal-gallerija.",
+      "visibilityChanged": "Twissija: il-viżibilità tas-sett diġà nbidlet u bħalissa hija \" {visibility} \"."
     },
     "prompts": {
       "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha."

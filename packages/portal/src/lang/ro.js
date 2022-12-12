@@ -31,6 +31,7 @@ export default {
     "cancel": "Anulează",
     "close": "închidere",
     "continue": "continua",
+    "depublish": "Depublicați",
     "download": "Descarcă",
     "edit": "Editare",
     "feedback": "Feedback",
@@ -44,12 +45,13 @@ export default {
     "preview": "Previzualizare",
     "previous": "Anterior",
     "providedBy": "Furnizat de {provider}",
+    "publish": "Publica",
     "reject": "Respinge",
     "save": "Salva",
     "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
-    "skip": "Skip",
+    "skipSend": "Săriți și trimiteți",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -61,6 +63,7 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerii",
     "item": "Articole recente",
     "organisation": "Organizații",
     "place": "Locuri",
@@ -216,6 +219,10 @@ export default {
       "description": "Acest lucru se poate datora următoarelor motive: acest articol nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți elementul din nou.",
       "metaTitle": "Element nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest articol."
+    },
+    "pageNotFound": {
+      "metaTitle": "Pagina nu a fost găsita",
+      "title": "Pagina pe care o cauți nu există."
     },
     "searchResultsNotFound": {
       "description": "Vă rugăm să ajustați termenul de căutare sau să resetați filtrele pentru a încerca din nou.",
@@ -608,6 +615,7 @@ export default {
   "feedback": {
     "emailOptional": "S-ar putea să dorim să urmărim acest lucru. Introduceți adresa dvs. de e-mail dacă sunteți de acord să vă contactăm.",
     "failed": "Solicitarea nu a reușit. Încercați din nou.",
+    "faq": "Accesați întrebările frecvente",
     "form": {
       "placeholders": {
         "email": "Introduceți adresa de e-mail",
@@ -699,6 +707,7 @@ export default {
       "about": "Despre noi",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
+      "faq": "Întrebări frecvente",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
       "MoreInfoLabel": "Mai multe informații",
@@ -748,7 +757,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Ultimele povești",
     "storiesCTA": "Vezi toate poveștile",
-    "subHeadline": "Căutați, salvațișidistribuițiartă, cărți, filme și muzică de la mii de instituții culturale",
+    "subHeadline": "Căutați, salvați și distribuiți opere de artă, cărți, filme și muzică de la mii de instituții culturale",
     "themesCTA": "Vezi toate temele",
     "themesTitle": "Explorați după temă",
     "title": "Descoperiți patrimoniul cultural {digital} al Europei",
@@ -851,6 +860,11 @@ export default {
       "clickToCopy": "Faceți clic pe atribuire pentru ao copia",
       "modalIntro": "Dacă folosiți acest articol pe internet sau în altă parte, nu uitați să afișați următoarea atribuție lângă el:",
       "modalTitle": "Spune multumesc"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Vă sfătuim să faceți clic pe butonul „Instituția de proveniență” de mai jos pentru a verifica dacă articolul poate fi descărcat de pe site-ul instituției furnizoare.",
+      "message": "Dacă descărcarea nu funcționează, poate fi din cauză că a fost eliminată de instituția furnizoare sau poate exista o problemă tehnică cu serviciul acestora.",
+      "title": "Descărcarea nu funcționează"
     }
   },
   "multilingual": {
@@ -1012,7 +1026,8 @@ export default {
         "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de articole. Vom elimina această limită în curând!",
         "title": "100 de aprecieri"
       },
-      "updated": "Elementul a fost adăugat la galerie."
+      "updated": "Elementul a fost adăugat la galerie.",
+      "visibilityChanged": "Avertisment: setarea vizibilității a fost deja schimbată și este în prezent „ {visibility} ”."
     },
     "prompts": {
       "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat."
