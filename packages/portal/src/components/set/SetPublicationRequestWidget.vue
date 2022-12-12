@@ -2,7 +2,7 @@
   <div>
     <b-button
       v-b-modal.set-publication-request-modal
-      class="text-decoration-none text-nowrap ml-2 h-100"
+      class="text-decoration-none text-nowrap h-100"
     >
       {{ $t('actions.submitForPublication') }}
     </b-button>

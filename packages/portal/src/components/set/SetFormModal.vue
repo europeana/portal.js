@@ -1,5 +1,5 @@
 <template>
-  <b-container class="p-0">
+  <div>
     <b-modal
       :id="modalId"
       :title="modalTitle"
@@ -92,7 +92,7 @@
       :modal-static="modalStatic"
       @cancel="cancelDelete"
     />
-  </b-container>
+  </div>
 </template>
 
 <script>

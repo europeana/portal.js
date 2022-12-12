@@ -73,7 +73,7 @@
             cols="12"
           >
             <b-container class="mb-5">
-              <b-row class="mb-4">
+              <b-row class="mb-2">
                 <b-col>
                   <div
                     class="context-label"
@@ -96,7 +96,7 @@
                   -->
                   <div
                     v-if="displayMetadata"
-                    class="usergallery-metadata mb-2"
+                    class="usergallery-metadata"
                   >
                     <span
                       v-if="set.creator.nickname"
@@ -121,9 +121,11 @@
                   </div>
                 </b-col>
               </b-row>
-              <div class="d-inline-flex collection-buttons">
+              <div class="d-inline-flex flex-wrap collection-buttons">
                 <template v-if="set.visibility !== 'private'">
-                  <ShareButton />
+                  <ShareButton
+                    class="mr-2 mt-2"
+                  />
                   <SocialShareModal
                     :media-url="shareMediaUrl"
                     :share-to="[{
@@ -138,7 +140,7 @@
                   v-if="userCanEditSet"
                 >
                   <b-button
-                    class="d-inline-flex align-items-center ml-2"
+                    class="d-inline-flex align-items-center mr-2 mt-2"
                     data-qa="edit set button"
                     @click="$bvModal.show(setFormModalId)"
                   >
@@ -157,11 +159,13 @@
                 <SetPublicationRequestWidget
                   v-if="$features.galleryPublicationSubmissions && set.visibility === 'public'"
                   :set="set"
+                  class="mr-2 mt-2"
                 />
                 <PublishSetButton
                   v-if="set.visibility !== 'private' && userIsPublisher"
                   :set-id="set.id"
                   :visibility="set.visibility"
+                  class="mr-2 mt-2"
                 />
               </div>
             </b-container>
