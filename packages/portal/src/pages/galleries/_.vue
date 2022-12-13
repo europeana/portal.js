@@ -324,14 +324,11 @@
           this.setCreatorId?.endsWith(`/${this.$auth.user.sub}`);
       },
       userIsEntityEditor() {
-        const entitiesEditor = this.$auth.user?.resource_access?.entities?.roles?.includes('editor');
-        const usersetsEditor = this.$auth.user?.resource_access?.usersets?.roles?.includes('editor');
-        return entitiesEditor && usersetsEditor;
+        return this.$auth.userHasClientRole('entities', 'editor') &&
+          this.$auth.userHasClientRole('usersets', 'editor');
       },
       userIsPublisher() {
-        const user = this.$auth.user;
-        const publisher = user?.resource_access?.usersets?.roles?.includes('publisher');
-        return !!publisher;
+        return this.$auth.userHasClientRole('usersets', 'publisher');
       },
       userCanHandleRecommendations() {
         return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);

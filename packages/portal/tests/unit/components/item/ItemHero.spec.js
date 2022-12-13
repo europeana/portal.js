@@ -17,15 +17,13 @@ const factory = (propsData, options = {}) => mount(ItemHero, {
     $t: (key) => key,
     $i18n: { locale: 'en' },
     $features: { itemEmbedCode: false },
-    $auth: { loggedIn: true },
+    $auth: {
+      loggedIn: true,
+      userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
+    },
     $store: options.store || {
       state: {
-        set: { ...{ liked: [] }, ...{} },
-        auth: {
-          user: {
-            'resource_access': null
-          }
-        }
+        set: { ...{ liked: [] }, ...{} }
       },
       getters: {
         'set/isLiked': storeIsLikedGetter,
@@ -188,25 +186,12 @@ describe('components/item/ItemHero', () => {
 
   describe('showPins', () => {
     describe('when the user is an editor', () => {
-      const store = {
-        state: {
-          set: { ...{ liked: [] }, ...{} },
-          auth: {
-            user: {
-              'resource_access': {
-                entities: {
-                  roles: ['editor']
-                },
-                usersets: {
-                  roles: ['editor']
-                }
-              }
-            }
-          }
-        }
-      };
+      const userHasClientRoleStub = sinon.stub().returns(false)
+        .withArgs('entities', 'editor').returns(true)
+        .withArgs('usersets', 'editor').returns(true);
+
       it('is `true`', () => {
-        const wrapper = factory({ media, identifier, entities }, { store });
+        const wrapper = factory({ media, identifier, entities }, { userHasClientRoleStub });
 
         const showPins = wrapper.vm.showPins;
 
@@ -214,7 +199,7 @@ describe('components/item/ItemHero', () => {
       });
 
       it('is `false` if no entities', () => {
-        const wrapper = factory({ media, identifier, entities: [] }, { store });
+        const wrapper = factory({ media, identifier, entities: [] }, { userHasClientRoleStub });
 
         const showPins = wrapper.vm.showPins;
 

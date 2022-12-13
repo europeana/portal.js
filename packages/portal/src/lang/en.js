@@ -1062,7 +1062,8 @@ export default {
       "visibilityChanged": "Warning: set visibility already changed and is currently \"{visibility}\"."
     },
     "prompts": {
-      "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
+      "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it.",
+      "shareWhere": "Where would you like to share this gallery?"
     },
     "publication": {
       "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
@@ -1085,7 +1086,6 @@ export default {
       }
     }
   },
-  "shareWhere": "Where would you like to share this gallery?",
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {

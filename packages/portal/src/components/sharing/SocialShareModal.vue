@@ -7,7 +7,7 @@
     data-qa="share modal"
     title-tag="h2"
   >
-    <p>{{ $t('shareWhere') }}</p>
+    <p>{{ $t('set.prompts.shareWhere') }}</p>
     <div class="icon-wrapper pt-1">
       <SocialShare
         :media-url="mediaUrl"
