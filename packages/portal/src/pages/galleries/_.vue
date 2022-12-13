@@ -154,6 +154,7 @@
                     :description="set.description"
                     :visibility="set.visibility"
                     :user-is-owner="userIsOwner"
+                    :type="set.type"
                   />
                 </template>
                 <SetPublicationRequestWidget
@@ -342,7 +343,9 @@
         return this.$features.galleryPublicationSubmissions && this.userIsOwner && this.set.visibility === 'public';
       },
       userCanPublishSet() {
-        return this.userIsPublisher && this.set.visibility !== 'private';
+        return this.userIsPublisher &&
+          (this.set.type === 'Collection') &&
+          (this.set.visibility !== 'private');
       },
       setIsEntityBestItems() {
         return this.set.type === 'EntityBestItemsSet';

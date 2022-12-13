@@ -41,6 +41,7 @@
           />
         </b-form-group>
         <b-form-group
+          v-if="type === 'Collection'"
           class="mb-2 mt-4"
         >
           <b-form-checkbox
