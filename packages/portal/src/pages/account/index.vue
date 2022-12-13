@@ -200,8 +200,8 @@
         };
       },
       userIsEditor() {
-        return this.loggedInUser?.resource_access?.entities?.roles?.includes('editor') &&
-          this.loggedInUser?.resource_access?.usersets?.roles?.includes('editor');
+        return this.$auth.userHasClientRole('entities', 'editor') &&
+          this.$auth.userHasClientRole('usersets', 'editor');
       },
       publicCreations() {
         return this.$store.state.set.creations.filter(set => ['public', 'published'].includes(set.visibility));
