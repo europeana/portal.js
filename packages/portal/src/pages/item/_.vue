@@ -348,12 +348,6 @@
   .related-collections {
     margin-top: -0.5rem;
     margin-bottom: 2rem;
-    padding: 0;
-  }
-
-  ::v-deep .related-collections .badge-light {
-    margin-top: 0.25rem;
-    margin-right: 0.5rem;
   }
 
   ::v-deep .card-header-tabs {
