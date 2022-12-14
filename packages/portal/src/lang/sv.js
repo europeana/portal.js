@@ -35,7 +35,6 @@ export default {
     "download": "Ladda ner",
     "edit": "Redigera",
     "feedback": "Feedback",
-    "goBack": "Gå tillbaka",
     "goHome": "Gå till hemsidan",
     "learnMore": "Läs mer",
     "like": "Gilla",

@@ -35,7 +35,6 @@ export default {
     "download": "Descarcă",
     "edit": "Editare",
     "feedback": "Feedback",
-    "goBack": "Înapoi",
     "goHome": "Mergeți la pagina de pornire",
     "learnMore": "Află mai multe",
     "like": "Apreciere",

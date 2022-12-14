@@ -35,7 +35,6 @@ export default {
     "download": "Deskargatu",
     "edit": "Editatu",
     "feedback": "Iritzia",
-    "goBack": "Atzera egin",
     "goHome": "Joan hasierako orrialdera",
     "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",

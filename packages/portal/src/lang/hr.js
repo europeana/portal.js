@@ -35,7 +35,6 @@ export default {
     "download": "Preuzmi",
     "edit": "Uredi",
     "feedback": "Povratna informacija",
-    "goBack": "Idi nazad",
     "goHome": "Idite na početnu stranicu",
     "learnMore": "Uči više",
     "like": "Sviđanje",

@@ -35,7 +35,6 @@ export default {
     "download": "Íoslódáil",
     "edit": "Cuir in eagar",
     "feedback": "Aiseolas",
-    "goBack": "Dul siar",
     "goHome": "Téigh go dtí an leathanach baile",
     "learnMore": "Foghlaim níos mó",
     "like": "Is maith liom",

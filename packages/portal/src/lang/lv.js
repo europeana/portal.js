@@ -35,7 +35,6 @@ export default {
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
     "feedback": "Atsauksmes",
-    "goBack": "Atpakaļ",
     "goHome": "Dodieties uz sākumlapu",
     "learnMore": "Apgūt vairāk",
     "like": "Patīk",

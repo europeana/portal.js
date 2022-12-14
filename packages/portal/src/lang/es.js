@@ -35,7 +35,6 @@ export default {
     "download": "Descargar",
     "edit": "Editar",
     "feedback": "Comentarios",
-    "goBack": "Volver",
     "goHome": "Ir a la página de inicio",
     "learnMore": "Aprende más",
     "like": "Me gusta",

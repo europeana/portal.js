@@ -35,7 +35,6 @@ export default {
     "download": "Μεταφόρτωση",
     "edit": "Επεξεργασία",
     "feedback": "Σχόλια",
-    "goBack": "Πίσω",
     "goHome": "Μεταβείτε στην αρχική σελίδα",
     "learnMore": "Μάθε περισσότερα",
     "like": "Like",
