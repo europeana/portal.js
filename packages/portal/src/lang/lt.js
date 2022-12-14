@@ -31,6 +31,7 @@ export default {
     "cancel": "Atšaukti",
     "close": "uždaryti",
     "continue": "tęsti",
+    "depublish": "Išskelbti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "feedback": "Atsiliepimas",

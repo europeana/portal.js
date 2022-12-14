@@ -31,6 +31,7 @@ export default {
     "cancel": "Cealaigh",
     "close": "dún",
     "continue": "Lean ar aghaidh",
+    "depublish": "Dífhoilsiú",
     "download": "Íoslódáil",
     "edit": "Cuir in eagar",
     "feedback": "Aiseolas",
