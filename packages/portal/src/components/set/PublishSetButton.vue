@@ -1,7 +1,7 @@
 <template>
   <b-button
     :variant="publishedSet ? 'secondary' : 'primary'"
-    class="text-decoration-none ml-2"
+    class="text-decoration-none"
     data-qa="publish set button"
     @click="togglePublishedSet"
   >

@@ -73,7 +73,7 @@
             cols="12"
           >
             <b-container class="mb-5">
-              <b-row class="mb-4">
+              <b-row class="mb-2">
                 <b-col>
                   <div
                     class="context-label"
@@ -95,8 +95,8 @@
                       This can be changed when this functionality is further developed
                   -->
                   <div
-                    v-if="set.visibility === 'private' || set.creator.nickname"
-                    class="usergallery-metadata mb-2"
+                    v-if="displayMetadata"
+                    class="usergallery-metadata"
                   >
                     <span
                       v-if="set.creator.nickname"
@@ -106,20 +106,41 @@
                     </span>
                     <span
                       v-if="set.visibility === 'private'"
-                      class="
-                      visibility mb-2"
+                      class="visibility mb-2"
                     >
+                      <span class="icon-lock" />
                       {{ $t('set.labels.private') }}
+                    </span>
+                    <span
+                      v-if="set.visibility === 'published'"
+                      class="visibility mb-2"
+                    >
+                      <span class="icon-ic-download" />
+                      {{ $t('set.labels.published') }}
                     </span>
                   </div>
                 </b-col>
               </b-row>
-              <div class="d-inline-flex collection-buttons">
+              <div class="d-inline-flex flex-wrap collection-buttons">
+                <template v-if="set.visibility !== 'private'">
+                  <ShareButton
+                    class="mr-2 mt-2"
+                  />
+                  <SocialShareModal
+                    :media-url="shareMediaUrl"
+                    :share-to="[{
+                      identifier: 'weavex',
+                      name: 'WEAVEx',
+                      url: weaveUrl,
+                      tooltip: $t('set.shareTo.weavex.tooltip')
+                    }]"
+                  />
+                </template>
                 <template
                   v-if="userCanEditSet"
                 >
                   <b-button
-                    class="d-inline-flex align-items-center mr-2"
+                    class="d-inline-flex align-items-center mr-2 mt-2"
                     data-qa="edit set button"
                     @click="$bvModal.show(setFormModalId)"
                   >
@@ -133,24 +154,20 @@
                     :description="set.description"
                     :visibility="set.visibility"
                     :user-is-owner="userIsOwner"
+                    :type="set.type"
                   />
                 </template>
-                <template v-if="set.visibility !== 'private'">
-                  <ShareButton />
-                  <SocialShareModal
-                    :media-url="shareMediaUrl"
-                    :share-to="[{
-                      identifier: 'weavex',
-                      name: 'WEAVEx',
-                      url: weaveUrl,
-                      tooltip: $t('set.shareTo.weavex.tooltip')
-                    }]"
-                  />
-                </template>
+                <SetPublicationRequestWidget
+                  v-if="userCanRequestSetPublication"
+                  :set="set"
+                  data-qa="set request publication button"
+                  class="mr-2 mt-2"
+                />
                 <PublishSetButton
-                  v-if="set.visibility !== 'private' && userIsPublisher"
+                  v-if="userCanPublishSet"
                   :set-id="set.id"
                   :visibility="set.visibility"
+                  class="mr-2 mt-2"
                 />
               </div>
             </b-container>
@@ -233,7 +250,8 @@
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
-      PublishSetButton: () => import('@/components/set/PublishSetButton')
+      PublishSetButton: () => import('@/components/set/PublishSetButton'),
+      SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget')
 
     },
     mixins: [
@@ -318,6 +336,14 @@
       userCanEditSet() {
         return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published');
       },
+      userCanRequestSetPublication() {
+        return this.$features.galleryPublicationSubmissions && this.userIsOwner && this.set.visibility === 'public';
+      },
+      userCanPublishSet() {
+        return this.userIsPublisher &&
+          (this.set.type === 'Collection') &&
+          (this.set.visibility !== 'private');
+      },
       setIsEntityBestItems() {
         return this.set.type === 'EntityBestItemsSet';
       },
@@ -363,6 +389,9 @@
       },
       htmlDescription() {
         return marked.parse(this.rawDescription);
+      },
+      displayMetadata() {
+        return this.set.visibility === ('private' || 'published') || this.set.creator.nickname;
       },
       weaveUrl() {
         return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
@@ -482,11 +511,18 @@
     }
 
     .visibility {
-      &::before {
-        @extend %icon-font;
-
-        content: '\e92d';
+      .icon-lock,
+      .icon-ic-download {
         font-size: 1.125rem;
+      }
+
+      .icon-lock {
+        padding-right: 0.2rem;
+      }
+
+      .icon-ic-download {
+        transform: rotate(180deg);
+        padding-left: 0.2rem;
       }
     }
   }

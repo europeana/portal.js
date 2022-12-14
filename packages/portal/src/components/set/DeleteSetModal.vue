@@ -12,9 +12,9 @@
         <b-button
           variant="outline-primary"
           data-qa="close button"
-          @click="goBack"
+          @click="handleClickCancelButton"
         >
-          {{ $t('actions.goBack') }}
+          {{ $t('actions.cancel') }}
         </b-button>
         <b-button
           variant="danger"
@@ -76,7 +76,7 @@
         }
       },
 
-      goBack() {
+      handleClickCancelButton() {
         this.hide();
         this.$emit('cancel');
       },

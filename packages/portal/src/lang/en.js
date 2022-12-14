@@ -35,7 +35,6 @@ export default {
     "download": "Download",
     "edit": "Edit",
     "feedback": "Feedback",
-    "goBack": "Go back",
     "goHome": "Go to the homepage",
     "learnMore": "Learn more",
     "like": "Like",
@@ -47,11 +46,14 @@ export default {
     "providedBy": "Provided by {provider}",
     "publish": "Publish",
     "reject": "Reject",
+    "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
     "skipSend": "Skip and send",
+    "submitForPublication": "Submit for publication",
+    "submittedForPublication": "Submitted for publication",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
@@ -1040,12 +1042,14 @@ export default {
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
+      "privateWarning": "This action will depublish the gallery.",
       "required": "Required field",
       "title": "Gallery name"
     },
     "labels": {
       "curatedBy": "Curated by",
-      "private": "Private gallery"
+      "private": "Private gallery",
+      "published": "Published gallery"
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
@@ -1059,6 +1063,21 @@ export default {
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it.",
       "shareWhere": "Where would you like to share this gallery?"
+    },
+    "publication": {
+      "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
+      "failedSubmission": "The request failed. Please try again.",
+      "process": {
+        "title": "How the process works",
+        "description": "When you submit a gallery for publication, a team of publishers at Europeana will be notified. They will first review it, and may make changes before it is published. You will receive notifications by email as the gallery is reviewed. If it is not published, it could be that it does not conform to our editorial guidelines."
+      },
+      "time": {
+        "title": "How long it takes",
+        "description": "1-3 days."
+      },
+      "title": "Submit gallery for publication",
+      "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
+      "toastButton": "Okay"
     },
     "shareTo": {
       "weavex": {
