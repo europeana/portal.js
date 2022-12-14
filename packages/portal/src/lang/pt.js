@@ -46,11 +46,14 @@ export default {
     "providedBy": "Fornecido por {provider}",
     "publish": "Publicar",
     "reject": "Rejeitar",
+    "requestDepublication": "Solicitar despublicação",
     "save": "Salve",
     "send": "Enviar",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
     "skipSend": "Ignorar e enviar",
+    "submitForPublication": "Enviar para publicação",
+    "submittedForPublication": "Enviado para publicação",
     "viewAt": "Ver em {link}",
     "viewDocument": "Ver documento"
   },
@@ -1012,12 +1015,14 @@ export default {
     "form": {
       "description": "Descrição da galeria",
       "private": "Manter a galeria privada",
+      "privateWarning": "Esta ação cancelará a publicação da galeria.",
       "required": "Campos obrigatórios",
       "title": "Nome da galeria"
     },
     "labels": {
       "curatedBy": "Curadoria por",
-      "private": "Galeria privada"
+      "private": "Galeria privada",
+      "published": "Galeria publicada"
     },
     "notifications": {
       "deleted": "A galeria foi eliminada.",
@@ -1031,6 +1036,21 @@ export default {
     "prompts": {
       "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela.",
       "shareWhere": "Onde gostaria de compartilhar esta galeria?"
+    },
+    "publication": {
+      "description": "A publicação de uma galeria irá apresentá-la em Europeana.eu/galleries.",
+      "failedSubmission": "O pedido falhou. Por favor, tente novamente.",
+      "process": {
+        "description": "Quando submeter uma galeria para publicação, uma equipa de editores da Europeana será notificada. Eles irão primeiro revê-la, e poderão fazer alterações antes da sua publicação. Receberá notificações por correio eletrónico à medida que a galeria for revista. Se não for publicada, poderá ser que não esteja em conformidade com as nossas diretrizes editoriais.",
+        "title": "Como funciona o processo"
+      },
+      "time": {
+        "description": "1-3 dias.",
+        "title": "Quanto tempo demora"
+      },
+      "title": "Enviar galeria para publicação",
+      "toastButton": "OK",
+      "toastMessage": "Esta galeria está agora submetida para publicação. Pode verificar {galleries} para ver se foi publicado."
     },
     "shareTo": {
       "weavex": {

@@ -46,11 +46,14 @@ export default {
     "providedBy": "{provider} emanda",
     "publish": "Argitaratu",
     "reject": "Baztertu",
+    "requestDepublication": "Argitalpenik ez egiteko eskaera",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
     "skipSend": "Saltatu eta bidali",
+    "submitForPublication": "Bidali argitaratzeko",
+    "submittedForPublication": "Argitalpenerako aurkeztu da",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -1016,12 +1019,14 @@ export default {
     "form": {
       "description": "Bildumaren deskribapena",
       "private": "Bilduma hau pribatu gisa mantendu",
+      "privateWarning": "Ekintza horrek galeriaren argitalpena baliogabetuko du.",
       "required": "Beharrezko eremua",
       "title": "Bildumaren izena"
     },
     "labels": {
       "curatedBy": "Komisarioa",
-      "private": "Bilduma pribatua"
+      "private": "Bilduma pribatua",
+      "published": "Argitaratutako galeria"
     },
     "notifications": {
       "deleted": "Bilduma ezabatu egin da.",
@@ -1035,6 +1040,21 @@ export default {
     "prompts": {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu.",
       "shareWhere": "Non partekatu nahiko zenuke galeria hau?"
+    },
+    "publication": {
+      "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
+      "failedSubmission": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+      "process": {
+        "description": "Galeria bat argitaratzeko bidaltzen duzunean, Europeana-ko argitaletxe talde bati jakinaraziko zaio. Lehenik eta behin aztertuko dute, eta aldaketak egin ditzakete argitaratu aurretik. Galeria berrikusten den heinean jakinarazpenak jasoko dituzu posta elektronikoz. Argitaratzen ez bada, baliteke gure editorialen jarraibideekin bat ez egitea.",
+        "title": "Nola funtzionatzen duen prozesua"
+      },
+      "time": {
+        "description": "1-3 egun.",
+        "title": "Zenbat denbora behar duen"
+      },
+      "title": "Bidali galeria argitaratzeko",
+      "toastButton": "Ados",
+      "toastMessage": "Galeria hau argitaratzeko aurkeztu da. {galleries} ikus dezakezu argitaratu den ikusteko."
     },
     "shareTo": {
       "weavex": {

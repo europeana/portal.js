@@ -46,11 +46,14 @@ export default {
     "providedBy": "Omogućio {provider}",
     "publish": "Objaviti",
     "reject": "Odbiti",
+    "requestDepublication": "Zahtjev za depublifikaciju",
     "save": "Uštedjeti",
     "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
     "skipSend": "Preskoči i pošalji",
+    "submitForPublication": "Predajte za objavu",
+    "submittedForPublication": "Predano za objavu",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument"
   },
@@ -1012,12 +1015,14 @@ export default {
     "form": {
       "description": "Opis galerije",
       "private": "Držite ovu galeriju privatnom",
+      "privateWarning": "Ova će radnja poništiti objavu galerije.",
       "required": "Obavezno polje",
       "title": "Naziv galerije"
     },
     "labels": {
       "curatedBy": "Kustos",
-      "private": "Privatna galerija"
+      "private": "Privatna galerija",
+      "published": "Objavljena galerija"
     },
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
@@ -1031,6 +1036,21 @@ export default {
     "prompts": {
       "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve stavke koje ste joj dodali.",
       "shareWhere": "Gdje biste željeli podijeliti ovu galeriju?"
+    },
+    "publication": {
+      "description": "Objavljivanje galerije bit će prikazano na Europeana.eu/galleries.",
+      "failedSubmission": "Zahtjev nije uspio. Molim te pokušaj ponovno.",
+      "process": {
+        "description": "Kada pošaljete galeriju za objavljivanje, tim izdavača na Europeani bit će obaviješten. Oni će ga najprije pregledati i mogu unijeti izmjene prije nego što se objavi. Primat ćete obavijesti e-poštom dok galerija bude pregledana. Ako se ne objavi, moguće je da nije u skladu s našim uredničkim smjernicama.",
+        "title": "Kako proces funkcionira"
+      },
+      "time": {
+        "description": "1-3 dana.",
+        "title": "Koliko dugo treba"
+      },
+      "title": "Pošalji galeriju za publikaciju",
+      "toastButton": "U redu",
+      "toastMessage": "Ova galerija je sada poslana na objavljivanje. Možete provjeriti {galleries} da biste vidjeli je li objavljen."
     },
     "shareTo": {
       "weavex": {

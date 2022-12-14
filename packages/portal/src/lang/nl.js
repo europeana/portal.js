@@ -46,11 +46,14 @@ export default {
     "providedBy": "Aangeboden door {provider}",
     "publish": "Publiceren",
     "reject": "Afwijzen",
+    "requestDepublication": "Depublicatie aanvragen",
     "save": "Opslaan",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
     "skipSend": "Overslaan en verzenden",
+    "submitForPublication": "Indienen voor publicatie",
+    "submittedForPublication": "Ingezonden voor publicatie",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -1012,12 +1015,14 @@ export default {
     "form": {
       "description": "Omschrijving van de galerij",
       "private": "Houd deze galerij privé",
+      "privateWarning": "Deze actie depubliceert de galerij.",
       "required": "Verplicht veld",
       "title": "Naam van de galerij"
     },
     "labels": {
       "curatedBy": "Beheerd door",
-      "private": "Privégalerij"
+      "private": "Privégalerij",
+      "published": "Gepubliceerde galerij"
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
@@ -1031,6 +1036,21 @@ export default {
     "prompts": {
       "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd.",
       "shareWhere": "Waar wilt u deze galerij delen?"
+    },
+    "publication": {
+      "description": "Als u een galerij publiceert, wordt deze op Europeana.eu/galleries weergegeven.",
+      "failedSubmission": "Het verzoek is mislukt. Probeer het opnieuw.",
+      "process": {
+        "description": "Wanneer u een galerij indient voor publicatie, wordt een team van uitgevers bij Europeana op de hoogte gebracht. Ze zullen het eerst beoordelen en mogelijk wijzigingen aanbrengen voordat het wordt gepubliceerd. U ontvangt meldingen per e-mail wanneer de galerij wordt beoordeeld. Als het niet wordt gepubliceerd, is het mogelijk dat het niet voldoet aan onze redactionele richtlijnen.",
+        "title": "Hoe het proces werkt"
+      },
+      "time": {
+        "description": "1-3 dagen.",
+        "title": "Hoe lang het duurt"
+      },
+      "title": "Galerij indienen voor publicatie",
+      "toastButton": "Oké",
+      "toastMessage": "Deze galerij is nu ingediend voor publicatie. U kunt {galleries} controleren om te zien of het is gepubliceerd."
     },
     "shareTo": {
       "weavex": {

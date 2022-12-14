@@ -46,11 +46,14 @@ export default {
     "providedBy": "Furnizat de {provider}",
     "publish": "Publica",
     "reject": "Respinge",
+    "requestDepublication": "Solicitați depublicarea",
     "save": "Salva",
     "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
     "skipSend": "Săriți și trimiteți",
+    "submitForPublication": "Trimiteți spre publicare",
+    "submittedForPublication": "Trimis spre publicare",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -1012,12 +1015,14 @@ export default {
     "form": {
       "description": "Descriere galerie",
       "private": "Menține această galerie privată",
+      "privateWarning": "Această acțiune va depublica galeria.",
       "required": "Câmp obligatoriu",
       "title": "Denumire galerie"
     },
     "labels": {
       "curatedBy": "Curată de",
-      "private": "Galerie privată"
+      "private": "Galerie privată",
+      "published": "Galerie publicată"
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
@@ -1031,6 +1036,21 @@ export default {
     "prompts": {
       "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat.",
       "shareWhere": "Unde ați dori să distribuiți această galerie?"
+    },
+    "publication": {
+      "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
+      "failedSubmission": "Solicitarea nu a reușit. Încercați din nou.",
+      "process": {
+        "description": "Când trimiteți o galerie spre publicare, o echipă de editori de la Europeana va fi anunțată. Ei îl vor revizui mai întâi și pot face modificări înainte de a fi publicat. Veți primi notificări prin e-mail pe măsură ce galeria este revizuită. Dacă nu este publicat, s-ar putea să nu fie în conformitate cu îndrumările noastre editoriale.",
+        "title": "Cum funcționează procesul"
+      },
+      "time": {
+        "description": "1-3 zile.",
+        "title": "Cât timp durează"
+      },
+      "title": "Trimiteți galeria pentru publicare",
+      "toastButton": "Bine",
+      "toastMessage": "Această galerie este acum trimisă spre publicare. Puteți verifica {galleries} pentru a vedea dacă a fost publicat."
     },
     "shareTo": {
       "weavex": {
