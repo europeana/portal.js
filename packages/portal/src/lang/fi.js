@@ -35,7 +35,6 @@ export default {
     "download": "Lataa",
     "edit": "Muokkaa",
     "feedback": "Palaute",
-    "goBack": "Palaa takaisin",
     "goHome": "Siirry kotisivulle",
     "learnMore": "Opi lisää",
     "like": "Tykkää",

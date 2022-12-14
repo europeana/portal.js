@@ -35,7 +35,6 @@ export default {
     "download": "Niżżel",
     "edit": "Editja",
     "feedback": "Feedback",
-    "goBack": "Mur lura",
     "goHome": "Mur fil-homepage",
     "learnMore": "Itagħllem iżjed",
     "like": "Like",

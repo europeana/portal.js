@@ -35,7 +35,6 @@ export default {
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "feedback": "Spätná väzba",
-    "goBack": "Späť",
     "goHome": "Prejsť na domovskú stránku",
     "learnMore": "Uč sa viac",
     "like": "Označenie Páči sa mi",

@@ -35,7 +35,6 @@ export default {
     "download": "Letöltés",
     "edit": "Szerkesztés",
     "feedback": "Visszacsatolás",
-    "goBack": "Vissza",
     "goHome": "Ugrás a kezdőlapra",
     "learnMore": "Tudj meg többet",
     "like": "Kedvelés",

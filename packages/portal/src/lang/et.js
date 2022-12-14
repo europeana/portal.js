@@ -35,7 +35,6 @@ export default {
     "download": "Lae alla",
     "edit": "Muuda",
     "feedback": "Tagasiside",
-    "goBack": "Mine tagasi",
     "goHome": "Minge avalehele",
     "learnMore": "Lisateave",
     "like": "Meeldib",

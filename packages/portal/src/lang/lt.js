@@ -35,7 +35,6 @@ export default {
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "feedback": "Atsiliepimas",
-    "goBack": "Grįžti",
     "goHome": "Eikite į pagrindinį puslapį",
     "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
