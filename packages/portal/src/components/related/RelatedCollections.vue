@@ -1,5 +1,5 @@
 <template>
-  <b-container
+  <div
     v-show="collections.length > 0"
     data-qa="related collections"
     class="related-collections"
@@ -24,7 +24,7 @@
         :image-src-set="imageSrcSet(relatedCollection)"
       />
     </div>
-  </b-container>
+  </div>
 </template>
 
 <script>
@@ -139,3 +139,10 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep .badge-pill {
+    margin-right: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+</style>

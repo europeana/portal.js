@@ -68,10 +68,6 @@
     .related-collections {
       max-width: 100%;
 
-      &.container {
-        padding: 0;
-      }
-
       ::v-deep .badge-pill {
         margin-right: 0.5rem;
         margin-bottom: 0.5rem;
