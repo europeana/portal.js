@@ -31,6 +31,7 @@ export default {
     "cancel": "Otkazati",
     "close": "zatvori",
     "continue": "nastaviti",
+    "depublish": "Depublish",
     "download": "Preuzmi",
     "edit": "Uredi",
     "feedback": "Povratna informacija",
