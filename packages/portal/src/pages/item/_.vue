@@ -347,7 +347,7 @@
 <style scoped>
   .related-collections {
     margin-top: -0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   ::v-deep .card-header-tabs {

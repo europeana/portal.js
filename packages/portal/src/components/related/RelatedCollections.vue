@@ -150,4 +150,8 @@
     margin-bottom: 0.75rem;
     margin-right: 0.75rem;
   }
+
+  .related-heading {
+    margin-bottom: 0.75rem;
+  }
 </style>
