@@ -141,8 +141,8 @@
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep .badge-pill {
-    margin-right: 0.75rem;
-    margin-bottom: 0.75rem;
+  .related-collections ::v-deep .badge-pill {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 </style>

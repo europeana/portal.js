@@ -63,3 +63,10 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .related-collections-card ::v-deep .related-collections .badge-pill {
+    margin-bottom: 0.75rem;
+    margin-right: 0.75rem;
+  }
+</style>
