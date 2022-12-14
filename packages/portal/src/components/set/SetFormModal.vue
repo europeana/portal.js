@@ -63,7 +63,7 @@
             data-qa="close button"
             @click="hide('cancel')"
           >
-            {{ isNew && itemContext ? $t('actions.goBack') : $t('actions.close') }}
+            {{ isNew && itemContext ? $t('actions.cancel') : $t('actions.close') }}
           </b-button>
           <div class="d-flex">
             <b-button

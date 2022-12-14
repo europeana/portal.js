@@ -25,7 +25,7 @@
           data-qa="close button"
           @click="$bvModal.hide('set-publication-request-modal'), submitFailed = false"
         >
-          {{ $t('actions.goBack') }}
+          {{ $t('actions.cancel') }}
         </b-button>
         <b-button
           variant="primary"
