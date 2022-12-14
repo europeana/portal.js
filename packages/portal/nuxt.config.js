@@ -37,9 +37,12 @@ export default {
     app: {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
-      internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      galleries: {
+        europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
+      },
       featureNotification: process.env.APP_FEATURE_NOTIFICATION,
       featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
