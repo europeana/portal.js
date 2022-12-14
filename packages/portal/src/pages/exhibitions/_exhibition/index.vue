@@ -25,7 +25,10 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="heroImage && heroImage.url" />
+            <SocialShareModal
+              page="exhibition"
+              :media-url="heroImage && heroImage.url"
+            />
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"

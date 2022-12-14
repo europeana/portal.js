@@ -33,7 +33,9 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal />
+            <SocialShareModal
+              page="exhibition credits page"
+            />
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="credits text"

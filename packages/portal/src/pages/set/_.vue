@@ -104,6 +104,7 @@
                     {{ $t('actions.share') }}
                   </b-button>
                   <SocialShareModal
+                    page="gallery"
                     :media-url="shareMediaUrl"
                     :share-to="[{
                       identifier: 'weavex',

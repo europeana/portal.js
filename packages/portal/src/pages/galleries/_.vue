@@ -127,6 +127,7 @@
                     class="mr-2 mt-2"
                   />
                   <SocialShareModal
+                    page="gallery"
                     :media-url="shareMediaUrl"
                     :share-to="[{
                       identifier: 'weavex',

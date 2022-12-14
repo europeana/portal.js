@@ -69,7 +69,10 @@
       {{ $t('website') }}
     </b-button>
     <ShareButton />
-    <SocialShareModal :media-url="image ? image : logo" />
+    <SocialShareModal
+      page="collection"
+      :media-url="image ? image : logo"
+    />
     <client-only>
       <template
         v-if="editable"
