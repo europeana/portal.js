@@ -88,7 +88,6 @@ const factory = ({ propsData, mocks, storeData } = {}) => {
       title: 'title value',
       ...propsData
     },
-    stubs: ['b-container'],
     mocks: {
       $apis: {
         entity: {
