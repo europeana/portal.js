@@ -7,7 +7,7 @@
     data-qa="share modal"
     title-tag="h2"
   >
-    <p>{{ $t('shareWhere', { page }) }}</p>
+    <p>{{ $t('shareWhere') }}</p>
     <div class="icon-wrapper pt-1">
       <SocialShare
         :media-url="mediaUrl"
@@ -36,10 +36,6 @@
     },
 
     props: {
-      page: {
-        type: String,
-        default: 'page'
-      },
       mediaUrl: {
         type: String,
         default: null

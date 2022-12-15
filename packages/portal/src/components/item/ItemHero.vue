@@ -51,7 +51,6 @@
         </b-col>
       </b-row>
       <SocialShareModal
-        page="item"
         :media-url="selectedMedia.about"
       >
         <ItemEmbedCode

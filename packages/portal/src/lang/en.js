@@ -1084,7 +1084,7 @@ export default {
       }
     }
   },
-  "shareWhere": "Where would you like to share this {page}?",
+  "shareWhere": "Where would you like to share this?",
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {

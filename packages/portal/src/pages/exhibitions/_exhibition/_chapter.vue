@@ -39,10 +39,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal
-              page="exhibition chapter"
-              :media-url="optimisedImageUrl"
-            />
+            <SocialShareModal :media-url="optimisedImageUrl" />
             <BrowseSections
               v-if="page"
               :sections="page.hasPartCollection.items"

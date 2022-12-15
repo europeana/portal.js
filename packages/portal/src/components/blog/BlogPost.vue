@@ -43,10 +43,7 @@
               </template>
             </div>
             <ShareButton class="my-4" />
-            <SocialShareModal
-              page="blog"
-              :media-url="hero ? hero.image.url : null"
-            />
+            <SocialShareModal :media-url="hero ? hero.image.url : null" />
             <BrowseSections
               :sections="body.items"
               :rich-text-is-card="false"
