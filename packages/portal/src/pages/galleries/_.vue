@@ -105,12 +105,12 @@
                       {{ $t('set.labels.curatedBy') }}
                       <img
                         v-if="set.creator.nickname === $config.app.galleries.europeanaAccount"
-                        src="~/assets/img/logo.svg"
+                        src="/favicon.ico"
                         alt="Europeana"
-                        width="177"
-                        height="37"
+                        width="48"
+                        height="48"
                         class="ml-1"
-                        data-qa="logo"
+                        :style="{ 'border-radius': '24px' }"
                       >
                       <template
                         v-else
