@@ -102,7 +102,20 @@
                       v-if="set.creator.nickname"
                       class="curator mb-2"
                     >
-                      {{ $t('set.labels.curatedBy') }} @{{ set.creator.nickname }}
+                      {{ $t('set.labels.curatedBy') }}
+                      <img
+                        v-if="set.creator.nickname === $config.app.galleries.europeanaAccount"
+                        src="~/assets/img/logo.svg"
+                        alt="Europeana"
+                        width="96"
+                        height="20"
+                        class="ml-1 logo"
+                      >
+                      <template
+                        v-else
+                      >
+                        @{{ set.creator.nickname }}
+                      </template>
                     </span>
                     <span
                       v-if="set.visibility === 'private'"
@@ -487,6 +500,11 @@
     font-weight: 600;
     line-height: 1.125;
     color: $mediumgrey;
+
+    img.logo {
+      height: 1.25rem;
+      width: auto;
+    }
 
     .curator,
     .visibility {

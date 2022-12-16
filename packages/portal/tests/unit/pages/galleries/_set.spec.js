@@ -78,6 +78,13 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       context: {
         res: {}
       }
+    },
+    $config: {
+      app: {
+        galleries: {
+          europeanaAccount: 'europeana'
+        }
+      }
     }
   },
   stubs: ['SetRecommendations', 'SetPublicationRequestWidget']
