@@ -9,22 +9,22 @@
     <div
       v-if="errorExplanationAvailable"
       class="error-explanation d-flex"
-      :class="{ '100-vh': fullHeight }"
+      :class="{ 'full-height': fullHeight }"
       data-qa="error explanation"
     >
       <b-img
-        v-if="illustrationSrc"
-        :src="illustrationSrc"
+        v-if="illustrationSrcValue"
+        :src="illustrationSrcValue"
         alt=""
       />
       <section
-        v-if="titlePath || descriptionPath"
+        v-if="titlePathValue || descriptionPathValue"
         class="mt-4"
       >
         <i18n
-          v-if="titlePath"
+          v-if="titlePathValue"
           tag="h1"
-          :path="titlePath"
+          :path="titlePathValue"
           class="mb-4"
         >
           <template #newline>
@@ -32,9 +32,9 @@
           </template>
         </i18n>
         <p
-          v-if="descriptionPath"
+          v-if="descriptionPathValue"
         >
-          {{ $t(descriptionPath) }}
+          {{ $t(descriptionPathValue) }}
         </p>
       </section>
     </div>
@@ -79,12 +79,39 @@
       fullHeight: {
         type: Boolean,
         default: true
+      },
+      statusCode: {
+        type: Number,
+        default: null
       }
     },
 
+    data() {
+      return {
+        httpErrors: {
+          404: {
+            titlePath: 'errorMessage.pageNotFound.title',
+            illustrationSrc: require('@/assets/img/illustrations/il-page-not-found.svg')
+          }
+        }
+      };
+    },
+
     computed: {
+      titlePathValue() {
+        return this.titlePath || this.httpError?.titlePath;
+      },
+      descriptionPathValue() {
+        return this.descriptionPath || this.httpError?.descriptionPath;
+      },
+      illustrationSrcValue() {
+        return this.illustrationSrc || this.httpError?.illustrationSrc;
+      },
+      httpError() {
+        return this.httpErrors[this.statusCode] || null;
+      },
       errorExplanationAvailable() {
-        return this.illustrationSrc || this.titlePath || this.descriptionPath;
+        return this.illustrationSrcValue || this.titlePathValue || this.descriptionPathValue;
       }
     }
   };

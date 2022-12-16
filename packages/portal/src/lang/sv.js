@@ -31,10 +31,10 @@ export default {
     "cancel": "Avbryt",
     "close": "stäng",
     "continue": "Fortsätt",
+    "depublish": "Avpublicera",
     "download": "Ladda ner",
     "edit": "Redigera",
     "feedback": "Feedback",
-    "goBack": "Gå tillbaka",
     "goHome": "Gå till hemsidan",
     "learnMore": "Läs mer",
     "like": "Gilla",
@@ -44,12 +44,16 @@ export default {
     "preview": "Förhandsvisning",
     "previous": "Föregående",
     "providedBy": "Tillhandahålls av {provider}",
+    "publish": "Publicera",
     "reject": "Avvisa",
+    "requestDepublication": "Begär avpublicering",
     "save": "Spara",
     "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
-    "skip": "Hoppa",
+    "skipSend": "Hoppa över och skicka",
+    "submitForPublication": "Skicka in för publicering",
+    "submittedForPublication": "Inlämnad för publicering",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
@@ -61,6 +65,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Gallerier",
     "item": "Senaste objekt",
     "organisation": "Organisationer",
     "place": "Platser",
@@ -216,6 +221,10 @@ export default {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
       "metaTitle": "Objektet hittades inte",
       "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
+    },
+    "pageNotFound": {
+      "metaTitle": "Sidan har inte hittats",
+      "title": "Sidan du letar efter finns inte."
     },
     "searchResultsNotFound": {
       "description": "Justera söktermen eller återställ filtren för att försöka igen.",
@@ -608,6 +617,7 @@ export default {
   "feedback": {
     "emailOptional": "Vi kanske vill följa upp detta. Ange din e-postadress om du vill att vi ska kontakta dig.",
     "failed": "Begäran misslyckades. Var god försök igen.",
+    "faq": "Gå till vanliga frågor",
     "form": {
       "placeholders": {
         "email": "Ange din e-postadress",
@@ -699,6 +709,7 @@ export default {
       "about": "Om oss",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
+      "faq": "Vanliga frågor",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
@@ -851,6 +862,11 @@ export default {
       "clickToCopy": "Klicka på attributionen för att kopiera den",
       "modalIntro": "Om du använder det här objektet på webben eller någon annanstans ska du inte glömma att visa följande attribution bredvid det:",
       "modalTitle": "Säg tack"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Vi rekommenderar att du klickar på knappen \"Tillhandahållande institution\" nedan för att kontrollera om objektet kan laddas ner på den tillhandahållande institutionens webbplats.",
+      "message": "Om nedladdningen inte fungerar kan det bero på att den har tagits bort av den tillhandahållande institutionen, eller så kan det vara ett tekniskt problem med deras tjänst.",
+      "title": "Nedladdningen fungerar inte"
     }
   },
   "multilingual": {
@@ -999,12 +1015,14 @@ export default {
     "form": {
       "description": "Beskrivning av galleri",
       "private": "Detta är ett privat galleri",
+      "privateWarning": "Denna åtgärd kommer att avpublicera galleriet.",
       "required": "Obligatoriska fält",
       "title": "Namn på galleri"
     },
     "labels": {
       "curatedBy": "Sammanställt av",
-      "private": "Privat galleri"
+      "private": "Privat galleri",
+      "published": "Publicerat galleri"
     },
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
@@ -1012,10 +1030,32 @@ export default {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 likes"
       },
-      "updated": "Objektet lades till i galleriet."
+      "updated": "Objektet lades till i galleriet.",
+      "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
+      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade.",
+      "shareWhere": "Var vill du dela detta galleri?"
+    },
+    "publication": {
+      "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu/galleries.",
+      "failedSubmission": "Begäran misslyckades. Var god försök igen.",
+      "process": {
+        "description": "När du skickar in ett galleri för publicering kommer ett team av utgivare på Europeana att meddelas. De kommer först att granska den och kan göra ändringar innan den publiceras. Du kommer att få meddelanden via e-post när galleriet granskas. Om den inte publiceras kan det vara så att den inte överensstämmer med våra redaktionella riktlinjer.",
+        "title": "Hur processen fungerar"
+      },
+      "time": {
+        "description": "1-3 dagar.",
+        "title": "Hur lång tid det tar"
+      },
+      "title": "Skicka in galleri för publicering",
+      "toastButton": "Okej",
+      "toastMessage": "Detta galleri är nu inlämnat för publicering. Du kan kontrollera {galleries} för att se om den har publicerats."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) är ett webbaserat verktyg för att hantera innehåll av olika typer (inklusive 3D), dokumentera kulturarv genom digitala gemenskapsutrymmen och kurera digitala berättelser och upplevelser."
+      }
     }
   },
   "showLess": "Visa mindre",

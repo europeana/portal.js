@@ -1,4 +1,4 @@
-import serviceDesk from '@/server-middleware/api/jira/service-desk';
+import serviceDesk from '@/server-middleware/api/jira-service-desk/feedback';
 
 import nock from 'nock';
 nock.disableNetConnect();
@@ -6,11 +6,18 @@ import sinon from 'sinon';
 
 const options = {
   origin: 'https://jira.example.org',
-  username: 'example@europeana.eu',
-  password: 'YOUR_TOKEN',
   serviceDesk: {
-    serviceDeskId: '7',
-    requestTypeId: '81'
+    feedback: {
+      username: 'example@europeana.eu',
+      password: 'YOUR_TOKEN',
+      serviceDeskId: '7',
+      requestTypeId: '81',
+      customFields: {
+        pageUrl: 'cf001',
+        browser: 'cf002',
+        screensize: 'cf003'
+      }
+    }
   }
 };
 const middleware = serviceDesk(options);
@@ -26,7 +33,7 @@ const mockResponse = () => {
 };
 const mockJiraApiRequest = body => nock(options.origin).post('/rest/servicedeskapi/request', body);
 
-describe('server-middleware/api/jira/service-desk', () => {
+describe('server-middleware/api/jira-service-desk/feedback', () => {
   afterEach(() => {
     nock.cleanAll();
   });
@@ -48,8 +55,8 @@ describe('server-middleware/api/jira/service-desk', () => {
           const req = mockRequest();
           const res = mockResponse();
           mockJiraApiRequest(body => (
-            (body.serviceDeskId === options.serviceDesk.serviceDeskId) &&
-            (body.requestTypeId === options.serviceDesk.requestTypeId)
+            (body.serviceDeskId === options.serviceDesk.feedback.serviceDeskId) &&
+            (body.requestTypeId === options.serviceDesk.feedback.requestTypeId)
           )).reply(201);
 
           await middleware(req, res);
@@ -103,6 +110,22 @@ describe('server-middleware/api/jira/service-desk', () => {
           const req = mockRequest(reqBody);
           const res = mockResponse();
           mockJiraApiRequest(body => body.requestFieldValues.summary === summary).reply(201);
+
+          await middleware(req, res);
+
+          expect(nock.isDone()).toBe(true);
+        });
+
+        it('includes custom fields when available', async() => {
+          const reqBody = {
+            feedback: 'Hello there, five word minimum :)',
+            pageUrl: 'www.example.eu',
+            browser: 'Firefox',
+            screensize: '1200 x 800'
+          };
+          const req = mockRequest(reqBody);
+          const res = mockResponse();
+          mockJiraApiRequest(body => body.requestFieldValues[options.serviceDesk.feedback.customFields.pageUrl] === reqBody.pageUrl).reply(201);
 
           await middleware(req, res);
 

@@ -154,6 +154,20 @@ export default {
         commit('setActive', { ...response, items });
       }
     },
+    async publish({ state, commit }, id) {
+      const response = await this.$apis.set.publish(id);
+
+      if (state.active && (state.active.id === id)) {
+        commit('setActive', { ...state.active, ...response });
+      }
+    },
+    async unpublish({ state, commit }, id) {
+      const response = await this.$apis.set.unpublish(id);
+
+      if (state.active && (state.active.id === id)) {
+        commit('setActive', { ...state.active, ...response });
+      }
+    },
     async delete({ state, commit }, setId) {
       await this.$apis.set.delete(setId);
       if (state.active && setId === state.active.id) {

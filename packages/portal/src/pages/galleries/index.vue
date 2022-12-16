@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <ContentHeader
-      :title="$tc('galleries.galleries', 2)"
+      :title="pageMeta.title"
       :description="$t('galleries.description')"
     />
     <b-row class="flex-md-row pb-5">
@@ -38,13 +38,14 @@
             v-if="setGalleriesEnabled"
           >
             <ContentCard
-              v-for="gallery in galleries"
+              v-for="(gallery, index) in galleries"
               :key="gallery.slug"
               :title="gallery.title"
               :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
               :image-url="gallery.thumbnail"
               :texts="[gallery.description]"
               :show-subtitle="false"
+              :offset="index"
             />
           </template>
           <template
@@ -78,6 +79,7 @@
   import { getLabelledSlug } from '@/plugins/europeana/utils';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   const PER_PAGE = 20;
 
@@ -90,6 +92,7 @@
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       PaginationNavInput: () => import('../../components/generic/PaginationNavInput')
     },
+    mixins: [pageMetaMixin],
     middleware: 'sanitisePageQuery',
     data() {
       return {
@@ -106,12 +109,12 @@
       }
       this.$scrollTo && this.$scrollTo('#header');
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$tc('galleries.galleries', 2))
-      };
-    },
     computed: {
+      pageMeta() {
+        return {
+          title: this.$tc('galleries.galleries', 2)
+        };
+      },
       setGalleriesEnabled() {
         return this.$features.setGalleries;
       },
@@ -132,7 +135,7 @@
         };
 
         const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-        this.galleries = this.parseSets(setResponse.data.items);
+        this.galleries = setResponse.data.items && this.parseSets(setResponse.data.items);
         this.total = setResponse.data.partOf.total;
         this.perPage = PER_PAGE;
       },
@@ -142,7 +145,7 @@
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
             description: set.description,
-            thumbnail: this.setPreviewUrl(set.items[0].edmPreview)
+            thumbnail: this.setPreviewUrl(set.items?.[0].edmPreview)
           };
         });
       },

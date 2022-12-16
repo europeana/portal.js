@@ -31,10 +31,10 @@ export default {
     "cancel": "Annuleren",
     "close": "sluiten",
     "continue": "doorgaan",
+    "depublish": "Depubliceren",
     "download": "Download",
     "edit": "Bewerken",
     "feedback": "Feedback",
-    "goBack": "Ga terug",
     "goHome": "Ga naar de homepage",
     "learnMore": "Leer meer",
     "like": "Liken",
@@ -44,12 +44,16 @@ export default {
     "preview": "Voorbeeld",
     "previous": "Vorige",
     "providedBy": "Aangeboden door {provider}",
+    "publish": "Publiceren",
     "reject": "Afwijzen",
+    "requestDepublication": "Depublicatie aanvragen",
     "save": "Opslaan",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
-    "skip": "Overslaan",
+    "skipSend": "Overslaan en verzenden",
+    "submitForPublication": "Indienen voor publicatie",
+    "submittedForPublication": "Ingezonden voor publicatie",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -61,6 +65,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijen",
     "item": "Recente items",
     "organisation": "Organisaties",
     "place": "Plaatsen",
@@ -216,6 +221,10 @@ export default {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    },
+    "pageNotFound": {
+      "metaTitle": "Pagina niet gevonden",
+      "title": "De pagina die u zoekt, bestaat niet."
     },
     "searchResultsNotFound": {
       "description": "Pas de zoekterm aan of reset de filters om het opnieuw te proberen.",
@@ -608,6 +617,7 @@ export default {
   "feedback": {
     "emailOptional": "We willen hier misschien een vervolg aan geven. Voer uw e-mailadres in als u het niet erg vindt als wij contact met u opnemen.",
     "failed": "Het verzoek is mislukt. Probeer het opnieuw.",
+    "faq": "Ga naar veelgestelde vragen",
     "form": {
       "placeholders": {
         "email": "Voer uw e-mailadres in",
@@ -699,6 +709,7 @@ export default {
       "about": "Over ons",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
+      "faq": "Veelgestelde vragen",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
@@ -851,6 +862,11 @@ export default {
       "clickToCopy": "Klik op de toeschrijving om deze te kopiëren",
       "modalIntro": "Als u dit item op internet of ergens anders gebruikt, vergeet dan niet de volgende toeschrijving ernaast weer te geven:",
       "modalTitle": "Zeg bedankt"
+    },
+    "downloadFailed": {
+      "linkPrompt": "We raden u aan op de onderstaande knop 'Instituut' te klikken om na te gaan of het item kan worden gedownload op de website van de verstrekkende instelling.",
+      "message": "Als de download niet werkt, kan het zijn dat deze is verwijderd door de verstrekkende instelling of dat er een technisch probleem is met hun service.",
+      "title": "Downloaden werkt niet"
     }
   },
   "multilingual": {
@@ -999,12 +1015,14 @@ export default {
     "form": {
       "description": "Omschrijving van de galerij",
       "private": "Houd deze galerij privé",
+      "privateWarning": "Deze actie depubliceert de galerij.",
       "required": "Verplicht veld",
       "title": "Naam van de galerij"
     },
     "labels": {
       "curatedBy": "Beheerd door",
-      "private": "Privégalerij"
+      "private": "Privégalerij",
+      "published": "Gepubliceerde galerij"
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
@@ -1012,10 +1030,32 @@ export default {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 artikelen liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"
       },
-      "updated": "Het item is toegevoegd aan de galerij."
+      "updated": "Het item is toegevoegd aan de galerij.",
+      "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd."
+      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd.",
+      "shareWhere": "Waar wilt u deze galerij delen?"
+    },
+    "publication": {
+      "description": "Als u een galerij publiceert, wordt deze op Europeana.eu/galleries weergegeven.",
+      "failedSubmission": "Het verzoek is mislukt. Probeer het opnieuw.",
+      "process": {
+        "description": "Wanneer u een galerij indient voor publicatie, wordt een team van uitgevers bij Europeana op de hoogte gebracht. Ze zullen het eerst beoordelen en mogelijk wijzigingen aanbrengen voordat het wordt gepubliceerd. U ontvangt meldingen per e-mail wanneer de galerij wordt beoordeeld. Als het niet wordt gepubliceerd, is het mogelijk dat het niet voldoet aan onze redactionele richtlijnen.",
+        "title": "Hoe het proces werkt"
+      },
+      "time": {
+        "description": "1-3 dagen.",
+        "title": "Hoe lang het duurt"
+      },
+      "title": "Galerij indienen voor publicatie",
+      "toastButton": "Oké",
+      "toastMessage": "Deze galerij is nu ingediend voor publicatie. U kunt {galleries} controleren om te zien of het is gepubliceerd."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) is een webtool voor het beheer van verschillende soorten inhoud (waaronder 3D), het documenteren van cultureel erfgoed via digitale gemeenschapsruimtes en het cureren van digitale verhalen en ervaringen."
+      }
     }
   },
   "showLess": "Minder weergeven",

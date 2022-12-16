@@ -31,10 +31,10 @@ export default {
     "cancel": "Peruuttaa",
     "close": "sulje",
     "continue": "jatka",
+    "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
     "edit": "Muokkaa",
     "feedback": "Palaute",
-    "goBack": "Palaa takaisin",
     "goHome": "Siirry kotisivulle",
     "learnMore": "Opi lisää",
     "like": "Tykkää",
@@ -44,12 +44,16 @@ export default {
     "preview": "Esikatselu",
     "previous": "Edellinen",
     "providedBy": "Tarjoaa {provider}",
+    "publish": "Julkaista",
     "reject": "Hylätä",
+    "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
     "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
-    "skip": "Ohita",
+    "skipSend": "Ohita ja lähetä",
+    "submitForPublication": "Lähetä julkaistavaksi",
+    "submittedForPublication": "Lähetetty julkaistavaksi",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -61,6 +65,7 @@ export default {
     "title": "Nimi:"
   },
   "automatedCardGroup": {
+    "gallery": "Galleriat",
     "item": "Viimeisimmät kohdetta",
     "organisation": "Organisaatiot",
     "place": "Paikat",
@@ -216,6 +221,10 @@ export default {
       "description": "Tämä voi johtua seuraavista syistä: tätä kohdetta ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää kohde uudelleen.",
       "metaTitle": "Kohdetta ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä kohdetta."
+    },
+    "pageNotFound": {
+      "metaTitle": "Sivua ei löydy",
+      "title": "Etsimääsi sivua ei ole olemassa."
     },
     "searchResultsNotFound": {
       "description": "Muokkaa hakusanaa tai nollaa suodattimet ja yritä uudelleen.",
@@ -608,6 +617,7 @@ export default {
   "feedback": {
     "emailOptional": "Saatamme haluta seurata asiaa. Kirjoita sähköpostiosoitteesi, jos olet iloinen siitä, että voimme ottaa sinuun yhteyttä.",
     "failed": "Pyyntö epäonnistui. Yritä uudelleen.",
+    "faq": "Siirry usein kysyttyihin kysymyksiin",
     "form": {
       "placeholders": {
         "email": "Syötä sähköpostiosoitteesi",
@@ -699,6 +709,7 @@ export default {
       "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
+      "faq": "Usein kysytyt kysymykset",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
@@ -851,6 +862,11 @@ export default {
       "clickToCopy": "Kopioi attribuutti napsauttamalla sitä",
       "modalIntro": "Jos käytät tätä kohdetta verkossa tai muualla, älä unohda näyttää seuraavaa attribuutiota sen vieressä:",
       "modalTitle": "Sano kiitos"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Suosittelemme, että napsautat alla olevaa \"kulttuuriperintölaitos\" -painiketta tarkistaaksesi, voidaanko kohde ladata tarjoavan laitoksen verkkosivustolta.",
+      "message": "Jos lataus ei toimi, se voi johtua siitä, että tarjoava laitos on poistanut sen tai sen palvelussa voi olla tekninen ongelma.",
+      "title": "Lataus ei toimi"
     }
   },
   "multilingual": {
@@ -999,12 +1015,14 @@ export default {
     "form": {
       "description": "Gallerian kuvaus",
       "private": "Pidä tämä galleria yksityisenä",
+      "privateWarning": "Tämä toiminto poistaa gallerian julkaisun.",
       "required": "Pakollinen kenttä",
       "title": "Gallerian nimi"
     },
     "labels": {
       "curatedBy": "Kuratoija",
-      "private": "Yksityinen galleria"
+      "private": "Yksityinen galleria",
+      "published": "Julkaistu galleria"
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
@@ -1012,10 +1030,32 @@ export default {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 kohteeseen. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"
       },
-      "updated": "Kohde on lisätty galleriaan."
+      "updated": "Kohde on lisätty galleriaan.",
+      "visibilityChanged": "Varoitus: asetettu näkyvyys on jo muuttunut ja on tällä hetkellä \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."
+      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet.",
+      "shareWhere": "Missä haluaisit jakaa tämän gallerian?"
+    },
+    "publication": {
+      "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
+      "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
+      "process": {
+        "description": "Kun lähetät gallerian julkaistavaksi, Europeanan kustantajatiimi saa ilmoituksen. He tarkastavat sen ensin ja saattavat tehdä muutoksia ennen julkaisemista. Saat ilmoituksia sähköpostitse, kun galleriaa tarkistetaan. Jos galleriaa ei julkaista, se voi johtua siitä, että se ei ole toimituksellisten ohjeidemme mukainen.",
+        "title": "Kuinka prosessi toimii"
+      },
+      "time": {
+        "description": "1-3 päivää.",
+        "title": "Kuinka kauan se kestää"
+      },
+      "title": "Lähetä galleria julkaistavaksi",
+      "toastButton": "Okei",
+      "toastMessage": "Tämä galleria on nyt lähetetty julkaistavaksi. Voit tarkistaa {galleries} , onko se julkaistu."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) on verkkopohjainen työkalu erityyppisten (mukaan lukien 3D) sisällön hallintaan, kulttuuriperinnön dokumentointiin digitaalisten yhteisötilojen kautta sekä digitaalisten tarinoiden ja kokemusten kuratoimiseen."
+      }
     }
   },
   "showLess": "Näytä vähemmän",

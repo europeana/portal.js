@@ -10,26 +10,27 @@ localVue.use(BootstrapVue);
 
 const storeDispatch = sinon.stub().resolves({});
 
-const defaultOptions = {
-  fetchState: {},
-  hash: ''
-};
-
-const factory = (options = defaultOptions) => shallowMountNuxt(page, {
+const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   stubs: ['client-only'],
   mocks: {
     $t: key => key,
-    $auth: { strategy: { options: {
-      origin: 'https://auth.example.eu', realm: 'europeana', 'client_id': 'portal.js'
-    } } },
+    $auth: {
+      userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false),
+      strategy: {
+        options: {
+          origin: 'https://auth.example.eu',
+          realm: 'europeana',
+          'client_id': 'portal.js'
+        }
+      }
+    },
     $config: { app: { baseUrl: 'https://www.example.eu' } },
     $features: {},
-    $fetchState: options.fetchState,
-    $pageHeadTitle: key => key,
+    $fetchState: options.fetchState || {},
     $path: (path) => path,
     $route: {
-      hash: options.hash
+      hash: options.hash || ''
     },
     $store: {
       dispatch: storeDispatch,
@@ -51,51 +52,51 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
 
 describe('pages/account/index.vue', () => {
   describe('when visiting the account page', () => {
-    const wrapper = factory();
+    it('fetches the likes of the logged in user', () => {
+      const wrapper = factory();
 
-    it('fetches the likes of the logged in user', async() => {
-      await wrapper.vm.fetch();
+      wrapper.vm.fetch();
 
       expect(wrapper.vm.$store.dispatch.calledWith('set/fetchLikes')).toBe(true);
     });
 
-    it('sets the head title to the localised account title key', () => {
-      expect(wrapper.vm.head().title).toBe('account.title');
+    it('sets the page meta title to the localised account title key', () => {
+      const wrapper = factory();
+
+      expect(wrapper.vm.pageMeta.title).toBe('account.title');
     });
   });
 
   describe('when the user has the editor role', () => {
-    const wrapper = factory({
-      ...defaultOptions,
-      user: {
-        'resource_access': { entities: { roles: ['editor'] },
-          usersets: { roles: 'editor' } }
-      }
-    });
+    const userHasClientRoleStub = sinon.stub().returns(false)
+      .withArgs('entities', 'editor').returns(true)
+      .withArgs('usersets', 'editor').returns(true);
 
     it('fetches the user\'s curated collections', async() => {
+      const wrapper = factory({ userHasClientRoleStub });
+
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.$store.dispatch.calledWith('set/fetchCurations')).toBe(true);
     });
 
     it('shows the curated collections in the tab navigation', () => {
+      const wrapper = factory({ userHasClientRoleStub });
+
       const curatedCollectionsTab = wrapper.find('[data-qa="curated collections"]');
+
       expect(curatedCollectionsTab.exists()).toBe(true);
     });
 
     describe('when visiting the curated collections', () => {
-      const wrapper = factory({
-        ...defaultOptions,
-        hash: '#curated-collections',
-        user: {
-          'resource_access': { entities: { roles: ['editor'] },
-            usersets: { roles: 'editor' } }
-        }
-      });
-
       it('shows the curated collections', () => {
+        const wrapper = factory({
+          hash: '#curated-collections',
+          userHasClientRoleStub
+        });
+
         const publicGalleries = wrapper.find('[data-qa="curated sets"]');
+
         expect(publicGalleries.exists()).toBe(true);
       });
     });
@@ -103,7 +104,6 @@ describe('pages/account/index.vue', () => {
 
   describe('when visiting the likes collection', () => {
     const wrapper = factory({
-      ...defaultOptions,
       hash: '#likes'
     });
 
@@ -115,7 +115,6 @@ describe('pages/account/index.vue', () => {
 
   describe('when visiting the public galleries', () => {
     const wrapper = factory({
-      ...defaultOptions,
       hash: '#public-galleries'
     });
 
@@ -127,13 +126,42 @@ describe('pages/account/index.vue', () => {
 
   describe('when visiting the private galleries', () => {
     const wrapper = factory({
-      ...defaultOptions,
       hash: '#private-galleries'
     });
 
     it('shows the private galleries', () => {
       const privateGalleries = wrapper.find('[data-qa="private sets"]');
       expect(privateGalleries.exists()).toBe(true);
+    });
+  });
+
+  describe('computed', () => {
+    describe('publicCreations', () => {
+      it('includes only created sets with visibility "public" or "published"', () => {
+        const privateSet = { visibility: 'private' };
+        const publicSet = { visibility: 'public' };
+        const publishedSet = { visibility: 'published' };
+        const creations = [privateSet, publicSet, publishedSet];
+
+        const wrapper = factory();
+        wrapper.vm.$store.state.set.creations = creations;
+
+        expect(wrapper.vm.publicCreations).toEqual([publicSet, publishedSet]);
+      });
+    });
+
+    describe('privateCreations', () => {
+      it('includes only created sets with visibility "private"', () => {
+        const privateSet = { visibility: 'private' };
+        const publicSet = { visibility: 'public' };
+        const publishedSet = { visibility: 'published' };
+        const creations = [privateSet, publicSet, publishedSet];
+
+        const wrapper = factory();
+        wrapper.vm.$store.state.set.creations = creations;
+
+        expect(wrapper.vm.privateCreations).toEqual([privateSet]);
+      });
     });
   });
 });

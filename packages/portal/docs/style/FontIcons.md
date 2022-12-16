@@ -145,6 +145,11 @@ Example:
           <td><span class="icon icon-linkedin" /></td>
         </tr>
         <tr>
+          <td>Lock</td>
+          <td><code>icon-lock</code></td>
+          <td><span class="icon icon-lock" /></td>
+        </tr>
+        <tr>
           <td>Pinterest</td>
           <td><code>icon-pinterest</code></td>
           <td><span class="icon icon-pinterest" /></td>

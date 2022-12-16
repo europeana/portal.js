@@ -31,10 +31,10 @@ export default {
     "cancel": "Abbrechen",
     "close": "schließen",
     "continue": "Fortfahren",
+    "depublish": "Veröffentlichung aufheben",
     "download": "Herunterladen",
     "edit": "Bearbeiten",
     "feedback": "Feedback",
-    "goBack": "Zurückgehen",
     "goHome": "Zur Homepage gehen",
     "learnMore": "Mehr erfahren",
     "like": "Like",
@@ -44,12 +44,16 @@ export default {
     "preview": "Vorschau",
     "previous": "Vorherige",
     "providedBy": "Bereitgestellt von {provider}",
+    "publish": "Veröffentlichen",
     "reject": "Ablehnen",
+    "requestDepublication": "Depublikation anfordern",
     "save": "Speichern",
     "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
-    "skip": "Überspringen",
+    "skipSend": "Überspringen und senden",
+    "submitForPublication": "Zur Veröffentlichung einreichen",
+    "submittedForPublication": "Zur Veröffentlichung eingereicht",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen"
   },
@@ -61,6 +65,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerien",
     "item": "Aktuelle Objekte",
     "organisation": "Organisationen",
     "place": "Orte",
@@ -216,6 +221,10 @@ export default {
       "description": "Dies kann folgende Gründe haben: Diesem Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
       "metaTitle": "Objekt nicht gefunden",
       "title": "Ach nein! {newline} Wir konnten dies Objekt nicht finden."
+    },
+    "pageNotFound": {
+      "metaTitle": "Seite nicht gefunden",
+      "title": "Die gesuchte Seite existiert nicht."
     },
     "searchResultsNotFound": {
       "description": "Bitte passen Sie den Suchbegriff an oder setzen Sie die Filter zurück, um es erneut zu versuchen.",
@@ -608,6 +617,7 @@ export default {
   "feedback": {
     "emailOptional": "Möglicherweise möchten wir nachfassen. Geben Sie Ihre E-Mail-Adresse ein, wenn Sie damit einverstanden sind, dass wir Sie kontaktieren.",
     "failed": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+    "faq": "Gehen Sie zu den häufig gestellten Fragen",
     "form": {
       "placeholders": {
         "email": "Geben sie ihre E-Mailadresse ein",
@@ -699,6 +709,7 @@ export default {
       "about": "Über uns",
       "accessibility": "Barrierefreiheit",
       "cookies": "Cookies",
+      "faq": "Häufig gestellte Fragen",
       "forDevelopers": "Für Entwickler",
       "help": "Hilfe",
       "MoreInfoLabel": "Mehr Infos",
@@ -851,6 +862,11 @@ export default {
       "clickToCopy": "Klicken Sie auf die Namensnennung, um sie zu kopieren",
       "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Attribution daneben anzuzeigen:",
       "modalTitle": "Dank sagen"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Wir empfehlen Ihnen, unten auf die Schaltfläche \"Bereitstellende Institution\" zu klicken, um zu prüfen, ob der Artikel auf der Website der anbietenden Institution heruntergeladen werden kann.",
+      "message": "Wenn der Download nicht funktioniert, kann es daran liegen, dass er von der anbietenden Einrichtung entfernt wurde, oder es liegt ein technisches Problem mit ihrem Dienst vor.",
+      "title": "Download funktioniert nicht"
     }
   },
   "multilingual": {
@@ -999,12 +1015,14 @@ export default {
     "form": {
       "description": "Galeriebeschreibung",
       "private": "Diese Galerie privat halten",
+      "privateWarning": "Durch diese Aktion wird die Veröffentlichung der Galerie aufgehoben.",
       "required": "Pflichtfeld",
       "title": "Galeriename"
     },
     "labels": {
       "curatedBy": "Kuratiert von",
-      "private": "Private Galerie"
+      "private": "Private Galerie",
+      "published": "Veröffentlichte Galerie"
     },
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
@@ -1012,10 +1030,32 @@ export default {
         "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Objekte liken. Wir werden dieses Limit bald aufheben!",
         "title": "100 Likes"
       },
-      "updated": "Das Objekt wurde der Galerie hinzugefügt."
+      "updated": "Das Objekt wurde der Galerie hinzugefügt.",
+      "visibilityChanged": "Warnung: Set-Sichtbarkeit wurde bereits geändert und ist derzeit \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben."
+      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben.",
+      "shareWhere": "Wo möchten Sie diese Galerie teilen?"
+    },
+    "publication": {
+      "description": "Wenn Sie eine Galerie veröffentlichen, wird sie auf Europeana.eu/galleries veröffentlicht.",
+      "failedSubmission": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+      "process": {
+        "description": "Wenn Sie eine Galerie zur Veröffentlichung einreichen, wird ein Team von Verlagen bei Europeana benachrichtigt. Sie werden es zuerst überprüfen und möglicherweise Änderungen vornehmen, bevor es veröffentlicht wird. Sie erhalten Benachrichtigungen per E-Mail, wenn die Galerie überprüft wird. Wenn es nicht veröffentlicht wird, kann es sein, dass es nicht unseren redaktionellen Richtlinien entspricht.",
+        "title": "Wie der Prozess funktioniert"
+      },
+      "time": {
+        "description": "1-3 Tage.",
+        "title": "Wie lange es dauert"
+      },
+      "title": "Galerie zur Veröffentlichung einreichen",
+      "toastButton": "Okay",
+      "toastMessage": "Diese Galerie wird nun zur Veröffentlichung eingereicht. Sie können in {galleries} nachsehen, ob es veröffentlicht wurde."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) ist ein webbasiertes Tool zum Verwalten von Inhalten unterschiedlicher Art (einschließlich 3D), zum Dokumentieren des kulturellen Erbes durch digitale Gemeinschaftsräume und zum Kuratieren digitaler Geschichten und Erfahrungen."
+      }
     }
   },
   "showLess": "Weniger anzeigen",

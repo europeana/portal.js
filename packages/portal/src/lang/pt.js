@@ -31,10 +31,10 @@ export default {
     "cancel": "Cancelar",
     "close": "fechar",
     "continue": "continuar",
+    "depublish": "Despublicar",
     "download": "Descarregar",
     "edit": "Editar",
     "feedback": "Comentários",
-    "goBack": "Voltar",
     "goHome": "Vá para a página inicial",
     "learnMore": "Saiba mais",
     "like": "Gosto",
@@ -44,12 +44,16 @@ export default {
     "preview": "Visualizar",
     "previous": "Anterior",
     "providedBy": "Fornecido por {provider}",
+    "publish": "Publicar",
     "reject": "Rejeitar",
+    "requestDepublication": "Solicitar despublicação",
     "save": "Salve",
     "send": "Enviar",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
-    "skip": "Saltar passo",
+    "skipSend": "Ignorar e enviar",
+    "submitForPublication": "Enviar para publicação",
+    "submittedForPublication": "Enviado para publicação",
     "viewAt": "Ver em {link}",
     "viewDocument": "Ver documento"
   },
@@ -61,6 +65,7 @@ export default {
     "title": "Título:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerias",
     "item": "Itens recentes",
     "organisation": "Organizações",
     "place": "Lugares",
@@ -216,6 +221,10 @@ export default {
       "description": "Isso pode ser devido aos seguintes motivos: este item não existe, ou; foi despublicado porque não atendeu aos nossos critérios de qualidade, ou; ele foi atualizado e republicado com um novo identificador exclusivo, nesse caso, tente encontrar o item novamente.",
       "metaTitle": "Item não encontrado",
       "title": "Oh não! {newline} Não foi possível encontrar este item."
+    },
+    "pageNotFound": {
+      "metaTitle": "Página não encontrada",
+      "title": "A página que está a procurar não existe."
     },
     "searchResultsNotFound": {
       "description": "Por favor ajustar o termo de pesquisa ou reiniciar os filtros para tentar novamente.",
@@ -608,6 +617,7 @@ export default {
   "feedback": {
     "emailOptional": "Poderemos desejar fazer um seguimento. Introduza o seu e-mail se lhe agradar que entremos em contacto.",
     "failed": "O pedido falhou. Por favor, tente novamente.",
+    "faq": "Ir para perguntas frequentes",
     "form": {
       "placeholders": {
         "email": "Digite seu endereço de e-mail",
@@ -699,6 +709,7 @@ export default {
       "about": "Saiba mais sobre nós",
       "accessibility": "Acessibilidade",
       "cookies": "Biscoitos",
+      "faq": "Perguntas frequentes",
       "forDevelopers": "Para desenvolvedores",
       "help": "Ajuda",
       "MoreInfoLabel": "Mais informações",
@@ -851,6 +862,11 @@ export default {
       "clickToCopy": "Clique na atribuição para copiá-lo",
       "modalIntro": "Se utilizar este item na web ou noutro local, não se esqueça de apresentar a seguinte atribuição ao lado:",
       "modalTitle": "Diga obrigado"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Aconselhamos que clique no botão 'Instituição fornecedora' abaixo para verificar se o item pode ser baixado no site da instituição provedora.",
+      "message": "Se o download não funcionar, pode ser porque ele foi removido pela instituição provedora ou pode haver um problema técnico com o serviço.",
+      "title": "Download não funciona"
     }
   },
   "multilingual": {
@@ -999,12 +1015,14 @@ export default {
     "form": {
       "description": "Descrição da galeria",
       "private": "Manter a galeria privada",
+      "privateWarning": "Esta ação cancelará a publicação da galeria.",
       "required": "Campos obrigatórios",
       "title": "Nome da galeria"
     },
     "labels": {
       "curatedBy": "Curadoria por",
-      "private": "Galeria privada"
+      "private": "Galeria privada",
+      "published": "Galeria publicada"
     },
     "notifications": {
       "deleted": "A galeria foi eliminada.",
@@ -1012,10 +1030,32 @@ export default {
         "body": "Pedimos desculpa, mas está limitado no momento a gostar de no máximo 100 itens. Removeremos esse limite em breve!",
         "title": "100 gostos"
       },
-      "updated": "O item foi adicionado à galeria."
+      "updated": "O item foi adicionado à galeria.",
+      "visibilityChanged": "Aviso: o conjunto de visibilidade já foi alterado e atualmente é \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela."
+      "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela.",
+      "shareWhere": "Onde gostaria de compartilhar esta galeria?"
+    },
+    "publication": {
+      "description": "A publicação de uma galeria irá apresentá-la em Europeana.eu/galleries.",
+      "failedSubmission": "O pedido falhou. Por favor, tente novamente.",
+      "process": {
+        "description": "Quando submeter uma galeria para publicação, uma equipa de editores da Europeana será notificada. Eles irão primeiro revê-la, e poderão fazer alterações antes da sua publicação. Receberá notificações por correio eletrónico à medida que a galeria for revista. Se não for publicada, poderá ser que não esteja em conformidade com as nossas diretrizes editoriais.",
+        "title": "Como funciona o processo"
+      },
+      "time": {
+        "description": "1-3 dias.",
+        "title": "Quanto tempo demora"
+      },
+      "title": "Enviar galeria para publicação",
+      "toastButton": "OK",
+      "toastMessage": "Esta galeria está agora submetida para publicação. Pode verificar {galleries} para ver se foi publicado."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) é uma ferramenta baseada na web para gerir conteúdos de diferentes tipos (incluindo 3D), documentar o património cultural através de espaços comunitários digitais, e curar histórias e experiências digitais."
+      }
     }
   },
   "showLess": "Mostrar menos",

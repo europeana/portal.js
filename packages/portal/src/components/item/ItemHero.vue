@@ -38,9 +38,13 @@
                 />
               </client-only>
               <ShareButton />
-              <DownloadButton
+              <DownloadWidget
                 v-if="downloadEnabled"
                 :url="downloadUrl"
+                :provider-url="providerUrl"
+                :identifier="identifier"
+                :rights-statement="rightsStatement"
+                :attribution-fields="attributionFields"
               />
             </div>
           </div>
@@ -53,16 +57,6 @@
           :identifier="identifier"
         />
       </SocialShareModal>
-      <DownloadModal
-        v-if="downloadEnabled"
-        :title="attributionFields.title"
-        :creator="attributionFields.creator"
-        :year="attributionFields.year"
-        :provider="attributionFields.provider"
-        :country="attributionFields.country"
-        :rights="rightsNameAndIcon(rightsStatement).name"
-        :url="attributionFields.url"
-      />
     </b-container>
   </div>
 </template>
@@ -70,8 +64,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import ItemMediaSwiper from './ItemMediaSwiper';
-  import DownloadButton from '../generic/DownloadButton';
-  import DownloadModal from '../generic/DownloadModal.vue';
+  import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ItemEmbedCode from './ItemEmbedCode';
   import SocialShareModal from '../sharing/SocialShareModal';
@@ -83,14 +76,13 @@
 
   export default {
     components: {
-      ItemMediaSwiper,
       ClientOnly,
-      DownloadButton,
-      RightsStatementButton,
+      DownloadWidget,
       ItemEmbedCode,
-      SocialShareModal,
-      DownloadModal,
+      ItemMediaSwiper,
+      RightsStatementButton,
       ShareButton,
+      SocialShareModal,
       UserButtons: () => import('../account/UserButtons')
     },
 
@@ -127,6 +119,10 @@
       entities: {
         type: Array,
         default: () => []
+      },
+      providerUrl: {
+        type: String,
+        default: null
       }
     },
     data() {
@@ -164,15 +160,13 @@
         return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
       },
       showPins() {
-        return this.userIsEditor && this.userIsSetsEditor && this.entities.length > 0;
+        return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
       },
-      userIsEditor() {
-        // TODO: check if this can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
-        return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
+      userIsEntitiesEditor() {
+        return this.$auth.userHasClientRole('entities', 'editor');
       },
       userIsSetsEditor() {
-        // TODO: check if theis can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
-        return this.$store.state.auth.user?.resource_access?.usersets?.roles.includes('editor') || false;
+        return this.$auth.userHasClientRole('usersets', 'editor');
       }
     },
     mounted() {
@@ -227,6 +221,10 @@
         padding: 0;
       }
 
+      > div {
+        display: inherit;
+      }
+
       .btn {
         color: $mediumgrey;
         background: $offwhite;
@@ -258,7 +256,6 @@
         button {
           text-align: center;
           justify-content: center;
-          margin-bottom: 1rem;
           width: 100%;
         }
 
@@ -274,6 +271,7 @@
 
         .rights-wrapper {
           order: 2;
+          margin-bottom: 1rem;
         }
 
         .button-wrapper {
@@ -283,11 +281,20 @@
 
           .user-buttons {
             justify-content: space-between;
+            margin-bottom: 1rem;
           }
 
-          .share-button,
-          .download-button {
+          .share-button {
+            margin-bottom: 1rem;
             width: auto;
+          }
+
+          .download-widget {
+            margin-bottom: 1rem;
+
+            .download-button {
+              width: auto;
+            }
           }
         }
       }

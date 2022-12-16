@@ -31,10 +31,10 @@ export default {
     "cancel": "Cancel",
     "close": "close",
     "continue": "continue",
+    "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
     "feedback": "Feedback",
-    "goBack": "Go back",
     "goHome": "Go to the homepage",
     "learnMore": "Learn more",
     "like": "Like",
@@ -44,12 +44,16 @@ export default {
     "preview": "Preview",
     "previous": "Previous",
     "providedBy": "Provided by {provider}",
+    "publish": "Publish",
     "reject": "Reject",
+    "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
-    "skip": "Skip",
+    "skipSend": "Skip and send",
+    "submitForPublication": "Submit for publication",
+    "submittedForPublication": "Submitted for publication",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
@@ -62,6 +66,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recent items",
+    "gallery": "Galleries",
     "organisation": "Organisations",
     "place": "Places",
     "time": "Centuries",
@@ -220,6 +225,10 @@ export default {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
       "metaTitle": "Item not found",
       "title": "Oh no! {newline} We were not able to find this item."
+    },
+    "pageNotFound": {
+      "metaTitle": "Page not found",
+      "title": "The page you are looking for doesn't exist."
     },
     "searchResultsNotFound": {
       "description": "Please adjust the search term or reset the filters to try again.",
@@ -635,6 +644,7 @@ export default {
   "feedback": {
     "emailOptional": "We may wish to follow up. Enter your email if you're happy for us to contact you.",
     "failed": "The request failed. Please try again.",
+    "faq": "Go to frequently asked questions",
     "form": {
       "placeholders": {
         "email": "Enter your email address",
@@ -727,6 +737,7 @@ export default {
       "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
+      "faq": "Frequently asked questions",
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
@@ -878,6 +889,11 @@ export default {
       "clickToCopy": "Click on the attribution to copy it",
       "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
       "modalTitle": "Say thanks"
+    },
+    "downloadFailed": {
+      "linkPrompt": "We advise you to click on the ‘providing institution’ button below to check if the item can be downloaded on the website of the providing institution.",
+      "message": "If the download does not work, it may be because it has been removed by the providing institution, or there may be a technical problem with their service.",
+      "title": "Download not working"
     }
   },
   "multilingual": {
@@ -1026,12 +1042,14 @@ export default {
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
+      "privateWarning": "This action will depublish the gallery.",
       "required": "Required field",
       "title": "Gallery name"
     },
     "labels": {
       "curatedBy": "Curated by",
-      "private": "Private gallery"
+      "private": "Private gallery",
+      "published": "Published gallery"
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
@@ -1039,12 +1057,34 @@ export default {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
       },
-      "updated": "The item was added to the gallery."
+      "updated": "The item was added to the gallery.",
+      "visibilityChanged": "Warning: set visibility already changed and is currently \"{visibility}\"."
     },
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
+    },
+    "publication": {
+      "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
+      "failedSubmission": "The request failed. Please try again.",
+      "process": {
+        "title": "How the process works",
+        "description": "When you submit a gallery for publication, a team of publishers at Europeana will be notified. They will first review it, and may make changes before it is published. You will receive notifications by email as the gallery is reviewed. If it is not published, it could be that it does not conform to our editorial guidelines."
+      },
+      "time": {
+        "title": "How long it takes",
+        "description": "1-3 days."
+      },
+      "title": "Submit gallery for publication",
+      "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
+      "toastButton": "Okay"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
+      }
     }
   },
+  "shareWhere": "Where would you like to share this?",
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {

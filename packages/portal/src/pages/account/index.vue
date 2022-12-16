@@ -147,6 +147,7 @@
   import { mapState } from 'vuex';
 
   import keycloak from '../../mixins/keycloak';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
@@ -164,7 +165,8 @@
     },
 
     mixins: [
-      keycloak
+      keycloak,
+      pageMetaMixin
     ],
 
     middleware: 'auth',
@@ -191,23 +193,26 @@
 
     fetchOnServer: false,
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('account.title'))
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.$t('account.title')
+        };
+      },
       userIsEditor() {
-        return this.loggedInUser?.resource_access?.entities?.roles?.includes('editor') &&
-          this.loggedInUser?.resource_access?.usersets?.roles?.includes('editor');
+        return this.$auth.userHasClientRole('entities', 'editor') &&
+          this.$auth.userHasClientRole('usersets', 'editor');
+      },
+      publicCreations() {
+        return this.$store.state.set.creations.filter(set => ['public', 'published'].includes(set.visibility));
+      },
+      privateCreations() {
+        return this.$store.state.set.creations.filter(set => set.visibility === 'private');
       },
       ...mapState({
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems,
-        curations: state => state.set.curations,
-        publicCreations: state => state.set.creations.filter(set => set.visibility === 'public'),
-        privateCreations: state => state.set.creations.filter(set => set.visibility === 'private')
+        curations: state => state.set.curations
       }),
       activeTab() {
         return this.$route.hash || this.tabHashes.likes;

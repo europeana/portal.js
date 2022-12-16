@@ -17,8 +17,9 @@
             :key="index"
             :title="entry.name"
             :url="entryUrl(entry)"
-            :image-url="entry.primaryImageOfPage.image.url"
-            :image-content-type="entry.primaryImageOfPage.image.contentType"
+            :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
+            :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
+            :media-type="entry.primaryImageOfPage ? null : 'image'"
             variant="list"
           />
         </b-card-group>
@@ -141,7 +142,7 @@
         @media (min-width: $bp-medium) {
           flex: calc(50% - 1rem);
           margin-bottom: 0.5rem;
-          max-width: 50%;
+          flex-grow: 0;
         }
 
         &:hover {

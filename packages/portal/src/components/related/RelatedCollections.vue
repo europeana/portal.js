@@ -1,10 +1,10 @@
 <template>
-  <b-container
+  <div
     v-show="collections.length > 0"
     data-qa="related collections"
     class="related-collections"
   >
-    <h2 class="related-heading text-uppercase mb-2">
+    <h2 class="related-heading text-uppercase">
       {{ title || $t('related.collections.title') }}
     </h2>
     <div
@@ -24,7 +24,7 @@
         :image-src-set="imageSrcSet(relatedCollection)"
       />
     </div>
-  </b-container>
+  </div>
 </template>
 
 <script>
@@ -139,3 +139,19 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .related-collections ::v-deep .badge-pill {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .related-collections-card .related-collections ::v-deep .badge-pill {
+    margin-bottom: 0.75rem;
+    margin-right: 0.75rem;
+  }
+
+  .related-heading {
+    margin-bottom: 0.75rem;
+  }
+</style>

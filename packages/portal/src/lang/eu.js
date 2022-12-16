@@ -31,10 +31,10 @@ export default {
     "cancel": "Utzi",
     "close": "itxi",
     "continue": "jarraitu",
+    "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
     "edit": "Editatu",
     "feedback": "Iritzia",
-    "goBack": "Atzera egin",
     "goHome": "Joan hasierako orrialdera",
     "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
@@ -44,12 +44,16 @@ export default {
     "preview": "Aurrebista",
     "previous": "Aurrekoa",
     "providedBy": "{provider} emanda",
+    "publish": "Argitaratu",
     "reject": "Baztertu",
+    "requestDepublication": "Argitalpenik ez egiteko eskaera",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
-    "skip": "Saltatu",
+    "skipSend": "Saltatu eta bidali",
+    "submitForPublication": "Bidali argitaratzeko",
+    "submittedForPublication": "Argitalpenerako aurkeztu da",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -61,6 +65,7 @@ export default {
     "title": "Izenburua:"
   },
   "automatedCardGroup": {
+    "gallery": "Galeriak",
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
     "place": "Lekuak",
@@ -220,6 +225,10 @@ export default {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
+    },
+    "pageNotFound": {
+      "metaTitle": "Ez da orria aurkitu",
+      "title": "Bilatzen ari zaren orria ez da existitzen."
     },
     "searchResultsNotFound": {
       "description": "Mesedez, egokitu bilaketa-terminoa edo berrezarri iragazkiak berriro saiatzeko.",
@@ -612,6 +621,7 @@ export default {
   "feedback": {
     "emailOptional": "Baliteke jarraipena egitea nahi izatea. Idatzi zure posta elektronikoa gu zurekin harremanetan jartzeko pozik bazaude.",
     "failed": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+    "faq": "Joan maiz egindako galderak",
     "form": {
       "placeholders": {
         "email": "Idatzi zure helbide elektronikoa",
@@ -703,6 +713,7 @@ export default {
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
+      "faq": "Maiz Egindako Galderak",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
@@ -855,6 +866,11 @@ export default {
       "clickToCopy": "Egin klik atribuzioan kopiatzeko",
       "modalIntro": "Elementu hau webean edo beste nonbait erabiltzen baduzu, ez ahaztu atribuzio hau bistaratzea ondoan:",
       "modalTitle": "Eskerrik asko"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Beheko \"Erakunde hornitzailea\" botoian klik egitea gomendatzen dizugu, elementua erakunde hornitzailearen webgunean deskargatu daitekeen egiaztatzeko.",
+      "message": "Deskargak ez badu funtzionatzen, baliteke erakunde hornitzaileak kendu duelako edo haien zerbitzuarekin arazo tekniko bat egotea.",
+      "title": "Deskargak ez du funtzionatzen"
     }
   },
   "multilingual": {
@@ -1003,12 +1019,14 @@ export default {
     "form": {
       "description": "Bildumaren deskribapena",
       "private": "Bilduma hau pribatu gisa mantendu",
+      "privateWarning": "Ekintza horrek galeriaren argitalpena baliogabetuko du.",
       "required": "Beharrezko eremua",
       "title": "Bildumaren izena"
     },
     "labels": {
       "curatedBy": "Komisarioa",
-      "private": "Bilduma pribatua"
+      "private": "Bilduma pribatua",
+      "published": "Argitaratutako galeria"
     },
     "notifications": {
       "deleted": "Bilduma ezabatu egin da.",
@@ -1016,10 +1034,32 @@ export default {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
       },
-      "updated": "Elementua galerian gehitu da."
+      "updated": "Elementua galerian gehitu da.",
+      "visibilityChanged": "Abisua: ezarri ikusgarritasuna dagoeneko aldatu da eta une honetan \" {visibility} \" da."
     },
     "prompts": {
-      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
+      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu.",
+      "shareWhere": "Non partekatu nahiko zenuke galeria hau?"
+    },
+    "publication": {
+      "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
+      "failedSubmission": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+      "process": {
+        "description": "Galeria bat argitaratzeko bidaltzen duzunean, Europeana-ko argitaletxe talde bati jakinaraziko zaio. Lehenik eta behin aztertuko dute, eta aldaketak egin ditzakete argitaratu aurretik. Galeria berrikusten den heinean jakinarazpenak jasoko dituzu posta elektronikoz. Argitaratzen ez bada, baliteke gure editorialen jarraibideekin bat ez egitea.",
+        "title": "Nola funtzionatzen duen prozesua"
+      },
+      "time": {
+        "description": "1-3 egun.",
+        "title": "Zenbat denbora behar duen"
+      },
+      "title": "Bidali galeria argitaratzeko",
+      "toastButton": "Ados",
+      "toastMessage": "Galeria hau argitaratzeko aurkeztu da. {galleries} ikus dezakezu argitaratu den ikusteko."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) web-oinarritutako tresna bat da, mota ezberdinetako edukiak (3D barne) kudeatzeko, kultur ondarea dokumentatzeko komunitate digitalen espazioen bidez eta istorio eta esperientzia digitalak komisariotzeko."
+      }
     }
   },
   "showLess": "Gutxiago erakutsi",

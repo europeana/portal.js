@@ -1,27 +1,28 @@
 <template>
   <div
     data-qa="error page"
+    class="white-page"
   >
-    <b-container>
-      <b-row>
-        <b-col>
-          <main role="main">
-            <h1>{{ $t('error') }}</h1>
-            <div data-qa="error notice">
-              <p class="lead">
-                {{ error.message }}
-              </p>
-            </div>
-          </main>
-        </b-col>
-      </b-row>
-    </b-container>
+    <ErrorMessage
+      data-qa="error message container"
+      :error="error.message"
+      :status-code="error.statusCode"
+    />
   </div>
 </template>
 
 <script>
+  import pageMetaMixin from '@/mixins/pageMeta';
+  import ErrorMessage from '@/components/generic/ErrorMessage';
+
   export default {
     name: 'ErrorPage',
+
+    components: {
+      ErrorMessage
+    },
+
+    mixins: [pageMetaMixin],
 
     props: {
       error: {
@@ -30,10 +31,17 @@
       }
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('error'))
-      };
+    fetch() {
+      // so that pageMetaMixin can detect and use the error
+      throw this.error;
+    },
+
+    computed: {
+      pageMeta() {
+        return {
+          title: this.$t('error')
+        };
+      }
     }
   };
 </script>

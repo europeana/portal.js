@@ -22,30 +22,22 @@ const testSet1 = {
   description: { en: 'A test set' },
   creator: { id: 'http://data.europeana.eu/user/0123', nickname: 'Tester' },
   type: 'Collection',
+  visibility: 'public',
   total: 1,
   items: [{ id: '001', edmPreview: ['https://www.example.eu'] }]
 };
 
 const testSet2 = {
   id: '234',
-  title: { en: 'My set' },
+  title: { en: 'My published set' },
   description: { en: 'A test set' },
   creator: 'http://data.europeana.eu/user/0123',
   type: 'Collection',
+  visibility: 'published',
   total: 1000
 };
 
 const testSetCreator = { loggedIn: true, user: { sub: '0123' } };
-
-const entityEditor = {
-  loggedIn: true,
-  user: {
-    'resource_access': {
-      entities: { roles: ['editor'] },
-      usersets: { roles: ['editor'] }
-    }
-  }
-};
 
 const defaultOptions = {
   set: testSet1,
@@ -57,12 +49,12 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   mocks: {
     $features: { setGalleries: true, ...options.features },
-    $pageHeadTitle: key => key,
     $t: key => key,
     $tc: key => key,
     $i18n,
     $auth: {
-      loggedIn: true
+      ...options.user || {},
+      userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
     },
     $fetchState: options.fetchState || {},
     $route: {
@@ -74,7 +66,6 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       commit: storeCommit,
       dispatch: storeDispatch,
       state: {
-        auth: options.user || {},
         set: { active: options.set || null }
       }
     },
@@ -89,10 +80,10 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       }
     }
   },
-  stubs: ['SetRecommendations']
+  stubs: ['SetRecommendations', 'SetPublicationRequestWidget']
 });
 
-describe('SetPage', () => {
+describe('GalleryPage (Set)', () => {
   afterEach(sinon.resetHistory);
 
   describe('fetch', () => {
@@ -156,6 +147,16 @@ describe('SetPage', () => {
     });
   });
 
+  describe('computed properties', () => {
+    describe('weaveUrl', () => {
+      it('uses the setId', () => {
+        const wrapper = factory(defaultOptions);
+
+        expect(wrapper.vm.weaveUrl).toEqual('https://experience.weave-culture.eu/import/europeana/set/123');
+      });
+    });
+  });
+
   describe('template', () => {
     describe('item count heading', () => {
       describe('when less than max amount of items in set', () => {
@@ -195,17 +196,31 @@ describe('SetPage', () => {
 
         expect(errorMessage.exists()).toBe(true);
       });
-      it('sets the head title and meta tag titles', () => {
-        const headTitle = wrapper.vm.head().title;
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headTitle).toEqual('error');
-        expect(headMeta.find(meta => meta.name === 'title').content).toEqual('error');
-      });
     });
 
     describe('when the user is the set\'s owner', () => {
-      const wrapper = factory({ set: testSet1, user: testSetCreator });
+      it('the set is editable', () => {
+        const wrapper = factory({ set: testSet1, user: testSetCreator });
+        const editButton = wrapper.find('[data-qa="edit set button"]');
+
+        expect(editButton.exists()).toBe(true);
+      });
+
+      describe('and the set is public', () => {
+        it('the set can be submitted for publication', () => {
+          const wrapper = factory({ set: testSet1, user: testSetCreator, features: { galleryPublicationSubmissions: true } });
+
+          const submitForPublicationButton = wrapper.find('[data-qa="set request publication button"]');
+
+          expect(submitForPublicationButton.exists()).toBe(true);
+        });
+      });
+    });
+
+    describe('when the user is a publisher', () => {
+      const userHasClientRoleStub = sinon.stub().returns(false)
+        .withArgs('usersets', 'editor').returns(true);
+      const wrapper = factory({ set: testSet2, userHasClientRoleStub });
 
       it('the set is editable', () => {
         const editButton = wrapper.find('[data-qa="edit set button"]');
@@ -216,18 +231,31 @@ describe('SetPage', () => {
 
     describe('when user is entity editor and set is a curated collection', () => {
       const testSetEntityBestItems = { ...testSet1, type: 'EntityBestItemsSet' };
-      const wrapper = factory({ set: testSetEntityBestItems, user: entityEditor });
+      const userHasClientRoleStub = sinon.stub().returns(false)
+        .withArgs('entities', 'editor').returns(true)
+        .withArgs('usersets', 'editor').returns(true);
 
       it('gets the pinned items', async() => {
+        const wrapper = factory({
+          set: testSetEntityBestItems,
+          user: { loggedIn: true },
+          userHasClientRoleStub
+        });
+
         await wrapper.vm.fetch();
 
         expect(storeDispatch.calledWith('entity/getPins')).toBe(true);
       });
 
       describe('when accept entity recommendations is enabled', () => {
-        const wrapper = factory({ set: testSetEntityBestItems, user: entityEditor, features: { acceptEntityRecommendations: true } });
-
         it('renders the recommendations', () => {
+          const wrapper = factory({
+            set: testSetEntityBestItems,
+            user: { loggedIn: true },
+            userHasClientRoleStub,
+            features: { acceptEntityRecommendations: true }
+          });
+
           const recommendations = wrapper.find('setrecommendations-stub');
 
           expect(recommendations.exists()).toBe(true);
@@ -236,22 +264,14 @@ describe('SetPage', () => {
     });
   });
 
-  describe('head', () => {
+  describe('pageMeta', () => {
     describe('when the set has a description', () => {
       const wrapper = factory(defaultOptions);
 
       it('is used as the content for the description meta tag', () => {
-        const headMeta = wrapper.vm.head().meta;
+        const pageMeta = wrapper.vm.pageMeta;
 
-        expect(headMeta.filter(meta => meta.name === 'description').length).toBe(1);
-        expect(headMeta.find(meta => meta.name === 'description').content).toBe('A test set');
-      });
-
-      it('is used as the content for the og:description meta tag', () => {
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headMeta.filter(meta => meta.property === 'og:description').length).toBe(1);
-        expect(headMeta.find(meta => meta.property === 'og:description').content).toBe('A test set');
+        expect(pageMeta.description).toBe('A test set');
       });
     });
 
@@ -260,15 +280,9 @@ describe('SetPage', () => {
       const wrapper = factory({ set: testSetWithoutDescription });
 
       it('omits the description meta tag', () => {
-        const headMeta = wrapper.vm.head().meta;
+        const pageMeta = wrapper.vm.pageMeta;
 
-        expect(headMeta.filter(meta => meta.name === 'description').length).toBe(0);
-      });
-
-      it('omits the og:description meta tag', () => {
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headMeta.filter(meta => meta.property === 'og:description').length).toBe(0);
+        expect(pageMeta.description).toBeUndefined();
       });
     });
   });

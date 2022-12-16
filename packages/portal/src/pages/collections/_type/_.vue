@@ -2,20 +2,14 @@
   <div
     data-qa="entity page"
     class="entity-page"
+    :class="$fetchState.error && 'white-page'"
   >
-    <b-container
+    <ErrorMessage
       v-if="$fetchState.error"
-    >
-      <b-row
-        class="flex-md-row py-4"
-      >
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :status-code="$fetchState.error.statusCode"
+    />
     <client-only v-else>
       <SearchInterface
         v-if="!$fetchState.pending"
@@ -67,7 +61,7 @@
               />
               <BrowseSections
                 v-if="page"
-                :sections="page.hasPartCollection.items"
+                :sections="page.hasPartCollection && page.hasPartCollection.items"
               />
             </b-container>
           </client-only>
@@ -82,6 +76,7 @@
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
   import themes from '@/plugins/europeana/themes';
@@ -94,7 +89,7 @@
     name: 'CollectionPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
@@ -105,6 +100,7 @@
 
     mixins: [
       europeanaEntitiesOrganizationsMixin,
+      pageMetaMixin,
       redirectToPrefPathMixin
     ],
 
@@ -174,34 +170,24 @@
           }
           this.$store.commit('search/setCollectionLabel', this.title.values[0]);
           const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
+
           return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
         });
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.pageTitle),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.pageTitle },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
-        ]
-          .concat(this.descriptionText ? [
-            { hid: 'description', name: 'description', content: this.descriptionText },
-            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-          ] : [])
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.title.values[0],
+          description: this.descriptionText,
+          ogType: 'article'
+        };
+      },
       entity() {
         return this.$store.state.entity.entity;
       },
       recordsPerPage() {
         return this.$store.state.entity.recordsPerPage;
-      },
-      pageTitle() {
-        return this.$fetchState.error ? this.$t('error') : this.title.values[0];
       },
       searchOverrides() {
         const overrideParams = {
@@ -311,10 +297,10 @@
           ['topic', 'organisation'].includes(this.collectionType);
       },
       userIsEntitiesEditor() {
-        return this.$auth?.user?.resource_access?.entities?.roles.includes('editor') || false;
+        return this.$auth.userHasClientRole('entities', 'editor');
       },
       userIsSetsEditor() {
-        return this.$auth?.user?.resource_access?.usersets?.roles.includes('editor') || false;
+        return this.$auth.userHasClientRole('usersets', 'editor');
       },
       route() {
         return {
@@ -416,16 +402,6 @@
   .entity-page {
     &.top-header {
       margin-top: -1rem;
-    }
-
-    .related-collections {
-      padding: 0;
-    }
-
-    ::v-deep .related-collections .badge {
-      // TODO: Remove this when the badges move into the search results
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
     }
   }
 

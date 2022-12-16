@@ -7,8 +7,13 @@
     &-white {
       background: $white;
       border: 0;
-      color: $mediumgrey;
+      color: $greyblack;
       box-shadow: 0 4px 6px 0 rgb(0 0 0 / 20%), 5px 5px 10px 0 rgb(0 0 0 / 20%);
+    
+      a {
+        color: $blue;
+        text-decoration: none;
+      }
     }
   }
 

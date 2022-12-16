@@ -31,10 +31,10 @@ export default {
     "cancel": "Cancelar",
     "close": "cerrar",
     "continue": "continuar",
+    "depublish": "Despublicar",
     "download": "Descargar",
     "edit": "Editar",
     "feedback": "Comentarios",
-    "goBack": "Volver",
     "goHome": "Ir a la página de inicio",
     "learnMore": "Aprende más",
     "like": "Me gusta",
@@ -44,12 +44,16 @@ export default {
     "preview": "Vista previa",
     "previous": "Anterior",
     "providedBy": "Proporcionado por {provider}",
+    "publish": "Publicar",
     "reject": "Rechazar",
+    "requestDepublication": "Solicitud de despublicación",
     "save": "Salvar",
     "send": "Enviar",
     "share": "Compartir",
     "shareOn": "Compartir en {social}",
-    "skip": "Saltar",
+    "skipSend": "Saltar y enviar",
+    "submitForPublication": "Enviar para publicación",
+    "submittedForPublication": "Enviado para publicación",
     "viewAt": "Ver en {link}",
     "viewDocument": "Ver documento"
   },
@@ -61,6 +65,7 @@ export default {
     "title": "Título:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerías",
     "item": "Elementos recientes",
     "organisation": "Organizaciones",
     "place": "Lugares",
@@ -216,6 +221,10 @@ export default {
       "description": "Esto podría deberse a las siguientes razones: este elemento no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el elemento nuevamente.",
       "metaTitle": "Elemento no encontrado",
       "title": "¡Oh, no! {newline} No pudimos encontrar este elemento."
+    },
+    "pageNotFound": {
+      "metaTitle": "Página no encontrada",
+      "title": "La página que buscas no existe."
     },
     "searchResultsNotFound": {
       "description": "Por favor, ajuste el término de búsqueda o restablezca los filtros para volver a intentarlo.",
@@ -608,6 +617,7 @@ export default {
   "feedback": {
     "emailOptional": "Es posible que queremos hacer un seguimiento. Introduce tu correo electrónico si estás de acuerdo en que nos pongamos en contacto contigo.",
     "failed": "La solicitud falló. Inténtalo de nuevo.",
+    "faq": "Ir a preguntas frecuentes",
     "form": {
       "placeholders": {
         "email": "Ingrese su dirección de correo electrónico",
@@ -699,6 +709,7 @@ export default {
       "about": "¿Qué es Europeana?",
       "accessibility": "Accesibilidad",
       "cookies": "Cookies",
+      "faq": "Preguntas frecuentes",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "MoreInfoLabel": "Más información",
@@ -851,6 +862,11 @@ export default {
       "clickToCopy": "Haga clic en la atribución para copiarla",
       "modalIntro": "Si usa este elemento en la web o en otro lugar, no olvide mostrar la siguiente atribución junto a él:",
       "modalTitle": "Di gracias"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Le recomendamos que haga clic en el botón \"Institución proveedora\" a continuación para verificar si el artículo se puede descargar en el sitio web de la institución proveedora.",
+      "message": "Si la descarga no funciona, puede deberse a que la institución proveedora la eliminó o puede haber un problema técnico con su servicio.",
+      "title": "Descarga no funciona"
     }
   },
   "multilingual": {
@@ -999,12 +1015,14 @@ export default {
     "form": {
       "description": "Descripción de la galería",
       "private": "Mantener esta galería como privada",
+      "privateWarning": "Esta acción despublicará la galería.",
       "required": "Campos obligatorios",
       "title": "Nombre de la galería"
     },
     "labels": {
       "curatedBy": "Comisariados por",
-      "private": "Galería privada"
+      "private": "Galería privada",
+      "published": "Galería publicada"
     },
     "notifications": {
       "deleted": "Tu galería ha sido eliminada.",
@@ -1012,10 +1030,32 @@ export default {
         "body": "Lo sentimos, pero en este momento el límite de \"Me gusta\" está establecido en un máximo de 100 artículos. ¡Pronto eliminaremos este límite!",
         "title": "100 \"Me gusta\""
       },
-      "updated": "El elemento se agregó a la galería."
+      "updated": "El elemento se agregó a la galería.",
+      "visibilityChanged": "Advertencia: la visibilidad establecida ya cambió y actualmente es \" {visibility} \"."
     },
     "prompts": {
-      "delete": "¿Estás seguro de que quieres eliminar esta galería? Si eliminas esta galería, perderás todos los elementos que le hayas agregado."
+      "delete": "¿Estás seguro de que quieres eliminar esta galería? Si eliminas esta galería, perderás todos los elementos que le hayas agregado.",
+      "shareWhere": "¿Dónde te gustaría compartir esta galería?"
+    },
+    "publication": {
+      "description": "Al publicar una galería, aparecerá en Europeana.eu/galleries.",
+      "failedSubmission": "La solicitud falló. Inténtalo de nuevo.",
+      "process": {
+        "description": "Cuando envíe una galería para su publicación, se notificará a un equipo de editores de Europeana. Primero lo revisarán y pueden hacer cambios antes de que se publique. Recibirá notificaciones por correo electrónico a medida que se revise la galería. Si no se publica, es posible que no se ajuste a nuestras pautas editoriales.",
+        "title": "Cómo funciona el proceso"
+      },
+      "time": {
+        "description": "1-3 días",
+        "title": "Cuánto se tarda"
+      },
+      "title": "Enviar galería para publicación",
+      "toastButton": "Okey",
+      "toastMessage": "Esta galería ahora está enviada para su publicación. Puede consultar {galleries} para ver si se ha publicado."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) es una herramienta basada en la web para administrar contenido de diferentes tipos (incluido 3D), documentar el patrimonio cultural a través de espacios comunitarios digitales y curar historias y experiencias digitales."
+      }
     }
   },
   "showLess": "Mostrar menos",

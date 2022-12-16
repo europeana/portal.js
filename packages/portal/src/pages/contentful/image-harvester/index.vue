@@ -29,7 +29,7 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle('Image harvester - Contentful app'),
+        title: 'Image harvester - Contentful app',
         bodyAttrs: {
           class: '',
           style: 'background: transparent;'
