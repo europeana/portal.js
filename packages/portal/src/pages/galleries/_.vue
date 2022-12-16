@@ -107,8 +107,8 @@
                         v-if="set.creator.nickname === $config.app.galleries.europeanaAccount"
                         src="~/assets/img/logo.svg"
                         alt="Europeana"
-                        width="115"
-                        height="24"
+                        width="96"
+                        height="20"
                         class="ml-1 logo"
                       >
                       <template
@@ -502,7 +502,7 @@
     color: $mediumgrey;
 
     img.logo {
-      height: 1.5rem;
+      height: 1.25rem;
       width: auto;
     }
 
