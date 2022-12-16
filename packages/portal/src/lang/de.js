@@ -46,11 +46,14 @@ export default {
     "providedBy": "Bereitgestellt von {provider}",
     "publish": "Veröffentlichen",
     "reject": "Ablehnen",
+    "requestDepublication": "Depublikation anfordern",
     "save": "Speichern",
     "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
     "skipSend": "Überspringen und senden",
+    "submitForPublication": "Zur Veröffentlichung einreichen",
+    "submittedForPublication": "Zur Veröffentlichung eingereicht",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen"
   },
@@ -1012,12 +1015,14 @@ export default {
     "form": {
       "description": "Galeriebeschreibung",
       "private": "Diese Galerie privat halten",
+      "privateWarning": "Durch diese Aktion wird die Veröffentlichung der Galerie aufgehoben.",
       "required": "Pflichtfeld",
       "title": "Galeriename"
     },
     "labels": {
       "curatedBy": "Kuratiert von",
-      "private": "Private Galerie"
+      "private": "Private Galerie",
+      "published": "Veröffentlichte Galerie"
     },
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
@@ -1031,6 +1036,21 @@ export default {
     "prompts": {
       "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben.",
       "shareWhere": "Wo möchten Sie diese Galerie teilen?"
+    },
+    "publication": {
+      "description": "Wenn Sie eine Galerie veröffentlichen, wird sie auf Europeana.eu/galleries veröffentlicht.",
+      "failedSubmission": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+      "process": {
+        "description": "Wenn Sie eine Galerie zur Veröffentlichung einreichen, wird ein Team von Verlagen bei Europeana benachrichtigt. Sie werden es zuerst überprüfen und möglicherweise Änderungen vornehmen, bevor es veröffentlicht wird. Sie erhalten Benachrichtigungen per E-Mail, wenn die Galerie überprüft wird. Wenn es nicht veröffentlicht wird, kann es sein, dass es nicht unseren redaktionellen Richtlinien entspricht.",
+        "title": "Wie der Prozess funktioniert"
+      },
+      "time": {
+        "description": "1-3 Tage.",
+        "title": "Wie lange es dauert"
+      },
+      "title": "Galerie zur Veröffentlichung einreichen",
+      "toastButton": "Okay",
+      "toastMessage": "Diese Galerie wird nun zur Veröffentlichung eingereicht. Sie können in {galleries} nachsehen, ob es veröffentlicht wurde."
     },
     "shareTo": {
       "weavex": {

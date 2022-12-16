@@ -46,11 +46,14 @@ export default {
     "providedBy": "Ipprovdut minn {provider}",
     "publish": "Ippubblika",
     "reject": "Irrifjuta",
+    "requestDepublication": "Talba għal depubblikazzjoni",
     "save": "Tissejvja",
     "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
     "skipSend": "Aqbeż u ibgħat",
+    "submitForPublication": "Ibgħat għall-pubblikazzjoni",
+    "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument"
   },
@@ -1012,12 +1015,14 @@ export default {
     "form": {
       "description": "Deskrizzjoni tad-direttorju tar-ritratti",
       "private": "Agħmel dan id-direttorju tar-ritratti privat",
+      "privateWarning": "Din l-azzjoni se tneħħi l-pubblikazzjoni tal-gallerija.",
       "required": "Oqsma meħtieġa",
       "title": "Isem tad-direttorju tar-ritratti"
     },
     "labels": {
       "curatedBy": "Amminstrat minn",
-      "private": "Direttorju tar-ritratti privat"
+      "private": "Direttorju tar-ritratti privat",
+      "published": "Gallerija ppubblikata"
     },
     "notifications": {
       "deleted": "Il-gallerija tiegħek tħassret.",
@@ -1031,6 +1036,21 @@ export default {
     "prompts": {
       "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha.",
       "shareWhere": "Fejn tixtieq taqsam din il-gallerija?"
+    },
+    "publication": {
+      "description": "Il-pubblikazzjoni ta' gallerija ser tidher fuq Europeana.eu/galleries.",
+      "failedSubmission": "It-talba falliet. Jekk jogħġbok erġa pprova.",
+      "process": {
+        "description": "Meta tissottometti gallerija għall-pubblikazzjoni, tim ta' pubblikaturi f'Europeana jiġi nnotifikat. L-ewwel se jirreveduha, u jistgħu jagħmlu bidliet qabel ma tiġi ppubblikata. Inti ser tirċievi notifiki bl-email hekk kif il-gallerija tiġi riveduta. Jekk ma tiġix ippubblikata, jista' jkun li ma tikkonformax mal-linji gwida editorjali tagħna.",
+        "title": "Kif jaħdem il-proċess"
+      },
+      "time": {
+        "description": "1-3 ijiem.",
+        "title": "Kemm idum"
+      },
+      "title": "Issottometti l-gallerija għall-pubblikazzjoni",
+      "toastButton": "Okay",
+      "toastMessage": "Din il-gallerija issa hija sottomessa għall-pubblikazzjoni. Tista' tiċċekkja {galleries} biex tara jekk ġietx ippubblikata."
     },
     "shareTo": {
       "weavex": {

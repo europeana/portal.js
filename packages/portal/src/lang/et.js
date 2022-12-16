@@ -46,11 +46,14 @@ export default {
     "providedBy": "Pakub {provider}",
     "publish": "Avalda",
     "reject": "Tagasi lükata",
+    "requestDepublication": "Taotlus mitte avaldada",
     "save": "Salvesta",
     "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
     "skipSend": "Jäta vahele ja saada",
+    "submitForPublication": "Esitage avaldamiseks",
+    "submittedForPublication": "Esitatud avaldamiseks",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -1012,12 +1015,14 @@ export default {
     "form": {
       "description": "Galerii kirjeldus",
       "private": "Hoia see galerii privaatsena",
+      "privateWarning": "See tegevus depublitseerib galerii.",
       "required": "Kohustuslik väli",
       "title": "Galerii nimi"
     },
     "labels": {
       "curatedBy": "Kuraator",
-      "private": "Privaatgalerii"
+      "private": "Privaatgalerii",
+      "published": "Avaldatud galerii"
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
@@ -1031,6 +1036,21 @@ export default {
     "prompts": {
       "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted.",
       "shareWhere": "Kus soovite seda galeriid jagada?"
+    },
+    "publication": {
+      "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu/galleries.",
+      "failedSubmission": "Taotlus ebaõnnestus. Palun proovi uuesti.",
+      "process": {
+        "description": "Kui esitate galerii avaldamiseks, teavitatakse sellest Europeana kirjastajate meeskonda. Nad vaatavad selle kõigepealt üle ja võivad teha muudatusi enne selle avaldamist. Galerii ülevaatamisel saate teateid e-posti teel. Kui seda ei avaldata, võib juhtuda, et see ei vasta meie toimetuse juhistele.",
+        "title": "Kuidas protsess toimib"
+      },
+      "time": {
+        "description": "1-3 päeva.",
+        "title": "Kui kaua see võtab"
+      },
+      "title": "Saada galerii avaldamiseks",
+      "toastButton": "Okei",
+      "toastMessage": "See galerii on nüüd avaldamiseks esitatud. Saate vaadata {galleries} , et näha, kas see on avaldatud."
     },
     "shareTo": {
       "weavex": {

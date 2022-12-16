@@ -46,11 +46,14 @@ export default {
     "providedBy": "Nodrošina {provider}",
     "publish": "Publicēt",
     "reject": "Noraidīt",
+    "requestDepublication": "Pieprasīt depublikāciju",
     "save": "Glābt",
     "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
     "skipSend": "Izlaist un nosūtīt",
+    "submitForPublication": "Iesniegt publicēšanai",
+    "submittedForPublication": "Iesniegts publicēšanai",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -1012,12 +1015,14 @@ export default {
     "form": {
       "description": "Galerijas apraksts",
       "private": "Saglabāt šo galeriju kā privātu",
+      "privateWarning": "Šī darbība depublicēs galeriju.",
       "required": "Obligāts lauks",
       "title": "Galerijas nosaukums"
     },
     "labels": {
       "curatedBy": "Pārzinis",
-      "private": "Privāta galerija"
+      "private": "Privāta galerija",
+      "published": "Publicētā galerija"
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
@@ -1031,6 +1036,21 @@ export default {
     "prompts": {
       "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie vienumi.",
       "shareWhere": "Kur jūs vēlētos dalīties ar šo galeriju?"
+    },
+    "publication": {
+      "description": "Publicējot galeriju, tā būs pieejama vietnē Europeana.eu/galleries.",
+      "failedSubmission": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
+      "process": {
+        "description": "Kad jūs iesniedzat galeriju publicēšanai, Europeana izdevēju komanda tiks informēta. Viņi vispirms to pārskatīs un var veikt izmaiņas pirms publicēšanas. Jūs saņemsiet paziņojumus pa e-pastu, kad galerija tiks pārskatīta. Ja tas netiek publicēts, iespējams, tas neatbilst mūsu redakcijas vadlīnijām.",
+        "title": "Kā process darbojas"
+      },
+      "time": {
+        "description": "1-3 dienas.",
+        "title": "Cik ilgs laiks nepieciešams"
+      },
+      "title": "Nosūtīt galeriju publicēšanai",
+      "toastButton": "Labi",
+      "toastMessage": "Šī galerija tagad ir iesniegta publicēšanai. Varat pārbaudīt {galleries} , lai redzētu, vai tas ir publicēts."
     },
     "shareTo": {
       "weavex": {

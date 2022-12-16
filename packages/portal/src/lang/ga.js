@@ -46,11 +46,14 @@ export default {
     "providedBy": "Arna sholáthar ag {provider}",
     "publish": "Foilsiú",
     "reject": "Diúltaigh",
+    "requestDepublication": "Iarratas a dhéanamh ar fhoilseachán",
     "save": "Sábháil",
     "send": "Seol",
     "share": "Roinn",
     "shareOn": "Roinn ar {social}",
     "skipSend": "Scipeáil agus seol",
+    "submitForPublication": "Cuir isteach le foilsiú",
+    "submittedForPublication": "Arna chur isteach le foilsiú",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad"
   },
@@ -1012,12 +1015,14 @@ export default {
     "form": {
       "description": "Tuairisc ar ghailearaí",
       "private": "Coinnigh an gailearaí seo príobháideach",
+      "privateWarning": "Déanfaidh an gníomh seo do ghailearaí a fhoilsiú.",
       "required": "Réimsí riachtanacha",
       "title": "Ainm an ghailearaí"
     },
     "labels": {
       "curatedBy": "Coimeádaithe ag",
-      "private": "Gailearaí príobháideach"
+      "private": "Gailearaí príobháideach",
+      "published": "Gailearaí foilsithe"
     },
     "notifications": {
       "deleted": "Scriosadh do ghailearaí.",
@@ -1031,6 +1036,21 @@ export default {
     "prompts": {
       "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis.",
       "shareWhere": "Cá háit ar mhaith leat an gailearaí seo a roinnt?"
+    },
+    "publication": {
+      "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar Europeana.eu/galleries.",
+      "failedSubmission": "Theip ar an iarraidh. Arís, le do thoil.",
+      "process": {
+        "description": "Nuair a chuireann tú gailearaí isteach lena fhoilsiú, cuirfear foireann foilsitheoirí in Europeana ar an eolas. Déanfaidh siad athbhreithniú air ar dtús, agus féadfaidh siad athruithe a dhéanamh sula bhfoilseofar é. Gheobhaidh tú fógraí trí ríomhphost de réir mar a dhéantar athbhreithniú ar an ngailearaí. Mura bhfoilsítear é, d'fhéadfadh sé a bheith nach gcloíonn sé lenár dtreoirlínte eagarthóireachta.",
+        "title": "Conas a oibríonn an próiseas"
+      },
+      "time": {
+        "description": "1-3 lá.",
+        "title": "Cé chomh fada a thógann sé"
+      },
+      "title": "Cuir gailearaí isteach lena fhoilsiú",
+      "toastButton": "Ceart go leor",
+      "toastMessage": "Tá an gailearaí seo curtha isteach anois lena fhoilsiú. Is féidir leat {galleries} a sheiceáil féachaint an bhfuil sé foilsithe."
     },
     "shareTo": {
       "weavex": {
