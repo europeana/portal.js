@@ -2,7 +2,6 @@ import createHttpError from 'http-errors';
 
 // Keys are deprecated CTF gallery content entry slugs. Values are Europeana
 // Set API numeric IDs.
-// TODO: replace with final slug/ID map before merging
 const REDIRECTS = {
   'highlights-of-swedish-art': 8950,
   'highlights-of-spanish-art': 8951,
