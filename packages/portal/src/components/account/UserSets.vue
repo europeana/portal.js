@@ -66,8 +66,7 @@
     },
     methods: {
       creationLinkUrl(set) {
-        const name = this.$features.setGalleries ? 'galleries-all' : 'set-all';
-        return { name, params: { pathMatch: this.setPathMatch(set) } };
+        return { name: 'galleries-all', params: { pathMatch: this.setPathMatch(set) } };
       },
       creationPreviewUrl(set) {
         return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
@@ -81,7 +80,7 @@
       },
       setPathMatch(set) {
         const id = set.id.replace('http://data.europeana.eu/set/', '');
-        return this.$features.setGalleries ? getLabelledSlug(id, set.title.en) : id;
+        return getLabelledSlug(id, set.title.en);
       }
     }
   };

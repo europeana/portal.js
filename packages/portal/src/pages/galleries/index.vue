@@ -34,33 +34,16 @@
           deck
           data-qa="gallery foyer"
         >
-          <template
-            v-if="setGalleriesEnabled"
-          >
-            <ContentCard
-              v-for="(gallery, index) in galleries"
-              :key="gallery.slug"
-              :title="gallery.title"
-              :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
-              :image-url="gallery.thumbnail"
-              :texts="[gallery.description]"
-              :show-subtitle="false"
-              :offset="index"
-            />
-          </template>
-          <template
-            v-else
-          >
-            <ContentCard
-              v-for="gallery in galleries"
-              :key="gallery.identifier"
-              :title="gallery.name"
-              :url="{ name: 'galleries-all', params: { pathMatch: gallery.identifier } }"
-              :image-url="gallery.hasPartCollection.items[0] && imageUrl(gallery.hasPartCollection.items[0])"
-              :texts="[gallery.description]"
-              :show-subtitle="false"
-            />
-          </template>
+          <ContentCard
+            v-for="(gallery, index) in galleries"
+            :key="gallery.slug"
+            :title="gallery.title"
+            :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
+            :image-url="gallery.thumbnail"
+            :texts="[gallery.description]"
+            :show-subtitle="false"
+            :offset="index"
+          />
         </b-card-group>
       </b-col>
     </b-row>
@@ -102,11 +85,7 @@
       };
     },
     async fetch() {
-      if (this.setGalleriesEnabled) {
-        await this.fetchSetGalleries();
-      } else {
-        await this.fetchContentfulGalleries();
-      }
+      await this.fetchSetGalleries();
       this.$scrollTo && this.$scrollTo('#header');
     },
     computed: {
@@ -114,9 +93,6 @@
         return {
           title: this.$tc('galleries.galleries', 2)
         };
-      },
-      setGalleriesEnabled() {
-        return this.$features.setGalleries;
       },
       page() {
         return Number(this.$route.query.page || 1);
@@ -150,32 +126,6 @@
         });
       },
       setPreviewUrl(edmPreview) {
-        return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
-      },
-
-      // TODO: remove when using set galleries
-      async fetchContentfulGalleries() {
-        const variables = {
-          locale: this.$i18n.isoLocale(),
-          preview: this.$route.query.mode === 'preview',
-          limit: PER_PAGE,
-          skip: (this.$store.state.sanitised.page - 1) * PER_PAGE
-        };
-
-        const contentfulResponse = await this.$contentful.query('galleryFoyerPage', variables)
-          .then(response => response.data.data)
-          .catch((e) => {
-            this.error({ statusCode: 500, message: e.toString() });
-          });
-
-        this.galleries = contentfulResponse.imageGalleryCollection.items;
-        this.total = contentfulResponse.imageGalleryCollection.total;
-        this.perPage = PER_PAGE;
-      },
-
-      // TODO: remove when using set galleries
-      imageUrl(data) {
-        const edmPreview = data.encoding?.edmPreview?.[0] || data.thumbnailUrl;
         return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
       }
     }

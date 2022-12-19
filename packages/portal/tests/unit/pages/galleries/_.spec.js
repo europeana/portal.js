@@ -1,164 +1,350 @@
+// TODO: Move this file to the _.spec.js when contentful galleries are deprecated.
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
-import sinon from 'sinon';
 
 import page from '@/pages/galleries/_';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
-localVue.directive('masonry', {});
-localVue.directive('masonry-tile', {});
 localVue.use(BootstrapVue);
 
-const contentfulGalleryMock = { data: { data: {
-  imageGalleryCollection: {
-    items: [{
-      contentWarning: {
-        name: 'Warning title',
-        description: 'Warning description'
-      },
-      identifier: 'fake-gallery',
-      name: 'Fake gallery title',
-      description: 'Fake gallery description',
-      hasPartCollection: { items: [
-        {
-          identifier: '/123/ABC',
-          encoding: {
-            dataProvider: ['Fake provider 1'],
-            dcCreator: ['https://www.wikidata.org/entity/123', 'Creator Label'],
-            dcCreatorLangAware: {
-              def: ['https://www.wikidata.org/entity/123'],
-              en: ['Creator Label']
-            },
-            dcDescription: ['Fake description'],
-            dcDescriptionLangAware: {
-              en: ['Fake lang aware description']
-            },
-            dcTitleLangAware: {
-              en: ['Fake lang aware title']
-            },
-            edmIsShownAt: ['https://example.org/image'],
-            edmPlaceLatitude: ['40.0', '41.82046'],
-            edmPlaceLongitude: ['-4.0', '1.86768'],
-            edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=https://example.org/image&type=IMAGE'],
-            europeanaCompleteness: 0,
-            guid: 'https://www.europeana.eu/item/123/ABC',
-            id: '/123/ABC',
-            link: 'https://api.europeana.eu/record/123/ABC',
-            provider: ['Fake Provider'],
-            rights: ['http://creativecommons.org/licenses/by-nc-nd/4.0/'],
-            score: 16.525795,
-            title: ['Fake Title'],
-            type: 'IMAGE'
-          },
-          thumbnailUrl: null,
-          name: 'fake Title'
-        },
-        {
-          identifier: '/123/XYZ',
-          encoding: {
-            dataProvider: ['Fake provider 1'],
-            dcCreator: ['https://www.wikidata.org/entity/123', 'Creator Label'],
-            dcCreatorLangAware: {
-              def: ['https://www.wikidata.org/entity/123'],
-              en: ['Creator Label']
-            },
-            dcDescription: ['Fake description two'],
-            dcDescriptionLangAware: {
-              en: ['Fake lang aware description two']
-            },
-            dcTitleLangAware: {
-              en: ['Fake lang aware title two']
-            },
-            edmIsShownAt: ['https://example.org/image'],
-            edmPlaceLatitude: ['40.0', '41.82046'],
-            edmPlaceLongitude: ['-4.0', '1.86768'],
-            edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=https://example.org/image&type=IMAGE'],
-            europeanaCompleteness: 0,
-            guid: 'https://www.europeana.eu/item/123/XYZ',
-            id: '/123/XYZ',
-            link: 'https://api.europeana.eu/record/123/XYZ',
-            provider: ['Fake Provider'],
-            rights: ['http://creativecommons.org/licenses/by-nc-nd/4.0/'],
-            score: 16.525795,
-            title: ['Fake Title two'],
-            type: 'IMAGE'
-          },
-          thumbnailUrl: null,
-          name: 'fake Title two'
-        }
+const storeDispatch = sinon.stub().resolves({});
+const storeCommit = sinon.spy();
 
-      ] }
-    }]
-  }
-} } };
+const $i18n = {
+  locale: 'en'
+};
 
-const contentfulQueryStub = sinon.stub().resolves(contentfulGalleryMock);
+const testSet1 = {
+  id: '123',
+  title: { en: 'My set' },
+  description: { en: 'A test set' },
+  creator: { id: 'http://data.europeana.eu/user/0123', nickname: 'Tester' },
+  type: 'Collection',
+  visibility: 'public',
+  total: 1,
+  items: [{ id: '001', edmPreview: ['https://www.example.eu'] }]
+};
 
-const factory = (contentfulQuery = contentfulQueryStub) => shallowMountNuxt(page, {
+const testSet2 = {
+  id: '234',
+  title: { en: 'My published set' },
+  description: { en: 'A test set' },
+  creator: 'http://data.europeana.eu/user/0123',
+  type: 'Collection',
+  visibility: 'published',
+  total: 1000
+};
+
+const testSetCreator = { loggedIn: true, user: { sub: '0123' } };
+
+const defaultOptions = {
+  set: testSet1,
+  user: { loggedIn: false },
+  fetchState: { pending: false }
+};
+
+const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   mocks: {
-    $apis: {
-      thumbnail: { edmPreview: (img) => img }
-    },
-    $auth: {
-      loggedIn: false
-    },
-    $contentful: {
-      assets: {
-        isValidUrl: (url) => url.includes('images.ctfassets.net'),
-        optimisedSrc: (img) => `${img.url}?optimised`
-      },
-      query: contentfulQuery
-    },
-    $features: {},
+    $features: { setGalleries: true, ...options.features },
     $t: key => key,
     $tc: key => key,
-    $path: () => '/',
-    $fetchState: {},
-    $i18n: {
-      locale: 'en',
-      isoLocale: () => 'en-GB'
+    $i18n,
+    $auth: {
+      ...options.user || {},
+      userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
     },
-    $nuxt: { context: { res: {} } },
-    $pageHeadTitle: key => key,
-    $$redrawVueMasonry: () => true,
-    $route: { query: '', params: { pathMatch: 'fake-gallery' } }
-  }
+    $fetchState: options.fetchState || {},
+    $route: {
+      params: {
+        pathMatch: (options.set?.id || '111') + '-my-set'
+      }
+    },
+    $store: {
+      commit: storeCommit,
+      dispatch: storeDispatch,
+      state: {
+        set: { active: options.set || null }
+      }
+    },
+    $apis: {
+      thumbnail: {
+        edmPreview: () => ''
+      }
+    },
+    $nuxt: {
+      context: {
+        res: {}
+      }
+    },
+    $config: {
+      app: {
+        galleries: {
+          europeanaAccount: 'europeana'
+        }
+      }
+    }
+  },
+  stubs: ['SetRecommendations', 'SetPublicationRequestWidget']
 });
 
-describe('Gallery post page', () => {
+describe('GalleryPage (Set)', () => {
+  afterEach(sinon.resetHistory);
+
+  describe('fetch', () => {
+    it('validates the format of the Set ID', async() => {
+      const wrapper = factory({ fetchState: { pending: true }, set: { id: 'nope' } });
+
+      let error;
+      try {
+        await wrapper.vm.fetch();
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.statusCode).toBe(400);
+      expect(storeDispatch.called).toBe(false);
+    });
+
+    it('fetches the active set', async() => {
+      const wrapper = factory(defaultOptions);
+
+      await wrapper.vm.fetch();
+
+      expect(storeDispatch.calledWith('set/fetchActive', '123')).toBe(true);
+    });
+
+    describe('on errors', () => {
+      it('set the status code on SSRs', async() => {
+        const wrapper = factory();
+        process.server = true;
+        wrapper.vm.$store.dispatch = sinon.stub().throws(() => new Error('Internal Server Error'));
+
+        let error;
+        try {
+          await wrapper.vm.fetch();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
+        expect(error.message).toBe('Internal Server Error');
+      });
+
+      it('displays an illustrated error message for 403 status', async() => {
+        const unauthorisedError = { statusCode: 403, message: 'Unauthorised' };
+        const wrapper = factory();
+        process.server = true;
+        wrapper.vm.$store.dispatch = sinon.stub().throws(() => unauthorisedError);
+        wrapper.vm.$fetchState.error = unauthorisedError;
+
+        let error;
+        try {
+          await wrapper.vm.$fetch();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(403);
+        expect(error.titlePath).toBe('errorMessage.galleryUnauthorised.title');
+        expect(error.illustrationSrc).toBe('il-gallery-unauthorised.svg');
+      });
+    });
+  });
+
+  describe('computed properties', () => {
+    describe('weaveUrl', () => {
+      it('uses the setId', () => {
+        const wrapper = factory(defaultOptions);
+
+        expect(wrapper.vm.weaveUrl).toEqual('https://experience.weave-culture.eu/import/europeana/set/123');
+      });
+    });
+  });
+
+  describe('template', () => {
+    describe('item count heading', () => {
+      describe('when less than max amount of items in set', () => {
+        it('displays the amount of items in the set', () => {
+          const wrapper = factory(defaultOptions);
+          const itemCount = wrapper.find('[data-qa="item count"]');
+
+          expect(itemCount.text()).toEqual('items.itemCount');
+        });
+      });
+
+      describe('when more than max amount of items in set', () => {
+        it('displays the amount shown in total of items in the set', () => {
+          const wrapper = factory({ set: testSet2 });
+          const itemCount = wrapper.find('[data-qa="item count"]');
+
+          expect(itemCount.text()).toEqual('items.itemOf');
+        });
+      });
+    });
+
+    describe('while fetching the set', () => {
+      it('shows a loading spinner', async() => {
+        const wrapper = factory({ fetchState: { pending: true } });
+
+        const loadingSpinner = wrapper.find('[data-qa="loading spinner container"]');
+
+        expect(loadingSpinner.exists()).toBe(true);
+      });
+    });
+
+    describe('when something goes wrong while fetching the set', () => {
+      const wrapper = factory({ fetchState: { error: { message: 'Something went wrong' } } });
+
+      it('shows an error message', async() => {
+        const errorMessage = wrapper.find('[data-qa="error message container"]');
+
+        expect(errorMessage.exists()).toBe(true);
+      });
+    });
+
+    describe('when the user is the set\'s owner', () => {
+      it('the set is editable', () => {
+        const wrapper = factory({ set: testSet1, user: testSetCreator });
+        const editButton = wrapper.find('[data-qa="edit set button"]');
+
+        expect(editButton.exists()).toBe(true);
+      });
+
+      describe('and the set is public', () => {
+        it('the set can be submitted for publication', () => {
+          const wrapper = factory({ set: testSet1, user: testSetCreator, features: { galleryPublicationSubmissions: true } });
+
+          const submitForPublicationButton = wrapper.find('[data-qa="set request publication button"]');
+
+          expect(submitForPublicationButton.exists()).toBe(true);
+        });
+      });
+    });
+
+    describe('when the user is a publisher', () => {
+      const userHasClientRoleStub = sinon.stub().returns(false)
+        .withArgs('usersets', 'editor').returns(true);
+      const wrapper = factory({ set: testSet2, userHasClientRoleStub });
+
+      it('the set is editable', () => {
+        const editButton = wrapper.find('[data-qa="edit set button"]');
+
+        expect(editButton.exists()).toBe(true);
+      });
+    });
+
+    describe('when user is entity editor and set is a curated collection', () => {
+      const testSetEntityBestItems = { ...testSet1, type: 'EntityBestItemsSet' };
+      const userHasClientRoleStub = sinon.stub().returns(false)
+        .withArgs('entities', 'editor').returns(true)
+        .withArgs('usersets', 'editor').returns(true);
+
+      it('gets the pinned items', async() => {
+        const wrapper = factory({
+          set: testSetEntityBestItems,
+          user: { loggedIn: true },
+          userHasClientRoleStub
+        });
+
+        await wrapper.vm.fetch();
+
+        expect(storeDispatch.calledWith('entity/getPins')).toBe(true);
+      });
+
+      describe('when accept entity recommendations is enabled', () => {
+        it('renders the recommendations', () => {
+          const wrapper = factory({
+            set: testSetEntityBestItems,
+            user: { loggedIn: true },
+            userHasClientRoleStub,
+            features: { acceptEntityRecommendations: true }
+          });
+
+          const recommendations = wrapper.find('setrecommendations-stub');
+
+          expect(recommendations.exists()).toBe(true);
+        });
+      });
+    });
+  });
+
   describe('pageMeta', () => {
-    it('uses the first image for og:image', async() => {
-      const wrapper = factory();
+    describe('when the set has a description', () => {
+      const wrapper = factory(defaultOptions);
 
-      await wrapper.vm.$fetch();
+      it('is used as the content for the description meta tag', () => {
+        const pageMeta = wrapper.vm.pageMeta;
 
-      const pageMeta = wrapper.vm.pageMeta;
+        expect(pageMeta.description).toBe('A test set');
+      });
+    });
 
-      expect(pageMeta.ogImage).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https://example.org/image&type=IMAGE');
+    describe('when the set does NOT have a description', () => {
+      const testSetWithoutDescription = { id: 234, title: { en: 'My set' }, creator: { nickname: 'Tester' } };
+      const wrapper = factory({ set: testSetWithoutDescription });
+
+      it('omits the description meta tag', () => {
+        const pageMeta = wrapper.vm.pageMeta;
+
+        expect(pageMeta.description).toBeUndefined();
+      });
     });
   });
 
-  describe('Content warning modal', () => {
-    it('is present with the galleries identifier set', async() => {
-      const wrapper = factory();
+  describe('beforeRouteLeave', () => {
+    it('resets the active set and recommendations', async() => {
+      const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
+      const wrapper = factory(defaultOptions);
 
-      await wrapper.vm.$fetch();
+      const next = sinon.stub();
 
-      const warningModal = wrapper.find('#content-warning-modal');
-      expect(warningModal.exists()).toBe(true);
+      await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
+
+      expect(storeCommit.calledWith('set/setActive', null)).toBe(true);
+      expect(storeCommit.calledWith('set/setActiveRecommendations', [])).toBe(true);
+      expect(next.called).toBe(true);
     });
   });
 
-  describe('Content Cards', () => {
-    it('has as many cards as there are images', async() => {
-      const wrapper = factory();
+  describe('methods', () => {
+    describe('reorderItems', () => {
+      it('updates the set with new item order', async() => {
+        const wrapper = factory({
+          ...defaultOptions,
+          set: {
+            ...defaultOptions.set,
+            items: [
+              { id: '/123/abc' },
+              { id: '/123/def' }
+            ]
+          }
+        });
 
-      await wrapper.vm.$fetch();
+        await wrapper.vm.reorderItems([
+          { id: '/123/def' },
+          { id: '/123/abc' }
+        ]);
 
-      const cards = wrapper.findAllComponents('[data-qa="content card"]');
-      expect(cards).toHaveLength(2);
+        expect(storeDispatch.calledWith('set/update', {
+          id: `http://data.europeana.eu/set/${defaultOptions.set.id}`,
+          body: {
+            type: defaultOptions.set.type,
+            title: defaultOptions.set.title,
+            description: defaultOptions.set.description,
+            visibility: defaultOptions.set.visibility,
+            items: [
+              'http://data.europeana.eu/item/123/def',
+              'http://data.europeana.eu/item/123/abc'
+            ]
+          },
+          params: {
+            profile: 'standard'
+          }
+        })).toBe(true);
+      });
     });
   });
 });
