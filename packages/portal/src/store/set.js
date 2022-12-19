@@ -77,10 +77,10 @@ export default {
         dispatch('fetchLikes');
       }
     },
-    async addItem({}, { setId, itemId }) {
+    async addItem(ctx, { setId, itemId }) {
       await this.$apis.set.modifyItems('add', setId, itemId);
     },
-    async removeItem({}, { setId, itemId }) {
+    async removeItem(ctx, { setId, itemId }) {
       await this.$apis.set.modifyItems('delete', setId, itemId);
     },
     async setLikes({ commit }) {
@@ -123,7 +123,7 @@ export default {
         throw error;
       }
     },
-    async createSet({}, body) {
+    async createSet(ctx, body) {
       await this.$apis.set.create(body);
     },
     async update({ state, commit }, { id, body, params }) {
