@@ -87,7 +87,7 @@
     },
     data() {
       return {
-        perPage: 1,
+        perPage: 19,
         sets: [],
         total: 0
       };
