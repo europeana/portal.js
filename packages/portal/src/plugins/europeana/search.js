@@ -2,7 +2,6 @@
  * @file Interface to Europeana Record Search API
  */
 
-import qs from 'qs';
 import pick from 'lodash/pick.js';
 
 import {
@@ -122,9 +121,6 @@ export default (context) => ($axios, params, options = {}) => {
   }
 
   return $axios.get(`${localOptions.url || ''}/search.json`, {
-    paramsSerializer(params) {
-      return qs.stringify(params, { arrayFormat: 'repeat' });
-    },
     params: searchParams
   })
     .then(response => response.data)
