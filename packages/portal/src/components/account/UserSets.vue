@@ -87,7 +87,7 @@
     },
     data() {
       return {
-        perPage: 19,
+        perPage: this.showCreateSetButton ? 19 : 20,
         sets: [],
         total: 0
       };
