@@ -4,9 +4,7 @@ export default {
       paginationFocusRefName: 'pagination-focus',
       paginationFocusRefUid: null,
       paginationFocusEnabled: true,
-      // TODO: it's nicer to scroll before focusing, but there are issues when
-      //       Masonry layout is used
-      paginationFocusScrollEnabled: false,
+      paginationFocusScrollEnabled: true,
       paginationFocusScrollTo: '#header'
     };
   },

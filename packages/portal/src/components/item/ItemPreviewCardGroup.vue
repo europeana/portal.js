@@ -154,6 +154,8 @@
     fetch() {
       this.cards = this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
       this.paginationFocusEnabled = this.paginationFocus;
+      // Masonry gets messed up if scroll is enabled before focusing
+      this.paginationFocusScrollEnabled = !this.masonryActive;
     },
 
     computed: {
