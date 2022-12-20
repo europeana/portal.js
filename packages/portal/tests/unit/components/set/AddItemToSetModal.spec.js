@@ -18,25 +18,24 @@ const sets = [
   }
 ];
 
-const factory = (propsData = {}) => mount(AddItemToSetModal, {
+const factory = ({ propsData = {}, data = {} } = {}) => mount(AddItemToSetModal, {
   localVue,
   propsData: {
     modalStatic: true,
     ...propsData
   },
+  data: () => ({ ...data }),
   mocks: {
     $t: () => {},
     $tc: () => {},
     $i18n: {},
     $apis: {
+      set: { search: sinon.stub().resolves({ data: { items: sets } }) },
       thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
     },
+    $auth: { user: {} },
     $store: {
-      dispatch: storeDispatch,
-      state: { set: { creations: sets } },
-      getters: {
-        'set/creationPreview': (id) => id
-      }
+      dispatch: storeDispatch
     }
   }
 });
@@ -44,7 +43,8 @@ const factory = (propsData = {}) => mount(AddItemToSetModal, {
 describe('components/set/AddItemToSetModal', () => {
   describe('create set button', () => {
     it('emits "clickCreateSet" event', () => {
-      const wrapper = factory({ itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' });
+      const propsData = { itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
+      const wrapper = factory({ propsData });
       wrapper.find('[data-qa="create new gallery button"]').trigger('click');
 
       expect(wrapper.emitted('clickCreateSet').length).toEqual(1);
@@ -53,7 +53,8 @@ describe('components/set/AddItemToSetModal', () => {
 
   describe('close button', () => {
     it('hides the modal', () => {
-      const wrapper = factory({ itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' });
+      const propsData = { itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
+      const wrapper = factory({ propsData });
       const bvModalHide = sinon.spy(wrapper.vm.$bvModal, 'hide');
 
       wrapper.find('[data-qa="close button"]').trigger('click');
@@ -64,8 +65,9 @@ describe('components/set/AddItemToSetModal', () => {
 
   describe('AddItemToSetButton', () => {
     it('adds item to gallery when item is not yet added', async() => {
-      const wrapper = factory({ itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' });
-      await wrapper.setData({ fetched: true });
+      const propsData = { itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' };
+      const data = { fetched: true, collections: sets };
+      const wrapper = factory({ propsData, data });
 
       await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
@@ -73,8 +75,9 @@ describe('components/set/AddItemToSetModal', () => {
     });
 
     it('removes item from gallery when item already added', async() => {
-      const wrapper = factory({ itemId: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' });
-      await wrapper.setData({ fetched: true });
+      const propsData = { itemId: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' };
+      const data = { fetched: true, collections: sets };
+      const wrapper = factory({ propsData, data });
 
       await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 

@@ -27,9 +27,10 @@ const sets = [
   }
 ];
 
-const factory = (propsData) => mount(UserSets, {
+const factory = ({ propsData = {}, data = {} } = {}) => mount(UserSets, {
   localVue,
-  propsData,
+  propsData: { ...propsData },
+  data: () => ({ ...data }),
   mocks: {
     $config: { app: { internalLinkDomain: null } },
     $fetchState: {},
@@ -41,6 +42,9 @@ const factory = (propsData) => mount(UserSets, {
     $path: () => 'localizedPath',
     $i18n: { locale: 'en' },
     $features: {},
+    $route: {
+      query: {}
+    },
     $store: {
       getters: {
         'set/creationPreview': (id) => id
@@ -51,7 +55,7 @@ const factory = (propsData) => mount(UserSets, {
 
 describe('components/account/UserSets', () => {
   it('renders a card for every user set', () => {
-    const wrapper = factory({ sets });
+    const wrapper = factory({ data: { sets, total: 2 } });
 
     const renderedSets =  wrapper.findAll('[data-qa="user set"]');
 
