@@ -59,6 +59,7 @@
       },
       setCreated() {
         this.showFormModal = false;
+        this.$emit('created');
       }
     }
   };
