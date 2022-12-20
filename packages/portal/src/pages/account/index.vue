@@ -129,7 +129,7 @@
             </template>
             <template v-else-if="userIsEditor && activeTab === tabHashes.curatedCollections">
               <UserSets
-                :sets="curations"
+                type="EntityBestItemsSet"
                 :show-create-set-button="false"
                 :empty-text="$t('account.notifications.noCollections.curated')"
                 data-qa="curated sets"
@@ -199,9 +199,6 @@
 
     async fetch() {
       this.fetchLikes();
-      if (this.userIsEditor) {
-        await this.$store.dispatch('set/fetchCurations');
-      }
     },
 
     fetchOnServer: false,

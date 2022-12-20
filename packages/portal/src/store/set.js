@@ -4,8 +4,7 @@ export default {
     likedItems: null,
     likedItemIds: [],
     active: null,
-    activeRecommendations: [],
-    curations: []
+    activeRecommendations: []
   }),
 
   mutations: {
@@ -33,9 +32,6 @@ export default {
     },
     addItemToActive(state, item) {
       state.active.items.push(item);
-    },
-    setCurations(state, value) {
-      state.curations = value;
     }
   },
 
@@ -49,8 +45,6 @@ export default {
     reset({ commit }) {
       commit('setLikesId', null);
       commit('setLikedItems', null);
-      commit('setCreations', []);
-      commit('setCurations', []);
     },
     like({ dispatch, commit, state }, itemId) {
       // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
@@ -158,18 +152,6 @@ export default {
       if (state.active && setId === state.active.id) {
         commit('setActive', 'DELETED');
       }
-    },
-    async fetchCurations({ commit }) {
-      const contributorId = this.$auth.user ? this.$auth.user.sub : null;
-      const searchParams = {
-        query: `contributor:${contributorId}`,
-        profile: 'standard',
-        pageSize: 100, // TODO: pagination?
-        qf: 'type:EntityBestItemsSet'
-      };
-
-      const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-      commit('setCurations', searchResponse.data.items || []);
     },
     async reviewRecommendation({ state, commit }, params) {
       const response = await this.$apis.recommendation[params.action]('set', params.setId, params.itemIds);

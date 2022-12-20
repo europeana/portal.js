@@ -56,7 +56,6 @@
         type: String,
         required: true
       },
-
       modalId: {
         type: String,
         default: 'add-item-to-set-modal'
@@ -98,8 +97,9 @@
 
     methods: {
       async fetchCollections() {
+        const creator = this.$auth.user?.sub;
         const searchParams = {
-          query: `creator:${this.$auth.user.sub}`,
+          query: `creator:${creator}`,
           profile: 'standard',
           pageSize: 100,
           page: 0,

@@ -75,10 +75,14 @@
         type: Boolean,
         default: true
       },
+      type: {
+        type: String,
+        default: 'Collection'
+      },
       // May be "published", "public" or "private"
       visibility: {
         type: String,
-        required: true
+        default: null
       },
       emptyText: {
         type: String,
@@ -87,21 +91,22 @@
     },
     data() {
       return {
-        perPage: this.showCreateSetButton ? 19 : 20,
         sets: [],
         total: 0
       };
     },
     async fetch() {
+      const qf = [`type:${this.type}`];
+      if (this.visibility) {
+        qf.push(`visibility:${this.visibility}`);
+      }
+
       const searchParams = {
-        query: `creator:${this.$auth.user.sub}`,
+        query: `${this.userField}:${this.userId}`,
         profile: 'standard',
         pageSize: this.perPage,
         page: this.page - 1,
-        qf: [
-          'type:Collection',
-          `visibility:${this.visibility}`
-        ]
+        qf
       };
 
       const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
@@ -109,13 +114,23 @@
       this.total = searchResponse.data.partOf?.total || 0;
     },
     computed: {
+      userId() {
+        return this.$auth.user?.sub;
+      },
+      userField() {
+        return this.type === 'EntityBestItemsSet' ? 'contributor' : 'creator';
+      },
+      perPage() {
+        return this.showCreateSetButton ? 19 : 20;
+      },
       page() {
         return Number(this.$route.query.page) || 1;
       }
     },
     watch: {
-      visibility: '$fetch',
-      page: '$fetch'
+      page: '$fetch',
+      type: '$fetch',
+      visibility: '$fetch'
     },
     methods: {
       creationLinkUrl(set) {
