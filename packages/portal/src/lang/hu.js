@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Még nem kuratáltál gyűjteményeket",
         "private": "Még nem hozott létre privát galériát",
-        "public": "Még nem hozott létre nyilvános galériát"
+        "public": "Még nem hozott létre nyilvános galériát",
+        "published": "Még nem publikáltál galériákat."
       },
       "noLikedItems": "Még nem kedvelt egy cikket sem"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Kedveléseim és gyűjteményeim",
     "profileSettings": "Profilbeállítások",
     "publicCollections": "Nyilvános Galériák",
+    "publishedCollections": "Megjelent Galériák",
     "settings": "Beállítások",
     "title": "Fiókom"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Figyelmeztetés: a beállított láthatóság már megváltozott, és jelenleg \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet.",
-      "shareWhere": "Hol szeretnéd megosztani ezt a galériát?"
+      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet."
     },
     "publication": {
       "description": "A galéria közzététele az Europeana.eu/galleries oldalon lesz látható.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Hol szeretnéd ezt megosztani?",
   "showLess": "Kevesebb megjelenítése",
   "showMore": "Továbbiak megjelenítése",
   "sideFilters": {

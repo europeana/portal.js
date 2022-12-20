@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Zatiaľ ste nevybrali žiadne zbierky",
         "private": "Zatiaľ ste nevytvorili žiadne súkromné galérie",
-        "public": "Zatiaľ ste nevytvorili žiadne verejné galérie"
+        "public": "Zatiaľ ste nevytvorili žiadne verejné galérie",
+        "published": "Zatiaľ ste nemali zverejnené žiadne galérie"
       },
       "noLikedItems": "Zatiaľ ste žiadne položky neoznačili, že sa vám páčia"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Moje označenia Páči sa mi a galérie",
     "profileSettings": "Nastavenia profilu",
     "publicCollections": "Verejné galérie",
+    "publishedCollections": "Publikované Galérie",
     "settings": "Nastavenia",
     "title": "Môj účet"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
     },
     "prompts": {
-      "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali.",
-      "shareWhere": "Kde by ste chceli zdieľať túto galériu?"
+      "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali."
     },
     "publication": {
       "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Kde by ste to chceli zdieľať?",
   "showLess": "Zobraziť menej",
   "showMore": "Zobraziť viac",
   "sideFilters": {

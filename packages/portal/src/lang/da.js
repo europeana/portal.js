@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Du har ikke kurateret nogen samlinger endnu",
         "private": "Du har ikke oprettet nogen private gallerier endnu",
-        "public": "Du har ikke oprettet nogen offentlige gallerier endnu"
+        "public": "Du har ikke oprettet nogen offentlige gallerier endnu",
+        "published": "Du har ikke haft nogen gallerier offentliggjort endnu"
       },
       "noLikedItems": "Du har ikke syntes om nogen artikler endnu"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mine synes om'er og gallerier",
     "profileSettings": "Profilindstillinger",
     "publicCollections": "Offentlige gallerier",
+    "publishedCollections": "Udgivne Gallerier",
     "settings": "Indstillinger",
     "title": "Min konto"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det.",
-      "shareWhere": "Hvor vil du gerne dele dette galleri?"
+      "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det."
     },
     "publication": {
       "description": "Udgivelse af et galleri vil vise det på Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Hvor vil du gerne dele dette?",
   "showLess": "Vis mindre",
   "showMore": "Vis mere",
   "sideFilters": {

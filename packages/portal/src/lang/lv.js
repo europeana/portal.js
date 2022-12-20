@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Jūs vēl neesat apkopojis nevienu kolekciju",
         "private": "Vēl nav izveidota neviena privāta galerija",
-        "public": "Vēl nav izveidota neviena publiska galerija"
+        "public": "Vēl nav izveidota neviena publiska galerija",
+        "published": "Jūs vēl neesat publicējis nevienu galeriju"
       },
       "noLikedItems": "Neviens vienums vēl nav atzīmtes ar \"patīk\""
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mani favorīti un galerijas",
     "profileSettings": "Profila iestatījumi",
     "publicCollections": "Publiskas galerijas",
+    "publishedCollections": "Publicētās Galerijas",
     "settings": "Iestatījumi",
     "title": "Mans konts"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Brīdinājums: iestatītā redzamība jau ir mainīta un pašlaik ir \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie vienumi.",
-      "shareWhere": "Kur jūs vēlētos dalīties ar šo galeriju?"
+      "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie vienumi."
     },
     "publication": {
       "description": "Publicējot galeriju, tā būs pieejama vietnē Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Kur jūs vēlētos dalīties ar šo?",
   "showLess": "Rādīt mazāk",
   "showMore": "Rādīt vairāk",
   "sideFilters": {
