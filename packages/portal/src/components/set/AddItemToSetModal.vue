@@ -17,7 +17,6 @@
       {{ $t('set.actions.createNew') }}
     </b-button>
     <div
-      v-if="collections"
       class="collections"
     >
       <AddItemToSetButton
@@ -113,7 +112,7 @@
         };
 
         const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-        this.collections = searchResponse.data.items;
+        this.collections = searchResponse.data.items || [];
         this.fetched = true;
       },
 
