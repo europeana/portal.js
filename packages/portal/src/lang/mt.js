@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Għadek ma kkurajt l-ebda kollezzjoni",
         "private": "Għadek ma ħloqt l-ebda direttorju tar-ritratti privat s'issa",
-        "public": "Għadek ma ħloqt l-ebda direttorju tar-ritratti pubbliku s'issa"
+        "public": "Għadek ma ħloqt l-ebda direttorju tar-ritratti pubbliku s'issa",
+        "published": "Għadek ma kellek l-ebda galleriji ppubblikati"
       },
       "noLikedItems": "Għadek m'għamiltx like fuq wieħed mill-oġġetti s'issa"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Il-Likes u d-Direttorji tar-Ritratti Tiegħi",
     "profileSettings": "Settings tal-profil",
     "publicCollections": "Direttorji tar-Ritratti Pubbliċi",
+    "publishedCollections": "Galleriji Ippubblikati",
     "settings": "Settings",
     "title": "Il-kont tiegħi"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Twissija: il-viżibilità tas-sett diġà nbidlet u bħalissa hija \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha.",
-      "shareWhere": "Fejn tixtieq taqsam din il-gallerija?"
+      "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha."
     },
     "publication": {
       "description": "Il-pubblikazzjoni ta' gallerija ser tidher fuq Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Fejn tixtieq taqsam dan?",
   "showLess": "Uri inqas",
   "showMore": "Uri aktar",
   "sideFilters": {
