@@ -151,15 +151,18 @@
         const id = set.id.replace('http://data.europeana.eu/set/', '');
         return this.$features.setGalleries ? getLabelledSlug(id, set.title.en) : id;
       },
+      // When a new set is created, it will be on page 1, so go back to page 1.
+      // If already on page 1, explicitly trigger `fetch`, otherwise the watcher
+      // for changes to page will trigger it.
       handleSetCreated() {
-        const fetch = (this.page === 1);
-        this.$goto({
-          path: this.$route.path,
-          query: { ...this.$route.query, page: 1 },
-          hash: this.$route.hash
-        });
-        if (fetch) {
+        if (this.page === 1) {
           this.$fetch();
+        } else {
+          this.$goto({
+            path: this.$route.path,
+            query: { ...this.$route.query, page: 1 },
+            hash: this.$route.hash
+          });
         }
       }
     }

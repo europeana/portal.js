@@ -16,9 +16,11 @@
     >
       {{ $t('set.actions.createNew') }}
     </b-button>
-    <div class="collections">
+    <div
+      v-if="collections"
+      class="collections"
+    >
       <AddItemToSetButton
-        v-if="collections"
         v-for="(collection, index) in collections"
         :key="index"
         :set="collection"
