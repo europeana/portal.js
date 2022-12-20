@@ -1,4 +1,3 @@
-// TODO: Move this file to the _.spec.js when contentful galleries are deprecated.
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
@@ -48,7 +47,7 @@ const defaultOptions = {
 const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   mocks: {
-    $features: { setGalleries: true, ...options.features },
+    $features: options.features || {},
     $t: key => key,
     $tc: key => key,
     $i18n,

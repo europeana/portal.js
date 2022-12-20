@@ -235,8 +235,7 @@
         identifier: null,
         images: [],
         title: '',
-        rawDescription: '',
-        contentWarning: null
+        rawDescription: ''
       };
     },
     async fetch() {

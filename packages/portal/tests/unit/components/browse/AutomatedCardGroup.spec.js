@@ -29,7 +29,6 @@ const factory = (props = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(
         edmPreview: sinon.stub().returnsArg(0)
       }
     },
-    $features: { setGalleries: true },
     $fetchState: {
       error: false,
       pending: false
