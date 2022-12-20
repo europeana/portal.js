@@ -31,7 +31,6 @@ export default {
 
       if (ref) {
         if (this.paginationFocusRefUid !== ref['_uid']) {
-          await this.$nextTick();
           this.paginationFocusRefUid = ref['_uid'];
           const link = ref.$el?.getElementsByTagName('a')?.[0];
           if (this.paginationFocusScrollEnabled && this.$scrollTo) {
