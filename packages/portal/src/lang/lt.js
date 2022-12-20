@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Dar ne kuravote jokių rinkinių",
         "private": "Kol kas nesukūrėte jokių privačių galerijų",
-        "public": "Kol kas nesukūrėte jokių viešų galerijų"
+        "public": "Kol kas nesukūrėte jokių viešų galerijų",
+        "published": "Dar nepaskelbėte jokių galerijų"
       },
       "noLikedItems": "Kol kas neturite patikusių prekių"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Man patinkančios prekės, kolekcijos ir galerijos",
     "profileSettings": "Profilio nustatymai",
     "publicCollections": "Viešos galerijos",
+    "publishedCollections": "Paskelbtos Galerijos",
     "settings": "Nustatymai",
     "title": "Mano paskyra"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Įspėjimas: nustatytas matomumas jau pakeistas ir šiuo metu yra \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes.",
-      "shareWhere": "Kur norėtumėte pasidalinti šia galerija?"
+      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes."
     },
     "publication": {
       "description": "Paskelbus galeriją ji bus rodoma Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Kur norėtumėte tuo pasidalinti?",
   "showLess": "Rodyti mažiau",
   "showMore": "Rodyti daugiau",
   "sideFilters": {

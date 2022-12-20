@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Niste še kurirali nobene zbirke",
         "private": "Niste še ustvarili nobene zasebne zbirke.",
-        "public": "Niste še ustvarili nobene javne zbirke."
+        "public": "Niste še ustvarili nobene javne zbirke.",
+        "published": "Niste objavili še nobene galerije"
       },
       "noLikedItems": "Niste še všečkali nobenih predmetov."
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Moji všečki & zbirke",
     "profileSettings": "Nastavitve profila",
     "publicCollections": "Javne zbirke",
+    "publishedCollections": "Objavljene Galerije",
     "settings": "Nastavitve",
     "title": "Moj račun"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Opozorilo: nastavljena vidnost je že spremenjena in je trenutno \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse predmete, ki ste jih dodali.",
-      "shareWhere": "Kje želite deliti to galerijo?"
+      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse predmete, ki ste jih dodali."
     },
     "publication": {
       "description": "Z objavo galerije bo ta objavljena na Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Kje želite to deliti?",
   "showLess": "Prikaži manj",
   "showMore": "Prikaži več",
   "sideFilters": {

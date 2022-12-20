@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Je hebt nog geen collecties samengesteld",
         "private": "U hebt nog geen privé galerijen gemaakt",
-        "public": "U hebt nog geen openbare galerijen gemaakt"
+        "public": "U hebt nog geen openbare galerijen gemaakt",
+        "published": "U heeft nog geen galerijen gepubliceerd"
       },
       "noLikedItems": "Je hebt nog geen Items geliked"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mijn likes en galerijen",
     "profileSettings": "Profielinstellingen",
     "publicCollections": "Openbare galerijen",
+    "publishedCollections": "Gepubliceerde Galerijen",
     "settings": "Instellingen",
     "title": "Mijn account"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd.",
-      "shareWhere": "Waar wilt u deze galerij delen?"
+      "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd."
     },
     "publication": {
       "description": "Als u een galerij publiceert, wordt deze op Europeana.eu/galleries weergegeven.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Waar wilt u dit delen?",
   "showLess": "Minder weergeven",
   "showMore": "Meer weergeven",
   "sideFilters": {
