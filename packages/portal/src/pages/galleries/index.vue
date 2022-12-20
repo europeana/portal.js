@@ -40,6 +40,7 @@
             <ContentCard
               v-for="(gallery, index) in galleries"
               :key="gallery.slug"
+              ref="cards"
               :title="gallery.title"
               :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
               :image-url="gallery.thumbnail"
@@ -79,7 +80,9 @@
   import { getLabelledSlug } from '@/plugins/europeana/utils';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
+  import PaginationNavInput from '../../components/generic/PaginationNavInput';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import paginationFocusMixin from '@/mixins/paginationFocus';
 
   const PER_PAGE = 20;
 
@@ -90,9 +93,12 @@
       ContentHeader,
       ContentCard,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      PaginationNavInput: () => import('../../components/generic/PaginationNavInput')
+      PaginationNavInput
     },
-    mixins: [pageMetaMixin],
+    mixins: [
+      paginationFocusMixin,
+      pageMetaMixin
+    ],
     middleware: 'sanitisePageQuery',
     data() {
       return {
@@ -108,6 +114,9 @@
         await this.fetchContentfulGalleries();
       }
       this.$scrollTo && this.$scrollTo('#header');
+      this.$nextTick(() => {
+        this.finishHandlePaginationChange(this.$refs.cards);
+      });
     },
     computed: {
       pageMeta() {

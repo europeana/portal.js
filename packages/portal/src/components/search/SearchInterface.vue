@@ -87,7 +87,7 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
-                          @drawn="handleResultsDrawn"
+                          @drawn="finishHandlePaginationChange"
                         >
                           <slot />
                           <template
@@ -145,6 +145,7 @@
   import ViewToggles from './ViewToggles';
 
   import makeToastMixin from '@/mixins/makeToast';
+  import paginationFocusMixin from '@/mixins/paginationFocus';
   import themes from '@/plugins/europeana/themes';
   import { filtersFromQf } from '@/plugins/europeana/search';
 
@@ -168,7 +169,8 @@
     },
 
     mixins: [
-      makeToastMixin
+      makeToastMixin,
+      paginationFocusMixin
     ],
 
     props: {
@@ -203,8 +205,7 @@
         lastAvailablePage: null,
         results: [],
         theme: null,
-        totalResults: null,
-        paginationChanged: false
+        totalResults: null
       };
     },
 
@@ -309,7 +310,7 @@
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
-      '$route.query.page': 'handlePaginationChanged'
+      '$route.query.page': '$fetch'
     },
 
     destroyed() {
@@ -360,20 +361,6 @@
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
-      },
-
-      handlePaginationChanged() {
-        this.paginationChanged = true;
-        this.$fetch();
-      },
-
-      handleResultsDrawn(cardRefs) {
-        if (this.paginationChanged) {
-          // Move the focus to the first item
-          const cardLink = cardRefs?.[0]?.$el?.getElementsByTagName('a')?.[0];
-          cardLink?.focus();
-          this.paginationChanged = false;
-        }
       },
 
       watchRouteQueryQf(newVal, oldVal) {
