@@ -29,6 +29,7 @@
             <ContentCard
               v-for="(set, index) in sets"
               :key="set.id"
+              ref="pagination-focus"
               :sub-title="setSubTitle(set)"
               :title="set.title"
               :image-url="creationPreviewUrl(set)"
@@ -59,6 +60,7 @@
   import LoadingSpinner from '../generic/LoadingSpinner';
   import ContentCard from '../generic/ContentCard';
   import PaginationNavInput from '../generic/PaginationNavInput';
+  import paginationFocusMixin from '@/mixins/paginationFocus';
   import { getLabelledSlug } from '@/plugins/europeana/utils';
 
   export default {
@@ -70,6 +72,9 @@
       LoadingSpinner,
       PaginationNavInput
     },
+    mixins: [
+      paginationFocusMixin
+    ],
     props: {
       showCreateSetButton: {
         type: Boolean,
