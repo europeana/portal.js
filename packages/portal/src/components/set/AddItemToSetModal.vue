@@ -6,7 +6,7 @@
     hide-header-close
     :static="modalStatic"
     @show="fetchCollections"
-    @hide="hideModal()"
+    @hide="hideModal"
   >
     <b-button
       variant="primary"
@@ -18,6 +18,7 @@
     </b-button>
     <div class="collections">
       <AddItemToSetButton
+        v-if="collections"
         v-for="(collection, index) in collections"
         :key="index"
         :set="collection"
@@ -98,6 +99,7 @@
     methods: {
       async fetchCollections() {
         const creator = this.$auth.user?.sub;
+        // TODO: pagination and/or search within one's collections
         const searchParams = {
           query: `creator:${creator}`,
           profile: 'standard',
@@ -109,7 +111,7 @@
         };
 
         const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-        this.collections = searchResponse.data.items || [];
+        this.collections = searchResponse.data.items;
         this.fetched = true;
       },
 
