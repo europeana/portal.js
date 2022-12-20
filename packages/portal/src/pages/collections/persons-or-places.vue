@@ -13,6 +13,7 @@
           <ContentCard
             v-for="entity in entities"
             :key="entity.id"
+            ref="pagination-focus"
             :title="entity.prefLabel"
             :url="entityRoute(entity)"
             :image-url="thumbnail(entity)"
@@ -36,6 +37,7 @@
   import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
   import { getLabelledSlug } from '@/plugins/europeana/utils';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import paginationFocusMixin from '@/mixins/paginationFocus';
 
   import ContentHeader from '@/components/generic/ContentHeader';
   import ContentCard from '@/components/generic/ContentCard';
@@ -50,7 +52,10 @@
       PaginationNavInput
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin,
+      paginationFocusMixin
+    ],
 
     middleware: 'sanitisePageQuery',
 
@@ -74,14 +79,10 @@
         fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
       };
 
-      try {
-        const response = await this.$apis.entity.search(entityIndexParams);
+      const response = await this.$apis.entity.search(entityIndexParams);
 
-        this.entities = response.entities;
-        this.total = response.total;
-      } finally {
-        this.$scrollTo && this.$scrollTo('#header');
-      }
+      this.entities = response.entities;
+      this.total = response.total;
     },
 
     computed: {

@@ -33,7 +33,7 @@
         <ItemPreviewCard
           v-else
           :key="index"
-          ref="cards"
+          ref="pagination-focus"
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
@@ -75,7 +75,7 @@
       <ItemPreviewCard
         v-else
         :key="card.id"
-        ref="cards"
+        ref="pagination-focus"
         :item="card"
         class="item"
         :hit-selector="itemHitSelector(card)"
@@ -92,6 +92,7 @@
 <script>
   import draggable from 'vuedraggable';
   import ItemPreviewCard from './ItemPreviewCard';
+  import paginationFocusMixin from '@/mixins/paginationFocus';
 
   export default {
     name: 'ItemPreviewCardGroup',
@@ -100,6 +101,10 @@
       draggable,
       ItemPreviewCard
     },
+
+    mixins: [
+      paginationFocusMixin
+    ],
 
     props: {
       items: {
@@ -133,6 +138,10 @@
       enableRejectRecommendations: {
         type: Boolean,
         default: false
+      },
+      paginationFocus: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -144,6 +153,7 @@
 
     fetch() {
       this.cards = this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
+      this.paginationFocusEnabled = this.paginationFocus;
     },
 
     computed: {
@@ -180,7 +190,6 @@
 
     async mounted() {
       await this.redrawMasonry();
-      this.$emit('drawn', this.$refs.cards);
     },
 
     methods: {

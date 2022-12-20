@@ -13,6 +13,7 @@
           <ContentCard
             v-for="(post, index) in posts"
             :key="index"
+            ref="pagination-focus"
             :title="post.name"
             :url="{ name: 'blog-all', params: { pathMatch: post.identifier } }"
             :image-url="imageUrl(post)"
@@ -41,6 +42,7 @@
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNavInput from '../../components/generic/PaginationNavInput';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import paginationFocusMixin from '@/mixins/paginationFocus';
 
   const PER_PAGE = 20;
 
@@ -53,7 +55,10 @@
       PaginationNavInput
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin,
+      paginationFocusMixin
+    ],
 
     middleware: 'sanitisePageQuery',
 

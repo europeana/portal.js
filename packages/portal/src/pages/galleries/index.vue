@@ -40,7 +40,7 @@
             <ContentCard
               v-for="(gallery, index) in galleries"
               :key="gallery.slug"
-              ref="cards"
+              ref="pagination-focus"
               :title="gallery.title"
               :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
               :image-url="gallery.thumbnail"
@@ -55,6 +55,7 @@
             <ContentCard
               v-for="gallery in galleries"
               :key="gallery.identifier"
+              ref="pagination-focus"
               :title="gallery.name"
               :url="{ name: 'galleries-all', params: { pathMatch: gallery.identifier } }"
               :image-url="gallery.hasPartCollection.items[0] && imageUrl(gallery.hasPartCollection.items[0])"
@@ -96,8 +97,8 @@
       PaginationNavInput
     },
     mixins: [
-      paginationFocusMixin,
-      pageMetaMixin
+      pageMetaMixin,
+      paginationFocusMixin
     ],
     middleware: 'sanitisePageQuery',
     data() {
@@ -113,10 +114,6 @@
       } else {
         await this.fetchContentfulGalleries();
       }
-      this.$scrollTo && this.$scrollTo('#header');
-      this.$nextTick(() => {
-        this.finishHandlePaginationChange(this.$refs.cards);
-      });
     },
     computed: {
       pageMeta() {

@@ -87,7 +87,7 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
-                          @drawn="finishHandlePaginationChange"
+                          :pagination-focus="true"
                         >
                           <slot />
                           <template
@@ -145,7 +145,6 @@
   import ViewToggles from './ViewToggles';
 
   import makeToastMixin from '@/mixins/makeToast';
-  import paginationFocusMixin from '@/mixins/paginationFocus';
   import themes from '@/plugins/europeana/themes';
   import { filtersFromQf } from '@/plugins/europeana/search';
 
@@ -169,8 +168,7 @@
     },
 
     mixins: [
-      makeToastMixin,
-      paginationFocusMixin
+      makeToastMixin
     ],
 
     props: {
@@ -212,7 +210,6 @@
     async fetch() {
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
-      this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
       this.setViewFromRouteQuery();
 
       this.$store.commit('search/setActive', true);

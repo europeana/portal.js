@@ -1,27 +1,46 @@
 export default {
   data() {
     return {
-      paginationChanged: false
+      paginationFocusRefName: 'pagination-focus',
+      paginationFocusRefUid: null,
+      paginationFocusEnabled: true,
+      // TODO: it's nicer to scroll before focusing, but there are issues when
+      //       Masonry layout is used
+      paginationFocusScrollEnabled: false,
+      paginationFocusScrollTo: '#header'
     };
   },
 
-  watch: {
-    page: 'startHandlePaginationChange'
+  mounted() {
+    this.focusFirstPaginatedElementLink();
+  },
+
+  updated() {
+    this.focusFirstPaginatedElementLink();
   },
 
   methods: {
-    startHandlePaginationChange() {
-      console.log('startHandlePaginationChange')
-      this.paginationChanged = true;
-    },
+    async focusFirstPaginatedElementLink() {
+      if (!this.paginationFocusEnabled) {
+        return;
+      }
 
-    finishHandlePaginationChange(refs) {
-      if (this.paginationChanged) {
-        console.log('finishHandlePaginationChange')
-        // Move the focus to the first available link, if any
-        const link = refs?.[0]?.$el?.getElementsByTagName('a')?.[0];
-        link?.focus();
-        this.paginationChanged = false;
+      const refs = this.$refs[this.paginationFocusRefName];
+      const ref = Array.isArray(refs) ? refs[0] : ref;
+
+      if (ref) {
+        if (this.paginationFocusRefUid !== ref['_uid']) {
+          await this.$nextTick();
+          this.paginationFocusRefUid = ref['_uid'];
+          const link = ref.$el?.getElementsByTagName('a')?.[0];
+          if (this.paginationFocusScrollEnabled && this.$scrollTo) {
+            this.$scrollTo(this.paginationFocusScrollTo, { cancelable: false, onDone: () => link?.focus() });
+          } else {
+            link?.focus();
+          }
+        }
+      } else {
+        this.paginationFocusRefUid = null;
       }
     }
   }
