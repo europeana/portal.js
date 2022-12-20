@@ -24,6 +24,9 @@ export default {
       }
 
       const refs = this.$refs[this.paginationFocusRefName];
+      if (!refs) {
+        return;
+      }
       const ref = Array.isArray(refs) ? refs[0] : ref;
 
       if (ref) {
