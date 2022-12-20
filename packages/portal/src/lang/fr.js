@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Vous n'avez pas encore organisé de collections",
         "private": "Vous n'avez pas encore créé de galeries privées",
-        "public": "Vous n'avez pas encore créé de galeries publiques"
+        "public": "Vous n'avez pas encore créé de galeries publiques",
+        "published": "Vous n'avez pas encore publié de galeries"
       },
       "noLikedItems": "Vous n'avez pas encore aimé d'articles"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mes mentions J'aime et mes galeries",
     "profileSettings": "Paramètres du profil",
     "publicCollections": "Galeries publiques",
+    "publishedCollections": "Galeries Publiées",
     "settings": "Paramètres",
     "title": "Mon compte"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Attention : la visibilité définie a déjà changé et est actuellement \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les éléments que vous y avez ajoutés.",
-      "shareWhere": "Où souhaitez-vous partager cette galerie?"
+      "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les éléments que vous y avez ajoutés."
     },
     "publication": {
       "description": "La publication d'une galerie la présentera sur Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Où aimeriez-vous partager cela?",
   "showLess": "Afficher moins",
   "showMore": "Afficher plus",
   "sideFilters": {

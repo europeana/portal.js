@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Nu ați curator iat încă nicio colecție",
         "private": "Încă nu ai creat nicio galerie privată",
-        "public": "Încă nu ai creat nicio galerie publică"
+        "public": "Încă nu ai creat nicio galerie publică",
+        "published": "Nu ați avut nici o galerii publicate încă"
       },
       "noLikedItems": "Încă nu ai apreciat niciun articol"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Aprecierile și Galeriile mele",
     "profileSettings": "Setări profil",
     "publicCollections": "Galerii publice",
+    "publishedCollections": "Galeriile Publicate",
     "settings": "Setări",
     "title": "Contul meu"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Avertisment: setarea vizibilității a fost deja schimbată și este în prezent „ {visibility} ”."
     },
     "prompts": {
-      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat.",
-      "shareWhere": "Unde ați dori să distribuiți această galerie?"
+      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat."
     },
     "publication": {
       "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Unde ai vrea să împărtășești asta?",
   "showLess": "Afișează mai puțin",
   "showMore": "Afișează mai multe",
   "sideFilters": {
