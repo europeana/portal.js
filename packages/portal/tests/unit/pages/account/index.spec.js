@@ -72,14 +72,6 @@ describe('pages/account/index.vue', () => {
       .withArgs('entities', 'editor').returns(true)
       .withArgs('usersets', 'editor').returns(true);
 
-    it('fetches the user\'s curated collections', async() => {
-      const wrapper = factory({ userHasClientRoleStub });
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.$store.dispatch.calledWith('set/fetchCurations')).toBe(true);
-    });
-
     it('shows the curated collections in the tab navigation', () => {
       const wrapper = factory({ userHasClientRoleStub });
 
@@ -132,36 +124,6 @@ describe('pages/account/index.vue', () => {
     it('shows the private galleries', () => {
       const privateGalleries = wrapper.find('[data-qa="private sets"]');
       expect(privateGalleries.exists()).toBe(true);
-    });
-  });
-
-  describe('computed', () => {
-    describe('publicCreations', () => {
-      it('includes only created sets with visibility "public" or "published"', () => {
-        const privateSet = { visibility: 'private' };
-        const publicSet = { visibility: 'public' };
-        const publishedSet = { visibility: 'published' };
-        const creations = [privateSet, publicSet, publishedSet];
-
-        const wrapper = factory();
-        wrapper.vm.$store.state.set.creations = creations;
-
-        expect(wrapper.vm.publicCreations).toEqual([publicSet, publishedSet]);
-      });
-    });
-
-    describe('privateCreations', () => {
-      it('includes only created sets with visibility "private"', () => {
-        const privateSet = { visibility: 'private' };
-        const publicSet = { visibility: 'public' };
-        const publishedSet = { visibility: 'published' };
-        const creations = [privateSet, publicSet, publishedSet];
-
-        const wrapper = factory();
-        wrapper.vm.$store.state.set.creations = creations;
-
-        expect(wrapper.vm.privateCreations).toEqual([privateSet]);
-      });
     });
   });
 });

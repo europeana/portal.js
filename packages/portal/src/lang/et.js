@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Te pole veel ühtegi kollektsiooni kureerinud",
         "private": "Te pole veel ühtegi privaatset galeriid loonud",
-        "public": "Te pole veel ühtegi avalikku galeriid loonud"
+        "public": "Te pole veel ühtegi avalikku galeriid loonud",
+        "published": "Teil pole veel ühtegi galeriid avaldatud"
       },
       "noLikedItems": "Teile pole veel ükski toode meeldinud"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Minu meeldimised ja galeriid",
     "profileSettings": "Profiili seaded",
     "publicCollections": "Avalikud galeriid",
+    "publishedCollections": "Avaldatud Galeriid",
     "settings": "Seaded",
     "title": "Minu konto"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Hoiatus: määratud nähtavus on juba muudetud ja on praegu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted.",
-      "shareWhere": "Kus soovite seda galeriid jagada?"
+      "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
     },
     "publication": {
       "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Kus soovite seda jagada?",
   "showLess": "Näita vähem",
   "showMore": "Näita rohkem",
   "sideFilters": {

@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Níor choimeád tú aon bhailiúcháin go fóill",
         "private": "Níor chruthaigh tú aon ghailearaithe príobháideacha fós",
-        "public": "Níor chruthaigh tú aon ghailearaithe poiblí fós"
+        "public": "Níor chruthaigh tú aon ghailearaithe poiblí fós",
+        "published": "Níl gailearaithe ar bith foilsithe agat go fóill"
       },
       "noLikedItems": "Níor thaitin leat aon earraí fós"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mo Thoghanna & Gailearaithe",
     "profileSettings": "Socruithe próifíle",
     "publicCollections": "Gailearaithe Poiblí",
+    "publishedCollections": "Gailearaithe Foilsithe",
     "settings": "Socruithe",
     "title": "Mo chuntas"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Rabhadh: socraigh infheictheacht athraithe cheana féin agus tá sé \"{visibility}\" faoi láthair."
     },
     "prompts": {
-      "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis.",
-      "shareWhere": "Cá háit ar mhaith leat an gailearaí seo a roinnt?"
+      "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis."
     },
     "publication": {
       "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Cá háit ar mhaith leat é seo a roinnt?",
   "showLess": "Taispeáin níos lú",
   "showMore": "Taispeáin níos mó",
   "sideFilters": {

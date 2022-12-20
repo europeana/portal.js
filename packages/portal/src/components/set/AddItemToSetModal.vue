@@ -6,7 +6,7 @@
     hide-header-close
     :static="modalStatic"
     @show="fetchCollections"
-    @hide="hideModal()"
+    @hide="hideModal"
   >
     <b-button
       variant="primary"
@@ -16,7 +16,9 @@
     >
       {{ $t('set.actions.createNew') }}
     </b-button>
-    <div class="collections">
+    <div
+      class="collections"
+    >
       <AddItemToSetButton
         v-for="(collection, index) in collections"
         :key="index"
@@ -56,7 +58,6 @@
         type: String,
         required: true
       },
-
       modalId: {
         type: String,
         default: 'add-item-to-set-modal'
@@ -73,15 +74,13 @@
 
     data() {
       return {
+        collections: [],
         fetched: false,
         added: []
       };
     },
 
     computed: {
-      collections() {
-        return this.$store.state.set.creations;
-      },
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
@@ -99,11 +98,22 @@
     },
 
     methods: {
-      fetchCollections() {
-        this.$store.dispatch('set/fetchCreations')
-          .then(() => {
-            this.fetched = true;
-          });
+      async fetchCollections() {
+        const creator = this.$auth.user?.sub;
+        // TODO: pagination and/or search within one's collections
+        const searchParams = {
+          query: `creator:${creator}`,
+          profile: 'standard',
+          pageSize: 100,
+          page: 0,
+          qf: [
+            'type:Collection'
+          ]
+        };
+
+        const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+        this.collections = searchResponse.data.items || [];
+        this.fetched = true;
       },
 
       hideModal() {
@@ -118,22 +128,23 @@
         return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
       },
 
-      addItem(setId) {
-        this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
+      async addItem(setId) {
+        await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
       },
 
-      removeItem(setId) {
-        this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
+      async removeItem(setId) {
+        await this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
       },
 
-      toggleItem(setId) {
+      async toggleItem(setId) {
         if (this.collectionsWithItem.includes(setId)) {
           this.added = this.added.filter(id => id !== setId);
-          this.removeItem(setId);
+          await this.removeItem(setId);
         } else {
           this.added.push(setId);
-          this.addItem(setId);
+          await this.addItem(setId);
         }
+        this.fetchCollections();
       }
     }
   };

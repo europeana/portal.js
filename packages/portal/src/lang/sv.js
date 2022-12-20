@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Du har inte kuraterat några samlingar än",
         "private": "Du har inte skapat något privat galleri ännu",
-        "public": "Du har inte skapat något offentligt galleri ännu"
+        "public": "Du har inte skapat något offentligt galleri ännu",
+        "published": "Du har inte publicerat några gallerier ännu"
       },
       "noLikedItems": "Du har inte gillat några objekt ännu"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mina likes & gallerier",
     "profileSettings": "Profilinställningar",
     "publicCollections": "Offentliga gallerier",
+    "publishedCollections": "Publicerade Gallerier",
     "settings": "Inställningar",
     "title": "Mitt konto"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade.",
-      "shareWhere": "Var vill du dela detta galleri?"
+      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
     },
     "publication": {
       "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Var skulle du vilja dela detta?",
   "showLess": "Visa mindre",
   "showMore": "Visa mer",
   "sideFilters": {

@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Oraindik ez duzu bildumarik hautatu",
         "private": "Oraindik ez duzu bilduma pribaturik sortu",
-        "public": "Oraindik ez duzu bilduma publikorik sortu"
+        "public": "Oraindik ez duzu bilduma publikorik sortu",
+        "published": "Oraindik ez duzu galeriarik argitaratu"
       },
       "noLikedItems": "Oraindik ez duzu ezein elementu atsegin"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Nire gustukoak & Bildumak",
     "profileSettings": "Profilaren ezarpenak",
     "publicCollections": "Bilduma publikoak",
+    "publishedCollections": "Argitaratutako Galeriak",
     "settings": "Ezarpenak",
     "title": "Nire kontua"
   },
@@ -1038,8 +1040,7 @@ export default {
       "visibilityChanged": "Abisua: ezarri ikusgarritasuna dagoeneko aldatu da eta une honetan \" {visibility} \" da."
     },
     "prompts": {
-      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu.",
-      "shareWhere": "Non partekatu nahiko zenuke galeria hau?"
+      "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
     },
     "publication": {
       "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
@@ -1062,6 +1063,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Non partekatu nahiko zenuke hau?",
   "showLess": "Gutxiago erakutsi",
   "showMore": "Gehiago erakutsi",
   "sideFilters": {

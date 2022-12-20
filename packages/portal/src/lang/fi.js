@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Et ole vielä kuratoinut yhtään kokoelmaa",
         "private": "Et ole luonut vielä yksityisiä gallerioita",
-        "public": "Et ole luonut vielä julkisia gallerioita"
+        "public": "Et ole luonut vielä julkisia gallerioita",
+        "published": "Sinulla ei ole vielä julkaistu yhtään galleriaa"
       },
       "noLikedItems": "Et ole tykännyt vielä mistään kohteista"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Omat tykkäykset ja galleriat",
     "profileSettings": "Profiiliasetukset",
     "publicCollections": "Julkiset galleriat",
+    "publishedCollections": "Julkaistut Galleriat",
     "settings": "Asetukset",
     "title": "Oma tili"
   },
@@ -1034,8 +1036,7 @@ export default {
       "visibilityChanged": "Varoitus: asetettu näkyvyys on jo muuttunut ja on tällä hetkellä \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet.",
-      "shareWhere": "Missä haluaisit jakaa tämän gallerian?"
+      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."
     },
     "publication": {
       "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
@@ -1058,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Missä haluaisit jakaa tämän?",
   "showLess": "Näytä vähemmän",
   "showMore": "Näytä lisää",
   "sideFilters": {
