@@ -79,6 +79,10 @@
     }
   }
 
+  .related-galleries-card .card-group {
+    flex-direction: column;
+  }
+
   @at-root .side-filters-enabled & {
     .content-card:not(.related-gallery-card),
     .related-galleries-card,

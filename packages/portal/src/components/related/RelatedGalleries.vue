@@ -9,9 +9,7 @@
     >
       {{ $t('related.galleries.title') }}
     </b-card-title>
-    <b-card-group
-      class="flex-column"
-    >
+    <b-card-group>
       <ContentCard
         v-for="(gallery) in relatedGalleries"
         :key="gallery.slug"

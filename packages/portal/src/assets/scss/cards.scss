@@ -480,10 +480,38 @@
   flex: 0 0 100%;
 }
 
-.card-group-list .header-card,
-.card-group-list .related-collections-card {
-  margin-left: 0;
-  margin-right: 0;
+.card-group-list {
+  .header-card,
+  .related-galleries-card,
+  .related-collections-card {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .related-galleries-card {
+    .card-body {
+      padding: 0 !important;
+    }
+    .card-group {
+      align-items: flex-start;
+    }
+    .card {
+      margin: 0 0 1.5rem 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      @media (min-width: $bp-medium) {
+        flex: 0 0 calc(33% - 0.85rem);
+        margin: 0 1.5rem 0 0;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: $bp-medium) {
