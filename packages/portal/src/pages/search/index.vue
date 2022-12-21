@@ -5,7 +5,17 @@
     >
       <template
         v-if="!!searchQuery"
-        #related
+        #related-galleries
+      >
+        <client-only>
+          <RelatedGalleries
+            :query="searchQuery"
+          />
+        </client-only>
+      </template>
+      <template
+        v-if="!!searchQuery"
+        #related-collections
       >
         <client-only>
           <RelatedSection
@@ -44,6 +54,7 @@
       ClientOnly,
       SearchInterface,
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
+      RelatedGalleries: () => import('@/components/related/RelatedGalleries'),
       RelatedSection: () => import('@/components/search/RelatedSection')
     },
 

@@ -91,10 +91,17 @@
                         >
                           <slot />
                           <template
-                            #related
+                            #related-galleries
                           >
                             <slot
-                              name="related"
+                              name="related-galleries"
+                            />
+                          </template>
+                          <template
+                            #related-collections
+                          >
+                            <slot
+                              name="related-collections"
                             />
                           </template>
                         </ItemPreviewCardGroup>

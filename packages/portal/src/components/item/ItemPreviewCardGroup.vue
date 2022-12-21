@@ -4,7 +4,7 @@
     :key="`searchResultsGrid${view}`"
     v-masonry
     transition-duration="0.1"
-    item-selector=".card"
+    item-selector=".card:not(.mini-card)"
     horizontal-order="true"
     column-width=".masonry-container .card:not(.header-card)"
     class="masonry-container"
@@ -22,12 +22,21 @@
         v-for="(card, index) in cards"
       >
         <aside
-          v-if="card === 'related'"
+          v-if="card === 'relatedGalleries'"
+          :key="index"
+          class="aside-card-wrapper"
+        >
+          <slot
+            name="related-galleries"
+          />
+        </aside>
+        <aside
+          v-else-if="card === 'relatedCollections'"
           :key="index"
         >
           <slot
             v-masonry-tile
-            name="related"
+            name="related-collections"
           />
         </aside>
         <ItemPreviewCard
@@ -64,12 +73,21 @@
       v-for="(card, index) in cards"
     >
       <aside
-        v-if="card === 'related'"
+        v-if="card === 'relatedGalleries'"
         :key="index"
         class="aside-card-wrapper"
       >
         <slot
-          name="related"
+          name="related-galleries"
+        />
+      </aside>
+      <aside
+        v-else-if="card === 'relatedCollections'"
+        :key="index"
+        class="aside-card-wrapper"
+      >
+        <slot
+          name="related-collections"
         />
       </aside>
       <ItemPreviewCard
@@ -143,7 +161,7 @@
     },
 
     fetch() {
-      this.cards = this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
+      this.cards = this.items.slice(0, 3).concat('relatedGalleries').concat(this.items.slice(3, 7).concat('relatedCollections').concat(this.items.slice(7)));
     },
 
     computed: {

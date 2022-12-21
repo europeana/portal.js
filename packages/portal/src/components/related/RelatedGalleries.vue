@@ -1,24 +1,28 @@
 <template>
-  <section
-    v-show="relatedGalleries.length > 0"
+  <b-card
+    v-if="relatedGalleries.length > 0"
+    class="related-galleries-card mb-4"
   >
-    <b-card
-      class="related-galleries-card"
-      :title="$t('related.galleries.title')"
-      title-tag="h2"
+    <b-card-title
+      tag="h2"
+      class="related-heading text-uppercase"
     >
-      <b-card-group>
-        <ContentCard
-          v-for="(gallery) in relatedGalleries"
-          :key="gallery.slug"
-          :title="gallery.title"
-          :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
-          :image-url="gallery.thumbnail"
-          variant="mini"
-        />
-      </b-card-group>
-    </b-card>
-  </section>
+      {{ $t('related.galleries.title') }}
+    </b-card-title>
+    <b-card-group
+      class="flex-column"
+    >
+      <ContentCard
+        v-for="(gallery) in relatedGalleries"
+        :key="gallery.slug"
+        :title="gallery.title"
+        :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
+        :image-url="gallery.thumbnail"
+        variant="mini"
+        class="related-gallery-card"
+      />
+    </b-card-group>
+  </b-card>
 </template>
 
 <script>
