@@ -91,3 +91,26 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+
+  .related-galleries-card {
+    background: none;
+    border: none;
+
+    .card-body {
+      padding-right: 0.5rem;
+    }
+  }
+
+  .related-gallery-card {
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    ::v-deep .card-img {
+      width: 45%;
+      max-width: 80px;
+    }
+  }
+</style>

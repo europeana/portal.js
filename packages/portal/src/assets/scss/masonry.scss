@@ -15,7 +15,8 @@
 
   // TODO reorder masonry-container and :not(.list-card) selectors
   .related-collections-card:not(.list-card),
-  .content-card:not(.list-card) {
+  .related-galleries-card:not(.list-card),
+  .content-card:not(.list-card):not(.related-gallery-card) {
     display: inline-block;
     vertical-align: top;
     width: 100%;
@@ -38,7 +39,9 @@
     @media (min-width: $bp-extralarge) {
       width: calc(100% / 4 - $masonry-gutter);
     }
+  }
 
+  .content-card:not(.list-card):not(.related-gallery-card) {
     .card-wrapper {
       &::before {
         content: '';
@@ -77,7 +80,8 @@
   }
 
   @at-root .side-filters-enabled & {
-    .content-card,
+    .content-card:not(.related-gallery-card),
+    .related-galleries-card,
     .related-collections-card {
       @media (min-width: $bp-medium) {
         width: calc(100% / 2 - $masonry-gutter);
