@@ -91,6 +91,7 @@
                         >
                           <slot />
                           <template
+                            v-if="page === 1"
                             #related-galleries
                           >
                             <slot
@@ -98,6 +99,7 @@
                             />
                           </template>
                           <template
+                            v-if="page === 1"
                             #related-collections
                           >
                             <slot
