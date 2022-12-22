@@ -134,6 +134,7 @@
           </section>
         </b-container>
         <slot
+          v-if="page === 1"
           name="after-results"
         />
       </b-col>

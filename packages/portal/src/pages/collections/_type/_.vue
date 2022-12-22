@@ -37,7 +37,7 @@
         />
         <template
           v-if="collectionType !== 'organisation'"
-          #related
+          #related-collections
         >
           <client-only>
             <EntityRelatedCollections
