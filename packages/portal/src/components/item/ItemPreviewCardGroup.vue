@@ -22,7 +22,7 @@
         v-for="(card, index) in cards"
       >
         <aside
-          v-if="card === 'relatedGalleries'"
+          v-if="card === relatedGalleries"
           :key="index"
           class="aside-card-wrapper"
         >
@@ -31,7 +31,7 @@
           />
         </aside>
         <aside
-          v-else-if="card === 'relatedCollections'"
+          v-else-if="card === relatedCollections"
           :key="index"
         >
           <slot
@@ -73,7 +73,7 @@
       v-for="(card, index) in cards"
     >
       <aside
-        v-if="card === 'relatedGalleries'"
+        v-if="card === relatedGalleries"
         :key="index"
         class="aside-card-wrapper"
       >
@@ -82,7 +82,7 @@
         />
       </aside>
       <aside
-        v-else-if="card === 'relatedCollections'"
+        v-else-if="card === relatedCollections"
         :key="index"
         class="aside-card-wrapper"
       >
@@ -156,12 +156,14 @@
 
     data() {
       return {
-        cards: []
+        cards: [],
+        relatedGalleries: 'relatedGalleries',
+        relatedCollections: 'relatedCollections'
       };
     },
 
     fetch() {
-      this.cards = this.items.slice(0, 3).concat('relatedGalleries').concat(this.items.slice(3, 7).concat('relatedCollections').concat(this.items.slice(7)));
+      this.cards = this.items.slice(0, 3).concat(this.relatedGalleries).concat(this.items.slice(3, 7).concat(this.relatedCollections).concat(this.items.slice(7)));
     },
 
     computed: {
@@ -203,7 +205,7 @@
 
     methods: {
       endItemDrag() {
-        this.$emit('endItemDrag', this.cards.filter(card => card !== 'related'));
+        this.$emit('endItemDrag', this.cards.filter(card => ![this.relatedGalleries, this.relatedCollections].includes(card)));
       },
       itemHitSelector(item) {
         if (!this.hits) {

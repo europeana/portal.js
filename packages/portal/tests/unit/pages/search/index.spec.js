@@ -46,7 +46,7 @@ const factory = (query) => shallowMountNuxt(page, {
     'client-only': true,
     'RelatedSection': true,
     'SearchInterface': {
-      template: '<div><slot name="related" /><slot name="after-results" /></div>'
+      template: '<div><slot name="related-collections" /><slot name="after-results" /></div>'
     }
   },
   mocks: {
