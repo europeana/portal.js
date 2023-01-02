@@ -1,7 +1,7 @@
 .masonry-container {
   width: 100%;
 
-  @media (max-width: $bp-medium - 1) {
+  @media (max-width: ($bp-medium - 1)) {
     &[style] {
       height: auto !important;
     }
@@ -21,7 +21,7 @@
     vertical-align: top;
     width: 100%;
 
-    @media (max-width: $bp-medium - 1) {
+    @media (max-width: ($bp-medium - 1)) {
       &[style] {
         position: relative !important;
         left: auto !important;
@@ -36,7 +36,7 @@
       width: calc(100% / 2 - $masonry-gutter);
     }
 
-    @media (min-width: $bp-extralarge) {
+    @media (min-width: ($bp-xxl + 60px)) {
       width: calc(100% / 4 - $masonry-gutter);
     }
   }
@@ -91,11 +91,11 @@
         width: calc(100% / 2 - $masonry-gutter);
       }
 
-      @media (min-width: $bp-large) {
+      @media (min-width: $bp-extralarge) {
         width: calc(100% / 3 - $masonry-gutter);
       }
 
-      @media (min-width: $bp-extralarge) {
+      @media (min-width: ($bp-xxl + 60px)) {
         width: calc(100% / 4 - $masonry-gutter);
       }
     }
@@ -115,11 +115,11 @@
         margin-right: 0.5 * $masonry-gutter;
       }
 
-      @media (min-width: $bp-large) {
+      @media (min-width: $bp-extralarge) {
         width: calc(100% / 1.5 - $masonry-gutter);
       }
 
-      @media (min-width: $bp-extralarge) {
+      @media (min-width: ($bp-xxl + 60px)) {
         width: calc(100% / 2 - $masonry-gutter);
       }
     }
