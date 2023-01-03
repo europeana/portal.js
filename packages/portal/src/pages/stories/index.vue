@@ -55,6 +55,7 @@
         <ContentCard
           v-for="(entry, index) in stories"
           :key="index"
+          ref="pagination-focus"
           :title="entry.name"
           :url="entryUrl(entry)"
           :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
@@ -78,6 +79,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import paginationFocusMixin from '@/mixins/paginationFocus';
 
   export default {
     name: 'StoriesPage',
@@ -92,7 +94,10 @@
       PaginationNavInput
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin,
+      paginationFocusMixin
+    ],
 
     data() {
       return {
@@ -112,7 +117,6 @@
         this.fetchPage(),
         this.fetchStories()
       ]);
-      this.$scrollTo && this.$scrollTo('#header');
     },
 
     computed: {

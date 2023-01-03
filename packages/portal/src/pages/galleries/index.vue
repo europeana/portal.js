@@ -40,6 +40,7 @@
             <ContentCard
               v-for="(gallery, index) in galleries"
               :key="gallery.slug"
+              ref="pagination-focus"
               :title="gallery.title"
               :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
               :image-url="gallery.thumbnail"
@@ -54,6 +55,7 @@
             <ContentCard
               v-for="gallery in galleries"
               :key="gallery.identifier"
+              ref="pagination-focus"
               :title="gallery.name"
               :url="{ name: 'galleries-all', params: { pathMatch: gallery.identifier } }"
               :image-url="gallery.hasPartCollection.items[0] && imageUrl(gallery.hasPartCollection.items[0])"
@@ -79,7 +81,9 @@
   import { getLabelledSlug } from '@/plugins/europeana/utils';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
+  import PaginationNavInput from '../../components/generic/PaginationNavInput';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import paginationFocusMixin from '@/mixins/paginationFocus';
 
   const PER_PAGE = 20;
 
@@ -90,9 +94,12 @@
       ContentHeader,
       ContentCard,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      PaginationNavInput: () => import('../../components/generic/PaginationNavInput')
+      PaginationNavInput
     },
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin,
+      paginationFocusMixin
+    ],
     middleware: 'sanitisePageQuery',
     data() {
       return {
@@ -107,7 +114,6 @@
       } else {
         await this.fetchContentfulGalleries();
       }
-      this.$scrollTo && this.$scrollTo('#header');
     },
     computed: {
       pageMeta() {

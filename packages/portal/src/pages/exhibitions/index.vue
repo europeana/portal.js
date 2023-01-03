@@ -16,6 +16,7 @@
           <ContentCard
             v-for="exhibition in exhibitions"
             :key="exhibition.identifier"
+            ref="pagination-focus"
             :title="exhibition.name"
             :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.identifier } }"
             :image-url="imageUrl(exhibition.primaryImageOfPage)"
@@ -44,6 +45,7 @@
   import ContentCard from '../../components/generic/ContentCard';
   import PaginationNavInput from '../../components/generic/PaginationNavInput';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import paginationFocusMixin from '@/mixins/paginationFocus';
 
   const PER_PAGE = 20;
 
@@ -54,7 +56,10 @@
       ContentCard,
       PaginationNavInput
     },
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin,
+      paginationFocusMixin
+    ],
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
       next();

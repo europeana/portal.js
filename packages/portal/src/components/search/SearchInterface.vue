@@ -87,7 +87,7 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
-                          @drawn="handleResultsDrawn"
+                          :pagination-focus="true"
                         >
                           <slot />
                           <template
@@ -203,15 +203,13 @@
         lastAvailablePage: null,
         results: [],
         theme: null,
-        totalResults: null,
-        paginationChanged: false
+        totalResults: null
       };
     },
 
     async fetch() {
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
-      this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
       this.setViewFromRouteQuery();
 
       this.$store.commit('search/setActive', true);
@@ -309,7 +307,7 @@
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
-      '$route.query.page': 'handlePaginationChanged'
+      '$route.query.page': '$fetch'
     },
 
     destroyed() {
@@ -360,20 +358,6 @@
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
-      },
-
-      handlePaginationChanged() {
-        this.paginationChanged = true;
-        this.$fetch();
-      },
-
-      handleResultsDrawn(cardRefs) {
-        if (this.paginationChanged) {
-          // Move the focus to the first item
-          const cardLink = cardRefs?.[0]?.$el?.getElementsByTagName('a')?.[0];
-          cardLink?.focus();
-          this.paginationChanged = false;
-        }
       },
 
       watchRouteQueryQf(newVal, oldVal) {
