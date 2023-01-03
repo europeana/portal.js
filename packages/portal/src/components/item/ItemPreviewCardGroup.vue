@@ -24,7 +24,7 @@
         <aside
           v-if="card === relatedGalleries"
           :key="index"
-          class="aside-card-wrapper"
+          class="ml-3 ml-md-0"
           :aria-label="$t('related.galleries.name')"
         >
           <slot
@@ -35,6 +35,7 @@
           v-else-if="card === relatedCollections"
           :key="index"
           :aria-label="$t('related.collections.name')"
+          class="ml-3 ml-md-0"
         >
           <slot
             v-masonry-tile
@@ -77,7 +78,7 @@
       <aside
         v-if="card === relatedGalleries"
         :key="index"
-        class="aside-card-wrapper"
+        class="aside-card-wrapper pl-3"
         :aria-label="$t('related.galleries.name')"
       >
         <slot
@@ -87,7 +88,7 @@
       <aside
         v-else-if="card === relatedCollections"
         :key="index"
-        class="aside-card-wrapper"
+        class="aside-card-wrapper pl-3"
         :aria-label="$t('related.collections.name')"
       >
         <slot

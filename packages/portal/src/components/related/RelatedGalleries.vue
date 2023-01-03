@@ -91,17 +91,20 @@
 </script>
 
 <style lang="scss" scoped>
-
   .related-galleries-card {
     background: none;
     border: none;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 
     .card-body {
-      padding-right: 0.5rem;
+      padding: 0;
     }
   }
 
   .related-gallery-card {
+    margin-bottom: 0.75rem;
+
     &:last-child {
       margin-bottom: 0;
     }

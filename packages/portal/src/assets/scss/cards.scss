@@ -3,6 +3,8 @@
   border: 0;
   border-radius: $border-radius-small;
   box-shadow: $boxshadow-small;
+  margin-top: 0.75rem;
+  margin-bottom: 2.25rem;
 
   h2 {
     margin-right: 1rem;
@@ -13,6 +15,10 @@
     padding-right: 0.5rem;
     padding-bottom: 0.5rem;
   }
+}
+
+.card-deck .related-collections-card {
+  margin-bottom: 2.25rem;
 }
 
 .content-card {
@@ -480,6 +486,11 @@
   flex: 0 0 100%;
 }
 
+.card-group > .card:not(:last-child),
+.card-group > .card:not(:first-child) {
+  border-radius: $border-radius-small;
+}
+
 .card-group-list {
   .header-card,
   .related-galleries-card,
@@ -494,17 +505,21 @@
     }
     .card-group {
       align-items: flex-start;
+
+      @media (min-width: $bp-medium) {
+        flex-wrap: nowrap;
+      }
     }
     .card {
-      margin: 0 0 1.5rem 0;
+      margin: 0 0 0.75rem 0;
 
       &:last-child {
         margin-bottom: 0;
       }
       
       @media (min-width: $bp-medium) {
-        flex: 0 0 calc(33% - 0.85rem);
-        margin: 0 1.5rem 0 0;
+        flex: 0 1 33%;
+        margin: 0 0.75rem 0 0;
 
         &:last-child {
           margin-right: 0;
