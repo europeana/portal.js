@@ -134,8 +134,7 @@
     },
     methods: {
       creationLinkUrl(set) {
-        const name = this.$features.setGalleries ? 'galleries-all' : 'set-all';
-        return { name, params: { pathMatch: this.setPathMatch(set) } };
+        return { name: 'galleries-all', params: { pathMatch: this.setPathMatch(set) } };
       },
       creationPreviewUrl(set) {
         return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
@@ -149,7 +148,7 @@
       },
       setPathMatch(set) {
         const id = set.id.replace('http://data.europeana.eu/set/', '');
-        return this.$features.setGalleries ? getLabelledSlug(id, set.title.en) : id;
+        return getLabelledSlug(id, set.title.en);
       },
       // When a new set is created, it will be on page 1, so go back to page 1.
       // If already on page 1, explicitly trigger `fetch`, otherwise the watcher

@@ -73,7 +73,7 @@
       } else if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
         data.key = 'items/type-counts';
         data.cardType = 'InfoCard';
-      } else if (this.$features.setGalleries && this.sectionType === LATEST_GALLERIES) {
+      } else if (this.sectionType === LATEST_GALLERIES) {
         data.key = 'galleries/recent';
         data.cardType = 'AutomatedGalleryCard';
         data.headline = this.$i18n.t('automatedCardGroup.gallery');

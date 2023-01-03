@@ -337,5 +337,8 @@ module.exports = {
     });
     await client.expect(childSize.height).to.be.at.most(parentSize.height);
     await client.expect(childSize.width).to.be.at.most(parentSize.width);
+  },
+  async takeScreenshot(filename) {
+    await client.saveScreenshot(`./screenshots/${filename}.png`);
   }
 };
