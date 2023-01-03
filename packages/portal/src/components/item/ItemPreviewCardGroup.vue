@@ -21,27 +21,33 @@
       <template
         v-for="(card, index) in cards"
       >
-        <aside
-          v-if="card === relatedGalleries"
-          :key="index"
-          class="ml-3 ml-md-0"
-          :aria-label="$t('related.galleries.name')"
-        >
-          <slot
-            name="related-galleries"
-          />
-        </aside>
-        <aside
-          v-else-if="card === relatedCollections"
-          :key="index"
-          :aria-label="$t('related.collections.name')"
-          class="ml-3 ml-md-0"
-        >
-          <slot
-            v-masonry-tile
-            name="related-collections"
-          />
-        </aside>
+        <template v-if="card === relatedGalleries">
+          <!-- Prevent rendering empty aside when no slot is passed -->
+          <aside
+            v-if="$slots['related-galleries']"
+            :key="index"
+            class="ml-3 ml-md-0"
+            :aria-label="$t('related.galleries.name')"
+          >
+            <slot
+              name="related-galleries"
+            />
+          </aside>
+        </template>
+        <template v-else-if="card === relatedCollections">
+          <!-- Prevent rendering empty aside when no slot is passed -->
+          <aside
+            v-if="$slots['related-collections']"
+            :key="index"
+            :aria-label="$t('related.collections.name')"
+            class="ml-3 ml-md-0"
+          >
+            <slot
+              v-masonry-tile
+              name="related-collections"
+            />
+          </aside>
+        </template>
         <ItemPreviewCard
           v-else
           :key="index"
@@ -75,26 +81,32 @@
     <template
       v-for="(card, index) in cards"
     >
-      <aside
-        v-if="card === relatedGalleries"
-        :key="index"
-        class="aside-card-wrapper pl-3"
-        :aria-label="$t('related.galleries.name')"
-      >
-        <slot
-          name="related-galleries"
-        />
-      </aside>
-      <aside
-        v-else-if="card === relatedCollections"
-        :key="index"
-        class="aside-card-wrapper pl-3"
-        :aria-label="$t('related.collections.name')"
-      >
-        <slot
-          name="related-collections"
-        />
-      </aside>
+      <template v-if="card === relatedGalleries">
+        <!-- Prevent rendering empty aside when no slot is passed -->
+        <aside
+          v-if="$slots['related-galleries']"
+          :key="index"
+          class="aside-card-wrapper pl-3"
+          :aria-label="$t('related.galleries.name')"
+        >
+          <slot
+            name="related-galleries"
+          />
+        </aside>
+      </template>
+      <template v-else-if="card === relatedCollections">
+        <!-- Prevent rendering empty aside when no slot is passed -->
+        <aside
+          v-if="$slots['related-collections']"
+          :key="index"
+          class="aside-card-wrapper pl-3"
+          :aria-label="$t('related.collections.name')"
+        >
+          <slot
+            name="related-collections"
+          />
+        </aside>
+      </template>
       <ItemPreviewCard
         v-else
         :key="card.id"
@@ -168,7 +180,11 @@
     },
 
     fetch() {
-      this.cards = this.items.slice(0, 3).concat(this.relatedGalleries).concat(this.items.slice(3, 7).concat(this.relatedCollections).concat(this.items.slice(7)));
+      let itemCards = [...this.items];
+      itemCards.splice(3, 0, this.relatedGalleries);
+      itemCards.splice(8, 0, this.relatedCollections);
+
+      this.cards = itemCards;
     },
 
     computed: {
