@@ -85,7 +85,18 @@
       };
     },
     async fetch() {
-      await this.fetchSetGalleries();
+      const searchParams = {
+        query: 'visibility:published',
+        pageSize: PER_PAGE,
+        page: this.page - 1,
+        profile: 'standard'
+      };
+
+      const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      this.galleries = setResponse.data.items && this.parseSets(setResponse.data.items);
+      this.total = setResponse.data.partOf.total;
+      this.perPage = PER_PAGE;
+
       this.$scrollTo && this.$scrollTo('#header');
     },
     computed: {
@@ -102,19 +113,6 @@
       '$route.query.page': '$fetch'
     },
     methods: {
-      async fetchSetGalleries() {
-        const searchParams = {
-          query: 'visibility:published',
-          pageSize: PER_PAGE,
-          page: this.page - 1,
-          profile: 'standard'
-        };
-
-        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-        this.galleries = setResponse.data.items && this.parseSets(setResponse.data.items);
-        this.total = setResponse.data.partOf.total;
-        this.perPage = PER_PAGE;
-      },
       parseSets(sets) {
         return sets.map(set => {
           return {
