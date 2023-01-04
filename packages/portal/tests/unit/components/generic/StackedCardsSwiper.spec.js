@@ -61,4 +61,16 @@ describe('components/generic/StackedCardsSwiper', () => {
       expect(wrapper.find('h2').text()).toEqual('Slider');
     });
   });
+  describe('When active slide changes', () => {
+    it('focus is set on the active\'s slide link', () => {
+      const wrapper = factory();
+
+      wrapper.vm.swiper.activeIndex = 1;
+      wrapper.vm.setFocusOnActiveSlideLink();
+
+      const slideLink = wrapper.find(`[data-qa="slide link ${wrapper.vm.swiper.activeIndex}"]:focus`);
+
+      expect(slideLink.exists()).toBe(true);
+    });
+  });
 });
