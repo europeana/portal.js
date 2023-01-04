@@ -4,7 +4,7 @@ import sinon from 'sinon';
 const likesId = 'http://data.europeana.eu/set/likesset';
 const likedItems = [{ id: 'item001' }];
 const active = { id: 'set001', items: [] };
-const activeRecommendations = [{ id: 'recommendation001' }];
+const activeRecommendations = [{ id: 'recommendation001' }, { id: 'recommendation002' }];
 
 describe('store/set', () => {
   describe('mutations', () => {
@@ -56,9 +56,15 @@ describe('store/set', () => {
     });
     describe('setActiveRecommendations()', () => {
       it('sets the activeRecommendations state', () => {
-        const state = { activeRecommendations: [] };
+        const state = { activeRecommendations: [], active: { items: [] } };
         store.mutations.setActiveRecommendations(state, activeRecommendations);
         expect(state.activeRecommendations).toEqual(activeRecommendations);
+      });
+
+      it('removes any that are already in the active set', () => {
+        const state = { activeRecommendations: [], active: { items: [activeRecommendations[0]] } };
+        store.mutations.setActiveRecommendations(state, activeRecommendations);
+        expect(state.activeRecommendations.length).toBe(1);
       });
     });
     describe('addItemToActive()', () => {
