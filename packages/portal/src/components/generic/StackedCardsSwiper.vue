@@ -69,7 +69,7 @@
 
 <script>
   import swiperMixin from '@/mixins/swiper';
-  import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
+  import { EffectCoverflow, Lazy } from 'swiper';
 
   export default {
     name: 'StackedCardsSwiper',
@@ -97,7 +97,7 @@
     data() {
       return {
         swiperOptions: {
-          modules: [EffectCoverflow, Keyboard, Lazy],
+          modules: [EffectCoverflow, Lazy],
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
@@ -121,7 +121,6 @@
               spaceBetween: 0
             }
           },
-          keyboard: true,
           coverflowEffect: {
             rotate: 0,
             stretch: 100,
@@ -131,8 +130,7 @@
             scale: 1
           },
           on: {
-            afterInit: this.swiperOnAfterInit,
-            activeIndexChange: this.setFocusOnActiveSlideLink
+            afterInit: this.swiperOnAfterInit
           }
         },
         imageSizes: [
@@ -154,9 +152,6 @@
     },
 
     methods: {
-      setFocusOnActiveSlideLink() {
-        this.$refs.slideLink[this.swiper.activeIndex].focus();
-      },
       imageSrc(image) {
         if (image?.url && this.$contentful.assets.isValidUrl(image.url)) {
           return this.$contentful.assets.optimisedSrc(image, { w: 245, h: 440, fit: 'fill' });
