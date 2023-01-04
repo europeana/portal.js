@@ -24,27 +24,27 @@
         <template v-if="card === relatedGalleries">
           <!-- Prevent rendering empty aside when no slot is passed -->
           <aside
-            v-if="$slots['related-galleries']"
+            v-if="$slots[relatedGalleries]"
             :key="index"
             class="ml-3 ml-md-0"
             :aria-label="$t('related.galleries.name')"
           >
             <slot
-              name="related-galleries"
+              :name="relatedGalleries"
             />
           </aside>
         </template>
         <template v-else-if="card === relatedCollections">
           <!-- Prevent rendering empty aside when no slot is passed -->
           <aside
-            v-if="$slots['related-collections']"
+            v-if="$slots[relatedCollections]"
             :key="index"
             :aria-label="$t('related.collections.name')"
             class="ml-3 ml-md-0"
           >
             <slot
               v-masonry-tile
-              name="related-collections"
+              :name="relatedCollections"
             />
           </aside>
         </template>
@@ -84,26 +84,26 @@
       <template v-if="card === relatedGalleries">
         <!-- Prevent rendering empty aside when no slot is passed -->
         <aside
-          v-if="$slots['related-galleries']"
+          v-if="$slots[relatedGalleries]"
           :key="index"
           class="aside-card-wrapper pl-3"
           :aria-label="$t('related.galleries.name')"
         >
           <slot
-            name="related-galleries"
+            :name="relatedGalleries"
           />
         </aside>
       </template>
       <template v-else-if="card === relatedCollections">
         <!-- Prevent rendering empty aside when no slot is passed -->
         <aside
-          v-if="$slots['related-collections']"
+          v-if="$slots[relatedCollections]"
           :key="index"
           class="aside-card-wrapper pl-3"
           :aria-label="$t('related.collections.name')"
         >
           <slot
-            name="related-collections"
+            :name="relatedCollections"
           />
         </aside>
       </template>
@@ -174,17 +174,16 @@
     data() {
       return {
         cards: [],
-        relatedGalleries: 'relatedGalleries',
-        relatedCollections: 'relatedCollections'
+        relatedGalleries: 'related-galleries',
+        relatedCollections: 'related-collections'
       };
     },
 
     fetch() {
-      let itemCards = [...this.items];
-      itemCards.splice(3, 0, this.relatedGalleries);
-      itemCards.splice(8, 0, this.relatedCollections);
-
-      this.cards = itemCards;
+      const cards = [...this.items];
+      cards.splice(3, 0, this.relatedGalleries);
+      cards.splice(11, 0, this.relatedCollections);
+      this.cards = cards;
     },
 
     computed: {

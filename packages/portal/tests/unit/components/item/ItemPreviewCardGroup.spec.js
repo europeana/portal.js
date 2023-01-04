@@ -122,10 +122,10 @@ describe('components/item/ItemPreviewCardGroup', () => {
         { id: '1' },
         { id: '2' },
         { id: '3' },
-        'relatedGalleries',
+        'related-galleries',
         { id: '4' },
         { id: '5' },
-        'relatedCollections'
+        'related-collections'
       ];
       expect(wrapper.vm.cards).toEqual(expected);
     });
