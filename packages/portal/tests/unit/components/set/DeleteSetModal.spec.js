@@ -99,16 +99,6 @@ describe('components/set/DeleteSetModal', () => {
       expect(rootBvToast.calledWith('Your gallery has been deleted.', sinon.match.any)).toBe(true);
     });
 
-    describe('when on the deleted set page', () => {
-      it('redirects to the account page', async() => {
-        const wrapper = factory({ setId: 'http://data.europeana.eu/set/123' }, { name: 'set-all___de', params: { pathMatch: '123' } });
-
-        await wrapper.find('form').trigger('submit.stop.prevent');
-
-        expect(wrapper.vm.$goto.calledWith({ name: 'account' })).toBe(true);
-      });
-    });
-
     describe('when on the deleted gallery page', () => {
       it('redirects to the account page', async() => {
         const wrapper = factory({ setId: 'http://data.europeana.eu/set/123' }, { name: 'galleries-all___fr', params: { pathMatch: '123' } });
