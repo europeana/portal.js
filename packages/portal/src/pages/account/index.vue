@@ -55,6 +55,13 @@
               {{ $t('account.privateCollections') }}
             </b-nav-item>
             <b-nav-item
+              data-qa="published collections"
+              :to="$path({ hash: tabHashes.publishedGalleries})"
+              :active="activeTab === tabHashes.publishedGalleries"
+            >
+              {{ $t('account.publishedCollections') }}
+            </b-nav-item>
+            <b-nav-item
               v-if="userIsEditor"
               data-qa="curated collections"
               :to="$path({ hash: tabHashes.curatedCollections})"
@@ -100,7 +107,6 @@
             </b-container>
             <template v-else-if="activeTab === tabHashes.publicGalleries">
               <UserSets
-                :sets="publicCreations"
                 visibility="public"
                 :empty-text="$t('account.notifications.noCollections.public')"
                 data-qa="public sets"
@@ -108,15 +114,22 @@
             </template>
             <template v-else-if="activeTab === tabHashes.privateGalleries">
               <UserSets
-                :sets="privateCreations"
                 visibility="private"
                 :empty-text="$t('account.notifications.noCollections.private')"
                 data-qa="private sets"
               />
             </template>
+            <template v-else-if="activeTab === tabHashes.publishedGalleries">
+              <UserSets
+                visibility="published"
+                :show-create-set-button="false"
+                :empty-text="$t('account.notifications.noCollections.published')"
+                data-qa="published sets"
+              />
+            </template>
             <template v-else-if="userIsEditor && activeTab === tabHashes.curatedCollections">
               <UserSets
-                :sets="curations"
+                type="EntityBestItemsSet"
                 :show-create-set-button="false"
                 :empty-text="$t('account.notifications.noCollections.curated')"
                 data-qa="curated sets"
@@ -178,6 +191,7 @@
           likes: '#likes',
           publicGalleries: '#public-galleries',
           privateGalleries: '#private-galleries',
+          publishedGalleries: '#published-galleries',
           curatedCollections: '#curated-collections'
         }
       };
@@ -185,10 +199,6 @@
 
     async fetch() {
       this.fetchLikes();
-      await this.$store.dispatch('set/fetchCreations');
-      if (this.userIsEditor) {
-        await this.$store.dispatch('set/fetchCurations');
-      }
     },
 
     fetchOnServer: false,
@@ -200,14 +210,8 @@
         };
       },
       userIsEditor() {
-        return this.loggedInUser?.resource_access?.entities?.roles?.includes('editor') &&
-          this.loggedInUser?.resource_access?.usersets?.roles?.includes('editor');
-      },
-      publicCreations() {
-        return this.$store.state.set.creations.filter(set => ['public', 'published'].includes(set.visibility));
-      },
-      privateCreations() {
-        return this.$store.state.set.creations.filter(set => set.visibility === 'private');
+        return this.$auth.userHasClientRole('entities', 'editor') &&
+          this.$auth.userHasClientRole('usersets', 'editor');
       },
       ...mapState({
         likesId: state => state.set.likesId,

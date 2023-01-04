@@ -225,7 +225,7 @@ describe('components/feedback/FeedbackWidget', () => {
 
   describe('postFeedbackMessage', () => {
     const baseUrl = 'http://www.example.org';
-    const middlewarePath = '/_api/jira/service-desk';
+    const middlewarePath = '/_api/jira-service-desk/feedback';
     const feedback = 'This was useful. Thanks!';
 
     it('posts feedback to server middleware', async() => {

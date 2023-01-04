@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Non hai ancora curato nessuna collezione",
         "private": "Non hai ancora creato gallerie private",
-        "public": "Non hai ancora creato gallerie pubbliche"
+        "public": "Non hai ancora creato gallerie pubbliche",
+        "published": "Non hai ancora pubblicato alcuna galleria"
       },
       "noLikedItems": "Non hai ancora messo Mi piace a nessun oggetti"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "I miei Mi piace e le mie gallerie",
     "profileSettings": "Impostazioni del profilo",
     "publicCollections": "Gallerie pubbliche",
+    "publishedCollections": "Gallerie Pubblicate",
     "settings": "Impostazioni",
     "title": "Il mio account"
   },
@@ -35,7 +37,6 @@ export default {
     "download": "Scarica",
     "edit": "Modifica",
     "feedback": "Feedback",
-    "goBack": "Indietro",
     "goHome": "Vai alla homepage",
     "learnMore": "Per saperne di più",
     "like": "Mi piace",
@@ -47,11 +48,14 @@ export default {
     "providedBy": "Fornito da {provider}",
     "publish": "Pubblicare",
     "reject": "Rifiuta",
+    "requestDepublication": "Richiesta di depubblicazione",
     "save": "Salva",
     "send": "Invia",
     "share": "Condividi",
     "shareOn": "Condividi su {social}",
     "skipSend": "Salta e invia",
+    "submitForPublication": "Invia per la pubblicazione",
+    "submittedForPublication": "Inviato per la pubblicazione",
     "viewAt": "Vedi su {link}",
     "viewDocument": "Visualizza documento"
   },
@@ -1013,12 +1017,14 @@ export default {
     "form": {
       "description": "Descrizione della galleria",
       "private": "Tieni privata questa galleria",
+      "privateWarning": "Questa azione annullerà la pubblicazione della galleria.",
       "required": "Campi obbligatorio",
       "title": "Nome della galleria"
     },
     "labels": {
       "curatedBy": "Curato da",
-      "private": "Galleria privata"
+      "private": "Galleria privata",
+      "published": "Galleria pubblicata"
     },
     "notifications": {
       "deleted": "Galleria eliminata.",
@@ -1030,8 +1036,22 @@ export default {
       "visibilityChanged": "Attenzione: l'impostazione della visibilità è già stata modificata ed è attualmente \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto.",
-      "shareWhere": "Dove vorresti condividere questa galleria?"
+      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto."
+    },
+    "publication": {
+      "description": "La pubblicazione di una galleria la presenterà su Europeana.eu/galleries.",
+      "failedSubmission": "La richiesta è fallita. Per favore riprova.",
+      "process": {
+        "description": "Quando si invia una galleria per la pubblicazione, un team di editori di Europeana ne viene informato. Essi la esamineranno e potranno apportare modifiche prima della pubblicazione. Riceverai notifiche via email man mano che la galleria viene esaminata. Se non viene pubblicata, è possibile che non sia conforme alle nostre linee guida editoriali.",
+        "title": "Come funziona il processo"
+      },
+      "time": {
+        "description": "1-3 giorni.",
+        "title": "Quanto tempo ci vuole"
+      },
+      "title": "Invia la galleria per la pubblicazione",
+      "toastButton": "Ok",
+      "toastMessage": "Questa galleria è ora inviata per la pubblicazione. Puoi controllare {galleries} per vedere se è stato pubblicato."
     },
     "shareTo": {
       "weavex": {
@@ -1039,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Dove vorresti condividere questo?",
   "showLess": "Mostra meno",
   "showMore": "Mostra di più",
   "sideFilters": {

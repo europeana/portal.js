@@ -1,4 +1,6 @@
 import axios from 'axios';
+import qs from 'qs';
+
 import locales from '../i18n/locales.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
@@ -52,6 +54,9 @@ const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
     baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
       wskey: config.key
+    },
+    paramsSerializer(params) {
+      return qs.stringify(params, { arrayFormat: 'repeat' });
     },
     timeout: 10000
   };

@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Sie haben noch keine Sammlungen kuratiert",
         "private": "Sie haben bisher keine private Galerie erstellt",
-        "public": "Sie haben bisher keine öffentliche Galerie erstellt"
+        "public": "Sie haben bisher keine öffentliche Galerie erstellt",
+        "published": "Sie haben noch keine Galerien veröffentlicht"
       },
       "noLikedItems": "Sie haben bisher keine Objekte mit einem Like versehen"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Meine Likes & Galerien",
     "profileSettings": "Profileinstellungen",
     "publicCollections": "Öffentliche Galerien",
+    "publishedCollections": "Veröffentlichte Galerien",
     "settings": "Einstellungen",
     "title": "Mein Konto"
   },
@@ -35,7 +37,6 @@ export default {
     "download": "Herunterladen",
     "edit": "Bearbeiten",
     "feedback": "Feedback",
-    "goBack": "Zurückgehen",
     "goHome": "Zur Homepage gehen",
     "learnMore": "Mehr erfahren",
     "like": "Like",
@@ -47,11 +48,14 @@ export default {
     "providedBy": "Bereitgestellt von {provider}",
     "publish": "Veröffentlichen",
     "reject": "Ablehnen",
+    "requestDepublication": "Depublikation anfordern",
     "save": "Speichern",
     "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
     "skipSend": "Überspringen und senden",
+    "submitForPublication": "Zur Veröffentlichung einreichen",
+    "submittedForPublication": "Zur Veröffentlichung eingereicht",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen"
   },
@@ -1013,12 +1017,14 @@ export default {
     "form": {
       "description": "Galeriebeschreibung",
       "private": "Diese Galerie privat halten",
+      "privateWarning": "Durch diese Aktion wird die Veröffentlichung der Galerie aufgehoben.",
       "required": "Pflichtfeld",
       "title": "Galeriename"
     },
     "labels": {
       "curatedBy": "Kuratiert von",
-      "private": "Private Galerie"
+      "private": "Private Galerie",
+      "published": "Veröffentlichte Galerie"
     },
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
@@ -1030,8 +1036,22 @@ export default {
       "visibilityChanged": "Warnung: Set-Sichtbarkeit wurde bereits geändert und ist derzeit \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben.",
-      "shareWhere": "Wo möchten Sie diese Galerie teilen?"
+      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben."
+    },
+    "publication": {
+      "description": "Wenn Sie eine Galerie veröffentlichen, wird sie auf Europeana.eu/galleries veröffentlicht.",
+      "failedSubmission": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+      "process": {
+        "description": "Wenn Sie eine Galerie zur Veröffentlichung einreichen, wird ein Team von Verlagen bei Europeana benachrichtigt. Sie werden es zuerst überprüfen und möglicherweise Änderungen vornehmen, bevor es veröffentlicht wird. Sie erhalten Benachrichtigungen per E-Mail, wenn die Galerie überprüft wird. Wenn es nicht veröffentlicht wird, kann es sein, dass es nicht unseren redaktionellen Richtlinien entspricht.",
+        "title": "Wie der Prozess funktioniert"
+      },
+      "time": {
+        "description": "1-3 Tage.",
+        "title": "Wie lange es dauert"
+      },
+      "title": "Galerie zur Veröffentlichung einreichen",
+      "toastButton": "Okay",
+      "toastMessage": "Diese Galerie wird nun zur Veröffentlichung eingereicht. Sie können in {galleries} nachsehen, ob es veröffentlicht wurde."
     },
     "shareTo": {
       "weavex": {
@@ -1039,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Wo möchtest du das teilen?",
   "showLess": "Weniger anzeigen",
   "showMore": "Mehr anzeigen",
   "sideFilters": {

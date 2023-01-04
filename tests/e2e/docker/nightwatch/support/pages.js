@@ -19,7 +19,7 @@ const pages = {
   'exhibitions page': `${url}/en/exhibitions`,
   'Fashion collection search page': `${url}/en/search?qf=collection%3Afashion`,
   'first page of results': `${url}/en/search?page=1`,
-  'gallery page': `${url}/en/galleries/blue`,
+  'gallery page': `${url}/en/galleries/9109-blue`,
   'gallery foyer page': `${url}/en/galleries`,
   'home page': `${url}/en`,
   'Newspapers collection page': `${url}/en/collections/topic/18-newspapers`,

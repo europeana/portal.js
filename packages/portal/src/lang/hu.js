@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Még nem kuratáltál gyűjteményeket",
         "private": "Még nem hozott létre privát galériát",
-        "public": "Még nem hozott létre nyilvános galériát"
+        "public": "Még nem hozott létre nyilvános galériát",
+        "published": "Még nem publikáltál galériákat."
       },
       "noLikedItems": "Még nem kedvelt egy cikket sem"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Kedveléseim és gyűjteményeim",
     "profileSettings": "Profilbeállítások",
     "publicCollections": "Nyilvános Galériák",
+    "publishedCollections": "Megjelent Galériák",
     "settings": "Beállítások",
     "title": "Fiókom"
   },
@@ -35,7 +37,6 @@ export default {
     "download": "Letöltés",
     "edit": "Szerkesztés",
     "feedback": "Visszacsatolás",
-    "goBack": "Vissza",
     "goHome": "Ugrás a kezdőlapra",
     "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
@@ -47,11 +48,14 @@ export default {
     "providedBy": "Szolgáltató: {provider}",
     "publish": "Közzététel",
     "reject": "Elutasít",
+    "requestDepublication": "Közzététel megszüntetésének kérése",
     "save": "Mentse",
     "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
     "skipSend": "Kihagyás és küldés",
+    "submitForPublication": "Nyújtsa be közzétételre",
+    "submittedForPublication": "Közzétételre benyújtva",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -1013,12 +1017,14 @@ export default {
     "form": {
       "description": "Galéria leírása",
       "private": "Galéria privát módban tartása",
+      "privateWarning": "Ez a művelet megszünteti a galéria közzétételét.",
       "required": "Kötelező mező",
       "title": "Galéria neve"
     },
     "labels": {
       "curatedBy": "Kurátor:",
-      "private": "Privát galéria"
+      "private": "Privát galéria",
+      "published": "Megjelent galéria"
     },
     "notifications": {
       "deleted": "Galéria törölve.",
@@ -1030,8 +1036,22 @@ export default {
       "visibilityChanged": "Figyelmeztetés: a beállított láthatóság már megváltozott, és jelenleg \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet.",
-      "shareWhere": "Hol szeretnéd megosztani ezt a galériát?"
+      "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet."
+    },
+    "publication": {
+      "description": "A galéria közzététele az Europeana.eu/galleries oldalon lesz látható.",
+      "failedSubmission": "A kérés meghiúsult. Kérlek próbáld újra.",
+      "process": {
+        "description": "Amikor galériát küld be közzétételre, az Europeana kiadói csapata értesítést kap. Először átnézik, és a közzététel előtt módosításokat végezhetnek. A galéria felülvizsgálata után e-mailben értesítést fog kapni. Ha nem teszik közzé, akkor előfordulhat, hogy nem felel meg a szerkesztési irányelveinknek.",
+        "title": "Hogyan működik a folyamat"
+      },
+      "time": {
+        "description": "1-3 nap.",
+        "title": "Mennyi ideig tart"
+      },
+      "title": "Galéria beküldése közzétételre",
+      "toastButton": "Oké",
+      "toastMessage": "Ezt a galériát most beküldték közzétételre. Ellenőrizheti a {galleries} elemet, hogy megjelent-e."
     },
     "shareTo": {
       "weavex": {
@@ -1039,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Hol szeretnéd ezt megosztani?",
   "showLess": "Kevesebb megjelenítése",
   "showMore": "Továbbiak megjelenítése",
   "sideFilters": {

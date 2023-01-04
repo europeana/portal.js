@@ -112,7 +112,7 @@
                 id="step3"
                 class="feedback-success d-flex align-items-center"
               >
-                <span :class="requestSuccess ? 'icon-check-circle pr-3' : 'icon-cancel-circle pr-3'" />
+                <span :class="requestSuccess ? 'icon-check-circle mr-3' : 'icon-cancel-circle mr-3'" />
                 <span
                   v-if="requestSuccess"
                 >
@@ -366,7 +366,7 @@
         return axios.create({
           baseURL: this.$config.app.baseUrl
         }).post(
-          '/_api/jira/service-desk',
+          '/_api/jira-service-desk/feedback',
           postData
         );
       }
@@ -569,12 +569,12 @@
     }
 
     .icon-check-circle::before {
-      font-size: 2.0625rem;
+      font-size: 1.5rem;
     }
 
     .icon-cancel-circle::before {
       color: $red;
-      font-size: 2.0625rem;
+      font-size: 1.25rem;
     }
   }
 

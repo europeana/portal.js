@@ -81,7 +81,9 @@ const redirectToPrefPathStub = sinon.stub();
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
   mocks: {
-    $features: {},
+    $auth: {
+      userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
+    },
     $fetchState: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
     $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
@@ -233,10 +235,8 @@ describe('pages/collections/_type/_', () => {
     describe('editable', () => {
       const editableOptions = {
         ...organisationEntity,
-        mocks: {
-          $features: { entityManagement: true },
-          $auth: { user: { 'resource_access': { entities: { roles: ['editor'] } } } }
-        }
+        userHasClientRoleStub: sinon.stub().returns(false)
+          .withArgs('entities', 'editor').returns(true)
       };
 
       it('is truthy if all criteria are met', () => {
@@ -245,19 +245,6 @@ describe('pages/collections/_type/_', () => {
         const editable = wrapper.vm.editable;
 
         expect(editable).toBeTruthy();
-      });
-
-      it('is falsy if entityManagement feature is disabled', () => {
-        const wrapper = factory({
-          ...editableOptions,
-          mocks: {
-            $features: { entityManagement: false }
-          }
-        });
-
-        const editable = wrapper.vm.editable;
-
-        expect(editable).toBeFalsy();
       });
 
       it('is falsy if entity is absent', () => {
@@ -274,9 +261,7 @@ describe('pages/collections/_type/_', () => {
       it('is falsy if user is unauthorized', () => {
         const wrapper = factory({
           ...editableOptions,
-          mocks: {
-            $auth: { user: { 'resource_access': { entities: { roles: [] } } } }
-          }
+          userHasClientRoleStub: sinon.stub().returns(false)
         });
 
         const editable = wrapper.vm.editable;

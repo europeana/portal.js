@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Dar ne kuravote jokių rinkinių",
         "private": "Kol kas nesukūrėte jokių privačių galerijų",
-        "public": "Kol kas nesukūrėte jokių viešų galerijų"
+        "public": "Kol kas nesukūrėte jokių viešų galerijų",
+        "published": "Dar nepaskelbėte jokių galerijų"
       },
       "noLikedItems": "Kol kas neturite patikusių prekių"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Man patinkančios prekės, kolekcijos ir galerijos",
     "profileSettings": "Profilio nustatymai",
     "publicCollections": "Viešos galerijos",
+    "publishedCollections": "Paskelbtos Galerijos",
     "settings": "Nustatymai",
     "title": "Mano paskyra"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Atšaukti",
     "close": "uždaryti",
     "continue": "tęsti",
+    "depublish": "Išskelbti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "feedback": "Atsiliepimas",
-    "goBack": "Grįžti",
     "goHome": "Eikite į pagrindinį puslapį",
     "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
@@ -46,11 +48,14 @@ export default {
     "providedBy": "Tiekėjas {provider}",
     "publish": "Publikuoti",
     "reject": "Atmesti",
+    "requestDepublication": "Prašymas neskelbti",
     "save": "Išsaugoti",
     "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
     "skipSend": "Praleisti ir siųsti",
+    "submitForPublication": "Pateikti publikavimui",
+    "submittedForPublication": "Pateikta publikuoti",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
@@ -1012,12 +1017,14 @@ export default {
     "form": {
       "description": "Galerijos aprašymas",
       "private": "Palikti galeriją privačią",
+      "privateWarning": "Šis veiksmas panaikins galerijos publikavimą.",
       "required": "Privalomi laukai",
       "title": "Galerijos pavadinimas"
     },
     "labels": {
       "curatedBy": "Kuruoja",
-      "private": "Privati galerija"
+      "private": "Privati galerija",
+      "published": "Paskelbta galerija"
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
@@ -1029,8 +1036,22 @@ export default {
       "visibilityChanged": "Įspėjimas: nustatytas matomumas jau pakeistas ir šiuo metu yra \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes.",
-      "shareWhere": "Kur norėtumėte pasidalinti šia galerija?"
+      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes."
+    },
+    "publication": {
+      "description": "Paskelbus galeriją ji bus rodoma Europeana.eu/galleries.",
+      "failedSubmission": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
+      "process": {
+        "description": "Kai pateiksite galeriją publikavimui, apie tai bus pranešta \"Europeana\" leidėjų komandai. Jie pirmiausia ją peržiūrės ir prieš publikuodami gali padaryti pakeitimų. Gausite pranešimus el. paštu, kai galerija bus peržiūrėta. Jei ji nebus paskelbta, gali būti, kad ji neatitinka mūsų redakcinių gairių.",
+        "title": "Kaip veikia procesas"
+      },
+      "time": {
+        "description": "1-3 dienas.",
+        "title": "Kiek laiko tai trunka"
+      },
+      "title": "Pateikti galeriją publikavimui",
+      "toastButton": "Gerai",
+      "toastMessage": "Ši galerija dabar pateikta publikuoti. Galite patikrinti {galleries}, kad sužinotumėte, ar jis buvo paskelbtas."
     },
     "shareTo": {
       "weavex": {
@@ -1038,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Kur norėtumėte tuo pasidalinti?",
   "showLess": "Rodyti mažiau",
   "showMore": "Rodyti daugiau",
   "sideFilters": {

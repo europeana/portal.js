@@ -297,10 +297,10 @@
           ['topic', 'organisation'].includes(this.collectionType);
       },
       userIsEntitiesEditor() {
-        return this.$auth?.user?.resource_access?.entities?.roles.includes('editor') || false;
+        return this.$auth.userHasClientRole('entities', 'editor');
       },
       userIsSetsEditor() {
-        return this.$auth?.user?.resource_access?.usersets?.roles.includes('editor') || false;
+        return this.$auth.userHasClientRole('usersets', 'editor');
       },
       route() {
         return {
@@ -402,16 +402,6 @@
   .entity-page {
     &.top-header {
       margin-top: -1rem;
-    }
-
-    .related-collections {
-      padding: 0;
-    }
-
-    ::v-deep .related-collections .badge {
-      // TODO: Remove this when the badges move into the search results
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
     }
   }
 

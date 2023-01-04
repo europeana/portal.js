@@ -1,5 +1,5 @@
 <template>
-  <b-container class="p-0">
+  <div>
     <b-modal
       :id="modalId"
       :title="modalTitle"
@@ -41,6 +41,7 @@
           />
         </b-form-group>
         <b-form-group
+          v-if="type === 'Collection'"
           class="mb-2 mt-4"
         >
           <b-form-checkbox
@@ -49,6 +50,12 @@
           >
             {{ $t('set.form.private') }}
           </b-form-checkbox>
+          <b-form-invalid-feedback
+            v-if="visibility === 'published'"
+            :state="!isPrivate"
+          >
+            {{ $t('set.form.privateWarning') }}
+          </b-form-invalid-feedback>
         </b-form-group>
         <div class="modal-footer">
           <b-button
@@ -56,7 +63,7 @@
             data-qa="close button"
             @click="hide('cancel')"
           >
-            {{ isNew && itemContext ? $t('actions.goBack') : $t('actions.close') }}
+            {{ isNew && itemContext ? $t('actions.cancel') : $t('actions.close') }}
           </b-button>
           <div class="d-flex">
             <b-button
@@ -86,7 +93,7 @@
       :modal-static="modalStatic"
       @cancel="cancelDelete"
     />
-  </b-container>
+  </div>
 </template>
 
 <script>

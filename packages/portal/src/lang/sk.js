@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Zatiaľ ste nevybrali žiadne zbierky",
         "private": "Zatiaľ ste nevytvorili žiadne súkromné galérie",
-        "public": "Zatiaľ ste nevytvorili žiadne verejné galérie"
+        "public": "Zatiaľ ste nevytvorili žiadne verejné galérie",
+        "published": "Zatiaľ ste nemali zverejnené žiadne galérie"
       },
       "noLikedItems": "Zatiaľ ste žiadne položky neoznačili, že sa vám páčia"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Moje označenia Páči sa mi a galérie",
     "profileSettings": "Nastavenia profilu",
     "publicCollections": "Verejné galérie",
+    "publishedCollections": "Publikované Galérie",
     "settings": "Nastavenia",
     "title": "Môj účet"
   },
@@ -35,7 +37,6 @@ export default {
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "feedback": "Spätná väzba",
-    "goBack": "Späť",
     "goHome": "Prejsť na domovskú stránku",
     "learnMore": "Uč sa viac",
     "like": "Označenie Páči sa mi",
@@ -47,11 +48,14 @@ export default {
     "providedBy": "Poskytovateľ:  {provider}",
     "publish": "Publikovať",
     "reject": "Odmietnuť",
+    "requestDepublication": "Žiadosť zrušiť zverejnenie",
     "save": "Uložiť",
     "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
     "skipSend": "Preskočiť a odoslať",
+    "submitForPublication": "Odoslať na zverejnenie",
+    "submittedForPublication": "Predložené na zverejnenie",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -1013,12 +1017,14 @@ export default {
     "form": {
       "description": "Popis galérie",
       "private": "Túto galériu uložiť ako súkromnú",
+      "privateWarning": "Táto akcia zruší zverejnenie galérie.",
       "required": "Povinné polia",
       "title": "Názov galérie"
     },
     "labels": {
       "curatedBy": "Zbierku spravuje",
-      "private": "Súkromná galéria"
+      "private": "Súkromná galéria",
+      "published": "Zverejnená galéria"
     },
     "notifications": {
       "deleted": "Galéria bola vymazaná.",
@@ -1030,8 +1036,22 @@ export default {
       "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
     },
     "prompts": {
-      "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali.",
-      "shareWhere": "Kde by ste chceli zdieľať túto galériu?"
+      "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali."
+    },
+    "publication": {
+      "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",
+      "failedSubmission": "Žiadosť zlyhala. Prosím skúste znova.",
+      "process": {
+        "description": "Keď odošlete galériu na zverejnenie, tím vydavateľov Europeana bude upozornený. Najprv ho skontrolujú a pred zverejnením môžu vykonať zmeny. Počas kontroly galérie budete dostávať upozornenia e-mailom. Ak nie je zverejnený, je možné, že nie je v súlade s našimi redakčnými pokynmi.",
+        "title": "Ako proces funguje"
+      },
+      "time": {
+        "description": "1-3 dni.",
+        "title": "Ako dlho to trvá"
+      },
+      "title": "Odoslať galériu na zverejnenie",
+      "toastButton": "Dobre",
+      "toastMessage": "Táto galéria je teraz odoslaná na zverejnenie. Môžete skontrolovať {galleries} a zistiť, či bola zverejnená."
     },
     "shareTo": {
       "weavex": {
@@ -1039,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Kde by ste to chceli zdieľať?",
   "showLess": "Zobraziť menej",
   "showMore": "Zobraziť viac",
   "sideFilters": {

@@ -5,7 +5,7 @@ export default [
   { name: 'fieldBoosting' },
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'rejectEntityRecommendations' },
-  { name: 'setGalleries' },
   { name: 'storiesPageAllTags' },
-  { name: 'translatedItems' }
+  { name: 'translatedItems' },
+  { name: 'galleryPublicationSubmissions' }
 ];

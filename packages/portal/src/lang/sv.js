@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Du har inte kuraterat några samlingar än",
         "private": "Du har inte skapat något privat galleri ännu",
-        "public": "Du har inte skapat något offentligt galleri ännu"
+        "public": "Du har inte skapat något offentligt galleri ännu",
+        "published": "Du har inte publicerat några gallerier ännu"
       },
       "noLikedItems": "Du har inte gillat några objekt ännu"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mina likes & gallerier",
     "profileSettings": "Profilinställningar",
     "publicCollections": "Offentliga gallerier",
+    "publishedCollections": "Publicerade Gallerier",
     "settings": "Inställningar",
     "title": "Mitt konto"
   },
@@ -35,7 +37,6 @@ export default {
     "download": "Ladda ner",
     "edit": "Redigera",
     "feedback": "Feedback",
-    "goBack": "Gå tillbaka",
     "goHome": "Gå till hemsidan",
     "learnMore": "Läs mer",
     "like": "Gilla",
@@ -47,11 +48,14 @@ export default {
     "providedBy": "Tillhandahålls av {provider}",
     "publish": "Publicera",
     "reject": "Avvisa",
+    "requestDepublication": "Begär avpublicering",
     "save": "Spara",
     "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
     "skipSend": "Hoppa över och skicka",
+    "submitForPublication": "Skicka in för publicering",
+    "submittedForPublication": "Inlämnad för publicering",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
@@ -1013,12 +1017,14 @@ export default {
     "form": {
       "description": "Beskrivning av galleri",
       "private": "Detta är ett privat galleri",
+      "privateWarning": "Denna åtgärd kommer att avpublicera galleriet.",
       "required": "Obligatoriska fält",
       "title": "Namn på galleri"
     },
     "labels": {
       "curatedBy": "Sammanställt av",
-      "private": "Privat galleri"
+      "private": "Privat galleri",
+      "published": "Publicerat galleri"
     },
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
@@ -1030,8 +1036,22 @@ export default {
       "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade.",
-      "shareWhere": "Var vill du dela detta galleri?"
+      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
+    },
+    "publication": {
+      "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu/galleries.",
+      "failedSubmission": "Begäran misslyckades. Var god försök igen.",
+      "process": {
+        "description": "När du skickar in ett galleri för publicering kommer ett team av utgivare på Europeana att meddelas. De kommer först att granska den och kan göra ändringar innan den publiceras. Du kommer att få meddelanden via e-post när galleriet granskas. Om den inte publiceras kan det vara så att den inte överensstämmer med våra redaktionella riktlinjer.",
+        "title": "Hur processen fungerar"
+      },
+      "time": {
+        "description": "1-3 dagar.",
+        "title": "Hur lång tid det tar"
+      },
+      "title": "Skicka in galleri för publicering",
+      "toastButton": "Okej",
+      "toastMessage": "Detta galleri är nu inlämnat för publicering. Du kan kontrollera {galleries} för att se om den har publicerats."
     },
     "shareTo": {
       "weavex": {
@@ -1039,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Var skulle du vilja dela detta?",
   "showLess": "Visa mindre",
   "showMore": "Visa mer",
   "sideFilters": {

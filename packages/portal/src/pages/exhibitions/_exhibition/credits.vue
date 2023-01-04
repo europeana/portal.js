@@ -178,15 +178,4 @@
     display: block;
     margin: 1rem 0;
   }
-
-  ::v-deep .related-collections {
-    &.container {
-      padding: 0;
-    }
-
-    .badge-pill {
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
-    }
-  }
 </style>

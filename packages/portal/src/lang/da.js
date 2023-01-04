@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Du har ikke kurateret nogen samlinger endnu",
         "private": "Du har ikke oprettet nogen private gallerier endnu",
-        "public": "Du har ikke oprettet nogen offentlige gallerier endnu"
+        "public": "Du har ikke oprettet nogen offentlige gallerier endnu",
+        "published": "Du har ikke haft nogen gallerier offentliggjort endnu"
       },
       "noLikedItems": "Du har ikke syntes om nogen artikler endnu"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mine synes om'er og gallerier",
     "profileSettings": "Profilindstillinger",
     "publicCollections": "Offentlige gallerier",
+    "publishedCollections": "Udgivne Gallerier",
     "settings": "Indstillinger",
     "title": "Min konto"
   },
@@ -35,7 +37,6 @@ export default {
     "download": "Hent",
     "edit": "Rediger",
     "feedback": "Feedback",
-    "goBack": "Tilbage",
     "goHome": "Gå til hjemmesiden",
     "learnMore": "Lær mere",
     "like": "Synes om",
@@ -47,11 +48,14 @@ export default {
     "providedBy": "Leveret af {provider}",
     "publish": "Offentliggøre",
     "reject": "Afvise",
+    "requestDepublication": "Anmodning om afpublicering",
     "save": "Gem",
     "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
     "skipSend": "Spring over og send",
+    "submitForPublication": "Indsend til offentliggørelse",
+    "submittedForPublication": "Indsendt til offentliggørelse",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument"
   },
@@ -1013,12 +1017,14 @@ export default {
     "form": {
       "description": "Beskrivelse af galleri",
       "private": "Hold dette galleri privat",
+      "privateWarning": "Denne handling vil depublicere galleriet.",
       "required": "påkrævet  felt",
       "title": "Navn på galleri"
     },
     "labels": {
       "curatedBy": "Kurateret af",
-      "private": "Privat galleri"
+      "private": "Privat galleri",
+      "published": "Udgivet galleri"
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
@@ -1030,8 +1036,22 @@ export default {
       "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det.",
-      "shareWhere": "Hvor vil du gerne dele dette galleri?"
+      "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det."
+    },
+    "publication": {
+      "description": "Udgivelse af et galleri vil vise det på Europeana.eu/galleries.",
+      "failedSubmission": "Anmodningen mislykkedes. Prøv venligst igen.",
+      "process": {
+        "description": "Når du indsender et galleri til offentliggørelse, får et team af udgivere hos Europeana besked. De vil først gennemgå det og kan foretage ændringer, før det offentliggøres. Du vil modtage meddelelser via e-mail, når galleriet gennemgås. Hvis den ikke offentliggøres, kan det være, at den ikke er i overensstemmelse med vores redaktionelle retningslinjer.",
+        "title": "Hvordan processen fungerer"
+      },
+      "time": {
+        "description": "1-3 dage.",
+        "title": "Hvor længe det tager"
+      },
+      "title": "Indsend galleri til offentliggørelse",
+      "toastButton": "Okay",
+      "toastMessage": "Dette galleri er nu indsendt til offentliggørelse. Du kan tjekke {galleries} for at se, om det er blevet offentliggjort."
     },
     "shareTo": {
       "weavex": {
@@ -1039,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Hvor vil du gerne dele dette?",
   "showLess": "Vis mindre",
   "showMore": "Vis mere",
   "sideFilters": {

@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Et ole vielä kuratoinut yhtään kokoelmaa",
         "private": "Et ole luonut vielä yksityisiä gallerioita",
-        "public": "Et ole luonut vielä julkisia gallerioita"
+        "public": "Et ole luonut vielä julkisia gallerioita",
+        "published": "Sinulla ei ole vielä julkaistu yhtään galleriaa"
       },
       "noLikedItems": "Et ole tykännyt vielä mistään kohteista"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Omat tykkäykset ja galleriat",
     "profileSettings": "Profiiliasetukset",
     "publicCollections": "Julkiset galleriat",
+    "publishedCollections": "Julkaistut Galleriat",
     "settings": "Asetukset",
     "title": "Oma tili"
   },
@@ -35,7 +37,6 @@ export default {
     "download": "Lataa",
     "edit": "Muokkaa",
     "feedback": "Palaute",
-    "goBack": "Palaa takaisin",
     "goHome": "Siirry kotisivulle",
     "learnMore": "Opi lisää",
     "like": "Tykkää",
@@ -47,11 +48,14 @@ export default {
     "providedBy": "Tarjoaa {provider}",
     "publish": "Julkaista",
     "reject": "Hylätä",
+    "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
     "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
     "skipSend": "Ohita ja lähetä",
+    "submitForPublication": "Lähetä julkaistavaksi",
+    "submittedForPublication": "Lähetetty julkaistavaksi",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -1013,12 +1017,14 @@ export default {
     "form": {
       "description": "Gallerian kuvaus",
       "private": "Pidä tämä galleria yksityisenä",
+      "privateWarning": "Tämä toiminto poistaa gallerian julkaisun.",
       "required": "Pakollinen kenttä",
       "title": "Gallerian nimi"
     },
     "labels": {
       "curatedBy": "Kuratoija",
-      "private": "Yksityinen galleria"
+      "private": "Yksityinen galleria",
+      "published": "Julkaistu galleria"
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
@@ -1030,8 +1036,22 @@ export default {
       "visibilityChanged": "Varoitus: asetettu näkyvyys on jo muuttunut ja on tällä hetkellä \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet.",
-      "shareWhere": "Missä haluaisit jakaa tämän gallerian?"
+      "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."
+    },
+    "publication": {
+      "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
+      "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
+      "process": {
+        "description": "Kun lähetät gallerian julkaistavaksi, Europeanan kustantajatiimi saa ilmoituksen. He tarkastavat sen ensin ja saattavat tehdä muutoksia ennen julkaisemista. Saat ilmoituksia sähköpostitse, kun galleriaa tarkistetaan. Jos galleriaa ei julkaista, se voi johtua siitä, että se ei ole toimituksellisten ohjeidemme mukainen.",
+        "title": "Kuinka prosessi toimii"
+      },
+      "time": {
+        "description": "1-3 päivää.",
+        "title": "Kuinka kauan se kestää"
+      },
+      "title": "Lähetä galleria julkaistavaksi",
+      "toastButton": "Okei",
+      "toastMessage": "Tämä galleria on nyt lähetetty julkaistavaksi. Voit tarkistaa {galleries} , onko se julkaistu."
     },
     "shareTo": {
       "weavex": {
@@ -1039,6 +1059,7 @@ export default {
       }
     }
   },
+  "shareWhere": "Missä haluaisit jakaa tämän?",
   "showLess": "Näytä vähemmän",
   "showMore": "Näytä lisää",
   "sideFilters": {

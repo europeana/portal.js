@@ -7,7 +7,7 @@
     >
       <h2
         v-if="heading"
-        class="related-heading text-uppercase mb-2"
+        class="related-heading text-uppercase"
       >
         {{ $t('related.categoryTags.title') }}
       </h2>
@@ -87,6 +87,10 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+
+  .related-heading {
+    margin-bottom: 0.75rem;
+  }
 
   .icon-ic-tag {
     color: $mediumgrey;
