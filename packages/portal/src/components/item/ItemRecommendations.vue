@@ -72,6 +72,7 @@
 
       if (this.$auth.loggedIn) {
         response = await this.$apis.recommendation.recommend('record', this.identifier);
+        response.items = response.items.filter((item) => item.id !== this.identifier).slice(0, 8);
       } else {
         response = await this.$apis.record.search({
           query: similarItemsQuery(this.identifier, this.similarItemsFields),
