@@ -79,11 +79,11 @@
   .card-title {
     font-size: 1rem;
     font-weight: 600;
-    max-height: $card-line-height;
+    line-height: 1.5;
     margin-bottom: 0.75rem;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 
     .is-external-link {
@@ -255,7 +255,6 @@
     .card-title {
       overflow-wrap: break-word;
       word-break: break-word;
-      max-height: 3.5625rem;
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 3;
@@ -391,6 +390,7 @@
           margin-bottom: $card-line-height;
           -webkit-line-clamp: 4;
           max-height: none;
+          line-height: $card-line-height;
         }
 
         .card-text p {
