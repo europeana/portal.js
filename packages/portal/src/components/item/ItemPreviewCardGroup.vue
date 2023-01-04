@@ -182,7 +182,7 @@
     fetch() {
       const cards = [...this.items];
       cards.splice(3, 0, this.relatedGalleries);
-      cards.splice(11, 0, this.relatedCollections);
+      cards.splice(8, 0, this.relatedCollections);
       this.cards = cards;
     },
 
