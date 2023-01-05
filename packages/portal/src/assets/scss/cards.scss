@@ -499,34 +499,7 @@
     margin-right: 0;
   }
 
-  .related-galleries-card {
-    .card-body {
-      padding: 0 !important;
-    }
-    .card-group {
-      align-items: flex-start;
 
-      @media (min-width: $bp-medium) {
-        flex-wrap: nowrap;
-      }
-    }
-    .card {
-      margin: 0 0 0.75rem 0;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-      
-      @media (min-width: $bp-medium) {
-        flex: 0 1 33%;
-        margin: 0 0.75rem 0 0;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-  }
 }
 
 @media (min-width: $bp-medium) {

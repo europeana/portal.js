@@ -14,8 +14,8 @@
   }
 
   // TODO reorder masonry-container and :not(.list-card) selectors
-  .related-collections-card:not(.list-card),
-  .related-galleries-card:not(.list-card),
+  .related-collections-card,
+  .related-galleries-card,
   .content-card:not(.list-card):not(.related-gallery-card) {
     display: inline-block;
     vertical-align: top;
@@ -77,10 +77,6 @@
         -webkit-box-orient: initial;
       }
     }
-  }
-
-  .related-galleries-card .card-group {
-    flex-direction: column;
   }
 
   @at-root .side-filters-enabled & {

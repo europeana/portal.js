@@ -91,6 +91,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
   .related-galleries-card {
     background: none;
     border: none;
@@ -98,20 +100,46 @@
     padding-bottom: 0.75rem;
 
     .card-body {
-      padding: 0;
+      padding: 0 !important;
+    }
+
+    .card-group {
+      @media (min-width: $bp-medium) {
+        flex-wrap: nowrap;
+      }
     }
   }
 
   .related-gallery-card {
-    margin-bottom: 0.75rem;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
+    margin: 0 0 0.75rem 0;
 
     ::v-deep .card-img {
       width: 45%;
       max-width: 80px;
     }
   }
+
+  .card-group-list .related-gallery-card {
+    @media (min-width: $bp-medium) {
+      flex: 0 1 33%;
+      margin: 0 0.75rem 0 0;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .masonry-container {
+    .related-galleries-card .card-group {
+      flex-direction: column;
+    }
+
+    .related-gallery-card {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
 </style>
