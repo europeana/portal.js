@@ -36,6 +36,7 @@
             :lazy="index > 0"
             :offset="displayableMedia.length > 1 ? index : null"
             :edm-type="edmType"
+            @focused="swiper.slideTo(index)"
           />
         </div>
       </div>
