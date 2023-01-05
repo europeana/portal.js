@@ -1,6 +1,6 @@
 <template>
   <b-card
-    v-if="relatedGalleries.length > 0"
+    v-show="relatedGalleries.length > 0"
     class="related-galleries-card mb-4"
   >
     <b-card-title
