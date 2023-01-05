@@ -110,7 +110,7 @@ describe('pages/item/_.vue', () => {
 
         const searchOverrides = wrapper.vm.searchOverrides;
 
-        expect(searchOverrides.sort).toBe('score desc,contentTier desc,random_ asc,timestamp_update desc,europeana_id asc');
+        expect(searchOverrides.sort).toBe('score desc,contentTier desc,random asc,timestamp_update desc,europeana_id asc');
       });
     });
 
