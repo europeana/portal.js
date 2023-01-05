@@ -56,16 +56,13 @@
       const entries = response.data.data;
 
       this.cards = entries.blogPostingCollection.items
-        .concat(entries.exhibitionPageCollection.items)
-        .concat(entries.imageGalleryCollection.items);
+        .concat(entries.exhibitionPageCollection.items);
     },
 
     methods: {
       cardLink(card) {
         let link;
-        if (card['__typename'] === 'ImageGallery') {
-          link = { name: 'galleries-all', params: { pathMatch: card.identifier } };
-        } else if (card['__typename'] === 'ExhibitionPage') {
+        if (card['__typename'] === 'ExhibitionPage') {
           link = { name: 'exhibitions-exhibition', params: { exhibition: card.identifier } };
         } else if (card['__typename'] === 'BlogPosting') {
           link = { name: 'blog-all', params: { pathMatch: card.identifier } };
@@ -74,10 +71,6 @@
       },
 
       cardImage(card) {
-        if (card['__typename'] === 'ImageGallery') {
-          const edmPreview = card.hasPartCollection.items[0].encoding?.edmPreview?.[0] || card.hasPartCollection.items[0].thumbnailUrl;
-          return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
-        }
         return card.primaryImageOfPage?.image?.url;
       }
     }

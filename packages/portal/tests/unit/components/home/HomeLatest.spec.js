@@ -20,11 +20,6 @@ const contentfulQueryResponse = {
         items: [
           { identifier: 'exhibition-1' }
         ]
-      },
-      imageGalleryCollection: {
-        items: [
-          { identifier: 'gallery-1' }
-        ]
       }
     }
   }
@@ -62,23 +57,12 @@ describe('components/home/HomeLatest', () => {
       await wrapper.vm.fetch();
 
       const section =  wrapper.find('[data-qa="latest editorial"]');
-      expect(section.findAll('contentcard-stub').length).toBe(3);
+      expect(section.findAll('contentcard-stub').length).toBe(2);
     });
   });
 
   describe('methods', () => {
     describe('cardLink', () => {
-      it('constructs gallery links', () => {
-        const wrapper = factory();
-
-        const link = wrapper.vm.cardLink({
-          __typename: 'ImageGallery',
-          identifier: 'gallery'
-        });
-
-        expect(link.name).toBe('galleries-all');
-      });
-
       it('constructs exhibition links', () => {
         const wrapper = factory();
 
@@ -103,50 +87,7 @@ describe('components/home/HomeLatest', () => {
     });
 
     describe('cardImage', () => {
-      describe('for galleries', () => {
-        const wrapper = factory();
-        wrapper.vm.$apis = {
-          thumbnail: {
-            edmPreview: sinon.stub().returnsArg(0)
-          }
-        };
-
-        it('favours edmPreview URLs', () => {
-          const image = wrapper.vm.cardImage({
-            __typename: 'ImageGallery',
-            hasPartCollection: {
-              items: [
-                {
-                  encoding: {
-                    edmPreview: ['edmPreview.jpg']
-                  }
-                }
-              ]
-            }
-          });
-
-          expect(wrapper.vm.$apis.thumbnail.edmPreview.calledWith('edmPreview.jpg', { size: 400 })).toBe(true);
-          expect(image).toBe('edmPreview.jpg');
-        });
-
-        it('falls back to thumbnailUrl URLs', () => {
-          const image = wrapper.vm.cardImage({
-            __typename: 'ImageGallery',
-            hasPartCollection: {
-              items: [
-                {
-                  thumbnailUrl: 'thumbnail.jpg'
-                }
-              ]
-            }
-          });
-
-          expect(wrapper.vm.$apis.thumbnail.edmPreview.calledWith('thumbnail.jpg', { size: 400 })).toBe(true);
-          expect(image).toBe('thumbnail.jpg');
-        });
-      });
-
-      it('otherwise uses primaryImageOfPage URL', () => {
+      it('uses primaryImageOfPage URL', () => {
         const wrapper = factory();
 
         const image = wrapper.vm.cardImage({

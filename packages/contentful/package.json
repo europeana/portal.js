@@ -18,7 +18,10 @@
   ],
   "dependencies": {
     "axios": "^0.21.4",
-    "contentful-cli": "^1.14.29"
+    "chalk": "^2.4.1",
+    "contentful-cli": "^1.14.29",
+    "inquirer": "^8.0.0",
+    "log-update": "^4.0.0"
   },
   "license": "EUPL-1.2",
   "bugs": {
