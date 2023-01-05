@@ -31,7 +31,7 @@ export default {
       // Remove any recommendations that are already in the active set, because
       // the Recommendation API/Engine is broken.
       // TODO: remove if/when recommendations become useful.
-      const activeSetItemIds = state.active.items.map((item) => item.id);
+      const activeSetItemIds = state.active?.items.map((item) => item.id) || [];
       state.activeRecommendations = value.filter((rec) => !activeSetItemIds.includes(rec.id));
     },
     addItemToActive(state, item) {
