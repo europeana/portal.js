@@ -7,7 +7,6 @@
       :href="imageLink"
       target="_blank"
       data-qa="media link"
-      @focus="$emit('focused')"
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"

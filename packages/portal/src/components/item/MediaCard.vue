@@ -6,7 +6,6 @@
     :media="media"
     :lazy="lazy"
     :offset="offset"
-    @focused="$emit('focused')"
   />
   <div
     v-else-if="isSinglePlayableMedia"
