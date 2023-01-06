@@ -72,6 +72,12 @@
 
       if (this.$auth.loggedIn) {
         response = await this.$apis.recommendation.recommend('record', this.identifier);
+        response.items = response.items
+          // Remove any recommendations that are the same as the active item,
+          // because the Recommendation API/Engine is broken.
+          // TODO: remove if/when recommendations become useful.
+          .filter((item) => item.id !== this.identifier)
+          .slice(0, 8);
       } else {
         response = await this.$apis.record.search({
           query: similarItemsQuery(this.identifier, this.similarItemsFields),
