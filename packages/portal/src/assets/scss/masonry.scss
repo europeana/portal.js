@@ -13,10 +13,7 @@
     width: calc(100% + $masonry-gutter);
   }
 
-  // TODO reorder masonry-container and :not(.list-card) selectors
-  .related-collections-card,
-  .related-galleries-card,
-  .content-card:not(.list-card):not(.related-gallery-card) {
+  .masonry-tile {
     display: inline-block;
     vertical-align: top;
     width: 100%;
@@ -39,6 +36,12 @@
     @media (min-width: $bp-extralarge) {
       width: calc(100% / 4 - $masonry-gutter);
     }
+  }
+
+  // Setting the margin-bottom for the related content aside element reserves space for it in the masonry layout
+  // and prevents jumpiness
+  aside.masonry-tile {
+    margin-bottom: 1px;
   }
 
   .content-card:not(.list-card):not(.related-gallery-card) {
@@ -80,9 +83,7 @@
   }
 
   @at-root .side-filters-enabled & {
-    .content-card:not(.related-gallery-card),
-    .related-galleries-card,
-    .related-collections-card {
+    .masonry-tile {
       @media (min-width: $bp-medium) {
         width: calc(100% / 2 - $masonry-gutter);
       }

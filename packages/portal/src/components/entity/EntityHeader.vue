@@ -1,7 +1,7 @@
 <template>
   <b-card
     v-masonry-tile
-    class="text-left header-card mb-4"
+    class="masonry-tile text-left header-card mb-4"
   >
     <div
       v-if="resizedLogo"

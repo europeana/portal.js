@@ -4,7 +4,7 @@
     :key="`searchResultsGrid${view}`"
     v-masonry
     transition-duration="0.1"
-    item-selector=".card:not(.mini-card)"
+    item-selector=".masonry-tile"
     horizontal-order="true"
     column-width=".masonry-container .card:not(.header-card)"
     class="masonry-container"
@@ -22,31 +22,14 @@
         v-for="(card, index) in cards"
       >
         <template v-if="card === relatedGalleries">
-          <!-- Prevent rendering empty aside when no slot is passed -->
-          <aside
-            v-if="$slots[relatedGalleries]"
-            :key="index"
-            class="ml-3 ml-md-0"
-            :aria-label="$t('related.galleries.name')"
-          >
-            <slot
-              :name="relatedGalleries"
-            />
-          </aside>
+          <slot
+            :name="relatedGalleries"
+          />
         </template>
         <template v-else-if="card === relatedCollections">
-          <!-- Prevent rendering empty aside when no slot is passed -->
-          <aside
-            v-if="$slots[relatedCollections]"
-            :key="index"
-            :aria-label="$t('related.collections.name')"
-            class="ml-3 ml-md-0"
-          >
-            <slot
-              v-masonry-tile
-              :name="relatedCollections"
-            />
-          </aside>
+          <slot
+            :name="relatedCollections"
+          />
         </template>
         <ItemPreviewCard
           v-else
@@ -55,7 +38,7 @@
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
-          class="item"
+          class="masonry-tile item"
           :lazy="true"
           :enable-accept-recommendation="enableAcceptRecommendations"
           :enable-reject-recommendation="enableRejectRecommendations"
@@ -79,33 +62,17 @@
   >
     <slot />
     <template
-      v-for="(card, index) in cards"
+      v-for="(card) in cards"
     >
       <template v-if="card === relatedGalleries">
-        <!-- Prevent rendering empty aside when no slot is passed -->
-        <aside
-          v-if="$slots[relatedGalleries]"
-          :key="index"
-          class="aside-card-wrapper pl-3"
-          :aria-label="$t('related.galleries.name')"
-        >
-          <slot
-            :name="relatedGalleries"
-          />
-        </aside>
+        <slot
+          :name="relatedGalleries"
+        />
       </template>
       <template v-else-if="card === relatedCollections">
-        <!-- Prevent rendering empty aside when no slot is passed -->
-        <aside
-          v-if="$slots[relatedCollections]"
-          :key="index"
-          class="aside-card-wrapper pl-3"
-          :aria-label="$t('related.collections.name')"
-        >
-          <slot
-            :name="relatedCollections"
-          />
-        </aside>
+        <slot
+          :name="relatedCollections"
+        />
       </template>
       <ItemPreviewCard
         v-else

@@ -7,24 +7,36 @@
         v-if="!!searchQuery"
         #related-galleries
       >
-        <client-only>
-          <RelatedGalleries
-            :query="searchQuery"
-          />
-        </client-only>
+        <aside
+          v-masonry-tile
+          class="masonry-tile ml-3 ml-md-0"
+          :aria-label="$t('related.galleries.name')"
+        >
+          <client-only>
+            <RelatedGalleries
+              :query="searchQuery"
+            />
+          </client-only>
+        </aside>
       </template>
       <template
         v-if="!!searchQuery"
         #related-collections
       >
-        <client-only>
-          <RelatedSection
-            :query="searchQuery"
-            :overrides="relatedCollections"
-            data-qa="related section"
-            @fetched="handleRelatedSectionFetched"
-          />
-        </client-only>
+        <aside
+          v-masonry-tile
+          :aria-label="$t('related.collections.name')"
+          class="masonry-tile ml-3 ml-md-0"
+        >
+          <client-only>
+            <RelatedSection
+              :query="searchQuery"
+              :overrides="relatedCollections"
+              data-qa="related section"
+              @fetched="handleRelatedSectionFetched"
+            />
+          </client-only>
+        </aside>
       </template>
       <template
         v-if="!!searchQuery"
