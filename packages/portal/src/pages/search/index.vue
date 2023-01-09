@@ -9,7 +9,7 @@
       >
         <aside
           v-masonry-tile
-          class="masonry-tile ml-3 ml-md-0"
+          class="masonry-tile related-results"
           :aria-label="$t('related.galleries.name')"
         >
           <client-only>
@@ -26,7 +26,7 @@
         <aside
           v-masonry-tile
           :aria-label="$t('related.collections.name')"
-          class="masonry-tile ml-3 ml-md-0"
+          class="masonry-tile related-results"
         >
           <client-only>
             <RelatedSection

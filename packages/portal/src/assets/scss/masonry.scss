@@ -40,8 +40,12 @@
 
   // Setting the margin-bottom for the related content aside element reserves space for it in the masonry layout
   // and prevents jumpiness
-  aside.masonry-tile {
+  aside.masonry-tile.related-results {
     margin-bottom: 1px;
+
+    @media (max-width: ($bp-medium - 1px)) {
+      margin-left: 1rem;
+    }
   }
 
   .content-card:not(.list-card):not(.related-gallery-card) {
