@@ -117,7 +117,6 @@
 
     middleware: [
       ({ params, query, redirect, $features, $path }) => {
-        console.log('middleware')
         if (!$features.themePages) {
           return;
         }
