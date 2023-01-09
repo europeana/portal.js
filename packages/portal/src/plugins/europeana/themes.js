@@ -1,5 +1,7 @@
+import { BASE_URL } from './data';
+
 // Thematic collections available via the `collection` qf filter.
-export default [
+const themes = [
   {
     id: '83', qf: 'ww1',
     filters: { api: { default: 'metadata' } }
@@ -28,6 +30,12 @@ export default [
   { id: '48', qf: 'photography' },
   { id: '114', qf: 'sport' }
 ];
+
+export default themes;
+
+export const themeForEntity = (uri) => {
+  return uri.startsWith(`${BASE_URL}/concept`) && themes.find((theme) => uri.endsWith(`/${theme.id}`));
+};
 
 export const withEditorialContent = async({ $store, $i18n, $route, $contentful }, entities) => {
   let curatedEntities = $store.state.entity.curatedEntities;
