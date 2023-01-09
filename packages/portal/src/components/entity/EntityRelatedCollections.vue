@@ -1,15 +1,21 @@
 <template>
-  <b-card
+  <aside
     v-if="relatedCollections.length > 0 || entityUris.length > 0"
-    class="text-left related-collections-card"
+    v-masonry-tile
+    :aria-label="$t('related.collections.name')"
+    class="masonry-tile related-results"
   >
-    <RelatedCollections
-      :related-collections="relatedCollections"
-      :entity-uris="entityUris"
-      data-qa="related collections"
-      @fetched="handleRelatedCollectionsFetched"
-    />
-  </b-card>
+    <b-card
+      class="text-left related-collections-card"
+    >
+      <RelatedCollections
+        :related-collections="relatedCollections"
+        :entity-uris="entityUris"
+        data-qa="related collections"
+        @fetched="handleRelatedCollectionsFetched"
+      />
+    </b-card>
+  </aside>
 </template>
 
 <script>

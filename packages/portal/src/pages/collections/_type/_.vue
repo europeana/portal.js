@@ -39,21 +39,15 @@
           v-if="collectionType !== 'organisation'"
           #related-collections
         >
-          <aside
-            v-masonry-tile
-            :aria-label="$t('related.collections.name')"
-            class="masonry-tile related-results"
-          >
-            <client-only>
-              <EntityRelatedCollections
-                :type="$route.params.type"
-                :identifier="$route.params.pathMatch"
-                :overrides="relatedCollectionCards || relatedCollections"
-                data-qa="related entities"
-                @fetched="handleEntityRelatedCollectionsFetched"
-              />
-            </client-only>
-          </aside>
+          <client-only>
+            <EntityRelatedCollections
+              :type="$route.params.type"
+              :identifier="$route.params.pathMatch"
+              :overrides="relatedCollectionCards || relatedCollections"
+              data-qa="related entities"
+              @fetched="handleEntityRelatedCollectionsFetched"
+            />
+          </client-only>
         </template>
         <template
           #after-results

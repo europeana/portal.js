@@ -1,26 +1,32 @@
 <template>
-  <b-card
-    v-show="relatedGalleries.length > 0"
-    class="related-galleries-card mb-4"
+  <aside
+    v-if="relatedGalleries.length > 0"
+    v-masonry-tile
+    class="masonry-tile related-results"
+    :aria-label="$t('related.galleries.name')"
   >
-    <b-card-title
-      tag="h2"
-      class="related-heading text-uppercase"
+    <b-card
+      class="related-galleries-card mb-4"
     >
-      {{ $t('related.galleries.title') }}
-    </b-card-title>
-    <b-card-group>
-      <ContentCard
-        v-for="(gallery) in relatedGalleries"
-        :key="gallery.slug"
-        :title="gallery.title"
-        :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
-        :image-url="gallery.thumbnail"
-        variant="mini"
-        class="related-gallery-card"
-      />
-    </b-card-group>
-  </b-card>
+      <b-card-title
+        tag="h2"
+        class="related-heading text-uppercase"
+      >
+        {{ $t('related.galleries.title') }}
+      </b-card-title>
+      <b-card-group>
+        <ContentCard
+          v-for="(gallery) in relatedGalleries"
+          :key="gallery.slug"
+          :title="gallery.title"
+          :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
+          :image-url="gallery.thumbnail"
+          variant="mini"
+          class="related-gallery-card"
+        />
+      </b-card-group>
+    </b-card>
+  </aside>
 </template>
 
 <script>
@@ -41,6 +47,10 @@
       query: {
         type: String,
         default: null
+      },
+      overrides: {
+        type: Array,
+        default: null
       }
     },
 
@@ -51,20 +61,22 @@
     },
 
     async fetch() {
-      if (!this.query) {
-        return;
+      if (this.overrides) {
+        this.relatedCollections = this.overrides;
+      } else if (this.query && this.query !== '') {
+        const searchParams = {
+          query: this.query,
+          qf: 'visibility:published',
+          pageSize: 3,
+          page: 0,
+          profile: 'standard'
+        };
+
+        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+        this.relatedGalleries = setResponse.data.items ? this.parseSets(setResponse.data.items) : [];
+
+        this.$emit('fetched');
       }
-
-      const searchParams = {
-        query: this.query,
-        qf: 'visibility:published',
-        pageSize: 3,
-        page: 0,
-        profile: 'standard'
-      };
-
-      const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-      this.relatedGalleries = setResponse.data.items ? this.parseSets(setResponse.data.items) : [];
     },
 
     watch: {

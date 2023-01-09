@@ -7,36 +7,26 @@
         v-if="!!searchQuery"
         #related-galleries
       >
-        <aside
-          v-masonry-tile
-          class="masonry-tile related-results"
-          :aria-label="$t('related.galleries.name')"
-        >
-          <client-only>
-            <RelatedGalleries
-              :query="searchQuery"
-            />
-          </client-only>
-        </aside>
+        <client-only>
+          <RelatedGalleries
+            :query="searchQuery"
+            :overrides="relatedgalleries"
+            @fetched="handleRelatedGalleriesFetched"
+          />
+        </client-only>
       </template>
       <template
         v-if="!!searchQuery"
         #related-collections
       >
-        <aside
-          v-masonry-tile
-          :aria-label="$t('related.collections.name')"
-          class="masonry-tile related-results"
-        >
-          <client-only>
-            <RelatedSection
-              :query="searchQuery"
-              :overrides="relatedCollections"
-              data-qa="related section"
-              @fetched="handleRelatedSectionFetched"
-            />
-          </client-only>
-        </aside>
+        <client-only>
+          <RelatedSection
+            :query="searchQuery"
+            :overrides="relatedCollections"
+            data-qa="related section"
+            @fetched="handleRelatedSectionFetched"
+          />
+        </client-only>
       </template>
       <template
         v-if="!!searchQuery"
@@ -82,7 +72,8 @@
 
     data() {
       return {
-        relatedCollections: null
+        relatedCollections: null,
+        relatedGalleries: null
       };
     },
 
@@ -100,6 +91,7 @@
     watch: {
       searchQuery() {
         this.relatedCollections = null;
+        this.relatedGalleries = null;
       }
     },
 
@@ -110,6 +102,9 @@
     methods: {
       handleRelatedSectionFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
+      },
+      handleRelatedGalleriesFetched(relatedGalleries) {
+        this.relatedGalleries = relatedGalleries;
       }
     }
   };

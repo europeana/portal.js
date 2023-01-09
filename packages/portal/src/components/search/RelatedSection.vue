@@ -1,13 +1,19 @@
 <template>
-  <b-card
+  <aside
     v-if="relatedCollections.length > 0"
-    class="text-left related-collections-card"
+    v-masonry-tile
+    class="masonry-tile related-results"
+    :aria-label="$t('related.collections.name')"
   >
-    <RelatedCollections
-      :related-collections="relatedCollections"
-      badge-variant="secondary"
-    />
-  </b-card>
+    <b-card
+      class="text-left related-collections-card"
+    >
+      <RelatedCollections
+        :related-collections="relatedCollections"
+        badge-variant="secondary"
+      />
+    </b-card>
+  </aside>
 </template>
 
 <script>
