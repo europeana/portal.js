@@ -10,7 +10,7 @@
         <client-only>
           <RelatedGalleries
             :query="searchQuery"
-            :overrides="relatedgalleries"
+            :overrides="relatedGalleries"
             @fetched="handleRelatedGalleriesFetched"
           />
         </client-only>

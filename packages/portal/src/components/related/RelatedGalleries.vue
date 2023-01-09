@@ -62,7 +62,7 @@
 
     async fetch() {
       if (this.overrides) {
-        this.relatedCollections = this.overrides;
+        this.relatedGalleries = this.overrides;
       } else if (this.query && this.query !== '') {
         const searchParams = {
           query: this.query,
@@ -75,7 +75,7 @@
         const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
         this.relatedGalleries = setResponse.data.items ? this.parseSets(setResponse.data.items) : [];
 
-        this.$emit('fetched');
+        this.$emit('fetched', this.relatedGalleries);
       }
     },
 
