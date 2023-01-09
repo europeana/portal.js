@@ -34,7 +34,7 @@ const themes = [
 export default themes;
 
 export const themeForEntity = (uri) => {
-  return uri.startsWith(`${BASE_URL}/concept`) && themes.find((theme) => uri.endsWith(`/${theme.id}`));
+  return (uri.startsWith(`${BASE_URL}/concept`) && themes.find((theme) => uri.endsWith(`/${theme.id}`))) || null;
 };
 
 export const withEditorialContent = async({ $store, $i18n, $route, $contentful }, entities) => {
