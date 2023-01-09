@@ -61,18 +61,6 @@ describe('pages/contentful/set-suggest/index', () => {
         expect(wrapper.vm.$apis.set.get.calledWith(value[0], { profile: 'standard' })).toBe(true);
         expect(wrapper.vm.$apis.set.get.calledWith(value[1], { profile: 'standard' })).toBe(true);
       });
-
-      // it('stores the category data, preserving original order', async() => {
-      //   const wrapper = factory();
-      //   wrapper.vm.contentfulExtensionSdk.field.getValue.returns(value);
-      //   wrapper.vm.contentfulExtensionSdk.space.getEntries.resolves(contentfulCategoryFindResponse);
-      //
-      //   await wrapper.vm.findSets();
-      //
-      //   expect(wrapper.vm.value.length).toBe(2);
-      //   expect(wrapper.vm.value[0].fields.name['en-GB']).toBe('bees');
-      //   expect(wrapper.vm.value[1].fields.name['en-GB']).toBe('nature');
-      // });
     });
 
     describe('suggestSets', () => {
