@@ -7,26 +7,22 @@
         v-if="!!searchQuery"
         #related-galleries
       >
-        <client-only>
-          <RelatedGalleries
-            :query="searchQuery"
-            :overrides="relatedGalleries"
-            @fetched="handleRelatedGalleriesFetched"
-          />
-        </client-only>
+        <RelatedGalleries
+          :query="searchQuery"
+          :overrides="relatedGalleries"
+          @fetched="handleRelatedGalleriesFetched"
+        />
       </template>
       <template
         v-if="!!searchQuery"
         #related-collections
       >
-        <client-only>
-          <RelatedSection
-            :query="searchQuery"
-            :overrides="relatedCollections"
-            data-qa="related section"
-            @fetched="handleRelatedSectionFetched"
-          />
-        </client-only>
+        <RelatedSection
+          :query="searchQuery"
+          :overrides="relatedCollections"
+          data-qa="related section"
+          @fetched="handleRelatedSectionFetched"
+        />
       </template>
       <template
         v-if="!!searchQuery"

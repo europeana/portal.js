@@ -35,6 +35,7 @@
           v-else
           :key="index"
           ref="cards"
+          v-masonry-tile
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"

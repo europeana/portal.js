@@ -1,31 +1,34 @@
 <template>
+  <!-- aside element not conditional because it functions as placeholder to prevent jumpy masonry -->
   <aside
-    v-if="relatedGalleries.length > 0"
     v-masonry-tile
     class="masonry-tile related-results"
     :aria-label="$t('related.galleries.name')"
   >
-    <b-card
-      class="related-galleries-card mb-4"
-    >
-      <b-card-title
-        tag="h2"
-        class="related-heading text-uppercase"
+    <client-only>
+      <b-card
+        v-if="relatedGalleries.length > 0"
+        class="related-galleries-card mb-4"
       >
-        {{ $t('related.galleries.title') }}
-      </b-card-title>
-      <b-card-group>
-        <ContentCard
-          v-for="(gallery) in relatedGalleries"
-          :key="gallery.slug"
-          :title="gallery.title"
-          :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
-          :image-url="gallery.thumbnail"
-          variant="mini"
-          class="related-gallery-card"
-        />
-      </b-card-group>
-    </b-card>
+        <b-card-title
+          tag="h2"
+          class="related-heading text-uppercase"
+        >
+          {{ $t('related.galleries.title') }}
+        </b-card-title>
+        <b-card-group>
+          <ContentCard
+            v-for="(gallery) in relatedGalleries"
+            :key="gallery.slug"
+            :title="gallery.title"
+            :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
+            :image-url="gallery.thumbnail"
+            variant="mini"
+            class="related-gallery-card"
+          />
+        </b-card-group>
+      </b-card>
+    </client-only>
   </aside>
 </template>
 
