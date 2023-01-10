@@ -179,7 +179,7 @@ describe('pages/item/_.vue', () => {
 
     describe('handleRelatedGalleriesFetched', () => {
       it('is triggered by fetched event on related galleries component', () => {
-        const wrapper = factory('fish');
+        const wrapper = factory({ query: 'fish' });
         const relatedGalleries = [{ slug: '001-fish' }];
 
         const relatedGalleriesComponent = wrapper.find('[data-qa="related galleries"]');
