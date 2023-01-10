@@ -265,6 +265,7 @@ module.exports = function(migration) {
       ]
     });
 
+  // TODO: Use set suggest app when available
   // galleryGroup.changeFieldControl('gallerys', 'app', process.env.SET_SUGGEST_APP_ID);
 
   themePage.createField('relatedGalleries')
