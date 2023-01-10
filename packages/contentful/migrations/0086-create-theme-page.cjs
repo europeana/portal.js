@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = function(migration) {
   const themePage = migration
     .createContentType('themePage')
@@ -84,30 +86,120 @@ module.exports = function(migration) {
     }
   );
 
-  themePage
-    .createField('relatedTopics')
+  const topicGroup = migration
+    .createContentType('topicGroup')
+    .name('Topic group')
+    .description('List of topic entity id\'s')
+    .displayField('title');
+
+  topicGroup
+    .createField('title')
+    .name('Title')
+    .type('Symbol')
+    .localized(true)
+    .required(true)
+    .disabled(false)
+    .omitted(false);
+
+  topicGroup.changeFieldControl('title', 'builtin', 'singleLine', {});
+
+  topicGroup.createField('topics')
+    .name('Topics')
+    .type('Array')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        size: {
+          min: null,
+          max: 9
+        }
+      }
+    ])
+    .disabled(false)
+    .omitted(false)
+    .items({
+      type: 'Symbol',
+      validations: [
+        {
+          regexp: {
+            pattern: '^http://data.europeana.eu/concept/(base/)?[0-9]+$',
+            flags: null
+          }
+        }
+      ]
+    });
+
+  topicGroup.changeFieldControl('topics', 'app', process.env.ENTITY_SUGGEST_APP_ID);
+
+  themePage.createField('relatedTopics')
     .name('Related topics')
     .type('Link')
     .localized(false)
     .required(false)
     .validations([
       {
-        linkContentType: ['cardGroup']
+        linkContentType: ['topicGroup']
       }
     ])
     .disabled(false)
     .omitted(false)
     .linkType('Entry');
 
-  themePage
-    .createField('relatedPeople')
-    .name('Related people')
+  const personGroup = migration
+    .createContentType('personGroup')
+    .name('Person group')
+    .description('List of person entity id\'s')
+    .displayField('title');
+
+  personGroup
+    .createField('title')
+    .name('Title')
+    .type('Symbol')
+    .localized(true)
+    .required(true)
+    .disabled(false)
+    .omitted(false);
+
+  personGroup.changeFieldControl('title', 'builtin', 'singleLine', {});
+
+  personGroup.createField('persons')
+    .name('Persons')
+    .type('Array')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        size: {
+          min: null,
+          max: 8
+        }
+      }
+    ])
+    .disabled(false)
+    .omitted(false)
+    .items({
+      type: 'Symbol',
+      validations: [
+        {
+          regexp: {
+            pattern: '^http://data.europeana.eu/agent/(base/)?[0-9]+$',
+            flags: null
+          }
+        }
+      ]
+    });
+
+  personGroup.changeFieldControl('persons', 'app', process.env.ENTITY_SUGGEST_APP_ID);
+
+  themePage.createField('relatedPersons')
+    .name('Related persons')
     .type('Link')
     .localized(false)
     .required(false)
     .validations([
       {
-        linkContentType: ['cardGroup']
+        linkContentType: ['personGroup']
       }
     ])
     .disabled(false)
@@ -129,15 +221,60 @@ module.exports = function(migration) {
     .omitted(false)
     .linkType('Entry');
 
-  themePage
-    .createField('relatedGalleries')
+  const galleryGroup = migration
+    .createContentType('galleryGroup')
+    .name('Gallery group')
+    .description('List of gallery set id\'s')
+    .displayField('title');
+
+  galleryGroup
+    .createField('title')
+    .name('Title')
+    .type('Symbol')
+    .localized(true)
+    .required(true)
+    .disabled(false)
+    .omitted(false);
+
+  galleryGroup.changeFieldControl('title', 'builtin', 'singleLine', {});
+
+  galleryGroup.createField('galleries')
+    .name('galleries')
+    .type('Array')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        size: {
+          min: null,
+          max: 4
+        }
+      }
+    ])
+    .disabled(false)
+    .omitted(false)
+    .items({
+      type: 'Symbol',
+      validations: [
+        {
+          regexp: {
+            pattern: '^http://data.europeana.eu/set/?[0-9]+$',
+            flags: null
+          }
+        }
+      ]
+    });
+
+  // galleryGroup.changeFieldControl('gallerys', 'app', process.env.SET_SUGGEST_APP_ID);
+
+  themePage.createField('relatedGalleries')
     .name('Related galleries')
     .type('Link')
     .localized(false)
     .required(false)
     .validations([
       {
-        linkContentType: ['cardGroup']
+        linkContentType: ['galleryGroup']
       }
     ])
     .disabled(false)
