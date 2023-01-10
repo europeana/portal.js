@@ -10,6 +10,7 @@
         <RelatedGalleries
           :query="searchQuery"
           :overrides="relatedGalleries"
+          data-qa="related galleries"
           @fetched="handleRelatedGalleriesFetched"
         />
       </template>

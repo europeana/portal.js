@@ -110,6 +110,9 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       state: {
         entity: {
           entity: options.entity
+        },
+        search: {
+          view: 'grid'
         }
       },
       getters: {

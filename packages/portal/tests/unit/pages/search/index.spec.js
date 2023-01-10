@@ -44,9 +44,8 @@ const factory = (query) => shallowMountNuxt(page, {
   localVue,
   stubs: {
     'client-only': true,
-    'RelatedSection': true,
     'SearchInterface': {
-      template: '<div><slot name="related-collections" /><slot name="after-results" /></div>'
+      template: '<div><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     }
   },
   mocks: {
@@ -142,6 +141,18 @@ describe('pages/item/_.vue', () => {
         relatedSectionComponent.vm.$emit('fetched', relatedCollections);
 
         expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
+      });
+    });
+
+    describe('handleRelatedGalleriesFetched', () => {
+      it('is triggered by fetched event on related galleries component', () => {
+        const wrapper = factory('fish');
+        const relatedGalleries = [{ slug: '001-fish' }];
+
+        const relatedGalleriesComponent = wrapper.find('[data-qa="related galleries"]');
+        relatedGalleriesComponent.vm.$emit('fetched', relatedGalleries);
+
+        expect(wrapper.vm.relatedGalleries).toEqual(relatedGalleries);
       });
     });
   });

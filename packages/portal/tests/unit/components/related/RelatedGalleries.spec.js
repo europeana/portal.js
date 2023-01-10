@@ -32,7 +32,23 @@ const setGalleriesResponse = {
     ]
   }
 };
-// const relatedGalleriesIdentifiers = ['blog-1', 'exhibition-1', 'exhibition-2', 'blog-2'];
+
+const relatedGalleries = [
+  {
+    slug: '001-testset-001',
+    title: {
+      en: 'testSet 001'
+    },
+    thumbnail: 'https://api.europeana/thumbnail/testset-001.jpg'
+  },
+  {
+    slug: '002-testset-002',
+    title: {
+      en: 'testSet002'
+    },
+    thumbnail: 'https://api.europeana/thumbnail/testset-002.jpg'
+  }
+];
 
 const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedGalleries, {
   localVue,
@@ -49,16 +65,52 @@ const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedGallerie
     $route: {
       query: {}
     },
+    $store: {
+      state: {
+        search: {
+          view: 'grid'
+        }
+      }
+    },
     $t: (key) => key,
     ...mocks
   },
-  stubs: ['b-card-group', 'b-card']
+  stubs: ['b-card-group', 'b-card', 'b-card-title']
 });
 
 describe('components/related/RelatedGalleries', () => {
   afterEach(sinon.resetHistory);
 
   describe('fetch', () => {
+    describe('with overrides', () => {
+      const overrides = relatedGalleries;
+      const propsData = { overrides };
+
+      it('stores them as relatedGalleries', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.relatedGalleries).toEqual(relatedGalleries);
+      });
+
+      it('does not query the Entity API', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$apis.set.search.called).toBe(false);
+      });
+
+      it('does not emit fetched event', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.emitted('fetched')).toBeUndefined();
+      });
+    });
+
     describe('when a query is supplied', () => {
       const query = 'spider';
 
@@ -74,6 +126,14 @@ describe('components/related/RelatedGalleries', () => {
           page: 0,
           profile: 'standard'
         }, { withMinimalItemPreviews: true })).toBe(true);
+      });
+
+      it('emits fetched event with response', async() => {
+        const wrapper = factory({ propsData: { query } });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.emitted('fetched')[0][0]).toEqual(wrapper.vm.relatedGalleries);
       });
 
       describe('when no related galleries are found', () => {

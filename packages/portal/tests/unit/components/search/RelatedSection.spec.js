@@ -39,6 +39,9 @@ const factory = (options = {}) => {
                 genre: 'manuscript'
               }
             ]
+          },
+          search: {
+            view: 'grid'
           }
         }
       }
