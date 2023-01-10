@@ -392,10 +392,7 @@ const GONE = [
   'anna-boberg'
 ];
 
-export default ({ route, redirect, error, app }) => {
-  if (!app.$features?.setGalleries) {
-    return;
-  }
+export default ({ route, redirect, error }) => {
   const routePathParts = route.path.split('/');
   if ((routePathParts[2] === 'galleries')) {
     if (REDIRECTS[routePathParts[3]]) {

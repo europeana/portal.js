@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "You haven’t curated any collections yet",
         "private": "You haven’t created any private galleries yet",
-        "public": "You haven’t created any public galleries yet"
+        "public": "You haven’t created any public galleries yet",
+        "published": "You haven’t had any galleries published yet"
       },
       "noLikedItems": "You haven’t liked any items yet"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "My Likes & Galleries",
     "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
+    "publishedCollections": "Published Galleries",
     "settings": "Settings",
     "title": "My account"
   },

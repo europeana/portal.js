@@ -2,6 +2,7 @@
   <div data-qa="search page">
     <SearchInterface
       id="search-interface"
+      :override-params="searchOverrides"
     >
       <template
         v-if="!!searchQuery"
@@ -82,6 +83,10 @@
       },
       searchQuery() {
         return this.$route.query.query;
+      },
+      searchOverrides() {
+        const sort = 'score desc,contentTier desc,random_europeana asc,timestamp_update desc,europeana_id asc';
+        return !this.searchQuery && !this.$route.query.sort ? { sort } : {};
       }
     },
 

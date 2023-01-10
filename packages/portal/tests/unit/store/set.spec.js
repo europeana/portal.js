@@ -4,9 +4,7 @@ import sinon from 'sinon';
 const likesId = 'http://data.europeana.eu/set/likesset';
 const likedItems = [{ id: 'item001' }];
 const active = { id: 'set001', items: [] };
-const activeRecommendations = [{ id: 'recommendation001' }];
-const creations = [{ id: 'set002' }];
-const curations = [{ id: 'curatedSet001' }];
+const activeRecommendations = [{ id: 'recommendation001' }, { id: 'recommendation002' }];
 
 describe('store/set', () => {
   describe('mutations', () => {
@@ -58,9 +56,15 @@ describe('store/set', () => {
     });
     describe('setActiveRecommendations()', () => {
       it('sets the activeRecommendations state', () => {
-        const state = { activeRecommendations: [] };
+        const state = { activeRecommendations: [], active: { items: [] } };
         store.mutations.setActiveRecommendations(state, activeRecommendations);
         expect(state.activeRecommendations).toEqual(activeRecommendations);
+      });
+
+      it('removes any that are already in the active set', () => {
+        const state = { activeRecommendations: [], active: { items: [activeRecommendations[0]] } };
+        store.mutations.setActiveRecommendations(state, activeRecommendations);
+        expect(state.activeRecommendations.length).toBe(1);
       });
     });
     describe('addItemToActive()', () => {
@@ -69,20 +73,6 @@ describe('store/set', () => {
         const state = { active: { id: 'set001', items: [{ id: 'item001' }] } };
         store.mutations.addItemToActive(state, newItem);
         expect(state.active.items).toEqual([{ id: 'item001' }, newItem]);
-      });
-    });
-    describe('setCreations()', () => {
-      it('sets the creations state', () => {
-        const state = { creations: [] };
-        store.mutations.setCreations(state, creations);
-        expect(state.creations).toEqual(creations);
-      });
-    });
-    describe('setCurations()', () => {
-      it('sets the curations state', () => {
-        const state = { curations: [] };
-        store.mutations.setCurations(state, curations);
-        expect(state.curations).toEqual(curations);
       });
     });
   });
@@ -138,9 +128,7 @@ describe('store/set', () => {
     describe('reset()', () => {
       const resetCommits = {
         setLikesId: null,
-        setLikedItems: null,
-        setCreations: [],
-        setCurations: []
+        setLikedItems: null
       };
 
       for (const commitName in resetCommits) {
@@ -201,46 +189,24 @@ describe('store/set', () => {
     });
 
     describe('addItem()', () => {
-      it('adds to set via $apis.set, then dispatches "refreshCreation"', async() => {
+      it('adds to set via $apis.set', async() => {
         store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = {};
 
         await store.actions.addItem({ dispatch, state }, { setId, itemId });
 
         expect(store.actions.$apis.set.modifyItems.calledWith('add', setId, itemId)).toBe(true);
-        expect(dispatch.calledWith('refreshCreation', setId)).toBe(true);
-      });
-      describe('when api call errors', () => {
-        it('refreshes creation', async() => {
-          store.actions.$apis.set.modifyItems = sinon.stub().rejects({});
-          const state = {};
-
-          await store.actions.addItem({ dispatch, state }, { setId, itemId });
-
-          expect(dispatch.calledWith('refreshCreation', setId)).toBe(true);
-        });
       });
     });
 
     describe('removeItem()', () => {
-      it('removes from set via $apis.set, then dispatches "refreshCreation"', async() => {
+      it('removes from set via $apis.set', async() => {
         store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = {};
 
         await store.actions.removeItem({ dispatch, state }, { setId, itemId });
 
         expect(store.actions.$apis.set.modifyItems.calledWith('delete', setId, itemId)).toBe(true);
-        expect(dispatch.calledWith('refreshCreation', setId)).toBe(true);
-      });
-      describe('when api call errors', () => {
-        it('refreshes creation', async() => {
-          store.actions.$apis.set.modifyItems = sinon.stub().rejects({});
-          const state = {};
-
-          await store.actions.removeItem({ dispatch, state }, { setId, itemId });
-
-          expect(dispatch.calledWith('refreshCreation', setId)).toBe(true);
-        });
       });
     });
 
@@ -332,14 +298,13 @@ describe('store/set', () => {
     });
 
     describe('createSet()', () => {
-      it('create the set via $apis.set, then dispatches "fetchCreations"', async() => {
+      it('create the set via $apis.set', async() => {
         store.actions.$apis.set.create = sinon.stub().resolves();
         const body = {};
 
         await store.actions.createSet({ dispatch }, body);
 
         expect(store.actions.$apis.set.create.calledWith(body)).toBe(true);
-        expect(dispatch.calledWith('fetchCreations')).toBe(true);
       });
     });
 
@@ -487,80 +452,6 @@ describe('store/set', () => {
 
           expect(commit.calledWith('setActive', 'DELETED')).toBe(true);
         });
-      });
-    });
-
-    describe('refreshCreation', () => {
-      describe('when creation is not stored', () => {
-        it('does not fetch it via $apis.set', async() => {
-          store.actions.$apis.set.get = sinon.stub().resolves();
-          const state = { creations: [] };
-
-          await store.actions.refreshCreation({ commit, state }, setId);
-
-          expect(store.actions.$apis.set.get.called).toBe(false);
-        });
-      });
-
-      describe('when creation is stored', () => {
-        it('fetches it via $apis.set, then commits with "setCreations"', async() => {
-          const oldCreation = { id: setId, title: { en: 'Old title' } };
-          const newCreation = { id: setId, title: { en: 'New title' } };
-          const state = { creations: [oldCreation] };
-          store.actions.$apis.set.get = sinon.stub().resolves(newCreation);
-
-          await store.actions.refreshCreation({ commit, state, dispatch }, setId);
-
-          expect(store.actions.$apis.set.get.calledWith(setId, {
-            profile: 'itemDescriptions'
-          })).toBe(true);
-          expect(commit.calledWith('setCreations', [newCreation])).toBe(true);
-        });
-      });
-    });
-
-    describe('fetchCreations()', () => {
-      it('fetches creations via $apis.set', async() => {
-        const searchResponse = { data: { items: ['1', '2'] } };
-        store.actions.$auth.user = { sub: userId };
-        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
-
-        await store.actions.fetchCreations({ commit, dispatch });
-
-        expect(store.actions.$apis.set.search.calledWith({
-          query: `creator:${userId}`,
-          profile: 'standard',
-          pageSize: 100,
-          qf: 'type:Collection'
-        })).toBe(true);
-      });
-
-      it('commits creations with "setCreations"', async() => {
-        const searchResponse = { data: { items: ['1', '2'] } };
-        store.actions.$auth.user = { sub: userId };
-        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
-
-        await store.actions.fetchCreations({ commit, dispatch });
-
-        expect(commit.calledWith('setCreations', ['1', '2'])).toBe(true);
-      });
-    });
-
-    describe('fetchCurations()', () => {
-      it('fetches entity related galleries the user has curated via $apis.set, then commits with "setCurations"', async() => {
-        const searchResponse = { data: { items: ['1', '2'] } };
-        store.actions.$auth.user = { sub: userId };
-        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
-
-        await store.actions.fetchCurations({ commit });
-
-        expect(store.actions.$apis.set.search.calledWith({
-          query: `contributor:${userId}`,
-          profile: 'standard',
-          pageSize: 100,
-          qf: 'type:EntityBestItemsSet'
-        })).toBe(true);
-        expect(commit.calledWith('setCurations', ['1', '2'])).toBe(true);
       });
     });
 

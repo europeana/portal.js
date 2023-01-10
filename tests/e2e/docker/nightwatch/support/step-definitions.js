@@ -179,11 +179,18 @@ defineStep('I should have a Europeana branded page title', () =>
 
 defineStep('I hover over (a/an/the)( ){target}', (target) =>
   i.moveToElement(target));
+
 defineStep('The {target} is active', (qa) =>
   i.isActive(qa));
+
 defineStep('I scroll the page', () =>
   i.scrollWindow());
+
 defineStep('I resize the window to {int} by {int}', (width, height) =>
   i.resizeBrowserWindow(width, height));
+
 defineStep('The iframe does not overflow {target}', (parent) =>
   i.iframeFitsContainer(parent));
+
+defineStep('I take a screenshot( named) {string}', (filename) =>
+  i.takeScreenshot(filename));
