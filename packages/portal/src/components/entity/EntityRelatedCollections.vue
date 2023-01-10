@@ -1,7 +1,7 @@
 <template>
   <aside
     v-if="relatedCollections.length > 0 || entityUris.length > 0"
-    v-masonry-tile
+    :v-masonry-tile="$store.state.search.view !== 'list'"
     :aria-label="$t('related.collections.name')"
     class="masonry-tile related-results"
   >

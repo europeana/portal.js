@@ -1,7 +1,7 @@
 <template>
   <!-- aside element not conditional because it functions as placeholder to prevent jumpy masonry -->
   <aside
-    v-masonry-tile
+    :v-masonry-tile="$store.state.search.view !== 'list'"
     class="masonry-tile related-results"
     :aria-label="$t('related.galleries.name')"
   >

@@ -1,6 +1,6 @@
 <template>
   <b-card
-    v-masonry-tile
+    :v-masonry-tile="$store.state.search.view !== 'list'"
     class="masonry-tile text-left header-card mb-4"
   >
     <div
