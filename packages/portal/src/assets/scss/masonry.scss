@@ -38,9 +38,9 @@
     }
   }
 
-  // Setting the margin-bottom for the related content aside element reserves space for it in the masonry layout
+  // Setting the margin-bottom for the related content element reserves space for it in the masonry layout
   // and prevents jumpiness
-  aside.masonry-tile.related-results {
+  .masonry-tile.related-results {
     margin-bottom: 1px;
 
     @media (max-width: ($bp-medium - 1px)) {

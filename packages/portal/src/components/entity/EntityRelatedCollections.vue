@@ -1,21 +1,15 @@
 <template>
-  <aside
+  <b-card
     v-if="relatedCollections.length > 0 || entityUris.length > 0"
-    :v-masonry-tile="$store.state.search.view !== 'list'"
-    :aria-label="$t('related.collections.name')"
-    class="masonry-tile related-results"
+    class="text-left related-collections-card"
   >
-    <b-card
-      class="text-left related-collections-card"
-    >
-      <RelatedCollections
-        :related-collections="relatedCollections"
-        :entity-uris="entityUris"
-        data-qa="related collections"
-        @fetched="handleRelatedCollectionsFetched"
-      />
-    </b-card>
-  </aside>
+    <RelatedCollections
+      :related-collections="relatedCollections"
+      :entity-uris="entityUris"
+      data-qa="related collections"
+      @fetched="handleRelatedCollectionsFetched"
+    />
+  </b-card>
 </template>
 
 <script>

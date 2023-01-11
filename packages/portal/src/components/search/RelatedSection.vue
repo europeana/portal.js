@@ -1,22 +1,14 @@
 <template>
-  <!-- aside element not conditional because it functions as placeholder to prevent jumpy masonry -->
-  <aside
-    :v-masonry-tile="$store.state.search.view !== 'list'"
-    class="masonry-tile related-results"
-    :aria-label="$t('related.collections.name')"
+  <b-card
+    v-show="relatedCollections.length > 0"
+    class="text-left related-collections-card"
   >
-    <client-only>
-      <b-card
-        v-if="relatedCollections.length > 0"
-        class="text-left related-collections-card"
-      >
-        <RelatedCollections
-          :related-collections="relatedCollections"
-          badge-variant="secondary"
-        />
-      </b-card>
-    </client-only>
-  </aside>
+    <RelatedCollections
+      v-if="relatedCollections.length > 0"
+      :related-collections="relatedCollections"
+      badge-variant="secondary"
+    />
+  </b-card>
 </template>
 
 <script>

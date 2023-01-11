@@ -95,13 +95,13 @@
     .is-external-link {
       display: flex;
       align-items: flex-end;
-  
+
       span {
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-  
-        &.icon-external-link { 
+
+        &.icon-external-link {
           flex-shrink: 0;
           margin-left: 5px;
         }
@@ -480,7 +480,7 @@
 }
 
 .card-group-list .card,
-.card-group-list aside.related-results,
+.card-group-list .related-results,
 .card-deck-3-cols .card,
 .card-deck-4-cols .card {
   flex: 0 0 100%;
@@ -499,7 +499,7 @@
     margin-right: 0;
   }
 
-  aside.related-results {
+  .related-results {
     padding-left: 1rem;
   }
 }

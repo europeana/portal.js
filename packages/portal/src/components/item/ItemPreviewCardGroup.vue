@@ -22,14 +22,26 @@
         v-for="(card, index) in cards"
       >
         <template v-if="card === relatedGalleries">
-          <slot
-            :name="relatedGalleries"
-          />
+          <div
+            :key="index"
+            v-masonry-tile
+            class="masonry-tile related-results"
+          >
+            <slot
+              :name="relatedGalleries"
+            />
+          </div>
         </template>
         <template v-else-if="card === relatedCollections">
-          <slot
-            :name="relatedCollections"
-          />
+          <div
+            :key="index"
+            v-masonry-tile
+            class="masonry-tile related-results"
+          >
+            <slot
+              :name="relatedCollections"
+            />
+          </div>
         </template>
         <ItemPreviewCard
           v-else
@@ -63,17 +75,27 @@
   >
     <slot />
     <template
-      v-for="(card) in cards"
+      v-for="(card, index) in cards"
     >
       <template v-if="card === relatedGalleries">
-        <slot
-          :name="relatedGalleries"
-        />
+        <div
+          :key="index"
+          class="related-results"
+        >
+          <slot
+            :name="relatedGalleries"
+          />
+        </div>
       </template>
       <template v-else-if="card === relatedCollections">
-        <slot
-          :name="relatedCollections"
-        />
+        <div
+          :key="index"
+          class="related-results"
+        >
+          <slot
+            :name="relatedCollections"
+          />
+        </div>
       </template>
       <ItemPreviewCard
         v-else

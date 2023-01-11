@@ -43,7 +43,6 @@ const store = new Vuex.Store({
 const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   stubs: {
-    'client-only': true,
     'SearchInterface': {
       template: '<div><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     }
