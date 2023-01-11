@@ -23,6 +23,7 @@
       >
         <template v-if="card === relatedGalleries">
           <div
+            v-if="$slots[relatedGalleries]"
             :key="index"
             v-masonry-tile
             class="masonry-tile related-results"
@@ -34,6 +35,7 @@
         </template>
         <template v-else-if="card === relatedCollections">
           <div
+            v-if="$slots[relatedCollections]"
             :key="index"
             v-masonry-tile
             class="masonry-tile related-results"
@@ -79,6 +81,7 @@
     >
       <template v-if="card === relatedGalleries">
         <div
+          v-if="$slots[relatedGalleries]"
           :key="index"
           class="related-results"
         >
@@ -89,6 +92,7 @@
       </template>
       <template v-else-if="card === relatedCollections">
         <div
+          v-if="$slots[relatedCollections]"
           :key="index"
           class="related-results"
         >
