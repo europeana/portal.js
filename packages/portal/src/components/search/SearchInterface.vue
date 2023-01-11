@@ -91,10 +91,19 @@
                         >
                           <slot />
                           <template
-                            #related
+                            v-if="page === 1"
+                            #related-galleries
                           >
                             <slot
-                              name="related"
+                              name="related-galleries"
+                            />
+                          </template>
+                          <template
+                            v-if="page === 1"
+                            #related-collections
+                          >
+                            <slot
+                              name="related-collections"
                             />
                           </template>
                         </ItemPreviewCardGroup>
@@ -125,6 +134,7 @@
           </section>
         </b-container>
         <slot
+          v-if="page === 1"
           name="after-results"
         />
       </b-col>

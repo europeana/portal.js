@@ -16,6 +16,13 @@ const factory = ({ propsData = {}, data = {}, responses } = {}) => {
         record: { search: sinon.stub().resolves(responses?.record?.search || {}) }
       },
       $fetchState: {},
+      $store: {
+        state: {
+          search: {
+            view: 'grid'
+          }
+        }
+      },
       $t: key => key
     },
     stubs: ['b-card']
