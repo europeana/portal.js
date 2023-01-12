@@ -8,6 +8,25 @@
       {{ title || $t('related.collections.title') }}
     </h2>
     <div
+      v-if="cardVariant"
+    >
+      <b-card-group
+        class="card-deck-4-cols"
+        deck
+      >
+        <ContentCard
+          v-for="relatedCollection in collections"
+          :id="relatedCollection.id"
+          :key="relatedCollection.id"
+          :title="collectionTitle(relatedCollection)"
+          :url="entityRouterLink(relatedCollection.id)"
+          :image-url="imageUrl(relatedCollection)"
+          :variant="cardVariant"
+        />
+      </b-card-group>
+    </div>
+    <div
+      v-else
       class="badges-wrapper d-flex"
       :class="{ 'flex-wrap': wrap }"
     >
@@ -39,6 +58,7 @@
     name: 'RelatedCollections',
 
     components: {
+      ContentCard: () => import('@/components/generic/ContentCard'),
       LinkBadge
     },
 
@@ -67,6 +87,10 @@
       wrap: {
         type: Boolean,
         default: true
+      },
+      cardVariant: {
+        type: String,
+        default: null
       }
     },
 

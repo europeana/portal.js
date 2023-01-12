@@ -12,6 +12,11 @@
       :title="theme.relatedTopics.title"
       :entity-uris="theme.relatedTopics.topics"
     />
+    <RelatedCollections
+      :title="theme.relatedPersons.title"
+      :entity-uris="theme.relatedPersons.persons"
+      card-variant="mini"
+    />
     <CallToActionBanner
       v-if="theme.callToAction"
       :name="theme.callToAction.name"
@@ -55,23 +60,21 @@
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    asyncData({ params, query, error, app }) {
+    async asyncData({ params, query, error, app }) {
       const variables = {
         locale: app.i18n.isoLocale(),
         identifier: params.pathMatch,
         preview: query.mode === 'preview'
       };
 
-      return app.$contentful.query('themePage', variables)
-        .then(response => response.data.data)
-        .then(data => {
-          const theme = data.themePage.items[0];
+      try {
+        const response = await app.$contentful.query('themePage', variables);
+        const theme = response.data.data.themePage.items[0];
 
-          return { theme };
-        })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
-        });
+        return { theme };
+      } catch (e) {
+        error({ statusCode: 500, message: e.toString() });
+      }
     },
 
     computed: {
