@@ -35,7 +35,7 @@
       },
 
       findEntities(val) {
-        this.$apis.entity.find(val);
+        return this.$apis.entity.find(val);
       },
 
       labelEntity(val) {
