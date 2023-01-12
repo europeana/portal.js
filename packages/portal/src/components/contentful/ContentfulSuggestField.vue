@@ -49,26 +49,44 @@
     name: 'ContentfulSuggestField',
 
     props: {
+      /**
+       * Called when text is input in order to get new suggestions
+       */
       suggester: {
         type: Function,
         required: true
       },
 
+      /**
+       * Called on initialisation to resolve stored values (in Contentful) to
+       * full objects that can be used for displayed, e.g. converting stored URIs
+       * to richer item metadata with labels
+       */
       resolver: {
         type: Function,
         required: true
       },
 
+      /**
+       * Called to convert an item (selected or suggested) to a displayable
+       * text label.
+       */
       labeller: {
         type: Function,
         default: (val) => val
       },
 
+      /**
+       * Placeholder text for the search input field
+       */
       placeholder: {
         type: String,
         default: 'Search'
       },
 
+      /**
+       * If `true`, the values are treated as links to other Contentful entries
+       */
       link: {
         type: Boolean,
         default: false
