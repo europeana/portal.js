@@ -63,6 +63,10 @@ query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = fals
             }
           }
         }
+        moreButton {
+          url
+          text
+        }
       }
     }
   }
