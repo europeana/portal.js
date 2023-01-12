@@ -989,13 +989,17 @@ export default {
       "title": "Discover related stories"
     },
     "collections": {
+      "name": "Related collections",
       "title": "Discover related collections"
     },
     "editorial": {
       "title": "Stories you may like"
+    },
+    "galleries": {
+      "name": "Related galleries",
+      "title": "Discover related galleries"
     }
   },
-  "relatedCollections": "Related collections",
   "removeFilter": "Remove {filterLabel} filter",
   "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",

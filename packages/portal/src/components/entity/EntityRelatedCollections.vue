@@ -1,7 +1,7 @@
 <template>
   <b-card
     v-if="relatedCollections.length > 0 || entityUris.length > 0"
-    class="text-left related-collections-card mb-4"
+    class="text-left related-collections-card"
   >
     <RelatedCollections
       :related-collections="relatedCollections"

@@ -1,5 +1,5 @@
 <template>
-  <div
+  <aside
     v-show="collections.length > 0"
     data-qa="related collections"
     class="related-collections"
@@ -43,7 +43,7 @@
         :image-src-set="imageSrcSet(relatedCollection)"
       />
     </div>
-  </div>
+  </aside>
 </template>
 
 <script>

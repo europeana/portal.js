@@ -1,9 +1,10 @@
 <template>
   <b-card
-    v-if="relatedCollections.length > 0"
-    class="text-left related-collections-card mb-4"
+    v-show="relatedCollections.length > 0"
+    class="text-left related-collections-card"
   >
     <RelatedCollections
+      v-if="relatedCollections.length > 0"
       :related-collections="relatedCollections"
       badge-variant="secondary"
     />
