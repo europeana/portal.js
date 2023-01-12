@@ -1,0 +1,87 @@
+query hemePage($locale: String!, $identifier: String!, $preview: Boolean = false) {
+  themePage: themePageCollection(
+    preview: $preview
+    locale: $locale
+    limit: 1
+    where: {identifier: $identifier}
+  ) {
+    items {
+      identifier
+      title
+      titleEN: title(locale: "en-GB")
+      description
+      primaryImageOfPage {
+        url
+        image {
+          ...imageFields
+        }
+      }
+      relatedTopics {
+        title
+        topics
+      }
+      relatedPersons {
+        title
+        persons
+      }
+      relatedStories {
+        headline
+        hasPartCollection(limit: 6) {
+          items {
+            ... on CuratedCard {
+              name
+              description
+              url
+              image {
+                ...imageFields
+              }
+            }
+          }
+        }
+      }
+      relatedGalleries {
+        title
+        galleries
+      }
+      callToAction {
+        name
+        text
+        relatedLink {
+          url
+          text
+        }
+        image {
+          ...illustrationFields
+        }
+      }
+      curatedItems {
+        headline
+        hasPartCollection(limit: 6) {
+          items {
+            ... on AutomatedRecordCard {
+              encoding
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment imageFields on Asset {
+  url
+  contentType
+  description
+  width
+  height
+}
+
+fragment illustrationFields on Illustration {
+  image {
+    url
+    description
+    contentType
+    width
+    height
+  }
+}
