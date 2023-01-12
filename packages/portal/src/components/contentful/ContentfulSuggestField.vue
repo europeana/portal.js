@@ -1,15 +1,19 @@
 <template>
   <div class="contentful">
-    <b-form-group>
-      <b-button
-        v-for="val in value"
-        :key="val.id"
-        class="mb-2"
-        @click="removeSelection(val)"
+    <b-form>
+      <b-form-group
+        data-qa="selected values"
       >
-        {{ labeller(val) }}
-      </b-button>
-    </b-form-group>
+        <b-button
+          v-for="(val, index) in value"
+          :key="index"
+          class="mb-2"
+          @click="removeSelection(val)"
+        >
+          {{ labeller(val) }}
+        </b-button>
+      </b-form-group>
+    </b-form>
 
     <b-form>
       <b-form-group>
@@ -17,14 +21,18 @@
           v-model="searchText"
           type="search"
           autocomplete="off"
+          data-qa="search input"
           :placeholder="placeholder"
           @input="handleSearchInput"
         />
       </b-form-group>
-      <b-form-group>
+
+      <b-form-group
+        data-qa="suggestions"
+      >
         <b-button
-          v-for="suggestion in suggestions"
-          :key="suggestion.id"
+          v-for="(suggestion, index) in suggestions"
+          :key="index"
           class="mb-2"
           :disabled="isSelected(suggestion)"
           @click="selectSuggestion(suggestion)"

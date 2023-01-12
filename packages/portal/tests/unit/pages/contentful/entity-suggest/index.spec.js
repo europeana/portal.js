@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt, fakeContentfulExtension } from '../../../utils';
+import { shallowMountNuxt } from '../../../utils';
 import BootstrapVue from 'bootstrap-vue';
 
 import page from '@/pages/contentful/entity-suggest/index';
@@ -21,9 +21,7 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('pages/contentful/entity-suggest/index', () => {
-  beforeAll(() => {
-    window.contentfulExtension = fakeContentfulExtension();
-  });
+  afterEach(sinon.resetHistory);
 
   describe('head', () => {
     describe('title', () => {
@@ -36,12 +34,12 @@ describe('pages/contentful/entity-suggest/index', () => {
   });
 
   describe('methods', () => {
-    describe('inputSearchText', () => {
+    describe('suggestEntities', () => {
       it('queries the Entity API for suggestions', async() => {
         const wrapper = factory();
         const text = 'museum';
 
-        await wrapper.vm.inputSearchText(text);
+        await wrapper.vm.suggestEntities(text);
 
         expect(wrapper.vm.$apis.entity.suggest.calledWith(
           text, { type: 'agent,concept,timespan,organization,place' }

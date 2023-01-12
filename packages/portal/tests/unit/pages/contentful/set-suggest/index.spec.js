@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt, fakeContentfulExtension } from '../../../utils';
+import { shallowMountNuxt } from '../../../utils';
 import BootstrapVue from 'bootstrap-vue';
 
 import page from '@/pages/contentful/set-suggest/index';
@@ -22,9 +22,6 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('pages/contentful/set-suggest/index', () => {
-  beforeAll(() => {
-    window.contentfulExtension = fakeContentfulExtension({ location: 'field' });
-  });
   afterEach(sinon.resetHistory);
 
   describe('head', () => {
@@ -37,14 +34,6 @@ describe('pages/contentful/set-suggest/index', () => {
     });
   });
 
-  describe('mounted', () => {
-    it('triggers the window auto resizer', () => {
-      const wrapper = factory();
-
-      expect(wrapper.vm.contentfulExtensionSdk.window.startAutoResizer.called).toBe(true);
-    });
-  });
-
   describe('methods', () => {
     describe('findSets', () => {
       const value = [
@@ -54,9 +43,8 @@ describe('pages/contentful/set-suggest/index', () => {
 
       it('queries the Set API for current sets', async() => {
         const wrapper = factory();
-        wrapper.vm.contentfulExtensionSdk.field.getValue.returns(value);
 
-        await wrapper.vm.findSets();
+        await wrapper.vm.findSets(value);
 
         expect(wrapper.vm.$apis.set.get.calledWith(value[0], { profile: 'standard' })).toBe(true);
         expect(wrapper.vm.$apis.set.get.calledWith(value[1], { profile: 'standard' })).toBe(true);
