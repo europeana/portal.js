@@ -1,4 +1,4 @@
-query hemePage($locale: String!, $identifier: String!, $preview: Boolean = false) {
+query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = false) {
   themePage: themePageCollection(
     preview: $preview
     locale: $locale
