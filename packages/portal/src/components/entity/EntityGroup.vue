@@ -36,7 +36,7 @@
   import LinkBadge from '../generic/LinkBadge';
 
   export default {
-    name: 'RelatedCollections',
+    name: 'EntityGroup',
 
     components: {
       LinkBadge

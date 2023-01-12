@@ -40,7 +40,7 @@
           #related-collections
         >
           <client-only>
-            <EntityRelatedCollections
+            <EntityRelatedCollectionsCard
               :type="$route.params.type"
               :identifier="$route.params.pathMatch"
               :overrides="relatedCollectionCards || relatedCollections"
@@ -93,7 +93,7 @@
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
+      EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SearchInterface
     },

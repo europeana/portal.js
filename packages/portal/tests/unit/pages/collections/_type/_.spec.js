@@ -125,7 +125,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   },
   stubs: {
     'client-only': true,
-    'EntityRelatedCollections': true,
+    'EntityRelatedCollectionsCard': true,
     'SearchInterface': {
       template: '<div><slot /><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     }
@@ -540,7 +540,7 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
-    describe('handleEntityRelatedCollectionsFetched', () => {
+    describe('handleEntityRelatedCollectionsCardFetched', () => {
       it('is triggered by fetched event on related entities component', () => {
         const wrapper = factory(topicEntity);
         const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];

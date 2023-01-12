@@ -3,7 +3,7 @@
     v-show="relatedCollections.length > 0"
     class="text-left related-collections-card"
   >
-    <RelatedCollections
+    <EntityGroup
       v-if="relatedCollections.length > 0"
       :related-collections="relatedCollections"
       badge-variant="secondary"
@@ -12,14 +12,13 @@
 </template>
 
 <script>
-  import RelatedCollections from '../related/RelatedCollections';
   import { withEditorialContent } from '@/plugins/europeana/themes';
 
   export default {
-    name: 'RelatedSection',
+    name: 'RelatedCollectionsCard',
 
     components: {
-      RelatedCollections
+      EntityGroup: () => import('@/components/entity/EntityGroup')
     },
 
     props: {

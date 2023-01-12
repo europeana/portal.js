@@ -85,7 +85,7 @@
             cols="12"
             class="col-lg-8"
           >
-            <RelatedCollections
+            <EntityGroup
               :entity-uris="relatedLink"
             />
           </b-col>
@@ -115,7 +115,7 @@
       LinkList: () => import('../../../components/generic/LinkList'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
-      RelatedCollections: () => import('@/components/related/RelatedCollections')
+      EntityGroup: () => import('@/components/entity/EntityGroup')
     },
     mixins: [
       exhibitionChapters,

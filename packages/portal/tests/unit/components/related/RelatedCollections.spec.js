@@ -1,177 +1,67 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import RelatedCollections from '@/components/related/RelatedCollections.vue';
+import RelatedCollectionsCard from '@/components/related/RelatedCollectionsCard.vue';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 
 const relatedCollections = [
-  {
-    id: 'http://data.europeana.eu/agent/123',
-    prefLabel: {
-      de: 'Contentful title',
-      en: 'Contentful title EN'
-    },
-    image: 'http://data.europeana.eu/item/123/ABC'
-  },
-  {
-    id: 'http://data.europeana.eu/concept/194',
-    prefLabel: {
-      en: 'Visual arts'
-    },
-    isShownBy: {
-      id: 'item2isShownById',
-      source: 'http://data.europeana.eu/item/123/XYZ',
-      thumbnail: 'thumbnailUrlItem2',
-      type: 'WebResource'
-    }
-  },
-  {
-    id: 'http://data.europeana.eu/organzation/1',
-    logo: {
-      id: 'http://www.wikimedia.org/wiki/Special:FilePath/logoUrlItem3.jpg',
-      source: 'www.wikimedia.org/wiki/Special:FilePath/logoUrlItem3'
-    },
-    prefLabel: {
-      en: 'Europeana'
-    }
-  },
-  {
-    id: 'http://data.europeana.eu/concept/55',
-    prefLabel: {
-      en: 'Textile'
-    }
-  }
+  { id: 'http://data.europeana.eu/organization/1482250000002112001', prefLabel: 'National Library of France' },
+  { id: 'http://data.europeana.eu/agent/59833', prefLabel: 'Voltaire' },
+  { id: 'http://data.europeana.eu/agent/146742', prefLabel: 'Louis XVI of France' },
+  { id: 'http://data.europeana.eu/concept/17', prefLabel: { en: 'Manusscript' } }
 ];
 
-const contentfulResponse = {
-  data: {
-    data: {
-      curatedEntities: {
-        items: [
-          {
-            name: 'Mode',
-            nameEN: 'Fashion',
-            identifier: 'http://data.europeana.eu/concept/55',
-            genre: 'fashion',
-            primaryImageOfPage: {
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
-                contentType: 'image/jpeg'
-              }
-            }
-          },
-          {
-            name: 'Manuscripts',
-            identifier: 'http://data.europeana.eu/concept/17',
-            genre: 'manuscript'
-          }
-        ]
-      }
-    }
-  }
-};
-
-const contentfulQuery = sinon.stub().resolves(contentfulResponse);
-const storeCommit = sinon.spy();
-
-const entityApiFindResponse = relatedCollections.slice(1);
-const entityUris = entityApiFindResponse.map(entity => entity.id);
-
-const factory = ({ propsData, mocks, storeData } = {}) => {
-  return shallowMountNuxt(RelatedCollections, {
+const factory = (options = {}) => {
+  return shallowMountNuxt(RelatedCollectionsCard, {
     localVue,
-    propsData: {
-      title: 'title value',
-      ...propsData
-    },
+    propsData: options.propsData,
     mocks: {
-      $apis: {
-        entity: {
-          imageUrl: () => 'stubbedImageUrl',
-          find: sinon.stub().resolves(entityApiFindResponse)
-        }
-      },
-      $i18n: {
-        locale: 'de',
-        isoLocale: () => 'de-DE'
-      },
-      $t: () => {},
-      $fetch: () => {},
-      $path: () => {},
-      $route: { query: { mode: null } },
+      $apis: { entity: { suggest: sinon.stub().resolves(relatedCollections) } },
+      $fetchState: {},
+      $i18n: { locale: 'en' },
+      $t: key => key,
       $store: {
         state: {
           entity: {
-            curatedEntities: storeData?.curatedEntities
+            curatedEntities: [
+              {
+                name: 'World War I',
+                nameEN: 'World War I',
+                identifier: 'http://data.europeana.eu/concept/83',
+                genre: 'ww1'
+              },
+              {
+                name: 'Manuscripts',
+                nameEN: 'Manuscripts',
+                identifier: 'http://data.europeana.eu/concept/17',
+                genre: 'manuscript'
+              }
+            ]
+          },
+          search: {
+            view: 'grid'
           }
-        },
-        commit: storeCommit
-      },
-      $contentful: {
-        query: contentfulQuery,
-        assets: {
-          isValidUrl: (url) => url.includes('images.ctfassets.net'),
-          optimisedSrc: (img) => `${img.url}?optimised`
         }
-      },
-      $link: {
-        to: route => route,
-        href: () => null
-      },
-      ...mocks
-    }
+      }
+    },
+    stubs: ['b-card']
   });
 };
 
-describe('components/related/RelatedCollections', () => {
-  describe('template', () => {
-    describe('when related collections are present', () => {
-      const data = { collections: relatedCollections };
-      it('shows a section with related collections chips', async() => {
-        const wrapper = factory();
-        await wrapper.setData(data);
-
-        const section = wrapper.find('[data-qa="related collections"]');
-        expect(section.isVisible()).toBe(true);
-      });
-
-      it('contains four related chips', async() => {
-        const wrapper = factory();
-        await wrapper.setData(data);
-
-        const chips = wrapper.findAll('linkbadge-stub');
-        expect(chips.length).toBe(4);
-      });
-    });
-
-    describe('when no related collections are supplied', () => {
-      describe('and no entity URIs are supplied', () => {
-        it('is not visible', () => {
-          const wrapper = factory();
-
-          const relatedCollections = wrapper.find('[data-qa="related collections"]');
-          expect(relatedCollections.isVisible()).toBe(false);
-        });
-      });
-    });
-  });
-
+describe('components/related/RelatedCollectionsCard', () => {
   describe('fetch', () => {
-    afterEach(sinon.resetHistory);
+    describe('with overrides', () => {
+      const overrides = relatedCollections;
+      const propsData = { overrides };
 
-    describe('when related collections are supplied', () => {
-      const propsData = { relatedCollections };
-
-      it('uses them', async() => {
+      it('stores them as relatedCollections', async() => {
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.collections).toEqual(relatedCollections);
+        expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
       });
 
       it('does not query the Entity API', async() => {
@@ -179,139 +69,58 @@ describe('components/related/RelatedCollections', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$apis.entity.find.called).toBe(false);
+        expect(wrapper.vm.$apis.entity.suggest.called).toBe(false);
+      });
+
+      it('does not emit fetched event', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.emitted('fetched')).toBeUndefined();
       });
     });
 
-    describe('when no related collections are supplied', () => {
-      describe('but entity URIs are supplied', () => {
-        const propsData = { entityUris };
+    describe('with a query', () => {
+      const propsData = { query: 'art' };
 
-        describe('when contentful theme/editorial overrides are stored', () => {
-          const storeData = {
-            curatedEntities: contentfulResponse.data.data.curatedEntities.items
-          };
-          it('queries the Entity API, does NOT re-query contentful or update stored values', async() => {
-            const wrapper = factory({ propsData, storeData });
+      it('queries the Entity API for suggestions via $apis plugin', async() => {
+        const wrapper = factory({ propsData });
 
-            await wrapper.vm.fetch();
+        await wrapper.vm.fetch();
 
-            expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
-            expect(contentfulQuery.called).toBe(false);
-            expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(false);
-          });
-
-          it('uses the API response, and stored overrides', async() => {
-            const expected = entityApiFindResponse;
-            expected[2] = {
-              contentfulImage: {
-                contentType: 'image/jpeg',
-                url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg'
-              },
-              id: 'http://data.europeana.eu/concept/55',
-              prefLabel: {
-                de: 'Mode',
-                en: 'Fashion'
-              }
-            };
-
-            const wrapper = factory({ propsData, storeData });
-
-            await wrapper.vm.fetch();
-
-            expect(wrapper.vm.collections).toEqual(expected);
-          });
-        });
-
-        describe('without theme/editorial overrides stored', () => {
-          it('queries the Entity API, queries contentful and updates stored values', async() => {
-            const wrapper = factory({ propsData });
-
-            await wrapper.vm.fetch();
-
-            expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
-            expect(contentfulQuery.called).toBe(true);
-            expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(true);
-          });
-
-          it('uses the API response, and fetched overrides', async() => {
-            const expected = entityApiFindResponse;
-            expected[2] = {
-              contentfulImage: {
-                contentType: 'image/jpeg',
-                url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg'
-              },
-              id: 'http://data.europeana.eu/concept/55',
-              prefLabel: {
-                de: 'Mode',
-                en: 'Fashion'
-              }
-            };
-
-            const wrapper = factory({ propsData });
-
-            await wrapper.vm.fetch();
-
-            expect(wrapper.vm.collections).toEqual(expected);
-          });
-        });
+        expect(wrapper.vm.$apis.entity.suggest.calledWith(propsData.query, {
+          language: wrapper.vm.$i18n.locale,
+          rows: 4
+        })).toBe(true);
       });
 
-      describe('and no entity URIs are supplied', () => {
-        it('does not query the Entity API', async() => {
-          const wrapper = factory();
+      it('stores response with overrides as relatedCollections', async() => {
+        const wrapper = factory({ propsData });
 
-          await wrapper.vm.fetch();
+        await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$apis.entity.find.called).toBe(false);
-        });
-
-        it('has no collections', async() => {
-          const wrapper = factory();
-
-          await wrapper.vm.fetch();
-
-          expect(wrapper.vm.collections).toEqual([]);
-        });
+        const expectedRelated = relatedCollections;
+        expectedRelated[3].prefLabel = { en: 'Manuscripts' };
+        expect(wrapper.vm.relatedCollections).toEqual(expectedRelated);
       });
-    });
-  });
 
-  describe('methods', () => {
-    describe('draw', () => {
-      it('redraws Masonry', async() => {
-        const wrapper = factory({ propsData: { relatedCollections } });
-        wrapper.vm.$redrawVueMasonry = sinon.spy();
+      it('emits fetched event with response', async() => {
+        const wrapper = factory({ propsData });
 
-        await wrapper.vm.draw();
+        await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$redrawVueMasonry.called).toBe(true);
+        expect(wrapper.emitted('fetched')[0][0]).toEqual(relatedCollections);
       });
     });
 
-    describe('collectionTitle', () => {
-      it('uses native language for organisations', () => {
+    describe('without a query', () => {
+      it('does not query Entity API', () => {
         const wrapper = factory();
 
-        const title = wrapper.vm.collectionTitle({ type: 'Organization', prefLabel: { en: 'Museum', fr: 'Musée' } });
+        wrapper.vm.fetch();
 
-        expect(title).toEqual({ fr: 'Musée' });
-      });
-
-      it('uses full prefLabel for other entity types if available', () => {
-        const wrapper = factory();
-
-        const title = wrapper.vm.collectionTitle({ type: 'Concept', prefLabel: { en: 'Cartoon', es: 'Dibujo humorístico' } });
-
-        expect(title).toEqual({ en: 'Cartoon', es: 'Dibujo humorístico' });
-      });
-
-      it('falls back to name', () => {
-        const wrapper = factory();
-
-        const title = wrapper.vm.collectionTitle({ name: 'Curated related entity' });
-
-        expect(title).toBe('Curated related entity');
+        expect(wrapper.vm.$apis.entity.suggest.called).toBe(false);
       });
     });
   });

@@ -4,7 +4,7 @@
     class="quick-search"
     data-qa="quick-search"
   >
-    <RelatedCollections
+    <EntityGroup
       :title="$t('header.quickSearch')"
       :related-collections="optionsAndThemes"
     />
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import RelatedCollections from '../related/RelatedCollections';
+  import EntityGroup from '../entity/EntityGroup';
   import allThemes from '@/mixins/allThemes';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
@@ -20,7 +20,7 @@
     name: 'QuickSearch',
 
     components: {
-      RelatedCollections
+      EntityGroup
     },
 
     mixins: [allThemes],

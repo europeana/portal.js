@@ -2,12 +2,12 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
-import EntityRelatedCollections from '@/components/entity/EntityRelatedCollections.vue';
+import EntityRelatedCollectionsCard from '@/components/entity/EntityRelatedCollectionsCard.vue';
 
 const localVue = createLocalVue();
 
 const factory = ({ propsData = {}, data = {}, responses } = {}) => {
-  return shallowMountNuxt(EntityRelatedCollections, {
+  return shallowMountNuxt(EntityRelatedCollectionsCard, {
     localVue,
     propsData,
     data: () => ({ ...data }),
@@ -29,7 +29,7 @@ const factory = ({ propsData = {}, data = {}, responses } = {}) => {
   });
 };
 
-describe('components/entity/EntityRelatedCollections', () => {
+describe('components/entity/EntityRelatedCollectionsCard', () => {
   describe('fetch', () => {
     describe('with overrides', () => {
       const propsData = {
