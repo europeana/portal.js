@@ -67,6 +67,11 @@
       placeholder: {
         type: String,
         default: 'Search'
+      },
+
+      link: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -95,9 +100,9 @@
 
     methods: {
       async resolveFieldValue() {
-        const ids = this.contentfulExtensionSdk.field.getValue() || [];
-        if (ids.length > 0) {
-          this.value = await this.resolver(ids);
+        const fieldValue = this.contentfulExtensionSdk.field.getValue() || [];
+        if (fieldValue.length > 0) {
+          this.value = await this.resolver(fieldValue);
         }
       },
 
@@ -105,20 +110,38 @@
         this.suggestions = await this.suggester(val);
       },
 
+      identifier(val) {
+        return this.link ? val.sys.id : val.id;
+      },
+
       isSelected(suggestion) {
-        return this.value.map(val => val.id).includes(suggestion.id);
+        return this.value.map(val => this.identifier(val)).includes(this.identifier(suggestion));
       },
 
       removeSelection(remove) {
-        this.value = this.value.filter(val => val.id !== remove.id);
+        this.value = this.value.filter(val => this.identifier(val) !== this.identifier(remove));
       },
 
       selectSuggestion(select) {
         this.value = this.value.concat(select);
       },
 
+      contentfulFieldValue(val) {
+        return this.link ? this.contentfulFieldLink(val) : this.identifier(val);
+      },
+
+      contentfulFieldLink(val) {
+        return {
+          sys: {
+            type: 'Link',
+            linkType: 'Entry',
+            id: this.identifier(val)
+          }
+        };
+      },
+
       updateContentfulField() {
-        this.contentfulExtensionSdk?.field?.setValue(this.value.map(val => val.id));
+        this.contentfulExtensionSdk?.field?.setValue(this.value.map(val => this.contentfulFieldValue(val)));
       }
     }
   };
