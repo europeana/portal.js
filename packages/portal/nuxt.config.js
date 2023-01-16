@@ -190,7 +190,7 @@ export default {
         record: {
           fulltextUrl: process.env.EUROPEANA_RECORD_API_FULLTEXT_URL_PRIVATE,
           url: process.env.EUROPEANA_RECORD_API_URL_PRIVATE
-        }
+        },
         thumbnail: {
           url: process.env.EUROPEANA_THUMBNAIL_API_URL_PRIVATE
         },
