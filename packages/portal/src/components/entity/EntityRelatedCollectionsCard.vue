@@ -1,15 +1,17 @@
 <template>
-  <b-card
+  <aside
     v-if="relatedCollections.length > 0 || entityUris.length > 0"
-    class="text-left related-collections-card"
   >
-    <EntityGroup
-      :related-collections="relatedCollections"
-      :entity-uris="entityUris"
-      data-qa="related collections"
-      @fetched="handleRelatedCollectionsCardFetched"
-    />
-  </b-card>
+    <b-card
+      class="text-left related-collections-card"
+    >
+      <EntityGroup
+        :related-collections="relatedCollections"
+        :entity-uris="entityUris"
+        @fetched="handleRelatedCollectionsCardFetched"
+      />
+    </b-card>
+  </aside>
 </template>
 
 <script>
@@ -48,7 +50,9 @@
     },
 
     async fetch() {
+      console.log('entity');
       if (this.overrides) {
+        console.log(this.overrides);
         this.relatedCollections = this.overrides;
         return;
       }
@@ -74,6 +78,7 @@
           return uri !== this.entityUri;
         })
         .slice(0, 4);
+      console.log(this.entityUris);
     },
 
     computed: {

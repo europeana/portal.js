@@ -1,14 +1,16 @@
 <template>
-  <b-card
-    v-show="relatedCollections.length > 0"
-    class="text-left related-collections-card"
+  <aside
+    v-if="relatedCollections.length > 0"
   >
-    <EntityGroup
-      v-if="relatedCollections.length > 0"
-      :related-collections="relatedCollections"
-      badge-variant="secondary"
-    />
-  </b-card>
+    <b-card
+      class="text-left related-collections-card"
+    >
+      <EntityGroup
+        :related-collections="relatedCollections"
+        badge-variant="secondary"
+      />
+    </b-card>
+  </aside>
 </template>
 
 <script>
