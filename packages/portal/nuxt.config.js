@@ -174,7 +174,30 @@ export default {
 
   privateRuntimeConfig: {
     contentful: {
-      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE || process.env.CTF_GRAPHQL_ORIGIN
+      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
+    },
+    europeana: {
+      apis: {
+        annotation: {
+          url: process.env.EUROPEANA_ANNOTATION_API_URL_PRIVATE
+        },
+        entity: {
+          url: process.env.EUROPEANA_ENTITY_API_URL_PRIVATE
+        },
+        recommendation: {
+          url: process.env.EUROPEANA_RECOMMENDATION_API_URL_PRIVATE
+        },
+        record: {
+          fulltextUrl: process.env.EUROPEANA_RECORD_API_FULLTEXT_URL_PRIVATE,
+          url: process.env.EUROPEANA_RECORD_API_URL_PRIVATE
+        }
+        thumbnail: {
+          url: process.env.EUROPEANA_THUMBNAIL_API_URL_PRIVATE
+        },
+        set: {
+          url: process.env.EUROPEANA_SET_API_URL_PRIVATE
+        }
+      }
     },
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
