@@ -4,7 +4,7 @@
     class="quick-search"
     data-qa="quick-search"
   >
-    <EntityGroup
+    <EntityBadges
       :title="$t('header.quickSearch')"
       :related-collections="optionsAndThemes"
     />
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import EntityGroup from '../entity/EntityGroup';
+  import EntityBadges from '../entity/EntityBadges';
   import allThemes from '@/mixins/allThemes';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
@@ -20,7 +20,7 @@
     name: 'QuickSearch',
 
     components: {
-      EntityGroup
+      EntityBadges
     },
 
     mixins: [allThemes],

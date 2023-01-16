@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="collections.length"
     data-qa="related collections"
     class="related-collections"
   >
@@ -35,7 +36,7 @@
   import LinkBadge from '../generic/LinkBadge';
 
   export default {
-    name: 'EntityGroup',
+    name: 'EntityBadges',
 
     components: {
       LinkBadge

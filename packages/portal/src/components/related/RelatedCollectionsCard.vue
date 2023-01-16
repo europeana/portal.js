@@ -5,7 +5,7 @@
     <b-card
       class="text-left related-collections-card"
     >
-      <EntityGroup
+      <EntityBadges
         :related-collections="relatedCollections"
         :entity-uris="entityUris"
         badge-variant="secondary"
@@ -22,7 +22,7 @@
     name: 'RelatedCollectionsCard',
 
     components: {
-      EntityGroup: () => import('@/components/entity/EntityGroup')
+      EntityBadges: () => import('@/components/entity/EntityBadges')
     },
 
     props: {

@@ -71,7 +71,7 @@
               cols="12"
               class="col-lg-10 mt-4"
             >
-              <EntityGroup
+              <EntityBadges
                 :entity-uris="relatedEntityUris"
                 data-qa="related entities"
                 badge-variant="light"
@@ -148,7 +148,7 @@
       ItemRecommendations,
       LoadingSpinner,
       MetadataBox,
-      EntityGroup: () => import('@/components/entity/EntityGroup'),
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
       SummaryInfo: () => import('@/components/item/SummaryInfo')
     },
 

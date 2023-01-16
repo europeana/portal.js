@@ -72,7 +72,7 @@
             cols="12"
             class="col-lg-8"
           >
-            <EntityGroup
+            <EntityBadges
               :entity-uris="relatedLink"
             />
           </b-col>
@@ -100,7 +100,7 @@
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
-      EntityGroup: () => import('@/components/entity/EntityGroup')
+      EntityBadges: () => import('@/components/entity/EntityBadges')
     },
     mixins: [
       exhibitionChapters,
