@@ -20,7 +20,7 @@ module.exports = (migration) => {
     sourceContentType: 'entityPage',
     targetContentType: 'themePage',
     shouldPublish: false,
-    updateReferences: true,
+    updateReferences: false,
     removeOldEntries: false,
     identityKey(fields) {
       if (fields.identifier && themePages.includes(fields.identifier['en-GB'])) {
@@ -32,9 +32,9 @@ module.exports = (migration) => {
       if (fromFields.identifier && themePages.includes(fromFields.identifier['en-GB'])) {
         return {
           title: fromFields.name ? fromFields.name[currentLocale] : undefined,
+          identifier: fromFields.genre ? fromFields.genre[currentLocale] : undefined,
           description: fromFields.description ? fromFields.description[currentLocale] : undefined,
           primaryImageOfPage: fromFields.primaryImageOfPage ? fromFields.primaryImageOfPage[currentLocale] : undefined
-
         };
       }
     }
