@@ -290,7 +290,7 @@
         return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published');
       },
       userCanRequestSetPublication() {
-        return this.$features.galleryPublicationSubmissions && this.userIsOwner && this.set.visibility === 'public';
+        return this.userIsOwner && this.set.visibility === 'public';
       },
       userCanPublishSet() {
         return this.userIsPublisher &&

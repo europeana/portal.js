@@ -2,10 +2,24 @@
   <div data-qa="search page">
     <SearchInterface
       id="search-interface"
+      :override-params="searchOverrides"
     >
       <template
         v-if="!!searchQuery"
-        #related
+        #related-galleries
+      >
+        <client-only>
+          <RelatedGalleries
+            :query="searchQuery"
+            :overrides="relatedGalleries"
+            data-qa="related galleries"
+            @fetched="handleRelatedGalleriesFetched"
+          />
+        </client-only>
+      </template>
+      <template
+        v-if="!!searchQuery"
+        #related-collections
       >
         <client-only>
           <RelatedSection
@@ -44,6 +58,7 @@
       ClientOnly,
       SearchInterface,
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
+      RelatedGalleries: () => import('@/components/related/RelatedGalleries'),
       RelatedSection: () => import('@/components/search/RelatedSection')
     },
 
@@ -59,7 +74,8 @@
 
     data() {
       return {
-        relatedCollections: null
+        relatedCollections: null,
+        relatedGalleries: null
       };
     },
 
@@ -71,12 +87,17 @@
       },
       searchQuery() {
         return this.$route.query.query;
+      },
+      searchOverrides() {
+        const sort = 'score desc,contentTier desc,random_europeana asc,timestamp_update desc,europeana_id asc';
+        return !this.searchQuery && !this.$route.query.sort ? { sort } : {};
       }
     },
 
     watch: {
       searchQuery() {
         this.relatedCollections = null;
+        this.relatedGalleries = null;
       }
     },
 
@@ -87,6 +108,9 @@
     methods: {
       handleRelatedSectionFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
+      },
+      handleRelatedGalleriesFetched(relatedGalleries) {
+        this.relatedGalleries = relatedGalleries;
       }
     }
   };

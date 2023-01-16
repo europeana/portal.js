@@ -1,7 +1,7 @@
 .masonry-container {
   width: 100%;
 
-  @media (max-width: $bp-medium - 1) {
+  @media (max-width: ($bp-medium - 1)) {
     &[style] {
       height: auto !important;
     }
@@ -13,14 +13,12 @@
     width: calc(100% + $masonry-gutter);
   }
 
-  // TODO reorder masonry-container and :not(.list-card) selectors
-  .related-collections-card:not(.list-card),
-  .content-card:not(.list-card) {
+  .masonry-tile {
     display: inline-block;
     vertical-align: top;
     width: 100%;
 
-    @media (max-width: $bp-medium - 1) {
+    @media (max-width: ($bp-medium - 1)) {
       &[style] {
         position: relative !important;
         left: auto !important;
@@ -38,7 +36,19 @@
     @media (min-width: $bp-extralarge) {
       width: calc(100% / 4 - $masonry-gutter);
     }
+  }
 
+  // Setting the margin-bottom for the related content element reserves space for it in the masonry layout
+  // and prevents jumpiness
+  .masonry-tile.related-results {
+    margin-bottom: 1px;
+
+    @media (max-width: ($bp-medium - 1px)) {
+      padding-left: 1rem;
+    }
+  }
+
+  .content-card:not(.list-card):not(.related-gallery-card) {
     .card-wrapper {
       &::before {
         content: '';
@@ -77,17 +87,16 @@
   }
 
   @at-root .side-filters-enabled & {
-    .content-card,
-    .related-collections-card {
+    .masonry-tile {
       @media (min-width: $bp-medium) {
         width: calc(100% / 2 - $masonry-gutter);
       }
 
-      @media (min-width: $bp-large) {
+      @media (min-width: $bp-extralarge) {
         width: calc(100% / 3 - $masonry-gutter);
       }
 
-      @media (min-width: $bp-extralarge) {
+      @media (min-width: ($bp-xxl + 60px)) {
         width: calc(100% / 4 - $masonry-gutter);
       }
     }
@@ -107,11 +116,11 @@
         margin-right: 0.5 * $masonry-gutter;
       }
 
-      @media (min-width: $bp-large) {
+      @media (min-width: $bp-extralarge) {
         width: calc(100% / 1.5 - $masonry-gutter);
       }
 
-      @media (min-width: $bp-extralarge) {
+      @media (min-width: ($bp-xxl + 60px)) {
         width: calc(100% / 2 - $masonry-gutter);
       }
     }
