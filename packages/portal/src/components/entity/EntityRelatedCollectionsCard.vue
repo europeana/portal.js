@@ -2,6 +2,7 @@
   <RelatedCollectionsCard
     :overrides="relatedCollections"
     :entity-uris="entityUris"
+    data-qa="related collections"
     @entitiesFromUrisFetched="handleRelatedCollectionsCardFetched"
   />
 </template>

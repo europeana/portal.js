@@ -46,7 +46,7 @@ const factory = (options = {}) => {
         }
       }
     },
-    stubs: ['b-card']
+    stubs: ['b-card', 'EntityBadges']
   });
 };
 
@@ -72,12 +72,12 @@ describe('components/related/RelatedCollectionsCard', () => {
         expect(wrapper.vm.$apis.entity.suggest.called).toBe(false);
       });
 
-      it('does not emit fetched event', async() => {
+      it('does not emit relatedFetched event', async() => {
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.emitted('fetched')).toBeUndefined();
+        expect(wrapper.emitted('relatedFetched')).toBeUndefined();
       });
     });
 
@@ -105,12 +105,12 @@ describe('components/related/RelatedCollectionsCard', () => {
         expect(wrapper.vm.relatedCollections).toEqual(expectedRelated);
       });
 
-      it('emits fetched event with response', async() => {
+      it('emits relatedFetched event with response', async() => {
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.emitted('fetched')[0][0]).toEqual(relatedCollections);
+        expect(wrapper.emitted('relatedFetched')[0][0]).toEqual(relatedCollections);
       });
     });
 

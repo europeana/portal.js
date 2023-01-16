@@ -45,7 +45,8 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   stubs: {
     'SearchInterface': {
       template: '<div><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
-    }
+    },
+    RelatedCollectionsCard: true
   },
   mocks: {
     $features: {},
@@ -164,13 +165,13 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('methods', () => {
-    describe('handleRelatedSectionFetched', () => {
-      it('is triggered by fetched event on related section component', () => {
+    describe('handleRelatedCollectionsCardFetched', () => {
+      it('is triggered by relatedFetched event on related collections component', () => {
         const wrapper = factory({ query: 'fish' });
         const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];
 
-        const relatedSectionComponent = wrapper.find('[data-qa="related section"]');
-        relatedSectionComponent.vm.$emit('fetched', relatedCollections);
+        const relatedCollectionsCardComponent = wrapper.find('[data-qa="related collections"]');
+        relatedCollectionsCardComponent.vm.$emit('relatedFetched', relatedCollections);
 
         expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
       });

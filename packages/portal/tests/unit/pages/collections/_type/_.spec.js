@@ -541,12 +541,12 @@ describe('pages/collections/_type/_', () => {
     });
 
     describe('handleEntityRelatedCollectionsCardFetched', () => {
-      it('is triggered by fetched event on related entities component', () => {
+      it('is triggered by entitiesFromUrisFetched event on related entities component', () => {
         const wrapper = factory(topicEntity);
         const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];
 
         const relatedEntitiesComponent = wrapper.find('[data-qa="related entities"]');
-        relatedEntitiesComponent.vm.$emit('fetched', relatedCollections);
+        relatedEntitiesComponent.vm.$emit('entitiesFromUrisFetched', relatedCollections);
 
         expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
       });

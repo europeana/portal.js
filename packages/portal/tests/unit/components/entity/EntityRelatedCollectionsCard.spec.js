@@ -25,7 +25,7 @@ const factory = ({ propsData = {}, data = {}, responses } = {}) => {
       },
       $t: key => key
     },
-    stubs: ['b-card']
+    stubs: ['RelatedCollectionsCard']
   });
 };
 
@@ -125,7 +125,7 @@ describe('components/entity/EntityRelatedCollectionsCard', () => {
   });
 
   describe('methods', () => {
-    describe('handleRelatedCollectionsFetched', () => {
+    describe('handleRelatedCollectionsCardFetched', () => {
       const propsData = {
         type: 'topic',
         identifier: '3012-fishing'
@@ -133,16 +133,13 @@ describe('components/entity/EntityRelatedCollectionsCard', () => {
       const data = { entityUris: ['http://data.europeana.eu/concept/48'] };
       const relatedCollections = [{ id: 'http://data.europeana.eu/concept/48' }];
 
-      it('is triggered by fetched event on related collections component', () => {
-        const mocks = { handleRelatedCollectionsFetched: sinon.spy() };
+      it('is triggered by entitiesFromUrisFetched event on related collections component', () => {
+        const mocks = { handleRelatedCollectionsCardFetched: sinon.spy() };
         const wrapper = factory({ propsData, data, mocks });
 
-        const relatedCollectionsComponent = wrapper.find('[data-qa="related collections"]');
-
-        relatedCollectionsComponent.vm.$emit('fetched', relatedCollections);
+        wrapper.vm.handleRelatedCollectionsCardFetched(relatedCollections);
 
         expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
-        expect(wrapper.emitted('fetched')[0][0]).toEqual(relatedCollections);
       });
     });
   });
