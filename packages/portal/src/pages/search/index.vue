@@ -26,7 +26,7 @@
             :query="searchQuery"
             :overrides="relatedCollections"
             data-qa="related section"
-            @fetched="handleRelatedCollectionsCardFetched"
+            @relatedFetched="handleRelatedCollectionsCardFetched"
           />
         </client-only>
       </template>

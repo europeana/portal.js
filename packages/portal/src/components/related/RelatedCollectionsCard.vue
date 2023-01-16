@@ -1,13 +1,15 @@
 <template>
   <aside
-    v-if="relatedCollections.length > 0"
+    v-if="relatedCollections.length > 0 || entityUris.length > 0"
   >
     <b-card
       class="text-left related-collections-card"
     >
       <EntityGroup
         :related-collections="relatedCollections"
+        :entity-uris="entityUris"
         badge-variant="secondary"
+        @entitiesFromUrisFetched="(collections) => $emit('entitiesFromUrisFetched', collections)"
       />
     </b-card>
   </aside>
@@ -31,6 +33,10 @@
       overrides: {
         type: Array,
         default: null
+      },
+      entityUris: {
+        type: Array,
+        default: () => []
       }
     },
 
@@ -43,9 +49,11 @@
     async fetch() {
       if (this.overrides) {
         this.relatedCollections = this.overrides;
+      } else if (this.entityUris.length) {
+        return;
       } else if (this.query && this.query !== '') {
         this.relatedCollections = await this.getSearchSuggestions(this.query);
-        this.$emit('fetched', this.relatedCollections);
+        this.$emit('relatedFetched', this.relatedCollections);
       }
     },
 

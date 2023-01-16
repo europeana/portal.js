@@ -1,30 +1,22 @@
 <template>
-  <aside
-    v-if="relatedCollections.length > 0 || entityUris.length > 0"
-  >
-    <b-card
-      class="text-left related-collections-card"
-    >
-      <EntityGroup
-        :related-collections="relatedCollections"
-        :entity-uris="entityUris"
-        @fetched="handleRelatedCollectionsCardFetched"
-      />
-    </b-card>
-  </aside>
+  <RelatedCollectionsCard
+    :overrides="relatedCollections"
+    :entity-uris="entityUris"
+    @entitiesFromUrisFetched="handleRelatedCollectionsCardFetched"
+  />
 </template>
 
 <script>
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { getEntityUri, getEntityQuery, getEntityTypeApi, normalizeEntityId } from '@/plugins/europeana/entity';
 
-  import EntityGroup from '@/components/entity/EntityGroup';
+  import RelatedCollectionsCard from '@/components/related/RelatedCollectionsCard';
 
   export default {
     name: 'EntityRelatedCollectionsCard',
 
     components: {
-      EntityGroup
+      RelatedCollectionsCard
     },
 
     props: {
@@ -50,7 +42,6 @@
     },
 
     async fetch() {
-      console.log('entity');
       if (this.overrides) {
         console.log(this.overrides);
         this.relatedCollections = this.overrides;
@@ -78,7 +69,6 @@
           return uri !== this.entityUri;
         })
         .slice(0, 4);
-      console.log(this.entityUris);
     },
 
     computed: {
@@ -107,7 +97,7 @@
     methods: {
       handleRelatedCollectionsCardFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
-        this.$emit('fetched', relatedCollections);
+        this.$emit('entitiesFromUrisFetched', relatedCollections);
       }
     }
   };

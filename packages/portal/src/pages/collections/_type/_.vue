@@ -45,7 +45,7 @@
               :identifier="$route.params.pathMatch"
               :overrides="relatedCollectionCards || relatedCollections"
               data-qa="related entities"
-              @fetched="handleEntityRelatedCollectionsFetched"
+              @entitiesFromUrisFetched="handleEntityRelatedCollectionsFetched"
             />
           </client-only>
         </template>
