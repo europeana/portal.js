@@ -58,7 +58,7 @@
             class="related-container"
           />
           <client-only>
-            <RelatedCollections
+            <EntityBadges
               :entity-uris="relatedLink"
               class="related-container"
             />
@@ -86,7 +86,7 @@
       SocialShareModal,
       ShareButton,
       BrowseSections,
-      RelatedCollections: () => import('@/components/related/RelatedCollections')
+      EntityBadges: () => import('@/components/entity/EntityBadges')
     },
 
     props: {

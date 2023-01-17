@@ -1,6 +1,6 @@
 <template>
-  <aside
-    v-show="collections.length > 0"
+  <div
+    v-if="collections.length"
     data-qa="related collections"
     class="related-collections"
   >
@@ -24,7 +24,7 @@
         :image-src-set="imageSrcSet(relatedCollection)"
       />
     </div>
-  </aside>
+  </div>
 </template>
 
 <script>
@@ -36,7 +36,7 @@
   import LinkBadge from '../generic/LinkBadge';
 
   export default {
-    name: 'RelatedCollections',
+    name: 'EntityBadges',
 
     components: {
       LinkBadge
@@ -84,7 +84,7 @@
       let entities = await this.$apis.entity.find(this.entityUris);
       entities = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
       this.collections = await withEditorialContent(this, entities);
-      this.$emit('fetched', this.collections);
+      this.$emit('entitiesFromUrisFetched', this.collections);
     },
 
     mounted() {

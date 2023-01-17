@@ -40,12 +40,12 @@
           #related-collections
         >
           <client-only>
-            <EntityRelatedCollections
+            <EntityRelatedCollectionsCard
               :type="$route.params.type"
               :identifier="$route.params.pathMatch"
               :overrides="relatedCollectionCards || relatedCollections"
               data-qa="related entities"
-              @fetched="handleEntityRelatedCollectionsFetched"
+              @entitiesFromUrisFetched="handleEntityRelatedCollectionsFetched"
             />
           </client-only>
         </template>
@@ -93,7 +93,7 @@
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
+      EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SearchInterface
     },

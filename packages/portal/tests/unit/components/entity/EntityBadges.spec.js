@@ -3,7 +3,7 @@ import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import RelatedCollections from '@/components/related/RelatedCollections.vue';
+import EntityBadges from '@/components/entity/EntityBadges.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -82,7 +82,7 @@ const entityApiFindResponse = relatedCollections.slice(1);
 const entityUris = entityApiFindResponse.map(entity => entity.id);
 
 const factory = ({ propsData, mocks, storeData } = {}) => {
-  return shallowMountNuxt(RelatedCollections, {
+  return shallowMountNuxt(EntityBadges, {
     localVue,
     propsData: {
       title: 'title value',
@@ -127,7 +127,7 @@ const factory = ({ propsData, mocks, storeData } = {}) => {
   });
 };
 
-describe('components/related/RelatedCollections', () => {
+describe('components/related/EntityBadges', () => {
   describe('template', () => {
     describe('when related collections are present', () => {
       const data = { collections: relatedCollections };
@@ -150,11 +150,11 @@ describe('components/related/RelatedCollections', () => {
 
     describe('when no related collections are supplied', () => {
       describe('and no entity URIs are supplied', () => {
-        it('is not visible', () => {
+        it('is not rendered', () => {
           const wrapper = factory();
 
           const relatedCollections = wrapper.find('[data-qa="related collections"]');
-          expect(relatedCollections.isVisible()).toBe(false);
+          expect(relatedCollections.exists()).toBe(false);
         });
       });
     });
