@@ -22,11 +22,11 @@
         #related-collections
       >
         <client-only>
-          <RelatedSection
+          <RelatedCollectionsCard
             :query="searchQuery"
             :overrides="relatedCollections"
-            data-qa="related section"
-            @fetched="handleRelatedSectionFetched"
+            data-qa="related collections"
+            @relatedFetched="handleRelatedCollectionsCardFetched"
           />
         </client-only>
       </template>
@@ -59,7 +59,7 @@
       SearchInterface,
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       RelatedGalleries: () => import('@/components/related/RelatedGalleries'),
-      RelatedSection: () => import('@/components/search/RelatedSection')
+      RelatedCollectionsCard: () => import('@/components/related/RelatedCollectionsCard')
     },
 
     mixins: [pageMetaMixin],
@@ -106,7 +106,7 @@
     },
 
     methods: {
-      handleRelatedSectionFetched(relatedCollections) {
+      handleRelatedCollectionsCardFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
       },
       handleRelatedGalleriesFetched(relatedGalleries) {

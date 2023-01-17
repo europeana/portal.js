@@ -2,7 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 
-import RelatedSection from '@/components/search/RelatedSection.vue';
+import RelatedCollectionsCard from '@/components/related/RelatedCollectionsCard.vue';
 
 const localVue = createLocalVue();
 
@@ -14,7 +14,7 @@ const relatedCollections = [
 ];
 
 const factory = (options = {}) => {
-  return shallowMountNuxt(RelatedSection, {
+  return shallowMountNuxt(RelatedCollectionsCard, {
     localVue,
     propsData: options.propsData,
     mocks: {
@@ -46,11 +46,11 @@ const factory = (options = {}) => {
         }
       }
     },
-    stubs: ['b-card']
+    stubs: ['b-card', 'EntityBadges']
   });
 };
 
-describe('components/search/RelatedSection', () => {
+describe('components/related/RelatedCollectionsCard', () => {
   describe('fetch', () => {
     describe('with overrides', () => {
       const overrides = relatedCollections;
@@ -72,12 +72,12 @@ describe('components/search/RelatedSection', () => {
         expect(wrapper.vm.$apis.entity.suggest.called).toBe(false);
       });
 
-      it('does not emit fetched event', async() => {
+      it('does not emit relatedFetched event', async() => {
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.emitted('fetched')).toBeUndefined();
+        expect(wrapper.emitted('relatedFetched')).toBeUndefined();
       });
     });
 
@@ -105,12 +105,12 @@ describe('components/search/RelatedSection', () => {
         expect(wrapper.vm.relatedCollections).toEqual(expectedRelated);
       });
 
-      it('emits fetched event with response', async() => {
+      it('emits relatedFetched event with response', async() => {
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.emitted('fetched')[0][0]).toEqual(relatedCollections);
+        expect(wrapper.emitted('relatedFetched')[0][0]).toEqual(relatedCollections);
       });
     });
 

@@ -66,7 +66,7 @@
             cols="12"
             class="col-lg-8"
           >
-            <RelatedCollections
+            <EntityBadges
               :entity-uris="relatedLink"
             />
           </b-col>
@@ -89,7 +89,7 @@
       ShareButton,
       SocialShareModal,
       LinkList: () => import('../../../components/generic/LinkList'),
-      RelatedCollections: () => import('@/components/related/RelatedCollections')
+      EntityBadges: () => import('@/components/entity/EntityBadges')
     },
     mixins: [
       exhibitionChapters,

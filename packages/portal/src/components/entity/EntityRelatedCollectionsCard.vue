@@ -1,28 +1,23 @@
 <template>
-  <b-card
-    v-if="relatedCollections.length > 0 || entityUris.length > 0"
-    class="text-left related-collections-card"
-  >
-    <RelatedCollections
-      :related-collections="relatedCollections"
-      :entity-uris="entityUris"
-      data-qa="related collections"
-      @fetched="handleRelatedCollectionsFetched"
-    />
-  </b-card>
+  <RelatedCollectionsCard
+    :overrides="relatedCollections"
+    :entity-uris="entityUris"
+    data-qa="related collections"
+    @entitiesFromUrisFetched="handleRelatedCollectionsCardFetched"
+  />
 </template>
 
 <script>
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { getEntityUri, getEntityQuery, getEntityTypeApi, normalizeEntityId } from '@/plugins/europeana/entity';
 
-  import RelatedCollections from '../related/RelatedCollections';
+  import RelatedCollectionsCard from '@/components/related/RelatedCollectionsCard';
 
   export default {
-    name: 'EntityRelatedCollections',
+    name: 'EntityRelatedCollectionsCard',
 
     components: {
-      RelatedCollections
+      RelatedCollectionsCard
     },
 
     props: {
@@ -100,9 +95,9 @@
     },
 
     methods: {
-      handleRelatedCollectionsFetched(relatedCollections) {
+      handleRelatedCollectionsCardFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
-        this.$emit('fetched', relatedCollections);
+        this.$emit('entitiesFromUrisFetched', relatedCollections);
       }
     }
   };

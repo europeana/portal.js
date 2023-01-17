@@ -104,7 +104,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
-    $path: () => '/',
+    $path: sinon.stub().returns('/'),
     $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
     $store: {
       state: {
@@ -125,7 +125,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   },
   stubs: {
     'client-only': true,
-    'EntityRelatedCollections': true,
+    'EntityRelatedCollectionsCard': true,
     'SearchInterface': {
       template: '<div><slot /><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     }
@@ -540,13 +540,13 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
-    describe('handleEntityRelatedCollectionsFetched', () => {
-      it('is triggered by fetched event on related entities component', () => {
+    describe('handleEntityRelatedCollectionsCardFetched', () => {
+      it('is triggered by entitiesFromUrisFetched event on related entities component', () => {
         const wrapper = factory(topicEntity);
         const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];
 
         const relatedEntitiesComponent = wrapper.find('[data-qa="related entities"]');
-        relatedEntitiesComponent.vm.$emit('fetched', relatedCollections);
+        relatedEntitiesComponent.vm.$emit('entitiesFromUrisFetched', relatedCollections);
 
         expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
       });
@@ -561,6 +561,39 @@ describe('pages/collections/_type/_', () => {
         const headTitle = wrapper.vm.pageMeta.title;
 
         expect(headTitle).toBe('Topic');
+      });
+    });
+  });
+
+  describe('middleware', () => {
+    describe('[0] redirection for themes', () => {
+      it('if feature toggle is disabled, it does nothing', () => {
+        const wrapper = factory(themeEntity);
+        const redirect = sinon.spy();
+
+        wrapper.vm.middleware[0]({ $features: {}, $path: wrapper.vm.$path, query: {}, params: wrapper.vm.$route.params, redirect });
+
+        expect(redirect.called).toBe(false);
+      });
+
+      describe('if feature toggle is enabled', () => {
+        it('if entity is not a theme, it does nothing', () => {
+          const wrapper = factory(topicEntity);
+          const redirect = sinon.spy();
+
+          wrapper.vm.middleware[0]({ $features: { themePages: true }, $path: wrapper.vm.$path, query: {}, params: wrapper.vm.$route.params, redirect });
+
+          expect(redirect.called).toBe(false);
+        });
+
+        it('if entity is a theme, it redirects to theme page URL', () => {
+          const wrapper = factory(themeEntity);
+          const redirect = sinon.spy();
+
+          wrapper.vm.middleware[0]({ $features: { themePages: true }, $path: wrapper.vm.$path, query: {}, params: wrapper.vm.$route.params, redirect });
+
+          expect(redirect.called).toBe(true);
+        });
       });
     });
   });
