@@ -1,7 +1,7 @@
 <template>
   <b-card
-    v-masonry-tile
-    class="text-left header-card mb-4"
+    :v-masonry-tile="$store.state.search.view !== 'list'"
+    class="masonry-tile text-left header-card mb-4"
   >
     <div
       v-if="resizedLogo"

@@ -7,6 +7,5 @@ export default [
   { name: 'rejectEntityRecommendations' },
   { name: 'storiesPageAllTags' },
   { name: 'themePages' },
-  { name: 'translatedItems' },
-  { name: 'galleryPublicationSubmissions' }
+  { name: 'translatedItems' }
 ];

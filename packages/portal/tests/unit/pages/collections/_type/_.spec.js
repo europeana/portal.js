@@ -110,6 +110,9 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       state: {
         entity: {
           entity: options.entity
+        },
+        search: {
+          view: 'grid'
         }
       },
       getters: {
@@ -124,7 +127,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     'client-only': true,
     'EntityRelatedCollections': true,
     'SearchInterface': {
-      template: '<div><slot /><slot name="related" /><slot name="after-results" /></div>'
+      template: '<div><slot /><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     }
   }
 });

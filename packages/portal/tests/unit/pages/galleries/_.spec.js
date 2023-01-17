@@ -214,7 +214,7 @@ describe('GalleryPage (Set)', () => {
 
       describe('and the set is public', () => {
         it('the set can be submitted for publication', () => {
-          const wrapper = factory({ set: testSet1, user: testSetCreator, features: { galleryPublicationSubmissions: true } });
+          const wrapper = factory({ set: testSet1, user: testSetCreator });
 
           const submitForPublicationButton = wrapper.find('[data-qa="set request publication button"]');
 
