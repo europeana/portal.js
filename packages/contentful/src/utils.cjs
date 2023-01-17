@@ -30,7 +30,7 @@ const purgeContentType = async(contentType, migration, { makeRequest, environmen
     {
       type: 'confirm',
       name: 'purge',
-      message: `Do you want to run the task?`,
+      message: 'Do you want to run the task?',
       default: false
     }
   ]);
@@ -41,7 +41,6 @@ const purgeContentType = async(contentType, migration, { makeRequest, environmen
   }
 
   let noMoreItems = false;
-  let skip = 0;
   let limit = 100;
   while (!noMoreItems) {
     const response = await makeRequest({
@@ -49,7 +48,6 @@ const purgeContentType = async(contentType, migration, { makeRequest, environmen
       url: '/entries',
       params: {
         'content_type': contentType,
-        skip,
         limit
       }
     });
@@ -58,7 +56,6 @@ const purgeContentType = async(contentType, migration, { makeRequest, environmen
       for (const entry of response.items) {
         await purgeContentEntry(entry, { makeRequest });
       }
-      skip = skip + limit;
     } else {
       noMoreItems = true;
     }
@@ -68,7 +65,7 @@ const purgeContentType = async(contentType, migration, { makeRequest, environmen
   console.log();
 
   migration.deleteContentType(contentType);
-}
+};
 
 module.exports = {
   purgeContentType
