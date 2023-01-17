@@ -49,14 +49,18 @@
       const variables = {
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview',
-        limit: 1
+        limit: 2
       };
 
       const response = await this.$contentful.query('latestEditorialContent', variables);
       const entries = response.data.data;
 
+      // Select three stories: at least one of each type, max two of each type;
+      // sorted by date published, most recent first
       this.cards = entries.blogPostingCollection.items
-        .concat(entries.exhibitionPageCollection.items);
+        .concat(entries.exhibitionPageCollection.items)
+        .sort((a, b) => new Date(b.datePublished) - new Date(a.datePublished))
+        .slice(0, 3);
     },
 
     methods: {
