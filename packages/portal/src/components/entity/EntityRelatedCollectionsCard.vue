@@ -44,7 +44,6 @@
 
     async fetch() {
       if (this.overrides) {
-        console.log(this.overrides);
         this.relatedCollections = this.overrides;
         return;
       }
