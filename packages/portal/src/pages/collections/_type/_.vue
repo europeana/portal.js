@@ -79,7 +79,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
-  import themes from '@/plugins/europeana/themes';
+  import themes, { themeForEntity } from '@/plugins/europeana/themes';
   import {
     getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
@@ -115,7 +115,24 @@
       next();
     },
 
-    middleware: 'sanitisePageQuery',
+    middleware: [
+      ({ params, query, redirect, $features, $path }) => {
+        if (!$features.themePages) {
+          return;
+        }
+        const entityUri = getEntityUri(params.type, params.pathMatch);
+        const entityTheme = themeForEntity(entityUri);
+        if (entityTheme) {
+          return redirect(
+            $path({
+              path: `/themes/${entityTheme.qf}`,
+              query
+            })
+          );
+        }
+      },
+      'sanitisePageQuery'
+    ],
 
     data() {
       return {

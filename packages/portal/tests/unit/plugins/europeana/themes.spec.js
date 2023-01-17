@@ -1,4 +1,4 @@
-import themes, { withEditorialContent } from '@/plugins/europeana/themes';
+import themes, { themeForEntity, withEditorialContent } from '@/plugins/europeana/themes';
 import sinon from 'sinon';
 
 const themesData = [
@@ -62,9 +62,27 @@ const stubbedContext = {
   }
 };
 
-describe('describe./@/plugins/europeana/themes', () => {
+describe('@/plugins/europeana/themes', () => {
   beforeEach(() => {
     sinon.resetHistory();
+  });
+
+  describe('themeForEntity', () => {
+    it('returns the theme if the URI matches one', () => {
+      const uri = 'http://data.europeana.eu/concept/190';
+
+      const theme = themeForEntity(uri);
+
+      expect(theme.qf).toBe('art');
+    });
+
+    it('returns `null` if the URI does not match a theme', () => {
+      const uri = 'http://data.europeana.eu/concept/1';
+
+      const theme = themeForEntity(uri);
+
+      expect(theme).toBeNull();
+    });
   });
 
   describe('withEditorialContent()', () => {
