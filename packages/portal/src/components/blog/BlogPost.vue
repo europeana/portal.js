@@ -6,7 +6,9 @@
       :hero="hero"
       :context-label="$tc('blog.posts', 1)"
     />
-    <b-container>
+    <b-container
+      class="footer-margin"
+    >
       <b-row class="justify-content-center">
         <b-col
           cols="12"
@@ -51,18 +53,18 @@
             <!-- eslint-enable vue/no-v-html -->
           </article>
           <RelatedCategoryTags
-            v-if="tags"
+            v-if="tags.length"
             :tags="tags"
+            class="related-container"
           />
           <client-only>
-            <RelatedCollections
+            <EntityBadges
               :entity-uris="relatedLink"
-              :title="$t('youMightAlsoLike')"
+              class="related-container"
             />
           </client-only>
         </b-col>
       </b-row>
-      <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>
@@ -84,7 +86,7 @@
       SocialShareModal,
       ShareButton,
       BrowseSections,
-      RelatedCollections: () => import('@/components/related/RelatedCollections')
+      EntityBadges: () => import('@/components/entity/EntityBadges')
     },
 
     props: {
@@ -140,16 +142,4 @@
   .author ~ .author::before {
     content: ', ';
   }
-
-  ::v-deep .related-collections {
-    &.container {
-      padding: 0;
-    }
-
-    .badge-pill {
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
-    }
-  }
-
 </style>

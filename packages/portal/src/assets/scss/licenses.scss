@@ -55,12 +55,9 @@
     text-decoration: none;
   }
 
-  &.is-external-link::after {
-    content: '\e900';
+  .icon-external-link {
     font-size: $font-size-small;
     padding-left: 0.5rem;
-
-    @extend %icon-font;
   }
 
   .license {

@@ -4,7 +4,7 @@
     class="quick-search"
     data-qa="quick-search"
   >
-    <RelatedCollections
+    <EntityBadges
       :title="$t('header.quickSearch')"
       :related-collections="optionsAndThemes"
     />
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import RelatedCollections from '../related/RelatedCollections';
+  import EntityBadges from '../entity/EntityBadges';
   import allThemes from '@/mixins/allThemes';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
@@ -20,7 +20,7 @@
     name: 'QuickSearch',
 
     components: {
-      RelatedCollections
+      EntityBadges
     },
 
     mixins: [allThemes],
@@ -68,13 +68,7 @@
     .related-collections {
       max-width: 100%;
 
-      &.container {
-        padding: 0;
-      }
-
       ::v-deep .badge-pill {
-        margin-right: 0.5rem;
-        margin-bottom: 0.5rem;
         flex-shrink: 0;
 
         @media (min-width: $bp-xxxl) {

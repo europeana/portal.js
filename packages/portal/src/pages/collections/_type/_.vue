@@ -2,20 +2,14 @@
   <div
     data-qa="entity page"
     class="entity-page"
+    :class="$fetchState.error && 'white-page'"
   >
-    <b-container
+    <ErrorMessage
       v-if="$fetchState.error"
-    >
-      <b-row
-        class="flex-md-row py-4"
-      >
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :status-code="$fetchState.error.statusCode"
+    />
     <client-only v-else>
       <SearchInterface
         v-if="!$fetchState.pending"
@@ -24,6 +18,7 @@
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
         :editorial-overrides="editorialOverrides"
+        :override-params="searchOverrides"
       >
         <EntityHeader
           v-if="entity"
@@ -42,15 +37,15 @@
         />
         <template
           v-if="collectionType !== 'organisation'"
-          #related
+          #related-collections
         >
           <client-only>
-            <EntityRelatedCollections
+            <EntityRelatedCollectionsCard
               :type="$route.params.type"
               :identifier="$route.params.pathMatch"
               :overrides="relatedCollectionCards || relatedCollections"
               data-qa="related entities"
-              @fetched="handleEntityRelatedCollectionsFetched"
+              @entitiesFromUrisFetched="handleEntityRelatedCollectionsFetched"
             />
           </client-only>
         </template>
@@ -66,7 +61,7 @@
               />
               <BrowseSections
                 v-if="page"
-                :sections="page.hasPartCollection.items"
+                :sections="page.hasPartCollection && page.hasPartCollection.items"
               />
             </b-container>
           </client-only>
@@ -81,9 +76,10 @@
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
-  import themes from '@/plugins/europeana/themes';
+  import themes, { themeForEntity } from '@/plugins/europeana/themes';
   import {
     getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
@@ -93,17 +89,18 @@
     name: 'CollectionPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
+      EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SearchInterface
     },
 
     mixins: [
       europeanaEntitiesOrganizationsMixin,
+      pageMetaMixin,
       redirectToPrefPathMixin
     ],
 
@@ -118,7 +115,24 @@
       next();
     },
 
-    middleware: 'sanitisePageQuery',
+    middleware: [
+      ({ params, query, redirect, $features, $path }) => {
+        if (!$features.themePages) {
+          return;
+        }
+        const entityUri = getEntityUri(params.type, params.pathMatch);
+        const entityTheme = themeForEntity(entityUri);
+        if (entityTheme) {
+          return redirect(
+            $path({
+              path: `/themes/${entityTheme.qf}`,
+              query
+            })
+          );
+        }
+      },
+      'sanitisePageQuery'
+    ],
 
     data() {
       return {
@@ -173,34 +187,24 @@
           }
           this.$store.commit('search/setCollectionLabel', this.title.values[0]);
           const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
+
           return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
         });
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.pageTitle),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.pageTitle },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
-        ]
-          .concat(this.descriptionText ? [
-            { hid: 'description', name: 'description', content: this.descriptionText },
-            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-          ] : [])
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.title.values[0],
+          description: this.descriptionText,
+          ogType: 'article'
+        };
+      },
       entity() {
         return this.$store.state.entity.entity;
       },
       recordsPerPage() {
         return this.$store.state.entity.recordsPerPage;
-      },
-      pageTitle() {
-        return this.$fetchState.error ? this.$t('error') : this.title.values[0];
       },
       searchOverrides() {
         const overrideParams = {
@@ -310,10 +314,10 @@
           ['topic', 'organisation'].includes(this.collectionType);
       },
       userIsEntitiesEditor() {
-        return this.$auth?.user?.resource_access?.entities?.roles.includes('editor') || false;
+        return this.$auth.userHasClientRole('entities', 'editor');
       },
       userIsSetsEditor() {
-        return this.$auth?.user?.resource_access?.usersets?.roles.includes('editor') || false;
+        return this.$auth.userHasClientRole('usersets', 'editor');
       },
       route() {
         return {
@@ -387,11 +391,7 @@
         return labelledMoreInfo;
       }
     },
-    watch: {
-      searchOverrides: 'storeSearchOverrides'
-    },
     mounted() {
-      this.storeSearchOverrides();
       if (this.userIsEntitiesEditor) {
         this.$store.dispatch('entity/getFeatured');
       }
@@ -399,9 +399,6 @@
     methods: {
       handleEntityRelatedCollectionsFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
-      },
-      storeSearchOverrides() {
-        this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
       },
       titleFallback(title) {
         return {
@@ -422,16 +419,6 @@
   .entity-page {
     &.top-header {
       margin-top: -1rem;
-    }
-
-    .related-collections {
-      padding: 0;
-    }
-
-    ::v-deep .related-collections .badge {
-      // TODO: Remove this when the badges move into the search results
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
     }
   }
 

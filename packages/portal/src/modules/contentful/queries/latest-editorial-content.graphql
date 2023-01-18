@@ -40,23 +40,4 @@ query latestEditorialContent(
       datePublished
     }
   }
-  imageGalleryCollection(
-    where: { name_contains: $query },
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
-  ) {
-    items {
-      __typename
-      name
-      identifier
-      description
-      hasPartCollection(limit: 1) {
-        total
-        items {
-          identifier
-          encoding
-          thumbnailUrl
-        }
-      }
-    }
-  }
 }

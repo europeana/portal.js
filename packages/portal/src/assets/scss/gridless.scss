@@ -2,6 +2,7 @@
   padding-right: 1.5em;
   padding-left: 1.5em;
   position: relative;
+  max-width: none;
 
   @media (min-width: $bp-large) {
     padding-right: 4em;
@@ -45,11 +46,6 @@
 
   .content-card {
     min-height: 0;
-
-    .card-title {
-      display: block;
-      -webkit-line-clamp: none;
-    }
 
     @media (min-width: $bp-xxxl) {
       .card-img {

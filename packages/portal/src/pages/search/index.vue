@@ -2,17 +2,31 @@
   <div data-qa="search page">
     <SearchInterface
       id="search-interface"
+      :override-params="searchOverrides"
     >
       <template
         v-if="!!searchQuery"
-        #related
+        #related-galleries
       >
         <client-only>
-          <RelatedSection
+          <RelatedGalleries
+            :query="searchQuery"
+            :overrides="relatedGalleries"
+            data-qa="related galleries"
+            @fetched="handleRelatedGalleriesFetched"
+          />
+        </client-only>
+      </template>
+      <template
+        v-if="!!searchQuery"
+        #related-collections
+      >
+        <client-only>
+          <RelatedCollectionsCard
             :query="searchQuery"
             :overrides="relatedCollections"
-            data-qa="related section"
-            @fetched="handleRelatedSectionFetched"
+            data-qa="related collections"
+            @relatedFetched="handleRelatedCollectionsCardFetched"
           />
         </client-only>
       </template>
@@ -35,6 +49,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'SearchPage',
@@ -43,8 +58,11 @@
       ClientOnly,
       SearchInterface,
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
-      RelatedSection: () => import('@/components/search/RelatedSection')
+      RelatedGalleries: () => import('@/components/related/RelatedGalleries'),
+      RelatedCollectionsCard: () => import('@/components/related/RelatedCollectionsCard')
     },
+
+    mixins: [pageMetaMixin],
 
     async beforeRouteLeave(to, from, next) {
       // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.
@@ -56,23 +74,30 @@
 
     data() {
       return {
-        relatedCollections: null
-      };
-    },
-
-    fetch() {
-      this.$store.commit('search/set', ['overrideParams', {}]);
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search.title'))
+        relatedCollections: null,
+        relatedGalleries: null
       };
     },
 
     computed: {
+      pageMeta() {
+        return {
+          title: this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search.title')
+        };
+      },
       searchQuery() {
         return this.$route.query.query;
+      },
+      searchOverrides() {
+        const sort = 'score desc,contentTier desc,random_europeana asc,timestamp_update desc,europeana_id asc';
+        return !this.searchQuery && !this.$route.query.sort ? { sort } : {};
+      }
+    },
+
+    watch: {
+      searchQuery() {
+        this.relatedCollections = null;
+        this.relatedGalleries = null;
       }
     },
 
@@ -81,8 +106,11 @@
     },
 
     methods: {
-      handleRelatedSectionFetched(relatedCollections) {
+      handleRelatedCollectionsCardFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
+      },
+      handleRelatedGalleriesFetched(relatedGalleries) {
+        this.relatedGalleries = relatedGalleries;
       }
     }
   };

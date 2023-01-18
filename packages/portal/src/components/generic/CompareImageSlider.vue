@@ -46,7 +46,7 @@
         </button>
       </div>
     </div>
-    <figcaption>
+    <figcaption :style="`max-width: ${imageWidth}px`">
       <CiteAttribution
         :name="leftImageAttribution.name"
         :creator="leftImageAttribution.creator"
@@ -292,118 +292,143 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@/assets/scss/variables';
 
-  $slider-dimensions: 48px;
+  .compare-image-wrapper {
+    $slider-dimensions: 48px;
 
-  figure {
     display: inline-block;
-  }
-
-  .compare-image {
-    position: relative;
     overflow: hidden;
+    margin: 0;
+    width: auto;
+    height: 100%;
+    background: $white;
 
     img {
       width: auto;
+      object-fit: contain;
+    }
 
-      &:nth-child(1) {
-        position: absolute;
-        top: 0;
-        left: 0;
+    figcaption {
+      cite {
+        border-radius: 0;
+        border-top-left-radius: $border-radius-small;
+        border-top-right-radius: $border-radius-small;
+        bottom: 0;
+        font-size: 0.625rem;
+        left: 1rem;
+        margin-right: 1rem;
+        padding: 0.5rem 1rem;
+
+        .attribution > span {
+          margin-left: 0.25rem;
+        }
       }
     }
 
-    .slider {
-      width: $slider-dimensions;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      align-items: center;
-      display: flex;
+    .compare-image {
+      position: relative;
+      overflow: hidden;
 
-      .slider-handle {
-        position: absolute;
-        background: rgb(255 255 255 / 50%);
-        width: $slider-dimensions;
-        height: $slider-dimensions;
-        border: 0;
-        border-radius: 50%;
-        box-shadow: 0 0 6px rgb(0 0 0 / 0%);
-
-        &.is-active {
-          background: rgb(255 255 255 / 85%);
-        }
-
-        &::before,
-        &::after {
-          content: '';
+      img {
+        &:nth-child(1) {
           position: absolute;
-          width: 10px;
-          height: 10px;
-          top: 50%;
-          border-top: solid 2px;
-          border-left: solid 2px;
-          transform-origin: 0 0;
+          top: 0;
+          left: 0;
         }
+      }
 
-        &::before {
-          left: 10px;
-          transform: rotate(-45deg);
-        }
+      .slider {
+        width: $slider-dimensions;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        align-items: center;
+        display: flex;
 
-        &::after {
-          right: 0;
-          transform: rotate(135deg);
-        }
+        .slider-handle {
+          position: absolute;
+          background: rgb(255 255 255 / 50%);
+          width: $slider-dimensions;
+          height: $slider-dimensions;
+          border: 0;
+          border-radius: 50%;
+          box-shadow: 0 0 6px rgb(0 0 0 / 0%);
 
-        &:hover {
-          box-shadow: 0 0 3px rgb(0 0 0 / 40%);
+          &.is-active {
+            background: rgb(255 255 255 / 85%);
+          }
+
+          &::before,
+          &::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: 50%;
+            border-top: solid 2px;
+            border-left: solid 2px;
+            transform-origin: 0 0;
+          }
 
           &::before {
-            left: 9px;
+            left: 10px;
+            transform: rotate(-45deg);
           }
 
           &::after {
-            right: -1px;
+            right: 0;
+            transform: rotate(135deg);
+          }
+
+          &:hover {
+            box-shadow: 0 0 3px rgb(0 0 0 / 40%);
+
+            &::before {
+              left: 9px;
+            }
+
+            &::after {
+              right: -1px;
+            }
           }
         }
       }
-    }
 
-    & + figcaption {
-      cite {
-        display: block;
-        margin: 0;
-        position: static;
-
-        &::before {
-          content: attr(data-prefix);
-          font-style: normal;
-        }
-      }
-
-      @media (min-width: $bp-large) {
+      & + figcaption {
         cite {
-          max-width: 45%;
-          position: absolute;
-          transition: opacity 0.2s ease-out;
+          display: block;
+          margin: 0;
+          position: static;
 
           &::before {
-            display: none;
-          }
-
-          &:nth-child(2) {
-            left: auto;
-            margin-left: 1rem;
-            margin-right: 0;
-            right: 1rem;
+            content: attr(data-prefix);
+            font-style: normal;
           }
         }
 
-        .cite-hidden {
-          opacity: 0;
+        @media (min-width: $bp-large) {
+          cite {
+            max-width: 45%;
+            position: absolute;
+            transition: opacity 0.2s ease-out;
+
+            &::before {
+              display: none;
+            }
+
+            &:nth-child(2) {
+              left: auto;
+              margin-left: 1rem;
+              margin-right: 0;
+              right: 1rem;
+            }
+          }
+
+          .cite-hidden {
+            opacity: 0;
+          }
         }
       }
     }

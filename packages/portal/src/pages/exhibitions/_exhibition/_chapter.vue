@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="text-page white-page figure-attribution"
+    class="text-page white-page "
   >
     <ContentWarningModal
       v-if="exhibitionContentWarning"
@@ -16,7 +16,9 @@
       :hero="hero"
       :context-label="$tc('exhibitions.exhibitions', 1)"
     />
-    <b-container>
+    <b-container
+      class="footer-margin"
+    >
       <b-row>
         <b-col
           cols="12"
@@ -50,7 +52,7 @@
       <client-only>
         <b-row
           v-if="chapters"
-          class="justify-content-center mt-3"
+          class="justify-content-center"
         >
           <b-col
             cols="12"
@@ -62,37 +64,33 @@
             />
           </b-col>
         </b-row>
-      </client-only>
-      <b-row
-        v-if="page.categoriesCollection && page.categoriesCollection.items"
-        class="justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="mt-4 col-lg-8"
+        <b-row
+          v-if="hasRelatedCategoryTags"
+          class="related-container justify-content-center"
         >
-          <RelatedCategoryTags
-            :tags="page.categoriesCollection.items"
-          />
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="relatedLink"
-        class="justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="mt-3 col-lg-8"
-        >
-          <client-only>
-            <RelatedCollections
-              :entity-uris="relatedLink"
-              :title="$t('youMightAlsoLike')"
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <RelatedCategoryTags
+              :tags="page.categoriesCollection.items"
             />
-          </client-only>
-        </b-col>
-      </b-row>
-      <b-row class="footer-margin" />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="relatedLink"
+          class="related-container justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <EntityBadges
+              :entity-uris="relatedLink"
+            />
+          </b-col>
+        </b-row>
+      </client-only>
     </b-container>
   </div>
 </template>
@@ -103,6 +101,7 @@
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ExhibitionChapterPage',
@@ -116,10 +115,11 @@
       LinkList: () => import('../../../components/generic/LinkList'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
-      RelatedCollections: () => import('@/components/related/RelatedCollections')
+      EntityBadges: () => import('@/components/entity/EntityBadges')
     },
     mixins: [
-      exhibitionChapters
+      exhibitionChapters,
+      pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -181,25 +181,19 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.page.name),
-        meta: [
-          { hid: 'title', name: 'title', content: this.page.name },
-          { hid: 'og:title', property: 'og:title', content: this.page.name },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.heroImage ? [
-            { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
-            { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description || '' }
-          ] : [])
-          .concat(this.page.description ? [
-            { hid: 'description', name: 'description', content: this.page.description },
-            { hid: 'og:description', property: 'og:description', content: this.page.description }
-          ] : [])
-      };
-    },
     computed: {
+      pageMeta() {
+        return {
+          title: this.page.name,
+          description: this.page.description,
+          ogType: 'article',
+          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
+        };
+      },
+      hasRelatedCategoryTags() {
+        return (this.page?.categoriesCollection?.items?.length || 0) > 0;
+      },
       chapterNavigation() {
         return this.chapters.map((chapter) => {
           return {
@@ -232,17 +226,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  ::v-deep .related-collections {
-    &.container {
-      padding: 0;
-    }
-
-    .badge-pill {
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
-    }
-  }
-
-</style>

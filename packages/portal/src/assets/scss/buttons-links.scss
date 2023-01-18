@@ -151,7 +151,9 @@
   text-transform: uppercase;
   font-weight: 600;
 
-  &:hover {
+  &:hover,
+  &:focus,
+  &.focus {
     box-shadow: none;
   }
 
@@ -163,6 +165,18 @@
   &.disabled {
     color: $grey;
     border-color: $grey;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: $blue;
+    background-color: $white;
+    border-color: $blue;
+
+    &:focus {
+      box-shadow: none;
+    }
   }
 }
 
@@ -372,20 +386,6 @@ a {
   }
 }
 
-.page-link {
-  color: $greyblack;
-  text-decoration: none;
-
-  &:hover {
-    color: $greyblack;
-  }
-}
-
-.page-item.active .page-link {
-  background-color: $darkblue;
-  border-color: $darkblue;
-}
-
 .info-panel,
 .header-card {
   .btn-link {
@@ -397,8 +397,4 @@ a {
       text-decoration: none;
     }
   }
-}
-
-.share-button + .download-button {
-  margin-left: 0.5rem;
 }

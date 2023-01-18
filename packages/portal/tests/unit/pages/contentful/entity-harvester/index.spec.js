@@ -49,7 +49,6 @@ const factory = () => shallowMountNuxt(page, {
   localVue,
   mocks: {
     $t: key => key,
-    $pageHeadTitle: key => key,
     $apis: {
       entity: {
         get: sinon.spy()
@@ -77,6 +76,16 @@ const entityFields = ['identifier', 'slug', 'type', 'name', 'description', 'imag
 describe('pages/contentful/entity-harvester/index', () => {
   beforeAll(() => {
     window.contentfulExtension = fakeContentfulExtension({ entryFields: entityFields });
+  });
+
+  describe('head', () => {
+    describe('title', () => {
+      it('is "Entity harvester - Contentful app"', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.head().title).toBe('Entity harvester - Contentful app');
+      });
+    });
   });
 
   describe('methods', () => {
@@ -311,14 +320,6 @@ describe('pages/contentful/entity-harvester/index', () => {
           expect(wrapper.vm.entityDescriptionFromResponse(response)).toBe('');
         });
       });
-    });
-  });
-
-  describe('head', () => {
-    it('sets the title to: Entity harvester - Contentful app', () => {
-      const wrapper = factory();
-
-      expect(wrapper.vm.head().title).toBe('Entity harvester - Contentful app');
     });
   });
 });

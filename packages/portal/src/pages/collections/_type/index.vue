@@ -1,62 +1,59 @@
 <template>
   <div class="collections-page white-page">
-    <b-container>
-      <b-row
-        v-if="$fetchState.error"
-        class="flex-md-row py-4"
-      >
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-      <template
-        v-else
-      >
-        <ContentHeader
-          :title="pageTitle"
+    <ErrorMessage
+      v-if="$fetchState.error"
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :status-code="$fetchState.error.statusCode"
+    />
+    <b-container
+      v-else
+    >
+      <ContentHeader
+        :title="pageMeta.title"
+      />
+      <client-only>
+        <EntityTable
+          :type="$route.params.type"
+          data-qa="collections table"
         />
-        <client-only>
-          <EntityTable
-            :type="$route.params.type"
-            data-qa="collections table"
-          />
-        </client-only>
-      </template>
+      </client-only>
     </b-container>
   </div>
 </template>
 
 <script>
-  import ContentHeader from '@/components/generic/ContentHeader';
+  import createHttpError from 'http-errors';
   import ClientOnly from 'vue-client-only';
+  import ContentHeader from '@/components/generic/ContentHeader';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'CollectionsIndexPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       ContentHeader,
       ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
     },
+
+    mixins: [pageMetaMixin],
+
     fetch() {
       if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        throw new Error('Unknown collection type');
+        throw createHttpError(404, 'Unknown collection type'); // TODO: i18n
       }
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.pageTitle)
-      };
-    },
+
     computed: {
-      pageTitle() {
-        return this.$fetchState.error ? 'Error' : this.$t(`pages.collections.${this.$route.params.type}.title`);
+      pageMeta() {
+        return {
+          title: this.$t(`pages.collections.${this.$route.params.type}.title`)
+        };
       }
     },
     watch: {

@@ -1,9 +1,12 @@
 import axios from 'axios';
+import qs from 'qs';
+
 import locales from '../i18n/locales.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
 export const createAxios = ({ id, baseURL, $axios }, context) => {
   const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
+
   const axiosInstance = ($axios || axios).create(axiosOptions);
 
   const app = context.app;
@@ -46,11 +49,16 @@ export const apiConfig = ($config, id) => {
 
 const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
   const config = apiConfig($config, id);
+
   return {
     baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
       wskey: config.key
-    }
+    },
+    paramsSerializer(params) {
+      return qs.stringify(params, { arrayFormat: 'repeat' });
+    },
+    timeout: 10000
   };
 };
 

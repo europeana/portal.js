@@ -55,6 +55,13 @@
               {{ $t('account.privateCollections') }}
             </b-nav-item>
             <b-nav-item
+              data-qa="published collections"
+              :to="$path({ hash: tabHashes.publishedGalleries})"
+              :active="activeTab === tabHashes.publishedGalleries"
+            >
+              {{ $t('account.publishedCollections') }}
+            </b-nav-item>
+            <b-nav-item
               v-if="userIsEditor"
               data-qa="curated collections"
               :to="$path({ hash: tabHashes.curatedCollections})"
@@ -100,7 +107,6 @@
             </b-container>
             <template v-else-if="activeTab === tabHashes.publicGalleries">
               <UserSets
-                :sets="publicCreations"
                 visibility="public"
                 :empty-text="$t('account.notifications.noCollections.public')"
                 data-qa="public sets"
@@ -108,15 +114,22 @@
             </template>
             <template v-else-if="activeTab === tabHashes.privateGalleries">
               <UserSets
-                :sets="privateCreations"
                 visibility="private"
                 :empty-text="$t('account.notifications.noCollections.private')"
                 data-qa="private sets"
               />
             </template>
+            <template v-else-if="activeTab === tabHashes.publishedGalleries">
+              <UserSets
+                visibility="published"
+                :show-create-set-button="false"
+                :empty-text="$t('account.notifications.noCollections.published')"
+                data-qa="published sets"
+              />
+            </template>
             <template v-else-if="userIsEditor && activeTab === tabHashes.curatedCollections">
               <UserSets
-                :sets="curations"
+                type="EntityBestItemsSet"
                 :show-create-set-button="false"
                 :empty-text="$t('account.notifications.noCollections.curated')"
                 data-qa="curated sets"
@@ -147,6 +160,7 @@
   import { mapState } from 'vuex';
 
   import keycloak from '../../mixins/keycloak';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
@@ -164,7 +178,8 @@
     },
 
     mixins: [
-      keycloak
+      keycloak,
+      pageMetaMixin
     ],
 
     middleware: 'auth',
@@ -176,6 +191,7 @@
           likes: '#likes',
           publicGalleries: '#public-galleries',
           privateGalleries: '#private-galleries',
+          publishedGalleries: '#published-galleries',
           curatedCollections: '#curated-collections'
         }
       };
@@ -183,31 +199,24 @@
 
     async fetch() {
       this.fetchLikes();
-      await this.$store.dispatch('set/fetchCreations');
-      if (this.userIsEditor) {
-        await this.$store.dispatch('set/fetchCurations');
-      }
     },
 
     fetchOnServer: false,
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('account.title'))
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.$t('account.title')
+        };
+      },
       userIsEditor() {
-        return this.loggedInUser?.resource_access?.entities?.roles?.includes('editor') &&
-          this.loggedInUser?.resource_access?.usersets?.roles?.includes('editor');
+        return this.$auth.userHasClientRole('entities', 'editor') &&
+          this.$auth.userHasClientRole('usersets', 'editor');
       },
       ...mapState({
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems,
-        curations: state => state.set.curations,
-        publicCreations: state => state.set.creations.filter(set => set.visibility === 'public'),
-        privateCreations: state => state.set.creations.filter(set => set.visibility === 'private')
+        curations: state => state.set.curations
       }),
       activeTab() {
         return this.$route.hash || this.tabHashes.likes;
@@ -223,7 +232,10 @@
 
 </script>
 
-<style>
+<style lang="scss">
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/tabs';
+
   h1 {
     margin-bottom: 0.75rem;
   }

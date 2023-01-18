@@ -1,4 +1,4 @@
-import { oEmbeddable } from './oembed';
+import { oEmbeddable } from './oembed/index.js';
 
 const MEDIA_TYPE_APPLICATION = 'application';
 const MEDIA_TYPE_APPLICATION_DASH_XML = `${MEDIA_TYPE_APPLICATION}/dash+xml`;

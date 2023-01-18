@@ -53,7 +53,7 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle('Entity harvester - Contentful app'),
+        title: 'Entity harvester - Contentful app',
         bodyAttrs: {
           class: '',
           style: 'background: transparent;'

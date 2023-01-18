@@ -1,7 +1,7 @@
 <template>
   <b-container data-qa="debug page">
     <ContentHeader
-      :title="title"
+      :title="pageMeta.title"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
@@ -57,6 +57,7 @@
 
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'DebugIndexPage',
@@ -64,6 +65,8 @@
     components: {
       ContentHeader
     },
+
+    mixins: [pageMetaMixin],
 
     beforeRouteEnter(to, from, next) {
       next(vm => {
@@ -74,18 +77,16 @@
     data() {
       return {
         settings: { ...this.$store.getters['debug/settings'] },
-        title: this.$t('debug.debug'),
         redirect: null
       };
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title)
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.$t('debug.debug')
+        };
+      },
       fieldBoostingFeature() {
         return this.$features?.fieldBoosting;
       }

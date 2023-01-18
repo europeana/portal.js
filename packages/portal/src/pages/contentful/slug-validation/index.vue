@@ -39,7 +39,7 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle('Slug validation - Contentful app'),
+        title: 'Slug validation - Contentful app',
         script: [
           { src: 'https://cdn.jsdelivr.net/npm/speakingurl@13.0.0/speakingurl.min.js' }
         ]

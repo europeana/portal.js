@@ -6,14 +6,6 @@
     >
       {{ title }}
     </h2>
-    <b-button
-      v-if="cta"
-      variant="outline-secondary"
-      class="cta"
-      :to="cta.url"
-    >
-      {{ cta.text }}
-    </b-button>
     <div
       v-show="swiperReady"
       class="swiper swiper-container"
@@ -64,6 +56,14 @@
         </div>
       </div>
     </div>
+    <b-button
+      v-if="cta"
+      variant="outline-secondary"
+      class="cta"
+      :to="cta.url"
+    >
+      {{ cta.text }}
+    </b-button>
   </div>
 </template>
 
@@ -121,7 +121,10 @@
               spaceBetween: 0
             }
           },
-          keyboard: true,
+          keyboard: {
+            enabled: true,
+            pageUpDown: false
+          },
           coverflowEffect: {
             rotate: 0,
             stretch: 100,
@@ -185,6 +188,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/swiper';
 
   .stacked-cards-wrapper {
     font-size: 1rem;
@@ -211,19 +215,29 @@
 
   .cta {
     font-size: 1em;
-    margin: 1.5em auto;
   }
 
   .slide-link {
     margin: auto 0 0;
     font-size: 1em;
     padding: 0.375em 0.75em;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255 255 255 / 50%);
+    }
   }
 
   .swiper-container {
     width: 100%;
     padding: 0;
-    padding-top: 1rem;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-xxxl) {
+      margin-top: 2.25vw;
+      margin-bottom: 2.25vw;
+    }
   }
 
   .swiper-slide {

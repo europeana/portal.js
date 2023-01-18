@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$fetchState.error && 'white-page'">
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -10,18 +10,11 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container
+    <ErrorMessage
       v-else-if="$fetchState.error"
-      data-qa="alert message container"
-    >
-      <b-row class="flex-md-row py-4">
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      data-qa="error message container"
+      :status-code="$fetchState.error.statusCode"
+    />
     <template
       v-else
     >
@@ -43,19 +36,23 @@
 </template>
 
 <script>
+  import createHttpError from 'http-errors';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import BrowsePage from '@/components/browse/BrowsePage';
   import StaticPage from '@/components/static/StaticPage';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'IndexPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       BrowsePage,
       LoadingSpinner,
       StaticPage
     },
+
+    mixins: [pageMetaMixin],
 
     props: {
       slug: {
@@ -92,28 +89,20 @@
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        throw new Error(this.$t('messages.notFound'));
+        throw createHttpError(404, this.$t('messages.notFound'));
       }
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.pageTitle),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.pageTitle },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
-        ].concat(this.page.description ? [
-          { hid: 'description', name: 'description', content: this.page.description },
-          { hid: 'og:description', property: 'og:description', content: this.page.description }
-        ] : []).concat(this.socialMediaImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.socialMediaImageOptimisedUrl },
-          { hid: 'og:image:alt', property: 'og:image:alt', content: this.socialMediaImageAlt }
-        ] : [])
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.page.name,
+          description: this.page.description,
+          ogType: 'article',
+          ogImage: this.socialMediaImage ? this.socialMediaImageOptimisedUrl : null,
+          ogImageAlt: this.socialMediaImage ? this.socialMediaImageAlt : null
+        };
+      },
       socialMediaImage() {
         // use social media image if set in Contentful, else null
         return this.page.image || null;
@@ -126,9 +115,6 @@
       },
       socialMediaImageAlt() {
         return this.socialMediaImage?.description || '';
-      },
-      pageTitle() {
-        return this.$fetchState.error ? this.$t('error') : this.page.name;
       }
     }
   };

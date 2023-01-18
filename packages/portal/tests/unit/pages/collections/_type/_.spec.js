@@ -81,7 +81,9 @@ const redirectToPrefPathStub = sinon.stub();
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
   mocks: {
-    $features: {},
+    $auth: {
+      userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
+    },
     $fetchState: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
     $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
@@ -90,7 +92,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     },
     $apis: {
       entity: {
-        get: sinon.stub().resolves({}),
+        get: options.get || sinon.stub().resolves({}),
         facets: sinon.stub().resolves([]),
         imageUrl: sinon.spy()
       },
@@ -102,13 +104,15 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
-    $pageHeadTitle: key => key,
-    $path: () => '/',
+    $path: sinon.stub().returns('/'),
     $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
     $store: {
       state: {
         entity: {
           entity: options.entity
+        },
+        search: {
+          view: 'grid'
         }
       },
       getters: {
@@ -121,9 +125,9 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   },
   stubs: {
     'client-only': true,
-    'EntityRelatedCollections': true,
+    'EntityRelatedCollectionsCard': true,
     'SearchInterface': {
-      template: '<div><slot /><slot name="related" /><slot name="after-results" /></div>'
+      template: '<div><slot /><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     }
   }
 });
@@ -154,6 +158,17 @@ describe('pages/collections/_type/_', () => {
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.$store.commit.calledWith('search/setCollectionLabel', 'Topic')).toBe(true);
+    });
+
+    describe('on errors', () => {
+      it('throws an error', async() => {
+        const apiError = new Error({ message: 'No collection found' });
+
+        const wrapper = factory({ get: sinon.stub().rejects(apiError) });
+
+        await expect(wrapper.vm.fetch()).rejects.toThrowError();
+        await expect(wrapper.vm.fetch()).rejects.toEqual(apiError);
+      });
     });
 
     describe('collection page', () => {
@@ -223,10 +238,8 @@ describe('pages/collections/_type/_', () => {
     describe('editable', () => {
       const editableOptions = {
         ...organisationEntity,
-        mocks: {
-          $features: { entityManagement: true },
-          $auth: { user: { 'resource_access': { entities: { roles: ['editor'] } } } }
-        }
+        userHasClientRoleStub: sinon.stub().returns(false)
+          .withArgs('entities', 'editor').returns(true)
       };
 
       it('is truthy if all criteria are met', () => {
@@ -235,19 +248,6 @@ describe('pages/collections/_type/_', () => {
         const editable = wrapper.vm.editable;
 
         expect(editable).toBeTruthy();
-      });
-
-      it('is falsy if entityManagement feature is disabled', () => {
-        const wrapper = factory({
-          ...editableOptions,
-          mocks: {
-            $features: { entityManagement: false }
-          }
-        });
-
-        const editable = wrapper.vm.editable;
-
-        expect(editable).toBeFalsy();
       });
 
       it('is falsy if entity is absent', () => {
@@ -264,9 +264,7 @@ describe('pages/collections/_type/_', () => {
       it('is falsy if user is unauthorized', () => {
         const wrapper = factory({
           ...editableOptions,
-          mocks: {
-            $auth: { user: { 'resource_access': { entities: { roles: [] } } } }
-          }
+          userHasClientRoleStub: sinon.stub().returns(false)
         });
 
         const editable = wrapper.vm.editable;
@@ -542,13 +540,13 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
-    describe('handleEntityRelatedCollectionsFetched', () => {
-      it('is triggered by fetched event on related entities component', () => {
+    describe('handleEntityRelatedCollectionsCardFetched', () => {
+      it('is triggered by entitiesFromUrisFetched event on related entities component', () => {
         const wrapper = factory(topicEntity);
         const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];
 
         const relatedEntitiesComponent = wrapper.find('[data-qa="related entities"]');
-        relatedEntitiesComponent.vm.$emit('fetched', relatedCollections);
+        relatedEntitiesComponent.vm.$emit('entitiesFromUrisFetched', relatedCollections);
 
         expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
       });
@@ -556,23 +554,46 @@ describe('pages/collections/_type/_', () => {
   });
 
   describe('the head title', () => {
-    describe('when fetchState has error', () => {
-      it('uses translation of "Error"', () => {
-        const wrapper = factory({ ...topicEntity, mocks: { $fetchState: { error: true } } });
-
-        const headTitle = wrapper.vm.head().title;
-
-        expect(headTitle).toBe('error');
-      });
-    });
-
     describe('when fetchState has no error', () => {
       it('uses entity title', () => {
         const wrapper = factory(topicEntity);
 
-        const headTitle = wrapper.vm.head().title;
+        const headTitle = wrapper.vm.pageMeta.title;
 
         expect(headTitle).toBe('Topic');
+      });
+    });
+  });
+
+  describe('middleware', () => {
+    describe('[0] redirection for themes', () => {
+      it('if feature toggle is disabled, it does nothing', () => {
+        const wrapper = factory(themeEntity);
+        const redirect = sinon.spy();
+
+        wrapper.vm.middleware[0]({ $features: {}, $path: wrapper.vm.$path, query: {}, params: wrapper.vm.$route.params, redirect });
+
+        expect(redirect.called).toBe(false);
+      });
+
+      describe('if feature toggle is enabled', () => {
+        it('if entity is not a theme, it does nothing', () => {
+          const wrapper = factory(topicEntity);
+          const redirect = sinon.spy();
+
+          wrapper.vm.middleware[0]({ $features: { themePages: true }, $path: wrapper.vm.$path, query: {}, params: wrapper.vm.$route.params, redirect });
+
+          expect(redirect.called).toBe(false);
+        });
+
+        it('if entity is a theme, it redirects to theme page URL', () => {
+          const wrapper = factory(themeEntity);
+          const redirect = sinon.spy();
+
+          wrapper.vm.middleware[0]({ $features: { themePages: true }, $path: wrapper.vm.$path, query: {}, params: wrapper.vm.$route.params, redirect });
+
+          expect(redirect.called).toBe(true);
+        });
       });
     });
   });

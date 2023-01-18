@@ -1,7 +1,7 @@
 <template>
   <b-row
     v-if="!$fetchState.pending && !$fetchState.error && items.length > 0"
-    class="mt-3 mb-0 justify-content-center"
+    class="mb-3 justify-content-center"
   >
     <b-col
       cols="12"
@@ -72,6 +72,12 @@
 
       if (this.$auth.loggedIn) {
         response = await this.$apis.recommendation.recommend('record', this.identifier);
+        response.items = response.items
+          // Remove any recommendations that are the same as the active item,
+          // because the Recommendation API/Engine is broken.
+          // TODO: remove if/when recommendations become useful.
+          .filter((item) => item.id !== this.identifier)
+          .slice(0, 8);
       } else {
         response = await this.$apis.record.search({
           query: similarItemsQuery(this.identifier, this.similarItemsFields),

@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="text-page white-page figure-attribution"
+    class="text-page white-page "
   >
     <ContentWarningModal
       v-if="contentWarning"
@@ -15,15 +15,17 @@
       :hero="hero"
       :context-label="$tc('exhibitions.exhibitions')"
     />
-    <b-container>
+    <b-container
+      class="footer-margin"
+    >
       <b-row class="justify-content-center">
         <b-col
           cols="12"
-          class="col-lg-8"
+          class="col-lg-8 mb-3"
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="hero.image.url" />
+            <SocialShareModal :media-url="heroImage && heroImage.url" />
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
@@ -35,7 +37,7 @@
       </b-row>
       <b-row
         v-if="hasPartCollection"
-        class="justify-content-center mt-3"
+        class="justify-content-center"
       >
         <b-col
           cols="12"
@@ -47,36 +49,35 @@
           />
         </b-col>
       </b-row>
-      <b-row
-        v-if="categoriesCollection && categoriesCollection.items"
-        class="justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="mt-4 col-lg-8"
+      <client-only>
+        <b-row
+          v-if="hasRelatedCategoryTags"
+          data-qa="related category tags"
+          class="related-container justify-content-center"
         >
-          <RelatedCategoryTags
-            :tags="categoriesCollection.items"
-          />
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="relatedLink"
-        class="justify-content-center"
-      >
-        <b-col
-          cols="12"
-          class="mt-4 col-lg-8"
-        >
-          <client-only>
-            <RelatedCollections
-              :entity-uris="relatedLink"
-              :title="$t('youMightAlsoLike')"
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <RelatedCategoryTags
+              :tags="categoriesCollection.items"
             />
-          </client-only>
-        </b-col>
-      </b-row>
-      <b-row class="footer-margin" />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="relatedLink"
+          class="related-container justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <EntityBadges
+              :entity-uris="relatedLink"
+            />
+          </b-col>
+        </b-row>
+      </client-only>
     </b-container>
   </div>
 </template>
@@ -87,6 +88,7 @@
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ExhibitionPage',
@@ -98,10 +100,11 @@
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
-      RelatedCollections: () => import('@/components/related/RelatedCollections')
+      EntityBadges: () => import('@/components/entity/EntityBadges')
     },
     mixins: [
-      exhibitionChapters
+      exhibitionChapters,
+      pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -142,23 +145,19 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.name),
-        meta: [
-          { hid: 'title', name: 'title', content: this.name },
-          { hid: 'og:title', property: 'og:title', content: this.name },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ].concat(this.description ? [
-          { hid: 'description', name: 'description', content: this.description },
-          { hid: 'og:description', property: 'og:description', content: this.description }
-        ] : []).concat(this.heroImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
-          { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description || '' }
-        ] : [])
-      };
-    },
     computed: {
+      pageMeta() {
+        return {
+          title: this.name,
+          description: this.description,
+          ogType: 'article',
+          ogImage: this.heroImage && this.optimisedImageUrl,
+          ogImageAlt: this.heroImage ? (this.heroImage.description || '') : null
+        };
+      },
+      hasRelatedCategoryTags() {
+        return (this.categoriesCollection?.items?.length || 0) > 0;
+      },
       hero() {
         return this.primaryImageOfPage || null;
       },
@@ -177,17 +176,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  ::v-deep .related-collections {
-    &.container {
-      padding: 0;
-    }
-
-    .badge-pill {
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
-    }
-  }
-
-</style>

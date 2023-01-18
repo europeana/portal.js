@@ -27,9 +27,17 @@ const details = {
 };
 
 describe('components/generic/ContentHeader', () => {
-  it('shows a label', () => {
-    const wrapper = factory(details);
+  describe('template', () => {
+    it('shows the page title in an h1', () => {
+      const wrapper = factory(details);
 
-    expect(wrapper.find('[data-qa="context label"]').text()).toBe(details.contextLabel);
+      expect(wrapper.find('h1[data-qa="page title"]').text()).toBe(details.title);
+    });
+
+    it('shows a label', () => {
+      const wrapper = factory(details);
+
+      expect(wrapper.find('[data-qa="context label"]').text()).toBe(details.contextLabel);
+    });
   });
 });

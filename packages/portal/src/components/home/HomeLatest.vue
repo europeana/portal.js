@@ -7,15 +7,8 @@
     <h2>
       {{ $t('homePage.discoverEditorial') }}
     </h2>
-    <b-button
-      variant="outline-secondary"
-      class="cta"
-      :to="'/stories'"
-    >
-      {{ $t('homePage.storiesCTA') }}
-    </b-button>
     <b-card-group
-      class="mt-3 card-deck-3-cols justify-content-center gridless-browse-cards"
+      class="card-deck-3-cols justify-content-center gridless-browse-cards"
       deck
     >
       <!-- TODO: use/add image alt description -->
@@ -28,6 +21,13 @@
         :url="cardLink(card)"
       />
     </b-card-group>
+    <b-button
+      variant="outline-secondary"
+      class="cta"
+      :to="'/stories'"
+    >
+      {{ $t('homePage.storiesCTA') }}
+    </b-button>
   </section>
 </template>
 
@@ -49,23 +49,24 @@
       const variables = {
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview',
-        limit: 1
+        limit: 2
       };
 
       const response = await this.$contentful.query('latestEditorialContent', variables);
       const entries = response.data.data;
 
+      // Select three stories: at least one of each type, max two of each type;
+      // sorted by date published, most recent first
       this.cards = entries.blogPostingCollection.items
         .concat(entries.exhibitionPageCollection.items)
-        .concat(entries.imageGalleryCollection.items);
+        .sort((a, b) => new Date(b.datePublished) - new Date(a.datePublished))
+        .slice(0, 3);
     },
 
     methods: {
       cardLink(card) {
         let link;
-        if (card['__typename'] === 'ImageGallery') {
-          link = { name: 'galleries-all', params: { pathMatch: card.identifier } };
-        } else if (card['__typename'] === 'ExhibitionPage') {
+        if (card['__typename'] === 'ExhibitionPage') {
           link = { name: 'exhibitions-exhibition', params: { exhibition: card.identifier } };
         } else if (card['__typename'] === 'BlogPosting') {
           link = { name: 'blog-all', params: { pathMatch: card.identifier } };
@@ -74,10 +75,6 @@
       },
 
       cardImage(card) {
-        if (card['__typename'] === 'ImageGallery') {
-          const edmPreview = card.hasPartCollection.items[0].encoding?.edmPreview?.[0] || card.hasPartCollection.items[0].thumbnailUrl;
-          return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
-        }
         return card.primaryImageOfPage?.image?.url;
       }
     }
@@ -101,8 +98,6 @@
   }
 
   .cta {
-    margin: 1.5em auto;
-
     @media (min-width: $bp-xxxl) {
       font-size: 1vw;
     }
@@ -110,6 +105,13 @@
 
   .card-deck {
     flex-flow: row wrap;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-xxxl) {
+      margin-top: 2.25vw;
+      margin-bottom: 2.25vw;
+    }
 
     .content-card.card {
       &:last-child {

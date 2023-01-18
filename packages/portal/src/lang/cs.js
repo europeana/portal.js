@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Zatím jste nevybrali žádné kolekce",
         "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
-        "public": "Ještě jste nevytvořil/a žádné veřejné galerie."
+        "public": "Ještě jste nevytvořil/a žádné veřejné galerie.",
+        "published": "Dosud jste neměli zveřejněné žádné galerie"
       },
       "noLikedItems": "Ještě jste neoznačil/a žádné položky jako oblíbené."
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Moje oblíbené a moje galerie",
     "profileSettings": "Nastavení profilu",
     "publicCollections": "Veřejné galerie",
+    "publishedCollections": "Publikované Galerie",
     "settings": "Nastavení",
     "title": "Můj účet"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Zrušit",
     "close": "zavřít",
     "continue": "pokračovat",
+    "depublish": "Zrušit publikování",
     "download": "Stáhnout",
     "edit": "Upravit",
     "feedback": "Zpětná vazba",
-    "goBack": "Zpět",
     "goHome": "Přejít na domovskou stránku",
     "learnMore": "Zjistěte více",
     "like": "Oblíbené",
@@ -44,12 +46,16 @@ export default {
     "preview": "Náhled",
     "previous": "Předchozí",
     "providedBy": "Poskytl {provider}",
+    "publish": "Publikovat",
     "reject": "Odmítnout",
+    "requestDepublication": "Žádost o zrušení publikace",
     "save": "Uložit",
     "send": "Poslat",
     "share": "Sdílejte",
     "shareOn": "Sdílet na {social}",
-    "skip": "Přeskočit",
+    "skipSend": "Přeskočit a odeslat",
+    "submitForPublication": "Odeslat k publikaci",
+    "submittedForPublication": "Odesláno k publikaci",
     "viewAt": "Zobrazit na stránce {link}",
     "viewDocument": "Zobrazit dokument"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Název:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerie",
     "item": "Poslední položky",
     "organisation": "Organizace",
     "place": "Místa",
@@ -123,7 +130,6 @@ export default {
       "update": "Sbírka byla aktualizována"
     }
   },
-  "collectionsYouMightLike": "Sbírky, které by se vám mohly líbit",
   "colourSwatch": "Vzorník barev",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +223,14 @@ export default {
       "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
       "metaTitle": "Položka nenalezena",
       "title": "Ach ne! {newline} Tuto položku se nám nepodařilo najít."
+    },
+    "pageNotFound": {
+      "metaTitle": "Stránka nenalezena",
+      "title": "Stránka, kterou hledáte, neexistuje."
+    },
+    "searchResultsNotFound": {
+      "description": "Upravte prosím hledaný výraz nebo resetujte filtry a zkuste to znovu.",
+      "title": "Zdá se, že nemůžeme najít to, co hledáte."
     }
   },
   "exhibitions": {
@@ -605,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "Možná budeme chtít navázat. Pokud si přejete, abychom vás kontaktovali, zadejte svůj e-mail.",
     "failed": "Požadavek se nezdařil. Zkuste to znovu.",
+    "faq": "Přejít na často kladené dotazy",
     "form": {
       "placeholders": {
         "email": "Zadejte svou e-mailovou adresu",
@@ -696,6 +711,7 @@ export default {
       "about": "O nás",
       "accessibility": "Přístupnost",
       "cookies": "Cookies",
+      "faq": "Často kladené dotazy",
       "forDevelopers": "Pro vývojáře",
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",
@@ -848,6 +864,11 @@ export default {
       "clickToCopy": "Kliknutím na atribut jej zkopírujete",
       "modalIntro": "Pokud používáte tuto položku na webu nebo jinde, nezapomeňte vedle ní zobrazit následující uvedení zdroje:",
       "modalTitle": "Řekni díky."
+    },
+    "downloadFailed": {
+      "linkPrompt": "Doporučujeme vám kliknout na tlačítko „Poskytovatelská instituce“ níže a zkontrolovat, zda lze položku stáhnout na webové stránce poskytující instituce.",
+      "message": "Pokud stahování nefunguje, může to být způsobeno tím, že jej odstranila poskytující instituce, nebo může nastat technický problém s jejich službou.",
+      "title": "Stahování nefunguje"
     }
   },
   "multilingual": {
@@ -937,6 +958,12 @@ export default {
     "transcriptionDisclaimer": "Tento obsah pochází z veřejných zdrojů, nikoliv od poskytovatelské instituce."
   },
   "related": {
+    "categoryTags": {
+      "title": "Objevte související příběhy"
+    },
+    "collections": {
+      "title": "Objevte související sbírky"
+    },
     "editorial": {
       "title": "Příběhy, které se vám mohou líbit"
     }
@@ -990,12 +1017,14 @@ export default {
     "form": {
       "description": "Popis galerie",
       "private": "Ponechat tuto galerii soukromou",
+      "privateWarning": "Tato akce zruší publikování galerie.",
       "required": "Povinné pole",
       "title": "Název galerie"
     },
     "labels": {
       "curatedBy": "Kurátor/ka",
-      "private": "Soukromá galerie"
+      "private": "Soukromá galerie",
+      "published": "Publikovaná galerie"
     },
     "notifications": {
       "deleted": "Vaše galerie byla smazána.",
@@ -1003,12 +1032,34 @@ export default {
         "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
         "title": "100 oblíbených"
       },
-      "updated": "Položka byla přidána do galerie."
+      "updated": "Položka byla přidána do galerie.",
+      "visibilityChanged": "Upozornění: viditelnost sady již byla změněna a aktuálně je \" {visibility} \"."
     },
     "prompts": {
       "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje."
+    },
+    "publication": {
+      "description": "Publikování galerie ji bude uvádět na Europeana.eu/galleries.",
+      "failedSubmission": "Žádost se nezdařila. Prosím zkuste to znovu.",
+      "process": {
+        "description": "Když odešlete galerii k publikaci, bude o tom informován tým vydavatelů v Europeaně. Nejprve jej zkontrolují a před zveřejněním mohou provést změny. Při kontrole galerie budete dostávat upozornění e-mailem. Pokud není zveřejněn, může se stát, že neodpovídá našim redakčním pokynům.",
+        "title": "Jak proces funguje"
+      },
+      "time": {
+        "description": "1-3 dny.",
+        "title": "Jak dlouho to trvá"
+      },
+      "title": "Odeslat galerii ke zveřejnění",
+      "toastButton": "Dobře",
+      "toastMessage": "Tato galerie je nyní odeslána k publikaci. Můžete zkontrolovat {galleries} , abyste zjistili, zda byla publikována."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) je webový nástroj pro správu obsahu různých typů (včetně 3D), dokumentaci kulturního dědictví prostřednictvím digitálního komunitního prostoru a kurátorství digitálních příběhů a zážitků."
+      }
     }
   },
+  "shareWhere": "Kam byste to chtěli sdílet?",
   "showLess": "Zobrazit méně",
   "showMore": "Zobrazit více",
   "sideFilters": {
@@ -1022,6 +1073,5 @@ export default {
   "storiesPage": {
     "title": "Příběhy"
   },
-  "website": "Webové stránky",
-  "youMightAlsoLike": "Mohlo by se vám také líbit"
+  "website": "Webové stránky"
 };

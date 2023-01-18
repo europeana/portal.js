@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Niste še kurirali nobene zbirke",
         "private": "Niste še ustvarili nobene zasebne zbirke.",
-        "public": "Niste še ustvarili nobene javne zbirke."
+        "public": "Niste še ustvarili nobene javne zbirke.",
+        "published": "Niste objavili še nobene galerije"
       },
       "noLikedItems": "Niste še všečkali nobenih predmetov."
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Moji všečki & zbirke",
     "profileSettings": "Nastavitve profila",
     "publicCollections": "Javne zbirke",
+    "publishedCollections": "Objavljene Galerije",
     "settings": "Nastavitve",
     "title": "Moj račun"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Prekliči",
     "close": "zapri",
     "continue": "nadaljuj",
+    "depublish": "Depubliš",
     "download": "Prenos",
     "edit": "Uredi",
     "feedback": "Povratne informacije",
-    "goBack": "Nazaj",
     "goHome": "Pojdite na domačo stran",
     "learnMore": "Nauči se več",
     "like": "Všeč mi je",
@@ -44,12 +46,16 @@ export default {
     "preview": "Predogled",
     "previous": "Prejšnji",
     "providedBy": "Zagotavlja {provider}",
+    "publish": "Objavi",
     "reject": "Zavrne",
+    "requestDepublication": "Zahtevaj deublikacijo",
     "save": "Shrani",
     "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
-    "skip": "Preskoči",
+    "skipSend": "Preskoči in pošlji",
+    "submitForPublication": "Oddaj za objavo",
+    "submittedForPublication": "Oddano v objavo",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Naslov:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerije",
     "item": "Nedavni predmeti",
     "organisation": "Organizacije",
     "place": "Mesta",
@@ -123,7 +130,6 @@ export default {
       "update": "Zbirka je bila posodobljena"
     }
   },
-  "collectionsYouMightLike": "Zbirke, ki vam bodo mogoče všeč",
   "colourSwatch": "Barvni vzorec",
   "contentfulManual": {
     "footerNavigation": {
@@ -217,6 +223,14 @@ export default {
       "description": "Razlogi za to so lahko naslednji: ta element ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite element poiskati znova.",
       "metaTitle": "Element ni bil najden",
       "title": "Oh ne! {newline} Tega predmeta nismo mogli najti."
+    },
+    "pageNotFound": {
+      "metaTitle": "Stran ni najdena",
+      "title": "Stran, ki jo iščete, ne obstaja."
+    },
+    "searchResultsNotFound": {
+      "description": "Prosimo, prilagodite iskalni izraz ali po nastavite filtre, da poskusite znova.",
+      "title": "Zdi se, da ne moremo najti, kar iščete."
     }
   },
   "exhibitions": {
@@ -605,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "Morda bi želeli slediti. Vnesite svojo e-pošto, če ste veseli, da vas kontaktiramo.",
     "failed": "Zahteva ni uspela. Prosim poskusite ponovno.",
+    "faq": "Pojdite na pogosto zastavljena vprašanja",
     "form": {
       "placeholders": {
         "email": "Vnesite svoj e-poštni naslov",
@@ -696,6 +711,7 @@ export default {
       "about": "O nas",
       "accessibility": "Dostopnost",
       "cookies": "Piškotki",
+      "faq": "Pogosto zastavljena vprašanja",
       "forDevelopers": "Za razvijalce",
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
@@ -848,6 +864,11 @@ export default {
       "clickToCopy": "Kliknite na pripis, da ga kopirate",
       "modalIntro": "Če uporabljate ta izdelek v spletu ali drugje, ne pozabite prikazati naslednjega atributa zraven:",
       "modalTitle": "Reci hvala"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Svetujemo vam, da kliknete spodnji gumb \"Ustanova izvora\" in preverite, ali lahko predmet prenesete na spletnem mestu ustanove, ki zagotavlja informacije.",
+      "message": "Če prenos ne deluje, je to morda zato, ker ga je institucija, ki je zagotovila, odstranila, ali pa je prišlo do tehnične težave z njihovo storitvijo.",
+      "title": "Prenos ne deluje"
     }
   },
   "multilingual": {
@@ -937,6 +958,12 @@ export default {
     "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta predmet."
   },
   "related": {
+    "categoryTags": {
+      "title": "Odkrijte povezane zgodbe"
+    },
+    "collections": {
+      "title": "Odkrijte povezane zbirke"
+    },
     "editorial": {
       "title": "Zgodbe, ki vam bodo morda všeč"
     }
@@ -990,12 +1017,14 @@ export default {
     "form": {
       "description": "Opis zbirke",
       "private": "Ohrani to zbirko zasebno",
+      "privateWarning": "To dejanje bo preklicalo objavo galerije.",
       "required": "Zahtevana polja ",
       "title": "Ime zbirke"
     },
     "labels": {
       "curatedBy": "Kurator",
-      "private": "Zasebna zbirka"
+      "private": "Zasebna zbirka",
+      "published": "Objavljena galerija"
     },
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
@@ -1003,12 +1032,34 @@ export default {
         "body": "Se opravičujemo, a trenutno lahko všečkate največ 100 predmetov. Kmalu bomo odstranili to omejitev!",
         "title": "100 všečkov"
       },
-      "updated": "Element je bil dodan v galerijo."
+      "updated": "Element je bil dodan v galerijo.",
+      "visibilityChanged": "Opozorilo: nastavljena vidnost je že spremenjena in je trenutno \" {visibility} \"."
     },
     "prompts": {
       "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse predmete, ki ste jih dodali."
+    },
+    "publication": {
+      "description": "Z objavo galerije bo ta objavljena na Europeana.eu/galleries.",
+      "failedSubmission": "Zahteva ni uspela. Prosim poskusite ponovno.",
+      "process": {
+        "description": "Ko pošljete galerijo v objavo, bo o tem obveščena ekipa založnikov Europeana. Ti jo bodo najprej pregledali in jo pred objavo morda spremenili. Obvestila o pregledu galerije boste prejeli po elektronski pošti. Če galerija ne bo objavljena, se lahko zgodi, da ni v skladu z našimi uredniškimi smernicami.",
+        "title": "Kako poteka proces"
+      },
+      "time": {
+        "description": "1-3 dni.",
+        "title": "Koliko časa traja"
+      },
+      "title": "Pošljite galerijo za objavo",
+      "toastButton": "Okej",
+      "toastMessage": "Ta galerija je zdaj poslana v objavo. Preverite {galleries} in preverite, ali je bil objavljen."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) je spletno orodje za upravljanje različnih vrst vsebin (vključno s 3D), dokumentiranje kulturne dediščine prek prostorov digitalne skupnosti ter kuriranje digitalnih zgodb in izkušenj."
+      }
     }
   },
+  "shareWhere": "Kje želite to deliti?",
   "showLess": "Prikaži manj",
   "showMore": "Prikaži več",
   "sideFilters": {
@@ -1022,6 +1073,5 @@ export default {
   "storiesPage": {
     "title": "Zgodbe"
   },
-  "website": "Spletno mesto",
-  "youMightAlsoLike": "Morda bi vam bilo všeč tudi"
+  "website": "Spletno mesto"
 };

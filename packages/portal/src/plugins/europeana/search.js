@@ -2,13 +2,13 @@
  * @file Interface to Europeana Record Search API
  */
 
-import qs from 'qs';
-import pick from 'lodash/pick';
+import pick from 'lodash/pick.js';
 
 import {
-  apiError, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
-} from './utils';
-import { truncate } from '../vue-filters';
+  apiError, createAxios, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
+} from './utils.js';
+import { BASE_URL } from './record.js';
+import { truncate } from '../vue-filters.js';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -91,6 +91,10 @@ export function rangeFromQueryParam(paramValue) {
  */
 // TODO: switch options.addContentTierFilter to default to `false`
 export default (context) => ($axios, params, options = {}) => {
+  if (!$axios) {
+    $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
+  }
+
   const defaultOptions = { addContentTierFilter: true };
   const localOptions = { ...defaultOptions, ...options };
 
@@ -115,15 +119,13 @@ export default (context) => ($axios, params, options = {}) => {
     const targetLocale = 'en';
     if (localOptions.locale !== targetLocale) {
       searchParams.profile = `${searchParams.profile},translate`;
+      searchParams.lang = localOptions.locale;
       searchParams['q.source'] = localOptions.locale;
       searchParams['q.target'] = targetLocale;
     }
   }
 
   return $axios.get(`${localOptions.url || ''}/search.json`, {
-    paramsSerializer(params) {
-      return qs.stringify(params, { arrayFormat: 'repeat' });
-    },
     params: searchParams
   })
     .then(response => response.data)

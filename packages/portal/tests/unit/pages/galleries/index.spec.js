@@ -10,51 +10,6 @@ localVue.directive('masonry', {});
 localVue.directive('masonry-tile', {});
 localVue.use(BootstrapVue);
 
-const contentfulGalleriesResponse = {
-  data: {
-    data: {
-      imageGalleryCollection: {
-        items: [
-          {
-            description: 'A fake gallery One',
-            hasPartCollection: {
-              items: [{
-                encoding: {
-                  edmPreview: [
-                    'https://api.europeana.eu/thumbnail/v2/url.json?uri=providersURI.jpg&type=IMAGE'
-                  ]
-                },
-                identifier: '/123/abc',
-                thumbnailUrl: null
-              }],
-              total: 12
-            },
-            identifier: 'fake-gallery-one',
-            name: 'Fake gallery One'
-          },
-          {
-            description: 'A fake gallery Two',
-            hasPartCollection: {
-              items: [{
-                encoding: {
-                  edmPreview: [
-                    'https://api.europeana.eu/thumbnail/v2/url.json?uri=providersURI_two.jpg&type=IMAGE'
-                  ]
-                },
-                identifier: '/456/def',
-                thumbnailUrl: null
-              }],
-              total: 12
-            },
-            identifier: 'fake-gallery-two',
-            name: 'Fake gallery Two'
-          }
-        ]
-      }
-    }
-  }
-};
-
 const setGalleriesResponse = {
   data: {
     '@context': 'http://www.europeana.eu/schemas/context/collection.jsonld',
@@ -120,6 +75,21 @@ const setGalleriesResponse = {
   }
 };
 
+const parsedGallerySets = [
+  {
+    description: { en: '\'The Ambassador of Jazz\' revolutionized the genre in the 1940s by being one of the fathers of bebop and infusing it later with Afro-Cuban rhythms. After a lucky accident, the bent bell trumpet became his trademark.' },
+    title: { en: 'Dizzy Gillespie' },
+    slug: '4279-dizzy-gillespie',
+    thumbnail: 'thumbnail undefined'
+  },
+  {
+    description: { en: 'Apartheid was a racist segregation system in South Africa and South West Africa from 1948 to 1990. These posters, photographs and objects document anti-apartheid movements across Europe, in solidatory with Black South Africans.' },
+    title: { en: 'Anti-Apartheid movement' },
+    slug: '4278-anti-apartheid-movement',
+    thumbnail: 'thumbnail undefined'
+  }
+];
+
 const setAPIStub = sinon.stub().resolves(setGalleriesResponse);
 
 const factory = (options = {}) => shallowMountNuxt(page, {
@@ -138,13 +108,6 @@ const factory = (options = {}) => shallowMountNuxt(page, {
         search: setAPIStub
       }
     },
-    $contentful: {
-      query: sinon.stub().resolves(contentfulGalleriesResponse)
-    },
-    $features: {
-      setGalleries: options.setGalleries
-    },
-    $pageHeadTitle: key => key,
     $store: {
       state: {
         sanitised: {
@@ -168,117 +131,62 @@ const factory = (options = {}) => shallowMountNuxt(page, {
 });
 
 describe('Gallery index page', () => {
-  describe('head()', () => {
+  sinon.resetHistory();
+
+  describe('pageMeta', () => {
     it('sets the page title as galleries.galleries(from locale file)', () => {
       const wrapper = factory();
 
-      const headTitle = wrapper.vm.head().title;
+      const headTitle = wrapper.vm.pageMeta.title;
 
       expect(headTitle).toEqual('galleries.galleries');
     });
   });
 
-  // TODO: remove these tests when galleries are using sets.
-  describe('when using contentful galleries', () => {
-    describe('Content Cards', () => {
-      it('has as many cards as there are galleries', async() => {
-        const wrapper = factory();
+  describe('while loading', () => {
+    const wrapper = factory({ fetchState: { pending: true } });
+    it('shows a loading spinner', async() => {
+      const loadingSpinner = wrapper.find('[data-qa="loading spinner container"]');
 
-        await wrapper.vm.fetch();
-
-        const cards = wrapper.findAllComponents('contentcard-stub');
-        expect(cards).toHaveLength(2);
-      });
-    });
-
-    describe('methods', () => {
-      describe('imageUrl', () => {
-        describe('when a gallery has an edmPreview value', () => {
-          it('uses the previewUrl', () => {
-            const wrapper = factory();
-
-            const imageUrl = wrapper.vm.imageUrl({ encoding: { edmPreview: ['edmPreviewURI'] } });
-            expect(imageUrl).toEqual('thumbnail edmPreviewURI');
-          });
-        });
-        describe('when a gallery has No edmPreview value, but a thubmnailUrl', () => {
-          it('uses the thumbnailUrl', () => {
-            const wrapper = factory();
-
-            const imageUrl = wrapper.vm.imageUrl({ encoding: { edmPreview: [] }, thumbnailUrl: 'thumbnailUrl' });
-            expect(imageUrl).toEqual('thumbnail thumbnailUrl');
-          });
-        });
-      });
+      expect(loadingSpinner.isVisible()).toBe(true);
     });
   });
 
-  describe('when using set API galleries', () => {
-    const options = { setGalleries: true };
-    const parsedGallerySets = [
-      {
-        description: { en: '\'The Ambassador of Jazz\' revolutionized the genre in the 1940s by being one of the fathers of bebop and infusing it later with Afro-Cuban rhythms. After a lucky accident, the bent bell trumpet became his trademark.' },
-        title: { en: 'Dizzy Gillespie' },
-        slug: '4279-dizzy-gillespie',
-        thumbnail: 'thumbnail undefined'
-      },
-      {
-        description: { en: 'Apartheid was a racist segregation system in South Africa and South West Africa from 1948 to 1990. These posters, photographs and objects document anti-apartheid movements across Europe, in solidatory with Black South Africans.' },
-        title: { en: 'Anti-Apartheid movement' },
-        slug: '4278-anti-apartheid-movement',
-        thumbnail: 'thumbnail undefined'
-      }
-    ];
+  describe('when fetching results in an error', () => {
+    const wrapper = factory({ fetchState: { error: { message: 'Something went wrong' } } });
 
-    afterEach(() => {
-      sinon.resetHistory();
+    it('shows an alert message', async() => {
+      const alertMessage = wrapper.find('[data-qa="alert message container"]');
+
+      expect(alertMessage.exists()).toBe(true);
     });
+  });
 
-    describe('while loading', () => {
-      const wrapper = factory({ fetchState: { pending: true }, ...options });
-      it('shows a loading spinner', async() => {
-        const loadingSpinner = wrapper.find('[data-qa="loading spinner container"]');
+  describe('fetch', () => {
+    it('requests the sets from the user set API endpoint', async() => {
+      const wrapper = factory();
 
-        expect(loadingSpinner.isVisible()).toBe(true);
+      await wrapper.vm.fetch();
+      expect(setAPIStub.called).toBe(true);
+      expect(wrapper.vm.galleries).toEqual(parsedGallerySets);
+    });
+  });
+  describe('methods', () => {
+    describe('parseSets', () => {
+      it('selects and formats the relevant fields', () => {
+        const wrapper = factory();
+
+        const parsedSets = wrapper.vm.parseSets(setGalleriesResponse.data.items);
+        expect(parsedSets).toEqual(parsedGallerySets);
       });
     });
 
-    describe('when fetching results in an error', () => {
-      const wrapper = factory({ fetchState: { error: { message: 'Something went wrong' } }, ...options });
+    describe('setPreviewUrl', () => {
+      it('uses the thumbnail plugin edmPreview at 400px', () => {
+        const wrapper = factory();
 
-      it('shows an alert message', async() => {
-        const alertMessage = wrapper.find('[data-qa="alert message container"]');
-
-        expect(alertMessage.exists()).toBe(true);
-      });
-    });
-
-    describe('fetch', () => {
-      it('requests the sets from the user set API endpoint', async() => {
-        const wrapper = factory(options);
-
-        await wrapper.vm.fetch();
-        expect(setAPIStub.called).toBe(true);
-        expect(wrapper.vm.galleries).toEqual(parsedGallerySets);
-      });
-    });
-    describe('methods', () => {
-      describe('parseSets', () => {
-        it('selects and formats the relevant fields', () => {
-          const wrapper = factory(options);
-
-          const parsedSets = wrapper.vm.parseSets(setGalleriesResponse.data.items);
-          expect(parsedSets).toEqual(parsedGallerySets);
-        });
-      });
-
-      describe('setPreviewUrl', () => {
-        it('uses the thumbnail plugin edmPreview at 400px', () => {
-          const wrapper = factory(options);
-
-          const previewUrl = wrapper.vm.setPreviewUrl('https://example.org/edmPreview.jpg');
-          expect(previewUrl).toEqual('thumbnail https://example.org/edmPreview.jpg');
-        });
+        const previewUrl = wrapper.vm.setPreviewUrl('https://example.org/edmPreview.jpg');
+        expect(previewUrl).toEqual('thumbnail https://example.org/edmPreview.jpg');
       });
     });
   });

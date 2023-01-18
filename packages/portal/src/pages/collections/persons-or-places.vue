@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <ContentHeader
-      :title="title"
+      :title="pageMeta.title"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
@@ -35,6 +35,7 @@
 <script>
   import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
   import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   import ContentHeader from '@/components/generic/ContentHeader';
   import ContentCard from '@/components/generic/ContentCard';
@@ -48,6 +49,8 @@
       ContentCard,
       PaginationNavInput
     },
+
+    mixins: [pageMetaMixin],
 
     middleware: 'sanitisePageQuery',
 
@@ -81,13 +84,12 @@
       }
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title)
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.$t(`pages.collections.${this.personsOrPlaces}.title`)
+        };
+      },
       personsOrPlaces() {
         return this.$route.path.split('/').pop();
       },
@@ -96,9 +98,6 @@
       },
       entityTypeApi() {
         return getEntityTypeApi(this.entityTypeHumanReadable);
-      },
-      title() {
-        return this.$t(`pages.collections.${this.personsOrPlaces}.title`);
       },
       page() {
         return this.$store.state.sanitised.page;

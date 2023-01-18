@@ -20,6 +20,7 @@
       :title-path="$fetchState.error.titlePath"
       :description-path="$fetchState.error.descriptionPath"
       :illustration-src="$fetchState.error.illustrationSrc"
+      class="pt-5"
     />
     <template
       v-else
@@ -43,9 +44,12 @@
           :edm-type="type"
           :attribution-fields="attributionFields"
           :entities="europeanaEntities"
+          :provider-url="isShownAt"
         />
       </b-container>
-      <b-container>
+      <b-container
+        class="footer-margin"
+      >
         <b-row class="mb-3 justify-content-center">
           <b-col
             cols="12"
@@ -67,8 +71,7 @@
               cols="12"
               class="col-lg-10 mt-4"
             >
-              <RelatedCollections
-                :title="$t('collectionsYouMightLike')"
+              <EntityBadges
                 :entity-uris="relatedEntityUris"
                 data-qa="related entities"
                 badge-variant="light"
@@ -80,7 +83,7 @@
           v-else
           class="mb-3"
         />
-        <b-row class="mb-0 justify-content-center">
+        <b-row class="mb-3 justify-content-center">
           <b-col
             cols="12"
             class="col-lg-10"
@@ -108,7 +111,6 @@
             :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
           />
         </client-only>
-        <b-row class="footer-margin" />
       </b-container>
     </template>
     <client-only>
@@ -135,6 +137,7 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import stringify from '@/mixins/stringify';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ItemPage',
@@ -145,12 +148,13 @@
       ItemRecommendations,
       LoadingSpinner,
       MetadataBox,
-      RelatedCollections: () => import('@/components/related/RelatedCollections'),
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
       SummaryInfo: () => import('@/components/item/SummaryInfo')
     },
 
     mixins: [
-      stringify
+      stringify,
+      pageMetaMixin
     ],
 
     data() {
@@ -198,28 +202,22 @@
         if (error.statusCode === 404) {
           error.titlePath = 'errorMessage.itemNotFound.title';
           error.descriptionPath = 'errorMessage.itemNotFound.description';
-          error.metaTitlePath = 'errorMessage.itemNotFound.metaTitle';
+          error.pageTitlePath = 'errorMessage.itemNotFound.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-item-not-found.svg');
         }
         throw error;
       }
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.metaTitle),
-        meta: [
-          { hid: 'title', name: 'title', content: this.metaTitle },
-          { hid: 'description', name: 'description', content: this.metaDescription },
-          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-      };
-    },
-
     computed: {
+      pageMeta() {
+        return {
+          title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
+          description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
+          ogType: 'article',
+          ogImage: this.media[0]?.thumbnails?.large
+        };
+      },
       keywords() {
         // Convert collection of annotations' prefLabels into a single langMap
         return this.taggingAnnotations?.reduce((memo, annotation) => {
@@ -282,24 +280,6 @@
           return null;
         }
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
-      },
-      metaTitle() {
-        if (this.$fetchState.error) {
-          return this.$t(this.$fetchState.error.metaTitlePath ? this.$fetchState.error.metaTitlePath : 'error');
-        } else if (this.titlesInCurrentLanguage[0]) {
-          return this.titlesInCurrentLanguage[0].value;
-        } else {
-          return this.$t('record.record');
-        }
-      },
-      metaDescription() {
-        if (isEmpty(this.descriptionInCurrentLanguage)) {
-          return '';
-        }
-        return this.descriptionInCurrentLanguage.values[0] || '';
-      },
-      pageHeadMetaOgImage() {
-        return this.media[0]?.thumbnails?.large || null;
       },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
@@ -367,13 +347,7 @@
 <style scoped>
   .related-collections {
     margin-top: -0.5rem;
-    margin-bottom: 2rem;
-    padding: 0;
-  }
-
-  ::v-deep .related-collections .badge-light {
-    margin-top: 0.25rem;
-    margin-right: 0.5rem;
+    margin-bottom: 1.5rem;
   }
 
   ::v-deep .card-header-tabs {

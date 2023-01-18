@@ -5,7 +5,7 @@
   >
     <div class="col-12">
       <b-card
-        class="card-group-card"
+        class="related-editorial-card"
         :title="$t('related.editorial.title')"
         title-tag="h2"
       >
@@ -17,8 +17,9 @@
             :key="index"
             :title="entry.name"
             :url="entryUrl(entry)"
-            :image-url="entry.primaryImageOfPage.image.url"
-            :image-content-type="entry.primaryImageOfPage.image.contentType"
+            :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
+            :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
+            :media-type="entry.primaryImageOfPage ? null : 'image'"
             variant="list"
           />
         </b-card-group>
@@ -112,6 +113,100 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@/assets/scss/variables';
+
+  .related-editorial-card {
+    border: 0;
+    box-shadow: $boxshadow-small;
+
+    h2 {
+      font-size: $font-size-extrasmall;
+      font-weight: 600;
+      line-height: 1rem;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      color: $mediumgrey;
+    }
+
+    .card-group {
+      column-gap: 1rem;
+
+      .list-card {
+        box-shadow: none;
+        margin-bottom: 1.5rem;
+        flex: 100%;
+        border-radius: 0;
+
+        @media (min-width: $bp-medium) {
+          flex: calc(50% - 1rem);
+          margin-bottom: 0.5rem;
+          flex-grow: 0;
+        }
+
+        &:hover {
+          background: $bodygrey;
+        }
+
+        .card-wrapper {
+          flex-direction: row;
+
+          @media (min-width: $bp-medium) {
+            padding: 0.5rem;
+          }
+
+          &:hover {
+            box-shadow: none;
+          }
+        }
+
+        .card-img {
+          width: 88px;
+          height: 88px;
+          flex: 0 0 88px;
+          min-height: 0;
+          order: 2;
+          margin: 0;
+          margin-left: 1rem;
+
+          img {
+            object-fit: cover;
+          }
+        }
+
+        .card-body {
+          justify-content: space-between;
+          order: 1;
+          display: flex;
+          flex-direction: column;
+          padding: 0;
+          flex: 100%;
+
+          .title-texts-wrapper {
+            order: 1;
+
+            .card-title {
+              line-height: 1.5;
+              overflow: initial;
+              display: inline;
+              -webkit-line-clamp: none;
+            }
+          }
+
+          .card-subtitle {
+            font-size: $font-size-small;
+            font-weight: normal;
+            line-height: 20px;
+            order: 2;
+            margin-bottom: 0;
+            text-transform: none;
+          }
+        }
+      }
+    }
+  }
+</style>
 
 <docs lang="md">
   Related editorial content: 4 entries

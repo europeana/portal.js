@@ -13,6 +13,7 @@ const FEATURED_TOPICS = 'Featured topics';
 const FEATURED_TIMES = 'Featured centuries';
 const RECENT_ITEMS = 'Recent items';
 const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
+const LATEST_GALLERIES = 'Latest galleries';
 
 const $axiosGetStub = sinon.stub();
 
@@ -23,6 +24,9 @@ const factory = (props = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(
     $apis: {
       entity: {
         imageUrl: () => 'image URL'
+      },
+      thumbnail: {
+        edmPreview: sinon.stub().returnsArg(0)
       }
     },
     $fetchState: {
@@ -124,6 +128,13 @@ const entries = {
       label: '3D',
       count: 500
     }
+  ],
+  latestGalleries: [
+    { id: '001',
+      title: { en: 'gallery 001' },
+      items: [
+        { edmPreview: 'https://www.example.eu/image.jpg' }
+      ] }
   ]
 };
 
@@ -300,6 +311,38 @@ describe('components/browse/AutomatedCardGroup', () => {
 
         await wrapper.setData({
           entries: entries.recentItems
+        });
+        const section = wrapper.vm.contentCardSection;
+        expect(section.hasPartCollection.items[0]).toEqual(expected);
+        expect(section.hasPartCollection.items.length).toBe(1);
+      });
+    });
+
+    describe('when the type is latest galleries', () => {
+      it('includes a headline', () => {
+        const wrapper = factory({ sectionType: LATEST_GALLERIES });
+
+        expect(wrapper.vm.contentCardSection.headline).toBe('automatedCardGroup.gallery');
+      });
+      it('sets a more button', () => {
+        const wrapper = factory({ sectionType: LATEST_GALLERIES, moreButton: { 'url': '/search', 'text': 'Show all galleries' } });
+        expect(wrapper.vm.contentCardSection.moreButton.text).toBe('Show all galleries');
+      });
+      it('sets the relevant fields for the galleries in the hasPartCollection', async() => {
+        const expected = {
+          __typename: 'AutomatedGalleryCard',
+          __variant: null,
+          identifier: '001',
+          image: 'https://www.example.eu/image.jpg',
+          name: { en: 'gallery 001' },
+          url: 'galleries/001-gallery-001',
+          description: undefined
+        };
+
+        const wrapper = factory({ sectionType: LATEST_GALLERIES });
+
+        await wrapper.setData({
+          entries: entries.latestGalleries
         });
         const section = wrapper.vm.contentCardSection;
         expect(section.hasPartCollection.items[0]).toEqual(expected);

@@ -65,6 +65,10 @@ module.exports = async() => {
             components: '../portal/src/components/account/[A-Z]*.vue'
           },
           {
+            name: 'Download',
+            components: '../portal/src/components/download/[A-Z]*.vue'
+          },
+          {
             name: 'Entity',
             components: '../portal/src/components/entity/[A-Z]*.vue'
           },
@@ -87,6 +91,10 @@ module.exports = async() => {
           {
             name: 'Search',
             components: '../portal/src/components/search/[A-Z]*.vue'
+          },
+          {
+            name: 'Set',
+            components: '../portal/src/components/set/[A-Z]*.vue'
           }
         ]
       }

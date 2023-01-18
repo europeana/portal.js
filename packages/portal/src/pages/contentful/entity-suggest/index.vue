@@ -53,7 +53,7 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle('Entity suggest - Contentful app')
+        title: 'Entity suggest - Contentful app'
       };
     },
 
