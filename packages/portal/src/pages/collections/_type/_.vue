@@ -37,15 +37,15 @@
         />
         <template
           v-if="collectionType !== 'organisation'"
-          #related
+          #related-collections
         >
           <client-only>
-            <EntityRelatedCollections
+            <EntityRelatedCollectionsCard
               :type="$route.params.type"
               :identifier="$route.params.pathMatch"
               :overrides="relatedCollectionCards || relatedCollections"
               data-qa="related entities"
-              @fetched="handleEntityRelatedCollectionsFetched"
+              @entitiesFromUrisFetched="handleEntityRelatedCollectionsFetched"
             />
           </client-only>
         </template>
@@ -79,7 +79,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
-  import themes from '@/plugins/europeana/themes';
+  import themes, { themeForEntity } from '@/plugins/europeana/themes';
   import {
     getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
@@ -93,7 +93,7 @@
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
+      EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SearchInterface
     },
@@ -115,7 +115,24 @@
       next();
     },
 
-    middleware: 'sanitisePageQuery',
+    middleware: [
+      ({ params, query, redirect, $features, $path }) => {
+        if (!$features.themePages) {
+          return;
+        }
+        const entityUri = getEntityUri(params.type, params.pathMatch);
+        const entityTheme = themeForEntity(entityUri);
+        if (entityTheme) {
+          return redirect(
+            $path({
+              path: `/themes/${entityTheme.qf}`,
+              query
+            })
+          );
+        }
+      },
+      'sanitisePageQuery'
+    ],
 
     data() {
       return {

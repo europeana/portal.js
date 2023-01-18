@@ -6,14 +6,27 @@
     >
       <template
         v-if="!!searchQuery"
-        #related
+        #related-galleries
       >
         <client-only>
-          <RelatedSection
+          <RelatedGalleries
+            :query="searchQuery"
+            :overrides="relatedGalleries"
+            data-qa="related galleries"
+            @fetched="handleRelatedGalleriesFetched"
+          />
+        </client-only>
+      </template>
+      <template
+        v-if="!!searchQuery"
+        #related-collections
+      >
+        <client-only>
+          <RelatedCollectionsCard
             :query="searchQuery"
             :overrides="relatedCollections"
-            data-qa="related section"
-            @fetched="handleRelatedSectionFetched"
+            data-qa="related collections"
+            @relatedFetched="handleRelatedCollectionsCardFetched"
           />
         </client-only>
       </template>
@@ -45,7 +58,8 @@
       ClientOnly,
       SearchInterface,
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
-      RelatedSection: () => import('@/components/search/RelatedSection')
+      RelatedGalleries: () => import('@/components/related/RelatedGalleries'),
+      RelatedCollectionsCard: () => import('@/components/related/RelatedCollectionsCard')
     },
 
     mixins: [pageMetaMixin],
@@ -60,7 +74,8 @@
 
     data() {
       return {
-        relatedCollections: null
+        relatedCollections: null,
+        relatedGalleries: null
       };
     },
 
@@ -82,6 +97,7 @@
     watch: {
       searchQuery() {
         this.relatedCollections = null;
+        this.relatedGalleries = null;
       }
     },
 
@@ -90,8 +106,11 @@
     },
 
     methods: {
-      handleRelatedSectionFetched(relatedCollections) {
+      handleRelatedCollectionsCardFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
+      },
+      handleRelatedGalleriesFetched(relatedGalleries) {
+        this.relatedGalleries = relatedGalleries;
       }
     }
   };

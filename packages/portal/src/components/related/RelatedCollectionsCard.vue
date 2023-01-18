@@ -1,24 +1,28 @@
 <template>
-  <b-card
-    v-if="relatedCollections.length > 0"
-    class="text-left related-collections-card mb-4"
+  <aside
+    v-if="relatedCollections.length > 0 || entityUris.length > 0"
   >
-    <RelatedCollections
-      :related-collections="relatedCollections"
-      badge-variant="secondary"
-    />
-  </b-card>
+    <b-card
+      class="text-left related-collections-card"
+    >
+      <EntityBadges
+        :related-collections="relatedCollections"
+        :entity-uris="entityUris"
+        badge-variant="secondary"
+        @entitiesFromUrisFetched="(collections) => $emit('entitiesFromUrisFetched', collections)"
+      />
+    </b-card>
+  </aside>
 </template>
 
 <script>
-  import RelatedCollections from '../related/RelatedCollections';
   import { withEditorialContent } from '@/plugins/europeana/themes';
 
   export default {
-    name: 'RelatedSection',
+    name: 'RelatedCollectionsCard',
 
     components: {
-      RelatedCollections
+      EntityBadges: () => import('@/components/entity/EntityBadges')
     },
 
     props: {
@@ -29,6 +33,10 @@
       overrides: {
         type: Array,
         default: null
+      },
+      entityUris: {
+        type: Array,
+        default: () => []
       }
     },
 
@@ -41,9 +49,11 @@
     async fetch() {
       if (this.overrides) {
         this.relatedCollections = this.overrides;
+      } else if (this.entityUris.length) {
+        return;
       } else if (this.query && this.query !== '') {
         this.relatedCollections = await this.getSearchSuggestions(this.query);
-        this.$emit('fetched', this.relatedCollections);
+        this.$emit('relatedFetched', this.relatedCollections);
       }
     },
 

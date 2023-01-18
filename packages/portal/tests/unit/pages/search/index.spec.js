@@ -43,11 +43,10 @@ const store = new Vuex.Store({
 const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   stubs: {
-    'client-only': true,
-    'RelatedSection': true,
     'SearchInterface': {
-      template: '<div><slot name="related" /><slot name="after-results" /></div>'
-    }
+      template: '<div><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
+    },
+    RelatedCollectionsCard: true
   },
   mocks: {
     $features: {},
@@ -166,15 +165,27 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('methods', () => {
-    describe('handleRelatedSectionFetched', () => {
-      it('is triggered by fetched event on related section component', () => {
+    describe('handleRelatedCollectionsCardFetched', () => {
+      it('is triggered by relatedFetched event on related collections component', () => {
         const wrapper = factory({ query: 'fish' });
         const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];
 
-        const relatedSectionComponent = wrapper.find('[data-qa="related section"]');
-        relatedSectionComponent.vm.$emit('fetched', relatedCollections);
+        const relatedCollectionsCardComponent = wrapper.find('[data-qa="related collections"]');
+        relatedCollectionsCardComponent.vm.$emit('relatedFetched', relatedCollections);
 
         expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
+      });
+    });
+
+    describe('handleRelatedGalleriesFetched', () => {
+      it('is triggered by fetched event on related galleries component', () => {
+        const wrapper = factory({ query: 'fish' });
+        const relatedGalleries = [{ slug: '001-fish' }];
+
+        const relatedGalleriesComponent = wrapper.find('[data-qa="related galleries"]');
+        relatedGalleriesComponent.vm.$emit('fetched', relatedGalleries);
+
+        expect(wrapper.vm.relatedGalleries).toEqual(relatedGalleries);
       });
     });
   });

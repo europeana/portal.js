@@ -13,17 +13,14 @@ const contentfulQueryResponse = {
     data: {
       blogPostingCollection: {
         items: [
-          { identifier: 'blog-1' }
+          { identifier: 'blog-1', datePublished: '2022-09-26T08:00:00.000+02:00' },
+          { identifier: 'blog-2', datePublished: '2022-11-26T08:00:00.000+02:00' }
         ]
       },
       exhibitionPageCollection: {
         items: [
-          { identifier: 'exhibition-1' }
-        ]
-      },
-      imageGalleryCollection: {
-        items: [
-          { identifier: 'gallery-1' }
+          { identifier: 'exhibition-1', datePublished: '2022-10-26T08:00:00.000+02:00' },
+          { identifier: 'exhibition-2', datePublished: '2022-12-26T08:00:00.000+02:00' }
         ]
       }
     }
@@ -48,7 +45,7 @@ const factory = () => shallowMountNuxt(HomeLatest, {
 });
 
 describe('components/home/HomeLatest', () => {
-  describe('fetch', () => {
+  describe('template', () => {
     it('shows a section with editorial content', async() => {
       const wrapper = factory();
       await wrapper.vm.fetch();
@@ -57,7 +54,7 @@ describe('components/home/HomeLatest', () => {
       expect(section.exists()).toBe(true);
     });
 
-    it('shows 3 cards', async() => {
+    it('shows a card for each story', async() => {
       const wrapper = factory();
       await wrapper.vm.fetch();
 
@@ -66,19 +63,33 @@ describe('components/home/HomeLatest', () => {
     });
   });
 
+  describe('fetch', () => {
+    it('queries CTF for latest editorial', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$contentful.query.calledWith('latestEditorialContent', {
+        locale: 'en-GB',
+        preview: false,
+        limit: 2
+      })).toBe(true);
+    });
+
+    it('shows 3 cards, by date published, at least one of each type', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.cards.length).toBe(3);
+      expect(wrapper.vm.cards.at(0).identifier).toEqual('exhibition-2');
+      expect(wrapper.vm.cards.at(1).identifier).toEqual('blog-2');
+      expect(wrapper.vm.cards.at(2).identifier).toEqual('exhibition-1');
+    });
+  });
+
   describe('methods', () => {
     describe('cardLink', () => {
-      it('constructs gallery links', () => {
-        const wrapper = factory();
-
-        const link = wrapper.vm.cardLink({
-          __typename: 'ImageGallery',
-          identifier: 'gallery'
-        });
-
-        expect(link.name).toBe('galleries-all');
-      });
-
       it('constructs exhibition links', () => {
         const wrapper = factory();
 
@@ -103,50 +114,7 @@ describe('components/home/HomeLatest', () => {
     });
 
     describe('cardImage', () => {
-      describe('for galleries', () => {
-        const wrapper = factory();
-        wrapper.vm.$apis = {
-          thumbnail: {
-            edmPreview: sinon.stub().returnsArg(0)
-          }
-        };
-
-        it('favours edmPreview URLs', () => {
-          const image = wrapper.vm.cardImage({
-            __typename: 'ImageGallery',
-            hasPartCollection: {
-              items: [
-                {
-                  encoding: {
-                    edmPreview: ['edmPreview.jpg']
-                  }
-                }
-              ]
-            }
-          });
-
-          expect(wrapper.vm.$apis.thumbnail.edmPreview.calledWith('edmPreview.jpg', { size: 400 })).toBe(true);
-          expect(image).toBe('edmPreview.jpg');
-        });
-
-        it('falls back to thumbnailUrl URLs', () => {
-          const image = wrapper.vm.cardImage({
-            __typename: 'ImageGallery',
-            hasPartCollection: {
-              items: [
-                {
-                  thumbnailUrl: 'thumbnail.jpg'
-                }
-              ]
-            }
-          });
-
-          expect(wrapper.vm.$apis.thumbnail.edmPreview.calledWith('thumbnail.jpg', { size: 400 })).toBe(true);
-          expect(image).toBe('thumbnail.jpg');
-        });
-      });
-
-      it('otherwise uses primaryImageOfPage URL', () => {
+      it('uses primaryImageOfPage URL', () => {
         const wrapper = factory();
 
         const image = wrapper.vm.cardImage({

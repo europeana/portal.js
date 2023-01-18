@@ -106,7 +106,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
   });
 
   describe('fetch', () => {
-    it('initialises cards to items, plus related at index 4', () => {
+    it('initialises cards to items, plus related galleries at index 3 and related collections at index 6', () => {
       const items = [
         { id: '1' },
         { id: '2' },
@@ -122,9 +122,10 @@ describe('components/item/ItemPreviewCardGroup', () => {
         { id: '1' },
         { id: '2' },
         { id: '3' },
+        'related-galleries',
         { id: '4' },
-        'related',
-        { id: '5' }
+        { id: '5' },
+        'related-collections'
       ];
       expect(wrapper.vm.cards).toEqual(expected);
     });
