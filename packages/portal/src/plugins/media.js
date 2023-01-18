@@ -79,7 +79,7 @@ function dctermsIsReferencedByIsImageInfoRequest(dctermsIsReferencedBy, services
 }
 
 export function isIIIFPresentation(webResource) {
-  return webResource.dctermsIsReferencedBy?.some((dctermsIsReferencedBy) => dctermsIsReferencedBy.endsWith('/manifest'));
+  return webResource.dctermsIsReferencedBy?.some((dctermsIsReferencedBy) => dctermsIsReferencedBy.includes('/manifest'));
 }
 
 export function iiifManifest(webResource, europeanaIdentifier) {
