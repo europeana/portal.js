@@ -43,13 +43,20 @@
     },
 
     computed: {
+      manifestId() {
+        if (this.uri.startsWith('https://iiif.europeana.eu/')) {
+          const separator = (this.uri.includes('?') ? '&' : '?');
+          return [this.uri, 'format=3'].join(separator);
+        }
+        return this.uri;
+      },
       miradorViewerOptions() {
         // Doc: https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/config/settings.js
         const options = {
           id: 'viewer',
           windows: [
             {
-              manifestId: this.uri,
+              manifestId: this.manifestId,
               thumbnailNavigationPosition: 'far-bottom'
             }
           ],
