@@ -44,7 +44,7 @@
 
     computed: {
       miradorViewerOptions() {
-        // Doc: https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/config/settings.js
+        // Doc: https://github.com/ProjectMirador/mirador/blob/v3.3.0/src/config/settings.js
         const options = {
           id: 'viewer',
           windows: [
