@@ -31,7 +31,7 @@ module.exports = (migration) => {
     transformEntryForLocale(fromFields, currentLocale) {
       if (fromFields.identifier && themePages.includes(fromFields.identifier['en-GB'])) {
         return {
-          title: fromFields.name ? fromFields.name[currentLocale] : undefined,
+          name: fromFields.name ? fromFields.name[currentLocale] : undefined,
           identifier: fromFields.genre ? fromFields.genre[currentLocale] : undefined,
           description: fromFields.description ? fromFields.description[currentLocale] : undefined,
           primaryImageOfPage: fromFields.primaryImageOfPage ? fromFields.primaryImageOfPage[currentLocale] : undefined

@@ -1,12 +1,17 @@
 module.exports = function(migration) {
+  if (!process.env.SET_SUGGEST_APP_ID) {
+    console.log('No app ID specified in SET_SUGGEST_APP_ID; aborting.');
+    process.exit(1);
+  }
+
   const galleryGroup = migration
     .createContentType('galleryGroup')
     .name('Gallery group')
     .description('List of gallery set id\'s')
-    .displayField('title');
+    .displayField('headline');
 
   galleryGroup
-    .createField('title')
+    .createField('headline')
     .name('Title')
     .type('Symbol')
     .localized(true)
@@ -14,9 +19,9 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  galleryGroup.changeFieldControl('title', 'builtin', 'singleLine', {});
+  galleryGroup.changeFieldControl('headline', 'builtin', 'singleLine', {});
 
-  galleryGroup.createField('galleries')
+  galleryGroup.createField('hasPart')
     .name('Galleries')
     .type('Array')
     .localized(false)
@@ -43,6 +48,5 @@ module.exports = function(migration) {
       ]
     });
 
-  // TODO: Use set suggest app when available
-  // galleryGroup.changeFieldControl('gallerys', 'app', process.env.SET_SUGGEST_APP_ID);
+  galleryGroup.changeFieldControl('hasPart', 'app', process.env.SET_SUGGEST_APP_ID);
 };
