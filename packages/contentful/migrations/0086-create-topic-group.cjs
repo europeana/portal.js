@@ -1,12 +1,17 @@
 module.exports = function(migration) {
+  if (!process.env.ENTITY_SUGGEST_APP_ID) {
+    console.log('No app ID specified in ENTITY_SUGGEST_APP_ID; aborting.');
+    process.exit(1);
+  }
+
   const topicGroup = migration
     .createContentType('topicGroup')
     .name('Topic group')
     .description('List of topic entity id\'s')
-    .displayField('title');
+    .displayField('headline');
 
   topicGroup
-    .createField('title')
+    .createField('headline')
     .name('Title')
     .type('Symbol')
     .localized(true)
@@ -14,9 +19,9 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  topicGroup.changeFieldControl('title', 'builtin', 'singleLine', {});
+  topicGroup.changeFieldControl('headline', 'builtin', 'singleLine', {});
 
-  topicGroup.createField('topics')
+  topicGroup.createField('hasPart')
     .name('Topics')
     .type('Array')
     .localized(false)
@@ -43,5 +48,5 @@ module.exports = function(migration) {
       ]
     });
 
-  topicGroup.changeFieldControl('topics', 'app', process.env.ENTITY_SUGGEST_APP_ID);
+  topicGroup.changeFieldControl('hasPart', 'app', process.env.ENTITY_SUGGEST_APP_ID);
 };
