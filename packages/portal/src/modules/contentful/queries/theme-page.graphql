@@ -7,8 +7,8 @@ query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = fals
   ) {
     items {
       identifier
-      title
-      titleEN: title(locale: "en-GB")
+      name
+      nameEN: name(locale: "en-GB")
       description
       primaryImageOfPage {
         url
@@ -16,56 +16,46 @@ query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = fals
           ...imageFields
         }
       }
-      relatedTopics {
-        title
-        topics
-      }
-      relatedPersons {
-        title
-        persons
-      }
-      relatedStories {
-        headline
-        hasPartCollection(limit: 6) {
-          items {
-            ... on CuratedCard {
-              name
-              description
+      hasPartCollection {
+        items {
+          __typename
+          ... on TopicGroup {
+            headline
+            hasPart
+          }
+          ... on PersonGroup {
+            headline
+            hasPart
+          }
+          ... on GalleryGroup {
+            headline
+            hasPart
+          }
+          ... on PrimaryCallToAction {
+            name
+            text
+            relatedLink {
               url
-              image {
-                ...imageFields
+              text
+            }
+            image {
+              ...illustrationFields
+            }
+          }
+          ... on CardGroup {
+            headline
+            hasPartCollection(limit: 8) {
+              items {
+                ... on AutomatedRecordCard {
+                  encoding
+                }
               }
             }
-          }
-        }
-      }
-      relatedGalleries {
-        title
-        galleries
-      }
-      callToAction {
-        name
-        text
-        relatedLink {
-          url
-          text
-        }
-        image {
-          ...illustrationFields
-        }
-      }
-      curatedItems {
-        headline
-        hasPartCollection(limit: 6) {
-          items {
-            ... on AutomatedRecordCard {
-              encoding
+            moreButton {
+              url
+              text
             }
           }
-        }
-        moreButton {
-          url
-          text
         }
       }
     }

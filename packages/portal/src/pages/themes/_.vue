@@ -4,58 +4,53 @@
     class="theme-page"
   >
     <ContentHeader
-      :title="theme.title"
+      :title="theme.name"
       :description="theme.description"
       :media-url="shareMediaUrl"
     />
-    <RelatedCollections
-      :title="theme.relatedTopics.title"
-      :entity-uris="theme.relatedTopics.topics"
+    <EntityBadges
+      :title="relatedTopics.headline"
+      :entity-uris="relatedTopics.hasPart"
     />
-    <RelatedCollections
-      :title="theme.relatedPersons.title"
-      :entity-uris="theme.relatedPersons.persons"
+    <EntityBadges
+      :title="relatedPersons.headline"
+      :entity-uris="relatedPersons.hasPart"
       card-variant="mini"
     />
     <CallToActionBanner
-      v-if="theme.callToAction"
-      :name="theme.callToAction.name"
-      :text="theme.callToAction.text"
-      :link="theme.callToAction.relatedLink"
-      :illustration="theme.callToAction.image"
+      v-if="callToAction"
+      :name="callToAction.name"
+      :text="callToAction.text"
+      :link="callToAction.relatedLink"
+      :illustration="callToAction.image"
     />
-    <ContentCardSection
-      :section="theme.relatedStories"
-    />
-    <h2>{{ theme.curatedItems.headline }}</h2>
+    <h2>{{ curatedItems.headline }}</h2>
     <ItemPreviewCardGroup
-      :items="curatedItems"
+      :items="curatedItemsEncoding"
       view="grid"
     />
     <SmartLink
-      v-if="theme.curatedItems.moreButton"
-      :destination="theme.curatedItems.moreButton.url"
+      v-if="curatedItems.moreButton"
+      :destination="curatedItems.moreButton.url"
       class="btn btn-outline-secondary"
     >
-      {{ theme.curatedItems.moreButton.text }}
+      {{ curatedItems.moreButton.text }}
     </SmartLink>
   </div>
 </template>
 
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
-  import RelatedCollections from '@/components/related/RelatedCollections';
-  import ContentCardSection from '@/components/browse/ContentCardSection';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import EntityBadges from '@/components/entity/EntityBadges';
 
   export default {
     name: 'ThemePage',
 
     components: {
       ContentHeader,
-      RelatedCollections,
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
-      ContentCardSection,
+      EntityBadges,
       ItemPreviewCardGroup,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
@@ -82,13 +77,21 @@
       shareMediaUrl() {
         return this.theme?.primaryImageOfPage?.image?.url;
       },
+      relatedTopics() {
+        return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'TopicGroup')[0];
+      },
+      relatedPersons() {
+        return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'PersonGroup')[0];
+      },
+      callToAction() {
+        return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
+      },
       curatedItems() {
-        return this.theme.curatedItems.hasPartCollection.items.map(item => item.encoding);
+        return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'CardGroup')[0];
+      },
+      curatedItemsEncoding() {
+        return this.curatedItems.hasPartCollection.items.map(items => items.encoding);
       }
-    },
-
-    mounted() {
-      console.log(this.theme);
     }
 
   };
