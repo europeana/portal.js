@@ -43,20 +43,13 @@
     },
 
     computed: {
-      manifestId() {
-        if (this.uri.startsWith('https://iiif.europeana.eu/')) {
-          const separator = (this.uri.includes('?') ? '&' : '?');
-          return [this.uri, 'format=3'].join(separator);
-        }
-        return this.uri;
-      },
       miradorViewerOptions() {
         // Doc: https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/config/settings.js
         const options = {
           id: 'viewer',
           windows: [
             {
-              manifestId: this.manifestId,
+              manifestId: this.uri,
               thumbnailNavigationPosition: 'far-bottom'
             }
           ],
@@ -84,6 +77,14 @@
             enabled: false
           },
           requests: {
+            preprocessors: [
+              (url, options) => ({
+                ...options,
+                headers: {
+                  Accept: 'application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"'
+                }
+              })
+            ],
             postprocessors: [this.postprocessMiradorRequest]
           }
         };
