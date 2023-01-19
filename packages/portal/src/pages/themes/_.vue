@@ -12,7 +12,7 @@
       :title="relatedTopics.headline"
       :entity-uris="relatedTopics.hasPart"
     />
-    <EntityBadges
+    <EntityCardGroup
       :title="relatedPersons.headline"
       :entity-uris="relatedPersons.hasPart"
       card-variant="mini"
@@ -43,6 +43,7 @@
   import ContentHeader from '@/components/generic/ContentHeader';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import EntityBadges from '@/components/entity/EntityBadges';
+  import EntityCardGroup from '@/components/entity/EntityCardGroup';
 
   export default {
     name: 'ThemePage',
@@ -51,6 +52,7 @@
       ContentHeader,
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
       EntityBadges,
+      EntityCardGroup,
       ItemPreviewCardGroup,
       SmartLink: () => import('@/components/generic/SmartLink')
     },

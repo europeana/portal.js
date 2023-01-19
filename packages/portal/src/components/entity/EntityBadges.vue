@@ -8,25 +8,6 @@
       {{ title || $t('related.collections.title') }}
     </h2>
     <div
-      v-if="cardVariant"
-    >
-      <b-card-group
-        class="card-deck-4-cols"
-        deck
-      >
-        <ContentCard
-          v-for="relatedCollection in collections"
-          :id="relatedCollection.id"
-          :key="relatedCollection.id"
-          :title="collectionTitle(relatedCollection)"
-          :url="entityRouterLink(relatedCollection.id)"
-          :image-url="imageUrl(relatedCollection)"
-          :variant="cardVariant"
-        />
-      </b-card-group>
-    </div>
-    <div
-      v-else
       class="badges-wrapper d-flex"
       :class="{ 'flex-wrap': wrap }"
     >
@@ -37,7 +18,7 @@
         ref="options"
         :link-to="collectionLinkGen(relatedCollection)"
         :title="collectionTitle(relatedCollection)"
-        :img="imageUrl(relatedCollection)"
+        :img="imageUrl(relatedCollection, 28, 28)"
         :type="relatedCollection.type"
         :badge-variant="badgeVariant"
         :image-src-set="imageSrcSet(relatedCollection)"
@@ -47,10 +28,9 @@
 </template>
 
 <script>
-  import pick from 'lodash/pick';
-  import { withEditorialContent } from '@/plugins/europeana/themes';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+
+  import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
 
   import LinkBadge from '../generic/LinkBadge';
 
@@ -58,13 +38,12 @@
     name: 'EntityBadges',
 
     components: {
-      ContentCard: () => import('@/components/generic/ContentCard'),
       LinkBadge
     },
 
     mixins: [
       collectionLinkGenMixin,
-      europeanaEntitiesOrganizationsMixin
+      europeanaEntityLinks
     ],
 
     props: {
@@ -87,10 +66,6 @@
       wrap: {
         type: Boolean,
         default: true
-      },
-      cardVariant: {
-        type: String,
-        default: null
       }
     },
 
@@ -105,9 +80,10 @@
         return;
       }
 
-      let entities = await this.$apis.entity.find(this.entityUris);
-      entities = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
-      this.collections = await withEditorialContent(this, entities);
+      const entities = await this.fetchEntitiesWithEditorialOverrides(this.entityUris);
+      if (entities)  {
+        this.collections = entities;
+      }
       this.$emit('entitiesFromUrisFetched', this.collections);
     },
 
@@ -124,31 +100,6 @@
         this.$nextTick(() => {
           this.$redrawVueMasonry && this.$redrawVueMasonry();
         });
-      },
-
-      collectionTitle(collection) {
-        let title;
-
-        const organizationNativePrefLabel = this.organizationEntityNativeName(collection);
-        if (organizationNativePrefLabel) {
-          title = organizationNativePrefLabel;
-        } else if (collection.prefLabel) {
-          title = collection.prefLabel;
-        } else {
-          title = collection.name;
-        }
-
-        return title;
-      },
-
-      imageUrl(collection) {
-        if (collection.contentfulImage && this.$contentful.assets.isValidUrl(collection.contentfulImage.url)) {
-          return this.$contentful.assets.optimisedSrc(
-            collection.contentfulImage,
-            { w: 28, h: 28, fit: 'thumb' }
-          );
-        }
-        return this.$apis.entity.imageUrl(collection);
       },
 
       imageSrcSet(collection) {
