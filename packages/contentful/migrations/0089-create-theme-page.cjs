@@ -4,10 +4,10 @@ module.exports = function(migration) {
     .createContentType('themePage')
     .name('Theme page')
     .description('Theme entity page')
-    .displayField('title');
+    .displayField('name');
 
   themePage
-    .createField('title')
+    .createField('name')
     .name('Title')
     .type('Symbol')
     .localized(true)
@@ -27,7 +27,7 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  themePage.changeFieldControl('title', 'builtin', 'singleLine', {});
+  themePage.changeFieldControl('name', 'builtin', 'singleLine', {});
 
   themePage
     .createField('identifier')

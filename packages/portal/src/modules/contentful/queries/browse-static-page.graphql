@@ -47,9 +47,6 @@ query BrowseStaticPage(
               text
             }
         	}
-          ... on LatestCardGroup {
-            genre
-          }
           ... on AutomatedCardGroup {
             genre
             moreButton {
