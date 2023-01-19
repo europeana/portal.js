@@ -50,6 +50,7 @@
   import EntityBadges from '@/components/entity/EntityBadges';
   import EntityCardGroup from '@/components/entity/EntityCardGroup';
   import RelatedEditorial from '@/components/related/RelatedEditorial';
+  import pageMetaMixin from '@/mixins/pageMeta';
   import { daily } from '@/plugins/europeana/utils.js';
 
   export default {
@@ -64,6 +65,8 @@
       RelatedEditorial,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
+
+    mixins: [pageMetaMixin],
 
     async asyncData({ params, query, error, app }) {
       const variables = {
@@ -83,7 +86,13 @@
     },
 
     computed: {
-      // TODO: add pageMeta
+      pageMeta() {
+        return {
+          title: this.theme.name,
+          description: this.theme.description,
+          ogType: 'article'
+        };
+      },
       shareMediaUrl() {
         return this.theme?.primaryImageOfPage?.image?.url;
       },
@@ -106,6 +115,5 @@
         return daily(this.curatedItemsEncoding, 8);
       }
     }
-
   };
 </script>
