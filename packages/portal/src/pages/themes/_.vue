@@ -31,7 +31,7 @@
     />
     <h2>{{ curatedItems.headline }}</h2>
     <ItemPreviewCardGroup
-      :items="curatedItemsEncoding"
+      :items="dailySetOfCuratedItems"
       view="grid"
     />
     <SmartLink
@@ -50,6 +50,7 @@
   import EntityBadges from '@/components/entity/EntityBadges';
   import EntityCardGroup from '@/components/entity/EntityCardGroup';
   import RelatedEditorial from '@/components/related/RelatedEditorial';
+  import { daily } from '@/plugins/europeana/utils.js';
 
   export default {
     name: 'ThemePage',
@@ -100,6 +101,9 @@
       },
       curatedItemsEncoding() {
         return this.curatedItems.hasPartCollection.items.map(items => items.encoding);
+      },
+      dailySetOfCuratedItems() {
+        return daily(this.curatedItemsEncoding, 8);
       }
     }
 

@@ -45,7 +45,7 @@ query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = fals
           }
           ... on CardGroup {
             headline
-            hasPartCollection(limit: 8) {
+            hasPartCollection {
               items {
                 ... on AutomatedRecordCard {
                   encoding
