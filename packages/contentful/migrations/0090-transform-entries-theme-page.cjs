@@ -33,6 +33,7 @@ module.exports = (migration) => {
         return {
           name: fromFields.name ? fromFields.name[currentLocale] : undefined,
           identifier: fromFields.genre ? fromFields.genre[currentLocale] : undefined,
+          entityUri: fromFields.identifier ? fromFields.identifier[currentLocale] : undefined,
           description: fromFields.description ? fromFields.description[currentLocale] : undefined,
           primaryImageOfPage: fromFields.primaryImageOfPage ? fromFields.primaryImageOfPage[currentLocale] : undefined
         };

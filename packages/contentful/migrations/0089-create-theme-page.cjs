@@ -53,8 +53,8 @@ module.exports = function(migration) {
           'newspaper',
           'photography',
           'sport',
-          'ww1',
-        ],
+          'ww1'
+        ]
       }
     ])
     .disabled(false)
@@ -63,6 +63,15 @@ module.exports = function(migration) {
   themePage.changeFieldControl('identifier', 'builtin', 'dropdown', {
     helpText: 'Will always be prefixed with "/themes/"'
   });
+
+  themePage
+    .createField('entityUri')
+    .name('Entity ID')
+    .type('Symbol')
+    .localized(false)
+    .required(false)
+    .disabled(false)
+    .omitted(false);
 
   themePage
     .createField('description')
@@ -101,7 +110,6 @@ module.exports = function(migration) {
       helpText: 'Used for link cards and badges and social media image'
     }
   );
-
 
   themePage
     .createField('hasPart')
