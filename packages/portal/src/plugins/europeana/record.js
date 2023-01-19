@@ -325,7 +325,10 @@ export default (context = {}) => {
      * @param {string} europeanaId ID of Europeana record
      * @return {Object} parsed record data
      */
-    getRecord(europeanaId, options = {}) {
+    async get(europeanaId, options = {}) {
+      if (!options.format) {
+        options.format = 'json';
+      }
       let path = '';
       if (!this.$axios.defaults.baseURL.endsWith('/record')) {
         path = '/record';
@@ -349,35 +352,38 @@ export default (context = {}) => {
         }
       }
 
-      return this.$axios.get(`${path}${europeanaId}.json`, { params })
-        .then((response) => {
-          const parsed = this.parseRecordDataFromApiResponse(response.data, options);
-          const reduced = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, { freeze: false });
+      try {
+        const response = await this.$axios.get(`${path}${europeanaId}.${options.format}`, { params });
+        let record = response.data;
+
+        if (options.format === 'json') {
+          record = this.parseRecordDataFromApiResponse(record, options);
+          record = reduceLangMapsForLocale(record, record.metadataLanguage || options.locale, { freeze: false });
 
           // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
           for (const entityType of ['agents', 'concepts', 'organizations', 'places', 'timespans']) {
-            for (const reducedEntity of (reduced[entityType] || [])) {
-              const fullEntity = parsed[entityType].find(entity => entity.about === reducedEntity.about);
+            for (const reducedEntity of (record[entityType] || [])) {
+              const fullEntity = record[entityType].find(entity => entity.about === reducedEntity.about);
               if (fullEntity.prefLabel?.en !== reducedEntity.prefLabel?.en) {
                 reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
               }
             }
           }
+        }
 
-          return {
-            record: reduced,
-            error: null
-          };
-        })
-        .catch((error) => {
-          const errorResponse = error.response;
-          if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
-            delete (options.metadataLanguage);
-            options.fromTranslationError = true;
-            return this.getRecord(europeanaId, options);
-          }
-          throw apiError(error, context);
-        });
+        return {
+          record,
+          error: null
+        };
+      } catch (error) {
+        const errorResponse = error.response;
+        if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
+          delete (options.metadataLanguage);
+          options.fromTranslationError = true;
+          return this.getRecord(europeanaId, options);
+        }
+        throw apiError(error, context);
+      }
     },
 
     mediaProxyUrl(mediaUrl, europeanaId, params = {}) {

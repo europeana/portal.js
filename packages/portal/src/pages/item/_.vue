@@ -168,30 +168,32 @@
         description: null,
         error: null,
         fromTranslationError: null,
+        graph: null,
         identifier: `/${this.$route.params.pathMatch}`,
         isShownAt: null,
         media: [],
         metadata: {},
+        metadataLanguage: null,
         organizations: [],
         places: [],
+        schemaOrg: null,
         timespans: [],
         title: null,
         type: null,
-        useProxy: true,
-        schemaOrg: null,
-        metadataLanguage: null
+        useProxy: true
       };
     },
 
     async fetch() {
       try {
-        const response = await this.$apis.record.getRecord(
+        const response = await this.$apis.record.get(
           this.identifier,
-          { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
+          { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang, format: 'jsonld' }
         );
-        for (const key in response.record) {
-          this[key] = response.record[key];
-        }
+        this.graph = response.record['@graph'];
+        // for (const key in response.record) {
+        //   this[key] = response.record[key];
+        // }
         if (process.client) {
           this.trackCustomDimensions();
         }
