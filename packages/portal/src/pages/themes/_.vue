@@ -24,6 +24,11 @@
       :link="callToAction.relatedLink"
       :illustration="callToAction.image"
     />
+    <RelatedEditorial
+      :entity-uri="theme.entityUri"
+      :card-wrapper="false"
+      :limit="6"
+    />
     <h2>{{ curatedItems.headline }}</h2>
     <ItemPreviewCardGroup
       :items="curatedItemsEncoding"
@@ -44,6 +49,7 @@
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import EntityBadges from '@/components/entity/EntityBadges';
   import EntityCardGroup from '@/components/entity/EntityCardGroup';
+  import RelatedEditorial from '@/components/related/RelatedEditorial';
 
   export default {
     name: 'ThemePage',
@@ -54,6 +60,7 @@
       EntityBadges,
       EntityCardGroup,
       ItemPreviewCardGroup,
+      RelatedEditorial,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
