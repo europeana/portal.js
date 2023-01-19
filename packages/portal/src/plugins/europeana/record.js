@@ -238,11 +238,11 @@ export default (context = {}) => {
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
       return {
         allMediaUris,
-        altTitle: proxies.dctermsAlternative,
-        description: proxies.dcDescription,
+        // altTitle: proxies.dctermsAlternative,
+        // description: proxies.dcDescription,
         fromTranslationError: options.fromTranslationError,
-        identifier: edm.about,
-        type: edm.type, // TODO: Evaluate if this is used, if not remove.
+        // identifier: edm.about,
+        // type: edm.type,
         isShownAt: providerAggregation.edmIsShownAt,
         metadata: Object.freeze(metadata),
         media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type, edm.services),
@@ -251,7 +251,7 @@ export default (context = {}) => {
         timespans,
         organizations,
         places,
-        title: proxies.dcTitle,
+        // title: proxies.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
         metadataLanguage: prefLang
       };

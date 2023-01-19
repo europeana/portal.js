@@ -56,8 +56,8 @@
             class="col-lg-10"
           >
             <SummaryInfo
-              :description="descriptionInCurrentLanguage"
-              :titles="titlesInCurrentLanguage"
+              :description="description"
+              :titles="title || altTitle"
             />
           </b-col>
         </b-row>
@@ -190,7 +190,25 @@
           this.identifier,
           { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang, format: 'jsonld' }
         );
-        this.graph = response.record['@graph'];
+
+        const graph = response.record['@graph'];
+        const proxies = this.filterNodes(graph, '@type', 'ore:Proxy');
+        const europeanaProxy = proxies.find((proxy) => proxy['@id'].startsWith('http://data.europeana.eu/proxy/europeana/'));
+        const providerAggregation = this.filterNodes(graph, '@type', 'ore:Aggregation')[0];
+        const europeanaAggregation = this.filterNodes(graph, '@type', 'edm:EuropeanaAggregation')[0];
+        const webResources = this.filterNodes(graph, '@type', 'edm:WebResource');
+        const isShownById = providerAggregation['edm:isShownBy']['@id'];
+        const isShownBy = this.filterNodes(webResources, '@id', isShownById)
+        const hasViewIds = this.propertyOfNodes(providerAggregation['edm:hasView'], '@id');
+        const hasViews = this.filterNodes(webResources, '@id', hasViewIds);
+
+        console.log(isShownBy, hasViews)
+
+        this.title = this.$tld(this.propertyOfNodes(proxies, 'dc:title'));
+        this.altTitle = this.$tld(this.propertyOfNodes(proxies, 'dcterms:alternative'));
+        this.description = this.$tld(this.propertyOfNodes(proxies, 'dc:description'));
+        // this.type = europeanaProxy['edm:type'];
+
         // for (const key in response.record) {
         //   this[key] = response.record[key];
         // }
@@ -322,6 +340,23 @@
     },
 
     methods: {
+      propertyOfNodes(graph, property) {
+        return graph?.reduce((memo, node) => {
+          if (node[property]) {
+            memo = memo.concat(node[property]);
+          }
+          return memo;
+        }, []);
+      },
+
+      filterNodes(graph, property, value) {
+        return graph?.filter((node) => {
+          return (Array.isArray(node[property]) && node[property].includes(value)) ||
+            (Array.isArray(value) && value.includes(node[property])) ||
+            (node[property] === value)
+          });
+      },
+
       trackCustomDimensions() {
         if (!this.$waitForMatomo) {
           return;
