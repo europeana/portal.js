@@ -69,10 +69,9 @@
   import ItemEmbedCode from './ItemEmbedCode';
   import SocialShareModal from '../sharing/SocialShareModal';
   import ShareButton from '../sharing/ShareButton';
+  import WebResource from '@/plugins/europeana/web-resource';
 
   import rightsStatementMixin from '@/mixins/rightsStatement';
-
-  import has from 'lodash/has';
 
   export default {
     components: {
@@ -109,7 +108,8 @@
       },
       media: {
         type: Array,
-        default: () => []
+        default: () => [],
+        validator: prop => Array.isArray(prop) && prop.every(item => item instanceof WebResource)
       },
       attributionFields: {
         type: Object,
@@ -140,7 +140,7 @@
         return RegExp('^https?://*').test(this.rightsStatement);
       },
       rightsStatement() {
-        if (has(this.selectedMedia, 'webResourceEdmRights')) {
+        if (this.selectedMedia.webResourceEdmRights) {
           return this.selectedMedia.webResourceEdmRights.def[0];
         } else if (this.edmRights !== '') {
           return this.edmRights;

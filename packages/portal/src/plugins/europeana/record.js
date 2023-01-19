@@ -5,7 +5,7 @@ import merge from 'deepmerge';
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
 import search from './search.js';
 import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail.js';
-import { isIIIFPresentation, isIIIFImage } from '../media.js';
+import WebResource, { WEB_RESOURCE_FIELDS } from './web-resource.js';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './proxy.js';
@@ -236,6 +236,7 @@ export default (context = {}) => {
       };
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
+
       return {
         allMediaUris,
         altTitle: proxies.dctermsAlternative,
@@ -257,6 +258,7 @@ export default (context = {}) => {
       };
     },
 
+    // TODO: move to web-resource.js
     webResourceThumbnails(webResource, aggregation, recordType) {
       const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
 
@@ -287,7 +289,7 @@ export default (context = {}) => {
       // Filter web resources to isShownBy and hasView, respecting the ordering
       const media = mediaUris
         .map(mediaUri => aggregation.webResources.find(webResource => mediaUri === webResource.about))
-        .map(reduceWebResource);
+        .map(webResource => pick(webResource, WEB_RESOURCE_FIELDS));
 
       for (const webResource of media) {
         // Inject thumbnail URLs
@@ -295,6 +297,15 @@ export default (context = {}) => {
 
         // Inject service definitions, e.g. for IIIF
         webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
+
+        // Inject dctermsIsReferencedBy, e.g. for IIIF Presentation manifests
+        // TODO: https://europeana.atlassian.net/browse/EC-6033
+        // (webResource.dctermsIsReferencedBy || []).forEach((dctermsIsReferencedBy, index) => {
+        //   const referencer = media.find((wr) => wr.about === dctermsIsReferencedBy);
+        //   if (referencer) {
+        //     webResource.dctermsIsReferencedBy[index] = referencer;
+        //   }
+        // }
 
         // Add isShownAt to disable download for these webresources as they ar website URLs and not actual media
         if (webResource.about === aggregation.edmIsShownAt) {
@@ -308,10 +319,10 @@ export default (context = {}) => {
       // Also greatly minimises response size, and hydration cost, for IIIF with
       // many web resources, all of which are contained in a single manifest anyway.
       let displayable;
-      if (isIIIFPresentation(media[0])) {
+      if (new WebResource(media[0]).isIIIFPresentation) {
         displayable = [media[0]];
-      } else if (media.some(isIIIFImage)) {
-        displayable = [media.find(isIIIFImage)];
+      } else if (media.some((resource) => new WebResource(resource).isIIIFImage)) {
+        displayable = [media.find((resource) => new WebResource(resource).isIIIFImage)];
       } else {
         displayable = media;
       }
@@ -406,20 +417,6 @@ const reduceEntity = (entity) => {
     'latitude',
     'longitude',
     'prefLabel'
-  ]);
-};
-
-const reduceWebResource = (webResource) => {
-  return pick(webResource, [
-    'webResourceEdmRights',
-    'about',
-    'dctermsIsReferencedBy',
-    'ebucoreHasMimeType',
-    'ebucoreHeight',
-    'ebucoreWidth',
-    'edmCodecName',
-    'isNextInSequence',
-    'svcsHasService'
   ]);
 };
 

@@ -339,7 +339,7 @@ export function unescapeLuceneSpecials(escaped) {
 }
 
 export const isLangMap = (value) => {
-  return (typeof value === 'object') && Object.keys(value).every(key => {
+  return (typeof value === 'object') && (value.constructor.name === Object.name) && Object.keys(value).every(key => {
     // TODO: is this good enough to determine lang map or not?
     return key === 'translationSource' || /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
   });
@@ -355,7 +355,9 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
   if (Array.isArray(value)) {
     return value.map(val => reduceLangMapsForLocale(val, locale, options));
   } else if (typeof value === 'object') {
-    if (isLangMap(value)) {
+    if (Object.isFrozen(value)) {
+      return value;
+    } else if (isLangMap(value)) {
       const selectedLocale = selectLocaleForLangMap(value, locale);
       const langMap = {
         [selectedLocale]: value[selectedLocale]
@@ -371,10 +373,10 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
       }
       return options.freeze ? Object.freeze(langMap) : langMap;
     } else {
-      return Object.keys(value).reduce((memo, key) => {
-        memo[key] = reduceLangMapsForLocale(value[key], locale, options);
-        return memo;
-      }, {});
+      for (const key in value) {
+        value[key] = reduceLangMapsForLocale(value[key], locale, options);
+      }
+      return value;
     }
   } else {
     return value;
