@@ -1,5 +1,5 @@
 <template>
-  <header class="row">
+  <header class="content-header row">
     <b-col
       cols="12"
       lg="9"

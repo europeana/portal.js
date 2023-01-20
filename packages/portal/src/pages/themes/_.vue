@@ -9,16 +9,19 @@
       :media-url="shareMediaUrl"
       button-variant="secondary"
     />
+    <div class="divider" />
     <EntityBadges
       :title="relatedTopics.headline"
       :entity-uris="relatedTopics.hasPart"
+      class="ml-4 mb-5"
     />
     <EntityCardGroup
       :title="relatedPersons.headline"
       :entity-uris="relatedPersons.hasPart"
       card-variant="mini"
-      class="gridless-browse-cards"
+      class="gridless-browse-cards mb-4"
     />
+    <!-- Galleries -->
     <CallToActionBanner
       v-if="callToAction"
       :name="callToAction.name"
@@ -30,19 +33,24 @@
       :entity-uri="theme.entityUri"
       :card-wrapper="false"
       :limit="6"
+      class="mb-4"
     />
-    <h2>{{ curatedItems.headline }}</h2>
-    <ItemPreviewCardGroup
-      :items="dailySetOfCuratedItems"
-      view="grid"
-    />
-    <SmartLink
-      v-if="curatedItems.moreButton"
-      :destination="curatedItems.moreButton.url"
-      class="btn btn-outline-secondary"
+    <section
+      class="mb-5"
     >
-      {{ curatedItems.moreButton.text }}
-    </SmartLink>
+      <h2>{{ curatedItems.headline }}</h2>
+      <ItemPreviewCardGroup
+        :items="dailySetOfCuratedItems"
+        view="grid"
+      />
+      <SmartLink
+        v-if="curatedItems.moreButton"
+        :destination="curatedItems.moreButton.url"
+        class="btn btn-outline-secondary"
+      >
+        {{ curatedItems.moreButton.text }}
+      </SmartLink>
+    </section>
   </div>
 </template>
 
@@ -130,7 +138,27 @@
     margin-top: -1rem;
 
     ::v-deep header .col {
-      margin-bottom: 1em;
+      margin-bottom: 2em;
+    }
+
+    ::v-deep h2:not(.related-heading) {
+      color: $mediumgrey;
+      font-size: $font-size-large;
+      font-weight: 600;
+
+      @media (min-width: $bp-xxxl) {
+        font-size: $responsive-font-size-large;
+      }
+    }
+  }
+
+  .divider {
+    border-bottom: 1px solid $bodygrey;
+    margin-bottom: 1.75rem;
+
+    @media (min-width: $bp-xxxl) {
+      border-bottom: 0.0625vw solid $bodygrey;
+      margin-bottom: 1.75vw;
     }
   }
 </style>

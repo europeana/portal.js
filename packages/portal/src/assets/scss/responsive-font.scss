@@ -118,6 +118,8 @@
     .btn {
       font-size: $responsive-font-size-base;
       padding: 0.375vw 0.75vw;
+      border-width: 0.0625vw;
+      border-radius: 0.25vw;
     }
 
     .btn-light-flat.button-icon-only {
