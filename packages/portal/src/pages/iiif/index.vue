@@ -77,14 +77,7 @@
             enabled: false
           },
           requests: {
-            preprocessors: [
-              (url, options) => ({
-                ...options,
-                headers: {
-                  Accept: 'application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"'
-                }
-              })
-            ],
+            preprocessors: [this.addAcceptHeaderToPresentationRequests],
             postprocessors: [this.postprocessMiradorRequest]
           }
         };
@@ -93,13 +86,7 @@
       },
 
       iiifPresentationApiVersion() {
-        if (this.manifest['@context'] === 'http://iiif.io/api/presentation/2/context.json') {
-          return 2;
-        } else if (this.manifest['@context'] === 'http://iiif.io/api/presentation/3/context.json') {
-          return 3;
-        } else {
-          return undefined;
-        }
+        return this.iiifPresentationApiVersionFromContext(this.manifest['@context']);
       }
     },
 
@@ -124,6 +111,16 @@
             }
           }
         }
+      },
+
+      addAcceptHeaderToPresentationRequests(url, options) {
+        if (this.urlIsForEuropeanaPresentationManifest(url)) {
+          if (!options.headers) {
+            options.headers = {};
+          }
+          options.headers.Accept = 'application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"';
+        }
+        return options;
       },
 
       postprocessMiradorRequest(url, action) {
@@ -174,20 +171,46 @@
         this.coerceSearchHitsToBeforeMatchAfter(action.searchJson);
       },
 
-      addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
-        const europeanaIiifPattern = /^https?:\/\/iiif\.europeana\.eu\/presentation\/[^/]+\/[^/]+\/manifest$/;
-        if (!europeanaIiifPattern.test(manifestJson['@id'])) {
-          return;
-        }
+      urlIsForEuropeanaPresentationManifest(url) {
+        return url.includes('://iiif.europeana.eu/presentation/') && url.includes('/manifest');
+      },
 
-        // Add textGranularity filter to "otherContent" URIs
-        for (const sequence of manifestJson.sequences) {
-          for (const canvas of (sequence.canvases || [])) {
-            const otherContent = canvas.otherContent || [];
-            for (let i = 0; i < otherContent.length; i = i + 1) {
-              const otherContentLink = otherContent[i];
-              const paramSeparator = otherContentLink.includes('?') ? '&' : '?';
-              otherContent[i] = `${otherContentLink}${paramSeparator}textGranularity=${textGranularity}`;
+      iiifPresentationApiVersionFromContext(context) {
+        if ([].concat(context).includes('http://iiif.io/api/presentation/2/context.json')) {
+          return 2;
+        } else if ([].concat(context).includes('http://iiif.io/api/presentation/3/context.json')) {
+          return 3;
+        } else {
+          return undefined;
+        }
+      },
+
+      addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
+        const version = this.iiifPresentationApiVersionFromContext(manifestJson['@context']);
+
+        if (version === 2) {
+          if (!this.urlIsForEuropeanaPresentationManifest(manifestJson['@id'])) {
+            return;
+          }
+          // Add textGranularity filter to "otherContent" URIs
+          for (const sequence of manifestJson.sequences) {
+            for (const canvas of (sequence.canvases || [])) {
+              const otherContent = canvas.otherContent || [];
+              for (let i = 0; i < otherContent.length; i = i + 1) {
+                const otherContentLink = otherContent[i];
+                const paramSeparator = otherContentLink.includes('?') ? '&' : '?';
+                otherContent[i] = `${otherContentLink}${paramSeparator}textGranularity=${textGranularity}`;
+              }
+            }
+          }
+        } else if (version === 3) {
+          if (!this.urlIsForEuropeanaPresentationManifest(manifestJson.id)) {
+            return;
+          }
+          for (const item of manifestJson.items) {
+            for (const annotation of item.annotations) {
+              const paramSeparator = annotation.id.includes('?') ? '&' : '?';
+              annotation.id = `${annotation.id}${paramSeparator}textGranularity=${textGranularity}`
             }
           }
         }
