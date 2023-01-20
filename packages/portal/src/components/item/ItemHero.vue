@@ -109,7 +109,7 @@
       media: {
         type: Array,
         default: () => [],
-        validator: prop => Array.isArray(prop) && prop.every(item => item instanceof WebResource)
+        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof WebResource)
       },
       attributionFields: {
         type: Object,

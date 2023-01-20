@@ -76,7 +76,7 @@
       displayableMedia: {
         type: Array,
         required: true,
-        validator: prop => Array.isArray(prop) && prop.every(item => item instanceof WebResource)
+        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof WebResource)
       }
     },
 

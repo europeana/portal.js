@@ -116,7 +116,7 @@ export default class WebResource {
       this.isHTMLAudio || this.isHTMLVideo ||
       (this.mediaType === MEDIA_TYPE_APPLICATION_DASH_XML)
     ) ||
-      this.id.startsWith('http://www.euscreen.eu/item.html');
+      this.id?.startsWith('http://www.euscreen.eu/item.html') || false;
   }
 
   get isRichMedia() {

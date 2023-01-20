@@ -288,8 +288,8 @@ export default (context = {}) => {
     aggregationMedia(aggregation, mediaUris, recordType, services = []) {
       // Filter web resources to isShownBy and hasView, respecting the ordering
       const media = mediaUris
-        .map(mediaUri => aggregation.webResources.find(webResource => mediaUri === webResource.about))
-        .map(webResource => pick(webResource, WEB_RESOURCE_FIELDS));
+        .map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about))
+        .map((webResource) => pick(webResource, WEB_RESOURCE_FIELDS));
 
       for (const webResource of media) {
         // Inject thumbnail URLs
@@ -298,8 +298,9 @@ export default (context = {}) => {
         // Inject service definitions, e.g. for IIIF
         webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
 
+        // TODO: enable, once components / WebResource class can handle dctermsIsReferencedBy being object
         // Inject dctermsIsReferencedBy, e.g. for IIIF Presentation manifests
-        // TODO: https://europeana.atlassian.net/browse/EC-6033
+        // See: https://europeana.atlassian.net/browse/EC-6033
         // (webResource.dctermsIsReferencedBy || []).forEach((dctermsIsReferencedBy, index) => {
         //   const referencer = media.find((wr) => wr.about === dctermsIsReferencedBy);
         //   if (referencer) {
