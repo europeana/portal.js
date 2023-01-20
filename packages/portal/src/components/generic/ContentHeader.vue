@@ -25,7 +25,7 @@
       <!-- eslint-enable vue/no-v-html -->
       <template v-if="mediaUrl">
         <ShareButton
-          variant="outline-primary"
+          :variant="buttonVariant"
           class="mt-4"
         />
         <SocialShareModal :media-url="mediaUrl" />
@@ -65,6 +65,11 @@
       contextLabel: {
         type: String,
         default: null
+      },
+
+      buttonVariant: {
+        type: String,
+        default: 'outline-primary'
       }
     }
   };

@@ -48,9 +48,18 @@
     min-height: 0;
 
     @media (min-width: $bp-xxxl) {
-      .card-img {
+      &.default-card .card-img {
         min-height: 20em;
         max-height: 20em;
+      }
+
+      &.mini-card .card-img {
+        height: 5vw;
+        width: 5vw;
+
+        img {
+          height: 5vw;
+        }
       }
     }
   }

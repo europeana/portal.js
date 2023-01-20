@@ -35,6 +35,10 @@
       font-size: 2.125vw;
     }
 
+    h2 {
+      font-size: 1.875vw;
+    }
+
     .badge {
       font-size: $responsive-font-size-small;
       border-width: 0.0625vw;
@@ -93,6 +97,7 @@
 
     .content-card {
       font-size: $responsive-font-size-base;
+      line-height: 1.1875vw;
 
       .card-subtitle {
         font-size: $responsive-font-size-extrasmall;
@@ -110,6 +115,11 @@
       }
     }
 
+    .btn {
+      font-size: $responsive-font-size-base;
+      padding: 0.375vw 0.75vw;
+    }
+
     .btn-light-flat.button-icon-only {
       font-size: 1.1vw;
       height: 1.5em;
@@ -123,9 +133,32 @@
       }
     }
 
+    .btn-secondary {
+      font-size: $responsive-font-size-small;
+      border-radius: 0.25vw;
+    
+      .icon-link {
+        font-size: 0.5vw;
+      }
+    }
+
+    .share-button .icon-share {
+      font-size: 1.125vw;
+      line-height: 1vw;
+    }
+
     .eu-logo {
       height: 4vw;
       width: auto;
+    }
+
+    .lead {
+      font-size: 1.5vw;
+      line-height: 2.06vw;
+    }
+
+    .related-heading {
+      font-size: $responsive-font-size-small;
     }
   }
 }

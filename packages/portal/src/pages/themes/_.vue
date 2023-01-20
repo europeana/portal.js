@@ -1,12 +1,13 @@
 <template>
   <div
     data-qa="theme page"
-    class="theme-page"
+    class="page white-page gridless-container responsive-font"
   >
     <ContentHeader
       :title="theme.name"
       :description="theme.description"
       :media-url="shareMediaUrl"
+      button-variant="secondary"
     />
     <EntityBadges
       :title="relatedTopics.headline"
@@ -16,6 +17,7 @@
       :title="relatedPersons.headline"
       :entity-uris="relatedPersons.hasPart"
       card-variant="mini"
+      class="gridless-browse-cards"
     />
     <CallToActionBanner
       v-if="callToAction"
@@ -117,3 +119,18 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/mixins';
+
+  .page {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    margin-top: -1rem;
+
+    ::v-deep header .col {
+      margin-bottom: 1em;
+    }
+  }
+</style>
