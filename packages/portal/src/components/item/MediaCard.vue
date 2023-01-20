@@ -89,12 +89,6 @@
         type: Number,
         default: null
       }
-    },
-
-    data() {
-      return {
-        oEmbedData: null
-      };
     }
   };
 </script>
