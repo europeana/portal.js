@@ -87,9 +87,9 @@ export default class WebResource {
       return EDM_TYPE_IMAGE;
     } else if (this.hasSoundMediaType) {
       return EDM_TYPE_SOUND;
-    } if (this.hasVideoMediaType) {
+    } else if (this.hasVideoMediaType) {
       return EDM_TYPE_VIDEO;
-    } if (this.hasTextMediaType) {
+    } else if (this.hasTextMediaType) {
       return EDM_TYPE_TEXT;
     } else {
       return undefined;
@@ -153,11 +153,7 @@ export default class WebResource {
   }
 
   get requiresDashJS() {
-    return (this.mediaType === MEDIA_TYPE_APPLICATION_DASH_XML) ||
-      // FIXME: this is a hack to account for misinterpretation of %2B in URL query
-      //        parameter on server-side only. Find a proper solution when the cause
-      //        is known. See https://europeana.atlassian.net/browse/EC-5057
-      (process.server && (this.mediaType === 'application/dash xml'));
+    return (this.mediaType === MEDIA_TYPE_APPLICATION_DASH_XML);
   }
 }
 
