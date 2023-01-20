@@ -4,24 +4,27 @@
     class="page white-page gridless-container responsive-font"
   >
     <ContentHeader
-      :title="theme.name"
-      :description="theme.description"
+      :title="name"
+      :description="description"
       :media-url="shareMediaUrl"
       button-variant="secondary"
     />
     <div class="divider" />
     <EntityBadges
+      v-if="relatedTopics"
       :title="relatedTopics.headline"
       :entity-uris="relatedTopics.hasPart"
       class="ml-4 mb-5"
     />
     <EntityCardGroup
+      v-if="relatedPersons"
       :title="relatedPersons.headline"
       :entity-uris="relatedPersons.hasPart"
       card-variant="mini"
       class="gridless-browse-cards mb-4"
     />
     <SetCardGroup
+      v-if="relatedGalleries"
       :title="relatedGalleries.headline"
       :set-uris="relatedGalleries.hasPart"
       class="gridless-browse-cards mb-4"
@@ -34,12 +37,14 @@
       :illustration="callToAction.image"
     />
     <RelatedEditorial
-      :entity-uri="theme.entityUri"
+      v-if="entityUri"
+      :entity-uri="entityUri"
       :card-wrapper="false"
       :limit="6"
       class="mb-4"
     />
     <section
+      v-if="curatedItems"
       class="mb-5"
     >
       <h2>{{ curatedItems.headline }}</h2>
@@ -60,11 +65,6 @@
 
 <script>
   import ContentHeader from '@/components/generic/ContentHeader';
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import EntityBadges from '@/components/entity/EntityBadges';
-  import EntityCardGroup from '@/components/entity/EntityCardGroup';
-  import RelatedEditorial from '@/components/related/RelatedEditorial';
-  import SetCardGroup from '@/components/set/SetCardGroup';
   import pageMetaMixin from '@/mixins/pageMeta';
   import { daily } from '@/plugins/europeana/utils.js';
 
@@ -74,11 +74,11 @@
     components: {
       ContentHeader,
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
-      EntityBadges,
-      EntityCardGroup,
-      ItemPreviewCardGroup,
-      RelatedEditorial,
-      SetCardGroup,
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      EntityCardGroup: () => import('@/components/entity/EntityCardGroup'),
+      ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
+      RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
+      SetCardGroup: () => import('@/components/set/SetCardGroup'),
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
@@ -95,7 +95,7 @@
         const response = await app.$contentful.query('themePage', variables);
         const theme = response.data.data.themePage.items[0];
 
-        return { theme };
+        return theme;
       } catch (e) {
         error({ statusCode: 500, message: e.toString() });
       }
@@ -104,31 +104,31 @@
     computed: {
       pageMeta() {
         return {
-          title: this.theme.name,
-          description: this.theme.description,
+          title: this.name,
+          description: this.description,
           ogType: 'article'
         };
       },
       shareMediaUrl() {
-        return this.theme?.primaryImageOfPage?.image?.url;
+        return this.primaryImageOfPage?.image?.url;
       },
       relatedTopics() {
-        return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'TopicGroup')[0];
+        return this.hasPartCollection?.items?.filter(section => section['__typename'] === 'TopicGroup')[0];
       },
       relatedPersons() {
-        return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'PersonGroup')[0];
+        return this.hasPartCollection?.items?.filter(section => section['__typename'] === 'PersonGroup')[0];
       },
       relatedGalleries() {
-        return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'GalleryGroup')[0];
+        return this.hasPartCollection?.items?.filter(section => section['__typename'] === 'GalleryGroup')[0];
       },
       callToAction() {
-        return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
+        return this.hasPartCollection?.items?.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
       },
       curatedItems() {
-        return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'CardGroup')[0];
+        return this.hasPartCollection?.items?.filter(section => section['__typename'] === 'CardGroup')[0];
       },
       curatedItemsEncoding() {
-        return this.curatedItems.hasPartCollection.items.map(items => items.encoding);
+        return this.curatedItems?.hasPartCollection?.items?.map(items => items.encoding);
       },
       dailySetOfCuratedItems() {
         return daily(this.curatedItemsEncoding, 8);
