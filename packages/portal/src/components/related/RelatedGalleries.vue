@@ -12,6 +12,7 @@
       >
         {{ $t('related.galleries.title') }}
       </b-card-title>
+      <!-- TODO: use SetCardGroup and clean up methods -->
       <b-card-group>
         <ContentCard
           v-for="(gallery) in relatedGalleries"

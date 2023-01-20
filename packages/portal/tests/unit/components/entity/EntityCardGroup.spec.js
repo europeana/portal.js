@@ -19,7 +19,7 @@ const factory = ({ propsData } = {}) => {
   });
 };
 
-describe('components/related/EntityBadges', () => {
+describe('components/related/EntityCardGroup', () => {
   describe('fetch', () => {
     describe('when entity URIs are supplied', () => {
       const propsData = { entityUris };

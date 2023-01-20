@@ -21,7 +21,11 @@
       card-variant="mini"
       class="gridless-browse-cards mb-4"
     />
-    <!-- Galleries -->
+    <SetCardGroup
+      :title="relatedGalleries.headline"
+      :set-uris="relatedGalleries.hasPart"
+      class="gridless-browse-cards mb-4"
+    />
     <CallToActionBanner
       v-if="callToAction"
       :name="callToAction.name"
@@ -60,6 +64,7 @@
   import EntityBadges from '@/components/entity/EntityBadges';
   import EntityCardGroup from '@/components/entity/EntityCardGroup';
   import RelatedEditorial from '@/components/related/RelatedEditorial';
+  import SetCardGroup from '@/components/set/SetCardGroup';
   import pageMetaMixin from '@/mixins/pageMeta';
   import { daily } from '@/plugins/europeana/utils.js';
 
@@ -73,6 +78,7 @@
       EntityCardGroup,
       ItemPreviewCardGroup,
       RelatedEditorial,
+      SetCardGroup,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
@@ -111,6 +117,9 @@
       },
       relatedPersons() {
         return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'PersonGroup')[0];
+      },
+      relatedGalleries() {
+        return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'GalleryGroup')[0];
       },
       callToAction() {
         return this.theme.hasPartCollection.items.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
