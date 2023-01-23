@@ -76,6 +76,9 @@
           workspaceControlPanel: {
             enabled: false
           },
+          annotations: {
+            filteredMotivations: ['transcribing', 'supplementing', 'oa:commenting', 'oa:tagging', 'sc:painting', 'commenting', 'tagging']
+          },
           requests: {
             preprocessors: [this.addAcceptHeaderToPresentationRequests],
             postprocessors: [this.postprocessMiradorRequest]
@@ -105,7 +108,9 @@
           if (miradorManifest) {
             this.manifest = miradorManifest.json;
             if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
-              this.memoiseImageToCanvasMap();
+              if (this.urlIsForEuropeanaPresentationAPI(this.manifest.id)) {
+                this.memoiseImageToCanvasMap();
+              }
               this.page = miradorWindow.canvasId;
               this.postUpdatedDownloadLinkMessage(this.page);
             }
@@ -114,7 +119,7 @@
       },
 
       addAcceptHeaderToPresentationRequests(url, options) {
-        if (this.urlIsForEuropeanaPresentationManifest(url)) {
+        if (this.urlIsForEuropeanaPresentationAPI(url)) {
           if (!options.headers) {
             options.headers = {};
           }
@@ -129,25 +134,6 @@
           this.postprocessMiradorManifest(url, action);
           break;
         case 'mirador/RECEIVE_ANNOTATION':
-          if ((action.annotationJson.resources.length > 0)) {
-            const windowId = Object.keys(this.mirador.store.getState().windows)[0];
-            if (!this.showAnnotations) {
-              if (this.searchQuery) {
-                const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
-                const searchId = `${this.manifest.service['@id']}?q=${this.searchQuery}`;
-
-                const actionSearch = window.Mirador.actions.fetchSearch(windowId, companionWindowId, searchId, this.searchQuery);
-                this.mirador.store.dispatch(actionSearch);
-              }
-              const action = window.Mirador.actions.toggleWindowSideBar(windowId);
-              this.mirador.store.dispatch(action);
-              this.showAnnotations = true;
-
-              this.miradorViewerOptions.window.allowWindowSideBar = true;
-              const actionShow = window.Mirador.actions.updateConfig(this.miradorViewerOptions);
-              this.mirador.store.dispatch(actionShow);
-            }
-          }
           this.postprocessMiradorAnnotation(url, action);
           break;
         case 'mirador/RECEIVE_SEARCH':
@@ -157,22 +143,29 @@
       },
 
       postprocessMiradorManifest(url, action) {
-        this.addTextGranularityFilterToManifest(action.manifestJson);
+        if (this.urlIsForEuropeanaPresentationAPI(url)) {
+          this.addTextGranularityFilterToManifest(action.manifestJson);
+        }
       },
 
       postprocessMiradorAnnotation(url, action) {
-        this.coerceResourcesOnToCanvases(action.annotationJson);
+        this.showSidebarForAnnotations(action.annotationJson);
+        if (this.urlIsForEuropeanaPresentationAPI(url)) {
+          this.coerceAnnotationsOnToCanvases(action.annotationJson);
+        }
         this.dereferenceAnnotationResources(action.annotationJson);
       },
 
       postprocessMiradorSearch(url, action) {
-        this.filterSearchHitsByTextGranularity(action.searchJson);
-        this.coerceResourcesOnToCanvases(action.searchJson);
+        if (this.urlIsForEuropeanaPresentationAPI(url)) {
+          this.filterSearchHitsByTextGranularity(action.searchJson);
+          this.coerceAnnotationsOnToCanvases(action.searchJson);
+        }
         this.coerceSearchHitsToBeforeMatchAfter(action.searchJson);
       },
 
-      urlIsForEuropeanaPresentationManifest(url) {
-        return url.includes('://iiif.europeana.eu/presentation/') && url.includes('/manifest');
+      urlIsForEuropeanaPresentationAPI(url) {
+        return url.includes('://iiif.europeana.eu/presentation/');
       },
 
       iiifPresentationApiVersionFromContext(context) {
@@ -185,33 +178,12 @@
         }
       },
 
+      // Europeana-only
       addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
-        const version = this.iiifPresentationApiVersionFromContext(manifestJson['@context']);
-
-        if (version === 2) {
-          if (!this.urlIsForEuropeanaPresentationManifest(manifestJson['@id'])) {
-            return;
-          }
-          // Add textGranularity filter to "otherContent" URIs
-          for (const sequence of manifestJson.sequences) {
-            for (const canvas of (sequence.canvases || [])) {
-              const otherContent = canvas.otherContent || [];
-              for (let i = 0; i < otherContent.length; i = i + 1) {
-                const otherContentLink = otherContent[i];
-                const paramSeparator = otherContentLink.includes('?') ? '&' : '?';
-                otherContent[i] = `${otherContentLink}${paramSeparator}textGranularity=${textGranularity}`;
-              }
-            }
-          }
-        } else if (version === 3) {
-          if (!this.urlIsForEuropeanaPresentationManifest(manifestJson.id)) {
-            return;
-          }
-          for (const item of manifestJson.items) {
-            for (const annotation of item.annotations) {
-              const paramSeparator = annotation.id.includes('?') ? '&' : '?';
-              annotation.id = `${annotation.id}${paramSeparator}textGranularity=${textGranularity}`
-            }
+        for (const item of manifestJson.items) {
+          for (const annotation of item.annotations) {
+            const paramSeparator = annotation.id.includes('?') ? '&' : '?';
+            annotation.id = `${annotation.id}${paramSeparator}textGranularity=${textGranularity}`;
           }
         }
 
@@ -231,28 +203,61 @@
         // }
       },
 
+      // Europeana-only
       filterSearchHitsByTextGranularity(searchJson, textGranularity = 'Line') {
         searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (resource.dcType === textGranularity));
         const filteredResourceIds = searchJson.resources.map(resource => resource['@id']);
         searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredResourceIds.includes(anno)));
       },
 
-      coerceResourcesOnToCanvases(json) {
-        json.resources = json.resources.map(this.coerceResourceOnImagesToCanvases);
+      // Europeana-only
+      coerceAnnotationsOnToCanvases(json) {
+        json.items = json.items.map(this.coerceItemTargetImagesToCanvases);
+      },
+
+      showSidebarForAnnotations(json) {
+        if (this.showAnnotations) {
+          return;
+        }
+
+        let annotations = [];
+        if (this.iiifPresentationApiVersion === 2) {
+          annotations = json.resources;
+        } else if (this.iiifPresentationApiVersion === 3) {
+          annotations = json.items;
+        }
+        if (annotations.length === 0) {
+          return;
+        }
+
+        const windowId = Object.keys(this.mirador.store.getState().windows)[0];
+        if (this.searchQuery) {
+          const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
+          const searchId = `${this.manifest.service['@id']}?q=${this.searchQuery}`;
+
+          const actionSearch = window.Mirador.actions.fetchSearch(windowId, companionWindowId, searchId, this.searchQuery);
+          this.mirador.store.dispatch(actionSearch);
+        }
+        const action = window.Mirador.actions.toggleWindowSideBar(windowId);
+        this.mirador.store.dispatch(action);
+        this.showAnnotations = true;
+
+        this.miradorViewerOptions.window.allowWindowSideBar = true;
+        const actionShow = window.Mirador.actions.updateConfig(this.miradorViewerOptions);
+        this.mirador.store.dispatch(actionShow);
       },
 
       memoiseImageToCanvasMap() {
-        if (this.iiifPresentationApiVersion === 2) {
-          this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
-            for (const canvas of sequence.canvases) {
-              for (const image of canvas.images) {
-                memo[image.resource['@id']] = canvas['@id'];
+        this.imageToCanvasMap = this.manifest.items.reduce((memo, canvas) => {
+          for (const annopage of canvas.items) {
+            for (const anno of annopage.items) {
+              if (anno.type === 'Annotation' && anno.body?.type === 'Image') {
+                memo[anno.body.id] = anno.target;
               }
             }
-            return memo;
-          }, {});
-        }
-        // TODO: do we also need memoisation for v3?
+          }
+          return memo;
+        }, {});
       },
 
       canvasForImage(imageId) {
@@ -264,28 +269,28 @@
         }
       },
 
-      // HACK to force `on` attribute to canvas ID, from invalid targetting of image ID
+      // HACK to force `target` attribute to canvas ID, from invalid targetting of image ID
       //
       // TODO: remove when API output updated to use canvas ID.
-      //       Affects annotation lists for:
-      //       - full pages of annotations linked to from otherContent in Presentation manifests
-      //       - lists of annotations with search hits
-      coerceResourceOnImagesToCanvases(resource) {
-        if (Array.isArray(resource.on)) {
-          for (let i = 0; i < resource.on.length; i = i + 1) {
-            const canvas = this.canvasForImage(resource.on[i]);
+      //       Affects annotation pages for:
+      //       - annotations linked to from Presentation manifests
+      //       - annotations with search hits
+      coerceItemTargetImagesToCanvases(item) {
+        if (Array.isArray(item.target)) {
+          for (let i = 0; i < item.target.length; i = i + 1) {
+            const canvas = this.canvasForImage(item.target[i]);
             if (canvas) {
-              resource.on[i] = canvas;
+              item.target[i] = canvas;
             }
           }
         } else {
-          const canvas = this.canvasForImage(resource.on);
+          const canvas = this.canvasForImage(item.target);
           if (canvas) {
-            resource.on = canvas;
+            item.target = canvas;
           }
         }
 
-        return resource;
+        return item;
       },
 
       // HACK to flatten oa:TextQuoteSelector hit selectors to before/match/after
@@ -313,17 +318,25 @@
       },
 
       fetchAnnotationResourcesFulltext(annotationJson) {
-        const urls = annotationJson.resources
-          .filter(resource => !resource.resource.chars && resource.resource['@id'])
-          .map(resource => resource.resource['@id'].split('#')[0]);
+        let urls;
+        if (this.iiifPresentationApiVersion === 2) {
+          urls = annotationJson.resources
+            .filter((resource) => !resource.resource.chars && resource.resource['@id'])
+            .map((resource) => resource.resource['@id']);
+        } else if (this.iiifPresentationApiVersion === 3) {
+          urls = annotationJson.items
+            .filter((item) => !item.body.value && item.body.id)
+            .map((item) => item.body.id);
+        }
+        urls = urls.map((url) => url.split('#')[0]);
 
         const fulltext = {};
 
         // TODO: error handling
-        const fetches = uniq(urls).map(url => this.$axios.get(url)
-          .then(response => response.data)
+        const fetches = uniq(urls).map((url) => this.$axios.get(url)
+          .then((response) => response.data)
           .then((data) => {
-            if (data.type === 'FullTextResource') {
+            if (['FullTextResource', 'TextualBody'].includes(data.type)) {
               fulltext[url] = data.value;
             }
           }));
@@ -334,28 +347,60 @@
       async dereferenceAnnotationResources(annotationJson) {
         const fulltext = await this.fetchAnnotationResourcesFulltext(annotationJson);
 
-        for (const resource of annotationJson.resources) {
-          if (resource.resource.chars || !resource.resource['@id']) {
-            continue;
-          }
-
-          const url = resource.resource['@id'].split('#')[0];
-          if (!fulltext[url]) {
-            continue;
-          }
-
-          const fragment = resource.resource['@id'].split('#')[1];
-
-          resource.resource.chars = fulltext[url];
-
-          if (fragment) {
-            const charMatch = fragment.match(/char=(\d+),(\d+)$/);
-            if (charMatch) {
-              resource.resource.chars = resource.resource.chars.slice(
-                Number(charMatch[1]),
-                Number(charMatch[2]) + 1
-              );
+        if (this.iiifPresentationApiVersion === 2) {
+          for (const resource of annotationJson.resources) {
+            if (resource.resource.chars || !resource.resource['@id']) {
+              continue;
             }
+
+            const url = resource.resource['@id'].split('#')[0];
+            if (!fulltext[url]) {
+              continue;
+            }
+
+            const fragment = resource.resource['@id'].split('#')[1];
+
+            resource.resource.chars = fulltext[url];
+
+            if (fragment) {
+              const charMatch = fragment.match(/char=(\d+),(\d+)$/);
+              if (charMatch) {
+                resource.resource.chars = resource.resource.chars.slice(
+                  Number(charMatch[1]),
+                  Number(charMatch[2]) + 1
+                );
+              }
+            }
+          }
+        } else if (this.iiifPresentationApiVersion === 3) {
+          for (const item of annotationJson.items) {
+            if (item.body.value || !item.body.id) {
+              continue;
+            }
+
+            const url = item.body.id.split('#')[0];
+            if (!fulltext[url]) {
+              continue;
+            }
+
+            const fragment = item.body.id.split('#')[1];
+
+            let text = fulltext[url];
+            if (fragment) {
+              const charMatch = fragment.match(/char=(\d+),(\d+)$/);
+              if (charMatch) {
+                text = text.slice(
+                  Number(charMatch[1]),
+                  Number(charMatch[2]) + 1
+                );
+              }
+            }
+            item.body = {
+              value: text,
+              type: 'TextualBody',
+              language: annotationJson.language,
+              format: 'text/plain'
+            };
           }
         }
       },
