@@ -966,13 +966,17 @@ export default {
       "title": "Ezagutu erlazionatutako istorioak"
     },
     "collections": {
+      "name": "Lotutako bildumak",
       "title": "Ezagutu erlazionatutako bildumak"
     },
     "editorial": {
       "title": "Gustuko izan ditzakezun istorioak"
+    },
+    "galleries": {
+      "name": "Lotutako galeriak",
+      "title": "Ezagutu erlazionatutako galeriak"
     }
   },
-  "relatedCollections": "Lotutako bildumak",
   "removeFilter": "Kendu {filterLabel} iragazkia",
   "reset": "Berrezarri",
   "resourceWikimedia": "Wikimedia Commons-eko baliabidea",

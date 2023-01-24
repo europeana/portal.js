@@ -962,13 +962,17 @@ export default {
       "title": "Ontdek gerelateerde verhalen"
     },
     "collections": {
+      "name": "Gerelateerde collecties",
       "title": "Ontdek gerelateerde collecties"
     },
     "editorial": {
       "title": "Verhalen die u misschien leuk vindt"
+    },
+    "galleries": {
+      "name": "Gerelateerde galerijen",
+      "title": "Ontdek gerelateerde galerijen"
     }
   },
-  "relatedCollections": "Gerelateerde collecties",
   "removeFilter": "Verwijder het filter {filterLabel}",
   "reset": "Opnieuw instellen",
   "resourceWikimedia": "Bron van Wikimedia Commons",

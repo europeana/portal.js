@@ -962,13 +962,17 @@ export default {
       "title": "Odkrijte povezane zgodbe"
     },
     "collections": {
+      "name": "Sorodne zbirke",
       "title": "Odkrijte povezane zbirke"
     },
     "editorial": {
       "title": "Zgodbe, ki vam bodo morda všeč"
+    },
+    "galleries": {
+      "name": "Sorodne galerije",
+      "title": "Odkrijte povezane galerije"
     }
   },
-  "relatedCollections": "Povezane zbirke",
   "removeFilter": "Odstrani filter {filterLabel}",
   "reset": "Ponastavi",
   "resourceWikimedia": "Vir iz Wikimedia Commons",

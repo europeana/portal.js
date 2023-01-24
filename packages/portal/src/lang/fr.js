@@ -962,13 +962,17 @@ export default {
       "title": "Découvrez des histoires connexes"
     },
     "collections": {
-      "title": "Découvrez les collections associées"
+      "name": "Collections connexes",
+      "title": "Découvrez les collections connexes"
     },
     "editorial": {
       "title": "Histoires que vous aimerez peut-être"
+    },
+    "galleries": {
+      "name": "Galeries connexes",
+      "title": "Découvrez des galeries connexes"
     }
   },
-  "relatedCollections": "Collections similaires",
   "removeFilter": "Supprimer le filtre {filterLabel}",
   "reset": "Réinitialiser",
   "resourceWikimedia": "Ressource de Wikimedia Commons",
