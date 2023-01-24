@@ -181,7 +181,7 @@
       // Europeana-only
       addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
         for (const item of manifestJson.items) {
-          for (const annotation of item.annotations) {
+          for (const annotation of item.annotations || []) {
             const paramSeparator = annotation.id.includes('?') ? '&' : '?';
             annotation.id = `${annotation.id}${paramSeparator}textGranularity=${textGranularity}`;
           }
