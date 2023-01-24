@@ -962,13 +962,17 @@ export default {
       "title": "Descoperiți poveștile conexe"
     },
     "collections": {
+      "name": "Colecții conexe",
       "title": "Descoperiți colecții conexe"
     },
     "editorial": {
       "title": "Povești care s-ar putea să vă placă"
+    },
+    "galleries": {
+      "name": "Galerii conexe",
+      "title": "Descoperiți galerii conexe"
     }
   },
-  "relatedCollections": "Colecții similare",
   "removeFilter": "Elimină filtrul {filterLabel}",
   "reset": "Resetează",
   "resourceWikimedia": "Material de la Wikimedia Commons",

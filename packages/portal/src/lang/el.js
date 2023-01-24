@@ -69,7 +69,7 @@ export default {
   "automatedCardGroup": {
     "gallery": "Γκαλερί",
     "item": "Πρόσφατα αντικείμενα",
-    "organisation": "Οργανώσεις",
+    "organisation": "Οργανισμοί",
     "place": "Μέρη",
     "time": "Προτεινόμενοι αιώνες",
     "topic": "Προτεινόμενα θέματα"
@@ -767,7 +767,7 @@ export default {
     "storiesCTA": "Δείτε όλες τις ιστορίες",
     "subHeadline": "Αναζητήστε, αποθηκεύστε και μοιραστείτε τέχνη, βιβλία, ταινίες και μουσική από χιλιάδες πολιτισμικούς θεσμούς",
     "themesCTA": "Δείτε όλα τα θέματα",
-    "themesTitle": "Εξερευνήστε ανά θέμα",
+    "themesTitle": "Εξερευνήστε ανά θεματική ενότητα",
     "title": "Ανακαλύψτε την {digital} πολιτιστική κληρονομιά της Ευρώπης",
     "titleDigital": "ψηφιακή"
   },
@@ -908,7 +908,7 @@ export default {
         "table": {
           "name": "Ονομα"
         },
-        "title": "Οργανώσεις"
+        "title": "Οργανισμοί"
       },
       "persons": {
         "title": "Άτομα"
@@ -966,13 +966,17 @@ export default {
       "title": "Ανακαλύψτε σχετικές ιστορίες"
     },
     "collections": {
+      "name": "Σχετικές συλλογές",
       "title": "Ανακαλύψτε σχετικές συλλογές"
     },
     "editorial": {
       "title": "Ιστορίες που μπορεί να σας αρέσουν"
+    },
+    "galleries": {
+      "name": "Σχετικές γκαλερί",
+      "title": "Ανακαλύψτε σχετικές γκαλερί"
     }
   },
-  "relatedCollections": "Σχετικές συλλογές",
   "removeFilter": "Κατάργηση φίλτρου {filterLabel}",
   "reset": "Επαναφορά",
   "resourceWikimedia": "Πηγή από τα Wikimedia Commons",
@@ -990,7 +994,7 @@ export default {
     "title": "Αναζήτηση"
   },
   "searchHasLoaded": "{0} αποτελέσματα που επιστράφηκαν",
-  "searchPlaceholder": "Αναζήτηση 50+ εκατομμυρίων αντικειμένων",
+  "searchPlaceholder": "Κάντε αναζήτηση ανάμεσα σε 50+ εκατομμύρια αντικείμενα",
   "searchResults": "Αναζήτηση",
   "searchResultsFor": "{0} - Αναζήτηση",
   "searchSuggestions": "Αναζήτηση προτάσεων",

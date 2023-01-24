@@ -962,13 +962,17 @@ export default {
       "title": "Skopri stejjer relatati"
     },
     "collections": {
+      "name": "Kollezzjonijiet relatati",
       "title": "Skopri kollezzjonijiet relatati"
     },
     "editorial": {
       "title": "Stejjer li tista' togħġobkom"
+    },
+    "galleries": {
+      "name": "Galleriji relatati",
+      "title": "Skopri galleriji relatati"
     }
   },
-  "relatedCollections": "Kollezzjonijiet relatati",
   "removeFilter": "Neħħi l-filtru {filterLabel}",
   "reset": "Irrisettja",
   "resourceWikimedia": "Riżorsa minn Wikimedia Commons",
