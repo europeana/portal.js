@@ -108,7 +108,7 @@
           if (miradorManifest) {
             this.manifest = miradorManifest.json;
             if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
-              if (this.urlIsForEuropeanaPresentationAPI(this.manifest.id)) {
+              if (this.urlIsForEuropeanaPresentationAPI(this.manifest.id || this.manifest['@id'])) {
                 this.memoiseImageToCanvasMap();
               }
               this.page = miradorWindow.canvasId;
@@ -165,7 +165,7 @@
       },
 
       urlIsForEuropeanaPresentationAPI(url) {
-        return url.includes('://iiif.europeana.eu/presentation/');
+        return url.includes('.europeana.eu/presentation/') || url.includes('.eanadev.org/presentation/');
       },
 
       iiifPresentationApiVersionFromContext(context) {
