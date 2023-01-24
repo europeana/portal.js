@@ -962,13 +962,17 @@ export default {
       "title": "Objevte související příběhy"
     },
     "collections": {
+      "name": "Související sbírky",
       "title": "Objevte související sbírky"
     },
     "editorial": {
       "title": "Příběhy, které se vám mohou líbit"
+    },
+    "galleries": {
+      "name": "Související galerie",
+      "title": "Objevte související galerie"
     }
   },
-  "relatedCollections": "Související sbírky",
   "removeFilter": "Odstranit {filterLabel} filtr",
   "reset": "Obnovit",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",

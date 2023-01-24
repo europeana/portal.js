@@ -962,13 +962,17 @@ export default {
       "title": "Atraskite susijusias istorijas"
     },
     "collections": {
+      "name": "Susijusios kolekcijos",
       "title": "Atraskite susijusias kolekcijas"
     },
     "editorial": {
       "title": "Istorijos, kurios jums gali patikti"
+    },
+    "galleries": {
+      "name": "Susijusios galerijos",
+      "title": "Atraskite susijusias galerijas"
     }
   },
-  "relatedCollections": "Susiję rinkiniai",
   "removeFilter": "Pašalinkite filtrą {filterLabel}",
   "reset": "Atstatyti",
   "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",

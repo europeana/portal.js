@@ -962,13 +962,17 @@ export default {
       "title": "Faigh amach scéalta gaolmhara"
     },
     "collections": {
+      "name": "Bailiúcháin ghaolmhara",
       "title": "Faigh amach bailiúcháin ghaolmhara"
     },
     "editorial": {
       "title": "Scéalta b’fhéidir gur mhaith leat"
+    },
+    "galleries": {
+      "name": "Gailearaithe gaolmhara",
+      "title": "Faigh amach gailearaithe gaolmhara"
     }
   },
-  "relatedCollections": "Bailiúcháin ghaolmhara",
   "removeFilter": "Bain {filterLabel} scagaire",
   "reset": "Athshocraigh",
   "resourceWikimedia": "Acmhainn ó Wikimedia Commons",
