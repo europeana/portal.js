@@ -29,6 +29,7 @@
   </section>
   <section
     v-else
+    v-show="related.length > 0"
   >
     <h2>{{ $t('related.editorial.title') }} </h2>
     <b-card-group
