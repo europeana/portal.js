@@ -116,7 +116,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/scss/variables';
+  @import '@/assets/scss/variables';
 
   .related-collections ::v-deep .badge-pill {
     margin-right: 0.5rem;
