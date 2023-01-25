@@ -10,14 +10,18 @@
   }
 
   .masonry-container {
-    margin-left: -0.75vw;
-    margin-right: -0.75vw;
-    width: calc(100% + 1.5vw);
+    @media (min-width: $bp-xxxl) {
+      margin-left: -0.5 * $responsive-masonry-gutter;
+      margin-right: -0.5 * $responsive-masonry-gutter;
+      width: calc(100% + $responsive-masonry-gutter);
+    }
 
-    .masonry-tile {
-      width: calc(25% - 1.5vw);
-      margin-left: 0.75vw;
-      margin-right: 0.75vw;
+    .masonry-tile {  
+      @media (min-width: $bp-xxxl) {
+        margin-left: 0.5 * $responsive-masonry-gutter;
+        margin-right: 0.5 * $responsive-masonry-gutter;
+        width: calc(100% / 4 - $responsive-masonry-gutter);
+      }
     }
   }
 }
