@@ -37,6 +37,7 @@
 
     h2 {
       font-size: 1.875vw;
+      margin-bottom: 1vw;
     }
 
     .badge {
@@ -98,6 +99,7 @@
     .content-card {
       font-size: $responsive-font-size-base;
       line-height: 1.1875vw;
+      border-radius: 0.25vw;
 
       .card-subtitle {
         font-size: $responsive-font-size-extrasmall;
@@ -112,6 +114,19 @@
         font-size: $responsive-font-size-large;
         line-height: 1.25em;
         max-height: none;
+      }
+
+      &.card {
+        margin-bottom: 1.5vw;
+      }
+
+      &.mini-card {
+        .card-body {
+          padding: 1em;
+        }
+        .card-title {
+          font-size: $responsive-font-size-medium;
+        }
       }
     }
 

@@ -9,6 +9,7 @@
     </h2>
     <b-card-group
       class="card-deck-4-cols"
+      :class="cardGroupClass"
       deck
     >
       <ContentCard
@@ -50,6 +51,10 @@
         default: () => []
       },
       cardVariant: {
+        type: String,
+        default: null
+      },
+      cardGroupClass: {
         type: String,
         default: null
       }

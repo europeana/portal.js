@@ -8,6 +8,18 @@
     padding-right: 4em;
     padding-left: 4em;
   }
+
+  .masonry-container {
+    margin-left: -0.75vw;
+    margin-right: -0.75vw;
+    width: calc(100% + 1.5vw);
+
+    .masonry-tile {
+      width: calc(25% - 1.5vw);
+      margin-left: 0.75vw;
+      margin-right: 0.75vw;
+    }
+  }
 }
 
 .gridless-browse-cards {

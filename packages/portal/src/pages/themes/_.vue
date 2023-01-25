@@ -21,13 +21,15 @@
       :title="relatedPersons.headline"
       :entity-uris="relatedPersons.hasPart"
       card-variant="mini"
-      class="gridless-browse-cards mb-4"
+      class="mb-4"
+      card-group-class="gridless-browse-cards"
     />
     <SetCardGroup
       v-if="relatedGalleries"
       :title="relatedGalleries.headline"
       :set-uris="relatedGalleries.hasPart"
-      class="gridless-browse-cards mb-4"
+      class="mb-4"
+      card-group-class="gridless-browse-cards"
     />
     <CallToActionBanner
       v-if="callToAction"
