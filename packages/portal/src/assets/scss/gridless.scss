@@ -5,8 +5,18 @@
   max-width: none;
 
   @media (min-width: $bp-large) {
-    padding-right: 4em;
-    padding-left: 4em;
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+
+  @media (min-width: $bp-xxl) {
+    padding-right: 6rem;
+    padding-left: 6rem;
+  }
+
+  @media (min-width: $bp-xxxl) {
+    padding-right: 6vw;
+    padding-left: 6vw;
   }
 
   .masonry-container {

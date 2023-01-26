@@ -21,14 +21,14 @@
       :title="relatedPersons.headline"
       :entity-uris="relatedPersons.hasPart"
       card-variant="mini"
-      class="mb-4"
+      class="mb-5 mb-sm-4"
       card-group-class="gridless-browse-cards"
     />
     <SetCardGroup
       v-if="relatedGalleries"
       :title="relatedGalleries.headline"
       :set-uris="relatedGalleries.hasPart"
-      class="mb-4"
+      class="mb-5 mb-sm-4"
       card-group-class="gridless-browse-cards"
     />
     <CallToActionBanner
@@ -37,13 +37,14 @@
       :text="callToAction.text"
       :link="callToAction.relatedLink"
       :illustration="callToAction.image"
+      class="mb-5"
     />
     <RelatedEditorial
       v-if="entityUri"
       :entity-uri="entityUri"
       :card-wrapper="false"
       :limit="6"
-      class="mb-4"
+      class="mb-5 mb-sm-4"
     />
     <section
       v-if="curatedItems"
@@ -149,7 +150,11 @@
     margin-top: -1rem;
 
     ::v-deep header .col {
-      margin-bottom: 2em;
+      margin-bottom: 3rem;
+
+      @media (min-width: $bp-xxxl) {
+        margin-bottom: 3vw;
+      }
     }
 
     ::v-deep h2:not(.related-heading) {
