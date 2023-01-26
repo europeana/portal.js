@@ -270,7 +270,7 @@ export default {
         "map": "Карти и география",
         "migration": "Миграция",
         "music": "Музика",
-        "nature": "Естествознание ",
+        "nature": "Естествознание",
         "newspaper": "Вестници",
         "photography": "Фотография",
         "sport": "Спорт",
