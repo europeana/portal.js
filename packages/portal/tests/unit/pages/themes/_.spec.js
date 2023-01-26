@@ -20,32 +20,24 @@ const themePageContentfulResponse = {
   }
 };
 
-const contentfulQueryStub = () => {
-  const stub = sinon.stub();
-
-  stub.withArgs('themePage', sinon.match.object).resolves(themePageContentfulResponse);
-
-  return stub;
-};
+const contentfulQueryStub = sinon.stub().withArgs('themePage', sinon.match.object).resolves(themePageContentfulResponse);
 
 const context = {
   app: { i18n: {
     locale: 'en',
-    isoLocale: () => 'en-GB'
+    isoLocale: () => 'en-GB',
+    t: (key) => key
   },
   $contentful: {
-    query: contentfulQueryStub()
+    query: contentfulQueryStub
   } },
   params: { pathMatch: 'art' },
   query: {},
-  error: (e) => e
+  error: sinon.stub()
 };
 
 const factory = () => shallowMountNuxt(ThemePage, {
   localVue,
-  data() {
-    return themePageContentfulResponse.data.data.themePage.items[0];
-  },
   mocks: {
     $t: (key) => key,
     $tc: (key) => key
@@ -67,6 +59,26 @@ describe('pages/themes/_', () => {
         identifier: 'art',
         preview: false
       })).toBe(true);
+    });
+    describe('when there is no theme identifier found', () => {
+      it('throws a 404 error', async() => {
+        const wrapper = factory();
+        themePageContentfulResponse.data.data.themePage.items[0].identifier = null;
+
+        await wrapper.vm.asyncData(context);
+
+        expect(context.error.calledWith({ statusCode: 404, message: ('messages.notFound') })).toBe(true);
+      });
+    });
+    describe('when there is no theme found', () => {
+      it('throws a 404 error', async() => {
+        const wrapper = factory();
+        themePageContentfulResponse.data.data.themePage.items[0] = null;
+
+        await wrapper.vm.asyncData(context);
+
+        expect(context.error.calledWith({ statusCode: 404, message: ('messages.notFound') })).toBe(true);
+      });
     });
   });
 });
