@@ -104,6 +104,16 @@
       }
     },
 
+    data() {
+      return {
+        name: '',
+        entityUri: null,
+        description: null,
+        primaryImageOfPage: null,
+        hasPartCollection: null
+      };
+    },
+
     computed: {
       pageMeta() {
         return {
