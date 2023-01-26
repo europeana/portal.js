@@ -98,6 +98,11 @@
         const response = await app.$contentful.query('themePage', variables);
         const theme = response.data.data.themePage.items[0];
 
+        if (!theme || !theme.identifier) {
+          error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+          return {};
+        }
+
         return theme;
       } catch (e) {
         error({ statusCode: 500, message: e.toString() });
