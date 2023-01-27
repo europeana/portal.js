@@ -71,16 +71,13 @@
   }
 
   .btn-group-toggle {
-    padding: 0;
     position: relative;
-    text-decoration: none;
     height: 2.25rem;
     align-items: center;
 
     .icon-view-toggle {
-      color: $grey;
+      color: $mediumgrey;
       font-size: 1.5rem;
-      line-height: 1;
 
       &::before {
         @extend %icon-font;
@@ -106,10 +103,10 @@
       padding: 0;
 
       &:hover {
-        box-shadow: none;
+        box-shadow: none !important;
 
         .icon-view-toggle {
-          color: $greyblack;
+          color: $black;
         }
       }
 
@@ -122,41 +119,15 @@
         /* stylelint-enable */
       }
 
-      &::before {
-        background: $white;
-        border-radius: 50%;
-        box-sizing: border-box;
-        content: '';
-        display: block;
-        opacity: 0;
-        position: absolute;
-        transform: scale(0);
-        transition-duration: 0.15s;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        transition-property: transform, opacity;
-        z-index: -1;
-      }
-
-      &:not(.active):hover::before {
-        opacity: 1;
-        transform: scale(1);
-        box-shadow: none;
-        bottom: -10px;
-        left: -10px;
-        right: -10px;
-        top: -10px;
-      }
-
       &.active {
         background: none !important;
 
         &:hover {
-          box-shadow: none !important;
           cursor: default;
         }
 
         .icon-view-toggle {
-          color: $greyblack;
+          color: $blue;
         }
       }
     }
