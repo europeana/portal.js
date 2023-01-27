@@ -9,7 +9,6 @@
 
 <script>
   import StackedCardsSwiper from '../generic/StackedCardsSwiper';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'HomeThemes',

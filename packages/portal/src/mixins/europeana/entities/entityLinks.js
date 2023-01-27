@@ -28,7 +28,7 @@ export default {
     },
 
     imageUrl(collection, imageWidth, imageHeight) {
-      console.log('url', collection.primaryImageOfPage?.image?.url)
+      console.log('url', collection.primaryImageOfPage?.image?.url);
       if (this.$contentful.assets.isValidUrl(collection.primaryImageOfPage?.image?.url)) {
         return this.$contentful.assets.optimisedSrc(
           collection.primaryImageOfPage.image,
