@@ -10,59 +10,61 @@
       button-variant="secondary"
     />
     <div class="divider" />
-    <EntityBadges
-      v-if="relatedTopics"
-      :title="relatedTopics.headline"
-      :entity-uris="relatedTopics.hasPart"
-      class="ml-4 mb-5"
-    />
-    <EntityCardGroup
-      v-if="relatedPersons"
-      :title="relatedPersons.headline"
-      :entity-uris="relatedPersons.hasPart"
-      card-variant="mini"
-      class="mb-5 mb-sm-4"
-      card-group-class="gridless-browse-cards"
-    />
-    <SetCardGroup
-      v-if="relatedGalleries"
-      :title="relatedGalleries.headline"
-      :set-uris="relatedGalleries.hasPart"
-      class="mb-5 mb-sm-4"
-      card-group-class="gridless-browse-cards"
-    />
-    <CallToActionBanner
-      v-if="callToAction"
-      :name="callToAction.name"
-      :text="callToAction.text"
-      :link="callToAction.relatedLink"
-      :illustration="callToAction.image"
-      class="mb-5"
-    />
-    <RelatedEditorial
-      v-if="entityUri"
-      :entity-uri="entityUri"
-      :card-wrapper="false"
-      :limit="6"
-      class="mb-5 mb-sm-4"
-    />
-    <section
-      v-if="curatedItems"
-      class="mb-5"
-    >
-      <h2>{{ curatedItems.headline }}</h2>
-      <ItemPreviewCardGroup
-        :items="dailySetOfCuratedItems"
-        view="grid"
+    <client-only>
+      <EntityBadges
+        v-if="relatedTopics"
+        :title="relatedTopics.headline"
+        :entity-uris="relatedTopics.hasPart"
+        class="ml-4 mb-5"
       />
-      <SmartLink
-        v-if="curatedItems.moreButton"
-        :destination="curatedItems.moreButton.url"
-        class="btn btn-outline-secondary"
+      <EntityCardGroup
+        v-if="relatedPersons"
+        :title="relatedPersons.headline"
+        :entity-uris="relatedPersons.hasPart"
+        card-variant="mini"
+        class="mb-5 mb-sm-4"
+        card-group-class="gridless-browse-cards"
+      />
+      <SetCardGroup
+        v-if="relatedGalleries"
+        :title="relatedGalleries.headline"
+        :set-uris="relatedGalleries.hasPart"
+        class="mb-5 mb-sm-4"
+        card-group-class="gridless-browse-cards"
+      />
+      <CallToActionBanner
+        v-if="callToAction"
+        :name="callToAction.name"
+        :text="callToAction.text"
+        :link="callToAction.relatedLink"
+        :illustration="callToAction.image"
+        class="mb-5"
+      />
+      <RelatedEditorial
+        v-if="entityUri"
+        :entity-uri="entityUri"
+        :card-wrapper="false"
+        :limit="6"
+        class="mb-5 mb-sm-4"
+      />
+      <section
+        v-if="curatedItems"
+        class="mb-5"
       >
-        {{ curatedItems.moreButton.text }}
-      </SmartLink>
-    </section>
+        <h2>{{ curatedItems.headline }}</h2>
+        <ItemPreviewCardGroup
+          :items="dailySetOfCuratedItems"
+          view="grid"
+        />
+        <SmartLink
+          v-if="curatedItems.moreButton"
+          :destination="curatedItems.moreButton.url"
+          class="btn btn-outline-secondary"
+        >
+          {{ curatedItems.moreButton.text }}
+        </SmartLink>
+      </section>
+    </client-only>
   </div>
 </template>
 
