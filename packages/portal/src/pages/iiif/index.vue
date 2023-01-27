@@ -142,6 +142,7 @@
         }
       },
 
+      // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorManifest(url, action) {
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.addTextGranularityFilterToManifest(action.manifestJson);
