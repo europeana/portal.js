@@ -20,25 +20,25 @@ const themePageContentfulResponse = {
   }
 };
 
-const contentfulQueryStub = sinon.stub().withArgs('themePage', sinon.match.object).resolves(themePageContentfulResponse);
-
-const context = {
-  app: { i18n: {
-    locale: 'en',
-    isoLocale: () => 'en-GB',
-    t: (key) => key
-  },
-  $contentful: {
-    query: contentfulQueryStub
-  } },
-  params: { pathMatch: 'art' },
-  query: {},
-  error: sinon.stub()
-};
+const contentfulQueryStub = (response) => sinon.stub().withArgs('themePage', sinon.match.object).resolves(response);
 
 const factory = () => shallowMountNuxt(ThemePage, {
   localVue,
   mocks: {
+    $contentful: {
+      query: contentfulQueryStub(themePageContentfulResponse)
+    },
+    $fetchState: {},
+    $i18n: {
+      locale: 'en',
+      isoLocale: () => 'en-GB',
+      t: (key) => key
+    },
+    $nuxt: { context: { res: {} } },
+    $route: {
+      params: { pathMatch: 'art' },
+      query: {}
+    },
     $t: (key) => key,
     $tc: (key) => key
   },
@@ -48,13 +48,13 @@ const factory = () => shallowMountNuxt(ThemePage, {
 describe('pages/themes/_', () => {
   afterEach(sinon.resetHistory);
 
-  describe('asyncData', () => {
+  describe('fetch', () => {
     it('fetches theme page content from Contentful', async() => {
       const wrapper = factory();
 
-      await wrapper.vm.asyncData(context);
+      await wrapper.vm.fetch();
 
-      expect(context.app.$contentful.query.calledWith('themePage', {
+      expect(wrapper.vm.$contentful.query.calledWith('themePage', {
         locale: 'en-GB',
         identifier: 'art',
         preview: false
@@ -62,22 +62,56 @@ describe('pages/themes/_', () => {
     });
     describe('when there is no theme identifier found', () => {
       it('throws a 404 error', async() => {
+        process.server = true;
+        const resWithoutIdentifier = { ...themePageContentfulResponse };
+        resWithoutIdentifier.data.data.themePage.items[0].identifier = null;
+
         const wrapper = factory();
-        themePageContentfulResponse.data.data.themePage.items[0].identifier = null;
+        wrapper.vm.$contentful.query = contentfulQueryStub(resWithoutIdentifier);
 
-        await wrapper.vm.asyncData(context);
+        let error;
+        try {
+          await wrapper.vm.fetch();
+        } catch (e) {
+          error = e;
+        }
 
-        expect(context.error.calledWith({ statusCode: 404, message: ('messages.notFound') })).toBe(true);
+        expect(error.message).toBe('messages.notFound');
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(404);
       });
     });
     describe('when there is no theme found', () => {
       it('throws a 404 error', async() => {
+        const resWithoutPage = { ...themePageContentfulResponse };
+        resWithoutPage.data.data.themePage.items[0] = null;
         const wrapper = factory();
-        themePageContentfulResponse.data.data.themePage.items[0] = null;
+        wrapper.vm.$contentful.query = contentfulQueryStub(resWithoutPage);
 
-        await wrapper.vm.asyncData(context);
+        let error;
+        try {
+          await wrapper.vm.fetch();
+        } catch (e) {
+          error = e;
+        }
 
-        expect(context.error.calledWith({ statusCode: 404, message: ('messages.notFound') })).toBe(true);
+        expect(error.message).toBe('messages.notFound');
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(404);
+      });
+    });
+    describe('when request fails', () => {
+      it('set the status code on SSRs', async() => {
+        const wrapper = factory();
+        wrapper.vm.$contentful.query = sinon.stub().throws(() => new Error('Internal Server Error'));
+
+        let error;
+        try {
+          await wrapper.vm.fetch();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
+        expect(error.message).toBe('Internal Server Error');
       });
     });
   });
