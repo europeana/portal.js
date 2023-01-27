@@ -962,13 +962,17 @@ export default {
       "title": "Fedezze fel a kapcsolódó történeteket"
     },
     "collections": {
+      "name": "Kapcsolódó gyűjtemények",
       "title": "Fedezze fel a kapcsolódó gyűjteményeket"
     },
     "editorial": {
       "title": "Történetek, amelyek tetszhetnek"
+    },
+    "galleries": {
+      "name": "Kapcsolódó galériák",
+      "title": "Fedezze fel a kapcsolódó galériákat"
     }
   },
-  "relatedCollections": "Kapcsolódó gyűjtemények",
   "removeFilter": "{filterLabel} szűrő eltávolítása",
   "reset": "Visszaállítás",
   "resourceWikimedia": "Forrás: Wikimedia Commons",

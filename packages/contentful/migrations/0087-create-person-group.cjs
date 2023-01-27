@@ -1,12 +1,17 @@
 module.exports = function(migration) {
+  if (!process.env.ENTITY_SUGGEST_APP_ID) {
+    console.log('No app ID specified in ENTITY_SUGGEST_APP_ID; aborting.');
+    process.exit(1);
+  }
+
   const personGroup = migration
     .createContentType('personGroup')
     .name('Person group')
     .description('List of person entity id\'s')
-    .displayField('title');
+    .displayField('headline');
 
   personGroup
-    .createField('title')
+    .createField('headline')
     .name('Title')
     .type('Symbol')
     .localized(true)
@@ -14,9 +19,9 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  personGroup.changeFieldControl('title', 'builtin', 'singleLine', {});
+  personGroup.changeFieldControl('headline', 'builtin', 'singleLine', {});
 
-  personGroup.createField('persons')
+  personGroup.createField('hasPart')
     .name('Persons')
     .type('Array')
     .localized(false)
@@ -43,5 +48,5 @@ module.exports = function(migration) {
       ]
     });
 
-  personGroup.changeFieldControl('persons', 'app', process.env.ENTITY_SUGGEST_APP_ID);
+  personGroup.changeFieldControl('hasPart', 'app', process.env.ENTITY_SUGGEST_APP_ID);
 };

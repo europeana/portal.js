@@ -962,13 +962,17 @@ export default {
       "title": "Avastage seotud lugusid"
     },
     "collections": {
+      "name": "Seotud kollektsioonid",
       "title": "Avastage seotud kogud"
     },
     "editorial": {
       "title": "Lood, mis teile võivad meeldida"
+    },
+    "galleries": {
+      "name": "Seotud galeriid",
+      "title": "Avastage seotud galeriid"
     }
   },
-  "relatedCollections": "Seotud kollektsioonid",
   "removeFilter": "Eemalda filter {filterLabel}",
   "reset": "Lähtesta",
   "resourceWikimedia": "Wikimedia Commonsist saadud ressurss",
