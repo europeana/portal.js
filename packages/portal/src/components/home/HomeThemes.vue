@@ -18,11 +18,10 @@
       StackedCardsSwiper
     },
 
-
     data() {
       return {
         themes: []
-      }
+      };
     },
 
     async fetch() {

@@ -1,5 +1,3 @@
-import { BASE_URL } from './data';
-
 // Thematic collections available via the `collection` qf filter.
 const themes = [
   {
