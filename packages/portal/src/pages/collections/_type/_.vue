@@ -79,7 +79,6 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
-  import themes, { themeForEntity } from '@/plugins/europeana/themes';
   import {
     getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
@@ -116,21 +115,6 @@
     },
 
     middleware: [
-      ({ params, query, redirect, $features, $path }) => {
-        if (!$features.themePages) {
-          return;
-        }
-        const entityUri = getEntityUri(params.type, params.pathMatch);
-        const entityTheme = themeForEntity(entityUri);
-        if (entityTheme) {
-          return redirect(
-            $path({
-              path: `/themes/${entityTheme.qf}`,
-              query
-            })
-          );
-        }
-      },
       'sanitisePageQuery'
     ],
 
@@ -138,12 +122,11 @@
       return {
         page: null,
         proxy: null,
-        themes: themes.map(theme => theme.id),
         relatedCollections: null
       };
     },
 
-    fetch() {
+    async fetch() {
       this.$store.commit('search/disableCollectionFacet');
 
       const entityUri = getEntityUri(this.collectionType, this.$route.params.pathMatch);
@@ -158,38 +141,15 @@
       }
       this.$store.commit('entity/setId', entityUri);
 
-      // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
-      const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
-        this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
-      const fetchCuratedEntities = !this.$store.state.entity.curatedEntities;
+      const response = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
+        this.$store.commit('entity/setEntity', pick(response.entity, [
+          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
+        ]));
+        this.$store.commit('search/setCollectionLabel', this.title.values[0]);
+        const urlLabel = this.entity.prefLabel.en;
 
-      const contentfulVariables = {
-        locale: this.$i18n.isoLocale(),
-        preview: this.$route.query.mode === 'preview'
-      };
-
-      return Promise.all([
-        this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch),
-        fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
-        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifier: entityUri }) : () => null
-      ])
-        .then(responses => {
-          this.$store.commit('entity/setEntity', pick(responses[0].entity, [
-            'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
-          ]));
-          if (fetchCuratedEntities) {
-            const entitiesResponseData = responses[1].data.data;
-            this.$store.commit('entity/setCuratedEntities', entitiesResponseData.curatedEntities.items);
-          }
-          if (fetchEntityPage) {
-            const pageResponseData = responses[responses.length - 1].data.data;
-            this.page = pageResponseData.entityPage.items[0];
-          }
-          this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-          const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
-
-          return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
-        });
+        return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+      });
     },
 
     computed: {
@@ -213,15 +173,10 @@
         };
 
         if (this.entity) {
-          const curatedEntity = this.$store.getters['entity/curatedEntity'](this.entity.id);
-          if (curatedEntity && curatedEntity.genre) {
-            overrideParams.qf.push(`collection:${curatedEntity.genre}`);
-          } else {
-            const entityQuery = getEntityQuery(this.entity.id);
-            overrideParams.qf.push(entityQuery);
-            if (!this.$route.query.query) {
-              overrideParams.query = entityQuery; // Triggering best bets.
-            }
+          const entityQuery = getEntityQuery(this.entity.id);
+          overrideParams.qf.push(entityQuery);
+          if (!this.$route.query.query) {
+            overrideParams.query = entityQuery; // Triggering best bets.
           }
         }
 
@@ -231,13 +186,7 @@
         return normalizeEntityId(this.$route.params.pathMatch);
       },
       contextLabel() {
-        let contextType = this.collectionType;
-
-        if (this.collectionType === 'topic' && this.themes.includes(this.entityId)) {
-          contextType = 'theme';
-        }
-
-        return this.$t(`cardLabels.${contextType}`);
+        return this.$t(`cardLabels.${this.collectionType}`);
       },
       collectionType() {
         return this.$route.params.type;

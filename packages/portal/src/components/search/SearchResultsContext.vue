@@ -55,7 +55,6 @@
 <script>
   import RemovalChip from './RemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
-  import themes from '@/plugins/europeana/themes';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   export default {
@@ -113,12 +112,6 @@
       }
     },
 
-    data() {
-      return {
-        themes: themes.map(theme => theme.id)
-      };
-    },
-
     computed: {
       i18nPath() {
         if (this.hasEntity && this.hasQuery) {
@@ -155,16 +148,7 @@
         return this.$apis.entity.imageUrl(this.entity);
       },
       entityTypeLabel() {
-        return this.$t(`cardLabels.${this.contextType}`);
-      },
-      contextType() {
-        let contextType = this.entityType;
-
-        if (this.entityType === 'topic' && this.themes.includes(this.entityId)) {
-          contextType = 'theme';
-        }
-
-        return contextType;
+        return this.$t(`cardLabels.${this.entityType}`);
       },
       entityParams() {
         return this.hasEntity ? entityParamsFromUri(this.entity.id) : {};

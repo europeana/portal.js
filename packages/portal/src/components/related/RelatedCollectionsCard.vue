@@ -16,8 +16,6 @@
 </template>
 
 <script>
-  import { withEditorialContent } from '@/plugins/europeana/themes';
-
   export default {
     name: 'RelatedCollectionsCard',
 
@@ -66,8 +64,6 @@
         return this.$apis.entity.suggest(query, {
           language: this.$i18n.locale,
           rows: 4
-        }).then((related) => {
-          return withEditorialContent(this, related);
         });
       }
     }

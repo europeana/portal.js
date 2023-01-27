@@ -71,7 +71,7 @@
         return;
       }
 
-      const entities = await this.fetchEntitiesWithEditorialOverrides(this.entityUris);
+      const entities = await this.fetchReducedEntities(this.entityUris);
       if (entities)  {
         this.collections = entities;
       }

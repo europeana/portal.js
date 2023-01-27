@@ -13,7 +13,6 @@
 
 <script>
   import EntityBadges from '../entity/EntityBadges';
-  import allThemes from '@/mixins/allThemes';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
@@ -22,8 +21,6 @@
     components: {
       EntityBadges
     },
-
-    mixins: [allThemes],
 
     props: {
       /**
@@ -36,8 +33,30 @@
       }
     },
 
+    data() {
+      return {
+        themes: []
+      };
+    },
+
     async fetch() {
-      await this.fetchAllThemes();
+      const contentfulVariables = {
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      const contentfulResponse = await this.$contentful.query('themes', contentfulVariables);
+
+      this.themes = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
+        prefLabel: theme.name,
+        description: theme.description,
+        url: this.$path({
+          name: 'themes-all', params: {
+            pathMatch: theme.identifier
+          }
+        }),
+        primaryImageOfPage: theme.primaryImageOfPage
+      })).sort((a, b) => a.title.localeCompare(b.title));
     },
 
     computed: {
@@ -46,7 +65,7 @@
       },
       alphabeticallySortedThemes() {
         // Slice to make a copy, as sort occurs in place
-        return this.allThemes.slice(0).sort((a, b) =>
+        return this.themes.slice(0).sort((a, b) =>
           langMapValueForLocale(a.prefLabel, this.$i18n.locale).values[0].localeCompare(langMapValueForLocale(b.prefLabel, this.$i18n.locale).values[0]));
       }
     }
