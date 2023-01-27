@@ -33,8 +33,8 @@
       const contentfulResponse = await this.$contentful.query('themes', contentfulVariables);
 
       this.themes = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
-        title: langMapValueForLocale(theme.name, this.$i18n.locale).values[0],
-        description: langMapValueForLocale(theme.description, this.$i18n.locale).values[0],
+        title: theme.name,
+        description: theme.description,
         url: this.$path({
           name: 'themes-all', params: {
             pathMatch: theme.identifier
