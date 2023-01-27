@@ -55,7 +55,7 @@
           }
         }),
         primaryImageOfPage: theme.primaryImageOfPage
-      })).sort((a, b) => a.title.localeCompare(b.title));
+      })).sort((a, b) => a.prefLabel.localeCompare(b.prefLabel));
     },
 
     computed: {
