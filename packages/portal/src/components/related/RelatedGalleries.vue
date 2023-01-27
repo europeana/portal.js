@@ -102,15 +102,6 @@
   @import '@/assets/scss/variables';
 
   .related-galleries-card {
-    background: none;
-    border: none;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-
-    .card-body {
-      padding: 0 !important;
-    }
-
     .card-group {
       @media (min-width: $bp-medium) {
         flex-wrap: nowrap;
@@ -130,7 +121,7 @@
   .card-group-list .related-gallery-card {
     @media (min-width: $bp-medium) {
       flex: 0 1 33%;
-      margin: 0 0.75rem 0 0;
+      margin: 0 0.75rem 0.75rem 0;
 
       &:last-child {
         margin-right: 0;
@@ -141,12 +132,6 @@
   .masonry-container {
     .related-galleries-card .card-group {
       flex-direction: column;
-    }
-
-    .related-gallery-card {
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
   }
 
