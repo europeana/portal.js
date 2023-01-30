@@ -4,54 +4,50 @@ import BootstrapVue from 'bootstrap-vue';
 import QuickSearch from '@/components/search/QuickSearch.vue';
 import sinon from 'sinon';
 
-const fetchAllThemesSpy = sinon.spy();
-
-const mixins = [
-  {
-    methods: {
-      fetchAllThemes: fetchAllThemesSpy
-    }
-  }
-];
-
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (options = {}) => shallowMountNuxt(QuickSearch, {
+const factory = ({ propsData = {} } = {}) => shallowMountNuxt(QuickSearch, {
   localVue,
-  mixins,
+  propsData,
   mocks: {
+    $contentful: {
+      query: sinon.stub().resolves({ data: { data: { themePageCollection: { items: [] } } } })
+    },
     $i18n: {
+      isoLocale: () => 'en-GB',
       locale: 'en'
     },
-    $t: (key) => key,
-    $store: {
-      state: {
-        search: { allThemes: options.themes || [] }
-      }
-    }
+    $route: {
+      query: {}
+    },
+    $t: (key) => key
   }
 });
 
 describe('components/search/QuickSearch', () => {
   it('fetches all themes', async() => {
     const wrapper = factory();
+
     await wrapper.vm.fetch();
 
-    expect(fetchAllThemesSpy.called).toBe(true);
+    expect(wrapper.vm.$contentful.query.called).toBe(true);
   });
 
   describe('when options or themes are available', () => {
-    it('is rendered', async() => {
-      const wrapper = factory({ themes: [{ prefLabel: { en: 'theme1' } }, { prefLabel: { en: 'theme2' } }] });
+    it('is rendered', () => {
+      const wrapper = factory({ propsData: { options: [{ prefLabel: { en: 'theme1' } }, { prefLabel: { en: 'theme2' } }] } });
+
       const quickSearch = wrapper.find('[data-qa="quick-search"]');
 
       expect(quickSearch.exists()).toBe(true);
     });
   });
+
   describe('when no options and no themes', () => {
-    it('is empty', async() => {
+    it('is empty', () => {
       const wrapper = factory();
+
       const quickSearch = wrapper.find('[data-qa="quick-search"]');
 
       expect(quickSearch.exists()).toBe(false);

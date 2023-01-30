@@ -43,7 +43,7 @@
             <EntityRelatedCollectionsCard
               :type="$route.params.type"
               :identifier="$route.params.pathMatch"
-              :overrides="relatedCollectionCards || relatedCollections"
+              :overrides="relatedCollections"
               data-qa="related entities"
               @entitiesFromUrisFetched="handleEntityRelatedCollectionsFetched"
             />
@@ -239,22 +239,6 @@
       },
       editorialOverrides() {
         return { title: this.editorialTitle, image: this.editorialImage };
-      },
-      relatedCollectionCards() {
-        if ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) {
-          return this.page.relatedLinksCollection.items.map(item => {
-            const prefLabel = {
-              [this.$i18n.locale]: item.name,
-              en: item.nameEN
-            };
-            return {
-              id: item.identifier,
-              prefLabel,
-              image: item.image
-            };
-          });
-        }
-        return null;
       },
       editable() {
         return this.entity &&

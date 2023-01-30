@@ -59,8 +59,7 @@
           class="mb-5"
         />
         <RelatedEditorial
-          v-if="entityUri"
-          :entity-uri="entityUri"
+          :theme="identifier"
           :card-wrapper="false"
           :limit="6"
           class="mb-5 mb-sm-4"
@@ -92,7 +91,6 @@
   import ContentHeader from '@/components/generic/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import { themeEntityUri } from '@/plugins/europeana/themes.js';
   import { daily } from '@/plugins/europeana/utils.js';
 
   export default {
@@ -118,6 +116,7 @@
         name: '',
         entityUri: null,
         description: null,
+        identifier: null,
         primaryImageOfPage: null,
         hasPartCollection: null
       };
@@ -135,8 +134,8 @@
         const theme = response.data.data.themePage?.items?.[0];
 
         if (theme?.identifier) {
+          this.identifier = theme.identifier;
           this.name = theme.name;
-          this.entityUri = themeEntityUri(theme.identifier);
           this.description = theme.description;
           this.primaryImageOfPage = theme.primaryImageOfPage;
           this.hasPartCollection = theme.hasPartCollection;

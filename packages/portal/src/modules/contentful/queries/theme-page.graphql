@@ -3,7 +3,7 @@ query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = fals
     preview: $preview
     locale: $locale
     limit: 1
-    where: {identifier: $identifier}
+    where: { identifier: $identifier }
   ) {
     items {
       identifier

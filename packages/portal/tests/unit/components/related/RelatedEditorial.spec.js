@@ -74,6 +74,7 @@ describe('components/related/RelatedEditorial', () => {
           await wrapper.vm.fetch();
 
           expect(wrapper.vm.$contentful.query.calledWith('entityRelatedContent', {
+            theme: null,
             entityUri,
             query,
             locale: 'en-GB',
@@ -100,6 +101,7 @@ describe('components/related/RelatedEditorial', () => {
           expect(wrapper.vm.$contentful.query.calledWith('entityRelatedContent', {
             entityUri,
             query: '',
+            theme: null,
             locale: 'en-GB',
             preview: false,
             limit: 4
@@ -130,6 +132,7 @@ describe('components/related/RelatedEditorial', () => {
           expect(wrapper.vm.$contentful.query.calledWith('relatedContent', {
             entityUri,
             query,
+            theme: null,
             locale: 'en-GB',
             preview: false,
             limit: 4

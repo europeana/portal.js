@@ -25,7 +25,7 @@
     props: {
       /**
        * Array of objects for the quick search badge links.
-       * Currently used for styleguide and concatenated by allThemes fetch.
+       * Currently used for styleguide and concatenated by optionsAndThemes.
        */
       options: {
         type: Array,

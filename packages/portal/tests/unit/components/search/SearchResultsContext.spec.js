@@ -167,30 +167,6 @@ describe('SearchResultsContext', () => {
   });
 
   describe('computed', () => {
-    describe('contextType', () => {
-      it('is "theme" if entity is thematic collection topic', () => {
-        const propsData = {
-          entity: fixtures.thematicCollectionTopicEntity,
-          totalResults: 1234
-        };
-
-        const wrapper = factory({ propsData });
-
-        expect(wrapper.vm.contextType).toBe('theme');
-      });
-
-      it('is "organisation" if entity is organisation', () => {
-        const propsData = {
-          entity: fixtures.organisationEntity,
-          totalResults: 1234
-        };
-
-        const wrapper = factory({ propsData });
-
-        expect(wrapper.vm.contextType).toBe('organisation');
-      });
-    });
-
     describe('entityLabel', () => {
       it('priorities editorialOverrides prop', () => {
         const propsData = {
