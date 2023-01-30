@@ -8,7 +8,6 @@ query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = fals
     items {
       identifier
       name
-      entityUri
       description
       primaryImageOfPage {
         url

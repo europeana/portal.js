@@ -92,6 +92,7 @@
   import ContentHeader from '@/components/generic/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import { themeEntityUri } from '@/plugins/europeana/themes.js';
   import { daily } from '@/plugins/europeana/utils.js';
 
   export default {
@@ -133,9 +134,9 @@
         const response = await this.$contentful.query('themePage', variables);
         const theme = response.data.data.themePage?.items?.[0];
 
-        if (theme && theme.identifier) {
+        if (theme?.identifier) {
           this.name = theme.name;
-          this.entityUri = theme.entityUri;
+          this.entityUri = themeEntityUri(theme.identifier);
           this.description = theme.description;
           this.primaryImageOfPage = theme.primaryImageOfPage;
           this.hasPartCollection = theme.hasPartCollection;
