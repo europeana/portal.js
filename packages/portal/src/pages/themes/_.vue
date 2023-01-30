@@ -66,7 +66,7 @@
           class="mb-5 mb-sm-4"
         />
         <section
-          v-if="curatedItems"
+          v-if="dailySetOfCuratedItems"
           class="mb-5"
         >
           <h2>{{ curatedItems.headline }}</h2>
@@ -159,32 +159,39 @@
         return {
           title: this.name,
           description: this.description,
-          ogType: 'article'
+          ogType: 'article',
+          ogImage: this.primaryImageOfPage?.image?.url,
+          ogImageAlt: this.primaryImageOfPage?.image?.description || ''
         };
       },
       shareMediaUrl() {
         return this.primaryImageOfPage?.image?.url;
       },
+      sections() {
+        return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);
+      },
       relatedTopics() {
-        return this.hasPartCollection?.items?.filter(section => section['__typename'] === 'TopicGroup')[0];
+        return this.sections && this.sections.filter(section => section['__typename'] === 'TopicGroup')[0];
       },
       relatedPersons() {
-        return this.hasPartCollection?.items?.filter(section => section['__typename'] === 'PersonGroup')[0];
+        return this.sections && this.sections.filter(section => section['__typename'] === 'PersonGroup')[0];
       },
       relatedGalleries() {
-        return this.hasPartCollection?.items?.filter(section => section['__typename'] === 'GalleryGroup')[0];
+        return this.sections && this.sections.filter(section => section['__typename'] === 'GalleryGroup')[0];
       },
       callToAction() {
-        return this.hasPartCollection?.items?.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
+        return this.sections && this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
       },
       curatedItems() {
-        return this.hasPartCollection?.items?.filter(section => section['__typename'] === 'CardGroup')[0];
+        return this.sections && this.sections.filter(section => section['__typename'] === 'CardGroup')[0];
       },
       curatedItemsEncoding() {
-        return this.curatedItems?.hasPartCollection?.items?.map(items => items.encoding);
+        const items = this.curatedItems?.hasPartCollection?.items?.length && this.curatedItems.hasPartCollection.items.filter(item => !!item);
+        const curatedItemsEncoding = items && items.map(items => items.encoding);
+        return curatedItemsEncoding;
       },
       dailySetOfCuratedItems() {
-        return daily(this.curatedItemsEncoding, 8);
+        return this.curatedItemsEncoding && daily(this.curatedItemsEncoding, 8);
       }
     }
   };
