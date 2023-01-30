@@ -30,3 +30,9 @@ const themes = [
 ];
 
 export default themes;
+
+export const themeEntityUri = (themeName) => {
+  const theme = themes.find((theme) => theme.qf === themeName);
+
+  return theme ? `${BASE_URL}/concept/${theme.id}` : null;
+};

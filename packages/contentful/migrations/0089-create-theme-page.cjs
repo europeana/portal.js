@@ -65,15 +65,6 @@ module.exports = function(migration) {
   });
 
   themePage
-    .createField('entityUri')
-    .name('Entity ID')
-    .type('Symbol')
-    .localized(false)
-    .required(false)
-    .disabled(false)
-    .omitted(false);
-
-  themePage
     .createField('description')
     .name('Description')
     .type('Symbol')

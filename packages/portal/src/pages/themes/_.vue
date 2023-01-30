@@ -3,72 +3,96 @@
     data-qa="theme page"
     class="page white-page gridless-container responsive-font"
   >
-    <ContentHeader
-      :title="name"
-      :description="description"
-      :media-url="shareMediaUrl"
-      button-variant="secondary"
-    />
-    <div class="divider" />
-    <EntityBadges
-      v-if="relatedTopics"
-      :title="relatedTopics.headline"
-      :entity-uris="relatedTopics.hasPart"
-      class="ml-4 mb-5"
-    />
-    <EntityCardGroup
-      v-if="relatedPersons"
-      :title="relatedPersons.headline"
-      :entity-uris="relatedPersons.hasPart"
-      card-variant="mini"
-      class="mb-5 mb-sm-4"
-      card-group-class="gridless-browse-cards"
-    />
-    <SetCardGroup
-      v-if="relatedGalleries"
-      :title="relatedGalleries.headline"
-      :set-uris="relatedGalleries.hasPart"
-      class="mb-5 mb-sm-4"
-      card-group-class="gridless-browse-cards"
-    />
-    <CallToActionBanner
-      v-if="callToAction"
-      :name="callToAction.name"
-      :text="callToAction.text"
-      :link="callToAction.relatedLink"
-      :illustration="callToAction.image"
-      class="mb-5"
-    />
-    <RelatedEditorial
-      v-if="entityUri"
-      :entity-uri="entityUri"
-      :card-wrapper="false"
-      :limit="6"
-      class="mb-5 mb-sm-4"
-    />
-    <section
-      v-if="curatedItems"
-      class="mb-5"
+    <b-container
+      v-if="$fetchState.pending"
+      data-qa="loading spinner container"
     >
-      <h2>{{ curatedItems.headline }}</h2>
-      <ItemPreviewCardGroup
-        :items="dailySetOfCuratedItems"
-        view="grid"
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
+        </b-col>
+      </b-row>
+    </b-container>
+    <ErrorMessage
+      v-else-if="$fetchState.error"
+      data-qa="error message container"
+      :status-code="$fetchState.error.statusCode"
+    />
+    <template
+      v-else
+    >
+      <ContentHeader
+        :title="name"
+        :description="description"
+        :media-url="shareMediaUrl"
+        button-variant="secondary"
       />
-      <SmartLink
-        v-if="curatedItems.moreButton"
-        :destination="curatedItems.moreButton.url"
-        class="btn btn-outline-secondary"
-      >
-        {{ curatedItems.moreButton.text }}
-      </SmartLink>
-    </section>
+      <div class="divider" />
+      <client-only>
+        <EntityBadges
+          v-if="relatedTopics"
+          :title="relatedTopics.headline"
+          :entity-uris="relatedTopics.hasPart"
+          class="ml-4 mb-5"
+        />
+        <EntityCardGroup
+          v-if="relatedPersons"
+          :title="relatedPersons.headline"
+          :entity-uris="relatedPersons.hasPart"
+          card-variant="mini"
+          class="mb-5 mb-sm-4"
+          card-group-class="gridless-browse-cards"
+        />
+        <SetCardGroup
+          v-if="relatedGalleries"
+          :title="relatedGalleries.headline"
+          :set-uris="relatedGalleries.hasPart"
+          class="mb-5 mb-sm-4"
+          card-group-class="gridless-browse-cards"
+        />
+        <CallToActionBanner
+          v-if="callToAction"
+          :name="callToAction.name"
+          :text="callToAction.text"
+          :link="callToAction.relatedLink"
+          :illustration="callToAction.image"
+          class="mb-5"
+        />
+        <RelatedEditorial
+          v-if="entityUri"
+          :entity-uri="entityUri"
+          :card-wrapper="false"
+          :limit="6"
+          class="mb-5 mb-sm-4"
+        />
+        <section
+          v-if="curatedItems"
+          class="mb-5"
+        >
+          <h2>{{ curatedItems.headline }}</h2>
+          <ItemPreviewCardGroup
+            :items="dailySetOfCuratedItems"
+            view="grid"
+          />
+          <SmartLink
+            v-if="curatedItems.moreButton"
+            :destination="curatedItems.moreButton.url"
+            class="btn btn-outline-secondary"
+          >
+            {{ curatedItems.moreButton.text }}
+          </SmartLink>
+        </section>
+      </client-only>
+    </template>
   </div>
 </template>
 
 <script>
+  import createHttpError from 'http-errors';
   import ContentHeader from '@/components/generic/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import { themeEntityUri } from '@/plugins/europeana/themes.js';
   import { daily } from '@/plugins/europeana/utils.js';
 
   export default {
@@ -82,32 +106,12 @@
       ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SetCardGroup: () => import('@/components/set/SetCardGroup'),
-      SmartLink: () => import('@/components/generic/SmartLink')
+      SmartLink: () => import('@/components/generic/SmartLink'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      LoadingSpinner
     },
 
     mixins: [pageMetaMixin],
-
-    async asyncData({ params, query, error, app }) {
-      const variables = {
-        locale: app.i18n.isoLocale(),
-        identifier: params.pathMatch,
-        preview: query.mode === 'preview'
-      };
-
-      try {
-        const response = await app.$contentful.query('themePage', variables);
-        const theme = response.data.data.themePage.items[0];
-
-        if (!theme || !theme.identifier) {
-          error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-          return {};
-        }
-
-        return theme;
-      } catch (e) {
-        error({ statusCode: 500, message: e.toString() });
-      }
-    },
 
     data() {
       return {
@@ -117,6 +121,37 @@
         primaryImageOfPage: null,
         hasPartCollection: null
       };
+    },
+
+    async fetch() {
+      const variables = {
+        locale: this.$i18n.isoLocale(),
+        identifier: this.$route.params.pathMatch,
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      try {
+        const response = await this.$contentful.query('themePage', variables);
+        const theme = response.data.data.themePage?.items?.[0];
+
+        if (theme?.identifier) {
+          this.name = theme.name;
+          this.entityUri = themeEntityUri(theme.identifier);
+          this.description = theme.description;
+          this.primaryImageOfPage = theme.primaryImageOfPage;
+          this.hasPartCollection = theme.hasPartCollection;
+        } else {
+          if (process.server) {
+            this.$nuxt.context.res.statusCode = 404;
+          }
+          throw createHttpError(404, this.$t('messages.notFound'));
+        }
+      } catch (error) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        }
+        throw error;
+      }
     },
 
     computed: {
