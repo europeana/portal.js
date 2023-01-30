@@ -37,10 +37,6 @@
 }
 
 .gridless-browse-cards {
-  .card {
-    box-shadow: 0 1px 10px 0 rgb(0 0 0 / 25%);
-  }
-
   &.card-deck-4-cols {
     @media (min-width: $bp-xxxl) {
       margin-left: -1em;
