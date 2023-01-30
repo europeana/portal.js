@@ -200,17 +200,46 @@
     margin-top: -1rem;
 
     ::v-deep header .col {
-      margin-bottom: 3rem;
+      margin-bottom: 2.25rem;
+
+      @media (min-width: $bp-small) {
+        margin-bottom: 3rem;
+      }
 
       @media (min-width: $bp-xxxl) {
         margin-bottom: 3vw;
+      }
+      @media (min-width: $bp-large) {
+        &.col-lg-9 {
+          flex: 0 0 50%;
+          max-width: 50%;
+        }
+      }
+
+      h1 {
+        @media (max-width: ($bp-small - 1px)) {
+          font-size: $font-size-medium;
+          margin-bottom: 0.375rem;
+        }
+      }
+
+      .description {
+        color: $mediumgrey;
+
+        @media (max-width: ($bp-small - 1px)) {
+          font-size: $font-size-small;
+        }
       }
     }
 
     ::v-deep h2:not(.related-heading) {
       color: $mediumgrey;
-      font-size: $font-size-large;
       font-weight: 600;
+      font-size: $font-size-medium;
+
+      @media (min-width: $bp-small) {
+        font-size: $font-size-large;
+      }
 
       @media (min-width: $bp-xxxl) {
         font-size: $responsive-font-size-large;
