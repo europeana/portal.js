@@ -144,7 +144,6 @@ describe('pages/themes/_', () => {
       const wrapper = factory(data);
 
       const pageMeta = wrapper.vm.pageMeta;
-      console.log(pageMeta, 'LOG');
 
       expect(pageMeta.ogImage).toBe(data.primaryImageOfPage.image.url);
     });
