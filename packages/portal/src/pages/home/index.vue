@@ -1,6 +1,6 @@
 <template>
   <div
-    class="page white-page"
+    class="page white-page responsive-font"
     data-qa="home page"
   >
     <HomeHero
