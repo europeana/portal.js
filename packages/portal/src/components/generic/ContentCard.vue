@@ -336,10 +336,6 @@
         }
 
         if (this.displayLabelType === 'collections') {
-          const entityId = (typeof this.url === 'string') ?
-            this.url.split('/').pop().split('-').shift() :
-            this.url.params.pathMatch;
-
           return this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
         }
 
