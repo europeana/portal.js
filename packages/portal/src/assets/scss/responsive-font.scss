@@ -97,7 +97,7 @@
     }
 
     .content-card {
-      font-size: $responsive-font-size-base;
+      font-size: $responsive-font-size-small;
       line-height: 1.1875vw;
       border-radius: 0.25vw;
 
@@ -111,7 +111,7 @@
       }
 
       .card-title {
-        font-size: $responsive-font-size-large;
+        font-size: $responsive-font-size-medium;
         line-height: 1.25em;
         max-height: none;
       }

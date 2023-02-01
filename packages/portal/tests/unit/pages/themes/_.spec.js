@@ -14,7 +14,26 @@ const themePageContentfulResponse = {
         identifier: 'art',
         name: 'Art',
         description: 'Description of the Art theme',
-        entityUri: 'http://data.europeana.eu/concept/123'
+        entityUri: 'http://data.europeana.eu/concept/123',
+        primaryImageOfPage: {
+          image: {
+            url: 'http://thumbnail.europeana.eu/art'
+          }
+        },
+        hasPartCollection: {
+          items: [
+            { '__typename': 'TopicGroup' },
+            { '__typename': 'Personroup' },
+            { '__typename': 'GalleryGroup' },
+            { '__typename': 'PrimaryCallToAction' },
+            { '__typename': 'CardGroup',
+              hasPartCollection: {
+                items: [{
+                  encoding: {}
+                }]
+              } }
+          ]
+        }
       }] }
     }
   }
@@ -22,8 +41,11 @@ const themePageContentfulResponse = {
 
 const contentfulQueryStub = (response) => sinon.stub().withArgs('themePage', sinon.match.object).resolves(response);
 
-const factory = () => shallowMountNuxt(ThemePage, {
+const factory = (data = {}) => shallowMountNuxt(ThemePage, {
   localVue,
+  data() {
+    return data;
+  },
   mocks: {
     $contentful: {
       query: contentfulQueryStub(themePageContentfulResponse)
@@ -113,6 +135,17 @@ describe('pages/themes/_', () => {
         expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
         expect(error.message).toBe('Internal Server Error');
       });
+    });
+  });
+
+  describe('pageMeta', () => {
+    const data = themePageContentfulResponse.data.data.themePage.items[0];
+    it('uses the primary image of page for og:image', () => {
+      const wrapper = factory(data);
+
+      const pageMeta = wrapper.vm.pageMeta;
+
+      expect(pageMeta.ogImage).toBe(data.primaryImageOfPage.image.url);
     });
   });
 });
