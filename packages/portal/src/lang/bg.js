@@ -270,7 +270,7 @@ export default {
         "map": "Карти и география",
         "migration": "Миграция",
         "music": "Музика",
-        "nature": "Естествознание ",
+        "nature": "Естествознание",
         "newspaper": "Вестници",
         "photography": "Фотография",
         "sport": "Спорт",
@@ -962,13 +962,17 @@ export default {
       "title": "Открийте свързани истории"
     },
     "collections": {
+      "name": "Подобни колекции",
       "title": "Открийте сродни колекции"
     },
     "editorial": {
       "title": "Истории, които може да ви харесат"
+    },
+    "galleries": {
+      "name": "Свързани галерии",
+      "title": "Открийте свързани галерии"
     }
   },
-  "relatedCollections": "Подобни колекции",
   "removeFilter": "Премахване на филтъра {filterLabel}",
   "reset": "Нулиране",
   "resourceWikimedia": "Източник от Wikimedia Commons",

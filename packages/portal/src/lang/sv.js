@@ -771,7 +771,7 @@ export default {
     "handle": "Skjutreglage"
   },
   "items": {
-    "itemCount": "1 föremål {count} föremål",
+    "itemCount": "1 föremål | {count} föremål",
     "itemOf": "{max} av {count} föremål",
     "recent": "Senaste objekt",
     "recommended": "Rekommenderade objekt",
@@ -962,13 +962,17 @@ export default {
       "title": "Upptäck relaterade berättelser"
     },
     "collections": {
+      "name": "Relaterade samlingar",
       "title": "Upptäck relaterade samlingar"
     },
     "editorial": {
       "title": "Berättelser du kanske gillar"
+    },
+    "galleries": {
+      "name": "Relaterade gallerier",
+      "title": "Upptäck relaterade gallerier"
     }
   },
-  "relatedCollections": "Tillhörande kollektioner",
   "removeFilter": "Ta bort filter {filterLabel}",
   "reset": "Återställ",
   "resourceWikimedia": "Resurs från Wikimedia Commons",

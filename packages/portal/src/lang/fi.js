@@ -962,13 +962,17 @@ export default {
       "title": "Tutustu aiheeseen liittyviin tarinoihin"
     },
     "collections": {
+      "name": "Aiheeseen liittyvät kokoelmat",
       "title": "Tutustu aiheeseen liittyviin kokoelmiin"
     },
     "editorial": {
       "title": "Tarinoita, joista saatat pitää"
+    },
+    "galleries": {
+      "name": "Aiheeseen liittyvät galleriat",
+      "title": "Tutustu aiheeseen liittyviin gallerioihin"
     }
   },
-  "relatedCollections": "Aiheeseen liittyvät kokoelmat",
   "removeFilter": "Poista {filterLabel} -suodatin",
   "reset": "Nollaa",
   "resourceWikimedia": "Sisältö Wikimedia Commonsista",

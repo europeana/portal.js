@@ -962,13 +962,17 @@ export default {
       "title": "Atklājiet saistītos stāstus"
     },
     "collections": {
+      "name": "Saistītās kolekcijas",
       "title": "Atklājiet saistītās kolekcijas"
     },
     "editorial": {
       "title": "Stāsti, kas jums varētu patikt"
+    },
+    "galleries": {
+      "name": "Saistītās galerijas",
+      "title": "Atklājiet saistītās galerijas"
     }
   },
-  "relatedCollections": "Saistītās kolekcijas",
   "removeFilter": "Noņemt filtru {filterLabel}",
   "reset": "Atiestatīt",
   "resourceWikimedia": "Resurss no Wikimedia Commons",

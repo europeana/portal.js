@@ -962,13 +962,17 @@ export default {
       "title": "Oplev relaterede historier"
     },
     "collections": {
+      "name": "Relaterede samlinger",
       "title": "Oplev relaterede samlinger"
     },
     "editorial": {
       "title": "Historier, du måske kan lide"
+    },
+    "galleries": {
+      "name": "Relaterede gallerier",
+      "title": "Oplev relaterede gallerier"
     }
   },
-  "relatedCollections": "Relaterede samlinger",
   "removeFilter": "Fjern {filterLabel} filter",
   "reset": "Nulstil",
   "resourceWikimedia": "Ressource fra Wikimedia Commons",
