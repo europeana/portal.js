@@ -17,7 +17,6 @@
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
-        :editorial-overrides="editorialOverrides"
         :override-params="searchOverrides"
       >
         <EntityHeader
@@ -58,10 +57,6 @@
                 v-if="entity"
                 :entity-uri="entity.id"
                 :query="$route.query.query"
-              />
-              <BrowseSections
-                v-if="page"
-                :sections="page.hasPartCollection && page.hasPartCollection.items"
               />
             </b-container>
           </client-only>
@@ -120,7 +115,6 @@
 
     data() {
       return {
-        page: null,
         proxy: null,
         relatedCollections: null
       };
@@ -137,7 +131,6 @@
         this.$store.commit('entity/setFeaturedSetId', null);
         this.$store.commit('entity/setPinned', null);
         this.$store.commit('entity/setEditable', false);
-        this.page = null;
       }
       this.$store.commit('entity/setId', entityUri);
 
@@ -199,9 +192,7 @@
       description() {
         let description = null;
 
-        if (this.editorialDescription) {
-          description = { values: [this.editorialDescription], code: null };
-        } else if (this.entity?.note) {
+        if (this.entity?.note) {
           description = langMapValueForLocale(this.entity.note, this.$i18n.locale);
         } else if (this.entity?.description) {
           description = langMapValueForLocale(this.entity.description, this.$i18n.locale);
@@ -212,16 +203,6 @@
       descriptionText() {
         return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
       },
-      // Description from the Contentful entry
-      editorialDescription() {
-        if (!this.hasEditorialDescription) {
-          return null;
-        }
-        return this.page.description;
-      },
-      hasEditorialDescription() {
-        return (this.page?.description?.length || 0) >= 1;
-      },
       homepage() {
         if (this.collectionType === 'organisation' &&
           this.entity?.homepage &&
@@ -229,16 +210,6 @@
           return this.entity.homepage;
         }
         return null;
-      },
-      // Title from the Contentful entry
-      editorialTitle() {
-        return this.page?.name || null;
-      },
-      editorialImage() {
-        return this.page?.primaryImageOfPage?.image || null;
-      },
-      editorialOverrides() {
-        return { title: this.editorialTitle, image: this.editorialImage };
       },
       editable() {
         return this.entity &&
@@ -265,8 +236,6 @@
 
         if (!this.entity) {
           title = this.titleFallback();
-        } else if (this.editorialTitle) {
-          title = this.titleFallback(this.editorialTitle);
         } else if (this.organisationNativeName) {
           title = langMapValueForLocale(this.organisationNativeName, this.$i18n.locale);
         } else {

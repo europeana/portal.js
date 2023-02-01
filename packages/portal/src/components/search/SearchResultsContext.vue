@@ -94,16 +94,6 @@
       },
 
       /**
-       * Editorial overrides
-       *
-       * Title/label and image override. Used for editorial collection titles and images from Contentful.
-       */
-      editorialOverrides: {
-        type: Object,
-        default: null
-      },
-
-      /**
        * The variant used for the removal badges.
        */
       badgeVariant: {
@@ -134,17 +124,10 @@
         return this.entity?.id;
       },
       entityLabel() {
-        return this.editorialOverrides?.title ||
-          this.organizationEntityNativeName(this.entity) ||
+        return this.organizationEntityNativeName(this.entity) ||
           this.entity?.prefLabel;
       },
       entityImage() {
-        if (this.editorialOverrides?.image && this.$contentful.assets.isValidUrl(this.editorialOverrides.image.url)) {
-          return this.$contentful.assets.optimisedSrc(
-            this.editorialOverrides.image,
-            { w: 28, h: 28, fit: 'thumb' }
-          );
-        }
         return this.$apis.entity.imageUrl(this.entity);
       },
       entityTypeLabel() {

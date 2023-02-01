@@ -255,15 +255,6 @@ describe('pages/collections/_type/_', () => {
         expect(title).toEqual({ code: null, values: [undefined] });
       });
 
-      it('favours the editorial title if present', () => {
-        const wrapper = factory(organisationEntity);
-        wrapper.setData({ page: { name: 'Editorial name' } });
-
-        const title = wrapper.vm.title.values[0];
-
-        expect(title).toEqual('Editorial name');
-      });
-
       it('uses the native language name for organisations', () => {
         const wrapper = factory(organisationEntity);
 
@@ -292,15 +283,6 @@ describe('pages/collections/_type/_', () => {
     });
 
     describe('description', () => {
-      it('uses the editorial description, if available', () => {
-        const wrapper = factory(organisationEntity);
-        wrapper.setData({ page: { description: 'Editorial description' } });
-
-        const description = wrapper.vm.description.values;
-
-        expect(description).toEqual(['Editorial description']);
-      });
-
       it('uses the entity note, if present', () => {
         const wrapper = factory(topicEntity);
 
