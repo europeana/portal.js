@@ -84,7 +84,6 @@
 
     components: {
       ErrorMessage: () => import('@/components/generic/ErrorMessage'),
-      BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),
