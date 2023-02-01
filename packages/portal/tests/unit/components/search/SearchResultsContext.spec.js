@@ -21,7 +21,7 @@ const factory = (options = {}) => mount(SearchResultsContext, {
   mocks: {
     $apis: {
       entity: {
-        imageUrl: () => ''
+        imageUrl: (entity) => entity.logo || entity.isShownBy
       }
     },
     $contentful: {
@@ -47,11 +47,13 @@ const factory = (options = {}) => mount(SearchResultsContext, {
 const fixtures = {
   organisationEntity: {
     id: 'http://data.europeana.eu/organization/123',
-    prefLabel: { en: 'Organisation' }
+    prefLabel: { en: 'Organisation' },
+    logo: 'organisation logo'
   },
   thematicCollectionTopicEntity: {
     id: 'http://data.europeana.eu/concept/190',
-    prefLabel: { en: 'Art' }
+    prefLabel: { en: 'Art' },
+    isShownBy: 'topic isShownBy'
   }
 };
 
@@ -167,44 +169,8 @@ describe('SearchResultsContext', () => {
   });
 
   describe('computed', () => {
-    describe('contextType', () => {
-      it('is "theme" if entity is thematic collection topic', () => {
-        const propsData = {
-          entity: fixtures.thematicCollectionTopicEntity,
-          totalResults: 1234
-        };
-
-        const wrapper = factory({ propsData });
-
-        expect(wrapper.vm.contextType).toBe('theme');
-      });
-
-      it('is "organisation" if entity is organisation', () => {
-        const propsData = {
-          entity: fixtures.organisationEntity,
-          totalResults: 1234
-        };
-
-        const wrapper = factory({ propsData });
-
-        expect(wrapper.vm.contextType).toBe('organisation');
-      });
-    });
-
     describe('entityLabel', () => {
-      it('priorities editorialOverrides prop', () => {
-        const propsData = {
-          entity: fixtures.organisationEntity,
-          totalResults: 1234,
-          editorialOverrides: { title: 'override' }
-        };
-
-        const wrapper = factory({ propsData });
-
-        expect(wrapper.vm.entityLabel).toEqual('override');
-      });
-
-      it('falls back to entity prefLabel', () => {
+      it('uses the entity prefLabel', () => {
         const propsData = {
           entity: fixtures.organisationEntity,
           totalResults: 1234
@@ -217,29 +183,15 @@ describe('SearchResultsContext', () => {
     });
 
     describe('entityImage', () => {
-      it('prioritises the contentful asset', () => {
-        const ctfImage = {
-          url: 'https://images.ctfassets.net/image.jpg',
-          contentType: 'image/jpeg'
-        };
+      it('uses the imageUrl from the entity', () => {
         const propsData = {
           entity: fixtures.organisationEntity,
-          totalResults: 1234,
-          editorialOverrides: { image: ctfImage }
+          totalResults: 1234
         };
 
         const wrapper = factory({ propsData });
 
-        expect(wrapper.vm.entityImage).toContain('?optimised');
-        expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({
-          url: 'https://images.ctfassets.net/image.jpg',
-          contentType: 'image/jpeg'
-        },
-        {
-          w: 28,
-          h: 28,
-          fit: 'thumb'
-        })).toBe(true);
+        expect(wrapper.vm.entityImage).toBe('organisation logo');
       });
     });
   });

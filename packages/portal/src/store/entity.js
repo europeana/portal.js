@@ -1,6 +1,5 @@
 export default {
   state: () => ({
-    curatedEntities: null,
     entity: null,
     id: null,
     recordsPerPage: 24,
@@ -15,9 +14,6 @@ export default {
     },
     setId(state, value) {
       state.id = value;
-    },
-    setCuratedEntities(state, value) {
-      state.curatedEntities = value;
     },
     setPinned(state, value) {
       state.pinned = value || [];
@@ -45,10 +41,6 @@ export default {
         return null;
       }
       return state.entity.prefLabel.en;
-    },
-
-    curatedEntity: (state) => (uri) => {
-      return state.curatedEntities.find(entity => entity.identifier === uri);
     },
 
     id(state) {

@@ -27,11 +27,11 @@ describe('components/related/EntityCardGroup', () => {
       it('fetches entities with editorial overrides', async() => {
         const wrapper = factory({ propsData });
 
-        wrapper.vm.fetchEntitiesWithEditorialOverrides = sinon.spy();
+        wrapper.vm.$apis = { entity: { find: sinon.stub().resolves([]) } };
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.fetchEntitiesWithEditorialOverrides.calledWith(entityUris)).toBe(true);
+        expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
       });
     });
 

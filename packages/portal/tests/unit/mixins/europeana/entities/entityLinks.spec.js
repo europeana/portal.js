@@ -106,11 +106,11 @@ const factory = () => {
 
 describe('mixins/europeana/entities/entityLinks', () => {
   describe('methods', () => {
-    describe('fetchEntitiesWithEditorialOverrides', () => {
-      it('finds the entities from the entity API', async() => {
+    describe('fetchReducedEntities', () => {
+      it('requests the entity from the API', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.fetchEntitiesWithEditorialOverrides(entityUris);
+        await wrapper.vm.fetchReducedEntities(entityUris);
 
         expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
       });

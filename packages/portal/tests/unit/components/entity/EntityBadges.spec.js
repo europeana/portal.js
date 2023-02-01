@@ -62,6 +62,11 @@ const factory = ({ propsData, mocks } = {}) => {
           imageUrl: () => 'stubbedImageUrl'
         }
       },
+      $contentful: {
+        assets: {
+          isValidUrl: () => false
+        }
+      },
       $i18n: {
         locale: 'de',
         isoLocale: () => 'de-DE'
@@ -134,11 +139,11 @@ describe('components/related/EntityBadges', () => {
         it('fetches entities with editorial overrides', async() => {
           const wrapper = factory({ propsData });
 
-          wrapper.vm.fetchEntitiesWithEditorialOverrides = sinon.spy();
+          wrapper.vm.$apis = { entity: { find: sinon.stub().resolves([]) } };
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.fetchEntitiesWithEditorialOverrides.calledWith(entityUris)).toBe(true);
+          expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
         });
       });
 

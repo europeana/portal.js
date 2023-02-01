@@ -90,6 +90,10 @@
       limit: {
         type: Number,
         default: 4
+      },
+      theme: {
+        type: String,
+        default: null
       }
     },
 
@@ -100,19 +104,25 @@
     },
 
     async fetch() {
-      if (!this.entityUri && !this.query) {
+      if (!this.entityUri && !this.theme && !this.query) {
         return;
       }
 
       const variables = {
         entityUri: this.entityUri,
+        theme: this.theme,
         query: this.query,
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview',
         limit: this.limit
       };
 
-      const queryName = this.entityUri ? 'entityRelatedContent' : 'relatedContent';
+      let queryName = 'relatedContent';
+      if (this.entityUri) {
+        queryName = 'entityRelatedContent';
+      } else if (this.theme) {
+        queryName = 'themeRelatedContent';
+      }
       const response = await this.$contentful.query(queryName, variables);
       const entries = response.data.data;
 

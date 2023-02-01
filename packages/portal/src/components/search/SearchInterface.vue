@@ -33,7 +33,6 @@
                 :total-results="totalResults"
                 :entity="$store.state.entity.entity"
                 :query="query"
-                :editorial-overrides="editorialOverrides"
                 :badge-variant="noResultsFound ? 'primary-light' : 'light'"
               />
               <ViewToggles
@@ -193,10 +192,6 @@
       showPins: {
         type: Boolean,
         default: false
-      },
-      editorialOverrides: {
-        type: Object,
-        default: null
       },
       overrideParams: {
         type: Object,

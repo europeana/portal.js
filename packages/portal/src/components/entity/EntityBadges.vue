@@ -16,7 +16,7 @@
         :id="relatedCollection.id"
         :key="relatedCollection.id"
         ref="options"
-        :link-to="collectionLinkGen(relatedCollection)"
+        :link-to="relatedCollection.url || collectionLinkGen(relatedCollection)"
         :title="collectionTitle(relatedCollection)"
         :img="imageUrl(relatedCollection, 28, 28)"
         :type="relatedCollection.type"
@@ -80,7 +80,7 @@
         return;
       }
 
-      const entities = await this.fetchEntitiesWithEditorialOverrides(this.entityUris);
+      const entities = await this.fetchReducedEntities(this.entityUris);
       if (entities)  {
         this.collections = entities;
       }
@@ -103,10 +103,10 @@
       },
 
       imageSrcSet(collection) {
-        if (collection.contentfulImage && this.$contentful.assets.isValidUrl(collection.contentfulImage.url)) {
-          const smallImage = this.$contentful.assets.optimisedSrc(collection.contentfulImage, { w: 28, h: 28, fit: 'thumb' });
-          const wqhdImage = this.$contentful.assets.optimisedSrc(collection.contentfulImage, { w: 45, h: 45, fit: 'thumb' });
-          const fourKImage = this.$contentful.assets.optimisedSrc(collection.contentfulImage, { w: 67, h: 67, fit: 'thumb' });
+        if (this.$contentful.assets.isValidUrl(collection.primaryImageOfPage?.image?.url)) {
+          const smallImage = this.$contentful.assets.optimisedSrc(collection.primaryImageOfPage.image, { w: 28, h: 28, fit: 'thumb' });
+          const wqhdImage = this.$contentful.assets.optimisedSrc(collection.primaryImageOfPage.image, { w: 45, h: 45, fit: 'thumb' });
+          const fourKImage = this.$contentful.assets.optimisedSrc(collection.primaryImageOfPage.image, { w: 67, h: 67, fit: 'thumb' });
           return `${smallImage} 28w, ${wqhdImage} 45w, ${fourKImage} 67w`;
         }
         return null;

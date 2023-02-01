@@ -1,8 +1,6 @@
 export default {
   state: () => ({
     active: false,
-    // TODO: why is allThemes in the _search_ store?
-    allThemes: [],
     collectionFacetEnabled: true,
     collectionLabel: null,
     showFiltersSheet: false,
@@ -38,9 +36,6 @@ export default {
     },
     setShowFiltersToggle(state, value) {
       state.showFiltersToggle = value;
-    },
-    setAllThemes(state, value) {
-      state.allThemes = value;
     }
   },
 

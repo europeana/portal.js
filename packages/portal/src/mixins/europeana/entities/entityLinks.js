@@ -1,5 +1,4 @@
 import pick from 'lodash/pick';
-import { withEditorialContent } from '@/plugins/europeana/themes';
 import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
 export default {
@@ -8,11 +7,9 @@ export default {
   ],
 
   methods: {
-    async fetchEntitiesWithEditorialOverrides(entityUris) {
-      let entities = await this.$apis.entity.find(entityUris);
-      entities = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
-      const collectionsWithOverrides = await withEditorialContent(this, entities);
-      return collectionsWithOverrides;
+    async fetchReducedEntities(entityUris) {
+      const entities = await this.$apis.entity.find(entityUris);
+      return entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
     },
 
     collectionTitle(collection) {
@@ -31,9 +28,9 @@ export default {
     },
 
     imageUrl(collection, imageWidth, imageHeight) {
-      if (collection.contentfulImage && this.$contentful.assets.isValidUrl(collection.contentfulImage.url)) {
+      if (this.$contentful.assets.isValidUrl(collection.primaryImageOfPage?.image?.url)) {
         return this.$contentful.assets.optimisedSrc(
-          collection.contentfulImage,
+          collection.primaryImageOfPage.image,
           { w: imageWidth, h: imageHeight, fit: 'thumb' }
         );
       }
