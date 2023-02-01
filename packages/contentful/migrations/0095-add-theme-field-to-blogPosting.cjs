@@ -13,9 +13,8 @@ const themes = {
   sport: 114,
   ww1: 83
 };
-const contentTypeName = 'blogPosting';
 
-module.exports = function(migration) {
+module.exports = function(migration, ctx, contentTypeName = 'blogPosting') {
   const contentType = migration.editContentType(contentTypeName);
 
   contentType
