@@ -55,16 +55,6 @@ describe('components/related/RelatedEditorial', () => {
     describe('when an entity URI is supplied', () => {
       const entityUri = 'http://data.europeana.eu/concept/123';
 
-      it('stores 4 most recent entries', async() => {
-        const wrapper = factory({ propsData: { entityUri } });
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual([
-          'blog-1', 'exhibition-1', 'exhibition-2', 'blog-2'
-        ]);
-      });
-
       describe('and a query is supplied', () => {
         const query = 'spider';
 
@@ -118,7 +108,62 @@ describe('components/related/RelatedEditorial', () => {
       });
     });
 
-    describe('when no entity URI is supplied', () => {
+    describe('when no entity URI is supplied, but a theme is supplied', () => {
+      const theme = 'nature';
+      describe('and a query is supplied', () => {
+        const query = 'crab';
+
+        it('queries Contentful for content related to the theme, filtered by the query', async() => {
+          const wrapper = factory({ propsData: { theme, query } });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$contentful.query.calledWith('themeRelatedContent', {
+            theme,
+            entityUri: null,
+            query,
+            locale: 'en-GB',
+            preview: false,
+            limit: 4
+          })).toBe(true);
+        });
+
+        it('stores 4 most recent entries', async() => {
+          const wrapper = factory({ propsData: { theme, query } });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual(relatedEditorialIdentifiers);
+        });
+      });
+
+      describe('but no query is supplied', () => {
+        it('queries Contentful for content related to the theme, with an empty string for the query', async() => {
+          const wrapper = factory({ propsData: { theme } });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$contentful.query.calledWith('themeRelatedContent', {
+            entityUri: null,
+            query: '',
+            theme,
+            locale: 'en-GB',
+            preview: false,
+            limit: 4
+          })).toBe(true);
+        });
+
+        it('stores 4 most recent entries', async() => {
+          const wrapper = factory({ propsData: { theme } });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual(relatedEditorialIdentifiers);
+        });
+      });
+    });
+
+    describe('when no entity URI or theme is supplied', () => {
       const entityUri = null;
 
       describe('but a query is supplied', () => {

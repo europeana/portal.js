@@ -35,7 +35,8 @@
         title: theme.name,
         description: theme.description,
         url: this.$path({
-          name: 'themes-all', params: {
+          name: 'themes-all',
+          params: {
             pathMatch: theme.identifier
           }
         }),

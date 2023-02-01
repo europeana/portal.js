@@ -34,36 +34,6 @@ const entityApiFindResponse = [
   }
 ];
 
-const contentfulResponse = {
-  data: {
-    data: {
-      curatedEntities: {
-        items: [
-          {
-            name: 'Mode',
-            nameEN: 'Fashion',
-            identifier: 'http://data.europeana.eu/concept/55',
-            genre: 'fashion',
-            primaryImageOfPage: {
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
-                contentType: 'image/jpeg'
-              }
-            }
-          },
-          {
-            name: 'Manuscripts',
-            identifier: 'http://data.europeana.eu/concept/17',
-            genre: 'manuscript'
-          }
-        ]
-      }
-    }
-  }
-};
-
-const contentfulQuery = sinon.stub().resolves(contentfulResponse);
-
 const factory = () => {
   return shallowMount(component, {
     localVue,
@@ -81,16 +51,7 @@ const factory = () => {
       $t: () => {},
       $path: () => {},
       $route: { query: { mode: null } },
-      $store: {
-        state: {
-          entity: {
-            curatedEntities: null
-          }
-        },
-        commit: sinon.spy()
-      },
       $contentful: {
-        query: contentfulQuery,
         assets: {
           isValidUrl: (url) => url.includes('images.ctfassets.net'),
           optimisedSrc: (img) => `${img.url}?optimised`
