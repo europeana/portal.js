@@ -50,8 +50,9 @@
       this.themes = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
         prefLabel: theme.name,
         url: this.$path({
-          name: 'themes-all', params: {
-            pathMatch: theme.identifier
+          name: 'search',
+          query: {
+            qf: `collection:${theme.identifier}`
           }
         }),
         primaryImageOfPage: theme.primaryImageOfPage
