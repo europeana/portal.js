@@ -52,6 +52,7 @@ module.exports = function(migration, ctx, contentTypeName = 'blogPosting') {
         const theme = Object.keys(themes).find((theme) => category === `http://data.europeana.eu/concept/${themes[theme]}`);
         if (theme) {
           genre.push(theme);
+          relatedLink.push(category);
         } else {
           relatedLink.push(category);
         }
