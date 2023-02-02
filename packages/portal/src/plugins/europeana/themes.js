@@ -1,9 +1,10 @@
 // Themes available via the `collection` qf filter.
 const themes = [
-  { id: 'archaeology' },
-  { id: 'art' },
+  { id: 'archaeology', qf: 'archaeology' },
+  { id: 'art', qf: 'art' },
   {
     id: 'fashion',
+    qf: 'fashion',
     facets: [
       { field: 'CREATOR', label: / \(Designer\)/ },
       { field: 'proxy_dc_type.en', label: /Object Type: / },
@@ -11,20 +12,22 @@ const themes = [
       { field: 'proxy_dcterms_medium.en', label: /Material: / }
     ]
   },
-  { id: 'industrial' },
-  { id: 'manuscript' },
-  { id: 'map' },
-  { id: 'migration' },
-  { id: 'music' },
-  { id: 'nature' },
+  { id: 'industrial-heritage', qf: 'industrial' },
+  { id: 'manuscripts', qf: 'manuscript' },
+  { id: 'maps-and-geography', qf: 'map' },
+  { id: 'migration', qf: 'migration' },
+  { id: 'music', qf: 'music' },
+  { id: 'natural-history', qf: 'nature' },
   {
-    id: 'newspaper',
+    id: 'newspapers',
+    qf: 'newspaper',
     filters: { api: { default: 'fulltext' }, date: { field: 'proxy_dcterms_issued' } }
   },
-  { id: 'photography' },
-  { id: 'sport' },
+  { id: 'photography', qf: 'photography' },
+  { id: 'sport', qf: 'sport' },
   {
-    id: 'ww1',
+    id: 'world-war-i',
+    qf: 'ww1',
     filters: { api: { default: 'metadata' } }
   }
 ];

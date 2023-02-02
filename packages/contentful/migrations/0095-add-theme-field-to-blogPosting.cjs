@@ -2,16 +2,16 @@ const themes = {
   archaeology: 80,
   art: 190,
   fashion: 55,
-  industrial: 129,
-  manuscript: 17,
-  map: 151,
+  'industrial-heritage': 129,
+  manuscripts: 17,
+  'maps-and-geography': 151,
   migration: 128,
   music: 62,
-  nature: 156,
-  newspaper: 18,
+  'natural-history': 156,
+  newspapers: 18,
   photography: 48,
   sport: 114,
-  ww1: 83
+  'world-war-i': 83
 };
 
 module.exports = function(migration, ctx, contentTypeName = 'blogPosting') {
