@@ -1,20 +1,45 @@
-const themes = {
-  archaeology: 80,
-  art: 190,
-  fashion: 55,
-  'industrial-heritage': 129,
-  manuscripts: 17,
-  'maps-and-geography': 151,
-  migration: 128,
-  music: 62,
-  'natural-history': 156,
-  newspapers: 18,
-  photography: 48,
-  sport: 114,
-  'world-war-i': 83
-};
+const themes = [
+  { themeId: 'archaeology', entityId: 80 },
+  { themeId: 'art', entityId: 190 },
+  { themeId: 'fashion', entityId: 55 },
+  { themeId: 'industrial-heritage', entityId: 129 },
+  { themeId: 'manuscripts', entityId: 17 },
+  { themeId: 'maps-and-geography', entityId: 151 },
+  { themeId: 'migration', entityId: 128 },
+  { themeId: 'music', entityId: 62 },
+  { themeId: 'natural-history', entityId: 156 },
+  { themeId: 'newspapers', entityId: 18 },
+  { themeId: 'photography', entityId: 48 },
+  { themeId: 'sport', entityId: 114 },
+  { themeId: 'world-war-i', entityId: 83 }
+];
 
-module.exports = function(migration, ctx, contentTypeName = 'blogPosting') {
+module.exports = async function(migration, ctx, contentTypeName = 'blogPosting') {
+  if (!process.env.THEME_PAGE_SUGGEST_APP_ID) {
+    console.log('No app ID specified in THEME_PAGE_SUGGEST_APP_ID; aborting.');
+    process.exit(1);
+  }
+
+  // Get the theme pages
+  const response = await ctx.makeRequest({
+    method: 'GET',
+    url: '/entries',
+    params: {
+      'content_type': 'themePage',
+      limit: 1000
+    }
+  });
+
+  for (const entry of response.items) {
+    const identifier = entry.fields.identifier['en-GB'];
+    const theme = themes.find((theme) => theme.themeId === identifier);
+    if (!theme) {
+      console.error(`No theme found for ${identifier}; aborting.`);
+      process.exit(1);
+    }
+    theme.sysId = entry.sys.id;
+  }
+
   const contentType = migration.editContentType(contentTypeName);
 
   contentType
@@ -27,15 +52,20 @@ module.exports = function(migration, ctx, contentTypeName = 'blogPosting') {
     .disabled(false)
     .omitted(false)
     .items({
-      type: 'Symbol',
+      type: 'Link',
       validations: [
         {
-          in: Object.keys(themes)
-        }
-      ]
+          linkContentType: ['themePage'],
+        },
+      ],
+      linkType: 'Entry',
     });
 
-  contentType.changeFieldControl('genre', 'builtin', 'checkbox');
+  contentType.changeFieldControl('genre', 'app', process.env.THEME_PAGE_SUGGEST_APP_ID, {
+    bulkEditing: false,
+    showLinkEntityAction: true,
+    showCreateEntityAction: false,
+  });
 
   migration.transformEntries({
     contentType: contentTypeName,
@@ -49,9 +79,15 @@ module.exports = function(migration, ctx, contentTypeName = 'blogPosting') {
       const genre = [];
       const relatedLink = [];
       for (const category of fields.relatedLink[locale]) {
-        const theme = Object.keys(themes).find((theme) => category === `http://data.europeana.eu/concept/${themes[theme]}`);
+        const theme = themes.find((theme) => category === `http://data.europeana.eu/concept/${theme.entityId}`);
         if (theme) {
-          genre.push(theme);
+          genre.push({
+            sys: {
+              type: 'Link',
+              linkType: 'Entry',
+              id: theme.sysId
+            }
+          });
         } else {
           relatedLink.push(category);
         }
