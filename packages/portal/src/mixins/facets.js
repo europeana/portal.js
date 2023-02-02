@@ -53,7 +53,7 @@ export default {
     tFacetOption(facetName, fieldValue, { escaped = false, collection = null } = {}) {
       const MIME_TYPE = 'MIME_TYPE';
 
-      const selectedTheme = themes.find((theme) => theme.id === collection);
+      const selectedTheme = themes.find((theme) => theme.qf === collection);
       const themeSpecificFieldLabelPattern = (selectedTheme?.facets || []).find((facet) => facet.field === facetName)?.label;
 
       const genericLabel = () => {

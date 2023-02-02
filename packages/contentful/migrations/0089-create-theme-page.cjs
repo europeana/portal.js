@@ -1,9 +1,10 @@
 // TODO: create new item card group content type?
-module.exports = function(migration) {
+module.exports = async function(migration) {
+  const themesModule = await import('@europeana/portal/src/plugins/europeana/themes.js');
+
   const themePage = migration
     .createContentType('themePage')
     .name('Theme page')
-    .description('Theme entity page')
     .displayField('name');
 
   themePage
@@ -40,21 +41,7 @@ module.exports = function(migration) {
         unique: true
       },
       {
-        in: [
-          'archaeology',
-          'art',
-          'fashion',
-          'industrial',
-          'manuscript',
-          'map',
-          'migration',
-          'music',
-          'nature',
-          'newspaper',
-          'photography',
-          'sport',
-          'ww1'
-        ]
+        in: themesModule.default.map((theme) => theme.id)
       }
     ])
     .disabled(false)
