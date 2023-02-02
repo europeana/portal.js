@@ -13,6 +13,7 @@
 
 <script>
   import EntityBadges from '../entity/EntityBadges';
+  import themeDefinitions from '@/plugins/europeana/themes';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
@@ -52,7 +53,7 @@
         url: this.$path({
           name: 'search',
           query: {
-            qf: `collection:${theme.identifier}`
+            qf: `collection:${this.qf(theme.identifier)}`
           }
         }),
         primaryImageOfPage: theme.primaryImageOfPage
@@ -67,6 +68,12 @@
         // Slice to make a copy, as sort occurs in place
         return this.themes.slice(0).sort((a, b) =>
           langMapValueForLocale(a.prefLabel, this.$i18n.locale).values[0].localeCompare(langMapValueForLocale(b.prefLabel, this.$i18n.locale).values[0]));
+      }
+    },
+
+    methods: {
+      qf(identifier) {
+        return themeDefinitions.find((theme) => theme.id === identifier)?.qf;
       }
     }
   };
