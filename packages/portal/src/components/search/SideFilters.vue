@@ -211,7 +211,7 @@
         return filters;
       },
       theme() {
-        return themes.find(theme => theme.qf === this.collection);
+        return themes.find((theme) => theme.id === this.collection);
       },
       themeSpecificFacetNames() {
         return (this.theme?.facets || []).map((facet) => facet.field);
@@ -228,7 +228,7 @@
         if (this.collectionFacetEnabled) {
           facets.unshift({
             name: 'collection',
-            staticFields: themes.map(theme => theme.qf)
+            staticFields: themes.map(theme => theme.id)
           });
         }
 

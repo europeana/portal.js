@@ -53,8 +53,8 @@ module.exports = function(migration) {
           'newspaper',
           'photography',
           'sport',
-          'ww1',
-        ],
+          'ww1'
+        ]
       }
     ])
     .disabled(false)
@@ -101,7 +101,6 @@ module.exports = function(migration) {
       helpText: 'Used for link cards and badges and social media image'
     }
   );
-
 
   themePage
     .createField('hasPart')

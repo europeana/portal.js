@@ -378,7 +378,7 @@
       },
 
       theme() {
-        return themes.find(theme => theme.qf === this.collection);
+        return themes.find((theme) => theme.id === this.collection);
       },
 
       moreOptionsName() {

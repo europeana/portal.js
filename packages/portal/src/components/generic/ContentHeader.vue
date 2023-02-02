@@ -1,5 +1,5 @@
 <template>
-  <header class="row">
+  <header class="content-header row">
     <b-col
       cols="12"
       lg="9"
@@ -20,13 +20,14 @@
       <!-- eslint-disable vue/no-v-html -->
       <div
         v-if="description"
+        class="description"
         v-html="description"
       />
       <!-- eslint-enable vue/no-v-html -->
       <template v-if="mediaUrl">
         <ShareButton
-          variant="outline-primary"
-          class="mt-4"
+          :variant="buttonVariant"
+          class="mt-3 mt-sm-4"
         />
         <SocialShareModal :media-url="mediaUrl" />
       </template>
@@ -65,6 +66,11 @@
       contextLabel: {
         type: String,
         default: null
+      },
+
+      buttonVariant: {
+        type: String,
+        default: 'outline-primary'
       }
     }
   };

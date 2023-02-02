@@ -2,7 +2,7 @@ import axios from 'axios';
 import redis from 'redis';
 import _pick from 'lodash/pick.js';
 import { promisify } from 'util';
-import { langMapValueForLocale } from '../plugins/europeana/utils.js';
+import { daily, langMapValueForLocale } from '../plugins/europeana/utils.js';
 
 const redisConfig = (config = {}) => {
   const redisOptions = {
@@ -53,21 +53,6 @@ const errorMessage = (error) => {
   }
 
   return message;
-};
-
-const dailyOffset = (setSize, subsetSize) => {
-  const millisecondsPerDay = (1000 * 60 * 60 * 24);
-  const unixDay = Math.floor(Date.now() / millisecondsPerDay);
-  const offset = (unixDay * subsetSize) % setSize;
-  return (offset + subsetSize <= setSize) ? offset : (setSize - subsetSize);
-};
-
-const daily = (set, subsetSize) => {
-  if (!Array.isArray(set)) {
-    return set;
-  }
-  const offset = dailyOffset(set.length, subsetSize);
-  return set.slice(offset, offset + subsetSize);
 };
 
 const localiseOne = (item, fields, locale) => {

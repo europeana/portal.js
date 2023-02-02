@@ -16,9 +16,9 @@
         :id="relatedCollection.id"
         :key="relatedCollection.id"
         ref="options"
-        :link-to="collectionLinkGen(relatedCollection)"
+        :link-to="relatedCollection.url || collectionLinkGen(relatedCollection)"
         :title="collectionTitle(relatedCollection)"
-        :img="imageUrl(relatedCollection)"
+        :img="imageUrl(relatedCollection, 28, 28)"
         :type="relatedCollection.type"
         :badge-variant="badgeVariant"
         :image-src-set="imageSrcSet(relatedCollection)"
@@ -28,10 +28,9 @@
 </template>
 
 <script>
-  import pick from 'lodash/pick';
-  import { withEditorialContent } from '@/plugins/europeana/themes';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+
+  import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
 
   import LinkBadge from '../generic/LinkBadge';
 
@@ -44,7 +43,7 @@
 
     mixins: [
       collectionLinkGenMixin,
-      europeanaEntitiesOrganizationsMixin
+      europeanaEntityLinks
     ],
 
     props: {
@@ -81,9 +80,10 @@
         return;
       }
 
-      let entities = await this.$apis.entity.find(this.entityUris);
-      entities = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
-      this.collections = await withEditorialContent(this, entities);
+      const entities = await this.fetchReducedEntities(this.entityUris);
+      if (entities)  {
+        this.collections = entities;
+      }
       this.$emit('entitiesFromUrisFetched', this.collections);
     },
 
@@ -102,36 +102,11 @@
         });
       },
 
-      collectionTitle(collection) {
-        let title;
-
-        const organizationNativePrefLabel = this.organizationEntityNativeName(collection);
-        if (organizationNativePrefLabel) {
-          title = organizationNativePrefLabel;
-        } else if (collection.prefLabel) {
-          title = collection.prefLabel;
-        } else {
-          title = collection.name;
-        }
-
-        return title;
-      },
-
-      imageUrl(collection) {
-        if (collection.contentfulImage && this.$contentful.assets.isValidUrl(collection.contentfulImage.url)) {
-          return this.$contentful.assets.optimisedSrc(
-            collection.contentfulImage,
-            { w: 28, h: 28, fit: 'thumb' }
-          );
-        }
-        return this.$apis.entity.imageUrl(collection);
-      },
-
       imageSrcSet(collection) {
-        if (collection.contentfulImage && this.$contentful.assets.isValidUrl(collection.contentfulImage.url)) {
-          const smallImage = this.$contentful.assets.optimisedSrc(collection.contentfulImage, { w: 28, h: 28, fit: 'thumb' });
-          const wqhdImage = this.$contentful.assets.optimisedSrc(collection.contentfulImage, { w: 45, h: 45, fit: 'thumb' });
-          const fourKImage = this.$contentful.assets.optimisedSrc(collection.contentfulImage, { w: 67, h: 67, fit: 'thumb' });
+        if (this.$contentful.assets.isValidUrl(collection.primaryImageOfPage?.image?.url)) {
+          const smallImage = this.$contentful.assets.optimisedSrc(collection.primaryImageOfPage.image, { w: 28, h: 28, fit: 'thumb' });
+          const wqhdImage = this.$contentful.assets.optimisedSrc(collection.primaryImageOfPage.image, { w: 45, h: 45, fit: 'thumb' });
+          const fourKImage = this.$contentful.assets.optimisedSrc(collection.primaryImageOfPage.image, { w: 67, h: 67, fit: 'thumb' });
           return `${smallImage} 28w, ${wqhdImage} 45w, ${fourKImage} 67w`;
         }
         return null;
@@ -141,9 +116,18 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
   .related-collections ::v-deep .badge-pill {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
+
+    @media (min-width: $bp-xxxl) {
+      @at-root .responsive-font & {
+        margin-right: 0.5vw;
+        margin-bottom: 0.5vw;
+      }
+    }
   }
 
   .related-collections-card .related-collections ::v-deep .badge-pill {
@@ -153,5 +137,11 @@
 
   .related-heading {
     margin-bottom: 0.75rem;
+
+    @media (min-width: $bp-xxxl) {
+      @at-root .responsive-font & {
+        margin-bottom: 0.75vw;
+      }
+    }
   }
 </style>

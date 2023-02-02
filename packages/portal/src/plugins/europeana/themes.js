@@ -1,15 +1,9 @@
-import { BASE_URL } from './data';
-
-// Thematic collections available via the `collection` qf filter.
+// Themes available via the `collection` qf filter.
 const themes = [
+  { id: 'archaeology' },
+  { id: 'art' },
   {
-    id: '83', qf: 'ww1',
-    filters: { api: { default: 'metadata' } }
-  },
-  { id: '80', qf: 'archaeology' },
-  { id: '190', qf: 'art' },
-  {
-    id: '55', qf: 'fashion',
+    id: 'fashion',
     facets: [
       { field: 'CREATOR', label: / \(Designer\)/ },
       { field: 'proxy_dc_type.en', label: /Object Type: / },
@@ -17,51 +11,22 @@ const themes = [
       { field: 'proxy_dcterms_medium.en', label: /Material: / }
     ]
   },
-  { id: '129', qf: 'industrial' },
-  { id: '17', qf: 'manuscript' },
-  { id: '151', qf: 'map' },
-  { id: '128', qf: 'migration' },
-  { id: '62', qf: 'music' },
-  { id: '156', qf: 'nature' },
+  { id: 'industrial' },
+  { id: 'manuscript' },
+  { id: 'map' },
+  { id: 'migration' },
+  { id: 'music' },
+  { id: 'nature' },
   {
-    id: '18', qf: 'newspaper',
+    id: 'newspaper',
     filters: { api: { default: 'fulltext' }, date: { field: 'proxy_dcterms_issued' } }
   },
-  { id: '48', qf: 'photography' },
-  { id: '114', qf: 'sport' }
+  { id: 'photography' },
+  { id: 'sport' },
+  {
+    id: 'ww1',
+    filters: { api: { default: 'metadata' } }
+  }
 ];
 
 export default themes;
-
-export const themeForEntity = (uri) => {
-  return (uri.startsWith(`${BASE_URL}/concept`) && themes.find((theme) => uri.endsWith(`/${theme.id}`))) || null;
-};
-
-export const withEditorialContent = async({ $store, $i18n, $route, $contentful }, entities) => {
-  let curatedEntities = $store.state.entity.curatedEntities;
-  if (!curatedEntities) {
-    const contentfulVariables = {
-      locale: $i18n.isoLocale(),
-      preview: $route.query.mode === 'preview'
-    };
-    const contentfulResponse = await $contentful.query('curatedEntities', contentfulVariables);
-    curatedEntities = contentfulResponse.data.data.curatedEntities.items;
-    $store.commit('entity/setCuratedEntities', curatedEntities);
-  }
-  return entities.map(theme => {
-    const contentfulData = curatedEntities.find((curatedEntity) => (curatedEntity.identifier === theme.id)) || {};
-    const override = {};
-    if (contentfulData.name) {
-      override.prefLabel = { [$i18n.locale]: contentfulData.name };
-      override.prefLabel.en = contentfulData.nameEN;
-    }
-    if (contentfulData.description) {
-      override.description = { [$i18n.locale]: contentfulData.description };
-    }
-    if (contentfulData.primaryImageOfPage?.image) {
-      override.contentfulImage = contentfulData.primaryImageOfPage.image;
-    }
-
-    return  { ...theme, ...override };
-  });
-};
