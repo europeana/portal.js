@@ -29,58 +29,88 @@
       />
       <div class="divider" />
       <client-only>
-        <EntityBadges
-          v-if="relatedTopics"
-          :title="relatedTopics.headline"
-          :entity-uris="relatedTopics.hasPart"
-          class="ml-4 mb-5"
-        />
-        <EntityCardGroup
-          v-if="relatedPersons"
-          :title="relatedPersons.headline"
-          :entity-uris="relatedPersons.hasPart"
-          card-variant="mini"
-          class="mb-5 mb-sm-4"
-          card-group-class="gridless-browse-cards"
-        />
-        <SetCardGroup
-          v-if="relatedGalleries"
-          :title="relatedGalleries.headline"
-          :set-uris="relatedGalleries.hasPart"
-          class="mb-5 mb-sm-4"
-          card-group-class="gridless-browse-cards"
-        />
-        <CallToActionBanner
-          v-if="callToAction"
-          :name="callToAction.name"
-          :text="callToAction.text"
-          :link="callToAction.relatedLink"
-          :illustration="callToAction.image"
-          class="mb-5"
-        />
-        <RelatedEditorial
-          :theme="identifier"
-          :card-wrapper="false"
-          :limit="6"
-          class="mb-5 mb-sm-4"
-        />
-        <section
-          v-if="dailySetOfCuratedItems"
-          class="mb-5"
+        <transition
+          appear
+          name="fade"
         >
-          <h2>{{ curatedItems.headline }}</h2>
-          <ItemPreviewCardGroup
-            :items="dailySetOfCuratedItems"
-            view="grid"
+          <EntityBadges
+            v-if="relatedTopics"
+            :title="relatedTopics.headline"
+            :entity-uris="relatedTopics.hasPart"
+            class="ml-4 mb-5"
           />
-          <SmartLink
-            v-if="curatedItems.moreButton"
-            :destination="curatedItems.moreButton.url"
-            class="btn btn-outline-secondary"
+        </transition>
+        <transition
+          appear
+          name="fade"
+        >
+          <EntityCardGroup
+            v-if="relatedPersons"
+            :title="relatedPersons.headline"
+            :entity-uris="relatedPersons.hasPart"
+            card-variant="mini"
+            class="mb-5 mb-sm-4"
+            card-group-class="gridless-browse-cards"
+          />
+        </transition>
+        <transition
+          appear
+          name="fade"
+        >
+          <SetCardGroup
+            v-if="relatedGalleries"
+            :title="relatedGalleries.headline"
+            :set-uris="relatedGalleries.hasPart"
+            class="mb-5 mb-sm-4"
+            card-group-class="gridless-browse-cards"
+          />
+        </transition>
+        <transition
+          appear
+          name="fade"
+        >
+          <CallToActionBanner
+            v-if="callToAction"
+            :name="callToAction.name"
+            :text="callToAction.text"
+            :link="callToAction.relatedLink"
+            :illustration="callToAction.image"
+            class="mb-5"
+          />
+        </transition>
+        <transition
+          appear
+          name="fade"
+        >
+          <RelatedEditorial
+            :theme="identifier"
+            :card-wrapper="false"
+            :limit="6"
+            class="mb-5 mb-sm-4"
+          />
+        </transition>
+        <transition
+          appear
+          name="fade"
+        >
+          <section
+            v-if="dailySetOfCuratedItems"
+            class="mb-5"
           >
-            {{ curatedItems.moreButton.text }}
-          </SmartLink>
-        </section>
+            <h2>{{ curatedItems.headline }}</h2>
+            <ItemPreviewCardGroup
+              :items="dailySetOfCuratedItems"
+              view="grid"
+            />
+            <SmartLink
+              v-if="curatedItems.moreButton"
+              :destination="curatedItems.moreButton.url"
+              class="btn btn-outline-secondary"
+            >
+              {{ curatedItems.moreButton.text }}
+            </SmartLink>
+          </section>
+        </transition>
       </client-only>
     </template>
   </div>
@@ -261,5 +291,16 @@
       border-bottom: 0.0625vw solid $bodygrey;
       margin-bottom: 1.75vw;
     }
+  }
+
+  .fade-enter-active {
+    transition: $standard-transition;
+    transform: translateY(-1rem);
+    opacity: 0;
+  }
+
+  .fade-enter-to {
+    transform: translateY(0px);
+    opacity: 1;
   }
 </style>
