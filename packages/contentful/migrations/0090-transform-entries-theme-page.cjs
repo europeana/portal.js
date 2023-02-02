@@ -31,11 +31,13 @@ module.exports = async(migration) => {
       }
     },
     transformEntryForLocale(fromFields, currentLocale) {
-      if (currentLocale === 'en-GB' && fromFields.identifier && themePages.includes(fromFields.identifier['en-GB'])) {
-        const genre = fromFields.genre?.[currentLocale];
+      if (fromFields.identifier && themePages.includes(fromFields.identifier['en-GB'])) {
         let identifier;
-        if (genre) {
-          identifier = themesModule.default.find((theme) => theme.qf === genre)?.id;
+        if (currentLocale === 'en-GB') {
+          const genre = fromFields.genre?.[currentLocale];
+          if (genre) {
+            identifier = themesModule.default.find((theme) => theme.qf === genre)?.id;
+          }
         }
         return {
           name: fromFields.name ? fromFields.name[currentLocale] : undefined,
