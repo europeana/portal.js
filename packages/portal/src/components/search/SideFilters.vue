@@ -228,7 +228,7 @@
         if (this.collectionFacetEnabled) {
           facets.unshift({
             name: 'collection',
-            staticFields: themes.map(theme => theme.id)
+            staticFields: themes.map(theme => theme.qf)
           });
         }
 
