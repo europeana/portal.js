@@ -348,7 +348,7 @@
   }
 
   .fade-enter-active {
-    transition: $slower-transition;
+    transition: $standard-transition;
     opacity: 0;
   }
 
