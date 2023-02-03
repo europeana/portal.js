@@ -9,8 +9,6 @@ const component = {
 
 const localVue = createLocalVue();
 
-const entityUris = ['http://data.europeana.eu/concept/123', 'http://data.europeana.eu/agent/123'];
-
 const entityApiFindResponse = [
   {
     id: 'http://data.europeana.eu/concept/123',
@@ -67,16 +65,6 @@ const factory = () => {
 
 describe('mixins/europeana/entities/entityLinks', () => {
   describe('methods', () => {
-    describe('fetchReducedEntities', () => {
-      it('requests the entity from the API', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.fetchReducedEntities(entityUris);
-
-        expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
-      });
-    });
-
     describe('collectionTitle', () => {
       it('uses native language for organisations', () => {
         const wrapper = factory();

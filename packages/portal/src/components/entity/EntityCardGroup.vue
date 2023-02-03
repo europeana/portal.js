@@ -71,7 +71,10 @@
         return;
       }
 
-      const entities = await this.fetchReducedEntities(this.entityUris);
+      const entities = await this.$apis.entity.find(this.entityUris, {
+        fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo'
+      });
+
       if (entities)  {
         this.collections = entities;
       }
