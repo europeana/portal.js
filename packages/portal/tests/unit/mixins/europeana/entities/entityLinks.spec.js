@@ -67,16 +67,6 @@ const factory = () => {
 
 describe('mixins/europeana/entities/entityLinks', () => {
   describe('methods', () => {
-    describe('fetchReducedEntities', () => {
-      it('requests the entity from the API', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.fetchReducedEntities(entityUris);
-
-        expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
-      });
-    });
-
     describe('collectionTitle', () => {
       it('uses native language for organisations', () => {
         const wrapper = factory();

@@ -54,18 +54,20 @@ export default (context = {}) => {
     /**
      * Lookup data for the given list of entity URIs
      * @param {Array} entityUris the URIs of the entities to retrieve
+     * @param {Object} params additional parameters sent to the API
      * @return {Array} entity data
      */
-    find(entityUris) {
+    find(entityUris, params = {}) {
       if (entityUris?.length === 0) {
         return Promise.resolve([]);
       }
       const q = entityUris.join('" OR "');
-      const params = {
+      const searchParams = {
+        ...params,
         query: `entity_uri:("${q}")`,
         pageSize: entityUris.length
       };
-      return this.search(params)
+      return this.search(searchParams)
         .then(response => response.entities || []);
     },
 
