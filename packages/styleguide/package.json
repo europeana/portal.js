@@ -10,7 +10,7 @@
   "devDependencies": {
     "@europeana/portal": "^1.98.0",
     "vue": "^2.7.10",
-    "vue-styleguidist": "4.48.0"
+    "vue-styleguidist": "4.56.5"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
