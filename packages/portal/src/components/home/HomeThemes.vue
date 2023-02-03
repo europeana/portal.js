@@ -3,7 +3,7 @@
     v-if="themes.length > 0"
     :slides="themes"
     :title="$t('homePage.themesTitle')"
-    :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
+    :cta="{ url: $path('/themes'), text: $t('homePage.themesCTA') }"
   />
 </template>
 
