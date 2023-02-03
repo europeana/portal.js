@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
 export default {
@@ -7,11 +6,6 @@ export default {
   ],
 
   methods: {
-    async fetchReducedEntities(entityUris) {
-      const entities = await this.$apis.entity.find(entityUris);
-      return entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
-    },
-
     collectionTitle(collection) {
       let title;
 

@@ -183,6 +183,17 @@ describe('plugins/europeana/entity', () => {
 
         expect(entities).toEqual(orderedEntitySearchResponse.items);
       });
+
+      it('allows filtering by fl via params', async() => {
+        nock(BASE_URL)
+          .get(searchEndpoint)
+          .query(query => query.query === uriQuery && query.fl === 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo')
+          .reply(200, unorderedEntitySearchResponse);
+
+        const entities = await api().find(uris, { fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo' });
+
+        expect(entities).toEqual(orderedEntitySearchResponse.items);
+      });
     });
 
     describe('suggest', () => {
