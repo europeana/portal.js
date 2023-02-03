@@ -57,7 +57,7 @@ export default (context = {}) => {
      * @param {Object} params additional parameters sent to the API
      * @return {Array} entity data
      */
-    find(entityUris, params = {}) {
+    async find(entityUris, params = {}) {
       if (entityUris?.length === 0) {
         return Promise.resolve([]);
       }
@@ -67,8 +67,16 @@ export default (context = {}) => {
         query: `entity_uri:("${q}")`,
         pageSize: entityUris.length
       };
-      return this.search(searchParams)
-        .then(response => response.entities || []);
+
+      const response = await this.search(searchParams);
+
+      return (response.entities || [])
+        // Preserve original order from arg
+        .sort((a, b) => {
+          const indexForA = entityUris.findIndex((uri) => a.id === uri);
+          const indexForB = entityUris.findIndex((uri) => b.id === uri);
+          return indexForA - indexForB;
+        });
     },
 
     /**

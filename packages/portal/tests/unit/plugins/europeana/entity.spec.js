@@ -142,18 +142,25 @@ describe('plugins/europeana/entity', () => {
     describe('find', () => {
       const uris = ['http://data.europeana.eu/agent/123', 'http://data.europeana.eu/concept/456'];
       const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/123" OR "http://data.europeana.eu/concept/456")';
-      const entitySearchResponse = {
-        items: []
+      const orderedEntitySearchResponse = {
+        items: [
+          { id: 'http://data.europeana.eu/agent/123' },
+          { id: 'http://data.europeana.eu/concept/456' }
+        ]
+      };
+      const unorderedEntitySearchResponse = {
+        items: [
+          { id: 'http://data.europeana.eu/concept/456' },
+          { id: 'http://data.europeana.eu/agent/123' }
+        ]
       };
       const searchEndpoint = '/search';
 
       it('searches the API by entity URIs', async() => {
         nock(BASE_URL)
           .get(searchEndpoint)
-          .query(query => {
-            return query.query === uriQuery;
-          })
-          .reply(200, entitySearchResponse);
+          .query(query => query.query === uriQuery)
+          .reply(200, orderedEntitySearchResponse);
 
         await api().find(uris);
 
@@ -164,6 +171,17 @@ describe('plugins/europeana/entity', () => {
         const result = await api().find([]);
 
         expect(result).toEqual([]);
+      });
+
+      it('preserves the order of the supplied URIs', async() => {
+        nock(BASE_URL)
+          .get(searchEndpoint)
+          .query(query => query.query === uriQuery)
+          .reply(200, unorderedEntitySearchResponse);
+
+        const entities = await api().find(uris);
+
+        expect(entities).toEqual(orderedEntitySearchResponse.items);
       });
     });
 
