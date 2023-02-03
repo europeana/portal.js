@@ -56,7 +56,7 @@ export default (context = {}) => {
      * @param {Array} entityUris the URIs of the entities to retrieve
      * @return {Array} entity data
      */
-    find(entityUris) {
+    async find(entityUris) {
       if (entityUris?.length === 0) {
         return Promise.resolve([]);
       }
@@ -65,8 +65,16 @@ export default (context = {}) => {
         query: `entity_uri:("${q}")`,
         pageSize: entityUris.length
       };
-      return this.search(params)
-        .then(response => response.entities || []);
+
+      const response = await this.search(params);
+
+      return (response.entities || [])
+        // Preserve original order from arg
+        .sort((a, b) => {
+          const indexForA = entityUris.findIndex((uri) => a.id === uri);
+          const indexForB = entityUris.findIndex((uri) => b.id === uri);
+          return indexForA - indexForB;
+        });
     },
 
     /**
