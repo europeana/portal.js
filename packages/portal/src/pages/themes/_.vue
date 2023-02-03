@@ -94,7 +94,6 @@
               :link="callToAction.relatedLink"
               :illustration="callToAction.image"
               class="mb-5"
-              @fetched="handleSectionFetched('callToAction')"
             />
           </div>
         </transition>
@@ -178,7 +177,8 @@
         identifier: null,
         primaryImageOfPage: null,
         hasPartCollection: null,
-        sectionsFetched: []
+        sectionsFetched: [],
+        showAllSections: false
       };
     },
 
@@ -213,6 +213,10 @@
       }
     },
 
+    mounted() {
+      setTimeout(() => this.showAllSections = true, 600);
+    },
+
     computed: {
       sectionsToShow() {
         return [
@@ -223,6 +227,11 @@
           'relatedEditorial',
           this.dailySetOfCuratedItems ? 'dailySetOfCuratedItems' : null
         ].filter((section) => !!section);
+      },
+      sectionsToFetch() {
+        return this.sectionsToShow.filter((section) => {
+          return ['relatedTopics', 'relatedPersons', 'relatedGalleries', 'relatedEditorial'].includes(section);
+        })
       },
       pageMeta() {
         return {
@@ -270,8 +279,13 @@
       // section being shown 1st if it's quicker to fetch, then the 1st and 2nd
       // sections being shown causing the 3rd to jump down in the view.
       mayShowSection(candidate) {
+        if (this.showAllSections) {
+          return true;
+        }
         const index = this.sectionsToShow.findIndex((section) => section === candidate);
-        return this.sectionsToShow.slice(0, index + 1).every((section) => this.sectionsFetched.includes(section));
+        return this.sectionsToShow.slice(0, index + 1)
+          .filter((section) => this.sectionsToFetch.includes(section))
+          .every((section) => this.sectionsFetched.includes(section));
       },
       handleSectionFetched(section) {
         this.sectionsFetched.push(section);

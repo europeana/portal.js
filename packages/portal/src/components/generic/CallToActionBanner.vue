@@ -76,9 +76,6 @@
         default: 'yellowgrey'
       }
     },
-    fetch() {
-      this.$emit('fetched');
-    },
     computed: {
       html() {
         // TODO: Update the styling of the RichString component and use that instead.
