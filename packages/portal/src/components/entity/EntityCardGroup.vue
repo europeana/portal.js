@@ -67,14 +67,13 @@
     },
 
     async fetch() {
-      if (!this.entityUris?.length) {
-        return;
+      if (this.entityUris?.length) {
+        const entities = await this.fetchReducedEntities(this.entityUris);
+        if (entities)  {
+          this.collections = entities;
+        }
       }
-
-      const entities = await this.fetchReducedEntities(this.entityUris);
-      if (entities)  {
-        this.collections = entities;
-      }
+      this.$emit('fetched');
     }
   };
 </script>
