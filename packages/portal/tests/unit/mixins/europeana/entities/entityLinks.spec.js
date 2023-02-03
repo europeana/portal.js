@@ -9,8 +9,6 @@ const component = {
 
 const localVue = createLocalVue();
 
-const entityUris = ['http://data.europeana.eu/concept/123', 'http://data.europeana.eu/agent/123'];
-
 const entityApiFindResponse = [
   {
     id: 'http://data.europeana.eu/concept/123',
