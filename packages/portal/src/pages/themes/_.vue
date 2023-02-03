@@ -32,7 +32,6 @@
         <transition
           appear
           name="fade"
-          key="relatedTopics"
         >
           <div
             v-show="mayShowSection('relatedTopics')"
@@ -49,7 +48,6 @@
         <transition
           appear
           name="fade"
-          key="relatedPersons"
         >
           <div
             v-show="mayShowSection('relatedPersons')"
@@ -68,7 +66,6 @@
         <transition
           appear
           name="fade"
-          key="relatedGalleries"
         >
           <div
             v-show="mayShowSection('relatedGalleries')"
@@ -86,7 +83,6 @@
         <transition
           appear
           name="fade"
-          key="callToAction"
         >
           <div
             v-show="mayShowSection('callToAction')"
@@ -105,7 +101,6 @@
         <transition
           appear
           name="fade"
-          key="relatedEditorial"
         >
           <div
             v-show="mayShowSection('relatedEditorial')"
@@ -122,7 +117,6 @@
         <transition
           appear
           name="fade"
-          key="dailySetOfCuratedItems"
         >
           <div
             v-show="mayShowSection('dailySetOfCuratedItems')"
@@ -184,7 +178,7 @@
         identifier: null,
         primaryImageOfPage: null,
         hasPartCollection: null,
-        sectionsShown: []
+        sectionsFetched: []
       };
     },
 
@@ -271,17 +265,16 @@
     },
 
     methods: {
+      // A section may only be shown when its content has been fetched, and so
+      // has the content of all earlier sections. This prevents e.g. the 3rd
+      // section being shown 1st if it's quicker to fetch, then the 1st and 2nd
+      // sections being shown causing the 3rd to jump down in the view.
       mayShowSection(candidate) {
-        if (this.sectionsShown.includes(candidate)) {
-          return true;
-        }
-        return this.sectionsToShow
-          .filter((section) => !this.sectionsShown.includes(section))
-          .findIndex((section) => section === candidate) === 0;
+        const index = this.sectionsToShow.findIndex((section) => section === candidate);
+        return this.sectionsToShow.slice(0, index + 1).every((section) => this.sectionsFetched.includes(section));
       },
       handleSectionFetched(section) {
-        console.log('handleSectionFetched', section);
-        this.sectionsShown.push(section);
+        this.sectionsFetched.push(section);
       }
     }
   };
