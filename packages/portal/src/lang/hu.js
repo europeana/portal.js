@@ -883,7 +883,7 @@ export default {
     "dismiss": "Bezárás",
     "readMore": "Bővebben",
     "text": {
-      "searchFilters": "Most már kereshet értékeket az egyes szűrőkben; nézd meg!"
+      "themes": "Fedezze fel az európai kulturális örökséget témákon keresztül, a régészettől az első világháborúig. Új témaoldalaink többdimenziós képet nyújtanak az egyes témákról a kapcsolódó témákon, személyeken, történeteken és tárgyakon keresztül."
     }
   },
   "newWindow": "új ablakban nyílik meg",

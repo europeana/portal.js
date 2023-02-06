@@ -883,7 +883,7 @@ export default {
     "dismiss": "Uždaryti",
     "readMore": "Skaityti daugiau",
     "text": {
-      "searchFilters": "Dabar galite ieškoti reikšmių atskiruose filtruose; patikrinkite!"
+      "themes": "Tyrinėkite Europos kultūros paveldą per temas, pradedant archeologija ir baigiant Pirmuoju pasauliniu karu. Mūsų naujuose teminiuose puslapiuose pateikiama įvairialypė kiekvienos temos vaizdas per susijusias temas, žmones, istorijas ir daiktus."
     }
   },
   "newWindow": "atsidaro naujame lange",

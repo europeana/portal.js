@@ -887,7 +887,7 @@ export default {
     "dismiss": "Itxi",
     "readMore": "Gehiago irakurri",
     "text": {
-      "searchFilters": "Orain balioak bila ditzakezu iragazki indibidualetan; begiratu ezazu!"
+      "themes": "Arakatu Europako kultur ondarea gaien bidez, arkeologiatik hasi eta Lehen Mundu Gerra arte. Gure gai-orri berriek gai bakoitzaren dimentsio anitzeko ikuspegia eskaintzen dute erlazionatutako gai, pertsona, istorio eta elementuen bidez."
     }
   },
   "newWindow": "leiho berrian irekiko da",

@@ -883,7 +883,7 @@ export default {
     "dismiss": "Dún",
     "readMore": "Léigh níos mó",
     "text": {
-      "searchFilters": "Is féidir leat luachanna a chuardach anois sna scagairí aonair; seiceáil amach é!"
+      "themes": "Déan iniúchadh ar oidhreacht chultúrtha na hEorpa trí théamaí, ón tseandálaíocht go dtí an Chéad Chogadh Domhanda. Tugann ár leathanaigh téama nua léargas iltoiseach ar gach téama trí ábhair, daoine, scéalta agus míreanna gaolmhara."
     }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",

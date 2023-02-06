@@ -883,7 +883,7 @@ export default {
     "dismiss": "Schließen",
     "readMore": "Mehr anzeigen",
     "text": {
-      "searchFilters": "Sie können jetzt nach bestimmten Werten in den Filtern suchen; probieren Sie es aus!"
+      "themes": "Entdecken Sie das europäische Kulturerbe nach Themen, von der Archäologie bis zum Ersten Weltkrieg. Unsere neuen Themenseiten bieten eine multidimensionale Sicht auf jedes Thema über verwandte Themen, Personen, Geschichten und Gegenstände."
     }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",

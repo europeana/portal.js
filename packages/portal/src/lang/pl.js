@@ -883,7 +883,7 @@ export default {
     "dismiss": "Zamknij",
     "readMore": "Czytaj więcej",
     "text": {
-      "searchFilters": "Możesz teraz wyszukiwać wartości w poszczególnych filtrach; Sprawdź to!"
+      "themes": "Przeglądaj europejskie dziedzictwo kulturowe poprzez tematy, od archeologii po I wojnę światową. Nasze nowe strony tematyczne oferują wielowymiarowe spojrzenie na każdy temat poprzez powiązane tematy, ludzi, historie i przedmioty."
     }
   },
   "newWindow": "otwiera się w nowym oknie",

@@ -883,7 +883,7 @@ export default {
     "dismiss": "Cerrar",
     "readMore": "Leer más",
     "text": {
-      "searchFilters": "Ahora puede buscar valores en los filtros individuales; ¡Echale un vistazo!"
+      "themes": "Explore el patrimonio cultural europeo a través de temas, desde la arqueología hasta la Primera Guerra Mundial. Nuestras nuevas páginas temáticas ofrecen una visión multidimensional de cada tema a través de temas, personas, historias y elementos relacionados."
     }
   },
   "newWindow": "se abre en una nueva ventana",
