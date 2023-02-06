@@ -33,6 +33,10 @@
       width: calc(100% / 2 - $masonry-gutter);
     }
 
+    @media (min-width: $bp-large) {
+      width: calc(100% / 3 - $masonry-gutter);
+    }
+
     @media (min-width: $bp-extralarge) {
       width: calc(100% / 4 - $masonry-gutter);
     }
@@ -78,7 +82,6 @@
       }
 
       .card-text:last-of-type p {
-        max-height: none;
         display: block;
         -webkit-line-clamp: initial;
         -webkit-box-orient: initial;

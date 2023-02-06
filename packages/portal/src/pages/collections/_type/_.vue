@@ -10,14 +10,13 @@
       :error="$fetchState.error.message"
       :status-code="$fetchState.error.statusCode"
     />
-    <client-only v-else>
+    <template v-else>
       <SearchInterface
         v-if="!$fetchState.pending"
         :per-page="recordsPerPage"
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
-        :editorial-overrides="editorialOverrides"
         :override-params="searchOverrides"
       >
         <EntityHeader
@@ -43,7 +42,7 @@
             <EntityRelatedCollectionsCard
               :type="$route.params.type"
               :identifier="$route.params.pathMatch"
-              :overrides="relatedCollectionCards || relatedCollections"
+              :overrides="relatedCollections"
               data-qa="related entities"
               @entitiesFromUrisFetched="handleEntityRelatedCollectionsFetched"
             />
@@ -59,15 +58,11 @@
                 :entity-uri="entity.id"
                 :query="$route.query.query"
               />
-              <BrowseSections
-                v-if="page"
-                :sections="page.hasPartCollection && page.hasPartCollection.items"
-              />
             </b-container>
           </client-only>
         </template>
       </SearchInterface>
-    </client-only>
+    </template>
   </div>
 </template>
 
@@ -79,7 +74,6 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
-  import themes, { themeForEntity } from '@/plugins/europeana/themes';
   import {
     getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
@@ -90,7 +84,6 @@
 
     components: {
       ErrorMessage: () => import('@/components/generic/ErrorMessage'),
-      BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),
@@ -116,34 +109,17 @@
     },
 
     middleware: [
-      ({ params, query, redirect, $features, $path }) => {
-        if (!$features.themePages) {
-          return;
-        }
-        const entityUri = getEntityUri(params.type, params.pathMatch);
-        const entityTheme = themeForEntity(entityUri);
-        if (entityTheme) {
-          return redirect(
-            $path({
-              path: `/themes/${entityTheme.qf}`,
-              query
-            })
-          );
-        }
-      },
       'sanitisePageQuery'
     ],
 
     data() {
       return {
-        page: null,
         proxy: null,
-        themes: themes.map(theme => theme.id),
         relatedCollections: null
       };
     },
 
-    fetch() {
+    async fetch() {
       this.$store.commit('search/disableCollectionFacet');
 
       const entityUri = getEntityUri(this.collectionType, this.$route.params.pathMatch);
@@ -154,42 +130,17 @@
         this.$store.commit('entity/setFeaturedSetId', null);
         this.$store.commit('entity/setPinned', null);
         this.$store.commit('entity/setEditable', false);
-        this.page = null;
       }
       this.$store.commit('entity/setId', entityUri);
 
-      // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
-      const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
-        this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
-      const fetchCuratedEntities = !this.$store.state.entity.curatedEntities;
+      const response = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
+      this.$store.commit('entity/setEntity', pick(response.entity, [
+        'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
+      ]));
+      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
+      const urlLabel = this.entity.prefLabel.en;
 
-      const contentfulVariables = {
-        locale: this.$i18n.isoLocale(),
-        preview: this.$route.query.mode === 'preview'
-      };
-
-      return Promise.all([
-        this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch),
-        fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
-        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifier: entityUri }) : () => null
-      ])
-        .then(responses => {
-          this.$store.commit('entity/setEntity', pick(responses[0].entity, [
-            'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
-          ]));
-          if (fetchCuratedEntities) {
-            const entitiesResponseData = responses[1].data.data;
-            this.$store.commit('entity/setCuratedEntities', entitiesResponseData.curatedEntities.items);
-          }
-          if (fetchEntityPage) {
-            const pageResponseData = responses[responses.length - 1].data.data;
-            this.page = pageResponseData.entityPage.items[0];
-          }
-          this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-          const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
-
-          return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
-        });
+      return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
     },
 
     computed: {
@@ -213,15 +164,10 @@
         };
 
         if (this.entity) {
-          const curatedEntity = this.$store.getters['entity/curatedEntity'](this.entity.id);
-          if (curatedEntity && curatedEntity.genre) {
-            overrideParams.qf.push(`collection:${curatedEntity.genre}`);
-          } else {
-            const entityQuery = getEntityQuery(this.entity.id);
-            overrideParams.qf.push(entityQuery);
-            if (!this.$route.query.query) {
-              overrideParams.query = entityQuery; // Triggering best bets.
-            }
+          const entityQuery = getEntityQuery(this.entity.id);
+          overrideParams.qf.push(entityQuery);
+          if (!this.$route.query.query) {
+            overrideParams.query = entityQuery; // Triggering best bets.
           }
         }
 
@@ -231,13 +177,7 @@
         return normalizeEntityId(this.$route.params.pathMatch);
       },
       contextLabel() {
-        let contextType = this.collectionType;
-
-        if (this.collectionType === 'topic' && this.themes.includes(this.entityId)) {
-          contextType = 'theme';
-        }
-
-        return this.$t(`cardLabels.${contextType}`);
+        return this.$t(`cardLabels.${this.collectionType}`);
       },
       collectionType() {
         return this.$route.params.type;
@@ -251,9 +191,7 @@
       description() {
         let description = null;
 
-        if (this.editorialDescription) {
-          description = { values: [this.editorialDescription], code: null };
-        } else if (this.entity?.note) {
+        if (this.entity?.note) {
           description = langMapValueForLocale(this.entity.note, this.$i18n.locale);
         } else if (this.entity?.description) {
           description = langMapValueForLocale(this.entity.description, this.$i18n.locale);
@@ -264,47 +202,11 @@
       descriptionText() {
         return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
       },
-      // Description from the Contentful entry
-      editorialDescription() {
-        if (!this.hasEditorialDescription) {
-          return null;
-        }
-        return this.page.description;
-      },
-      hasEditorialDescription() {
-        return (this.page?.description?.length || 0) >= 1;
-      },
       homepage() {
         if (this.collectionType === 'organisation' &&
           this.entity?.homepage &&
           uriRegex.test(this.entity.homepage)) {
           return this.entity.homepage;
-        }
-        return null;
-      },
-      // Title from the Contentful entry
-      editorialTitle() {
-        return this.page?.name || null;
-      },
-      editorialImage() {
-        return this.page?.primaryImageOfPage?.image || null;
-      },
-      editorialOverrides() {
-        return { title: this.editorialTitle, image: this.editorialImage };
-      },
-      relatedCollectionCards() {
-        if ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) {
-          return this.page.relatedLinksCollection.items.map(item => {
-            const prefLabel = {
-              [this.$i18n.locale]: item.name,
-              en: item.nameEN
-            };
-            return {
-              id: item.identifier,
-              prefLabel,
-              image: item.image
-            };
-          });
         }
         return null;
       },
@@ -333,8 +235,6 @@
 
         if (!this.entity) {
           title = this.titleFallback();
-        } else if (this.editorialTitle) {
-          title = this.titleFallback(this.editorialTitle);
         } else if (this.organisationNativeName) {
           title = langMapValueForLocale(this.organisationNativeName, this.$i18n.locale);
         } else {

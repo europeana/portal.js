@@ -28,6 +28,7 @@
             </b-col>
           </b-row>
         </b-container>
+        <!-- TODO: Use SetCardGroup and clean up methods -->
         <b-card-group
           v-else
           class="card-deck-4-cols"

@@ -29,7 +29,6 @@
                 :total-results="totalResults"
                 :entity="$store.state.entity.entity"
                 :query="query"
-                :editorial-overrides="editorialOverrides"
                 badge-variant="primary-light"
               />
               <ViewToggles
@@ -190,10 +189,6 @@
         type: Boolean,
         default: false
       },
-      editorialOverrides: {
-        type: Object,
-        default: null
-      },
       overrideParams: {
         type: Object,
         default: () => ({})
@@ -338,7 +333,7 @@
 
         const collectionFilter = filtersFromQf(apiParams.qf).collection;
         this.collection = collectionFilter ? collectionFilter[0] : null;
-        this.theme = themes.find(theme => theme.qf === this.collection);
+        this.theme = themes.find((theme) => theme.qf === this.collection);
 
         const apiOptions = {};
 

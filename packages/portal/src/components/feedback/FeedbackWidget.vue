@@ -416,6 +416,14 @@
         display: none;
       }
 
+      // This overrides the responsive font-size inherited from the footer.
+      @media (min-width: $bp-xxxl) {
+        font-size: $font-size-base;
+        .mt-4 {
+          margin-top: 1.5rem !important;
+        }
+      }
+
       &.big {
         border-radius: 0.3rem;
         max-width: 220px;
@@ -473,6 +481,9 @@
       font-size: $font-size-base;
       .mt-4 {
         margin-top: 1.5rem !important;
+      }
+      .btn {
+        font-size: $font-size-base;
       }
     }
 

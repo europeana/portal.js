@@ -124,24 +124,6 @@ describe('components/generic/ContentCard', () => {
         }
       });
 
-      describe('for themes', () => {
-        const urls = [
-          'https://www.europeana.eu/en/collections/topic/83-world-war-i',
-          { name: 'collections___en', params: { type: 'topic', pathMatch: '83' } }
-        ];
-
-        for (const url of urls) {
-          it(`is shown for ${JSON.stringify(url)}`, async() => {
-            const wrapper = factory();
-            await wrapper.setProps({ url });
-
-            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
-
-            expect(subtitle.text()).toBe('cardLabels.theme');
-          });
-        }
-      });
-
       describe('for collections', () => {
         const urls = [
           'https://www.europeana.eu/en/collections/topic/207-byzantine-art',

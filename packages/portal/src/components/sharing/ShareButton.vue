@@ -26,14 +26,6 @@
   };
 </script>
 
-<style lang="scss" scoped>
-  .icon-share {
-    font-size: 1.125rem;
-    line-height: 1rem;
-  }
-
-</style>
-
 <docs lang="md">
   ```jsx
   <ShareButton />

@@ -22,6 +22,7 @@
           >
             {{ emptyText }}
           </div>
+          <!-- TODO: Use SetCardGroup and clean up methods -->
           <b-card-group
             class="card-deck-4-cols pb-5"
             deck
