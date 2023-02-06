@@ -110,7 +110,7 @@
         }
       }
 
-      &.focus {
+      input[type='radio']:focus-visible ~ .icon-view-toggle {
         outline: auto;
         /* stylelint-disable */
         @media (-webkit-min-device-pixel-ratio: 0) {
