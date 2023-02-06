@@ -82,15 +82,21 @@
       return data;
     },
 
-    async fetch() {
+    fetch() {
+      let fetcher;
+
       if (process.server) {
-        const module = await import('@/server-middleware/api/cache/index.js');
-        this.entries = await module.cached(this.key, this.$config);
+        fetcher = import('@/server-middleware/api/cache/index.js')
+          .then((module) => module.cached(this.key, this.$config.redis));
       } else {
-        const response = await this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin });
-        this.entries = response.data;
+        fetcher = this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
+          .then((response) => response.data);
       }
-      this.$emit('fetched');
+
+      return fetcher.then((entries) => {
+        this.entries = entries;
+        this.$emit('fetched');
+      });
     },
 
     computed: {
