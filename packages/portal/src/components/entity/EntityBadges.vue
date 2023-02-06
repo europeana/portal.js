@@ -76,19 +76,17 @@
     },
 
     async fetch() {
-      if (((this.entityUris?.length || 0) === 0) || ((this.relatedCollections?.length || 0) > 0)) {
-        return;
+      if (((this.entityUris?.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
+        const entities = await this.$apis.entity.find(this.entityUris, {
+          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo'
+        });
+
+        if (entities)  {
+          this.collections = entities;
+        }
+        this.$emit('entitiesFromUrisFetched', this.collections);
       }
-
-      const entities = await this.$apis.entity.find(this.entityUris, {
-        fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo'
-      });
-
-      if (entities)  {
-        this.collections = entities;
-      }
-
-      this.$emit('entitiesFromUrisFetched', this.collections);
+      this.$emit('fetched');
     },
 
     mounted() {
