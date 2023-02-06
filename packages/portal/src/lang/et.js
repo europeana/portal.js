@@ -883,7 +883,7 @@ export default {
     "dismiss": "Sulge",
     "readMore": "Loe lähemalt",
     "text": {
-      "searchFilters": "Nüüd saate otsida väärtusi üksikutes filtrites; vaadake seda!"
+      "themes": "Avastage Euroopa kultuuripärandit teemade kaudu, alates arheoloogiast kuni I maailmasõjani. Meie uued teemalehed pakuvad igast teemast mitmemõõtmelist vaadet seotud teemade, inimeste, lugude ja esemete kaudu."
     }
   },
   "newWindow": "avaneb uues aknas",

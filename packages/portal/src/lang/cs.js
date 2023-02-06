@@ -883,7 +883,7 @@ export default {
     "dismiss": "Zavřít",
     "readMore": "Přečtěte si více",
     "text": {
-      "searchFilters": "Nyní můžete vyhledávat hodnoty v jednotlivých filtrech; Koukni na to!"
+      "themes": "Prozkoumejte evropské kulturní dědictví prostřednictvím témat, od archeologie po první světovou válku. Naše nové tematické stránky nabízejí vícerozměrný pohled na každé téma prostřednictvím souvisejících témat, lidí, příběhů a předmětů."
     }
   },
   "newWindow": "otevře se v novém okně",

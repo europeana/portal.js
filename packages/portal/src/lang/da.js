@@ -883,7 +883,7 @@ export default {
     "dismiss": "Luk",
     "readMore": "Læs mere",
     "text": {
-      "searchFilters": "Du kan nu søge efter værdier i de enkelte filtre; tjek det ud!"
+      "themes": "Udforsk den europæiske kulturarv gennem temaer, fra arkæologi til Første Verdenskrig. Vores nye temasider giver et flerdimensionalt indblik i hvert tema via relaterede emner, personer, historier og genstande."
     }
   },
   "newWindow": "åbner i nyt vindue",

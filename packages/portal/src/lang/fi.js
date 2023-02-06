@@ -883,7 +883,7 @@ export default {
     "dismiss": "Sulje",
     "readMore": "Lue lisää",
     "text": {
-      "searchFilters": "Voit nyt etsiä arvoja yksittäisistä suodattimista; Tarkista se!"
+      "themes": "Tutustu eurooppalaiseen kulttuuriperintöön teemojen kautta arkeologiasta ensimmäiseen maailmansotaan. Uudet teemasivumme tarjoavat moniulotteisen näkymän jokaisesta teemasta toisiinsa liittyvien aiheiden, ihmisten, tarinoiden ja esineiden kautta."
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",
