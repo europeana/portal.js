@@ -1,5 +1,5 @@
 export default [
   {
-    name: 'searchFilters'
+    name: 'themes', url: '/themes'
   }
 ];
