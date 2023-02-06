@@ -213,10 +213,6 @@
       }
     },
 
-    mounted() {
-      setTimeout(() => this.showAllSections = true, 600);
-    },
-
     computed: {
       sectionsToShow() {
         return [
@@ -231,7 +227,7 @@
       sectionsToFetch() {
         return this.sectionsToShow.filter((section) => {
           return ['relatedTopics', 'relatedPersons', 'relatedGalleries', 'relatedEditorial'].includes(section);
-        })
+        });
       },
       pageMeta() {
         return {
@@ -271,6 +267,10 @@
       dailySetOfCuratedItems() {
         return this.curatedItemsEncoding && daily(this.curatedItemsEncoding, 8);
       }
+    },
+
+    mounted() {
+      setTimeout(() => this.showAllSections = true, 600);
     },
 
     methods: {
