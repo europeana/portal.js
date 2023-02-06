@@ -4,6 +4,7 @@
       v-for="(section, index) in sections"
       :key="index"
     >
+      <!-- TODO: can we & should we use WaitYourTurn here? -->
       <RichText
         v-if="contentType(section, 'ContentTypeRichText')"
         :text="section.text"
