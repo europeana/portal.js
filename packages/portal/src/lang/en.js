@@ -910,7 +910,7 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Read more",
     "text": {
-      "searchFilters": "You can now search for values in the individual filters; check it out!"
+      "themes": "Explore our new theme pages."
     }
   },
   "newWindow": "opens in new window",
