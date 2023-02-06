@@ -35,7 +35,7 @@
         default: () => []
       },
 
-      timeout: {
+      timeoutDelay: {
         type: Number,
         default: 600
       },
@@ -48,17 +48,29 @@
 
     data() {
       return {
-        showAllSections: false
+        showAllSections: false,
+        timeout: null
       };
     },
 
+    watch: {
+      'ready.length'() {
+        if (this.timeout && this.sections.every((section) => this.ready.includes(section))) {
+          clearTimeout(this.timeout);
+          this.timeout = null;
+        }
+      }
+    },
+
     mounted() {
-      setTimeout(() => this.showAllSections = true, this.timeout);
+      this.timeout = setTimeout(() => {
+        this.showAllSections = true;
+      }, this.timeoutDelay);
     },
 
     methods: {
-      // A section may only be shown when its content has been fetched, and so
-      // has the content of all earlier sections. This prevents e.g. the 3rd
+      // A section may only be shown when its content is ready, and so
+      // is the content of all earlier sections. This prevents e.g. the 3rd
       // section being shown 1st if it's quicker to fetch, then the 1st and 2nd
       // sections being shown causing the 3rd to jump down in the view.
       mayShowSection(candidate) {

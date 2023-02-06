@@ -1,66 +1,75 @@
 <template>
-  <div>
-    <div
+  <WaitYourTurn
+    :sections="sectionsToShow"
+    :ready="sectionsReadyToShow"
+  >
+    <template
       v-for="(section, index) in sections"
-      :key="index"
+      #[`section${index}`]
     >
-      <!-- TODO: can we & should we use WaitYourTurn here? -->
-      <RichText
-        v-if="contentType(section, 'ContentTypeRichText')"
-        :text="section.text"
-        :rich-text-is-card="richTextIsCard"
-      />
-      <ContentCardSection
-        v-else-if="contentType(section, 'CardGroup')"
-        :section="section"
-      />
-      <AutomatedCardGroup
-        v-else-if="contentType(section, 'AutomatedCardGroup')"
-        :section-type="section.genre"
-        :more-button="section.moreButton"
-      />
-      <EmbedHTML
-        v-else-if="contentType(section, 'Embed')"
-        :html="section.embed"
-      />
-      <CompareImageSlider
-        v-else-if="contentType(section, 'ImageComparison')"
-        :left-image-src="imageCompareImage(section, 0) ? imageCompareImage(section, 0).url : null"
-        :left-image-content-type="imageCompareImage(section, 0) ? imageCompareImage(section, 0).contentType : null"
-        :left-image-attribution="attributionFields(section.hasPartCollection.items[0])"
-        :left-image-width="imageCompareImage(section, 0) ? imageCompareImage(section, 0).width : null"
-        :left-image-height="imageCompareImage(section, 0) ? imageCompareImage(section, 0).height : null"
-        :right-image-src="imageCompareImage(section, 1) ? imageCompareImage(section, 1).url : null"
-        :right-image-content-type="imageCompareImage(section, 1) ? imageCompareImage(section, 1).contentType : null"
-        :right-image-attribution="attributionFields(section.hasPartCollection.items[1])"
-        :right-image-width="imageCompareImage(section, 1) ? imageCompareImage(section, 1).width : null"
-        :right-image-height="imageCompareImage(section, 1) ? imageCompareImage(section, 1).height : null"
-      />
-      <ImageWithAttribution
-        v-else-if="contentType(section, 'ImageWithAttribution')"
-        :src="section.image ? section.image.url : null"
-        :content-type="section.image ? section.image.contentType : null"
-        :width="section.image ? section.image.width : null"
-        :height="section.image ? section.image.height : null"
-        :alt="section.image && section.image.description ? section.image.description : ''"
-        :attribution="attributionFields(section)"
-        :rights-statement="section.license"
-      />
-      <CallToAction
-        v-else-if="contentType(section, 'Link')"
-        :text="section.text"
-        :url="section.url"
-      />
-      <PrimaryCallToAction
-        v-else-if="contentType(section, 'PrimaryCallToAction')"
-        :text="section.text"
-        :link="section.relatedLink"
-      />
-    </div>
-  </div>
+      <div
+        :key="index"
+      >
+        <RichText
+          v-if="contentType(section, 'ContentTypeRichText')"
+          :text="section.text"
+          :rich-text-is-card="richTextIsCard"
+        />
+        <ContentCardSection
+          v-else-if="contentType(section, 'CardGroup')"
+          :section="section"
+        />
+        <AutomatedCardGroup
+          v-else-if="contentType(section, 'AutomatedCardGroup')"
+          :section-type="section.genre"
+          :more-button="section.moreButton"
+          @fetched="handleSectionFetched(index)"
+        />
+        <EmbedHTML
+          v-else-if="contentType(section, 'Embed')"
+          :html="section.embed"
+        />
+        <CompareImageSlider
+          v-else-if="contentType(section, 'ImageComparison')"
+          :left-image-src="imageCompareImage(section, 0) ? imageCompareImage(section, 0).url : null"
+          :left-image-content-type="imageCompareImage(section, 0) ? imageCompareImage(section, 0).contentType : null"
+          :left-image-attribution="attributionFields(section.hasPartCollection.items[0])"
+          :left-image-width="imageCompareImage(section, 0) ? imageCompareImage(section, 0).width : null"
+          :left-image-height="imageCompareImage(section, 0) ? imageCompareImage(section, 0).height : null"
+          :right-image-src="imageCompareImage(section, 1) ? imageCompareImage(section, 1).url : null"
+          :right-image-content-type="imageCompareImage(section, 1) ? imageCompareImage(section, 1).contentType : null"
+          :right-image-attribution="attributionFields(section.hasPartCollection.items[1])"
+          :right-image-width="imageCompareImage(section, 1) ? imageCompareImage(section, 1).width : null"
+          :right-image-height="imageCompareImage(section, 1) ? imageCompareImage(section, 1).height : null"
+        />
+        <ImageWithAttribution
+          v-else-if="contentType(section, 'ImageWithAttribution')"
+          :src="section.image ? section.image.url : null"
+          :content-type="section.image ? section.image.contentType : null"
+          :width="section.image ? section.image.width : null"
+          :height="section.image ? section.image.height : null"
+          :alt="section.image && section.image.description ? section.image.description : ''"
+          :attribution="attributionFields(section)"
+          :rights-statement="section.license"
+        />
+        <CallToAction
+          v-else-if="contentType(section, 'Link')"
+          :text="section.text"
+          :url="section.url"
+        />
+        <PrimaryCallToAction
+          v-else-if="contentType(section, 'PrimaryCallToAction')"
+          :text="section.text"
+          :link="section.relatedLink"
+        />
+      </div>
+    </template>
+  </WaitYourTurn>
 </template>
 
 <script>
+  import WaitYourTurn from '../generic/WaitYourTurn';
+
   export default {
     components: {
       CompareImageSlider: () => import('../generic/CompareImageSlider'),
@@ -70,7 +79,8 @@
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),
       AutomatedCardGroup: () => import('./AutomatedCardGroup'),
-      PrimaryCallToAction: () => import('./PrimaryCallToAction')
+      PrimaryCallToAction: () => import('./PrimaryCallToAction'),
+      WaitYourTurn
     },
 
     props: {
@@ -83,6 +93,15 @@
         type: Array,
         default: () => []
       }
+    },
+
+    data() {
+      return {
+        sectionsToShow: Object.keys(this.sections).map((index) => `section${index}`),
+        sectionsReadyToShow: Object.entries(this.sections)
+          .filter((entry) => entry[1]['__typename'] !== 'AutomatedCardGroup')
+          .map((entry) => `section${entry[0]}`)
+      };
     },
 
     methods: {
@@ -100,6 +119,9 @@
       },
       imageCompareImage(section, index) {
         return section.hasPartCollection?.items?.[index]?.image;
+      },
+      handleSectionFetched(index) {
+        this.sectionsReadyToShow.push(`section${index}`);
       }
     }
   };
