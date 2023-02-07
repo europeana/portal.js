@@ -61,18 +61,17 @@
     },
 
     async fetch() {
-      if (!this.setUris?.length) {
-        return;
+      if (this.setUris?.length) {
+        // TODO: this is very inefficient, requiring a GET request for each
+        //       linked set, but the Set API does not yet support searching
+        //       by multiple IDs combined with OR. refactor when the API
+        //       supports searching by multiple IDs.
+        const setResponse = await Promise.all(this.setUris.map(async(id) => await this.$apis.set.get(id, { profile: 'itemDescriptions' })));
+        if (setResponse)  {
+          this.sets = this.parseSets(setResponse);
+        }
       }
-
-      // TODO: this is very inefficient, requiring a GET request for each
-      //       linked set, but the Set API does not yet support searching
-      //       by multiple IDs combined with OR. refactor when the API
-      //       supports searching by multiple IDs.
-      const setResponse = await Promise.all(this.setUris.map(async(id) => await this.$apis.set.get(id, { profile: 'itemDescriptions' })));
-      if (setResponse)  {
-        this.sets = this.parseSets(setResponse);
-      }
+      this.$emit('fetched');
     },
 
     methods: {

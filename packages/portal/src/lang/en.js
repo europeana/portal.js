@@ -908,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Read more",
+    "readMore": "Explore themes",
     "text": {
-      "searchFilters": "You can now search for values in the individual filters; check it out!"
+      "themes": "Explore European cultural heritage through themes, from archaeology to World War I. Our new theme pages offer a multidimensional view of each theme via related topics, people, stories and items."
     }
   },
   "newWindow": "opens in new window",

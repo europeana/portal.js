@@ -883,7 +883,7 @@ export default {
     "dismiss": "Agħlaq",
     "readMore": "Aqra iktar",
     "text": {
-      "searchFilters": "Issa tista' tfittex valuri fil-filtri individwali; iċċekkjah!"
+      "themes": "Esplora l-wirt kulturali Ewropew permezz ta’ temi, mill-arkeoloġija sa l-Ewwel Gwerra Dinjija. Il-paġni tat-temi l-ġodda tagħna joffru ħarsa multidimensjonali ta’ kull tema permezz ta’ suġġetti, nies, stejjer u oġġetti relatati."
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",

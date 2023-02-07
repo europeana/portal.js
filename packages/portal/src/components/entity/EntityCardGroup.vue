@@ -67,14 +67,16 @@
     },
 
     async fetch() {
-      if (!this.entityUris?.length) {
-        return;
-      }
+      if (this.entityUris?.length) {
+        const entities = await this.$apis.entity.find(this.entityUris, {
+          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo'
+        });
 
-      const entities = await this.fetchReducedEntities(this.entityUris);
-      if (entities)  {
-        this.collections = entities;
+        if (entities)  {
+          this.collections = entities;
+        }
       }
+      this.$emit('fetched');
     }
   };
 </script>

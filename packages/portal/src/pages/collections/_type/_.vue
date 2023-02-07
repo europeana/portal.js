@@ -10,7 +10,7 @@
       :error="$fetchState.error.message"
       :status-code="$fetchState.error.statusCode"
     />
-    <client-only v-else>
+    <template v-else>
       <SearchInterface
         v-if="!$fetchState.pending"
         :per-page="recordsPerPage"
@@ -62,7 +62,7 @@
           </client-only>
         </template>
       </SearchInterface>
-    </client-only>
+    </template>
   </div>
 </template>
 

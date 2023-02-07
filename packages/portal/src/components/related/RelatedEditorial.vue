@@ -105,6 +105,7 @@
 
     async fetch() {
       if (!this.entityUri && !this.theme && !this.query) {
+        this.$emit('fetched');
         return;
       }
 
@@ -130,6 +131,8 @@
         .concat(entries.exhibitionPageCollection.items)
         .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime())
         .slice(0, this.limit);
+
+      this.$emit('fetched');
     },
 
     watch: {

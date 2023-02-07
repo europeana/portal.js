@@ -86,7 +86,7 @@
       if (process.server) {
         return import('@/server-middleware/api/cache/index.js')
           .then(module => {
-            return module.cached(this.key, this.$config)
+            return module.cached(this.key, this.$config.redis)
               .then(entries => {
                 this.entries = entries;
               });

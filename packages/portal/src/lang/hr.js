@@ -883,7 +883,7 @@ export default {
     "dismiss": "Zatvoriti",
     "readMore": "Pročitaj više",
     "text": {
-      "searchFilters": "Sada možete tražiti vrijednosti u pojedinačnim filtrima; provjerite to!"
+      "themes": "Istražite europsku kulturnu baštinu kroz teme, od arheologije do Prvog svjetskog rata. Naše nove tematske stranice nude višedimenzionalni pogled na svaku temu putem povezanih tema, ljudi, priča i predmeta."
     }
   },
   "newWindow": "otvara se u novom prozoru",

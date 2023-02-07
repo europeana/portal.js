@@ -29,58 +29,116 @@
       />
       <div class="divider" />
       <client-only>
-        <EntityBadges
-          v-if="relatedTopics"
-          :title="relatedTopics.headline"
-          :entity-uris="relatedTopics.hasPart"
-          class="ml-4 mb-5"
-        />
-        <EntityCardGroup
-          v-if="relatedPersons"
-          :title="relatedPersons.headline"
-          :entity-uris="relatedPersons.hasPart"
-          card-variant="mini"
-          class="mb-5 mb-sm-4"
-          card-group-class="gridless-browse-cards"
-        />
-        <SetCardGroup
-          v-if="relatedGalleries"
-          :title="relatedGalleries.headline"
-          :set-uris="relatedGalleries.hasPart"
-          class="mb-5 mb-sm-4"
-          card-group-class="gridless-browse-cards"
-        />
-        <CallToActionBanner
-          v-if="callToAction"
-          :name="callToAction.name"
-          :text="callToAction.text"
-          :link="callToAction.relatedLink"
-          :illustration="callToAction.image"
-          class="mb-5"
-        />
-        <RelatedEditorial
-          :theme="identifier"
-          :card-wrapper="false"
-          :limit="6"
-          class="mb-5 mb-sm-4"
-        />
-        <section
-          v-if="dailySetOfCuratedItems"
-          class="mb-5"
+        <transition
+          appear
+          name="fade"
         >
-          <h2>{{ curatedItems.headline }}</h2>
-          <ItemPreviewCardGroup
-            :items="dailySetOfCuratedItems"
-            view="grid"
-          />
-          <SmartLink
-            v-if="curatedItems.moreButton"
-            :destination="curatedItems.moreButton.url"
-            class="btn btn-outline-secondary"
+          <div
+            v-show="mayShowSection('relatedTopics')"
           >
-            {{ curatedItems.moreButton.text }}
-          </SmartLink>
-        </section>
+            <EntityBadges
+              v-if="relatedTopics"
+              :title="relatedTopics.headline"
+              :entity-uris="relatedTopics.hasPart"
+              class="ml-4 mb-5"
+              @fetched="handleSectionFetched('relatedTopics')"
+            />
+          </div>
+        </transition>
+        <transition
+          appear
+          name="fade"
+        >
+          <div
+            v-show="mayShowSection('relatedPersons')"
+          >
+            <EntityCardGroup
+              v-if="relatedPersons"
+              :title="relatedPersons.headline"
+              :entity-uris="relatedPersons.hasPart"
+              card-variant="mini"
+              class="mb-5 mb-sm-4"
+              card-group-class="gridless-browse-cards"
+              @fetched="handleSectionFetched('relatedPersons')"
+            />
+          </div>
+        </transition>
+        <transition
+          appear
+          name="fade"
+        >
+          <div
+            v-show="mayShowSection('relatedGalleries')"
+          >
+            <SetCardGroup
+              v-if="relatedGalleries"
+              :title="relatedGalleries.headline"
+              :set-uris="relatedGalleries.hasPart"
+              class="mb-5 mb-sm-4"
+              card-group-class="gridless-browse-cards"
+              @fetched="handleSectionFetched('relatedGalleries')"
+            />
+          </div>
+        </transition>
+        <transition
+          appear
+          name="fade"
+        >
+          <div
+            v-show="mayShowSection('callToAction')"
+          >
+            <CallToActionBanner
+              v-if="callToAction"
+              :name="callToAction.name"
+              :text="callToAction.text"
+              :link="callToAction.relatedLink"
+              :illustration="callToAction.image"
+              class="mb-5"
+            />
+          </div>
+        </transition>
+        <transition
+          appear
+          name="fade"
+        >
+          <div
+            v-show="mayShowSection('relatedEditorial')"
+          >
+            <RelatedEditorial
+              :theme="identifier"
+              :card-wrapper="false"
+              :limit="6"
+              class="mb-5 mb-sm-4"
+              @fetched="handleSectionFetched('relatedEditorial')"
+            />
+          </div>
+        </transition>
+        <transition
+          appear
+          name="fade"
+        >
+          <div
+            v-show="mayShowSection('dailySetOfCuratedItems')"
+          >
+            <section
+              v-if="dailySetOfCuratedItems"
+              class="mb-5"
+            >
+              <h2>{{ curatedItems.headline }}</h2>
+              <ItemPreviewCardGroup
+                :items="dailySetOfCuratedItems"
+                view="grid"
+              />
+              <SmartLink
+                v-if="curatedItems.moreButton"
+                :destination="curatedItems.moreButton.url"
+                class="btn btn-outline-secondary"
+              >
+                {{ curatedItems.moreButton.text }}
+              </SmartLink>
+            </section>
+          </div>
+        </transition>
       </client-only>
     </template>
   </div>
@@ -118,7 +176,9 @@
         description: null,
         identifier: null,
         primaryImageOfPage: null,
-        hasPartCollection: null
+        hasPartCollection: null,
+        sectionsFetched: [],
+        showAllSections: false
       };
     },
 
@@ -154,6 +214,21 @@
     },
 
     computed: {
+      sectionsToShow() {
+        return [
+          this.relatedTopics ? 'relatedTopics' : null,
+          this.relatedPersons ? 'relatedPersons' : null,
+          this.relatedGalleries ? 'relatedGalleries' : null,
+          this.callToAction ? 'callToAction' : null,
+          'relatedEditorial',
+          this.dailySetOfCuratedItems ? 'dailySetOfCuratedItems' : null
+        ].filter((section) => !!section);
+      },
+      sectionsToFetch() {
+        return this.sectionsToShow.filter((section) => {
+          return ['relatedTopics', 'relatedPersons', 'relatedGalleries', 'relatedEditorial'].includes(section);
+        });
+      },
       pageMeta() {
         return {
           title: this.name,
@@ -191,6 +266,29 @@
       },
       dailySetOfCuratedItems() {
         return this.curatedItemsEncoding && daily(this.curatedItemsEncoding, 8);
+      }
+    },
+
+    mounted() {
+      setTimeout(() => this.showAllSections = true, 600);
+    },
+
+    methods: {
+      // A section may only be shown when its content has been fetched, and so
+      // has the content of all earlier sections. This prevents e.g. the 3rd
+      // section being shown 1st if it's quicker to fetch, then the 1st and 2nd
+      // sections being shown causing the 3rd to jump down in the view.
+      mayShowSection(candidate) {
+        if (this.showAllSections) {
+          return true;
+        }
+        const index = this.sectionsToShow.findIndex((section) => section === candidate);
+        return this.sectionsToShow.slice(0, index + 1)
+          .filter((section) => this.sectionsToFetch.includes(section))
+          .every((section) => this.sectionsFetched.includes(section));
+      },
+      handleSectionFetched(section) {
+        this.sectionsFetched.push(section);
       }
     }
   };
@@ -261,5 +359,14 @@
       border-bottom: 0.0625vw solid $bodygrey;
       margin-bottom: 1.75vw;
     }
+  }
+
+  .fade-enter-active {
+    transition: $standard-transition;
+    opacity: 0;
+  }
+
+  .fade-enter-to {
+    opacity: 1;
   }
 </style>

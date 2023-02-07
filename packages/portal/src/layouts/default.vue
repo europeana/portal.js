@@ -190,7 +190,10 @@
 
           this.klaro.render(config, true);
           manager.watch({ update: this.watchKlaroManagerUpdate });
-          this.setToastBottomOffset();
+
+          setTimeout(() => {
+            this.setToastBottomOffset();
+          }, 100);
         }
       },
 
