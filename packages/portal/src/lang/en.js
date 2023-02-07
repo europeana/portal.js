@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "You haven’t curated any collections yet",
         "private": "You haven’t created any private galleries yet",
-        "public": "You haven’t created any public galleries yet"
+        "public": "You haven’t created any public galleries yet",
+        "published": "You haven’t had any galleries published yet"
       },
       "noLikedItems": "You haven’t liked any items yet"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "My Likes & Galleries",
     "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
+    "publishedCollections": "Published Galleries",
     "settings": "Settings",
     "title": "My account"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Cancel",
     "close": "close",
     "continue": "continue",
+    "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
     "feedback": "Feedback",
-    "goBack": "Go back",
     "goHome": "Go to the homepage",
     "learnMore": "Learn more",
     "like": "Like",
@@ -44,12 +46,16 @@ export default {
     "preview": "Preview",
     "previous": "Previous",
     "providedBy": "Provided by {provider}",
+    "publish": "Publish",
     "reject": "Reject",
+    "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
-    "skip": "Skip",
+    "skipSend": "Skip and send",
+    "submitForPublication": "Submit for publication",
+    "submittedForPublication": "Submitted for publication",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
@@ -62,6 +68,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recent items",
+    "gallery": "Galleries",
     "organisation": "Organisations",
     "place": "Places",
     "time": "Centuries",
@@ -639,6 +646,7 @@ export default {
   "feedback": {
     "emailOptional": "We may wish to follow up. Enter your email if you're happy for us to contact you.",
     "failed": "The request failed. Please try again.",
+    "faq": "Go to frequently asked questions",
     "form": {
       "placeholders": {
         "email": "Enter your email address",
@@ -731,6 +739,7 @@ export default {
       "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
+      "faq": "Frequently asked questions",
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
@@ -899,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Read more",
+    "readMore": "Explore themes",
     "text": {
-      "searchFilters": "You can now search for values in the individual filters; check it out!"
+      "themes": "Explore European cultural heritage through themes, from archaeology to World War I. Our new theme pages offer a multidimensional view of each theme via related topics, people, stories and items."
     }
   },
   "newWindow": "opens in new window",
@@ -980,13 +989,17 @@ export default {
       "title": "Discover related stories"
     },
     "collections": {
+      "name": "Related collections",
       "title": "Discover related collections"
     },
     "editorial": {
       "title": "Stories you may like"
+    },
+    "galleries": {
+      "name": "Related galleries",
+      "title": "Discover related galleries"
     }
   },
-  "relatedCollections": "Related collections",
   "removeFilter": "Remove {filterLabel} filter",
   "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
@@ -1035,12 +1048,14 @@ export default {
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
+      "privateWarning": "This action will depublish the gallery.",
       "required": "Required field",
       "title": "Gallery name"
     },
     "labels": {
       "curatedBy": "Curated by",
-      "private": "Private gallery"
+      "private": "Private gallery",
+      "published": "Published gallery"
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
@@ -1048,12 +1063,34 @@ export default {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
       },
-      "updated": "The item was added to the gallery."
+      "updated": "The item was added to the gallery.",
+      "visibilityChanged": "Warning: set visibility already changed and is currently \"{visibility}\"."
     },
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
+    },
+    "publication": {
+      "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
+      "failedSubmission": "The request failed. Please try again.",
+      "process": {
+        "title": "How the process works",
+        "description": "When you submit a gallery for publication, a team of publishers at Europeana will be notified. They will first review it, and may make changes before it is published. You will receive notifications by email as the gallery is reviewed. If it is not published, it could be that it does not conform to our editorial guidelines."
+      },
+      "time": {
+        "title": "How long it takes",
+        "description": "1-3 days."
+      },
+      "title": "Submit gallery for publication",
+      "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
+      "toastButton": "Okay"
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
+      }
     }
   },
+  "shareWhere": "Where would you like to share this?",
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {

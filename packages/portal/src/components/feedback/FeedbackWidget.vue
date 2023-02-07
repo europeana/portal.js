@@ -87,24 +87,24 @@
                 <b-form-text id="input-live-help">
                   <p class="mb-0">
                     {{ $t('feedback.emailOptional') }}
+                    <i18n
+                      path="feedback.policies"
+                      tag="span"
+                    >
+                      <b-link
+                        :to="$path('/rights')"
+                        target="_blank"
+                      >
+                        {{ $t('feedback.termsOfService') }}
+                      </b-link>
+                      <b-link
+                        :to="$path('/rights/privacy-policy')"
+                        target="_blank"
+                      >
+                        {{ $t('feedback.privacyPolicy') }}
+                      </b-link>
+                    </i18n>
                   </p>
-                  <i18n
-                    path="feedback.policies"
-                    tag="span"
-                  >
-                    <b-link
-                      :to="$path('/rights')"
-                      target="_blank"
-                    >
-                      {{ $t('feedback.termsOfService') }}
-                    </b-link>
-                    <b-link
-                      :to="$path('/rights/privacy-policy')"
-                      target="_blank"
-                    >
-                      {{ $t('feedback.privacyPolicy') }}
-                    </b-link>
-                  </i18n>
                 </b-form-text>
               </div>
               <div
@@ -112,7 +112,7 @@
                 id="step3"
                 class="feedback-success d-flex align-items-center"
               >
-                <span :class="requestSuccess ? 'icon-check-circle pr-3' : 'icon-cancel-circle pr-3'" />
+                <span :class="requestSuccess ? 'icon-check-circle mr-3' : 'icon-cancel-circle mr-3'" />
                 <span
                   v-if="requestSuccess"
                 >
@@ -122,11 +122,14 @@
                 <span
                   v-else-if="requestSuccess === false"
                 >
-                  <p class="mb-0">{{ $t('feedback.failed') }}</p>
+                  <span class="mb-0">{{ $t('feedback.failed') }}</span>
                 </span>
               </div>
             </div>
-            <div class="form-buttons d-flex justify-content-between align-items-end">
+            <div
+              class="form-buttons d-flex align-items-end"
+              :class="showCloseButton ? 'justify-content-end' : 'justify-content-between'"
+            >
               <b-button
                 v-if="showCancelButton"
                 data-qa="feedback cancel button"
@@ -145,7 +148,7 @@
                   :disabled="disableSkipButton"
                   @click="skipEmail"
                 >
-                  {{ $t('actions.skip') }}
+                  {{ $t('actions.skipSend') }}
                 </b-button><!-- This comment removes white space
                 --><b-button
                   v-if="showNextButton"
@@ -178,6 +181,14 @@
                 </b-button>
               </div>
             </div>
+            <b-link
+              :to="$path('/faq')"
+              target="_blank"
+              class="faq-link mt-4 mb-2 p-0 w-100 text-decoration-none"
+            >
+              {{ $t('feedback.faq') }}
+              <span class="icon-external-link" />
+            </b-link>
           </div>
         </b-form-group>
       </b-form>
@@ -211,17 +222,15 @@
       },
 
       showNextButton() {
-        return this.currentStep < 3;
+        return this.currentStep < 2;
       },
 
       disableNextButton() {
-        return ((this.currentStep === 1) && (this.feedback === '')) ||
-          ((this.currentStep === 2) && (this.email === '')) ||
-          this.sending;
+        return ((this.currentStep === 1) && (this.feedback === '')) || this.sending;
       },
 
       disableSendButton() {
-        return this.sending;
+        return ((this.currentStep === 2) && (this.email === '')) || this.sending;
       },
 
       disableSkipButton() {
@@ -233,7 +242,7 @@
       },
 
       showSendButton() {
-        return (this.currentStep === 3) && !this.requestSuccess;
+        return this.currentStep === 2 || ((this.currentStep === 3) && !this.requestSuccess);
       },
 
       showCloseButton() {
@@ -357,7 +366,7 @@
         return axios.create({
           baseURL: this.$config.app.baseUrl
         }).post(
-          '/_api/jira/service-desk',
+          '/_api/jira-service-desk/feedback',
           postData
         );
       }
@@ -405,6 +414,14 @@
 
       &.hide-button {
         display: none;
+      }
+
+      // This overrides the responsive font-size inherited from the footer.
+      @media (min-width: $bp-xxxl) {
+        font-size: $font-size-base;
+        .mt-4 {
+          margin-top: 1.5rem !important;
+        }
       }
 
       &.big {
@@ -456,7 +473,18 @@
 
     @media (min-width: $bp-small) {
       left: auto;
-      min-width: 360px;
+      width: 540px;
+    }
+
+    // This overrides the responsive font-size inherited from the footer.
+    @media (min-width: $bp-xxxl) {
+      font-size: $font-size-base;
+      .mt-4 {
+        margin-top: 1.5rem !important;
+      }
+      .btn {
+        font-size: $font-size-base;
+      }
     }
 
     &.show-feedback-widget {
@@ -466,12 +494,11 @@
     }
 
     .feedback-header {
-      background-color: $innovationblue;
-      padding: 0.75rem 1rem;
+      padding: 1.5rem 1rem 0;
 
       h2 {
-        color: $white;
-        font-size: 1rem;
+        color: $greyblack;
+        font-size: $font-size-large;
         line-height: 1.5;
         font-weight: 600;
         margin: 0;
@@ -488,6 +515,11 @@
       .form-fields {
         flex: 0 1 100%;
         width: 0; // width will grow to space available in flexbox
+        p, .invalid-feedback {
+          padding-left: 0.75rem;
+          padding-right: 0.75rem;
+        }
+
       }
 
       .form-buttons {
@@ -510,7 +542,7 @@
       .form-control {
         padding: 0.75rem;
         background: $white;
-        border: 1px solid $mediumgrey;
+        border: 1px solid $middlegrey;
         border-radius: 0.375rem;
         font-size: $font-size-base;
         height: 3rem;
@@ -548,13 +580,25 @@
     }
 
     .icon-check-circle::before {
-      color: $innovationblue;
-      font-size: 2.0625rem;
+      font-size: 1.5rem;
     }
 
     .icon-cancel-circle::before {
       color: $red;
-      font-size: 2.0625rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  .faq-link {
+    transition: $standard-transition;
+
+    &:hover {
+      color: $blue;
+      transition: $standard-transition;
+    }
+
+    .icon-external-link {
+      vertical-align: baseline;
     }
   }
 </style>

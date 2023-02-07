@@ -4,7 +4,7 @@
     class="quick-search"
     data-qa="quick-search"
   >
-    <RelatedCollections
+    <EntityBadges
       :title="$t('header.quickSearch')"
       :related-collections="optionsAndThemes"
     />
@@ -12,23 +12,21 @@
 </template>
 
 <script>
-  import RelatedCollections from '../related/RelatedCollections';
-  import allThemes from '@/mixins/allThemes';
+  import EntityBadges from '../entity/EntityBadges';
+  import themeDefinitions from '@/plugins/europeana/themes';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'QuickSearch',
 
     components: {
-      RelatedCollections
+      EntityBadges
     },
-
-    mixins: [allThemes],
 
     props: {
       /**
        * Array of objects for the quick search badge links.
-       * Currently used for styleguide and concatenated by allThemes fetch.
+       * Currently used for styleguide and concatenated by optionsAndThemes.
        */
       options: {
         type: Array,
@@ -36,8 +34,30 @@
       }
     },
 
+    data() {
+      return {
+        themes: []
+      };
+    },
+
     async fetch() {
-      await this.fetchAllThemes();
+      const contentfulVariables = {
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      const contentfulResponse = await this.$contentful.query('themes', contentfulVariables);
+
+      this.themes = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
+        prefLabel: theme.name,
+        url: this.$path({
+          name: 'search',
+          query: {
+            qf: `collection:${this.qf(theme.identifier)}`
+          }
+        }),
+        primaryImageOfPage: theme.primaryImageOfPage
+      })).sort((a, b) => a.prefLabel.localeCompare(b.prefLabel));
     },
 
     computed: {
@@ -46,8 +66,14 @@
       },
       alphabeticallySortedThemes() {
         // Slice to make a copy, as sort occurs in place
-        return this.allThemes.slice(0).sort((a, b) =>
+        return this.themes.slice(0).sort((a, b) =>
           langMapValueForLocale(a.prefLabel, this.$i18n.locale).values[0].localeCompare(langMapValueForLocale(b.prefLabel, this.$i18n.locale).values[0]));
+      }
+    },
+
+    methods: {
+      qf(identifier) {
+        return themeDefinitions.find((theme) => theme.id === identifier)?.qf;
       }
     }
   };
@@ -68,13 +94,7 @@
     .related-collections {
       max-width: 100%;
 
-      &.container {
-        padding: 0;
-      }
-
       ::v-deep .badge-pill {
-        margin-right: 0.5rem;
-        margin-bottom: 0.5rem;
         flex-shrink: 0;
 
         @media (min-width: $bp-xxxl) {

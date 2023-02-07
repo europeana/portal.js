@@ -92,7 +92,7 @@
     }
   }
 
-  p {
+  p.mission {
     font-size: $font-size-medium;
 
     @media (min-width: $bp-wqhd) {
@@ -138,13 +138,6 @@
         &:hover {
           text-decoration: underline;
         }
-
-        &.is-external-link::after {
-          content: '\e900';
-          color: $white;
-
-          @extend %icon-font;
-        }
       }
     }
 
@@ -173,12 +166,6 @@
           &:hover {
             background: rgb(255 255 255 / 75%);
             text-decoration: none;
-          }
-
-          &.is-external-link {
-            &::after {
-              content: '';
-            }
           }
 
           .footer-link-icon {

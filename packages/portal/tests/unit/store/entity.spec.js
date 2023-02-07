@@ -38,13 +38,6 @@ describe('store/entity', () => {
         expect(state.id).toEqual(id);
       });
     });
-    describe('setCuratedEntities()', () => {
-      it('sets the curatedEntities state', () => {
-        const state = { curatedEntities: null };
-        store.mutations.setCuratedEntities(state, curatedEntities);
-        expect(state.curatedEntities).toEqual(curatedEntities);
-      });
-    });
     describe('setPinned()', () => {
       describe('when value passed in', () => {
         it('sets the pinned state', () => {
@@ -117,15 +110,6 @@ describe('store/entity', () => {
 
           expect(englishPrefLabel).toEqual(null);
         });
-      });
-    });
-    describe('curatedEntity()', () => {
-      it('returns the entity if it is a curated entity', () => {
-        const state = { curatedEntities };
-
-        const curatedEntity = store.getters.curatedEntity(state)(curatedEntity1.identifier);
-
-        expect(curatedEntity).toEqual(curatedEntity1);
       });
     });
     describe('id()', () => {

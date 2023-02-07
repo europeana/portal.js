@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Você ainda não fez a curadoria de nenhuma coleção",
         "private": "Ainda não criou nenhuma galeria privada",
-        "public": "Ainda não criou nenhuma galeria pública"
+        "public": "Ainda não criou nenhuma galeria pública",
+        "published": "Você ainda não teve nenhuma galeria publicada"
       },
       "noLikedItems": "Ainda não gostou de nenhum item"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Os meus gostos e galerias",
     "profileSettings": "Configurações de perfil",
     "publicCollections": "Galerias públicas",
+    "publishedCollections": "Galerias Publicadas",
     "settings": "Definições",
     "title": "A minha conta"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Cancelar",
     "close": "fechar",
     "continue": "continuar",
+    "depublish": "Despublicar",
     "download": "Descarregar",
     "edit": "Editar",
     "feedback": "Comentários",
-    "goBack": "Voltar",
     "goHome": "Vá para a página inicial",
     "learnMore": "Saiba mais",
     "like": "Gosto",
@@ -44,12 +46,16 @@ export default {
     "preview": "Visualizar",
     "previous": "Anterior",
     "providedBy": "Fornecido por {provider}",
+    "publish": "Publicar",
     "reject": "Rejeitar",
+    "requestDepublication": "Solicitar despublicação",
     "save": "Salve",
     "send": "Enviar",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
-    "skip": "Saltar passo",
+    "skipSend": "Ignorar e enviar",
+    "submitForPublication": "Enviar para publicação",
+    "submittedForPublication": "Enviado para publicação",
     "viewAt": "Ver em {link}",
     "viewDocument": "Ver documento"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Título:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerias",
     "item": "Itens recentes",
     "organisation": "Organizações",
     "place": "Lugares",
@@ -612,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "Poderemos desejar fazer um seguimento. Introduza o seu e-mail se lhe agradar que entremos em contacto.",
     "failed": "O pedido falhou. Por favor, tente novamente.",
+    "faq": "Ir para perguntas frequentes",
     "form": {
       "placeholders": {
         "email": "Digite seu endereço de e-mail",
@@ -703,6 +711,7 @@ export default {
       "about": "Saiba mais sobre nós",
       "accessibility": "Acessibilidade",
       "cookies": "Biscoitos",
+      "faq": "Perguntas frequentes",
       "forDevelopers": "Para desenvolvedores",
       "help": "Ajuda",
       "MoreInfoLabel": "Mais informações",
@@ -874,7 +883,7 @@ export default {
     "dismiss": "Fechar",
     "readMore": "Ler mais",
     "text": {
-      "searchFilters": "Agora você pode pesquisar valores nos filtros individuais; Confira!"
+      "themes": "Explore o património cultural europeu através de temas, desde a arqueologia à I Guerra Mundial. As nossas novas páginas temáticas oferecem uma visão multidimensional de cada tema através de temas relacionados, pessoas, histórias e artigos."
     }
   },
   "newWindow": "abre numa nova janela",
@@ -953,13 +962,17 @@ export default {
       "title": "Descubra histórias relacionadas"
     },
     "collections": {
+      "name": "Coleções relacionadas",
       "title": "Descubra coleções relacionadas"
     },
     "editorial": {
       "title": "Histórias que pode gostar"
+    },
+    "galleries": {
+      "name": "Galerias relacionadas",
+      "title": "Descubra galerias relacionadas"
     }
   },
-  "relatedCollections": "Coleções relacionadas",
   "removeFilter": "Remover o filtro {filterLabel}",
   "reset": "Repor",
   "resourceWikimedia": "Recurso do Wikimedia Commons",
@@ -1008,12 +1021,14 @@ export default {
     "form": {
       "description": "Descrição da galeria",
       "private": "Manter a galeria privada",
+      "privateWarning": "Esta ação cancelará a publicação da galeria.",
       "required": "Campos obrigatórios",
       "title": "Nome da galeria"
     },
     "labels": {
       "curatedBy": "Curadoria por",
-      "private": "Galeria privada"
+      "private": "Galeria privada",
+      "published": "Galeria publicada"
     },
     "notifications": {
       "deleted": "A galeria foi eliminada.",
@@ -1021,12 +1036,34 @@ export default {
         "body": "Pedimos desculpa, mas está limitado no momento a gostar de no máximo 100 itens. Removeremos esse limite em breve!",
         "title": "100 gostos"
       },
-      "updated": "O item foi adicionado à galeria."
+      "updated": "O item foi adicionado à galeria.",
+      "visibilityChanged": "Aviso: o conjunto de visibilidade já foi alterado e atualmente é \" {visibility} \"."
     },
     "prompts": {
       "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela."
+    },
+    "publication": {
+      "description": "A publicação de uma galeria irá apresentá-la em Europeana.eu/galleries.",
+      "failedSubmission": "O pedido falhou. Por favor, tente novamente.",
+      "process": {
+        "description": "Quando submeter uma galeria para publicação, uma equipa de editores da Europeana será notificada. Eles irão primeiro revê-la, e poderão fazer alterações antes da sua publicação. Receberá notificações por correio eletrónico à medida que a galeria for revista. Se não for publicada, poderá ser que não esteja em conformidade com as nossas diretrizes editoriais.",
+        "title": "Como funciona o processo"
+      },
+      "time": {
+        "description": "1-3 dias.",
+        "title": "Quanto tempo demora"
+      },
+      "title": "Enviar galeria para publicação",
+      "toastButton": "OK",
+      "toastMessage": "Esta galeria está agora submetida para publicação. Pode verificar {galleries} para ver se foi publicado."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) é uma ferramenta baseada na web para gerir conteúdos de diferentes tipos (incluindo 3D), documentar o património cultural através de espaços comunitários digitais, e curar histórias e experiências digitais."
+      }
     }
   },
+  "shareWhere": "Onde você gostaria de compartilhar isso?",
   "showLess": "Mostrar menos",
   "showMore": "Mostrar mais",
   "sideFilters": {

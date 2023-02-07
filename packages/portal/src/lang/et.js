@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Te pole veel ühtegi kollektsiooni kureerinud",
         "private": "Te pole veel ühtegi privaatset galeriid loonud",
-        "public": "Te pole veel ühtegi avalikku galeriid loonud"
+        "public": "Te pole veel ühtegi avalikku galeriid loonud",
+        "published": "Teil pole veel ühtegi galeriid avaldatud"
       },
       "noLikedItems": "Teile pole veel ükski toode meeldinud"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Minu meeldimised ja galeriid",
     "profileSettings": "Profiili seaded",
     "publicCollections": "Avalikud galeriid",
+    "publishedCollections": "Avaldatud Galeriid",
     "settings": "Seaded",
     "title": "Minu konto"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Tühista",
     "close": "Sulge",
     "continue": "jätka",
+    "depublish": "Tühista avaldamine",
     "download": "Lae alla",
     "edit": "Muuda",
     "feedback": "Tagasiside",
-    "goBack": "Mine tagasi",
     "goHome": "Minge avalehele",
     "learnMore": "Lisateave",
     "like": "Meeldib",
@@ -44,12 +46,16 @@ export default {
     "preview": "Eelvaade",
     "previous": "Eelmine",
     "providedBy": "Pakub {provider}",
+    "publish": "Avalda",
     "reject": "Tagasi lükata",
+    "requestDepublication": "Taotlus mitte avaldada",
     "save": "Salvesta",
     "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
-    "skip": "Vahele jätma",
+    "skipSend": "Jäta vahele ja saada",
+    "submitForPublication": "Esitage avaldamiseks",
+    "submittedForPublication": "Esitatud avaldamiseks",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Pealkiri:"
   },
   "automatedCardGroup": {
+    "gallery": "Galeriid",
     "item": "Hiljutised esemed",
     "organisation": "Organisatsioonid",
     "place": "Kohad",
@@ -612,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "Võime soovida jätkata. Sisestage oma e-posti aadress, kui olete rahul, et meiega ühendust võtame.",
     "failed": "Taotlus nurjus. Palun proovi uuesti.",
+    "faq": "Minge korduma kippuvate küsimuste juurde",
     "form": {
       "placeholders": {
         "email": "Sisestage oma e-posti aadress",
@@ -703,6 +711,7 @@ export default {
       "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
+      "faq": "Korduma kippuvad küsimused",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
@@ -874,7 +883,7 @@ export default {
     "dismiss": "Sulge",
     "readMore": "Loe lähemalt",
     "text": {
-      "searchFilters": "Nüüd saate otsida väärtusi üksikutes filtrites; vaadake seda!"
+      "themes": "Avastage Euroopa kultuuripärandit teemade kaudu, alates arheoloogiast kuni I maailmasõjani. Meie uued teemalehed pakuvad igast teemast mitmemõõtmelist vaadet seotud teemade, inimeste, lugude ja esemete kaudu."
     }
   },
   "newWindow": "avaneb uues aknas",
@@ -953,13 +962,17 @@ export default {
       "title": "Avastage seotud lugusid"
     },
     "collections": {
+      "name": "Seotud kollektsioonid",
       "title": "Avastage seotud kogud"
     },
     "editorial": {
       "title": "Lood, mis teile võivad meeldida"
+    },
+    "galleries": {
+      "name": "Seotud galeriid",
+      "title": "Avastage seotud galeriid"
     }
   },
-  "relatedCollections": "Seotud kollektsioonid",
   "removeFilter": "Eemalda filter {filterLabel}",
   "reset": "Lähtesta",
   "resourceWikimedia": "Wikimedia Commonsist saadud ressurss",
@@ -1008,12 +1021,14 @@ export default {
     "form": {
       "description": "Galerii kirjeldus",
       "private": "Hoia see galerii privaatsena",
+      "privateWarning": "See tegevus depublitseerib galerii.",
       "required": "Kohustuslik väli",
       "title": "Galerii nimi"
     },
     "labels": {
       "curatedBy": "Kuraator",
-      "private": "Privaatgalerii"
+      "private": "Privaatgalerii",
+      "published": "Avaldatud galerii"
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
@@ -1021,12 +1036,34 @@ export default {
         "body": "Vabandame, kuid praegu piirdute maksimaalselt 100 toote meeldimisega. Varsti eemaldame selle limiidi!",
         "title": "100 meeldimist"
       },
-      "updated": "Üksus lisati galeriisse."
+      "updated": "Üksus lisati galeriisse.",
+      "visibilityChanged": "Hoiatus: määratud nähtavus on juba muudetud ja on praegu \" {visibility} \"."
     },
     "prompts": {
       "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
+    },
+    "publication": {
+      "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu/galleries.",
+      "failedSubmission": "Taotlus ebaõnnestus. Palun proovi uuesti.",
+      "process": {
+        "description": "Kui esitate galerii avaldamiseks, teavitatakse sellest Europeana kirjastajate meeskonda. Nad vaatavad selle kõigepealt üle ja võivad teha muudatusi enne selle avaldamist. Galerii ülevaatamisel saate teateid e-posti teel. Kui seda ei avaldata, võib juhtuda, et see ei vasta meie toimetuse juhistele.",
+        "title": "Kuidas protsess toimib"
+      },
+      "time": {
+        "description": "1-3 päeva.",
+        "title": "Kui kaua see võtab"
+      },
+      "title": "Saada galerii avaldamiseks",
+      "toastButton": "Okei",
+      "toastMessage": "See galerii on nüüd avaldamiseks esitatud. Saate vaadata {galleries} , et näha, kas see on avaldatud."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) on veebipõhine tööriist erinevat tüüpi (sh 3D) sisu haldamiseks, kultuuripärandi dokumenteerimiseks digitaalsete kogukonnaruumide kaudu ning digitaalsete lugude ja kogemuste kureerimiseks."
+      }
     }
   },
+  "shareWhere": "Kus soovite seda jagada?",
   "showLess": "Näita vähem",
   "showMore": "Näita rohkem",
   "sideFilters": {

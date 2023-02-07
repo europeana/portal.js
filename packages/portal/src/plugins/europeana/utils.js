@@ -1,4 +1,6 @@
 import axios from 'axios';
+import qs from 'qs';
+
 import locales from '../i18n/locales.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
@@ -52,7 +54,11 @@ const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
     baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
       wskey: config.key
-    }
+    },
+    paramsSerializer(params) {
+      return qs.stringify(params, { arrayFormat: 'repeat' });
+    },
+    timeout: 10000
   };
 };
 
@@ -373,4 +379,19 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
   } else {
     return value;
   }
+};
+
+export const dailyOffset = (setSize, subsetSize) => {
+  const millisecondsPerDay = (1000 * 60 * 60 * 24);
+  const unixDay = Math.floor(Date.now() / millisecondsPerDay);
+  const offset = (unixDay * subsetSize) % setSize;
+  return (offset + subsetSize <= setSize) ? offset : (setSize - subsetSize);
+};
+
+export const daily = (set, subsetSize) => {
+  if (!Array.isArray(set)) {
+    return set;
+  }
+  const offset = dailyOffset(set.length, subsetSize);
+  return set.slice(offset, offset + subsetSize);
 };

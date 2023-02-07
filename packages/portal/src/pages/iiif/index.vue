@@ -22,7 +22,7 @@
     data() {
       return {
         manifest: null,
-        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.0.0/dist',
+        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
         page: null,
         imageToCanvasMap: {},
         mirador: null,
@@ -44,7 +44,7 @@
 
     computed: {
       miradorViewerOptions() {
-        // Doc: https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/config/settings.js
+        // Doc: https://github.com/ProjectMirador/mirador/blob/v3.3.0/src/config/settings.js
         const options = {
           id: 'viewer',
           windows: [

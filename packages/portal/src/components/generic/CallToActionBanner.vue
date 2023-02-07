@@ -27,9 +27,11 @@
       />
       <!-- eslint-enable   vue/no-v-html -->
       <SmartLink
+        v-if="link"
         :destination="link.url"
         data-qa="call to action"
         class="btn btn-cta btn-primary"
+        hide-external-icon
       >
         {{ link.text }}
       </SmartLink>
@@ -59,7 +61,7 @@
       },
       link: {
         type: Object,
-        required: true
+        default: null
       },
       illustration: {
         type: Object,

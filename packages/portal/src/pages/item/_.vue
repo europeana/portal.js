@@ -71,7 +71,7 @@
               cols="12"
               class="col-lg-10 mt-4"
             >
-              <RelatedCollections
+              <EntityBadges
                 :entity-uris="relatedEntityUris"
                 data-qa="related entities"
                 badge-variant="light"
@@ -148,7 +148,7 @@
       ItemRecommendations,
       LoadingSpinner,
       MetadataBox,
-      RelatedCollections: () => import('@/components/related/RelatedCollections'),
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
       SummaryInfo: () => import('@/components/item/SummaryInfo')
     },
 
@@ -347,13 +347,7 @@
 <style scoped>
   .related-collections {
     margin-top: -0.5rem;
-    margin-bottom: 2rem;
-    padding: 0;
-  }
-
-  ::v-deep .related-collections .badge-light {
-    margin-top: 0.25rem;
-    margin-right: 0.5rem;
+    margin-bottom: 1.5rem;
   }
 
   ::v-deep .card-header-tabs {

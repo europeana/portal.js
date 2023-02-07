@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pin-button-wrapper">
     <b-button
       class="pin-button text-uppercase"
       :class="{ 'button-icon-only': !buttonText }"
@@ -47,12 +47,18 @@
 </template>
 
 <script>
+  import makeToastMixin from '@/mixins/makeToast';
+
   export default {
     name: 'ItemPinButton',
 
     components: {
       ItemPinModal: () => import('./ItemPinModal')
     },
+
+    mixins: [
+      makeToastMixin
+    ],
 
     props: {
       /**

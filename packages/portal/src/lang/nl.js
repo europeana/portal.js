@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Je hebt nog geen collecties samengesteld",
         "private": "U hebt nog geen privé galerijen gemaakt",
-        "public": "U hebt nog geen openbare galerijen gemaakt"
+        "public": "U hebt nog geen openbare galerijen gemaakt",
+        "published": "U heeft nog geen galerijen gepubliceerd"
       },
       "noLikedItems": "Je hebt nog geen Items geliked"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mijn likes en galerijen",
     "profileSettings": "Profielinstellingen",
     "publicCollections": "Openbare galerijen",
+    "publishedCollections": "Gepubliceerde Galerijen",
     "settings": "Instellingen",
     "title": "Mijn account"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Annuleren",
     "close": "sluiten",
     "continue": "doorgaan",
+    "depublish": "Depubliceren",
     "download": "Download",
     "edit": "Bewerken",
     "feedback": "Feedback",
-    "goBack": "Ga terug",
     "goHome": "Ga naar de homepage",
     "learnMore": "Leer meer",
     "like": "Liken",
@@ -44,12 +46,16 @@ export default {
     "preview": "Voorbeeld",
     "previous": "Vorige",
     "providedBy": "Aangeboden door {provider}",
+    "publish": "Publiceren",
     "reject": "Afwijzen",
+    "requestDepublication": "Depublicatie aanvragen",
     "save": "Opslaan",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
-    "skip": "Overslaan",
+    "skipSend": "Overslaan en verzenden",
+    "submitForPublication": "Indienen voor publicatie",
+    "submittedForPublication": "Ingezonden voor publicatie",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijen",
     "item": "Recente items",
     "organisation": "Organisaties",
     "place": "Plaatsen",
@@ -612,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "We willen hier misschien een vervolg aan geven. Voer uw e-mailadres in als u het niet erg vindt als wij contact met u opnemen.",
     "failed": "Het verzoek is mislukt. Probeer het opnieuw.",
+    "faq": "Ga naar veelgestelde vragen",
     "form": {
       "placeholders": {
         "email": "Voer uw e-mailadres in",
@@ -703,6 +711,7 @@ export default {
       "about": "Over ons",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
+      "faq": "Veelgestelde vragen",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
@@ -874,7 +883,7 @@ export default {
     "dismiss": "Sluiten",
     "readMore": "Lees verder",
     "text": {
-      "searchFilters": "U kunt nu zoeken naar waarden in de afzonderlijke filters; bekijk het hier!"
+      "themes": "Verken het Europese culturele erfgoed met thema's, van archeologie tot de Eerste Wereldoorlog. Onze nieuwe themapagina's bieden een multidimensionaal beeld van elk thema via gerelateerde onderwerpen, mensen, verhalen en voorwerpen."
     }
   },
   "newWindow": "opent in nieuw venster",
@@ -953,13 +962,17 @@ export default {
       "title": "Ontdek gerelateerde verhalen"
     },
     "collections": {
+      "name": "Gerelateerde collecties",
       "title": "Ontdek gerelateerde collecties"
     },
     "editorial": {
       "title": "Verhalen die u misschien leuk vindt"
+    },
+    "galleries": {
+      "name": "Gerelateerde galerijen",
+      "title": "Ontdek gerelateerde galerijen"
     }
   },
-  "relatedCollections": "Gerelateerde collecties",
   "removeFilter": "Verwijder het filter {filterLabel}",
   "reset": "Opnieuw instellen",
   "resourceWikimedia": "Bron van Wikimedia Commons",
@@ -1008,12 +1021,14 @@ export default {
     "form": {
       "description": "Omschrijving van de galerij",
       "private": "Houd deze galerij privé",
+      "privateWarning": "Deze actie depubliceert de galerij.",
       "required": "Verplicht veld",
       "title": "Naam van de galerij"
     },
     "labels": {
       "curatedBy": "Beheerd door",
-      "private": "Privégalerij"
+      "private": "Privégalerij",
+      "published": "Gepubliceerde galerij"
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
@@ -1021,12 +1036,34 @@ export default {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 artikelen liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"
       },
-      "updated": "Het item is toegevoegd aan de galerij."
+      "updated": "Het item is toegevoegd aan de galerij.",
+      "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
       "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd."
+    },
+    "publication": {
+      "description": "Als u een galerij publiceert, wordt deze op Europeana.eu/galleries weergegeven.",
+      "failedSubmission": "Het verzoek is mislukt. Probeer het opnieuw.",
+      "process": {
+        "description": "Wanneer u een galerij indient voor publicatie, wordt een team van uitgevers bij Europeana op de hoogte gebracht. Ze zullen het eerst beoordelen en mogelijk wijzigingen aanbrengen voordat het wordt gepubliceerd. U ontvangt meldingen per e-mail wanneer de galerij wordt beoordeeld. Als het niet wordt gepubliceerd, is het mogelijk dat het niet voldoet aan onze redactionele richtlijnen.",
+        "title": "Hoe het proces werkt"
+      },
+      "time": {
+        "description": "1-3 dagen.",
+        "title": "Hoe lang het duurt"
+      },
+      "title": "Galerij indienen voor publicatie",
+      "toastButton": "Oké",
+      "toastMessage": "Deze galerij is nu ingediend voor publicatie. U kunt {galleries} controleren om te zien of het is gepubliceerd."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) is een webtool voor het beheer van verschillende soorten inhoud (waaronder 3D), het documenteren van cultureel erfgoed via digitale gemeenschapsruimtes en het cureren van digitale verhalen en ervaringen."
+      }
     }
   },
+  "shareWhere": "Waar wilt u dit delen?",
   "showLess": "Minder weergeven",
   "showMore": "Meer weergeven",
   "sideFilters": {

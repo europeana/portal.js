@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Oraindik ez duzu bildumarik hautatu",
         "private": "Oraindik ez duzu bilduma pribaturik sortu",
-        "public": "Oraindik ez duzu bilduma publikorik sortu"
+        "public": "Oraindik ez duzu bilduma publikorik sortu",
+        "published": "Oraindik ez duzu galeriarik argitaratu"
       },
       "noLikedItems": "Oraindik ez duzu ezein elementu atsegin"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Nire gustukoak & Bildumak",
     "profileSettings": "Profilaren ezarpenak",
     "publicCollections": "Bilduma publikoak",
+    "publishedCollections": "Argitaratutako Galeriak",
     "settings": "Ezarpenak",
     "title": "Nire kontua"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Utzi",
     "close": "itxi",
     "continue": "jarraitu",
+    "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
     "edit": "Editatu",
     "feedback": "Iritzia",
-    "goBack": "Atzera egin",
     "goHome": "Joan hasierako orrialdera",
     "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
@@ -44,12 +46,16 @@ export default {
     "preview": "Aurrebista",
     "previous": "Aurrekoa",
     "providedBy": "{provider} emanda",
+    "publish": "Argitaratu",
     "reject": "Baztertu",
+    "requestDepublication": "Argitalpenik ez egiteko eskaera",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
-    "skip": "Saltatu",
+    "skipSend": "Saltatu eta bidali",
+    "submitForPublication": "Bidali argitaratzeko",
+    "submittedForPublication": "Argitalpenerako aurkeztu da",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Izenburua:"
   },
   "automatedCardGroup": {
+    "gallery": "Galeriak",
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
     "place": "Lekuak",
@@ -616,6 +623,7 @@ export default {
   "feedback": {
     "emailOptional": "Baliteke jarraipena egitea nahi izatea. Idatzi zure posta elektronikoa gu zurekin harremanetan jartzeko pozik bazaude.",
     "failed": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+    "faq": "Joan maiz egindako galderak",
     "form": {
       "placeholders": {
         "email": "Idatzi zure helbide elektronikoa",
@@ -707,6 +715,7 @@ export default {
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
+      "faq": "Maiz Egindako Galderak",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
@@ -878,7 +887,7 @@ export default {
     "dismiss": "Itxi",
     "readMore": "Gehiago irakurri",
     "text": {
-      "searchFilters": "Orain balioak bila ditzakezu iragazki indibidualetan; begiratu ezazu!"
+      "themes": "Arakatu Europako kultur ondarea gaien bidez, arkeologiatik hasi eta Lehen Mundu Gerra arte. Gure gai-orri berriek gai bakoitzaren dimentsio anitzeko ikuspegia eskaintzen dute erlazionatutako gai, pertsona, istorio eta elementuen bidez."
     }
   },
   "newWindow": "leiho berrian irekiko da",
@@ -957,13 +966,17 @@ export default {
       "title": "Ezagutu erlazionatutako istorioak"
     },
     "collections": {
+      "name": "Lotutako bildumak",
       "title": "Ezagutu erlazionatutako bildumak"
     },
     "editorial": {
       "title": "Gustuko izan ditzakezun istorioak"
+    },
+    "galleries": {
+      "name": "Lotutako galeriak",
+      "title": "Ezagutu erlazionatutako galeriak"
     }
   },
-  "relatedCollections": "Lotutako bildumak",
   "removeFilter": "Kendu {filterLabel} iragazkia",
   "reset": "Berrezarri",
   "resourceWikimedia": "Wikimedia Commons-eko baliabidea",
@@ -1012,12 +1025,14 @@ export default {
     "form": {
       "description": "Bildumaren deskribapena",
       "private": "Bilduma hau pribatu gisa mantendu",
+      "privateWarning": "Ekintza horrek galeriaren argitalpena baliogabetuko du.",
       "required": "Beharrezko eremua",
       "title": "Bildumaren izena"
     },
     "labels": {
       "curatedBy": "Komisarioa",
-      "private": "Bilduma pribatua"
+      "private": "Bilduma pribatua",
+      "published": "Argitaratutako galeria"
     },
     "notifications": {
       "deleted": "Bilduma ezabatu egin da.",
@@ -1025,12 +1040,34 @@ export default {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
       },
-      "updated": "Elementua galerian gehitu da."
+      "updated": "Elementua galerian gehitu da.",
+      "visibilityChanged": "Abisua: ezarri ikusgarritasuna dagoeneko aldatu da eta une honetan \" {visibility} \" da."
     },
     "prompts": {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
+    },
+    "publication": {
+      "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
+      "failedSubmission": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+      "process": {
+        "description": "Galeria bat argitaratzeko bidaltzen duzunean, Europeana-ko argitaletxe talde bati jakinaraziko zaio. Lehenik eta behin aztertuko dute, eta aldaketak egin ditzakete argitaratu aurretik. Galeria berrikusten den heinean jakinarazpenak jasoko dituzu posta elektronikoz. Argitaratzen ez bada, baliteke gure editorialen jarraibideekin bat ez egitea.",
+        "title": "Nola funtzionatzen duen prozesua"
+      },
+      "time": {
+        "description": "1-3 egun.",
+        "title": "Zenbat denbora behar duen"
+      },
+      "title": "Bidali galeria argitaratzeko",
+      "toastButton": "Ados",
+      "toastMessage": "Galeria hau argitaratzeko aurkeztu da. {galleries} ikus dezakezu argitaratu den ikusteko."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) web-oinarritutako tresna bat da, mota ezberdinetako edukiak (3D barne) kudeatzeko, kultur ondarea dokumentatzeko komunitate digitalen espazioen bidez eta istorio eta esperientzia digitalak komisariotzeko."
+      }
     }
   },
+  "shareWhere": "Non partekatu nahiko zenuke hau?",
   "showLess": "Gutxiago erakutsi",
   "showMore": "Gehiago erakutsi",
   "sideFilters": {

@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Nu ați curator iat încă nicio colecție",
         "private": "Încă nu ai creat nicio galerie privată",
-        "public": "Încă nu ai creat nicio galerie publică"
+        "public": "Încă nu ai creat nicio galerie publică",
+        "published": "Nu ați avut nici o galerii publicate încă"
       },
       "noLikedItems": "Încă nu ai apreciat niciun articol"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Aprecierile și Galeriile mele",
     "profileSettings": "Setări profil",
     "publicCollections": "Galerii publice",
+    "publishedCollections": "Galeriile Publicate",
     "settings": "Setări",
     "title": "Contul meu"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Anulează",
     "close": "închidere",
     "continue": "continua",
+    "depublish": "Depublicați",
     "download": "Descarcă",
     "edit": "Editare",
     "feedback": "Feedback",
-    "goBack": "Înapoi",
     "goHome": "Mergeți la pagina de pornire",
     "learnMore": "Află mai multe",
     "like": "Apreciere",
@@ -44,12 +46,16 @@ export default {
     "preview": "Previzualizare",
     "previous": "Anterior",
     "providedBy": "Furnizat de {provider}",
+    "publish": "Publica",
     "reject": "Respinge",
+    "requestDepublication": "Solicitați depublicarea",
     "save": "Salva",
     "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
-    "skip": "Skip",
+    "skipSend": "Săriți și trimiteți",
+    "submitForPublication": "Trimiteți spre publicare",
+    "submittedForPublication": "Trimis spre publicare",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerii",
     "item": "Articole recente",
     "organisation": "Organizații",
     "place": "Locuri",
@@ -612,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "S-ar putea să dorim să urmărim acest lucru. Introduceți adresa dvs. de e-mail dacă sunteți de acord să vă contactăm.",
     "failed": "Solicitarea nu a reușit. Încercați din nou.",
+    "faq": "Accesați întrebările frecvente",
     "form": {
       "placeholders": {
         "email": "Introduceți adresa de e-mail",
@@ -703,6 +711,7 @@ export default {
       "about": "Despre noi",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
+      "faq": "Întrebări frecvente",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
       "MoreInfoLabel": "Mai multe informații",
@@ -752,7 +761,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Ultimele povești",
     "storiesCTA": "Vezi toate poveștile",
-    "subHeadline": "Căutați, salvațișidistribuițiartă, cărți, filme și muzică de la mii de instituții culturale",
+    "subHeadline": "Căutați, salvați și distribuiți opere de artă, cărți, filme și muzică de la mii de instituții culturale",
     "themesCTA": "Vezi toate temele",
     "themesTitle": "Explorați după temă",
     "title": "Descoperiți patrimoniul cultural {digital} al Europei",
@@ -874,7 +883,7 @@ export default {
     "dismiss": "Închidere",
     "readMore": "Citește mai mult",
     "text": {
-      "searchFilters": "Acum puteți căuta valori în filtrele individuale; verifică!"
+      "themes": "Explorați patrimoniul cultural european prin intermediul unor teme, de la arheologie la Primul Război Mondial. Noile noastre pagini tematice oferă o perspectivă multidimensională asupra fiecărei teme prin intermediul unor subiecte, persoane, povești și obiecte conexe."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
@@ -953,13 +962,17 @@ export default {
       "title": "Descoperiți poveștile conexe"
     },
     "collections": {
+      "name": "Colecții conexe",
       "title": "Descoperiți colecții conexe"
     },
     "editorial": {
       "title": "Povești care s-ar putea să vă placă"
+    },
+    "galleries": {
+      "name": "Galerii conexe",
+      "title": "Descoperiți galerii conexe"
     }
   },
-  "relatedCollections": "Colecții similare",
   "removeFilter": "Elimină filtrul {filterLabel}",
   "reset": "Resetează",
   "resourceWikimedia": "Material de la Wikimedia Commons",
@@ -1008,12 +1021,14 @@ export default {
     "form": {
       "description": "Descriere galerie",
       "private": "Menține această galerie privată",
+      "privateWarning": "Această acțiune va depublica galeria.",
       "required": "Câmp obligatoriu",
       "title": "Denumire galerie"
     },
     "labels": {
       "curatedBy": "Curată de",
-      "private": "Galerie privată"
+      "private": "Galerie privată",
+      "published": "Galerie publicată"
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
@@ -1021,12 +1036,34 @@ export default {
         "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de articole. Vom elimina această limită în curând!",
         "title": "100 de aprecieri"
       },
-      "updated": "Elementul a fost adăugat la galerie."
+      "updated": "Elementul a fost adăugat la galerie.",
+      "visibilityChanged": "Avertisment: setarea vizibilității a fost deja schimbată și este în prezent „ {visibility} ”."
     },
     "prompts": {
       "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat."
+    },
+    "publication": {
+      "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
+      "failedSubmission": "Solicitarea nu a reușit. Încercați din nou.",
+      "process": {
+        "description": "Când trimiteți o galerie spre publicare, o echipă de editori de la Europeana va fi anunțată. Ei îl vor revizui mai întâi și pot face modificări înainte de a fi publicat. Veți primi notificări prin e-mail pe măsură ce galeria este revizuită. Dacă nu este publicat, s-ar putea să nu fie în conformitate cu îndrumările noastre editoriale.",
+        "title": "Cum funcționează procesul"
+      },
+      "time": {
+        "description": "1-3 zile.",
+        "title": "Cât timp durează"
+      },
+      "title": "Trimiteți galeria pentru publicare",
+      "toastButton": "Bine",
+      "toastMessage": "Această galerie este acum trimisă spre publicare. Puteți verifica {galleries} pentru a vedea dacă a fost publicat."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) este un instrument bazat pe web pentru gestionarea conținutului de diferite tipuri (inclusiv 3D), documentarea moștenirii culturale prin spații comunitare digitale și curatarea poveștilor și experiențelor digitale."
+      }
     }
   },
+  "shareWhere": "Unde ai vrea să împărtășești asta?",
   "showLess": "Afișează mai puțin",
   "showMore": "Afișează mai multe",
   "sideFilters": {

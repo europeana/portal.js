@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Zatiaľ ste nevybrali žiadne zbierky",
         "private": "Zatiaľ ste nevytvorili žiadne súkromné galérie",
-        "public": "Zatiaľ ste nevytvorili žiadne verejné galérie"
+        "public": "Zatiaľ ste nevytvorili žiadne verejné galérie",
+        "published": "Zatiaľ ste nemali zverejnené žiadne galérie"
       },
       "noLikedItems": "Zatiaľ ste žiadne položky neoznačili, že sa vám páčia"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Moje označenia Páči sa mi a galérie",
     "profileSettings": "Nastavenia profilu",
     "publicCollections": "Verejné galérie",
+    "publishedCollections": "Publikované Galérie",
     "settings": "Nastavenia",
     "title": "Môj účet"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Zrušiť",
     "close": "zatvoriť",
     "continue": "pokračovať",
+    "depublish": "Zrušiť zverejnenie",
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "feedback": "Spätná väzba",
-    "goBack": "Späť",
     "goHome": "Prejsť na domovskú stránku",
     "learnMore": "Uč sa viac",
     "like": "Označenie Páči sa mi",
@@ -44,12 +46,16 @@ export default {
     "preview": "Náhľad",
     "previous": "Predchádzajúce",
     "providedBy": "Poskytovateľ:  {provider}",
+    "publish": "Publikovať",
     "reject": "Odmietnuť",
+    "requestDepublication": "Žiadosť zrušiť zverejnenie",
     "save": "Uložiť",
     "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
-    "skip": "Preskočiť",
+    "skipSend": "Preskočiť a odoslať",
+    "submitForPublication": "Odoslať na zverejnenie",
+    "submittedForPublication": "Predložené na zverejnenie",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Názov:"
   },
   "automatedCardGroup": {
+    "gallery": "Galérie",
     "item": "Nedávne položky",
     "organisation": "Organizácie",
     "place": "Miesta",
@@ -612,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "Možno budeme chcieť nadviazať ďalšie kroky. Ak chcete, aby sme vás kontaktovali, zadajte svoj e-mail.",
     "failed": "Žiadosť zlyhala. Prosím skúste znova.",
+    "faq": "Prejdite na často kladené otázky",
     "form": {
       "placeholders": {
         "email": "Zadajte svoju e-mailovú adresu",
@@ -703,6 +711,7 @@ export default {
       "about": "O nás",
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
+      "faq": "Často kladené otázky",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
@@ -874,7 +883,7 @@ export default {
     "dismiss": "Zatvoriť",
     "readMore": "Viac",
     "text": {
-      "searchFilters": "Teraz môžete vyhľadávať hodnoty v jednotlivých filtroch; skontrolovať to!"
+      "themes": "Preskúmajte európske kultúrne dedičstvo prostredníctvom tém, od archeológie po prvú svetovú vojnu. Naše nové tematické stránky ponúkajú viacrozmerný pohľad na každú tému prostredníctvom súvisiacich tém, ľudí, príbehov a predmetov."
     }
   },
   "newWindow": "otvorí sa v novom okne",
@@ -953,13 +962,17 @@ export default {
       "title": "Objavte súvisiace príbehy"
     },
     "collections": {
+      "name": "Súvisiace zbierky",
       "title": "Objavte súvisiace zbierky"
     },
     "editorial": {
       "title": "Príbehy, ktoré sa vám môžu páčiť"
+    },
+    "galleries": {
+      "name": "Súvisiace galérie",
+      "title": "Objavte súvisiace galérie"
     }
   },
-  "relatedCollections": "Súvisiace zbierky",
   "removeFilter": "Odstrániť filter {filterLabel}",
   "reset": "Obnoviť",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
@@ -1008,12 +1021,14 @@ export default {
     "form": {
       "description": "Popis galérie",
       "private": "Túto galériu uložiť ako súkromnú",
+      "privateWarning": "Táto akcia zruší zverejnenie galérie.",
       "required": "Povinné polia",
       "title": "Názov galérie"
     },
     "labels": {
       "curatedBy": "Zbierku spravuje",
-      "private": "Súkromná galéria"
+      "private": "Súkromná galéria",
+      "published": "Zverejnená galéria"
     },
     "notifications": {
       "deleted": "Galéria bola vymazaná.",
@@ -1021,12 +1036,34 @@ export default {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 položiek, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
         "title": "100 označení Páči sa mi"
       },
-      "updated": "Položka bola pridaná do galérie."
+      "updated": "Položka bola pridaná do galérie.",
+      "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
     },
     "prompts": {
       "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali."
+    },
+    "publication": {
+      "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",
+      "failedSubmission": "Žiadosť zlyhala. Prosím skúste znova.",
+      "process": {
+        "description": "Keď odošlete galériu na zverejnenie, tím vydavateľov Europeana bude upozornený. Najprv ho skontrolujú a pred zverejnením môžu vykonať zmeny. Počas kontroly galérie budete dostávať upozornenia e-mailom. Ak nie je zverejnený, je možné, že nie je v súlade s našimi redakčnými pokynmi.",
+        "title": "Ako proces funguje"
+      },
+      "time": {
+        "description": "1-3 dni.",
+        "title": "Ako dlho to trvá"
+      },
+      "title": "Odoslať galériu na zverejnenie",
+      "toastButton": "Dobre",
+      "toastMessage": "Táto galéria je teraz odoslaná na zverejnenie. Môžete skontrolovať {galleries} a zistiť, či bola zverejnená."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) je webový nástroj na správu rôznych typov obsahu (vrátane 3D), dokumentáciu kultúrneho dedičstva prostredníctvom digitálnych komunitných priestorov a kurátorstvo digitálnych príbehov a zážitkov."
+      }
     }
   },
+  "shareWhere": "Kde by ste to chceli zdieľať?",
   "showLess": "Zobraziť menej",
   "showMore": "Zobraziť viac",
   "sideFilters": {

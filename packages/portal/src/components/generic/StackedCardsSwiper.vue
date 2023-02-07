@@ -121,7 +121,10 @@
               spaceBetween: 0
             }
           },
-          keyboard: true,
+          keyboard: {
+            enabled: true,
+            pageUpDown: false
+          },
           coverflowEffect: {
             rotate: 0,
             stretch: 100,
@@ -218,6 +221,11 @@
     margin: auto 0 0;
     font-size: 1em;
     padding: 0.375em 0.75em;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255 255 255 / 50%);
+    }
   }
 
   .swiper-container {

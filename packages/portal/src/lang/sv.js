@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Du har inte kuraterat några samlingar än",
         "private": "Du har inte skapat något privat galleri ännu",
-        "public": "Du har inte skapat något offentligt galleri ännu"
+        "public": "Du har inte skapat något offentligt galleri ännu",
+        "published": "Du har inte publicerat några gallerier ännu"
       },
       "noLikedItems": "Du har inte gillat några objekt ännu"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mina likes & gallerier",
     "profileSettings": "Profilinställningar",
     "publicCollections": "Offentliga gallerier",
+    "publishedCollections": "Publicerade Gallerier",
     "settings": "Inställningar",
     "title": "Mitt konto"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Avbryt",
     "close": "stäng",
     "continue": "Fortsätt",
+    "depublish": "Avpublicera",
     "download": "Ladda ner",
     "edit": "Redigera",
     "feedback": "Feedback",
-    "goBack": "Gå tillbaka",
     "goHome": "Gå till hemsidan",
     "learnMore": "Läs mer",
     "like": "Gilla",
@@ -44,12 +46,16 @@ export default {
     "preview": "Förhandsvisning",
     "previous": "Föregående",
     "providedBy": "Tillhandahålls av {provider}",
+    "publish": "Publicera",
     "reject": "Avvisa",
+    "requestDepublication": "Begär avpublicering",
     "save": "Spara",
     "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
-    "skip": "Hoppa",
+    "skipSend": "Hoppa över och skicka",
+    "submitForPublication": "Skicka in för publicering",
+    "submittedForPublication": "Inlämnad för publicering",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Gallerier",
     "item": "Senaste objekt",
     "organisation": "Organisationer",
     "place": "Platser",
@@ -612,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "Vi kanske vill följa upp detta. Ange din e-postadress om du vill att vi ska kontakta dig.",
     "failed": "Begäran misslyckades. Var god försök igen.",
+    "faq": "Gå till vanliga frågor",
     "form": {
       "placeholders": {
         "email": "Ange din e-postadress",
@@ -703,6 +711,7 @@ export default {
       "about": "Om oss",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
+      "faq": "Vanliga frågor",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
@@ -762,7 +771,7 @@ export default {
     "handle": "Skjutreglage"
   },
   "items": {
-    "itemCount": "1 föremål {count} föremål",
+    "itemCount": "1 föremål | {count} föremål",
     "itemOf": "{max} av {count} föremål",
     "recent": "Senaste objekt",
     "recommended": "Rekommenderade objekt",
@@ -874,7 +883,7 @@ export default {
     "dismiss": "Stäng",
     "readMore": "Läs mer",
     "text": {
-      "searchFilters": "Du kan nu söka efter värden i de enskilda filtren; Kolla in det!"
+      "themes": "Utforska det europeiska kulturarvet genom teman, från arkeologi till första världskriget. Våra nya temasidor erbjuder en flerdimensionell bild av varje tema via relaterade ämnen, människor, berättelser och föremål."
     }
   },
   "newWindow": "öppnas i nytt fönster",
@@ -953,13 +962,17 @@ export default {
       "title": "Upptäck relaterade berättelser"
     },
     "collections": {
+      "name": "Relaterade samlingar",
       "title": "Upptäck relaterade samlingar"
     },
     "editorial": {
       "title": "Berättelser du kanske gillar"
+    },
+    "galleries": {
+      "name": "Relaterade gallerier",
+      "title": "Upptäck relaterade gallerier"
     }
   },
-  "relatedCollections": "Tillhörande kollektioner",
   "removeFilter": "Ta bort filter {filterLabel}",
   "reset": "Återställ",
   "resourceWikimedia": "Resurs från Wikimedia Commons",
@@ -1008,12 +1021,14 @@ export default {
     "form": {
       "description": "Beskrivning av galleri",
       "private": "Detta är ett privat galleri",
+      "privateWarning": "Denna åtgärd kommer att avpublicera galleriet.",
       "required": "Obligatoriska fält",
       "title": "Namn på galleri"
     },
     "labels": {
       "curatedBy": "Sammanställt av",
-      "private": "Privat galleri"
+      "private": "Privat galleri",
+      "published": "Publicerat galleri"
     },
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
@@ -1021,12 +1036,34 @@ export default {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 likes"
       },
-      "updated": "Objektet lades till i galleriet."
+      "updated": "Objektet lades till i galleriet.",
+      "visibilityChanged": "Varning: ange synlighet har redan ändrats och är för närvarande \" {visibility} \"."
     },
     "prompts": {
       "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
+    },
+    "publication": {
+      "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu/galleries.",
+      "failedSubmission": "Begäran misslyckades. Var god försök igen.",
+      "process": {
+        "description": "När du skickar in ett galleri för publicering kommer ett team av utgivare på Europeana att meddelas. De kommer först att granska den och kan göra ändringar innan den publiceras. Du kommer att få meddelanden via e-post när galleriet granskas. Om den inte publiceras kan det vara så att den inte överensstämmer med våra redaktionella riktlinjer.",
+        "title": "Hur processen fungerar"
+      },
+      "time": {
+        "description": "1-3 dagar.",
+        "title": "Hur lång tid det tar"
+      },
+      "title": "Skicka in galleri för publicering",
+      "toastButton": "Okej",
+      "toastMessage": "Detta galleri är nu inlämnat för publicering. Du kan kontrollera {galleries} för att se om den har publicerats."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) är ett webbaserat verktyg för att hantera innehåll av olika typer (inklusive 3D), dokumentera kulturarv genom digitala gemenskapsutrymmen och kurera digitala berättelser och upplevelser."
+      }
     }
   },
+  "shareWhere": "Var skulle du vilja dela detta?",
   "showLess": "Visa mindre",
   "showMore": "Visa mer",
   "sideFilters": {

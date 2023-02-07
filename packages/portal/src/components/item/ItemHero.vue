@@ -160,15 +160,13 @@
         return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
       },
       showPins() {
-        return this.userIsEditor && this.userIsSetsEditor && this.entities.length > 0;
+        return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
       },
-      userIsEditor() {
-        // TODO: check if this can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
-        return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
+      userIsEntitiesEditor() {
+        return this.$auth.userHasClientRole('entities', 'editor');
       },
       userIsSetsEditor() {
-        // TODO: check if theis can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
-        return this.$store.state.auth.user?.resource_access?.usersets?.roles.includes('editor') || false;
+        return this.$auth.userHasClientRole('usersets', 'editor');
       }
     },
     mounted() {
@@ -221,6 +219,10 @@
 
       .container {
         padding: 0;
+      }
+
+      > div {
+        display: inherit;
       }
 
       .btn {

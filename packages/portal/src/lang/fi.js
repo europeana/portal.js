@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Et ole vielä kuratoinut yhtään kokoelmaa",
         "private": "Et ole luonut vielä yksityisiä gallerioita",
-        "public": "Et ole luonut vielä julkisia gallerioita"
+        "public": "Et ole luonut vielä julkisia gallerioita",
+        "published": "Sinulla ei ole vielä julkaistu yhtään galleriaa"
       },
       "noLikedItems": "Et ole tykännyt vielä mistään kohteista"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Omat tykkäykset ja galleriat",
     "profileSettings": "Profiiliasetukset",
     "publicCollections": "Julkiset galleriat",
+    "publishedCollections": "Julkaistut Galleriat",
     "settings": "Asetukset",
     "title": "Oma tili"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Peruuttaa",
     "close": "sulje",
     "continue": "jatka",
+    "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
     "edit": "Muokkaa",
     "feedback": "Palaute",
-    "goBack": "Palaa takaisin",
     "goHome": "Siirry kotisivulle",
     "learnMore": "Opi lisää",
     "like": "Tykkää",
@@ -44,12 +46,16 @@ export default {
     "preview": "Esikatselu",
     "previous": "Edellinen",
     "providedBy": "Tarjoaa {provider}",
+    "publish": "Julkaista",
     "reject": "Hylätä",
+    "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
     "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
-    "skip": "Ohita",
+    "skipSend": "Ohita ja lähetä",
+    "submitForPublication": "Lähetä julkaistavaksi",
+    "submittedForPublication": "Lähetetty julkaistavaksi",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Nimi:"
   },
   "automatedCardGroup": {
+    "gallery": "Galleriat",
     "item": "Viimeisimmät kohdetta",
     "organisation": "Organisaatiot",
     "place": "Paikat",
@@ -612,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "Saatamme haluta seurata asiaa. Kirjoita sähköpostiosoitteesi, jos olet iloinen siitä, että voimme ottaa sinuun yhteyttä.",
     "failed": "Pyyntö epäonnistui. Yritä uudelleen.",
+    "faq": "Siirry usein kysyttyihin kysymyksiin",
     "form": {
       "placeholders": {
         "email": "Syötä sähköpostiosoitteesi",
@@ -703,6 +711,7 @@ export default {
       "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
+      "faq": "Usein kysytyt kysymykset",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
@@ -874,7 +883,7 @@ export default {
     "dismiss": "Sulje",
     "readMore": "Lue lisää",
     "text": {
-      "searchFilters": "Voit nyt etsiä arvoja yksittäisistä suodattimista; Tarkista se!"
+      "themes": "Tutustu eurooppalaiseen kulttuuriperintöön teemojen kautta arkeologiasta ensimmäiseen maailmansotaan. Uudet teemasivumme tarjoavat moniulotteisen näkymän jokaisesta teemasta toisiinsa liittyvien aiheiden, ihmisten, tarinoiden ja esineiden kautta."
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",
@@ -953,13 +962,17 @@ export default {
       "title": "Tutustu aiheeseen liittyviin tarinoihin"
     },
     "collections": {
+      "name": "Aiheeseen liittyvät kokoelmat",
       "title": "Tutustu aiheeseen liittyviin kokoelmiin"
     },
     "editorial": {
       "title": "Tarinoita, joista saatat pitää"
+    },
+    "galleries": {
+      "name": "Aiheeseen liittyvät galleriat",
+      "title": "Tutustu aiheeseen liittyviin gallerioihin"
     }
   },
-  "relatedCollections": "Aiheeseen liittyvät kokoelmat",
   "removeFilter": "Poista {filterLabel} -suodatin",
   "reset": "Nollaa",
   "resourceWikimedia": "Sisältö Wikimedia Commonsista",
@@ -1008,12 +1021,14 @@ export default {
     "form": {
       "description": "Gallerian kuvaus",
       "private": "Pidä tämä galleria yksityisenä",
+      "privateWarning": "Tämä toiminto poistaa gallerian julkaisun.",
       "required": "Pakollinen kenttä",
       "title": "Gallerian nimi"
     },
     "labels": {
       "curatedBy": "Kuratoija",
-      "private": "Yksityinen galleria"
+      "private": "Yksityinen galleria",
+      "published": "Julkaistu galleria"
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
@@ -1021,12 +1036,34 @@ export default {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 kohteeseen. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"
       },
-      "updated": "Kohde on lisätty galleriaan."
+      "updated": "Kohde on lisätty galleriaan.",
+      "visibilityChanged": "Varoitus: asetettu näkyvyys on jo muuttunut ja on tällä hetkellä \" {visibility} \"."
     },
     "prompts": {
       "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."
+    },
+    "publication": {
+      "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
+      "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
+      "process": {
+        "description": "Kun lähetät gallerian julkaistavaksi, Europeanan kustantajatiimi saa ilmoituksen. He tarkastavat sen ensin ja saattavat tehdä muutoksia ennen julkaisemista. Saat ilmoituksia sähköpostitse, kun galleriaa tarkistetaan. Jos galleriaa ei julkaista, se voi johtua siitä, että se ei ole toimituksellisten ohjeidemme mukainen.",
+        "title": "Kuinka prosessi toimii"
+      },
+      "time": {
+        "description": "1-3 päivää.",
+        "title": "Kuinka kauan se kestää"
+      },
+      "title": "Lähetä galleria julkaistavaksi",
+      "toastButton": "Okei",
+      "toastMessage": "Tämä galleria on nyt lähetetty julkaistavaksi. Voit tarkistaa {galleries} , onko se julkaistu."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) on verkkopohjainen työkalu erityyppisten (mukaan lukien 3D) sisällön hallintaan, kulttuuriperinnön dokumentointiin digitaalisten yhteisötilojen kautta sekä digitaalisten tarinoiden ja kokemusten kuratoimiseen."
+      }
     }
   },
+  "shareWhere": "Missä haluaisit jakaa tämän?",
   "showLess": "Näytä vähemmän",
   "showMore": "Näytä lisää",
   "sideFilters": {

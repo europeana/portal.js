@@ -85,7 +85,7 @@
             cols="12"
             class="col-lg-8"
           >
-            <RelatedCollections
+            <EntityBadges
               :entity-uris="relatedLink"
             />
           </b-col>
@@ -115,7 +115,7 @@
       LinkList: () => import('../../../components/generic/LinkList'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
-      RelatedCollections: () => import('@/components/related/RelatedCollections')
+      EntityBadges: () => import('@/components/entity/EntityBadges')
     },
     mixins: [
       exhibitionChapters,
@@ -226,17 +226,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  ::v-deep .related-collections {
-    &.container {
-      padding: 0;
-    }
-
-    .badge-pill {
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
-    }
-  }
-
-</style>

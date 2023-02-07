@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Vous n'avez pas encore organisé de collections",
         "private": "Vous n'avez pas encore créé de galeries privées",
-        "public": "Vous n'avez pas encore créé de galeries publiques"
+        "public": "Vous n'avez pas encore créé de galeries publiques",
+        "published": "Vous n'avez pas encore publié de galeries"
       },
       "noLikedItems": "Vous n'avez pas encore aimé d'articles"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mes mentions J'aime et mes galeries",
     "profileSettings": "Paramètres du profil",
     "publicCollections": "Galeries publiques",
+    "publishedCollections": "Galeries Publiées",
     "settings": "Paramètres",
     "title": "Mon compte"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Annuler",
     "close": "fermer",
     "continue": "continuer",
+    "depublish": "Dépublier",
     "download": "Télécharger",
     "edit": "Modifier",
     "feedback": "Commentaires",
-    "goBack": "Retour en arrière",
     "goHome": "Aller à la page d'accueil",
     "learnMore": "Apprendre encore plus",
     "like": "Mention J'aime",
@@ -44,12 +46,16 @@ export default {
     "preview": "Prévisualisation",
     "previous": "Précédent",
     "providedBy": "Fourni par {provider}",
+    "publish": "Publier",
     "reject": "Rejeter",
+    "requestDepublication": "Demander la dépublication",
     "save": "Sauvegarder",
     "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
-    "skip": "Passer",
+    "skipSend": "Ignorer et envoyer",
+    "submitForPublication": "Soumettre pour publication",
+    "submittedForPublication": "Soumis pour publication",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Titre :"
   },
   "automatedCardGroup": {
+    "gallery": "Galeries",
     "item": "Éléments récents",
     "organisation": "Organisations",
     "place": "Des endroits",
@@ -612,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "Nous souhaiterions peut-être faire un suivi. Entrez votre e-mail si vous souhaitez que nous vous contactions.",
     "failed": "La demande a échoué. Veuillez réessayer.",
+    "faq": "Aller à la foire aux questions",
     "form": {
       "placeholders": {
         "email": "Entrez votre adresse email",
@@ -703,6 +711,7 @@ export default {
       "about": "À propos d'Europeana",
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
+      "faq": "Foire aux questions",
       "forDevelopers": "Pour les développeurs",
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
@@ -874,7 +883,7 @@ export default {
     "dismiss": "Fermer",
     "readMore": "Lire la suite",
     "text": {
-      "searchFilters": "Vous pouvez maintenant rechercher des valeurs dans les filtres individuels; Vérifiez-le!"
+      "themes": "Explorez le patrimoine culturel européen à travers des thèmes, de l'archéologie à la Première Guerre mondiale. Nos nouvelles pages thématiques offrent une vue multidimensionnelle de chaque thème via des sujets, des personnes, des histoires et des objets connexes."
     }
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
@@ -953,13 +962,17 @@ export default {
       "title": "Découvrez des histoires connexes"
     },
     "collections": {
-      "title": "Découvrez les collections associées"
+      "name": "Collections connexes",
+      "title": "Découvrez les collections connexes"
     },
     "editorial": {
       "title": "Histoires que vous aimerez peut-être"
+    },
+    "galleries": {
+      "name": "Galeries connexes",
+      "title": "Découvrez des galeries connexes"
     }
   },
-  "relatedCollections": "Collections similaires",
   "removeFilter": "Supprimer le filtre {filterLabel}",
   "reset": "Réinitialiser",
   "resourceWikimedia": "Ressource de Wikimedia Commons",
@@ -1008,12 +1021,14 @@ export default {
     "form": {
       "description": "Description de la galerie",
       "private": "Garder cette galerie privée",
+      "privateWarning": "Cette action dépubliera la galerie.",
       "required": "Champ obligatoire",
       "title": "Nom de la galerie"
     },
     "labels": {
       "curatedBy": "Organisé par",
-      "private": "Galerie privée"
+      "private": "Galerie privée",
+      "published": "Galerie publiée"
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
@@ -1021,12 +1036,34 @@ export default {
         "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 articles pour le moment. Nous allons bientôt supprimer cette limite !",
         "title": "100 mentions J’aime"
       },
-      "updated": "L'élément a été ajouté à la galerie."
+      "updated": "L'élément a été ajouté à la galerie.",
+      "visibilityChanged": "Attention : la visibilité définie a déjà changé et est actuellement \" {visibility} \"."
     },
     "prompts": {
       "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les éléments que vous y avez ajoutés."
+    },
+    "publication": {
+      "description": "La publication d'une galerie la présentera sur Europeana.eu/galleries.",
+      "failedSubmission": "La demande a échoué. Veuillez réessayer.",
+      "process": {
+        "description": "Lorsque vous soumettez une galerie pour publication, une équipe d'éditeurs d'Europeana en est informée. Ils l'examineront d'abord, et pourront apporter des modifications avant qu'elle ne soit publiée. Vous recevrez des notifications par courrier électronique au fur et à mesure de l'examen de votre galerie. Si elle n'est pas publiée, c'est peut-être parce qu'elle n'est pas conforme à nos directives éditoriales.",
+        "title": "Comment fonctionne le processus"
+      },
+      "time": {
+        "description": "1-3 jours.",
+        "title": "Combien de temps cela prend-il"
+      },
+      "title": "Soumettre la galerie pour publication",
+      "toastButton": "D'accord",
+      "toastMessage": "Cette galerie est maintenant soumise pour publication. Vous pouvez vérifier {galleries} pour voir s'il a été publié."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) est un outil Web permettant de gérer des contenus de différents types (y compris 3D), de documenter le patrimoine culturel par le biais d'espaces communautaires numériques et de conserver des histoires et des expériences numériques."
+      }
     }
   },
+  "shareWhere": "Où aimeriez-vous partager cela?",
   "showLess": "Afficher moins",
   "showMore": "Afficher plus",
   "sideFilters": {

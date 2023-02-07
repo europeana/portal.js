@@ -12,14 +12,14 @@
         <b-button
           variant="outline-primary"
           data-qa="close button"
-          @click="goBack"
+          @click="handleClickCancelButton"
         >
-          {{ $t('actions.goBack') }}
+          {{ $t('actions.cancel') }}
         </b-button>
         <b-button
           variant="danger"
           type="submit"
-          data-qa="delete button"
+          data-qa="delete confirmation button"
         >
           {{ $t('set.actions.delete') }}
         </b-button>
@@ -69,13 +69,12 @@
         this.makeToast(this.toastMsg);
         this.hide();
         // redirect away from deleted set page
-        if (this.setId.endsWith(`/${this.$route?.params?.pathMatch}`)) {
-          const path = this.$path({ name: 'account' });
-          this.$goto(path);
+        if (this.$route.name.startsWith('galleries-all___')) {
+          this.$goto(this.$path({ name: 'account' }));
         }
       },
 
-      goBack() {
+      handleClickCancelButton() {
         this.hide();
         this.$emit('cancel');
       },

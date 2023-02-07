@@ -66,7 +66,7 @@
             cols="12"
             class="col-lg-8"
           >
-            <RelatedCollections
+            <EntityBadges
               :entity-uris="relatedLink"
             />
           </b-col>
@@ -89,7 +89,7 @@
       ShareButton,
       SocialShareModal,
       LinkList: () => import('../../../components/generic/LinkList'),
-      RelatedCollections: () => import('@/components/related/RelatedCollections')
+      EntityBadges: () => import('@/components/entity/EntityBadges')
     },
     mixins: [
       exhibitionChapters,
@@ -177,16 +177,5 @@
   ::v-deep img {
     display: block;
     margin: 1rem 0;
-  }
-
-  ::v-deep .related-collections {
-    &.container {
-      padding: 0;
-    }
-
-    .badge-pill {
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
-    }
   }
 </style>

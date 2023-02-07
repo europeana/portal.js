@@ -33,7 +33,6 @@
                 :total-results="totalResults"
                 :entity="$store.state.entity.entity"
                 :query="query"
-                :editorial-overrides="editorialOverrides"
                 :badge-variant="noResultsFound ? 'primary-light' : 'light'"
               />
               <ViewToggles
@@ -91,10 +90,19 @@
                         >
                           <slot />
                           <template
-                            #related
+                            v-if="page === 1"
+                            #related-galleries
                           >
                             <slot
-                              name="related"
+                              name="related-galleries"
+                            />
+                          </template>
+                          <template
+                            v-if="page === 1"
+                            #related-collections
+                          >
+                            <slot
+                              name="related-collections"
                             />
                           </template>
                         </ItemPreviewCardGroup>
@@ -125,6 +133,7 @@
           </section>
         </b-container>
         <slot
+          v-if="page === 1"
           name="after-results"
         />
       </b-col>
@@ -183,10 +192,6 @@
       showPins: {
         type: Boolean,
         default: false
-      },
-      editorialOverrides: {
-        type: Object,
-        default: null
       },
       overrideParams: {
         type: Object,
@@ -332,7 +337,7 @@
 
         const collectionFilter = filtersFromQf(apiParams.qf).collection;
         this.collection = collectionFilter ? collectionFilter[0] : null;
-        this.theme = themes.find(theme => theme.qf === this.collection);
+        this.theme = themes.find((theme) => theme.qf === this.collection);
 
         const apiOptions = {};
 

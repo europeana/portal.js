@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Még nem kuratáltál gyűjteményeket",
         "private": "Még nem hozott létre privát galériát",
-        "public": "Még nem hozott létre nyilvános galériát"
+        "public": "Még nem hozott létre nyilvános galériát",
+        "published": "Még nem publikáltál galériákat."
       },
       "noLikedItems": "Még nem kedvelt egy cikket sem"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Kedveléseim és gyűjteményeim",
     "profileSettings": "Profilbeállítások",
     "publicCollections": "Nyilvános Galériák",
+    "publishedCollections": "Megjelent Galériák",
     "settings": "Beállítások",
     "title": "Fiókom"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Mégse",
     "close": "bezárás",
     "continue": "folytatás",
+    "depublish": "Közzététel visszavonása",
     "download": "Letöltés",
     "edit": "Szerkesztés",
     "feedback": "Visszacsatolás",
-    "goBack": "Vissza",
     "goHome": "Ugrás a kezdőlapra",
     "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
@@ -44,12 +46,16 @@ export default {
     "preview": "Előnézet",
     "previous": "Előző",
     "providedBy": "Szolgáltató: {provider}",
+    "publish": "Közzététel",
     "reject": "Elutasít",
+    "requestDepublication": "Közzététel megszüntetésének kérése",
     "save": "Mentse",
     "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
-    "skip": "Skip",
+    "skipSend": "Kihagyás és küldés",
+    "submitForPublication": "Nyújtsa be közzétételre",
+    "submittedForPublication": "Közzétételre benyújtva",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -61,6 +67,7 @@ export default {
     "title": "Cím:"
   },
   "automatedCardGroup": {
+    "gallery": "Galériák",
     "item": "Legutóbbi cikk",
     "organisation": "Szervezetek",
     "place": "Helyek",
@@ -612,6 +619,7 @@ export default {
   "feedback": {
     "emailOptional": "Érdemes lehet utánajárnunk. Írja be az e-mail címét, ha örül, hogy kapcsolatba lépünk Önnel.",
     "failed": "A kérés nem sikerült. Kérlek próbáld újra.",
+    "faq": "Ugrás a gyakran ismételt kérdésekre",
     "form": {
       "placeholders": {
         "email": "Adja meg e-mail címét",
@@ -703,6 +711,7 @@ export default {
       "about": "Rólunk",
       "accessibility": "Hozzáférhetőség",
       "cookies": "Sütik",
+      "faq": "Gyakori kérdések",
       "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
@@ -874,7 +883,7 @@ export default {
     "dismiss": "Bezárás",
     "readMore": "Bővebben",
     "text": {
-      "searchFilters": "Most már kereshet értékeket az egyes szűrőkben; nézd meg!"
+      "themes": "Fedezze fel az európai kulturális örökséget témákon keresztül, a régészettől az első világháborúig. Új témaoldalaink többdimenziós képet nyújtanak az egyes témákról a kapcsolódó témákon, személyeken, történeteken és tárgyakon keresztül."
     }
   },
   "newWindow": "új ablakban nyílik meg",
@@ -953,13 +962,17 @@ export default {
       "title": "Fedezze fel a kapcsolódó történeteket"
     },
     "collections": {
+      "name": "Kapcsolódó gyűjtemények",
       "title": "Fedezze fel a kapcsolódó gyűjteményeket"
     },
     "editorial": {
       "title": "Történetek, amelyek tetszhetnek"
+    },
+    "galleries": {
+      "name": "Kapcsolódó galériák",
+      "title": "Fedezze fel a kapcsolódó galériákat"
     }
   },
-  "relatedCollections": "Kapcsolódó gyűjtemények",
   "removeFilter": "{filterLabel} szűrő eltávolítása",
   "reset": "Visszaállítás",
   "resourceWikimedia": "Forrás: Wikimedia Commons",
@@ -1008,12 +1021,14 @@ export default {
     "form": {
       "description": "Galéria leírása",
       "private": "Galéria privát módban tartása",
+      "privateWarning": "Ez a művelet megszünteti a galéria közzétételét.",
       "required": "Kötelező mező",
       "title": "Galéria neve"
     },
     "labels": {
       "curatedBy": "Kurátor:",
-      "private": "Privát galéria"
+      "private": "Privát galéria",
+      "published": "Megjelent galéria"
     },
     "notifications": {
       "deleted": "Galéria törölve.",
@@ -1021,12 +1036,34 @@ export default {
         "body": "Sajnáljuk, de jelenleg legfeljebb 100 cikket kedvelhet. Hamarosan eltávolítjuk ezt a korlátozást!",
         "title": "100 kedvelés"
       },
-      "updated": "Az elem felkerült a galériába."
+      "updated": "Az elem felkerült a galériába.",
+      "visibilityChanged": "Figyelmeztetés: a beállított láthatóság már megváltozott, és jelenleg \" {visibility} \"."
     },
     "prompts": {
       "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet."
+    },
+    "publication": {
+      "description": "A galéria közzététele az Europeana.eu/galleries oldalon lesz látható.",
+      "failedSubmission": "A kérés meghiúsult. Kérlek próbáld újra.",
+      "process": {
+        "description": "Amikor galériát küld be közzétételre, az Europeana kiadói csapata értesítést kap. Először átnézik, és a közzététel előtt módosításokat végezhetnek. A galéria felülvizsgálata után e-mailben értesítést fog kapni. Ha nem teszik közzé, akkor előfordulhat, hogy nem felel meg a szerkesztési irányelveinknek.",
+        "title": "Hogyan működik a folyamat"
+      },
+      "time": {
+        "description": "1-3 nap.",
+        "title": "Mennyi ideig tart"
+      },
+      "title": "Galéria beküldése közzétételre",
+      "toastButton": "Oké",
+      "toastMessage": "Ezt a galériát most beküldték közzétételre. Ellenőrizheti a {galleries} elemet, hogy megjelent-e."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "A WEAVExperience (WEAVEx) egy webalapú eszköz a különböző típusú (beleértve a 3D-s) tartalmak kezelésére, a kulturális örökség digitális közösségi tereken keresztüli dokumentálására, valamint digitális történetek és élmények gondozására."
+      }
     }
   },
+  "shareWhere": "Hol szeretnéd ezt megosztani?",
   "showLess": "Kevesebb megjelenítése",
   "showMore": "Továbbiak megjelenítése",
   "sideFilters": {
