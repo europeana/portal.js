@@ -98,7 +98,7 @@
           // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
           await this.$store.dispatch('set/fetchLikes');
 
-          if (this.likedItems.length >= 100) {
+          if ((this.likedItems?.length || 0) >= 100) {
             this.$bvModal.show(this.likeLimitModalId);
             return;
           }
