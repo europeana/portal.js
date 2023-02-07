@@ -75,6 +75,9 @@
           return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
+      },
+      likedItems() {
+        return this.$store.state.set.likedItems;
       }
     },
 
@@ -92,19 +95,26 @@
         }
 
         try {
-          await this.$store.dispatch('set/like', this.identifier);
-          this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.identifier);
-        } catch (e) {
-          // TODO: remove when 100 item like limit is removed
-          if (e.message === '100 likes') {
+          // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
+          await this.$store.dispatch('set/fetchLikes');
+
+          if ((this.likedItems?.length || 0) >= 100) {
             this.$bvModal.show(this.likeLimitModalId);
-          } else {
-            throw e;
+            return;
           }
+          await this.$apis.set.modifyItems('add', this.$store.state.set.likesId, this.identifier);
+
+          this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.identifier);
+        } finally {
+          await this.$store.dispatch('set/fetchLikes');
         }
       },
       async unlike() {
-        await this.$store.dispatch('set/unlike', this.identifier);
+        try {
+          await this.$apis.set.modifyItems('delete', this.$store.state.set.likesId, this.identifier);
+        } finally {
+          await this.$store.dispatch('set/fetchLikes');
+        }
       }
     }
   };
