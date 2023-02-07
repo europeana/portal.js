@@ -62,7 +62,7 @@
     async fetch() {
       if (this.overrides) {
         this.relatedGalleries = this.overrides;
-      } else if (this.query && this.query !== '') {
+      } else if (this.query && (this.query !== '') && !this.query.includes(':')) {
         const searchParams = {
           query: this.query,
           qf: 'visibility:published',
