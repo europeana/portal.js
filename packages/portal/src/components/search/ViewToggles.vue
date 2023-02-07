@@ -3,6 +3,7 @@
     <b-form-radio-group
       v-model="activeView"
       buttons
+      button-variant="light-flat"
     >
       <b-form-radio
         v-for="view in views"
@@ -110,13 +111,8 @@
         }
       }
 
-      input[type='radio']:focus-visible ~ .icon-view-toggle {
-        outline: auto;
-        /* stylelint-disable */
-        @media (-webkit-min-device-pixel-ratio: 0) {
-          outline: -webkit-focus-ring-color auto 5px;
-        }
-        /* stylelint-enable */
+      &.focus {
+        box-shadow: none !important;
       }
 
       &.active {
@@ -129,6 +125,15 @@
         .icon-view-toggle {
           color: $blue;
         }
+      }
+
+      input[type='radio']:focus-visible ~ .icon-view-toggle {
+        outline: auto;
+        /* stylelint-disable */
+        @media (-webkit-min-device-pixel-ratio: 0) {
+          outline: -webkit-focus-ring-color auto 5px;
+        }
+        /* stylelint-enable */
       }
     }
   }
