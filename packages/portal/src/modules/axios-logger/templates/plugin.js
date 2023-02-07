@@ -26,6 +26,12 @@ const requestUri = (requestConfig, moduleConfig) => {
     uri = `${requestConfig.baseURL}${uri}`;
   }
 
+  for (const rewriteOrigin of moduleConfig.rewriteOrigins) {
+    if (uri.startsWith(rewriteOrigin.from)) {
+      uri = uri.replace(rewriteOrigin.from, rewriteOrigin.to);
+    }
+  }
+
   return uri;
 };
 
