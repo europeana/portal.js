@@ -410,7 +410,16 @@
 </script>
 
 <style lang="scss" scoped>
-  .col-results {
-    min-width: 0;
+@import '@/assets/scss/variables';
+
+.col-results {
+  min-width: 0;
+
+  @media (min-width: $bp-xxxl) {
+    .col-results {
+      padding-right: 4rem;
+      padding-left: 4rem;
+    }
   }
+}
 </style>

@@ -1,0 +1,7 @@
+.container {
+  @at-root .xxl-page & {
+    @media (min-width: $bp-xxl) {
+      max-width: none;
+    }
+  }
+}

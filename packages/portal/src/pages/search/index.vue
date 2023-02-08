@@ -1,5 +1,8 @@
 <template>
-  <div data-qa="search page">
+  <div
+    data-qa="search page"
+    class="xxl-page"
+  >
     <SearchInterface
       id="search-interface"
       :override-params="searchOverrides"
@@ -117,8 +120,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
   h1 {
     font-size: 1.875rem;
     font-weight: 300;

@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="entity page"
-    class="entity-page"
+    class="entity-page xxl-page"
     :class="$fetchState.error && 'white-page'"
   >
     <ErrorMessage
@@ -314,8 +314,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
   .entity-page {
     &.top-header {
       margin-top: -1rem;
