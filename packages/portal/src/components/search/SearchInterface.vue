@@ -416,10 +416,8 @@
   min-width: 0;
 
   @media (min-width: $bp-xxxl) {
-    .col-results {
-      padding-right: 4rem;
-      padding-left: 4rem;
-    }
+    padding-right: 4rem;
+    padding-left: 4rem;
   }
 }
 </style>
