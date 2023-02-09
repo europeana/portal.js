@@ -12,8 +12,8 @@
   }
 
   img {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 28px;
+    height: 28px;
     object-fit: cover;
     flex-shrink: 0;
     position: absolute;
@@ -21,9 +21,9 @@
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        width: 2.625rem;
-        height: 2.625rem;
-        left: 0.375rem;
+        width: calc(1.5 * 28px);
+        height: calc(1.5 * 28px);
+        left: calc(0.25rem);
       }
     }
   }
@@ -34,13 +34,13 @@
   }
 
   .organisation-logo {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 28px;
+    height: 28px;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        width: 2.625rem;
-        height: 2.625rem;
+        width: calc(1.5 * 28px);
+        height: calc(1.5 * 28px);
       }
     }
   }
@@ -90,9 +90,9 @@
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
-      border-radius: 1.6875rem;
-      padding: 0.375rem 1.125rem;
-      height: 3.375rem;
+      border-radius: calc(1.5 * 1.125rem);
+      padding: calc(1.5 * 0.25rem) calc(1.5 * 0.75rem);
+      height: calc(1.5 * 2.25rem);
     }
   }
 
@@ -103,11 +103,11 @@
   }
 
   &.img-chip {
-    padding: 0.25rem 0.75rem 0.25rem calc(0.75rem + 1.75rem);
+    padding: 0.25rem 0.75rem 0.25rem calc(0.75rem + 28px);
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        padding: 0.375rem 1.125rem 0.375rem calc(1.125rem + 2.625rem);
+        padding: 0.375rem 1.125rem 0.375rem calc(1.125rem + calc(1.5 * 28px));
       }
     }
   }
@@ -118,7 +118,7 @@
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        left: 0.375rem;
+        left: calc(1.5 * 0.25rem);
       }
     }
   }
