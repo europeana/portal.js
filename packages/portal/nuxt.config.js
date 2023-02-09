@@ -15,9 +15,11 @@ import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
+import { BASE_URL as EUROPEANA_ANNOTATION_API_BASE_URL } from './src/plugins/europeana/annotation.js';
 import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './src/plugins/europeana/entity.js';
 import { BASE_URL as EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL } from './src/plugins/europeana/entity-management.js';
 import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './src/plugins/europeana/proxy.js';
+import { BASE_URL as EUROPEANA_RECOMMENDATION_API_BASE_URL } from './src/plugins/europeana/recommendation.js';
 import {
   BASE_URL as EUROPEANA_RECORD_API_BASE_URL,
   FULLTEXT_BASE_URL as EUROPEANA_RECORD_API_FULLTEXT_URL
@@ -32,7 +34,7 @@ const buildPublicPath = () => {
 const publicRuntimeConfigEuropeana = {
   apis: {
     annotation: {
-      url: process.env.EUROPEANA_ANNOTATION_API_URL,
+      url: process.env.EUROPEANA_ANNOTATION_API_URL || EUROPEANA_ANNOTATION_API_BASE_URL,
       key: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
     },
     entity: {
@@ -48,7 +50,7 @@ const publicRuntimeConfigEuropeana = {
       }
     },
     recommendation: {
-      url: process.env.EUROPEANA_RECOMMENDATION_API_URL
+      url: process.env.EUROPEANA_RECOMMENDATION_API_URL || EUROPEANA_RECOMMENDATION_API_BASE_URL
     },
     record: {
       fulltextUrl: process.env.EUROPEANA_RECORD_API_FULLTEXT_URL || EUROPEANA_RECORD_API_FULLTEXT_URL,
