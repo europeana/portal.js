@@ -72,7 +72,7 @@
     :draggable="draggableItems && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
-    deck
+    columns
     @end="endItemDrag"
   >
     <slot />
@@ -186,7 +186,7 @@
 
         switch (this.view) {
         case 'list':
-          cardGroupClass = 'card-group-list mx-0';
+          cardGroupClass = 'card-group-list';
           break;
         case 'explore':
           cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
