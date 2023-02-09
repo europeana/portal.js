@@ -1,3 +1,11 @@
+.card-body {
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      padding: 1.875rem;
+    }
+  }
+}
+
 .related-collections-card {
   background: $white;
   border: 0;
@@ -14,6 +22,13 @@
   .card-body {
     padding-right: 0.5rem;
     padding-bottom: 0.5rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        padding-right: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+    }
   }
 }
 
@@ -220,6 +235,12 @@
     min-height: auto;
     padding: 1rem;
 
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        padding: 1.875rem;
+      }
+    }
+
     .card-wrapper {
       flex-direction: row;
       justify-content: space-between;
@@ -229,17 +250,30 @@
       border-radius: 4px;
       display: block;
       flex: 0 0 auto;
-      height: 80px;
+      height: 5rem;
+      width: 5rem;
       min-height: initial;
       order: 2;
       overflow: hidden;
       position: relative;
-      width: 80px;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          height: 7.5rem;
+          width: 7.5rem;
+        }
+      }
 
       img {
-        height: 80px;
+        height: 5rem;
         margin: 0;
         position: absolute;
+
+        @at-root .xxl-page & {
+          @media (min-width: $bp-4k) {
+            height: 7.5rem;
+          }
+        }
       }
 
       &::after {
@@ -368,6 +402,12 @@
         max-height: none;
         min-height: 0;
         margin: 1.25rem 1.25rem 1.25rem 0;
+
+        @media (min-width: $bp-4k) {
+          flex: 0 0 15rem;
+          width: 15rem;
+          height: 15rem;
+        }
       }
 
       .card-wrapper {
@@ -380,6 +420,10 @@
           width: calc(100% - 12rem);
           display: flex;
           flex-direction: column;
+
+          @media (min-width: $bp-4k) {
+            width: calc(100% - 18rem);
+          }
         }
 
         .card-subtitle {
@@ -535,7 +579,6 @@
 
     @media (min-width: $bp-xxxl) {
       margin-left: $grid-gutter;
-      margin-right: $grid-gutter;
     }
   }
 

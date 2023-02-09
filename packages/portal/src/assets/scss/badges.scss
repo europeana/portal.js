@@ -5,13 +5,27 @@
   overflow: hidden;
   position: relative;
 
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
   img {
-    width: 28px;
-    height: 28px;
+    width: 1.75rem;
+    height: 1.75rem;
     object-fit: cover;
     flex-shrink: 0;
     position: absolute;
     left: 0.25rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        width: 2.625rem;
+        height: 2.625rem;
+        left: 0.375rem;
+      }
+    }
   }
 
   span {
@@ -20,17 +34,30 @@
   }
 
   .organisation-logo {
-    width: 28px;
-    height: 28px;
+    width: 1.75rem;
+    height: 1.75rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        width: 2.625rem;
+        height: 2.625rem;
+      }
+    }
   }
 
   .close {
-    @extend %icon-font, .icon-cancel-circle ;
+    @extend %icon-font, .icon-cancel-circle;
 
     color: $mediumgrey;
     margin-left: 0.5rem;
     font-size: 0 !important;
     opacity: 1;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin-left: 0.75rem;
+      }
+    }
 
     &:hover,
     &:hover:not(:disabled):not(.disabled) {
@@ -39,6 +66,12 @@
 
     &::before {
       font-size: 15px;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: 20px;
+        }
+      }
     }
   }
 }
@@ -55,6 +88,14 @@
   transition: $standard-transition;
   line-height: 1.5;
 
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      border-radius: 1.6875rem;
+      padding: 0.375rem 1.125rem;
+      height: 3.375rem;
+    }
+  }
+
   &[href] {
     &:hover {
       background-color: $darkblue;
@@ -62,12 +103,24 @@
   }
 
   &.img-chip {
-    padding: 0.25rem 0.75rem 0.25rem calc(0.75rem + 28px);
+    padding: 0.25rem 0.75rem 0.25rem calc(0.75rem + 1.75rem);
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        padding: 0.375rem 1.125rem 0.375rem calc(1.125rem + 2.625rem);
+      }
+    }
   }
 
   .organisation-logo {
     position: absolute;
     left: 0.25rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        left: 0.375rem;
+      }
+    }
   }
 
   .pill-close {
@@ -116,6 +169,7 @@
   color: $greyblack;
 
   &[href] {
+
     &:hover,
     &:focus {
       color: $greyblack;
@@ -138,6 +192,7 @@
   line-height: 1.25;
 
   &[href] {
+
     &:hover,
     &:focus {
       background-color: $bodygrey !important;
