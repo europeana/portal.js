@@ -10,7 +10,7 @@
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
-        :media-type="mediaType"
+        :media-type="edmTypeWithFallback"
         :offset="offset"
       />
       <component
@@ -36,7 +36,7 @@
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
-        :media-type="mediaType"
+        :media-type="edmTypeWithFallback"
         :offset="offset"
       />
       <component
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import { webResourceEDMType } from '@/plugins/media';
+  import WebResource from '@/plugins/europeana/web-resource';
 
   export default {
     name: 'MediaCardImage',
@@ -67,7 +67,7 @@
 
     props: {
       media: {
-        type: Object,
+        type: WebResource,
         default: null
       },
       lazy: {
@@ -116,8 +116,8 @@
         }
         return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
       },
-      mediaType() {
-        return webResourceEDMType(this.media) || this.edmType;
+      edmTypeWithFallback() {
+        return this.media.edmType || this.edmType;
       }
     },
 

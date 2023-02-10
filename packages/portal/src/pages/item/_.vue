@@ -39,7 +39,7 @@
         <ItemHero
           :all-media-uris="allMediaUris"
           :identifier="identifier"
-          :media="media"
+          :media="webResources"
           :edm-rights="edmRights"
           :edm-type="type"
           :attribution-fields="attributionFields"
@@ -136,6 +136,7 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import WebResource from '@/plugins/europeana/web-resource.js';
   import stringify from '@/mixins/stringify';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -192,6 +193,7 @@
         for (const key in response.record) {
           this[key] = response.record[key];
         }
+
         if (process.client) {
           this.trackCustomDimensions();
         }
@@ -210,12 +212,15 @@
     },
 
     computed: {
+      webResources() {
+        return this.media.map((webResource) => new WebResource(webResource, this.identifier));
+      },
       pageMeta() {
         return {
           title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
           description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
           ogType: 'article',
-          ogImage: this.media[0]?.thumbnails?.large
+          ogImage: this.webResources[0]?.thumbnails?.large
         };
       },
       keywords() {

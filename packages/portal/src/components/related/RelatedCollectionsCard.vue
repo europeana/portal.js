@@ -3,7 +3,7 @@
     v-if="relatedCollections.length > 0 || entityUris.length > 0"
   >
     <b-card
-      class="text-left related-collections-card"
+      class="related-collections-card mb-4"
     >
       <EntityBadges
         :related-collections="relatedCollections"
