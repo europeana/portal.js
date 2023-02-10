@@ -262,6 +262,12 @@
   text-decoration: none;
   transition: $standard-transition;
 
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
   &.button-icon-only {
     height: 1.5rem;
     width: 1.5rem;

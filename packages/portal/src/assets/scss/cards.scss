@@ -45,6 +45,13 @@
   line-height: $card-line-height;
   transition: box-shadow 0.25s;
 
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+      line-height: calc(1.5 * $card-line-height);
+    }
+  }
+
   &.card {
     margin-bottom: 1.5rem;
   }
@@ -91,6 +98,12 @@
     flex: 0;
     padding: 1rem;
     width: 100%;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        padding: 1.5rem;
+      }
+    }
   }
 
   .card-title {
@@ -422,6 +435,7 @@
           flex-direction: column;
 
           @media (min-width: $bp-4k) {
+            padding: calc(1.5 * 1.25rem);
             width: calc(100% - 18rem);
           }
         }
@@ -432,11 +446,24 @@
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
+
+          @at-root .xxl-page & {
+            @media (min-width: $bp-4k) {
+              font-size: $font-size-small-4k;
+              margin-bottom: calc(1.5 * 1.125rem);
+            }
+          }
         }
 
         .title-texts-wrapper {
           max-height: calc(4 * $card-line-height);
           overflow: hidden;
+
+          @at-root .xxl-page & {
+            @media (min-width: $bp-4k) {
+              max-height: calc(6 * $card-line-height);
+            }
+          }
         }
 
         .card-title {
@@ -444,6 +471,13 @@
           -webkit-line-clamp: 4;
           max-height: none;
           line-height: $card-line-height;
+
+          @at-root .xxl-page & {
+            @media (min-width: $bp-4k) {
+              margin-bottom: calc(1.5 * $card-line-height);
+              line-height: calc(1.5 * $card-line-height);
+            }
+          }
         }
 
         .card-text p {
