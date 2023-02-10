@@ -98,7 +98,6 @@
 }
 
 .custom-control {
-
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
       min-height: calc(1.5 * 1.5rem);

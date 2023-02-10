@@ -91,6 +91,12 @@
       margin-bottom: 10px;
     }
 
+    @media (min-width: $bp-4k) {
+      width: calc(100% / 3 - 15px);
+      margin-bottom: 15px;
+      margin-right: 0.75rem !important;
+    }
+
     &:hover {
       background: $white;
     }
@@ -163,6 +169,11 @@
 
       .icon-weavex {
         font-size: $font-size-small;
+
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-small-4k;
+        }
+
         &::before {
           content: 'W';
           font-family: $font-family-sans-serif;
@@ -173,7 +184,11 @@
     }
 
     [class^='icon'] {
-      font-size: 1rem;
+      font-size: $font-size-base;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+      }
     }
 
     span.text {
