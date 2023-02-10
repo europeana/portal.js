@@ -1,11 +1,7 @@
 <template>
   <b-container
     data-qa="search interface"
-    class="page-container side-filters-enabled"
-    :class="{
-      'white-page': noResultsFound,
-      'pt-5': noResultsFound
-    }"
+    class="white-page pt-5 page-container side-filters-enabled"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -33,7 +29,7 @@
                 :total-results="totalResults"
                 :entity="$store.state.entity.entity"
                 :query="query"
-                :badge-variant="noResultsFound ? 'primary-light' : 'light'"
+                badge-variant="primary-light"
               />
               <ViewToggles
                 v-model="view"
