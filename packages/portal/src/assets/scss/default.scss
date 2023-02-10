@@ -10,6 +10,13 @@ body {
   }
 }
 
+// TODO: When all pages gridless/4k set this directly on body
+.xxl-page {
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-base-4k;
+  }
+}
+
 main {
   @include min-page-height;
 }

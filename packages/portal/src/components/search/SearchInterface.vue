@@ -420,4 +420,10 @@
     padding-left: 4rem;
   }
 }
+
+.mb-3 {
+  @media (min-width: $bp-4k) {
+    margin-bottom: 2rem !important;
+  }
+}
 </style>

@@ -4,6 +4,12 @@
   font-weight: normal;
   height: 2.5rem;
 
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+    }
+  }
+
   &::placeholder {
     color: $grey;
   }

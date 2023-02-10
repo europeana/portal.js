@@ -161,4 +161,10 @@ header .col {
   font-weight: 600;
   color: $mediumgrey;
   line-height: initial;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-extrasmall-4k;
+    }
+  }
 }
