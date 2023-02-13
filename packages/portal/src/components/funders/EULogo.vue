@@ -50,6 +50,13 @@
       transform: translate(calc((95 / 16 * -1vw) - var(--right-spacing)), -50%); // adjust for responsive cutout
     }
   }
+
+  img {
+    @media (min-width: $bp-4k) {
+      width: 456px;
+      height: auto;
+    }
+  }
 </style>
 
 <docs lang="md">
