@@ -36,8 +36,6 @@
   import ContentCard from '../../components/generic/ContentCard';
   import pageMetaMixin from '@/mixins/pageMeta';
 
-  const PER_PAGE = 20;
-
   export default {
     name: 'ThemesIndexPage',
     components: {
@@ -45,6 +43,12 @@
       ContentCard
     },
     mixins: [pageMetaMixin],
+
+    data() {
+      return {
+        themes: []
+      };
+    },
 
     async fetch() {
       const variables = {
@@ -59,12 +63,6 @@
       } finally {
         this.$scrollTo && this.$scrollTo('#header');
       }
-    },
-
-    data() {
-      return {
-        themes: []
-      };
     },
 
     computed: {

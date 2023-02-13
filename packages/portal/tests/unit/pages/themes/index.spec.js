@@ -29,7 +29,6 @@ const themesPageContentfulResponse = {
   }
 };
 
-
 const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   localVue,
   data() {
@@ -72,9 +71,7 @@ describe('theme hub page', () => {
 
       expect(headMeta.title).toBe('themes.themes');
     });
-
   });
-
 
   describe('theme section', () => {
     it('exists for the themes', () => {
