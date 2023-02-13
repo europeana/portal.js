@@ -186,7 +186,6 @@
 
     .card-group {
       column-gap: 1rem;
-      justify-content: space-between;
 
       .list-card {
         box-shadow: none;
@@ -201,11 +200,12 @@
         }
 
         @media (min-width: $bp-wqhd) {
-          flex-basis: calc(24% - 1rem);
+          flex-basis: calc(25% - 1rem);
         }
 
         @media (min-width: $bp-4k) {
-          flex-basis: calc(22% - 1rem);
+          column-gap: 2rem;
+          flex-basis: calc(25% - 2rem);
         }
 
         &:hover {

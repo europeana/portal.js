@@ -72,7 +72,8 @@
     :draggable="draggableItems && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
-    columns
+    :columns="view === 'list'"
+    :deck="view !== 'list'"
     @end="endItemDrag"
   >
     <slot />
