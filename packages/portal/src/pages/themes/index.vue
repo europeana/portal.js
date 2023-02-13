@@ -70,7 +70,8 @@
     computed: {
       pageMeta() {
         return {
-          title: this.$tc('themes.themes', 2)
+          title: this.$tc('themes.themes', 2),
+          description: this.$t('themes.description')
         };
       }
     },
