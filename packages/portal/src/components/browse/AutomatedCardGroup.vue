@@ -20,6 +20,7 @@
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';
+  const FEATURED_THEMES = 'Featured themes';
   const FEATURED_TOPICS = 'Featured topics';
   const FEATURED_TIMES = 'Featured centuries';
   const RECENT_ITEMS = 'Recent items';
@@ -58,6 +59,10 @@
         data.key = `${this.$i18n.locale}/collections/places/featured`;
         data.cardType = 'AutomatedEntityCard';
         data.headline = this.$i18n.t('automatedCardGroup.place');
+      } else if (this.sectionType === FEATURED_THEMES) {
+        data.key = `${this.$i18n.locale}/collections/themes/featured`;
+        data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.topic');
       } else if (this.sectionType === FEATURED_TOPICS) {
         data.key = `${this.$i18n.locale}/collections/topics/featured`;
         data.cardType = 'AutomatedEntityCard';
