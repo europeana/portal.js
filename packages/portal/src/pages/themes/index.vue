@@ -55,14 +55,8 @@
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview'
       };
-
-      try {
-        const response = await this.$contentful.query('themeFoyerPage', variables);
-
-        this.themes = response.data.data.themePageCollection.items;
-      } finally {
-        this.$scrollTo && this.$scrollTo('#header');
-      }
+      const response = await this.$contentful.query('themeFoyerPage', variables);
+      this.themes = response.data.data.themePageCollection.items;
     },
 
     computed: {
