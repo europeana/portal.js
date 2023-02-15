@@ -1081,5 +1081,9 @@ export default {
   "storiesPage": {
     "title": "Ιστορίες"
   },
+  "themes": {
+    "description": "Περιήγηση ανά θέμα",
+    "themes": "Θέματα"
+  },
   "website": "Δικτυακός τόπος"
 };

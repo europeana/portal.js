@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Scéalta"
   },
+  "themes": {
+    "description": "Brabhsáil de réir téama",
+    "themes": "Téamaí"
+  },
   "website": "Suíomh Gréasáin"
 };

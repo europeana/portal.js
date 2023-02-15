@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Berättelser"
   },
+  "themes": {
+    "description": "Bläddra efter tema",
+    "themes": "Teman"
+  },
   "website": "Webbplats"
 };

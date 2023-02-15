@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Ġrajjiet"
   },
+  "themes": {
+    "description": "Ibbrawżja skont it-tema",
+    "themes": "Temi"
+  },
   "website": "Websajt"
 };

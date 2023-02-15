@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Lood"
   },
+  "themes": {
+    "description": "Sirvi teemade kaupa",
+    "themes": "Teemad"
+  },
   "website": "Veebisait"
 };

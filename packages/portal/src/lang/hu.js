@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Történetek"
   },
+  "themes": {
+    "description": "Böngésszen téma szerint",
+    "themes": "Témák"
+  },
   "website": "Weboldal"
 };

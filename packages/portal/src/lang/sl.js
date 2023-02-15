@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Zgodbe"
   },
+  "themes": {
+    "description": "Brskajte po temi",
+    "themes": "Teme"
+  },
   "website": "Spletno mesto"
 };
