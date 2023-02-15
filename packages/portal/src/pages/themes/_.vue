@@ -29,13 +29,11 @@
       />
       <div class="divider" />
       <client-only>
-        <transition
-          appear
-          name="fade"
+        <WaitYourTurn
+          :sections="sectionsToShow"
+          :ready="sectionsReadyToShow"
         >
-          <div
-            v-show="mayShowSection('relatedTopics')"
-          >
+          <template #relatedTopics>
             <EntityBadges
               v-if="relatedTopics"
               :title="relatedTopics.headline"
@@ -43,15 +41,8 @@
               class="ml-4 mb-5"
               @fetched="handleSectionFetched('relatedTopics')"
             />
-          </div>
-        </transition>
-        <transition
-          appear
-          name="fade"
-        >
-          <div
-            v-show="mayShowSection('relatedPersons')"
-          >
+          </template>
+          <template #relatedPersons>
             <EntityCardGroup
               v-if="relatedPersons"
               :title="relatedPersons.headline"
@@ -61,15 +52,8 @@
               card-group-class="gridless-browse-cards"
               @fetched="handleSectionFetched('relatedPersons')"
             />
-          </div>
-        </transition>
-        <transition
-          appear
-          name="fade"
-        >
-          <div
-            v-show="mayShowSection('relatedGalleries')"
-          >
+          </template>
+          <template #relatedGalleries>
             <SetCardGroup
               v-if="relatedGalleries"
               :title="relatedGalleries.headline"
@@ -78,15 +62,8 @@
               card-group-class="gridless-browse-cards"
               @fetched="handleSectionFetched('relatedGalleries')"
             />
-          </div>
-        </transition>
-        <transition
-          appear
-          name="fade"
-        >
-          <div
-            v-show="mayShowSection('callToAction')"
-          >
+          </template>
+          <template #callToAction>
             <CallToActionBanner
               v-if="callToAction"
               :name="callToAction.name"
@@ -95,15 +72,8 @@
               :illustration="callToAction.image"
               class="mb-5"
             />
-          </div>
-        </transition>
-        <transition
-          appear
-          name="fade"
-        >
-          <div
-            v-show="mayShowSection('relatedEditorial')"
-          >
+          </template>
+          <template #relatedEditorial>
             <RelatedEditorial
               :theme="identifier"
               :card-wrapper="false"
@@ -111,15 +81,8 @@
               class="mb-5 mb-sm-4"
               @fetched="handleSectionFetched('relatedEditorial')"
             />
-          </div>
-        </transition>
-        <transition
-          appear
-          name="fade"
-        >
-          <div
-            v-show="mayShowSection('dailySetOfCuratedItems')"
-          >
+          </template>
+          <template #dailySetOfCuratedItems>
             <section
               v-if="dailySetOfCuratedItems"
               class="mb-5"
@@ -137,8 +100,8 @@
                 {{ curatedItems.moreButton.text }}
               </SmartLink>
             </section>
-          </div>
-        </transition>
+          </template>
+        </WaitYourTurn>
       </client-only>
     </template>
   </div>
@@ -164,7 +127,8 @@
       SetCardGroup: () => import('@/components/set/SetCardGroup'),
       SmartLink: () => import('@/components/generic/SmartLink'),
       ErrorMessage: () => import('@/components/generic/ErrorMessage'),
-      LoadingSpinner
+      LoadingSpinner,
+      WaitYourTurn: () => import('@/components/generic/WaitYourTurn')
     },
 
     mixins: [pageMetaMixin],
@@ -177,8 +141,7 @@
         identifier: null,
         primaryImageOfPage: null,
         hasPartCollection: null,
-        sectionsFetched: [],
-        showAllSections: false
+        sectionsReadyToShow: ['callToAction', 'dailySetOfCuratedItems']
       };
     },
 
@@ -224,11 +187,6 @@
           this.dailySetOfCuratedItems ? 'dailySetOfCuratedItems' : null
         ].filter((section) => !!section);
       },
-      sectionsToFetch() {
-        return this.sectionsToShow.filter((section) => {
-          return ['relatedTopics', 'relatedPersons', 'relatedGalleries', 'relatedEditorial'].includes(section);
-        });
-      },
       pageMeta() {
         return {
           title: this.name,
@@ -269,26 +227,9 @@
       }
     },
 
-    mounted() {
-      setTimeout(() => this.showAllSections = true, 600);
-    },
-
     methods: {
-      // A section may only be shown when its content has been fetched, and so
-      // has the content of all earlier sections. This prevents e.g. the 3rd
-      // section being shown 1st if it's quicker to fetch, then the 1st and 2nd
-      // sections being shown causing the 3rd to jump down in the view.
-      mayShowSection(candidate) {
-        if (this.showAllSections) {
-          return true;
-        }
-        const index = this.sectionsToShow.findIndex((section) => section === candidate);
-        return this.sectionsToShow.slice(0, index + 1)
-          .filter((section) => this.sectionsToFetch.includes(section))
-          .every((section) => this.sectionsFetched.includes(section));
-      },
       handleSectionFetched(section) {
-        this.sectionsFetched.push(section);
+        this.sectionsReadyToShow.push(section);
       }
     }
   };
@@ -359,14 +300,5 @@
       border-bottom: 0.0625vw solid $bodygrey;
       margin-bottom: 1.75vw;
     }
-  }
-
-  .fade-enter-active {
-    transition: $standard-transition;
-    opacity: 0;
-  }
-
-  .fade-enter-to {
-    opacity: 1;
   }
 </style>

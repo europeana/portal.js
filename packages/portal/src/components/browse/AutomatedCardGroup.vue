@@ -83,20 +83,20 @@
     },
 
     fetch() {
+      let fetcher;
+
       if (process.server) {
-        return import('@/server-middleware/api/cache/index.js')
-          .then(module => {
-            return module.cached(this.key, this.$config.redis)
-              .then(entries => {
-                this.entries = entries;
-              });
-          });
+        fetcher = import('@/server-middleware/api/cache/index.js')
+          .then((module) => module.cached(this.key, this.$config.redis));
       } else {
-        return this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
-          .then(response => {
-            this.entries = response.data;
-          });
+        fetcher = this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
+          .then((response) => response.data);
       }
+
+      return fetcher.then((entries) => {
+        this.entries = entries;
+        this.$emit('fetched');
+      });
     },
 
     computed: {
