@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Příběhy"
   },
+  "themes": {
+    "description": "Procházet podle tématu",
+    "themes": "Témata"
+  },
   "website": "Webové stránky"
 };

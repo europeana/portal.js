@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Tarinoita"
   },
+  "themes": {
+    "description": "Selaa teemoittain",
+    "themes": "Teemat"
+  },
   "website": "Verkkosivusto"
 };

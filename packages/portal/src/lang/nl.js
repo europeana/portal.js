@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Verhalen"
   },
+  "themes": {
+    "description": "Blader op thema",
+    "themes": "Thema's"
+  },
   "website": "Website"
 };

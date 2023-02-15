@@ -1081,5 +1081,9 @@ export default {
   "storiesPage": {
     "title": "Istorioak"
   },
+  "themes": {
+    "description": "Arakatu gaiaren arabera",
+    "themes": "Gaiak"
+  },
   "website": "Webgunea"
 };
