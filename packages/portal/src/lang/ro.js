@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Povești"
   },
+  "themes": {
+    "description": "Răsfoiți după temă",
+    "themes": "Teme"
+  },
   "website": "Site-ul web"
 };

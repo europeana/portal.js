@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Historias"
   },
+  "themes": {
+    "description": "Navegar por tema",
+    "themes": "Temas"
+  },
   "website": "Sitio web"
 };

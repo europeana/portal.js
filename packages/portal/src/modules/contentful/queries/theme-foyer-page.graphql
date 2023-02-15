@@ -1,0 +1,20 @@
+query ThemeFoyerPage(
+  $locale: String!,
+  $preview: Boolean = false
+) {
+  themePageCollection(preview: $preview, locale: $locale, order: name_ASC) {
+    total
+    items {
+      identifier
+      name
+      description
+      primaryImageOfPage {
+        image {
+          url
+          description
+          contentType
+        }
+      }
+    }
+  }
+}

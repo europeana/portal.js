@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Priče"
   },
+  "themes": {
+    "description": "Pregledajte po temi",
+    "themes": "Teme"
+  },
   "website": "Web stranica"
 };

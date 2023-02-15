@@ -1104,5 +1104,9 @@ export default {
   "storiesPage": {
     "title": "Stories"
   },
+  "themes": {
+    "themes": "Themes",
+    "description": "Browse by theme"
+  },
   "website": "Website"
 };

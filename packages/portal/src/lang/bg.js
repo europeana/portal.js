@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Разкази"
   },
+  "themes": {
+    "description": "Преглед по тема",
+    "themes": "Теми"
+  },
   "website": "Уебсайт"
 };

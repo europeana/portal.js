@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Istorijos"
   },
+  "themes": {
+    "description": "Naršyti pagal temą",
+    "themes": "Temos"
+  },
   "website": "Interneto svetainė"
 };

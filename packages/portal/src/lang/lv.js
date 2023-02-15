@@ -1077,5 +1077,9 @@ export default {
   "storiesPage": {
     "title": "Stāsti"
   },
+  "themes": {
+    "description": "Pārlūkojiet pēc tēmas",
+    "themes": "Tēmas"
+  },
   "website": "Vietne"
 };
