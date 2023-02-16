@@ -33,13 +33,6 @@
         button-variant="secondary"
         class="half-col"
       />
-      <CallToActionBanner
-        v-if="callsToAction[0]"
-        :name="callsToAction[0].name"
-        :text="callsToAction[0].text"
-        :link="callsToAction[0].relatedLink"
-        :illustration="callsToAction[0].image"
-      />
       <RelatedCategoryTags
         v-if="($features.storiesPageAllTags || selectedTags.length > 0) && (displayTags.length > 0)"
         :tags="displayTags"
@@ -56,15 +49,32 @@
         class="card-deck-4-cols gridless-browse-cards"
         deck
       >
-        <ContentCard
+        <template
           v-for="(entry, index) in stories"
-          :key="index"
-          :title="entry.name"
-          :url="entryUrl(entry)"
-          :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
-          :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
-          :image-optimisation-options="entry.primaryImageOfPage ? entryImageOptions(entry.primaryImageOfPage.image) : {}"
-        />
+        >
+          <template
+            v-if="page === 1 && entry === ctaBanner"
+          >
+            <CallToActionBanner
+              v-if="callsToAction[0]"
+              :key="index"
+              :name="callsToAction[0].name"
+              :text="callsToAction[0].text"
+              :link="callsToAction[0].relatedLink"
+              :illustration="callsToAction[0].image"
+              class="cta-banner"
+            />
+          </template>
+          <ContentCard
+            v-else-if="entry !== ctaBanner"
+            :key="index"
+            :title="entry.name"
+            :url="entryUrl(entry)"
+            :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
+            :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
+            :image-optimisation-options="entry.primaryImageOfPage ? entryImageOptions(entry.primaryImageOfPage.image) : {}"
+          />
+        </template>
       </b-card-group>
       <PaginationNavInput
         :per-page="perPage"
@@ -110,7 +120,8 @@
         headline: null,
         description: null,
         socialMediaImage: null,
-        pageFetched: false
+        pageFetched: false,
+        ctaBanner: 'cta-banner'
       };
     },
 
@@ -119,6 +130,9 @@
         this.fetchPage(),
         this.fetchStories()
       ]);
+
+      this.stories.splice(12, 0, this.ctaBanner);
+
       this.$scrollTo && this.$scrollTo('#header');
     },
 
@@ -141,6 +155,13 @@
         } else {
           return this.tags;
         }
+      },
+      page() {
+        // This causes double jumps on pagination when using the > arrow, for some reason
+        // return this.userParams.page;
+
+        // This is a workaround
+        return Number(this.$route.query.page || 1);
       }
     },
 
@@ -252,20 +273,29 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/mixins';
+@import '@/assets/scss/variables';
+@import '@/assets/scss/mixins';
 
-  .page {
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    margin-top: -1rem;
+.page {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  margin-top: -1rem;
+}
+
+.context-label {
+  font-size: $font-size-small;
+
+  @media (min-width: $bp-xxxl) {
+    font-size: $responsive-font-size-small;
   }
+}
 
-  .context-label {
-    font-size: $font-size-small;
+.cta-banner {
+  flex-basis: 100%;
 
-    @media (min-width: $bp-xxxl) {
-      font-size: $responsive-font-size-small;
-    }
+  @media (min-width: $bp-small) {
+    margin-left: $grid-gutter;
+    margin-right: $grid-gutter;
   }
+}
 </style>
