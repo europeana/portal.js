@@ -5,21 +5,17 @@
     // Bootstrap's spacing utilities defines the margin and padding classes (m-1, px-5 etc.)
     // These variables and imports recompile the spacing utility to use spacers based on vw instead of the default rem.
     $custom-spacer: 1vw;
-    $spacers: (
-      0: 0,
+    $spacers: (0: 0,
       1: $custom-spacer * 0.25,
       2: $custom-spacer * 0.5,
       3: $custom-spacer * 1,
       4: $custom-spacer * 1.5,
-      5: $custom-spacer * 3
-    );
-    $grid-breakpoints: (
-      'xs': 0,
+      5: $custom-spacer * 3);
+    $grid-breakpoints: ('xs': 0,
       'sm': 576px,
       'md': 768px,
       'lg': 992px,
-      'xl': 1200px
-    );
+      'xl': 1200px);
     /* stylelint-disable no-invalid-position-at-import-rule */
     @import '~bootstrap/scss/mixins/breakpoints';
     @import '~bootstrap/scss/utilities/spacing';
@@ -32,7 +28,7 @@
     }
 
     h1 {
-      font-size: 2.125vw;
+      font-size: $responsive-font-size-largest;
     }
 
     h2 {
@@ -124,6 +120,7 @@
         .card-body {
           padding: 1em;
         }
+
         .card-title {
           font-size: $responsive-font-size-medium;
         }
@@ -153,7 +150,7 @@
     .btn-secondary {
       font-size: $responsive-font-size-small;
       border-radius: 0.25vw;
-    
+
       .icon-link {
         font-size: 0.5vw;
       }

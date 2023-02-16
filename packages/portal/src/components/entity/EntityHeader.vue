@@ -223,9 +223,15 @@
     h2 {
       font-family: $font-family-ubuntu;
       font-size: $font-size-medium;
-      margin-bottom: 0.375rem;
+      margin-bottom: 0.25rem;
       font-weight: 500;
       line-height: normal;
+
+      @media (min-width: $bp-small) {
+        font-size: $font-size-largest;
+        line-height: 1.5;
+        margin-bottom: 0;
+      }
     }
 
     .card-text {
