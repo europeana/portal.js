@@ -291,6 +291,10 @@ main#default {
   justify-content: center;
   align-items: center;
 
+  @media (min-width: $bp-xxxl) {
+    aspect-ratio: 4 / 3;
+  }
+
   [class^='icon-'],
   [class*=' icon-'] {
     font-size: 3.5rem;
