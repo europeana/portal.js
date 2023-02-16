@@ -25,9 +25,16 @@ h5 {
 }
 
 h1 {
-  font-size: 2.125rem;
-  font-weight: 600;
+  font-size: $font-size-medium;
+  font-weight: 500;
   line-height: normal;
+  font-family: $font-family-ubuntu;
+  margin-bottom: 0;
+
+  @media (min-width: $bp-small) {
+    font-size: 2.125rem;
+    line-height: 1.5;
+  }
 }
 
 h2 {
@@ -234,6 +241,7 @@ input[type='checkbox']:focus + label {
   @media (-webkit-min-device-pixel-ratio: 0) {
     outline: -webkit-focus-ring-color auto 5px;
   }
+
   /* stylelint-enable */
 }
 

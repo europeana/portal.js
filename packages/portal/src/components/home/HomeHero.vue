@@ -130,7 +130,7 @@
 
     h1 {
       font-size: 2.125rem;
-      font-weight: 900;
+      font-weight: 700;
       margin-bottom: 1em;
 
       .digital-highlight {

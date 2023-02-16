@@ -320,13 +320,6 @@
         }
       }
 
-      h1 {
-        @media (max-width: ($bp-small - 1px)) {
-          font-size: $font-size-medium;
-          margin-bottom: 0.375rem;
-        }
-      }
-
       .description {
         color: $mediumgrey;
 

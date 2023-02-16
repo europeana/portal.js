@@ -221,9 +221,10 @@
     box-shadow: $boxshadow-small;
 
     h2 {
+      font-family: $font-family-ubuntu;
       font-size: $font-size-medium;
       margin-bottom: 0.375rem;
-      font-weight: 600;
+      font-weight: 500;
       line-height: normal;
     }
 
