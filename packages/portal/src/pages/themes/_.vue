@@ -26,8 +26,8 @@
         :description="description"
         :media-url="shareMediaUrl"
         button-variant="secondary"
+        class="half-col"
       />
-      <div class="divider" />
       <client-only>
         <transition
           appear
@@ -303,32 +303,6 @@
     padding-top: 1rem;
     margin-top: -1rem;
 
-    ::v-deep header .col {
-      margin-bottom: 2.25rem;
-
-      @media (min-width: $bp-small) {
-        margin-bottom: 3rem;
-      }
-
-      @media (min-width: $bp-xxxl) {
-        margin-bottom: 3vw;
-      }
-      @media (min-width: $bp-large) {
-        &.col-lg-9 {
-          flex: 0 0 50%;
-          max-width: 50%;
-        }
-      }
-
-      .description {
-        color: $mediumgrey;
-
-        @media (max-width: ($bp-small - 1px)) {
-          font-size: $font-size-small;
-        }
-      }
-    }
-
     ::v-deep h2:not(.related-heading) {
       color: $mediumgrey;
       font-weight: 600;
@@ -341,16 +315,6 @@
       @media (min-width: $bp-xxxl) {
         font-size: $responsive-font-size-large;
       }
-    }
-  }
-
-  .divider {
-    border-bottom: 1px solid $bodygrey;
-    margin-bottom: 1.75rem;
-
-    @media (min-width: $bp-xxxl) {
-      border-bottom: 0.0625vw solid $bodygrey;
-      margin-bottom: 1.75vw;
     }
   }
 

@@ -31,6 +31,7 @@
         :description="headline"
         :media-url="pageMeta.ogImage"
         button-variant="secondary"
+        class="half-col"
       />
       <CallToActionBanner
         v-if="callsToAction[0]"
@@ -258,10 +259,6 @@
     padding-bottom: 1rem;
     padding-top: 1rem;
     margin-top: -1rem;
-
-    ::v-deep header .col {
-      margin-bottom: 1em;
-    }
   }
 
   .context-label {
