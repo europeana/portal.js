@@ -71,6 +71,7 @@ export default {
     "gallery": "Galleries",
     "organisation": "Organisations",
     "place": "Places",
+    "theme": "Themes",
     "time": "Centuries",
     "topic": "Topics"
   },

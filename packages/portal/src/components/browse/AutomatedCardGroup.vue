@@ -60,9 +60,9 @@
         data.cardType = 'AutomatedEntityCard';
         data.headline = this.$i18n.t('automatedCardGroup.place');
       } else if (this.sectionType === FEATURED_THEMES) {
-        data.key = `${this.$i18n.locale}/collections/themes/featured`;
-        data.cardType = 'AutomatedEntityCard';
-        data.headline = this.$i18n.t('automatedCardGroup.topic');
+        data.key = `${this.$i18n.locale}/themes/featured`;
+        data.cardType = 'AutomatedThemeCard';
+        data.headline = this.$i18n.t('automatedCardGroup.themes');
       } else if (this.sectionType === FEATURED_TOPICS) {
         data.key = `${this.$i18n.locale}/collections/topics/featured`;
         data.cardType = 'AutomatedEntityCard';
