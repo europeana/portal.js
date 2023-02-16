@@ -8,6 +8,8 @@
 const APP_SITE_NAME = 'Europeana';
 const APP_PKG_NAME = '@europeana/portal';
 
+import decamelize from 'decamelize';
+
 import versions from './pkg-versions.js';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
@@ -15,82 +17,58 @@ import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
-import { BASE_URL as EUROPEANA_ANNOTATION_API_BASE_URL } from './src/plugins/europeana/annotation.js';
-import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './src/plugins/europeana/entity.js';
-import { BASE_URL as EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL } from './src/plugins/europeana/entity-management.js';
-import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './src/plugins/europeana/proxy.js';
-import { BASE_URL as EUROPEANA_RECOMMENDATION_API_BASE_URL } from './src/plugins/europeana/recommendation.js';
-import {
-  BASE_URL as EUROPEANA_RECORD_API_BASE_URL,
-  FULLTEXT_BASE_URL as EUROPEANA_RECORD_API_FULLTEXT_URL
-} from './src/plugins/europeana/record.js';
-import { BASE_URL as EUROPEANA_SET_API_BASE_URL } from './src/plugins/europeana/set.js';
-import { PRESENTATION_URL as EUROPEANA_IIIF_PRESENTATION_URL } from './src/plugins/europeana/iiif.js';
+// import { BASE_URL as EUROPEANA_ANNOTATION_API_BASE_URL } from './src/plugins/europeana/annotation.js';
+// import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './src/plugins/europeana/entity.js';
+// import { BASE_URL as EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL } from './src/plugins/europeana/entity-management.js';
+// import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './src/plugins/europeana/proxy.js';
+// import { BASE_URL as EUROPEANA_RECOMMENDATION_API_BASE_URL } from './src/plugins/europeana/recommendation.js';
+// import {
+//   BASE_URL as EUROPEANA_RECORD_API_BASE_URL,
+//   FULLTEXT_BASE_URL as EUROPEANA_RECORD_API_FULLTEXT_URL
+// } from './src/plugins/europeana/record.js';
+// import { BASE_URL as EUROPEANA_SET_API_BASE_URL } from './src/plugins/europeana/set.js';
+// import { PRESENTATION_URL as EUROPEANA_IIIF_PRESENTATION_URL } from './src/plugins/europeana/iiif.js';
+
+import { baseURLs as europeanaApiBaseURLs } from './src/plugins/europeana/apis.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
 };
 
-const publicRuntimeConfigEuropeana = {
-  apis: {
-    annotation: {
-      url: process.env.EUROPEANA_ANNOTATION_API_URL || EUROPEANA_ANNOTATION_API_BASE_URL,
-      key: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
-    },
-    entity: {
-      url: process.env.EUROPEANA_ENTITY_API_URL || EUROPEANA_ENTITY_API_BASE_URL,
-      key: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
-    },
-    entityManagement: {
-      url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL || process.env.EUROPEANA_ENTITY_API_URL || EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL
-    },
-    iiifPresentation: {
-      media: {
-        url: process.env.EUROPEANA_MEDIA_IIIF_PRESENTATION_API_URL || EUROPEANA_IIIF_PRESENTATION_URL
-      }
-    },
-    recommendation: {
-      url: process.env.EUROPEANA_RECOMMENDATION_API_URL || EUROPEANA_RECOMMENDATION_API_BASE_URL
-    },
-    record: {
-      fulltextUrl: process.env.EUROPEANA_RECORD_API_FULLTEXT_URL || EUROPEANA_RECORD_API_FULLTEXT_URL,
-      url: process.env.EUROPEANA_RECORD_API_URL || EUROPEANA_RECORD_API_BASE_URL,
-      key: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
-    },
-    thumbnail: {
-      url: process.env.EUROPEANA_THUMBNAIL_API_URL
-    },
-    set: {
-      url: process.env.EUROPEANA_SET_API_URL || EUROPEANA_SET_API_BASE_URL,
-      key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
-    }
-  },
-  proxy: {
-    media: {
-      url: process.env.EUROPEANA_MEDIA_PROXY_URL || EUROPEANA_MEDIA_PROXY_URL
-    }
-  }
-};
+const europeanaApis = [
+  'annotation',
+  'entity',
+  'entityManagement',
+  'iiifPresentation',
+  'fulltext',
+  'mediaProxy',
+  'recommendation',
+  'record',
+  'thumbnail',
+  'set'
+];
 
-const privateRuntimeConfigEuropeana = {
-  apis: {
-    annotation: {
-      url: process.env.EUROPEANA_ANNOTATION_API_URL_PRIVATE
-    },
-    entity: {
-      url: process.env.EUROPEANA_ENTITY_API_URL_PRIVATE
-    },
-    recommendation: {
-      url: process.env.EUROPEANA_RECOMMENDATION_API_URL_PRIVATE
-    },
-    record: {
-      fulltextUrl: process.env.EUROPEANA_RECORD_API_FULLTEXT_URL_PRIVATE,
-      url: process.env.EUROPEANA_RECORD_API_URL_PRIVATE
-    },
-    set: {
-      url: process.env.EUROPEANA_SET_API_URL_PRIVATE
+const europeanaRuntimeConfig = ({ private = false } = {}) {
+  apis: Object.keys(europeanaApiBaseURLs).reduce((memo, api) => {
+    const apiConfig = {};
+    if (process.env.EUROPEANA_API_KEY) {
+      apiConfig.key = process.env.EUROPEANA_API_KEY;
+    };
+
+    for (const setting of ['key', 'url']) {
+      let envKey = `EUROPEANA_${decamelize(api).toUpperCase()}_${setting.toUpperCase()}`;
+      if (private) {
+        envKey = `${envKey}_PRIVATE`;
+      }
+      if (process.env[envKey]) {
+        apiConfig[setting] = process.env[envKey];
+      }
     }
-  }
+
+    memo[api] = apiConfig;
+
+    return memo;
+  }, {});
 };
 
 export default {
@@ -178,7 +156,7 @@ export default {
         ]
       }
     },
-    europeana: publicRuntimeConfigEuropeana,
+    europeana: europeanaRuntimeConfig(),
     features: features(),
     hotjar: {
       id: process.env.HOTJAR_ID,
@@ -218,7 +196,7 @@ export default {
     contentful: {
       graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
     },
-    europeana: privateRuntimeConfigEuropeana,
+    europeana: europeanaRuntimeConfig({ private: true }),
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
       username: process.env.JIRA_API_USERNAME,
