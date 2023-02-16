@@ -28,6 +28,9 @@
     >
       <ContentHeader
         :title="pageMeta.title"
+        :description="headline"
+        :media-url="pageMeta.ogImage"
+        button-variant="secondary"
       />
       <CallToActionBanner
         v-if="callsToAction[0]"
@@ -103,6 +106,9 @@
         tags: [],
         total: 0,
         sections: [],
+        headline: null,
+        description: null,
+        socialMediaImage: null,
         pageFetched: false
       };
     },
@@ -116,11 +122,13 @@
     },
 
     computed: {
-      // TODO: add description, social media image, etc
       pageMeta() {
         return {
           title: this.$t('storiesPage.title'),
-          ogType: 'article'
+          description: this.description,
+          ogType: 'article',
+          ogImage: this.socialMediaImage?.url,
+          ogImageAlt: this.socialMediaImage?.description
         };
       },
       callsToAction() {
@@ -157,6 +165,9 @@
         const pageResponse = await this.$contentful.query('storiesPage', pageVariables);
         const storiesPage = pageResponse.data.data.browsePageCollection.items[0];
         this.sections = storiesPage?.hasPartCollection?.items || [];
+        this.headline = storiesPage?.headline;
+        this.description = storiesPage?.description;
+        this.socialMediaImage = storiesPage?.image;
         this.pageFetched = true;
       },
 
