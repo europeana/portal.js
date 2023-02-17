@@ -1,7 +1,7 @@
 <template>
   <b-container
     fluid
-    class="border-bottom align-items-center"
+    class="notification-banner border-bottom align-items-center"
     data-qa="notification banner"
     :class="{'d-none': hide, 'd-flex': !hide }"
   >

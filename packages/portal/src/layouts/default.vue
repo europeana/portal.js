@@ -235,3 +235,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep .notification-banner.d-flex ~ .home {
+    margin-top: -9.2rem;
+  }
+</style>
