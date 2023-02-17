@@ -205,7 +205,8 @@ describe('pages/stories/index', () => {
         const wrapper = factory({ data: { perPage: 2 } });
         const expected = [
           storiesBySysIdContentfulResponse.data.data.exhibitionPageCollection.items[0],
-          storiesBySysIdContentfulResponse.data.data.blogPostingCollection.items[0]
+          storiesBySysIdContentfulResponse.data.data.blogPostingCollection.items[0],
+          'cta-banner'
         ];
 
         await wrapper.vm.fetch();
@@ -252,7 +253,7 @@ describe('pages/stories/index', () => {
           wrapper.vm.$route.query.tags = 'cooking';
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.stories.length).toBe(2);
+          expect(wrapper.vm.stories.length).toBe(3);
         });
       });
 
