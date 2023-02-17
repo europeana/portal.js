@@ -13,6 +13,10 @@ const storiesPageContentfulResponse = {
       browsePageCollection: {
         items: [
           {
+            image: {
+              url: 'https://www.europeana.eu/example.jpg',
+              description: 'image description'
+            },
             hasPartCollection: {
               items: [
                 { '__typename': 'PrimaryCallToAction', name: 'PrimaryCTA', relatedLink: {}, text: '' }
