@@ -81,8 +81,7 @@ export function apiError(error, context) {
   if (context?.$apm?.captureError) {
     const custom = {
       'response_data': error.response?.data,
-      'response_headers': error.response?.headers,
-      'error_request': error.request
+      'response_headers': error.response?.headers
     };
     context?.$apm.captureError(error, { custom });
   }
