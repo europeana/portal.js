@@ -20,14 +20,20 @@
     >
       <p>{{ $t('set.notifications.likeLimit.body') }}</p>
     </b-modal>
+    <SetErrorModal />
   </div>
 </template>
 
 <script>
   import keycloak from '@/mixins/keycloak';
+  import SetErrorModal from '@/components/set/SetErrorModal';
 
   export default {
     name: 'ItemLikeButton',
+
+    components: {
+      SetErrorModal
+    },
 
     mixins: [
       keycloak
@@ -81,7 +87,13 @@
     methods: {
       async toggleLiked() {
         if (this.$auth.loggedIn) {
-          await (this.liked ? this.unlike() : this.like());
+          try {
+            await (this.liked ? this.unlike() : this.like());
+          } catch (e) {
+            if (e.statusCode === 423) {
+              this.$bvModal.show('set-error-modal');
+            }
+          }
         } else {
           this.keycloakLogin();
         }

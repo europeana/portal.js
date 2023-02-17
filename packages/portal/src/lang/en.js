@@ -235,6 +235,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Please adjust the search term or reset the filters to try again.",
       "title": "We can't seem to find what you are looking for."
+    },
+    "setMaintenance": {
+      "title": "error",
+      "description": "example text"
     }
   },
   "exhibitions": {
