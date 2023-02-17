@@ -22,6 +22,13 @@
       id="default"
       role="main"
     >
+      <client-only
+        v-if="!!notificationBanner"
+      >
+        <NotificationBanner
+          :notification-text="$t(`notificationBanner.text.${notificationBanner}`)"
+        />
+      </client-only>
       <b-breadcrumb
         v-if="breadcrumbs"
         :items="breadcrumbs"
@@ -78,7 +85,8 @@
       PageCookieConsent: () => import('../components/PageCookieConsent'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification')
+      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification'),
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
     mixins: [
@@ -94,7 +102,8 @@
         cookieConsentRequired: false,
         toastBottomOffset: '20px',
         featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
-        featureNotificationExpiration: this.$config.app.featureNotificationExpiration
+        featureNotificationExpiration: this.$config.app.featureNotificationExpiration,
+        notificationBanner: this.$config?.app?.notificationBanner
       };
     },
 

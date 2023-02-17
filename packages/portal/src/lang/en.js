@@ -916,6 +916,11 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Due to maintenance, the login functionality, including likes and galleries, will be unavailable on the website on Thursday, 23 February, from 7-9 am CET."
+    }
+  },
   "of": "Of",
   "organisation": {
     "city": "City",
