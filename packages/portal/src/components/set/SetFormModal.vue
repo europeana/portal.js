@@ -91,7 +91,11 @@
       :set-id="setId"
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
-      @cancel="cancelDelete"
+      @cancel="show"
+    />
+    <SetErrorModal
+      modalId="set-error-modal-edit"
+      @cancel="show"
     />
   </div>
 </template>
@@ -102,12 +106,14 @@
     EUROPEANA_SET_VISIBILITY_PUBLIC,
     EUROPEANA_SET_VISIBILITY_PUBLISHED
   } from '@/plugins/europeana/set';
+  import SetErrorModal from '@/components/set/SetErrorModal';
 
   export default {
     name: 'SetFormModal',
 
     components: {
-      DeleteSetModal: () => import('./DeleteSetModal')
+      DeleteSetModal: () => import('./DeleteSetModal'),
+      SetErrorModal
     },
 
     props: {
@@ -235,7 +241,7 @@
         this.isPrivate = this.visibility === EUROPEANA_SET_VISIBILITY_PRIVATE;
       },
 
-      // TODO: error handling
+      // TODO: error handling other statuses
       submitForm() {
         if (this.submissionPending) {
           return Promise.resolve();
@@ -250,6 +256,14 @@
             this.hide(this.isNew ? 'create' : 'update');
           }).then(() => {
             this.submissionPending = false;
+          }).catch((error) => {
+            if (error.statusCode === 423) {
+              this.$bvModal.hide(this.modalId);
+              this.$bvModal.show('set-error-modal-edit');
+              this.submissionPending = false;
+            } else {
+              throw error;
+            }
           });
       },
 
@@ -265,10 +279,6 @@
       clickDelete() {
         this.$bvModal.hide(this.modalId);
         this.$bvModal.show(this.deleteSetModalId);
-      },
-
-      cancelDelete() {
-        this.show();
       }
     }
   };

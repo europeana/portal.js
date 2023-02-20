@@ -236,9 +236,9 @@ export default {
       "description": "Please adjust the search term or reset the filters to try again.",
       "title": "We can't seem to find what you are looking for."
     },
-    "setMaintenance": {
-      "title": "error",
-      "description": "example text"
+    "setLocked": {
+      "description": "Please try again later. No changes have been persisted.",
+      "title": "Update failed, editing is temporarily disabled."
     }
   },
   "exhibitions": {
