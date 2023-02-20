@@ -918,7 +918,7 @@ export default {
   "noResults": "No results",
   "notificationBanner": {
     "text": {
-      "setsKeycloakMaintenance": "Due to maintenance, the login functionality, including likes and galleries, will be unavailable on the website on Thursday, 23 February, from 7-9 am CET."
+      "setsKeycloakMaintenance": "Due to scheduled maintenance, account, login, likes and galleries functionality, will be unavailable or limited on Thursday, 23 February, from 7:00-9:00 am CET."
     }
   },
   "of": "Of",
