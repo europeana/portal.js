@@ -354,6 +354,7 @@ export default {
     '~/modules/axios-logger',
     '~/modules/http',
     '~/modules/query-sanitiser',
+    '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
 
@@ -362,7 +363,6 @@ export default {
   */
   modules: [
     '~/modules/elastic-apm',
-    '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['@nuxtjs/i18n', {
@@ -421,6 +421,10 @@ export default {
     },
     defaultStrategy: 'keycloak',
     plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
+  },
+
+  axios: {
+    proxyHeaders: false
   },
 
   router: {
