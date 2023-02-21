@@ -889,6 +889,11 @@ export default {
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Aufgrund geplanter Wartungsarbeiten sind Konto-, Anmelde-, Likes- und Galerie Funktionen am Donnerstag, den 23. Februar, von 7:00 bis 9:00 Uhr MEZ nicht verfügbar oder eingeschränkt."
+    }
+  },
   "of": "Von",
   "organisation": {
     "city": "Stadt",
