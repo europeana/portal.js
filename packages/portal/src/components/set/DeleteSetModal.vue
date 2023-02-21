@@ -6,6 +6,7 @@
       :static="modalStatic"
       hide-header-close
       hide-footer
+      @hide="handleHide"
     >
       <p>{{ $t('set.prompts.delete') }}</p>
       <b-form @submit.stop.prevent="submitForm">
@@ -13,7 +14,7 @@
           <b-button
             variant="outline-primary"
             data-qa="close button"
-            @click="handleClickCancelButton"
+            @click="hide"
           >
             {{ $t('actions.cancel') }}
           </b-button>
@@ -29,7 +30,7 @@
     </b-modal>
     <SetErrorModal
       modal-id="set-error-modal-delete"
-      @cancel="show"
+      @accept="acceptError"
     />
   </div>
 </template>
@@ -68,7 +69,8 @@
 
     data() {
       return {
-        toastMsg: this.$t('set.notifications.deleted')
+        toastMsg: this.$t('set.notifications.deleted'),
+        hasError: false
       };
     },
 
@@ -86,17 +88,13 @@
           }
         } catch (error) {
           if (error.statusCode === 423) {
+            this.hasError = true;
             this.$bvModal.hide(this.modalId);
             this.$bvModal.show('set-error-modal-delete');
           } else {
             throw error;
           }
         }
-      },
-
-      handleClickCancelButton() {
-        this.hide();
-        this.$emit('cancel');
       },
 
       hide() {
@@ -106,6 +104,17 @@
       show() {
         this.$bvModal.show(this.modalId);
       },
+
+      handleHide() {
+        if (!this.hasError) {
+          this.$emit('cancel');
+        }
+      },
+
+      acceptError() {
+        this.hasError = false;
+        this.show();
+      }
     }
   };
 </script>

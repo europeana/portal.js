@@ -5,13 +5,14 @@
     :static="modalStatic"
     hide-header-close
     hide-footer
+    @hide="$emit('accept')"
   >
     <p>{{ $t("errorMessage.setLocked.description") }}</p>
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
         data-qa="close button"
-        @click="handleClickCancelButton"
+        @click="hide"
       >
         {{ $t('actions.close') }}
       </b-button>
@@ -36,11 +37,6 @@
     },
 
     methods: {
-      handleClickCancelButton() {
-        this.hide();
-        this.$emit('cancel');
-      },
-
       hide() {
         this.$bvModal.hide(this.modalId);
       }

@@ -7,7 +7,7 @@
       hide-footer
       hide-header-close
       @show="init"
-      @hide="$emit('response', 'cancel')"
+      @hide="handleHide"
     >
       <b-form @submit.stop.prevent="submitForm">
         <b-form-group
@@ -95,7 +95,7 @@
     />
     <SetErrorModal
       :modal-id="errorModalId"
-      @cancel="show"
+      @accept="acceptError"
     />
   </div>
 </template>
@@ -168,6 +168,7 @@
         titleValue: '',
         descriptionValue: '',
         isPrivate: false,
+        hasError: false,
         submissionPending: false,
         deleteSetModalId: `delete-set-modal-${this.setId}`
       };
@@ -262,6 +263,7 @@
             this.submissionPending = false;
           }).catch((error) => {
             if (error.statusCode === 423) {
+              this.hasError = true;
               this.$bvModal.hide(this.modalId);
               this.$bvModal.show(this.errorModalId);
               this.submissionPending = false;
@@ -283,6 +285,17 @@
       clickDelete() {
         this.$bvModal.hide(this.modalId);
         this.$bvModal.show(this.deleteSetModalId);
+      },
+
+      handleHide() {
+        if (!this.hasError) {
+          this.$emit('response', 'cancel');
+        }
+      },
+
+      acceptError() {
+        this.hasError = false;
+        this.show();
       }
     }
   };
