@@ -889,6 +889,11 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Z dôvodu plánovanej údržby budú funkcie účtu, prihlásenia, označení páči sa mi a galérií vo štvrtok 23. februára od 7:00 do 9:00 SEČ nedostupné alebo obmedzené."
+    }
+  },
   "of": "Z",
   "organisation": {
     "city": "Mesto",

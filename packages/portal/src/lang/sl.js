@@ -889,6 +889,11 @@ export default {
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Zaradi načrtovanega vzdrževanja bodo funkcije računa, prijave, všeč kanja in galerije v četrtek, 23. februarja, od 7.00 do 9.00 po srednjeevropskem času nedostopne ali omejene."
+    }
+  },
   "of": "Od",
   "organisation": {
     "city": "Mesto",
