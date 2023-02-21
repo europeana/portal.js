@@ -228,7 +228,7 @@
       line-height: normal;
 
       @media (min-width: $bp-small) {
-        font-size: $font-size-largest;
+        font-size: $font-size-large;
         line-height: 1.5;
         margin-bottom: 0;
       }
