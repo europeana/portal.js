@@ -68,7 +68,7 @@
     data() {
       return {
         likeLimitModalId: `like-limit-modal-${this.identifier}`,
-        likeSetErrorModalId: `set-error-modal-${this.identifier}`
+        likeSetErrorModalId: `like-set-error-modal-${this.identifier}`
       };
     },
 

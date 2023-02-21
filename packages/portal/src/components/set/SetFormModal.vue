@@ -94,7 +94,7 @@
       @cancel="show"
     />
     <SetErrorModal
-      modal-id="set-error-modal-edit"
+      :modal-id="errorModalId"
       @cancel="show"
     />
   </div>
@@ -223,6 +223,10 @@
         return !this.hasTitleInSomeLanguage;
       },
 
+      errorModalId() {
+        return this.isNew ? `new-set-error-modal-${this.itemContext}` : `edit-set-error-modal-${this.setId}`;
+      },
+
       hasTitleInSomeLanguage() {
         const titleValues = { ...this.title, [this.$i18n.locale]: this.titleValue };
         return Object.values(titleValues).some((val) => !!val);
@@ -259,7 +263,7 @@
           }).catch((error) => {
             if (error.statusCode === 423) {
               this.$bvModal.hide(this.modalId);
-              this.$bvModal.show('set-error-modal-edit');
+              this.$bvModal.show(this.errorModalId);
               this.submissionPending = false;
             } else {
               throw error;
