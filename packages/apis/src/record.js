@@ -3,7 +3,7 @@ import uniq from 'lodash/uniq.js';
 import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
-import search from './search.js';
+import search from './record/search.js';
 import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail.js';
 import WebResource, { WEB_RESOURCE_FIELDS } from './web-resource.js';
 

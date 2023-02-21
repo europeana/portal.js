@@ -1,0 +1,16 @@
+export * as annotation from './annotation.js';
+export * as auth from './auth.js';
+export * as data from './data.js';
+export * as entity from './entity.js';
+export * as entityManagement from './entity-management.js';
+export * as fulltext from './fulltext.js';
+export * as iiif from './iiif.js';
+export * as nuxtPlugin from './nuxt-plugin.js';
+export * as proxy from './proxy.js';
+export * as recommendation from './recommendation.js';
+export * as record from './record.js';
+export * as set from './set.js';
+export * as themes from './thumbnail.js';
+export * as thumbnail from './thumbnail.js';
+export * as utils from './thumbnail.js';
+export * as webResource from './web-resource.js';
