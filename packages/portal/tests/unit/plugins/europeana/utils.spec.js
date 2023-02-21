@@ -2,17 +2,6 @@ import * as utils from '@/plugins/europeana/utils';
 import sinon from 'sinon';
 
 describe('plugins/europeana/utils', () => {
-  describe('apiUrlFromRequestHeaders()', () => {
-    it('returns lowercased X-Europeana-${API}-API-URL header', () => {
-      const url = 'https://alternate.example.org';
-      const headers = {
-        'x-europeana-record-api-url': url
-      };
-
-      expect(utils.apiUrlFromRequestHeaders('record', headers)).toBe(url);
-    });
-  });
-
   describe('escapeLuceneSpecials', () => {
     it('escapes Lucene special characters', () => {
       const unescaped = '+ - & | ! ( ) { } [ ] ^ " ~ * ? : /';
