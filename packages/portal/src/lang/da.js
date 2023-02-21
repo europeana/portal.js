@@ -889,6 +889,11 @@ export default {
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "På grund af planlagt vedligeholdelse vil konto, login, likes og gallerifunktionalitet ikke være tilgængelig eller begrænset torsdag den 23. februar fra kl. 7:00-9:00 CET."
+    }
+  },
   "of": "Af",
   "organisation": {
     "city": "By",

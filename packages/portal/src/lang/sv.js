@@ -889,6 +889,11 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "På grund av planerat underhåll kommer konto, inloggning, gilla-markeringar och gallerifunktioner att vara otillgängliga eller begränsade torsdagen den 23 februari kl. 07.00-09.00 CET."
+    }
+  },
   "of": "Av",
   "organisation": {
     "city": "Stad",
