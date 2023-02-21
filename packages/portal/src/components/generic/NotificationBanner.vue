@@ -1,7 +1,7 @@
 <template>
   <b-container
     fluid
-    class="border-bottom align-items-center"
+    class="notification-banner border-bottom align-items-center"
     data-qa="notification banner"
     :class="{'d-none': hide, 'd-flex': !hide }"
   >
@@ -11,6 +11,7 @@
           <p class="mb-0">
             {{ notificationText }}
             <a
+              v-if="notificationUrl && notificationLinkText"
               :href="notificationUrl"
               class="ml-1"
             >
@@ -80,10 +81,14 @@
   .container-fluid {
     background-color: $bodygrey;
     margin-top: -1rem;
+    position: relative;
+    z-index: 100;
+    margin-bottom: 1rem;
 
     p {
       line-height: 1.375rem;
       display: flex;
+      align-items: center;
 
       &::before {
         content: '\e949';

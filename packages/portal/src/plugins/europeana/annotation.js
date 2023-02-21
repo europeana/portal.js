@@ -1,4 +1,4 @@
-import { apiError, createAxios } from './utils';
+import { apiError, createAxios } from './utils.js';
 
 export const BASE_URL = 'https://api.europeana.eu/annotation';
 

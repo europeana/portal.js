@@ -2,6 +2,50 @@ import * as utils from '@/plugins/europeana/utils';
 import sinon from 'sinon';
 
 describe('plugins/europeana/utils', () => {
+  describe('allowOnlyAuthorizationHeader', () => {
+    it('keeps only "authorization" header', () => {
+      const requestConfigWas = {
+        headers: {
+          common: {
+            'authorization': 'Bearer xyz',
+            'Cookie': 'this=that'
+          }
+        }
+      };
+      const expectedRequestConfig = {
+        headers: {
+          common: {
+            'authorization': 'Bearer xyz'
+          }
+        }
+      };
+
+      expect(utils.allowOnlyAuthorizationHeader(requestConfigWas)).toEqual(expectedRequestConfig);
+    });
+  });
+
+  describe('createAxios', () => {
+    it('uses allowOnlyAuthorizationHeader as request interceptor', () => {
+      const axiosInstance = utils.createAxios();
+
+      expect(axiosInstance.interceptors.request.handlers.some((handler) => {
+        return handler.fulfilled === utils.allowOnlyAuthorizationHeader;
+      })).toBe(true);
+    });
+
+    it('uses app.$axiosLogger from context as request interceptor', () => {
+      const $axiosLogger = (requestConfig) => requestConfig;
+      const context = {
+        app: { $axiosLogger }
+      };
+      const axiosInstance = utils.createAxios({}, context);
+
+      expect(axiosInstance.interceptors.request.handlers.some((handler) => {
+        return handler.fulfilled === $axiosLogger;
+      })).toBe(true);
+    });
+  });
+
   describe('apiUrlFromRequestHeaders()', () => {
     it('returns lowercased X-Europeana-${API}-API-URL header', () => {
       const url = 'https://alternate.example.org';
