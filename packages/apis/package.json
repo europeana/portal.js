@@ -1,0 +1,30 @@
+{
+  "name": "@europeana/apis",
+  "version": "1.101.0",
+  "description": "Europeana API clients & utilities",
+  "main": "src/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "contributors": [
+    "Richard Doe <richard.doe@europeana.eu>",
+    "Lutz Biedinger <lutz.biedinger@europeana.eu>",
+    "Mirjam Verloop <mirjam.verloop@europeana.eu>",
+    "Leonie Peters <leonie.peters@europeana.eu>",
+    "Alan Sutherland <alan.sutherland@europeana.eu>"
+  ],
+  "engines": {
+    "node": "^16",
+    "npm": "^8"
+  },
+  "keywords": [
+    "code4lib"
+  ],
+  "license": "EUPL-1.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/europeana/portal.js.git"
+  },
+  "type": "module"
+}

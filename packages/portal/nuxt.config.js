@@ -48,7 +48,7 @@ const europeanaApis = [
   'set'
 ];
 
-const europeanaRuntimeConfig = ({ private = false } = {}) {
+const europeanaRuntimeConfig = ({ isPrivate = false } = {}) => {
   apis: Object.keys(europeanaApiBaseURLs).reduce((memo, api) => {
     const apiConfig = {};
     if (process.env.EUROPEANA_API_KEY) {
@@ -57,7 +57,7 @@ const europeanaRuntimeConfig = ({ private = false } = {}) {
 
     for (const setting of ['key', 'url']) {
       let envKey = `EUROPEANA_${decamelize(api).toUpperCase()}_${setting.toUpperCase()}`;
-      if (private) {
+      if (isPrivate) {
         envKey = `${envKey}_PRIVATE`;
       }
       if (process.env[envKey]) {
@@ -196,7 +196,7 @@ export default {
     contentful: {
       graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
     },
-    europeana: europeanaRuntimeConfig({ private: true }),
+    europeana: europeanaRuntimeConfig({ isPrivate: true }),
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
       username: process.env.JIRA_API_USERNAME,

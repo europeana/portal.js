@@ -30,6 +30,7 @@
     "test": "npm run lint && npm run stylelint && npm run test:unit && npm run -w packages/portal test:size && npm run test:stack:rebuild && npm run test:e2e"
   },
   "resolutions": {
+    "@europeana/apis": "link:./packages/apis",
     "@europeana/contentful": "link:./packages/contentful",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/styleguide": "link:./packages/styleguide"
