@@ -11,6 +11,7 @@ import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './proxy.js';
 
 export const BASE_URL = 'https://api.europeana.eu/record';
+export const AUTHENTICATING = true;
 const MAX_VALUES_PER_PROXY_FIELD = 10;
 
 /**

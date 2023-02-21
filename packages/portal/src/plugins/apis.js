@@ -13,6 +13,19 @@ import * as thumbnail from './europeana/thumbnail.js';
 
 const MODULE_NAME = 'apis';
 
+const apis = {
+  annotation,
+  entity,
+  entityManagement,
+  fulltext,
+  iiif,
+  proxy,
+  recommendation,
+  record,
+  set,
+  thumbnail
+};
+
 const apiUrlFromRequestHeaders = (api, headers) => {
   return headers[`x-europeana-${api}-api-url`];
 };
@@ -21,20 +34,12 @@ const storeModule = {
   namespaced: true,
 
   state: () => ({
-    urls: {
-      annotation: null,
-      entity: null,
-      entityManagement: null,
-      recommendation: null,
-      record: null,
-      set: null,
-      thumbnail: null
-    }
+    urls: {}
   }),
 
   mutations: {
     init(state, { req }) {
-      for (const api in state.urls) {
+      for (const api in apis) {
         const apiBaseURL = apiUrlFromRequestHeaders(api, req.headers);
 
         if (apiBaseURL && this.$apis?.[api]?.$axios) {
@@ -46,48 +51,24 @@ const storeModule = {
   }
 };
 
-// const europeanaApis = [
-//   'annotation',
-//   'entity',
-//   'entityManagement',
-//   'iiifPresentation',
-//   'fulltext',
-//   'mediaProxy',
-//   'recommendation',
-//   'record',
-//   'thumbnail',
-//   'set'
-// ];
-
-export const baseURLs = {
-  annotation: annotation.BASE_URL,
-  entity: entity.BASE_URL,
-  entityManagement: entityManagement.BASE_URL,
-  fulltext: fulltext.BASE_URL,
-  iiifPresentation: iiif.PRESENTATION_URL,
-  proxy: proxy.BASE_URL,
-  recommendation: recommendation.BASE_URL,
-  record: record.BASE_URL,
-  set: set.BASE_URL,
-  thumbnail: thumbnail.BASE_URL
-};
-
 const nuxtRuntimeConfigs = {};
 
 export const nuxtRuntimeConfig = ({ scope = 'public' } = {}) => {
   if (!nuxtRuntimeConfigs[scope]) {
     const envKeySuffix = scope === 'public' ? '' : `_${scope.toUpperCase()}`;
 
-    nuxtRuntimeConfigs[scope] = Object.keys(baseURLs).reduce((memo, api) => {
+    nuxtRuntimeConfigs[scope] = Object.keys(apis).reduce((memo, api) => {
       const apiConfig = {};
-      if (process.env.EUROPEANA_API_KEY) {
-        apiConfig.key = process.env.EUROPEANA_API_KEY;
-      }
 
-      for (const setting of ['key', 'url']) {
-        let envKey = `EUROPEANA_${decamelize(api).toUpperCase()}_${setting.toUpperCase()}${envKeySuffix}`;
-        if (process.env[envKey]) {
-          apiConfig[setting] = process.env[envKey];
+      const envKeyPrefix = `EUROPEANA_${decamelize(api).toUpperCase()}_API_`;
+
+      apiConfig.url = process.env[`${envKeyPrefix}URL${envKeySuffix}`] || apis[api].BASE_URL;
+
+      if (apis[api].AUTHENTICATING) {
+        if (process.env[`${envKeyPrefix}KEY${envKeySuffix}`]) {
+          apiConfig.key = process.env[`${envKeyPrefix}KEY${envKeySuffix}`];
+        } else if (process.env[`EUROPEANA_API_KEY${envKeySuffix}`]) {
+          apiConfig.key = process.env[`EUROPEANA_API_KEY${envKeySuffix}`];
         }
       }
 
