@@ -28,7 +28,7 @@
       </b-form>
     </b-modal>
     <SetErrorModal
-      modalId="set-error-modal-delete"
+      modal-id="set-error-modal-delete"
       @cancel="show"
     />
   </div>

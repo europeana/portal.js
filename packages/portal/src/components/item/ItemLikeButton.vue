@@ -20,7 +20,9 @@
     >
       <p>{{ $t('set.notifications.likeLimit.body') }}</p>
     </b-modal>
-    <SetErrorModal />
+    <SetErrorModal
+      :modal-id="likeSetErrorModalId"
+    />
   </div>
 </template>
 
@@ -65,7 +67,8 @@
 
     data() {
       return {
-        likeLimitModalId: `like-limit-modal-${this.identifier}`
+        likeLimitModalId: `like-limit-modal-${this.identifier}`,
+        likeSetErrorModalId: `set-error-modal-${this.identifier}`
       };
     },
 
@@ -91,7 +94,7 @@
             await (this.liked ? this.unlike() : this.like());
           } catch (e) {
             if (e.statusCode === 423) {
-              this.$bvModal.show('set-error-modal');
+              this.$bvModal.show(this.likeSetErrorModalId);
             }
           }
         } else {

@@ -94,7 +94,7 @@
       @cancel="show"
     />
     <SetErrorModal
-      modalId="set-error-modal-edit"
+      modal-id="set-error-modal-edit"
       @cancel="show"
     />
   </div>
