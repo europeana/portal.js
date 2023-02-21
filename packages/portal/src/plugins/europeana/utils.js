@@ -4,7 +4,19 @@ import qs from 'qs';
 import locales from '../i18n/locales.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
-export const createAxios = ({ id, baseURL, $axios }, context) => {
+// Axios request interceptor to remove all headers except authorization, to
+// override nuxtjs/axios module's header proxying, which is not helpful in
+// the context of our APIs
+export const allowOnlyAuthorizationHeader = (requestConfig) => {
+  for (const key in requestConfig.headers.common) {
+    if (key.toLowerCase() !== 'authorization') {
+      delete requestConfig.headers.common[key];
+    }
+  }
+  return requestConfig;
+};
+
+export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
   const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
 
   const axiosInstance = ($axios || axios).create(axiosOptions);
@@ -13,6 +25,8 @@ export const createAxios = ({ id, baseURL, $axios }, context) => {
   if (app && app.$axiosLogger) {
     axiosInstance.interceptors.request.use(app.$axiosLogger);
   }
+
+  axiosInstance.interceptors.request.use(allowOnlyAuthorizationHeader);
 
   return axiosInstance;
 };

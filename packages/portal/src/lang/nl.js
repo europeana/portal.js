@@ -889,6 +889,11 @@ export default {
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Wegens gepland onderhoud zullen de functionaliteiten voor account, login, likes en galerijen niet of beperkt beschikbaar zijn op donderdag 23 februari, van 7:00-9:00 uur CET."
+    }
+  },
   "of": "Van",
   "organisation": {
     "city": "Stad",

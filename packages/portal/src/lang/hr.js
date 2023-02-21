@@ -889,6 +889,11 @@ export default {
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Zbog zakazanog održavanja, funkcije računa, prijave, sviđanja i galerije bit će nedostupne ili ograničene u četvrtak, 23. veljače, od 7:00 do 9:00 ujutro po srednjoeuropskom vremenu."
+    }
+  },
   "of": "Od",
   "organisation": {
     "city": "Grad",

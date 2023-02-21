@@ -889,6 +889,11 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Din cauza întreținerii programate, contul, autentificarea, aprecierile și funcționalitatea galeriilor vor fi indisponibile sau limitate joi, 23 februarie, între orele 7:00-9:00 CET."
+    }
+  },
   "of": "De",
   "organisation": {
     "city": "Oraș",

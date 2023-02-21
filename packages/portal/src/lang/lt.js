@@ -889,6 +889,11 @@ export default {
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Dėl suplanuotos techninės priežiūros ketvirtadienį, vasario 23 d., nuo 7:00 iki 9:00 val. ryto Vidurio Europos laiku (CET) bus neprieinamos arba ribotos paskyros, prisijungimo, \"patinka\" ir galerijų funkcijos."
+    }
+  },
   "of": "Iš",
   "organisation": {
     "city": "Miestas",

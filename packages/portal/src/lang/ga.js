@@ -889,6 +889,11 @@ export default {
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Mar gheall ar chothabháil sceidealta, ní bheidh feidhmiúlacht chuntais, logáil isteach, rudaí is maith leo agus gailearaithe ar fáil nó teoranta ar an Déardaoin, 23 Feabhra, ó 7:00-9:00 am CET."
+    }
+  },
   "of": "De",
   "organisation": {
     "city": "Cathair",

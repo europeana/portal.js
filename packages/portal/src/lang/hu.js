@@ -889,6 +889,11 @@ export default {
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Az ütemezett karbantartás miatt a fiók, a bejelentkezés, a kedvelések és a galériák funkciói nem vagy korlátozottak lesznek február 23-án, csütörtökön, közép-európai idő szerint 7:00 és 9:00 óra között."
+    }
+  },
   "of": "A",
   "organisation": {
     "city": "Város",
