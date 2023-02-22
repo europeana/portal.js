@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Dostosuj wyszukiwane hasło lub zresetuj filtry, aby spróbować ponownie.",
       "title": "Nie możemy znaleźć tego, czego szukasz."
+    },
+    "setLocked": {
+      "description": "Edytowanie jest tymczasowo wyłączone, a zmiany nie zostały zapisane. Spróbuj ponownie później.",
+      "title": "Aktualizacja nie powiodła się"
     }
   },
   "exhibitions": {

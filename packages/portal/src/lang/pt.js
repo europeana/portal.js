@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Por favor ajustar o termo de pesquisa ou reiniciar os filtros para tentar novamente.",
       "title": "Não conseguimos encontrar o que está a procurar."
+    },
+    "setLocked": {
+      "description": "A edição está temporariamente desativada e as suas alterações não foram salvas. Por favor, tente novamente mais tarde.",
+      "title": "Atualização falhou"
     }
   },
   "exhibitions": {
