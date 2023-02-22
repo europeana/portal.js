@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Jekk jogħġbok aġġusta t-terminu tat-tfittxija jew reset il-filtri biex terġa' tipprova.",
       "title": "Ma nistgħux jidher li nsibu dak li qed tfittex."
+    },
+    "setLocked": {
+      "description": "L-editjar huwa diżattivat temporanjament, u l-bidliet tiegħek ma ġewx salvati. Jekk jogħġbok erġa' pprova aktar tard.",
+      "title": "L-aġġornament falla"
     }
   },
   "exhibitions": {

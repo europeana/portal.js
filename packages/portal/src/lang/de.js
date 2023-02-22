@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Bitte passen Sie den Suchbegriff an oder setzen Sie die Filter zurück, um es erneut zu versuchen.",
       "title": "Wir können, was Sie suchen, anscheinend nicht finden."
+    },
+    "setLocked": {
+      "description": "Die Bearbeitung ist vorübergehend deaktiviert und Ihre Änderungen wurden nicht gespeichert. Bitte versuchen Sie es später erneut.",
+      "title": "Aktualisierung fehlgeschlagen"
     }
   },
   "exhibitions": {

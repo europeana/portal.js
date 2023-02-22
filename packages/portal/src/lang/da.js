@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Juster søgeordet, eller nulstil filtrene for at prøve igen.",
       "title": "Vi kan tilsyneladende ikke finde det, du leder efter."
+    },
+    "setLocked": {
+      "description": "Redigering er midlertidigt deaktiveret, og dine ændringer er ikke blevet gemt. Prøv igen senere.",
+      "title": "Opdatering fejlede"
     }
   },
   "exhibitions": {

@@ -235,6 +235,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Mesedez, egokitu bilaketa-terminoa edo berrezarri iragazkiak berriro saiatzeko.",
       "title": "Badirudi ezin dugula bilatzen ari zarena aurkitu."
+    },
+    "setLocked": {
+      "description": "Edizioa aldi baterako desgaituta dago, eta zure aldaketak ez dira gorde. Saiatu berriro geroago.",
+      "title": "Eguneratzea huts egin du"
     }
   },
   "exhibitions": {

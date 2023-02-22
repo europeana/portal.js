@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Pakeiskite paieškos žodį arba iš naujo nustatykite filtrus ir bandykite dar kartą.",
       "title": "Atrodo, kad negalime rasti to, ko ieškote."
+    },
+    "setLocked": {
+      "description": "Redagavimas laikinai išjungtas, o pakeitimai nebuvo išsaugoti. Pabandykite dar kartą vėliau.",
+      "title": "Atnaujinti nepavyko"
     }
   },
   "exhibitions": {

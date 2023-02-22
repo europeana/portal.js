@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Prilagodite pojam za pretraživanje ili ponovno postavite filtre da biste pokušali ponovno.",
       "title": "Čini se da ne možemo pronaći ono što tražite."
+    },
+    "setLocked": {
+      "description": "Uređivanje je privremeno onemogućeno, a vaše promjene nisu spremljene. Molimo pokušajte ponovo kasnije.",
+      "title": "Ažuriranje nije uspjelo"
     }
   },
   "exhibitions": {

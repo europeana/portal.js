@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Athraigh an téarma cuardaigh nó athshocraigh na scagairí chun triail eile a bhaint as.",
       "title": "Is cosúil nach féidir linn teacht ar a bhfuil á lorg agat."
+    },
+    "setLocked": {
+      "description": "Tá an eagarthóireacht díchumasaithe go sealadach, agus níor sábháladh do chuid athruithe. Bain triail eile as ar ball.",
+      "title": "Theip ar an nuashonrú"
     }
   },
   "exhibitions": {

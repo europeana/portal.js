@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Kérjük, módosítsa a keresési kifejezést, vagy állítsa vissza a szűrőket az újrapróbálkozáshoz.",
       "title": "Úgy tűnik, nem találjuk, amit keres."
+    },
+    "setLocked": {
+      "description": "A szerkesztés átmenetileg le van tiltva, és a módosításokat nem mentettük. Kérlek, próbáld újra később.",
+      "title": "Frissítés sikertelen"
     }
   },
   "exhibitions": {
