@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Muokkaa hakusanaa tai nollaa suodattimet ja yritä uudelleen.",
       "title": "Emme näytä löytävän etsimääsi."
+    },
+    "setLocked": {
+      "description": "Muokkaus on tilapäisesti poistettu käytöstä, eikä muutoksiasi ole tallennettu. Yritä uudelleen myöhemmin.",
+      "title": "Päivitys epäonnistui"
     }
   },
   "exhibitions": {

@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Vă rugăm să ajustați termenul de căutare sau să resetați filtrele pentru a încerca din nou.",
       "title": "Se pare că nu găsim ceea ce cauți."
+    },
+    "setLocked": {
+      "description": "Editarea este temporar dezactivată, iar modificările dvs. nu au fost salvate. Vă rugăm să încercați din nou mai târziu.",
+      "title": "Actualizarea a eșuat"
     }
   },
   "exhibitions": {

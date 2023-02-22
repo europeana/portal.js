@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Pas de zoekterm aan of reset de filters om het opnieuw te proberen.",
       "title": "We kunnen blijkbaar niet vinden wat u zoekt."
+    },
+    "setLocked": {
+      "description": "Bewerken is tijdelijk uitgeschakeld en uw wijzigingen zijn niet opgeslagen. Probeer het later opnieuw.",
+      "title": "Update mislukt"
     }
   },
   "exhibitions": {

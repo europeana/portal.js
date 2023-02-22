@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Upravte hľadaný výraz alebo restujte filtre a skúste to znova.",
       "title": "Zdá sa, že nemôžeme nájsť to, čo hľadáte."
+    },
+    "setLocked": {
+      "description": "Úpravy sú dočasne zakázané a vaše zmeny sa neuložili. Skúste neskôr prosím.",
+      "title": "Aktualizácia zlyhala"
     }
   },
   "exhibitions": {
