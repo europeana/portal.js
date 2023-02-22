@@ -146,10 +146,16 @@
         }
       },
       async togglePin() {
-        if (this.pinned) {
-          await this.unpin();
-        } else {
-          await this.pin();
+        try {
+          if (this.pinned) {
+            await this.unpin();
+          } else {
+            await this.pin();
+          }
+        } catch (e) {
+          if (e.statusCode === 423) {
+            this.$root.$emit('show-error-modal', 'setLocked');
+          }
         }
       }
     }

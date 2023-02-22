@@ -344,18 +344,24 @@
           throw createHttpError(400, 'Invalid set ID');
         }
       },
-      reorderItems(items) {
-        this.$store.dispatch('set/update', {
-          id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
-          body: {
-            type: this.set.type,
-            title: this.set.title,
-            description: this.set.description,
-            visibility: this.set.visibility,
-            items: items.map(item => `${EUROPEANA_DATA_URL_ITEM_PREFIX}${item.id}`)
-          },
-          params: { profile: 'standard' }
-        });
+      async reorderItems(items) {
+        try {
+          await this.$store.dispatch('set/update', {
+            id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
+            body: {
+              type: this.set.type,
+              title: this.set.title,
+              description: this.set.description,
+              visibility: this.set.visibility,
+              items: items.map(item => `${EUROPEANA_DATA_URL_ITEM_PREFIX}${item.id}`)
+            },
+            params: { profile: 'standard' }
+          });
+        } catch (e) {
+          if (e.statusCode === 423) {
+            this.$root.$emit('show-error-modal', 'setLocked');
+          }
+        }
       },
       handleFetchError(error) {
         if (process.server) {

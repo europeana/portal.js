@@ -40,14 +40,14 @@
       return {
         // TODO: default this to s'thing generic
         errorScope: 'setLocked'
-      }
+      };
     },
 
     fetch() {
       this.$root.$on(`show-${this.modalId}`, (errorScope) => {
         this.errorScope = errorScope;
-        this.$bvModal.show(this.modalId)
-      })
+        this.$bvModal.show(this.modalId);
+      });
     },
 
     methods: {

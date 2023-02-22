@@ -223,11 +223,17 @@
       },
 
       async pin() {
-        await this.ensureSelectedSetExists();
-        await this.$apis.set.modifyItems('add', this.selectedEntitySet.id, this.identifier, true);
-        this.selectedEntitySet.pinned.push(this.identifier);
-        this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
-        this.hide();
+        try {
+          await this.ensureSelectedSetExists();
+          await this.$apis.set.modifyItems('add', this.selectedEntitySet.id, this.identifier, true);
+          this.selectedEntitySet.pinned.push(this.identifier);
+          this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
+          this.hide();
+        } catch (e) {
+          if (e.statusCode === 423) {
+            this.$root.$emit('show-error-modal', 'setLocked');
+          }
+        }
       },
 
       async unpin() {
@@ -235,7 +241,10 @@
           await this.$apis.set.modifyItems('delete', this.selectedEntitySet.id, this.identifier);
           this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
           this.makeToast(this.$t('entity.notifications.unpinned'));
-        } catch {
+        } catch (e) {
+          if (e.statusCode === 423) {
+            this.$root.$emit('show-error-modal', 'setLocked');
+          }
           this.makeToast(this.$t('entity.notifications.error.unpin'));
         }
         this.hide();

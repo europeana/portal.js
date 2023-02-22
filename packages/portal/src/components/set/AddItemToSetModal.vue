@@ -129,20 +129,32 @@
       },
 
       async addItem(setId) {
-        await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
+        try {
+          await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
+        } catch (e) {
+          if (e.statusCode === 423) {
+            this.$root.$emit('show-error-modal', 'setLocked');
+          }
+        }
       },
 
       async removeItem(setId) {
-        await this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
+        try {
+          await this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
+        } catch (e) {
+          if (e.statusCode === 423) {
+            this.$root.$emit('show-error-modal', 'setLocked');
+          }
+        }
       },
 
       async toggleItem(setId) {
         if (this.collectionsWithItem.includes(setId)) {
-          this.added = this.added.filter(id => id !== setId);
           await this.removeItem(setId);
+          this.added = this.added.filter(id => id !== setId);
         } else {
-          this.added.push(setId);
           await this.addItem(setId);
+          this.added.push(setId);
         }
         this.fetchCollections();
       }
