@@ -28,23 +28,14 @@
         </div>
       </b-form>
     </b-modal>
-    <SetErrorModal
-      modal-id="set-error-modal-delete"
-      @accept="acceptError"
-    />
   </div>
 </template>
 
 <script>
   import makeToastMixin from '@/mixins/makeToast';
-  import SetErrorModal from '@/components/set/SetErrorModal';
 
   export default {
     name: 'DeleteSetModal',
-
-    components: {
-      SetErrorModal
-    },
 
     mixins: [
       makeToastMixin
@@ -69,8 +60,7 @@
 
     data() {
       return {
-        toastMsg: this.$t('set.notifications.deleted'),
-        hasError: false
+        toastMsg: this.$t('set.notifications.deleted')
       };
     },
 
@@ -88,9 +78,7 @@
           }
         } catch (error) {
           if (error.statusCode === 423) {
-            this.hasError = true;
-            this.$bvModal.hide(this.modalId);
-            this.$bvModal.show('set-error-modal-delete');
+            this.$root.$emit('show-error-modal', 'setLocked');
           } else {
             throw error;
           }
@@ -103,17 +91,6 @@
 
       show() {
         this.$bvModal.show(this.modalId);
-      },
-
-      handleHide() {
-        if (!this.hasError) {
-          this.$emit('cancel');
-        }
-      },
-
-      acceptError() {
-        this.hasError = false;
-        this.show();
       }
     }
   };

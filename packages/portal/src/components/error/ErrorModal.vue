@@ -1,13 +1,13 @@
 <template>
   <b-modal
     :id="modalId"
-    :title="$t('errorMessage.setLocked.title')"
+    :title="$t(`errorMessage.${errorScope}.title`)"
     :static="modalStatic"
     hide-header-close
     hide-footer
     @hide="$emit('accept')"
   >
-    <p>{{ $t("errorMessage.setLocked.description") }}</p>
+    <p>{{ $t(`errorMessage.${errorScope}.description`) }}</p>
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
@@ -22,18 +22,32 @@
 
 <script>
   export default {
-    name: 'SetErrorModal',
+    name: 'ErrorModal',
 
     props: {
       modalId: {
         type: String,
-        default: 'set-error-modal'
+        default: 'error-modal'
       },
 
       modalStatic: {
         type: Boolean,
         default: false
       }
+    },
+
+    data() {
+      return {
+        // TODO: default this to s'thing generic
+        errorScope: 'setLocked'
+      }
+    },
+
+    fetch() {
+      this.$root.$on(`show-${this.modalId}`, (errorScope) => {
+        this.errorScope = errorScope;
+        this.$bvModal.show(this.modalId)
+      })
     },
 
     methods: {

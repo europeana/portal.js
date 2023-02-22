@@ -7,7 +7,6 @@
       hide-footer
       hide-header-close
       @show="init"
-      @hide="handleHide"
     >
       <b-form @submit.stop.prevent="submitForm">
         <b-form-group
@@ -93,10 +92,6 @@
       :modal-static="modalStatic"
       @cancel="show"
     />
-    <SetErrorModal
-      :modal-id="errorModalId"
-      @accept="acceptError"
-    />
   </div>
 </template>
 
@@ -106,14 +101,12 @@
     EUROPEANA_SET_VISIBILITY_PUBLIC,
     EUROPEANA_SET_VISIBILITY_PUBLISHED
   } from '@/plugins/europeana/set';
-  import SetErrorModal from '@/components/set/SetErrorModal';
 
   export default {
     name: 'SetFormModal',
 
     components: {
-      DeleteSetModal: () => import('./DeleteSetModal'),
-      SetErrorModal
+      DeleteSetModal: () => import('./DeleteSetModal')
     },
 
     props: {
@@ -168,7 +161,6 @@
         titleValue: '',
         descriptionValue: '',
         isPrivate: false,
-        hasError: false,
         submissionPending: false,
         deleteSetModalId: `delete-set-modal-${this.setId}`
       };
@@ -263,10 +255,7 @@
             this.submissionPending = false;
           }).catch((error) => {
             if (error.statusCode === 423) {
-              this.hasError = true;
-              this.$bvModal.hide(this.modalId);
-              this.$bvModal.show(this.errorModalId);
-              this.submissionPending = false;
+              this.$root.$emit('show-error-modal', 'setLocked');
             } else {
               throw error;
             }
@@ -285,17 +274,6 @@
       clickDelete() {
         this.$bvModal.hide(this.modalId);
         this.$bvModal.show(this.deleteSetModalId);
-      },
-
-      handleHide() {
-        if (!this.hasError) {
-          this.$emit('response', 'cancel');
-        }
-      },
-
-      acceptError() {
-        this.hasError = false;
-        this.show();
       }
     }
   };

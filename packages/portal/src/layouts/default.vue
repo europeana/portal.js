@@ -58,6 +58,7 @@
       class="b-toaster-bottom-left-dynamic"
       :style="{'--bottom': toastBottomOffset }"
     />
+    <ErrorModal />
     <client-only>
       <PageCookieConsent
         v-if="cookieConsentRequired"
@@ -70,6 +71,7 @@
   import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+  import ErrorModal from '../components/error/ErrorModal';
   import makeToastMixin from '@/mixins/makeToast';
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import versions from '../../pkg-versions';
@@ -86,7 +88,8 @@
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
       NewFeatureNotification: () => import('../components/generic/NewFeatureNotification'),
-      NotificationBanner: () => import('@/components/generic/NotificationBanner')
+      NotificationBanner: () => import('@/components/generic/NotificationBanner'),
+      ErrorModal
     },
 
     mixins: [

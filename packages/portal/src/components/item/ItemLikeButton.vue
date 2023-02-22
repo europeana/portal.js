@@ -20,22 +20,14 @@
     >
       <p>{{ $t('set.notifications.likeLimit.body') }}</p>
     </b-modal>
-    <SetErrorModal
-      :modal-id="likeSetErrorModalId"
-    />
   </div>
 </template>
 
 <script>
   import keycloak from '@/mixins/keycloak';
-  import SetErrorModal from '@/components/set/SetErrorModal';
 
   export default {
     name: 'ItemLikeButton',
-
-    components: {
-      SetErrorModal
-    },
 
     mixins: [
       keycloak
@@ -67,8 +59,7 @@
 
     data() {
       return {
-        likeLimitModalId: `like-limit-modal-${this.identifier}`,
-        likeSetErrorModalId: `like-set-error-modal-${this.identifier}`
+        likeLimitModalId: `like-limit-modal-${this.identifier}`
       };
     },
 
@@ -94,7 +85,7 @@
             await (this.liked ? this.unlike() : this.like());
           } catch (e) {
             if (e.statusCode === 423) {
-              this.$bvModal.show(this.likeSetErrorModalId);
+              this.$root.$emit('show-error-modal', 'setLocked');
             }
           }
         } else {
