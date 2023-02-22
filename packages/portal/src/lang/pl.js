@@ -889,6 +889,11 @@ export default {
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak wyników",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Ze względu na zaplanowane prace konserwacyjne, konto, logowanie, polubienia i galerie będą niedostępne lub ograniczone w czwartek, 23 lutego, w godzinach 7:00-9:00 CET."
+    }
+  },
   "of": "Z",
   "organisation": {
     "city": "Miasto",

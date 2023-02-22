@@ -237,8 +237,8 @@ export default {
       "title": "We can't seem to find what you are looking for."
     },
     "setLocked": {
-      "description": "Please try again later. No changes have been persisted.",
-      "title": "Update failed, editing is temporarily disabled."
+      "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
+      "title": "Update failed"
     }
   },
   "exhibitions": {

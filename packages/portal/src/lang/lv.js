@@ -889,6 +889,11 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Plānotas apkopes dēļ konta, pieteikšanās, atzīmju Patīk un galeriju funkcionalitāte ceturtdien, 23. februārī, no 7:00 līdz 9:00 pēc CET nebūs pieejama vai būs ierobežota."
+    }
+  },
   "of": "No",
   "organisation": {
     "city": "Pilsēta",
