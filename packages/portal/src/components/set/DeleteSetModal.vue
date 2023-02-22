@@ -1,34 +1,32 @@
 <template>
-  <div>
-    <b-modal
-      :id="modalId"
-      :title="$t('set.actions.delete')"
-      :static="modalStatic"
-      hide-header-close
-      hide-footer
-      @hide="handleHide"
-    >
-      <p>{{ $t('set.prompts.delete') }}</p>
-      <b-form @submit.stop.prevent="submitForm">
-        <div class="modal-footer">
-          <b-button
-            variant="outline-primary"
-            data-qa="close button"
-            @click="hide"
-          >
-            {{ $t('actions.cancel') }}
-          </b-button>
-          <b-button
-            variant="danger"
-            type="submit"
-            data-qa="delete confirmation button"
-          >
-            {{ $t('set.actions.delete') }}
-          </b-button>
-        </div>
-      </b-form>
-    </b-modal>
-  </div>
+  <b-modal
+    :id="modalId"
+    :title="$t('set.actions.delete')"
+    :static="modalStatic"
+    hide-header-close
+    hide-footer
+    @hide="handleHide"
+  >
+    <p>{{ $t('set.prompts.delete') }}</p>
+    <b-form @submit.stop.prevent="submitForm">
+      <div class="modal-footer">
+        <b-button
+          variant="outline-primary"
+          data-qa="close button"
+          @click="hide"
+        >
+          {{ $t('actions.cancel') }}
+        </b-button>
+        <b-button
+          variant="danger"
+          type="submit"
+          data-qa="delete confirmation button"
+        >
+          {{ $t('set.actions.delete') }}
+        </b-button>
+      </div>
+    </b-form>
+  </b-modal>
 </template>
 
 <script>
