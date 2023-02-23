@@ -155,13 +155,11 @@
 
   import merge from 'deepmerge';
 
-  const NO_RESULTS_FOUND = 'no results found';
-
   export default {
     name: 'SearchInterface',
 
     components: {
-      ErrorMessage: () => import('../generic/ErrorMessage'),
+      ErrorMessage: () => import('../error/ErrorMessage'),
       SearchBoostingForm: () => import('./SearchBoostingForm'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
@@ -202,6 +200,7 @@
         collection: null,
         hits: null,
         lastAvailablePage: null,
+        noResultsFound: false,
         results: [],
         theme: null,
         totalResults: null,
@@ -217,22 +216,17 @@
 
       this.$store.commit('search/setActive', true);
 
+      this.noResultsFound = false;
+
       try {
         await this.runSearch();
       } catch (error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = error.statusCode || 500;
-        }
-        throw error;
+        this.$error(error, { fetch: true });
       }
 
       if (this.noResults) {
-        const error = new Error();
-        error.titlePath = 'errorMessage.searchResultsNotFound.title';
-        error.descriptionPath = 'errorMessage.searchResultsNotFound.description';
-        error.illustrationSrc = require('@/assets/img/illustrations/il-search-results-not-found.svg');
-        error.message = NO_RESULTS_FOUND;
-        throw error;
+        this.noResultsFound = true;
+        this.$error('searchResultsNotFound', { fetch: true });
       }
     },
 
@@ -280,9 +274,6 @@
       },
       noResults() {
         return this.totalResults === 0 || !this.totalResults;
-      },
-      noResultsFound() {
-        return this.$fetchState?.error?.message === NO_RESULTS_FOUND;
       },
       debugSettings() {
         return this.$store.getters['debug/settings'];

@@ -83,7 +83,7 @@
     name: 'CollectionPage',
 
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import AlertMessage from '@/components/generic/AlertMessage';
+  import AlertMessage from '../generic/AlertMessage';
 
   export default {
     name: 'ErrorMessage',

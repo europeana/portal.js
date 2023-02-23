@@ -13,7 +13,7 @@
 
 <script>
   import pageMetaMixin from '@/mixins/pageMeta';
-  import ErrorMessage from '@/components/generic/ErrorMessage';
+  import ErrorMessage from '@/components/error/ErrorMessage';
 
   export default {
     name: 'ErrorPage',

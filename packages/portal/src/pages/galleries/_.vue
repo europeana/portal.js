@@ -192,7 +192,6 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import createHttpError from 'http-errors';
   import {
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
     SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
@@ -209,7 +208,7 @@
     components: {
       ClientOnly,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup,
       ShareButton,
       SocialShareModal,
@@ -341,7 +340,7 @@
     methods: {
       validateRoute() {
         if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {
-          throw createHttpError(400, 'Invalid set ID');
+          this.$error(404, { fetch: true });
         }
       },
       async reorderItems(items) {
@@ -360,18 +359,6 @@
         } catch (e) {
           this.$error(e, { scope: this.$errorCodes.APIS.SET });
         }
-      },
-      handleFetchError(error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = error.statusCode || 500;
-        }
-        if (error.statusCode === 403 || error.statusCode === 401) {
-          error.titlePath = 'errorMessage.galleryUnauthorised.title';
-          error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
-          error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
-          error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
-        }
-        throw error;
       }
     }
   };

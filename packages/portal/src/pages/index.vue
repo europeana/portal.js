@@ -36,7 +36,6 @@
 </template>
 
 <script>
-  import createHttpError from 'http-errors';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import BrowsePage from '@/components/browse/BrowsePage';
   import StaticPage from '@/components/static/StaticPage';
@@ -46,7 +45,7 @@
     name: 'IndexPage',
 
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       BrowsePage,
       LoadingSpinner,
       StaticPage
@@ -86,10 +85,7 @@
         this.page = data.browsePageCollection.items[0];
         this.browsePage = true;
       } else {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = 404;
-        }
-        throw createHttpError(404, this.$t('messages.notFound'));
+        this.$error(404, { fetch: true });
       }
     },
 

@@ -1,7 +1,11 @@
-import kebabCase from 'lodash/kebabCase.js';
+import createHttpError from 'http-errors';
+import kebabCase from 'lodash/kebabCase';
 
 export const CODES = {
   APIS: {
+    RECORD: {
+      404: 'itemNotFound'
+    },
     SET: {
       401: 'galleryUnauthorised',
       403: 'galleryUnauthorised',
@@ -10,22 +14,39 @@ export const CODES = {
   }
 };
 
-function handleError(error, { scope, fetch = false } = {}) {
-  if (fetch && process.server) {
-    this.$nuxt.context.res.statusCode = error.statusCode || 500;
+// TODO: APM captureError?
+function handleError(errorOrCode, { scope = {}, fetch = false } = {}) {
+  let code;
+  let error;
+
+  if (typeof errorOrCode === 'number') {
+    errorOrCode = createHttpError(errorOrCode);
   }
 
-  if (!scope[error.statusCode]) {
-    throw error;
-  }
+  if (typeof errorOrCode === 'object') {
+    error = errorOrCode;
 
-  const code = scope[error.statusCode];
+    if (fetch && process.server && error.statusCode) {
+      this.$nuxt.context.res.statusCode = error.statusCode;
+    }
+
+    if (scope[error.statusCode]) {
+      code = scope[error.statusCode];
+    } else {
+      throw errorOrCode;
+    }
+  } else {
+    code = errorOrCode;
+    error = new Error(this.$i18n.t(`errorMessage.${code}.title`));
+  }
 
   if (fetch) {
+    const kebabCaseCode = kebabCase(code);
+
     error.titlePath = `errorMessage.${code}.title`;
     error.descriptionPath = `errorMessage.${code}.description`;
     error.pageTitlePath = `errorMessage.${code}.metaTitle`;
-    error.illustrationSrc = require(`@/assets/img/illustrations/il-${kebabCase(code)}.svg`);
+    error.illustrationSrc = require(`@/assets/img/illustrations/il-${kebabCaseCode}.svg`);
 
     throw error;
   } else {
