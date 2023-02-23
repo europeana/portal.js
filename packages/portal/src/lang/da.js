@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Juster søgeordet, eller nulstil filtrene for at prøve igen.",
       "title": "Vi kan tilsyneladende ikke finde det, du leder efter."
+    },
+    "setLocked": {
+      "description": "Redigering er midlertidigt deaktiveret, og dine ændringer er ikke blevet gemt. Prøv igen senere.",
+      "title": "Opdatering fejlede"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "På grund af planlagt vedligeholdelse vil konto, login, likes og gallerifunktionalitet ikke være tilgængelig eller begrænset torsdag den 23. februar fra kl. 7:00-9:00 CET."
+    }
+  },
   "of": "Af",
   "organisation": {
     "city": "By",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Historier"
+  },
+  "themes": {
+    "description": "Gennemse efter tema",
+    "themes": "Temaer"
   },
   "website": "Websted"
 };

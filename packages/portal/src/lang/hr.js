@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Prilagodite pojam za pretraživanje ili ponovno postavite filtre da biste pokušali ponovno.",
       "title": "Čini se da ne možemo pronaći ono što tražite."
+    },
+    "setLocked": {
+      "description": "Uređivanje je privremeno onemogućeno, a vaše promjene nisu spremljene. Molimo pokušajte ponovo kasnije.",
+      "title": "Ažuriranje nije uspjelo"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Zbog zakazanog održavanja, funkcije računa, prijave, sviđanja i galerije bit će nedostupne ili ograničene u četvrtak, 23. veljače, od 7:00 do 9:00 ujutro po srednjoeuropskom vremenu."
+    }
+  },
   "of": "Od",
   "organisation": {
     "city": "Grad",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Priče"
+  },
+  "themes": {
+    "description": "Pregledajte po temi",
+    "themes": "Teme"
   },
   "website": "Web stranica"
 };

@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Jekk jogħġbok aġġusta t-terminu tat-tfittxija jew reset il-filtri biex terġa' tipprova.",
       "title": "Ma nistgħux jidher li nsibu dak li qed tfittex."
+    },
+    "setLocked": {
+      "description": "L-editjar huwa diżattivat temporanjament, u l-bidliet tiegħek ma ġewx salvati. Jekk jogħġbok erġa' pprova aktar tard.",
+      "title": "L-aġġornament falla"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Minħabba manutenzjoni skedata, kont, login, likes u funzjonalità tal-galleriji, mhux se jkunu disponibbli jew limitati nhar il-Ħamis, 23 ta’ Frar, mis-7:00-9:00 am CET."
+    }
+  },
   "of": "Ta",
   "organisation": {
     "city": "Belt",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Ġrajjiet"
+  },
+  "themes": {
+    "description": "Ibbrawżja skont it-tema",
+    "themes": "Temi"
   },
   "website": "Websajt"
 };

@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Veuillez ajuster le terme de recherche ou réinitialiser les filtres pour réessayer.",
       "title": "Nous n'arrivons pas à trouver ce que vous cherchez."
+    },
+    "setLocked": {
+      "description": "La modification est temporairement désactivée et vos modifications n'ont pas été enregistrées. Veuillez réessayer plus tard.",
+      "title": "Mise à jour a échoué"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "En raison d'une maintenance planifiée, les fonctionnalités de compte, de connexion, de likes et de galeries seront indisponibles ou limitées le jeudi 23 février, de 7h00 à 9h00 CET."
+    }
+  },
   "of": "De",
   "organisation": {
     "city": "Ville",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Histoires"
+  },
+  "themes": {
+    "description": "Parcourir par thème",
+    "themes": "Thèmes"
   },
   "website": "Site Internet"
 };

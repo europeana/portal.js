@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Prosimo, prilagodite iskalni izraz ali po nastavite filtre, da poskusite znova.",
       "title": "Zdi se, da ne moremo najti, kar iščete."
+    },
+    "setLocked": {
+      "description": "Urejanje je začasno onemogočeno in vaše spremembe niso shranjene. Prosim poskusite kasneje.",
+      "title": "Posodobitev ni uspela"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Zaradi načrtovanega vzdrževanja bodo funkcije računa, prijave, všeč kanja in galerije v četrtek, 23. februarja, od 7.00 do 9.00 po srednjeevropskem času nedostopne ali omejene."
+    }
+  },
   "of": "Od",
   "organisation": {
     "city": "Mesto",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Zgodbe"
+  },
+  "themes": {
+    "description": "Brskajte po temi",
+    "themes": "Teme"
   },
   "website": "Spletno mesto"
 };

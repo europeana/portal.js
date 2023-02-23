@@ -221,15 +221,21 @@
     box-shadow: $boxshadow-small;
 
     h2 {
+      font-family: $font-family-ubuntu;
       font-size: $font-size-medium;
-      margin-bottom: 0.375rem;
-      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
       line-height: normal;
+
+      @media (min-width: $bp-small) {
+        font-size: $font-size-large;
+        line-height: 1.5;
+        margin-bottom: 0;
+      }
 
       @at-root .xxl-page & {
         @media (min-width: $bp-4k) {
-          font-size: $font-size-medium-4k;
-          margin-bottom: calc(1.5 * 0.375rem);
+          font-size: $font-size-large-4k;
         }
       }
     }

@@ -44,9 +44,6 @@ header .col {
 }
 
 .text-page {
-  h1 {
-    margin-bottom: 0.5rem;
-  }
 
   .subtitle,
   p.lead {
@@ -156,6 +153,7 @@ header .col {
 }
 
 .context-label {
+  font-family: $font-family-sans-serif;
   font-size: $font-size-extrasmall;
   text-transform: uppercase;
   font-weight: 600;
