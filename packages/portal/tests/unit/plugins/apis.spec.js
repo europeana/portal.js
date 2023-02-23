@@ -9,7 +9,14 @@ describe('plugins/apis', () => {
   beforeAll(() => {
     envWas = { ...process.env };
   });
-  afterEach(() => {
+  beforeEach(() => {
+    for (const key in process.env) {
+      if (key.startsWith('EUROPEANA_')) {
+        delete process.env[key];
+      }
+    }
+  });
+  afterAll(() => {
     process.env = { ...envWas };
   });
 
