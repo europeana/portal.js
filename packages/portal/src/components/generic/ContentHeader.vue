@@ -32,6 +32,7 @@
         <SocialShareModal :media-url="mediaUrl" />
       </template>
     </b-col>
+    <div class="divider" />
   </header>
 </template>
 
@@ -75,3 +76,50 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/variables';
+
+.half-col {
+  .col {
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-small) {
+      margin-bottom: 3rem;
+    }
+
+    @media (min-width: $bp-xxxl) {
+      margin-bottom: 3vw;
+    }
+
+    // TODO: update to use col-lg-6 when aligned site wide
+    @media (min-width: $bp-large) {
+      &.col-lg-9 {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+
+    .description {
+      color: $mediumgrey;
+
+      @media (max-width: ($bp-small - 1px)) {
+        font-size: $font-size-small;
+      }
+    }
+  }
+
+  .divider {
+    border-bottom: 1px solid $bodygrey;
+    margin-bottom: 1.75rem;
+    flex-basis: 100%;
+    margin-left: $grid-gutter;
+    margin-right: $grid-gutter;
+
+    @media (min-width: $bp-xxxl) {
+      border-bottom: 0.0625vw solid $bodygrey;
+      margin-bottom: 1.75vw;
+    }
+  }
+}
+</style>
