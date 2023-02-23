@@ -153,9 +153,7 @@
             await this.pin();
           }
         } catch (e) {
-          if (e.statusCode === 423) {
-            this.$root.$emit('show-error-modal', 'setLocked');
-          }
+          this.$error(e, { scope: this.$errorCodes.APIS.SET });
         }
       }
     }

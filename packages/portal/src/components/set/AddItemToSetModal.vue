@@ -132,9 +132,7 @@
         try {
           await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
         } catch (e) {
-          if (e.statusCode === 423) {
-            this.$root.$emit('show-error-modal', 'setLocked');
-          }
+          this.$error(e, { scope: this.$errorCodes.APIS.SET });
         }
       },
 
@@ -142,9 +140,7 @@
         try {
           await this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
         } catch (e) {
-          if (e.statusCode === 423) {
-            this.$root.$emit('show-error-modal', 'setLocked');
-          }
+          this.$error(e, { scope: this.$errorCodes.APIS.SET });
         }
       },
 

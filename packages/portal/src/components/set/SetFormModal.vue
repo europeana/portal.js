@@ -253,12 +253,8 @@
             this.hide(this.isNew ? 'create' : 'update');
           }).then(() => {
             this.submissionPending = false;
-          }).catch((error) => {
-            if (error.statusCode === 423) {
-              this.$root.$emit('show-error-modal', 'setLocked');
-            } else {
-              throw error;
-            }
+          }).catch((e) => {
+            this.$error(e, { scope: this.$errorCodes.APIS.SET });
           });
       },
 

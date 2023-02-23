@@ -230,9 +230,7 @@
           this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
           this.hide();
         } catch (e) {
-          if (e.statusCode === 423) {
-            this.$root.$emit('show-error-modal', 'setLocked');
-          }
+          this.$error(e, { scope: this.$errorCodes.APIS.SET });
         }
       },
 
@@ -242,9 +240,7 @@
           this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
           this.makeToast(this.$t('entity.notifications.unpinned'));
         } catch (e) {
-          if (e.statusCode === 423) {
-            this.$root.$emit('show-error-modal', 'setLocked');
-          }
+          this.$error(e, { scope: this.$errorCodes.APIS.SET });
           this.makeToast(this.$t('entity.notifications.error.unpin'));
         }
         this.hide();

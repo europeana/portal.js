@@ -74,12 +74,8 @@
           if (this.$route.name.startsWith('galleries-all___')) {
             this.$goto(this.$path({ name: 'account' }));
           }
-        } catch (error) {
-          if (error.statusCode === 423) {
-            this.$root.$emit('show-error-modal', 'setLocked');
-          } else {
-            throw error;
-          }
+        } catch (e) {
+          this.$error(e, { scope: this.$errorCodes.APIS.SET });
         }
       },
 

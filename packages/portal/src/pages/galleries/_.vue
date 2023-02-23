@@ -247,8 +247,8 @@
           await this.$store.commit('entity/setFeaturedSetId', this.setId);
           await this.$store.dispatch('entity/getPins');
         }
-      } catch (error) {
-        this.handleFetchError(error);
+      } catch (e) {
+        this.$error(e, { scope: this.$errorCodes.APIS.SET, fetch: true });
       }
     },
     computed: {
@@ -358,9 +358,7 @@
             params: { profile: 'standard' }
           });
         } catch (e) {
-          if (e.statusCode === 423) {
-            this.$root.$emit('show-error-modal', 'setLocked');
-          }
+          this.$error(e, { scope: this.$errorCodes.APIS.SET });
         }
       },
       handleFetchError(error) {
