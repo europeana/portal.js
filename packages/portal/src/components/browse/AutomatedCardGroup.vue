@@ -60,7 +60,7 @@
         data.cardType = 'AutomatedEntityCard';
         data.headline = this.$i18n.t('automatedCardGroup.place');
       } else if (this.sectionType === FEATURED_THEMES) {
-        data.key = `${this.$i18n.locale}/themes/featured`;
+        data.key = 'themes/featured';
         data.cardType = 'AutomatedThemeCard';
         data.headline = this.$i18n.t('automatedCardGroup.themes');
       } else if (this.sectionType === FEATURED_TOPICS) {
@@ -88,19 +88,32 @@
     },
 
     fetch() {
-      if (process.server) {
-        return import('@/server-middleware/api/cache/index.js')
-          .then(module => {
-            return module.cached(this.key, this.$config.redis)
-              .then(entries => {
-                this.entries = entries;
-              });
+      if (this.sectionType === FEATURED_THEMES) {
+        // Read directly from contentful
+        const contentfulVariables = {
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview'
+        };
+        return this.$contentful.query('themes', contentfulVariables)
+          .then(response => {
+            this.entries = response.data.data.themePageCollection.items;
           });
       } else {
-        return this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
-          .then(response => {
-            this.entries = response.data;
-          });
+        // Read relevant data from redis cache
+        if (process.server) {
+          return import('@/server-middleware/api/cache/index.js')
+            .then(module => {
+              return module.cached(this.key, this.$config.redis)
+                .then(entries => {
+                  this.entries = entries;
+                });
+            });
+        } else {
+          return this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
+            .then(response => {
+              this.entries = response.data;
+            });
+        }
       }
     },
 
@@ -120,8 +133,7 @@
             },
             moreButton: this.moreButton
           };
-        }
-        if (this.sectionType === LATEST_GALLERIES) {
+        } else if (this.sectionType === LATEST_GALLERIES) {
           return {
             headline: this.headline,
             hasPartCollection: {
@@ -133,6 +145,27 @@
                 image: this.$apis.thumbnail.edmPreview(set.items?.[0].edmPreview, { size: 400 }),
                 url: `galleries/${getLabelledSlug(set.id, set.title.en)}`,
                 description: set.description
+              }))
+            },
+            moreButton: this.moreButton
+          };
+        } else if  (this.sectionType === FEATURED_THEMES) {
+          return {
+            headline: this.headline,
+            hasPartCollection: {
+              items: this.entries?.map(theme => ({
+                __typename: this.cardType,
+                __variant: null,
+                name: theme.name,
+                identifier: theme.identifier,
+                image: theme.primaryImageOfPage?.image,
+                url: this.$path({
+                  name: 'themes-all',
+                  params: {
+                    pathMatch: theme.identifier
+                  },
+                }),
+                description: theme.description
               }))
             },
             moreButton: this.moreButton
