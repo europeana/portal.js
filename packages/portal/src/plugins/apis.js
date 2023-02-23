@@ -4,8 +4,8 @@ import * as annotation from './europeana/annotation.js';
 import * as entity from './europeana/entity.js';
 import * as entityManagement from './europeana/entity-management.js';
 import * as fulltext from './europeana/fulltext.js';
-import * as iiif from './europeana/iiif.js';
-import * as proxy from './europeana/proxy.js';
+import * as iiifPresentation from './europeana/iiif/presentation.js';
+import * as mediaProxy from './europeana/media-proxy.js';
 import * as recommendation from './europeana/recommendation.js';
 import * as record from './europeana/record.js';
 import * as set from './europeana/set.js';
@@ -18,8 +18,8 @@ const apis = {
   entity,
   entityManagement,
   fulltext,
-  iiif,
-  proxy,
+  iiifPresentation,
+  mediaProxy,
   recommendation,
   record,
   set,
@@ -51,48 +51,48 @@ const storeModule = {
   }
 };
 
-const nuxtRuntimeConfigs = {};
+const apiConfig = (id, scope) => {
+  const envKeySuffix = scope === 'public' ? '' : `_${scope.toUpperCase()}`;
 
-export const nuxtRuntimeConfig = ({ scope = 'public' } = {}) => {
-  if (!nuxtRuntimeConfigs[scope]) {
-    const envKeySuffix = scope === 'public' ? '' : `_${scope.toUpperCase()}`;
+  const apiConfig = {};
 
-    nuxtRuntimeConfigs[scope] = Object.keys(apis).reduce((memo, api) => {
-      const apiConfig = {};
+  const envKeyPrefix = `EUROPEANA_${decamelize(id).toUpperCase()}_API_`;
 
-      const envKeyPrefix = `EUROPEANA_${decamelize(api).toUpperCase()}_API_`;
-
-      apiConfig.url = process.env[`${envKeyPrefix}URL${envKeySuffix}`] || apis[api].BASE_URL;
-
-      if (apis[api].AUTHENTICATING) {
-        if (process.env[`${envKeyPrefix}KEY${envKeySuffix}`]) {
-          apiConfig.key = process.env[`${envKeyPrefix}KEY${envKeySuffix}`];
-        } else if (process.env[`EUROPEANA_API_KEY${envKeySuffix}`]) {
-          apiConfig.key = process.env[`EUROPEANA_API_KEY${envKeySuffix}`];
-        }
-      }
-
-      memo[api] = apiConfig;
-
-      return memo;
-    }, {});
+  if (process.env[`${envKeyPrefix}URL${envKeySuffix}`]) {
+    apiConfig.url = process.env[`${envKeyPrefix}URL${envKeySuffix}`];
+  } else if (scope === 'public') {
+    apiConfig.url = apis[id].BASE_URL;
   }
 
-  return nuxtRuntimeConfigs[scope];
+  if (apis[id].AUTHENTICATING) {
+    if (process.env[`${envKeyPrefix}KEY${envKeySuffix}`]) {
+      apiConfig.key = process.env[`${envKeyPrefix}KEY${envKeySuffix}`];
+    } else if (process.env[`EUROPEANA_API_KEY${envKeySuffix}`]) {
+      apiConfig.key = process.env[`EUROPEANA_API_KEY${envKeySuffix}`];
+    }
+  }
+
+  return apiConfig;
+};
+
+export const nuxtRuntimeConfig = ({ scope = 'public' } = {}) => {
+  return Object.keys(apis).reduce((memo, id) => {
+    memo[id] = apiConfig(id, scope);
+    return memo;
+  }, {});
 };
 
 export const publicPrivateRewriteOrigins = () => {
   const publicNuxtRuntimeConfig = nuxtRuntimeConfig({ scope: 'public' });
   const privateNuxtRuntimeConfig = nuxtRuntimeConfig({ scope: 'private' });
 
-  return Object.keys(privateNuxtRuntimeConfig).reduce((memo, api) => {
-    if (privateNuxtRuntimeConfig[api].url) {
+  return Object.keys(privateNuxtRuntimeConfig).reduce((memo, id) => {
+    if (privateNuxtRuntimeConfig[id].url) {
       memo.push({
-        from: privateNuxtRuntimeConfig[api].url,
-        to: publicNuxtRuntimeConfig[api].url
+        from: privateNuxtRuntimeConfig[id].url,
+        to: publicNuxtRuntimeConfig[id].url
       });
     }
-
     return memo;
   }, []);
 };
@@ -100,15 +100,12 @@ export const publicPrivateRewriteOrigins = () => {
 export default (context, inject) => {
   context.store.registerModule(MODULE_NAME, storeModule);
 
-  const plugin = {
-    annotation: annotation.default(context),
-    entity: entity.default(context),
-    entityManagement: entityManagement.default(context),
-    recommendation: recommendation.default(context),
-    record: record.default(context),
-    set: set.default(context),
-    thumbnail: thumbnail.default(context)
-  };
+  const plugin = Object.keys(apis).reduce((memo, id) => {
+    if (apis[id].default) {
+      memo[id] = apis[id].default(context);
+    }
+    return memo;
+  }, {});
 
   inject(MODULE_NAME, plugin);
 };

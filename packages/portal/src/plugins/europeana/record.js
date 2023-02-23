@@ -8,7 +8,7 @@ import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail.js';
 import WebResource, { WEB_RESOURCE_FIELDS } from './web-resource.js';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
-import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './proxy.js';
+import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './media-proxy.js';
 
 export const BASE_URL = 'https://api.europeana.eu/record';
 export const AUTHENTICATING = true;
