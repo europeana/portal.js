@@ -59,15 +59,19 @@ const apiConfig = (id, scope) => {
   const envKeyPrefix = `EUROPEANA_${decamelize(id).toUpperCase()}_API_`;
 
   if (process.env[`${envKeyPrefix}URL${envKeySuffix}`]) {
+    // Overriden API URL
     apiConfig.url = process.env[`${envKeyPrefix}URL${envKeySuffix}`];
   } else if (scope === 'public') {
+    // Fallback to default API URL, public scope only
     apiConfig.url = apis[id].BASE_URL;
   }
 
   if (apis[id].AUTHENTICATING) {
     if (process.env[`${envKeyPrefix}KEY${envKeySuffix}`]) {
+      // API-specific key
       apiConfig.key = process.env[`${envKeyPrefix}KEY${envKeySuffix}`];
     } else if (process.env[`EUROPEANA_API_KEY${envKeySuffix}`]) {
+      // Shared API key
       apiConfig.key = process.env[`EUROPEANA_API_KEY${envKeySuffix}`];
     }
   }
