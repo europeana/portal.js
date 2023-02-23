@@ -920,6 +920,9 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "notificationBanner": {
+    "text": {}
+  },
   "of": "Of",
   "organisation": {
     "city": "City",
