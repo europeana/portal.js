@@ -93,6 +93,9 @@ export default {
     "time": "Century",
     "topic": "Topic"
   },
+  "categories": {
+    "search": "Search and filter categories"
+  },
   "clearAllFilters": "clear all filters",
   "collections": {
     "actions": {

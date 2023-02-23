@@ -1,28 +1,34 @@
 <template>
   <div
-  class="position-relative">
+    ref="tagsdropdown"
+    class="position-relative"
+  >
     <b-form
       @submit.stop.prevent="() => {}"
     >
-        <b-form-input
-          :id="'tag-search-input'"
-          ref="search-input"
-          v-model="searchTag"
-          type="text"
-          autocomplete="off"
-          :placeholder="$t('sideFilters.search')"
-          data-qa="tags dropdown search input"
-          @input="activeSearchInput = true"
-          @focus="activeSearchInput = true"
-          @blur="activeSearchInput = false"
-        />
-        <span class="icon-search" />
+      <b-form-input
+        :id="'tag-search-input'"
+        v-model="searchTag"
+        type="search"
+        :placeholder="$t('sideFilters.search')"
+        data-qa="tags dropdown search input"
+        role="searchbox"
+        aria-autocomplete="list"
+        :aria-owns="showDropdown ? 'tags-options' : null"
+        :aria-controls="showDropdown ? 'tags-options' : null"
+        :aria-expanded="showDropdown"
+        :aria-label="$t('categories.search')"
+        @focus="showDropdown = true"
+      />
+      <span class="icon-search" />
     </b-form>
     <div
+      v-if="showDropdown"
+      id="tags-options"
       class="tag-search-dropdown"
     >
       <RelatedCategoryTags
-        v-if="($features.storiesPageAllTags || selectedTags.length > 0) && (displayTags.length > 0)"
+        v-if="displayTags.length > 0"
         :tags="displayTags"
         :selected="selectedTags"
         :heading="false"
@@ -55,7 +61,7 @@
 
     data() {
       return {
-        activeSearchInput: false,
+        showDropdown: false,
         searchTag: '',
         tags: []
       };
@@ -74,7 +80,7 @@
     computed: {
       displayTags() {
         let displayTags;
-        const keyword = this.trimmedKeyword
+        const keyword = this.trimmedKeyword;
         if (this.filteredTags) {
           displayTags = this.tags.filter((tag) => this.filteredTags.includes(tag.identifier) || this.selectedTags.includes(tag.identifier));
         } else {
@@ -88,10 +94,31 @@
             return tagNameMatch;
           });
         }
-         return displayTags;
+        return displayTags;
       },
       trimmedKeyword() {
         return this.searchTag.trim().toLowerCase();
+      }
+    },
+
+    watch: {
+      showDropdown(newVal) {
+        if (newVal === true) {
+          window.addEventListener('click', this.handleClickOrTabOutside);
+          window.addEventListener('keydown', this.handleClickOrTabOutside);
+        } else {
+          window.removeEventListener('click', this.handleClickOrTabOutside);
+          window.removeEventListener('keydown', this.handleClickOrTabOutside);
+        }
+      }
+    },
+
+    methods: {
+      handleClickOrTabOutside(event) {
+        const targetOutsideSearchDropdown = this.$refs.tagsdropdown && !this.$refs.tagsdropdown.contains(event.target);
+        if ((event.type === 'click' || event.key === 'Tab' || event.key === 'Escape') && targetOutsideSearchDropdown) {
+          this.showDropdown = false;
+        }
       }
     }
   };
