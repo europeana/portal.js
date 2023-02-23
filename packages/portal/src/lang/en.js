@@ -235,6 +235,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Please adjust the search term or reset the filters to try again.",
       "title": "We can't seem to find what you are looking for."
+    },
+    "setLocked": {
+      "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
+      "title": "Update failed"
     }
   },
   "exhibitions": {
@@ -917,9 +921,7 @@ export default {
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Due to scheduled maintenance, account, login, likes and galleries functionality, will be unavailable or limited on Thursday, 23 February, from 7:00-9:00 am CET."
-    }
+    "text": {}
   },
   "of": "Of",
   "organisation": {

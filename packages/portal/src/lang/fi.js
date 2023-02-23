@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Muokkaa hakusanaa tai nollaa suodattimet ja yritä uudelleen.",
       "title": "Emme näytä löytävän etsimääsi."
+    },
+    "setLocked": {
+      "description": "Muokkaus on tilapäisesti poistettu käytöstä, eikä muutoksiasi ole tallennettu. Yritä uudelleen myöhemmin.",
+      "title": "Päivitys epäonnistui"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Ajoitetun huollon vuoksi tilin, kirjautumisen, tykkäysten ja gallerioiden toiminnot ovat poissa käytöstä tai rajoitetusti torstaina 23. helmikuuta klo 7.00-9.00 CET."
+    }
+  },
   "of": "of",
   "organisation": {
     "city": "Kaupunki",

@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Por favor ajustar o termo de pesquisa ou reiniciar os filtros para tentar novamente.",
       "title": "Não conseguimos encontrar o que está a procurar."
+    },
+    "setLocked": {
+      "description": "A edição está temporariamente desativada e as suas alterações não foram salvas. Por favor, tente novamente mais tarde.",
+      "title": "Atualização falhou"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Devido à manutenção programada, as funcionalidades de conta, login, curtidas e galerias estarão indisponíveis ou limitadas na quinta-feira, 23 de fevereiro, das 7h às 9h CET."
+    }
+  },
   "of": "De",
   "organisation": {
     "city": "Cidade",
