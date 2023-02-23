@@ -921,9 +921,7 @@ export default {
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Due to scheduled maintenance, account, login, likes and galleries functionality, will be unavailable or limited on Thursday, 23 February, from 7:00-9:00 am CET."
-    }
+    "text": {}
   },
   "of": "Of",
   "organisation": {
