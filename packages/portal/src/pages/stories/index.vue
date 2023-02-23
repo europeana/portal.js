@@ -108,6 +108,8 @@
 
     mixins: [pageMetaMixin],
 
+    middleware: 'sanitisePageQuery',
+
     data() {
       return {
         perPage: 24,
@@ -157,10 +159,6 @@
         }
       },
       page() {
-        // This causes double jumps on pagination when using the > arrow, for some reason
-        // return this.userParams.page;
-
-        // This is a workaround
         return Number(this.$route.query.page || 1);
       }
     },
