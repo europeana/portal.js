@@ -36,12 +36,9 @@
         :link="callsToAction[0].relatedLink"
         :illustration="callsToAction[0].image"
       />
-      <RelatedCategoryTags
-        v-if="($features.storiesPageAllTags || selectedTags.length > 0) && (displayTags.length > 0)"
-        :tags="displayTags"
-        :selected="selectedTags"
-        :heading="false"
-        class="responsive-font mb-2"
+      <StoriesTagsDropdown
+        :filtered-tags="filteredTags"
+        :selected-tags="selectedTags"
       />
       <div
         class="mb-4 context-label"
@@ -72,7 +69,7 @@
 
 <script>
   import uniq from 'lodash/uniq';
-  import RelatedCategoryTags from '@/components/related/RelatedCategoryTags';
+  import StoriesTagsDropdown from '@/components/stories/StoriesTagsDropdown';
   import ContentCard from '@/components/generic/ContentCard';
   import ContentHeader from '@/components/generic/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -84,7 +81,7 @@
 
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
-      RelatedCategoryTags,
+      StoriesTagsDropdown,
       ContentCard,
       ContentHeader,
       LoadingSpinner,
@@ -125,23 +122,12 @@
       },
       callsToAction() {
         return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
-      },
-      displayTags() {
-        if (this.filteredTags) {
-          return this.tags.filter((tag) => this.filteredTags.includes(tag.identifier) || this.selectedTags.includes(tag.identifier));
-        } else {
-          return this.tags;
-        }
       }
     },
 
     watch: {
       '$route.query.page': '$fetch',
       '$route.query.tags': '$fetch'
-    },
-
-    mounted() {
-      this.fetchCategories();
     },
 
     methods: {
@@ -208,16 +194,6 @@
           storiesResponse.data.data.exhibitionPageCollection.items
         ].flat();
         this.stories = storySysIds.map((sysId) => stories.find((story) => story.sys.id === sysId)).filter(Boolean);
-      },
-
-      async fetchCategories() {
-        const categoriesVariables = {
-          locale: this.$i18n.isoLocale(),
-          preview: this.$route.query.mode === 'preview'
-        };
-        const categoriesResponse = await this.$contentful.query('categories', categoriesVariables);
-        this.tags = (categoriesResponse.data.data.categoryCollection.items || [])
-          .sort((a, b) => a.name.trim().toLowerCase().localeCompare(b.name.trim().toLowerCase()));
       },
 
       entryUrl(entry) {
