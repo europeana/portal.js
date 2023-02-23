@@ -514,6 +514,32 @@ To update the Open sans font:
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/*
+To update the Ubuntu font:
+
+1. Use the Google Fonts WUI to generate a CSS import URL like:
+     https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700;1,800&display=swap
+   copy/paste the contents of that into this file below this comment.
+
+   Only include the subsets cyrillic, greek and latin, plus their -ext subsets.
+
+2. Retrieve all the linked font files. Use a regex like:
+     https:\/\/fonts\.gstatic\.com\/s\/ubuntu\/.*\.woff2
+   to extract the urls.
+   Saving these to a file (one url per line) will allow downloading all at once:
+     wget --input-file=./ubuntu-urls.txt
+
+3. Ensure all files are placed in the appropriate directory:
+     /src/asssets/fonts/ubuntu/[version]/[filename].woff2
+
+4. Replace all the https://fonts.gstatic.com/s/ubuntu/ URLs here with local URLs.
+
+5. Double check for any changes in formatting. Make sure the imported scss rules
+   confrom to linting and don't contain unwanted rules/files.
+*/
+
+// Ubuntu v20
+
 /* cyrillic-ext */
 @font-face {
   font-family: 'Ubuntu';
