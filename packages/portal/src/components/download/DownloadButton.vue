@@ -53,7 +53,7 @@
         return !this.urlValidated && !this.validationNetworkError;
       },
       target() {
-        if (this.validationNetworkError || !this.url.startsWith(this.$config.europeana.apis.proxy.url)) {
+        if (this.validationNetworkError || !this.url.startsWith(this.$config.europeana.apis.mediaProxy.url)) {
           return '_blank';
         }
         return '_self';
