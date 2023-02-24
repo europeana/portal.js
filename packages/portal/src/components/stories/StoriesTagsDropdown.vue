@@ -35,6 +35,7 @@
         v-if="showDropdown"
         id="tags-options"
         class="tag-search-dropdown"
+        data-qa="tags search dropdown"
       >
         <RelatedCategoryTags
           v-if="displayTags.length > 0"
@@ -64,11 +65,11 @@
     props: {
       filteredTags: {
         type: Array,
-        default: null
+        default: () => []
       },
       selectedTags: {
         type: Array,
-        default: null
+        default: () => []
       }
     },
 
@@ -94,7 +95,7 @@
       displayTags() {
         let displayTags;
         const keyword = this.trimmedKeyword;
-        if (this.filteredTags) {
+        if (this.filteredTags.length) {
           displayTags = this.tags.filter((tag) => this.filteredTags.includes(tag.identifier) && !this.selectedTags.includes(tag.identifier));
         } else {
           displayTags = this.tags;

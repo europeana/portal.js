@@ -28,19 +28,6 @@ const storiesPageContentfulResponse = {
     }
   }
 };
-const categoriesContentfulResponse = {
-  data: {
-    data: {
-      categoryCollection: {
-        items: [
-          { identifier: '3d', name: '3D' },
-          { identifier: 'cooking', name: 'cooking' },
-          { identifier: 'postcards', name: 'postcards' }
-        ]
-      }
-    }
-  }
-};
 const storiesMinimalContentfulResponse = {
   data: {
     data: {
@@ -119,7 +106,6 @@ const contentfulQueryStub = () => {
   const stub = sinon.stub();
 
   stub.withArgs('storiesPage', sinon.match.object).resolves(storiesPageContentfulResponse);
-  stub.withArgs('categories', sinon.match.object).resolves(categoriesContentfulResponse);
   stub.withArgs('storiesMinimal', sinon.match.object).resolves(storiesMinimalContentfulResponse);
   stub.withArgs('storiesBySysId', sinon.match.object).resolves(storiesBySysIdContentfulResponse);
 
@@ -237,13 +223,6 @@ describe('pages/stories/index', () => {
       });
 
       describe('categories & tagged stories', () => {
-        it('fetches categories from Contentful', async() => {
-          const wrapper = factory();
-          await wrapper.vm.fetch();
-
-          expect(wrapper.vm.tags.length).toBe(3);
-        });
-
         it('has a selected tag', async() => {
           const wrapper = factory();
           wrapper.vm.$route.query.tags = 'cooking';

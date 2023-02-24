@@ -113,7 +113,6 @@
         selectedTags: [],
         filteredTags: null,
         stories: [],
-        tags: [],
         total: 0,
         sections: [],
         headline: null,
@@ -147,13 +146,6 @@
       },
       callsToAction() {
         return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
-      },
-      displayTags() {
-        if (this.filteredTags) {
-          return this.tags.filter((tag) => this.filteredTags.includes(tag.identifier) || this.selectedTags.includes(tag.identifier));
-        } else {
-          return this.tags;
-        }
       },
       page() {
         return Number(this.$route.query.page || 1);
