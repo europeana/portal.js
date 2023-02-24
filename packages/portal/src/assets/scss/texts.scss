@@ -37,9 +37,6 @@ header .col {
 }
 
 .text-page {
-  h1 {
-    margin-bottom: 0.5rem;
-  }
 
   .subtitle,
   p.lead {
@@ -154,4 +151,5 @@ header .col {
   font-weight: 600;
   color: $mediumgrey;
   line-height: initial;
+  font-family: $font-family-sans-serif;
 }
