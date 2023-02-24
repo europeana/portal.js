@@ -94,7 +94,8 @@ export default {
     "topic": "Topic"
   },
   "categories": {
-    "search": "Search and filter categories"
+    "label": "Explore stories by tag",
+    "search": "Explore stories by tag"
   },
   "clearAllFilters": "clear all filters",
   "collections": {

@@ -12,14 +12,14 @@
         :id="'tag-search-input'"
         v-model="searchTag"
         type="search"
-        :placeholder="$t('sideFilters.search')"
+        :placeholder="$t('categories.search')"
         data-qa="tags dropdown search input"
         role="searchbox"
         aria-autocomplete="list"
         :aria-owns="showDropdown ? 'tags-options' : null"
         :aria-controls="showDropdown ? 'tags-options' : null"
         :aria-expanded="showDropdown"
-        :aria-label="$t('categories.search')"
+        :aria-label="$t('categories.label')"
         @focus="showDropdown = true"
       />
     </b-form>
@@ -117,7 +117,7 @@
     methods: {
       handleClickOrTabOutside(event) {
         const targetOutsideSearchDropdown = this.$refs.tagsdropdown && !this.$refs.tagsdropdown.contains(event.target);
-        if ((event.type === 'click' || event.key === 'Tab' || event.key === 'Escape') && targetOutsideSearchDropdown) {
+        if (((event.type === 'click' || event.key === 'Tab') && targetOutsideSearchDropdown) || event.key === 'Escape') {
           this.showDropdown = false;
         }
       }
@@ -127,7 +127,6 @@
 
 <style lang="scss" scoped>
 @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
 
 .tag-search-dropdown {
   width: 100%;
@@ -153,6 +152,10 @@
     max-height: 7.5rem;
   }
 
+  @media (min-width: $bp-xxxl) {
+    max-height: 7.5vw;
+  }
+
   ::v-deep .col-12 {
     padding: 0;
   }
@@ -160,5 +163,6 @@
 
 .form-inline {
   box-shadow: $boxshadow-light;
+  border-radius: 0;
 }
 </style>
