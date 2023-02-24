@@ -4,6 +4,8 @@
     class="position-relative mb-4"
   >
     <b-form
+      class="search-form"
+      inline
       @submit.stop.prevent="() => {}"
     >
       <b-form-input
@@ -125,6 +127,7 @@
 
 <style lang="scss" scoped>
 @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
 .tag-search-dropdown {
   width: 100%;
@@ -153,5 +156,9 @@
   ::v-deep .col-12 {
     padding: 0;
   }
+}
+
+.form-inline {
+  box-shadow: $boxshadow-light;
 }
 </style>
