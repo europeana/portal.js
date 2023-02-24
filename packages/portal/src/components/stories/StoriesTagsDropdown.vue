@@ -160,7 +160,7 @@
 
 .badge-container {
   max-height: 15rem;
-  overflow-y: scroll;
+  overflow: auto;
   margin: 0;
 
   @media (min-width: $bp-medium) {
