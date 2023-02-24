@@ -1,7 +1,7 @@
 <template>
   <div
     ref="tagsdropdown"
-    class="position-relative"
+    class="position-relative mb-4"
   >
     <b-form
       @submit.stop.prevent="() => {}"
@@ -20,7 +20,6 @@
         :aria-label="$t('categories.search')"
         @focus="showDropdown = true"
       />
-      <span class="icon-search" />
     </b-form>
     <div
       v-if="showDropdown"
@@ -32,7 +31,7 @@
         :tags="displayTags"
         :selected="selectedTags"
         :heading="false"
-        class="responsive-font mb-2"
+        class="badge-container responsive-font mb-2"
       />
     </div>
   </div>
@@ -131,25 +130,28 @@
   width: 100%;
   background-color: $white;
   overflow: hidden;
-  overflow-x: scroll;
-  animation: appear 750ms ease-in-out;
   position: absolute;
   z-index: 20;
   box-shadow: $boxshadow;
-  max-height: 50vh;
+  padding: 0.5rem 0 0 0.5rem;
+  border-top: 1px solid $middlegrey;
 
   @media (min-width: $bp-xxxl) {
     font-size: 1vw;
   }
 }
 
-@keyframes appear {
-  from {
-    max-height: 0;
+.badge-container {
+  max-height: 15rem;
+  overflow-y: scroll;
+  margin: 0;
+
+  @media (min-width: $bp-medium) {
+    max-height: 7.5rem;
   }
 
-  to {
-    max-height: 0vh;
+  ::v-deep .col-12 {
+    padding: 0;
   }
 }
 </style>
