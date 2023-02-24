@@ -96,7 +96,8 @@
         let displayTags;
         const keyword = this.trimmedKeyword;
         if (this.filteredTags.length) {
-          displayTags = this.tags.filter((tag) => this.filteredTags.includes(tag.identifier) && !this.selectedTags.includes(tag.identifier));
+          // use filteredTags as those are sorted by most used
+          displayTags = this.filteredTags.filter(tag => !this.selectedTags.includes(tag)).map(tag => this.tags.filter(t => t.identifier === tag)[0]);
         } else {
           displayTags = this.tags;
         }

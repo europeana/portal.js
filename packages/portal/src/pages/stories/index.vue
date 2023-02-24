@@ -199,7 +199,12 @@
             return this.selectedTags.every((tag) => storyTags.includes(tag));
           });
         }
-        this.filteredTags = uniq(stories.map((story) => story.cats.items.filter((cat) => !!cat).map((cat) => cat.id)).flat());
+        const allTags = stories.map((story) => story.cats.items.filter((cat) => !!cat).map((cat) => cat.id)).flat();
+        const sortedByMostUsedTags = allTags.map((tag, i, array) => {
+          return { tag, total: array.filter(t => t === tag).length };
+        }).sort((a, b) => b.total - a.total).map(tag => tag.tag);
+
+        this.filteredTags = uniq(sortedByMostUsedTags);
 
         // Order by date published
         stories = stories.sort((a, b) => (new Date(b.date)).getTime() - (new Date(a.date)).getTime());
