@@ -1,40 +1,52 @@
 <template>
-  <div
-    ref="tagsdropdown"
-    class="position-relative mb-4"
-  >
-    <b-form
-      class="search-form"
-      inline
-      @submit.stop.prevent="() => {}"
-    >
-      <b-form-input
-        :id="'tag-search-input'"
-        v-model="searchTag"
-        type="search"
-        :placeholder="$t('categories.search')"
-        data-qa="tags dropdown search input"
-        role="searchbox"
-        aria-autocomplete="list"
-        :aria-owns="showDropdown ? 'tags-options' : null"
-        :aria-controls="showDropdown ? 'tags-options' : null"
-        :aria-expanded="showDropdown"
-        :aria-label="$t('categories.label')"
-        @focus="showDropdown = true"
-      />
-    </b-form>
+  <div>
+    <RelatedCategoryTags
+      v-if="displaySelectedTags.length > 0"
+      :tags="displaySelectedTags"
+      :selected="selectedTags"
+      :heading="false"
+      class="responsive-font mb-2"
+    />
     <div
-      v-if="showDropdown"
-      id="tags-options"
-      class="tag-search-dropdown"
+      ref="tagsdropdown"
+      class="position-relative mb-4"
     >
-      <RelatedCategoryTags
-        v-if="displayTags.length > 0"
-        :tags="displayTags"
-        :selected="selectedTags"
-        :heading="false"
-        class="badge-container responsive-font mb-2"
-      />
+      <b-form
+        class="search-form"
+        inline
+        @submit.stop.prevent="() => {}"
+      >
+        <b-form-input
+          :id="'tag-search-input'"
+          v-model="searchTag"
+          type="search"
+          :placeholder="$t('categories.search')"
+          data-qa="tags dropdown search input"
+          role="searchbox"
+          aria-autocomplete="list"
+          :aria-owns="showDropdown ? 'tags-options' : null"
+          :aria-controls="showDropdown ? 'tags-options' : null"
+          :aria-expanded="showDropdown"
+          :aria-label="$t('categories.label')"
+          @focus="showDropdown = true"
+        />
+      </b-form>
+      <div
+        v-if="showDropdown"
+        id="tags-options"
+        class="tag-search-dropdown"
+      >
+        <RelatedCategoryTags
+          v-if="displayTags.length > 0"
+          :tags="displayTags"
+          :selected="selectedTags"
+          :heading="false"
+          class="badge-container responsive-font mb-2"
+        />
+        <p v-else-if="displayTags.length === 0">
+          {{ $t('categories.noOptions') }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -83,7 +95,7 @@
         let displayTags;
         const keyword = this.trimmedKeyword;
         if (this.filteredTags) {
-          displayTags = this.tags.filter((tag) => this.filteredTags.includes(tag.identifier) || this.selectedTags.includes(tag.identifier));
+          displayTags = this.tags.filter((tag) => this.filteredTags.includes(tag.identifier) && !this.selectedTags.includes(tag.identifier));
         } else {
           displayTags = this.tags;
         }
@@ -96,6 +108,9 @@
           });
         }
         return displayTags;
+      },
+      displaySelectedTags() {
+        return this.tags.filter((tag) => this.selectedTags.includes(tag.identifier));
       },
       trimmedKeyword() {
         return this.searchTag.trim().toLowerCase();

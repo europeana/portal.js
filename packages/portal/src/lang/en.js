@@ -95,6 +95,7 @@ export default {
   },
   "categories": {
     "label": "Explore stories by tag",
+    "noOptions": "There are no more tags to select",
     "search": "Explore stories by tag"
   },
   "clearAllFilters": "clear all filters",
