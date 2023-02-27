@@ -5,7 +5,7 @@
   >
     <ErrorMessage
       data-qa="error message container"
-      :error="error.message"
+      :message="error.message"
       :status-code="error.statusCode"
     />
   </div>

@@ -7,7 +7,7 @@
     <ErrorMessage
       v-if="$fetchState.error"
       data-qa="error message container"
-      :error="$fetchState.error.message"
+      :message="$fetchState.error.message"
       :status-code="$fetchState.error.statusCode"
     />
     <template v-else>

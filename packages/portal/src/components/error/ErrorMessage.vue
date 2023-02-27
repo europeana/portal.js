@@ -39,8 +39,8 @@
       </section>
     </div>
     <AlertMessage
-      v-show="error"
-      :error="error"
+      v-show="message"
+      :error="message"
     />
   </div>
 </template>
@@ -68,7 +68,7 @@
         type: String,
         default: null
       },
-      error: {
+      message: {
         type: String,
         default: null
       },
