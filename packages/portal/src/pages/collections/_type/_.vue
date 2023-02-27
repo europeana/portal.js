@@ -7,8 +7,7 @@
     <ErrorMessage
       v-if="$fetchState.error"
       data-qa="error message container"
-      :message="$fetchState.error.message"
-      :status-code="$fetchState.error.statusCode"
+      :error="$fetchState.error"
     />
     <template v-else>
       <SearchInterface

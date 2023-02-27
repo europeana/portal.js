@@ -15,11 +15,7 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
-      :message="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :description-path="$fetchState.error.descriptionPath"
-      :illustration-src="$fetchState.error.illustrationSrc"
-      :status-code="$fetchState.error.statusCode"
+      :error="$fetchState.error"
     />
     <div
       v-if="set.id"

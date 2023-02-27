@@ -39,8 +39,8 @@
       </section>
     </div>
     <AlertMessage
-      v-show="message"
-      :error="message"
+      v-show="showMessage"
+      :error="error.message"
     />
   </div>
 </template>
@@ -56,21 +56,13 @@
     },
 
     props: {
-      titlePath: {
-        type: String,
-        default: null
+      error: {
+        type: Object,
+        required: true
       },
-      descriptionPath: {
-        type: String,
-        default: null
-      },
-      illustrationSrc: {
-        type: String,
-        default: null
-      },
-      message: {
-        type: String,
-        default: null
+      showMessage: {
+        type: Boolean,
+        default: true
       },
       gridless: {
         type: Boolean,
@@ -79,10 +71,6 @@
       fullHeight: {
         type: Boolean,
         default: true
-      },
-      statusCode: {
-        type: Number,
-        default: null
       }
     },
 
@@ -99,16 +87,16 @@
 
     computed: {
       titlePathValue() {
-        return this.titlePath || this.httpError?.titlePath;
+        return this.error.titlePath || this.httpError?.titlePath;
       },
       descriptionPathValue() {
-        return this.descriptionPath || this.httpError?.descriptionPath;
+        return this.error.descriptionPath || this.httpError?.descriptionPath;
       },
       illustrationSrcValue() {
-        return this.illustrationSrc || this.httpError?.illustrationSrc;
+        return this.error.illustrationSrc || this.httpError?.illustrationSrc;
       },
       httpError() {
-        return this.httpErrors[this.statusCode] || null;
+        return this.httpErrors[this.error.statusCode] || null;
       },
       errorExplanationAvailable() {
         return this.illustrationSrcValue || this.titlePathValue || this.descriptionPathValue;

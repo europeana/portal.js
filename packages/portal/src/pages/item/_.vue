@@ -16,10 +16,7 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
-      :message="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :description-path="$fetchState.error.descriptionPath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :error="$fetchState.error"
       class="pt-5"
     />
     <template

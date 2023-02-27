@@ -60,12 +60,10 @@
                     <b-col>
                       <ErrorMessage
                         v-if="$fetchState.error"
-                        :title-path="$fetchState.error.titlePath"
-                        :description-path="$fetchState.error.descriptionPath"
-                        :illustration-src="$fetchState.error.illustrationSrc"
+                        :error="$fetchState.error"
+                        :show-message="!noResultsFound"
                         :gridless="false"
                         :full-height="false"
-                        :message="!noResultsFound ? errorMessage : null"
                       />
                       <template
                         v-else
@@ -221,6 +219,11 @@
       try {
         await this.runSearch();
       } catch (error) {
+        const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
+        if (paginationError !== null) {
+          const localisedPaginationLimit = this.$options.filters.localise(Number(paginationError[1]));
+          error.message = this.$t('messages.paginationLimitExceeded', { limit: localisedPaginationLimit });
+        }
         this.$error(error);
       }
 
@@ -252,19 +255,6 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
-      },
-      errorMessage() {
-        if (!this.$fetchState.error?.message) {
-          return null;
-        }
-
-        const paginationError = this.$fetchState.error.message.match(/It is not possible to paginate beyond the first (\d+)/);
-        if (paginationError !== null) {
-          const localisedPaginationLimit = this.$options.filters.localise(Number(paginationError[1]));
-          return this.$t('messages.paginationLimitExceeded', { limit: localisedPaginationLimit });
-        }
-
-        return this.$fetchState.error.message;
       },
       hasAnyResults() {
         return this.totalResults > 0;
