@@ -132,7 +132,7 @@
         try {
           await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
         } catch (e) {
-          this.$error(e, { scope: this.$errorCodes.APIS.SET });
+          this.$error(e, { scope: 'SET_API' });
         }
       },
 
@@ -140,7 +140,7 @@
         try {
           await this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
         } catch (e) {
-          this.$error(e, { scope: this.$errorCodes.APIS.SET });
+          this.$error(e, { scope: 'SET_API' });
         }
       },
 

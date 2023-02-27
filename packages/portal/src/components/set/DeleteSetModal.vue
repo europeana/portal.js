@@ -5,7 +5,6 @@
     :static="modalStatic"
     hide-header-close
     hide-footer
-    @hide="handleHide"
   >
     <p>{{ $t('set.prompts.delete') }}</p>
     <b-form @submit.stop.prevent="submitForm">
@@ -75,7 +74,7 @@
             this.$goto(this.$path({ name: 'account' }));
           }
         } catch (e) {
-          this.$error(e, { scope: this.$errorCodes.APIS.SET });
+          this.$error(e, { scope: 'SET_API' });
         }
       },
 

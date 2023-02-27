@@ -19,21 +19,25 @@ describe('components/error/ErrorMessage', () => {
   describe('template', () => {
     it('displays illustrated error with description when available', async() => {
       const propsData = {
-        error: 'Item was not found',
-        titlePath: 'errorMessage.itemNotFound.title',
-        descriptionPath: 'errorMessage.itemNotFound.description',
-        illustrationSrc: 'src/assets/img/illustrations/il-item-not-found.svg'
+        error: {
+          message: 'Item was not found',
+          titlePath: 'errorMessage.itemNotFound.title',
+          descriptionPath: 'errorMessage.itemNotFound.description',
+          illustrationSrc: 'src/assets/img/illustrations/il-item-not-found.svg'
+        }
       };
       const wrapper = factory(propsData);
 
       const text = wrapper.text();
 
-      expect(text).toEqual(propsData.descriptionPath);
+      expect(text).toEqual(propsData.error.descriptionPath);
     });
 
     it('has reusable message for 404 HTTP status code', () => {
       const propsData = {
-        statusCode: 404
+        error: {
+          statusCode: 404
+        }
       };
       const wrapper = factory(propsData);
 

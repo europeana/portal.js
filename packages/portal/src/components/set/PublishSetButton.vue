@@ -57,7 +57,7 @@
             });
           }
         } catch (e) {
-          this.$error(e, { scope: this.$errorCodes.APIS.SET });
+          this.$error(e, { scope: 'SET_API' });
         }
       }
     }

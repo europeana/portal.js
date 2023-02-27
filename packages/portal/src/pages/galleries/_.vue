@@ -243,7 +243,7 @@
           await this.$store.dispatch('entity/getPins');
         }
       } catch (e) {
-        this.$error(e, { scope: this.$errorCodes.APIS.SET });
+        this.$error(e, { scope: 'SET_API' });
       }
     },
     computed: {
@@ -353,7 +353,7 @@
             params: { profile: 'standard' }
           });
         } catch (e) {
-          this.$error(e, { scope: this.$errorCodes.APIS.SET });
+          this.$error(e, { scope: 'SET_API' });
         }
       }
     }

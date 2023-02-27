@@ -2,20 +2,18 @@ import createHttpError from 'http-errors';
 import kebabCase from 'lodash/kebabCase';
 
 export const CODES = {
-  APIS: {
-    RECORD: {
-      404: 'itemNotFound'
-    },
-    SET: {
-      401: 'galleryUnauthorised',
-      403: 'galleryUnauthorised',
-      423: 'setLocked'
-    }
+  RECORD_API: {
+    404: 'itemNotFound'
+  },
+  SET_API: {
+    401: 'galleryUnauthorised',
+    403: 'galleryUnauthorised',
+    423: 'setLocked'
   }
 };
 
 // TODO: APM captureError?
-function handleError(errorOrCode, { scope = {} } = {}) {
+function handleError(errorOrCode, { scope } = {}) {
   let code;
   let error;
 
@@ -30,8 +28,8 @@ function handleError(errorOrCode, { scope = {} } = {}) {
       this.$nuxt.context.res.statusCode = error.statusCode;
     }
 
-    if (scope[error.statusCode]) {
-      code = scope[error.statusCode];
+    if (CODES[scope]?.[error.statusCode]) {
+      code = CODES[scope][error.statusCode];
     } else {
       throw errorOrCode;
     }
@@ -56,5 +54,4 @@ function handleError(errorOrCode, { scope = {} } = {}) {
 
 export default (ctx, inject) => {
   inject('error', handleError);
-  inject('errorCodes', CODES);
 };
