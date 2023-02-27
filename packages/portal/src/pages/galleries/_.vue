@@ -247,7 +247,7 @@
           await this.$store.dispatch('entity/getPins');
         }
       } catch (e) {
-        this.$error(e, { scope: this.$errorCodes.APIS.SET, fetch: true });
+        this.$error(e, { scope: this.$errorCodes.APIS.SET });
       }
     },
     computed: {
@@ -340,7 +340,7 @@
     methods: {
       validateRoute() {
         if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {
-          this.$error(404, { fetch: true });
+          this.$error(404);
         }
       },
       async reorderItems(items) {

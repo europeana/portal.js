@@ -199,10 +199,10 @@
           this.primaryImageOfPage = theme.primaryImageOfPage;
           this.hasPartCollection = theme.hasPartCollection;
         } else {
-          this.$error(404, { fetch: true });
+          this.$error(404);
         }
       } catch (error) {
-        this.$error(error, { fetch: true });
+        this.$error(error);
       }
     },
 

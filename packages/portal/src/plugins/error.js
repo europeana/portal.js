@@ -15,7 +15,7 @@ export const CODES = {
 };
 
 // TODO: APM captureError?
-function handleError(errorOrCode, { scope = {}, fetch = false } = {}) {
+function handleError(errorOrCode, { scope = {} } = {}) {
   let code;
   let error;
 
@@ -26,7 +26,7 @@ function handleError(errorOrCode, { scope = {}, fetch = false } = {}) {
   if (typeof errorOrCode === 'object') {
     error = errorOrCode;
 
-    if (fetch && process.server && error.statusCode) {
+    if (this.$fetchState.pending && process.server && error.statusCode) {
       this.$nuxt.context.res.statusCode = error.statusCode;
     }
 
@@ -40,7 +40,7 @@ function handleError(errorOrCode, { scope = {}, fetch = false } = {}) {
     error = new Error(this.$i18n.t(`errorMessage.${code}.title`));
   }
 
-  if (fetch) {
+  if (this.$fetchState.pending) {
     const kebabCaseCode = kebabCase(code);
 
     error.titlePath = `errorMessage.${code}.title`;

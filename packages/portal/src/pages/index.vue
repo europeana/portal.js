@@ -85,7 +85,7 @@
         this.page = data.browsePageCollection.items[0];
         this.browsePage = true;
       } else {
-        this.$error(404, { fetch: true });
+        this.$error(404);
       }
     },
 

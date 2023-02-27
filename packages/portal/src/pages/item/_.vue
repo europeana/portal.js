@@ -198,7 +198,7 @@
           this.trackCustomDimensions();
         }
       } catch (e) {
-        this.$error(e, { scope: this.$errorCodes.APIS.RECORD, fetch: true });
+        this.$error(e, { scope: this.$errorCodes.APIS.RECORD });
       }
     },
 

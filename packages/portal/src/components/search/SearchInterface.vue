@@ -221,12 +221,12 @@
       try {
         await this.runSearch();
       } catch (error) {
-        this.$error(error, { fetch: true });
+        this.$error(error);
       }
 
       if (this.noResults) {
         this.noResultsFound = true;
-        this.$error('searchResultsNotFound', { fetch: true });
+        this.$error('searchResultsNotFound');
       }
     },
 

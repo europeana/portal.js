@@ -41,7 +41,7 @@
 
     fetch() {
       if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
-        this.$error(404, { fetch: true });
+        this.$error(404);
       }
     },
 
