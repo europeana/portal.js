@@ -36,7 +36,7 @@ describe('@/plugins/error', () => {
       let error;
       try {
         wrapper.vm.$error(errorOrCode);
-      } catch(e) {
+      } catch (e) {
         error = e;
       }
 
@@ -54,7 +54,7 @@ describe('@/plugins/error', () => {
       let error;
       try {
         wrapper.vm.$error(errorOrCode);
-      } catch(e) {
+      } catch (e) {
         error = e;
       }
 
@@ -72,7 +72,7 @@ describe('@/plugins/error', () => {
         let error;
         try {
           wrapper.vm.$error(errorOrCode);
-        } catch(e) {
+        } catch (e) {
           error = e;
         }
 
@@ -95,7 +95,7 @@ describe('@/plugins/error', () => {
           let error;
           try {
             wrapper.vm.$error(errorOrCode, { scope });
-          } catch(e) {
+          } catch (e) {
             error = e;
           }
 
@@ -134,7 +134,7 @@ describe('@/plugins/error', () => {
 
         try {
           wrapper.vm.$error(errorOrCode);
-        } catch(e) {
+        } catch (e) {
           //
         }
 
