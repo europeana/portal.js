@@ -7,6 +7,7 @@
       hide-footer
       hide-header-close
       @show="init"
+      @hide="$emit('response', 'cancel')"
     >
       <b-form @submit.stop.prevent="submitForm">
         <b-form-group
@@ -214,10 +215,6 @@
       disableSubmitButton() {
         // Disable submit button when no title (required field)
         return !this.hasTitleInSomeLanguage;
-      },
-
-      errorModalId() {
-        return this.isNew ? `new-set-error-modal-${this.itemContext}` : `edit-set-error-modal-${this.setId}`;
       },
 
       hasTitleInSomeLanguage() {

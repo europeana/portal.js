@@ -12,7 +12,7 @@
         <b-button
           variant="outline-primary"
           data-qa="close button"
-          @click="hide"
+          @click="handleClickCancelButton"
         >
           {{ $t('actions.cancel') }}
         </b-button>
@@ -78,12 +78,13 @@
         }
       },
 
-      hide() {
-        this.$bvModal.hide(this.modalId);
+      handleClickCancelButton() {
+        this.hide();
+        this.$emit('cancel');
       },
 
-      show() {
-        this.$bvModal.show(this.modalId);
+      hide() {
+        this.$bvModal.hide(this.modalId);
       }
     }
   };
