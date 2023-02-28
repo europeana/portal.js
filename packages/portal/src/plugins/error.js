@@ -40,11 +40,11 @@ function normaliseErrorWithCode(errorOrCode, { scope } = {}) {
 export function handleError(errorOrCode, { scope } = {}) {
   const error = normaliseErrorWithCode.bind(this)(errorOrCode, { scope });
 
-  if (this.$nuxt.context.res && error.statusCode) {
+  if (this.$nuxt?.context?.res && error.statusCode) {
     this.$nuxt.context.res.statusCode = error.statusCode;
   }
 
-  if (!error.code || this.$fetchState.pending) {
+  if (!error.code || this.$fetchState?.pending) {
     throw error;
   }
 

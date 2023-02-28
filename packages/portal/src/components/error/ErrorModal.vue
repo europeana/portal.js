@@ -12,7 +12,7 @@
       <b-button
         variant="outline-primary"
         data-qa="close button"
-        @click="hide"
+        @click="$bvModal.hide(modalId)"
       >
         {{ $t('actions.close') }}
       </b-button>
@@ -38,8 +38,7 @@
 
     data() {
       return {
-        // TODO: default this to s'thing generic
-        errorScope: 'setLocked'
+        errorScope: 'unknown'
       };
     },
 
@@ -48,12 +47,6 @@
         this.errorScope = errorScope;
         this.$bvModal.show(this.modalId);
       });
-    },
-
-    methods: {
-      hide() {
-        this.$bvModal.hide(this.modalId);
-      }
     }
   };
 </script>

@@ -239,6 +239,10 @@ export default {
     "setLocked": {
       "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
       "title": "Update failed"
+    },
+    "unknown": {
+      "description": "An unknown error occurred.",
+      "title": "Error"
     }
   },
   "exhibitions": {
