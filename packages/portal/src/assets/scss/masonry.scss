@@ -102,6 +102,20 @@
       @media (min-width: ($bp-xxl + 60px)) {
         width: calc(100% / 4 - $masonry-gutter);
       }
+
+      @media (min-width: $bp-xxxl) {
+        min-width: $min-card-width;
+        width: calc(100% / 5 - $masonry-gutter);
+        max-width: $max-card-width;
+      }
+
+      @media (min-width: $bp-wqhd) {
+        width: calc(100% / 6 - $masonry-gutter);
+      }
+
+      @media (min-width: ($bp-4k - 500px)) {
+        width: calc(100% / 7 - $masonry-gutter);
+      }
     }
 
     .header-card {
@@ -125,6 +139,19 @@
 
       @media (min-width: ($bp-xxl + 60px)) {
         width: calc(100% / 2 - $masonry-gutter);
+      }
+
+      @media (min-width: $bp-xxxl) {
+        width: calc(100% / 2.5 - $masonry-gutter);
+        max-width: none;
+      }
+
+      @media (min-width: $bp-wqhd) {
+        width: calc(100% / 3 - $masonry-gutter);
+      }
+
+      @media (min-width: ($bp-4k - 500px)) {
+        width: calc(100% / 3.5 - $masonry-gutter);
       }
     }
   }

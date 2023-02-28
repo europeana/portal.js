@@ -24,6 +24,13 @@ header .col {
   font-size: $font-size-small;
   font-weight: 600;
   line-height: 1;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+      margin-bottom: calc(1.5 * 0.75rem)
+    }
+  }
 }
 
 .related-subtitle {
@@ -146,10 +153,16 @@ header .col {
 }
 
 .context-label {
+  font-family: $font-family-sans-serif;
   font-size: $font-size-extrasmall;
   text-transform: uppercase;
   font-weight: 600;
   color: $mediumgrey;
   line-height: initial;
-  font-family: $font-family-sans-serif;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-extrasmall-4k;
+    }
+  }
 }

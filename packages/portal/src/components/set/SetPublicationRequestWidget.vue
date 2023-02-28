@@ -137,9 +137,14 @@
     }
 
     h3 {
-      font-size: 1rem;
+      font-size: $font-size-base;
       font-weight: 600;
       margin-bottom: 0.25rem;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+        margin-bottom: calc(1.5 * 0.25rem);
+      }
     }
 
     p {
@@ -147,13 +152,21 @@
 
       &.request-failed {
         font-size: $font-size-small;
-        flex: 0 0 100%
+        flex: 0 0 100%;
+
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-small-4k;
+        }
       }
     }
 
     .icon-cancel-circle::before {
       color: $red;
-      font-size: 1rem;
+      font-size: $font-size-base;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+      }
     }
   }
 </style>
