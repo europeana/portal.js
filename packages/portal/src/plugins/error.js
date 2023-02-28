@@ -12,10 +12,9 @@ export const CODES = {
   }
 };
 
-// TODO: APM captureError?
-export function handleError(errorOrCode, { scope } = {}) {
-  let code;
+function extractErrorAndCode(errorOrCode, { scope } = {}) {
   let error;
+  let code;
 
   if (typeof errorOrCode === 'number') {
     errorOrCode = createHttpError(errorOrCode);
@@ -23,19 +22,27 @@ export function handleError(errorOrCode, { scope } = {}) {
 
   if (typeof errorOrCode === 'object') {
     error = errorOrCode;
-
-    if (this.$fetchState.pending && error.statusCode) {
-      this.$nuxt.context.res.statusCode = error.statusCode;
-    }
-
     if (CODES[scope]?.[error.statusCode]) {
       code = CODES[scope][error.statusCode];
-    } else {
-      throw error;
     }
   } else {
     code = errorOrCode;
     error = new Error(this.$i18n.t(`errorMessage.${code}.title`));
+  }
+
+  return { error, code };
+}
+
+// TODO: APM captureError?
+export function handleError(errorOrCode, { scope } = {}) {
+  const { error, code } = extractErrorAndCode.bind(this)(errorOrCode, { scope });
+
+  if (this.$fetchState.pending && error.statusCode) {
+    this.$nuxt.context.res.statusCode = error.statusCode;
+  }
+
+  if (!code) {
+    throw error;
   }
 
   if (this.$fetchState.pending) {
