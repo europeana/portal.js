@@ -13,18 +13,18 @@
       data-qa="error explanation"
     >
       <b-img
-        v-if="illustrationSrcValue"
-        :src="illustrationSrcValue"
+        v-if="illustrationSrc"
+        :src="illustrationSrc"
         alt=""
       />
       <section
-        v-if="titlePathValue || descriptionPathValue"
+        v-if="$te(titlePath) || $te(descriptionPath)"
         class="mt-4"
       >
         <i18n
-          v-if="titlePathValue"
+          v-if="$te(titlePath)"
           tag="h1"
-          :path="titlePathValue"
+          :path="titlePath"
           class="mb-4"
         >
           <template #newline>
@@ -32,9 +32,9 @@
           </template>
         </i18n>
         <p
-          v-if="descriptionPathValue"
+          v-if="$te(descriptionPath)"
         >
-          {{ $t(descriptionPathValue) }}
+          {{ $t(descriptionPath) }}
         </p>
       </section>
     </div>
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+  import kebabCase from 'lodash/kebabCase';
+
   import AlertMessage from '../generic/AlertMessage';
 
   export default {
@@ -74,32 +76,26 @@
       }
     },
 
-    data() {
-      return {
-        httpErrors: {
-          404: {
-            titlePath: 'errorMessage.pageNotFound.title',
-            illustrationSrc: require('@/assets/img/illustrations/il-page-not-found.svg')
+    computed: {
+      titlePath() {
+        return this.error.code ? `errorMessage.${this.error.code}.title` : null;
+      },
+      descriptionPath() {
+        return this.error.code ? `errorMessage.${this.error.code}.description` : null;
+      },
+      illustrationSrc() {
+        if (this.error.code) {
+          const kebabCaseCode = kebabCase(this.error.code);
+          try {
+            return require(`@/assets/img/illustrations/il-${kebabCaseCode}.svg`);
+          } catch (e) {
+            // don't fall apart just because an image is missing...
           }
         }
-      };
-    },
-
-    computed: {
-      titlePathValue() {
-        return this.error.titlePath || this.httpError?.titlePath;
-      },
-      descriptionPathValue() {
-        return this.error.descriptionPath || this.httpError?.descriptionPath;
-      },
-      illustrationSrcValue() {
-        return this.error.illustrationSrc || this.httpError?.illustrationSrc;
-      },
-      httpError() {
-        return this.httpErrors[this.error.statusCode] || null;
+        return null;
       },
       errorExplanationAvailable() {
-        return this.illustrationSrcValue || this.titlePathValue || this.descriptionPathValue;
+        return this.titlePath || this.descriptionPath || this.illustrationSrc;
       }
     }
   };

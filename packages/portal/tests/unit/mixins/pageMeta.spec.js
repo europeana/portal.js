@@ -83,41 +83,27 @@ describe('mixins/pageMeta', () => {
       };
 
       describe('when fetchState has error', () => {
-        describe('and error has pageTitlePath', () => {
-          const mocks = { $fetchState: { error: { pageTitlePath: 'item-not-found' } } };
+        describe('and error has code', () => {
+          const mocks = { $fetchState: { error: { code: 'item-not-found' } } };
 
-          it('uses translated pageTitlePath', () => {
+          it('uses translated meta title from code', () => {
             const wrapper = factory({ mocks, computed });
 
             const pageTitle = wrapper.vm.pageTitle;
 
-            expect(pageTitle).toBe('item-not-found');
+            expect(pageTitle).toBe('errorMessage.item-not-found.metaTitle');
           });
         });
 
-        describe('but error has no pageTitlePath', () => {
-          describe('but error does have a supported HTTP status code', () => {
-            const mocks = { $fetchState: { error: { statusCode: 404 } } };
+        describe('but error has no code', () => {
+          const mocks = { $fetchState: { error: { statusCode: 500 } } };
 
-            it('uses error message for that status code', () => {
-              const wrapper = factory({ mocks, computed });
+          it('uses translated "error"', () => {
+            const wrapper = factory({ mocks, computed });
 
-              const pageTitle = wrapper.vm.pageTitle;
+            const pageTitle = wrapper.vm.pageTitle;
 
-              expect(pageTitle).toBe('errorMessage.pageNotFound.metaTitle');
-            });
-          });
-
-          describe('and error does not have a supported HTTP status code', () => {
-            const mocks = { $fetchState: { error: { statusCode: 500 } } };
-
-            it('uses translated "error"', () => {
-              const wrapper = factory({ mocks, computed });
-
-              const pageTitle = wrapper.vm.pageTitle;
-
-              expect(pageTitle).toBe('error');
-            });
+            expect(pageTitle).toBe('error');
           });
         });
       });

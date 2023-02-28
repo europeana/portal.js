@@ -28,7 +28,7 @@ const factory = ({ mocks = {} } = {}) => {
 describe('@/plugins/error', () => {
   describe('handleError', () => {
     it('converts number to the equivalent HTTP error', () => {
-      const errorOrCode = 404;
+      const errorOrCode = 400;
       const wrapper = factory({
         mocks: { $error: errorPlugin.handleError }
       });
@@ -41,7 +41,7 @@ describe('@/plugins/error', () => {
       }
 
       expect(error.statusCode).toBe(errorOrCode);
-      expect(error.message).toBe('Not Found');
+      expect(error.message).toBe('Bad Request');
     });
 
     it('converts string code to error', () => {
@@ -77,7 +77,48 @@ describe('@/plugins/error', () => {
       expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(errorOrCode);
     });
 
-    describe('when scope and status code do not resolve to a know code', () => {
+    describe('when scope and status code resolve to a known code', () => {
+      const errorOrCode = { statusCode: 403 };
+      const scope = 'SET_API';
+      const $fetchState = { pending: true };
+
+      it('decorates error with code', () => {
+        const wrapper = factory({
+          mocks: { $error: errorPlugin.handleError, $fetchState }
+        });
+
+        let error;
+        try {
+          wrapper.vm.$error(errorOrCode, { scope });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.code).toBe('galleryUnauthorised');
+      });
+    });
+
+    describe('when status code resolves to a generic code', () => {
+      const errorOrCode = { statusCode: 404 };
+      const $fetchState = { pending: true };
+
+      it('decorates error with code', () => {
+        const wrapper = factory({
+          mocks: { $error: errorPlugin.handleError, $fetchState }
+        });
+
+        let error;
+        try {
+          wrapper.vm.$error(errorOrCode);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.code).toBe('pageNotFound');
+      });
+    });
+
+    describe('when scope and status code do not resolve to a known code', () => {
       const errorOrCode = { statusCode: 400 };
 
       it('throws the error', () => {
@@ -96,46 +137,22 @@ describe('@/plugins/error', () => {
       });
     });
 
-    describe('when scope and status code resolve to a known code', () => {
-      const errorOrCode = { statusCode: 403 };
-      const scope = 'SET_API';
+    describe('when Nuxt fetch state is not pending', () => {
+      const $fetchState = { pending: false };
 
-      describe('and Nuxt fetch state is pending', () => {
-        const $fetchState = { pending: true };
-
-        it('decorates error with explanation fields', () => {
-          const wrapper = factory({
-            mocks: { $error: errorPlugin.handleError, $fetchState }
-          });
-
-          let error;
-          try {
-            wrapper.vm.$error(errorOrCode, { scope });
-          } catch (e) {
-            error = e;
-          }
-
-          expect(error.titlePath).toBe('errorMessage.galleryUnauthorised.title');
-          expect(error.descriptionPath).toBe('errorMessage.galleryUnauthorised.description');
-          expect(error.pageTitlePath).toBe('errorMessage.galleryUnauthorised.metaTitle');
+      it('emits "show-error-modal" event on Vue root, with code as arg', () => {
+        const wrapper = factory({
+          mocks: { $error: errorPlugin.handleError, $fetchState }
         });
-      });
+        sinon.spy(wrapper.vm.$root, '$emit');
+        const errorOrCode = { statusCode: 403 };
+        const scope = 'SET_API';
 
-      describe('and Nuxt fetch state is not pending', () => {
-        const $fetchState = { pending: false };
+        wrapper.vm.$error(errorOrCode, { scope });
 
-        it('emits "show-error-modal" event on Vue root, with code as arg', () => {
-          const wrapper = factory({
-            mocks: { $error: errorPlugin.handleError, $fetchState }
-          });
-          sinon.spy(wrapper.vm.$root, '$emit');
-
-          wrapper.vm.$error(errorOrCode, { scope });
-
-          expect(wrapper.vm.$root.$emit.calledWith(
-            'show-error-modal', 'galleryUnauthorised'
-          )).toBe(true);
-        });
+        expect(wrapper.vm.$root.$emit.calledWith(
+          'show-error-modal', 'galleryUnauthorised'
+        )).toBe(true);
       });
     });
   });

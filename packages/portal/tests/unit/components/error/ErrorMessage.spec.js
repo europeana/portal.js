@@ -10,7 +10,8 @@ const factory = (propsData = {}) => shallowMountNuxt(ErrorMessage, {
   localVue,
   propsData,
   mocks: {
-    $t: (key) => key
+    $t: (key) => key,
+    $te: () => true
   },
   stubs: ['i18n']
 });
@@ -21,29 +22,14 @@ describe('components/error/ErrorMessage', () => {
       const propsData = {
         error: {
           message: 'Item was not found',
-          titlePath: 'errorMessage.itemNotFound.title',
-          descriptionPath: 'errorMessage.itemNotFound.description',
-          illustrationSrc: 'src/assets/img/illustrations/il-item-not-found.svg'
+          code: 'itemNotFound'
         }
       };
       const wrapper = factory(propsData);
 
       const text = wrapper.text();
 
-      expect(text).toEqual(propsData.error.descriptionPath);
-    });
-
-    it('has reusable message for 404 HTTP status code', () => {
-      const propsData = {
-        error: {
-          statusCode: 404
-        }
-      };
-      const wrapper = factory(propsData);
-
-      const heading = wrapper.find('i18n-stub[tag="h1"]');
-
-      expect(heading.attributes('path')).toEqual('errorMessage.pageNotFound.title');
+      expect(text).toEqual('errorMessage.itemNotFound.description');
     });
   });
 });

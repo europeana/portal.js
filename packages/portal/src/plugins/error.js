@@ -1,7 +1,6 @@
 import createHttpError from 'http-errors';
-import kebabCase from 'lodash/kebabCase';
 
-export const CODES = {
+const SCOPED_CODES = {
   RECORD_API: {
     404: 'itemNotFound'
   },
@@ -11,10 +10,12 @@ export const CODES = {
     423: 'setLocked'
   }
 };
+const GENERIC_CODES = {
+  404: 'pageNotFound'
+};
 
-function extractErrorAndCode(errorOrCode, { scope } = {}) {
+function normaliseErrorWithCode(errorOrCode, { scope } = {}) {
   let error;
-  let code;
 
   if (typeof errorOrCode === 'number') {
     errorOrCode = createHttpError(errorOrCode);
@@ -22,47 +23,33 @@ function extractErrorAndCode(errorOrCode, { scope } = {}) {
 
   if (typeof errorOrCode === 'object') {
     error = errorOrCode;
-    if (CODES[scope]?.[error.statusCode]) {
-      code = CODES[scope][error.statusCode];
+    if (SCOPED_CODES[scope]?.[error.statusCode]) {
+      error.code = SCOPED_CODES[scope][error.statusCode];
+    } else if (GENERIC_CODES[error.statusCode]) {
+      error.code = GENERIC_CODES[error.statusCode];
     }
   } else {
-    code = errorOrCode;
-    error = new Error(this.$i18n.t(`errorMessage.${code}.title`));
+    error = new Error(this.$i18n.t(`errorMessage.${errorOrCode}.title`));
+    error.code = errorOrCode;
   }
 
-  return { error, code };
+  return error;
 }
 
 // TODO: APM captureError?
 export function handleError(errorOrCode, { scope } = {}) {
-  const { error, code } = extractErrorAndCode.bind(this)(errorOrCode, { scope });
+  const error = normaliseErrorWithCode.bind(this)(errorOrCode, { scope });
 
   if (this.$nuxt.context.res && error.statusCode) {
     this.$nuxt.context.res.statusCode = error.statusCode;
   }
 
-  if (!code) {
+  if (!error.code || this.$fetchState.pending) {
     throw error;
   }
 
-  if (this.$fetchState.pending) {
-    const kebabCaseCode = kebabCase(code);
-
-    // TODO: delegate these derivations to ErrorMessage.vue? just set `code` property on `error` here?
-    error.titlePath = `errorMessage.${code}.title`;
-    error.descriptionPath = `errorMessage.${code}.description`;
-    error.pageTitlePath = `errorMessage.${code}.metaTitle`;
-    try {
-      error.illustrationSrc = require(`@/assets/img/illustrations/il-${kebabCaseCode}.svg`);
-    } catch (e) {
-      // don't fall apart just because an image is missing...
-    }
-
-    throw error;
-  } else {
-    // TODO: rename to s'thing more generic like 'handle-non-fetch-error'?
-    this.$root.$emit('show-error-modal', code);
-  }
+  // TODO: rename to s'thing more generic like 'handle-non-fetch-error'?
+  this.$root.$emit('show-error-modal', error.code);
 }
 
 export default (ctx, inject) => {
