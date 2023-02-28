@@ -13,7 +13,7 @@ export const CODES = {
 };
 
 // TODO: APM captureError?
-function handleError(errorOrCode, { scope } = {}) {
+export function handleError(errorOrCode, { scope } = {}) {
   let code;
   let error;
 
@@ -24,14 +24,14 @@ function handleError(errorOrCode, { scope } = {}) {
   if (typeof errorOrCode === 'object') {
     error = errorOrCode;
 
-    if (this.$fetchState.pending && process.server && error.statusCode) {
+    if (this.$fetchState.pending && error.statusCode) {
       this.$nuxt.context.res.statusCode = error.statusCode;
     }
 
     if (CODES[scope]?.[error.statusCode]) {
       code = CODES[scope][error.statusCode];
     } else {
-      throw errorOrCode;
+      throw error;
     }
   } else {
     code = errorOrCode;
@@ -41,13 +41,19 @@ function handleError(errorOrCode, { scope } = {}) {
   if (this.$fetchState.pending) {
     const kebabCaseCode = kebabCase(code);
 
+    // TODO: delegate these derivations to ErrorMessage.vue? just set `code` property on `error` here?
     error.titlePath = `errorMessage.${code}.title`;
     error.descriptionPath = `errorMessage.${code}.description`;
     error.pageTitlePath = `errorMessage.${code}.metaTitle`;
-    error.illustrationSrc = require(`@/assets/img/illustrations/il-${kebabCaseCode}.svg`);
+    try {
+      error.illustrationSrc = require(`@/assets/img/illustrations/il-${kebabCaseCode}.svg`);
+    } catch (e) {
+      // don't fall apart just because an image is missing...
+    }
 
     throw error;
   } else {
+    // TODO: rename to s'thing more generic like 'handle-non-fetch-error'?
     this.$root.$emit('show-error-modal', code);
   }
 }
