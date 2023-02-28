@@ -10,6 +10,13 @@ body {
   }
 }
 
+// TODO: When all pages gridless/4k set this directly on body
+.xxl-page {
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-base-4k;
+  }
+}
+
 main {
   @include min-page-height;
 }
@@ -268,6 +275,13 @@ main#default {
   background-position: center;
   background-size: 66.67%;
   background-blend-mode: multiply;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      height: calc(1.5 * 72px);
+      width: calc(1.5 * 72px);
+    }
+  }
 }
 
 .visually-hidden {
@@ -284,6 +298,10 @@ main#default {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: $bp-xxxl) {
+    aspect-ratio: 4 / 3;
+  }
 
   [class^='icon-'],
   [class*=' icon-'] {

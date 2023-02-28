@@ -1,7 +1,7 @@
 <template>
   <footer
     data-qa="footer"
-    class="page-footer responsive-font"
+    class="page-footer"
   >
     <div class="footer-wrapper py-5">
       <b-container>
@@ -211,6 +211,15 @@
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
   @import '@/assets/scss/footer';
+
+  .dropdown {
+    .btn-light,
+    .dropdown-menu {
+      @media (min-width: $bp-wqhd) {
+        font-size: 1.125rem;
+      }
+    }
+  }
 </style>
 
 <docs lang="md">

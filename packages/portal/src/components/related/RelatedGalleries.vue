@@ -115,7 +115,13 @@
 
     ::v-deep .card-img {
       width: 45%;
-      max-width: 80px;
+      max-width: 5rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          max-width: 7.5rem;
+        }
+      }
     }
   }
 
@@ -123,6 +129,12 @@
     @media (min-width: $bp-medium) {
       flex: 0 1 33%;
       margin: 0 0.75rem 0.75rem 0;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          margin-right: 1.125rem;
+        }
+      }
 
       &:last-child {
         margin-right: 0;
