@@ -61,6 +61,22 @@ describe('@/plugins/error', () => {
       expect(error.message).toBe('errorMessage.setLocked.title');
     });
 
+    it('sets HTTP status code in Nuxt context', () => {
+      const errorOrCode = 404;
+      const $fetchState = { pending: true };
+      const wrapper = factory({
+        mocks: { $error: errorPlugin.handleError, $fetchState }
+      });
+
+      try {
+        wrapper.vm.$error(errorOrCode);
+      } catch (e) {
+        //
+      }
+
+      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(errorOrCode);
+    });
+
     describe('when scope and status code do not resolve to a know code', () => {
       const errorOrCode = { statusCode: 400 };
 
@@ -120,25 +136,6 @@ describe('@/plugins/error', () => {
             'show-error-modal', 'galleryUnauthorised'
           )).toBe(true);
         });
-      });
-    });
-
-    describe('when Nuxt fetch state is pending', () => {
-      const errorOrCode = 404;
-      const $fetchState = { pending: true };
-
-      it('sets HTTP status code in Nuxt context', () => {
-        const wrapper = factory({
-          mocks: { $error: errorPlugin.handleError, $fetchState }
-        });
-
-        try {
-          wrapper.vm.$error(errorOrCode);
-        } catch (e) {
-          //
-        }
-
-        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(errorOrCode);
       });
     });
   });

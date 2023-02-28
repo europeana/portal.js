@@ -37,7 +37,7 @@ function extractErrorAndCode(errorOrCode, { scope } = {}) {
 export function handleError(errorOrCode, { scope } = {}) {
   const { error, code } = extractErrorAndCode.bind(this)(errorOrCode, { scope });
 
-  if (this.$fetchState.pending && error.statusCode) {
+  if (this.$nuxt.context.res && error.statusCode) {
     this.$nuxt.context.res.statusCode = error.statusCode;
   }
 
