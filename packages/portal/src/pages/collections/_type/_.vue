@@ -132,14 +132,18 @@
       }
       this.$store.commit('entity/setId', entityUri);
 
-      const response = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
-      this.$store.commit('entity/setEntity', pick(response.entity, [
-        'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
-      ]));
-      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-      const urlLabel = this.entity.prefLabel.en;
+      try {
+        const response = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
+        this.$store.commit('entity/setEntity', pick(response.entity, [
+          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
+        ]));
+        this.$store.commit('search/setCollectionLabel', this.title.values[0]);
+        const urlLabel = this.entity.prefLabel.en;
 
-      return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+        return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+      } catch (e) {
+        this.$error(e);
+      }
     },
 
     computed: {

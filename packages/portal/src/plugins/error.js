@@ -33,6 +33,11 @@ function normaliseErrorWithCode(errorOrCode, { scope } = {}) {
     error.code = errorOrCode;
   }
 
+  // TODO: consider if we should do this
+  // if (!error.code) {
+  //   error.code = 'unknown';
+  // }
+
   return error;
 }
 
