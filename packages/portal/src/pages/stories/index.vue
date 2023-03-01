@@ -42,7 +42,18 @@
       >
         {{ $tc('items.itemCount', total, { count: total }) }}
       </div>
+      <b-container
+        v-if="loadingStories"
+        data-qa="stories loading spinner container"
+      >
+        <b-row class="flex-md-row py-4 text-center">
+          <b-col cols="12">
+            <LoadingSpinner />
+          </b-col>
+        </b-row>
+      </b-container>
       <b-card-group
+        v-else
         class="card-deck-4-cols gridless-browse-cards"
         deck
       >
@@ -50,7 +61,7 @@
           v-for="(entry, index) in stories"
         >
           <template
-            v-if="page === 1 && entry === ctaBanner"
+            v-if="entry === ctaBanner"
           >
             <CallToActionBanner
               v-if="callsToAction[0]"
@@ -119,7 +130,8 @@
         description: null,
         socialMediaImage: null,
         pageFetched: false,
-        ctaBanner: 'cta-banner'
+        ctaBanner: 'cta-banner',
+        loadingStories: false
       };
     },
 
@@ -128,10 +140,6 @@
         this.fetchPage(),
         this.fetchStories()
       ]);
-
-      this.stories.splice(12, 0, this.ctaBanner);
-
-      this.$scrollTo && this.$scrollTo('#header');
     },
 
     computed: {
@@ -153,8 +161,8 @@
     },
 
     watch: {
-      '$route.query.page': '$fetch',
-      '$route.query.tags': '$fetch'
+      '$route.query.page': 'fetchStories',
+      '$route.query.tags': 'fetchStories'
     },
 
     methods: {
@@ -177,6 +185,7 @@
       },
 
       async fetchStories() {
+        this.loadingStories = true;
         this.selectedTags = this.$route.query.tags?.split(',') || [];
         let stories;
 
@@ -229,6 +238,11 @@
           storiesResponse.data.data.exhibitionPageCollection.items
         ].flat();
         this.stories = storySysIds.map((sysId) => stories.find((story) => story.sys.id === sysId)).filter(Boolean);
+        if (this.page === 1) {
+          this.stories.splice(12, 0, this.ctaBanner);
+        }
+        this.loadingStories = false;
+        this.$scrollTo && this.$scrollTo('#header');
       },
 
       entryUrl(entry) {
