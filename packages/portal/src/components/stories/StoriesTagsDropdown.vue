@@ -165,12 +165,8 @@
   overflow: auto;
   margin: 0;
 
-  @media (min-width: $bp-medium) {
-    max-height: 7.5rem;
-  }
-
   @media (min-width: $bp-xxxl) {
-    max-height: 7.5vw;
+    max-height: 15vw;
   }
 
   ::v-deep .col-12 {
