@@ -150,7 +150,7 @@
             __variant: null,
             name: entry.name,
             identifier: entry.identifier,
-            image: entry.primaryImageOfPage.image,
+            image: entry.primaryImageOfPage?.image,
             url: `/themes/${entry.identifier}`,
             description: entry.description
           }));
