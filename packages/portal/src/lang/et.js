@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Palun kohandage otsingusõna või lähtestage filtrid, et proovida uuesti.",
       "title": "Tundub, et me ei leia seda, mida otsite."
+    },
+    "setLocked": {
+      "description": "Redigeerimine on ajutiselt keelatud ja teie muudatusi pole salvestatud. Palun proovi hiljem uuesti.",
+      "title": "Uuendus ebaõnnestus"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Plaanitud hoolduse tõttu ei ole konto, sisselogimise, meeldimiste ja galeriide funktsionaalsus neljapäeval, 23. veebruaril kell 7.00–9.00 CET ajal saadaval või piiratud."
+    }
+  },
   "of": "of",
   "organisation": {
     "city": "Linn",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Lood"
+  },
+  "themes": {
+    "description": "Sirvi teemade kaupa",
+    "themes": "Teemad"
   },
   "website": "Veebisait"
 };

@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Dostosuj wyszukiwane hasło lub zresetuj filtry, aby spróbować ponownie.",
       "title": "Nie możemy znaleźć tego, czego szukasz."
+    },
+    "setLocked": {
+      "description": "Edytowanie jest tymczasowo wyłączone, a zmiany nie zostały zapisane. Spróbuj ponownie później.",
+      "title": "Aktualizacja nie powiodła się"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak wyników",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Ze względu na zaplanowane prace konserwacyjne, konto, logowanie, polubienia i galerie będą niedostępne lub ograniczone w czwartek, 23 lutego, w godzinach 7:00-9:00 CET."
+    }
+  },
   "of": "Z",
   "organisation": {
     "city": "Miasto",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Historie"
+  },
+  "themes": {
+    "description": "Przeglądaj według motywu",
+    "themes": "Motywy"
   },
   "website": "Strona internetowa"
 };

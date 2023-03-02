@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Por favor, ajuste el término de búsqueda o restablezca los filtros para volver a intentarlo.",
       "title": "Parece que no podemos encontrar lo que está buscando."
+    },
+    "setLocked": {
+      "description": "La edición está deshabilitada temporalmente y sus cambios no se han guardado. Por favor, inténtelo de nuevo más tarde.",
+      "title": "Actualización fallida"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Debido al mantenimiento programado, la cuenta, el inicio de sesión, los Me gusta y la funcionalidad de las galerías no estarán disponibles o estarán limitados el jueves 23 de febrero, de 7:00 a 9:00 a.m. CET."
+    }
+  },
   "of": "De",
   "organisation": {
     "city": "Ciudad",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Historias"
+  },
+  "themes": {
+    "description": "Navegar por tema",
+    "themes": "Temas"
   },
   "website": "Sitio web"
 };

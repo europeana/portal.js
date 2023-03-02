@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Athraigh an téarma cuardaigh nó athshocraigh na scagairí chun triail eile a bhaint as.",
       "title": "Is cosúil nach féidir linn teacht ar a bhfuil á lorg agat."
+    },
+    "setLocked": {
+      "description": "Tá an eagarthóireacht díchumasaithe go sealadach, agus níor sábháladh do chuid athruithe. Bain triail eile as ar ball.",
+      "title": "Theip ar an nuashonrú"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Mar gheall ar chothabháil sceidealta, ní bheidh feidhmiúlacht chuntais, logáil isteach, rudaí is maith leo agus gailearaithe ar fáil nó teoranta ar an Déardaoin, 23 Feabhra, ó 7:00-9:00 am CET."
+    }
+  },
   "of": "De",
   "organisation": {
     "city": "Cathair",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Scéalta"
+  },
+  "themes": {
+    "description": "Brabhsáil de réir téama",
+    "themes": "Téamaí"
   },
   "website": "Suíomh Gréasáin"
 };

@@ -1,4 +1,5 @@
 $font-family-sans-serif: 'Open Sans', 'Arial', sans-serif;
+$font-family-ubuntu: 'Ubuntu', $font-family-sans-serif;
 
 // UI colors
 $white: #fff;
@@ -47,12 +48,20 @@ $textshadow-light: 1px 2px 2px rgb(0 0 0 / 30%);
 $border-radius: 0.375rem;
 $border-radius-small: 0.25rem;
 $border-radius-large: 0.5rem;
+$font-size-largest: 2.125rem;
 $font-size-large: 1.5rem;
 $font-size-medium: 1.25rem;
 $font-size-base: 1rem;
 $font-size-small: 0.875rem;
 $font-size-extrasmall: 0.75rem;
 $font-size-smallest: 0.625rem;
+$font-size-large-4k: calc(1.5 * $font-size-large);
+$font-size-medium-4k: calc(1.5 * $font-size-medium);
+$font-size-base-4k: calc(1.5 * $font-size-base);
+$font-size-small-4k: calc(1.5 * $font-size-small);
+$font-size-extrasmall-4k: calc(1.5 * $font-size-extrasmall);
+$font-size-smallest-4k: calc(1.5 * $font-size-smallest);
+$responsive-font-size-largest: 2.125vw;
 $responsive-font-size-large: 1.5vw;
 $responsive-font-size-medium: 1.25vw;
 $responsive-font-size-base: 1vw;
@@ -76,3 +85,5 @@ $swiper-height: 80vh;
 $swiper-height-max: 35.5rem;
 $swiper-height-medium: 25rem;
 $jumbotron-height-min: 275px;
+$min-card-width: 270px;
+$max-card-width: 480px;

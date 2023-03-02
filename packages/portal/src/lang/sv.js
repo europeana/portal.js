@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Justera söktermen eller återställ filtren för att försöka igen.",
       "title": "Vi verkar inte kunna hitta det du letar efter."
+    },
+    "setLocked": {
+      "description": "Redigering är tillfälligt inaktiverad och dina ändringar har inte sparats. Vänligen försök igen senare.",
+      "title": "Uppdateringen misslyckades"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "På grund av planerat underhåll kommer konto, inloggning, gilla-markeringar och gallerifunktioner att vara otillgängliga eller begränsade torsdagen den 23 februari kl. 07.00-09.00 CET."
+    }
+  },
   "of": "Av",
   "organisation": {
     "city": "Stad",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Berättelser"
+  },
+  "themes": {
+    "description": "Bläddra efter tema",
+    "themes": "Teman"
   },
   "website": "Webbplats"
 };

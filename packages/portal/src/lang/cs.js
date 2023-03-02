@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Upravte prosím hledaný výraz nebo resetujte filtry a zkuste to znovu.",
       "title": "Zdá se, že nemůžeme najít to, co hledáte."
+    },
+    "setLocked": {
+      "description": "Úpravy jsou dočasně zakázány a vaše změny nebyly uloženy. Prosím zkuste to znovu později.",
+      "title": "Aktualizace selhala"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Kvůli plánované údržbě budou ve čtvrtek 23. února od 7:00 do 9:00 CET nedostupné nebo omezené funkce účtu, přihlášení, hodnocení Líbí se mi a galerií."
+    }
+  },
   "of": "Z",
   "organisation": {
     "city": "Město",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Příběhy"
+  },
+  "themes": {
+    "description": "Procházet podle tématu",
+    "themes": "Témata"
   },
   "website": "Webové stránky"
 };

@@ -221,20 +221,46 @@
     box-shadow: $boxshadow-small;
 
     h2 {
+      font-family: $font-family-ubuntu;
       font-size: $font-size-medium;
-      margin-bottom: 0.375rem;
-      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
       line-height: normal;
+
+      @media (min-width: $bp-small) {
+        font-size: $font-size-large;
+        line-height: 1.5;
+        margin-bottom: 0;
+      }
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-large-4k;
+        }
+      }
     }
 
     .card-text {
       font-size: $font-size-small;
       color: $mediumgrey;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-small-4k;
+        }
+      }
     }
 
     .btn {
       margin-right: 0.5rem;
       margin-top: 0.5rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          margin-right: 0.75rem;
+          margin-top: 0.75rem;
+        }
+      }
     }
   }
 
@@ -244,6 +270,14 @@
     font-size: $font-size-extrasmall;
     color: $mediumgrey;
     text-transform: uppercase;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin-top: 0.75rem;
+        margin-bottom: calc(1.5 * 0.375rem);
+        font-size: $font-size-extrasmall-4k;
+      }
+    }
   }
 </style>
 

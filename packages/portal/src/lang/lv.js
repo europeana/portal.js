@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Lūdzu, pielāgojiet meklēšanas vienumu vai atiestatiet filtrus, lai mēģinātu vēlreiz.",
       "title": "Šķiet, ka mēs nevaram atrast to, ko meklējat."
+    },
+    "setLocked": {
+      "description": "Rediģēšana ir īslaicīgi atspējota, un jūsu izmaiņas nav saglabātas. Lūdzu, pamēģiniet vēlreiz vēlāk.",
+      "title": "Atjaunināšana neizdevās"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Plānotas apkopes dēļ konta, pieteikšanās, atzīmju Patīk un galeriju funkcionalitāte ceturtdien, 23. februārī, no 7:00 līdz 9:00 pēc CET nebūs pieejama vai būs ierobežota."
+    }
+  },
   "of": "No",
   "organisation": {
     "city": "Pilsēta",
@@ -1076,6 +1085,10 @@ export default {
   },
   "storiesPage": {
     "title": "Stāsti"
+  },
+  "themes": {
+    "description": "Pārlūkojiet pēc tēmas",
+    "themes": "Tēmas"
   },
   "website": "Vietne"
 };
