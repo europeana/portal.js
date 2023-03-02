@@ -155,6 +155,7 @@
         if (this.selectedEntity) {
           return this.entityDisplayLabel(this.selectedEntity);
         }
+        return '';
       },
       selectedEntity() {
         return this.entities.find(entity => entity.about === this.selected);
