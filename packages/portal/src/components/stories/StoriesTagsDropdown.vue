@@ -19,6 +19,7 @@
         <b-form-input
           :id="'tag-search-input'"
           v-model="searchTag"
+          autocomplete="off"
           type="search"
           :placeholder="$t('categories.search')"
           data-qa="tags dropdown search input"
