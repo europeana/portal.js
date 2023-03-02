@@ -17,8 +17,7 @@ const cacherNames = [
   'collections:topics:featured',
   'galleries:recent',
   'items:recent',
-  'items:type-counts',
-  'themes:featured'
+  'items:type-counts'
 ];
 
 const cacherModule = (cacherName) => {
@@ -53,11 +52,6 @@ const runSetCacher = async(cacherName) => {
     langAwareData = localeCodes.map((locale) => ({
       key: namespaceCacheKey(cacherName, locale),
       data: utils.localise(rawData, cacher.LOCALISE, locale)
-    }));
-  } else if (cacher.LOCALISE_CONTENTFUL) {
-    langAwareData = localeCodes.map((locale) => ({
-      key: namespaceCacheKey(cacherName, locale),
-      data: utils.localiseContentful(rawData, cacher.LOCALISE_CONTENTFUL, locale)
     }));
   } else if (cacher.INTERNATIONALISE) {
     langAwareData = [{ key: namespaceCacheKey(cacherName), data: cacher.INTERNATIONALISE(rawData) }];

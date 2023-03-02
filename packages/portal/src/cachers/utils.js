@@ -67,25 +67,8 @@ const localiseOne = (item, fields, locale) => {
   return localised;
 };
 
-const localiseOneContentful = (item, fields, locale) => {
-  const localised = { ...item };
-
-  for (const field of [].concat(fields)) {
-    if (localised[field]) {
-      const localisedKey = `${field}_${locale}`;
-      localised[field] = localised[localisedKey];
-    }
-  }
-
-  return localised;
-};
-
 const localise = (data, fields, locale) => {
   return mutateObjects(data, object => localiseOne(object, fields, locale));
-};
-
-const localiseContentful = (data, fields, locale) => {
-  return mutateObjects(data, object => localiseOneContentful(object, fields, locale));
 };
 
 const pick = (data, fields) => {
@@ -117,7 +100,6 @@ export {
   errorMessage,
   daily,
   localise,
-  localiseContentful,
   pick,
   sort
 };

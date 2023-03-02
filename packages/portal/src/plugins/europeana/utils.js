@@ -394,6 +394,8 @@ export const daily = (set, subsetSize) => {
   if (!Array.isArray(set)) {
     return set;
   }
+  console.warn('is an array', set);
+
   const offset = dailyOffset(set.length, subsetSize);
   return set.slice(offset, offset + subsetSize);
 };
