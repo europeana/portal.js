@@ -20,7 +20,7 @@
         class="mr-auto"
       >
         <!-- TODO: localise here, even if not on the set itself -->
-        {{ entity.prefLabel.en[0] }}
+        {{ entityDisplayLabel(entity) }}
       </span>
       <span
         class="icons text-left d-flex justify-content-end"
@@ -152,7 +152,9 @@
         return { name: 'set-all', params: { pathMatch: this.selected && this.selectedEntitySet.id.replace('http://data.europeana.eu/set/', '') } };
       },
       selectedEntityPrefLabel() {
-        return this.selectedEntity?.prefLabel?.en?.[0];
+        if (this.selectedEntity) {
+          return this.entityDisplayLabel(this.selectedEntity);
+        }
       },
       selectedEntity() {
         return this.entities.find(entity => entity.about === this.selected);
@@ -239,6 +241,10 @@
           this.makeToast(this.$t('entity.notifications.error.unpin'));
         }
         this.hide();
+      },
+
+      entityDisplayLabel(entity) {
+        return entity.prefLabel?.en ? entity.prefLabel.en[0] : entity.prefLabel?.[Object.keys(entity.prefLabel)[0]][0];
       },
 
       selectEntity(id) {
