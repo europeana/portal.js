@@ -21,7 +21,7 @@
           :aria-hidden="prevDisabled"
           class="page-link"
         >
-          <span class="icon-arrow-down" />
+          <span class="icon-arrow-down mr-1" />
           {{ $t('actions.previous') }}
         </SmartLink>
       </li>
@@ -52,7 +52,7 @@
           class="page-link"
         >
           {{ $t('actions.next') }}
-          <span class="icon-arrow-down" />
+          <span class="icon-arrow-down ml-1" />
         </SmartLink>
       </li>
     </ul>

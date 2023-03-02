@@ -71,22 +71,40 @@
     flex-shrink: 0;
   }
 
+  .ml-3 {
+    @media (min-width: $bp-4k) {
+      margin-left: 1.5rem !important;
+    }
+  }
+
   .btn-group-toggle {
     position: relative;
     height: 2.25rem;
     align-items: center;
 
+    @media (min-width: $bp-4k) {
+      height: 7rem;
+    }
+
     .icon-view-toggle {
       color: $mediumgrey;
       font-size: 1.5rem;
+
+      @media (min-width: $bp-4k) {
+        font-size: 3.125rem;
+      }
 
       &::before {
         @extend %icon-font;
 
         content: '\e929';
         vertical-align: baseline;
-        width: 1.5rem;
+        width: $font-size-large;
         display: inline-block;
+
+        @media (min-width: $bp-4k) {
+          width: 3.125rem;
+        }
       }
 
       &.grid::before {

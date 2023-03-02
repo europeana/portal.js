@@ -236,6 +236,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Please adjust the search term or reset the filters to try again.",
       "title": "We can't seem to find what you are looking for."
+    },
+    "setLocked": {
+      "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
+      "title": "Update failed"
     }
   },
   "exhibitions": {
@@ -917,6 +921,9 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "notificationBanner": {
+    "text": {}
+  },
   "of": "Of",
   "organisation": {
     "city": "City",

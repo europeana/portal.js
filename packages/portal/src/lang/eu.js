@@ -235,6 +235,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Mesedez, egokitu bilaketa-terminoa edo berrezarri iragazkiak berriro saiatzeko.",
       "title": "Badirudi ezin dugula bilatzen ari zarena aurkitu."
+    },
+    "setLocked": {
+      "description": "Edizioa aldi baterako desgaituta dago, eta zure aldaketak ez dira gorde. Saiatu berriro geroago.",
+      "title": "Eguneratzea huts egin du"
     }
   },
   "exhibitions": {
@@ -893,6 +897,11 @@ export default {
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Programatutako mantentze-lanak direla eta, kontua, saioa hasteko, gustatu izanaren eta galerien funtzioak ez dira erabilgarri edo mugatuta egongo otsailaren 23an, ostegunean, goizeko 7:00etatik 9:00etara CET."
+    }
+  },
   "of": "De",
   "organisation": {
     "city": "Hiria",

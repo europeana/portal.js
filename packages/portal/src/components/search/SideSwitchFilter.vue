@@ -145,6 +145,12 @@
   .btn.tooltip-button {
     color: $grey;
     font-size: $font-size-base;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+      }
+    }
   }
 </style>
 

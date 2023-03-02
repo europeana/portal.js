@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Modifica il termine di ricerca o reimposta i filtri per riprovare.",
       "title": "Non riusciamo a trovare quello che stai cercando."
+    },
+    "setLocked": {
+      "description": "La modifica è temporaneamente disabilitata e le tue modifiche non sono state salvate. Per favore riprova più tardi.",
+      "title": "Aggiornamento non riuscito"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
   "noResults": "Nessun Risultato",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "A causa della manutenzione programmata, le funzionalità di account, accesso, Mi piace e gallerie non saranno disponibili o saranno limitate giovedì 23 febbraio, dalle 7:00 alle 9:00 CET."
+    }
+  },
   "of": "Di",
   "organisation": {
     "city": "Città",

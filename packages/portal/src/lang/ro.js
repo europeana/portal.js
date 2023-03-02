@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Vă rugăm să ajustați termenul de căutare sau să resetați filtrele pentru a încerca din nou.",
       "title": "Se pare că nu găsim ceea ce cauți."
+    },
+    "setLocked": {
+      "description": "Editarea este temporar dezactivată, iar modificările dvs. nu au fost salvate. Vă rugăm să încercați din nou mai târziu.",
+      "title": "Actualizarea a eșuat"
     }
   },
   "exhibitions": {
@@ -889,6 +893,11 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "notificationBanner": {
+    "text": {
+      "setsKeycloakMaintenance": "Din cauza întreținerii programate, contul, autentificarea, aprecierile și funcționalitatea galeriilor vor fi indisponibile sau limitate joi, 23 februarie, între orele 7:00-9:00 CET."
+    }
+  },
   "of": "De",
   "organisation": {
     "city": "Oraș",

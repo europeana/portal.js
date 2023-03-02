@@ -107,6 +107,7 @@ export default {
       featureNotification: process.env.APP_FEATURE_NOTIFICATION,
       featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
@@ -353,6 +354,7 @@ export default {
     '~/modules/axios-logger',
     '~/modules/http',
     '~/modules/query-sanitiser',
+    '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
 
@@ -361,7 +363,6 @@ export default {
   */
   modules: [
     '~/modules/elastic-apm',
-    '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['@nuxtjs/i18n', {
@@ -420,6 +421,24 @@ export default {
     },
     defaultStrategy: 'keycloak',
     plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
+  },
+
+  axios: {
+    proxyHeadersIgnore: [
+      // module defaults
+      'accept',
+      'host',
+      'x-forwarded-host',
+      'x-forwarded-port',
+      'x-forwarded-proto',
+      'cf-ray',
+      'cf-connecting-ip',
+      'content-length',
+      'content-md5',
+      'content-type',
+      // don't send cookie header to APIs
+      'cookie'
+    ]
   },
 
   router: {

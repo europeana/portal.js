@@ -35,3 +35,5 @@ To add new icons:
 # License
 
 The Open Sans fonts are licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+The Ubuntu fonts are licensed under the [Ubuntu font licence, Version 1.0](https://ubuntu.com/legal/font-licence).
