@@ -607,7 +607,7 @@ describe('components/item/ItemPinModal', () => {
 
           const result = await wrapper.vm.entityDisplayLabel(entityWithEnglishPrefLabel);
 
-          expect(result).toBe('English label');
+          expect(result.values[0]).toBe('English label');
         });
       });
 
@@ -616,12 +616,12 @@ describe('components/item/ItemPinModal', () => {
           about: ENTITY_URI,
           prefLabel: { fr: ['French label'] }
         };
-        it('uses the first pref label value of an available language', async() => {
+        it('uses the first prefLabel value of an available language', async() => {
           const wrapper = factory();
 
           const result = await wrapper.vm.entityDisplayLabel(entityWithFrenchPrefLabel);
 
-          expect(result).toBe('French label');
+          expect(result.values[0]).toBe('French label');
         });
       });
     });

@@ -1052,6 +1052,9 @@ export default {
       "edit": "Edit gallery",
       "update": "Update gallery"
     },
+    "entityBestBets": {
+      "title": "{entity} Page"
+    },
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
