@@ -231,7 +231,8 @@ jobs:
           context: .
           file: ./packages/portal/Dockerfile
           pull: true
-          push: ${{ github.actor != 'dependabot[bot]' }}
+          # push: ${{ github.actor != 'dependabot[bot]' }}
+          push: false
           cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:latest
           cache-to: type=inline
           tags: ${{ needs.metadata.outputs.docker-tags }}
@@ -264,7 +265,9 @@ jobs:
           path: /tmp
       -
         name: Load app image
-        run: docker load --input /tmp/portal-docker-image.tar
+        run: |
+          docker load --input /tmp/portal-docker-image.tar
+          docker image ls
       -
         name: Build and load size test image
         uses: docker/build-push-action@v3
@@ -376,7 +379,8 @@ jobs:
   deploy-ibm-cloud:
     runs-on: ubuntu-latest
     needs: [metadata, docker-build]
-    if: (github.actor != 'dependabot[bot]') && ((needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true'))
+    if: false
+    # if: (github.actor != 'dependabot[bot]') && ((needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true'))
     env:
       DOCKER_IMAGE_TAG: ${{ needs.metadata.outputs.docker-full-tag }}
       IBMCLOUD_API_URL: https://cloud.ibm.com
