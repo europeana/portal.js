@@ -16,10 +16,10 @@ on:
 
 env:
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
-  CTF_ENVIRONMENT_ID: test
-  CTF_GRAPHQL_ORIGIN: https://contentful-proxy-cache.test.eanadev.org
+  CTF_ENVIRONMENT_ID: ${{ vars.CTF_ENVIRONMENT_ID }}
+  CTF_GRAPHQL_ORIGIN: ${{ vars.CTF_GRAPHQL_ORIGIN }}
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
-  DOCKER_REPOSITORY: europeana/portal.js
+  DOCKER_REPOSITORY: ${{ vars.DOCKER_REPOSITORY }}
   EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
@@ -354,10 +354,10 @@ jobs:
     if: (needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true')
     env:
       DOCKER_IMAGE_TAG: ${{ needs.metadata.outputs.docker-full-tag }}
-      IBMCLOUD_API_URL: https://cloud.ibm.com
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
-      IBMCLOUD_CLUSTER_NAME: europeana-web
-      IBMCLOUD_REGION: eu-de
+      IBMCLOUD_API_URL: ${{ vars.IBMCLOUD_API_URL }}
+      IBMCLOUD_CLUSTER_NAME: ${{ vars.IBMCLOUD_CLUSTER_NAME }}
+      IBMCLOUD_REGION: ${{ vars.IBMCLOUD_REGION }}
     steps:
       -
         name: Checkout
