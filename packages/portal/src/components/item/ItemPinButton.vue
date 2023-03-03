@@ -48,6 +48,7 @@
 
 <script>
   import makeToastMixin from '@/mixins/makeToast';
+  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
 
   export default {
     name: 'ItemPinButton',
@@ -57,7 +58,8 @@
     },
 
     mixins: [
-      makeToastMixin
+      makeToastMixin,
+      entityBestItemsSetMixin
     ],
 
     props: {
@@ -121,7 +123,9 @@
       },
       async pin() {
         if (this.featuredSet === null) {
-          await this.$store.dispatch('entity/createFeaturedSet');
+          await this.createFeaturedSet(this.$store.getters['entity/entity']).then(response => {
+            this.$store.commit('setFeaturedSetId', response);
+          });
         }
         try {
           await this.$store.dispatch('entity/pin', this.identifier);

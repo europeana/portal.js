@@ -36,11 +36,8 @@ export default {
   },
 
   getters: {
-    englishPrefLabel(state) {
-      if (!state.id || !state.entity || !state.entity || !state.entity.prefLabel.en) {
-        return null;
-      }
-      return state.entity.prefLabel.en;
+    entity(state) {
+      return state.entity ? state.entity : null;
     },
 
     id(state) {
@@ -101,15 +98,6 @@ export default {
         profile: 'standard',
         pageSize: 100
       }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
-    },
-    createFeaturedSet({ getters, commit }) {
-      const featuredSetBody = {
-        type: 'EntityBestItemsSet',
-        title: { 'en': getters.englishPrefLabel + ' Page' },
-        subject: [getters.id]
-      };
-      return this.$apis.set.create(featuredSetBody)
-        .then(response => commit('setFeaturedSetId', response.id));
     }
   }
 };

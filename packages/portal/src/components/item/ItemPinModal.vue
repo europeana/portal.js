@@ -72,13 +72,15 @@
 
 <script>
   import makeToastMixin from '@/mixins/makeToast';
+  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import { langMapValueForLocale } from '@/plugins/europeana/utils';
 
   export default {
     name: 'ItemPinModal',
 
     mixins: [
-      makeToastMixin
+      makeToastMixin,
+      entityBestItemsSetMixin
     ],
 
     props: {
@@ -165,10 +167,7 @@
         return this.sets[this.selected];
       },
       selectedEntitySetTitle() {
-        return Object.entries(this.selectedEntity?.prefLabel || {}).reduce((memo, [lang, values]) => {
-          memo[lang] = this.$t('set.entityBestBets.title', { entity: values[0] });
-          return memo;
-        }, {});
+        return this.entitySetTitle(this.selectedEntity);
       }
     },
 
@@ -222,13 +221,7 @@
 
       async ensureSelectedSetExists() {
         if (!this.selectedEntitySet?.id) {
-          const setBody = {
-            type: 'EntityBestItemsSet',
-            title: this.selectedEntitySetTitle,
-            subject: [this.selected]
-          };
-          const response = await this.$apis.set.create(setBody);
-          this.selectedEntitySet.id = response.id;
+          this.selectedEntitySet.id = this.createFeaturedSet(this.selectedEntity);
         }
       },
 
