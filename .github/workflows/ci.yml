@@ -273,6 +273,8 @@ jobs:
           context: ./packages/portal/tests/size
           load: true
           tags: ${{ env.DOCKER_REPOSITORY }}-test-size
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       -
         name: Prepare resources for size tests
         run: |
@@ -297,14 +299,8 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       -
-        name: Prepare env for e2e tests
-        run: echo "APP_IMAGE_VERSION=${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
-      -
-        name: Create e2e test container .env files
-        run: |
-          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
-          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch/.env
-          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       -
         name: Build and load app image
         uses: docker/build-push-action@v3
@@ -314,6 +310,15 @@ jobs:
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
           cache-from: type=gha
+      -
+        name: Prepare env for e2e tests
+        run: echo "APP_IMAGE_VERSION=${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
+      -
+        name: Create e2e test container .env files
+        run: |
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch/.env
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for e2e tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
