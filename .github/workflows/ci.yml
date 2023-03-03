@@ -21,7 +21,6 @@ env:
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
   DOCKER_REPOSITORY: ${{ vars.DOCKER_REPOSITORY }}
   EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
-  EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
 
 jobs:
@@ -219,6 +218,7 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       -
+        if: github.actor != 'dependabot[bot]'
         name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -231,9 +231,9 @@ jobs:
           context: .
           file: ./packages/portal/Dockerfile
           pull: true
-          push: true
-          cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:latest
-          cache-to: type=inline
+          push: ${{ github.actor != 'dependabot[bot]' }}
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
+          cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-app
           tags: ${{ needs.metadata.outputs.docker-tags }}
           labels: ${{ needs.metadata.outputs.docker-labels }}
 
@@ -250,14 +250,15 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       -
-        name: Build and load app image
+        name: Build (from cache) and load app image
         uses: docker/build-push-action@v3
         with:
           context: .
           file: ./packages/portal/Dockerfile
+          pull: true
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
-          cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:latest
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
       -
         name: Build and load size test image
         uses: docker/build-push-action@v3
@@ -265,6 +266,8 @@ jobs:
           context: ./packages/portal/tests/size
           load: true
           tags: ${{ env.DOCKER_REPOSITORY }}-test-size
+          cache-from: type=gha,scope=${{ github.ref_name }}-test-size
+          cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-test-size
       -
         name: Prepare resources for size tests
         run: |
@@ -289,6 +292,19 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Build (from cache) and load app image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./packages/portal/Dockerfile
+          pull: true
+          load: true
+          tags: ${{ needs.metadata.outputs.docker-tags }}
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
+      -
         name: Prepare env for e2e tests
         run: echo "APP_IMAGE_VERSION=${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
       -
@@ -299,7 +315,7 @@ jobs:
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
       -
         name: Build images for e2e tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
@@ -319,6 +335,19 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Build (from cache) and load app image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./packages/portal/Dockerfile
+          pull: true
+          load: true
+          tags: ${{ needs.metadata.outputs.docker-tags }}
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
+      -
         name: Prepare env for visual tests
         run: |
           echo "APP_IMAGE_VERSION=${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
@@ -337,7 +366,7 @@ jobs:
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
       -
         name: Build images for visual tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
@@ -351,7 +380,7 @@ jobs:
   deploy-ibm-cloud:
     runs-on: ubuntu-latest
     needs: [metadata, docker-build]
-    if: (needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true')
+    if: (github.actor != 'dependabot[bot]') && ((needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true'))
     env:
       DOCKER_IMAGE_TAG: ${{ needs.metadata.outputs.docker-full-tag }}
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
