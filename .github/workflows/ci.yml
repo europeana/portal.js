@@ -232,8 +232,8 @@ jobs:
           file: ./packages/portal/Dockerfile
           pull: true
           push: ${{ github.actor != 'dependabot[bot]' }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
+          cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-app
           tags: ${{ needs.metadata.outputs.docker-tags }}
           labels: ${{ needs.metadata.outputs.docker-labels }}
 
@@ -258,7 +258,7 @@ jobs:
           pull: true
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
-          cache-from: type=gha
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
       -
         name: Build and load size test image
         uses: docker/build-push-action@v3
@@ -266,8 +266,8 @@ jobs:
           context: ./packages/portal/tests/size
           load: true
           tags: ${{ env.DOCKER_REPOSITORY }}-test-size
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=${{ github.ref_name }}-test-size
+          cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-test-size
       -
         name: Prepare resources for size tests
         run: |
@@ -303,7 +303,7 @@ jobs:
           pull: true
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
-          cache-from: type=gha
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
       -
         name: Prepare env for e2e tests
         run: echo "APP_IMAGE_VERSION=${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
@@ -346,7 +346,7 @@ jobs:
           pull: true
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
-          cache-from: type=gha
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
       -
         name: Prepare env for visual tests
         run: |
