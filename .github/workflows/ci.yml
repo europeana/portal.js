@@ -255,6 +255,7 @@ jobs:
         with:
           context: .
           file: ./packages/portal/Dockerfile
+          pull: true
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
           cache-from: type=gha
@@ -299,6 +300,7 @@ jobs:
         with:
           context: .
           file: ./packages/portal/Dockerfile
+          pull: true
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
           cache-from: type=gha
@@ -341,6 +343,7 @@ jobs:
         with:
           context: .
           file: ./packages/portal/Dockerfile
+          pull: true
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
           cache-from: type=gha
