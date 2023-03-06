@@ -1,14 +1,14 @@
 export default {
   methods: {
-    createFeaturedSet(entity) {
+    async createFeaturedSet(entity) {
+      const entityId = entity.id || entity.about;
       const featuredSetBody = {
         type: 'EntityBestItemsSet',
         title: this.entitySetTitle(entity),
-        subject: [entity.id]
+        subject: [entityId]
       };
-      console.log(featuredSetBody);
-      return this.$apis.set.create(featuredSetBody)
-        .then(response => response.id);
+      const response = await this.$apis.set.create(featuredSetBody);
+      return response.id;
     },
 
     entitySetTitle(entity) {

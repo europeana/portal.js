@@ -125,7 +125,7 @@
       async pin() {
         if (this.featuredSet === null) {
           const featuredSetId = await this.createFeaturedSet(this.$store.getters['entity/entity']);
-          await this.$store.commit('entity/setFeaturedSetId', featuredSetId);
+          this.$store.commit('entity/setFeaturedSetId', featuredSetId);
         }
         try {
           await this.$store.dispatch('entity/pin', this.identifier);
