@@ -124,12 +124,12 @@
       },
       async pin() {
         if (this.featuredSet === null) {
-          const featuredSetId = await this.createFeaturedSet(this.$store.getters['entity/entity']);
+          const featuredSetId = await this.createFeaturedSet(this.$store.state.entity.entity);
           this.$store.commit('entity/setFeaturedSetId', featuredSetId);
         }
         try {
           await this.$store.dispatch('entity/pin', this.identifier);
-          this.makeToast(this.$t('entity.notifications.pinned', { entity: langMapValueForLocale(this.$store.getters['entity/entity']?.prefLabel, this.$i18n.locale).values[0] }));
+          this.makeToast(this.$t('entity.notifications.pinned', { entity: langMapValueForLocale(this.$store.state.entity.entity?.prefLabel, this.$i18n.locale).values[0] }));
         } catch (e) {
           if (e.message === 'too many pins') {
             this.$bvModal.show(`pinned-limit-modal-${this.identifier}`);

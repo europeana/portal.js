@@ -38,10 +38,9 @@ const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {})
     $store: {
       commit: () => {},
       state: {
-        entity: { ...{ pinned: [] }, ...storeState }
+        entity: { entity: { id: storeEntityId }, pinned: [], ...storeState }
       },
       getters: {
-        'entity/entity': { id: storeEntityId },
         'entity/isPinned': storeIsPinnedGetter,
         'entity/featuredSetId': storeFeaturedSetId,
         'entity/id': storeEntityId

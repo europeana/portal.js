@@ -36,10 +36,6 @@ export default {
   },
 
   getters: {
-    entity(state) {
-      return state.entity ? state.entity : null;
-    },
-
     id(state) {
       return state.id ? state.id : null;
     },
