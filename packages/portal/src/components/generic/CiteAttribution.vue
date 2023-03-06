@@ -1,5 +1,8 @@
 <template>
-  <cite v-if="extended">
+  <cite
+    v-if="extended"
+    class="cite-attribution"
+  >
     <p v-if="name">{{ $t('attribution.title') }}
       <SmartLink
         v-if="url"
