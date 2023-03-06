@@ -221,7 +221,7 @@
 
       async ensureSelectedSetExists() {
         if (!this.selectedEntitySet?.id) {
-          this.selectedEntitySet.id = this.createFeaturedSet(this.selectedEntity);
+          this.selectedEntitySet.id = await this.createFeaturedSet(this.selectedEntity);
         }
       },
 

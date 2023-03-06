@@ -27,13 +27,21 @@ const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {})
   propsData: { identifier },
   mixins,
   mocks: {
+    $apis: {
+      set: {
+        create: sinon.stub().resolves({ id: storeFeaturedSetId })
+      }
+    },
+    $i18n: { locale: 'de' },
     $goto,
     $path: () => 'mocked path',
     $store: {
+      commit: () => {},
       state: {
         entity: { ...{ pinned: [] }, ...storeState }
       },
       getters: {
+        'entity/entity': { id: storeEntityId },
         'entity/isPinned': storeIsPinnedGetter,
         'entity/featuredSetId': storeFeaturedSetId,
         'entity/id': storeEntityId
@@ -106,7 +114,7 @@ describe('components/item/ItemPinButton', () => {
               const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
               await pinButton.trigger('click');
 
-              expect(storeDispatchSuccess.calledWith('entity/createFeaturedSet')).toBe(true);
+              expect(wrapper.vm.$apis.set.create.called).toBe(true);
             });
           });
           describe('when the pin limit is reached', () => {
