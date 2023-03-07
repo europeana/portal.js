@@ -236,6 +236,9 @@ jobs:
           cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-app
           tags: ${{ needs.metadata.outputs.docker-tags }}
           labels: ${{ needs.metadata.outputs.docker-labels }}
+      -
+        name: Output step summary
+        run: docker image ls ${{ needs.metadata.outputs.docker-full-tag }} >> $GITHUB_STEP_SUMMARY
 
   # Run size tests on non-draft pull requests
   test-size:
