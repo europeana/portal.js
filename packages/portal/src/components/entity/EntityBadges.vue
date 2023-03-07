@@ -78,7 +78,7 @@
     async fetch() {
       if (((this.entityUris?.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
         const entities = await this.$apis.entity.find(this.entityUris, {
-          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo'
+          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo'
         });
 
         if (entities)  {
