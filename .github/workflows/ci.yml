@@ -254,6 +254,7 @@ jobs:
           docker_image_size=$(docker image inspect --format '{{.Size}}' ${{ needs.metadata.outputs.docker-full-tag }})
           if [ ${docker_image_size} -gt $(numfmt --from=si ${DOCKER_IMAGE_SIZE_LIMIT}) ]; then
             echo "::error ::Image size $(numfmt --to=si ${docker_image_size}) exceeds limit ${DOCKER_IMAGE_SIZE_LIMIT}"
+            exit 1
           else
             echo "::notice ::Image size $(numfmt --to=si ${docker_image_size}) within limit ${DOCKER_IMAGE_SIZE_LIMIT}"
           fi
