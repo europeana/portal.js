@@ -32,5 +32,9 @@
     box-shadow: $boxshadow;
     padding: 1.5rem;
     max-width: 270px;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-extrasmall-4k;
+    }
   }
 }

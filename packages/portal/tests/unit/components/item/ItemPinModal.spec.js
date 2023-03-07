@@ -595,5 +595,35 @@ describe('components/item/ItemPinModal', () => {
         expect(wrapper.vm.selected).toBeNull();
       });
     });
+
+    describe('entityDisplayLabel', () => {
+      describe('when there is an english prefLabel', () => {
+        const entityWithEnglishPrefLabel = {
+          about: ENTITY_URI,
+          prefLabel: { en: ['English label', 'another Label'], fr: ['French label'] }
+        };
+        it('uses the first english pref label value', async() => {
+          const wrapper = factory();
+
+          const result = await wrapper.vm.entityDisplayLabel(entityWithEnglishPrefLabel);
+
+          expect(result.values[0]).toBe('English label');
+        });
+      });
+
+      describe('when there is NO english prefLabel', () => {
+        const entityWithFrenchPrefLabel = {
+          about: ENTITY_URI,
+          prefLabel: { fr: ['French label'] }
+        };
+        it('uses the first prefLabel value of an available language', async() => {
+          const wrapper = factory();
+
+          const result = await wrapper.vm.entityDisplayLabel(entityWithFrenchPrefLabel);
+
+          expect(result.values[0]).toBe('French label');
+        });
+      });
+    });
   });
 });

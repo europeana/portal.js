@@ -47,6 +47,13 @@
       text-transform: none;
       font-weight: normal;
 
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-small-4k;
+          height: 4.5rem;
+        }
+      }
+
       &:focus {
         border: 1px solid $blue;
       }
@@ -82,13 +89,33 @@
     box-shadow: $boxshadow-large;
     border: 0;
 
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-small-4k;
+        max-height: 22.5rem;
+      }
+    }
+
     .b-dropdown-form {
       padding-left: 0.75rem;
       padding-right: 0.75rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          padding-left: calc(1.5 * 0.75rem);
+          padding-right: calc(1.5 * 0.75rem);
+        }
+      }
     }
 
     .form-group {
       margin-bottom: 0.3rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          margin-bottom: 0.45rem;
+        }
+      }
 
       > div {
         display: flex;
@@ -103,6 +130,14 @@
           padding-left: 0;
           color: $mediumgrey;
           height: 2rem;
+
+          @at-root .xxl-page & {
+            @media (min-width: $bp-4k) {
+              font-size: $font-size-small-4k;
+              padding-right: 0.75rem;
+              height: 3rem;
+            }
+          }
         }
       }
     }
@@ -111,6 +146,13 @@
       padding: 1rem 0.75rem;
       color: $greyblack;
       line-height: 1rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          padding: 1.5rem calc(1.5 * 0.75rem);
+          line-height: 1.5rem;
+        }
+      }
 
       &:hover {
         background-color: $lightblue-light;
@@ -128,12 +170,26 @@
         width: 1rem;
         display: inline-block;
         vertical-align: top;
+
+        @at-root .xxl-page & {
+          @media (min-width: $bp-4k) {
+            height: 1.5rem;
+            width: 1.5rem;
+          }
+        }
       }
     }
 
     .b-dropdown-text {
       padding-left: 0.75rem;
       padding-right: 0.75rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          padding-left: calc(1.5 * 0.75rem);
+          padding-right: calc(1.5 * 0.75rem);
+        }
+      }
     }
   }
 }

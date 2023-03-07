@@ -406,7 +406,20 @@
 </script>
 
 <style lang="scss" scoped>
-  .col-results {
-    min-width: 0;
+@import '@/assets/scss/variables';
+
+.col-results {
+  min-width: 0;
+
+  @media (min-width: $bp-xxxl) {
+    padding-right: 4rem;
+    padding-left: 4rem;
   }
+}
+
+.mb-3 {
+  @media (min-width: $bp-4k) {
+    margin-bottom: 2rem !important;
+  }
+}
 </style>

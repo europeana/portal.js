@@ -48,6 +48,8 @@
 
 <script>
   import makeToastMixin from '@/mixins/makeToast';
+  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
+  import { langMapValueForLocale } from '@/plugins/europeana/utils';
 
   export default {
     name: 'ItemPinButton',
@@ -57,7 +59,8 @@
     },
 
     mixins: [
-      makeToastMixin
+      makeToastMixin,
+      entityBestItemsSetMixin
     ],
 
     props: {
@@ -121,11 +124,12 @@
       },
       async pin() {
         if (this.featuredSet === null) {
-          await this.$store.dispatch('entity/createFeaturedSet');
+          const featuredSetId = await this.createFeaturedSet(this.$store.state.entity.entity);
+          this.$store.commit('entity/setFeaturedSetId', featuredSetId);
         }
         try {
           await this.$store.dispatch('entity/pin', this.identifier);
-          this.makeToast(this.$t('entity.notifications.pinned', { entity: this.$store.getters['entity/englishPrefLabel'] }));
+          this.makeToast(this.$t('entity.notifications.pinned', { entity: langMapValueForLocale(this.$store.state.entity.entity?.prefLabel, this.$i18n.locale).values[0] }));
         } catch (e) {
           if (e.message === 'too many pins') {
             this.$bvModal.show(`pinned-limit-modal-${this.identifier}`);

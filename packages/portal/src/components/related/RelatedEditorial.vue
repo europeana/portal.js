@@ -163,6 +163,12 @@
     border: 0;
     box-shadow: $boxshadow-small;
 
+    > .card-body {
+      @media (min-width: $bp-4k) {
+        padding: 1.875rem;
+      }
+    }
+
     h2 {
       font-size: $font-size-extrasmall;
       font-weight: 600;
@@ -170,6 +176,12 @@
       text-transform: uppercase;
       margin-bottom: 1.25rem;
       color: $mediumgrey;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+        line-height: 1.5rem;
+        margin-bottom: 1.875rem;
+      }
     }
 
     .card-group {
@@ -185,6 +197,15 @@
           flex: calc(50% - 1rem);
           margin-bottom: 0.5rem;
           flex-grow: 0;
+        }
+
+        @media (min-width: $bp-wqhd) {
+          flex-basis: calc(25% - 1rem);
+        }
+
+        @media (min-width: $bp-4k) {
+          column-gap: 2rem;
+          flex-basis: calc(25% - 2rem);
         }
 
         &:hover {
@@ -204,13 +225,19 @@
         }
 
         .card-img {
-          width: 88px;
-          height: 88px;
-          flex: 0 0 88px;
+          width: 5.5rem;
+          height: 5.5rem;
+          flex: 0 0 5.5rem;
           min-height: 0;
           order: 2;
           margin: 0;
           margin-left: 1rem;
+
+          @media (min-width: $bp-4k) {
+            width: 8.25rem;
+            height: 8.25rem;
+            flex: 0 0 8.25rem;
+          }
 
           img {
             object-fit: cover;
@@ -239,10 +266,14 @@
           .card-subtitle {
             font-size: $font-size-small;
             font-weight: normal;
-            line-height: 20px;
+            line-height: 1.5;
             order: 2;
             margin-bottom: 0;
             text-transform: none;
+
+            @media (min-width: $bp-4k) {
+              font-size: $font-size-small-4k;
+            }
           }
         }
       }

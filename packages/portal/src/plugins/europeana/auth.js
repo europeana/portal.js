@@ -84,7 +84,7 @@ const refreshAccessTokenRequestOptions = ($auth) => {
 };
 
 export const keycloakResponseErrorHandler = (context, error) => {
-  if (error.response.status === 401) {
+  if (error.response?.status === 401) {
     return keycloakUnauthorizedResponseErrorHandler(context, error);
   } else {
     return Promise.reject(error);

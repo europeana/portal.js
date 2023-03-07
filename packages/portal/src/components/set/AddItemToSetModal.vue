@@ -151,22 +151,36 @@
 </script>
 
 <style lang="scss" scoped>
-  .btn-primary.btn-collection {
-    border: 0;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
+@import '@/assets/scss/variables';
 
-  .collections {
-    max-height: calc(100vh - 474px);
-    overflow: auto;
+.btn-primary.btn-collection {
+  border: 0;
+  font-size: $font-size-base;
+  line-height: 1.5;
 
-    .btn-collection {
-      font-weight: 600;
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-base-4k;
+
+    &.mb-3 {
+      margin-bottom: 1.5rem !important;
     }
 
-    .btn-collection:last-child {
-      margin-bottom: 0;
+    &.p-3 {
+      padding: 1.5rem !important;
     }
   }
+}
+
+.collections {
+  max-height: calc(100vh - 474px);
+  overflow: auto;
+
+  .btn-collection {
+    font-weight: 600;
+  }
+
+  .btn-collection:last-child {
+    margin-bottom: 0;
+  }
+}
 </style>

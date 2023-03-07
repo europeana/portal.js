@@ -78,7 +78,7 @@
     async fetch() {
       if (((this.entityUris?.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
         const entities = await this.$apis.entity.find(this.entityUris, {
-          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo'
+          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo'
         });
 
         if (entities)  {
@@ -130,11 +130,25 @@
         margin-bottom: 0.5vw;
       }
     }
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin-right: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+    }
   }
 
   .related-collections-card .related-collections ::v-deep .badge-pill {
     margin-bottom: 0.75rem;
     margin-right: 0.75rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin-right: 1.125rem;
+        margin-bottom: 1.125rem;
+      }
+    }
   }
 
   .related-heading {
@@ -143,6 +157,12 @@
     @media (min-width: $bp-xxxl) {
       @at-root .responsive-font & {
         margin-bottom: 0.75vw;
+      }
+    }
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin-bottom: 1.125rem;
       }
     }
   }

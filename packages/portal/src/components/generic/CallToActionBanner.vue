@@ -101,7 +101,7 @@
     }
 
     .cta-content {
-      padding: 1.75em;
+      padding: 2.25em 1.75em 2.5em;
       text-align: center;
       font-size: 1rem;
 
@@ -117,7 +117,7 @@
         color: $mediumgrey;
         font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 1.5rem;
+        margin-bottom: 0;
 
         @media (min-width: $bp-extralarge) {
           font-size: 2.375rem;
@@ -125,7 +125,6 @@
 
         @media (min-width: $bp-xxxl) {
           font-size: 2em;
-          margin-bottom: 0.8em;
         }
       }
 
@@ -142,7 +141,7 @@
       font-weight: 700;
       padding: 0.5em 1em;
       border-radius: 0.25em;
-      margin-top: 2em;
+      margin-top: 1em;
 
       @media (min-width: $bp-xxxl) {
         font-size: 1vw;

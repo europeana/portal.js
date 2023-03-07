@@ -18,9 +18,9 @@
     >
       <span
         class="mr-auto"
+        :lang="entityDisplayLabel(entity).code"
       >
-        <!-- TODO: localise here, even if not on the set itself -->
-        {{ entity.prefLabel.en[0] }}
+        {{ entityDisplayLabel(entity).values[0] }}
       </span>
       <span
         class="icons text-left d-flex justify-content-end"
@@ -72,12 +72,15 @@
 
 <script>
   import makeToastMixin from '@/mixins/makeToast';
+  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
+  import { langMapValueForLocale } from '@/plugins/europeana/utils';
 
   export default {
     name: 'ItemPinModal',
 
     mixins: [
-      makeToastMixin
+      makeToastMixin,
+      entityBestItemsSetMixin
     ],
 
     props: {
@@ -135,12 +138,12 @@
     computed: {
       infoText() {
         if (this.selectedIsFull) {
-          return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.pinLimit.body');
+          return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabelValue }) : this.$t('entity.notifications.pinLimit.body');
         }
         if (this.selectedIsPinned) {
-          return this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel });
+          return this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabelValue });
         }
-        return this.selected ? this.$t('entity.notifications.pin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.select');
+        return this.selected ? this.$t('entity.notifications.pin', { entity: this.selectedEntityPrefLabelValue }) : this.$t('entity.notifications.select');
       },
       selectedIsPinned() {
         return this.selected && this.pinnedTo(this.selected);
@@ -152,7 +155,10 @@
         return { name: 'set-all', params: { pathMatch: this.selected && this.selectedEntitySet.id.replace('http://data.europeana.eu/set/', '') } };
       },
       selectedEntityPrefLabel() {
-        return this.selectedEntity?.prefLabel?.en?.[0];
+        return this.entityDisplayLabel(this.selectedEntity);
+      },
+      selectedEntityPrefLabelValue() {
+        return this.selectedEntityPrefLabel?.values?.[0];
       },
       selectedEntity() {
         return this.entities.find(entity => entity.about === this.selected);
@@ -212,13 +218,7 @@
 
       async ensureSelectedSetExists() {
         if (!this.selectedEntitySet?.id) {
-          const setBody = {
-            type: 'EntityBestItemsSet',
-            title: { 'en': `${this.selectedEntityPrefLabel} Page` },
-            subject: [this.selected]
-          };
-          const response = await this.$apis.set.create(setBody);
-          this.selectedEntitySet.id = response.id;
+          this.selectedEntitySet.id = await this.createFeaturedSet(this.selectedEntity);
         }
       },
 
@@ -226,7 +226,7 @@
         await this.ensureSelectedSetExists();
         await this.$apis.set.modifyItems('add', this.selectedEntitySet.id, this.identifier, true);
         this.selectedEntitySet.pinned.push(this.identifier);
-        this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
+        this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabelValue }));
         this.hide();
       },
 
@@ -239,6 +239,10 @@
           this.makeToast(this.$t('entity.notifications.error.unpin'));
         }
         this.hide();
+      },
+
+      entityDisplayLabel(entity) {
+        return langMapValueForLocale(entity?.prefLabel, this.$i18n.locale);
       },
 
       selectEntity(id) {

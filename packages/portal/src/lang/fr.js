@@ -231,6 +231,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Veuillez ajuster le terme de recherche ou réinitialiser les filtres pour réessayer.",
       "title": "Nous n'arrivons pas à trouver ce que vous cherchez."
+    },
+    "setLocked": {
+      "description": "La modification est temporairement désactivée et vos modifications n'ont pas été enregistrées. Veuillez réessayer plus tard.",
+      "title": "Mise à jour a échoué"
     }
   },
   "exhibitions": {
