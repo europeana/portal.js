@@ -141,7 +141,7 @@ const factory = ({ $features = {}, data = {}, $fetchState = {}, mocks = {} } = {
 describe('pages/stories/index', () => {
   afterEach(sinon.resetHistory);
 
-describe('fetch', () => {
+  describe('fetch', () => {
     it('fetches stories page content from Contentful', async() => {
       const wrapper = factory();
 
@@ -245,7 +245,7 @@ describe('fetch', () => {
     });
 
     describe('filteredTags', () => {
-      describe('when stories are filtered to a tag', () =>{
+      describe('when stories are filtered to a tag', () => {
         it('selects and sorts catagories that are shared with the active filter', async() => {
           const wrapper = factory({ mocks: { $route: { query: { tags: 'cooking' } } } });
           await wrapper.vm.fetch();
@@ -259,7 +259,7 @@ describe('fetch', () => {
 
     describe('relevantStoryMetadata', () => {
       describe('when no tags are selected', () => {
-        it('defaults to all stories', async () => {
+        it('defaults to all stories', async() => {
           const wrapper = factory();
           await wrapper.vm.fetch();
 

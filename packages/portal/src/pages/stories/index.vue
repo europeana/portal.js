@@ -162,8 +162,8 @@
         const relevantTags = this.relevantStoryMetadata.map((story) => story.cats.items.filter((cat) => !!cat).map((cat) => cat.id)).flat();
 
         const tagsSortedByMostUsed = relevantTags.map((tag, i, array) => {
-            return { tag, total: array.filter(t => t === tag).length };
-          }).sort((a, b) => b.total - a.total).map(tag => tag.tag);
+          return { tag, total: array.filter(t => t === tag).length };
+        }).sort((a, b) => b.total - a.total).map(tag => tag.tag);
 
         return uniq(tagsSortedByMostUsed);
       },
@@ -224,7 +224,7 @@
       },
 
       async fetchStories() {
-        if(!this.loadingStories) {
+        if (!this.loadingStories) {
           this.loadingStories = true;
           // Paginate
           this.total = this.relevantStoryMetadata.length;
