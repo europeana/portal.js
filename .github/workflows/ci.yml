@@ -236,6 +236,28 @@ jobs:
           cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-app
           tags: ${{ needs.metadata.outputs.docker-tags }}
           labels: ${{ needs.metadata.outputs.docker-labels }}
+      -
+        name: Build (from cache) and load app image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./packages/portal/Dockerfile
+          pull: true
+          load: true
+          tags: ${{ needs.metadata.outputs.docker-full-tag }}
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
+      -
+        name: Check image size
+        env:
+          DOCKER_IMAGE_SIZE_LIMIT: '280M'
+        run: |
+          docker_image_size=$(docker image inspect --format '{{.Size}}' ${{ needs.metadata.outputs.docker-full-tag }})
+          if [ ${docker_image_size} -gt $(numfmt --from=si ${DOCKER_IMAGE_SIZE_LIMIT}) ]; then
+            echo "::error ::Image size $(numfmt --to=si ${docker_image_size}) exceeds limit ${DOCKER_IMAGE_SIZE_LIMIT}"
+            exit 1
+          else
+            echo "::notice ::Image size $(numfmt --to=si ${docker_image_size}) within limit ${DOCKER_IMAGE_SIZE_LIMIT}"
+          fi
 
   # Run size tests on non-draft pull requests
   test-size:
