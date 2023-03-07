@@ -165,9 +165,6 @@
       },
       selectedEntitySet() {
         return this.sets[this.selected];
-      },
-      selectedEntitySetTitle() {
-        return this.entitySetTitle(this.selectedEntity);
       }
     },
 
