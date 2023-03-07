@@ -120,9 +120,8 @@
 
     data() {
       return {
+        allStoryMetadata: [],
         perPage: 24,
-        selectedTags: [],
-        filteredTags: null,
         stories: [],
         total: 0,
         sections: [],
@@ -138,8 +137,9 @@
     async fetch() {
       await Promise.all([
         this.fetchPage(),
-        this.fetchStories()
+        this.fetchStoryMetadata()
       ]);
+      await this.fetchStories();
     },
 
     computed: {
@@ -155,14 +155,36 @@
       callsToAction() {
         return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
       },
+      selectedTags() {
+        return this.$route.query.tags?.split(',') || [];
+      },
+      filteredTags() {
+        const relevantTags = this.relevantStoryMetadata.map((story) => story.cats.items.filter((cat) => !!cat).map((cat) => cat.id)).flat();
+
+        const tagsSortedByMostUsed = relevantTags.map((tag, i, array) => {
+            return { tag, total: array.filter(t => t === tag).length };
+          }).sort((a, b) => b.total - a.total).map(tag => tag.tag);
+
+        return uniq(tagsSortedByMostUsed);
+      },
+      relevantStoryMetadata() {
+        if (this.selectedTags.length > 0) {
+          // Filter by selected categories
+          return this.allStoryMetadata.filter((story) => {
+            const storyTags = story.cats.items.map((cat) => cat?.id);
+            return this.selectedTags.every((tag) => storyTags.includes(tag));
+          });
+        }
+        return this.allStoryMetadata;
+      },
       page() {
         return Number(this.$route.query.page || 1);
       }
     },
 
     watch: {
-      '$route.query.page': 'fetchStories',
-      '$route.query.tags': 'fetchStories'
+      page: 'fetchStories',
+      selectedTags: 'fetchStories'
     },
 
     methods: {
@@ -184,11 +206,7 @@
         this.pageFetched = true;
       },
 
-      async fetchStories() {
-        this.loadingStories = true;
-        this.selectedTags = this.$route.query.tags?.split(',') || [];
-        let stories;
-
+      async fetchStoryMetadata() {
         // Fetch minimal data for all stories to support ordering by datePublished
         // and filtering by categories.
         const storyIdsVariables = {
@@ -196,53 +214,43 @@
           preview: this.$route.query.mode === 'preview'
         };
         const storyIdsResponse = await this.$contentful.query('storiesMinimal', storyIdsVariables);
-        stories = [
+        const storyIds = [
           storyIdsResponse.data.data.blogPostingCollection.items,
           storyIdsResponse.data.data.exhibitionPageCollection.items
         ].flat();
 
-        // Filter by categories
-        if (this.selectedTags.length > 0) {
-          stories = stories.filter((story) => {
-            const storyTags = story.cats.items.map((cat) => cat?.id);
-            return this.selectedTags.every((tag) => storyTags.includes(tag));
-          });
-        }
-        const allTags = stories.map((story) => story.cats.items.filter((cat) => !!cat).map((cat) => cat.id)).flat();
-        const sortedByMostUsedTags = allTags.map((tag, i, array) => {
-          return { tag, total: array.filter(t => t === tag).length };
-        }).sort((a, b) => b.total - a.total).map(tag => tag.tag);
-
-        this.filteredTags = uniq(sortedByMostUsedTags);
-
         // Order by date published
-        stories = stories.sort((a, b) => (new Date(b.date)).getTime() - (new Date(a.date)).getTime());
+        this.allStoryMetadata = storyIds.sort((a, b) => (new Date(b.date)).getTime() - (new Date(a.date)).getTime());
+      },
 
-        // Paginate
-        this.total = stories.length;
-        const page = this.$route.query.page || 1;
-        const sliceFrom = (page - 1) * this.perPage;
-        const sliceTo = sliceFrom + this.perPage;
-        const storySysIds = stories.slice(sliceFrom, sliceTo).map(story => story.sys.id);
+      async fetchStories() {
+        if(!this.loadingStories) {
+          this.loadingStories = true;
+          // Paginate
+          this.total = this.relevantStoryMetadata.length;
+          const sliceFrom = (this.page - 1) * this.perPage;
+          const sliceTo = sliceFrom + this.perPage;
+          const storySysIds = this.relevantStoryMetadata.slice(sliceFrom, sliceTo).map(story => story.sys.id);
 
-        // Fetch full data for display of page of stories
-        const storiesVariables = {
-          locale: this.$i18n.isoLocale(),
-          preview: this.$route.query.mode === 'preview',
-          limit: this.perPage,
-          ids: storySysIds
-        };
-        const storiesResponse = await this.$contentful.query('storiesBySysId', storiesVariables);
-        stories = [
-          storiesResponse.data.data.blogPostingCollection.items,
-          storiesResponse.data.data.exhibitionPageCollection.items
-        ].flat();
-        this.stories = storySysIds.map((sysId) => stories.find((story) => story.sys.id === sysId)).filter(Boolean);
-        if (this.page === 1) {
-          this.stories.splice(12, 0, this.ctaBanner);
+          // Fetch full data for display of page of stories
+          const storiesVariables = {
+            locale: this.$i18n.isoLocale(),
+            preview: this.$route.query.mode === 'preview',
+            limit: this.perPage,
+            ids: storySysIds
+          };
+          const storiesResponse = await this.$contentful.query('storiesBySysId', storiesVariables);
+          const fullStories = [
+            storiesResponse.data.data.blogPostingCollection.items,
+            storiesResponse.data.data.exhibitionPageCollection.items
+          ].flat();
+          this.stories = storySysIds.map((sysId) => fullStories.find((story) => story.sys.id === sysId)).filter(Boolean);
+          if (this.page === 1 && this.selectedTags.length === 0) {
+            this.stories.splice(12, 0, this.ctaBanner);
+          }
+          this.loadingStories = false;
+          this.$scrollTo && this.$scrollTo('#header');
         }
-        this.loadingStories = false;
-        this.$scrollTo && this.$scrollTo('#header');
       },
 
       entryUrl(entry) {
