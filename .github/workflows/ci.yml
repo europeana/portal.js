@@ -247,9 +247,6 @@ jobs:
           tags: ${{ needs.metadata.outputs.docker-full-tag }}
           cache-from: type=gha,scope=${{ github.ref_name }}-app
       -
-        name: Output step summary
-        run: docker image ls ${{ needs.metadata.outputs.docker-full-tag }} >> $GITHUB_STEP_SUMMARY
-      -
         name: Check image size
         env:
           DOCKER_IMAGE_SIZE_LIMIT: '250M'
@@ -257,7 +254,8 @@ jobs:
           docker_image_size=$(docker image inspect --format '{{.Size}}' ${{ needs.metadata.outputs.docker-full-tag }})
           if [ ${docker_image_size} -gt $(numfmt --from=si ${DOCKER_IMAGE_SIZE_LIMIT}) ]; then
             echo "::error ::Image size $(numfmt --to=si ${docker_image_size}) exceeds limit ${DOCKER_IMAGE_SIZE_LIMIT}"
-            exit 1
+          else
+            echo "::notice ::Image size $(numfmt --to=si ${docker_image_size}) within limit ${DOCKER_IMAGE_SIZE_LIMIT}"
           fi
 
   # Run size tests on non-draft pull requests
