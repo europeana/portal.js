@@ -232,7 +232,6 @@ jobs:
           file: ./packages/portal/Dockerfile
           pull: true
           push: ${{ github.actor != 'dependabot[bot]' }}
-          load: true
           cache-from: type=gha,scope=${{ github.ref_name }}-app
           cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-app
           tags: ${{ needs.metadata.outputs.docker-tags }}
