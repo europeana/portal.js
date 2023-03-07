@@ -50,7 +50,7 @@
 
   .form-inline {
     background-color: $white;
-    font-size: 1rem;
+    font-size: $font-size-base;
     height: auto;
     border-radius: 0.5em;
     width: 100%;
@@ -63,7 +63,11 @@
       width: 100%;
 
       @media (min-width: $bp-xxxl) {
-        font-size: 1rem;
+        font-size: $font-size-base;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
       }
     }
   }

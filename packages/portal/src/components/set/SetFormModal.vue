@@ -18,7 +18,7 @@
             id="set-title"
             v-model="titleValue"
             type="text"
-            maxlength="35"
+            maxlength="100"
             :required="!hasTitleInSomeLanguage"
             aria-describedby="input-live-help"
           />

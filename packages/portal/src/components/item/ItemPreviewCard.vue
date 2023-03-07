@@ -5,7 +5,6 @@
     :image-url="imageUrl"
     :texts="texts"
     :hits-text="hitsText"
-    :class="cardClass"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
     :blank-image-height="280"
@@ -179,10 +178,6 @@
 
       hitsText() {
         return this.variant === 'list' ? this.hitSelector : null;
-      },
-
-      cardClass() {
-        return this.variant === 'list' ? 'mx-0' : null;
       },
 
       identifier() {
