@@ -89,7 +89,7 @@
         data.key = 'items/type-counts';
         data.cardType = 'InfoCard';
       } else if (this.sectionType === LATEST_GALLERIES) {
-        data.key = 'galleries/recent';
+        data.key = `${this.$i18n.locale}/galleries/recent`;
         data.cardType = 'AutomatedGalleryCard';
         data.headline = this.$i18n.t('automatedCardGroup.gallery');
       }

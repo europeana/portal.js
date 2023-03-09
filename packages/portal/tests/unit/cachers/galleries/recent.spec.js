@@ -18,12 +18,15 @@ const config = {
   }
 };
 
+const localeCodes = ['en'];
+
 describe('cachers/galleries/recent', () => {
   beforeEach(() => {
     nock(config.europeana.apis.set.url)
       .get('/search.json')
       .query(query => (
         query.query === 'visibility:published' && query.profile === 'itemDescriptions'
+        && query.qf === 'lang:en'
       ))
       .reply(200, setApiResponse);
   });
@@ -34,15 +37,15 @@ describe('cachers/galleries/recent', () => {
 
   describe('.data', () => {
     it('queries Set API for 4 galleries', async() => {
-      await cacher.data(config);
+      await cacher.data(config, localeCodes);
 
       expect(nock.isDone()).toBe(true);
     });
 
     it('returns item metadata to cache', async() => {
-      const data = await cacher.data(config);
+      const data = await cacher.data(config, localeCodes);
 
-      expect(data).toEqual(setApiResponse.items);
+      expect(data.en).toEqual(setApiResponse.items);
     });
   });
 });
