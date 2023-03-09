@@ -71,6 +71,7 @@ export default {
     "item": "Poslední položky",
     "organisation": "Organizace",
     "place": "Místa",
+    "theme": "Témata",
     "time": "Vybraná století",
     "topic": "Doporučená témata"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Kvůli plánované údržbě budou ve čtvrtek 23. února od 7:00 do 9:00 CET nedostupné nebo omezené funkce účtu, přihlášení, hodnocení Líbí se mi a galerií."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "of": "Z",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
       "update": "Aktualizovat galerii"
+    },
+    "entityBestBets": {
+      "title": "{entity} Stránka"
     },
     "form": {
       "description": "Popis galerie",

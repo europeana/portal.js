@@ -88,7 +88,7 @@ describe('theme hub page', () => {
       const wrapper = factory();
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('themeFoyerPage', {
+      expect(wrapper.vm.$contentful.query.calledWith('themes', {
         locale: 'en-GB',
         preview: false
       })).toBe(true);

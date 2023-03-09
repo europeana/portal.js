@@ -170,7 +170,7 @@
                   <ItemPreviewCardGroup
                     :items="set.items"
                     :show-pins="setIsEntityBestItems && userIsEntityEditor"
-                    :draggable-items="userIsOwner"
+                    :draggable-items="userCanEditSet"
                     @endItemDrag="reorderItems"
                   />
                 </b-col>

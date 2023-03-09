@@ -71,6 +71,7 @@ export default {
     "item": "Senaste objekt",
     "organisation": "Organisationer",
     "place": "Platser",
+    "theme": "Teman",
     "time": "Utvalda århundraden",
     "topic": "Utvalda ämnen"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "På grund av planerat underhåll kommer konto, inloggning, gilla-markeringar och gallerifunktioner att vara otillgängliga eller begränsade torsdagen den 23 februari kl. 07.00-09.00 CET."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "of": "Av",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Radera galleri",
       "edit": "Redigera galleri",
       "update": "Uppdatera galleri"
+    },
+    "entityBestBets": {
+      "title": "{entity} Sida"
     },
     "form": {
       "description": "Beskrivning av galleri",

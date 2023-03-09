@@ -71,6 +71,7 @@ export default {
     "item": "Oġġetti reċenti",
     "organisation": "Organizzazzjonijiet",
     "place": "Postijiet",
+    "theme": "Temi",
     "time": "Sekli dehru",
     "topic": "Suġġetti temi"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Minħabba manutenzjoni skedata, kont, login, likes u funzjonalità tal-galleriji, mhux se jkunu disponibbli jew limitati nhar il-Ħamis, 23 ta’ Frar, mis-7:00-9:00 am CET."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "of": "Ta",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Ħassar id-direttorju tar-ritratti",
       "edit": "Editja d-direttorju tar-ritratti",
       "update": "Aġġorna d-direttorju tar-ritratti"
+    },
+    "entityBestBets": {
+      "title": "{entity} Paġna"
     },
     "form": {
       "description": "Deskrizzjoni tad-direttorju tar-ritratti",

@@ -9,10 +9,10 @@ on:
     types: closed
 
 env:
-  IBMCLOUD_API_URL: https://cloud.ibm.com
   IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
-  IBMCLOUD_CLUSTER_NAME: europeana-web
-  IBMCLOUD_REGION: eu-de
+  IBMCLOUD_API_URL: ${{ vars.IBMCLOUD_API_URL }}
+  IBMCLOUD_CLUSTER_NAME: ${{ vars.IBMCLOUD_CLUSTER_NAME }}
+  IBMCLOUD_REGION: ${{ vars.IBMCLOUD_REGION }}
 
 jobs:
   delete-ibm-cloud:

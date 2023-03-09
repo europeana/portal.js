@@ -13,13 +13,6 @@ const featuredSetId = 'http://data.europeana.eu/set/123';
 const itemId = '/123/abc';
 const itemIdNotPinned = '/345/abc';
 const entityDescription = { en: 'example entity description' };
-const enPrefLabel = 'Art';
-const exampleState = {
-  id: 'http://data.europeana.eu/concept/001',
-  entity: {
-    prefLabel: { en: enPrefLabel }
-  }
-};
 const featuredSet = { pinned: 2, items: itemsToPin };
 
 describe('store/entity', () => {
@@ -92,27 +85,7 @@ describe('store/entity', () => {
   });
 
   describe('getters', () => {
-    describe('englishPrefLabel()', () => {
-      describe('when the entity state has an id, entity and entity English prefLabel defined', () => {
-        it('returns the entity\'s English prefLabel', () => {
-          const state = exampleState;
-
-          const englishPrefLabel = store.getters.englishPrefLabel(state);
-
-          expect(englishPrefLabel).toEqual(enPrefLabel);
-        });
-      });
-      describe('when the entity state has not an id, entity or entity English prefLabel defined', () => {
-        it('returns null', () => {
-          const state = {};
-
-          const englishPrefLabel = store.getters.englishPrefLabel(state);
-
-          expect(englishPrefLabel).toEqual(null);
-        });
-      });
-    });
-    describe('id()', () => {
+    describe('id', () => {
       describe('when the id state is set', () => {
         it('returns the id', () => {
           const state = { id };
@@ -132,7 +105,8 @@ describe('store/entity', () => {
         });
       });
     });
-    describe('featuredSetId()', () => {
+
+    describe('featuredSetId', () => {
       describe('when the featuredSetId state is set', () => {
         it('returns the featuredSetId', () => {
           const state = { featuredSetId };
@@ -259,17 +233,6 @@ describe('store/entity', () => {
 
           expect(commit.calledWith('setPinned', [])).toBe(true);
         });
-      });
-    });
-    describe('createFeaturedSet()', () => {
-      it('creates a new featured set and commits setFeaturedSetId', async() => {
-        const newSet = { id: 'newset001' };
-        const getters = { id, englishPrefLabel: enPrefLabel };
-        store.actions.$apis.set.create = sinon.stub().resolves(newSet);
-
-        await store.actions.createFeaturedSet({ getters, commit });
-
-        expect(commit.calledWith('setFeaturedSetId', newSet.id)).toBe(true);
       });
     });
   });

@@ -71,6 +71,7 @@ export default {
     "gallery": "Galleries",
     "organisation": "Organisations",
     "place": "Places",
+    "theme": "Themes",
     "time": "Centuries",
     "topic": "Topics"
   },
@@ -1056,6 +1057,9 @@ export default {
       "delete": "Delete gallery",
       "edit": "Edit gallery",
       "update": "Update gallery"
+    },
+    "entityBestBets": {
+      "title": "{entity} Page"
     },
     "form": {
       "description": "Gallery description",
