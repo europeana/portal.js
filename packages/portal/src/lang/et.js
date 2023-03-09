@@ -71,6 +71,7 @@ export default {
     "item": "Hiljutised esemed",
     "organisation": "Organisatsioonid",
     "place": "Kohad",
+    "theme": "Teemad",
     "time": "Esiletõstetud sajandid",
     "topic": "Esile tõstetud teemad"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Plaanitud hoolduse tõttu ei ole konto, sisselogimise, meeldimiste ja galeriide funktsionaalsus neljapäeval, 23. veebruaril kell 7.00–9.00 CET ajal saadaval või piiratud."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "of": "of",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
       "update": "Värskenda galeriid"
+    },
+    "entityBestBets": {
+      "title": "{entity} Lehekülg"
     },
     "form": {
       "description": "Galerii kirjeldus",

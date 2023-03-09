@@ -71,6 +71,7 @@ export default {
     "item": "Nedavne stavke",
     "organisation": "Organizacije",
     "place": "Mjesta",
+    "theme": "Teme",
     "time": "Istaknuta stoljeća",
     "topic": "Istaknute teme"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Zbog zakazanog održavanja, funkcije računa, prijave, sviđanja i galerije bit će nedostupne ili ograničene u četvrtak, 23. veljače, od 7:00 do 9:00 ujutro po srednjoeuropskom vremenu."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
   },
   "of": "Od",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
       "update": "Ažuriraj galeriju"
+    },
+    "entityBestBets": {
+      "title": "{entity} Stranica"
     },
     "form": {
       "description": "Opis galerije",

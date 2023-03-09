@@ -71,6 +71,7 @@ export default {
     "item": "Nedávne položky",
     "organisation": "Organizácie",
     "place": "Miesta",
+    "theme": "Témy",
     "time": "Odporúčané storočia",
     "topic": "Odporúčané témy"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Z dôvodu plánovanej údržby budú funkcie účtu, prihlásenia, označení páči sa mi a galérií vo štvrtok 23. februára od 7:00 do 9:00 SEČ nedostupné alebo obmedzené."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "of": "Z",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Vymazať galériu",
       "edit": "Upraviť galériu",
       "update": "Aktualizovať galériu"
+    },
+    "entityBestBets": {
+      "title": "{entity} Strana"
     },
     "form": {
       "description": "Popis galérie",

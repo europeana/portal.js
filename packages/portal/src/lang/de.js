@@ -71,6 +71,7 @@ export default {
     "item": "Aktuelle Objekte",
     "organisation": "Organisationen",
     "place": "Orte",
+    "theme": "Themen",
     "time": "Ausgewählte Jahrhunderte",
     "topic": "Ausgewählte Themen"
   },
@@ -220,9 +221,9 @@ export default {
       "title": "Oops! {newline} Sie versuchen, die private Galerie einer anderen Person anzuzeigen."
     },
     "itemNotFound": {
-      "description": "Dies kann folgende Gründe haben: Diesem Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
+      "description": "Dies kann folgende Gründe haben: Dieses Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
       "metaTitle": "Objekt nicht gefunden",
-      "title": "Ach nein! {newline} Wir konnten dies Objekt nicht finden."
+      "title": "Oh nein! {newline} Wir konnten dies Objekt nicht finden."
     },
     "pageNotFound": {
       "metaTitle": "Seite nicht gefunden",
@@ -253,7 +254,7 @@ export default {
         "metadata": "Nur-Metadaten Aufzeichnungen"
       },
       "switch": "Suchen Sie nur im Inhalt von Artikeln mit Volltext",
-      "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn es deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
+      "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn er deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
     },
     "button": {
       "apply": "Anwenden",
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Aufgrund geplanter Wartungsarbeiten sind Konto-, Anmelde-, Likes- und Galerie Funktionen am Donnerstag, den 23. Februar, von 7:00 bis 9:00 Uhr MEZ nicht verfügbar oder eingeschränkt."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "of": "Von",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Galerie löschen",
       "edit": "Galerie bearbeiten",
       "update": "Galerie aktualisieren"
+    },
+    "entityBestBets": {
+      "title": "{entity} Seite"
     },
     "form": {
       "description": "Galeriebeschreibung",

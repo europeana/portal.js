@@ -71,6 +71,7 @@ export default {
     "item": "Recente items",
     "organisation": "Organisaties",
     "place": "Plaatsen",
+    "theme": "Thema's",
     "time": "Aanbevolen eeuwen",
     "topic": "Aanbevolen onderwerpen"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Wegens gepland onderhoud zullen de functionaliteiten voor account, login, likes en galerijen niet of beperkt beschikbaar zijn op donderdag 23 februari, van 7:00-9:00 uur CET."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "of": "Van",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Galerij verwijderen",
       "edit": "Galerij bewerken",
       "update": "Galerij bijwerken"
+    },
+    "entityBestBets": {
+      "title": "{entity} Pagina"
     },
     "form": {
       "description": "Omschrijving van de galerij",
