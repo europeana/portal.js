@@ -62,6 +62,7 @@ const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedGallerie
         edmPreview: (img) => img?.[0]
       }
     },
+    $i18n: { locale: 'en' },
     $route: {
       query: {}
     },
@@ -121,7 +122,7 @@ describe('components/related/RelatedGalleries', () => {
 
         expect(wrapper.vm.$apis.set.search.calledWith({
           query,
-          qf: 'visibility:published',
+          qf: ['visibility:published', `lang:${wrapper.vm.$i18n.locale}`],
           pageSize: 3,
           page: 0,
           profile: 'standard'
