@@ -12,6 +12,7 @@
       >
         {{ $t('related.galleries.title') }}
       </b-card-title>
+      <!-- TODO: use SetCardGroup and clean up methods -->
       <b-card-group>
         <ContentCard
           v-for="(gallery) in relatedGalleries"
@@ -61,7 +62,7 @@
     async fetch() {
       if (this.overrides) {
         this.relatedGalleries = this.overrides;
-      } else if (this.query && this.query !== '') {
+      } else if (this.query && (this.query !== '') && !this.query.includes(':')) {
         const searchParams = {
           query: this.query,
           qf: 'visibility:published',
@@ -102,15 +103,6 @@
   @import '@/assets/scss/variables';
 
   .related-galleries-card {
-    background: none;
-    border: none;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-
-    .card-body {
-      padding: 0 !important;
-    }
-
     .card-group {
       @media (min-width: $bp-medium) {
         flex-wrap: nowrap;
@@ -123,14 +115,26 @@
 
     ::v-deep .card-img {
       width: 45%;
-      max-width: 80px;
+      max-width: 5rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          max-width: 7.5rem;
+        }
+      }
     }
   }
 
   .card-group-list .related-gallery-card {
     @media (min-width: $bp-medium) {
       flex: 0 1 33%;
-      margin: 0 0.75rem 0 0;
+      margin: 0 0.75rem 0.75rem 0;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          margin-right: 1.125rem;
+        }
+      }
 
       &:last-child {
         margin-right: 0;
@@ -141,12 +145,6 @@
   .masonry-container {
     .related-galleries-card .card-group {
       flex-direction: column;
-    }
-
-    .related-gallery-card {
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
   }
 

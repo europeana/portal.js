@@ -1,5 +1,6 @@
 <template>
   <section
+    v-if="cardWrapper"
     v-show="related.length > 0"
     class="row mb-5"
   >
@@ -25,6 +26,26 @@
         </b-card-group>
       </b-card>
     </div>
+  </section>
+  <section
+    v-else
+    v-show="related.length > 0"
+  >
+    <h2>{{ $t('related.editorial.title') }} </h2>
+    <b-card-group
+      class="card-deck-4-cols gridless-browse-cards"
+      deck
+    >
+      <ContentCard
+        v-for="(entry, index) in related"
+        :key="index"
+        :title="entry.name"
+        :url="entryUrl(entry)"
+        :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
+        :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
+        :media-type="entry.primaryImageOfPage ? null : 'image'"
+      />
+    </b-card-group>
   </section>
 </template>
 
@@ -61,6 +82,18 @@
         // Default to an empty string (rather than `null`), to ensure that only
         // localised related editorial is returned.
         default: ''
+      },
+      cardWrapper: {
+        type: Boolean,
+        default: true
+      },
+      limit: {
+        type: Number,
+        default: 4
+      },
+      theme: {
+        type: String,
+        default: null
       }
     },
 
@@ -71,26 +104,35 @@
     },
 
     async fetch() {
-      if (!this.entityUri && !this.query) {
+      if (!this.entityUri && !this.theme && !this.query) {
+        this.$emit('fetched');
         return;
       }
 
       const variables = {
         entityUri: this.entityUri,
+        theme: this.theme,
         query: this.query,
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview',
-        limit: 4
+        limit: this.limit
       };
 
-      const queryName = this.entityUri ? 'entityRelatedContent' : 'relatedContent';
+      let queryName = 'relatedContent';
+      if (this.entityUri) {
+        queryName = 'entityRelatedContent';
+      } else if (this.theme) {
+        queryName = 'themeRelatedContent';
+      }
       const response = await this.$contentful.query(queryName, variables);
       const entries = response.data.data;
 
       this.related = entries.blogPostingCollection.items
         .concat(entries.exhibitionPageCollection.items)
         .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime())
-        .slice(0, 4);
+        .slice(0, this.limit);
+
+      this.$emit('fetched');
     },
 
     watch: {
@@ -121,6 +163,12 @@
     border: 0;
     box-shadow: $boxshadow-small;
 
+    > .card-body {
+      @media (min-width: $bp-4k) {
+        padding: 1.875rem;
+      }
+    }
+
     h2 {
       font-size: $font-size-extrasmall;
       font-weight: 600;
@@ -128,6 +176,12 @@
       text-transform: uppercase;
       margin-bottom: 1.25rem;
       color: $mediumgrey;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+        line-height: 1.5rem;
+        margin-bottom: 1.875rem;
+      }
     }
 
     .card-group {
@@ -143,6 +197,15 @@
           flex: calc(50% - 1rem);
           margin-bottom: 0.5rem;
           flex-grow: 0;
+        }
+
+        @media (min-width: $bp-wqhd) {
+          flex-basis: calc(25% - 1rem);
+        }
+
+        @media (min-width: $bp-4k) {
+          column-gap: 2rem;
+          flex-basis: calc(25% - 2rem);
         }
 
         &:hover {
@@ -162,13 +225,19 @@
         }
 
         .card-img {
-          width: 88px;
-          height: 88px;
-          flex: 0 0 88px;
+          width: 5.5rem;
+          height: 5.5rem;
+          flex: 0 0 5.5rem;
           min-height: 0;
           order: 2;
           margin: 0;
           margin-left: 1rem;
+
+          @media (min-width: $bp-4k) {
+            width: 8.25rem;
+            height: 8.25rem;
+            flex: 0 0 8.25rem;
+          }
 
           img {
             object-fit: cover;
@@ -197,10 +266,14 @@
           .card-subtitle {
             font-size: $font-size-small;
             font-weight: normal;
-            line-height: 20px;
+            line-height: 1.5;
             order: 2;
             margin-bottom: 0;
             text-transform: none;
+
+            @media (min-width: $bp-4k) {
+              font-size: $font-size-small-4k;
+            }
           }
         }
       }

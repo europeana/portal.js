@@ -1,11 +1,7 @@
 <template>
   <b-container
     data-qa="search interface"
-    class="page-container side-filters-enabled"
-    :class="{
-      'white-page': noResultsFound,
-      'pt-5': noResultsFound
-    }"
+    class="white-page pt-5 page-container side-filters-enabled"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -33,8 +29,7 @@
                 :total-results="totalResults"
                 :entity="$store.state.entity.entity"
                 :query="query"
-                :editorial-overrides="editorialOverrides"
-                :badge-variant="noResultsFound ? 'primary-light' : 'light'"
+                badge-variant="primary-light"
               />
               <ViewToggles
                 v-model="view"
@@ -194,10 +189,6 @@
         type: Boolean,
         default: false
       },
-      editorialOverrides: {
-        type: Object,
-        default: null
-      },
       overrideParams: {
         type: Object,
         default: () => ({})
@@ -342,7 +333,7 @@
 
         const collectionFilter = filtersFromQf(apiParams.qf).collection;
         this.collection = collectionFilter ? collectionFilter[0] : null;
-        this.theme = themes.find(theme => theme.qf === this.collection);
+        this.theme = themes.find((theme) => theme.qf === this.collection);
 
         const apiOptions = {};
 
@@ -415,7 +406,20 @@
 </script>
 
 <style lang="scss" scoped>
-  .col-results {
-    min-width: 0;
+@import '@/assets/scss/variables';
+
+.col-results {
+  min-width: 0;
+
+  @media (min-width: $bp-xxxl) {
+    padding-right: 4rem;
+    padding-left: 4rem;
   }
+}
+
+.mb-3 {
+  @media (min-width: $bp-4k) {
+    margin-bottom: 2rem !important;
+  }
+}
 </style>

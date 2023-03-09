@@ -71,6 +71,7 @@ export default {
     "item": "Hiljutised esemed",
     "organisation": "Organisatsioonid",
     "place": "Kohad",
+    "theme": "Teemad",
     "time": "Esiletõstetud sajandid",
     "topic": "Esile tõstetud teemad"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Palun kohandage otsingusõna või lähtestage filtrid, et proovida uuesti.",
       "title": "Tundub, et me ei leia seda, mida otsite."
+    },
+    "setLocked": {
+      "description": "Redigeerimine on ajutiselt keelatud ja teie muudatusi pole salvestatud. Palun proovi hiljem uuesti.",
+      "title": "Uuendus ebaõnnestus"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Sulge",
     "readMore": "Loe lähemalt",
     "text": {
-      "searchFilters": "Nüüd saate otsida väärtusi üksikutes filtrites; vaadake seda!"
+      "themes": "Avastage Euroopa kultuuripärandit teemade kaudu, alates arheoloogiast kuni I maailmasõjani. Meie uued teemalehed pakuvad igast teemast mitmemõõtmelist vaadet seotud teemade, inimeste, lugude ja esemete kaudu."
     }
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "of",
   "organisation": {
     "city": "Linn",
@@ -962,13 +970,17 @@ export default {
       "title": "Avastage seotud lugusid"
     },
     "collections": {
+      "name": "Seotud kollektsioonid",
       "title": "Avastage seotud kogud"
     },
     "editorial": {
       "title": "Lood, mis teile võivad meeldida"
+    },
+    "galleries": {
+      "name": "Seotud galeriid",
+      "title": "Avastage seotud galeriid"
     }
   },
-  "relatedCollections": "Seotud kollektsioonid",
   "removeFilter": "Eemalda filter {filterLabel}",
   "reset": "Lähtesta",
   "resourceWikimedia": "Wikimedia Commonsist saadud ressurss",
@@ -1013,6 +1025,9 @@ export default {
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
       "update": "Värskenda galeriid"
+    },
+    "entityBestBets": {
+      "title": "{entity} Lehekülg"
     },
     "form": {
       "description": "Galerii kirjeldus",
@@ -1072,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Lood"
+  },
+  "themes": {
+    "description": "Sirvi teemade kaupa",
+    "themes": "Teemad"
   },
   "website": "Veebisait"
 };

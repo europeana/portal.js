@@ -71,6 +71,7 @@ export default {
     "item": "Seneste varer",
     "organisation": "Organisationer",
     "place": "Steder",
+    "theme": "Temaer",
     "time": "Udvalgte århundreder",
     "topic": "Udvalgte emner"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Juster søgeordet, eller nulstil filtrene for at prøve igen.",
       "title": "Vi kan tilsyneladende ikke finde det, du leder efter."
+    },
+    "setLocked": {
+      "description": "Redigering er midlertidigt deaktiveret, og dine ændringer er ikke blevet gemt. Prøv igen senere.",
+      "title": "Opdatering fejlede"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Luk",
     "readMore": "Læs mere",
     "text": {
-      "searchFilters": "Du kan nu søge efter værdier i de enkelte filtre; tjek det ud!"
+      "themes": "Udforsk den europæiske kulturarv gennem temaer, fra arkæologi til Første Verdenskrig. Vores nye temasider giver et flerdimensionalt indblik i hvert tema via relaterede emner, personer, historier og genstande."
     }
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "Af",
   "organisation": {
     "city": "By",
@@ -962,13 +970,17 @@ export default {
       "title": "Oplev relaterede historier"
     },
     "collections": {
+      "name": "Relaterede samlinger",
       "title": "Oplev relaterede samlinger"
     },
     "editorial": {
       "title": "Historier, du måske kan lide"
+    },
+    "galleries": {
+      "name": "Relaterede gallerier",
+      "title": "Oplev relaterede gallerier"
     }
   },
-  "relatedCollections": "Relaterede samlinger",
   "removeFilter": "Fjern {filterLabel} filter",
   "reset": "Nulstil",
   "resourceWikimedia": "Ressource fra Wikimedia Commons",
@@ -1013,6 +1025,9 @@ export default {
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
       "update": "Opdater galleri"
+    },
+    "entityBestBets": {
+      "title": "{entity} Side"
     },
     "form": {
       "description": "Beskrivelse af galleri",
@@ -1072,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Historier"
+  },
+  "themes": {
+    "description": "Gennemse efter tema",
+    "themes": "Temaer"
   },
   "website": "Websted"
 };

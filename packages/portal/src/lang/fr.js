@@ -71,6 +71,7 @@ export default {
     "item": "Éléments récents",
     "organisation": "Organisations",
     "place": "Des endroits",
+    "theme": "Thèmes",
     "time": "Des siècles en vedette",
     "topic": "Sujets d'actualité"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Veuillez ajuster le terme de recherche ou réinitialiser les filtres pour réessayer.",
       "title": "Nous n'arrivons pas à trouver ce que vous cherchez."
+    },
+    "setLocked": {
+      "description": "La modification est temporairement désactivée et vos modifications n'ont pas été enregistrées. Veuillez réessayer plus tard.",
+      "title": "Mise à jour a échoué"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Fermer",
     "readMore": "Lire la suite",
     "text": {
-      "searchFilters": "Vous pouvez maintenant rechercher des valeurs dans les filtres individuels; Vérifiez-le!"
+      "themes": "Explorez le patrimoine culturel européen à travers des thèmes, de l'archéologie à la Première Guerre mondiale. Nos nouvelles pages thématiques offrent une vue multidimensionnelle de chaque thème via des sujets, des personnes, des histoires et des objets connexes."
     }
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "De",
   "organisation": {
     "city": "Ville",
@@ -962,13 +970,17 @@ export default {
       "title": "Découvrez des histoires connexes"
     },
     "collections": {
-      "title": "Découvrez les collections associées"
+      "name": "Collections connexes",
+      "title": "Découvrez les collections connexes"
     },
     "editorial": {
       "title": "Histoires que vous aimerez peut-être"
+    },
+    "galleries": {
+      "name": "Galeries connexes",
+      "title": "Découvrez des galeries connexes"
     }
   },
-  "relatedCollections": "Collections similaires",
   "removeFilter": "Supprimer le filtre {filterLabel}",
   "reset": "Réinitialiser",
   "resourceWikimedia": "Ressource de Wikimedia Commons",
@@ -1013,6 +1025,9 @@ export default {
       "delete": "Supprimer la galerie",
       "edit": "Modifier la galerie",
       "update": "Mettre à jour la galerie"
+    },
+    "entityBestBets": {
+      "title": "{entity} Page"
     },
     "form": {
       "description": "Description de la galerie",
@@ -1072,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Histoires"
+  },
+  "themes": {
+    "description": "Parcourir par thème",
+    "themes": "Thèmes"
   },
   "website": "Site Internet"
 };

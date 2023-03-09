@@ -15,7 +15,9 @@ const themePages = [
   'http://data.europeana.eu/concept/83'
 ];
 
-module.exports = (migration) => {
+module.exports = async(migration) => {
+  const themesModule = await import('@europeana/portal/src/plugins/europeana/themes.js');
+
   migration.transformEntriesToType({
     sourceContentType: 'entityPage',
     targetContentType: 'themePage',
@@ -30,9 +32,16 @@ module.exports = (migration) => {
     },
     transformEntryForLocale(fromFields, currentLocale) {
       if (fromFields.identifier && themePages.includes(fromFields.identifier['en-GB'])) {
+        let identifier;
+        if (currentLocale === 'en-GB') {
+          const genre = fromFields.genre?.[currentLocale];
+          if (genre) {
+            identifier = themesModule.default.find((theme) => theme.qf === genre)?.id;
+          }
+        }
         return {
           name: fromFields.name ? fromFields.name[currentLocale] : undefined,
-          identifier: fromFields.genre ? fromFields.genre[currentLocale] : undefined,
+          identifier,
           description: fromFields.description ? fromFields.description[currentLocale] : undefined,
           primaryImageOfPage: fromFields.primaryImageOfPage ? fromFields.primaryImageOfPage[currentLocale] : undefined
         };

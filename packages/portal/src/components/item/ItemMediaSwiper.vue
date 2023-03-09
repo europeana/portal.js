@@ -50,9 +50,9 @@
 </template>
 
 <script>
-  import { isPlayableMedia } from '@/plugins/media';
   import swiperMixin from '@/mixins/swiper';
   import MediaCard from './MediaCard';
+  import WebResource from '@/plugins/europeana/web-resource';
   import { Pagination, Navigation } from 'swiper';
 
   export default {
@@ -75,7 +75,8 @@
       },
       displayableMedia: {
         type: Array,
-        required: true
+        required: true,
+        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof WebResource)
       }
     },
 
@@ -112,7 +113,7 @@
 
     computed: {
       isSinglePlayableMedia() {
-        return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
+        return this.displayableMedia.filter(resource => resource.isPlayableMedia).length === 1;
       }
     },
 

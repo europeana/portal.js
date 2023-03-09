@@ -71,6 +71,7 @@ export default {
     "item": "Oggetti recenti",
     "organisation": "Organizzazioni",
     "place": "Posti",
+    "theme": "Temi",
     "time": "Secoli in primo piano",
     "topic": "Argomenti in primo piano"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Modifica il termine di ricerca o reimposta i filtri per riprovare.",
       "title": "Non riusciamo a trovare quello che stai cercando."
+    },
+    "setLocked": {
+      "description": "La modifica è temporaneamente disabilitata e le tue modifiche non sono state salvate. Per favore riprova più tardi.",
+      "title": "Aggiornamento non riuscito"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Chiudi",
     "readMore": "Leggi di più",
     "text": {
-      "searchFilters": "Ora puoi cercare i valori nei singoli filtri; controlla!"
+      "themes": "Esplora il patrimonio culturale europeo attraverso i temi, dall'archeologia alla prima guerra mondiale. Le nostre nuove pagine tematiche offrono una visione multidimensionale di ciascun tema attraverso argomenti, persone, storie e oggetti correlati."
     }
   },
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
   "noResults": "Nessun Risultato",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "Di",
   "organisation": {
     "city": "Città",
@@ -962,13 +970,17 @@ export default {
       "title": "Scopri le storie correlate"
     },
     "collections": {
+      "name": "Collezioni correlate",
       "title": "Scopri le collezioni correlate"
     },
     "editorial": {
       "title": "Storie che potrebbero piacerti"
+    },
+    "galleries": {
+      "name": "Gallerie correlate",
+      "title": "Scopri le gallerie correlate"
     }
   },
-  "relatedCollections": "Collezioni correlate",
   "removeFilter": "Rimuovi il filtro {filterLabel}",
   "reset": "Ripristina",
   "resourceWikimedia": "Risorsa da Wikimedia Commons",
@@ -1013,6 +1025,9 @@ export default {
       "delete": "Elimina galleria",
       "edit": "Modifica galleria",
       "update": "Aggiorna galleria"
+    },
+    "entityBestBets": {
+      "title": "{entity} Pagina"
     },
     "form": {
       "description": "Descrizione della galleria",
@@ -1072,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Storie"
+  },
+  "themes": {
+    "description": "Sfoglia per tema",
+    "themes": "Temi"
   },
   "website": "Sito web"
 };

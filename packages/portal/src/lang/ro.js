@@ -71,6 +71,7 @@ export default {
     "item": "Articole recente",
     "organisation": "Organizații",
     "place": "Locuri",
+    "theme": "Teme",
     "time": "Secole recomandate",
     "topic": "Subiecte recomandate"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Vă rugăm să ajustați termenul de căutare sau să resetați filtrele pentru a încerca din nou.",
       "title": "Se pare că nu găsim ceea ce cauți."
+    },
+    "setLocked": {
+      "description": "Editarea este temporar dezactivată, iar modificările dvs. nu au fost salvate. Vă rugăm să încercați din nou mai târziu.",
+      "title": "Actualizarea a eșuat"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Închidere",
     "readMore": "Citește mai mult",
     "text": {
-      "searchFilters": "Acum puteți căuta valori în filtrele individuale; verifică!"
+      "themes": "Explorați patrimoniul cultural european prin intermediul unor teme, de la arheologie la Primul Război Mondial. Noile noastre pagini tematice oferă o perspectivă multidimensională asupra fiecărei teme prin intermediul unor subiecte, persoane, povești și obiecte conexe."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
+  },
   "of": "De",
   "organisation": {
     "city": "Oraș",
@@ -962,13 +970,17 @@ export default {
       "title": "Descoperiți poveștile conexe"
     },
     "collections": {
+      "name": "Colecții conexe",
       "title": "Descoperiți colecții conexe"
     },
     "editorial": {
       "title": "Povești care s-ar putea să vă placă"
+    },
+    "galleries": {
+      "name": "Galerii conexe",
+      "title": "Descoperiți galerii conexe"
     }
   },
-  "relatedCollections": "Colecții similare",
   "removeFilter": "Elimină filtrul {filterLabel}",
   "reset": "Resetează",
   "resourceWikimedia": "Material de la Wikimedia Commons",
@@ -1013,6 +1025,9 @@ export default {
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
       "update": "Actualizare galerie"
+    },
+    "entityBestBets": {
+      "title": "{entity} Pagină"
     },
     "form": {
       "description": "Descriere galerie",
@@ -1072,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Povești"
+  },
+  "themes": {
+    "description": "Răsfoiți după temă",
+    "themes": "Teme"
   },
   "website": "Site-ul web"
 };

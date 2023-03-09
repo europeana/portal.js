@@ -71,6 +71,7 @@ export default {
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
     "place": "Lekuak",
+    "theme": "Gaiak",
     "time": "Mende aipagarriak",
     "topic": "Nabarmendutako gaiak"
   },
@@ -235,6 +236,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Mesedez, egokitu bilaketa-terminoa edo berrezarri iragazkiak berriro saiatzeko.",
       "title": "Badirudi ezin dugula bilatzen ari zarena aurkitu."
+    },
+    "setLocked": {
+      "description": "Edizioa aldi baterako desgaituta dago, eta zure aldaketak ez dira gorde. Saiatu berriro geroago.",
+      "title": "Eguneratzea huts egin du"
     }
   },
   "exhibitions": {
@@ -887,12 +892,15 @@ export default {
     "dismiss": "Itxi",
     "readMore": "Gehiago irakurri",
     "text": {
-      "searchFilters": "Orain balioak bila ditzakezu iragazki indibidualetan; begiratu ezazu!"
+      "themes": "Arakatu Europako kultur ondarea gaien bidez, arkeologiatik hasi eta Lehen Mundu Gerra arte. Gure gai-orri berriek gai bakoitzaren dimentsio anitzeko ikuspegia eskaintzen dute erlazionatutako gai, pertsona, istorio eta elementuen bidez."
     }
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "De",
   "organisation": {
     "city": "Hiria",
@@ -966,13 +974,17 @@ export default {
       "title": "Ezagutu erlazionatutako istorioak"
     },
     "collections": {
+      "name": "Lotutako bildumak",
       "title": "Ezagutu erlazionatutako bildumak"
     },
     "editorial": {
       "title": "Gustuko izan ditzakezun istorioak"
+    },
+    "galleries": {
+      "name": "Lotutako galeriak",
+      "title": "Ezagutu erlazionatutako galeriak"
     }
   },
-  "relatedCollections": "Lotutako bildumak",
   "removeFilter": "Kendu {filterLabel} iragazkia",
   "reset": "Berrezarri",
   "resourceWikimedia": "Wikimedia Commons-eko baliabidea",
@@ -1017,6 +1029,9 @@ export default {
       "delete": "Bilduma ezabatu",
       "edit": "Bilduma editatu",
       "update": "Bilduma eguneratu"
+    },
+    "entityBestBets": {
+      "title": "{entity} Orria"
     },
     "form": {
       "description": "Bildumaren deskribapena",
@@ -1076,6 +1091,10 @@ export default {
   },
   "storiesPage": {
     "title": "Istorioak"
+  },
+  "themes": {
+    "description": "Arakatu gaiaren arabera",
+    "themes": "Gaiak"
   },
   "website": "Webgunea"
 };

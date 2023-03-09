@@ -168,7 +168,7 @@
     left: 0;
     z-index: 1030;
     padding: 0;
-    box-shadow: 2px 2px 4px 0 rgb(0 0 0 / 8%);
+    box-shadow: $boxshadow-small;
 
     @media (min-width: $bp-large) {
       transition: $standard-transition;

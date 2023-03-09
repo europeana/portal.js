@@ -71,6 +71,7 @@ export default {
     "item": "Ostatnie pozycje",
     "organisation": "Organizacje",
     "place": "Miejsca",
+    "theme": "Motywy",
     "time": "Polecane wieki",
     "topic": "Polecane tematy"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Dostosuj wyszukiwane hasło lub zresetuj filtry, aby spróbować ponownie.",
       "title": "Nie możemy znaleźć tego, czego szukasz."
+    },
+    "setLocked": {
+      "description": "Edytowanie jest tymczasowo wyłączone, a zmiany nie zostały zapisane. Spróbuj ponownie później.",
+      "title": "Aktualizacja nie powiodła się"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Zamknij",
     "readMore": "Czytaj więcej",
     "text": {
-      "searchFilters": "Możesz teraz wyszukiwać wartości w poszczególnych filtrach; Sprawdź to!"
+      "themes": "Przeglądaj europejskie dziedzictwo kulturowe poprzez tematy, od archeologii po I wojnę światową. Nasze nowe strony tematyczne oferują wielowymiarowe spojrzenie na każdy temat poprzez powiązane tematy, ludzi, historie i przedmioty."
     }
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak wyników",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+  },
   "of": "Z",
   "organisation": {
     "city": "Miasto",
@@ -962,13 +970,17 @@ export default {
       "title": "Odkryj powiązane historie"
     },
     "collections": {
+      "name": "Powiązane kolekcje",
       "title": "Odkryj powiązane kolekcje"
     },
     "editorial": {
       "title": "Historie, które mogą Ci się spodobać"
+    },
+    "galleries": {
+      "name": "Powiązane galerie",
+      "title": "Odkryj powiązane galerie"
     }
   },
-  "relatedCollections": "Powiązane kolekcje",
   "removeFilter": "Usuń filtr {filterLabel}",
   "reset": "Resetuj",
   "resourceWikimedia": "Źródło z Wikimedia Commons",
@@ -1013,6 +1025,9 @@ export default {
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
       "update": "Zaktualizuj galerię"
+    },
+    "entityBestBets": {
+      "title": "{entity} Strona"
     },
     "form": {
       "description": "Opis galerii",
@@ -1072,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Historie"
+  },
+  "themes": {
+    "description": "Przeglądaj według motywu",
+    "themes": "Motywy"
   },
   "website": "Strona internetowa"
 };

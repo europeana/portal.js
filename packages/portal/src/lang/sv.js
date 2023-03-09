@@ -71,6 +71,7 @@ export default {
     "item": "Senaste objekt",
     "organisation": "Organisationer",
     "place": "Platser",
+    "theme": "Teman",
     "time": "Utvalda århundraden",
     "topic": "Utvalda ämnen"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Justera söktermen eller återställ filtren för att försöka igen.",
       "title": "Vi verkar inte kunna hitta det du letar efter."
+    },
+    "setLocked": {
+      "description": "Redigering är tillfälligt inaktiverad och dina ändringar har inte sparats. Vänligen försök igen senare.",
+      "title": "Uppdateringen misslyckades"
     }
   },
   "exhibitions": {
@@ -771,7 +776,7 @@ export default {
     "handle": "Skjutreglage"
   },
   "items": {
-    "itemCount": "1 föremål {count} föremål",
+    "itemCount": "1 föremål | {count} föremål",
     "itemOf": "{max} av {count} föremål",
     "recent": "Senaste objekt",
     "recommended": "Rekommenderade objekt",
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Stäng",
     "readMore": "Läs mer",
     "text": {
-      "searchFilters": "Du kan nu söka efter värden i de enskilda filtren; Kolla in det!"
+      "themes": "Utforska det europeiska kulturarvet genom teman, från arkeologi till första världskriget. Våra nya temasidor erbjuder en flerdimensionell bild av varje tema via relaterade ämnen, människor, berättelser och föremål."
     }
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "Av",
   "organisation": {
     "city": "Stad",
@@ -962,13 +970,17 @@ export default {
       "title": "Upptäck relaterade berättelser"
     },
     "collections": {
+      "name": "Relaterade samlingar",
       "title": "Upptäck relaterade samlingar"
     },
     "editorial": {
       "title": "Berättelser du kanske gillar"
+    },
+    "galleries": {
+      "name": "Relaterade gallerier",
+      "title": "Upptäck relaterade gallerier"
     }
   },
-  "relatedCollections": "Tillhörande kollektioner",
   "removeFilter": "Ta bort filter {filterLabel}",
   "reset": "Återställ",
   "resourceWikimedia": "Resurs från Wikimedia Commons",
@@ -1013,6 +1025,9 @@ export default {
       "delete": "Radera galleri",
       "edit": "Redigera galleri",
       "update": "Uppdatera galleri"
+    },
+    "entityBestBets": {
+      "title": "{entity} Sida"
     },
     "form": {
       "description": "Beskrivning av galleri",
@@ -1072,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Berättelser"
+  },
+  "themes": {
+    "description": "Bläddra efter tema",
+    "themes": "Teman"
   },
   "website": "Webbplats"
 };

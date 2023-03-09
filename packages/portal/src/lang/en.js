@@ -71,6 +71,7 @@ export default {
     "gallery": "Galleries",
     "organisation": "Organisations",
     "place": "Places",
+    "theme": "Themes",
     "time": "Centuries",
     "topic": "Topics"
   },
@@ -235,6 +236,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Please adjust the search term or reset the filters to try again.",
       "title": "We can't seem to find what you are looking for."
+    },
+    "setLocked": {
+      "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
+      "title": "Update failed"
     }
   },
   "exhibitions": {
@@ -908,14 +913,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Read more",
+    "readMore": "Explore themes",
     "text": {
-      "searchFilters": "You can now search for values in the individual filters; check it out!"
+      "themes": "Explore European cultural heritage through themes, from archaeology to World War I. Our new theme pages offer a multidimensional view of each theme via related topics, people, stories and items."
     }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "notificationBanner": {
+    "text": {}
+  },
   "of": "Of",
   "organisation": {
     "city": "City",
@@ -1045,6 +1053,9 @@ export default {
       "edit": "Edit gallery",
       "update": "Update gallery"
     },
+    "entityBestBets": {
+      "title": "{entity} Page"
+    },
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
@@ -1103,6 +1114,10 @@ export default {
   },
   "storiesPage": {
     "title": "Stories"
+  },
+  "themes": {
+    "themes": "Themes",
+    "description": "Browse by theme"
   },
   "website": "Website"
 };

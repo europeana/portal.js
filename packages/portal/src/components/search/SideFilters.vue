@@ -211,7 +211,7 @@
         return filters;
       },
       theme() {
-        return themes.find(theme => theme.qf === this.collection);
+        return themes.find((theme) => theme.qf === this.collection);
       },
       themeSpecificFacetNames() {
         return (this.theme?.facets || []).map((facet) => facet.field);
@@ -471,6 +471,11 @@
     font-weight: 600;
     line-height: 1;
     margin: 1.25rem 1rem;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+      margin: calc(1.5 * 1.25rem) 1.5rem;
+    }
   }
 
   .col-filters {
@@ -536,6 +541,15 @@
 
       .filters-backdrop {
         display: none;
+      }
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: 480px;
+
+      .col {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
       }
     }
 

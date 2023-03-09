@@ -61,9 +61,7 @@
       imageUrl() {
         let imageUrl = '';
 
-        if (this.cardFields.thumbnailUrl) {
-          imageUrl = this.cardFields.thumbnailUrl;
-        } else if (typeof this.cardFields.image === 'string') {
+        if (typeof this.cardFields.image === 'string') {
           imageUrl = this.cardFields.image;
         } else if (this.cardFields.edmPreview) {
           imageUrl = this.$apis.thumbnail.edmPreview(this.cardFields.edmPreview[0], { size: 400 });

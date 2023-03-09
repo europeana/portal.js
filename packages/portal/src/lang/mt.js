@@ -71,6 +71,7 @@ export default {
     "item": "Oġġetti reċenti",
     "organisation": "Organizzazzjonijiet",
     "place": "Postijiet",
+    "theme": "Temi",
     "time": "Sekli dehru",
     "topic": "Suġġetti temi"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Jekk jogħġbok aġġusta t-terminu tat-tfittxija jew reset il-filtri biex terġa' tipprova.",
       "title": "Ma nistgħux jidher li nsibu dak li qed tfittex."
+    },
+    "setLocked": {
+      "description": "L-editjar huwa diżattivat temporanjament, u l-bidliet tiegħek ma ġewx salvati. Jekk jogħġbok erġa' pprova aktar tard.",
+      "title": "L-aġġornament falla"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Agħlaq",
     "readMore": "Aqra iktar",
     "text": {
-      "searchFilters": "Issa tista' tfittex valuri fil-filtri individwali; iċċekkjah!"
+      "themes": "Esplora l-wirt kulturali Ewropew permezz ta’ temi, mill-arkeoloġija sa l-Ewwel Gwerra Dinjija. Il-paġni tat-temi l-ġodda tagħna joffru ħarsa multidimensjonali ta’ kull tema permezz ta’ suġġetti, nies, stejjer u oġġetti relatati."
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+  },
   "of": "Ta",
   "organisation": {
     "city": "Belt",
@@ -962,13 +970,17 @@ export default {
       "title": "Skopri stejjer relatati"
     },
     "collections": {
+      "name": "Kollezzjonijiet relatati",
       "title": "Skopri kollezzjonijiet relatati"
     },
     "editorial": {
       "title": "Stejjer li tista' togħġobkom"
+    },
+    "galleries": {
+      "name": "Galleriji relatati",
+      "title": "Skopri galleriji relatati"
     }
   },
-  "relatedCollections": "Kollezzjonijiet relatati",
   "removeFilter": "Neħħi l-filtru {filterLabel}",
   "reset": "Irrisettja",
   "resourceWikimedia": "Riżorsa minn Wikimedia Commons",
@@ -1013,6 +1025,9 @@ export default {
       "delete": "Ħassar id-direttorju tar-ritratti",
       "edit": "Editja d-direttorju tar-ritratti",
       "update": "Aġġorna d-direttorju tar-ritratti"
+    },
+    "entityBestBets": {
+      "title": "{entity} Paġna"
     },
     "form": {
       "description": "Deskrizzjoni tad-direttorju tar-ritratti",
@@ -1072,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Ġrajjiet"
+  },
+  "themes": {
+    "description": "Ibbrawżja skont it-tema",
+    "themes": "Temi"
   },
   "website": "Websajt"
 };

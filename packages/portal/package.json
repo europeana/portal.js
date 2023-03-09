@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.98.0",
+  "version": "1.104.1",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -8,7 +8,7 @@
     "cache": "node --require dotenv/config src/cachers/cli.js",
     "dev": "nuxt",
     "lokalise": "node --require dotenv/config bin/lokalise.js",
-    "start:inspect": "node --inspect node_modules/.bin/nuxt-cli start",
+    "start:inspect": "npx --node-options=\"--inspect\" nuxt-cli start",
     "start": "nuxt-cli start",
     "test:coverage": "npm run test:unit -- --coverage",
     "test:coverage:ci": "npm run test:unit -- --coverage --maxWorkers 2",

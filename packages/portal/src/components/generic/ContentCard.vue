@@ -122,7 +122,6 @@
   import SmartLink from './SmartLink';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import themes from '@/plugins/europeana/themes';
 
   export default {
     name: 'ContentCard',
@@ -307,8 +306,7 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections',
-        themes: themes.map(theme => theme.id)
+        displayLabelTypes: 'exhibitions|galleries|blog|collections'
       };
     },
 
@@ -338,14 +336,7 @@
         }
 
         if (this.displayLabelType === 'collections') {
-          const entityId = (typeof this.url === 'string') ?
-            this.url.split('/').pop().split('-').shift() :
-            this.url.params.pathMatch;
-
-          // TODO: remove when thematic collections topics get their own 'theme' type
-          return this.themes.includes(entityId) ?
-            this.$t('cardLabels.theme') :
-            this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
+          return this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
         }
 
         if (this.displayLabelType === 'blog') {

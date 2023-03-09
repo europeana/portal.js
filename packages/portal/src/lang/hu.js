@@ -71,6 +71,7 @@ export default {
     "item": "Legutóbbi cikk",
     "organisation": "Szervezetek",
     "place": "Helyek",
+    "theme": "Témák",
     "time": "Kiemelt évszázadok",
     "topic": "Kiemelt témák"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Kérjük, módosítsa a keresési kifejezést, vagy állítsa vissza a szűrőket az újrapróbálkozáshoz.",
       "title": "Úgy tűnik, nem találjuk, amit keres."
+    },
+    "setLocked": {
+      "description": "A szerkesztés átmenetileg le van tiltva, és a módosításokat nem mentettük. Kérlek, próbáld újra később.",
+      "title": "Frissítés sikertelen"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Bezárás",
     "readMore": "Bővebben",
     "text": {
-      "searchFilters": "Most már kereshet értékeket az egyes szűrőkben; nézd meg!"
+      "themes": "Fedezze fel az európai kulturális örökséget témákon keresztül, a régészettől az első világháborúig. Új témaoldalaink többdimenziós képet nyújtanak az egyes témákról a kapcsolódó témákon, személyeken, történeteken és tárgyakon keresztül."
     }
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "A",
   "organisation": {
     "city": "Város",
@@ -962,13 +970,17 @@ export default {
       "title": "Fedezze fel a kapcsolódó történeteket"
     },
     "collections": {
+      "name": "Kapcsolódó gyűjtemények",
       "title": "Fedezze fel a kapcsolódó gyűjteményeket"
     },
     "editorial": {
       "title": "Történetek, amelyek tetszhetnek"
+    },
+    "galleries": {
+      "name": "Kapcsolódó galériák",
+      "title": "Fedezze fel a kapcsolódó galériákat"
     }
   },
-  "relatedCollections": "Kapcsolódó gyűjtemények",
   "removeFilter": "{filterLabel} szűrő eltávolítása",
   "reset": "Visszaállítás",
   "resourceWikimedia": "Forrás: Wikimedia Commons",
@@ -1013,6 +1025,9 @@ export default {
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
       "update": "Galéria frissítése"
+    },
+    "entityBestBets": {
+      "title": "{entity} Oldal"
     },
     "form": {
       "description": "Galéria leírása",
@@ -1072,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Történetek"
+  },
+  "themes": {
+    "description": "Böngésszen téma szerint",
+    "themes": "Témák"
   },
   "website": "Weboldal"
 };

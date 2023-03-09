@@ -71,6 +71,7 @@ export default {
     "item": "Nedavne stavke",
     "organisation": "Organizacije",
     "place": "Mjesta",
+    "theme": "Teme",
     "time": "Istaknuta stoljeća",
     "topic": "Istaknute teme"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Prilagodite pojam za pretraživanje ili ponovno postavite filtre da biste pokušali ponovno.",
       "title": "Čini se da ne možemo pronaći ono što tražite."
+    },
+    "setLocked": {
+      "description": "Uređivanje je privremeno onemogućeno, a vaše promjene nisu spremljene. Molimo pokušajte ponovo kasnije.",
+      "title": "Ažuriranje nije uspjelo"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Zatvoriti",
     "readMore": "Pročitaj više",
     "text": {
-      "searchFilters": "Sada možete tražiti vrijednosti u pojedinačnim filtrima; provjerite to!"
+      "themes": "Istražite europsku kulturnu baštinu kroz teme, od arheologije do Prvog svjetskog rata. Naše nove tematske stranice nude višedimenzionalni pogled na svaku temu putem povezanih tema, ljudi, priča i predmeta."
     }
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
+  },
   "of": "Od",
   "organisation": {
     "city": "Grad",
@@ -962,13 +970,17 @@ export default {
       "title": "Otkrijte povezane priče"
     },
     "collections": {
+      "name": "Povezane zbirke",
       "title": "Otkrijte povezane kolekcije"
     },
     "editorial": {
       "title": "Priče koje bi vam se mogle svidjeti"
+    },
+    "galleries": {
+      "name": "Povezane galerije",
+      "title": "Otkrijte povezane galerije"
     }
   },
-  "relatedCollections": "Povezane zbirke",
   "removeFilter": "Uklonite filtar {filterLabel} ",
   "reset": "Resetiraj",
   "resourceWikimedia": "Resurs s Wikimedia Commonsa",
@@ -1013,6 +1025,9 @@ export default {
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
       "update": "Ažuriraj galeriju"
+    },
+    "entityBestBets": {
+      "title": "{entity} Stranica"
     },
     "form": {
       "description": "Opis galerije",
@@ -1072,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Priče"
+  },
+  "themes": {
+    "description": "Pregledajte po temi",
+    "themes": "Teme"
   },
   "website": "Web stranica"
 };

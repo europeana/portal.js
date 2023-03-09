@@ -10,6 +10,13 @@ body {
   }
 }
 
+// TODO: When all pages gridless/4k set this directly on body
+.xxl-page {
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-base-4k;
+  }
+}
+
 main {
   @include min-page-height;
 }
@@ -25,9 +32,17 @@ h5 {
 }
 
 h1 {
-  font-size: 2.125rem;
-  font-weight: 600;
+  font-size: $font-size-medium;
+  font-weight: 500;
   line-height: normal;
+  font-family: $font-family-ubuntu;
+  margin-bottom: 0.25rem;
+
+  @media (min-width: $bp-small) {
+    font-size: $font-size-largest;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
 }
 
 h2 {
@@ -234,6 +249,7 @@ input[type='checkbox']:focus + label {
   @media (-webkit-min-device-pixel-ratio: 0) {
     outline: -webkit-focus-ring-color auto 5px;
   }
+
   /* stylelint-enable */
 }
 
@@ -259,6 +275,13 @@ main#default {
   background-position: center;
   background-size: 66.67%;
   background-blend-mode: multiply;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      height: calc(1.5 * 72px);
+      width: calc(1.5 * 72px);
+    }
+  }
 }
 
 .visually-hidden {
@@ -275,6 +298,10 @@ main#default {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: $bp-xxxl) {
+    aspect-ratio: 4 / 3;
+  }
 
   [class^='icon-'],
   [class*=' icon-'] {

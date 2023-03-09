@@ -3,7 +3,7 @@
     v-if="relatedCollections.length > 0 || entityUris.length > 0"
   >
     <b-card
-      class="text-left related-collections-card"
+      class="related-collections-card mb-4"
     >
       <EntityBadges
         :related-collections="relatedCollections"
@@ -16,8 +16,6 @@
 </template>
 
 <script>
-  import { withEditorialContent } from '@/plugins/europeana/themes';
-
   export default {
     name: 'RelatedCollectionsCard',
 
@@ -66,8 +64,6 @@
         return this.$apis.entity.suggest(query, {
           language: this.$i18n.locale,
           rows: 4
-        }).then((related) => {
-          return withEditorialContent(this, related);
         });
       }
     }

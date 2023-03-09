@@ -9,10 +9,10 @@ on:
     types: closed
 
 env:
-  IBMCLOUD_API_URL: https://cloud.ibm.com
   IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
-  IBMCLOUD_CLUSTER_NAME: europeana-web
-  IBMCLOUD_REGION: eu-de
+  IBMCLOUD_API_URL: ${{ vars.IBMCLOUD_API_URL }}
+  IBMCLOUD_CLUSTER_NAME: ${{ vars.IBMCLOUD_CLUSTER_NAME }}
+  IBMCLOUD_REGION: ${{ vars.IBMCLOUD_REGION }}
 
 jobs:
   delete-ibm-cloud:
@@ -43,15 +43,15 @@ jobs:
       name: Delete portal.js resources from K8s
       run: |
         set +e
-        kubectl --namespace dev delete ingress/portal-js-pr-${PULL_REQUEST_NUMBER}
-        kubectl --namespace dev delete secret/pr-${PULL_REQUEST_NUMBER}.portal-js.dev.eanadev.org
-        kubectl --namespace dev delete service/portal-js-pr-${PULL_REQUEST_NUMBER}
-        kubectl --namespace dev delete deployment/portal-js-pr-${PULL_REQUEST_NUMBER}
+        kubectl --namespace dev delete --ignore-not-found ingress/portal-js-pr-${PULL_REQUEST_NUMBER}
+        kubectl --namespace dev delete --ignore-not-found secret/pr-${PULL_REQUEST_NUMBER}.portal-js.dev.eanadev.org
+        kubectl --namespace dev delete --ignore-not-found service/portal-js-pr-${PULL_REQUEST_NUMBER}
+        kubectl --namespace dev delete --ignore-not-found deployment/portal-js-pr-${PULL_REQUEST_NUMBER}
     -
       name: Delete style guide resources from K8s
       run: |
         set +e
-        kubectl --namespace dev delete ingress/styleguide-pr-${PULL_REQUEST_NUMBER}
-        kubectl --namespace dev delete secret/pr-${PULL_REQUEST_NUMBER}.styleguide.dev.eanadev.org
-        kubectl --namespace dev delete service/styleguide-pr-${PULL_REQUEST_NUMBER}
-        kubectl --namespace dev delete deployment/styleguide-pr-${PULL_REQUEST_NUMBER}
+        kubectl --namespace dev delete --ignore-not-found ingress/styleguide-pr-${PULL_REQUEST_NUMBER}
+        kubectl --namespace dev delete --ignore-not-found secret/pr-${PULL_REQUEST_NUMBER}.styleguide.dev.eanadev.org
+        kubectl --namespace dev delete --ignore-not-found service/styleguide-pr-${PULL_REQUEST_NUMBER}
+        kubectl --namespace dev delete --ignore-not-found deployment/styleguide-pr-${PULL_REQUEST_NUMBER}

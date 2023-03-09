@@ -12,6 +12,11 @@ query StoriesPage(
     items {
       identifier
       name
+      headline
+      description
+      image {
+        ...imageFields
+      }
       hasPartCollection {
         items {
           __typename
@@ -40,4 +45,9 @@ fragment illustrationFields on Illustration {
     width
     height
   }
+}
+
+fragment imageFields on Asset {
+  url
+  description
 }

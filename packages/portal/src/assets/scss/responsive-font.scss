@@ -5,21 +5,17 @@
     // Bootstrap's spacing utilities defines the margin and padding classes (m-1, px-5 etc.)
     // These variables and imports recompile the spacing utility to use spacers based on vw instead of the default rem.
     $custom-spacer: 1vw;
-    $spacers: (
-      0: 0,
-      1: $custom-spacer * 0.25,
-      2: $custom-spacer * 0.5,
-      3: $custom-spacer * 1,
-      4: $custom-spacer * 1.5,
-      5: $custom-spacer * 3
-    );
-    $grid-breakpoints: (
-      'xs': 0,
-      'sm': 576px,
-      'md': 768px,
-      'lg': 992px,
-      'xl': 1200px
-    );
+    $spacers: (0: 0,
+    1: $custom-spacer * 0.25,
+    2: $custom-spacer * 0.5,
+    3: $custom-spacer * 1,
+    4: $custom-spacer * 1.5,
+    5: $custom-spacer * 3);
+    $grid-breakpoints: ('xs': 0,
+    'sm': 576px,
+    'md': 768px,
+    'lg': 992px,
+    'xl': 1200px);
     /* stylelint-disable no-invalid-position-at-import-rule */
     @import '~bootstrap/scss/mixins/breakpoints';
     @import '~bootstrap/scss/utilities/spacing';
@@ -32,7 +28,12 @@
     }
 
     h1 {
-      font-size: 2.125vw;
+      font-size: $responsive-font-size-largest;
+    }
+
+    h2 {
+      font-size: 1.875vw;
+      margin-bottom: 1vw;
     }
 
     .badge {
@@ -92,7 +93,9 @@
     }
 
     .content-card {
-      font-size: $responsive-font-size-base;
+      font-size: $responsive-font-size-small;
+      line-height: 1.1875vw;
+      border-radius: 0.25vw;
 
       .card-subtitle {
         font-size: $responsive-font-size-extrasmall;
@@ -104,10 +107,31 @@
       }
 
       .card-title {
-        font-size: $responsive-font-size-large;
+        font-size: $responsive-font-size-medium;
         line-height: 1.25em;
         max-height: none;
       }
+
+      &.card {
+        margin-bottom: 1.5vw;
+      }
+
+      &.mini-card {
+        .card-body {
+          padding: 1em;
+        }
+
+        .card-title {
+          font-size: $responsive-font-size-medium;
+        }
+      }
+    }
+
+    .btn {
+      font-size: $responsive-font-size-base;
+      padding: 0.375vw 0.75vw;
+      border-width: 0.0625vw;
+      border-radius: 0.25vw;
     }
 
     .btn-light-flat.button-icon-only {
@@ -123,9 +147,32 @@
       }
     }
 
+    .btn-secondary {
+      font-size: $responsive-font-size-small;
+      border-radius: 0.25vw;
+
+      .icon-link {
+        font-size: 0.5vw;
+      }
+    }
+
+    .share-button .icon-share {
+      font-size: 1.125vw;
+      line-height: 1vw;
+    }
+
     .eu-logo {
       height: 4vw;
       width: auto;
+    }
+
+    .lead {
+      font-size: 1.5vw;
+      line-height: 2.06vw;
+    }
+
+    .related-heading {
+      font-size: $responsive-font-size-small;
     }
   }
 }
