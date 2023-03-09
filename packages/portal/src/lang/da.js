@@ -71,6 +71,7 @@ export default {
     "item": "Seneste varer",
     "organisation": "Organisationer",
     "place": "Steder",
+    "theme": "Temaer",
     "time": "Udvalgte århundreder",
     "topic": "Udvalgte emner"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "På grund af planlagt vedligeholdelse vil konto, login, likes og gallerifunktionalitet ikke være tilgængelig eller begrænset torsdag den 23. februar fra kl. 7:00-9:00 CET."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "of": "Af",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
       "update": "Opdater galleri"
+    },
+    "entityBestBets": {
+      "title": "{entity} Side"
     },
     "form": {
       "description": "Beskrivelse af galleri",

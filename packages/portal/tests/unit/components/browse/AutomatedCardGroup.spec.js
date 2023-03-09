@@ -9,6 +9,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const FEATURED_ORGANISATIONS = 'Featured organisations';
+const FEATURED_THEMES = 'Featured themes';
 const FEATURED_TOPICS = 'Featured topics';
 const FEATURED_TIMES = 'Featured centuries';
 const RECENT_ITEMS = 'Recent items';
@@ -17,9 +18,9 @@ const LATEST_GALLERIES = 'Latest galleries';
 
 const $axiosGetStub = sinon.stub();
 
-const factory = (props = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(AutomatedCardGroup, {
+const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(AutomatedCardGroup, {
   localVue,
-  propsData: props,
+  propsData,
   mocks: {
     $apis: {
       entity: {
@@ -29,12 +30,16 @@ const factory = (props = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(
         edmPreview: sinon.stub().returnsArg(0)
       }
     },
+    $contentful: {
+      query: sinon.stub()
+    },
     $fetchState: {
       error: false,
       pending: false
     },
     $path: () => 'mocked path',
-    $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}` },
+    $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, isoLocale: () => 'en-GB' },
+    $route: { query: {} },
     $axios: {
       get: $axiosGetStub
     },
@@ -140,18 +145,48 @@ const entries = {
 
 describe('components/browse/AutomatedCardGroup', () => {
   describe('fetch()', () => {
-    beforeEach(() => {
-      $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves({ data: entries.featuredTopics });
+    describe('when section is cached', () => {
+      const propsData = { sectionType: FEATURED_TOPICS };
+      beforeEach(() => {
+        $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves({ data: entries.featuredTopics });
+      });
+      afterEach(() => {
+        $axiosGetStub.reset();
+      });
+      describe('when rendering on the client', () => {
+        it('gets the data from the cache API endpoint', async() => {
+          const wrapper = factory(propsData);
+          await wrapper.vm.fetch();
+          expect($axiosGetStub.calledWith('/_api/cache/en/collections/topics/featured')).toBe(true);
+          expect(wrapper.vm.entries).toEqual(entries.featuredTopics);
+        });
+      });
     });
-    afterEach(() => {
-      $axiosGetStub.reset();
-    });
-    describe('when rendering on the client', () => {
-      it('gets the data from the cache API endpoint', async() => {
-        const wrapper = factory({ sectionType: FEATURED_TOPICS });
+
+    describe('when section is from Contentful', () => {
+      const propsData = { sectionType: FEATURED_THEMES };
+      const contentfulResponse = {
+        data: {
+          data: {
+            themePageCollection: {
+              items: [
+                {
+                  identifier: 'art'
+                }
+              ]
+            }
+          }
+        }
+      };
+
+      it('fetches from Contentful and stores response items in entries', async() => {
+        const wrapper = factory(propsData);
+        wrapper.vm.$contentful.query.resolves(contentfulResponse);
+
         await wrapper.vm.fetch();
-        expect($axiosGetStub.calledWith('/_api/cache/en/collections/topics/featured')).toBe(true);
-        expect(wrapper.vm.entries).toEqual(entries.featuredTopics);
+
+        expect(wrapper.vm.$contentful.query.calledWith('themes', { locale: 'en-GB', preview: false })).toBe(true);
+        expect(wrapper.vm.entries).toEqual(contentfulResponse.data.data.themePageCollection.items);
       });
     });
   });

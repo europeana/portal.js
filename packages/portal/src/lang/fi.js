@@ -71,6 +71,7 @@ export default {
     "item": "Viimeisimmät kohdetta",
     "organisation": "Organisaatiot",
     "place": "Paikat",
+    "theme": "Teemat",
     "time": "Esillä vuosisatoja",
     "topic": "Esillä olevat aiheet"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Ajoitetun huollon vuoksi tilin, kirjautumisen, tykkäysten ja gallerioiden toiminnot ovat poissa käytöstä tai rajoitetusti torstaina 23. helmikuuta klo 7.00-9.00 CET."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "of": "of",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Poista galleria",
       "edit": "Muokkaa galleriaa",
       "update": "Päivitä galleria"
+    },
+    "entityBestBets": {
+      "title": "{entity} Sivu"
     },
     "form": {
       "description": "Gallerian kuvaus",

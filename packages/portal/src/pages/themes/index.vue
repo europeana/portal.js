@@ -55,7 +55,7 @@
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview'
       };
-      const response = await this.$contentful.query('themeFoyerPage', variables);
+      const response = await this.$contentful.query('themes', variables);
       this.themes = response.data.data.themePageCollection.items;
     },
 

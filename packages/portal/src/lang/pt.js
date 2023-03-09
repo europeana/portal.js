@@ -71,6 +71,7 @@ export default {
     "item": "Itens recentes",
     "organisation": "Organizações",
     "place": "Lugares",
+    "theme": "Temas",
     "time": "Séculos em destaque",
     "topic": "Tópicos em destaque"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Devido à manutenção programada, as funcionalidades de conta, login, curtidas e galerias estarão indisponíveis ou limitadas na quinta-feira, 23 de fevereiro, das 7h às 9h CET."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "of": "De",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Eliminar galeria",
       "edit": "Editar galeria",
       "update": "Atualizar galeria"
+    },
+    "entityBestBets": {
+      "title": "{entity} Página"
     },
     "form": {
       "description": "Descrição da galeria",

@@ -71,6 +71,7 @@ export default {
     "item": "Míreanna le déanaí",
     "organisation": "Eagraíochtaí",
     "place": "Áiteanna",
+    "theme": "Téamaí",
     "time": "Na hAois réadmhaoin",
     "topic": "Topaicí réadmhaoine"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Mar gheall ar chothabháil sceidealta, ní bheidh feidhmiúlacht chuntais, logáil isteach, rudaí is maith leo agus gailearaithe ar fáil nó teoranta ar an Déardaoin, 23 Feabhra, ó 7:00-9:00 am CET."
-    }
+    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "of": "De",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Scrios gailearaí",
       "edit": "Cuir an gailearaí in eagar",
       "update": "Nuashonraigh gailearaí"
+    },
+    "entityBestBets": {
+      "title": "{entity} Leathanach"
     },
     "form": {
       "description": "Tuairisc ar ghailearaí",

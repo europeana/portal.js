@@ -71,6 +71,7 @@ export default {
     "item": "Naujausi prekių",
     "organisation": "Organizacijos",
     "place": "Vietos",
+    "theme": "Temos",
     "time": "Rekomenduojami šimtmečiai",
     "topic": "Rekomenduojamos temos"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Dėl suplanuotos techninės priežiūros ketvirtadienį, vasario 23 d., nuo 7:00 iki 9:00 val. ryto Vidurio Europos laiku (CET) bus neprieinamos arba ribotos paskyros, prisijungimo, \"patinka\" ir galerijų funkcijos."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
   },
   "of": "Iš",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
       "update": "Atnaujinti galeriją"
+    },
+    "entityBestBets": {
+      "title": "{entity} Puslapis"
     },
     "form": {
       "description": "Galerijos aprašymas",

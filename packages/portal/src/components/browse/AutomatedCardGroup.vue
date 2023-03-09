@@ -16,10 +16,11 @@
 <script>
   import ContentCardSection from './ContentCardSection';
   import InfoCardSection from './InfoCardSection';
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { daily, getLabelledSlug } from '@/plugins/europeana/utils';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';
+  const FEATURED_THEMES = 'Featured themes';
   const FEATURED_TOPICS = 'Featured topics';
   const FEATURED_TIMES = 'Featured centuries';
   const RECENT_ITEMS = 'Recent items';
@@ -47,6 +48,11 @@
 
     data() {
       const data = {
+        key: null,
+        cardType: null,
+        headline: null,
+        contentful: null,
+        daily: false,
         entries: []
       };
 
@@ -58,6 +64,15 @@
         data.key = `${this.$i18n.locale}/collections/places/featured`;
         data.cardType = 'AutomatedEntityCard';
         data.headline = this.$i18n.t('automatedCardGroup.place');
+      } else if (this.sectionType === FEATURED_THEMES) {
+        data.key = `${this.$i18n.locale}/themes/featured`;
+        data.contentful = {
+          query: 'themes',
+          collection: 'themePageCollection'
+        };
+        data.daily = 4;
+        data.cardType = 'AutomatedThemeCard';
+        data.headline = this.$i18n.t('automatedCardGroup.theme');
       } else if (this.sectionType === FEATURED_TOPICS) {
         data.key = `${this.$i18n.locale}/collections/topics/featured`;
         data.cardType = 'AutomatedEntityCard';
@@ -82,76 +97,100 @@
       return data;
     },
 
-    fetch() {
-      if (process.server) {
-        return import('@/server-middleware/api/cache/index.js')
-          .then(module => {
-            return module.cached(this.key, this.$config.redis)
-              .then(entries => {
-                this.entries = entries;
-              });
-          });
+    async fetch() {
+      if (this.contentful) {
+        this.entries = await this.fetchContentfulData();
       } else {
-        return this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
-          .then(response => {
-            this.entries = response.data;
-          });
+        this.entries = await this.fetchCachedData();
+      }
+      if (this.daily) {
+        this.entries = daily(this.entries, this.daily);
       }
     },
 
     computed: {
       contentCardSection() {
-        if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
-          return {
-            type: this.key,
-            hasPartCollection: {
-              items: this.entries?.map(entry => ({
-                __typename: this.cardType,
-                url: this.searchFromType(entry.label),
-                info: this.$i18n.n(entry.count),
-                label: this.$t(`facets.TYPE.options.${entry.label}`),
-                image: this.infoImageFromType(entry.label)
-              }))
-            },
-            moreButton: this.moreButton
-          };
-        }
-        if (this.sectionType === LATEST_GALLERIES) {
-          return {
-            headline: this.headline,
-            hasPartCollection: {
-              items: this.entries?.map(set => ({
-                __typename: this.cardType,
-                __variant: null,
-                name: set.title,
-                identifier: set.id,
-                image: this.$apis.thumbnail.edmPreview(set.items?.[0].edmPreview, { size: 400 }),
-                url: `galleries/${getLabelledSlug(set.id, set.title.en)}`,
-                description: set.description
-              }))
-            },
-            moreButton: this.moreButton
-          };
-        }
         return {
+          type: this.key,
           headline: this.headline,
           hasPartCollection: {
-            items: this.entries?.map(entry => ({
-              __typename: this.cardType,
-              __variant: (this.sectionType === RECENT_ITEMS) ? null : 'mini',
-              name: entry.prefLabel,
-              identifier: entry.id,
-              image: this.$apis.entity.imageUrl(entry),
-              encoding: entry,
-              logo: !!entry.logo
-            }))
+            items: this.hasPartCollectionItems
           },
           moreButton: this.moreButton
         };
+      },
+
+      hasPartCollectionItems() {
+        let items;
+
+        switch (this.sectionType) {
+        case ITEM_COUNTS_MEDIA_TYPE:
+          items = this.entries?.map(entry => ({
+            __typename: this.cardType,
+            url: this.searchFromType(entry.label),
+            info: this.$i18n.n(entry.count),
+            label: this.$t(`facets.TYPE.options.${entry.label}`),
+            image: this.infoImageFromType(entry.label)
+          }));
+          break;
+        case LATEST_GALLERIES:
+          items = this.entries?.map(set => ({
+            __typename: this.cardType,
+            __variant: null,
+            name: set.title,
+            identifier: set.id,
+            image: this.$apis.thumbnail.edmPreview(set.items?.[0].edmPreview, { size: 400 }),
+            url: `galleries/${getLabelledSlug(set.id, set.title.en)}`,
+            description: set.description
+          }));
+          break;
+        case FEATURED_THEMES:
+          items = this.entries?.map(entry => ({
+            __typename: this.cardType,
+            __variant: null,
+            name: entry.name,
+            identifier: entry.identifier,
+            image: entry.primaryImageOfPage?.image,
+            url: `/themes/${entry.identifier}`,
+            description: entry.description
+          }));
+          break;
+        default:
+          items = this.entries?.map(entry => ({
+            __typename: this.cardType,
+            __variant: (this.sectionType === RECENT_ITEMS) ? null : 'mini',
+            name: entry.prefLabel,
+            identifier: entry.id,
+            image: this.$apis.entity.imageUrl(entry),
+            encoding: entry,
+            logo: !!entry.logo
+          }));
+        }
+
+        return items;
       }
     },
 
     methods: {
+      fetchCachedData() {
+        if (process.server) {
+          return import('@/server-middleware/api/cache/index.js')
+            .then(module => {
+              return module.cached(this.key, this.$config.redis);
+            });
+        } else {
+          return this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
+            .then((response) => response.data);
+        }
+      },
+      async fetchContentfulData() {
+        const variables = {
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview'
+        };
+        const response = await this.$contentful.query(this.contentful.query, variables);
+        return response.data.data[this.contentful.collection].items;
+      },
       infoImageFromType(itemType) {
         return `ic-${itemType.toLowerCase()}`;
       },

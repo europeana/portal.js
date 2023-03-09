@@ -71,6 +71,7 @@ export default {
     "item": "Legutóbbi cikk",
     "organisation": "Szervezetek",
     "place": "Helyek",
+    "theme": "Témák",
     "time": "Kiemelt évszázadok",
     "topic": "Kiemelt témák"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Az ütemezett karbantartás miatt a fiók, a bejelentkezés, a kedvelések és a galériák funkciói nem vagy korlátozottak lesznek február 23-án, csütörtökön, közép-európai idő szerint 7:00 és 9:00 óra között."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "of": "A",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
       "update": "Galéria frissítése"
+    },
+    "entityBestBets": {
+      "title": "{entity} Oldal"
     },
     "form": {
       "description": "Galéria leírása",
