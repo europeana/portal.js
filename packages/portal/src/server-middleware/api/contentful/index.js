@@ -16,23 +16,14 @@ const graphqlQueries = graphqlPaths.reduce((memo, graphqlPath) => {
   return memo;
 }, {});
 
-export default (config = {}) => (req, res) => {
+const queryContentful = (config = {}) => (queryAlias, variables) => {
   const axiosInstance = axios.create();
   axiosRetry(axiosInstance);
-
-  const queryAlias = req.params.queryAlias;
-  const variables = req.query;
-  variables.preview = variables.preview === 'true' ? true : false;
-
-  // console.log('req', queryAlias, variables)
-
 
   const origin = config.graphQlOrigin || 'https://graphql.contentful.com';
   const path = `/content/v1/spaces/${config.spaceId}/environments/${config.environmentId || 'master'}`;
 
   const accessToken = variables.preview ? config.accessToken.preview : config.accessToken.delivery;
-
-  // console.log('query', graphqlQueries[queryAlias])
 
   const body = {
     query: graphqlQueries[queryAlias],
@@ -51,11 +42,16 @@ export default (config = {}) => (req, res) => {
     variables
   };
 
-  console.log('CTF', `${origin}${path}`, body, { headers, params })
+  return axiosInstance.post(`${origin}${path}`, body, { headers, params });
+};
 
-  return axiosInstance.post(`${origin}${path}`, body, { headers, params })
+export default (config = {}) => (req, res) => {
+  const queryAlias = req.params.queryAlias;
+  const variables = req.query;
+  variables.preview = variables.preview === 'true' ? true : false;
+
+  return queryContentful(config)(queryAlias, variables)
     .then((response) => {
-      console.log('response')
       res.json(response.data);
     })
     .catch((error) => {
