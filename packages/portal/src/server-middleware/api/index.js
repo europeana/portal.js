@@ -35,6 +35,9 @@ app.get('/debug/memory-usage', debugMemoryUsage);
 import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig.redis)(req, res));
 
+import contentful from './contentful/index.js';
+app.get('/contentful/:queryAlias', (req, res) => contentful(runtimeConfig.contentful)(req, res));
+
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));
 // TODO: Remove on subsequent release as only needed to suppor the switch to the new URL '/jira-service-desk/feedback'
@@ -48,6 +51,7 @@ app.get('/version', version);
 
 app.all('/*', (req, res) => res.sendStatus(404));
 
+// TODO: APM
 export const errorHandler = (res, error) => {
   let status = error.status || 500;
   let message = error.message;
