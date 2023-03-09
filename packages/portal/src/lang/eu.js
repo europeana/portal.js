@@ -71,6 +71,7 @@ export default {
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
     "place": "Lekuak",
+    "theme": "Gaiak",
     "time": "Mende aipagarriak",
     "topic": "Nabarmendutako gaiak"
   },
@@ -898,9 +899,7 @@ export default {
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Programatutako mantentze-lanak direla eta, kontua, saioa hasteko, gustatu izanaren eta galerien funtzioak ez dira erabilgarri edo mugatuta egongo otsailaren 23an, ostegunean, goizeko 7:00etatik 9:00etara CET."
-    }
+    "text": "{\"one\":\"\",\"other\":\"\"}"
   },
   "of": "De",
   "organisation": {
@@ -1030,6 +1029,9 @@ export default {
       "delete": "Bilduma ezabatu",
       "edit": "Bilduma editatu",
       "update": "Bilduma eguneratu"
+    },
+    "entityBestBets": {
+      "title": "{entity} Orria"
     },
     "form": {
       "description": "Bildumaren deskribapena",
