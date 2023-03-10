@@ -1,12 +1,12 @@
 import camelCase from 'camelcase';
 import createHttpError from 'http-errors';
 import fs from 'fs';
-import glob from 'glob';
+import { globSync } from 'glob';
 import path from 'path';
 
 import { errorHandler } from '../index.js';
 
-const graphqlPaths = glob.sync(path.resolve(__dirname, './queries/*.graphql'));
+const graphqlPaths = globSync(path.resolve(__dirname, './queries/*.graphql'));
 
 const graphqlQueries = graphqlPaths.reduce((memo, graphqlPath) => {
   const basename = path.basename(graphqlPath, '.graphql');
