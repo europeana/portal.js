@@ -101,3 +101,6 @@ tmp
 
 # Locale folder
 locale
+
+# Styleguidist server
+client.manifest.json

@@ -42,8 +42,6 @@ app.post('/contentful/stories', (req, res) => contentful(runtimeConfig.contentfu
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));
-// TODO: Remove on subsequent release as only needed to suppor the switch to the new URL '/jira-service-desk/feedback'
-app.post('/jira/service-desk', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));
 
 import jiraServiceDeskGalleries from './jira-service-desk/galleries.js';
 app.post('/jira-service-desk/galleries', (req, res) => jiraServiceDeskGalleries(runtimeConfig.jira)(req, res));
