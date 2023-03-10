@@ -152,15 +152,6 @@ export default {
         return memo;
       }, [])
     },
-    contentful: {
-      spaceId: process.env.CTF_SPACE_ID,
-      environmentId: process.env.CTF_ENVIRONMENT_ID,
-      accessToken: {
-        delivery: process.env.CTF_CDA_ACCESS_TOKEN,
-        preview: process.env.CTF_CPA_ACCESS_TOKEN
-      },
-      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN
-    },
     elastic: {
       apm: {
         // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
@@ -217,7 +208,13 @@ export default {
 
   privateRuntimeConfig: {
     contentful: {
-      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
+      spaceId: process.env.CTF_SPACE_ID,
+      environmentId: process.env.CTF_ENVIRONMENT_ID,
+      accessToken: {
+        delivery: process.env.CTF_CDA_ACCESS_TOKEN,
+        preview: process.env.CTF_CPA_ACCESS_TOKEN
+      },
+      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE || process.env.CTF_GRAPHQL_ORIGIN
     },
     europeana: privateRuntimeConfigEuropeana,
     jira: {
