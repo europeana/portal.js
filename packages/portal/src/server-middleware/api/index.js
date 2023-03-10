@@ -36,7 +36,9 @@ import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig.redis)(req, res));
 
 import contentful from './contentful/index.js';
-app.get('/contentful/graphql/:queryAlias', (req, res) => contentful(runtimeConfig.contentful).graphql(req, res));
+// Only POST methods so that GraphQL variables are properly type case in JSON request body
+app.post('/contentful/graphql/:queryAlias', (req, res) => contentful(runtimeConfig.contentful).graphql(req, res));
+app.post('/contentful/stories', (req, res) => contentful(runtimeConfig.contentful).stories(req, res));
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));

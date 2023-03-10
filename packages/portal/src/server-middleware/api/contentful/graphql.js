@@ -49,8 +49,7 @@ export default function(req, res) {
   this.queryContentful = queryContentful;
 
   const queryAlias = req.params.queryAlias;
-  const variables = req.query;
-  variables.preview = variables.preview === 'true' ? true : false;
+  const variables = req.body;
 
   return this.queryContentful(queryAlias, variables)
     .then((response) => {

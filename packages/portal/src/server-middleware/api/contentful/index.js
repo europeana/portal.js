@@ -1,10 +1,12 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
+import stories from './stories.js';
 import graphql from './graphql.js';
 
 export default function createInstance(config = {}) {
   const instance = {
-    graphql
+    graphql,
+    stories
   };
 
   const configDefaults = {
