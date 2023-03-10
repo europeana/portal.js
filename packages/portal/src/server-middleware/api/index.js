@@ -36,7 +36,7 @@ import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig.redis)(req, res));
 
 import contentful from './contentful/index.js';
-app.get('/contentful/:queryAlias', (req, res) => contentful(runtimeConfig.contentful)(req, res));
+app.get('/contentful/graphql/:queryAlias', (req, res) => contentful(runtimeConfig.contentful).graphql(req, res));
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));
@@ -58,7 +58,7 @@ export const errorHandler = (res, error) => {
 
   if (error.response) {
     status = error.response.status;
-    message = error.response.data.errorMessage;
+    message = error.response.data.errorMessage || message;
   }
 
   res.status(status).set('Content-Type', 'text/plain').send(message);

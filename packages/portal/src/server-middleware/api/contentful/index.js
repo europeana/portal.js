@@ -1,62 +1,27 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import camelCase from 'camelcase';
-import fs from 'fs';
-import glob from 'glob';
-import path from 'path';
+import graphql from './graphql.js';
 
-import { errorHandler } from '../index.js';
-
-const graphqlPaths = glob.sync(path.resolve(__dirname, './queries/*.graphql'));
-
-const graphqlQueries = graphqlPaths.reduce((memo, graphqlPath) => {
-  const basename = path.basename(graphqlPath, '.graphql');
-  const alias = camelCase(basename);
-  memo[alias] = fs.readFileSync(graphqlPath, 'utf8');
-  return memo;
-}, {});
-
-const queryContentful = (config = {}) => (queryAlias, variables) => {
-  const axiosInstance = axios.create();
-  axiosRetry(axiosInstance);
-
-  const origin = config.graphQlOrigin || 'https://graphql.contentful.com';
-  const path = `/content/v1/spaces/${config.spaceId}/environments/${config.environmentId || 'master'}`;
-
-  const accessToken = variables.preview ? config.accessToken.preview : config.accessToken.delivery;
-
-  const body = {
-    query: graphqlQueries[queryAlias],
-    variables
+export default function createInstance(config = {}) {
+  const instance = {
+    graphql
   };
 
-  const headers = {
-    'Authorization': `Bearer ${accessToken}`
+  const configDefaults = {
+    graphQlOrigin: 'https://graphql.contentful.com',
+    environmentId: 'master'
   };
+  instance.config = { ...config };
+  for (const key in configDefaults) {
+    instance.config[key] = instance.config[key] || configDefaults[key];
+  }
 
-  // These params will go into the URL query which will not be used by the
-  // GraphQL service itself as it's a POST request, but facilitate intermediary
-  // caching based on the URL alone, as with the apicache module.
-  const params = {
-    _query: queryAlias,
-    variables
-  };
+  const baseURL = `${instance.config.graphQlOrigin}/content/v1/spaces/${instance.config.spaceId}/environments/${instance.config.environmentId}`;
 
-  return axiosInstance.post(`${origin}${path}`, body, { headers, params });
-};
+  instance.axios = axios.create({
+    baseURL
+  });
+  axiosRetry(instance.axios);
 
-export default (config = {}) => (req, res) => {
-  const queryAlias = req.params.queryAlias;
-  const variables = req.query;
-  variables.preview = variables.preview === 'true' ? true : false;
-
-  return queryContentful(config)(queryAlias, variables)
-    .then((response) => {
-      res.json(response.data);
-    })
-    .catch((error) => {
-      // TODO: handle better here
-      console.error('error', error.response.data)
-      errorHandler(res, error)
-    });
-};
+  return instance;
+}
