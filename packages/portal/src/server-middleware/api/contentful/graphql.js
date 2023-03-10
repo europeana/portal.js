@@ -1,5 +1,4 @@
 import camelCase from 'camelcase';
-import createHttpError from 'http-errors';
 import fs from 'fs';
 import { globSync } from 'glob';
 import path from 'path';
@@ -15,16 +14,10 @@ const graphqlQueries = graphqlPaths.reduce((memo, graphqlPath) => {
   return memo;
 }, {});
 
-export function queryContentful(queryAlias, variables) {
-  const accessToken = variables.preview ? this.config.accessToken.preview : this.config.accessToken.delivery;
-
+const query = (axios, queryAlias, variables) => {
   const data = {
     query: graphqlQueries[queryAlias],
     variables
-  };
-
-  const headers = {
-    'Authorization': `Bearer ${accessToken}`
   };
 
   // These params will go into the URL query which will not be used by the
@@ -38,27 +31,24 @@ export function queryContentful(queryAlias, variables) {
   const requestConfig = {
     method: 'post',
     data,
-    headers,
     params
   };
 
-  return this.axios.request(requestConfig);
-}
+  return axios.request(requestConfig);
+};
 
-export default function(req, res) {
-  this.queryContentful = queryContentful;
-
+export const middleware = (axios, req, res) => {
   const queryAlias = req.params.queryAlias;
   const variables = req.body;
 
-  return this.queryContentful(queryAlias, variables)
-    .then((response) => {
-      res.json(response.data);
-    })
+  query(axios, queryAlias, variables)
+    .then((response) => res.json(response.data))
     .catch((error) => {
       if (error.response) {
-        error = createHttpError(error.response.status, error.response.data.errors?.[0]?.message || error.message);
+        error.message = error.response.data.errors?.[0]?.message || error.message;
       }
       errorHandler(res, error);
     });
-}
+};
+
+export default query;

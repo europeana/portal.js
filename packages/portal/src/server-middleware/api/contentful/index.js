@@ -1,29 +1,46 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import stories from './stories.js';
-import graphql from './graphql.js';
 
-export default function createInstance(config = {}) {
-  const instance = {
-    graphql,
-    stories
-  };
+import { middleware as graphqlMiddleware } from './graphql.js';
+import { middleware as storiesMiddleware } from './stories.js';
+
+export const createInstanceConfig = (config = {}) => {
+  const instanceConfig = { ...config };
 
   const configDefaults = {
     graphQlOrigin: 'https://graphql.contentful.com',
     environmentId: 'master'
   };
-  instance.config = { ...config };
   for (const key in configDefaults) {
-    instance.config[key] = instance.config[key] || configDefaults[key];
+    instanceConfig[key] = instanceConfig[key] || configDefaults[key];
   }
 
-  const baseURL = `${instance.config.graphQlOrigin}/content/v1/spaces/${instance.config.spaceId}/environments/${instance.config.environmentId}`;
+  return instanceConfig;
+};
 
-  instance.axios = axios.create({
+export const createAxiosInstance = (config = {}) => {
+  const instanceConfig = createInstanceConfig(config);
+
+  const baseURL = `${instanceConfig.graphQlOrigin}/content/v1/spaces/${instanceConfig.spaceId}/environments/${instanceConfig.environmentId}`;
+
+  const axiosInstance = axios.create({
     baseURL
   });
-  axiosRetry(instance.axios);
+  axiosInstance.interceptors.request.use((requestConfig) => {
+    const accessToken = requestConfig.data.variables.preview ? instanceConfig.accessToken.preview : instanceConfig.accessToken.delivery;
+    requestConfig.headers['Authorization'] = `Bearer ${accessToken}`;
+    return requestConfig;
+  });
+  axiosRetry(axiosInstance);
 
-  return instance;
-}
+  return axiosInstance;
+};
+
+export default (config = {}) => {
+  const axiosInstance = createAxiosInstance(config);
+
+  return {
+    graphql: graphqlMiddleware.bind(null, axiosInstance),
+    stories: storiesMiddleware.bind(null, axiosInstance)
+  };
+};

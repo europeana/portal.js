@@ -193,13 +193,13 @@
       async fetchStories() {
         this.selectedTags = this.$route.query.tags?.split(',') || [];
 
-        const response = await (this.$axios.post('/_api/contentful/stories', {
+        const response = await this.$axios.post('/_api/contentful/stories', {
           page: this.$route.query.page || 1,
           limit: this.perPage,
           tags: this.$route.query.tags,
           locale: this.$i18n.isoLocale(),
           preview: this.$route.query.mode === 'preview'
-        }));
+        });
 
         this.stories = response.data.items;
         this.total = response.data.total;

@@ -1,10 +1,9 @@
-import createHttpError from 'http-errors';
 import uniq from 'lodash/uniq';
 
-import { queryContentful } from './graphql.js';
 import { errorHandler } from '../index.js';
+import graphql from './graphql.js';
 
-async function fetchStories(options = {}) {
+const fetchStories = async(axios, options = {}) => {
   const defaultOptions = {
     limit: 24,
     page: 1,
@@ -24,7 +23,7 @@ async function fetchStories(options = {}) {
     locale: localOptions.locale,
     preview: localOptions.preview
   };
-  const storyIdsResponse = await this.queryContentful('storiesMinimal', storyIdsVariables);
+  const storyIdsResponse = await graphql(axios, 'storiesMinimal', storyIdsVariables);
   stories = [
     storyIdsResponse.data.data.blogPostingCollection.items,
     storyIdsResponse.data.data.exhibitionPageCollection.items
@@ -56,7 +55,7 @@ async function fetchStories(options = {}) {
     limit: localOptions.limit,
     ids: storySysIds
   };
-  const storiesResponse = await this.queryContentful('storiesBySysId', storiesVariables);
+  const storiesResponse = await graphql(axios, 'storiesBySysId', storiesVariables);
   stories = [
     storiesResponse.data.data.blogPostingCollection.items,
     storiesResponse.data.data.exhibitionPageCollection.items
@@ -68,20 +67,19 @@ async function fetchStories(options = {}) {
     items: stories,
     tags: filteredTags
   };
-}
+};
 
-export default function(req, res) {
-  this.queryContentful = queryContentful;
-  this.fetchStories = fetchStories;
-
+export const middleware = (axios, req, res) => {
   const options = req.body;
 
-  return this.fetchStories(options)
+  fetchStories(axios, options)
     .then((response) => res.json(response))
     .catch((error) => {
       if (error.response) {
-        error = createHttpError(error.response.status, error.response.data.errors?.[0]?.message || error.message);
+        error.message = error.response.data.errors?.[0]?.message || error.message;
       }
       errorHandler(res, error);
     });
-}
+};
+
+export default fetchStories;

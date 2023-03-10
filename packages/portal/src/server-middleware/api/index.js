@@ -9,15 +9,7 @@ app.use(express.json());
 app.use(logging);
 
 import nuxtConfig from '../../../nuxt.config.js';
-let runtimeConfig;
-
-app.use((res, req, next) => {
-  if (!runtimeConfig) {
-    // Load Nuxt config once, at runtime
-    runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
-  }
-  next();
-});
+const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
 app.use((req, res, next) => {
   if (apm.isStarted())  {
@@ -36,9 +28,10 @@ import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig.redis)(req, res));
 
 import contentful from './contentful/index.js';
+const contentfulInstance = contentful(runtimeConfig.contentful);
 // Only POST methods so that GraphQL variables are properly type case in JSON request body
-app.post('/contentful/graphql/:queryAlias', (req, res) => contentful(runtimeConfig.contentful).graphql(req, res));
-app.post('/contentful/stories', (req, res) => contentful(runtimeConfig.contentful).stories(req, res));
+app.post('/contentful/graphql/:queryAlias', contentfulInstance.graphql);
+app.post('/contentful/stories', contentfulInstance.stories);
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));
