@@ -1,9 +1,8 @@
 <template>
-  <div
+  <b-container
     :class="{
       'error-container': errorExplanationAvailable,
-      'pt-5': !errorExplanationAvailable,
-      'gridless-container responsive-font': gridless
+      'pt-5': !errorExplanationAvailable
     }"
   >
     <div
@@ -42,7 +41,7 @@
       v-show="error"
       :error="error"
     />
-  </div>
+  </b-container>
 </template>
 
 <script>

@@ -1,13 +1,13 @@
 <template>
   <div
-    class="home page white-page responsive-font"
+    class="home page white-page xxl-page"
     data-qa="home page"
   >
     <HomeHero
       :background-image="backgroundImage"
     />
     <client-only>
-      <div class="page gridless-container">
+      <b-container class="page">
         <HomeThemes />
         <CallToActionBanner
           v-if="callsToAction[0]"
@@ -27,7 +27,7 @@
           :illustration="callsToAction[1].image"
           class="home-cta"
         />
-      </div>
+      </b-container>
     </client-only>
   </div>
 </template>

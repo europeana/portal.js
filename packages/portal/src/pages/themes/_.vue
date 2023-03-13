@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="theme page"
-    class="page white-page gridless-container responsive-font"
+    class="page white-page xxl-page"
   >
     <b-container
       v-if="$fetchState.pending"
@@ -18,7 +18,7 @@
       data-qa="error message container"
       :status-code="$fetchState.error.statusCode"
     />
-    <template
+    <b-container
       v-else
     >
       <ContentHeader
@@ -140,7 +140,7 @@
           </div>
         </transition>
       </client-only>
-    </template>
+    </b-container>
   </div>
 </template>
 

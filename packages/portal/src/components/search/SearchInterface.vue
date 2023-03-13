@@ -63,7 +63,6 @@
                         :title-path="$fetchState.error.titlePath"
                         :description-path="$fetchState.error.descriptionPath"
                         :illustration-src="$fetchState.error.illustrationSrc"
-                        :gridless="false"
                         :full-height="false"
                         :error="!noResultsFound ? errorMessage : null"
                       />
@@ -420,6 +419,12 @@
 .mb-3 {
   @media (min-width: $bp-4k) {
     margin-bottom: 2rem !important;
+  }
+}
+
+::v-deep .container {
+  @media (min-width: $bp-xxl) {
+    max-width: calc(7 * $max-card-width);
   }
 }
 </style>

@@ -92,12 +92,16 @@
       margin-bottom: 3vw;
     }
 
-    // TODO: update to use col-lg-6 when aligned site wide
-    @media (min-width: $bp-large) {
-      &.col-lg-9 {
+    &.col-lg-9 {
+      // TODO: update to use col-lg-6 when aligned site wide
+      @media (min-width: $bp-large) {
         flex: 0 0 50%;
         max-width: 50%;
       }
+
+    @media (min-width: $bp-xxxl) {
+      max-width: $max-text-column-width;
+    }
     }
 
     .description {

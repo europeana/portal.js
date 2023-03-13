@@ -43,6 +43,12 @@ h1 {
     line-height: 1.5;
     margin-bottom: 0;
   }
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-largest-4k;
+    }
+  }
 }
 
 h2 {

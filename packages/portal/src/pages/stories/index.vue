@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page white-page xxl-page">
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -22,9 +22,8 @@
         </b-col>
       </b-row>
     </b-container>
-    <div
+    <b-container
       v-else
-      class="page white-page gridless-container responsive-font"
     >
       <ContentHeader
         :title="pageMeta.title"
@@ -80,7 +79,7 @@
         :per-page="perPage"
         :total-results="total"
       />
-    </div>
+    </b-container>
   </div>
 </template>
 
