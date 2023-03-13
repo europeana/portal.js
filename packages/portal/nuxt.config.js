@@ -512,7 +512,7 @@ export default {
 
     // Prevent irrelevant postcss warnings
     // See https://github.com/postcss/postcss/issues/1375
-    postcss: null,
+    postcss: {},
 
     publicPath: buildPublicPath(),
 

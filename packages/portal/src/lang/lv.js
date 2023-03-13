@@ -71,6 +71,7 @@ export default {
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
     "place": "Vietas",
+    "theme": "Tēmas",
     "time": "Izvēlētie gadsimti",
     "topic": "Izvēlētās tēmas"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Plānotas apkopes dēļ konta, pieteikšanās, atzīmju Patīk un galeriju funkcionalitāte ceturtdien, 23. februārī, no 7:00 līdz 9:00 pēc CET nebūs pieejama vai būs ierobežota."
-    }
+    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
   },
   "of": "No",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Dzēst galeriju",
       "edit": "Rediģēt galeriju",
       "update": "Atjaunināt galeriju"
+    },
+    "entityBestBets": {
+      "title": "{entity} Lapa"
     },
     "form": {
       "description": "Galerijas apraksts",

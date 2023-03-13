@@ -71,6 +71,7 @@ export default {
     "item": "Articole recente",
     "organisation": "Organizații",
     "place": "Locuri",
+    "theme": "Teme",
     "time": "Secole recomandate",
     "topic": "Subiecte recomandate"
   },
@@ -894,9 +895,7 @@ export default {
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
   "notificationBanner": {
-    "text": {
-      "setsKeycloakMaintenance": "Din cauza întreținerii programate, contul, autentificarea, aprecierile și funcționalitatea galeriilor vor fi indisponibile sau limitate joi, 23 februarie, între orele 7:00-9:00 CET."
-    }
+    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
   },
   "of": "De",
   "organisation": {
@@ -1026,6 +1025,9 @@ export default {
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
       "update": "Actualizare galerie"
+    },
+    "entityBestBets": {
+      "title": "{entity} Pagină"
     },
     "form": {
       "description": "Descriere galerie",
