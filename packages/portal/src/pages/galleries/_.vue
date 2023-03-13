@@ -243,7 +243,7 @@
           await this.$store.dispatch('entity/getPins');
         }
       } catch (e) {
-        this.$error(e, { scope: 'gallery' });
+        this.$error(e, { scope: e.statusCode === 404 ? 'page' : 'gallery' });
       }
     },
     computed: {
