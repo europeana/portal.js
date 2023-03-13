@@ -75,7 +75,21 @@
     },
 
     async fetch() {
-      this.fetchPage()
+      if (this.pageFetched) {
+        return;
+      }
+      const pageVariables = {
+        identifier: 'stories',
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
+      };
+      const pageResponse = await this.$contentful.query('storiesPage', pageVariables);
+      const storiesPage = pageResponse.data.data.browsePageCollection.items[0];
+      this.sections = storiesPage?.hasPartCollection?.items || [];
+      this.headline = storiesPage?.headline;
+      this.description = storiesPage?.description;
+      this.socialMediaImage = storiesPage?.image;
+      this.pageFetched = true;
     },
 
     computed: {
@@ -90,26 +104,6 @@
       },
       callToAction() {
         return this.sections?.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
-      }
-    },
-
-    methods: {
-      async fetchPage() {
-        if (this.pageFetched) {
-          return;
-        }
-        const pageVariables = {
-          identifier: 'stories',
-          locale: this.$i18n.isoLocale(),
-          preview: this.$route.query.mode === 'preview'
-        };
-        const pageResponse = await this.$contentful.query('storiesPage', pageVariables);
-        const storiesPage = pageResponse.data.data.browsePageCollection.items[0];
-        this.sections = storiesPage?.hasPartCollection?.items || [];
-        this.headline = storiesPage?.headline;
-        this.description = storiesPage?.description;
-        this.socialMediaImage = storiesPage?.image;
-        this.pageFetched = true;
       }
     }
   };
