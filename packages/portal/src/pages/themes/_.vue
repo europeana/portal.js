@@ -200,10 +200,10 @@
           this.primaryImageOfPage = theme.primaryImageOfPage;
           this.hasPartCollection = theme.hasPartCollection;
         } else {
-          this.$error(404);
+          this.$error(404, { scope: 'page' });
         }
       } catch (error) {
-        this.$error(error);
+        this.$error(error, { scope: 'page' });
       }
     },
 

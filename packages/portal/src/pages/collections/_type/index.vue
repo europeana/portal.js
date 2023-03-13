@@ -40,7 +40,7 @@
 
     fetch() {
       if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
-        this.$error(404);
+        this.$error(404, { scope: 'page' });
       }
     },
 

@@ -84,7 +84,7 @@
           try {
             await (this.liked ? this.unlike() : this.like());
           } catch (e) {
-            this.$error(e, { scope: 'SET_API' });
+            this.$error(e, { scope: 'gallery' });
           }
         } else {
           this.keycloakLogin();

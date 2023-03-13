@@ -1,13 +1,17 @@
 <template>
   <b-modal
     :id="modalId"
-    :title="$t(`errorMessage.${errorScope}.title`)"
+    :title="title"
     :static="modalStatic"
     hide-header-close
     hide-footer
-    @hide="$emit('accept')"
+    @hide="handleHide"
   >
-    <p>{{ $t(`errorMessage.${errorScope}.description`) }}</p>
+    <p
+      v-show="description"
+    >
+      {{ description }}
+    </p>
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
@@ -38,15 +42,31 @@
 
     data() {
       return {
-        errorScope: 'unknown'
+        error: null
       };
     },
 
     fetch() {
-      this.$root.$on(`show-${this.modalId}`, (errorScope) => {
-        this.errorScope = errorScope;
+      this.$root.$on(`show-${this.modalId}`, (error) => {
+        this.error = error;
         this.$bvModal.show(this.modalId);
       });
+    },
+
+    computed: {
+      description() {
+        return this.error?.description;
+      },
+      title() {
+        return this.error?.title;
+      }
+    },
+
+    methods: {
+      handleHide() {
+        this.error = null;
+        this.$emit('accept');
+      }
     }
   };
 </script>

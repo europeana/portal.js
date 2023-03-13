@@ -1,20 +1,13 @@
 import createHttpError from 'http-errors';
 
-const SCOPED_CODES = {
-  RECORD_API: {
-    404: 'itemNotFound'
-  },
-  SET_API: {
-    401: 'galleryUnauthorised',
-    403: 'galleryUnauthorised',
-    423: 'setLocked'
-  }
-};
-const GENERIC_CODES = {
-  404: 'pageNotFound'
+const HTTP_CODES = {
+  401: 'Unauthorised',
+  403: 'Unauthorised',
+  404: 'NotFound',
+  423: 'Locked'
 };
 
-function normaliseErrorWithCode(errorOrCode, { scope } = {}) {
+function normaliseErrorWithCode(errorOrCode, { scope = 'generic' } = {}) {
   let error;
 
   if (typeof errorOrCode === 'number') {
@@ -23,27 +16,40 @@ function normaliseErrorWithCode(errorOrCode, { scope } = {}) {
 
   if (typeof errorOrCode === 'object') {
     error = errorOrCode;
-    if (SCOPED_CODES[scope]?.[error.statusCode]) {
-      error.code = SCOPED_CODES[scope][error.statusCode];
-    } else if (GENERIC_CODES[error.statusCode]) {
-      error.code = GENERIC_CODES[error.statusCode];
+    if (HTTP_CODES[error.statusCode]) {
+      const httpCode = HTTP_CODES[error.statusCode]; // || 'UnknownError';
+      error.code = `${scope}${httpCode}`;
     }
   } else {
-    error = new Error(this.$i18n.t(`errorMessage.${errorOrCode}.title`));
+    error = new Error;
     error.code = errorOrCode;
   }
 
-  // TODO: consider if we should do this
-  // if (!error.code) {
-  //   error.code = 'unknown';
+  return error;
+}
+
+function translateErrorWithCode(error, { tValues = {} }) {
+  // if (!this.$i18n.te(`errorMessage.${error.code}`)) {
+  //   error.code = 'genericUnknownError';
   // }
+
+  for (const tKey in (this.$i18n.t(`errorMessage.${error.code}`) || {})) {
+    const tValuesForKey = tValues[tKey] || {};
+    tValuesForKey.newline = '<br />';
+    error[tKey] = this.$i18n.t(`errorMessage.${error.code}.${tKey}`, tValuesForKey);
+  }
+
+  if ((error.message === '') && error.title) {
+    error.message = error.title;
+  }
 
   return error;
 }
 
 // TODO: APM captureError?
-export function handleError(errorOrCode, { scope } = {}) {
-  const error = normaliseErrorWithCode.bind(this)(errorOrCode, { scope });
+export function handleError(errorOrCode, options = {}) {
+  let error = normaliseErrorWithCode.bind(this)(errorOrCode, options);
+  error = translateErrorWithCode.bind(this)(error, options);
 
   if (this.$nuxt?.context?.res && error.statusCode) {
     this.$nuxt.context.res.statusCode = error.statusCode;
@@ -54,7 +60,7 @@ export function handleError(errorOrCode, { scope } = {}) {
   }
 
   // TODO: rename to s'thing more generic like 'handle-non-fetch-error'?
-  this.$root.$emit('show-error-modal', error.code);
+  this.$root.$emit('show-error-modal', error);
 }
 
 export default (ctx, inject) => {

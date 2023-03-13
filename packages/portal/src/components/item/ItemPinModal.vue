@@ -230,7 +230,7 @@
           this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabelValue }));
           this.hide();
         } catch (e) {
-          this.$error(e, { scope: 'SET_API' });
+          this.$error(e, { scope: 'gallery' });
         }
       },
 
@@ -240,7 +240,7 @@
           this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
           this.makeToast(this.$t('entity.notifications.unpinned'));
         } catch (e) {
-          this.$error(e, { scope: 'SET_API' });
+          this.$error(e, { scope: 'gallery' });
           this.makeToast(this.$t('entity.notifications.error.unpin'));
         }
         this.hide();

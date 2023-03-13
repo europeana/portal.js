@@ -18,18 +18,17 @@ const factory = (propsData = {}) => shallowMountNuxt(ErrorMessage, {
 
 describe('components/error/ErrorMessage', () => {
   describe('template', () => {
-    it('displays illustrated error with description when available', async() => {
+    it('displays illustrated error with text when available', async() => {
       const propsData = {
         error: {
-          message: 'Item was not found',
-          code: 'itemNotFound'
+          title: 'Item was not found'
         }
       };
       const wrapper = factory(propsData);
 
       const text = wrapper.text();
 
-      expect(text).toEqual('errorMessage.itemNotFound.description');
+      expect(text).toEqual(propsData.error.title);
     });
   });
 });

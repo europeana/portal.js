@@ -15,6 +15,7 @@ const factory = ({ mocks = {} } = {}) => {
     mocks: {
       $fetchState: {},
       $i18n: {
+        te: () => true,
         t: (key) => key
       },
       $nuxt: { context: { res: {} } },
@@ -58,7 +59,7 @@ describe('@/plugins/error', () => {
         error = e;
       }
 
-      expect(error.message).toBe('errorMessage.setLocked.title');
+      expect(error.code).toBe('setLocked');
     });
 
     it('sets HTTP status code in Nuxt context', () => {
@@ -79,7 +80,7 @@ describe('@/plugins/error', () => {
 
     describe('when scope and status code resolve to a known code', () => {
       const errorOrCode = { statusCode: 403 };
-      const scope = 'SET_API';
+      const scope = 'gallery';
       const $fetchState = { pending: true };
 
       it('decorates error with code', () => {
@@ -114,7 +115,7 @@ describe('@/plugins/error', () => {
           error = e;
         }
 
-        expect(error.code).toBe('pageNotFound');
+        expect(error.code).toBe('genericNotFound');
       });
     });
 
@@ -140,18 +141,17 @@ describe('@/plugins/error', () => {
     describe('when Nuxt fetch state is not pending', () => {
       const $fetchState = { pending: false };
 
-      it('emits "show-error-modal" event on Vue root, with code as arg', () => {
+      it('emits "show-error-modal" event on Vue root, with error as arg', () => {
         const wrapper = factory({
           mocks: { $error: errorPlugin.handleError, $fetchState }
         });
         sinon.spy(wrapper.vm.$root, '$emit');
-        const errorOrCode = { statusCode: 403 };
-        const scope = 'SET_API';
+        const error = { statusCode: 403 };
 
-        wrapper.vm.$error(errorOrCode, { scope });
+        wrapper.vm.$error(error);
 
         expect(wrapper.vm.$root.$emit.calledWith(
-          'show-error-modal', 'galleryUnauthorised'
+          'show-error-modal', error
         )).toBe(true);
       });
     });

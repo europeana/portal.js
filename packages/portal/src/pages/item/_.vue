@@ -195,7 +195,7 @@
           this.trackCustomDimensions();
         }
       } catch (e) {
-        this.$error(e, { scope: 'RECORD_API' });
+        this.$error(e, { scope: 'item' });
       }
     },
 

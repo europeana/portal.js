@@ -86,7 +86,7 @@
         this.page = data.browsePageCollection.items[0];
         this.browsePage = true;
       } else {
-        this.$error(404);
+        this.$error(404, { scope: 'page' });
       }
     },
 

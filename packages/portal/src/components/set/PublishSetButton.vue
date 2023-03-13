@@ -57,7 +57,7 @@
             });
           }
         } catch (e) {
-          this.$error(e, { scope: 'SET_API' });
+          this.$error(e, { scope: 'gallery' });
         }
       }
     }

@@ -243,7 +243,7 @@
           await this.$store.dispatch('entity/getPins');
         }
       } catch (e) {
-        this.$error(e, { scope: 'SET_API' });
+        this.$error(e, { scope: 'gallery' });
       }
     },
     computed: {
@@ -336,7 +336,7 @@
     methods: {
       validateRoute() {
         if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {
-          this.$error(404);
+          this.$error(404, { scope: 'page' });
         }
       },
       async reorderItems(items) {
@@ -353,7 +353,7 @@
             params: { profile: 'standard' }
           });
         } catch (e) {
-          this.$error(e, { scope: 'SET_API' });
+          this.$error(e, { scope: 'gallery' });
         }
       }
     }

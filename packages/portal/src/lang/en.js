@@ -219,10 +219,18 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "galleryNotFound": {
+      "description": "This gallery could not be found. It may have been deleted.",
+      "title": "Gallery not found"
+    },
     "galleryUnauthorised": {
       "description": "This is not possible because private galleries are only visible to their creator. If you know the creator of the gallery, ask them to make the gallery public. Alternatively, report this issue using the feedback button.",
       "metaTitle": "Gallery unauthorised",
       "title": "Oops! {newline} You are trying to view another person’s private gallery."
+    },
+    "genericUnknownError": {
+      "description": "An unknown error occurred.",
+      "title": "Unknown error"
     },
     "itemNotFound": {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
@@ -233,6 +241,9 @@ export default {
       "metaTitle": "Page not found",
       "title": "The page you are looking for doesn't exist."
     },
+    "searchPaginationLimitExceeded": {
+      "title": "It is only possible to view the first {limit} search results."
+    },
     "searchResultsNotFound": {
       "description": "Please adjust the search term or reset the filters to try again.",
       "title": "We can't seem to find what you are looking for."
@@ -240,10 +251,6 @@ export default {
     "setLocked": {
       "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
       "title": "Update failed"
-    },
-    "unknown": {
-      "description": "An unknown error occurred.",
-      "title": "Error"
     }
   },
   "exhibitions": {
@@ -892,8 +899,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Copied to clipboard",
     "externalContentError": "The external content failed to load",
-    "notFound": "Not Found",
-    "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
+    "notFound": "Not Found"
   },
   "modal": {
     "download": {

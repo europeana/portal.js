@@ -83,19 +83,31 @@ describe('mixins/pageMeta', () => {
       };
 
       describe('when fetchState has error', () => {
-        describe('and error has code', () => {
-          const mocks = { $fetchState: { error: { code: 'item-not-found' } } };
+        describe('and error has metaTitle', () => {
+          const mocks = { $fetchState: { error: { metaTitle: 'item-not-found-metaTitle' } } };
 
           it('uses translated meta title from code', () => {
             const wrapper = factory({ mocks, computed });
 
             const pageTitle = wrapper.vm.pageTitle;
 
-            expect(pageTitle).toBe('errorMessage.item-not-found.metaTitle');
+            expect(pageTitle).toBe('item-not-found-metaTitle');
           });
         });
 
-        describe('but error has no code', () => {
+        describe('and error has title but not metaTitle', () => {
+          const mocks = { $fetchState: { error: { title: 'item-not-found-title' } } };
+
+          it('uses translated meta title from code', () => {
+            const wrapper = factory({ mocks, computed });
+
+            const pageTitle = wrapper.vm.pageTitle;
+
+            expect(pageTitle).toBe('item-not-found-title');
+          });
+        });
+
+        describe('but error has neither metaTitle nor title', () => {
           const mocks = { $fetchState: { error: { statusCode: 500 } } };
 
           it('uses translated "error"', () => {

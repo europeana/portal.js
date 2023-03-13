@@ -133,7 +133,8 @@ describe('components/search/SearchInterface', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$error.calledWith(
-          { statusCode: 400, message: 'messages.paginationLimitExceeded' }
+          'searchPaginationLimitExceeded',
+          { tValues: { title: { limit: 5000 } } }
         )).toBe(true);
       });
     });

@@ -61,7 +61,6 @@
                       <ErrorMessage
                         v-if="$fetchState.error"
                         :error="$fetchState.error"
-                        :show-message="!noResultsFound"
                         :gridless="false"
                         :full-height="false"
                       />
@@ -198,7 +197,6 @@
         collection: null,
         hits: null,
         lastAvailablePage: null,
-        noResultsFound: false,
         results: [],
         theme: null,
         totalResults: null,
@@ -214,21 +212,20 @@
 
       this.$store.commit('search/setActive', true);
 
-      this.noResultsFound = false;
-
       try {
         await this.runSearch();
       } catch (error) {
         const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
-        if (paginationError !== null) {
-          const localisedPaginationLimit = this.$options.filters.localise(Number(paginationError[1]));
-          error.message = this.$t('messages.paginationLimitExceeded', { limit: localisedPaginationLimit });
+        if (paginationError) {
+          this.$error('searchPaginationLimitExceeded', {
+            tValues: { title: { limit: this.$options.filters.localise(Number(paginationError[1])) } }
+          });
+        } else {
+          this.$error(error);
         }
-        this.$error(error);
       }
 
       if (this.noResults) {
-        this.noResultsFound = true;
         this.$error('searchResultsNotFound');
       }
     },

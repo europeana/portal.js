@@ -18,28 +18,25 @@
         alt=""
       />
       <section
-        v-if="$te(titlePath) || $te(descriptionPath)"
+        v-if="error.title || error.description"
         class="mt-4"
       >
-        <i18n
-          v-if="$te(titlePath)"
-          tag="h1"
-          :path="titlePath"
+        <!-- eslint-disable vue/no-v-html -->
+        <h1
+          v-if="error.title"
           class="mb-4"
-        >
-          <template #newline>
-            <br>
-          </template>
-        </i18n>
+          v-html="$options.filters.convertNewLine(error.title)"
+        />
+        <!-- eslint-enable vue/no-v-html -->
         <p
-          v-if="$te(descriptionPath)"
+          v-if="error.description"
         >
-          {{ $t(descriptionPath) }}
+          {{ error.description }}
         </p>
       </section>
     </div>
     <AlertMessage
-      v-show="showMessage"
+      v-show="showMessage && (error.message !== error.title)"
       :error="error.message"
     />
   </div>
@@ -77,9 +74,6 @@
     },
 
     computed: {
-      titlePath() {
-        return this.error.code ? `errorMessage.${this.error.code}.title` : null;
-      },
       descriptionPath() {
         return this.error.code ? `errorMessage.${this.error.code}.description` : null;
       },
@@ -95,7 +89,7 @@
         return null;
       },
       errorExplanationAvailable() {
-        return this.titlePath || this.descriptionPath || this.illustrationSrc;
+        return this.error.title || this.error.description || this.illustrationSrc;
       }
     }
   };
@@ -231,6 +225,7 @@
 
 <docs lang="md">
   ```jsx
+  <!-- FIXME -->
   <ErrorMessage
       error="Item was not found"
       title-path="errorMessage.itemNotFound.title"
