@@ -99,9 +99,9 @@
         max-width: 50%;
       }
 
-    @media (min-width: $bp-xxxl) {
-      max-width: $max-text-column-width;
-    }
+      @media (min-width: $bp-xxxl) {
+        max-width: $max-text-column-width;
+      }
     }
 
     .description {

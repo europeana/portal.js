@@ -33,7 +33,7 @@
   >
     <h2>{{ $t('related.editorial.title') }} </h2>
     <b-card-group
-      class="card-deck-4-cols gridless-browse-cards"
+      class="card-deck-4-cols"
       deck
     >
       <ContentCard

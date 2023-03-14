@@ -45,7 +45,7 @@
         {{ $tc('items.itemCount', total, { count: total }) }}
       </div>
       <b-card-group
-        class="card-deck-4-cols gridless-browse-cards"
+        class="card-deck-4-cols"
         deck
       >
         <template

@@ -58,7 +58,6 @@
               :entity-uris="relatedPersons.hasPart"
               card-variant="mini"
               class="mb-5 mb-sm-4"
-              card-group-class="gridless-browse-cards"
               @fetched="handleSectionFetched('relatedPersons')"
             />
           </div>
@@ -75,7 +74,6 @@
               :title="relatedGalleries.headline"
               :set-uris="relatedGalleries.hasPart"
               class="mb-5 mb-sm-4"
-              card-group-class="gridless-browse-cards"
               @fetched="handleSectionFetched('relatedGalleries')"
             />
           </div>

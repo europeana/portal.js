@@ -115,7 +115,7 @@
     padding-bottom: 1px;
     text-align: center;
 
-    &.gridless-container {
+    &.container {
       > div,
       > section {
         margin-bottom: 5.5rem;

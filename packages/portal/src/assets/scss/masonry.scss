@@ -40,6 +40,22 @@
     @media (min-width: $bp-extralarge) {
       width: calc(100% / 4 - $masonry-gutter);
     }
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-xxxl) {
+        min-width: $min-card-width;
+        width: calc(100% / 5 - $masonry-gutter);
+        max-width: $max-card-width;
+      }
+
+      @media (min-width: $bp-wqhd) {
+        width: calc(100% / 6 - $masonry-gutter);
+      }
+
+      @media (min-width: ($bp-4k - 500px)) {
+        width: calc(100% / 7 - $masonry-gutter);
+      }
+    }
   }
 
   // Setting the margin-bottom for the related content element reserves space for it in the masonry layout
