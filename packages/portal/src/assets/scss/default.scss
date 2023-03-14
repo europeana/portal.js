@@ -61,7 +61,13 @@ h2 {
 
 h3,
 h4 {
-  font-size: 1.25rem;
+  font-size: $font-size-medium;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-medium-4k;
+    }
+  }
 }
 
 h4 {
