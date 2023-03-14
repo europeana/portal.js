@@ -674,7 +674,7 @@
       flex: 0 0 calc(100% / 6 - #{$grid-gutter * 2});
     }
 
-    @media (min-width: ($bp-4k - 500px)) {
+    @media (min-width: ($bp-4k)) {
       flex: 0 0 calc(100% / 6 - #{$grid-gutter-4k * 2});
       margin: 0 $grid-gutter-4k calc(2 * $grid-gutter-4k);
     }

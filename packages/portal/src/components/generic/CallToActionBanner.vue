@@ -90,14 +90,24 @@
 
   .cta-banner {
     background-color: $yellowgrey;
-    margin-bottom: 2em;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 1rem;
     border-radius: 0.25em;
     border: 0.25em solid $greyblack;
     box-shadow: 0.75em 0.75em 0 0 $greyblack;
+    max-width: calc(#{$max-card-width * 3} + #{$grid-gutter * 4});
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
+    @media (min-width: $bp-wqhd) {
+      width: calc((100% / 6) * 4 - $grid-gutter);
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: calc((100% / 6) * 4 - $grid-gutter-4k);
+      width: calc((100% / 6) * 4 - $grid-gutter-4k);
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
     }
 
     .cta-content {
@@ -109,8 +119,8 @@
         font-size: 1.375rem;
       }
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 1em;
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 1.375rem);
       }
 
       h2 {
@@ -123,12 +133,12 @@
           font-size: 2.375rem;
         }
 
-        @media (min-width: $bp-xxxl) {
-          font-size: 2em;
+        @media (min-width: $bp-4k) {
+          font-size: calc(1.5 * 2.375rem);
         }
       }
 
-      p {
+      ::v-deep p {
         margin-bottom: 1em;
       }
     }
@@ -139,13 +149,8 @@
       border: 0.1875em solid $greyblack;
       box-shadow: 0.25em 0.25em 0 0 $greyblack;
       font-weight: 700;
-      padding: 0.5em 1em;
       border-radius: 0.25em;
-      margin-top: 1em;
-
-      @media (min-width: $bp-xxxl) {
-        font-size: 1vw;
-      }
+      margin-top: 1rem;
     }
 
     &.light {
@@ -174,9 +179,9 @@
     }
 
     .cta-illustration {
-      margin-top: 1em;
-      margin-left: 1em;
-      margin-right: 1em;
+      margin-top: 1rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
       height: 175px;
       position: relative;
       flex-shrink: 0;
@@ -184,6 +189,12 @@
       @media (min-width: $bp-medium) {
         height: auto;
         width: 40%;
+      }
+
+      @media (min-width: $bp-4k) {
+        margin-top: 1.5rem;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
       }
 
       img {
@@ -198,7 +209,11 @@
   }
 
   .home-cta {
-    margin: 3em auto;
+    margin: 3rem auto;
+
+    @media (min-width: $bp-4k) {
+      margin: 4.5rem auto;
+    }
   }
 </style>
 

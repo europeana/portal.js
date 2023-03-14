@@ -51,19 +51,19 @@
         <template
           v-for="(entry, index) in stories"
         >
-          <template
+          <div
             v-if="page === 1 && entry === ctaBanner"
+            :key="index"
+            class="cta-banner"
           >
             <CallToActionBanner
               v-if="callsToAction[0]"
-              :key="index"
               :name="callsToAction[0].name"
               :text="callsToAction[0].text"
               :link="callsToAction[0].relatedLink"
               :illustration="callsToAction[0].image"
-              class="cta-banner"
             />
-          </template>
+          </div>
           <ContentCard
             v-else-if="entry !== ctaBanner"
             :key="index"
@@ -291,8 +291,13 @@
   flex-basis: 100%;
 
   @media (min-width: $bp-small) {
-    margin-left: $grid-gutter;
-    margin-right: $grid-gutter;
+    padding-left: $grid-gutter;
+    padding-right: $grid-gutter;
+  }
+
+  @media (min-width: $bp-xxl) {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 </style>

@@ -310,8 +310,8 @@
         font-size: $font-size-large;
       }
 
-      @media (min-width: $bp-xxxl) {
-        font-size: $responsive-font-size-large;
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-large-4k;
       }
     }
   }
