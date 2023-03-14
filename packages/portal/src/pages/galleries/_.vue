@@ -332,6 +332,14 @@
       }
     },
 
+    watch: {
+      '$store.state.entity.pinned.length'() {
+        if (this.setIsEntityBestItems) {
+          this.$fetch();
+        }
+      }
+    },
+
     mounted() {
       if (typeof this.$redrawVueMasonry === 'function') {
         this.$redrawVueMasonry();
