@@ -132,10 +132,12 @@
       max-width: 75%;
     }
 
-    &.gridless-container {
-      @media (min-width: $bp-xxxl) {
-        padding-bottom: 1vw;
-      }
+    @media (min-width: $bp-xxxl) {
+      max-width: 65%;
+    }
+
+    @media (min-width: $bp-wqhd) {
+      max-width: 50%;
     }
   }
 
@@ -163,19 +165,12 @@
       align-items: center;
       justify-content: space-between;
     }
-
-    &.gridless-container {
-      @media (min-width: $bp-xxxl) {
-        padding-top: 5vw;
-        padding-bottom: 5vw;
-      }
-    }
   }
 
   section {
     width: 100%;
     color: $mediumgrey-light;
-    max-width: 35em;
+    max-width: 35rem;
 
     @media (orientation: portrait) {
       text-align: center;
@@ -190,16 +185,9 @@
       font-size: 1.375rem;
     }
 
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.375rem);
-      }
-    }
-
-    &.gridless-container {
-      @media (min-width: $bp-xxxl) {
-        font-size: 1.375vw;
-      }
+    @media (min-width: $bp-4k) {
+      font-size: calc(1.5 * 1.375rem);
+      max-width: calc(1.5 * 35rem);
     }
 
     h1 {
@@ -211,16 +199,8 @@
         font-size: 2.375rem;
       }
 
-      @at-root .xxl-page & {
-        @media (min-width: $bp-4k) {
-          font-size: calc(1.5 * 2.375rem);
-        }
-      }
-
-      &.gridless-container {
-        @media (min-width: $bp-xxxl) {
-          font-size: 2.375vw;
-        }
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 2.375rem);
       }
     }
   }
