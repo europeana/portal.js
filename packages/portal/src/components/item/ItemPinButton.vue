@@ -13,7 +13,7 @@
       {{ pinButtonText }}
     </b-button>
     <b-modal
-      v-if="entity"
+      v-if="entityId"
       :id="pinnedLimitModalId"
       :title="$t('entity.notifications.pinLimit.title')"
       hide-footer
@@ -71,7 +71,9 @@
         type: String,
         required: true
       },
-      // Entities related to the item, used on item page.
+      /**
+       * Entities related to the item, used on item page.
+       */
       entities: {
         type: Array,
         default: () => []
@@ -109,51 +111,43 @@
         }
         return '';
       },
-      entity() {
-        return this.$store.getters['entity/id'];
+      entityId() {
+        return this.$store.state.entity.id;
       },
-      featuredSet() {
-        return this.$store.getters['entity/featuredSetId'];
+      setId() {
+        return this.$store.state.entity.bestItemsSetId;
       }
     },
 
     methods: {
       goToPins() {
-        const path = this.$path(`/set/${this.featuredSet}`);
+        const path = this.$path(`/set/${this.setId}`);
         this.$goto(path);
       },
       async pin() {
-        if (this.featuredSet === null) {
-          const featuredSetId = await this.createFeaturedSet(this.$store.state.entity.entity);
-          this.$store.commit('entity/setFeaturedSetId', featuredSetId);
-        }
-        try {
-          await this.$store.dispatch('entity/pin', this.identifier);
-          this.makeToast(this.$t('entity.notifications.pinned', { entity: langMapValueForLocale(this.$store.state.entity.entity?.prefLabel, this.$i18n.locale).values[0] }));
-        } catch (e) {
-          if (e.message === 'too many pins') {
-            this.$bvModal.show(`pinned-limit-modal-${this.identifier}`);
-          } else {
-            throw e;
-          }
-        }
+        const setId = await this.ensureEntityBestItemsSetExists(this.setId, this.$store.state.entity.entity);
+        this.$store.commit('entity/setBestItemsSetId', setId);
+        await this.pinItemToEntityBestItemsSet(this.identifier, this.setId, langMapValueForLocale(this.$store.state.entity.entity?.prefLabel, this.$i18n.locale).values[0]);
       },
       async unpin() {
-        await this.$store.dispatch('entity/unpin', this.identifier);
-        this.makeToast(this.$t('entity.notifications.unpinned'));
+        await this.unpinItemFromEntityBestItemsSet(this.identifier, this.setId);
       },
       async pinAction() {
-        if (this.entity || this.featuredSet) {
+        if (this.setId || this.entityId) {
           await this.togglePin(); // On an entity/entity set page all info is in the store.
         } else {
           await this.$bvModal.show(this.pinModalId); // Open the modal to find which entity to pin to.
         }
       },
       async togglePin() {
-        if (this.pinned) {
-          await this.unpin();
-        } else {
-          await this.pin();
+        try {
+          if (this.pinned) {
+            await this.unpin();
+          } else {
+            await this.pin();
+          }
+        } finally {
+          this.fetchEntityBestItemsSetPinnedItems(this.setId);
         }
       }
     }

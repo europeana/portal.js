@@ -45,11 +45,11 @@ const factory = () => {
 
 describe('mixins/europeana/entities/entityBestItemsSet', () => {
   describe('methods', () => {
-    describe('createFeaturedSet', () => {
+    describe('ensureEntityBestItemsSetExists', () => {
       it('creates an EntityBestItemsSet via the Set API, from entity id and scalar prefLabels', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.createFeaturedSet({
+        await wrapper.vm.ensureEntityBestItemsSetExists(null, {
           id: fixtures.entityId,
           prefLabel: fixtures.entityPrefLabelScalars
         });
@@ -64,7 +64,7 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
       it('creates an EntityBestItemsSet via the Set API, from entity about and array prefLabels', async() => {
         const wrapper = factory();
 
-        await wrapper.vm.createFeaturedSet({
+        await wrapper.vm.ensureEntityBestItemsSetExists(null, {
           about: fixtures.entityId,
           prefLabel: fixtures.entityPrefLabelArrays
         });
@@ -79,7 +79,7 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
       it('returns the created set ID', async() => {
         const wrapper = factory();
 
-        const setId = await wrapper.vm.createFeaturedSet({
+        const setId = await wrapper.vm.ensureEntityBestItemsSetExists(null, {
           id: fixtures.entityId,
           prefLabel: fixtures.entityPrefLabelScalars
         });
