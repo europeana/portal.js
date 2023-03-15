@@ -25,12 +25,6 @@
         color: $greyblack;
       }
 
-      @at-root .responsive-font & {
-        @media (min-width: $bp-xxxl) {
-          font-size: 1vw;
-        }
-      }
-
       @at-root .xxl-page & {
         @media (min-width: $bp-4k) {
           font-size: $font-size-small-4k;
@@ -101,17 +95,7 @@
         @media (min-width: $bp-4k) {
           padding: calc(1.5 * 0.75rem);
           width: calc(1.5 * 3.2rem);
-        }
-      }
-    }
-
-    @at-root .responsive-font & {
-      @media (min-width: $bp-xxxl) {
-        font-size: 1vw;
-
-        input {
-          font-size: inherit;
-          width: 3em;
+          font-size: 1.5rem;
         }
       }
     }

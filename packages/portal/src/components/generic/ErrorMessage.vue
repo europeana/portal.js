@@ -196,11 +196,11 @@
       font-size: 2rem;
 
       @media (min-width: $bp-small) {
-        font-size: 2.375rem;
+        font-size: $font-size-extralarge;
       }
 
       @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 2.375rem);
+        font-size: $font-size-extralarge-4k;
       }
     }
   }

@@ -88,8 +88,8 @@
       margin-bottom: 3rem;
     }
 
-    @media (min-width: $bp-xxxl) {
-      margin-bottom: 3vw;
+    @media (min-width: $bp-4k) {
+      margin-bottom: 4.5rem;
     }
 
     &.col-lg-9 {
@@ -120,9 +120,9 @@
     margin-left: $grid-gutter;
     margin-right: $grid-gutter;
 
-    @media (min-width: $bp-xxxl) {
-      border-bottom: 0.0625vw solid $bodygrey;
-      margin-bottom: 1.75vw;
+    @media (min-width: $bp-4k) {
+      border-bottom: 2px solid $bodygrey;
+      margin-bottom: calc(1.5 * 1.75rem);
     }
   }
 }

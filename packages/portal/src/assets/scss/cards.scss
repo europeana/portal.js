@@ -144,6 +144,13 @@
     line-height: 1;
     margin-bottom: 0.75rem;
     text-transform: uppercase;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+        margin-bottom: calc(1.5 * 0.75rem)
+      }
+    }
   }
 
   .card-title:last-child,

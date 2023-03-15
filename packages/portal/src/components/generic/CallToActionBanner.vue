@@ -130,11 +130,11 @@
         margin-bottom: 0;
 
         @media (min-width: $bp-extralarge) {
-          font-size: 2.375rem;
+          font-size: $font-size-extralarge;
         }
 
         @media (min-width: $bp-4k) {
-          font-size: calc(1.5 * 2.375rem);
+          font-size: $font-size-extralarge-4k;
         }
       }
 

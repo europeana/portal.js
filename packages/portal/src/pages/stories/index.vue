@@ -37,7 +37,7 @@
         :tags="displayTags"
         :selected="selectedTags"
         :heading="false"
-        class="responsive-font mb-2"
+        class="mb-2"
       />
       <div
         class="mb-4 context-label"
@@ -282,8 +282,8 @@
 .context-label {
   font-size: $font-size-small;
 
-  @media (min-width: $bp-xxxl) {
-    font-size: $responsive-font-size-small;
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-small-4k;
   }
 }
 

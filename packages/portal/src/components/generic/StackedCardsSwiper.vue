@@ -59,7 +59,6 @@
     <b-button
       v-if="cta"
       variant="outline-secondary"
-      class="cta"
       :to="cta.url"
     >
       {{ cta.text }}
@@ -203,16 +202,12 @@
     font-size: 2rem;
 
     @media (min-width: $bp-extralarge) {
-      font-size: 2.375rem;
+      font-size: $font-size-extralarge;
     }
 
     @media (min-width: $bp-4k) {
-      font-size: calc(1.5 * 2.375rem);
+      font-size: $font-size-extralarge-4k;
     }
-  }
-
-  .cta {
-    font-size: 1.5rem;
   }
 
   .slide-link {

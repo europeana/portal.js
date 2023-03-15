@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hero  responsive-backround-image responsive-font"
+    class="hero responsive-backround-image"
     :style="imageCSSVars"
   >
     <div
@@ -93,10 +93,6 @@
       padding-top: 12rem;
     }
 
-    @media (min-width: $bp-xxxl) {
-      margin-top: -4.375vw;
-    }
-
     &::before {
       content: '';
       left: 0;
@@ -137,13 +133,22 @@
       font-weight: 700;
       margin-bottom: 0.25rem;
 
-      .digital-highlight {
-        text-shadow: 3.5px 3.5px 0 $blue;
-      }
-
       @media (min-width: $bp-medium) {
         font-size: 2.875rem;
       }
+
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 2.875rem);
+      }
+
+      .digital-highlight {
+        text-shadow: 3.5px 3.5px 0 $blue;
+
+        @media (min-width: $bp-4k) {
+          text-shadow: calc(1.5 * 3.5px) calc(1.5 * 3.5px) 0 $blue;
+        }
+      }
+
     }
 
     .sub-headline {
@@ -153,22 +158,9 @@
       @media (min-width: $bp-medium) {
         font-size: 1.625rem;
       }
-    }
 
-    @media (min-width: $bp-xxxl) {
-      padding: 6em 0 5em;
-      font-size: 2vw;
-
-      h1 {
-        font-size: 2.6vw;
-
-        .digital-highlight {
-          text-shadow: 0.24vw 0.24vw 0 $blue;
-        }
-      }
-
-      .sub-headline {
-        font-size: 1.5vw;
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 1.625rem);
       }
     }
 
@@ -180,6 +172,10 @@
         min-width: 644px;
         margin-left: auto;
         margin-right: auto;
+
+        @media (min-width: $bp-4k) {
+          min-width: calc(1.5 * 644px);
+        }
       }
 
       h1 {
@@ -208,7 +204,7 @@
 
   ::v-deep cite {
     left: 0.5rem;
-    right: auto;
+    right: auto !important;
     z-index: 3;
   }
 </style>

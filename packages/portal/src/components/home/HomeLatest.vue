@@ -23,7 +23,6 @@
     </b-card-group>
     <b-button
       variant="outline-secondary"
-      class="cta"
       :to="'/stories'"
     >
       {{ $t('homePage.storiesCTA') }}
@@ -89,17 +88,11 @@
     font-size: 2rem;
 
     @media (min-width: $bp-extralarge) {
-      font-size: 2.375rem;
+      font-size: $font-size-extralarge;
     }
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 2vw;
-    }
-  }
-
-  .cta {
-    @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-extralarge-4k;
     }
   }
 

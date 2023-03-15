@@ -420,8 +420,8 @@
           height: 3.4rem;
           box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
 
-          @media (min-width: $bp-xxxl) {
-            height: 3.4vw;
+          @media (min-width: $bp-4k) {
+            height: calc(1.5 * 3.4rem);
           }
 
           .input-group-prepend {
@@ -442,9 +442,9 @@
             padding-right: 1rem;
           }
 
-          @media (min-width: $bp-xxxl) {
-            padding: 0.375vw 1vw 0.375vw 3.5vw;
-            height: 3.4vw;
+          @media (min-width: $bp-4k) {
+            padding: calc(1.5 * 0.375rem) calc(1.5 * 4.5rem) calc(1.5 * 0.375rem) calc(1.5 * 3.5rem);
+            height: calc(1.5 * 3.4rem);
           }
         }
       }
@@ -499,9 +499,9 @@
       top: 1rem;
       z-index: 99;
 
-      @media (min-width: $bp-xxxl) {
-        left: 1vw;
-        top: 1vw;
+      @media (min-width: $bp-4k) {
+        left: 1.5rem;
+        top: 1.5rem;
       }
     }
 
@@ -515,9 +515,9 @@
         right: 1rem;
       }
 
-      @media (min-width: $bp-xxxl) {
-        right: 1vw;
-        top: 1vw;
+      @media (min-width: $bp-4k) {
+        right: 1.5rem;
+        top: 1.5rem;
       }
     }
 
@@ -539,8 +539,8 @@
       background-color: $white;
       transition: $standard-transition;
 
-      @media (min-width: $bp-xxxl) {
-        top: 3.45vw;
+      @media (min-width: $bp-4k) {
+        top: calc(1.5 * 3.45rem);
       }
     }
   }
@@ -559,8 +559,8 @@
       z-index: 20;
       box-shadow: $boxshadow-light, $boxshadow-light-left;
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 1vw;
+      @media (min-width: $bp-4k) {
+        font-size: 1.5rem;
       }
     }
 
@@ -582,8 +582,8 @@
       border-radius: 0.5em;
       width: 100%;
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 1vw;
+      @media (min-width: $bp-4k) {
+        font-size: 1.5rem;
       }
 
       &::before {
@@ -600,8 +600,8 @@
         justify-content: center;
         align-items: center;
 
-        @media (min-width: $bp-xxxl) {
-          font-size: 1vw;
+        @media (min-width: $bp-4k) {
+          font-size: 1.5rem;
         }
       }
 
@@ -616,8 +616,8 @@
         color: $mediumgrey;
         width: 100%;
 
-        @media (min-width: $bp-xxxl) {
-          font-size: 1vw;
+        @media (min-width: $bp-4k) {
+          font-size: 1.5rem;
         }
       }
     }
@@ -642,8 +642,8 @@
       justify-content: center;
       align-items: center;
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 1.5vw;
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 1.5rem);
       }
     }
 
@@ -651,8 +651,8 @@
       padding: 1em 1.25em 1em 3.4em;
       font-size: 1rem;
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 1vw;
+      @media (min-width: $bp-4k) {
+        font-size: 1.5rem;
       }
 
       &::before {
