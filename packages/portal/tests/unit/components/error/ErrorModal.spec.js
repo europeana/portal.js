@@ -12,19 +12,60 @@ const factory = (propsData = {}) => shallowMountNuxt(ErrorModal, {
   localVue,
   propsData,
   mocks: {
+    $store: {
+      state: {
+        error: {
+          error: null
+        }
+      }
+    },
     $t: (key) => key
   }
 });
 
 describe('components/error/ErrorModal', () => {
-  describe('mounted', () => {
-    it('adds an event listener to the root Vue', () => {
-      const wrapper = factory();
-      sinon.spy(wrapper.vm.$root, '$on');
+  afterEach(sinon.resetHistory);
 
-      wrapper.vm.fetch();
+  describe('watch', () => {
+    describe('error (from store)', () => {
+      describe('when error is fetch error', () => {
+        const error = { isFetchError: true, title: 'Set not found' };
+        it('does not show modal', async() => {
+          const wrapper = factory();
+          sinon.spy(wrapper.vm.$bvModal, 'show');
 
-      expect(wrapper.vm.$root.$on.calledWith('show-error-modal', sinon.match.func)).toBe(true);
+          wrapper.vm.$store.state.error.error = error;
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.$bvModal.show.calledWith('error-modal')).toBe(false);
+        });
+      });
+
+      describe('when error does not have title', () => {
+        const error = { isFetchError: false, message: 'Set not found' };
+        it('does not show modal', async() => {
+          const wrapper = factory();
+          sinon.spy(wrapper.vm.$bvModal, 'show');
+
+          wrapper.vm.$store.state.error.error = error;
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.$bvModal.show.calledWith('error-modal')).toBe(false);
+        });
+      });
+
+      describe('when error is not fetch error, and has title', () => {
+        const error = { isFetchError: false, title: 'Set not found' };
+        it('shows modal', async() => {
+          const wrapper = factory();
+          sinon.spy(wrapper.vm.$bvModal, 'show');
+
+          wrapper.vm.$store.state.error.error = error;
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.$bvModal.show.calledWith('error-modal')).toBe(true);
+        });
+      });
     });
   });
 });
