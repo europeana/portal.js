@@ -7,6 +7,20 @@ const HTTP_CODES = {
   423: 'Locked'
 };
 
+const storeModule = {
+  namespaced: true,
+
+  state: () => ({
+    error: null
+  }),
+
+  mutations: {
+    set(state, error) {
+      state.error = error;
+    }
+  }
+};
+
 function normaliseErrorWithCode(errorOrCode, { scope = 'generic' } = {}) {
   let error;
 
@@ -48,21 +62,22 @@ function translateErrorWithCode(error, { tValues = {} }) {
 
 // TODO: APM captureError?
 export function handleError(errorOrCode, options = {}) {
-  let error = normaliseErrorWithCode.bind(this)(errorOrCode, options);
+  let error = normaliseErrorWithCode(errorOrCode, options);
   error = translateErrorWithCode.bind(this)(error, options);
+  error.isFetchError = this.$fetchState?.pending || false;
 
   if (this.$nuxt?.context?.res && error.statusCode) {
     this.$nuxt.context.res.statusCode = error.statusCode;
   }
 
-  if (!error.code || this.$fetchState?.pending) {
+  this.$store.commit('error/set', error);
+
+  if (error.isFetchError) {
     throw error;
   }
-
-  // TODO: rename to s'thing more generic like 'handle-non-fetch-error'?
-  this.$root.$emit('show-error-modal', error);
 }
 
 export default (ctx, inject) => {
+  ctx.store.registerModule('error', storeModule);
   inject('error', handleError);
 };

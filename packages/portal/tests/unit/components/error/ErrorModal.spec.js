@@ -17,7 +17,7 @@ const factory = (propsData = {}) => shallowMountNuxt(ErrorModal, {
 });
 
 describe('components/error/ErrorModal', () => {
-  describe('fetch', () => {
+  describe('mounted', () => {
     it('adds an event listener to the root Vue', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm.$root, '$on');

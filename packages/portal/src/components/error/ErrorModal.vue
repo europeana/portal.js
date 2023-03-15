@@ -5,7 +5,6 @@
     :static="modalStatic"
     hide-header-close
     hide-footer
-    @hide="handleHide"
   >
     <p
       v-show="description"
@@ -29,11 +28,6 @@
     name: 'ErrorModal',
 
     props: {
-      modalId: {
-        type: String,
-        default: 'error-modal'
-      },
-
       modalStatic: {
         type: Boolean,
         default: false
@@ -42,18 +36,14 @@
 
     data() {
       return {
-        error: null
+        modalId: 'error-modal'
       };
     },
 
-    fetch() {
-      this.$root.$on(`show-${this.modalId}`, (error) => {
-        this.error = error;
-        this.$bvModal.show(this.modalId);
-      });
-    },
-
     computed: {
+      error() {
+        return this.$store.state.error.error;
+      },
       description() {
         return this.error?.description;
       },
@@ -62,10 +52,14 @@
       }
     },
 
-    methods: {
-      handleHide() {
-        this.error = null;
-        this.$emit('accept');
+    watch: {
+      error: {
+        deep: true,
+        handler() {
+          if (!this.error.isFetchError && this.error.title) {
+            this.$bvModal.show(this.modalId);
+          }
+        }
       }
     }
   };

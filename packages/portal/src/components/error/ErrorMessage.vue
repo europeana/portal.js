@@ -74,16 +74,13 @@
     },
 
     computed: {
-      descriptionPath() {
-        return this.error.code ? `errorMessage.${this.error.code}.description` : null;
-      },
       illustrationSrc() {
         if (this.error.code) {
           const kebabCaseCode = kebabCase(this.error.code);
           try {
             return require(`@/assets/img/illustrations/il-${kebabCaseCode}.svg`);
           } catch (e) {
-            // don't fall apart just because an image is missing...
+            // don't fall apart just because an image is not available...
           }
         }
         return null;
@@ -225,12 +222,14 @@
 
 <docs lang="md">
   ```jsx
-  <!-- FIXME -->
   <ErrorMessage
-      error="Item was not found"
-      title-path="errorMessage.itemNotFound.title"
-      description-path="errorMessage.itemNotFound.description"
-      illustration-src="/img/illustrations/il-item-not-found.svg"
+      :error="{
+        message: 'No item with that identifier',
+        code: 'itemNotFound',
+        title: 'Item Not Found',
+        description: 'The item may have been deleted'
+      }"
+      :full-height="false"
   />
   ```
   </docs>
