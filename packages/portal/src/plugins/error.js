@@ -52,6 +52,7 @@ function translateErrorWithCode(error, { tValues = {} }) {
     for (const tKey in translations) {
       const tValuesForKey = tValues[tKey] || {};
       tValuesForKey.newline = '<br />';
+      // TODO: store these translates in error.i18n instead of top-level?
       error[tKey] = this.$i18n.t(`errorMessage.${error.code}.${tKey}`, tValuesForKey);
     }
   }
