@@ -301,6 +301,12 @@
     padding-top: 1rem;
     margin-top: -1rem;
 
+    @media (min-width: $bp-4k) {
+      padding-bottom: 1.5rem;
+      padding-top: 1.5rem;
+      margin-top: -1.5rem;
+    }
+
     ::v-deep h2:not(.related-heading) {
       color: $mediumgrey;
       font-weight: 600;

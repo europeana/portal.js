@@ -333,8 +333,8 @@ input[type='checkbox']:focus + label {
 main#default {
   margin-top: 70px;
 
-  @media (min-width: $bp-xxxl) {
-    margin-top: calc(3.5vw + 1rem);
+  @media (min-width: $bp-4k) {
+    margin-top: calc(1.5 * 70px);
   }
 }
 

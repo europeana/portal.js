@@ -287,6 +287,14 @@
     height: 1.5rem;
     width: 1.5rem;
     font-size: 1.1rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        height: calc(1.5 * 1.5rem);
+        width: calc(1.5 * 1.5rem);
+        font-size: calc(1.5 * 1.1rem);
+      }
+    }
   }
 
   &.icon-clear,
@@ -456,8 +464,8 @@ a {
     font-size: 1.2rem;
     z-index: 999;
 
-    @media (min-width: $bp-xxxl) {
-      top: 4.375vw;
+    @media (min-width: $bp-4k) {
+      top: calc(1.5 * 70px);
     }
   }
 }

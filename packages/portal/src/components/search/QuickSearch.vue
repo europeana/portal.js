@@ -86,9 +86,9 @@
     border-top: 1px solid $middlegrey;
     padding: 0.75rem 0;
 
-    @media (min-width: $bp-xxxl) {
-      border-top-width: 0.0625vw;
-      padding: 0.75vw 0;
+    @media (min-width: $bp-4k) {
+      border-top-width: 2px;
+      padding: calc(1.5 * 0.75rem) 0;
     }
 
     .related-collections {
@@ -97,9 +97,9 @@
       ::v-deep .badge-pill {
         flex-shrink: 0;
 
-        @media (min-width: $bp-xxxl) {
-          margin-right: 0.5vw;
-          margin-bottom: 0.5vw;
+        @media (min-width: $bp-4k) {
+          margin-right: 0.75rem;
+          margin-bottom: 0.75rem;
         }
       }
 
@@ -109,9 +109,9 @@
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
 
-        @media (min-width: $bp-xxxl) {
-          margin-top: 1vw;
-          padding: 0 1vw;
+        @media (min-width: $bp-4k) {
+          margin-top: 1.5rem;
+          padding: 0 calc(1.5 * 15px);
         }
 
         &::-webkit-scrollbar {
@@ -125,9 +125,9 @@
       padding: 0 15px;
       text-align: left;
 
-      @media (min-width: $bp-xxxl) {
-        font-size: $responsive-font-size-extrasmall;
-        padding: 0 1vw;
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+        padding: 0 calc(1.5 * 15px);
       }
     }
   }

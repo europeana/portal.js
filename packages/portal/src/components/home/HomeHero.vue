@@ -93,6 +93,10 @@
       padding-top: 12rem;
     }
 
+    @media (min-width: $bp-4k) {
+      margin-top: calc(1.5 * -70px);
+    }
+
     &::before {
       content: '';
       left: 0;
