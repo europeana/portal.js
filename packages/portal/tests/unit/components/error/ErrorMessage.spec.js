@@ -48,4 +48,48 @@ describe('components/error/ErrorMessage', () => {
       expect(alertMessage.attributes('error')).toBe(propsData.error.message);
     });
   });
+
+  describe('computed', () => {
+    describe('illustrationSrc', () => {
+      it('is `null` if error has no code', () => {
+        const propsData = {
+          error: {
+            message: 'Network error'
+          }
+        };
+        const wrapper = factory(propsData);
+
+        const illustrationSrc = wrapper.vm.illustrationSrc;
+
+        expect(illustrationSrc).toBeNull();
+      });
+
+      it('is `null` if no image found for the error code', () => {
+        const propsData = {
+          error: {
+            message: 'Network error',
+            code: 'genericNetworkError'
+          }
+        };
+        const wrapper = factory(propsData);
+
+        const illustrationSrc = wrapper.vm.illustrationSrc;
+
+        expect(illustrationSrc).toBeNull();
+      });
+
+      it('is require()d image if one is available for the error code', () => {
+        const propsData = {
+          error: {
+            code: 'itemNotFound'
+          }
+        };
+        const wrapper = factory(propsData);
+
+        const illustrationSrc = wrapper.vm.illustrationSrc;
+
+        expect(illustrationSrc).toBe('il-item-not-found.svg');
+      });
+    });
+  });
 });

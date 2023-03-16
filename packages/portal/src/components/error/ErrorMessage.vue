@@ -25,7 +25,7 @@
         <h1
           v-if="error.title"
           class="mb-4"
-          v-html="$options.filters.convertNewLine(error.title)"
+          v-html="error.title"
         />
         <!-- eslint-enable vue/no-v-html -->
         <p
