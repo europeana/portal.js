@@ -47,10 +47,13 @@ function translateErrorWithCode(error, { tValues = {} }) {
   //   error.code = 'genericUnknownError';
   // }
 
-  for (const tKey in (this.$i18n.t(`errorMessage.${error.code}`) || {})) {
-    const tValuesForKey = tValues[tKey] || {};
-    tValuesForKey.newline = '<br />';
-    error[tKey] = this.$i18n.t(`errorMessage.${error.code}.${tKey}`, tValuesForKey);
+  const translations = this.$i18n.t(`errorMessage.${error.code}`) || {};
+  if (typeof translations === 'object') {
+    for (const tKey in translations) {
+      const tValuesForKey = tValues[tKey] || {};
+      tValuesForKey.newline = '<br />';
+      error[tKey] = this.$i18n.t(`errorMessage.${error.code}.${tKey}`, tValuesForKey);
+    }
   }
 
   if ((error.message === '') && error.title) {
