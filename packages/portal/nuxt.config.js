@@ -15,82 +15,10 @@ import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
-import { BASE_URL as EUROPEANA_ANNOTATION_API_BASE_URL } from './src/plugins/europeana/annotation.js';
-import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './src/plugins/europeana/entity.js';
-import { BASE_URL as EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL } from './src/plugins/europeana/entity-management.js';
-import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './src/plugins/europeana/proxy.js';
-import { BASE_URL as EUROPEANA_RECOMMENDATION_API_BASE_URL } from './src/plugins/europeana/recommendation.js';
-import {
-  BASE_URL as EUROPEANA_RECORD_API_BASE_URL,
-  FULLTEXT_BASE_URL as EUROPEANA_RECORD_API_FULLTEXT_URL
-} from './src/plugins/europeana/record.js';
-import { BASE_URL as EUROPEANA_SET_API_BASE_URL } from './src/plugins/europeana/set.js';
-import { PRESENTATION_URL as EUROPEANA_IIIF_PRESENTATION_URL } from './src/plugins/europeana/iiif.js';
+import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
-};
-
-const publicRuntimeConfigEuropeana = {
-  apis: {
-    annotation: {
-      url: process.env.EUROPEANA_ANNOTATION_API_URL || EUROPEANA_ANNOTATION_API_BASE_URL,
-      key: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
-    },
-    entity: {
-      url: process.env.EUROPEANA_ENTITY_API_URL || EUROPEANA_ENTITY_API_BASE_URL,
-      key: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
-    },
-    entityManagement: {
-      url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL || process.env.EUROPEANA_ENTITY_API_URL || EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL
-    },
-    iiifPresentation: {
-      media: {
-        url: process.env.EUROPEANA_MEDIA_IIIF_PRESENTATION_API_URL || EUROPEANA_IIIF_PRESENTATION_URL
-      }
-    },
-    recommendation: {
-      url: process.env.EUROPEANA_RECOMMENDATION_API_URL || EUROPEANA_RECOMMENDATION_API_BASE_URL
-    },
-    record: {
-      fulltextUrl: process.env.EUROPEANA_RECORD_API_FULLTEXT_URL || EUROPEANA_RECORD_API_FULLTEXT_URL,
-      url: process.env.EUROPEANA_RECORD_API_URL || EUROPEANA_RECORD_API_BASE_URL,
-      key: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
-    },
-    thumbnail: {
-      url: process.env.EUROPEANA_THUMBNAIL_API_URL
-    },
-    set: {
-      url: process.env.EUROPEANA_SET_API_URL || EUROPEANA_SET_API_BASE_URL,
-      key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
-    }
-  },
-  proxy: {
-    media: {
-      url: process.env.EUROPEANA_MEDIA_PROXY_URL || EUROPEANA_MEDIA_PROXY_URL
-    }
-  }
-};
-
-const privateRuntimeConfigEuropeana = {
-  apis: {
-    annotation: {
-      url: process.env.EUROPEANA_ANNOTATION_API_URL_PRIVATE
-    },
-    entity: {
-      url: process.env.EUROPEANA_ENTITY_API_URL_PRIVATE
-    },
-    recommendation: {
-      url: process.env.EUROPEANA_RECOMMENDATION_API_URL_PRIVATE
-    },
-    record: {
-      fulltextUrl: process.env.EUROPEANA_RECORD_API_FULLTEXT_URL_PRIVATE,
-      url: process.env.EUROPEANA_RECORD_API_URL_PRIVATE
-    },
-    set: {
-      url: process.env.EUROPEANA_SET_API_URL_PRIVATE
-    }
-  }
 };
 
 export default {
@@ -136,21 +64,7 @@ export default {
       httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(','),
       // Construct a map of Europeana API URLs to rewrite for logging, so that
       // private network hostnames are replaced with the public equivalent.
-      rewriteOrigins: Object.keys(privateRuntimeConfigEuropeana.apis).reduce((memo, api) => {
-        const urlProps = Object.keys(privateRuntimeConfigEuropeana.apis[api])
-          .filter((prop) => prop.toLowerCase().endsWith('url'));
-
-        for (const urlProp of urlProps) {
-          if (privateRuntimeConfigEuropeana.apis[api][urlProp]) {
-            memo.push({
-              from: privateRuntimeConfigEuropeana.apis[api][urlProp],
-              to: publicRuntimeConfigEuropeana.apis[api][urlProp]
-            });
-          }
-        }
-
-        return memo;
-      }, [])
+      rewriteOrigins: publicPrivateRewriteOrigins()
     },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
@@ -179,7 +93,9 @@ export default {
         ]
       }
     },
-    europeana: publicRuntimeConfigEuropeana,
+    europeana: {
+      apis: europeanaApisRuntimeConfig({ scope: 'public' })
+    },
     features: features(),
     hotjar: {
       id: process.env.HOTJAR_ID,
@@ -219,7 +135,9 @@ export default {
     contentful: {
       graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
     },
-    europeana: privateRuntimeConfigEuropeana,
+    europeana: {
+      apis: europeanaApisRuntimeConfig({ scope: 'private' })
+    },
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
       username: process.env.JIRA_API_USERNAME,

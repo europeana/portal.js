@@ -3,6 +3,7 @@ import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './entity.js';
 import { apiError, createKeycloakAuthAxios } from './utils.js';
 
 export const BASE_URL = EUROPEANA_ENTITY_API_BASE_URL;
+export const AUTHENTICATING = true;
 
 export default (context = {}) => {
   const $axios = createKeycloakAuthAxios(

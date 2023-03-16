@@ -2,6 +2,7 @@ import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 import { apiError, createKeycloakAuthAxios } from './utils.js';
 
 export const BASE_URL = 'https://api.europeana.eu/set';
+export const AUTHENTICATING = true;
 export const EUROPEANA_SET_VISIBILITY_PRIVATE = 'private';
 export const EUROPEANA_SET_VISIBILITY_PUBLIC = 'public';
 export const EUROPEANA_SET_VISIBILITY_PUBLISHED = 'published';
