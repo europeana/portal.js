@@ -4,6 +4,7 @@ import thumbnail from './thumbnail.js';
 import md5 from 'md5';
 
 export const BASE_URL = 'https://api.europeana.eu/entity';
+export const AUTHENTICATING = true;
 
 export default (context = {}) => {
   const $axios = createAxios({ id: 'entity', baseURL: BASE_URL }, context);

@@ -322,7 +322,7 @@
           }
           if (apiParams.api === 'fulltext') {
             apiParams.profile = 'minimal,hits';
-            apiOptions.url = this.$config.europeana.apis.record.fulltextUrl;
+            apiOptions.url = this.$config.europeana.apis.fulltext.url;
           }
         }
 

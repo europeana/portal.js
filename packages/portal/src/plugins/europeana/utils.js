@@ -312,10 +312,6 @@ function filterEntities(mappedObject) {
   mappedObject.values = mappedObject.values.filter(v => !isEntity(v));
 }
 
-export function apiUrlFromRequestHeaders(api, headers) {
-  return headers[`x-europeana-${api}-api-url`];
-}
-
 /**
  * Escapes Lucene syntax special characters
  * For instance, so that a string may be used in a Record API search query.
