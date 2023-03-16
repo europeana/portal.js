@@ -101,9 +101,9 @@
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
 
-    @media (min-width: $bp-xxxl) {
-      margin-top: 2.25vw;
-      margin-bottom: 2.25vw;
+    @media (min-width: $bp-4k) {
+      margin-top: calc( 1.5 * 2.25rem);
+      margin-bottom: calc( 1.5 * 2.25rem);
     }
 
     .content-card.card {
