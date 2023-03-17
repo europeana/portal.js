@@ -79,6 +79,25 @@ const writeCacheKey = async(cacheKey, data) => {
   await redisClient.quitAsync();
 };
 
+const runGetCacher = async(cacherName) => {
+  const cacher = await cacherModule(cacherName);
+  const keys = [];
+  const responses = {};
+
+  if (cacher.LOCALISE) {
+    keys.push(...localeCodes.map((locale) => {
+      return namespaceCacheKey(cacherName, locale);
+    }));
+  } else {
+    keys.push(namespaceCacheKey(cacherName));
+  }
+  for (const key of keys) {
+    responses[key] = await readCacheKey(key);
+  }
+
+  return responses;
+};
+
 const readCacheKey = async(cacheKey) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
   const data = await redisClient.getAsync(cacheKey);
@@ -101,7 +120,7 @@ export const run = async(command, cacherName) => {
 
       response = 'SUCCESS';
     } else if (command === 'get') {
-      response = await readCacheKey(namespaceCacheKey(cacherName));
+      response = await runGetCacher(cacherName);
     } else {
       throw new Error(`Unknown command "${command}"`);
     }
