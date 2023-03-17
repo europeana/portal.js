@@ -45,10 +45,10 @@
         return this.$store.state.error.error;
       },
       description() {
-        return this.error?.description;
+        return this.error?.i18n?.description;
       },
       title() {
-        return this.error?.title;
+        return this.error?.i18n?.title;
       }
     },
 

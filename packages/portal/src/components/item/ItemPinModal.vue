@@ -223,27 +223,16 @@
       },
 
       async pin() {
-        try {
-          await this.ensureSelectedSetExists();
-          await this.$apis.set.modifyItems('add', this.selectedEntitySet.id, this.identifier, true);
-          this.selectedEntitySet.pinned.push(this.identifier);
-          this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabelValue }));
-          this.hide();
-        } catch (e) {
-          this.$error(e, { scope: 'gallery' });
-        }
+        await this.ensureSelectedSetExists();
+        await this.$apis.set.modifyItems('add', this.selectedEntitySet.id, this.identifier, true);
+        this.selectedEntitySet.pinned.push(this.identifier);
+        this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabelValue }));
       },
 
       async unpin() {
-        try {
-          await this.$apis.set.modifyItems('delete', this.selectedEntitySet.id, this.identifier);
-          this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
-          this.makeToast(this.$t('entity.notifications.unpinned'));
-        } catch (e) {
-          this.$error(e, { scope: 'gallery' });
-          this.makeToast(this.$t('entity.notifications.error.unpin'));
-        }
-        this.hide();
+        await this.$apis.set.modifyItems('delete', this.selectedEntitySet.id, this.identifier);
+        this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
+        this.makeToast(this.$t('entity.notifications.unpinned'));
       },
 
       entityDisplayLabel(entity) {
@@ -259,7 +248,12 @@
       },
 
       async togglePin() {
-        await (this.selectedIsPinned ? this.unpin() : this.pin());
+        try {
+          await (this.selectedIsPinned ? this.unpin() : this.pin());
+          this.hide();
+        } catch (error) {
+          this.$error(error, { scope: 'pinning' });
+        }
       },
 
       hide() {

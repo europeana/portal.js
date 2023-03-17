@@ -47,24 +47,25 @@ function translateErrorWithCode(error, { tValues = {} }) {
   //   error.code = 'genericUnknownError';
   // }
 
-  const translations = this.$i18n.t(`errorMessage.${error.code}`) || {};
-  if (typeof translations === 'object') {
-    for (const tKey in translations) {
-      const tValuesForKey = tValues[tKey] || {};
-      tValuesForKey.newline = '<br />';
-      // TODO: store these translates in error.i18n instead of top-level?
-      error[tKey] = this.$i18n.t(`errorMessage.${error.code}.${tKey}`, tValuesForKey);
+  if (this.$i18n.te(`errorMessage.${error.code}`)) {
+    const translations = this.$i18n.t(`errorMessage.${error.code}`);
+    if (typeof translations === 'object') {
+      error.i18n = {};
+      for (const tKey in translations) {
+        const tValuesForKey = tValues[tKey] || {};
+        tValuesForKey.newline = '<br />';
+        error.i18n[tKey] = this.$i18n.t(`errorMessage.${error.code}.${tKey}`, tValuesForKey);
+      }
     }
   }
 
-  if ((error.message === '') && error.title) {
-    error.message = error.title;
+  if ((error.message === '') && error.i18n?.title) {
+    error.message = error.i18n.title;
   }
 
   return error;
 }
 
-// TODO: APM captureError?
 export function handleError(errorOrCode, options = {}) {
   let error = normaliseErrorWithCode(errorOrCode, options);
   error = translateErrorWithCode.bind(this)(error, options);
@@ -75,6 +76,8 @@ export function handleError(errorOrCode, options = {}) {
   }
 
   this.$store.commit('error/set', error);
+
+  this.$nuxt?.context?.$apm?.captureError(error);
 
   if (error.isFetchError) {
     throw error;

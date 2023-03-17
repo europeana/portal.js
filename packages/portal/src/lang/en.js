@@ -203,9 +203,6 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
-      "error": {
-        "unpin": "There was an error unpinning the item. Please try again, or report the issue."
-      },
       "pin": "This item will show at the top of the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
       "pinLimit": {
         "body": "For now you can only pin 24 items. If you want to pin this item, make sure you unpin another one and try pinning this item again.",
@@ -240,6 +237,10 @@ export default {
     "pageNotFound": {
       "metaTitle": "Page not found",
       "title": "The page you are looking for doesn't exist."
+    },
+    "pinningNotFound": {
+      "description": "There was an error pinning/unpinning the item. Please try again, or report the issue.",
+      "title": "Curated collection not found"
     },
     "searchPaginationLimitExceeded": {
       "title": "It is only possible to view the first {limit} search results."

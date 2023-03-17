@@ -18,25 +18,25 @@
         alt=""
       />
       <section
-        v-if="error.title || error.description"
+        v-if="title || description"
         class="mt-4"
       >
         <!-- eslint-disable vue/no-v-html -->
         <h1
-          v-if="error.title"
+          v-if="title"
           class="mb-4"
-          v-html="error.title"
+          v-html="title"
         />
         <!-- eslint-enable vue/no-v-html -->
         <p
-          v-if="error.description"
+          v-if="description"
         >
-          {{ error.description }}
+          {{ description }}
         </p>
       </section>
     </div>
     <AlertMessage
-      v-show="showMessage && (error.message !== error.title)"
+      v-show="showMessage && (error.message !== title)"
       :error="error.message"
     />
   </div>
@@ -85,8 +85,14 @@
         }
         return null;
       },
+      title() {
+        return this.error.i18n?.title;
+      },
+      description() {
+        return this.error.i18n?.description;
+      },
       errorExplanationAvailable() {
-        return this.error.title || this.error.description || this.illustrationSrc;
+        return this.title || this.description || this.illustrationSrc;
       }
     }
   };

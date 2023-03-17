@@ -84,6 +84,8 @@
           try {
             await (this.liked ? this.unlike() : this.like());
           } catch (e) {
+            // TODO: handle 404 which may indicate likes set has been deleted;
+            //       create a new one and retry
             this.$error(e, { scope: 'gallery' });
           }
         } else {

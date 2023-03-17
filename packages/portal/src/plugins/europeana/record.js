@@ -388,7 +388,7 @@ export default (context = {}) => {
             options.fromTranslationError = true;
             return this.getRecord(europeanaId, options);
           }
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 

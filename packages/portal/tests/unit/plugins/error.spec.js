@@ -15,7 +15,8 @@ const factory = ({ mocks = {} } = {}) => {
     mocks: {
       $fetchState: {},
       $i18n: {
-        t: (key) => key
+        t: (key) => key,
+        te: () => true
       },
       $nuxt: { context: { res: {} } },
       $store: {
@@ -201,7 +202,7 @@ describe('@/plugins/error', () => {
         title: 'Not Found',
         description: 'It may have been deleted'
       });
-      const $i18n = { t: translateStub };
+      const $i18n = { t: translateStub, te: () => true };
 
       it('translates all strings for localised error message', () => {
         const $fetchState = { pending: true };
@@ -209,8 +210,8 @@ describe('@/plugins/error', () => {
 
         const { error } = triggerHandleError(errorOrCode, {}, { $fetchState, $i18n });
 
-        expect(error.title).toBe('errorMessage.genericNotFound.title');
-        expect(error.description).toBe('errorMessage.genericNotFound.description');
+        expect(error.i18n.title).toBe('errorMessage.genericNotFound.title');
+        expect(error.i18n.description).toBe('errorMessage.genericNotFound.description');
       });
 
       describe('when error has no message, but does have a translated title', () => {

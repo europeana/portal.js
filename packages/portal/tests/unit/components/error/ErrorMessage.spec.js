@@ -12,8 +12,7 @@ const factory = (propsData = {}) => shallowMountNuxt(ErrorMessage, {
   mocks: {
     $t: (key) => key,
     $te: () => true
-  },
-  stubs: ['i18n']
+  }
 });
 
 describe('components/error/ErrorMessage', () => {
@@ -21,23 +20,27 @@ describe('components/error/ErrorMessage', () => {
     it('displays illustrated error with text when available', async() => {
       const propsData = {
         error: {
-          title: 'Item was not found',
-          description: 'The item may have been deleted'
+          i18n: {
+            title: 'Item was not found',
+            description: 'The item may have been deleted'
+          }
         }
       };
       const wrapper = factory(propsData);
 
       const text = wrapper.text();
 
-      expect(text).toContain(propsData.error.title);
-      expect(text).toContain(propsData.error.description);
+      expect(text).toContain(propsData.error.i18n.title);
+      expect(text).toContain(propsData.error.i18n.description);
     });
 
     it('displays error message if different from title', async() => {
       const propsData = {
         error: {
           message: 'Network error',
-          title: 'Something went wrong'
+          i18n: {
+            title: 'Something went wrong'
+          }
         }
       };
       const wrapper = factory(propsData);

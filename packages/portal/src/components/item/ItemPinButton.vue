@@ -157,7 +157,7 @@
             await this.pin();
           }
         } catch (e) {
-          this.$error(e, { scope: 'gallery' });
+          this.$error(e, { scope: 'pinning' });
         }
       }
     }

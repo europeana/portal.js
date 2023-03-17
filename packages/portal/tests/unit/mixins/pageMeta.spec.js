@@ -84,7 +84,7 @@ describe('mixins/pageMeta', () => {
 
       describe('when fetchState has error', () => {
         describe('and error has metaTitle', () => {
-          const mocks = { $fetchState: { error: { metaTitle: 'item-not-found-metaTitle' } } };
+          const mocks = { $fetchState: { error: { i18n: { metaTitle: 'item-not-found-metaTitle' } } } };
 
           it('uses translated meta title from code', () => {
             const wrapper = factory({ mocks, computed });
@@ -96,7 +96,7 @@ describe('mixins/pageMeta', () => {
         });
 
         describe('and error has title but not metaTitle', () => {
-          const mocks = { $fetchState: { error: { title: 'item-not-found-title' } } };
+          const mocks = { $fetchState: { error: { i18n: { title: 'item-not-found-title' } } } };
 
           it('uses translated meta title from code', () => {
             const wrapper = factory({ mocks, computed });
