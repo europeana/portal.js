@@ -10,7 +10,7 @@
     <b-dropdown-item
       v-for="locale in availableLocales"
       :key="locale.code"
-      :href="switchLocalePath(locale.code)"
+      :href="handledLocalePath(locale.code)"
       :data-qa="`${locale.name} language option`"
     >
       {{ locale.name }}
@@ -32,6 +32,20 @@
           lang: this.$i18n.locale
         }
       };
+    },
+    computed: {
+      removePaginationAtLanguageSwitch() {
+        return ['galleries', 'stories'].some((routeNameBase) =>  $nuxt.$route.name.startsWith(routeNameBase));
+      }
+    },
+    methods: {
+      handledLocalePath(code) {
+        const path = this.switchLocalePath(code);
+        if (this.removePaginationAtLanguageSwitch) {
+          return path.replace(/(\?|&)page=\d+/, '');
+        }
+        return this.switchLocalePath(code);
+      }
     }
   };
 </script>
