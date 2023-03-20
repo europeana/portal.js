@@ -148,7 +148,7 @@ describe('pages/contentful/image-harvester/index', () => {
 
           await wrapper.vm.harvestImage();
           expect(wrapper.vm.populateFields.called).toBe(false);
-          expect(wrapper.vm.showError.calledWith(`Unable to harvest "${apiResponse().object.about}". Please make sure the item can be accessed on the Record API. Error: "${apiErrorResponse.response.data.error}"`)).toBe(true);
+          expect(wrapper.vm.showError.calledWith(`Unable to harvest "${apiResponse().object.about}". Please make sure the item can be accessed on the Record API.`)).toBe(true);
         });
       });
 
@@ -163,7 +163,7 @@ describe('pages/contentful/image-harvester/index', () => {
           wrapper.vm.showError = sinon.spy();
 
           await wrapper.vm.harvestImage();
-          expect(wrapper.vm.showError.calledWith('There was a problem updating the entry. Contentful error')).toBe(true);
+          expect(wrapper.vm.showError.calledWith('There was a problem updating the entry.')).toBe(true);
         });
       });
     });

@@ -16,10 +16,7 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
-      :error="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :description-path="$fetchState.error.descriptionPath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :error="$fetchState.error"
       class="pt-5"
     />
     <template
@@ -143,7 +140,7 @@
   export default {
     name: 'ItemPage',
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
@@ -197,17 +194,8 @@
         if (process.client) {
           this.trackCustomDimensions();
         }
-      } catch (error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = error.statusCode || 500;
-        }
-        if (error.statusCode === 404) {
-          error.titlePath = 'errorMessage.itemNotFound.title';
-          error.descriptionPath = 'errorMessage.itemNotFound.description';
-          error.pageTitlePath = 'errorMessage.itemNotFound.metaTitle';
-          error.illustrationSrc = require('@/assets/img/illustrations/il-item-not-found.svg');
-        }
-        throw error;
+      } catch (e) {
+        this.$error(e, { scope: 'item' });
       }
     },
 

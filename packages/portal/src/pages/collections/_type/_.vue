@@ -7,8 +7,7 @@
     <ErrorMessage
       v-if="$fetchState.error"
       data-qa="error message container"
-      :error="$fetchState.error.message"
-      :status-code="$fetchState.error.statusCode"
+      :error="$fetchState.error"
     />
     <template v-else>
       <SearchInterface
@@ -84,7 +83,7 @@
     name: 'CollectionPage',
 
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityRelatedCollectionsCard: () => import('@/components/entity/EntityRelatedCollectionsCard'),
@@ -135,22 +134,26 @@
       }
       this.$store.commit('entity/setId', entityUri);
 
-      const response = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
-      this.$store.commit('entity/setEntity', pick(response.entity, [
-        'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
-      ]));
-      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-      const urlLabel = this.entity.prefLabel.en;
+      try {
+        const response = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
+        this.$store.commit('entity/setEntity', pick(response.entity, [
+          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
+        ]));
+        this.$store.commit('search/setCollectionLabel', this.title.values[0]);
+        const urlLabel = this.entity.prefLabel.en;
 
-      if (this.userIsEntitiesEditor) {
-        const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
-        this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
-        if (entityBestItemsSetId) {
-          this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+        if (this.userIsEntitiesEditor) {
+          const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
+          this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
+          if (entityBestItemsSetId) {
+            this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+          }
         }
-      }
 
-      return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+        return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+      } catch (e) {
+        this.$error(e, { scope: 'page' });
+      }
     },
 
     computed: {

@@ -146,6 +146,8 @@
           } else {
             await this.pin();
           }
+        } catch (e) {
+          this.$error(e, { scope: 'pinning' });
         } finally {
           this.fetchEntityBestItemsSetPinnedItems(this.setId);
         }

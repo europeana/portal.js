@@ -83,41 +83,39 @@ describe('mixins/pageMeta', () => {
       };
 
       describe('when fetchState has error', () => {
-        describe('and error has pageTitlePath', () => {
-          const mocks = { $fetchState: { error: { pageTitlePath: 'item-not-found' } } };
+        describe('and error has metaTitle', () => {
+          const mocks = { $fetchState: { error: { i18n: { metaTitle: 'item-not-found-metaTitle' } } } };
 
-          it('uses translated pageTitlePath', () => {
+          it('uses translated meta title from code', () => {
             const wrapper = factory({ mocks, computed });
 
             const pageTitle = wrapper.vm.pageTitle;
 
-            expect(pageTitle).toBe('item-not-found');
+            expect(pageTitle).toBe('item-not-found-metaTitle');
           });
         });
 
-        describe('but error has no pageTitlePath', () => {
-          describe('but error does have a supported HTTP status code', () => {
-            const mocks = { $fetchState: { error: { statusCode: 404 } } };
+        describe('and error has title but not metaTitle', () => {
+          const mocks = { $fetchState: { error: { i18n: { title: 'item-not-found-title' } } } };
 
-            it('uses error message for that status code', () => {
-              const wrapper = factory({ mocks, computed });
+          it('uses translated meta title from code', () => {
+            const wrapper = factory({ mocks, computed });
 
-              const pageTitle = wrapper.vm.pageTitle;
+            const pageTitle = wrapper.vm.pageTitle;
 
-              expect(pageTitle).toBe('errorMessage.pageNotFound.metaTitle');
-            });
+            expect(pageTitle).toBe('item-not-found-title');
           });
+        });
 
-          describe('and error does not have a supported HTTP status code', () => {
-            const mocks = { $fetchState: { error: { statusCode: 500 } } };
+        describe('but error has neither metaTitle nor title', () => {
+          const mocks = { $fetchState: { error: { statusCode: 500 } } };
 
-            it('uses translated "error"', () => {
-              const wrapper = factory({ mocks, computed });
+          it('uses translated "error"', () => {
+            const wrapper = factory({ mocks, computed });
 
-              const pageTitle = wrapper.vm.pageTitle;
+            const pageTitle = wrapper.vm.pageTitle;
 
-              expect(pageTitle).toBe('error');
-            });
+            expect(pageTitle).toBe('error');
           });
         });
       });

@@ -3,8 +3,7 @@
     <ErrorMessage
       v-if="$fetchState.error"
       data-qa="error message container"
-      :error="$fetchState.error.message"
-      :status-code="$fetchState.error.statusCode"
+      :error="$fetchState.error"
     />
     <b-container
       v-else
@@ -23,7 +22,6 @@
 </template>
 
 <script>
-  import createHttpError from 'http-errors';
   import ClientOnly from 'vue-client-only';
   import ContentHeader from '@/components/generic/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -32,7 +30,7 @@
     name: 'CollectionsIndexPage',
 
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ContentHeader,
       ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
@@ -42,10 +40,7 @@
 
     fetch() {
       if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = 404;
-        }
-        throw createHttpError(404, 'Unknown collection type'); // TODO: i18n
+        this.$error(404, { scope: 'page' });
       }
     },
 

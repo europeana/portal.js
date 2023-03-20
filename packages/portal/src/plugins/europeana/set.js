@@ -48,7 +48,7 @@ export default (context = {}) => {
 
         return response;
       } catch (error) {
-        throw apiError(error, context);
+        throw apiError(error);
       }
     },
 
@@ -61,7 +61,7 @@ export default (context = {}) => {
       return this.search({ query: `creator:${creator} type:BookmarkFolder` })
         .then(response => response.data.items ? response.data.items[0] : null)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -83,7 +83,7 @@ export default (context = {}) => {
         const response = await $axios.get(`/${setIdFromUri(id)}`, { params: paramsWithDefaults });
         return response.data;
       } catch (error) {
-        throw apiError(error, context);
+        throw apiError(error);
       }
     },
 
@@ -113,7 +113,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -131,7 +131,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -146,7 +146,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -161,7 +161,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -176,7 +176,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -194,7 +194,7 @@ export default (context = {}) => {
       return apiCall(`/${setIdFromUri(setId)}${itemId}${pinPos}`)
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     }
   };

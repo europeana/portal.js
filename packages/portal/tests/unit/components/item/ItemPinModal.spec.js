@@ -488,13 +488,11 @@ describe('components/item/ItemPinModal', () => {
               [ENTITY_URI]: { id: '456', pinned: [] }
             }
           });
-          const hideMock = sinon.mock(wrapper.vm).expects('hide').once();
 
           await wrapper.vm.pin();
 
           expect(setApiModifyItemsStub.calledWith('add', '456', '/123/abc', true)).toBe(true);
           expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual(['/123/abc']);
-          expect(hideMock.verify()).toBe(true);
         });
       });
     });
@@ -503,13 +501,11 @@ describe('components/item/ItemPinModal', () => {
       describe('when the deletion works', () => {
         it('sends delete to the set API, removes the item from local data, and hides the modal', async() => {
           const wrapper = factory(fixtures.itemAlreadyPinned);
-          const hideMock = sinon.mock(wrapper.vm).expects('hide').once();
 
           await wrapper.vm.unpin();
 
           expect(setApiModifyItemsStub.calledWith('delete', '456', '/123/abc')).toBe(true);
           expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual([]);
-          expect(hideMock.verify()).toBe(true);
         });
       });
     });
@@ -532,10 +528,12 @@ describe('components/item/ItemPinModal', () => {
           await wrapper.setData({ selected: ENTITY_URI });
 
           const pinMock = sinon.mock(wrapper.vm).expects('pin').once();
+          const hideMock = sinon.mock(wrapper.vm).expects('hide').once();
 
           await wrapper.vm.togglePin();
 
           expect(pinMock.verify()).toBe(true);
+          expect(hideMock.verify()).toBe(true);
         });
       });
 

@@ -257,6 +257,7 @@ export default {
     '~/plugins/vue-matomo.client',
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
+    '~/plugins/error',
     '~/plugins/link',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',

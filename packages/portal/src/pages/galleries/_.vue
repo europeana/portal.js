@@ -15,11 +15,7 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
-      :error="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :description-path="$fetchState.error.descriptionPath"
-      :illustration-src="$fetchState.error.illustrationSrc"
-      :status-code="$fetchState.error.statusCode"
+      :error="$fetchState.error"
     />
     <div
       v-if="set.id"
@@ -192,7 +188,6 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import createHttpError from 'http-errors';
   import {
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
     SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
@@ -210,7 +205,7 @@
     components: {
       ClientOnly,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup,
       ShareButton,
       SocialShareModal,
@@ -250,8 +245,8 @@
           this.$store.commit('entity/setBestItemsSetId', this.setId);
           this.storeEntityBestItemsSetPinnedItems(this.set);
         }
-      } catch (error) {
-        this.handleFetchError(error);
+      } catch (e) {
+        this.$error(e, { scope: e.statusCode === 404 ? 'page' : 'gallery' });
       }
     },
     computed: {
@@ -352,33 +347,25 @@
     methods: {
       validateRoute() {
         if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {
-          throw createHttpError(400, 'Invalid set ID');
+          this.$error(404, { scope: 'page' });
         }
       },
-      reorderItems(items) {
-        this.$store.dispatch('set/update', {
-          id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
-          body: {
-            type: this.set.type,
-            title: this.set.title,
-            description: this.set.description,
-            visibility: this.set.visibility,
-            items: items.map(item => `${EUROPEANA_DATA_URL_ITEM_PREFIX}${item.id}`)
-          },
-          params: { profile: 'standard' }
-        });
-      },
-      handleFetchError(error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = error.statusCode || 500;
+      async reorderItems(items) {
+        try {
+          await this.$store.dispatch('set/update', {
+            id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
+            body: {
+              type: this.set.type,
+              title: this.set.title,
+              description: this.set.description,
+              visibility: this.set.visibility,
+              items: items.map(item => `${EUROPEANA_DATA_URL_ITEM_PREFIX}${item.id}`)
+            },
+            params: { profile: 'standard' }
+          });
+        } catch (e) {
+          this.$error(e, { scope: 'gallery' });
         }
-        if (error.statusCode === 403 || error.statusCode === 401) {
-          error.titlePath = 'errorMessage.galleryUnauthorised.title';
-          error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
-          error.pageTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
-          error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
-        }
-        throw error;
       }
     }
   };

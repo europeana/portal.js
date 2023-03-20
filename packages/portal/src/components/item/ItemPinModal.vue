@@ -242,7 +242,12 @@
       },
 
       async togglePin() {
-        await (this.selectedIsPinned ? this.unpin() : this.pin());
+        try {
+          await (this.selectedIsPinned ? this.unpin() : this.pin());
+          this.hide();
+        } catch (error) {
+          this.$error(error, { scope: 'pinning' });
+        }
       },
 
       hide() {
