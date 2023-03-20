@@ -330,4 +330,32 @@
   .fade-enter-to {
     opacity: 1;
   }
+
+  .xxl-page ::v-deep .masonry-container {
+    margin-left: -$grid-gutter;
+    margin-right: -$grid-gutter;
+    width: calc(100% + #{$grid-gutter * 2});
+
+    .masonry-tile {
+      @media (min-width: $bp-medium) {
+        margin-left: $grid-gutter;
+        margin-right: $grid-gutter;
+        width: calc(100% / 2 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: $bp-large) {
+        width: calc(100% / 4 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: $bp-wqhd) {
+        width: calc(100% / 6 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: ($bp-4k)) {
+        margin-left: $grid-gutter-4k;
+        margin-right: $grid-gutter-4k;
+        width: calc(100% / 6 - #{$grid-gutter-4k * 2});
+      }
+    }
+  }
 </style>
