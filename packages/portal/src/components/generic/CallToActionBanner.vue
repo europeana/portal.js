@@ -17,7 +17,7 @@
         :lazy="true"
       />
     </div>
-    <div class="cta-content align-self-stretch flex-md-fill">
+    <div class="cta-content align-self-stretch d-flex flex-column align-items-center justify-content-center">
       <h2>
         {{ name }}
       </h2>
@@ -97,17 +97,16 @@
     border-radius: 0.25em;
     border: 0.25em solid $greyblack;
     box-shadow: 0.75em 0.75em 0 0 $greyblack;
-    max-width: calc(#{$max-card-width * 3} + #{$grid-gutter * 4});
+    width: 100%;
 
     @media (min-width: $bp-wqhd) {
-      width: calc((100% / 6) * 4 - $grid-gutter);
+      min-height: 320px;
     }
 
     @media (min-width: $bp-4k) {
-      max-width: calc((100% / 6) * 4 - $grid-gutter-4k);
-      width: calc((100% / 6) * 4 - $grid-gutter-4k);
       font-size: 1.5rem;
       margin-bottom: 3rem;
+      min-height: 542px;
     }
 
     .cta-content {
@@ -189,6 +188,10 @@
       @media (min-width: $bp-medium) {
         height: auto;
         width: 40%;
+      }
+
+      @media (min-width: $bp-wqhd) {
+        width: 50%;
       }
 
       @media (min-width: $bp-4k) {
