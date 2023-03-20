@@ -3,6 +3,7 @@ import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './entity.js';
 import { apiError, createKeycloakAuthAxios } from './utils.js';
 
 export const BASE_URL = EUROPEANA_ENTITY_API_BASE_URL;
+export const AUTHENTICATING = true;
 
 export default (context = {}) => {
   const $axios = createKeycloakAuthAxios(
@@ -28,7 +29,7 @@ export default (context = {}) => {
       return $axios.get(id.replace(EUROPEANA_DATA_URL, ''), { params })
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -42,7 +43,7 @@ export default (context = {}) => {
       return $axios.put(id.replace(EUROPEANA_DATA_URL, ''), body)
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     }
   };

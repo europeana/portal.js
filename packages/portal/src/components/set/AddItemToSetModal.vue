@@ -128,21 +128,17 @@
         return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
       },
 
-      async addItem(setId) {
-        await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
-      },
-
-      async removeItem(setId) {
-        await this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
-      },
-
       async toggleItem(setId) {
-        if (this.collectionsWithItem.includes(setId)) {
-          this.added = this.added.filter(id => id !== setId);
-          await this.removeItem(setId);
-        } else {
-          this.added.push(setId);
-          await this.addItem(setId);
+        try {
+          if (this.collectionsWithItem.includes(setId)) {
+            await this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
+            this.added = this.added.filter(id => id !== setId);
+          } else {
+            await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
+            this.added.push(setId);
+          }
+        } catch (e) {
+          this.$error(e, { scope: 'gallery' });
         }
         this.fetchCollections();
       }

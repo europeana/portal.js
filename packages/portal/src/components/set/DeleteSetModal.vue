@@ -62,15 +62,19 @@
     },
 
     methods: {
-      // TODO: error handling
+      // TODO: error handling other statuses
       async submitForm() {
-        await this.$store.dispatch('set/delete', this.setId);
+        try {
+          await this.$store.dispatch('set/delete', this.setId);
 
-        this.makeToast(this.toastMsg);
-        this.hide();
-        // redirect away from deleted set page
-        if (this.$route.name.startsWith('galleries-all___')) {
-          this.$goto(this.$path({ name: 'account' }));
+          this.makeToast(this.toastMsg);
+          this.hide();
+          // redirect away from deleted set page
+          if (this.$route.name.startsWith('galleries-all___')) {
+            this.$goto(this.$path({ name: 'account' }));
+          }
+        } catch (e) {
+          this.$error(e, { scope: 'gallery' });
         }
       },
 

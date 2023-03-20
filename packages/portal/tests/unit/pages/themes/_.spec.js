@@ -56,7 +56,7 @@ const factory = (data = {}) => shallowMountNuxt(ThemePage, {
       isoLocale: () => 'en-GB',
       t: (key) => key
     },
-    $nuxt: { context: { res: {} } },
+    $error: sinon.spy(),
     $route: {
       params: { pathMatch: 'art' },
       query: {}
@@ -83,7 +83,7 @@ describe('pages/themes/_', () => {
       })).toBe(true);
     });
     describe('when there is no theme identifier found', () => {
-      it('throws a 404 error', async() => {
+      it('throws a 404 error via $error', async() => {
         process.server = true;
         const resWithoutIdentifier = { ...themePageContentfulResponse };
         resWithoutIdentifier.data.data.themePage.items[0].identifier = null;
@@ -91,49 +91,31 @@ describe('pages/themes/_', () => {
         const wrapper = factory();
         wrapper.vm.$contentful.query = contentfulQueryStub(resWithoutIdentifier);
 
-        let error;
-        try {
-          await wrapper.vm.fetch();
-        } catch (e) {
-          error = e;
-        }
+        await wrapper.vm.fetch();
 
-        expect(error.message).toBe('messages.notFound');
-        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(404);
+        expect(wrapper.vm.$error.calledWith(404)).toBe(true);
       });
     });
     describe('when there is no theme found', () => {
-      it('throws a 404 error', async() => {
+      it('throws a 404 error via $error', async() => {
         const resWithoutPage = { ...themePageContentfulResponse };
         resWithoutPage.data.data.themePage.items[0] = null;
         const wrapper = factory();
         wrapper.vm.$contentful.query = contentfulQueryStub(resWithoutPage);
 
-        let error;
-        try {
-          await wrapper.vm.fetch();
-        } catch (e) {
-          error = e;
-        }
+        await wrapper.vm.fetch();
 
-        expect(error.message).toBe('messages.notFound');
-        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(404);
+        expect(wrapper.vm.$error.calledWith(404)).toBe(true);
       });
     });
     describe('when request fails', () => {
-      it('set the status code on SSRs', async() => {
+      it('handles it with $error', async() => {
         const wrapper = factory();
         wrapper.vm.$contentful.query = sinon.stub().throws(() => new Error('Internal Server Error'));
 
-        let error;
-        try {
-          await wrapper.vm.fetch();
-        } catch (e) {
-          error = e;
-        }
+        await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
-        expect(error.message).toBe('Internal Server Error');
+        expect(wrapper.vm.$error.called).toBe(true);
       });
     });
   });
