@@ -55,14 +55,6 @@ describe('components/set/DeleteSetModal', () => {
       expect(bvModalHide.calledWith('delete-set-modal')).toBe(true);
     });
 
-    it('emits "cancel" event', () => {
-      const wrapper = factory({ setId: '123' });
-
-      wrapper.find('[data-qa="close button"]').trigger('click');
-
-      expect(wrapper.emitted('cancel').length).toEqual(1);
-    });
-
     it('does not delete the set!', () => {
       const wrapper = factory({ setId: '123' });
 

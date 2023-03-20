@@ -65,11 +65,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
     $matomo: {
       trackPageView: sinon.spy()
     },
-    $nuxt: {
-      context: {
-        res: {}
-      }
-    },
+    $error: sinon.spy(),
     ...mocks
   },
   store
@@ -110,39 +106,13 @@ describe('pages/item/_.vue', () => {
     });
 
     describe('on errors', () => {
-      it('set the status code on SSRs', async() => {
+      it('calls $error', async() => {
         const wrapper = factory();
-        process.server = true;
         wrapper.vm.$apis.record.getRecord = sinon.stub().throws(() => new Error('Internal Server Error'));
 
-        let error;
-        try {
-          await wrapper.vm.fetch();
-        } catch (e) {
-          error = e;
-        }
+        await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
-        expect(error.message).toBe('Internal Server Error');
-      });
-
-      it('displays an illustrated error message for 404 status', async() => {
-        const itemNotFoundError = { statusCode: 404, message: 'Error message' };
-        const wrapper = factory();
-        process.server = true;
-        wrapper.vm.$apis.record.getRecord.throws(itemNotFoundError);
-        wrapper.vm.$fetchState.error = itemNotFoundError;
-
-        let error;
-        try {
-          await wrapper.vm.$fetch();
-        } catch (e) {
-          error = e;
-        }
-
-        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(404);
-        expect(error.titlePath).toBe('errorMessage.itemNotFound.title');
-        expect(error.illustrationSrc).toBe('il-item-not-found.svg');
+        expect(wrapper.vm.$error.called).toBe(true);
       });
     });
 

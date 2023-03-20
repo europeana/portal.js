@@ -29,7 +29,7 @@ export default (context = {}) => {
       return $axios.get(id.replace(EUROPEANA_DATA_URL, ''), { params })
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -43,7 +43,7 @@ export default (context = {}) => {
       return $axios.put(id.replace(EUROPEANA_DATA_URL, ''), body)
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     }
   };

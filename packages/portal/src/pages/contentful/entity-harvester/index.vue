@@ -80,7 +80,7 @@
         try {
           entityResponse = await this.$apis.entity.get(type, id);
         } catch (error) {
-          this.showError(`Unable to harvest: ${entityUrl} Please make sure the entity can be accessed on the entity API. ${error.message}`);
+          this.showError(`Unable to harvest: ${entityUrl} Please make sure the entity can be accessed on the entity API.`);
           return;
         }
 

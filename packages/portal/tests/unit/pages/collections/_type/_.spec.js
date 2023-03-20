@@ -76,7 +76,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       locale: 'en'
     },
     $path: sinon.stub().returns('/'),
-    $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
+    $error: sinon.spy(),
     $store: {
       state: {
         entity: {
@@ -132,13 +132,13 @@ describe('pages/collections/_type/_', () => {
     });
 
     describe('on errors', () => {
-      it('throws an error', async() => {
+      it('handles errors via $error', async() => {
         const apiError = new Error({ message: 'No collection found' });
-
         const wrapper = factory({ get: sinon.stub().rejects(apiError) });
 
-        await expect(wrapper.vm.fetch()).rejects.toThrowError();
-        await expect(wrapper.vm.fetch()).rejects.toEqual(apiError);
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$error.calledWith(apiError)).toBe(true);
       });
     });
   });
