@@ -118,7 +118,9 @@ describe('components/search/SearchInterface', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$error.calledWith('searchResultsNotFound')).toBe(true);
+      expect(wrapper.vm.$error.calledWith(
+        sinon.match.has('code', 'searchResultsNotFound')
+      )).toBe(true);
     });
 
     describe('when there was a pagination error', () => {
@@ -133,7 +135,7 @@ describe('components/search/SearchInterface', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$error.calledWith(
-          'searchPaginationLimitExceeded',
+          sinon.match.has('code', 'searchPaginationLimitExceeded'),
           { tValues: { description: { limit: 5000 } } }
         )).toBe(true);
       });

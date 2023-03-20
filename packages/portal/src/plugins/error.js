@@ -21,22 +21,19 @@ const storeModule = {
   }
 };
 
-function normaliseErrorWithCode(errorOrCode, { scope = 'generic' } = {}) {
+function normaliseErrorWithCode(errorOrStatusCode, { scope = 'generic' } = {}) {
   let error;
 
-  if (typeof errorOrCode === 'number') {
-    errorOrCode = createHttpError(errorOrCode);
+  if (typeof errorOrStatusCode === 'number') {
+    errorOrStatusCode = createHttpError(errorOrStatusCode);
   }
 
-  if (typeof errorOrCode === 'object') {
-    error = errorOrCode;
+  if (typeof errorOrStatusCode === 'object') {
+    error = errorOrStatusCode;
     if (HTTP_CODES[error.statusCode]) {
       const httpCode = HTTP_CODES[error.statusCode]; // || 'UnknownError';
       error.code = `${scope}${httpCode}`;
     }
-  } else {
-    error = new Error;
-    error.code = errorOrCode;
   }
 
   return error;
@@ -59,15 +56,11 @@ function translateErrorWithCode(error, { tValues = {} }) {
     }
   }
 
-  if ((error.message === '') && error.i18n?.title) {
-    error.message = error.i18n.title;
-  }
-
   return error;
 }
 
-export function handleError(errorOrCode, options = {}) {
-  let error = normaliseErrorWithCode(errorOrCode, options);
+export function handleError(errorOrStatusCode, options = {}) {
+  let error = normaliseErrorWithCode(errorOrStatusCode, options);
   error = translateErrorWithCode.bind(this)(error, options);
   error.isFetchError = this.$fetchState?.pending || false;
 

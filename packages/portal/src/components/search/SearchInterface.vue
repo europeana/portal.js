@@ -63,6 +63,7 @@
                         :error="$fetchState.error"
                         :gridless="false"
                         :full-height="false"
+                        :show-message="showErrorMessage"
                       />
                       <template
                         v-else
@@ -217,7 +218,9 @@
       } catch (error) {
         const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
         if (paginationError) {
-          this.$error('searchPaginationLimitExceeded', {
+          error.code = 'searchPaginationLimitExceeded';
+          error.message = 'Pagination limit exceeded';
+          this.$error(error, {
             tValues: { description: { limit: this.$options.filters.localise(Number(paginationError[1])) } }
           });
         } else {
@@ -226,7 +229,9 @@
       }
 
       if (this.noResults) {
-        this.$error('searchResultsNotFound');
+        const error = new Error('No search results');
+        error.code = 'searchResultsNotFound';
+        this.$error(error);
       }
     },
 
@@ -264,6 +269,10 @@
       },
       debugSettings() {
         return this.$store.getters['debug/settings'];
+      },
+      showErrorMessage() {
+        return !this.$fetchState.error?.code ||
+          !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
       },
       showSearchBoostingForm() {
         return !!this.debugSettings?.boosting;

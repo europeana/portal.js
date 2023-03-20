@@ -90,14 +90,14 @@ describe('@/plugins/error', () => {
   });
 
   describe('handleError', () => {
-    const triggerHandleError = (errorOrCode, handleErrorOptions = {}, mocks = {}) => {
+    const triggerHandleError = (errorOrStatusCode, handleErrorOptions = {}, mocks = {}) => {
       const wrapper = factory({
         mocks: { $error: errorPlugin.handleError, ...mocks }
       });
 
       let error;
       try {
-        wrapper.vm.$error(errorOrCode, handleErrorOptions);
+        wrapper.vm.$error(errorOrStatusCode, handleErrorOptions);
       } catch (e) {
         error = e;
       }
@@ -106,59 +106,50 @@ describe('@/plugins/error', () => {
     };
 
     it('converts number to the equivalent HTTP error', () => {
-      const errorOrCode = 400;
+      const errorOrStatusCode = 400;
       const $fetchState = { pending: true };
 
-      const { error } = triggerHandleError(errorOrCode, {}, { $fetchState });
+      const { error } = triggerHandleError(errorOrStatusCode, {}, { $fetchState });
 
-      expect(error.statusCode).toBe(errorOrCode);
+      expect(error.statusCode).toBe(errorOrStatusCode);
       expect(error.message).toBe('Bad Request');
     });
 
-    it('converts string code to error', () => {
-      const errorOrCode = 'setLocked';
-      const $fetchState = { pending: true };
-
-      const { error } = triggerHandleError(errorOrCode, {}, { $fetchState });
-
-      expect(error.code).toBe('setLocked');
-    });
-
     it('sets HTTP status code in Nuxt context', () => {
-      const errorOrCode = 404;
+      const errorOrStatusCode = 404;
       const $fetchState = { pending: true };
 
-      const { wrapper } = triggerHandleError(errorOrCode, {}, { $fetchState });
+      const { wrapper } = triggerHandleError(errorOrStatusCode, {}, { $fetchState });
 
-      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(errorOrCode);
+      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(errorOrStatusCode);
     });
 
     it('stores the error in Vuex state', () => {
-      const errorOrCode = 404;
+      const errorOrStatusCode = 404;
 
-      const { wrapper } = triggerHandleError(errorOrCode);
+      const { wrapper } = triggerHandleError(errorOrStatusCode);
 
       expect(wrapper.vm.$store.commit.calledWith('error/set', sinon.match.has('statusCode', 404))).toBe(true);
     });
 
     describe('when scope and status code resolve to a known code', () => {
-      const errorOrCode = { statusCode: 403 };
+      const errorOrStatusCode = { statusCode: 403 };
       const options = { scope: 'gallery' };
       const $fetchState = { pending: true };
 
       it('decorates error with code', () => {
-        const { error } = triggerHandleError(errorOrCode, options, { $fetchState });
+        const { error } = triggerHandleError(errorOrStatusCode, options, { $fetchState });
 
         expect(error.code).toBe('galleryUnauthorised');
       });
     });
 
     describe('when status code resolves to a generic code', () => {
-      const errorOrCode = { statusCode: 404 };
+      const errorOrStatusCode = { statusCode: 404 };
       const $fetchState = { pending: true };
 
       it('decorates error with code', () => {
-        const { error } = triggerHandleError(errorOrCode, {}, { $fetchState });
+        const { error } = triggerHandleError(errorOrStatusCode, {}, { $fetchState });
 
         expect(error.code).toBe('genericNotFound');
       });
@@ -166,7 +157,7 @@ describe('@/plugins/error', () => {
 
     // TODO: is this behaviour we want? if so, re-implement
     // describe('when scope and status code do not resolve to a known code', () => {
-    //   const errorOrCode = { statusCode: 400 };
+    //   const errorOrStatusCode = { statusCode: 400 };
     //
     //   it('throws the error', () => {
     //     const wrapper = factory({
@@ -175,12 +166,12 @@ describe('@/plugins/error', () => {
     //
     //     let error;
     //     try {
-    //       wrapper.vm.$error(errorOrCode);
+    //       wrapper.vm.$error(errorOrStatusCode);
     //     } catch (e) {
     //       error = e;
     //     }
     //
-    //     expect(error).toBe(errorOrCode);
+    //     expect(error).toBe(errorOrStatusCode);
     //   });
     // });
 
@@ -188,9 +179,9 @@ describe('@/plugins/error', () => {
       const $fetchState = { pending: false };
 
       it('does not throw error', () => {
-        const errorOrCode = { statusCode: 403 };
+        const errorOrStatusCode = { statusCode: 403 };
 
-        const { error } = triggerHandleError(errorOrCode, {}, { $fetchState });
+        const { error } = triggerHandleError(errorOrStatusCode, {}, { $fetchState });
 
         expect(error).toBeUndefined();
       });
@@ -206,24 +197,12 @@ describe('@/plugins/error', () => {
 
       it('translates all strings for localised error message', () => {
         const $fetchState = { pending: true };
-        const errorOrCode = { statusCode: 404 };
+        const errorOrStatusCode = { statusCode: 404 };
 
-        const { error } = triggerHandleError(errorOrCode, {}, { $fetchState, $i18n });
+        const { error } = triggerHandleError(errorOrStatusCode, {}, { $fetchState, $i18n });
 
         expect(error.i18n.title).toBe('errorMessage.genericNotFound.title');
         expect(error.i18n.description).toBe('errorMessage.genericNotFound.description');
-      });
-
-      describe('when error has no message, but does have a translated title', () => {
-        const errorOrCode = 'genericNotFound';
-
-        it('sets message to same as title', () => {
-          const $fetchState = { pending: true };
-
-          const { error } = triggerHandleError(errorOrCode, {}, { $fetchState, $i18n });
-
-          expect(error.message).toBe('errorMessage.genericNotFound.title');
-        });
       });
     });
   });
