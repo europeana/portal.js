@@ -218,7 +218,7 @@
         const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
         if (paginationError) {
           this.$error('searchPaginationLimitExceeded', {
-            tValues: { title: { limit: this.$options.filters.localise(Number(paginationError[1])) } }
+            tValues: { description: { limit: this.$options.filters.localise(Number(paginationError[1])) } }
           });
         } else {
           this.$error(error);

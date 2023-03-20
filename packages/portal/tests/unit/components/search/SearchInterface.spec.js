@@ -134,7 +134,7 @@ describe('components/search/SearchInterface', () => {
 
         expect(wrapper.vm.$error.calledWith(
           'searchPaginationLimitExceeded',
-          { tValues: { title: { limit: 5000 } } }
+          { tValues: { description: { limit: 5000 } } }
         )).toBe(true);
       });
     });

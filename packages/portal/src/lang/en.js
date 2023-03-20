@@ -243,7 +243,8 @@ export default {
       "title": "Curated collection not found"
     },
     "searchPaginationLimitExceeded": {
-      "title": "It is only possible to view the first {limit} search results."
+      "description": "It is only possible to view the first {limit} search results.",
+      "title": "Page limit exceeded"
     },
     "searchResultsNotFound": {
       "description": "Please adjust the search term or reset the filters to try again.",
