@@ -5,15 +5,14 @@
   >
     <ErrorMessage
       data-qa="error message container"
-      :error="error.message"
-      :status-code="error.statusCode"
+      :error="error"
     />
   </div>
 </template>
 
 <script>
   import pageMetaMixin from '@/mixins/pageMeta';
-  import ErrorMessage from '@/components/generic/ErrorMessage';
+  import ErrorMessage from '@/components/error/ErrorMessage';
 
   export default {
     name: 'ErrorPage',

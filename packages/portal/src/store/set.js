@@ -73,6 +73,7 @@ export default {
         dispatch('fetchLikes');
       } catch (e) {
         dispatch('fetchLikes');
+        throw e;
       }
     },
     async addItem(ctx, { setId, itemId }) {

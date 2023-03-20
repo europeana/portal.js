@@ -16,7 +16,8 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
-      :status-code="$fetchState.error.statusCode"
+      :error="$fetchState.error"
+      :show-message="false"
     />
     <b-container
       v-else
@@ -143,7 +144,6 @@
 </template>
 
 <script>
-  import createHttpError from 'http-errors';
   import ContentHeader from '@/components/generic/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -161,7 +161,7 @@
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SetCardGroup: () => import('@/components/set/SetCardGroup'),
       SmartLink: () => import('@/components/generic/SmartLink'),
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       LoadingSpinner
     },
 
@@ -198,16 +198,10 @@
           this.primaryImageOfPage = theme.primaryImageOfPage;
           this.hasPartCollection = theme.hasPartCollection;
         } else {
-          if (process.server) {
-            this.$nuxt.context.res.statusCode = 404;
-          }
-          throw createHttpError(404, this.$t('messages.notFound'));
+          this.$error(404, { scope: 'page' });
         }
       } catch (error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = error.statusCode || 500;
-        }
-        throw error;
+        this.$error(error, { scope: 'page' });
       }
     },
 
