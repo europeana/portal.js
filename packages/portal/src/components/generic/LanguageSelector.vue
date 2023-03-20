@@ -10,7 +10,7 @@
     <b-dropdown-item
       v-for="locale in availableLocales"
       :key="locale.code"
-      :href="handledLocalePath(locale.code)"
+      :href="localeHref(locale.code)"
       :data-qa="`${locale.name} language option`"
     >
       {{ locale.name }}
@@ -28,23 +28,30 @@
 
     head() {
       return {
+        // TODO: remove this? nuxt-i18n sets lang attribute to full ISO locale,
+        //       e.g. en-GB w/o this
         htmlAttrs: {
           lang: this.$i18n.locale
         }
       };
     },
+
     computed: {
       removePaginationAtLanguageSwitch() {
-        return ['galleries', 'stories'].some((routeNameBase) =>  $nuxt.$route.name.startsWith(routeNameBase));
+        return ['galleries', 'stories'].some((routeNameBase) => {
+          return this.$route.name === `${routeNameBase}___${this.$i18n.locale}`;
+        });
       }
     },
+
     methods: {
-      handledLocalePath(code) {
-        const path = this.switchLocalePath(code);
+      localeHref(code) {
+        const route = { ...this.$route, query: { ...this.$route.query } };
+        delete route.name;
         if (this.removePaginationAtLanguageSwitch) {
-          return path.replace(/(\?|&)page=\d+/, '');
+          delete route.query.page;
         }
-        return this.switchLocalePath(code);
+        return this.localePath(route, code);
       }
     }
   };
