@@ -141,6 +141,22 @@ describe('pages/collections/_type/_', () => {
         expect(wrapper.vm.$error.calledWith(apiError)).toBe(true);
       });
     });
+
+    describe('when user is entities editor', () => {
+      it('finds and stores the collection\'s pinned items', async() => {
+        const setId = 'http://data.europeana.eu/set/123';
+        const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
+        const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
+        sinon.stub(wrapper.vm, 'findEntityBestItemsSet').resolves(setId);
+        sinon.stub(wrapper.vm, 'fetchEntityBestItemsSetPinnedItems');
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.findEntityBestItemsSet.calledWith(topicEntity.entity.id)).toBe(true);
+        expect(wrapper.vm.$store.commit.calledWith('entity/setBestItemsSetId', setId)).toBe(true);
+        expect(wrapper.vm.fetchEntityBestItemsSetPinnedItems.calledWith(setId)).toBe(true);
+      });
+    });
   });
 
   describe('beforeRouteLeave', () => {
