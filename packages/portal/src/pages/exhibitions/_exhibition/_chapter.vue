@@ -99,8 +99,7 @@
             class="col-lg-8"
           >
             <ThemeBadges
-              :themes="themes"
-              class="related-container"
+              :themes-identifiers="themes"
             />
           </b-col>
         </b-row>

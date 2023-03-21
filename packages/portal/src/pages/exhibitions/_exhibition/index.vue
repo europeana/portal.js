@@ -86,8 +86,7 @@
             class="col-lg-8"
           >
             <ThemeBadges
-              :themes="genre"
-              class="related-container"
+              :themes-identifiers="genre"
             />
           </b-col>
         </b-row>

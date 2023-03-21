@@ -95,6 +95,10 @@ module.exports = async() => {
           {
             name: 'Set',
             components: '../portal/src/components/set/[A-Z]*.vue'
+          },
+          {
+            name: 'Theme',
+            components: '../portal/src/components/theme/[A-Z]*.vue'
           }
         ]
       }

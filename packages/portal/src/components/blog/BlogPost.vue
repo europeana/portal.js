@@ -63,7 +63,8 @@
               class="related-container"
             />
             <ThemeBadges
-              :themes="themes"
+              v-if="themes && themes.length"
+              :themes-identifiers="themes"
               class="related-container"
             />
           </client-only>
