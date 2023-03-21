@@ -61,8 +61,9 @@ export default {
 
     async pinItemToEntityBestItemsSet(itemId, entityBestItemsSetId, entityPrefLabel) {
       await this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
-      if (this.$store.state.entity.pinned && this.$store.state.entity.pinned >= 24) {
-        this.$bvModal.show(`pinned-limit-modal-${this.identifier}`);
+      if (this.$store.state.entity.pinned && (this.$store.state.entity.pinned.length >= 24)) {
+        // TODO: why aren't we using makeToast here?
+        this.$bvModal.show(`pinned-limit-modal-${itemId}`);
         return;
       }
       await this.$apis.set.modifyItems('add', entityBestItemsSetId, itemId, true);
@@ -70,13 +71,8 @@ export default {
     },
 
     async unpinItemFromEntityBestItemsSet(itemId, entityBestItemsSetId) {
-      try {
-        await this.$apis.set.modifyItems('delete', entityBestItemsSetId, itemId);
-        this.makeToast(this.$t('entity.notifications.unpinned'));
-      } catch (error) {
-        this.makeToast(this.$t('entity.notifications.error.unpin'));
-        throw error;
-      }
+      await this.$apis.set.modifyItems('delete', entityBestItemsSetId, itemId);
+      this.makeToast(this.$t('entity.notifications.unpinned'));
     }
   }
 };

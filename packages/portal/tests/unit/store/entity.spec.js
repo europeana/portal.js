@@ -53,6 +53,13 @@ describe('store/entity', () => {
         expect(state.editable).toEqual(true);
       });
     });
+    describe('setBestItemsSetId', () => {
+      it('sets nest items set ID state', () => {
+        const state = {};
+        store.mutations.setBestItemsSetId(state, '/1');
+        expect(state.bestItemsSetId).toEqual('/1');
+      });
+    });
   });
 
   describe('getters', () => {
