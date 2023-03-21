@@ -28,6 +28,9 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
       },
       thumbnail: {
         edmPreview: sinon.stub().returnsArg(0)
+      },
+      set: {
+        search: sinon.stub()
       }
     },
     $contentful: {
@@ -163,7 +166,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       });
     });
 
-    describe('when section is from Contentful', () => {
+    describe('when the section is from Contentful', () => {
       const propsData = { sectionType: FEATURED_THEMES };
       const contentfulResponse = {
         data: {
@@ -187,6 +190,68 @@ describe('components/browse/AutomatedCardGroup', () => {
 
         expect(wrapper.vm.$contentful.query.calledWith('themes', { locale: 'en-GB', preview: false })).toBe(true);
         expect(wrapper.vm.entries).toEqual(contentfulResponse.data.data.themePageCollection.items);
+      });
+    });
+
+    describe('when the section is from the set API', () => {
+      const propsData = { sectionType: LATEST_GALLERIES };
+      const setResponse = {
+        data: {
+          items: [
+            {
+              title: { en: 'gallery I' },
+              items: [
+                {
+                  identifier: 'item ID'
+                }
+              ]
+            },
+            {
+              title: { en: 'gallery II' },
+              items: [
+                {
+                  identifier: 'item ID'
+                }
+              ]
+            },
+            {
+              title: { en: 'gallery III' },
+              items: [
+                {
+                  identifier: 'item ID'
+                }
+              ]
+            },
+            {
+              title: { en: 'gallery IV' },
+              items: [
+                {
+                  identifier: 'item ID'
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      it('fetches from the set API with "withMinimalItemPreviews" and stores response items in entries', async() => {
+        const wrapper = factory(propsData);
+        wrapper.vm.$apis.set.search.resolves(setResponse);
+
+        await wrapper.vm.fetch();
+
+
+        console.log(wrapper.vm.$apis.set.search.getCall(0));
+        expect(wrapper.vm.$apis.set.search.calledWith(
+          {
+            query: 'visibility:published',
+            pageSize: 4,
+            profile: 'standard',
+            qf: 'lang:en'
+          },
+          { withMinimalItemPreviews: sinon.match.truthy }
+        )).toBe(true);
+        expect(wrapper.vm.entries).toEqual(setResponse.data.items);
       });
     });
   });
