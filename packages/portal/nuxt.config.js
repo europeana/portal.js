@@ -66,15 +66,6 @@ export default {
       // private network hostnames are replaced with the public equivalent.
       rewriteOrigins: publicPrivateRewriteOrigins()
     },
-    contentful: {
-      spaceId: process.env.CTF_SPACE_ID,
-      environmentId: process.env.CTF_ENVIRONMENT_ID,
-      accessToken: {
-        delivery: process.env.CTF_CDA_ACCESS_TOKEN,
-        preview: process.env.CTF_CPA_ACCESS_TOKEN
-      },
-      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN
-    },
     elastic: {
       apm: {
         // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
@@ -133,7 +124,13 @@ export default {
 
   privateRuntimeConfig: {
     contentful: {
-      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
+      spaceId: process.env.CTF_SPACE_ID,
+      environmentId: process.env.CTF_ENVIRONMENT_ID,
+      accessToken: {
+        delivery: process.env.CTF_CDA_ACCESS_TOKEN,
+        preview: process.env.CTF_CPA_ACCESS_TOKEN
+      },
+      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE || process.env.CTF_GRAPHQL_ORIGIN
     },
     europeana: {
       apis: europeanaApisRuntimeConfig({ scope: 'private' })
@@ -259,6 +256,7 @@ export default {
     '~/plugins/hotjar.client',
     '~/plugins/error',
     '~/plugins/link',
+    '~/plugins/contentful',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
@@ -269,7 +267,6 @@ export default {
   ],
 
   buildModules: [
-    '~/modules/contentful',
     '~/modules/axios-logger',
     '~/modules/http',
     '~/modules/query-sanitiser',
