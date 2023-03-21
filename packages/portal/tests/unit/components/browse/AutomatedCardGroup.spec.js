@@ -240,8 +240,6 @@ describe('components/browse/AutomatedCardGroup', () => {
 
         await wrapper.vm.fetch();
 
-
-        console.log(wrapper.vm.$apis.set.search.getCall(0));
         expect(wrapper.vm.$apis.set.search.calledWith(
           {
             query: 'visibility:published',
