@@ -9,6 +9,7 @@ query ExhibitionCreditsPage(
       identifier
       credits
       relatedLink
+      genre
       hasPartCollection(limit: 20) {
         items {
           identifier

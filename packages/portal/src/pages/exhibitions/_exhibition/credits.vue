@@ -71,6 +71,20 @@
             />
           </b-col>
         </b-row>
+        <b-row
+          v-if="genre"
+          class="related-container justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <ThemeBadges
+              :themes="genre"
+              class="related-container"
+            />
+          </b-col>
+        </b-row>
       </client-only>
     </b-container>
   </div>
@@ -89,7 +103,8 @@
       ShareButton,
       SocialShareModal,
       LinkList: () => import('../../../components/generic/LinkList'),
-      EntityBadges: () => import('@/components/entity/EntityBadges')
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      ThemeBadges: () => import('@/components/theme/ThemeBadges')
     },
     mixins: [
       exhibitionChapters,

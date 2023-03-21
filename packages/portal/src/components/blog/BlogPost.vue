@@ -62,6 +62,10 @@
               :entity-uris="relatedLink"
               class="related-container"
             />
+            <ThemeBadges
+              :themes="themes"
+              class="related-container"
+            />
           </client-only>
         </b-col>
       </b-row>
@@ -86,7 +90,8 @@
       SocialShareModal,
       ShareButton,
       BrowseSections,
-      EntityBadges: () => import('@/components/entity/EntityBadges')
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      ThemeBadges: () => import('@/components/theme/ThemeBadges')
     },
 
     props: {
@@ -131,6 +136,11 @@
       },
 
       relatedLink: {
+        type: Array,
+        default: () => []
+      },
+
+      themes: {
         type: Array,
         default: () => []
       }
