@@ -163,7 +163,8 @@
         identifier: null,
         credits: '',
         relatedLink: null,
-        hasPartCollection: null
+        hasPartCollection: null,
+        genre: null
       };
     },
 

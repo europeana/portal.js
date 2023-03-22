@@ -16,7 +16,7 @@
         :key="relatedTheme.identifier"
         ref="options"
         :link-to="relatedTheme.url"
-        :title="relatedTheme.prefLabel"
+        :title="relatedTheme.prefLabel || ''"
         :img="imageUrl(relatedTheme, 28, 28)"
         :image-src-set="imageSrcSet(relatedTheme)"
       />

@@ -91,7 +91,7 @@
           </b-col>
         </b-row>
         <b-row
-          v-if="themes"
+          v-if="genre"
           class="related-container justify-content-center"
         >
           <b-col
@@ -99,7 +99,7 @@
             class="col-lg-8"
           >
             <ThemeBadges
-              :themes-identifiers="themes"
+              :themes-identifiers="genre"
             />
           </b-col>
         </b-row>
@@ -188,7 +188,7 @@
             exhibitionTitle: exhibition.name,
             exhibitionContentWarning: exhibition.contentWarning,
             relatedLink: exhibition.relatedLink,
-            themes: exhibition.genre,
+            genre: exhibition.genre,
             page: chapter
           };
         })
