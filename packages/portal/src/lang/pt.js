@@ -71,6 +71,7 @@ export default {
     "item": "Itens recentes",
     "organisation": "Organizações",
     "place": "Lugares",
+    "theme": "Temas",
     "time": "Séculos em destaque",
     "topic": "Tópicos em destaque"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Por favor ajustar o termo de pesquisa ou reiniciar os filtros para tentar novamente.",
       "title": "Não conseguimos encontrar o que está a procurar."
+    },
+    "setLocked": {
+      "description": "A edição está temporariamente desativada e as suas alterações não foram salvas. Por favor, tente novamente mais tarde.",
+      "title": "Atualização falhou"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Fechar",
     "readMore": "Ler mais",
     "text": {
-      "searchFilters": "Agora você pode pesquisar valores nos filtros individuais; Confira!"
+      "themes": "Explore o património cultural europeu através de temas, desde a arqueologia à I Guerra Mundial. As nossas novas páginas temáticas oferecem uma visão multidimensional de cada tema através de temas relacionados, pessoas, histórias e artigos."
     }
   },
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "De",
   "organisation": {
     "city": "Cidade",
@@ -1018,6 +1026,9 @@ export default {
       "edit": "Editar galeria",
       "update": "Atualizar galeria"
     },
+    "entityBestBets": {
+      "title": "{entity} Página"
+    },
     "form": {
       "description": "Descrição da galeria",
       "private": "Manter a galeria privada",
@@ -1076,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Histórias"
+  },
+  "themes": {
+    "description": "Navegar por tema",
+    "themes": "Temas"
   },
   "website": "Sítio Web"
 };

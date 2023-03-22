@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import { requiresDashJS } from '../../plugins/media';
+  import WebResource from '@/plugins/europeana/web-resource';
 
   export default {
     name: 'MediaPage',
@@ -49,10 +49,10 @@
 
     computed: {
       manifest() {
-        return `${this.$config.europeana.apis.iiifPresentation.media.url}${this.id}/manifest?format=3`;
+        return `${this.$config.europeana.apis.iiifPresentation.url}${this.id}/manifest?format=3`;
       },
       dashRequired() {
-        return requiresDashJS(this.mediaType);
+        return new WebResource({ ebucoreHasMimeType: this.mediaType }).requiresDashJS;
       }
     },
 

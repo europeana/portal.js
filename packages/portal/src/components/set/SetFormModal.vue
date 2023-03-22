@@ -18,7 +18,7 @@
             id="set-title"
             v-model="titleValue"
             type="text"
-            maxlength="35"
+            maxlength="100"
             :required="!hasTitleInSomeLanguage"
             aria-describedby="input-live-help"
           />
@@ -91,7 +91,7 @@
       :set-id="setId"
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
-      @cancel="cancelDelete"
+      @cancel="show"
     />
   </div>
 </template>
@@ -235,7 +235,7 @@
         this.isPrivate = this.visibility === EUROPEANA_SET_VISIBILITY_PRIVATE;
       },
 
-      // TODO: error handling
+      // TODO: error handling other statuses
       submitForm() {
         if (this.submissionPending) {
           return Promise.resolve();
@@ -250,6 +250,8 @@
             this.hide(this.isNew ? 'create' : 'update');
           }).then(() => {
             this.submissionPending = false;
+          }).catch((e) => {
+            this.$error(e, { scope: 'gallery' });
           });
       },
 
@@ -265,10 +267,6 @@
       clickDelete() {
         this.$bvModal.hide(this.modalId);
         this.$bvModal.show(this.deleteSetModalId);
-      },
-
-      cancelDelete() {
-        this.show();
       }
     }
   };

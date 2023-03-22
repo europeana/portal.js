@@ -1,4 +1,4 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
 import ItemHero from '@/components/item/ItemHero.vue';
@@ -10,7 +10,7 @@ const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 
-const factory = (propsData, options = {}) => mount(ItemHero, {
+const factory = (propsData, options = {}) => shallowMount(ItemHero, {
   localVue,
   propsData,
   mocks: {

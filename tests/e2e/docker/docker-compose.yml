@@ -28,7 +28,7 @@ services:
       - ENABLE_TRANSLATED_ITEMS=1
       - EUROPEANA_ANNOTATION_API_URL=https://nginx/api/annotation
       - EUROPEANA_ENTITY_API_URL=https://nginx/api/entity
-      - EUROPEANA_RECORD_API_FULLTEXT_URL=https://nginx/api/newspapers/api/v2
+      - EUROPEANA_FULLTEXT_API_URL=https://nginx/api/newspapers/api/v2
       - EUROPEANA_RECOMMENDATION_API_URL=https://nginx/api/recommendation
       - EUROPEANA_RECORD_API_URL=https://nginx/api/record
       - EUROPEANA_SET_API_URL=https://nginx/api/set
@@ -45,6 +45,8 @@ services:
     image: selenium/standalone-chrome:88.0
     healthcheck:
       test: curl -fs http://localhost:4444 || exit 1
+      interval: 5s
+      timeout: 2s
     environment:
       - DBUS_SESSION_BUS_ADDRESS=/dev/null
       - LANG=en_GB.UTF-8
@@ -55,6 +57,8 @@ services:
     image: selenium/standalone-chrome:88.0
     healthcheck:
       test: curl -fs http://localhost:4444 || exit 1
+      interval: 5s
+      timeout: 2s
     environment:
       - DBUS_SESSION_BUS_ADDRESS=/dev/null
       - LANG=ja_JP.UTF-8
@@ -65,6 +69,8 @@ services:
     image: selenium/standalone-chrome:88.0
     healthcheck:
       test: curl -fs http://localhost:4444 || exit 1
+      interval: 5s
+      timeout: 2s
     environment:
       - DBUS_SESSION_BUS_ADDRESS=/dev/null
       - LANG=nl_NL.UTF-8

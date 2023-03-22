@@ -89,6 +89,10 @@
     background-repeat: no-repeat;
     position: relative;
 
+    @media (min-width: $bp-xxl) {
+      padding-top: 12rem;
+    }
+
     @media (min-width: $bp-xxxl) {
       margin-top: -4.375vw;
     }
@@ -129,9 +133,9 @@
     }
 
     h1 {
-      font-size: 2.125rem;
-      font-weight: 900;
-      margin-bottom: 1em;
+      font-size: $font-size-largest;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
 
       .digital-highlight {
         text-shadow: 3.5px 3.5px 0 $blue;

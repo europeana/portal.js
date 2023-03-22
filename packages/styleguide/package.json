@@ -1,6 +1,6 @@
 {
   "name": "@europeana/styleguide",
-  "version": "1.98.0",
+  "version": "1.104.1",
   "description": "Europeana styleguide",
   "private": true,
   "scripts": {
@@ -8,11 +8,9 @@
     "start": "vue-styleguidist server --config ./styleguide.config.cjs"
   },
   "devDependencies": {
-    "@europeana/portal": "^1.98.0",
-    "vue": "2.6.14",
-    "vue-server-renderer": "2.6.14",
-    "vue-styleguidist": "4.48.0",
-    "vue-template-compiler": "2.6.14"
+    "@europeana/portal": "^1.104.1",
+    "vue": "^2.7.10",
+    "vue-styleguidist": "4.58.0"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",

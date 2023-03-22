@@ -71,6 +71,7 @@ export default {
     "item": "Senaste objekt",
     "organisation": "Organisationer",
     "place": "Platser",
+    "theme": "Teman",
     "time": "Utvalda århundraden",
     "topic": "Utvalda ämnen"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Justera söktermen eller återställ filtren för att försöka igen.",
       "title": "Vi verkar inte kunna hitta det du letar efter."
+    },
+    "setLocked": {
+      "description": "Redigering är tillfälligt inaktiverad och dina ändringar har inte sparats. Vänligen försök igen senare.",
+      "title": "Uppdateringen misslyckades"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Stäng",
     "readMore": "Läs mer",
     "text": {
-      "searchFilters": "Du kan nu söka efter värden i de enskilda filtren; Kolla in det!"
+      "themes": "Utforska det europeiska kulturarvet genom teman, från arkeologi till första världskriget. Våra nya temasidor erbjuder en flerdimensionell bild av varje tema via relaterade ämnen, människor, berättelser och föremål."
     }
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "Av",
   "organisation": {
     "city": "Stad",
@@ -1018,6 +1026,9 @@ export default {
       "edit": "Redigera galleri",
       "update": "Uppdatera galleri"
     },
+    "entityBestBets": {
+      "title": "{entity} Sida"
+    },
     "form": {
       "description": "Beskrivning av galleri",
       "private": "Detta är ett privat galleri",
@@ -1076,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Berättelser"
+  },
+  "themes": {
+    "description": "Bläddra efter tema",
+    "themes": "Teman"
   },
   "website": "Webbplats"
 };

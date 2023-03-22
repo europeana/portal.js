@@ -1,11 +1,7 @@
 <template>
   <b-container
     data-qa="search interface"
-    class="page-container side-filters-enabled"
-    :class="{
-      'white-page': noResultsFound,
-      'pt-5': noResultsFound
-    }"
+    class="white-page pt-5 page-container side-filters-enabled"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -33,8 +29,7 @@
                 :total-results="totalResults"
                 :entity="$store.state.entity.entity"
                 :query="query"
-                :editorial-overrides="editorialOverrides"
-                :badge-variant="noResultsFound ? 'primary-light' : 'light'"
+                badge-variant="primary-light"
               />
               <ViewToggles
                 v-model="view"
@@ -65,12 +60,10 @@
                     <b-col>
                       <ErrorMessage
                         v-if="$fetchState.error"
-                        :title-path="$fetchState.error.titlePath"
-                        :description-path="$fetchState.error.descriptionPath"
-                        :illustration-src="$fetchState.error.illustrationSrc"
+                        :error="$fetchState.error"
                         :gridless="false"
                         :full-height="false"
-                        :error="!noResultsFound ? errorMessage : null"
+                        :show-message="showErrorMessage"
                       />
                       <template
                         v-else
@@ -160,13 +153,11 @@
 
   import merge from 'deepmerge';
 
-  const NO_RESULTS_FOUND = 'no results found';
-
   export default {
     name: 'SearchInterface',
 
     components: {
-      ErrorMessage: () => import('../generic/ErrorMessage'),
+      ErrorMessage: () => import('../error/ErrorMessage'),
       SearchBoostingForm: () => import('./SearchBoostingForm'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
@@ -193,10 +184,6 @@
       showPins: {
         type: Boolean,
         default: false
-      },
-      editorialOverrides: {
-        type: Object,
-        default: null
       },
       overrideParams: {
         type: Object,
@@ -229,19 +216,22 @@
       try {
         await this.runSearch();
       } catch (error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
+        if (paginationError) {
+          error.code = 'searchPaginationLimitExceeded';
+          error.message = 'Pagination limit exceeded';
+          this.$error(error, {
+            tValues: { description: { limit: this.$options.filters.localise(Number(paginationError[1])) } }
+          });
+        } else {
+          this.$error(error);
         }
-        throw error;
       }
 
       if (this.noResults) {
-        const error = new Error();
-        error.titlePath = 'errorMessage.searchResultsNotFound.title';
-        error.descriptionPath = 'errorMessage.searchResultsNotFound.description';
-        error.illustrationSrc = require('@/assets/img/illustrations/il-search-results-not-found.svg');
-        error.message = NO_RESULTS_FOUND;
-        throw error;
+        const error = new Error('No search results');
+        error.code = 'searchResultsNotFound';
+        this.$error(error);
       }
     },
 
@@ -268,19 +258,6 @@
         // This is a workaround
         return Number(this.$route.query.page || 1);
       },
-      errorMessage() {
-        if (!this.$fetchState.error?.message) {
-          return null;
-        }
-
-        const paginationError = this.$fetchState.error.message.match(/It is not possible to paginate beyond the first (\d+)/);
-        if (paginationError !== null) {
-          const localisedPaginationLimit = this.$options.filters.localise(Number(paginationError[1]));
-          return this.$t('messages.paginationLimitExceeded', { limit: localisedPaginationLimit });
-        }
-
-        return this.$fetchState.error.message;
-      },
       hasAnyResults() {
         return this.totalResults > 0;
       },
@@ -290,11 +267,12 @@
       noResults() {
         return this.totalResults === 0 || !this.totalResults;
       },
-      noResultsFound() {
-        return this.$fetchState?.error?.message === NO_RESULTS_FOUND;
-      },
       debugSettings() {
         return this.$store.getters['debug/settings'];
+      },
+      showErrorMessage() {
+        return !this.$fetchState.error?.code ||
+          !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
       },
       showSearchBoostingForm() {
         return !!this.debugSettings?.boosting;
@@ -342,7 +320,7 @@
 
         const collectionFilter = filtersFromQf(apiParams.qf).collection;
         this.collection = collectionFilter ? collectionFilter[0] : null;
-        this.theme = themes.find(theme => theme.qf === this.collection);
+        this.theme = themes.find((theme) => theme.qf === this.collection);
 
         const apiOptions = {};
 
@@ -353,7 +331,7 @@
           }
           if (apiParams.api === 'fulltext') {
             apiParams.profile = 'minimal,hits';
-            apiOptions.url = this.$config.europeana.apis.record.fulltextUrl;
+            apiOptions.url = this.$config.europeana.apis.fulltext.url;
           }
         }
 
@@ -415,7 +393,20 @@
 </script>
 
 <style lang="scss" scoped>
-  .col-results {
-    min-width: 0;
+@import '@/assets/scss/variables';
+
+.col-results {
+  min-width: 0;
+
+  @media (min-width: $bp-xxxl) {
+    padding-right: 4rem;
+    padding-left: 4rem;
   }
+}
+
+.mb-3 {
+  @media (min-width: $bp-4k) {
+    margin-bottom: 2rem !important;
+  }
+}
 </style>

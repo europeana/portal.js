@@ -22,6 +22,13 @@
       id="default"
       role="main"
     >
+      <client-only
+        v-if="!!notificationBanner"
+      >
+        <NotificationBanner
+          :notification-text="$t(`notificationBanner.text.${notificationBanner}`)"
+        />
+      </client-only>
       <b-breadcrumb
         v-if="breadcrumbs"
         :items="breadcrumbs"
@@ -51,6 +58,7 @@
       class="b-toaster-bottom-left-dynamic"
       :style="{'--bottom': toastBottomOffset }"
     />
+    <ErrorModal />
     <client-only>
       <PageCookieConsent
         v-if="cookieConsentRequired"
@@ -63,6 +71,7 @@
   import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+  import ErrorModal from '../components/error/ErrorModal';
   import makeToastMixin from '@/mixins/makeToast';
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import versions from '../../pkg-versions';
@@ -78,7 +87,9 @@
       PageCookieConsent: () => import('../components/PageCookieConsent'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification')
+      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification'),
+      NotificationBanner: () => import('@/components/generic/NotificationBanner'),
+      ErrorModal
     },
 
     mixins: [
@@ -94,7 +105,8 @@
         cookieConsentRequired: false,
         toastBottomOffset: '20px',
         featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
-        featureNotificationExpiration: this.$config.app.featureNotificationExpiration
+        featureNotificationExpiration: this.$config.app.featureNotificationExpiration,
+        notificationBanner: this.$config?.app?.notificationBanner
       };
     },
 
@@ -190,7 +202,10 @@
 
           this.klaro.render(config, true);
           manager.watch({ update: this.watchKlaroManagerUpdate });
-          this.setToastBottomOffset();
+
+          setTimeout(() => {
+            this.setToastBottomOffset();
+          }, 100);
         }
       },
 
@@ -223,3 +238,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep .notification-banner.d-flex ~ .home {
+    margin-top: -9.2rem;
+  }
+</style>

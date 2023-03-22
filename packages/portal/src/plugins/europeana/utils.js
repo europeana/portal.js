@@ -4,7 +4,7 @@ import qs from 'qs';
 import locales from '../i18n/locales.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
-export const createAxios = ({ id, baseURL, $axios }, context) => {
+export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
   const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
 
   const axiosInstance = ($axios || axios).create(axiosOptions);
@@ -62,25 +62,25 @@ const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
   };
 };
 
-// TODO: extend to be more verbose in development environments, e.g. with stack trace
-export function apiError(error, context) {
-  if (context?.$apm?.captureError) {
-    context?.$apm.captureError(error);
-  }
+export function apiError(error) {
+  error.isEuropeanaApiError = true;
+  error.statusCode = 500;
 
-  let statusCode = 500;
-  let message = error.message;
-
-  if (error.response) {
-    statusCode = error.response.status;
-    if (error.response.headers?.['content-type']?.startsWith('application/json') && error.response.data?.error) {
-      message = error.response.data.error;
+  if (error.isAxiosError) {
+    if (error.response) {
+      error.statusCode = error.response.status;
+      if (error.response.headers?.['content-type']?.startsWith('application/json') && error.response.data?.error) {
+        error.message = error.response.data.error;
+      }
     }
+    // Too much information to pass around, dispose of it
+    delete error.response;
+    delete error.config;
+    delete error.request;
+    delete error.toJSON;
   }
 
-  const apiError = new Error(message);
-  apiError.statusCode = statusCode;
-  return apiError;
+  return error;
 }
 
 const undefinedLocaleCodes = ['def', 'und'];
@@ -312,10 +312,6 @@ function filterEntities(mappedObject) {
   mappedObject.values = mappedObject.values.filter(v => !isEntity(v));
 }
 
-export function apiUrlFromRequestHeaders(api, headers) {
-  return headers[`x-europeana-${api}-api-url`];
-}
-
 /**
  * Escapes Lucene syntax special characters
  * For instance, so that a string may be used in a Record API search query.
@@ -339,7 +335,7 @@ export function unescapeLuceneSpecials(escaped) {
 }
 
 export const isLangMap = (value) => {
-  return (typeof value === 'object') && Object.keys(value).every(key => {
+  return (typeof value === 'object') && (value.constructor.name === Object.name) && Object.keys(value).every(key => {
     // TODO: is this good enough to determine lang map or not?
     return key === 'translationSource' || /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
   });
@@ -355,7 +351,9 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
   if (Array.isArray(value)) {
     return value.map(val => reduceLangMapsForLocale(val, locale, options));
   } else if (typeof value === 'object') {
-    if (isLangMap(value)) {
+    if (Object.isFrozen(value)) {
+      return value;
+    } else if (isLangMap(value)) {
       const selectedLocale = selectLocaleForLangMap(value, locale);
       const langMap = {
         [selectedLocale]: value[selectedLocale]
@@ -371,12 +369,28 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
       }
       return options.freeze ? Object.freeze(langMap) : langMap;
     } else {
-      return Object.keys(value).reduce((memo, key) => {
-        memo[key] = reduceLangMapsForLocale(value[key], locale, options);
-        return memo;
-      }, {});
+      for (const key in value) {
+        value[key] = reduceLangMapsForLocale(value[key], locale, options);
+      }
+      return value;
     }
   } else {
     return value;
   }
+};
+
+export const dailyOffset = (setSize, subsetSize) => {
+  const millisecondsPerDay = (1000 * 60 * 60 * 24);
+  const unixDay = Math.floor(Date.now() / millisecondsPerDay);
+  const offset = (unixDay * subsetSize) % setSize;
+  return (offset + subsetSize <= setSize) ? offset : (setSize - subsetSize);
+};
+
+export const daily = (set, subsetSize) => {
+  if (!Array.isArray(set)) {
+    return set;
+  }
+
+  const offset = dailyOffset(set.length, subsetSize);
+  return set.slice(offset, offset + subsetSize);
 };

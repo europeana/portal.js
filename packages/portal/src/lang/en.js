@@ -71,6 +71,7 @@ export default {
     "gallery": "Galleries",
     "organisation": "Organisations",
     "place": "Places",
+    "theme": "Themes",
     "time": "Centuries",
     "topic": "Topics"
   },
@@ -202,9 +203,6 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
-      "error": {
-        "unpin": "There was an error unpinning the item. Please try again, or report the issue."
-      },
       "pin": "This item will show at the top of the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
       "pinLimit": {
         "body": "For now you can only pin 24 items. If you want to pin this item, make sure you unpin another one and try pinning this item again.",
@@ -218,10 +216,22 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Editing is temporarily disabled, and your changes have not been saved. Please try again later.",
+      "title": "Update failed"
+    },
+    "galleryNotFound": {
+      "description": "This gallery could not be found. It may have been deleted.",
+      "title": "Gallery not found"
+    },
     "galleryUnauthorised": {
       "description": "This is not possible because private galleries are only visible to their creator. If you know the creator of the gallery, ask them to make the gallery public. Alternatively, report this issue using the feedback button.",
       "metaTitle": "Gallery unauthorised",
       "title": "Oops! {newline} You are trying to view another person’s private gallery."
+    },
+    "genericUnknownError": {
+      "description": "An unknown error occurred.",
+      "title": "Unknown error"
     },
     "itemNotFound": {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
@@ -231,6 +241,14 @@ export default {
     "pageNotFound": {
       "metaTitle": "Page not found",
       "title": "The page you are looking for doesn't exist."
+    },
+    "pinningNotFound": {
+      "description": "There was an error pinning/unpinning the item. Please try again, or report the issue.",
+      "title": "Curated collection not found"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "It is only possible to view the first {limit} search results.",
+      "title": "Page limit exceeded"
     },
     "searchResultsNotFound": {
       "description": "Please adjust the search term or reset the filters to try again.",
@@ -883,8 +901,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Copied to clipboard",
     "externalContentError": "The external content failed to load",
-    "notFound": "Not Found",
-    "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
+    "notFound": "Not Found"
   },
   "modal": {
     "download": {
@@ -908,14 +925,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Read more",
+    "readMore": "Explore themes",
     "text": {
-      "searchFilters": "You can now search for values in the individual filters; check it out!"
+      "themes": "Explore European cultural heritage through themes, from archaeology to World War I. Our new theme pages offer a multidimensional view of each theme via related topics, people, stories and items."
     }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "notificationBanner": {
+    "text": {}
+  },
   "of": "Of",
   "organisation": {
     "city": "City",
@@ -1045,6 +1065,9 @@ export default {
       "edit": "Edit gallery",
       "update": "Update gallery"
     },
+    "entityBestBets": {
+      "title": "{entity} Page"
+    },
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
@@ -1103,6 +1126,10 @@ export default {
   },
   "storiesPage": {
     "title": "Stories"
+  },
+  "themes": {
+    "themes": "Themes",
+    "description": "Browse by theme"
   },
   "website": "Website"
 };

@@ -71,6 +71,7 @@ export default {
     "item": "Nedávne položky",
     "organisation": "Organizácie",
     "place": "Miesta",
+    "theme": "Témy",
     "time": "Odporúčané storočia",
     "topic": "Odporúčané témy"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Upravte hľadaný výraz alebo restujte filtre a skúste to znova.",
       "title": "Zdá sa, že nemôžeme nájsť to, čo hľadáte."
+    },
+    "setLocked": {
+      "description": "Úpravy sú dočasne zakázané a vaše zmeny sa neuložili. Skúste neskôr prosím.",
+      "title": "Aktualizácia zlyhala"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Zatvoriť",
     "readMore": "Viac",
     "text": {
-      "searchFilters": "Teraz môžete vyhľadávať hodnoty v jednotlivých filtroch; skontrolovať to!"
+      "themes": "Preskúmajte európske kultúrne dedičstvo prostredníctvom tém, od archeológie po prvú svetovú vojnu. Naše nové tematické stránky ponúkajú viacrozmerný pohľad na každú tému prostredníctvom súvisiacich tém, ľudí, príbehov a predmetov."
     }
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+  },
   "of": "Z",
   "organisation": {
     "city": "Mesto",
@@ -1018,6 +1026,9 @@ export default {
       "edit": "Upraviť galériu",
       "update": "Aktualizovať galériu"
     },
+    "entityBestBets": {
+      "title": "{entity} Strana"
+    },
     "form": {
       "description": "Popis galérie",
       "private": "Túto galériu uložiť ako súkromnú",
@@ -1076,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Príbehy"
+  },
+  "themes": {
+    "description": "Prehľadávať podľa témy",
+    "themes": "Témy"
   },
   "website": "Webové stránky"
 };

@@ -5,16 +5,38 @@
   max-width: none;
 
   @media (min-width: $bp-large) {
-    padding-right: 4em;
-    padding-left: 4em;
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+
+  @media (min-width: $bp-xxl) {
+    padding-right: 6rem;
+    padding-left: 6rem;
+  }
+
+  @media (min-width: $bp-xxxl) {
+    padding-right: 6vw;
+    padding-left: 6vw;
+  }
+
+  .masonry-container {
+    @media (min-width: $bp-xxxl) {
+      margin-left: -0.5 * $responsive-masonry-gutter;
+      margin-right: -0.5 * $responsive-masonry-gutter;
+      width: calc(100% + $responsive-masonry-gutter);
+    }
+
+    .masonry-tile {  
+      @media (min-width: $bp-xxxl) {
+        margin-left: 0.5 * $responsive-masonry-gutter;
+        margin-right: 0.5 * $responsive-masonry-gutter;
+        width: calc(100% / 4 - $responsive-masonry-gutter);
+      }
+    }
   }
 }
 
 .gridless-browse-cards {
-  .card {
-    box-shadow: 0 1px 10px 0 rgb(0 0 0 / 25%);
-  }
-
   &.card-deck-4-cols {
     @media (min-width: $bp-xxxl) {
       margin-left: -1em;
@@ -48,9 +70,18 @@
     min-height: 0;
 
     @media (min-width: $bp-xxxl) {
-      .card-img {
+      &.default-card .card-img {
         min-height: 20em;
         max-height: 20em;
+      }
+
+      &.mini-card .card-img {
+        height: 5vw;
+        width: 5vw;
+
+        img {
+          height: 5vw;
+        }
       }
     }
   }

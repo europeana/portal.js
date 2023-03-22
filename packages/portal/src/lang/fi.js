@@ -71,6 +71,7 @@ export default {
     "item": "Viimeisimmät kohdetta",
     "organisation": "Organisaatiot",
     "place": "Paikat",
+    "theme": "Teemat",
     "time": "Esillä vuosisatoja",
     "topic": "Esillä olevat aiheet"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Muokkaa hakusanaa tai nollaa suodattimet ja yritä uudelleen.",
       "title": "Emme näytä löytävän etsimääsi."
+    },
+    "setLocked": {
+      "description": "Muokkaus on tilapäisesti poistettu käytöstä, eikä muutoksiasi ole tallennettu. Yritä uudelleen myöhemmin.",
+      "title": "Päivitys epäonnistui"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Sulje",
     "readMore": "Lue lisää",
     "text": {
-      "searchFilters": "Voit nyt etsiä arvoja yksittäisistä suodattimista; Tarkista se!"
+      "themes": "Tutustu eurooppalaiseen kulttuuriperintöön teemojen kautta arkeologiasta ensimmäiseen maailmansotaan. Uudet teemasivumme tarjoavat moniulotteisen näkymän jokaisesta teemasta toisiinsa liittyvien aiheiden, ihmisten, tarinoiden ja esineiden kautta."
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "of",
   "organisation": {
     "city": "Kaupunki",
@@ -1018,6 +1026,9 @@ export default {
       "edit": "Muokkaa galleriaa",
       "update": "Päivitä galleria"
     },
+    "entityBestBets": {
+      "title": "{entity} Sivu"
+    },
     "form": {
       "description": "Gallerian kuvaus",
       "private": "Pidä tämä galleria yksityisenä",
@@ -1076,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Tarinoita"
+  },
+  "themes": {
+    "description": "Selaa teemoittain",
+    "themes": "Teemat"
   },
   "website": "Verkkosivusto"
 };

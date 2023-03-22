@@ -71,6 +71,7 @@ export default {
     "item": "Míreanna le déanaí",
     "organisation": "Eagraíochtaí",
     "place": "Áiteanna",
+    "theme": "Téamaí",
     "time": "Na hAois réadmhaoin",
     "topic": "Topaicí réadmhaoine"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Athraigh an téarma cuardaigh nó athshocraigh na scagairí chun triail eile a bhaint as.",
       "title": "Is cosúil nach féidir linn teacht ar a bhfuil á lorg agat."
+    },
+    "setLocked": {
+      "description": "Tá an eagarthóireacht díchumasaithe go sealadach, agus níor sábháladh do chuid athruithe. Bain triail eile as ar ball.",
+      "title": "Theip ar an nuashonrú"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Dún",
     "readMore": "Léigh níos mó",
     "text": {
-      "searchFilters": "Is féidir leat luachanna a chuardach anois sna scagairí aonair; seiceáil amach é!"
+      "themes": "Déan iniúchadh ar oidhreacht chultúrtha na hEorpa trí théamaí, ón tseandálaíocht go dtí an Chéad Chogadh Domhanda. Tugann ár leathanaigh téama nua léargas iltoiseach ar gach téama trí ábhair, daoine, scéalta agus míreanna gaolmhara."
     }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+  },
   "of": "De",
   "organisation": {
     "city": "Cathair",
@@ -1018,6 +1026,9 @@ export default {
       "edit": "Cuir an gailearaí in eagar",
       "update": "Nuashonraigh gailearaí"
     },
+    "entityBestBets": {
+      "title": "{entity} Leathanach"
+    },
     "form": {
       "description": "Tuairisc ar ghailearaí",
       "private": "Coinnigh an gailearaí seo príobháideach",
@@ -1076,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Scéalta"
+  },
+  "themes": {
+    "description": "Brabhsáil de réir téama",
+    "themes": "Téamaí"
   },
   "website": "Suíomh Gréasáin"
 };

@@ -71,6 +71,7 @@ export default {
     "item": "Recente items",
     "organisation": "Organisaties",
     "place": "Plaatsen",
+    "theme": "Thema's",
     "time": "Aanbevolen eeuwen",
     "topic": "Aanbevolen onderwerpen"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Pas de zoekterm aan of reset de filters om het opnieuw te proberen.",
       "title": "We kunnen blijkbaar niet vinden wat u zoekt."
+    },
+    "setLocked": {
+      "description": "Bewerken is tijdelijk uitgeschakeld en uw wijzigingen zijn niet opgeslagen. Probeer het later opnieuw.",
+      "title": "Update mislukt"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Sluiten",
     "readMore": "Lees verder",
     "text": {
-      "searchFilters": "U kunt nu zoeken naar waarden in de afzonderlijke filters; bekijk het hier!"
+      "themes": "Verken het Europese culturele erfgoed met thema's, van archeologie tot de Eerste Wereldoorlog. Onze nieuwe themapagina's bieden een multidimensionaal beeld van elk thema via gerelateerde onderwerpen, mensen, verhalen en voorwerpen."
     }
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "Van",
   "organisation": {
     "city": "Stad",
@@ -1018,6 +1026,9 @@ export default {
       "edit": "Galerij bewerken",
       "update": "Galerij bijwerken"
     },
+    "entityBestBets": {
+      "title": "{entity} Pagina"
+    },
     "form": {
       "description": "Omschrijving van de galerij",
       "private": "Houd deze galerij privé",
@@ -1076,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Verhalen"
+  },
+  "themes": {
+    "description": "Blader op thema",
+    "themes": "Thema's"
   },
   "website": "Website"
 };

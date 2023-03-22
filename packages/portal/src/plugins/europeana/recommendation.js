@@ -1,6 +1,7 @@
-import { apiError, createKeycloakAuthAxios } from './utils';
+import { apiError, createKeycloakAuthAxios } from './utils.js';
 
 export const BASE_URL = 'https://api.europeana.eu/recommend';
+export const AUTHENTICATING = true;
 
 export default (context = {}) => {
   const $axios = createKeycloakAuthAxios(

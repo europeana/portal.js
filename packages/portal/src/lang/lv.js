@@ -71,6 +71,7 @@ export default {
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
     "place": "Vietas",
+    "theme": "Tēmas",
     "time": "Izvēlētie gadsimti",
     "topic": "Izvēlētās tēmas"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Lūdzu, pielāgojiet meklēšanas vienumu vai atiestatiet filtrus, lai mēģinātu vēlreiz.",
       "title": "Šķiet, ka mēs nevaram atrast to, ko meklējat."
+    },
+    "setLocked": {
+      "description": "Rediģēšana ir īslaicīgi atspējota, un jūsu izmaiņas nav saglabātas. Lūdzu, pamēģiniet vēlreiz vēlāk.",
+      "title": "Atjaunināšana neizdevās"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Aizvērt",
     "readMore": "Lasīt vairāk",
     "text": {
-      "searchFilters": "Tagad varat meklēt vērtības atsevišķos filtros; pārbaudiet to!"
+      "themes": "Izpētiet Eiropas kultūras mantojumu, izmantojot tēmas, sākot no arheoloģijas līdz Pirmajam pasaules karam. Mūsu jaunās tēmu lapas piedāvā daudzdimensionālu skatījumu uz katru tēmu, izmantojot saistītās tēmas, cilvēkus, stāstus un priekšmetus."
     }
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "notificationBanner": {
+    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "No",
   "organisation": {
     "city": "Pilsēta",
@@ -1018,6 +1026,9 @@ export default {
       "edit": "Rediģēt galeriju",
       "update": "Atjaunināt galeriju"
     },
+    "entityBestBets": {
+      "title": "{entity} Lapa"
+    },
     "form": {
       "description": "Galerijas apraksts",
       "private": "Saglabāt šo galeriju kā privātu",
@@ -1076,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Stāsti"
+  },
+  "themes": {
+    "description": "Pārlūkojiet pēc tēmas",
+    "themes": "Tēmas"
   },
   "website": "Vietne"
 };

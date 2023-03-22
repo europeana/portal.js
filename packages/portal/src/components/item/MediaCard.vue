@@ -1,15 +1,15 @@
 <template>
   <iframe
-    v-if="isIIIFImage || isIIIFPresentation"
+    v-if="media.isIIIFImage || media.isIIIFPresentation"
     data-qa="IIIF viewer"
     allowfullscreen="true"
     class="iiif-iframe"
-    :src="$path({ name: 'iiif', query: { uri: iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
+    :src="$path({ name: 'iiif', query: { uri: media.iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
     :aria-label="$t('actions.viewDocument')"
     :title="$t('record.IIIFViewer')"
   />
   <MediaCardImage
-    v-else-if="displayImage"
+    v-else-if="!media.isRichMedia"
     :europeana-identifier="europeanaIdentifier"
     :edm-type="edmType"
     :media="media"
@@ -30,7 +30,7 @@
     />
   </div>
   <VideoPlayer
-    v-else-if="isHTMLVideo"
+    v-else-if="media.isHTMLVideo"
     :europeana-identifier="europeanaIdentifier"
     :src="media.about"
     :type="media.ebucoreHasMimeType"
@@ -38,7 +38,7 @@
     :height="media.ebucoreHeight"
   />
   <div
-    v-else-if="isHTMLAudio"
+    v-else-if="media.isHTMLAudio"
     class="audio-slide"
   >
     <AudioPlayer
@@ -48,21 +48,13 @@
     />
   </div>
   <EmbedOEmbed
-    v-else-if="isOEmbed"
+    v-else-if="media.isOEmbed"
     :url="media.about"
   />
 </template>
 
 <script>
-  import {
-    iiifManifest,
-    isHTMLAudio,
-    isHTMLVideo,
-    isIIIFImage,
-    isIIIFPresentation, isOEmbed,
-    isPlayableMedia,
-    isRichMedia
-  } from '@/plugins/media';
+  import WebResource from '@/plugins/europeana/web-resource';
 
   export default {
     name: 'MediaCard',
@@ -74,8 +66,8 @@
     },
     props: {
       media: {
-        type: Object,
-        default: null
+        type: WebResource,
+        required: true
       },
       europeanaIdentifier: {
         type: String,
@@ -96,39 +88,6 @@
       offset: {
         type: Number,
         default: null
-      }
-    },
-
-    data() {
-      return {
-        oEmbedData: null
-      };
-    },
-
-    computed: {
-      displayImage() {
-        return !isRichMedia(this.media);
-      },
-      isPlayableMedia() {
-        return isPlayableMedia(this.media);
-      },
-      isHTMLVideo() {
-        return isHTMLVideo(this.media);
-      },
-      isHTMLAudio() {
-        return isHTMLAudio(this.media);
-      },
-      isIIIFImage() {
-        return isIIIFImage(this.media);
-      },
-      isIIIFPresentation() {
-        return isIIIFPresentation(this.media);
-      },
-      iiifManifest() {
-        return iiifManifest(this.media, this.europeanaIdentifier);
-      },
-      isOEmbed() {
-        return isOEmbed(this.media);
       }
     }
   };

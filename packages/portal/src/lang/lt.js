@@ -71,6 +71,7 @@ export default {
     "item": "Naujausi prekių",
     "organisation": "Organizacijos",
     "place": "Vietos",
+    "theme": "Temos",
     "time": "Rekomenduojami šimtmečiai",
     "topic": "Rekomenduojamos temos"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Pakeiskite paieškos žodį arba iš naujo nustatykite filtrus ir bandykite dar kartą.",
       "title": "Atrodo, kad negalime rasti to, ko ieškote."
+    },
+    "setLocked": {
+      "description": "Redagavimas laikinai išjungtas, o pakeitimai nebuvo išsaugoti. Pabandykite dar kartą vėliau.",
+      "title": "Atnaujinti nepavyko"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Uždaryti",
     "readMore": "Skaityti daugiau",
     "text": {
-      "searchFilters": "Dabar galite ieškoti reikšmių atskiruose filtruose; patikrinkite!"
+      "themes": "Tyrinėkite Europos kultūros paveldą per temas, pradedant archeologija ir baigiant Pirmuoju pasauliniu karu. Mūsų naujuose teminiuose puslapiuose pateikiama įvairialypė kiekvienos temos vaizdas per susijusias temas, žmones, istorijas ir daiktus."
     }
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+  },
   "of": "Iš",
   "organisation": {
     "city": "Miestas",
@@ -1018,6 +1026,9 @@ export default {
       "edit": "Redaguoti galeriją",
       "update": "Atnaujinti galeriją"
     },
+    "entityBestBets": {
+      "title": "{entity} Puslapis"
+    },
     "form": {
       "description": "Galerijos aprašymas",
       "private": "Palikti galeriją privačią",
@@ -1076,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Istorijos"
+  },
+  "themes": {
+    "description": "Naršyti pagal temą",
+    "themes": "Temos"
   },
   "website": "Interneto svetainė"
 };

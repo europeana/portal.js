@@ -71,6 +71,7 @@ export default {
     "item": "Aktuelle Objekte",
     "organisation": "Organisationen",
     "place": "Orte",
+    "theme": "Themen",
     "time": "Ausgewählte Jahrhunderte",
     "topic": "Ausgewählte Themen"
   },
@@ -220,9 +221,9 @@ export default {
       "title": "Oops! {newline} Sie versuchen, die private Galerie einer anderen Person anzuzeigen."
     },
     "itemNotFound": {
-      "description": "Dies kann folgende Gründe haben: Diesem Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
+      "description": "Dies kann folgende Gründe haben: Dieses Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
       "metaTitle": "Objekt nicht gefunden",
-      "title": "Ach nein! {newline} Wir konnten dies Objekt nicht finden."
+      "title": "Oh nein! {newline} Wir konnten dies Objekt nicht finden."
     },
     "pageNotFound": {
       "metaTitle": "Seite nicht gefunden",
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Bitte passen Sie den Suchbegriff an oder setzen Sie die Filter zurück, um es erneut zu versuchen.",
       "title": "Wir können, was Sie suchen, anscheinend nicht finden."
+    },
+    "setLocked": {
+      "description": "Die Bearbeitung ist vorübergehend deaktiviert und Ihre Änderungen wurden nicht gespeichert. Bitte versuchen Sie es später erneut.",
+      "title": "Aktualisierung fehlgeschlagen"
     }
   },
   "exhibitions": {
@@ -249,7 +254,7 @@ export default {
         "metadata": "Nur-Metadaten Aufzeichnungen"
       },
       "switch": "Suchen Sie nur im Inhalt von Artikeln mit Volltext",
-      "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn es deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
+      "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn er deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
     },
     "button": {
       "apply": "Anwenden",
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Schließen",
     "readMore": "Mehr anzeigen",
     "text": {
-      "searchFilters": "Sie können jetzt nach bestimmten Werten in den Filtern suchen; probieren Sie es aus!"
+      "themes": "Entdecken Sie das europäische Kulturerbe nach Themen, von der Archäologie bis zum Ersten Weltkrieg. Unsere neuen Themenseiten bieten eine multidimensionale Sicht auf jedes Thema über verwandte Themen, Personen, Geschichten und Gegenstände."
     }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "Von",
   "organisation": {
     "city": "Stadt",
@@ -1018,6 +1026,9 @@ export default {
       "edit": "Galerie bearbeiten",
       "update": "Galerie aktualisieren"
     },
+    "entityBestBets": {
+      "title": "{entity} Seite"
+    },
     "form": {
       "description": "Galeriebeschreibung",
       "private": "Diese Galerie privat halten",
@@ -1076,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Geschichten"
+  },
+  "themes": {
+    "description": "Nach Thema durchsuchen",
+    "themes": "Themen"
   },
   "website": "Webseite"
 };

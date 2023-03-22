@@ -15,15 +15,7 @@ import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
-import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './src/plugins/europeana/entity.js';
-import { BASE_URL as EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL } from './src/plugins/europeana/entity-management.js';
-import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './src/plugins/europeana/proxy.js';
-import {
-  BASE_URL as EUROPEANA_RECORD_API_BASE_URL,
-  FULLTEXT_BASE_URL as EUROPEANA_RECORD_API_FULLTEXT_URL
-} from './src/plugins/europeana/record.js';
-import { BASE_URL as EUROPEANA_SET_API_BASE_URL } from './src/plugins/europeana/set.js';
-import { PRESENTATION_URL as EUROPEANA_IIIF_PRESENTATION_URL } from './src/plugins/europeana/iiif.js';
+import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
@@ -43,6 +35,7 @@ export default {
       featureNotification: process.env.APP_FEATURE_NOTIFICATION,
       featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
@@ -68,7 +61,10 @@ export default {
     },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
-      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
+      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(','),
+      // Construct a map of Europeana API URLs to rewrite for logging, so that
+      // private network hostnames are replaced with the public equivalent.
+      rewriteOrigins: publicPrivateRewriteOrigins()
     },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
@@ -98,44 +94,7 @@ export default {
       }
     },
     europeana: {
-      apis: {
-        annotation: {
-          url: process.env.EUROPEANA_ANNOTATION_API_URL,
-          key: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
-        },
-        entity: {
-          url: process.env.EUROPEANA_ENTITY_API_URL || EUROPEANA_ENTITY_API_BASE_URL,
-          key: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
-        },
-        entityManagement: {
-          url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL || process.env.EUROPEANA_ENTITY_API_URL || EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL
-        },
-        iiifPresentation: {
-          media: {
-            url: process.env.EUROPEANA_MEDIA_IIIF_PRESENTATION_API_URL || EUROPEANA_IIIF_PRESENTATION_URL
-          }
-        },
-        recommendation: {
-          url: process.env.EUROPEANA_RECOMMENDATION_API_URL
-        },
-        record: {
-          fulltextUrl: process.env.EUROPEANA_RECORD_API_FULLTEXT_URL || EUROPEANA_RECORD_API_FULLTEXT_URL,
-          url: process.env.EUROPEANA_RECORD_API_URL || EUROPEANA_RECORD_API_BASE_URL,
-          key: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
-        },
-        thumbnail: {
-          url: process.env.EUROPEANA_THUMBNAIL_API_URL
-        },
-        set: {
-          url: process.env.EUROPEANA_SET_API_URL || EUROPEANA_SET_API_BASE_URL,
-          key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
-        }
-      },
-      proxy: {
-        media: {
-          url: process.env.EUROPEANA_MEDIA_PROXY_URL || EUROPEANA_MEDIA_PROXY_URL
-        }
-      }
+      apis: europeanaApisRuntimeConfig({ scope: 'public' })
     },
     features: features(),
     hotjar: {
@@ -174,7 +133,10 @@ export default {
 
   privateRuntimeConfig: {
     contentful: {
-      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE || process.env.CTF_GRAPHQL_ORIGIN
+      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
+    },
+    europeana: {
+      apis: europeanaApisRuntimeConfig({ scope: 'private' })
     },
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
@@ -295,6 +257,7 @@ export default {
     '~/plugins/vue-matomo.client',
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
+    '~/plugins/error',
     '~/plugins/link',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
@@ -310,6 +273,7 @@ export default {
     '~/modules/axios-logger',
     '~/modules/http',
     '~/modules/query-sanitiser',
+    '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
 
@@ -318,7 +282,6 @@ export default {
   */
   modules: [
     '~/modules/elastic-apm',
-    '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['@nuxtjs/i18n', {
@@ -377,6 +340,24 @@ export default {
     },
     defaultStrategy: 'keycloak',
     plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
+  },
+
+  axios: {
+    proxyHeadersIgnore: [
+      // module defaults
+      'accept',
+      'host',
+      'x-forwarded-host',
+      'x-forwarded-port',
+      'x-forwarded-proto',
+      'cf-ray',
+      'cf-connecting-ip',
+      'content-length',
+      'content-md5',
+      'content-type',
+      // don't send cookie header to APIs
+      'cookie'
+    ]
   },
 
   router: {
@@ -449,7 +430,7 @@ export default {
 
     // Prevent irrelevant postcss warnings
     // See https://github.com/postcss/postcss/issues/1375
-    postcss: null,
+    postcss: {},
 
     publicPath: buildPublicPath(),
 

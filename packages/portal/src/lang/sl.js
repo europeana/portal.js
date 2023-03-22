@@ -71,6 +71,7 @@ export default {
     "item": "Nedavni predmeti",
     "organisation": "Organizacije",
     "place": "Mesta",
+    "theme": "Teme",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },
@@ -231,6 +232,10 @@ export default {
     "searchResultsNotFound": {
       "description": "Prosimo, prilagodite iskalni izraz ali po nastavite filtre, da poskusite znova.",
       "title": "Zdi se, da ne moremo najti, kar iščete."
+    },
+    "setLocked": {
+      "description": "Urejanje je začasno onemogočeno in vaše spremembe niso shranjene. Prosim poskusite kasneje.",
+      "title": "Posodobitev ni uspela"
     }
   },
   "exhibitions": {
@@ -883,12 +888,15 @@ export default {
     "dismiss": "Zapri",
     "readMore": "Preberi več",
     "text": {
-      "searchFilters": "Zdaj lahko iščete vrednosti v posameznih filtrih; preverite!"
+      "themes": "Raziščite evropsko kulturno dediščino skozi teme, od arheologije do prve svetovne vojne. Naše nove tematske strani ponujajo večdimenzionalen pogled na vsako temo prek povezanih tem, ljudi, zgodb in predmetov."
     }
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"other\":\"\"}"
+  },
   "of": "Od",
   "organisation": {
     "city": "Mesto",
@@ -1018,6 +1026,9 @@ export default {
       "edit": "Uredi zbirko",
       "update": "Posodobi zbirko"
     },
+    "entityBestBets": {
+      "title": "{entity} Stran"
+    },
     "form": {
       "description": "Opis zbirke",
       "private": "Ohrani to zbirko zasebno",
@@ -1076,6 +1087,10 @@ export default {
   },
   "storiesPage": {
     "title": "Zgodbe"
+  },
+  "themes": {
+    "description": "Brskajte po temi",
+    "themes": "Teme"
   },
   "website": "Spletno mesto"
 };

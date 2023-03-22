@@ -32,7 +32,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     $features: { sideFilters: false, entityHeaderCards: false },
     $fetchState,
     $route: { path: '/search', name: 'search', query: {} },
-    $nuxt: { context: { res: {} } },
+    $error: sinon.spy(),
     localise: (val) => val,
     ...mocks,
     $store: {
@@ -52,8 +52,8 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     $config: {
       europeana: {
         apis: {
-          record: {
-            fulltextUrl: 'https://newspapers.eanadev.org/api/v2'
+          fulltext: {
+            url: 'https://newspapers.eanadev.org/api/v2'
           }
         }
       }
@@ -100,35 +100,45 @@ describe('components/search/SearchInterface', () => {
       expect(wrapper.vm.results).toEqual(searchResult.items);
     });
 
-    it('handles search API errors', async() => {
+    it('handles search API errors, via $error', async() => {
       const wrapper = factory();
       process.server = true;
       wrapper.vm.$apis.record.search.throws({ statusCode: 400, message: 'Client error' });
 
-      let error;
-      try {
-        await wrapper.vm.fetch();
-      } catch (e) {
-        error = e;
-      }
+      await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(400);
-      expect(error.message).toBe('Client error');
+      expect(wrapper.vm.$error.calledWith(
+        { statusCode: 400, message: 'Client error' }
+      )).toBe(true);
     });
 
     it('treats no results as an error', async() => {
       const wrapper = factory();
       wrapper.vm.$apis.record.search.resolves({ totalResults: 0 });
 
-      let error;
+      await wrapper.vm.fetch();
 
-      try {
+      expect(wrapper.vm.$error.calledWith(
+        sinon.match.has('code', 'searchResultsNotFound')
+      )).toBe(true);
+    });
+
+    describe('when there was a pagination error', () => {
+      it('calls $error with a user-friendly error message', async() => {
+        const wrapper = factory();
+        process.server = true;
+        wrapper.vm.$apis.record.search.throws({
+          statusCode: 400,
+          message: 'Sorry! It is not possible to paginate beyond the first 5000 search results.'
+        });
+
         await wrapper.vm.fetch();
-      } catch (e) {
-        error = e;
-      }
 
-      expect(error.titlePath).toBe('errorMessage.searchResultsNotFound.title');
+        expect(wrapper.vm.$error.calledWith(
+          sinon.match.has('code', 'searchPaginationLimitExceeded'),
+          { tValues: { description: { limit: 5000 } } }
+        )).toBe(true);
+      });
     });
 
     it('scrolls to the page header element', async() => {
@@ -142,22 +152,6 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('computed', () => {
-    describe('errorMessage', () => {
-      describe('when there was a pagination error', () => {
-        it('returns a user-friendly error message', async() => {
-          const wrapper = factory({
-            $fetchState: {
-              error: {
-                message: 'Sorry! It is not possible to paginate beyond the first 5000 search results.'
-              }
-            }
-          });
-
-          expect(wrapper.vm.errorMessage).toBe('messages.paginationLimitExceeded');
-        });
-      });
-    });
-
     describe('noMoreResults', () => {
       describe('when there are 0 results in total', () => {
         const wrapper = factory({

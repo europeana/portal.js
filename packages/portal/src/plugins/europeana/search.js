@@ -135,7 +135,7 @@ export default (context) => ($axios, params, options = {}) => {
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {
-      throw apiError(error, context);
+      throw apiError(error);
     });
 };
 

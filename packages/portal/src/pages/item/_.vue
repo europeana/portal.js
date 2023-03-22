@@ -16,10 +16,7 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
-      :error="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :description-path="$fetchState.error.descriptionPath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :error="$fetchState.error"
       class="pt-5"
     />
     <template
@@ -39,7 +36,7 @@
         <ItemHero
           :all-media-uris="allMediaUris"
           :identifier="identifier"
-          :media="media"
+          :media="webResources"
           :edm-rights="edmRights"
           :edm-type="type"
           :attribution-fields="attributionFields"
@@ -136,13 +133,14 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import WebResource from '@/plugins/europeana/web-resource.js';
   import stringify from '@/mixins/stringify';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ItemPage',
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
@@ -192,30 +190,25 @@
         for (const key in response.record) {
           this[key] = response.record[key];
         }
+
         if (process.client) {
           this.trackCustomDimensions();
         }
-      } catch (error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = error.statusCode || 500;
-        }
-        if (error.statusCode === 404) {
-          error.titlePath = 'errorMessage.itemNotFound.title';
-          error.descriptionPath = 'errorMessage.itemNotFound.description';
-          error.pageTitlePath = 'errorMessage.itemNotFound.metaTitle';
-          error.illustrationSrc = require('@/assets/img/illustrations/il-item-not-found.svg');
-        }
-        throw error;
+      } catch (e) {
+        this.$error(e, { scope: 'item' });
       }
     },
 
     computed: {
+      webResources() {
+        return this.media.map((webResource) => new WebResource(webResource, this.identifier));
+      },
       pageMeta() {
         return {
           title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
           description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
           ogType: 'article',
-          ogImage: this.media[0]?.thumbnails?.large
+          ogImage: this.webResources[0]?.thumbnails?.large
         };
       },
       keywords() {

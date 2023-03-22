@@ -2,6 +2,7 @@ import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 import { apiError, createKeycloakAuthAxios } from './utils.js';
 
 export const BASE_URL = 'https://api.europeana.eu/set';
+export const AUTHENTICATING = true;
 export const EUROPEANA_SET_VISIBILITY_PRIVATE = 'private';
 export const EUROPEANA_SET_VISIBILITY_PUBLIC = 'public';
 export const EUROPEANA_SET_VISIBILITY_PUBLISHED = 'published';
@@ -47,7 +48,7 @@ export default (context = {}) => {
 
         return response;
       } catch (error) {
-        throw apiError(error, context);
+        throw apiError(error);
       }
     },
 
@@ -60,7 +61,7 @@ export default (context = {}) => {
       return this.search({ query: `creator:${creator} type:BookmarkFolder` })
         .then(response => response.data.items ? response.data.items[0] : null)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -82,7 +83,7 @@ export default (context = {}) => {
         const response = await $axios.get(`/${setIdFromUri(id)}`, { params: paramsWithDefaults });
         return response.data;
       } catch (error) {
-        throw apiError(error, context);
+        throw apiError(error);
       }
     },
 
@@ -112,7 +113,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -130,7 +131,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -145,7 +146,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -160,7 +161,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -175,7 +176,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -193,7 +194,7 @@ export default (context = {}) => {
       return apiCall(`/${setIdFromUri(setId)}${itemId}${pinPos}`)
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     }
   };
