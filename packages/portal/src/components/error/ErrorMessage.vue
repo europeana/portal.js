@@ -13,40 +13,39 @@
       data-qa="error explanation"
     >
       <b-img
-        v-if="illustrationSrcValue"
-        :src="illustrationSrcValue"
+        v-if="illustrationSrc"
+        :src="illustrationSrc"
         alt=""
       />
       <section
-        v-if="titlePathValue || descriptionPathValue"
+        v-if="title || description"
         class="mt-4"
       >
-        <i18n
-          v-if="titlePathValue"
-          tag="h1"
-          :path="titlePathValue"
+        <!-- eslint-disable vue/no-v-html -->
+        <h1
+          v-if="title"
           class="mb-4"
-        >
-          <template #newline>
-            <br>
-          </template>
-        </i18n>
+          v-html="title"
+        />
+        <!-- eslint-enable vue/no-v-html -->
         <p
-          v-if="descriptionPathValue"
+          v-if="description"
         >
-          {{ $t(descriptionPathValue) }}
+          {{ description }}
         </p>
       </section>
     </div>
     <AlertMessage
-      v-show="error"
-      :error="error"
+      v-show="showMessage && (error.message !== title)"
+      :error="error.message"
     />
   </div>
 </template>
 
 <script>
-  import AlertMessage from '@/components/generic/AlertMessage';
+  import kebabCase from 'lodash/kebabCase';
+
+  import AlertMessage from '../generic/AlertMessage';
 
   export default {
     name: 'ErrorMessage',
@@ -56,21 +55,13 @@
     },
 
     props: {
-      titlePath: {
-        type: String,
-        default: null
-      },
-      descriptionPath: {
-        type: String,
-        default: null
-      },
-      illustrationSrc: {
-        type: String,
-        default: null
-      },
       error: {
-        type: String,
-        default: null
+        type: Object,
+        required: true
+      },
+      showMessage: {
+        type: Boolean,
+        default: true
       },
       gridless: {
         type: Boolean,
@@ -79,39 +70,29 @@
       fullHeight: {
         type: Boolean,
         default: true
-      },
-      statusCode: {
-        type: Number,
-        default: null
       }
     },
 
-    data() {
-      return {
-        httpErrors: {
-          404: {
-            titlePath: 'errorMessage.pageNotFound.title',
-            illustrationSrc: require('@/assets/img/illustrations/il-page-not-found.svg')
+    computed: {
+      illustrationSrc() {
+        if (this.error.code) {
+          const kebabCaseCode = kebabCase(this.error.code);
+          try {
+            return require(`@/assets/img/illustrations/il-${kebabCaseCode}.svg`);
+          } catch (e) {
+            // don't fall apart just because an image is not available...
           }
         }
-      };
-    },
-
-    computed: {
-      titlePathValue() {
-        return this.titlePath || this.httpError?.titlePath;
+        return null;
       },
-      descriptionPathValue() {
-        return this.descriptionPath || this.httpError?.descriptionPath;
+      title() {
+        return this.error.i18n?.title;
       },
-      illustrationSrcValue() {
-        return this.illustrationSrc || this.httpError?.illustrationSrc;
-      },
-      httpError() {
-        return this.httpErrors[this.statusCode] || null;
+      description() {
+        return this.error.i18n?.description;
       },
       errorExplanationAvailable() {
-        return this.illustrationSrcValue || this.titlePathValue || this.descriptionPathValue;
+        return this.title || this.description || this.illustrationSrc;
       }
     }
   };
@@ -248,10 +229,13 @@
 <docs lang="md">
   ```jsx
   <ErrorMessage
-      error="Item was not found"
-      title-path="errorMessage.itemNotFound.title"
-      description-path="errorMessage.itemNotFound.description"
-      illustration-src="/img/illustrations/il-item-not-found.svg"
+      :error="{
+        message: 'No item with that identifier',
+        code: 'itemNotFound',
+        title: 'Item Not Found',
+        description: 'The item may have been deleted'
+      }"
+      :full-height="false"
   />
   ```
   </docs>

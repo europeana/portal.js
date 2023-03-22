@@ -49,7 +49,7 @@
 
     computed: {
       manifest() {
-        return `${this.$config.europeana.apis.iiifPresentation.media.url}${this.id}/manifest?format=3`;
+        return `${this.$config.europeana.apis.iiifPresentation.url}${this.id}/manifest?format=3`;
       },
       dashRequired() {
         return new WebResource({ ebucoreHasMimeType: this.mediaType }).requiresDashJS;

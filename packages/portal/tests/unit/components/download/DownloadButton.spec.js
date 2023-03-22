@@ -14,7 +14,7 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     data: () => ({ ...data }),
     mocks: {
       $apm: { captureError: sinon.spy() },
-      $config: { europeana: { proxy: { media: { url: 'https://proxy.europeana.eu' } } } },
+      $config: { europeana: { apis: { mediaProxy: { url: 'https://proxy.europeana.eu' } } } },
       $matomo: { trackEvent: sinon.spy() },
       $t: (key) => key,
       ...mocks

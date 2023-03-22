@@ -150,10 +150,14 @@
         }
       },
       async togglePin() {
-        if (this.pinned) {
-          await this.unpin();
-        } else {
-          await this.pin();
+        try {
+          if (this.pinned) {
+            await this.unpin();
+          } else {
+            await this.pin();
+          }
+        } catch (e) {
+          this.$error(e, { scope: 'pinning' });
         }
       }
     }

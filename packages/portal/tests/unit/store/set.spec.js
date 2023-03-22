@@ -178,11 +178,10 @@ describe('store/set', () => {
       });
       describe('when api call errors', () => {
         it('fetches likes', async() => {
-          store.actions.$apis.set.modifyItems = sinon.stub().rejects({});
+          store.actions.$apis.set.modifyItems = sinon.stub().rejects(new Error('API error'));
           const state = { likesId: setId };
 
-          await store.actions.unlike({ dispatch, commit, state }, itemId);
-
+          await expect(store.actions.unlike({ dispatch, commit, state }, itemId)).rejects.toThrowError();
           expect(dispatch.calledWith('fetchLikes')).toBe(true);
         });
       });
