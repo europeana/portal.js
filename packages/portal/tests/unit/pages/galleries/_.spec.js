@@ -73,11 +73,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
         edmPreview: () => ''
       }
     },
-    $nuxt: {
-      context: {
-        res: {}
-      }
-    },
+    $error: sinon.spy(),
     $config: {
       app: {
         galleries: {
@@ -96,15 +92,9 @@ describe('GalleryPage (Set)', () => {
     it('validates the format of the Set ID', async() => {
       const wrapper = factory({ fetchState: { pending: true }, set: { id: 'nope' } });
 
-      let error;
-      try {
-        await wrapper.vm.fetch();
-      } catch (e) {
-        error = e;
-      }
+      await wrapper.vm.fetch();
 
-      expect(error.statusCode).toBe(400);
-      expect(storeDispatch.called).toBe(false);
+      expect(wrapper.vm.$error.calledWith(404)).toBe(true);
     });
 
     it('fetches the active set', async() => {
@@ -116,39 +106,14 @@ describe('GalleryPage (Set)', () => {
     });
 
     describe('on errors', () => {
-      it('set the status code on SSRs', async() => {
-        const wrapper = factory();
-        process.server = true;
-        wrapper.vm.$store.dispatch = sinon.stub().throws(() => new Error('Internal Server Error'));
-
-        let error;
-        try {
-          await wrapper.vm.fetch();
-        } catch (e) {
-          error = e;
-        }
-
-        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
-        expect(error.message).toBe('Internal Server Error');
-      });
-
-      it('displays an illustrated error message for 403 status', async() => {
+      it('calls $error', async() => {
         const unauthorisedError = { statusCode: 403, message: 'Unauthorised' };
         const wrapper = factory();
-        process.server = true;
         wrapper.vm.$store.dispatch = sinon.stub().throws(() => unauthorisedError);
-        wrapper.vm.$fetchState.error = unauthorisedError;
 
-        let error;
-        try {
-          await wrapper.vm.$fetch();
-        } catch (e) {
-          error = e;
-        }
+        await wrapper.vm.$fetch();
 
-        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(403);
-        expect(error.titlePath).toBe('errorMessage.galleryUnauthorised.title');
-        expect(error.illustrationSrc).toBe('il-gallery-unauthorised.svg');
+        expect(wrapper.vm.$error.called).toBe(true);
       });
     });
   });

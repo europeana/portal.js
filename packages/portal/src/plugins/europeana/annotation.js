@@ -18,7 +18,7 @@ export default (context = {}) => {
       })
         .then(response => response.data.items ? response.data.items : [])
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     }
   };
