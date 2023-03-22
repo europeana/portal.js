@@ -119,8 +119,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $tc: key => key,
     $route: { query: {} },
     $i18n: {
-      locale: () => 'en',
-      isoLocale: () => 'en-GB'
+      locale: 'fr'
     },
     $fetchState: options.fetchState || {},
     $auth: {
@@ -134,7 +133,7 @@ describe('Gallery index page', () => {
   sinon.resetHistory();
 
   describe('pageMeta', () => {
-    it('sets the page title as galleries.galleries(from locale file)', () => {
+    it('sets the page title as galleries.galleries (from locale file)', () => {
       const wrapper = factory();
 
       const headTitle = wrapper.vm.pageMeta.title;
@@ -167,10 +166,21 @@ describe('Gallery index page', () => {
       const wrapper = factory();
 
       await wrapper.vm.fetch();
-      expect(setAPIStub.called).toBe(true);
+
+      expect(setAPIStub.calledWith(
+        {
+          query: 'visibility:published',
+          qf: 'lang:fr',
+          pageSize: 20,
+          page: 0,
+          profile: 'standard'
+        },
+        { withMinimalItemPreviews: true }
+      )).toBe(true);
       expect(wrapper.vm.galleries).toEqual(parsedGallerySets);
     });
   });
+
   describe('methods', () => {
     describe('parseSets', () => {
       it('selects and formats the relevant fields', () => {

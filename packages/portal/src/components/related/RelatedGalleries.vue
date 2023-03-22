@@ -65,7 +65,7 @@
       } else if (this.query && (this.query !== '') && !this.query.includes(':')) {
         const searchParams = {
           query: this.query,
-          qf: 'visibility:published',
+          qf: ['visibility:published', `lang:${this.$i18n.locale}`],
           pageSize: 3,
           page: 0,
           profile: 'standard'
