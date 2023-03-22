@@ -19,6 +19,7 @@
         :title="relatedTheme.prefLabel || ''"
         :img="imageUrl(relatedTheme, 28, 28)"
         :image-src-set="imageSrcSet(relatedTheme)"
+        badge-variant="outline-primary"
       />
     </div>
   </div>
