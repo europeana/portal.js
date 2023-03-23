@@ -156,8 +156,8 @@
           } else {
             await this.pin();
           }
-        } catch (e) {
-          this.$error(e, { scope: 'pinning' });
+        } catch (error) {
+          this.$error(error, { scope: error.statusCode === 404 ? 'pinning' : 'gallery' });
         }
       }
     }

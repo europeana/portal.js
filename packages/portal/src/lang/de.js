@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
-      "error": {
-        "unpin": "Beim Lösen des Elements ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder melden Sie das Problem."
-      },
       "pin": "Dieses Objekt wird oben in der Auflistung \"{entity}\" angezeigt. Wir werden Sie benachrichtigen, wenn diese Änderung auf der Sammlungsseite sichtbar wird.",
       "pinLimit": {
         "body": "Zurzeit können Sie nur 24 Objekte auf der ersten Seite pinnen. Wenn Sie dieses Objekt pinnen möchten, müssen Sie erst einen anderen Objekt entpinnen und dann versuchen, dieses Objekt erneut zu pinnen.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Fehler",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Die Bearbeitung ist vorübergehend deaktiviert und Ihre Änderungen wurden nicht gespeichert. Bitte versuchen Sie es später erneut.",
+      "title": "Aktualisierung fehlgeschlagen"
+    },
+    "galleryNotFound": {
+      "description": "Diese Galerie konnte nicht gefunden werden. Möglicherweise wurde es gelöscht.",
+      "title": "Galerie nicht gefunden"
+    },
     "galleryUnauthorised": {
       "description": "Dies ist nicht möglich, da private Galerien nur für ihren Ersteller sichtbar sind. Wenn Sie den Ersteller der Galerie kennen, bitten Sie ihn, die Galerie öffentlich zu machen. Alternativ können Sie dieses Problem auch über die Feedback-Schaltfläche melden.",
       "metaTitle": "Galerie nicht autorisiert",
       "title": "Oops! {newline} Sie versuchen, die private Galerie einer anderen Person anzuzeigen."
+    },
+    "genericUnknownError": {
+      "description": "Ein unbekannter Fehler ist aufgetreten.",
+      "title": "Unbekannter Fehler"
     },
     "itemNotFound": {
       "description": "Dies kann folgende Gründe haben: Dieses Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Seite nicht gefunden",
       "title": "Die gesuchte Seite existiert nicht."
     },
+    "pinningNotFound": {
+      "description": "Beim Anheften/Lösen des Elements ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder melden Sie das Problem.",
+      "title": "Kuratierte Sammlung nicht gefunden"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Es ist nur möglich, die ersten {limit} Suchergebnisse zu sehen.",
+      "title": "Seitenlimit überschritten"
+    },
     "searchResultsNotFound": {
       "description": "Bitte passen Sie den Suchbegriff an oder setzen Sie die Filter zurück, um es erneut zu versuchen.",
       "title": "Wir können, was Sie suchen, anscheinend nicht finden."
-    },
-    "setLocked": {
-      "description": "Die Bearbeitung ist vorübergehend deaktiviert und Ihre Änderungen wurden nicht gespeichert. Bitte versuchen Sie es später erneut.",
-      "title": "Aktualisierung fehlgeschlagen"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "In die Zwischenablage kopiert",
     "externalContentError": "Der externe Inhalt konnte nicht geladen werden",
-    "notFound": "Nicht gefunden",
-    "paginationLimitExceeded": "Es können nur die ersten {limit} Suchergebnisse angezeigt werden."
+    "notFound": "Nicht gefunden"
   },
   "modal": {
     "download": {

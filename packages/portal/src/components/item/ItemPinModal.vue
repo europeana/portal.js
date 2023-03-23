@@ -252,7 +252,7 @@
           await (this.selectedIsPinned ? this.unpin() : this.pin());
           this.hide();
         } catch (error) {
-          this.$error(error, { scope: 'pinning' });
+          this.$error(error, { scope: error.statusCode === 404 ? 'pinning' : 'gallery' });
         }
       },
 

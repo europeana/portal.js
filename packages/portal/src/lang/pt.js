@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "A galeria foi eliminada.",
-      "error": {
-        "unpin": "Ocorreu um erro ao desafixar o item. Tente novamente ou relate o problema."
-      },
       "pin": "Este item será exibido no topo da coleção \" {entity} \". Notificaremos você quando essa alteração estiver visível na página da coleção.",
       "pinLimit": {
         "body": "Por enquanto, você só pode fixar 24 itens na primeira página. Se quiser fixar este item, certifique-se de soltar outro e tente fixá-lo novamente.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Erro",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "A edição está temporariamente desativada e as suas alterações não foram salvas. Por favor, tente novamente mais tarde.",
+      "title": "Atualização falhou"
+    },
+    "galleryNotFound": {
+      "description": "Esta galeria não pôde ser encontrada. Pode ter sido eliminado.",
+      "title": "Galeria não encontrada"
+    },
     "galleryUnauthorised": {
       "description": "Isso não é possível porque as galerias privadas são visíveis apenas para o seu criador. Se conhece o criador da galeria, peça a ele para torná-la pública. Como alternativa, relate esse problema usando o botão de feedback.",
       "metaTitle": "Galeria não autorizada",
       "title": "Oops! {newline} Está a tentar ver a galeria privada de outra pessoa."
+    },
+    "genericUnknownError": {
+      "description": "Ocorreu um erro desconhecido.",
+      "title": "Erro desconhecido"
     },
     "itemNotFound": {
       "description": "Isso pode ser devido aos seguintes motivos: este item não existe, ou; foi despublicado porque não atendeu aos nossos critérios de qualidade, ou; ele foi atualizado e republicado com um novo identificador exclusivo, nesse caso, tente encontrar o item novamente.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Página não encontrada",
       "title": "A página que está a procurar não existe."
     },
+    "pinningNotFound": {
+      "description": "Ocorreu um erro ao fixar/desafixar o item. Tente novamente ou relate o problema.",
+      "title": "Coleção curada não encontrada"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Só é possível visualizar os primeiros {limit} resultados da pesquisa.",
+      "title": "Limite de páginas excedido"
+    },
     "searchResultsNotFound": {
       "description": "Por favor ajustar o termo de pesquisa ou reiniciar os filtros para tentar novamente.",
       "title": "Não conseguimos encontrar o que está a procurar."
-    },
-    "setLocked": {
-      "description": "A edição está temporariamente desativada e as suas alterações não foram salvas. Por favor, tente novamente mais tarde.",
-      "title": "Atualização falhou"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Copiado para a prancheta",
     "externalContentError": "Falha ao carregar o conteúdo externo",
-    "notFound": "Não encontrado",
-    "paginationLimitExceeded": "Só é possível visualizar os primeiros {limit} resultados da pesquisa."
+    "notFound": "Não encontrado"
   },
   "modal": {
     "download": {

@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Galleria eliminata.",
-      "error": {
-        "unpin": "Si è verificato un errore durante lo sblocco dell'elemento. Riprova o segnala il problema."
-      },
       "pin": "Questo elemento verrà visualizzato nella parte superiore della raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
       "pinLimit": {
         "body": "Per ora puoi appuntare solo 24 oggetti nella prima pagina. Se vuoi appuntare questo elemento, assicurati di sbloccarne un altro e poi prova ad appuntare di nuovo questo.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Errore",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "La modifica è temporaneamente disabilitata e le tue modifiche non sono state salvate. Per favore riprova più tardi.",
+      "title": "Aggiornamento non riuscito"
+    },
+    "galleryNotFound": {
+      "description": "Impossibile trovare questa galleria. Potrebbe essere stato cancellato.",
+      "title": "Galleria non trovata"
+    },
     "galleryUnauthorised": {
       "description": "Questo non è possibile perché le gallerie private sono visibili solo al loro creatore. Se conosci il creatore della galleria, chiedigli di rendere pubblica la galleria. In alternativa, segnala questo problema utilizzando il pulsante di feedback.",
       "metaTitle": "Galleria non autorizzata",
       "title": "Oops! {newline} Stai tentando di visualizzare la galleria privata di un'altra persona."
+    },
+    "genericUnknownError": {
+      "description": "Si è verificato un errore sconosciuto.",
+      "title": "Errore sconosciuto"
     },
     "itemNotFound": {
       "description": "Ciò potrebbe essere dovuto ai seguenti motivi: questo elemento non esiste, o; è stato ritirato dalla pubblicazione perché non corrispondeva ai nostri criteri di qualità, oppure; è stato aggiornato e ripubblicato con un nuovo identificatore univoco, nel qual caso prova a ritrovare l'elemento.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Pagina non trovata",
       "title": "La pagina che stai cercando non esiste."
     },
+    "pinningNotFound": {
+      "description": "Si è verificato un errore durante il blocco/sblocco dell'elemento. Riprova o segnala il problema.",
+      "title": "Collezione curata non trovata"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "È possibile visualizzare solo i primi {limit} risultati di ricerca.",
+      "title": "Limite di pagine superato"
+    },
     "searchResultsNotFound": {
       "description": "Modifica il termine di ricerca o reimposta i filtri per riprovare.",
       "title": "Non riusciamo a trovare quello che stai cercando."
-    },
-    "setLocked": {
-      "description": "La modifica è temporaneamente disabilitata e le tue modifiche non sono state salvate. Per favore riprova più tardi.",
-      "title": "Aggiornamento non riuscito"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Copiato negli appunti",
     "externalContentError": "Impossibile caricare il contenuto esterno",
-    "notFound": "Non trovati",
-    "paginationLimitExceeded": "È possibile visualizzare solo i primi {limit} risultati di ricerca."
+    "notFound": "Non trovati"
   },
   "modal": {
     "download": {

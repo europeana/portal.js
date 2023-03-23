@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Vaše galerie byla smazána.",
-      "error": {
-        "unpin": "Při odepínání položky došlo k chybě. Zkuste to prosím znovu nebo nahlaste problém."
-      },
       "pin": "Tato položka se zobrazí na začátku kolekce \"{entity}\". Upozorníme vás, až bude tato změna viditelná na stránce sbírky.",
       "pinLimit": {
         "body": "Prozatím můžete na první stránku připnout pouze 24 položek. Chcete-li tuto položku připnout, nezapomeňte odepnout jinou položku a potom ji zkusit připnout znovu.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Chyba",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Úpravy jsou dočasně zakázány a vaše změny nebyly uloženy. Prosím zkuste to znovu později.",
+      "title": "Aktualizace selhala"
+    },
+    "galleryNotFound": {
+      "description": "Tato galerie nebyla nalezena. Možná byla smazána.",
+      "title": "Galerie nenalezena"
+    },
     "galleryUnauthorised": {
       "description": "To není možné, protože soukromé galerie jsou viditelné pouze pro jejich tvůrce. Pokud znáte tvůrce galerie, požádejte ho, aby galerii zveřejnil. Případně nahlaste tento problém pomocí tlačítka zpětné vazby.",
       "metaTitle": "Galerie neoprávněná",
       "title": "Jejda! {newline} Pokoušíte se zobrazit soukromou galerii jiné osoby."
+    },
+    "genericUnknownError": {
+      "description": "Došlo k neznámé chybě.",
+      "title": "Neznámá chyba"
     },
     "itemNotFound": {
       "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Stránka nenalezena",
       "title": "Stránka, kterou hledáte, neexistuje."
     },
+    "pinningNotFound": {
+      "description": "Při připínání/odepínání položky došlo k chybě. Zkuste to znovu nebo problém nahlaste.",
+      "title": "Vybraná sbírka nebyla nalezena"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Je možné zobrazit pouze prvních {limit} výsledků vyhledávání.",
+      "title": "Překročen limit stránek"
+    },
     "searchResultsNotFound": {
       "description": "Upravte prosím hledaný výraz nebo resetujte filtry a zkuste to znovu.",
       "title": "Zdá se, že nemůžeme najít to, co hledáte."
-    },
-    "setLocked": {
-      "description": "Úpravy jsou dočasně zakázány a vaše změny nebyly uloženy. Prosím zkuste to znovu později.",
-      "title": "Aktualizace selhala"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Zkopírováno do schránky",
     "externalContentError": "Načtení externího obsahu se nezdařilo.",
-    "notFound": "Nenalezeno",
-    "paginationLimitExceeded": "Lze zobrazit pouze prvních {limit} výsledků vyhledávání."
+    "notFound": "Nenalezeno"
   },
   "modal": {
     "download": {

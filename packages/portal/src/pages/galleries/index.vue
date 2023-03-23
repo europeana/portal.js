@@ -88,6 +88,7 @@
     async fetch() {
       const searchParams = {
         query: 'visibility:published',
+        qf: `lang:${this.$i18n.locale}`,
         pageSize: PER_PAGE,
         page: this.page - 1,
         profile: 'standard'
