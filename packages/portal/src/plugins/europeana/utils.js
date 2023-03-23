@@ -62,25 +62,25 @@ const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
   };
 };
 
-// TODO: extend to be more verbose in development environments, e.g. with stack trace
-export function apiError(error, context) {
-  if (context?.$apm?.captureError) {
-    context?.$apm.captureError(error);
-  }
+export function apiError(error) {
+  error.isEuropeanaApiError = true;
+  error.statusCode = 500;
 
-  let statusCode = 500;
-  let message = error.message;
-
-  if (error.response) {
-    statusCode = error.response.status;
-    if (error.response.headers?.['content-type']?.startsWith('application/json') && error.response.data?.error) {
-      message = error.response.data.error;
+  if (error.isAxiosError) {
+    if (error.response) {
+      error.statusCode = error.response.status;
+      if (error.response.headers?.['content-type']?.startsWith('application/json') && error.response.data?.error) {
+        error.message = error.response.data.error;
+      }
     }
+    // Too much information to pass around, dispose of it
+    delete error.response;
+    delete error.config;
+    delete error.request;
+    delete error.toJSON;
   }
 
-  const apiError = new Error(message);
-  apiError.statusCode = statusCode;
-  return apiError;
+  return error;
 }
 
 const undefinedLocaleCodes = ['def', 'und'];
@@ -310,10 +310,6 @@ function normalizedLangCode(key) {
 
 function filterEntities(mappedObject) {
   mappedObject.values = mappedObject.values.filter(v => !isEntity(v));
-}
-
-export function apiUrlFromRequestHeaders(api, headers) {
-  return headers[`x-europeana-${api}-api-url`];
 }
 
 /**

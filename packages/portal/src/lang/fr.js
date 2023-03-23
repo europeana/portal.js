@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
-      "error": {
-        "unpin": "Une erreur s'est produite lors du détachement de l'élément. Veuillez réessayer ou signaler le problème."
-      },
       "pin": "Cet élément s'affichera en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "pinLimit": {
         "body": "Pour l'instant, vous ne pouvez épingler que 24 éléments sur la première page. Si vous souhaitez épingler cet élément, assurez-vous d'en désépingler un autre, puis réessayez d'épingler celui-ci.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Erreur",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "La modification est temporairement désactivée et vos modifications n'ont pas été enregistrées. Veuillez réessayer plus tard.",
+      "title": "Mise à jour a échoué"
+    },
+    "galleryNotFound": {
+      "description": "Cette galerie est introuvable. Il a peut-être été supprimé.",
+      "title": "Galerie introuvable"
+    },
     "galleryUnauthorised": {
       "description": "Ce n'est pas possible car les galeries privées ne sont visibles que par leur créateur. Si vous connaissez le créateur de la galerie, demandez-lui de rendre la galerie publique. Vous pouvez également signaler ce problème à l'aide du bouton de commentaires.",
       "metaTitle": "Galerie non autorisée",
       "title": "Oops! {newline} Vous essayez de voir la galerie privée d'une autre personne."
+    },
+    "genericUnknownError": {
+      "description": "Une erreur inconnue s'est produite.",
+      "title": "Erreur inconnue"
     },
     "itemNotFound": {
       "description": "Cela peut être dû aux raisons suivantes : cet élément n’existe pas, ou ; il a été publié parce qu’il ne correspondait pas à nos critères de qualité, ou; il a été mis à jour et republié avec un nouvel identifiant unique, auquel cas, essayez de retrouver l’élément.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Page non trouvée",
       "title": "La page que vous recherchez n'existe pas."
     },
+    "pinningNotFound": {
+      "description": "Une erreur s'est produite lors de l'épinglage/détachement de l'élément. Veuillez réessayer ou signaler le problème.",
+      "title": "Collection organisée introuvable"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Il n'est possible d'afficher que les {limit} premiers résultats de recherche.",
+      "title": "Limite de pages dépassée"
+    },
     "searchResultsNotFound": {
       "description": "Veuillez ajuster le terme de recherche ou réinitialiser les filtres pour réessayer.",
       "title": "Nous n'arrivons pas à trouver ce que vous cherchez."
-    },
-    "setLocked": {
-      "description": "La modification est temporairement désactivée et vos modifications n'ont pas été enregistrées. Veuillez réessayer plus tard.",
-      "title": "Mise à jour a échoué"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Copié dans le presse-papier",
     "externalContentError": "Échec du chargement du contenu externe",
-    "notFound": "Introuvable",
-    "paginationLimitExceeded": "Il est uniquement possible d'afficher les {limit} premiers résultats de la recherche."
+    "notFound": "Introuvable"
   },
   "modal": {
     "download": {

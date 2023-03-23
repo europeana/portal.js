@@ -19,16 +19,6 @@ export default {
       }
 
       return title;
-    },
-
-    imageUrl(collection, imageWidth, imageHeight) {
-      if (this.$contentful.assets.isValidUrl(collection.primaryImageOfPage?.image?.url)) {
-        return this.$contentful.assets.optimisedSrc(
-          collection.primaryImageOfPage.image,
-          { w: imageWidth, h: imageHeight, fit: 'thumb' }
-        );
-      }
-      return this.$apis.entity.imageUrl(collection);
     }
   }
 };

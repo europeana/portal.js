@@ -59,44 +59,23 @@ module.exports = async() => {
           {
             name: 'Page',
             components: '../portal/src/components/[A-Z]*.vue'
-          },
-          {
-            name: 'Account',
-            components: '../portal/src/components/account/[A-Z]*.vue'
-          },
-          {
-            name: 'Download',
-            components: '../portal/src/components/download/[A-Z]*.vue'
-          },
-          {
-            name: 'Entity',
-            components: '../portal/src/components/entity/[A-Z]*.vue'
-          },
-          {
-            name: 'Generic',
-            components: '../portal/src/components/generic/[A-Z]*.vue'
-          },
-          {
-            name: 'Home',
-            components: '../portal/src/components/home/[A-Z]*.vue'
-          },
-          {
-            name: 'Item',
-            components: '../portal/src/components/item/[A-Z]*.vue'
-          },
-          {
-            name: 'Related',
-            components: '../portal/src/components/related/[A-Z]*.vue'
-          },
-          {
-            name: 'Search',
-            components: '../portal/src/components/search/[A-Z]*.vue'
-          },
-          {
-            name: 'Set',
-            components: '../portal/src/components/set/[A-Z]*.vue'
           }
-        ]
+        ].concat([
+          'Account',
+          'Download',
+          'Entity',
+          'Error',
+          'Generic',
+          'Home',
+          'Item',
+          'Related',
+          'Search',
+          'Set',
+          'Theme'
+        ].map((name) => ({
+          name,
+          components: `../portal/src/components/${name.toLowerCase()}/[A-Z]*.vue`
+        })))
       }
     ],
     assetsDir: '../portal/src/assets',

@@ -27,7 +27,7 @@ const factory = ({
     $features: {},
     $fetchState: {},
     $i18n: { isoLocale: () => 'en-GB' },
-    $nuxt: { context: { res: {} } },
+    $error: sinon.spy(),
     $route,
     $t: key => key
   }
@@ -89,17 +89,11 @@ describe('IndexPage', () => {
         $route: { params: { pathMatch: slug }, query: {} }
       });
 
-      let error;
-      try {
-        await wrapper.vm.fetch();
-      } catch (e) {
-        error = e;
-      }
+      await wrapper.vm.fetch();
 
       expect(wrapper.vm.browsePage).toBe(false);
       expect(wrapper.vm.staticPage).toBe(false);
-      expect(error.message).toBe('messages.notFound');
-      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(404);
+      expect(wrapper.vm.$error.calledWith(404)).toBe(true);
     });
   });
 

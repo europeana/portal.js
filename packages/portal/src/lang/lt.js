@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
-      "error": {
-        "unpin": "Atsegant elementą įvyko klaida. Bandykite dar kartą arba praneškite apie problemą."
-      },
       "pin": "Šis elementas bus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "pinLimit": {
         "body": "Kol kas pirmajame puslapyje galite prisegti tik 24 elementus. Jei norite prisegti šį elementą, būtinai atsisekite kitą elementą ir tada vėl bandykite prisegti šį.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Klaida",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Redagavimas laikinai išjungtas, o pakeitimai nebuvo išsaugoti. Pabandykite dar kartą vėliau.",
+      "title": "Atnaujinti nepavyko"
+    },
+    "galleryNotFound": {
+      "description": "Šios galerijos rasti nepavyko. Gali būti, kad jis buvo ištrintas.",
+      "title": "Galerija nerasta"
+    },
     "galleryUnauthorised": {
       "description": "Tai neįmanoma, nes privačias galerijas mato tik jų kūrėjas. Jei pažįstate galerijos kūrėją, paprašykite, kad galerija būtų vieša. Arba praneškite apie šią problemą naudodami atsiliepimų mygtuką.",
       "metaTitle": "Galerija neteisėta",
       "title": "Ups! {newline} Jūs bandote peržiūrėti kito asmens privačią galeriją."
+    },
+    "genericUnknownError": {
+      "description": "Įvyko nežinoma klaida.",
+      "title": "Nežinoma klaida"
     },
     "itemNotFound": {
       "description": "Taip gali nutikti dėl šių priežasčių: šio elemento nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti elementą dar kartą.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Puslapis nerastas",
       "title": "Puslapis, kurio ieškote, neegzistuoja."
     },
+    "pinningNotFound": {
+      "description": "Įvyko klaida prisegant / atsegant elementą. Pabandykite dar kartą arba praneškite apie problemą.",
+      "title": "Kuruojama kolekcija nerasta"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus.",
+      "title": "Viršytas puslapių limitas"
+    },
     "searchResultsNotFound": {
       "description": "Pakeiskite paieškos žodį arba iš naujo nustatykite filtrus ir bandykite dar kartą.",
       "title": "Atrodo, kad negalime rasti to, ko ieškote."
-    },
-    "setLocked": {
-      "description": "Redagavimas laikinai išjungtas, o pakeitimai nebuvo išsaugoti. Pabandykite dar kartą vėliau.",
-      "title": "Atnaujinti nepavyko"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
-    "notFound": "Nerasta",
-    "paginationLimitExceeded": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus."
+    "notFound": "Nerasta"
   },
   "modal": {
     "download": {

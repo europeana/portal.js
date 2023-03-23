@@ -150,10 +150,14 @@
         }
       },
       async togglePin() {
-        if (this.pinned) {
-          await this.unpin();
-        } else {
-          await this.pin();
+        try {
+          if (this.pinned) {
+            await this.unpin();
+          } else {
+            await this.pin();
+          }
+        } catch (error) {
+          this.$error(error, { scope: error.statusCode === 404 ? 'pinning' : 'gallery' });
         }
       }
     }

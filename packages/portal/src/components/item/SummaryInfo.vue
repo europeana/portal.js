@@ -48,7 +48,7 @@
           class="description-text-paragraph"
           v-html="$options.filters.convertNewLine(value)"
         />
-        <!-- eslint-disable vue/no-v-html -->
+        <!-- eslint-enable vue/no-v-html -->
         <MetadataOriginLabel
           v-if="index === 0"
           :translation-source="description.translationSource"

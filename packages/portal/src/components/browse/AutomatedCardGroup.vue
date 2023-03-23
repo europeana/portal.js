@@ -52,6 +52,7 @@
         cardType: null,
         headline: null,
         contentful: null,
+        galleries: null,
         daily: false,
         entries: []
       };
@@ -89,7 +90,8 @@
         data.key = 'items/type-counts';
         data.cardType = 'InfoCard';
       } else if (this.sectionType === LATEST_GALLERIES) {
-        data.key = 'galleries/recent';
+        data.key = `${this.$i18n.locale}/galleries/recent`;
+        data.galleries = 'recent';
         data.cardType = 'AutomatedGalleryCard';
         data.headline = this.$i18n.t('automatedCardGroup.gallery');
       }
@@ -100,6 +102,8 @@
     async fetch() {
       if (this.contentful) {
         this.entries = await this.fetchContentfulData();
+      } else if (this.galleries) {
+        this.entries = await this.fetchSetData();
       } else {
         this.entries = await this.fetchCachedData();
       }
@@ -190,6 +194,16 @@
         };
         const response = await this.$contentful.query(this.contentful.query, variables);
         return response.data.data[this.contentful.collection].items;
+      },
+      async fetchSetData() {
+        const params = {
+          query: 'visibility:published',
+          pageSize: 4,
+          profile: 'standard',
+          qf: `lang:${this.$i18n.locale}`
+        };
+        const response = await this.$apis.set.search(params, { withMinimalItemPreviews: true });
+        return response.data.items || [];
       },
       infoImageFromType(itemType) {
         return `ic-${itemType.toLowerCase()}`;

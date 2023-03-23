@@ -1,8 +1,6 @@
 import { oEmbeddable } from '../oembed/index.js';
-import {
-  PRESENTATION_URL as EUROPEANA_IIIF_PRESENTATION_BASE_URL,
-  IIIF_IMAGE_URL
-} from './iiif.js';
+import { BASE_URL as EUROPEANA_IIIF_PRESENTATION_API_BASE_URL } from './iiif/presentation.js';
+import { IIIF_IMAGE_URL } from './iiif/index.js';
 
 const MEDIA_TYPE_APPLICATION = 'application';
 const MEDIA_TYPE_APPLICATION_DASH_XML = `${MEDIA_TYPE_APPLICATION}/dash+xml`;
@@ -149,7 +147,7 @@ export default class WebResource {
       );
     }
 
-    return `${EUROPEANA_IIIF_PRESENTATION_BASE_URL}${this.itemId}/manifest`;
+    return `${EUROPEANA_IIIF_PRESENTATION_API_BASE_URL}${this.itemId}/manifest`;
   }
 
   get requiresDashJS() {
