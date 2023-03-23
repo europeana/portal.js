@@ -1,6 +1,8 @@
 # Builds an image for running Nightwatch with Percy
 
-FROM alpine:3
+# NB: check that the alpine version has the required version of node
+#     @see https://pkgs.alpinelinux.org/package/v3.16/main/x86_64/nodejs
+FROM alpine:3.16
 
 WORKDIR /app
 
@@ -23,6 +25,7 @@ RUN apk add --no-cache \
 RUN mkdir screenshots
 
 COPY package*.json ./
+
 RUN npm ci
 
 COPY . .
