@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Relaterede gallerier",
       "title": "Oplev relaterede gallerier"
+    },
+    "themes": {
+      "title": "Oplev relaterede temaer"
     }
   },
   "removeFilter": "Fjern {filterLabel} filter",

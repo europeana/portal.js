@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Kapcsolódó galériák",
       "title": "Fedezze fel a kapcsolódó galériákat"
+    },
+    "themes": {
+      "title": "Fedezze fel a kapcsolódó témák"
     }
   },
   "removeFilter": "{filterLabel} szűrő eltávolítása",

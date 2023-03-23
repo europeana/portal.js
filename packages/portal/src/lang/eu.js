@@ -995,6 +995,9 @@ export default {
     "galleries": {
       "name": "Lotutako galeriak",
       "title": "Ezagutu erlazionatutako galeriak"
+    },
+    "themes": {
+      "title": "Ezagutu erlazionatutako gaiak"
     }
   },
   "removeFilter": "Kendu {filterLabel} iragazkia",

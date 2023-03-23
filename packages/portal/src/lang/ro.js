@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Galerii conexe",
       "title": "Descoperiți galerii conexe"
+    },
+    "themes": {
+      "title": "Descoperiți teme conexe"
     }
   },
   "removeFilter": "Elimină filtrul {filterLabel}",

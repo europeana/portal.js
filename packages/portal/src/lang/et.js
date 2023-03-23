@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Seotud galeriid",
       "title": "Avastage seotud galeriid"
+    },
+    "themes": {
+      "title": "Avasta seotud teemad"
     }
   },
   "removeFilter": "Eemalda filter {filterLabel}",

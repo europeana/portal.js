@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Saistītās galerijas",
       "title": "Atklājiet saistītās galerijas"
+    },
+    "themes": {
+      "title": "Atklājiet saistītās tēmas"
     }
   },
   "removeFilter": "Noņemt filtru {filterLabel}",

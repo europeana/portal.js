@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Galerias relacionadas",
       "title": "Descubra galerias relacionadas"
+    },
+    "themes": {
+      "title": "Descubra temas relacionados"
     }
   },
   "removeFilter": "Remover o filtro {filterLabel}",
