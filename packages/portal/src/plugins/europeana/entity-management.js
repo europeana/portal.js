@@ -40,7 +40,7 @@ export default (context = {}) => {
      * @return {Object} API response data
      */
     update(id, body) {
-      return $axios.put(id.replace(EUROPEANA_DATA_URL, ''), body)
+      return $axios.put(id.replace(EUROPEANA_DATA_URL, ''), body, { timeout: 15000 })
         .then(response => response.data)
         .catch(error => {
           throw apiError(error);

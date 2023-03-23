@@ -81,7 +81,7 @@
         return this.id.includes('/concept/') ? 'note' : 'description';
       },
       descriptionFieldIsArray() {
-        return Array.isArray(this.entity[this.descriptionFieldName][this.$i18n.locale]);
+        return this.id.includes('/concept/');
       },
       descriptionFieldValue() {
         return this.descriptionFieldIsArray ? [this.descriptionValue] : this.descriptionValue;

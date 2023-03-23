@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
-      "error": {
-        "unpin": "Atspraužot vienumu, radās kļūda. Lūdzu, mēģiniet vēlreiz vai ziņojiet par problēmu."
-      },
       "pin": "Šis vienums tiks rādīts kolekcijas “ {entity} ” augšdaļā. Mēs jūs informēsim, kad šīs izmaiņas būs redzamas kolekcijas lapā.",
       "pinLimit": {
         "body": "Pagaidām pirmajā lapā var piespraust tikai 24 vienumus. Ja vēlaties piespraust šo vienumu, noteikti atspraudiet vēl vienu un mēģiniet vēlreiz piespraust šo vienumu.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Kļūda",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Rediģēšana ir īslaicīgi atspējota, un jūsu izmaiņas nav saglabātas. Lūdzu, pamēģiniet vēlreiz vēlāk.",
+      "title": "Atjaunināšana neizdevās"
+    },
+    "galleryNotFound": {
+      "description": "Šo galeriju nevarēja atrast. Iespējams, tas ir izdzēsts.",
+      "title": "Galerija nav atrasta"
+    },
     "galleryUnauthorised": {
       "description": "Tas nav iespējams, jo privātās galerijas ir redzamas tikai to izveidotājam. Ja pazīstat galerijas veidotāju, palūdziet viņu padarīt galeriju publisku. Varat arī ziņot par šo problēmu, izmantojot atsauksmju pogu.",
       "metaTitle": "Galerija ir nesankcionēta",
       "title": "Ups! {newline} Jūs mēģināt apskatīt citas personas privāto galeriju."
+    },
+    "genericUnknownError": {
+      "description": "Radās nezināma kļūda.",
+      "title": "Nezināma kļūda"
     },
     "itemNotFound": {
       "description": "Tam var būt šādi iemesli: šis vienums neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast vienumu vēlreiz.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Lapa nav atrasta",
       "title": "Lapa, kuru meklējat, neeksistē."
     },
+    "pinningNotFound": {
+      "description": "Piespraužot/atspraužot vienumu, radās kļūda. Lūdzu, mēģiniet vēlreiz vai ziņojiet par problēmu.",
+      "title": "Kurētā kolekcija nav atrasta"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Ir iespējams skatīt tikai pirmos {limit} meklēšanas rezultātus.",
+      "title": "Pārsniegts lappušu ierobežojums"
+    },
     "searchResultsNotFound": {
       "description": "Lūdzu, pielāgojiet meklēšanas vienumu vai atiestatiet filtrus, lai mēģinātu vēlreiz.",
       "title": "Šķiet, ka mēs nevaram atrast to, ko meklējat."
-    },
-    "setLocked": {
-      "description": "Rediģēšana ir īslaicīgi atspējota, un jūsu izmaiņas nav saglabātas. Lūdzu, pamēģiniet vēlreiz vēlāk.",
-      "title": "Atjaunināšana neizdevās"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopēts starpliktuvē",
     "externalContentError": "Neizdevās ielādēt ārējo saturu",
-    "notFound": "Nav atrasts",
-    "paginationLimitExceeded": "Ir iespējams apskatīt tikai pirmos {limit} meklēšanas rezultātus."
+    "notFound": "Nav atrasts"
   },
   "modal": {
     "download": {

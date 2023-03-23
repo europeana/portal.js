@@ -56,7 +56,7 @@
       error: {
         deep: true,
         handler() {
-          if (!this.error.isFetchError && this.error.title) {
+          if (!this.error.isFetchError && this.error.i18n?.title) {
             this.$bvModal.show(this.modalId);
           }
         }

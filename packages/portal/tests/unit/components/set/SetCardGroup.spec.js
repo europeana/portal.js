@@ -6,11 +6,13 @@ import SetCardGroup from '@/components/set/SetCardGroup.vue';
 
 const localVue = createLocalVue();
 
-const setUris = ['http://data.europeana.eu/set/1234'];
+const setId = '1234';
+
+const setUris = [`http://data.europeana.eu/set/${setId}`];
 
 const fetchedSets = [
   {
-    id: '1234',
+    id: setId,
     type: 'Collection',
     visibility: 'published',
     title: { en: 'A new collection' },
@@ -43,9 +45,10 @@ const factory = ({ propsData } = {}) => {
 
     mocks: {
       $apis: {
-        set: { get: sinon.stub().resolves(fetchedSets[0]) },
+        set: { search: sinon.stub().resolves(fetchedSets[0]) },
         thumbnail: { edmPreview: (img) => img[0] }
-      }
+      },
+      $i18n: { locale: 'en' }
     },
     stubs: ['b-card-group', 'ContentCard']
   });
@@ -64,12 +67,12 @@ describe('components/related/SetCardGroup', () => {
     });
 
     describe('when set URIs are supplied', () => {
-      it('fetches sets from set API', async() => {
+      it('fetches sets from set API filtered by UI language', async() => {
         const wrapper = factory({ propsData: { setUris } });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$apis.set.get.calledWith(setUris[0], { profile: 'itemDescriptions' })).toBe(true);
+        expect(wrapper.vm.$apis.set.search.calledWith({ query: `set_id:${setId}`, qf: `lang:${wrapper.vm.$i18n.locale}`, profile: 'itemDescriptions' })).toBe(true);
       });
     });
   });
