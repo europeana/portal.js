@@ -79,7 +79,7 @@
     "Alan Sutherland <alan.sutherland@europeana.eu>"
   ],
   "engines": {
-    "node": "^16",
+    "node": "^18",
     "npm": "^8"
   },
   "keywords": [
