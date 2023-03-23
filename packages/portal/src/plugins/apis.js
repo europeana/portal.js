@@ -1,4 +1,4 @@
-import decamelize from 'decamelize';
+import snakeCase from 'lodash/snakeCase';
 
 import * as annotation from './europeana/annotation.js';
 import * as entity from './europeana/entity.js';
@@ -56,7 +56,7 @@ const apiConfig = (id, scope) => {
 
   const apiConfig = {};
 
-  const envKeyPrefix = `EUROPEANA_${decamelize(id).toUpperCase()}_API_`;
+  const envKeyPrefix = `EUROPEANA_${snakeCase(id).toUpperCase()}_API_`;
 
   if (process.env[`${envKeyPrefix}URL${envKeySuffix}`]) {
     // Overriden API URL
