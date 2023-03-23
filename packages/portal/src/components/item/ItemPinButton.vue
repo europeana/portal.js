@@ -147,7 +147,7 @@
             await this.pin();
           }
         } catch (error) {
-	         this.$error(error, { scope: error.statusCode === 404 ? 'pinning' : 'gallery' });
+          this.$error(error, { scope: error.statusCode === 404 ? 'pinning' : 'gallery' });
         } finally {
           this.fetchEntityBestItemsSetPinnedItems(this.setId);
         }
