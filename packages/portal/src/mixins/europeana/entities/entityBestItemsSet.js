@@ -1,6 +1,17 @@
 export default {
+  data() {
+    return {
+      entityBestItemsSetPinnedItems: []
+    };
+  },
+
   methods: {
-    async createFeaturedSet(entity) {
+    async ensureEntityBestItemsSetExists(setId, entity) {
+      if (setId) {
+        // TODO: validate if set exists and is for the entity?
+        return setId;
+      }
+
       const entityId = entity.id || entity.about;
       const featuredSetBody = {
         type: 'EntityBestItemsSet',
@@ -16,6 +27,52 @@ export default {
         memo[lang] = this.$t('set.entityBestBets.title', { entity: Array.isArray(value) ? value[0] : value });
         return memo;
       }, {});
+    },
+
+    async fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId) {
+      const entityBestItemsSet = await this.$apis.set.get(entityBestItemsSetId, {
+        profile: 'standard',
+        pageSize: 100
+      });
+
+      this.storeEntityBestItemsSetPinnedItems(entityBestItemsSet);
+    },
+
+    storeEntityBestItemsSetPinnedItems(entityBestItemsSet) {
+      if ((entityBestItemsSet.pinned > 0) && entityBestItemsSet.items) {
+        this.$store.commit('entity/setPinned', entityBestItemsSet.items.slice(0, entityBestItemsSet.pinned));
+      } else {
+        this.$store.commit('entity/setPinned', []);
+      }
+    },
+
+    async findEntityBestItemsSet(entityId) {
+      const searchResponse = await this.$apis.set.search({
+        query: 'type:EntityBestItemsSet',
+        qf: `subject:${entityId}`
+      });
+
+      if (searchResponse.data.total > 0) {
+        return searchResponse.data.items[0].split('/').pop();
+      } else {
+        return null;
+      }
+    },
+
+    async pinItemToEntityBestItemsSet(itemId, entityBestItemsSetId, entityPrefLabel) {
+      await this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+      if (this.$store.state.entity.pinned && (this.$store.state.entity.pinned.length >= 24)) {
+        // TODO: why aren't we using makeToast here?
+        this.$bvModal.show(`pinned-limit-modal-${itemId}`);
+        return;
+      }
+      await this.$apis.set.modifyItems('add', entityBestItemsSetId, itemId, true);
+      this.makeToast(this.$t('entity.notifications.pinned', { entity: entityPrefLabel }));
+    },
+
+    async unpinItemFromEntityBestItemsSet(itemId, entityBestItemsSetId) {
+      await this.$apis.set.modifyItems('delete', entityBestItemsSetId, itemId);
+      this.makeToast(this.$t('entity.notifications.unpinned'));
     }
   }
 };

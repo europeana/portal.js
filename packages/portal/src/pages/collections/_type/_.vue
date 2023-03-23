@@ -71,6 +71,7 @@
   import SearchInterface from '@/components/search/SearchInterface';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
   import {
@@ -91,6 +92,7 @@
     },
 
     mixins: [
+      entityBestItemsSetMixin,
       europeanaEntitiesOrganizationsMixin,
       pageMetaMixin,
       redirectToPrefPathMixin
@@ -102,7 +104,7 @@
       }
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('entity/setEntity', null); // needed for best bets handling
-      this.$store.commit('entity/setFeaturedSetId', null);
+      this.$store.commit('entity/setBestItemsSetId', null);
       this.$store.commit('entity/setPinned', []);
       next();
     },
@@ -126,9 +128,9 @@
         // TODO: group as a reset action on the store?
         this.$store.commit('entity/setId', null);
         this.$store.commit('entity/setEntity', null);
-        this.$store.commit('entity/setFeaturedSetId', null);
         this.$store.commit('entity/setPinned', null);
         this.$store.commit('entity/setEditable', false);
+        this.$store.commit('entity/setBestItemsSetId', null);
       }
       this.$store.commit('entity/setId', entityUri);
 
@@ -139,6 +141,14 @@
         ]));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
         const urlLabel = this.entity.prefLabel.en;
+
+        if (this.userIsEntitiesEditor) {
+          const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
+          this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
+          if (entityBestItemsSetId) {
+            this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+          }
+        }
 
         return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
       } catch (e) {
@@ -292,11 +302,6 @@
         }
 
         return labelledMoreInfo;
-      }
-    },
-    mounted() {
-      if (this.userIsEntitiesEditor) {
-        this.$store.dispatch('entity/getFeatured');
       }
     },
     methods: {

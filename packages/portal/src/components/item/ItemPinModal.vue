@@ -216,23 +216,17 @@
         };
       },
 
-      async ensureSelectedSetExists() {
-        if (!this.selectedEntitySet?.id) {
-          this.selectedEntitySet.id = await this.createFeaturedSet(this.selectedEntity);
-        }
-      },
-
       async pin() {
-        await this.ensureSelectedSetExists();
-        await this.$apis.set.modifyItems('add', this.selectedEntitySet.id, this.identifier, true);
+        this.selectedEntitySet.id = await this.ensureEntityBestItemsSetExists(this.selectedEntitySet?.id, this.selectedEntity);
+        await this.pinItemToEntityBestItemsSet(this.identifier, this.selectedEntitySet.id, this.selectedEntityPrefLabelValue);
         this.selectedEntitySet.pinned.push(this.identifier);
-        this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabelValue }));
+        this.hide();
       },
 
       async unpin() {
-        await this.$apis.set.modifyItems('delete', this.selectedEntitySet.id, this.identifier);
+        await this.unpinItemFromEntityBestItemsSet(this.identifier, this.selectedEntitySet.id);
         this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
-        this.makeToast(this.$t('entity.notifications.unpinned'));
+        this.hide();
       },
 
       entityDisplayLabel(entity) {

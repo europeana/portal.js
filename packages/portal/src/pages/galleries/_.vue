@@ -196,6 +196,7 @@
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import ShareButton from '@/components/sharing/ShareButton.vue';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
+  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -215,14 +216,15 @@
 
     },
     mixins: [
+      entityBestItemsSetMixin,
       redirectToPrefPathMixin,
       pageMetaMixin
     ],
-    async beforeRouteLeave(_to, _from, next) {
-      await this.$store.commit('set/setActive', null);
-      await this.$store.commit('set/setActiveRecommendations', []);
-      await this.$store.commit('entity/setFeaturedSetId', null);
-      await this.$store.commit('entity/setPinned', []);
+    beforeRouteLeave(_to, _from, next) {
+      this.$store.commit('set/setActive', null);
+      this.$store.commit('set/setActiveRecommendations', []);
+      this.$store.commit('entity/setPinned', []);
+      this.$store.commit('entity/setBestItemsSetId', null);
       next();
     },
     data() {
@@ -238,9 +240,10 @@
         this.validateRoute();
         await this.$store.dispatch('set/fetchActive', this.setId);
         this.redirectToPrefPath('galleries-all', this.setId, this.set.title.en);
+
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
-          await this.$store.commit('entity/setFeaturedSetId', this.setId);
-          await this.$store.dispatch('entity/getPins');
+          this.$store.commit('entity/setBestItemsSetId', this.setId);
+          this.storeEntityBestItemsSetPinnedItems(this.set);
         }
       } catch (e) {
         this.$error(e, { scope: e.statusCode === 404 ? 'page' : 'gallery' });
@@ -324,6 +327,14 @@
       },
       weaveUrl() {
         return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
+      }
+    },
+
+    watch: {
+      '$store.state.entity.pinned.length'() {
+        if (this.setIsEntityBestItems) {
+          this.$fetch();
+        }
       }
     },
 
