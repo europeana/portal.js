@@ -1,4 +1,4 @@
-import decamelize from 'decamelize';
+import snakeCase from 'lodash/snakeCase';
 import featureToggles from '@/features/toggles.js';
 import features, { featureNotificationExpiration } from '@/features/index.js';
 
@@ -13,7 +13,7 @@ describe('features/index', () => {
 
     it('returns an object with a true value for the feature toggles that are enabled', () => {
       const enabledFeature = featureToggles[0].name;
-      process.env[`ENABLE_${decamelize(enabledFeature).toUpperCase()}`] = 1;
+      process.env[`ENABLE_${snakeCase(enabledFeature).toUpperCase()}`] = 1;
 
       const featuresObject = features();
       expect(featuresObject[enabledFeature]).toBe(true);
