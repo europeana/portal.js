@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Twoja galeria została usunięta.",
-      "error": {
-        "unpin": "Podczas odpinania elementu wystąpił błąd. Spróbuj ponownie lub zgłoś problem."
-      },
       "pin": "Ten element będzie wyświetlany u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
       "pinLimit": {
         "body": "Na razie możesz przypiąć tylko 24 obiekty na pierwszej stronie. Jeśli chcesz przypiąć ten obiekt, upewnij się, że najpierw odpiąłeś inny i spróbuj ponownie.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Błąd",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Edytowanie jest tymczasowo wyłączone, a zmiany nie zostały zapisane. Spróbuj ponownie później.",
+      "title": "Aktualizacja nie powiodła się"
+    },
+    "galleryNotFound": {
+      "description": "Nie można znaleźć tej galerii. Być może został usunięty.",
+      "title": "Nie znaleziono galerii"
+    },
     "galleryUnauthorised": {
       "description": "Nie jest to możliwe, ponieważ prywatne galerie są widoczne tylko dla ich twórcy. Jeśli znasz twórcę galerii, poproś go o upublicznienie galerii. Możesz też zgłosić ten problem za pomocą przycisku opinii.",
       "metaTitle": "Galeria nieautoryzowana",
       "title": "Ups! {newline} Próbujesz wyświetlić prywatną galerię innej osoby."
+    },
+    "genericUnknownError": {
+      "description": "Wystąpił nieznany błąd.",
+      "title": "Nieznany błąd"
     },
     "itemNotFound": {
       "description": "Może to być spowodowane następującymi przyczynami: ten element nie istnieje lub; został wycofany z publikacji, ponieważ nie spełniał naszych kryteriów jakości lub; został zaktualizowany i ponownie opublikowany z nowym unikalnym identyfikatorem, w takim przypadku spróbuj ponownie znaleźć przedmiot.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Nie znaleziono strony",
       "title": "Strona, której szukasz nie istnieje."
     },
+    "pinningNotFound": {
+      "description": "Podczas przypinania/odpinania elementu wystąpił błąd. Spróbuj ponownie lub zgłoś problem.",
+      "title": "Nie odnaleziono kolekcji kuratorskiej"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Możliwe jest wyświetlenie tylko pierwszych {limit} wyników wyszukiwania.",
+      "title": "Przekroczono limit stron"
+    },
     "searchResultsNotFound": {
       "description": "Dostosuj wyszukiwane hasło lub zresetuj filtry, aby spróbować ponownie.",
       "title": "Nie możemy znaleźć tego, czego szukasz."
-    },
-    "setLocked": {
-      "description": "Edytowanie jest tymczasowo wyłączone, a zmiany nie zostały zapisane. Spróbuj ponownie później.",
-      "title": "Aktualizacja nie powiodła się"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Skopiowane do schowka",
     "externalContentError": "Nie można załadować treści zewnętrznej",
-    "notFound": "Nie znaleziono",
-    "paginationLimitExceeded": "Możliwe jest wyświetlenie tylko pierwszych {limit} wyników wyświetlania."
+    "notFound": "Nie znaleziono"
   },
   "modal": {
     "download": {
@@ -979,6 +991,9 @@ export default {
     "galleries": {
       "name": "Powiązane galerie",
       "title": "Odkryj powiązane galerie"
+    },
+    "themes": {
+      "title": "Odkryj powiązane motywy"
     }
   },
   "removeFilter": "Usuń filtr {filterLabel}",

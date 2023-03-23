@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
-      "error": {
-        "unpin": "Kohteen irrottamisessa tapahtui virhe. Yritä uudelleen tai ilmoita ongelmasta."
-      },
       "pin": "Tämä kohde näkyy kokoelman \" {entity} \" yläosassa. Ilmoitamme sinulle, kun tämä muutos tulee näkyviin kokoelmasivulle.",
       "pinLimit": {
         "body": "Tällä hetkellä voit kiinnittää vain 24 kohdetta ensimmäiselle sivulle. Jos haluat kiinnittää tämän kohteen, irrota toinen ja yritä sitten kiinnittää tämä uudelleen.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Virhe",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Muokkaus on tilapäisesti poistettu käytöstä, eikä muutoksiasi ole tallennettu. Yritä uudelleen myöhemmin.",
+      "title": "Päivitys epäonnistui"
+    },
+    "galleryNotFound": {
+      "description": "Tätä galleriaa ei löytynyt. Se on ehkä poistettu.",
+      "title": "Galleriaa ei löydy"
+    },
     "galleryUnauthorised": {
       "description": "Tämä ei ole mahdollista, koska yksityiset galleriat näkyvät vain niiden luojalle. Jos tunnet gallerian luojan, pyydä häntä tekemään galleriasta julkinen. Vaihtoehtoisesti voit ilmoittaa tästä ongelmasta palautepainikkeella.",
       "metaTitle": "Galleria luvaton",
       "title": "Oho! {newline} Yrität tarkastella toisen henkilön yksityistä galleriaa."
+    },
+    "genericUnknownError": {
+      "description": "Tapahtui tuntematon virhe.",
+      "title": "Tuntematon virhe"
     },
     "itemNotFound": {
       "description": "Tämä voi johtua seuraavista syistä: tätä kohdetta ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää kohde uudelleen.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Sivua ei löydy",
       "title": "Etsimääsi sivua ei ole olemassa."
     },
+    "pinningNotFound": {
+      "description": "Kohteen kiinnittämisessä/irrottamisessa tapahtui virhe. Yritä uudelleen tai ilmoita ongelmasta.",
+      "title": "Kuroitua kokoelmaa ei löydy"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Vain ensimmäiset {limit} hakutulokset ovat nähtävissä.",
+      "title": "Sivurajoitus ylitetty"
+    },
     "searchResultsNotFound": {
       "description": "Muokkaa hakusanaa tai nollaa suodattimet ja yritä uudelleen.",
       "title": "Emme näytä löytävän etsimääsi."
-    },
-    "setLocked": {
-      "description": "Muokkaus on tilapäisesti poistettu käytöstä, eikä muutoksiasi ole tallennettu. Yritä uudelleen myöhemmin.",
-      "title": "Päivitys epäonnistui"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopioitu leikepöydälle",
     "externalContentError": "Ulkoisen sisällön lataaminen epäonnistui",
-    "notFound": "Ei löydy",
-    "paginationLimitExceeded": "Vain ensimmäiset {limit} hakutulosta voidaan näyttää."
+    "notFound": "Ei löydy"
   },
   "modal": {
     "download": {
@@ -979,6 +991,9 @@ export default {
     "galleries": {
       "name": "Aiheeseen liittyvät galleriat",
       "title": "Tutustu aiheeseen liittyviin gallerioihin"
+    },
+    "themes": {
+      "title": "Tutustu aiheeseen liittyviin teemat"
     }
   },
   "removeFilter": "Poista {filterLabel} -suodatin",

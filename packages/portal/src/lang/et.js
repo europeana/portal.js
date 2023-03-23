@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
-      "error": {
-        "unpin": "Üksuse vabastamisel ilmnes viga. Proovige uuesti või teavitage probleemist."
-      },
       "pin": "See üksus kuvatakse kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "pinLimit": {
         "body": "Praegu saate esimesele lehele kinnitada ainult 24 üksust. Kui soovite selle üksuse kinnitada, eemaldage kindlasti uus üksus ja proovige siis seda uuesti kinnitada.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Viga",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Redigeerimine on ajutiselt keelatud ja teie muudatusi pole salvestatud. Palun proovi hiljem uuesti.",
+      "title": "Uuendus ebaõnnestus"
+    },
+    "galleryNotFound": {
+      "description": "Seda galeriid ei leitud. See võib olla kustutatud.",
+      "title": "Galerii ei leitud"
+    },
     "galleryUnauthorised": {
       "description": "See pole võimalik, kuna privaatgaleriid on nähtavad ainult nende loojale. Kui teate galerii loojat, paluge tal galerii avalikustada. Teise võimalusena teavitage sellest probleemist tagasiside nupuga.",
       "metaTitle": "Galerii volitamata",
       "title": "Ups! {newline} Sa üritad vaadata teise isiku privaat galeriid."
+    },
+    "genericUnknownError": {
+      "description": "Ilmnes tundmatu viga.",
+      "title": "Tundmatu viga"
     },
     "itemNotFound": {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "lehte ei leitud",
       "title": "Lehte, mida otsite, pole olemas."
     },
+    "pinningNotFound": {
+      "description": "Eseme kinnitamisel/lahti kinnitamisel ilmnes viga. Palun proovige uuesti või teatage probleemist.",
+      "title": "Kureeritud kollektsiooni ei leitud"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi.",
+      "title": "Lehekülje limiit ületatud"
+    },
     "searchResultsNotFound": {
       "description": "Palun kohandage otsingusõna või lähtestage filtrid, et proovida uuesti.",
       "title": "Tundub, et me ei leia seda, mida otsite."
-    },
-    "setLocked": {
-      "description": "Redigeerimine on ajutiselt keelatud ja teie muudatusi pole salvestatud. Palun proovi hiljem uuesti.",
-      "title": "Uuendus ebaõnnestus"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopeeritud lõikelauale",
     "externalContentError": "Välist sisu ei õnnestunud laadida",
-    "notFound": "Ei leitud",
-    "paginationLimitExceeded": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi."
+    "notFound": "Ei leitud"
   },
   "modal": {
     "download": {
@@ -979,6 +991,9 @@ export default {
     "galleries": {
       "name": "Seotud galeriid",
       "title": "Avastage seotud galeriid"
+    },
+    "themes": {
+      "title": "Avasta seotud teemad"
     }
   },
   "removeFilter": "Eemalda filter {filterLabel}",

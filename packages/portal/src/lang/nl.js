@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
-      "error": {
-        "unpin": "Er is een fout opgetreden bij het losmaken van het item. Probeer het opnieuw of meld het probleem."
-      },
       "pin": "Dit item wordt bovenaan de collectie \" {entity} \" weergegeven. We laten je weten wanneer deze wijziging zichtbaar is op de collectiepagina.",
       "pinLimit": {
         "body": "Voorlopig kunt u maar 24 items vast zetten op de eerste pagina. Als u dit item wilt vast zetten, moet u ervoor zorgen dat u een ander item los maakt en vervolgens proberen deze opnieuw vast te zetten.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Fout",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Bewerken is tijdelijk uitgeschakeld en uw wijzigingen zijn niet opgeslagen. Probeer het later opnieuw.",
+      "title": "Update mislukt"
+    },
+    "galleryNotFound": {
+      "description": "Deze galerij kon niet worden gevonden. Het is mogelijk verwijderd.",
+      "title": "Galerij niet gevonden"
+    },
     "galleryUnauthorised": {
       "description": "Dit is niet mogelijk, omdat privé galerijen alleen zichtbaar zijn voor de maker ervan. Als u de maker van de galerij kent, vraag hem dan om de galerij publiek te maken. U kunt dit probleem ook melden via de feedback knop.",
       "metaTitle": "Galerij ongeautoriseerd",
       "title": "Oeps! {newline} U probeert de privégalerij van iemand anders te bekijken."
+    },
+    "genericUnknownError": {
+      "description": "Er is een onbekende fout opgetreden.",
+      "title": "Onbekende fout"
     },
     "itemNotFound": {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Pagina niet gevonden",
       "title": "De pagina die u zoekt, bestaat niet."
     },
+    "pinningNotFound": {
+      "description": "Er is een fout opgetreden bij het vastzetten/losmaken van het item. Probeer het opnieuw of meld het probleem.",
+      "title": "Samengestelde collectie niet gevonden"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Het is alleen mogelijk om de eerste {limit} zoekresultaten te bekijken.",
+      "title": "Paginalimiet overschreden"
+    },
     "searchResultsNotFound": {
       "description": "Pas de zoekterm aan of reset de filters om het opnieuw te proberen.",
       "title": "We kunnen blijkbaar niet vinden wat u zoekt."
-    },
-    "setLocked": {
-      "description": "Bewerken is tijdelijk uitgeschakeld en uw wijzigingen zijn niet opgeslagen. Probeer het later opnieuw.",
-      "title": "Update mislukt"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Gekopieerd naar klembord",
     "externalContentError": "De externe inhoud kan niet worden geladen",
-    "notFound": "Niet gevonden",
-    "paginationLimitExceeded": "Het is alleen mogelijk om de eerste {limit} zoekresultaten te bekijken."
+    "notFound": "Niet gevonden"
   },
   "modal": {
     "download": {
@@ -979,6 +991,9 @@ export default {
     "galleries": {
       "name": "Gerelateerde galerijen",
       "title": "Ontdek gerelateerde galerijen"
+    },
+    "themes": {
+      "title": "Ontdek gerelateerde thema's"
     }
   },
   "removeFilter": "Verwijder het filter {filterLabel}",

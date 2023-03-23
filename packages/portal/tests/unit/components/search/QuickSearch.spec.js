@@ -7,17 +7,20 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const themesOrOptions = [{ prefLabel: { en: 'theme1' } }, { prefLabel: { en: 'theme2' } }];
+
 const factory = ({ propsData = {} } = {}) => shallowMountNuxt(QuickSearch, {
   localVue,
   propsData,
   mocks: {
     $contentful: {
-      query: sinon.stub().resolves({ data: { data: { themePageCollection: { items: [] } } } })
+      query: sinon.stub().resolves({ data: { data: { themePageCollection: { items: themesOrOptions } } } })
     },
     $i18n: {
       isoLocale: () => 'en-GB',
       locale: 'en'
     },
+    $path: () => {},
     $route: {
       query: {}
     },
@@ -34,9 +37,21 @@ describe('components/search/QuickSearch', () => {
     expect(wrapper.vm.$contentful.query.called).toBe(true);
   });
 
-  describe('when options or themes are available', () => {
+  describe('when options are passed', () => {
     it('is rendered', () => {
-      const wrapper = factory({ propsData: { options: [{ prefLabel: { en: 'theme1' } }, { prefLabel: { en: 'theme2' } }] } });
+      const wrapper = factory({ propsData: { options: themesOrOptions } });
+
+      const quickSearch = wrapper.find('[data-qa="quick-search"]');
+
+      expect(quickSearch.exists()).toBe(true);
+    });
+  });
+
+  describe('when fetch returns themes', () => {
+    it('is rendered', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
 
       const quickSearch = wrapper.find('[data-qa="quick-search"]');
 

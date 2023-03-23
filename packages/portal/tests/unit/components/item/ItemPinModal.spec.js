@@ -141,6 +141,14 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
         create: setApiCreateStub,
         modifyItems: setApiModifyItemsStub
       }
+    },
+    $store: {
+      commit: sinon.spy(),
+      state: {
+        entity: {
+          pinned: []
+        }
+      }
     }
   }
 });
@@ -306,7 +314,7 @@ describe('components/item/ItemPinModal', () => {
             const wrapper = factory(fixtures.itemNotPinned);
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
-
+            await new Promise(process.nextTick);
             expect(setApiModifyItemsStub.called).toBe(true);
             expect(setApiCreateStub.called).toBe(false);
           });
@@ -455,46 +463,6 @@ describe('components/item/ItemPinModal', () => {
       });
     });
 
-    describe('ensureSelectedSetExists', () => {
-      describe('when there is NO set ID stored', () => {
-        it('sends a create request to the set API, updates the data', async() => {
-          const wrapper = factory();
-          await wrapper.setData({
-            selected: ENTITY_URI,
-            sets: {
-              [ENTITY_URI]: { id: null, pinned: [] }
-            }
-          });
-
-          await wrapper.vm.ensureSelectedSetExists();
-
-          expect(setApiCreateStub.calledWith({
-            type: 'EntityBestItemsSet',
-            title: { 'en': 'Agent entity Page' },
-            subject: [ENTITY_URI]
-          })).toBe(true);
-          expect(wrapper.vm.sets[ENTITY_URI].id).toBe('457');
-          expect(wrapper.vm.sets[ENTITY_URI].pinned).toEqual([]);
-        });
-      });
-
-      describe('when there is a set ID already stored', () => {
-        it('does NOT send any create request to the set API', async() => {
-          const wrapper = factory();
-          await wrapper.setData({
-            selected: ENTITY_URI,
-            sets: {
-              [ENTITY_URI]: { id: '456', pinned: [] }
-            }
-          });
-
-          await wrapper.vm.ensureSelectedSetExists();
-
-          expect(setApiCreateStub.called).toBe(false);
-        });
-      });
-    });
-
     describe('pin', () => {
       it('ensures there is a selected set', async() => {
         const wrapper = factory();
@@ -504,11 +472,11 @@ describe('components/item/ItemPinModal', () => {
             [ENTITY_URI]: { id: '456', pinned: [] }
           }
         });
-        const ensureSelectedSetExistsMock = sinon.mock(wrapper.vm).expects('ensureSelectedSetExists').once();
+        const ensureEntityBestItemsSetExistsMock = sinon.mock(wrapper.vm).expects('ensureEntityBestItemsSetExists').once();
 
         await wrapper.vm.pin();
 
-        expect(ensureSelectedSetExistsMock.verify()).toBe(true);
+        expect(ensureEntityBestItemsSetExistsMock.verify()).toBe(true);
       });
 
       describe('when when the item can be pinned', () => {

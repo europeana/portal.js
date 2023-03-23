@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
-      "error": {
-        "unpin": "Pri odpenjanju elementa je prišlo do napake. Poskusite znova ali prijavite težavo."
-      },
       "pin": "Ta element bo prikazan na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
       "pinLimit": {
         "body": "Zaenkrat lahko na prvo stran pripnete le 24 elementov. Če želite pripeti ta element, odstranite še enega in poskusite znova pripeti tega.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Napaka",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Urejanje je začasno onemogočeno in vaše spremembe niso shranjene. Prosim poskusite kasneje.",
+      "title": "Posodobitev ni uspela"
+    },
+    "galleryNotFound": {
+      "description": "Te galerije ni bilo mogoče najti. Morda je bil izbrisan.",
+      "title": "Galerije ni mogoče najti"
+    },
     "galleryUnauthorised": {
       "description": "To ni mogoče, ker so zasebne galerije vidne samo njihovemu ustvarjalcu. Če poznate ustvarjalca galerije, ga prosite, naj galerijo objavi. Druga možnost je, da to težavo prijavite z gumbom za povratne informacije.",
       "metaTitle": "Galerija nepooblaščena",
       "title": "Ups! {newline} Poskušate si ogledati zasebno galerijo druge osebe."
+    },
+    "genericUnknownError": {
+      "description": "Prišlo je do neznane napake.",
+      "title": "Neznana napaka"
     },
     "itemNotFound": {
       "description": "Razlogi za to so lahko naslednji: ta element ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite element poiskati znova.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Stran ni najdena",
       "title": "Stran, ki jo iščete, ne obstaja."
     },
+    "pinningNotFound": {
+      "description": "Pri pripenjanju/odpenjanju elementa je prišlo do napake. Poskusite znova ali prijavite težavo.",
+      "title": "Kurirana zbirka ni bila najdena"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Ogledati si je mogoče le prvih {limit} rezultatov iskanja.",
+      "title": "Omejitev strani je presežena"
+    },
     "searchResultsNotFound": {
       "description": "Prosimo, prilagodite iskalni izraz ali po nastavite filtre, da poskusite znova.",
       "title": "Zdi se, da ne moremo najti, kar iščete."
-    },
-    "setLocked": {
-      "description": "Urejanje je začasno onemogočeno in vaše spremembe niso shranjene. Prosim poskusite kasneje.",
-      "title": "Posodobitev ni uspela"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopirano v odložišče",
     "externalContentError": "Zunanje vsebine ni bilo mogoče naložiti",
-    "notFound": "Ni najdeno",
-    "paginationLimitExceeded": "Ogledate si lahko samo prvih {limit} rezultatov iskanja."
+    "notFound": "Ni najdeno"
   },
   "modal": {
     "download": {
@@ -979,6 +991,9 @@ export default {
     "galleries": {
       "name": "Sorodne galerije",
       "title": "Odkrijte povezane galerije"
+    },
+    "themes": {
+      "title": "Odkrijte povezane teme"
     }
   },
   "removeFilter": "Odstrani filter {filterLabel}",

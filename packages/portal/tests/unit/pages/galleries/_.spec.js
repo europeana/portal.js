@@ -215,7 +215,8 @@ describe('GalleryPage (Set)', () => {
 
         await wrapper.vm.fetch();
 
-        expect(storeDispatch.calledWith('entity/getPins')).toBe(true);
+        expect(storeCommit.calledWith('entity/setBestItemsSetId', testSetEntityBestItems.id)).toBe(true);
+        expect(storeCommit.calledWith('entity/setPinned', sinon.match.array)).toBe(true);
       });
 
       describe('when accept entity recommendations is enabled', () => {

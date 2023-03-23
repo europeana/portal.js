@@ -55,7 +55,7 @@ describe('components/error/ErrorModal', () => {
       });
 
       describe('when error is not fetch error, and has title', () => {
-        const error = { isFetchError: false, title: 'Set not found' };
+        const error = { isFetchError: false, i18n: { title: 'Set not found' } };
         it('shows modal', async() => {
           const wrapper = factory();
           sinon.spy(wrapper.vm.$bvModal, 'show');

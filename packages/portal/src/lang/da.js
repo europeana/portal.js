@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
-      "error": {
-        "unpin": "Der opstod en fejl under frigørelse af elementet. Prøv venligst igen, eller rapporter problemet."
-      },
       "pin": "Dette element vises øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "pinLimit": {
         "body": "Indtil videre kan du kun fastgøre 24 elementer på den første side. Hvis du vil fastgøre dette emne, skal du fjerne et andet emne og derefter prøve at fastgøre dette emne igen.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Fejl",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Redigering er midlertidigt deaktiveret, og dine ændringer er ikke blevet gemt. Prøv igen senere.",
+      "title": "Opdatering fejlede"
+    },
+    "galleryNotFound": {
+      "description": "Dette galleri kunne ikke findes. Det kan være blevet slettet.",
+      "title": "Galleri ikke fundet"
+    },
     "galleryUnauthorised": {
       "description": "Dette er ikke muligt, fordi private gallerier kun er synlige for deres skaber. Hvis du kender skaberen af galleriet, så bed dem om at gøre galleriet offentligt. Alternativt kan du rapportere dette problem ved hjælp af feedback-knappen.",
       "metaTitle": "Galleri uautoriseret",
       "title": "Ups! {newline} Du forsøger at se en anden persons private galleri."
+    },
+    "genericUnknownError": {
+      "description": "Der opstod en ukendt fejl.",
+      "title": "Ukendt fejl"
     },
     "itemNotFound": {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Siden blev ikke fundet",
       "title": "Den side du leder efter eksisterer ikke."
     },
+    "pinningNotFound": {
+      "description": "Der opstod en fejl ved fastgørelse/frigørelse af elementet. Prøv venligst igen, eller rapporter problemet.",
+      "title": "Kurateret samling ikke fundet"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Det er kun muligt at se de første {limit} søgeresultater.",
+      "title": "Sidelimit overskredet"
+    },
     "searchResultsNotFound": {
       "description": "Juster søgeordet, eller nulstil filtrene for at prøve igen.",
       "title": "Vi kan tilsyneladende ikke finde det, du leder efter."
-    },
-    "setLocked": {
-      "description": "Redigering er midlertidigt deaktiveret, og dine ændringer er ikke blevet gemt. Prøv igen senere.",
-      "title": "Opdatering fejlede"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopieret til udklipsholderen",
     "externalContentError": "Det eksterne indhold kunne ikke indlæses",
-    "notFound": "Ikke fundet",
-    "paginationLimitExceeded": "Det er kun muligt at få vist de første {limit} søgeresultater."
+    "notFound": "Ikke fundet"
   },
   "modal": {
     "download": {
@@ -979,6 +991,9 @@ export default {
     "galleries": {
       "name": "Relaterede gallerier",
       "title": "Oplev relaterede gallerier"
+    },
+    "themes": {
+      "title": "Oplev relaterede temaer"
     }
   },
   "removeFilter": "Fjern {filterLabel} filter",

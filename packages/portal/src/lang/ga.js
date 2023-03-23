@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Scriosadh do ghailearaí.",
-      "error": {
-        "unpin": "Tharla earráid agus an mhír á díphionnáil. Bain triail eile as, nó cuir in iúl don fhadhb."
-      },
       "pin": "Taispeánfar an mhír seo ag barr an bhailiúcháin \" {entity} \". Cuirfimid in iúl duit nuair a bheidh an t-athrú seo le feiceáil ar leathanach an bhailiúcháin.",
       "pinLimit": {
         "body": "Go dtí seo ní féidir leat ach 24 earra a phionáil ar an gcéad leathanach. Más mian leat an t-earra seo a phionáil, déan cinnte go ndéanann tú ceann eile a dhíshuiteáil agus ansin déan iarracht an ceann seo a phionáil arís.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Earráid",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Tá an eagarthóireacht díchumasaithe go sealadach, agus níor sábháladh do chuid athruithe. Bain triail eile as ar ball.",
+      "title": "Theip ar an nuashonrú"
+    },
+    "galleryNotFound": {
+      "description": "Níorbh fhéidir an gailearaí seo a aimsiú. Seans gur scriosadh é.",
+      "title": "Gailearaí gan aimsiú"
+    },
     "galleryUnauthorised": {
       "description": "Ní féidir é seo a dhéanamh mar níl gailearaithe príobháideacha le feiceáil ach ag a gcruthóir. Má tá aithne agat ar chruthaitheoir an ghailearaí, iarr orthu an gailearaí a phoibliú. Nó, tuairiscigh an cheist seo agus an cnaipe aiseolais á úsáid agat.",
       "metaTitle": "Gailearaí neamhúdaraithe",
       "title": "Úps! {newline} Tá tú ag iarraidh féachaint ar ghailearaí príobháideach duine eile."
+    },
+    "genericUnknownError": {
+      "description": "Tharla earráid anaithnid.",
+      "title": "Earráid anaithnid"
     },
     "itemNotFound": {
       "description": "D'fhéadfadh sé seo a bheith mar gheall ar na cúiseanna seo a leanas: níl an mhír seo ann, nó; dífhoilsíodh é toisc nach raibh sé ag teacht lenár gcritéir cháilíochta, nó; Rinneadh é a nuashonrú agus a athfhoilsiú le haitheantóir uathúil nua, agus sa chás sin, déan iarracht an mhír a aimsiú arís.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Níor aimsíodh an leathanach",
       "title": "Níl an leathanach atá á lorg agat ann."
     },
+    "pinningNotFound": {
+      "description": "Tharla earráid agus an mhír á phionnáil/díphionnáil. Bain triail eile as, nó cuir in iúl don fhadhb.",
+      "title": "Bailiúchán coimeádaithe gan aimsiú"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Ní féidir ach na chéad {limit} torthaí cuardaigh a fheiceáil.",
+      "title": "Sáraíodh teorainn na leathanach"
+    },
     "searchResultsNotFound": {
       "description": "Athraigh an téarma cuardaigh nó athshocraigh na scagairí chun triail eile a bhaint as.",
       "title": "Is cosúil nach féidir linn teacht ar a bhfuil á lorg agat."
-    },
-    "setLocked": {
-      "description": "Tá an eagarthóireacht díchumasaithe go sealadach, agus níor sábháladh do chuid athruithe. Bain triail eile as ar ball.",
-      "title": "Theip ar an nuashonrú"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Cóipeáilte ar ghearrthaisce",
     "externalContentError": "Theip ar lódáil an inneachair sheachtraigh",
-    "notFound": "Níor aimsíodh é",
-    "paginationLimitExceeded": "Ní féidir ach amháin na chéad {limit} torthaí cuardaigh a fheiceáil."
+    "notFound": "Níor aimsíodh é"
   },
   "modal": {
     "download": {
@@ -979,6 +991,9 @@ export default {
     "galleries": {
       "name": "Gailearaithe gaolmhara",
       "title": "Faigh amach gailearaithe gaolmhara"
+    },
+    "themes": {
+      "title": "Faigh amach téamaí gaolmhara"
     }
   },
   "removeFilter": "Bain {filterLabel} scagaire",

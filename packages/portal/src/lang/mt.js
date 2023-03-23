@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Il-gallerija tiegħek tħassret.",
-      "error": {
-        "unpin": "Kien hemm żball fil-unpinning tal-oġġett. Jekk jogħġbok erġa' pprova, jew irrapporta l-kwistjoni."
-      },
       "pin": "Dan l-oġġett se juri fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "pinLimit": {
         "body": "Għalissa tista 'biss tpoġġi 24 oġġett fl-ewwel paġna. Jekk trid tpoġġi din il-partita, kun żgur li tneħħi pinna oħra u mbagħad erġa 'pprova tpinġiha.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Żball",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "L-editjar huwa diżattivat temporanjament, u l-bidliet tiegħek ma ġewx salvati. Jekk jogħġbok erġa' pprova aktar tard.",
+      "title": "L-aġġornament falla"
+    },
+    "galleryNotFound": {
+      "description": "Din il-gallerija ma setgħetx tinstab. Jista' jkun ġie mħassar.",
+      "title": "Gallerija ma nstabx"
+    },
     "galleryUnauthorised": {
       "description": "Dan mhux possibbli għaliex il-galleriji privati huma viżibbli biss għall-kreatur tagħhom. Jekk taf lill-kreatur tal-gallerija, staqsihom biex jagħmlu l-gallerija pubblika. Inkella, irrapporta din il-kwistjoni billi tuża l-buttuna ta' feedback.",
       "metaTitle": "Gallerija mhux awtorizzata",
       "title": "Oops! {newline} Qed tipprova tara l-gallerija privata ta' persuna oħra."
+    },
+    "genericUnknownError": {
+      "description": "Sar żball mhux magħruf.",
+      "title": "Żball mhux magħruf"
     },
     "itemNotFound": {
       "description": "Dan jista' jkun minħabba r-raġunijiet li ġejjin: dan l-oġġett ma jeżistix, jew; tneħħiet il-pubblikazzjoni għax ma kinitx taqbel mal-kriterji ta’ kwalità tagħna, jew; ġie aġġornat u ppubblikat mill-ġdid b'identifikatur uniku ġdid, f'liema każ, ipprova erġa' sib l-oġġett.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Paġna mhux misjuba",
       "title": "Il-paġna li qed tfittex ma teżistix."
     },
+    "pinningNotFound": {
+      "description": "Kien hemm żball pinning/unpinning tal-oġġett. Jekk jogħġbok erġa' pprova, jew irrapporta l-kwistjoni.",
+      "title": "Kollezzjoni kkurata ma nstabx"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Huwa possibbli biss li tara l-ewwel riżultati tat-tfittxija {limit} .",
+      "title": "Limitu tal-paġna inqabeż"
+    },
     "searchResultsNotFound": {
       "description": "Jekk jogħġbok aġġusta t-terminu tat-tfittxija jew reset il-filtri biex terġa' tipprova.",
       "title": "Ma nistgħux jidher li nsibu dak li qed tfittex."
-    },
-    "setLocked": {
-      "description": "L-editjar huwa diżattivat temporanjament, u l-bidliet tiegħek ma ġewx salvati. Jekk jogħġbok erġa' pprova aktar tard.",
-      "title": "L-aġġornament falla"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Ikkupjat fil-clipboard",
     "externalContentError": "Il-kontenut estern ma llowdjax",
-    "notFound": "Ma Nstabx",
-    "paginationLimitExceeded": "Huwa possibbli biss li tara l-ewwel {limit} riżultati tat-tfittxija."
+    "notFound": "Ma Nstabx"
   },
   "modal": {
     "download": {
@@ -979,6 +991,9 @@ export default {
     "galleries": {
       "name": "Galleriji relatati",
       "title": "Skopri galleriji relatati"
+    },
+    "themes": {
+      "title": "Skopri temi relatati"
     }
   },
   "removeFilter": "Neħħi l-filtru {filterLabel}",

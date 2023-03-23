@@ -199,9 +199,6 @@ export default {
     },
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
-      "error": {
-        "unpin": "Det uppstod ett fel vid lossningen av objektet. Försök igen eller rapportera problemet."
-      },
       "pin": "Det här objektet visas högst upp i samlingen \"{entity}\". Vi meddelar dig när ändringen syns på samlingssidan.",
       "pinLimit": {
         "body": "För tillfället kan du bara fästa 24 objekt på den första sidan. Om du vill fästa det här objektet måste du ta bort ett annat och sedan försöka fästa det här igen.",
@@ -215,10 +212,22 @@ export default {
   },
   "error": "Fel",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Redigering är tillfälligt inaktiverad och dina ändringar har inte sparats. Vänligen försök igen senare.",
+      "title": "Uppdateringen misslyckades"
+    },
+    "galleryNotFound": {
+      "description": "Det här galleriet kunde inte hittas. Det kan ha tagits bort.",
+      "title": "Galleriet hittades inte"
+    },
     "galleryUnauthorised": {
       "description": "Detta är inte möjligt eftersom privata gallerier endast är synliga för deras skapare. Om du känner skaparen av galleriet, be dem att göra galleriet offentligt. Alternativt kan du rapportera det här problemet med feedbackknappen.",
       "metaTitle": "Galleri obehörigt",
       "title": "Oops! {newline} Du försöker visa en annan persons privata galleri."
+    },
+    "genericUnknownError": {
+      "description": "Ett okänt fel uppstod.",
+      "title": "Okänt fel"
     },
     "itemNotFound": {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
@@ -229,13 +238,17 @@ export default {
       "metaTitle": "Sidan har inte hittats",
       "title": "Sidan du letar efter finns inte."
     },
+    "pinningNotFound": {
+      "description": "Det uppstod ett fel när du pinnade upp/avpinnade objektet. Försök igen eller rapportera problemet.",
+      "title": "Kurerad samling inte hittad"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Det är bara möjligt att se de första {limit} sökresultaten.",
+      "title": "Sidgränsen har överskridits"
+    },
     "searchResultsNotFound": {
       "description": "Justera söktermen eller återställ filtren för att försöka igen.",
       "title": "Vi verkar inte kunna hitta det du letar efter."
-    },
-    "setLocked": {
-      "description": "Redigering är tillfälligt inaktiverad och dina ändringar har inte sparats. Vänligen försök igen senare.",
-      "title": "Uppdateringen misslyckades"
     }
   },
   "exhibitions": {
@@ -861,8 +874,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopieras till Urklipp",
     "externalContentError": "Det externa innehållet kunde inte hämtas",
-    "notFound": "Hittades inte",
-    "paginationLimitExceeded": "Det är bara möjligt att visa de {limit} första sökresultaten."
+    "notFound": "Hittades inte"
   },
   "modal": {
     "download": {
@@ -979,6 +991,9 @@ export default {
     "galleries": {
       "name": "Relaterade gallerier",
       "title": "Upptäck relaterade gallerier"
+    },
+    "themes": {
+      "title": "Upptäck relaterade teman"
     }
   },
   "removeFilter": "Ta bort filter {filterLabel}",

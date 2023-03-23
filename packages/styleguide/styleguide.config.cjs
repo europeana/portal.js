@@ -70,7 +70,8 @@ module.exports = async() => {
           'Item',
           'Related',
           'Search',
-          'Set'
+          'Set',
+          'Theme'
         ].map((name) => ({
           name,
           components: `../portal/src/components/${name.toLowerCase()}/[A-Z]*.vue`

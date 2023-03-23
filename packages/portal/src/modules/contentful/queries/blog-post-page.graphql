@@ -16,6 +16,7 @@ query BlogPostPage(
           identifier
         }
       }
+      genre
       primaryImageOfPage {
         ... imageWithAttributionFields
       }
