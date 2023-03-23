@@ -78,7 +78,7 @@ Object.assign(Vue.prototype, {
           { prefLabel: { en: `suggestion for ${query}` } }
         ]);
       },
-      imageUrl: (entity) => entity.image?.url
+      imageUrl: (entity) => entity.isShownBy?.thumbnail || entity.logo
     },
     thumbnail: { edmPreview: (img) => img }
   },

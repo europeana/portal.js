@@ -41,16 +41,23 @@
     name: 'RelatedCategoryTags',
 
     props: {
+      /**
+       * Array of tags
+       */
       tags: {
         type: Array,
         required: true
       },
-
+      /**
+       * Array of tags selected by the user
+       */
       selected: {
         type: Array,
         default: () => []
       },
-
+      /**
+       * Toggle to show or hide the heading
+       */
       heading: {
         type: Boolean,
         default: true
@@ -88,10 +95,6 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
-  .related-heading {
-    margin-bottom: 0.75rem;
-  }
-
   .icon-ic-tag {
     color: $mediumgrey;
     display: inline-block;
@@ -125,3 +128,35 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <RelatedCategoryTags
+    :tags="[
+      {
+      identifier: 'Women\'s history',
+      name: 'Women\'s history'
+      },
+      {
+      identifier: 'Renaissance',
+      name: 'Renaissance'
+      }]"
+  />
+  ```
+  Tags without heading and including some selected
+  ```jsx
+  <RelatedCategoryTags
+    :tags="[
+      {
+      identifier: 'Women\'s history',
+      name: 'Women\'s history'
+      },
+      {
+      identifier: 'Renaissance',
+      name: 'Renaissance'
+      }]"
+    :selected="['Women\'s history']"
+    :heading="false"
+  />
+  ```
+</docs>

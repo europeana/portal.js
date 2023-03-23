@@ -18,7 +18,7 @@
         :key="relatedCollection.id"
         :title="collectionTitle(relatedCollection)"
         :url="entityRouterLink(relatedCollection.id)"
-        :image-url="imageUrl(relatedCollection, 80, 80)"
+        :image-url="$apis.entity.imageUrl(relatedCollection)"
         :variant="cardVariant"
       />
     </b-card-group>

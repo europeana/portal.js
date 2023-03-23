@@ -79,6 +79,50 @@ Variant "primary":
   </b-container>
 ```
 
+Variant "outline-primary":
+```jsx
+  <b-container>
+    <b-badge
+      variant="outline-primary"
+    >
+      badge
+    </b-badge>
+    <b-badge
+      variant="outline-primary"
+      pill
+    >
+      pill
+    </b-badge>
+    <b-badge
+      pill
+      variant="outline-primary"
+    >
+      pill
+      <button class="close">x</button>
+    </b-badge>
+    <b-badge
+      variant="outline-primary"
+      pill
+      href="https://www.europeana.eu"
+    >
+      pill link
+    </b-badge>
+    <b-badge
+      variant="outline-primary"
+      pill
+      href="https://www.europeana.eu"
+      class="img-chip"
+    >
+      <b-img
+        src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fcc.museon.nl%2Fimageproxy.aspx%3Fserver%3Dlocalhost%26port%3D17512%26filename%3Dimages%2Fscreen2%2F116201a.jpg&type=IMAGE&size=w200"
+        rounded="circle"
+        class="mr-2"
+      />
+      pill image link
+    </b-badge>
+  </b-container>
+```
+
 Variant "primary-light":
 ```jsx
   <b-container>

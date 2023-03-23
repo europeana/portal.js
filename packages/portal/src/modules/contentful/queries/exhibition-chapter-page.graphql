@@ -20,6 +20,7 @@ query ExhibitionChapterPage(
         description
       }
       relatedLink
+      genre
       hasPartCollection(limit: 40) {
         items {
           name
