@@ -33,17 +33,14 @@
         button-variant="secondary"
         class="half-col"
       />
-      <client-only>
-        <StoriesInterface
-          :call-to-action="callToAction"
-        />
-      </client-only>
+      <StoriesInterface
+        :call-to-action="callToAction"
+      />
     </div>
   </div>
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
   import ContentHeader from '@/components/generic/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import StoriesInterface from '@/components/stories/StoriesInterface';
@@ -54,7 +51,6 @@
 
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
-      ClientOnly,
       ContentHeader,
       StoriesInterface,
       LoadingSpinner

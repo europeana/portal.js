@@ -2,10 +2,12 @@
   <div
     data-qa="stories interface"
   >
-    <StoriesTagsDropdown
-      :filtered-tags="filteredTags"
-      :selected-tags="selectedTags"
-    />
+    <client-only>
+      <StoriesTagsDropdown
+        :filtered-tags="filteredTags"
+        :selected-tags="selectedTags"
+      />
+    </client-only>
     <div
       class="mb-4 context-label"
     >
@@ -63,7 +65,7 @@
 
 <script>
   import uniq from 'lodash/uniq';
-  import StoriesTagsDropdown from '@/components/stories/StoriesTagsDropdown';
+  import ClientOnly from 'vue-client-only';
   import ContentCard from '@/components/generic/ContentCard';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
 
@@ -73,13 +75,13 @@
     name: 'StoriesInterface',
 
     components: {
-      CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
-      StoriesTagsDropdown,
-      ContentCard: () => import('@/components/generic/ContentCard'),
-      LoadingSpinner: () => import('../generic/LoadingSpinner'),
-      PaginationNavInput: () => import('../generic/PaginationNavInput')
+      CallToActionBanner: () => import('../generic/CallToActionBanner'),
+      ClientOnly,
+      ContentCard,
+      LoadingSpinner,
+      PaginationNavInput: () => import('../generic/PaginationNavInput'),
+      StoriesTagsDropdown: () => import('../stories/StoriesTagsDropdown')
     },
-
 
     props: {
       callToAction: {
@@ -109,7 +111,7 @@
         return this.$route.query.tags?.split(',') || [];
       },
       filteredTags() {
-        const relevantTags = this.relevantStoryMetadata.map((story) => story.cats.items.filter((cat) => !!cat).map((cat) => cat.id)).flat();
+        const relevantTags = this.relevantStoryMetadata.map((story) => story.cats).flat();
 
         const tagsSortedByMostUsed = relevantTags.map((tag, i, array) => {
           return { tag, total: array.filter(t => t === tag).length };
@@ -121,8 +123,7 @@
         if (this.selectedTags.length > 0) {
           // Filter by selected categories
           return this.allStoryMetadata.filter((story) => {
-            const storyTags = story.cats.items.map((cat) => cat?.id);
-            return this.selectedTags.every((tag) => storyTags.includes(tag));
+            return this.selectedTags.every((tag) => story.cats.includes(tag));
           });
         }
         return this.allStoryMetadata;
@@ -137,7 +138,6 @@
       selectedTags: 'fetchStories'
     },
 
-
     methods: {
       async fetchStoryMetadata() {
         // Fetch minimal data for all stories to support ordering by datePublished
@@ -151,6 +151,11 @@
           storyIdsResponse.data.data.blogPostingCollection.items,
           storyIdsResponse.data.data.exhibitionPageCollection.items
         ].flat();
+
+        // Simplify categories
+        for (const story of storyIds) {
+          story.cats = (story.cats?.items || []).filter((cat) => !!cat).map((cat) => cat.id);
+        }
 
         // Order by date published
         this.allStoryMetadata = storyIds.sort((a, b) => (new Date(b.date)).getTime() - (new Date(a.date)).getTime());
