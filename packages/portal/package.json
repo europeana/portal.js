@@ -78,13 +78,6 @@
     "Leonie Peters <leonie.peters@europeana.eu>",
     "Alan Sutherland <alan.sutherland@europeana.eu>"
   ],
-  "engines": {
-    "node": "^18",
-    "npm": "^8"
-  },
-  "keywords": [
-    "code4lib"
-  ],
   "license": "EUPL-1.2",
   "repository": {
     "type": "git",

@@ -25,10 +25,6 @@
     "inquirer": "^8.0.0",
     "log-update": "^4.0.0"
   },
-  "engines": {
-    "node": "^18",
-    "npm": "^8"
-  },
   "license": "EUPL-1.2",
   "bugs": {
     "url": "https://github.com/europeana/portal.js/issues"
