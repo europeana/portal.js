@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Aiheeseen liittyvät galleriat",
       "title": "Tutustu aiheeseen liittyviin gallerioihin"
+    },
+    "themes": {
+      "title": "Tutustu aiheeseen liittyviin teemat"
     }
   },
   "removeFilter": "Poista {filterLabel} -suodatin",

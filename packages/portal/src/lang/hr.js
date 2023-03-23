@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Povezane galerije",
       "title": "Otkrijte povezane galerije"
+    },
+    "themes": {
+      "title": "Otkrijte povezane teme"
     }
   },
   "removeFilter": "Uklonite filtar {filterLabel} ",

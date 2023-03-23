@@ -995,6 +995,9 @@ export default {
     "galleries": {
       "name": "Σχετικές γκαλερί",
       "title": "Ανακαλύψτε σχετικές γκαλερί"
+    },
+    "themes": {
+      "title": "Ανακαλύψτε σχετικά θέματα"
     }
   },
   "removeFilter": "Κατάργηση φίλτρου {filterLabel}",

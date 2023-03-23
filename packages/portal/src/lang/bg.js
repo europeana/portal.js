@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Свързани галерии",
       "title": "Открийте свързани галерии"
+    },
+    "themes": {
+      "title": "Открийте свързани теми"
     }
   },
   "removeFilter": "Премахване на филтъра {filterLabel}",

@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Související galerie",
       "title": "Objevte související galerie"
+    },
+    "themes": {
+      "title": "Objevte související témata"
     }
   },
   "removeFilter": "Odstranit {filterLabel} filtr",

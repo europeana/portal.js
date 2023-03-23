@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Relaterade gallerier",
       "title": "Upptäck relaterade gallerier"
+    },
+    "themes": {
+      "title": "Upptäck relaterade teman"
     }
   },
   "removeFilter": "Ta bort filter {filterLabel}",

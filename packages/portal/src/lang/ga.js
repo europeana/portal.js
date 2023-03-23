@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Gailearaithe gaolmhara",
       "title": "Faigh amach gailearaithe gaolmhara"
+    },
+    "themes": {
+      "title": "Faigh amach téamaí gaolmhara"
     }
   },
   "removeFilter": "Bain {filterLabel} scagaire",

@@ -991,6 +991,9 @@ export default {
     "galleries": {
       "name": "Galleriji relatati",
       "title": "Skopri galleriji relatati"
+    },
+    "themes": {
+      "title": "Skopri temi relatati"
     }
   },
   "removeFilter": "Neħħi l-filtru {filterLabel}",
