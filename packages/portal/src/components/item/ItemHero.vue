@@ -37,6 +37,10 @@
                   button-variant="secondary"
                 />
               </client-only>
+              <ItemTranscribeButton
+                v-if="linkForContributingAnnotation"
+                :transcribe-url="linkForContributingAnnotation"
+              />
               <ShareButton />
               <DownloadWidget
                 v-if="downloadEnabled"
@@ -82,7 +86,8 @@
       RightsStatementButton,
       ShareButton,
       SocialShareModal,
-      UserButtons: () => import('../account/UserButtons')
+      UserButtons: () => import('../account/UserButtons'),
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
     },
 
     mixins: [
@@ -121,6 +126,10 @@
         default: () => []
       },
       providerUrl: {
+        type: String,
+        default: null
+      },
+      linkForContributingAnnotation: {
         type: String,
         default: null
       }
