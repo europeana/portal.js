@@ -83,7 +83,7 @@
     align-items: center;
 
     @media (min-width: $bp-4k) {
-      height: 7rem;
+      height: calc(1.5 * 2.25rem);
     }
 
     .icon-view-toggle {
@@ -91,7 +91,7 @@
       font-size: 1.5rem;
 
       @media (min-width: $bp-4k) {
-        font-size: 3.125rem;
+        font-size: calc(1.5 * 1.5rem);
       }
 
       &::before {
@@ -103,7 +103,7 @@
         display: inline-block;
 
         @media (min-width: $bp-4k) {
-          width: 3.125rem;
+          width: $font-size-large-4k;
         }
       }
 

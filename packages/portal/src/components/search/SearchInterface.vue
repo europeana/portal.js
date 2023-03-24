@@ -406,7 +406,7 @@
 
 .mb-3 {
   @media (min-width: $bp-4k) {
-    margin-bottom: 2rem !important;
+    margin-bottom: 1.5rem !important;
   }
 }
 

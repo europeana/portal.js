@@ -106,7 +106,7 @@
     @media (min-width: $bp-4k) {
       font-size: 1.5rem;
       margin-bottom: 3rem;
-      min-height: 542px;
+      min-height: 442px;
     }
 
     .cta-content {
