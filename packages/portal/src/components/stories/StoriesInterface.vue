@@ -14,7 +14,7 @@
       {{ $tc('items.itemCount', total, { count: total }) }}
     </div>
     <b-container
-      v-if="loadingStories"
+      v-if="$fetchState.pending"
       data-qa="stories loading spinner container"
     >
       <b-row class="flex-md-row py-4 text-center">
@@ -92,18 +92,19 @@
 
     data() {
       return {
-        allStoryMetadata: [],
+        allStoryMetadata: null,
         ctaBanner: CTA_BANNER,
         perPage: 24,
         stories: [],
-        total: 0,
-        loadingStories: false
+        total: 0
       };
     },
 
     async fetch() {
-      await this.fetchStoryMetadata();
-      this.fetchStories();
+      if (!this.allStoryMetadata) {
+        await this.fetchStoryMetadata();
+      }
+      await this.fetchStories();
     },
 
     computed: {
@@ -120,13 +121,13 @@
         return uniq(tagsSortedByMostUsed);
       },
       relevantStoryMetadata() {
-        if (this.selectedTags.length > 0) {
+        if (this.allStoryMetadata && (this.selectedTags.length > 0)) {
           // Filter by selected categories
           return this.allStoryMetadata.filter((story) => {
             return this.selectedTags.every((tag) => story.cats.includes(tag));
           });
         }
-        return this.allStoryMetadata;
+        return this.allStoryMetadata || [];
       },
       page() {
         return Number(this.$route.query.page || 1);
@@ -134,8 +135,8 @@
     },
 
     watch: {
-      page: 'fetchStories',
-      selectedTags: 'fetchStories'
+      page: '$fetch',
+      selectedTags: '$fetch'
     },
 
     methods: {
@@ -162,33 +163,29 @@
       },
 
       async fetchStories() {
-        if (!this.loadingStories) {
-          this.loadingStories = true;
-          // Paginate
-          this.total = this.relevantStoryMetadata.length;
-          const sliceFrom = (this.page - 1) * this.perPage;
-          const sliceTo = sliceFrom + this.perPage;
-          const storySysIds = this.relevantStoryMetadata.slice(sliceFrom, sliceTo).map(story => story.sys.id);
+        // Paginate
+        this.total = this.relevantStoryMetadata.length;
+        const sliceFrom = (this.page - 1) * this.perPage;
+        const sliceTo = sliceFrom + this.perPage;
+        const storySysIds = this.relevantStoryMetadata.slice(sliceFrom, sliceTo).map(story => story.sys.id);
 
-          // Fetch full data for display of page of stories
-          const storiesVariables = {
-            locale: this.$i18n.isoLocale(),
-            preview: this.$route.query.mode === 'preview',
-            limit: this.perPage,
-            ids: storySysIds
-          };
-          const storiesResponse = await this.$contentful.query('storiesBySysId', storiesVariables);
-          const fullStories = [
-            storiesResponse.data.data.blogPostingCollection.items,
-            storiesResponse.data.data.exhibitionPageCollection.items
-          ].flat();
-          this.stories = storySysIds.map((sysId) => fullStories.find((story) => story.sys.id === sysId)).filter(Boolean);
-          if (this.page === 1 && this.selectedTags.length === 0) {
-            this.stories.splice(12, 0, this.ctaBanner);
-          }
-          this.loadingStories = false;
-          this.$scrollTo && this.$scrollTo('#header');
+        // Fetch full data for display of page of stories
+        const storiesVariables = {
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview',
+          limit: this.perPage,
+          ids: storySysIds
+        };
+        const storiesResponse = await this.$contentful.query('storiesBySysId', storiesVariables);
+        const fullStories = [
+          storiesResponse.data.data.blogPostingCollection.items,
+          storiesResponse.data.data.exhibitionPageCollection.items
+        ].flat();
+        this.stories = storySysIds.map((sysId) => fullStories.find((story) => story.sys.id === sysId)).filter(Boolean);
+        if (this.page === 1 && this.selectedTags.length === 0) {
+          this.stories.splice(12, 0, this.ctaBanner);
         }
+        this.$scrollTo && this.$scrollTo('#header');
       },
 
       entryUrl(entry) {
