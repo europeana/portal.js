@@ -4,7 +4,7 @@
   >
     <b-card
       no-body
-      class="mb-3"
+      class="metadata-box-card mb-3"
     >
       <b-tabs card>
         <b-tab
@@ -206,4 +206,8 @@
 <style lang="scss">
   @import '@/assets/scss/variables';
   @import '@/assets/scss/tabs';
+
+  .metadata-box-card {
+    border: none;
+  }
 </style>

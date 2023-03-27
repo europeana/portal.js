@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="item page"
-    :class="$fetchState.error && 'white-page'"
+    class="white-page"
   >
     <b-container
       v-if="$fetchState.pending"
