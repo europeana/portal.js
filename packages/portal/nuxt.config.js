@@ -82,15 +82,7 @@ export default {
         environment: process.env.ELASTIC_APM_ENVIRONMENT || 'development',
         logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
         serviceName: 'portal-js',
-        serviceVersion: versions[APP_PKG_NAME],
-        frameworkName: 'Nuxt',
-        frameworkVersion: versions['@nuxt/core'],
-        ignoreUrls: [
-          /^\/(_nuxt|__webpack_hmr)\//
-        ],
-        ignoreUserAgents: [
-          'kube-probe/'
-        ]
+        serviceVersion: versions[APP_PKG_NAME]
       }
     },
     europeana: {
@@ -134,6 +126,19 @@ export default {
   privateRuntimeConfig: {
     contentful: {
       graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
+    },
+    elastic: {
+      apm: {
+        // Additional config options for Node agent, not supported by RUM agent
+        frameworkName: 'Nuxt',
+        frameworkVersion: versions['@nuxt/core'],
+        ignoreUrls: [
+          /^\/(_nuxt|__webpack_hmr)\//
+        ],
+        ignoreUserAgents: [
+          'kube-probe/'
+        ]
+      }
     },
     europeana: {
       apis: europeanaApisRuntimeConfig({ scope: 'private' })
