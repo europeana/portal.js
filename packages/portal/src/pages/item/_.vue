@@ -58,28 +58,6 @@
             />
           </b-col>
         </b-row>
-        <client-only
-          v-if="relatedEntityUris.length > 0"
-        >
-          <b-row
-            class="justify-content-center"
-          >
-            <b-col
-              cols="12"
-              class="col-lg-10 mt-4"
-            >
-              <EntityBadges
-                :entity-uris="relatedEntityUris"
-                data-qa="related entities"
-                badge-variant="light"
-              />
-            </b-col>
-          </b-row>
-        </client-only>
-        <b-row
-          v-else
-          class="mb-3"
-        />
         <b-row class="mb-3 justify-content-center">
           <b-col
             cols="12"
@@ -93,6 +71,23 @@
             />
           </b-col>
         </b-row>
+        <client-only
+          v-if="relatedEntityUris.length > 0"
+        >
+          <b-row
+            class="justify-content-center"
+          >
+            <b-col
+              cols="12"
+              class="col-lg-10 mt-4"
+            >
+              <EntityBadges
+                :entity-uris="relatedEntityUris"
+                data-qa="related entities"
+              />
+            </b-col>
+          </b-row>
+        </client-only>
         <client-only>
           <!--
             NOTE: dcType/title does not make sense here, but leave it alone as
