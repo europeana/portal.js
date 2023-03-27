@@ -15,11 +15,6 @@ export default (context = {}) => {
     context
   );
 
-  // Set API has some issues w/ caching, returning stale responses
-  // TODO: remove when resolved upstream
-  $axios.defaults.headers.get['cache-control'] = 'no-cache';
-  $axios.defaults.headers.get['pragma'] = 'no-cache';
-
   return {
     $axios,
 

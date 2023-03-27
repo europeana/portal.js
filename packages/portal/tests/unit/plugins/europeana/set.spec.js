@@ -21,15 +21,6 @@ describe('@/plugins/europeana/set', () => {
     sinon.resetHistory();
   });
 
-  describe('$axios', () => {
-    it('disables caching for GET requests', () => {
-      const $axios = plugin({ $config }).$axios;
-
-      expect($axios.defaults.headers.get['cache-control']).toBe('no-cache');
-      expect($axios.defaults.headers.get['pragma']).toBe('no-cache');
-    });
-  });
-
   describe('get()', () => {
     const setId = '1';
     const setGetResponse = {
