@@ -48,14 +48,19 @@
     name: 'ItemTranscribeButton',
 
     props: {
+      /**
+       * URL the button links to
+       */
       transcribeUrl: {
         type: String,
         required: true
-      },
-      modalId: {
-        type: String,
-        default: 'contribute-transcribe-modal'
       }
+    },
+
+    data() {
+      return {
+        modalId: 'contribute-transcribe-modal'
+      };
     }
   };
 </script>
@@ -93,3 +98,11 @@
   }
 }
 </style>
+
+<docs lang="md">
+```jsx
+<ItemTranscribeButton
+  transcribe-url="/"
+/>
+```
+</docs>
