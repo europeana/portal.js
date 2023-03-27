@@ -13,7 +13,7 @@
           class="col-lg-10 media-bar d-flex mx-auto"
           data-qa="action bar"
         >
-          <div class="d-flex justify-content-md-center align-items-center rights-wrapper">
+          <div class="d-flex justify-content-md-center align-items-center rights-wrapper mr-2">
             <RightsStatementButton
               :disabled="!rightsStatementIsUrl"
               :rights-statement="rightsStatement"
@@ -29,6 +29,10 @@
           </div>
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
+              <ItemTranscribeButton
+                v-if="transcribathonCtaEnabled && linkForContributingAnnotation"
+                :transcribe-url="linkForContributingAnnotation"
+              />
               <client-only>
                 <UserButtons
                   :identifier="identifier"
@@ -37,10 +41,6 @@
                   button-variant="secondary"
                 />
               </client-only>
-              <ItemTranscribeButton
-                v-if="transcribathonCtaEnabled && linkForContributingAnnotation"
-                :transcribe-url="linkForContributingAnnotation"
-              />
               <ShareButton />
               <DownloadWidget
                 v-if="downloadEnabled"
@@ -238,9 +238,6 @@
       }
 
       .btn {
-        color: $mediumgrey;
-        background: $offwhite;
-        border: 1px solid transparent;
         font-size: $font-size-large;
         height: 2.25rem;
         min-width: 2.25rem;
@@ -260,7 +257,7 @@
       flex: 1;
     }
 
-    @media (max-width: $bp-medium) {
+    @media (max-width: ($bp-large - 1px)) {
       .media-bar {
         flex-direction: column;
 

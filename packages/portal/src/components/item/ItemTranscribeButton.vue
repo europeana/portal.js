@@ -1,10 +1,10 @@
 <template>
   <div>
     <b-button
+      class="transcribe-button icon-transcribe button-icon-only"
+      :aria-label="$t('actions.transcribe')"
       @click="$bvModal.show(modalId)"
-    >
-      {{ $t('actions.transcribe') }}
-    </b-button>
+    />
     <b-modal
       id="contribute-transcribe-modal"
       :title="$t('modal.transcribe.title')"
@@ -59,3 +59,37 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/variables';
+
+.transcribe-button {
+  font-size: $font-size-medium;
+  height: 2.25rem;
+  max-width: 2.25rem;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  position: relative;
+  border: none;
+
+  &::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: $blue;
+    outline: 2px solid $offwhite;
+    border-radius: 50%;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+}
+
+::v-deep .modal-title {
+  &::after {
+    content: '\1F58A';
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+}
+</style>
