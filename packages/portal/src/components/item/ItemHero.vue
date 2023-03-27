@@ -38,7 +38,7 @@
                 />
               </client-only>
               <ItemTranscribeButton
-                v-if="linkForContributingAnnotation"
+                v-if="transcribathonCtaEnabled && linkForContributingAnnotation"
                 :transcribe-url="linkForContributingAnnotation"
               />
               <ShareButton />
@@ -176,6 +176,9 @@
       },
       userIsSetsEditor() {
         return this.$auth.userHasClientRole('usersets', 'editor');
+      },
+      transcribathonCtaEnabled() {
+        return this.$features.transcribathonCta;
       }
     },
     mounted() {
