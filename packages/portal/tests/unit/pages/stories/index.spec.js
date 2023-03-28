@@ -35,17 +35,11 @@ const contentfulQueryStub = () => {
   return stub;
 };
 
-const factory = ({ $features = {}, data = {}, $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesPage, {
+const factory = ({ $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesPage, {
   localVue,
-  data() {
-    return data;
-  },
   mocks: {
     $contentful: {
       query: contentfulQueryStub()
-    },
-    $features: {
-      ...$features
     },
     $fetchState,
     $i18n: {
