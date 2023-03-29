@@ -413,6 +413,7 @@ export default {
     { path: '/robots.txt', handler: '~/server-middleware/robots.txt' },
     '~/server-middleware/logging',
     '~/server-middleware/referrer-policy',
+    '~/server-middleware/content-security-policy',
     '~/server-middleware/record-json'
   ],
 
