@@ -72,6 +72,7 @@
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
   import ErrorModal from '../components/error/ErrorModal';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import makeToastMixin from '@/mixins/makeToast';
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import versions from '../../pkg-versions';
@@ -93,6 +94,7 @@
     },
 
     mixins: [
+      canonicalUrlMixin,
       makeToastMixin
     ],
 
@@ -139,14 +141,6 @@
     computed: {
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
-      },
-
-      canonicalUrl() {
-        return this.$store.getters['http/canonicalUrl'];
-      },
-
-      canonicalUrlWithoutLocale() {
-        return this.$store.getters['http/canonicalUrlWithoutLocale'];
       },
 
       newFeatureNotificationEnabled() {

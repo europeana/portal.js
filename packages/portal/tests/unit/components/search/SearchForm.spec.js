@@ -6,8 +6,6 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const $goto = sinon.spy();
-
 const localePath = sinon.stub();
 localePath.withArgs({ name: 'search' }).returns('/search');
 localePath.withArgs({
@@ -35,7 +33,7 @@ const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchF
     $i18n: { locale: 'en' },
     $t: () => {},
     $route: { path: '', query: { query: '' } },
-    $goto,
+    $router: { push: sinon.spy() },
     localePath,
     $matomo: {
       trackEvent: sinon.spy()
@@ -81,9 +79,7 @@ const fullFactory = () => mount(SearchForm, {
 });
 
 describe('components/search/SearchForm', () => {
-  beforeEach(() => {
-    $goto.resetHistory();
-  });
+  beforeEach(sinon.resetHistory);
 
   describe('query', () => {
     it('is read from the route', () => {
@@ -166,7 +162,7 @@ describe('components/search/SearchForm', () => {
           path: wrapper.vm.$route.path,
           query: { query, page: 1, view: state.search.view }
         };
-        expect($goto.calledWith(newRouteParams)).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
       });
 
       it('tracks the suggestion not selected event', async() => {
@@ -183,7 +179,7 @@ describe('components/search/SearchForm', () => {
         //   path: wrapper.vm.$route.path,
         //   query: { query, page: 1, view: state.search.view }
         // };
-        // expect($goto.calledWith(newRouteParams)).toBe(true);
+        // expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
         expect(wrapper.vm.$matomo.trackEvent.calledWith('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query)).toBe(true);
       });
 
@@ -200,7 +196,7 @@ describe('components/search/SearchForm', () => {
             path: wrapper.vm.$route.path,
             query: { query: '', page: 1, view: state.search.view }
           };
-          expect($goto.calledWith(newRouteParams)).toBe(true);
+          expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
         });
       });
     });
@@ -228,7 +224,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: $store.getters['search/activeView'] }
         };
-        expect($goto.calledWith(newRouteParams)).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
       });
 
       it('does not carry non-search query params', async() => {
@@ -243,7 +239,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: $store.getters['search/activeView'] }
         };
-        expect($goto.calledWith(newRouteParams)).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
       });
     });
   });

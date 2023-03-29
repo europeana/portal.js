@@ -1,13 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import Vuex from 'vuex';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import page from '@/pages/item/_';
 
 const localVue = createLocalVue();
-localVue.use(Vuex);
 localVue.use(BootstrapVue);
 
 const record = {
@@ -25,20 +23,20 @@ const record = {
   title: { en: ['Item example'] }
 };
 
-const store = new Vuex.Store({
-  getters: {
-    'http/canonicalUrlWithoutLocale': () => 'https://www.example.org/item/123/abc'
-  }
-});
-
 const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
   localVue,
   stubs: ['client-only', 'i18n', 'ErrorMessage'],
   mocks: {
     $features: { translatedItems: true },
+    $config: {
+      app: {
+        baseUrl: 'https://www.example.org'
+      }
+    },
     $route: {
       params: { pathMatch: '123/abc' },
-      query: {}
+      query: {},
+      fullPath: '/en/item/123/abc'
     },
     $t: key => key,
     $i18n: {
@@ -67,8 +65,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
     },
     $error: sinon.spy(),
     ...mocks
-  },
-  store
+  }
 });
 
 describe('pages/item/_.vue', () => {

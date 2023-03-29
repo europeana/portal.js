@@ -32,10 +32,6 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $store: {
       state: {
         breadcrumb: {}
-      },
-      getters: {
-        'http/canonicalUrl': '/fr',
-        'http/canonicalUrlWithoutLocale': '/'
       }
     },
     $t: key => key,
@@ -51,7 +47,8 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
       $variantIndexes: [0]
     },
     $route: {
-      query: {}
+      query: {},
+      fullPath: '/fr'
     },
     $matomo: {
       trackEvent: () => {}
@@ -63,7 +60,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
       get: (key) => options.cookies[key] || {},
       set: () => {}
     },
-    $config: { app: { siteName: 'Europeana' } },
+    $config: { app: { baseUrl: 'https://www.example.org', siteName: 'Europeana' } },
     $nuxtI18nHead: () => nuxtI18nHead,
     ...options.mocks
   },
@@ -260,7 +257,7 @@ describe('layouts/default.vue', () => {
 
         const headMeta = wrapper.vm.head().meta;
 
-        expect(headMeta.find((tag) => tag.property === 'og:url').content).toBe('/fr');
+        expect(headMeta.find((tag) => tag.property === 'og:url').content).toBe('https://www.example.org/fr');
       });
 
       it('includes description "Europeana"', () => {

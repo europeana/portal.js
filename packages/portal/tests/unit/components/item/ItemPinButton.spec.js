@@ -10,7 +10,6 @@ const identifier = '/123/abc';
 const storeDispatchSuccess = sinon.spy();
 const storeIsPinnedGetter = sinon.stub();
 const makeToastSpy = sinon.spy();
-const $goto = sinon.spy();
 
 const mixins = [
   {
@@ -34,7 +33,7 @@ const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {})
       }
     },
     $i18n: { locale: 'de' },
-    $goto,
+    $router: { push: sinon.spy() },
     localePath: () => 'mocked path',
     $store: {
       commit: () => {},
@@ -210,7 +209,7 @@ describe('components/item/ItemPinButton', () => {
         const wrapper = factory();
         await wrapper.vm.goToPins();
 
-        expect($goto.calledWith('mocked path')).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith('mocked path')).toBe(true);
       });
     });
   });

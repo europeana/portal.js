@@ -122,7 +122,7 @@
     methods: {
       goToPins() {
         const path = this.localePath(`/set/${this.setId}`);
-        this.$goto(path);
+        this.$router.push(path);
       },
       async pin() {
         const setId = await this.ensureEntityBestItemsSetExists(this.setId, this.$store.state.entity.entity);

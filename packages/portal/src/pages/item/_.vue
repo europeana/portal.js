@@ -124,7 +124,6 @@
 
 <script>
   import isEmpty from 'lodash/isEmpty';
-  import { mapGetters } from 'vuex';
 
   import ItemHero from '@/components/item/ItemHero';
   import ItemRecommendations from '@/components/item/ItemRecommendations';
@@ -135,6 +134,7 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import WebResource from '@/plugins/europeana/web-resource.js';
   import stringify from '@/mixins/stringify';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -152,6 +152,7 @@
 
     mixins: [
       stringify,
+      canonicalUrlMixin,
       pageMetaMixin
     ],
 
@@ -280,9 +281,9 @@
       transcribingAnnotations() {
         return this.annotationsByMotivation('transcribing');
       },
-      ...mapGetters({
-        shareUrl: 'http/canonicalUrlWithoutLocale'
-      }),
+      shareUrl() {
+        return this.canonicalUrlWithoutLocale;
+      },
       relatedEntityUris() {
         return this.europeanaEntityUris.slice(0, 5);
       },

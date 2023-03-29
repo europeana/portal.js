@@ -256,7 +256,7 @@
         this.showSearchOptions = false;
 
         this.blurInput();
-        await this.$goto(newRoute);
+        await this.$router.push(newRoute);
       },
 
       updateSuggestions() {

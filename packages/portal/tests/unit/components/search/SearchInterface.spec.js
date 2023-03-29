@@ -28,7 +28,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
   mocks: {
     $t: (key) => key,
     localePath: () => '/',
-    $goto: () => null,
+    $router: { push: sinon.spy() },
     $features: { sideFilters: false, entityHeaderCards: false },
     $fetchState,
     $route: { path: '/search', name: 'search', query: {} },

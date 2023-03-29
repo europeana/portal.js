@@ -13,7 +13,7 @@ import versions from './pkg-versions.js';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
+import features, { featureNotificationExpiration } from './src/features/index.js';
 
 import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
 
@@ -92,15 +92,6 @@ export default {
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
-    },
-    http: {
-      ports: {
-        http: process.env.HTTP_PORT,
-        https: process.env.HTTPS_PORT
-      },
-      sslNegotiation: {
-        enabled: featureIsEnabled(process.env.ENABLE_SSL_NEGOTIATION)
-      }
     },
     matomo: {
       host: process.env.MATOMO_HOST,
@@ -263,6 +254,7 @@ export default {
     '~/plugins/hotjar.client',
     '~/plugins/error',
     '~/plugins/link',
+    '~/plugins/axios.server',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
@@ -275,7 +267,6 @@ export default {
   buildModules: [
     '~/modules/contentful',
     '~/modules/axios-logger',
-    '~/modules/http',
     '~/modules/query-sanitiser',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
