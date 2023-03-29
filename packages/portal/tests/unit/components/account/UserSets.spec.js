@@ -44,7 +44,7 @@ const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMoun
     $t: (key) => key,
     $tc: (key) => key,
     $goto: sinon.spy(),
-    $path: () => 'localizedPath',
+    localePath: () => 'localizedPath',
     $i18n: { locale: 'en' },
     $features: {},
     $route: {

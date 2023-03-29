@@ -77,7 +77,7 @@
           route.query = { tags: this.selected.concat(tagId).join(',') };
         }
 
-        return this.$path(route);
+        return this.localePath(route);
       },
       isActive(tagId) {
         return this.selected.includes(tagId);

@@ -61,7 +61,7 @@
         <template #galleries>
           <b-link
             class="text-decoration-none"
-            :to="$path('/galleries')"
+            :to="localePath('/galleries')"
           >
             {{ 'Europeana.eu/galleries' }}
           </b-link>

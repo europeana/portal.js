@@ -15,7 +15,7 @@
     <iframe
       data-qa="media player"
       allowfullscreen="true"
-      :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
+      :src="localePath({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
       class="media-player"
       :title="$t('record.mediaPlayer')"
     />
@@ -47,7 +47,7 @@
     data-qa="IIIF viewer"
     allowfullscreen="true"
     class="iiif-iframe"
-    :src="$path({ name: 'iiif', query: { uri: media.iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
+    :src="localePath({ name: 'iiif', query: { uri: media.iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
     :aria-label="$t('actions.viewDocument')"
     :title="$t('record.IIIFViewer')"
   />

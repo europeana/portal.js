@@ -64,7 +64,7 @@ const factory = ({ propsData, mocks } = {}) => {
       },
       $t: () => {},
       $fetch: () => {},
-      $path: () => {},
+      localePath: () => {},
       ...mocks
     }
   });

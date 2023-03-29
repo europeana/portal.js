@@ -25,7 +25,7 @@ const factory = (propsData = {}) => {
     propsData,
     mocks: {
       $t: (key) => key,
-      $path: (args) => args,
+      localePath: (args) => args,
       $matomo: {
         trackEvent: sinon.spy()
       },

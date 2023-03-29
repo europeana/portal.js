@@ -49,7 +49,7 @@
 
       this.themes = contentfulResponse.data?.data?.themePageCollection?.items.map(theme => ({
         prefLabel: theme.name,
-        url: this.$path({
+        url: this.localePath({
           name: 'search',
           query: {
             qf: `collection:${this.qf(theme.identifier)}`

@@ -60,7 +60,7 @@
       >
         <b-button
           data-qa="go to set link"
-          :to="$path(selectedLink)"
+          :to="localePath(selectedLink)"
           variant="primary"
         >
           {{ $t('entity.actions.viewPinned') }}

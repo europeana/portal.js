@@ -99,8 +99,7 @@ export default {
         https: process.env.HTTPS_PORT
       },
       sslNegotiation: {
-        enabled: featureIsEnabled(process.env.ENABLE_SSL_NEGOTIATION),
-        datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
+        enabled: featureIsEnabled(process.env.ENABLE_SSL_NEGOTIATION)
       }
     },
     matomo: {

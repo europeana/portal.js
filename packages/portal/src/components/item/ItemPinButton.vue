@@ -121,7 +121,7 @@
 
     methods: {
       goToPins() {
-        const path = this.$path(`/set/${this.setId}`);
+        const path = this.localePath(`/set/${this.setId}`);
         this.$goto(path);
       },
       async pin() {

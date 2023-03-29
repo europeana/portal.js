@@ -8,15 +8,15 @@ localVue.use(BootstrapVue);
 
 const $goto = sinon.spy();
 
-const $path = sinon.stub();
-$path.withArgs({ name: 'search' }).returns('/search');
-$path.withArgs({
+const localePath = sinon.stub();
+localePath.withArgs({ name: 'search' }).returns('/search');
+localePath.withArgs({
   name: 'collections-type-all', params: {
     type: 'topic',
     pathMatch: '227-fresco'
   }
 }).returns('/collections/topic/227-fresco');
-$path.withArgs({
+localePath.withArgs({
   name: 'collections-type-all', params: {
     type: 'person',
     pathMatch: '59981-frank-sinatra'
@@ -36,7 +36,7 @@ const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchF
     $t: () => {},
     $route: { path: '', query: { query: '' } },
     $goto,
-    $path,
+    localePath,
     $matomo: {
       trackEvent: sinon.spy()
     },
@@ -64,7 +64,7 @@ const fullFactory = () => mount(SearchForm, {
     $i18n: { locale: 'en' },
     $t: () => {},
     $route: { path: '', query: { query: '' } },
-    $path,
+    localePath,
     $apis: { entity: { suggest: sinon.stub().resolves() } },
     $store: {
       getters: {
@@ -126,7 +126,7 @@ describe('components/search/SearchForm', () => {
     describe('when not on a search page', () => {
       const wrapper = factory({
         mocks: {
-          $path,
+          localePath,
           $store: {
             state: {
               search: {

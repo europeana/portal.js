@@ -32,7 +32,7 @@ const factory = (propsData = {}, route = { name: '' }) => mount(DeleteSetModal, 
     },
     $route: route,
     $goto: sinon.spy(),
-    $path: path => path
+    localePath: path => path
   }
 });
 

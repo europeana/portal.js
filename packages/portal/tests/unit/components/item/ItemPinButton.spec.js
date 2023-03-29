@@ -35,7 +35,7 @@ const factory = ({ storeState = {}, storeDispatch = storeDispatchSuccess } = {})
     },
     $i18n: { locale: 'de' },
     $goto,
-    $path: () => 'mocked path',
+    localePath: () => 'mocked path',
     $store: {
       commit: () => {},
       state: {

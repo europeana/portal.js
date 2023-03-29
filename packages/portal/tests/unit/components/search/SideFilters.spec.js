@@ -31,7 +31,7 @@ const factory = (options = {}) => {
       $tc: (key) => key,
       $te: () => true,
       $features: { entityHeaderCards: true },
-      $path: () => '/',
+      localePath: () => '/',
       $goto: () => null,
       ...options.mocks,
       $store: {

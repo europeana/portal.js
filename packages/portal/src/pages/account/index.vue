@@ -35,28 +35,28 @@
           >
             <b-nav-item
               data-qa="likes collection"
-              :to="$path({ hash: tabHashes.likes})"
+              :to="localePath({ hash: tabHashes.likes})"
               :active="activeTab === tabHashes.likes"
             >
               {{ $t('account.likes') }}
             </b-nav-item>
             <b-nav-item
               data-qa="public collections"
-              :to="$path({ hash: tabHashes.publicGalleries})"
+              :to="localePath({ hash: tabHashes.publicGalleries})"
               :active="activeTab === tabHashes.publicGalleries"
             >
               {{ $t('account.publicCollections') }}
             </b-nav-item>
             <b-nav-item
               data-qa="private collections"
-              :to="$path({ hash: tabHashes.privateGalleries})"
+              :to="localePath({ hash: tabHashes.privateGalleries})"
               :active="activeTab === tabHashes.privateGalleries"
             >
               {{ $t('account.privateCollections') }}
             </b-nav-item>
             <b-nav-item
               data-qa="published collections"
-              :to="$path({ hash: tabHashes.publishedGalleries})"
+              :to="localePath({ hash: tabHashes.publishedGalleries})"
               :active="activeTab === tabHashes.publishedGalleries"
             >
               {{ $t('account.publishedCollections') }}
@@ -64,7 +64,7 @@
             <b-nav-item
               v-if="userIsEditor"
               data-qa="curated collections"
-              :to="$path({ hash: tabHashes.curatedCollections})"
+              :to="localePath({ hash: tabHashes.curatedCollections})"
               :active="activeTab === tabHashes.curatedCollections"
             >
               {{ $t('account.curatedCollections') }}

@@ -67,7 +67,7 @@
         v-b-toggle.menu
         data-qa="log in button"
         class="nav-link"
-        :href="$path({ name: 'account-login', query: { redirect: $route.fullPath } })"
+        :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
         @click.prevent="keycloakLogin"
       >
         <span :class="renderIcon('/account/login')" />
@@ -102,7 +102,7 @@
     computed: {
       authLinks() {
         return [
-          { to: this.$path({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
+          { to: this.localePath({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
           { href: this.keycloakAccountUrl, text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
           { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
         ];

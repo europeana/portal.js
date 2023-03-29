@@ -27,7 +27,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
   localVue,
   mocks: {
     $t: (key) => key,
-    $path: () => '/',
+    localePath: () => '/',
     $goto: () => null,
     $features: { sideFilters: false, entityHeaderCards: false },
     $fetchState,

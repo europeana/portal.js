@@ -9,13 +9,12 @@ const defaults = {
     https: null
   },
   sslNegotiation: {
-    enabled: false,
-    datasetBlacklist: []
+    enabled: false
   }
 };
 
 const templates = ['store.js', 'utils.js'];
-const plugins = ['middleware.js', 'plugin.axios.server.js', 'plugin.goto.js', 'plugin.http.js', 'plugin.path.js'];
+const plugins = ['middleware.js', 'plugin.axios.server.js', 'plugin.goto.js', 'plugin.http.js'];
 
 export default function(moduleOptions) {
   const config = {

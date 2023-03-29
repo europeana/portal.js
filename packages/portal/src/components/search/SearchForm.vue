@@ -190,7 +190,7 @@
       },
 
       routePath() {
-        return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
+        return this.onSearchablePage ? this.$route.path : this.localePath({ name: 'search' });
       },
 
       showQuickSearch() {
@@ -323,7 +323,7 @@
           boost: this.$route?.query?.boost
         };
         return {
-          path: path || this.$path({
+          path: path || this.localePath({
             name: 'search'
           }),
           query
