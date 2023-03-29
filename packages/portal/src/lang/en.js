@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Preview",
     "previous": "Previous",
-    "providedBy": "Provided by {provider}",
     "publish": "Publish",
     "reject": "Reject",
     "requestDepublication": "Request depublication",
@@ -973,6 +972,11 @@ export default {
   },
   "pagination": {
     "label": "Pagination"
+  },
+  "provider": {
+    "linkDescription": "Find out more about this item and see its original record.",
+    "linkText": "Go to partner website",
+    "providedBy": "Provided and maintained by {provider}"
   },
   "readMore": "Read more",
   "recommendation": {

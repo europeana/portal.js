@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="item page"
-    class="white-page"
+    class="white-page pt-5"
   >
     <b-container
       v-if="$fetchState.pending"
@@ -55,6 +55,18 @@
             <SummaryInfo
               :description="descriptionInCurrentLanguage"
               :titles="titlesInCurrentLanguage"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          class="provider-row mb-3 justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-10"
+          >
+            <ItemDataProvider
+              :data-provider="metadata.edmDataProvider"
             />
           </b-col>
         </b-row>
@@ -121,6 +133,7 @@
   import isEmpty from 'lodash/isEmpty';
   import { mapGetters } from 'vuex';
 
+  import ItemDataProvider from '@/components/item/ItemDataProvider';
   import ItemHero from '@/components/item/ItemHero';
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -136,6 +149,7 @@
     name: 'ItemPage',
     components: {
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      ItemDataProvider,
       ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
@@ -332,7 +346,7 @@
   };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .related-collections {
     margin-top: -0.5rem;
     margin-bottom: 1.5rem;
