@@ -1,6 +1,6 @@
 <template>
   <b-row
-    v-if="!$fetchState.pending && !$fetchState.error && items.length > 0"
+    v-if="!$fetchState.pending && !$fetchState.error"
     class="mb-3 justify-content-center"
   >
     <b-col
@@ -10,14 +10,22 @@
       <h2
         class="related-heading text-uppercase mb-2"
       >
-        {{ $t('record.exploreMore') }}
+        {{ $t('related.items.title') }}
       </h2>
       <ItemPreviewCardGroup
+        v-if="items.length > 0"
         :items="items"
         view="explore"
         class="mb-0"
         data-qa="similar items"
       />
+      <b-button
+        v-if="!$auth.loggedIn"
+        variant="outline-secondary"
+        @click="keycloakLogin"
+      >
+        {{ $t('related.items.loginForMore', { other: items.length ? 'other' : ''}) }}
+      </b-button>
     </b-col>
   </b-row>
 </template>
@@ -26,13 +34,15 @@
   import similarItemsQuery from '@/plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'ItemRecommendations',
-
     components: {
       ItemPreviewCardGroup
     },
+
+    mixins: [keycloak],
 
     props: {
       identifier: {

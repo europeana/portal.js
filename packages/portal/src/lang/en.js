@@ -992,7 +992,6 @@ export default {
     },
     "allMetaData": "All metadata",
     "copyEmbedLabel": "Embed code (Click to copy)",
-    "exploreMore": "Explore More",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
@@ -1022,6 +1021,10 @@ export default {
     "galleries": {
       "name": "Related galleries",
       "title": "Discover related galleries"
+    },
+    "items": {
+      "loginForMore": "Log in to see {other} related items",
+      "title": "Discover related items"
     },
     "themes": {
       "title": "Discover related themes"
