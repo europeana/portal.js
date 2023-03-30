@@ -23,6 +23,7 @@
 
 <script>
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
 
   export default {
     name: 'ItemDataProvider',
@@ -32,26 +33,27 @@
 
     },
 
+    mixins: [itemPrefLanguage],
+
     props: {
       dataProvider: {
         type: Object,
+        default: null
+      },
+      metadataLanguage: {
+        type: String,
         default: null
       }
     },
 
     computed: {
       edmDataProviderNativeName() {
-        const provider = this.dataProvider.value.def?.[0];
-        const providerPrefLabel = provider.prefLabel;
-        const nativeLocale = providerPrefLabel &&
-          Object.keys(providerPrefLabel).length <= 2 &&
-          Object.keys(providerPrefLabel).find(key => key !== 'en');
-        const prefLanguage = nativeLocale || this.metadataLanguage || this.$i18n.locale;
+        const prefLanguage = this.getPrefLanguage('edmDataProvider', this.dataProvider);
 
-        return langMapValueForLocale(providerPrefLabel || provider, prefLanguage).values[0];
+        return langMapValueForLocale(this.dataProvider?.value, prefLanguage).values[0].values[0];
       },
       edmDataProviderURL() {
-        return this.dataProvider.url;
+        return this.dataProvider?.url;
       }
     }
   };

@@ -22,12 +22,13 @@ const factory = () => shallowMount(ItemDataProvider, {
     }
   },
   mocks: {
+    $i18n: { locale: 'en' },
     $t: (key) => key
   }
 });
 
 describe('components/item/ItemDataProvider', () => {
-  test('displays the data provider name', () => {
+  it('displays the data provider name', () => {
     const wrapper = factory();
 
     const name = wrapper.find('[data-qa="data provider name"]');

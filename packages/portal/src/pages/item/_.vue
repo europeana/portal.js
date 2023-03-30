@@ -67,6 +67,7 @@
           >
             <ItemDataProvider
               :data-provider="metadata.edmDataProvider"
+              :metadata-language="metadataLanguage"
             />
           </b-col>
         </b-row>
