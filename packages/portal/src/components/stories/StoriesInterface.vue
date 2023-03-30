@@ -12,6 +12,13 @@
       class="mb-4 context-label"
     >
       {{ $tc('items.itemCount', total, { count: total }) }}
+      <div
+        class="visually-hidden"
+        role="status"
+        data-qa="results status message"
+      >
+        {{ $t('storiesPage.storiesHaveLoaded', [total]) }}
+      </div>
     </div>
     <b-container
       v-if="$fetchState.pending"

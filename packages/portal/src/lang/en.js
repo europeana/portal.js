@@ -1133,7 +1133,8 @@ export default {
     "pinned": "Pinned"
   },
   "storiesPage": {
-    "title": "Stories"
+    "title": "Stories",
+    "storiesHaveLoaded": "{0} stories found"
   },
   "themes": {
     "themes": "Themes",
