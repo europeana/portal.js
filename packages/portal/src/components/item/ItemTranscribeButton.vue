@@ -4,13 +4,14 @@
       class="transcribe-button icon-transcribe button-icon-only"
       :aria-label="$t('actions.transcribe')"
       @click="$bvModal.show(modalId)"
+      data-qa="transcribe button"
     />
     <b-modal
       id="contribute-transcribe-modal"
       :title="$t('modal.transcribe.title')"
       hide-header-close
       hide-footer
-      data-qa="contribute transcribe modal"
+      data-qa="transcribe modal"
     >
       <p>
         {{ $t('modal.transcribe.message') }}
@@ -30,7 +31,7 @@
             variant="primary"
             target="_blank"
             class="d-inline-flex align-items-center"
-            data-qa="contribute transcribe button"
+            data-qa="transcribe link"
           >
             {{ $t('actions.transcribeNow') }}
             <span

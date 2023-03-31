@@ -30,7 +30,7 @@
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
               <ItemTranscribeButton
-                v-if="transcribathonCtaEnabled && linkForContributingAnnotation"
+                v-if="showTranscribathonLink"
                 :transcribe-url="linkForContributingAnnotation"
               />
               <client-only>
@@ -76,6 +76,8 @@
   import WebResource from '@/plugins/europeana/web-resource';
 
   import rightsStatementMixin from '@/mixins/rightsStatement';
+
+  const TRANSCRIBATHON_URL_ROOT = '^https?://europeana\.transcribathon\.eu/';
 
   export default {
     components: {
@@ -177,8 +179,8 @@
       userIsSetsEditor() {
         return this.$auth.userHasClientRole('usersets', 'editor');
       },
-      transcribathonCtaEnabled() {
-        return this.$features.transcribathonCta;
+      showTranscribathonLink() {
+        return this.$features.transcribathonCta && this.linkForContributingAnnotation && RegExp(TRANSCRIBATHON_URL_ROOT).test(this.linkForContributingAnnotation);
       }
     },
     mounted() {
