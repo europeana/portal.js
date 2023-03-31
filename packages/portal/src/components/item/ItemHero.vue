@@ -77,7 +77,7 @@
 
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
-  const TRANSCRIBATHON_URL_ROOT = '^https?://europeana\.transcribathon\.eu/';
+  const TRANSCRIBATHON_URL_ROOT = '^https?://europeana.transcribathon.eu/';
 
   export default {
     components: {

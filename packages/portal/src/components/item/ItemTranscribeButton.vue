@@ -2,9 +2,9 @@
   <div>
     <b-button
       class="transcribe-button icon-transcribe button-icon-only"
+      data-qa="transcribe button"
       :aria-label="$t('actions.transcribe')"
       @click="$bvModal.show(modalId)"
-      data-qa="transcribe button"
     />
     <b-modal
       id="contribute-transcribe-modal"
