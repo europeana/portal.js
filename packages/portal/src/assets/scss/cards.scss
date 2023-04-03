@@ -597,6 +597,11 @@
       column-gap: 4rem;
     }
   }
+  .card {
+    @media (min-width: $bp-xxxl) {
+      max-width: none;
+    }
+  }
 
   .card,
   .related-results,

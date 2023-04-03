@@ -52,7 +52,7 @@
         width: calc(100% / 6 - $masonry-gutter);
       }
 
-      @media (min-width: ($bp-4k - 500px)) {
+      @media (min-width: ($bp-4k)) {
         width: calc(100% / 7 - $masonry-gutter);
       }
     }
@@ -129,7 +129,7 @@
         width: calc(100% / 6 - $masonry-gutter);
       }
 
-      @media (min-width: ($bp-4k - 500px)) {
+      @media (min-width: ($bp-4k)) {
         width: calc(100% / 7 - $masonry-gutter);
       }
     }
@@ -166,7 +166,7 @@
         width: calc(100% / 3 - $masonry-gutter);
       }
 
-      @media (min-width: ($bp-4k - 500px)) {
+      @media (min-width: ($bp-4k)) {
         width: calc(100% / 3.5 - $masonry-gutter);
       }
     }

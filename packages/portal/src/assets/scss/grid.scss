@@ -8,15 +8,7 @@
       max-width: calc(100% - $max-card-width);
     }
 
-    @media (min-width: $bp-wqhd) {
-      max-width: calc(100% - (1.5 * $max-card-width));
-    }
-
     @media (min-width: calc((6 * $max-card-width) + (1.5 * $max-card-width))) {
-      max-width: calc(6 * ($max-card-width + $grid-gutter));
-    }
-
-    @media (min-width: $bp-4k) {
       max-width: calc(6 * ($max-card-width + $grid-gutter-4k));
     }
   }
