@@ -83,15 +83,11 @@
     margin-top: -70px;
     margin-bottom: 4.5rem;
     background-color: $mediumgrey-light;
-    padding: 9.5rem 1.5rem;
+    padding: 25vh 1.5rem 1.5rem;
     min-height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
-
-    @media (min-width: $bp-xxl) {
-      padding-top: 12rem;
-    }
 
     @media (min-width: $bp-4k) {
       margin-top: calc(1.5 * -70px);
