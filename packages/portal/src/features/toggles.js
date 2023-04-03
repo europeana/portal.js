@@ -6,5 +6,6 @@ export default [
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'rejectEntityRecommendations' },
   { name: 'storiesPageAllTags' },
+  { name: 'transcribathonCta' },
   { name: 'translatedItems' }
 ];
