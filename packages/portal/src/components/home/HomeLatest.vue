@@ -88,11 +88,11 @@
     font-size: 2rem;
 
     @media (min-width: $bp-extralarge) {
-      font-size: $font-size-extralarge;
+      font-size: $font-size-xxl;
     }
 
     @media (min-width: $bp-4k) {
-      font-size: $font-size-extralarge-4k;
+      font-size: $font-size-xxl-4k;
     }
   }
 

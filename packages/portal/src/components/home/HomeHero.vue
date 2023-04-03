@@ -129,7 +129,7 @@
     }
 
     h1 {
-      font-size: $font-size-largest;
+      font-size: $font-size-xl;
       font-weight: 700;
       margin-bottom: 0.25rem;
 
