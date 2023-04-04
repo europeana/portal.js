@@ -1,4 +1,4 @@
-import snakeCase from 'lodash/snakeCase.js';
+import snakeCase from 'lodash/snakeCase';
 import featureToggles from './toggles.js';
 
 export const featureIsEnabled = (value) => Boolean(Number(value));
