@@ -160,6 +160,9 @@ jobs:
           node-version: 16
           cache: 'npm'
       -
+        name: NPM install
+        run: npm ci --include-workspace-root -w packages/portal
+      -
         name: List cachers
         run: npm run cache list
 
