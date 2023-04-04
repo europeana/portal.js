@@ -1,4 +1,4 @@
-import snakeCase from 'lodash/snakeCase';
+import snakeCase from 'lodash/snakeCase.js';
 
 import * as annotation from './europeana/annotation.js';
 import * as entity from './europeana/entity.js';
