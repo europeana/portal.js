@@ -145,7 +145,7 @@ jobs:
         run: npm run stylelint
 
   # Verify cachers can load in Node.js on master and all PRs (including drafts)
-  lint-code:
+  test-cachers:
     needs: [metadata]
     runs-on: ubuntu-latest
     if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
