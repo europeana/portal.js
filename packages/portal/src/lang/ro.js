@@ -96,6 +96,11 @@ export default {
     "time": "Secol",
     "topic": "Subiect"
   },
+  "categories": {
+    "label": "Explorați poveștile după etichetă",
+    "noOptions": "Nu mai sunt etichete de selectat",
+    "search": "Explorați poveștile după etichetă"
+  },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Fixat"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} povești găsite",
     "title": "Povești"
   },
   "themes": {

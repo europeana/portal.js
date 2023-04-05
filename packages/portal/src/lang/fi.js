@@ -96,6 +96,11 @@ export default {
     "time": "Vuosisata",
     "topic": "Aihe"
   },
+  "categories": {
+    "label": "Tutustu tarinoihin tunnisteen mukaan",
+    "noOptions": "Ei ole enää valittavia tunnisteita",
+    "search": "Tutustu tarinoihin tunnisteen mukaan"
+  },
   "clearAllFilters": "tyhjennä kaikki suodattimet",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Kiinnitetty"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} tarinaa löydetty",
     "title": "Tarinoita"
   },
   "themes": {

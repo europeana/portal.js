@@ -96,6 +96,11 @@ export default {
     "time": "Århundrede",
     "topic": "Emne"
   },
+  "categories": {
+    "label": "Udforsk historier efter tag",
+    "noOptions": "Der er ikke flere tags at vælge",
+    "search": "Udforsk historier efter tag"
+  },
   "clearAllFilters": "ryd alle filtre",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Fastgjort"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} historier fundet",
     "title": "Historier"
   },
   "themes": {

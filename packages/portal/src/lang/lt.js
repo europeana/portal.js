@@ -96,6 +96,11 @@ export default {
     "time": "Amžius",
     "topic": "Tema"
   },
+  "categories": {
+    "label": "Naršykite istorijas pagal žymą",
+    "noOptions": "Daugiau pasirinktinų žymų nėra",
+    "search": "Naršykite istorijas pagal žymą"
+  },
   "clearAllFilters": "išvalyti visus filtrus",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Prisegtas"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} rastos istorijos",
     "title": "Istorijos"
   },
   "themes": {

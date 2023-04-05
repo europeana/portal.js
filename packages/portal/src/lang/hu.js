@@ -96,6 +96,11 @@ export default {
     "time": "Század",
     "topic": "Téma"
   },
+  "categories": {
+    "label": "Történetek felfedezése címke szerint",
+    "noOptions": "Nincs több kiválasztható címke",
+    "search": "Történetek felfedezése címke szerint"
+  },
   "clearAllFilters": "összes szűrő törlése",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Odatűzött"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} történet található",
     "title": "Történetek"
   },
   "themes": {

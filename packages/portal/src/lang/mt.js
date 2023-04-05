@@ -96,6 +96,11 @@ export default {
     "time": "Seklu",
     "topic": "Suġġett"
   },
+  "categories": {
+    "label": "Esplora stejjer b'tag",
+    "noOptions": "M'hemmx aktar tags biex tagħżel",
+    "search": "Esplora stejjer b'tag"
+  },
   "clearAllFilters": "ħassar il-filtri kollha",
   "collections": {
     "actions": {
@@ -766,7 +771,7 @@ export default {
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
       "pro": "Għall-professjonisti",
-      "stories": "Ġrajjiet"
+      "stories": "Stejjer"
     },
     "quickSearch": "Tiftix ta' malajr",
     "searchFor": "Fittex {query}",
@@ -1107,7 +1112,8 @@ export default {
     "pinned": "Mehmuż"
   },
   "storiesPage": {
-    "title": "Ġrajjiet"
+    "storiesHaveLoaded": "{0} stejjer misjuba",
+    "title": "Stejjer"
   },
   "themes": {
     "description": "Ibbrawżja skont it-tema",

@@ -96,6 +96,11 @@ export default {
     "time": "Siglo",
     "topic": "Tema"
   },
+  "categories": {
+    "label": "Explora historias por etiqueta",
+    "noOptions": "No hay más etiquetas para seleccionar",
+    "search": "Explora historias por etiqueta"
+  },
   "clearAllFilters": "borrar todos los filtros",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Fijado"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} historias encontradas",
     "title": "Historias"
   },
   "themes": {
