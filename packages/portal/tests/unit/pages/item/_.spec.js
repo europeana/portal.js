@@ -36,7 +36,8 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
     $route: {
       params: { pathMatch: '123/abc' },
       query: {},
-      fullPath: '/en/item/123/abc'
+      fullPath: '/en/item/123/abc',
+      path: '/en/item/123/abc'
     },
     $t: key => key,
     $i18n: {

@@ -48,12 +48,14 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     },
     $route: {
       query: {},
-      fullPath: '/fr'
+      fullPath: '/fr',
+      path: '/fr'
     },
     $matomo: {
       trackEvent: () => {}
     },
     $i18n: {
+      locale: 'fr',
       t: key => key
     },
     $cookies: {

@@ -18,8 +18,12 @@ const factory = () => shallowMount(SocialShare, {
         baseUrl: 'https://www.example.org'
       }
     },
+    $i18n: {
+      locale: 'fr'
+    },
     $route: {
-      fullPath: '/page'
+      fullPath: '/page',
+      path: '/page'
     },
     $matomo: {
       trackEvent: sinon.spy()
