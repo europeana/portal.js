@@ -56,6 +56,8 @@ export default {
     "skipSend": "Spring over og send",
     "submitForPublication": "Indsend til offentliggørelse",
     "submittedForPublication": "Indsendt til offentliggørelse",
+    "transcribe": "Transskriber",
+    "transcribeNow": "Transskriber nu",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Vi råder dig til at klikke på knappen 'Leverende institution' nedenfor for at kontrollere, om varen kan downloades på den udbyders hjemmeside.",
       "message": "Hvis overførslen ikke virker, kan det skyldes, at den er blevet fjernet af den leverede institution, eller der kan være et teknisk problem med deres service.",
       "title": "Download virker ikke"
+    },
+    "transcribe": {
+      "message": "Deltag sammen med os på Europeana Transcribe, den online borgerinitiativ for berigelse af Europeana's samlinger",
+      "title": "Transskriber dette element"
     }
   },
   "multilingual": {

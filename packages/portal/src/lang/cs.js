@@ -56,6 +56,8 @@ export default {
     "skipSend": "Přeskočit a odeslat",
     "submitForPublication": "Odeslat k publikaci",
     "submittedForPublication": "Odesláno k publikaci",
+    "transcribe": "Přepsat",
+    "transcribeNow": "Přepište nyní",
     "viewAt": "Zobrazit na stránce {link}",
     "viewDocument": "Zobrazit dokument"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Doporučujeme vám kliknout na tlačítko „Poskytovatelská instituce“ níže a zkontrolovat, zda lze položku stáhnout na webové stránce poskytující instituce.",
       "message": "Pokud stahování nefunguje, může to být způsobeno tím, že jej odstranila poskytující instituce, nebo může nastat technický problém s jejich službou.",
       "title": "Stahování nefunguje"
+    },
+    "transcribe": {
+      "message": "Připojte se k nám na Europeana Transcribe, online občanské iniciativě pro obohacení sbírek Europeany",
+      "title": "Přepište tuto položku"
     }
   },
   "multilingual": {

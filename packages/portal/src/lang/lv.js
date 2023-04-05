@@ -56,6 +56,8 @@ export default {
     "skipSend": "Izlaist un nosūtīt",
     "submitForPublication": "Iesniegt publicēšanai",
     "submittedForPublication": "Iesniegts publicēšanai",
+    "transcribe": "Transkribēt",
+    "transcribeNow": "Transkribēt tūlīt",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Mēs iesakām noklikšķināt uz tālāk esošās pogas “Nodrošinošā iestāde”, lai pārbaudītu, vai vienumu var lejupielādēt sniedzējas iestādes tīmekļa vietnē.",
       "message": "Ja lejupielāde nedarbojas, tas var būt tāpēc, ka pakalpojumu sniedzošā iestāde to ir noņēmusi, vai arī ir radusies tehniska problēma ar tās pakalpojumu.",
       "title": "Lejupielāde nedarbojas"
+    },
+    "transcribe": {
+      "message": "Pievienojieties mums Europeana Transcribe— tiešsaistes pilsoņu iniciatīvai Europeana kolekciju bagātināšanai",
+      "title": "Transkribēt šo vienumu"
     }
   },
   "multilingual": {

@@ -56,6 +56,8 @@ export default {
     "skipSend": "Preskoči in pošlji",
     "submitForPublication": "Oddaj za objavo",
     "submittedForPublication": "Oddano v objavo",
+    "transcribe": "Prepisujte",
+    "transcribeNow": "Prepiši zdaj",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Svetujemo vam, da kliknete spodnji gumb \"Ustanova izvora\" in preverite, ali lahko predmet prenesete na spletnem mestu ustanove, ki zagotavlja informacije.",
       "message": "Če prenos ne deluje, je to morda zato, ker ga je institucija, ki je zagotovila, odstranila, ali pa je prišlo do tehnične težave z njihovo storitvijo.",
       "title": "Prenos ne deluje"
+    },
+    "transcribe": {
+      "message": "Pridružite se nam na Europeana Transcribe, spletni državljanski pobudi za obogatitev zbirk Europeana",
+      "title": "Prepiši ta element"
     }
   },
   "multilingual": {

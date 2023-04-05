@@ -56,6 +56,8 @@ export default {
     "skipSend": "Ohita ja lähetä",
     "submitForPublication": "Lähetä julkaistavaksi",
     "submittedForPublication": "Lähetetty julkaistavaksi",
+    "transcribe": "Transkribeerida",
+    "transcribeNow": "Transkriboi nyt",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Suosittelemme, että napsautat alla olevaa \"kulttuuriperintölaitos\" -painiketta tarkistaaksesi, voidaanko kohde ladata tarjoavan laitoksen verkkosivustolta.",
       "message": "Jos lataus ei toimi, se voi johtua siitä, että tarjoava laitos on poistanut sen tai sen palvelussa voi olla tekninen ongelma.",
       "title": "Lataus ei toimi"
+    },
+    "transcribe": {
+      "message": "Liity meihin Europeana Transcribe, online-kansalaisaloitteessa Europeanan kokoelmien rikastamiseksi",
+      "title": "Transkriboida tämä kohde"
     }
   },
   "multilingual": {

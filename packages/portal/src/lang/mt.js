@@ -56,6 +56,8 @@ export default {
     "skipSend": "Aqbeż u ibgħat",
     "submitForPublication": "Ibgħat għall-pubblikazzjoni",
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
+    "transcribe": "Traskrivi",
+    "transcribeNow": "Traskrivi issa",
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Aħna nagħtuk parir biex tikklikkja fuq il-buttuna \"Istituzzjoni fornitriċi\" hawn taħt biex tiċċekkja jekk l-oġġett jistax jitniżżel fuq il-websajt tal-istituzzjoni li tipprovdi.",
       "message": "Jekk it-tniżżil ma taħdimx, jista 'jkun minħabba li tneħħa mill-istituzzjoni li tipprovdi, jew jista' jkun hemm problema teknika bis-servizz tagħhom.",
       "title": "Niżżel mhux qed taħdem"
+    },
+    "transcribe": {
+      "message": "Ingħaqad magħna fuq Europeana Transcribe, l-inizjattiva taċ-ċittadini onlajn għall-arrikkiment tal-kollezzjonijiet tal-Europeana",
+      "title": "Traskrivi dan l-oġġett"
     }
   },
   "multilingual": {
