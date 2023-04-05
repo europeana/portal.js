@@ -56,6 +56,8 @@ export default {
     "skipSend": "Preskočiť a odoslať",
     "submitForPublication": "Odoslať na zverejnenie",
     "submittedForPublication": "Predložené na zverejnenie",
+    "transcribe": "Prepísať",
+    "transcribeNow": "Teraz prepíšte",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Odporúčame vám kliknúť na tlačidlo „Poskytujúca inštitúcia“ nižšie a skontrolovať, či je možné položku stiahnuť na webovej stránke poskytujúcej inštitúcie.",
       "message": "Ak sťahovanie nefunguje, môže to byť spôsobené tým, že ho odstránila poskytujúca inštitúcia, alebo môže nastať technický problém s jej službou.",
       "title": "Sťahovanie nefunguje"
+    },
+    "transcribe": {
+      "message": "Pridajte sa k nám na Europeana Transcribe, online občianskej iniciatíve na obohatenie zbierok Europeana",
+      "title": "Prepíšte túto položku"
     }
   },
   "multilingual": {

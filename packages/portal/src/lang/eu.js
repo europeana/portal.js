@@ -56,6 +56,8 @@ export default {
     "skipSend": "Saltatu eta bidali",
     "submitForPublication": "Bidali argitaratzeko",
     "submittedForPublication": "Argitalpenerako aurkeztu da",
+    "transcribe": "Transkribatu",
+    "transcribeNow": "Transkribatu orain",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -890,6 +892,10 @@ export default {
       "linkPrompt": "Beheko \"Erakunde hornitzailea\" botoian klik egitea gomendatzen dizugu, elementua erakunde hornitzailearen webgunean deskargatu daitekeen egiaztatzeko.",
       "message": "Deskargak ez badu funtzionatzen, baliteke erakunde hornitzaileak kendu duelako edo haien zerbitzuarekin arazo tekniko bat egotea.",
       "title": "Deskargak ez du funtzionatzen"
+    },
+    "transcribe": {
+      "message": "Etor zaitez gurekin Europeana Transcribe-n, Europeana-ren bildumak aberasteko lineako herritarren ekimenean",
+      "title": "Transkribatu elementu hau"
     }
   },
   "multilingual": {

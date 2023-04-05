@@ -40,6 +40,7 @@
           :edm-rights="edmRights"
           :edm-type="type"
           :attribution-fields="attributionFields"
+          :link-for-contributing-annotation="linkForContributingAnnotation"
           :entities="europeanaEntities"
           :provider-url="isShownAt"
         />
@@ -280,6 +281,9 @@
       },
       transcribingAnnotations() {
         return this.annotationsByMotivation('transcribing');
+      },
+      linkForContributingAnnotation() {
+        return this.annotationsByMotivation('linkForContributing')[0]?.body;
       },
       shareUrl() {
         return this.canonicalUrlWithoutLocale;

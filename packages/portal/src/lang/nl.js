@@ -56,6 +56,8 @@ export default {
     "skipSend": "Overslaan en verzenden",
     "submitForPublication": "Indienen voor publicatie",
     "submittedForPublication": "Ingezonden voor publicatie",
+    "transcribe": "Transcriberen",
+    "transcribeNow": "Nu transcriberen",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "We raden u aan op de onderstaande knop 'Instituut' te klikken om na te gaan of het item kan worden gedownload op de website van de verstrekkende instelling.",
       "message": "Als de download niet werkt, kan het zijn dat deze is verwijderd door de verstrekkende instelling of dat er een technisch probleem is met hun service.",
       "title": "Downloaden werkt niet"
+    },
+    "transcribe": {
+      "message": "Doe met ons mee op Europeana Transcribe, het online burgerinitiatief voor de verrijking van Europeana's collecties",
+      "title": "Transcribeer dit item"
     }
   },
   "multilingual": {

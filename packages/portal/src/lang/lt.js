@@ -56,6 +56,8 @@ export default {
     "skipSend": "Praleisti ir siųsti",
     "submitForPublication": "Pateikti publikavimui",
     "submittedForPublication": "Pateikta publikuoti",
+    "transcribe": "Transkribuoti",
+    "transcribeNow": "Transkribuokite dabar",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"Teikianti institucija“, kad patikrintumėte, ar elementą galima atsisiųsti iš teikiančios institucijos svetainės.",
       "message": "Jei atsisiuntimas neveikia, gali būti, kad jį pašalino teikianti institucija, arba gali kilti techninių problemų, susijusių su jų paslauga.",
       "title": "Atsisiųsti neveikia"
+    },
+    "transcribe": {
+      "message": "Prisijunkite prie Europeana Transcribe – internetinės piliečių iniciatyvos, skirtos „Europeanos“ kolekcijoms praturtinti",
+      "title": "Transkribuokite šį elementą"
     }
   },
   "multilingual": {

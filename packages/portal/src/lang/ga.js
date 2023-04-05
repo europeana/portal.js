@@ -56,6 +56,8 @@ export default {
     "skipSend": "Scipeáil agus seol",
     "submitForPublication": "Cuir isteach le foilsiú",
     "submittedForPublication": "Arna chur isteach le foilsiú",
+    "transcribe": "Tras-scríobh",
+    "transcribeNow": "Tras-scríobh anois",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Molaimid duit cliceáil ar an gcnaipe ‘Institiúid sholáthair’ thíos le seiceáil an féidir an mhír a íoslódáil ó shuíomh Gréasáin na hinstitiúide soláthair.",
       "message": "Mura n-oibríonn an t-íoslódáil, b'fhéidir gurb é an fáth gur bhain an institiúid sholáthair é, nó d'fhéadfadh fadhb theicniúil a bheith ann maidir lena seirbhís.",
       "title": "Íoslódáil nach bhfuil ag obair"
+    },
+    "transcribe": {
+      "message": "Cláraigh linn ar Europeana Transcribe, an tionscnamh saoránach ar líne chun bailiúcháin Europeana a shaibhriú",
+      "title": "Tras-scríobh an mhír seo"
     }
   },
   "multilingual": {

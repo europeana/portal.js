@@ -56,6 +56,8 @@ export default {
     "skipSend": "Saltar y enviar",
     "submitForPublication": "Enviar para publicación",
     "submittedForPublication": "Enviado para publicación",
+    "transcribe": "Transcribir",
+    "transcribeNow": "Transcribir ahora",
     "viewAt": "Ver en {link}",
     "viewDocument": "Ver documento"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Le recomendamos que haga clic en el botón \"Institución proveedora\" a continuación para verificar si el artículo se puede descargar en el sitio web de la institución proveedora.",
       "message": "Si la descarga no funciona, puede deberse a que la institución proveedora la eliminó o puede haber un problema técnico con su servicio.",
       "title": "Descarga no funciona"
+    },
+    "transcribe": {
+      "message": "Únase a nosotros en Europeana Transcribe, la iniciativa ciudadana en línea para el enriquecimiento de las colecciones de Europeana",
+      "title": "Transcribir este elemento"
     }
   },
   "multilingual": {

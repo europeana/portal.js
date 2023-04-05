@@ -56,6 +56,8 @@ export default {
     "skipSend": "Kihagyás és küldés",
     "submitForPublication": "Nyújtsa be közzétételre",
     "submittedForPublication": "Közzétételre benyújtva",
+    "transcribe": "Átírni",
+    "transcribeNow": "Átírás most",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Javasoljuk, hogy kattintson az alábbi \"szolgáltató intézmény\" gombra, és ellenőrizze, hogy a termék letölthető-e a szolgáltató intézmény honlapjáról.",
       "message": "Ha a letöltés nem működik, annak az lehet az oka, hogy a szolgáltató intézmény eltávolította, vagy a szolgáltatásukkal van műszaki probléma.",
       "title": "A letöltés nem működik"
+    },
+    "transcribe": {
+      "message": "Csatlakozzon hozzánk az Europeana Transcribe-nál, az online polgári kezdeményezésnél az Europeana gyűjtemények gazdagítására",
+      "title": "Az elem átírása"
     }
   },
   "multilingual": {
