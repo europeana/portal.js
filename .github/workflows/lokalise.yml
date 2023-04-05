@@ -39,4 +39,4 @@ jobs:
           token: "${{ secrets.GIT_PAT }}"
       -
         name: Annotate with pull request URL
-        run: echo "::notice ::Pull request URL: ${{ steps.cpr.outputs.pull-request-url }}"
+        run: echo "::notice ::Pull request URL - ${{ steps.cpr.outputs.pull-request-url }}"
