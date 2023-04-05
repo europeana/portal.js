@@ -96,6 +96,11 @@ export default {
     "time": "Century",
     "topic": "Topic"
   },
+  "categories": {
+    "label": "Explore stories by tag",
+    "noOptions": "There are no more tags to select",
+    "search": "Explore stories by tag"
+  },
   "clearAllFilters": "clear all filters",
   "collections": {
     "actions": {
@@ -1134,7 +1139,8 @@ export default {
     "pinned": "Pinned"
   },
   "storiesPage": {
-    "title": "Stories"
+    "title": "Stories",
+    "storiesHaveLoaded": "{0} stories found"
   },
   "themes": {
     "themes": "Themes",
