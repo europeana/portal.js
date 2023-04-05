@@ -4,8 +4,12 @@ export default {
       return this.$config.app.baseUrl + this.$route.fullPath;
     },
     canonicalUrlWithoutLocale() {
-      // TODO: get rid of regex
-      return this.canonicalUrl.replace(/(:\/\/[^/]+)\/[a-z]{2}(\/|$)/, '$1$2');
+      if (this.$route.path === `/${this.$i18n.locale}`) {
+        return `${this.$config.app.baseUrl}/` + this.$route.fullPath.slice(3);
+      } else if (this.$route.path.startsWith(`/${this.$i18n.locale}/`)) {
+        return this.$config.app.baseUrl + this.$route.fullPath.slice(3);
+      }
+      return this.canonicalUrl;
     }
   }
 };
