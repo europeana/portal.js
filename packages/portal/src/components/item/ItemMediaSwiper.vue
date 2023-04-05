@@ -17,7 +17,7 @@
         >
           <div
             v-if="singleMediaResource"
-            class="container h-100"
+            class="single-media-container container h-100"
           >
             <MediaCard
               :europeana-identifier="europeanaIdentifier"

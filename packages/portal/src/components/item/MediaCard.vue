@@ -42,15 +42,19 @@
     v-else-if="media.isOEmbed"
     :url="media.about"
   />
-  <iframe
+  <div
     v-else-if="media.isIIIFImage || media.isIIIFPresentation"
-    data-qa="IIIF viewer"
-    allowfullscreen="true"
-    class="iiif-iframe"
-    :src="$path({ name: 'iiif', query: { uri: media.iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
-    :aria-label="$t('actions.viewDocument')"
-    :title="$t('record.IIIFViewer')"
-  />
+    class="iiif-viewer-wrapper"
+  >
+    <iframe
+      data-qa="IIIF viewer"
+      allowfullscreen="true"
+      class="iiif-iframe"
+      :src="$path({ name: 'iiif', query: { uri: media.iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
+      :aria-label="$t('actions.viewDocument')"
+      :title="$t('record.IIIFViewer')"
+    />
+  </div>
 </template>
 
 <script>
@@ -95,6 +99,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/iiif';
 
   // TODO: move the code below to video component when we switch to new item page
   ::v-deep video {

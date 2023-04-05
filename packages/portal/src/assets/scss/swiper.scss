@@ -1,17 +1,9 @@
 ::v-deep .swiper {
+  overflow: visible;
+  
   .swiper-button-prev,
   .swiper-button-next {
     margin-top: 0;
-  }
-
-  iframe {
-    &.iiif-iframe {
-      width: 100%;
-      height: 100%;
-      border: 1px solid $lightgrey;
-      border-radius: 0.25rem;
-      box-shadow: $boxshadow-small;
-    }
   }
 
   .media-player-wrapper {

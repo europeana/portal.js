@@ -1,0 +1,21 @@
+.iiif-viewer-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.iiif-iframe {
+  width: 100%;
+  height: 100%;
+  border: 1px solid $lightgrey;
+  border-radius: 0.25rem;
+  box-shadow: $boxshadow-small;
+}
+
+.single-media-container {
+  .iiif-viewer-wrapper {
+    top: -2.25rem;
+  }
+}
