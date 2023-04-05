@@ -73,7 +73,8 @@
   }
 }
 
-.facet-label {
+.facet-label,
+h3.facet-label {
   font-size: $font-size-extrasmall;
   font-weight: normal;
   display: inline-block;
@@ -223,8 +224,8 @@
   border-radius: 0.5em;
   width: 100%;
 
-  @media (min-width: $bp-xxxl) {
-    font-size: 1vw;
+  @media (min-width: $bp-4k) {
+    font-size: 1.5rem;
   }
 
   &::before {
@@ -241,8 +242,8 @@
     justify-content: center;
     align-items: center;
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
+    @media (min-width: $bp-4k) {
+      font-size: 1.5rem;
     }
   }
 
@@ -257,8 +258,8 @@
     color: $mediumgrey;
     width: 100%;
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
+    @media (min-width: $bp-4k) {
+      font-size: 1.5rem;
     }
   }
 }

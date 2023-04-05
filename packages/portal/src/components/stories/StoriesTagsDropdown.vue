@@ -5,7 +5,7 @@
       :tags="displaySelectedTags"
       :selected="selectedTags"
       :heading="false"
-      class="responsive-font mb-2"
+      class="mb-2"
     />
     <div
       ref="tagsdropdown"
@@ -43,7 +43,7 @@
           :tags="displayTags"
           :selected="selectedTags"
           :heading="false"
-          class="badge-container responsive-font mb-2"
+          class="badge-container mb-2"
         />
         <p v-else-if="displayTags.length === 0">
           {{ $t('categories.noOptions') }}
@@ -156,8 +156,8 @@
   padding: 0.5rem 0 0 0.5rem;
   border-top: 1px solid $middlegrey;
 
-  @media (min-width: $bp-xxxl) {
-    font-size: 1vw;
+  @media (min-width: $bp-4k) {
+    font-size: 1.5rem;
   }
 }
 
@@ -166,8 +166,8 @@
   overflow: auto;
   margin: 0;
 
-  @media (min-width: $bp-xxxl) {
-    max-height: 15vw;
+  @media (min-width: $bp-4k) {
+    max-height: calc(1.5 * 15rem);
   }
 
   ::v-deep .col-12 {
