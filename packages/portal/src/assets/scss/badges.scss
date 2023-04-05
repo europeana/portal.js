@@ -275,9 +275,13 @@
   }
 
   &.active {
-    border-color: $innovationblue;
-    background-color: $lightblue-dark;
-    box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
+    border: 0;
+    background-color: $lightblue;
+    box-shadow: 0;
+    &:hover,
+    &:focus {
+      background-color: $lightblue-dark !important;
+    }
   }
 
   .icon-clear {

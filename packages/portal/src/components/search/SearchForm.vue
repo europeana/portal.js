@@ -20,6 +20,7 @@
     <b-form
       ref="form"
       role="search"
+      :class="{'search-form': !inTopNav}"
       :aria-label="$t('header.searchForm')"
       data-qa="search form"
       inline
@@ -571,54 +572,6 @@
 
       to {
         max-height: 100vh;
-      }
-    }
-
-    .form-inline {
-      background-color: $white;
-      font-size: 1rem;
-      padding-left: 2.5em;
-      height: auto;
-      border-radius: 0.5em;
-      width: 100%;
-
-      @media (min-width: $bp-4k) {
-        font-size: 1.5rem;
-      }
-
-      &::before {
-        @extend %icon-font;
-
-        font-size: 1.1em;
-        content: '\e92b';
-        left: 1em;
-        top: 1em;
-        position: absolute;
-        width: 1.5em;
-        height: 1.5em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        @media (min-width: $bp-4k) {
-          font-size: 1.5rem;
-        }
-      }
-
-      .input-group {
-        width: 100%;
-      }
-
-      .form-control {
-        padding: 1em;
-        background-color: $white;
-        height: auto;
-        color: $mediumgrey;
-        width: 100%;
-
-        @media (min-width: $bp-4k) {
-          font-size: 1.5rem;
-        }
       }
     }
 

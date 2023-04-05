@@ -63,7 +63,7 @@ describe('plugins/europeana/web-resource', () => {
     });
 
     describe('.isHTMLAudio', () => {
-      const mediaTypes = ['audio/flac', 'audio/ogg', 'audio/mpeg'];
+      const mediaTypes = ['audio/x-flac', 'audio/ogg', 'audio/mpeg'];
 
       for (const ebucoreHasMimeType of mediaTypes) {
         it(`is true if ebucoreHasMimeType is for HTML audio type ${ebucoreHasMimeType}`, () => {
@@ -79,7 +79,7 @@ describe('plugins/europeana/web-resource', () => {
         { ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264' },
         { ebucoreHasMimeType: 'video/ogg' },
         { ebucoreHasMimeType: 'video/webm' },
-        { ebucoreHasMimeType: 'audio/flac' },
+        { ebucoreHasMimeType: 'audio/x-flac' },
         { ebucoreHasMimeType: 'audio/ogg' },
         { ebucoreHasMimeType: 'audio/mpeg' },
         { ebucoreHasMimeType: 'application/dash+xml' },
