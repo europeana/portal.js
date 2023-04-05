@@ -96,6 +96,11 @@ export default {
     "time": "Αιώνας",
     "topic": "Θέμα"
   },
+  "categories": {
+    "label": "Εξερευνήστε ιστορίες ανά ετικέτα",
+    "noOptions": "Δεν υπάρχουν άλλες ετικέτες για επιλογή",
+    "search": "Εξερευνήστε ιστορίες ανά ετικέτα"
+  },
   "clearAllFilters": "απαλοιφή όλων των φίλτρων",
   "collections": {
     "actions": {
@@ -1111,6 +1116,7 @@ export default {
     "pinned": "Καρφιτσωμένο"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} ιστορίες βρέθηκαν",
     "title": "Ιστορίες"
   },
   "themes": {

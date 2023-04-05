@@ -96,6 +96,11 @@ export default {
     "time": "Haois",
     "topic": "Ábhar"
   },
+  "categories": {
+    "label": "Scrúdaigh scéalta trí chlib",
+    "noOptions": "Níl a thuilleadh clibeanna le roghnú",
+    "search": "Scrúdaigh scéalta trí chlib"
+  },
   "clearAllFilters": "glan gach scagaire",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Pionnáilte"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} scéalta aimsithe",
     "title": "Scéalta"
   },
   "themes": {

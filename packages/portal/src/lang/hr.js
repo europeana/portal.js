@@ -96,6 +96,11 @@ export default {
     "time": "Stoljeća",
     "topic": "Tema"
   },
+  "categories": {
+    "label": "Istražite priče po oznaci",
+    "noOptions": "Nema više oznaka za odabir",
+    "search": "Istražite priče po oznaci"
+  },
   "clearAllFilters": "očistiti sve filtre",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Prikvačeno"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "Broj pronađenih priča {0}",
     "title": "Priče"
   },
   "themes": {

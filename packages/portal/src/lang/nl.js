@@ -96,6 +96,11 @@ export default {
     "time": "Eeuw",
     "topic": "Onderwerp"
   },
+  "categories": {
+    "label": "Verken verhalen op tag",
+    "noOptions": "Er zijn geen tags meer om te selecteren",
+    "search": "Verken verhalen op tag"
+  },
   "clearAllFilters": "alle filters wissen",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Pinned"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} verhalen gevonden",
     "title": "Verhalen"
   },
   "themes": {

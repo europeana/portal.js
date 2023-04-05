@@ -96,6 +96,11 @@ export default {
     "time": "Stoletje",
     "topic": "Tema"
   },
+  "categories": {
+    "label": "Raziščite zgodbe po oznakah",
+    "noOptions": "Ni več oznak, ki bi jih lahko izbrali",
+    "search": "Raziščite zgodbe po oznakah"
+  },
   "clearAllFilters": "počisti vse filtre",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Pripet"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} zgodbe najdene",
     "title": "Zgodbe"
   },
   "themes": {

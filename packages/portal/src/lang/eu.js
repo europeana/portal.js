@@ -96,6 +96,11 @@ export default {
     "time": "Mendea",
     "topic": "Gai"
   },
+  "categories": {
+    "label": "Esploratu istorioak etiketaren arabera",
+    "noOptions": "Ez dago etiketa gehiago hautatzeko",
+    "search": "Esploratu istorioak etiketaren arabera"
+  },
   "clearAllFilters": "Iragazki guztiak garbitu",
   "collections": {
     "actions": {
@@ -1111,6 +1116,7 @@ export default {
     "pinned": "Ainguratuta"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} istorio aurkitu dira",
     "title": "Istorioak"
   },
   "themes": {

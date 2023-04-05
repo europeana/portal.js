@@ -96,6 +96,11 @@ export default {
     "time": "Století",
     "topic": "Téma"
   },
+  "categories": {
+    "label": "Prozkoumejte příběhy podle štítku",
+    "noOptions": "Nejsou k dispozici žádné další tagy.",
+    "search": "Prozkoumejte příběhy podle štítku"
+  },
   "clearAllFilters": "Vymazat všechny filtry",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Připnuté"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} nalezených příběhů",
     "title": "Příběhy"
   },
   "themes": {

@@ -96,6 +96,11 @@ export default {
     "time": "Stulecie",
     "topic": "Temat"
   },
+  "categories": {
+    "label": "Przeglądaj historie według tagów",
+    "noOptions": "Nie ma więcej tagów do wybrania",
+    "search": "Przeglądaj historie według tagów"
+  },
   "clearAllFilters": "wyczyść wszystkie filtry",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Przypięty"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} znalezionych historii",
     "title": "Historie"
   },
   "themes": {

@@ -96,6 +96,11 @@ export default {
     "time": "Gadsimts",
     "topic": "Temats"
   },
+  "categories": {
+    "label": "Izpētiet stāstus pēc atzīmes",
+    "noOptions": "Nav vairs neviena atzīme, ko atlasīt",
+    "search": "Izpētiet stāstus pēc atzīmes"
+  },
   "clearAllFilters": "notīrīt visus filtrus",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Piesprausts"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} atrasti stāsti",
     "title": "Stāsti"
   },
   "themes": {

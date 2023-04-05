@@ -96,6 +96,11 @@ export default {
     "time": "Век",
     "topic": "Тема"
   },
+  "categories": {
+    "label": "Разгледайте историите по етикет",
+    "noOptions": "Няма повече тагове за избор",
+    "search": "Разгледайте историите по етикет"
+  },
   "clearAllFilters": "изчистване на всички филтри",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Закрепен"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} намерени истории",
     "title": "Разкази"
   },
   "themes": {

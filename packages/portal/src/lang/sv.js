@@ -96,6 +96,11 @@ export default {
     "time": "Århundrade",
     "topic": "Ämne"
   },
+  "categories": {
+    "label": "Utforska berättelser efter tagg",
+    "noOptions": "Det finns inga fler taggar att välja",
+    "search": "Utforska berättelser efter tagg"
+  },
   "clearAllFilters": "rensa alla filter",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Fäst"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} berättelser hittades",
     "title": "Berättelser"
   },
   "themes": {

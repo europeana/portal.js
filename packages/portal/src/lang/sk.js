@@ -96,6 +96,11 @@ export default {
     "time": "Storočia",
     "topic": "Téma"
   },
+  "categories": {
+    "label": "Preskúmajte príbehy podľa tagov",
+    "noOptions": "Už nie sú žiadne tagy na výber",
+    "search": "Preskúmajte príbehy podľa tagov"
+  },
   "clearAllFilters": "Vymazať všetky filtre",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Pripnuté"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} nájdených príbehov",
     "title": "Príbehy"
   },
   "themes": {

@@ -96,6 +96,11 @@ export default {
     "time": "Jahrhundert",
     "topic": "Thema"
   },
+  "categories": {
+    "label": "Entdecken Sie Geschichten nach Tags",
+    "noOptions": "Es gibt keine weiteren Tags zur Auswahl",
+    "search": "Entdecken Sie Geschichten nach Tags"
+  },
   "clearAllFilters": "Alle Filter löschen",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Angeheftet"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} Geschichten gefunden",
     "title": "Geschichten"
   },
   "themes": {

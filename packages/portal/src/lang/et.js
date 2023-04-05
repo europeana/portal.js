@@ -96,6 +96,11 @@ export default {
     "time": "Sajand",
     "topic": "Teema"
   },
+  "categories": {
+    "label": "Tutvu lugudega sildi järgi",
+    "noOptions": "Rohkem silte pole valida",
+    "search": "Tutvu lugudega sildi järgi"
+  },
   "clearAllFilters": "tühjenda kõik filtrid",
   "collections": {
     "actions": {
@@ -1107,6 +1112,7 @@ export default {
     "pinned": "Kinnitatud"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "Leiti {0} lugu",
     "title": "Lood"
   },
   "themes": {
