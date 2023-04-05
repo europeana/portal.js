@@ -66,7 +66,7 @@
     props: {
       filteredTags: {
         type: Array,
-        default: () => []
+        required: false
       },
       selectedTags: {
         type: Array,
@@ -96,7 +96,7 @@
       displayTags() {
         let displayTags;
         const keyword = this.trimmedKeyword;
-        if (this.filteredTags.length) {
+        if (this.filteredTags) {
           // use filteredTags as those are sorted by most used
           displayTags = this.filteredTags.filter(tag => !this.selectedTags.includes(tag)).map(tag => this.tags.filter(t => t.identifier === tag)[0]);
         } else {
