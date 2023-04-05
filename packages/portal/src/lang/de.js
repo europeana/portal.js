@@ -56,6 +56,8 @@ export default {
     "skipSend": "Überspringen und senden",
     "submitForPublication": "Zur Veröffentlichung einreichen",
     "submittedForPublication": "Zur Veröffentlichung eingereicht",
+    "transcribe": "Transkribieren",
+    "transcribeNow": "Jetzt transkribieren",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Wir empfehlen Ihnen, unten auf die Schaltfläche \"Bereitstellende Institution\" zu klicken, um zu prüfen, ob der Artikel auf der Website der anbietenden Institution heruntergeladen werden kann.",
       "message": "Wenn der Download nicht funktioniert, kann es daran liegen, dass er von der anbietenden Einrichtung entfernt wurde, oder es liegt ein technisches Problem mit ihrem Dienst vor.",
       "title": "Download funktioniert nicht"
+    },
+    "transcribe": {
+      "message": "Machen Sie mit bei Europeana Transcribe, der Online-Bürgerinitiative zur Bereicherung der Sammlungen von Europeana",
+      "title": "Transkribieren Sie dieses Objektes"
     }
   },
   "multilingual": {

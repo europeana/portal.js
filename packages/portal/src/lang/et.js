@@ -56,6 +56,8 @@ export default {
     "skipSend": "Jäta vahele ja saada",
     "submitForPublication": "Esitage avaldamiseks",
     "submittedForPublication": "Esitatud avaldamiseks",
+    "transcribe": "Transkribeeri",
+    "transcribeNow": "Transkribeeri nüüd",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -886,6 +888,10 @@ export default {
       "linkPrompt": "Soovitame teil klõpsata alloleval nupul „Pakkuja institutsioon”, et kontrollida, kas üksust saab pakkuva asutuse veebisaidilt alla laadida.",
       "message": "Kui allalaadimine ei tööta, võib põhjuseks olla see, et pakkuv asutus on selle eemaldanud või nende teenuses võib olla tehniline probleem.",
       "title": "Allalaadimine ei tööta"
+    },
+    "transcribe": {
+      "message": "Liituge meiega Europeana Transcribe'is, veebipõhises kodanikualgatuses Europeana kogude rikastamiseks",
+      "title": "Transkribeerige see üksus"
     }
   },
   "multilingual": {
