@@ -218,6 +218,10 @@
       margin-top: 2.5rem;
     }
 
+    .swiper {
+      overflow: visible;
+    }
+
     .swiper-pagination {
       display: inline-flex;
 
