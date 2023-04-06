@@ -1,12 +1,13 @@
 <template>
   <b-container
     fluid
-    class="border-bottom mt-3"
+    class="border-bottom align-items-center"
     data-qa="item language selector"
+    :class="{'d-none': hide, 'd-flex': !hide }"
   >
     <b-container>
       <b-row>
-        <b-col class="col-12 pb-3 d-inline-flex align-items-center flex-wrap">
+        <b-col class="col-12 py-3 d-inline-flex align-items-center flex-wrap">
           <span>
             <span class="icon-translate pr-2" />
             <i18n
@@ -60,6 +61,12 @@
         </b-col>
       </b-row>
     </b-container>
+    <b-button
+      class="button-icon-only icon-clear"
+      variant="light-flat"
+      :aria-label="$t('actions.close')"
+      @click="hide = !hide"
+    />
   </b-container>
 </template>
 
@@ -84,7 +91,8 @@
     data() {
       return {
         // "eu" language code not supported for translation
-        translateLocales: this.$i18n.locales.filter(locale => locale.code !== 'eu')
+        translateLocales: this.$i18n.locales.filter(locale => locale.code !== 'eu'),
+        hide: false
       };
     },
     computed: {

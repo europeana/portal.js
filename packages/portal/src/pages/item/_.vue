@@ -1,6 +1,7 @@
 <template>
   <div
     data-qa="item page"
+    class="page white-page"
     :class="$fetchState.error && 'white-page'"
   >
     <b-container
@@ -341,7 +342,11 @@
   };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .page {
+    padding-top: 2rem
+  }
+
   .related-collections {
     margin-top: -0.5rem;
     margin-bottom: 1.5rem;
