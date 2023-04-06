@@ -211,15 +211,10 @@
   @import '@/assets/scss/variables';
 
   .item-hero {
-    padding-top: 2.25rem;
     padding-bottom: 1.625rem;
 
     .media-bar {
       margin-top: 2.5rem;
-    }
-
-    .swiper {
-      overflow: visible;
     }
 
     .swiper-pagination {
