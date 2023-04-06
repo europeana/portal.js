@@ -50,14 +50,14 @@
           windows: [
             {
               manifestId: this.uri,
-              thumbnailNavigationPosition: 'far-bottom'
+              thumbnailNavigationPosition: 'far-right'
             }
           ],
           window: {
             allowClose: false,
             allowFullscreen: true,
             allowMaximize: false,
-            allowTopMenuButton: false,
+            allowTopMenuButton: true,
             allowWindowSideBar: false,
             sideBarOpen: false,
             panels: {
@@ -67,7 +67,12 @@
               annotations: true,
               search: true
             },
-            defaultSideBarPanel: this.searchQuery ? 'search' : 'annotations'
+            defaultSideBarPanel: this.searchQuery ? 'search' : 'annotations',
+            views: [
+              { key: 'single' },
+              { key: 'book' },
+              { key: 'gallery' }
+            ]
           },
           workspace: {
             showZoomControls: true,
@@ -78,6 +83,51 @@
           },
           requests: {
             postprocessors: [this.postprocessMiradorRequest]
+          },
+          // thumbnailNavigation: {
+          //   width: 145 // width of one canvas (doubled for book view) in ThumbnailNavigation area when position is "far-right"
+          // },
+          selectedTheme: 'europeana',
+          themes: {
+            europeana: {
+              palette: {
+                type: 'light',
+                primary: {
+                  main: '#0a72cc'
+                },
+                secondary: {
+                  main: '#0a72cc'
+                },
+                shades: {
+                  dark: '#000000',
+                  main: 'rgba(255 255 255 / 90%)',
+                  light: '#ffffff'
+                },
+                error: {
+                  main: '#e02020'
+                },
+                notification: { // Color used in MUI Badge dots
+                  main: '#0a72cc'
+                },
+                action: {
+                  hover: '#ffffff',
+                  hoverOpacity: 0
+                }
+              },
+              typography: {
+                fontFamily: ['Open Sans', 'Arial', 'sans-serif'],
+                body1: {
+                  fontSize: '1rem',
+                  letterSpacing: '0',
+                  lineHeight: '1.5'
+                },
+                body2: {
+                  fontSize: '1rem',
+                  letterSpacing: '0',
+                  lineHeight: '1.5'
+                }
+              }
+            }
           }
         };
 
@@ -356,12 +406,5 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
-
-  ::v-deep .mirador-thumbnail-nav-canvas:focus {
-    outline: 2px solid $blue !important;
-  }
-
-  ::v-deep .mirador-thumb-navigation {
-    height: 100px !important;
-  }
+  @import '@/assets/scss/iiif';
 </style>
