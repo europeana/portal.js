@@ -1,0 +1,19 @@
+a {
+  color: $blue;
+  text-decoration: none;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.instruction {
+  text-align: center;
+  padding: 0 1.5rem 0.25rem 1.5rem;
+}

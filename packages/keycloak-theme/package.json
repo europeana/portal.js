@@ -1,0 +1,28 @@
+{
+  "name": "@europeana/keycloak-theme",
+  "version": "1.106.0",
+  "description": "Europeana Keycloak theme",
+  "contributors": [
+    "Anna Christaki <annachristaki@think-code.io>",
+    "Richard Doe <richard.doe@europeana.eu>",
+    "Mirjam Verloop <mirjam.verloop@europeana.eu>",
+    "Leonie Peters <leonie.peters@europeana.eu>"
+  ],
+  "private": true,
+  "license": "EUPL-1.2",
+  "scripts": {
+    "build": "node bin/build.js",
+    "dev": "npm run build && docker-compose up --build",
+    "scss:build": "sass --load-path=./node_modules scss/style.scss:theme/login/resources/css/login.css --update",
+    "scss:watch": "npm run scss:build -- --watch"
+  },
+  "devDependencies": {
+    "@europeana/portal": "^1.106.0",
+    "bootstrap": "^4.6.0",
+    "fs-extra": "^9.0.1",
+    "jquery": "^3.5.1"
+  },
+  "bin": {
+    "build-europeana-keycloak-theme": "bin/build.js"
+  }
+}
