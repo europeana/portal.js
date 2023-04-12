@@ -909,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Citește mai mult",
+    "readMore": "Descoperiți povești",
     "text": {
-      "themes": "Explorați patrimoniul cultural european prin intermediul unor teme, de la arheologie la Primul Război Mondial. Noile noastre pagini tematice oferă o perspectivă multidimensională asupra fiecărei teme prin intermediul unor subiecte, persoane, povești și obiecte conexe."
+      "storiesTags": "Consultați pagina Povești actualizată. Acum puteți căuta și filtra după etichete."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",

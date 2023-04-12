@@ -909,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zavřít",
-    "readMore": "Přečtěte si více",
+    "readMore": "Objevujte příběhy",
     "text": {
-      "themes": "Prozkoumejte evropské kulturní dědictví prostřednictvím témat, od archeologie po první světovou válku. Naše nové tematické stránky nabízejí vícerozměrný pohled na každé téma prostřednictvím souvisejících témat, lidí, příběhů a předmětů."
+      "storiesTags": "Podívejte se na aktualizovanou stránku Příběhy. Nyní můžete vyhledávat a filtrovat podle značek."
     }
   },
   "newWindow": "otevře se v novém okně",

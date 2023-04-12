@@ -909,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
-    "readMore": "Aqra iktar",
+    "readMore": "Skopri stejjer",
     "text": {
-      "themes": "Esplora l-wirt kulturali Ewropew permezz ta’ temi, mill-arkeoloġija sa l-Ewwel Gwerra Dinjija. Il-paġni tat-temi l-ġodda tagħna joffru ħarsa multidimensjonali ta’ kull tema permezz ta’ suġġetti, nies, stejjer u oġġetti relatati."
+      "storiesTags": "Iċċekkja l-paġna tal-Istejjer aġġornata. Issa tista 'tfittex u tiffiltra bit-tags."
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
