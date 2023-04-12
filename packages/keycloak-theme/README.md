@@ -29,23 +29,16 @@ npm run scss:watch
 
 In addition, a service for SMTP mail will be running so that password validation and reset may be tested.
 
-### Setup a realm
-
-Go to Keycloak's admin login page: http://localhost:10001/auth/admin/
-
-Login using the `KEYCLOAK_ADMIN` ("admin") and `KEYCLOAK_ADMIN_PASSWORD` ("password") credentials.
-
-Go to the "Add realm" page: http://localhost:10001/admin/master/console/#/master/add-realm
-
-Upload the supplied [europeana-realm.json](./keycloak/europeana-realm.json) file and press `Create`.
-This creates a "europeana" realm with login, email and theme settings, and
-authentication flows all pre-configured.
-
 
 ## Testing the theme
 
 Sign out of the admin console, and go to http://localhost:10001/realms/europeana/account/#/ where you will see the custom theme.
 
+### Keycloak admin
+
+Go to Keycloak's admin login page: http://localhost:10001/admin/master/console/#/
+
+Login using the `KEYCLOAK_ADMIN` ("admin") and `KEYCLOAK_ADMIN_PASSWORD` ("password") credentials.
 
 ## Theme updates
 

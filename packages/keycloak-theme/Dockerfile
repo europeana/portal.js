@@ -1,7 +1,7 @@
 FROM quay.io/keycloak/keycloak:20.0.5
 
-WORKDIR /opt/jboss/keycloak
+WORKDIR /opt/keycloak
 
-COPY keycloak/disable-theme-cache.cli ../startup-scripts/disable-theme-cache.cli
+COPY keycloak/europeana-realm.json ./data/import/
 
-CMD ["start-dev"]
+CMD ["start-dev", "--import-realm"]
