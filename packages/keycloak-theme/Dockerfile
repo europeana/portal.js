@@ -4,4 +4,4 @@ WORKDIR /opt/keycloak
 
 COPY keycloak/europeana-realm.json ./data/import/
 
-CMD ["start-dev", "--import-realm"]
+CMD ["start-dev", "--import-realm", "--http-relative-path", "/auth"]

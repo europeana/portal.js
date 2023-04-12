@@ -32,11 +32,11 @@ In addition, a service for SMTP mail will be running so that password validation
 
 ## Testing the theme
 
-Sign out of the admin console, and go to http://localhost:10001/realms/europeana/account/#/ where you will see the custom theme.
+Go to http://localhost:10001/auth/realms/europeana/account/#/ where you will see the custom theme.
 
 ### Keycloak admin
 
-Go to Keycloak's admin login page: http://localhost:10001/admin/master/console/#/
+Go to Keycloak's admin login page: http://localhost:10001/auth/admin/master/console/#/
 
 Login using the `KEYCLOAK_ADMIN` ("admin") and `KEYCLOAK_ADMIN_PASSWORD` ("password") credentials.
 

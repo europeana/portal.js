@@ -17,7 +17,10 @@ services:
       context: ../../..
       dockerfile: ./packages/portal/Dockerfile
     depends_on:
-      - cache
+      auth:
+        condition: service_healthy
+      cache:
+        condition: service_started
     expose:
       - "8080"
     env_file: ./app/.env
@@ -37,8 +40,24 @@ services:
       - HTTPS_PORT=443
       - NODE_TLS_REJECT_UNAUTHORIZED=0
       - NUXT_LOADING_THROTTLE=0
+      - OAUTH_CLIENT=collections_portal
+      - OAUTH_ORIGIN=http://auth:8080
       - PORTAL_BASE_URL=https://nginx
       - REDIS_URL=redis://cache
+  auth:
+    image: europeana/portal.js-keycloak:${APP_IMAGE_VERSION:-latest}
+    build:
+      context: ../../../packages/keycloak-theme
+    volumes:
+      - type: bind
+        source: ../../../packages/keycloak-theme/theme
+        target: /opt/keycloak/themes/europeana
+    expose:
+      - "8080"
+    healthcheck:
+      test: curl -fs http://localhost:8080/auth/realms/europeana/account/ || exit 1
+      interval: 10s
+      timeout: 2s
   cache:
     image: redis
   chrome-en:
