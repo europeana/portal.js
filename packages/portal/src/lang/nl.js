@@ -911,7 +911,7 @@ export default {
     "dismiss": "Sluiten",
     "readMore": "Lees verder",
     "text": {
-      "themes": "Verken het Europese culturele erfgoed met thema's, van archeologie tot de Eerste Wereldoorlog. Onze nieuwe themapagina's bieden een multidimensionaal beeld van elk thema via gerelateerde onderwerpen, mensen, verhalen en voorwerpen."
+      "storiesTags": "Bekijk de bijgewerkte verhalenpagina. U kunt nu zoeken en filteren op tags."
     }
   },
   "newWindow": "opent in nieuw venster",

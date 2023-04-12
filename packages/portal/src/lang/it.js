@@ -911,7 +911,7 @@ export default {
     "dismiss": "Chiudi",
     "readMore": "Leggi di più",
     "text": {
-      "themes": "Esplora il patrimonio culturale europeo attraverso i temi, dall'archeologia alla prima guerra mondiale. Le nostre nuove pagine tematiche offrono una visione multidimensionale di ciascun tema attraverso argomenti, persone, storie e oggetti correlati."
+      "storiesTags": "Dai un'occhiata alla pagina Storie aggiornata. Ora puoi cercare e filtrare per tag."
     }
   },
   "newWindow": "si apre in una nuova finestra",

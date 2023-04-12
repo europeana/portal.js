@@ -911,7 +911,7 @@ export default {
     "dismiss": "Luk",
     "readMore": "Læs mere",
     "text": {
-      "themes": "Udforsk den europæiske kulturarv gennem temaer, fra arkæologi til Første Verdenskrig. Vores nye temasider giver et flerdimensionalt indblik i hvert tema via relaterede emner, personer, historier og genstande."
+      "storiesTags": "Tjek den opdaterede historieside. Du kan nu søge og filtrere efter tags."
     }
   },
   "newWindow": "åbner i nyt vindue",

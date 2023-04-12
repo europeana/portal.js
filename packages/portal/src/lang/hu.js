@@ -911,7 +911,7 @@ export default {
     "dismiss": "Bezárás",
     "readMore": "Bővebben",
     "text": {
-      "themes": "Fedezze fel az európai kulturális örökséget témákon keresztül, a régészettől az első világháborúig. Új témaoldalaink többdimenziós képet nyújtanak az egyes témákról a kapcsolódó témákon, személyeken, történeteken és tárgyakon keresztül."
+      "storiesTags": "Nézd meg a frissített Történetek oldalt. Most már kereshetsz és szűrhetsz címkék szerint."
     }
   },
   "newWindow": "új ablakban nyílik meg",

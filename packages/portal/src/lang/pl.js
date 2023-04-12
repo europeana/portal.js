@@ -911,7 +911,7 @@ export default {
     "dismiss": "Zamknij",
     "readMore": "Czytaj więcej",
     "text": {
-      "themes": "Przeglądaj europejskie dziedzictwo kulturowe poprzez tematy, od archeologii po I wojnę światową. Nasze nowe strony tematyczne oferują wielowymiarowe spojrzenie na każdy temat poprzez powiązane tematy, ludzi, historie i przedmioty."
+      "storiesTags": "Sprawdź zaktualizowaną stronę historie. Możesz teraz wyszukiwać i filtrować według tagów."
     }
   },
   "newWindow": "otwiera się w nowym oknie",

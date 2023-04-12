@@ -911,7 +911,7 @@ export default {
     "dismiss": "Sulje",
     "readMore": "Lue lisää",
     "text": {
-      "themes": "Tutustu eurooppalaiseen kulttuuriperintöön teemojen kautta arkeologiasta ensimmäiseen maailmansotaan. Uudet teemasivumme tarjoavat moniulotteisen näkymän jokaisesta teemasta toisiinsa liittyvien aiheiden, ihmisten, tarinoiden ja esineiden kautta."
+      "storiesTags": "Tutustu päivitettyyn Tarinat-sivuun. Voit nyt etsiä ja suodattaa tunnisteiden mukaan."
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",

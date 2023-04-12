@@ -911,7 +911,7 @@ export default {
     "dismiss": "Stäng",
     "readMore": "Läs mer",
     "text": {
-      "themes": "Utforska det europeiska kulturarvet genom teman, från arkeologi till första världskriget. Våra nya temasidor erbjuder en flerdimensionell bild av varje tema via relaterade ämnen, människor, berättelser och föremål."
+      "storiesTags": "Kolla in den uppdaterade berättelsesidan. Du kan nu söka och filtrera efter taggar."
     }
   },
   "newWindow": "öppnas i nytt fönster",

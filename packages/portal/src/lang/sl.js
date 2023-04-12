@@ -911,7 +911,7 @@ export default {
     "dismiss": "Zapri",
     "readMore": "Preberi več",
     "text": {
-      "themes": "Raziščite evropsko kulturno dediščino skozi teme, od arheologije do prve svetovne vojne. Naše nove tematske strani ponujajo večdimenzionalen pogled na vsako temo prek povezanih tem, ljudi, zgodb in predmetov."
+      "storiesTags": "Oglejte si posodobljeno stran Zgodbe. Zdaj lahko iščete in filtrirate po oznakah."
     }
   },
   "newWindow": "odpre se v novem oknu",

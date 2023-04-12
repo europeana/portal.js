@@ -911,7 +911,7 @@ export default {
     "dismiss": "Zatvoriť",
     "readMore": "Viac",
     "text": {
-      "themes": "Preskúmajte európske kultúrne dedičstvo prostredníctvom tém, od archeológie po prvú svetovú vojnu. Naše nové tematické stránky ponúkajú viacrozmerný pohľad na každú tému prostredníctvom súvisiacich tém, ľudí, príbehov a predmetov."
+      "storiesTags": "Pozrite si aktualizovanú stránku Príbehy. Teraz môžete vyhľadávať a filtrovať podľa tagov."
     }
   },
   "newWindow": "otvorí sa v novom okne",

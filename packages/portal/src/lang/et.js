@@ -911,7 +911,7 @@ export default {
     "dismiss": "Sulge",
     "readMore": "Loe lähemalt",
     "text": {
-      "themes": "Avastage Euroopa kultuuripärandit teemade kaudu, alates arheoloogiast kuni I maailmasõjani. Meie uued teemalehed pakuvad igast teemast mitmemõõtmelist vaadet seotud teemade, inimeste, lugude ja esemete kaudu."
+      "storiesTags": "Vaadake uuendatud lugude lehte. Nüüd saate otsida ja filtreerida siltide järgi."
     }
   },
   "newWindow": "avaneb uues aknas",

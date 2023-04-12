@@ -911,7 +911,7 @@ export default {
     "dismiss": "Dún",
     "readMore": "Léigh níos mó",
     "text": {
-      "themes": "Déan iniúchadh ar oidhreacht chultúrtha na hEorpa trí théamaí, ón tseandálaíocht go dtí an Chéad Chogadh Domhanda. Tugann ár leathanaigh téama nua léargas iltoiseach ar gach téama trí ábhair, daoine, scéalta agus míreanna gaolmhara."
+      "storiesTags": "Amharc ar an leathanach Scéalta nuashonraithe. Is féidir leat cuardach agus scagadh de réir clibeanna anois."
     }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",

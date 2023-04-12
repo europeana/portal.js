@@ -911,7 +911,7 @@ export default {
     "dismiss": "Zatvoriti",
     "readMore": "Pročitaj više",
     "text": {
-      "themes": "Istražite europsku kulturnu baštinu kroz teme, od arheologije do Prvog svjetskog rata. Naše nove tematske stranice nude višedimenzionalni pogled na svaku temu putem povezanih tema, ljudi, priča i predmeta."
+      "storiesTags": "Pogledajte ažuriranu stranicu s pričama. Sada možete pretraživati i filtrirati po oznakama."
     }
   },
   "newWindow": "otvara se u novom prozoru",
