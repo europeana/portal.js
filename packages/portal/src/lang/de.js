@@ -909,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Schließen",
-    "readMore": "Mehr anzeigen",
+    "readMore": "Geschichten entdecken",
     "text": {
-      "themes": "Entdecken Sie das europäische Kulturerbe nach Themen, von der Archäologie bis zum Ersten Weltkrieg. Unsere neuen Themenseiten bieten eine multidimensionale Sicht auf jedes Thema über verwandte Themen, Personen, Geschichten und Gegenstände."
+      "storiesTags": "Sehen Sie sich die aktualisierte Seite Geschichten an. Sie können jetzt nach Tags suchen und filtern."
     }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",

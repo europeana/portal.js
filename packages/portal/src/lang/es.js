@@ -909,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Cerrar",
-    "readMore": "Leer más",
+    "readMore": "Descubre historias",
     "text": {
-      "themes": "Explore el patrimonio cultural europeo a través de temas, desde la arqueología hasta la Primera Guerra Mundial. Nuestras nuevas páginas temáticas ofrecen una visión multidimensional de cada tema a través de temas, personas, historias y elementos relacionados."
+      "storiesTags": "Echa un vistazo a la página de Historias actualizada. Ahora puede buscar y filtrar por etiquetas."
     }
   },
   "newWindow": "se abre en una nueva ventana",

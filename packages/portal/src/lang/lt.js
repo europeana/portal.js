@@ -909,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
-    "readMore": "Skaityti daugiau",
+    "readMore": "Atraskite istorijas",
     "text": {
-      "themes": "Tyrinėkite Europos kultūros paveldą per temas, pradedant archeologija ir baigiant Pirmuoju pasauliniu karu. Mūsų naujuose teminiuose puslapiuose pateikiama įvairialypė kiekvienos temos vaizdas per susijusias temas, žmones, istorijas ir daiktus."
+      "storiesTags": "Peržiūrėkite atnaujintą istorijos puslapį. Dabar galite ieškoti ir filtruoti pagal žymas."
     }
   },
   "newWindow": "atsidaro naujame lange",
