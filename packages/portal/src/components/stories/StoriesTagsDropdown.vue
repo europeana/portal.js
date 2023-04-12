@@ -66,7 +66,7 @@
     props: {
       filteredTags: {
         type: Array,
-        required: false
+        default: null
       },
       selectedTags: {
         type: Array,
