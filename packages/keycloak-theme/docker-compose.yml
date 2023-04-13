@@ -3,7 +3,8 @@ services:
   keycloak:
     image: keycloak
     build:
-      context: .
+      context: ../..
+      dockerfile: ./packages/keycloak-theme/Dockerfile
     volumes:
       - type: bind
         source: ./theme
