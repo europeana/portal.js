@@ -23,6 +23,12 @@ services:
         condition: service_started
     expose:
       - "8080"
+    healthcheck:
+      test: curl -fs http://localhost:8080/_api/version || exit 1
+      start_period: 10s
+      interval: 5s
+      timeout: 2s
+      retries: 5
     env_file: ./app/.env
     environment:
       - CTF_GRAPHQL_ORIGIN=https://nginx/contentful
@@ -54,8 +60,8 @@ services:
     healthcheck:
       test: curl -fs http://localhost:8080/auth/realms/europeana/account/ || exit 1
       start_period: 10s
-      interval: 10s
-      timeout: 5s
+      interval: 5s
+      timeout: 2s
       retries: 5
   cache:
     image: redis
