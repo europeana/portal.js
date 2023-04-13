@@ -379,7 +379,7 @@ jobs:
           file: ./packages/portal/Dockerfile
           pull: true
           load: true
-          tags: ${{ needs.metadata.outputs.docker-tags }}-keycloak-theme
+          tags: ${{ env.DOCKER_REPOSITORY }}-keycloak-theme
           cache-from: type=gha,scope=${{ github.ref_name }}-keycloak-theme
       -
         name: Prepare env for e2e tests
@@ -432,7 +432,7 @@ jobs:
           file: ./packages/portal/Dockerfile
           pull: true
           load: true
-          tags: ${{ needs.metadata.outputs.docker-tags }}-keycloak-theme
+          tags: ${{ env.DOCKER_REPOSITORY }}-keycloak-theme
           cache-from: type=gha,scope=${{ github.ref_name }}-keycloak-theme
       -
         name: Prepare env for visual tests
@@ -456,7 +456,7 @@ jobs:
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
       -
         name: Build images for visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q auth nginx nightwatch-features
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build auth nginx nightwatch-features
       -
         name: Run visual tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
