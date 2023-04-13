@@ -395,7 +395,7 @@ jobs:
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
       -
         name: Build images for e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q auth nginx nightwatch-features
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
       -
         name: Run e2e tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features

@@ -54,8 +54,8 @@ services:
     healthcheck:
       test: curl -fs http://localhost:8080/auth/realms/europeana/account/ || exit 1
       start_period: 10s
-      interval: 5s
-      timeout: 2s
+      interval: 10s
+      timeout: 5s
       retries: 5
   cache:
     image: redis
