@@ -45,7 +45,7 @@ services:
       - PORTAL_BASE_URL=https://nginx
       - REDIS_URL=redis://cache
   auth:
-    image: europeana/portal.js-keycloak-theme:${APP_IMAGE_VERSION:-latest}
+    image: europeana/portal.js-keycloak-theme
     build:
       context: ../../..
       dockerfile: ./packages/keycloak-theme/Dockerfile
