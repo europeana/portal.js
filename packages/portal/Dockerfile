@@ -17,6 +17,7 @@ RUN npm ci -w packages/portal
 
 COPY *.md ./
 COPY packages/portal/*.js ./packages/portal/
+COPY packages/portal/bin ./packages/portal/bin
 COPY packages/portal/src ./packages/portal/src
 
 RUN npm run build
@@ -36,5 +37,8 @@ WORKDIR /app
 COPY --from=build /app .
 
 USER 1000
+
+HEALTHCHECK --interval=5s --timeout=2s \
+  CMD ["/nodejs/bin/node", "./packages/portal/bin/healthcheck.js"]
 
 CMD ["node_modules/.bin/nuxt-cli", "start", "./packages/portal"]

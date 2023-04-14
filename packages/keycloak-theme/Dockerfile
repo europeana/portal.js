@@ -39,4 +39,7 @@ WORKDIR /opt/keycloak
 COPY --from=build-keycloak /opt/keycloak ./
 COPY ${theme_workspace}/keycloak/europeana-realm.json ./data/import/
 
+HEALTHCHECK --start-period=5s --interval=5s --timeout=2s \
+  CMD curl -fs http://localhost:8080/auth/realms/europeana/account/ || exit 1
+
 CMD ["start", "--optimized", "--import-realm"]
