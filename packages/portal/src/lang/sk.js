@@ -56,6 +56,8 @@ export default {
     "skipSend": "Preskočiť a odoslať",
     "submitForPublication": "Odoslať na zverejnenie",
     "submittedForPublication": "Predložené na zverejnenie",
+    "transcribe": "Prepísať",
+    "transcribeNow": "Teraz prepíšte",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Téma",
     "time": "Storočia",
     "topic": "Téma"
+  },
+  "categories": {
+    "label": "Preskúmajte príbehy podľa tagov",
+    "noOptions": "Už nie sú žiadne tagy na výber",
+    "search": "Preskúmajte príbehy podľa tagov"
   },
   "clearAllFilters": "Vymazať všetky filtre",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria bola vymazaná.",
-      "error": {
-        "unpin": "Došlo k chybe pri odpájaní položky. Skúste to prosím znova alebo nahláste problém."
-      },
       "pin": "Táto položka sa zobrazí v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "pinLimit": {
         "body": "Zatiaľ môžete na prvú stránku pripnúť iba 24 položiek. Ak chcete túto položku pripnúť, odpojte inú a potom sa pokúste znova pripnúť túto položku.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Chyba",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Úpravy sú dočasne zakázané a vaše zmeny sa neuložili. Skúste neskôr prosím.",
+      "title": "Aktualizácia zlyhala"
+    },
+    "galleryNotFound": {
+      "description": "Túto galériu sa nepodarilo nájsť. Možno bola vymazaná.",
+      "title": "Galéria sa nenašla"
+    },
     "galleryUnauthorised": {
       "description": "Nie je to možné, pretože súkromné galérie sú viditeľné iba pre ich tvorcu. Ak poznáte tvorcu galérie, požiadajte ho o zverejnenie galérie. Prípadne nahláste tento problém pomocou tlačidla spätnej väzby.",
       "metaTitle": "Galéria je neoprávnená",
       "title": "Ups! {newline} Snažíte sa zobraziť súkromnú galériu inej osoby."
+    },
+    "genericUnknownError": {
+      "description": "Vyskytla sa neznáma chyba.",
+      "title": "Neznáma chyba"
     },
     "itemNotFound": {
       "description": "Môže to byť z nasledujúcich dôvodov: táto položka neexistuje alebo; bolo zrušené, pretože nezodpovedalo našim kritériám kvality, alebo; bola aktualizovaná a znovu publikovaná s novým jedinečným identifikátorom, v takom prípade skúste položku znova nájsť.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "Stránka nenájdená",
       "title": "Stránka, ktorú hľadáte, neexistuje."
     },
+    "pinningNotFound": {
+      "description": "Pri pripínaní/odpínaní položky došlo k chybe. Skúste to znova alebo nahláste problém.",
+      "title": "Kurátorská zbierka nebola nájdená"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Je možné zobraziť iba prvých {limit} výsledkov vyhľadávania.",
+      "title": "Prekročený limit stránok"
+    },
     "searchResultsNotFound": {
       "description": "Upravte hľadaný výraz alebo restujte filtre a skúste to znova.",
       "title": "Zdá sa, že nemôžeme nájsť to, čo hľadáte."
-    },
-    "setLocked": {
-      "description": "Úpravy sú dočasne zakázané a vaše zmeny sa neuložili. Skúste neskôr prosím.",
-      "title": "Aktualizácia zlyhala"
     }
   },
   "exhibitions": {
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Skopírované do schránky",
     "externalContentError": "Nepodarilo sa načítať externý obsah",
-    "notFound": "Nenašlo sa",
-    "paginationLimitExceeded": "Je možné zobraziť len prvých {limit} výsledkov vyhľadávania."
+    "notFound": "Nenašlo sa"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "Odporúčame vám kliknúť na tlačidlo „Poskytujúca inštitúcia“ nižšie a skontrolovať, či je možné položku stiahnuť na webovej stránke poskytujúcej inštitúcie.",
       "message": "Ak sťahovanie nefunguje, môže to byť spôsobené tým, že ho odstránila poskytujúca inštitúcia, alebo môže nastať technický problém s jej službou.",
       "title": "Sťahovanie nefunguje"
+    },
+    "transcribe": {
+      "message": "Pridajte sa k nám na Europeana Transcribe, online občianskej iniciatíve na obohatenie zbierok Europeana",
+      "title": "Prepíšte túto položku"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
-    "readMore": "Viac",
+    "readMore": "Objavte príbehy",
     "text": {
-      "themes": "Preskúmajte európske kultúrne dedičstvo prostredníctvom tém, od archeológie po prvú svetovú vojnu. Naše nové tematické stránky ponúkajú viacrozmerný pohľad na každú tému prostredníctvom súvisiacich tém, ľudí, príbehov a predmetov."
+      "storiesTags": "Pozrite si aktualizovanú stránku Príbehy. Teraz môžete vyhľadávať a filtrovať podľa tagov."
     }
   },
   "newWindow": "otvorí sa v novom okne",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Súvisiace galérie",
       "title": "Objavte súvisiace galérie"
+    },
+    "themes": {
+      "title": "Objavte súvisiace témy"
     }
   },
   "removeFilter": "Odstrániť filter {filterLabel}",
@@ -1086,6 +1112,7 @@ export default {
     "pinned": "Pripnuté"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} nájdených príbehov",
     "title": "Príbehy"
   },
   "themes": {

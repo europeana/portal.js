@@ -8,8 +8,7 @@
       {{ title || $t('related.collections.title') }}
     </h2>
     <div
-      class="badges-wrapper d-flex"
-      :class="{ 'flex-wrap': wrap }"
+      class="badges-wrapper d-flex flex-wrap"
     >
       <LinkBadge
         v-for="relatedCollection in collections"
@@ -18,10 +17,9 @@
         ref="options"
         :link-to="relatedCollection.url || collectionLinkGen(relatedCollection)"
         :title="collectionTitle(relatedCollection)"
-        :img="imageUrl(relatedCollection, 28, 28)"
+        :img="$apis.entity.imageUrl(relatedCollection)"
         :type="relatedCollection.type"
         :badge-variant="badgeVariant"
-        :image-src-set="imageSrcSet(relatedCollection)"
       />
     </div>
   </div>
@@ -47,25 +45,33 @@
     ],
 
     props: {
+      /**
+       * Title which appears above the badges
+       */
       title: {
         type: String,
         default: ''
       },
+      /**
+       * Array of already fetched entity objects to be used for the badges
+       */
       relatedCollections: {
         type: Array,
         default: () => []
       },
+      /**
+       * Array of entity uris which will be used to fetch entity data for the badges
+       */
       entityUris: {
         type: Array,
         default: () => []
       },
+      /**
+       * Variant of the badges that define their styles
+       */
       badgeVariant: {
         type: String,
         default: 'secondary'
-      },
-      wrap: {
-        type: Boolean,
-        default: true
       }
     },
 
@@ -102,16 +108,6 @@
         this.$nextTick(() => {
           this.$redrawVueMasonry && this.$redrawVueMasonry();
         });
-      },
-
-      imageSrcSet(collection) {
-        if (this.$contentful.assets.isValidUrl(collection.primaryImageOfPage?.image?.url)) {
-          const smallImage = this.$contentful.assets.optimisedSrc(collection.primaryImageOfPage.image, { w: 28, h: 28, fit: 'thumb' });
-          const wqhdImage = this.$contentful.assets.optimisedSrc(collection.primaryImageOfPage.image, { w: 45, h: 45, fit: 'thumb' });
-          const fourKImage = this.$contentful.assets.optimisedSrc(collection.primaryImageOfPage.image, { w: 67, h: 67, fit: 'thumb' });
-          return `${smallImage} 28w, ${wqhdImage} 45w, ${fourKImage} 67w`;
-        }
-        return null;
       }
     }
   };
@@ -123,13 +119,6 @@
   .related-collections ::v-deep .badge-pill {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
-
-    @media (min-width: $bp-xxxl) {
-      @at-root .responsive-font & {
-        margin-right: 0.5vw;
-        margin-bottom: 0.5vw;
-      }
-    }
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
@@ -150,20 +139,25 @@
       }
     }
   }
-
-  .related-heading {
-    margin-bottom: 0.75rem;
-
-    @media (min-width: $bp-xxxl) {
-      @at-root .responsive-font & {
-        margin-bottom: 0.75vw;
-      }
-    }
-
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        margin-bottom: 1.125rem;
-      }
-    }
-  }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <EntityBadges
+    :related-collections="[
+      {
+      id: 'http://data.europeana.eu/concept/238',
+      isShownBy: { thumbnail: 'https://api.europeana.eu/thumbnail/v3/200/8a4531e9596247152fb127caa8ab8d2b' },
+      prefLabel: { en: 'Sonata' }
+      },
+      {
+      id: 'http://data.europeana.eu/concept/1482250000004477257',
+      logo:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Albertina_Logo.svg/28px-Albertina_Logo.svg.png'
+      ,
+      type: 'Organization',
+      prefLabel: { en: 'Albertina', de: 'Albertina' }
+      }]"
+  />
+  ```
+</docs>

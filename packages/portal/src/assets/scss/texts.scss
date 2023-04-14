@@ -1,5 +1,11 @@
 .lead {
   font-size: $font-size-large;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-large-4k;
+    }
+  }
 }
 
 header .col {
@@ -24,6 +30,7 @@ header .col {
   font-size: $font-size-small;
   font-weight: 600;
   line-height: 1;
+  margin-bottom: 0.75rem;
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {

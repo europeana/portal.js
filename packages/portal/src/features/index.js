@@ -1,4 +1,4 @@
-import decamelize from 'decamelize';
+import snakeCase from 'lodash/snakeCase.js';
 import featureToggles from './toggles.js';
 
 export const featureIsEnabled = (value) => Boolean(Number(value));
@@ -10,7 +10,7 @@ export const featureNotificationExpiration = (value) => {
 
 export default () => featureToggles
   .reduce((memo, featureToggle) => {
-    const envKey = `ENABLE_${decamelize(featureToggle.name).toUpperCase()}`;
+    const envKey = `ENABLE_${snakeCase(featureToggle.name).toUpperCase()}`;
     memo[featureToggle.name] = featureIsEnabled(process.env[envKey]);
     return memo;
   }, {});

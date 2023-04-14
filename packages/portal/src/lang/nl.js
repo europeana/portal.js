@@ -56,6 +56,8 @@ export default {
     "skipSend": "Overslaan en verzenden",
     "submitForPublication": "Indienen voor publicatie",
     "submittedForPublication": "Ingezonden voor publicatie",
+    "transcribe": "Transcriberen",
+    "transcribeNow": "Nu transcriberen",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Thema",
     "time": "Eeuw",
     "topic": "Onderwerp"
+  },
+  "categories": {
+    "label": "Verken verhalen op tag",
+    "noOptions": "Er zijn geen tags meer om te selecteren",
+    "search": "Verken verhalen op tag"
   },
   "clearAllFilters": "alle filters wissen",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
-      "error": {
-        "unpin": "Er is een fout opgetreden bij het losmaken van het item. Probeer het opnieuw of meld het probleem."
-      },
       "pin": "Dit item wordt bovenaan de collectie \" {entity} \" weergegeven. We laten je weten wanneer deze wijziging zichtbaar is op de collectiepagina.",
       "pinLimit": {
         "body": "Voorlopig kunt u maar 24 items vast zetten op de eerste pagina. Als u dit item wilt vast zetten, moet u ervoor zorgen dat u een ander item los maakt en vervolgens proberen deze opnieuw vast te zetten.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Fout",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Bewerken is tijdelijk uitgeschakeld en uw wijzigingen zijn niet opgeslagen. Probeer het later opnieuw.",
+      "title": "Update mislukt"
+    },
+    "galleryNotFound": {
+      "description": "Deze galerij kon niet worden gevonden. Het is mogelijk verwijderd.",
+      "title": "Galerij niet gevonden"
+    },
     "galleryUnauthorised": {
       "description": "Dit is niet mogelijk, omdat privé galerijen alleen zichtbaar zijn voor de maker ervan. Als u de maker van de galerij kent, vraag hem dan om de galerij publiek te maken. U kunt dit probleem ook melden via de feedback knop.",
       "metaTitle": "Galerij ongeautoriseerd",
       "title": "Oeps! {newline} U probeert de privégalerij van iemand anders te bekijken."
+    },
+    "genericUnknownError": {
+      "description": "Er is een onbekende fout opgetreden.",
+      "title": "Onbekende fout"
     },
     "itemNotFound": {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "Pagina niet gevonden",
       "title": "De pagina die u zoekt, bestaat niet."
     },
+    "pinningNotFound": {
+      "description": "Er is een fout opgetreden bij het vastzetten/losmaken van het item. Probeer het opnieuw of meld het probleem.",
+      "title": "Samengestelde collectie niet gevonden"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Het is alleen mogelijk om de eerste {limit} zoekresultaten te bekijken.",
+      "title": "Paginalimiet overschreden"
+    },
     "searchResultsNotFound": {
       "description": "Pas de zoekterm aan of reset de filters om het opnieuw te proberen.",
       "title": "We kunnen blijkbaar niet vinden wat u zoekt."
-    },
-    "setLocked": {
-      "description": "Bewerken is tijdelijk uitgeschakeld en uw wijzigingen zijn niet opgeslagen. Probeer het later opnieuw.",
-      "title": "Update mislukt"
     }
   },
   "exhibitions": {
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Gekopieerd naar klembord",
     "externalContentError": "De externe inhoud kan niet worden geladen",
-    "notFound": "Niet gevonden",
-    "paginationLimitExceeded": "Het is alleen mogelijk om de eerste {limit} zoekresultaten te bekijken."
+    "notFound": "Niet gevonden"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "We raden u aan op de onderstaande knop 'Instituut' te klikken om na te gaan of het item kan worden gedownload op de website van de verstrekkende instelling.",
       "message": "Als de download niet werkt, kan het zijn dat deze is verwijderd door de verstrekkende instelling of dat er een technisch probleem is met hun service.",
       "title": "Downloaden werkt niet"
+    },
+    "transcribe": {
+      "message": "Doe met ons mee op Europeana Transcribe, het online burgerinitiatief voor de verrijking van Europeana's collecties",
+      "title": "Transcribeer dit item"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
-    "readMore": "Lees verder",
+    "readMore": "Ontdek verhalen",
     "text": {
-      "themes": "Verken het Europese culturele erfgoed met thema's, van archeologie tot de Eerste Wereldoorlog. Onze nieuwe themapagina's bieden een multidimensionaal beeld van elk thema via gerelateerde onderwerpen, mensen, verhalen en voorwerpen."
+      "storiesTags": "Bekijk de bijgewerkte verhalenpagina. U kunt nu zoeken en filteren op tags."
     }
   },
   "newWindow": "opent in nieuw venster",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Gerelateerde galerijen",
       "title": "Ontdek gerelateerde galerijen"
+    },
+    "themes": {
+      "title": "Ontdek gerelateerde thema's"
     }
   },
   "removeFilter": "Verwijder het filter {filterLabel}",
@@ -1086,6 +1112,7 @@ export default {
     "pinned": "Pinned"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} verhalen gevonden",
     "title": "Verhalen"
   },
   "themes": {

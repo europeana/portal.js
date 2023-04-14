@@ -66,7 +66,13 @@
         //       linked set, but the Set API does not yet support searching
         //       by multiple IDs combined with OR. refactor when the API
         //       supports searching by multiple IDs.
-        const setResponse = await Promise.all(this.setUris.map(async(id) => await this.$apis.set.get(id, { profile: 'itemDescriptions' })));
+        let setResponse = await Promise.all(this.setUris.map(async(id) => {
+          const numericId = id.toString().split('/').pop();
+          const setSearchResponse = await this.$apis.set.search({ query: `set_id:${numericId}`, qf: `lang:${this.$i18n.locale}`, profile: 'itemDescriptions' });
+          return setSearchResponse?.data?.items?.[0];
+        }));
+        setResponse = setResponse.filter(set => !!set);
+
         if (setResponse)  {
           this.sets = this.parseSets(setResponse);
         }

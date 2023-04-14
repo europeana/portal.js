@@ -479,7 +479,11 @@
   }
 
   .col-filters {
-    @media (max-width: $bp-large - 1px) {
+    flex-grow: 0;
+    padding: 0;
+    margin-top: -1rem;
+
+    @media (max-width: ($bp-large - 1px)) {
       display: flex;
       position: fixed;
       right: 0;
@@ -546,16 +550,13 @@
 
     @media (min-width: $bp-4k) {
       max-width: 480px;
+      margin-top: -1.5rem;
 
       .col {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
       }
     }
-
-    flex-grow: 0;
-    padding: 0;
-    margin-top: -1rem;
 
     .side-filters {
       background-color: $white;

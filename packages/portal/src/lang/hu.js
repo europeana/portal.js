@@ -56,6 +56,8 @@ export default {
     "skipSend": "Kihagyás és küldés",
     "submitForPublication": "Nyújtsa be közzétételre",
     "submittedForPublication": "Közzétételre benyújtva",
+    "transcribe": "Átírni",
+    "transcribeNow": "Átírás most",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Téma",
     "time": "Század",
     "topic": "Téma"
+  },
+  "categories": {
+    "label": "Történetek felfedezése címke szerint",
+    "noOptions": "Nincs több kiválasztható címke",
+    "search": "Történetek felfedezése címke szerint"
   },
   "clearAllFilters": "összes szűrő törlése",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria törölve.",
-      "error": {
-        "unpin": "Hiba történt az elem rögzítésének feloldásakor. Kérjük, próbálja újra, vagy jelentse a problémát."
-      },
       "pin": "Ez az elem a(z) \" {entity} \" gyűjtemény tetején fog megjelenni. Értesítjük, ha ez a változás látható lesz a gyűjtemény oldalán.",
       "pinLimit": {
         "body": "Egyelőre csak 24 elemet rögzíthet az első oldalon. Ha meg szeretné tűzni ezt az elemet, győződjön meg róla, hogy egy másikat bont ki, majd próbálja meg újra rögzíteni.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Hiba",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "A szerkesztés átmenetileg le van tiltva, és a módosításokat nem mentettük. Kérlek, próbáld újra később.",
+      "title": "Frissítés sikertelen"
+    },
+    "galleryNotFound": {
+      "description": "Ez a galéria nem található. Lehet, hogy törölték.",
+      "title": "A galéria nem található"
+    },
     "galleryUnauthorised": {
       "description": "Ez nem lehetséges, mert a privát galériákat csak a készítőjük láthatja. Ha ismeri a galéria készítőjét, kérje meg, hogy tegye nyilvánossá a galériát. Alternatív megoldásként jelentse a problémát a visszajelzés gombbal.",
       "metaTitle": "A galéria jogosulatlan",
       "title": "Hoppá! {newline} Egy másik személy privát galériáját próbálja megtekinteni."
+    },
+    "genericUnknownError": {
+      "description": "Ismeretlen hiba történt.",
+      "title": "Ismeretlen hiba"
     },
     "itemNotFound": {
       "description": "Ennek a következő okai lehetnek: ez az elem nem létezik, vagy; közzétételre került, mert nem felelt meg minőségi kritériumainknak, vagy; frissítve lett, és új egyedi azonosítóval újból közzétéve, ebben az esetben próbálja meg újra megtalálni az elemet.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "Az oldal nem található",
       "title": "A keresett oldal nem létezik."
     },
+    "pinningNotFound": {
+      "description": "Hiba történt az elem rögzítésekor/feloldásakor. Kérjük, próbálja újra, vagy jelentse a problémát.",
+      "title": "Nem található kurátori gyűjtemény"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Csak az első {limit} keresési eredményeket lehet megtekinteni.",
+      "title": "Oldalhatár túllépése"
+    },
     "searchResultsNotFound": {
       "description": "Kérjük, módosítsa a keresési kifejezést, vagy állítsa vissza a szűrőket az újrapróbálkozáshoz.",
       "title": "Úgy tűnik, nem találjuk, amit keres."
-    },
-    "setLocked": {
-      "description": "A szerkesztés átmenetileg le van tiltva, és a módosításokat nem mentettük. Kérlek, próbáld újra később.",
-      "title": "Frissítés sikertelen"
     }
   },
   "exhibitions": {
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Vágólapra másolva",
     "externalContentError": "A külső tartalom betöltése sikertelen",
-    "notFound": "Nem található",
-    "paginationLimitExceeded": "Csak az első {limit} keresési találat tekinthető meg."
+    "notFound": "Nem található"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "Javasoljuk, hogy kattintson az alábbi \"szolgáltató intézmény\" gombra, és ellenőrizze, hogy a termék letölthető-e a szolgáltató intézmény honlapjáról.",
       "message": "Ha a letöltés nem működik, annak az lehet az oka, hogy a szolgáltató intézmény eltávolította, vagy a szolgáltatásukkal van műszaki probléma.",
       "title": "A letöltés nem működik"
+    },
+    "transcribe": {
+      "message": "Csatlakozzon hozzánk az Europeana Transcribe-nál, az online polgári kezdeményezésnél az Europeana gyűjtemények gazdagítására",
+      "title": "Az elem átírása"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Bezárás",
-    "readMore": "Bővebben",
+    "readMore": "Fedezzen fel történeteket",
     "text": {
-      "themes": "Fedezze fel az európai kulturális örökséget témákon keresztül, a régészettől az első világháborúig. Új témaoldalaink többdimenziós képet nyújtanak az egyes témákról a kapcsolódó témákon, személyeken, történeteken és tárgyakon keresztül."
+      "storiesTags": "Nézd meg a frissített Történetek oldalt. Most már kereshetsz és szűrhetsz címkék szerint."
     }
   },
   "newWindow": "új ablakban nyílik meg",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Kapcsolódó galériák",
       "title": "Fedezze fel a kapcsolódó galériákat"
+    },
+    "themes": {
+      "title": "Fedezze fel a kapcsolódó témák"
     }
   },
   "removeFilter": "{filterLabel} szűrő eltávolítása",
@@ -1086,6 +1112,7 @@ export default {
     "pinned": "Odatűzött"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} történet található",
     "title": "Történetek"
   },
   "themes": {

@@ -15,7 +15,6 @@ const cacherNames = [
   'collections:times:featured',
   'collections:topics',
   'collections:topics:featured',
-  'galleries:recent',
   'items:recent',
   'items:type-counts'
 ];
@@ -45,13 +44,13 @@ const runSetCacher = async(cacherName) => {
   console.log(cacherName);
 
   const cacher = await cacherModule(cacherName);
-  let rawData = await cacher.data(runtimeConfig);
+  let rawData = await cacher.data(runtimeConfig, localeCodes);
   let langAwareData;
 
   if (cacher.LOCALISE) {
     langAwareData = localeCodes.map((locale) => ({
       key: namespaceCacheKey(cacherName, locale),
-      data: utils.localise(rawData, cacher.LOCALISE, locale)
+      data: utils.localise(rawData[locale] || rawData, cacher.LOCALISE, locale)
     }));
   } else if (cacher.INTERNATIONALISE) {
     langAwareData = [{ key: namespaceCacheKey(cacherName), data: cacher.INTERNATIONALISE(rawData) }];
@@ -90,7 +89,9 @@ export const run = async(command, cacherName) => {
   let response;
 
   try {
-    if (command === 'set') {
+    if (command === 'list') {
+      response = cacherNames.join('\n');
+    } else if (command === 'set') {
       if (cacherName === undefined) {
         for (const cname of cacherNames) {
           await runSetCacher(cname);

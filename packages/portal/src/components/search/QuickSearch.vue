@@ -4,23 +4,22 @@
     class="quick-search"
     data-qa="quick-search"
   >
-    <EntityBadges
+    <ThemeBadges
       :title="$t('header.quickSearch')"
-      :related-collections="optionsAndThemes"
+      :themes="optionsAndThemes"
     />
   </div>
 </template>
 
 <script>
-  import EntityBadges from '../entity/EntityBadges';
+  import ThemeBadges from '../theme/ThemeBadges';
   import themeDefinitions from '@/plugins/europeana/themes';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'QuickSearch',
 
     components: {
-      EntityBadges
+      ThemeBadges
     },
 
     props: {
@@ -48,7 +47,7 @@
 
       const contentfulResponse = await this.$contentful.query('themes', contentfulVariables);
 
-      this.themes = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
+      this.themes = contentfulResponse.data?.data?.themePageCollection?.items.map(theme => ({
         prefLabel: theme.name,
         url: this.$path({
           name: 'search',
@@ -57,17 +56,12 @@
           }
         }),
         primaryImageOfPage: theme.primaryImageOfPage
-      })).sort((a, b) => a.prefLabel.localeCompare(b.prefLabel));
+      }));
     },
 
     computed: {
       optionsAndThemes() {
-        return this.options.concat(this.alphabeticallySortedThemes);
-      },
-      alphabeticallySortedThemes() {
-        // Slice to make a copy, as sort occurs in place
-        return this.themes.slice(0).sort((a, b) =>
-          langMapValueForLocale(a.prefLabel, this.$i18n.locale).values[0].localeCompare(langMapValueForLocale(b.prefLabel, this.$i18n.locale).values[0]));
+        return this.options.concat(this.themes);
       }
     },
 
@@ -86,20 +80,20 @@
     border-top: 1px solid $middlegrey;
     padding: 0.75rem 0;
 
-    @media (min-width: $bp-xxxl) {
-      border-top-width: 0.0625vw;
-      padding: 0.75vw 0;
+    @media (min-width: $bp-4k) {
+      border-top-width: 2px;
+      padding: calc(1.5 * 0.75rem) 0;
     }
 
-    .related-collections {
+    .related-themes {
       max-width: 100%;
 
       ::v-deep .badge-pill {
         flex-shrink: 0;
 
-        @media (min-width: $bp-xxxl) {
-          margin-right: 0.5vw;
-          margin-bottom: 0.5vw;
+        @media (min-width: $bp-4k) {
+          margin-right: 0.75rem;
+          margin-bottom: 0.75rem;
         }
       }
 
@@ -109,9 +103,9 @@
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
 
-        @media (min-width: $bp-xxxl) {
-          margin-top: 1vw;
-          padding: 0 1vw;
+        @media (min-width: $bp-4k) {
+          margin-top: 1.5rem;
+          padding: 0 calc(1.5 * 15px);
         }
 
         &::-webkit-scrollbar {
@@ -125,9 +119,9 @@
       padding: 0 15px;
       text-align: left;
 
-      @media (min-width: $bp-xxxl) {
-        font-size: $responsive-font-size-extrasmall;
-        padding: 0 1vw;
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+        padding: 0 calc(1.5 * 15px);
       }
     }
   }
@@ -138,16 +132,22 @@
   <QuickSearch
     :options="[
       {
-      id: 'http://data.europeana.eu/concept/48',
-      isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DRP-F-2000-21-40&type=IMAGE' },
-      prefLabel: { en: 'photograph' }
-      },
-      {
-      id: 'http://data.europeana.eu/concept/55',
-      isShownBy: { thumbnail:
-        'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fimages.memorix.nl%2Frce%2Fthumb%2Ffullsize%2Fa63716bf-0a46-ce14-f30a-9f2760f46e75.jpg&type=IMAGE'
-      },
-      prefLabel: { en: 'Textile' }
+        primaryImageOfPage: {
+          image: {
+            url: 'https://images.ctfassets.net/i01duvb6kq77/5cZngU4uZxJ2AoN0ya76h/3a190c621e89bb50ccbc78b86e661f4c/StudioInterior.jpg'
+          }
+        },
+        prefLabel: 'Art',
+        url: 'https://www.europeana.eu/en/themes/art'
+        },
+        {
+        primaryImageOfPage: {
+          image: {
+            url: 'https://images.ctfassets.net/i01duvb6kq77/4U2K7lU4mYwQBMX7xL7p4b/124d66feb71444696433413ae230290a/Tropaeolum_cv'
+          }
+        },
+        prefLabel: 'Natural history',
+        url: 'https://www.europeana.eu/en/themes/natural-history'
       }]"
   />
   ```

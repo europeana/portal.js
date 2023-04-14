@@ -27,7 +27,7 @@
             class="image-overlay position-absolute swiper-lazy"
           >
           <div
-            class="card-body h-100 py-4 d-flex flex-column align-items-center position-relative"
+            class="card-body h-100 d-flex flex-column align-items-center position-relative"
           >
             <h3>
               <span>
@@ -59,7 +59,6 @@
     <b-button
       v-if="cta"
       variant="outline-secondary"
-      class="cta"
       :to="cta.url"
     >
       {{ cta.text }}
@@ -139,14 +138,13 @@
           }
         },
         imageSizes: [
-          '(max-width: 576px) 245px',
-          '(max-width: 768px) 260px',
-          '(max-width: 992px) 280px',
-          '(max-width: 1200px) 300px',
-          '(max-width: 1440px) 320px',
-          '(max-width: 1920px) 355px',
-          '(max-width: 2560px) 510px',
-          '700px'
+          '(max-width: 575px) 245px',
+          '(max-width: 767px) 260px',
+          '(max-width: 991px) 280px',
+          '(max-width: 1199px) 300px',
+          '(max-width: 1439px) 320px',
+          '(max-width: 3839px) 355px',
+          '480px'
         ].join(',')
       };
     },
@@ -178,8 +176,8 @@
                                                                xl: { w: 300, h: 400, fit: 'fill' },
                                                                xxl: { w: 320, h: 370, fit: 'fill' },
                                                                xxxl: { w: 355, h: 345, fit: 'fill' },
-                                                               wqhd: { w: 510, h: 540, fit: 'fill' },
-                                                               '4k': { w: 700, h: 900, fit: 'fill' }
+                                                               wqhd: { w: 405, h: 323, fit: 'fill' },
+                                                               '4k': { w: 480, h: 470, fit: 'fill' }
                                                              });
       }
     }
@@ -194,8 +192,8 @@
     font-size: 1rem;
     text-align: center;
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
+    @media (min-width: $bp-4k) {
+      font-size: 1.5rem;
     }
   }
 
@@ -204,23 +202,22 @@
     font-size: 2rem;
 
     @media (min-width: $bp-extralarge) {
-      font-size: 2.375rem;
+      font-size: $font-size-xxl;
     }
 
-    @media (min-width: $bp-xxxl) {
-      margin: 0.5em 0 !important;
-      font-size: 2em;
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-xxl-4k;
     }
-  }
-
-  .cta {
-    font-size: 1em;
   }
 
   .slide-link {
     margin: auto 0 0;
-    font-size: 1em;
     padding: 0.375em 0.75em;
+
+    @media (min-width: $bp-4k) {
+      font-size: 1.5rem;
+      padding: calc(1.5 * 0.375em) calc(1.5 * 0.75em);
+    }
 
     &:focus {
       outline: none;
@@ -234,38 +231,62 @@
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
 
-    @media (min-width: $bp-xxxl) {
-      margin-top: 2.25vw;
-      margin-bottom: 2.25vw;
+    @media (min-width: $bp-4k) {
+      margin-top: calc(1.5 * 2.25rem);
+      margin-bottom: calc(1.5 * 2.25rem);
     }
   }
 
   .swiper-slide {
-    width: calc(200px + 8vw);
-    max-width: 720px;
+    width: 245px;
+    max-width: $max-card-width;
     height: auto;
     overflow: hidden;
 
-    @media (min-width: $bp-xxxl) {
-      width: calc(200px + 12vw);
+    @media (min-width: $bp-small) {
+      width: 260px;
+    }
+
+    @media (min-width: $bp-medium) {
+      width: 280px;
+    }
+
+    @media (min-width: $bp-large) {
+      width: 300px;
+    }
+
+    @media (min-width: $bp-extralarge) {
+      width: 320px;
+    }
+
+    @media (min-width: $bp-xxl) {
+      width: 355px;
+    }
+
+    @media (min-width: $bp-4k) {
+      width: 480px;
     }
 
     h3 {
-      font-size: 1.25em;
       font-weight: 500;
       text-transform: uppercase;
     }
 
     p {
-      font-size: 1em;
+      @media (min-width: $bp-4k) {
+        font-size: 1.5rem;
+      }
     }
 
     .card-body {
       background: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
       color: $white;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
 
-      @media (min-width: $bp-xxxl) {
-        padding: 1.5em 1.25em !important;
+      @media (min-width: $bp-4k) {
+        padding-top: calc(1.5 * 1.5rem);
+        padding-bottom: calc(1.5 * 1.5rem);
       }
     }
 

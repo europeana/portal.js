@@ -56,6 +56,8 @@ export default {
     "skipSend": "Preskoči i pošalji",
     "submitForPublication": "Predajte za objavu",
     "submittedForPublication": "Predano za objavu",
+    "transcribe": "Prepisati",
+    "transcribeNow": "Prepišite sada",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Tema",
     "time": "Stoljeća",
     "topic": "Tema"
+  },
+  "categories": {
+    "label": "Istražite priče po oznaci",
+    "noOptions": "Nema više oznaka za odabir",
+    "search": "Istražite priče po oznaci"
   },
   "clearAllFilters": "očistiti sve filtre",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
-      "error": {
-        "unpin": "Došlo je do pogreške pri otkvačivanju stavke. Pokušajte ponovno ili prijavite problem."
-      },
       "pin": "Ova će se stavka prikazati na vrhu zbirke \" {entity} \". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
       "pinLimit": {
         "body": "Za sada na prvu stranicu možete prikvačiti samo 24 stavki. Ako želite prikvačiti ovu stavku, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Greška",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Uređivanje je privremeno onemogućeno, a vaše promjene nisu spremljene. Molimo pokušajte ponovo kasnije.",
+      "title": "Ažuriranje nije uspjelo"
+    },
+    "galleryNotFound": {
+      "description": "Ovu galeriju nije moguće pronaći. Možda je izbrisano.",
+      "title": "Galerija nije pronađena"
+    },
     "galleryUnauthorised": {
       "description": "To nije moguće jer su privatne galerije vidljive samo njihovom autoru. Ako poznajete autora galerije, zamolite ga da galeriju učini javnom. Alternativno, prijavite ovaj problem pomoću gumba za povratne informacije.",
       "metaTitle": "Galerija neovlaštena",
       "title": "Ups! {newline} Pokušavate pogledati privatnu galeriju druge osobe."
+    },
+    "genericUnknownError": {
+      "description": "Dogodila se nepoznata pogreška.",
+      "title": "Nepoznata pogreška"
     },
     "itemNotFound": {
       "description": "To može biti zbog sljedećih razloga: ova stavka ne postoji ili; povučeno je iz objave jer nije odgovaralo našim kriterijima kvalitete ili; ažuriran je i ponovno objavljen s novim jedinstvenim identifikatorom, u kojem slučaju ponovno pokušajte pronaći stavku.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "Stranica nije pronađena",
       "title": "Stranica koju tražite ne postoji."
     },
+    "pinningNotFound": {
+      "description": "Došlo je do pogreške prilikom prikvačivanja/otkvačivanja stavke. Pokušajte ponovno ili prijavite problem.",
+      "title": "Odabrana zbirka nije pronađena"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Moguće je vidjeti samo prvih {limit} rezultata pretraživanja.",
+      "title": "Ograničenje stranice premašeno"
+    },
     "searchResultsNotFound": {
       "description": "Prilagodite pojam za pretraživanje ili ponovno postavite filtre da biste pokušali ponovno.",
       "title": "Čini se da ne možemo pronaći ono što tražite."
-    },
-    "setLocked": {
-      "description": "Uređivanje je privremeno onemogućeno, a vaše promjene nisu spremljene. Molimo pokušajte ponovo kasnije.",
-      "title": "Ažuriranje nije uspjelo"
     }
   },
   "exhibitions": {
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopirano u međuspremnik",
     "externalContentError": "Nije se mogao učitati vanjski sadržaj",
-    "notFound": "Nije pronađeno",
-    "paginationLimitExceeded": "Možete pregledati samo prvih {limit} rezultata pretraživanja."
+    "notFound": "Nije pronađeno"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "Savjetujemo vam da kliknete na gumb 'Institucija iz koje dolazi' u nastavku kako biste provjerili može li se predmet preuzeti na web stranici institucije koja pruža.",
       "message": "Ako preuzimanje ne radi, to može biti zato što ga je uklonila institucija koja pruža zahtjev ili može postojati tehnički problem s njihovom uslugom.",
       "title": "Preuzimanje ne radi"
+    },
+    "transcribe": {
+      "message": "Pridružite nam se na Europeana Transcribe, online građanskoj inicijativi za obogaćivanje Europeana kolekcija",
+      "title": "Prepišite ovu stavku"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
-    "readMore": "Pročitaj više",
+    "readMore": "Otkrijte priče",
     "text": {
-      "themes": "Istražite europsku kulturnu baštinu kroz teme, od arheologije do Prvog svjetskog rata. Naše nove tematske stranice nude višedimenzionalni pogled na svaku temu putem povezanih tema, ljudi, priča i predmeta."
+      "storiesTags": "Pogledajte ažuriranu stranicu s pričama. Sada možete pretraživati i filtrirati po oznakama."
     }
   },
   "newWindow": "otvara se u novom prozoru",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Povezane galerije",
       "title": "Otkrijte povezane galerije"
+    },
+    "themes": {
+      "title": "Otkrijte povezane teme"
     }
   },
   "removeFilter": "Uklonite filtar {filterLabel} ",
@@ -1086,6 +1112,7 @@ export default {
     "pinned": "Prikvačeno"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "Broj pronađenih priča {0}",
     "title": "Priče"
   },
   "themes": {

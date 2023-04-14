@@ -56,6 +56,8 @@ export default {
     "skipSend": "Saltatu eta bidali",
     "submitForPublication": "Bidali argitaratzeko",
     "submittedForPublication": "Argitalpenerako aurkeztu da",
+    "transcribe": "Transkribatu",
+    "transcribeNow": "Transkribatu orain",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Gaia",
     "time": "Mendea",
     "topic": "Gai"
+  },
+  "categories": {
+    "label": "Esploratu istorioak etiketaren arabera",
+    "noOptions": "Ez dago etiketa gehiago hautatzeko",
+    "search": "Esploratu istorioak etiketaren arabera"
   },
   "clearAllFilters": "Iragazki guztiak garbitu",
   "collections": {
@@ -203,9 +210,6 @@ export default {
     },
     "notifications": {
       "deleted": "Zure galeria ezabatu egin da.",
-      "error": {
-        "unpin": "Errore bat gertatu da elementua kentzean. Mesedez, saiatu berriro edo jakinarazi arazoa."
-      },
       "pin": "Elementu hau \" {entity} \" bildumaren goialdean agertuko da. Aldaketa hau bilduma-orrian ikusgai izango denean jakinaraziko dizugu.",
       "pinLimit": {
         "body": "Oraingoz 24 elementu soilik leheneratu ditzakezu lehen orrian. Elementu hau itsatsi nahi baduzu, ziurtatu beste bat ainguratzen duzula eta saiatu berriro ainguratzen.",
@@ -219,10 +223,22 @@ export default {
   },
   "error": "Akatsa",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Edizioa aldi baterako desgaituta dago, eta zure aldaketak ez dira gorde. Saiatu berriro geroago.",
+      "title": "Eguneratzea huts egin du"
+    },
+    "galleryNotFound": {
+      "description": "Galeria hau ezin izan da aurkitu. Baliteke ezabatu izana.",
+      "title": "Galeria ez da aurkitu"
+    },
     "galleryUnauthorised": {
       "description": "Hau ezinezkoa da galeria pribatuak bere sortzaileak soilik ikusten dituelako. Galeriaren sortzailea ezagutzen baduzu, eskatu galeria publiko egiteko. Bestela, jakinarazi arazo hau iritzia botoia erabiliz.",
       "metaTitle": "Baimenik gabeko galeria",
       "title": "Oops! {newline} Beste pertsona baten galeria pribatua ikusten saiatzen ari zara."
+    },
+    "genericUnknownError": {
+      "description": "Errore ezezagun bat gertatu da.",
+      "title": "Errore ezezaguna"
     },
     "itemNotFound": {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
@@ -233,13 +249,17 @@ export default {
       "metaTitle": "Ez da orria aurkitu",
       "title": "Bilatzen ari zaren orria ez da existitzen."
     },
+    "pinningNotFound": {
+      "description": "Errore bat gertatu da elementua ainguratzean/desaingatzean. Mesedez, saiatu berriro edo jakinarazi arazoa.",
+      "title": "Ez da aurkitu bilduma komisarioa"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Lehen {limit} bilaketa-emaitzak soilik ikus daitezke.",
+      "title": "Orrialde-muga gainditu da"
+    },
     "searchResultsNotFound": {
       "description": "Mesedez, egokitu bilaketa-terminoa edo berrezarri iragazkiak berriro saiatzeko.",
       "title": "Badirudi ezin dugula bilatzen ari zarena aurkitu."
-    },
-    "setLocked": {
-      "description": "Edizioa aldi baterako desgaituta dago, eta zure aldaketak ez dira gorde. Saiatu berriro geroago.",
-      "title": "Eguneratzea huts egin du"
     }
   },
   "exhibitions": {
@@ -865,8 +885,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Arbelera kopiatu da",
     "externalContentError": "Ezin izan da kanpoko edukia kargatu",
-    "notFound": "Ez da aurkitu",
-    "paginationLimitExceeded": "Bilaketaren lehen {limit} emaitzak besterik ezin dira ikusi."
+    "notFound": "Ez da aurkitu"
   },
   "modal": {
     "download": {
@@ -878,6 +897,10 @@ export default {
       "linkPrompt": "Beheko \"Erakunde hornitzailea\" botoian klik egitea gomendatzen dizugu, elementua erakunde hornitzailearen webgunean deskargatu daitekeen egiaztatzeko.",
       "message": "Deskargak ez badu funtzionatzen, baliteke erakunde hornitzaileak kendu duelako edo haien zerbitzuarekin arazo tekniko bat egotea.",
       "title": "Deskargak ez du funtzionatzen"
+    },
+    "transcribe": {
+      "message": "Etor zaitez gurekin Europeana Transcribe-n, Europeana-ren bildumak aberasteko lineako herritarren ekimenean",
+      "title": "Transkribatu elementu hau"
     }
   },
   "multilingual": {
@@ -890,9 +913,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
-    "readMore": "Gehiago irakurri",
+    "readMore": "Ezagutu istorioak",
     "text": {
-      "themes": "Arakatu Europako kultur ondarea gaien bidez, arkeologiatik hasi eta Lehen Mundu Gerra arte. Gure gai-orri berriek gai bakoitzaren dimentsio anitzeko ikuspegia eskaintzen dute erlazionatutako gai, pertsona, istorio eta elementuen bidez."
+      "storiesTags": "Begiratu eguneratutako istorio-orria. Orain bilatu eta etiketekin iragazi dezakezu."
     }
   },
   "newWindow": "leiho berrian irekiko da",
@@ -983,6 +1006,9 @@ export default {
     "galleries": {
       "name": "Lotutako galeriak",
       "title": "Ezagutu erlazionatutako galeriak"
+    },
+    "themes": {
+      "title": "Ezagutu erlazionatutako gaiak"
     }
   },
   "removeFilter": "Kendu {filterLabel} iragazkia",
@@ -1090,6 +1116,7 @@ export default {
     "pinned": "Ainguratuta"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} istorio aurkitu dira",
     "title": "Istorioak"
   },
   "themes": {

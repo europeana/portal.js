@@ -8,7 +8,7 @@
       {{ $t('homePage.discoverEditorial') }}
     </h2>
     <b-card-group
-      class="card-deck-3-cols justify-content-center gridless-browse-cards"
+      class="card-deck-3-cols justify-content-center"
       deck
     >
       <!-- TODO: use/add image alt description -->
@@ -23,7 +23,6 @@
     </b-card-group>
     <b-button
       variant="outline-secondary"
-      class="cta"
       :to="'/stories'"
     >
       {{ $t('homePage.storiesCTA') }}
@@ -89,17 +88,11 @@
     font-size: 2rem;
 
     @media (min-width: $bp-extralarge) {
-      font-size: 2.375rem;
+      font-size: $font-size-xxl;
     }
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 2vw;
-    }
-  }
-
-  .cta {
-    @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-xxl-4k;
     }
   }
 
@@ -108,9 +101,9 @@
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
 
-    @media (min-width: $bp-xxxl) {
-      margin-top: 2.25vw;
-      margin-bottom: 2.25vw;
+    @media (min-width: $bp-4k) {
+      margin-top: calc( 1.5 * 2.25rem);
+      margin-bottom: calc( 1.5 * 2.25rem);
     }
 
     .content-card.card {

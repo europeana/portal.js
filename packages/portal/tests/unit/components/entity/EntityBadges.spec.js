@@ -62,23 +62,9 @@ const factory = ({ propsData, mocks } = {}) => {
           imageUrl: () => 'stubbedImageUrl'
         }
       },
-      $contentful: {
-        assets: {
-          isValidUrl: () => false
-        }
-      },
-      $i18n: {
-        locale: 'de',
-        isoLocale: () => 'de-DE'
-      },
       $t: () => {},
       $fetch: () => {},
       $path: () => {},
-      $route: { query: { mode: null } },
-      $link: {
-        to: route => route,
-        href: () => null
-      },
       ...mocks
     }
   });

@@ -56,6 +56,8 @@ export default {
     "skipSend": "Jäta vahele ja saada",
     "submitForPublication": "Esitage avaldamiseks",
     "submittedForPublication": "Esitatud avaldamiseks",
+    "transcribe": "Transkribeeri",
+    "transcribeNow": "Transkribeeri nüüd",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Teema",
     "time": "Sajand",
     "topic": "Teema"
+  },
+  "categories": {
+    "label": "Tutvu lugudega sildi järgi",
+    "noOptions": "Rohkem silte pole valida",
+    "search": "Tutvu lugudega sildi järgi"
   },
   "clearAllFilters": "tühjenda kõik filtrid",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
-      "error": {
-        "unpin": "Üksuse vabastamisel ilmnes viga. Proovige uuesti või teavitage probleemist."
-      },
       "pin": "See üksus kuvatakse kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "pinLimit": {
         "body": "Praegu saate esimesele lehele kinnitada ainult 24 üksust. Kui soovite selle üksuse kinnitada, eemaldage kindlasti uus üksus ja proovige siis seda uuesti kinnitada.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Viga",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Redigeerimine on ajutiselt keelatud ja teie muudatusi pole salvestatud. Palun proovi hiljem uuesti.",
+      "title": "Uuendus ebaõnnestus"
+    },
+    "galleryNotFound": {
+      "description": "Seda galeriid ei leitud. See võib olla kustutatud.",
+      "title": "Galerii ei leitud"
+    },
     "galleryUnauthorised": {
       "description": "See pole võimalik, kuna privaatgaleriid on nähtavad ainult nende loojale. Kui teate galerii loojat, paluge tal galerii avalikustada. Teise võimalusena teavitage sellest probleemist tagasiside nupuga.",
       "metaTitle": "Galerii volitamata",
       "title": "Ups! {newline} Sa üritad vaadata teise isiku privaat galeriid."
+    },
+    "genericUnknownError": {
+      "description": "Ilmnes tundmatu viga.",
+      "title": "Tundmatu viga"
     },
     "itemNotFound": {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "lehte ei leitud",
       "title": "Lehte, mida otsite, pole olemas."
     },
+    "pinningNotFound": {
+      "description": "Eseme kinnitamisel/lahti kinnitamisel ilmnes viga. Palun proovige uuesti või teatage probleemist.",
+      "title": "Kureeritud kollektsiooni ei leitud"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi.",
+      "title": "Lehekülje limiit ületatud"
+    },
     "searchResultsNotFound": {
       "description": "Palun kohandage otsingusõna või lähtestage filtrid, et proovida uuesti.",
       "title": "Tundub, et me ei leia seda, mida otsite."
-    },
-    "setLocked": {
-      "description": "Redigeerimine on ajutiselt keelatud ja teie muudatusi pole salvestatud. Palun proovi hiljem uuesti.",
-      "title": "Uuendus ebaõnnestus"
     }
   },
   "exhibitions": {
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopeeritud lõikelauale",
     "externalContentError": "Välist sisu ei õnnestunud laadida",
-    "notFound": "Ei leitud",
-    "paginationLimitExceeded": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi."
+    "notFound": "Ei leitud"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "Soovitame teil klõpsata alloleval nupul „Pakkuja institutsioon”, et kontrollida, kas üksust saab pakkuva asutuse veebisaidilt alla laadida.",
       "message": "Kui allalaadimine ei tööta, võib põhjuseks olla see, et pakkuv asutus on selle eemaldanud või nende teenuses võib olla tehniline probleem.",
       "title": "Allalaadimine ei tööta"
+    },
+    "transcribe": {
+      "message": "Liituge meiega Europeana Transcribe'is, veebipõhises kodanikualgatuses Europeana kogude rikastamiseks",
+      "title": "Transkribeerige see üksus"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
-    "readMore": "Loe lähemalt",
+    "readMore": "Avastage lugusid",
     "text": {
-      "themes": "Avastage Euroopa kultuuripärandit teemade kaudu, alates arheoloogiast kuni I maailmasõjani. Meie uued teemalehed pakuvad igast teemast mitmemõõtmelist vaadet seotud teemade, inimeste, lugude ja esemete kaudu."
+      "storiesTags": "Vaadake uuendatud lugude lehte. Nüüd saate otsida ja filtreerida siltide järgi."
     }
   },
   "newWindow": "avaneb uues aknas",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Seotud galeriid",
       "title": "Avastage seotud galeriid"
+    },
+    "themes": {
+      "title": "Avasta seotud teemad"
     }
   },
   "removeFilter": "Eemalda filter {filterLabel}",
@@ -1086,6 +1112,7 @@ export default {
     "pinned": "Kinnitatud"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "Leiti {0} lugu",
     "title": "Lood"
   },
   "themes": {

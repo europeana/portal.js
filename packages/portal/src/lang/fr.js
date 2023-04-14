@@ -56,6 +56,8 @@ export default {
     "skipSend": "Ignorer et envoyer",
     "submitForPublication": "Soumettre pour publication",
     "submittedForPublication": "Soumis pour publication",
+    "transcribe": "Transcrire",
+    "transcribeNow": "Transcrivez maintenant",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Thème",
     "time": "Siècle",
     "topic": "Sujet"
+  },
+  "categories": {
+    "label": "Explorer les histoires par tag",
+    "noOptions": "Il n'y a plus de balises à sélectionner",
+    "search": "Explorer les histoires par tag"
   },
   "clearAllFilters": "Effacer tous les filtres",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
-      "error": {
-        "unpin": "Une erreur s'est produite lors du détachement de l'élément. Veuillez réessayer ou signaler le problème."
-      },
       "pin": "Cet élément s'affichera en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "pinLimit": {
         "body": "Pour l'instant, vous ne pouvez épingler que 24 éléments sur la première page. Si vous souhaitez épingler cet élément, assurez-vous d'en désépingler un autre, puis réessayez d'épingler celui-ci.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Erreur",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "La modification est temporairement désactivée et vos modifications n'ont pas été enregistrées. Veuillez réessayer plus tard.",
+      "title": "Mise à jour a échoué"
+    },
+    "galleryNotFound": {
+      "description": "Cette galerie est introuvable. Il a peut-être été supprimé.",
+      "title": "Galerie introuvable"
+    },
     "galleryUnauthorised": {
       "description": "Ce n'est pas possible car les galeries privées ne sont visibles que par leur créateur. Si vous connaissez le créateur de la galerie, demandez-lui de rendre la galerie publique. Vous pouvez également signaler ce problème à l'aide du bouton de commentaires.",
       "metaTitle": "Galerie non autorisée",
       "title": "Oops! {newline} Vous essayez de voir la galerie privée d'une autre personne."
+    },
+    "genericUnknownError": {
+      "description": "Une erreur inconnue s'est produite.",
+      "title": "Erreur inconnue"
     },
     "itemNotFound": {
       "description": "Cela peut être dû aux raisons suivantes : cet élément n’existe pas, ou ; il a été publié parce qu’il ne correspondait pas à nos critères de qualité, ou; il a été mis à jour et republié avec un nouvel identifiant unique, auquel cas, essayez de retrouver l’élément.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "Page non trouvée",
       "title": "La page que vous recherchez n'existe pas."
     },
+    "pinningNotFound": {
+      "description": "Une erreur s'est produite lors de l'épinglage/détachement de l'élément. Veuillez réessayer ou signaler le problème.",
+      "title": "Collection organisée introuvable"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Il n'est possible d'afficher que les {limit} premiers résultats de recherche.",
+      "title": "Limite de pages dépassée"
+    },
     "searchResultsNotFound": {
       "description": "Veuillez ajuster le terme de recherche ou réinitialiser les filtres pour réessayer.",
       "title": "Nous n'arrivons pas à trouver ce que vous cherchez."
-    },
-    "setLocked": {
-      "description": "La modification est temporairement désactivée et vos modifications n'ont pas été enregistrées. Veuillez réessayer plus tard.",
-      "title": "Mise à jour a échoué"
     }
   },
   "exhibitions": {
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Copié dans le presse-papier",
     "externalContentError": "Échec du chargement du contenu externe",
-    "notFound": "Introuvable",
-    "paginationLimitExceeded": "Il est uniquement possible d'afficher les {limit} premiers résultats de la recherche."
+    "notFound": "Introuvable"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "Nous vous conseillons de cliquer sur le bouton 'Institution fournisseuse' ci-dessous pour vérifier si l'article est téléchargeable sur le site internet de l'établissement fournisseur.",
       "message": "Si le téléchargement ne fonctionne pas, c'est peut-être parce qu'il a été supprimé par l'établissement fournisseur, ou il peut y avoir un problème technique avec leur service.",
       "title": "Le téléchargement ne fonctionne pas"
+    },
+    "transcribe": {
+      "message": "Rejoignez-nous sur Europeana Transcribe, l'initiative citoyenne en ligne pour l'enrichissement des collections d'Europeana",
+      "title": "Transcrire cet élément"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Fermer",
-    "readMore": "Lire la suite",
+    "readMore": "Découvrez des histoires",
     "text": {
-      "themes": "Explorez le patrimoine culturel européen à travers des thèmes, de l'archéologie à la Première Guerre mondiale. Nos nouvelles pages thématiques offrent une vue multidimensionnelle de chaque thème via des sujets, des personnes, des histoires et des objets connexes."
+      "storiesTags": "Découvrez la page des histoires mise à jour. Vous pouvez maintenant rechercher et filtrer par tags."
     }
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Galeries connexes",
       "title": "Découvrez des galeries connexes"
+    },
+    "themes": {
+      "title": "Découvrez les thèmes connexes"
     }
   },
   "removeFilter": "Supprimer le filtre {filterLabel}",
@@ -1086,6 +1112,7 @@ export default {
     "pinned": "Épinglé"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} histoires trouvées",
     "title": "Histoires"
   },
   "themes": {

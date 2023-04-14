@@ -10,6 +10,7 @@ query ExhibitionLandingPage(
       headline
       description
       text
+      genre
       primaryImageOfPage {
         ...imageWithAttributionFields
       }

@@ -56,6 +56,8 @@ export default {
     "skipSend": "Praleisti ir siųsti",
     "submitForPublication": "Pateikti publikavimui",
     "submittedForPublication": "Pateikta publikuoti",
+    "transcribe": "Transkribuoti",
+    "transcribeNow": "Transkribuokite dabar",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
+  },
+  "categories": {
+    "label": "Naršykite istorijas pagal žymą",
+    "noOptions": "Daugiau pasirinktinų žymų nėra",
+    "search": "Naršykite istorijas pagal žymą"
   },
   "clearAllFilters": "išvalyti visus filtrus",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
-      "error": {
-        "unpin": "Atsegant elementą įvyko klaida. Bandykite dar kartą arba praneškite apie problemą."
-      },
       "pin": "Šis elementas bus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "pinLimit": {
         "body": "Kol kas pirmajame puslapyje galite prisegti tik 24 elementus. Jei norite prisegti šį elementą, būtinai atsisekite kitą elementą ir tada vėl bandykite prisegti šį.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Klaida",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Redagavimas laikinai išjungtas, o pakeitimai nebuvo išsaugoti. Pabandykite dar kartą vėliau.",
+      "title": "Atnaujinti nepavyko"
+    },
+    "galleryNotFound": {
+      "description": "Šios galerijos rasti nepavyko. Gali būti, kad jis buvo ištrintas.",
+      "title": "Galerija nerasta"
+    },
     "galleryUnauthorised": {
       "description": "Tai neįmanoma, nes privačias galerijas mato tik jų kūrėjas. Jei pažįstate galerijos kūrėją, paprašykite, kad galerija būtų vieša. Arba praneškite apie šią problemą naudodami atsiliepimų mygtuką.",
       "metaTitle": "Galerija neteisėta",
       "title": "Ups! {newline} Jūs bandote peržiūrėti kito asmens privačią galeriją."
+    },
+    "genericUnknownError": {
+      "description": "Įvyko nežinoma klaida.",
+      "title": "Nežinoma klaida"
     },
     "itemNotFound": {
       "description": "Taip gali nutikti dėl šių priežasčių: šio elemento nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti elementą dar kartą.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "Puslapis nerastas",
       "title": "Puslapis, kurio ieškote, neegzistuoja."
     },
+    "pinningNotFound": {
+      "description": "Įvyko klaida prisegant / atsegant elementą. Pabandykite dar kartą arba praneškite apie problemą.",
+      "title": "Kuruojama kolekcija nerasta"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus.",
+      "title": "Viršytas puslapių limitas"
+    },
     "searchResultsNotFound": {
       "description": "Pakeiskite paieškos žodį arba iš naujo nustatykite filtrus ir bandykite dar kartą.",
       "title": "Atrodo, kad negalime rasti to, ko ieškote."
-    },
-    "setLocked": {
-      "description": "Redagavimas laikinai išjungtas, o pakeitimai nebuvo išsaugoti. Pabandykite dar kartą vėliau.",
-      "title": "Atnaujinti nepavyko"
     }
   },
   "exhibitions": {
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
-    "notFound": "Nerasta",
-    "paginationLimitExceeded": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus."
+    "notFound": "Nerasta"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"Teikianti institucija“, kad patikrintumėte, ar elementą galima atsisiųsti iš teikiančios institucijos svetainės.",
       "message": "Jei atsisiuntimas neveikia, gali būti, kad jį pašalino teikianti institucija, arba gali kilti techninių problemų, susijusių su jų paslauga.",
       "title": "Atsisiųsti neveikia"
+    },
+    "transcribe": {
+      "message": "Prisijunkite prie Europeana Transcribe – internetinės piliečių iniciatyvos, skirtos „Europeanos“ kolekcijoms praturtinti",
+      "title": "Transkribuokite šį elementą"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
-    "readMore": "Skaityti daugiau",
+    "readMore": "Atraskite istorijas",
     "text": {
-      "themes": "Tyrinėkite Europos kultūros paveldą per temas, pradedant archeologija ir baigiant Pirmuoju pasauliniu karu. Mūsų naujuose teminiuose puslapiuose pateikiama įvairialypė kiekvienos temos vaizdas per susijusias temas, žmones, istorijas ir daiktus."
+      "storiesTags": "Peržiūrėkite atnaujintą istorijos puslapį. Dabar galite ieškoti ir filtruoti pagal žymas."
     }
   },
   "newWindow": "atsidaro naujame lange",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Susijusios galerijos",
       "title": "Atraskite susijusias galerijas"
+    },
+    "themes": {
+      "title": "Atraskite susijusias temas"
     }
   },
   "removeFilter": "Pašalinkite filtrą {filterLabel}",
@@ -1086,6 +1112,7 @@ export default {
     "pinned": "Prisegtas"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} rastos istorijos",
     "title": "Istorijos"
   },
   "themes": {

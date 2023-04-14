@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="theme page"
-    class="page white-page gridless-container responsive-font"
+    class="page white-page xxl-page"
   >
     <b-container
       v-if="$fetchState.pending"
@@ -19,7 +19,7 @@
       :error="$fetchState.error"
       :show-message="false"
     />
-    <template
+    <b-container
       v-else
     >
       <ContentHeader
@@ -59,7 +59,6 @@
               :entity-uris="relatedPersons.hasPart"
               card-variant="mini"
               class="mb-5 mb-sm-4"
-              card-group-class="gridless-browse-cards"
               @fetched="handleSectionFetched('relatedPersons')"
             />
           </div>
@@ -76,7 +75,6 @@
               :title="relatedGalleries.headline"
               :set-uris="relatedGalleries.hasPart"
               class="mb-5 mb-sm-4"
-              card-group-class="gridless-browse-cards"
               @fetched="handleSectionFetched('relatedGalleries')"
             />
           </div>
@@ -141,7 +139,7 @@
           </div>
         </transition>
       </client-only>
-    </template>
+    </b-container>
   </div>
 </template>
 
@@ -297,6 +295,12 @@
     padding-top: 1rem;
     margin-top: -1rem;
 
+    @media (min-width: $bp-4k) {
+      padding-bottom: 1.5rem;
+      padding-top: 1.5rem;
+      margin-top: -1.5rem;
+    }
+
     ::v-deep h2:not(.related-heading) {
       color: $mediumgrey;
       font-weight: 600;
@@ -306,8 +310,8 @@
         font-size: $font-size-large;
       }
 
-      @media (min-width: $bp-xxxl) {
-        font-size: $responsive-font-size-large;
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-large-4k;
       }
     }
   }
@@ -319,5 +323,33 @@
 
   .fade-enter-to {
     opacity: 1;
+  }
+
+  .xxl-page ::v-deep .masonry-container {
+    margin-left: -$grid-gutter;
+    margin-right: -$grid-gutter;
+    width: calc(100% + #{$grid-gutter * 2});
+
+    .masonry-tile {
+      @media (min-width: $bp-medium) {
+        margin-left: $grid-gutter;
+        margin-right: $grid-gutter;
+        width: calc(100% / 2 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: $bp-large) {
+        width: calc(100% / 4 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: $bp-wqhd) {
+        width: calc(100% / 6 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: ($bp-4k)) {
+        margin-left: $grid-gutter-4k;
+        margin-right: $grid-gutter-4k;
+        width: calc(100% / 6 - #{$grid-gutter-4k * 2});
+      }
+    }
   }
 </style>

@@ -56,7 +56,8 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
         'http://data.europeana.eu/concept/194',
         'http://data.europeana.eu/concept/21'
       ],
-      categoriesCollection: options.tags || null
+      categoriesCollection: options.tags || null,
+      genre: null
     };
   },
   mocks: {

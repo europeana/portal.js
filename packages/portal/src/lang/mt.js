@@ -56,6 +56,8 @@ export default {
     "skipSend": "Aqbeż u ibgħat",
     "submitForPublication": "Ibgħat għall-pubblikazzjoni",
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
+    "transcribe": "Traskrivi",
+    "transcribeNow": "Traskrivi issa",
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Tema",
     "time": "Seklu",
     "topic": "Suġġett"
+  },
+  "categories": {
+    "label": "Esplora stejjer b'tag",
+    "noOptions": "M'hemmx aktar tags biex tagħżel",
+    "search": "Esplora stejjer b'tag"
   },
   "clearAllFilters": "ħassar il-filtri kollha",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Il-gallerija tiegħek tħassret.",
-      "error": {
-        "unpin": "Kien hemm żball fil-unpinning tal-oġġett. Jekk jogħġbok erġa' pprova, jew irrapporta l-kwistjoni."
-      },
       "pin": "Dan l-oġġett se juri fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "pinLimit": {
         "body": "Għalissa tista 'biss tpoġġi 24 oġġett fl-ewwel paġna. Jekk trid tpoġġi din il-partita, kun żgur li tneħħi pinna oħra u mbagħad erġa 'pprova tpinġiha.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Żball",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "L-editjar huwa diżattivat temporanjament, u l-bidliet tiegħek ma ġewx salvati. Jekk jogħġbok erġa' pprova aktar tard.",
+      "title": "L-aġġornament falla"
+    },
+    "galleryNotFound": {
+      "description": "Din il-gallerija ma setgħetx tinstab. Jista' jkun ġie mħassar.",
+      "title": "Gallerija ma nstabx"
+    },
     "galleryUnauthorised": {
       "description": "Dan mhux possibbli għaliex il-galleriji privati huma viżibbli biss għall-kreatur tagħhom. Jekk taf lill-kreatur tal-gallerija, staqsihom biex jagħmlu l-gallerija pubblika. Inkella, irrapporta din il-kwistjoni billi tuża l-buttuna ta' feedback.",
       "metaTitle": "Gallerija mhux awtorizzata",
       "title": "Oops! {newline} Qed tipprova tara l-gallerija privata ta' persuna oħra."
+    },
+    "genericUnknownError": {
+      "description": "Sar żball mhux magħruf.",
+      "title": "Żball mhux magħruf"
     },
     "itemNotFound": {
       "description": "Dan jista' jkun minħabba r-raġunijiet li ġejjin: dan l-oġġett ma jeżistix, jew; tneħħiet il-pubblikazzjoni għax ma kinitx taqbel mal-kriterji ta’ kwalità tagħna, jew; ġie aġġornat u ppubblikat mill-ġdid b'identifikatur uniku ġdid, f'liema każ, ipprova erġa' sib l-oġġett.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "Paġna mhux misjuba",
       "title": "Il-paġna li qed tfittex ma teżistix."
     },
+    "pinningNotFound": {
+      "description": "Kien hemm żball pinning/unpinning tal-oġġett. Jekk jogħġbok erġa' pprova, jew irrapporta l-kwistjoni.",
+      "title": "Kollezzjoni kkurata ma nstabx"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Huwa possibbli biss li tara l-ewwel riżultati tat-tfittxija {limit} .",
+      "title": "Limitu tal-paġna inqabeż"
+    },
     "searchResultsNotFound": {
       "description": "Jekk jogħġbok aġġusta t-terminu tat-tfittxija jew reset il-filtri biex terġa' tipprova.",
       "title": "Ma nistgħux jidher li nsibu dak li qed tfittex."
-    },
-    "setLocked": {
-      "description": "L-editjar huwa diżattivat temporanjament, u l-bidliet tiegħek ma ġewx salvati. Jekk jogħġbok erġa' pprova aktar tard.",
-      "title": "L-aġġornament falla"
     }
   },
   "exhibitions": {
@@ -751,7 +771,7 @@ export default {
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
       "pro": "Għall-professjonisti",
-      "stories": "Ġrajjiet"
+      "stories": "Stejjer"
     },
     "quickSearch": "Tiftix ta' malajr",
     "searchFor": "Fittex {query}",
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Ikkupjat fil-clipboard",
     "externalContentError": "Il-kontenut estern ma llowdjax",
-    "notFound": "Ma Nstabx",
-    "paginationLimitExceeded": "Huwa possibbli biss li tara l-ewwel {limit} riżultati tat-tfittxija."
+    "notFound": "Ma Nstabx"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "Aħna nagħtuk parir biex tikklikkja fuq il-buttuna \"Istituzzjoni fornitriċi\" hawn taħt biex tiċċekkja jekk l-oġġett jistax jitniżżel fuq il-websajt tal-istituzzjoni li tipprovdi.",
       "message": "Jekk it-tniżżil ma taħdimx, jista 'jkun minħabba li tneħħa mill-istituzzjoni li tipprovdi, jew jista' jkun hemm problema teknika bis-servizz tagħhom.",
       "title": "Niżżel mhux qed taħdem"
+    },
+    "transcribe": {
+      "message": "Ingħaqad magħna fuq Europeana Transcribe, l-inizjattiva taċ-ċittadini onlajn għall-arrikkiment tal-kollezzjonijiet tal-Europeana",
+      "title": "Traskrivi dan l-oġġett"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
-    "readMore": "Aqra iktar",
+    "readMore": "Skopri stejjer",
     "text": {
-      "themes": "Esplora l-wirt kulturali Ewropew permezz ta’ temi, mill-arkeoloġija sa l-Ewwel Gwerra Dinjija. Il-paġni tat-temi l-ġodda tagħna joffru ħarsa multidimensjonali ta’ kull tema permezz ta’ suġġetti, nies, stejjer u oġġetti relatati."
+      "storiesTags": "Iċċekkja l-paġna tal-Istejjer aġġornata. Issa tista 'tfittex u tiffiltra bit-tags."
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Galleriji relatati",
       "title": "Skopri galleriji relatati"
+    },
+    "themes": {
+      "title": "Skopri temi relatati"
     }
   },
   "removeFilter": "Neħħi l-filtru {filterLabel}",
@@ -1086,7 +1112,8 @@ export default {
     "pinned": "Mehmuż"
   },
   "storiesPage": {
-    "title": "Ġrajjiet"
+    "storiesHaveLoaded": "{0} stejjer misjuba",
+    "title": "Stejjer"
   },
   "themes": {
     "description": "Ibbrawżja skont it-tema",

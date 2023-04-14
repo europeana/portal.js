@@ -56,6 +56,8 @@ export default {
     "skipSend": "Izlaist un nosūtīt",
     "submitForPublication": "Iesniegt publicēšanai",
     "submittedForPublication": "Iesniegts publicēšanai",
+    "transcribe": "Transkribēt",
+    "transcribeNow": "Transkribēt tūlīt",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Tēma",
     "time": "Gadsimts",
     "topic": "Temats"
+  },
+  "categories": {
+    "label": "Izpētiet stāstus pēc atzīmes",
+    "noOptions": "Nav vairs neviena atzīme, ko atlasīt",
+    "search": "Izpētiet stāstus pēc atzīmes"
   },
   "clearAllFilters": "notīrīt visus filtrus",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
-      "error": {
-        "unpin": "Atspraužot vienumu, radās kļūda. Lūdzu, mēģiniet vēlreiz vai ziņojiet par problēmu."
-      },
       "pin": "Šis vienums tiks rādīts kolekcijas “ {entity} ” augšdaļā. Mēs jūs informēsim, kad šīs izmaiņas būs redzamas kolekcijas lapā.",
       "pinLimit": {
         "body": "Pagaidām pirmajā lapā var piespraust tikai 24 vienumus. Ja vēlaties piespraust šo vienumu, noteikti atspraudiet vēl vienu un mēģiniet vēlreiz piespraust šo vienumu.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Kļūda",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Rediģēšana ir īslaicīgi atspējota, un jūsu izmaiņas nav saglabātas. Lūdzu, pamēģiniet vēlreiz vēlāk.",
+      "title": "Atjaunināšana neizdevās"
+    },
+    "galleryNotFound": {
+      "description": "Šo galeriju nevarēja atrast. Iespējams, tas ir izdzēsts.",
+      "title": "Galerija nav atrasta"
+    },
     "galleryUnauthorised": {
       "description": "Tas nav iespējams, jo privātās galerijas ir redzamas tikai to izveidotājam. Ja pazīstat galerijas veidotāju, palūdziet viņu padarīt galeriju publisku. Varat arī ziņot par šo problēmu, izmantojot atsauksmju pogu.",
       "metaTitle": "Galerija ir nesankcionēta",
       "title": "Ups! {newline} Jūs mēģināt apskatīt citas personas privāto galeriju."
+    },
+    "genericUnknownError": {
+      "description": "Radās nezināma kļūda.",
+      "title": "Nezināma kļūda"
     },
     "itemNotFound": {
       "description": "Tam var būt šādi iemesli: šis vienums neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast vienumu vēlreiz.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "Lapa nav atrasta",
       "title": "Lapa, kuru meklējat, neeksistē."
     },
+    "pinningNotFound": {
+      "description": "Piespraužot/atspraužot vienumu, radās kļūda. Lūdzu, mēģiniet vēlreiz vai ziņojiet par problēmu.",
+      "title": "Kurētā kolekcija nav atrasta"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Ir iespējams skatīt tikai pirmos {limit} meklēšanas rezultātus.",
+      "title": "Pārsniegts lappušu ierobežojums"
+    },
     "searchResultsNotFound": {
       "description": "Lūdzu, pielāgojiet meklēšanas vienumu vai atiestatiet filtrus, lai mēģinātu vēlreiz.",
       "title": "Šķiet, ka mēs nevaram atrast to, ko meklējat."
-    },
-    "setLocked": {
-      "description": "Rediģēšana ir īslaicīgi atspējota, un jūsu izmaiņas nav saglabātas. Lūdzu, pamēģiniet vēlreiz vēlāk.",
-      "title": "Atjaunināšana neizdevās"
     }
   },
   "exhibitions": {
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopēts starpliktuvē",
     "externalContentError": "Neizdevās ielādēt ārējo saturu",
-    "notFound": "Nav atrasts",
-    "paginationLimitExceeded": "Ir iespējams apskatīt tikai pirmos {limit} meklēšanas rezultātus."
+    "notFound": "Nav atrasts"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "Mēs iesakām noklikšķināt uz tālāk esošās pogas “Nodrošinošā iestāde”, lai pārbaudītu, vai vienumu var lejupielādēt sniedzējas iestādes tīmekļa vietnē.",
       "message": "Ja lejupielāde nedarbojas, tas var būt tāpēc, ka pakalpojumu sniedzošā iestāde to ir noņēmusi, vai arī ir radusies tehniska problēma ar tās pakalpojumu.",
       "title": "Lejupielāde nedarbojas"
+    },
+    "transcribe": {
+      "message": "Pievienojieties mums Europeana Transcribe— tiešsaistes pilsoņu iniciatīvai Europeana kolekciju bagātināšanai",
+      "title": "Transkribēt šo vienumu"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
-    "readMore": "Lasīt vairāk",
+    "readMore": "Atklājiet stāstus",
     "text": {
-      "themes": "Izpētiet Eiropas kultūras mantojumu, izmantojot tēmas, sākot no arheoloģijas līdz Pirmajam pasaules karam. Mūsu jaunās tēmu lapas piedāvā daudzdimensionālu skatījumu uz katru tēmu, izmantojot saistītās tēmas, cilvēkus, stāstus un priekšmetus."
+      "storiesTags": "Apskatiet atjaunināto stāstu lapu. Tagad varat meklēt un filtrēt pēc tagiem."
     }
   },
   "newWindow": "tiek atvērts jaunā logā",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Saistītās galerijas",
       "title": "Atklājiet saistītās galerijas"
+    },
+    "themes": {
+      "title": "Atklājiet saistītās tēmas"
     }
   },
   "removeFilter": "Noņemt filtru {filterLabel}",
@@ -1086,6 +1112,7 @@ export default {
     "pinned": "Piesprausts"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} atrasti stāsti",
     "title": "Stāsti"
   },
   "themes": {

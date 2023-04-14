@@ -90,6 +90,19 @@
             />
           </b-col>
         </b-row>
+        <b-row
+          v-if="genre"
+          class="related-container justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <ThemeBadges
+              :themes-identifiers="genre"
+            />
+          </b-col>
+        </b-row>
       </client-only>
     </b-container>
   </div>
@@ -115,7 +128,8 @@
       LinkList: () => import('../../../components/generic/LinkList'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
-      EntityBadges: () => import('@/components/entity/EntityBadges')
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      ThemeBadges: () => import('@/components/theme/ThemeBadges')
     },
     mixins: [
       exhibitionChapters,
@@ -174,6 +188,7 @@
             exhibitionTitle: exhibition.name,
             exhibitionContentWarning: exhibition.contentWarning,
             relatedLink: exhibition.relatedLink,
+            genre: exhibition.genre,
             page: chapter
           };
         })

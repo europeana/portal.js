@@ -1,5 +1,5 @@
 export default [
   {
-    name: 'themes', url: '/themes'
+    name: 'storiesTags', url: '/stories'
   }
 ];

@@ -13,7 +13,7 @@
           class="col-lg-10 media-bar d-flex mx-auto"
           data-qa="action bar"
         >
-          <div class="d-flex justify-content-md-center align-items-center rights-wrapper">
+          <div class="d-flex justify-content-md-center align-items-center rights-wrapper mr-2">
             <RightsStatementButton
               :disabled="!rightsStatementIsUrl"
               :rights-statement="rightsStatement"
@@ -29,6 +29,10 @@
           </div>
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
+              <ItemTranscribeButton
+                v-if="showTranscribathonLink"
+                :transcribe-url="linkForContributingAnnotation"
+              />
               <client-only>
                 <UserButtons
                   :identifier="identifier"
@@ -73,6 +77,8 @@
 
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
+  const TRANSCRIBATHON_URL_ROOT = '^https?://europeana.transcribathon.eu/';
+
   export default {
     components: {
       ClientOnly,
@@ -82,7 +88,8 @@
       RightsStatementButton,
       ShareButton,
       SocialShareModal,
-      UserButtons: () => import('../account/UserButtons')
+      UserButtons: () => import('../account/UserButtons'),
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
     },
 
     mixins: [
@@ -121,6 +128,10 @@
         default: () => []
       },
       providerUrl: {
+        type: String,
+        default: null
+      },
+      linkForContributingAnnotation: {
         type: String,
         default: null
       }
@@ -167,6 +178,9 @@
       },
       userIsSetsEditor() {
         return this.$auth.userHasClientRole('usersets', 'editor');
+      },
+      showTranscribathonLink() {
+        return this.$features.transcribathonCta && this.linkForContributingAnnotation && RegExp(TRANSCRIBATHON_URL_ROOT).test(this.linkForContributingAnnotation);
       }
     },
     mounted() {
@@ -226,9 +240,6 @@
       }
 
       .btn {
-        color: $mediumgrey;
-        background: $offwhite;
-        border: 1px solid transparent;
         font-size: $font-size-large;
         height: 2.25rem;
         min-width: 2.25rem;
@@ -248,7 +259,7 @@
       flex: 1;
     }
 
-    @media (max-width: $bp-medium) {
+    @media (max-width: ($bp-large - 1px)) {
       .media-bar {
         flex-direction: column;
 

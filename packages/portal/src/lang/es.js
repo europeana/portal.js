@@ -56,6 +56,8 @@ export default {
     "skipSend": "Saltar y enviar",
     "submitForPublication": "Enviar para publicación",
     "submittedForPublication": "Enviado para publicación",
+    "transcribe": "Transcribir",
+    "transcribeNow": "Transcribir ahora",
     "viewAt": "Ver en {link}",
     "viewDocument": "Ver documento"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Tema",
     "time": "Siglo",
     "topic": "Tema"
+  },
+  "categories": {
+    "label": "Explora historias por etiqueta",
+    "noOptions": "No hay más etiquetas para seleccionar",
+    "search": "Explora historias por etiqueta"
   },
   "clearAllFilters": "borrar todos los filtros",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Tu galería ha sido eliminada.",
-      "error": {
-        "unpin": "Se ha producido un error al desanclar el elemento. Vuelva a intentarlo o informe del problema."
-      },
       "pin": "Este elemento se mostrará en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "pinLimit": {
         "body": "Por ahora, solo puede anclar 24 elementos en la primera página. Si desea anclar este elemento, asegúrese de desanclar otro y luego intente anclar este de nuevo.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "La edición está deshabilitada temporalmente y sus cambios no se han guardado. Por favor, inténtelo de nuevo más tarde.",
+      "title": "Actualización fallida"
+    },
+    "galleryNotFound": {
+      "description": "No se pudo encontrar esta galería. Puede haber sido borrada.",
+      "title": "Galería no encontrada"
+    },
     "galleryUnauthorised": {
       "description": "Esto no es posible porque las galerías privadas solo son visibles para su creador. Si conoce al creador de la galería, pídale que la haga pública. Alternativamente, informe este problema usando el botón de comentarios.",
       "metaTitle": "Galería no autorizada",
       "title": "¡Ups! {newline} Estás intentando ver la galería privada de otra persona."
+    },
+    "genericUnknownError": {
+      "description": "Un error desconocido ocurrió.",
+      "title": "Error desconocido"
     },
     "itemNotFound": {
       "description": "Esto podría deberse a las siguientes razones: este elemento no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el elemento nuevamente.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "Página no encontrada",
       "title": "La página que buscas no existe."
     },
+    "pinningNotFound": {
+      "description": "Se ha producido un error al anclar/desanclar el elemento. Inténtalo de nuevo o notifica el problema.",
+      "title": "Colección curada no encontrada"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Solo es posible ver los primeros {limit} resultados de búsqueda.",
+      "title": "Límite de páginas excedido"
+    },
     "searchResultsNotFound": {
       "description": "Por favor, ajuste el término de búsqueda o restablezca los filtros para volver a intentarlo.",
       "title": "Parece que no podemos encontrar lo que está buscando."
-    },
-    "setLocked": {
-      "description": "La edición está deshabilitada temporalmente y sus cambios no se han guardado. Por favor, inténtelo de nuevo más tarde.",
-      "title": "Actualización fallida"
     }
   },
   "exhibitions": {
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Copiado en el portapapeles",
     "externalContentError": "El contenido externo no se ha podido cargar",
-    "notFound": "No se ha encontrado",
-    "paginationLimitExceeded": "Solo es posible ver los primeros {limit} resultados de búsqueda."
+    "notFound": "No se ha encontrado"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "Le recomendamos que haga clic en el botón \"Institución proveedora\" a continuación para verificar si el artículo se puede descargar en el sitio web de la institución proveedora.",
       "message": "Si la descarga no funciona, puede deberse a que la institución proveedora la eliminó o puede haber un problema técnico con su servicio.",
       "title": "Descarga no funciona"
+    },
+    "transcribe": {
+      "message": "Únase a nosotros en Europeana Transcribe, la iniciativa ciudadana en línea para el enriquecimiento de las colecciones de Europeana",
+      "title": "Transcribir este elemento"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Cerrar",
-    "readMore": "Leer más",
+    "readMore": "Descubre historias",
     "text": {
-      "themes": "Explore el patrimonio cultural europeo a través de temas, desde la arqueología hasta la Primera Guerra Mundial. Nuestras nuevas páginas temáticas ofrecen una visión multidimensional de cada tema a través de temas, personas, historias y elementos relacionados."
+      "storiesTags": "Echa un vistazo a la página de Historias actualizada. Ahora puede buscar y filtrar por etiquetas."
     }
   },
   "newWindow": "se abre en una nueva ventana",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Galerías relacionadas",
       "title": "Descubre galerías relacionadas"
+    },
+    "themes": {
+      "title": "Descubre temas relacionados"
     }
   },
   "removeFilter": "Quitar el filtro {filterLabel}",
@@ -1086,6 +1112,7 @@ export default {
     "pinned": "Fijado"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} historias encontradas",
     "title": "Historias"
   },
   "themes": {

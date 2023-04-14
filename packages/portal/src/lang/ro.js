@@ -56,6 +56,8 @@ export default {
     "skipSend": "Săriți și trimiteți",
     "submitForPublication": "Trimiteți spre publicare",
     "submittedForPublication": "Trimis spre publicare",
+    "transcribe": "Transcrie",
+    "transcribeNow": "Transcrie acum",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Temă",
     "time": "Secol",
     "topic": "Subiect"
+  },
+  "categories": {
+    "label": "Explorați poveștile după etichetă",
+    "noOptions": "Nu mai sunt etichete de selectat",
+    "search": "Explorați poveștile după etichetă"
   },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
@@ -199,9 +206,6 @@ export default {
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
-      "error": {
-        "unpin": "S-a produs o eroare la dezlipirea articolului. Vă rugăm să încercați din nou sau să raportați problema."
-      },
       "pin": "Acest articol va apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
       "pinLimit": {
         "body": "Pentru moment, puteți pin doar 24 elemente de pe prima pagină. Dacă doriți să fixați acest element, asigurați-vă că anulați fixarea altui element și apoi încercați să îl fixați din nou.",
@@ -215,10 +219,22 @@ export default {
   },
   "error": "Eroare",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Editarea este temporar dezactivată, iar modificările dvs. nu au fost salvate. Vă rugăm să încercați din nou mai târziu.",
+      "title": "Actualizarea a eșuat"
+    },
+    "galleryNotFound": {
+      "description": "Această galerie nu a putut fi găsită. Este posibil să fi fost șters.",
+      "title": "Galeria nu a fost găsită"
+    },
     "galleryUnauthorised": {
       "description": "Acest lucru nu este posibil deoarece galeriile private sunt vizibile numai pentru creatorul lor. Dacă îl cunoașteți pe creatorul galeriei, cereți-i să facă publică galeria. Ca alternativă, raportați această problemă utilizând butonul de feedback.",
       "metaTitle": "Galeria neautorizată",
       "title": "Oops! {newline} Încercați să vizualizați galeria privată a unei alte persoane."
+    },
+    "genericUnknownError": {
+      "description": "A apărut o eroare necunoscută.",
+      "title": "Eroare necunoscută"
     },
     "itemNotFound": {
       "description": "Acest lucru se poate datora următoarelor motive: acest articol nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți elementul din nou.",
@@ -229,13 +245,17 @@ export default {
       "metaTitle": "Pagina nu a fost găsita",
       "title": "Pagina pe care o cauți nu există."
     },
+    "pinningNotFound": {
+      "description": "S-a produs o eroare la fixarea/dezlipirea articolului. Vă rugăm să încercați din nou sau să raportați problema.",
+      "title": "Colecția curată nu a fost găsită"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Este posibil să vizualizați numai primele {limit} rezultate ale căutării.",
+      "title": "Limita de pagină depășită"
+    },
     "searchResultsNotFound": {
       "description": "Vă rugăm să ajustați termenul de căutare sau să resetați filtrele pentru a încerca din nou.",
       "title": "Se pare că nu găsim ceea ce cauți."
-    },
-    "setLocked": {
-      "description": "Editarea este temporar dezactivată, iar modificările dvs. nu au fost salvate. Vă rugăm să încercați din nou mai târziu.",
-      "title": "Actualizarea a eșuat"
     }
   },
   "exhibitions": {
@@ -861,8 +881,7 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Copiat în clipboard",
     "externalContentError": "Nu a putut fi încărcat conținutul extern",
-    "notFound": "Nu a fost găsit",
-    "paginationLimitExceeded": "Se pot vizualiza numai primele {limit} rezultate ale căutării."
+    "notFound": "Nu a fost găsit"
   },
   "modal": {
     "download": {
@@ -874,6 +893,10 @@ export default {
       "linkPrompt": "Vă sfătuim să faceți clic pe butonul „Instituția de proveniență” de mai jos pentru a verifica dacă articolul poate fi descărcat de pe site-ul instituției furnizoare.",
       "message": "Dacă descărcarea nu funcționează, poate fi din cauză că a fost eliminată de instituția furnizoare sau poate exista o problemă tehnică cu serviciul acestora.",
       "title": "Descărcarea nu funcționează"
+    },
+    "transcribe": {
+      "message": "Alăturați-vă nouă pe Europeana Transcribe, inițiativa cetățenească online pentru îmbogățirea colecțiilor Europeana",
+      "title": "Transcrie acest articol"
     }
   },
   "multilingual": {
@@ -886,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Citește mai mult",
+    "readMore": "Descoperiți povești",
     "text": {
-      "themes": "Explorați patrimoniul cultural european prin intermediul unor teme, de la arheologie la Primul Război Mondial. Noile noastre pagini tematice oferă o perspectivă multidimensională asupra fiecărei teme prin intermediul unor subiecte, persoane, povești și obiecte conexe."
+      "storiesTags": "Consultați pagina Povești actualizată. Acum puteți căuta și filtra după etichete."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
@@ -979,6 +1002,9 @@ export default {
     "galleries": {
       "name": "Galerii conexe",
       "title": "Descoperiți galerii conexe"
+    },
+    "themes": {
+      "title": "Descoperiți teme conexe"
     }
   },
   "removeFilter": "Elimină filtrul {filterLabel}",
@@ -1086,6 +1112,7 @@ export default {
     "pinned": "Fixat"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} povești găsite",
     "title": "Povești"
   },
   "themes": {
