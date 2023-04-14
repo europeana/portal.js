@@ -108,7 +108,7 @@
         return { path: this.$route.path, query };
       },
       handleClose() {
-        this.$emit('hidden')
+        this.$emit('hidden');
       }
     }
   };
