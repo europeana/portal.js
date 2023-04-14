@@ -149,6 +149,11 @@
       height: $swiper-height-medium;
     }
 
+    @media (min-width: $bp-xxxl) {
+      max-height: $swiper-height-xxxl;
+      height: $swiper-height-xxxl;
+    }
+
     .swiper-slide {
       width: 100%;
       min-width: 16rem;

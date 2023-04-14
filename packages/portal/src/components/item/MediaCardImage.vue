@@ -150,15 +150,15 @@ img {
   height: auto;
 
   @media (max-height: $bp-medium) {
-    max-height: $swiper-height;
+    max-height: calc($swiper-height - $swiper-top-padding);
   }
 
   @media (min-height: $bp-medium) {
-    max-height: $swiper-height-max;
+    max-height: calc($swiper-height-max - $swiper-top-padding);
   }
 
   @media (max-width: $bp-medium) {
-    max-height: $swiper-height-medium;
+    max-height: calc($swiper-height-medium - $swiper-top-padding);
   }
 }
 </style>
