@@ -1,9 +1,8 @@
 <template>
   <b-container
     fluid
-    class="border-bottom align-items-center"
+    class="d-flex border-bottom align-items-center"
     data-qa="item language selector"
-    :class="{'d-none': hide, 'd-flex': !hide }"
   >
     <b-container>
       <b-row>
@@ -65,7 +64,7 @@
       class="button-icon-only icon-clear"
       variant="light-flat"
       :aria-label="$t('actions.close')"
-      @click="hide = !hide"
+      @click="handleClose()"
     />
   </b-container>
 </template>
@@ -107,6 +106,9 @@
           query.lang = language;
         }
         return { path: this.$route.path, query };
+      },
+      handleClose() {
+        this.$emit('hidden')
       }
     }
   };

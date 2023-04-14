@@ -2,7 +2,6 @@
   <div
     data-qa="item page"
     class="page white-page"
-    :class="$fetchState.error && 'white-page'"
   >
     <b-container
       v-if="$fetchState.pending"
@@ -24,11 +23,16 @@
       v-else
     >
       <client-only>
-        <ItemLanguageSelector
-          v-if="translatedItemsEnabled"
-          :from-translation-error="fromTranslationError"
-          :metadata-language="metadataLanguage"
-        />
+        <transition
+          name="fade"
+        >
+          <ItemLanguageSelector
+            v-if="translatedItemsEnabled && showItemLanguageSelector"
+            :from-translation-error="fromTranslationError"
+            :metadata-language="metadataLanguage"
+            @hidden="() => showItemLanguageSelector = false"
+          />
+        </transition>
       </client-only>
       <b-container
         fluid
@@ -179,7 +183,8 @@
         type: null,
         useProxy: true,
         schemaOrg: null,
-        metadataLanguage: null
+        metadataLanguage: null,
+        showItemLanguageSelector: true
       };
     },
 
@@ -343,6 +348,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+  
   .page {
     padding-top: 2rem
   }
@@ -359,5 +366,14 @@
   ::v-deep .card-header-tabs .nav-link,
   ::v-deep .card-header-tabs .nav-link:hover {
     border-radius: 0.25rem 0 0;
+  }
+
+  .fade-leave-active {
+    transition: $standard-transition;
+    opacity: 1;
+  }
+
+  .fade-leave-to {
+    opacity: 0;
   }
 </style>
