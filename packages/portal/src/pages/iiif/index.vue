@@ -126,6 +126,15 @@
                   letterSpacing: '0',
                   lineHeight: '1.5'
                 }
+              },
+              overrides: {
+                MuiTooltip: {
+                  tooltip: {
+                    backgroundColor: '#000000',
+                    fontSize: '0.875rem',
+                    padding: '0.625rem'
+                  },
+                }
               }
             }
           }
