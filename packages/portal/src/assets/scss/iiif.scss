@@ -16,13 +16,13 @@
   width: 100%;
   height: 100%;
   border: none;
-
-  @media (min-width: $bp-xxxl) {
-    max-width: $bp-xxxl;
-  }
+  border-bottom: 1px solid $lightbluemagenta;
 }
 
 ::v-deep .mirador-viewer {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   .mosaic-root {
     top: 0;
     left: 0;
@@ -32,6 +32,10 @@
 
   .mosaic-tile {
     margin: 0;
+  }
+
+  .mirador-companion-window-header {
+    border-bottom: 1px solid $lightbluemagenta;
   }
 
   .mirador-thumbnail-nav-container {
@@ -46,6 +50,16 @@
 
   .mirador16.mirador15 {
     border-top: 0;
+  }
+
+  // hide sidebar collapse toggle
+  .mirador38 {
+    display: none;
+  }
+
+  // do not wrap page count
+  .mirador-osd-info {
+    width: auto;
   }
 
   .MuiTypography-h2 {
@@ -72,6 +86,7 @@
   .MuiPaper-root {
     &.mirador-canvas-nav {
       background-color: rgba(255 255 255 / 95%);
+      align-items: center;
     }
   }
 
@@ -88,7 +103,8 @@
     color: $black;
     background-color: transparent;
 
-    &:hover {
+    &:hover,
+    &:hover svg {
       color: $blue;
     }
   }
