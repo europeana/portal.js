@@ -29,7 +29,7 @@ export default class Item {
   // web resources (edm:isShownBy & edm:hasView) may be displayed via that manifest,
   // return the manifest URI.
   get iiifPresentationManifestForEveryDisplayableWebResource() {
-    if (this.providerAggregation.iiifPresentationManifestWebResources.length === 1) {
+    if (this.providerAggregation?.iiifPresentationManifestWebResources?.length === 1) {
       const manifest = this.providerAggregation.iiifPresentationManifestWebResources[0].about;
       if (this.providerAggregation.displayableWebResources.every((wr) => wr.isDisplayableByIIIFPresentationManifest(manifest))) {
         return manifest;

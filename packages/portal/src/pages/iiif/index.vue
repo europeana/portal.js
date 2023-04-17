@@ -108,9 +108,7 @@
           if (miradorManifest) {
             this.manifest = miradorManifest.json;
             if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
-              if (this.urlIsForEuropeanaPresentationAPI(this.manifest.id || this.manifest['@id'])) {
-                this.memoiseImageToCanvasMap();
-              }
+              this.memoiseImageToCanvasMap();
               this.page = miradorWindow.canvasId;
               this.postUpdatedDownloadLinkMessage(this.page);
             }
@@ -249,16 +247,29 @@
       },
 
       memoiseImageToCanvasMap() {
-        this.imageToCanvasMap = this.manifest.items.reduce((memo, canvas) => {
-          for (const annopage of canvas.items) {
-            for (const anno of annopage.items) {
-              if (anno.type === 'Annotation' && anno.body?.type === 'Image') {
-                memo[anno.body.id] = anno.target;
+        if (this.iiifPresentationApiVersion === 2) {
+          this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
+            for (const canvas of sequence.canvases) {
+              for (const image of canvas.images) {
+                memo[image.resource['@id']] = canvas['@id'];
               }
             }
-          }
-          return memo;
-        }, {});
+            return memo;
+          }, {});
+        } else if (this.iiifPresentationApiVersion === 3) {
+          this.imageToCanvasMap = this.manifest.items.reduce((memo, canvas) => {
+            for (const annopage of canvas.items) {
+              for (const anno of annopage.items) {
+                if (anno.type === 'Annotation' && anno.body?.type === 'Image') {
+                  memo[anno.body.id] = anno.target;
+                }
+              }
+            }
+            return memo;
+          }, {});
+        } else {
+          this.imageToCanvasMap = {};
+        }
       },
 
       canvasForImage(imageId) {

@@ -67,8 +67,8 @@ describe('pages/iiif/index.vue', () => {
   });
 
   describe('methods', () => {
-    describe('coerceResourceOnImagesToCanvases', () => {
-      it('coerces resource\'s `on` attribute to canvas ID', async() => {
+    describe('coerceItemTargetImagesToCanvases', () => {
+      it('coerces item\'s `target` attribute to canvas ID', async() => {
         const wrapper = factory();
         await wrapper.setData({
           imageToCanvasMap: {
@@ -76,13 +76,13 @@ describe('pages/iiif/index.vue', () => {
           }
         });
         const resource = {
-          on: ['https://example.org/image/123.jpg#xywh=1,0,90,100']
+          target: ['https://example.org/image/123.jpg#xywh=1,0,90,100']
         };
 
-        wrapper.vm.coerceResourceOnImagesToCanvases(resource);
+        wrapper.vm.coerceItemTargetImagesToCanvases(resource);
 
         expect(resource).toEqual({
-          on: ['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100']
+          target: ['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100']
         });
       });
     });
@@ -126,6 +126,11 @@ describe('pages/iiif/index.vue', () => {
     describe('fetchAnnotationResourcesFulltext', () => {
       it('fetches remote fulltext for all resources', async() => {
         const wrapper = factory();
+        wrapper.setData({
+          manifest: {
+            '@context': 'http://iiif.io/api/presentation/2/context.json'
+          }
+        });
         const annotationJson = {
           resources: [
             { resource: { '@id': 'http://example.org/fulltext/123#char=0,9' } },
@@ -158,6 +163,11 @@ describe('pages/iiif/index.vue', () => {
           'http://example.org/fulltext/123': 'Fulltext transcription'
         };
         const wrapper = factory();
+        wrapper.setData({
+          manifest: {
+            '@context': 'http://iiif.io/api/presentation/2/context.json'
+          }
+        });
         wrapper.vm.fetchAnnotationResourcesFulltext = sinon.stub().returns(fulltext);
         const annotationJson = {
           resources: [
