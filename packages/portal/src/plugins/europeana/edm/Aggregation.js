@@ -12,7 +12,7 @@ export default class Aggregation {
   }
 
   get iiifPresentationManifestWebResources() {
-    return this.webResources.filter((wr) => wr.rdfType === 'http://iiif.io/api/presentation/3#Manifest');
+    return this.webResources.filter((wr) => wr.isIIIFPresentationManifest);
   }
 
   get displayableWebResources() {

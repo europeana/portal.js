@@ -1,4 +1,5 @@
 import { oEmbeddable } from '../../oembed/index.js';
+import { IIIF_PRESENTATION_API_URL } from '../iiif/index.js';
 
 const MEDIA_TYPE_APPLICATION = 'application';
 const MEDIA_TYPE_APPLICATION_DASH_XML = `${MEDIA_TYPE_APPLICATION}/dash+xml`;
@@ -8,6 +9,12 @@ const MEDIA_TYPE_AUDIO_FLAC = `${MEDIA_TYPE_AUDIO}/x-flac`;
 const MEDIA_TYPE_AUDIO_MPEG = `${MEDIA_TYPE_AUDIO}/mpeg`;
 const MEDIA_TYPE_AUDIO_OGG = `${MEDIA_TYPE_AUDIO}/ogg`;
 const MEDIA_TYPE_IMAGE = 'image';
+const MEDIA_TYPE_IMAGE_BMP = `${MEDIA_TYPE_IMAGE}/bmp`;
+const MEDIA_TYPE_IMAGE_GIF = `${MEDIA_TYPE_IMAGE}/gif`;
+const MEDIA_TYPE_IMAGE_JPEG = `${MEDIA_TYPE_IMAGE}/jpeg`;
+const MEDIA_TYPE_IMAGE_PNG = `${MEDIA_TYPE_IMAGE}/png`;
+const MEDIA_TYPE_IMAGE_SVG_XML = `${MEDIA_TYPE_IMAGE}/svg+xml`;
+const MEDIA_TYPE_IMAGE_WEBP = `${MEDIA_TYPE_IMAGE}/webp`;
 const MEDIA_TYPE_TEXT = 'text';
 const MEDIA_TYPE_VIDEO = 'video';
 const MEDIA_TYPE_VIDEO_OGG = `${MEDIA_TYPE_VIDEO}/ogg`;
@@ -24,6 +31,15 @@ const EDM_TYPE_TEXT = 'TEXT';
 const HTML_VIDEO_MEDIA_TYPES = [MEDIA_TYPE_VIDEO_OGG, MEDIA_TYPE_VIDEO_WEBM];
 const HTML_AUDIO_MEDIA_TYPES = [MEDIA_TYPE_AUDIO_FLAC, MEDIA_TYPE_AUDIO_OGG, MEDIA_TYPE_AUDIO_MPEG];
 
+const IIIF_DISPLAYABLE_MEDIA_TYPES = [
+  MEDIA_TYPE_IMAGE_BMP,
+  MEDIA_TYPE_IMAGE_GIF,
+  MEDIA_TYPE_IMAGE_JPEG,
+  MEDIA_TYPE_IMAGE_PNG,
+  MEDIA_TYPE_IMAGE_SVG_XML,
+  MEDIA_TYPE_IMAGE_WEBP
+];
+
 export const WEB_RESOURCE_FIELDS = [
   'about',
   'dctermsIsReferencedBy',
@@ -32,11 +48,11 @@ export const WEB_RESOURCE_FIELDS = [
   'ebucoreWidth',
   'edmCodecName',
   'isNextInSequence',
-  'svcsHasService',
-  'webResourceEdmRights',
-  'thumbnails',
   'isShownAt',
-  'rdfType'
+  'rdfType',
+  'svcsHasService',
+  'thumbnails',
+  'webResourceEdmRights'
 ];
 
 export default class WebResource {
@@ -122,9 +138,13 @@ export default class WebResource {
       this.isPlayableMedia;
   }
 
+  get isIIIFPresentationManifest() {
+    return this.rdfType?.startsWith(IIIF_PRESENTATION_API_URL);
+  }
+
   isDisplayableByIIIFPresentationManifest(iiifPresentationManifest) {
     return this.dctermsIsReferencedBy?.includes(iiifPresentationManifest) &&
-      ['image/jpeg', 'image/svg+xml', 'image/png', 'image/gif', 'image/webp', 'image/bmp'].includes(this.ebucoreHasMimeType);
+      IIIF_DISPLAYABLE_MEDIA_TYPES.includes(this.ebucoreHasMimeType);
   }
 
   get requiresDashJS() {

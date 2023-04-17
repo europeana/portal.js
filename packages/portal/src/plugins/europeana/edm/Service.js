@@ -1,4 +1,4 @@
-import { IIIF_IMAGE_URL } from '../iiif/index.js';
+import { IIIF_IMAGE_API_URL } from '../iiif/index.js';
 
 export default class Service {
   constructor(edm) {
@@ -8,6 +8,6 @@ export default class Service {
   }
 
   get conformsToIIIFImageAPI() {
-    return (this.dctermsConformsTo || []).includes(IIIF_IMAGE_URL);
+    return (this.dctermsConformsTo || []).includes(IIIF_IMAGE_API_URL);
   }
 }
