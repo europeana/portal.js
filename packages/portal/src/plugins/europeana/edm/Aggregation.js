@@ -16,6 +16,6 @@ export default class Aggregation {
   }
 
   get displayableWebResources() {
-    return this.webResources.filter((wr) => (wr.about === this.edmIsShownBy) || this.hasView?.includes(wr.about));
+    return this.webResources.filter((wr) => (wr.about === this.edmIsShownBy) || this.edmHasView?.includes(wr.about));
   }
 }
