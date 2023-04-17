@@ -36,7 +36,7 @@
             />
           </div>
           <div
-            v-if="media.length !== 1"
+            v-if="!iiifPresentationManifest && (media.length !== 1)"
             class="d-flex justify-content-md-center align-items-center pagination-wrapper"
           >
             <div class="swiper-pagination" />
