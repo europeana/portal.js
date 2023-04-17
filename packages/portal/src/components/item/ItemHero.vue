@@ -1,6 +1,16 @@
 <template>
   <div class="item-hero">
+    <iframe
+      v-if="iiifPresentationManifest"
+      data-qa="IIIF viewer"
+      allowfullscreen="true"
+      class="iiif-iframe"
+      :src="$path({ name: 'iiif', query: { uri: iiifPresentationManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
+      :aria-label="$t('actions.viewDocument')"
+      :title="$t('record.IIIFViewer')"
+    />
     <ItemMediaSwiper
+      v-else
       :europeana-identifier="identifier"
       :edm-type="edmType"
       :displayable-media="media"
@@ -73,7 +83,7 @@
   import ItemEmbedCode from './ItemEmbedCode';
   import SocialShareModal from '../sharing/SocialShareModal';
   import ShareButton from '../sharing/ShareButton';
-  import WebResource from '@/plugins/europeana/web-resource';
+  import WebResource from '@/plugins/europeana/edm/WebResource';
 
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
@@ -132,6 +142,10 @@
         default: null
       },
       linkForContributingAnnotation: {
+        type: String,
+        default: null
+      },
+      iiifPresentationManifest: {
         type: String,
         default: null
       }

@@ -5,7 +5,8 @@ import merge from 'deepmerge';
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
 import search from './search.js';
 import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail.js';
-import WebResource, { WEB_RESOURCE_FIELDS } from './web-resource.js';
+import Item from './edm/Item.js';
+import WebResource, { WEB_RESOURCE_FIELDS } from './edm/WebResource.js';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './media-proxy.js';
@@ -222,7 +223,7 @@ export default (context = {}) => {
 
       const metadata = {
         ...lookupEntities(
-          merge.all([proxies, edm.aggregations[0], edm.europeanaAggregation]), entities
+          merge.all([proxies, providerAggregation, edm.europeanaAggregation]), entities
         ),
         europeanaCollectionName: edm.europeanaCollectionName ? {
           url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
@@ -246,7 +247,7 @@ export default (context = {}) => {
         type: edm.type, // TODO: Evaluate if this is used, if not remove.
         isShownAt: providerAggregation.edmIsShownAt,
         metadata: Object.freeze(metadata),
-        media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type, edm.services),
+        media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type),
         agents,
         concepts,
         timespans,
@@ -254,7 +255,8 @@ export default (context = {}) => {
         places,
         title: proxies.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
-        metadataLanguage: prefLang
+        metadataLanguage: prefLang,
+        iiifPresentationManifest: new Item(edm).iiifPresentationManifest
       };
     },
 
@@ -285,7 +287,7 @@ export default (context = {}) => {
       return uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
     },
 
-    aggregationMedia(aggregation, mediaUris, recordType, services = []) {
+    aggregationMedia(aggregation, mediaUris, recordType) {
       // Filter web resources to isShownBy and hasView, respecting the ordering
       const media = mediaUris
         .map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about))
@@ -296,7 +298,7 @@ export default (context = {}) => {
         webResource.thumbnails = this.webResourceThumbnails(webResource, aggregation, recordType);
 
         // Inject service definitions, e.g. for IIIF
-        webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
+        // webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
 
         // TODO: enable, once components / WebResource class can handle dctermsIsReferencedBy being object
         // Inject dctermsIsReferencedBy, e.g. for IIIF Presentation manifests

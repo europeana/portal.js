@@ -1,6 +1,4 @@
-import { oEmbeddable } from '../oembed/index.js';
-import { BASE_URL as EUROPEANA_IIIF_PRESENTATION_API_BASE_URL } from './iiif/presentation.js';
-import { IIIF_IMAGE_URL } from './iiif/index.js';
+import { oEmbeddable } from '../../oembed/index.js';
 
 const MEDIA_TYPE_APPLICATION = 'application';
 const MEDIA_TYPE_APPLICATION_DASH_XML = `${MEDIA_TYPE_APPLICATION}/dash+xml`;
@@ -37,8 +35,8 @@ export const WEB_RESOURCE_FIELDS = [
   'svcsHasService',
   'webResourceEdmRights',
   'thumbnails',
-  'services',
-  'isShownAt'
+  'isShownAt',
+  'rdfType'
 ];
 
 export default class WebResource {
@@ -121,45 +119,15 @@ export default class WebResource {
     return this.isOEmbed ||
       this.isHTMLVideo ||
       this.isHTMLAudio ||
-      this.isIIIFMedia ||
       this.isPlayableMedia;
   }
 
-  get isIIIFMedia() {
-    return (this.services || []).some((service) => serviceConformsToIIIFImageAPI(service));
-  }
-
-  get isIIIFImage() {
-    return this.isIIIFMedia && (
-      ((this.dctermsIsReferencedBy || []).length === 0) ||
-      this.dctermsIsReferencedBy.every((dctermsIsReferencedBy) => dctermsIsReferencedByIsImageInfoRequest(dctermsIsReferencedBy, this.services)
-      )
-    );
-  }
-
-  get isIIIFPresentation() {
-    // TODO: checking for /manifest is too simplistic; refine to prevent false positives
-    return this.dctermsIsReferencedBy?.some((dctermsIsReferencedBy) => dctermsIsReferencedBy.includes('/manifest'));
-  }
-
-  get iiifManifest() {
-    if (this.isIIIFPresentation) {
-      return this.dctermsIsReferencedBy.find((dctermsIsReferencedBy) => !dctermsIsReferencedByIsImageInfoRequest(dctermsIsReferencedBy, this.services)
-      );
-    }
-
-    return `${EUROPEANA_IIIF_PRESENTATION_API_BASE_URL}${this.itemId}/manifest`;
+  isDisplayableByIIIFPresentationManifest(iiifPresentationManifest) {
+    return this.dctermsIsReferencedBy?.includes(iiifPresentationManifest) &&
+      ['image/jpeg', 'image/svg+xml', 'image/png', 'image/gif', 'image/webp', 'image/bmp'].includes(this.ebucoreHasMimeType);
   }
 
   get requiresDashJS() {
     return (this.mediaType === MEDIA_TYPE_APPLICATION_DASH_XML);
   }
 }
-
-const serviceConformsToIIIFImageAPI = (service = {}) => {
-  return (service.dctermsConformsTo || []).includes(IIIF_IMAGE_URL);
-};
-
-const dctermsIsReferencedByIsImageInfoRequest = (dctermsIsReferencedBy, services) => {
-  return services.some((service) => `${service.about}/info.json` === dctermsIsReferencedBy);
-};
