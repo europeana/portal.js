@@ -15,7 +15,7 @@ export default class Item {
   }
 
   get providerAggregation() {
-    return this.aggregations.find((agg) => agg.about === `/aggregation/provider${this.about}`);
+    return this.aggregations?.find((agg) => agg.about === `/aggregation/provider${this.about}`);
   }
 
   get iiifPresentationManifest() {
