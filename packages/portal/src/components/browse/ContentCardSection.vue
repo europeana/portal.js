@@ -4,7 +4,7 @@
     class="browse-section row mb-5"
     data-qa="browse section"
   >
-    <div class="col-12 col-lg-9">
+    <div class="col-12 col-lg-6">
       <h2
         data-qa="section headline"
       >
@@ -44,7 +44,7 @@
       <SmartLink
         v-if="section.moreButton"
         :destination="section.moreButton.url"
-        class="btn btn-light"
+        class="btn btn-outline-secondary"
         data-qa="section more button"
       >
         {{ section.moreButton.text }}
@@ -101,6 +101,12 @@
   @import '@/assets/scss/variables';
 
   .browse-section {
+    .col-lg-6 {
+      @media (min-width: $bp-wqhd) {
+        max-width: $max-text-column-width;
+      }
+    }
+
     h2,
     p {
       color: $mediumgrey;
@@ -108,13 +114,19 @@
     }
 
     h2 {
-      font-size: 1.5rem;
       font-weight: 600;
-      letter-spacing: 0.1212rem;
+      font-size: $font-size-medium;
+
+      @media (min-width: $bp-small) {
+        font-size: $font-size-large;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-large-4k;
+      }
     }
 
     p {
-      letter-spacing: 0.0975rem;
       line-height: 1.5;
     }
   }

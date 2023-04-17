@@ -108,7 +108,7 @@
       color: $mediumgrey;
 
       @media (max-width: ($bp-small - 1px)) {
-        font-size: $font-size-small;
+        font-size: $font-size-base;
       }
     }
   }
