@@ -19,28 +19,47 @@ export default class Item {
   }
 
   get iiifPresentationManifest() {
-    let manifest = null;
+    return this.iiifPresentationManifestForEveryDisplayableWebResource ||
+      this.iiifPresentationManifestForWebResourceWithIIIFImageService ||
+      null;
+  }
 
-    if (
-      (this.providerAggregation.iiifPresentationManifestWebResources.length === 1) &&
-      (this.providerAggregation.displayableWebResources.every((wr) => {
-        return wr.isDisplayableByIIIFPresentationManifest(this.providerAggregation.iiifPresentationManifestWebResources[0].about);
-      }))
-    ) {
-      manifest = this.providerAggregation.iiifPresentationManifestWebResources[0].about;
-    } else if (this.webResourceWithIIIFImageService?.dctermsIsReferencedBy) {
-      manifest = this.webResourceWithIIIFImageService.dctermsIsReferencedBy.find((dctermsIsReferencedBy) => {
-        return !this.dctermsIsReferencedByIsImageInfoRequest(dctermsIsReferencedBy);
-      }) || null;
+  // If the item has one IIIF Presentation manifest web resource (having rdf:type
+  // http://iiif.io/api/presentation/3#Manifest), and all of the item's displayable
+  // web resources (edm:isShownBy & edm:hasView) may be displayed via that manifest,
+  // return the manifest URI.
+  get iiifPresentationManifestForEveryDisplayableWebResource() {
+    if (this.providerAggregation.iiifPresentationManifestWebResources.length === 1) {
+      const manifest = this.providerAggregation.iiifPresentationManifestWebResources[0].about;
+      if (this.providerAggregation.displayableWebResources.every((wr) => wr.isDisplayableByIIIFPresentationManifest(manifest))) {
+        return manifest;
+      }
     }
 
-    return manifest;
+    return null;
+  }
+
+  // If the item has a web resource linked to a IIIF Image API service, and
+  // that web resource has dcterms:isReferencedBy that is not a IIIF Image info
+  // request URI, then assume it is a Presentation Manifest URI, and return it.
+  get iiifPresentationManifestForWebResourceWithIIIFImageService() {
+    if (this.webResourceWithIIIFImageService?.dctermsIsReferencedBy) {
+      return this.webResourceWithIIIFImageService.dctermsIsReferencedBy.find((dctermsIsReferencedBy) => {
+        return !this.dctermsIsReferencedByIsImageInfoRequest(dctermsIsReferencedBy);
+      });
+    }
+
+    return null;
   }
 
   get webResourceWithIIIFImageService() {
-    return this.providerAggregation.displayableWebResources.find((wr) => {
-      return (wr.svcsHasService || []).includes(this.iiifImageService.about);
-    });
+    if (this.hasIIIFImageService) {
+      return this.providerAggregation.displayableWebResources.find((wr) => {
+        return (wr.svcsHasService || []).includes(this.iiifImageService.about);
+      });
+    }
+
+    return null;
   }
 
   get hasIIIFImageService() {
