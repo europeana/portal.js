@@ -140,5 +140,25 @@ describe('plugins/europeana/edm/WebResource', () => {
         expect(wr.requiresDashJS).toBe(true);
       });
     });
+
+    describe('.isIIIFPresentationManifest', () => {
+      it('is `true` if rdfType starts with IIIF Presentation API URL', () => {
+        const wr = new WebResource({ rdfType: 'http://iiif.io/api/presentation/3#Manifest' });
+
+        expect(wr.isIIIFPresentationManifest).toBe(true);
+      });
+    });
+
+    describe('.isDisplayableByIIIFPresentationManifest', () => {
+      it('is `true` if media type displayable in IIIF viewer, and dctermsIsReferencedBy includes manifest', () => {
+        const iiifPresentationManifest = 'https://iiif.example.org/manifest';
+        const wr = new WebResource({
+          dctermsIsReferencedBy: [iiifPresentationManifest],
+          ebucoreHasMimeType: 'image/jpeg'
+        });
+
+        expect(wr.isDisplayableByIIIFPresentationManifest(iiifPresentationManifest)).toBe(true);
+      });
+    });
   });
 });
