@@ -115,7 +115,7 @@
 
   .divider {
     border-bottom: 1px solid $bodygrey;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.25rem;
     flex-basis: 100%;
     margin-left: $grid-gutter;
     margin-right: $grid-gutter;

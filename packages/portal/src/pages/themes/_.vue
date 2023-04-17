@@ -314,6 +314,10 @@
         font-size: $font-size-large-4k;
       }
     }
+
+    ::v-deep .content-header .divider {
+      margin-bottom: 1.75rem;
+    }
   }
 
   .fade-enter-active {

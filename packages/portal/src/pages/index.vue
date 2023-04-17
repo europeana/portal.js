@@ -24,6 +24,7 @@
         :name="page.name"
         :headline="page.headline"
         :has-part-collection="page.hasPartCollection"
+        :social-media-image-url="socialMediaImage ? socialMediaImageOptimisedUrl : null"
       />
       <StaticPage
         v-else-if="staticPage"
