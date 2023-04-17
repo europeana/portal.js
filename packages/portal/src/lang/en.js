@@ -974,9 +974,8 @@ export default {
     "label": "Pagination"
   },
   "provider": {
-    "linkDescription": "Find out more about this item and see its original record.",
-    "linkText": "Go to partner website",
-    "providedBy": "Provided and maintained by {provider}"
+    "linkText": "View on the provider's website",
+    "providedBy": "This item is provided and maintained by {provider}"
   },
   "readMore": "Read more",
   "recommendation": {

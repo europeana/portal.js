@@ -146,7 +146,6 @@
   };
 
   const CORE_FIELDS = [
-    'edmDataProvider',
     'dcContributor',
     'dcCreator',
     'dcPublisher',
@@ -157,6 +156,7 @@
   ];
 
   const ALL_FIELDS = CORE_FIELDS.concat([
+    'edmDataProvider',
     'edmProvider',
     'edmIntermediateProvider',
     'edmRights',

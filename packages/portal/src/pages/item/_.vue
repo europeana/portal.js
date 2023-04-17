@@ -68,6 +68,7 @@
             <ItemDataProvider
               :data-provider="metadata.edmDataProvider"
               :metadata-language="metadataLanguage"
+              :is-shown-at="isShownAt"
             />
           </b-col>
         </b-row>
@@ -246,7 +247,7 @@
         return this.agents
           .concat(this.concepts)
           .concat(this.timespans)
-          .concat(this.organizations)
+          .concat(this.organizations.filter(entity => entity.about !== this.metadata.edmDataProvider?.['def']?.[0].about))
           .concat(this.places)
           .filter(entity => entity.about.startsWith(`${EUROPEANA_DATA_URL}/`));
       },
