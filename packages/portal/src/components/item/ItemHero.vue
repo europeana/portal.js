@@ -1,14 +1,18 @@
 <template>
   <div class="item-hero">
-    <iframe
+    <div
       v-if="iiifPresentationManifest"
-      data-qa="IIIF viewer"
-      allowfullscreen="true"
-      class="iiif-iframe"
-      :src="$path({ name: 'iiif', query: { uri: iiifPresentationManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
-      :aria-label="$t('actions.viewDocument')"
-      :title="$t('record.IIIFViewer')"
-    />
+      class="iiif-viewer-wrapper container"
+    >
+      <iframe
+        data-qa="IIIF viewer"
+        allowfullscreen="true"
+        class="iiif-iframe"
+        :src="$path({ name: 'iiif', query: { uri: iiifPresentationManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
+        :aria-label="$t('actions.viewDocument')"
+        :title="$t('record.IIIFViewer')"
+      />
+    </div>
     <ItemMediaSwiper
       v-else
       :europeana-identifier="identifier"
@@ -323,6 +327,31 @@
           }
         }
       }
+    }
+  }
+
+  .iiif-viewer-wrapper {
+    height: $swiper-height;
+
+    @media (max-height: $bp-medium) {
+      max-height: $swiper-height;
+    }
+
+    @media (min-height: $bp-medium) {
+      max-height: $swiper-height-max;
+    }
+
+    @media (max-width: $bp-medium) {
+      max-height: $swiper-height-medium;
+      height: $swiper-height-medium;
+    }
+
+    .iiif-iframe {
+      width: 100%;
+      height: 100%;
+      border: 1px solid $lightgrey;
+      border-radius: 0.25rem;
+      box-shadow: $boxshadow-small;
     }
   }
 </style>
