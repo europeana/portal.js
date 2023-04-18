@@ -67,6 +67,32 @@ describe('pages/iiif/index.vue', () => {
   });
 
   describe('methods', () => {
+    describe('addAcceptHeaderToPresentationRequests', () => {
+      describe('when url is for Europeana IIIF Presentation API', () => {
+        const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest'
+        it('adds Accept header for v3', () => {
+          const wrapper = factory();
+          const options = {};
+
+          wrapper.vm.addAcceptHeaderToPresentationRequests(url, options);
+
+          expect(options.headers.Accept).toBe('application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"');
+        });
+      });
+
+      describe('when url is not for Europeana IIIF Presentation API', () => {
+        const url = 'https://iiif.example.org/presentation/123/abc/manifest'
+        it('does not add Accept header for v3', () => {
+          const wrapper = factory();
+          const options = {};
+
+          wrapper.vm.addAcceptHeaderToPresentationRequests(url, options);
+
+          expect(options.headers).toBeUndefined();
+        });
+      });
+    });
+
     describe('coerceItemTargetImagesToCanvases', () => {
       it('coerces item\'s `target` attribute to canvas ID', async() => {
         const wrapper = factory();
