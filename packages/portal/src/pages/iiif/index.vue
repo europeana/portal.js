@@ -101,8 +101,17 @@
     },
 
     methods: {
+      versioned(fn, args) {
+        const versionedFunction = `${fn}${this.iiifPresentationApiVersion}`;
+        if (typeof this[versionedFunction] !== 'function') {
+          throw new Error(`Unsupported IIIF Presentation API version ${this.iiifPresentationApiVersion} for function ${fn}`);
+        }
+        return this[versionedFunction].apply(this, args);
+      },
+
       miradorStoreManifestJsonListener() {
-        const miradorWindow = Object.values(this.mirador.store.getState().windows)[0]; // only takes one window into account at the moment
+        // only takes one window into account at the moment
+        const miradorWindow = Object.values(this.mirador.store.getState().windows)[0];
         if (miradorWindow) {
           const miradorManifest = this.mirador.store.getState().manifests[miradorWindow.manifestId];
           if (miradorManifest) {
@@ -247,29 +256,31 @@
       },
 
       memoiseImageToCanvasMap() {
-        if (this.iiifPresentationApiVersion === 2) {
-          this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
-            for (const canvas of sequence.canvases) {
-              for (const image of canvas.images) {
-                memo[image.resource['@id']] = canvas['@id'];
+        return this.versioned('memoiseImageToCanvasMap', arguments);
+      },
+
+      memoiseImageToCanvasMap2() {
+        this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
+          for (const canvas of sequence.canvases) {
+            for (const image of canvas.images) {
+              memo[image.resource['@id']] = canvas['@id'];
+            }
+          }
+          return memo;
+        }, {});
+      },
+
+      memoiseImageToCanvasMap3() {
+        this.imageToCanvasMap = this.manifest.items.reduce((memo, canvas) => {
+          for (const annopage of canvas.items) {
+            for (const anno of annopage.items) {
+              if (anno.type === 'Annotation' && anno.body?.type === 'Image') {
+                memo[anno.body.id] = anno.target;
               }
             }
-            return memo;
-          }, {});
-        } else if (this.iiifPresentationApiVersion === 3) {
-          this.imageToCanvasMap = this.manifest.items.reduce((memo, canvas) => {
-            for (const annopage of canvas.items) {
-              for (const anno of annopage.items) {
-                if (anno.type === 'Annotation' && anno.body?.type === 'Image') {
-                  memo[anno.body.id] = anno.target;
-                }
-              }
-            }
-            return memo;
-          }, {});
-        } else {
-          this.imageToCanvasMap = {};
-        }
+          }
+          return memo;
+        }, {});
       },
 
       canvasForImage(imageId) {
@@ -329,18 +340,25 @@
         searchJson.hits = hits;
       },
 
+      findAnnotationFulltextUrls2(annotationJson) {
+        return annotationJson.resources
+          .filter((resource) => !resource.resource.chars && resource.resource['@id'])
+          .map((resource) => resource.resource['@id']);
+      },
+
+      findAnnotationFulltextUrls3(annotationJson) {
+        return annotationJson.items
+          .filter((item) => !item.body.value && item.body.id)
+          .map((item) => item.body.id);
+      },
+
+      findAnnotationFulltextUrls() {
+        return this.versioned('findAnnotationFulltextUrls', arguments);
+      },
+
       fetchAnnotationResourcesFulltext(annotationJson) {
-        let urls;
-        if (this.iiifPresentationApiVersion === 2) {
-          urls = annotationJson.resources
-            .filter((resource) => !resource.resource.chars && resource.resource['@id'])
-            .map((resource) => resource.resource['@id']);
-        } else if (this.iiifPresentationApiVersion === 3) {
-          urls = annotationJson.items
-            .filter((item) => !item.body.value && item.body.id)
-            .map((item) => item.body.id);
-        }
-        urls = urls.map((url) => url.split('#')[0]);
+        const urls = this.findAnnotationFulltextUrls(annotationJson)
+          .map((url) => url.split('#')[0]);
 
         const fulltext = {};
 
@@ -358,62 +376,69 @@
 
       async dereferenceAnnotationResources(annotationJson) {
         const fulltext = await this.fetchAnnotationResourcesFulltext(annotationJson);
+        this.addFulltextToAnnotations(annotationJson, fulltext);
+      },
 
-        if (this.iiifPresentationApiVersion === 2) {
-          for (const resource of annotationJson.resources) {
-            if (resource.resource.chars || !resource.resource['@id']) {
-              continue;
-            }
+      addFulltextToAnnotations() {
+        return this.versioned('addFulltextToAnnotations', arguments);
+      },
 
-            const url = resource.resource['@id'].split('#')[0];
-            if (!fulltext[url]) {
-              continue;
-            }
+      addFulltextToAnnotations2(annotationJson, fulltext) {
+        for (const resource of annotationJson.resources) {
+          if (resource.resource.chars || !resource.resource['@id']) {
+            continue;
+          }
 
-            const fragment = resource.resource['@id'].split('#')[1];
+          const url = resource.resource['@id'].split('#')[0];
+          if (!fulltext[url]) {
+            continue;
+          }
 
-            resource.resource.chars = fulltext[url];
+          const fragment = resource.resource['@id'].split('#')[1];
 
-            if (fragment) {
-              const charMatch = fragment.match(/char=(\d+),(\d+)$/);
-              if (charMatch) {
-                resource.resource.chars = resource.resource.chars.slice(
-                  Number(charMatch[1]),
-                  Number(charMatch[2]) + 1
-                );
-              }
+          resource.resource.chars = fulltext[url];
+
+          if (fragment) {
+            const charMatch = fragment.match(/char=(\d+),(\d+)$/);
+            if (charMatch) {
+              resource.resource.chars = resource.resource.chars.slice(
+                Number(charMatch[1]),
+                Number(charMatch[2]) + 1
+              );
             }
           }
-        } else if (this.iiifPresentationApiVersion === 3) {
-          for (const item of annotationJson.items) {
-            if (item.body.value || !item.body.id) {
-              continue;
-            }
+        }
+      },
 
-            const url = item.body.id.split('#')[0];
-            if (!fulltext[url]) {
-              continue;
-            }
-
-            const fragment = item.body.id.split('#')[1];
-
-            let text = fulltext[url];
-            if (fragment) {
-              const charMatch = fragment.match(/char=(\d+),(\d+)$/);
-              if (charMatch) {
-                text = text.slice(
-                  Number(charMatch[1]),
-                  Number(charMatch[2]) + 1
-                );
-              }
-            }
-            item.body = {
-              value: text,
-              type: 'TextualBody',
-              language: annotationJson.language,
-              format: 'text/plain'
-            };
+      addFulltextToAnnotations3(annotationJson, fulltext) {
+        for (const item of annotationJson.items) {
+          if (item.body.value || !item.body.id) {
+            continue;
           }
+
+          const url = item.body.id.split('#')[0];
+          if (!fulltext[url]) {
+            continue;
+          }
+
+          const fragment = item.body.id.split('#')[1];
+
+          let text = fulltext[url];
+          if (fragment) {
+            const charMatch = fragment.match(/char=(\d+),(\d+)$/);
+            if (charMatch) {
+              text = text.slice(
+                Number(charMatch[1]),
+                Number(charMatch[2]) + 1
+              );
+            }
+          }
+          item.body = {
+            value: text,
+            type: 'TextualBody',
+            language: annotationJson.language,
+            format: 'text/plain'
+          };
         }
       },
 
@@ -422,21 +447,27 @@
           return;
         }
 
-        let link;
-
-        if (this.iiifPresentationApiVersion === 2) {
-          link = this.manifest.sequences[0].canvases
-            .find(canvas => canvas['@id'] === pageId)
-            ?.images?.[0]?.resource?.['@id'];
-        } else if (this.iiifPresentationApiVersion === 3) {
-          link = this.manifest.items
-            .find(canvas => canvas.id === pageId)
-            ?.items?.[0]?.items?.[0]?.body?.id;
-        }
+        const link = this.findDownloadLinkForPage(pageId);
 
         if (link) {
           window.parent.postMessage({ event: 'updateDownloadLink', id: link }, window.location.origin);
         }
+      },
+
+      findDownloadLinkForPage() {
+        return this.versioned('findDownloadLinkForPage', arguments);
+      },
+
+      findDownloadLinkForPage2(pageId) {
+        return this.manifest.sequences[0].canvases
+          .find(canvas => canvas['@id'] === pageId)
+          ?.images?.[0]?.resource?.['@id'];
+      },
+
+      findDownloadLinkForPage3(pageId) {
+        return this.manifest.items
+          .find(canvas => canvas.id === pageId)
+          ?.items?.[0]?.items?.[0]?.body?.id;
       }
     }
   };
