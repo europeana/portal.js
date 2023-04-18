@@ -69,7 +69,7 @@ describe('pages/iiif/index.vue', () => {
   describe('methods', () => {
     describe('addAcceptHeaderToPresentationRequests', () => {
       describe('when url is for Europeana IIIF Presentation API', () => {
-        const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest'
+        const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
         it('adds Accept header for v3', () => {
           const wrapper = factory();
           const options = {};
@@ -81,7 +81,7 @@ describe('pages/iiif/index.vue', () => {
       });
 
       describe('when url is not for Europeana IIIF Presentation API', () => {
-        const url = 'https://iiif.example.org/presentation/123/abc/manifest'
+        const url = 'https://iiif.example.org/presentation/123/abc/manifest';
         it('does not add Accept header for v3', () => {
           const wrapper = factory();
           const options = {};
