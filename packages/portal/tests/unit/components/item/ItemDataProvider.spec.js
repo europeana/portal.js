@@ -44,7 +44,6 @@ describe('components/item/ItemDataProvider', () => {
 
       expect(badge.exists()).toBe(true);
     });
-
   });
 
   describe('when the provider is present as plain text only', () => {
@@ -55,7 +54,6 @@ describe('components/item/ItemDataProvider', () => {
 
       expect(name.exists()).toBe(true);
     });
-
   });
 
   describe('fetch', () => {
@@ -94,7 +92,7 @@ describe('components/item/ItemDataProvider', () => {
     });
 
     describe('aboutURL', () => {
-      it('uses the about field of the first "def" value', () =>{
+      it('uses the about field of the first "def" value', () => {
         const wrapper = factory();
 
         const aboutURL = wrapper.vm.aboutURL;

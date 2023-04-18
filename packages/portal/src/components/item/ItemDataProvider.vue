@@ -10,8 +10,8 @@
       <template #provider>
         <LinkBadge
           v-if="isEuropeanaEntity && providerEntity"
-          data-qa="data provider badge"
           :id="aboutURL"
+          data-qa="data provider badge"
           badge-variant="secondary"
           :link-to="collectionLinkGen(providerEntity)"
           :title="providerEntity.prefLabel"
@@ -21,6 +21,7 @@
         <span
           v-else
           data-qa="data provider name"
+          :lang="namePrefLanguage"
         >
           {{ nativeName }}
         </span>
@@ -88,7 +89,7 @@
           }
         } catch (error) {
           // Fallback to be at least able to link to the entity page
-          this.providerEntity = { id: this.aboutURL, prefLabel: { `${this.namePrefLanguage}`: this.nativeName} };
+          this.providerEntity = { id: this.aboutURL, prefLabel: this.dataProvider.def[0].prefLabel };
         }
       }
     },
@@ -101,10 +102,13 @@
         return this.dataProvider?.['def']?.[0].about;
       },
       namePrefLanguage() {
-        return this.getPrefLanguage('edmDataProvider', this.dataProvider);
+        return this.isEuropeanaEntity ? null : this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
       },
       nativeName() {
-        return langMapValueForLocale(this.dataProvider, this.namePrefLanguage).values[0];
+        if (!this.isEuropeanaEntity) {
+          return langMapValueForLocale(this.dataProvider, this.nameFallbackPrefLanguage).values[0];
+        }
+        return null;
       }
     }
   };
