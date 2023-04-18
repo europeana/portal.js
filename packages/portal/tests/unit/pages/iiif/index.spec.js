@@ -150,64 +150,131 @@ describe('pages/iiif/index.vue', () => {
     });
 
     describe('fetchAnnotationResourcesFulltext', () => {
-      it('fetches remote fulltext for all resources', async() => {
-        const wrapper = factory();
-        wrapper.setData({
-          manifest: {
-            '@context': 'http://iiif.io/api/presentation/2/context.json'
-          }
-        });
-        const annotationJson = {
-          resources: [
-            { resource: { '@id': 'http://example.org/fulltext/123#char=0,9' } },
-            { resource: { '@id': 'http://example.org/fulltext/123#char=10,19' } },
-            { resource: { '@id': 'http://example.org/fulltext/456#char=0,9' } }
-          ]
-        };
-        nock('http://example.org').get('/fulltext/123').reply(200, {
-          type: 'FullTextResource',
-          value: 'Fulltext 123'
-        });
-        nock('http://example.org').get('/fulltext/456').reply(200, {
-          type: 'FullTextResource',
-          value: 'Fulltext 456'
-        });
+      describe('when manifest is for IIIF Presentation API v2', () => {
+        it('fetches remote fulltext for all resources', async() => {
+          const wrapper = factory();
+          wrapper.setData({
+            manifest: {
+              '@context': 'http://iiif.io/api/presentation/2/context.json'
+            }
+          });
+          const annotationJson = {
+            resources: [
+              { resource: { '@id': 'http://example.org/fulltext/123#char=0,9' } },
+              { resource: { '@id': 'http://example.org/fulltext/123#char=10,19' } },
+              { resource: { '@id': 'http://example.org/fulltext/456#char=0,9' } }
+            ]
+          };
+          nock('http://example.org').get('/fulltext/123').reply(200, {
+            type: 'FullTextResource',
+            value: 'Fulltext 123'
+          });
+          nock('http://example.org').get('/fulltext/456').reply(200, {
+            type: 'FullTextResource',
+            value: 'Fulltext 456'
+          });
 
-        const fulltext = await wrapper.vm.fetchAnnotationResourcesFulltext(annotationJson);
+          const fulltext = await wrapper.vm.fetchAnnotationResourcesFulltext(annotationJson);
 
-        expect(nock.isDone()).toBe(true);
-        expect(fulltext).toEqual({
-          'http://example.org/fulltext/123': 'Fulltext 123',
-          'http://example.org/fulltext/456': 'Fulltext 456'
+          expect(nock.isDone()).toBe(true);
+          expect(fulltext).toEqual({
+            'http://example.org/fulltext/123': 'Fulltext 123',
+            'http://example.org/fulltext/456': 'Fulltext 456'
+          });
+        });
+      });
+
+      describe('when manifest is for IIIF Presentation API v3', () => {
+        it('fetches remote fulltext for all resources', async() => {
+          const wrapper = factory();
+          wrapper.setData({
+            manifest: {
+              '@context': 'http://iiif.io/api/presentation/3/context.json'
+            }
+          });
+          const annotationJson = {
+            items: [
+              { body: { id: 'http://example.org/fulltext/123#char=0,9' } },
+              { body: { id: 'http://example.org/fulltext/123#char=10,19' } },
+              { body: { id: 'http://example.org/fulltext/456#char=0,9' } }
+            ]
+          };
+          nock('http://example.org').get('/fulltext/123').reply(200, {
+            type: 'FullTextResource',
+            value: 'Fulltext 123'
+          });
+          nock('http://example.org').get('/fulltext/456').reply(200, {
+            type: 'FullTextResource',
+            value: 'Fulltext 456'
+          });
+
+          const fulltext = await wrapper.vm.fetchAnnotationResourcesFulltext(annotationJson);
+
+          expect(nock.isDone()).toBe(true);
+          expect(fulltext).toEqual({
+            'http://example.org/fulltext/123': 'Fulltext 123',
+            'http://example.org/fulltext/456': 'Fulltext 456'
+          });
         });
       });
     });
 
     describe('dereferenceAnnotationResources', () => {
-      it('extracts fulltext onto chars properties', async() => {
-        const fulltext = {
-          'http://example.org/fulltext/123': 'Fulltext transcription'
-        };
-        const wrapper = factory();
-        wrapper.setData({
-          manifest: {
-            '@context': 'http://iiif.io/api/presentation/2/context.json'
-          }
+      describe('when manifest is for IIIF Presentation API v2', () => {
+        it('extracts fulltext onto chars properties', async() => {
+          const fulltext = {
+            'http://example.org/fulltext/123': 'Fulltext transcription'
+          };
+          const wrapper = factory();
+          wrapper.setData({
+            manifest: {
+              '@context': 'http://iiif.io/api/presentation/2/context.json'
+            }
+          });
+          wrapper.vm.fetchAnnotationResourcesFulltext = sinon.stub().returns(fulltext);
+          const annotationJson = {
+            resources: [
+              { resource: { '@id': 'http://example.org/fulltext/123#char=0,7' } },
+              { resource: { '@id': 'http://example.org/fulltext/123#char=9,21' } }
+            ]
+          };
+
+          await wrapper.vm.dereferenceAnnotationResources(annotationJson);
+
+          expect(annotationJson.resources).toEqual([
+            { resource: { '@id': 'http://example.org/fulltext/123#char=0,7', chars: 'Fulltext' } },
+            { resource: { '@id': 'http://example.org/fulltext/123#char=9,21', chars: 'transcription' } }
+          ]);
         });
-        wrapper.vm.fetchAnnotationResourcesFulltext = sinon.stub().returns(fulltext);
-        const annotationJson = {
-          resources: [
-            { resource: { '@id': 'http://example.org/fulltext/123#char=0,7' } },
-            { resource: { '@id': 'http://example.org/fulltext/123#char=9,21' } }
-          ]
-        };
+      });
 
-        await wrapper.vm.dereferenceAnnotationResources(annotationJson);
+      describe('when manifest is for IIIF Presentation API v3', () => {
+        it('extracts fulltext onto body properties', async() => {
+          const wrapper = factory();
+          wrapper.setData({
+            manifest: {
+              '@context': 'http://iiif.io/api/presentation/3/context.json'
+            }
+          });
+          const fulltext = {
+            'http://example.org/fulltext/123': 'Fulltext transcription'
+          };
+          wrapper.vm.fetchAnnotationResourcesFulltext = sinon.stub().returns(fulltext);
+          const annotationJson = {
+            items: [
+              { body: { id: 'http://example.org/fulltext/123#char=0,7' } },
+              { body: { id: 'http://example.org/fulltext/123#char=9,21' } }
+            ],
+            language: 'en'
+          };
 
-        expect(annotationJson.resources).toEqual([
-          { resource: { '@id': 'http://example.org/fulltext/123#char=0,7', chars: 'Fulltext' } },
-          { resource: { '@id': 'http://example.org/fulltext/123#char=9,21', chars: 'transcription' } }
-        ]);
+          await wrapper.vm.dereferenceAnnotationResources(annotationJson);
+
+          expect(annotationJson.items).toEqual([
+            { body: { value: 'Fulltext', type: 'TextualBody', language: 'en', format: 'text/plain' } },
+            { body: { value: 'transcription', type: 'TextualBody', language: 'en', format: 'text/plain' } }
+          ]);
+        });
       });
     });
 

@@ -5,7 +5,9 @@
 </template>
 
 <script>
+  import camelCase from 'lodash/camelCase';
   import uniq from 'lodash/uniq';
+  import upperFirst from 'lodash/upperFirst';
 
   export default {
     name: 'IIIFPage',
@@ -136,27 +138,18 @@
       },
 
       postprocessMiradorRequest(url, action) {
-        switch (action.type) {
-        case 'mirador/RECEIVE_MANIFEST':
-          this.postprocessMiradorManifest(url, action);
-          break;
-        case 'mirador/RECEIVE_ANNOTATION':
-          this.postprocessMiradorAnnotation(url, action);
-          break;
-        case 'mirador/RECEIVE_SEARCH':
-          this.postprocessMiradorSearch(url, action);
-          break;
-        }
+        const fn = `postprocess${upperFirst(camelCase(action.type))}`;
+        this[fn] && this[fn](url, action);
       },
 
       // TODO: rewrite thumbnail URLs to use v3 API
-      postprocessMiradorManifest(url, action) {
+      postprocessMiradorReceiveManifest(url, action) {
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.addTextGranularityFilterToManifest(action.manifestJson);
         }
       },
 
-      postprocessMiradorAnnotation(url, action) {
+      postprocessMiradorReceiveAnnotation(url, action) {
         this.showSidebarForAnnotations(action.annotationJson);
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.coerceAnnotationsOnToCanvases(action.annotationJson);
@@ -164,7 +157,7 @@
         this.dereferenceAnnotationResources(action.annotationJson);
       },
 
-      postprocessMiradorSearch(url, action) {
+      postprocessMiradorReceiveSearch(url, action) {
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.filterSearchHitsByTextGranularity(action.searchJson);
           this.coerceAnnotationsOnToCanvases(action.searchJson);
