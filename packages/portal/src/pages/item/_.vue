@@ -68,6 +68,7 @@
           >
             <ItemDataProvider
               :data-provider="metadata.edmDataProvider"
+              :data-provider-entity="dataProviderEntity"
               :metadata-language="metadataLanguage"
               :is-shown-at="isShownAt"
             />
@@ -87,7 +88,7 @@
           </b-col>
         </b-row>
         <client-only
-          v-if="relatedEntityUris.length > 0"
+          v-if="relatedCollections.length > 0"
         >
           <b-row
             class="justify-content-center"
@@ -97,7 +98,7 @@
               class="col-lg-10 mt-4"
             >
               <EntityBadges
-                :entity-uris="relatedEntityUris"
+                :relatedCollections="relatedCollections"
                 data-qa="related entities"
               />
             </b-col>
@@ -177,6 +178,8 @@
         concepts: [],
         description: null,
         error: null,
+        relatedCollections: [],
+        dataProviderEntity: null,
         fromTranslationError: null,
         identifier: `/${this.$route.params.pathMatch}`,
         isShownAt: null,
@@ -204,6 +207,7 @@
         }
 
         if (process.client) {
+
           this.trackCustomDimensions();
         }
       } catch (e) {
@@ -248,7 +252,7 @@
         return this.agents
           .concat(this.concepts)
           .concat(this.timespans)
-          .concat(this.organizations.filter(entity => entity.about !== this.metadata.edmDataProvider?.['def']?.[0].about))
+          .concat(this.organizations)
           .concat(this.places)
           .filter(entity => entity.about.startsWith(`${EUROPEANA_DATA_URL}/`));
       },
@@ -299,7 +303,7 @@
         shareUrl: 'http/canonicalUrlWithoutLocale'
       }),
       relatedEntityUris() {
-        return this.europeanaEntityUris.slice(0, 5);
+        return this.europeanaEntityUris.filter(entityUri => entityUri !== this.metadata.edmDataProvider?.['def']?.[0].about).slice(0, 5);
       },
       translatedItemsEnabled() {
         return this.$features.translatedItems;
@@ -322,6 +326,7 @@
 
     mounted() {
       this.fetchAnnotations();
+      this.fetchEntities();
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }
@@ -347,6 +352,17 @@
           query: `target_record_id:"${this.identifier}"`,
           profile: 'dereference'
         });
+      },
+
+      async fetchEntities() {
+        const entities = await this.$apis.entity.find([...this.europeanaEntityUris, this.metadata.edmDataProvider?.['def']?.[0].about] , {
+          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo'
+        });
+
+        if (entities)  {
+          this.relatedCollections = entities.filter(entity => entity.id !== this.metadata.edmDataProvider?.['def']?.[0].about);
+          this.dataProviderEntity = entities.filter(entity => entity.id === this.metadata.edmDataProvider?.['def']?.[0].about)[0];
+        }
       }
     }
   };

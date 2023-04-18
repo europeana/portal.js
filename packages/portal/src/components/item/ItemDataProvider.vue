@@ -9,13 +9,13 @@
     >
       <template #provider>
         <LinkBadge
-          v-if="isEuropeanaEntity && providerEntity"
-          :id="aboutURL"
+          v-if="dataProviderEntity"
+          :id="dataProviderEntity.id"
           data-qa="data provider badge"
           badge-variant="secondary"
-          :link-to="collectionLinkGen(providerEntity)"
-          :title="providerEntity.prefLabel"
-          :img="$apis.entity.imageUrl(providerEntity)"
+          :link-to="collectionLinkGen(dataProviderEntity)"
+          :title="dataProviderEntity.prefLabel"
+          :img="$apis.entity.imageUrl(dataProviderEntity)"
           type="Organization"
         />
         <span
@@ -40,7 +40,6 @@
 
 <script>
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import { isEntityUri } from '@/plugins/europeana/entity';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
 
@@ -62,6 +61,10 @@
         type: Object,
         default: null
       },
+      dataProviderEntity: {
+        type: Object,
+        default: null
+      },
       metadataLanguage: {
         type: String,
         default: null
@@ -72,40 +75,12 @@
       }
     },
 
-    data() {
-      return {
-        providerEntity: null
-      };
-    },
-
-    async fetch() {
-      if (this.isEuropeanaEntity) {
-        try {
-          const entitiesResponse = await this.$apis.entity.find([this.aboutURL], {
-            fl: 'skos_prefLabel.*,foaf_logo'
-          });
-          if (entitiesResponse)  {
-            this.providerEntity = entitiesResponse[0];
-          }
-        } catch (error) {
-          // Fallback to be at least able to link to the entity page
-          this.providerEntity = { id: this.aboutURL, prefLabel: this.dataProvider.def[0].prefLabel };
-        }
-      }
-    },
-
     computed: {
-      isEuropeanaEntity() {
-        return isEntityUri(this.aboutURL);
-      },
-      aboutURL() {
-        return this.dataProvider?.['def']?.[0].about;
-      },
       namePrefLanguage() {
-        return this.isEuropeanaEntity ? null : this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
+        return this.dataProviderEntity ? null : this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
       },
       nativeName() {
-        if (!this.isEuropeanaEntity) {
+        if (!this.dataProviderEntity) {
           return langMapValueForLocale(this.dataProvider, this.nameFallbackPrefLanguage).values[0];
         }
         return null;
