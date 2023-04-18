@@ -3,24 +3,26 @@
     class="data-provider"
   >
     <i18n
-      data-qa="data provider name"
-      path='provider.providedBy'
+      data-qa="data provider attribution"
+      path="provider.providedBy"
       tag="div"
     >
       <template #provider>
         <LinkBadge
-          v-if="isEuropeanaEntity && providerEntityResponse"
+          v-if="isEuropeanaEntity && providerEntity"
+          data-qa="data provider badge"
           :id="aboutURL"
-          badgeVariant="secondary"
-          :link-to="collectionLinkGen(providerEntityResponse)"
-          :title="providerEntityResponse.prefLabel"
-          :img="$apis.entity.imageUrl(providerEntityResponse)"
+          badge-variant="secondary"
+          :link-to="collectionLinkGen(providerEntity)"
+          :title="providerEntity.prefLabel"
+          :img="$apis.entity.imageUrl(providerEntity)"
           type="Organization"
         />
         <span
           v-else
+          data-qa="data provider name"
         >
-          {{ edmDataProviderNativeName }}
+          {{ nativeName }}
         </span>
       </template>
     </i18n>
@@ -71,18 +73,22 @@
 
     data() {
       return {
-        providerEntityResponse: null
+        providerEntity: null
       };
     },
 
     async fetch() {
       if (this.isEuropeanaEntity) {
-        const entitiesResponse = await this.$apis.entity.find([this.aboutURL], {
-          fl: 'skos_prefLabel.*,foaf_logo'
-        });
-
-        if (entitiesResponse)  {
-          this.providerEntityResponse = entitiesResponse[0];
+        try {
+          const entitiesResponse = await this.$apis.entity.find([this.aboutURL], {
+            fl: 'skos_prefLabel.*,foaf_logo'
+          });
+          if (entitiesResponse)  {
+            this.providerEntity = entitiesResponse[0];
+          }
+        } catch (error) {
+          // Fallback to be at least able to link to the entity page
+          this.providerEntity = { id: this.aboutURL, prefLabel: { `${this.namePrefLanguage}`: this.nativeName} };
         }
       }
     },
@@ -94,10 +100,11 @@
       aboutURL() {
         return this.dataProvider?.['def']?.[0].about;
       },
-      edmDataProviderNativeName() {
-        const prefLanguage = this.getPrefLanguage('edmDataProvider', this.dataProvider);
-
-        return langMapValueForLocale(this.dataProvider, prefLanguage).values[0];
+      namePrefLanguage() {
+        return this.getPrefLanguage('edmDataProvider', this.dataProvider);
+      },
+      nativeName() {
+        return langMapValueForLocale(this.dataProvider, this.namePrefLanguage).values[0];
       }
     }
   };
