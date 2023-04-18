@@ -217,11 +217,6 @@
               const action = window.Mirador.actions.toggleWindowSideBar(this.miradorWindowId);
               this.mirador.store.dispatch(action);
               this.showAnnotations = true;
-
-              // FIXME: miradorViewerOptions is computed, shouldn't be modifying it directly
-              this.miradorViewerOptions.window.allowWindowSideBar = true;
-              const actionShow = window.Mirador.actions.updateConfig(this.miradorViewerOptions);
-              this.mirador.store.dispatch(actionShow);
             }
           }
           this.postprocessMiradorAnnotation(url, action);
