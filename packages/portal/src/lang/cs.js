@@ -56,6 +56,8 @@ export default {
     "skipSend": "Přeskočit a odeslat",
     "submitForPublication": "Odeslat k publikaci",
     "submittedForPublication": "Odesláno k publikaci",
+    "transcribe": "Přepsat",
+    "transcribeNow": "Přepište nyní",
     "viewAt": "Zobrazit na stránce {link}",
     "viewDocument": "Zobrazit dokument"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Téma",
     "time": "Století",
     "topic": "Téma"
+  },
+  "categories": {
+    "label": "Prozkoumejte příběhy podle štítku",
+    "noOptions": "Nejsou k dispozici žádné další tagy.",
+    "search": "Prozkoumejte příběhy podle štítku"
   },
   "clearAllFilters": "Vymazat všechny filtry",
   "collections": {
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "Doporučujeme vám kliknout na tlačítko „Poskytovatelská instituce“ níže a zkontrolovat, zda lze položku stáhnout na webové stránce poskytující instituce.",
       "message": "Pokud stahování nefunguje, může to být způsobeno tím, že jej odstranila poskytující instituce, nebo může nastat technický problém s jejich službou.",
       "title": "Stahování nefunguje"
+    },
+    "transcribe": {
+      "message": "Připojte se k nám na Europeana Transcribe, online občanské iniciativě pro obohacení sbírek Europeany",
+      "title": "Přepište tuto položku"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zavřít",
-    "readMore": "Přečtěte si více",
+    "readMore": "Objevujte příběhy",
     "text": {
-      "themes": "Prozkoumejte evropské kulturní dědictví prostřednictvím témat, od archeologie po první světovou válku. Naše nové tematické stránky nabízejí vícerozměrný pohled na každé téma prostřednictvím souvisejících témat, lidí, příběhů a předmětů."
+      "storiesTags": "Podívejte se na aktualizovanou stránku Příběhy. Nyní můžete vyhledávat a filtrovat podle značek."
     }
   },
   "newWindow": "otevře se v novém okně",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Připnuté"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} nalezených příběhů",
     "title": "Příběhy"
   },
   "themes": {

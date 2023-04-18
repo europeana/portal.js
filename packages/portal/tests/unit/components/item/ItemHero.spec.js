@@ -16,7 +16,7 @@ const factory = (propsData, options = {}) => shallowMount(ItemHero, {
   mocks: {
     $t: (key) => key,
     $i18n: { locale: 'en' },
-    $features: { itemEmbedCode: false },
+    $features: { itemEmbedCode: false, transcribathonCta: true },
     $auth: {
       loggedIn: true,
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
@@ -180,6 +180,24 @@ describe('components/item/ItemHero', () => {
       it('returns false', () => {
         const wrapper = factory(propsData);
         expect(wrapper.vm.downloadViaProxy('http://www.example.org/another-resource')).toBe(false);
+      });
+    });
+  });
+
+  describe('showTranscribathonLink', () => {
+    describe('when the linkForContributingAnnotation goes to a transcribathon URL', () => {
+      it('is true', async() => {
+        const wrapper = factory({ linkForContributingAnnotation: 'https://europeana.transcribathon.eu/documents/story/?story=123', media, identifier, entities });
+
+        expect(wrapper.vm.showTranscribathonLink).toBe(true);
+      });
+    });
+
+    describe('when the linkForContributingAnnotation goes to a NON transcribathon URL', () => {
+      it('is true', async() => {
+        const wrapper = factory({ linkForContributingAnnotation: 'https://example.org/123', media, identifier, entities });
+
+        expect(wrapper.vm.showTranscribathonLink).toBe(false);
       });
     });
   });

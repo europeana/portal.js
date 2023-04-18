@@ -56,6 +56,8 @@ export default {
     "skipSend": "Pomiń i wyślij",
     "submitForPublication": "Prześlij do publikacji",
     "submittedForPublication": "Zgłoszony do publikacji",
+    "transcribe": "Transkrybować",
+    "transcribeNow": "Transkrybuj teraz",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Temat",
     "time": "Stulecie",
     "topic": "Temat"
+  },
+  "categories": {
+    "label": "Przeglądaj historie według tagów",
+    "noOptions": "Nie ma więcej tagów do wybrania",
+    "search": "Przeglądaj historie według tagów"
   },
   "clearAllFilters": "wyczyść wszystkie filtry",
   "collections": {
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "Radzimy kliknąć przycisk „Instytucja dostarczająca” poniżej, aby sprawdzić, czy element można pobrać na stronie internetowej instytucji udostępniającej.",
       "message": "Jeśli pobieranie nie działa, może to być spowodowane tym, że zostało usunięte przez instytucję dostarczającą lub może występować problem techniczny z ich usługą.",
       "title": "Pobieranie nie działa"
+    },
+    "transcribe": {
+      "message": "Dołącz do nas w Europeana Transcribe, internetowej inicjatywie obywatelskiej mającej na celu wzbogacenie zbiorów Europeana",
+      "title": "Transkrybuj ten element"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zamknij",
-    "readMore": "Czytaj więcej",
+    "readMore": "Odkryj historie",
     "text": {
-      "themes": "Przeglądaj europejskie dziedzictwo kulturowe poprzez tematy, od archeologii po I wojnę światową. Nasze nowe strony tematyczne oferują wielowymiarowe spojrzenie na każdy temat poprzez powiązane tematy, ludzi, historie i przedmioty."
+      "storiesTags": "Sprawdź zaktualizowaną stronę historie. Możesz teraz wyszukiwać i filtrować według tagów."
     }
   },
   "newWindow": "otwiera się w nowym oknie",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Przypięty"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} znalezionych historii",
     "title": "Historie"
   },
   "themes": {

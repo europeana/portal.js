@@ -144,6 +144,28 @@ jobs:
         name: Run stylelint
         run: npm run stylelint
 
+  # Verify cachers can load in Node.js on master and all PRs (including drafts)
+  test-cachers:
+    needs: [metadata]
+    runs-on: ubuntu-latest
+    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      -
+        name: NPM install
+        run: npm ci --include-workspace-root -w packages/portal
+      -
+        name: List cachers
+        run: npm run cache list
+
   # Run unit tests on master (for coverage reports), and all pull requests
   test-unit:
     needs: [metadata]

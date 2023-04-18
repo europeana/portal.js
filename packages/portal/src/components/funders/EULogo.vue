@@ -35,7 +35,7 @@
 
     --right-spacing: calc(64 / 304 * 50%); // 50% of height divided by width to get 50% height of img for right spacing
 
-    @media (max-width: $bp-small - 1px) {
+    @media (max-width: ($bp-small - 1px)) {
       margin-bottom: 1rem;
       margin-left: 1rem;
       right: calc(95px + 1rem); // keep space for cutout (95px) and 1rem for extra spacing

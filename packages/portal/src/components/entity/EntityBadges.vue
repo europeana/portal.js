@@ -120,13 +120,6 @@
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
 
-    @media (min-width: $bp-xxxl) {
-      @at-root .responsive-font & {
-        margin-right: 0.5vw;
-        margin-bottom: 0.5vw;
-      }
-    }
-
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
         margin-right: 0.75rem;

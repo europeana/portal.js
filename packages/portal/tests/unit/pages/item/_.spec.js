@@ -200,6 +200,10 @@ describe('pages/item/_.vue', () => {
     describe('annotationsByMotivation', () => {
       const annotations = [
         {
+          motivation: 'linkForContributing',
+          body: 'https://transcribation.europeana.eu'
+        },
+        {
           motivation: 'transcribing',
           body: {
             type: 'FullTextResource',
@@ -218,6 +222,18 @@ describe('pages/item/_.vue', () => {
           }
         }
       ];
+
+      describe('when asking for linkForContributing', () => {
+        it('has a linkForContributing motivation', async() => {
+          const wrapper = await factory();
+          await wrapper.setData({ annotations });
+
+          const linkForContributing = wrapper.vm.annotationsByMotivation('linkForContributing');
+
+          expect(linkForContributing[0].motivation).toBe('linkForContributing');
+          expect(linkForContributing.length).toBe(1);
+        });
+      });
 
       describe('when asking for tagging annotations', () => {
         it('has a tagging motivation', async() => {

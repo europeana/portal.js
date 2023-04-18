@@ -56,6 +56,8 @@ export default {
     "skipSend": "Preskočiť a odoslať",
     "submitForPublication": "Odoslať na zverejnenie",
     "submittedForPublication": "Predložené na zverejnenie",
+    "transcribe": "Prepísať",
+    "transcribeNow": "Teraz prepíšte",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Téma",
     "time": "Storočia",
     "topic": "Téma"
+  },
+  "categories": {
+    "label": "Preskúmajte príbehy podľa tagov",
+    "noOptions": "Už nie sú žiadne tagy na výber",
+    "search": "Preskúmajte príbehy podľa tagov"
   },
   "clearAllFilters": "Vymazať všetky filtre",
   "collections": {
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "Odporúčame vám kliknúť na tlačidlo „Poskytujúca inštitúcia“ nižšie a skontrolovať, či je možné položku stiahnuť na webovej stránke poskytujúcej inštitúcie.",
       "message": "Ak sťahovanie nefunguje, môže to byť spôsobené tým, že ho odstránila poskytujúca inštitúcia, alebo môže nastať technický problém s jej službou.",
       "title": "Sťahovanie nefunguje"
+    },
+    "transcribe": {
+      "message": "Pridajte sa k nám na Europeana Transcribe, online občianskej iniciatíve na obohatenie zbierok Europeana",
+      "title": "Prepíšte túto položku"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
-    "readMore": "Viac",
+    "readMore": "Objavte príbehy",
     "text": {
-      "themes": "Preskúmajte európske kultúrne dedičstvo prostredníctvom tém, od archeológie po prvú svetovú vojnu. Naše nové tematické stránky ponúkajú viacrozmerný pohľad na každú tému prostredníctvom súvisiacich tém, ľudí, príbehov a predmetov."
+      "storiesTags": "Pozrite si aktualizovanú stránku Príbehy. Teraz môžete vyhľadávať a filtrovať podľa tagov."
     }
   },
   "newWindow": "otvorí sa v novom okne",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Pripnuté"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} nájdených príbehov",
     "title": "Príbehy"
   },
   "themes": {

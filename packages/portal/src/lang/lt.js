@@ -56,6 +56,8 @@ export default {
     "skipSend": "Praleisti ir siųsti",
     "submitForPublication": "Pateikti publikavimui",
     "submittedForPublication": "Pateikta publikuoti",
+    "transcribe": "Transkribuoti",
+    "transcribeNow": "Transkribuokite dabar",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
+  },
+  "categories": {
+    "label": "Naršykite istorijas pagal žymą",
+    "noOptions": "Daugiau pasirinktinų žymų nėra",
+    "search": "Naršykite istorijas pagal žymą"
   },
   "clearAllFilters": "išvalyti visus filtrus",
   "collections": {
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"Teikianti institucija“, kad patikrintumėte, ar elementą galima atsisiųsti iš teikiančios institucijos svetainės.",
       "message": "Jei atsisiuntimas neveikia, gali būti, kad jį pašalino teikianti institucija, arba gali kilti techninių problemų, susijusių su jų paslauga.",
       "title": "Atsisiųsti neveikia"
+    },
+    "transcribe": {
+      "message": "Prisijunkite prie Europeana Transcribe – internetinės piliečių iniciatyvos, skirtos „Europeanos“ kolekcijoms praturtinti",
+      "title": "Transkribuokite šį elementą"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
-    "readMore": "Skaityti daugiau",
+    "readMore": "Atraskite istorijas",
     "text": {
-      "themes": "Tyrinėkite Europos kultūros paveldą per temas, pradedant archeologija ir baigiant Pirmuoju pasauliniu karu. Mūsų naujuose teminiuose puslapiuose pateikiama įvairialypė kiekvienos temos vaizdas per susijusias temas, žmones, istorijas ir daiktus."
+      "storiesTags": "Peržiūrėkite atnaujintą istorijos puslapį. Dabar galite ieškoti ir filtruoti pagal žymas."
     }
   },
   "newWindow": "atsidaro naujame lange",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Prisegtas"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} rastos istorijos",
     "title": "Istorijos"
   },
   "themes": {

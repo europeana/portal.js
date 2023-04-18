@@ -56,6 +56,8 @@ export default {
     "skipSend": "Scipeáil agus seol",
     "submitForPublication": "Cuir isteach le foilsiú",
     "submittedForPublication": "Arna chur isteach le foilsiú",
+    "transcribe": "Tras-scríobh",
+    "transcribeNow": "Tras-scríobh anois",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Téama",
     "time": "Haois",
     "topic": "Ábhar"
+  },
+  "categories": {
+    "label": "Scrúdaigh scéalta trí chlib",
+    "noOptions": "Níl a thuilleadh clibeanna le roghnú",
+    "search": "Scrúdaigh scéalta trí chlib"
   },
   "clearAllFilters": "glan gach scagaire",
   "collections": {
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "Molaimid duit cliceáil ar an gcnaipe ‘Institiúid sholáthair’ thíos le seiceáil an féidir an mhír a íoslódáil ó shuíomh Gréasáin na hinstitiúide soláthair.",
       "message": "Mura n-oibríonn an t-íoslódáil, b'fhéidir gurb é an fáth gur bhain an institiúid sholáthair é, nó d'fhéadfadh fadhb theicniúil a bheith ann maidir lena seirbhís.",
       "title": "Íoslódáil nach bhfuil ag obair"
+    },
+    "transcribe": {
+      "message": "Cláraigh linn ar Europeana Transcribe, an tionscnamh saoránach ar líne chun bailiúcháin Europeana a shaibhriú",
+      "title": "Tras-scríobh an mhír seo"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dún",
-    "readMore": "Léigh níos mó",
+    "readMore": "Faigh amach scéalta",
     "text": {
-      "themes": "Déan iniúchadh ar oidhreacht chultúrtha na hEorpa trí théamaí, ón tseandálaíocht go dtí an Chéad Chogadh Domhanda. Tugann ár leathanaigh téama nua léargas iltoiseach ar gach téama trí ábhair, daoine, scéalta agus míreanna gaolmhara."
+      "storiesTags": "Amharc ar an leathanach Scéalta nuashonraithe. Is féidir leat cuardach agus scagadh de réir clibeanna anois."
     }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Pionnáilte"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} scéalta aimsithe",
     "title": "Scéalta"
   },
   "themes": {

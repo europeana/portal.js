@@ -56,6 +56,8 @@ export default {
     "skipSend": "Săriți și trimiteți",
     "submitForPublication": "Trimiteți spre publicare",
     "submittedForPublication": "Trimis spre publicare",
+    "transcribe": "Transcrie",
+    "transcribeNow": "Transcrie acum",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Temă",
     "time": "Secol",
     "topic": "Subiect"
+  },
+  "categories": {
+    "label": "Explorați poveștile după etichetă",
+    "noOptions": "Nu mai sunt etichete de selectat",
+    "search": "Explorați poveștile după etichetă"
   },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "Vă sfătuim să faceți clic pe butonul „Instituția de proveniență” de mai jos pentru a verifica dacă articolul poate fi descărcat de pe site-ul instituției furnizoare.",
       "message": "Dacă descărcarea nu funcționează, poate fi din cauză că a fost eliminată de instituția furnizoare sau poate exista o problemă tehnică cu serviciul acestora.",
       "title": "Descărcarea nu funcționează"
+    },
+    "transcribe": {
+      "message": "Alăturați-vă nouă pe Europeana Transcribe, inițiativa cetățenească online pentru îmbogățirea colecțiilor Europeana",
+      "title": "Transcrie acest articol"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Citește mai mult",
+    "readMore": "Descoperiți povești",
     "text": {
-      "themes": "Explorați patrimoniul cultural european prin intermediul unor teme, de la arheologie la Primul Război Mondial. Noile noastre pagini tematice oferă o perspectivă multidimensională asupra fiecărei teme prin intermediul unor subiecte, persoane, povești și obiecte conexe."
+      "storiesTags": "Consultați pagina Povești actualizată. Acum puteți căuta și filtra după etichete."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Fixat"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} povești găsite",
     "title": "Povești"
   },
   "themes": {

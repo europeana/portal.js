@@ -56,6 +56,8 @@ export default {
     "skipSend": "Overslaan en verzenden",
     "submitForPublication": "Indienen voor publicatie",
     "submittedForPublication": "Ingezonden voor publicatie",
+    "transcribe": "Transcriberen",
+    "transcribeNow": "Nu transcriberen",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Thema",
     "time": "Eeuw",
     "topic": "Onderwerp"
+  },
+  "categories": {
+    "label": "Verken verhalen op tag",
+    "noOptions": "Er zijn geen tags meer om te selecteren",
+    "search": "Verken verhalen op tag"
   },
   "clearAllFilters": "alle filters wissen",
   "collections": {
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "We raden u aan op de onderstaande knop 'Instituut' te klikken om na te gaan of het item kan worden gedownload op de website van de verstrekkende instelling.",
       "message": "Als de download niet werkt, kan het zijn dat deze is verwijderd door de verstrekkende instelling of dat er een technisch probleem is met hun service.",
       "title": "Downloaden werkt niet"
+    },
+    "transcribe": {
+      "message": "Doe met ons mee op Europeana Transcribe, het online burgerinitiatief voor de verrijking van Europeana's collecties",
+      "title": "Transcribeer dit item"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
-    "readMore": "Lees verder",
+    "readMore": "Ontdek verhalen",
     "text": {
-      "themes": "Verken het Europese culturele erfgoed met thema's, van archeologie tot de Eerste Wereldoorlog. Onze nieuwe themapagina's bieden een multidimensionaal beeld van elk thema via gerelateerde onderwerpen, mensen, verhalen en voorwerpen."
+      "storiesTags": "Bekijk de bijgewerkte verhalenpagina. U kunt nu zoeken en filteren op tags."
     }
   },
   "newWindow": "opent in nieuw venster",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Pinned"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} verhalen gevonden",
     "title": "Verhalen"
   },
   "themes": {
