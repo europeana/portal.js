@@ -50,7 +50,7 @@
           windows: [
             {
               manifestId: this.uri,
-              thumbnailNavigationPosition: 'far-right'
+              thumbnailNavigationPosition: 'off'
             }
           ],
           window: {
@@ -144,13 +144,35 @@
       },
 
       iiifPresentationApiVersion() {
-        if (this.manifest['@context'] === 'http://iiif.io/api/presentation/2/context.json') {
+        if (this.manifest?.['@context'] === 'http://iiif.io/api/presentation/2/context.json') {
           return 2;
-        } else if (this.manifest['@context'] === 'http://iiif.io/api/presentation/3/context.json') {
+        } else if (this.manifest?.['@context'] === 'http://iiif.io/api/presentation/3/context.json') {
           return 3;
         } else {
           return undefined;
         }
+      },
+
+      numberOfPages() {
+        if (this.iiifPresentationApiVersion === 2) {
+          return this.manifest.sequences.reduce((memo, sequence) => memo + sequence.canvases.length, 0);
+        } else if (this.iiifPresentationApiVersion === 3) {
+          return this.manifest.items.filter((item) => item.type === 'Canvas').length;
+        } else {
+          return 0;
+        }
+      },
+
+      miradorWindowId() {
+        return Object.keys(this.mirador.store.getState().windows)[0];
+      }
+    },
+
+    watch: {
+      numberOfPages(newVal) {
+        const thumbnailNavigationPosition = newVal >= 1 ? 'far-right' : 'off';
+        const action = window.Mirador.actions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
+        this.mirador.store.dispatch(action);
       }
     },
 
@@ -184,16 +206,15 @@
           break;
         case 'mirador/RECEIVE_ANNOTATION':
           if ((action.annotationJson.resources.length > 0)) {
-            const windowId = Object.keys(this.mirador.store.getState().windows)[0];
             if (!this.showAnnotations) {
               if (this.searchQuery) {
                 const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
                 const searchId = `${this.manifest.service['@id']}?q=${this.searchQuery}`;
 
-                const actionSearch = window.Mirador.actions.fetchSearch(windowId, companionWindowId, searchId, this.searchQuery);
+                const actionSearch = window.Mirador.actions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
                 this.mirador.store.dispatch(actionSearch);
               }
-              const action = window.Mirador.actions.toggleWindowSideBar(windowId);
+              const action = window.Mirador.actions.toggleWindowSideBar(this.miradorWindowId);
               this.mirador.store.dispatch(action);
               this.showAnnotations = true;
 
