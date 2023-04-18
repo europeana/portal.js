@@ -5,13 +5,13 @@ describe('plugins/europeana/edm/Aggregation', () => {
     describe('displayableWebResources', () => {
       it('filters web resources for edm:isShownBy and edm:hasView', () => {
         const edmIsShownBy = 'https://example.org/isShownBy.jpeg';
-        const edmHasView = ['https://example.org/hasView.jpeg'];
+        const hasView = ['https://example.org/hasView.jpeg'];
         const edm = {
           edmIsShownBy,
-          edmHasView,
+          hasView,
           webResources: [
             { about: edmIsShownBy },
-            { about: edmHasView[0] },
+            { about: hasView[0] },
             { about: 'https://example.org/other' }
           ]
         };
@@ -20,7 +20,7 @@ describe('plugins/europeana/edm/Aggregation', () => {
 
         expect(displayableWebResources.length).toBe(2);
         expect(displayableWebResources.find((wr) => wr.about === edmIsShownBy)).toBeTruthy();
-        expect(displayableWebResources.find((wr) => wr.about === edmHasView[0])).toBeTruthy();
+        expect(displayableWebResources.find((wr) => wr.about === hasView[0])).toBeTruthy();
       });
     });
 
