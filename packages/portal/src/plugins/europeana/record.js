@@ -6,7 +6,6 @@ import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './uti
 import search from './search.js';
 import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail.js';
 import Item from './edm/Item.js';
-import WebResource, { WEB_RESOURCE_FIELDS } from './edm/WebResource.js';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './media-proxy.js';
@@ -236,6 +235,8 @@ export default (context = {}) => {
         url: providerAggregation.edmIsShownAt, value: metadata.edmDataProvider
       };
 
+      const item = new Item(edm);
+
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
 
       return {
@@ -247,7 +248,7 @@ export default (context = {}) => {
         type: edm.type, // TODO: Evaluate if this is used, if not remove.
         isShownAt: providerAggregation.edmIsShownAt,
         metadata: Object.freeze(metadata),
-        media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type),
+        media: this.aggregationMedia(item, allMediaUris, edm.type),
         agents,
         concepts,
         timespans,
@@ -256,7 +257,7 @@ export default (context = {}) => {
         title: proxies.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
         metadataLanguage: prefLang,
-        iiifPresentationManifest: new Item(edm).iiifPresentationManifest
+        iiifPresentationManifest: item.iiifPresentationManifest
       };
     },
 
@@ -287,51 +288,31 @@ export default (context = {}) => {
       return uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
     },
 
-    aggregationMedia(aggregation, mediaUris, recordType) {
-      // Filter web resources to isShownBy and hasView, respecting the ordering
-      const media = mediaUris
-        .map((mediaUri) => aggregation.webResources.find((webResource) => mediaUri === webResource.about))
-        .map((webResource) => pick(webResource, WEB_RESOURCE_FIELDS));
+    // TODO: move to getter on Item or Aggregation class
+    aggregationMedia(item, mediaUris, recordType) {
+      let media;
+
+      // If the entire item is represented by a IIIF Presentation manifest, reduce
+      // web resources to one, reducing SSR response size and hydration cost
+      // for items with many web resources, all represented by a single manifest.
+      if (item.webResourceForIIIFPresentationManifest) {
+        media = [item.webResourceForIIIFPresentationManifest];
+      } else {
+        media = mediaUris.map((uri) => item.providerAggregation.webResources.find((wr) => wr.about === uri));
+      }
 
       for (const webResource of media) {
         // Inject thumbnail URLs
-        webResource.thumbnails = this.webResourceThumbnails(webResource, aggregation, recordType);
-
-        // Inject service definitions, e.g. for IIIF
-        // webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
-
-        // TODO: enable, once components / WebResource class can handle dctermsIsReferencedBy being object
-        // Inject dctermsIsReferencedBy, e.g. for IIIF Presentation manifests
-        // See: https://europeana.atlassian.net/browse/EC-6033
-        // (webResource.dctermsIsReferencedBy || []).forEach((dctermsIsReferencedBy, index) => {
-        //   const referencer = media.find((wr) => wr.about === dctermsIsReferencedBy);
-        //   if (referencer) {
-        //     webResource.dctermsIsReferencedBy[index] = referencer;
-        //   }
-        // }
+        webResource.thumbnails = this.webResourceThumbnails(webResource, item.providerAggregation, recordType);
 
         // Add isShownAt to disable download for these webresources as they ar website URLs and not actual media
-        if (webResource.about === aggregation.edmIsShownAt) {
+        if (webResource.about === item.providerAggregation.edmIsShownAt) {
           webResource.isShownAt = true;
         }
       }
 
-      // Crude check for IIIF content, which is to prevent newspapers from showing many
-      // IIIF viewers.
-      //
-      // Also greatly minimises response size, and hydration cost, for IIIF with
-      // many web resources, all of which are contained in a single manifest anyway.
-      let displayable;
-      if (new WebResource(media[0]).isIIIFPresentation) {
-        displayable = [media[0]];
-      } else if (media.some((resource) => new WebResource(resource).isIIIFImage)) {
-        displayable = [media.find((resource) => new WebResource(resource).isIIIFImage)];
-      } else {
-        displayable = media;
-      }
-
       // Sort by isNextInSequence property if present
-      return sortByIsNextInSequence(displayable).map(Object.freeze);
+      return sortByIsNextInSequence(media).map(Object.freeze);
     },
 
     /**

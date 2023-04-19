@@ -15,6 +15,7 @@ export default class Aggregation {
     return this.webResources.filter((wr) => wr.isIIIFPresentationManifest);
   }
 
+  // TODO: should this include edm:isShownAt? (for oEmbeds)
   get displayableWebResources() {
     return this.webResources.filter((wr) => (wr.about === this.edmIsShownBy) || this.hasView?.includes(wr.about));
   }

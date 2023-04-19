@@ -62,6 +62,16 @@ export default class Item {
     return null;
   }
 
+  get webResourceForIIIFPresentationManifest() {
+    if (this.iiifPresentationManifestForEveryDisplayableWebResource) {
+      return this.providerAggregation.displayableWebResources[0];
+    } else if (this.iiifPresentationManifestForWebResourceWithIIIFImageService) {
+      return this.webResourceWithIIIFImageService;
+    }
+
+    return null;
+  }
+
   get hasIIIFImageService() {
     return !!this.iiifImageService;
   }

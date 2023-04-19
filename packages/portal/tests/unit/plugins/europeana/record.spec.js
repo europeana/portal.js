@@ -44,6 +44,7 @@ const apiResponse = {
     europeanaCollectionName,
     aggregations: [
       {
+        about: `/aggregation/provider${europeanaId}`,
         edmIsShownAt,
         edmIsShownBy: edmIsShownByWebResource.about,
         hasView: [
@@ -107,6 +108,7 @@ const translateProfileApiResponse = {
     about: europeanaId,
     aggregations: [
       {
+        about: `/aggregation/provider${europeanaId}`,
         edmIsShownAt,
         edmIsShownBy: edmIsShownByWebResource.about,
         hasView: [
