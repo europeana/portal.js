@@ -5,7 +5,7 @@ export default class Item {
   constructor(edm) {
     for (const field in edm) {
       if (field === 'aggregations') {
-        this[field] = edm[field].map((wrEdm) => new Aggregation(wrEdm, edm.about));
+        this[field] = edm[field].map((aggEdm) => new Aggregation(aggEdm));
       } else if (field === 'services') {
         this[field] = edm[field].map((serviceEdm) => new Service(serviceEdm));
       } else {

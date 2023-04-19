@@ -57,13 +57,12 @@ export const WEB_RESOURCE_FIELDS = [
 ];
 
 export default class WebResource {
-  constructor(edm, itemId) {
+  constructor(edm) {
     for (const field of WEB_RESOURCE_FIELDS) {
       if (Object.keys(edm).includes(field)) {
         this[field] = edm[field];
       }
     }
-    this.itemId = itemId;
   }
 
   get id() {

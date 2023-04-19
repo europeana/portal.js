@@ -53,14 +53,14 @@ const sortByIsNextInSequence = (source) => {
 };
 
 export default class Aggregation {
-  constructor(edm, itemId) {
+  constructor(edm) {
     for (const field in edm) {
       if (field === 'webResources') {
         this[field] = edm[field].map((wrEdm) => new WebResource({
           ...wrEdm,
-          forEdmIsShownAt: wrEdm.about === edm.isShownAt,
-          thumbnail: ([edm.isShownBy, edm.isShownAt].includes(wrEdm.about) && edm.edmObject) ? edm.edmObject : null
-        }, itemId));
+          forEdmIsShownAt: wrEdm.about === edm.edmIsShownAt,
+          thumbnail: ([edm.edmIsShownBy, edm.edmIsShownAt].includes(wrEdm.about) && edm.edmObject) ? edm.edmObject : null
+        }));
       } else {
         this[field] = edm[field];
       }
