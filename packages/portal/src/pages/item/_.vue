@@ -67,6 +67,7 @@
             class="col-lg-10"
           >
             <ItemDataProvider
+              v-if="!dataProviderEntityUri || dataProviderEntity"
               :data-provider="metadata.edmDataProvider"
               :data-provider-entity="dataProviderEntity"
               :metadata-language="metadataLanguage"
@@ -145,6 +146,7 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { isEntityUri } from '@/plugins/europeana/entity';
   import WebResource from '@/plugins/europeana/web-resource.js';
   import stringify from '@/mixins/stringify';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -290,6 +292,9 @@
         }
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
+      dataProviderEntityUri() {
+        return isEntityUri(this.metadata.edmDataProvider?.['def']?.[0].about) ? this.metadata.edmDataProvider?.['def']?.[0].about : null;
+      },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
       },
@@ -303,7 +308,7 @@
         shareUrl: 'http/canonicalUrlWithoutLocale'
       }),
       relatedEntityUris() {
-        return this.europeanaEntityUris.filter(entityUri => entityUri !== this.metadata.edmDataProvider?.['def']?.[0].about).slice(0, 5);
+        return this.europeanaEntityUris.filter(entityUri => entityUri !== this.dataProviderEntityUri).slice(0, 5);
       },
       translatedItemsEnabled() {
         return this.$features.translatedItems;
@@ -321,12 +326,15 @@
     watch: {
       '$route.query.lang'() {
         this.$fetch();
+      },
+      'relatedEntityUris'() {
+        this.fetchEntities();
       }
     },
 
     mounted() {
-      this.fetchAnnotations();
       this.fetchEntities();
+      this.fetchAnnotations();
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }
@@ -355,13 +363,35 @@
       },
 
       async fetchEntities() {
-        const entities = await this.$apis.entity.find([...this.europeanaEntityUris, this.metadata.edmDataProvider?.['def']?.[0].about] , {
+        const params = {
           fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo'
-        });
+        };
+        if(this.dataProviderEntityUri) {
+          // Fetch related entities and the dataProvider entity.
+          // If the entities can't be fetched, use existing data from the record for the dataProvider section
+          try {
+            const entities = await this.$apis.entity.find([...this.relatedEntityUris, this.dataProviderEntityUri], params);
 
-        if (entities)  {
-          this.relatedCollections = entities.filter(entity => entity.id !== this.metadata.edmDataProvider?.['def']?.[0].about);
-          this.dataProviderEntity = entities.filter(entity => entity.id === this.metadata.edmDataProvider?.['def']?.[0].about)[0];
+            if (entities)  {
+            if (entities)  {
+              this.relatedCollections = entities.filter(entity => entity.id !== this.dataProviderEntityUri);
+              this.dataProviderEntity = entities.filter(entity => entity.id === this.dataProviderEntityUri)[0];
+            }
+          } catch (e) {
+            const prefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
+            Object.keys(prefLabel).forEach((key, i) => {
+              if(Array.isArray(prefLabel[key])) {
+                prefLabel[key] = prefLabel[key][0];
+              }
+            });
+            this.dataProviderEntity = { id: this.dataProviderEntityUri, prefLabel, type: 'Organization' };
+          }
+        } else {
+
+          const entities  = await this.$apis.entity.find(this.relatedEntityUris, params);
+          if (entities)  {
+            this.relatedCollections = entities;
+          }
         }
       }
     }

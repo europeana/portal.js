@@ -14,7 +14,7 @@
           data-qa="data provider badge"
           badge-variant="secondary"
           :link-to="collectionLinkGen(dataProviderEntity)"
-          :title="dataProviderEntity.prefLabel"
+          :title="collectionTitle(dataProviderEntity)"
           :img="$apis.entity.imageUrl(dataProviderEntity)"
           type="Organization"
         />
@@ -42,6 +42,7 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
+  import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
 
   import LinkBadge from '../generic/LinkBadge';
 
@@ -54,7 +55,8 @@
     },
     mixins: [
       itemPrefLanguage,
-      collectionLinkGenMixin
+      collectionLinkGenMixin,
+      europeanaEntityLinks
     ],
     props: {
       dataProvider: {
@@ -77,11 +79,11 @@
 
     computed: {
       namePrefLanguage() {
-        return this.dataProviderEntity ? null : this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
+        return this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
       },
       nativeName() {
         if (!this.dataProviderEntity) {
-          return langMapValueForLocale(this.dataProvider, this.nameFallbackPrefLanguage).values[0];
+          return langMapValueForLocale(this.dataProvider, this.namePrefLanguage).values[0];
         }
         return null;
       }
