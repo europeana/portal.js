@@ -1,5 +1,6 @@
 import pick from 'lodash/pick.js';
 import uniq from 'lodash/uniq.js';
+import mime from 'mime-types';
 import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
@@ -259,9 +260,7 @@ export default (context = {}) => {
     },
 
     // TODO: move to web-resource.js
-    webResourceThumbnails(webResource, aggregation, recordType) {
-      const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
-
+    webResourceThumbnails(webResource, aggregation, edmType) {
       let uri = webResource.about;
       if (aggregation.edmObject && ([aggregation.edmIsShownBy, aggregation.edmIsShownAt].includes(uri))) {
         uri = aggregation.edmObject;
@@ -270,11 +269,11 @@ export default (context = {}) => {
       return {
         small: thumbnailUrl(uri, {
           size: 200,
-          type
+          type: edmType
         }),
         large: thumbnailUrl(uri, {
           size: 400,
-          type
+          type: edmType
         })
       };
     },
@@ -292,8 +291,11 @@ export default (context = {}) => {
         .map((webResource) => pick(webResource, WEB_RESOURCE_FIELDS));
 
       for (const webResource of media) {
+        // Derive and inject edm:type
+        webResource.edmType = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType || mime.lookup(webResource.about)) || recordType;
+
         // Inject thumbnail URLs
-        webResource.thumbnails = this.webResourceThumbnails(webResource, aggregation, recordType);
+        webResource.thumbnails = this.webResourceThumbnails(webResource, aggregation, webResource.edmType);
 
         // Inject service definitions, e.g. for IIIF
         webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));

@@ -33,6 +33,7 @@ export const WEB_RESOURCE_FIELDS = [
   'ebucoreHeight',
   'ebucoreWidth',
   'edmCodecName',
+  'edmType',
   'isNextInSequence',
   'svcsHasService',
   'webResourceEdmRights',
@@ -81,7 +82,9 @@ export default class WebResource {
 
   // TODO: 3D media types?
   get edmType() {
-    if (this.hasImageMediaType) {
+    if (this['_edmType']) {
+      return this['_edmType'];
+    } else if (this.hasImageMediaType) {
       return EDM_TYPE_IMAGE;
     } else if (this.hasSoundMediaType) {
       return EDM_TYPE_SOUND;
@@ -92,6 +95,10 @@ export default class WebResource {
     } else {
       return undefined;
     }
+  }
+
+  set edmType(edmType) {
+    this['_edmType'] = edmType;
   }
 
   get isHTMLVideo() {
