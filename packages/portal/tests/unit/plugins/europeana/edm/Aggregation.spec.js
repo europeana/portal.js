@@ -2,12 +2,58 @@ import Aggregation from '@/plugins/europeana/edm/Aggregation';
 
 describe('plugins/europeana/edm/Aggregation', () => {
   describe('Aggregation', () => {
+    describe('constructor', () => {
+      describe('edm:isShownBy web resource', () => {
+        const edmIsShownBy = 'https://example.org/isShownBy.jpeg';
+        const edmObject = 'https://example.org/object.jpeg';
+        const edm = {
+          edmIsShownBy,
+          edmObject,
+          webResources: [
+            { about: edmIsShownBy }
+          ]
+        };
+
+        it('gets edm:object as thumbnail', () => {
+          const aggregation = new Aggregation(edm);
+
+          expect(aggregation.webResources[0].thumbnail).toBe(edmObject);
+        });
+      });
+
+      describe('edm:isShownAt web resource', () => {
+        const edmIsShownAt = 'https://example.org/isShownBy.jpeg';
+        const edmObject = 'https://example.org/object.jpeg';
+        const edm = {
+          edmIsShownAt,
+          edmObject,
+          webResources: [
+            { about: edmIsShownAt }
+          ]
+        };
+
+        it('gets edm:object as thumbnail', () => {
+          const aggregation = new Aggregation(edm);
+
+          expect(aggregation.webResources[0].thumbnail).toBe(edmObject);
+        });
+
+        it('gets forEdmIsShownAt set to `true`', () => {
+          const aggregation = new Aggregation(edm);
+
+          expect(aggregation.webResources[0].forEdmIsShownAt).toBe(true);
+        });
+      });
+    });
+
     describe('displayableWebResources', () => {
       it('filters web resources for edm:isShownBy and edm:hasView', () => {
+        const edmIsShownAt = 'https://example.org/isShownAt.jpeg';
         const edmIsShownBy = 'https://example.org/isShownBy.jpeg';
         const hasView = ['https://example.org/hasView.jpeg'];
         const edm = {
           edmIsShownBy,
+          edmIsShownAt,
           hasView,
           webResources: [
             { about: edmIsShownBy },
@@ -20,6 +66,26 @@ describe('plugins/europeana/edm/Aggregation', () => {
 
         expect(displayableWebResources.length).toBe(2);
         expect(displayableWebResources.find((wr) => wr.about === edmIsShownBy)).toBeTruthy();
+        expect(displayableWebResources.find((wr) => wr.about === hasView[0])).toBeTruthy();
+      });
+
+      it('includes edm:isShownAt if no edm:isShownBy', () => {
+        const edmIsShownAt = 'https://example.org/isShownAt.jpeg';
+        const hasView = ['https://example.org/hasView.jpeg'];
+        const edm = {
+          edmIsShownAt,
+          hasView,
+          webResources: [
+            { about: edmIsShownAt },
+            { about: hasView[0] },
+            { about: 'https://example.org/other' }
+          ]
+        };
+
+        const displayableWebResources = new Aggregation(edm).displayableWebResources;
+
+        expect(displayableWebResources.length).toBe(2);
+        expect(displayableWebResources.find((wr) => wr.about === edmIsShownAt)).toBeTruthy();
         expect(displayableWebResources.find((wr) => wr.about === hasView[0])).toBeTruthy();
       });
     });
