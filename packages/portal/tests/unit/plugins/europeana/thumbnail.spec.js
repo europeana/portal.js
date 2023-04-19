@@ -1,6 +1,4 @@
-import thumbnail, {
-  thumbnailTypeForMimeType
-} from '@/plugins/europeana/thumbnail';
+import thumbnail from '@/plugins/europeana/thumbnail';
 
 describe('plugins/europeana/thumbnail', () => {
   describe('default export', () => {
