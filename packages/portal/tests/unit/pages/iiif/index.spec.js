@@ -22,9 +22,15 @@ describe('pages/iiif/index.vue', () => {
     window.Mirador = {
       viewer: sinon.stub().returns({
         store: {
+          dispatch: sinon.stub(),
+          getState: sinon.stub().returns({ windows: { '001': {} } }),
           subscribe: sinon.stub()
         }
-      })
+      }),
+      actions: {
+        setWindowThumbnailPosition: sinon.stub(),
+        updateWindow: sinon.stub()
+      }
     };
   });
 
@@ -257,6 +263,50 @@ describe('pages/iiif/index.vue', () => {
             },
             'http://localhost'
           )).toBe(true);
+        });
+      });
+    });
+
+    describe('postprocessMiradorRequest', () => {
+      describe('upon receiving annotations', () => {
+        it('allows and opens the side bar', async() => {
+          const manifest = {
+            '@context': 'http://iiif.io/api/presentation/2/context.json'
+          };
+          const wrapper = factory({ data: { manifest } });
+
+          await wrapper.vm.$nextTick();
+
+          const action = { annotationJson: { resources: [{}] },
+            type: 'mirador/RECEIVE_ANNOTATION' };
+          wrapper.vm.postprocessMiradorAnnotation = () => {};
+          wrapper.vm.postprocessMiradorRequest(undefined, action);
+
+          expect(wrapper.vm.mirador.store.dispatch.calledWith(
+            window.Mirador.actions.updateWindow(wrapper.vm.miradorWindowId, {
+              allowWindowSideBar: true,
+              sideBarOpen: true
+            }))).toBe(true);
+        });
+      });
+    });
+  });
+
+  describe('watch', () => {
+    describe('numberOPages', () => {
+      describe('when there are multiple pages', () => {
+        it('sets the thumbnails position and enables the top menu button', async() => {
+          const manifest = {
+            '@context': 'http://iiif.io/api/presentation/2/context.json',
+            sequences: [{ canvases: [{}] }]
+          };
+          const wrapper = factory({ data: { manifest } });
+
+          wrapper.vm.manifest.sequences = [{ canvases: [{}] }, { canvases: [{}] }];
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.mirador.store.dispatch.calledWith(window.Mirador.actions.setWindowThumbnailPosition(wrapper.vm.miradorWindowId, 'far-right'))).toBe(true);
+          expect(wrapper.vm.mirador.store.dispatch.calledWith(window.Mirador.actions.updateWindow(wrapper.vm.miradorWindowId, { allowTopMenuButton: true }))).toBe(true);
         });
       });
     });
