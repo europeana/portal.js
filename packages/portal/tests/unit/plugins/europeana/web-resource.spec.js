@@ -12,6 +12,12 @@ describe('plugins/europeana/web-resource', () => {
     });
 
     describe('.edmType', () => {
+      it('returns stored value if explicitly set', () => {
+        const wr = new WebResource({ edmType: '3D' });
+
+        expect(wr.edmType).toBe('3D');
+      });
+
       it('is IMAGE if ebucoreHasMimeType starts with image/', () => {
         const wr = new WebResource({ ebucoreHasMimeType: 'image/jpeg' });
 
