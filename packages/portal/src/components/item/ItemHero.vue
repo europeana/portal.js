@@ -186,7 +186,7 @@
         }
       },
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt;
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;

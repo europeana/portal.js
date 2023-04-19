@@ -211,7 +211,7 @@
           title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
           description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
           ogType: 'article',
-          ogImage: this.webResources[0]?.thumbnails?.large
+          ogImage: this.webResources[0]?.thumbnails(this.$nuxt.context)?.large
         };
       },
       keywords() {

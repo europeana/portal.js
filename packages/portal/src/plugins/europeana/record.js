@@ -1,10 +1,8 @@
 import pick from 'lodash/pick.js';
-import uniq from 'lodash/uniq.js';
 import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
 import search from './search.js';
-import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail.js';
 import Item from './edm/Item.js';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
@@ -13,58 +11,6 @@ import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './media-proxy.js';
 export const BASE_URL = 'https://api.europeana.eu/record';
 export const AUTHENTICATING = true;
 const MAX_VALUES_PER_PROXY_FIELD = 10;
-
-/**
- * Sorts an array of objects by the `isNextInSequence` property.
- *
- * Logic:
- * * Any objects not having `isNextInSequence` will not be moved.
- * * Any objects having `isNextInSequence` will be moved to the position
- *   immediately following the other object whose `about` property matches this
- *   one's `isNextInSequence`
- *
- * @param {Object[]} source items to sort
- * @return {Object[]} sorted items
- * @example
- *    const unsorted = [
- *      { about: 'd', isNextInSequence: 'c' },
- *      { about: 'b', isNextInSequence: 'a' },
- *      { about: 'a' },
- *      { about: 'c', isNextInSequence: 'b' }
- *    ];
- *    const sorted = sortByIsNextInSequence(unsorted);
- *    console.log(sorted[0].about); // expected output: 'a'
- *    console.log(sorted[1].about); // expected output: 'b'
- *    console.log(sorted[2].about); // expected output: 'c'
- *    console.log(sorted[3].about); // expected output: 'd'
- */
-function sortByIsNextInSequence(source) {
-  // Make a copy to work on
-  const items = [].concat(source);
-
-  const itemUris = items.map((item) => item.about);
-
-  for (const uri of itemUris) {
-    // It's necessary to find the item on each iteration to sort as it may have
-    // been moved from its original position by a previous iteration.
-    const sortItemIndex = items.findIndex((item) => item.about === uri);
-    const sortItem = items[sortItemIndex];
-
-    // If it has isNextInSequence property, move it after that item; else
-    // leave it be.
-    if (sortItem.isNextInSequence) {
-      const isPreviousInSequenceIndex = items.findIndex((item) => item.about === sortItem.isNextInSequence);
-      if (isPreviousInSequenceIndex !== -1) {
-        // Remove the item from its original position.
-        items.splice(sortItemIndex, 1);
-        // Insert the item after its predecessor.
-        items.splice(isPreviousInSequenceIndex + 1, 0, sortItem);
-      }
-    }
-  }
-
-  return items;
-}
 
 function isUndefined(value) {
   return value === undefined;
@@ -143,7 +89,6 @@ const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
 
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
-  const thumbnailUrl = thumbnail(context).media;
 
   return {
     $axios,
@@ -237,18 +182,16 @@ export default (context = {}) => {
 
       const item = new Item(edm);
 
-      const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
-
       return {
-        allMediaUris,
+        allMediaUris: item.providerAggregation.displayableWebResources.map((wr) => wr.about),
         altTitle: proxies.dctermsAlternative,
         description: proxies.dcDescription,
         fromTranslationError: options.fromTranslationError,
         identifier: edm.about,
         type: edm.type, // TODO: Evaluate if this is used, if not remove.
-        isShownAt: providerAggregation.edmIsShownAt,
+        isShownAt: item.providerAggregation.edmIsShownAt,
         metadata: Object.freeze(metadata),
-        media: this.aggregationMedia(item, allMediaUris, edm.type),
+        media: item.providerAggregation.displayableWebResources,
         agents,
         concepts,
         timespans,
@@ -259,60 +202,6 @@ export default (context = {}) => {
         metadataLanguage: prefLang,
         iiifPresentationManifest: item.iiifPresentationManifest
       };
-    },
-
-    // TODO: move to web-resource.js
-    webResourceThumbnails(webResource, aggregation, recordType) {
-      const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
-
-      let uri = webResource.about;
-      if (aggregation.edmObject && ([aggregation.edmIsShownBy, aggregation.edmIsShownAt].includes(uri))) {
-        uri = aggregation.edmObject;
-      }
-
-      return {
-        small: thumbnailUrl(uri, {
-          size: 200,
-          type
-        }),
-        large: thumbnailUrl(uri, {
-          size: 400,
-          type
-        })
-      };
-    },
-
-    aggregationMediaUris(aggregation) {
-      // Gather all isShownBy/At and hasView URIs
-      const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
-      return uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
-    },
-
-    // TODO: move to getter on Item or Aggregation class
-    aggregationMedia(item, mediaUris, recordType) {
-      let media;
-
-      // If the entire item is represented by a IIIF Presentation manifest, reduce
-      // web resources to one, reducing SSR response size and hydration cost
-      // for items with many web resources, all represented by a single manifest.
-      if (item.webResourceForIIIFPresentationManifest) {
-        media = [item.webResourceForIIIFPresentationManifest];
-      } else {
-        media = mediaUris.map((uri) => item.providerAggregation.webResources.find((wr) => wr.about === uri));
-      }
-
-      for (const webResource of media) {
-        // Inject thumbnail URLs
-        webResource.thumbnails = this.webResourceThumbnails(webResource, item.providerAggregation, recordType);
-
-        // Add isShownAt to disable download for these webresources as they ar website URLs and not actual media
-        if (webResource.about === item.providerAggregation.edmIsShownAt) {
-          webResource.isShownAt = true;
-        }
-      }
-
-      // Sort by isNextInSequence property if present
-      return sortByIsNextInSequence(media).map(Object.freeze);
     },
 
     /**

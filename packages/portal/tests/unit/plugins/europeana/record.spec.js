@@ -442,38 +442,6 @@ describe('plugins/europeana/record', () => {
             expect(response.record.media[2].about).toBe(edmHasViewWebResourceSecond.about);
             expect(response.record.media[3].about).toBe(edmHasViewWebResourceThird.about);
           });
-
-          describe('injected thumbnail URLs', () => {
-            describe('when item has a supported MIME type', () => {
-              const item = edmHasViewWebResourceFirst;
-              it('includes item-specific-type thumbnails', async() => {
-                const expectedThumbnails = {
-                  small: 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fimage1.jpeg&size=w200&type=IMAGE',
-                  large: 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fimage1.jpeg&size=w400&type=IMAGE'
-                };
-
-                const response = await record().getRecord(europeanaId);
-                const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
-
-                expect(actualThumbnails).toEqual(expectedThumbnails);
-              });
-            });
-
-            describe('when item has an unsupported MIME type', () => {
-              const item = edmHasViewWebResourceThird;
-              it('includes record-type thumbnails', async() => {
-                const expectedThumbnails = {
-                  small: 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Funknown.bin&size=w200&type=TEXT',
-                  large: 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Funknown.bin&size=w400&type=TEXT'
-                };
-
-                const response = await record().getRecord(europeanaId);
-                const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
-
-                expect(actualThumbnails).toEqual(expectedThumbnails);
-              });
-            });
-          });
         });
 
         it('includes agents, reduced to about and prefLabel', async() => {

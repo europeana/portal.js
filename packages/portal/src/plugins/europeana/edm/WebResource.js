@@ -1,4 +1,5 @@
 import { oEmbeddable } from '../../oembed/index.js';
+import thumbnail from  '../thumbnail.js';
 import { IIIF_PRESENTATION_API_URL } from '../iiif/index.js';
 
 const MEDIA_TYPE_APPLICATION = 'application';
@@ -48,10 +49,10 @@ export const WEB_RESOURCE_FIELDS = [
   'ebucoreWidth',
   'edmCodecName',
   'isNextInSequence',
-  'isShownAt',
   'rdfType',
   'svcsHasService',
-  'thumbnails',
+  'thumbnail',
+  'forEdmIsShownAt',
   'webResourceEdmRights'
 ];
 
@@ -87,6 +88,19 @@ export default class WebResource {
 
   get mediaType() {
     return this.ebucoreHasMimeType;
+  }
+
+  // TODO: refactor as a getter, not requiring passing Nuxt context,
+  //       or move out into Nuxt mixin?
+  thumbnails(context) {
+    const thumbnailUrl = thumbnail(context).media;
+
+    const uri = this.thumbnail || this.about;
+
+    return {
+      small: thumbnailUrl(uri, { size: 200 }),
+      large: thumbnailUrl(uri, { size: 400 })
+    };
   }
 
   get codecName() {

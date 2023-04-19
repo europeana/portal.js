@@ -65,6 +65,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
     $matomo: {
       trackPageView: sinon.spy()
     },
+    $nuxt: { context: {} },
     $error: sinon.spy(),
     ...mocks
   },
@@ -302,21 +303,19 @@ describe('pages/item/_.vue', () => {
   describe('computed', () => {
     describe('pageMeta', () => {
       it('uses first media large thumbnail for og:image', async() => {
-        const thumbnailUrl = 'http://example.org/image/large.jpg';
+        const mediaUrl = 'http://example.org/image.jpeg';
         const wrapper = factory();
         await wrapper.setData({
           media: [
             {
-              thumbnails: {
-                large: thumbnailUrl
-              }
+              about: mediaUrl
             }
           ]
         });
 
         const pageMeta = wrapper.vm.pageMeta;
 
-        expect(pageMeta.ogImage).toBe(thumbnailUrl);
+        expect(pageMeta.ogImage).toBe('https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0');
       });
 
       it('uses the title in current language', async() => {
