@@ -92,47 +92,4 @@ describe('plugins/europeana/thumbnail', () => {
       });
     });
   });
-
-  describe('thumbnailTypeForMimeType()', () => {
-    describe('when MIME type starts with "image/"', () => {
-      it('is "IMAGE"', () => {
-        expect(thumbnailTypeForMimeType('image/jpeg')).toBe('IMAGE');
-      });
-    });
-    describe('when MIME type starts with "audio/"', () => {
-      it('is "SOUND"', () => {
-        expect(thumbnailTypeForMimeType('audio/ogg')).toBe('SOUND');
-      });
-    });
-    describe('when MIME type starts with "video/"', () => {
-      it('is "VIDEO"', () => {
-        expect(thumbnailTypeForMimeType('video/mp4')).toBe('VIDEO');
-      });
-    });
-    describe('when MIME type starts with "text/"', () => {
-      it('is "TEXT"', () => {
-        expect(thumbnailTypeForMimeType('text/plain')).toBe('TEXT');
-      });
-    });
-    describe('when MIME type is "application/pdf"', () => {
-      it('is "TEXT"', () => {
-        expect(thumbnailTypeForMimeType('application/pdf')).toBe('TEXT');
-      });
-    });
-    describe('when MIME type is "application/rtf"', () => {
-      it('is "TEXT"', () => {
-        expect(thumbnailTypeForMimeType('application/rtf')).toBe('TEXT');
-      });
-    });
-    describe('when MIME type is anything else', () => {
-      it('is null', () => {
-        expect(thumbnailTypeForMimeType('application/octet-stream')).toBe(null);
-      });
-    });
-    describe('when MIME type is undefined', () => {
-      it('is null', () => {
-        expect(thumbnailTypeForMimeType(undefined)).toBe(null);
-      });
-    });
-  });
 });

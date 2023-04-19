@@ -9,30 +9,6 @@ import { preferredAPIBaseURL } from './utils.js';
 
 export const BASE_URL = 'https://api.europeana.eu/thumbnail/v3';
 
-export const thumbnailTypeForMimeType = (mimeType) => {
-  let thumbnailType = null;
-
-  switch (true) {
-    case typeof mimeType === 'undefined':
-      break;
-    case mimeType.startsWith('image/'):
-      thumbnailType = 'IMAGE';
-      break;
-    case mimeType.startsWith('audio/'):
-      thumbnailType = 'SOUND';
-      break;
-    case mimeType.startsWith('video/'):
-      thumbnailType = 'VIDEO';
-      break;
-    case mimeType.startsWith('text/'):
-    case ['application/pdf', 'application/rtf'].includes(mimeType):
-      thumbnailType = 'TEXT';
-      break;
-  }
-
-  return thumbnailType;
-};
-
 export default (context = {}) => {
   const baseUrl = preferredAPIBaseURL({ id: 'thumbnail', baseURL: BASE_URL }, context);
   if (!baseUrl.endsWith('/v3')) {
