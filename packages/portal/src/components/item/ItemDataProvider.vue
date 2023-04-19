@@ -3,6 +3,7 @@
     class="data-provider"
   >
     <i18n
+      v-if="dataProviderEntity || dataProvider"
       data-qa="data provider attribution"
       path="provider.providedBy"
       tag="div"

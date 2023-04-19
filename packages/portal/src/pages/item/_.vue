@@ -67,8 +67,7 @@
             class="col-lg-10"
           >
             <ItemDataProvider
-              v-if="!dataProviderEntityUri || dataProviderEntity"
-              :data-provider="metadata.edmDataProvider"
+              :data-provider="!dataProviderEntityUri ? metadata.edmDataProvider : null"
               :data-provider-entity="dataProviderEntity"
               :metadata-language="metadataLanguage"
               :is-shown-at="isShownAt"
@@ -99,7 +98,7 @@
               class="col-lg-10 mt-4"
             >
               <EntityBadges
-                :relatedCollections="relatedCollections"
+                :related-collections="relatedCollections"
                 data-qa="related entities"
               />
             </b-col>
@@ -209,7 +208,6 @@
         }
 
         if (process.client) {
-
           this.trackCustomDimensions();
         }
       } catch (e) {
@@ -366,7 +364,7 @@
         const params = {
           fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo'
         };
-        if(this.dataProviderEntityUri) {
+        if (this.dataProviderEntityUri) {
           // Fetch related entities and the dataProvider entity.
           // If the entities can't be fetched, use existing data from the record for the dataProvider section
           try {
@@ -378,15 +376,16 @@
             }
           } catch (e) {
             const prefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
-            Object.keys(prefLabel).forEach((key, i) => {
-              if(Array.isArray(prefLabel[key])) {
-                prefLabel[key] = prefLabel[key][0];
-              }
-            });
-            this.dataProviderEntity = { id: this.dataProviderEntityUri, prefLabel, type: 'Organization' };
+            if (prefLabel) {
+              Object.keys(prefLabel).forEach((key) => {
+                if (Array.isArray(prefLabel[key])) {
+                  prefLabel[key] = prefLabel[key][0];
+                }
+              });
+              this.dataProviderEntity = { id: this.dataProviderEntityUri, prefLabel, type: 'Organization' };
+            }
           }
         } else {
-
           const entities  = await this.$apis.entity.find(this.relatedEntityUris, params);
           if (entities)  {
             this.relatedCollections = entities;
