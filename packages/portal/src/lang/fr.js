@@ -97,9 +97,9 @@ export default {
     "topic": "Sujet"
   },
   "categories": {
-    "label": "Explorer les histoires par tag",
+    "label": "Explorez les histoires par tag",
     "noOptions": "Il n'y a plus de balises à sélectionner",
-    "search": "Explorer les histoires par tag"
+    "search": "Explorez les histoires par tag"
   },
   "clearAllFilters": "Effacer tous les filtres",
   "collections": {
@@ -152,7 +152,7 @@ export default {
     },
     "headerNavigation": {
       "Collections": "Collections",
-      "explore": "Explorer",
+      "explore": "Explorez",
       "teachers": "Enseignants"
     }
   },
@@ -262,7 +262,7 @@ export default {
     "chapters": "Chapitres",
     "credits": "Crédits",
     "currentChapter": "Chapitre actuel",
-    "description": "Découvrez les expositions",
+    "description": "Explorez les expositions",
     "exhibitions": "Expositions"
   },
   "explore": "Explorez",
@@ -788,7 +788,7 @@ export default {
     "storiesCTA": "Voir toutes les histoires",
     "subHeadline": "Recherchez, enregistrez et partagez des œuvres d’art, des livres, des films et de la musique issues de milliers d’institutions culturelles",
     "themesCTA": "Voir tous les thèmes",
-    "themesTitle": "Explorer par thème",
+    "themesTitle": "Explorez par thème",
     "title": "Découvrez le patrimoine culturel {digital} européen",
     "titleDigital": "numérique"
   },
@@ -971,7 +971,7 @@ export default {
     },
     "allMetaData": "Toutes les métadonnées",
     "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
-    "exploreMore": "En savoir plus",
+    "exploreMore": "Explorez plus",
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
     "hideAll": "Masquer toutes les informations",
