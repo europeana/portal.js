@@ -214,8 +214,12 @@
                 const actionSearch = window.Mirador.actions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
                 this.mirador.store.dispatch(actionSearch);
               }
-              const action = window.Mirador.actions.toggleWindowSideBar(this.miradorWindowId);
-              this.mirador.store.dispatch(action);
+              const openSideBarOptions = {
+                allowWindowSideBar: true,
+                sideBarOpen: true
+              };
+              const actionShow = window.Mirador.actions.updateWindow(this.miradorWindowId, openSideBarOptions);
+              this.mirador.store.dispatch(actionShow);
               this.showAnnotations = true;
             }
           }
