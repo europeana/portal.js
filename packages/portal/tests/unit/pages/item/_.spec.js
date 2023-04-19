@@ -176,6 +176,17 @@ describe('pages/item/_.vue', () => {
         )).toBe(true);
       });
     });
+
+    describe('client side fetching', () => {
+      const $fetchState = { pending: false };
+
+      it('gets entities and annotations', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
+
+        expect(wrapper.vm.fetchEntities.called).toBe(true);
+        expect(wrapper.vm.fetchAnnotations.called).toBe(true);
+      });
+    });
   });
 
   describe('methods', () => {
@@ -297,6 +308,33 @@ describe('pages/item/_.vue', () => {
         });
       });
     });
+
+    describe('fetchEntities', () => {
+      describe('when there is an entity URI in the dataProvider attribute', () => {
+        describe('when entities can be retrieved', () => {
+          it('fetches the first 5 entity URIs as relatedCollections and the dataProvider entity', () => {
+            expect(pending).toBe(true);
+          });
+        });
+        describe('when entities can NOT be retrieved', () => {
+          describe('when there is a prefLabel to use', () => {
+            it('uses the record data to fill in the dataProviderEntity', () => {
+              expect(pending).toBe(true);
+            });
+          });
+          describe('when there is NO prefLabel to use, like for example when the translate profile is active', () => {
+            it('uses the record data to fill in the dataProviderEntity', () => {
+              expect(pending).toBe(true);
+            });
+          });
+        });
+      });
+      describe('when the data provider is a langMap not an entity', () => {
+        it('fetches the first 5 entity URIs as relatedCollections', () => {
+          expect(pending).toBe(true);
+        });
+      });
+    });
   });
 
   describe('computed', () => {
@@ -327,6 +365,11 @@ describe('pages/item/_.vue', () => {
         const pageMeta = wrapper.vm.pageMeta;
 
         expect(pageMeta.title).toBe('Item example');
+      });
+    });
+    describe('relatedEntityUris', () => {
+      it('limits the total to 5 and does not include the dataProvider entity', () => {
+        expect(pending).toBe(true);
       });
     });
   });

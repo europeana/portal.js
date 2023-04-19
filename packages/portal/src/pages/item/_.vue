@@ -375,6 +375,7 @@
               this.dataProviderEntity = entities.filter(entity => entity.id === this.dataProviderEntityUri)[0];
             }
           } catch (e) {
+            // should this log the error?
             const prefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
             if (prefLabel) {
               Object.keys(prefLabel).forEach((key) => {

@@ -28,15 +28,15 @@ const factory = () => shallowMount(ItemDataProvider, {
 });
 
 describe('components/item/ItemDataProvider', () => {
-  it('displays the data provider attribution', () => {
-    const wrapper = factory();
+  describe('when the provider is present as an entity', () => {
+    it('displays the data provider attribution', () => {
+      const wrapper = factory();
 
-    const attribution = wrapper.find('[data-qa="data provider attribution"]');
+      const attribution = wrapper.find('[data-qa="data provider attribution"]');
 
-    expect(attribution.exists()).toBe(true);
-  });
+      expect(attribution.exists()).toBe(true);
+    });
 
-  descibe('when the provider is present as an entity', () => {
     it('displays the data provider badge', () => {
       const wrapper = factory();
 
@@ -46,7 +46,15 @@ describe('components/item/ItemDataProvider', () => {
     });
   });
 
-  describe('when the provider is present as plain text only', () => {
+  describe('when the provider is present as a langmap', () => {
+    it('displays the data provider attribution', () => {
+      const wrapper = factory();
+
+      const attribution = wrapper.find('[data-qa="data provider attribution"]');
+
+      expect(attribution.exists()).toBe(true);
+    });
+
     it('displays the data provider name', () => {
       const wrapper = factory();
 
@@ -56,51 +64,17 @@ describe('components/item/ItemDataProvider', () => {
     });
   });
 
-  describe('fetch', () => {
-    describe('when the provider is a europeana entity', () => {
-      describe('when the entity can be retrieved', () => {
-        it('uses the entity response', () => {
-          const wrapper = factory();
+  describe('when there is an isShownAt', () => {
+    it('displays the data provider name', () => {
+      const wrapper = factory();
 
-          const providerEntity = wrapper.vm.providerEntity;
+      const link = wrapper.find('SmartLink[data-qa="data provider name"]');
 
-          expect(providerEntity).toBe(fromAPI);
-        });
-      });
-
-      describe('when the entity can not be retrieved', () => {
-        it('falls back to the props data', () => {
-          const wrapper = factory();
-
-          const providerEntity = wrapper.vm.providerEntity;
-
-          expect(providerEntity).toBe(fromProps);
-        });
-      });
+      expect(link.exists()).toBe(true);
     });
   });
 
   describe('computed', () => {
-    describe('isEuropeanaEntity', () => {
-      it('uses the misnEntityUri Mixin to determine if the URL conforms', () => {
-        const wrapper = factory();
-
-        wrapper.vm.isEuropeanaEntity;
-
-        expect(wrapper.vm.isEntityUri.calledWith('https://data.europeana.eu/organization/001')).toBe(true);
-      });
-    });
-
-    describe('aboutURL', () => {
-      it('uses the about field of the first "def" value', () => {
-        const wrapper = factory();
-
-        const aboutURL = wrapper.vm.aboutURL;
-
-        expect(aboutURL).toBe('https://data.europeana.eu/organization/001');
-      });
-    });
-
     describe('namePrefLanguage', () => {
       it('gets the pref language using the getPrefLanguage mixin', ()  => {
         const wrapper = factory();
@@ -118,6 +92,15 @@ describe('components/item/ItemDataProvider', () => {
         const name = wrapper.vm.nativeName;
 
         expect(name).toBe('Voorbeeld organisatie');
+      });
+      describe('when the provider is an entity', () => {
+        it('defaults to null', () => {
+          const wrapper = factory();
+
+          const name = wrapper.vm.nativeName;
+
+          expect(name).toBe(null);
+        });
       });
     });
   });
