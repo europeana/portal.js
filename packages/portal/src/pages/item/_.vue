@@ -373,7 +373,6 @@
             const entities = await this.$apis.entity.find([...this.relatedEntityUris, this.dataProviderEntityUri], params);
 
             if (entities)  {
-            if (entities)  {
               this.relatedCollections = entities.filter(entity => entity.id !== this.dataProviderEntityUri);
               this.dataProviderEntity = entities.filter(entity => entity.id === this.dataProviderEntityUri)[0];
             }
