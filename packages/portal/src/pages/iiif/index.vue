@@ -57,7 +57,7 @@
             allowClose: false,
             allowFullscreen: true,
             allowMaximize: false,
-            allowTopMenuButton: true,
+            allowTopMenuButton: false,
             allowWindowSideBar: false,
             sideBarOpen: false,
             panels: {
@@ -155,9 +155,9 @@
 
       numberOfPages() {
         if (this.iiifPresentationApiVersion === 2) {
-          return this.manifest.sequences.reduce((memo, sequence) => memo + sequence.canvases.length, 0);
+          return this.manifest.sequences?.reduce((memo, sequence) => memo + sequence.canvases.length, 0);
         } else if (this.iiifPresentationApiVersion === 3) {
-          return this.manifest.items.filter((item) => item.type === 'Canvas').length;
+          return this.manifest.items?.filter((item) => item.type === 'Canvas').length;
         } else {
           return 0;
         }
@@ -170,9 +170,17 @@
 
     watch: {
       numberOfPages(newVal) {
-        const thumbnailNavigationPosition = newVal >= 1 ? 'far-right' : 'off';
-        const action = window.Mirador.actions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
-        this.mirador.store.dispatch(action);
+        const multiplePages = newVal > 1;
+        if (multiplePages) {
+          const thumbnailNavigationPosition = 'far-right';
+          const actionSetThumbnailPosition = window.Mirador.actions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
+          this.mirador.store.dispatch(actionSetThumbnailPosition);
+          const topMenuOptions = {
+            allowTopMenuButton: true
+          };
+          const actionAllowTopMenuButton = window.Mirador.actions.updateWindow(this.miradorWindowId, topMenuOptions);
+          this.mirador.store.dispatch(actionAllowTopMenuButton);
+        }
       }
     },
 
