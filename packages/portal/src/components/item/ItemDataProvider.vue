@@ -2,32 +2,37 @@
   <section
     class="data-provider"
   >
-    <i18n
-      v-if="dataProviderEntity || dataProvider"
-      data-qa="data provider attribution"
-      path="provider.providedBy"
-      tag="div"
+    <transition
+      appear
+      name="fade"
     >
-      <template #provider>
-        <LinkBadge
-          v-if="dataProviderEntity"
-          :id="dataProviderEntity.id"
-          data-qa="data provider badge"
-          badge-variant="secondary"
-          :link-to="collectionLinkGen(dataProviderEntity)"
-          :title="collectionTitle(dataProviderEntity)"
-          :img="$apis.entity.imageUrl(dataProviderEntity)"
-          type="Organization"
-        />
-        <span
-          v-else
-          data-qa="data provider name"
-          :lang="namePrefLanguage"
-        >
-          {{ nativeName }}
-        </span>
-      </template>
-    </i18n>
+      <i18n
+        v-if="dataProviderEntity || dataProvider"
+        data-qa="data provider attribution"
+        path="provider.providedBy"
+        tag="div"
+      >
+        <template #provider>
+          <LinkBadge
+            v-if="dataProviderEntity"
+            :id="dataProviderEntity.id"
+            data-qa="data provider badge"
+            badge-variant="secondary"
+            :link-to="collectionLinkGen(dataProviderEntity)"
+            :title="collectionTitle(dataProviderEntity)"
+            :img="$apis.entity.imageUrl(dataProviderEntity)"
+            type="Organization"
+          />
+          <span
+            v-else
+            data-qa="data provider name"
+            :lang="namePrefLanguage"
+          >
+            {{ nativeName }}
+          </span>
+        </template>
+      </i18n>
+    </transition>
     <SmartLink
       v-if="isShownAt"
       :destination="isShownAt"
@@ -94,6 +99,14 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  .fade-enter-active {
+    transition: $standard-transition;
+    opacity: 0;
+  }
+
+  .fade-enter-to {
+    opacity: 1;
+  }
 
   .data-provider {
     color: $black;
