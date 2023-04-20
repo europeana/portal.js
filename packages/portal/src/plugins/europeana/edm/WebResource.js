@@ -149,8 +149,9 @@ export default class WebResource extends Base {
   }
 
   isDisplayableByIIIFPresentationManifest(iiifPresentationManifest) {
-    return this.dctermsIsReferencedBy?.includes(iiifPresentationManifest) &&
-      IIIF_DISPLAYABLE_MEDIA_TYPES.includes(this.ebucoreHasMimeType);
+    return this.dctermsIsReferencedBy?.includes(iiifPresentationManifest)// &&
+      // FIXME: restore before merging; only here to test items w/o thumbnails
+      //IIIF_DISPLAYABLE_MEDIA_TYPES.includes(this.ebucoreHasMimeType);
   }
 
   get requiresDashJS() {

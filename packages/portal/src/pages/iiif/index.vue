@@ -1,6 +1,11 @@
 <template>
   <div>
     <div id="viewer" />
+    <MediaDefaultThumbnail
+      v-show="false"
+      id="iiif-page-media-default-thumbnail-sound"
+      media-type="SOUND"
+    />
   </div>
 </template>
 
@@ -9,10 +14,16 @@
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
 
+  import MediaDefaultThumbnail from '@/components/media/MediaDefaultThumbnail.vue';
+
   export default {
     name: 'IIIFPage',
 
     layout: 'minimal',
+
+    components: {
+      MediaDefaultThumbnail
+    },
 
     asyncData({ query }) {
       return {
@@ -325,6 +336,7 @@
         return this[versionedFunction].apply(this, args);
       },
 
+      // TODO: when exactly is this triggered? are we duplicating operations needlessly?
       miradorStoreManifestJsonListener() {
         // only takes one window into account at the moment
         const miradorWindow = Object.values(this.mirador.store.getState().windows)[0];
@@ -336,6 +348,27 @@
               this.memoiseImageToCanvasMap();
               this.page = miradorWindow.canvasId;
               this.postUpdatedDownloadLinkMessage(this.page);
+            }
+
+            const thumbnailContainers = document.getElementsByClassName('mirador-thumbnail-nav-canvas')
+            for (const thumbnailContainer of thumbnailContainers) {
+              const thumbnailImgs = thumbnailContainer.getElementsByTagName('img')
+              for (const thumbnailImg of thumbnailImgs) {
+                thumbnailImg.addEventListener('error', (event) => {
+                  if (event.target.parentNode) {
+                    console.log('thumbnail error', event)
+                    const defaultThumb = document.getElementById('iiif-page-media-default-thumbnail-sound')
+                    // console.log('defaultThumb', defaultThumb)
+                    const defaultThumbClone = defaultThumb.cloneNode(true)
+                    defaultThumbClone.removeAttribute('id')
+                    defaultThumbClone.style.display = 'block'
+                    defaultThumbClone.style.width = '100px'
+                    defaultThumbClone.style.height = '100px'
+                    event.target.parentNode.replaceChild(defaultThumbClone, event.target)
+                    // event.target.src = 'http://localhost:3000/_nuxt/src/assets/img/logo.svg'
+                  }
+                })
+              }
             }
           }
         }
@@ -356,10 +389,10 @@
         this[fn] && this[fn](url, action);
       },
 
-      // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorReceiveManifest(url, action) {
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.addAnnotationTextGranularityFilterToManifest(action.manifestJson);
+          this.rewriteThumbnailsToAPIV3(action.manifestJson);
         }
       },
 
@@ -441,6 +474,15 @@
       },
 
       // Europeana-only
+      rewriteThumbnailsToAPIV3(manifestJson) {
+        for (const item of manifestJson.items) {
+          for (const thumbnail of item.thumbnail || []) {
+            thumbnail.id = this.$apis.thumbnail.media(thumbnail.id);
+          }
+        }
+      },
+
+      // Europeana-only
       coerceAnnotationsOnToCanvases(json) {
         // needed due to search endpoint returning weird stuff if v3 format requested
         if (json.items) {
@@ -494,7 +536,7 @@
 
       memoiseImageToCanvasMap2() {
         this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
-          for (const canvas of sequence.canvases) {
+          for (const canvas of sequence.thumbnailContainers) {
             for (const image of canvas.images) {
               memo[image.resource['@id']] = canvas['@id'];
             }
@@ -692,7 +734,7 @@
       },
 
       findDownloadLinkForPage2(pageId) {
-        return this.manifest.sequences[0].canvases
+        return this.manifest.sequences[0].thumbnailContainers
           .find(canvas => canvas['@id'] === pageId)
           ?.images?.[0]?.resource?.['@id'];
       },
@@ -707,6 +749,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/icons';
   @import '@/assets/scss/variables';
   @import '@/assets/scss/iiif';
 </style>

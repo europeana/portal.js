@@ -21,6 +21,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  .default-thumbnail {
+    color: $greyblack !important;
+  }
+
   .mosaic-root {
     top: 0;
     left: 0;
