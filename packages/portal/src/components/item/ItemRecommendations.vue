@@ -13,19 +13,20 @@
         {{ $t('related.items.title') }}
       </h2>
       <ItemPreviewCardGroup
-        v-if="items.length > 0"
+        v-show="items.length > 0"
         :items="items"
         view="explore"
         class="mb-0"
         data-qa="similar items"
       />
-      <b-button
+      <b-link
         v-if="!$auth.loggedIn"
-        variant="outline-secondary"
+        data-qa="log in button"
+        class="btn btn-outline-secondary"
         @click="keycloakLogin"
       >
-        {{ $t('related.items.loginForMore', { other: items.length ? 'other' : ''}) }}
-      </b-button>
+        {{ $t('related.items.loginForMore') }}
+      </b-link>
     </b-col>
   </b-row>
 </template>

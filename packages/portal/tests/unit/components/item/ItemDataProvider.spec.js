@@ -114,11 +114,11 @@ describe('components/item/ItemDataProvider', () => {
       });
     });
 
-    describe('nativeName', () => {
+    describe('displayName', () => {
       it('does a lang map for locale lookup on the name', () => {
         const wrapper = factory({ dataProvider, metadataLanguage: 'nl' });
 
-        const name = wrapper.vm.nativeName;
+        const name = wrapper.vm.displayName;
 
         expect(name).toBe('Voorbeeld organisatie');
       });
@@ -126,7 +126,7 @@ describe('components/item/ItemDataProvider', () => {
         it('defaults to null', () => {
           const wrapper = factory({ dataProviderEntity });
 
-          const name = wrapper.vm.nativeName;
+          const name = wrapper.vm.displayName;
 
           expect(name).toBe(null);
         });

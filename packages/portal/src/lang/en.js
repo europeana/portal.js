@@ -1033,7 +1033,7 @@ export default {
       "title": "Discover related galleries"
     },
     "items": {
-      "loginForMore": "Log in to see {other} related items",
+      "loginForMore": "Log in to see other related items",
       "title": "Discover related items"
     },
     "themes": {

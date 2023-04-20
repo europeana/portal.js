@@ -28,7 +28,7 @@
             data-qa="data provider name"
             :lang="namePrefLanguage"
           >
-            {{ nativeName }}
+            {{ displayName }}
           </span>
         </template>
       </i18n>
@@ -87,7 +87,7 @@
       namePrefLanguage() {
         return this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
       },
-      nativeName() {
+      displayName() {
         if (!this.dataProviderEntity) {
           return langMapValueForLocale(this.dataProvider, this.namePrefLanguage).values[0];
         }
