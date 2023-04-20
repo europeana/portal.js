@@ -38,13 +38,20 @@
     border-bottom: 1px solid $lightbluemagenta;
   }
 
-  .mirador-thumbnail-nav-container {
+  .mirador-thumbnail-nav-canvas {
     border-radius: 1px;
-  }
+    box-shadow: inset $boxshadow-large;
+    overflow: hidden;
 
-  .mirador-thumbnail-nav-canvas:focus {
-    outline: 2px solid $blue !important;
-    outline-offset: 0 !important;
+    &:hover {
+      outline: 1px solid $blue !important;
+      outline-offset: 0 !important;
+    }
+
+    &.mirador68 {
+      outline: 2px solid $blue !important;
+      outline-offset: 0 !important;
+    }
   }
 
   // do not wrap page count
