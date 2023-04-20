@@ -12,12 +12,25 @@ localVue.use(BootstrapVue);
 
 const record = {
   identifier: '/123/abc',
-  concepts: [{ 'about': 'http://data.europeana.eu/concept/47', 'prefLabel': { 'en': ['Painting'] } }],
+  concepts: [
+    { 'about': 'http://data.europeana.eu/concept/47', 'prefLabel': { 'en': ['Painting'] } },
+    { 'about': 'http://data.europeana.eu/concept/01', 'prefLabel': { 'en': ['Fake'] } },
+    { 'about': 'http://data.europeana.eu/concept/02', 'prefLabel': { 'en': ['Concept'] } },
+    { 'about': 'http://data.europeana.eu/concept/03', 'prefLabel': { 'en': ['Entity'] } }
+  ],
+  organizations: [
+    { 'about': 'http://data.europeana.eu/organization/01', 'prefLabel': { 'en': ['Data Provider'] } },
+    { 'about': 'http://data.europeana.eu/organization/02', 'prefLabel': { 'en': ['Aggregator'] } }
+  ],
+  places: [
+    { 'about': 'https://example.com/provider/entity', 'prefLabel': { 'en': ['Manchester'] } }
+  ],
   metadata: {
     edmCountry: ['Netherlands'],
     edmDataProvider: {
-      url: 'https://www.example.eu',
-      value: ['Data Provider']
+      def: [
+        { 'about': 'http://data.europeana.eu/organization/01', 'prefLabel': { 'en': ['Data Provider'] } }
+      ]
     },
     edmProvider: [{ en: ['Provider'] }],
     edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] }
@@ -31,9 +44,16 @@ const store = new Vuex.Store({
   }
 });
 
-const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
+const entityFindStub = sinon.stub();
+
+const factory = (options = { data: {}, mocks: {} }) => shallowMountNuxt(page, {
   localVue,
-  stubs: ['client-only', 'i18n', 'ErrorMessage'],
+  stubs: ['client-only', 'i18n', 'ErrorMessage', 'EntityBadges', 'ItemLanguageSelector'],
+  data() {
+    return {
+      ...options.data
+    };
+  },
   mocks: {
     $features: { translatedItems: true },
     $route: {
@@ -53,7 +73,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
         search: sinon.spy()
       },
       entity: {
-        find: sinon.spy()
+        find: entityFindStub
       },
       record: {
         getRecord: sinon.stub().resolves({ record }),
@@ -66,7 +86,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
       trackPageView: sinon.spy()
     },
     $error: sinon.spy(),
-    ...mocks
+    ...options.mocks
   },
   store
 });
@@ -182,6 +202,10 @@ describe('pages/item/_.vue', () => {
 
       it('gets entities and annotations', async() => {
         const wrapper = await factory({ mocks: { $fetchState } });
+        sinon.spy(wrapper.vm, 'fetchEntities');
+        sinon.spy(wrapper.vm, 'fetchAnnotations');
+
+        await wrapper.vm.mounted();
 
         expect(wrapper.vm.fetchEntities.called).toBe(true);
         expect(wrapper.vm.fetchAnnotations.called).toBe(true);
@@ -199,7 +223,7 @@ describe('pages/item/_.vue', () => {
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(true);
       });
 
-      it('bails if no Matomo plugin not installed', async() => {
+      it('bails if NO Matomo plugin is installed', async() => {
         const wrapper = factory({ mocks: { $waitForMatomo: undefined } });
 
         await wrapper.vm.trackCustomDimensions();
@@ -310,28 +334,101 @@ describe('pages/item/_.vue', () => {
     });
 
     describe('fetchEntities', () => {
+      afterEach(() => entityFindStub.reset());
       describe('when there is an entity URI in the dataProvider attribute', () => {
         describe('when entities can be retrieved', () => {
-          it('fetches the first 5 entity URIs as relatedCollections and the dataProvider entity', () => {
-            expect(pending).toBe(true);
+          const successEntityResponse = [
+            { id: 'http://data.europeana.eu/concept/47' },
+            { id: 'http://data.europeana.eu/concept/01' },
+            { id: 'http://data.europeana.eu/concept/02' },
+            { id: 'http://data.europeana.eu/concept/03' },
+            { id: 'http://data.europeana.eu/organization/01', logo: 'https://example.com/provider/logo.jpg' },
+            { id: 'http://data.europeana.eu/organization/02' }
+          ];
+          entityFindStub.resolves(successEntityResponse);
+          it('fetches the first 5 entity URIs as relatedCollections and the dataProvider entity', async() => {
+            const wrapper = factory({
+              data: {
+                metadata: record.metadata,
+                organizations: record.organizations,
+                concepts: record.concepts
+              }
+            });
+
+            await wrapper.vm.fetchEntities();
+
+            const relatedCollections = wrapper.vm.relatedCollections;
+            const dataProviderEntity = wrapper.vm.dataProviderEntity;
+
+            expect(relatedCollections.length).toBe(5);
+            expect(dataProviderEntity.id).toBe('http://data.europeana.eu/organization/01');
+            expect(dataProviderEntity.logo).toBe('https://example.com/provider/logo.jpg');
           });
         });
         describe('when entities can NOT be retrieved', () => {
           describe('when there is a prefLabel to use', () => {
-            it('uses the record data to fill in the dataProviderEntity', () => {
-              expect(pending).toBe(true);
-            });
-          });
-          describe('when there is NO prefLabel to use, like for example when the translate profile is active', () => {
-            it('uses the record data to fill in the dataProviderEntity', () => {
-              expect(pending).toBe(true);
+            it('uses the record data to fill in the dataProviderEntity', async() => {
+              entityFindStub.rejects();
+              const wrapper = factory({
+                data: {
+                  metadata: record.metadata,
+                  organizations: record.organizations,
+                  concepts: record.concepts
+                }
+              });
+
+              await wrapper.vm.fetchEntities();
+
+              const relatedCollections = wrapper.vm.relatedCollections;
+              const dataProviderEntity = wrapper.vm.dataProviderEntity;
+
+              expect(relatedCollections.length).toBe(0);
+              expect(dataProviderEntity.id).toBe('http://data.europeana.eu/organization/01');
+              expect(dataProviderEntity.logo).toBe(undefined);
             });
           });
         });
       });
       describe('when the data provider is a langMap not an entity', () => {
-        it('fetches the first 5 entity URIs as relatedCollections', () => {
-          expect(pending).toBe(true);
+        it('fetches the first 5 entity URIs as relatedCollections', async() => {
+          const expectedParams = [
+            [
+              'http://data.europeana.eu/concept/47',
+              'http://data.europeana.eu/concept/01',
+              'http://data.europeana.eu/concept/02',
+              'http://data.europeana.eu/concept/03',
+              'http://data.europeana.eu/organization/01'
+            ],
+            { fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo' }
+          ];
+          const successEntityResponse = [
+            { id: 'http://data.europeana.eu/concept/47' },
+            { id: 'http://data.europeana.eu/concept/01' },
+            { id: 'http://data.europeana.eu/concept/02' },
+            { id: 'http://data.europeana.eu/concept/03' },
+            { id: 'http://data.europeana.eu/organization/01', logo: 'https://example.com/provider/logo.jpg' }
+          ];
+          entityFindStub.resolves(successEntityResponse);
+          const wrapper = factory({
+            data: {
+              metadata: {
+                edmDataProvider: {
+                  nl: ['Voorbeeld organisatie']
+                }
+              },
+              organizations: record.organizations,
+              concepts: record.concepts
+            }
+          });
+
+          await wrapper.vm.fetchEntities();
+
+          const relatedCollections = wrapper.vm.relatedCollections;
+          const dataProviderEntity = wrapper.vm.dataProviderEntity;
+
+          expect(entityFindStub.calledWith(...expectedParams)).toBe(true);
+          expect(relatedCollections.length).toBe(5);
+          expect(dataProviderEntity).toBe(null);
         });
       });
     });
@@ -341,15 +438,16 @@ describe('pages/item/_.vue', () => {
     describe('pageMeta', () => {
       it('uses first media large thumbnail for og:image', async() => {
         const thumbnailUrl = 'http://example.org/image/large.jpg';
-        const wrapper = factory();
-        await wrapper.setData({
-          media: [
-            {
-              thumbnails: {
-                large: thumbnailUrl
+        const wrapper = factory({
+          data: {
+            media: [
+              {
+                thumbnails: {
+                  large: thumbnailUrl
+                }
               }
-            }
-          ]
+            ]
+          }
         });
 
         const pageMeta = wrapper.vm.pageMeta;
@@ -367,9 +465,23 @@ describe('pages/item/_.vue', () => {
         expect(pageMeta.title).toBe('Item example');
       });
     });
+    describe('dataProviderEntityUri', () => {
+      it('gets the URI from the edmDataProvider attribute, if it conforms to the europeana entity URI spec', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+        const uri = wrapper.vm.dataProviderEntityUri;
+        expect(uri).toBe('http://data.europeana.eu/organization/01');
+      });
+    });
     describe('relatedEntityUris', () => {
-      it('limits the total to 5 and does not include the dataProvider entity', () => {
-        expect(pending).toBe(true);
+      it('limits the total to 5 and does not include the dataProvider entity', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+        const entityUris = wrapper.vm.relatedEntityUris;
+        expect(entityUris.length).toBe(5);
+        expect(entityUris.includes('http://data.europeana.eu/organization/01')).toBe(false);
       });
     });
   });

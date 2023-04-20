@@ -291,7 +291,7 @@
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
       dataProviderEntityUri() {
-        return isEntityUri(this.metadata.edmDataProvider?.['def']?.[0].about) ? this.metadata.edmDataProvider?.['def']?.[0].about : null;
+        return isEntityUri(this.metadata.edmDataProvider?.def?.[0].about) ? this.metadata.edmDataProvider?.def?.[0].about : null;
       },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');

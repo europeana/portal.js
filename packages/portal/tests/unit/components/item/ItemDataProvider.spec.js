@@ -41,7 +41,7 @@ const factory = (propsData) => mount(ItemDataProvider, {
   i18n,
   mocks: {
     $t: (key) => key,
-    $path: (args) => 'localizedPath',
+    $path: () => 'localizedPath',
     $apis: {
       entity: {
         imageUrl: (entity) => entity.logo.id
@@ -58,7 +58,7 @@ const factory = (propsData) => mount(ItemDataProvider, {
 describe('components/item/ItemDataProvider', () => {
   describe('when the provider is present as an entity', () => {
     it('displays the data provider attribution', () => {
-      const wrapper = factory({ dataProviderEntity: dataProviderEntity });
+      const wrapper = factory({ dataProviderEntity });
 
       const attribution = wrapper.find('[data-qa="data provider attribution"]');
 
@@ -66,7 +66,7 @@ describe('components/item/ItemDataProvider', () => {
     });
 
     it('displays the data provider badge', () => {
-      const wrapper = factory({ dataProviderEntity: dataProviderEntity });
+      const wrapper = factory({ dataProviderEntity });
 
       const badge = wrapper.find('[data-qa="data provider badge"]');
 
@@ -76,7 +76,7 @@ describe('components/item/ItemDataProvider', () => {
 
   describe('when the provider is present as a langmap', () => {
     it('displays the data provider attribution', () => {
-      const wrapper = factory({ dataProvider: dataProvider });
+      const wrapper = factory({ dataProvider });
 
       const attribution = wrapper.find('[data-qa="data provider attribution"]');
 
@@ -84,7 +84,7 @@ describe('components/item/ItemDataProvider', () => {
     });
 
     it('displays the data provider name', () => {
-      const wrapper = factory({ dataProvider: dataProvider });
+      const wrapper = factory({ dataProvider });
 
       const name = wrapper.find('[data-qa="data provider name"]');
 
@@ -108,16 +108,15 @@ describe('components/item/ItemDataProvider', () => {
         const wrapper = factory({});
         sinon.spy(wrapper.vm, 'getPrefLanguage');
 
-        await wrapper.setProps({ dataProvider: dataProvider });
+        await wrapper.setProps({ dataProvider });
 
-        console.log(wrapper.vm.getPrefLanguage.getCalls());
-        expect(wrapper.vm.getPrefLanguage.calledWith('edmDataProvider', { def: [{ prefLabel: dataProvider }]})).toBe(true);
+        expect(wrapper.vm.getPrefLanguage.calledWith('edmDataProvider', { def: [{ prefLabel: dataProvider }] })).toBe(true);
       });
     });
 
     describe('nativeName', () => {
       it('does a lang map for locale lookup on the name', () => {
-        const wrapper = factory({ dataProvider: dataProvider, metadataLanguage: 'nl' });
+        const wrapper = factory({ dataProvider, metadataLanguage: 'nl' });
 
         const name = wrapper.vm.nativeName;
 
@@ -125,7 +124,7 @@ describe('components/item/ItemDataProvider', () => {
       });
       describe('when the provider is an entity', () => {
         it('defaults to null', () => {
-          const wrapper = factory({ dataProviderEntity: dataProviderEntity });
+          const wrapper = factory({ dataProviderEntity });
 
           const name = wrapper.vm.nativeName;
 
