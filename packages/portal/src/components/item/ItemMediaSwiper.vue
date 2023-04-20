@@ -149,7 +149,7 @@
       height: $swiper-height-medium;
     }
 
-    @media ((min-width: $bp-xxxl) and (min-height: $bp-extralarge)) {
+    @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
       max-height: $swiper-height-xxxl;
       height: $swiper-height-xxxl;
     }
