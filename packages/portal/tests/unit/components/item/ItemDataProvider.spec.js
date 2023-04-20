@@ -1,36 +1,64 @@
 
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
+import BootstrapVue from 'bootstrap-vue';
+import VueI18n from 'vue-i18n';
 import ItemDataProvider from '@/components/item/ItemDataProvider';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
+localVue.use(VueI18n);
 
-const factory = () => shallowMount(ItemDataProvider, {
-  localVue,
-  propsData: {
-    dataProvider: {
-      value: {
-        def: [
-          {
-            about: 'https://data.europeana.eu/organization/001',
-            prefLabel: {
-              en: 'Example organisation',
-              nl: 'Voorbeeld organisatie'
-            }
-          }
-        ]
-      }
-    }
+import messages from '@/lang/en';
+
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: {
+    en: messages
+  }
+});
+
+const dataProvider = {
+  en: ['Example organisation'],
+  nl: ['Voorbeeld organisatie']
+};
+
+const dataProviderEntity = {
+  id: 'http://data.europeana.eu/organization/002',
+  prefLabel: {
+    en: 'Example organisation',
+    nl: 'Voorbeeld organisatie'
   },
+  type: 'Organization',
+  logo: {
+    id: 'http://example.com/logo_url.jpg'
+  }
+};
+
+const factory = (propsData) => mount(ItemDataProvider, {
+  localVue,
+  propsData,
+  i18n,
   mocks: {
-    $i18n: { locale: 'en' },
-    $t: (key) => key
+    $t: (key) => key,
+    $path: (args) => 'localizedPath',
+    $apis: {
+      entity: {
+        imageUrl: (entity) => entity.logo.id
+      }
+    },
+    $link: {
+      to: route => route,
+      href: () => null
+    },
+    getPrefLanguage: sinon.stub()
   }
 });
 
 describe('components/item/ItemDataProvider', () => {
   describe('when the provider is present as an entity', () => {
     it('displays the data provider attribution', () => {
-      const wrapper = factory();
+      const wrapper = factory({ dataProviderEntity: dataProviderEntity });
 
       const attribution = wrapper.find('[data-qa="data provider attribution"]');
 
@@ -38,7 +66,7 @@ describe('components/item/ItemDataProvider', () => {
     });
 
     it('displays the data provider badge', () => {
-      const wrapper = factory();
+      const wrapper = factory({ dataProviderEntity: dataProviderEntity });
 
       const badge = wrapper.find('[data-qa="data provider badge"]');
 
@@ -48,7 +76,7 @@ describe('components/item/ItemDataProvider', () => {
 
   describe('when the provider is present as a langmap', () => {
     it('displays the data provider attribution', () => {
-      const wrapper = factory();
+      const wrapper = factory({ dataProvider: dataProvider });
 
       const attribution = wrapper.find('[data-qa="data provider attribution"]');
 
@@ -56,7 +84,7 @@ describe('components/item/ItemDataProvider', () => {
     });
 
     it('displays the data provider name', () => {
-      const wrapper = factory();
+      const wrapper = factory({ dataProvider: dataProvider });
 
       const name = wrapper.find('[data-qa="data provider name"]');
 
@@ -64,30 +92,32 @@ describe('components/item/ItemDataProvider', () => {
     });
   });
 
-  describe('when there is an isShownAt', () => {
-    it('displays the data provider name', () => {
-      const wrapper = factory();
+  describe('when there is NO displayable dataProvider data', () => {
+    it('does not display the  attribution', () => {
+      const wrapper = factory({ dataProvider: null });
 
-      const link = wrapper.find('SmartLink[data-qa="data provider name"]');
+      const attribution = wrapper.find('[data-qa="data provider attribution"]');
 
-      expect(link.exists()).toBe(true);
+      expect(attribution.exists()).toBe(false);
     });
   });
 
   describe('computed', () => {
     describe('namePrefLanguage', () => {
-      it('gets the pref language using the getPrefLanguage mixin', ()  => {
-        const wrapper = factory();
+      it('gets the pref language using the getPrefLanguage mixin', async()  => {
+        const wrapper = factory({});
+        sinon.spy(wrapper.vm, 'getPrefLanguage');
 
-        wrapper.vm.isEuropeanaEntity;
+        await wrapper.setProps({ dataProvider: dataProvider });
 
-        expect(wrapper.vm.getPrefLanguage.calledWith('https://data.europeana.eu/organization/001')).toBe(true);
+        console.log(wrapper.vm.getPrefLanguage.getCalls());
+        expect(wrapper.vm.getPrefLanguage.calledWith('edmDataProvider', { def: [{ prefLabel: dataProvider }]})).toBe(true);
       });
     });
 
     describe('nativeName', () => {
       it('does a lang map for locale lookup on the name', () => {
-        const wrapper = factory();
+        const wrapper = factory({ dataProvider: dataProvider, metadataLanguage: 'nl' });
 
         const name = wrapper.vm.nativeName;
 
@@ -95,7 +125,7 @@ describe('components/item/ItemDataProvider', () => {
       });
       describe('when the provider is an entity', () => {
         it('defaults to null', () => {
-          const wrapper = factory();
+          const wrapper = factory({ dataProviderEntity: dataProviderEntity });
 
           const name = wrapper.vm.nativeName;
 
