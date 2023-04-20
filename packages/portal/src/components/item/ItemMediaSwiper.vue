@@ -136,7 +136,7 @@
   .swiper-container {
     height: $swiper-height;
 
-    @media (max-height: $bp-medium) {
+    @media (max-height: ($bp-medium - 1px)) {
       max-height: $swiper-height;
     }
 
@@ -144,12 +144,12 @@
       max-height: $swiper-height-max;
     }
 
-    @media (max-width: $bp-medium) {
+    @media (max-width: ($bp-medium - 1px)) {
       max-height: $swiper-height-medium;
       height: $swiper-height-medium;
     }
 
-    @media (min-width: $bp-xxxl) {
+    @media ((min-width: $bp-xxxl) and (min-height: $bp-extralarge)) {
       max-height: $swiper-height-xxxl;
       height: $swiper-height-xxxl;
     }
