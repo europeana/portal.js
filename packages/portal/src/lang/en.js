@@ -96,6 +96,11 @@ export default {
     "time": "Century",
     "topic": "Topic"
   },
+  "categories": {
+    "label": "Explore stories by tag",
+    "noOptions": "There are no more tags to select",
+    "search": "Explore stories by tag"
+  },
   "clearAllFilters": "clear all filters",
   "collections": {
     "actions": {
@@ -931,9 +936,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Explore themes",
+    "readMore": "Discover stories",
     "text": {
-      "themes": "Explore European cultural heritage through themes, from archaeology to World War I. Our new theme pages offer a multidimensional view of each theme via related topics, people, stories and items."
+      "storiesTags": "Check out the updated Stories page. You can now search and filter by tags."
     }
   },
   "newWindow": "opens in new window",
@@ -1134,7 +1139,8 @@ export default {
     "pinned": "Pinned"
   },
   "storiesPage": {
-    "title": "Stories"
+    "title": "Stories",
+    "storiesHaveLoaded": "{0} stories found"
   },
   "themes": {
     "themes": "Themes",

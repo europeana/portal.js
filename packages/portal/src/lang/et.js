@@ -56,6 +56,8 @@ export default {
     "skipSend": "Jäta vahele ja saada",
     "submitForPublication": "Esitage avaldamiseks",
     "submittedForPublication": "Esitatud avaldamiseks",
+    "transcribe": "Transkribeeri",
+    "transcribeNow": "Transkribeeri nüüd",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Teema",
     "time": "Sajand",
     "topic": "Teema"
+  },
+  "categories": {
+    "label": "Tutvu lugudega sildi järgi",
+    "noOptions": "Rohkem silte pole valida",
+    "search": "Tutvu lugudega sildi järgi"
   },
   "clearAllFilters": "tühjenda kõik filtrid",
   "collections": {
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "Soovitame teil klõpsata alloleval nupul „Pakkuja institutsioon”, et kontrollida, kas üksust saab pakkuva asutuse veebisaidilt alla laadida.",
       "message": "Kui allalaadimine ei tööta, võib põhjuseks olla see, et pakkuv asutus on selle eemaldanud või nende teenuses võib olla tehniline probleem.",
       "title": "Allalaadimine ei tööta"
+    },
+    "transcribe": {
+      "message": "Liituge meiega Europeana Transcribe'is, veebipõhises kodanikualgatuses Europeana kogude rikastamiseks",
+      "title": "Transkribeerige see üksus"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
-    "readMore": "Loe lähemalt",
+    "readMore": "Avastage lugusid",
     "text": {
-      "themes": "Avastage Euroopa kultuuripärandit teemade kaudu, alates arheoloogiast kuni I maailmasõjani. Meie uued teemalehed pakuvad igast teemast mitmemõõtmelist vaadet seotud teemade, inimeste, lugude ja esemete kaudu."
+      "storiesTags": "Vaadake uuendatud lugude lehte. Nüüd saate otsida ja filtreerida siltide järgi."
     }
   },
   "newWindow": "avaneb uues aknas",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Kinnitatud"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "Leiti {0} lugu",
     "title": "Lood"
   },
   "themes": {

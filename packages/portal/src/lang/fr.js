@@ -56,6 +56,8 @@ export default {
     "skipSend": "Ignorer et envoyer",
     "submitForPublication": "Soumettre pour publication",
     "submittedForPublication": "Soumis pour publication",
+    "transcribe": "Transcrire",
+    "transcribeNow": "Transcrivez maintenant",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Thème",
     "time": "Siècle",
     "topic": "Sujet"
+  },
+  "categories": {
+    "label": "Explorez les histoires par tag",
+    "noOptions": "Il n'y a plus de balises à sélectionner",
+    "search": "Explorez les histoires par tag"
   },
   "clearAllFilters": "Effacer tous les filtres",
   "collections": {
@@ -145,7 +152,7 @@ export default {
     },
     "headerNavigation": {
       "Collections": "Collections",
-      "explore": "Explorer",
+      "explore": "Explorez",
       "teachers": "Enseignants"
     }
   },
@@ -255,7 +262,7 @@ export default {
     "chapters": "Chapitres",
     "credits": "Crédits",
     "currentChapter": "Chapitre actuel",
-    "description": "Découvrez les expositions",
+    "description": "Explorez les expositions",
     "exhibitions": "Expositions"
   },
   "explore": "Explorez",
@@ -781,7 +788,7 @@ export default {
     "storiesCTA": "Voir toutes les histoires",
     "subHeadline": "Recherchez, enregistrez et partagez des œuvres d’art, des livres, des films et de la musique issues de milliers d’institutions culturelles",
     "themesCTA": "Voir tous les thèmes",
-    "themesTitle": "Explorer par thème",
+    "themesTitle": "Explorez par thème",
     "title": "Découvrez le patrimoine culturel {digital} européen",
     "titleDigital": "numérique"
   },
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "Nous vous conseillons de cliquer sur le bouton 'Institution fournisseuse' ci-dessous pour vérifier si l'article est téléchargeable sur le site internet de l'établissement fournisseur.",
       "message": "Si le téléchargement ne fonctionne pas, c'est peut-être parce qu'il a été supprimé par l'établissement fournisseur, ou il peut y avoir un problème technique avec leur service.",
       "title": "Le téléchargement ne fonctionne pas"
+    },
+    "transcribe": {
+      "message": "Rejoignez-nous sur Europeana Transcribe, l'initiative citoyenne en ligne pour l'enrichissement des collections d'Europeana",
+      "title": "Transcrire cet élément"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Fermer",
-    "readMore": "Lire la suite",
+    "readMore": "Découvrez des histoires",
     "text": {
-      "themes": "Explorez le patrimoine culturel européen à travers des thèmes, de l'archéologie à la Première Guerre mondiale. Nos nouvelles pages thématiques offrent une vue multidimensionnelle de chaque thème via des sujets, des personnes, des histoires et des objets connexes."
+      "storiesTags": "Découvrez la page des histoires mise à jour. Vous pouvez maintenant rechercher et filtrer par tags."
     }
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
@@ -960,7 +971,7 @@ export default {
     },
     "allMetaData": "Toutes les métadonnées",
     "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
-    "exploreMore": "En savoir plus",
+    "exploreMore": "Explorez plus",
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
     "hideAll": "Masquer toutes les informations",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Épinglé"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} histoires trouvées",
     "title": "Histoires"
   },
   "themes": {

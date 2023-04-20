@@ -189,13 +189,13 @@
     .nav-link {
       color: $mediumgrey;
       text-decoration: none;
-      font-size: 1rem;
+      font-size: $font-size-base;
       display: flex;
       align-items: center;
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 1vw;
-        padding: 0.5em;
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+        padding: 0.75rem;
       }
 
       &:hover {
@@ -213,23 +213,22 @@
           left: 0;
           right: 0;
           bottom: -0.6em;
-          font-size: 1rem;
+          font-size: $font-size-base;
 
-          @media (min-width: $bp-xxxl) {
-            font-size: 1vw;
-            bottom: -0.633em;
+          @media (min-width: $bp-4k) {
+            font-size: $font-size-base-4k;
           }
         }
       }
 
       .nav-link-icon {
         display: inline-block;
-        font-size: 1rem;
+        font-size: $font-size-base;
         z-index: 1;
         margin-right: 0.75rem;
 
-        @media (min-width: $bp-xxxl) {
-          font-size: 1vw;
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-base-4k;
         }
 
         &::before {
@@ -238,10 +237,10 @@
           content: '';
           color: $greyblack;
           transition: $standard-transition;
-          font-size: 1.5rem;
+          font-size: $font-size-large;
 
-          @media (min-width: $bp-xxxl) {
-            font-size: 1.5vw;
+          @media (min-width: $bp-4k) {
+            font-size: $font-size-large-4k;
           }
         }
 
@@ -297,11 +296,11 @@
         &.icon-stories::before,
         &.icon-login::before,
         &.icon-help::before {
-          font-size: 1.25rem;
+          font-size: $font-size-medium;
           padding: 0.1rem;
 
-          @media (min-width: $bp-xxxl) {
-            font-size: 1.25vw;
+          @media (min-width: $bp-4k) {
+            font-size: $font-size-medium-4k;
           }
         }
       }
@@ -316,8 +315,8 @@
         font-size: $font-size-small;
         font-weight: 600;
 
-        @media (min-width: $bp-xxxl) {
-          font-size: 0.875vw;
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-small-4k;
         }
 
         span {
@@ -334,7 +333,10 @@
       width: 100%;
       margin: 0 0 0.25rem;
       position: relative;
-      margin-right: 0;
+
+      @media (min-width: $bp-4k) {
+        margin-bottom: calc(1.5 * 0.25rem);
+      }
 
       &:nth-last-child(2) {
         margin-right: 0;
@@ -350,9 +352,14 @@
         border-radius: $border-radius-small;
         transition: $standard-transition;
         font-size: $font-size-base;
+        overflow: hidden;
+        white-space: nowrap;
+        display: block;
+        text-overflow: ellipsis;
 
-        @media (min-width: $bp-xxxl) {
-          font-size: 1vw;
+        @media (min-width: $bp-4k) {
+          border-radius: calc(1.5 * $border-radius-small);
+          font-size: $font-size-base-4k;
         }
 
         &.exact-active-link,
@@ -371,10 +378,7 @@
         }
 
         span {
-          overflow: hidden;
-          white-space: nowrap;
-          display: block;
-          text-overflow: ellipsis;
+          flex: 0 0 auto;
         }
       }
     }

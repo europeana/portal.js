@@ -56,6 +56,8 @@ export default {
     "skipSend": "Ignorar e enviar",
     "submitForPublication": "Enviar para publicação",
     "submittedForPublication": "Enviado para publicação",
+    "transcribe": "Transcrever",
+    "transcribeNow": "Transcreva agora",
     "viewAt": "Ver em {link}",
     "viewDocument": "Ver documento"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Tema",
     "time": "Século",
     "topic": "Tópico"
+  },
+  "categories": {
+    "label": "Explorar histórias por tag",
+    "noOptions": "Não há mais tags para selecionar",
+    "search": "Explorar histórias por tag"
   },
   "clearAllFilters": "limpar todos os filtros",
   "collections": {
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "Aconselhamos que clique no botão 'Instituição fornecedora' abaixo para verificar se o item pode ser baixado no site da instituição provedora.",
       "message": "Se o download não funcionar, pode ser porque ele foi removido pela instituição provedora ou pode haver um problema técnico com o serviço.",
       "title": "Download não funciona"
+    },
+    "transcribe": {
+      "message": "Junte-se a nós na Europeana Transcribe, a iniciativa cidadã online para o enriquecimento das coleções da Europeana",
+      "title": "Transcrever este item"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Fechar",
-    "readMore": "Ler mais",
+    "readMore": "Descubra histórias",
     "text": {
-      "themes": "Explore o património cultural europeu através de temas, desde a arqueologia à I Guerra Mundial. As nossas novas páginas temáticas oferecem uma visão multidimensional de cada tema através de temas relacionados, pessoas, histórias e artigos."
+      "storiesTags": "Confira a página de histórias atualizada. Agora você pode pesquisar e filtrar por tags."
     }
   },
   "newWindow": "abre numa nova janela",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Fixado"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} histórias encontradas",
     "title": "Histórias"
   },
   "themes": {

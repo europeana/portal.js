@@ -89,7 +89,9 @@ export const run = async(command, cacherName) => {
   let response;
 
   try {
-    if (command === 'set') {
+    if (command === 'list') {
+      response = cacherNames.join('\n');
+    } else if (command === 'set') {
       if (cacherName === undefined) {
         for (const cname of cacherNames) {
           await runSetCacher(cname);

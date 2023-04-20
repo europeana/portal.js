@@ -56,6 +56,8 @@ export default {
     "skipSend": "Ohita ja lähetä",
     "submitForPublication": "Lähetä julkaistavaksi",
     "submittedForPublication": "Lähetetty julkaistavaksi",
+    "transcribe": "Transkribeerida",
+    "transcribeNow": "Transkriboi nyt",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -93,6 +95,11 @@ export default {
     "theme": "Teema",
     "time": "Vuosisata",
     "topic": "Aihe"
+  },
+  "categories": {
+    "label": "Tutustu tarinoihin tunnisteen mukaan",
+    "noOptions": "Ei ole enää valittavia tunnisteita",
+    "search": "Tutustu tarinoihin tunnisteen mukaan"
   },
   "clearAllFilters": "tyhjennä kaikki suodattimet",
   "collections": {
@@ -886,6 +893,10 @@ export default {
       "linkPrompt": "Suosittelemme, että napsautat alla olevaa \"kulttuuriperintölaitos\" -painiketta tarkistaaksesi, voidaanko kohde ladata tarjoavan laitoksen verkkosivustolta.",
       "message": "Jos lataus ei toimi, se voi johtua siitä, että tarjoava laitos on poistanut sen tai sen palvelussa voi olla tekninen ongelma.",
       "title": "Lataus ei toimi"
+    },
+    "transcribe": {
+      "message": "Liity meihin Europeana Transcribe, online-kansalaisaloitteessa Europeanan kokoelmien rikastamiseksi",
+      "title": "Transkriboida tämä kohde"
     }
   },
   "multilingual": {
@@ -898,9 +909,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulje",
-    "readMore": "Lue lisää",
+    "readMore": "Tutustu tarinoihin",
     "text": {
-      "themes": "Tutustu eurooppalaiseen kulttuuriperintöön teemojen kautta arkeologiasta ensimmäiseen maailmansotaan. Uudet teemasivumme tarjoavat moniulotteisen näkymän jokaisesta teemasta toisiinsa liittyvien aiheiden, ihmisten, tarinoiden ja esineiden kautta."
+      "storiesTags": "Tutustu päivitettyyn Tarinat-sivuun. Voit nyt etsiä ja suodattaa tunnisteiden mukaan."
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",
@@ -1101,6 +1112,7 @@ export default {
     "pinned": "Kiinnitetty"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} tarinaa löydetty",
     "title": "Tarinoita"
   },
   "themes": {

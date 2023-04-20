@@ -129,15 +129,15 @@
     box-shadow: none;
     padding: 1rem 1.25rem 1rem 3.4rem;
     color: $greyblack;
-    font-size: 1rem;
+    font-size: $font-size-base;
     text-decoration: none;
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
-      padding: 1vw 1.25vw 1vw 3.4vw;
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+      padding: 1.5rem calc(1.5 * 1.25rem) 1.5rem calc(1.5 * 3.4rem);
     }
 
     &::before {
@@ -154,12 +154,12 @@
       justify-content: center;
       align-items: center;
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 1.1vw;
-        left: 1vw;
-        top: 1vw;
-        width: 1.5vw;
-        height: 1.5vw;
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 1.1rem);
+        left: 1.5rem;
+        top: 1.5rem;
+        width: calc(1.5 * 1.5rem);
+        height: calc(1.5 * 1.5rem);
       }
     }
 
@@ -172,6 +172,10 @@
     &.list-item-quick-search {
       padding: 0 1.25rem 1.3125rem;
 
+      @media (min-width: $bp-4k) {
+        padding: 0 calc(1.5 * 1.25rem) calc(1.5 * 1.3125rem);
+      }
+
       &::before {
         display: none;
       }
@@ -180,6 +184,10 @@
 
   .loading {
     font-size: 0.75rem;
+
+    @media (min-width: $bp-4k) {
+      font-size: calc(1.5 * 0.75rem)
+    }
   }
 
   form:focus-within .auto-suggest-dropdown {
