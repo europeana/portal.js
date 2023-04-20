@@ -42,19 +42,9 @@
     border-radius: 1px;
   }
 
-  .mirador-thumbnail-nav-canvas:focus,
-  .mirador64.mirador65 {
+  .mirador-thumbnail-nav-canvas:focus {
     outline: 2px solid $blue !important;
     outline-offset: 0 !important;
-  }
-
-  .mirador16.mirador15 {
-    border-top: 0;
-  }
-
-  // hide sidebar collapse toggle
-  .mirador29 {
-    display: none;
   }
 
   // do not wrap page count
@@ -62,105 +52,8 @@
     width: auto;
   }
 
-  .MuiTypography-h2 {
-    text-align: center;
-    font-size: $font-size-medium;
-
-    @media (min-width: $bp-small) {
-      font-size: $font-size-large;
-    }
-  }
-
-  .MuiTypography-h3 {
-    font-size: 1.125rem;
-  }
-
-  .MuiTypography-body1 {
-    border: 0;
-  }
-
-  .MuiTab-textColorPrimary {
-    color: $black;
-  }
-
-  .MuiPaper-root {
-    &.mirador-canvas-nav {
-      background-color: rgba(255 255 255 / 95%);
-      align-items: center;
-    }
-  }
-
-  .MuiIconButton-root {
-    color: $black;
-    background-color: transparent;
-
-    &:hover {
-      color: $blue;
-    }
-  }
-
-  .MuiButtonBase-root {
-    color: $black;
-    background-color: transparent;
-
-    &:hover,
-    &:hover svg {
-      color: $blue;
-    }
-  }
-
-  .Mui-disabled {
-    color: $middlegrey;
-  }
-
-  .Mui-selected {
-    color: $blue;
-  }
-
-  .MuiToolbar-root {
-    @media (max-width: $bp-medium) {
-      flex-wrap: wrap;
-
-      h2 {
-        order: -1;
-      }
-    }
-  }
-
-  .MuiInput-formControl {
-    border: 1px solid $middlegrey;
-    border-radius: 6px;
-    padding: 0.25rem 2rem 0.25rem 0.75rem;
-
-    &.Mui-focused {
-      border: 1px solid $blue;
-    }
-  }
-
-  .MuiInputLabel-formControl {
-    margin: 0.25rem 2rem 0.25rem 0.75rem;
-
-    &.MuiInputLabel-shrink {
-      transform: translate(0, 0) scale(0.75);
-    }
-  }
-
-  .MuiInput-underline {
-    &:before, &:after {
-      border: 0;
-    }
-
-    &:hover:not(.Mui-disabled):before {
-      border: 0;
-    }
-  }
-
-  .MuiChip-deletable {
-    border: 0;
-    color: $mediumgrey;
-  }
-
-  .MuiChip-deleteIconOutlinedColorSecondary {
-    color: $mediumgrey;
+  .mirador-canvas-nav {
+    background-color: rgba(255 255 255 / 95%);
+    align-items: center;
   }
 }

@@ -119,15 +119,104 @@
                 body1: {
                   fontSize: '1rem',
                   letterSpacing: '0',
-                  lineHeight: '1.5'
+                  lineHeight: '1.5',
+                  borderBottom: '0 !important' // no border on view and thumbnail buttons
                 },
                 body2: {
                   fontSize: '1rem',
                   letterSpacing: '0',
                   lineHeight: '1.5'
+                },
+                h2: { // item title
+                  textAlign: 'center',
+                  fontSize: '1.25rem !important',
+                  ['@media (min-width:576px)']: {
+                    fontSize: '1.5rem !important'
+                  }
+                },
+                subtitle1: { // sidebar annotation and search title
+                  fontSize: '1.125rem'
                 }
               },
               overrides: {
+                Mui: {
+                  disabled: { // example: disabled pagination buttons
+                    color: '#d8d8d8'
+                  },
+                  selected: { // example: selected view button
+                    color: '#0a72cc'
+                  }
+                },
+                MuiButtonBase: {
+                  root: {
+                    color: '#000000',
+                    backgroundColor: 'transparent',
+                    '&:hover, &:hover svg': {
+                      color: '#0a72cc'
+                    }
+                  }
+                },
+                MuiChip: { // example: clear search input
+                  outlinedSecondary: {
+                    border: '0',
+                    color: '#4d4d4d'
+                  },
+                  deleteIconOutlinedColorSecondary: {
+                    color: '#4d4d4d'
+                  }
+                },
+                MuiIconButton: {
+                  root: {
+                    color: '#000000',
+                    backgroundColor: 'transparent',
+                    '&:hover': {
+                      color: '#0a72cc'
+                    }
+                  }
+                },
+                MuiInput: { // example: search input
+                  formControl: {
+                    border: '1px solid #d8d8d8 !important',
+                    borderRadius: '6px',
+                    padding: '0.25rem 2rem 0.25rem 0.75rem !important',
+                    '&.Mui-focused': {
+                      borderColor: '#0a72cc !important'
+                    }
+                  },
+                  underline: {
+                    '&:before, &:after': {
+                      border: '0'
+                    },
+                    '&:hover:not(.Mui-disabled):before': {
+                      border: '0'
+                    }
+                  }
+                },
+                MuiInputLabel: { // example: search input label/placeholder
+                  formControl: {
+                    margin: '0.25rem 2rem 0.25rem 0.75rem',
+                    '&.MuiInputLabel-shrink': {
+                      transform: 'translate(0, 0) scale(0.75)'
+                    }
+                  }
+                },
+                MuiTab: {
+                  textColorPrimary: {
+                    color: '#000000'
+                  }
+                },
+                MuiToolbar: {
+                  root: {
+                    borderTop: '0 !important',
+                    ['@media (max-width: 768px)']: {
+                      flexWrap: 'wrap',
+                      '& h2': {
+                        order: '-1'
+                      }
+                    }
+
+                  }
+                },
                 MuiTooltip: {
                   tooltip: {
                     backgroundColor: '#000000',
