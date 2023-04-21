@@ -377,7 +377,6 @@
             // don't fall over
           } finally {
             if (!this.dataProviderEntity) {
-              // should this log the error?
               const prefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
               if (prefLabel) {
                 Object.keys(prefLabel).forEach((key) => {
