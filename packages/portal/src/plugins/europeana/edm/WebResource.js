@@ -1,6 +1,7 @@
 import { oEmbeddable } from '../../oembed/index.js';
 import thumbnail from  '../thumbnail.js';
 import { IIIF_PRESENTATION_API_URL } from '../iiif/index.js';
+import Base from './Base.js';
 
 const MEDIA_TYPE_APPLICATION = 'application';
 const MEDIA_TYPE_APPLICATION_DASH_XML = `${MEDIA_TYPE_APPLICATION}/dash+xml`;
@@ -41,29 +42,21 @@ const IIIF_DISPLAYABLE_MEDIA_TYPES = [
   MEDIA_TYPE_IMAGE_WEBP
 ];
 
-export const WEB_RESOURCE_FIELDS = [
-  'about',
-  'dctermsIsReferencedBy',
-  'ebucoreHasMimeType',
-  'ebucoreHeight',
-  'ebucoreWidth',
-  'edmCodecName',
-  'isNextInSequence',
-  'rdfType',
-  'svcsHasService',
-  'thumbnail',
-  'forEdmIsShownAt',
-  'webResourceEdmRights'
-];
-
-export default class WebResource {
-  constructor(edm) {
-    for (const field of WEB_RESOURCE_FIELDS) {
-      if (Object.keys(edm).includes(field)) {
-        this[field] = edm[field];
-      }
-    }
-  }
+export default class WebResource extends Base {
+  static fields = [
+    'about',
+    'dctermsIsReferencedBy',
+    'ebucoreHasMimeType',
+    'ebucoreHeight',
+    'ebucoreWidth',
+    'edmCodecName',
+    'isNextInSequence',
+    'rdfType',
+    'svcsHasService',
+    'thumbnail',
+    'forEdmIsShownAt',
+    'webResourceEdmRights'
+  ];
 
   get id() {
     return this.about;

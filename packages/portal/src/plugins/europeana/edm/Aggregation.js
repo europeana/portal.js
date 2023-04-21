@@ -1,3 +1,4 @@
+import Base from './Base.js';
 import WebResource from './WebResource.js';
 
 /**
@@ -52,18 +53,17 @@ const sortByIsNextInSequence = (source) => {
   return items;
 };
 
-export default class Aggregation {
-  constructor(edm) {
-    for (const field in edm) {
-      if (field === 'webResources') {
-        this[field] = edm[field].map((wrEdm) => new WebResource({
-          ...wrEdm,
-          forEdmIsShownAt: wrEdm.about === edm.edmIsShownAt,
-          thumbnail: ([edm.edmIsShownBy, edm.edmIsShownAt].includes(wrEdm.about) && edm.edmObject) ? edm.edmObject : null
-        }));
-      } else {
-        this[field] = edm[field];
-      }
+export default class Aggregation extends Base {
+  static propertyClasses = {
+    webResources: WebResource
+  };
+
+  constructor(data) {
+    super(data);
+
+    for (const wr of (this.webResources || [])) {
+      wr.forEdmIsShownAt = wr.about === data.edmIsShownAt;
+      wr.thumbnail = ([data.edmIsShownBy, data.edmIsShownAt].includes(wr.about) && data.edmObject) ? data.edmObject : null;
     }
   }
 

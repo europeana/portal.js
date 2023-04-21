@@ -1,18 +1,12 @@
+import Base from './Base.js';
 import Aggregation from './Aggregation.js';
 import Service from './Service.js';
 
-export default class Item {
-  constructor(edm) {
-    for (const field in edm) {
-      if (field === 'aggregations') {
-        this[field] = edm[field].map((aggEdm) => new Aggregation(aggEdm));
-      } else if (field === 'services') {
-        this[field] = edm[field].map((serviceEdm) => new Service(serviceEdm));
-      } else {
-        this[field] = edm[field];
-      }
-    }
-  }
+export default class Item extends Base {
+  static propertyClasses = {
+    aggregations: Aggregation,
+    services: Service
+  };
 
   get providerAggregation() {
     return this.aggregations?.find((agg) => agg.about === `/aggregation/provider${this.about}`);
