@@ -1,3 +1,5 @@
+import LangMap from './LangMap.js';
+
 export default class Base {
   // Fields to pick when constructing.
   // If empty, pick all.
@@ -9,7 +11,7 @@ export default class Base {
   // Override in derived classes.
   static propertyClasses = {};
 
-  constructor(data) {
+  constructor(data, { prefLang, htmlify } = {}) {
     for (const field in data) {
       if ((this.constructor.fields.length === 0) || this.constructor.fields.includes(field)) {
         if (this.constructor.propertyClasses[field]) {
@@ -18,6 +20,8 @@ export default class Base {
           } else {
             this[field] = new this.constructor.propertyClasses[field](data[field]);
           }
+        } else if (LangMap.isLangMap(data[field])) {
+          this[field] = new LangMap(data[field], { prefLang, htmlify });
         } else {
           this[field] = data[field];
         }
