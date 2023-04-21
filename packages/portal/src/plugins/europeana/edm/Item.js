@@ -1,14 +1,34 @@
-import Base from './Base.js';
+import Agent from './Agent.js';
 import Aggregation from './Aggregation.js';
-import Proxy from './Proxy.js';
+import Base from './Base.js';
+import Concept from './Concept.js';
+import OreProxy from './OreProxy.js';
+import Organization from './Organization.js';
 import Service from './Service.js';
+import Timespan from './Timespan.js';
 
 export default class Item extends Base {
   static propertyClasses = {
+    agents: Agent,
     aggregations: Aggregation,
-    proxies: Proxy,
-    services: Service
+    concepts: Concept,
+    europeanaAggregation: Aggregation,
+    organizations: Organization,
+    proxies: OreProxy,
+    services: Service,
+    timespans: Timespan
   };
+
+  constructor(data) {
+    super(data);
+
+    // FIXME: not working
+    this.meta = new Proxy(this, {
+      get(target, prop) {
+        return target.proxies.map((proxy) => proxy[prop]);
+      }
+    });
+  }
 
   get providerAggregation() {
     return this.aggregations?.find((agg) => agg.about === `/aggregation/provider${this.about}`);

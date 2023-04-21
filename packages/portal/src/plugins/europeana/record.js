@@ -182,6 +182,8 @@ export default (context = {}) => {
 
       const item = new Item(edm, { prefLang: predictedUiLang });
 
+      // console.log('item meta title', item.meta.dcTitle)
+
       return {
         allMediaUris: item.providerAggregation.displayableWebResources.map((wr) => wr.about),
         altTitle: proxies.dctermsAlternative,
