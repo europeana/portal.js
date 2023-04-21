@@ -31,8 +31,6 @@
             <SmartLink
               v-if="fieldData.url"
               :destination="fieldData.url"
-              :link-class="name === 'edmDataProvider' ? 'view-at' : null"
-              @click.native="name === 'edmDataProvider' && $matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', fieldData.url);"
             >
               {{ nestedValue }}
             </SmartLink>
@@ -52,8 +50,6 @@
           <SmartLink
             v-if="fieldData.url"
             :destination="fieldData.url"
-            :link-class="name === 'edmDataProvider' ? 'view-at' : null"
-            @click.native="name === 'edmDataProvider' && $matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', fieldData.url);"
           >
             {{ value }}
           </SmartLink>
@@ -73,6 +69,7 @@
   import EntityField from './EntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
+  import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
 
   export default {
     name: 'MetadataField',
@@ -82,6 +79,8 @@
       MetadataOriginLabel,
       SmartLink
     },
+
+    mixins: [itemPrefLanguage],
 
     props: {
       name: {
@@ -133,14 +132,7 @@
       },
 
       prefLanguage() {
-        let nativeLocale;
-        if (['edmDataProvider', 'edmProvider'].includes(this.name)) {
-          const langMap = this.fieldData.url ? this.fieldData.value : this.fieldData;
-          nativeLocale = langMap.def?.[0]?.prefLabel &&
-            Object.keys(langMap.def[0].prefLabel).length <= 2 &&
-            Object.keys(langMap.def[0].prefLabel).find(key => key !== 'en');
-        }
-        return nativeLocale || this.metadataLanguage || this.$i18n.locale;
+        return this.getPrefLanguage(this.name, this.fieldData);
       },
 
       langMappedValues() {
@@ -176,11 +168,6 @@
 
     &:first-child {
       padding-top: 0;
-    }
-
-    &:last-child {
-      border: 0;
-      padding-bottom: 0;
     }
 
     ul {

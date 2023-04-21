@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="item page"
-    :class="$fetchState.error && 'white-page'"
+    class="white-page pt-5"
   >
     <b-container
       v-if="$fetchState.pending"
@@ -60,32 +60,25 @@
             />
           </b-col>
         </b-row>
-        <client-only
-          v-if="relatedEntityUris.length > 0"
-        >
-          <b-row
-            class="justify-content-center"
-          >
-            <b-col
-              cols="12"
-              class="col-lg-10 mt-4"
-            >
-              <EntityBadges
-                :entity-uris="relatedEntityUris"
-                data-qa="related entities"
-                badge-variant="light"
-              />
-            </b-col>
-          </b-row>
-        </client-only>
         <b-row
-          v-else
-          class="mb-3"
-        />
-        <b-row class="mb-3 justify-content-center">
+          class="provider-row mb-3 justify-content-center"
+        >
           <b-col
             cols="12"
             class="col-lg-10"
+          >
+            <ItemDataProvider
+              :data-provider="!dataProviderEntityUri ? metadata.edmDataProvider : null"
+              :data-provider-entity="dataProviderEntity"
+              :metadata-language="metadataLanguage"
+              :is-shown-at="isShownAt"
+            />
+          </b-col>
+        </b-row>
+        <b-row class="mb-3 justify-content-center">
+          <b-col
+            cols="12"
+            class="col-lg-10 mt-3"
           >
             <MetadataBox
               :metadata="fieldsAndKeywords"
@@ -95,6 +88,23 @@
             />
           </b-col>
         </b-row>
+        <client-only
+          v-if="relatedCollections.length > 0"
+        >
+          <b-row
+            class="justify-content-center"
+          >
+            <b-col
+              cols="12"
+              class="col-lg-10 mt-4"
+            >
+              <EntityBadges
+                :related-collections="relatedCollections"
+                data-qa="related entities"
+              />
+            </b-col>
+          </b-row>
+        </client-only>
         <client-only>
           <!--
             NOTE: dcType/title does not make sense here, but leave it alone as
@@ -128,6 +138,7 @@
   import isEmpty from 'lodash/isEmpty';
   import { mapGetters } from 'vuex';
 
+  import ItemDataProvider from '@/components/item/ItemDataProvider';
   import ItemHero from '@/components/item/ItemHero';
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -143,6 +154,7 @@
     name: 'ItemPage',
     components: {
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      ItemDataProvider,
       ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
@@ -167,6 +179,8 @@
         concepts: [],
         description: null,
         error: null,
+        relatedCollections: [],
+        dataProviderEntity: null,
         fromTranslationError: null,
         identifier: `/${this.$route.params.pathMatch}`,
         isShownAt: null,
@@ -277,6 +291,9 @@
         }
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
+      dataProviderEntityUri() {
+        return this.metadata.edmDataProvider?.def?.[0].about || null;
+      },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
       },
@@ -290,7 +307,7 @@
         shareUrl: 'http/canonicalUrlWithoutLocale'
       }),
       relatedEntityUris() {
-        return this.europeanaEntityUris.slice(0, 5);
+        return this.europeanaEntityUris.filter(entityUri => entityUri !== this.dataProviderEntityUri).slice(0, 5);
       },
       translatedItemsEnabled() {
         return this.$features.translatedItems;
@@ -308,10 +325,14 @@
     watch: {
       '$route.query.lang'() {
         this.$fetch();
+      },
+      'relatedEntityUris'() {
+        this.fetchEntities();
       }
     },
 
     mounted() {
+      this.fetchEntities();
       this.fetchAnnotations();
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
@@ -338,12 +359,49 @@
           query: `target_record_id:"${this.identifier}"`,
           profile: 'dereference'
         });
+      },
+
+      async fetchEntities() {
+        const params = {
+          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo'
+        };
+        if (this.dataProviderEntityUri) {
+          // Fetch related entities and the dataProvider entity.
+          // If the entities can't be fetched, use existing data from the record for the dataProvider section
+          try {
+            const entities = await this.$apis.entity.find([...this.relatedEntityUris, this.dataProviderEntityUri], params);
+
+            if (entities)  {
+              this.relatedCollections = entities.filter(entity => entity.id !== this.dataProviderEntityUri);
+              this.dataProviderEntity = entities.filter(entity => entity.id === this.dataProviderEntityUri)[0];
+            }
+          } catch {
+            // don't fall over
+          } finally {
+            if (!this.dataProviderEntity) {
+              const prefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
+              if (prefLabel) {
+                Object.keys(prefLabel).forEach((key) => {
+                  if (Array.isArray(prefLabel[key])) {
+                    prefLabel[key] = prefLabel[key][0];
+                  }
+                });
+                this.dataProviderEntity = { id: this.dataProviderEntityUri, prefLabel, type: 'Organization' };
+              }
+            }
+          }
+        } else {
+          const entities  = await this.$apis.entity.find(this.relatedEntityUris, params);
+          if (entities)  {
+            this.relatedCollections = entities;
+          }
+        }
       }
     }
   };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .related-collections {
     margin-top: -0.5rem;
     margin-bottom: 1.5rem;
