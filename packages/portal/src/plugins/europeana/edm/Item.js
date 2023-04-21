@@ -1,10 +1,12 @@
 import Base from './Base.js';
 import Aggregation from './Aggregation.js';
+import Proxy from './Proxy.js';
 import Service from './Service.js';
 
 export default class Item extends Base {
   static propertyClasses = {
     aggregations: Aggregation,
+    proxies: Proxy,
     services: Service
   };
 

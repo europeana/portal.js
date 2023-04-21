@@ -1,8 +1,6 @@
 import { selectLocaleForLangMap } from '../utils.js';
 
 export default class LangMap {
-  #localised = false;
-
   constructor(data, { prefLang, htmlify } = {}) {
     if (prefLang) {
       this.data = this.constructor.localise(data, prefLang, { htmlify })
@@ -19,7 +17,7 @@ export default class LangMap {
   }
 
   static localise(data, prefLang, { htmlify = false } = {}) {
-    const lang = this.localiseLang(data, prefLang);
+    const lang = this.l10nLang(data, prefLang);
 
     if (htmlify) {
       const htmlLang = lang === prefLang ? null : lang;
@@ -29,7 +27,7 @@ export default class LangMap {
     }
   }
 
-  static localiseLang(data, prefLang) {
+  static l10nLang(data, prefLang) {
     return selectLocaleForLangMap(data, prefLang);
   }
 

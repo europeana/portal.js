@@ -180,7 +180,7 @@ export default (context = {}) => {
         url: providerAggregation.edmIsShownAt, value: metadata.edmDataProvider
       };
 
-      const item = new Item(edm);
+      const item = new Item(edm, { prefLang: predictedUiLang });
 
       return {
         allMediaUris: item.providerAggregation.displayableWebResources.map((wr) => wr.about),
