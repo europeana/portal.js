@@ -14,7 +14,7 @@
       >
         <template #provider>
           <LinkBadge
-            v-if="dataProviderEntity"
+            v-if="dataProviderEntity && isEntityUri(dataProviderEntity.id)"
             :id="dataProviderEntity.id"
             data-qa="data provider badge"
             badge-variant="secondary"
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+  import { isEntityUri } from '@/plugins/europeana/entity';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
@@ -88,10 +89,13 @@
         return this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
       },
       displayName() {
-        if (!this.dataProviderEntity) {
-          return langMapValueForLocale(this.dataProvider, this.namePrefLanguage).values[0];
-        }
-        return null;
+        return langMapValueForLocale(this.dataProviderEntity?.prefLabel || this.dataProvider, this.namePrefLanguage).values[0];
+      }
+    },
+
+    methods: {
+      isEntityUri(uri) {
+        return isEntityUri(uri);
       }
     }
   };

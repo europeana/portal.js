@@ -145,7 +145,6 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import { isEntityUri } from '@/plugins/europeana/entity';
   import WebResource from '@/plugins/europeana/web-resource.js';
   import stringify from '@/mixins/stringify';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -291,7 +290,7 @@
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
       dataProviderEntityUri() {
-        return isEntityUri(this.metadata.edmDataProvider?.def?.[0].about) ? this.metadata.edmDataProvider?.def?.[0].about : null;
+        return this.metadata.edmDataProvider?.def?.[0].about || null;
       },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
@@ -374,16 +373,20 @@
               this.relatedCollections = entities.filter(entity => entity.id !== this.dataProviderEntityUri);
               this.dataProviderEntity = entities.filter(entity => entity.id === this.dataProviderEntityUri)[0];
             }
-          } catch (e) {
-            // should this log the error?
-            const prefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
-            if (prefLabel) {
-              Object.keys(prefLabel).forEach((key) => {
-                if (Array.isArray(prefLabel[key])) {
-                  prefLabel[key] = prefLabel[key][0];
-                }
-              });
-              this.dataProviderEntity = { id: this.dataProviderEntityUri, prefLabel, type: 'Organization' };
+          } catch {
+            // don't fall over
+          } finally {
+            if (!this.dataProviderEntity) {
+              // should this log the error?
+              const prefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
+              if (prefLabel) {
+                Object.keys(prefLabel).forEach((key) => {
+                  if (Array.isArray(prefLabel[key])) {
+                    prefLabel[key] = prefLabel[key][0];
+                  }
+                });
+                this.dataProviderEntity = { id: this.dataProviderEntityUri, prefLabel, type: 'Organization' };
+              }
             }
           }
         } else {

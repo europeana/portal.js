@@ -123,12 +123,12 @@ describe('components/item/ItemDataProvider', () => {
         expect(name).toBe('Voorbeeld organisatie');
       });
       describe('when the provider is an entity', () => {
-        it('defaults to null', () => {
+        it('localises its prefLabel', () => {
           const wrapper = factory({ dataProviderEntity });
 
           const name = wrapper.vm.displayName;
 
-          expect(name).toBe(null);
+          expect(name).toBe('Example organisation');
         });
       });
     });
