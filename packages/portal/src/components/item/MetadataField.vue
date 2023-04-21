@@ -170,11 +170,6 @@
       padding-top: 0;
     }
 
-    &:last-child {
-      border: 0;
-      padding-bottom: 0;
-    }
-
     ul {
       font-weight: 600;
 

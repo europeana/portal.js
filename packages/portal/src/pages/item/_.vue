@@ -77,7 +77,7 @@
         <b-row class="mb-3 justify-content-center">
           <b-col
             cols="12"
-            class="col-lg-10"
+            class="col-lg-10 mt-3"
           >
             <MetadataBox
               :metadata="fieldsAndKeywords"
