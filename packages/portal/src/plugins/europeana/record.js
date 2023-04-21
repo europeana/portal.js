@@ -231,9 +231,6 @@ export default (context = {}) => {
         timestampCreated: edm.timestamp_created,
         timestampUpdate: edm.timestamp_update
       };
-      metadata.edmDataProvider = {
-        url: providerAggregation.edmIsShownAt, value: metadata.edmDataProvider
-      };
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
 

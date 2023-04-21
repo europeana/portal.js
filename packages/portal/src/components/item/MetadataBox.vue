@@ -4,7 +4,7 @@
   >
     <b-card
       no-body
-      class="mb-3"
+      class="metadata-box-card mb-3"
     >
       <b-tabs card>
         <b-tab
@@ -146,7 +146,6 @@
   };
 
   const CORE_FIELDS = [
-    'edmDataProvider',
     'dcContributor',
     'dcCreator',
     'dcPublisher',
@@ -157,6 +156,7 @@
   ];
 
   const ALL_FIELDS = CORE_FIELDS.concat([
+    'edmDataProvider',
     'edmProvider',
     'edmIntermediateProvider',
     'edmRights',
@@ -206,4 +206,8 @@
 <style lang="scss">
   @import '@/assets/scss/variables';
   @import '@/assets/scss/tabs';
+
+  .metadata-box-card {
+    border: none;
+  }
 </style>
