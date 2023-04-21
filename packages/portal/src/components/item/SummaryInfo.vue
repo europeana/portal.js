@@ -1,5 +1,5 @@
 <template>
-  <div class="card rounded-0 border-0 p-4 info-panel">
+  <div class="card rounded-0 border-0 mb-3 info-panel">
     <header
       v-if="titles.length > 0"
     >
