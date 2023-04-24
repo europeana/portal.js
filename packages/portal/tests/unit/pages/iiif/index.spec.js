@@ -13,7 +13,10 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $axios: axios
+    $axios: axios,
+    $i18n: {
+      locale: 'en'
+    }
   }
 });
 

@@ -67,6 +67,7 @@
         class="button-icon-only icon-clear"
         variant="light-flat"
         :aria-label="$t('actions.close')"
+        data-qa="item language selector close button"
         @click="handleClose()"
       />
     </b-container>
