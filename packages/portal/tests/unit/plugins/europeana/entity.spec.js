@@ -274,7 +274,7 @@ describe('plugins/europeana/entity', () => {
         it('uses it at 200px size', () => {
           const imageUrl = api().imageUrl(entity);
 
-          expect(imageUrl).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fwww.example.org%2Fimage.jpeg&size=w200&type=IMAGE');
+          expect(imageUrl).toBe('https://api.europeana.eu/thumbnail/v3/200/6c0a0d323f07cbfd98f575e88c782474');
         });
       });
 
@@ -288,7 +288,7 @@ describe('plugins/europeana/entity', () => {
         it('uses it at 200px size', () => {
           const imageUrl = api().imageUrl(entity);
 
-          expect(imageUrl).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fwww.example.org%2Fimage.jpeg&size=w200&type=IMAGE');
+          expect(imageUrl).toBe('https://api.europeana.eu/thumbnail/v3/200/6c0a0d323f07cbfd98f575e88c782474');
         });
       });
 

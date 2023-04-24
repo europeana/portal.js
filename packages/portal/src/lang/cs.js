@@ -45,7 +45,6 @@ export default {
     "pin": "Kolík",
     "preview": "Náhled",
     "previous": "Předchozí",
-    "providedBy": "Poskytl {provider}",
     "publish": "Publikovat",
     "reject": "Odmítnout",
     "requestDepublication": "Žádost o zrušení publikace",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Stránkování"
   },
+  "provider": {
+    "linkText": "Zobrazit na webu poskytovatele",
+    "providedBy": "Tuto položku poskytuje a spravuje {provider}"
+  },
   "readMore": "Více informací",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Všechna metadata",
     "copyEmbedLabel": "Vložit kód (kliknutím zkopírujete)",
-    "exploreMore": "Prozkoumat více",
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
     "hideAll": "Skrýt všechny informace",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Související galerie",
       "title": "Objevte související galerie"
+    },
+    "items": {
+      "loginForMore": "Přihlaste se pro zobrazení dalších souvisejících položek",
+      "title": "Objevte související položky"
     },
     "themes": {
       "title": "Objevte související témata"

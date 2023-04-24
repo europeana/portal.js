@@ -45,7 +45,6 @@ export default {
     "pin": "Alfinete",
     "preview": "Visualizar",
     "previous": "Anterior",
-    "providedBy": "Fornecido por {provider}",
     "publish": "Publicar",
     "reject": "Rejeitar",
     "requestDepublication": "Solicitar despublicação",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginação"
   },
+  "provider": {
+    "linkText": "Ver no site do fornecedor",
+    "providedBy": "Este item é fornecido e mantido por {provider}"
+  },
   "readMore": "Ler mais",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Todos os metadados",
     "copyEmbedLabel": "Incorporar código (Clique para copiar)",
-    "exploreMore": "Explorar mais",
     "extendedInformation": "Informação detalhada",
     "goodToKnow": "Bom saber",
     "hideAll": "Ocultar todas as informações",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Galerias relacionadas",
       "title": "Descubra galerias relacionadas"
+    },
+    "items": {
+      "loginForMore": "Faça login para ver outros itens relacionados",
+      "title": "Descubra itens relacionados"
     },
     "themes": {
       "title": "Descubra temas relacionados"

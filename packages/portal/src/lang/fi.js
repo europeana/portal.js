@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Esikatselu",
     "previous": "Edellinen",
-    "providedBy": "Tarjoaa {provider}",
     "publish": "Julkaista",
     "reject": "Hylätä",
     "requestDepublication": "Pyydä julkaisun poistamista",
@@ -70,7 +69,7 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Galleriat",
-    "item": "Viimeisimmät kohdetta",
+    "item": "Viimeaikaiset kohteet",
     "organisation": "Organisaatiot",
     "place": "Paikat",
     "theme": "Teemat",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Sivunumerointi"
   },
+  "provider": {
+    "linkText": "Näytä palveluntarjoajan verkkosivustolla",
+    "providedBy": "Tämän kohteen tarjoaa ja ylläpitää {provider}"
+  },
   "readMore": "Lue lisää",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Kaikki metatiedot",
     "copyEmbedLabel": "Upota koodi (kopioi napsauttamalla)",
-    "exploreMore": "tutustu",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Aiheeseen liittyvät galleriat",
       "title": "Tutustu aiheeseen liittyviin gallerioihin"
+    },
+    "items": {
+      "loginForMore": "Kirjaudu sisään nähdäksesi muut aiheeseen liittyvät kohteet",
+      "title": "Tutustu aiheeseen liittyviin tuotteisiin"
     },
     "themes": {
       "title": "Tutustu aiheeseen liittyviin teemat"

@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Predogled",
     "previous": "Prejšnji",
-    "providedBy": "Zagotavlja {provider}",
     "publish": "Objavi",
     "reject": "Zavrne",
     "requestDepublication": "Zahtevaj deublikacijo",
@@ -944,7 +943,7 @@ export default {
         "title": "Krajev"
       },
       "table": {
-        "items": "Elementi",
+        "items": "Predmeti",
         "name": "Ime"
       },
       "times": {
@@ -957,6 +956,10 @@ export default {
   },
   "pagination": {
     "label": "Paginacija"
+  },
+  "provider": {
+    "linkText": "Ogled na spletni strani ponudnika",
+    "providedBy": "Ta predmet zagotavlja in vzdržuje {provider}"
   },
   "readMore": "Preberi več",
   "recommendation": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Vsi metapodatki",
     "copyEmbedLabel": "Vdelaj kodo (kliknite za kopiranje)",
-    "exploreMore": "Razišči več",
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",
     "hideAll": "Skrij vse informacije",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Sorodne galerije",
       "title": "Odkrijte povezane galerije"
+    },
+    "items": {
+      "loginForMore": "Prijavite se in si oglejte druge povezane predmete",
+      "title": "Odkrijte povezane predmete"
     },
     "themes": {
       "title": "Odkrijte povezane teme"

@@ -45,7 +45,6 @@ export default {
     "pin": "Kolík",
     "preview": "Náhľad",
     "previous": "Predchádzajúce",
-    "providedBy": "Poskytovateľ:  {provider}",
     "publish": "Publikovať",
     "reject": "Odmietnuť",
     "requestDepublication": "Žiadosť zrušiť zverejnenie",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Stránkovanie"
   },
+  "provider": {
+    "linkText": "Zobrazenie na webovej stránke poskytovateľa",
+    "providedBy": "Túto položku poskytuje a spravuje {provider}"
+  },
   "readMore": "Viac",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Všetky metadáta",
     "copyEmbedLabel": "Vložiť kód (kliknutím skopírujete)",
-    "exploreMore": "Preskúmať viac",
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Súvisiace galérie",
       "title": "Objavte súvisiace galérie"
+    },
+    "items": {
+      "loginForMore": "Prihláste sa, aby ste videli ďalšie súvisiace položky",
+      "title": "Objavte súvisiace položky"
     },
     "themes": {
       "title": "Objavte súvisiace témy"
