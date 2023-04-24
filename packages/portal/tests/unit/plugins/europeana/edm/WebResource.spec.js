@@ -1,6 +1,6 @@
-import WebResource from '@/plugins/europeana/web-resource';
+import WebResource from '@/plugins/europeana/edm/WebResource';
 
-describe('plugins/europeana/web-resource', () => {
+describe('plugins/europeana/edm/WebResource', () => {
   describe('WebResource', () => {
     describe('.id', () => {
       it('is an alias for property `about`', () => {
@@ -118,88 +118,6 @@ describe('plugins/europeana/web-resource', () => {
       });
     });
 
-    describe('.isIIIFImage', () => {
-      it('is `true` if item has IIIF Image service but no dctermsIsReferencedBy', () => {
-        const edm = {
-          services: [
-            {
-              dctermsConformsTo: ['http://iiif.io/api/image']
-            }
-          ]
-        };
-        const wr = new WebResource(edm);
-
-        expect(wr.isIIIFImage).toBe(true);
-      });
-    });
-
-    describe('.isIIIFPresentation', () => {
-      it('is `true` if item has IIIF Image service and a dctermsIsReferencedBy', () => {
-        const edm = {
-          services: [
-            {
-              dctermsConformsTo: ['http://iiif.io/api/image']
-            }
-          ],
-          dctermsIsReferencedBy: ['http://www.example.org/iiif/manifest']
-        };
-        const wr = new WebResource(edm);
-
-        expect(wr.isIIIFPresentation).toBe(true);
-      });
-
-      it('is `false` if dctermsIsReferencedBy is Image info.json', () => {
-        const edm = {
-          services: [
-            {
-              about: 'http://www.example.org/image',
-              dctermsConformsTo: ['http://iiif.io/api/image']
-            }
-          ],
-          dctermsIsReferencedBy: ['http://www.example.org/image/info.json']
-        };
-        const wr = new WebResource(edm);
-
-        expect(wr.isIIIFPresentation).toBe(false);
-      });
-    });
-
-    describe('.iiifManifest', () => {
-      const europeanaIdentifier = '/123/abc';
-
-      describe('for a Presentation', () => {
-        it('is the first element in dctermsIsReferencedBy', () => {
-          const manifest = 'http://www.example.org/iiif/manifest';
-          const edm = {
-            services: [
-              {
-                dctermsConformsTo: ['http://iiif.io/api/image']
-              }
-            ],
-            dctermsIsReferencedBy: [manifest]
-          };
-          const wr = new WebResource(edm, europeanaIdentifier);
-
-          expect(wr.iiifManifest).toBe(manifest);
-        });
-      });
-
-      describe('for an Image', () => {
-        it('uses the Europeana IIIF Presentation API', () => {
-          const edm = {
-            services: [
-              {
-                dctermsConformsTo: ['http://iiif.io/api/image']
-              }
-            ]
-          };
-          const wr = new WebResource(edm, europeanaIdentifier);
-
-          expect(wr.iiifManifest).toBe(`https://iiif.europeana.eu/presentation${europeanaIdentifier}/manifest`);
-        });
-      });
-    });
-
     describe('.isRichMedia', () => {
       const richMedia = [
         { about: 'https://soundcloud.com/oembed' },
@@ -220,6 +138,26 @@ describe('plugins/europeana/web-resource', () => {
         const wr = new WebResource({ ebucoreHasMimeType: 'application/dash+xml' });
 
         expect(wr.requiresDashJS).toBe(true);
+      });
+    });
+
+    describe('.isIIIFPresentationManifest', () => {
+      it('is `true` if rdfType starts with IIIF Presentation API URL', () => {
+        const wr = new WebResource({ rdfType: 'http://iiif.io/api/presentation/3#Manifest' });
+
+        expect(wr.isIIIFPresentationManifest).toBe(true);
+      });
+    });
+
+    describe('.isDisplayableByIIIFPresentationManifest', () => {
+      it('is `true` if media type displayable in IIIF viewer, and dctermsIsReferencedBy includes manifest', () => {
+        const iiifPresentationManifest = 'https://iiif.example.org/manifest';
+        const wr = new WebResource({
+          dctermsIsReferencedBy: [iiifPresentationManifest],
+          ebucoreHasMimeType: 'image/jpeg'
+        });
+
+        expect(wr.isDisplayableByIIIFPresentationManifest(iiifPresentationManifest)).toBe(true);
       });
     });
   });

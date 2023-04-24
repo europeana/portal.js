@@ -43,6 +43,7 @@
           :link-for-contributing-annotation="linkForContributingAnnotation"
           :entities="europeanaEntities"
           :provider-url="isShownAt"
+          :iiif-presentation-manifest="iiifPresentationManifest"
         />
       </b-container>
       <b-container
@@ -145,7 +146,7 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import WebResource from '@/plugins/europeana/web-resource.js';
+  import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/mixins/stringify';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -192,7 +193,8 @@
         type: null,
         useProxy: true,
         schemaOrg: null,
-        metadataLanguage: null
+        metadataLanguage: null,
+        iiifPresentationManifest: null
       };
     },
 
@@ -223,7 +225,7 @@
           title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
           description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
           ogType: 'article',
-          ogImage: this.webResources[0]?.thumbnails?.large
+          ogImage: this.webResources[0]?.thumbnails(this.$nuxt.context)?.large
         };
       },
       keywords() {
