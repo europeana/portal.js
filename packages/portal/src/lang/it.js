@@ -45,7 +45,6 @@ export default {
     "pin": "Spilla",
     "preview": "Anteprima",
     "previous": "Precedente",
-    "providedBy": "Fornito da {provider}",
     "publish": "Pubblicare",
     "reject": "Rifiuta",
     "requestDepublication": "Richiesta di depubblicazione",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginazione"
   },
+  "provider": {
+    "linkText": "Visualizza sul sito web del fornitore",
+    "providedBy": "Questo oggetti è fornito e gestito da {provider}"
+  },
   "readMore": "Leggi di più",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Tutti i metadati",
     "copyEmbedLabel": "Incorpora codice (fare clic per copiare)",
-    "exploreMore": "Esplora altro",
     "extendedInformation": "Informazioni estese",
     "goodToKnow": "Caratteristiche",
     "hideAll": "Nascondi tutte le informazioni",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Gallerie correlate",
       "title": "Scopri le gallerie correlate"
+    },
+    "items": {
+      "loginForMore": "Accedi per vedere altri oggetti correlati",
+      "title": "Scopri gli oggetti correlati"
     },
     "themes": {
       "title": "Scopri i temi correlati"

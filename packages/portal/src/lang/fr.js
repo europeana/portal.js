@@ -45,7 +45,6 @@ export default {
     "pin": "Épingler",
     "preview": "Prévisualisation",
     "previous": "Précédent",
-    "providedBy": "Fourni par {provider}",
     "publish": "Publier",
     "reject": "Rejeter",
     "requestDepublication": "Demander la dépublication",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Pagination"
   },
+  "provider": {
+    "linkText": "Vue sur le site internet du prestataire",
+    "providedBy": "Cet élément est fourni et maintenu par {provider}"
+  },
   "readMore": "Lire la suite",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Toutes les métadonnées",
     "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
-    "exploreMore": "Explorez plus",
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
     "hideAll": "Masquer toutes les informations",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Galeries connexes",
       "title": "Découvrez des galeries connexes"
+    },
+    "items": {
+      "loginForMore": "Connectez-vous pour voir d’autres éléments connexes",
+      "title": "Découvrez les éléments associés"
     },
     "themes": {
       "title": "Découvrez les thèmes connexes"
