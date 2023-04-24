@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Priekšskatījums",
     "previous": "Iepriekšējais",
-    "providedBy": "Nodrošina {provider}",
     "publish": "Publicēt",
     "reject": "Noraidīt",
     "requestDepublication": "Pieprasīt depublikāciju",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Lapu šķirošana"
   },
+  "provider": {
+    "linkText": "Skatīt pakalpojumu sniedzēja vietnē",
+    "providedBy": "Šo vienumu nodrošina un uztur {provider}"
+  },
   "readMore": "Lasīt vairāk",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Visi metadati",
     "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
-    "exploreMore": "Pārlūkot vairāk",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Saistītās galerijas",
       "title": "Atklājiet saistītās galerijas"
+    },
+    "items": {
+      "loginForMore": "Piesakieties, lai redzētu citus saistītos vienumus",
+      "title": "Atklājiet saistītos vienumus"
     },
     "themes": {
       "title": "Atklājiet saistītās tēmas"

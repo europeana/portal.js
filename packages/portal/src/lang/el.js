@@ -45,7 +45,6 @@ export default {
     "pin": "Καρφίτσα",
     "preview": "Προεπισκόπηση",
     "previous": "Προηγούμενος",
-    "providedBy": "Παρέχεται από {provider}",
     "publish": "Δημοσιεύω",
     "reject": "Απορρίπτω",
     "requestDepublication": "Αίτημα αποδημοσίευσης",
@@ -962,6 +961,10 @@ export default {
   "pagination": {
     "label": "Σελιδοποίηση"
   },
+  "provider": {
+    "linkText": "Προβολή στον ιστότοπο του παρόχου",
+    "providedBy": "Αυτό το στοιχείο παρέχεται και διατηρείται από τον {provider}"
+  },
   "readMore": "Διαβάστε περισσότερα",
   "recommendation": {
     "prompts": {
@@ -975,7 +978,6 @@ export default {
     },
     "allMetaData": "Όλα τα μεταδεδομένα",
     "copyEmbedLabel": "Ενσωμάτωση κώδικα (κάντε κλικ για αντιγραφή)",
-    "exploreMore": "Εξερευνήστε περισσότερα",
     "extendedInformation": "Εκτεταμένες πληροφορίες",
     "goodToKnow": "Χρήσιμες πληροφορίες",
     "hideAll": "Απόκρυψη όλων των πληροφοριών",
@@ -1006,6 +1008,10 @@ export default {
     "galleries": {
       "name": "Σχετικές γκαλερί",
       "title": "Ανακαλύψτε σχετικές γκαλερί"
+    },
+    "items": {
+      "loginForMore": "Συνδεθείτε για να δείτε άλλα σχετικά αντικείμενα",
+      "title": "Ανακαλύψτε σχετικά αντικείμενα"
     },
     "themes": {
       "title": "Ανακαλύψτε σχετικά θέματα"

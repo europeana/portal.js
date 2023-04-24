@@ -45,7 +45,6 @@ export default {
     "pin": "Szpilka",
     "preview": "Podgląd",
     "previous": "Poprzedni",
-    "providedBy": "Dostarczone przez {provider}",
     "publish": "Publikować",
     "reject": "Odrzuć",
     "requestDepublication": "Poproś o wycofanie publikacji",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginacja"
   },
+  "provider": {
+    "linkText": "Zobacz na stronie internetowej dostawcy",
+    "providedBy": "Ten element jest dostarczany i obsługiwany przez {provider}"
+  },
   "readMore": "Czytaj więcej",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Wszystkie metadane",
     "copyEmbedLabel": "Kod do umieszczenia (kliknij, aby skopiować)",
-    "exploreMore": "Odkryj więcej",
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Powiązane galerie",
       "title": "Odkryj powiązane galerie"
+    },
+    "items": {
+      "loginForMore": "Zaloguj się, aby zobaczyć inne powiązane elementy",
+      "title": "Odkryj powiązane elementy"
     },
     "themes": {
       "title": "Odkryj powiązane motywy"

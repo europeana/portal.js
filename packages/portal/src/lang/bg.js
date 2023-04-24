@@ -45,7 +45,6 @@ export default {
     "pin": "Щифт",
     "preview": "Преглед",
     "previous": "Предишна",
-    "providedBy": "Предоставено от {provider}",
     "publish": "Публикувайте",
     "reject": "Отхвърляне",
     "requestDepublication": "Искане за депубликуване",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Пагинация"
   },
+  "provider": {
+    "linkText": "Преглед на уебсайта на доставчика",
+    "providedBy": "Този елемент се предоставя и поддържа от {доставчик}"
+  },
   "readMore": "Прочетете повече",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Всички метаданни",
     "copyEmbedLabel": "Вграден код (Щракнете за копиране)",
-    "exploreMore": "Разгледайте още",
     "extendedInformation": "Разширена информация",
     "goodToKnow": "Добре е да се знае",
     "hideAll": "Скриване на цялата информация",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Свързани галерии",
       "title": "Открийте свързани галерии"
+    },
+    "items": {
+      "loginForMore": "Влезте, за да видите други свързани елементи",
+      "title": "Открийте свързани елементи"
     },
     "themes": {
       "title": "Открийте свързани теми"

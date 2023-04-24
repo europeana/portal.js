@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Aurrebista",
     "previous": "Aurrekoa",
-    "providedBy": "{provider} emanda",
     "publish": "Argitaratu",
     "reject": "Baztertu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
@@ -962,6 +961,10 @@ export default {
   "pagination": {
     "label": "Paginazioa"
   },
+  "provider": {
+    "linkText": "Hornitzailearen webgunean ikusi",
+    "providedBy": "Elementu hau {provider} k hornitu eta mantentzen du"
+  },
   "readMore": "Gehiago irakurri",
   "recommendation": {
     "prompts": {
@@ -975,7 +978,6 @@ export default {
     },
     "allMetaData": "Metadatu guztiak",
     "copyEmbedLabel": "Embed kodea (Egin klik kopiatzeko)",
-    "exploreMore": "Gehiago arakatu",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
@@ -1006,6 +1008,10 @@ export default {
     "galleries": {
       "name": "Lotutako galeriak",
       "title": "Ezagutu erlazionatutako galeriak"
+    },
+    "items": {
+      "loginForMore": "Hasi saioa erlazionatutako beste elementu batzuk ikusteko",
+      "title": "Ezagutu erlazionatutako elementuak"
     },
     "themes": {
       "title": "Ezagutu erlazionatutako gaiak"
