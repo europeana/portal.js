@@ -293,6 +293,32 @@ describe('pages/iiif/index.vue', () => {
       });
     });
 
+    describe('postprocessMiradorReceiveManifest', () => {
+      describe('addAnnotationTextGranularityFilterToManifest post-processor', () => {
+        it('is called if for a Europeana manifest', () => {
+          const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+          const action = { manifestJson: { id: url } };
+          const wrapper = factory();
+          sinon.stub(wrapper.vm, 'addAnnotationTextGranularityFilterToManifest');
+
+          wrapper.vm.postprocessMiradorReceiveManifest(url, action);
+
+          expect(wrapper.vm.addAnnotationTextGranularityFilterToManifest.calledWith(action.manifestJson)).toBe(true);
+        });
+
+        it('is not called if not for a Europeana manifest', () => {
+          const url = 'https://iiif.example.org/presentation/123/abc/manifest';
+          const action = { manifestJson: { id: url } };
+          const wrapper = factory();
+          sinon.stub(wrapper.vm, 'addAnnotationTextGranularityFilterToManifest');
+
+          wrapper.vm.postprocessMiradorReceiveManifest(url, action);
+
+          expect(wrapper.vm.addAnnotationTextGranularityFilterToManifest.called).toBe(false);
+        });
+      });
+    })
+
     describe('fetchAnnotationResourcesFulltext', () => {
       describe('when manifest is for IIIF Presentation API v2', () => {
         it('fetches remote fulltext for all resources', async() => {
