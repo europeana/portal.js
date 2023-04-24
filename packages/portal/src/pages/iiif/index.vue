@@ -180,9 +180,13 @@
       },
 
       // Europeana-only
-      addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
+      addTextGranularityFilterToManifest(manifestJson) {
         for (const item of manifestJson.items) {
           for (const annotation of item.annotations || []) {
+            let textGranularity = 'line';
+            if (annotation.textGranularity && !annotation.textGranularity.includes(textGranularity)) {
+              textGranularity = annotation.textGranularity[0];
+            }
             const paramSeparator = annotation.id.includes('?') ? '&' : '?';
             annotation.id = `${annotation.id}${paramSeparator}textGranularity=${textGranularity}`;
           }
@@ -197,6 +201,7 @@
         //       If it in future becomes possible to use this, then `filterSearchHitsByTextGranularity`
         //       becomes redundant and may be removed, as pre-filtering on the
         //       service side is preferrable.
+        //  TODO: open PR on Mirador repo to handle this better
         //
         // if ((manifestJson.service || {}).profile === 'http://iiif.io/api/search/1/search') {
         //   const paramSeparator = manifestJson.service['@id'].includes('?') ? '&' : '?';
@@ -205,6 +210,7 @@
       },
 
       // Europeana-only
+      // TODO: make this compatible with the available granularities on the manifest
       filterSearchHitsByTextGranularity(searchJson, textGranularity = 'Line') {
         searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (resource.dcType === textGranularity));
         const filteredResourceIds = searchJson.resources.map(resource => resource['@id']);
