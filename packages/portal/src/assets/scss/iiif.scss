@@ -1,7 +1,8 @@
 @import '@/assets/scss/mixins';
 
 .iiif-viewer-wrapper {
-  @include swiper-height;
+  // add extra space for item language selector
+  @include swiper-height(4rem);
 
   @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
     max-height: 50vh;

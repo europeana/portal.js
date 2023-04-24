@@ -2,8 +2,9 @@
   <div class="item-hero">
     <div
       v-if="iiifPresentationManifest"
-      class="iiif-viewer-wrapper"
+      class="iiif-viewer-wrapper d-flex flex-column"
     >
+      <slot name="item-language-selector" />
       <iframe
         data-qa="IIIF viewer"
         allowfullscreen="true"

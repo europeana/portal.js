@@ -23,17 +23,14 @@
     <template
       v-else
     >
-      <client-only>
-        <transition
-          name="fade"
-        >
-          <ItemLanguageSelector
-            v-if="translatedItemsEnabled && showItemLanguageSelector"
-            :from-translation-error="fromTranslationError"
-            :metadata-language="metadataLanguage"
-            @hidden="() => showItemLanguageSelector = false"
-          />
-        </transition>
+      <!-- render item language selector inside IIIF wrapper so the iframe can take the available width becoming available upon closing -->
+      <client-only v-if="!iiifPresentationManifest">
+        <ItemLanguageSelector
+          v-if="translatedItemsEnabled && showItemLanguageSelector"
+          :from-translation-error="fromTranslationError"
+          :metadata-language="metadataLanguage"
+          @hidden="() => showItemLanguageSelector = false"
+        />
       </client-only>
       <b-container
         fluid
@@ -50,7 +47,18 @@
           :entities="europeanaEntities"
           :provider-url="isShownAt"
           :iiif-presentation-manifest="iiifPresentationManifest"
-        />
+        >
+          <template slot="item-language-selector">
+            <client-only>
+              <ItemLanguageSelector
+                v-if="translatedItemsEnabled && showItemLanguageSelector"
+                :from-translation-error="fromTranslationError"
+                :metadata-language="metadataLanguage"
+                @hidden="() => showItemLanguageSelector = false"
+              />
+            </client-only>
+          </template>
+        </ItemHero>
       </b-container>
       <b-container
         class="footer-margin"
@@ -427,14 +435,5 @@
   ::v-deep .card-header-tabs .nav-link,
   ::v-deep .card-header-tabs .nav-link:hover {
     border-radius: 0.25rem 0 0;
-  }
-
-  .fade-leave-active {
-    transition: $standard-transition;
-    opacity: 1;
-  }
-
-  .fade-leave-to {
-    opacity: 0;
   }
 </style>

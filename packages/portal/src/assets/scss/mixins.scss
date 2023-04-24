@@ -27,19 +27,19 @@
   }
 }
 
-@mixin swiper-height {
-  height: $swiper-height;
+@mixin swiper-height($extra-height) {
+  height: calc($swiper-height + $extra-height);
 
   @media (max-height: ($bp-medium - 1px)) {
-    max-height: $swiper-height;
+    max-height: calc($swiper-height + $extra-height);
   }
 
   @media (min-height: $bp-medium) {
-    max-height: $swiper-height-max;
+    max-height: calc($swiper-height-max + $extra-height);
   }
 
   @media (max-width: ($bp-medium - 1px)) {
-    max-height: $swiper-height-medium;
-    height: $swiper-height-medium;
+    max-height: calc($swiper-height-medium + $extra-height);
+    height: calc($swiper-height-medium + $extra-height);
   }
 }

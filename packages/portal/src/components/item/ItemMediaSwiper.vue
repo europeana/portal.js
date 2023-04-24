@@ -135,7 +135,7 @@
 
   .swiper-outer,
   .swiper-container {
-    @include swiper-height;
+    @include swiper-height(0px);
 
     .swiper-slide {
       width: 100%;
