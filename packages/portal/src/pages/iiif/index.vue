@@ -146,7 +146,7 @@
       // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorReceiveManifest(url, action) {
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
-          this.addTextGranularityFilterToManifest(action.manifestJson);
+          this.addAnnotationTextGranularityFilterToManifest(action.manifestJson);
         }
       },
 
@@ -181,7 +181,7 @@
       },
 
       // Europeana-only
-      addTextGranularityFilterToManifest(manifestJson) {
+      addAnnotationTextGranularityFilterToManifest(manifestJson) {
         // Memoise granularities we will accept for this manifest, for later filtering
         const manifestAnnotationTextGranularities = [];
 
