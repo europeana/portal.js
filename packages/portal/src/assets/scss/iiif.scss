@@ -34,6 +34,15 @@
     margin: 0;
   }
 
+  .mirador-window-top-bar {
+    > h2 {
+      display: none;
+      + button {
+        margin-left: auto;
+      }
+    }
+  }
+
   .mirador-companion-window-header {
     border-bottom: 1px solid $lightbluemagenta;
   }

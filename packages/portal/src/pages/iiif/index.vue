@@ -229,14 +229,7 @@
                 },
                 MuiToolbar: {
                   root: {
-                    borderTop: '0 !important',
-                    ['@media (max-width: 768px)']: {
-                      flexWrap: 'wrap',
-                      '& h2': {
-                        order: '-1'
-                      }
-                    }
-
+                    borderTop: '0 !important'
                   }
                 },
                 MuiTooltip: {
