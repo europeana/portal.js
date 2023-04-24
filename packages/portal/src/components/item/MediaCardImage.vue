@@ -3,7 +3,7 @@
     class="image-container h-100"
   >
     <b-link
-      v-if="imageLink && media.thumbnails.large && !media.isShownAt"
+      v-if="imageLink && thumbnails.large && !media.forEdmIsShownAt"
       :href="imageLink"
       target="_blank"
       data-qa="media link"
@@ -32,7 +32,7 @@
       </span>
     </b-link>
     <div
-      v-else-if="media.thumbnails.large"
+      v-else-if="thumbnails.large"
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import WebResource from '@/plugins/europeana/web-resource';
+  import WebResource from '@/plugins/europeana/edm/WebResource';
 
   export default {
     name: 'MediaCardImage',
@@ -98,8 +98,11 @@
       imageLink() {
         return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
       },
+      thumbnails() {
+        return this.media.thumbnails(this.$nuxt.context);
+      },
       thumbnailSrc() {
-        return this.media.thumbnails.large;
+        return this.thumbnails.large;
       },
       thumbnailWidth() {
         if (!this.media.ebucoreWidth) {

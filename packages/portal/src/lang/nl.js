@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Voorbeeld",
     "previous": "Vorige",
-    "providedBy": "Aangeboden door {provider}",
     "publish": "Publiceren",
     "reject": "Afwijzen",
     "requestDepublication": "Depublicatie aanvragen",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginering"
   },
+  "provider": {
+    "linkText": "Bekijk op de website van de aanbieder",
+    "providedBy": "Dit item wordt geleverd en onderhouden door {provider}"
+  },
   "readMore": "Lees verder",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Embed code (klik om te kopiëren)",
-    "exploreMore": "Meer verkennen",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Gerelateerde galerijen",
       "title": "Ontdek gerelateerde galerijen"
+    },
+    "items": {
+      "loginForMore": "Log in om andere gerelateerde items te zien",
+      "title": "Ontdek gerelateerde items"
     },
     "themes": {
       "title": "Ontdek gerelateerde thema's"

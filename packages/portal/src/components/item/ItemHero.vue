@@ -1,6 +1,20 @@
 <template>
   <div class="item-hero">
+    <div
+      v-if="iiifPresentationManifest"
+      class="iiif-viewer-wrapper container"
+    >
+      <iframe
+        data-qa="IIIF viewer"
+        allowfullscreen="true"
+        class="iiif-iframe"
+        :src="$path({ name: 'iiif', query: { uri: iiifPresentationManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
+        :aria-label="$t('actions.viewDocument')"
+        :title="$t('record.IIIFViewer')"
+      />
+    </div>
     <ItemMediaSwiper
+      v-else
       :europeana-identifier="identifier"
       :edm-type="edmType"
       :displayable-media="media"
@@ -22,7 +36,7 @@
             />
           </div>
           <div
-            v-if="media.length !== 1"
+            v-if="!iiifPresentationManifest && (media.length !== 1)"
             class="d-flex justify-content-md-center align-items-center pagination-wrapper"
           >
             <div class="swiper-pagination" />
@@ -73,7 +87,7 @@
   import ItemEmbedCode from './ItemEmbedCode';
   import SocialShareModal from '../sharing/SocialShareModal';
   import ShareButton from '../sharing/ShareButton';
-  import WebResource from '@/plugins/europeana/web-resource';
+  import WebResource from '@/plugins/europeana/edm/WebResource';
 
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
@@ -134,6 +148,10 @@
       linkForContributingAnnotation: {
         type: String,
         default: null
+      },
+      iiifPresentationManifest: {
+        type: String,
+        default: null
       }
     },
     data() {
@@ -168,7 +186,7 @@
         }
       },
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt;
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
@@ -308,6 +326,31 @@
           }
         }
       }
+    }
+  }
+
+  .iiif-viewer-wrapper {
+    height: $swiper-height;
+
+    @media (max-height: $bp-medium) {
+      max-height: $swiper-height;
+    }
+
+    @media (min-height: $bp-medium) {
+      max-height: $swiper-height-max;
+    }
+
+    @media (max-width: $bp-medium) {
+      max-height: $swiper-height-medium;
+      height: $swiper-height-medium;
+    }
+
+    .iiif-iframe {
+      width: 100%;
+      height: 100%;
+      border: 1px solid $lightgrey;
+      border-radius: 0.25rem;
+      box-shadow: $boxshadow-small;
     }
   }
 </style>

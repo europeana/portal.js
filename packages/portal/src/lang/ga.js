@@ -45,7 +45,6 @@ export default {
     "pin": "Bioráin",
     "preview": "Réamhamharc",
     "previous": "Roimhe Seo",
-    "providedBy": "Arna sholáthar ag {provider}",
     "publish": "Foilsiú",
     "reject": "Diúltaigh",
     "requestDepublication": "Iarratas a dhéanamh ar fhoilseachán",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Leathanaigh"
   },
+  "provider": {
+    "linkText": "Amharc air ag láithreán gréasáin an tsoláthraí",
+    "providedBy": "Soláthraíonn {provider} an mhír seo agus déanann sé cothabháil uirthi"
+  },
   "readMore": "Léigh níos mó",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Gach meiteashonraí",
     "copyEmbedLabel": "Leabaigh an cód (Cliceáil chun é a chópáil)",
-    "exploreMore": "Déan iniúchadh ar níos mó",
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
     "hideAll": "Folaigh gach faisnéis",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Gailearaithe gaolmhara",
       "title": "Faigh amach gailearaithe gaolmhara"
+    },
+    "items": {
+      "loginForMore": "Logáil isteach chun míreanna gaolmhara eile a fheiceáil",
+      "title": "Faigh amach míreanna gaolmhara"
     },
     "themes": {
       "title": "Faigh amach téamaí gaolmhara"

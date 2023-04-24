@@ -5,7 +5,9 @@
 </template>
 
 <script>
+  import camelCase from 'lodash/camelCase';
   import uniq from 'lodash/uniq';
+  import upperFirst from 'lodash/upperFirst';
 
   export default {
     name: 'IIIFPage',
@@ -81,7 +83,11 @@
           workspaceControlPanel: {
             enabled: false
           },
+          annotations: {
+            filteredMotivations: ['transcribing', 'supplementing', 'oa:commenting', 'oa:tagging', 'sc:painting', 'commenting', 'tagging']
+          },
           requests: {
+            preprocessors: [this.addAcceptHeaderToPresentationRequests],
             postprocessors: [this.postprocessMiradorRequest]
           },
           selectedTheme: 'europeana',
@@ -249,13 +255,7 @@
       },
 
       iiifPresentationApiVersion() {
-        if (this.manifest?.['@context'] === 'http://iiif.io/api/presentation/2/context.json') {
-          return 2;
-        } else if (this.manifest?.['@context'] === 'http://iiif.io/api/presentation/3/context.json') {
-          return 3;
-        } else {
-          return undefined;
-        }
+        return this.iiifPresentationApiVersionFromContext(this.manifest?.['@context']);
       },
 
       numberOfPages() {
@@ -297,8 +297,17 @@
     },
 
     methods: {
+      versioned(fn, args) {
+        const versionedFunction = `${fn}${this.iiifPresentationApiVersion}`;
+        if (typeof this[versionedFunction] !== 'function') {
+          throw new Error(`Unsupported IIIF Presentation API version ${this.iiifPresentationApiVersion} for function ${fn}`);
+        }
+        return this[versionedFunction].apply(this, args);
+      },
+
       miradorStoreManifestJsonListener() {
-        const miradorWindow = Object.values(this.mirador.store.getState().windows)[0]; // only takes one window into account at the moment
+        // only takes one window into account at the moment
+        const miradorWindow = Object.values(this.mirador.store.getState().windows)[0];
         if (miradorWindow) {
           const miradorManifest = this.mirador.store.getState().manifests[miradorWindow.manifestId];
           if (miradorManifest) {
@@ -312,68 +321,64 @@
         }
       },
 
-      postprocessMiradorRequest(url, action) {
-        switch (action.type) {
-        case 'mirador/RECEIVE_MANIFEST':
-          this.postprocessMiradorManifest(url, action);
-          break;
-        case 'mirador/RECEIVE_ANNOTATION':
-          if ((action.annotationJson.resources.length > 0)) {
-            if (!this.showAnnotations) {
-              if (this.searchQuery) {
-                const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
-                const searchId = `${this.manifest.service['@id']}?q=${this.searchQuery}`;
-
-                const actionSearch = window.Mirador.actions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
-                this.mirador.store.dispatch(actionSearch);
-              }
-              const openSideBarOptions = {
-                allowWindowSideBar: true,
-                sideBarOpen: true
-              };
-              const actionShow = window.Mirador.actions.updateWindow(this.miradorWindowId, openSideBarOptions);
-              this.mirador.store.dispatch(actionShow);
-              this.showAnnotations = true;
-            }
+      addAcceptHeaderToPresentationRequests(url, options) {
+        if (this.urlIsForEuropeanaPresentationAPI(url)) {
+          if (!options.headers) {
+            options.headers = {};
           }
-          this.postprocessMiradorAnnotation(url, action);
-          break;
-        case 'mirador/RECEIVE_SEARCH':
-          this.postprocessMiradorSearch(url, action);
-          break;
+          options.headers.Accept = 'application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"';
+        }
+        return options;
+      },
+
+      postprocessMiradorRequest(url, action) {
+        const fn = `postprocess${upperFirst(camelCase(action.type))}`;
+        this[fn] && this[fn](url, action);
+      },
+
+      // TODO: rewrite thumbnail URLs to use v3 API
+      postprocessMiradorReceiveManifest(url, action) {
+        if (this.urlIsForEuropeanaPresentationAPI(url)) {
+          this.addTextGranularityFilterToManifest(action.manifestJson);
         }
       },
 
-      postprocessMiradorManifest(url, action) {
-        this.addTextGranularityFilterToManifest(action.manifestJson);
-      },
-
-      postprocessMiradorAnnotation(url, action) {
-        this.coerceResourcesOnToCanvases(action.annotationJson);
+      postprocessMiradorReceiveAnnotation(url, action) {
+        this.showSidebarForAnnotations(action.annotationJson);
+        if (this.urlIsForEuropeanaPresentationAPI(url)) {
+          this.coerceAnnotationsOnToCanvases(action.annotationJson);
+        }
         this.dereferenceAnnotationResources(action.annotationJson);
       },
 
-      postprocessMiradorSearch(url, action) {
-        this.filterSearchHitsByTextGranularity(action.searchJson);
-        this.coerceResourcesOnToCanvases(action.searchJson);
+      postprocessMiradorReceiveSearch(url, action) {
+        if (this.urlIsForEuropeanaPresentationAPI(url)) {
+          this.filterSearchHitsByTextGranularity(action.searchJson);
+          this.coerceAnnotationsOnToCanvases(action.searchJson);
+        }
         this.coerceSearchHitsToBeforeMatchAfter(action.searchJson);
       },
 
-      addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
-        const europeanaIiifPattern = /^https?:\/\/iiif\.europeana\.eu\/presentation\/[^/]+\/[^/]+\/manifest$/;
-        if (!europeanaIiifPattern.test(manifestJson['@id'])) {
-          return;
-        }
+      urlIsForEuropeanaPresentationAPI(url) {
+        return url.includes('.europeana.eu/presentation/') || url.includes('.eanadev.org/presentation/');
+      },
 
-        // Add textGranularity filter to "otherContent" URIs
-        for (const sequence of manifestJson.sequences) {
-          for (const canvas of (sequence.canvases || [])) {
-            const otherContent = canvas.otherContent || [];
-            for (let i = 0; i < otherContent.length; i = i + 1) {
-              const otherContentLink = otherContent[i];
-              const paramSeparator = otherContentLink.includes('?') ? '&' : '?';
-              otherContent[i] = `${otherContentLink}${paramSeparator}textGranularity=${textGranularity}`;
-            }
+      iiifPresentationApiVersionFromContext(context) {
+        if ([].concat(context).includes('http://iiif.io/api/presentation/2/context.json')) {
+          return 2;
+        } else if ([].concat(context).includes('http://iiif.io/api/presentation/3/context.json')) {
+          return 3;
+        } else {
+          return undefined;
+        }
+      },
+
+      // Europeana-only
+      addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
+        for (const item of manifestJson.items) {
+          for (const annotation of item.annotations || []) {
+            const paramSeparator = annotation.id.includes('?') ? '&' : '?';
+            annotation.id = `${annotation.id}${paramSeparator}textGranularity=${textGranularity}`;
           }
         }
 
@@ -393,28 +398,80 @@
         // }
       },
 
+      // Europeana-only
       filterSearchHitsByTextGranularity(searchJson, textGranularity = 'Line') {
         searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (resource.dcType === textGranularity));
         const filteredResourceIds = searchJson.resources.map(resource => resource['@id']);
         searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredResourceIds.includes(anno)));
       },
 
-      coerceResourcesOnToCanvases(json) {
-        json.resources = json.resources.map(this.coerceResourceOnImagesToCanvases);
+      // Europeana-only
+      coerceAnnotationsOnToCanvases(json) {
+        if (!json.items) {
+          return;
+        }
+        json.items = json.items.map(this.coerceItemTargetImagesToCanvases);
+      },
+
+      showSidebarForAnnotations(json) {
+        if (this.showAnnotations) {
+          return;
+        }
+
+        let annotations = [];
+        if (this.iiifPresentationApiVersion === 2) {
+          annotations = json.resources;
+        } else if (this.iiifPresentationApiVersion === 3) {
+          annotations = json.items;
+        }
+        if (annotations.length === 0) {
+          return;
+        }
+
+        if (this.searchQuery) {
+          const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
+          const searchId = `${this.manifest.service['@id']}?q=${this.searchQuery}`;
+
+          const actionSearch = window.Mirador.actions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
+          this.mirador.store.dispatch(actionSearch);
+        }
+
+        const openSideBarOptions = {
+          allowWindowSideBar: true,
+          sideBarOpen: true
+        };
+        const actionShow = window.Mirador.actions.updateWindow(this.miradorWindowId, openSideBarOptions);
+        this.mirador.store.dispatch(actionShow);
+
+        this.showAnnotations = true;
       },
 
       memoiseImageToCanvasMap() {
-        if (this.iiifPresentationApiVersion === 2) {
-          this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
-            for (const canvas of sequence.canvases) {
-              for (const image of canvas.images) {
-                memo[image.resource['@id']] = canvas['@id'];
+        return this.versioned('memoiseImageToCanvasMap', arguments);
+      },
+
+      memoiseImageToCanvasMap2() {
+        this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
+          for (const canvas of sequence.canvases) {
+            for (const image of canvas.images) {
+              memo[image.resource['@id']] = canvas['@id'];
+            }
+          }
+          return memo;
+        }, {});
+      },
+
+      memoiseImageToCanvasMap3() {
+        this.imageToCanvasMap = this.manifest.items.reduce((memo, canvas) => {
+          for (const annopage of canvas.items) {
+            for (const anno of annopage.items) {
+              if (anno.type === 'Annotation' && anno.body?.type === 'Image') {
+                memo[anno.body.id] = anno.target;
               }
             }
-            return memo;
-          }, {});
-        }
-        // TODO: do we also need memoisation for v3?
+          }
+          return memo;
+        }, {});
       },
 
       canvasForImage(imageId) {
@@ -426,28 +483,28 @@
         }
       },
 
-      // HACK to force `on` attribute to canvas ID, from invalid targetting of image ID
+      // HACK to force `target` attribute to canvas ID, from invalid targetting of image ID
       //
       // TODO: remove when API output updated to use canvas ID.
-      //       Affects annotation lists for:
-      //       - full pages of annotations linked to from otherContent in Presentation manifests
-      //       - lists of annotations with search hits
-      coerceResourceOnImagesToCanvases(resource) {
-        if (Array.isArray(resource.on)) {
-          for (let i = 0; i < resource.on.length; i = i + 1) {
-            const canvas = this.canvasForImage(resource.on[i]);
+      //       Affects annotation pages for:
+      //       - annotations linked to from Presentation manifests
+      //       - annotations with search hits
+      coerceItemTargetImagesToCanvases(item) {
+        if (Array.isArray(item.target)) {
+          for (let i = 0; i < item.target.length; i = i + 1) {
+            const canvas = this.canvasForImage(item.target[i]);
             if (canvas) {
-              resource.on[i] = canvas;
+              item.target[i] = canvas;
             }
           }
         } else {
-          const canvas = this.canvasForImage(resource.on);
+          const canvas = this.canvasForImage(item.target);
           if (canvas) {
-            resource.on = canvas;
+            item.target = canvas;
           }
         }
 
-        return resource;
+        return item;
       },
 
       // HACK to flatten oa:TextQuoteSelector hit selectors to before/match/after
@@ -474,18 +531,33 @@
         searchJson.hits = hits;
       },
 
+      findAnnotationFulltextUrls2(annotationJson) {
+        return annotationJson.resources
+          .filter((resource) => resource.resource && !resource.resource.chars && resource.resource['@id'])
+          .map((resource) => resource.resource['@id']);
+      },
+
+      findAnnotationFulltextUrls3(annotationJson) {
+        return annotationJson.items
+          .filter((item) => item.body && !item.body.value && item.body.id)
+          .map((item) => item.body.id);
+      },
+
+      findAnnotationFulltextUrls() {
+        return this.versioned('findAnnotationFulltextUrls', arguments);
+      },
+
       fetchAnnotationResourcesFulltext(annotationJson) {
-        const urls = annotationJson.resources
-          .filter(resource => !resource.resource.chars && resource.resource['@id'])
-          .map(resource => resource.resource['@id'].split('#')[0]);
+        const urls = this.findAnnotationFulltextUrls(annotationJson)
+          .map((url) => url.split('#')[0]);
 
         const fulltext = {};
 
         // TODO: error handling
-        const fetches = uniq(urls).map(url => this.$axios.get(url)
-          .then(response => response.data)
+        const fetches = uniq(urls).map((url) => this.$axios.get(url)
+          .then((response) => response.data)
           .then((data) => {
-            if (data.type === 'FullTextResource') {
+            if (['FullTextResource', 'TextualBody'].includes(data.type)) {
               fulltext[url] = data.value;
             }
           }));
@@ -495,9 +567,16 @@
 
       async dereferenceAnnotationResources(annotationJson) {
         const fulltext = await this.fetchAnnotationResourcesFulltext(annotationJson);
+        this.addFulltextToAnnotations(annotationJson, fulltext);
+      },
 
+      addFulltextToAnnotations() {
+        return this.versioned('addFulltextToAnnotations', arguments);
+      },
+
+      addFulltextToAnnotations2(annotationJson, fulltext) {
         for (const resource of annotationJson.resources) {
-          if (resource.resource.chars || !resource.resource['@id']) {
+          if (!resource.resource || resource.resource.chars || !resource.resource['@id']) {
             continue;
           }
 
@@ -522,26 +601,64 @@
         }
       },
 
+      addFulltextToAnnotations3(annotationJson, fulltext) {
+        for (const item of annotationJson.items) {
+          if (!item.body || item.body.value || !item.body.id) {
+            continue;
+          }
+
+          const url = item.body.id.split('#')[0];
+          if (!fulltext[url]) {
+            continue;
+          }
+
+          const fragment = item.body.id.split('#')[1];
+
+          let text = fulltext[url];
+          if (fragment) {
+            const charMatch = fragment.match(/char=(\d+),(\d+)$/);
+            if (charMatch) {
+              text = text.slice(
+                Number(charMatch[1]),
+                Number(charMatch[2]) + 1
+              );
+            }
+          }
+          item.body = {
+            value: text,
+            type: 'TextualBody',
+            language: annotationJson.language,
+            format: 'text/plain'
+          };
+        }
+      },
+
       postUpdatedDownloadLinkMessage(pageId) {
         if (!this.manifest) {
           return;
         }
 
-        let link;
-
-        if (this.iiifPresentationApiVersion === 2) {
-          link = this.manifest.sequences[0].canvases
-            .find(canvas => canvas['@id'] === pageId)
-            ?.images?.[0]?.resource?.['@id'];
-        } else if (this.iiifPresentationApiVersion === 3) {
-          link = this.manifest.items
-            .find(canvas => canvas.id === pageId)
-            ?.items?.[0]?.items?.[0]?.body?.id;
-        }
+        const link = this.findDownloadLinkForPage(pageId);
 
         if (link) {
           window.parent.postMessage({ event: 'updateDownloadLink', id: link }, window.location.origin);
         }
+      },
+
+      findDownloadLinkForPage() {
+        return this.versioned('findDownloadLinkForPage', arguments);
+      },
+
+      findDownloadLinkForPage2(pageId) {
+        return this.manifest.sequences[0].canvases
+          .find(canvas => canvas['@id'] === pageId)
+          ?.images?.[0]?.resource?.['@id'];
+      },
+
+      findDownloadLinkForPage3(pageId) {
+        return this.manifest.items
+          .find(canvas => canvas.id === pageId)
+          ?.items?.[0]?.items?.[0]?.body?.id;
       }
     }
   };
