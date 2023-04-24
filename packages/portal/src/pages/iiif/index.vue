@@ -76,6 +76,7 @@
               { key: 'gallery' }
             ]
           },
+          language: this.$i18n.locale,
           workspace: {
             showZoomControls: true,
             type: 'mosaic'
