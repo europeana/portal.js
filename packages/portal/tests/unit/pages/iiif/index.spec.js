@@ -317,7 +317,7 @@ describe('pages/iiif/index.vue', () => {
           expect(wrapper.vm.addAnnotationTextGranularityFilterToManifest.called).toBe(false);
         });
       });
-    })
+    });
 
     describe('fetchAnnotationResourcesFulltext', () => {
       describe('when manifest is for IIIF Presentation API v2', () => {
