@@ -84,9 +84,6 @@
           requests: {
             postprocessors: [this.postprocessMiradorRequest]
           },
-          // thumbnailNavigation: {
-          //   width: 145 // width of one canvas (doubled for book view) in ThumbnailNavigation area when position is "far-right"
-          // },
           selectedTheme: 'europeana',
           themes: {
             europeana: {
@@ -111,7 +108,8 @@
                 },
                 action: {
                   hover: '#ffffff',
-                  hoverOpacity: 0
+                  hoverOpacity: 0,
+                  selected: '#ffffff'
                 }
               },
               typography: {
@@ -153,6 +151,24 @@
                     backgroundColor: 'transparent',
                     '&:hover, &:hover svg': {
                       color: '#0a72cc'
+                    }
+                  }
+                },
+                MuiButton: {
+                  contained: { // example: button on modal when no search results
+                    color: '#0a72cc',
+                    boxShadow: 'none',
+                    backgroundColor: 'transparent',
+                    fontSize: '0.875rem',
+                    textTransform: 'uppercase',
+                    fontWeight: '600',
+                    padding: '0 1rem',
+                    border: '1px solid #0a72cc',
+                    borderRadius: '0.25rem',
+                    '&:hover': {
+                      color: '#ffffff',
+                      boxShadow: 'none',
+                      backgroundColor: '#0a72cc'
                     }
                   }
                 },
