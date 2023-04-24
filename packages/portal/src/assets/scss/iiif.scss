@@ -1,14 +1,11 @@
-.iiif-viewer-wrapper {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
+@import '@/assets/scss/mixins';
 
-.single-media-container {
-  .iiif-viewer-wrapper {
-    top: -2.25rem;
+.iiif-viewer-wrapper {
+  @include swiper-height;
+
+  @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
+    max-height: 50vh;
+    height: 50vh;
   }
 }
 

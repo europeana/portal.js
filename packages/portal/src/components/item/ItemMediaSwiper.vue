@@ -130,29 +130,12 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/mixins';
   @import '@/assets/scss/swiper';
 
   .swiper-outer,
   .swiper-container {
-    height: $swiper-height;
-
-    @media (max-height: ($bp-medium - 1px)) {
-      max-height: $swiper-height;
-    }
-
-    @media (min-height: $bp-medium) {
-      max-height: $swiper-height-max;
-    }
-
-    @media (max-width: ($bp-medium - 1px)) {
-      max-height: $swiper-height-medium;
-      height: $swiper-height-medium;
-    }
-
-    @media (min-width: $bp-xxxl) and (min-height: $bp-extralarge) {
-      max-height: $swiper-height-xxxl;
-      height: $swiper-height-xxxl;
-    }
+    @include swiper-height;
 
     .swiper-slide {
       width: 100%;

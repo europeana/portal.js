@@ -26,3 +26,20 @@
     min-height: 30vh;
   }
 }
+
+@mixin swiper-height {
+  height: $swiper-height;
+
+  @media (max-height: ($bp-medium - 1px)) {
+    max-height: $swiper-height;
+  }
+
+  @media (min-height: $bp-medium) {
+    max-height: $swiper-height-max;
+  }
+
+  @media (max-width: ($bp-medium - 1px)) {
+    max-height: $swiper-height-medium;
+    height: $swiper-height-medium;
+  }
+}

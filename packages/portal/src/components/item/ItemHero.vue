@@ -2,7 +2,7 @@
   <div class="item-hero">
     <div
       v-if="iiifPresentationManifest"
-      class="iiif-viewer-wrapper container"
+      class="iiif-viewer-wrapper"
     >
       <iframe
         data-qa="IIIF viewer"
@@ -227,6 +227,7 @@
 
 <style lang="scss">
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/iiif';
 
   .item-hero {
     padding-bottom: 1.625rem;
@@ -326,31 +327,6 @@
           }
         }
       }
-    }
-  }
-
-  .iiif-viewer-wrapper {
-    height: $swiper-height;
-
-    @media (max-height: $bp-medium) {
-      max-height: $swiper-height;
-    }
-
-    @media (min-height: $bp-medium) {
-      max-height: $swiper-height-max;
-    }
-
-    @media (max-width: $bp-medium) {
-      max-height: $swiper-height-medium;
-      height: $swiper-height-medium;
-    }
-
-    .iiif-iframe {
-      width: 100%;
-      height: 100%;
-      border: 1px solid $lightgrey;
-      border-radius: 0.25rem;
-      box-shadow: $boxshadow-small;
     }
   }
 </style>
