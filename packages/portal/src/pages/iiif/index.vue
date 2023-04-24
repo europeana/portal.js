@@ -24,6 +24,7 @@
     data() {
       return {
         manifest: null,
+        manifestAnnotationTextGranularities: [],
         MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
         page: null,
         imageToCanvasMap: {},
@@ -181,16 +182,25 @@
 
       // Europeana-only
       addTextGranularityFilterToManifest(manifestJson) {
+        // Memoise granularities we will accept for this manifest, for later filtering
+        const manifestAnnotationTextGranularities = [];
+
         for (const item of manifestJson.items) {
           for (const annotation of item.annotations || []) {
             let textGranularity = 'line';
             if (annotation.textGranularity && !annotation.textGranularity.includes(textGranularity)) {
               textGranularity = annotation.textGranularity[0];
             }
+            if (!manifestAnnotationTextGranularities.includes(textGranularity)) {
+              manifestAnnotationTextGranularities.push(textGranularity);
+            }
+
             const paramSeparator = annotation.id.includes('?') ? '&' : '?';
             annotation.id = `${annotation.id}${paramSeparator}textGranularity=${textGranularity}`;
           }
         }
+
+        this.manifestAnnotationTextGranularities = manifestAnnotationTextGranularities;
 
         // Add textGranularity filter to search service URI
         //
@@ -210,9 +220,8 @@
       },
 
       // Europeana-only
-      // TODO: make this compatible with the available granularities on the manifest
-      filterSearchHitsByTextGranularity(searchJson, textGranularity = 'Line') {
-        searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (resource.dcType === textGranularity));
+      filterSearchHitsByTextGranularity(searchJson) {
+        searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (this.manifestAnnotationTextGranularities.includes(resource.dcType)));
         const filteredResourceIds = searchJson.resources.map(resource => resource['@id']);
         searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredResourceIds.includes(anno)));
       },
