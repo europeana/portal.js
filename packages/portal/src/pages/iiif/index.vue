@@ -8,6 +8,7 @@
   import camelCase from 'lodash/camelCase';
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
+  import { takeEvery } from 'redux-saga/effects';
 
   export default {
     name: 'IIIFPage',
@@ -25,11 +26,9 @@
       return {
         manifest: null,
         MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
-        page: null,
         imageToCanvasMap: {},
         mirador: null,
-        showAnnotations: false,
-        miradorStoreManifestJsonUnsubscriber: () => {}
+        showAnnotations: false
       };
     },
 
@@ -90,6 +89,15 @@
         return options;
       },
 
+      miradorViewerPlugins() {
+        return [
+          {
+            component: () => null,
+            saga: this.watchMiradorSetCanvasSaga
+          }
+        ];
+      },
+
       iiifPresentationApiVersion() {
         return this.iiifPresentationApiVersionFromContext(this.manifest['@context']);
       }
@@ -97,34 +105,27 @@
 
     mounted() {
       this.$nextTick(() => {
-        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
-        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
+        this.mirador = window.Mirador.viewer(this.miradorViewerOptions, this.miradorViewerPlugins);
       });
     },
 
     methods: {
+      *watchMiradorSetCanvasSaga() {
+        yield takeEvery('mirador/SET_CANVAS', this.watchMiradorSetCanvas);
+      },
+
+      *watchMiradorSetCanvas({ canvasId }) {
+        this.memoiseImageToCanvasMap();
+        this.postUpdatedDownloadLinkMessage(canvasId);
+        yield;
+      },
+
       versioned(fn, args) {
         const versionedFunction = `${fn}${this.iiifPresentationApiVersion}`;
         if (typeof this[versionedFunction] !== 'function') {
           throw new Error(`Unsupported IIIF Presentation API version ${this.iiifPresentationApiVersion} for function ${fn}`);
         }
         return this[versionedFunction].apply(this, args);
-      },
-
-      miradorStoreManifestJsonListener() {
-        // only takes one window into account at the moment
-        const miradorWindow = Object.values(this.mirador.store.getState().windows)[0];
-        if (miradorWindow) {
-          const miradorManifest = this.mirador.store.getState().manifests[miradorWindow.manifestId];
-          if (miradorManifest) {
-            this.manifest = miradorManifest.json;
-            if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
-              this.memoiseImageToCanvasMap();
-              this.page = miradorWindow.canvasId;
-              this.postUpdatedDownloadLinkMessage(this.page);
-            }
-          }
-        }
       },
 
       addAcceptHeaderToPresentationRequests(url, options) {
@@ -144,6 +145,7 @@
 
       // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorReceiveManifest(url, action) {
+        this.manifest = action.manifestJson;
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.addTextGranularityFilterToManifest(action.manifestJson);
         }
