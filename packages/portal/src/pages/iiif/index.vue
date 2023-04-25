@@ -255,7 +255,7 @@
       },
 
       memoiseImageToCanvasMap2() {
-        this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
+        this.imageToCanvasMap = (this.manifest.sequences || []).reduce((memo, sequence) => {
           for (const canvas of sequence.canvases) {
             for (const image of canvas.images) {
               memo[image.resource['@id']] = canvas['@id'];
@@ -266,7 +266,7 @@
       },
 
       memoiseImageToCanvasMap3() {
-        this.imageToCanvasMap = this.manifest.items.reduce((memo, canvas) => {
+        this.imageToCanvasMap = (this.manifest.items || []).reduce((memo, canvas) => {
           for (const annopage of canvas.items) {
             for (const anno of annopage.items) {
               if (anno.type === 'Annotation' && anno.body?.type === 'Image') {
@@ -454,13 +454,13 @@
       },
 
       findDownloadLinkForPage2(pageId) {
-        return this.manifest.sequences[0].canvases
+        return (this.manifest.sequences?.[0]?.canvases || [])
           .find(canvas => canvas['@id'] === pageId)
           ?.images?.[0]?.resource?.['@id'];
       },
 
       findDownloadLinkForPage3(pageId) {
-        return this.manifest.items
+        return (this.manifest.items || [])
           .find(canvas => canvas.id === pageId)
           ?.items?.[0]?.items?.[0]?.body?.id;
       }

@@ -67,6 +67,32 @@ describe('pages/iiif/index.vue', () => {
   });
 
   describe('methods', () => {
+    describe('watchMiradorSetCanvas', () => {
+      it('calls memoiseImageToCanvasMap', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/3/context.json'
+        };
+        const wrapper = factory({ data: { manifest } });
+        sinon.spy(wrapper.vm, 'memoiseImageToCanvasMap');
+
+        wrapper.vm.watchMiradorSetCanvas({ canvasId: 'https://example.org/canvas' }).next();
+
+        expect(wrapper.vm.memoiseImageToCanvasMap.called).toBe(true);
+      });
+
+      it('calls postUpdatedDownloadLinkMessage with canvasId', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/3/context.json'
+        };
+        const wrapper = factory({ data: { manifest } });
+        sinon.spy(wrapper.vm, 'postUpdatedDownloadLinkMessage');
+
+        wrapper.vm.watchMiradorSetCanvas({ canvasId: 'https://example.org/canvas' }).next();
+
+        expect(wrapper.vm.postUpdatedDownloadLinkMessage.calledWith('https://example.org/canvas')).toBe(true);
+      });
+    });
+
     describe('addAcceptHeaderToPresentationRequests', () => {
       describe('when url is for Europeana IIIF Presentation API', () => {
         const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
