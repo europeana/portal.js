@@ -93,6 +93,23 @@ describe('pages/iiif/index.vue', () => {
       });
     });
 
+    describe('watchMiradorReceiveAnnotation', () => {
+      it('calls showSidebarForAnnotations', () => {
+        const manifest = {
+          '@context': 'http://iiif.io/api/presentation/3/context.json'
+        };
+        const annotationJson = {
+          items: []
+        };
+        const wrapper = factory({ data: { manifest } });
+        sinon.spy(wrapper.vm, 'showSidebarForAnnotations');
+
+        wrapper.vm.watchMiradorReceiveAnnotation({ annotationJson }).next();
+
+        expect(wrapper.vm.showSidebarForAnnotations.calledWith(annotationJson)).toBe(true);
+      });
+    });
+
     describe('addAcceptHeaderToPresentationRequests', () => {
       describe('when url is for Europeana IIIF Presentation API', () => {
         const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';

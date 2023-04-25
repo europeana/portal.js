@@ -91,10 +91,8 @@
 
       miradorViewerPlugins() {
         return [
-          {
-            component: () => null,
-            saga: this.watchMiradorSetCanvasSaga
-          }
+          { component: () => null, saga: this.watchMiradorSetCanvasSaga },
+          { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
         ];
       },
 
@@ -117,6 +115,15 @@
       *watchMiradorSetCanvas({ canvasId }) {
         this.memoiseImageToCanvasMap();
         this.postUpdatedDownloadLinkMessage(canvasId);
+        yield;
+      },
+
+      *watchMiradorReceiveAnnotationSaga() {
+        yield takeEvery('mirador/RECEIVE_ANNOTATION', this.watchMiradorReceiveAnnotation);
+      },
+
+      *watchMiradorReceiveAnnotation(action) {
+        this.showSidebarForAnnotations(action.annotationJson);
         yield;
       },
 
@@ -151,12 +158,11 @@
         }
       },
 
-      postprocessMiradorReceiveAnnotation(url, action) {
-        this.showSidebarForAnnotations(action.annotationJson);
+      async postprocessMiradorReceiveAnnotation(url, action) {
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.coerceAnnotationsOnToCanvases(action.annotationJson);
         }
-        this.dereferenceAnnotationResources(action.annotationJson);
+        await this.dereferenceAnnotationResources(action.annotationJson);
       },
 
       postprocessMiradorReceiveSearch(url, action) {
