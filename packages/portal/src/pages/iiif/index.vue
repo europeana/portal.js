@@ -221,9 +221,9 @@
 
       // Europeana-only
       filterSearchHitsByTextGranularity(searchJson) {
-        searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (this.manifestAnnotationTextGranularities.includes(resource.dcType)));
-        const filteredResourceIds = searchJson.resources.map(resource => resource['@id']);
-        searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredResourceIds.includes(anno)));
+        searchJson.items = searchJson.items.filter(item => !item.dcType || (this.manifestAnnotationTextGranularities.includes(item.dcType)));
+        const filteredItemIds = searchJson.items.map(item => item.id);
+        searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredItemIds.includes(anno)));
       },
 
       // Europeana-only
