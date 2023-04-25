@@ -70,4 +70,19 @@
     background-color: rgba(255 255 255 / 95%);
     align-items: center;
   }
+
+  .mirador-primary-window {
+    [id^='window-'][id$='-gallery'] {
+      background-color: $black;
+
+      [role='button']:hover {
+        background-color: $black;
+        outline: 1px solid $blue !important;
+      }
+
+      .MuiTypography-caption {
+        color: $white;
+      }
+    }
+  }
 }
