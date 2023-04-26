@@ -117,7 +117,8 @@
                 action: {
                   hover: '#ffffff',
                   hoverOpacity: 0,
-                  selected: '#ffffff'
+                  selected: 'transparent',
+                  focus: 'transparent'
                 }
               },
               typography: {
@@ -159,6 +160,10 @@
                     backgroundColor: 'transparent',
                     '&:hover, &:hover svg': {
                       color: '#0a72cc'
+                    },
+                    '&:focus-visible': {
+                      outline: '2px solid #0a72cc',
+                      outlineOffset: '-2px'
                     }
                   }
                 },
@@ -239,6 +244,11 @@
                     backgroundColor: '#000000',
                     fontSize: '0.875rem',
                     padding: '0.625rem'
+                  }
+                },
+                MuiTouchRipple: { // hide grey circle on focus
+                  root: {
+                    display: 'none'
                   }
                 }
               }
