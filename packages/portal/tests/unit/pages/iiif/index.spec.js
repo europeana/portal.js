@@ -104,26 +104,6 @@ describe('pages/iiif/index.vue', () => {
       });
     });
 
-    describe('coerceItemTargetImagesToCanvases', () => {
-      it('coerces item\'s `target` attribute to canvas ID', async() => {
-        const wrapper = factory();
-        await wrapper.setData({
-          imageToCanvasMap: {
-            'https://example.org/image/123.jpg': 'http://example.org/presentation/123/canvas/p1'
-          }
-        });
-        const resource = {
-          target: ['https://example.org/image/123.jpg#xywh=1,0,90,100']
-        };
-
-        wrapper.vm.coerceItemTargetImagesToCanvases(resource);
-
-        expect(resource).toEqual({
-          target: ['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100']
-        });
-      });
-    });
-
     describe('coerceSearchHitsToBeforeMatchAfter', () => {
       it('coerces search hits from selectors to before/match/after', () => {
         const wrapper = factory();
@@ -301,6 +281,44 @@ describe('pages/iiif/index.vue', () => {
         wrapper.vm.filterSearchHitsByTextGranularity(searchJson);
 
         expect(searchJson.hits.length).toBe(2);
+      });
+    });
+
+    describe('coerceAnnotationsOnToCanvases', () => {
+      it('coerces items `target` attribute to canvas ID', async() => {
+        const wrapper = factory();
+        await wrapper.setData({
+          imageToCanvasMap: {
+            'https://example.org/image/123.jpg': 'http://example.org/presentation/123/canvas/p1'
+          }
+        });
+        const json = {
+          items: [{
+            target: 'https://example.org/image/123.jpg#xywh=1,0,90,100'
+          }]
+        };
+
+        wrapper.vm.coerceAnnotationsOnToCanvases(json);
+
+        expect(json.items[0].target).toBe('http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100');
+      });
+
+      it('coerces resources `on` attribute to canvas ID', async() => {
+        const wrapper = factory();
+        await wrapper.setData({
+          imageToCanvasMap: {
+            'https://example.org/image/123.jpg': 'http://example.org/presentation/123/canvas/p1'
+          }
+        });
+        const json = {
+          resources: [{
+            on: ['https://example.org/image/123.jpg#xywh=1,0,90,100']
+          }]
+        };
+
+        wrapper.vm.coerceAnnotationsOnToCanvases(json);
+
+        expect(json.resources[0].on).toEqual(['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100']);
       });
     });
 
@@ -594,10 +612,13 @@ describe('pages/iiif/index.vue', () => {
               const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
               const manifest = {
                 '@context': 'http://iiif.io/api/presentation/2/context.json',
-                service: { '@id': 'https://iiif.europeana.eu/presentation/123/abc/search' }
+                service: {
+                  '@context': 'http://iiif.io/api/search/1/context.json',
+                  '@id': 'https://iiif.europeana.eu/presentation/123/abc/search'
+                }
               };
               const wrapper = factory({ data: { manifest, searchQuery: 'example' } });
-
+              console.log('searchService', wrapper.vm.searchService);
               await wrapper.vm.$nextTick();
 
               const action = { annotationJson: { resources: [{}] },
