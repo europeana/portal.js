@@ -29,7 +29,8 @@
         imageToCanvasMap: {},
         mirador: null,
         showAnnotations: false,
-        miradorStoreManifestJsonUnsubscriber: () => {}
+        miradorStoreManifestJsonUnsubscriber: () => {},
+        isMobileViewport: false
       };
     },
 
@@ -271,9 +272,11 @@
       numberOfPages(newVal) {
         const multiplePages = newVal > 1;
         if (multiplePages) {
-          const thumbnailNavigationPosition = 'far-right';
-          const actionSetThumbnailPosition = window.Mirador.actions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
-          this.mirador.store.dispatch(actionSetThumbnailPosition);
+          if (!this.isMobileViewport) {
+            const thumbnailNavigationPosition = 'far-right';
+            const actionSetThumbnailPosition = window.Mirador.actions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
+            this.mirador.store.dispatch(actionSetThumbnailPosition);
+          }
           const topMenuOptions = {
             allowTopMenuButton: true
           };
@@ -284,6 +287,8 @@
     },
 
     mounted() {
+      this.isMobileViewport = window.innerWidth <= 576;
+
       this.$nextTick(() => {
         this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
         this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
@@ -430,14 +435,15 @@
           this.mirador.store.dispatch(actionSearch);
         }
 
-        const openSideBarOptions = {
-          allowWindowSideBar: true,
-          sideBarOpen: true
-        };
-        const actionShow = window.Mirador.actions.updateWindow(this.miradorWindowId, openSideBarOptions);
-        this.mirador.store.dispatch(actionShow);
-
-        this.showAnnotations = true;
+        const actionShow = (options) => window.Mirador.actions.updateWindow(this.miradorWindowId, options);
+        if (!this.isMobileViewport || this.searchQuery) {
+          const openSideBarOptions = { allowWindowSideBar: true, sideBarOpen: true };
+          this.mirador.store.dispatch(actionShow(openSideBarOptions));
+          this.showAnnotations = true;
+        } else if (this.isMobileViewport) {
+          const allowSideBarOptions = { allowWindowSideBar: true };
+          this.mirador.store.dispatch(actionShow(allowSideBarOptions));
+        }
       },
 
       memoiseImageToCanvasMap() {

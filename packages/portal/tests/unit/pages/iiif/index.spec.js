@@ -26,11 +26,13 @@ describe('pages/iiif/index.vue', () => {
       viewer: sinon.stub().returns({
         store: {
           dispatch: sinon.stub(),
-          getState: sinon.stub().returns({ windows: { '001': {} } }),
+          getState: sinon.stub().returns({ windows: { '001': {} },
+            companionWindows: ['companionWindowId001'] }),
           subscribe: sinon.stub()
         }
       }),
       actions: {
+        fetchSearch: sinon.stub(),
         setWindowThumbnailPosition: sinon.stub(),
         updateWindow: sinon.stub()
       }
@@ -375,25 +377,72 @@ describe('pages/iiif/index.vue', () => {
 
     describe('postprocessMiradorRequest', () => {
       describe('upon receiving annotations', () => {
-        it('allows and opens the side bar', async() => {
-          const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
-          const manifest = {
-            '@context': 'http://iiif.io/api/presentation/2/context.json'
-          };
-          const wrapper = factory({ data: { manifest } });
+        describe('when viewport is larger than mobile', () => {
+          it('allows and opens the side bar', async() => {
+            const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+            const manifest = {
+              '@context': 'http://iiif.io/api/presentation/2/context.json'
+            };
+            const wrapper = factory({ data: { manifest } });
 
-          await wrapper.vm.$nextTick();
+            await wrapper.vm.$nextTick();
 
-          const action = { annotationJson: { resources: [{}] },
-            type: 'mirador/RECEIVE_ANNOTATION' };
-          wrapper.vm.postprocessMiradorAnnotation = () => {};
-          wrapper.vm.postprocessMiradorRequest(url, action);
+            const action = { annotationJson: { resources: [{}] },
+              type: 'mirador/RECEIVE_ANNOTATION' };
+            wrapper.vm.postprocessMiradorRequest(url, action);
 
-          expect(wrapper.vm.mirador.store.dispatch.calledWith(
-            window.Mirador.actions.updateWindow(wrapper.vm.miradorWindowId, {
-              allowWindowSideBar: true,
-              sideBarOpen: true
-            }))).toBe(true);
+            expect(window.Mirador.actions.updateWindow.calledWith(
+              wrapper.vm.miradorWindowId, {
+                allowWindowSideBar: true,
+                sideBarOpen: true
+              })).toBe(true);
+          });
+        });
+        describe('when viewport is mobile', () => {
+          const originalWindowWidth = window.innerWidth;
+          it('allows but does not open the side bar', async() => {
+            window.innerWidth = 300;
+            const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+            const manifest = {
+              '@context': 'http://iiif.io/api/presentation/2/context.json'
+            };
+            const wrapper = factory({ data: { manifest } });
+
+            await wrapper.vm.$nextTick();
+            const action = { annotationJson: { resources: [{}] },
+              type: 'mirador/RECEIVE_ANNOTATION' };
+            wrapper.vm.postprocessMiradorRequest(url, action);
+
+            expect(window.Mirador.actions.updateWindow.calledWith(
+              wrapper.vm.miradorWindowId, {
+                allowWindowSideBar: true
+              })).toBe(true);
+          });
+          describe('and a search query is passed', () => {
+            it('allows and opens the side bar', async() => {
+              window.innerWidth = 300;
+              const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+              const manifest = {
+                '@context': 'http://iiif.io/api/presentation/2/context.json',
+                service: { '@id': 'https://iiif.europeana.eu/presentation/123/abc/search' }
+              };
+              const wrapper = factory({ data: { manifest, searchQuery: 'example' } });
+
+              await wrapper.vm.$nextTick();
+
+              const action = { annotationJson: { resources: [{}] },
+                type: 'mirador/RECEIVE_ANNOTATION' };
+
+              wrapper.vm.postprocessMiradorRequest(url, action);
+
+              expect(window.Mirador.actions.updateWindow.calledWith(
+                wrapper.vm.miradorWindowId, {
+                  allowWindowSideBar: true,
+                  sideBarOpen: true
+                })).toBe(true);
+            });
+          });
+          window.innerWidth = originalWindowWidth;
         });
       });
     });
