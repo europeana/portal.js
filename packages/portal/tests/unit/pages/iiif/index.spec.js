@@ -13,7 +13,10 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $axios: axios
+    $axios: axios,
+    $i18n: {
+      locale: 'en'
+    }
   }
 });
 
@@ -22,9 +25,17 @@ describe('pages/iiif/index.vue', () => {
     window.Mirador = {
       viewer: sinon.stub().returns({
         store: {
+          dispatch: sinon.stub(),
+          getState: sinon.stub().returns({ windows: { '001': {} },
+            companionWindows: ['companionWindowId001'] }),
           subscribe: sinon.stub()
         }
-      })
+      }),
+      actions: {
+        fetchSearch: sinon.stub(),
+        setWindowThumbnailPosition: sinon.stub(),
+        updateWindow: sinon.stub()
+      }
     };
   });
 
@@ -530,6 +541,98 @@ describe('pages/iiif/index.vue', () => {
             },
             'http://localhost'
           )).toBe(true);
+        });
+      });
+    });
+
+    describe('postprocessMiradorRequest', () => {
+      describe('upon receiving annotations', () => {
+        describe('when viewport is larger than mobile', () => {
+          it('allows and opens the side bar', async() => {
+            const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+            const manifest = {
+              '@context': 'http://iiif.io/api/presentation/2/context.json'
+            };
+            const wrapper = factory({ data: { manifest } });
+
+            await wrapper.vm.$nextTick();
+
+            const action = { annotationJson: { resources: [{}] },
+              type: 'mirador/RECEIVE_ANNOTATION' };
+            wrapper.vm.postprocessMiradorRequest(url, action);
+
+            expect(window.Mirador.actions.updateWindow.calledWith(
+              wrapper.vm.miradorWindowId, {
+                allowWindowSideBar: true,
+                sideBarOpen: true
+              })).toBe(true);
+          });
+        });
+        describe('when viewport is mobile', () => {
+          const originalWindowWidth = window.innerWidth;
+          it('allows but does not open the side bar', async() => {
+            window.innerWidth = 300;
+            const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+            const manifest = {
+              '@context': 'http://iiif.io/api/presentation/2/context.json'
+            };
+            const wrapper = factory({ data: { manifest } });
+
+            await wrapper.vm.$nextTick();
+            const action = { annotationJson: { resources: [{}] },
+              type: 'mirador/RECEIVE_ANNOTATION' };
+            wrapper.vm.postprocessMiradorRequest(url, action);
+
+            expect(window.Mirador.actions.updateWindow.calledWith(
+              wrapper.vm.miradorWindowId, {
+                allowWindowSideBar: true
+              })).toBe(true);
+          });
+          describe('and a search query is passed', () => {
+            it('allows and opens the side bar', async() => {
+              window.innerWidth = 300;
+              const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+              const manifest = {
+                '@context': 'http://iiif.io/api/presentation/2/context.json',
+                service: { '@id': 'https://iiif.europeana.eu/presentation/123/abc/search' }
+              };
+              const wrapper = factory({ data: { manifest, searchQuery: 'example' } });
+
+              await wrapper.vm.$nextTick();
+
+              const action = { annotationJson: { resources: [{}] },
+                type: 'mirador/RECEIVE_ANNOTATION' };
+
+              wrapper.vm.postprocessMiradorRequest(url, action);
+
+              expect(window.Mirador.actions.updateWindow.calledWith(
+                wrapper.vm.miradorWindowId, {
+                  allowWindowSideBar: true,
+                  sideBarOpen: true
+                })).toBe(true);
+            });
+          });
+          window.innerWidth = originalWindowWidth;
+        });
+      });
+    });
+  });
+
+  describe('watch', () => {
+    describe('numberOPages', () => {
+      describe('when there are multiple pages', () => {
+        it('sets the thumbnails position and enables the top menu button', async() => {
+          const manifest = {
+            '@context': 'http://iiif.io/api/presentation/2/context.json',
+            sequences: [{ canvases: [{}] }]
+          };
+          const wrapper = factory({ data: { manifest } });
+
+          wrapper.vm.manifest.sequences = [{ canvases: [{}] }, { canvases: [{}] }];
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.mirador.store.dispatch.calledWith(window.Mirador.actions.setWindowThumbnailPosition(wrapper.vm.miradorWindowId, 'far-right'))).toBe(true);
+          expect(wrapper.vm.mirador.store.dispatch.calledWith(window.Mirador.actions.updateWindow(wrapper.vm.miradorWindowId, { allowTopMenuButton: true }))).toBe(true);
         });
       });
     });

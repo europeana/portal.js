@@ -30,7 +30,8 @@
         imageToCanvasMap: {},
         mirador: null,
         showAnnotations: false,
-        miradorStoreManifestJsonUnsubscriber: () => {}
+        miradorStoreManifestJsonUnsubscriber: () => {},
+        isMobileViewport: false
       };
     },
 
@@ -53,7 +54,7 @@
           windows: [
             {
               manifestId: this.uri,
-              thumbnailNavigationPosition: 'far-bottom'
+              thumbnailNavigationPosition: 'off'
             }
           ],
           window: {
@@ -70,8 +71,14 @@
               annotations: true,
               search: true
             },
-            defaultSideBarPanel: this.searchQuery ? 'search' : 'annotations'
+            defaultSideBarPanel: this.searchQuery ? 'search' : 'annotations',
+            views: [
+              { key: 'single' },
+              { key: 'book' },
+              { key: 'gallery' }
+            ]
           },
+          language: this.$i18n.locale,
           workspace: {
             showZoomControls: true,
             type: 'mosaic'
@@ -85,6 +92,168 @@
           requests: {
             preprocessors: [this.addAcceptHeaderToPresentationRequests],
             postprocessors: [this.postprocessMiradorRequest]
+          },
+          selectedTheme: 'europeana',
+          themes: {
+            europeana: {
+              palette: {
+                type: 'light',
+                primary: {
+                  main: '#0a72cc'
+                },
+                secondary: {
+                  main: '#0a72cc'
+                },
+                shades: {
+                  dark: '#000000',
+                  main: 'rgba(255 255 255 / 90%)',
+                  light: '#ffffff'
+                },
+                error: {
+                  main: '#e02020'
+                },
+                notification: { // Color used in MUI Badge dots
+                  main: '#0a72cc'
+                },
+                action: {
+                  hover: '#ffffff',
+                  hoverOpacity: 0,
+                  selected: 'transparent',
+                  focus: 'transparent'
+                }
+              },
+              typography: {
+                fontFamily: ['Open Sans', 'Arial', 'sans-serif'],
+                body1: {
+                  fontSize: '1rem',
+                  letterSpacing: '0',
+                  lineHeight: '1.5',
+                  borderBottom: '0 !important' // no border on view and thumbnail buttons
+                },
+                body2: {
+                  fontSize: '1rem',
+                  letterSpacing: '0',
+                  lineHeight: '1.5'
+                },
+                h2: { // item title
+                  textAlign: 'center',
+                  fontSize: '1.25rem !important',
+                  ['@media (min-width:576px)']: {
+                    fontSize: '1.5rem !important'
+                  }
+                },
+                subtitle1: { // sidebar annotation and search title
+                  fontSize: '1.125rem'
+                }
+              },
+              overrides: {
+                Mui: {
+                  disabled: { // example: disabled pagination buttons
+                    color: '#d8d8d8'
+                  },
+                  selected: { // example: selected view button
+                    color: '#0a72cc'
+                  }
+                },
+                MuiButtonBase: {
+                  root: {
+                    color: '#000000',
+                    backgroundColor: 'transparent',
+                    '&:hover, &:hover svg': {
+                      color: '#0a72cc'
+                    },
+                    '&:focus-visible': {
+                      outline: '2px solid #0a72cc',
+                      outlineOffset: '-2px'
+                    }
+                  }
+                },
+                MuiButton: {
+                  contained: { // example: button on modal when no search results
+                    color: '#0a72cc',
+                    boxShadow: 'none',
+                    backgroundColor: 'transparent',
+                    fontSize: '0.875rem',
+                    textTransform: 'uppercase',
+                    fontWeight: '600',
+                    padding: '0 1rem',
+                    border: '1px solid #0a72cc',
+                    borderRadius: '0.25rem',
+                    '&:hover': {
+                      color: '#ffffff',
+                      boxShadow: 'none',
+                      backgroundColor: '#0a72cc'
+                    }
+                  }
+                },
+                MuiChip: { // example: clear search input
+                  outlinedSecondary: {
+                    border: '0',
+                    color: '#4d4d4d'
+                  },
+                  deleteIconOutlinedColorSecondary: {
+                    color: '#4d4d4d'
+                  }
+                },
+                MuiIconButton: {
+                  root: {
+                    color: '#000000',
+                    backgroundColor: 'transparent',
+                    '&:hover': {
+                      color: '#0a72cc'
+                    }
+                  }
+                },
+                MuiInput: { // example: search input
+                  formControl: {
+                    border: '1px solid #d8d8d8 !important',
+                    borderRadius: '6px',
+                    padding: '0.25rem 2rem 0.25rem 0.75rem !important',
+                    '&.Mui-focused': {
+                      borderColor: '#0a72cc !important'
+                    }
+                  },
+                  underline: {
+                    '&:before, &:after': {
+                      border: '0'
+                    },
+                    '&:hover:not(.Mui-disabled):before': {
+                      border: '0'
+                    }
+                  }
+                },
+                MuiInputLabel: { // example: search input label/placeholder
+                  formControl: {
+                    margin: '0.25rem 2rem 0.25rem 0.75rem',
+                    '&.MuiInputLabel-shrink': {
+                      transform: 'translate(0, 0) scale(0.75)'
+                    }
+                  }
+                },
+                MuiTab: {
+                  textColorPrimary: {
+                    color: '#000000'
+                  }
+                },
+                MuiToolbar: {
+                  root: {
+                    borderTop: '0 !important'
+                  }
+                },
+                MuiTooltip: {
+                  tooltip: {
+                    backgroundColor: '#000000',
+                    fontSize: '0.875rem',
+                    padding: '0.625rem'
+                  }
+                },
+                MuiTouchRipple: { // hide grey circle on focus
+                  root: {
+                    display: 'none'
+                  }
+                }
+              }
+            }
           }
         };
 
@@ -92,11 +261,45 @@
       },
 
       iiifPresentationApiVersion() {
-        return this.iiifPresentationApiVersionFromContext(this.manifest['@context']);
+        return this.iiifPresentationApiVersionFromContext(this.manifest?.['@context']);
+      },
+
+      numberOfPages() {
+        if (this.iiifPresentationApiVersion === 2) {
+          return this.manifest.sequences?.reduce((memo, sequence) => memo + sequence.canvases.length, 0);
+        } else if (this.iiifPresentationApiVersion === 3) {
+          return this.manifest.items?.filter((item) => item.type === 'Canvas').length;
+        } else {
+          return 0;
+        }
+      },
+
+      miradorWindowId() {
+        return Object.keys(this.mirador.store.getState().windows)[0];
+      }
+    },
+
+    watch: {
+      numberOfPages(newVal) {
+        const multiplePages = newVal > 1;
+        if (multiplePages) {
+          if (!this.isMobileViewport) {
+            const thumbnailNavigationPosition = 'far-right';
+            const actionSetThumbnailPosition = window.Mirador.actions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
+            this.mirador.store.dispatch(actionSetThumbnailPosition);
+          }
+          const topMenuOptions = {
+            allowTopMenuButton: true
+          };
+          const actionAllowTopMenuButton = window.Mirador.actions.updateWindow(this.miradorWindowId, topMenuOptions);
+          this.mirador.store.dispatch(actionAllowTopMenuButton);
+        }
       }
     },
 
     mounted() {
+      this.isMobileViewport = window.innerWidth <= 576;
+
       this.$nextTick(() => {
         this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
         this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
@@ -228,6 +431,9 @@
 
       // Europeana-only
       coerceAnnotationsOnToCanvases(json) {
+        if (!json.items) {
+          return;
+        }
         json.items = json.items.map(this.coerceItemTargetImagesToCanvases);
       },
 
@@ -246,21 +452,23 @@
           return;
         }
 
-        const windowId = Object.keys(this.mirador.store.getState().windows)[0];
         if (this.searchQuery) {
           const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
           const searchId = `${this.manifest.service['@id']}?q=${this.searchQuery}`;
 
-          const actionSearch = window.Mirador.actions.fetchSearch(windowId, companionWindowId, searchId, this.searchQuery);
+          const actionSearch = window.Mirador.actions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
           this.mirador.store.dispatch(actionSearch);
         }
-        const action = window.Mirador.actions.toggleWindowSideBar(windowId);
-        this.mirador.store.dispatch(action);
-        this.showAnnotations = true;
 
-        this.miradorViewerOptions.window.allowWindowSideBar = true;
-        const actionShow = window.Mirador.actions.updateConfig(this.miradorViewerOptions);
-        this.mirador.store.dispatch(actionShow);
+        const actionShow = (options) => window.Mirador.actions.updateWindow(this.miradorWindowId, options);
+        if (!this.isMobileViewport || this.searchQuery) {
+          const openSideBarOptions = { allowWindowSideBar: true, sideBarOpen: true };
+          this.mirador.store.dispatch(actionShow(openSideBarOptions));
+          this.showAnnotations = true;
+        } else if (this.isMobileViewport) {
+          const allowSideBarOptions = { allowWindowSideBar: true };
+          this.mirador.store.dispatch(actionShow(allowSideBarOptions));
+        }
       },
 
       memoiseImageToCanvasMap() {
@@ -350,13 +558,13 @@
 
       findAnnotationFulltextUrls2(annotationJson) {
         return annotationJson.resources
-          .filter((resource) => !resource.resource.chars && resource.resource['@id'])
+          .filter((resource) => resource.resource && !resource.resource.chars && resource.resource['@id'])
           .map((resource) => resource.resource['@id']);
       },
 
       findAnnotationFulltextUrls3(annotationJson) {
         return annotationJson.items
-          .filter((item) => !item.body.value && item.body.id)
+          .filter((item) => item.body && !item.body.value && item.body.id)
           .map((item) => item.body.id);
       },
 
@@ -393,7 +601,7 @@
 
       addFulltextToAnnotations2(annotationJson, fulltext) {
         for (const resource of annotationJson.resources) {
-          if (resource.resource.chars || !resource.resource['@id']) {
+          if (!resource.resource || resource.resource.chars || !resource.resource['@id']) {
             continue;
           }
 
@@ -420,7 +628,7 @@
 
       addFulltextToAnnotations3(annotationJson, fulltext) {
         for (const item of annotationJson.items) {
-          if (item.body.value || !item.body.id) {
+          if (!item.body || item.body.value || !item.body.id) {
             continue;
           }
 
@@ -483,12 +691,5 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
-
-  ::v-deep .mirador-thumbnail-nav-canvas:focus {
-    outline: 2px solid $blue !important;
-  }
-
-  ::v-deep .mirador-thumb-navigation {
-    height: 100px !important;
-  }
+  @import '@/assets/scss/iiif';
 </style>

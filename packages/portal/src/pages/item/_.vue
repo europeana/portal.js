@@ -1,7 +1,8 @@
 <template>
   <div
     data-qa="item page"
-    class="white-page pt-5"
+    class="page white-page"
+    :class="$fetchState.error && 'pt-0'"
   >
     <b-container
       v-if="$fetchState.pending"
@@ -22,11 +23,13 @@
     <template
       v-else
     >
-      <client-only>
+      <!-- render item language selector inside IIIF wrapper so the iframe can take the available width becoming available upon closing -->
+      <client-only v-if="!iiifPresentationManifest">
         <ItemLanguageSelector
-          v-if="translatedItemsEnabled"
+          v-if="translatedItemsEnabled && showItemLanguageSelector"
           :from-translation-error="fromTranslationError"
           :metadata-language="metadataLanguage"
+          @hidden="() => showItemLanguageSelector = false"
         />
       </client-only>
       <b-container
@@ -44,7 +47,18 @@
           :entities="europeanaEntities"
           :provider-url="isShownAt"
           :iiif-presentation-manifest="iiifPresentationManifest"
-        />
+        >
+          <template slot="item-language-selector">
+            <client-only>
+              <ItemLanguageSelector
+                v-if="translatedItemsEnabled && showItemLanguageSelector"
+                :from-translation-error="fromTranslationError"
+                :metadata-language="metadataLanguage"
+                @hidden="() => showItemLanguageSelector = false"
+              />
+            </client-only>
+          </template>
+        </ItemHero>
       </b-container>
       <b-container
         class="footer-margin"
@@ -194,6 +208,7 @@
         useProxy: true,
         schemaOrg: null,
         metadataLanguage: null,
+        showItemLanguageSelector: true,
         iiifPresentationManifest: null
       };
     },
@@ -402,6 +417,12 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
+  .page {
+    padding-top: 2rem
+  }
+
   .related-collections {
     margin-top: -0.5rem;
     margin-bottom: 1.5rem;
