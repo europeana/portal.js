@@ -24,6 +24,7 @@
     data() {
       return {
         manifest: null,
+        manifestAnnotationTextGranularities: [],
         MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
         page: null,
         imageToCanvasMap: {},
@@ -145,7 +146,7 @@
       // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorReceiveManifest(url, action) {
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
-          this.addTextGranularityFilterToManifest(action.manifestJson);
+          this.addAnnotationTextGranularityFilterToManifest(action.manifestJson);
         }
       },
 
@@ -180,13 +181,26 @@
       },
 
       // Europeana-only
-      addTextGranularityFilterToManifest(manifestJson, textGranularity = 'Line') {
+      addAnnotationTextGranularityFilterToManifest(manifestJson) {
+        // Memoise granularities we will accept for this manifest, for later filtering
+        const manifestAnnotationTextGranularities = [];
+
         for (const item of manifestJson.items) {
           for (const annotation of item.annotations || []) {
+            let textGranularity = 'line';
+            if (annotation.textGranularity && !annotation.textGranularity.includes(textGranularity)) {
+              textGranularity = annotation.textGranularity[0];
+            }
+            if (!manifestAnnotationTextGranularities.includes(textGranularity)) {
+              manifestAnnotationTextGranularities.push(textGranularity);
+            }
+
             const paramSeparator = annotation.id.includes('?') ? '&' : '?';
             annotation.id = `${annotation.id}${paramSeparator}textGranularity=${textGranularity}`;
           }
         }
+
+        this.manifestAnnotationTextGranularities = manifestAnnotationTextGranularities;
 
         // Add textGranularity filter to search service URI
         //
@@ -197,6 +211,7 @@
         //       If it in future becomes possible to use this, then `filterSearchHitsByTextGranularity`
         //       becomes redundant and may be removed, as pre-filtering on the
         //       service side is preferrable.
+        //  TODO: open PR on Mirador repo to handle this better
         //
         // if ((manifestJson.service || {}).profile === 'http://iiif.io/api/search/1/search') {
         //   const paramSeparator = manifestJson.service['@id'].includes('?') ? '&' : '?';
@@ -205,10 +220,10 @@
       },
 
       // Europeana-only
-      filterSearchHitsByTextGranularity(searchJson, textGranularity = 'Line') {
-        searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (resource.dcType === textGranularity));
-        const filteredResourceIds = searchJson.resources.map(resource => resource['@id']);
-        searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredResourceIds.includes(anno)));
+      filterSearchHitsByTextGranularity(searchJson) {
+        searchJson.items = searchJson.items.filter(item => !item.dcType || (this.manifestAnnotationTextGranularities.includes(item.dcType)));
+        const filteredItemIds = searchJson.items.map(item => item.id);
+        searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredItemIds.includes(anno)));
       },
 
       // Europeana-only

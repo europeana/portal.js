@@ -149,6 +149,176 @@ describe('pages/iiif/index.vue', () => {
       });
     });
 
+    describe('addAnnotationTextGranularityFilterToManifest', () => {
+      describe('adding textGranularity filter to annotation ID URL', () => {
+        it('defaults to "line" if none available', () => {
+          const wrapper = factory();
+          const manifestJson = {
+            items: [
+              {
+                annotations: [
+                  { id: 'https://example.org/anno1' },
+                  { id: 'https://example.org/anno2?format=3' }
+                ]
+              }
+            ]
+          };
+
+          wrapper.vm.addAnnotationTextGranularityFilterToManifest(manifestJson);
+
+          expect(manifestJson.items[0].annotations[0].id.endsWith('?textGranularity=line')).toBe(true);
+          expect(manifestJson.items[0].annotations[1].id.endsWith('&textGranularity=line')).toBe(true);
+        });
+        it('favours "line" if available', () => {
+          const wrapper = factory();
+          const manifestJson = {
+            items: [
+              {
+                annotations: [
+                  { id: 'https://example.org/anno1', textGranularity: ['page', 'line'] },
+                  { id: 'https://example.org/anno2?format=3', textGranularity: ['line', 'block'] }
+                ]
+              }
+            ]
+          };
+
+          wrapper.vm.addAnnotationTextGranularityFilterToManifest(manifestJson);
+
+          expect(manifestJson.items[0].annotations[0].id.endsWith('?textGranularity=line')).toBe(true);
+          expect(manifestJson.items[0].annotations[1].id.endsWith('&textGranularity=line')).toBe(true);
+        });
+
+        it('picks one of the annotation\'s available granularities if not "line"', () => {
+          const wrapper = factory();
+          const manifestJson = {
+            items: [
+              {
+                annotations: [
+                  { id: 'https://example.org/anno1', textGranularity: ['page', 'block'] },
+                  { id: 'https://example.org/anno2?format=3', textGranularity: ['block', 'page'] }
+                ]
+              }
+            ]
+          };
+
+          wrapper.vm.addAnnotationTextGranularityFilterToManifest(manifestJson);
+
+          expect(manifestJson.items[0].annotations[0].id.endsWith('?textGranularity=page')).toBe(true);
+          expect(manifestJson.items[0].annotations[1].id.endsWith('&textGranularity=block')).toBe(true);
+        });
+      });
+
+      it('memoises and stores the available granularities for the entire manifest', () => {
+        const wrapper = factory();
+        const manifestJson = {
+          items: [
+            {
+              annotations: [
+                { id: 'https://example.org/anno1', textGranularity: ['page', 'block'] },
+                { id: 'https://example.org/anno2?format=3', textGranularity: ['block', 'line'] }
+              ]
+            }
+          ]
+        };
+
+        wrapper.vm.addAnnotationTextGranularityFilterToManifest(manifestJson);
+
+        expect(wrapper.vm.manifestAnnotationTextGranularities).toEqual(['page', 'line']);
+      });
+    });
+
+    describe('filterSearchHitsByTextGranularity', () => {
+      it('filters search hits with textGranularity in dcType by pre-selected granularities', () => {
+        const manifestAnnotationTextGranularities = ['line'];
+        const wrapper = factory({ data: { manifestAnnotationTextGranularities } });
+        const searchJson = {
+          items: [
+            {
+              id: 'https://example.org/anno1',
+              dcType: 'block'
+            },
+            {
+              id: 'https://example.org/anno2',
+              dcType: 'line'
+            },
+            {
+              id: 'https://example.org/anno3',
+              dcType: 'page'
+            }
+          ],
+          hits: [
+            {
+              annotations: ['https://example.org/anno1']
+            },
+            {
+              annotations: ['https://example.org/anno2']
+            },
+            {
+              annotations: ['https://example.org/anno3']
+            }
+          ]
+        };
+
+        wrapper.vm.filterSearchHitsByTextGranularity(searchJson);
+
+        expect(searchJson.hits.length).toBe(1);
+        expect(searchJson.hits[0].annotations[0]).toBe('https://example.org/anno2');
+      });
+
+      it('keeps search hits with no textGranularity in dcType', () => {
+        const manifestAnnotationTextGranularities = ['line'];
+        const wrapper = factory({ data: { manifestAnnotationTextGranularities } });
+        const searchJson = {
+          items: [
+            {
+              id: 'https://example.org/anno1'
+            },
+            {
+              id: 'https://example.org/anno2'
+            }
+          ],
+          hits: [
+            {
+              annotations: ['https://example.org/anno1']
+            },
+            {
+              annotations: ['https://example.org/anno2']
+            }
+          ]
+        };
+
+        wrapper.vm.filterSearchHitsByTextGranularity(searchJson);
+
+        expect(searchJson.hits.length).toBe(2);
+      });
+    });
+
+    describe('postprocessMiradorReceiveManifest', () => {
+      describe('addAnnotationTextGranularityFilterToManifest post-processor', () => {
+        it('is called if for a Europeana manifest', () => {
+          const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+          const action = { manifestJson: { id: url } };
+          const wrapper = factory();
+          sinon.stub(wrapper.vm, 'addAnnotationTextGranularityFilterToManifest');
+
+          wrapper.vm.postprocessMiradorReceiveManifest(url, action);
+
+          expect(wrapper.vm.addAnnotationTextGranularityFilterToManifest.calledWith(action.manifestJson)).toBe(true);
+        });
+
+        it('is not called if not for a Europeana manifest', () => {
+          const url = 'https://iiif.example.org/presentation/123/abc/manifest';
+          const action = { manifestJson: { id: url } };
+          const wrapper = factory();
+          sinon.stub(wrapper.vm, 'addAnnotationTextGranularityFilterToManifest');
+
+          wrapper.vm.postprocessMiradorReceiveManifest(url, action);
+
+          expect(wrapper.vm.addAnnotationTextGranularityFilterToManifest.called).toBe(false);
+        });
+      });
+    });
+
     describe('fetchAnnotationResourcesFulltext', () => {
       describe('when manifest is for IIIF Presentation API v2', () => {
         it('fetches remote fulltext for all resources', async() => {
