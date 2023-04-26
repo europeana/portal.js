@@ -332,7 +332,7 @@
       },
 
       addAcceptHeaderToPresentationRequests(url, options) {
-        if (this.urlIsForEuropeanaPresentationAPI(url)) {
+        if (this.urlIsForEuropeanaPresentationAPI(url) && !url.includes('/search?')) {
           if (!options.headers) {
             options.headers = {};
           }
@@ -424,17 +424,19 @@
 
       // Europeana-only
       filterSearchHitsByTextGranularity(searchJson) {
-        searchJson.items = searchJson.items.filter(item => !item.dcType || (this.manifestAnnotationTextGranularities.includes(item.dcType)));
-        const filteredItemIds = searchJson.items.map(item => item.id);
-        searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredItemIds.includes(anno)));
+        searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (this.manifestAnnotationTextGranularities.includes(resource.dcType)));
+        const filteredResourceIds = searchJson.resources.map(resource => resource['@id']);
+        searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredResourceIds.includes(anno)));
       },
 
       // Europeana-only
       coerceAnnotationsOnToCanvases(json) {
-        if (!json.items) {
-          return;
+        // needed due to search endpoint returning weird stuff if v3 format requested
+        if (json.items) {
+          json.items = json.items.map(this.coerceItemTargetImagesToCanvases);
+        } else if (json.resources) {
+          json.resources = json.resources.map(this.coerceItemTargetImagesToCanvases);
         }
-        json.items = json.items.map(this.coerceItemTargetImagesToCanvases);
       },
 
       showSidebarForAnnotations(json) {
@@ -508,24 +510,25 @@
         }
       },
 
-      // HACK to force `target` attribute to canvas ID, from invalid targetting of image ID
+      // HACK to force `target` / `on` attribute to canvas ID, from invalid targetting of image ID
       //
       // TODO: remove when API output updated to use canvas ID.
       //       Affects annotation pages for:
       //       - annotations linked to from Presentation manifests
       //       - annotations with search hits
       coerceItemTargetImagesToCanvases(item) {
-        if (Array.isArray(item.target)) {
-          for (let i = 0; i < item.target.length; i = i + 1) {
-            const canvas = this.canvasForImage(item.target[i]);
+        const property = item.on ? 'on' : 'target';
+        if (Array.isArray(item[property])) {
+          for (let i = 0; i < item[property].length; i = i + 1) {
+            const canvas = this.canvasForImage(item[property][i]);
             if (canvas) {
-              item.target[i] = canvas;
+              item[property][i] = canvas;
             }
           }
-        } else {
-          const canvas = this.canvasForImage(item.target);
+        } else if (item[property]) {
+          const canvas = this.canvasForImage(item[property]);
           if (canvas) {
-            item.target = canvas;
+            item[property] = canvas;
           }
         }
 
@@ -536,7 +539,6 @@
       // hits, as Mirador 3.0.0 does not support oa:TextQuoteSelector style.
       coerceSearchHitsToBeforeMatchAfter(searchJson) {
         const hits = [];
-
         for (const hit of (searchJson.hits || [])) {
           if (hit.selectors) {
             for (const selector of hit.selectors) {

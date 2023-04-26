@@ -243,17 +243,17 @@ describe('pages/iiif/index.vue', () => {
         const manifestAnnotationTextGranularities = ['line'];
         const wrapper = factory({ data: { manifestAnnotationTextGranularities } });
         const searchJson = {
-          items: [
+          resources: [
             {
-              id: 'https://example.org/anno1',
+              '@id': 'https://example.org/anno1',
               dcType: 'block'
             },
             {
-              id: 'https://example.org/anno2',
+              '@id': 'https://example.org/anno2',
               dcType: 'line'
             },
             {
-              id: 'https://example.org/anno3',
+              '@id': 'https://example.org/anno3',
               dcType: 'page'
             }
           ],
@@ -280,12 +280,12 @@ describe('pages/iiif/index.vue', () => {
         const manifestAnnotationTextGranularities = ['line'];
         const wrapper = factory({ data: { manifestAnnotationTextGranularities } });
         const searchJson = {
-          items: [
+          resources: [
             {
-              id: 'https://example.org/anno1'
+              '@id': 'https://example.org/anno1'
             },
             {
-              id: 'https://example.org/anno2'
+              '@id': 'https://example.org/anno2'
             }
           ],
           hits: [
