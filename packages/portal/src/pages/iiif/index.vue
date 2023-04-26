@@ -276,6 +276,11 @@
 
       miradorWindowId() {
         return Object.keys(this.mirador.store.getState().windows)[0];
+      },
+
+      searchService() {
+        return [].concat(this.manifest?.service || [])
+          .find((service) => service['@context'] === 'http://iiif.io/api/search/1/context.json');
       }
     },
 
@@ -456,7 +461,11 @@
 
         if (this.searchQuery) {
           const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
-          const searchId = `${this.manifest.service['@id']}?q=${this.searchQuery}`;
+          let searchId = this.searchService?.id || this.searchService?.['@id'];
+          if (!searchId) {
+            return;
+          }
+          searchId = `${searchId}?q=${this.searchQuery}`;
 
           const actionSearch = window.Mirador.actions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
           this.mirador.store.dispatch(actionSearch);
