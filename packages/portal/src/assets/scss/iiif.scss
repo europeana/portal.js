@@ -43,6 +43,15 @@
 
   .mirador-companion-window-header {
     border-bottom: 1px solid $lightbluemagenta;
+    align-items: center;
+  }
+
+  .mirador-companion-area-bottom {
+    .mirador-companion-window-title-controls {
+      > form, > p {
+        width: auto;
+      }
+    }
   }
 
   .mirador-thumbnail-nav-canvas {

@@ -155,6 +155,11 @@
                     color: '#0a72cc'
                   }
                 },
+                MuiAutocomplete: {
+                  input: {
+                    minWidth: '130px !important'
+                  }
+                },
                 MuiButtonBase: {
                   root: {
                     color: '#000000',
