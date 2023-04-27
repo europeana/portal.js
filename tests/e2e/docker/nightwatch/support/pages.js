@@ -41,7 +41,13 @@ const pages = {
 };
 
 module.exports = {
-  pageUrl(pageName) {
-    return pageName.startsWith('/') ? `${url}${pageName}` : pages[pageName];
+  pageUrl(pageNameOrUrl) {
+    if (pageNameOrUrl.startsWith('/')) {
+      return `${url}${pageNameOrUrl}`;
+    } else if (pages[pageNameOrUrl]) {
+      return pages[pageNameOrUrl];
+    } else {
+      return pageNameOrUrl;
+    }
   }
 };
