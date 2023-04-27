@@ -34,7 +34,8 @@ const pages = {
   'topics listing page': `${url}/en/collections/topics`,
   'times listing page': `${url}/en/collections/times`,
   'debug page': `${url}/debug`,
-  'static page': `${url}/en/about-us`
+  'static page': `${url}/en/about-us`,
+  'login page': `http://auth:8080/auth/realms/europeana/account/`
   // TODO: enable when linklist is actually present
   // 'static page with linklist': `${url}/en/rights`
 };
