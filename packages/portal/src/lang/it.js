@@ -45,7 +45,6 @@ export default {
     "pin": "Spilla",
     "preview": "Anteprima",
     "previous": "Precedente",
-    "providedBy": "Fornito da {provider}",
     "publish": "Pubblicare",
     "reject": "Rifiuta",
     "requestDepublication": "Richiesta di depubblicazione",
@@ -909,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Chiudi",
-    "readMore": "Leggi di più",
+    "readMore": "Scopri le storie",
     "text": {
-      "themes": "Esplora il patrimonio culturale europeo attraverso i temi, dall'archeologia alla prima guerra mondiale. Le nostre nuove pagine tematiche offrono una visione multidimensionale di ciascun tema attraverso argomenti, persone, storie e oggetti correlati."
+      "storiesTags": "Dai un'occhiata alla pagina Storie aggiornata. Ora puoi cercare e filtrare per tag."
     }
   },
   "newWindow": "si apre in una nuova finestra",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginazione"
   },
+  "provider": {
+    "linkText": "Visualizza sul sito web del fornitore",
+    "providedBy": "Questo oggetti è fornito e gestito da {provider}"
+  },
   "readMore": "Leggi di più",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Tutti i metadati",
     "copyEmbedLabel": "Incorpora codice (fare clic per copiare)",
-    "exploreMore": "Esplora altro",
     "extendedInformation": "Informazioni estese",
     "goodToKnow": "Caratteristiche",
     "hideAll": "Nascondi tutte le informazioni",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Gallerie correlate",
       "title": "Scopri le gallerie correlate"
+    },
+    "items": {
+      "loginForMore": "Accedi per vedere altri oggetti correlati",
+      "title": "Scopri gli oggetti correlati"
     },
     "themes": {
       "title": "Scopri i temi correlati"

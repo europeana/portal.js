@@ -52,7 +52,7 @@
 <script>
   import swiperMixin from '@/mixins/swiper';
   import MediaCard from './MediaCard';
-  import WebResource from '@/plugins/europeana/web-resource';
+  import WebResource from '@/plugins/europeana/edm/WebResource';
   import { Pagination, Navigation } from 'swiper';
 
   export default {
@@ -130,28 +130,17 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/mixins';
   @import '@/assets/scss/swiper';
 
   .swiper-outer,
   .swiper-container {
-    height: $swiper-height;
-
-    @media (max-height: $bp-medium) {
-      max-height: $swiper-height;
-    }
-
-    @media (min-height: $bp-medium) {
-      max-height: $swiper-height-max;
-    }
-
-    @media (max-width: $bp-medium) {
-      max-height: $swiper-height-medium;
-      height: $swiper-height-medium;
-    }
+    @include swiper-height(0px);
 
     .swiper-slide {
       width: 100%;
       min-width: 16rem;
+      padding-top: 2.25rem;
 
       @media (min-width: $bp-medium) {
         width: auto;

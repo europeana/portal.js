@@ -45,7 +45,6 @@ export default {
     "pin": "Klin",
     "preview": "Pregled",
     "previous": "Prethodni",
-    "providedBy": "Omogućio {provider}",
     "publish": "Objaviti",
     "reject": "Odbiti",
     "requestDepublication": "Zahtjev za depublifikaciju",
@@ -909,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
-    "readMore": "Pročitaj više",
+    "readMore": "Otkrijte priče",
     "text": {
-      "themes": "Istražite europsku kulturnu baštinu kroz teme, od arheologije do Prvog svjetskog rata. Naše nove tematske stranice nude višedimenzionalni pogled na svaku temu putem povezanih tema, ljudi, priča i predmeta."
+      "storiesTags": "Pogledajte ažuriranu stranicu s pričama. Sada možete pretraživati i filtrirati po oznakama."
     }
   },
   "newWindow": "otvara se u novom prozoru",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginacija"
   },
+  "provider": {
+    "linkText": "Pogledajte na web stranici pružatelja usluga",
+    "providedBy": "Ovu stavku osigurava i održava {provider}"
+  },
   "readMore": "Pročitaj više",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Svi meta podaci",
     "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
-    "exploreMore": "Istraži više",
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Povezane galerije",
       "title": "Otkrijte povezane galerije"
+    },
+    "items": {
+      "loginForMore": "Prijavite se kako biste vidjeli druge povezane stavke",
+      "title": "Otkrijte povezane stavke"
     },
     "themes": {
       "title": "Otkrijte povezane teme"

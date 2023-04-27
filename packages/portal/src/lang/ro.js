@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Previzualizare",
     "previous": "Anterior",
-    "providedBy": "Furnizat de {provider}",
     "publish": "Publica",
     "reject": "Respinge",
     "requestDepublication": "Solicitați depublicarea",
@@ -798,7 +797,7 @@ export default {
   "items": {
     "itemCount": "1 articol |{count} articole",
     "itemOf": "{max} de {count} articole",
-    "recent": "Elemente recente",
+    "recent": "Articole recente",
     "recommended": "Articole recomandate",
     "youMightLike": "Articole care ți-ar putea plăcea"
   },
@@ -909,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Citește mai mult",
+    "readMore": "Descoperiți povești",
     "text": {
-      "themes": "Explorați patrimoniul cultural european prin intermediul unor teme, de la arheologie la Primul Război Mondial. Noile noastre pagini tematice oferă o perspectivă multidimensională asupra fiecărei teme prin intermediul unor subiecte, persoane, povești și obiecte conexe."
+      "storiesTags": "Consultați pagina Povești actualizată. Acum puteți căuta și filtra după etichete."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginare"
   },
+  "provider": {
+    "linkText": "Vizualizează pe site-ul furnizorului",
+    "providedBy": "Acest articol este furnizat și întreținut de {provider}"
+  },
   "readMore": "Citește mai mult",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Toate metadatele",
     "copyEmbedLabel": "Cod de încorporare (Faceți clic pentru a copia)",
-    "exploreMore": "Explorează mai mult",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Galerii conexe",
       "title": "Descoperiți galerii conexe"
+    },
+    "items": {
+      "loginForMore": "Conectați-vă pentru a vedea alte elemente asociate",
+      "title": "Descoperiți articole conexe"
     },
     "themes": {
       "title": "Descoperiți teme conexe"

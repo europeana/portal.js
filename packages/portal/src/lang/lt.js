@@ -45,7 +45,6 @@ export default {
     "pin": "Kaištis",
     "preview": "Peržiūra",
     "previous": "Ankstesnis",
-    "providedBy": "Tiekėjas {provider}",
     "publish": "Publikuoti",
     "reject": "Atmesti",
     "requestDepublication": "Prašymas neskelbti",
@@ -70,7 +69,7 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Galerijos",
-    "item": "Naujausi prekių",
+    "item": "Naujausi elementai",
     "organisation": "Organizacijos",
     "place": "Vietos",
     "theme": "Temos",
@@ -909,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
-    "readMore": "Skaityti daugiau",
+    "readMore": "Atraskite istorijas",
     "text": {
-      "themes": "Tyrinėkite Europos kultūros paveldą per temas, pradedant archeologija ir baigiant Pirmuoju pasauliniu karu. Mūsų naujuose teminiuose puslapiuose pateikiama įvairialypė kiekvienos temos vaizdas per susijusias temas, žmones, istorijas ir daiktus."
+      "storiesTags": "Peržiūrėkite atnaujintą istorijos puslapį. Dabar galite ieškoti ir filtruoti pagal žymas."
     }
   },
   "newWindow": "atsidaro naujame lange",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Numeracija"
   },
+  "provider": {
+    "linkText": "Peržiūrėti teikėjo svetainę",
+    "providedBy": "Šį elementą teikia ir prižiūri {provider}"
+  },
   "readMore": "Skaityti daugiau",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Visi metaduomenys",
     "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
-    "exploreMore": "Sužinokite daugiau",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
     "hideAll": "Slėpti visą informaciją",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Susijusios galerijos",
       "title": "Atraskite susijusias galerijas"
+    },
+    "items": {
+      "loginForMore": "Prisijunkite, kad pamatytumėte kitus susijusius elementus",
+      "title": "Atraskite susijusius elementus"
     },
     "themes": {
       "title": "Atraskite susijusias temas"

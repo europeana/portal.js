@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Előnézet",
     "previous": "Előző",
-    "providedBy": "Szolgáltató: {provider}",
     "publish": "Közzététel",
     "reject": "Elutasít",
     "requestDepublication": "Közzététel megszüntetésének kérése",
@@ -70,7 +69,7 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Galériák",
-    "item": "Legutóbbi cikk",
+    "item": "Legutóbbi tételek",
     "organisation": "Szervezetek",
     "place": "Helyek",
     "theme": "Témák",
@@ -798,7 +797,7 @@ export default {
   "items": {
     "itemCount": "1 cikk |{count} cikk",
     "itemOf": "{max} {count} cikk",
-    "recent": "Legutóbbi elemek",
+    "recent": "Legutóbbi tételek",
     "recommended": "Ajánlott tételek",
     "youMightLike": "Cikkek, amik tetszhetnek Önnek"
   },
@@ -909,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Bezárás",
-    "readMore": "Bővebben",
+    "readMore": "Fedezzen fel történeteket",
     "text": {
-      "themes": "Fedezze fel az európai kulturális örökséget témákon keresztül, a régészettől az első világháborúig. Új témaoldalaink többdimenziós képet nyújtanak az egyes témákról a kapcsolódó témákon, személyeken, történeteken és tárgyakon keresztül."
+      "storiesTags": "Nézd meg a frissített Történetek oldalt. Most már kereshetsz és szűrhetsz címkék szerint."
     }
   },
   "newWindow": "új ablakban nyílik meg",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Lapszámozás"
   },
+  "provider": {
+    "linkText": "Megtekintés a szolgáltató webhelyén",
+    "providedBy": "Ezt az elemet {provider} biztosítja és tartja karban"
+  },
   "readMore": "Bővebben",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Minden metaadat",
     "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
-    "exploreMore": "Fedezz fel többet",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Kapcsolódó galériák",
       "title": "Fedezze fel a kapcsolódó galériákat"
+    },
+    "items": {
+      "loginForMore": "Jelentkezzen be a többi kapcsolódó tételek megtekintéséhez",
+      "title": "Fedezze fel a kapcsolódó elemeket"
     },
     "themes": {
       "title": "Fedezze fel a kapcsolódó témák"

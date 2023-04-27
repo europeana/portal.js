@@ -45,7 +45,6 @@ export default {
     "pin": "Kolík",
     "preview": "Náhled",
     "previous": "Předchozí",
-    "providedBy": "Poskytl {provider}",
     "publish": "Publikovat",
     "reject": "Odmítnout",
     "requestDepublication": "Žádost o zrušení publikace",
@@ -909,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zavřít",
-    "readMore": "Přečtěte si více",
+    "readMore": "Objevujte příběhy",
     "text": {
-      "themes": "Prozkoumejte evropské kulturní dědictví prostřednictvím témat, od archeologie po první světovou válku. Naše nové tematické stránky nabízejí vícerozměrný pohled na každé téma prostřednictvím souvisejících témat, lidí, příběhů a předmětů."
+      "storiesTags": "Podívejte se na aktualizovanou stránku Příběhy. Nyní můžete vyhledávat a filtrovat podle značek."
     }
   },
   "newWindow": "otevře se v novém okně",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Stránkování"
   },
+  "provider": {
+    "linkText": "Zobrazit na webu poskytovatele",
+    "providedBy": "Tuto položku poskytuje a spravuje {provider}"
+  },
   "readMore": "Více informací",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Všechna metadata",
     "copyEmbedLabel": "Vložit kód (kliknutím zkopírujete)",
-    "exploreMore": "Prozkoumat více",
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
     "hideAll": "Skrýt všechny informace",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Související galerie",
       "title": "Objevte související galerie"
+    },
+    "items": {
+      "loginForMore": "Přihlaste se pro zobrazení dalších souvisejících položek",
+      "title": "Objevte související položky"
     },
     "themes": {
       "title": "Objevte související témata"

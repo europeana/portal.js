@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Eelvaade",
     "previous": "Eelmine",
-    "providedBy": "Pakub {provider}",
     "publish": "Avalda",
     "reject": "Tagasi lükata",
     "requestDepublication": "Taotlus mitte avaldada",
@@ -909,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
-    "readMore": "Loe lähemalt",
+    "readMore": "Avastage lugusid",
     "text": {
-      "themes": "Avastage Euroopa kultuuripärandit teemade kaudu, alates arheoloogiast kuni I maailmasõjani. Meie uued teemalehed pakuvad igast teemast mitmemõõtmelist vaadet seotud teemade, inimeste, lugude ja esemete kaudu."
+      "storiesTags": "Vaadake uuendatud lugude lehte. Nüüd saate otsida ja filtreerida siltide järgi."
     }
   },
   "newWindow": "avaneb uues aknas",
@@ -944,7 +943,7 @@ export default {
         "title": "Kohad"
       },
       "table": {
-        "items": "Üksused",
+        "items": "Esemed",
         "name": "Nimi"
       },
       "times": {
@@ -957,6 +956,10 @@ export default {
   },
   "pagination": {
     "label": "Paginatsioon"
+  },
+  "provider": {
+    "linkText": "Vaadake teenusepakkuja veebisaidilt",
+    "providedBy": "Seda üksust pakub ja hooldab {provider}"
   },
   "readMore": "Loe lähemalt",
   "recommendation": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Kogu metateave",
     "copyEmbedLabel": "Embed code (Klõpsake kopeerimiseks)",
-    "exploreMore": "Avastage rohkem",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Seotud galeriid",
       "title": "Avastage seotud galeriid"
+    },
+    "items": {
+      "loginForMore": "Logi sisse, et näha teisi seotud esemed",
+      "title": "Avasta seotud esemed"
     },
     "themes": {
       "title": "Avasta seotud teemad"

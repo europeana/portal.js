@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Forhåndsvisning",
     "previous": "Forrige",
-    "providedBy": "Leveret af {provider}",
     "publish": "Offentliggøre",
     "reject": "Afvise",
     "requestDepublication": "Anmodning om afpublicering",
@@ -909,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Luk",
-    "readMore": "Læs mere",
+    "readMore": "Oplev historier",
     "text": {
-      "themes": "Udforsk den europæiske kulturarv gennem temaer, fra arkæologi til Første Verdenskrig. Vores nye temasider giver et flerdimensionalt indblik i hvert tema via relaterede emner, personer, historier og genstande."
+      "storiesTags": "Tjek den opdaterede historieside. Du kan nu søge og filtrere efter tags."
     }
   },
   "newWindow": "åbner i nyt vindue",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginering"
   },
+  "provider": {
+    "linkText": "Se på udbyderens websted",
+    "providedBy": "Denne vare leveres og vedligeholdes af {provider}"
+  },
   "readMore": "Læs mere",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Integrer kode (Klik for at kopiere)",
-    "exploreMore": "Udforsk mere",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Relaterede gallerier",
       "title": "Oplev relaterede gallerier"
+    },
+    "items": {
+      "loginForMore": "Log ind for at se andre relaterede varer",
+      "title": "Oplev relaterede varer"
     },
     "themes": {
       "title": "Oplev relaterede temaer"

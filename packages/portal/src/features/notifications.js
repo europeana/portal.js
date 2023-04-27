@@ -1,5 +1,1 @@
-export default [
-  {
-    name: 'themes', url: '/themes'
-  }
-];
+export default [];

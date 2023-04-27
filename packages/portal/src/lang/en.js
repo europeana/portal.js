@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Preview",
     "previous": "Previous",
-    "providedBy": "Provided by {provider}",
     "publish": "Publish",
     "reject": "Reject",
     "requestDepublication": "Request depublication",
@@ -936,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Explore themes",
+    "readMore": "Discover stories",
     "text": {
-      "themes": "Explore European cultural heritage through themes, from archaeology to World War I. Our new theme pages offer a multidimensional view of each theme via related topics, people, stories and items."
+      "storiesTags": "Check out the updated Stories page. You can now search and filter by tags."
     }
   },
   "newWindow": "opens in new window",
@@ -985,6 +984,10 @@ export default {
   "pagination": {
     "label": "Pagination"
   },
+  "provider": {
+    "linkText": "View on the provider's website",
+    "providedBy": "This item is provided and maintained by {provider}"
+  },
   "readMore": "Read more",
   "recommendation": {
     "prompts": {
@@ -999,7 +1002,6 @@ export default {
     },
     "allMetaData": "All metadata",
     "copyEmbedLabel": "Embed code (Click to copy)",
-    "exploreMore": "Explore More",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
@@ -1029,6 +1031,10 @@ export default {
     "galleries": {
       "name": "Related galleries",
       "title": "Discover related galleries"
+    },
+    "items": {
+      "loginForMore": "Log in to see other related items",
+      "title": "Discover related items"
     },
     "themes": {
       "title": "Discover related themes"

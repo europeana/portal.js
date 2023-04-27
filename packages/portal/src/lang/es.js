@@ -45,7 +45,6 @@ export default {
     "pin": "Alfiler",
     "preview": "Vista previa",
     "previous": "Anterior",
-    "providedBy": "Proporcionado por {provider}",
     "publish": "Publicar",
     "reject": "Rechazar",
     "requestDepublication": "Solicitud de despublicación",
@@ -909,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Cerrar",
-    "readMore": "Leer más",
+    "readMore": "Descubre historias",
     "text": {
-      "themes": "Explore el patrimonio cultural europeo a través de temas, desde la arqueología hasta la Primera Guerra Mundial. Nuestras nuevas páginas temáticas ofrecen una visión multidimensional de cada tema a través de temas, personas, historias y elementos relacionados."
+      "storiesTags": "Echa un vistazo a la página de Historias actualizada. Ahora puede buscar y filtrar por etiquetas."
     }
   },
   "newWindow": "se abre en una nueva ventana",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginación"
   },
+  "provider": {
+    "linkText": "Ver en el sitio web del proveedor",
+    "providedBy": "Este elemento es proporcionado y mantenido por {provider}"
+  },
   "readMore": "Leer más",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Todos los metadatos",
     "copyEmbedLabel": "Código de inserción (haga clic para copiar)",
-    "exploreMore": "Explorar más",
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Galerías relacionadas",
       "title": "Descubre galerías relacionadas"
+    },
+    "items": {
+      "loginForMore": "Inicie sesión para ver otros elementos relacionados",
+      "title": "Descubre elementos relacionados"
     },
     "themes": {
       "title": "Descubre temas relacionados"

@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Preview",
     "previous": "Preċedenti",
-    "providedBy": "Ipprovdut minn {provider}",
     "publish": "Ippubblika",
     "reject": "Irrifjuta",
     "requestDepublication": "Talba għal depubblikazzjoni",
@@ -909,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
-    "readMore": "Aqra iktar",
+    "readMore": "Skopri stejjer",
     "text": {
-      "themes": "Esplora l-wirt kulturali Ewropew permezz ta’ temi, mill-arkeoloġija sa l-Ewwel Gwerra Dinjija. Il-paġni tat-temi l-ġodda tagħna joffru ħarsa multidimensjonali ta’ kull tema permezz ta’ suġġetti, nies, stejjer u oġġetti relatati."
+      "storiesTags": "Iċċekkja l-paġna tal-Istejjer aġġornata. Issa tista 'tfittex u tiffiltra bit-tags."
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paġnar"
   },
+  "provider": {
+    "linkText": "Ara fuq il-websajt tal-fornitur",
+    "providedBy": "Dan l-oġġett huwa pprovdut u miżmum minn {provider}"
+  },
   "readMore": "Aqra iktar",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Il-metadata kollha",
     "copyEmbedLabel": "Inkorpora il-code (Ikklikkja biex tikkopja)",
-    "exploreMore": "Esplora Aktar",
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
     "hideAll": "Aħbi l-informazzjoni kollha",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Galleriji relatati",
       "title": "Skopri galleriji relatati"
+    },
+    "items": {
+      "loginForMore": "Idħol biex tara oġġetti oħra relatati",
+      "title": "Skopri oġġetti relatati"
     },
     "themes": {
       "title": "Skopri temi relatati"

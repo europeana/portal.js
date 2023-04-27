@@ -6,6 +6,7 @@
     data-qa="download button"
     class="ml-2 d-inline-flex align-items-center download-button h-100"
     :target="target"
+    variant="primary"
     @click.native="handleClickDownloadButton"
   >
     <span class="icon-ic-download d-inline-flex pr-1" />
