@@ -375,7 +375,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./packages/portal/Dockerfile
+          file: ./packages/keycloak-theme/Dockerfile
           pull: true
           load: true
           tags: ${{ env.DOCKER_REPOSITORY }}-keycloak-theme
@@ -428,7 +428,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./packages/portal/Dockerfile
+          file: ./packages/keycloak-theme/Dockerfile
           load: true
           tags: ${{ env.DOCKER_REPOSITORY }}-keycloak-theme
           cache-from: type=gha,scope=${{ github.ref_name }}-keycloak-theme
@@ -455,12 +455,6 @@ jobs:
       -
         name: Build images for visual tests
         run: docker compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
-      -
-        name: Start Keycloak
-        run: |
-          docker compose --version
-          docker compose -f tests/e2e/docker/docker-compose.yml up --wait auth
-          docker ps
       -
         name: Run visual tests
         run: docker compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
