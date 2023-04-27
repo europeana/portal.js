@@ -41,7 +41,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .alert.alert-light {
     font-style: italic;

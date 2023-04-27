@@ -74,7 +74,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .quick-search {
     border-top: 1px solid $middlegrey;

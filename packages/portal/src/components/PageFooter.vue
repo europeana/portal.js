@@ -208,9 +208,9 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
-  @import '@/assets/scss/footer';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/footer';
 
   .dropdown {
     .btn-light,

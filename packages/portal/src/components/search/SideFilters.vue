@@ -462,9 +462,9 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
-  @import '@/assets/scss/mixins';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/mixins';
 
   .filters-title {
     font-size: $font-size-small;

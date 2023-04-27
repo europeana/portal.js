@@ -98,7 +98,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .container.error-container {
     padding-bottom: 1rem;

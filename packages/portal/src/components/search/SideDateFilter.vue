@@ -139,7 +139,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .form-control.is-active {
     border: 1px solid $innovationblue;
