@@ -39,5 +39,6 @@ Feature: pages
   Scenario: Take a snapshot of the login page
     Given I am on the `home page`
     When I click the `log in button`
-    Then I see the Keycloak login form
+    And I wait 5 seconds
+    # Then I see the Keycloak login form
     And I make a snapshot of the `login page`
