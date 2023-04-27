@@ -23,7 +23,7 @@ the Europeana APIs, Contentful, Redis and oAuth sections in the example .env fil
 
 ```shell
 # start services
-docker-compose up
+docker compose up
 
 # install package dependencies
 npm ci
