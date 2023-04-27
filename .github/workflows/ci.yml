@@ -456,6 +456,9 @@ jobs:
         name: Build images for visual tests
         run: docker compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
       -
+        name: Start Keycloak
+        run: docker compose -f tests/e2e/docker/docker-compose.yml up --wait auth
+      -
         name: Run visual tests
         run: docker compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
 
