@@ -458,6 +458,7 @@ jobs:
       -
         name: Start Keycloak
         run: |
+          docker-compose --version
           docker-compose -f tests/e2e/docker/docker-compose.yml up --wait auth
           docker ps
       -
