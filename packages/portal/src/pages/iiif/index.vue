@@ -434,7 +434,7 @@
 
       // Europeana-only
       filterSearchHitsByTextGranularity(searchJson) {
-        searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (this.manifestAnnotationTextGranularities.includes(resource.dcType)));
+        searchJson.resources = searchJson.resources.filter(resource => !resource.dcType || (this.manifestAnnotationTextGranularities.includes(resource.dcType.toLowerCase())));
         const filteredResourceIds = searchJson.resources.map(resource => resource['@id']);
         searchJson.hits = searchJson.hits.filter(hit => hit.annotations.some(anno => filteredResourceIds.includes(anno)));
       },
