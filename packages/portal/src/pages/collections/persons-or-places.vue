@@ -33,8 +33,8 @@
 </template>
 
 <script>
-  import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getEntityTypeApi, getEntityTypeHumanReadable } from '@europeana/apis/src/entity.js';
+  import { getLabelledSlug } from '@europeana/apis/src/utils.js';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   import ContentHeader from '@/components/generic/ContentHeader';

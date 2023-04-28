@@ -100,7 +100,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
-  import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
+  import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@europeana/apis/src/search.js';
   import themes from '@/plugins/europeana/themes';
   import SideFacetDropdown from './SideFacetDropdown';
 

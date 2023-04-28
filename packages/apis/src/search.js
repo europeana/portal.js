@@ -3,12 +3,12 @@
  */
 
 import pick from 'lodash/pick.js';
+import truncate from 'lodash/truncate.js';
 
 import {
   apiError, createAxios, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
 } from './utils.js';
 import { BASE_URL } from './record.js';
-import { truncate } from '../vue-filters.js';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -163,7 +163,7 @@ const reduceFieldsForItem = (item, options = {}) => {
       for (const locale in item[field]) {
         item[field][locale] = []
           .concat(item[field][locale])
-          .map(value => truncate(value, 256));
+          .map(value => truncate(value, { length: 256, omission: '…' }));
       }
     }
   }

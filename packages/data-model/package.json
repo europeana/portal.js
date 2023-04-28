@@ -1,0 +1,15 @@
+{
+  "name": "@europeana/data-model",
+  "version": "1.107.0",
+  "description": "Europeana Data Model classes",
+  "license": "EUPL-1.2",
+  "main": "src/index.js",
+  "files": [
+    "src/**/*.js"
+  ],
+  "dependencies": {
+    "@europeana/apis": "^1.107.0",
+    "@europeana/oembed": "^1.107.0"
+  },
+  "type": "module"
+}

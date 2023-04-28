@@ -94,7 +94,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
+  import { getWikimediaThumbnailUrl } from '@europeana/apis/src/entity.js';
   import ShareButton from '@/components/sharing/ShareButton';
   import SocialShareModal from '@/components/sharing/SocialShareModal';
 

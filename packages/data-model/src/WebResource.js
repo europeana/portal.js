@@ -1,6 +1,6 @@
-import { oEmbeddable } from '../../oembed/index.js';
-import thumbnail from  '../thumbnail.js';
-import { IIIF_PRESENTATION_API_URL } from '../iiif/index.js';
+import { oEmbeddable } from '@europeana/oembed';
+import thumbnail from  '@europeana/apis/src/thumbnail.js';
+import { IIIF_PRESENTATION_API_URL } from '@europeana/apis/src/iiif/index.js';
 import Base from './Base.js';
 
 const MEDIA_TYPE_APPLICATION = 'application';

@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import WebResource from '@/plugins/europeana/edm/WebResource';
+  import { WebResource } from '@europeana/data-model';
 
   export default {
     name: 'MediaCardImage',

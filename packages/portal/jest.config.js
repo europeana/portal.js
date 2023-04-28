@@ -1,27 +1,14 @@
+import baseConfig from '../../jest.config.base.js';
+
 export default {
+  ...baseConfig,
   coveragePathIgnorePatterns: [
     '<rootDir>/src/plugins/i18n/locales.js',
     '<rootDir>/src/lang/'
   ],
-  collectCoverageFrom: [
-    '<rootDir>/src/**/*.{cjs,js,vue}'
-  ],
-  coverageProvider: 'v8',
-  coverageReporters: [
-    'html',
-    'lcov',
-    'text'
-  ],
-  moduleFileExtensions: [
-    'cjs',
-    'js',
-    'json',
-    'mjs',
-    'vue'
-  ],
   moduleNameMapper: {
+    ...(baseConfig.moduleNameMapper || {}),
     '^swiper$': '<rootDir>/tests/unit/swiperMock.js',
-    '^@/(.*)$': '<rootDir>/src/$1',
     '\\.css$': '<rootDir>/tests/unit/styleMock.js'
   },
   setupFiles: [
@@ -37,7 +24,7 @@ export default {
     '/node_modules/(?!decamelize)'
   ],
   transform: {
-    '^.+\\.(js|mjs)$': 'babel-jest',
+    ...(baseConfig.transform || {}),
     '^.+\\.vue$': '@vue/vue2-jest',
     '^.+\\.svg$': '<rootDir>/tests/unit/fileTransformer.cjs'
   }

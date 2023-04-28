@@ -60,7 +60,7 @@
 </template>
 
 <script>
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@europeana/apis/src/utils.js';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
   import pageMetaMixin from '@/mixins/pageMeta';

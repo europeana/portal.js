@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import locales from '../i18n/locales.js';
+import locales from '@europeana/i18n/src/locales.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
 export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {

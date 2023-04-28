@@ -79,7 +79,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@europeana/apis/src/utils.js';
   import axios from 'axios';
 
   export default {

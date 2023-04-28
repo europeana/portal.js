@@ -32,8 +32,8 @@
 </template>
 
 <script>
-  import similarItemsQuery from '@/plugins/europeana/record/similar-items';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import similarItemsQuery from '@europeana/apis/src/record/similar-items.js';
+  import { langMapValueForLocale } from  '@europeana/apis/src/utils.js';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import keycloak from '@/mixins/keycloak';
 

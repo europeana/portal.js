@@ -3,7 +3,7 @@ import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
 import search from './search.js';
-import Item from './edm/Item.js';
+import { Item } from '@europeana/data-model';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './media-proxy.js';

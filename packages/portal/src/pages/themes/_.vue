@@ -147,7 +147,7 @@
   import ContentHeader from '@/components/generic/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import { daily } from '@/plugins/europeana/utils.js';
+  import { daily } from '@europeana/apis/src/utils.js';
 
   export default {
     name: 'ThemePage',

@@ -1,0 +1,11 @@
+{
+  "name": "@europeana/oembed",
+  "version": "1.107.0",
+  "description": "Europeana oEmbed helpers",
+  "license": "EUPL-1.2",
+  "main": "src/index.js",
+  "files": [
+    "src/**/*.js"
+  ],
+  "type": "module"
+}

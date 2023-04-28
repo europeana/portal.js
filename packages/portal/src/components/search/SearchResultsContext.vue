@@ -54,7 +54,7 @@
 
 <script>
   import RemovalChip from './RemovalChip';
-  import { entityParamsFromUri } from '@/plugins/europeana/entity';
+  import { entityParamsFromUri } from '@europeana/apis/src/entity.js';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   export default {

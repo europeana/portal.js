@@ -29,10 +29,10 @@
     isEntityUri,
     getEntityTypeHumanReadable,
     entityParamsFromUri
-  } from '@/plugins/europeana/entity';
+  } from '@europeana/apis/src/entity.js';
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
-  import { langMapValueForLocale, getLabelledSlug } from '@/plugins/europeana/utils';
-  import { BASE_URL } from '@/plugins/europeana/data';
+  import { langMapValueForLocale, getLabelledSlug } from '@europeana/apis/src/utils.js';
+  import { BASE_URL } from '@europeana/apis/src/data.js';
 
   export default {
     name: 'ContentfulEntityHarvesterPage',

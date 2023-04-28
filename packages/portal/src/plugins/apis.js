@@ -1,30 +1,32 @@
 import snakeCase from 'lodash/snakeCase.js';
 
-import * as annotation from './europeana/annotation.js';
-import * as entity from './europeana/entity.js';
-import * as entityManagement from './europeana/entity-management.js';
-import * as fulltext from './europeana/fulltext.js';
-import * as iiifPresentation from './europeana/iiif/presentation.js';
-import * as mediaProxy from './europeana/media-proxy.js';
-import * as recommendation from './europeana/recommendation.js';
-import * as record from './europeana/record.js';
-import * as set from './europeana/set.js';
-import * as thumbnail from './europeana/thumbnail.js';
+import * as apis from '@europeana/apis';
+
+// import * as annotation from './europeana/annotation.js';
+// import * as entity from './europeana/entity.js';
+// import * as entityManagement from './europeana/entity-management.js';
+// import * as fulltext from './europeana/fulltext.js';
+// import * as iiifPresentation from './europeana/iiif/presentation.js';
+// import * as mediaProxy from './europeana/media-proxy.js';
+// import * as recommendation from './europeana/recommendation.js';
+// import * as record from './europeana/record.js';
+// import * as set from './europeana/set.js';
+// import * as thumbnail from './europeana/thumbnail.js';
 
 const MODULE_NAME = 'apis';
 
-const apis = {
-  annotation,
-  entity,
-  entityManagement,
-  fulltext,
-  iiifPresentation,
-  mediaProxy,
-  recommendation,
-  record,
-  set,
-  thumbnail
-};
+// const apis = {
+//   annotation,
+//   entity,
+//   entityManagement,
+//   fulltext,
+//   iiifPresentation,
+//   mediaProxy,
+//   recommendation,
+//   record,
+//   set,
+//   thumbnail
+// };
 
 const apiUrlFromRequestHeaders = (api, headers) => {
   return headers[`x-europeana-${api}-api-url`];

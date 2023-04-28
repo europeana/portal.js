@@ -16,7 +16,7 @@
 <script>
   import ContentCardSection from './ContentCardSection';
   import InfoCardSection from './InfoCardSection';
-  import { daily, getLabelledSlug } from '@/plugins/europeana/utils';
+  import { daily, getLabelledSlug } from '@europeana/apis/src/utils.js';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';

@@ -149,7 +149,7 @@
 
   import makeToastMixin from '@/mixins/makeToast';
   import themes from '@/plugins/europeana/themes';
-  import { filtersFromQf } from '@/plugins/europeana/search';
+  import { filtersFromQf } from '@europeana/apis/src/search.js';
 
   import merge from 'deepmerge';
 

@@ -10,7 +10,7 @@
 const COOKIE_NAME = 'i18n_locale_code';
 
 // Codes of all languages supported by the app
-import localeCodes from '../plugins/i18n/codes';
+import localeCodes from '@europeana/i18n/src/codes.js';
 
 function appSupportsLocale(locale) {
   return locale && localeCodes.includes(locale);

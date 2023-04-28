@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@europeana/apis/src/utils.js';
 
   export default {
     name: 'LinkBadge',

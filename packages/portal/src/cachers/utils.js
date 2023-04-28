@@ -2,7 +2,7 @@ import axios from 'axios';
 import redis from 'redis';
 import _pick from 'lodash/pick.js';
 import { promisify } from 'util';
-import { daily, langMapValueForLocale } from '../plugins/europeana/utils.js';
+import { daily, langMapValueForLocale } from '@europeana/apis/src/utils.js';
 
 const redisConfig = (config = {}) => {
   const redisOptions = {

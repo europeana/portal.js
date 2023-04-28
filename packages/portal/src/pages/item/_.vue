@@ -158,9 +158,9 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox from '@/components/item/MetadataBox';
 
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import WebResource from '@/plugins/europeana/edm/WebResource.js';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@europeana/apis/src/data.js';
+  import { langMapValueForLocale } from  '@europeana/apis/src/utils.js';
+  import { WebResource } from '@europeana/data-model';
   import stringify from '@/mixins/stringify';
   import pageMetaMixin from '@/mixins/pageMeta';
 

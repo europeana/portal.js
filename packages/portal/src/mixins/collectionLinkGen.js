@@ -1,6 +1,6 @@
-import { getEntityTypeHumanReadable  } from '@/plugins/europeana/entity';
-import { getLabelledSlug } from '@/plugins/europeana/utils';
-import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+import { getEntityTypeHumanReadable  } from '@europeana/apis/src/entity.js';
+import { getLabelledSlug } from '@europeana/apis/src/utils.js';
+import { BASE_URL as EUROPEANA_DATA_URL } from '@europeana/apis/src/data.js';
 
 export default {
   methods: {

@@ -14,9 +14,9 @@
 
 <script>
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
-  import { recordIdFromUrl } from '@/plugins/europeana/record';
-  import { BASE_URL } from '@/plugins/europeana/data';
+  import { langMapValueForLocale } from '@europeana/apis/src/utils.js';
+  import { recordIdFromUrl } from '@europeana/apis/src/record.js';
+  import { BASE_URL } from '@europeana/apis/src/data.js';
 
   export default {
     name: 'ContentfulImageHarvesterPage',

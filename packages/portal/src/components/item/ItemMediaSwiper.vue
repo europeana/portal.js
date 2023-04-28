@@ -52,7 +52,7 @@
 <script>
   import swiperMixin from '@/mixins/swiper';
   import MediaCard from './MediaCard';
-  import WebResource from '@/plugins/europeana/edm/WebResource';
+  import { WebResource } from '@europeana/data-model';
   import { Pagination, Navigation } from 'swiper';
 
   export default {

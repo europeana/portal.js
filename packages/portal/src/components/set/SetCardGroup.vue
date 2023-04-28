@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@europeana/apis/src/utils.js';
 
   export default {
     name: 'SetCardGroup',

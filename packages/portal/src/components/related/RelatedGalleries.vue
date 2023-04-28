@@ -30,7 +30,7 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
-  import { getLabelledSlug } from '@/plugins/europeana/utils';
+  import { getLabelledSlug } from '@europeana/apis/src/utils.js';
 
   export default {
     name: 'RelatedGalleries',

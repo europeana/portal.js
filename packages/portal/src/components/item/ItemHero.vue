@@ -88,7 +88,7 @@
   import ItemEmbedCode from './ItemEmbedCode';
   import SocialShareModal from '../sharing/SocialShareModal';
   import ShareButton from '../sharing/ShareButton';
-  import WebResource from '@/plugins/europeana/edm/WebResource';
+  import { WebResource } from '@europeana/data-model';
 
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
