@@ -120,18 +120,8 @@
           </b-row>
         </client-only>
         <client-only>
-          <!--
-            NOTE: dcType/title does not make sense here, but leave it alone as
-                  eventually this will be deprecated and the Recommendation API
-                  used instead.
-            FIXME: ... but who knows when, so maybe fix here in the meantime
-          -->
           <ItemRecommendations
             :identifier="identifier"
-            :dc-type="title"
-            :dc-subject="metadata.dcSubject"
-            :dc-creator="metadata.dcCreator"
-            :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
           />
         </client-only>
       </b-container>

@@ -27,12 +27,8 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemRe
     $apis: {
       recommendation: {
         recommend: sinon.stub().resolves({ items: recommendedItems })
-      },
-      record: {
-        search: sinon.stub().resolves({ items: recommendedItems })
       }
     },
-    $auth: {},
     $fetchState: {},
     $i18n: { locale: 'en' },
     $t: key => key,
@@ -43,49 +39,24 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemRe
 
 describe('components/item/ItemRecommendations', () => {
   describe('fetch', () => {
-    describe('when user is logged in', () => {
-      const mocks = { $auth: { loggedIn: true } };
-      const propsData = { identifier: '/123/abc' };
+    const mocks = { $auth: { loggedIn: true } };
+    const propsData = { identifier: '/123/abc' };
 
-      it('queries the Recommendation API by the item ID', async() => {
-        const wrapper = factory({ propsData, mocks });
+    it('queries the Recommendation API by the item ID', async() => {
+      const wrapper = factory({ propsData, mocks });
 
-        await wrapper.vm.fetch();
+      await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$apis.recommendation.recommend.calledWith('record', propsData.identifier)).toBe(true);
-      });
-
-      it('stores the items, removing self-recommendation, limiting to 8', async() => {
-        const wrapper = factory({ propsData, mocks });
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.items.length).toBe(8);
-        expect(wrapper.vm.items.some((item) => item.id === propsData.identifier)).toBe(false);
-      });
+      expect(wrapper.vm.$apis.recommendation.recommend.calledWith('record', propsData.identifier)).toBe(true);
     });
 
-    describe('when user is not logged in', () => {
-      const mocks = { $auth: { loggedIn: false } };
-      it('queries the Record API by the metadata', async() => {
-        const propsData = {
-          identifier: '/123/abc',
-          dcSubject: { en: ['whale'] },
-          dcType: { def: ['image'] },
-          dcCreator: null,
-          edmDataProvider: { def: ['Europeana Foundation'] }
-        };
-        const wrapper = factory({ propsData, mocks });
+    it('stores the items, removing self-recommendation, limiting to 8', async() => {
+      const wrapper = factory({ propsData, mocks });
 
-        await wrapper.vm.fetch();
+      await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$apis.record.search.calledWith({
-          query: '(what:("whale" OR "image")^0.8 OR DATA_PROVIDER:("Europeana Foundation")^0.2) NOT europeana_id:"/123/abc"',
-          rows: 4,
-          profile: 'minimal',
-          facet: ''
-        })).toBe(true);
-      });
+      expect(wrapper.vm.items.length).toBe(8);
+      expect(wrapper.vm.items.some((item) => item.id === propsData.identifier)).toBe(false);
     });
   });
 });
