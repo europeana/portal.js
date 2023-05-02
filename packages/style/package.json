@@ -6,7 +6,7 @@
   "main": "scss/style.scss",
   "files": [
     "fonts/**/*.{woff,woff2}",
-    "img/**/*.svg",
+    "img/**/*.{ico,svg}",
     "scss/**/*.scss"
   ]
 }
