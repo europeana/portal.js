@@ -23,6 +23,23 @@
   }
 
   @media (min-width: $bp-xxxl) {
-    min-height: 30vw;
+    min-height: 30vh;
+  }
+}
+
+@mixin swiper-height($extra-height) {
+  height: calc($swiper-height + $extra-height);
+
+  @media (max-height: ($bp-medium - 1px)) {
+    max-height: calc($swiper-height + $extra-height);
+  }
+
+  @media (min-height: $bp-medium) {
+    max-height: calc($swiper-height-max + $extra-height);
+  }
+
+  @media (max-width: ($bp-medium - 1px)) {
+    max-height: calc($swiper-height-medium + $extra-height);
+    height: calc($swiper-height-medium + $extra-height);
   }
 }

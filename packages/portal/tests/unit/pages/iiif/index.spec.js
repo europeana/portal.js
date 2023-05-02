@@ -13,7 +13,10 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $axios: axios
+    $axios: axios,
+    $i18n: {
+      locale: 'en'
+    }
   }
 });
 
@@ -22,9 +25,17 @@ describe('pages/iiif/index.vue', () => {
     window.Mirador = {
       viewer: sinon.stub().returns({
         store: {
+          dispatch: sinon.stub(),
+          getState: sinon.stub().returns({ windows: { '001': {} },
+            companionWindows: ['companionWindowId001'] }),
           subscribe: sinon.stub()
         }
-      })
+      }),
+      actions: {
+        fetchSearch: sinon.stub(),
+        setWindowThumbnailPosition: sinon.stub(),
+        updateWindow: sinon.stub()
+      }
     };
   });
 
@@ -136,26 +147,6 @@ describe('pages/iiif/index.vue', () => {
       });
     });
 
-    describe('coerceItemTargetImagesToCanvases', () => {
-      it('coerces item\'s `target` attribute to canvas ID', async() => {
-        const wrapper = factory();
-        await wrapper.setData({
-          imageToCanvasMap: {
-            'https://example.org/image/123.jpg': 'http://example.org/presentation/123/canvas/p1'
-          }
-        });
-        const resource = {
-          target: ['https://example.org/image/123.jpg#xywh=1,0,90,100']
-        };
-
-        wrapper.vm.coerceItemTargetImagesToCanvases(resource);
-
-        expect(resource).toEqual({
-          target: ['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100']
-        });
-      });
-    });
-
     describe('coerceSearchHitsToBeforeMatchAfter', () => {
       it('coerces search hits from selectors to before/match/after', () => {
         const wrapper = factory();
@@ -188,6 +179,214 @@ describe('pages/iiif/index.vue', () => {
               after: ' long-tons. On en avoit déjà'
             }
           ]
+        });
+      });
+    });
+
+    describe('addAnnotationTextGranularityFilterToManifest', () => {
+      describe('adding textGranularity filter to annotation ID URL', () => {
+        it('defaults to "line" if none available', () => {
+          const wrapper = factory();
+          const manifestJson = {
+            items: [
+              {
+                annotations: [
+                  { id: 'https://example.org/anno1' },
+                  { id: 'https://example.org/anno2?format=3' }
+                ]
+              }
+            ]
+          };
+
+          wrapper.vm.addAnnotationTextGranularityFilterToManifest(manifestJson);
+
+          expect(manifestJson.items[0].annotations[0].id.endsWith('?textGranularity=line')).toBe(true);
+          expect(manifestJson.items[0].annotations[1].id.endsWith('&textGranularity=line')).toBe(true);
+        });
+        it('favours "line" if available', () => {
+          const wrapper = factory();
+          const manifestJson = {
+            items: [
+              {
+                annotations: [
+                  { id: 'https://example.org/anno1', textGranularity: ['page', 'line'] },
+                  { id: 'https://example.org/anno2?format=3', textGranularity: ['line', 'block'] }
+                ]
+              }
+            ]
+          };
+
+          wrapper.vm.addAnnotationTextGranularityFilterToManifest(manifestJson);
+
+          expect(manifestJson.items[0].annotations[0].id.endsWith('?textGranularity=line')).toBe(true);
+          expect(manifestJson.items[0].annotations[1].id.endsWith('&textGranularity=line')).toBe(true);
+        });
+
+        it('picks one of the annotation\'s available granularities if not "line"', () => {
+          const wrapper = factory();
+          const manifestJson = {
+            items: [
+              {
+                annotations: [
+                  { id: 'https://example.org/anno1', textGranularity: ['page', 'block'] },
+                  { id: 'https://example.org/anno2?format=3', textGranularity: ['block', 'page'] }
+                ]
+              }
+            ]
+          };
+
+          wrapper.vm.addAnnotationTextGranularityFilterToManifest(manifestJson);
+
+          expect(manifestJson.items[0].annotations[0].id.endsWith('?textGranularity=page')).toBe(true);
+          expect(manifestJson.items[0].annotations[1].id.endsWith('&textGranularity=block')).toBe(true);
+        });
+      });
+
+      it('memoises and stores the available granularities for the entire manifest', () => {
+        const wrapper = factory();
+        const manifestJson = {
+          items: [
+            {
+              annotations: [
+                { id: 'https://example.org/anno1', textGranularity: ['page', 'block'] },
+                { id: 'https://example.org/anno2?format=3', textGranularity: ['block', 'line'] }
+              ]
+            }
+          ]
+        };
+
+        wrapper.vm.addAnnotationTextGranularityFilterToManifest(manifestJson);
+
+        expect(wrapper.vm.manifestAnnotationTextGranularities).toEqual(['page', 'line']);
+      });
+    });
+
+    describe('filterSearchHitsByTextGranularity', () => {
+      it('filters search hits with textGranularity in dcType by pre-selected granularities', () => {
+        const manifestAnnotationTextGranularities = ['line'];
+        const wrapper = factory({ data: { manifestAnnotationTextGranularities } });
+        const searchJson = {
+          resources: [
+            {
+              '@id': 'https://example.org/anno1',
+              dcType: 'block'
+            },
+            {
+              '@id': 'https://example.org/anno2',
+              dcType: 'line'
+            },
+            {
+              '@id': 'https://example.org/anno3',
+              dcType: 'page'
+            }
+          ],
+          hits: [
+            {
+              annotations: ['https://example.org/anno1']
+            },
+            {
+              annotations: ['https://example.org/anno2']
+            },
+            {
+              annotations: ['https://example.org/anno3']
+            }
+          ]
+        };
+
+        wrapper.vm.filterSearchHitsByTextGranularity(searchJson);
+
+        expect(searchJson.hits.length).toBe(1);
+        expect(searchJson.hits[0].annotations[0]).toBe('https://example.org/anno2');
+      });
+
+      it('keeps search hits with no textGranularity in dcType', () => {
+        const manifestAnnotationTextGranularities = ['line'];
+        const wrapper = factory({ data: { manifestAnnotationTextGranularities } });
+        const searchJson = {
+          resources: [
+            {
+              '@id': 'https://example.org/anno1'
+            },
+            {
+              '@id': 'https://example.org/anno2'
+            }
+          ],
+          hits: [
+            {
+              annotations: ['https://example.org/anno1']
+            },
+            {
+              annotations: ['https://example.org/anno2']
+            }
+          ]
+        };
+
+        wrapper.vm.filterSearchHitsByTextGranularity(searchJson);
+
+        expect(searchJson.hits.length).toBe(2);
+      });
+    });
+
+    describe('coerceAnnotationsOnToCanvases', () => {
+      it('coerces items `target` attribute to canvas ID', async() => {
+        const wrapper = factory();
+        await wrapper.setData({
+          imageToCanvasMap: {
+            'https://example.org/image/123.jpg': 'http://example.org/presentation/123/canvas/p1'
+          }
+        });
+        const json = {
+          items: [{
+            target: 'https://example.org/image/123.jpg#xywh=1,0,90,100'
+          }]
+        };
+
+        wrapper.vm.coerceAnnotationsOnToCanvases(json);
+
+        expect(json.items[0].target).toBe('http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100');
+      });
+
+      it('coerces resources `on` attribute to canvas ID', async() => {
+        const wrapper = factory();
+        await wrapper.setData({
+          imageToCanvasMap: {
+            'https://example.org/image/123.jpg': 'http://example.org/presentation/123/canvas/p1'
+          }
+        });
+        const json = {
+          resources: [{
+            on: ['https://example.org/image/123.jpg#xywh=1,0,90,100']
+          }]
+        };
+
+        wrapper.vm.coerceAnnotationsOnToCanvases(json);
+
+        expect(json.resources[0].on).toEqual(['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100']);
+      });
+    });
+
+    describe('postprocessMiradorReceiveManifest', () => {
+      describe('addAnnotationTextGranularityFilterToManifest post-processor', () => {
+        it('is called if for a Europeana manifest', () => {
+          const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+          const action = { manifestJson: { id: url } };
+          const wrapper = factory();
+          sinon.stub(wrapper.vm, 'addAnnotationTextGranularityFilterToManifest');
+
+          wrapper.vm.postprocessMiradorReceiveManifest(url, action);
+
+          expect(wrapper.vm.addAnnotationTextGranularityFilterToManifest.calledWith(action.manifestJson)).toBe(true);
+        });
+
+        it('is not called if not for a Europeana manifest', () => {
+          const url = 'https://iiif.example.org/presentation/123/abc/manifest';
+          const action = { manifestJson: { id: url } };
+          const wrapper = factory();
+          sinon.stub(wrapper.vm, 'addAnnotationTextGranularityFilterToManifest');
+
+          wrapper.vm.postprocessMiradorReceiveManifest(url, action);
+
+          expect(wrapper.vm.addAnnotationTextGranularityFilterToManifest.called).toBe(false);
         });
       });
     });
@@ -358,6 +557,72 @@ describe('pages/iiif/index.vue', () => {
       });
     });
 
+    describe('showSidebarForAnnotations', () => {
+      describe('when viewport is larger than mobile', () => {
+        it('allows and opens the side bar', async() => {
+          const manifest = {
+            '@context': 'http://iiif.io/api/presentation/2/context.json'
+          };
+          const wrapper = factory({ data: { manifest } });
+          await wrapper.vm.$nextTick();
+          const json = { resources: [{}] };
+
+          wrapper.vm.showSidebarForAnnotations(json);
+
+          expect(window.Mirador.actions.updateWindow.calledWith(
+            wrapper.vm.miradorWindowId, {
+              allowWindowSideBar: true,
+              sideBarOpen: true
+            })).toBe(true);
+        });
+      });
+      describe('when viewport is mobile', () => {
+        const originalWindowWidth = window.innerWidth;
+        it('allows but does not open the side bar', async() => {
+          window.innerWidth = 300;
+          const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+          const manifest = {
+            '@context': 'http://iiif.io/api/presentation/2/context.json'
+          };
+          const wrapper = factory({ data: { manifest } });
+          await wrapper.vm.$nextTick();
+          const json = { resources: [{}] };
+
+          wrapper.vm.showSidebarForAnnotations(json);
+
+          expect(window.Mirador.actions.updateWindow.calledWith(
+            wrapper.vm.miradorWindowId, {
+              allowWindowSideBar: true
+            })).toBe(true);
+        });
+        describe('and a search query is passed', () => {
+          it('allows and opens the side bar', async() => {
+            window.innerWidth = 300;
+            const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+            const manifest = {
+              '@context': 'http://iiif.io/api/presentation/2/context.json',
+              service: {
+                '@context': 'http://iiif.io/api/search/1/context.json',
+                '@id': 'https://iiif.europeana.eu/presentation/123/abc/search'
+              }
+            };
+            const wrapper = factory({ data: { manifest, searchQuery: 'example' } });
+            await wrapper.vm.$nextTick();
+            const json = { resources: [{}] };
+
+            wrapper.vm.showSidebarForAnnotations(json);
+
+            expect(window.Mirador.actions.updateWindow.calledWith(
+              wrapper.vm.miradorWindowId, {
+                allowWindowSideBar: true,
+                sideBarOpen: true
+              })).toBe(true);
+          });
+        });
+        window.innerWidth = originalWindowWidth;
+      });
+    });
+
     describe('postUpdatedDownloadLinkMessage', () => {
       const pageId = 'https://iiif.europeana.eu/presentation/123/abc/canvas/p1';
       const imageUrl = 'https://iiif.europeana.eu/image/123/abc/default.jpg';
@@ -403,6 +668,26 @@ describe('pages/iiif/index.vue', () => {
             },
             'http://localhost'
           )).toBe(true);
+        });
+      });
+    });
+  });
+
+  describe('watch', () => {
+    describe('numberOPages', () => {
+      describe('when there are multiple pages', () => {
+        it('sets the thumbnails position and enables the top menu button', async() => {
+          const manifest = {
+            '@context': 'http://iiif.io/api/presentation/2/context.json',
+            sequences: [{ canvases: [{}] }]
+          };
+          const wrapper = factory({ data: { manifest } });
+
+          wrapper.vm.manifest.sequences = [{ canvases: [{}] }, { canvases: [{}] }];
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.mirador.store.dispatch.calledWith(window.Mirador.actions.setWindowThumbnailPosition(wrapper.vm.miradorWindowId, 'far-right'))).toBe(true);
+          expect(wrapper.vm.mirador.store.dispatch.calledWith(window.Mirador.actions.updateWindow(wrapper.vm.miradorWindowId, { allowTopMenuButton: true }))).toBe(true);
         });
       });
     });
