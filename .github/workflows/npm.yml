@@ -4,9 +4,6 @@ on:
   release:
     types: [published]
 
-env:
-  NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-
 jobs:
   style:
     runs-on: ubuntu-latest
@@ -22,5 +19,7 @@ jobs:
           cache: 'npm'
       -
         name: Publish to NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
         run: |
           npm -w packages/style publish --access public
