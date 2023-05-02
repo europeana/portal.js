@@ -578,9 +578,9 @@ describe('pages/iiif/index.vue', () => {
       });
       describe('when viewport is mobile', () => {
         const originalWindowWidth = window.innerWidth;
+
         it('allows but does not open the side bar', async() => {
           window.innerWidth = 300;
-          const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
           const manifest = {
             '@context': 'http://iiif.io/api/presentation/2/context.json'
           };
@@ -595,10 +595,10 @@ describe('pages/iiif/index.vue', () => {
               allowWindowSideBar: true
             })).toBe(true);
         });
+
         describe('and a search query is passed', () => {
           it('allows and opens the side bar', async() => {
             window.innerWidth = 300;
-            const url = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
             const manifest = {
               '@context': 'http://iiif.io/api/presentation/2/context.json',
               service: {
