@@ -9,9 +9,7 @@ localVue.directive('visible-on-scroll', () => { });
 const factory = () => shallowMount(PageHeader, {
   localVue,
   mocks: {
-    $t: (key) => {
-      return `TRANSLATED: ${key}`;
-    },
+    $t: (key) => key,
     $path: (code) => window.location.href + code,
     $store: {
       commit(mutation, payload) {
@@ -53,7 +51,7 @@ describe('components/PageHeader', () => {
 
       const logo = wrapper.find('[data-qa="logo"]');
 
-      expect(logo.attributes().src).toMatch(/\/logo\.svg$/);
+      expect(logo.attributes().src).toBe('logo.svg');
     });
 
     it('contains the top nav', () => {
