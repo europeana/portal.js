@@ -77,7 +77,7 @@
         if (this.error.code) {
           const kebabCaseCode = kebabCase(this.error.code);
           try {
-            return require(`@/assets/img/illustrations/il-${kebabCaseCode}.svg`);
+            return require(`@europeana/style/img/illustrations/il-${kebabCaseCode}.svg`);
           } catch (e) {
             // don't fall apart just because an image is not available...
           }

@@ -7,6 +7,7 @@
     class="eu-logo"
   >
 </template>
+
 <script>
   export default {
     name: 'EULogo',
@@ -15,9 +16,9 @@
       localisedEULogo() {
         let logo;
         try {
-          logo = require(`@/assets/img/eu-funded/${this.$i18n.locale}-Funded by the EU_NEG.svg`);
+          logo = require(`@europeana/style/img/eu-funded/${this.$i18n.locale}-Funded by the EU_NEG.svg`);
         } catch (e) {
-          logo = require('@/assets/img/eu-funded/en-Funded by the EU_NEG.svg');
+          logo = require('@europeana/style/img/eu-funded/en-Funded by the EU_NEG.svg');
         }
         return logo;
       }

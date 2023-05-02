@@ -36,7 +36,7 @@
         class="logo d-inline-flex"
       >
         <img
-          src="../assets/img/logo.svg"
+          :src="logoSrc"
           :alt="$t('homeLinkAlt')"
           data-qa="logo"
         >
@@ -85,7 +85,7 @@
               class="logo pl-4 pr-2"
             >
               <img
-                src="../assets/img/logo.svg"
+                :src="logoSrc"
                 :alt="$t('homeLinkAlt')"
                 width="153"
                 height="32"
@@ -122,6 +122,7 @@
 
     data() {
       return {
+        logoSrc: require('@europeana/style/img/logo.svg'),
         windowWidth: 0
       };
     },
