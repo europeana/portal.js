@@ -373,6 +373,7 @@ jobs:
     needs: [metadata, docker-build]
     if: (needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true')
     env:
+      ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM: 0
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     steps:
       -
