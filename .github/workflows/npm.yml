@@ -16,10 +16,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
       -
         name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: |
-          npm -w packages/style publish --access public
+        run: npm -w packages/style publish --access public
