@@ -7,25 +7,25 @@ import sinon from 'sinon';
 
 import '@/plugins/vue-filters';
 
-if (!global.localStorage) {
+if (global.localStorage) {
+  sinon.spy(global.localStorage, 'getItem');
+  sinon.spy(global.localStorage, 'setItem');
+} else {
   global.localStorage = {
     getItem: () => sinon.spy(),
     setItem: () => sinon.spy()
   };
-} else {
-  sinon.spy(global.localStorage, 'getItem');
-  sinon.spy(global.localStorage, 'setItem');
 }
 
 if (!global.navigator) {
   global.navigator = {};
 }
-if (!global.navigator.clipboard) {
+if (global.navigator.clipboard) {
+  sinon.spy(global.navigator, 'clipboard');
+} else {
   global.navigator.clipboard = {
     writeText: sinon.spy()
   };
-} else {
-  sinon.spy(global.navigator, 'clipboard');
 }
 
 // Allow using client-only in component tests.
