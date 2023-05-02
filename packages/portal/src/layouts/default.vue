@@ -119,6 +119,7 @@
           ...i18nHead.htmlAttrs
         },
         link: [
+          { rel: 'icon', href: require('@europeana/style/img/favicon.ico').default, type: 'image/x-icon' },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
