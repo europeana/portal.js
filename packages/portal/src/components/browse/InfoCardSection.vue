@@ -68,7 +68,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .info-card-section {
     .card-deck-3-cols {

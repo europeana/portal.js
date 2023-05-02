@@ -33,7 +33,7 @@
   >
     <h2>{{ $t('related.editorial.title') }} </h2>
     <b-card-group
-      class="card-deck-4-cols gridless-browse-cards"
+      class="card-deck-4-cols"
       deck
     >
       <ContentCard
@@ -157,11 +157,13 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
-  .related-editorial-card {
+  .card.related-editorial-card {
     border: 0;
     box-shadow: $boxshadow-small;
+    min-width: none;
+    max-width: none;
 
     > .card-body {
       @media (min-width: $bp-4k) {
@@ -192,6 +194,8 @@
         margin-bottom: 1.5rem;
         flex: 100%;
         border-radius: 0;
+        min-width: none;
+        max-width: none;
 
         @media (min-width: $bp-medium) {
           flex: calc(50% - 1rem);

@@ -45,7 +45,6 @@ export default {
     "pin": "Stift",
     "preview": "Förhandsvisning",
     "previous": "Föregående",
-    "providedBy": "Tillhandahålls av {provider}",
     "publish": "Publicera",
     "reject": "Avvisa",
     "requestDepublication": "Begär avpublicering",
@@ -56,6 +55,8 @@ export default {
     "skipSend": "Hoppa över och skicka",
     "submitForPublication": "Skicka in för publicering",
     "submittedForPublication": "Inlämnad för publicering",
+    "transcribe": "Transkribera",
+    "transcribeNow": "Transkribera nu",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
@@ -93,6 +94,11 @@ export default {
     "theme": "Tema",
     "time": "Århundrade",
     "topic": "Ämne"
+  },
+  "categories": {
+    "label": "Utforska berättelser efter tagg",
+    "noOptions": "Det finns inga fler taggar att välja",
+    "search": "Utforska berättelser efter tagg"
   },
   "clearAllFilters": "rensa alla filter",
   "collections": {
@@ -886,6 +892,10 @@ export default {
       "linkPrompt": "Vi rekommenderar att du klickar på knappen \"Tillhandahållande institution\" nedan för att kontrollera om objektet kan laddas ner på den tillhandahållande institutionens webbplats.",
       "message": "Om nedladdningen inte fungerar kan det bero på att den har tagits bort av den tillhandahållande institutionen, eller så kan det vara ett tekniskt problem med deras tjänst.",
       "title": "Nedladdningen fungerar inte"
+    },
+    "transcribe": {
+      "message": "Följ med oss på Europeana Transcribe, onlinemedborgarinitiativet för att berika Europeanas samlingar",
+      "title": "Transkribera detta objekt"
     }
   },
   "multilingual": {
@@ -898,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Stäng",
-    "readMore": "Läs mer",
+    "readMore": "Upptäck berättelser",
     "text": {
-      "themes": "Utforska det europeiska kulturarvet genom teman, från arkeologi till första världskriget. Våra nya temasidor erbjuder en flerdimensionell bild av varje tema via relaterade ämnen, människor, berättelser och föremål."
+      "storiesTags": "Kolla in den uppdaterade berättelsesidan. Du kan nu söka och filtrera efter taggar."
     }
   },
   "newWindow": "öppnas i nytt fönster",
@@ -947,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginering"
   },
+  "provider": {
+    "linkText": "Visa på leverantörens webbplats",
+    "providedBy": "Detta objekt tillhandahålls och underhålls av {provider}"
+  },
   "readMore": "Läs mer",
   "recommendation": {
     "prompts": {
@@ -960,7 +974,6 @@ export default {
     },
     "allMetaData": "Alla metadata",
     "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
-    "exploreMore": "Utforska mer",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
@@ -991,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Relaterade gallerier",
       "title": "Upptäck relaterade gallerier"
+    },
+    "items": {
+      "loginForMore": "Logga in för att se andra relaterade objekt",
+      "title": "Upptäck relaterade objekt"
     },
     "themes": {
       "title": "Upptäck relaterade teman"
@@ -1101,6 +1118,7 @@ export default {
     "pinned": "Fäst"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} berättelser hittades",
     "title": "Berättelser"
   },
   "themes": {

@@ -93,7 +93,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .icon-ic-tag {
     color: $mediumgrey;
@@ -101,10 +101,10 @@
     font-size: 1.5rem;
     line-height: calc(2rem - 1px);
 
-    @at-root .responsive-font & {
-      @media (min-width: $bp-xxxl) {
-        line-height: 2.25vw;
-        font-size: 1.5vw;
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        line-height: calc(1.5 * calc(2rem - 1px));
+        font-size: calc(1.5 * 1.5rem);
       }
     }
   }
@@ -121,9 +121,9 @@
       }
     }
 
-    @at-root .responsive-font & {
-      @media (min-width: $bp-xxxl) {
-        margin: 0 0.25vw 0.25vw;
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin: 0 calc(1.5 * 0.25rem) calc(1.5 * 0.25rem);
       }
     }
   }

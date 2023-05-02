@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import WebResource from '@/plugins/europeana/web-resource';
+  import WebResource from '@/plugins/europeana/edm/WebResource';
 
   export default {
     name: 'MediaPage',
@@ -16,7 +16,7 @@
 
     data() {
       return {
-        MEDIA_PLAYER_VERSION: '0.8.0',
+        MEDIA_PLAYER_VERSION: '0.9.1',
         JQUERY_VERSION: '3.4.1',
         JQUERY_UI_VERSION: '1.12.1',
         DASHJS_VERSION: '2.9.0',

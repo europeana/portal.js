@@ -45,7 +45,6 @@ export default {
     "pin": "Spilla",
     "preview": "Anteprima",
     "previous": "Precedente",
-    "providedBy": "Fornito da {provider}",
     "publish": "Pubblicare",
     "reject": "Rifiuta",
     "requestDepublication": "Richiesta di depubblicazione",
@@ -56,6 +55,8 @@ export default {
     "skipSend": "Salta e invia",
     "submitForPublication": "Invia per la pubblicazione",
     "submittedForPublication": "Inviato per la pubblicazione",
+    "transcribe": "Trascrivere",
+    "transcribeNow": "Trascrivi ora",
     "viewAt": "Vedi su {link}",
     "viewDocument": "Visualizza documento"
   },
@@ -93,6 +94,11 @@ export default {
     "theme": "Tema",
     "time": "Secolo",
     "topic": "Argomento"
+  },
+  "categories": {
+    "label": "Esplora le storie per tag",
+    "noOptions": "Non ci sono più tag da selezionare",
+    "search": "Esplora le storie per tag"
   },
   "clearAllFilters": "cancella tutti i filtri",
   "collections": {
@@ -886,6 +892,10 @@ export default {
       "linkPrompt": "Ti consigliamo di cliccare sul pulsante \"Istituzione fornitrice\" qui sotto per verificare se l'articolo può essere scaricato sul sito web dell'istituto erogatore.",
       "message": "Se il download non funziona, potrebbe essere perché è stato rimosso dall'istituto che lo ha fornito o potrebbe essersi verificato un problema tecnico con il servizio.",
       "title": "Download non funzionante"
+    },
+    "transcribe": {
+      "message": "Unisciti a noi su Europeana Transcribe, l'iniziativa dei cittadini online per l'arricchimento delle collezioni di Europeana",
+      "title": "Trascrivi questo elemento"
     }
   },
   "multilingual": {
@@ -898,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Chiudi",
-    "readMore": "Leggi di più",
+    "readMore": "Scopri le storie",
     "text": {
-      "themes": "Esplora il patrimonio culturale europeo attraverso i temi, dall'archeologia alla prima guerra mondiale. Le nostre nuove pagine tematiche offrono una visione multidimensionale di ciascun tema attraverso argomenti, persone, storie e oggetti correlati."
+      "storiesTags": "Dai un'occhiata alla pagina Storie aggiornata. Ora puoi cercare e filtrare per tag."
     }
   },
   "newWindow": "si apre in una nuova finestra",
@@ -947,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginazione"
   },
+  "provider": {
+    "linkText": "Visualizza sul sito web del fornitore",
+    "providedBy": "Questo oggetti è fornito e gestito da {provider}"
+  },
   "readMore": "Leggi di più",
   "recommendation": {
     "prompts": {
@@ -960,7 +974,6 @@ export default {
     },
     "allMetaData": "Tutti i metadati",
     "copyEmbedLabel": "Incorpora codice (fare clic per copiare)",
-    "exploreMore": "Esplora altro",
     "extendedInformation": "Informazioni estese",
     "goodToKnow": "Caratteristiche",
     "hideAll": "Nascondi tutte le informazioni",
@@ -991,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Gallerie correlate",
       "title": "Scopri le gallerie correlate"
+    },
+    "items": {
+      "loginForMore": "Accedi per vedere altri oggetti correlati",
+      "title": "Scopri gli oggetti correlati"
     },
     "themes": {
       "title": "Scopri i temi correlati"
@@ -1101,6 +1118,7 @@ export default {
     "pinned": "Appuntato"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} storie trovate",
     "title": "Storie"
   },
   "themes": {

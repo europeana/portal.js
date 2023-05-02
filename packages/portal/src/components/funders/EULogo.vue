@@ -7,6 +7,7 @@
     class="eu-logo"
   >
 </template>
+
 <script>
   export default {
     name: 'EULogo',
@@ -15,9 +16,9 @@
       localisedEULogo() {
         let logo;
         try {
-          logo = require(`@/assets/img/eu-funded/${this.$i18n.locale}-Funded by the EU_NEG.svg`);
+          logo = require(`@europeana/style/img/eu-funded/${this.$i18n.locale}-Funded by the EU_NEG.svg`);
         } catch (e) {
-          logo = require('@/assets/img/eu-funded/en-Funded by the EU_NEG.svg');
+          logo = require('@europeana/style/img/eu-funded/en-Funded by the EU_NEG.svg');
         }
         return logo;
       }
@@ -26,7 +27,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .bottom-right {
     position: absolute;
@@ -35,7 +36,7 @@
 
     --right-spacing: calc(64 / 304 * 50%); // 50% of height divided by width to get 50% height of img for right spacing
 
-    @media (max-width: $bp-small - 1px) {
+    @media (max-width: ($bp-small - 1px)) {
       margin-bottom: 1rem;
       margin-left: 1rem;
       right: calc(95px + 1rem); // keep space for cutout (95px) and 1rem for extra spacing

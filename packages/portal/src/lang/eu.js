@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Aurrebista",
     "previous": "Aurrekoa",
-    "providedBy": "{provider} emanda",
     "publish": "Argitaratu",
     "reject": "Baztertu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
@@ -56,6 +55,8 @@ export default {
     "skipSend": "Saltatu eta bidali",
     "submitForPublication": "Bidali argitaratzeko",
     "submittedForPublication": "Argitalpenerako aurkeztu da",
+    "transcribe": "Transkribatu",
+    "transcribeNow": "Transkribatu orain",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -93,6 +94,11 @@ export default {
     "theme": "Gaia",
     "time": "Mendea",
     "topic": "Gai"
+  },
+  "categories": {
+    "label": "Esploratu istorioak etiketaren arabera",
+    "noOptions": "Ez dago etiketa gehiago hautatzeko",
+    "search": "Esploratu istorioak etiketaren arabera"
   },
   "clearAllFilters": "Iragazki guztiak garbitu",
   "collections": {
@@ -890,6 +896,10 @@ export default {
       "linkPrompt": "Beheko \"Erakunde hornitzailea\" botoian klik egitea gomendatzen dizugu, elementua erakunde hornitzailearen webgunean deskargatu daitekeen egiaztatzeko.",
       "message": "Deskargak ez badu funtzionatzen, baliteke erakunde hornitzaileak kendu duelako edo haien zerbitzuarekin arazo tekniko bat egotea.",
       "title": "Deskargak ez du funtzionatzen"
+    },
+    "transcribe": {
+      "message": "Etor zaitez gurekin Europeana Transcribe-n, Europeana-ren bildumak aberasteko lineako herritarren ekimenean",
+      "title": "Transkribatu elementu hau"
     }
   },
   "multilingual": {
@@ -902,9 +912,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
-    "readMore": "Gehiago irakurri",
+    "readMore": "Ezagutu istorioak",
     "text": {
-      "themes": "Arakatu Europako kultur ondarea gaien bidez, arkeologiatik hasi eta Lehen Mundu Gerra arte. Gure gai-orri berriek gai bakoitzaren dimentsio anitzeko ikuspegia eskaintzen dute erlazionatutako gai, pertsona, istorio eta elementuen bidez."
+      "storiesTags": "Begiratu eguneratutako istorio-orria. Orain bilatu eta etiketekin iragazi dezakezu."
     }
   },
   "newWindow": "leiho berrian irekiko da",
@@ -951,6 +961,10 @@ export default {
   "pagination": {
     "label": "Paginazioa"
   },
+  "provider": {
+    "linkText": "Hornitzailearen webgunean ikusi",
+    "providedBy": "Elementu hau {provider} k hornitu eta mantentzen du"
+  },
   "readMore": "Gehiago irakurri",
   "recommendation": {
     "prompts": {
@@ -964,7 +978,6 @@ export default {
     },
     "allMetaData": "Metadatu guztiak",
     "copyEmbedLabel": "Embed kodea (Egin klik kopiatzeko)",
-    "exploreMore": "Gehiago arakatu",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
@@ -995,6 +1008,10 @@ export default {
     "galleries": {
       "name": "Lotutako galeriak",
       "title": "Ezagutu erlazionatutako galeriak"
+    },
+    "items": {
+      "loginForMore": "Hasi saioa erlazionatutako beste elementu batzuk ikusteko",
+      "title": "Ezagutu erlazionatutako elementuak"
     },
     "themes": {
       "title": "Ezagutu erlazionatutako gaiak"
@@ -1105,6 +1122,7 @@ export default {
     "pinned": "Ainguratuta"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} istorio aurkitu dira",
     "title": "Istorioak"
   },
   "themes": {

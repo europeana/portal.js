@@ -45,7 +45,6 @@ export default {
     "pin": "Klin",
     "preview": "Pregled",
     "previous": "Prethodni",
-    "providedBy": "Omogućio {provider}",
     "publish": "Objaviti",
     "reject": "Odbiti",
     "requestDepublication": "Zahtjev za depublifikaciju",
@@ -56,6 +55,8 @@ export default {
     "skipSend": "Preskoči i pošalji",
     "submitForPublication": "Predajte za objavu",
     "submittedForPublication": "Predano za objavu",
+    "transcribe": "Prepisati",
+    "transcribeNow": "Prepišite sada",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument"
   },
@@ -93,6 +94,11 @@ export default {
     "theme": "Tema",
     "time": "Stoljeća",
     "topic": "Tema"
+  },
+  "categories": {
+    "label": "Istražite priče po oznaci",
+    "noOptions": "Nema više oznaka za odabir",
+    "search": "Istražite priče po oznaci"
   },
   "clearAllFilters": "očistiti sve filtre",
   "collections": {
@@ -886,6 +892,10 @@ export default {
       "linkPrompt": "Savjetujemo vam da kliknete na gumb 'Institucija iz koje dolazi' u nastavku kako biste provjerili može li se predmet preuzeti na web stranici institucije koja pruža.",
       "message": "Ako preuzimanje ne radi, to može biti zato što ga je uklonila institucija koja pruža zahtjev ili može postojati tehnički problem s njihovom uslugom.",
       "title": "Preuzimanje ne radi"
+    },
+    "transcribe": {
+      "message": "Pridružite nam se na Europeana Transcribe, online građanskoj inicijativi za obogaćivanje Europeana kolekcija",
+      "title": "Prepišite ovu stavku"
     }
   },
   "multilingual": {
@@ -898,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
-    "readMore": "Pročitaj više",
+    "readMore": "Otkrijte priče",
     "text": {
-      "themes": "Istražite europsku kulturnu baštinu kroz teme, od arheologije do Prvog svjetskog rata. Naše nove tematske stranice nude višedimenzionalni pogled na svaku temu putem povezanih tema, ljudi, priča i predmeta."
+      "storiesTags": "Pogledajte ažuriranu stranicu s pričama. Sada možete pretraživati i filtrirati po oznakama."
     }
   },
   "newWindow": "otvara se u novom prozoru",
@@ -947,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginacija"
   },
+  "provider": {
+    "linkText": "Pogledajte na web stranici pružatelja usluga",
+    "providedBy": "Ovu stavku osigurava i održava {provider}"
+  },
   "readMore": "Pročitaj više",
   "recommendation": {
     "prompts": {
@@ -960,7 +974,6 @@ export default {
     },
     "allMetaData": "Svi meta podaci",
     "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
-    "exploreMore": "Istraži više",
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
@@ -991,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Povezane galerije",
       "title": "Otkrijte povezane galerije"
+    },
+    "items": {
+      "loginForMore": "Prijavite se kako biste vidjeli druge povezane stavke",
+      "title": "Otkrijte povezane stavke"
     },
     "themes": {
       "title": "Otkrijte povezane teme"
@@ -1101,6 +1118,7 @@ export default {
     "pinned": "Prikvačeno"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "Broj pronađenih priča {0}",
     "title": "Priče"
   },
   "themes": {

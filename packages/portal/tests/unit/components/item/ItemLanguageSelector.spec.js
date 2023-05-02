@@ -98,4 +98,13 @@ describe('components/item/ItemLanguageSelector', () => {
       expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
     });
   });
+  describe('when close button is clicked', () => {
+    it('emits the hidden event', () => {
+      const wrapper = factory();
+      const button = wrapper.find('[data-qa="item language selector close button"]');
+      button.trigger('click');
+
+      expect(wrapper.emitted('hidden').length).toBe(1);
+    });
+  });
 });

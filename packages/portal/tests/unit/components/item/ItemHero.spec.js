@@ -1,6 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
+import WebResource from '@/plugins/europeana/edm/WebResource.js';
 import ItemHero from '@/components/item/ItemHero.vue';
 import sinon from 'sinon';
 const localVue = createLocalVue();
@@ -16,7 +17,7 @@ const factory = (propsData, options = {}) => shallowMount(ItemHero, {
   mocks: {
     $t: (key) => key,
     $i18n: { locale: 'en' },
-    $features: { itemEmbedCode: false },
+    $features: { itemEmbedCode: false, transcribathonCta: true },
     $auth: {
       loggedIn: true,
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
@@ -50,49 +51,43 @@ const factory = (propsData, options = {}) => shallowMount(ItemHero, {
 });
 
 const media = [
-  {
+  new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119112/10265.119112.original.jpg',
-    thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119112%2F10265.119112.original.jpg' },
     webResourceEdmRights: {
       def: ['http://creativecommons.org/licenses/by-sa/3.0/']
     }
-  },
-  {
+  }),
+  new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119200/10265.119200.original.jpg',
-    thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' },
     webResourceEdmRights: {
       def: ['http://rightsstatements.org/vocab/InC/1.0/']
     }
-  },
-  {
+  }),
+  new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119203/10265.119203.original.jpg',
-    thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119203%2F10265.119203.original.jpg' },
     webResourceEdmRights: {
       def: ['Atribution-NonCommercial-NoDerivatives 4.0 Internacional']
     }
-  },
-  {
+  }),
+  new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119639/10265.119639.original.jpg',
-    thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119639%2F10265.119639.original.jpg' },
     webResourceEdmRights: {
       def: ['http://creativecommons.org/licenses/by-sa/3.0/']
     }
-  },
-  {
+  }),
+  new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119640/10265.119640.original.jpg',
-    thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119640%2F10265.119640.original.jpg' },
     webResourceEdmRights: {
       def: ['http://creativecommons.org/licenses/by-sa/3.0/']
     }
-  },
-  {
+  }),
+  new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/',
-    isShownAt: true,
-    thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119640%2F10265.119640.original.jpg' },
+    forEdmIsShownAt: true,
     webResourceEdmRights: {
       def: ['http://creativecommons.org/licenses/by-sa/3.0/']
     }
-  }
+  })
 ];
 const identifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
 const entities = [{ about: 'http://data.europeana.eu/agent/123', prefLabel: { 'en': ['CARARE'] } }];
@@ -126,7 +121,7 @@ describe('components/item/ItemHero', () => {
         expect(wrapper.vm.downloadEnabled).toBe(false);
       });
     });
-    describe('when the selected media is the isShownAt and not downloadable', () => {
+    describe('when the selected media is the isShownAt, hence not downloadable', () => {
       it('is false', () => {
         const wrapper = factory({ media: [media[5]], identifier });
         expect(wrapper.vm.downloadEnabled).toBe(false);
@@ -180,6 +175,24 @@ describe('components/item/ItemHero', () => {
       it('returns false', () => {
         const wrapper = factory(propsData);
         expect(wrapper.vm.downloadViaProxy('http://www.example.org/another-resource')).toBe(false);
+      });
+    });
+  });
+
+  describe('showTranscribathonLink', () => {
+    describe('when the linkForContributingAnnotation goes to a transcribathon URL', () => {
+      it('is true', async() => {
+        const wrapper = factory({ linkForContributingAnnotation: 'https://europeana.transcribathon.eu/documents/story/?story=123', media, identifier, entities });
+
+        expect(wrapper.vm.showTranscribathonLink).toBe(true);
+      });
+    });
+
+    describe('when the linkForContributingAnnotation goes to a NON transcribathon URL', () => {
+      it('is true', async() => {
+        const wrapper = factory({ linkForContributingAnnotation: 'https://example.org/123', media, identifier, entities });
+
+        expect(wrapper.vm.showTranscribathonLink).toBe(false);
       });
     });
   });

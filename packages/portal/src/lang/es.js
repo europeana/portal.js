@@ -45,7 +45,6 @@ export default {
     "pin": "Alfiler",
     "preview": "Vista previa",
     "previous": "Anterior",
-    "providedBy": "Proporcionado por {provider}",
     "publish": "Publicar",
     "reject": "Rechazar",
     "requestDepublication": "Solicitud de despublicación",
@@ -56,6 +55,8 @@ export default {
     "skipSend": "Saltar y enviar",
     "submitForPublication": "Enviar para publicación",
     "submittedForPublication": "Enviado para publicación",
+    "transcribe": "Transcribir",
+    "transcribeNow": "Transcribir ahora",
     "viewAt": "Ver en {link}",
     "viewDocument": "Ver documento"
   },
@@ -93,6 +94,11 @@ export default {
     "theme": "Tema",
     "time": "Siglo",
     "topic": "Tema"
+  },
+  "categories": {
+    "label": "Explora historias por etiqueta",
+    "noOptions": "No hay más etiquetas para seleccionar",
+    "search": "Explora historias por etiqueta"
   },
   "clearAllFilters": "borrar todos los filtros",
   "collections": {
@@ -886,6 +892,10 @@ export default {
       "linkPrompt": "Le recomendamos que haga clic en el botón \"Institución proveedora\" a continuación para verificar si el artículo se puede descargar en el sitio web de la institución proveedora.",
       "message": "Si la descarga no funciona, puede deberse a que la institución proveedora la eliminó o puede haber un problema técnico con su servicio.",
       "title": "Descarga no funciona"
+    },
+    "transcribe": {
+      "message": "Únase a nosotros en Europeana Transcribe, la iniciativa ciudadana en línea para el enriquecimiento de las colecciones de Europeana",
+      "title": "Transcribir este elemento"
     }
   },
   "multilingual": {
@@ -898,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Cerrar",
-    "readMore": "Leer más",
+    "readMore": "Descubre historias",
     "text": {
-      "themes": "Explore el patrimonio cultural europeo a través de temas, desde la arqueología hasta la Primera Guerra Mundial. Nuestras nuevas páginas temáticas ofrecen una visión multidimensional de cada tema a través de temas, personas, historias y elementos relacionados."
+      "storiesTags": "Echa un vistazo a la página de Historias actualizada. Ahora puede buscar y filtrar por etiquetas."
     }
   },
   "newWindow": "se abre en una nueva ventana",
@@ -947,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginación"
   },
+  "provider": {
+    "linkText": "Ver en el sitio web del proveedor",
+    "providedBy": "Este elemento es proporcionado y mantenido por {provider}"
+  },
   "readMore": "Leer más",
   "recommendation": {
     "prompts": {
@@ -960,7 +974,6 @@ export default {
     },
     "allMetaData": "Todos los metadatos",
     "copyEmbedLabel": "Código de inserción (haga clic para copiar)",
-    "exploreMore": "Explorar más",
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",
@@ -991,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Galerías relacionadas",
       "title": "Descubre galerías relacionadas"
+    },
+    "items": {
+      "loginForMore": "Inicie sesión para ver otros elementos relacionados",
+      "title": "Descubre elementos relacionados"
     },
     "themes": {
       "title": "Descubre temas relacionados"
@@ -1101,6 +1118,7 @@ export default {
     "pinned": "Fijado"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} historias encontradas",
     "title": "Historias"
   },
   "themes": {

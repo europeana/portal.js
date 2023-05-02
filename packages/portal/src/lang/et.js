@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Eelvaade",
     "previous": "Eelmine",
-    "providedBy": "Pakub {provider}",
     "publish": "Avalda",
     "reject": "Tagasi lükata",
     "requestDepublication": "Taotlus mitte avaldada",
@@ -56,6 +55,8 @@ export default {
     "skipSend": "Jäta vahele ja saada",
     "submitForPublication": "Esitage avaldamiseks",
     "submittedForPublication": "Esitatud avaldamiseks",
+    "transcribe": "Transkribeeri",
+    "transcribeNow": "Transkribeeri nüüd",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -93,6 +94,11 @@ export default {
     "theme": "Teema",
     "time": "Sajand",
     "topic": "Teema"
+  },
+  "categories": {
+    "label": "Tutvu lugudega sildi järgi",
+    "noOptions": "Rohkem silte pole valida",
+    "search": "Tutvu lugudega sildi järgi"
   },
   "clearAllFilters": "tühjenda kõik filtrid",
   "collections": {
@@ -886,6 +892,10 @@ export default {
       "linkPrompt": "Soovitame teil klõpsata alloleval nupul „Pakkuja institutsioon”, et kontrollida, kas üksust saab pakkuva asutuse veebisaidilt alla laadida.",
       "message": "Kui allalaadimine ei tööta, võib põhjuseks olla see, et pakkuv asutus on selle eemaldanud või nende teenuses võib olla tehniline probleem.",
       "title": "Allalaadimine ei tööta"
+    },
+    "transcribe": {
+      "message": "Liituge meiega Europeana Transcribe'is, veebipõhises kodanikualgatuses Europeana kogude rikastamiseks",
+      "title": "Transkribeerige see üksus"
     }
   },
   "multilingual": {
@@ -898,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
-    "readMore": "Loe lähemalt",
+    "readMore": "Avastage lugusid",
     "text": {
-      "themes": "Avastage Euroopa kultuuripärandit teemade kaudu, alates arheoloogiast kuni I maailmasõjani. Meie uued teemalehed pakuvad igast teemast mitmemõõtmelist vaadet seotud teemade, inimeste, lugude ja esemete kaudu."
+      "storiesTags": "Vaadake uuendatud lugude lehte. Nüüd saate otsida ja filtreerida siltide järgi."
     }
   },
   "newWindow": "avaneb uues aknas",
@@ -933,7 +943,7 @@ export default {
         "title": "Kohad"
       },
       "table": {
-        "items": "Üksused",
+        "items": "Esemed",
         "name": "Nimi"
       },
       "times": {
@@ -946,6 +956,10 @@ export default {
   },
   "pagination": {
     "label": "Paginatsioon"
+  },
+  "provider": {
+    "linkText": "Vaadake teenusepakkuja veebisaidilt",
+    "providedBy": "Seda üksust pakub ja hooldab {provider}"
   },
   "readMore": "Loe lähemalt",
   "recommendation": {
@@ -960,7 +974,6 @@ export default {
     },
     "allMetaData": "Kogu metateave",
     "copyEmbedLabel": "Embed code (Klõpsake kopeerimiseks)",
-    "exploreMore": "Avastage rohkem",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
@@ -991,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Seotud galeriid",
       "title": "Avastage seotud galeriid"
+    },
+    "items": {
+      "loginForMore": "Logi sisse, et näha teisi seotud esemed",
+      "title": "Avasta seotud esemed"
     },
     "themes": {
       "title": "Avasta seotud teemad"
@@ -1101,6 +1118,7 @@ export default {
     "pinned": "Kinnitatud"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "Leiti {0} lugu",
     "title": "Lood"
   },
   "themes": {

@@ -164,57 +164,23 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import '@europeana/style/scss/variables';
 
 .context-label {
   margin-bottom: 0;
   line-height: 3;
   min-width: 0;
+  font-size: $font-size-small;
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
-      font-size: $font-size-large-4k;
+      font-size: $font-size-small-4k;
     }
   }
 
   .badge {
     max-width: calc(100% - 2rem);
     text-transform: none;
-
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-large-4k;
-        border-radius: calc(3 * 1.125rem);
-        padding: calc(3 * 0.25rem) calc(3 * 0.75rem);
-        height: calc(3 * 2.25rem);
-
-        &.img-chip {
-          padding: 0.75rem 2.25rem 0.75rem calc(2.25rem + calc(3 * 28px));
-        }
-
-        ::v-deep {
-          img {
-            width: calc(3 * 28px);
-            height: calc(3 * 28px);
-            left: calc(3 * 0.25rem);
-          }
-
-          .organisation-logo {
-            left: calc(3 * 0.25rem);
-            width: calc(3 * 28px);
-            height: calc(3 * 28px);
-          }
-
-          .close {
-            margin-left: 1.5rem;
-
-            &::before {
-              font-size: 45px;
-            }
-          }
-        }
-      }
-    }
   }
 }
 

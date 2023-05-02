@@ -1,5 +1,5 @@
 <template>
-  <div class="card rounded-0 border-0 p-4 info-panel">
+  <div class="card rounded-0 border-0 mb-3 info-panel">
     <header
       v-if="titles.length > 0"
     >
@@ -125,8 +125,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
 
   .description p:last-of-type {
     display: inline;

@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Predogled",
     "previous": "Prejšnji",
-    "providedBy": "Zagotavlja {provider}",
     "publish": "Objavi",
     "reject": "Zavrne",
     "requestDepublication": "Zahtevaj deublikacijo",
@@ -56,6 +55,8 @@ export default {
     "skipSend": "Preskoči in pošlji",
     "submitForPublication": "Oddaj za objavo",
     "submittedForPublication": "Oddano v objavo",
+    "transcribe": "Prepisujte",
+    "transcribeNow": "Prepiši zdaj",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
@@ -93,6 +94,11 @@ export default {
     "theme": "Tema",
     "time": "Stoletje",
     "topic": "Tema"
+  },
+  "categories": {
+    "label": "Raziščite zgodbe po oznakah",
+    "noOptions": "Ni več oznak, ki bi jih lahko izbrali",
+    "search": "Raziščite zgodbe po oznakah"
   },
   "clearAllFilters": "počisti vse filtre",
   "collections": {
@@ -886,6 +892,10 @@ export default {
       "linkPrompt": "Svetujemo vam, da kliknete spodnji gumb \"Ustanova izvora\" in preverite, ali lahko predmet prenesete na spletnem mestu ustanove, ki zagotavlja informacije.",
       "message": "Če prenos ne deluje, je to morda zato, ker ga je institucija, ki je zagotovila, odstranila, ali pa je prišlo do tehnične težave z njihovo storitvijo.",
       "title": "Prenos ne deluje"
+    },
+    "transcribe": {
+      "message": "Pridružite se nam na Europeana Transcribe, spletni državljanski pobudi za obogatitev zbirk Europeana",
+      "title": "Prepiši ta element"
     }
   },
   "multilingual": {
@@ -898,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zapri",
-    "readMore": "Preberi več",
+    "readMore": "Odkrijte zgodbe",
     "text": {
-      "themes": "Raziščite evropsko kulturno dediščino skozi teme, od arheologije do prve svetovne vojne. Naše nove tematske strani ponujajo večdimenzionalen pogled na vsako temo prek povezanih tem, ljudi, zgodb in predmetov."
+      "storiesTags": "Oglejte si posodobljeno stran Zgodbe. Zdaj lahko iščete in filtrirate po oznakah."
     }
   },
   "newWindow": "odpre se v novem oknu",
@@ -933,7 +943,7 @@ export default {
         "title": "Krajev"
       },
       "table": {
-        "items": "Elementi",
+        "items": "Predmeti",
         "name": "Ime"
       },
       "times": {
@@ -946,6 +956,10 @@ export default {
   },
   "pagination": {
     "label": "Paginacija"
+  },
+  "provider": {
+    "linkText": "Ogled na spletni strani ponudnika",
+    "providedBy": "Ta predmet zagotavlja in vzdržuje {provider}"
   },
   "readMore": "Preberi več",
   "recommendation": {
@@ -960,7 +974,6 @@ export default {
     },
     "allMetaData": "Vsi metapodatki",
     "copyEmbedLabel": "Vdelaj kodo (kliknite za kopiranje)",
-    "exploreMore": "Razišči več",
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",
     "hideAll": "Skrij vse informacije",
@@ -991,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Sorodne galerije",
       "title": "Odkrijte povezane galerije"
+    },
+    "items": {
+      "loginForMore": "Prijavite se in si oglejte druge povezane predmete",
+      "title": "Odkrijte povezane predmete"
     },
     "themes": {
       "title": "Odkrijte povezane teme"
@@ -1101,6 +1118,7 @@ export default {
     "pinned": "Pripet"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} zgodbe najdene",
     "title": "Zgodbe"
   },
   "themes": {

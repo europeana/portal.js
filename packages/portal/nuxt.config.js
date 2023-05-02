@@ -82,15 +82,7 @@ export default {
         environment: process.env.ELASTIC_APM_ENVIRONMENT || 'development',
         logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
         serviceName: 'portal-js',
-        serviceVersion: versions[APP_PKG_NAME],
-        frameworkName: 'Nuxt',
-        frameworkVersion: versions['@nuxt/core'],
-        ignoreUrls: [
-          /^\/(_nuxt|__webpack_hmr)\//
-        ],
-        ignoreUserAgents: [
-          'kube-probe/'
-        ]
+        serviceVersion: versions[APP_PKG_NAME]
       }
     },
     europeana: {
@@ -134,6 +126,19 @@ export default {
   privateRuntimeConfig: {
     contentful: {
       graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
+    },
+    elastic: {
+      apm: {
+        // Additional config options for Node agent, not supported by RUM agent
+        frameworkName: 'Nuxt',
+        frameworkVersion: versions['@nuxt/core'],
+        ignoreUrls: [
+          /^\/(_nuxt|__webpack_hmr)\//
+        ],
+        ignoreUserAgents: [
+          'kube-probe/'
+        ]
+      }
     },
     europeana: {
       apis: europeanaApisRuntimeConfig({ scope: 'private' })
@@ -185,9 +190,6 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: APP_SITE_NAME }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
 
@@ -206,7 +208,7 @@ export default {
   /*
   ** Global CSS
   */
-  css: ['./assets/scss/style'],
+  css: ['@europeana/style'],
 
   // BootstrapVue
   // Doc: https://bootstrap-vue.js.org/docs/
@@ -421,6 +423,10 @@ export default {
     extractCSS: false,
 
     extend(config, { isClient }) {
+      config.module.rules.push({
+        test: /\.ico(\?[a-z0-9=&.]+)?$/,
+        loader: 'file-loader'
+      });
       // Extend webpack config only for client bundle
       if (isClient) {
         // Build source maps to aid debugging in production builds

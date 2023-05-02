@@ -62,7 +62,7 @@
                       {{ $t('set.labels.curatedBy') }}
                       <img
                         v-if="set.creator.nickname === $config.app.galleries.europeanaAccount"
-                        src="~/assets/img/logo.svg"
+                        :src="logoSrc"
                         alt="Europeana"
                         width="96"
                         height="20"
@@ -229,6 +229,7 @@
     },
     data() {
       return {
+        logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
         images: [],
         title: '',
@@ -372,9 +373,9 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
-  @import '@/assets/scss/masonry';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/masonry';
 
   .usergallery-description {
     color: $mediumgrey;
