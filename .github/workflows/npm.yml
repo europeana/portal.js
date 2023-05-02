@@ -1,9 +1,8 @@
 name: NPM
 
 on:
-  push:
-    tags:
-      - 'v[0-9]+.[0-9]+.*'
+  release:
+    types: [published]
 
 env:
   NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
