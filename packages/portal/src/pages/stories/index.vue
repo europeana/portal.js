@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page white-page xxl-page">
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -22,9 +22,8 @@
         </b-col>
       </b-row>
     </b-container>
-    <div
+    <b-container
       v-else
-      class="page white-page gridless-container responsive-font"
     >
       <ContentHeader
         :title="pageMeta.title"
@@ -36,7 +35,7 @@
       <StoriesInterface
         :call-to-action="callToAction"
       />
-    </div>
+    </b-container>
   </div>
 </template>
 
@@ -106,12 +105,18 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
-@import '@/assets/scss/mixins';
+@import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/mixins';
 
 .page {
   padding-bottom: 1rem;
   padding-top: 1rem;
   margin-top: -1rem;
+
+  @media (min-width: $bp-4k) {
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    margin-top: -1.5rem;
+  }
 }
 </style>

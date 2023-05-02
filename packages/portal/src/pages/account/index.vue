@@ -233,8 +233,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/tabs';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/tabs';
 
   h1 {
     margin-bottom: 0.75rem;

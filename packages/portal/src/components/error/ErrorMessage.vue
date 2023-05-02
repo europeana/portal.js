@@ -1,9 +1,8 @@
 <template>
-  <div
+  <b-container
     :class="{
       'error-container': errorExplanationAvailable,
-      'pt-5': !errorExplanationAvailable,
-      'gridless-container responsive-font': gridless
+      'pt-5': !errorExplanationAvailable
     }"
   >
     <div
@@ -39,7 +38,7 @@
       v-show="showMessage && (error.message !== title)"
       :error="error.message"
     />
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -78,7 +77,7 @@
         if (this.error.code) {
           const kebabCaseCode = kebabCase(this.error.code);
           try {
-            return require(`@/assets/img/illustrations/il-${kebabCaseCode}.svg`);
+            return require(`@europeana/style/img/illustrations/il-${kebabCaseCode}.svg`);
           } catch (e) {
             // don't fall apart just because an image is not available...
           }
@@ -99,9 +98,9 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
-  .error-container {
+  .container.error-container {
     padding-bottom: 1rem;
     margin-left: auto;
     margin-right: auto;
@@ -114,10 +113,12 @@
       max-width: 75%;
     }
 
-    &.gridless-container {
-      @media (min-width: $bp-xxxl) {
-        padding-bottom: 1vw;
-      }
+    @media (min-width: $bp-xxxl) {
+      max-width: 65%;
+    }
+
+    @media (min-width: $bp-wqhd) {
+      max-width: 50%;
     }
   }
 
@@ -145,19 +146,12 @@
       align-items: center;
       justify-content: space-between;
     }
-
-    &.gridless-container {
-      @media (min-width: $bp-xxxl) {
-        padding-top: 5vw;
-        padding-bottom: 5vw;
-      }
-    }
   }
 
   section {
     width: 100%;
     color: $mediumgrey-light;
-    max-width: 35em;
+    max-width: 35rem;
 
     @media (orientation: portrait) {
       text-align: center;
@@ -172,16 +166,9 @@
       font-size: 1.375rem;
     }
 
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.375rem);
-      }
-    }
-
-    &.gridless-container {
-      @media (min-width: $bp-xxxl) {
-        font-size: 1.375vw;
-      }
+    @media (min-width: $bp-4k) {
+      font-size: calc(1.5 * 1.375rem);
+      max-width: calc(1.5 * 35rem);
     }
 
     h1 {
@@ -190,19 +177,11 @@
       font-size: 2rem;
 
       @media (min-width: $bp-small) {
-        font-size: 2.375rem;
+        font-size: $font-size-xxl;
       }
 
-      @at-root .xxl-page & {
-        @media (min-width: $bp-4k) {
-          font-size: calc(1.5 * 2.375rem);
-        }
-      }
-
-      &.gridless-container {
-        @media (min-width: $bp-xxxl) {
-          font-size: 2.375vw;
-        }
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xxl-4k;
       }
     }
   }

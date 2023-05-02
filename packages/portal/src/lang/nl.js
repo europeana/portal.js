@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Voorbeeld",
     "previous": "Vorige",
-    "providedBy": "Aangeboden door {provider}",
     "publish": "Publiceren",
     "reject": "Afwijzen",
     "requestDepublication": "Depublicatie aanvragen",
@@ -95,6 +94,11 @@ export default {
     "theme": "Thema",
     "time": "Eeuw",
     "topic": "Onderwerp"
+  },
+  "categories": {
+    "label": "Verken verhalen op tag",
+    "noOptions": "Er zijn geen tags meer om te selecteren",
+    "search": "Verken verhalen op tag"
   },
   "clearAllFilters": "alle filters wissen",
   "collections": {
@@ -904,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
-    "readMore": "Lees verder",
+    "readMore": "Ontdek verhalen",
     "text": {
-      "themes": "Verken het Europese culturele erfgoed met thema's, van archeologie tot de Eerste Wereldoorlog. Onze nieuwe themapagina's bieden een multidimensionaal beeld van elk thema via gerelateerde onderwerpen, mensen, verhalen en voorwerpen."
+      "storiesTags": "Bekijk de bijgewerkte verhalenpagina. U kunt nu zoeken en filteren op tags."
     }
   },
   "newWindow": "opent in nieuw venster",
@@ -953,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginering"
   },
+  "provider": {
+    "linkText": "Bekijk op de website van de aanbieder",
+    "providedBy": "Dit item wordt geleverd en onderhouden door {provider}"
+  },
   "readMore": "Lees verder",
   "recommendation": {
     "prompts": {
@@ -966,7 +974,6 @@ export default {
     },
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Embed code (klik om te kopiëren)",
-    "exploreMore": "Meer verkennen",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
@@ -997,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Gerelateerde galerijen",
       "title": "Ontdek gerelateerde galerijen"
+    },
+    "items": {
+      "loginForMore": "Log in om andere gerelateerde items te zien",
+      "title": "Ontdek gerelateerde items"
     },
     "themes": {
       "title": "Ontdek gerelateerde thema's"
@@ -1107,6 +1118,7 @@ export default {
     "pinned": "Pinned"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} verhalen gevonden",
     "title": "Verhalen"
   },
   "themes": {

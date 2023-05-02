@@ -22,7 +22,7 @@ services:
     env_file: ./app/.env
     environment:
       - CTF_GRAPHQL_ORIGIN=https://nginx/contentful
-      - ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM=1
+      - ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM=${ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM:-1}
       - ENABLE_TRANSLATED_ITEMS=1
       - EUROPEANA_ANNOTATION_API_URL=https://nginx/api/annotation
       - EUROPEANA_ENTITY_API_URL=https://nginx/api/entity

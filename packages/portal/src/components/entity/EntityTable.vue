@@ -146,7 +146,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
-  @import '@/assets/scss/table';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/table';
 </style>

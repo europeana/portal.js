@@ -78,10 +78,10 @@ module.exports = async() => {
         })))
       }
     ],
-    assetsDir: '../portal/src/assets',
+    assetsDir: '../style',
     skipComponentsWithoutExample: true,
     require: [
-      resolve(__dirname, '../portal/src/assets/scss/style.scss'),
+      resolve(__dirname, '../style/scss/style.scss'),
       resolve(__dirname, './style.scss')
     ],
     renderRootJsx: resolve(__dirname, './styleguide.root.js'),

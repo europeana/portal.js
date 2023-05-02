@@ -1,21 +1,25 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import MediaCardImage from '@/components/item/MediaCardImage.vue';
+import WebResource from '@/plugins/europeana/edm/WebResource.js';
 
 const localVue = createLocalVue();
 const factory = () => shallowMount(MediaCardImage, {
   localVue,
   stubs: ['b-img-lazy', 'b-link', 'b-img'],
   propsData: {
-    media: {
+    media: new WebResource({
       about: 'http://collections.rmg.co.uk/mediaLib/422/media-422123/large.jpg',
       thumbnails: {
         large: 'https://api.europeana.eu/thumbnail/v3/400/83ef43b6ede8c8b98c7b90b64b717234'
       }
-    },
+    }),
     lazy: false,
     europeanaIdentifier: '/123/abcdef'
   },
   mocks: {
+    $nuxt: {
+      context: {}
+    },
     $t: (key) => key,
     $apis: {
       record: {

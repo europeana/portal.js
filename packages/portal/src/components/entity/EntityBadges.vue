@@ -114,18 +114,11 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .related-collections ::v-deep .badge-pill {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
-
-    @media (min-width: $bp-xxxl) {
-      @at-root .responsive-font & {
-        margin-right: 0.5vw;
-        margin-bottom: 0.5vw;
-      }
-    }
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {

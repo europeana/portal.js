@@ -393,7 +393,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import '@europeana/style/scss/variables';
 
 .col-results {
   min-width: 0;
@@ -406,7 +406,13 @@
 
 .mb-3 {
   @media (min-width: $bp-4k) {
-    margin-bottom: 2rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+::v-deep .container {
+  @media (min-width: $bp-xxl) {
+    max-width: calc(7 * $max-card-width);
   }
 }
 </style>

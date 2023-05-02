@@ -45,7 +45,6 @@ export default {
     "pin": "Pin",
     "preview": "Priekšskatījums",
     "previous": "Iepriekšējais",
-    "providedBy": "Nodrošina {provider}",
     "publish": "Publicēt",
     "reject": "Noraidīt",
     "requestDepublication": "Pieprasīt depublikāciju",
@@ -95,6 +94,11 @@ export default {
     "theme": "Tēma",
     "time": "Gadsimts",
     "topic": "Temats"
+  },
+  "categories": {
+    "label": "Izpētiet stāstus pēc atzīmes",
+    "noOptions": "Nav vairs neviena atzīme, ko atlasīt",
+    "search": "Izpētiet stāstus pēc atzīmes"
   },
   "clearAllFilters": "notīrīt visus filtrus",
   "collections": {
@@ -904,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
-    "readMore": "Lasīt vairāk",
+    "readMore": "Atklājiet stāstus",
     "text": {
-      "themes": "Izpētiet Eiropas kultūras mantojumu, izmantojot tēmas, sākot no arheoloģijas līdz Pirmajam pasaules karam. Mūsu jaunās tēmu lapas piedāvā daudzdimensionālu skatījumu uz katru tēmu, izmantojot saistītās tēmas, cilvēkus, stāstus un priekšmetus."
+      "storiesTags": "Apskatiet atjaunināto stāstu lapu. Tagad varat meklēt un filtrēt pēc tagiem."
     }
   },
   "newWindow": "tiek atvērts jaunā logā",
@@ -953,6 +957,10 @@ export default {
   "pagination": {
     "label": "Lapu šķirošana"
   },
+  "provider": {
+    "linkText": "Skatīt pakalpojumu sniedzēja vietnē",
+    "providedBy": "Šo vienumu nodrošina un uztur {provider}"
+  },
   "readMore": "Lasīt vairāk",
   "recommendation": {
     "prompts": {
@@ -966,7 +974,6 @@ export default {
     },
     "allMetaData": "Visi metadati",
     "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
-    "exploreMore": "Pārlūkot vairāk",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
@@ -997,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Saistītās galerijas",
       "title": "Atklājiet saistītās galerijas"
+    },
+    "items": {
+      "loginForMore": "Piesakieties, lai redzētu citus saistītos vienumus",
+      "title": "Atklājiet saistītos vienumus"
     },
     "themes": {
       "title": "Atklājiet saistītās tēmas"
@@ -1107,6 +1118,7 @@ export default {
     "pinned": "Piesprausts"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} atrasti stāsti",
     "title": "Stāsti"
   },
   "themes": {

@@ -2,7 +2,7 @@
   <header
     id="header"
     v-visible-on-scroll
-    class="responsive-font m-0 header-navbar container-fluid d-flex justify-content-between show"
+    class="m-0 header-navbar container-fluid d-flex justify-content-between show xxl-page"
     role="banner"
     :aria-label="$t('header.europeanaHome')"
     data-qa="header"
@@ -36,7 +36,7 @@
         class="logo d-inline-flex"
       >
         <img
-          src="../assets/img/logo.svg"
+          :src="logoSrc"
           :alt="$t('homeLinkAlt')"
           data-qa="logo"
         >
@@ -85,7 +85,7 @@
               class="logo pl-4 pr-2"
             >
               <img
-                src="../assets/img/logo.svg"
+                :src="logoSrc"
                 :alt="$t('homeLinkAlt')"
                 width="153"
                 height="32"
@@ -122,6 +122,7 @@
 
     data() {
       return {
+        logoSrc: require('@europeana/style/img/logo.svg'),
         windowWidth: 0
       };
     },
@@ -141,8 +142,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
 
   ::v-deep .b-sidebar-backdrop.bg-black {
     background-color: rgb(0 0 0);
@@ -154,14 +155,14 @@
     max-height: 100vh;
     transition: $standard-transition; // fixes header appear/disappear
 
-    @media (min-width: $bp-xxxl) {
-      width: 16em;
+    @media (min-width: $bp-4k) {
+      width: calc(1.5 * 16rem);
     }
   }
 
   .container-fluid {
     background: $white;
-    height: 3.5em;
+    height: 3.5rem;
     position: fixed;
     right: 0;
     top: 0;
@@ -174,21 +175,25 @@
       transition: $standard-transition;
     }
 
+    @media (min-width: $bp-4k) {
+      height: calc(1.5 * 3.5rem);
+    }
+
     &:not(.show) {
       ::v-deep #sidebar,
       ::v-deep .b-sidebar-backdrop {
         transform: translateY(3.5rem);
         transition: $standard-transition;
+
+        @media (min-width: $bp-4k) {
+          transform: translateY(calc(1.5 * 3.5rem));
+        }
       }
     }
 
     &:not(.show) ::v-deep .search-query,
     &:not(.show) ::v-deep .auto-suggest-dropdown {
       display: none;
-    }
-
-    @media (min-width: $bp-large) {
-      transition: $standard-transition;
     }
   }
 
@@ -214,19 +219,21 @@
         width: auto;
         height: 32px;
 
-        @media (min-width: $bp-xxxl) {
-          height: 2em;
+        @media (min-width: $bp-4k) {
+          height: calc(1.5 * 32px);
         }
       }
     }
   }
 
   .navbar-toggle {
-    font-size: 0.75rem;
+    font-size: $font-size-extrasmall;
     padding: 0;
 
-    @media (min-width: $bp-xxxl) {
-      font-size: $responsive-font-size-base;
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+      }
     }
 
     span {

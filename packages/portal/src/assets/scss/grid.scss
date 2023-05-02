@@ -1,7 +1,0 @@
-.container {
-  @at-root .xxl-page & {
-    @media (min-width: $bp-xxl) {
-      max-width: calc(7 * $max-card-width);
-    }
-  }
-}

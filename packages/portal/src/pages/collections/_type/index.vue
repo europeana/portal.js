@@ -59,7 +59,7 @@
   </script>
 
   <style lang="scss" scoped>
-    @import '@/assets/scss/variables';
+    @import '@europeana/style/scss/variables';
 
     .collections-page {
       padding: 3rem 0 7rem;

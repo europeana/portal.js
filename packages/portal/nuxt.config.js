@@ -180,9 +180,6 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: APP_SITE_NAME }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
 
@@ -201,7 +198,7 @@ export default {
   /*
   ** Global CSS
   */
-  css: ['./assets/scss/style'],
+  css: ['@europeana/style'],
 
   // BootstrapVue
   // Doc: https://bootstrap-vue.js.org/docs/
@@ -417,6 +414,10 @@ export default {
     extractCSS: false,
 
     extend(config, { isClient }) {
+      config.module.rules.push({
+        test: /\.ico(\?[a-z0-9=&.]+)?$/,
+        loader: 'file-loader'
+      });
       // Extend webpack config only for client bundle
       if (isClient) {
         // Build source maps to aid debugging in production builds

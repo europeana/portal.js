@@ -45,7 +45,6 @@ export default {
     "pin": "Stift",
     "preview": "Förhandsvisning",
     "previous": "Föregående",
-    "providedBy": "Tillhandahålls av {provider}",
     "publish": "Publicera",
     "reject": "Avvisa",
     "requestDepublication": "Begär avpublicering",
@@ -95,6 +94,11 @@ export default {
     "theme": "Tema",
     "time": "Århundrade",
     "topic": "Ämne"
+  },
+  "categories": {
+    "label": "Utforska berättelser efter tagg",
+    "noOptions": "Det finns inga fler taggar att välja",
+    "search": "Utforska berättelser efter tagg"
   },
   "clearAllFilters": "rensa alla filter",
   "collections": {
@@ -904,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Stäng",
-    "readMore": "Läs mer",
+    "readMore": "Upptäck berättelser",
     "text": {
-      "themes": "Utforska det europeiska kulturarvet genom teman, från arkeologi till första världskriget. Våra nya temasidor erbjuder en flerdimensionell bild av varje tema via relaterade ämnen, människor, berättelser och föremål."
+      "storiesTags": "Kolla in den uppdaterade berättelsesidan. Du kan nu söka och filtrera efter taggar."
     }
   },
   "newWindow": "öppnas i nytt fönster",
@@ -953,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginering"
   },
+  "provider": {
+    "linkText": "Visa på leverantörens webbplats",
+    "providedBy": "Detta objekt tillhandahålls och underhålls av {provider}"
+  },
   "readMore": "Läs mer",
   "recommendation": {
     "prompts": {
@@ -966,7 +974,6 @@ export default {
     },
     "allMetaData": "Alla metadata",
     "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
-    "exploreMore": "Utforska mer",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
@@ -997,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Relaterade gallerier",
       "title": "Upptäck relaterade gallerier"
+    },
+    "items": {
+      "loginForMore": "Logga in för att se andra relaterade objekt",
+      "title": "Upptäck relaterade objekt"
     },
     "themes": {
       "title": "Upptäck relaterade teman"
@@ -1107,6 +1118,7 @@ export default {
     "pinned": "Fäst"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} berättelser hittades",
     "title": "Berättelser"
   },
   "themes": {

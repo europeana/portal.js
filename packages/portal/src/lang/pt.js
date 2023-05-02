@@ -45,7 +45,6 @@ export default {
     "pin": "Alfinete",
     "preview": "Visualizar",
     "previous": "Anterior",
-    "providedBy": "Fornecido por {provider}",
     "publish": "Publicar",
     "reject": "Rejeitar",
     "requestDepublication": "Solicitar despublicação",
@@ -95,6 +94,11 @@ export default {
     "theme": "Tema",
     "time": "Século",
     "topic": "Tópico"
+  },
+  "categories": {
+    "label": "Explorar histórias por tag",
+    "noOptions": "Não há mais tags para selecionar",
+    "search": "Explorar histórias por tag"
   },
   "clearAllFilters": "limpar todos os filtros",
   "collections": {
@@ -904,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Fechar",
-    "readMore": "Ler mais",
+    "readMore": "Descubra histórias",
     "text": {
-      "themes": "Explore o património cultural europeu através de temas, desde a arqueologia à I Guerra Mundial. As nossas novas páginas temáticas oferecem uma visão multidimensional de cada tema através de temas relacionados, pessoas, histórias e artigos."
+      "storiesTags": "Confira a página de histórias atualizada. Agora você pode pesquisar e filtrar por tags."
     }
   },
   "newWindow": "abre numa nova janela",
@@ -953,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginação"
   },
+  "provider": {
+    "linkText": "Ver no site do fornecedor",
+    "providedBy": "Este item é fornecido e mantido por {provider}"
+  },
   "readMore": "Ler mais",
   "recommendation": {
     "prompts": {
@@ -966,7 +974,6 @@ export default {
     },
     "allMetaData": "Todos os metadados",
     "copyEmbedLabel": "Incorporar código (Clique para copiar)",
-    "exploreMore": "Explorar mais",
     "extendedInformation": "Informação detalhada",
     "goodToKnow": "Bom saber",
     "hideAll": "Ocultar todas as informações",
@@ -997,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Galerias relacionadas",
       "title": "Descubra galerias relacionadas"
+    },
+    "items": {
+      "loginForMore": "Faça login para ver outros itens relacionados",
+      "title": "Descubra itens relacionados"
     },
     "themes": {
       "title": "Descubra temas relacionados"
@@ -1107,6 +1118,7 @@ export default {
     "pinned": "Fixado"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} histórias encontradas",
     "title": "Histórias"
   },
   "themes": {

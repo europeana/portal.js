@@ -1,0 +1,45 @@
+@mixin white-cutout {
+  &::after {
+    border-top: 221px solid $white;
+    border-left: 115px solid transparent;
+    content: '';
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 0;
+
+    @media (min-width: $bp-xxxl) {
+      border-top-width: calc(209 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+      border-left-width: calc(95 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+    }
+  }
+}
+
+@mixin min-page-height {
+  @media (min-width: $bp-medium) {
+    min-height: 30rem;
+  }
+
+  @media (min-width: $bp-xxxl) {
+    min-height: 30vh;
+  }
+}
+
+@mixin swiper-height($extra-height) {
+  height: calc($swiper-height + $extra-height);
+
+  @media (max-height: ($bp-medium - 1px)) {
+    max-height: calc($swiper-height + $extra-height);
+  }
+
+  @media (min-height: $bp-medium) {
+    max-height: calc($swiper-height-max + $extra-height);
+  }
+
+  @media (max-width: ($bp-medium - 1px)) {
+    max-height: calc($swiper-height-medium + $extra-height);
+    height: calc($swiper-height-medium + $extra-height);
+  }
+}

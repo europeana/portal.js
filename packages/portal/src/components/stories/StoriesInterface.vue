@@ -32,25 +32,25 @@
     </b-container>
     <b-card-group
       v-else
-      class="card-deck-4-cols gridless-browse-cards"
+      class="card-deck-4-cols"
       deck
     >
       <template
         v-for="(entry, index) in stories"
       >
-        <template
+        <div
           v-if="entry === ctaBanner"
+          :key="index"
+          class="cta-banner"
         >
           <CallToActionBanner
             v-if="callToAction"
-            :key="index"
             :name="callToAction.name"
             :text="callToAction.text"
             :link="callToAction.relatedLink"
             :illustration="callToAction.image"
-            class="cta-banner"
           />
-        </template>
+        </div>
         <ContentCard
           v-else-if="entry !== ctaBanner"
           :key="index"
@@ -215,14 +215,27 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import '@europeana/style/scss/variables';
+
+.context-label {
+  font-size: $font-size-small;
+
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-small-4k;
+  }
+}
 
 .cta-banner {
   flex-basis: 100%;
 
   @media (min-width: $bp-small) {
-    margin-left: $grid-gutter;
-    margin-right: $grid-gutter;
+    padding-left: $grid-gutter;
+    padding-right: $grid-gutter;
+  }
+
+  @media (min-width: $bp-xxl) {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 </style>

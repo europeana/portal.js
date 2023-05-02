@@ -45,7 +45,6 @@ export default {
     "pin": "Stift",
     "preview": "Vorschau",
     "previous": "Vorherige",
-    "providedBy": "Bereitgestellt von {provider}",
     "publish": "Veröffentlichen",
     "reject": "Ablehnen",
     "requestDepublication": "Depublikation anfordern",
@@ -95,6 +94,11 @@ export default {
     "theme": "Thema",
     "time": "Jahrhundert",
     "topic": "Thema"
+  },
+  "categories": {
+    "label": "Entdecken Sie Geschichten nach Tags",
+    "noOptions": "Es gibt keine weiteren Tags zur Auswahl",
+    "search": "Entdecken Sie Geschichten nach Tags"
   },
   "clearAllFilters": "Alle Filter löschen",
   "collections": {
@@ -904,9 +908,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Schließen",
-    "readMore": "Mehr anzeigen",
+    "readMore": "Geschichten entdecken",
     "text": {
-      "themes": "Entdecken Sie das europäische Kulturerbe nach Themen, von der Archäologie bis zum Ersten Weltkrieg. Unsere neuen Themenseiten bieten eine multidimensionale Sicht auf jedes Thema über verwandte Themen, Personen, Geschichten und Gegenstände."
+      "storiesTags": "Sehen Sie sich die aktualisierte Seite Geschichten an. Sie können jetzt nach Tags suchen und filtern."
     }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
@@ -939,7 +943,7 @@ export default {
         "title": "Orte"
       },
       "table": {
-        "items": "Artikel",
+        "items": "Objekte",
         "name": "Name"
       },
       "times": {
@@ -952,6 +956,10 @@ export default {
   },
   "pagination": {
     "label": "Paginierung"
+  },
+  "provider": {
+    "linkText": "Auf der Website des Anbieters ansehen",
+    "providedBy": "Dieses Objekt wird von {provider} bereitgestellt und gepflegt"
   },
   "readMore": "Mehr anzeigen",
   "recommendation": {
@@ -966,7 +974,6 @@ export default {
     },
     "allMetaData": "Alle Metadaten",
     "copyEmbedLabel": "Code einbetten (Zum Kopieren klicken)",
-    "exploreMore": "Entdecken Sie mehr",
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",
@@ -997,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Verwandte Galerien",
       "title": "Entdecken Sie verwandte Galerien"
+    },
+    "items": {
+      "loginForMore": "Melden Sie sich an, um andere verwandte Objekte anzuzeigen",
+      "title": "Entdecken Sie verwandte Objekte"
     },
     "themes": {
       "title": "Entdecken Sie verwandte Themen"
@@ -1107,6 +1118,7 @@ export default {
     "pinned": "Angeheftet"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} Geschichten gefunden",
     "title": "Geschichten"
   },
   "themes": {
