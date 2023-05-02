@@ -215,7 +215,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import '@europeana/style/scss/variables';
 
 .context-label {
   font-size: $font-size-small;

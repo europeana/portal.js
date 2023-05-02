@@ -293,7 +293,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .compare-image-wrapper {
     $slider-dimensions: 48px;

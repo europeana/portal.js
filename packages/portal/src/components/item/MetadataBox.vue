@@ -204,8 +204,8 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/tabs';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/tabs';
 
   .metadata-box-card {
     border: none;

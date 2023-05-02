@@ -375,7 +375,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .feedback-container {
     position: fixed;

@@ -128,7 +128,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   ::v-deep #set-publication-request-modal {
 

@@ -707,6 +707,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/iiif';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/iiif';
 </style>

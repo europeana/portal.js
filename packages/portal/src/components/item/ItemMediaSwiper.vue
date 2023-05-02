@@ -129,9 +129,9 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/mixins';
-  @import '@/assets/scss/swiper';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
+  @import '@europeana/style/scss/swiper';
 
   .swiper-outer,
   .swiper-container {

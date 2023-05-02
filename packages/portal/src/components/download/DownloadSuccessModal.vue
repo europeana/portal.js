@@ -151,7 +151,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   #download-success-modal {
     font-size: $font-size-small;

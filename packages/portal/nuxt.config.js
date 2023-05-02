@@ -211,7 +211,7 @@ export default {
   /*
   ** Global CSS
   */
-  css: ['./assets/scss/style'],
+  css: ['@europeana/style'],
 
   // BootstrapVue
   // Doc: https://bootstrap-vue.js.org/docs/

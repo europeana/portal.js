@@ -85,8 +85,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/iiif';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/iiif';
 
   // TODO: move the code below to video component when we switch to new item page
   ::v-deep video {

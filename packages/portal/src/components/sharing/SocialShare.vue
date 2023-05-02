@@ -78,8 +78,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
 
   .btn {
     align-items: center;

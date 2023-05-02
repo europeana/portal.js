@@ -134,7 +134,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
   .icon-ic-download::before {
     font-size: 1.125rem;
     line-height: 1;
