@@ -28,6 +28,7 @@
         MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
         page: null,
         imageToCanvasMap: {},
+        memoisedImageToCanvasMap: false,
         mirador: null,
         showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {},
@@ -286,6 +287,13 @@
       searchService() {
         return [].concat(this.manifest?.service || [])
           .find((service) => service['@context'] === 'http://iiif.io/api/search/1/context.json');
+      },
+
+      itemId() {
+        if (!this.urlIsForEuropeanaPresentationAPI(this.uri)) {
+          return null;
+        }
+        return new URL(this.uri).pathname.replace('/presentation', '').replace('/manifest', '');
       }
     },
 
@@ -396,13 +404,11 @@
 
       // Europeana-only
       proxyProviderMedia(manifestJson) {
-        const homepageIdChunks = manifestJson.homepage?.[0]?.id.split('/') || [];
-        const itemId = '/' + homepageIdChunks.slice(-2).join('/');
         for (const canvas of (manifestJson.items || [])) {
           for (const annotationPage of (canvas.items || [])) {
             for (const annotation of (annotationPage.items || [])) {
               if (annotation.motivation === 'painting') {
-                annotation.body.id = this.$apis.record.mediaProxyUrl(annotation.body.id, itemId);
+                annotation.body.id = this.$apis.record.mediaProxyUrl(annotation.body.id, this.itemId);
               }
             }
           }
@@ -505,7 +511,11 @@
       },
 
       memoiseImageToCanvasMap() {
-        return this.versioned('memoiseImageToCanvasMap', arguments);
+        if (this.memoisedImageToCanvasMap) {
+          return;
+        }
+        this.versioned('memoiseImageToCanvasMap', arguments);
+        this.memoisedImageToCanvasMap = true;
       },
 
       memoiseImageToCanvasMap2() {
@@ -534,8 +544,11 @@
 
       canvasForImage(imageId) {
         const splitImageId = imageId.split('#');
-        if (this.imageToCanvasMap[splitImageId[0]]) {
-          return [this.imageToCanvasMap[splitImageId[0]], splitImageId[1]].join('#');
+        const imageUri = this.urlIsForEuropeanaPresentationAPI(this.uri) ?
+          this.$apis.record.mediaProxyUrl(splitImageId[0], this.itemId) :
+          splitImageId[0];
+        if (this.imageToCanvasMap[imageUri]) {
+          return [this.imageToCanvasMap[imageUri], splitImageId[1]].join('#');
         } else {
           return null;
         }

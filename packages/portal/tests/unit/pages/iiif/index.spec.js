@@ -147,13 +147,8 @@ describe('pages/iiif/index.vue', () => {
 
     describe('proxyProviderMedia', () => {
       it('rewrites painting-motivation annotation IDs to use media proxy', () => {
-        const wrapper = factory();
+        const wrapper = factory({ data: { uri: 'https://iiif.europeana.eu/presentation/123/abc/manifest' } });
         const manifestJson = {
-          homepage: [
-            {
-              id: 'https://www.europeana.eu/item/123/abc'
-            }
-          ],
           items: [
             {
               items: [
