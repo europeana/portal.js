@@ -359,6 +359,7 @@
       // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorReceiveManifest(url, action) {
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
+          this.proxyProviderMedia(action.manifestJson);
           this.addAnnotationTextGranularityFilterToManifest(action.manifestJson);
         }
       },
@@ -390,6 +391,21 @@
           return 3;
         } else {
           return undefined;
+        }
+      },
+
+      // Europeana-only
+      proxyProviderMedia(manifestJson) {
+        const homepageIdChunks = manifestJson.homepage?.[0]?.id.split('/') || [];
+        const itemId = '/' + homepageIdChunks.slice(-2).join('/');
+        for (const canvas of (manifestJson.items || [])) {
+          for (const annotationPage of (canvas.items || [])) {
+            for (const annotation of (annotationPage.items || [])) {
+              if (annotation.motivation === 'painting') {
+                annotation.body.id = this.$apis.record.mediaProxyUrl(annotation.body.id, itemId);
+              }
+            }
+          }
         }
       },
 

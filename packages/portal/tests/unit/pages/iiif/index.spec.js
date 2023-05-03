@@ -13,6 +13,11 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     };
   },
   mocks: {
+    $apis: {
+      record: {
+        mediaProxyUrl: (url, itemId) => `Proxy ${itemId} ${url}`
+      }
+    },
     $axios: axios,
     $i18n: {
       locale: 'en'
@@ -137,6 +142,39 @@ describe('pages/iiif/index.vue', () => {
             }
           ]
         });
+      });
+    });
+
+    describe('proxyProviderMedia', () => {
+      it('rewrites painting-motivation annotation IDs to use media proxy', () => {
+        const wrapper = factory();
+        const manifestJson = {
+          homepage: [
+            {
+              id: 'https://www.europeana.eu/item/123/abc'
+            }
+          ],
+          items: [
+            {
+              items: [
+                {
+                  items: [
+                    {
+                      motivation: 'painting',
+                      body: {
+                        id: 'http://www.example.org/image/jpeg'
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        };
+
+        wrapper.vm.proxyProviderMedia(manifestJson);
+
+        expect(manifestJson.items[0].items[0].items[0].body.id).toBe('Proxy /123/abc http://www.example.org/image/jpeg');
       });
     });
 
@@ -618,7 +656,6 @@ describe('pages/iiif/index.vue', () => {
                 }
               };
               const wrapper = factory({ data: { manifest, searchQuery: 'example' } });
-              console.log('searchService', wrapper.vm.searchService);
               await wrapper.vm.$nextTick();
 
               const action = { annotationJson: { resources: [{}] },
