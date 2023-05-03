@@ -10,7 +10,7 @@ If you need to add new icons to the font:
 
 - Click “Import project”
 
-- Select the config file from `src/assets/fonts`
+- Select the config file from `icomoon-config.json`
 
 - A project with the name “Europeana” will be shown
 
@@ -24,16 +24,17 @@ To add new icons:
 
 - When ready, press the “generate font” button at the bottom, check if everything is there, and then press “download”
 
-- Copy and paste the .woff from the downloaded Zip into the `src/assets/fonts` folder
+- Extract the .woff from the downloaded Zip into this `fonts` directory
 
-- Open the style.css from the Zip and copy the rules for the new icons into `src/assets/scss/icons.scss`
+- Open style.css from the Zip and copy the rules for the new icons into `../scss/icons.scss`
 
 - Click the project “Europeana” on the right in the top bar and click “download” to get the new config file
 
-- Copy and paste this config file into `src/assets/fonts/icomoon-config.json`
+- Extract this config file into `icomoon-config.json`
+
 
 # License
 
-The Open Sans fonts are licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+- The Open Sans fonts are licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
-The Ubuntu fonts are licensed under the [Ubuntu font licence, Version 1.0](https://ubuntu.com/legal/font-licence).
+- The Ubuntu fonts are licensed under the [Ubuntu font licence, Version 1.0](https://ubuntu.com/legal/font-licence).

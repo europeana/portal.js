@@ -110,7 +110,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .related-themes ::v-deep .badge-pill {
     margin-right: 0.5rem;

@@ -36,7 +36,7 @@
         class="logo d-inline-flex"
       >
         <img
-          src="../assets/img/logo.svg"
+          :src="logoSrc"
           :alt="$t('homeLinkAlt')"
           data-qa="logo"
         >
@@ -85,7 +85,7 @@
               class="logo pl-4 pr-2"
             >
               <img
-                src="../assets/img/logo.svg"
+                :src="logoSrc"
                 :alt="$t('homeLinkAlt')"
                 width="153"
                 height="32"
@@ -122,6 +122,7 @@
 
     data() {
       return {
+        logoSrc: require('@europeana/style/img/logo.svg'),
         windowWidth: 0
       };
     },
@@ -141,8 +142,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
 
   ::v-deep .b-sidebar-backdrop.bg-black {
     background-color: rgb(0 0 0);

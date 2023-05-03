@@ -93,7 +93,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .icon-ic-tag {
     color: $mediumgrey;

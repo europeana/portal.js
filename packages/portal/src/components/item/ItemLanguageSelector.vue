@@ -120,7 +120,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .icon-translate::before {
     font-size: 1.4375rem;

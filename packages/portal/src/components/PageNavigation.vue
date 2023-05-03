@@ -176,8 +176,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
 
   .nav-item {
     margin-right: 1rem;

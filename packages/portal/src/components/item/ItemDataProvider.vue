@@ -102,7 +102,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
   .fade-enter-active {
     transition: $standard-transition;
     opacity: 0;

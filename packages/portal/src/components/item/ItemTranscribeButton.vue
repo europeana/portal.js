@@ -67,7 +67,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import '@europeana/style/scss/variables';
 
 .transcribe-button {
   font-size: $font-size-medium;

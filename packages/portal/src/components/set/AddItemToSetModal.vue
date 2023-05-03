@@ -147,7 +147,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import '@europeana/style/scss/variables';
 
 .btn-primary.btn-collection {
   border: 0;
