@@ -275,8 +275,6 @@ export default (context = {}) => {
         proxyUrl.searchParams.append(name, params[name]);
       }
 
-      console.log('mediaProxyUrl', proxyUrl.toString())
-
       return proxyUrl.toString();
     }
   };
