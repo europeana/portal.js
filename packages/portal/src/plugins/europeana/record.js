@@ -264,6 +264,8 @@ export default (context = {}) => {
 
     // TODO: move to media-proxy.js
     mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
+      // TODO: prevent this being added if the URL is the default (prod), so that the JS
+      //       media proxy uses MongoDB instead of Record API
       if (!params['api_url']) {
         params['api_url'] = this.$axios.defaults.baseURL;
       }
