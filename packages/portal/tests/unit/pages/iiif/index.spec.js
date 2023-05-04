@@ -49,6 +49,26 @@ describe('pages/iiif/index.vue', () => {
   });
 
   describe('computed', () => {
+    describe('itemId', () => {
+      it('is extracted from manifest URI for Europeana manifests', () => {
+        const uri = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+        const wrapper = factory({ data: { uri } });
+
+        const itemId = wrapper.vm.itemId;
+
+        expect(itemId).toBe('/123/abc');
+      });
+
+      it('is `null` for non-Europeana manifests', () => {
+        const uri = 'https://iiif.example.org/presentation/123/abc/manifest';
+        const wrapper = factory({ data: { uri } });
+
+        const itemId = wrapper.vm.itemId;
+
+        expect(itemId).toBeNull();
+      });
+    });
+
     describe('iiifPresentationApiVersion', () => {
       it('is 2 for IIIF Presentation API v2 manifests', () => {
         const manifest = {
