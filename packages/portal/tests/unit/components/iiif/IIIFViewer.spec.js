@@ -8,7 +8,7 @@ import IIIFViewer from '@/components/iiif/IIIFViewer.vue';
 const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFViewer, {
   propsData: {
     uri: 'http://example.org/iiif/manifest.json',
-    ...propsData,
+    ...propsData
   },
   data() {
     return {

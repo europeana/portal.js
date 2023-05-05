@@ -6,9 +6,8 @@
     <script
       type="application/javascript"
       defer
-      :src="`${this.MIRADOR_BUILD_PATH}/mirador.min.js`"
-    >
-    </script>
+      :src="`${MIRADOR_BUILD_PATH}/mirador.min.js`"
+    />
     <div id="viewer" />
   </div>
 </template>
