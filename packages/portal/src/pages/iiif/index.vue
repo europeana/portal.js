@@ -294,6 +294,10 @@
           return null;
         }
         return new URL(this.uri).pathname.replace('/presentation', '').replace('/manifest', '');
+      },
+
+      proxyProviderMediaProtocols() {
+        return this.$config?.app?.iiif?.proxyProviderMediaProtocols || [];
       }
     },
 
@@ -408,11 +412,18 @@
           for (const annotationPage of (canvas.items || [])) {
             for (const annotation of (annotationPage.items || [])) {
               if (annotation.motivation === 'painting') {
-                annotation.body.id = this.$apis.record.mediaProxyUrl(annotation.body.id, this.itemId);
+                annotation.body.id = this.mediaProxyUrl(annotation.body.id, this.itemId);
               }
             }
           }
         }
+      },
+
+      mediaProxyUrl(uri) {
+        if (this.proxyProviderMediaProtocols.includes(new URL(uri).protocol)) {
+          return this.$apis.record.mediaProxyUrl(uri, this.itemId);
+        }
+        return uri;
       },
 
       // Europeana-only

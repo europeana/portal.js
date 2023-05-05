@@ -34,6 +34,9 @@ export default {
       },
       featureNotification: process.env.APP_FEATURE_NOTIFICATION,
       featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      iiif: {
+        proxyProviderMediaProtocols: (process.env.APP_IIIF_PROXY_PROVIDER_MEDIA_PROTOCOLS || '').split(',')
+      },
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
