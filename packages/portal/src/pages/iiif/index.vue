@@ -9,6 +9,8 @@
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
   import { takeEvery } from 'redux-saga/effects';
+  import { Component, createElement } from 'react';
+  import PropTypes from 'prop-types';
 
   export default {
     name: 'IIIFPage',
@@ -267,7 +269,40 @@
       miradorViewerPlugins() {
         return [
           { component: () => null, saga: this.watchMiradorSetCanvasSaga },
-          { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
+          { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga },
+          {
+            name: 'OpenSeadragonViewerErrorHandlerPlugin',
+            mode: 'add',
+            component: class OpenSeadragonViewerErrorHandlerPlugin extends Component {
+              // constructor(props) {
+              //   super(props);
+              //   console.log('OpenSeadragonViewer plugin props', props)
+              // }
+
+              componentDidMount() {
+                const { viewer } = this.props;
+                if (viewer) {
+                  console.log('componentDidMount viewer', viewer)
+                  viewer.addHandler('open-failed', (event) => {
+                    console.error('viewer open failed', event)
+                  });
+                }
+              }
+
+              static propTypes = {
+                viewer: PropTypes.object
+              }
+
+              static defaultProps = {
+                viewer: undefined
+              }
+
+              render() {
+                return createElement('div')
+              }
+            },
+            target: 'OpenSeadragonViewer'
+          }
         ];
       },
 
