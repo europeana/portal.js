@@ -5,13 +5,10 @@
       class="iiif-viewer-wrapper d-flex flex-column"
     >
       <slot name="item-language-selector" />
-      <iframe
-        data-qa="IIIF viewer"
-        allowfullscreen="true"
-        class="iiif-iframe"
-        :src="$path({ name: 'iiif', query: { uri: iiifPresentationManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
+      <IIIFViewer
+        :uri="iiifPresentationManifest"
+        :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
         :aria-label="$t('actions.viewDocument')"
-        :title="$t('record.IIIFViewer')"
       />
     </div>
     <ItemMediaSwiper
@@ -104,7 +101,8 @@
       ShareButton,
       SocialShareModal,
       UserButtons: () => import('../account/UserButtons'),
-      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
+      IIIFViewer: () => import('../iiif/IIIFViewer.vue')
     },
 
     mixins: [

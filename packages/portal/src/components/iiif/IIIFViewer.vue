@@ -1,5 +1,14 @@
 <template>
-  <div>
+  <div
+    class="iiif-viewer"
+    data-qa="IIIF viewer"
+  >
+    <script
+      type="application/javascript"
+      defer
+      :src="`${this.MIRADOR_BUILD_PATH}/mirador.min.js`"
+    >
+    </script>
     <div id="viewer" />
   </div>
 </template>
@@ -10,15 +19,18 @@
   import upperFirst from 'lodash/upperFirst';
 
   export default {
-    name: 'IIIFPage',
+    name: 'IIIFViewer',
 
-    layout: 'minimal',
+    props: {
+      uri: {
+        type: String,
+        required: true
+      },
 
-    asyncData({ query }) {
-      return {
-        uri: query.uri,
-        searchQuery: query.query
-      };
+      searchQuery: {
+        type: String,
+        default: null
+      }
     },
 
     data() {
@@ -33,17 +45,6 @@
         showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {},
         isMobileViewport: false
-      };
-    },
-
-    head() {
-      return {
-        meta: [
-          { hid: 'title', name: 'title', content: 'IIIF' }
-        ],
-        script: [
-          { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
-        ]
       };
     },
 
