@@ -1045,7 +1045,11 @@ export default {
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "search": {
     "advanced": {
-      "show": "{show} advanced search"
+      "show": "{show} advanced search",
+      "tooltip": {
+        "field": "Select a field to search on.",
+        "modifier": "Select a modifier to apply to the field."
+      }
     },
     "boost": {
       "placeholder": "Enter field boosting query"

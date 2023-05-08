@@ -238,7 +238,6 @@ export default {
       'FormInputPlugin',
       'FormPlugin',
       'FormRadioPlugin',
-      'FormSelectPlugin',
       'FormTextareaPlugin',
       'ImagePlugin',
       'InputGroupPlugin',

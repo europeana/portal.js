@@ -2,9 +2,17 @@
   <!-- TODO: translate hardcoded texts -->
   <b-input-group>
     <b-form-group
-      label="Field"
       label-for="select-field"
     >
+      <template #label>
+        <span id="select-field-label">Field</span>
+      </template>
+      <b-tooltip
+        target="select-field-label"
+        :title="$t('search.advanced.tooltip.field')"
+        boundary-padding="0"
+        placement="bottom"
+      />
       <b-form-select
         id="select-field"
         :value="selectedField"
@@ -13,9 +21,17 @@
       />
     </b-form-group>
     <b-form-group
-      label="Modifier"
       label-for="select-modifier"
     >
+      <template #label>
+        <span id="select-modifier-label">Modifier</span>
+      </template>
+      <b-tooltip
+        target="select-modifier-label"
+        :title="$t('search.advanced.tooltip.modifier')"
+        boundary-padding="0"
+        placement="bottom"
+      />
       <b-form-select
         id="select-modifier"
         :value="selectedModifier"
@@ -37,9 +53,14 @@
 </template>
 
 <script>
+  import { BFormSelect, BTooltip } from 'bootstrap-vue';
   export default {
     name: 'SearchQueryBuilderRule',
 
+    components: {
+      BFormSelect,
+      BTooltip
+    },
     props: {
       searchTerm: {
         type: String,
