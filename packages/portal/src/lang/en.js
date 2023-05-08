@@ -1045,6 +1045,33 @@ export default {
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "search": {
     "advanced": {
+      "actions": {
+        "add": "Add",
+        "clear": "Clear",
+        "search": "Search"
+      },
+      "fields": {
+        "anyField": "Any field",
+        "creator": "Creator",
+        "description": "Description",
+        "subject": "Subject",
+        "title": "Title",
+        "type": "Type"
+      },
+      "input": {
+        "field": "Field",
+        "modifier": "Modifier",
+        "searchTerm": "Search term(s)"
+      },
+      "modifiers": {
+        "contains": "contains",
+        "endsWith": "ends with",
+        "is": "is",
+        "isNot": "is not",
+        "notContain": "does not contain",
+        "startsWith": "starts with"
+      },
+      "selectOne": "Select one",
       "show": "{show} advanced search",
       "tooltip": {
         "field": "Select a field to search on.",

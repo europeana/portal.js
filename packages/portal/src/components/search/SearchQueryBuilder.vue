@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO: translate hardcoded texts -->
   <b-row>
     <div
       v-for="(rule, index) in queryRules"
@@ -10,20 +9,22 @@
         :search-term="rule.searchTerm"
         :selected-field="rule.selectedField"
         :selected-modifier="rule.selectedModifier"
+        :search-fields="searchFields"
+        :modifiers="modifiers"
         @change="(field, value) => rule[field] = value"
       />
       <b-button
         :disabled="disableClearRuleButton"
         @click="clearRule(index)"
       >
-        Clear
+        {{ $t('search.advanced.actions.clear') }}
       </b-button>
     </div>
     <b-button @click="searchWithBuildQueries">
-      Search
+      {{ $t('search.advanced.actions.search') }}
     </b-button>
     <b-button @click="addNewRule">
-      Add
+      {{ $t('search.advanced.actions.add') }}
     </b-button>
   </b-row>
 </template>
@@ -39,7 +40,27 @@
 
     data() {
       return {
-        queryRules: [{}]
+        queryRules: [{}],
+        searchFields: [
+          // TODO: replace values with query syntax
+          { value: null, text: this.$i18n.t('search.advanced.selectOne') },
+          { value: 'a', text: this.$t('search.advanced.fields.anyField') },
+          { value: 'b', text: this.$t('search.advanced.fields.subject') },
+          { value: 'c', text: this.$t('search.advanced.fields.title') },
+          { value: 'd', text: this.$t('search.advanced.fields.description') },
+          { value: 'e', text: this.$t('search.advanced.fields.creator') },
+          { value: 'f', text: this.$t('search.advanced.fields.type') }
+        ],
+        modifiers: [
+          // TODO: replace values with query syntax
+          { value: null, text: this.$t('search.advanced.selectOne') },
+          { value: 'a', text: this.$t('search.advanced.modifiers.contains') },
+          { value: 'b', text: this.$t('search.advanced.modifiers.notContain') },
+          { value: 'c', text: this.$t('search.advanced.modifiers.is') },
+          { value: 'd', text: this.$t('search.advanced.modifiers.isNot') },
+          { value: 'e', text: this.$t('search.advanced.modifiers.startsWith') },
+          { value: 'f', text: this.$t('search.advanced.modifiers.endsWith') }
+        ]
       };
     },
 

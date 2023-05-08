@@ -1,11 +1,12 @@
 <template>
-  <!-- TODO: translate hardcoded texts -->
   <b-input-group>
     <b-form-group
       label-for="select-field"
     >
       <template #label>
-        <span id="select-field-label">Field</span>
+        <span id="select-field-label">
+          {{ $t('search.advanced.input.field') }}
+        </span>
       </template>
       <b-tooltip
         target="select-field-label"
@@ -24,7 +25,9 @@
       label-for="select-modifier"
     >
       <template #label>
-        <span id="select-modifier-label">Modifier</span>
+        <span id="select-modifier-label">
+          {{ $t('search.advanced.input.modifier') }}
+        </span>
       </template>
       <b-tooltip
         target="select-modifier-label"
@@ -40,7 +43,7 @@
       />
     </b-form-group>
     <b-form-group
-      label="Enter search term(s)"
+      :label="$t('search.advanced.input.searchTerm')"
       label-for="search-term"
     >
       <b-form-input
@@ -76,31 +79,11 @@
       },
       searchFields: {
         type: Array,
-        default: () => [
-          // TODO: translate text values
-          // TODO: replace values with query syntax
-          { value: null, text: 'Select one' },
-          { value: 'a', text: 'Any field' },
-          { value: 'b', text: 'Subject' },
-          { value: 'c', text: 'Title' },
-          { value: 'd', text: 'Description' },
-          { value: 'e', text: 'Creator' },
-          { value: 'f', text: 'Type' }
-        ]
+        default: () => []
       },
       modifiers: {
         type: Array,
-        default: () => [
-          // TODO: translate text values
-          // TODO: replace values with query syntax
-          { value: null, text: 'Select one' },
-          { value: 'a', text: 'contains' },
-          { value: 'b', text: 'does not contain' },
-          { value: 'c', text: 'is' },
-          { value: 'd', text: 'is not' },
-          { value: 'e', text: 'starts with' },
-          { value: 'f', text: 'ends with' }
-        ]
+        default: () => []
       }
     }
   };
