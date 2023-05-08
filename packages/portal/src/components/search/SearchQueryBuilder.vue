@@ -12,7 +12,10 @@
         :selected-modifier="rule.selectedModifier"
         @change="(field, value) => rule[field] = value"
       />
-      <b-button @click="clearRule(index)">
+      <b-button
+        :disabled="disableClearRuleButton"
+        @click="clearRule(index)"
+      >
         Clear
       </b-button>
     </div>
@@ -43,6 +46,9 @@
     computed: {
       currentURLQuery() {
         return this.$route.query.query;
+      },
+      disableClearRuleButton() {
+        return this.queryRules.length === 1;
       }
     },
 
@@ -63,7 +69,11 @@
         this.queryRules.push({});
       },
       clearRule(index) {
-        this.queryRules.splice(index, 1);
+        if (this.queryRules.length === 1 && index === 0) {
+          this.queryRules = [{}];
+        } else {
+          this.queryRules.splice(index, 1);
+        }
       },
       searchWithBuildQueries() {
         // Go to search results with created queries
