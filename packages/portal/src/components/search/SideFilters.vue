@@ -13,6 +13,7 @@
     >
       <section role="search">
         <client-only>
+          <slot />
           <b-row
             class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
           >

@@ -18,6 +18,12 @@
               class="mb-3"
             />
           </client-only>
+          <client-only>
+            <SearchQueryBuilder
+              v-if="advancedSearchEnabled"
+              class="d-none d-lg-block mb-3"
+            />
+          </client-only>
           <section>
             <div
               class="mb-3 d-flex align-items-start justify-content-between"
@@ -137,7 +143,12 @@
         :api-params="apiParams"
         :api-options="apiOptions"
         :user-params="userParams"
-      />
+      >
+        <SearchQueryBuilder
+          v-if="advancedSearchEnabled"
+          class="d-lg-none"
+        />
+      </SideFilters>
     </b-row>
   </b-container>
 </template>
@@ -159,6 +170,7 @@
     components: {
       ErrorMessage: () => import('../error/ErrorMessage'),
       SearchBoostingForm: () => import('./SearchBoostingForm'),
+      SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
@@ -276,6 +288,9 @@
       },
       showSearchBoostingForm() {
         return !!this.debugSettings?.boosting;
+      },
+      advancedSearchEnabled() {
+        return this.$features.advancedSearch;
       },
       routeQueryView() {
         return this.$route.query.view;
