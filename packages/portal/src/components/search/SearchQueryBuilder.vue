@@ -40,6 +40,24 @@
       };
     },
 
+    computed: {
+      currentURLQuery() {
+        return this.$route.query.query;
+      }
+    },
+
+    watch: {
+      currentURLQuery(newVal) {
+        this.$store.commit('search/setShowAdvancedSearch', !!newVal);
+      }
+    },
+
+    mounted() {
+      if (this.currentURLQuery) {
+        this.$store.commit('search/setShowAdvancedSearch', true);
+      }
+    },
+
     methods: {
       addNewRule() {
         this.queryRules.push({});

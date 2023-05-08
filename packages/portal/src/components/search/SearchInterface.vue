@@ -20,8 +20,10 @@
           </client-only>
           <client-only>
             <SearchQueryBuilder
+              v-show="showAdvancedSearch"
               v-if="advancedSearchEnabled"
-              class="d-none d-lg-block mb-3"
+              class="d-none mb-3"
+              :class="{'d-lg-block': showAdvancedSearch}"
             />
           </client-only>
           <section>
@@ -145,6 +147,7 @@
         :user-params="userParams"
       >
         <SearchQueryBuilder
+          v-show="showAdvancedSearch"
           v-if="advancedSearchEnabled"
           class="d-lg-none"
         />
@@ -291,6 +294,9 @@
       },
       advancedSearchEnabled() {
         return this.$features.advancedSearch;
+      },
+      showAdvancedSearch() {
+        return this.$store.state.search.showAdvancedSearch;
       },
       routeQueryView() {
         return this.$route.query.view;

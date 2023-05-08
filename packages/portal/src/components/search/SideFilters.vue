@@ -13,6 +13,13 @@
     >
       <section role="search">
         <client-only>
+          <b-row>
+            <b-button
+              @click="toggleAdvancedSearch"
+            >
+              {{ $t('search.advanced.show', {'show': showAdvancedSearch ? 'hide' : 'show' }) }}
+            </b-button>
+          </b-row>
           <slot />
           <b-row
             class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
@@ -179,6 +186,9 @@
       },
       showFiltersSheet() {
         return this.$store.state.search.showFiltersSheet;
+      },
+      showAdvancedSearch() {
+        return this.$store.state.search.showAdvancedSearch;
       },
       // TODO: do not assume filters are fielded, e.g. `qf=whale`
       filters() {
@@ -432,6 +442,9 @@
       },
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+      },
+      toggleAdvancedSearch() {
+        this.$store.commit('search/setShowAdvancedSearch', !this.$store.state.search.showAdvancedSearch);
       },
       sideFacetDropdownGroupBy(facetName) {
         if (facetName === 'RIGHTS') {

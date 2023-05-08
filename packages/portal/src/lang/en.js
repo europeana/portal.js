@@ -1044,6 +1044,9 @@ export default {
   "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "search": {
+    "advanced": {
+      "show": "{show} advanced search"
+    },
     "boost": {
       "placeholder": "Enter field boosting query"
     },
