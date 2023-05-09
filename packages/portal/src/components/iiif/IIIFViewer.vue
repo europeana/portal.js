@@ -34,7 +34,6 @@
         manifestAnnotationTextGranularities: [],
         page: null,
         imageToCanvasMap: {},
-        isMiradorLoaded: false,
         memoisedImageToCanvasMap: false,
         mirador: null,
         showAnnotations: false,
@@ -50,9 +49,7 @@
             hid: 'mirador',
             src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js`,
             defer: true,
-            callback: () => {
-              this.isMiradorLoaded = true;
-            }
+            callback: this.initMirador
           }
         ]
       };
@@ -309,13 +306,6 @@
     },
 
     watch: {
-      isMiradorLoaded(newVal) {
-        if (newVal && window.Mirador) {
-          this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
-          this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
-        }
-      },
-
       numberOfPages(newVal) {
         const multiplePages = newVal > 1;
         if (multiplePages) {
@@ -338,6 +328,11 @@
     },
 
     methods: {
+      initMirador() {
+        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
+        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
+      },
+
       versioned(fn, args) {
         const versionedFunction = `${fn}${this.iiifPresentationApiVersion}`;
         if (typeof this[versionedFunction] !== 'function') {
