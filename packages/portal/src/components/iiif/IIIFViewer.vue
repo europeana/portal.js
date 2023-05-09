@@ -29,16 +29,32 @@
 
     data() {
       return {
+        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
         manifest: null,
         manifestAnnotationTextGranularities: [],
         page: null,
         imageToCanvasMap: {},
+        isMiradorLoaded: false,
         memoisedImageToCanvasMap: false,
         mirador: null,
-        miradorReadyInterval: null,
         showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {},
         isMobileViewport: false
+      };
+    },
+
+    head() {
+      return {
+        script: [
+          {
+            hid: 'mirador',
+            src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js`,
+            defer: true,
+            callback: () => {
+              this.isMiradorLoaded = true;
+            }
+          }
+        ]
       };
     },
 
@@ -293,6 +309,13 @@
     },
 
     watch: {
+      isMiradorLoaded(newVal) {
+        if (newVal && window.Mirador) {
+          this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
+          this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
+        }
+      },
+
       numberOfPages(newVal) {
         const multiplePages = newVal > 1;
         if (multiplePages) {
@@ -312,18 +335,6 @@
 
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
-
-      this.miradorReadyInterval = setInterval(() => {
-        // NOTE: Mirador is not loaded by this component, but at the level of the
-        //       containing page
-        if (window.Mirador) {
-          clearInterval(this.miradorReadyInterval);
-          this.$nextTick(() => {
-            this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
-            this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
-          });
-        }
-      }, 50);
     },
 
     methods: {
