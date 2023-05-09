@@ -48,7 +48,6 @@
           {
             hid: 'mirador',
             src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js`,
-            defer: true,
             callback: this.initMirador
           }
         ]
