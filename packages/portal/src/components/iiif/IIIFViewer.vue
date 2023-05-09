@@ -41,6 +41,7 @@
         imageToCanvasMap: {},
         memoisedImageToCanvasMap: false,
         mirador: null,
+        miradorReadyInterval: null,
         showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {},
         isMobileViewport: false
@@ -318,10 +319,15 @@
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
 
-      this.$nextTick(() => {
-        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
-        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
-      });
+      this.miradorReadyInterval = setInterval(() => {
+        if (window.Mirador) {
+          clearInterval(this.miradorReadyInterval);
+          this.$nextTick(() => {
+            this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
+            this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
+          });
+        }
+      }, 50);
     },
 
     methods: {
