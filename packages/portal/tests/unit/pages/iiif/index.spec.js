@@ -13,6 +13,11 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     };
   },
   mocks: {
+    $apis: {
+      record: {
+        mediaProxyUrl: (url, itemId) => `Proxy ${itemId} ${url}`
+      }
+    },
     $axios: axios,
     $i18n: {
       locale: 'en'
@@ -44,6 +49,26 @@ describe('pages/iiif/index.vue', () => {
   });
 
   describe('computed', () => {
+    describe('itemId', () => {
+      it('is extracted from manifest URI for Europeana manifests', () => {
+        const uri = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
+        const wrapper = factory({ data: { uri } });
+
+        const itemId = wrapper.vm.itemId;
+
+        expect(itemId).toBe('/123/abc');
+      });
+
+      it('is `null` for non-Europeana manifests', () => {
+        const uri = 'https://iiif.example.org/presentation/123/abc/manifest';
+        const wrapper = factory({ data: { uri } });
+
+        const itemId = wrapper.vm.itemId;
+
+        expect(itemId).toBeNull();
+      });
+    });
+
     describe('iiifPresentationApiVersion', () => {
       it('is 2 for IIIF Presentation API v2 manifests', () => {
         const manifest = {
@@ -137,6 +162,34 @@ describe('pages/iiif/index.vue', () => {
             }
           ]
         });
+      });
+    });
+
+    describe('proxyProviderMedia', () => {
+      it('rewrites painting-motivation annotation IDs to use media proxy', () => {
+        const wrapper = factory({ data: { uri: 'https://iiif.europeana.eu/presentation/123/abc/manifest' } });
+        const manifestJson = {
+          items: [
+            {
+              items: [
+                {
+                  items: [
+                    {
+                      motivation: 'painting',
+                      body: {
+                        id: 'http://www.example.org/image/jpeg'
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        };
+
+        wrapper.vm.proxyProviderMedia(manifestJson);
+
+        expect(manifestJson.items[0].items[0].items[0].body.id).toBe('Proxy /123/abc http://www.example.org/image/jpeg');
       });
     });
 
@@ -618,7 +671,6 @@ describe('pages/iiif/index.vue', () => {
                 }
               };
               const wrapper = factory({ data: { manifest, searchQuery: 'example' } });
-              console.log('searchService', wrapper.vm.searchService);
               await wrapper.vm.$nextTick();
 
               const action = { annotationJson: { resources: [{}] },
