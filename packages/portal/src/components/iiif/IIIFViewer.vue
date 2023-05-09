@@ -3,11 +3,6 @@
     class="iiif-viewer"
     data-qa="IIIF viewer"
   >
-    <script
-      type="application/javascript"
-      defer
-      :src="`${MIRADOR_BUILD_PATH}/mirador.min.js`"
-    />
     <div id="viewer" />
   </div>
 </template>
@@ -36,7 +31,6 @@
       return {
         manifest: null,
         manifestAnnotationTextGranularities: [],
-        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
         page: null,
         imageToCanvasMap: {},
         memoisedImageToCanvasMap: false,
@@ -320,6 +314,8 @@
       this.isMobileViewport = window.innerWidth <= 576;
 
       this.miradorReadyInterval = setInterval(() => {
+        // NOTE: Mirador is not loaded by this component, but at the level of the
+        //       containing page
         if (window.Mirador) {
           clearInterval(this.miradorReadyInterval);
           this.$nextTick(() => {

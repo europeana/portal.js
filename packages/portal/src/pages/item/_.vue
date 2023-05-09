@@ -209,7 +209,8 @@
         schemaOrg: null,
         metadataLanguage: null,
         showItemLanguageSelector: true,
-        iiifPresentationManifest: null
+        iiifPresentationManifest: null,
+        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist'
       };
     },
 
@@ -229,6 +230,17 @@
       } catch (e) {
         this.$error(e, { scope: 'item' });
       }
+    },
+
+    head() {
+      const script = [];
+      if (this.iiifPresentationManifest) {
+        script.push({ src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` });
+      }
+
+      return {
+        script
+      };
     },
 
     computed: {
