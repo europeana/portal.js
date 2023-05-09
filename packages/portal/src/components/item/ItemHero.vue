@@ -1,23 +1,25 @@
 <template>
   <div class="item-hero">
-    <div
-      v-if="iiifPresentationManifest"
-      class="iiif-viewer-wrapper d-flex flex-column"
-    >
-      <slot name="item-language-selector" />
-      <IIIFViewer
-        :uri="iiifPresentationManifest"
-        :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
-        :aria-label="$t('actions.viewDocument')"
+    <client-only>
+      <div
+        v-if="iiifPresentationManifest"
+        class="iiif-viewer-wrapper d-flex flex-column"
+      >
+        <slot name="item-language-selector" />
+        <IIIFViewer
+          :uri="iiifPresentationManifest"
+          :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
+          :aria-label="$t('actions.viewDocument')"
+        />
+      </div>
+      <ItemMediaSwiper
+        v-else
+        :europeana-identifier="identifier"
+        :edm-type="edmType"
+        :displayable-media="media"
+        @select="selectMedia"
       />
-    </div>
-    <ItemMediaSwiper
-      v-else
-      :europeana-identifier="identifier"
-      :edm-type="edmType"
-      :displayable-media="media"
-      @select="selectMedia"
-    />
+    </client-only>
     <b-container>
       <b-row>
         <b-col
