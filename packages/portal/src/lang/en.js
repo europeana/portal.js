@@ -1057,6 +1057,7 @@ export default {
     },
     "title": "Search"
   },
+  "searchFilters": "Search filters ({0})",
   "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search 50+ million items",
   "searchResults": "Search",

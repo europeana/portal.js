@@ -19,7 +19,7 @@
             <h2
               class="filters-title"
             >
-              {{ $t('filterResults') }}
+              {{ advancedSearchEnabled ? $t('searchFilters', [selectedFiltersCount]) : $t('filterResults') }}
             </h2>
             <button
               v-if="hasResettableFilters"
@@ -78,6 +78,7 @@
                   @changed="changeFacet"
                 />
                 <b-button
+                  v-if="advancedSearchEnabled"
                   variant="link"
                   class="search-toggle"
                   @click="showAdditionalFilters = !showAdditionalFilters"
@@ -89,7 +90,7 @@
                   name="fade"
                 >
                   <div
-                    v-show="showAdditionalFilters"
+                    v-show="showAdditionalFilters || !advancedSearchEnabled"
                   >
                     <SideFacetDropdown
                       v-for="facet in additionalFilterableFacets"
@@ -208,6 +209,9 @@
       };
     },
     computed: {
+      advancedSearchEnabled() {
+        return this.$features.advancedSearch;
+      },
       collectionFacetEnabled() {
         return this.$store.state.search.collectionFacetEnabled;
       },
@@ -349,6 +353,9 @@
       },
       contentTierFacetSwitchApplied() {
         return this.contentTierFacetSwitch && this.filters.contentTier;
+      },
+      selectedFiltersCount() {
+        return Object.keys(this.filters).length;
       }
     },
     watch: {
