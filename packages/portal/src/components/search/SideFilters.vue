@@ -343,6 +343,12 @@
       },
       hasResettableFilters() {
         return this.resettableFilters.length > 0;
+      },
+      additionalFilterApplied() {
+        return Object.keys(this.filters).some(filter => this.additionalFacetNames.includes(filter));
+      },
+      contentTierFacetSwitchApplied() {
+        return this.contentTierFacetSwitch && this.filters.contentTier;
       }
     },
     watch: {
@@ -356,6 +362,10 @@
     },
     created() {
       this.$store.commit('search/setShowFiltersToggle', true);
+
+      if (this.additionalFilterApplied || this.contentTierFacetSwitchApplied) {
+        this.showAdditionalFilters = true;
+      }
     },
     beforeDestroy() {
       this.$store.commit('search/setShowFiltersToggle', false);
