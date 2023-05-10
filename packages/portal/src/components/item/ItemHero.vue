@@ -1,9 +1,11 @@
 <template>
   <div class="item-hero">
-    <client-only>
-      <div
-        v-if="iiifPresentationManifest"
-        class="iiif-viewer-wrapper d-flex flex-column"
+    <div
+      v-if="iiifPresentationManifest"
+      class="iiif-viewer-wrapper d-flex flex-column"
+    >
+      <template
+        v-if="isMiradorLoaded"
       >
         <slot name="item-language-selector" />
         <IIIFViewer
@@ -11,15 +13,15 @@
           :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
           :aria-label="$t('actions.viewDocument')"
         />
-      </div>
-      <ItemMediaSwiper
-        v-else
-        :europeana-identifier="identifier"
-        :edm-type="edmType"
-        :displayable-media="media"
-        @select="selectMedia"
-      />
-    </client-only>
+      </template>
+    </div>
+    <ItemMediaSwiper
+      v-else
+      :europeana-identifier="identifier"
+      :edm-type="edmType"
+      :displayable-media="media"
+      @select="selectMedia"
+    />
     <b-container>
       <b-row>
         <b-col
@@ -157,8 +159,23 @@
     },
     data() {
       return {
+        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
+        isMiradorLoaded: false,
         selectedMediaItem: null,
         selectedCanvas: null
+      };
+    },
+    head() {
+      return {
+        script: [
+          {
+            hid: 'mirador',
+            src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js`,
+            defer: this.$features.iiifMiradorScriptDefer,
+            async: this.$features.iiifMiradorScriptAsync,
+            callback: () => this.isMiradorLoaded = true
+          }
+        ]
       };
     },
     computed: {

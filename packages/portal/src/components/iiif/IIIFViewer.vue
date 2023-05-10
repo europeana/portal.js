@@ -12,6 +12,10 @@
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
 
+  // NOTE: this component assumes that Mirador has already been loaded, e.g. by
+  //       a parent Vue. This is for performance optimisation reasons, so that
+  //       the script can be loaded (client-side) first before the parent
+  //       then renders this component.
   export default {
     name: 'IIIFViewer',
 
@@ -29,7 +33,6 @@
 
     data() {
       return {
-        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
         manifest: null,
         manifestAnnotationTextGranularities: [],
         page: null,
@@ -39,20 +42,6 @@
         showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {},
         isMobileViewport: false
-      };
-    },
-
-    head() {
-      return {
-        script: [
-          {
-            hid: 'mirador',
-            src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js`,
-            defer: this.$features.iiifMiradorScriptDefer,
-            async: this.$features.iiifMiradorScriptAsync,
-            callback: this.initMirador
-          }
-        ]
       };
     },
 
@@ -326,6 +315,7 @@
 
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
+      this.initMirador();
     },
 
     methods: {
