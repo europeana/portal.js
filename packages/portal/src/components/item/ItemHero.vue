@@ -9,7 +9,7 @@
         data-qa="IIIF viewer"
         allowfullscreen="true"
         class="iiif-iframe"
-        :src="$path({ name: 'iiif', query: { uri: iiifPresentationManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
+        :src="localePath({ name: 'iiif', query: { uri: iiifPresentationManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
         :aria-label="$t('actions.viewDocument')"
         :title="$t('record.IIIFViewer')"
       />

@@ -55,7 +55,7 @@ const factory = () => shallowMountNuxt(HomeThemes, {
     $route: {
       query: {}
     },
-    $path: sinon.stub().returns('/'),
+    localePath: sinon.stub().returns('/'),
     $t: (key) => key
   }
 });

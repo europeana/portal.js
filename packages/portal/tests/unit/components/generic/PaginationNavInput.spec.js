@@ -6,14 +6,12 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const gotoSpy = sinon.spy();
-
 const factory = ({ mocks } = {}) => shallowMount(PaginationNavInput, {
   localVue,
   mocks: {
     $t: () => {},
     $route: { query: { page: 1 } },
-    $goto: gotoSpy,
+    $router: { push: sinon.spy() },
     ...mocks
   }
 });
@@ -90,7 +88,7 @@ describe('components/generic/PaginationNavInput', () => {
 
         wrapper.vm.changePaginationNav();
 
-        expect(gotoSpy.called).toBe(true);
+        expect(wrapper.vm.$router.push.called).toBe(true);
       });
 
       it('does nothing if page is blank', async() => {
@@ -100,7 +98,7 @@ describe('components/generic/PaginationNavInput', () => {
 
         wrapper.vm.changePaginationNav();
 
-        expect(gotoSpy.called).toBe(false);
+        expect(wrapper.vm.$router.push.called).toBe(false);
       });
     });
 

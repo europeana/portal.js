@@ -30,7 +30,7 @@ const factory = (options = {}) => mount(SearchResultsContext, {
         optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
       }
     },
-    $path: (args) => args,
+    localePath: (args) => args,
     $route: () => ({}),
     $store: {
       state: {

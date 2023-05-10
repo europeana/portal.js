@@ -92,13 +92,13 @@
                       tag="span"
                     >
                       <b-link
-                        :to="$path('/rights')"
+                        :to="localePath('/rights')"
                         target="_blank"
                       >
                         {{ $t('feedback.termsOfService') }}
                       </b-link>
                       <b-link
-                        :to="$path('/rights/privacy-policy')"
+                        :to="localePath('/rights/privacy-policy')"
                         target="_blank"
                       >
                         {{ $t('feedback.privacyPolicy') }}
@@ -182,7 +182,7 @@
               </div>
             </div>
             <b-link
-              :to="$path('/faq')"
+              :to="localePath('/faq')"
               target="_blank"
               class="faq-link mt-4 mb-2 p-0 w-100 text-decoration-none"
             >

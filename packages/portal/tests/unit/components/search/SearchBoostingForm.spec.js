@@ -20,7 +20,7 @@ const factory = () => shallowMountNuxt(SearchBoostingForm, {
         boost: 'ORIGINAL_DUMMY_BOOST_VALUE'
       }
     },
-    $goto: sinon.spy()
+    $router: { push: sinon.spy() }
   }
 });
 
@@ -67,7 +67,7 @@ describe('components/search/SearchBoostingForm', () => {
             boost: 'NEW_DUMMY_BOOST'
           }
         };
-        expect(wrapper.vm.$goto.calledWith(expectedGoToArgs)).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith(expectedGoToArgs)).toBe(true);
       });
     });
   });
