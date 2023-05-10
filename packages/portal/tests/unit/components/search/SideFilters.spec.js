@@ -1,28 +1,13 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueRouter from 'vue-router';
 import sinon from 'sinon';
 
 import SideFilters from '@/components/search/SideFilters.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueRouter);
 
 const factory = (options = {}) => {
-  const router = new VueRouter({
-    routes: [
-      {
-        path: '/search',
-        name: 'search'
-      },
-      {
-        path: '/item/*',
-        name: 'item-all'
-      }
-    ]
-  });
-
   return shallowMount(SideFilters, {
     localVue,
     attachTo: document.body,
@@ -31,9 +16,10 @@ const factory = (options = {}) => {
       $tc: (key) => key,
       $te: () => true,
       $features: {},
-      $path: () => '/',
-      $goto: () => null,
+      localePath: () => '/',
       ...options.mocks,
+      $route: { query: {} },
+      $router: { push: sinon.spy() },
       $store: {
         commit: () => sinon.spy(),
         getters: {
@@ -49,7 +35,6 @@ const factory = (options = {}) => {
         }
       }
     },
-    router,
     propsData: options.propsData
   });
 };

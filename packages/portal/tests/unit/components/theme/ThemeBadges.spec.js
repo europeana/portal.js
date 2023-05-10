@@ -40,7 +40,7 @@ const factory = ({ propsData = props, mocks } = {}) => {
         isoLocale: () => 'de-DE'
       },
       $t: () => {},
-      $path: (path) => `/${path.params?.pathMatch || ''}`,
+      localePath: (path) => `/${path.params?.pathMatch || ''}`,
       $route: { query: { mode: null } },
       ...mocks
     },

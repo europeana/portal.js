@@ -17,12 +17,6 @@ describe('store/index.js', () => {
 
   describe('actions', () => {
     describe('nuxtServerInit', () => {
-      it('dispatches http/init with the context', () => {
-        actions.nuxtServerInit(store, context);
-
-        expect(store.dispatch.calledWith('http/init', context)).toBe(true);
-      });
-
       it('commits apis/init with the context', () => {
         actions.nuxtServerInit(store, context);
 

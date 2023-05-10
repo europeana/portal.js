@@ -12,7 +12,7 @@
       <b-button
         variant="outline-primary"
         data-qa="go away button"
-        :to="$path({ name: 'index' })"
+        :to="localePath({ name: 'index' })"
         @click.native="$matomo && $matomo.trackEvent('Content warning', 'Click go away', pageSlug);"
       >
         {{ $t('actions.goHome') }}

@@ -15,7 +15,7 @@ const factory = (propsData = {}) => mount(ContentWarningModal, {
   },
   mocks: {
     $t: (val) => val,
-    $path: () => '/',
+    localePath: () => '/',
     $matomo: {
       trackEvent: sinon.spy()
     }

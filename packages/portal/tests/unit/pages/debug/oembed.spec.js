@@ -18,7 +18,7 @@ const factory = async({ data = {}, mocks = {} } = {}) => {
       $route: {
         query: {}
       },
-      $goto: sinon.spy(),
+      $router: { push: sinon.spy() },
       $t: (key) => key,
       ...mocks
     },
@@ -106,7 +106,7 @@ describe('pages/debug/oembed', () => {
 
         wrapper.vm.handleSubmitForm();
 
-        expect(wrapper.vm.$goto.calledWith({ query: { url, endpoint } })).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith({ query: { url, endpoint } })).toBe(true);
       });
     });
   });

@@ -71,7 +71,7 @@
           this.hide();
           // redirect away from deleted set page
           if (this.$route.name.startsWith('galleries-all___')) {
-            this.$goto(this.$path({ name: 'account' }));
+            this.$router.push(this.localePath({ name: 'account' }));
           }
         } catch (e) {
           this.$error(e, { scope: 'gallery' });

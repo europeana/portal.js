@@ -126,7 +126,7 @@
     },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) {
-        redirect(app.$path({ name: 'exhibitions' }));
+        redirect(app.localePath({ name: 'exhibitions' }));
       }
 
       const variables = {
@@ -146,7 +146,7 @@
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               text: app.i18n.tc('exhibitions.exhibitions', 2),
-              to: app.$path({ name: 'exhibitions' })
+              to: app.localePath({ name: 'exhibitions' })
             },
             {
               text: data.exhibitionPageCollection.items[0].name,

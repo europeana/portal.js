@@ -41,7 +41,7 @@ const factory = (propsData) => mount(ItemDataProvider, {
   i18n,
   mocks: {
     $t: (key) => key,
-    $path: () => 'localizedPath',
+    localePath: () => 'localizedPath',
     $apis: {
       entity: {
         imageUrl: (entity) => entity.logo.id

@@ -27,8 +27,8 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
   localVue,
   mocks: {
     $t: (key) => key,
-    $path: () => '/',
-    $goto: () => null,
+    localePath: () => '/',
+    $router: { push: sinon.spy() },
     $fetchState,
     $route: { path: '/search', name: 'search', query: {} },
     $error: sinon.spy(),

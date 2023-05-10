@@ -1,35 +1,24 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueRouter from 'vue-router';
 import sinon from 'sinon';
 
 import ViewToggles from '@/components/search/ViewToggles.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueRouter);
-
-const router = new VueRouter({
-  routes: [
-    {
-      path: '/search',
-      name: 'search'
-    }
-  ]
-});
 
 const factory = (propsData = {}) => {
   return mount(ViewToggles, {
     localVue,
-    router,
     propsData,
     mocks: {
       $t: (key) => key,
-      $path: (args) => args,
+      localePath: (args) => args,
       $matomo: {
         trackEvent: sinon.spy()
       },
-      $goto: sinon.spy()
+      $route: { query: {} },
+      $router: { push: sinon.spy() }
     }
   });
 };
@@ -62,13 +51,12 @@ describe('components/search/ViewToggles', () => {
 
   describe('when the activeView changes', () => {
     it('redirects the page', async() => {
-      const expectedGoToArgs = { name: null, meta: {}, path: '/', hash: '', query: { view: 'list' }, params: {}, fullPath: '/', matched: [] };
-
+      const expectedGoToArgs = { query: { view: 'list' } };
       const wrapper = factory({ value: 'grid' });
 
       await wrapper.setData({ activeView: 'list' });
 
-      expect(wrapper.vm.$goto.calledWith(expectedGoToArgs)).toBe(true);
+      expect(wrapper.vm.$router.push.calledWith(expectedGoToArgs)).toBe(true);
     });
 
     it('tracks the event in Matomo', async() => {
