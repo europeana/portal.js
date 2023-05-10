@@ -3,7 +3,7 @@
     v-if="themes.length > 0"
     :slides="themes"
     :title="$t('homePage.themesTitle')"
-    :cta="{ url: $path('/themes'), text: $t('homePage.themesCTA') }"
+    :cta="{ url: localePath('/themes'), text: $t('homePage.themesCTA') }"
   />
 </template>
 
@@ -34,7 +34,7 @@
       this.themes = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
         title: theme.name,
         description: theme.description,
-        url: this.$path({
+        url: this.localePath({
           name: 'themes-all',
           params: {
             pathMatch: theme.identifier

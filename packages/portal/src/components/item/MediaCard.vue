@@ -15,7 +15,7 @@
     <iframe
       data-qa="media player"
       allowfullscreen="true"
-      :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
+      :src="localePath({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
       class="media-player"
       :title="$t('record.mediaPlayer')"
     />

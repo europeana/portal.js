@@ -127,7 +127,7 @@
     methods: {
       changePaginationNav() {
         if (this.page) {
-          this.$goto(this.linkGen(this.page));
+          this.$router.push(this.linkGen(this.page));
         }
       },
 

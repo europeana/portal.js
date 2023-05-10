@@ -40,7 +40,7 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
       error: false,
       pending: false
     },
-    $path: () => 'mocked path',
+    localePath: () => 'mocked path',
     $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, isoLocale: () => 'en-GB' },
     $route: { query: {} },
     $axios: {

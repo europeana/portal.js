@@ -17,7 +17,7 @@ const factory = (propsData = {}) => mount(ContentHeader, {
     $config: { app: { internalLinkDomain: null } },
     $t: (val) => val,
     $i18n,
-    $path: () => '/'
+    localePath: () => '/'
   }
 });
 

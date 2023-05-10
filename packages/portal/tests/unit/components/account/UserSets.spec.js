@@ -43,8 +43,8 @@ const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMoun
     },
     $t: (key) => key,
     $tc: (key) => key,
-    $goto: sinon.spy(),
-    $path: () => 'localizedPath',
+    $router: { push: sinon.spy() },
+    localePath: () => 'localizedPath',
     $i18n: { locale: 'en' },
     $features: {},
     $route: {
@@ -164,7 +164,7 @@ describe('components/account/UserSets', () => {
 
         wrapper.vm.handleSetCreated();
 
-        expect(wrapper.vm.$goto.calledWith({
+        expect(wrapper.vm.$router.push.calledWith({
           path: '/en/account',
           query: { page: 1 },
           hash: '#public-galleries'
@@ -182,7 +182,7 @@ describe('components/account/UserSets', () => {
 
         wrapper.vm.handleSetCreated();
 
-        expect(wrapper.vm.$goto.called).toBe(false);
+        expect(wrapper.vm.$router.push.called).toBe(false);
         expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });

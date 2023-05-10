@@ -52,7 +52,7 @@ const collections = [
 const factory = () => shallowMountNuxt(component, {
   localVue,
   mocks: {
-    $path: (args) => {
+    localePath: (args) => {
       return `${args.params.type} - ${args.params.pathMatch}`;
     }
   }
