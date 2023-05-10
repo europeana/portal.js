@@ -63,7 +63,7 @@
                   @dateFilter="dateFilterSelected"
                 />
                 <SideFacetDropdown
-                  v-for="facet in filterableFacets"
+                  v-for="facet in defaultFilterableFacets"
                   :key="facet.name"
                   :name="facet.name"
                   :type="facetDropdownType(facet.name)"
@@ -77,17 +77,36 @@
                   :api-options="apiOptions"
                   @changed="changeFacet"
                 />
-                <SideSwitchFilter
-                  v-if="contentTierFacetSwitch"
-                  :value="filters.contentTier"
-                  name="contentTier"
-                  :label="$t('facets.contentTier.options.0')"
-                  checked-value="&quot;0&quot;"
-                  :unchecked-value="null"
-                  :default-value="null"
-                  :collection="collection"
-                  @changed="changeFacet"
-                />
+                <div
+                  v-show="showAdditionalFilters"
+                >
+                  <SideFacetDropdown
+                    v-for="facet in additionalFilterableFacets"
+                    :key="facet.name"
+                    :name="facet.name"
+                    :type="facetDropdownType(facet.name)"
+                    :selected="filters[facet.name]"
+                    :static-fields="facet.staticFields"
+                    :search="facet.search"
+                    :group-by="sideFacetDropdownGroupBy(facet.name)"
+                    :aria-label="facet.name"
+                    :collection="collection"
+                    :api-params="apiParams"
+                    :api-options="apiOptions"
+                    @changed="changeFacet"
+                  />
+                  <SideSwitchFilter
+                    v-if="contentTierFacetSwitch"
+                    :value="filters.contentTier"
+                    name="contentTier"
+                    :label="$t('facets.contentTier.options.0')"
+                    checked-value="&quot;0&quot;"
+                    :unchecked-value="null"
+                    :default-value="null"
+                    :collection="collection"
+                    @changed="changeFacet"
+                  />
+                </div>
               </div>
             </b-col>
           </b-row>
@@ -146,6 +165,9 @@
         DEFAULT_FACET_NAMES: [
           'TYPE',
           'REUSABILITY',
+          'contentTier'
+        ],
+        ADDITIONAL_FACET_NAMES: [
           'COUNTRY',
           'LANGUAGE',
           'PROVIDER',
@@ -154,9 +176,9 @@
           'IMAGE_ASPECTRATIO',
           'IMAGE_SIZE',
           'MIME_TYPE',
-          'RIGHTS',
-          'contentTier'
+          'RIGHTS'
         ],
+        COLLECTION_FACET_NAME: 'collection',
         SEARCHABLE_FACETS: [
           'COUNTRY',
           'LANGUAGE',
@@ -169,7 +191,8 @@
           'proxy_dc_format.en',
           'proxy_dcterms_medium.en'
         ],
-        hideFilterSheet: true
+        hideFilterSheet: true,
+        showAdditionalFilters: false
       };
     },
     computed: {
@@ -216,8 +239,14 @@
       themeSpecificFacetNames() {
         return (this.theme?.facets || []).map((facet) => facet.field);
       },
-      facetNames() {
+      defaultFacetNames() {
         return this.themeSpecificFacetNames.concat(this.DEFAULT_FACET_NAMES);
+      },
+      additionalFacetNames() {
+        return this.ADDITIONAL_FACET_NAMES;
+      },
+      facetNames() {
+        return this.defaultFacetNames.concat(this.additionalFacetNames);
       },
       filterableFacets() {
         let facets = this.facetNames.map(facetName => ({
@@ -227,7 +256,7 @@
 
         if (this.collectionFacetEnabled) {
           facets.unshift({
-            name: 'collection',
+            name: this.COLLECTION_FACET_NAME,
             staticFields: themes.map(theme => theme.qf)
           });
         }
@@ -237,6 +266,17 @@
         }
 
         return facets;
+      },
+      defaultFilterableFacets() {
+        const defaultAndCollectionFacetNames = [this.COLLECTION_FACET_NAME].concat(this.defaultFacetNames);
+        const defaultFacets = this.filterableFacets.filter(facet => defaultAndCollectionFacetNames.includes(facet.name));
+
+        return defaultFacets;
+      },
+      additionalFilterableFacets() {
+        const additionalFacets = this.filterableFacets.filter(facet => this.additionalFacetNames.includes(facet.name));
+
+        return additionalFacets;
       },
       contentTierFacetSwitch() {
         return !this.collection && !this.$store.getters['entity/id'];
@@ -310,7 +350,7 @@
     },
     methods: {
       facetDropdownType(name) {
-        return name === 'collection' || name === 'api' ? 'radio' : 'checkbox';
+        return name === this.COLLECTION_FACET_NAME || name === 'api' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
@@ -332,16 +372,16 @@
         }
 
         // Remove collection-specific filters when collection is changed
-        if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !this.collection) {
+        if (Object.prototype.hasOwnProperty.call(selected, this.COLLECTION_FACET_NAME) || !this.collection) {
           for (const name in filters) {
-            if (name !== 'collection' && !this.DEFAULT_FACET_NAMES.includes(name) && this.resettableFilters.includes(name)) {
+            if (name !== this.COLLECTION_FACET_NAME && !this.DEFAULT_FACET_NAMES.concat(this.ADDITIONAL_FACET_NAMES).includes(name) && this.resettableFilters.includes(name)) {
               filters[name] = [];
             }
           }
         }
 
         // Remove filters incompatible with change of collection filter
-        if (Object.prototype.hasOwnProperty.call(selected, 'collection') && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
+        if (Object.prototype.hasOwnProperty.call(selected, this.COLLECTION_FACET_NAME) && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
           filters['contentTier'] = [];
         }
 
