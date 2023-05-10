@@ -48,6 +48,8 @@
           {
             hid: 'mirador',
             src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js`,
+            defer: this.$features.iiifMiradorScriptDefer,
+            async: this.$features.iiifMiradorScriptAsync,
             callback: this.initMirador
           }
         ]
