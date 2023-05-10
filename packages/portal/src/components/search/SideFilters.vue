@@ -77,6 +77,14 @@
                   :api-options="apiOptions"
                   @changed="changeFacet"
                 />
+                <b-button
+                  variant="link"
+                  class="search-toggle"
+                  @click="showAdditionalFilters = !showAdditionalFilters"
+                >
+                  <span>{{ showAdditionalFilters ? '-' : '+' }}</span>
+                  {{ $t('facets.button.showAdditional', {'show': showAdditionalFilters ? 'hide' : 'show' }) }}
+                </b-button>
                 <div
                   v-show="showAdditionalFilters"
                 >
@@ -515,6 +523,23 @@
     @media (min-width: $bp-4k) {
       font-size: $font-size-small-4k;
       margin: calc(1.5 * 1.25rem) 1.5rem;
+    }
+  }
+
+  .search-toggle {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: $font-size-small;
+    padding: 0;
+    margin-bottom: 1.25rem;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
     }
   }
 

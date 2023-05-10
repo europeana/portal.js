@@ -616,6 +616,7 @@ export default {
       "cancel": "Cancel",
       "morefilters": "More filters",
       "reset": "Reset",
+      "showAdditional": "{show} additional filters",
       "showAll": "Show all {label}",
       "showLess": "Show less {label}"
     },
