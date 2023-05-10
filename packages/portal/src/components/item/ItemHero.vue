@@ -171,8 +171,7 @@
           {
             hid: 'mirador',
             src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js`,
-            defer: this.$features.iiifMiradorScriptDefer,
-            async: this.$features.iiifMiradorScriptAsync,
+            async: true, // because the child component won't be rendered til it's loaded anyway
             callback: () => this.isMiradorLoaded = true
           }
         ]
