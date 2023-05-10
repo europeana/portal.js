@@ -85,36 +85,40 @@
                   <span>{{ showAdditionalFilters ? '-' : '+' }}</span>
                   {{ $t('facets.button.showAdditional', {'show': showAdditionalFilters ? 'hide' : 'show' }) }}
                 </b-button>
-                <div
-                  v-show="showAdditionalFilters"
+                <transition
+                  name="fade"
                 >
-                  <SideFacetDropdown
-                    v-for="facet in additionalFilterableFacets"
-                    :key="facet.name"
-                    :name="facet.name"
-                    :type="facetDropdownType(facet.name)"
-                    :selected="filters[facet.name]"
-                    :static-fields="facet.staticFields"
-                    :search="facet.search"
-                    :group-by="sideFacetDropdownGroupBy(facet.name)"
-                    :aria-label="facet.name"
-                    :collection="collection"
-                    :api-params="apiParams"
-                    :api-options="apiOptions"
-                    @changed="changeFacet"
-                  />
-                  <SideSwitchFilter
-                    v-if="contentTierFacetSwitch"
-                    :value="filters.contentTier"
-                    name="contentTier"
-                    :label="$t('facets.contentTier.options.0')"
-                    checked-value="&quot;0&quot;"
-                    :unchecked-value="null"
-                    :default-value="null"
-                    :collection="collection"
-                    @changed="changeFacet"
-                  />
-                </div>
+                  <div
+                    v-show="showAdditionalFilters"
+                  >
+                    <SideFacetDropdown
+                      v-for="facet in additionalFilterableFacets"
+                      :key="facet.name"
+                      :name="facet.name"
+                      :type="facetDropdownType(facet.name)"
+                      :selected="filters[facet.name]"
+                      :static-fields="facet.staticFields"
+                      :search="facet.search"
+                      :group-by="sideFacetDropdownGroupBy(facet.name)"
+                      :aria-label="facet.name"
+                      :collection="collection"
+                      :api-params="apiParams"
+                      :api-options="apiOptions"
+                      @changed="changeFacet"
+                    />
+                    <SideSwitchFilter
+                      v-if="contentTierFacetSwitch"
+                      :value="filters.contentTier"
+                      name="contentTier"
+                      :label="$t('facets.contentTier.options.0')"
+                      checked-value="&quot;0&quot;"
+                      :unchecked-value="null"
+                      :default-value="null"
+                      :collection="collection"
+                      @changed="changeFacet"
+                    />
+                  </div>
+                </transition>
               </div>
             </b-col>
           </b-row>
@@ -513,6 +517,7 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icons';
   @import '@europeana/style/scss/mixins';
+  @import '@europeana/style/scss/transitions';
 
   .filters-title {
     font-size: $font-size-small;
