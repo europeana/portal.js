@@ -38,7 +38,7 @@
       <b-form-select
         id="select-modifier"
         :value="selectedModifier"
-        :options="modifiers"
+        :options="availableModifiers"
         @input="(value) => $emit('change', 'selectedModifier', value)"
       />
     </b-form-group>
@@ -48,8 +48,8 @@
     >
       <b-form-input
         id="search-term"
-        :value="searchTerm"
-        @input="(value) => $emit('change', 'searchTerm', value)"
+        :value="displaySearchTerm"
+        @input="(value) => handleTermInput(value)"
       />
     </b-form-group>
   </b-input-group>
@@ -64,27 +64,55 @@
       BFormSelect,
       BTooltip
     },
+    data() {
+      return {
+        searchFields: [
+          { value: 'anyField', text: this.$t('search.advanced.fields.anyField') },
+          { value: 'subject', text: this.$t('search.advanced.fields.subject') },
+          { value: 'title', text: this.$t('search.advanced.fields.title') },
+          { value: 'description', text: this.$t('search.advanced.fields.description') },
+          { value: 'creator', text: this.$t('search.advanced.fields.creator') },
+          { value: 'type', text: this.$t('search.advanced.fields.type') }
+        ],
+        modifiers: [
+          { value: 'contains', text: this.$t('search.advanced.modifiers.contains') },
+          { value: 'doesNotContain', text: this.$t('search.advanced.modifiers.notContain') },
+          { value: 'is', text: this.$t('search.advanced.modifiers.is') },
+          { value: 'isNot', text: this.$t('search.advanced.modifiers.isNot') },
+          { value: 'startsWith', text: this.$t('search.advanced.modifiers.startsWith') },
+          { value: 'endsWith', text: this.$t('search.advanced.modifiers.endsWith') }
+        ]
+      };
+    },
     props: {
-      searchTerm: {
-        type: String,
-        default: null
-      },
-      selectedField: {
-        type: String,
-        default: null
-      },
-      selectedModifier: {
-        type: String,
-        default: null
-      },
-      searchFields: {
-        type: Array,
-        default: () => []
-      },
-      modifiers: {
-        type: Array,
-        default: () => []
+      rule: {
+        type: Object,
+        default:() => ({})
       }
+    },
+    computed: {
+      searchTerm() {
+        return this.rule.searchTerm;
+      },
+      selectedField() {
+        return this.rule.selectedField;
+      },
+      selectedModifier()  {
+        return this.rule.selectedModifier;
+      },
+      availableModifiers() {
+        return this.selectedField == 'anyField' ? [this.modifiers.find((mod) => mod.value === 'is')] : this.modifiers;
+      },
+      // TODO: use a decorator instead?
+      displaySearchTerm() {
+        return (this.searchTerm || '').replace('\ ', ' ');
+      }
+    },
+    methods: {
+      handleTermInput(value) {
+        this.$emit('change', 'searchTerm', value.replace('\ ', ' '));
+      }
+      // TODO: handle field selection.
     }
   };
 </script>
