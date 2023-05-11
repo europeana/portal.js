@@ -13,7 +13,9 @@
     >
       <section role="search">
         <client-only>
-          <b-row>
+          <b-row
+            v-if="advancedSearchEnabled"
+          >
             <b-button
               @click="toggleAdvancedSearch"
             >
@@ -228,6 +230,9 @@
       },
       showFiltersSheet() {
         return this.$store.state.search.showFiltersSheet;
+      },
+      advancedSearchEnabled() {
+        return this.$features.advancedSearch;
       },
       showAdvancedSearch() {
         return this.$store.state.search.showAdvancedSearch;
