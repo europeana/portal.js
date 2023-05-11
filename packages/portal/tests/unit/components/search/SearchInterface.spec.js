@@ -64,6 +64,9 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     },
     $i18n: {
       locale: 'en'
+    },
+    $features: {
+      advancedSearch: false
     }
   },
   propsData,
