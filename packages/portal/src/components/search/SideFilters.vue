@@ -231,9 +231,6 @@
       showFiltersSheet() {
         return this.$store.state.search.showFiltersSheet;
       },
-      advancedSearchEnabled() {
-        return this.$features.advancedSearch;
-      },
       showAdvancedSearch() {
         return this.$store.state.search.showAdvancedSearch;
       },
