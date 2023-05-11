@@ -616,6 +616,7 @@ export default {
       "cancel": "Cancel",
       "morefilters": "More filters",
       "reset": "Reset",
+      "showAdditional": "{show} additional filters",
       "showAll": "Show all {label}",
       "showLess": "Show less {label}"
     },
@@ -1056,6 +1057,7 @@ export default {
     },
     "title": "Search"
   },
+  "searchFilters": "Search filters {count}",
   "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search 50+ million items",
   "searchResults": "Search",

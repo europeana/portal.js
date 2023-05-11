@@ -12,10 +12,10 @@ const factory = (options = {}) => {
     localVue,
     attachTo: document.body,
     mocks: {
-      $t: (key) => key,
+      $t: (key, arg) => arg?.count ? key + '-' + arg.count : key,
       $tc: (key) => key,
       $te: () => true,
-      $features: { entityHeaderCards: true },
+      $features: {},
       localePath: () => '/',
       ...options.mocks,
       $route: { query: {} },
@@ -41,20 +41,46 @@ const factory = (options = {}) => {
 
 describe('components/search/SideFilters', () => {
   describe('template', () => {
-    it('has a level 2 heading', () => {
-      const wrapper = factory();
-
-      const h2 = wrapper.find('h2');
-
-      expect(h2.text()).toBe('filterResults');
-    });
-
     it('is wrapper in <section role="search">', () => {
       const wrapper = factory();
 
       const section = wrapper.find('section[role="search"]');
 
       expect(section.exists()).toBe(true);
+    });
+
+    describe('filters title', () => {
+      it('has a level 2 heading', () => {
+        const wrapper = factory();
+
+        const h2 = wrapper.find('h2');
+
+        expect(h2.text()).toBe('filterResults');
+      });
+
+      describe('when advanced search is enabled', () => {
+        it('has a level 2 heading', () => {
+          const wrapper = factory({ mocks: { $features: { advancedSearch: true } } });
+
+          const h2 = wrapper.find('h2');
+
+          expect(h2.text()).toBe('searchFilters');
+        });
+        describe('and when filter(s) are selected', () => {
+          it('has a level 2 heading with selected filters count', () => {
+            const propsData = {
+              userParams: {
+                qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:open']
+              }
+            };
+            const wrapper = factory({ propsData, mocks: { $features: { advancedSearch: true } } });
+
+            const h2 = wrapper.find('h2');
+
+            expect(h2.text()).toBe('searchFilters-(2)');
+          });
+        });
+      });
     });
 
     describe('reset button', () => {
