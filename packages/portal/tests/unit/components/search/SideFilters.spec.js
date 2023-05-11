@@ -12,7 +12,7 @@ const factory = (options = {}) => {
     localVue,
     attachTo: document.body,
     mocks: {
-      $t: (key, arg) => arg ? key + '-' + arg : key,
+      $t: (key, arg) => arg?.count ? key + '-' + arg.count : key,
       $tc: (key) => key,
       $te: () => true,
       $features: {},
@@ -59,12 +59,26 @@ describe('components/search/SideFilters', () => {
       });
 
       describe('when advanced search is enabled', () => {
-        it('has a level 2 heading with selected filter count', () => {
+        it('has a level 2 heading', () => {
           const wrapper = factory({ mocks: { $features: { advancedSearch: true } } });
 
           const h2 = wrapper.find('h2');
 
-          expect(h2.text()).toBe('searchFilters-0');
+          expect(h2.text()).toBe('searchFilters');
+        });
+        describe('and when filter(s) are selected', () => {
+          it('has a level 2 heading with selected filters count', () => {
+            const propsData = {
+              userParams: {
+                qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:open']
+              }
+            };
+            const wrapper = factory({ propsData, mocks: { $features: { advancedSearch: true } } });
+
+            const h2 = wrapper.find('h2');
+
+            expect(h2.text()).toBe('searchFilters-(2)');
+          });
         });
       });
     });

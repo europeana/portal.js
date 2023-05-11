@@ -19,7 +19,7 @@
             <h2
               class="filters-title"
             >
-              {{ advancedSearchEnabled ? $t('searchFilters', [selectedFiltersCount]) : $t('filterResults') }}
+              {{ filtersTitle }}
             </h2>
             <button
               v-if="hasResettableFilters"
@@ -81,6 +81,8 @@
                   v-if="advancedSearchEnabled"
                   variant="link"
                   class="search-toggle"
+                  aria-controls="additional-filters"
+                  :aria-expanded="showAdditionalFilters"
                   @click="showAdditionalFilters = !showAdditionalFilters"
                 >
                   <span>{{ showAdditionalFilters ? '-' : '+' }}</span>
@@ -91,6 +93,7 @@
                 >
                   <div
                     v-show="showAdditionalFilters || !advancedSearchEnabled"
+                    id="additional-filters"
                   >
                     <SideFacetDropdown
                       v-for="facet in additionalFilterableFacets"
@@ -356,6 +359,13 @@
       },
       selectedFiltersCount() {
         return Object.keys(this.filters).length;
+      },
+      filtersTitle() {
+        if (this.advancedSearchEnabled) {
+          return this.$t('searchFilters', { count: this.selectedFiltersCount ? `(${this.selectedFiltersCount})` : '' });
+        } else {
+          return this.$t('filterResults');
+        }
       }
     },
     watch: {
