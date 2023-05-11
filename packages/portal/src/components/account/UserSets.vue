@@ -158,7 +158,7 @@
         if (this.page === 1) {
           this.$fetch();
         } else {
-          this.$goto({
+          this.$router.push({
             path: this.$route.path,
             query: { ...this.$route.query, page: 1 },
             hash: this.$route.hash

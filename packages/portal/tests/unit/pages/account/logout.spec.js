@@ -24,7 +24,7 @@ describe('pages/account/logout.vue', () => {
           }
         },
         $i18n: { locale: 'eu' },
-        $goto: sinon.spy()
+        $router: { push: sinon.spy() }
       }
     });
 
@@ -76,14 +76,14 @@ describe('pages/account/logout.vue', () => {
               }
             }
           },
-          $goto: sinon.spy(),
+          $router: { push: sinon.spy() },
           $i18n: {
             locale: 'en'
           }
         }
       });
 
-      expect(wrapper.vm.$goto.calledWith('https://auth.example.org/logout?redirect_uri=http%3A%2F%2Flocalhost%2Fabout-us')).toBe(true);
+      expect(wrapper.vm.$router.push.calledWith('https://auth.example.org/logout?redirect_uri=http%3A%2F%2Flocalhost%2Fabout-us')).toBe(true);
     });
   });
 });

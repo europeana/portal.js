@@ -68,7 +68,7 @@
 
         this.themesData = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
           prefLabel: theme.name,
-          url: this.$path({
+          url: this.localePath({
             name: 'themes-all',
             params: {
               pathMatch: theme.identifier

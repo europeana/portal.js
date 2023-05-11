@@ -28,7 +28,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $config: { app: { baseUrl: 'https://www.example.eu' } },
     $features: {},
     $fetchState: options.fetchState || {},
-    $path: (path) => path,
+    localePath: (path) => path,
     $route: {
       hash: options.hash || ''
     },

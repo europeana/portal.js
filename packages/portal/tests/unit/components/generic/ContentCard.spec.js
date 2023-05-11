@@ -30,7 +30,7 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
     $i18n: {
       locale: 'en'
     },
-    $path: () => '',
+    localePath: () => '',
     $t: (key) => {
       if (key === 'formatting.ellipsis') {
         return '…';

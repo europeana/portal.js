@@ -23,7 +23,7 @@ const factory = (propsData = {}) => {
     propsData,
     mocks: {
       $t: () => {},
-      $path: () => {}
+      localePath: () => {}
     }
   });
   wrapper.vm.sendFeedback = sinon.spy();

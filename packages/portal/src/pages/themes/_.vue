@@ -289,6 +289,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
+  @import '@europeana/style/scss/transitions';
 
   .page {
     padding-bottom: 1rem;
@@ -314,15 +315,6 @@
         font-size: $font-size-large-4k;
       }
     }
-  }
-
-  .fade-enter-active {
-    transition: $standard-transition;
-    opacity: 0;
-  }
-
-  .fade-enter-to {
-    opacity: 1;
   }
 
   .xxl-page ::v-deep .masonry-container {
