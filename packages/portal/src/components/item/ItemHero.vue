@@ -4,15 +4,16 @@
       v-if="iiifPresentationManifest"
       class="iiif-viewer-wrapper d-flex flex-column"
     >
-      <slot name="item-language-selector" />
-      <iframe
-        data-qa="IIIF viewer"
-        allowfullscreen="true"
-        class="iiif-iframe"
-        :src="localePath({ name: 'iiif', query: { uri: iiifPresentationManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
-        :aria-label="$t('actions.viewDocument')"
-        :title="$t('record.IIIFViewer')"
-      />
+      <template
+        v-if="isMiradorLoaded"
+      >
+        <slot name="item-language-selector" />
+        <IIIFViewer
+          :uri="iiifPresentationManifest"
+          :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
+          :aria-label="$t('actions.viewDocument')"
+        />
+      </template>
     </div>
     <ItemMediaSwiper
       v-else
@@ -104,7 +105,8 @@
       ShareButton,
       SocialShareModal,
       UserButtons: () => import('../account/UserButtons'),
-      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
+      IIIFViewer: () => import('../iiif/IIIFViewer.vue')
     },
 
     mixins: [
@@ -157,8 +159,23 @@
     },
     data() {
       return {
+        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
+        isMiradorLoaded: false,
         selectedMediaItem: null,
         selectedCanvas: null
+      };
+    },
+    head() {
+      return {
+        script: [
+          {
+            hid: 'mirador',
+            src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js`,
+            defer: true, // because the child component won't be rendered til it's loaded anyway
+            callback: () => this.isMiradorLoaded = true,
+            skip: !this.iiifPresentationManifest
+          }
+        ]
       };
     },
     computed: {

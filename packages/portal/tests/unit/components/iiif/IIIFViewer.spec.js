@@ -3,12 +3,15 @@ import axios from 'axios';
 import nock from 'nock';
 import sinon from 'sinon';
 
-import page from '@/pages/iiif/index';
+import IIIFViewer from '@/components/iiif/IIIFViewer.vue';
 
-const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
+const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFViewer, {
+  propsData: {
+    uri: 'http://example.org/iiif/manifest.json',
+    ...propsData
+  },
   data() {
     return {
-      uri: 'http://example.org/iiif/manifest.json',
       ...data
     };
   },
@@ -25,7 +28,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
   }
 });
 
-describe('pages/iiif/index.vue', () => {
+describe('components/iiif/IIIFViewer.vue', () => {
   beforeEach(() => {
     window.Mirador = {
       viewer: sinon.stub().returns({
@@ -52,7 +55,7 @@ describe('pages/iiif/index.vue', () => {
     describe('itemId', () => {
       it('is extracted from manifest URI for Europeana manifests', () => {
         const uri = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
-        const wrapper = factory({ data: { uri } });
+        const wrapper = factory({ propsData: { uri } });
 
         const itemId = wrapper.vm.itemId;
 
@@ -61,7 +64,7 @@ describe('pages/iiif/index.vue', () => {
 
       it('is `null` for non-Europeana manifests', () => {
         const uri = 'https://iiif.example.org/presentation/123/abc/manifest';
-        const wrapper = factory({ data: { uri } });
+        const wrapper = factory({ propsData: { uri } });
 
         const itemId = wrapper.vm.itemId;
 
@@ -167,7 +170,7 @@ describe('pages/iiif/index.vue', () => {
 
     describe('proxyProviderMedia', () => {
       it('rewrites painting-motivation annotation IDs to use media proxy', () => {
-        const wrapper = factory({ data: { uri: 'https://iiif.europeana.eu/presentation/123/abc/manifest' } });
+        const wrapper = factory({ propsData: { uri: 'https://iiif.europeana.eu/presentation/123/abc/manifest' } });
         const manifestJson = {
           items: [
             {
@@ -670,7 +673,7 @@ describe('pages/iiif/index.vue', () => {
                   '@id': 'https://iiif.europeana.eu/presentation/123/abc/search'
                 }
               };
-              const wrapper = factory({ data: { manifest, searchQuery: 'example' } });
+              const wrapper = factory({ propsData: { searchQuery: 'example' }, data: { manifest } });
               await wrapper.vm.$nextTick();
 
               const action = { annotationJson: { resources: [{}] },

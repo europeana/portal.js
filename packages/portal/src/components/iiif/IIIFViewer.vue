@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div
+    class="iiif-viewer"
+    data-qa="IIIF viewer"
+  >
     <div id="viewer" />
   </div>
 </template>
@@ -9,23 +12,29 @@
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
 
+  // NOTE: this component assumes that Mirador has already been loaded, e.g. by
+  //       a parent Vue. This is for performance optimisation reasons, so that
+  //       the script can be loaded (client-side) first before the parent
+  //       then renders this component.
   export default {
-    name: 'IIIFPage',
+    name: 'IIIFViewer',
 
-    layout: 'minimal',
+    props: {
+      uri: {
+        type: String,
+        required: true
+      },
 
-    asyncData({ query }) {
-      return {
-        uri: query.uri,
-        searchQuery: query.query
-      };
+      searchQuery: {
+        type: String,
+        default: null
+      }
     },
 
     data() {
       return {
         manifest: null,
         manifestAnnotationTextGranularities: [],
-        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
         page: null,
         imageToCanvasMap: {},
         memoisedImageToCanvasMap: false,
@@ -33,17 +42,6 @@
         showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {},
         isMobileViewport: false
-      };
-    },
-
-    head() {
-      return {
-        meta: [
-          { hid: 'title', name: 'title', content: 'IIIF' }
-        ],
-        script: [
-          { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
-        ]
       };
     },
 
@@ -317,14 +315,15 @@
 
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
-
-      this.$nextTick(() => {
-        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
-        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
-      });
+      this.initMirador();
     },
 
     methods: {
+      initMirador() {
+        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
+        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
+      },
+
       versioned(fn, args) {
         const versionedFunction = `${fn}${this.iiifPresentationApiVersion}`;
         if (typeof this[versionedFunction] !== 'function') {
