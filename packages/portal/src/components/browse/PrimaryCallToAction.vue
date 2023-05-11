@@ -68,4 +68,14 @@
       max-width: calc(100% + 100px);
     }
   }
+
+  .xxl-page.white-page .primary-cta {
+    @media (min-width: $bp-large) {
+      width: calc(50% + 100px);
+    }
+
+    @media (min-width: ($bp-wqhd)) {
+      width: calc(33% + 100px);
+    }
+  }
 </style>
