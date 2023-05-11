@@ -12,7 +12,7 @@ const factory = () => shallowMount(PageHeader, {
     $t: (key) => {
       return `TRANSLATED: ${key}`;
     },
-    $path: (code) => window.location.href + code,
+    localePath: (code) => window.location.href + code,
     $store: {
       commit(mutation, payload) {
         if (mutation === 'search/setShowSearchBar') {
@@ -53,7 +53,7 @@ describe('components/PageHeader', () => {
 
       const logo = wrapper.find('[data-qa="logo"]');
 
-      expect(logo.attributes().src).toMatch(/\/logo\.svg$/);
+      expect(logo.attributes().src).toBe('logo.svg');
     });
 
     it('contains the top nav', () => {

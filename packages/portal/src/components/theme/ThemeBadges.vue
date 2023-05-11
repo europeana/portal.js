@@ -68,7 +68,7 @@
 
         this.themesData = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
           prefLabel: theme.name,
-          url: this.$path({
+          url: this.localePath({
             name: 'themes-all',
             params: {
               pathMatch: theme.identifier
@@ -110,7 +110,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .related-themes ::v-deep .badge-pill {
     margin-right: 0.5rem;

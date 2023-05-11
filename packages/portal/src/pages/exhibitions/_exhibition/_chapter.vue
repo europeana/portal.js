@@ -165,11 +165,11 @@
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               text: app.i18n.tc('exhibitions.exhibitions', 2),
-              to: app.$path({ name: 'exhibitions' })
+              to: app.localePath({ name: 'exhibitions' })
             },
             {
               text: exhibition.name,
-              to: app.$path({
+              to: app.localePath({
                 name: 'exhibitions-exhibition',
                 params: {
                   exhibition: exhibition.identifier
@@ -231,7 +231,7 @@
     },
     methods: {
       chapterUrl(identifier) {
-        return this.$path({
+        return this.localePath({
           name: 'exhibitions-exhibition-chapter',
           params: {
             exhibition: this.exhibitionIdentifier, chapter: identifier

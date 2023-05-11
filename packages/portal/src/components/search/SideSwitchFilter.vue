@@ -49,7 +49,7 @@
        * Value to which the switch is set
        */
       value: {
-        type: String,
+        type: [String, Array],
         default: null
       },
 
@@ -140,7 +140,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .btn.tooltip-button {
     color: $grey;

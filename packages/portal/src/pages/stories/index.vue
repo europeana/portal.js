@@ -105,8 +105,8 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
-@import '@/assets/scss/mixins';
+@import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/mixins';
 
 .page {
   padding-bottom: 1rem;

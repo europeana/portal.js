@@ -133,7 +133,7 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
   data,
   i18n,
   mocks: {
-    $path: () => {},
+    localePath: () => {},
     $apis: {
       set: {
         get: setApiGetStub,

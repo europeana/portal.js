@@ -157,7 +157,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .card.related-editorial-card {
     border: 0;

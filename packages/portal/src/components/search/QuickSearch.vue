@@ -49,7 +49,7 @@
 
       this.themes = contentfulResponse.data?.data?.themePageCollection?.items.map(theme => ({
         prefLabel: theme.name,
-        url: this.$path({
+        url: this.localePath({
           name: 'search',
           query: {
             qf: `collection:${this.qf(theme.identifier)}`
@@ -74,7 +74,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .quick-search {
     border-top: 1px solid $middlegrey;

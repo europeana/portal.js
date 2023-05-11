@@ -15,7 +15,7 @@
     <iframe
       data-qa="media player"
       allowfullscreen="true"
-      :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
+      :src="localePath({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
       class="media-player"
       :title="$t('record.mediaPlayer')"
     />
@@ -42,24 +42,15 @@
     v-else-if="media.isOEmbed"
     :url="media.about"
   />
-  <iframe
-    v-else-if="media.isIIIFImage || media.isIIIFPresentation"
-    data-qa="IIIF viewer"
-    allowfullscreen="true"
-    class="iiif-iframe"
-    :src="$path({ name: 'iiif', query: { uri: media.iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
-    :aria-label="$t('actions.viewDocument')"
-    :title="$t('record.IIIFViewer')"
-  />
 </template>
 
 <script>
-  import WebResource from '@/plugins/europeana/web-resource';
+  import WebResource from '@/plugins/europeana/edm/WebResource';
 
   export default {
     name: 'MediaCard',
     components: {
-      MediaCardImage: () => import('../item/MediaCardImage'),
+      MediaCardImage: () => import('./MediaCardImage'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed'),
       VideoPlayer: () => import('../media/VideoPlayer'),
       AudioPlayer: () => import('../media/AudioPlayer')
@@ -94,7 +85,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/iiif';
 
   // TODO: move the code below to video component when we switch to new item page
   ::v-deep video {

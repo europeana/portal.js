@@ -41,7 +41,7 @@ const factory = (section) => mount(ContentCardSection, {
       }
     },
     $t: () => {},
-    $path: () => '/',
+    localePath: () => '/',
     $store
   }
 });

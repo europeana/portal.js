@@ -47,7 +47,7 @@ const factory = () => {
         isoLocale: () => 'de-DE'
       },
       $t: () => {},
-      $path: () => {},
+      localePath: () => {},
       $route: { query: { mode: null } },
       $contentful: {
         assets: {

@@ -45,7 +45,6 @@ export default {
     "pin": "Stift",
     "preview": "Förhandsvisning",
     "previous": "Föregående",
-    "providedBy": "Tillhandahålls av {provider}",
     "publish": "Publicera",
     "reject": "Avvisa",
     "requestDepublication": "Begär avpublicering",
@@ -958,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginering"
   },
+  "provider": {
+    "linkText": "Visa på leverantörens webbplats",
+    "providedBy": "Detta objekt tillhandahålls och underhålls av {provider}"
+  },
   "readMore": "Läs mer",
   "recommendation": {
     "prompts": {
@@ -971,7 +974,6 @@ export default {
     },
     "allMetaData": "Alla metadata",
     "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
-    "exploreMore": "Utforska mer",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
@@ -1002,6 +1004,10 @@ export default {
     "galleries": {
       "name": "Relaterade gallerier",
       "title": "Upptäck relaterade gallerier"
+    },
+    "items": {
+      "loginForMore": "Logga in för att se andra relaterade objekt",
+      "title": "Upptäck relaterade objekt"
     },
     "themes": {
       "title": "Upptäck relaterade teman"

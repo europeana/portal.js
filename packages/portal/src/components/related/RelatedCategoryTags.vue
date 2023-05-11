@@ -77,7 +77,7 @@
           route.query = { tags: this.selected.concat(tagId).join(',') };
         }
 
-        return this.$path(route);
+        return this.localePath(route);
       },
       isActive(tagId) {
         return this.selected.includes(tagId);
@@ -93,7 +93,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .icon-ic-tag {
     color: $mediumgrey;

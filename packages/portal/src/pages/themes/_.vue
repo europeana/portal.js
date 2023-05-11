@@ -287,8 +287,9 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/mixins';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
+  @import '@europeana/style/scss/transitions';
 
   .page {
     padding-bottom: 1rem;
@@ -318,15 +319,6 @@
     ::v-deep .content-header .divider {
       margin-bottom: 1.75rem;
     }
-  }
-
-  .fade-enter-active {
-    transition: $standard-transition;
-    opacity: 0;
-  }
-
-  .fade-enter-to {
-    opacity: 1;
   }
 
   .xxl-page ::v-deep .masonry-container {

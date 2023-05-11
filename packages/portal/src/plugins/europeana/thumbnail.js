@@ -6,88 +6,34 @@
 import md5 from 'md5';
 
 import { preferredAPIBaseURL } from './utils.js';
-import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
 
-// TODO: switch to v3 when v2 support is deprecated
-export const BASE_URL = 'https://api.europeana.eu/thumbnail/v2';
-
-export const thumbnailTypeForMimeType = (mimeType) => {
-  let thumbnailType = null;
-
-  switch (true) {
-    case typeof mimeType === 'undefined':
-      break;
-    case mimeType.startsWith('image/'):
-      thumbnailType = 'IMAGE';
-      break;
-    case mimeType.startsWith('audio/'):
-      thumbnailType = 'SOUND';
-      break;
-    case mimeType.startsWith('video/'):
-      thumbnailType = 'VIDEO';
-      break;
-    case mimeType.startsWith('text/'):
-    case ['application/pdf', 'application/rtf'].includes(mimeType):
-      thumbnailType = 'TEXT';
-      break;
-  }
-
-  return thumbnailType;
-};
+export const BASE_URL = 'https://api.europeana.eu/thumbnail/v3';
 
 export default (context = {}) => {
-  // TODO: remove `type` when v2 support is deprecated
-  const media = (uri, { hash, size, type } = {}) => {
-    const baseUrl = preferredAPIBaseURL({ id: 'thumbnail', baseURL: BASE_URL }, context);
+  const baseUrl = preferredAPIBaseURL({ id: 'thumbnail', baseURL: BASE_URL }, context);
+  if (!baseUrl.endsWith('/v3')) {
+    throw new Error('Only Thumbnail API v3 is supported for thumbnail URL generation.');
+  }
 
+  const media = (uri, { hash, size } = {}) => {
     if (!size) {
       size = 200;
     }
 
-    // TODO: remove when v2 support is deprecated
-    const v2 = () => {
-      if (!uri) {
-        return null;
-      }
-
-      const apiUrl = new URL(`${baseUrl}/url.json`);
-
-      apiUrl.searchParams.set('uri', uri);
-
-      apiUrl.searchParams.set('size', (`${size}`.startsWith('w') ? size : `w${size}`));
-
-      if (type) {
-        apiUrl.searchParams.set('type', type);
-      }
-
-      return apiUrl.toString();
-    };
-
-    const v3 = () => {
-      if (!hash && uri) {
-        hash = md5(uri);
-      }
-      return `${baseUrl}/${size}/${hash}`;
-    };
-
-    return baseUrl.endsWith('/v3') ? v3() : v2();
+    if (!hash && uri) {
+      hash = md5(uri);
+    }
+    return `${baseUrl}/${size}/${hash}`;
   };
 
-  // TODO: remove when v2 support is deprecated
-  const generic = (itemId, { size, type } = {}) => {
-    const uri = `${EUROPEANA_DATA_URL}/item${itemId}`;
-    return media(uri, { size, type });
-  };
-
-  // TODO: remove `type` when v2 support is deprecated
-  const edmPreview = (thumbnailApiUrl, { size, type } = {}) => {
+  const edmPreview = (thumbnailApiUrl, { size } = {}) => {
     if (!thumbnailApiUrl) {
       return null;
     }
 
     const edmPreviewUrl = new URL(thumbnailApiUrl);
 
-    // TODO: remove when v2 support is deprecated
+    // TODO: remove when v2 thumbnail URL conversion is no longer needed
     const v2 = () => {
       if (!size) {
         const sizeParam = edmPreviewUrl.searchParams.get('size');
@@ -95,11 +41,8 @@ export default (context = {}) => {
           size = sizeParam.replace('w', '');
         }
       }
-      if (!type) {
-        type = edmPreviewUrl.searchParams.get('type');
-      }
 
-      return media(edmPreviewUrl.searchParams.get('uri'), { size, type });
+      return media(edmPreviewUrl.searchParams.get('uri'), { size });
     };
 
     const v3 = () => {
@@ -116,7 +59,6 @@ export default (context = {}) => {
 
   return {
     media,
-    generic,
     edmPreview
   };
 };

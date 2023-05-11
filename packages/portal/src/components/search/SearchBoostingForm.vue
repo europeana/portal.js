@@ -35,7 +35,7 @@
 
     methods: {
       submitForm() {
-        this.$goto({
+        this.$router.push({
           path: this.$route.path,
           query: { ...this.$route.query, ...{ page: 1, boost: this.boost } }
         });
@@ -45,8 +45,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
 
   .form-inline {
     background-color: $white;

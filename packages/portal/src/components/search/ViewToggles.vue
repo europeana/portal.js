@@ -56,15 +56,15 @@
 
         this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.activeView);
 
-        this.$goto({ ...this.$route, ...{  query: { ...this.$route.query, ...{ view: this.activeView } } } });
+        this.$router.push({ ...this.$route, ...{  query: { ...this.$route.query, ...{ view: this.activeView } } } });
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
 
   .form-group {
     margin: 0;

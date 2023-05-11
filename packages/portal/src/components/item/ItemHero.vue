@@ -1,6 +1,22 @@
 <template>
   <div class="item-hero">
+    <div
+      v-if="iiifPresentationManifest"
+      class="iiif-viewer-wrapper d-flex flex-column"
+    >
+      <template
+        v-if="isMiradorLoaded"
+      >
+        <slot name="item-language-selector" />
+        <IIIFViewer
+          :uri="iiifPresentationManifest"
+          :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
+          :aria-label="$t('actions.viewDocument')"
+        />
+      </template>
+    </div>
     <ItemMediaSwiper
+      v-else
       :europeana-identifier="identifier"
       :edm-type="edmType"
       :displayable-media="media"
@@ -22,7 +38,7 @@
             />
           </div>
           <div
-            v-if="media.length !== 1"
+            v-if="!iiifPresentationManifest && (media.length !== 1)"
             class="d-flex justify-content-md-center align-items-center pagination-wrapper"
           >
             <div class="swiper-pagination" />
@@ -73,7 +89,7 @@
   import ItemEmbedCode from './ItemEmbedCode';
   import SocialShareModal from '../sharing/SocialShareModal';
   import ShareButton from '../sharing/ShareButton';
-  import WebResource from '@/plugins/europeana/web-resource';
+  import WebResource from '@/plugins/europeana/edm/WebResource';
 
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
@@ -89,7 +105,8 @@
       ShareButton,
       SocialShareModal,
       UserButtons: () => import('../account/UserButtons'),
-      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue')
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
+      IIIFViewer: () => import('../iiif/IIIFViewer.vue')
     },
 
     mixins: [
@@ -134,12 +151,31 @@
       linkForContributingAnnotation: {
         type: String,
         default: null
+      },
+      iiifPresentationManifest: {
+        type: String,
+        default: null
       }
     },
     data() {
       return {
+        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
+        isMiradorLoaded: false,
         selectedMediaItem: null,
         selectedCanvas: null
+      };
+    },
+    head() {
+      return {
+        script: [
+          {
+            hid: 'mirador',
+            src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js`,
+            defer: true, // because the child component won't be rendered til it's loaded anyway
+            callback: () => this.isMiradorLoaded = true,
+            skip: !this.iiifPresentationManifest
+          }
+        ]
       };
     },
     computed: {
@@ -168,7 +204,7 @@
         }
       },
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
+        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.forEdmIsShownAt;
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
@@ -208,10 +244,10 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/iiif';
 
   .item-hero {
-    padding-top: 2.25rem;
     padding-bottom: 1.625rem;
 
     .media-bar {

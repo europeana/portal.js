@@ -240,6 +240,6 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/masonry';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/masonry';
 </style>

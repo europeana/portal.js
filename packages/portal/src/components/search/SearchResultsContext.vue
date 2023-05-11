@@ -143,7 +143,7 @@
         return this.entityParams.id;
       },
       queryRemovalLink() {
-        return this.$path({
+        return this.localePath({
           currentPath: this.$route.path,
           params: this.$route.params,
           query: {
@@ -153,7 +153,7 @@
         });
       },
       entityRemovalLink() {
-        return this.$path({
+        return this.localePath({
           name: 'search', query: {
             query: this.$route.query?.query
           }
@@ -164,7 +164,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import '@europeana/style/scss/variables';
 
 .context-label {
   margin-bottom: 0;

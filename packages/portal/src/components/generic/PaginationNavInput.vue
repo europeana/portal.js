@@ -127,7 +127,7 @@
     methods: {
       changePaginationNav() {
         if (this.page) {
-          this.$goto(this.linkGen(this.page));
+          this.$router.push(this.linkGen(this.page));
         }
       },
 
@@ -144,6 +144,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/pagination';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/pagination';
 </style>

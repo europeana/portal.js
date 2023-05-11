@@ -61,7 +61,7 @@
         <template #galleries>
           <b-link
             class="text-decoration-none"
-            :to="$path('/galleries')"
+            :to="localePath('/galleries')"
           >
             {{ 'Europeana.eu/galleries' }}
           </b-link>
@@ -128,7 +128,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   ::v-deep #set-publication-request-modal {
 

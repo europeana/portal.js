@@ -78,7 +78,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables';
+@import '@europeana/style/scss/variables';
 
 .half-col {
   .col {

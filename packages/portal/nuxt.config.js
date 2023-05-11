@@ -13,7 +13,7 @@ import versions from './pkg-versions.js';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
+import features, { featureNotificationExpiration } from './src/features/index.js';
 
 import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
 
@@ -92,16 +92,6 @@ export default {
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
-    },
-    http: {
-      ports: {
-        http: process.env.HTTP_PORT,
-        https: process.env.HTTPS_PORT
-      },
-      sslNegotiation: {
-        enabled: featureIsEnabled(process.env.ENABLE_SSL_NEGOTIATION),
-        datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
-      }
     },
     matomo: {
       host: process.env.MATOMO_HOST,
@@ -190,9 +180,6 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: APP_SITE_NAME }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
 
@@ -211,7 +198,7 @@ export default {
   /*
   ** Global CSS
   */
-  css: ['./assets/scss/style'],
+  css: ['@europeana/style'],
 
   // BootstrapVue
   // Doc: https://bootstrap-vue.js.org/docs/
@@ -264,6 +251,7 @@ export default {
     '~/plugins/hotjar.client',
     '~/plugins/error',
     '~/plugins/link',
+    '~/plugins/axios.server',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
@@ -276,7 +264,6 @@ export default {
   buildModules: [
     '~/modules/contentful',
     '~/modules/axios-logger',
-    '~/modules/http',
     '~/modules/query-sanitiser',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
@@ -414,6 +401,7 @@ export default {
     { path: '/robots.txt', handler: '~/server-middleware/robots.txt' },
     '~/server-middleware/logging',
     '~/server-middleware/referrer-policy',
+    '~/server-middleware/content-security-policy',
     '~/server-middleware/record-json'
   ],
 
@@ -426,6 +414,10 @@ export default {
     extractCSS: false,
 
     extend(config, { isClient }) {
+      config.module.rules.push({
+        test: /\.ico(\?[a-z0-9=&.]+)?$/,
+        loader: 'file-loader'
+      });
       // Extend webpack config only for client bundle
       if (isClient) {
         // Build source maps to aid debugging in production builds

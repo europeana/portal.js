@@ -1,3 +1,4 @@
+// TODO: what is this doing, and do we still need it?
 const plugin = {
   to(path, query = {}) {
     if (path.includes('://')) {

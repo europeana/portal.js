@@ -60,7 +60,7 @@
       >
         <b-button
           data-qa="go to set link"
-          :to="$path(selectedLink)"
+          :to="localePath(selectedLink)"
           variant="primary"
         >
           {{ $t('entity.actions.viewPinned') }}
@@ -259,7 +259,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .help {
     font-size: $font-size-extrasmall;

@@ -77,7 +77,7 @@
         if (this.error.code) {
           const kebabCaseCode = kebabCase(this.error.code);
           try {
-            return require(`@/assets/img/illustrations/il-${kebabCaseCode}.svg`);
+            return require(`@europeana/style/img/illustrations/il-${kebabCaseCode}.svg`);
           } catch (e) {
             // don't fall apart just because an image is not available...
           }
@@ -98,7 +98,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .container.error-container {
     padding-bottom: 1rem;

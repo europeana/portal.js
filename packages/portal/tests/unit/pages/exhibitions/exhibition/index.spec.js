@@ -68,7 +68,7 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     },
     $t: key => key,
     $tc: () => {},
-    $path: () => '/',
+    localePath: () => '/',
     $store: {
       commit: sinon.spy()
     }

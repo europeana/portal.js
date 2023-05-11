@@ -1,9 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
+import BootstrapVue from 'bootstrap-vue';
 import { shallowMountNuxt } from '../../utils';
 import ItemRecommendations from '@/components/item/ItemRecommendations.vue';
 
 import sinon from 'sinon';
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const recommendedItems = [
   { id: '/123/abc' },
