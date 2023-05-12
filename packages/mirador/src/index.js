@@ -1,3 +1,8 @@
-import Mirador from 'mirador/dist/es/src/index';
+import Mirador from 'mirador';
+import theme from './theme.js';
 
 export default Mirador;
+
+export {
+  theme
+};

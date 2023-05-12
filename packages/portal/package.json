@@ -57,10 +57,8 @@
     "vuex": "^3.6.2",
     "weighted-random": "^0.1.0"
   },
-  "peerDependencies": {
-    "@europeana/mirador": "^1.111.0"
-  },
   "devDependencies": {
+    "@europeana/mirador": "^1.111.0",
     "@lokalise/node-api": "^8.0.0",
     "camelcase": "^6.2.1",
     "css-loader": "^4.2.0",
