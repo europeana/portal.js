@@ -87,7 +87,7 @@
                   @click="showAdditionalFilters = !showAdditionalFilters"
                 >
                   <span>{{ showAdditionalFilters ? '-' : '+' }}</span>
-                  {{ $t('facets.button.showAdditional', {'show': showAdditionalFilters ? 'hide' : 'show' }) }}
+                  {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? 'hide' : 'show' }) }}
                 </b-button>
                 <transition
                   name="fade"
