@@ -1,5 +1,7 @@
 <template>
-  <b-row>
+  <b-row
+    :id="id"
+  >
     <div
       v-for="(rule, index) in queryRules"
       :key="index"
@@ -7,6 +9,7 @@
       :data-qa="`search query builder rule ${index}`"
     >
       <SearchQueryBuilderRule
+        :id="`${id}-${index}`"
         :search-term="rule.searchTerm"
         :selected-field="rule.selectedField"
         :selected-modifier="rule.selectedModifier"
@@ -44,6 +47,12 @@
 
     components: {
       SearchQueryBuilderRule
+    },
+    props: {
+      id: {
+        type: String,
+        default: 'search-query-builder'
+      }
     },
 
     data() {

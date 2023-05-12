@@ -22,6 +22,7 @@
             <SearchQueryBuilder
               v-show="showAdvancedSearch"
               v-if="advancedSearchEnabled"
+              id="search-query-builder"
               class="d-none mb-3"
               :class="{'d-lg-block': showAdvancedSearch}"
               @show="(show) => showAdvancedSearch = show"
@@ -151,6 +152,8 @@
           v-if="advancedSearchEnabled"
         >
           <b-button
+            aria-controls="search-query-builder search-query-builder-mobile"
+            :aria-expanded="showAdvancedSearch"
             @click="toggleAdvancedSearch"
           >
             {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }}
@@ -159,6 +162,7 @@
         <SearchQueryBuilder
           v-show="showAdvancedSearch"
           v-if="advancedSearchEnabled"
+          id="search-query-builder-mobile"
           class="d-lg-none"
           @show="(show) => showAdvancedSearch = show"
         />
