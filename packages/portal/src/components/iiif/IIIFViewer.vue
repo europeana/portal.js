@@ -3,7 +3,10 @@
     class="iiif-viewer"
     data-qa="IIIF viewer"
   >
-    <div id="viewer" />
+    <div
+      v-show="isMiradorLoaded"
+      id="viewer"
+    />
   </div>
 </template>
 
@@ -38,10 +41,12 @@
         page: null,
         imageToCanvasMap: {},
         memoisedImageToCanvasMap: false,
-        mirador: null,
+        miradorActions: null,
+        miradorViewer: null,
         showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {},
-        isMobileViewport: false
+        isMobileViewport: false,
+        isMiradorLoaded: false
       };
     },
 
@@ -279,7 +284,7 @@
       },
 
       miradorWindowId() {
-        return Object.keys(this.mirador.store.getState().windows)[0];
+        return Object.keys(this.miradorViewer.store.getState().windows)[0];
       },
 
       searchService() {
@@ -301,27 +306,31 @@
         if (multiplePages) {
           if (!this.isMobileViewport) {
             const thumbnailNavigationPosition = 'far-right';
-            const actionSetThumbnailPosition = window.Mirador.actions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
-            this.mirador.store.dispatch(actionSetThumbnailPosition);
+            const actionSetThumbnailPosition = this.miradorActions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
+            this.miradorViewer.store.dispatch(actionSetThumbnailPosition);
           }
           const topMenuOptions = {
             allowTopMenuButton: true
           };
-          const actionAllowTopMenuButton = window.Mirador.actions.updateWindow(this.miradorWindowId, topMenuOptions);
-          this.mirador.store.dispatch(actionAllowTopMenuButton);
+          const actionAllowTopMenuButton = this.miradorActions.updateWindow(this.miradorWindowId, topMenuOptions);
+          this.miradorViewer.store.dispatch(actionAllowTopMenuButton);
         }
       }
     },
 
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
-      this.initMirador();
+      import('@europeana/mirador').then(this.initMirador);
     },
 
     methods: {
-      initMirador() {
-        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
-        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
+      initMirador(Mirador) {
+        this.isMiradorLoaded = true;
+        this.$nextTick(() => {
+          this.miradorViewer = Mirador.default.viewer(this.miradorViewerOptions);
+          this.miradorActions = Mirador.default.actions;
+          this.miradorStoreManifestJsonUnsubscriber = this.miradorViewer.store.subscribe(this.miradorStoreManifestJsonListener);
+        });
       },
 
       versioned(fn, args) {
@@ -334,9 +343,9 @@
 
       miradorStoreManifestJsonListener() {
         // only takes one window into account at the moment
-        const miradorWindow = Object.values(this.mirador.store.getState().windows)[0];
+        const miradorWindow = Object.values(this.miradorViewer.store.getState().windows)[0];
         if (miradorWindow) {
-          const miradorManifest = this.mirador.store.getState().manifests[miradorWindow.manifestId];
+          const miradorManifest = this.miradorViewer.store.getState().manifests[miradorWindow.manifestId];
           if (miradorManifest) {
             this.manifest = miradorManifest.json;
             if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
@@ -487,25 +496,25 @@
         }
 
         if (this.searchQuery) {
-          const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
+          const companionWindowId = Object.keys(this.miradorViewer.store.getState().companionWindows)[0];
           let searchId = this.searchService?.id || this.searchService?.['@id'];
           if (!searchId) {
             return;
           }
           searchId = `${searchId}?q=${this.searchQuery}`;
 
-          const actionSearch = window.Mirador.actions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
-          this.mirador.store.dispatch(actionSearch);
+          const actionSearch = this.miradorActions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
+          this.miradorViewer.store.dispatch(actionSearch);
         }
 
-        const actionShow = (options) => window.Mirador.actions.updateWindow(this.miradorWindowId, options);
+        const actionShow = (options) => this.miradorActions.updateWindow(this.miradorWindowId, options);
         if (!this.isMobileViewport || this.searchQuery) {
           const openSideBarOptions = { allowWindowSideBar: true, sideBarOpen: true };
-          this.mirador.store.dispatch(actionShow(openSideBarOptions));
+          this.miradorViewer.store.dispatch(actionShow(openSideBarOptions));
           this.showAnnotations = true;
         } else if (this.isMobileViewport) {
           const allowSideBarOptions = { allowWindowSideBar: true };
-          this.mirador.store.dispatch(actionShow(allowSideBarOptions));
+          this.miradorViewer.store.dispatch(actionShow(allowSideBarOptions));
         }
       },
 

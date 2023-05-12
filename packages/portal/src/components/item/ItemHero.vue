@@ -4,16 +4,12 @@
       v-if="iiifPresentationManifest"
       class="iiif-viewer-wrapper d-flex flex-column"
     >
-      <template
-        v-if="isMiradorLoaded"
-      >
-        <slot name="item-language-selector" />
-        <IIIFViewer
-          :uri="iiifPresentationManifest"
-          :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
-          :aria-label="$t('actions.viewDocument')"
-        />
-      </template>
+      <slot name="item-language-selector" />
+      <IIIFViewer
+        :uri="iiifPresentationManifest"
+        :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
+        :aria-label="$t('actions.viewDocument')"
+      />
     </div>
     <ItemMediaSwiper
       v-else
@@ -159,23 +155,8 @@
     },
     data() {
       return {
-        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
-        isMiradorLoaded: false,
         selectedMediaItem: null,
         selectedCanvas: null
-      };
-    },
-    head() {
-      return {
-        script: [
-          {
-            hid: 'mirador',
-            src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js`,
-            defer: true, // because the child component won't be rendered til it's loaded anyway
-            callback: () => this.isMiradorLoaded = true,
-            skip: !this.iiifPresentationManifest
-          }
-        ]
       };
     },
     computed: {
