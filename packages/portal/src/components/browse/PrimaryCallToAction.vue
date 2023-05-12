@@ -72,10 +72,7 @@
   .xxl-page.white-page .primary-cta {
     @media (min-width: $bp-large) {
       width: calc(50% + 100px);
-    }
-
-    @media (min-width: ($bp-wqhd)) {
-      width: calc(33% + 100px);
+      max-width: calc($max-text-column-width + 100px);
     }
   }
 </style>
