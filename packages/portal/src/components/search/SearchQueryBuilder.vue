@@ -4,6 +4,7 @@
       v-for="(rule, index) in queryRules"
       :key="index"
       class="d-flex align-items-center"
+      :data-qa="`search query builder rule ${index}`"
     >
       <SearchQueryBuilderRule
         :search-term="rule.searchTerm"
@@ -14,16 +15,23 @@
         @change="(field, value) => rule[field] = value"
       />
       <b-button
+        :data-qa="`clear rule button ${index}`"
         :disabled="disableClearRuleButton"
         @click="clearRule(index)"
       >
         {{ $t('search.advanced.actions.clear') }}
       </b-button>
     </div>
-    <b-button @click="searchWithBuildQueries">
+    <b-button
+      data-qa="search rules button"
+      @click="searchWithBuildQueries"
+    >
       {{ $t('search.advanced.actions.search') }}
     </b-button>
-    <b-button @click="addNewRule">
+    <b-button
+      data-qa="add rule button"
+      @click="addNewRule"
+    >
       {{ $t('search.advanced.actions.add') }}
     </b-button>
   </b-row>
@@ -43,7 +51,7 @@
         queryRules: [{}],
         searchFields: [
           // TODO: replace values with query syntax
-          { value: null, text: this.$i18n.t('search.advanced.selectOne') },
+          { value: null, text: this.$t('search.advanced.selectOne') },
           { value: 'a', text: this.$t('search.advanced.fields.anyField') },
           { value: 'b', text: this.$t('search.advanced.fields.subject') },
           { value: 'c', text: this.$t('search.advanced.fields.title') },
@@ -75,13 +83,13 @@
 
     watch: {
       currentURLQuery(newVal) {
-        this.$store.commit('search/setShowAdvancedSearch', !!newVal);
+        this.$emit('show', !!newVal);
       }
     },
 
     mounted() {
       if (this.currentURLQuery) {
-        this.$store.commit('search/setShowAdvancedSearch', true);
+        this.$emit('show', true);
       }
     },
 
@@ -90,9 +98,7 @@
         this.queryRules.push({});
       },
       clearRule(index) {
-        if (this.queryRules.length === 1 && index === 0) {
-          this.queryRules = [{}];
-        } else {
+        if (this.queryRules.length > 1) {
           this.queryRules.splice(index, 1);
         }
       },

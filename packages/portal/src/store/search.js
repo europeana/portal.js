@@ -6,7 +6,6 @@ export default {
     showFiltersSheet: false,
     showFiltersToggle: false,
     showSearchBar: false,
-    showAdvancedSearch: false,
     view: null
   }),
 
@@ -37,9 +36,6 @@ export default {
     },
     setShowFiltersToggle(state, value) {
       state.showFiltersToggle = value;
-    },
-    setShowAdvancedSearch(state, value) {
-      state.showAdvancedSearch = value;
     }
   },
 
