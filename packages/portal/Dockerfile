@@ -13,6 +13,7 @@ RUN mkdir -p packages/portal
 COPY package*.json ./
 COPY packages/portal/package*.json ./packages/portal/
 COPY packages/style ./packages/style
+COPY packages/mirador ./packages/mirador
 
 RUN npm ci -w packages/portal
 
