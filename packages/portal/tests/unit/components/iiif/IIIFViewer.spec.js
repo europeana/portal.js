@@ -4,52 +4,55 @@ import nock from 'nock';
 import sinon from 'sinon';
 
 import IIIFViewer from '@/components/iiif/IIIFViewer.vue';
-
-const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFViewer, {
-  propsData: {
-    uri: 'http://example.org/iiif/manifest.json',
-    ...propsData
-  },
-  data() {
-    return {
-      ...data
-    };
-  },
-  mocks: {
-    $apis: {
-      record: {
-        mediaProxyUrl: (url, itemId) => `Proxy ${itemId} ${url}`
+const mockMiradorModule = {
+  default: {
+    viewer: sinon.stub().returns({
+      store: {
+        dispatch: sinon.stub(),
+        getState: sinon.stub().returns({
+          windows: { '001': {} },
+          companionWindows: ['companionWindowId001']
+        }),
+        subscribe: sinon.stub()
       }
-    },
-    $axios: axios,
-    $i18n: {
-      locale: 'en'
+    }),
+    actions: {
+      fetchSearch: sinon.stub(),
+      setWindowThumbnailPosition: sinon.stub(),
+      updateWindow: sinon.stub()
     }
-  }
-});
+  },
+  theme: {}
+};
+
+const factory = ({ propsData = {}, data = {} } = {}) => {
+  sinon.stub(IIIFViewer.methods, 'loadMirador').resolves(mockMiradorModule);
+  return shallowMountNuxt(IIIFViewer, {
+    propsData: {
+      uri: 'http://example.org/iiif/manifest.json',
+      ...propsData
+    },
+    data() {
+      return {
+        ...data
+      };
+    },
+    mocks: {
+      $apis: {
+        record: {
+          mediaProxyUrl: (url, itemId) => `Proxy ${itemId} ${url}`
+        }
+      },
+      $axios: axios,
+      $i18n: {
+        locale: 'en'
+      }
+    }
+  });
+};
 
 describe('components/iiif/IIIFViewer.vue', () => {
-  beforeEach(() => {
-    window.Mirador = {
-      viewer: sinon.stub().returns({
-        store: {
-          dispatch: sinon.stub(),
-          getState: sinon.stub().returns({ windows: { '001': {} },
-            companionWindows: ['companionWindowId001'] }),
-          subscribe: sinon.stub()
-        }
-      }),
-      actions: {
-        fetchSearch: sinon.stub(),
-        setWindowThumbnailPosition: sinon.stub(),
-        updateWindow: sinon.stub()
-      }
-    };
-  });
-
-  afterEach(() => {
-    sinon.restore();
-  });
+  afterEach(sinon.restore);
 
   describe('computed', () => {
     describe('itemId', () => {
@@ -635,7 +638,7 @@ describe('components/iiif/IIIFViewer.vue', () => {
               type: 'mirador/RECEIVE_ANNOTATION' };
             wrapper.vm.postprocessMiradorRequest(url, action);
 
-            expect(window.Mirador.actions.updateWindow.calledWith(
+            expect(mockMiradorModule.default.actions.updateWindow.calledWith(
               wrapper.vm.miradorWindowId, {
                 allowWindowSideBar: true,
                 sideBarOpen: true
@@ -657,7 +660,7 @@ describe('components/iiif/IIIFViewer.vue', () => {
               type: 'mirador/RECEIVE_ANNOTATION' };
             wrapper.vm.postprocessMiradorRequest(url, action);
 
-            expect(window.Mirador.actions.updateWindow.calledWith(
+            expect(mockMiradorModule.default.actions.updateWindow.calledWith(
               wrapper.vm.miradorWindowId, {
                 allowWindowSideBar: true
               })).toBe(true);
@@ -681,7 +684,7 @@ describe('components/iiif/IIIFViewer.vue', () => {
 
               wrapper.vm.postprocessMiradorRequest(url, action);
 
-              expect(window.Mirador.actions.updateWindow.calledWith(
+              expect(mockMiradorModule.default.actions.updateWindow.calledWith(
                 wrapper.vm.miradorWindowId, {
                   allowWindowSideBar: true,
                   sideBarOpen: true
@@ -707,8 +710,8 @@ describe('components/iiif/IIIFViewer.vue', () => {
           wrapper.vm.manifest.sequences = [{ canvases: [{}] }, { canvases: [{}] }];
           await wrapper.vm.$nextTick();
 
-          expect(wrapper.vm.mirador.store.dispatch.calledWith(window.Mirador.actions.setWindowThumbnailPosition(wrapper.vm.miradorWindowId, 'far-right'))).toBe(true);
-          expect(wrapper.vm.mirador.store.dispatch.calledWith(window.Mirador.actions.updateWindow(wrapper.vm.miradorWindowId, { allowTopMenuButton: true }))).toBe(true);
+          expect(wrapper.vm.miradorViewer.store.dispatch.calledWith(mockMiradorModule.default.actions.setWindowThumbnailPosition(wrapper.vm.miradorWindowId, 'far-right'))).toBe(true);
+          expect(wrapper.vm.miradorViewer.store.dispatch.calledWith(mockMiradorModule.default.actions.updateWindow(wrapper.vm.miradorWindowId, { allowTopMenuButton: true }))).toBe(true);
         });
       });
     });

@@ -136,6 +136,9 @@
 
     watch: {
       numberOfPages(newVal) {
+        if (!this.miradorViewer?.store) {
+          return;
+        }
         const multiplePages = newVal > 1;
         if (multiplePages) {
           if (!this.isMobileViewport) {
@@ -154,10 +157,14 @@
 
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
-      import('@europeana/mirador').then(this.initMirador);
+      this.loadMirador().then(this.initMirador);
     },
 
     methods: {
+      loadMirador() {
+        return import('@europeana/mirador');
+      },
+
       initMirador(Mirador) {
         this.isMiradorLoaded = true;
         this.$nextTick(() => {

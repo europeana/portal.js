@@ -13,7 +13,6 @@ export default {
     'text'
   ],
   moduleFileExtensions: [
-    'cjs',
     'js',
     'json',
     'mjs',
