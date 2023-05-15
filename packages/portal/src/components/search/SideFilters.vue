@@ -13,6 +13,7 @@
     >
       <section role="search">
         <client-only>
+          <slot />
           <b-row
             class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
           >
@@ -86,7 +87,7 @@
                   @click="showAdditionalFilters = !showAdditionalFilters"
                 >
                   <span>{{ showAdditionalFilters ? '-' : '+' }}</span>
-                  {{ $t('facets.button.showAdditional', {'show': showAdditionalFilters ? 'hide' : 'show' }) }}
+                  {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? 'hide' : 'show' }) }}
                 </b-button>
                 <transition
                   name="fade"
