@@ -15,10 +15,6 @@
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
 
-  // NOTE: this component assumes that Mirador has already been loaded, e.g. by
-  //       a parent Vue. This is for performance optimisation reasons, so that
-  //       the script can be loaded (client-side) first before the parent
-  //       then renders this component.
   export default {
     name: 'IIIFViewer',
 
