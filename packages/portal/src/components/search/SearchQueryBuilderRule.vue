@@ -18,7 +18,7 @@
         id="select-field"
         :value="selectedField"
         :options="searchFields"
-        @input="(value) => $emit('change', 'selectedField', value)"
+        @input="(value) => handleFieldInput(value)"
       />
     </b-form-group>
     <b-form-group
@@ -39,7 +39,7 @@
         id="select-modifier"
         :value="selectedModifier"
         :options="availableModifiers"
-        @input="(value) => $emit('change', 'selectedModifier', value)"
+        @input="(value) => handleModifierInput(value)"
       />
     </b-form-group>
     <b-form-group
@@ -48,7 +48,7 @@
     >
       <b-form-input
         id="search-term"
-        :value="displaySearchTerm"
+        :value="searchTerm"
         @input="(value) => handleTermInput(value)"
       />
     </b-form-group>
@@ -102,17 +102,18 @@
       },
       availableModifiers() {
         return this.selectedField == 'anyField' ? [this.modifiers.find((mod) => mod.value === 'is')] : this.modifiers;
-      },
-      // TODO: use a decorator instead?
-      displaySearchTerm() {
-        return (this.searchTerm || '').replace('\ ', ' ');
       }
     },
     methods: {
       handleTermInput(value) {
-        this.$emit('change', 'searchTerm', value.replace('\ ', ' '));
+        this.$emit('change', 'searchTerm', value);
+      },
+      handleFieldInput(value) {
+        this.$emit('change', 'selectedField', value);
+      },
+      handleModifierInput(value) {
+        this.$emit('change', 'selectedModifier', value);
       }
-      // TODO: handle field selection.
     }
   };
 </script>

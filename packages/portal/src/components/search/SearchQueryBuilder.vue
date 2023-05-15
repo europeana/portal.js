@@ -16,7 +16,7 @@
         {{ $t('search.advanced.actions.clear') }}
       </b-button>
     </div>
-    <b-button @click="searchWithBuildQueries">
+    <b-button @click="searchWithBuiltQueries">
       {{ $t('search.advanced.actions.search') }}
     </b-button>
     <b-button @click="addNewRule">
@@ -57,13 +57,14 @@
           { name: 'is', regex: /^[^-].*:\s?"(.*)"$/, termPrefix: '"', termSuffix: '"'},
           { name: 'isNot', regex: /^-.*:\s?"(.*)"$/, negatesField: true, termPrefix: '"', termSuffix: '"' },
           { name: 'startsWith', regex: /^.*:\s?[^\*](.*)\*$/, termSuffix: '*' },
-          { name: 'endsWith', regex: /^.*:\s?\*(.*)[^\*]$/, termPrefix: '"' }
+          { name: 'endsWith', regex: /^.*:\s?\*(.*)[^\*]$/, termPrefix: '*' }
         ]
       };
     },
 
     computed: {
       currentURLQuery() {
+        // TODO: use decodeURI un-escaping here?
         return this.$route.query.query;
       },
       disableClearRuleButton() {
@@ -105,7 +106,7 @@
         const allFieldQuery = nonRecognizedParts.join(' AND ');
         this.queryRules = recognizedParts.map((part) => this.ruleForQueryPart(part)).concat(allFieldQuery ? [{ selectedField: 'anyField', selectedModifier: 'is', searchTerm: allFieldQuery }] : []);
       },
-      // TODO: this duplicates lookups that happen during parsing in the queryParts property.
+      // TODO: this duplicates lookups that happen during parsing in parseQueryRulesFromUrl.
       // instead of partioning then calling this, refactor to build rules objects straight away?
       ruleForQueryPart(rule) {
         const ruleObject = {};
@@ -114,9 +115,28 @@
           return rule.match(modifier.regex)
         });
         ruleObject.selectedModifier = applicableModifier.name;
-        ruleObject.searchTerm = applicableModifier.regex.exec(rule)[1];
+        ruleObject.searchTerm = this.unescapeTerm(applicableModifier.regex.exec(rule)[1]);
 
         return ruleObject;
+      },
+      // TODO: Add full (un)escaping; rule specific escaping?
+      unescapeTerm(term) {
+        return term.replaceAll('\\ ', ' ');
+      },
+      escapeTerm(term) {
+        return term.replaceAll(' ', '\\ ');
+      },
+      async searchWithBuiltQueries() {
+        // TODO: evaluate where the routing happens. Could it go through the search interface.
+        // TODO: Add matomo tracking event here?
+        const query = this.queryFromRules();
+        const baseQuery = this.$route.query;
+        const newRouteQuery = { ...this.$route.query, ...{ page: 1, query } };
+        const newRoute = { path: this.$route.path, query: newRouteQuery };
+        await this.$router.push(newRoute);
+      },
+      queryFromRules() {
+        return this.queryRules.map((rule) => this.queryPartFromRule(rule)).join(' AND ');
       },
       queryPartFromRule(rule) {
         if (rule.selectedField === 'anyField') {
@@ -124,22 +144,11 @@
         }
         const activeModifier = this.recognizedTextModifiers.find((modifier) => modifier.name === rule.selectedModifier);
         const activeField = this.recognizedFields.find((field) => field.name === rule.selectedField);
+
         if (this.recognizedTextModifiers.find((modifier) => modifier.name === rule.selectedModifier).negatesField) {
-          return `-${activeField.field}:${activeModifier.termPrefix}${rule.searchTerm}${activeModifier.termPrefix}`;
+          return `-${activeField.field}:${activeModifier.termPrefix}${this.escapeTerm(rule.searchTerm)}${activeModifier.termPrefix}`;
         }
-        return `${activeField.field}:${activeModifier.termPrefix}${rule.searchTerm}${activeModifier.termPrefix}`;
-      },
-      queryFromRules() {
-        return this.queryRules.map((rule) => this.queryPartFromRule(rule)).join(' AND ');
-      },
-      async searchWithBuildQueries() {
-        // TODO: evaluate how to set this. Could it go through the search interface.
-        // TOOD: Add matomo tracking event here?
-        const query = this.queryFromRules();
-        const baseQuery = this.$route.query;
-        const newRouteQuery = { ...this.$route.query, ...{ page: 1, query } };
-        const newRoute = { path: this.$route.path, query: newRouteQuery };
-        await this.$router.push(newRoute);
+        return `${activeField.field}:${activeModifier.termPrefix}${this.escapeTerm(rule.searchTerm)}${activeModifier.termPrefix}`;
       }
     }
   };

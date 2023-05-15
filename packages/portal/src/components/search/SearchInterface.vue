@@ -297,7 +297,7 @@
       },
       showAdvancedSearch() {
         // TODO: Use a url param that specifies the advanced search is active/open?
-        return this.$store.state.search.showAdvancedSearch;
+        return true;//this.$store.state.search.showAdvancedSearch;
       },
       routeQueryView() {
         return this.$route.query.view;
