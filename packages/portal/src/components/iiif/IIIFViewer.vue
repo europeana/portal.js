@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div
+    class="iiif-viewer"
+    data-qa="IIIF viewer"
+  >
     <div id="viewer" />
   </div>
 </template>
@@ -9,40 +12,36 @@
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
 
+  // NOTE: this component assumes that Mirador has already been loaded, e.g. by
+  //       a parent Vue. This is for performance optimisation reasons, so that
+  //       the script can be loaded (client-side) first before the parent
+  //       then renders this component.
   export default {
-    name: 'IIIFPage',
+    name: 'IIIFViewer',
 
-    layout: 'minimal',
+    props: {
+      uri: {
+        type: String,
+        required: true
+      },
 
-    asyncData({ query }) {
-      return {
-        uri: query.uri,
-        searchQuery: query.query
-      };
+      searchQuery: {
+        type: String,
+        default: null
+      }
     },
 
     data() {
       return {
         manifest: null,
         manifestAnnotationTextGranularities: [],
-        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist',
         page: null,
         imageToCanvasMap: {},
+        memoisedImageToCanvasMap: false,
         mirador: null,
         showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {},
         isMobileViewport: false
-      };
-    },
-
-    head() {
-      return {
-        meta: [
-          { hid: 'title', name: 'title', content: 'IIIF' }
-        ],
-        script: [
-          { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
-        ]
       };
     },
 
@@ -286,6 +285,13 @@
       searchService() {
         return [].concat(this.manifest?.service || [])
           .find((service) => service['@context'] === 'http://iiif.io/api/search/1/context.json');
+      },
+
+      itemId() {
+        if (!this.urlIsForEuropeanaPresentationAPI(this.uri)) {
+          return null;
+        }
+        return new URL(this.uri).pathname.replace('/presentation', '').replace('/manifest', '');
       }
     },
 
@@ -309,14 +315,15 @@
 
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
-
-      this.$nextTick(() => {
-        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
-        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
-      });
+      this.initMirador();
     },
 
     methods: {
+      initMirador() {
+        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
+        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
+      },
+
       versioned(fn, args) {
         const versionedFunction = `${fn}${this.iiifPresentationApiVersion}`;
         if (typeof this[versionedFunction] !== 'function') {
@@ -359,6 +366,7 @@
       // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorReceiveManifest(url, action) {
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
+          this.proxyProviderMedia(action.manifestJson);
           this.addAnnotationTextGranularityFilterToManifest(action.manifestJson);
         }
       },
@@ -390,6 +398,19 @@
           return 3;
         } else {
           return undefined;
+        }
+      },
+
+      // Europeana-only
+      proxyProviderMedia(manifestJson) {
+        for (const canvas of (manifestJson.items || [])) {
+          for (const annotationPage of (canvas.items || [])) {
+            for (const annotation of (annotationPage.items || [])) {
+              if (annotation.motivation === 'painting') {
+                annotation.body.id = this.$apis.record.mediaProxyUrl(annotation.body.id, this.itemId);
+              }
+            }
+          }
         }
       },
 
@@ -489,7 +510,11 @@
       },
 
       memoiseImageToCanvasMap() {
-        return this.versioned('memoiseImageToCanvasMap', arguments);
+        if (this.memoisedImageToCanvasMap) {
+          return;
+        }
+        this.versioned('memoiseImageToCanvasMap', arguments);
+        this.memoisedImageToCanvasMap = true;
       },
 
       memoiseImageToCanvasMap2() {
@@ -518,8 +543,11 @@
 
       canvasForImage(imageId) {
         const splitImageId = imageId.split('#');
-        if (this.imageToCanvasMap[splitImageId[0]]) {
-          return [this.imageToCanvasMap[splitImageId[0]], splitImageId[1]].join('#');
+        const imageUri = this.urlIsForEuropeanaPresentationAPI(this.uri) ?
+          this.$apis.record.mediaProxyUrl(splitImageId[0], this.itemId) :
+          splitImageId[0];
+        if (this.imageToCanvasMap[imageUri]) {
+          return [this.imageToCanvasMap[imageUri], splitImageId[1]].join('#');
         } else {
           return null;
         }

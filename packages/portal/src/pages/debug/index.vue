@@ -95,7 +95,7 @@
     methods: {
       submitForm() {
         this.$store.commit('debug/updateSettings', this.settings);
-        this.$goto(this.redirect || '/');
+        this.$router.push(this.redirect || '/');
       }
     }
   };

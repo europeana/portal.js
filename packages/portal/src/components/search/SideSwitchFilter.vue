@@ -49,7 +49,7 @@
        * Value to which the switch is set
        */
       value: {
-        type: String,
+        type: [String, Array],
         default: null
       },
 

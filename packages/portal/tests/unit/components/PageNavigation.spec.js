@@ -11,9 +11,8 @@ const factory = () => shallowMount(PageNavigation, {
   mocks: {
     $store: { state: { auth: { loggedIn: false } } },
     $t: (key) => key,
-    $path: code => window.location.href + code,
-    $route: { fullPath: '/fr' },
-    localePath: path => path
+    localePath: code => window.location.href + code,
+    $route: { fullPath: '/fr' }
   }
 });
 

@@ -13,13 +13,6 @@
     >
       <section role="search">
         <client-only>
-          <b-row>
-            <b-button
-              @click="toggleAdvancedSearch"
-            >
-              {{ $t('search.advanced.show', {'show': showAdvancedSearch ? 'hide' : 'show' }) }}
-            </b-button>
-          </b-row>
           <slot />
           <b-row
             class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
@@ -27,7 +20,7 @@
             <h2
               class="filters-title"
             >
-              {{ $t('filterResults') }}
+              {{ filtersTitle }}
             </h2>
             <button
               v-if="hasResettableFilters"
@@ -71,7 +64,7 @@
                   @dateFilter="dateFilterSelected"
                 />
                 <SideFacetDropdown
-                  v-for="facet in filterableFacets"
+                  v-for="facet in defaultFilterableFacets"
                   :key="facet.name"
                   :name="facet.name"
                   :type="facetDropdownType(facet.name)"
@@ -85,17 +78,52 @@
                   :api-options="apiOptions"
                   @changed="changeFacet"
                 />
-                <SideSwitchFilter
-                  v-if="contentTierFacetSwitch"
-                  :value="filters.contentTier"
-                  name="contentTier"
-                  :label="$t('facets.contentTier.options.0')"
-                  checked-value="&quot;0&quot;"
-                  :unchecked-value="null"
-                  :default-value="null"
-                  :collection="collection"
-                  @changed="changeFacet"
-                />
+                <b-button
+                  v-if="advancedSearchEnabled"
+                  variant="link"
+                  class="search-toggle"
+                  aria-controls="additional-filters"
+                  :aria-expanded="showAdditionalFilters"
+                  @click="showAdditionalFilters = !showAdditionalFilters"
+                >
+                  <span>{{ showAdditionalFilters ? '-' : '+' }}</span>
+                  {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? 'hide' : 'show' }) }}
+                </b-button>
+                <transition
+                  name="fade"
+                >
+                  <div
+                    v-show="showAdditionalFilters || !advancedSearchEnabled"
+                    id="additional-filters"
+                  >
+                    <SideFacetDropdown
+                      v-for="facet in additionalFilterableFacets"
+                      :key="facet.name"
+                      :name="facet.name"
+                      :type="facetDropdownType(facet.name)"
+                      :selected="filters[facet.name]"
+                      :static-fields="facet.staticFields"
+                      :search="facet.search"
+                      :group-by="sideFacetDropdownGroupBy(facet.name)"
+                      :aria-label="facet.name"
+                      :collection="collection"
+                      :api-params="apiParams"
+                      :api-options="apiOptions"
+                      @changed="changeFacet"
+                    />
+                    <SideSwitchFilter
+                      v-if="contentTierFacetSwitch"
+                      :value="filters.contentTier"
+                      name="contentTier"
+                      :label="$t('facets.contentTier.options.0')"
+                      checked-value="&quot;0&quot;"
+                      :unchecked-value="null"
+                      :default-value="null"
+                      :collection="collection"
+                      @changed="changeFacet"
+                    />
+                  </div>
+                </transition>
               </div>
             </b-col>
           </b-row>
@@ -154,6 +182,9 @@
         DEFAULT_FACET_NAMES: [
           'TYPE',
           'REUSABILITY',
+          'contentTier'
+        ],
+        ADDITIONAL_FACET_NAMES: [
           'COUNTRY',
           'LANGUAGE',
           'PROVIDER',
@@ -162,9 +193,9 @@
           'IMAGE_ASPECTRATIO',
           'IMAGE_SIZE',
           'MIME_TYPE',
-          'RIGHTS',
-          'contentTier'
+          'RIGHTS'
         ],
+        COLLECTION_FACET_NAME: 'collection',
         SEARCHABLE_FACETS: [
           'COUNTRY',
           'LANGUAGE',
@@ -177,18 +208,19 @@
           'proxy_dc_format.en',
           'proxy_dcterms_medium.en'
         ],
-        hideFilterSheet: true
+        hideFilterSheet: true,
+        showAdditionalFilters: false
       };
     },
     computed: {
+      advancedSearchEnabled() {
+        return this.$features.advancedSearch;
+      },
       collectionFacetEnabled() {
         return this.$store.state.search.collectionFacetEnabled;
       },
       showFiltersSheet() {
         return this.$store.state.search.showFiltersSheet;
-      },
-      showAdvancedSearch() {
-        return this.$store.state.search.showAdvancedSearch;
       },
       // TODO: do not assume filters are fielded, e.g. `qf=whale`
       filters() {
@@ -227,8 +259,14 @@
       themeSpecificFacetNames() {
         return (this.theme?.facets || []).map((facet) => facet.field);
       },
-      facetNames() {
+      defaultFacetNames() {
         return this.themeSpecificFacetNames.concat(this.DEFAULT_FACET_NAMES);
+      },
+      additionalFacetNames() {
+        return this.ADDITIONAL_FACET_NAMES;
+      },
+      facetNames() {
+        return this.defaultFacetNames.concat(this.additionalFacetNames);
       },
       filterableFacets() {
         let facets = this.facetNames.map(facetName => ({
@@ -238,7 +276,7 @@
 
         if (this.collectionFacetEnabled) {
           facets.unshift({
-            name: 'collection',
+            name: this.COLLECTION_FACET_NAME,
             staticFields: themes.map(theme => theme.qf)
           });
         }
@@ -248,6 +286,17 @@
         }
 
         return facets;
+      },
+      defaultFilterableFacets() {
+        const defaultAndCollectionFacetNames = [this.COLLECTION_FACET_NAME].concat(this.defaultFacetNames);
+        const defaultFacets = this.filterableFacets.filter(facet => defaultAndCollectionFacetNames.includes(facet.name));
+
+        return defaultFacets;
+      },
+      additionalFilterableFacets() {
+        const additionalFacets = this.filterableFacets.filter(facet => this.additionalFacetNames.includes(facet.name));
+
+        return additionalFacets;
       },
       contentTierFacetSwitch() {
         return !this.collection && !this.$store.getters['entity/id'];
@@ -302,6 +351,22 @@
       },
       hasResettableFilters() {
         return this.resettableFilters.length > 0;
+      },
+      additionalFilterApplied() {
+        return Object.keys(this.filters).some(filter => this.additionalFacetNames.includes(filter));
+      },
+      contentTierFacetSwitchApplied() {
+        return this.contentTierFacetSwitch && this.filters.contentTier;
+      },
+      selectedFiltersCount() {
+        return Object.keys(this.filters).length;
+      },
+      filtersTitle() {
+        if (this.advancedSearchEnabled) {
+          return this.$t('searchFilters', { count: this.selectedFiltersCount ? `(${this.selectedFiltersCount})` : '' });
+        } else {
+          return this.$t('filterResults');
+        }
       }
     },
     watch: {
@@ -315,13 +380,17 @@
     },
     created() {
       this.$store.commit('search/setShowFiltersToggle', true);
+
+      if (this.additionalFilterApplied || this.contentTierFacetSwitchApplied) {
+        this.showAdditionalFilters = true;
+      }
     },
     beforeDestroy() {
       this.$store.commit('search/setShowFiltersToggle', false);
     },
     methods: {
       facetDropdownType(name) {
-        return name === 'collection' || name === 'api' ? 'radio' : 'checkbox';
+        return name === this.COLLECTION_FACET_NAME || name === 'api' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
@@ -343,16 +412,16 @@
         }
 
         // Remove collection-specific filters when collection is changed
-        if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !this.collection) {
+        if (Object.prototype.hasOwnProperty.call(selected, this.COLLECTION_FACET_NAME) || !this.collection) {
           for (const name in filters) {
-            if (name !== 'collection' && !this.DEFAULT_FACET_NAMES.includes(name) && this.resettableFilters.includes(name)) {
+            if (name !== this.COLLECTION_FACET_NAME && !this.DEFAULT_FACET_NAMES.concat(this.ADDITIONAL_FACET_NAMES).includes(name) && this.resettableFilters.includes(name)) {
               filters[name] = [];
             }
           }
         }
 
         // Remove filters incompatible with change of collection filter
-        if (Object.prototype.hasOwnProperty.call(selected, 'collection') && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
+        if (Object.prototype.hasOwnProperty.call(selected, this.COLLECTION_FACET_NAME) && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
           filters['contentTier'] = [];
         }
 
@@ -388,7 +457,7 @@
       },
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
-        this.$goto(this.$path({ ...this.route, ...{ query } }));
+        this.$router.push(this.localePath({ ...this.route, ...{ query } }));
         if (queryUpdates.qf) {
           queryUpdates.qf.forEach(filter =>
             this.$matomo && this.$matomo.trackEvent('Filters', 'Filter selected', filter)
@@ -443,9 +512,6 @@
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
       },
-      toggleAdvancedSearch() {
-        this.$store.commit('search/setShowAdvancedSearch', !this.$store.state.search.showAdvancedSearch);
-      },
       sideFacetDropdownGroupBy(facetName) {
         if (facetName === 'RIGHTS') {
           return [
@@ -479,6 +545,7 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icons';
   @import '@europeana/style/scss/mixins';
+  @import '@europeana/style/scss/transitions';
 
   .filters-title {
     font-size: $font-size-small;
@@ -489,6 +556,23 @@
     @media (min-width: $bp-4k) {
       font-size: $font-size-small-4k;
       margin: calc(1.5 * 1.25rem) 1.5rem;
+    }
+  }
+
+  .search-toggle {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: $font-size-small;
+    padding: 0;
+    margin-bottom: 1.25rem;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
     }
   }
 

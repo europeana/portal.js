@@ -9,8 +9,10 @@ localVue.directive('visible-on-scroll', () => { });
 const factory = () => shallowMount(PageHeader, {
   localVue,
   mocks: {
-    $t: (key) => key,
-    $path: (code) => window.location.href + code,
+    $t: (key) => {
+      return `TRANSLATED: ${key}`;
+    },
+    localePath: (code) => window.location.href + code,
     $store: {
       commit(mutation, payload) {
         if (mutation === 'search/setShowSearchBar') {

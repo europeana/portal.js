@@ -1,39 +1,25 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueRouter from 'vue-router';
 import sinon from 'sinon';
 
 import SideFilters from '@/components/search/SideFilters.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueRouter);
 
 const factory = (options = {}) => {
-  const router = new VueRouter({
-    routes: [
-      {
-        path: '/search',
-        name: 'search'
-      },
-      {
-        path: '/item/*',
-        name: 'item-all'
-      }
-    ]
-  });
-
   return shallowMount(SideFilters, {
     localVue,
     attachTo: document.body,
     mocks: {
-      $t: (key) => key,
+      $t: (key, arg) => arg?.count ? key + '-' + arg.count : key,
       $tc: (key) => key,
       $te: () => true,
-      $features: { entityHeaderCards: true },
-      $path: () => '/',
-      $goto: () => null,
+      $features: {},
+      localePath: () => '/',
       ...options.mocks,
+      $route: { query: {} },
+      $router: { push: sinon.spy() },
       $store: {
         commit: () => sinon.spy(),
         getters: {
@@ -49,27 +35,52 @@ const factory = (options = {}) => {
         }
       }
     },
-    router,
     propsData: options.propsData
   });
 };
 
 describe('components/search/SideFilters', () => {
   describe('template', () => {
-    it('has a level 2 heading', () => {
-      const wrapper = factory();
-
-      const h2 = wrapper.find('h2');
-
-      expect(h2.text()).toBe('filterResults');
-    });
-
     it('is wrapper in <section role="search">', () => {
       const wrapper = factory();
 
       const section = wrapper.find('section[role="search"]');
 
       expect(section.exists()).toBe(true);
+    });
+
+    describe('filters title', () => {
+      it('has a level 2 heading', () => {
+        const wrapper = factory();
+
+        const h2 = wrapper.find('h2');
+
+        expect(h2.text()).toBe('filterResults');
+      });
+
+      describe('when advanced search is enabled', () => {
+        it('has a level 2 heading', () => {
+          const wrapper = factory({ mocks: { $features: { advancedSearch: true } } });
+
+          const h2 = wrapper.find('h2');
+
+          expect(h2.text()).toBe('searchFilters');
+        });
+        describe('and when filter(s) are selected', () => {
+          it('has a level 2 heading with selected filters count', () => {
+            const propsData = {
+              userParams: {
+                qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:open']
+              }
+            };
+            const wrapper = factory({ propsData, mocks: { $features: { advancedSearch: true } } });
+
+            const h2 = wrapper.find('h2');
+
+            expect(h2.text()).toBe('searchFilters-(2)');
+          });
+        });
+      });
     });
 
     describe('reset button', () => {

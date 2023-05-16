@@ -1,25 +1,36 @@
 <template>
-  <b-row>
+  <b-row
+    :id="id"
+  >
     <div
       v-for="(rule, index) in queryRules"
       :key="index"
       class="d-flex align-items-center"
+      :data-qa="`search query builder rule ${index}`"
     >
       <SearchQueryBuilderRule
+        :id="`${id}-${index}`"
         :rule="rule"
         @change="(field, value) => rule[field] = value"
       />
       <b-button
+        :data-qa="`clear rule button ${index}`"
         :disabled="disableClearRuleButton"
         @click="clearRule(index)"
       >
         {{ $t('search.advanced.actions.clear') }}
       </b-button>
     </div>
-    <b-button @click="searchWithBuiltQueries">
+    <b-button
+      data-qa="search rules button"
+      @click="searchWithBuiltQueries"
+    >
       {{ $t('search.advanced.actions.search') }}
     </b-button>
-    <b-button @click="addNewRule">
+    <b-button
+      data-qa="add rule button"
+      @click="addNewRule"
+    >
       {{ $t('search.advanced.actions.add') }}
     </b-button>
   </b-row>
@@ -34,6 +45,12 @@
 
     components: {
       SearchQueryBuilderRule
+    },
+    props: {
+      id: {
+        type: String,
+        default: 'search-query-builder'
+      }
     },
 
     data() {
@@ -56,8 +73,8 @@
           { name: 'doesNotContain', regex: /^-.*:\s?\*(.*)\*$/, negatesField: true, termPrefix: '*', termSuffix: '*' },
           { name: 'is', regex: /^[^-].*:\s?"(.*)"$/, termPrefix: '"', termSuffix: '"'},
           { name: 'isNot', regex: /^-.*:\s?"(.*)"$/, negatesField: true, termPrefix: '"', termSuffix: '"' },
-          { name: 'startsWith', regex: /^.*:\s?[^\*](.*)\*$/, termSuffix: '*' },
-          { name: 'endsWith', regex: /^.*:\s?\*(.*)[^\*]$/, termPrefix: '*' }
+          { name: 'startsWith', regex: /^.*:\s?([^\*].*)\*$/, termPrefix: '', termSuffix: '*' },
+          { name: 'endsWith', regex: /^.*:\s?\*(.*[^\*])$/, termPrefix: '*', termSuffix: '' }
         ]
       };
     },
@@ -103,7 +120,7 @@
           // TODO: distinguish on field type. For now all are text
           return this.recognizedTextModifiers.some((modifier) => part.match(modifier.regex));
         });
-        const allFieldQuery = nonRecognizedParts.join(' AND ');
+        const allFieldQuery = [...nonRecognizedParts, ...nonRecognizedModifiersParts].join(' AND ');
         this.queryRules = recognizedParts.map((part) => this.ruleForQueryPart(part)).concat(allFieldQuery ? [{ selectedField: 'anyField', selectedModifier: 'is', searchTerm: allFieldQuery }] : []);
       },
       // TODO: this duplicates lookups that happen during parsing in parseQueryRulesFromUrl.
@@ -146,9 +163,9 @@
         const activeField = this.recognizedFields.find((field) => field.name === rule.selectedField);
 
         if (this.recognizedTextModifiers.find((modifier) => modifier.name === rule.selectedModifier).negatesField) {
-          return `-${activeField.field}:${activeModifier.termPrefix}${this.escapeTerm(rule.searchTerm)}${activeModifier.termPrefix}`;
+          return `-${activeField.field}:${activeModifier.termPrefix}${this.escapeTerm(rule.searchTerm)}${activeModifier.termSuffix}`;
         }
-        return `${activeField.field}:${activeModifier.termPrefix}${this.escapeTerm(rule.searchTerm)}${activeModifier.termPrefix}`;
+        return `${activeField.field}:${activeModifier.termPrefix}${this.escapeTerm(rule.searchTerm)}${activeModifier.termSuffix}`;
       }
     }
   };

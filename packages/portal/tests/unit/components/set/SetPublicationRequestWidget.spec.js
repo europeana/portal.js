@@ -26,7 +26,7 @@ const factory = (propsData = {}) => shallowMount(SetPublicationRequestWidget, {
   },
   mocks: {
     $i18n: {},
-    $path: (args) => args,
+    localePath: (args) => args,
     $auth: {
       user: {
         email: userEmailMock

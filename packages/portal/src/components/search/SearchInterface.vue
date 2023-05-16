@@ -22,8 +22,10 @@
             <SearchQueryBuilder
               v-show="showAdvancedSearch"
               v-if="advancedSearchEnabled"
+              id="search-query-builder"
               class="d-none mb-3"
               :class="{'d-lg-block': showAdvancedSearch}"
+              @show="(show) => showAdvancedSearch = show"
             />
           </client-only>
           <section>
@@ -146,10 +148,23 @@
         :api-options="apiOptions"
         :user-params="userParams"
       >
+        <b-row
+          v-if="advancedSearchEnabled"
+        >
+          <b-button
+            aria-controls="search-query-builder search-query-builder-mobile"
+            :aria-expanded="showAdvancedSearch"
+            @click="toggleAdvancedSearch"
+          >
+            {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }}
+          </b-button>
+        </b-row>
         <SearchQueryBuilder
           v-show="showAdvancedSearch"
           v-if="advancedSearchEnabled"
+          id="search-query-builder-mobile"
           class="d-lg-none"
+          @show="(show) => showAdvancedSearch = show"
         />
       </SideFilters>
     </b-row>
@@ -216,7 +231,8 @@
         results: [],
         theme: null,
         totalResults: null,
-        paginationChanged: false
+        paginationChanged: false,
+        showAdvancedSearch: false
       };
     },
 
@@ -294,10 +310,6 @@
       },
       advancedSearchEnabled() {
         return this.$features.advancedSearch;
-      },
-      showAdvancedSearch() {
-        // TODO: Use a url param that specifies the advanced search is active/open?
-        return true;//this.$store.state.search.showAdvancedSearch;
       },
       routeQueryView() {
         return this.$route.query.view;
@@ -409,6 +421,10 @@
           this.view = this.routeQueryView;
           this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
         }
+      },
+
+      toggleAdvancedSearch() {
+        this.showAdvancedSearch = !this.showAdvancedSearch;
       }
     }
   };

@@ -10,11 +10,12 @@
   }
 }
 
-.iiif-iframe {
+.iiif-viewer {
   width: 100%;
   height: 100%;
   border: none;
   border-bottom: 1px solid $lightbluemagenta;
+  position: relative;
 }
 
 ::v-deep .mirador-viewer {

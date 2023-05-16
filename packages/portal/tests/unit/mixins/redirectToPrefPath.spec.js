@@ -16,7 +16,7 @@ const factory = (options) => shallowMountNuxt(component, {
   mocks: {
     $route: { params: { type: options.type, pathMatch: options.pathMatch } },
     $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
-    $path: () => '/'
+    localePath: () => '/'
   }
 });
 

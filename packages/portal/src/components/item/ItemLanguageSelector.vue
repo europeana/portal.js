@@ -121,6 +121,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/transitions';
 
   .icon-translate::before {
     font-size: 1.4375rem;
@@ -132,14 +133,5 @@
 
   .multilingual-dropdown-item {
     font-size: $font-size-small;
-  }
-
-  .fade-leave-active {
-    transition: $standard-transition;
-    opacity: 1;
-  }
-
-  .fade-leave-to {
-    opacity: 0;
   }
 </style>
