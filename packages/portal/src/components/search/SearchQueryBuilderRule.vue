@@ -66,6 +66,16 @@
       BFormSelect,
       BTooltip
     },
+    props: {
+      rule: {
+        type: Object,
+        default: () => ({})
+      },
+      id: {
+        type: String,
+        default: null
+      }
+    },
     data() {
       return {
         searchFields: [
@@ -86,16 +96,6 @@
         ]
       };
     },
-    props: {
-      rule: {
-        type: Object,
-        default:() => ({})
-      },
-      id: {
-        type: String,
-        default: null
-      }
-    },
     computed: {
       searchTerm() {
         return this.rule.searchTerm;
@@ -107,7 +107,7 @@
         return this.rule.selectedModifier;
       },
       availableModifiers() {
-        return this.selectedField == 'anyField' ? [this.modifiers.find((mod) => mod.value === 'is')] : this.modifiers;
+        return this.selectedField === 'anyField' ? [this.modifiers.find((mod) => mod.value === 'is')] : this.modifiers;
       }
     },
     methods: {

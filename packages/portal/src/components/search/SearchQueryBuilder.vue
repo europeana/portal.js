@@ -71,10 +71,10 @@
         recognizedTextModifiers: [
           { name: 'contains', regex: /^[^-].*:\s?\*(.*)\*$/, termPrefix: '*', termSuffix: '*' },
           { name: 'doesNotContain', regex: /^-.*:\s?\*(.*)\*$/, negatesField: true, termPrefix: '*', termSuffix: '*' },
-          { name: 'is', regex: /^[^-].*:\s?"(.*)"$/, termPrefix: '"', termSuffix: '"'},
+          { name: 'is', regex: /^[^-].*:\s?"(.*)"$/, termPrefix: '"', termSuffix: '"' },
           { name: 'isNot', regex: /^-.*:\s?"(.*)"$/, negatesField: true, termPrefix: '"', termSuffix: '"' },
-          { name: 'startsWith', regex: /^.*:\s?([^\*].*)\*$/, termPrefix: '', termSuffix: '*' },
-          { name: 'endsWith', regex: /^.*:\s?\*(.*[^\*])$/, termPrefix: '*', termSuffix: '' }
+          { name: 'startsWith', regex: /^.*:\s?([^*].*)\*$/, termPrefix: '', termSuffix: '*' },
+          { name: 'endsWith', regex: /^.*:\s?\*(.*[^*])$/, termPrefix: '*', termSuffix: '' }
         ]
       };
     },
@@ -129,7 +129,7 @@
         const ruleObject = {};
         ruleObject.selectedField = this.recognizedFields.find((field) => rule.match(field.regex))?.name;
         const applicableModifier = this.recognizedTextModifiers.find((modifier) => {
-          return rule.match(modifier.regex)
+          return rule.match(modifier.regex);
         });
         ruleObject.selectedModifier = applicableModifier.name;
         ruleObject.searchTerm = this.unescapeTerm(applicableModifier.regex.exec(rule)[1]);
@@ -147,7 +147,6 @@
         // TODO: evaluate where the routing happens. Could it go through the search interface.
         // TODO: Add matomo tracking event here?
         const query = this.queryFromRules();
-        const baseQuery = this.$route.query;
         const newRouteQuery = { ...this.$route.query, ...{ page: 1, query } };
         const newRoute = { path: this.$route.path, query: newRouteQuery };
         await this.$router.push(newRoute);
@@ -157,7 +156,7 @@
       },
       queryPartFromRule(rule) {
         if (rule.selectedField === 'anyField') {
-          return rule.searchTerm; //Any field is no field, a field may however be in the searchTerm itself
+          return rule.searchTerm; // Any field is no field, a field may however be in the searchTerm itself
         }
         const activeModifier = this.recognizedTextModifiers.find((modifier) => modifier.name === rule.selectedModifier);
         const activeField = this.recognizedFields.find((field) => field.name === rule.selectedField);
