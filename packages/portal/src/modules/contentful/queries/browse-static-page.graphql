@@ -58,10 +58,14 @@ query BrowseStaticPage(
             text
           }
           ... on PrimaryCallToAction {
+            name
             text
             relatedLink {
               url
               text
+            }
+            image {
+              ...illustrationFields
             }
           }
         }
@@ -109,10 +113,14 @@ query BrowseStaticPage(
             text
           }
           ... on PrimaryCallToAction {
+            name
             text
             relatedLink {
               url
               text
+            }
+            image {
+              ...illustrationFields
             }
           }
         }
@@ -148,5 +156,10 @@ fragment linkGroupFields on LinkGroup {
       text
       url
     }
+  }
+}
+fragment illustrationFields on Illustration {
+  image {
+    ...imageFields
   }
 }
