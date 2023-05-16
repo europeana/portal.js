@@ -560,20 +560,7 @@
   }
 
   .search-toggle {
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: $font-size-small;
-    padding: 0;
     margin-bottom: 1.25rem;
-
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-small-4k;
-    }
-
-    &:hover,
-    &:focus {
-      text-decoration: none;
-    }
   }
 
   .col-filters {
