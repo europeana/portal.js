@@ -12,6 +12,7 @@
 
 <script>
   import camelCase from 'lodash/camelCase';
+  import { takeEvery } from 'redux-saga/effects';
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
 
@@ -39,14 +40,16 @@
       return {
         manifest: null,
         manifestAnnotationTextGranularities: [],
-        page: null,
         imageToCanvasMap: {},
         memoisedImageToCanvasMap: false,
         miradorViewer: null,
         showAnnotations: false,
-        miradorStoreManifestJsonUnsubscriber: () => {},
         isMobileViewport: false,
-        isMiradorLoaded: process.client ? !!window.Mirador : false
+        isMiradorLoaded: process.client ? !!window.Mirador : false,
+        miradorViewerPlugins: [
+          { component: () => null, saga: this.watchMiradorSetCanvasSaga },
+          { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
+        ]
       };
     },
 
@@ -177,8 +180,26 @@
         if (!this.isMiradorLoaded) {
           await this.loadMirador();
         }
-        this.miradorViewer = window.Mirador.viewer(this.miradorViewerOptions);
-        this.miradorStoreManifestJsonUnsubscriber = this.miradorViewer.store.subscribe(this.miradorStoreManifestJsonListener);
+        this.miradorViewer = window.Mirador.viewer(this.miradorViewerOptions, this.miradorViewerPlugins);
+      },
+
+      *watchMiradorSetCanvasSaga() {
+        yield takeEvery('mirador/SET_CANVAS', this.watchMiradorSetCanvas);
+      },
+
+      *watchMiradorSetCanvas({ canvasId }) {
+        this.memoiseImageToCanvasMap();
+        this.postUpdatedDownloadLinkMessage(canvasId);
+        yield;
+      },
+
+      *watchMiradorReceiveAnnotationSaga() {
+        yield takeEvery('mirador/RECEIVE_ANNOTATION', this.watchMiradorReceiveAnnotation);
+      },
+
+      *watchMiradorReceiveAnnotation(action) {
+        this.showSidebarForAnnotations(action.annotationJson);
+        yield;
       },
 
       versioned(fn, args) {
@@ -187,22 +208,6 @@
           throw new Error(`Unsupported IIIF Presentation API version ${this.iiifPresentationApiVersion} for function ${fn}`);
         }
         return this[versionedFunction].apply(this, args);
-      },
-
-      miradorStoreManifestJsonListener() {
-        // only takes one window into account at the moment
-        const miradorWindow = Object.values(this.miradorViewer.store.getState().windows)[0];
-        if (miradorWindow) {
-          const miradorManifest = this.miradorViewer.store.getState().manifests[miradorWindow.manifestId];
-          if (miradorManifest) {
-            this.manifest = miradorManifest.json;
-            if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
-              this.memoiseImageToCanvasMap();
-              this.page = miradorWindow.canvasId;
-              this.postUpdatedDownloadLinkMessage(this.page);
-            }
-          }
-        }
       },
 
       addAcceptHeaderToPresentationRequests(url, options) {
@@ -222,18 +227,19 @@
 
       // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorReceiveManifest(url, action) {
+        this.manifest = action.manifestJson;
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.proxyProviderMedia(action.manifestJson);
           this.addAnnotationTextGranularityFilterToManifest(action.manifestJson);
         }
       },
 
-      postprocessMiradorReceiveAnnotation(url, action) {
+      async postprocessMiradorReceiveAnnotation(url, action) {
         this.showSidebarForAnnotations(action.annotationJson);
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.coerceAnnotationsOnToCanvases(action.annotationJson);
         }
-        this.dereferenceAnnotationResources(action.annotationJson);
+        await this.dereferenceAnnotationResources(action.annotationJson);
       },
 
       postprocessMiradorReceiveSearch(url, action) {
@@ -375,7 +381,7 @@
       },
 
       memoiseImageToCanvasMap2() {
-        this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
+        this.imageToCanvasMap = (this.manifest.sequences || []).reduce((memo, sequence) => {
           for (const canvas of sequence.canvases) {
             for (const image of canvas.images) {
               memo[image.resource['@id']] = canvas['@id'];
@@ -386,7 +392,7 @@
       },
 
       memoiseImageToCanvasMap3() {
-        this.imageToCanvasMap = this.manifest.items.reduce((memo, canvas) => {
+        this.imageToCanvasMap = (this.manifest.items || []).reduce((memo, canvas) => {
           for (const annopage of canvas.items) {
             for (const anno of annopage.items) {
               if (anno.type === 'Annotation' && anno.body?.type === 'Image') {
@@ -577,13 +583,13 @@
       },
 
       findDownloadLinkForPage2(pageId) {
-        return this.manifest.sequences[0].canvases
+        return (this.manifest.sequences?.[0]?.canvases || [])
           .find(canvas => canvas['@id'] === pageId)
           ?.images?.[0]?.resource?.['@id'];
       },
 
       findDownloadLinkForPage3(pageId) {
-        return this.manifest.items
+        return (this.manifest.items || [])
           .find(canvas => canvas.id === pageId)
           ?.items?.[0]?.items?.[0]?.body?.id;
       }
