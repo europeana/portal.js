@@ -4,6 +4,7 @@ import nock from 'nock';
 import sinon from 'sinon';
 
 import IIIFViewer from '@/components/iiif/IIIFViewer.vue';
+
 const mockMiradorModule = {
   default: {
     viewer: sinon.stub().returns({
@@ -25,56 +26,44 @@ const mockMiradorModule = {
   theme: {}
 };
 
-const factory = ({ propsData = {}, data = {} } = {}) => {
-  sinon.stub(IIIFViewer.methods, 'loadMirador').resolves(mockMiradorModule);
-  return shallowMountNuxt(IIIFViewer, {
-    propsData: {
-      uri: 'http://example.org/iiif/manifest.json',
-      ...propsData
-    },
-    data() {
-      return {
-        ...data
-      };
-    },
-    mocks: {
-      $apis: {
-        record: {
-          mediaProxyUrl: (url, itemId) => `Proxy ${itemId} ${url}`
-        }
-      },
-      $axios: axios,
-      $i18n: {
-        locale: 'en'
+const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFViewer, {
+  propsData: {
+    uri: 'http://example.org/iiif/manifest.json',
+    ...propsData
+  },
+  data() {
+    return {
+      isMiradorLoaded: true,
+      ...data
+    };
+  },
+  mocks: {
+    $apis: {
+      record: {
+        mediaProxyUrl: (url, itemId) => `Proxy ${itemId} ${url}`
       }
+    },
+    $axios: axios,
+    $i18n: {
+      locale: 'en'
     }
-  });
-};
+  }
+});
 
 describe('components/iiif/IIIFViewer.vue', () => {
+  beforeAll(() => {
+    window.Mirador = mockMiradorModule.default;
+    window.MiradorTheme = mockMiradorModule.theme;
+  });
+
   afterEach(sinon.restore);
 
+  afterAll(() => {
+    delete window.Mirador;
+    delete window.MiradorTheme;
+  });
+
   describe('computed', () => {
-    describe('itemId', () => {
-      it('is extracted from manifest URI for Europeana manifests', () => {
-        const uri = 'https://iiif.europeana.eu/presentation/123/abc/manifest';
-        const wrapper = factory({ propsData: { uri } });
-
-        const itemId = wrapper.vm.itemId;
-
-        expect(itemId).toBe('/123/abc');
-      });
-
-      it('is `null` for non-Europeana manifests', () => {
-        const uri = 'https://iiif.example.org/presentation/123/abc/manifest';
-        const wrapper = factory({ propsData: { uri } });
-
-        const itemId = wrapper.vm.itemId;
-
-        expect(itemId).toBeNull();
-      });
-    });
-
     describe('iiifPresentationApiVersion', () => {
       it('is 2 for IIIF Presentation API v2 manifests', () => {
         const manifest = {
@@ -173,7 +162,10 @@ describe('components/iiif/IIIFViewer.vue', () => {
 
     describe('proxyProviderMedia', () => {
       it('rewrites painting-motivation annotation IDs to use media proxy', () => {
-        const wrapper = factory({ propsData: { uri: 'https://iiif.europeana.eu/presentation/123/abc/manifest' } });
+        const wrapper = factory({ propsData: {
+          uri: 'https://iiif.europeana.eu/presentation/123/abc/manifest',
+          itemId: '/123/abc'
+        } });
         const manifestJson = {
           items: [
             {
