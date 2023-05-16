@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -138,13 +138,14 @@ export default {
     }
   },
   "colourSwatch": "Värvivalik",
+  "contentYouMightLike": "Sisu, mis võib teile meeldida",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Rohkem infot",
       "about": "Infot Europeana kohta",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "meetUs": "Tutvu meeskonnaga",
-      "MoreInfoLabel": "Rohkem infot",
       "provide": "Hakka andmepakkujaks",
       "subscribe": "Telli meie uudiskiri",
       "terms": "Kasutustingimused ja privaatsuspoliitika"
@@ -155,7 +156,6 @@ export default {
       "teachers": "Õpetajad"
     }
   },
-  "contentYouMightLike": "Sisu, mis võib teile meeldida",
   "curatedAutomatically": "Kuraator on automaatselt Europeana",
   "dateFilter": {
     "endDate": "Lõppkuupäev",
@@ -211,7 +211,7 @@ export default {
         "title": "Liiga palju kinnitatud üksusi"
       },
       "pinned": "Üksus on kinnitatud. See on nüüd selle kogumiku esimese lehe ülaosas. Kõigi kuvamiseks võib kuluda kuni 24 tundi.",
-      "select": "Valige seotud olem üksuse kinnitamiseks/eemaldamiseks selle külge/välja.",
+      "select": "Valige seotud olem üksuse kinnitamiseks\/eemaldamiseks selle külge\/välja.",
       "unpin": "Seda üksust ei kuvata enam kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi."
     }
@@ -245,7 +245,7 @@ export default {
       "title": "Lehte, mida otsite, pole olemas."
     },
     "pinningNotFound": {
-      "description": "Eseme kinnitamisel/lahti kinnitamisel ilmnes viga. Palun proovige uuesti või teatage probleemist.",
+      "description": "Eseme kinnitamisel\/lahti kinnitamisel ilmnes viga. Palun proovige uuesti või teatage probleemist.",
       "title": "Kureeritud kollektsiooni ei leitud"
     },
     "searchPaginationLimitExceeded": {
@@ -266,42 +266,6 @@ export default {
   },
   "explore": "Avasta",
   "facets": {
-    "api": {
-      "name": "Otsing",
-      "options": {
-        "fulltext": "Täistekstiga kirjed",
-        "metadata": "Ainult metaandmete kirjed"
-      },
-      "switch": "Otsige ainult täistekstiga üksuste sisust",
-      "switchMoreInfo": "Selles kollektsioonis saate valida, mida soovite otsida: kui see lüliti on sisse lülitatud, siis otsite ajalehtede ja dokumentide tekstist; kui see on välja lülitatud, siis otsite selle asemel objekti kirjeldavast teabest, nagu teete seda alati enamikus teistes kollektsioonides."
-    },
-    "button": {
-      "apply": "Kohalda",
-      "cancel": "Tühista",
-      "morefilters": "Rohkem filtreid",
-      "reset": "Lähtesta",
-      "showAll": "Kuva kõik {label}",
-      "showLess": "Näita vähem {label}"
-    },
-    "collection": {
-      "name": "Teema",
-      "options": {
-        "archaeology": "Arheoloogia",
-        "art": "Kunst",
-        "fashion": "Mood",
-        "industrial": "Tööstuspärand",
-        "manuscript": "Käsikirjad",
-        "map": "Kaardid ja geograafia",
-        "migration": "Ränne",
-        "music": "Muusika",
-        "nature": "Looduslugu",
-        "newspaper": "Ajalehed",
-        "photography": "Fotograafia",
-        "sport": "Sport",
-        "ww1": "Esimene maailmasõda"
-      },
-      "select": "Valige teema"
-    },
     "COLOURPALETTE": {
       "moreName": "värvid",
       "name": "Värv | Värvid",
@@ -453,18 +417,6 @@ export default {
       },
       "select": "Valige värvid"
     },
-    "contentTier": {
-      "name": "Eseme kvaliteet",
-      "options": {
-        "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
-        "0": "Kuva ainult üksused, mis ei vasta meie avaldamiskriteeriumidele",
-        "1": "Madal kvaliteet",
-        "2": "Keskmine kvaliteet",
-        "3": "Kvaliteetne ja korduvkasutatav koos tingimustega",
-        "4": "Kvaliteetne ja vabalt taaskasutatav"
-      },
-      "select": "Valige esemete omadused"
-    },
     "COUNTRY": {
       "name": "Pakkuja riik",
       "options": {
@@ -593,16 +545,108 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       },
       "select": "Valige failivormingud"
     },
-    "moreOptions": "Otsi, et leida {0} rohkem {1}.",
     "PROVIDER": {
       "moreName": "agregaatorid",
       "name": "Koondaja",
       "select": "Valige agregaatorid"
     },
+    "REUSABILITY": {
+      "name": "Kas ma saan seda uuesti kasutada?",
+      "options": {
+        "open": "Jah",
+        "permission": "Võib-olla, küsige luba",
+        "restricted": "Jah, tingimustega",
+        "uncategorized": "Kategoriseerimata"
+      },
+      "select": "Valige, kas saate seda kasutada"
+    },
+    "RIGHTS": {
+      "name": "Õiguste deklaratsioon",
+      "options": {
+        "*\/CNE\/*": "Autoriõigust ei hinnatud",
+        "*\/InC-EDU\/*": "Autoriõigusega - kasutamine hariduslikul eesmärgil lubatud",
+        "*\/InC-OW-EU\/*": "Autoriõigus – OW-EU",
+        "*\/InC\/*": "Autoriõigus",
+        "*\/NoC-NC\/*": "Autoriõigus puudub – ainult mitteäriliseks kasutamiseks",
+        "*\/NoC-OKLR\/*": "Autoriõigus puudub – muud teadaolevad juriidilised piirangud",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Avaliku domeeni märk",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Autoriõigusest väljas - mitteäriline taaskasutamine",
+        "*\/rights\/rr-f\/*": "Õigused reserveeritud – tasuta juurdepääs",
+        "*\/rights\/unknown\/*": "Autoriõiguse staatus teadmata"
+      },
+      "select": "Valige õiguste avaldused"
+    },
+    "TYPE": {
+      "name": "Meediumitüüp",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Pilt ",
+        "SOUND": "Heli",
+        "TEXT": "Tekst",
+        "VIDEO": "Video"
+      },
+      "select": "Valige kandja tüübid"
+    },
+    "api": {
+      "name": "Otsing",
+      "options": {
+        "fulltext": "Täistekstiga kirjed",
+        "metadata": "Ainult metaandmete kirjed"
+      },
+      "switch": "Otsige ainult täistekstiga üksuste sisust",
+      "switchMoreInfo": "Selles kollektsioonis saate valida, mida soovite otsida: kui see lüliti on sisse lülitatud, siis otsite ajalehtede ja dokumentide tekstist; kui see on välja lülitatud, siis otsite selle asemel objekti kirjeldavast teabest, nagu teete seda alati enamikus teistes kollektsioonides."
+    },
+    "button": {
+      "apply": "Kohalda",
+      "cancel": "Tühista",
+      "morefilters": "Rohkem filtreid",
+      "reset": "Lähtesta",
+      "showAll": "Kuva kõik {label}",
+      "showLess": "Näita vähem {label}"
+    },
+    "collection": {
+      "name": "Teema",
+      "options": {
+        "archaeology": "Arheoloogia",
+        "art": "Kunst",
+        "fashion": "Mood",
+        "industrial": "Tööstuspärand",
+        "manuscript": "Käsikirjad",
+        "map": "Kaardid ja geograafia",
+        "migration": "Ränne",
+        "music": "Muusika",
+        "nature": "Looduslugu",
+        "newspaper": "Ajalehed",
+        "photography": "Fotograafia",
+        "sport": "Sport",
+        "ww1": "Esimene maailmasõda"
+      },
+      "select": "Valige teema"
+    },
+    "contentTier": {
+      "name": "Eseme kvaliteet",
+      "options": {
+        "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
+        "0": "Kuva ainult üksused, mis ei vasta meie avaldamiskriteeriumidele",
+        "1": "Madal kvaliteet",
+        "2": "Keskmine kvaliteet",
+        "3": "Kvaliteetne ja korduvkasutatav koos tingimustega",
+        "4": "Kvaliteetne ja vabalt taaskasutatav"
+      },
+      "select": "Valige esemete omadused"
+    },
+    "moreOptions": "Otsi, et leida {0} rohkem {1}.",
     "proxy_dc_format": {
       "name": "Vorming | Vormingud",
       "select": "Valige vormingud"
@@ -617,27 +661,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Meedium | Meediumid",
       "select": "Valige meedia"
-    },
-    "REUSABILITY": {
-      "name": "Kas ma saan seda uuesti kasutada?",
-      "options": {
-        "open": "Jah",
-        "permission": "Võib-olla, küsige luba",
-        "restricted": "Jah, tingimustega",
-        "uncategorized": "Kategoriseerimata"
-      },
-      "select": "Valige, kas saate seda kasutada"
-    },
-    "TYPE": {
-      "name": "Meediumitüüp",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Pilt ",
-        "SOUND": "Heli",
-        "TEXT": "Tekst",
-        "VIDEO": "Video"
-      },
-      "select": "Valige kandja tüübid"
     }
   },
   "feedback": {
@@ -675,6 +698,8 @@ export default {
       "dcRights": "Õigused",
       "dcSource": "Allikas",
       "dcSubject": "Teema",
+      "dcTitle": "Pealkiri",
+      "dcType": "Objekti tüüp",
       "dctermsCreated": "Loomise kuupäev",
       "dctermsExtent": "Ulatus ",
       "dctermsHasPart": "Koosneb",
@@ -689,10 +714,8 @@ export default {
       "dctermsProvenance": "Päritolu",
       "dctermsReferences": "Viitab",
       "dctermsSpatial": "Kohad",
-      "dctermsTemporal": "Ajaline",
       "dctermsTOC": "Sisukord",
-      "dcTitle": "Pealkiri",
-      "dcType": "Objekti tüüp",
+      "dctermsTemporal": "Ajaline",
       "edmCountry": "Pakkuja riik",
       "edmCurrentLocation": "Praegune asukoht",
       "edmDataProvider": "Pakkuja institutsioon",
@@ -732,13 +755,13 @@ export default {
     "findUsElsewhere": "Leidke meid mujalt",
     "imageDescription": "Rahastab Euroopa Liit",
     "navigation": {
+      "MoreInfoLabel": "Rohkem infot",
       "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
       "faq": "Korduma kippuvad küsimused",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
-      "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
       "provide": "Hakka andmepakkujaks",
       "subscribe": "Telli meie uudiskiri",
@@ -796,7 +819,7 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
     "recommended": "Soovitatavad esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
@@ -835,7 +858,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
-        "title": "A/B testimine"
+        "title": "A\/B testimine"
       },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
@@ -867,7 +890,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -916,9 +939,6 @@ export default {
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "of",
   "organisation": {
     "city": "Linn",
@@ -969,6 +989,7 @@ export default {
     }
   },
   "record": {
+    "IIIFViewer": "IIIF vaataja",
     "actions": {
       "pin": "Kinnitage üksus saadaolevatele olemitega"
     },
@@ -977,7 +998,6 @@ export default {
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
-    "IIIFViewer": "IIIF vaataja",
     "location": "Asukoht",
     "locationOnMap": "Asukoht kaardil",
     "mediaPlayer": "Meediumipleier",
@@ -1022,10 +1042,10 @@ export default {
     },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
+      "withQuery": "{count} tulemust jaoks {query}",
       "withinCollection": "{count} tulemust jaotises {type} {collection}",
       "withinCollectionWithQuery": "{count} tulemust jaotises {type} {collection} jaoks {query}",
-      "withoutQuery": "{count} tulemust",
-      "withQuery": "{count} tulemust jaoks {query}"
+      "withoutQuery": "{count} tulemust"
     },
     "title": "Otsing"
   },
@@ -1086,7 +1106,7 @@ export default {
       "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
     },
     "publication": {
-      "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu/galleries.",
+      "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu\/galleries.",
       "failedSubmission": "Taotlus ebaõnnestus. Palun proovi uuesti.",
       "process": {
         "description": "Kui esitate galerii avaldamiseks, teavitatakse sellest Europeana kirjastajate meeskonda. Nad vaatavad selle kõigepealt üle ja võivad teha muudatusi enne selle avaldamist. Galerii ülevaatamisel saate teateid e-posti teel. Kui seda ei avaldata, võib juhtuda, et see ei vasta meie toimetuse juhistele.",

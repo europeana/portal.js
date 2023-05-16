@@ -6,7 +6,7 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu\/Liity",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
@@ -138,13 +138,14 @@ export default {
     }
   },
   "colourSwatch": "Värimalli",
+  "contentYouMightLike": "Saattaisit tykätä näistä sisällöistä",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Lisätietoja",
       "about": "Tietoja Europeana",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "meetUs": "Tutustu tiimiin",
-      "MoreInfoLabel": "Lisätietoja",
       "provide": "Ryhdy tietojentarjoajaksi",
       "subscribe": "Tilaa uutiskirjeemme",
       "terms": "Käyttöehdot ja tietosuojakäytäntö"
@@ -155,7 +156,6 @@ export default {
       "teachers": "Opettajat"
     }
   },
-  "contentYouMightLike": "Saattaisit tykätä näistä sisällöistä",
   "curatedAutomatically": "Europeanan automaattisesti kuratoima",
   "dateFilter": {
     "endDate": "Päättymispäivämäärä",
@@ -245,7 +245,7 @@ export default {
       "title": "Etsimääsi sivua ei ole olemassa."
     },
     "pinningNotFound": {
-      "description": "Kohteen kiinnittämisessä/irrottamisessa tapahtui virhe. Yritä uudelleen tai ilmoita ongelmasta.",
+      "description": "Kohteen kiinnittämisessä\/irrottamisessa tapahtui virhe. Yritä uudelleen tai ilmoita ongelmasta.",
       "title": "Kuroitua kokoelmaa ei löydy"
     },
     "searchPaginationLimitExceeded": {
@@ -266,42 +266,6 @@ export default {
   },
   "explore": "tutustu",
   "facets": {
-    "api": {
-      "name": "Hae",
-      "options": {
-        "fulltext": "Tallentaa koko tekstin kanssa",
-        "metadata": "Vain metatiedot"
-      },
-      "switch": "Haku vain kohteiden sisällöstä, joissa on kokoteksti.",
-      "switchMoreInfo": "Tässä kokoelmassa voit valita, mitä haluat etsiä: jos tämä kytkin on päällä, etsit sanomalehti- ja asiakirjateksteistä; jos se on pois päältä, etsit sen sijaan kohteen kuvailutiedoista, aivan kuten useimmissa muissa kokoelmissa."
-    },
-    "button": {
-      "apply": "Käytä",
-      "cancel": "Peruuttaa",
-      "morefilters": "Lisää suodattimia",
-      "reset": "Nollaa",
-      "showAll": "Näytä kaikki {label}",
-      "showLess": "Näytä vähemmän {label}"
-    },
-    "collection": {
-      "name": "Teema",
-      "options": {
-        "archaeology": "Arkeologia",
-        "art": "Taide",
-        "fashion": "Muoti",
-        "industrial": "Teollisuusperintö",
-        "manuscript": "Käsikirjoitukset",
-        "map": "Kartat ja maantiede",
-        "migration": "Muuttoliike",
-        "music": "Musiikki",
-        "nature": "Luonnonhistoria",
-        "newspaper": "Sanomalehdet",
-        "photography": "Valokuvaus",
-        "sport": "Urheilu",
-        "ww1": "Ensimmäinen maailmansota"
-      },
-      "select": "Valitse teema"
-    },
     "COLOURPALETTE": {
       "moreName": "värit",
       "name": "Väri | värit",
@@ -453,18 +417,6 @@ export default {
       },
       "select": "Valitse värit"
     },
-    "contentTier": {
-      "name": "Kohde laatu",
-      "options": {
-        "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
-        "0": "Näytä ainoastaan kohteet, jotka eivät täytä julkaisuehtojamme",
-        "1": "Heikko laatu",
-        "2": "Keskilaatuinen",
-        "3": "Korkealaatuinen ja uudelleenkäytettävä olosuhteissa",
-        "4": "Korkealaatuinen & vapaasti uudelleenkäytettävissä"
-      },
-      "select": "Valitse tuotteiden ominaisuudet"
-    },
     "COUNTRY": {
       "name": "Alkuperämaa",
       "options": {
@@ -593,16 +545,108 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       },
       "select": "Valitse tiedostomuodot"
     },
-    "moreOptions": "Hae löytääksesi {0} lisää {1} .",
     "PROVIDER": {
       "moreName": "aggregaattoreita",
       "name": "Kokoaja",
       "select": "Valitse aggregaattoreita"
     },
+    "REUSABILITY": {
+      "name": "Voinko käyttää tätä?",
+      "options": {
+        "open": "Kyllä",
+        "permission": "Ehkä, pyydä lupaa",
+        "restricted": "Kyllä, tietyin ehdoin",
+        "uncategorized": "Ei luokiteltu"
+      },
+      "select": "Valitse, voitko käyttää tätä"
+    },
+    "RIGHTS": {
+      "name": "Oikeuksia koskeva lausunto",
+      "options": {
+        "*\/CNE\/*": "Tekijänoikeus Ei arvioitu",
+        "*\/InC-EDU\/*": "Tekijänoikeus - Opetuskäyttö sallittu",
+        "*\/InC-OW-EU\/*": "Tekijänoikeus - OW-EU",
+        "*\/InC\/*": "Tekijänoikeudet",
+        "*\/NoC-NC\/*": "Ei tekijänoikeuksia – vain ei-kaupalliseen käyttöön",
+        "*\/NoC-OKLR\/*": "Ei tekijänoikeuksia – muut tunnetut lailliset rajoitukset",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Julkisen verkkotunnuksen merkki",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Tekijänoikeuden ulkopuolella - ei-kaupallinen uudelleenkäyttö",
+        "*\/rights\/rr-f\/*": "Oikeudet pidätetään - Vapaa pääsy",
+        "*\/rights\/unknown\/*": "Tuntematon tekijänoikeustila"
+      },
+      "select": "Valitse oikeuksia koskevat lausumat"
+    },
+    "TYPE": {
+      "name": "Mediatyyppi",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Kuva",
+        "SOUND": "Ääni",
+        "TEXT": "Teksti",
+        "VIDEO": "Video"
+      },
+      "select": "Valitse mediatyypit"
+    },
+    "api": {
+      "name": "Hae",
+      "options": {
+        "fulltext": "Tallentaa koko tekstin kanssa",
+        "metadata": "Vain metatiedot"
+      },
+      "switch": "Haku vain kohteiden sisällöstä, joissa on kokoteksti.",
+      "switchMoreInfo": "Tässä kokoelmassa voit valita, mitä haluat etsiä: jos tämä kytkin on päällä, etsit sanomalehti- ja asiakirjateksteistä; jos se on pois päältä, etsit sen sijaan kohteen kuvailutiedoista, aivan kuten useimmissa muissa kokoelmissa."
+    },
+    "button": {
+      "apply": "Käytä",
+      "cancel": "Peruuttaa",
+      "morefilters": "Lisää suodattimia",
+      "reset": "Nollaa",
+      "showAll": "Näytä kaikki {label}",
+      "showLess": "Näytä vähemmän {label}"
+    },
+    "collection": {
+      "name": "Teema",
+      "options": {
+        "archaeology": "Arkeologia",
+        "art": "Taide",
+        "fashion": "Muoti",
+        "industrial": "Teollisuusperintö",
+        "manuscript": "Käsikirjoitukset",
+        "map": "Kartat ja maantiede",
+        "migration": "Muuttoliike",
+        "music": "Musiikki",
+        "nature": "Luonnonhistoria",
+        "newspaper": "Sanomalehdet",
+        "photography": "Valokuvaus",
+        "sport": "Urheilu",
+        "ww1": "Ensimmäinen maailmansota"
+      },
+      "select": "Valitse teema"
+    },
+    "contentTier": {
+      "name": "Kohde laatu",
+      "options": {
+        "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
+        "0": "Näytä ainoastaan kohteet, jotka eivät täytä julkaisuehtojamme",
+        "1": "Heikko laatu",
+        "2": "Keskilaatuinen",
+        "3": "Korkealaatuinen ja uudelleenkäytettävä olosuhteissa",
+        "4": "Korkealaatuinen & vapaasti uudelleenkäytettävissä"
+      },
+      "select": "Valitse tuotteiden ominaisuudet"
+    },
+    "moreOptions": "Hae löytääksesi {0} lisää {1} .",
     "proxy_dc_format": {
       "name": "Muoto | Muodot",
       "select": "Valitse formaatit"
@@ -617,27 +661,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Media | Mediat",
       "select": "Valitse media"
-    },
-    "REUSABILITY": {
-      "name": "Voinko käyttää tätä?",
-      "options": {
-        "open": "Kyllä",
-        "permission": "Ehkä, pyydä lupaa",
-        "restricted": "Kyllä, tietyin ehdoin",
-        "uncategorized": "Ei luokiteltu"
-      },
-      "select": "Valitse, voitko käyttää tätä"
-    },
-    "TYPE": {
-      "name": "Mediatyyppi",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Kuva",
-        "SOUND": "Ääni",
-        "TEXT": "Teksti",
-        "VIDEO": "Video"
-      },
-      "select": "Valitse mediatyypit"
     }
   },
   "feedback": {
@@ -675,6 +698,8 @@ export default {
       "dcRights": "Oikeudet",
       "dcSource": "Lähde",
       "dcSubject": "Aihe",
+      "dcTitle": "Nimi",
+      "dcType": "Kohteen tyyppi",
       "dctermsCreated": "Luomispäivä",
       "dctermsExtent": "Laajuus",
       "dctermsHasPart": "Koostuu seuraavista:",
@@ -689,10 +714,8 @@ export default {
       "dctermsProvenance": "Alkuperä",
       "dctermsReferences": "Viittaa kohteeseen",
       "dctermsSpatial": "Paikat",
-      "dctermsTemporal": "Ajoitus",
       "dctermsTOC": "Sisällysluettelo",
-      "dcTitle": "Nimi",
-      "dcType": "Kohteen tyyppi",
+      "dctermsTemporal": "Ajoitus",
       "edmCountry": "Alkuperämaa",
       "edmCurrentLocation": "Nykyinen sijainti",
       "edmDataProvider": "kulttuuriperintölaitos",
@@ -732,13 +755,13 @@ export default {
     "findUsElsewhere": "Löydä meidät muualta",
     "imageDescription": "Euroopan unionin rahoittama",
     "navigation": {
+      "MoreInfoLabel": "Lisätietoja",
       "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
       "faq": "Usein kysytyt kysymykset",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
-      "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojakäytäntö",
       "provide": "Ryhdy tietojentarjoajaksi",
       "subscribe": "Tilaa uutiskirjeemme",
@@ -796,7 +819,7 @@ export default {
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
     "recent": "Viimeisimmät kohteet",
     "recommended": "Suositellut kohteet",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
@@ -835,7 +858,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Auttaa parantamaan verkkosivustoamme soveltamalla ajoittain kokeellisia muutoksia.",
-        "title": "A/B -testaus"
+        "title": "A\/B -testaus"
       },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
@@ -867,7 +890,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "title": "Hakutulosnäkymä (luettelo\/ruudukko)"
       }
     }
   },
@@ -916,9 +939,6 @@ export default {
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "of",
   "organisation": {
     "city": "Kaupunki",
@@ -969,6 +989,7 @@ export default {
     }
   },
   "record": {
+    "IIIFViewer": "IIIF-katsoja",
     "actions": {
       "pin": "Kiinnitä kohde käytettävissä oleviin Entiteetteihin"
     },
@@ -977,7 +998,6 @@ export default {
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
-    "IIIFViewer": "IIIF-katsoja",
     "location": "Sijainti",
     "locationOnMap": "Sijainti kartalla",
     "mediaPlayer": "Mediasoitin",
@@ -1022,10 +1042,10 @@ export default {
     },
     "results": {
       "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",
+      "withQuery": "{count} tulokset :lle {query}",
       "withinCollection": "{count} tulokset sisällä {type} {collection}",
       "withinCollectionWithQuery": "{count} tulokset sisällä {type} {collection} for {query}",
-      "withoutQuery": "{count} tulokset",
-      "withQuery": "{count} tulokset :lle {query}"
+      "withoutQuery": "{count} tulokset"
     },
     "title": "Hae"
   },
@@ -1086,7 +1106,7 @@ export default {
       "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."
     },
     "publication": {
-      "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
+      "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu\/galleries.",
       "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
       "process": {
         "description": "Kun lähetät gallerian julkaistavaksi, Europeanan kustantajatiimi saa ilmoituksen. He tarkastavat sen ensin ja saattavat tehdä muutoksia ennen julkaisemista. Saat ilmoituksia sähköpostitse, kun galleriaa tarkistetaan. Jos galleriaa ei julkaista, se voi johtua siitä, että se ei ole toimituksellisten ohjeidemme mukainen.",

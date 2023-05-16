@@ -6,7 +6,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -138,13 +138,14 @@ export default {
     }
   },
   "colourSwatch": "Specimen de culoare",
+  "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Mai multe informații",
       "about": "Despre colecțiile Europeana",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
       "meetUs": "Faceți cunoștință cu echipa",
-      "MoreInfoLabel": "Mai multe informații",
       "provide": "Deveni un furnizor de date",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "terms": "Termeni de utilizare și Politica de confidențialitate"
@@ -155,7 +156,6 @@ export default {
       "teachers": "Profesori"
     }
   },
-  "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "curatedAutomatically": "Curat automat de Europeana",
   "dateFilter": {
     "endDate": "Data de încheiere",
@@ -211,7 +211,7 @@ export default {
         "title": "Prea multe articole fixate"
       },
       "pinned": "Elementul a fost fixat. Acum se află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a apărea pentru toată lumea.",
-      "select": "Selectați o entitate conexă pentru a fixa/dezfixa elementul la/de la aceasta.",
+      "select": "Selectați o entitate conexă pentru a fixa\/dezfixa elementul la\/de la aceasta.",
       "unpin": "Acest articol nu va mai apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
       "unpinned": "Elementul a fost dezlipit. Nu se mai află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a dispărea pentru toată lumea."
     }
@@ -245,7 +245,7 @@ export default {
       "title": "Pagina pe care o cauți nu există."
     },
     "pinningNotFound": {
-      "description": "S-a produs o eroare la fixarea/dezlipirea articolului. Vă rugăm să încercați din nou sau să raportați problema.",
+      "description": "S-a produs o eroare la fixarea\/dezlipirea articolului. Vă rugăm să încercați din nou sau să raportați problema.",
       "title": "Colecția curată nu a fost găsită"
     },
     "searchPaginationLimitExceeded": {
@@ -266,42 +266,6 @@ export default {
   },
   "explore": "Explora",
   "facets": {
-    "api": {
-      "name": "Căutare după",
-      "options": {
-        "fulltext": "Înregistrări cu text integral",
-        "metadata": "Înregistrări doar pentru metadate"
-      },
-      "switch": "Căutați numai în conținutul articolelor cu text integral",
-      "switchMoreInfo": "În această colecție, puteți alege ceea ce doriți să căutați: dacă acest comutator este pornit, atunci veți căuta în ziar și în textul documentului; dacă este oprit, atunci veți căuta în schimb în informațiile care descriu elementul, la fel cum faceți întotdeauna în majoritatea celorlalte colecții."
-    },
-    "button": {
-      "apply": "Aplică",
-      "cancel": "Anulează",
-      "morefilters": "Mai multe filtre",
-      "reset": "Resetează",
-      "showAll": "Afișează tot {label}",
-      "showLess": "Afișează mai puțin {label}"
-    },
-    "collection": {
-      "name": "Temă",
-      "options": {
-        "archaeology": "Arheologie",
-        "art": "Artă",
-        "fashion": "Modă",
-        "industrial": "Patrimoniu industrial",
-        "manuscript": "Manuscrise",
-        "map": "Hărți și Geografie",
-        "migration": "Migrație",
-        "music": "Muzică",
-        "nature": "Istorie naturală",
-        "newspaper": "Ziare",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "Primul Război Mondial"
-      },
-      "select": "Selectați o temă"
-    },
     "COLOURPALETTE": {
       "moreName": "culori",
       "name": "Culoare | Culori",
@@ -453,18 +417,6 @@ export default {
       },
       "select": "Selectați culorile"
     },
-    "contentTier": {
-      "name": "Calitatea articolelor",
-      "options": {
-        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
-        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare",
-        "1": "Calitate scăzută",
-        "2": "Calitate medie",
-        "3": "De înaltă calitate și reutilizabil cu condiții",
-        "4": "De înaltă calitate și reutilizabil gratuit"
-      },
-      "select": "Selectați calitățile articolului"
-    },
     "COUNTRY": {
       "name": "Țara de proveniență",
       "options": {
@@ -593,16 +545,108 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       },
       "select": "Selectați formatele de fișiere"
     },
-    "moreOptions": "Căutați pentru a găsi {0} mai mult {1}.",
     "PROVIDER": {
       "moreName": "agregatoare",
       "name": "Agregator",
       "select": "Selectați agregatorii"
     },
+    "REUSABILITY": {
+      "name": "Pot reutiliza acest lucru?",
+      "options": {
+        "open": "Da",
+        "permission": "Poate, obțineți permisiunea",
+        "restricted": "Da, cu condiții",
+        "uncategorized": "Fără categorie"
+      },
+      "select": "Selectați dacă puteți utiliza acest lucru"
+    },
+    "RIGHTS": {
+      "name": "Declarație de drepturi",
+      "options": {
+        "*\/CNE\/*": "Drepturi de autor Neevaluate",
+        "*\/InC-EDU\/*": "În drepturi de autor - Utilizarea educațională permisă",
+        "*\/InC-OW-EU\/*": "În dreptul de autor - OW-EU",
+        "*\/InC\/*": "În dreptul de autor",
+        "*\/NoC-NC\/*": "Fără drepturi de autor - Numai pentru utilizare necomercială",
+        "*\/NoC-OKLR\/*": "Fără drepturi de autor - Alte restricții legale cunoscute",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marca domeniului public",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "În afara dreptului de autor - reutilizare fără scop comercial",
+        "*\/rights\/rr-f\/*": "Drepturi rezervate - Acces gratuit",
+        "*\/rights\/unknown\/*": "Starea drepturilor de autor necunoscută"
+      },
+      "select": "Selectați declarațiile de drepturi"
+    },
+    "TYPE": {
+      "name": "Tip de media",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Imagine",
+        "SOUND": "Sunet",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      },
+      "select": "Selectați tipurile de media"
+    },
+    "api": {
+      "name": "Căutare după",
+      "options": {
+        "fulltext": "Înregistrări cu text integral",
+        "metadata": "Înregistrări doar pentru metadate"
+      },
+      "switch": "Căutați numai în conținutul articolelor cu text integral",
+      "switchMoreInfo": "În această colecție, puteți alege ceea ce doriți să căutați: dacă acest comutator este pornit, atunci veți căuta în ziar și în textul documentului; dacă este oprit, atunci veți căuta în schimb în informațiile care descriu elementul, la fel cum faceți întotdeauna în majoritatea celorlalte colecții."
+    },
+    "button": {
+      "apply": "Aplică",
+      "cancel": "Anulează",
+      "morefilters": "Mai multe filtre",
+      "reset": "Resetează",
+      "showAll": "Afișează tot {label}",
+      "showLess": "Afișează mai puțin {label}"
+    },
+    "collection": {
+      "name": "Temă",
+      "options": {
+        "archaeology": "Arheologie",
+        "art": "Artă",
+        "fashion": "Modă",
+        "industrial": "Patrimoniu industrial",
+        "manuscript": "Manuscrise",
+        "map": "Hărți și Geografie",
+        "migration": "Migrație",
+        "music": "Muzică",
+        "nature": "Istorie naturală",
+        "newspaper": "Ziare",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "Primul Război Mondial"
+      },
+      "select": "Selectați o temă"
+    },
+    "contentTier": {
+      "name": "Calitatea articolelor",
+      "options": {
+        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
+        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare",
+        "1": "Calitate scăzută",
+        "2": "Calitate medie",
+        "3": "De înaltă calitate și reutilizabil cu condiții",
+        "4": "De înaltă calitate și reutilizabil gratuit"
+      },
+      "select": "Selectați calitățile articolului"
+    },
+    "moreOptions": "Căutați pentru a găsi {0} mai mult {1}.",
     "proxy_dc_format": {
       "name": "Format | Formate",
       "select": "Selectați formate"
@@ -617,27 +661,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Medii | Media",
       "select": "Selectați media"
-    },
-    "REUSABILITY": {
-      "name": "Pot reutiliza acest lucru?",
-      "options": {
-        "open": "Da",
-        "permission": "Poate, obțineți permisiunea",
-        "restricted": "Da, cu condiții",
-        "uncategorized": "Fără categorie"
-      },
-      "select": "Selectați dacă puteți utiliza acest lucru"
-    },
-    "TYPE": {
-      "name": "Tip de media",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Imagine",
-        "SOUND": "Sunet",
-        "TEXT": "Text",
-        "VIDEO": "Video"
-      },
-      "select": "Selectați tipurile de media"
     }
   },
   "feedback": {
@@ -675,6 +698,8 @@ export default {
       "dcRights": "Drepturi",
       "dcSource": "Sursă",
       "dcSubject": "Subiect",
+      "dcTitle": "Titlu",
+      "dcType": "Tipul obiectului",
       "dctermsCreated": "Data creării",
       "dctermsExtent": "Măsură",
       "dctermsHasPart": "Este format din",
@@ -689,10 +714,8 @@ export default {
       "dctermsProvenance": "Provenienţă",
       "dctermsReferences": "Referințe",
       "dctermsSpatial": "Locații",
-      "dctermsTemporal": "Temporal",
       "dctermsTOC": "Cuprins",
-      "dcTitle": "Titlu",
-      "dcType": "Tipul obiectului",
+      "dctermsTemporal": "Temporal",
       "edmCountry": "Țara de proveniență",
       "edmCurrentLocation": "Locația curenta",
       "edmDataProvider": "Instituția de proveniență",
@@ -732,13 +755,13 @@ export default {
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
+      "MoreInfoLabel": "Mai multe informații",
       "about": "Despre noi",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
       "faq": "Întrebări frecvente",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
-      "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
       "provide": "Deveni un furnizor de date",
       "subscribe": "Abonează-te la buletinul nostru de știri",
@@ -835,7 +858,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajută la îmbunătățirea site-ului nostru web aplicând ocazional modificări experimentale.",
-        "title": "Testarea A/B"
+        "title": "Testarea A\/B"
       },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
@@ -867,7 +890,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
       }
     }
   },
@@ -916,9 +939,6 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Oraș",
@@ -969,6 +989,7 @@ export default {
     }
   },
   "record": {
+    "IIIFViewer": "Vizualizator IIIF",
     "actions": {
       "pin": "Fixați elementul la entitățile disponibile"
     },
@@ -977,7 +998,6 @@ export default {
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
-    "IIIFViewer": "Vizualizator IIIF",
     "location": "Locație",
     "locationOnMap": "Localizare pe hartă",
     "mediaPlayer": "Media Player",
@@ -1022,10 +1042,10 @@ export default {
     },
     "results": {
       "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
+      "withQuery": "{count} rezultate pentru {query}",
       "withinCollection": "{count} rezultate în cadrul {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultate în {type} {collection} pentru {query}",
-      "withoutQuery": "{count} rezultate",
-      "withQuery": "{count} rezultate pentru {query}"
+      "withoutQuery": "{count} rezultate"
     },
     "title": "Căutare"
   },
@@ -1086,7 +1106,7 @@ export default {
       "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat."
     },
     "publication": {
-      "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
+      "description": "Publicarea unei galerii o va prezenta pe Europeana.eu\/galleries.",
       "failedSubmission": "Solicitarea nu a reușit. Încercați din nou.",
       "process": {
         "description": "Când trimiteți o galerie spre publicare, o echipă de editori de la Europeana va fi anunțată. Ei îl vor revizui mai întâi și pot face modificări înainte de a fi publicat. Veți primi notificări prin e-mail pe măsură ce galeria este revizuită. Dacă nu este publicat, s-ar putea să nu fie în conformitate cu îndrumările noastre editoriale.",

@@ -138,13 +138,14 @@ export default {
     }
   },
   "colourSwatch": "Swatch dath",
+  "contentYouMightLike": "Ábhar b’fhéidir gur mhaith leat",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Tuilleadh eolais",
       "about": "Maidir le Europeana",
       "forDevelopers": "Faoi chomhair forbróirí",
       "help": "Cabhair",
       "meetUs": "Cuir aithne ar an bhfoireann",
-      "MoreInfoLabel": "Tuilleadh eolais",
       "provide": "Bí I do sholátharí sonraí",
       "subscribe": "Liostáil lenár Nuachtlitir",
       "terms": "Téarmaí úsáide agus Beartas príobháideachta"
@@ -155,7 +156,6 @@ export default {
       "teachers": "Múinteoirí"
     }
   },
-  "contentYouMightLike": "Ábhar b’fhéidir gur mhaith leat",
   "curatedAutomatically": "Coimeádaithe go huathoibríoch ag Europeana",
   "dateFilter": {
     "endDate": "Dáta deiridh",
@@ -211,7 +211,7 @@ export default {
         "title": "An iomarca míreanna pinned"
       },
       "pinned": "Tá an t-earra pinned. Tá sé anois ag barr an chéad leathanaigh den bhailiúchán seo. Thógfadh sé suas le 24 uair an chloig láithriú do gach duine.",
-      "select": "Roghnaigh aonán gaolmhar chun an mhír a phionnadh/díphionnáil chuige/ó.",
+      "select": "Roghnaigh aonán gaolmhar chun an mhír a phionnadh\/díphionnáil chuige\/ó.",
       "unpin": "Ní thaispeánfar an mhír seo ag barr an bhailiúcháin \" {entity} \". Cuirfimid in iúl duit nuair a bheidh an t-athrú seo le feiceáil ar leathanach an bhailiúcháin.",
       "unpinned": "Tá an mhír díphionnáilte. Níl sé ag barr an chéad leathanaigh den bhailiúchán seo a thuilleadh. D'fhéadfadh sé suas le 24 uair an chloig a thógáil chun imeacht do gach duine."
     }
@@ -245,7 +245,7 @@ export default {
       "title": "Níl an leathanach atá á lorg agat ann."
     },
     "pinningNotFound": {
-      "description": "Tharla earráid agus an mhír á phionnáil/díphionnáil. Bain triail eile as, nó cuir in iúl don fhadhb.",
+      "description": "Tharla earráid agus an mhír á phionnáil\/díphionnáil. Bain triail eile as, nó cuir in iúl don fhadhb.",
       "title": "Bailiúchán coimeádaithe gan aimsiú"
     },
     "searchPaginationLimitExceeded": {
@@ -266,42 +266,6 @@ export default {
   },
   "explore": "Déan iniúchadh",
   "facets": {
-    "api": {
-      "name": "Cuardaigh",
-      "options": {
-        "fulltext": "Míreanna a bhfuil an téacs iomlán díobh le fáil",
-        "metadata": "Míreanna nach bhfuil iontu ach na meiteashonraí amháin"
-      },
-      "switch": "Ná cuardaigh ach in ábhar na n-ítimí a bhfuil téacs iomlán acu",
-      "switchMoreInfo": "Sa bhailiúchán seo, is féidir leat an méid is mian leat a chuardach a roghnú: má tá an lasc seo ar siúl, ansin déanfaidh tú cuardach laistigh den nuachtán agus téacs doiciméid; má tá sé as, ansin déanfaidh tú cuardach laistigh den fhaisnéis a chuireann síos ar an mír, díreach mar a dhéanann tú i gcónaí i bhformhór na mbailiúchán eile."
-    },
-    "button": {
-      "apply": "Cuir i bhfeidhm",
-      "cancel": "Cealaigh",
-      "morefilters": "Níos mó scagairí",
-      "reset": "Athshocraigh",
-      "showAll": "Taispeáin gach ceann {label}",
-      "showLess": "Taispeáin níos lú {label}"
-    },
-    "collection": {
-      "name": "Téama",
-      "options": {
-        "archaeology": "Seandálaíocht",
-        "art": "Ealaín",
-        "fashion": "Faisean",
-        "industrial": "Oidhreacht thionsclaíoch",
-        "manuscript": "Lámhscríbhinní",
-        "map": "Léarscáileanna agus Tíreolaíocht",
-        "migration": "Imirce",
-        "music": "Ceol",
-        "nature": "Stair an Dúlra",
-        "newspaper": "Nuachtáin",
-        "photography": "Grianghrafadóireacht",
-        "sport": "Spórt",
-        "ww1": "An Chéad Chogadh Domhanda"
-      },
-      "select": "Roghnaigh téama"
-    },
     "COLOURPALETTE": {
       "moreName": "dathanna",
       "name": "Dath | Dathanna",
@@ -453,18 +417,6 @@ export default {
       },
       "select": "Roghnaigh dathanna"
     },
-    "contentTier": {
-      "name": "Cáilíocht na míre",
-      "options": {
-        "*": "Áirítear leis míreanna nach gcomhlíonann ár riachtanais foilsitheoireachta",
-        "0": "Ná taispeáin ach míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta",
-        "1": "Caighdeán íseal",
-        "2": "Caighdeán meánach",
-        "3": "Ardchaighdeán & in-athúsáidte le coinníollacha",
-        "4": "Ardchaighdeán & in-athúsáidte go saor in aisce"
-      },
-      "select": "Roghnaigh cáilíochtaí mír"
-    },
     "COUNTRY": {
       "name": "Tír sholáthair",
       "options": {
@@ -593,16 +545,108 @@ export default {
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
       "options": {
-        "text/plain": "Téacs simplí"
+        "text\/plain": "Téacs simplí"
       },
       "select": "Roghnaigh formáidí comhaid"
     },
-    "moreOptions": "Cuardaigh chun {0} níos mó {1} a aimsiú.",
     "PROVIDER": {
       "moreName": "comhbhailitheoirí",
       "name": "Comhbhailitheoir | Comhbhailitheoirí",
       "select": "Roghnaigh comhbhailitheoirí"
     },
+    "REUSABILITY": {
+      "name": "An féidir liom é seo a úsáid?",
+      "options": {
+        "open": "Is féidir",
+        "permission": "B’fhéidir, iarraidh ar chead a fháil",
+        "restricted": "Is féidir, ach amháin faoi réir coinníollacha áirithe",
+        "uncategorized": "Gan catagóir"
+      },
+      "select": "Roghnaigh cé acu an féidir leat é seo a úsáid"
+    },
+    "RIGHTS": {
+      "name": "Ráiteas um chearta",
+      "options": {
+        "*\/CNE\/*": "Cóipcheart Gan Meastóireacht",
+        "*\/InC-EDU\/*": "I gCóipcheart - Ceadaithe Úsáid Oideachais",
+        "*\/InC-OW-EU\/*": "I gCóipcheart - OW-EU",
+        "*\/InC\/*": "I gCóipcheart",
+        "*\/NoC-NC\/*": "Gan Cóipcheart - Úsáid Neamhthráchtála Amháin",
+        "*\/NoC-OKLR\/*": "Gan Cóipcheart - Srianta Dlíthiúla Eile Aitheanta",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marc Fearainn Poiblí",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "As cóipcheart - athúsáid neamhthráchtála",
+        "*\/rights\/rr-f\/*": "Cearta ar Cosaint - Rochtain saor in aisce",
+        "*\/rights\/unknown\/*": "Stádas cóipchirt anaithnid"
+      },
+      "select": "Roghnaigh ráitis maidir le cearta"
+    },
+    "TYPE": {
+      "name": "Cineál meán",
+      "options": {
+        "3D": "3T",
+        "IMAGE": "Íomha",
+        "SOUND": "Fuaim",
+        "TEXT": "Téacs",
+        "VIDEO": "Físeán"
+      },
+      "select": "Roghnaigh cineálacha meán"
+    },
+    "api": {
+      "name": "Cuardaigh",
+      "options": {
+        "fulltext": "Míreanna a bhfuil an téacs iomlán díobh le fáil",
+        "metadata": "Míreanna nach bhfuil iontu ach na meiteashonraí amháin"
+      },
+      "switch": "Ná cuardaigh ach in ábhar na n-ítimí a bhfuil téacs iomlán acu",
+      "switchMoreInfo": "Sa bhailiúchán seo, is féidir leat an méid is mian leat a chuardach a roghnú: má tá an lasc seo ar siúl, ansin déanfaidh tú cuardach laistigh den nuachtán agus téacs doiciméid; má tá sé as, ansin déanfaidh tú cuardach laistigh den fhaisnéis a chuireann síos ar an mír, díreach mar a dhéanann tú i gcónaí i bhformhór na mbailiúchán eile."
+    },
+    "button": {
+      "apply": "Cuir i bhfeidhm",
+      "cancel": "Cealaigh",
+      "morefilters": "Níos mó scagairí",
+      "reset": "Athshocraigh",
+      "showAll": "Taispeáin gach ceann {label}",
+      "showLess": "Taispeáin níos lú {label}"
+    },
+    "collection": {
+      "name": "Téama",
+      "options": {
+        "archaeology": "Seandálaíocht",
+        "art": "Ealaín",
+        "fashion": "Faisean",
+        "industrial": "Oidhreacht thionsclaíoch",
+        "manuscript": "Lámhscríbhinní",
+        "map": "Léarscáileanna agus Tíreolaíocht",
+        "migration": "Imirce",
+        "music": "Ceol",
+        "nature": "Stair an Dúlra",
+        "newspaper": "Nuachtáin",
+        "photography": "Grianghrafadóireacht",
+        "sport": "Spórt",
+        "ww1": "An Chéad Chogadh Domhanda"
+      },
+      "select": "Roghnaigh téama"
+    },
+    "contentTier": {
+      "name": "Cáilíocht na míre",
+      "options": {
+        "*": "Áirítear leis míreanna nach gcomhlíonann ár riachtanais foilsitheoireachta",
+        "0": "Ná taispeáin ach míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta",
+        "1": "Caighdeán íseal",
+        "2": "Caighdeán meánach",
+        "3": "Ardchaighdeán & in-athúsáidte le coinníollacha",
+        "4": "Ardchaighdeán & in-athúsáidte go saor in aisce"
+      },
+      "select": "Roghnaigh cáilíochtaí mír"
+    },
+    "moreOptions": "Cuardaigh chun {0} níos mó {1} a aimsiú.",
     "proxy_dc_format": {
       "name": "Formáid | Formáidí",
       "select": "Roghnaigh formáidí"
@@ -617,27 +661,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Meán | Meáin",
       "select": "Roghnaigh meáin"
-    },
-    "REUSABILITY": {
-      "name": "An féidir liom é seo a úsáid?",
-      "options": {
-        "open": "Is féidir",
-        "permission": "B’fhéidir, iarraidh ar chead a fháil",
-        "restricted": "Is féidir, ach amháin faoi réir coinníollacha áirithe",
-        "uncategorized": "Gan catagóir"
-      },
-      "select": "Roghnaigh cé acu an féidir leat é seo a úsáid"
-    },
-    "TYPE": {
-      "name": "Cineál meán",
-      "options": {
-        "3D": "3T",
-        "IMAGE": "Íomha",
-        "SOUND": "Fuaim",
-        "TEXT": "Téacs",
-        "VIDEO": "Físeán"
-      },
-      "select": "Roghnaigh cineálacha meán"
     }
   },
   "feedback": {
@@ -675,6 +698,8 @@ export default {
       "dcRights": "Cearta",
       "dcSource": "Foinse",
       "dcSubject": "Ábhar",
+      "dcTitle": "Teideal",
+      "dcType": "Cineál oibiachta",
       "dctermsCreated": "Dáta cruthaithe",
       "dctermsExtent": "Meid",
       "dctermsHasPart": "Lena gcuimsítear",
@@ -689,10 +714,8 @@ export default {
       "dctermsProvenance": "Bunadh",
       "dctermsReferences": "Tagairtí",
       "dctermsSpatial": "Áiteanna",
-      "dctermsTemporal": "Ama",
       "dctermsTOC": "Clár ábhair",
-      "dcTitle": "Teideal",
-      "dcType": "Cineál oibiachta",
+      "dctermsTemporal": "Ama",
       "edmCountry": "Tír sholáthair",
       "edmCurrentLocation": "Suíomh reatha",
       "edmDataProvider": "Institiúid sholáthair",
@@ -705,7 +728,7 @@ export default {
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
       "edmProvider": "Soláthraí",
-      "edmRealizes": "Tuigeann sé/sí",
+      "edmRealizes": "Tuigeann sé\/sí",
       "edmRights": "Ráiteas Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
       "europeanaCollectionName": "Ainm bailiúcháin",
@@ -732,13 +755,13 @@ export default {
     "findUsElsewhere": "Aimsigh muid áit eile",
     "imageDescription": "Maoinithe ag an Aontas Eorpach",
     "navigation": {
+      "MoreInfoLabel": "Tuilleadh eolais",
       "about": "Maidir linne",
       "accessibility": "Inrochtaineacht",
       "cookies": "Fianáin",
       "faq": "Ceisteanna Coitianta",
       "forDevelopers": "Faoi chomhair forbróirí",
       "help": "Cabhair",
-      "MoreInfoLabel": "Tuilleadh eolais",
       "privacy": "Beartas Príobháideachais",
       "provide": "Bí I do sholátharí sonraí",
       "subscribe": "Liostáil lenár Nuachtlitir",
@@ -835,7 +858,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Cuidíonn sé lenár suíomh Gréasáin a fheabhsú trí athruithe turgnamhacha a chur i bhfeidhm ó am go chéile.",
-        "title": "Tástáil A/B"
+        "title": "Tástáil A\/B"
       },
       "auth-strategy": {
         "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
@@ -867,7 +890,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
-        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+        "title": "Amharc toraidh cuardaigh (liosta\/greille)"
       }
     }
   },
@@ -916,9 +939,6 @@ export default {
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Cathair",
@@ -969,6 +989,7 @@ export default {
     }
   },
   "record": {
+    "IIIFViewer": "Amharcóir IIIF",
     "actions": {
       "pin": "PIN an mhír chuig na hEintitis atá ar fáil"
     },
@@ -977,7 +998,6 @@ export default {
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
     "hideAll": "Folaigh gach faisnéis",
-    "IIIFViewer": "Amharcóir IIIF",
     "location": "Suíomh",
     "locationOnMap": "Suíomh ar an léarscáil",
     "mediaPlayer": "Seinnteoir meán",
@@ -1022,10 +1042,10 @@ export default {
     },
     "results": {
       "limitWarning": "Ní thaispeántar torthaí breise mar ní léirítear ach an chéad 1000 toradh is ábhartha. Mura bhfuil a bhfuil uait aimsithe agat, smaoinigh ar do chuardach a bheachtú.",
+      "withQuery": "{count} torthaí do {query}",
       "withinCollection": "{count} torthaí laistigh de {type} {collection}",
       "withinCollectionWithQuery": "{count} torthaí laistigh de {type} {collection} le haghaidh {query}",
-      "withoutQuery": "{count} torthaí",
-      "withQuery": "{count} torthaí do {query}"
+      "withoutQuery": "{count} torthaí"
     },
     "title": "Cuardaigh"
   },
@@ -1086,7 +1106,7 @@ export default {
       "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis."
     },
     "publication": {
-      "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar Europeana.eu/galleries.",
+      "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar Europeana.eu\/galleries.",
       "failedSubmission": "Theip ar an iarraidh. Arís, le do thoil.",
       "process": {
         "description": "Nuair a chuireann tú gailearaí isteach lena fhoilsiú, cuirfear foireann foilsitheoirí in Europeana ar an eolas. Déanfaidh siad athbhreithniú air ar dtús, agus féadfaidh siad athruithe a dhéanamh sula bhfoilseofar é. Gheobhaidh tú fógraí trí ríomhphost de réir mar a dhéantar athbhreithniú ar an ngailearaí. Mura bhfoilsítear é, d'fhéadfadh sé a bheith nach gcloíonn sé lenár dtreoirlínte eagarthóireachta.",

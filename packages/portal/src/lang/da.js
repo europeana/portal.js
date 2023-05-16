@@ -6,7 +6,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login/Deltag",
+    "linkLoginJoin": "Login\/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -138,13 +138,14 @@ export default {
     }
   },
   "colourSwatch": "Farveprøve",
+  "contentYouMightLike": "Indhold, du måske vil synes om",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Flere oplysninger",
       "about": "Om Europeana",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
       "meetUs": "Mød holdet",
-      "MoreInfoLabel": "Flere oplysninger",
       "provide": "Bliv dataleverandør",
       "subscribe": "Abonner på vores nyhedsbrev",
       "terms": "Vilkår for brug og Fortrolighedspolitik"
@@ -155,7 +156,6 @@ export default {
       "teachers": "Lærere"
     }
   },
-  "contentYouMightLike": "Indhold, du måske vil synes om",
   "curatedAutomatically": "Kurateret automatisk af Europeana",
   "dateFilter": {
     "endDate": "Slutdato",
@@ -211,7 +211,7 @@ export default {
         "title": "For mange fastgjorte emner"
       },
       "pinned": "Elementet er blevet fastgjort. Det er nu øverst på den første side i denne samling. Det kan tage op til 24 timer at vises for alle.",
-      "select": "Vælg en relateret enhed for at fastgøre/frigøre elementet til/fra det.",
+      "select": "Vælg en relateret enhed for at fastgøre\/frigøre elementet til\/fra det.",
       "unpin": "Dette element stopper med at blive vist øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle."
     }
@@ -245,7 +245,7 @@ export default {
       "title": "Den side du leder efter eksisterer ikke."
     },
     "pinningNotFound": {
-      "description": "Der opstod en fejl ved fastgørelse/frigørelse af elementet. Prøv venligst igen, eller rapporter problemet.",
+      "description": "Der opstod en fejl ved fastgørelse\/frigørelse af elementet. Prøv venligst igen, eller rapporter problemet.",
       "title": "Kurateret samling ikke fundet"
     },
     "searchPaginationLimitExceeded": {
@@ -266,42 +266,6 @@ export default {
   },
   "explore": "Udforske",
   "facets": {
-    "api": {
-      "name": "Søg efter",
-      "options": {
-        "fulltext": "Poster med fuldtekst",
-        "metadata": "Kun metadata-poster"
-      },
-      "switch": "Søg kun i indholdet af elementer med fuldtekst",
-      "switchMoreInfo": "I denne samling kan du vælge, hvad du vil søge efter: Hvis denne knap er slået til, vil du søge i avis- og dokumentteksten; hvis den er slået fra, vil du i stedet søge i de oplysninger, der beskriver emnet, ligesom du altid gør i de fleste andre samlinger."
-    },
-    "button": {
-      "apply": "Anvend",
-      "cancel": "Annuller",
-      "morefilters": "Flere filtre",
-      "reset": "Nulstil",
-      "showAll": "Vis alle {label}",
-      "showLess": "Vis mindre {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arkæologi",
-        "art": "Kunst",
-        "fashion": "Mode",
-        "industrial": "Industriel kulturarv",
-        "manuscript": "Manuskripter",
-        "map": "Kort og geografi",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturhistorie",
-        "newspaper": "Aviser",
-        "photography": "Fotografi",
-        "sport": "Sport",
-        "ww1": "Første Verdenskrig"
-      },
-      "select": "Vælg et tema"
-    },
     "COLOURPALETTE": {
       "moreName": "farver",
       "name": "Farve | Farver",
@@ -453,18 +417,6 @@ export default {
       },
       "select": "Vælg farver"
     },
-    "contentTier": {
-      "name": "Varekvalitet",
-      "options": {
-        "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
-        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier",
-        "1": "Lav kvalitet",
-        "2": "Mellem kvalitet",
-        "3": "Høj kvalitet og genanvendelig med betingelser",
-        "4": "Høj kvalitet og frit genanvendelig"
-      },
-      "select": "Vælg varekvaliteter"
-    },
     "COUNTRY": {
       "name": "Leverende land",
       "options": {
@@ -593,16 +545,108 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       },
       "select": "Vælg filformater"
     },
-    "moreOptions": "Søg for at finde {0} mere {1}.",
     "PROVIDER": {
       "moreName": "aggregatorer",
       "name": "Aggregator",
       "select": "Vælg aggregatorer"
     },
+    "REUSABILITY": {
+      "name": "Må jeg videreformidle dette?",
+      "options": {
+        "open": "Ja",
+        "permission": "Måske, søg tilladelse",
+        "restricted": "Ja, med betingelser",
+        "uncategorized": "Ikke kategoriseret"
+      },
+      "select": "Vælg, om du kan bruge dette"
+    },
+    "RIGHTS": {
+      "name": "Erklæring om rettigheder",
+      "options": {
+        "*\/CNE\/*": "Copyright Ikke evalueret",
+        "*\/InC-EDU\/*": "I ophavsret - Uddannelsesmæssig brug tilladt",
+        "*\/InC-OW-EU\/*": "I ophavsret - OW-EU",
+        "*\/InC\/*": "I ophavsret",
+        "*\/NoC-NC\/*": "Ingen ophavsret - Kun ikke-kommerciel brug",
+        "*\/NoC-OKLR\/*": "Ingen ophavsret - Andre kendte juridiske begrænsninger",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Public Domain Mark",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Uden af copyright - ikke-kommercielt genbrug",
+        "*\/rights\/rr-f\/*": "Rettigheder forbeholdt - Gratis adgang",
+        "*\/rights\/unknown\/*": "Ukendt ophavsretsstatus"
+      },
+      "select": "Vælg rettighedserklæringer"
+    },
+    "TYPE": {
+      "name": "Medietype",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Billede",
+        "SOUND": "Lyd",
+        "TEXT": "Tekst",
+        "VIDEO": "Video"
+      },
+      "select": "Vælg typer af medier"
+    },
+    "api": {
+      "name": "Søg efter",
+      "options": {
+        "fulltext": "Poster med fuldtekst",
+        "metadata": "Kun metadata-poster"
+      },
+      "switch": "Søg kun i indholdet af elementer med fuldtekst",
+      "switchMoreInfo": "I denne samling kan du vælge, hvad du vil søge efter: Hvis denne knap er slået til, vil du søge i avis- og dokumentteksten; hvis den er slået fra, vil du i stedet søge i de oplysninger, der beskriver emnet, ligesom du altid gør i de fleste andre samlinger."
+    },
+    "button": {
+      "apply": "Anvend",
+      "cancel": "Annuller",
+      "morefilters": "Flere filtre",
+      "reset": "Nulstil",
+      "showAll": "Vis alle {label}",
+      "showLess": "Vis mindre {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arkæologi",
+        "art": "Kunst",
+        "fashion": "Mode",
+        "industrial": "Industriel kulturarv",
+        "manuscript": "Manuskripter",
+        "map": "Kort og geografi",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturhistorie",
+        "newspaper": "Aviser",
+        "photography": "Fotografi",
+        "sport": "Sport",
+        "ww1": "Første Verdenskrig"
+      },
+      "select": "Vælg et tema"
+    },
+    "contentTier": {
+      "name": "Varekvalitet",
+      "options": {
+        "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
+        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier",
+        "1": "Lav kvalitet",
+        "2": "Mellem kvalitet",
+        "3": "Høj kvalitet og genanvendelig med betingelser",
+        "4": "Høj kvalitet og frit genanvendelig"
+      },
+      "select": "Vælg varekvaliteter"
+    },
+    "moreOptions": "Søg for at finde {0} mere {1}.",
     "proxy_dc_format": {
       "name": "Format | Formater",
       "select": "Vælg formater"
@@ -617,27 +661,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Medie | Medier",
       "select": "Vælg medie"
-    },
-    "REUSABILITY": {
-      "name": "Må jeg videreformidle dette?",
-      "options": {
-        "open": "Ja",
-        "permission": "Måske, søg tilladelse",
-        "restricted": "Ja, med betingelser",
-        "uncategorized": "Ikke kategoriseret"
-      },
-      "select": "Vælg, om du kan bruge dette"
-    },
-    "TYPE": {
-      "name": "Medietype",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Billede",
-        "SOUND": "Lyd",
-        "TEXT": "Tekst",
-        "VIDEO": "Video"
-      },
-      "select": "Vælg typer af medier"
     }
   },
   "feedback": {
@@ -675,6 +698,8 @@ export default {
       "dcRights": "Rettigheder",
       "dcSource": "Kilde",
       "dcSubject": "Emne",
+      "dcTitle": "Titel",
+      "dcType": "Objekttype",
       "dctermsCreated": "Oprettelsesdato",
       "dctermsExtent": "Omfang",
       "dctermsHasPart": "Består af",
@@ -689,10 +714,8 @@ export default {
       "dctermsProvenance": "Oprindelse",
       "dctermsReferences": "Referencer",
       "dctermsSpatial": "Steder",
-      "dctermsTemporal": "Tidsmæssig",
       "dctermsTOC": "Indholdsfortegnelse",
-      "dcTitle": "Titel",
-      "dcType": "Objekttype",
+      "dctermsTemporal": "Tidsmæssig",
       "edmCountry": "Leverende land",
       "edmCurrentLocation": "Nuværende placering",
       "edmDataProvider": "Leverende institution",
@@ -732,13 +755,13 @@ export default {
     "findUsElsewhere": "Find os et andet sted",
     "imageDescription": "Finansieret af Den Europæiske Union",
     "navigation": {
+      "MoreInfoLabel": "Flere oplysninger",
       "about": "Om os",
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
       "faq": "Ofte stillede spørgsmål",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
-      "MoreInfoLabel": "Flere oplysninger",
       "privacy": "Fortrolighedspolitik",
       "provide": "Bliv dataleverandør",
       "subscribe": "Abonner på vores nyhedsbrev",
@@ -835,7 +858,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
-        "title": "A/B-testning"
+        "title": "A\/B-testning"
       },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
@@ -867,7 +890,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "title": "Visning af søgeresultater (liste \/ gitter)"
       }
     }
   },
@@ -916,9 +939,6 @@ export default {
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Af",
   "organisation": {
     "city": "By",
@@ -969,6 +989,7 @@ export default {
     }
   },
   "record": {
+    "IIIFViewer": "IIIF-fremviser",
     "actions": {
       "pin": "Fastgør element til tilgængelige enheder"
     },
@@ -977,7 +998,6 @@ export default {
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",
-    "IIIFViewer": "IIIF-fremviser",
     "location": "Placering",
     "locationOnMap": "Placering på kort",
     "mediaPlayer": "Medie afspiller",
@@ -1022,10 +1042,10 @@ export default {
     },
     "results": {
       "limitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at justere din søgning.",
+      "withQuery": "{count} resultater for {query}",
       "withinCollection": "{count} resultater inden for {type} {collection}",
       "withinCollectionWithQuery": "{count} resultater inden for {type} {collection} for {query}",
-      "withoutQuery": "{count} resultater",
-      "withQuery": "{count} resultater for {query}"
+      "withoutQuery": "{count} resultater"
     },
     "title": "Søg"
   },
@@ -1086,7 +1106,7 @@ export default {
       "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det."
     },
     "publication": {
-      "description": "Udgivelse af et galleri vil vise det på Europeana.eu/galleries.",
+      "description": "Udgivelse af et galleri vil vise det på Europeana.eu\/galleries.",
       "failedSubmission": "Anmodningen mislykkedes. Prøv venligst igen.",
       "process": {
         "description": "Når du indsender et galleri til offentliggørelse, får et team af udgivere hos Europeana besked. De vil først gennemgå det og kan foretage ændringer, før det offentliggøres. Du vil modtage meddelelser via e-mail, når galleriet gennemgås. Hvis den ikke offentliggøres, kan det være, at den ikke er i overensstemmelse med vores redaktionelle retningslinjer.",

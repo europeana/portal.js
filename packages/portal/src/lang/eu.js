@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -138,13 +138,14 @@ export default {
     }
   },
   "colourSwatch": "Kolore swatch",
+  "contentYouMightLike": "Gustatu ahal zaizun edukia",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Informazio gehiago",
       "about": "Europeana bildumei buruz",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "meetUs": "Taldea ezagutu",
-      "MoreInfoLabel": "Informazio gehiago",
       "provide": "Datu hornitzaile bihurtu",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "terms": "Erabilera baldintzak eta pribatutasun politika"
@@ -155,7 +156,6 @@ export default {
       "teachers": "Irakasleak"
     }
   },
-  "contentYouMightLike": "Gustatu ahal zaizun edukia",
   "curatedAutomatically": "Europeanak automatikoki komisario lanak egin ditu",
   "dateFilter": {
     "endDate": "Amaiera data",
@@ -215,7 +215,7 @@ export default {
         "title": "Ainguratutako elementu gehiegi"
       },
       "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
-      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko/desainguratzeko.",
+      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko\/desainguratzeko.",
       "unpin": "Elementu hau \"{entity}\" bildumaren goialdean erakusteari utziko zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu.",
       "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko."
     }
@@ -249,7 +249,7 @@ export default {
       "title": "Bilatzen ari zaren orria ez da existitzen."
     },
     "pinningNotFound": {
-      "description": "Errore bat gertatu da elementua ainguratzean/desaingatzean. Mesedez, saiatu berriro edo jakinarazi arazoa.",
+      "description": "Errore bat gertatu da elementua ainguratzean\/desaingatzean. Mesedez, saiatu berriro edo jakinarazi arazoa.",
       "title": "Ez da aurkitu bilduma komisarioa"
     },
     "searchPaginationLimitExceeded": {
@@ -270,42 +270,6 @@ export default {
   },
   "explore": "Esploratu",
   "facets": {
-    "api": {
-      "name": "Bilatu",
-      "options": {
-        "fulltext": "Testu osoko elementuak",
-        "metadata": "Metadatuak soilik diren elementuak"
-      },
-      "switch": "Bilatu testu osoa duten elementuen edukian soilik",
-      "switchMoreInfo": "Bilduma honetan, zer bilatu nahi duzun aukeratu dezakezu: etengailu hau aktibatuta badago, egunkariaren eta dokumentuaren testuaren barruan bilatuko duzu; desaktibatuta badago, elementua deskribatzen duen informazioaren barruan bilatuko duzu, beste bilduma gehienetan beti egiten duzun bezala."
-    },
-    "button": {
-      "apply": "Aplikatu",
-      "cancel": "Bertan behera utzi",
-      "morefilters": "Iragazki gehiago",
-      "reset": "Berrezarri",
-      "showAll": "Erakutsi guztiak {label}",
-      "showLess": "Erakutsi gutxiago {label}"
-    },
-    "collection": {
-      "name": "Gaia",
-      "options": {
-        "archaeology": "Arkeologia",
-        "art": "Artea",
-        "fashion": "Moda",
-        "industrial": "Industria ondarea",
-        "manuscript": "Eskuizkribuak",
-        "map": "Mapak eta Geografia",
-        "migration": "Migrazioa",
-        "music": "Musika",
-        "nature": "Historia Naturala",
-        "newspaper": "Egunkariak",
-        "photography": "Argazkilaritza",
-        "sport": "Kirola",
-        "ww1": "Lehen Mundu Gerra"
-      },
-      "select": "Hautatu gai bat"
-    },
     "COLOURPALETTE": {
       "moreName": "koloreak",
       "name": "Kolorea | Koloreak",
@@ -457,18 +421,6 @@ export default {
       },
       "select": "Hautatu koloreak"
     },
-    "contentTier": {
-      "name": "Elementuaren kalitatea",
-      "options": {
-        "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
-        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak",
-        "1": "Kalitate baxua",
-        "2": "Kalitate ertaina",
-        "3": "Kalitate handiko eta baldintzarekin berrerabilgarria",
-        "4": "Kalitate handikoa eta libreki berrerabil daitekeena"
-      },
-      "select": "Hautatu elementuen kalitateak"
-    },
     "COUNTRY": {
       "name": "Herrialde hornitzailea",
       "options": {
@@ -597,16 +549,108 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       },
       "select": "Hautatu fitxategi formatuak"
     },
-    "moreOptions": "Bilatu {0} gehiago {1} aurkitzeko.",
     "PROVIDER": {
       "moreName": "agregatzaileak",
       "name": "Agregatzailea | Agregatzaileak",
       "select": "Hautatu agregatzaileak"
     },
+    "REUSABILITY": {
+      "name": "Hau erabili dezaket?",
+      "options": {
+        "open": "Bai",
+        "permission": "Agian, baimena beharrezkoa",
+        "restricted": "Bai, baldintzekin",
+        "uncategorized": "Sailkatu gabe"
+      },
+      "select": "Hautatu hau erabil dezakezun ala ez"
+    },
+    "RIGHTS": {
+      "name": "Eskubideen adierazpena",
+      "options": {
+        "*\/CNE\/*": "Copyright ez da ebaluatu",
+        "*\/InC-EDU\/*": "Copyright-en - Hezkuntza erabilera baimenduta",
+        "*\/InC-OW-EU\/*": "Copyright-en - OW-EU",
+        "*\/InC\/*": "Copyright-en",
+        "*\/NoC-NC\/*": "Copyright-rik gabe - Erabilera ez komertziala soilik",
+        "*\/NoC-OKLR\/*": "Copyright ez - Ezagutzen diren beste legezko murriztapen batzuk",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Domeinu Publikoaren Marka",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Egile-eskubideetatik kanpo - komertziala ez den berrerabilpena",
+        "*\/rights\/rr-f\/*": "Eskubideak gordeta - Doako sarbidea",
+        "*\/rights\/unknown\/*": "Copyright-egoera ezezaguna"
+      },
+      "select": "Hautatu eskubideen adierazpenak"
+    },
+    "TYPE": {
+      "name": "Euskarri mota",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Irudia",
+        "SOUND": "Soinua",
+        "TEXT": "Testua",
+        "VIDEO": "Bideoa"
+      },
+      "select": "Hautatu euskarri motak"
+    },
+    "api": {
+      "name": "Bilatu",
+      "options": {
+        "fulltext": "Testu osoko elementuak",
+        "metadata": "Metadatuak soilik diren elementuak"
+      },
+      "switch": "Bilatu testu osoa duten elementuen edukian soilik",
+      "switchMoreInfo": "Bilduma honetan, zer bilatu nahi duzun aukeratu dezakezu: etengailu hau aktibatuta badago, egunkariaren eta dokumentuaren testuaren barruan bilatuko duzu; desaktibatuta badago, elementua deskribatzen duen informazioaren barruan bilatuko duzu, beste bilduma gehienetan beti egiten duzun bezala."
+    },
+    "button": {
+      "apply": "Aplikatu",
+      "cancel": "Bertan behera utzi",
+      "morefilters": "Iragazki gehiago",
+      "reset": "Berrezarri",
+      "showAll": "Erakutsi guztiak {label}",
+      "showLess": "Erakutsi gutxiago {label}"
+    },
+    "collection": {
+      "name": "Gaia",
+      "options": {
+        "archaeology": "Arkeologia",
+        "art": "Artea",
+        "fashion": "Moda",
+        "industrial": "Industria ondarea",
+        "manuscript": "Eskuizkribuak",
+        "map": "Mapak eta Geografia",
+        "migration": "Migrazioa",
+        "music": "Musika",
+        "nature": "Historia Naturala",
+        "newspaper": "Egunkariak",
+        "photography": "Argazkilaritza",
+        "sport": "Kirola",
+        "ww1": "Lehen Mundu Gerra"
+      },
+      "select": "Hautatu gai bat"
+    },
+    "contentTier": {
+      "name": "Elementuaren kalitatea",
+      "options": {
+        "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
+        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak",
+        "1": "Kalitate baxua",
+        "2": "Kalitate ertaina",
+        "3": "Kalitate handiko eta baldintzarekin berrerabilgarria",
+        "4": "Kalitate handikoa eta libreki berrerabil daitekeena"
+      },
+      "select": "Hautatu elementuen kalitateak"
+    },
+    "moreOptions": "Bilatu {0} gehiago {1} aurkitzeko.",
     "proxy_dc_format": {
       "name": "Formatua | Formatuak",
       "select": "Hautatu  formatuak"
@@ -621,27 +665,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Komunikabidea | Komunikabideak",
       "select": "Hautatu euskarria"
-    },
-    "REUSABILITY": {
-      "name": "Hau erabili dezaket?",
-      "options": {
-        "open": "Bai",
-        "permission": "Agian, baimena beharrezkoa",
-        "restricted": "Bai, baldintzekin",
-        "uncategorized": "Sailkatu gabe"
-      },
-      "select": "Hautatu hau erabil dezakezun ala ez"
-    },
-    "TYPE": {
-      "name": "Euskarri mota",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Irudia",
-        "SOUND": "Soinua",
-        "TEXT": "Testua",
-        "VIDEO": "Bideoa"
-      },
-      "select": "Hautatu euskarri motak"
     }
   },
   "feedback": {
@@ -679,6 +702,8 @@ export default {
       "dcRights": "Baimenak",
       "dcSource": "Iturria",
       "dcSubject": "Gaia",
+      "dcTitle": "Izenburua",
+      "dcType": "Objektu mota",
       "dctermsCreated": "Sortze data",
       "dctermsExtent": "Hedadura",
       "dctermsHasPart": "honetan datza",
@@ -693,10 +718,8 @@ export default {
       "dctermsProvenance": "Jatorria",
       "dctermsReferences": "erreferentzia egiten du",
       "dctermsSpatial": "Lekuak",
-      "dctermsTemporal": "Aldi baterako",
       "dctermsTOC": "Edukien taula",
-      "dcTitle": "Izenburua",
-      "dcType": "Objektu mota",
+      "dctermsTemporal": "Aldi baterako",
       "edmCountry": "Herrialde hornitzailea",
       "edmCurrentLocation": "Egungo kokapena",
       "edmDataProvider": "Erakunde hornitzailea",
@@ -736,13 +759,13 @@ export default {
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
     "imageDescription": "Europar Batasunak finantzatua",
     "navigation": {
+      "MoreInfoLabel": "Informazio gehiago",
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
       "faq": "Maiz Egindako Galderak",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
-      "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
       "provide": "Datu hornitzaile bihurtu",
       "subscribe": "Harpidetu zaitez gure Buletinera",
@@ -800,7 +823,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
@@ -839,7 +862,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
-        "title": "A / B probak"
+        "title": "A \/ B probak"
       },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
@@ -871,7 +894,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
       }
     }
   },
@@ -920,9 +943,6 @@ export default {
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Hiria",
@@ -973,6 +993,7 @@ export default {
     }
   },
   "record": {
+    "IIIFViewer": "IIIF ikuslea",
     "actions": {
       "pin": "Ainguratu elementua eskuragarri dauden Entitateetan"
     },
@@ -981,7 +1002,6 @@ export default {
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
-    "IIIFViewer": "IIIF ikuslea",
     "location": "Kokapena",
     "locationOnMap": "Kokapena mapan",
     "mediaPlayer": "Multimedia erreproduzitzailea",
@@ -1026,10 +1046,10 @@ export default {
     },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
+      "withQuery": "{count} emaitza rentzat {query}",
       "withinCollection": "{count} emaitza barruan {type} {collection}",
       "withinCollectionWithQuery": "{count} emaitza {type} {collection} barruan {query}",
-      "withoutQuery": "{count} emaitza",
-      "withQuery": "{count} emaitza rentzat {query}"
+      "withoutQuery": "{count} emaitza"
     },
     "title": "Bilatu"
   },
@@ -1090,7 +1110,7 @@ export default {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
     },
     "publication": {
-      "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
+      "description": "Galeria bat argitaratzeak Europeana.eu\/galleries webgunean agertuko du.",
       "failedSubmission": "Eskaerak huts egin du. Saiatu berriro mesedez.",
       "process": {
         "description": "Galeria bat argitaratzeko bidaltzen duzunean, Europeana-ko argitaletxe talde bati jakinaraziko zaio. Lehenik eta behin aztertuko dute, eta aldaketak egin ditzakete argitaratu aurretik. Galeria berrikusten den heinean jakinarazpenak jasoko dituzu posta elektronikoz. Argitaratzen ez bada, baliteke gure editorialen jarraibideekin bat ez egitea.",

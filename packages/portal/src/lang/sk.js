@@ -6,7 +6,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -138,13 +138,14 @@ export default {
     }
   },
   "colourSwatch": "Farebná vzorkovník",
+  "contentYouMightLike": "Obsah, ktorý by sa vám mohol páčiť",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Ďalšie informácie",
       "about": "Informácie o zbierkach Europeana",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "meetUs": "Spoznajte členov tímu",
-      "MoreInfoLabel": "Ďalšie informácie",
       "provide": "Staňte sa poskytovateľom údajov",
       "subscribe": "Prihlásiť sa na odber newslettra",
       "terms": "Podmienky používania služby a zásady ochrany osobných údajov"
@@ -155,7 +156,6 @@ export default {
       "teachers": "Učitelia"
     }
   },
-  "contentYouMightLike": "Obsah, ktorý by sa vám mohol páčiť",
   "curatedAutomatically": "Spravované automaticky spol. Europeana",
   "dateFilter": {
     "endDate": "Dátum ukončenia",
@@ -211,7 +211,7 @@ export default {
         "title": "Príliš veľa pripnutých položiek"
       },
       "pinned": "Položka bola pripnutá. Teraz je v hornej časti prvej stránky tejto zbierky. Zobrazenie pre všetkých môže trvať až 24 hodín.",
-      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť/odopnúť.",
+      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť\/odopnúť.",
       "unpin": "Táto položka sa prestane zobrazovať v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "unpinned": "Položka bola odopnutá. Už sa nenachádza v hornej časti prvej stránky tejto zbierky. Zmiznutie pre každého môže trvať až 24 hodín."
     }
@@ -245,7 +245,7 @@ export default {
       "title": "Stránka, ktorú hľadáte, neexistuje."
     },
     "pinningNotFound": {
-      "description": "Pri pripínaní/odpínaní položky došlo k chybe. Skúste to znova alebo nahláste problém.",
+      "description": "Pri pripínaní\/odpínaní položky došlo k chybe. Skúste to znova alebo nahláste problém.",
       "title": "Kurátorská zbierka nebola nájdená"
     },
     "searchPaginationLimitExceeded": {
@@ -266,42 +266,6 @@ export default {
   },
   "explore": "Preskúmať",
   "facets": {
-    "api": {
-      "name": "Vyhľadávať",
-      "options": {
-        "fulltext": "Záznamy s plným textom",
-        "metadata": "Výhradne záznamy s metaúdajmi"
-      },
-      "switch": "Vyhľadávanie len v obsahu položiek s plným textom",
-      "switchMoreInfo": "V tejto zbierke si môžete vybrať, čo chcete vyhľadávať: ak je tento prepínač zapnutý, budete vyhľadávať v texte novín a dokumentov; ak je vypnutý, budete namiesto toho vyhľadávať v informáciách popisujúcich položku, rovnako ako vždy vo väčšine iných zbierok."
-    },
-    "button": {
-      "apply": "Použiť",
-      "cancel": "Zrušiť",
-      "morefilters": "Viac filtrov",
-      "reset": "Obnoviť",
-      "showAll": "Zobraziť všetko {label}",
-      "showLess": "Zobraziť menej {label}"
-    },
-    "collection": {
-      "name": "Téma",
-      "options": {
-        "archaeology": "Archeológia",
-        "art": "Umenie",
-        "fashion": "Móda",
-        "industrial": "Priemyselné dedičstvo",
-        "manuscript": "Rukopisy",
-        "map": "Mapy a geografia",
-        "migration": "Migrácia",
-        "music": "Hudba",
-        "nature": "Prírodná história",
-        "newspaper": "Noviny",
-        "photography": "Fotografie",
-        "sport": "Šport",
-        "ww1": "Prvá svetová vojna"
-      },
-      "select": "Vyberte tému"
-    },
     "COLOURPALETTE": {
       "moreName": "farby",
       "name": "Farba | Farby",
@@ -453,18 +417,6 @@ export default {
       },
       "select": "Vyberte farby"
     },
-    "contentTier": {
-      "name": "Kvalita položky",
-      "options": {
-        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
-        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia",
-        "1": "Nízka kvalita",
-        "2": "Stredná kvalita",
-        "3": "Vysoká kvalita a opakované použitie s podmienkami",
-        "4": "Vysoká kvalita a voľné opakované použitie"
-      },
-      "select": "Vyberte vlastnosti položky"
-    },
     "COUNTRY": {
       "name": "Poskytujúca krajina",
       "options": {
@@ -593,16 +545,108 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       },
       "select": "Vyberte formáty súborov"
     },
-    "moreOptions": "Hľadajte, aby ste našli {0} viac {1}.",
     "PROVIDER": {
       "moreName": "agregátory",
       "name": "Agregátor",
       "select": "Vyberte agregátory"
     },
+    "REUSABILITY": {
+      "name": "Môžem to znova použiť?",
+      "options": {
+        "open": "Áno",
+        "permission": "Možno; získajte povolenie",
+        "restricted": "Áno; s výhradami",
+        "uncategorized": "Nekategorizované"
+      },
+      "select": "Vyberte, či to môžete použiť"
+    },
+    "RIGHTS": {
+      "name": "Vyhlásenie o právach",
+      "options": {
+        "*\/CNE\/*": "Autorské práva sa nehodnotia",
+        "*\/InC-EDU\/*": "V autorských právach – Povolené použitie na vzdelávacie účely",
+        "*\/InC-OW-EU\/*": "V autorských právach - OW-EU",
+        "*\/InC\/*": "V autorských právach",
+        "*\/NoC-NC\/*": "Žiadne autorské práva – len na nekomerčné použitie",
+        "*\/NoC-OKLR\/*": "Žiadne autorské práva – iné známe právne obmedzenia",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Značka verejnej domény",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Mimo autorských práv – nekomerčné opakované použitie",
+        "*\/rights\/rr-f\/*": "Práva vyhradené – Voľný prístup",
+        "*\/rights\/unknown\/*": "Neznámy stav autorských práv"
+      },
+      "select": "Vyberte vyhlásenia o právach"
+    },
+    "TYPE": {
+      "name": "Typ média",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Obraz",
+        "SOUND": "Zvuk",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      },
+      "select": "Vyberte typy médií"
+    },
+    "api": {
+      "name": "Vyhľadávať",
+      "options": {
+        "fulltext": "Záznamy s plným textom",
+        "metadata": "Výhradne záznamy s metaúdajmi"
+      },
+      "switch": "Vyhľadávanie len v obsahu položiek s plným textom",
+      "switchMoreInfo": "V tejto zbierke si môžete vybrať, čo chcete vyhľadávať: ak je tento prepínač zapnutý, budete vyhľadávať v texte novín a dokumentov; ak je vypnutý, budete namiesto toho vyhľadávať v informáciách popisujúcich položku, rovnako ako vždy vo väčšine iných zbierok."
+    },
+    "button": {
+      "apply": "Použiť",
+      "cancel": "Zrušiť",
+      "morefilters": "Viac filtrov",
+      "reset": "Obnoviť",
+      "showAll": "Zobraziť všetko {label}",
+      "showLess": "Zobraziť menej {label}"
+    },
+    "collection": {
+      "name": "Téma",
+      "options": {
+        "archaeology": "Archeológia",
+        "art": "Umenie",
+        "fashion": "Móda",
+        "industrial": "Priemyselné dedičstvo",
+        "manuscript": "Rukopisy",
+        "map": "Mapy a geografia",
+        "migration": "Migrácia",
+        "music": "Hudba",
+        "nature": "Prírodná história",
+        "newspaper": "Noviny",
+        "photography": "Fotografie",
+        "sport": "Šport",
+        "ww1": "Prvá svetová vojna"
+      },
+      "select": "Vyberte tému"
+    },
+    "contentTier": {
+      "name": "Kvalita položky",
+      "options": {
+        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
+        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia",
+        "1": "Nízka kvalita",
+        "2": "Stredná kvalita",
+        "3": "Vysoká kvalita a opakované použitie s podmienkami",
+        "4": "Vysoká kvalita a voľné opakované použitie"
+      },
+      "select": "Vyberte vlastnosti položky"
+    },
+    "moreOptions": "Hľadajte, aby ste našli {0} viac {1}.",
     "proxy_dc_format": {
       "name": "Formát | Formáty",
       "select": "Vyberte formáty"
@@ -617,27 +661,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Médium | Mediá",
       "select": "Vyberte média"
-    },
-    "REUSABILITY": {
-      "name": "Môžem to znova použiť?",
-      "options": {
-        "open": "Áno",
-        "permission": "Možno; získajte povolenie",
-        "restricted": "Áno; s výhradami",
-        "uncategorized": "Nekategorizované"
-      },
-      "select": "Vyberte, či to môžete použiť"
-    },
-    "TYPE": {
-      "name": "Typ média",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Obraz",
-        "SOUND": "Zvuk",
-        "TEXT": "Text",
-        "VIDEO": "Video"
-      },
-      "select": "Vyberte typy médií"
     }
   },
   "feedback": {
@@ -675,6 +698,8 @@ export default {
       "dcRights": "Práva",
       "dcSource": "Zdroj",
       "dcSubject": "Predmet",
+      "dcTitle": "Názov",
+      "dcType": "Typ objektu",
       "dctermsCreated": "Dátum vytvorenia",
       "dctermsExtent": "Rozsah",
       "dctermsHasPart": "Pozostáva z",
@@ -689,10 +714,8 @@ export default {
       "dctermsProvenance": "Proveniencia",
       "dctermsReferences": "Odkazy",
       "dctermsSpatial": "Miesta",
-      "dctermsTemporal": "Časové obdobie",
       "dctermsTOC": "Obsah",
-      "dcTitle": "Názov",
-      "dcType": "Typ objektu",
+      "dctermsTemporal": "Časové obdobie",
       "edmCountry": "Poskytujúca krajina",
       "edmCurrentLocation": "Aktuálna poloha",
       "edmDataProvider": "Poskytujúca inštitúcia",
@@ -732,13 +755,13 @@ export default {
     "findUsElsewhere": "Nájdite nás aj inde",
     "imageDescription": "Financované Európskou úniou",
     "navigation": {
+      "MoreInfoLabel": "Ďalšie informácie",
       "about": "O nás",
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
       "faq": "Často kladené otázky",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
-      "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Zásady ochrany osobných údajov",
       "provide": "Staňte sa poskytovateľom údajov",
       "subscribe": "Prihlásiť sa na odber newslettra",
@@ -835,7 +858,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáha zlepšovať náš web príležitostným použitím experimentálnych zmien.",
-        "title": "A/B testovanie"
+        "title": "A\/B testovanie"
       },
       "auth-strategy": {
         "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
@@ -867,7 +890,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "title": "Zobrazenie výsledkov hľadania (zoznam \/ mriežka)"
       }
     }
   },
@@ -916,9 +939,6 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
-  },
   "of": "Z",
   "organisation": {
     "city": "Mesto",
@@ -969,6 +989,7 @@ export default {
     }
   },
   "record": {
+    "IIIFViewer": "Divák IIIF",
     "actions": {
       "pin": "Pripnúť položku k dostupným entitám"
     },
@@ -977,7 +998,6 @@ export default {
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",
-    "IIIFViewer": "Divák IIIF",
     "location": "Poloha",
     "locationOnMap": "Poloha na mape",
     "mediaPlayer": "Prehrávač médií",
@@ -1022,10 +1042,10 @@ export default {
     },
     "results": {
       "limitWarning": "Ďalšie výsledky sa nezobrazujú, pretože je zobrazených iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli to, čo ste hľadali, zvážte spresnenie vyhľadávania.",
+      "withQuery": "{count} výsledkov pre {query}",
       "withinCollection": "{count} výsledkov v rámci {type} {collection}",
       "withinCollectionWithQuery": "{count} výsledkov v rámci {type} {collection} pre {query}",
-      "withoutQuery": "{count} výsledkov",
-      "withQuery": "{count} výsledkov pre {query}"
+      "withoutQuery": "{count} výsledkov"
     },
     "title": "Vyhľadávanie"
   },
@@ -1086,7 +1106,7 @@ export default {
       "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali."
     },
     "publication": {
-      "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",
+      "description": "Zverejnením galérie bude uvedená na Europeana.eu\/galleries.",
       "failedSubmission": "Žiadosť zlyhala. Prosím skúste znova.",
       "process": {
         "description": "Keď odošlete galériu na zverejnenie, tím vydavateľov Europeana bude upozornený. Najprv ho skontrolujú a pred zverejnením môžu vykonať zmeny. Počas kontroly galérie budete dostávať upozornenia e-mailom. Ak nie je zverejnený, je možné, že nie je v súlade s našimi redakčnými pokynmi.",

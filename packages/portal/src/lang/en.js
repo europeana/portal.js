@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
-    "linkLoginJoin": "Log in / Join",
+    "linkLoginJoin": "Log in \/ Join",
     "linkLogout": "Log out",
     "myProfile": "My Profile",
     "notifications": {
@@ -68,8 +68,8 @@ export default {
     "title": "Title:"
   },
   "automatedCardGroup": {
-    "item": "Recent items",
     "gallery": "Galleries",
+    "item": "Recent items",
     "organisation": "Organisations",
     "place": "Places",
     "theme": "Themes",
@@ -215,7 +215,7 @@ export default {
         "title": "Too many pinned items"
       },
       "pinned": "The item has been pinned. It will appear as the first item on the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
-      "select": "Select a related entity to pin/unpin the item to/from it.",
+      "select": "Select a related entity to pin\/unpin the item to\/from it.",
       "unpin": "This item will stop showing at the top of the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
       "unpinned": "The item has been unpinned. We will notify you when this change will be visible on the collection page."
     }
@@ -249,7 +249,7 @@ export default {
       "title": "The page you are looking for doesn't exist."
     },
     "pinningNotFound": {
-      "description": "There was an error pinning/unpinning the item. Please try again, or report the issue.",
+      "description": "There was an error pinning\/unpinning the item. Please try again, or report the issue.",
       "title": "Curated collection not found"
     },
     "searchPaginationLimitExceeded": {
@@ -549,7 +549,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       },
       "select": "Select file formats"
     },
@@ -570,26 +570,26 @@ export default {
     },
     "RIGHTS": {
       "name": "Rights statement",
-      "select": "Select rights statements",
       "options": {
-        "*/CNE/*": "Copyright Not Evaluated",
-        "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
-        "*/InC-OW-EU/*": "In Copyright - OW-EU",
-        "*/InC/*": "In Copyright",
-        "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
-        "*/NoC-OKLR/*": "No Copyright - Other Known Legal Restrictions",
-        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
-        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
-        "*/licenses/by-nc/*": "CC BY-NC",
-        "*/licenses/by-nd/*": "CC BY-ND",
-        "*/licenses/by-sa/*": "CC BY-SA",
-        "*/licenses/by/*": "CC BY",
-        "*/publicdomain/mark/*": "Public Domain Mark",
-        "*/publicdomain/zero/*": "CC0",
-        "*/rights/out-of-copyright-non-commercial/*": "Out of copyright - non commercial re-use",
-        "*/rights/rr-f/*": "Rights Reserved - Free access",
-        "*/rights/unknown/*": "Unknown copyright status"
-      }
+        "*\/CNE\/*": "Copyright Not Evaluated",
+        "*\/InC-EDU\/*": "In Copyright - Educational Use Permitted",
+        "*\/InC-OW-EU\/*": "In Copyright - OW-EU",
+        "*\/InC\/*": "In Copyright",
+        "*\/NoC-NC\/*": "No Copyright - Non-Commercial Use Only",
+        "*\/NoC-OKLR\/*": "No Copyright - Other Known Legal Restrictions",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Public Domain Mark",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Out of copyright - non commercial re-use",
+        "*\/rights\/rr-f\/*": "Rights Reserved - Free access",
+        "*\/rights\/unknown\/*": "Unknown copyright status"
+      },
+      "select": "Select rights statements"
     },
     "TYPE": {
       "name": "Type of media",
@@ -834,7 +834,7 @@ export default {
       "acceptAll": "Accept all",
       "acceptSelected": "Accept selected",
       "consentModal": {
-        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='\/rights\/privacy-policy'>privacy policy<\/a>.",
         "title": "Services we would like to use."
       },
       "consentNotice": {
@@ -863,7 +863,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helps to improve our website by occasionally applying experimental changes.",
-        "title": "A/B testing"
+        "title": "A\/B testing"
       },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
@@ -895,7 +895,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
-        "title": "Search result view (list/grid)"
+        "title": "Search result view (list\/grid)"
       }
     }
   },
@@ -944,9 +944,6 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
-  "notificationBanner": {
-    "text": {}
-  },
   "of": "Of",
   "organisation": {
     "city": "City",
@@ -1084,10 +1081,10 @@ export default {
     },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
+      "withQuery": "{count} results for {query}",
       "withinCollection": "{count} results within {type} {collection}",
       "withinCollectionWithQuery": "{count} results within {type} {collection} for {query}",
-      "withoutQuery": "{count} results",
-      "withQuery": "{count} results for {query}"
+      "withoutQuery": "{count} results"
     },
     "title": "Search"
   },
@@ -1149,19 +1146,19 @@ export default {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     },
     "publication": {
-      "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
+      "description": "Publishing a gallery will feature it on Europeana.eu\/galleries.",
       "failedSubmission": "The request failed. Please try again.",
       "process": {
-        "title": "How the process works",
-        "description": "When you submit a gallery for publication, a team of publishers at Europeana will be notified. They will first review it, and may make changes before it is published. You will receive notifications by email as the gallery is reviewed. If it is not published, it could be that it does not conform to our editorial guidelines."
+        "description": "When you submit a gallery for publication, a team of publishers at Europeana will be notified. They will first review it, and may make changes before it is published. You will receive notifications by email as the gallery is reviewed. If it is not published, it could be that it does not conform to our editorial guidelines.",
+        "title": "How the process works"
       },
       "time": {
-        "title": "How long it takes",
-        "description": "1-3 days."
+        "description": "1-3 days.",
+        "title": "How long it takes"
       },
       "title": "Submit gallery for publication",
-      "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
-      "toastButton": "Okay"
+      "toastButton": "Okay",
+      "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published."
     },
     "shareTo": {
       "weavex": {
@@ -1181,12 +1178,12 @@ export default {
     "pinned": "Pinned"
   },
   "storiesPage": {
-    "title": "Stories",
-    "storiesHaveLoaded": "{0} stories found"
+    "storiesHaveLoaded": "{0} stories found",
+    "title": "Stories"
   },
   "themes": {
-    "themes": "Themes",
-    "description": "Browse by theme"
+    "description": "Browse by theme",
+    "themes": "Themes"
   },
   "website": "Website"
 };

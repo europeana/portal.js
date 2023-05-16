@@ -6,7 +6,7 @@ export default {
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
-    "linkLoginJoin": "Iniciar sesión/Unirse",
+    "linkLoginJoin": "Iniciar sesión\/Unirse",
     "linkLogout": "Cerrar sesión",
     "myProfile": "Mi perfil",
     "notifications": {
@@ -138,13 +138,14 @@ export default {
     }
   },
   "colourSwatch": "Muestra de color",
+  "contentYouMightLike": "Contenido que quizá te guste",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Más información",
       "about": "Acerca de Europeana",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "meetUs": "Nuestro equipo",
-      "MoreInfoLabel": "Más información",
       "provide": "Conviértete en proveedor de datos",
       "subscribe": "Suscríbete a nuestro boletín",
       "terms": "Condiciones de uso y Política de privacidad"
@@ -155,7 +156,6 @@ export default {
       "teachers": "Profesores"
     }
   },
-  "contentYouMightLike": "Contenido que quizá te guste",
   "curatedAutomatically": "Comisariados automáticamente por Europeana",
   "dateFilter": {
     "endDate": "Fecha de finalización",
@@ -211,7 +211,7 @@ export default {
         "title": "Demasiados elementos fijados"
       },
       "pinned": "El elemento se ha anclado. Ahora está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en aparecer para todos.",
-      "select": "Seleccione una entidad relacionada para anclar/desanclar el elemento a/desde ella.",
+      "select": "Seleccione una entidad relacionada para anclar\/desanclar el elemento a\/desde ella.",
       "unpin": "Este elemento dejará de mostrarse en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "unpinned": "El elemento se ha desanclarado. Ya no está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en desaparecer para todos."
     }
@@ -245,7 +245,7 @@ export default {
       "title": "La página que buscas no existe."
     },
     "pinningNotFound": {
-      "description": "Se ha producido un error al anclar/desanclar el elemento. Inténtalo de nuevo o notifica el problema.",
+      "description": "Se ha producido un error al anclar\/desanclar el elemento. Inténtalo de nuevo o notifica el problema.",
       "title": "Colección curada no encontrada"
     },
     "searchPaginationLimitExceeded": {
@@ -266,42 +266,6 @@ export default {
   },
   "explore": "Explorar",
   "facets": {
-    "api": {
-      "name": "Buscar",
-      "options": {
-        "fulltext": "Registros de texto completo",
-        "metadata": "Registros de solo metadatos"
-      },
-      "switch": "Buscar solo en el contenido de los elementos con texto completo",
-      "switchMoreInfo": "En esta colección, puede elegir lo que desea buscar: si este interruptor está activado, buscará dentro del periódico y el texto del documento; si está desactivada, buscará dentro de la información que describe el elemento, como siempre lo hace en la mayoría de las otras colecciones."
-    },
-    "button": {
-      "apply": "Aplicar",
-      "cancel": "Cancelar",
-      "morefilters": "Más filtros",
-      "reset": "Reiniciar",
-      "showAll": "Mostrar todo {label}",
-      "showLess": "Mostrar menos {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arqueología",
-        "art": "Arte",
-        "fashion": "Moda",
-        "industrial": "Patrimonio industrial",
-        "manuscript": "Manuscritos",
-        "map": "Mapas y geografía",
-        "migration": "Migración",
-        "music": "Música",
-        "nature": "Historia natural",
-        "newspaper": "Periódicos",
-        "photography": "Fotografía",
-        "sport": "Deporte",
-        "ww1": "Primera Guerra Mundial"
-      },
-      "select": "Selecciona un tema"
-    },
     "COLOURPALETTE": {
       "moreName": "colores",
       "name": "Color | Colores",
@@ -453,18 +417,6 @@ export default {
       },
       "select": "Seleccionar colores"
     },
-    "contentTier": {
-      "name": "Calidad del artículo",
-      "options": {
-        "*": "Incluir los elementos que no cumplan nuestros criterios de publicación",
-        "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación",
-        "1": "Baja calidad",
-        "2": "Calidad media",
-        "3": "Alta calidad y reutilizable con condiciones",
-        "4": "Alta calidad y libremente reutilizable"
-      },
-      "select": "Seleccione las calidades del artículo"
-    },
     "COUNTRY": {
       "name": "País proveedor",
       "options": {
@@ -593,16 +545,108 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text/plain": "Texto sin formato"
+        "text\/plain": "Texto sin formato"
       },
       "select": "Seleccionar formatos de archivo"
     },
-    "moreOptions": "Busque para encontrar {0} más {1}.",
     "PROVIDER": {
       "moreName": "agregadores",
       "name": "Agregador",
       "select": "Seleccionar agregadores"
     },
+    "REUSABILITY": {
+      "name": "¿Puede reutilizarse?",
+      "options": {
+        "open": "Sí",
+        "permission": "Tal vez, solicite permiso",
+        "restricted": "Sí, con condiciones",
+        "uncategorized": "Sin categoría"
+      },
+      "select": "Seleccione si puede usar esto"
+    },
+    "RIGHTS": {
+      "name": "Declaración de derechos",
+      "options": {
+        "*\/CNE\/*": "Derechos de autor no evaluados",
+        "*\/InC-EDU\/*": "En derechos de autor - Uso educativo permitido",
+        "*\/InC-OW-EU\/*": "En derechos de autor - OW-EU",
+        "*\/InC\/*": "En derechos de autor",
+        "*\/NoC-NC\/*": "Sin derechos de autor - Sólo para uso no comercial",
+        "*\/NoC-OKLR\/*": "Sin derechos de autor - Otras restricciones legales conocidas",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marca de dominio público",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Fuera de derechos de autor - Reutilización no comercial",
+        "*\/rights\/rr-f\/*": "Derechos Reservados - Acceso gratuito",
+        "*\/rights\/unknown\/*": "Estado de copyright desconocido"
+      },
+      "select": "Seleccionar declaraciones de derechos"
+    },
+    "TYPE": {
+      "name": "Tipo de medio",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Imagen",
+        "SOUND": "Sonido",
+        "TEXT": "Texto",
+        "VIDEO": "Vídeo"
+      },
+      "select": "Seleccionar tipos de medios"
+    },
+    "api": {
+      "name": "Buscar",
+      "options": {
+        "fulltext": "Registros de texto completo",
+        "metadata": "Registros de solo metadatos"
+      },
+      "switch": "Buscar solo en el contenido de los elementos con texto completo",
+      "switchMoreInfo": "En esta colección, puede elegir lo que desea buscar: si este interruptor está activado, buscará dentro del periódico y el texto del documento; si está desactivada, buscará dentro de la información que describe el elemento, como siempre lo hace en la mayoría de las otras colecciones."
+    },
+    "button": {
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "morefilters": "Más filtros",
+      "reset": "Reiniciar",
+      "showAll": "Mostrar todo {label}",
+      "showLess": "Mostrar menos {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arqueología",
+        "art": "Arte",
+        "fashion": "Moda",
+        "industrial": "Patrimonio industrial",
+        "manuscript": "Manuscritos",
+        "map": "Mapas y geografía",
+        "migration": "Migración",
+        "music": "Música",
+        "nature": "Historia natural",
+        "newspaper": "Periódicos",
+        "photography": "Fotografía",
+        "sport": "Deporte",
+        "ww1": "Primera Guerra Mundial"
+      },
+      "select": "Selecciona un tema"
+    },
+    "contentTier": {
+      "name": "Calidad del artículo",
+      "options": {
+        "*": "Incluir los elementos que no cumplan nuestros criterios de publicación",
+        "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación",
+        "1": "Baja calidad",
+        "2": "Calidad media",
+        "3": "Alta calidad y reutilizable con condiciones",
+        "4": "Alta calidad y libremente reutilizable"
+      },
+      "select": "Seleccione las calidades del artículo"
+    },
+    "moreOptions": "Busque para encontrar {0} más {1}.",
     "proxy_dc_format": {
       "name": "Formato | Formatos",
       "select": "Seleccionar formatos"
@@ -617,27 +661,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Medio | Medios",
       "select": "Seleccionar medios"
-    },
-    "REUSABILITY": {
-      "name": "¿Puede reutilizarse?",
-      "options": {
-        "open": "Sí",
-        "permission": "Tal vez, solicite permiso",
-        "restricted": "Sí, con condiciones",
-        "uncategorized": "Sin categoría"
-      },
-      "select": "Seleccione si puede usar esto"
-    },
-    "TYPE": {
-      "name": "Tipo de medio",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Imagen",
-        "SOUND": "Sonido",
-        "TEXT": "Texto",
-        "VIDEO": "Vídeo"
-      },
-      "select": "Seleccionar tipos de medios"
     }
   },
   "feedback": {
@@ -675,6 +698,8 @@ export default {
       "dcRights": "Derechos",
       "dcSource": "Fuente",
       "dcSubject": "Asunto",
+      "dcTitle": "Título",
+      "dcType": "Tipo de objeto",
       "dctermsCreated": "Fecha de creación",
       "dctermsExtent": "Alcance",
       "dctermsHasPart": "contiene",
@@ -689,10 +714,8 @@ export default {
       "dctermsProvenance": "Procedencia",
       "dctermsReferences": "hace referencia a",
       "dctermsSpatial": "Lugares",
-      "dctermsTemporal": "Temporal",
       "dctermsTOC": "Tabla de contenido",
-      "dcTitle": "Título",
-      "dcType": "Tipo de objeto",
+      "dctermsTemporal": "Temporal",
       "edmCountry": "País proveedor",
       "edmCurrentLocation": "Ubicación actual",
       "edmDataProvider": "Institución proveedora",
@@ -732,13 +755,13 @@ export default {
     "findUsElsewhere": "Puedes encontrarnos también en",
     "imageDescription": "Financiado por la Unión Europea",
     "navigation": {
+      "MoreInfoLabel": "Más información",
       "about": "¿Qué es Europeana?",
       "accessibility": "Accesibilidad",
       "cookies": "Cookies",
       "faq": "Preguntas frecuentes",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
-      "MoreInfoLabel": "Más información",
       "privacy": "Política de privacidad",
       "provide": "Conviértete en proveedor de datos",
       "subscribe": "Suscríbete a nuestro boletín",
@@ -835,7 +858,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ayuda a mejorar nuestro sitio web aplicando ocasionalmente cambios experimentales.",
-        "title": "Pruebas A/B"
+        "title": "Pruebas A\/B"
       },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
@@ -867,7 +890,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
-        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
+        "title": "Vista de resultados de búsqueda (lista \/ cuadrícula)"
       }
     }
   },
@@ -916,9 +939,6 @@ export default {
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Ciudad",
@@ -969,6 +989,7 @@ export default {
     }
   },
   "record": {
+    "IIIFViewer": "Visor IIIF",
     "actions": {
       "pin": "Anclar elemento a entidades disponibles"
     },
@@ -977,7 +998,6 @@ export default {
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",
-    "IIIFViewer": "Visor IIIF",
     "location": "Ubicación",
     "locationOnMap": "Ubicación en el mapa",
     "mediaPlayer": "Reproductor multimedia",
@@ -1022,10 +1042,10 @@ export default {
     },
     "results": {
       "limitWarning": "No se muestran resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere refinar su búsqueda.",
+      "withQuery": "{count} resultados para {query}",
       "withinCollection": "{count} resultados dentro de {type} {collection}",
       "withinCollectionWithQuery": "{count} resultados dentro de {type} {collection} para {query}",
-      "withoutQuery": "{count} resultados",
-      "withQuery": "{count} resultados para {query}"
+      "withoutQuery": "{count} resultados"
     },
     "title": "Buscar"
   },
@@ -1086,7 +1106,7 @@ export default {
       "delete": "¿Estás seguro de que quieres eliminar esta galería? Si eliminas esta galería, perderás todos los elementos que le hayas agregado."
     },
     "publication": {
-      "description": "Al publicar una galería, aparecerá en Europeana.eu/galleries.",
+      "description": "Al publicar una galería, aparecerá en Europeana.eu\/galleries.",
       "failedSubmission": "La solicitud falló. Inténtalo de nuevo.",
       "process": {
         "description": "Cuando envíe una galería para su publicación, se notificará a un equipo de editores de Europeana. Primero lo revisarán y pueden hacer cambios antes de que se publique. Recibirá notificaciones por correo electrónico a medida que se revise la galería. Si no se publica, es posible que no se ajuste a nuestras pautas editoriales.",

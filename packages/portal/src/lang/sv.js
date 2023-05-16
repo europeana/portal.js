@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -138,13 +138,14 @@ export default {
     }
   },
   "colourSwatch": "Färgprov",
+  "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Mer info",
       "about": "Om Europeana",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "meetUs": "Möt teamet",
-      "MoreInfoLabel": "Mer info",
       "provide": "Bli en dataleverantör",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
       "terms": "Användarvillkor och integritetspolicy"
@@ -155,7 +156,6 @@ export default {
       "teachers": "Lärare"
     }
   },
-  "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "curatedAutomatically": "Sammanställt automatiskt av Europeana",
   "dateFilter": {
     "endDate": "Slutdatum",
@@ -211,7 +211,7 @@ export default {
         "title": "För många pinnade objekt"
       },
       "pinned": "Objektet har fästs. Det är nu högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla visas.",
-      "select": "Välj en relaterad entitet för att fästa/lossa objektet till/från den.",
+      "select": "Välj en relaterad entitet för att fästa\/lossa objektet till\/från den.",
       "unpin": "Det här objektet kommer att sluta visas överst i samlingen \" {entity} \". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
       "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner."
     }
@@ -245,7 +245,7 @@ export default {
       "title": "Sidan du letar efter finns inte."
     },
     "pinningNotFound": {
-      "description": "Det uppstod ett fel när du pinnade upp/avpinnade objektet. Försök igen eller rapportera problemet.",
+      "description": "Det uppstod ett fel när du pinnade upp\/avpinnade objektet. Försök igen eller rapportera problemet.",
       "title": "Kurerad samling inte hittad"
     },
     "searchPaginationLimitExceeded": {
@@ -266,42 +266,6 @@ export default {
   },
   "explore": "Utforska",
   "facets": {
-    "api": {
-      "name": "Sök efter",
-      "options": {
-        "fulltext": "Register med fulltext",
-        "metadata": "Metadata-endast register"
-      },
-      "switch": "Sök endast i innehållet i objekt med fulltext",
-      "switchMoreInfo": "I den här samlingen kan du välja vad du vill söka efter: om den här knappen är på, så kommer du att söka i tidningen och dokumenttexten; om den är avstängd kommer du istället att söka i informationen som beskriver föremålet, precis som du alltid gör i de flesta andra samlingar."
-    },
-    "button": {
-      "apply": "Tillämpa",
-      "cancel": "Avbryt",
-      "morefilters": "Fler filter",
-      "reset": "Återställ",
-      "showAll": "Visa alla {label}",
-      "showLess": "Visa mindre {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arkeologi",
-        "art": "Konst",
-        "fashion": "Mode",
-        "industrial": "Industriminne",
-        "manuscript": "Manuskript",
-        "map": "Kartor och geografi",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturhistoria",
-        "newspaper": "Tidningar",
-        "photography": "Fotografi",
-        "sport": "Sport",
-        "ww1": "Första världskriget"
-      },
-      "select": "Välj ett tema"
-    },
     "COLOURPALETTE": {
       "moreName": "färger",
       "name": "Färg | Färger",
@@ -453,18 +417,6 @@ export default {
       },
       "select": "Välj färger"
     },
-    "contentTier": {
-      "name": "Objektets kvalitet",
-      "options": {
-        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-        "0": "Visa endast objekt som inte uppfyller våra publiceringskriterier",
-        "1": "Låg kvalitet",
-        "2": "Medium kvalité",
-        "3": "Hög kvalitet & återanvändbar med villkor",
-        "4": "Hög kvalitet och fritt återanvändbar"
-      },
-      "select": "Välj objektkvaliteter"
-    },
     "COUNTRY": {
       "name": "Tillhandahållande land",
       "options": {
@@ -593,16 +545,108 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       },
       "select": "Välj filformat"
     },
-    "moreOptions": "Sök för att hitta {0} mer {1}.",
     "PROVIDER": {
       "moreName": "aggregatorer",
       "name": "Sammanställare",
       "select": "Välj aggregatorer"
     },
+    "REUSABILITY": {
+      "name": "Kan jag återanvända det här?",
+      "options": {
+        "open": "Ja",
+        "permission": "Kanske, sök tillstånd",
+        "restricted": "Ja, med villkor",
+        "uncategorized": "Okategoriserad"
+      },
+      "select": "Välj om du kan använda detta"
+    },
+    "RIGHTS": {
+      "name": "Rättighetsförklaring",
+      "options": {
+        "*\/CNE\/*": "Upphovsrätt Ej utvärderad",
+        "*\/InC-EDU\/*": "I upphovsrätt - pedagogisk användning tillåten",
+        "*\/InC-OW-EU\/*": "I upphovsrätten - OW-EU",
+        "*\/InC\/*": "I upphovsrätt",
+        "*\/NoC-NC\/*": "Ingen upphovsrätt - Endast icke-kommersiell användning",
+        "*\/NoC-OKLR\/*": "Nej Upphovsrätt - Andra kända juridiska begränsningar",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Mark för offentlig egendom",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Utan upphovsrätt - icke kommersiell återanvändning",
+        "*\/rights\/rr-f\/*": "Rättigheter reserverade - Fri tillgång",
+        "*\/rights\/unknown\/*": "Okänd upphovsrättsstatus"
+      },
+      "select": "Välj rättighetsutlåtanden"
+    },
+    "TYPE": {
+      "name": "Typ av media",
+      "options": {
+        "3D": "3D",
+        "IMAGE": "Bild",
+        "SOUND": "Ljud",
+        "TEXT": "Text",
+        "VIDEO": "Video"
+      },
+      "select": "Välj typer av media"
+    },
+    "api": {
+      "name": "Sök efter",
+      "options": {
+        "fulltext": "Register med fulltext",
+        "metadata": "Metadata-endast register"
+      },
+      "switch": "Sök endast i innehållet i objekt med fulltext",
+      "switchMoreInfo": "I den här samlingen kan du välja vad du vill söka efter: om den här knappen är på, så kommer du att söka i tidningen och dokumenttexten; om den är avstängd kommer du istället att söka i informationen som beskriver föremålet, precis som du alltid gör i de flesta andra samlingar."
+    },
+    "button": {
+      "apply": "Tillämpa",
+      "cancel": "Avbryt",
+      "morefilters": "Fler filter",
+      "reset": "Återställ",
+      "showAll": "Visa alla {label}",
+      "showLess": "Visa mindre {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arkeologi",
+        "art": "Konst",
+        "fashion": "Mode",
+        "industrial": "Industriminne",
+        "manuscript": "Manuskript",
+        "map": "Kartor och geografi",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturhistoria",
+        "newspaper": "Tidningar",
+        "photography": "Fotografi",
+        "sport": "Sport",
+        "ww1": "Första världskriget"
+      },
+      "select": "Välj ett tema"
+    },
+    "contentTier": {
+      "name": "Objektets kvalitet",
+      "options": {
+        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
+        "0": "Visa endast objekt som inte uppfyller våra publiceringskriterier",
+        "1": "Låg kvalitet",
+        "2": "Medium kvalité",
+        "3": "Hög kvalitet & återanvändbar med villkor",
+        "4": "Hög kvalitet och fritt återanvändbar"
+      },
+      "select": "Välj objektkvaliteter"
+    },
+    "moreOptions": "Sök för att hitta {0} mer {1}.",
     "proxy_dc_format": {
       "name": "Format | Format",
       "select": "Välj format"
@@ -617,27 +661,6 @@ export default {
     "proxy_dcterms_medium": {
       "name": "Medium | Media",
       "select": "Välj media"
-    },
-    "REUSABILITY": {
-      "name": "Kan jag återanvända det här?",
-      "options": {
-        "open": "Ja",
-        "permission": "Kanske, sök tillstånd",
-        "restricted": "Ja, med villkor",
-        "uncategorized": "Okategoriserad"
-      },
-      "select": "Välj om du kan använda detta"
-    },
-    "TYPE": {
-      "name": "Typ av media",
-      "options": {
-        "3D": "3D",
-        "IMAGE": "Bild",
-        "SOUND": "Ljud",
-        "TEXT": "Text",
-        "VIDEO": "Video"
-      },
-      "select": "Välj typer av media"
     }
   },
   "feedback": {
@@ -675,6 +698,8 @@ export default {
       "dcRights": "Rättigheter",
       "dcSource": "Källa",
       "dcSubject": "Ämne",
+      "dcTitle": "Titel",
+      "dcType": "Typ av objekt",
       "dctermsCreated": "Skapelsedatum",
       "dctermsExtent": "Utsträckning",
       "dctermsHasPart": "Består av",
@@ -689,10 +714,8 @@ export default {
       "dctermsProvenance": "Proveniens",
       "dctermsReferences": "Hänvisar till",
       "dctermsSpatial": "Platser",
-      "dctermsTemporal": "Temporal",
       "dctermsTOC": "Innehållsförteckning",
-      "dcTitle": "Titel",
-      "dcType": "Typ av objekt",
+      "dctermsTemporal": "Temporal",
       "edmCountry": "Tillhandahållande land",
       "edmCurrentLocation": "Nuvarande plats",
       "edmDataProvider": "Tillhandahållande institution",
@@ -732,13 +755,13 @@ export default {
     "findUsElsewhere": "Hitta oss någon annanstans",
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
+      "MoreInfoLabel": "Mer information",
       "about": "Om oss",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
       "faq": "Vanliga frågor",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
-      "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
       "provide": "Bli en datapartner",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
@@ -835,7 +858,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A/B -testning"
+        "title": "A\/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -867,7 +890,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },
@@ -916,9 +939,6 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"other\":\"\"}"
-  },
   "of": "Av",
   "organisation": {
     "city": "Stad",
@@ -969,6 +989,7 @@ export default {
     }
   },
   "record": {
+    "IIIFViewer": "IIIF-tittare",
     "actions": {
       "pin": "Fäst objekt på tillgängliga entiteter"
     },
@@ -977,7 +998,6 @@ export default {
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
-    "IIIFViewer": "IIIF-tittare",
     "location": "Plats",
     "locationOnMap": "Plats på kartan",
     "mediaPlayer": "Mediaspelare",
@@ -1022,10 +1042,10 @@ export default {
     },
     "results": {
       "limitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
+      "withQuery": "{count} resultat för {query}",
       "withinCollection": "{count} resultat inom {type} {collection}",
       "withinCollectionWithQuery": "{count} resultat inom {type} {collection} för {query}",
-      "withoutQuery": "{count} resultat",
-      "withQuery": "{count} resultat för {query}"
+      "withoutQuery": "{count} resultat"
     },
     "title": "Sök"
   },
@@ -1086,7 +1106,7 @@ export default {
       "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
     },
     "publication": {
-      "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu/galleries.",
+      "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu\/galleries.",
       "failedSubmission": "Begäran misslyckades. Var god försök igen.",
       "process": {
         "description": "När du skickar in ett galleri för publicering kommer ett team av utgivare på Europeana att meddelas. De kommer först att granska den och kan göra ändringar innan den publiceras. Du kommer att få meddelanden via e-post när galleriet granskas. Om den inte publiceras kan det vara så att den inte överensstämmer med våra redaktionella riktlinjer.",
