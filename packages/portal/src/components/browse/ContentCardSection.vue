@@ -6,6 +6,7 @@
   >
     <div class="col-12 col-lg-6">
       <h2
+        class="card-group-title"
         data-qa="section headline"
       >
         {{ section.headline }}
@@ -99,6 +100,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
 
   .browse-section {
     .col-lg-6 {
@@ -107,26 +109,9 @@
       }
     }
 
-    h2,
     p {
       color: $mediumgrey;
       text-align: left;
-    }
-
-    h2 {
-      font-weight: 600;
-      font-size: $font-size-medium;
-
-      @media (min-width: $bp-small) {
-        font-size: $font-size-large;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-large-4k;
-      }
-    }
-
-    p {
       line-height: 1.5;
     }
   }
