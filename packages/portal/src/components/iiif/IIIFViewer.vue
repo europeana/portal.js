@@ -24,6 +24,11 @@
         required: true
       },
 
+      itemId: {
+        type: String,
+        default: null
+      },
+
       searchQuery: {
         type: String,
         default: null
@@ -37,13 +42,11 @@
         page: null,
         imageToCanvasMap: {},
         memoisedImageToCanvasMap: false,
-        miradorActions: null,
         miradorViewer: null,
-        miradorTheme: null,
         showAnnotations: false,
         miradorStoreManifestJsonUnsubscriber: () => {},
         isMobileViewport: false,
-        isMiradorLoaded: false
+        isMiradorLoaded: process.client ? !!window.Mirador : false
       };
     },
 
@@ -96,7 +99,10 @@
           },
           selectedTheme: 'europeana',
           themes: {
-            europeana: this.miradorTheme
+            europeana: window.MiradorTheme
+          },
+          createGenerateClassNameOptions: {
+            seed: 'europeana'
           }
         };
 
@@ -124,13 +130,6 @@
       searchService() {
         return [].concat(this.manifest?.service || [])
           .find((service) => service['@context'] === 'http://iiif.io/api/search/1/context.json');
-      },
-
-      itemId() {
-        if (!this.urlIsForEuropeanaPresentationAPI(this.uri)) {
-          return null;
-        }
-        return new URL(this.uri).pathname.replace('/presentation', '').replace('/manifest', '');
       }
     },
 
@@ -143,13 +142,13 @@
         if (multiplePages) {
           if (!this.isMobileViewport) {
             const thumbnailNavigationPosition = 'far-right';
-            const actionSetThumbnailPosition = this.miradorActions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
+            const actionSetThumbnailPosition = window.Mirador.actions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
             this.miradorViewer.store.dispatch(actionSetThumbnailPosition);
           }
           const topMenuOptions = {
             allowTopMenuButton: true
           };
-          const actionAllowTopMenuButton = this.miradorActions.updateWindow(this.miradorWindowId, topMenuOptions);
+          const actionAllowTopMenuButton = window.Mirador.actions.updateWindow(this.miradorWindowId, topMenuOptions);
           this.miradorViewer.store.dispatch(actionAllowTopMenuButton);
         }
       }
@@ -157,22 +156,29 @@
 
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
-      this.loadMirador().then(this.initMirador);
+      this.initMirador();
+    },
+
+    beforeDestroy() {
+      // NOTE: very important to do this, as it cleans up all the
+      //       mirador/react/material stuff from the DOM before moving on
+      this.miradorViewer.unmount();
     },
 
     methods: {
-      loadMirador() {
-        return import('@europeana/mirador');
+      async loadMirador() {
+        const miradorModule = await import('@europeana/mirador');
+        window.Mirador = miradorModule.default;
+        window.MiradorTheme = miradorModule.theme;
+        this.isMiradorLoaded = true;
       },
 
-      initMirador(Mirador) {
-        this.isMiradorLoaded = true;
-        this.$nextTick(() => {
-          this.miradorTheme = Mirador.theme;
-          this.miradorViewer = Mirador.default.viewer(this.miradorViewerOptions);
-          this.miradorActions = Mirador.default.actions;
-          this.miradorStoreManifestJsonUnsubscriber = this.miradorViewer.store.subscribe(this.miradorStoreManifestJsonListener);
-        });
+      async initMirador() {
+        if (!this.isMiradorLoaded) {
+          await this.loadMirador();
+        }
+        this.miradorViewer = window.Mirador.viewer(this.miradorViewerOptions);
+        this.miradorStoreManifestJsonUnsubscriber = this.miradorViewer.store.subscribe(this.miradorStoreManifestJsonListener);
       },
 
       versioned(fn, args) {
@@ -193,6 +199,7 @@
             if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
               this.memoiseImageToCanvasMap();
               this.page = miradorWindow.canvasId;
+              // TODO: does this still work outside of the iframe?
               this.postUpdatedDownloadLinkMessage(this.page);
             }
           }
@@ -345,11 +352,11 @@
           }
           searchId = `${searchId}?q=${this.searchQuery}`;
 
-          const actionSearch = this.miradorActions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
+          const actionSearch = window.Mirador.actions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
           this.miradorViewer.store.dispatch(actionSearch);
         }
 
-        const actionShow = (options) => this.miradorActions.updateWindow(this.miradorWindowId, options);
+        const actionShow = (options) => window.Mirador.actions.updateWindow(this.miradorWindowId, options);
         if (!this.isMobileViewport || this.searchQuery) {
           const openSideBarOptions = { allowWindowSideBar: true, sideBarOpen: true };
           this.miradorViewer.store.dispatch(actionShow(openSideBarOptions));
