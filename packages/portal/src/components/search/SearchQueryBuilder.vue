@@ -82,7 +82,7 @@
     computed: {
       currentURLQuery() {
         // TODO: use decodeURI un-escaping here?
-        return this.$route.query.query;
+        return this.$route.query.query || '';
       },
       disableClearRuleButton() {
         return this.queryRules.length === 1;
@@ -94,8 +94,9 @@
     },
 
     mounted() {
-      if (this.currentURLQuery) {
-        this.parseQueryRulesFromUrl();
+      this.parseQueryRulesFromUrl();
+      if (this.queryRules.some((rule) => rule.selectedField !== 'anyField')) {
+        this.$emit('show', true);
       }
     },
 
@@ -112,7 +113,7 @@
       },
       parseQueryRulesFromUrl() {
         // TODO: differentiate between any fields as NO field and unrecognized fields?
-        const allParts = this.currentURLQuery.split(' AND ');
+        const allParts = this.currentURLQuery.split(' AND '); // TODO: handle ' AND ' inside quoted values.
         const [recognizedFieldParts, nonRecognizedParts] = partition(allParts, (part) => {
           return this.recognizedFields.some((field) => part.match(field.regex));
         });
@@ -121,7 +122,7 @@
           return this.recognizedTextModifiers.some((modifier) => part.match(modifier.regex));
         });
         const allFieldQuery = [...nonRecognizedParts, ...nonRecognizedModifiersParts].join(' AND ');
-        this.queryRules = recognizedParts.map((part) => this.ruleForQueryPart(part)).concat(allFieldQuery ? [{ selectedField: 'anyField', selectedModifier: 'is', searchTerm: allFieldQuery }] : []);
+        this.queryRules = recognizedParts.map((part) => this.ruleForQueryPart(part)).concat([{ selectedField: 'anyField', selectedModifier: 'is', searchTerm: allFieldQuery }]);
       },
       // TODO: this duplicates lookups that happen during parsing in parseQueryRulesFromUrl.
       // instead of partioning then calling this, refactor to build rules objects straight away?
