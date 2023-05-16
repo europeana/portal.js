@@ -199,7 +199,6 @@
             if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
               this.memoiseImageToCanvasMap();
               this.page = miradorWindow.canvasId;
-              // TODO: does this still work outside of the iframe?
               this.postUpdatedDownloadLinkMessage(this.page);
             }
           }

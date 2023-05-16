@@ -8,6 +8,7 @@ import IIIFViewer from '@/components/iiif/IIIFViewer.vue';
 const mockMiradorModule = {
   default: {
     viewer: sinon.stub().returns({
+      unmount: sinon.spy(),
       store: {
         dispatch: sinon.stub(),
         getState: sinon.stub().returns({
@@ -708,4 +709,14 @@ describe('components/iiif/IIIFViewer.vue', () => {
       });
     });
   });
+
+  describe('beforeDestroy', () => {
+    it('unmounts the Mirador viewer instance', () => {
+      const wrapper = factory();
+
+      wrapper.vm.beforeDestroy();
+
+      expect(wrapper.vm.miradorViewer.unmount.called).toBe(true);
+    });
+  })
 });
