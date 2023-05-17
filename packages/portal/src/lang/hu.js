@@ -8,21 +8,21 @@ export default {
     "linkLogin": "Bejelentkezés",
     "linkLoginJoin": "Bejelentkezés/Csatlakozás",
     "linkLogout": "Bejelentkezés",
-    "myProfile": "A profilom",
+    "myProfile": "Profilom",
     "notifications": {
       "loggedIn": "Most már be van jelentkezve. Üdvözlünk!",
       "loggedOut": "Most kijelentkezett.",
       "noCollections": {
         "curated": "Még nem kuratáltál gyűjteményeket",
-        "private": "Még nem hozott létre privát galériát",
-        "public": "Még nem hozott létre nyilvános galériát",
+        "private": "Még nem hoztál létre privát galériákat",
+        "public": "Még nem hozott létre nyilvános galériákat",
         "published": "Még nem publikáltál galériákat."
       },
       "noLikedItems": "Még nem kedvelt egy cikket sem"
     },
     "privateCollections": "Privát Galériák",
-    "profile": "Kedveléseim és gyűjteményeim",
-    "profileSettings": "Profilbeállítások",
+    "profile": "Kedveléseim és Galériák",
+    "profileSettings": "Profil beállítások",
     "publicCollections": "Nyilvános Galériák",
     "publishedCollections": "Megjelent Galériák",
     "settings": "Beállítások",
@@ -74,7 +74,7 @@ export default {
     "place": "Helyek",
     "theme": "Témák",
     "time": "Kiemelt évszázadok",
-    "topic": "Kiemelt témák"
+    "topic": "Témakörök"
   },
   "blog": {
     "author": "Szerző",
@@ -766,9 +766,9 @@ export default {
     "navigation": {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
-      "europeanaClassroom": "A tanároknak",
+      "europeanaClassroom": "Tanároknak",
       "help": "Súgó",
-      "home": "itthon",
+      "home": "kezdőlap",
       "pro": "Szakembereknek",
       "stories": "Történetek"
     },
@@ -786,8 +786,8 @@ export default {
     "discoverEditorial": "Legújabb történetek",
     "storiesCTA": "Az összes történet megtekintése",
     "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
-    "themesCTA": "Az összes téma megtekintése",
-    "themesTitle": "fedezze fel a témát",
+    "themesCTA": "Minden téma megtekintése",
+    "themesTitle": "Tematika szerint fedezze fel",
     "title": "Fedezze fel Európa {digital} kulturális örökségét",
     "titleDigital": "digitális"
   },
@@ -950,7 +950,7 @@ export default {
         "title": "Idők"
       },
       "topics": {
-        "title": "Témák"
+        "title": "Témakörök"
       }
     }
   },

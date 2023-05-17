@@ -69,7 +69,7 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Galerie",
-    "item": "Ostatnie pozycje",
+    "item": "Ostatnie elementy",
     "organisation": "Organizacje",
     "place": "Miejsca",
     "theme": "Motywy",
@@ -761,14 +761,14 @@ export default {
     "clearQuery": "Wyczyść zapytanie",
     "closeSidebar": "Zamknij menu",
     "entireCollection": "Wyszukaj {query} w całej naszej kolekcji",
-    "europeanaHome": "Strona główna Europeany",
+    "europeanaHome": "Strona główna Europeana",
     "inCollection": "Wyszukaj {query} w {collection}",
     "navigation": {
       "about": "O nas",
       "collections": "Kolekcje",
       "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
-      "home": "Dom",
+      "home": "Strona główna",
       "pro": "Dla profesjonalistów",
       "stories": "Historie"
     },
@@ -797,7 +797,7 @@ export default {
   "items": {
     "itemCount": "1 pozycja |Pozycje: {count}",
     "itemOf": "{max} z {count} elementów",
-    "recent": "Ostatnie pozycje",
+    "recent": "Ostatnie elementy",
     "recommended": "Polecane obiekty",
     "youMightLike": "Przedmioty, które mogą Ci się spodobać"
   },
