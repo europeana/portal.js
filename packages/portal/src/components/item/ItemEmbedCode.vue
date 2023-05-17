@@ -60,9 +60,9 @@
     },
 
     methods: {
-      copyEmbedCode() {
+      async copyEmbedCode() {
         this.$refs.shareEmbed.select();
-        navigator.clipboard.writeText(this.embedHtml);
+        await navigator.clipboard.writeText(this.embedHtml);
         this.embedCopied = true;
       }
     }

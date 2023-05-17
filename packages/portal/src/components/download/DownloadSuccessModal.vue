@@ -141,9 +141,9 @@
     },
 
     methods: {
-      copySnippet() {
+      async copySnippet() {
         this.$refs.attributionSnippet.select();
-        navigator.clipboard.writeText(this.attributionSnippet);
+        await navigator.clipboard.writeText(this.attributionSnippet);
         this.snippetCopied = true;
       }
     }
