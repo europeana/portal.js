@@ -103,9 +103,6 @@
           selectedTheme: 'europeana',
           themes: {
             europeana: window.MiradorTheme
-          },
-          createGenerateClassNameOptions: {
-            seed: 'europeana'
           }
         };
 
@@ -203,7 +200,7 @@
       },
 
       versioned(fn, args) {
-        const versionedFunction = `${fn}${this.iiifPresentationApiVersion}`;
+        const versionedFunction = `${fn}V${this.iiifPresentationApiVersion}`;
         if (typeof this[versionedFunction] !== 'function') {
           throw new Error(`Unsupported IIIF Presentation API version ${this.iiifPresentationApiVersion} for function ${fn}`);
         }
@@ -380,7 +377,7 @@
         this.memoisedImageToCanvasMap = true;
       },
 
-      memoiseImageToCanvasMap2() {
+      memoiseImageToCanvasMapV2() {
         this.imageToCanvasMap = (this.manifest.sequences || []).reduce((memo, sequence) => {
           for (const canvas of sequence.canvases) {
             for (const image of canvas.images) {
@@ -391,7 +388,7 @@
         }, {});
       },
 
-      memoiseImageToCanvasMap3() {
+      memoiseImageToCanvasMapV3() {
         this.imageToCanvasMap = (this.manifest.items || []).reduce((memo, canvas) => {
           for (const annopage of canvas.items) {
             for (const anno of annopage.items) {
@@ -464,13 +461,13 @@
         searchJson.hits = hits;
       },
 
-      findAnnotationFulltextUrls2(annotationJson) {
+      findAnnotationFulltextUrlsV2(annotationJson) {
         return annotationJson.resources
           .filter((resource) => resource.resource && !resource.resource.chars && resource.resource['@id'])
           .map((resource) => resource.resource['@id']);
       },
 
-      findAnnotationFulltextUrls3(annotationJson) {
+      findAnnotationFulltextUrlsV3(annotationJson) {
         return annotationJson.items
           .filter((item) => item.body && !item.body.value && item.body.id)
           .map((item) => item.body.id);
@@ -507,7 +504,7 @@
         return this.versioned('addFulltextToAnnotations', arguments);
       },
 
-      addFulltextToAnnotations2(annotationJson, fulltext) {
+      addFulltextToAnnotationsV2(annotationJson, fulltext) {
         for (const resource of annotationJson.resources) {
           if (!resource.resource || resource.resource.chars || !resource.resource['@id']) {
             continue;
@@ -534,7 +531,7 @@
         }
       },
 
-      addFulltextToAnnotations3(annotationJson, fulltext) {
+      addFulltextToAnnotationsV3(annotationJson, fulltext) {
         for (const item of annotationJson.items) {
           if (!item.body || item.body.value || !item.body.id) {
             continue;
@@ -582,13 +579,13 @@
         return this.versioned('findDownloadLinkForPage', arguments);
       },
 
-      findDownloadLinkForPage2(pageId) {
+      findDownloadLinkForPageV2(pageId) {
         return (this.manifest.sequences?.[0]?.canvases || [])
           .find(canvas => canvas['@id'] === pageId)
           ?.images?.[0]?.resource?.['@id'];
       },
 
-      findDownloadLinkForPage3(pageId) {
+      findDownloadLinkForPageV3(pageId) {
         return (this.manifest.items || [])
           .find(canvas => canvas.id === pageId)
           ?.items?.[0]?.items?.[0]?.body?.id;
