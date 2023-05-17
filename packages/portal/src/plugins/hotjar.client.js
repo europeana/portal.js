@@ -1,5 +1,5 @@
 export default ({ $config }, inject) => {
-  if (!$config.hotjar || !$config.hotjar.id || !$config.hotjar.sv) {
+  if (!$config.hotjar?.id || !$config.hotjar?.sv) {
     return;
   } else {
     inject('initHotjar', init);

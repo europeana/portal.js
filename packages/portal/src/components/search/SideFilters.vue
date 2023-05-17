@@ -460,11 +460,11 @@
         this.$router.push(this.localePath({ ...this.route, ...{ query } }));
         if (queryUpdates.qf) {
           queryUpdates.qf.forEach(filter =>
-            this.$matomo && this.$matomo.trackEvent('Filters', 'Filter selected', filter)
+            this.$matomo?.trackEvent('Filters', 'Filter selected', filter)
           );
         }
         if (queryUpdates.reusability) {
-          this.$matomo && this.$matomo.trackEvent('Filters', 'Reusability filter selected', queryUpdates.reusability);
+          this.$matomo?.trackEvent('Filters', 'Reusability filter selected', queryUpdates.reusability);
         }
       },
       updateCurrentSearchQuery(updates = {}) {

@@ -10,7 +10,7 @@ export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
   const axiosInstance = ($axios || axios).create(axiosOptions);
 
   const app = context.app;
-  if (app && app.$axiosLogger) {
+  if (app?.$axiosLogger) {
     axiosInstance.interceptors.request.use(app.$axiosLogger);
   }
 
@@ -259,7 +259,7 @@ function isJSONLDExpanded(values) {
 
 function langMapValueFromJSONLD(value, locale) {
   const forCurrentLang = value.find(element => element['@language'] === locale);
-  return forCurrentLang && forCurrentLang['@value'];
+  return forCurrentLang?.['@value'];
 }
 
 function setLangMapValuesAndCode(returnValue, langMap, key, locale) {

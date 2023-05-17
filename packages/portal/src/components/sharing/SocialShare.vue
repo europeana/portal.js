@@ -75,7 +75,7 @@
 
     methods: {
       trackShare(network) {
-        this.$matomo && this.$matomo.trackEvent('Item_share', 'Click social share button', network.url);
+        this.$matomo?.trackEvent('Item_share', 'Click social share button', network.url);
       }
     }
   };
