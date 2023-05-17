@@ -62,7 +62,11 @@
     methods: {
       async copyEmbedCode() {
         this.$refs.shareEmbed.select();
-        await navigator.clipboard.writeText(this.embedHtml);
+        try {
+          await navigator.clipboard.writeText(this.embedHtml);
+        } catch {
+          // don't worry
+        }
         this.embedCopied = true;
       }
     }
