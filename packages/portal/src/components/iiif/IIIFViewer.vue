@@ -360,7 +360,7 @@
 
       postprocessMiradorRequest(url, action) {
         const fn = `postprocess${upperFirst(camelCase(action.type))}`;
-        this[fn] && this[fn](url, action);
+        this[fn]?.(url, action);
       },
 
       // TODO: rewrite thumbnail URLs to use v3 API

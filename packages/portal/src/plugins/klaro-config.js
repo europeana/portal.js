@@ -42,10 +42,10 @@ export default ($i18n, $initHotjar, $matomo) => {
     acceptAll: true,
     callback: (consent, service) => {
       if (service.name === 'hotjar' && consent) {
-        $initHotjar && $initHotjar();
+        $initHotjar?.();
       }
       if (service.name === 'matomo' && consent) {
-        $matomo && $matomo.rememberCookieConsentGiven();
+        $matomo?.rememberCookieConsentGiven();
       }
     }
   };

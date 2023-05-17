@@ -223,7 +223,7 @@
       },
 
       trackKlaroClickEvent(eventName) {
-        this.$matomo && this.$matomo.trackEvent('Klaro', 'Clicked', eventName);
+        this.$matomo?.trackEvent('Klaro', 'Clicked', eventName);
       },
 
       setToastBottomOffset() {

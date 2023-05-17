@@ -80,7 +80,7 @@
         this.entities = response.entities;
         this.total = response.total;
       } finally {
-        this.$scrollTo && this.$scrollTo('#header');
+        this.$scrollTo?.('#header');
       }
     },
 

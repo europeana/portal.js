@@ -52,9 +52,9 @@
     },
     watch: {
       activeView() {
-        this.$cookies && this.$cookies.set('searchResultsView', this.activeView);
+        this.$cookies?.set('searchResultsView', this.activeView);
 
-        this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.activeView);
+        this.$matomo?.trackEvent('View search results', 'Select view', this.activeView);
 
         this.$router.push({ ...this.$route, ...{  query: { ...this.$route.query, ...{ view: this.activeView } } } });
       }

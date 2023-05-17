@@ -419,7 +419,7 @@
       setViewFromRouteQuery() {
         if (this.routeQueryView) {
           this.view = this.routeQueryView;
-          this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
+          this.$cookies?.set('searchResultsView', this.routeQueryView);
         }
       },
 

@@ -4,7 +4,7 @@ export default {
       let redirect = '/account';
 
       if (this.$route) {
-        if (this.$route.query && this.$route.query.redirect) {
+        if (this.$route.query?.redirect) {
           redirect = this.$route.query.redirect;
         } else if (this.$route.path?.endsWith('/account/login')) {
           redirect = `/account${this.$route.hash || ''}`;

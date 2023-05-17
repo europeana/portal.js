@@ -232,7 +232,7 @@
       },
       redrawMasonry() {
         this.$nextTick(() => {
-          this.$redrawVueMasonry && this.$redrawVueMasonry();
+          this.$redrawVueMasonry?.();
         });
       }
     }
