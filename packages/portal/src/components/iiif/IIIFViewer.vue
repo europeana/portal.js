@@ -49,7 +49,8 @@
         miradorViewerPlugins: [
           { component: () => null, saga: this.watchMiradorSetCanvasSaga },
           { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
-        ]
+        ],
+        proxiedMedia: {}
       };
     },
 
@@ -266,8 +267,9 @@
         for (const canvas of (manifestJson.items || [])) {
           for (const annotationPage of (canvas.items || [])) {
             for (const annotation of (annotationPage.items || [])) {
-              if (annotation.motivation === 'painting') {
-                annotation.body.id = this.$apis.record.mediaProxyUrl(annotation.body.id, this.itemId);
+              if ((annotation.motivation === 'painting') && !annotation.body.service?.profile.startsWith('http://iiif.io/api/image/')) {
+                this.proxiedMedia[annotation.body.id] = this.$apis.record.mediaProxyUrl(annotation.body.id, this.itemId);
+                annotation.body.id = this.proxiedMedia[annotation.body.id];
               }
             }
           }
@@ -403,9 +405,7 @@
 
       canvasForImage(imageId) {
         const splitImageId = imageId.split('#');
-        const imageUri = this.urlIsForEuropeanaPresentationAPI(this.uri) ?
-          this.$apis.record.mediaProxyUrl(splitImageId[0], this.itemId) :
-          splitImageId[0];
+        const imageUri = this.proxiedMedia[splitImageId[0]] || splitImageId[0];
         if (this.imageToCanvasMap[imageUri]) {
           return [this.imageToCanvasMap[imageUri], splitImageId[1]].join('#');
         } else {
