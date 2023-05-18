@@ -103,7 +103,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       -
         name: Install eslint
@@ -130,7 +130,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       -
         name: Install stylelint
@@ -179,7 +179,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       -
         name: NPM install
@@ -271,7 +271,7 @@ jobs:
       -
         name: Check image size
         env:
-          DOCKER_IMAGE_SIZE_LIMIT: '300M'
+          DOCKER_IMAGE_SIZE_LIMIT: '350M'
         run: |
           docker_image_size=$(docker image inspect --format '{{.Size}}' ${{ needs.metadata.outputs.docker-full-tag }})
           if [ ${docker_image_size} -gt $(numfmt --from=si ${DOCKER_IMAGE_SIZE_LIMIT}) ]; then

@@ -1,6 +1,6 @@
 # Multi-stage image to build and run europeana/styleguide.js
 
-FROM node:16-alpine AS build
+FROM node:18-alpine AS build
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \

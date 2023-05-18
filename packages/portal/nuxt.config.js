@@ -414,10 +414,12 @@ export default {
     extractCSS: false,
 
     extend(config, { isClient }) {
+      // Handle imported .ico files
       config.module.rules.push({
         test: /\.ico(\?[a-z0-9=&.]+)?$/,
         loader: 'file-loader'
       });
+
       // Extend webpack config only for client bundle
       if (isClient) {
         // Build source maps to aid debugging in production builds

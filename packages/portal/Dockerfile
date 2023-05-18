@@ -1,6 +1,6 @@
 # Multi-stage image to build and run europeana/portal.js
 
-FROM node:16-alpine AS build
+FROM node:18-alpine AS build
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
@@ -26,7 +26,7 @@ RUN rm -rf node_modules packages/*/node_modules packages/mirador
 RUN npm -w packages/portal install --omit dev --omit peer
 
 
-FROM gcr.io/distroless/nodejs:16
+FROM gcr.io/distroless/nodejs:18
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
