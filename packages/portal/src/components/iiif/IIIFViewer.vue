@@ -3,19 +3,19 @@
     class="iiif-viewer"
     data-qa="IIIF viewer"
   >
-    <div id="viewer" />
+    <div
+      v-show="isMiradorLoaded"
+      id="viewer"
+    />
   </div>
 </template>
 
 <script>
   import camelCase from 'lodash/camelCase';
+  import { takeEvery } from 'redux-saga/effects';
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
 
-  // NOTE: this component assumes that Mirador has already been loaded, e.g. by
-  //       a parent Vue. This is for performance optimisation reasons, so that
-  //       the script can be loaded (client-side) first before the parent
-  //       then renders this component.
   export default {
     name: 'IIIFViewer',
 
@@ -23,6 +23,11 @@
       uri: {
         type: String,
         required: true
+      },
+
+      itemId: {
+        type: String,
+        default: null
       },
 
       searchQuery: {
@@ -35,13 +40,16 @@
       return {
         manifest: null,
         manifestAnnotationTextGranularities: [],
-        page: null,
         imageToCanvasMap: {},
         memoisedImageToCanvasMap: false,
-        mirador: null,
+        miradorViewer: null,
         showAnnotations: false,
-        miradorStoreManifestJsonUnsubscriber: () => {},
-        isMobileViewport: false
+        isMobileViewport: false,
+        isMiradorLoaded: process.client ? !!window.Mirador : false,
+        miradorViewerPlugins: [
+          { component: () => null, saga: this.watchMiradorSetCanvasSaga },
+          { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
+        ]
       };
     },
 
@@ -94,170 +102,7 @@
           },
           selectedTheme: 'europeana',
           themes: {
-            europeana: {
-              palette: {
-                type: 'light',
-                primary: {
-                  main: '#0a72cc'
-                },
-                secondary: {
-                  main: '#0a72cc'
-                },
-                shades: {
-                  dark: '#000000',
-                  main: 'rgba(255 255 255 / 90%)',
-                  light: '#ffffff'
-                },
-                error: {
-                  main: '#e02020'
-                },
-                notification: { // Color used in MUI Badge dots
-                  main: '#0a72cc'
-                },
-                action: {
-                  hover: '#ffffff',
-                  hoverOpacity: 0,
-                  selected: 'transparent',
-                  focus: 'transparent'
-                }
-              },
-              typography: {
-                fontFamily: ['Open Sans', 'Arial', 'sans-serif'],
-                body1: {
-                  fontSize: '1rem',
-                  letterSpacing: '0',
-                  lineHeight: '1.5',
-                  borderBottom: '0 !important' // no border on view and thumbnail buttons
-                },
-                body2: {
-                  fontSize: '1rem',
-                  letterSpacing: '0',
-                  lineHeight: '1.5'
-                },
-                h2: { // item title
-                  textAlign: 'center',
-                  fontSize: '1.25rem !important',
-                  ['@media (min-width:576px)']: {
-                    fontSize: '1.5rem !important'
-                  }
-                },
-                subtitle1: { // sidebar annotation and search title
-                  fontSize: '1.125rem'
-                }
-              },
-              overrides: {
-                Mui: {
-                  disabled: { // example: disabled pagination buttons
-                    color: '#d8d8d8'
-                  },
-                  selected: { // example: selected view button
-                    color: '#0a72cc'
-                  }
-                },
-                MuiAutocomplete: {
-                  input: {
-                    minWidth: '130px !important'
-                  }
-                },
-                MuiButtonBase: {
-                  root: {
-                    color: '#000000',
-                    backgroundColor: 'transparent',
-                    '&:hover, &:hover svg': {
-                      color: '#0a72cc'
-                    },
-                    '&:focus-visible': {
-                      outline: '2px solid #0a72cc',
-                      outlineOffset: '-2px'
-                    }
-                  }
-                },
-                MuiButton: {
-                  contained: { // example: button on modal when no search results
-                    color: '#0a72cc',
-                    boxShadow: 'none',
-                    backgroundColor: 'transparent',
-                    fontSize: '0.875rem',
-                    textTransform: 'uppercase',
-                    fontWeight: '600',
-                    padding: '0 1rem',
-                    border: '1px solid #0a72cc',
-                    borderRadius: '0.25rem',
-                    '&:hover': {
-                      color: '#ffffff',
-                      boxShadow: 'none',
-                      backgroundColor: '#0a72cc'
-                    }
-                  }
-                },
-                MuiChip: { // example: clear search input
-                  outlinedSecondary: {
-                    border: '0',
-                    color: '#4d4d4d'
-                  },
-                  deleteIconOutlinedColorSecondary: {
-                    color: '#4d4d4d'
-                  }
-                },
-                MuiIconButton: {
-                  root: {
-                    color: '#000000',
-                    backgroundColor: 'transparent',
-                    '&:hover': {
-                      color: '#0a72cc'
-                    }
-                  }
-                },
-                MuiInput: { // example: search input
-                  formControl: {
-                    border: '1px solid #d8d8d8 !important',
-                    borderRadius: '6px',
-                    padding: '0.25rem 2rem 0.25rem 0.75rem !important',
-                    '&.Mui-focused': {
-                      borderColor: '#0a72cc !important'
-                    }
-                  },
-                  underline: {
-                    '&:before, &:after': {
-                      border: '0'
-                    },
-                    '&:hover:not(.Mui-disabled):before': {
-                      border: '0'
-                    }
-                  }
-                },
-                MuiInputLabel: { // example: search input label/placeholder
-                  formControl: {
-                    margin: '0.25rem 2rem 0.25rem 0.75rem',
-                    '&.MuiInputLabel-shrink': {
-                      transform: 'translate(0, 0) scale(0.75)'
-                    }
-                  }
-                },
-                MuiTab: {
-                  textColorPrimary: {
-                    color: '#000000'
-                  }
-                },
-                MuiToolbar: {
-                  root: {
-                    borderTop: '0 !important'
-                  }
-                },
-                MuiTooltip: {
-                  tooltip: {
-                    backgroundColor: '#000000',
-                    fontSize: '0.875rem',
-                    padding: '0.625rem'
-                  }
-                },
-                MuiTouchRipple: { // hide grey circle on focus
-                  root: {
-                    display: 'none'
-                  }
-                }
-              }
-            }
+            europeana: window.MiradorTheme
           }
         };
 
@@ -279,36 +124,32 @@
       },
 
       miradorWindowId() {
-        return Object.keys(this.mirador.store.getState().windows)[0];
+        return Object.keys(this.miradorViewer.store.getState().windows)[0];
       },
 
       searchService() {
         return [].concat(this.manifest?.service || [])
           .find((service) => service['@context'] === 'http://iiif.io/api/search/1/context.json');
-      },
-
-      itemId() {
-        if (!this.urlIsForEuropeanaPresentationAPI(this.uri)) {
-          return null;
-        }
-        return new URL(this.uri).pathname.replace('/presentation', '').replace('/manifest', '');
       }
     },
 
     watch: {
       numberOfPages(newVal) {
+        if (!this.miradorViewer?.store) {
+          return;
+        }
         const multiplePages = newVal > 1;
         if (multiplePages) {
           if (!this.isMobileViewport) {
             const thumbnailNavigationPosition = 'far-right';
             const actionSetThumbnailPosition = window.Mirador.actions.setWindowThumbnailPosition(this.miradorWindowId, thumbnailNavigationPosition);
-            this.mirador.store.dispatch(actionSetThumbnailPosition);
+            this.miradorViewer.store.dispatch(actionSetThumbnailPosition);
           }
           const topMenuOptions = {
             allowTopMenuButton: true
           };
           const actionAllowTopMenuButton = window.Mirador.actions.updateWindow(this.miradorWindowId, topMenuOptions);
-          this.mirador.store.dispatch(actionAllowTopMenuButton);
+          this.miradorViewer.store.dispatch(actionAllowTopMenuButton);
         }
       }
     },
@@ -318,34 +159,52 @@
       this.initMirador();
     },
 
+    beforeDestroy() {
+      // NOTE: very important to do this, as it cleans up all the
+      //       mirador/react/material stuff from the DOM before moving on
+      this.miradorViewer.unmount();
+    },
+
     methods: {
-      initMirador() {
-        this.mirador = window.Mirador.viewer(this.miradorViewerOptions);
-        this.miradorStoreManifestJsonUnsubscriber = this.mirador.store.subscribe(this.miradorStoreManifestJsonListener);
+      async loadMirador() {
+        const miradorModule = await import('@europeana/mirador');
+        window.Mirador = miradorModule.default;
+        window.MiradorTheme = miradorModule.theme;
+        this.isMiradorLoaded = true;
+      },
+
+      async initMirador() {
+        if (!this.isMiradorLoaded) {
+          await this.loadMirador();
+        }
+        this.miradorViewer = window.Mirador.viewer(this.miradorViewerOptions, this.miradorViewerPlugins);
+      },
+
+      *watchMiradorSetCanvasSaga() {
+        yield takeEvery('mirador/SET_CANVAS', this.watchMiradorSetCanvas);
+      },
+
+      *watchMiradorSetCanvas({ canvasId }) {
+        this.memoiseImageToCanvasMap();
+        this.postUpdatedDownloadLinkMessage(canvasId);
+        yield;
+      },
+
+      *watchMiradorReceiveAnnotationSaga() {
+        yield takeEvery('mirador/RECEIVE_ANNOTATION', this.watchMiradorReceiveAnnotation);
+      },
+
+      *watchMiradorReceiveAnnotation(action) {
+        this.showSidebarForAnnotations(action.annotationJson);
+        yield;
       },
 
       versioned(fn, args) {
-        const versionedFunction = `${fn}${this.iiifPresentationApiVersion}`;
+        const versionedFunction = `${fn}V${this.iiifPresentationApiVersion}`;
         if (typeof this[versionedFunction] !== 'function') {
           throw new Error(`Unsupported IIIF Presentation API version ${this.iiifPresentationApiVersion} for function ${fn}`);
         }
         return this[versionedFunction].apply(this, args);
-      },
-
-      miradorStoreManifestJsonListener() {
-        // only takes one window into account at the moment
-        const miradorWindow = Object.values(this.mirador.store.getState().windows)[0];
-        if (miradorWindow) {
-          const miradorManifest = this.mirador.store.getState().manifests[miradorWindow.manifestId];
-          if (miradorManifest) {
-            this.manifest = miradorManifest.json;
-            if (miradorWindow.canvasId && (miradorWindow.canvasId !== this.page)) {
-              this.memoiseImageToCanvasMap();
-              this.page = miradorWindow.canvasId;
-              this.postUpdatedDownloadLinkMessage(this.page);
-            }
-          }
-        }
       },
 
       addAcceptHeaderToPresentationRequests(url, options) {
@@ -365,18 +224,19 @@
 
       // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorReceiveManifest(url, action) {
+        this.manifest = action.manifestJson;
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.proxyProviderMedia(action.manifestJson);
           this.addAnnotationTextGranularityFilterToManifest(action.manifestJson);
         }
       },
 
-      postprocessMiradorReceiveAnnotation(url, action) {
+      async postprocessMiradorReceiveAnnotation(url, action) {
         this.showSidebarForAnnotations(action.annotationJson);
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.coerceAnnotationsOnToCanvases(action.annotationJson);
         }
-        this.dereferenceAnnotationResources(action.annotationJson);
+        await this.dereferenceAnnotationResources(action.annotationJson);
       },
 
       postprocessMiradorReceiveSearch(url, action) {
@@ -487,7 +347,7 @@
         }
 
         if (this.searchQuery) {
-          const companionWindowId = Object.keys(this.mirador.store.getState().companionWindows)[0];
+          const companionWindowId = Object.keys(this.miradorViewer.store.getState().companionWindows)[0];
           let searchId = this.searchService?.id || this.searchService?.['@id'];
           if (!searchId) {
             return;
@@ -495,17 +355,17 @@
           searchId = `${searchId}?q=${this.searchQuery}`;
 
           const actionSearch = window.Mirador.actions.fetchSearch(this.miradorWindowId, companionWindowId, searchId, this.searchQuery);
-          this.mirador.store.dispatch(actionSearch);
+          this.miradorViewer.store.dispatch(actionSearch);
         }
 
         const actionShow = (options) => window.Mirador.actions.updateWindow(this.miradorWindowId, options);
         if (!this.isMobileViewport || this.searchQuery) {
           const openSideBarOptions = { allowWindowSideBar: true, sideBarOpen: true };
-          this.mirador.store.dispatch(actionShow(openSideBarOptions));
+          this.miradorViewer.store.dispatch(actionShow(openSideBarOptions));
           this.showAnnotations = true;
         } else if (this.isMobileViewport) {
           const allowSideBarOptions = { allowWindowSideBar: true };
-          this.mirador.store.dispatch(actionShow(allowSideBarOptions));
+          this.miradorViewer.store.dispatch(actionShow(allowSideBarOptions));
         }
       },
 
@@ -517,8 +377,8 @@
         this.memoisedImageToCanvasMap = true;
       },
 
-      memoiseImageToCanvasMap2() {
-        this.imageToCanvasMap = this.manifest.sequences.reduce((memo, sequence) => {
+      memoiseImageToCanvasMapV2() {
+        this.imageToCanvasMap = (this.manifest.sequences || []).reduce((memo, sequence) => {
           for (const canvas of sequence.canvases) {
             for (const image of canvas.images) {
               memo[image.resource['@id']] = canvas['@id'];
@@ -528,8 +388,8 @@
         }, {});
       },
 
-      memoiseImageToCanvasMap3() {
-        this.imageToCanvasMap = this.manifest.items.reduce((memo, canvas) => {
+      memoiseImageToCanvasMapV3() {
+        this.imageToCanvasMap = (this.manifest.items || []).reduce((memo, canvas) => {
           for (const annopage of canvas.items) {
             for (const anno of annopage.items) {
               if (anno.type === 'Annotation' && anno.body?.type === 'Image') {
@@ -601,13 +461,13 @@
         searchJson.hits = hits;
       },
 
-      findAnnotationFulltextUrls2(annotationJson) {
+      findAnnotationFulltextUrlsV2(annotationJson) {
         return annotationJson.resources
           .filter((resource) => resource.resource && !resource.resource.chars && resource.resource['@id'])
           .map((resource) => resource.resource['@id']);
       },
 
-      findAnnotationFulltextUrls3(annotationJson) {
+      findAnnotationFulltextUrlsV3(annotationJson) {
         return annotationJson.items
           .filter((item) => item.body && !item.body.value && item.body.id)
           .map((item) => item.body.id);
@@ -644,7 +504,7 @@
         return this.versioned('addFulltextToAnnotations', arguments);
       },
 
-      addFulltextToAnnotations2(annotationJson, fulltext) {
+      addFulltextToAnnotationsV2(annotationJson, fulltext) {
         for (const resource of annotationJson.resources) {
           if (!resource.resource || resource.resource.chars || !resource.resource['@id']) {
             continue;
@@ -671,7 +531,7 @@
         }
       },
 
-      addFulltextToAnnotations3(annotationJson, fulltext) {
+      addFulltextToAnnotationsV3(annotationJson, fulltext) {
         for (const item of annotationJson.items) {
           if (!item.body || item.body.value || !item.body.id) {
             continue;
@@ -719,14 +579,14 @@
         return this.versioned('findDownloadLinkForPage', arguments);
       },
 
-      findDownloadLinkForPage2(pageId) {
-        return this.manifest.sequences[0].canvases
+      findDownloadLinkForPageV2(pageId) {
+        return (this.manifest.sequences?.[0]?.canvases || [])
           .find(canvas => canvas['@id'] === pageId)
           ?.images?.[0]?.resource?.['@id'];
       },
 
-      findDownloadLinkForPage3(pageId) {
-        return this.manifest.items
+      findDownloadLinkForPageV3(pageId) {
+        return (this.manifest.items || [])
           .find(canvas => canvas.id === pageId)
           ?.items?.[0]?.items?.[0]?.body?.id;
       }

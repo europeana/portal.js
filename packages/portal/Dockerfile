@@ -13,15 +13,17 @@ RUN mkdir -p packages/portal
 COPY package*.json ./
 COPY packages/portal/package*.json ./packages/portal/
 COPY packages/style ./packages/style
+COPY packages/mirador ./packages/mirador
 
-RUN npm ci -w packages/portal
+RUN npm -w packages/portal ci
 
 COPY *.md ./
 COPY packages/portal/*.js ./packages/portal/
 COPY packages/portal/src ./packages/portal/src
 
 RUN npm run build
-RUN npm prune --omit dev
+RUN rm -rf node_modules packages/*/node_modules packages/mirador
+RUN npm -w packages/portal install --omit dev --omit peer
 
 
 FROM gcr.io/distroless/nodejs:16
