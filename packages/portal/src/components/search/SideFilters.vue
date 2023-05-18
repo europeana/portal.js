@@ -82,11 +82,11 @@
                   v-if="advancedSearchEnabled"
                   variant="link"
                   class="search-toggle"
+                  :class="{ 'open': showAdditionalFilters }"
                   aria-controls="additional-filters"
                   :aria-expanded="showAdditionalFilters"
                   @click="showAdditionalFilters = !showAdditionalFilters"
                 >
-                  <span>{{ showAdditionalFilters ? '-' : '+' }}</span>
                   {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? 'hide' : 'show' }) }}
                 </b-button>
                 <transition

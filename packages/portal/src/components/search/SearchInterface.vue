@@ -19,14 +19,18 @@
             />
           </client-only>
           <client-only>
-            <SearchQueryBuilder
-              v-show="showAdvancedSearch"
-              v-if="advancedSearchEnabled"
-              id="search-query-builder"
-              class="d-none mb-3"
-              :class="{'d-lg-block': showAdvancedSearch}"
-              @show="(show) => showAdvancedSearch = show"
-            />
+            <transition
+              name="fade"
+            >
+              <SearchQueryBuilder
+                v-show="showAdvancedSearch"
+                v-if="advancedSearchEnabled"
+                id="search-query-builder"
+                class="d-none mb-3"
+                :class="{'d-lg-block': showAdvancedSearch}"
+                @show="(show) => showAdvancedSearch = show"
+              />
+            </transition>
           </client-only>
           <section>
             <div
@@ -154,21 +158,25 @@
           <b-button
             aria-controls="search-query-builder search-query-builder-mobile"
             :aria-expanded="showAdvancedSearch"
-            class="search-toggle m-3"
+            class="search-toggle query-builder-toggle m-3"
+            :class="{ 'open': showAdvancedSearch }"
             variant="link"
             @click="toggleAdvancedSearch"
           >
-            <span>{{ showAdvancedSearch ? '>' : '<' }}</span>
             {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }}
           </b-button>
         </b-row>
-        <SearchQueryBuilder
-          v-show="showAdvancedSearch"
-          v-if="advancedSearchEnabled"
-          id="search-query-builder-mobile"
-          class="d-lg-none"
-          @show="(show) => showAdvancedSearch = show"
-        />
+        <transition
+          name="fade"
+        >
+          <SearchQueryBuilder
+            v-show="showAdvancedSearch"
+            v-if="advancedSearchEnabled"
+            id="search-query-builder-mobile"
+            class="d-lg-none"
+            @show="(show) => showAdvancedSearch = show"
+          />
+        </transition>
       </SideFilters>
     </b-row>
   </b-container>
@@ -435,6 +443,7 @@
 
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/transitions';
 
 .col-results {
   min-width: 0;
@@ -470,6 +479,26 @@
     &:hover,
     &:focus {
       text-decoration: none;
+    }
+
+    &::before {
+      content: '+';
+    }
+
+    &.open::before {
+      content: '-';
+    }
+  }
+
+  .query-builder-toggle {
+    @media (min-width: $bp-large) {
+      &::before {
+        content: '<';
+      }
+
+      &.open::before {
+        content: '>';
+      }
     }
   }
 </style>
