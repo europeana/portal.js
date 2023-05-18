@@ -46,7 +46,7 @@
         </button>
       </div>
     </div>
-    <figcaption>
+    <figcaption :style="`max-width: ${imageWidth}px`">
       <CiteAttribution
         :name="leftImageAttribution.name"
         :creator="leftImageAttribution.creator"
@@ -293,7 +293,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .compare-image-wrapper {
     $slider-dimensions: 48px;

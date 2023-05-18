@@ -54,7 +54,7 @@
         try {
           itemResponse = await this.$apis.record.$axios.get(`${id}.json`);
         } catch (error) {
-          this.showError(`Unable to harvest "${itemUrl}". Please make sure the item can be accessed on the Record API. Error: "${error.message}"`);
+          this.showError(`Unable to harvest "${itemUrl}". Please make sure the item can be accessed on the Record API.`);
           return;
         }
 
@@ -62,7 +62,7 @@
           await this.populateFields(itemResponse.data.object);
           this.message = 'Success';
         } catch (error) {
-          this.showError(`There was a problem updating the entry. ${error.message}`);
+          this.showError('There was a problem updating the entry.');
         }
       },
 

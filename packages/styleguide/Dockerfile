@@ -1,6 +1,6 @@
 # Multi-stage image to build and run europeana/styleguide.js
 
-FROM node:16-alpine AS build
+FROM node:18-alpine AS build
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
@@ -12,6 +12,8 @@ RUN mkdir -p packages/styleguide packages/portal
 
 COPY package*.json ./
 COPY packages/portal/package.json ./packages/portal/
+COPY packages/style ./packages/style
+COPY packages/mirador ./packages/mirador
 COPY packages/styleguide/package.json ./packages/styleguide/
 
 RUN npm ci -w packages/portal -w packages/styleguide

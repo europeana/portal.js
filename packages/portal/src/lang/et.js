@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Te pole veel ühtegi kollektsiooni kureerinud",
         "private": "Te pole veel ühtegi privaatset galeriid loonud",
-        "public": "Te pole veel ühtegi avalikku galeriid loonud"
+        "public": "Te pole veel ühtegi avalikku galeriid loonud",
+        "published": "Teil pole veel ühtegi galeriid avaldatud"
       },
       "noLikedItems": "Teile pole veel ükski toode meeldinud"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Minu meeldimised ja galeriid",
     "profileSettings": "Profiili seaded",
     "publicCollections": "Avalikud galeriid",
+    "publishedCollections": "Avaldatud Galeriid",
     "settings": "Seaded",
     "title": "Minu konto"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Tühista",
     "close": "Sulge",
     "continue": "jätka",
+    "depublish": "Tühista avaldamine",
     "download": "Lae alla",
     "edit": "Muuda",
     "feedback": "Tagasiside",
-    "goBack": "Mine tagasi",
     "goHome": "Minge avalehele",
     "learnMore": "Lisateave",
     "like": "Meeldib",
@@ -43,13 +45,18 @@ export default {
     "pin": "Pin",
     "preview": "Eelvaade",
     "previous": "Eelmine",
-    "providedBy": "Pakub {provider}",
+    "publish": "Avalda",
     "reject": "Tagasi lükata",
+    "requestDepublication": "Taotlus mitte avaldada",
     "save": "Salvesta",
     "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
-    "skip": "Vahele jätma",
+    "skipSend": "Jäta vahele ja saada",
+    "submitForPublication": "Esitage avaldamiseks",
+    "submittedForPublication": "Esitatud avaldamiseks",
+    "transcribe": "Transkribeeri",
+    "transcribeNow": "Transkribeeri nüüd",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Pealkiri:"
   },
   "automatedCardGroup": {
+    "gallery": "Galeriid",
     "item": "Hiljutised esemed",
     "organisation": "Organisatsioonid",
     "place": "Kohad",
+    "theme": "Teemad",
     "time": "Esiletõstetud sajandid",
     "topic": "Esile tõstetud teemad"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Teema",
     "time": "Sajand",
     "topic": "Teema"
+  },
+  "categories": {
+    "label": "Tutvu lugudega sildi järgi",
+    "noOptions": "Rohkem silte pole valida",
+    "search": "Tutvu lugudega sildi järgi"
   },
   "clearAllFilters": "tühjenda kõik filtrid",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
-      "error": {
-        "unpin": "Üksuse vabastamisel ilmnes viga. Proovige uuesti või teavitage probleemist."
-      },
       "pin": "See üksus kuvatakse kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "pinLimit": {
         "body": "Praegu saate esimesele lehele kinnitada ainult 24 üksust. Kui soovite selle üksuse kinnitada, eemaldage kindlasti uus üksus ja proovige siis seda uuesti kinnitada.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Viga",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Redigeerimine on ajutiselt keelatud ja teie muudatusi pole salvestatud. Palun proovi hiljem uuesti.",
+      "title": "Uuendus ebaõnnestus"
+    },
+    "galleryNotFound": {
+      "description": "Seda galeriid ei leitud. See võib olla kustutatud.",
+      "title": "Galerii ei leitud"
+    },
     "galleryUnauthorised": {
       "description": "See pole võimalik, kuna privaatgaleriid on nähtavad ainult nende loojale. Kui teate galerii loojat, paluge tal galerii avalikustada. Teise võimalusena teavitage sellest probleemist tagasiside nupuga.",
       "metaTitle": "Galerii volitamata",
       "title": "Ups! {newline} Sa üritad vaadata teise isiku privaat galeriid."
     },
+    "genericUnknownError": {
+      "description": "Ilmnes tundmatu viga.",
+      "title": "Tundmatu viga"
+    },
     "itemNotFound": {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
       "metaTitle": "Üksust ei leitud",
       "title": "Oh ei! {newline} Me ei leidnud seda üksust."
+    },
+    "pageNotFound": {
+      "metaTitle": "lehte ei leitud",
+      "title": "Lehte, mida otsite, pole olemas."
+    },
+    "pinningNotFound": {
+      "description": "Eseme kinnitamisel/lahti kinnitamisel ilmnes viga. Palun proovige uuesti või teatage probleemist.",
+      "title": "Kureeritud kollektsiooni ei leitud"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi.",
+      "title": "Lehekülje limiit ületatud"
     },
     "searchResultsNotFound": {
       "description": "Palun kohandage otsingusõna või lähtestage filtrid, et proovida uuesti.",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "Võime soovida jätkata. Sisestage oma e-posti aadress, kui olete rahul, et meiega ühendust võtame.",
     "failed": "Taotlus nurjus. Palun proovi uuesti.",
+    "faq": "Minge korduma kippuvate küsimuste juurde",
     "form": {
       "placeholders": {
         "email": "Sisestage oma e-posti aadress",
@@ -699,6 +735,7 @@ export default {
       "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
+      "faq": "Korduma kippuvad küsimused",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopeeritud lõikelauale",
     "externalContentError": "Välist sisu ei õnnestunud laadida",
-    "notFound": "Ei leitud",
-    "paginationLimitExceeded": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi."
+    "notFound": "Ei leitud"
   },
   "modal": {
     "download": {
       "clickToCopy": "Selle kopeerimiseks klõpsake omistusel",
       "modalIntro": "Kui kasutate seda üksust veebis või mujal, ärge unustage selle kõrval kuvada järgmist omistust:",
       "modalTitle": "Ütle aitäh"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Soovitame teil klõpsata alloleval nupul „Pakkuja institutsioon”, et kontrollida, kas üksust saab pakkuva asutuse veebisaidilt alla laadida.",
+      "message": "Kui allalaadimine ei tööta, võib põhjuseks olla see, et pakkuv asutus on selle eemaldanud või nende teenuses võib olla tehniline probleem.",
+      "title": "Allalaadimine ei tööta"
+    },
+    "transcribe": {
+      "message": "Liituge meiega Europeana Transcribe'is, veebipõhises kodanikualgatuses Europeana kogude rikastamiseks",
+      "title": "Transkribeerige see üksus"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
-    "readMore": "Loe lähemalt",
+    "readMore": "Avastage lugusid",
     "text": {
-      "searchFilters": "Nüüd saate otsida väärtusi üksikutes filtrites; vaadake seda!"
+      "storiesTags": "Vaadake uuendatud lugude lehte. Nüüd saate otsida ja filtreerida siltide järgi."
     }
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "of",
   "organisation": {
     "city": "Linn",
@@ -895,7 +943,7 @@ export default {
         "title": "Kohad"
       },
       "table": {
-        "items": "Üksused",
+        "items": "Esemed",
         "name": "Nimi"
       },
       "times": {
@@ -908,6 +956,10 @@ export default {
   },
   "pagination": {
     "label": "Paginatsioon"
+  },
+  "provider": {
+    "linkText": "Vaadake teenusepakkuja veebisaidilt",
+    "providedBy": "Seda üksust pakub ja hooldab {provider}"
   },
   "readMore": "Loe lähemalt",
   "recommendation": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Kogu metateave",
     "copyEmbedLabel": "Embed code (Klõpsake kopeerimiseks)",
-    "exploreMore": "Avastage rohkem",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
@@ -944,13 +995,24 @@ export default {
       "title": "Avastage seotud lugusid"
     },
     "collections": {
+      "name": "Seotud kollektsioonid",
       "title": "Avastage seotud kogud"
     },
     "editorial": {
       "title": "Lood, mis teile võivad meeldida"
+    },
+    "galleries": {
+      "name": "Seotud galeriid",
+      "title": "Avastage seotud galeriid"
+    },
+    "items": {
+      "loginForMore": "Logi sisse, et näha teisi seotud esemed",
+      "title": "Avasta seotud esemed"
+    },
+    "themes": {
+      "title": "Avasta seotud teemad"
     }
   },
-  "relatedCollections": "Seotud kollektsioonid",
   "removeFilter": "Eemalda filter {filterLabel}",
   "reset": "Lähtesta",
   "resourceWikimedia": "Wikimedia Commonsist saadud ressurss",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Redigeeri galeriid",
       "update": "Värskenda galeriid"
     },
+    "entityBestBets": {
+      "title": "{entity} Lehekülg"
+    },
     "form": {
       "description": "Galerii kirjeldus",
       "private": "Hoia see galerii privaatsena",
+      "privateWarning": "See tegevus depublitseerib galerii.",
       "required": "Kohustuslik väli",
       "title": "Galerii nimi"
     },
     "labels": {
       "curatedBy": "Kuraator",
-      "private": "Privaatgalerii"
+      "private": "Privaatgalerii",
+      "published": "Avaldatud galerii"
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Vabandame, kuid praegu piirdute maksimaalselt 100 toote meeldimisega. Varsti eemaldame selle limiidi!",
         "title": "100 meeldimist"
       },
-      "updated": "Üksus lisati galeriisse."
+      "updated": "Üksus lisati galeriisse.",
+      "visibilityChanged": "Hoiatus: määratud nähtavus on juba muudetud ja on praegu \" {visibility} \"."
     },
     "prompts": {
       "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
+    },
+    "publication": {
+      "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu/galleries.",
+      "failedSubmission": "Taotlus ebaõnnestus. Palun proovi uuesti.",
+      "process": {
+        "description": "Kui esitate galerii avaldamiseks, teavitatakse sellest Europeana kirjastajate meeskonda. Nad vaatavad selle kõigepealt üle ja võivad teha muudatusi enne selle avaldamist. Galerii ülevaatamisel saate teateid e-posti teel. Kui seda ei avaldata, võib juhtuda, et see ei vasta meie toimetuse juhistele.",
+        "title": "Kuidas protsess toimib"
+      },
+      "time": {
+        "description": "1-3 päeva.",
+        "title": "Kui kaua see võtab"
+      },
+      "title": "Saada galerii avaldamiseks",
+      "toastButton": "Okei",
+      "toastMessage": "See galerii on nüüd avaldamiseks esitatud. Saate vaadata {galleries} , et näha, kas see on avaldatud."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) on veebipõhine tööriist erinevat tüüpi (sh 3D) sisu haldamiseks, kultuuripärandi dokumenteerimiseks digitaalsete kogukonnaruumide kaudu ning digitaalsete lugude ja kogemuste kureerimiseks."
+      }
     }
   },
+  "shareWhere": "Kus soovite seda jagada?",
   "showLess": "Näita vähem",
   "showMore": "Näita rohkem",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Kinnitatud"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "Leiti {0} lugu",
     "title": "Lood"
+  },
+  "themes": {
+    "description": "Sirvi teemade kaupa",
+    "themes": "Teemad"
   },
   "website": "Veebisait"
 };

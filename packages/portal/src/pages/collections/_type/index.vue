@@ -3,9 +3,7 @@
     <ErrorMessage
       v-if="$fetchState.error"
       data-qa="error message container"
-      :error="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :error="$fetchState.error"
     />
     <b-container
       v-else
@@ -24,15 +22,15 @@
 </template>
 
 <script>
-  import ContentHeader from '@/components/generic/ContentHeader';
   import ClientOnly from 'vue-client-only';
+  import ContentHeader from '@/components/generic/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'CollectionsIndexPage',
 
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ContentHeader,
       ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
@@ -42,15 +40,7 @@
 
     fetch() {
       if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = 404;
-        }
-        const error = new Error('Unknown collection type');
-        error.statusCode = 404;
-        error.titlePath = 'errorMessage.pageNotFound.title';
-        error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
-        error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
-        throw error;
+        this.$error(404, { scope: 'page' });
       }
     },
 
@@ -69,7 +59,7 @@
   </script>
 
   <style lang="scss" scoped>
-    @import '@/assets/scss/variables';
+    @import '@europeana/style/scss/variables';
 
     .collections-page {
       padding: 3rem 0 7rem;

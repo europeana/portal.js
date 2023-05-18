@@ -4,7 +4,7 @@
     :key="`searchResultsGrid${view}`"
     v-masonry
     transition-duration="0.1"
-    item-selector=".card"
+    item-selector=".masonry-tile"
     horizontal-order="true"
     column-width=".masonry-container .card:not(.header-card)"
     class="masonry-container"
@@ -21,23 +21,39 @@
       <template
         v-for="(card, index) in cards"
       >
-        <aside
-          v-if="card === 'related'"
-          :key="index"
-        >
-          <slot
+        <template v-if="card === relatedGalleries">
+          <div
+            v-if="$slots[relatedGalleries]"
+            :key="index"
             v-masonry-tile
-            name="related"
-          />
-        </aside>
+            class="masonry-tile related-results"
+          >
+            <slot
+              :name="relatedGalleries"
+            />
+          </div>
+        </template>
+        <template v-else-if="card === relatedCollections">
+          <div
+            v-if="$slots[relatedCollections]"
+            :key="index"
+            v-masonry-tile
+            class="masonry-tile related-results"
+          >
+            <slot
+              :name="relatedCollections"
+            />
+          </div>
+        </template>
         <ItemPreviewCard
           v-else
           :key="index"
           ref="cards"
+          v-masonry-tile
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
-          class="item"
+          class="masonry-tile item"
           :lazy="true"
           :enable-accept-recommendation="enableAcceptRecommendations"
           :enable-reject-recommendation="enableRejectRecommendations"
@@ -45,8 +61,6 @@
           :show-move="draggableItems"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
-          @like="$emit('like', card.id)"
-          @unlike="$emit('unlike', card.id)"
         />
       </template>
     </component>
@@ -58,22 +72,36 @@
     :draggable="draggableItems && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
-    deck
+    :columns="view === 'list'"
+    :deck="view !== 'list'"
     @end="endItemDrag"
   >
     <slot />
     <template
       v-for="(card, index) in cards"
     >
-      <aside
-        v-if="card === 'related'"
-        :key="index"
-        class="aside-card-wrapper"
-      >
-        <slot
-          name="related"
-        />
-      </aside>
+      <template v-if="card === relatedGalleries">
+        <div
+          v-if="$slots[relatedGalleries]"
+          :key="index"
+          class="related-results"
+        >
+          <slot
+            :name="relatedGalleries"
+          />
+        </div>
+      </template>
+      <template v-else-if="card === relatedCollections">
+        <div
+          v-if="$slots[relatedCollections]"
+          :key="index"
+          class="related-results"
+        >
+          <slot
+            :name="relatedCollections"
+          />
+        </div>
+      </template>
       <ItemPreviewCard
         v-else
         :key="card.id"
@@ -86,8 +114,6 @@
         :show-move="draggableItems"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
-        @like="$emit('like', card.id)"
-        @unlike="$emit('unlike', card.id)"
       />
     </template>
   </component>
@@ -142,12 +168,17 @@
 
     data() {
       return {
-        cards: []
+        cards: [],
+        relatedGalleries: 'related-galleries',
+        relatedCollections: 'related-collections'
       };
     },
 
     fetch() {
-      this.cards = this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
+      const cards = [...this.items];
+      cards.splice(3, 0, this.relatedGalleries);
+      cards.splice(8, 0, this.relatedCollections);
+      this.cards = cards;
     },
 
     computed: {
@@ -156,7 +187,7 @@
 
         switch (this.view) {
         case 'list':
-          cardGroupClass = 'card-group-list mx-0';
+          cardGroupClass = 'card-group-list';
           break;
         case 'explore':
           cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
@@ -189,7 +220,7 @@
 
     methods: {
       endItemDrag() {
-        this.$emit('endItemDrag', this.cards.filter(card => card !== 'related'));
+        this.$emit('endItemDrag', this.cards.filter(card => ![this.relatedGalleries, this.relatedCollections].includes(card)));
       },
       itemHitSelector(item) {
         if (!this.hits) {
@@ -201,7 +232,7 @@
       },
       redrawMasonry() {
         this.$nextTick(() => {
-          this.$redrawVueMasonry && this.$redrawVueMasonry();
+          this.$redrawVueMasonry?.();
         });
       }
     }
@@ -209,6 +240,6 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/masonry';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/masonry';
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card rounded-0 border-0 p-4 info-panel">
+  <div class="card rounded-0 border-0 mb-3 info-panel">
     <header
       v-if="titles.length > 0"
     >
@@ -48,7 +48,7 @@
           class="description-text-paragraph"
           v-html="$options.filters.convertNewLine(value)"
         />
-        <!-- eslint-disable vue/no-v-html -->
+        <!-- eslint-enable vue/no-v-html -->
         <MetadataOriginLabel
           v-if="index === 0"
           :translation-source="description.translationSource"
@@ -102,7 +102,7 @@
     },
     computed: {
       expandableDescription() {
-        return (this.description && this.description.values) &&
+        return this.description?.values &&
           (this.description.values.length > 1 || this.description.values[0].length > this.limitCharacters);
       },
       truncatedDescription() {
@@ -125,8 +125,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
 
   .description p:last-of-type {
     display: inline;

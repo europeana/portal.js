@@ -18,7 +18,7 @@ const factory = (props = { fields: {} }) => shallowMount(BrowseContentCard, {
         edmPreview: (img) => img
       }
     },
-    $path: (opts) => opts,
+    localePath: (opts) => opts,
     $i18n: { locale: 'en' },
     $t: () => {}
   }
@@ -51,15 +51,6 @@ describe('components/browse/BrowseContentCard', () => {
   });
 
   describe('imageUrl()', () => {
-    describe('when `fields.thumbnailUrl` is present', () => {
-      it('is used', () => {
-        const thumbnailUrl = 'https://www.example.org/image.jpg';
-        const wrapper = factory({ fields: { thumbnailUrl } });
-
-        expect(wrapper.vm.imageUrl).toBe(thumbnailUrl);
-      });
-    });
-
     describe('when `fields.image` is a string', () => {
       it('is used', () => {
         const image = 'https://www.example.org/image.jpg';

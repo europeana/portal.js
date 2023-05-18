@@ -72,8 +72,21 @@
             cols="12"
             class="col-lg-8"
           >
-            <RelatedCollections
+            <EntityBadges
               :entity-uris="relatedLink"
+            />
+          </b-col>
+        </b-row>
+        <b-row
+          v-if="genre"
+          class="related-container justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-8"
+          >
+            <ThemeBadges
+              :themes-identifiers="genre"
             />
           </b-col>
         </b-row>
@@ -100,7 +113,8 @@
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
-      RelatedCollections: () => import('@/components/related/RelatedCollections')
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      ThemeBadges: () => import('@/components/theme/ThemeBadges')
     },
     mixins: [
       exhibitionChapters,
@@ -112,7 +126,7 @@
     },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) {
-        redirect(app.$path({ name: 'exhibitions' }));
+        redirect(app.localePath({ name: 'exhibitions' }));
       }
 
       const variables = {
@@ -132,7 +146,7 @@
           store.commit('breadcrumb/setBreadcrumbs', [
             {
               text: app.i18n.tc('exhibitions.exhibitions', 2),
-              to: app.$path({ name: 'exhibitions' })
+              to: app.localePath({ name: 'exhibitions' })
             },
             {
               text: data.exhibitionPageCollection.items[0].name,
@@ -176,17 +190,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  ::v-deep .related-collections {
-    &.container {
-      padding: 0;
-    }
-
-    .badge-pill {
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
-    }
-  }
-
-</style>

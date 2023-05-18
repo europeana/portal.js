@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Je hebt nog geen collecties samengesteld",
         "private": "U hebt nog geen privé galerijen gemaakt",
-        "public": "U hebt nog geen openbare galerijen gemaakt"
+        "public": "U hebt nog geen openbare galerijen gemaakt",
+        "published": "U heeft nog geen galerijen gepubliceerd"
       },
       "noLikedItems": "Je hebt nog geen Items geliked"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mijn likes en galerijen",
     "profileSettings": "Profielinstellingen",
     "publicCollections": "Openbare galerijen",
+    "publishedCollections": "Gepubliceerde Galerijen",
     "settings": "Instellingen",
     "title": "Mijn account"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Annuleren",
     "close": "sluiten",
     "continue": "doorgaan",
+    "depublish": "Depubliceren",
     "download": "Download",
     "edit": "Bewerken",
     "feedback": "Feedback",
-    "goBack": "Ga terug",
     "goHome": "Ga naar de homepage",
     "learnMore": "Leer meer",
     "like": "Liken",
@@ -43,13 +45,18 @@ export default {
     "pin": "Pin",
     "preview": "Voorbeeld",
     "previous": "Vorige",
-    "providedBy": "Aangeboden door {provider}",
+    "publish": "Publiceren",
     "reject": "Afwijzen",
+    "requestDepublication": "Depublicatie aanvragen",
     "save": "Opslaan",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
-    "skip": "Overslaan",
+    "skipSend": "Overslaan en verzenden",
+    "submitForPublication": "Indienen voor publicatie",
+    "submittedForPublication": "Ingezonden voor publicatie",
+    "transcribe": "Transcriberen",
+    "transcribeNow": "Nu transcriberen",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijen",
     "item": "Recente items",
     "organisation": "Organisaties",
     "place": "Plaatsen",
+    "theme": "Thema's",
     "time": "Aanbevolen eeuwen",
     "topic": "Aanbevolen onderwerpen"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Thema",
     "time": "Eeuw",
     "topic": "Onderwerp"
+  },
+  "categories": {
+    "label": "Verken verhalen op tag",
+    "noOptions": "Er zijn geen tags meer om te selecteren",
+    "search": "Verken verhalen op tag"
   },
   "clearAllFilters": "alle filters wissen",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
-      "error": {
-        "unpin": "Er is een fout opgetreden bij het losmaken van het item. Probeer het opnieuw of meld het probleem."
-      },
       "pin": "Dit item wordt bovenaan de collectie \" {entity} \" weergegeven. We laten je weten wanneer deze wijziging zichtbaar is op de collectiepagina.",
       "pinLimit": {
         "body": "Voorlopig kunt u maar 24 items vast zetten op de eerste pagina. Als u dit item wilt vast zetten, moet u ervoor zorgen dat u een ander item los maakt en vervolgens proberen deze opnieuw vast te zetten.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Fout",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Bewerken is tijdelijk uitgeschakeld en uw wijzigingen zijn niet opgeslagen. Probeer het later opnieuw.",
+      "title": "Update mislukt"
+    },
+    "galleryNotFound": {
+      "description": "Deze galerij kon niet worden gevonden. Het is mogelijk verwijderd.",
+      "title": "Galerij niet gevonden"
+    },
     "galleryUnauthorised": {
       "description": "Dit is niet mogelijk, omdat privé galerijen alleen zichtbaar zijn voor de maker ervan. Als u de maker van de galerij kent, vraag hem dan om de galerij publiek te maken. U kunt dit probleem ook melden via de feedback knop.",
       "metaTitle": "Galerij ongeautoriseerd",
       "title": "Oeps! {newline} U probeert de privégalerij van iemand anders te bekijken."
     },
+    "genericUnknownError": {
+      "description": "Er is een onbekende fout opgetreden.",
+      "title": "Onbekende fout"
+    },
     "itemNotFound": {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    },
+    "pageNotFound": {
+      "metaTitle": "Pagina niet gevonden",
+      "title": "De pagina die u zoekt, bestaat niet."
+    },
+    "pinningNotFound": {
+      "description": "Er is een fout opgetreden bij het vastzetten/losmaken van het item. Probeer het opnieuw of meld het probleem.",
+      "title": "Samengestelde collectie niet gevonden"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Het is alleen mogelijk om de eerste {limit} zoekresultaten te bekijken.",
+      "title": "Paginalimiet overschreden"
     },
     "searchResultsNotFound": {
       "description": "Pas de zoekterm aan of reset de filters om het opnieuw te proberen.",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "We willen hier misschien een vervolg aan geven. Voer uw e-mailadres in als u het niet erg vindt als wij contact met u opnemen.",
     "failed": "Het verzoek is mislukt. Probeer het opnieuw.",
+    "faq": "Ga naar veelgestelde vragen",
     "form": {
       "placeholders": {
         "email": "Voer uw e-mailadres in",
@@ -699,6 +735,7 @@ export default {
       "about": "Over ons",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
+      "faq": "Veelgestelde vragen",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Gekopieerd naar klembord",
     "externalContentError": "De externe inhoud kan niet worden geladen",
-    "notFound": "Niet gevonden",
-    "paginationLimitExceeded": "Het is alleen mogelijk om de eerste {limit} zoekresultaten te bekijken."
+    "notFound": "Niet gevonden"
   },
   "modal": {
     "download": {
       "clickToCopy": "Klik op de toeschrijving om deze te kopiëren",
       "modalIntro": "Als u dit item op internet of ergens anders gebruikt, vergeet dan niet de volgende toeschrijving ernaast weer te geven:",
       "modalTitle": "Zeg bedankt"
+    },
+    "downloadFailed": {
+      "linkPrompt": "We raden u aan op de onderstaande knop 'Instituut' te klikken om na te gaan of het item kan worden gedownload op de website van de verstrekkende instelling.",
+      "message": "Als de download niet werkt, kan het zijn dat deze is verwijderd door de verstrekkende instelling of dat er een technisch probleem is met hun service.",
+      "title": "Downloaden werkt niet"
+    },
+    "transcribe": {
+      "message": "Doe met ons mee op Europeana Transcribe, het online burgerinitiatief voor de verrijking van Europeana's collecties",
+      "title": "Transcribeer dit item"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
-    "readMore": "Lees verder",
+    "readMore": "Ontdek verhalen",
     "text": {
-      "searchFilters": "U kunt nu zoeken naar waarden in de afzonderlijke filters; bekijk het hier!"
+      "storiesTags": "Bekijk de bijgewerkte verhalenpagina. U kunt nu zoeken en filteren op tags."
     }
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "Van",
   "organisation": {
     "city": "Stad",
@@ -909,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginering"
   },
+  "provider": {
+    "linkText": "Bekijk op de website van de aanbieder",
+    "providedBy": "Dit item wordt geleverd en onderhouden door {provider}"
+  },
   "readMore": "Lees verder",
   "recommendation": {
     "prompts": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Embed code (klik om te kopiëren)",
-    "exploreMore": "Meer verkennen",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
@@ -944,13 +995,24 @@ export default {
       "title": "Ontdek gerelateerde verhalen"
     },
     "collections": {
+      "name": "Gerelateerde collecties",
       "title": "Ontdek gerelateerde collecties"
     },
     "editorial": {
       "title": "Verhalen die u misschien leuk vindt"
+    },
+    "galleries": {
+      "name": "Gerelateerde galerijen",
+      "title": "Ontdek gerelateerde galerijen"
+    },
+    "items": {
+      "loginForMore": "Log in om andere gerelateerde items te zien",
+      "title": "Ontdek gerelateerde items"
+    },
+    "themes": {
+      "title": "Ontdek gerelateerde thema's"
     }
   },
-  "relatedCollections": "Gerelateerde collecties",
   "removeFilter": "Verwijder het filter {filterLabel}",
   "reset": "Opnieuw instellen",
   "resourceWikimedia": "Bron van Wikimedia Commons",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Galerij bewerken",
       "update": "Galerij bijwerken"
     },
+    "entityBestBets": {
+      "title": "{entity} Pagina"
+    },
     "form": {
       "description": "Omschrijving van de galerij",
       "private": "Houd deze galerij privé",
+      "privateWarning": "Deze actie depubliceert de galerij.",
       "required": "Verplicht veld",
       "title": "Naam van de galerij"
     },
     "labels": {
       "curatedBy": "Beheerd door",
-      "private": "Privégalerij"
+      "private": "Privégalerij",
+      "published": "Gepubliceerde galerij"
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 artikelen liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"
       },
-      "updated": "Het item is toegevoegd aan de galerij."
+      "updated": "Het item is toegevoegd aan de galerij.",
+      "visibilityChanged": "Waarschuwing: de ingestelde zichtbaarheid is al gewijzigd en is nu \" {visibility} \"."
     },
     "prompts": {
       "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd."
+    },
+    "publication": {
+      "description": "Als u een galerij publiceert, wordt deze op Europeana.eu/galleries weergegeven.",
+      "failedSubmission": "Het verzoek is mislukt. Probeer het opnieuw.",
+      "process": {
+        "description": "Wanneer u een galerij indient voor publicatie, wordt een team van uitgevers bij Europeana op de hoogte gebracht. Ze zullen het eerst beoordelen en mogelijk wijzigingen aanbrengen voordat het wordt gepubliceerd. U ontvangt meldingen per e-mail wanneer de galerij wordt beoordeeld. Als het niet wordt gepubliceerd, is het mogelijk dat het niet voldoet aan onze redactionele richtlijnen.",
+        "title": "Hoe het proces werkt"
+      },
+      "time": {
+        "description": "1-3 dagen.",
+        "title": "Hoe lang het duurt"
+      },
+      "title": "Galerij indienen voor publicatie",
+      "toastButton": "Oké",
+      "toastMessage": "Deze galerij is nu ingediend voor publicatie. U kunt {galleries} controleren om te zien of het is gepubliceerd."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) is een webtool voor het beheer van verschillende soorten inhoud (waaronder 3D), het documenteren van cultureel erfgoed via digitale gemeenschapsruimtes en het cureren van digitale verhalen en ervaringen."
+      }
     }
   },
+  "shareWhere": "Waar wilt u dit delen?",
   "showLess": "Minder weergeven",
   "showMore": "Meer weergeven",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Pinned"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} verhalen gevonden",
     "title": "Verhalen"
+  },
+  "themes": {
+    "description": "Blader op thema",
+    "themes": "Thema's"
   },
   "website": "Website"
 };

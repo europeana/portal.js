@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="(section, index) in content"
+      v-for="(section, index) in sections"
       :key="index"
     >
       <RichText
@@ -12,12 +12,6 @@
       <ContentCardSection
         v-else-if="contentType(section, 'CardGroup')"
         :section="section"
-      />
-      <LatestSection
-        v-else-if="contentType(section, 'LatestCardGroup') && section.total"
-        :category="section.genre"
-        :total="section.total"
-        :cards="section.items"
       />
       <AutomatedCardGroup
         v-else-if="contentType(section, 'AutomatedCardGroup')"
@@ -70,7 +64,6 @@
     components: {
       CompareImageSlider: () => import('../generic/CompareImageSlider'),
       ContentCardSection: () => import('./ContentCardSection'),
-      LatestSection: () => import('./LatestSection'),
       EmbedHTML: () => import('../embed/EmbedHTML'),
       ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
       CallToAction: () => import('../generic/CallToAction'),
@@ -91,65 +84,7 @@
       }
     },
 
-    data() {
-      return {
-        content: this.sections
-      };
-    },
-
-    async fetch() {
-      this.content = await this.sectionsWithLatestCardGroups(this.sections);
-    },
-
     methods: {
-      async sectionsWithLatestCardGroups(sections) {
-        const content = [].concat(sections);
-        const genres = content
-          .filter(item => item && (item['__typename'] === 'LatestCardGroup'))
-          .map(item => item.genre);
-
-        if (genres.length === 0) {
-          return content;
-        }
-
-        const variables = {
-          locale: this.$i18n.isoLocale(),
-          preview: this.$route.query.mode === 'preview',
-          exhibitions: genres.includes('Exhibitions'),
-          blogPosts: genres.includes('Blog posts'),
-          galleries: genres.includes('Galleries'),
-          limit: 4
-        };
-
-        let responseData;
-        try {
-          const response = await this.$contentful.query('latestCardGroups', variables);
-          responseData = response.data;
-        } catch (e) {
-          return content;
-        }
-
-        // merge the latest card group data into the main content
-        for (let i = 0; i < content.length; i++) {
-          if (content[i] && content[i]['__typename'] === 'LatestCardGroup') {
-            let latest = {};
-            switch (content[i].genre) {
-            case 'Exhibitions':
-              latest = responseData.data.exhibitionPageCollection;
-              break;
-            case 'Blog posts':
-              latest = responseData.data.blogPostingCollection;
-              break;
-            case 'Galleries':
-              latest = responseData.data.imageGalleryCollection;
-              break;
-            }
-            content[i] = { ...content[i], ...latest };
-          }
-        }
-
-        return content;
-      },
       contentType(section, typeName) {
         return section && (section['__typename'] === typeName);
       },

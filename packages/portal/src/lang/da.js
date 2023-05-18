@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Du har ikke kurateret nogen samlinger endnu",
         "private": "Du har ikke oprettet nogen private gallerier endnu",
-        "public": "Du har ikke oprettet nogen offentlige gallerier endnu"
+        "public": "Du har ikke oprettet nogen offentlige gallerier endnu",
+        "published": "Du har ikke haft nogen gallerier offentliggjort endnu"
       },
       "noLikedItems": "Du har ikke syntes om nogen artikler endnu"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mine synes om'er og gallerier",
     "profileSettings": "Profilindstillinger",
     "publicCollections": "Offentlige gallerier",
+    "publishedCollections": "Udgivne Gallerier",
     "settings": "Indstillinger",
     "title": "Min konto"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Annuller",
     "close": "luk",
     "continue": "fortsæt",
+    "depublish": "Depublicer",
     "download": "Hent",
     "edit": "Rediger",
     "feedback": "Feedback",
-    "goBack": "Tilbage",
     "goHome": "Gå til hjemmesiden",
     "learnMore": "Lær mere",
     "like": "Synes om",
@@ -43,13 +45,18 @@ export default {
     "pin": "Pin",
     "preview": "Forhåndsvisning",
     "previous": "Forrige",
-    "providedBy": "Leveret af {provider}",
+    "publish": "Offentliggøre",
     "reject": "Afvise",
+    "requestDepublication": "Anmodning om afpublicering",
     "save": "Gem",
     "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
-    "skip": "Springe",
+    "skipSend": "Spring over og send",
+    "submitForPublication": "Indsend til offentliggørelse",
+    "submittedForPublication": "Indsendt til offentliggørelse",
+    "transcribe": "Transskriber",
+    "transcribeNow": "Transskriber nu",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Gallerier",
     "item": "Seneste varer",
     "organisation": "Organisationer",
     "place": "Steder",
+    "theme": "Temaer",
     "time": "Udvalgte århundreder",
     "topic": "Udvalgte emner"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Tema",
     "time": "Århundrede",
     "topic": "Emne"
+  },
+  "categories": {
+    "label": "Udforsk historier efter tag",
+    "noOptions": "Der er ikke flere tags at vælge",
+    "search": "Udforsk historier efter tag"
   },
   "clearAllFilters": "ryd alle filtre",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
-      "error": {
-        "unpin": "Der opstod en fejl under frigørelse af elementet. Prøv venligst igen, eller rapporter problemet."
-      },
       "pin": "Dette element vises øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "pinLimit": {
         "body": "Indtil videre kan du kun fastgøre 24 elementer på den første side. Hvis du vil fastgøre dette emne, skal du fjerne et andet emne og derefter prøve at fastgøre dette emne igen.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Fejl",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Redigering er midlertidigt deaktiveret, og dine ændringer er ikke blevet gemt. Prøv igen senere.",
+      "title": "Opdatering fejlede"
+    },
+    "galleryNotFound": {
+      "description": "Dette galleri kunne ikke findes. Det kan være blevet slettet.",
+      "title": "Galleri ikke fundet"
+    },
     "galleryUnauthorised": {
       "description": "Dette er ikke muligt, fordi private gallerier kun er synlige for deres skaber. Hvis du kender skaberen af galleriet, så bed dem om at gøre galleriet offentligt. Alternativt kan du rapportere dette problem ved hjælp af feedback-knappen.",
       "metaTitle": "Galleri uautoriseret",
       "title": "Ups! {newline} Du forsøger at se en anden persons private galleri."
     },
+    "genericUnknownError": {
+      "description": "Der opstod en ukendt fejl.",
+      "title": "Ukendt fejl"
+    },
     "itemNotFound": {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
+    },
+    "pageNotFound": {
+      "metaTitle": "Siden blev ikke fundet",
+      "title": "Den side du leder efter eksisterer ikke."
+    },
+    "pinningNotFound": {
+      "description": "Der opstod en fejl ved fastgørelse/frigørelse af elementet. Prøv venligst igen, eller rapporter problemet.",
+      "title": "Kurateret samling ikke fundet"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Det er kun muligt at se de første {limit} søgeresultater.",
+      "title": "Sidelimit overskredet"
     },
     "searchResultsNotFound": {
       "description": "Juster søgeordet, eller nulstil filtrene for at prøve igen.",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "Vi ønsker måske at følge op. Indtast din e-mail, hvis du er glad for, at vi kontakter dig.",
     "failed": "Anmodningen mislykkedes. Prøv igen.",
+    "faq": "Gå til ofte stillede spørgsmål",
     "form": {
       "placeholders": {
         "email": "Indtast din e-mailadresse",
@@ -699,6 +735,7 @@ export default {
       "about": "Om os",
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
+      "faq": "Ofte stillede spørgsmål",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopieret til udklipsholderen",
     "externalContentError": "Det eksterne indhold kunne ikke indlæses",
-    "notFound": "Ikke fundet",
-    "paginationLimitExceeded": "Det er kun muligt at få vist de første {limit} søgeresultater."
+    "notFound": "Ikke fundet"
   },
   "modal": {
     "download": {
       "clickToCopy": "Klik på tilskrivningen for at kopiere den",
       "modalIntro": "Hvis du bruger dette element på nettet eller andre steder, skal du ikke glemme at vise følgende tilskrivning ved siden af det:",
       "modalTitle": "Sig tak"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Vi råder dig til at klikke på knappen 'Leverende institution' nedenfor for at kontrollere, om varen kan downloades på den udbyders hjemmeside.",
+      "message": "Hvis overførslen ikke virker, kan det skyldes, at den er blevet fjernet af den leverede institution, eller der kan være et teknisk problem med deres service.",
+      "title": "Download virker ikke"
+    },
+    "transcribe": {
+      "message": "Deltag sammen med os på Europeana Transcribe, den online borgerinitiativ for berigelse af Europeana's samlinger",
+      "title": "Transskriber dette element"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Luk",
-    "readMore": "Læs mere",
+    "readMore": "Oplev historier",
     "text": {
-      "searchFilters": "Du kan nu søge efter værdier i de enkelte filtre; tjek det ud!"
+      "storiesTags": "Tjek den opdaterede historieside. Du kan nu søge og filtrere efter tags."
     }
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "Af",
   "organisation": {
     "city": "By",
@@ -909,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginering"
   },
+  "provider": {
+    "linkText": "Se på udbyderens websted",
+    "providedBy": "Denne vare leveres og vedligeholdes af {provider}"
+  },
   "readMore": "Læs mere",
   "recommendation": {
     "prompts": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Integrer kode (Klik for at kopiere)",
-    "exploreMore": "Udforsk mere",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",
@@ -944,13 +995,24 @@ export default {
       "title": "Oplev relaterede historier"
     },
     "collections": {
+      "name": "Relaterede samlinger",
       "title": "Oplev relaterede samlinger"
     },
     "editorial": {
       "title": "Historier, du måske kan lide"
+    },
+    "galleries": {
+      "name": "Relaterede gallerier",
+      "title": "Oplev relaterede gallerier"
+    },
+    "items": {
+      "loginForMore": "Log ind for at se andre relaterede varer",
+      "title": "Oplev relaterede varer"
+    },
+    "themes": {
+      "title": "Oplev relaterede temaer"
     }
   },
-  "relatedCollections": "Relaterede samlinger",
   "removeFilter": "Fjern {filterLabel} filter",
   "reset": "Nulstil",
   "resourceWikimedia": "Ressource fra Wikimedia Commons",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Rediger galleri",
       "update": "Opdater galleri"
     },
+    "entityBestBets": {
+      "title": "{entity} Side"
+    },
     "form": {
       "description": "Beskrivelse af galleri",
       "private": "Hold dette galleri privat",
+      "privateWarning": "Denne handling vil depublicere galleriet.",
       "required": "påkrævet  felt",
       "title": "Navn på galleri"
     },
     "labels": {
       "curatedBy": "Kurateret af",
-      "private": "Privat galleri"
+      "private": "Privat galleri",
+      "published": "Udgivet galleri"
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 artikler. Vi fjerner denne begrænsning snart!",
         "title": "100 synes om'er"
       },
-      "updated": "Elementet blev føjet til galleriet."
+      "updated": "Elementet blev føjet til galleriet.",
+      "visibilityChanged": "Advarsel: sæt synlighed er allerede ændret og er i øjeblikket \" {visibility} \"."
     },
     "prompts": {
       "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det."
+    },
+    "publication": {
+      "description": "Udgivelse af et galleri vil vise det på Europeana.eu/galleries.",
+      "failedSubmission": "Anmodningen mislykkedes. Prøv venligst igen.",
+      "process": {
+        "description": "Når du indsender et galleri til offentliggørelse, får et team af udgivere hos Europeana besked. De vil først gennemgå det og kan foretage ændringer, før det offentliggøres. Du vil modtage meddelelser via e-mail, når galleriet gennemgås. Hvis den ikke offentliggøres, kan det være, at den ikke er i overensstemmelse med vores redaktionelle retningslinjer.",
+        "title": "Hvordan processen fungerer"
+      },
+      "time": {
+        "description": "1-3 dage.",
+        "title": "Hvor længe det tager"
+      },
+      "title": "Indsend galleri til offentliggørelse",
+      "toastButton": "Okay",
+      "toastMessage": "Dette galleri er nu indsendt til offentliggørelse. Du kan tjekke {galleries} for at se, om det er blevet offentliggjort."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) er et webbaseret værktøj til at administrere indhold af forskellige typer (inklusive 3D), dokumentere kulturarv gennem digitale fællesskabsrum og kuratere digitale historier og oplevelser."
+      }
     }
   },
+  "shareWhere": "Hvor vil du gerne dele dette?",
   "showLess": "Vis mindre",
   "showMore": "Vis mere",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Fastgjort"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} historier fundet",
     "title": "Historier"
+  },
+  "themes": {
+    "description": "Gennemse efter tema",
+    "themes": "Temaer"
   },
   "website": "Websted"
 };

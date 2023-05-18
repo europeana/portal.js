@@ -60,9 +60,13 @@
     },
 
     methods: {
-      copyEmbedCode() {
+      async copyEmbedCode() {
         this.$refs.shareEmbed.select();
-        document.execCommand('copy');
+        try {
+          await navigator.clipboard.writeText(this.embedHtml);
+        } catch {
+          // don't worry
+        }
         this.embedCopied = true;
       }
     }
@@ -70,7 +74,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   #share-embed {
     cursor: pointer;

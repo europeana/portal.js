@@ -5,7 +5,6 @@
     :image-url="imageUrl"
     :texts="texts"
     :hits-text="hitsText"
-    :class="cardClass"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
     :blank-image-height="280"
@@ -38,8 +37,6 @@
             :show-move="showMove"
             :button-text="true"
             button-variant="light-flat"
-            @like="$emit('like', identifier)"
-            @unlike="$emit('unlike', identifier)"
           />
         </client-only>
       </div>
@@ -48,19 +45,17 @@
       v-else
       #image-overlay
     >
-      <RecommendationButtons
-        v-if="enableAcceptRecommendation || enableRejectRecommendation"
-        :identifier="identifier"
-        :enable-accept-button="enableAcceptRecommendation"
-        :enable-reject-button="enableRejectRecommendation"
-      />
-      <client-only v-else>
+      <client-only>
+        <RecommendationButtons
+          v-if="enableAcceptRecommendation || enableRejectRecommendation"
+          :identifier="identifier"
+          :enable-accept-button="enableAcceptRecommendation"
+          :enable-reject-button="enableRejectRecommendation"
+        />
         <UserButtons
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
-          @like="$emit('like', identifier)"
-          @unlike="$emit('unlike', identifier)"
         />
       </client-only>
     </template>
@@ -188,10 +183,6 @@
         return this.variant === 'list' ? this.hitSelector : null;
       },
 
-      cardClass() {
-        return this.variant === 'list' ? 'mx-0' : null;
-      },
-
       identifier() {
         return this.item.id.replace('http://data.europeana.eu/item/', '');
       },
@@ -201,8 +192,7 @@
       },
 
       imageUrl() {
-        return this.$apis.thumbnail.edmPreview(this.item.edmPreview?.[0], { size: 400, type: this.item.type }) ||
-          this.$apis.thumbnail.generic(this.item.id, { size: 400, type: this.item.type });
+        return this.$apis.thumbnail.edmPreview(this.item.edmPreview?.[0], { size: 400 });
       },
 
       subTitle() {

@@ -139,7 +139,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .form-control.is-active {
     border: 1px solid $innovationblue;
@@ -150,6 +150,13 @@
     height: 2.5rem;
     vertical-align: bottom;
     margin-left: 0.25rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        height: calc(1.5 * 2.5rem);
+        margin-left: calc(1.5 * 0.25rem);
+      }
+    }
   }
 
   .apply-icon {

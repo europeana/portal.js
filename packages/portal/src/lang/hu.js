@@ -8,21 +8,23 @@ export default {
     "linkLogin": "Bejelentkezés",
     "linkLoginJoin": "Bejelentkezés/Csatlakozás",
     "linkLogout": "Bejelentkezés",
-    "myProfile": "A profilom",
+    "myProfile": "Profilom",
     "notifications": {
       "loggedIn": "Most már be van jelentkezve. Üdvözlünk!",
       "loggedOut": "Most kijelentkezett.",
       "noCollections": {
         "curated": "Még nem kuratáltál gyűjteményeket",
-        "private": "Még nem hozott létre privát galériát",
-        "public": "Még nem hozott létre nyilvános galériát"
+        "private": "Még nem hoztál létre privát galériákat",
+        "public": "Még nem hozott létre nyilvános galériákat",
+        "published": "Még nem publikáltál galériákat."
       },
       "noLikedItems": "Még nem kedvelt egy cikket sem"
     },
     "privateCollections": "Privát Galériák",
-    "profile": "Kedveléseim és gyűjteményeim",
-    "profileSettings": "Profilbeállítások",
+    "profile": "Kedveléseim és Galériák",
+    "profileSettings": "Profil beállítások",
     "publicCollections": "Nyilvános Galériák",
+    "publishedCollections": "Megjelent Galériák",
     "settings": "Beállítások",
     "title": "Fiókom"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Mégse",
     "close": "bezárás",
     "continue": "folytatás",
+    "depublish": "Közzététel visszavonása",
     "download": "Letöltés",
     "edit": "Szerkesztés",
     "feedback": "Visszacsatolás",
-    "goBack": "Vissza",
     "goHome": "Ugrás a kezdőlapra",
     "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
@@ -43,13 +45,18 @@ export default {
     "pin": "Pin",
     "preview": "Előnézet",
     "previous": "Előző",
-    "providedBy": "Szolgáltató: {provider}",
+    "publish": "Közzététel",
     "reject": "Elutasít",
+    "requestDepublication": "Közzététel megszüntetésének kérése",
     "save": "Mentse",
     "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
-    "skip": "Skip",
+    "skipSend": "Kihagyás és küldés",
+    "submitForPublication": "Nyújtsa be közzétételre",
+    "submittedForPublication": "Közzétételre benyújtva",
+    "transcribe": "Átírni",
+    "transcribeNow": "Átírás most",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -61,11 +68,13 @@ export default {
     "title": "Cím:"
   },
   "automatedCardGroup": {
-    "item": "Legutóbbi cikk",
+    "gallery": "Galériák",
+    "item": "Legutóbbi tételek",
     "organisation": "Szervezetek",
     "place": "Helyek",
+    "theme": "Témák",
     "time": "Kiemelt évszázadok",
-    "topic": "Kiemelt témák"
+    "topic": "Témakörök"
   },
   "blog": {
     "author": "Szerző",
@@ -85,6 +94,11 @@ export default {
     "theme": "Téma",
     "time": "Század",
     "topic": "Téma"
+  },
+  "categories": {
+    "label": "Történetek felfedezése címke szerint",
+    "noOptions": "Nincs több kiválasztható címke",
+    "search": "Történetek felfedezése címke szerint"
   },
   "clearAllFilters": "összes szűrő törlése",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria törölve.",
-      "error": {
-        "unpin": "Hiba történt az elem rögzítésének feloldásakor. Kérjük, próbálja újra, vagy jelentse a problémát."
-      },
       "pin": "Ez az elem a(z) \" {entity} \" gyűjtemény tetején fog megjelenni. Értesítjük, ha ez a változás látható lesz a gyűjtemény oldalán.",
       "pinLimit": {
         "body": "Egyelőre csak 24 elemet rögzíthet az első oldalon. Ha meg szeretné tűzni ezt az elemet, győződjön meg róla, hogy egy másikat bont ki, majd próbálja meg újra rögzíteni.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Hiba",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "A szerkesztés átmenetileg le van tiltva, és a módosításokat nem mentettük. Kérlek, próbáld újra később.",
+      "title": "Frissítés sikertelen"
+    },
+    "galleryNotFound": {
+      "description": "Ez a galéria nem található. Lehet, hogy törölték.",
+      "title": "A galéria nem található"
+    },
     "galleryUnauthorised": {
       "description": "Ez nem lehetséges, mert a privát galériákat csak a készítőjük láthatja. Ha ismeri a galéria készítőjét, kérje meg, hogy tegye nyilvánossá a galériát. Alternatív megoldásként jelentse a problémát a visszajelzés gombbal.",
       "metaTitle": "A galéria jogosulatlan",
       "title": "Hoppá! {newline} Egy másik személy privát galériáját próbálja megtekinteni."
     },
+    "genericUnknownError": {
+      "description": "Ismeretlen hiba történt.",
+      "title": "Ismeretlen hiba"
+    },
     "itemNotFound": {
       "description": "Ennek a következő okai lehetnek: ez az elem nem létezik, vagy; közzétételre került, mert nem felelt meg minőségi kritériumainknak, vagy; frissítve lett, és új egyedi azonosítóval újból közzétéve, ebben az esetben próbálja meg újra megtalálni az elemet.",
       "metaTitle": "Az elem nem található",
       "title": "Ó, nem! {newline} Nem találtuk meg ezt a tételt."
+    },
+    "pageNotFound": {
+      "metaTitle": "Az oldal nem található",
+      "title": "A keresett oldal nem létezik."
+    },
+    "pinningNotFound": {
+      "description": "Hiba történt az elem rögzítésekor/feloldásakor. Kérjük, próbálja újra, vagy jelentse a problémát.",
+      "title": "Nem található kurátori gyűjtemény"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Csak az első {limit} keresési eredményeket lehet megtekinteni.",
+      "title": "Oldalhatár túllépése"
     },
     "searchResultsNotFound": {
       "description": "Kérjük, módosítsa a keresési kifejezést, vagy állítsa vissza a szűrőket az újrapróbálkozáshoz.",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "Érdemes lehet utánajárnunk. Írja be az e-mail címét, ha örül, hogy kapcsolatba lépünk Önnel.",
     "failed": "A kérés nem sikerült. Kérlek próbáld újra.",
+    "faq": "Ugrás a gyakran ismételt kérdésekre",
     "form": {
       "placeholders": {
         "email": "Adja meg e-mail címét",
@@ -699,6 +735,7 @@ export default {
       "about": "Rólunk",
       "accessibility": "Hozzáférhetőség",
       "cookies": "Sütik",
+      "faq": "Gyakori kérdések",
       "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
@@ -729,9 +766,9 @@ export default {
     "navigation": {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
-      "europeanaClassroom": "A tanároknak",
+      "europeanaClassroom": "Tanároknak",
       "help": "Súgó",
-      "home": "itthon",
+      "home": "kezdőlap",
       "pro": "Szakembereknek",
       "stories": "Történetek"
     },
@@ -749,8 +786,8 @@ export default {
     "discoverEditorial": "Legújabb történetek",
     "storiesCTA": "Az összes történet megtekintése",
     "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
-    "themesCTA": "Az összes téma megtekintése",
-    "themesTitle": "fedezze fel a témát",
+    "themesCTA": "Minden téma megtekintése",
+    "themesTitle": "Tematika szerint fedezze fel",
     "title": "Fedezze fel Európa {digital} kulturális örökségét",
     "titleDigital": "digitális"
   },
@@ -760,7 +797,7 @@ export default {
   "items": {
     "itemCount": "1 cikk |{count} cikk",
     "itemOf": "{max} {count} cikk",
-    "recent": "Legutóbbi elemek",
+    "recent": "Legutóbbi tételek",
     "recommended": "Ajánlott tételek",
     "youMightLike": "Cikkek, amik tetszhetnek Önnek"
   },
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Vágólapra másolva",
     "externalContentError": "A külső tartalom betöltése sikertelen",
-    "notFound": "Nem található",
-    "paginationLimitExceeded": "Csak az első {limit} keresési találat tekinthető meg."
+    "notFound": "Nem található"
   },
   "modal": {
     "download": {
       "clickToCopy": "Kattintson az attribútumra a másoláshoz",
       "modalIntro": "Ha ezt az elemet használja az interneten vagy máshol, ne felejtse el megjeleníteni a következő attribútumot mellette:",
       "modalTitle": "Mondj köszönetet"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Javasoljuk, hogy kattintson az alábbi \"szolgáltató intézmény\" gombra, és ellenőrizze, hogy a termék letölthető-e a szolgáltató intézmény honlapjáról.",
+      "message": "Ha a letöltés nem működik, annak az lehet az oka, hogy a szolgáltató intézmény eltávolította, vagy a szolgáltatásukkal van műszaki probléma.",
+      "title": "A letöltés nem működik"
+    },
+    "transcribe": {
+      "message": "Csatlakozzon hozzánk az Europeana Transcribe-nál, az online polgári kezdeményezésnél az Europeana gyűjtemények gazdagítására",
+      "title": "Az elem átírása"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Bezárás",
-    "readMore": "Bővebben",
+    "readMore": "Fedezzen fel történeteket",
     "text": {
-      "searchFilters": "Most már kereshet értékeket az egyes szűrőkben; nézd meg!"
+      "storiesTags": "Nézd meg a frissített Történetek oldalt. Most már kereshetsz és szűrhetsz címkék szerint."
     }
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "A",
   "organisation": {
     "city": "Város",
@@ -902,12 +950,16 @@ export default {
         "title": "Idők"
       },
       "topics": {
-        "title": "Témák"
+        "title": "Témakörök"
       }
     }
   },
   "pagination": {
     "label": "Lapszámozás"
+  },
+  "provider": {
+    "linkText": "Megtekintés a szolgáltató webhelyén",
+    "providedBy": "Ezt az elemet {provider} biztosítja és tartja karban"
   },
   "readMore": "Bővebben",
   "recommendation": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Minden metaadat",
     "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
-    "exploreMore": "Fedezz fel többet",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
@@ -944,13 +995,24 @@ export default {
       "title": "Fedezze fel a kapcsolódó történeteket"
     },
     "collections": {
+      "name": "Kapcsolódó gyűjtemények",
       "title": "Fedezze fel a kapcsolódó gyűjteményeket"
     },
     "editorial": {
       "title": "Történetek, amelyek tetszhetnek"
+    },
+    "galleries": {
+      "name": "Kapcsolódó galériák",
+      "title": "Fedezze fel a kapcsolódó galériákat"
+    },
+    "items": {
+      "loginForMore": "Jelentkezzen be a többi kapcsolódó tételek megtekintéséhez",
+      "title": "Fedezze fel a kapcsolódó elemeket"
+    },
+    "themes": {
+      "title": "Fedezze fel a kapcsolódó témák"
     }
   },
-  "relatedCollections": "Kapcsolódó gyűjtemények",
   "removeFilter": "{filterLabel} szűrő eltávolítása",
   "reset": "Visszaállítás",
   "resourceWikimedia": "Forrás: Wikimedia Commons",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Galéria szerkesztése",
       "update": "Galéria frissítése"
     },
+    "entityBestBets": {
+      "title": "{entity} Oldal"
+    },
     "form": {
       "description": "Galéria leírása",
       "private": "Galéria privát módban tartása",
+      "privateWarning": "Ez a művelet megszünteti a galéria közzétételét.",
       "required": "Kötelező mező",
       "title": "Galéria neve"
     },
     "labels": {
       "curatedBy": "Kurátor:",
-      "private": "Privát galéria"
+      "private": "Privát galéria",
+      "published": "Megjelent galéria"
     },
     "notifications": {
       "deleted": "Galéria törölve.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Sajnáljuk, de jelenleg legfeljebb 100 cikket kedvelhet. Hamarosan eltávolítjuk ezt a korlátozást!",
         "title": "100 kedvelés"
       },
-      "updated": "Az elem felkerült a galériába."
+      "updated": "Az elem felkerült a galériába.",
+      "visibilityChanged": "Figyelmeztetés: a beállított láthatóság már megváltozott, és jelenleg \" {visibility} \"."
     },
     "prompts": {
       "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet."
+    },
+    "publication": {
+      "description": "A galéria közzététele az Europeana.eu/galleries oldalon lesz látható.",
+      "failedSubmission": "A kérés meghiúsult. Kérlek próbáld újra.",
+      "process": {
+        "description": "Amikor galériát küld be közzétételre, az Europeana kiadói csapata értesítést kap. Először átnézik, és a közzététel előtt módosításokat végezhetnek. A galéria felülvizsgálata után e-mailben értesítést fog kapni. Ha nem teszik közzé, akkor előfordulhat, hogy nem felel meg a szerkesztési irányelveinknek.",
+        "title": "Hogyan működik a folyamat"
+      },
+      "time": {
+        "description": "1-3 nap.",
+        "title": "Mennyi ideig tart"
+      },
+      "title": "Galéria beküldése közzétételre",
+      "toastButton": "Oké",
+      "toastMessage": "Ezt a galériát most beküldték közzétételre. Ellenőrizheti a {galleries} elemet, hogy megjelent-e."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "A WEAVExperience (WEAVEx) egy webalapú eszköz a különböző típusú (beleértve a 3D-s) tartalmak kezelésére, a kulturális örökség digitális közösségi tereken keresztüli dokumentálására, valamint digitális történetek és élmények gondozására."
+      }
     }
   },
+  "shareWhere": "Hol szeretnéd ezt megosztani?",
   "showLess": "Kevesebb megjelenítése",
   "showMore": "Továbbiak megjelenítése",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Odatűzött"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} történet található",
     "title": "Történetek"
+  },
+  "themes": {
+    "description": "Böngésszen téma szerint",
+    "themes": "Témák"
   },
   "website": "Weboldal"
 };

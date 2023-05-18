@@ -14,6 +14,10 @@
   >
     <slot /><!-- This comment removes white space which gets underlined
  --><span
+      v-if="isExternalLink && !hideExternalIcon"
+      class="icon-external-link"
+    /><!-- This comment removes white space which gets underlined
+ --><span
       v-if="isExternalLink"
       class="sr-only"
     >
@@ -51,16 +55,16 @@
 
     computed: {
       useRouterLink() {
-        return this.path && this.path.startsWith('/');
+        return !!this.path?.startsWith('/');
       },
 
       path() {
         if (typeof this.destination === 'object') {
-          return this.$path(this.destination);
+          return this.localePath(this.destination);
         }
 
         if (this.itemIdentifier) {
-          return this.$path({
+          return this.localePath({
             name: 'item-all',
             params: { pathMatch: this.itemIdentifier.slice(1) }
           });
@@ -68,7 +72,7 @@
 
         if (typeof this.destination === 'string' && this.destination.startsWith('/')) {
           const [pathSlug, urlParams] = this.destination.split('?');
-          return this.$path({
+          return this.localePath({
             name: 'slug',
             params: {
               pathMatch: pathSlug.slice(1)

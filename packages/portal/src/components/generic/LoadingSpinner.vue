@@ -25,3 +25,16 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+@import '@europeana/style/scss/variables';
+
+.spinner-border {
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+</style>

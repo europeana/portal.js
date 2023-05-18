@@ -35,7 +35,7 @@
 
     methods: {
       submitForm() {
-        this.$goto({
+        this.$router.push({
           path: this.$route.path,
           query: { ...this.$route.query, ...{ page: 1, boost: this.boost } }
         });
@@ -45,12 +45,12 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
 
   .form-inline {
     background-color: $white;
-    font-size: 1rem;
+    font-size: $font-size-base;
     height: auto;
     border-radius: 0.5em;
     width: 100%;
@@ -63,7 +63,11 @@
       width: 100%;
 
       @media (min-width: $bp-xxxl) {
-        font-size: 1rem;
+        font-size: $font-size-base;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
       }
     }
   }

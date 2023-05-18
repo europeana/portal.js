@@ -1,5 +1,5 @@
 <template>
-  <b-container class="p-0">
+  <div>
     <b-modal
       :id="modalId"
       :title="modalTitle"
@@ -18,11 +18,14 @@
             id="set-title"
             v-model="titleValue"
             type="text"
-            maxlength="35"
-            required
+            maxlength="100"
+            :required="!hasTitleInSomeLanguage"
             aria-describedby="input-live-help"
           />
-          <b-form-text id="input-live-help">
+          <b-form-text
+            v-show="!hasTitleInSomeLanguage"
+            id="input-live-help"
+          >
             {{ $t('set.form.required') }}
           </b-form-text>
         </b-form-group>
@@ -38,6 +41,7 @@
           />
         </b-form-group>
         <b-form-group
+          v-if="type === 'Collection'"
           class="mb-2 mt-4"
         >
           <b-form-checkbox
@@ -46,6 +50,12 @@
           >
             {{ $t('set.form.private') }}
           </b-form-checkbox>
+          <b-form-invalid-feedback
+            v-if="visibility === 'published'"
+            :state="!isPrivate"
+          >
+            {{ $t('set.form.privateWarning') }}
+          </b-form-invalid-feedback>
         </b-form-group>
         <div class="modal-footer">
           <b-button
@@ -53,11 +63,11 @@
             data-qa="close button"
             @click="hide('cancel')"
           >
-            {{ isNew && itemContext ? $t('actions.goBack') : $t('actions.close') }}
+            {{ isNew && itemContext ? $t('actions.cancel') : $t('actions.close') }}
           </b-button>
           <div class="d-flex">
             <b-button
-              v-if="!isNew"
+              v-if="displayDeleteButton"
               variant="danger"
               data-qa="delete button"
               @click="clickDelete"
@@ -81,12 +91,18 @@
       :set-id="setId"
       :modal-id="deleteSetModalId"
       :modal-static="modalStatic"
-      @cancel="cancelDelete"
+      @cancel="show"
     />
-  </b-container>
+  </div>
 </template>
 
 <script>
+  import {
+    EUROPEANA_SET_VISIBILITY_PRIVATE,
+    EUROPEANA_SET_VISIBILITY_PUBLIC,
+    EUROPEANA_SET_VISIBILITY_PUBLISHED
+  } from '@/plugins/europeana/set';
+
   export default {
     name: 'SetFormModal',
 
@@ -120,9 +136,14 @@
         default: () => ({})
       },
 
+      userIsOwner: {
+        type: Boolean,
+        default: true
+      },
+
       visibility: {
         type: String,
-        default: 'public'
+        default: EUROPEANA_SET_VISIBILITY_PUBLIC
       },
 
       type: {
@@ -150,17 +171,32 @@
       setBody() {
         const setBody = {
           type: this.type,
-          title: { ...this.title },
-          description: { ...this.description },
-          visibility: this.isPrivate ? 'private' : 'public'
+          title: {
+            ...this.title,
+            [this.$i18n.locale]: this.titleValue
+          },
+          description: {
+            ...this.description,
+            [this.$i18n.locale]: this.descriptionValue
+          },
+          visibility: this.visibilityValue
         };
+
         if (this.isNew && this.itemContext) {
           setBody.items = ['http://data.europeana.eu/item' + this.itemContext];
         }
-        setBody.title[this.$i18n.locale] = this.titleValue;
-        setBody.description[this.$i18n.locale] = this.descriptionValue;
 
         return setBody;
+      },
+
+      visibilityValue() {
+        if (this.isPrivate) {
+          return EUROPEANA_SET_VISIBILITY_PRIVATE;
+        } else if (this.visibility === EUROPEANA_SET_VISIBILITY_PUBLISHED) {
+          return EUROPEANA_SET_VISIBILITY_PUBLISHED;
+        } else {
+          return EUROPEANA_SET_VISIBILITY_PUBLIC;
+        }
       },
 
       isNew() {
@@ -170,18 +206,20 @@
       modalTitle() {
         return this.isNew ? this.$t('set.actions.create') : this.$t('set.actions.edit');
       },
+
+      displayDeleteButton() {
+        // Display if this is an existing set and the user owns it.
+        return !this.isNew && this.userIsOwner;
+      },
+
       disableSubmitButton() {
         // Disable submit button when no title (required field)
-        return !this.titleValue ||
-          // Or when none of the fields have changed
-          (this.titleValue === this.title[this.$i18n.locale] &&
-            (this.descriptionValue === this.description[this.$i18n.locale] ||
-              // Needed for the case a user starts typing a description but then removes it again.
-              // The value is still changed from undefined to empty string.
-              (this.descriptionValue === '' && this.description[this.$i18n.locale] === undefined)) &&
-            ((this.isPrivate && this.visibility === 'private') ||
-              (!this.isPrivate && this.visibility === 'public'))
-          );
+        return !this.hasTitleInSomeLanguage;
+      },
+
+      hasTitleInSomeLanguage() {
+        const titleValues = { ...this.title, [this.$i18n.locale]: this.titleValue };
+        return Object.values(titleValues).some((val) => !!val);
       }
     },
 
@@ -194,10 +232,10 @@
       init() {
         this.titleValue = (this.title || {})[this.$i18n.locale];
         this.descriptionValue = (this.description || {})[this.$i18n.locale];
-        this.isPrivate = this.visibility === 'private';
+        this.isPrivate = this.visibility === EUROPEANA_SET_VISIBILITY_PRIVATE;
       },
 
-      // TODO: error handling
+      // TODO: error handling other statuses
       submitForm() {
         if (this.submissionPending) {
           return Promise.resolve();
@@ -212,6 +250,8 @@
             this.hide(this.isNew ? 'create' : 'update');
           }).then(() => {
             this.submissionPending = false;
+          }).catch((e) => {
+            this.$error(e, { scope: 'gallery' });
           });
       },
 
@@ -227,10 +267,6 @@
       clickDelete() {
         this.$bvModal.hide(this.modalId);
         this.$bvModal.show(this.deleteSetModalId);
-      },
-
-      cancelDelete() {
-        this.show();
       }
     }
   };

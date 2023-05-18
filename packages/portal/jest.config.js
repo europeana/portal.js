@@ -13,7 +13,6 @@ export default {
     'text'
   ],
   moduleFileExtensions: [
-    'cjs',
     'js',
     'json',
     'mjs',
@@ -39,6 +38,6 @@ export default {
   transform: {
     '^.+\\.(js|mjs)$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue2-jest',
-    '^.+\\.svg$': '<rootDir>/tests/unit/fileTransformer.cjs'
+    '^.+\\.(ico|svg)$': '<rootDir>/tests/unit/fileTransformer.cjs'
   }
 };

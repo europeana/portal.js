@@ -30,7 +30,7 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
     $i18n: {
       locale: 'en'
     },
-    $path: () => '',
+    localePath: () => '',
     $t: (key) => {
       if (key === 'formatting.ellipsis') {
         return '…';
@@ -120,24 +120,6 @@ describe('components/generic/ContentCard', () => {
             const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
 
             expect(subtitle.text()).toBe('galleries.galleries');
-          });
-        }
-      });
-
-      describe('for themes', () => {
-        const urls = [
-          'https://www.europeana.eu/en/collections/topic/83-world-war-i',
-          { name: 'collections___en', params: { type: 'topic', pathMatch: '83' } }
-        ];
-
-        for (const url of urls) {
-          it(`is shown for ${JSON.stringify(url)}`, async() => {
-            const wrapper = factory();
-            await wrapper.setProps({ url });
-
-            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
-
-            expect(subtitle.text()).toBe('cardLabels.theme');
           });
         }
       });

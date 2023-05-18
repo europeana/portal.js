@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Nu ați curator iat încă nicio colecție",
         "private": "Încă nu ai creat nicio galerie privată",
-        "public": "Încă nu ai creat nicio galerie publică"
+        "public": "Încă nu ai creat nicio galerie publică",
+        "published": "Nu ați avut nici o galerii publicate încă"
       },
       "noLikedItems": "Încă nu ai apreciat niciun articol"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Aprecierile și Galeriile mele",
     "profileSettings": "Setări profil",
     "publicCollections": "Galerii publice",
+    "publishedCollections": "Galeriile Publicate",
     "settings": "Setări",
     "title": "Contul meu"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Anulează",
     "close": "închidere",
     "continue": "continua",
+    "depublish": "Depublicați",
     "download": "Descarcă",
     "edit": "Editare",
     "feedback": "Feedback",
-    "goBack": "Înapoi",
     "goHome": "Mergeți la pagina de pornire",
     "learnMore": "Află mai multe",
     "like": "Apreciere",
@@ -43,13 +45,18 @@ export default {
     "pin": "Pin",
     "preview": "Previzualizare",
     "previous": "Anterior",
-    "providedBy": "Furnizat de {provider}",
+    "publish": "Publica",
     "reject": "Respinge",
+    "requestDepublication": "Solicitați depublicarea",
     "save": "Salva",
     "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
-    "skip": "Skip",
+    "skipSend": "Săriți și trimiteți",
+    "submitForPublication": "Trimiteți spre publicare",
+    "submittedForPublication": "Trimis spre publicare",
+    "transcribe": "Transcrie",
+    "transcribeNow": "Transcrie acum",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerii",
     "item": "Articole recente",
     "organisation": "Organizații",
     "place": "Locuri",
+    "theme": "Teme",
     "time": "Secole recomandate",
     "topic": "Subiecte recomandate"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Temă",
     "time": "Secol",
     "topic": "Subiect"
+  },
+  "categories": {
+    "label": "Explorați poveștile după etichetă",
+    "noOptions": "Nu mai sunt etichete de selectat",
+    "search": "Explorați poveștile după etichetă"
   },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
-      "error": {
-        "unpin": "S-a produs o eroare la dezlipirea articolului. Vă rugăm să încercați din nou sau să raportați problema."
-      },
       "pin": "Acest articol va apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
       "pinLimit": {
         "body": "Pentru moment, puteți pin doar 24 elemente de pe prima pagină. Dacă doriți să fixați acest element, asigurați-vă că anulați fixarea altui element și apoi încercați să îl fixați din nou.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Eroare",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Editarea este temporar dezactivată, iar modificările dvs. nu au fost salvate. Vă rugăm să încercați din nou mai târziu.",
+      "title": "Actualizarea a eșuat"
+    },
+    "galleryNotFound": {
+      "description": "Această galerie nu a putut fi găsită. Este posibil să fi fost șters.",
+      "title": "Galeria nu a fost găsită"
+    },
     "galleryUnauthorised": {
       "description": "Acest lucru nu este posibil deoarece galeriile private sunt vizibile numai pentru creatorul lor. Dacă îl cunoașteți pe creatorul galeriei, cereți-i să facă publică galeria. Ca alternativă, raportați această problemă utilizând butonul de feedback.",
       "metaTitle": "Galeria neautorizată",
       "title": "Oops! {newline} Încercați să vizualizați galeria privată a unei alte persoane."
     },
+    "genericUnknownError": {
+      "description": "A apărut o eroare necunoscută.",
+      "title": "Eroare necunoscută"
+    },
     "itemNotFound": {
       "description": "Acest lucru se poate datora următoarelor motive: acest articol nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți elementul din nou.",
       "metaTitle": "Element nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest articol."
+    },
+    "pageNotFound": {
+      "metaTitle": "Pagina nu a fost găsita",
+      "title": "Pagina pe care o cauți nu există."
+    },
+    "pinningNotFound": {
+      "description": "S-a produs o eroare la fixarea/dezlipirea articolului. Vă rugăm să încercați din nou sau să raportați problema.",
+      "title": "Colecția curată nu a fost găsită"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Este posibil să vizualizați numai primele {limit} rezultate ale căutării.",
+      "title": "Limita de pagină depășită"
     },
     "searchResultsNotFound": {
       "description": "Vă rugăm să ajustați termenul de căutare sau să resetați filtrele pentru a încerca din nou.",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "S-ar putea să dorim să urmărim acest lucru. Introduceți adresa dvs. de e-mail dacă sunteți de acord să vă contactăm.",
     "failed": "Solicitarea nu a reușit. Încercați din nou.",
+    "faq": "Accesați întrebările frecvente",
     "form": {
       "placeholders": {
         "email": "Introduceți adresa de e-mail",
@@ -699,6 +735,7 @@ export default {
       "about": "Despre noi",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
+      "faq": "Întrebări frecvente",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
       "MoreInfoLabel": "Mai multe informații",
@@ -748,7 +785,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Ultimele povești",
     "storiesCTA": "Vezi toate poveștile",
-    "subHeadline": "Căutați, salvațișidistribuițiartă, cărți, filme și muzică de la mii de instituții culturale",
+    "subHeadline": "Căutați, salvați și distribuiți opere de artă, cărți, filme și muzică de la mii de instituții culturale",
     "themesCTA": "Vezi toate temele",
     "themesTitle": "Explorați după temă",
     "title": "Descoperiți patrimoniul cultural {digital} al Europei",
@@ -760,7 +797,7 @@ export default {
   "items": {
     "itemCount": "1 articol |{count} articole",
     "itemOf": "{max} de {count} articole",
-    "recent": "Elemente recente",
+    "recent": "Articole recente",
     "recommended": "Articole recomandate",
     "youMightLike": "Articole care ți-ar putea plăcea"
   },
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Copiat în clipboard",
     "externalContentError": "Nu a putut fi încărcat conținutul extern",
-    "notFound": "Nu a fost găsit",
-    "paginationLimitExceeded": "Se pot vizualiza numai primele {limit} rezultate ale căutării."
+    "notFound": "Nu a fost găsit"
   },
   "modal": {
     "download": {
       "clickToCopy": "Faceți clic pe atribuire pentru ao copia",
       "modalIntro": "Dacă folosiți acest articol pe internet sau în altă parte, nu uitați să afișați următoarea atribuție lângă el:",
       "modalTitle": "Spune multumesc"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Vă sfătuim să faceți clic pe butonul „Instituția de proveniență” de mai jos pentru a verifica dacă articolul poate fi descărcat de pe site-ul instituției furnizoare.",
+      "message": "Dacă descărcarea nu funcționează, poate fi din cauză că a fost eliminată de instituția furnizoare sau poate exista o problemă tehnică cu serviciul acestora.",
+      "title": "Descărcarea nu funcționează"
+    },
+    "transcribe": {
+      "message": "Alăturați-vă nouă pe Europeana Transcribe, inițiativa cetățenească online pentru îmbogățirea colecțiilor Europeana",
+      "title": "Transcrie acest articol"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Citește mai mult",
+    "readMore": "Descoperiți povești",
     "text": {
-      "searchFilters": "Acum puteți căuta valori în filtrele individuale; verifică!"
+      "storiesTags": "Consultați pagina Povești actualizată. Acum puteți căuta și filtra după etichete."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
+  },
   "of": "De",
   "organisation": {
     "city": "Oraș",
@@ -909,6 +957,10 @@ export default {
   "pagination": {
     "label": "Paginare"
   },
+  "provider": {
+    "linkText": "Vizualizează pe site-ul furnizorului",
+    "providedBy": "Acest articol este furnizat și întreținut de {provider}"
+  },
   "readMore": "Citește mai mult",
   "recommendation": {
     "prompts": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Toate metadatele",
     "copyEmbedLabel": "Cod de încorporare (Faceți clic pentru a copia)",
-    "exploreMore": "Explorează mai mult",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
@@ -944,13 +995,24 @@ export default {
       "title": "Descoperiți poveștile conexe"
     },
     "collections": {
+      "name": "Colecții conexe",
       "title": "Descoperiți colecții conexe"
     },
     "editorial": {
       "title": "Povești care s-ar putea să vă placă"
+    },
+    "galleries": {
+      "name": "Galerii conexe",
+      "title": "Descoperiți galerii conexe"
+    },
+    "items": {
+      "loginForMore": "Conectați-vă pentru a vedea alte elemente asociate",
+      "title": "Descoperiți articole conexe"
+    },
+    "themes": {
+      "title": "Descoperiți teme conexe"
     }
   },
-  "relatedCollections": "Colecții similare",
   "removeFilter": "Elimină filtrul {filterLabel}",
   "reset": "Resetează",
   "resourceWikimedia": "Material de la Wikimedia Commons",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Editare galerie",
       "update": "Actualizare galerie"
     },
+    "entityBestBets": {
+      "title": "{entity} Pagină"
+    },
     "form": {
       "description": "Descriere galerie",
       "private": "Menține această galerie privată",
+      "privateWarning": "Această acțiune va depublica galeria.",
       "required": "Câmp obligatoriu",
       "title": "Denumire galerie"
     },
     "labels": {
       "curatedBy": "Curată de",
-      "private": "Galerie privată"
+      "private": "Galerie privată",
+      "published": "Galerie publicată"
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de articole. Vom elimina această limită în curând!",
         "title": "100 de aprecieri"
       },
-      "updated": "Elementul a fost adăugat la galerie."
+      "updated": "Elementul a fost adăugat la galerie.",
+      "visibilityChanged": "Avertisment: setarea vizibilității a fost deja schimbată și este în prezent „ {visibility} ”."
     },
     "prompts": {
       "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat."
+    },
+    "publication": {
+      "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
+      "failedSubmission": "Solicitarea nu a reușit. Încercați din nou.",
+      "process": {
+        "description": "Când trimiteți o galerie spre publicare, o echipă de editori de la Europeana va fi anunțată. Ei îl vor revizui mai întâi și pot face modificări înainte de a fi publicat. Veți primi notificări prin e-mail pe măsură ce galeria este revizuită. Dacă nu este publicat, s-ar putea să nu fie în conformitate cu îndrumările noastre editoriale.",
+        "title": "Cum funcționează procesul"
+      },
+      "time": {
+        "description": "1-3 zile.",
+        "title": "Cât timp durează"
+      },
+      "title": "Trimiteți galeria pentru publicare",
+      "toastButton": "Bine",
+      "toastMessage": "Această galerie este acum trimisă spre publicare. Puteți verifica {galleries} pentru a vedea dacă a fost publicat."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) este un instrument bazat pe web pentru gestionarea conținutului de diferite tipuri (inclusiv 3D), documentarea moștenirii culturale prin spații comunitare digitale și curatarea poveștilor și experiențelor digitale."
+      }
     }
   },
+  "shareWhere": "Unde ai vrea să împărtășești asta?",
   "showLess": "Afișează mai puțin",
   "showMore": "Afișează mai multe",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Fixat"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} povești găsite",
     "title": "Povești"
+  },
+  "themes": {
+    "description": "Răsfoiți după temă",
+    "themes": "Teme"
   },
   "website": "Site-ul web"
 };

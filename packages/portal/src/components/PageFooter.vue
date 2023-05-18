@@ -1,7 +1,7 @@
 <template>
   <footer
     data-qa="footer"
-    class="page-footer responsive-font"
+    class="page-footer"
   >
     <div class="footer-wrapper py-5">
       <b-container>
@@ -14,7 +14,7 @@
               <div class="group-title text-uppercase font-weight-bold">
                 {{ $t('footer.ourMission') }}
               </div>
-              <p class="font-italic mb-0">
+              <p class="mission font-italic mb-0">
                 {{ $t('footer.ourMissionQuote') }}
               </p>
             </div>
@@ -130,27 +130,32 @@
           {
             text: 'Facebook',
             url: 'https://www.facebook.com/Europeana',
-            icon: 'icon-facebook'
+            icon: 'icon-facebook',
+            hideExternalIcon: true
           },
           {
             text: 'Twitter',
             url: 'https://twitter.com/europeanaeu',
-            icon: 'icon-twitter'
+            icon: 'icon-twitter',
+            hideExternalIcon: true
           },
           {
             text: 'Pinterest',
             url: 'https://www.pinterest.com/europeana',
-            icon: 'icon-pinterest'
+            icon: 'icon-pinterest',
+            hideExternalIcon: true
           },
           {
             text: 'Instagram',
             url: 'https://www.instagram.com/europeana_eu/',
-            icon: 'icon-instagram'
+            icon: 'icon-instagram',
+            hideExternalIcon: true
           },
           {
             text: 'LinkedIn',
             url: 'https://www.linkedin.com/company/europeana',
-            icon: 'icon-linkedin'
+            icon: 'icon-linkedin',
+            hideExternalIcon: true
           }
         ]
       };
@@ -185,7 +190,8 @@
             { url: '/rights', text: this.$t('footer.navigation.terms') },
             { url: '/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
             { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
-            { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
+            { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') },
+            { url: '/faq', text: this.$t('footer.navigation.faq') }
           ]
         };
       },
@@ -204,9 +210,18 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/icons';
-  @import '@/assets/scss/footer';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/footer';
+
+  .dropdown {
+    .btn-light,
+    .dropdown-menu {
+      @media (min-width: $bp-wqhd) {
+        font-size: 1.125rem;
+      }
+    }
+  }
 </style>
 
 <docs lang="md">

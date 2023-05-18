@@ -19,7 +19,7 @@ const i18n = new VueI18n({
   }
 });
 
-const factory = (propsData = {}, route = {}) => mount(DeleteSetModal, {
+const factory = (propsData = {}, route = { name: '' }) => mount(DeleteSetModal, {
   localVue,
   propsData: {
     modalStatic: true,
@@ -31,8 +31,8 @@ const factory = (propsData = {}, route = {}) => mount(DeleteSetModal, {
       dispatch: storeDispatch
     },
     $route: route,
-    $goto: sinon.spy(),
-    $path: path => path
+    $router: { push: sinon.spy() },
+    localePath: path => path
   }
 });
 
@@ -53,14 +53,6 @@ describe('components/set/DeleteSetModal', () => {
       wrapper.find('[data-qa="close button"]').trigger('click');
 
       expect(bvModalHide.calledWith('delete-set-modal')).toBe(true);
-    });
-
-    it('emits "cancel" event', () => {
-      const wrapper = factory({ setId: '123' });
-
-      wrapper.find('[data-qa="close button"]').trigger('click');
-
-      expect(wrapper.emitted('cancel').length).toEqual(1);
     });
 
     it('does not delete the set!', () => {
@@ -99,13 +91,13 @@ describe('components/set/DeleteSetModal', () => {
       expect(rootBvToast.calledWith('Your gallery has been deleted.', sinon.match.any)).toBe(true);
     });
 
-    describe('when on the deleted set page', () => {
+    describe('when on the deleted gallery page', () => {
       it('redirects to the account page', async() => {
-        const wrapper = factory({ setId: 'http://data.europeana.eu/set/123' }, { params: { pathMatch: '123' } });
+        const wrapper = factory({ setId: 'http://data.europeana.eu/set/123' }, { name: 'galleries-all___fr', params: { pathMatch: '123' } });
 
         await wrapper.find('form').trigger('submit.stop.prevent');
 
-        expect(wrapper.vm.$goto.calledWith({ name: 'account' })).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith({ name: 'account' })).toBe(true);
       });
     });
   });

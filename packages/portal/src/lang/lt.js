@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Dar ne kuravote jokių rinkinių",
         "private": "Kol kas nesukūrėte jokių privačių galerijų",
-        "public": "Kol kas nesukūrėte jokių viešų galerijų"
+        "public": "Kol kas nesukūrėte jokių viešų galerijų",
+        "published": "Dar nepaskelbėte jokių galerijų"
       },
       "noLikedItems": "Kol kas neturite patikusių prekių"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Man patinkančios prekės, kolekcijos ir galerijos",
     "profileSettings": "Profilio nustatymai",
     "publicCollections": "Viešos galerijos",
+    "publishedCollections": "Paskelbtos Galerijos",
     "settings": "Nustatymai",
     "title": "Mano paskyra"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Atšaukti",
     "close": "uždaryti",
     "continue": "tęsti",
+    "depublish": "Išskelbti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "feedback": "Atsiliepimas",
-    "goBack": "Grįžti",
     "goHome": "Eikite į pagrindinį puslapį",
     "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
@@ -43,13 +45,18 @@ export default {
     "pin": "Kaištis",
     "preview": "Peržiūra",
     "previous": "Ankstesnis",
-    "providedBy": "Tiekėjas {provider}",
+    "publish": "Publikuoti",
     "reject": "Atmesti",
+    "requestDepublication": "Prašymas neskelbti",
     "save": "Išsaugoti",
     "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
-    "skip": "Praleisti",
+    "skipSend": "Praleisti ir siųsti",
+    "submitForPublication": "Pateikti publikavimui",
+    "submittedForPublication": "Pateikta publikuoti",
+    "transcribe": "Transkribuoti",
+    "transcribeNow": "Transkribuokite dabar",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Pavadinimas:"
   },
   "automatedCardGroup": {
-    "item": "Naujausi prekių",
+    "gallery": "Galerijos",
+    "item": "Naujausi elementai",
     "organisation": "Organizacijos",
     "place": "Vietos",
+    "theme": "Temos",
     "time": "Rekomenduojami šimtmečiai",
     "topic": "Rekomenduojamos temos"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
+  },
+  "categories": {
+    "label": "Naršykite istorijas pagal žymą",
+    "noOptions": "Daugiau pasirinktinų žymų nėra",
+    "search": "Naršykite istorijas pagal žymą"
   },
   "clearAllFilters": "išvalyti visus filtrus",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
-      "error": {
-        "unpin": "Atsegant elementą įvyko klaida. Bandykite dar kartą arba praneškite apie problemą."
-      },
       "pin": "Šis elementas bus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "pinLimit": {
         "body": "Kol kas pirmajame puslapyje galite prisegti tik 24 elementus. Jei norite prisegti šį elementą, būtinai atsisekite kitą elementą ir tada vėl bandykite prisegti šį.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Klaida",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Redagavimas laikinai išjungtas, o pakeitimai nebuvo išsaugoti. Pabandykite dar kartą vėliau.",
+      "title": "Atnaujinti nepavyko"
+    },
+    "galleryNotFound": {
+      "description": "Šios galerijos rasti nepavyko. Gali būti, kad jis buvo ištrintas.",
+      "title": "Galerija nerasta"
+    },
     "galleryUnauthorised": {
       "description": "Tai neįmanoma, nes privačias galerijas mato tik jų kūrėjas. Jei pažįstate galerijos kūrėją, paprašykite, kad galerija būtų vieša. Arba praneškite apie šią problemą naudodami atsiliepimų mygtuką.",
       "metaTitle": "Galerija neteisėta",
       "title": "Ups! {newline} Jūs bandote peržiūrėti kito asmens privačią galeriją."
     },
+    "genericUnknownError": {
+      "description": "Įvyko nežinoma klaida.",
+      "title": "Nežinoma klaida"
+    },
     "itemNotFound": {
       "description": "Taip gali nutikti dėl šių priežasčių: šio elemento nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti elementą dar kartą.",
       "metaTitle": "Prekė nerasta",
       "title": "O ne! {newline} Mums nepavyko rasti šio elemento."
+    },
+    "pageNotFound": {
+      "metaTitle": "Puslapis nerastas",
+      "title": "Puslapis, kurio ieškote, neegzistuoja."
+    },
+    "pinningNotFound": {
+      "description": "Įvyko klaida prisegant / atsegant elementą. Pabandykite dar kartą arba praneškite apie problemą.",
+      "title": "Kuruojama kolekcija nerasta"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus.",
+      "title": "Viršytas puslapių limitas"
     },
     "searchResultsNotFound": {
       "description": "Pakeiskite paieškos žodį arba iš naujo nustatykite filtrus ir bandykite dar kartą.",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "Galbūt norėsime tęsti. Įveskite savo el. Pašto adresą, jei džiaugiatės, kad susisieksime su jumis.",
     "failed": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
+    "faq": "Eikite į dažniausiai užduodamus klausimus",
     "form": {
       "placeholders": {
         "email": "Įveskite savo elektroninio pašto adresą",
@@ -699,6 +735,7 @@ export default {
       "about": "Apie mus",
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
+      "faq": "Dažnai užduodami klausimai",
       "forDevelopers": "Programuotojams",
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
-    "notFound": "Nerasta",
-    "paginationLimitExceeded": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus."
+    "notFound": "Nerasta"
   },
   "modal": {
     "download": {
       "clickToCopy": "Spustelėkite priskyrimą, kad jį nukopijuotumėte",
       "modalIntro": "Jei šį elementą naudojate žiniatinklyje ar kitur, nepamirškite šalia jo rodyti šio priskyrimo:",
       "modalTitle": "Pasakykite ačiū"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"Teikianti institucija“, kad patikrintumėte, ar elementą galima atsisiųsti iš teikiančios institucijos svetainės.",
+      "message": "Jei atsisiuntimas neveikia, gali būti, kad jį pašalino teikianti institucija, arba gali kilti techninių problemų, susijusių su jų paslauga.",
+      "title": "Atsisiųsti neveikia"
+    },
+    "transcribe": {
+      "message": "Prisijunkite prie Europeana Transcribe – internetinės piliečių iniciatyvos, skirtos „Europeanos“ kolekcijoms praturtinti",
+      "title": "Transkribuokite šį elementą"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
-    "readMore": "Skaityti daugiau",
+    "readMore": "Atraskite istorijas",
     "text": {
-      "searchFilters": "Dabar galite ieškoti reikšmių atskiruose filtruose; patikrinkite!"
+      "storiesTags": "Peržiūrėkite atnaujintą istorijos puslapį. Dabar galite ieškoti ir filtruoti pagal žymas."
     }
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+  },
   "of": "Iš",
   "organisation": {
     "city": "Miestas",
@@ -909,6 +957,10 @@ export default {
   "pagination": {
     "label": "Numeracija"
   },
+  "provider": {
+    "linkText": "Peržiūrėti teikėjo svetainę",
+    "providedBy": "Šį elementą teikia ir prižiūri {provider}"
+  },
   "readMore": "Skaityti daugiau",
   "recommendation": {
     "prompts": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Visi metaduomenys",
     "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
-    "exploreMore": "Sužinokite daugiau",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
     "hideAll": "Slėpti visą informaciją",
@@ -944,13 +995,24 @@ export default {
       "title": "Atraskite susijusias istorijas"
     },
     "collections": {
+      "name": "Susijusios kolekcijos",
       "title": "Atraskite susijusias kolekcijas"
     },
     "editorial": {
       "title": "Istorijos, kurios jums gali patikti"
+    },
+    "galleries": {
+      "name": "Susijusios galerijos",
+      "title": "Atraskite susijusias galerijas"
+    },
+    "items": {
+      "loginForMore": "Prisijunkite, kad pamatytumėte kitus susijusius elementus",
+      "title": "Atraskite susijusius elementus"
+    },
+    "themes": {
+      "title": "Atraskite susijusias temas"
     }
   },
-  "relatedCollections": "Susiję rinkiniai",
   "removeFilter": "Pašalinkite filtrą {filterLabel}",
   "reset": "Atstatyti",
   "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Redaguoti galeriją",
       "update": "Atnaujinti galeriją"
     },
+    "entityBestBets": {
+      "title": "{entity} Puslapis"
+    },
     "form": {
       "description": "Galerijos aprašymas",
       "private": "Palikti galeriją privačią",
+      "privateWarning": "Šis veiksmas panaikins galerijos publikavimą.",
       "required": "Privalomi laukai",
       "title": "Galerijos pavadinimas"
     },
     "labels": {
       "curatedBy": "Kuruoja",
-      "private": "Privati galerija"
+      "private": "Privati galerija",
+      "published": "Paskelbta galerija"
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių prekių. Greitai šį apribojimą panaikinsime!",
         "title": "100 patinka"
       },
-      "updated": "Elementas buvo įtrauktas į galeriją."
+      "updated": "Elementas buvo įtrauktas į galeriją.",
+      "visibilityChanged": "Įspėjimas: nustatytas matomumas jau pakeistas ir šiuo metu yra \" {visibility} \"."
     },
     "prompts": {
       "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes."
+    },
+    "publication": {
+      "description": "Paskelbus galeriją ji bus rodoma Europeana.eu/galleries.",
+      "failedSubmission": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
+      "process": {
+        "description": "Kai pateiksite galeriją publikavimui, apie tai bus pranešta \"Europeana\" leidėjų komandai. Jie pirmiausia ją peržiūrės ir prieš publikuodami gali padaryti pakeitimų. Gausite pranešimus el. paštu, kai galerija bus peržiūrėta. Jei ji nebus paskelbta, gali būti, kad ji neatitinka mūsų redakcinių gairių.",
+        "title": "Kaip veikia procesas"
+      },
+      "time": {
+        "description": "1-3 dienas.",
+        "title": "Kiek laiko tai trunka"
+      },
+      "title": "Pateikti galeriją publikavimui",
+      "toastButton": "Gerai",
+      "toastMessage": "Ši galerija dabar pateikta publikuoti. Galite patikrinti {galleries}, kad sužinotumėte, ar jis buvo paskelbtas."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) - tai žiniatinklio įrankis, skirtas įvairių tipų turiniui (įskaitant 3D) tvarkyti, kultūros paveldui dokumentuoti skaitmeninėse bendruomenės erdvėse ir skaitmeninėms istorijoms bei patirtims kuruoti."
+      }
     }
   },
+  "shareWhere": "Kur norėtumėte tuo pasidalinti?",
   "showLess": "Rodyti mažiau",
   "showMore": "Rodyti daugiau",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Prisegtas"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} rastos istorijos",
     "title": "Istorijos"
+  },
+  "themes": {
+    "description": "Naršyti pagal temą",
+    "themes": "Temos"
   },
   "website": "Interneto svetainė"
 };

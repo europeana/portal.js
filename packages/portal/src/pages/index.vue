@@ -13,8 +13,8 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
-      :title-path="$fetchState.error.titlePath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :error="$fetchState.error"
+      :show-message="false"
     />
     <template
       v-else
@@ -46,7 +46,7 @@
     name: 'IndexPage',
 
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       BrowsePage,
       LoadingSpinner,
       StaticPage
@@ -86,16 +86,7 @@
         this.page = data.browsePageCollection.items[0];
         this.browsePage = true;
       } else {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = 404;
-        }
-        const error = new Error(this.$t('messages.notFound'));
-        error.statusCode = 404;
-        error.titlePath = 'errorMessage.pageNotFound.title';
-        error.pageTitlePath = 'errorMessage.pageNotFound.metaTitle';
-        error.illustrationSrc = require('@/assets/img/illustrations/il-page-not-found.svg');
-
-        throw error;
+        this.$error(404, { scope: 'page' });
       }
     },
 

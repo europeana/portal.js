@@ -13,15 +13,9 @@ import versions from './pkg-versions.js';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
+import features, { featureNotificationExpiration } from './src/features/index.js';
 
-import { BASE_URL as EUROPEANA_ENTITY_API_BASE_URL } from './src/plugins/europeana/entity.js';
-import { BASE_URL as EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL } from './src/plugins/europeana/entity-management.js';
-import {
-  BASE_URL as EUROPEANA_RECORD_API_BASE_URL,
-  FULLTEXT_BASE_URL as EUROPEANA_RECORD_API_FULLTEXT_URL
-} from './src/plugins/europeana/record.js';
-import { PRESENTATION_URL as EUROPEANA_IIIF_PRESENTATION_URL } from './src/plugins/europeana/iiif.js';
+import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
@@ -35,9 +29,13 @@ export default {
     app: {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
-      internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      galleries: {
+        europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
+      },
       featureNotification: process.env.APP_FEATURE_NOTIFICATION,
       featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
@@ -63,7 +61,10 @@ export default {
     },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
-      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
+      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(','),
+      // Construct a map of Europeana API URLs to rewrite for logging, so that
+      // private network hostnames are replaced with the public equivalent.
+      rewriteOrigins: publicPrivateRewriteOrigins()
     },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
@@ -81,71 +82,16 @@ export default {
         environment: process.env.ELASTIC_APM_ENVIRONMENT || 'development',
         logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
         serviceName: 'portal-js',
-        serviceVersion: versions[APP_PKG_NAME],
-        frameworkName: 'Nuxt',
-        frameworkVersion: versions['@nuxt/core'],
-        ignoreUrls: [
-          /^\/(_nuxt|__webpack_hmr)\//
-        ],
-        ignoreUserAgents: [
-          'kube-probe/'
-        ]
+        serviceVersion: versions[APP_PKG_NAME]
       }
     },
     europeana: {
-      apis: {
-        annotation: {
-          url: process.env.EUROPEANA_ANNOTATION_API_URL,
-          key: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
-        },
-        entity: {
-          url: process.env.EUROPEANA_ENTITY_API_URL || EUROPEANA_ENTITY_API_BASE_URL,
-          key: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
-        },
-        entityManagement: {
-          url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL || process.env.EUROPEANA_ENTITY_API_URL || EUROPEANA_ENTITY_MANAGEMENT_API_BASE_URL
-        },
-        iiifPresentation: {
-          media: {
-            url: process.env.EUROPEANA_MEDIA_IIIF_PRESENTATION_API_URL || EUROPEANA_IIIF_PRESENTATION_URL
-          }
-        },
-        recommendation: {
-          url: process.env.EUROPEANA_RECOMMENDATION_API_URL
-        },
-        record: {
-          fulltextUrl: process.env.EUROPEANA_RECORD_API_FULLTEXT_URL || EUROPEANA_RECORD_API_FULLTEXT_URL,
-          url: process.env.EUROPEANA_RECORD_API_URL || EUROPEANA_RECORD_API_BASE_URL,
-          key: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
-        },
-        thumbnail: {
-          url: process.env.EUROPEANA_THUMBNAIL_API_URL
-        },
-        set: {
-          url: process.env.EUROPEANA_SET_API_URL,
-          key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
-        }
-      },
-      proxy: {
-        media: {
-          url: process.env.EUROPEANA_MEDIA_PROXY_URL
-        }
-      }
+      apis: europeanaApisRuntimeConfig({ scope: 'public' })
     },
     features: features(),
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
-    },
-    http: {
-      ports: {
-        http: process.env.HTTP_PORT,
-        https: process.env.HTTPS_PORT
-      },
-      sslNegotiation: {
-        enabled: featureIsEnabled(process.env.ENABLE_SSL_NEGOTIATION),
-        datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
-      }
     },
     matomo: {
       host: process.env.MATOMO_HOST,
@@ -169,19 +115,50 @@ export default {
 
   privateRuntimeConfig: {
     contentful: {
-      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE || process.env.CTF_GRAPHQL_ORIGIN
+      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
+    },
+    elastic: {
+      apm: {
+        // Additional config options for Node agent, not supported by RUM agent
+        frameworkName: 'Nuxt',
+        frameworkVersion: versions['@nuxt/core'],
+        ignoreUrls: [
+          /^\/(_nuxt|__webpack_hmr)\//
+        ],
+        ignoreUserAgents: [
+          'kube-probe/'
+        ]
+      }
+    },
+    europeana: {
+      apis: europeanaApisRuntimeConfig({ scope: 'private' })
     },
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
       username: process.env.JIRA_API_USERNAME,
       password: process.env.JIRA_API_PASSWORD,
       serviceDesk: {
-        serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
-        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID,
-        customFields: {
-          pageUrl: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_PAGE_URL,
-          browser: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_BROWSER,
-          screensize: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_SCREENSIZE
+        feedback: {
+          username: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_USERNAME || process.env.JIRA_API_USERNAME,
+          password: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_PASSWORD || process.env.JIRA_API_PASSWORD,
+          serviceDeskId: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_ID,
+          requestTypeId: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_REQUEST_TYPE_ID,
+          customFields: {
+            pageUrl: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_CUSTOM_FIELD_PAGE_URL,
+            browser: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_CUSTOM_FIELD_BROWSER,
+            screensize: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_CUSTOM_FIELD_SCREENSIZE
+          }
+        },
+        galleries: {
+          username: process.env.JIRA_API_SERVICE_DESK_GALLERIES_USERNAME || process.env.JIRA_API_USERNAME,
+          password: process.env.JIRA_API_SERVICE_DESK_GALLERIES_PASSWORD || process.env.JIRA_API_PASSWORD,
+          serviceDeskId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_ID,
+          requestTypeId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_REQUEST_TYPE_ID,
+          customFields: {
+            pageUrl: process.env.JIRA_API_SERVICE_DESK_GALLERIES_CUSTOM_FIELD_PAGE_URL,
+            setId: process.env.JIRA_API_SERVICE_DESK_GALLERIES_CUSTOM_FIELD_SET_ID,
+            setCreatorNickname: process.env.JIRA_API_SERVICE_DESK_GALLERIES_CUSTOM_FIELD_SET_CREATOR_NICKNAME
+          }
         }
       }
     },
@@ -203,9 +180,6 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: APP_SITE_NAME }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
 
@@ -224,7 +198,7 @@ export default {
   /*
   ** Global CSS
   */
-  css: ['./assets/scss/style'],
+  css: ['@europeana/style'],
 
   // BootstrapVue
   // Doc: https://bootstrap-vue.js.org/docs/
@@ -276,7 +250,9 @@ export default {
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/i18n-cookie.client',
+    '~/plugins/error',
     '~/plugins/link',
+    '~/plugins/axios.server',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
@@ -289,8 +265,8 @@ export default {
   buildModules: [
     '~/modules/contentful',
     '~/modules/axios-logger',
-    '~/modules/http',
     '~/modules/query-sanitiser',
+    '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
 
@@ -299,7 +275,6 @@ export default {
   */
   modules: [
     '~/modules/elastic-apm',
-    '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['@nuxtjs/i18n', {
@@ -360,13 +335,33 @@ export default {
     plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
   },
 
+  axios: {
+    proxyHeadersIgnore: [
+      // module defaults
+      'accept',
+      'host',
+      'x-forwarded-host',
+      'x-forwarded-port',
+      'x-forwarded-proto',
+      'cf-ray',
+      'cf-connecting-ip',
+      'content-length',
+      'content-md5',
+      'content-type',
+      // don't send cookie header to APIs
+      'cookie'
+    ]
+  },
+
   router: {
     middleware: [
       'trailing-slash',
       'legacy/index',
       'no-ssr-cookies',
       'cache-control-public',
-      'l10n'
+      'l10n',
+      'contentful-galleries',
+      'set-galleries'
     ],
     extendRoutes(routes) {
       const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
@@ -409,6 +404,7 @@ export default {
     { path: '/robots.txt', handler: '~/server-middleware/robots.txt' },
     '~/server-middleware/logging',
     '~/server-middleware/referrer-policy',
+    '~/server-middleware/content-security-policy',
     '~/server-middleware/record-json'
   ],
 
@@ -421,6 +417,12 @@ export default {
     extractCSS: false,
 
     extend(config, { isClient }) {
+      // Handle imported .ico files
+      config.module.rules.push({
+        test: /\.ico(\?[a-z0-9=&.]+)?$/,
+        loader: 'file-loader'
+      });
+
       // Extend webpack config only for client bundle
       if (isClient) {
         // Build source maps to aid debugging in production builds
@@ -430,7 +432,7 @@ export default {
 
     // Prevent irrelevant postcss warnings
     // See https://github.com/postcss/postcss/issues/1375
-    postcss: null,
+    postcss: {},
 
     publicPath: buildPublicPath(),
 

@@ -57,9 +57,9 @@
   import ContentCard from '../generic/ContentCard';
   import BrowseContentCard from './BrowseContentCard';
   import SmartLink from '../generic/SmartLink';
+  import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
 
-  import { entityParamsFromUri, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+  import { entityParamsFromUri } from '@/plugins/europeana/entity';
 
   export default {
     components: {
@@ -67,6 +67,9 @@
       ContentCard,
       SmartLink
     },
+    mixins: [
+      collectionLinkGenMixin
+    ],
     props: {
       section: {
         type: Object,
@@ -90,23 +93,12 @@
           return identifier ? entityParamsFromUri(identifier).type === 'person' : false;
         });
       }
-    },
-    methods: {
-      entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
-        return {
-          name: 'collections-type-all', params: {
-            type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: slug ? slug : uriMatch[2]
-          }
-        };
-      }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .browse-section {
     h2,

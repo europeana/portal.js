@@ -58,8 +58,13 @@
             class="related-container"
           />
           <client-only>
-            <RelatedCollections
+            <EntityBadges
               :entity-uris="relatedLink"
+              class="related-container"
+            />
+            <ThemeBadges
+              v-if="themes && themes.length"
+              :themes-identifiers="themes"
               class="related-container"
             />
           </client-only>
@@ -86,7 +91,8 @@
       SocialShareModal,
       ShareButton,
       BrowseSections,
-      RelatedCollections: () => import('@/components/related/RelatedCollections')
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      ThemeBadges: () => import('@/components/theme/ThemeBadges')
     },
 
     props: {
@@ -133,6 +139,11 @@
       relatedLink: {
         type: Array,
         default: () => []
+      },
+
+      themes: {
+        type: Array,
+        default: () => []
       }
     }
   };
@@ -142,16 +153,4 @@
   .author ~ .author::before {
     content: ', ';
   }
-
-  ::v-deep .related-collections {
-    &.container {
-      padding: 0;
-    }
-
-    .badge-pill {
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
-    }
-  }
-
 </style>

@@ -2,7 +2,7 @@ import sinon from 'sinon';
 
 import middleware from '@/middleware/l10n';
 
-describe('middleware/legacy', () => {
+describe('middleware/l10n', () => {
   afterEach(sinon.resetHistory);
 
   const app = { $cookies: { set: sinon.spy() } };

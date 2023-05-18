@@ -12,14 +12,14 @@
         <b-button
           variant="outline-primary"
           data-qa="close button"
-          @click="goBack"
+          @click="handleClickCancelButton"
         >
-          {{ $t('actions.goBack') }}
+          {{ $t('actions.cancel') }}
         </b-button>
         <b-button
           variant="danger"
           type="submit"
-          data-qa="delete button"
+          data-qa="delete confirmation button"
         >
           {{ $t('set.actions.delete') }}
         </b-button>
@@ -62,20 +62,23 @@
     },
 
     methods: {
-      // TODO: error handling
+      // TODO: error handling other statuses
       async submitForm() {
-        await this.$store.dispatch('set/delete', this.setId);
+        try {
+          await this.$store.dispatch('set/delete', this.setId);
 
-        this.makeToast(this.toastMsg);
-        this.hide();
-        // redirect away from deleted set page
-        if (this.setId.endsWith(`/${this.$route?.params?.pathMatch}`)) {
-          const path = this.$path({ name: 'account' });
-          this.$goto(path);
+          this.makeToast(this.toastMsg);
+          this.hide();
+          // redirect away from deleted set page
+          if (this.$route.name.startsWith('galleries-all___')) {
+            this.$router.push(this.localePath({ name: 'account' }));
+          }
+        } catch (e) {
+          this.$error(e, { scope: 'gallery' });
         }
       },
 
-      goBack() {
+      handleClickCancelButton() {
         this.hide();
         this.$emit('cancel');
       },

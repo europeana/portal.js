@@ -17,11 +17,9 @@ export default {
 
     pageTitle() {
       if (this.$fetchState?.error) {
-        if (this.$fetchState.error.pageTitlePath) {
-          return this.$t(this.$fetchState.error.pageTitlePath);
-        } else {
-          return this.$t('error');
-        }
+        return this.$fetchState.error.i18n?.metaTitle ||
+          this.$fetchState.error.i18n?.title ||
+          this.$t('error');
       } else {
         return this.pageMeta.title;
       }

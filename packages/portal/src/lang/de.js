@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Sie haben noch keine Sammlungen kuratiert",
         "private": "Sie haben bisher keine private Galerie erstellt",
-        "public": "Sie haben bisher keine öffentliche Galerie erstellt"
+        "public": "Sie haben bisher keine öffentliche Galerie erstellt",
+        "published": "Sie haben noch keine Galerien veröffentlicht"
       },
       "noLikedItems": "Sie haben bisher keine Objekte mit einem Like versehen"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Meine Likes & Galerien",
     "profileSettings": "Profileinstellungen",
     "publicCollections": "Öffentliche Galerien",
+    "publishedCollections": "Veröffentlichte Galerien",
     "settings": "Einstellungen",
     "title": "Mein Konto"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Abbrechen",
     "close": "schließen",
     "continue": "Fortfahren",
+    "depublish": "Veröffentlichung aufheben",
     "download": "Herunterladen",
     "edit": "Bearbeiten",
     "feedback": "Feedback",
-    "goBack": "Zurückgehen",
     "goHome": "Zur Homepage gehen",
     "learnMore": "Mehr erfahren",
     "like": "Like",
@@ -43,13 +45,18 @@ export default {
     "pin": "Stift",
     "preview": "Vorschau",
     "previous": "Vorherige",
-    "providedBy": "Bereitgestellt von {provider}",
+    "publish": "Veröffentlichen",
     "reject": "Ablehnen",
+    "requestDepublication": "Depublikation anfordern",
     "save": "Speichern",
     "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
-    "skip": "Überspringen",
+    "skipSend": "Überspringen und senden",
+    "submitForPublication": "Zur Veröffentlichung einreichen",
+    "submittedForPublication": "Zur Veröffentlichung eingereicht",
+    "transcribe": "Transkribieren",
+    "transcribeNow": "Jetzt transkribieren",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerien",
     "item": "Aktuelle Objekte",
     "organisation": "Organisationen",
     "place": "Orte",
+    "theme": "Themen",
     "time": "Ausgewählte Jahrhunderte",
     "topic": "Ausgewählte Themen"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Thema",
     "time": "Jahrhundert",
     "topic": "Thema"
+  },
+  "categories": {
+    "label": "Entdecken Sie Geschichten nach Tags",
+    "noOptions": "Es gibt keine weiteren Tags zur Auswahl",
+    "search": "Entdecken Sie Geschichten nach Tags"
   },
   "clearAllFilters": "Alle Filter löschen",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
-      "error": {
-        "unpin": "Beim Lösen des Elements ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder melden Sie das Problem."
-      },
       "pin": "Dieses Objekt wird oben in der Auflistung \"{entity}\" angezeigt. Wir werden Sie benachrichtigen, wenn diese Änderung auf der Sammlungsseite sichtbar wird.",
       "pinLimit": {
         "body": "Zurzeit können Sie nur 24 Objekte auf der ersten Seite pinnen. Wenn Sie dieses Objekt pinnen möchten, müssen Sie erst einen anderen Objekt entpinnen und dann versuchen, dieses Objekt erneut zu pinnen.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Fehler",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Die Bearbeitung ist vorübergehend deaktiviert und Ihre Änderungen wurden nicht gespeichert. Bitte versuchen Sie es später erneut.",
+      "title": "Aktualisierung fehlgeschlagen"
+    },
+    "galleryNotFound": {
+      "description": "Diese Galerie konnte nicht gefunden werden. Möglicherweise wurde es gelöscht.",
+      "title": "Galerie nicht gefunden"
+    },
     "galleryUnauthorised": {
       "description": "Dies ist nicht möglich, da private Galerien nur für ihren Ersteller sichtbar sind. Wenn Sie den Ersteller der Galerie kennen, bitten Sie ihn, die Galerie öffentlich zu machen. Alternativ können Sie dieses Problem auch über die Feedback-Schaltfläche melden.",
       "metaTitle": "Galerie nicht autorisiert",
       "title": "Oops! {newline} Sie versuchen, die private Galerie einer anderen Person anzuzeigen."
     },
+    "genericUnknownError": {
+      "description": "Ein unbekannter Fehler ist aufgetreten.",
+      "title": "Unbekannter Fehler"
+    },
     "itemNotFound": {
-      "description": "Dies kann folgende Gründe haben: Diesem Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
+      "description": "Dies kann folgende Gründe haben: Dieses Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
       "metaTitle": "Objekt nicht gefunden",
-      "title": "Ach nein! {newline} Wir konnten dies Objekt nicht finden."
+      "title": "Oh nein! {newline} Wir konnten dies Objekt nicht finden."
+    },
+    "pageNotFound": {
+      "metaTitle": "Seite nicht gefunden",
+      "title": "Die gesuchte Seite existiert nicht."
+    },
+    "pinningNotFound": {
+      "description": "Beim Anheften/Lösen des Elements ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder melden Sie das Problem.",
+      "title": "Kuratierte Sammlung nicht gefunden"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Es ist nur möglich, die ersten {limit} Suchergebnisse zu sehen.",
+      "title": "Seitenlimit überschritten"
     },
     "searchResultsNotFound": {
       "description": "Bitte passen Sie den Suchbegriff an oder setzen Sie die Filter zurück, um es erneut zu versuchen.",
@@ -238,7 +273,7 @@ export default {
         "metadata": "Nur-Metadaten Aufzeichnungen"
       },
       "switch": "Suchen Sie nur im Inhalt von Artikeln mit Volltext",
-      "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn es deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
+      "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn er deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
     },
     "button": {
       "apply": "Anwenden",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "Möglicherweise möchten wir nachfassen. Geben Sie Ihre E-Mail-Adresse ein, wenn Sie damit einverstanden sind, dass wir Sie kontaktieren.",
     "failed": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+    "faq": "Gehen Sie zu den häufig gestellten Fragen",
     "form": {
       "placeholders": {
         "email": "Geben sie ihre E-Mailadresse ein",
@@ -699,6 +735,7 @@ export default {
       "about": "Über uns",
       "accessibility": "Barrierefreiheit",
       "cookies": "Cookies",
+      "faq": "Häufig gestellte Fragen",
       "forDevelopers": "Für Entwickler",
       "help": "Hilfe",
       "MoreInfoLabel": "Mehr Infos",
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "In die Zwischenablage kopiert",
     "externalContentError": "Der externe Inhalt konnte nicht geladen werden",
-    "notFound": "Nicht gefunden",
-    "paginationLimitExceeded": "Es können nur die ersten {limit} Suchergebnisse angezeigt werden."
+    "notFound": "Nicht gefunden"
   },
   "modal": {
     "download": {
       "clickToCopy": "Klicken Sie auf die Namensnennung, um sie zu kopieren",
       "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Attribution daneben anzuzeigen:",
       "modalTitle": "Dank sagen"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Wir empfehlen Ihnen, unten auf die Schaltfläche \"Bereitstellende Institution\" zu klicken, um zu prüfen, ob der Artikel auf der Website der anbietenden Institution heruntergeladen werden kann.",
+      "message": "Wenn der Download nicht funktioniert, kann es daran liegen, dass er von der anbietenden Einrichtung entfernt wurde, oder es liegt ein technisches Problem mit ihrem Dienst vor.",
+      "title": "Download funktioniert nicht"
+    },
+    "transcribe": {
+      "message": "Machen Sie mit bei Europeana Transcribe, der Online-Bürgerinitiative zur Bereicherung der Sammlungen von Europeana",
+      "title": "Transkribieren Sie dieses Objektes"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Schließen",
-    "readMore": "Mehr anzeigen",
+    "readMore": "Geschichten entdecken",
     "text": {
-      "searchFilters": "Sie können jetzt nach bestimmten Werten in den Filtern suchen; probieren Sie es aus!"
+      "storiesTags": "Sehen Sie sich die aktualisierte Seite Geschichten an. Sie können jetzt nach Tags suchen und filtern."
     }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "Von",
   "organisation": {
     "city": "Stadt",
@@ -895,7 +943,7 @@ export default {
         "title": "Orte"
       },
       "table": {
-        "items": "Artikel",
+        "items": "Objekte",
         "name": "Name"
       },
       "times": {
@@ -908,6 +956,10 @@ export default {
   },
   "pagination": {
     "label": "Paginierung"
+  },
+  "provider": {
+    "linkText": "Auf der Website des Anbieters ansehen",
+    "providedBy": "Dieses Objekt wird von {provider} bereitgestellt und gepflegt"
   },
   "readMore": "Mehr anzeigen",
   "recommendation": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Alle Metadaten",
     "copyEmbedLabel": "Code einbetten (Zum Kopieren klicken)",
-    "exploreMore": "Entdecken Sie mehr",
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",
@@ -944,13 +995,24 @@ export default {
       "title": "Entdecken Sie verwandte Geschichten"
     },
     "collections": {
+      "name": "Verwandte Sammlungen",
       "title": "Entdecken Sie verwandte Sammlungen"
     },
     "editorial": {
       "title": "Geschichten, die Ihnen gefallen könnten"
+    },
+    "galleries": {
+      "name": "Verwandte Galerien",
+      "title": "Entdecken Sie verwandte Galerien"
+    },
+    "items": {
+      "loginForMore": "Melden Sie sich an, um andere verwandte Objekte anzuzeigen",
+      "title": "Entdecken Sie verwandte Objekte"
+    },
+    "themes": {
+      "title": "Entdecken Sie verwandte Themen"
     }
   },
-  "relatedCollections": "Zugehörige Sammlungen",
   "removeFilter": "{filterLabel}-Filter entfernen",
   "reset": "Zurücksetzen",
   "resourceWikimedia": "Ressource aus Wikimedia Commons",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Galerie bearbeiten",
       "update": "Galerie aktualisieren"
     },
+    "entityBestBets": {
+      "title": "{entity} Seite"
+    },
     "form": {
       "description": "Galeriebeschreibung",
       "private": "Diese Galerie privat halten",
+      "privateWarning": "Durch diese Aktion wird die Veröffentlichung der Galerie aufgehoben.",
       "required": "Pflichtfeld",
       "title": "Galeriename"
     },
     "labels": {
       "curatedBy": "Kuratiert von",
-      "private": "Private Galerie"
+      "private": "Private Galerie",
+      "published": "Veröffentlichte Galerie"
     },
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Objekte liken. Wir werden dieses Limit bald aufheben!",
         "title": "100 Likes"
       },
-      "updated": "Das Objekt wurde der Galerie hinzugefügt."
+      "updated": "Das Objekt wurde der Galerie hinzugefügt.",
+      "visibilityChanged": "Warnung: Set-Sichtbarkeit wurde bereits geändert und ist derzeit \" {visibility} \"."
     },
     "prompts": {
       "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben."
+    },
+    "publication": {
+      "description": "Wenn Sie eine Galerie veröffentlichen, wird sie auf Europeana.eu/galleries veröffentlicht.",
+      "failedSubmission": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+      "process": {
+        "description": "Wenn Sie eine Galerie zur Veröffentlichung einreichen, wird ein Team von Verlagen bei Europeana benachrichtigt. Sie werden es zuerst überprüfen und möglicherweise Änderungen vornehmen, bevor es veröffentlicht wird. Sie erhalten Benachrichtigungen per E-Mail, wenn die Galerie überprüft wird. Wenn es nicht veröffentlicht wird, kann es sein, dass es nicht unseren redaktionellen Richtlinien entspricht.",
+        "title": "Wie der Prozess funktioniert"
+      },
+      "time": {
+        "description": "1-3 Tage.",
+        "title": "Wie lange es dauert"
+      },
+      "title": "Galerie zur Veröffentlichung einreichen",
+      "toastButton": "Okay",
+      "toastMessage": "Diese Galerie wird nun zur Veröffentlichung eingereicht. Sie können in {galleries} nachsehen, ob es veröffentlicht wurde."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) ist ein webbasiertes Tool zum Verwalten von Inhalten unterschiedlicher Art (einschließlich 3D), zum Dokumentieren des kulturellen Erbes durch digitale Gemeinschaftsräume und zum Kuratieren digitaler Geschichten und Erfahrungen."
+      }
     }
   },
+  "shareWhere": "Wo möchtest du das teilen?",
   "showLess": "Weniger anzeigen",
   "showMore": "Mehr anzeigen",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Angeheftet"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} Geschichten gefunden",
     "title": "Geschichten"
+  },
+  "themes": {
+    "description": "Nach Thema durchsuchen",
+    "themes": "Themen"
   },
   "website": "Webseite"
 };

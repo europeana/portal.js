@@ -9,28 +9,40 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const FEATURED_ORGANISATIONS = 'Featured organisations';
+const FEATURED_THEMES = 'Featured themes';
 const FEATURED_TOPICS = 'Featured topics';
 const FEATURED_TIMES = 'Featured centuries';
 const RECENT_ITEMS = 'Recent items';
 const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
+const LATEST_GALLERIES = 'Latest galleries';
 
 const $axiosGetStub = sinon.stub();
 
-const factory = (props = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(AutomatedCardGroup, {
+const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(AutomatedCardGroup, {
   localVue,
-  propsData: props,
+  propsData,
   mocks: {
     $apis: {
       entity: {
         imageUrl: () => 'image URL'
+      },
+      thumbnail: {
+        edmPreview: sinon.stub().returnsArg(0)
+      },
+      set: {
+        search: sinon.stub()
       }
+    },
+    $contentful: {
+      query: sinon.stub()
     },
     $fetchState: {
       error: false,
       pending: false
     },
-    $path: () => 'mocked path',
-    $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}` },
+    localePath: () => 'mocked path',
+    $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, isoLocale: () => 'en-GB' },
+    $route: { query: {} },
     $axios: {
       get: $axiosGetStub
     },
@@ -124,23 +136,120 @@ const entries = {
       label: '3D',
       count: 500
     }
+  ],
+  latestGalleries: [
+    { id: '001',
+      title: { en: 'gallery 001' },
+      items: [
+        { edmPreview: 'https://www.example.eu/image.jpg' }
+      ] }
   ]
 };
 
 describe('components/browse/AutomatedCardGroup', () => {
   describe('fetch()', () => {
-    beforeEach(() => {
-      $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves({ data: entries.featuredTopics });
+    describe('when section is cached', () => {
+      const propsData = { sectionType: FEATURED_TOPICS };
+      beforeEach(() => {
+        $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves({ data: entries.featuredTopics });
+      });
+      afterEach(() => {
+        $axiosGetStub.reset();
+      });
+      describe('when rendering on the client', () => {
+        it('gets the data from the cache API endpoint', async() => {
+          const wrapper = factory(propsData);
+          await wrapper.vm.fetch();
+          expect($axiosGetStub.calledWith('/_api/cache/en/collections/topics/featured')).toBe(true);
+          expect(wrapper.vm.entries).toEqual(entries.featuredTopics);
+        });
+      });
     });
-    afterEach(() => {
-      $axiosGetStub.reset();
-    });
-    describe('when rendering on the client', () => {
-      it('gets the data from the cache API endpoint', async() => {
-        const wrapper = factory({ sectionType: FEATURED_TOPICS });
+
+    describe('when the section is from Contentful', () => {
+      const propsData = { sectionType: FEATURED_THEMES };
+      const contentfulResponse = {
+        data: {
+          data: {
+            themePageCollection: {
+              items: [
+                {
+                  identifier: 'art'
+                }
+              ]
+            }
+          }
+        }
+      };
+
+      it('fetches from Contentful and stores response items in entries', async() => {
+        const wrapper = factory(propsData);
+        wrapper.vm.$contentful.query.resolves(contentfulResponse);
+
         await wrapper.vm.fetch();
-        expect($axiosGetStub.calledWith('/_api/cache/en/collections/topics/featured')).toBe(true);
-        expect(wrapper.vm.entries).toEqual(entries.featuredTopics);
+
+        expect(wrapper.vm.$contentful.query.calledWith('themes', { locale: 'en-GB', preview: false })).toBe(true);
+        expect(wrapper.vm.entries).toEqual(contentfulResponse.data.data.themePageCollection.items);
+      });
+    });
+
+    describe('when the section is from the set API', () => {
+      const propsData = { sectionType: LATEST_GALLERIES };
+      const setResponse = {
+        data: {
+          items: [
+            {
+              title: { en: 'gallery I' },
+              items: [
+                {
+                  identifier: 'item ID'
+                }
+              ]
+            },
+            {
+              title: { en: 'gallery II' },
+              items: [
+                {
+                  identifier: 'item ID'
+                }
+              ]
+            },
+            {
+              title: { en: 'gallery III' },
+              items: [
+                {
+                  identifier: 'item ID'
+                }
+              ]
+            },
+            {
+              title: { en: 'gallery IV' },
+              items: [
+                {
+                  identifier: 'item ID'
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      it('fetches from the set API with "withMinimalItemPreviews" and stores response items in entries', async() => {
+        const wrapper = factory(propsData);
+        wrapper.vm.$apis.set.search.resolves(setResponse);
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$apis.set.search.calledWith(
+          {
+            query: 'visibility:published',
+            pageSize: 4,
+            profile: 'standard',
+            qf: 'lang:en'
+          },
+          { withMinimalItemPreviews: sinon.match.truthy }
+        )).toBe(true);
+        expect(wrapper.vm.entries).toEqual(setResponse.data.items);
       });
     });
   });
@@ -300,6 +409,38 @@ describe('components/browse/AutomatedCardGroup', () => {
 
         await wrapper.setData({
           entries: entries.recentItems
+        });
+        const section = wrapper.vm.contentCardSection;
+        expect(section.hasPartCollection.items[0]).toEqual(expected);
+        expect(section.hasPartCollection.items.length).toBe(1);
+      });
+    });
+
+    describe('when the type is latest galleries', () => {
+      it('includes a headline', () => {
+        const wrapper = factory({ sectionType: LATEST_GALLERIES });
+
+        expect(wrapper.vm.contentCardSection.headline).toBe('automatedCardGroup.gallery');
+      });
+      it('sets a more button', () => {
+        const wrapper = factory({ sectionType: LATEST_GALLERIES, moreButton: { 'url': '/search', 'text': 'Show all galleries' } });
+        expect(wrapper.vm.contentCardSection.moreButton.text).toBe('Show all galleries');
+      });
+      it('sets the relevant fields for the galleries in the hasPartCollection', async() => {
+        const expected = {
+          __typename: 'AutomatedGalleryCard',
+          __variant: null,
+          identifier: '001',
+          image: 'https://www.example.eu/image.jpg',
+          name: { en: 'gallery 001' },
+          url: 'galleries/001-gallery-001',
+          description: undefined
+        };
+
+        const wrapper = factory({ sectionType: LATEST_GALLERIES });
+
+        await wrapper.setData({
+          entries: entries.latestGalleries
         });
         const section = wrapper.vm.contentCardSection;
         expect(section.hasPartCollection.items[0]).toEqual(expected);

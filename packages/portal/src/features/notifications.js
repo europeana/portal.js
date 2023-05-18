@@ -1,5 +1,1 @@
-export default [
-  {
-    name: 'searchFilters'
-  }
-];
+export default [];

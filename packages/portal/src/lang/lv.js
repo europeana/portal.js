@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Jūs vēl neesat apkopojis nevienu kolekciju",
         "private": "Vēl nav izveidota neviena privāta galerija",
-        "public": "Vēl nav izveidota neviena publiska galerija"
+        "public": "Vēl nav izveidota neviena publiska galerija",
+        "published": "Jūs vēl neesat publicējis nevienu galeriju"
       },
       "noLikedItems": "Neviens vienums vēl nav atzīmtes ar \"patīk\""
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mani favorīti un galerijas",
     "profileSettings": "Profila iestatījumi",
     "publicCollections": "Publiskas galerijas",
+    "publishedCollections": "Publicētās Galerijas",
     "settings": "Iestatījumi",
     "title": "Mans konts"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Atcelt",
     "close": "aizvērt",
     "continue": "turpināt",
+    "depublish": "Depublicēt",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
     "feedback": "Atsauksmes",
-    "goBack": "Atpakaļ",
     "goHome": "Dodieties uz sākumlapu",
     "learnMore": "Apgūt vairāk",
     "like": "Patīk",
@@ -43,13 +45,18 @@ export default {
     "pin": "Pin",
     "preview": "Priekšskatījums",
     "previous": "Iepriekšējais",
-    "providedBy": "Nodrošina {provider}",
+    "publish": "Publicēt",
     "reject": "Noraidīt",
+    "requestDepublication": "Pieprasīt depublikāciju",
     "save": "Glābt",
     "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
-    "skip": "Izlaist",
+    "skipSend": "Izlaist un nosūtīt",
+    "submitForPublication": "Iesniegt publicēšanai",
+    "submittedForPublication": "Iesniegts publicēšanai",
+    "transcribe": "Transkribēt",
+    "transcribeNow": "Transkribēt tūlīt",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Nosaukums:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerijas",
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
     "place": "Vietas",
+    "theme": "Tēmas",
     "time": "Izvēlētie gadsimti",
     "topic": "Izvēlētās tēmas"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Tēma",
     "time": "Gadsimts",
     "topic": "Temats"
+  },
+  "categories": {
+    "label": "Izpētiet stāstus pēc atzīmes",
+    "noOptions": "Nav vairs neviena atzīme, ko atlasīt",
+    "search": "Izpētiet stāstus pēc atzīmes"
   },
   "clearAllFilters": "notīrīt visus filtrus",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
-      "error": {
-        "unpin": "Atspraužot vienumu, radās kļūda. Lūdzu, mēģiniet vēlreiz vai ziņojiet par problēmu."
-      },
       "pin": "Šis vienums tiks rādīts kolekcijas “ {entity} ” augšdaļā. Mēs jūs informēsim, kad šīs izmaiņas būs redzamas kolekcijas lapā.",
       "pinLimit": {
         "body": "Pagaidām pirmajā lapā var piespraust tikai 24 vienumus. Ja vēlaties piespraust šo vienumu, noteikti atspraudiet vēl vienu un mēģiniet vēlreiz piespraust šo vienumu.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Kļūda",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Rediģēšana ir īslaicīgi atspējota, un jūsu izmaiņas nav saglabātas. Lūdzu, pamēģiniet vēlreiz vēlāk.",
+      "title": "Atjaunināšana neizdevās"
+    },
+    "galleryNotFound": {
+      "description": "Šo galeriju nevarēja atrast. Iespējams, tas ir izdzēsts.",
+      "title": "Galerija nav atrasta"
+    },
     "galleryUnauthorised": {
       "description": "Tas nav iespējams, jo privātās galerijas ir redzamas tikai to izveidotājam. Ja pazīstat galerijas veidotāju, palūdziet viņu padarīt galeriju publisku. Varat arī ziņot par šo problēmu, izmantojot atsauksmju pogu.",
       "metaTitle": "Galerija ir nesankcionēta",
       "title": "Ups! {newline} Jūs mēģināt apskatīt citas personas privāto galeriju."
     },
+    "genericUnknownError": {
+      "description": "Radās nezināma kļūda.",
+      "title": "Nezināma kļūda"
+    },
     "itemNotFound": {
       "description": "Tam var būt šādi iemesli: šis vienums neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast vienumu vēlreiz.",
       "metaTitle": "Vienums nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo vienumu."
+    },
+    "pageNotFound": {
+      "metaTitle": "Lapa nav atrasta",
+      "title": "Lapa, kuru meklējat, neeksistē."
+    },
+    "pinningNotFound": {
+      "description": "Piespraužot/atspraužot vienumu, radās kļūda. Lūdzu, mēģiniet vēlreiz vai ziņojiet par problēmu.",
+      "title": "Kurētā kolekcija nav atrasta"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Ir iespējams skatīt tikai pirmos {limit} meklēšanas rezultātus.",
+      "title": "Pārsniegts lappušu ierobežojums"
     },
     "searchResultsNotFound": {
       "description": "Lūdzu, pielāgojiet meklēšanas vienumu vai atiestatiet filtrus, lai mēģinātu vēlreiz.",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "Mēs varētu vēlēties sekot. Ievadiet savu e-pasta adresi, ja esat priecīgs, ka mēs ar jums sazināsimies.",
     "failed": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
+    "faq": "Dodieties uz bieži uzdotajiem jautājumiem",
     "form": {
       "placeholders": {
         "email": "ievadiet savu e-pasta adresi",
@@ -699,6 +735,7 @@ export default {
       "about": "Par mums",
       "accessibility": "Pieejamība",
       "cookies": "Sīkfaili",
+      "faq": "Bieži uzdotie jautājumi",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopēts starpliktuvē",
     "externalContentError": "Neizdevās ielādēt ārējo saturu",
-    "notFound": "Nav atrasts",
-    "paginationLimitExceeded": "Ir iespējams apskatīt tikai pirmos {limit} meklēšanas rezultātus."
+    "notFound": "Nav atrasts"
   },
   "modal": {
     "download": {
       "clickToCopy": "Noklikšķiniet uz attiecinājuma, lai to kopētu",
       "modalIntro": "Ja izmantojat šo vienumu tīmeklī vai citur, neaizmirstiet blakus tam parādīt šādu attiecinājumu:",
       "modalTitle": "Sakiet paldies"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Mēs iesakām noklikšķināt uz tālāk esošās pogas “Nodrošinošā iestāde”, lai pārbaudītu, vai vienumu var lejupielādēt sniedzējas iestādes tīmekļa vietnē.",
+      "message": "Ja lejupielāde nedarbojas, tas var būt tāpēc, ka pakalpojumu sniedzošā iestāde to ir noņēmusi, vai arī ir radusies tehniska problēma ar tās pakalpojumu.",
+      "title": "Lejupielāde nedarbojas"
+    },
+    "transcribe": {
+      "message": "Pievienojieties mums Europeana Transcribe— tiešsaistes pilsoņu iniciatīvai Europeana kolekciju bagātināšanai",
+      "title": "Transkribēt šo vienumu"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
-    "readMore": "Lasīt vairāk",
+    "readMore": "Atklājiet stāstus",
     "text": {
-      "searchFilters": "Tagad varat meklēt vērtības atsevišķos filtros; pārbaudiet to!"
+      "storiesTags": "Apskatiet atjaunināto stāstu lapu. Tagad varat meklēt un filtrēt pēc tagiem."
     }
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "notificationBanner": {
+    "text": "{\"zero\":\"\",\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "No",
   "organisation": {
     "city": "Pilsēta",
@@ -909,6 +957,10 @@ export default {
   "pagination": {
     "label": "Lapu šķirošana"
   },
+  "provider": {
+    "linkText": "Skatīt pakalpojumu sniedzēja vietnē",
+    "providedBy": "Šo vienumu nodrošina un uztur {provider}"
+  },
   "readMore": "Lasīt vairāk",
   "recommendation": {
     "prompts": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Visi metadati",
     "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
-    "exploreMore": "Pārlūkot vairāk",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
@@ -944,13 +995,24 @@ export default {
       "title": "Atklājiet saistītos stāstus"
     },
     "collections": {
+      "name": "Saistītās kolekcijas",
       "title": "Atklājiet saistītās kolekcijas"
     },
     "editorial": {
       "title": "Stāsti, kas jums varētu patikt"
+    },
+    "galleries": {
+      "name": "Saistītās galerijas",
+      "title": "Atklājiet saistītās galerijas"
+    },
+    "items": {
+      "loginForMore": "Piesakieties, lai redzētu citus saistītos vienumus",
+      "title": "Atklājiet saistītos vienumus"
+    },
+    "themes": {
+      "title": "Atklājiet saistītās tēmas"
     }
   },
-  "relatedCollections": "Saistītās kolekcijas",
   "removeFilter": "Noņemt filtru {filterLabel}",
   "reset": "Atiestatīt",
   "resourceWikimedia": "Resurss no Wikimedia Commons",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Rediģēt galeriju",
       "update": "Atjaunināt galeriju"
     },
+    "entityBestBets": {
+      "title": "{entity} Lapa"
+    },
     "form": {
       "description": "Galerijas apraksts",
       "private": "Saglabāt šo galeriju kā privātu",
+      "privateWarning": "Šī darbība depublicēs galeriju.",
       "required": "Obligāts lauks",
       "title": "Galerijas nosaukums"
     },
     "labels": {
       "curatedBy": "Pārzinis",
-      "private": "Privāta galerija"
+      "private": "Privāta galerija",
+      "published": "Publicētā galerija"
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 vienumiem. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"
       },
-      "updated": "Vienums tika pievienots galerijai."
+      "updated": "Vienums tika pievienots galerijai.",
+      "visibilityChanged": "Brīdinājums: iestatītā redzamība jau ir mainīta un pašlaik ir \" {visibility} \"."
     },
     "prompts": {
       "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie vienumi."
+    },
+    "publication": {
+      "description": "Publicējot galeriju, tā būs pieejama vietnē Europeana.eu/galleries.",
+      "failedSubmission": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
+      "process": {
+        "description": "Kad jūs iesniedzat galeriju publicēšanai, Europeana izdevēju komanda tiks informēta. Viņi vispirms to pārskatīs un var veikt izmaiņas pirms publicēšanas. Jūs saņemsiet paziņojumus pa e-pastu, kad galerija tiks pārskatīta. Ja tas netiek publicēts, iespējams, tas neatbilst mūsu redakcijas vadlīnijām.",
+        "title": "Kā process darbojas"
+      },
+      "time": {
+        "description": "1-3 dienas.",
+        "title": "Cik ilgs laiks nepieciešams"
+      },
+      "title": "Nosūtīt galeriju publicēšanai",
+      "toastButton": "Labi",
+      "toastMessage": "Šī galerija tagad ir iesniegta publicēšanai. Varat pārbaudīt {galleries} , lai redzētu, vai tas ir publicēts."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) ir tīmekļa rīks dažādu veidu (tostarp 3D) satura pārvaldībai, kultūras mantojuma dokumentēšanai, izmantojot digitālās kopienas telpas, un digitālo stāstu un pieredzes kurēšanai."
+      }
     }
   },
+  "shareWhere": "Kur jūs vēlētos dalīties ar šo?",
   "showLess": "Rādīt mazāk",
   "showMore": "Rādīt vairāk",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Piesprausts"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} atrasti stāsti",
     "title": "Stāsti"
+  },
+  "themes": {
+    "description": "Pārlūkojiet pēc tēmas",
+    "themes": "Tēmas"
   },
   "website": "Vietne"
 };

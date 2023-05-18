@@ -133,7 +133,7 @@ describe('pages/contentful/entity-harvester/index', () => {
 
           await wrapper.vm.harvestEntity();
           expect(wrapper.vm.populateFields.called).toBe(false);
-          expect(wrapper.vm.showError.calledWith(`Unable to harvest: http://data.europeana.eu/${type}/${id} Please make sure the entity can be accessed on the entity API. ${responseError.response.data.error}`)).toBe(true);
+          expect(wrapper.vm.showError.calledWith(`Unable to harvest: http://data.europeana.eu/${type}/${id} Please make sure the entity can be accessed on the entity API.`)).toBe(true);
         });
       });
 

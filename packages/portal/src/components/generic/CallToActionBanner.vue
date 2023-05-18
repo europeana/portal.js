@@ -17,7 +17,7 @@
         :lazy="true"
       />
     </div>
-    <div class="cta-content align-self-stretch flex-md-fill">
+    <div class="cta-content align-self-stretch d-flex flex-column align-items-center justify-content-center">
       <h2>
         {{ name }}
       </h2>
@@ -27,9 +27,11 @@
       />
       <!-- eslint-enable   vue/no-v-html -->
       <SmartLink
+        v-if="link"
         :destination="link.url"
         data-qa="call to action"
         class="btn btn-cta btn-primary"
+        hide-external-icon
       >
         {{ link.text }}
       </SmartLink>
@@ -59,7 +61,7 @@
       },
       link: {
         type: Object,
-        required: true
+        default: null
       },
       illustration: {
         type: Object,
@@ -84,22 +86,31 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .cta-banner {
     background-color: $yellowgrey;
-    margin-bottom: 2em;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 1rem;
     border-radius: 0.25em;
     border: 0.25em solid $greyblack;
     box-shadow: 0.75em 0.75em 0 0 $greyblack;
+    width: 100%;
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
+    @media (min-width: $bp-wqhd) {
+      min-height: 320px;
+    }
+
+    @media (min-width: $bp-4k) {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+      min-height: 442px;
     }
 
     .cta-content {
-      padding: 1.75em;
+      padding: 2.25em 1.75em 2.5em;
       text-align: center;
       font-size: 1rem;
 
@@ -107,27 +118,26 @@
         font-size: 1.375rem;
       }
 
-      @media (min-width: $bp-xxxl) {
-        font-size: 1em;
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 1.375rem);
       }
 
       h2 {
         color: $mediumgrey;
         font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 1.5rem;
+        margin-bottom: 0;
 
         @media (min-width: $bp-extralarge) {
-          font-size: 2.375rem;
+          font-size: $font-size-xxl;
         }
 
-        @media (min-width: $bp-xxxl) {
-          font-size: 2em;
-          margin-bottom: 0.8em;
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-xxl-4k;
         }
       }
 
-      p {
+      ::v-deep p {
         margin-bottom: 1em;
       }
     }
@@ -138,13 +148,8 @@
       border: 0.1875em solid $greyblack;
       box-shadow: 0.25em 0.25em 0 0 $greyblack;
       font-weight: 700;
-      padding: 0.5em 1em;
       border-radius: 0.25em;
-      margin-top: 2em;
-
-      @media (min-width: $bp-xxxl) {
-        font-size: 1vw;
-      }
+      margin-top: 1rem;
     }
 
     &.light {
@@ -173,9 +178,9 @@
     }
 
     .cta-illustration {
-      margin-top: 1em;
-      margin-left: 1em;
-      margin-right: 1em;
+      margin-top: 1rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
       height: 175px;
       position: relative;
       flex-shrink: 0;
@@ -183,6 +188,16 @@
       @media (min-width: $bp-medium) {
         height: auto;
         width: 40%;
+      }
+
+      @media (min-width: $bp-wqhd) {
+        width: 50%;
+      }
+
+      @media (min-width: $bp-4k) {
+        margin-top: 1.5rem;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
       }
 
       img {
@@ -197,7 +212,11 @@
   }
 
   .home-cta {
-    margin: 3em auto;
+    margin: 3rem auto;
+
+    @media (min-width: $bp-4k) {
+      margin: 4.5rem auto;
+    }
   }
 </style>
 

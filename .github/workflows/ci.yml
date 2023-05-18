@@ -16,12 +16,11 @@ on:
 
 env:
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
-  CTF_ENVIRONMENT_ID: test
-  CTF_GRAPHQL_ORIGIN: https://contentful-proxy-cache.test.eanadev.org
+  CTF_ENVIRONMENT_ID: ${{ vars.CTF_ENVIRONMENT_ID }}
+  CTF_GRAPHQL_ORIGIN: ${{ vars.CTF_GRAPHQL_ORIGIN }}
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
-  DOCKER_REPOSITORY: europeana/portal.js
+  DOCKER_REPOSITORY: ${{ vars.DOCKER_REPOSITORY }}
   EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
-  EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
 
 jobs:
@@ -104,7 +103,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       -
         name: Install eslint
@@ -131,7 +130,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       -
         name: Install stylelint
@@ -144,6 +143,28 @@ jobs:
       -
         name: Run stylelint
         run: npm run stylelint
+
+  # Verify cachers can load in Node.js on master and all PRs (including drafts)
+  test-cachers:
+    needs: [metadata]
+    runs-on: ubuntu-latest
+    if: (needs.metadata.outputs.git-master-push == 'true') || (github.event_name == 'pull_request')
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      -
+        name: NPM install
+        run: npm ci --include-workspace-root -w packages/portal
+      -
+        name: List cachers
+        run: npm run cache list
 
   # Run unit tests on master (for coverage reports), and all pull requests
   test-unit:
@@ -158,7 +179,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       -
         name: NPM install
@@ -219,6 +240,7 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       -
+        if: github.actor != 'dependabot[bot]'
         name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -231,11 +253,33 @@ jobs:
           context: .
           file: ./packages/portal/Dockerfile
           pull: true
-          push: true
-          cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:latest
-          cache-to: type=inline
+          push: ${{ github.actor != 'dependabot[bot]' }}
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
+          cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-app
           tags: ${{ needs.metadata.outputs.docker-tags }}
           labels: ${{ needs.metadata.outputs.docker-labels }}
+      -
+        name: Build (from cache) and load app image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./packages/portal/Dockerfile
+          pull: true
+          load: true
+          tags: ${{ needs.metadata.outputs.docker-full-tag }}
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
+      -
+        name: Check image size
+        env:
+          DOCKER_IMAGE_SIZE_LIMIT: '355M'
+        run: |
+          docker_image_size=$(docker image inspect --format '{{.Size}}' ${{ needs.metadata.outputs.docker-full-tag }})
+          if [ ${docker_image_size} -gt $(numfmt --from=si ${DOCKER_IMAGE_SIZE_LIMIT}) ]; then
+            echo "::error ::Image size $(numfmt --to=si ${docker_image_size}) exceeds limit ${DOCKER_IMAGE_SIZE_LIMIT}"
+            exit 1
+          else
+            echo "::notice ::Image size $(numfmt --to=si ${docker_image_size}) within limit ${DOCKER_IMAGE_SIZE_LIMIT}"
+          fi
 
   # Run size tests on non-draft pull requests
   test-size:
@@ -250,14 +294,15 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       -
-        name: Build and load app image
+        name: Build (from cache) and load app image
         uses: docker/build-push-action@v3
         with:
           context: .
           file: ./packages/portal/Dockerfile
+          pull: true
           load: true
           tags: ${{ needs.metadata.outputs.docker-tags }}
-          cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:latest
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
       -
         name: Build and load size test image
         uses: docker/build-push-action@v3
@@ -265,6 +310,8 @@ jobs:
           context: ./packages/portal/tests/size
           load: true
           tags: ${{ env.DOCKER_REPOSITORY }}-test-size
+          cache-from: type=gha,scope=${{ github.ref_name }}-test-size
+          cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-test-size
       -
         name: Prepare resources for size tests
         run: |
@@ -289,6 +336,19 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Build (from cache) and load app image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./packages/portal/Dockerfile
+          pull: true
+          load: true
+          tags: ${{ needs.metadata.outputs.docker-tags }}
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
+      -
         name: Prepare env for e2e tests
         run: echo "APP_IMAGE_VERSION=${{ needs.metadata.outputs.docker-version }}" >> $GITHUB_ENV
       -
@@ -299,7 +359,7 @@ jobs:
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
       -
         name: Build images for e2e tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
@@ -313,11 +373,25 @@ jobs:
     needs: [metadata, docker-build]
     if: (needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true')
     env:
+      ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM: 0
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     steps:
       -
         name: Checkout
         uses: actions/checkout@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Build (from cache) and load app image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./packages/portal/Dockerfile
+          pull: true
+          load: true
+          tags: ${{ needs.metadata.outputs.docker-tags }}
+          cache-from: type=gha,scope=${{ github.ref_name }}-app
       -
         name: Prepare env for visual tests
         run: |
@@ -337,7 +411,7 @@ jobs:
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q cache chrome-en
       -
         name: Build images for visual tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
@@ -351,13 +425,13 @@ jobs:
   deploy-ibm-cloud:
     runs-on: ubuntu-latest
     needs: [metadata, docker-build]
-    if: (needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true')
+    if: (github.actor != 'dependabot[bot]') && ((needs.metadata.outputs.git-master-push == 'true') || (needs.metadata.outputs.git-pr-ready == 'true'))
     env:
       DOCKER_IMAGE_TAG: ${{ needs.metadata.outputs.docker-full-tag }}
-      IBMCLOUD_API_URL: https://cloud.ibm.com
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
-      IBMCLOUD_CLUSTER_NAME: europeana-web
-      IBMCLOUD_REGION: eu-de
+      IBMCLOUD_API_URL: ${{ vars.IBMCLOUD_API_URL }}
+      IBMCLOUD_CLUSTER_NAME: ${{ vars.IBMCLOUD_CLUSTER_NAME }}
+      IBMCLOUD_REGION: ${{ vars.IBMCLOUD_REGION }}
     steps:
       -
         name: Checkout

@@ -35,29 +35,36 @@
           >
             <b-nav-item
               data-qa="likes collection"
-              :to="$path({ hash: tabHashes.likes})"
+              :to="localePath({ hash: tabHashes.likes})"
               :active="activeTab === tabHashes.likes"
             >
               {{ $t('account.likes') }}
             </b-nav-item>
             <b-nav-item
               data-qa="public collections"
-              :to="$path({ hash: tabHashes.publicGalleries})"
+              :to="localePath({ hash: tabHashes.publicGalleries})"
               :active="activeTab === tabHashes.publicGalleries"
             >
               {{ $t('account.publicCollections') }}
             </b-nav-item>
             <b-nav-item
               data-qa="private collections"
-              :to="$path({ hash: tabHashes.privateGalleries})"
+              :to="localePath({ hash: tabHashes.privateGalleries})"
               :active="activeTab === tabHashes.privateGalleries"
             >
               {{ $t('account.privateCollections') }}
             </b-nav-item>
             <b-nav-item
+              data-qa="published collections"
+              :to="localePath({ hash: tabHashes.publishedGalleries})"
+              :active="activeTab === tabHashes.publishedGalleries"
+            >
+              {{ $t('account.publishedCollections') }}
+            </b-nav-item>
+            <b-nav-item
               v-if="userIsEditor"
               data-qa="curated collections"
-              :to="$path({ hash: tabHashes.curatedCollections})"
+              :to="localePath({ hash: tabHashes.curatedCollections})"
               :active="activeTab === tabHashes.curatedCollections"
             >
               {{ $t('account.curatedCollections') }}
@@ -100,7 +107,6 @@
             </b-container>
             <template v-else-if="activeTab === tabHashes.publicGalleries">
               <UserSets
-                :sets="publicCreations"
                 visibility="public"
                 :empty-text="$t('account.notifications.noCollections.public')"
                 data-qa="public sets"
@@ -108,15 +114,22 @@
             </template>
             <template v-else-if="activeTab === tabHashes.privateGalleries">
               <UserSets
-                :sets="privateCreations"
                 visibility="private"
                 :empty-text="$t('account.notifications.noCollections.private')"
                 data-qa="private sets"
               />
             </template>
+            <template v-else-if="activeTab === tabHashes.publishedGalleries">
+              <UserSets
+                visibility="published"
+                :show-create-set-button="false"
+                :empty-text="$t('account.notifications.noCollections.published')"
+                data-qa="published sets"
+              />
+            </template>
             <template v-else-if="userIsEditor && activeTab === tabHashes.curatedCollections">
               <UserSets
-                :sets="curations"
+                type="EntityBestItemsSet"
                 :show-create-set-button="false"
                 :empty-text="$t('account.notifications.noCollections.curated')"
                 data-qa="curated sets"
@@ -181,6 +194,7 @@
           likes: '#likes',
           publicGalleries: '#public-galleries',
           privateGalleries: '#private-galleries',
+          publishedGalleries: '#published-galleries',
           curatedCollections: '#curated-collections'
         }
       };
@@ -188,10 +202,6 @@
 
     async fetch() {
       this.fetchLikes();
-      await this.$store.dispatch('set/fetchCreations');
-      if (this.userIsEditor) {
-        await this.$store.dispatch('set/fetchCurations');
-      }
     },
 
     fetchOnServer: false,
@@ -203,15 +213,13 @@
         };
       },
       userIsEditor() {
-        return this.loggedInUser?.resource_access?.entities?.roles?.includes('editor') &&
-          this.loggedInUser?.resource_access?.usersets?.roles?.includes('editor');
+        return this.$auth.userHasClientRole('entities', 'editor') &&
+          this.$auth.userHasClientRole('usersets', 'editor');
       },
       ...mapState({
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems,
-        curations: state => state.set.curations,
-        publicCreations: state => state.set.creations.filter(set => set.visibility === 'public'),
-        privateCreations: state => state.set.creations.filter(set => set.visibility === 'private')
+        curations: state => state.set.curations
       }),
       activeTab() {
         return this.$route.hash || this.tabHashes.likes;
@@ -227,9 +235,9 @@
 
 </script>
 
-<style lang="scss">
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/tabs';
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/tabs';
 
   h1 {
     margin-bottom: 0.75rem;

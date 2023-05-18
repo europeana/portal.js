@@ -1,14 +1,18 @@
 import * as utils from '@/plugins/europeana/utils';
+import sinon from 'sinon';
 
 describe('plugins/europeana/utils', () => {
-  describe('apiUrlFromRequestHeaders()', () => {
-    it('returns lowercased X-Europeana-${API}-API-URL header', () => {
-      const url = 'https://alternate.example.org';
-      const headers = {
-        'x-europeana-record-api-url': url
+  describe('createAxios', () => {
+    it('uses app.$axiosLogger from context as request interceptor', () => {
+      const $axiosLogger = (requestConfig) => requestConfig;
+      const context = {
+        app: { $axiosLogger }
       };
+      const axiosInstance = utils.createAxios({}, context);
 
-      expect(utils.apiUrlFromRequestHeaders('record', headers)).toBe(url);
+      expect(axiosInstance.interceptors.request.handlers.some((handler) => {
+        return handler.fulfilled === $axiosLogger;
+      })).toBe(true);
     });
   });
 
@@ -224,6 +228,31 @@ describe('plugins/europeana/utils', () => {
       const reduced = utils.reduceLangMapsForLocale(value, locale);
 
       expect(reduced).toBe(value);
+    });
+  });
+
+  describe('daily', () => {
+    it('returns as-is any non-Array argument', () => {
+      const argument = 'not an Array';
+
+      const filtered = utils.daily(argument, 4);
+
+      expect(filtered).toBe(argument);
+    });
+
+    it('filters Array arguments to requested number for the current day', () => {
+      const argument = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+      const tests = [
+        { now: 0, expected: [0, 1, 2, 3] },
+        { now: 1634556628480, expected: [3, 4, 5, 6] }
+      ];
+
+      for (const test of tests) {
+        sinon.stub(Date, 'now').returns(test.now);
+        const filtered = utils.daily(argument, 4);
+        expect(filtered).toEqual(test.expected);
+        Date.now.restore();
+      }
     });
   });
 });

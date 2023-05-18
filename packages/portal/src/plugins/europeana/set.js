@@ -1,7 +1,11 @@
-import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
-import { apiError, createKeycloakAuthAxios } from './utils';
+import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
+import { apiError, createKeycloakAuthAxios } from './utils.js';
 
 export const BASE_URL = 'https://api.europeana.eu/set';
+export const AUTHENTICATING = true;
+export const EUROPEANA_SET_VISIBILITY_PRIVATE = 'private';
+export const EUROPEANA_SET_VISIBILITY_PUBLIC = 'public';
+export const EUROPEANA_SET_VISIBILITY_PUBLISHED = 'published';
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
@@ -44,7 +48,7 @@ export default (context = {}) => {
 
         return response;
       } catch (error) {
-        throw apiError(error, context);
+        throw apiError(error);
       }
     },
 
@@ -57,7 +61,7 @@ export default (context = {}) => {
       return this.search({ query: `creator:${creator} type:BookmarkFolder` })
         .then(response => response.data.items ? response.data.items[0] : null)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -79,7 +83,7 @@ export default (context = {}) => {
         const response = await $axios.get(`/${setIdFromUri(id)}`, { params: paramsWithDefaults });
         return response.data;
       } catch (error) {
-        throw apiError(error, context);
+        throw apiError(error);
       }
     },
 
@@ -93,7 +97,7 @@ export default (context = {}) => {
         title: {
           en: 'LIKES'
         },
-        visibility: 'private'
+        visibility: EUROPEANA_SET_VISIBILITY_PRIVATE
       });
     },
 
@@ -109,7 +113,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -127,7 +131,37 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
+        });
+    },
+
+    /**
+     * Publish a set
+     * @param {string} id the set's id
+     * @return {Object} API response data
+     */
+    publish(id = '') {
+      return $axios.put(
+        `/${setIdFromUri(id)}/publish`
+      )
+        .then(response => response.data)
+        .catch(error => {
+          throw apiError(error);
+        });
+    },
+
+    /**
+     * Unpublish a set
+     * @param {string} id the set's id
+     * @return {Object} API response data
+     */
+    unpublish(id = '') {
+      return $axios.put(
+        `/${setIdFromUri(id)}/unpublish`
+      )
+        .then(response => response.data)
+        .catch(error => {
+          throw apiError(error);
         });
     },
 
@@ -142,7 +176,7 @@ export default (context = {}) => {
       )
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -160,7 +194,7 @@ export default (context = {}) => {
       return apiCall(`/${setIdFromUri(setId)}${itemId}${pinPos}`)
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error, context);
+          throw apiError(error);
         });
     }
   };

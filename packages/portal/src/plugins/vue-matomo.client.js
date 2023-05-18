@@ -15,7 +15,7 @@ export const trackSiteSearch = (store) => (to) => {
     }
 
     let resultsCount;
-    if (store && store.state && store.state.search) {
+    if (store?.state?.search) {
       resultsCount = store.state.search.totalResults;
     }
 

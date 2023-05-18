@@ -22,6 +22,13 @@
       id="default"
       role="main"
     >
+      <client-only
+        v-if="!!notificationBanner"
+      >
+        <NotificationBanner
+          :notification-text="$t(`notificationBanner.text.${notificationBanner}`)"
+        />
+      </client-only>
       <b-breadcrumb
         v-if="breadcrumbs"
         :items="breadcrumbs"
@@ -51,6 +58,7 @@
       class="b-toaster-bottom-left-dynamic"
       :style="{'--bottom': toastBottomOffset }"
     />
+    <ErrorModal />
     <client-only>
       <PageCookieConsent
         v-if="cookieConsentRequired"
@@ -63,6 +71,8 @@
   import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+  import ErrorModal from '../components/error/ErrorModal';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import makeToastMixin from '@/mixins/makeToast';
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import versions from '../../pkg-versions';
@@ -78,10 +88,13 @@
       PageCookieConsent: () => import('../components/PageCookieConsent'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification')
+      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification'),
+      NotificationBanner: () => import('@/components/generic/NotificationBanner'),
+      ErrorModal
     },
 
     mixins: [
+      canonicalUrlMixin,
       makeToastMixin
     ],
 
@@ -94,7 +107,8 @@
         cookieConsentRequired: false,
         toastBottomOffset: '20px',
         featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
-        featureNotificationExpiration: this.$config.app.featureNotificationExpiration
+        featureNotificationExpiration: this.$config.app.featureNotificationExpiration,
+        notificationBanner: this.$config?.app?.notificationBanner
       };
     },
 
@@ -107,6 +121,7 @@
           ...i18nHead.htmlAttrs
         },
         link: [
+          { rel: 'icon', href: require('@europeana/style/img/favicon.ico').default, type: 'image/x-icon' },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
@@ -127,14 +142,6 @@
     computed: {
       breadcrumbs() {
         return this.$store.state.breadcrumb.data;
-      },
-
-      canonicalUrl() {
-        return this.$store.getters['http/canonicalUrl'];
-      },
-
-      canonicalUrlWithoutLocale() {
-        return this.$store.getters['http/canonicalUrlWithoutLocale'];
       },
 
       newFeatureNotificationEnabled() {
@@ -190,7 +197,10 @@
 
           this.klaro.render(config, true);
           manager.watch({ update: this.watchKlaroManagerUpdate });
-          this.setToastBottomOffset();
+
+          setTimeout(() => {
+            this.setToastBottomOffset();
+          }, 100);
         }
       },
 
@@ -213,7 +223,7 @@
       },
 
       trackKlaroClickEvent(eventName) {
-        this.$matomo && this.$matomo.trackEvent('Klaro', 'Clicked', eventName);
+        this.$matomo?.trackEvent('Klaro', 'Clicked', eventName);
       },
 
       setToastBottomOffset() {
@@ -223,3 +233,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep .notification-banner.d-flex ~ .home {
+    margin-top: -9.2rem;
+  }
+</style>

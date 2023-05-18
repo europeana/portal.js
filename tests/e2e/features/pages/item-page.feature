@@ -50,7 +50,7 @@ Feature: item page
   Scenario: One related entity
     When I open `"The Milkmaid" item page`
     Then I see `related entities`
-    And I see the `Painting related chip` in the `related entities`
+    And I see the `Art of painting related chip` in the `related entities`
 
   Scenario: Multiple related entities
     When I open the `"Het laatste avondmaal" item page`
@@ -59,7 +59,7 @@ Feature: item page
     And I see the `Paper related chip` in the `related entities`
     And I see the `Print related chip` in the `related entities`
     And I see the `Leonardo da Vinci related chip` in the `related entities`
-    And I see the `Rijksmuseum related chip` in the `related entities`
+    And I see the `data provider badge` in the `data provider attribution`
 
   Scenario: Metadata in another language
     When I open the `"Hammerflügel" item page`

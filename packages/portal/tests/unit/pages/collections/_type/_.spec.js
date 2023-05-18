@@ -39,18 +39,6 @@ const topicEntity = {
   pathMatch: '01234567890-topic'
 };
 
-const themeEntity = {
-  entity: {
-    id: 'http://data.europeana.eu/concept/62',
-    note: { en: 'example of a theme description' },
-    isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
-    prefLabel: { en: 'Theme' },
-    type: 'Concept'
-  },
-  type: 'topic',
-  pathMatch: '62-theme'
-};
-
 const agentEntity = {
   entity: {
     id: 'http://data.europeana.eu/concept/60305',
@@ -63,31 +51,17 @@ const agentEntity = {
   pathMatch: '60305-william-shakespeare'
 };
 
-const contentfulPageResponse = {
-  data: {
-    data: {
-      entityPage: {
-        items: []
-      },
-      curatedEntities: {
-        items: []
-      }
-    }
-  }
-};
-const contentfulQueryStub = sinon.stub().resolves(contentfulPageResponse);
 const redirectToPrefPathStub = sinon.stub();
 
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
   mocks: {
-    $features: {},
+    $auth: {
+      userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
+    },
     $fetchState: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
     $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
-    $contentful: {
-      query: contentfulQueryStub
-    },
     $apis: {
       entity: {
         get: options.get || sinon.stub().resolves({}),
@@ -99,15 +73,17 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       }
     },
     $i18n: {
-      locale: 'en',
-      isoLocale: () => 'en-GB'
+      locale: 'en'
     },
-    $path: () => '/',
-    $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
+    localePath: sinon.stub().returns('/'),
+    $error: sinon.spy(),
     $store: {
       state: {
         entity: {
           entity: options.entity
+        },
+        search: {
+          view: 'grid'
         }
       },
       getters: {
@@ -120,9 +96,9 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   },
   stubs: {
     'client-only': true,
-    'EntityRelatedCollections': true,
+    'EntityRelatedCollectionsCard': true,
     'SearchInterface': {
-      template: '<div><slot /><slot name="related" /><slot name="after-results" /></div>'
+      template: '<div><slot /><slot name="related-galleries" /><slot name="related-collections" /><slot name="after-results" /></div>'
     }
   }
 });
@@ -156,66 +132,29 @@ describe('pages/collections/_type/_', () => {
     });
 
     describe('on errors', () => {
-      it('throws an error', async() => {
+      it('handles errors via $error', async() => {
         const apiError = new Error({ message: 'No collection found' });
-
         const wrapper = factory({ get: sinon.stub().rejects(apiError) });
-
-        await expect(wrapper.vm.fetch()).rejects.toThrowError();
-        await expect(wrapper.vm.fetch()).rejects.toEqual(apiError);
-      });
-
-      it('displays an illustrated error message for 404 status', async() => {
-        const apiError = new Error({ message: 'No collection found' });
-        apiError.statusCode = 404;
-
-        const wrapper = factory({ get: sinon.stub().rejects(apiError) });
-
-        let error;
-        try {
-          await wrapper.vm.$fetch();
-        } catch (e) {
-          error = e;
-        }
-
-        expect(error.titlePath).toBe('errorMessage.pageNotFound.title');
-        expect(error.illustrationSrc).toBe('il-page-not-found.svg');
-      });
-    });
-
-    describe('collection page', () => {
-      const requestMade = async(curatedEntities) => {
-        const wrapper = factory(topicEntity);
-        wrapper.vm.$store.state.entity.curatedEntities = curatedEntities;
 
         await wrapper.vm.fetch();
 
-        return wrapper.vm.$contentful.query.calledWith('collectionPage', {
-          identifier: topicEntity.entity.id,
-          locale: 'en-GB',
-          preview: false
-        });
-      };
-
-      describe('when it is not known whether the entity has one', () => {
-        const curatedEntities = null;
-        it('is requested from Contentful', async() => {
-          expect(await requestMade(curatedEntities)).toBe(true);
-        });
+        expect(wrapper.vm.$error.calledWith(apiError)).toBe(true);
       });
+    });
 
-      describe('when it is known that the entity has one', () => {
-        const curatedEntities = [{ identifier: topicEntity.entity.id }];
-        it('is requested from Contentful', async() => {
-          expect(await requestMade(curatedEntities)).toBe(true);
-        });
-      });
+    describe('when user is entities editor', () => {
+      it('finds and stores the collection\'s pinned items', async() => {
+        const setId = 'http://data.europeana.eu/set/123';
+        const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
+        const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
+        sinon.stub(wrapper.vm, 'findEntityBestItemsSet').resolves(setId);
+        sinon.stub(wrapper.vm, 'fetchEntityBestItemsSetPinnedItems');
 
-      describe('when it is known that the entity does not have one', () => {
-        const curatedEntities = [{}];
-        it('is not requested from Contentful', async() => {
-          expect(await requestMade(curatedEntities)).toBe(false);
-        });
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.findEntityBestItemsSet.calledWith(topicEntity.entity.id)).toBe(true);
+        expect(wrapper.vm.$store.commit.calledWith('entity/setBestItemsSetId', setId)).toBe(true);
+        expect(wrapper.vm.fetchEntityBestItemsSetPinnedItems.calledWith(setId)).toBe(true);
       });
     });
   });
@@ -250,10 +189,8 @@ describe('pages/collections/_type/_', () => {
     describe('editable', () => {
       const editableOptions = {
         ...organisationEntity,
-        mocks: {
-          $features: { entityManagement: true },
-          $auth: { user: { 'resource_access': { entities: { roles: ['editor'] } } } }
-        }
+        userHasClientRoleStub: sinon.stub().returns(false)
+          .withArgs('entities', 'editor').returns(true)
       };
 
       it('is truthy if all criteria are met', () => {
@@ -262,19 +199,6 @@ describe('pages/collections/_type/_', () => {
         const editable = wrapper.vm.editable;
 
         expect(editable).toBeTruthy();
-      });
-
-      it('is falsy if entityManagement feature is disabled', () => {
-        const wrapper = factory({
-          ...editableOptions,
-          mocks: {
-            $features: { entityManagement: false }
-          }
-        });
-
-        const editable = wrapper.vm.editable;
-
-        expect(editable).toBeFalsy();
       });
 
       it('is falsy if entity is absent', () => {
@@ -291,9 +215,7 @@ describe('pages/collections/_type/_', () => {
       it('is falsy if user is unauthorized', () => {
         const wrapper = factory({
           ...editableOptions,
-          mocks: {
-            $auth: { user: { 'resource_access': { entities: { roles: [] } } } }
-          }
+          userHasClientRoleStub: sinon.stub().returns(false)
         });
 
         const editable = wrapper.vm.editable;
@@ -319,12 +241,6 @@ describe('pages/collections/_type/_', () => {
 
         const contextLabel = wrapper.vm.contextLabel;
         expect(contextLabel).toBe('cardLabels.organisation');
-      });
-      it('returns the label for a theme', () => {
-        const wrapper = factory(themeEntity);
-
-        const contextLabel = wrapper.vm.contextLabel;
-        expect(contextLabel).toBe('cardLabels.theme');
       });
     });
 
@@ -355,15 +271,6 @@ describe('pages/collections/_type/_', () => {
         expect(title).toEqual({ code: null, values: [undefined] });
       });
 
-      it('favours the editorial title if present', () => {
-        const wrapper = factory(organisationEntity);
-        wrapper.setData({ page: { name: 'Editorial name' } });
-
-        const title = wrapper.vm.title.values[0];
-
-        expect(title).toEqual('Editorial name');
-      });
-
       it('uses the native language name for organisations', () => {
         const wrapper = factory(organisationEntity);
 
@@ -392,15 +299,6 @@ describe('pages/collections/_type/_', () => {
     });
 
     describe('description', () => {
-      it('uses the editorial description, if available', () => {
-        const wrapper = factory(organisationEntity);
-        wrapper.setData({ page: { description: 'Editorial description' } });
-
-        const description = wrapper.vm.description.values;
-
-        expect(description).toEqual(['Editorial description']);
-      });
-
       it('uses the entity note, if present', () => {
         const wrapper = factory(topicEntity);
 
@@ -449,103 +347,8 @@ describe('pages/collections/_type/_', () => {
     });
   });
 
-  describe('relatedCollectionCards', () => {
-    afterEach(() => {
-      contentfulQueryStub.resolves(contentfulPageResponse);
-    });
-
-    describe('when there are related collections', () => {
-      it('formats and returns the cards', async() => {
-        const contentfulPageResponseWithRelatedOverrides = {
-          data: {
-            data: {
-              entityPage: {
-                items: [
-                  {
-                    hasPartCollection: {
-                      items: []
-                    },
-                    relatedLinksCollection: {
-                      items: [
-                        {
-                          identifier: 'http://data.europeana.eu/concept/48',
-                          name: 'Photograph',
-                          nameEN: 'Photograph',
-                          image: 'Contentful image object'
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              curatedEntities: {
-                items: [{ identifier: topicEntity.entity.id }]
-              }
-            }
-          }
-        };
-        contentfulQueryStub.resolves(contentfulPageResponseWithRelatedOverrides);
-        const curatedEntities = [{ identifier: topicEntity.entity.id }];
-        const wrapper = factory(topicEntity);
-        wrapper.vm.$store.state.entity.curatedEntities = curatedEntities;
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.relatedCollectionCards).toStrictEqual([
-          {
-            id: 'http://data.europeana.eu/concept/48',
-            prefLabel: { en: 'Photograph' },
-            image: 'Contentful image object'
-          }
-        ]);
-      });
-    });
-
-    describe('when there are no related collections', () => {
-      it('returns null', () => {
-        const wrapper = factory(topicEntity);
-
-        expect(wrapper.vm.relatedCollectionCards).toBe(null);
-      });
-    });
-  });
-
   describe('redirecting for slug labels', () => {
-    describe('when entity has a named collection page', () => {
-      const data = { page: { name: 'Geography', nameEN: 'Geography', hasPartCollection: { items: [] } } };
-
-      it('uses the english name', async() => {
-        const wrapper = factory(topicEntity);
-
-        wrapper.vm.redirectToPrefPath = redirectToPrefPathStub;
-
-        wrapper.vm.$store.state.entity.curatedEntities = [topicEntity];
-        wrapper.vm.$store.state.entity.id = topicEntity.entity.id;
-        await wrapper.setData(data);
-
-        await wrapper.vm.fetch();
-        expect(redirectToPrefPathStub.calledWith('collections-type-all', 'http://data.europeana.eu/concept/01234567890', 'Geography', sinon.match.object)).toBe(true);
-      });
-    });
-
-    describe('when using another locale and the entity has a named collection page', () => {
-      const data = { page: { name: 'Geographie', nameEN: 'Geography', hasPartCollection: { items: [] } } };
-
-      it('uses the english name', async() => {
-        const wrapper = factory(topicEntity);
-
-        wrapper.vm.redirectToPrefPath = redirectToPrefPathStub;
-
-        wrapper.vm.$store.state.entity.curatedEntities = [topicEntity];
-        wrapper.vm.$store.state.entity.id = topicEntity.entity.id;
-        await wrapper.setData(data);
-
-        await wrapper.vm.fetch();
-        expect(redirectToPrefPathStub.calledWith('collections-type-all', 'http://data.europeana.eu/concept/01234567890', 'Geography', sinon.match.object)).toBe(true);
-      });
-    });
-
-    describe('when entity has no named collection page, but an English prefLabel', () => {
+    describe('when entity has an English prefLabel', () => {
       it('uses the english prefLabel', async() => {
         const wrapper = factory(topicEntity);
 
@@ -569,13 +372,13 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
-    describe('handleEntityRelatedCollectionsFetched', () => {
-      it('is triggered by fetched event on related entities component', () => {
+    describe('handleEntityRelatedCollectionsCardFetched', () => {
+      it('is triggered by entitiesFromUrisFetched event on related entities component', () => {
         const wrapper = factory(topicEntity);
         const relatedCollections = [{ id: 'http://data.europeana.eu/concept/3012' }];
 
         const relatedEntitiesComponent = wrapper.find('[data-qa="related entities"]');
-        relatedEntitiesComponent.vm.$emit('fetched', relatedCollections);
+        relatedEntitiesComponent.vm.$emit('entitiesFromUrisFetched', relatedCollections);
 
         expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
       });

@@ -1,0 +1,69 @@
+.icon-license-pd::before {
+  content: '\e910';
+}
+
+.icon-license-zero::before {
+  content: '\e919';
+}
+
+.icon-license-cc::before {
+  content: '\e90b';
+}
+
+.icon-license-by::before {
+  content: '\e90a';
+}
+
+.icon-license-nc::before {
+  content: '\e90e';
+}
+
+.icon-license-nd::before {
+  content: '\e90f';
+}
+
+.icon-license-sa::before {
+  content: '\e915';
+}
+
+.icon-license-rs-yes::before {
+  content: '\e914';
+}
+
+.icon-license-rs-no::before {
+  content: '\e912';
+}
+
+.icon-license-rs-unknown::before {
+  content: '\e913';
+}
+
+.icon-license-rr::before {
+  content: '\e91a';
+}
+
+.attribution {
+  color: $greyblack;
+  text-decoration: none;
+
+  > span {
+    white-space: nowrap;
+  }
+
+  &:hover {
+    color: $blue;
+    text-decoration: none;
+  }
+
+  .icon-external-link {
+    font-size: $font-size-small;
+    padding-left: 0.5rem;
+  }
+
+  .license {
+    @extend %icon-font;
+
+    display: inline-block;
+    margin-right: 0.25rem;
+  }
+}

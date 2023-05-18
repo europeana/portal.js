@@ -1,25 +1,33 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vuex from 'vuex';
+import sinon from 'sinon';
 
 import SocialShare from '@/components/sharing/SocialShare.vue';
 
 const localVue = createLocalVue();
-localVue.use(Vuex);
-
-const store = new Vuex.Store({
-  getters: {
-    'http/canonicalUrlWithoutLocale': () => 'https://www.example.org/page'
-  }
-});
 
 const factory = () => shallowMount(SocialShare, {
   localVue,
-  store,
-  stubs: ['b-link'],
+  attachTo: document.body,
+  stubs: ['b-button'],
   propsData: {
     mediaUrl: '/img/portrait.jpg'
   },
   mocks: {
+    $config: {
+      app: {
+        baseUrl: 'https://www.example.org'
+      }
+    },
+    $i18n: {
+      locale: 'fr'
+    },
+    $route: {
+      fullPath: '/page',
+      path: '/page'
+    },
+    $matomo: {
+      trackEvent: sinon.spy()
+    },
     $t: () => {}
   }
 });
@@ -49,6 +57,17 @@ describe('components/sharing/SocialShare', () => {
       expect(pinterest.attributes().href.startsWith('https://pinterest.com/pin/create/link')).toBe(true);
       expect(pinterest.attributes().href).toContain('https://www.example.org/page');
       expect(pinterest.attributes().href).toContain('/img/portrait.jpg');
+    });
+  });
+
+  describe('when a share button is clicked', () => {
+    it('tracks the share even to matomo', async() => {
+      const wrapper = factory();
+      const mockUrl = 'https://example.facebook.eu';
+
+      wrapper.vm.trackShare({ url: mockUrl });
+
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_share', 'Click social share button', mockUrl)).toBe(true);
     });
   });
 });

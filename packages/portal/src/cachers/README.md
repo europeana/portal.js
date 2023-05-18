@@ -77,6 +77,13 @@ for the featured topic IDs.
 
 Localised.
 
+### `galleries`
+
+#### `galleries:recent`
+
+Retrieves and caches the 4 most recent published "galleries" from the Europeana
+User Set API.
+
 ### `items`
 
 #### `items:recent`

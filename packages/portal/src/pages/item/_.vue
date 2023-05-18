@@ -1,7 +1,8 @@
 <template>
   <div
     data-qa="item page"
-    :class="$fetchState.error && 'white-page'"
+    class="page white-page"
+    :class="$fetchState.error && 'pt-0'"
   >
     <b-container
       v-if="$fetchState.pending"
@@ -16,20 +17,19 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="error message container"
-      :error="$fetchState.error.message"
-      :title-path="$fetchState.error.titlePath"
-      :description-path="$fetchState.error.descriptionPath"
-      :illustration-src="$fetchState.error.illustrationSrc"
+      :error="$fetchState.error"
       class="pt-5"
     />
     <template
       v-else
     >
-      <client-only>
+      <!-- render item language selector inside IIIF wrapper so the iframe can take the available width becoming available upon closing -->
+      <client-only v-if="!iiifPresentationManifest">
         <ItemLanguageSelector
-          v-if="translatedItemsEnabled"
+          v-if="translatedItemsEnabled && showItemLanguageSelector"
           :from-translation-error="fromTranslationError"
           :metadata-language="metadataLanguage"
+          @hidden="() => showItemLanguageSelector = false"
         />
       </client-only>
       <b-container
@@ -39,12 +39,26 @@
         <ItemHero
           :all-media-uris="allMediaUris"
           :identifier="identifier"
-          :media="media"
+          :media="webResources"
           :edm-rights="edmRights"
           :edm-type="type"
           :attribution-fields="attributionFields"
+          :link-for-contributing-annotation="linkForContributingAnnotation"
           :entities="europeanaEntities"
-        />
+          :provider-url="isShownAt"
+          :iiif-presentation-manifest="iiifPresentationManifest"
+        >
+          <template slot="item-language-selector">
+            <client-only>
+              <ItemLanguageSelector
+                v-if="translatedItemsEnabled && showItemLanguageSelector"
+                :from-translation-error="fromTranslationError"
+                :metadata-language="metadataLanguage"
+                @hidden="() => showItemLanguageSelector = false"
+              />
+            </client-only>
+          </template>
+        </ItemHero>
       </b-container>
       <b-container
         class="footer-margin"
@@ -60,32 +74,25 @@
             />
           </b-col>
         </b-row>
-        <client-only
-          v-if="relatedEntityUris.length > 0"
-        >
-          <b-row
-            class="justify-content-center"
-          >
-            <b-col
-              cols="12"
-              class="col-lg-10 mt-4"
-            >
-              <RelatedCollections
-                :entity-uris="relatedEntityUris"
-                data-qa="related entities"
-                badge-variant="light"
-              />
-            </b-col>
-          </b-row>
-        </client-only>
         <b-row
-          v-else
-          class="mb-3"
-        />
-        <b-row class="mb-3 justify-content-center">
+          class="provider-row mb-3 justify-content-center"
+        >
           <b-col
             cols="12"
             class="col-lg-10"
+          >
+            <ItemDataProvider
+              :data-provider="!dataProviderEntityUri ? metadata.edmDataProvider : null"
+              :data-provider-entity="dataProviderEntity"
+              :metadata-language="metadataLanguage"
+              :is-shown-at="isShownAt"
+            />
+          </b-col>
+        </b-row>
+        <b-row class="mb-3 justify-content-center">
+          <b-col
+            cols="12"
+            class="col-lg-10 mt-3"
           >
             <MetadataBox
               :metadata="fieldsAndKeywords"
@@ -95,6 +102,23 @@
             />
           </b-col>
         </b-row>
+        <client-only
+          v-if="relatedCollections.length > 0"
+        >
+          <b-row
+            class="justify-content-center"
+          >
+            <b-col
+              cols="12"
+              class="col-lg-10 mt-4"
+            >
+              <EntityBadges
+                :related-collections="relatedCollections"
+                data-qa="related entities"
+              />
+            </b-col>
+          </b-row>
+        </client-only>
         <client-only>
           <!--
             NOTE: dcType/title does not make sense here, but leave it alone as
@@ -126,8 +150,8 @@
 
 <script>
   import isEmpty from 'lodash/isEmpty';
-  import { mapGetters } from 'vuex';
 
+  import ItemDataProvider from '@/components/item/ItemDataProvider';
   import ItemHero from '@/components/item/ItemHero';
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -135,24 +159,28 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/mixins/stringify';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'ItemPage',
     components: {
-      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      ItemDataProvider,
       ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
       LoadingSpinner,
       MetadataBox,
-      RelatedCollections: () => import('@/components/related/RelatedCollections'),
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
       SummaryInfo: () => import('@/components/item/SummaryInfo')
     },
 
     mixins: [
       stringify,
+      canonicalUrlMixin,
       pageMetaMixin
     ],
 
@@ -166,6 +194,8 @@
         concepts: [],
         description: null,
         error: null,
+        relatedCollections: [],
+        dataProviderEntity: null,
         fromTranslationError: null,
         identifier: `/${this.$route.params.pathMatch}`,
         isShownAt: null,
@@ -178,7 +208,9 @@
         type: null,
         useProxy: true,
         schemaOrg: null,
-        metadataLanguage: null
+        metadataLanguage: null,
+        showItemLanguageSelector: true,
+        iiifPresentationManifest: null
       };
     },
 
@@ -191,30 +223,25 @@
         for (const key in response.record) {
           this[key] = response.record[key];
         }
+
         if (process.client) {
           this.trackCustomDimensions();
         }
-      } catch (error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = error.statusCode || 500;
-        }
-        if (error.statusCode === 404) {
-          error.titlePath = 'errorMessage.itemNotFound.title';
-          error.descriptionPath = 'errorMessage.itemNotFound.description';
-          error.pageTitlePath = 'errorMessage.itemNotFound.metaTitle';
-          error.illustrationSrc = require('@/assets/img/illustrations/il-item-not-found.svg');
-        }
-        throw error;
+      } catch (e) {
+        this.$error(e, { scope: 'item' });
       }
     },
 
     computed: {
+      webResources() {
+        return this.media.map((webResource) => new WebResource(webResource, this.identifier));
+      },
       pageMeta() {
         return {
           title: this.titlesInCurrentLanguage[0]?.value || this.$t('record.record'),
           description: isEmpty(this.descriptionInCurrentLanguage) ? '' : (this.descriptionInCurrentLanguage.values[0] || ''),
           ogType: 'article',
-          ogImage: this.media[0]?.thumbnails?.large
+          ogImage: this.webResources[0]?.thumbnails(this.$nuxt.context)?.large
         };
       },
       keywords() {
@@ -280,17 +307,23 @@
         }
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
+      dataProviderEntityUri() {
+        return this.metadata.edmDataProvider?.def?.[0].about || null;
+      },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
       },
       transcribingAnnotations() {
         return this.annotationsByMotivation('transcribing');
       },
-      ...mapGetters({
-        shareUrl: 'http/canonicalUrlWithoutLocale'
-      }),
+      linkForContributingAnnotation() {
+        return this.annotationsByMotivation('linkForContributing')[0]?.body;
+      },
+      shareUrl() {
+        return this.canonicalUrlWithoutLocale;
+      },
       relatedEntityUris() {
-        return this.europeanaEntityUris.slice(0, 5);
+        return this.europeanaEntityUris.filter(entityUri => entityUri !== this.dataProviderEntityUri).slice(0, 5);
       },
       translatedItemsEnabled() {
         return this.$features.translatedItems;
@@ -308,10 +341,14 @@
     watch: {
       '$route.query.lang'() {
         this.$fetch();
+      },
+      'relatedEntityUris'() {
+        this.fetchEntities();
       }
     },
 
     mounted() {
+      this.fetchEntities();
       this.fetchAnnotations();
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
@@ -338,21 +375,58 @@
           query: `target_record_id:"${this.identifier}"`,
           profile: 'dereference'
         });
+      },
+
+      async fetchEntities() {
+        const params = {
+          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo'
+        };
+        if (this.dataProviderEntityUri) {
+          // Fetch related entities and the dataProvider entity.
+          // If the entities can't be fetched, use existing data from the record for the dataProvider section
+          try {
+            const entities = await this.$apis.entity.find([...this.relatedEntityUris, this.dataProviderEntityUri], params);
+
+            if (entities)  {
+              this.relatedCollections = entities.filter(entity => entity.id !== this.dataProviderEntityUri);
+              this.dataProviderEntity = entities.filter(entity => entity.id === this.dataProviderEntityUri)[0];
+            }
+          } catch {
+            // don't fall over
+          } finally {
+            if (!this.dataProviderEntity) {
+              const prefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
+              if (prefLabel) {
+                Object.keys(prefLabel).forEach((key) => {
+                  if (Array.isArray(prefLabel[key])) {
+                    prefLabel[key] = prefLabel[key][0];
+                  }
+                });
+                this.dataProviderEntity = { id: this.dataProviderEntityUri, prefLabel, type: 'Organization' };
+              }
+            }
+          }
+        } else {
+          const entities  = await this.$apis.entity.find(this.relatedEntityUris, params);
+          if (entities)  {
+            this.relatedCollections = entities;
+          }
+        }
       }
     }
   };
 </script>
 
-<style scoped>
-  .related-collections {
-    margin-top: -0.5rem;
-    margin-bottom: 2rem;
-    padding: 0;
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .page {
+    padding-top: 2rem
   }
 
-  ::v-deep .related-collections .badge-light {
-    margin-top: 0.25rem;
-    margin-right: 0.5rem;
+  .related-collections {
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
   }
 
   ::v-deep .card-header-tabs {

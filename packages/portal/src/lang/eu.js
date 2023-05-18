@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Oraindik ez duzu bildumarik hautatu",
         "private": "Oraindik ez duzu bilduma pribaturik sortu",
-        "public": "Oraindik ez duzu bilduma publikorik sortu"
+        "public": "Oraindik ez duzu bilduma publikorik sortu",
+        "published": "Oraindik ez duzu galeriarik argitaratu"
       },
       "noLikedItems": "Oraindik ez duzu ezein elementu atsegin"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Nire gustukoak & Bildumak",
     "profileSettings": "Profilaren ezarpenak",
     "publicCollections": "Bilduma publikoak",
+    "publishedCollections": "Argitaratutako Galeriak",
     "settings": "Ezarpenak",
     "title": "Nire kontua"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Utzi",
     "close": "itxi",
     "continue": "jarraitu",
+    "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
     "edit": "Editatu",
     "feedback": "Iritzia",
-    "goBack": "Atzera egin",
     "goHome": "Joan hasierako orrialdera",
     "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
@@ -43,13 +45,18 @@ export default {
     "pin": "Pin",
     "preview": "Aurrebista",
     "previous": "Aurrekoa",
-    "providedBy": "{provider} emanda",
+    "publish": "Argitaratu",
     "reject": "Baztertu",
+    "requestDepublication": "Argitalpenik ez egiteko eskaera",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
-    "skip": "Saltatu",
+    "skipSend": "Saltatu eta bidali",
+    "submitForPublication": "Bidali argitaratzeko",
+    "submittedForPublication": "Argitalpenerako aurkeztu da",
+    "transcribe": "Transkribatu",
+    "transcribeNow": "Transkribatu orain",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Izenburua:"
   },
   "automatedCardGroup": {
+    "gallery": "Galeriak",
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
     "place": "Lekuak",
+    "theme": "Gaiak",
     "time": "Mende aipagarriak",
     "topic": "Nabarmendutako gaiak"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Gaia",
     "time": "Mendea",
     "topic": "Gai"
+  },
+  "categories": {
+    "label": "Esploratu istorioak etiketaren arabera",
+    "noOptions": "Ez dago etiketa gehiago hautatzeko",
+    "search": "Esploratu istorioak etiketaren arabera"
   },
   "clearAllFilters": "Iragazki guztiak garbitu",
   "collections": {
@@ -195,9 +209,6 @@ export default {
     },
     "notifications": {
       "deleted": "Zure galeria ezabatu egin da.",
-      "error": {
-        "unpin": "Errore bat gertatu da elementua kentzean. Mesedez, saiatu berriro edo jakinarazi arazoa."
-      },
       "pin": "Elementu hau \" {entity} \" bildumaren goialdean agertuko da. Aldaketa hau bilduma-orrian ikusgai izango denean jakinaraziko dizugu.",
       "pinLimit": {
         "body": "Oraingoz 24 elementu soilik leheneratu ditzakezu lehen orrian. Elementu hau itsatsi nahi baduzu, ziurtatu beste bat ainguratzen duzula eta saiatu berriro ainguratzen.",
@@ -211,15 +222,39 @@ export default {
   },
   "error": "Akatsa",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Edizioa aldi baterako desgaituta dago, eta zure aldaketak ez dira gorde. Saiatu berriro geroago.",
+      "title": "Eguneratzea huts egin du"
+    },
+    "galleryNotFound": {
+      "description": "Galeria hau ezin izan da aurkitu. Baliteke ezabatu izana.",
+      "title": "Galeria ez da aurkitu"
+    },
     "galleryUnauthorised": {
       "description": "Hau ezinezkoa da galeria pribatuak bere sortzaileak soilik ikusten dituelako. Galeriaren sortzailea ezagutzen baduzu, eskatu galeria publiko egiteko. Bestela, jakinarazi arazo hau iritzia botoia erabiliz.",
       "metaTitle": "Baimenik gabeko galeria",
       "title": "Oops! {newline} Beste pertsona baten galeria pribatua ikusten saiatzen ari zara."
     },
+    "genericUnknownError": {
+      "description": "Errore ezezagun bat gertatu da.",
+      "title": "Errore ezezaguna"
+    },
     "itemNotFound": {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
+    },
+    "pageNotFound": {
+      "metaTitle": "Ez da orria aurkitu",
+      "title": "Bilatzen ari zaren orria ez da existitzen."
+    },
+    "pinningNotFound": {
+      "description": "Errore bat gertatu da elementua ainguratzean/desaingatzean. Mesedez, saiatu berriro edo jakinarazi arazoa.",
+      "title": "Ez da aurkitu bilduma komisarioa"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Lehen {limit} bilaketa-emaitzak soilik ikus daitezke.",
+      "title": "Orrialde-muga gainditu da"
     },
     "searchResultsNotFound": {
       "description": "Mesedez, egokitu bilaketa-terminoa edo berrezarri iragazkiak berriro saiatzeko.",
@@ -612,6 +647,7 @@ export default {
   "feedback": {
     "emailOptional": "Baliteke jarraipena egitea nahi izatea. Idatzi zure posta elektronikoa gu zurekin harremanetan jartzeko pozik bazaude.",
     "failed": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+    "faq": "Joan maiz egindako galderak",
     "form": {
       "placeholders": {
         "email": "Idatzi zure helbide elektronikoa",
@@ -703,6 +739,7 @@ export default {
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
+      "faq": "Maiz Egindako Galderak",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
@@ -847,14 +884,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Arbelera kopiatu da",
     "externalContentError": "Ezin izan da kanpoko edukia kargatu",
-    "notFound": "Ez da aurkitu",
-    "paginationLimitExceeded": "Bilaketaren lehen {limit} emaitzak besterik ezin dira ikusi."
+    "notFound": "Ez da aurkitu"
   },
   "modal": {
     "download": {
       "clickToCopy": "Egin klik atribuzioan kopiatzeko",
       "modalIntro": "Elementu hau webean edo beste nonbait erabiltzen baduzu, ez ahaztu atribuzio hau bistaratzea ondoan:",
       "modalTitle": "Eskerrik asko"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Beheko \"Erakunde hornitzailea\" botoian klik egitea gomendatzen dizugu, elementua erakunde hornitzailearen webgunean deskargatu daitekeen egiaztatzeko.",
+      "message": "Deskargak ez badu funtzionatzen, baliteke erakunde hornitzaileak kendu duelako edo haien zerbitzuarekin arazo tekniko bat egotea.",
+      "title": "Deskargak ez du funtzionatzen"
+    },
+    "transcribe": {
+      "message": "Etor zaitez gurekin Europeana Transcribe-n, Europeana-ren bildumak aberasteko lineako herritarren ekimenean",
+      "title": "Transkribatu elementu hau"
     }
   },
   "multilingual": {
@@ -867,14 +912,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
-    "readMore": "Gehiago irakurri",
+    "readMore": "Ezagutu istorioak",
     "text": {
-      "searchFilters": "Orain balioak bila ditzakezu iragazki indibidualetan; begiratu ezazu!"
+      "storiesTags": "Begiratu eguneratutako istorio-orria. Orain bilatu eta etiketekin iragazi dezakezu."
     }
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "De",
   "organisation": {
     "city": "Hiria",
@@ -913,6 +961,10 @@ export default {
   "pagination": {
     "label": "Paginazioa"
   },
+  "provider": {
+    "linkText": "Hornitzailearen webgunean ikusi",
+    "providedBy": "Elementu hau {provider} k hornitu eta mantentzen du"
+  },
   "readMore": "Gehiago irakurri",
   "recommendation": {
     "prompts": {
@@ -926,7 +978,6 @@ export default {
     },
     "allMetaData": "Metadatu guztiak",
     "copyEmbedLabel": "Embed kodea (Egin klik kopiatzeko)",
-    "exploreMore": "Gehiago arakatu",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
@@ -948,13 +999,24 @@ export default {
       "title": "Ezagutu erlazionatutako istorioak"
     },
     "collections": {
+      "name": "Lotutako bildumak",
       "title": "Ezagutu erlazionatutako bildumak"
     },
     "editorial": {
       "title": "Gustuko izan ditzakezun istorioak"
+    },
+    "galleries": {
+      "name": "Lotutako galeriak",
+      "title": "Ezagutu erlazionatutako galeriak"
+    },
+    "items": {
+      "loginForMore": "Hasi saioa erlazionatutako beste elementu batzuk ikusteko",
+      "title": "Ezagutu erlazionatutako elementuak"
+    },
+    "themes": {
+      "title": "Ezagutu erlazionatutako gaiak"
     }
   },
-  "relatedCollections": "Lotutako bildumak",
   "removeFilter": "Kendu {filterLabel} iragazkia",
   "reset": "Berrezarri",
   "resourceWikimedia": "Wikimedia Commons-eko baliabidea",
@@ -1000,15 +1062,20 @@ export default {
       "edit": "Bilduma editatu",
       "update": "Bilduma eguneratu"
     },
+    "entityBestBets": {
+      "title": "{entity} Orria"
+    },
     "form": {
       "description": "Bildumaren deskribapena",
       "private": "Bilduma hau pribatu gisa mantendu",
+      "privateWarning": "Ekintza horrek galeriaren argitalpena baliogabetuko du.",
       "required": "Beharrezko eremua",
       "title": "Bildumaren izena"
     },
     "labels": {
       "curatedBy": "Komisarioa",
-      "private": "Bilduma pribatua"
+      "private": "Bilduma pribatua",
+      "published": "Argitaratutako galeria"
     },
     "notifications": {
       "deleted": "Bilduma ezabatu egin da.",
@@ -1016,12 +1083,34 @@ export default {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
       },
-      "updated": "Elementua galerian gehitu da."
+      "updated": "Elementua galerian gehitu da.",
+      "visibilityChanged": "Abisua: ezarri ikusgarritasuna dagoeneko aldatu da eta une honetan \" {visibility} \" da."
     },
     "prompts": {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
+    },
+    "publication": {
+      "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
+      "failedSubmission": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+      "process": {
+        "description": "Galeria bat argitaratzeko bidaltzen duzunean, Europeana-ko argitaletxe talde bati jakinaraziko zaio. Lehenik eta behin aztertuko dute, eta aldaketak egin ditzakete argitaratu aurretik. Galeria berrikusten den heinean jakinarazpenak jasoko dituzu posta elektronikoz. Argitaratzen ez bada, baliteke gure editorialen jarraibideekin bat ez egitea.",
+        "title": "Nola funtzionatzen duen prozesua"
+      },
+      "time": {
+        "description": "1-3 egun.",
+        "title": "Zenbat denbora behar duen"
+      },
+      "title": "Bidali galeria argitaratzeko",
+      "toastButton": "Ados",
+      "toastMessage": "Galeria hau argitaratzeko aurkeztu da. {galleries} ikus dezakezu argitaratu den ikusteko."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) web-oinarritutako tresna bat da, mota ezberdinetako edukiak (3D barne) kudeatzeko, kultur ondarea dokumentatzeko komunitate digitalen espazioen bidez eta istorio eta esperientzia digitalak komisariotzeko."
+      }
     }
   },
+  "shareWhere": "Non partekatu nahiko zenuke hau?",
   "showLess": "Gutxiago erakutsi",
   "showMore": "Gehiago erakutsi",
   "sideFilters": {
@@ -1033,7 +1122,12 @@ export default {
     "pinned": "Ainguratuta"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} istorio aurkitu dira",
     "title": "Istorioak"
+  },
+  "themes": {
+    "description": "Arakatu gaiaren arabera",
+    "themes": "Gaiak"
   },
   "website": "Webgunea"
 };

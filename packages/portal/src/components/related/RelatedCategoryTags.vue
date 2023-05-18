@@ -7,7 +7,7 @@
     >
       <h2
         v-if="heading"
-        class="related-heading text-uppercase mb-2"
+        class="related-heading text-uppercase"
       >
         {{ $t('related.categoryTags.title') }}
       </h2>
@@ -41,16 +41,23 @@
     name: 'RelatedCategoryTags',
 
     props: {
+      /**
+       * Array of tags
+       */
       tags: {
         type: Array,
         required: true
       },
-
+      /**
+       * Array of tags selected by the user
+       */
       selected: {
         type: Array,
         default: () => []
       },
-
+      /**
+       * Toggle to show or hide the heading
+       */
       heading: {
         type: Boolean,
         default: true
@@ -70,7 +77,7 @@
           route.query = { tags: this.selected.concat(tagId).join(',') };
         }
 
-        return this.$path(route);
+        return this.localePath(route);
       },
       isActive(tagId) {
         return this.selected.includes(tagId);
@@ -86,7 +93,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .icon-ic-tag {
     color: $mediumgrey;
@@ -94,10 +101,10 @@
     font-size: 1.5rem;
     line-height: calc(2rem - 1px);
 
-    @at-root .responsive-font & {
-      @media (min-width: $bp-xxxl) {
-        line-height: 2.25vw;
-        font-size: 1.5vw;
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        line-height: calc(1.5 * calc(2rem - 1px));
+        font-size: calc(1.5 * 1.5rem);
       }
     }
   }
@@ -114,10 +121,42 @@
       }
     }
 
-    @at-root .responsive-font & {
-      @media (min-width: $bp-xxxl) {
-        margin: 0 0.25vw 0.25vw;
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin: 0 calc(1.5 * 0.25rem) calc(1.5 * 0.25rem);
       }
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <RelatedCategoryTags
+    :tags="[
+      {
+      identifier: 'Women\'s history',
+      name: 'Women\'s history'
+      },
+      {
+      identifier: 'Renaissance',
+      name: 'Renaissance'
+      }]"
+  />
+  ```
+  Tags without heading and including some selected
+  ```jsx
+  <RelatedCategoryTags
+    :tags="[
+      {
+      identifier: 'Women\'s history',
+      name: 'Women\'s history'
+      },
+      {
+      identifier: 'Renaissance',
+      name: 'Renaissance'
+      }]"
+    :selected="['Women\'s history']"
+    :heading="false"
+  />
+  ```
+</docs>

@@ -1,69 +1,16 @@
 import pick from 'lodash/pick.js';
-import uniq from 'lodash/uniq.js';
 import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
 import search from './search.js';
-import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail.js';
-import { isIIIFPresentation, isIIIFImage } from '../media.js';
+import Item from './edm/Item.js';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
+import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './media-proxy.js';
 
 export const BASE_URL = 'https://api.europeana.eu/record';
-export const FULLTEXT_BASE_URL = 'https://newspapers.eanadev.org/api/v2';
+export const AUTHENTICATING = true;
 const MAX_VALUES_PER_PROXY_FIELD = 10;
-
-/**
- * Sorts an array of objects by the `isNextInSequence` property.
- *
- * Logic:
- * * Any objects not having `isNextInSequence` will not be moved.
- * * Any objects having `isNextInSequence` will be moved to the position
- *   immediately following the other object whose `about` property matches this
- *   one's `isNextInSequence`
- *
- * @param {Object[]} source items to sort
- * @return {Object[]} sorted items
- * @example
- *    const unsorted = [
- *      { about: 'd', isNextInSequence: 'c' },
- *      { about: 'b', isNextInSequence: 'a' },
- *      { about: 'a' },
- *      { about: 'c', isNextInSequence: 'b' }
- *    ];
- *    const sorted = sortByIsNextInSequence(unsorted);
- *    console.log(sorted[0].about); // expected output: 'a'
- *    console.log(sorted[1].about); // expected output: 'b'
- *    console.log(sorted[2].about); // expected output: 'c'
- *    console.log(sorted[3].about); // expected output: 'd'
- */
-function sortByIsNextInSequence(source) {
-  // Make a copy to work on
-  const items = [].concat(source);
-
-  const itemUris = items.map((item) => item.about);
-
-  for (const uri of itemUris) {
-    // It's necessary to find the item on each iteration to sort as it may have
-    // been moved from its original position by a previous iteration.
-    const sortItemIndex = items.findIndex((item) => item.about === uri);
-    const sortItem = items[sortItemIndex];
-
-    // If it has isNextInSequence property, move it after that item; else
-    // leave it be.
-    if (sortItem.isNextInSequence) {
-      const isPreviousInSequenceIndex = items.findIndex((item) => item.about === sortItem.isNextInSequence);
-      if (isPreviousInSequenceIndex !== -1) {
-        // Remove the item from its original position.
-        items.splice(sortItemIndex, 1);
-        // Insert the item after its predecessor.
-        items.splice(isPreviousInSequenceIndex + 1, 0, sortItem);
-      }
-    }
-  }
-
-  return items;
-}
 
 function isUndefined(value) {
   return value === undefined;
@@ -142,7 +89,6 @@ const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
 
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
-  const thumbnailUrl = thumbnail(context).media;
 
   return {
     $axios,
@@ -221,7 +167,7 @@ export default (context = {}) => {
 
       const metadata = {
         ...lookupEntities(
-          merge.all([proxies, edm.aggregations[0], edm.europeanaAggregation]), entities
+          merge.all([proxies, providerAggregation, edm.europeanaAggregation]), entities
         ),
         europeanaCollectionName: edm.europeanaCollectionName ? {
           url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
@@ -230,21 +176,19 @@ export default (context = {}) => {
         timestampCreated: edm.timestamp_created,
         timestampUpdate: edm.timestamp_update
       };
-      metadata.edmDataProvider = {
-        url: providerAggregation.edmIsShownAt, value: metadata.edmDataProvider
-      };
 
-      const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
+      const item = new Item(edm);
+
       return {
-        allMediaUris,
+        allMediaUris: item.providerAggregation.displayableWebResources.map((wr) => wr.about),
         altTitle: proxies.dctermsAlternative,
         description: proxies.dcDescription,
         fromTranslationError: options.fromTranslationError,
         identifier: edm.about,
         type: edm.type, // TODO: Evaluate if this is used, if not remove.
-        isShownAt: providerAggregation.edmIsShownAt,
+        isShownAt: item.providerAggregation.edmIsShownAt,
         metadata: Object.freeze(metadata),
-        media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type, edm.services),
+        media: item.providerAggregation.displayableWebResources,
         agents,
         concepts,
         timespans,
@@ -252,71 +196,9 @@ export default (context = {}) => {
         places,
         title: proxies.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
-        metadataLanguage: prefLang
+        metadataLanguage: prefLang,
+        iiifPresentationManifest: item.iiifPresentationManifest
       };
-    },
-
-    webResourceThumbnails(webResource, aggregation, recordType) {
-      const type = thumbnailTypeForMimeType(webResource.ebucoreHasMimeType) || recordType;
-
-      let uri = webResource.about;
-      if (aggregation.edmObject && ([aggregation.edmIsShownBy, aggregation.edmIsShownAt].includes(uri))) {
-        uri = aggregation.edmObject;
-      }
-
-      return {
-        small: thumbnailUrl(uri, {
-          size: 200,
-          type
-        }),
-        large: thumbnailUrl(uri, {
-          size: 400,
-          type
-        })
-      };
-    },
-
-    aggregationMediaUris(aggregation) {
-      // Gather all isShownBy/At and hasView URIs
-      const edmIsShownByOrAt = aggregation.edmIsShownBy || aggregation.edmIsShownAt;
-      return uniq([edmIsShownByOrAt].concat(aggregation.hasView || []).filter(isNotUndefined));
-    },
-
-    aggregationMedia(aggregation, mediaUris, recordType, services = []) {
-      // Filter web resources to isShownBy and hasView, respecting the ordering
-      const media = mediaUris
-        .map(mediaUri => aggregation.webResources.find(webResource => mediaUri === webResource.about))
-        .map(reduceWebResource);
-
-      for (const webResource of media) {
-        // Inject thumbnail URLs
-        webResource.thumbnails = this.webResourceThumbnails(webResource, aggregation, recordType);
-
-        // Inject service definitions, e.g. for IIIF
-        webResource.services = services.filter((service) => (webResource.svcsHasService || []).includes(service.about));
-
-        // Add isShownAt to disable download for these webresources as they ar website URLs and not actual media
-        if (webResource.about === aggregation.edmIsShownAt) {
-          webResource.isShownAt = true;
-        }
-      }
-
-      // Crude check for IIIF content, which is to prevent newspapers from showing many
-      // IIIF viewers.
-      //
-      // Also greatly minimises response size, and hydration cost, for IIIF with
-      // many web resources, all of which are contained in a single manifest anyway.
-      let displayable;
-      if (isIIIFPresentation(media[0])) {
-        displayable = [media[0]];
-      } else if (media.some(isIIIFImage)) {
-        displayable = [media.find(isIIIFImage)];
-      } else {
-        displayable = media;
-      }
-
-      // Sort by isNextInSequence property if present
-      return sortByIsNextInSequence(displayable).map(Object.freeze);
     },
 
     /**
@@ -375,7 +257,7 @@ export default (context = {}) => {
             options.fromTranslationError = true;
             return this.getRecord(europeanaId, options);
           }
-          throw apiError(error, context);
+          throw apiError(error);
         });
     },
 
@@ -386,7 +268,7 @@ export default (context = {}) => {
         params['api_url'] = new URL(this.$axios.defaults.baseURL).origin + '/api';
       }
 
-      const proxyUrl = new URL(context.$config?.europeana?.proxy?.media?.url || 'https://proxy.europeana.eu');
+      const proxyUrl = new URL(context.$config?.europeana?.proxy?.media?.url || EUROPEANA_MEDIA_PROXY_URL);
       proxyUrl.pathname = europeanaId;
       proxyUrl.searchParams.append('view', mediaUrl);
 
@@ -405,20 +287,6 @@ const reduceEntity = (entity) => {
     'latitude',
     'longitude',
     'prefLabel'
-  ]);
-};
-
-const reduceWebResource = (webResource) => {
-  return pick(webResource, [
-    'webResourceEdmRights',
-    'about',
-    'dctermsIsReferencedBy',
-    'ebucoreHasMimeType',
-    'ebucoreHeight',
-    'ebucoreWidth',
-    'edmCodecName',
-    'isNextInSequence',
-    'svcsHasService'
   ]);
 };
 

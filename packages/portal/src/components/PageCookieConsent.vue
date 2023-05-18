@@ -14,6 +14,6 @@
 
 <style lang="scss">
   @import 'https://cdn.jsdelivr.net/npm/klaro@0.7.18/dist/klaro.min.css';
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/klaro';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/klaro';
 </style>

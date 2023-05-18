@@ -5,15 +5,14 @@
   >
     <ErrorMessage
       data-qa="error message container"
-      :error="error.message"
-      :title-path="errorExplanation ? errorExplanation.titlePath : null"
-      :illustration-src="errorExplanation ? errorExplanation.illustrationSrc : null"
+      :error="error"
     />
   </div>
 </template>
 
 <script>
-  import ErrorMessage from '@/components/generic/ErrorMessage';
+  import pageMetaMixin from '@/mixins/pageMeta';
+  import ErrorMessage from '@/components/error/ErrorMessage';
 
   export default {
     name: 'ErrorPage',
@@ -22,6 +21,8 @@
       ErrorMessage
     },
 
+    mixins: [pageMetaMixin],
+
     props: {
       error: {
         type: Object,
@@ -29,30 +30,16 @@
       }
     },
 
-    head() {
-      return {
-        title: this.headTitle
-      };
+    fetch() {
+      // so that pageMetaMixin can detect and use the error
+      throw this.error;
     },
 
     computed: {
-      headTitle() {
-        return [this.title, this.$config.app.siteName].filter((part) => !!part).join(' | ');
-      },
-
-      title() {
-        return this.$t(this.errorExplanation?.pageTitlePath || 'error');
-      },
-
-      errorExplanation() {
-        if (this.error.statusCode === 404) {
-          return {
-            titlePath: 'errorMessage.pageNotFound.title',
-            pageTitlePath: 'errorMessage.pageNotFound.metaTitle',
-            illustrationSrc: require('@/assets/img/illustrations/il-page-not-found.svg')
-          };
-        }
-        return null;
+      pageMeta() {
+        return {
+          title: this.$t('error')
+        };
       }
     }
   };

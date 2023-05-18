@@ -66,16 +66,21 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .btn-collection {
     border: 0;
-    font-size: 1rem;
+    font-size: $font-size-base;
     font-weight: 500;
     margin-bottom: 0.5rem;
     padding: 1rem;
     position: relative;
     text-transform: none;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+      padding: 1.5rem;
+    }
 
     span {
       position: relative;
@@ -83,6 +88,10 @@
 
       &.icon-check-circle {
         font-size: $font-size-large;
+
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-large-4k;
+        }
       }
     }
   }

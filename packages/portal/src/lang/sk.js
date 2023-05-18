@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Zatiaľ ste nevybrali žiadne zbierky",
         "private": "Zatiaľ ste nevytvorili žiadne súkromné galérie",
-        "public": "Zatiaľ ste nevytvorili žiadne verejné galérie"
+        "public": "Zatiaľ ste nevytvorili žiadne verejné galérie",
+        "published": "Zatiaľ ste nemali zverejnené žiadne galérie"
       },
       "noLikedItems": "Zatiaľ ste žiadne položky neoznačili, že sa vám páčia"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Moje označenia Páči sa mi a galérie",
     "profileSettings": "Nastavenia profilu",
     "publicCollections": "Verejné galérie",
+    "publishedCollections": "Publikované Galérie",
     "settings": "Nastavenia",
     "title": "Môj účet"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Zrušiť",
     "close": "zatvoriť",
     "continue": "pokračovať",
+    "depublish": "Zrušiť zverejnenie",
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "feedback": "Spätná väzba",
-    "goBack": "Späť",
     "goHome": "Prejsť na domovskú stránku",
     "learnMore": "Uč sa viac",
     "like": "Označenie Páči sa mi",
@@ -43,13 +45,18 @@ export default {
     "pin": "Kolík",
     "preview": "Náhľad",
     "previous": "Predchádzajúce",
-    "providedBy": "Poskytovateľ:  {provider}",
+    "publish": "Publikovať",
     "reject": "Odmietnuť",
+    "requestDepublication": "Žiadosť zrušiť zverejnenie",
     "save": "Uložiť",
     "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
-    "skip": "Preskočiť",
+    "skipSend": "Preskočiť a odoslať",
+    "submitForPublication": "Odoslať na zverejnenie",
+    "submittedForPublication": "Predložené na zverejnenie",
+    "transcribe": "Prepísať",
+    "transcribeNow": "Teraz prepíšte",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Názov:"
   },
   "automatedCardGroup": {
+    "gallery": "Galérie",
     "item": "Nedávne položky",
     "organisation": "Organizácie",
     "place": "Miesta",
+    "theme": "Témy",
     "time": "Odporúčané storočia",
     "topic": "Odporúčané témy"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Téma",
     "time": "Storočia",
     "topic": "Téma"
+  },
+  "categories": {
+    "label": "Preskúmajte príbehy podľa tagov",
+    "noOptions": "Už nie sú žiadne tagy na výber",
+    "search": "Preskúmajte príbehy podľa tagov"
   },
   "clearAllFilters": "Vymazať všetky filtre",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria bola vymazaná.",
-      "error": {
-        "unpin": "Došlo k chybe pri odpájaní položky. Skúste to prosím znova alebo nahláste problém."
-      },
       "pin": "Táto položka sa zobrazí v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "pinLimit": {
         "body": "Zatiaľ môžete na prvú stránku pripnúť iba 24 položiek. Ak chcete túto položku pripnúť, odpojte inú a potom sa pokúste znova pripnúť túto položku.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Chyba",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Úpravy sú dočasne zakázané a vaše zmeny sa neuložili. Skúste neskôr prosím.",
+      "title": "Aktualizácia zlyhala"
+    },
+    "galleryNotFound": {
+      "description": "Túto galériu sa nepodarilo nájsť. Možno bola vymazaná.",
+      "title": "Galéria sa nenašla"
+    },
     "galleryUnauthorised": {
       "description": "Nie je to možné, pretože súkromné galérie sú viditeľné iba pre ich tvorcu. Ak poznáte tvorcu galérie, požiadajte ho o zverejnenie galérie. Prípadne nahláste tento problém pomocou tlačidla spätnej väzby.",
       "metaTitle": "Galéria je neoprávnená",
       "title": "Ups! {newline} Snažíte sa zobraziť súkromnú galériu inej osoby."
     },
+    "genericUnknownError": {
+      "description": "Vyskytla sa neznáma chyba.",
+      "title": "Neznáma chyba"
+    },
     "itemNotFound": {
       "description": "Môže to byť z nasledujúcich dôvodov: táto položka neexistuje alebo; bolo zrušené, pretože nezodpovedalo našim kritériám kvality, alebo; bola aktualizovaná a znovu publikovaná s novým jedinečným identifikátorom, v takom prípade skúste položku znova nájsť.",
       "metaTitle": "Položka sa nenašla",
       "title": "Ó nie! {newline} Túto položku sa nám nepodarilo nájsť."
+    },
+    "pageNotFound": {
+      "metaTitle": "Stránka nenájdená",
+      "title": "Stránka, ktorú hľadáte, neexistuje."
+    },
+    "pinningNotFound": {
+      "description": "Pri pripínaní/odpínaní položky došlo k chybe. Skúste to znova alebo nahláste problém.",
+      "title": "Kurátorská zbierka nebola nájdená"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Je možné zobraziť iba prvých {limit} výsledkov vyhľadávania.",
+      "title": "Prekročený limit stránok"
     },
     "searchResultsNotFound": {
       "description": "Upravte hľadaný výraz alebo restujte filtre a skúste to znova.",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "Možno budeme chcieť nadviazať ďalšie kroky. Ak chcete, aby sme vás kontaktovali, zadajte svoj e-mail.",
     "failed": "Žiadosť zlyhala. Prosím skúste znova.",
+    "faq": "Prejdite na často kladené otázky",
     "form": {
       "placeholders": {
         "email": "Zadajte svoju e-mailovú adresu",
@@ -699,6 +735,7 @@ export default {
       "about": "O nás",
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
+      "faq": "Často kladené otázky",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Skopírované do schránky",
     "externalContentError": "Nepodarilo sa načítať externý obsah",
-    "notFound": "Nenašlo sa",
-    "paginationLimitExceeded": "Je možné zobraziť len prvých {limit} výsledkov vyhľadávania."
+    "notFound": "Nenašlo sa"
   },
   "modal": {
     "download": {
       "clickToCopy": "Kliknutím na atribút ho skopírujete",
       "modalIntro": "Ak používate túto položku na webe alebo kdekoľvek inde, nezabudnite vedľa nej zobraziť nasledujúce priradenie:",
       "modalTitle": "Povedz ďakujem"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Odporúčame vám kliknúť na tlačidlo „Poskytujúca inštitúcia“ nižšie a skontrolovať, či je možné položku stiahnuť na webovej stránke poskytujúcej inštitúcie.",
+      "message": "Ak sťahovanie nefunguje, môže to byť spôsobené tým, že ho odstránila poskytujúca inštitúcia, alebo môže nastať technický problém s jej službou.",
+      "title": "Sťahovanie nefunguje"
+    },
+    "transcribe": {
+      "message": "Pridajte sa k nám na Europeana Transcribe, online občianskej iniciatíve na obohatenie zbierok Europeana",
+      "title": "Prepíšte túto položku"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
-    "readMore": "Viac",
+    "readMore": "Objavte príbehy",
     "text": {
-      "searchFilters": "Teraz môžete vyhľadávať hodnoty v jednotlivých filtroch; skontrolovať to!"
+      "storiesTags": "Pozrite si aktualizovanú stránku Príbehy. Teraz môžete vyhľadávať a filtrovať podľa tagov."
     }
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}"
+  },
   "of": "Z",
   "organisation": {
     "city": "Mesto",
@@ -909,6 +957,10 @@ export default {
   "pagination": {
     "label": "Stránkovanie"
   },
+  "provider": {
+    "linkText": "Zobrazenie na webovej stránke poskytovateľa",
+    "providedBy": "Túto položku poskytuje a spravuje {provider}"
+  },
   "readMore": "Viac",
   "recommendation": {
     "prompts": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Všetky metadáta",
     "copyEmbedLabel": "Vložiť kód (kliknutím skopírujete)",
-    "exploreMore": "Preskúmať viac",
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",
@@ -944,13 +995,24 @@ export default {
       "title": "Objavte súvisiace príbehy"
     },
     "collections": {
+      "name": "Súvisiace zbierky",
       "title": "Objavte súvisiace zbierky"
     },
     "editorial": {
       "title": "Príbehy, ktoré sa vám môžu páčiť"
+    },
+    "galleries": {
+      "name": "Súvisiace galérie",
+      "title": "Objavte súvisiace galérie"
+    },
+    "items": {
+      "loginForMore": "Prihláste sa, aby ste videli ďalšie súvisiace položky",
+      "title": "Objavte súvisiace položky"
+    },
+    "themes": {
+      "title": "Objavte súvisiace témy"
     }
   },
-  "relatedCollections": "Súvisiace zbierky",
   "removeFilter": "Odstrániť filter {filterLabel}",
   "reset": "Obnoviť",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Upraviť galériu",
       "update": "Aktualizovať galériu"
     },
+    "entityBestBets": {
+      "title": "{entity} Strana"
+    },
     "form": {
       "description": "Popis galérie",
       "private": "Túto galériu uložiť ako súkromnú",
+      "privateWarning": "Táto akcia zruší zverejnenie galérie.",
       "required": "Povinné polia",
       "title": "Názov galérie"
     },
     "labels": {
       "curatedBy": "Zbierku spravuje",
-      "private": "Súkromná galéria"
+      "private": "Súkromná galéria",
+      "published": "Zverejnená galéria"
     },
     "notifications": {
       "deleted": "Galéria bola vymazaná.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 položiek, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
         "title": "100 označení Páči sa mi"
       },
-      "updated": "Položka bola pridaná do galérie."
+      "updated": "Položka bola pridaná do galérie.",
+      "visibilityChanged": "Upozornenie: viditeľnosť sady už bola zmenená a momentálne je „ {visibility} “."
     },
     "prompts": {
       "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali."
+    },
+    "publication": {
+      "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",
+      "failedSubmission": "Žiadosť zlyhala. Prosím skúste znova.",
+      "process": {
+        "description": "Keď odošlete galériu na zverejnenie, tím vydavateľov Europeana bude upozornený. Najprv ho skontrolujú a pred zverejnením môžu vykonať zmeny. Počas kontroly galérie budete dostávať upozornenia e-mailom. Ak nie je zverejnený, je možné, že nie je v súlade s našimi redakčnými pokynmi.",
+        "title": "Ako proces funguje"
+      },
+      "time": {
+        "description": "1-3 dni.",
+        "title": "Ako dlho to trvá"
+      },
+      "title": "Odoslať galériu na zverejnenie",
+      "toastButton": "Dobre",
+      "toastMessage": "Táto galéria je teraz odoslaná na zverejnenie. Môžete skontrolovať {galleries} a zistiť, či bola zverejnená."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) je webový nástroj na správu rôznych typov obsahu (vrátane 3D), dokumentáciu kultúrneho dedičstva prostredníctvom digitálnych komunitných priestorov a kurátorstvo digitálnych príbehov a zážitkov."
+      }
     }
   },
+  "shareWhere": "Kde by ste to chceli zdieľať?",
   "showLess": "Zobraziť menej",
   "showMore": "Zobraziť viac",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Pripnuté"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} nájdených príbehov",
     "title": "Príbehy"
+  },
+  "themes": {
+    "description": "Prehľadávať podľa témy",
+    "themes": "Témy"
   },
   "website": "Webové stránky"
 };

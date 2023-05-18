@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Vous n'avez pas encore organisé de collections",
         "private": "Vous n'avez pas encore créé de galeries privées",
-        "public": "Vous n'avez pas encore créé de galeries publiques"
+        "public": "Vous n'avez pas encore créé de galeries publiques",
+        "published": "Vous n'avez pas encore publié de galeries"
       },
       "noLikedItems": "Vous n'avez pas encore aimé d'articles"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Mes mentions J'aime et mes galeries",
     "profileSettings": "Paramètres du profil",
     "publicCollections": "Galeries publiques",
+    "publishedCollections": "Galeries Publiées",
     "settings": "Paramètres",
     "title": "Mon compte"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Annuler",
     "close": "fermer",
     "continue": "continuer",
+    "depublish": "Dépublier",
     "download": "Télécharger",
     "edit": "Modifier",
     "feedback": "Commentaires",
-    "goBack": "Retour en arrière",
     "goHome": "Aller à la page d'accueil",
     "learnMore": "Apprendre encore plus",
     "like": "Mention J'aime",
@@ -43,13 +45,18 @@ export default {
     "pin": "Épingler",
     "preview": "Prévisualisation",
     "previous": "Précédent",
-    "providedBy": "Fourni par {provider}",
+    "publish": "Publier",
     "reject": "Rejeter",
+    "requestDepublication": "Demander la dépublication",
     "save": "Sauvegarder",
     "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
-    "skip": "Passer",
+    "skipSend": "Ignorer et envoyer",
+    "submitForPublication": "Soumettre pour publication",
+    "submittedForPublication": "Soumis pour publication",
+    "transcribe": "Transcrire",
+    "transcribeNow": "Transcrivez maintenant",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Titre :"
   },
   "automatedCardGroup": {
+    "gallery": "Galeries",
     "item": "Éléments récents",
     "organisation": "Organisations",
     "place": "Des endroits",
+    "theme": "Thèmes",
     "time": "Des siècles en vedette",
     "topic": "Sujets d'actualité"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Thème",
     "time": "Siècle",
     "topic": "Sujet"
+  },
+  "categories": {
+    "label": "Explorez les histoires par tag",
+    "noOptions": "Il n'y a plus de balises à sélectionner",
+    "search": "Explorez les histoires par tag"
   },
   "clearAllFilters": "Effacer tous les filtres",
   "collections": {
@@ -137,7 +151,7 @@ export default {
     },
     "headerNavigation": {
       "Collections": "Collections",
-      "explore": "Explorer",
+      "explore": "Explorez",
       "teachers": "Enseignants"
     }
   },
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
-      "error": {
-        "unpin": "Une erreur s'est produite lors du détachement de l'élément. Veuillez réessayer ou signaler le problème."
-      },
       "pin": "Cet élément s'affichera en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "pinLimit": {
         "body": "Pour l'instant, vous ne pouvez épingler que 24 éléments sur la première page. Si vous souhaitez épingler cet élément, assurez-vous d'en désépingler un autre, puis réessayez d'épingler celui-ci.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Erreur",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "La modification est temporairement désactivée et vos modifications n'ont pas été enregistrées. Veuillez réessayer plus tard.",
+      "title": "Mise à jour a échoué"
+    },
+    "galleryNotFound": {
+      "description": "Cette galerie est introuvable. Il a peut-être été supprimé.",
+      "title": "Galerie introuvable"
+    },
     "galleryUnauthorised": {
       "description": "Ce n'est pas possible car les galeries privées ne sont visibles que par leur créateur. Si vous connaissez le créateur de la galerie, demandez-lui de rendre la galerie publique. Vous pouvez également signaler ce problème à l'aide du bouton de commentaires.",
       "metaTitle": "Galerie non autorisée",
       "title": "Oops! {newline} Vous essayez de voir la galerie privée d'une autre personne."
     },
+    "genericUnknownError": {
+      "description": "Une erreur inconnue s'est produite.",
+      "title": "Erreur inconnue"
+    },
     "itemNotFound": {
       "description": "Cela peut être dû aux raisons suivantes : cet élément n’existe pas, ou ; il a été publié parce qu’il ne correspondait pas à nos critères de qualité, ou; il a été mis à jour et republié avec un nouvel identifiant unique, auquel cas, essayez de retrouver l’élément.",
       "metaTitle": "Objet non-trouvé",
       "title": "Oh non! {newline} Nous n'avons pas pu trouver cet élément."
+    },
+    "pageNotFound": {
+      "metaTitle": "Page non trouvée",
+      "title": "La page que vous recherchez n'existe pas."
+    },
+    "pinningNotFound": {
+      "description": "Une erreur s'est produite lors de l'épinglage/détachement de l'élément. Veuillez réessayer ou signaler le problème.",
+      "title": "Collection organisée introuvable"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Il n'est possible d'afficher que les {limit} premiers résultats de recherche.",
+      "title": "Limite de pages dépassée"
     },
     "searchResultsNotFound": {
       "description": "Veuillez ajuster le terme de recherche ou réinitialiser les filtres pour réessayer.",
@@ -226,7 +261,7 @@ export default {
     "chapters": "Chapitres",
     "credits": "Crédits",
     "currentChapter": "Chapitre actuel",
-    "description": "Découvrez les expositions",
+    "description": "Explorez les expositions",
     "exhibitions": "Expositions"
   },
   "explore": "Explorez",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "Nous souhaiterions peut-être faire un suivi. Entrez votre e-mail si vous souhaitez que nous vous contactions.",
     "failed": "La demande a échoué. Veuillez réessayer.",
+    "faq": "Aller à la foire aux questions",
     "form": {
       "placeholders": {
         "email": "Entrez votre adresse email",
@@ -699,6 +735,7 @@ export default {
       "about": "À propos d'Europeana",
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
+      "faq": "Foire aux questions",
       "forDevelopers": "Pour les développeurs",
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
@@ -750,7 +787,7 @@ export default {
     "storiesCTA": "Voir toutes les histoires",
     "subHeadline": "Recherchez, enregistrez et partagez des œuvres d’art, des livres, des films et de la musique issues de milliers d’institutions culturelles",
     "themesCTA": "Voir tous les thèmes",
-    "themesTitle": "Explorer par thème",
+    "themesTitle": "Explorez par thème",
     "title": "Découvrez le patrimoine culturel {digital} européen",
     "titleDigital": "numérique"
   },
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Copié dans le presse-papier",
     "externalContentError": "Échec du chargement du contenu externe",
-    "notFound": "Introuvable",
-    "paginationLimitExceeded": "Il est uniquement possible d'afficher les {limit} premiers résultats de la recherche."
+    "notFound": "Introuvable"
   },
   "modal": {
     "download": {
       "clickToCopy": "Cliquez sur l'attribution pour la copier",
       "modalIntro": "Si vous utilisez cet élément sur le Web ou ailleurs, n'oubliez pas d'afficher l'attribution suivante à côté :",
       "modalTitle": "Dis merci"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Nous vous conseillons de cliquer sur le bouton 'Institution fournisseuse' ci-dessous pour vérifier si l'article est téléchargeable sur le site internet de l'établissement fournisseur.",
+      "message": "Si le téléchargement ne fonctionne pas, c'est peut-être parce qu'il a été supprimé par l'établissement fournisseur, ou il peut y avoir un problème technique avec leur service.",
+      "title": "Le téléchargement ne fonctionne pas"
+    },
+    "transcribe": {
+      "message": "Rejoignez-nous sur Europeana Transcribe, l'initiative citoyenne en ligne pour l'enrichissement des collections d'Europeana",
+      "title": "Transcrire cet élément"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Fermer",
-    "readMore": "Lire la suite",
+    "readMore": "Découvrez des histoires",
     "text": {
-      "searchFilters": "Vous pouvez maintenant rechercher des valeurs dans les filtres individuels; Vérifiez-le!"
+      "storiesTags": "Découvrez la page des histoires mise à jour. Vous pouvez maintenant rechercher et filtrer par tags."
     }
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "De",
   "organisation": {
     "city": "Ville",
@@ -909,6 +957,10 @@ export default {
   "pagination": {
     "label": "Pagination"
   },
+  "provider": {
+    "linkText": "Vue sur le site internet du prestataire",
+    "providedBy": "Cet élément est fourni et maintenu par {provider}"
+  },
   "readMore": "Lire la suite",
   "recommendation": {
     "prompts": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Toutes les métadonnées",
     "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
-    "exploreMore": "En savoir plus",
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
     "hideAll": "Masquer toutes les informations",
@@ -944,13 +995,24 @@ export default {
       "title": "Découvrez des histoires connexes"
     },
     "collections": {
-      "title": "Découvrez les collections associées"
+      "name": "Collections connexes",
+      "title": "Découvrez les collections connexes"
     },
     "editorial": {
       "title": "Histoires que vous aimerez peut-être"
+    },
+    "galleries": {
+      "name": "Galeries connexes",
+      "title": "Découvrez des galeries connexes"
+    },
+    "items": {
+      "loginForMore": "Connectez-vous pour voir d’autres éléments connexes",
+      "title": "Découvrez les éléments associés"
+    },
+    "themes": {
+      "title": "Découvrez les thèmes connexes"
     }
   },
-  "relatedCollections": "Collections similaires",
   "removeFilter": "Supprimer le filtre {filterLabel}",
   "reset": "Réinitialiser",
   "resourceWikimedia": "Ressource de Wikimedia Commons",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Modifier la galerie",
       "update": "Mettre à jour la galerie"
     },
+    "entityBestBets": {
+      "title": "{entity} Page"
+    },
     "form": {
       "description": "Description de la galerie",
       "private": "Garder cette galerie privée",
+      "privateWarning": "Cette action dépubliera la galerie.",
       "required": "Champ obligatoire",
       "title": "Nom de la galerie"
     },
     "labels": {
       "curatedBy": "Organisé par",
-      "private": "Galerie privée"
+      "private": "Galerie privée",
+      "published": "Galerie publiée"
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 articles pour le moment. Nous allons bientôt supprimer cette limite !",
         "title": "100 mentions J’aime"
       },
-      "updated": "L'élément a été ajouté à la galerie."
+      "updated": "L'élément a été ajouté à la galerie.",
+      "visibilityChanged": "Attention : la visibilité définie a déjà changé et est actuellement \" {visibility} \"."
     },
     "prompts": {
       "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les éléments que vous y avez ajoutés."
+    },
+    "publication": {
+      "description": "La publication d'une galerie la présentera sur Europeana.eu/galleries.",
+      "failedSubmission": "La demande a échoué. Veuillez réessayer.",
+      "process": {
+        "description": "Lorsque vous soumettez une galerie pour publication, une équipe d'éditeurs d'Europeana en est informée. Ils l'examineront d'abord, et pourront apporter des modifications avant qu'elle ne soit publiée. Vous recevrez des notifications par courrier électronique au fur et à mesure de l'examen de votre galerie. Si elle n'est pas publiée, c'est peut-être parce qu'elle n'est pas conforme à nos directives éditoriales.",
+        "title": "Comment fonctionne le processus"
+      },
+      "time": {
+        "description": "1-3 jours.",
+        "title": "Combien de temps cela prend-il"
+      },
+      "title": "Soumettre la galerie pour publication",
+      "toastButton": "D'accord",
+      "toastMessage": "Cette galerie est maintenant soumise pour publication. Vous pouvez vérifier {galleries} pour voir s'il a été publié."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) est un outil Web permettant de gérer des contenus de différents types (y compris 3D), de documenter le patrimoine culturel par le biais d'espaces communautaires numériques et de conserver des histoires et des expériences numériques."
+      }
     }
   },
+  "shareWhere": "Où aimeriez-vous partager cela?",
   "showLess": "Afficher moins",
   "showMore": "Afficher plus",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Épinglé"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} histoires trouvées",
     "title": "Histoires"
+  },
+  "themes": {
+    "description": "Parcourir par thème",
+    "themes": "Thèmes"
   },
   "website": "Site Internet"
 };

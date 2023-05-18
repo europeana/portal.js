@@ -1,6 +1,6 @@
 {
   "name": "@europeana/styleguide",
-  "version": "1.90.0",
+  "version": "1.113.1",
   "description": "Europeana styleguide",
   "private": true,
   "scripts": {
@@ -8,11 +8,9 @@
     "start": "vue-styleguidist server --config ./styleguide.config.cjs"
   },
   "devDependencies": {
-    "@europeana/portal": "^1.90.0",
-    "vue": "2.6.14",
-    "vue-server-renderer": "2.6.14",
-    "vue-styleguidist": "4.48.0",
-    "vue-template-compiler": "2.6.14"
+    "@europeana/portal": "^1.113.1",
+    "vue": "^2.7.10",
+    "vue-styleguidist": "4.35.0"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
@@ -20,10 +18,6 @@
     "Mirjam Verloop <mirjam.verloop@europeana.eu>",
     "Leonie Peters <leonie.peters@europeana.eu>"
   ],
-  "engines": {
-    "node": "^16",
-    "npm": "^8"
-  },
   "keywords": [
     "code4lib"
   ],

@@ -55,7 +55,6 @@
 <script>
   import RemovalChip from './RemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
-  import themes from '@/plugins/europeana/themes';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   export default {
@@ -95,28 +94,12 @@
       },
 
       /**
-       * Editorial overrides
-       *
-       * Title/label and image override. Used for editorial collection titles and images from Contentful.
-       */
-      editorialOverrides: {
-        type: Object,
-        default: null
-      },
-
-      /**
        * The variant used for the removal badges.
        */
       badgeVariant: {
         type: String,
         default: 'light'
       }
-    },
-
-    data() {
-      return {
-        themes: themes.map(theme => theme.id)
-      };
     },
 
     computed: {
@@ -141,30 +124,14 @@
         return this.entity?.id;
       },
       entityLabel() {
-        return this.editorialOverrides?.title ||
-          this.organizationEntityNativeName(this.entity) ||
+        return this.organizationEntityNativeName(this.entity) ||
           this.entity?.prefLabel;
       },
       entityImage() {
-        if (this.editorialOverrides?.image && this.$contentful.assets.isValidUrl(this.editorialOverrides.image.url)) {
-          return this.$contentful.assets.optimisedSrc(
-            this.editorialOverrides.image,
-            { w: 28, h: 28, fit: 'thumb' }
-          );
-        }
         return this.$apis.entity.imageUrl(this.entity);
       },
       entityTypeLabel() {
-        return this.$t(`cardLabels.${this.contextType}`);
-      },
-      contextType() {
-        let contextType = this.entityType;
-
-        if (this.entityType === 'topic' && this.themes.includes(this.entityId)) {
-          contextType = 'theme';
-        }
-
-        return contextType;
+        return this.$t(`cardLabels.${this.entityType}`);
       },
       entityParams() {
         return this.hasEntity ? entityParamsFromUri(this.entity.id) : {};
@@ -176,7 +143,7 @@
         return this.entityParams.id;
       },
       queryRemovalLink() {
-        return this.$path({
+        return this.localePath({
           currentPath: this.$route.path,
           params: this.$route.params,
           query: {
@@ -186,7 +153,7 @@
         });
       },
       entityRemovalLink() {
-        return this.$path({
+        return this.localePath({
           name: 'search', query: {
             query: this.$route.query?.query
           }
@@ -197,14 +164,30 @@
 </script>
 
 <style lang="scss" scoped>
-  .context-label {
-    margin-bottom: 0;
-    line-height: 3;
-    min-width: 0;
+@import '@europeana/style/scss/variables';
 
-    .badge {
-      max-width: calc(100% - 2rem);
-      text-transform: none;
+.context-label {
+  margin-bottom: 0;
+  line-height: 3;
+  min-width: 0;
+  font-size: $font-size-small;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
     }
   }
+
+  .badge {
+    max-width: calc(100% - 2rem);
+    text-transform: none;
+  }
+}
+
+.mx-1 {
+  @media (min-width: $bp-4k) {
+    margin-left: 0.75rem !important;
+    margin-right: 0.75rem !important;
+  }
+}
 </style>

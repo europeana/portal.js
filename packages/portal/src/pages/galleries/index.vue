@@ -28,38 +28,23 @@
             </b-col>
           </b-row>
         </b-container>
+        <!-- TODO: Use SetCardGroup and clean up methods -->
         <b-card-group
           v-else
           class="card-deck-4-cols"
           deck
           data-qa="gallery foyer"
         >
-          <template
-            v-if="setGalleriesEnabled"
-          >
-            <ContentCard
-              v-for="gallery in galleries"
-              :key="gallery.slug"
-              :title="gallery.title"
-              :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
-              :image-url="gallery.thumbnail"
-              :texts="[gallery.description]"
-              :show-subtitle="false"
-            />
-          </template>
-          <template
-            v-else
-          >
-            <ContentCard
-              v-for="gallery in galleries"
-              :key="gallery.identifier"
-              :title="gallery.name"
-              :url="{ name: 'galleries-all', params: { pathMatch: gallery.identifier } }"
-              :image-url="gallery.hasPartCollection.items[0] && imageUrl(gallery.hasPartCollection.items[0])"
-              :texts="[gallery.description]"
-              :show-subtitle="false"
-            />
-          </template>
+          <ContentCard
+            v-for="(gallery, index) in galleries"
+            :key="gallery.slug"
+            :title="gallery.title"
+            :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
+            :image-url="gallery.thumbnail"
+            :texts="[gallery.description]"
+            :show-subtitle="false"
+            :offset="index"
+          />
         </b-card-group>
       </b-col>
     </b-row>
@@ -101,21 +86,26 @@
       };
     },
     async fetch() {
-      if (this.setGalleriesEnabled) {
-        await this.fetchSetGalleries();
-      } else {
-        await this.fetchContentfulGalleries();
-      }
-      this.$scrollTo && this.$scrollTo('#header');
+      const searchParams = {
+        query: 'visibility:published',
+        qf: `lang:${this.$i18n.locale}`,
+        pageSize: PER_PAGE,
+        page: this.page - 1,
+        profile: 'standard'
+      };
+
+      const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      this.galleries = setResponse.data.items && this.parseSets(setResponse.data.items);
+      this.total = setResponse.data.partOf.total;
+      this.perPage = PER_PAGE;
+
+      this.$scrollTo?.('#header');
     },
     computed: {
       pageMeta() {
         return {
           title: this.$tc('galleries.galleries', 2)
         };
-      },
-      setGalleriesEnabled() {
-        return this.$features.setGalleries;
       },
       page() {
         return Number(this.$route.query.page || 1);
@@ -125,56 +115,17 @@
       '$route.query.page': '$fetch'
     },
     methods: {
-      async fetchSetGalleries() {
-        const searchParams = {
-          query: 'visibility:published',
-          pageSize: PER_PAGE,
-          page: this.page - 1,
-          profile: 'standard'
-        };
-
-        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-        this.galleries = this.parseSets(setResponse.data.items);
-        this.total = setResponse.data.partOf.total;
-        this.perPage = PER_PAGE;
-      },
       parseSets(sets) {
         return sets.map(set => {
           return {
             slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
             description: set.description,
-            thumbnail: this.setPreviewUrl(set.items[0].edmPreview)
+            thumbnail: this.setPreviewUrl(set.items?.[0].edmPreview)
           };
         });
       },
       setPreviewUrl(edmPreview) {
-        return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
-      },
-
-      // TODO: remove when using set galleries
-      async fetchContentfulGalleries() {
-        const variables = {
-          locale: this.$i18n.isoLocale(),
-          preview: this.$route.query.mode === 'preview',
-          limit: PER_PAGE,
-          skip: (this.$store.state.sanitised.page - 1) * PER_PAGE
-        };
-
-        const contentfulResponse = await this.$contentful.query('galleryFoyerPage', variables)
-          .then(response => response.data.data)
-          .catch((e) => {
-            this.error({ statusCode: 500, message: e.toString() });
-          });
-
-        this.galleries = contentfulResponse.imageGalleryCollection.items;
-        this.total = contentfulResponse.imageGalleryCollection.total;
-        this.perPage = PER_PAGE;
-      },
-
-      // TODO: remove when using set galleries
-      imageUrl(data) {
-        const edmPreview = data.encoding?.edmPreview?.[0] || data.thumbnailUrl;
         return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
       }
     }

@@ -9,6 +9,7 @@
       :destination="link.url"
       data-qa="call to action"
       class="btn btn-cta btn-primary"
+      hide-external-icon
     >
       {{ link.text }}
     </SmartLink>
@@ -40,7 +41,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
 
   .primary-cta {
     background-color: $white;

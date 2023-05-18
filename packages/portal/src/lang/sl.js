@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Niste še kurirali nobene zbirke",
         "private": "Niste še ustvarili nobene zasebne zbirke.",
-        "public": "Niste še ustvarili nobene javne zbirke."
+        "public": "Niste še ustvarili nobene javne zbirke.",
+        "published": "Niste objavili še nobene galerije"
       },
       "noLikedItems": "Niste še všečkali nobenih predmetov."
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Moji všečki & zbirke",
     "profileSettings": "Nastavitve profila",
     "publicCollections": "Javne zbirke",
+    "publishedCollections": "Objavljene Galerije",
     "settings": "Nastavitve",
     "title": "Moj račun"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Prekliči",
     "close": "zapri",
     "continue": "nadaljuj",
+    "depublish": "Depubliš",
     "download": "Prenos",
     "edit": "Uredi",
     "feedback": "Povratne informacije",
-    "goBack": "Nazaj",
     "goHome": "Pojdite na domačo stran",
     "learnMore": "Nauči se več",
     "like": "Všeč mi je",
@@ -43,13 +45,18 @@ export default {
     "pin": "Pin",
     "preview": "Predogled",
     "previous": "Prejšnji",
-    "providedBy": "Zagotavlja {provider}",
+    "publish": "Objavi",
     "reject": "Zavrne",
+    "requestDepublication": "Zahtevaj deublikacijo",
     "save": "Shrani",
     "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
-    "skip": "Preskoči",
+    "skipSend": "Preskoči in pošlji",
+    "submitForPublication": "Oddaj za objavo",
+    "submittedForPublication": "Oddano v objavo",
+    "transcribe": "Prepisujte",
+    "transcribeNow": "Prepiši zdaj",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Naslov:"
   },
   "automatedCardGroup": {
+    "gallery": "Galerije",
     "item": "Nedavni predmeti",
     "organisation": "Organizacije",
     "place": "Mesta",
+    "theme": "Teme",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Tema",
     "time": "Stoletje",
     "topic": "Tema"
+  },
+  "categories": {
+    "label": "Raziščite zgodbe po oznakah",
+    "noOptions": "Ni več oznak, ki bi jih lahko izbrali",
+    "search": "Raziščite zgodbe po oznakah"
   },
   "clearAllFilters": "počisti vse filtre",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
-      "error": {
-        "unpin": "Pri odpenjanju elementa je prišlo do napake. Poskusite znova ali prijavite težavo."
-      },
       "pin": "Ta element bo prikazan na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
       "pinLimit": {
         "body": "Zaenkrat lahko na prvo stran pripnete le 24 elementov. Če želite pripeti ta element, odstranite še enega in poskusite znova pripeti tega.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Napaka",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Urejanje je začasno onemogočeno in vaše spremembe niso shranjene. Prosim poskusite kasneje.",
+      "title": "Posodobitev ni uspela"
+    },
+    "galleryNotFound": {
+      "description": "Te galerije ni bilo mogoče najti. Morda je bil izbrisan.",
+      "title": "Galerije ni mogoče najti"
+    },
     "galleryUnauthorised": {
       "description": "To ni mogoče, ker so zasebne galerije vidne samo njihovemu ustvarjalcu. Če poznate ustvarjalca galerije, ga prosite, naj galerijo objavi. Druga možnost je, da to težavo prijavite z gumbom za povratne informacije.",
       "metaTitle": "Galerija nepooblaščena",
       "title": "Ups! {newline} Poskušate si ogledati zasebno galerijo druge osebe."
     },
+    "genericUnknownError": {
+      "description": "Prišlo je do neznane napake.",
+      "title": "Neznana napaka"
+    },
     "itemNotFound": {
       "description": "Razlogi za to so lahko naslednji: ta element ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite element poiskati znova.",
       "metaTitle": "Element ni bil najden",
       "title": "Oh ne! {newline} Tega predmeta nismo mogli najti."
+    },
+    "pageNotFound": {
+      "metaTitle": "Stran ni najdena",
+      "title": "Stran, ki jo iščete, ne obstaja."
+    },
+    "pinningNotFound": {
+      "description": "Pri pripenjanju/odpenjanju elementa je prišlo do napake. Poskusite znova ali prijavite težavo.",
+      "title": "Kurirana zbirka ni bila najdena"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Ogledati si je mogoče le prvih {limit} rezultatov iskanja.",
+      "title": "Omejitev strani je presežena"
     },
     "searchResultsNotFound": {
       "description": "Prosimo, prilagodite iskalni izraz ali po nastavite filtre, da poskusite znova.",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "Morda bi želeli slediti. Vnesite svojo e-pošto, če ste veseli, da vas kontaktiramo.",
     "failed": "Zahteva ni uspela. Prosim poskusite ponovno.",
+    "faq": "Pojdite na pogosto zastavljena vprašanja",
     "form": {
       "placeholders": {
         "email": "Vnesite svoj e-poštni naslov",
@@ -699,6 +735,7 @@ export default {
       "about": "O nas",
       "accessibility": "Dostopnost",
       "cookies": "Piškotki",
+      "faq": "Pogosto zastavljena vprašanja",
       "forDevelopers": "Za razvijalce",
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopirano v odložišče",
     "externalContentError": "Zunanje vsebine ni bilo mogoče naložiti",
-    "notFound": "Ni najdeno",
-    "paginationLimitExceeded": "Ogledate si lahko samo prvih {limit} rezultatov iskanja."
+    "notFound": "Ni najdeno"
   },
   "modal": {
     "download": {
       "clickToCopy": "Kliknite na pripis, da ga kopirate",
       "modalIntro": "Če uporabljate ta izdelek v spletu ali drugje, ne pozabite prikazati naslednjega atributa zraven:",
       "modalTitle": "Reci hvala"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Svetujemo vam, da kliknete spodnji gumb \"Ustanova izvora\" in preverite, ali lahko predmet prenesete na spletnem mestu ustanove, ki zagotavlja informacije.",
+      "message": "Če prenos ne deluje, je to morda zato, ker ga je institucija, ki je zagotovila, odstranila, ali pa je prišlo do tehnične težave z njihovo storitvijo.",
+      "title": "Prenos ne deluje"
+    },
+    "transcribe": {
+      "message": "Pridružite se nam na Europeana Transcribe, spletni državljanski pobudi za obogatitev zbirk Europeana",
+      "title": "Prepiši ta element"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zapri",
-    "readMore": "Preberi več",
+    "readMore": "Odkrijte zgodbe",
     "text": {
-      "searchFilters": "Zdaj lahko iščete vrednosti v posameznih filtrih; preverite!"
+      "storiesTags": "Oglejte si posodobljeno stran Zgodbe. Zdaj lahko iščete in filtrirate po oznakah."
     }
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"two\":\"\",\"few\":\"\",\"other\":\"\"}"
+  },
   "of": "Od",
   "organisation": {
     "city": "Mesto",
@@ -895,7 +943,7 @@ export default {
         "title": "Krajev"
       },
       "table": {
-        "items": "Elementi",
+        "items": "Predmeti",
         "name": "Ime"
       },
       "times": {
@@ -908,6 +956,10 @@ export default {
   },
   "pagination": {
     "label": "Paginacija"
+  },
+  "provider": {
+    "linkText": "Ogled na spletni strani ponudnika",
+    "providedBy": "Ta predmet zagotavlja in vzdržuje {provider}"
   },
   "readMore": "Preberi več",
   "recommendation": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Vsi metapodatki",
     "copyEmbedLabel": "Vdelaj kodo (kliknite za kopiranje)",
-    "exploreMore": "Razišči več",
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",
     "hideAll": "Skrij vse informacije",
@@ -944,13 +995,24 @@ export default {
       "title": "Odkrijte povezane zgodbe"
     },
     "collections": {
+      "name": "Sorodne zbirke",
       "title": "Odkrijte povezane zbirke"
     },
     "editorial": {
       "title": "Zgodbe, ki vam bodo morda všeč"
+    },
+    "galleries": {
+      "name": "Sorodne galerije",
+      "title": "Odkrijte povezane galerije"
+    },
+    "items": {
+      "loginForMore": "Prijavite se in si oglejte druge povezane predmete",
+      "title": "Odkrijte povezane predmete"
+    },
+    "themes": {
+      "title": "Odkrijte povezane teme"
     }
   },
-  "relatedCollections": "Povezane zbirke",
   "removeFilter": "Odstrani filter {filterLabel}",
   "reset": "Ponastavi",
   "resourceWikimedia": "Vir iz Wikimedia Commons",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Uredi zbirko",
       "update": "Posodobi zbirko"
     },
+    "entityBestBets": {
+      "title": "{entity} Stran"
+    },
     "form": {
       "description": "Opis zbirke",
       "private": "Ohrani to zbirko zasebno",
+      "privateWarning": "To dejanje bo preklicalo objavo galerije.",
       "required": "Zahtevana polja ",
       "title": "Ime zbirke"
     },
     "labels": {
       "curatedBy": "Kurator",
-      "private": "Zasebna zbirka"
+      "private": "Zasebna zbirka",
+      "published": "Objavljena galerija"
     },
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Se opravičujemo, a trenutno lahko všečkate največ 100 predmetov. Kmalu bomo odstranili to omejitev!",
         "title": "100 všečkov"
       },
-      "updated": "Element je bil dodan v galerijo."
+      "updated": "Element je bil dodan v galerijo.",
+      "visibilityChanged": "Opozorilo: nastavljena vidnost je že spremenjena in je trenutno \" {visibility} \"."
     },
     "prompts": {
       "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse predmete, ki ste jih dodali."
+    },
+    "publication": {
+      "description": "Z objavo galerije bo ta objavljena na Europeana.eu/galleries.",
+      "failedSubmission": "Zahteva ni uspela. Prosim poskusite ponovno.",
+      "process": {
+        "description": "Ko pošljete galerijo v objavo, bo o tem obveščena ekipa založnikov Europeana. Ti jo bodo najprej pregledali in jo pred objavo morda spremenili. Obvestila o pregledu galerije boste prejeli po elektronski pošti. Če galerija ne bo objavljena, se lahko zgodi, da ni v skladu z našimi uredniškimi smernicami.",
+        "title": "Kako poteka proces"
+      },
+      "time": {
+        "description": "1-3 dni.",
+        "title": "Koliko časa traja"
+      },
+      "title": "Pošljite galerijo za objavo",
+      "toastButton": "Okej",
+      "toastMessage": "Ta galerija je zdaj poslana v objavo. Preverite {galleries} in preverite, ali je bil objavljen."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) je spletno orodje za upravljanje različnih vrst vsebin (vključno s 3D), dokumentiranje kulturne dediščine prek prostorov digitalne skupnosti ter kuriranje digitalnih zgodb in izkušenj."
+      }
     }
   },
+  "shareWhere": "Kje želite to deliti?",
   "showLess": "Prikaži manj",
   "showMore": "Prikaži več",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Pripet"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} zgodbe najdene",
     "title": "Zgodbe"
+  },
+  "themes": {
+    "description": "Brskajte po temi",
+    "themes": "Teme"
   },
   "website": "Spletno mesto"
 };

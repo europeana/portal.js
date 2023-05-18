@@ -23,7 +23,7 @@ const factory = (propsData = {}) => {
     propsData,
     mocks: {
       $t: () => {},
-      $path: () => {}
+      localePath: () => {}
     }
   });
   wrapper.vm.sendFeedback = sinon.spy();
@@ -147,7 +147,7 @@ describe('components/feedback/FeedbackWidget', () => {
           email: ''
         });
 
-        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled')).toBe('disabled');
+        expect(wrapper.find('[data-qa="feedback send button"]').attributes('disabled')).toBe('disabled');
       });
     });
     describe('when there is a value for email', () => {
@@ -159,7 +159,7 @@ describe('components/feedback/FeedbackWidget', () => {
           email: 'example@mail.com'
         });
 
-        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled')).toBe(undefined);
+        expect(wrapper.find('[data-qa="feedback send button"]').attributes('disabled')).toBe(undefined);
       });
     });
   });
@@ -225,7 +225,7 @@ describe('components/feedback/FeedbackWidget', () => {
 
   describe('postFeedbackMessage', () => {
     const baseUrl = 'http://www.example.org';
-    const middlewarePath = '/_api/jira/service-desk';
+    const middlewarePath = '/_api/jira-service-desk/feedback';
     const feedback = 'This was useful. Thanks!';
 
     it('posts feedback to server middleware', async() => {

@@ -9,7 +9,7 @@ module.exports = {
     'plugin:jest/recommended'
   ],
   parserOptions: {
-    ecmaVersion: 2020
+    ecmaVersion: 2022
   },
   rules: {
     'array-bracket-newline': ['error', 'consistent'],

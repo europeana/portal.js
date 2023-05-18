@@ -1,0 +1,15 @@
+.container {
+  @at-root .xxl-page & {
+    @media (min-width: $bp-xxl) {
+      max-width: calc(100% - (0.5 * $max-card-width));
+    }
+
+    @media (min-width: $bp-xxxl) {
+      max-width: calc(100% - $max-card-width);
+    }
+
+    @media (min-width: calc((6 * $max-card-width) + (1.5 * $max-card-width))) {
+      max-width: calc(6 * ($max-card-width + $grid-gutter-4k));
+    }
+  }
+}

@@ -2,12 +2,12 @@
  * @file Interface to Europeana Record Search API
  */
 
-import qs from 'qs';
 import pick from 'lodash/pick.js';
 
 import {
-  apiError, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
+  apiError, createAxios, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
 } from './utils.js';
+import { BASE_URL } from './record.js';
 import { truncate } from '../vue-filters.js';
 
 // Some facets do not support enquoting of their field values.
@@ -91,6 +91,10 @@ export function rangeFromQueryParam(paramValue) {
  */
 // TODO: switch options.addContentTierFilter to default to `false`
 export default (context) => ($axios, params, options = {}) => {
+  if (!$axios) {
+    $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
+  }
+
   const defaultOptions = { addContentTierFilter: true };
   const localOptions = { ...defaultOptions, ...options };
 
@@ -122,9 +126,6 @@ export default (context) => ($axios, params, options = {}) => {
   }
 
   return $axios.get(`${localOptions.url || ''}/search.json`, {
-    paramsSerializer(params) {
-      return qs.stringify(params, { arrayFormat: 'repeat' });
-    },
     params: searchParams
   })
     .then(response => response.data)
@@ -134,7 +135,7 @@ export default (context) => ($axios, params, options = {}) => {
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {
-      throw apiError(error, context);
+      throw apiError(error);
     });
 };
 

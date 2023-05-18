@@ -15,7 +15,8 @@ export default {
       "noCollections": {
         "curated": "Et ole vielä kuratoinut yhtään kokoelmaa",
         "private": "Et ole luonut vielä yksityisiä gallerioita",
-        "public": "Et ole luonut vielä julkisia gallerioita"
+        "public": "Et ole luonut vielä julkisia gallerioita",
+        "published": "Sinulla ei ole vielä julkaistu yhtään galleriaa"
       },
       "noLikedItems": "Et ole tykännyt vielä mistään kohteista"
     },
@@ -23,6 +24,7 @@ export default {
     "profile": "Omat tykkäykset ja galleriat",
     "profileSettings": "Profiiliasetukset",
     "publicCollections": "Julkiset galleriat",
+    "publishedCollections": "Julkaistut Galleriat",
     "settings": "Asetukset",
     "title": "Oma tili"
   },
@@ -31,10 +33,10 @@ export default {
     "cancel": "Peruuttaa",
     "close": "sulje",
     "continue": "jatka",
+    "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
     "edit": "Muokkaa",
     "feedback": "Palaute",
-    "goBack": "Palaa takaisin",
     "goHome": "Siirry kotisivulle",
     "learnMore": "Opi lisää",
     "like": "Tykkää",
@@ -43,13 +45,18 @@ export default {
     "pin": "Pin",
     "preview": "Esikatselu",
     "previous": "Edellinen",
-    "providedBy": "Tarjoaa {provider}",
+    "publish": "Julkaista",
     "reject": "Hylätä",
+    "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
     "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
-    "skip": "Ohita",
+    "skipSend": "Ohita ja lähetä",
+    "submitForPublication": "Lähetä julkaistavaksi",
+    "submittedForPublication": "Lähetetty julkaistavaksi",
+    "transcribe": "Transkribeerida",
+    "transcribeNow": "Transkriboi nyt",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -61,9 +68,11 @@ export default {
     "title": "Nimi:"
   },
   "automatedCardGroup": {
-    "item": "Viimeisimmät kohdetta",
+    "gallery": "Galleriat",
+    "item": "Viimeaikaiset kohteet",
     "organisation": "Organisaatiot",
     "place": "Paikat",
+    "theme": "Teemat",
     "time": "Esillä vuosisatoja",
     "topic": "Esillä olevat aiheet"
   },
@@ -85,6 +94,11 @@ export default {
     "theme": "Teema",
     "time": "Vuosisata",
     "topic": "Aihe"
+  },
+  "categories": {
+    "label": "Tutustu tarinoihin tunnisteen mukaan",
+    "noOptions": "Ei ole enää valittavia tunnisteita",
+    "search": "Tutustu tarinoihin tunnisteen mukaan"
   },
   "clearAllFilters": "tyhjennä kaikki suodattimet",
   "collections": {
@@ -191,9 +205,6 @@ export default {
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
-      "error": {
-        "unpin": "Kohteen irrottamisessa tapahtui virhe. Yritä uudelleen tai ilmoita ongelmasta."
-      },
       "pin": "Tämä kohde näkyy kokoelman \" {entity} \" yläosassa. Ilmoitamme sinulle, kun tämä muutos tulee näkyviin kokoelmasivulle.",
       "pinLimit": {
         "body": "Tällä hetkellä voit kiinnittää vain 24 kohdetta ensimmäiselle sivulle. Jos haluat kiinnittää tämän kohteen, irrota toinen ja yritä sitten kiinnittää tämä uudelleen.",
@@ -207,15 +218,39 @@ export default {
   },
   "error": "Virhe",
   "errorMessage": {
+    "galleryLocked": {
+      "description": "Muokkaus on tilapäisesti poistettu käytöstä, eikä muutoksiasi ole tallennettu. Yritä uudelleen myöhemmin.",
+      "title": "Päivitys epäonnistui"
+    },
+    "galleryNotFound": {
+      "description": "Tätä galleriaa ei löytynyt. Se on ehkä poistettu.",
+      "title": "Galleriaa ei löydy"
+    },
     "galleryUnauthorised": {
       "description": "Tämä ei ole mahdollista, koska yksityiset galleriat näkyvät vain niiden luojalle. Jos tunnet gallerian luojan, pyydä häntä tekemään galleriasta julkinen. Vaihtoehtoisesti voit ilmoittaa tästä ongelmasta palautepainikkeella.",
       "metaTitle": "Galleria luvaton",
       "title": "Oho! {newline} Yrität tarkastella toisen henkilön yksityistä galleriaa."
     },
+    "genericUnknownError": {
+      "description": "Tapahtui tuntematon virhe.",
+      "title": "Tuntematon virhe"
+    },
     "itemNotFound": {
       "description": "Tämä voi johtua seuraavista syistä: tätä kohdetta ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää kohde uudelleen.",
       "metaTitle": "Kohdetta ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä kohdetta."
+    },
+    "pageNotFound": {
+      "metaTitle": "Sivua ei löydy",
+      "title": "Etsimääsi sivua ei ole olemassa."
+    },
+    "pinningNotFound": {
+      "description": "Kohteen kiinnittämisessä/irrottamisessa tapahtui virhe. Yritä uudelleen tai ilmoita ongelmasta.",
+      "title": "Kuroitua kokoelmaa ei löydy"
+    },
+    "searchPaginationLimitExceeded": {
+      "description": "Vain ensimmäiset {limit} hakutulokset ovat nähtävissä.",
+      "title": "Sivurajoitus ylitetty"
     },
     "searchResultsNotFound": {
       "description": "Muokkaa hakusanaa tai nollaa suodattimet ja yritä uudelleen.",
@@ -608,6 +643,7 @@ export default {
   "feedback": {
     "emailOptional": "Saatamme haluta seurata asiaa. Kirjoita sähköpostiosoitteesi, jos olet iloinen siitä, että voimme ottaa sinuun yhteyttä.",
     "failed": "Pyyntö epäonnistui. Yritä uudelleen.",
+    "faq": "Siirry usein kysyttyihin kysymyksiin",
     "form": {
       "placeholders": {
         "email": "Syötä sähköpostiosoitteesi",
@@ -699,6 +735,7 @@ export default {
       "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
+      "faq": "Usein kysytyt kysymykset",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
@@ -843,14 +880,22 @@ export default {
   "messages": {
     "copyToClipboardSuccess": "Kopioitu leikepöydälle",
     "externalContentError": "Ulkoisen sisällön lataaminen epäonnistui",
-    "notFound": "Ei löydy",
-    "paginationLimitExceeded": "Vain ensimmäiset {limit} hakutulosta voidaan näyttää."
+    "notFound": "Ei löydy"
   },
   "modal": {
     "download": {
       "clickToCopy": "Kopioi attribuutti napsauttamalla sitä",
       "modalIntro": "Jos käytät tätä kohdetta verkossa tai muualla, älä unohda näyttää seuraavaa attribuutiota sen vieressä:",
       "modalTitle": "Sano kiitos"
+    },
+    "downloadFailed": {
+      "linkPrompt": "Suosittelemme, että napsautat alla olevaa \"kulttuuriperintölaitos\" -painiketta tarkistaaksesi, voidaanko kohde ladata tarjoavan laitoksen verkkosivustolta.",
+      "message": "Jos lataus ei toimi, se voi johtua siitä, että tarjoava laitos on poistanut sen tai sen palvelussa voi olla tekninen ongelma.",
+      "title": "Lataus ei toimi"
+    },
+    "transcribe": {
+      "message": "Liity meihin Europeana Transcribe, online-kansalaisaloitteessa Europeanan kokoelmien rikastamiseksi",
+      "title": "Transkriboida tämä kohde"
     }
   },
   "multilingual": {
@@ -863,14 +908,17 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulje",
-    "readMore": "Lue lisää",
+    "readMore": "Tutustu tarinoihin",
     "text": {
-      "searchFilters": "Voit nyt etsiä arvoja yksittäisistä suodattimista; Tarkista se!"
+      "storiesTags": "Tutustu päivitettyyn Tarinat-sivuun. Voit nyt etsiä ja suodattaa tunnisteiden mukaan."
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
+  "notificationBanner": {
+    "text": "{\"one\":\"\",\"other\":\"\"}"
+  },
   "of": "of",
   "organisation": {
     "city": "Kaupunki",
@@ -909,6 +957,10 @@ export default {
   "pagination": {
     "label": "Sivunumerointi"
   },
+  "provider": {
+    "linkText": "Näytä palveluntarjoajan verkkosivustolla",
+    "providedBy": "Tämän kohteen tarjoaa ja ylläpitää {provider}"
+  },
   "readMore": "Lue lisää",
   "recommendation": {
     "prompts": {
@@ -922,7 +974,6 @@ export default {
     },
     "allMetaData": "Kaikki metatiedot",
     "copyEmbedLabel": "Upota koodi (kopioi napsauttamalla)",
-    "exploreMore": "tutustu",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
@@ -944,13 +995,24 @@ export default {
       "title": "Tutustu aiheeseen liittyviin tarinoihin"
     },
     "collections": {
+      "name": "Aiheeseen liittyvät kokoelmat",
       "title": "Tutustu aiheeseen liittyviin kokoelmiin"
     },
     "editorial": {
       "title": "Tarinoita, joista saatat pitää"
+    },
+    "galleries": {
+      "name": "Aiheeseen liittyvät galleriat",
+      "title": "Tutustu aiheeseen liittyviin gallerioihin"
+    },
+    "items": {
+      "loginForMore": "Kirjaudu sisään nähdäksesi muut aiheeseen liittyvät kohteet",
+      "title": "Tutustu aiheeseen liittyviin tuotteisiin"
+    },
+    "themes": {
+      "title": "Tutustu aiheeseen liittyviin teemat"
     }
   },
-  "relatedCollections": "Aiheeseen liittyvät kokoelmat",
   "removeFilter": "Poista {filterLabel} -suodatin",
   "reset": "Nollaa",
   "resourceWikimedia": "Sisältö Wikimedia Commonsista",
@@ -996,15 +1058,20 @@ export default {
       "edit": "Muokkaa galleriaa",
       "update": "Päivitä galleria"
     },
+    "entityBestBets": {
+      "title": "{entity} Sivu"
+    },
     "form": {
       "description": "Gallerian kuvaus",
       "private": "Pidä tämä galleria yksityisenä",
+      "privateWarning": "Tämä toiminto poistaa gallerian julkaisun.",
       "required": "Pakollinen kenttä",
       "title": "Gallerian nimi"
     },
     "labels": {
       "curatedBy": "Kuratoija",
-      "private": "Yksityinen galleria"
+      "private": "Yksityinen galleria",
+      "published": "Julkaistu galleria"
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
@@ -1012,12 +1079,34 @@ export default {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 kohteeseen. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"
       },
-      "updated": "Kohde on lisätty galleriaan."
+      "updated": "Kohde on lisätty galleriaan.",
+      "visibilityChanged": "Varoitus: asetettu näkyvyys on jo muuttunut ja on tällä hetkellä \" {visibility} \"."
     },
     "prompts": {
       "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."
+    },
+    "publication": {
+      "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
+      "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
+      "process": {
+        "description": "Kun lähetät gallerian julkaistavaksi, Europeanan kustantajatiimi saa ilmoituksen. He tarkastavat sen ensin ja saattavat tehdä muutoksia ennen julkaisemista. Saat ilmoituksia sähköpostitse, kun galleriaa tarkistetaan. Jos galleriaa ei julkaista, se voi johtua siitä, että se ei ole toimituksellisten ohjeidemme mukainen.",
+        "title": "Kuinka prosessi toimii"
+      },
+      "time": {
+        "description": "1-3 päivää.",
+        "title": "Kuinka kauan se kestää"
+      },
+      "title": "Lähetä galleria julkaistavaksi",
+      "toastButton": "Okei",
+      "toastMessage": "Tämä galleria on nyt lähetetty julkaistavaksi. Voit tarkistaa {galleries} , onko se julkaistu."
+    },
+    "shareTo": {
+      "weavex": {
+        "tooltip": "WEAVExperience (WEAVEx) on verkkopohjainen työkalu erityyppisten (mukaan lukien 3D) sisällön hallintaan, kulttuuriperinnön dokumentointiin digitaalisten yhteisötilojen kautta sekä digitaalisten tarinoiden ja kokemusten kuratoimiseen."
+      }
     }
   },
+  "shareWhere": "Missä haluaisit jakaa tämän?",
   "showLess": "Näytä vähemmän",
   "showMore": "Näytä lisää",
   "sideFilters": {
@@ -1029,7 +1118,12 @@ export default {
     "pinned": "Kiinnitetty"
   },
   "storiesPage": {
+    "storiesHaveLoaded": "{0} tarinaa löydetty",
     "title": "Tarinoita"
+  },
+  "themes": {
+    "description": "Selaa teemoittain",
+    "themes": "Teemat"
   },
   "website": "Verkkosivusto"
 };

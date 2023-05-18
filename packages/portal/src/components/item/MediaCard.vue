@@ -1,6 +1,6 @@
 <template>
   <MediaCardImage
-    v-if="displayImage"
+    v-if="!media.isRichMedia"
     :europeana-identifier="europeanaIdentifier"
     :edm-type="edmType"
     :media="media"
@@ -15,13 +15,13 @@
     <iframe
       data-qa="media player"
       allowfullscreen="true"
-      :src="$path({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
+      :src="localePath({ name: 'media', query: { id: europeanaIdentifier, mediaUrl: media.about, mediaType: media.ebucoreHasMimeType } })"
       class="media-player"
       :title="$t('record.mediaPlayer')"
     />
   </div>
   <VideoPlayer
-    v-else-if="isHTMLVideo"
+    v-else-if="media.isHTMLVideo"
     :europeana-identifier="europeanaIdentifier"
     :src="media.about"
     :type="media.ebucoreHasMimeType"
@@ -29,7 +29,7 @@
     :height="media.ebucoreHeight"
   />
   <div
-    v-else-if="isHTMLAudio"
+    v-else-if="media.isHTMLAudio"
     class="audio-slide"
   >
     <AudioPlayer
@@ -39,43 +39,26 @@
     />
   </div>
   <EmbedOEmbed
-    v-else-if="isOEmbed"
+    v-else-if="media.isOEmbed"
     :url="media.about"
-  />
-  <iframe
-    v-else-if="isIIIFImage || isIIIFPresentation"
-    data-qa="IIIF viewer"
-    allowfullscreen="true"
-    class="iiif-iframe"
-    :src="$path({ name: 'iiif', query: { uri: iiifManifest, query: $nuxt.context.from ? $nuxt.context.from.query.query : '' } })"
-    :aria-label="$t('actions.viewDocument')"
-    :title="$t('record.IIIFViewer')"
   />
 </template>
 
 <script>
-  import {
-    iiifManifest,
-    isHTMLAudio,
-    isHTMLVideo,
-    isIIIFImage,
-    isIIIFPresentation, isOEmbed,
-    isPlayableMedia,
-    isRichMedia
-  } from '@/plugins/media';
+  import WebResource from '@/plugins/europeana/edm/WebResource';
 
   export default {
     name: 'MediaCard',
     components: {
-      MediaCardImage: () => import('../item/MediaCardImage'),
+      MediaCardImage: () => import('./MediaCardImage'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed'),
       VideoPlayer: () => import('../media/VideoPlayer'),
       AudioPlayer: () => import('../media/AudioPlayer')
     },
     props: {
       media: {
-        type: Object,
-        default: null
+        type: WebResource,
+        required: true
       },
       europeanaIdentifier: {
         type: String,
@@ -97,45 +80,13 @@
         type: Number,
         default: null
       }
-    },
-
-    data() {
-      return {
-        oEmbedData: null
-      };
-    },
-
-    computed: {
-      displayImage() {
-        return !isRichMedia(this.media);
-      },
-      isPlayableMedia() {
-        return isPlayableMedia(this.media);
-      },
-      isHTMLVideo() {
-        return isHTMLVideo(this.media);
-      },
-      isHTMLAudio() {
-        return isHTMLAudio(this.media);
-      },
-      isIIIFImage() {
-        return isIIIFImage(this.media);
-      },
-      isIIIFPresentation() {
-        return isIIIFPresentation(this.media);
-      },
-      iiifManifest() {
-        return iiifManifest(this.media, this.europeanaIdentifier);
-      },
-      isOEmbed() {
-        return isOEmbed(this.media);
-      }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/iiif';
 
   // TODO: move the code below to video component when we switch to new item page
   ::v-deep video {

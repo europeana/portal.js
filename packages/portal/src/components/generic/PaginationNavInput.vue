@@ -21,7 +21,7 @@
           :aria-hidden="prevDisabled"
           class="page-link"
         >
-          <span class="icon-arrow-down" />
+          <span class="icon-arrow-down mr-1" />
           {{ $t('actions.previous') }}
         </SmartLink>
       </li>
@@ -52,7 +52,7 @@
           class="page-link"
         >
           {{ $t('actions.next') }}
-          <span class="icon-arrow-down" />
+          <span class="icon-arrow-down ml-1" />
         </SmartLink>
       </li>
     </ul>
@@ -113,7 +113,7 @@
       },
 
       nextDisabled() {
-        return this.page === this.totalPages;
+        return this.page >= this.totalPages;
       }
     },
 
@@ -127,16 +127,15 @@
     methods: {
       changePaginationNav() {
         if (this.page) {
-          const newRouteQuery = {  ...this.$route.query, page: this.page };
-          const newRoute = { path: this.$route.path, query: newRouteQuery };
-          this.$goto(newRoute);
+          this.$router.push(this.linkGen(this.page));
         }
       },
 
       linkGen(pageNo) {
         return {
           path: this.$route.path,
-          query: { ...this.$route.query, page: pageNo }
+          query: { ...this.$route.query, page: pageNo },
+          hash: this.$route.hash
         };
       }
     }
@@ -145,6 +144,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  @import '@/assets/scss/pagination';
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/pagination';
 </style>

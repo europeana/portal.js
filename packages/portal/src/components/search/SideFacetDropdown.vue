@@ -378,7 +378,7 @@
       },
 
       theme() {
-        return themes.find(theme => theme.qf === this.collection);
+        return themes.find((theme) => theme.qf === this.collection);
       },
 
       moreOptionsName() {
@@ -435,10 +435,7 @@
         })
           .then((response) => response.facets?.[0]?.fields || [])
           .then((fields) => this.filterFacetFields(fields))
-          .catch(async(error) => {
-            // TODO: refactor not to use store. rely on fetchState.error instead
-            await this.$store.dispatch('search/updateForFailure', error);
-          });
+          .catch(() => []);
       },
 
       filterFacetFields(fields) {
