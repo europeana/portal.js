@@ -32,7 +32,7 @@ export default {
     },
 
     tFacetKey(facetName, key, { count = 1, collection = null } = {}) {
-      const facetNameKey = facetName.replace(/\..*$/, '');
+      const facetNameKey = facetName.split('.')[0];
 
       if (collection) {
         const collectionLabel = this.tcNull(`collections.${collection}.facets.${facetNameKey}.${key}`, count);

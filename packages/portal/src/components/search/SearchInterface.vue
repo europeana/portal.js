@@ -18,6 +18,16 @@
               class="mb-3"
             />
           </client-only>
+          <client-only>
+            <SearchQueryBuilder
+              v-show="showAdvancedSearch"
+              v-if="advancedSearchEnabled"
+              id="search-query-builder"
+              class="d-none mb-3"
+              :class="{'d-lg-block': showAdvancedSearch}"
+              @show="(show) => showAdvancedSearch = show"
+            />
+          </client-only>
           <section>
             <div
               class="mb-3 d-flex align-items-start justify-content-between"
@@ -137,7 +147,26 @@
         :api-params="apiParams"
         :api-options="apiOptions"
         :user-params="userParams"
-      />
+      >
+        <b-row
+          v-if="advancedSearchEnabled"
+        >
+          <b-button
+            aria-controls="search-query-builder search-query-builder-mobile"
+            :aria-expanded="showAdvancedSearch"
+            @click="toggleAdvancedSearch"
+          >
+            {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }}
+          </b-button>
+        </b-row>
+        <SearchQueryBuilder
+          v-show="showAdvancedSearch"
+          v-if="advancedSearchEnabled"
+          id="search-query-builder-mobile"
+          class="d-lg-none"
+          @show="(show) => showAdvancedSearch = show"
+        />
+      </SideFilters>
     </b-row>
   </b-container>
 </template>
@@ -159,6 +188,7 @@
     components: {
       ErrorMessage: () => import('../error/ErrorMessage'),
       SearchBoostingForm: () => import('./SearchBoostingForm'),
+      SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
@@ -201,7 +231,8 @@
         results: [],
         theme: null,
         totalResults: null,
-        paginationChanged: false
+        paginationChanged: false,
+        showAdvancedSearch: false
       };
     },
 
@@ -276,6 +307,9 @@
       },
       showSearchBoostingForm() {
         return !!this.debugSettings?.boosting;
+      },
+      advancedSearchEnabled() {
+        return this.$features.advancedSearch;
       },
       routeQueryView() {
         return this.$route.query.view;
@@ -385,8 +419,12 @@
       setViewFromRouteQuery() {
         if (this.routeQueryView) {
           this.view = this.routeQueryView;
-          this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
+          this.$cookies?.set('searchResultsView', this.routeQueryView);
         }
+      },
+
+      toggleAdvancedSearch() {
+        this.showAdvancedSearch = !this.showAdvancedSearch;
       }
     }
   };

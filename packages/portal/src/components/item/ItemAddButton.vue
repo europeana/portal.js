@@ -103,7 +103,7 @@
       addToSet() {
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
-          this.$matomo && this.$matomo.trackEvent('Item_add', 'Click add item button', this.identifier);
+          this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
           this.keycloakLogin();
         }

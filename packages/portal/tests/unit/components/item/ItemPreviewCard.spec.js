@@ -32,7 +32,7 @@ const factory = (propsData) => {
       },
       $auth: { loggedIn: false },
       $config: { app: { internalLinkDomain: null } },
-      $path: (opts) => `/item/${opts.params.pathMatch}`,
+      localePath: (opts) => `/item/${opts.params.pathMatch}`,
       $i18n: {
         locale: 'en'
       },

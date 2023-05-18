@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import plugin from '@/modules/http/templates/plugin.axios.server';
+import plugin from '@/plugins/axios.server';
 
-describe('modules/http/templates/plugin.axios.server', () => {
+describe('plugins/axios.server', () => {
   describe('default export', () => {
     it('enables keep-alive on axios global default agents', () => {
       plugin();

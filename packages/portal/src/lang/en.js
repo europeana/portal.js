@@ -616,6 +616,7 @@ export default {
       "cancel": "Cancel",
       "morefilters": "More filters",
       "reset": "Reset",
+      "showAdditional": "{show} additional filters",
       "showAll": "Show all {label}",
       "showLess": "Show less {label}"
     },
@@ -1044,6 +1045,40 @@ export default {
   "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "search": {
+    "advanced": {
+      "actions": {
+        "add": "Add",
+        "clear": "Clear",
+        "search": "Search"
+      },
+      "fields": {
+        "anyField": "Any field",
+        "creator": "Creator",
+        "description": "Description",
+        "subject": "Subject",
+        "title": "Title",
+        "type": "Type"
+      },
+      "input": {
+        "field": "Field",
+        "modifier": "Modifier",
+        "searchTerm": "Search term(s)"
+      },
+      "modifiers": {
+        "contains": "contains",
+        "endsWith": "ends with",
+        "is": "is",
+        "isNot": "is not",
+        "notContain": "does not contain",
+        "startsWith": "starts with"
+      },
+      "selectOne": "Select one",
+      "show": "{show} advanced search",
+      "tooltip": {
+        "field": "Select a field to search on.",
+        "modifier": "Select a modifier to apply to the field."
+      }
+    },
     "boost": {
       "placeholder": "Enter field boosting query"
     },
@@ -1056,6 +1091,7 @@ export default {
     },
     "title": "Search"
   },
+  "searchFilters": "Search filters {count}",
   "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search 50+ million items",
   "searchResults": "Search",

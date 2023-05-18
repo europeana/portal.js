@@ -18,7 +18,7 @@ const factory = (props = { fields: {} }) => shallowMount(BrowseContentCard, {
         edmPreview: (img) => img
       }
     },
-    $path: (opts) => opts,
+    localePath: (opts) => opts,
     $i18n: { locale: 'en' },
     $t: () => {}
   }

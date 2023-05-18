@@ -150,7 +150,6 @@
 
 <script>
   import isEmpty from 'lodash/isEmpty';
-  import { mapGetters } from 'vuex';
 
   import ItemDataProvider from '@/components/item/ItemDataProvider';
   import ItemHero from '@/components/item/ItemHero';
@@ -162,6 +161,7 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/mixins/stringify';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -180,6 +180,7 @@
 
     mixins: [
       stringify,
+      canonicalUrlMixin,
       pageMetaMixin
     ],
 
@@ -318,9 +319,9 @@
       linkForContributingAnnotation() {
         return this.annotationsByMotivation('linkForContributing')[0]?.body;
       },
-      ...mapGetters({
-        shareUrl: 'http/canonicalUrlWithoutLocale'
-      }),
+      shareUrl() {
+        return this.canonicalUrlWithoutLocale;
+      },
       relatedEntityUris() {
         return this.europeanaEntityUris.filter(entityUri => entityUri !== this.dataProviderEntityUri).slice(0, 5);
       },

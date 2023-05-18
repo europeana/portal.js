@@ -237,23 +237,23 @@
         return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);
       },
       relatedTopics() {
-        return this.sections && this.sections.filter(section => section['__typename'] === 'TopicGroup')[0];
+        return this.sections?.filter(section => section['__typename'] === 'TopicGroup')[0];
       },
       relatedPersons() {
-        return this.sections && this.sections.filter(section => section['__typename'] === 'PersonGroup')[0];
+        return this.sections?.filter(section => section['__typename'] === 'PersonGroup')[0];
       },
       relatedGalleries() {
-        return this.sections && this.sections.filter(section => section['__typename'] === 'GalleryGroup')[0];
+        return this.sections?.filter(section => section['__typename'] === 'GalleryGroup')[0];
       },
       callToAction() {
-        return this.sections && this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
+        return this.sections?.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
       },
       curatedItems() {
-        return this.sections && this.sections.filter(section => section['__typename'] === 'CardGroup')[0];
+        return this.sections?.filter(section => section['__typename'] === 'CardGroup')[0];
       },
       curatedItemsEncoding() {
         const items = this.curatedItems?.hasPartCollection?.items?.length && this.curatedItems.hasPartCollection.items.filter(item => !!item);
-        const curatedItemsEncoding = items && items.map(items => items.encoding);
+        const curatedItemsEncoding = items?.map(items => items.encoding);
         return curatedItemsEncoding;
       },
       dailySetOfCuratedItems() {
@@ -289,6 +289,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
+  @import '@europeana/style/scss/transitions';
 
   .page {
     padding-bottom: 1rem;
@@ -314,15 +315,6 @@
         font-size: $font-size-large-4k;
       }
     }
-  }
-
-  .fade-enter-active {
-    transition: $standard-transition;
-    opacity: 0;
-  }
-
-  .fade-enter-to {
-    opacity: 1;
   }
 
   .xxl-page ::v-deep .masonry-container {

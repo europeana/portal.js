@@ -15,15 +15,15 @@ const $store = {
   }
 };
 
-const $path = () => '/';
-const $pathSpy = sinon.spy($path);
+const localePath = () => '/';
+const localePathSpy = sinon.spy(localePath);
 
 const factory = () => {
   return shallowMount(SmartLink, {
     localVue,
     mocks: {
       ...{
-        $path: $pathSpy,
+        localePath: localePathSpy,
         $store,
         $t: () => {},
         $config: { app: { internalLinkDomain: null } }
@@ -141,7 +141,7 @@ describe('components/generic/SmartLink', () => {
         await wrapper.setProps({ destination });
 
         wrapper.vm.path;
-        expect($pathSpy.calledWith({
+        expect(localePathSpy.calledWith({
           name: 'item-all',
           params: { pathMatch: identifierSlug }
         })).toBe(true);
@@ -156,7 +156,7 @@ describe('components/generic/SmartLink', () => {
         await wrapper.setProps({ destination });
 
         wrapper.vm.path;
-        expect($pathSpy.calledWith({
+        expect(localePathSpy.calledWith({
           name: 'slug',
           params: { pathMatch: slug },
           query: {}
@@ -172,7 +172,7 @@ describe('components/generic/SmartLink', () => {
         await wrapper.setProps({ destination });
 
         wrapper.vm.path;
-        expect($pathSpy.calledWith({
+        expect(localePathSpy.calledWith({
           name: 'slug',
           params: { pathMatch: 'account' },
           query: { redirect: '/account' }
