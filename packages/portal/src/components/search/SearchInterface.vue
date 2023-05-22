@@ -25,6 +25,7 @@
               id="search-query-builder"
               class="d-none mb-3"
               :class="{'d-lg-block': showAdvancedSearch}"
+              :rules="advancedQueryRules"
               @show="(show) => showAdvancedSearch = show"
             />
           </client-only>
@@ -164,6 +165,7 @@
           v-if="advancedSearchEnabled"
           id="search-query-builder-mobile"
           class="d-lg-none"
+          :rules="advancedQueryRules"
           @show="(show) => showAdvancedSearch = show"
         />
       </SideFilters>
@@ -181,6 +183,9 @@
   import { filtersFromQf } from '@/plugins/europeana/search';
 
   import merge from 'deepmerge';
+
+  const FIELD_TYPE_TEXT = 'text';
+  const FIELD_TYPE_STRING = 'string';
 
   export default {
     name: 'SearchInterface',
@@ -223,6 +228,39 @@
 
     data() {
       return {
+        advancedQueryFields: [
+          { name: 'proxy_dc_contributor', type: FIELD_TYPE_TEXT },
+          { name: 'proxy_dc_coverage', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dc_creator', type: FIELD_TYPE_TEXT },
+          { name: 'proxy_dc_date', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dc_description', type: FIELD_TYPE_TEXT },
+          { name: 'proxy_dc_format', type: FIELD_TYPE_TEXT },
+          { name: 'proxy_dc_identifier', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dc_publisher', type: FIELD_TYPE_TEXT },
+          { name: 'proxy_dc_rights', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dc_source', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dc_subject', type: FIELD_TYPE_TEXT },
+          { name: 'proxy_dc_title', type: FIELD_TYPE_TEXT },
+          { name: 'proxy_dc_type', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dcterms_alternative', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dcterms_created', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dcterms_hasPart', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dcterms_isPartOf', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dcterms_issued', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dcterms_medium', type: FIELD_TYPE_TEXT },
+          { name: 'proxy_dcterms_provenance', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dcterms_spatial', type: FIELD_TYPE_STRING },
+          { name: 'proxy_dcterms_temporal', type: FIELD_TYPE_STRING },
+          { name: 'proxy_edm_currentLocation', type: FIELD_TYPE_STRING },
+          { name: 'proxy_edm_hasMet', type: FIELD_TYPE_STRING },
+          { name: 'proxy_edm_isRelatedTo', type: FIELD_TYPE_STRING },
+          { name: 'year', type: FIELD_TYPE_STRING }
+        ],
+        advancedQueryModifiers: [
+          { name: 'contains', query: { text: '{field}:{term}', string: '{field}:*{term}*' } },
+          { name: 'doesNotContain', query: { text: '!{field}:{term}', string: '!{field}:*{term}*' } }
+        ],
+        advancedQueryRules: [],
         apiOptions: {},
         apiParams: {},
         collection: null,
@@ -345,6 +383,28 @@
         const userParams = { ...this.userParams };
         // Coerce qf from user input into an array as it may be a single string
         userParams.qf = [].concat(userParams.qf || []);
+
+        if (userParams.qa) {
+          const rules = [].concat(userParams.qa).map((rule) => {
+            const ruleParts = rule.split(':');
+            const field = this.advancedQueryFields.find((field) => field.name === ruleParts[0]);
+            const modifier = this.advancedQueryModifiers.find((modifier) => modifier.name === ruleParts[1]);
+            const term = ruleParts[2];
+            return (field && modifier && term) ? { field, modifier, term } : null;
+          }).filter((rule) => !!rule);
+
+          this.advancedQueryRules = rules.map((rule) => ({
+            field: rule.field.name,
+            modifier: rule.modifier.name,
+            term: rule.term
+          }));
+          const queries = rules.map((rule) => (
+            rule.modifier.query[rule.field.type].replace('{field}', rule.field.name).replace('{term}', rule.term)
+          ));
+
+          userParams.query = [].concat(userParams.query || []).concat(queries).join(' AND ');
+          delete userParams.qa;
+        }
 
         const apiParams = merge(userParams, this.overrideParams);
 

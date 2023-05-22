@@ -18,8 +18,8 @@
       />
       <b-form-select
         :id="`select-field-${id}`"
-        :value="selectedField"
-        :options="searchFields"
+        :value="field"
+        :options="selectFieldOptions"
         @input="(value) => handleFieldInput(value)"
       />
     </b-form-group>
@@ -39,8 +39,8 @@
       />
       <b-form-select
         :id="`select-modifier-${id}`"
-        :value="selectedModifier"
-        :options="availableModifiers"
+        :value="modifier"
+        :options="selectModifierOptions"
         @input="(value) => handleModifierInput(value)"
       />
     </b-form-group>
@@ -50,7 +50,7 @@
     >
       <b-form-input
         :id="`search-term-${id}`"
-        :value="searchTerm"
+        :value="term"
         @input="(value) => handleTermInput(value)"
       />
     </b-form-group>
@@ -59,6 +59,8 @@
 
 <script>
   import { BFormSelect, BTooltip } from 'bootstrap-vue';
+  import camelCase from 'lodash/camelCase';
+
   export default {
     name: 'SearchQueryBuilderRule',
 
@@ -67,9 +69,17 @@
       BTooltip
     },
     props: {
-      rule: {
-        type: Object,
-        default: () => ({})
+      field: {
+        type: String,
+        default: null
+      },
+      modifier: {
+        type: String,
+        default: null
+      },
+      term: {
+        type: String,
+        default: null
       },
       id: {
         type: String,
@@ -78,47 +88,64 @@
     },
     data() {
       return {
-        searchFields: [
-          { value: 'anyField', text: this.$t('search.advanced.fields.anyField') },
-          { value: 'subject', text: this.$t('search.advanced.fields.subject') },
-          { value: 'title', text: this.$t('search.advanced.fields.title') },
-          { value: 'description', text: this.$t('search.advanced.fields.description') },
-          { value: 'creator', text: this.$t('search.advanced.fields.creator') },
-          { value: 'type', text: this.$t('search.advanced.fields.type') }
+        fields: [
+          'proxy_dc_contributor',
+          'proxy_dc_coverage',
+          'proxy_dc_creator',
+          'proxy_dc_date',
+          'proxy_dc_description',
+          'proxy_dc_format',
+          'proxy_dc_identifier',
+          'proxy_dc_publisher',
+          'proxy_dc_rights',
+          'proxy_dc_source',
+          'proxy_dc_subject',
+          'proxy_dc_title',
+          'proxy_dc_type',
+          'proxy_dcterms_alternative',
+          'proxy_dcterms_created',
+          'proxy_dcterms_hasPart',
+          'proxy_dcterms_isPartOf',
+          'proxy_dcterms_issued',
+          'proxy_dcterms_medium',
+          'proxy_dcterms_provenance',
+          'proxy_dcterms_spatial',
+          'proxy_dcterms_temporal',
+          'proxy_edm_currentLocation',
+          'proxy_edm_hasMet',
+          'proxy_edm_isRelatedTo',
+          'year'
         ],
         modifiers: [
-          { value: 'contains', text: this.$t('search.advanced.modifiers.contains') },
-          { value: 'doesNotContain', text: this.$t('search.advanced.modifiers.notContain') },
-          { value: 'is', text: this.$t('search.advanced.modifiers.is') },
-          { value: 'isNot', text: this.$t('search.advanced.modifiers.isNot') },
-          { value: 'startsWith', text: this.$t('search.advanced.modifiers.startsWith') },
-          { value: 'endsWith', text: this.$t('search.advanced.modifiers.endsWith') }
+          'contains',
+          'doesNotContain'
         ]
       };
     },
     computed: {
-      searchTerm() {
-        return this.rule.searchTerm;
+      selectFieldOptions() {
+        return this.fields.map((field) => ({
+          value: field,
+          text: this.$i18n.t(`fieldLabels.default.${camelCase(field.replace('proxy_', ''))}`)
+        }))
+          .sort((a, b) => a.text.localeCompare(b.text));
       },
-      selectedField() {
-        return this.rule.selectedField;
-      },
-      selectedModifier()  {
-        return this.rule.selectedModifier;
-      },
-      availableModifiers() {
-        return this.selectedField === 'anyField' ? [this.modifiers.find((mod) => mod.value === 'is')] : this.modifiers;
+      selectModifierOptions() {
+        return this.modifiers.map((mod) => ({
+          value: mod,
+          text: this.$i18n.t(`search.advanced.modifiers.${mod}`)
+        }));
       }
     },
     methods: {
       handleTermInput(value) {
-        this.$emit('change', 'searchTerm', value);
+        this.$emit('change', 'term', value);
       },
       handleFieldInput(value) {
-        this.$emit('change', 'selectedField', value);
+        this.$emit('change', 'field', value);
       },
       handleModifierInput(value) {
-        this.$emit('change', 'selectedModifier', value);
+        this.$emit('change', 'modifier', value);
       }
     }
   };
