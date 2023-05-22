@@ -290,7 +290,7 @@
   }
 
   &:disabled,
-  &:disabled {
+  &.disabled {
     background: $white;
     color: $mediumgrey;
     opacity: 0.7;

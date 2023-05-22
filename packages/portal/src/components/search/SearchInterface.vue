@@ -467,38 +467,38 @@
 }
 
 ::v-deep .search-toggle {
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: $font-size-small;
-    padding: 0;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: $font-size-small;
+  padding: 0;
 
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-small-4k;
-    }
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-small-4k;
+  }
 
-    &:hover,
-    &:focus {
-      text-decoration: none;
-    }
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
 
+  &::before {
+    content: '+';
+  }
+
+  &.open::before {
+    content: '-';
+  }
+}
+
+.query-builder-toggle {
+  @media (min-width: $bp-large) {
     &::before {
-      content: '+';
+      content: '<';
     }
 
     &.open::before {
-      content: '-';
+      content: '>';
     }
   }
-
-  .query-builder-toggle {
-    @media (min-width: $bp-large) {
-      &::before {
-        content: '<';
-      }
-
-      &.open::before {
-        content: '>';
-      }
-    }
-  }
+}
 </style>
