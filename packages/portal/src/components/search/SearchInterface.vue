@@ -329,6 +329,7 @@
       '$route.query.api': '$fetch',
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
+      '$route.query.qa': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged'
