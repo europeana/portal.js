@@ -936,9 +936,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Discover stories",
+    "readMore": "Go to the search page",
     "text": {
-      "storiesTags": "Check out the updated Stories page. You can now search and filter by tags."
+      "advancedSearch": "Check out the new advanced search feature that you can use to make even more granular searches."
     }
   },
   "newWindow": "opens in new window",
