@@ -135,5 +135,9 @@
         height: 3.75rem;
       }
     }
+
+    &:focus {
+      border-color: $blue;
+    }
   }
 </style>
