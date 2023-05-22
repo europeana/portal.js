@@ -123,14 +123,14 @@
         const qa = this.queryRules.map((rule) => {
           const field = this.fields.find((field) => field.name === rule.field);
           const modifier = this.modifiers.find((modifier) => modifier.name === rule.modifier);
-          return modifier.query[field.type].replace('{field}', field.name).replace('{term}', rule.term);
-        });
+          return modifier?.query[field.type].replace('{field}', field.name).replace('{term}', rule.term);
+        }).filter((qa) => !!qa);
         const newRouteQuery = { ...this.$route.query, ...{ page: 1, qa } };
         const newRoute = { ...this.$route, query: newRouteQuery };
         await this.$router.push(newRoute);
       },
       initRulesFromRouteQuery() {
-        this.queryRules = (this.$route.query.qa || []).map((qa) => {
+        this.queryRules = [].concat(this.$route.query.qa || []).map((qa) => {
           let modifier;
           if (qa.startsWith('!')) {
             modifier = 'doesNotContain';
