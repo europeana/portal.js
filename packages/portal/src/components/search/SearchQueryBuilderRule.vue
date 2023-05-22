@@ -20,6 +20,7 @@
         :id="`select-field-${id}`"
         :value="field"
         :options="selectFieldOptions"
+        required
         @input="(value) => handleFieldInput(value)"
       />
     </b-form-group>
@@ -41,6 +42,7 @@
         :id="`select-modifier-${id}`"
         :value="modifier"
         :options="selectModifierOptions"
+        required
         @input="(value) => handleModifierInput(value)"
       />
     </b-form-group>
@@ -51,6 +53,7 @@
       <b-form-input
         :id="`search-term-${id}`"
         :value="term"
+        required
         @input="(value) => handleTermInput(value)"
       />
     </b-form-group>

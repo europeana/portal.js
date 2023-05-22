@@ -2,38 +2,42 @@
   <b-row
     :id="id"
   >
-    <div
-      v-for="(rule, index) in queryRules"
-      :key="index"
-      class="d-flex align-items-center"
-      :data-qa="`search query builder rule ${index}`"
+    <b-form
+      @submit.prevent="searchWithBuiltQueries"
     >
-      <SearchQueryBuilderRule
-        :id="`${id}-${index}`"
-        :field="rule.field"
-        :modifier="rule.modifier"
-        :term="rule.term"
-        @change="(field, value) => rule[field] = value"
-      />
-      <b-button
-        :data-qa="`clear rule button ${index}`"
-        @click="clearRule(index)"
+      <div
+        v-for="(rule, index) in queryRules"
+        :key="index"
+        class="d-flex align-items-center"
+        :data-qa="`search query builder rule ${index}`"
       >
-        {{ $t('search.advanced.actions.clear') }}
+        <SearchQueryBuilderRule
+          :id="`${id}-${index}`"
+          :field="rule.field"
+          :modifier="rule.modifier"
+          :term="rule.term"
+          @change="(field, value) => rule[field] = value"
+        />
+        <b-button
+          :data-qa="`clear rule button ${index}`"
+          @click="clearRule(index)"
+        >
+          {{ $t('search.advanced.actions.clear') }}
+        </b-button>
+      </div>
+      <b-button
+        data-qa="search rules button"
+        type="submit"
+      >
+        {{ $t('search.advanced.actions.search') }}
       </b-button>
-    </div>
-    <b-button
-      data-qa="search rules button"
-      @click="searchWithBuiltQueries"
-    >
-      {{ $t('search.advanced.actions.search') }}
-    </b-button>
-    <b-button
-      data-qa="add rule button"
-      @click="addNewRule"
-    >
-      {{ $t('search.advanced.actions.add') }}
-    </b-button>
+      <b-button
+        data-qa="add rule button"
+        @click="addNewRule"
+      >
+        {{ $t('search.advanced.actions.add') }}
+      </b-button>
+    </b-form>
   </b-row>
 </template>
 
