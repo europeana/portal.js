@@ -17,7 +17,6 @@
       />
       <b-button
         :data-qa="`clear rule button ${index}`"
-        :disabled="disableClearRuleButton"
         @click="clearRule(index)"
       >
         {{ $t('search.advanced.actions.clear') }}
@@ -95,12 +94,6 @@
       };
     },
 
-    computed: {
-      disableClearRuleButton() {
-        return this.queryRules.length === 1;
-      }
-    },
-
     mounted() {
       this.initRulesFromRouteQuery();
       this.$emit('show', true);
@@ -148,7 +141,7 @@
               term = term.slice(1);
             }
             if (term.endsWith('*')) {
-              term = term.slice(0, term.length - 2);
+              term = term.slice(0, term.length - 1);
             }
           }
 
@@ -162,6 +155,9 @@
           return null;
         })
           .filter((rule) => !!rule);
+        if (this.queryRules.length === 0) {
+          this.queryRules.push({});
+        }
       }
     }
   };
