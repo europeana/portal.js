@@ -277,6 +277,12 @@
   text-transform: uppercase;
   transition: $standard-transition;
 
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
   &:hover,
   &:focus {
     background: $white;

@@ -1,8 +1,10 @@
 <template>
   <b-input-group
     data-qa="search query builder rule"
+    class="query-rule"
   >
     <b-form-group
+      class="query-rule-form-group"
       :label-for="`select-field-${id}`"
     >
       <template #label>
@@ -24,6 +26,7 @@
       />
     </b-form-group>
     <b-form-group
+      class="query-rule-form-group"
       :label-for="`select-modifier-${id}`"
     >
       <template #label>
@@ -45,6 +48,7 @@
       />
     </b-form-group>
     <b-form-group
+      class="query-rule-form-group"
       :label="$t('search.advanced.input.searchTerm')"
       :label-for="`search-term-${id}`"
     >
@@ -94,3 +98,23 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .query-rule {
+    max-width: $max-text-column-width;
+
+    @media (min-width: $bp-wqhd) {
+      max-width: 50%;
+    }
+  }
+
+  .query-rule-form-group {
+    flex-basis: 100%;
+
+    @media (min-width: $bp-large) {
+      flex-basis: 33%;
+    }
+  }
+</style>
