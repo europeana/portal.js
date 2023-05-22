@@ -85,7 +85,7 @@
           { name: 'proxy_edm_currentLocation', type: FIELD_TYPE_STRING },
           { name: 'proxy_edm_hasMet', type: FIELD_TYPE_STRING },
           { name: 'proxy_edm_isRelatedTo', type: FIELD_TYPE_STRING },
-          { name: 'year', type: FIELD_TYPE_STRING }
+          { name: 'YEAR', type: FIELD_TYPE_STRING }
         ],
         modifiers: [
           { name: 'contains', query: { text: '{field}:{term}', string: '{field}:*{term}*' } },

@@ -114,7 +114,7 @@
           'proxy_edm_currentLocation',
           'proxy_edm_hasMet',
           'proxy_edm_isRelatedTo',
-          'year'
+          'YEAR'
         ],
         modifiers: [
           'contains',
@@ -126,7 +126,7 @@
       selectFieldOptions() {
         return this.fields.map((field) => ({
           value: field,
-          text: this.$i18n.t(`fieldLabels.default.${camelCase(field.replace('proxy_', ''))}`)
+          text: this.$i18n.t(`fieldLabels.default.${field === 'YEAR' ? 'year' : camelCase(field.replace('proxy_', ''))}`)
         }))
           .sort((a, b) => a.text.localeCompare(b.text));
       },
