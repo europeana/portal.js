@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex align-items-center"
+    class="d-flex align-items-center flex-wrap flex-lg-nowrap"
   >
     <b-input-group
       data-qa="search query builder rule"
@@ -71,6 +71,7 @@
       class="d-inline-flex align-items-center ml-auto ml-lg-1"
       @click="clearRule"
     >
+      <span class="icon-cancel-circle pr-1" />
       {{ $t('search.advanced.actions.clear') }}
     </b-button>
   </div>
@@ -195,6 +196,12 @@
     @media (min-width: $bp-large) {
       flex-basis: calc(33%);
     }
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        margin-right: 0.75rem !important;
+      }
+    }
   }
 
   .form-control {
@@ -203,11 +210,13 @@
     border-radius: 0.375rem;
     font-weight: normal;
     height: 3rem;
+    color: $greyblack;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
         font-size: $font-size-base-4k;
-        height: 3.75rem;
+        height: 4.5rem;
+        padding: calc(1.5 * 0.375rem) calc(1.5 * 0.75rem);
       }
     }
 

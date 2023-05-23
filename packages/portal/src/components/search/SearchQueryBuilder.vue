@@ -16,7 +16,6 @@
             <div
               v-for="(rule, index) in queryRules"
               :key="`${id}-${index}`"
-              class="d-flex align-items-center flex-wrap flex-lg-nowrap"
               :data-qa="`search query builder rule ${index}`"
             >
               <SearchQueryBuilderRule
@@ -35,6 +34,7 @@
             class="d-inline-flex align-items-center mr-3"
             type="submit"
           >
+            <span class="icon-search pr-1" />
             {{ $t('search.advanced.actions.search') }}
           </b-button>
           <b-button
@@ -43,6 +43,7 @@
             class="d-inline-flex align-items-center"
             @click="addNewRule"
           >
+            <span class="icon-ic-add pr-1" />
             {{ $t('search.advanced.actions.add') }}
           </b-button>
         </b-form>
