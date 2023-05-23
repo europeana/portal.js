@@ -99,7 +99,7 @@
       initRulesFromRouteQuery() {
         this.queryRules = this.advancedSearchRulesFromRouteQuery();
         if (this.queryRules.length === 0) {
-          this.queryRules.push({});
+          this.addNewRule();
         } else {
           this.$emit('show', true);
         }
