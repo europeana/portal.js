@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    class="d-flex align-items-center"
+  >
     <b-input-group
       data-qa="search query builder rule"
     >

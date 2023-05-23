@@ -8,7 +8,6 @@
       <div
         v-for="(rule, index) in queryRules"
         :key="index"
-        class="d-flex align-items-center"
         :data-qa="`search query builder rule ${index}`"
       >
         <SearchQueryBuilderRule
