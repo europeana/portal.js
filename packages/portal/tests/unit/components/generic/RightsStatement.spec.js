@@ -30,7 +30,9 @@ const statements = [
   { label: 'Rights Reserved - Free Access', urls: ['http://www.europeana.eu/rights/rr-f/'], classes: ['rr'] },
   { label: 'Rights Reserved - Paid Access', urls: ['http://www.europeana.eu/rights/rr-p/'], classes: ['rr'] },
   { label: 'Rights Reserved - Restricted Access', urls: ['http://www.europeana.eu/rights/rr-r/'], classes: ['rr'] },
-  { label: 'Unknown copyright status', urls: ['http://www.europeana.eu/rights/unknown/'], classes: [] }
+  { label: 'Unknown copyright status', urls: ['http://www.europeana.eu/rights/unknown/'], classes: [] },
+  { label: 'Not a URL', urls: ['Not a URL'], classes: [] },
+  { label: 'https://example.org/', urls: ['https://example.org/'], classes: [] }
 ];
 
 describe('components/generic/RightsStatement', () => {

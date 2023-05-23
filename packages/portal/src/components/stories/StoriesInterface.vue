@@ -192,7 +192,7 @@
         if (this.page === 1 && this.selectedTags.length === 0) {
           this.stories.splice(12, 0, this.ctaBanner);
         }
-        this.$scrollTo && this.$scrollTo('#header');
+        this.$scrollTo?.('#header');
       },
 
       entryUrl(entry) {

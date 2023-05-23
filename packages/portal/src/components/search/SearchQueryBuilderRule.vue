@@ -4,8 +4,10 @@
   >
     <b-input-group
       data-qa="search query builder rule"
+      class="query-rule"
     >
       <b-form-group
+        class="query-rule-form-group mr-lg-2"
         :label-for="`select-field-${id}`"
       >
         <template #label>
@@ -28,6 +30,7 @@
         />
       </b-form-group>
       <b-form-group
+        class="query-rule-form-group mr-lg-2"
         :label-for="`select-modifier-${id}`"
       >
         <template #label>
@@ -50,6 +53,7 @@
         />
       </b-form-group>
       <b-form-group
+        class="query-rule-form-group"
         :label="$t('search.advanced.input.searchTerm')"
         :label-for="`search-term-${id}`"
       >
@@ -63,6 +67,8 @@
     </b-input-group>
     <b-button
       data-qa="search query builder rule clear button"
+      variant="light"
+      class="d-inline-flex align-items-center ml-auto ml-lg-1"
       @click="clearRule"
     >
       {{ $t('search.advanced.actions.clear') }}
@@ -155,3 +161,46 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .query-rule {
+    max-width: $max-text-column-width;
+
+    @media (min-width: $bp-large) {
+      flex-wrap: nowrap;
+    }
+
+    @media (min-width: $bp-wqhd) {
+      max-width: 50%;
+    }
+  }
+
+  .query-rule-form-group {
+    flex-basis: 100%;
+
+    @media (min-width: $bp-large) {
+      flex-basis: calc(33%);
+    }
+  }
+
+  .form-control {
+    background-color: $white;
+    border: 1px solid $middlegrey;
+    border-radius: 0.375rem;
+    font-weight: normal;
+    height: 3rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+        height: 3.75rem;
+      }
+    }
+
+    &:focus {
+      border-color: $blue;
+    }
+  }
+</style>

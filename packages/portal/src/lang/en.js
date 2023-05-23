@@ -1063,7 +1063,7 @@ export default {
       "input": {
         "field": "Field",
         "modifier": "Modifier",
-        "searchTerm": "Search term(s)"
+        "searchTerm": "Enter search term(s)"
       },
       "modifiers": {
         "contains": "contains",

@@ -21,7 +21,7 @@ export const routeHooks = (router, apm, options = {}) => {
   });
 
   router.afterEach(() => {
-    afterFrame(() => transaction && transaction.detectFinish());
+    afterFrame(() => transaction?.detectFinish());
   });
 
   /**
@@ -29,7 +29,7 @@ export const routeHooks = (router, apm, options = {}) => {
    * where `next(error)` is called
    */
   router.onError(() => {
-    transaction && transaction.end();
+    transaction?.end();
   });
 };
 

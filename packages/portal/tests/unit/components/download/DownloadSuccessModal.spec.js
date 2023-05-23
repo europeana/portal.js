@@ -57,10 +57,10 @@ describe('components/download/DownloadSuccessModal', () => {
         expect(global.navigator.clipboard.writeText.calledWith(attributionSnippet)).toBe(true);
       });
 
-      it('records that the snippet was copied to the clipboard', () => {
+      it('records that the snippet was copied to the clipboard', async() => {
         const wrapper = factory(propsData);
 
-        wrapper.vm.copySnippet();
+        await wrapper.vm.copySnippet();
 
         expect(wrapper.vm.snippetCopied).toBe(true);
       });

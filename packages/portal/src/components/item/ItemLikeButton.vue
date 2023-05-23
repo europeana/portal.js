@@ -99,7 +99,7 @@
 
         try {
           await this.$store.dispatch('set/like', this.identifier);
-          this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.identifier);
+          this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
           if (e.message === '100 likes') {

@@ -22,6 +22,14 @@
   &:hover {
     box-shadow: $boxshadow;
   }
+
+  .icon-cancel-circle::before {
+    font-size: $font-size-base;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+    }
+  }
 }
 
 .btn-primary {
@@ -263,11 +271,43 @@
   border: 0;
   color: $mediumgrey;
   font-size: $font-size-small;
+  font-weight: 600;
   padding: 0.5rem 1rem;
   text-decoration: none;
+  text-transform: uppercase;
+  transition: $standard-transition;
 
-  &:hover {
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+  }
+
+  &:hover,
+  &:focus {
     background: $white;
+    color: $blue;
+  }
+
+  &:disabled,
+  &.disabled {
+    background: $white;
+    color: $mediumgrey;
+    opacity: 0.7;
+  }
+
+  .icon-ic-add {
+    line-height: 1;
+
+    &::before {
+      font-size: $font-size-medium;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-medium-4k;
+        }
+      }
+    }
   }
 }
 

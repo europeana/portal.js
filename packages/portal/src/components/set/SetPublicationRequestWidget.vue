@@ -162,11 +162,6 @@
 
     .icon-cancel-circle::before {
       color: $red;
-      font-size: $font-size-base;
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-base-4k;
-      }
     }
   }
 </style>
