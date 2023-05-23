@@ -1,68 +1,75 @@
 <template>
-  <b-input-group
-    data-qa="search query builder rule"
-  >
-    <b-form-group
-      :label-for="`select-field-${id}`"
+  <div>
+    <b-input-group
+      data-qa="search query builder rule"
     >
-      <template #label>
-        <span :id="`select-field-label-${id}`">
-          {{ $t('search.advanced.input.field') }}
-        </span>
-      </template>
-      <b-tooltip
-        :target="`select-field-label-${id}`"
-        :title="$t('search.advanced.tooltip.field')"
-        boundary-padding="0"
-        placement="bottom"
-      />
-      <b-form-select
-        :id="`select-field-${id}`"
-        :value="field"
-        :options="selectFieldOptions"
-        required
-        @input="(value) => handleFieldInput(value)"
-      />
-    </b-form-group>
-    <b-form-group
-      :label-for="`select-modifier-${id}`"
+      <b-form-group
+        :label-for="`select-field-${id}`"
+      >
+        <template #label>
+          <span :id="`select-field-label-${id}`">
+            {{ $t('search.advanced.input.field') }}
+          </span>
+        </template>
+        <b-tooltip
+          :target="`select-field-label-${id}`"
+          :title="$t('search.advanced.tooltip.field')"
+          boundary-padding="0"
+          placement="bottom"
+        />
+        <b-form-select
+          :id="`select-field-${id}`"
+          v-model="selectField"
+          :options="selectFieldOptions"
+          :required="areAllRequired"
+          @input="(value) => handleFieldInput(value)"
+        />
+      </b-form-group>
+      <b-form-group
+        :label-for="`select-modifier-${id}`"
+      >
+        <template #label>
+          <span :id="`select-modifier-label-${id}`">
+            {{ $t('search.advanced.input.modifier') }}
+          </span>
+        </template>
+        <b-tooltip
+          :target="`select-modifier-label-${id}`"
+          :title="$t('search.advanced.tooltip.modifier')"
+          boundary-padding="0"
+          placement="bottom"
+        />
+        <b-form-select
+          :id="`select-modifier-${id}`"
+          v-model="selectModifier"
+          :options="selectModifierOptions"
+          :required="areAllRequired"
+          @input="(value) => handleModifierInput(value)"
+        />
+      </b-form-group>
+      <b-form-group
+        :label="$t('search.advanced.input.searchTerm')"
+        :label-for="`search-term-${id}`"
+      >
+        <b-form-input
+          :id="`search-term-${id}`"
+          v-model="inputTerm"
+          :required="areAllRequired"
+          @input="(value) => handleTermInput(value)"
+        />
+      </b-form-group>
+    </b-input-group>
+    <b-button
+      @click="clearRule"
     >
-      <template #label>
-        <span :id="`select-modifier-label-${id}`">
-          {{ $t('search.advanced.input.modifier') }}
-        </span>
-      </template>
-      <b-tooltip
-        :target="`select-modifier-label-${id}`"
-        :title="$t('search.advanced.tooltip.modifier')"
-        boundary-padding="0"
-        placement="bottom"
-      />
-      <b-form-select
-        :id="`select-modifier-${id}`"
-        :value="modifier"
-        :options="selectModifierOptions"
-        required
-        @input="(value) => handleModifierInput(value)"
-      />
-    </b-form-group>
-    <b-form-group
-      :label="$t('search.advanced.input.searchTerm')"
-      :label-for="`search-term-${id}`"
-    >
-      <b-form-input
-        :id="`search-term-${id}`"
-        :value="term"
-        required
-        @input="(value) => handleTermInput(value)"
-      />
-    </b-form-group>
-  </b-input-group>
+      {{ $t('search.advanced.actions.clear') }}
+    </b-button>
+  </div>
 </template>
 
 <script>
   import { BFormSelect, BTooltip } from 'bootstrap-vue';
-  import camelCase from 'lodash/camelCase';
+  import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRule',
@@ -71,6 +78,11 @@
       BFormSelect,
       BTooltip
     },
+
+    mixins: [
+      advancedSearchMixin
+    ],
+
     props: {
       field: {
         type: String,
@@ -89,58 +101,45 @@
         default: null
       }
     },
+
     data() {
       return {
-        fields: [
-          'proxy_dc_contributor',
-          'proxy_dc_coverage',
-          'proxy_dc_creator',
-          'proxy_dc_date',
-          'proxy_dc_description',
-          'proxy_dc_format',
-          'proxy_dc_identifier',
-          'proxy_dc_publisher',
-          'proxy_dc_rights',
-          'proxy_dc_source',
-          'proxy_dc_subject',
-          'proxy_dc_title',
-          'proxy_dc_type',
-          'proxy_dcterms_alternative',
-          'proxy_dcterms_created',
-          'proxy_dcterms_hasPart',
-          'proxy_dcterms_isPartOf',
-          'proxy_dcterms_issued',
-          'proxy_dcterms_medium',
-          'proxy_dcterms_provenance',
-          'proxy_dcterms_spatial',
-          'proxy_dcterms_temporal',
-          'proxy_edm_currentLocation',
-          'proxy_edm_hasMet',
-          'proxy_edm_isRelatedTo',
-          'YEAR'
-        ],
-        modifiers: [
-          'contains',
-          'doesNotContain'
-        ]
+        inputTerm: this.term,
+        selectField: this.field,
+        selectModifier: this.modifier
       };
     },
+
     computed: {
+      // If any field has a value, all are required. If none have a value, the
+      // rule will be ignored and none are required.
+      areAllRequired() {
+        return [this.inputTerm, this.selectField, this.selectModifier].some((value) => (
+          value !== null && value !== ''
+        ));
+      },
       selectFieldOptions() {
-        return this.fields.map((field) => ({
-          value: field,
-          text: this.$i18n.t(`fieldLabels.default.${field === 'YEAR' ? 'year' : camelCase(field.replace('proxy_', ''))}`)
+        return this.advancedSearchFields.map((field) => ({
+          value: field.name,
+          text: this.advancedSearchFieldLabel(field)
         }))
           .sort((a, b) => a.text.localeCompare(b.text));
       },
       selectModifierOptions() {
-        return this.modifiers.map((mod) => ({
-          value: mod,
-          text: this.$i18n.t(`search.advanced.modifiers.${mod}`)
+        return this.advancedSearchModifiers.map((mod) => ({
+          value: mod.name,
+          text: this.$i18n.t(`search.advanced.modifiers.${mod.name}`)
         }));
       }
     },
+
     methods: {
+      clearRule() {
+        this.inputTerm = null;
+        this.selectField = null;
+        this.selectModifier = null;
+        this.$emit('clear');
+      },
       handleTermInput(value) {
         this.$emit('change', 'term', value);
       },

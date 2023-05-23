@@ -347,6 +347,7 @@
         // Coerce qf from user input into an array as it may be a single string
         userParams.qf = [].concat(userParams.qf || []);
 
+        // `qa` params are queries from the advanced search builder
         if (userParams.qa) {
           userParams.query = [].concat(userParams.query || []).concat(userParams.qa).join(' AND ');
           delete userParams.qa;
