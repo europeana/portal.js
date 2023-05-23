@@ -70,8 +70,9 @@
   }
 
   .xxl-page.white-page .primary-cta {
+    margin: 0 0 2rem;
+
     @media (min-width: $bp-large) {
-      margin: 0 0 2rem;
       width: calc(50%);
       max-width: calc($max-text-column-width + 100px);
     }
