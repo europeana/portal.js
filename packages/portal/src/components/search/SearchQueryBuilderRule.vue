@@ -142,6 +142,18 @@
       }
     },
 
+    watch: {
+      field(newVal) {
+        this.selectField = newVal;
+      },
+      modifier(newVal) {
+        this.selectModifier = newVal;
+      },
+      term(newVal) {
+        this.inputTerm = newVal;
+      }
+    },
+
     methods: {
       clearRule() {
         this.inputTerm = null;
