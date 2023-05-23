@@ -108,14 +108,14 @@
       color: $mediumgrey;
 
       @media (max-width: ($bp-small - 1px)) {
-        font-size: $font-size-small;
+        font-size: $font-size-base;
       }
     }
   }
 
   .divider {
     border-bottom: 1px solid $bodygrey;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.25rem;
     flex-basis: 100%;
     margin-left: $grid-gutter;
     margin-right: $grid-gutter;

@@ -68,4 +68,13 @@
       max-width: calc(100% + 100px);
     }
   }
+
+  .xxl-page.white-page .primary-cta {
+    margin: 0 0 2rem;
+
+    @media (min-width: $bp-large) {
+      width: calc(50%);
+      max-width: calc($max-text-column-width + 100px);
+    }
+  }
 </style>

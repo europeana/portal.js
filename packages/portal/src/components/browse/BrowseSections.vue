@@ -50,6 +50,13 @@
         :text="section.text"
         :url="section.url"
       />
+      <CallToActionBanner
+        v-else-if="contentType(section, 'PrimaryCallToAction') && section.image"
+        :name="section.name"
+        :text="section.text"
+        :link="section.relatedLink"
+        :illustration="section.image"
+      />
       <PrimaryCallToAction
         v-else-if="contentType(section, 'PrimaryCallToAction')"
         :text="section.text"
@@ -69,7 +76,8 @@
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),
       AutomatedCardGroup: () => import('./AutomatedCardGroup'),
-      PrimaryCallToAction: () => import('./PrimaryCallToAction')
+      PrimaryCallToAction: () => import('./PrimaryCallToAction'),
+      CallToActionBanner: () => import('../generic/CallToActionBanner')
     },
 
     props: {

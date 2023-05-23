@@ -122,7 +122,7 @@
 
     .is-external-link {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
 
       span {
         text-overflow: ellipsis;
@@ -597,6 +597,7 @@
       column-gap: 4rem;
     }
   }
+
   .card {
     @media (min-width: $bp-xxxl) {
       max-width: none;
@@ -705,5 +706,19 @@
 .browse-section {
   .content-card:not(.mini-card) a .card-body {
     min-height: 10rem;
+  }
+}
+
+h2.card-group-title {
+  color: $mediumgrey;
+  font-weight: 600;
+  font-size: $font-size-medium;
+
+  @media (min-width: $bp-small) {
+    font-size: $font-size-large;
+  }
+
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-large-4k;
   }
 }
