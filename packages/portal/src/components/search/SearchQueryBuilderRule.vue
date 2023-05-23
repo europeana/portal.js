@@ -62,6 +62,7 @@
       </b-form-group>
     </b-input-group>
     <b-button
+      data-qa="search query builder rule clear button"
       @click="clearRule"
     >
       {{ $t('search.advanced.actions.clear') }}
@@ -90,15 +91,15 @@
         type: String,
         default: null
       },
+      id: {
+        type: String,
+        default: null
+      },
       modifier: {
         type: String,
         default: null
       },
       term: {
-        type: String,
-        default: null
-      },
-      id: {
         type: String,
         default: null
       }

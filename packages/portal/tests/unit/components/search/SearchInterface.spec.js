@@ -450,12 +450,17 @@ describe('components/search/SearchInterface', () => {
     it('combines userParams and overrideParams into apiParams', () => {
       const userQuery = 'calais';
       const userQf = 'TYPE:"IMAGE"';
+      const userQa = [
+        'proxy_dc_title:dog'
+      ];
+      const expectedQuery = 'calais AND proxy_dc_title:dog';
       const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
       const profile = 'minimal';
       const wrapper = factory({
         mocks: {
           $route: {
             query: {
+              qa: userQa,
               query: userQuery,
               qf: userQf
             }
@@ -471,7 +476,7 @@ describe('components/search/SearchInterface', () => {
       wrapper.vm.deriveApiSettings();
 
       expect(wrapper.vm.apiParams).toEqual({
-        query: userQuery,
+        query: expectedQuery,
         qf: [userQf, overrideQf],
         profile
       });
