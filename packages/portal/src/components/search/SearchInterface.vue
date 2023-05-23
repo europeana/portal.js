@@ -358,13 +358,13 @@
         // Coerce qf from user input into an array as it may be a single string
         userParams.qf = [].concat(userParams.qf || []);
 
-        // `qa` params are queries from the advanced search builder
-        if (userParams.qa) {
-          userParams.query = [].concat(userParams.query || []).concat(userParams.qa).join(' AND ');
-          delete userParams.qa;
-        }
-
         const apiParams = merge(userParams, this.overrideParams);
+
+        // `qa` params are queries from the advanced search builder
+        if (apiParams.qa) {
+          apiParams.query = [].concat(apiParams.query || []).concat(apiParams.qa).join(' AND ');
+          delete apiParams.qa;
+        }
 
         if (!apiParams.profile) {
           apiParams.profile = 'minimal';
