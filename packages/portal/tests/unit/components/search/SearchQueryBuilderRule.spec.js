@@ -21,4 +21,3 @@ describe('components/search/SearchQueryBuilderRule', () => {
     expect(rule.exists()).toBe(true);
   });
 });
-

@@ -130,7 +130,7 @@
       selectModifierOptions() {
         return this.advancedSearchModifiers.map((mod) => ({
           value: mod.name,
-          text: this.$i18n.t(`search.advanced.modifiers.${mod.name}`)
+          text: this.$t(`search.advanced.modifiers.${mod.name}`)
         }));
       }
     },

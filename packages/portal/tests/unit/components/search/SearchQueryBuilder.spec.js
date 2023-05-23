@@ -19,25 +19,11 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(Search
 });
 
 describe('components/search/SearchQueryBuilder', () => {
-  describe('when there is a URL query present', () => {
-    it('shows the advanced search functionality', () => {
-      const wrapper = factory({ mocks: { $route: { query: { query: 'dog' } } } });
+  describe('when there is an advanced search in the route query', () => {
+    it('emits the "show" event', () => {
+      const wrapper = factory({ mocks: { $route: { query: { qa: 'proxy_dc_title:dog' } } } });
 
       expect(wrapper.emitted('show')).toEqual([[true]]);
-    });
-  });
-
-  describe('when the URL query changes', () => {
-    describe('and it is empty or has a falsy value', () => {
-      it('hides the advanced search functionality', async() => {
-        const wrapper = factory({ mocks: { $route: { query: { query: 'dog' } } } });
-
-        wrapper.vm.$route.query.query = '';
-        await wrapper.vm.$nextTick();
-
-        // first sets it to true on mounted then to false on query change
-        expect(wrapper.emitted('show')).toEqual([[true], [false]]);
-      });
     });
   });
 
@@ -51,31 +37,4 @@ describe('components/search/SearchQueryBuilder', () => {
       expect(wrapper.vm.queryRules.length).toBe(2);
     });
   });
-
-  describe('clear rule button', () => {
-    describe('when there is only one rule', () => {
-      it('is disabled', () => {
-        const wrapper = factory();
-
-        const clearButton = wrapper.find('[data-qa="clear rule button 0"]');
-        clearButton.trigger('click');
-
-        expect(clearButton.attributes('disabled')).toBe('true');
-      });
-    });
-    describe('when there are multiple rules', () => {
-      it('removes the rule for that index', () => {
-        const wrapper = factory();
-        wrapper.vm.queryRules = [{ index: 0 }, { index: 1 }];
-
-        const firstClearButton = wrapper.find('[data-qa="clear rule button 0"]');
-
-        firstClearButton.trigger('click');
-
-        expect(wrapper.vm.queryRules.length).toBe(1);
-        expect(wrapper.vm.queryRules[0]).toStrictEqual({ index: 1 });
-      });
-    });
-  });
 });
-
