@@ -50,7 +50,7 @@ export default {
 
   methods: {
     advancedSearchFieldLabel(field) {
-      const fieldKey = field === 'YEAR' ? 'year' : camelCase(field.name.replace('proxy_', ''));
+      const fieldKey = field.name === 'YEAR' ? 'year' : camelCase(field.name.replace('proxy_', ''));
       return this.$t(`fieldLabels.default.${fieldKey}`);
     },
 
