@@ -4,7 +4,12 @@
 
   .tooltip-inner {
     font-weight: 400;
-    padding: $font-size-smallest;
+    padding: 0.5rem;
+    border: 1px solid $bodygrey;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
   }
 
   .arrow {
@@ -21,20 +26,5 @@
 
   &:not(:disabled):not(.disabled) {
     cursor: default;
-  }
-}
-
-#share-modal {
-  .tooltip-inner {
-    background: $white;
-    color: $mediumgrey;
-    font-size: $font-size-extrasmall;
-    box-shadow: $boxshadow;
-    padding: 1.5rem;
-    max-width: 270px;
-
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-extrasmall-4k;
-    }
   }
 }
