@@ -79,7 +79,7 @@ export default {
         const qaParts = qa.split(':');
         const field = this.advancedSearchFields.find((field) => field.name === qaParts[0]);
 
-        let term = qaParts[1] || '';
+        let term = (qaParts.slice(1) || []).join(':');
         if (field?.type === 'string') {
           if (term.startsWith('*')) {
             term = term.slice(1);
