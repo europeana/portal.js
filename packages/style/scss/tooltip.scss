@@ -25,6 +25,26 @@
 
 .btn.tooltip-button {
   display: inline;
+  color: $mediumgrey-light;
+  font-size: $font-size-base;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+    }
+  }
+
+  &.icon-info {
+    font-size: $font-size-extrasmall;
+    padding: 0.5rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+        padding: 0.75rem;
+      }
+    }
+  }
 
   &:hover {
     color: initial;

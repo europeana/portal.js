@@ -932,6 +932,7 @@ export default {
     "other": "other languages",
     "stopTranslating": "Stop translating this item to {0}.",
     "translateLanguage": "Would you like to see this item in {0}?",
+    "translateMetadata": "Translate the metadata of this item.",
     "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
   },
   "newFeatureNotification": {

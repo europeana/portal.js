@@ -60,6 +60,12 @@
                 <span>{{ metadataLanguageLabel }}</span>
               </i18n>
             </b-link>
+            <b-button
+              v-b-tooltip.bottom
+              :title="$t('multilingual.translateMetadata')"
+              class="icon-info tooltip-button"
+              variant="light-flat"
+            />
           </b-col>
         </b-row>
       </b-container>
