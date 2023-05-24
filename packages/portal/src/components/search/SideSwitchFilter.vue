@@ -32,15 +32,10 @@
 </template>
 
 <script>
-  import { VBTooltip } from 'bootstrap-vue';
   import facetsMixin from '@/mixins/facets';
 
   export default {
     name: 'SideSwitchFilter',
-
-    directives: {
-      'b-tooltip': VBTooltip
-    },
 
     mixins: [facetsMixin],
 

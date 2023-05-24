@@ -62,13 +62,12 @@
 </template>
 
 <script>
-  import { BFormSelect, BTooltip } from 'bootstrap-vue';
+  import { BFormSelect } from 'bootstrap-vue';
   export default {
     name: 'SearchQueryBuilderRule',
 
     components: {
-      BFormSelect,
-      BTooltip
+      BFormSelect
     },
     props: {
       searchTerm: {
