@@ -361,7 +361,7 @@
         const apiParams = merge(userParams, this.overrideParams);
 
         // `qa` params are queries from the advanced search builder
-        if (apiParams.qa) {
+        if (apiParams.qa && this.advancedSearchEnabled) {
           apiParams.query = [].concat(apiParams.query || []).concat(apiParams.qa).join(' AND ');
           delete apiParams.qa;
         }
