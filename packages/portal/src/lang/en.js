@@ -1044,6 +1044,14 @@ export default {
   "removeFilter": "Remove {filterLabel} filter",
   "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} means you can use this item freely. {readMoreLink}",
+      "permission": "{rightsStatementName} means you may be able to use this item if you seek permission. {readMoreLink}",
+      "restricted": "{rightsStatementName}  means you can use this item with conditions. {readMoreLink}",
+      "readMore": "Read more at creativecommons.org"
+    }
+  },
   "search": {
     "advanced": {
       "actions": {
