@@ -26,7 +26,7 @@
           v-model="selectField"
           :options="selectFieldOptions"
           :required="areAllRequired"
-          @input="(value) => handleFieldInput(value)"
+          @change="(value) => handleFieldChange(value)"
         />
       </b-form-group>
       <b-form-group
@@ -49,7 +49,7 @@
           v-model="selectModifier"
           :options="selectModifierOptions"
           :required="areAllRequired"
-          @input="(value) => handleModifierInput(value)"
+          @change="(value) => handleModifierChange(value)"
         />
       </b-form-group>
       <b-form-group
@@ -61,7 +61,7 @@
           :id="`search-term-${id}`"
           v-model="inputTerm"
           :required="areAllRequired"
-          @input="(value) => handleTermInput(value)"
+          @change="(value) => handleTermChange(value)"
         />
       </b-form-group>
     </b-input-group>
@@ -157,18 +157,18 @@
 
     methods: {
       clearRule() {
-        this.inputTerm = null;
-        this.selectField = null;
-        this.selectModifier = null;
+        // this.inputTerm = null;
+        // this.selectField = null;
+        // this.selectModifier = null;
         this.$emit('clear');
       },
-      handleTermInput(value) {
+      handleTermChange(value) {
         this.$emit('change', 'term', value);
       },
-      handleFieldInput(value) {
+      handleFieldChange(value) {
         this.$emit('change', 'field', value);
       },
-      handleModifierInput(value) {
+      handleModifierChange(value) {
         this.$emit('change', 'modifier', value);
       }
     }

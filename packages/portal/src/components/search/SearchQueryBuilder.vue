@@ -8,7 +8,7 @@
         role="search"
       >
         <b-form
-          @submit.prevent="searchWithBuiltQueries"
+          @submit.prevent="updateSearch"
         >
           <transition-group
             name="fade"
@@ -23,7 +23,7 @@
                 :field="rule.field"
                 :modifier="rule.modifier"
                 :term="rule.term"
-                @change="(field, value) => rule[field] = value"
+                @change="(field, value) => handleChangeRule(field, value, index)"
                 @clear="clearRule(index)"
               />
             </div>
@@ -80,20 +80,28 @@
       };
     },
 
-    mounted() {
+    watch: {
+      '$route.query.qa': 'initRulesFromRouteQuery'
+    },
+
+    created() {
       this.initRulesFromRouteQuery();
     },
 
     methods: {
+      handleChangeRule(field, value, index) {
+        this.queryRules[index][field] = value;
+      },
       addNewRule() {
         this.queryRules.push({});
       },
       clearRule(index) {
-        if ((this.queryRules.length > 1) || (index > 0)) {
-          this.queryRules.splice(index, 1);
+        this.queryRules.splice(index, 1);
+        if (this.queryRules.length === 0) {
+          this.addNewRule();
         }
       },
-      searchWithBuiltQueries() {
+      updateSearch() {
         // TODO: Add matomo tracking event here?
         this.$router.push(this.advancedSearchRouteQueryFromRules(this.queryRules));
       },

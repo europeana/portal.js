@@ -75,7 +75,7 @@ describe('components/search/SearchQueryBuilder', () => {
 
   describe('methods', () => {
     describe('clearRule', () => {
-      it('removes rule if there are others', async() => {
+      it('removes the relevant rule', async() => {
         const wrapper = factory();
 
         await wrapper.setData({ queryRules: [
@@ -91,7 +91,7 @@ describe('components/search/SearchQueryBuilder', () => {
         );
       });
 
-      it('leaves rule if there are no others', async() => {
+      it('adds a blank rule if all are gone', async() => {
         const wrapper = factory();
 
         await wrapper.setData({ queryRules: [
@@ -101,9 +101,7 @@ describe('components/search/SearchQueryBuilder', () => {
         wrapper.vm.clearRule(0);
 
         expect(wrapper.vm.queryRules.length).toBe(1);
-        expect(wrapper.vm.queryRules[0]).toEqual(
-          { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' }
-        );
+        expect(wrapper.vm.queryRules[0]).toEqual({});
       });
     });
   });
