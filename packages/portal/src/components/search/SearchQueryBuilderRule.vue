@@ -157,9 +157,6 @@
 
     methods: {
       clearRule() {
-        // this.inputTerm = null;
-        // this.selectField = null;
-        // this.selectModifier = null;
         this.$emit('clear');
       },
       handleTermChange(value) {
