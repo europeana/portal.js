@@ -265,9 +265,17 @@ h3.facet-label,
   }
 }
 
+.form-group {
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
 .custom-select {
   background: $white url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNSIgdmlld0JveD0iMCAwIDEwIDUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDBMNSA1TDEwIDBIMFoiIGZpbGw9IiM0RDRENEQiLz4KPC9zdmc+Cg==') right 0.75rem center/8px 4px no-repeat;
-  color: $mediumgrey-light;
+  color: $greyblack;
   font-size: $font-size-base;
   height: 3rem;
   border: 1px solid $middlegrey;
@@ -276,8 +284,11 @@ h3.facet-label,
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
+      background-size: 12px 6px;
+      background-position: right 1.125rem center;
       font-size: $font-size-base-4k;
-      height: 3.75rem;
+      height: 4.5rem;
+      padding: calc(1.5 * 0.375rem) calc(1.5 * 0.75rem);
     }
   }
 
