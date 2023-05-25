@@ -471,6 +471,7 @@
         const current = {
           boost: this.boost,
           page: this.page,
+          qa: this.$route.query.qa,
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,

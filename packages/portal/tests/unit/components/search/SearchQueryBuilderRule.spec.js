@@ -5,8 +5,9 @@ import BootstrapVue from 'bootstrap-vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(SearchQueryBuilderRule, {
+const factory = ({ propsData = {} } = {}) => shallowMount(SearchQueryBuilderRule, {
   localVue,
+  propsData,
   mocks: {
     $t: (key) => key
   }
@@ -20,5 +21,15 @@ describe('components/search/SearchQueryBuilderRule', () => {
 
     expect(rule.exists()).toBe(true);
   });
-});
 
+  describe('clear button', () => {
+    it('emits "clear" event', () => {
+      const wrapper = factory();
+
+      const clearButton = wrapper.find('[data-qa="search query builder rule clear button"]');
+      clearButton.trigger('click');
+
+      expect(wrapper.emitted('clear').length).toBe(1);
+    });
+  });
+});
