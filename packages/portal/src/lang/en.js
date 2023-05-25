@@ -1124,10 +1124,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Add to gallery",
+      "addToGallery": "Add this item to a gallery.",
       "create": "Create gallery",
       "createNew": "Create new gallery",
       "delete": "Delete gallery",
       "edit": "Edit gallery",
+      "saveItemToLikes": "Save this item to your Likes.",
       "update": "Update gallery"
     },
     "entityBestBets": {

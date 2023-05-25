@@ -1,12 +1,14 @@
 <template>
   <div>
     <b-button
+      v-b-tooltip
       class="like-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       :pressed="liked"
       :variant="buttonVariant"
       data-qa="like button"
       :aria-label="$t('actions.like')"
+      :title="$t('set.actions.saveItemToLikes')"
       @click="toggleLiked"
     >
       <span class="icon-heart" />
