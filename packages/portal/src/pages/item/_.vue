@@ -192,44 +192,31 @@
         annotations: [],
         cardGridClass: null,
         concepts: [],
+        dataProviderEntity: null,
         description: null,
         error: null,
-        relatedCollections: [],
-        dataProviderEntity: null,
+        fetched: false,
         fromTranslationError: null,
         identifier: `/${this.$route.params.pathMatch}`,
+        iiifPresentationManifest: null,
         isShownAt: null,
         media: [],
         metadata: {},
+        metadataLanguage: null,
         organizations: [],
         places: [],
+        relatedCollections: [],
+        schemaOrg: null,
+        showItemLanguageSelector: true,
         timespans: [],
         title: null,
         type: null,
-        useProxy: true,
-        schemaOrg: null,
-        metadataLanguage: null,
-        showItemLanguageSelector: true,
-        iiifPresentationManifest: null
+        useProxy: true
       };
     },
 
     async fetch() {
-      try {
-        const response = await this.$apis.record.getRecord(
-          this.identifier,
-          { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
-        );
-        for (const key in response.record) {
-          this[key] = response.record[key];
-        }
-
-        if (process.client) {
-          this.trackCustomDimensions();
-        }
-      } catch (e) {
-        this.$error(e, { scope: 'item' });
-      }
+      await this.fetchMetadata();
     },
 
     computed: {
@@ -340,7 +327,7 @@
 
     watch: {
       '$route.query.lang'() {
-        this.$fetch();
+        this.fetchMetadata();
       },
       'relatedEntityUris'() {
         this.fetchEntities();
@@ -368,6 +355,24 @@
 
       annotationsByMotivation(motivation) {
         return this.annotations?.filter(annotation => annotation.motivation === motivation) || [];
+      },
+
+      async fetchMetadata() {
+        try {
+          const response = await this.$apis.record.getRecord(
+            this.identifier,
+            { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
+          );
+          for (const key in response.record) {
+            this[key] = response.record[key];
+          }
+
+          if (process.client) {
+            this.trackCustomDimensions();
+          }
+        } catch (e) {
+          this.$error(e, { scope: 'item' });
+        }
       },
 
       async fetchAnnotations() {
