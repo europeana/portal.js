@@ -340,6 +340,7 @@
       '$route.query.api': '$fetch',
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
+      '$route.query.qa': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged'
@@ -358,6 +359,12 @@
         userParams.qf = [].concat(userParams.qf || []);
 
         const apiParams = merge(userParams, this.overrideParams);
+
+        // `qa` params are queries from the advanced search builder
+        if (apiParams.qa && this.advancedSearchEnabled) {
+          apiParams.query = [].concat(apiParams.query || []).concat(apiParams.qa).join(' AND ');
+          delete apiParams.qa;
+        }
 
         if (!apiParams.profile) {
           apiParams.profile = 'minimal';
