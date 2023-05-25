@@ -1052,14 +1052,6 @@ export default {
         "clear": "Clear",
         "search": "Search"
       },
-      "fields": {
-        "anyField": "Any field",
-        "creator": "Creator",
-        "description": "Description",
-        "subject": "Subject",
-        "title": "Title",
-        "type": "Type"
-      },
       "input": {
         "field": "Field",
         "modifier": "Modifier",
@@ -1069,7 +1061,6 @@ export default {
         "contains": "contains",
         "doesNotContain": "does not contain"
       },
-      "selectOne": "Select one",
       "show": "{show} advanced search",
       "tooltip": {
         "field": "Select a field to search on.",
