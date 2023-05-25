@@ -162,7 +162,7 @@ describe('components/search/SearchInterface', () => {
         const wrapper = factory({ mocks: { $route: route } });
 
         it('is undefined', () => {
-          expect(wrapper.vm.advancedSearchQueryCount).toBe(undefined);
+          expect(wrapper.vm.advancedSearchQueryCount).toBe(0);
         });
       });
       describe('when there is one advanced search query', () => {
