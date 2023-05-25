@@ -23,7 +23,6 @@
                 v-else
                 path="multilingual.translateLanguage"
                 tag="span"
-                class="pr-1"
                 data-qa="translate item suggestion"
               >
                 <b-dropdown

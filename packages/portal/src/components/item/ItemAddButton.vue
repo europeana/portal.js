@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button
-      v-b-tooltip
+      v-b-tooltip.bottom
       class="add-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       data-qa="add button"
