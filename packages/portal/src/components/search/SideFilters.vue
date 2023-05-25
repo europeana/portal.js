@@ -30,7 +30,9 @@
             >
               {{ $t('reset') }}
             </button>
+            <!-- TODO: Remove once advanced search is enabled -->
             <b-button
+              v-if="!advancedSearchEnabled"
               data-qa="close filters button"
               class="button-icon-only icon-clear mx-3"
               variant="light-flat"
@@ -141,6 +143,7 @@
   import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
+    // TODO: rename the component now it also includes advanced search?
     name: 'SideFilters',
 
     components: {

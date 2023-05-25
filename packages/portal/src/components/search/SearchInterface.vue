@@ -154,6 +154,7 @@
       >
         <b-row
           v-if="advancedSearchEnabled"
+          class="d-flex justify-content-between align-items-center flex-nowrap"
         >
           <b-button
             aria-controls="search-query-builder search-query-builder-mobile"
@@ -165,6 +166,13 @@
           >
             {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }}
           </b-button>
+          <b-button
+            data-qa="close filters button"
+            class="button-icon-only icon-clear mx-3"
+            variant="light-flat"
+            :aria-label="$t('header.closeSidebar')"
+            @click="toggleFilterSheet"
+          />
         </b-row>
         <transition
           name="fade"
@@ -443,6 +451,10 @@
 
       toggleAdvancedSearch() {
         this.showAdvancedSearch = !this.showAdvancedSearch;
+      },
+
+      toggleFilterSheet() {
+        this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
       }
     }
   };
