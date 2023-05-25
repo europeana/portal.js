@@ -279,7 +279,7 @@
 
     computed: {
       advancedSearchQueryCount() {
-        return this.userParams?.qa?.length;
+        return this.userParams?.qa ? [].concat(this.userParams?.qa).length : 0;
       },
       userParams() {
         return this.$route.query;
