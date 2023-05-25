@@ -19,8 +19,6 @@
 }
 
 ::v-deep .mirador-viewer {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 
   .mosaic-root {
     top: 0;
@@ -36,6 +34,7 @@
   .mirador-window-top-bar {
     > h2 {
       display: none;
+
       + button {
         margin-left: auto;
       }
@@ -49,7 +48,9 @@
 
   .mirador-companion-area-bottom {
     .mirador-companion-window-title-controls {
-      > form, > p {
+
+      > form,
+      > p {
         width: auto;
       }
     }

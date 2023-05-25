@@ -78,15 +78,14 @@
 </template>
 
 <script>
-  import { BFormSelect, BTooltip } from 'bootstrap-vue';
+  import { BFormSelect } from 'bootstrap-vue';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRule',
 
     components: {
-      BFormSelect,
-      BTooltip
+      BFormSelect
     },
 
     mixins: [

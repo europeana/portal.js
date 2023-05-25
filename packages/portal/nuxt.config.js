@@ -238,7 +238,8 @@ export default {
       'ModalPlugin',
       'NavbarPlugin',
       'SidebarPlugin',
-      'ToastPlugin'
+      'ToastPlugin',
+      'TooltipPlugin'
     ]
   },
 
