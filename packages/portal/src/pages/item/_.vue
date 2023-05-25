@@ -195,7 +195,6 @@
         dataProviderEntity: null,
         description: null,
         error: null,
-        fetched: false,
         fromTranslationError: null,
         identifier: `/${this.$route.params.pathMatch}`,
         iiifPresentationManifest: null,
