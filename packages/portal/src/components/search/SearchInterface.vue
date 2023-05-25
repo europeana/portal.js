@@ -163,7 +163,7 @@
             variant="link"
             @click="toggleAdvancedSearch"
           >
-            {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }}
+            {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
           </b-button>
         </b-row>
         <transition
@@ -278,6 +278,9 @@
     },
 
     computed: {
+      advancedSearchQueryCount() {
+        return this.userParams?.qa?.length;
+      },
       userParams() {
         return this.$route.query;
       },

@@ -155,6 +155,36 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('computed', () => {
+    describe('advancedSearchQueryCount', () => {
+      describe('when there is no advanced search query', () => {
+        const route = { query: {} };
+
+        const wrapper = factory({ mocks: { $route: route } });
+
+        it('is undefined', () => {
+          expect(wrapper.vm.advancedSearchQueryCount).toBe(undefined);
+        });
+      });
+      describe('when there is one advanced search query', () => {
+        const route = { query: { qa: ['proxy_dc_title:The'] } };
+
+        const wrapper = factory({ mocks: { $route: route } });
+
+        it('is 1', () => {
+          expect(wrapper.vm.advancedSearchQueryCount).toBe(1);
+        });
+      });
+      describe('when there are multiple advanced search queries', () => {
+        const route = { query: { qa: ['proxy_dc_title:The', 'proxy_dc_title:Practice', 'proxy_dc_title:of'] } };
+
+        const wrapper = factory({ mocks: { $route: route } });
+
+        it('is 3', () => {
+          expect(wrapper.vm.advancedSearchQueryCount).toBe(3);
+        });
+      });
+    });
+
     describe('noMoreResults', () => {
       describe('when there are 0 results in total', () => {
         const wrapper = factory({
