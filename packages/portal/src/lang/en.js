@@ -1063,6 +1063,7 @@ export default {
       },
       "show": "{show} advanced search",
       "tooltip": {
+        "advancedSearch": "The advanced search allows you to build custom search queries.",
         "field": "Select a field to search on.",
         "modifier": "Select a modifier to apply to the field."
       }

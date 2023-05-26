@@ -156,23 +156,31 @@
           v-if="advancedSearchEnabled"
           class="d-flex justify-content-between align-items-center flex-nowrap"
         >
-          <b-button
-            aria-controls="search-query-builder search-query-builder-mobile"
-            :aria-expanded="showAdvancedSearch"
-            class="search-toggle query-builder-toggle m-3"
-            :class="{ 'open': showAdvancedSearch }"
-            variant="link"
-            @click="toggleAdvancedSearch"
-          >
-            {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
-          </b-button>
-          <b-button
-            data-qa="close filters button"
-            class="button-icon-only icon-clear mx-3"
-            variant="light-flat"
-            :aria-label="$t('header.closeSidebar')"
-            @click="toggleFilterSheet"
-          />
+          <span>
+            <b-button
+              aria-controls="search-query-builder search-query-builder-mobile"
+              :aria-expanded="showAdvancedSearch"
+              class="search-toggle query-builder-toggle ml-3 my-3"
+              :class="{ 'open': showAdvancedSearch }"
+              variant="link"
+              @click="toggleAdvancedSearch"
+            >
+              {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
+            </b-button>
+            <b-button
+              v-b-tooltip.bottom
+              :title="$t('search.advanced.tooltip.advancedSearch')"
+              class="icon-info p-0 tooltip-button"
+              variant="light-flat"
+            />
+            <b-button
+              data-qa="close filters button"
+              class="button-icon-only icon-clear mx-3"
+              variant="light-flat"
+              :aria-label="$t('header.closeSidebar')"
+              @click="toggleFilterSheet"
+            />
+          </span>
         </b-row>
         <transition
           name="fade"
