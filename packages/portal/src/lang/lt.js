@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti / Prisijunkite",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -740,9 +740,9 @@ export default {
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
-      "provide": "Tapkite duomenų teikėju",
+      "provide": "Tapkite duomenų partneriu",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
-      "terms": "Paslaugų teikimo sąlygos"
+      "terms": "Naudotojo sąlygos"
     },
     "ourMission": "Mūsų misija",
     "ourMissionQuote": "„Europeana“ suteikia kultūros paveldo sektoriui skaitmeninimo galimybes. Rengiame žinias, įrankius ir politikas, skatinančias skaitmeninius pokyčius bei partnerystes, kurios spartina inovacijas."
@@ -768,7 +768,7 @@ export default {
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
-      "home": "Namai",
+      "home": "Pradžia",
       "pro": "Profesionalams",
       "stories": "Istorijos"
     },
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
-    "readMore": "Atraskite istorijas",
-    "text": {
-      "storiesTags": "Peržiūrėkite atnaujintą istorijos puslapį. Dabar galite ieškoti ir filtruoti pagal žymas."
-    }
+    "readMore": "Atraskite istorijas"
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
@@ -1017,6 +1014,11 @@ export default {
   "reset": "Atstatyti",
   "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
   "search": {
+    "advanced": {
+      "tooltip": {
+        "modifier": "Pasirinkite modifikatorių, kurį taikyti laukui."
+      }
+    },
     "boost": {
       "placeholder": "Įveskite lauko didinimo užklausą"
     },

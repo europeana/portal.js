@@ -6,7 +6,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava / Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -740,8 +740,8 @@ export default {
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
       "privacy": "Pravilnik o zasebnosti",
-      "provide": "Postanite ponudnik podatkov",
-      "subscribe": "Prijavite se na naša obvestila",
+      "provide": "Postanite partner za podatke",
+      "subscribe": "Naročite se na naše novice",
       "terms": "Pogoji uporabe"
     },
     "ourMission": "Naša misija",
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zapri",
-    "readMore": "Odkrijte zgodbe",
-    "text": {
-      "storiesTags": "Oglejte si posodobljeno stran Zgodbe. Zdaj lahko iščete in filtrirate po oznakah."
-    }
+    "readMore": "Odkrijte zgodbe"
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -1017,6 +1014,11 @@ export default {
   "reset": "Ponastavi",
   "resourceWikimedia": "Vir iz Wikimedia Commons",
   "search": {
+    "advanced": {
+      "tooltip": {
+        "modifier": "Izberite modifikator, ki ga želite uporabiti za polje."
+      }
+    },
     "boost": {
       "placeholder": "Vnesite poizvedbo za povečanje polja"
     },

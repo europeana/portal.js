@@ -6,7 +6,7 @@ export default {
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
-    "linkLoginJoin": "Iniciar sesión/Unirse",
+    "linkLoginJoin": "Iniciar sesión / Unirse",
     "linkLogout": "Cerrar sesión",
     "myProfile": "Mi perfil",
     "notifications": {
@@ -732,7 +732,7 @@ export default {
     "findUsElsewhere": "Puedes encontrarnos también en",
     "imageDescription": "Financiado por la Unión Europea",
     "navigation": {
-      "about": "¿Qué es Europeana?",
+      "about": "Acerca de",
       "accessibility": "Accesibilidad",
       "cookies": "Cookies",
       "faq": "Preguntas frecuentes",
@@ -742,7 +742,7 @@ export default {
       "privacy": "Política de privacidad",
       "provide": "Conviértete en proveedor de datos",
       "subscribe": "Suscríbete a nuestro boletín",
-      "terms": "Condiciones de uso"
+      "terms": "Términos de uso"
     },
     "ourMission": "Nuestra misión",
     "ourMissionQuote": "Europeana sostiene el sector del patrimonio cultural en su transformación digital. Desarrollamos competencias, herramientas y estrategias para adoptar el cambio digital y fomentar colaboraciones que promuevan la innovación."
@@ -764,7 +764,7 @@ export default {
     "europeanaHome": "Página de inicio de Europeana",
     "inCollection": "Busca {query} en {collection}",
     "navigation": {
-      "about": "¿Qué es Europeana?",
+      "about": "Acerca de",
       "collections": "Colecciones",
       "europeanaClassroom": "Para profesores",
       "help": "Ayuda",
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Cerrar",
-    "readMore": "Descubre historias",
-    "text": {
-      "storiesTags": "Echa un vistazo a la página de Historias actualizada. Ahora puede buscar y filtrar por etiquetas."
-    }
+    "readMore": "Descubre historias"
   },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
@@ -1017,6 +1014,11 @@ export default {
   "reset": "Reiniciar",
   "resourceWikimedia": "Recurso de Wikimedia Commons",
   "search": {
+    "advanced": {
+      "tooltip": {
+        "modifier": "Seleccione un modificador para aplicarlo al campo."
+      }
+    },
     "boost": {
       "placeholder": "Introduzca la consulta de refuerzo del campo"
     },

@@ -6,14 +6,14 @@ export default {
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
-    "linkLoginJoin": "Přihlášení/Připojení",
+    "linkLoginJoin": "Přihlásit se / Zaregistrovat se",
     "linkLogout": "Odhlásit se",
     "myProfile": "Můj profil",
     "notifications": {
       "loggedIn": "Nyní jste přihlášeni. Vítejte!",
       "loggedOut": "Nyní jste odhlášeni.",
       "noCollections": {
-        "curated": "Zatím jste nevybrali žádné kolekce",
+        "curated": "Zatím jste nevybrali žádné sbirky",
         "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
         "public": "Ještě jste nevytvořil/a žádné veřejné galerie.",
         "published": "Dosud jste neměli zveřejněné žádné galerie"
@@ -103,8 +103,8 @@ export default {
   "clearAllFilters": "Vymazat všechny filtry",
   "collections": {
     "actions": {
-      "edit": "Upravit kolekci",
-      "update": "Aktualizovat kolekci"
+      "edit": "Upravit sbírku",
+      "update": "Aktualizovat sbírku"
     },
     "fashion": {
       "facets": {
@@ -142,10 +142,10 @@ export default {
     "footerNavigation": {
       "about": "O stránkách Europeana",
       "forDevelopers": "Pro vývojáře",
-      "help": "Nápověda",
+      "help": "Pomoc",
       "meetUs": "O nás",
       "MoreInfoLabel": "Více informací",
-      "provide": "Přispívejte do naší databáze",
+      "provide": "Stát se partnerem dat",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
       "terms": "Podmínky používání a zásady ochrany osobních údajů"
     },
@@ -269,11 +269,11 @@ export default {
     "api": {
       "name": "Vyhledat",
       "options": {
-        "fulltext": "Záznamy s fulltextem",
-        "metadata": "Pouze záznamy s metadaty"
+        "fulltext": "Položky s fulltextem",
+        "metadata": "Pouze položky s metadaty"
       },
       "switch": "Vyhledávání pouze v obsahu položek s plným textem",
-      "switchMoreInfo": "V této kolekci si můžete vybrat, co chcete vyhledávat: pokud je tento přepínač zapnutý, budete vyhledávat v textu novin a dokumentů; pokud je vypnutý, budete místo toho vyhledávat v informacích popisujících položku, stejně jako ve většině ostatních kolekcí."
+      "switchMoreInfo": "V této kolekci si můžete vybrat, co chcete vyhledávat: pokud je tento přepínač zapnutý, budete vyhledávat v textu novin a dokumentů; pokud je vypnutý, budete místo toho vyhledávat v informacích popisujících položku, stejně jako ve většině ostatních sbírek."
     },
     "button": {
       "apply": "Použít",
@@ -599,7 +599,7 @@ export default {
     },
     "moreOptions": "Hledejte, abyste našli {0} více {1}.",
     "PROVIDER": {
-      "moreName": "agregátory",
+      "moreName": "agregátoři",
       "name": "Agregátor",
       "select": "Vyberte agregátory"
     },
@@ -753,7 +753,7 @@ export default {
   },
   "galleries": {
     "description": "Prozkoumat naše galerie",
-    "galleries": "Galerie"
+    "galleries": "Galerie | Galerie"
   },
   "goToRecord": "Přejít na záznam",
   "header": {
@@ -765,10 +765,10 @@ export default {
     "inCollection": "Hledat {query} v {collection}",
     "navigation": {
       "about": "O nás",
-      "collections": "SBÍRKY",
+      "collections": "Sbírky",
       "europeanaClassroom": "Pro učitele",
-      "help": "Nápověda",
-      "home": "Domov",
+      "help": "Pomoc",
+      "home": "Domů",
       "pro": "Pro profesionály",
       "stories": "Příběhy"
     },
@@ -785,7 +785,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Nejnovější příběhy",
     "storiesCTA": "Zobrazit všechny příběhy",
-    "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí",
+    "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí.",
     "themesCTA": "Zobrazit všechna témata",
     "themesTitle": "Prozkoumejte podle tématu",
     "title": "Objevte evropské {digital} kulturní dědictví",
@@ -796,7 +796,7 @@ export default {
   },
   "items": {
     "itemCount": "1 položka |{count} položek",
-    "itemOf": "{max} z {count} položek",
+    "itemOf": "{max} z {count} položky",
     "recent": "Poslední položky",
     "recommended": "Doporučené položky",
     "youMightLike": "Položky, které by se vám mohly líbit"
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zavřít",
-    "readMore": "Objevujte příběhy",
-    "text": {
-      "storiesTags": "Podívejte se na aktualizovanou stránku Příběhy. Nyní můžete vyhledávat a filtrovat podle značek."
-    }
+    "readMore": "Objevujte příběhy"
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
@@ -1017,6 +1014,14 @@ export default {
   "reset": "Obnovit",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
   "search": {
+    "advanced": {
+      "actions": {
+        "apply": "Použít"
+      },
+      "tooltip": {
+        "modifier": "Vyberte modifikátor, který chcete použít na pole."
+      }
+    },
     "boost": {
       "placeholder": "Zadejte dotaz pro posílení pole"
     },

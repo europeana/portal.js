@@ -6,7 +6,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare / Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -732,7 +732,7 @@ export default {
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
-      "about": "Despre noi",
+      "about": "Despre",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
       "faq": "Întrebări frecvente",
@@ -740,7 +740,7 @@ export default {
       "help": "Ajutor",
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
-      "provide": "Deveni un furnizor de date",
+      "provide": "Devino partener de date",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "terms": "Termeni de utilizare"
     },
@@ -764,7 +764,7 @@ export default {
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",
     "navigation": {
-      "about": "Despre noi",
+      "about": "Despre",
       "collections": "Colecții",
       "europeanaClassroom": "Pentru profesori",
       "help": "Ajutor",
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Descoperiți povești",
-    "text": {
-      "storiesTags": "Consultați pagina Povești actualizată. Acum puteți căuta și filtra după etichete."
-    }
+    "readMore": "Descoperiți povești"
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
@@ -1017,6 +1014,11 @@ export default {
   "reset": "Resetează",
   "resourceWikimedia": "Material de la Wikimedia Commons",
   "search": {
+    "advanced": {
+      "tooltip": {
+        "modifier": "Selectați un modificator de aplicat câmpului."
+      }
+    },
     "boost": {
       "placeholder": "Introduceți interogarea de creștere a câmpului"
     },

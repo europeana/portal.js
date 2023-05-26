@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in / Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Stäng",
-    "readMore": "Upptäck berättelser",
-    "text": {
-      "storiesTags": "Kolla in den uppdaterade berättelsesidan. Du kan nu söka och filtrera efter taggar."
-    }
+    "readMore": "Upptäck berättelser"
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -1017,6 +1014,11 @@ export default {
   "reset": "Återställ",
   "resourceWikimedia": "Resurs från Wikimedia Commons",
   "search": {
+    "advanced": {
+      "tooltip": {
+        "modifier": "Välj en modifier att tillämpa på fältet."
+      }
+    },
     "boost": {
       "placeholder": "Ange fältförstärkningsfråga"
     },

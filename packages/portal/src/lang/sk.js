@@ -6,7 +6,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa / Pridať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -741,7 +741,7 @@ export default {
       "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Zásady ochrany osobných údajov",
       "provide": "Staňte sa poskytovateľom údajov",
-      "subscribe": "Prihlásiť sa na odber newslettra",
+      "subscribe": "Prihláste sa k odberu nášho newslettera",
       "terms": "Podmienky používania"
     },
     "ourMission": "Náš cieľ",
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
-    "readMore": "Objavte príbehy",
-    "text": {
-      "storiesTags": "Pozrite si aktualizovanú stránku Príbehy. Teraz môžete vyhľadávať a filtrovať podľa tagov."
-    }
+    "readMore": "Objavte príbehy"
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
@@ -1017,6 +1014,11 @@ export default {
   "reset": "Obnoviť",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
   "search": {
+    "advanced": {
+      "tooltip": {
+        "modifier": "Vyberte modifikátor, ktorý sa má aplikovať na pole."
+      }
+    },
     "boost": {
       "placeholder": "Zadajte dopyt na zvýšenie poľa"
     },

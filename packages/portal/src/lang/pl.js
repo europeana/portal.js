@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj / Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -740,9 +740,9 @@ export default {
       "help": "Pomoc",
       "MoreInfoLabel": "Więcej informacji",
       "privacy": "Polityka prywatności",
-      "provide": "Zostań dostawcą danych",
+      "provide": "Zostań partnerem danych",
       "subscribe": "Zapisz się do naszego newslettera",
-      "terms": "Warunki usługi"
+      "terms": "Warunki korzystania"
     },
     "ourMission": "Nasza misja",
     "ourMissionQuote": "Europeana wspiera sektor dziedzictwa kulturowego w jego transformacji cyfrowej. Rozwijamy wiedzę specjalistyczną, narzędzia i polityki, aby uwzględnić zmiany cyfrowe i zachęcać do partnerstwa wspierającego innowacje."
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zamknij",
-    "readMore": "Odkryj historie",
-    "text": {
-      "storiesTags": "Sprawdź zaktualizowaną stronę historie. Możesz teraz wyszukiwać i filtrować według tagów."
-    }
+    "readMore": "Odkryj historie"
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
@@ -1017,6 +1014,11 @@ export default {
   "reset": "Resetuj",
   "resourceWikimedia": "Źródło z Wikimedia Commons",
   "search": {
+    "advanced": {
+      "tooltip": {
+        "modifier": "Wybierz modyfikator, który ma zostać zastosowany do pola."
+      }
+    },
     "boost": {
       "placeholder": "Wpisz zapytanie zwiększające pole"
     },

@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden/Registrieren",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -72,9 +72,9 @@ export default {
     "item": "Aktuelle Objekte",
     "organisation": "Organisationen",
     "place": "Orte",
-    "theme": "Themen",
+    "theme": "Themenbereiche",
     "time": "Ausgewählte Jahrhunderte",
-    "topic": "Ausgewählte Themen"
+    "topic": "Themen"
   },
   "blog": {
     "author": "Autor",
@@ -110,22 +110,22 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "Designer",
-          "name": "Designer | Designer",
+          "name": "Designer",
           "select": "Designer auswählen"
         },
         "proxy_dc_format": {
           "moreName": "Techniken",
-          "name": "Technik | Techniken",
+          "name": "Technik",
           "select": "Techniken auswählen"
         },
         "proxy_dc_type": {
           "moreName": "Objekttypen",
-          "name": "Objekttyp | Objekttypen",
+          "name": "Objekttyp",
           "select": "Objekttypen auswählen"
         },
         "proxy_dcterms_medium": {
           "moreName": "Materialien",
-          "name": "Material | Materialien",
+          "name": "Material",
           "select": "Materialien auswählen"
         }
       }
@@ -150,7 +150,7 @@ export default {
       "terms": "Nutzungsbedingungen und Datenschutzerklärung"
     },
     "headerNavigation": {
-      "Collections": "Kollektionen",
+      "Collections": "Sammlungen",
       "explore": "Erkunden",
       "teachers": "Lehrerinnen und Lehrerinnen"
     }
@@ -269,10 +269,10 @@ export default {
     "api": {
       "name": "Suche nach",
       "options": {
-        "fulltext": "Aufzeichnungen mit Volltext",
-        "metadata": "Nur-Metadaten Aufzeichnungen"
+        "fulltext": "Objekte mit Volltext",
+        "metadata": "Nur-Metadaten Objekte"
       },
-      "switch": "Suchen Sie nur im Inhalt von Artikeln mit Volltext",
+      "switch": "Suchen Sie nur im Inhalt von Objekte mit Volltext",
       "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn er deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
     },
     "button": {
@@ -600,7 +600,7 @@ export default {
     "moreOptions": "Suchen, um {0} mehr {1} zu finden.",
     "PROVIDER": {
       "moreName": "Aggregatoren",
-      "name": "Aggregator | Aggregatoren",
+      "name": "Aggregator",
       "select": "Aggregatoren auswählen"
     },
     "proxy_dc_format": {
@@ -695,7 +695,7 @@ export default {
       "dcType": "Art des Objekts",
       "edmCountry": "Bereitstellendes Land",
       "edmCurrentLocation": "Aktueller Standort",
-      "edmDataProvider": "Bereitstellende Institution",
+      "edmDataProvider": "Datenpartner",
       "edmHasMet": "Hat getroffen",
       "edmIncorporates": "Einbeziehen",
       "edmIntermediateProvider": "Zwischenanbieter",
@@ -706,7 +706,7 @@ export default {
       "edmIsSuccessorOf": "Ist Nachfolger von",
       "edmProvider": "Anbieter",
       "edmRealizes": "Realisiert",
-      "edmRights": "Lizenz der Medien in diesem Datensatz (sofern nicht anders angegeben)",
+      "edmRights": "Rechtehinweise der Medien in diesem Datensatz (sofern nicht anders angegeben)",
       "edmUgc": "Benutzergenerierte Inhalte",
       "europeanaCollectionName": "Name der Sammlung",
       "keywords": "Schlüsselwörter (von der Gemeinschaft zur Verfügung gestellt)",
@@ -719,7 +719,7 @@ export default {
       "about": "RDF Über",
       "dcDescription": "Beschreibung",
       "ebucoreHasMimeType": "Ebucore MIME-Typ",
-      "edmRights": "Lizenz für diese Medienressource",
+      "edmRights": "Rechtehinweise für diese Medienressource",
       "rdfAbout": "RDF Über"
     }
   },
@@ -732,7 +732,7 @@ export default {
     "findUsElsewhere": "Finden Sie uns anderswo",
     "imageDescription": "Finanziert von der Europäischen Union",
     "navigation": {
-      "about": "Über uns",
+      "about": "Über (uns)",
       "accessibility": "Barrierefreiheit",
       "cookies": "Cookies",
       "faq": "Häufig gestellte Fragen",
@@ -764,12 +764,12 @@ export default {
     "europeanaHome": "Europeana-Startseite",
     "inCollection": "Suchen Sie nach {query} in {collection}",
     "navigation": {
-      "about": "Über uns",
+      "about": "Über (uns)",
       "collections": "Sammlungen",
-      "europeanaClassroom": "Für Lehrer",
+      "europeanaClassroom": "Für Lehrende",
       "help": "Hilfe",
       "home": "Startseite",
-      "pro": "Für Fachleute",
+      "pro": "Für Experten",
       "stories": "Geschichten"
     },
     "quickSearch": "Schnelle Suche",
@@ -785,7 +785,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Neueste Geschichten",
     "storiesCTA": "Alle Geschichten ansehen",
-    "subHeadline": "Suchen, speichern und teilen Sie Kunst, Bücher, Filme und Musik von Tausenden von Kultureinrichtungen",
+    "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
     "themesCTA": "Alle Themen anzeigen",
     "themesTitle": "Erkunden Sie nach Thema",
     "title": "Entdecken Sie das {digital} kulturelle Erbe Europas",
@@ -889,8 +889,8 @@ export default {
       "modalTitle": "Dank sagen"
     },
     "downloadFailed": {
-      "linkPrompt": "Wir empfehlen Ihnen, unten auf die Schaltfläche \"Bereitstellende Institution\" zu klicken, um zu prüfen, ob der Artikel auf der Website der anbietenden Institution heruntergeladen werden kann.",
-      "message": "Wenn der Download nicht funktioniert, kann es daran liegen, dass er von der anbietenden Einrichtung entfernt wurde, oder es liegt ein technisches Problem mit ihrem Dienst vor.",
+      "linkPrompt": "Wir empfehlen Ihnen, unten auf die Schaltfläche \"Datenpartner\" zu klicken, um zu prüfen, ob der Artikel auf der Website der anbietenden Datenpartner heruntergeladen werden kann.",
+      "message": "Wenn der Download nicht funktioniert, kann es daran liegen, dass er von der anbietenden Datenpartner entfernt wurde, oder es liegt ein technisches Problem mit ihrem Dienst vor.",
       "title": "Download funktioniert nicht"
     },
     "transcribe": {
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Schließen",
-    "readMore": "Geschichten entdecken",
-    "text": {
-      "storiesTags": "Sehen Sie sich die aktualisierte Seite Geschichten an. Sie können jetzt nach Tags suchen und filtern."
-    }
+    "readMore": "Geschichten entdecken"
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
@@ -1017,6 +1014,14 @@ export default {
   "reset": "Zurücksetzen",
   "resourceWikimedia": "Ressource aus Wikimedia Commons",
   "search": {
+    "advanced": {
+      "actions": {
+        "apply": "Anwenden"
+      },
+      "tooltip": {
+        "modifier": "Wählen Sie einen Modifikator aus, der auf das Feld angewendet werden soll."
+      }
+    },
     "boost": {
       "placeholder": "Geben Sie die Feldverstärkungsabfrage ein"
     },
@@ -1030,7 +1035,7 @@ export default {
     "title": "Suche"
   },
   "searchHasLoaded": "{0} Ergebnisse zurückgegeben",
-  "searchPlaceholder": "Suche 50+ Millionen Artikel",
+  "searchPlaceholder": "Suche 50+ Millionen Objekte",
   "searchResults": "Suche",
   "searchResultsFor": "{0} - Suche",
   "searchSuggestions": "Suchvorschläge",
@@ -1123,7 +1128,7 @@ export default {
   },
   "themes": {
     "description": "Nach Thema durchsuchen",
-    "themes": "Themen"
+    "themes": "Themenbereiche"
   },
   "website": "Webseite"
 };

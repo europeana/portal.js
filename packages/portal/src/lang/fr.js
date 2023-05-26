@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion / Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Fermer",
-    "readMore": "Découvrez des histoires",
-    "text": {
-      "storiesTags": "Découvrez la page des histoires mise à jour. Vous pouvez maintenant rechercher et filtrer par tags."
-    }
+    "readMore": "Découvrez des histoires"
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
@@ -1017,6 +1014,14 @@ export default {
   "reset": "Réinitialiser",
   "resourceWikimedia": "Ressource de Wikimedia Commons",
   "search": {
+    "advanced": {
+      "actions": {
+        "apply": "Appliquer"
+      },
+      "tooltip": {
+        "modifier": "Sélectionnez un modificateur à appliquer au champ."
+      }
+    },
     "boost": {
       "placeholder": "Entrer une requête d’amplification de champ"
     },

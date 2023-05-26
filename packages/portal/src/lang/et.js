@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse / Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -740,7 +740,7 @@ export default {
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
-      "provide": "Hakka andmepakkujaks",
+      "provide": "Saage andmepartneriks",
       "subscribe": "Telli meie uudiskiri",
       "terms": "Kasutustingimused"
     },
@@ -768,7 +768,7 @@ export default {
       "collections": "Kogud",
       "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",
-      "home": "Kodu",
+      "home": "Avaleht",
       "pro": "Professionaalidele",
       "stories": "Lood"
     },
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
-    "readMore": "Avastage lugusid",
-    "text": {
-      "storiesTags": "Vaadake uuendatud lugude lehte. Nüüd saate otsida ja filtreerida siltide järgi."
-    }
+    "readMore": "Avastage lugusid"
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -1017,6 +1014,14 @@ export default {
   "reset": "Lähtesta",
   "resourceWikimedia": "Wikimedia Commonsist saadud ressurss",
   "search": {
+    "advanced": {
+      "actions": {
+        "apply": "Kohalda"
+      },
+      "tooltip": {
+        "modifier": "Valige väljale rakendatav modifikaator."
+      }
+    },
     "boost": {
       "placeholder": "Sisestage välja võimendamise päring"
     },

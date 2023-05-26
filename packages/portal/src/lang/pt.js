@@ -6,7 +6,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar / Participar",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -732,15 +732,15 @@ export default {
     "findUsElsewhere": "Encontre-nos em outro lugar",
     "imageDescription": "Financiado pela União Europeia",
     "navigation": {
-      "about": "Saiba mais sobre nós",
+      "about": "Sobre",
       "accessibility": "Acessibilidade",
-      "cookies": "Biscoitos",
+      "cookies": "Cookies",
       "faq": "Perguntas frequentes",
       "forDevelopers": "Para desenvolvedores",
       "help": "Ajuda",
       "MoreInfoLabel": "Mais informações",
       "privacy": "Política de Privacidade",
-      "provide": "Torne-se um fornecedor de dados",
+      "provide": "Torne-se um parceiro de dados",
       "subscribe": "Subscreva na nossa newsletter",
       "terms": "Termos de uso"
     },
@@ -764,11 +764,11 @@ export default {
     "europeanaHome": "Página Inicial Europeana",
     "inCollection": "Pesquisar por {query} em {collection}",
     "navigation": {
-      "about": "Saiba mais sobre nós",
-      "collections": "Colecções",
+      "about": "Sobre",
+      "collections": "Coleções",
       "europeanaClassroom": "Para professores",
       "help": "Ajuda",
-      "home": "Casa",
+      "home": "Página inicial",
       "pro": "Para profissionais",
       "stories": "Histórias"
     },
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Fechar",
-    "readMore": "Descubra histórias",
-    "text": {
-      "storiesTags": "Confira a página de histórias atualizada. Agora você pode pesquisar e filtrar por tags."
-    }
+    "readMore": "Descubra histórias"
   },
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
@@ -1017,6 +1014,11 @@ export default {
   "reset": "Repor",
   "resourceWikimedia": "Recurso do Wikimedia Commons",
   "search": {
+    "advanced": {
+      "tooltip": {
+        "modifier": "Selecione um modificador para aplicar ao campo."
+      }
+    },
     "boost": {
       "placeholder": "Digite consulta de reforço de campo"
     },

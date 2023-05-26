@@ -6,7 +6,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties / Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -734,15 +734,15 @@ export default {
     "navigation": {
       "about": "Par mums",
       "accessibility": "Pieejamība",
-      "cookies": "Sīkfaili",
+      "cookies": "Sīkdatnes",
       "faq": "Bieži uzdotie jautājumi",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Privātuma politika",
-      "provide": "Kļūsti par datu nodrošinātāju",
+      "provide": "Kļūsti par datu partneri",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
-      "terms": "Pakalpojuma noteikumi"
+      "terms": "Lietošanas noteikumi"
     },
     "ourMission": "Mūsu misija",
     "ourMissionQuote": "Europeana nodrošina iespējas kultūras mantojuma nozarei tās digitālajā pārveidē. Mēs izstrādājam zināšanas, instrumentus un politikas virzienus, lai atbalstītu digitālās izmaiņas un veicinātu partnerības, kas veicina jauninājumus."
@@ -768,7 +768,7 @@ export default {
       "collections": "Kolekcijas",
       "europeanaClassroom": "Skolotājiem",
       "help": "Palīdzība",
-      "home": "Mājas",
+      "home": "Sākumlapa",
       "pro": "Profesionāļiem",
       "stories": "Stāsti"
     },
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
-    "readMore": "Atklājiet stāstus",
-    "text": {
-      "storiesTags": "Apskatiet atjaunināto stāstu lapu. Tagad varat meklēt un filtrēt pēc tagiem."
-    }
+    "readMore": "Atklājiet stāstus"
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
@@ -1017,6 +1014,11 @@ export default {
   "reset": "Atiestatīt",
   "resourceWikimedia": "Resurss no Wikimedia Commons",
   "search": {
+    "advanced": {
+      "tooltip": {
+        "modifier": "Atlasiet modifikatoru, ko lietot laukam."
+      }
+    },
     "boost": {
       "placeholder": "Ievadiet lauka pastiprināšanas vaicājumu"
     },

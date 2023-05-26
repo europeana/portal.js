@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol/Ingħaqad",
+    "linkLoginJoin": "Idħol / Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -739,10 +739,10 @@ export default {
       "forDevelopers": "Għall-iżviluppaturi",
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
-      "privacy": "Regoli tal-privatezza",
+      "privacy": "Politika tar-privatezza",
       "provide": "Sir fornitur tad-dejta",
       "subscribe": "Abbona għan-Newsletter tagħna",
-      "terms": "Termini tas-Servizz"
+      "terms": "Termini tal-użu"
     },
     "ourMission": "Il-missjoni tagħna",
     "ourMissionQuote": "Europeana tagħti s-setgħa lis-settur tal-wirt kulturali fit-trasformazzjoni diġitali tiegħu. Aħna niżviluppaw għarfien espert, għodod u politiki biex inħaddnu l-bidla diġitali u ninkoraġġixxu lis-sħubiji li jrawmu l-innovazzjoni."
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
-    "readMore": "Skopri stejjer",
-    "text": {
-      "storiesTags": "Iċċekkja l-paġna tal-Istejjer aġġornata. Issa tista 'tfittex u tiffiltra bit-tags."
-    }
+    "readMore": "Skopri stejjer"
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -1017,6 +1014,11 @@ export default {
   "reset": "Irrisettja",
   "resourceWikimedia": "Riżorsa minn Wikimedia Commons",
   "search": {
+    "advanced": {
+      "tooltip": {
+        "modifier": "Agħżel modifikatur biex tapplika għall-qasam."
+      }
+    },
     "boost": {
       "placeholder": "Daħħal mistoqsija li tagħti spinta lill-qasam"
     },

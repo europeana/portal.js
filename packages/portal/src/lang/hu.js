@@ -6,7 +6,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés / Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "Profilom",
     "notifications": {
@@ -142,7 +142,7 @@ export default {
     "footerNavigation": {
       "about": "Az Europeana gyűjteményekről",
       "forDevelopers": "Fejlesztőknek",
-      "help": "Súgó",
+      "help": "Segítség",
       "meetUs": "Találkozzon a csapattal",
       "MoreInfoLabel": "További információ",
       "provide": "Legyen adatszolgáltató",
@@ -740,7 +740,7 @@ export default {
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi irányelvek",
-      "provide": "Legyen adatszolgáltató",
+      "provide": "Adatpartneri program",
       "subscribe": "Iratkozzon fel hírlevelünkre",
       "terms": "Szolgáltatás feltételei"
     },
@@ -767,8 +767,8 @@ export default {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
       "europeanaClassroom": "Tanároknak",
-      "help": "Súgó",
-      "home": "kezdőlap",
+      "help": "Segítség",
+      "home": "Főoldal",
       "pro": "Szakembereknek",
       "stories": "Történetek"
     },
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Bezárás",
-    "readMore": "Fedezzen fel történeteket",
-    "text": {
-      "storiesTags": "Nézd meg a frissített Történetek oldalt. Most már kereshetsz és szűrhetsz címkék szerint."
-    }
+    "readMore": "Fedezzen fel történeteket"
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
@@ -1017,6 +1014,14 @@ export default {
   "reset": "Visszaállítás",
   "resourceWikimedia": "Forrás: Wikimedia Commons",
   "search": {
+    "advanced": {
+      "actions": {
+        "apply": "Alkalmaz"
+      },
+      "tooltip": {
+        "modifier": "Válassza ki a mezőre alkalmazni kívánt módosítót."
+      }
+    },
     "boost": {
       "placeholder": "Adja meg a mezőt növelő lekérdezést"
     },

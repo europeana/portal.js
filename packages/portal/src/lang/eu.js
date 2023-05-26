@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi / Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -746,7 +746,7 @@ export default {
       "privacy": "Pribatutasun politika",
       "provide": "Datu hornitzaile bihurtu",
       "subscribe": "Harpidetu zaitez gure Buletinera",
-      "terms": "Zerbitzu-baldintzak"
+      "terms": "Erabilera baldintzak"
     },
     "ourMission": "Gure eginkizuna",
     "ourMissionQuote": "Europeanak kultura ondarearen sektorea sendotzen du haren eraldaketa digitalean. Aldaketa digitalarekin bat egiteko esperientzia, tresnak eta politikak garatzen ditugu eta berrikuntza bultzatzen duten lankidetzak sustatzen ditugu."
@@ -912,10 +912,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
-    "readMore": "Ezagutu istorioak",
-    "text": {
-      "storiesTags": "Begiratu eguneratutako istorio-orria. Orain bilatu eta etiketekin iragazi dezakezu."
-    }
+    "readMore": "Ezagutu istorioak"
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -1021,6 +1018,14 @@ export default {
   "reset": "Berrezarri",
   "resourceWikimedia": "Wikimedia Commons-eko baliabidea",
   "search": {
+    "advanced": {
+      "actions": {
+        "apply": "Aplikatu"
+      },
+      "tooltip": {
+        "modifier": "Hautatu modifikatzaile bat eremuari aplikatzeko."
+      }
+    },
     "boost": {
       "placeholder": "Sartu eremua sustatzeko kontsulta"
     },

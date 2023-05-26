@@ -6,7 +6,7 @@ export default {
     "likes": "Like",
     "linkAccount": "Ο λογαριασμός μου",
     "linkLogin": "Σύνδεση",
-    "linkLoginJoin": "Εγγραφή/Σύνδεση",
+    "linkLoginJoin": "Συνδεθείτε / Γίνετε μέλος",
     "linkLogout": "Αποσύνδεση",
     "myProfile": "ΤΟ ΠΡΟΦΙΛ ΜΟΥ",
     "notifications": {
@@ -146,7 +146,7 @@ export default {
       "meetUs": "Γνωρίστε την ομάδα",
       "MoreInfoLabel": "Περισσότερες πληροφορίες",
       "provide": "Γίνετε πάροχος δεδομένων",
-      "subscribe": "Εγγραφή στο newsletter",
+      "subscribe": "Εγγραφείτε στο ενημερωτικό μας δελτίο",
       "terms": "Όροι χρήσης και πολιτική απορρήτου"
     },
     "headerNavigation": {
@@ -739,7 +739,7 @@ export default {
       "about": "Σχετικά με εμάς",
       "accessibility": "Προσβασιμότητα",
       "cookies": "Cookies",
-      "faq": "Συχνέςερωτήσεις",
+      "faq": "Συχνές Ερωτήσεις",
       "forDevelopers": "Για προγραμματιστές",
       "help": "Βοήθεια",
       "MoreInfoLabel": "Περισσότερες πληροφορίες",
@@ -768,11 +768,11 @@ export default {
     "europeanaHome": "Αρχική σελίδα της Europeana",
     "inCollection": "Αναζητήστε τον όρο {query} στη συλλογή {collection}",
     "navigation": {
-      "about": "Σχετικά με εμάς",
+      "about": "Σχετικά",
       "collections": "Συλλογές",
       "europeanaClassroom": "Για δασκάλους",
       "help": "Βοήθεια",
-      "home": "Aρχική σελίδα",
+      "home": "Αρχική",
       "pro": "Για επαγγελματίες",
       "stories": "Ιστορίες"
     },
@@ -912,10 +912,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Κλείσιμο",
-    "readMore": "Ανακαλύψτε ιστορίες",
-    "text": {
-      "storiesTags": "Ρίξτε μια ματιά στην ενημερωμένη σελίδα Ιστορίες. Τώρα μπορείτε να κάνετε αναζήτηση και να φιλτράρετε κατά ετικέτες."
-    }
+    "readMore": "Ανακαλύψτε ιστορίες"
   },
   "newWindow": "ανοίγει σε νέο παράθυρο",
   "noMoreResults": "Δεν υπάρχουν άλλα αποτελέσματα για την αναζήτησή σας",
@@ -1021,6 +1018,14 @@ export default {
   "reset": "Επαναφορά",
   "resourceWikimedia": "Πηγή από τα Wikimedia Commons",
   "search": {
+    "advanced": {
+      "actions": {
+        "apply": "Ισχύουν"
+      },
+      "tooltip": {
+        "modifier": "Επιλέξτε έναν τροποποιητή για εφαρμογή στο πεδίο"
+      }
+    },
     "boost": {
       "placeholder": "Εισάγετε ερώτημα ενίσχυσης πεδίου"
     },

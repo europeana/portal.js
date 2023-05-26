@@ -6,7 +6,7 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu / Luo tili",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
@@ -74,7 +74,7 @@ export default {
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Esillä vuosisatoja",
-    "topic": "Esillä olevat aiheet"
+    "topic": "Aiheet"
   },
   "blog": {
     "author": "Kirjoittaja",
@@ -110,22 +110,22 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "suunnittelijat",
-          "name": "Suunnittelija | Suunnittelijat",
+          "name": "Suunnittelija",
           "select": "Valitse suunnittelijat"
         },
         "proxy_dc_format": {
           "moreName": "tekniikat",
-          "name": "Tekniikka | Tekniikat",
+          "name": "Tekniikka",
           "select": "Valitse tekniikat"
         },
         "proxy_dc_type": {
           "moreName": "esine tyypit",
-          "name": "Kohteen tyyppi | Kohdetyypit",
+          "name": "Kohteen tyyppi",
           "select": "Valitse esine tyypit"
         },
         "proxy_dcterms_medium": {
           "moreName": "materiaaleja",
-          "name": "Materiaali | Materiaalit",
+          "name": "Materiaali",
           "select": "Valitse materiaalit"
         }
       }
@@ -599,9 +599,9 @@ export default {
     },
     "moreOptions": "Hae löytääksesi {0} lisää {1} .",
     "PROVIDER": {
-      "moreName": "aggregaattoreita",
-      "name": "Kokoaja",
-      "select": "Valitse aggregaattoreita"
+      "moreName": "aggregaattorit",
+      "name": "Aggregaattori",
+      "select": "Valitse aggregaattorit"
     },
     "proxy_dc_format": {
       "name": "Muoto | Muodot",
@@ -719,7 +719,7 @@ export default {
       "about": "RDF-tiedot",
       "dcDescription": "Kuvaus",
       "ebucoreHasMimeType": "Ebucore MIME -tyyppi",
-      "edmRights": "Tämän mediaresurssin lisenssi",
+      "edmRights": "Käyttöoikeus mediaresurssin lisenssi",
       "rdfAbout": "RDF-tiedot"
     }
   },
@@ -761,16 +761,16 @@ export default {
     "clearQuery": "Tyhjennä hakuehdot",
     "closeSidebar": "Sulje valikko",
     "entireCollection": "Hae ehdoilla {query} koko kokoelmastamme",
-    "europeanaHome": "Europeanan kotisivu",
+    "europeanaHome": "Europeana etusivu",
     "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
     "navigation": {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
       "europeanaClassroom": "Opettajille",
       "help": "Apua",
-      "home": "Koti",
+      "home": "Etusivu",
       "pro": "Ammattilaisille",
-      "stories": "Tarinoita"
+      "stories": "Tarinat"
     },
     "quickSearch": "Pikahaku",
     "searchFor": "Hae ehdoilla {query}",
@@ -781,11 +781,11 @@ export default {
     "showSidebar": "Näytä valikko",
     "sideNavigation": "Sivunavigointi"
   },
-  "homeLinkAlt": "Europeanan kotisivu",
+  "homeLinkAlt": "Europeana etusivu",
   "homePage": {
     "discoverEditorial": "Uusimmat tarinat",
     "storiesCTA": "Katso kaikki tarinat",
-    "subHeadline": "Etsi, tallenna ja jaa taidetta, kirjoja, elokuvia ja musiikkia tuhansista kulttuurilaitoksista",
+    "subHeadline": "Hae, tallenna ja jaa taidetta, kirjoja, elokuvia ja musiikkia tuhansilta kulttuuriorganisaatioilta",
     "themesCTA": "Katso kaikki teemat",
     "themesTitle": "Tutustu teemoittain",
     "title": "Tutustu Euroopan {digital} kulttuuriperintöön",
@@ -908,10 +908,7 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulje",
-    "readMore": "Tutustu tarinoihin",
-    "text": {
-      "storiesTags": "Tutustu päivitettyyn Tarinat-sivuun. Voit nyt etsiä ja suodattaa tunnisteiden mukaan."
-    }
+    "readMore": "Tutustu tarinoihin"
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
@@ -999,7 +996,7 @@ export default {
       "title": "Tutustu aiheeseen liittyviin kokoelmiin"
     },
     "editorial": {
-      "title": "Tarinoita, joista saatat pitää"
+      "title": "Tarinat, joista saatat pitää"
     },
     "galleries": {
       "name": "Aiheeseen liittyvät galleriat",
@@ -1007,7 +1004,7 @@ export default {
     },
     "items": {
       "loginForMore": "Kirjaudu sisään nähdäksesi muut aiheeseen liittyvät kohteet",
-      "title": "Tutustu aiheeseen liittyviin tuotteisiin"
+      "title": "Tutustu aiheeseen liittyviin kohteet"
     },
     "themes": {
       "title": "Tutustu aiheeseen liittyviin teemat"
@@ -1017,6 +1014,14 @@ export default {
   "reset": "Nollaa",
   "resourceWikimedia": "Sisältö Wikimedia Commonsista",
   "search": {
+    "advanced": {
+      "actions": {
+        "apply": "Käytä"
+      },
+      "tooltip": {
+        "modifier": "Valitse kenttään käytettävä muokkaus."
+      }
+    },
     "boost": {
       "placeholder": "Syötä kentän tehostamiskysely"
     },
@@ -1119,7 +1124,7 @@ export default {
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} tarinaa löydetty",
-    "title": "Tarinoita"
+    "title": "Tarinat"
   },
   "themes": {
     "description": "Selaa teemoittain",
