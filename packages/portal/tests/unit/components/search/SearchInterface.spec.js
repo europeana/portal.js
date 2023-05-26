@@ -25,6 +25,7 @@ const searchResult = {
 
 const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {}) => shallowMountNuxt(SearchInterface, {
   localVue,
+  attachTo: document.body,
   mocks: {
     $t: (key) => key,
     localePath: () => '/',
