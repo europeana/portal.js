@@ -30,7 +30,7 @@
             :destination="rightsStatement"
             class="d-block"
           >
-            {{ $t('rights.tooltip.readMore') }}
+            {{ $t('rights.tooltip.readMore', { link: hostName}) }}
           </SmartLink>
         </template>
       </i18n>
@@ -63,6 +63,10 @@
       },
       reusability() {
         return this.rightsNameAndIcon(this.rightsStatement).reusability;
+      },
+      hostName() {
+        const url = new URL(this.rightsStatement);
+        return url.host;
       }
     }
   };

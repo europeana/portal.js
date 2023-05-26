@@ -1051,7 +1051,7 @@ export default {
       "open": "{rightsStatementName} means you can use this item freely. {readMoreLink}",
       "permission": "{rightsStatementName} means you may be able to use this item if you seek permission. {readMoreLink}",
       "restricted": "{rightsStatementName}  means you can use this item with conditions. {readMoreLink}",
-      "readMore": "Read more at creativecommons.org"
+      "readMore": "Read more at {link}"
     }
   },
   "search": {
