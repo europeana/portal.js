@@ -33,7 +33,59 @@ describe('plugins/vue-matomo.client', () => {
       });
     });
 
-    describe('when route has no query', () => {
+    describe('when route has a single advanced search on search page', () => {
+      const route = { query: { qa: 'proxy_dc_title:The' }, name: 'search' };
+
+      it('returns `*:*`` and the query as a keyword', () => {
+        const siteSearch = plugin.trackSiteSearch()(route);
+
+        expect(siteSearch.keyword).toBe('*:* AND proxy_dc_title:The');
+      });
+    });
+
+    describe('when route has multiple advanced searches on search page', () => {
+      const route = { query: { qa: ['proxy_dc_title:The', 'proxy_dc_creator:Von'] }, name: 'search' };
+
+      it('returns `*:*` and both query parts joined via `AND` as a keyword', () => {
+        const siteSearch = plugin.trackSiteSearch()(route);
+
+        expect(siteSearch.keyword).toBe('*:* AND proxy_dc_title:The AND proxy_dc_creator:Von');
+      });
+    });
+
+    describe('when route has a query and an advanced search on search page', () => {
+      const route = { query: { query: 'gothic',  qa: 'proxy_dc_title:The' }, name: 'search' };
+
+      it('returns the query and advanced query joined via `AND` as a keyword', () => {
+        const siteSearch = plugin.trackSiteSearch()(route);
+
+        expect(siteSearch.keyword).toBe('gothic AND proxy_dc_title:The');
+      });
+    });
+
+    describe('when route has no query on search page', () => {
+      // TODO: is this right?
+      const route = { query: {}, name: 'search' };
+
+      it('returns `null`', () => {
+        const siteSearch = plugin.trackSiteSearch()(route);
+
+        expect(siteSearch === null).toBe(true);
+      });
+    });
+
+    describe('when route has no query on collection page', () => {
+      // TODO: is this right?
+      const route = { query: {}, name: 'collections-type-all___en', params: { type: 'topic', pathMatch: '190-art' }  };
+
+      it('returns `null`', () => {
+        const siteSearch = plugin.trackSiteSearch()(route);
+
+        expect(siteSearch === null).toBe(true);
+      });
+    });
+
+    describe('when route has no query on a non-search page', () => {
       const route = { query: {}, name: 'home' };
 
       it('returns `null`', () => {
