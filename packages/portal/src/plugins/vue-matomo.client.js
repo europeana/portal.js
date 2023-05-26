@@ -4,10 +4,11 @@ import VueMatomo from 'vue-matomo';
 export const trackSiteSearch = (store) => (to) => {
   let siteSearch = null;
 
-  if (Object.keys(to.query).includes('query')) {
+  if (Object.keys(to.query).some((key) => ['query', 'qa'].includes(key))) {
     // Register a site search, treating collection pages as the category
     // and passing *:* to Matomo for empty queries (as it ignores empty queries)
-    const keyword = to.query.query === '' ? '*:*' : to.query.query;
+    const standardQuery = to.query.query === '' ? '*:*' : to.query.query || '*:*';
+    const keyword = [standardQuery].concat(to.query.qa || []).join(' AND ');
 
     let category;
     if (to.name.startsWith('collections-type-all')) {

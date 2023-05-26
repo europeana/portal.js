@@ -134,21 +134,6 @@
   };
 </script>
 
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  .btn.tooltip-button {
-    color: $grey;
-    font-size: $font-size-base;
-
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-base-4k;
-      }
-    }
-  }
-</style>
-
 <docs lang="md">
   Switch-style checkbox with tooltip:
   ```jsx

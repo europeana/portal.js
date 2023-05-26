@@ -933,6 +933,7 @@ export default {
     "other": "other languages",
     "stopTranslating": "Stop translating this item to {0}.",
     "translateLanguage": "Would you like to see this item in {0}?",
+    "translateMetadata": "Translate the metadata of this item.",
     "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
   },
   "newFeatureNotification": {
@@ -1045,12 +1046,20 @@ export default {
   "removeFilter": "Remove {filterLabel} filter",
   "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} means you can use this item freely. {readMoreLink}",
+      "permission": "{rightsStatementName} means you may be able to use this item if you seek permission. {readMoreLink}",
+      "restricted": "{rightsStatementName}  means you can use this item with conditions. {readMoreLink}",
+      "readMore": "Read more at {link}"
+    }
+  },
   "search": {
     "advanced": {
       "actions": {
         "add": "Add",
         "clear": "Clear",
-        "search": "Search"
+        "apply": "Apply"
       },
       "input": {
         "field": "Field",
@@ -1106,10 +1115,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Add to gallery",
+      "addToGallery": "Add this item to a gallery.",
       "create": "Create gallery",
       "createNew": "Create new gallery",
       "delete": "Delete gallery",
       "edit": "Edit gallery",
+      "saveItemToLikes": "Save this item to your Likes.",
       "update": "Update gallery"
     },
     "entityBestBets": {

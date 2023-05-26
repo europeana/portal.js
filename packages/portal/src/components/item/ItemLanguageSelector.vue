@@ -23,7 +23,6 @@
                 v-else
                 path="multilingual.translateLanguage"
                 tag="span"
-                class="pr-1"
                 data-qa="translate item suggestion"
               >
                 <b-dropdown
@@ -46,6 +45,12 @@
                   </b-dropdown-item>
                 </b-dropdown>
               </i18n>
+              <b-button
+                v-b-tooltip.bottom
+                :title="$t('multilingual.translateMetadata')"
+                class="icon-info tooltip-button"
+                variant="light-flat"
+              />
             </span>
             <b-link
               v-if="metadataLanguage"
