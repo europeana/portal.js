@@ -36,7 +36,7 @@ export default {
       ],
       advancedSearchModifiers: [
         { name: 'contains', query: { text: '{field}:{term}', string: '{field}:*{term}*' } },
-        { name: 'doesNotContain', query: { text: '!{field}:{term}', string: '!{field}:*{term}*' } }
+        { name: 'doesNotContain', query: { text: '-{field}:{term}', string: '-{field}:*{term}*' } }
       ],
       advancedSearchRouteQueryKey: 'qa'
     };
@@ -69,9 +69,9 @@ export default {
     advancedSearchRulesFromRouteQuery() {
       return [].concat(this.advancedSearchRouteQuery || []).map((qa) => {
         let modifier;
-        if (qa.startsWith('!')) {
+        if (qa.startsWith('-')) {
           modifier = 'doesNotContain';
-          qa = qa.replace('!', '');
+          qa = qa.replace('-', '');
         } else {
           modifier = 'contains';
         }

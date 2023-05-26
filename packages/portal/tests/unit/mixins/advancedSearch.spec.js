@@ -61,7 +61,7 @@ describe('mixins/advancedSearch', () => {
             page: 1,
             qa: [
               'proxy_dc_title:dog',
-              '!proxy_dc_type:*photograph*'
+              '-proxy_dc_type:*photograph*'
             ],
             query: 'bone'
           }
@@ -75,7 +75,7 @@ describe('mixins/advancedSearch', () => {
           query: {
             qa: [
               'proxy_dc_title:dog',
-              '!proxy_dc_type:*photograph*',
+              '-proxy_dc_type:*photograph*',
               'proxy_dc_language:en'
             ]
           }
