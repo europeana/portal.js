@@ -1089,6 +1089,7 @@ export default {
       "withoutQuery": "{count} results",
       "withQuery": "{count} results for {query}"
     },
+    "selectTheme": "Selecting a THEME may provide further filter options, e.g. the Newspapers theme includes a DATE ISSUED filter.",
     "title": "Search"
   },
   "searchFilters": "Search filters {count}",
