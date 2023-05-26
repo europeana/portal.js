@@ -5,7 +5,7 @@
     class="icon-filter p-0 ml-3 my-3"
     :class="{ 'filters-applied' : hasSelectedFilters }"
     variant="light-flat"
-    :aria-label="$t('filter')"
+    :aria-label="$t('actions.filter')"
     @click="toggleFilterSheet"
   />
 </template>

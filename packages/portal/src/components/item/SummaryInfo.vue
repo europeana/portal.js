@@ -68,7 +68,7 @@
         variant="link"
         @click="toggleMoreDescription"
       >
-        {{ showAll ? $t('showLess') : $t('readMore') }}
+        {{ showAll ? $t('actions.showLess') : $t('actions.readMore') }}
       </b-button>
     </div>
   </div>

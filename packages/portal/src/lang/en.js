@@ -30,14 +30,20 @@ export default {
   },
   "actions": {
     "accept": "Accept",
+    "add": "Add",
+    "apply": "Apply",
     "cancel": "Cancel",
+    "clear": "Clear",
     "close": "close",
     "continue": "continue",
     "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
+    "explore": "Explore",
     "feedback": "Feedback",
+    "filter": "Filter",
     "goHome": "Go to the homepage",
+    "hide": "Hide",
     "learnMore": "Learn more",
     "like": "Like",
     "move": "Move",
@@ -46,12 +52,16 @@ export default {
     "preview": "Preview",
     "previous": "Previous",
     "publish": "Publish",
+    "readMore": "Read more",
     "reject": "Reject",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
+    "show": "Show",
+    "showLess": "Show less",
+    "showMore": "Show more",
     "skipSend": "Skip and send",
     "submitForPublication": "Submit for publication",
     "submittedForPublication": "Submitted for publication",
@@ -190,7 +200,6 @@ export default {
       "title": "Settings"
     }
   },
-  "delete": "Delete",
   "depiction": "A depiction of {title}",
   "directions": {
     "left": "Left",
@@ -268,7 +277,6 @@ export default {
     "description": "Explore the exhibitions",
     "exhibitions": "Exhibition | Exhibitions"
   },
-  "explore": "Explore",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colours",
@@ -612,10 +620,7 @@ export default {
       "switchMoreInfo": "In this collection, you can choose what you want to search for: if this switch is on, then you will search within the newspaper and document text; if it is off, then you will instead search within the information describing the item, just as you always do in most other collections."
     },
     "button": {
-      "apply": "Apply",
-      "cancel": "Cancel",
       "morefilters": "More filters",
-      "reset": "Reset",
       "showAdditional": "{show} additional filters",
       "showAll": "Show all {label}",
       "showLess": "Show less {label}"
@@ -752,7 +757,6 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
-  "filter": "Filter",
   "filterResults": "Filter results",
   "footer": {
     "customiseWebsiteLanguage": "Customise website language",
@@ -784,7 +788,6 @@ export default {
     "description": "Explore our galleries",
     "galleries": "Gallery | Galleries"
   },
-  "goToRecord": "Go to item",
   "header": {
     "backToMenu": "Close Search Box",
     "clearQuery": "Clear Search Query",
@@ -903,7 +906,6 @@ export default {
   "layout": {
     "skipToMain": "Skip to page contents"
   },
-  "learnMore": "Learn about the source of this description",
   "loading": "Loading",
   "loadingResults": "Loading results",
   "messages": {
@@ -991,7 +993,6 @@ export default {
     "linkText": "View on the provider's website",
     "providedBy": "This item is provided and maintained by {provider}"
   },
-  "readMore": "Read more",
   "recommendation": {
     "prompts": {
       "accept": "Thumb up to add to the gallery",
@@ -1044,7 +1045,6 @@ export default {
     }
   },
   "removeFilter": "Remove {filterLabel} filter",
-  "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "rights": {
     "tooltip": {
@@ -1056,11 +1056,6 @@ export default {
   },
   "search": {
     "advanced": {
-      "actions": {
-        "add": "Add",
-        "clear": "Clear",
-        "apply": "Apply"
-      },
       "input": {
         "field": "Field",
         "modifier": "Modifier",
@@ -1070,7 +1065,7 @@ export default {
         "contains": "contains",
         "doesNotContain": "does not contain"
       },
-      "show": "{show} advanced search",
+      "show": "{showOrHide} advanced search",
       "tooltip": {
         "field": "Select a field to search on.",
         "modifier": "Select a modifier to apply to the field."
@@ -1169,8 +1164,6 @@ export default {
     }
   },
   "shareWhere": "Where would you like to share this?",
-  "showLess": "Show less",
-  "showMore": "Show more",
   "sideFilters": {
     "noOptions": "There are no options available to select",
     "search": "Search"

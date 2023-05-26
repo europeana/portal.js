@@ -164,7 +164,7 @@
             variant="link"
             @click="toggleAdvancedSearch"
           >
-            {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
+            {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
           </b-button>
           <b-button
             data-qa="close filters button"

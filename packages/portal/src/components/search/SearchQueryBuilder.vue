@@ -35,7 +35,7 @@
             type="submit"
           >
             <span class="icon-search pr-1" />
-            {{ $t('search.advanced.actions.apply') }}
+            {{ $t('actions.apply') }}
           </b-button>
           <b-button
             data-qa="add rule button"
@@ -44,7 +44,7 @@
             @click="addNewRule"
           >
             <span class="icon-ic-add pr-1" />
-            {{ $t('search.advanced.actions.add') }}
+            {{ $t('actions.add') }}
           </b-button>
         </b-form>
       </section>
