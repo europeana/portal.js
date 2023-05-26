@@ -705,6 +705,7 @@ export default {
       "dcSubject": "Subject",
       "dcTitle": "Title",
       "dcType": "Type of object",
+      "dctermsAlternative": "Alternative title",
       "dctermsCreated": "Creation date",
       "dctermsExtent": "Extent",
       "dctermsHasPart": "Consists of",
@@ -936,9 +937,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Discover stories",
+    "readMore": "Go to the search page",
     "text": {
-      "storiesTags": "Check out the updated Stories page. You can now search and filter by tags."
+      "advancedSearch": "Advanced search has arrived: say goodbye to broad results and hello to precision as you uncover exactly what you're looking for. Start exploring now!"
     }
   },
   "newWindow": "opens in new window",
@@ -1051,14 +1052,6 @@ export default {
         "clear": "Clear",
         "search": "Search"
       },
-      "fields": {
-        "anyField": "Any field",
-        "creator": "Creator",
-        "description": "Description",
-        "subject": "Subject",
-        "title": "Title",
-        "type": "Type"
-      },
       "input": {
         "field": "Field",
         "modifier": "Modifier",
@@ -1066,13 +1059,8 @@ export default {
       },
       "modifiers": {
         "contains": "contains",
-        "endsWith": "ends with",
-        "is": "is",
-        "isNot": "is not",
-        "notContain": "does not contain",
-        "startsWith": "starts with"
+        "doesNotContain": "does not contain"
       },
-      "selectOne": "Select one",
       "show": "{show} advanced search",
       "tooltip": {
         "field": "Select a field to search on.",

@@ -6,9 +6,14 @@ import BootstrapVue from 'bootstrap-vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(SearchQueryBuilder, {
+const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => shallowMountNuxt(SearchQueryBuilder, {
   localVue,
   propsData,
+  data() {
+    return {
+      ...data
+    };
+  },
   mocks: {
     $route: {
       query: {}
@@ -19,25 +24,41 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(Search
 });
 
 describe('components/search/SearchQueryBuilder', () => {
-  describe('when there is a URL query present', () => {
-    it('shows the advanced search functionality', () => {
-      const wrapper = factory({ mocks: { $route: { query: { query: 'dog' } } } });
+  describe('when there is an advanced search in the route query', () => {
+    const $route = { query: { qa: 'proxy_dc_title:dog' } };
+
+    it('initalises with those rules', () => {
+      const wrapper = factory({ mocks: { $route } });
+
+      const queryRules = wrapper.vm.queryRules;
+
+      expect(queryRules).toEqual([
+        { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' }
+      ]);
+    });
+
+    it('emits the "show" event', () => {
+      const wrapper = factory({ mocks: { $route } });
 
       expect(wrapper.emitted('show')).toEqual([[true]]);
     });
   });
 
-  describe('when the URL query changes', () => {
-    describe('and it is empty or has a falsy value', () => {
-      it('hides the advanced search functionality', async() => {
-        const wrapper = factory({ mocks: { $route: { query: { query: 'dog' } } } });
+  describe('when there are no initial rules', () => {
+    const $route = { query: {} };
 
-        wrapper.vm.$route.query.query = '';
-        await wrapper.vm.$nextTick();
+    it('has one blank rule', () => {
+      const wrapper = factory({ mocks: { $route } });
 
-        // first sets it to true on mounted then to false on query change
-        expect(wrapper.emitted('show')).toEqual([[true], [false]]);
-      });
+      const queryRules = wrapper.vm.queryRules;
+
+      expect(queryRules).toEqual([{}]);
+    });
+
+    it('does not emit the "show" event', () => {
+      const wrapper = factory({ mocks: { $route } });
+
+      expect(wrapper.emitted('show')).toBeUndefined();
     });
   });
 
@@ -52,30 +73,36 @@ describe('components/search/SearchQueryBuilder', () => {
     });
   });
 
-  describe('clear rule button', () => {
-    describe('when there is only one rule', () => {
-      it('is disabled', () => {
+  describe('methods', () => {
+    describe('clearRule', () => {
+      it('removes the relevant rule', async() => {
         const wrapper = factory();
 
-        const clearButton = wrapper.find('[data-qa="clear rule button 0"]');
-        clearButton.trigger('click');
+        await wrapper.setData({ queryRules: [
+          { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' },
+          { field: 'proxy_dc_type', modifier: 'doesNotContain', term: 'photograph' }
+        ] });
 
-        expect(clearButton.attributes('disabled')).toBe('true');
-      });
-    });
-    describe('when there are multiple rules', () => {
-      it('removes the rule for that index', () => {
-        const wrapper = factory();
-        wrapper.vm.queryRules = [{ index: 0 }, { index: 1 }];
-
-        const firstClearButton = wrapper.find('[data-qa="clear rule button 0"]');
-
-        firstClearButton.trigger('click');
+        wrapper.vm.clearRule(0);
 
         expect(wrapper.vm.queryRules.length).toBe(1);
-        expect(wrapper.vm.queryRules[0]).toStrictEqual({ index: 1 });
+        expect(wrapper.vm.queryRules[0]).toEqual(
+          { field: 'proxy_dc_type', modifier: 'doesNotContain', term: 'photograph' }
+        );
+      });
+
+      it('adds a blank rule if all are gone', async() => {
+        const wrapper = factory();
+
+        await wrapper.setData({ queryRules: [
+          { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' }
+        ] });
+
+        wrapper.vm.clearRule(0);
+
+        expect(wrapper.vm.queryRules.length).toBe(1);
+        expect(wrapper.vm.queryRules[0]).toEqual({});
       });
     });
   });
 });
-
