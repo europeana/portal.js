@@ -939,7 +939,7 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Go to the search page",
     "text": {
-      "advancedSearch": "Check out the new advanced search feature that you can use to make even more granular searches."
+      "advancedSearch": "Advanced search has arrived: say goodbye to broad results and hello to precision as you uncover exactly what you're looking for. Start exploring now!"
     }
   },
   "newWindow": "opens in new window",
