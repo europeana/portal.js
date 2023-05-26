@@ -1050,7 +1050,7 @@ export default {
       "actions": {
         "add": "Add",
         "clear": "Clear",
-        "search": "Search"
+        "apply": "Apply"
       },
       "input": {
         "field": "Field",
