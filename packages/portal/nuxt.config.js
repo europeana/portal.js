@@ -205,7 +205,7 @@ export default {
   bootstrapVue: {
     // Set these two settings to `false` to prevent auto-importing of Bootstrap(Vue)
     // CSS. It will then need to be manually imported, e.g. with
-    // assets/scss/bootstrap.scss
+    // @europeana/style/scss/bootstrap.scss
     bootstrapCSS: false,
     bootstrapVueCSS: false,
 
@@ -238,7 +238,8 @@ export default {
       'ModalPlugin',
       'NavbarPlugin',
       'SidebarPlugin',
-      'ToastPlugin'
+      'ToastPlugin',
+      'TooltipPlugin'
     ]
   },
 

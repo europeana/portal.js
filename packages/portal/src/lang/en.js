@@ -705,6 +705,7 @@ export default {
       "dcSubject": "Subject",
       "dcTitle": "Title",
       "dcType": "Type of object",
+      "dctermsAlternative": "Alternative title",
       "dctermsCreated": "Creation date",
       "dctermsExtent": "Extent",
       "dctermsHasPart": "Consists of",
@@ -1051,28 +1052,15 @@ export default {
         "clear": "Clear",
         "search": "Search"
       },
-      "fields": {
-        "anyField": "Any field",
-        "creator": "Creator",
-        "description": "Description",
-        "subject": "Subject",
-        "title": "Title",
-        "type": "Type"
-      },
       "input": {
         "field": "Field",
         "modifier": "Modifier",
-        "searchTerm": "Search term(s)"
+        "searchTerm": "Enter search term(s)"
       },
       "modifiers": {
         "contains": "contains",
-        "endsWith": "ends with",
-        "is": "is",
-        "isNot": "is not",
-        "notContain": "does not contain",
-        "startsWith": "starts with"
+        "doesNotContain": "does not contain"
       },
-      "selectOne": "Select one",
       "show": "{show} advanced search",
       "tooltip": {
         "field": "Select a field to search on.",

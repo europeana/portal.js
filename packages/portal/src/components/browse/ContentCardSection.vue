@@ -4,8 +4,9 @@
     class="browse-section row mb-5"
     data-qa="browse section"
   >
-    <div class="col-12 col-lg-9">
+    <div class="col-12 col-lg-6">
       <h2
+        class="card-group-title"
         data-qa="section headline"
       >
         {{ section.headline }}
@@ -44,7 +45,7 @@
       <SmartLink
         v-if="section.moreButton"
         :destination="section.moreButton.url"
-        class="btn btn-light"
+        class="btn btn-outline-secondary"
         data-qa="section more button"
       >
         {{ section.moreButton.text }}
@@ -99,22 +100,18 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
 
   .browse-section {
-    h2,
+    .col-lg-6 {
+      @media (min-width: $bp-wqhd) {
+        max-width: $max-text-column-width;
+      }
+    }
+
     p {
       color: $mediumgrey;
       text-align: left;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      letter-spacing: 0.1212rem;
-    }
-
-    p {
-      letter-spacing: 0.0975rem;
       line-height: 1.5;
     }
   }

@@ -31,7 +31,11 @@
     v-else
     v-show="related.length > 0"
   >
-    <h2>{{ $t('related.editorial.title') }} </h2>
+    <h2
+      class="card-group-title"
+    >
+      {{ $t('related.editorial.title') }}
+    </h2>
     <b-card-group
       class="card-deck-4-cols"
       deck

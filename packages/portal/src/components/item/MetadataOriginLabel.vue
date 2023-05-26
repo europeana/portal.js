@@ -11,14 +11,8 @@
 </template>
 
 <script>
-  import { VBTooltip } from 'bootstrap-vue';
-
   export default {
     name: 'MetadataOriginLabel',
-
-    directives: {
-      'b-tooltip': VBTooltip
-    },
 
     props: {
       translationSource: {

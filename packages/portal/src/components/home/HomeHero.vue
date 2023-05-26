@@ -88,9 +88,11 @@
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
+    padding-bottom: 128px; // save space for absolute positioned EULogo of height 64px, doubled for spacing around the logo
 
     @media (min-width: $bp-4k) {
       margin-top: calc(1.5 * -70px);
+      padding-bottom: calc(1.5 * 128px);
     }
 
     &::before {

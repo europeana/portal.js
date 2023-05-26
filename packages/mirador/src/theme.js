@@ -151,8 +151,13 @@ export default {
     MuiTooltip: {
       tooltip: {
         backgroundColor: '#000000',
+        border: '1px solid #ededed',
+        borderRadius: '0.25rem',
+        color: '#fff',
         fontSize: '0.875rem',
-        padding: '0.625rem'
+        maxWidth: '200px',
+        padding: '0.5rem',
+        textAlign: 'center'
       }
     },
     MuiTouchRipple: { // hide grey circle on focus

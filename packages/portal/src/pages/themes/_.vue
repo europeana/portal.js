@@ -123,7 +123,11 @@
               v-if="dailySetOfCuratedItems"
               class="mb-5"
             >
-              <h2>{{ curatedItems.headline }}</h2>
+              <h2
+                class="card-group-title"
+              >
+                {{ curatedItems.headline }}
+              </h2>
               <ItemPreviewCardGroup
                 :items="dailySetOfCuratedItems"
                 view="grid"
@@ -302,18 +306,8 @@
       margin-top: -1.5rem;
     }
 
-    ::v-deep h2:not(.related-heading) {
-      color: $mediumgrey;
-      font-weight: 600;
-      font-size: $font-size-medium;
-
-      @media (min-width: $bp-small) {
-        font-size: $font-size-large;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-large-4k;
-      }
+    ::v-deep .content-header .divider {
+      margin-bottom: 1.75rem;
     }
   }
 

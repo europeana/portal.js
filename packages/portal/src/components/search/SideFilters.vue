@@ -30,7 +30,9 @@
             >
               {{ $t('reset') }}
             </button>
+            <!-- TODO: Remove once advanced search is enabled -->
             <b-button
+              v-if="!advancedSearchEnabled"
               data-qa="close filters button"
               class="button-icon-only icon-clear mx-3"
               variant="light-flat"
@@ -82,11 +84,11 @@
                   v-if="advancedSearchEnabled"
                   variant="link"
                   class="search-toggle"
+                  :class="{ 'open': showAdditionalFilters }"
                   aria-controls="additional-filters"
                   :aria-expanded="showAdditionalFilters"
                   @click="showAdditionalFilters = !showAdditionalFilters"
                 >
-                  <span>{{ showAdditionalFilters ? '-' : '+' }}</span>
                   {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? 'hide' : 'show' }) }}
                 </b-button>
                 <transition
@@ -141,6 +143,7 @@
   import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
+    // TODO: rename the component now it also includes advanced search?
     name: 'SideFilters',
 
     components: {
@@ -471,6 +474,7 @@
         const current = {
           boost: this.boost,
           page: this.page,
+          qa: this.$route.query.qa,
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
@@ -560,20 +564,7 @@
   }
 
   .search-toggle {
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: $font-size-small;
-    padding: 0;
     margin-bottom: 1.25rem;
-
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-small-4k;
-    }
-
-    &:hover,
-    &:focus {
-      text-decoration: none;
-    }
   }
 
   .col-filters {

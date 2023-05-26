@@ -23,15 +23,10 @@
 </template>
 
 <script>
-  import { VBTooltip } from 'bootstrap-vue';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
     name: 'SocialShare',
-
-    directives: {
-      'b-tooltip': VBTooltip
-    },
 
     mixins: [
       canonicalUrlMixin
