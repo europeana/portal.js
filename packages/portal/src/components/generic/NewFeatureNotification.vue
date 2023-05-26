@@ -11,8 +11,9 @@
     toaster="b-toaster-bottom-left-dynamic"
   >
     <slot />
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-start">
       <b-button
+        class="mr-2"
         variant="outline-primary"
         @click="hideToast"
       >
