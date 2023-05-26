@@ -2,7 +2,7 @@
   <div>
     <SmartLink
       id="rights-statement-button"
-      :destination="rightsStatement"
+      :destination="url ? rightsStatement : null"
       class="rights-statement-button attribution"
       data-qa="rights statement"
       hide-external-icon
@@ -14,6 +14,7 @@
     <!-- For better keyboard accessibility render tooltip in container right after rights statement button so the link inside the tooltip gets focus on next tab -->
     <div id="tooltip-container" />
     <b-tooltip
+      v-if="$te(`rights.tooltip.${reusability}`)"
       target="rights-statement-button"
       placement="bottom"
       container="tooltip-container"
@@ -30,7 +31,7 @@
             :destination="rightsStatement"
             class="d-block"
           >
-            {{ $t('rights.tooltip.readMore', { link: hostName}) }}
+            {{ $t('rights.tooltip.readMore', { link: hostName }) }}
           </SmartLink>
         </template>
       </i18n>
@@ -64,9 +65,16 @@
       reusability() {
         return this.rightsNameAndIcon(this.rightsStatement).reusability;
       },
+      url() {
+        try {
+          const url = new URL(this.rightsStatement);
+          return url;
+        } catch {
+          return null;
+        }
+      },
       hostName() {
-        const url = new URL(this.rightsStatement);
-        return url.host;
+        return this.url?.host;
       }
     }
   };
