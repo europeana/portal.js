@@ -1064,8 +1064,9 @@ export default {
       "show": "{show} advanced search",
       "tooltip": {
         "advancedSearch": "The advanced search allows you to build custom search queries.",
-        "field": "Select a field to search on.",
-        "modifier": "Select a modifier to apply to the field."
+        "field": "Select the information field to search within.",
+        "modifier": "Select a modifier to apply to the field. A modifier defines the relation between the field and the search term.",
+        "term": "Enter the search term to look for within the selected field."
       }
     },
     "boost": {
