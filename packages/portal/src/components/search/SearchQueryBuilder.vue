@@ -8,6 +8,7 @@
         role="search"
       >
         <b-form
+          data-qa="search query builder form"
           @submit.prevent="updateSearch"
         >
           <transition-group
@@ -102,7 +103,14 @@
         }
       },
       updateSearch() {
-        this.$matomo?.trackEvent('Advanced Search', 'applied', this.queryRules.map((rule) => rule.field));
+        if (this.$matomo) {
+          for (const rule of this.queryRules) {
+            const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
+            const modifierLabel = this.$t(`search.advanced.modifiers.${rule.modifier}`, 'en');
+            const eventName = `Adv search: ${fieldLabel} ${modifierLabel}`;
+            this.$matomo.trackEvent('Adv search', 'Apply adv search', eventName);
+          }
+        }
         this.$router.push(this.advancedSearchRouteQueryFromRules(this.queryRules));
       },
       initRulesFromRouteQuery() {

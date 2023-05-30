@@ -49,9 +49,9 @@ export default {
   },
 
   methods: {
-    advancedSearchFieldLabel(field) {
-      const fieldKey = field.name === 'YEAR' ? 'year' : camelCase(field.name.replace('proxy_', ''));
-      return this.$t(`fieldLabels.default.${fieldKey}`);
+    advancedSearchFieldLabel(fieldName, locale) {
+      const fieldKey = fieldName === 'YEAR' ? 'year' : camelCase(fieldName.replace('proxy_', ''));
+      return this.$t(`fieldLabels.default.${fieldKey}`, locale);
     },
 
     advancedSearchRouteQueryFromRules(rules) {
