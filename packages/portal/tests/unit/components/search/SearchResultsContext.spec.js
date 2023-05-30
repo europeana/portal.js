@@ -31,7 +31,11 @@ const factory = (options = {}) => mount(SearchResultsContext, {
       }
     },
     localePath: (args) => args,
-    $route: () => ({}),
+    $route: {
+      path: '/search',
+      query: {},
+      ...options.route
+    },
     $store: {
       state: {
         entity: {},
@@ -192,6 +196,41 @@ describe('SearchResultsContext', () => {
         const wrapper = factory({ propsData });
 
         expect(wrapper.vm.entityImage).toBe('organisation logo');
+      });
+    });
+
+    describe('activeCriteria', () => {
+      it('includes query params, but not "page"', () => {
+        const propsData = {
+          entity: fixtures.organisationEntity,
+          totalResults: 1234
+        };
+        const route = {
+          path: '/search',
+          query: {
+            query: 'query',
+            view: 'grid',
+            boost: 'boost',
+            qa: 'qa',
+            qf: 'qf',
+            reusability: 'reusability',
+            api: 'api',
+            page: '2'
+          }
+        };
+
+        const wrapper = factory({ propsData, route });
+
+        const criteria = wrapper.vm.activeCriteria;
+
+        expect(criteria.query).toBe('query');
+        expect(criteria.view).toBe('grid');
+        expect(criteria.boost).toBe('boost');
+        expect(criteria.qa).toBe('qa');
+        expect(criteria.qf).toBe('qf');
+        expect(criteria.reusability).toBe('reusability');
+        expect(criteria.api).toBe('api');
+        expect(criteria.page).toBe(undefined);
       });
     });
   });

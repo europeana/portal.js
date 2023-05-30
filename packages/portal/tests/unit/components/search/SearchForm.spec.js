@@ -264,6 +264,56 @@ describe('components/search/SearchForm', () => {
     });
   });
 
+  describe('linkGen', () => {
+    const state = {
+      search: {
+        active: false,
+        userParams: {
+          query: ''
+        },
+        view: 'grid'
+      }
+    };
+    const route = {
+      path: '',
+      query: {
+        query: '',
+        qa: 'procy_dc_creator:*',
+        reusability: 'open',
+        qf: 'TYPE:"IMAGE"',
+        api: 'metadata',
+        page: '3'
+      }
+    };
+    const wrapper = factory({ mocks: { $route: route, $store: { state } } });
+
+    describe('with a path', () => {
+      it('preserves URL params, except page', () => {
+        const link = wrapper.vm.linkGen('Fresco', '/collections/topic/55');
+        expect(link.path).toBe('/collections/topic/55');
+        expect(link.query.query).toBe('Fresco');
+        expect(link.query.qa).toBe('procy_dc_creator:*');
+        expect(link.query.reusability).toBe('open');
+        expect(link.query.qf).toBe('TYPE:"IMAGE"');
+        expect(link.query.api).toBe('metadata');
+        expect(link.query.page).toBe(undefined);
+      });
+    });
+
+    describe('without a path, like on a search page', () => {
+      it('preserves URL params, except page', () => {
+        const link = wrapper.vm.linkGen('Fresco');
+        expect(link.path).toBe('/search');
+        expect(link.query.query).toBe('Fresco');
+        expect(link.query.qa).toBe('procy_dc_creator:*');
+        expect(link.query.reusability).toBe('open');
+        expect(link.query.qf).toBe('TYPE:"IMAGE"');
+        expect(link.query.api).toBe('metadata');
+        expect(link.query.page).toBe(undefined);
+      });
+    });
+  });
+
   describe('getSearchSuggestions', () => {
     const query = 'something';
     describe('auto-suggest is enabled by default', () => {

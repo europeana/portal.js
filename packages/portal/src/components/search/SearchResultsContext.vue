@@ -162,7 +162,7 @@
       activeCriteria() {
         return {
           query: this.$route.query?.query,
-          view: this.view,
+          view: this.$route?.query?.view,
           boost: this.$route?.query?.boost,
           qa: this.$route?.query?.qa,
           qf: this.$route?.query?.qf,
