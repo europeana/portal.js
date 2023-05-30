@@ -321,7 +321,11 @@
         const query = {
           view: this.view,
           query: queryTerm || '',
-          boost: this.$route?.query?.boost
+          boost: this.$route?.query?.boost,
+          qa: this.$route?.query?.qa,
+          qf: this.$route?.query?.qf,
+          reusability: this.$route?.query?.reusability,
+          api: this.$route?.query?.api
         };
         return {
           path: path || this.localePath({
