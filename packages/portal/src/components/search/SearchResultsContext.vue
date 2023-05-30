@@ -168,9 +168,8 @@
           qf: this.$route?.query?.qf,
           reusability: this.$route?.query?.reusability,
           api: this.$route?.query?.api
-        }
+        };
       }
-
     }
   };
 </script>
