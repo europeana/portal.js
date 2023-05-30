@@ -76,7 +76,7 @@ describe('components/item/SummaryInfo', () => {
 
     it('shows a read more button', () => {
       const readMoreToggle = wrapper.find('button[data-qa="description show link"]');
-      expect(readMoreToggle.text()).toBe('TRANSLATED: readMore');
+      expect(readMoreToggle.text()).toBe('TRANSLATED: actions.readMore');
     });
   });
 
@@ -91,7 +91,7 @@ describe('components/item/SummaryInfo', () => {
 
     it('shows a title', () => {
       const readMoreToggle = wrapper.find('button[data-qa="description show link"]');
-      expect(readMoreToggle.text()).toBe('TRANSLATED: readMore');
+      expect(readMoreToggle.text()).toBe('TRANSLATED: actions.readMore');
     });
   });
 

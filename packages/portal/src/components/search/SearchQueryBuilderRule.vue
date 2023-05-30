@@ -106,7 +106,7 @@
       @click="clearRule"
     >
       <span class="icon-cancel-circle pr-1" />
-      {{ $t('search.advanced.actions.clear') }}
+      {{ $t('actions.clear') }}
     </b-button>
   </div>
 </template>

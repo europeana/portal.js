@@ -28,7 +28,7 @@
               data-qa="reset filters button"
               @click="resetFilters"
             >
-              {{ $t('reset') }}
+              {{ $t('actions.reset') }}
             </button>
             <!-- TODO: Remove once advanced search is enabled -->
             <b-button

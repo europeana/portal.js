@@ -54,7 +54,7 @@
       variant="primary"
       :disabled="disableApplyButton"
       :data-qa="`${name} apply button`"
-      :aria-label="$t('facets.button.apply')"
+      :aria-label="$t('actions.apply')"
       class="apply-button"
       @click.stop="emitDateForm"
     >

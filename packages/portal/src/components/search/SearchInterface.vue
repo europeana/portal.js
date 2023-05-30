@@ -165,22 +165,21 @@
               variant="link"
               @click="toggleAdvancedSearch"
             >
-              {{ $t('search.advanced.show', { 'show': showAdvancedSearch ? 'hide' : 'show' }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
-            </b-button>
+              {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}            </b-button>
             <b-button
               v-b-tooltip.bottom
               :title="$t('search.advanced.tooltip.advancedSearch')"
               class="icon-info p-0 tooltip-button"
               variant="light-flat"
             />
-            <b-button
-              data-qa="close filters button"
-              class="button-icon-only icon-clear mx-3"
-              variant="light-flat"
-              :aria-label="$t('header.closeSidebar')"
-              @click="toggleFilterSheet"
-            />
           </span>
+          <b-button
+            data-qa="close filters button"
+            class="button-icon-only icon-clear mx-3"
+            variant="light-flat"
+            :aria-label="$t('header.closeSidebar')"
+            @click="toggleFilterSheet"
+          />
         </b-row>
         <transition
           name="fade"
