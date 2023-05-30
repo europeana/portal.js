@@ -147,7 +147,7 @@
           currentPath: this.$route.path,
           params: this.$route.params,
           query: {
-            ...this.$route.query,
+            ...this.activeCriteria,
             query: null
           }
         });
@@ -155,10 +155,22 @@
       entityRemovalLink() {
         return this.localePath({
           name: 'search', query: {
-            ...this.$route.query
+            ...this.activeCriteria
           }
         });
+      },
+      activeCriteria() {
+        return {
+          query: this.$route.query?.query,
+          view: this.view,
+          boost: this.$route?.query?.boost,
+          qa: this.$route?.query?.qa,
+          qf: this.$route?.query?.qf,
+          reusability: this.$route?.query?.reusability,
+          api: this.$route?.query?.api
+        }
       }
+
     }
   };
 </script>
