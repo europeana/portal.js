@@ -155,7 +155,7 @@
       entityRemovalLink() {
         return this.localePath({
           name: 'search', query: {
-            query: this.$route.query?.query
+            ...this.$route.query
           }
         });
       }
