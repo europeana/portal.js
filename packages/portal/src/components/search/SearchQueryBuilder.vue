@@ -102,7 +102,7 @@
         }
       },
       updateSearch() {
-        this.$matomo && this.$matomo.trackEvent('Advanced Search', 'applied', this.queryRules.map((rule) => rule.field));
+        this.$matomo?.trackEvent('Advanced Search', 'applied', this.queryRules.map((rule) => rule.field));
         this.$router.push(this.advancedSearchRouteQueryFromRules(this.queryRules));
       },
       initRulesFromRouteQuery() {
