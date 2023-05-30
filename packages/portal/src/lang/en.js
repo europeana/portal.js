@@ -54,6 +54,7 @@ export default {
     "publish": "Publish",
     "readMore": "Read more",
     "reject": "Reject",
+    "reset": "Reset",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
