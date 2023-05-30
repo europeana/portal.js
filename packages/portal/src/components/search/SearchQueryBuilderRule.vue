@@ -130,7 +130,7 @@
       selectFieldOptions() {
         return this.advancedSearchFields.map((field) => ({
           value: field.name,
-          text: this.advancedSearchFieldLabel(field)
+          text: this.advancedSearchFieldLabel(field.name)
         }))
           .sort((a, b) => a.text.localeCompare(b.text));
       },
