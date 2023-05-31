@@ -39,7 +39,16 @@
             v-if="emptyText && sets && sets.length === 0"
             class="text-center pb-4"
           >
-            {{ emptyText }}
+            <span class="d-inline-flex align-items-center">
+              {{ emptyText }}
+              <b-button
+                v-if="tooltipTitle"
+                v-b-tooltip.bottom
+                :title="tooltipTitle"
+                class="icon-info tooltip-button"
+                variant="light-flat"
+              />
+            </span>
           </div>
           <!-- TODO: Use SetCardGroup and clean up methods -->
           <b-card-group
