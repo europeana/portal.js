@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Curated Collections",
-    "curatedCollectionsInfo": "Find below all collections you have curated",
     "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",

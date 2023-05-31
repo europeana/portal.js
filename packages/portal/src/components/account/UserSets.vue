@@ -1,6 +1,5 @@
 <template>
   <b-container>
-    <slot name="header" />
     <b-row class="flex-md-row">
       <b-col cols="12">
         <div
