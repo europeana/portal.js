@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti / Registruotis",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -18,10 +18,10 @@ export default {
         "public": "Kol kas nesukūrėte jokių viešų galerijų",
         "published": "Dar nepaskelbėte jokių galerijų"
       },
-      "noLikedItems": "Kol kas neturite patikusių prekių"
+      "noLikedItems": "Kol kas neturite pažymėtų skaitmeninių objektų"
     },
     "privateCollections": "Privačios galerijos",
-    "profile": "Man patinkančios prekės, kolekcijos ir galerijos",
+    "profile": "Man patinkančios Skaitmeniniai objektai, kolekcijos ir galerijos",
     "profileSettings": "Profilio nustatymai",
     "publicCollections": "Viešos galerijos",
     "publishedCollections": "Paskelbtos Galerijos",
@@ -30,14 +30,20 @@ export default {
   },
   "actions": {
     "accept": "Priimti",
+    "add": "Pridėti",
+    "apply": "Taikyti",
     "cancel": "Atšaukti",
+    "clear": "Išvalyti",
     "close": "uždaryti",
     "continue": "tęsti",
     "depublish": "Išskelbti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
+    "explore": "Naršyti",
     "feedback": "Atsiliepimas",
+    "filter": "Filtras",
     "goHome": "Eikite į pagrindinį puslapį",
+    "hide": "Slėpti",
     "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
     "move": "Perkelti",
@@ -46,12 +52,17 @@ export default {
     "preview": "Peržiūra",
     "previous": "Ankstesnis",
     "publish": "Publikuoti",
+    "readMore": "Skaityti daugiau",
     "reject": "Atmesti",
     "requestDepublication": "Prašymas neskelbti",
+    "reset": "Atstatyti",
     "save": "Išsaugoti",
     "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
+    "show": "Rodyti",
+    "showLess": "Rodyti mažiau",
+    "showMore": "Rodyti daugiau",
     "skipSend": "Praleisti ir siųsti",
     "submitForPublication": "Pateikti publikavimui",
     "submittedForPublication": "Pateikta publikuoti",
@@ -69,12 +80,12 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Galerijos",
-    "item": "Naujausi elementai",
+    "item": "Naujausi skaitmeniniai objektai",
     "organisation": "Organizacijos",
     "place": "Vietos",
     "theme": "Temos",
     "time": "Rekomenduojami šimtmečiai",
-    "topic": "Rekomenduojamos temos"
+    "topic": "Temos"
   },
   "blog": {
     "author": "Autorius",
@@ -110,22 +121,22 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "dizaineriai",
-          "name": "Projektuotojas | Projektuotojai",
+          "name": "Projektuotojas",
           "select": "Pasirinkite dizainerius"
         },
         "proxy_dc_format": {
           "moreName": "technikos",
-          "name": "Technika | Technikos",
+          "name": "Technika",
           "select": "Pasirinkite technikos"
         },
         "proxy_dc_type": {
-          "moreName": "elementų tipai",
-          "name": "Elemento tipas | Elementų tipai",
-          "select": "Pasirinkite elementų tipus"
+          "moreName": "skaitmeninio objekto tipai.",
+          "name": "Skaitmeninis objektas tipas",
+          "select": "Pasirinkite skaitmeninio objekto tipus."
         },
         "proxy_dcterms_medium": {
           "moreName": "medžiagos",
-          "name": "Medžiaga | Medžiagos",
+          "name": "Medžiaga",
           "select": "Pasirinkite medžiagas"
         }
       }
@@ -186,7 +197,6 @@ export default {
       "title": "Nustatymai"
     }
   },
-  "delete": "Ištrinti",
   "depiction": "{title} vaizdavimas",
   "directions": {
     "left": "Kairė",
@@ -196,24 +206,24 @@ export default {
   "entity": {
     "actions": {
       "cancel": "Atšaukti",
-      "pin": "Prisegti elementą",
-      "unpin": "Atsegti elementą",
-      "viewPinned": "Peržiūrėkite prisegtus elementus"
+      "pin": "Prisegti skaitmeninis objektas",
+      "unpin": "Atsegti skaitmeninis objektas",
+      "viewPinned": "Peržiūrėkite prisegtus skaitmeniniai objektai"
     },
     "labels": {
       "entity": "Subjektas"
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
-      "pin": "Šis elementas bus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
+      "pin": "Šis skaitmeninis objektas bus rodomas kolekcijos „ {entity} “ viršuje. Pranešime jums, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "pinLimit": {
-        "body": "Kol kas pirmajame puslapyje galite prisegti tik 24 elementus. Jei norite prisegti šį elementą, būtinai atsisekite kitą elementą ir tada vėl bandykite prisegti šį.",
-        "title": "Per daug prisegtų elementų"
+        "body": "Kol kas pirmajame puslapyje galite prisegti tik 24 skaitmeniniai objektai. Jei norite prisegti šį skaitmeninis objektas, būtinai atsisekite kitą skaitmeninis objektas ir tada vėl bandykite prisegti šį.",
+        "title": "Per daug prisegtų skaitmeniniai objektai"
       },
-      "pinned": "Elementas prisegtas. Dabar jis yra pirmojo šios kolekcijos puslapio viršuje. Gali užtrukti iki 24 valandų, kol visi pasirodys.",
-      "select": "Pasirinkite susijusį objektą, kurį norite prisegti / atsegti elementą prie jo / nuo jo.",
-      "unpin": "Šis elementas nebebus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
-      "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems."
+      "pinned": "Skaitmeninis objektas buvo prisegtas. Jis atsiras kaip pirmas elementas kolekcijoje „{entity}\". Pranešime Jums, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
+      "select": "Pasirinkite susijusį entitetą, norėdami prisegti / atsegti skaitmeninį objektą prie jo / nuo jo.",
+      "unpin": "Šis skaitmeninis objektas nebebus rodomas kolekcijos „ {entity} “ viršuje. Pranešime jums, kai šios pakeitimas bus matomas kolekcijos puslapyje.",
+      "unpinned": "Skaitmeninis objektas buvo atsegtas. Pranešime Jums, kai šie pakeitimai bus matomi kolekcijos puslapyje."
     }
   },
   "error": "Klaida",
@@ -236,16 +246,16 @@ export default {
       "title": "Nežinoma klaida"
     },
     "itemNotFound": {
-      "description": "Taip gali nutikti dėl šių priežasčių: šio elemento nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti elementą dar kartą.",
-      "metaTitle": "Prekė nerasta",
-      "title": "O ne! {newline} Mums nepavyko rasti šio elemento."
+      "description": "Taip gali nutikti dėl šių priežasčių: šio skaitmeninis objektas nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti skaitmeninis objektas dar kartą.",
+      "metaTitle": "Skaitmeninis objektas nerasta",
+      "title": "O ne! {newline} Mums nepavyko rasti šio skaitmeninis objektas."
     },
     "pageNotFound": {
       "metaTitle": "Puslapis nerastas",
       "title": "Puslapis, kurio ieškote, neegzistuoja."
     },
     "pinningNotFound": {
-      "description": "Įvyko klaida prisegant / atsegant elementą. Pabandykite dar kartą arba praneškite apie problemą.",
+      "description": "Įvyko klaida prisegant / atsegant skaitmeninis objektas. Pabandykite dar kartą arba praneškite apie problemą.",
       "title": "Kuruojama kolekcija nerasta"
     },
     "searchPaginationLimitExceeded": {
@@ -264,22 +274,19 @@ export default {
     "description": "Tyrinėti mūsų parodas",
     "exhibitions": "Parodos"
   },
-  "explore": "Naršyti",
   "facets": {
     "api": {
       "name": "Ieškoti",
       "options": {
-        "fulltext": "Įrašai su visu tekstu",
-        "metadata": "Tik metaduomenų įrašai"
+        "fulltext": "Skaitmeniniai objektai su visu tekstu",
+        "metadata": "Tik metaduomenų skaitmeniniai objektai"
       },
-      "switch": "Ieškoti tik pilno teksto elementų turinyje",
-      "switchMoreInfo": "Šioje kolekcijoje galite pasirinkti, ko norite ieškoti: jei šis jungiklis įjungtas, tada ieškosite laikraščio ir dokumento tekste; jei jis išjungtas, tada ieškosite informacijos, apibūdinančios elementą, kaip ir daugumoje kitų kolekcijų."
+      "switch": "Ieškoti tik pilno teksto skaitmeniniai objektai turinyje",
+      "switchMoreInfo": "Šioje kolekcijoje galite pasirinkti, ko norite ieškoti: jei šis jungiklis įjungtas, tuomet ieškosite laikraščio ir dokumento tekste; jei jis išjungtas, tuomet ieškosite informacijos, apibūdinančios skaitmeninį objektą, kaip ir daugumoje kitų kolekcijų."
     },
     "button": {
-      "apply": "Taikyti",
-      "cancel": "Atšaukti",
       "morefilters": "Daugiau filtrų",
-      "reset": "Atstatyti",
+      "showAdditional": "{show} papildomi filtrai",
       "showAll": "Rodyti visus {label}",
       "showLess": "Rodyti mažiau {label}"
     },
@@ -454,16 +461,16 @@ export default {
       "select": "Pasirinkite spalvas"
     },
     "contentTier": {
-      "name": "Prekės kokybė",
+      "name": "Skaitmeninis objektas kokybė",
       "options": {
-        "*": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
-        "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų",
+        "*": "Rodomi skaitmeniniai objektai, neatitinkantys mūsų paskelbimo kriterijų.",
+        "0": "Neatitinka publikavimo kriterijų",
         "1": "Žema kokybė",
         "2": "Vidutinė kokybė",
         "3": "Aukštos kokybės ir daugkartinio naudojimo sąlygos",
         "4": "Aukštos kokybės ir laisvai daugkartinio naudojimo"
       },
-      "select": "Pasirinkite elemento savybes"
+      "select": "Pasirinkite skaitmeninio objekto savybes."
     },
     "COUNTRY": {
       "name": "Teikianti šalis",
@@ -600,7 +607,7 @@ export default {
     "moreOptions": "Leškoti, kad rastumėte {0} daugiau {1}.",
     "PROVIDER": {
       "moreName": "agregatoriai",
-      "name": "Kaupykla",
+      "name": "Agregatorius",
       "select": "Pasirinkite agregatorius"
     },
     "proxy_dc_format": {
@@ -675,6 +682,7 @@ export default {
       "dcRights": "Teisės",
       "dcSource": "Šaltinis",
       "dcSubject": "Tema",
+      "dctermsAlternative": "Alternatyvus pavadinimas",
       "dctermsCreated": "Sukūrimo data",
       "dctermsExtent": "Apimtis",
       "dctermsHasPart": "Susideda iš",
@@ -706,7 +714,7 @@ export default {
       "edmIsSuccessorOf": "Yra įpėdinis",
       "edmProvider": "Teikėjas",
       "edmRealizes": "Suvokia",
-      "edmRights": "Šiame įraše esančios medijos licencija (jei nenurodyta kitaip)",
+      "edmRights": "Šiame Skaitmeninis objektas esančios teisių pareikštys (jei nenurodyta kitaip)",
       "edmUgc": "Vartotojo sugeneruotas turinys",
       "europeanaCollectionName": "Kolekcijos pavadinimas",
       "keywords": "Raktiniai žodžiai (pateikia bendruomenė)",
@@ -719,11 +727,10 @@ export default {
       "about": "RDF Apie",
       "dcDescription": "Aprašymas",
       "ebucoreHasMimeType": "„Ebucore“ MIME tipas",
-      "edmRights": "Šio medijos šaltinio licencija",
+      "edmRights": "Šio medijos šaltinio Teisių pareikštys",
       "rdfAbout": "RDF Apie"
     }
   },
-  "filter": "Filtras",
   "filterResults": "Filtruoti rezultatus",
   "footer": {
     "customiseWebsiteLanguage": "Pasirinkti tinklalapio kalbą",
@@ -740,9 +747,9 @@ export default {
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
-      "provide": "Tapkite duomenų teikėju",
+      "provide": "Tapkite duomenų partneriu",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
-      "terms": "Paslaugų teikimo sąlygos"
+      "terms": "Naudotojo sąlygos"
     },
     "ourMission": "Mūsų misija",
     "ourMissionQuote": "„Europeana“ suteikia kultūros paveldo sektoriui skaitmeninimo galimybes. Rengiame žinias, įrankius ir politikas, skatinančias skaitmeninius pokyčius bei partnerystes, kurios spartina inovacijas."
@@ -755,7 +762,6 @@ export default {
     "description": "Tyrinėti mūsų galerijas",
     "galleries": "Galerijos"
   },
-  "goToRecord": "Eiti į įrašą",
   "header": {
     "backToMenu": "Uždaryti paieškos langą",
     "clearQuery": "Išvalyti paieškos užklausą",
@@ -768,8 +774,8 @@ export default {
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
-      "home": "Namai",
-      "pro": "Profesionalams",
+      "home": "Pradžia",
+      "pro": "Specialistams",
       "stories": "Istorijos"
     },
     "quickSearch": "Greita paieška",
@@ -785,7 +791,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Naujausios istorijos",
     "storiesCTA": "Žiūrėti visas istorijas",
-    "subHeadline": "Ieškokite, išsaugokite ir bendrinkite meną, knygas, filmus ir muziką iš tūkstančiųkultūrosįstaigų",
+    "subHeadline": "Ieškokite, išsaugokite ir dalinkitės meno kūriniais, knygomis, filmais ir muzika iš tūkstančių kultūros įstaigų",
     "themesCTA": "Žiūrėti visas temas",
     "themesTitle": "Naršykite pagal temą",
     "title": "Pažinkite Europos {digital} kultūros paveldą",
@@ -795,11 +801,11 @@ export default {
     "handle": "Slinkiklio rankena"
   },
   "items": {
-    "itemCount": "1 prekė iš |{count} prekių",
-    "itemOf": "{max} iš {count} prekių",
-    "recent": "Naujausi elementai",
-    "recommended": "Rekomenduojami daiktai",
-    "youMightLike": "Prekės, kurios jums gali patikti"
+    "itemCount": "1 skaitmeninis objektas iš |{count} skaitmeninių objektų",
+    "itemOf": "{max} iš {count} skaitmeniniai objektai",
+    "recent": "Naujausi skaitmeniniai objektai",
+    "recommended": "Rekomenduojami skaitmeniniai objektai",
+    "youMightLike": "Skaitmeniniai objektai, kurios jums gali patikti"
   },
   "klaro": {
     "main": {
@@ -874,7 +880,6 @@ export default {
   "layout": {
     "skipToMain": "Pereiti į puslapio turinį"
   },
-  "learnMore": "Sužinokite apie šio aprašymo šaltinį",
   "loading": "Įkeliama",
   "loadingResults": "Įkeliami rezultatai",
   "messages": {
@@ -885,32 +890,33 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Spustelėkite priskyrimą, kad jį nukopijuotumėte",
-      "modalIntro": "Jei šį elementą naudojate žiniatinklyje ar kitur, nepamirškite šalia jo rodyti šio priskyrimo:",
+      "modalIntro": "Jei šį skaitmeninį objektą naudojate žiniatinklyje ar kitur, nepamirškite šalia jo rodyti šio priskyrimo:",
       "modalTitle": "Pasakykite ačiū"
     },
     "downloadFailed": {
-      "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"Teikianti institucija“, kad patikrintumėte, ar elementą galima atsisiųsti iš teikiančios institucijos svetainės.",
+      "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"Teikianti institucija“, kad patikrintumėte, ar skaitmeninis objektas galima atsisiųsti iš teikiančios institucijos svetainės.",
       "message": "Jei atsisiuntimas neveikia, gali būti, kad jį pašalino teikianti institucija, arba gali kilti techninių problemų, susijusių su jų paslauga.",
       "title": "Atsisiųsti neveikia"
     },
     "transcribe": {
       "message": "Prisijunkite prie Europeana Transcribe – internetinės piliečių iniciatyvos, skirtos „Europeanos“ kolekcijoms praturtinti",
-      "title": "Transkribuokite šį elementą"
+      "title": "Transkribuokite šį skaitmeninį objektą"
     }
   },
   "multilingual": {
     "automated": "Automatinis vertimas",
     "enrichment": "Praturtinimas partnerių projektais",
     "other": "Kitos kalbos",
-    "stopTranslating": "Nustokite versti šį elementą į {0}.",
-    "translateLanguage": "Ar norėtumėte pamatyti šį elementą {0} ?",
+    "stopTranslating": "Nustokite versti šį skaitmeninį objektą į {0}.",
+    "translateLanguage": "Ar norėtumėte pamatyti šį skaitmeninį objektą {0}?",
+    "translateMetadata": "Išverskite šį skaitmeninį objektą metaduomenimis.",
     "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
-    "readMore": "Atraskite istorijas",
+    "readMore": "Eikite į paieškos puslapį",
     "text": {
-      "storiesTags": "Peržiūrėkite atnaujintą istorijos puslapį. Dabar galite ieškoti ir filtruoti pagal žymas."
+      "advancedSearch": "Atėjo išplėstinė paieška: atsisveikinkite su plačiais rezultatais ir pasisveikinkite su tikslumu, kai atskleisite būtent tai, ko ieškote. Pradėkite tyrinėti dabar!"
     }
   },
   "newWindow": "atsidaro naujame lange",
@@ -943,7 +949,7 @@ export default {
         "title": "Vietos"
       },
       "table": {
-        "items": "Elementus",
+        "items": "Skaitmeniniai objektai",
         "name": "Vardas"
       },
       "times": {
@@ -959,9 +965,8 @@ export default {
   },
   "provider": {
     "linkText": "Peržiūrėti teikėjo svetainę",
-    "providedBy": "Šį elementą teikia ir prižiūri {provider}"
+    "providedBy": "Šis skaitmeninis objektas teikiamas ir prižiūrimas {provider}."
   },
-  "readMore": "Skaityti daugiau",
   "recommendation": {
     "prompts": {
       "accept": "Nykščiu aukštyn, kad pridėtumėte į galeriją",
@@ -970,7 +975,7 @@ export default {
   },
   "record": {
     "actions": {
-      "pin": "Prisekite elementą prie galimų objektų"
+      "pin": "Prisekite šį skaitmeninį objektą prie galimų objektų."
     },
     "allMetaData": "Visi metaduomenys",
     "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
@@ -981,14 +986,14 @@ export default {
     "location": "Vieta",
     "locationOnMap": "Vieta žemėlapyje",
     "mediaPlayer": "Medijos leistuvas",
-    "record": "Įrašas",
+    "record": "Skaitmeninis objektas",
     "showAll": "Rodyti visą informaciją",
-    "similarItems": "Panašūs elementai",
+    "similarItems": "Panašūs skaitmeniniai objektai",
     "status": {
-      "unpublished": "[Nepaskelbtas elementas]"
+      "unpublished": "[Nepaskelbtas skaitmeninis objektas]"
     },
     "transcription": "Transkripcija",
-    "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga."
+    "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne skaitmeninio objekto pateikėjas."
   },
   "related": {
     "categoryTags": {
@@ -1006,17 +1011,40 @@ export default {
       "title": "Atraskite susijusias galerijas"
     },
     "items": {
-      "loginForMore": "Prisijunkite, kad pamatytumėte kitus susijusius elementus",
-      "title": "Atraskite susijusius elementus"
+      "loginForMore": "Prisijunkite, kad pamatytumėte kitus susijusius skaitmeninius objektus",
+      "title": "Atraskite susijusius skaitmeniniai objektai"
     },
     "themes": {
       "title": "Atraskite susijusias temas"
     }
   },
   "removeFilter": "Pašalinkite filtrą {filterLabel}",
-  "reset": "Atstatyti",
   "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} reiškia, kad galite laisvai naudoti šį skaitmeninį objektą. {readMoreLink}",
+      "permission": "{rightsStatementName} reiškia, kad galbūt galėsite naudoti šį skaitmeninį objektą, jei prašysite leidimo. {readMoreLink}",
+      "readMore": "Skaitykite daugiau adresu {link}",
+      "restricted": "{rightsStatementName} reiškia, kad šį skaitmeninį objektą galite naudoti su sąlygomis. {readMoreLink}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Laukas",
+        "modifier": "Modifikatorius",
+        "searchTerm": "Įveskite paieškos terminą (-us)"
+      },
+      "modifiers": {
+        "contains": "turi",
+        "doesNotContain": "sudėtyje nėra"
+      },
+      "show": "{showOrHide} išplėstinė paieška",
+      "tooltip": {
+        "field": "Pasirinkite lauką, kuriame norite ieškoti.",
+        "modifier": "Pasirinkite modifikatorių, kurį taikyti laukui."
+      }
+    },
     "boost": {
       "placeholder": "Įveskite lauko didinimo užklausą"
     },
@@ -1029,19 +1057,20 @@ export default {
     },
     "title": "Paieška"
   },
+  "searchFilters": "Paieškos filtrai {count}",
   "searchHasLoaded": "{0} grąžinti rezultatai",
-  "searchPlaceholder": "Paieška 50+ milijonų elementų",
+  "searchPlaceholder": "Paieška 50+ milijonų skaitmeninius objektus",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
   "searchSuggestions": "Paieškos pasiūlymai",
   "searchTier": {
     "button": {
-      "hide": "Paslėpti šiuos elementus",
-      "show": "Rodyti šiuos elementus"
+      "hide": "Paslėpti šiuos skaitmeniniai objektai",
+      "show": "Rodyti šiuos skaitmeninius objektus"
     },
     "text": {
-      "hide": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
-      "show": "Daugiau elementų atitinka jūsų paiešką, bet neatitinka mūsų paskelbimo kriterijų."
+      "hide": "Rodomi skaitmeniniai objektai, neatitinkantys mūsų paskelbimo kriterijų.",
+      "show": "Daugiau skaitmeniniai objektai atitinka jūsų paiešką, bet neatitinka mūsų paskelbimo kriterijų."
     }
   },
   "searchViews": {
@@ -1052,10 +1081,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Įtraukti į galeriją",
+      "addToGallery": "Pridėti šį skaitmeninis objektas į galeriją.",
       "create": "Kurti galeriją",
       "createNew": "Kurti naują galeriją",
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
+      "saveItemToLikes": "Išsaugokite šį skaitmeniniai objektai savo „Patinka“ sąraše.",
       "update": "Atnaujinti galeriją"
     },
     "entityBestBets": {
@@ -1076,14 +1107,14 @@ export default {
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
       "likeLimit": {
-        "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių prekių. Greitai šį apribojimą panaikinsime!",
+        "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių skaitmeniniai objektai. Greitai šį apribojimą panaikinsime!",
         "title": "100 patinka"
       },
-      "updated": "Elementas buvo įtrauktas į galeriją.",
+      "updated": "Skaitmeninis objektas buvo pridėtas į galeriją.",
       "visibilityChanged": "Įspėjimas: nustatytas matomumas jau pakeistas ir šiuo metu yra \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes."
+      "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas skaitmeniniai objektai."
     },
     "publication": {
       "description": "Paskelbus galeriją ji bus rodoma Europeana.eu/galleries.",
@@ -1107,8 +1138,6 @@ export default {
     }
   },
   "shareWhere": "Kur norėtumėte tuo pasidalinti?",
-  "showLess": "Rodyti mažiau",
-  "showMore": "Rodyti daugiau",
   "sideFilters": {
     "noOptions": "Nėra parinkčių, kurias būtų galima pasirinkti",
     "search": "Paieška"

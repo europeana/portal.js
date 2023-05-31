@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion / Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -30,14 +30,20 @@ export default {
   },
   "actions": {
     "accept": "Accepter",
+    "add": "Ajouter",
+    "apply": "Appliquer",
     "cancel": "Annuler",
+    "clear": "Réinitialiser",
     "close": "fermer",
     "continue": "continuer",
     "depublish": "Dépublier",
     "download": "Télécharger",
     "edit": "Modifier",
+    "explore": "Explorer",
     "feedback": "Commentaires",
+    "filter": "Filtre",
     "goHome": "Aller à la page d'accueil",
+    "hide": "Cacher",
     "learnMore": "Apprendre encore plus",
     "like": "Mention J'aime",
     "move": "Déplacer",
@@ -46,12 +52,17 @@ export default {
     "preview": "Prévisualisation",
     "previous": "Précédent",
     "publish": "Publier",
+    "readMore": "En savoir plus",
     "reject": "Rejeter",
     "requestDepublication": "Demander la dépublication",
+    "reset": "Réinitialiser",
     "save": "Sauvegarder",
     "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
+    "show": "Afficher",
+    "showLess": "Afficher moins",
+    "showMore": "Afficher plus",
     "skipSend": "Ignorer et envoyer",
     "submitForPublication": "Soumettre pour publication",
     "submittedForPublication": "Soumis pour publication",
@@ -186,7 +197,6 @@ export default {
       "title": "Paramètres"
     }
   },
-  "delete": "Supprimer",
   "depiction": "Une description de {title}",
   "directions": {
     "left": "Gauche",
@@ -210,10 +220,10 @@ export default {
         "body": "Pour l'instant, vous ne pouvez épingler que 24 éléments sur la première page. Si vous souhaitez épingler cet élément, assurez-vous d'en désépingler un autre, puis réessayez d'épingler celui-ci.",
         "title": "Trop d'éléments épinglés"
       },
-      "pinned": "L'élément a été épinglé. Il est maintenant en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour apparaître pour tout le monde.",
+      "pinned": "L'élément a été épinglé. Il apparaîtra comme le premier élément de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "select": "Sélectionnez une entité associée pour y épingler/détacher l'élément.",
       "unpin": "Cet élément ne s'affichera plus en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
-      "unpinned": "L'élément a été désépinglé. Il n'est plus en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde."
+      "unpinned": "L’élément a été désépinglé. Nous vous informerons lorsque ce changement sera visible sur la page de la collection."
     }
   },
   "error": "Erreur",
@@ -264,7 +274,6 @@ export default {
     "description": "Explorez les expositions",
     "exhibitions": "Expositions"
   },
-  "explore": "Explorez",
   "facets": {
     "api": {
       "name": "Rechercher",
@@ -276,10 +285,8 @@ export default {
       "switchMoreInfo": "Dans cette collection, vous pouvez choisir ce que vous voulez rechercher: si ce bouton est activé, vous chercherez dans le texte du journal et du document; s'il est désactivé, vous chercherez plutôt dans les informations décrivant l'article, comme vous le faites toujours dans la plupart des autres collections."
     },
     "button": {
-      "apply": "Appliquer",
-      "cancel": "Annuler",
       "morefilters": "Plus de filtres",
-      "reset": "Réinitialiser",
+      "showAdditional": "{show} filtres supplémentaires",
       "showAll": "Afficher tout {label}",
       "showLess": "Afficher moins {label}"
     },
@@ -457,7 +464,7 @@ export default {
       "name": "Qualité de l'article",
       "options": {
         "*": "Inclut les éléments ne répondant pas à nos critères de publication",
-        "0": "Afficher uniquement les articles ne répondant pas à nos critères de publication",
+        "0": "Ne répondant pas aux critères de publication",
         "1": "Basse qualité",
         "2": "Qualité moyenne",
         "3": "Haute qualité et réutilisable sous certaines conditions",
@@ -675,6 +682,7 @@ export default {
       "dcRights": "Droits",
       "dcSource": "Source",
       "dcSubject": "Thème",
+      "dctermsAlternative": "Titre alternatif",
       "dctermsCreated": "Date de création",
       "dctermsExtent": "Étendue",
       "dctermsHasPart": "Est composé de",
@@ -723,7 +731,6 @@ export default {
       "rdfAbout": "À propos de RDF"
     }
   },
-  "filter": "Filtre",
   "filterResults": "Filtrer les résultats",
   "footer": {
     "customiseWebsiteLanguage": "Personnaliser la langue du site web",
@@ -755,7 +762,6 @@ export default {
     "description": "Explorez nos galeries",
     "galleries": "Galeries"
   },
-  "goToRecord": "Aller à l'enregistrement",
   "header": {
     "backToMenu": "Fermer la boîte de recherche",
     "clearQuery": "Effacer la requête de recherche",
@@ -874,7 +880,6 @@ export default {
   "layout": {
     "skipToMain": "Passer au contenu de la page"
   },
-  "learnMore": "Découvrez la source de cette description",
   "loading": "Chargement",
   "loadingResults": "Chargement des résultats",
   "messages": {
@@ -904,13 +909,14 @@ export default {
     "other": "Autres langues",
     "stopTranslating": "Arrêtez de traduire cet élément en {0}.",
     "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?",
+    "translateMetadata": "Traduisez les métadonnées de cet élément.",
     "translateQuotaError": "Le service de traduction est temporairement indisponible. Veuillez réessayer plus tard."
   },
   "newFeatureNotification": {
     "dismiss": "Fermer",
-    "readMore": "Découvrez des histoires",
+    "readMore": "Aller à la page de recherche",
     "text": {
-      "storiesTags": "Découvrez la page des histoires mise à jour. Vous pouvez maintenant rechercher et filtrer par tags."
+      "advancedSearch": "La recherche avancée est arrivée: dites adieu aux résultats larges et bonjour à la précision en découvrant exactement ce que vous recherchez. Commencez à explorer maintenant!"
     }
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
@@ -961,7 +967,6 @@ export default {
     "linkText": "Vue sur le site internet du prestataire",
     "providedBy": "Cet élément est fourni et maintenu par {provider}"
   },
-  "readMore": "Lire la suite",
   "recommendation": {
     "prompts": {
       "accept": "Pouce vers le haut pour ajouter à la galerie",
@@ -1014,9 +1019,32 @@ export default {
     }
   },
   "removeFilter": "Supprimer le filtre {filterLabel}",
-  "reset": "Réinitialiser",
   "resourceWikimedia": "Ressource de Wikimedia Commons",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} signifie que vous pouvez utiliser cet élément librement. {readMoreLink}",
+      "permission": "{rightsStatementName} signifie que vous pouvez utiliser cet élément si vous en demandez l'autorisation. {readMoreLink}",
+      "readMore": "En savoir plus sur {link}",
+      "restricted": "{rightsStatementName} signifie que vous pouvez utiliser cet élément avec des conditions. {readMoreLink}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Champ",
+        "modifier": "Modificateur",
+        "searchTerm": "Entrez-le(s) terme(s) de recherche"
+      },
+      "modifiers": {
+        "contains": "contient",
+        "doesNotContain": "ne contient pas"
+      },
+      "show": "{showOrHide} recherche avancée",
+      "tooltip": {
+        "field": "Sélectionnez un champ pour effectuer la recherche",
+        "modifier": "Sélectionnez un modificateur à appliquer au champ."
+      }
+    },
     "boost": {
       "placeholder": "Entrer une requête d’amplification de champ"
     },
@@ -1029,6 +1057,7 @@ export default {
     },
     "title": "Rechercher"
   },
+  "searchFilters": "Filtres de recherche {count}",
   "searchHasLoaded": "{0} résultats retournés",
   "searchPlaceholder": "Rechercher plus de 50 millions d'objets",
   "searchResults": "Rechercher",
@@ -1052,10 +1081,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Ajouter à la galerie",
+      "addToGallery": "Ajouter cet élément à une galerie.",
       "create": "Créer une galerie",
       "createNew": "Créer une nouvelle galerie",
       "delete": "Supprimer la galerie",
       "edit": "Modifier la galerie",
+      "saveItemToLikes": "Enregistrez cet élément dans vos J'aime.",
       "update": "Mettre à jour la galerie"
     },
     "entityBestBets": {
@@ -1107,8 +1138,6 @@ export default {
     }
   },
   "shareWhere": "Où aimeriez-vous partager cela?",
-  "showLess": "Afficher moins",
-  "showMore": "Afficher plus",
   "sideFilters": {
     "noOptions": "Il n'y a pas d'options disponibles pour sélectionner",
     "search": "Rechercher"
