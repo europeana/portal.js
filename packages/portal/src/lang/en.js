@@ -1163,6 +1163,12 @@ export default {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
       }
+    },
+    "tooltip": {
+      "EntityBestItemsSet": "A curated gallery shows the pinned items within a specific collection",
+      "private": "A private gallery can only be viewed by you.",
+      "public": "A public gallery can be viewed by anyone with the link.",
+      "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page."
     }
   },
   "shareWhere": "Where would you like to share this?",

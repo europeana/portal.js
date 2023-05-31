@@ -20,11 +20,20 @@
             v-if="total > 0"
           >
             <b-col>
-              <h2
-                class="related-heading text-uppercase"
-              >
-                {{ $tc('set.setCount', total) }}
-              </h2>
+              <span class="d-flex align-items-center mb-3">
+                <h2
+                  class="related-heading text-uppercase mb-0"
+                >
+                  {{ $tc('set.setCount', total) }}
+                </h2>
+                <b-button
+                  v-if="tooltipTitle"
+                  v-b-tooltip.bottom
+                  :title="tooltipTitle"
+                  class="icon-info tooltip-button"
+                  variant="light-flat"
+                />
+              </span>
             </b-col>
           </b-row>
           <div
@@ -137,6 +146,15 @@
       },
       page() {
         return Number(this.$route.query.page) || 1;
+      },
+      tooltipTitle() {
+        if (this.type === 'EntityBestItemsSet') {
+          return this.$t(`set.tooltip.${this.type}`);
+        } else if (this.visibility) {
+          return this.$t(`set.tooltip.${this.visibility}`);
+        } else {
+          return null;
+        }
       }
     },
     watch: {
