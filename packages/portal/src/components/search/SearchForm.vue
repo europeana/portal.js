@@ -329,9 +329,9 @@
         };
         // TODO: Always apply this after feature active.
         if (this.advancedSearchEnabled) {
-          query.api = this.$route?.query?.api,
-          query.qa = this.$route?.query?.qa,
-          query.qf = this.$route?.query?.qf,
+          query.api = this.$route?.query?.api;
+          query.qa = this.$route?.query?.qa;
+          query.qf = this.$route?.query?.qf;
           query.reusability = this.$route?.query?.reusability;
         }
         return {
