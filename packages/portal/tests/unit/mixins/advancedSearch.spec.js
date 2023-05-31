@@ -27,7 +27,7 @@ describe('mixins/advancedSearch', () => {
       it('translates "year" label for "YEAR" field', () => {
         const wrapper = factory();
 
-        const advancedSearchFieldLabel = wrapper.vm.advancedSearchFieldLabel({ name: 'YEAR' });
+        const advancedSearchFieldLabel = wrapper.vm.advancedSearchFieldLabel('YEAR');
 
         expect(advancedSearchFieldLabel).toBe('fieldLabels.default.year');
       });
@@ -35,7 +35,7 @@ describe('mixins/advancedSearch', () => {
       it('translates camel-cased field labels without proxy_ prefix for other fields', () => {
         const wrapper = factory();
 
-        const advancedSearchFieldLabel = wrapper.vm.advancedSearchFieldLabel({ name: 'proxy_dc_type' });
+        const advancedSearchFieldLabel = wrapper.vm.advancedSearchFieldLabel('proxy_dc_type');
 
         expect(advancedSearchFieldLabel).toBe('fieldLabels.default.dcType');
       });

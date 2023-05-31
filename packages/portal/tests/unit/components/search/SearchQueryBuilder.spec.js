@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import SearchQueryBuilder from '@/components/search/SearchQueryBuilder.vue';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -15,8 +16,14 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => shallowMount
     };
   },
   mocks: {
+    $matomo: {
+      trackEvent: sinon.spy()
+    },
     $route: {
       query: {}
+    },
+    $router: {
+      push: sinon.spy()
     },
     $t: (key) => key,
     ...mocks
@@ -24,6 +31,8 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => shallowMount
 });
 
 describe('components/search/SearchQueryBuilder', () => {
+  afterEach(sinon.resetHistory);
+
   describe('when there is an advanced search in the route query', () => {
     const $route = { query: { qa: 'proxy_dc_title:dog' } };
 
@@ -70,6 +79,56 @@ describe('components/search/SearchQueryBuilder', () => {
       addButton.trigger('click');
 
       expect(wrapper.vm.queryRules.length).toBe(2);
+    });
+  });
+
+  describe('form submission', () => {
+    const queryRules = [
+      {
+        field: 'proxy_dc_description',
+        modifier: 'contains',
+        term: 'flute'
+      },
+      {
+        field: 'proxy_dc_title',
+        modifier: 'doesNotContain',
+        term: 'pigeon'
+      }
+    ];
+
+    it('updates the router', async() => {
+      const wrapper = factory();
+      await wrapper.setData({ queryRules });
+
+      const form = wrapper.find('[data-qa="search query builder form"]');
+      form.trigger('submit.prevent');
+
+      expect(wrapper.vm.$router.push.calledWith({
+        query: {
+          page: 1,
+          qa: ['proxy_dc_description:flute', '-proxy_dc_title:pigeon']
+        }
+      })).toBe(true);
+    });
+
+    it('tracks the rules as events in Matomo', async() => {
+      const wrapper = factory();
+      await wrapper.setData({ queryRules });
+
+      const form = wrapper.find('[data-qa="search query builder form"]');
+      form.trigger('submit.prevent');
+
+      expect(wrapper.vm.$matomo.trackEvent.getCalls().length).toBe(2);
+      expect(wrapper.vm.$matomo.trackEvent.calledWith(
+        'Adv search',
+        'Apply adv search',
+        'Adv search: fieldLabels.default.dcDescription search.advanced.modifiers.contains'
+      )).toBe(true);
+      expect(wrapper.vm.$matomo.trackEvent.calledWith(
+        'Adv search',
+        'Apply adv search',
+        'Adv search: fieldLabels.default.dcTitle search.advanced.modifiers.doesNotContain'
+      )).toBe(true);
     });
   });
 
