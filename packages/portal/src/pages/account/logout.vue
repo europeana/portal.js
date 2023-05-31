@@ -21,6 +21,7 @@
 
     mounted() {
       this.$auth.logout({ params: { 'ui_locales': this.$i18n.locale } });
+      localStorage.setItem('logout-event', `logout-${Math.random()}`);
 
       const redirect = this.$auth.$storage.getUniversal('redirect');
       this.$router.push(redirect);
