@@ -12,6 +12,7 @@ const storeIsLikedGetter = sinon.stub();
 
 const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemLikeButton, {
   localVue,
+  attachTo: document.body,
   propsData: { identifier },
   mocks: {
     $auth,
