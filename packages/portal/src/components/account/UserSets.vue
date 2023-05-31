@@ -148,9 +148,9 @@
       },
       tooltipTitle() {
         if (this.type === 'EntityBestItemsSet') {
-          return this.$t(`set.tooltip.${this.type}`);
+          return this.$t(`account.tooltip.${this.type}`);
         } else if (this.visibility) {
-          return this.$t(`set.tooltip.${this.visibility}`);
+          return this.$t(`account.tooltip.${this.visibility}`);
         } else {
           return null;
         }
