@@ -1,24 +1,24 @@
 export default {
   "account": {
-    "curatedCollections": "Kurirane kolekcije",
+    "curatedCollections": "Kurirane zbirke",
     "curatedCollectionsInfo": "U nastavku pronađite sve zbirke koje ste kurirali",
     "editProfile": "Uredi profil",
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se/Pridruži se",
+    "linkLoginJoin": "Prijavi se / Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
       "loggedIn": "Sada ste prijavljeni. Dobrodošli!",
       "loggedOut": "Sada ste odjavljeni.",
       "noCollections": {
-        "curated": "Još niste kustosi kolekcija.",
+        "curated": "Još niste kustosi zbirke.",
         "private": "Još niste stvorili privatne galerije",
         "public": "Još niste stvorili javne galerije",
         "published": "Još niste objavili galerije"
       },
-      "noLikedItems": "Niste još ni za jednu stavku označili da vam se sviđa"
+      "noLikedItems": "Niste još ni za jednu predmeti označili da vam se sviđa"
     },
     "privateCollections": "Privatne galerije",
     "profile": "Moja sviđanja i galerije",
@@ -30,14 +30,20 @@ export default {
   },
   "actions": {
     "accept": "Prihvatiti",
+    "add": "Dodaj",
+    "apply": "Primijeni",
     "cancel": "Otkazati",
+    "clear": "Očisti",
     "close": "zatvori",
     "continue": "nastaviti",
     "depublish": "Depublish",
     "download": "Preuzmi",
     "edit": "Uredi",
+    "explore": "Istražiti",
     "feedback": "Povratna informacija",
+    "filter": "Filtar",
     "goHome": "Idite na početnu stranicu",
+    "hide": "Sakriti",
     "learnMore": "Uči više",
     "like": "Sviđanje",
     "move": "Potez",
@@ -46,12 +52,17 @@ export default {
     "preview": "Pregled",
     "previous": "Prethodni",
     "publish": "Objaviti",
+    "readMore": "Pročitaj više",
     "reject": "Odbiti",
     "requestDepublication": "Zahtjev za depublifikaciju",
+    "reset": "Resetiraj",
     "save": "Uštedjeti",
     "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
+    "show": "Pokazati",
+    "showLess": "Prikaži manje",
+    "showMore": "Prikaži više",
     "skipSend": "Preskoči i pošalji",
     "submitForPublication": "Predajte za objavu",
     "submittedForPublication": "Predano za objavu",
@@ -69,12 +80,12 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Galerije",
-    "item": "Nedavne stavke",
+    "item": "Nedavne predmeti",
     "organisation": "Organizacije",
     "place": "Mjesta",
     "theme": "Teme",
     "time": "Istaknuta stoljeća",
-    "topic": "Istaknute teme"
+    "topic": "Tématika"
   },
   "blog": {
     "author": "Autor",
@@ -120,7 +131,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "vrste stavki",
-          "name": "Vrsta stavke | Vrste stavki",
+          "name": "Vrsta predmet | Vrste predmeti",
           "select": "Odabir vrsta stavki"
         },
         "proxy_dcterms_medium": {
@@ -150,7 +161,7 @@ export default {
       "terms": "Uvjeti korištenja i pravila o privatnosti"
     },
     "headerNavigation": {
-      "Collections": "Kolekcije",
+      "Collections": "Zbirke",
       "explore": "Istraži",
       "teachers": "Nastavnici"
     }
@@ -186,7 +197,6 @@ export default {
       "title": "Postavke"
     }
   },
-  "delete": "Izbriši",
   "depiction": "Prikaz {title}",
   "directions": {
     "left": "Lijevo",
@@ -198,7 +208,7 @@ export default {
       "cancel": "Otkazati",
       "pin": "Prikvači stavku",
       "unpin": "Otkvačite stavku",
-      "viewPinned": "Pogledajte prikvačene stavke"
+      "viewPinned": "Pogledajte prikvačene predmeti"
     },
     "labels": {
       "entity": "Entitet"
@@ -207,13 +217,13 @@ export default {
       "deleted": "Vaša galerija je izbrisana.",
       "pin": "Ova će se stavka prikazati na vrhu zbirke \" {entity} \". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
       "pinLimit": {
-        "body": "Za sada na prvu stranicu možete prikvačiti samo 24 stavki. Ako želite prikvačiti ovu stavku, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
-        "title": "Previše prikvačenih stavki"
+        "body": "Za sada na prvu stranicu možete prikvačiti samo 24 predmeti. Ako želite prikvačiti ovu predmet, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
+        "title": "Previše prikvačenih predmeti"
       },
-      "pinned": "Stavka je prikvačena. Sada je na vrhu prve stranice ove zbirke. Možda će trebati i do 24 sata da se svi pojave.",
+      "pinned": "Predmet je prikvačena. Pojavit će se kao prva stavka u zbirci \" {entity} \". Obavijestit ćemo vas kada ova promjena bude vidljiva na stranici zbirke.",
       "select": "Odaberite povezani entitet da biste prikvačili/otkvačili stavku na/s njega.",
       "unpin": "Ova će se stavka prestati prikazivati na vrhu zbirke \" {entity} \". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
-      "unpinned": "Stavka je otkvačena. Više nije na vrhu prve stranice ove zbirke. Moglo bi potrajati do 24 sata da nestane za sve."
+      "unpinned": "Predmet je otkvačena. Obavijestit ćemo vas kada ova promjena bude vidljiva na stranici zbirke."
     }
   },
   "error": "Greška",
@@ -264,22 +274,19 @@ export default {
     "description": "Istražite izložbe",
     "exhibitions": "izložbe"
   },
-  "explore": "Istražiti",
   "facets": {
     "api": {
       "name": "Traži",
       "options": {
-        "fulltext": "Zapisi s punim tekstom",
-        "metadata": "Metapodaci-samo zapisi"
+        "fulltext": "Predmeti s punim tekstom",
+        "metadata": "Metapodaci-samo predmeti"
       },
-      "switch": "Pretraživanje samo u sadržaju stavki s cijelim tekstom",
-      "switchMoreInfo": "U ovoj zbirci možete odabrati što želite tražiti: ako je ovaj prekidač uključen, pretražit ćete unutar novina i teksta dokumenta; ako je isključena, umjesto toga pretražit ćete unutar informacija koje opisuju stavku, baš kao što to uvijek činite u većini drugih zbirki."
+      "switch": "Pretraživanje samo u sadržaju predmeti s cijelim tekstom",
+      "switchMoreInfo": "U ovoj zbirci možete odabrati što želite tražiti: ako je ovaj prekidač uključen, pretražit ćete unutar novina i teksta dokumenta; ako je isključena, umjesto toga pretražit ćete unutar informacija koje opisuju stavku, baš kao što to uvijek činite u većini drugih zbirke."
     },
     "button": {
-      "apply": "Primijeni",
-      "cancel": "Otkazati",
       "morefilters": "Više filtera",
-      "reset": "Resetiraj",
+      "showAdditional": "{show} dodatnih filtara",
       "showAll": "Prikaži sve {label}",
       "showLess": "Prikaži manje {label}"
     },
@@ -456,8 +463,8 @@ export default {
     "contentTier": {
       "name": "Kvaliteta artikla",
       "options": {
-        "*": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
-        "0": "Prikaži samo stavke koje ne zadovoljavaju naše kriterije za objavljivanje",
+        "*": "Uključuje predmeti koje ne ispunjavaju naše kriterije objavljivanja",
+        "0": "Ne zadovoljava kriterije objavljivanja",
         "1": "Niska kvaliteta",
         "2": "Srednja kvaliteta",
         "3": "Visoka kvaliteta i višekratna upotreba s uvjetima",
@@ -600,8 +607,8 @@ export default {
     "moreOptions": "Pretražite da biste pronašli {0} više {1}.",
     "PROVIDER": {
       "moreName": "agregatori",
-      "name": "Sakupljač",
-      "select": "Odaberite agregatore"
+      "name": "Agregator",
+      "select": "Odaberite agregatori"
     },
     "proxy_dc_format": {
       "name": "Format | formati",
@@ -675,6 +682,7 @@ export default {
       "dcRights": "Prava",
       "dcSource": "Izvor",
       "dcSubject": "Tema",
+      "dctermsAlternative": "Alternativni naslov",
       "dctermsCreated": "Datum stvaranja",
       "dctermsExtent": "Opseg",
       "dctermsHasPart": "Sastoji se od",
@@ -706,7 +714,7 @@ export default {
       "edmIsSuccessorOf": "Nasljednik je",
       "edmProvider": "Dobavljač",
       "edmRealizes": "Shvaća",
-      "edmRights": "Licenca medija u ovom zapisu (osim ako nije drugačije navedeno)",
+      "edmRights": "Uvjeti korištenja medija u ovom zapisu (osim ako nije drugačije navedeno)",
       "edmUgc": "Korisnički generirani sadržaj",
       "europeanaCollectionName": "Naziv zbirke",
       "keywords": "Ključne riječi (koje pruža zajednica)",
@@ -719,11 +727,10 @@ export default {
       "about": "O RDF",
       "dcDescription": "Opis",
       "ebucoreHasMimeType": "Ebucore MIME tip",
-      "edmRights": "Licenca za ovaj medijski resurs",
+      "edmRights": "Uvjeti korištenja za ovaj medijski resurs",
       "rdfAbout": "RDF O"
     }
   },
-  "filter": "Filtar",
   "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
@@ -755,7 +762,6 @@ export default {
     "description": "Istražite naše galerije",
     "galleries": "Galerije"
   },
-  "goToRecord": "Idi na zapis",
   "header": {
     "backToMenu": "Zatvori okvir za pretraživanje",
     "clearQuery": "Očisti upit za pretraživanje",
@@ -766,9 +772,9 @@ export default {
     "navigation": {
       "about": "O nama",
       "collections": "Zbirke",
-      "europeanaClassroom": "Za učitelje",
+      "europeanaClassroom": "Za nastavnike",
       "help": "Pomoć",
-      "home": "Dom",
+      "home": "Početna",
       "pro": "Za stručnjake",
       "stories": "Priče"
     },
@@ -785,7 +791,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Najnovije priče",
     "storiesCTA": "Pogledajte sve priče",
-    "subHeadline": "Pretražujte, spremajte i dijelite umjetnost, knjige, filmove i glazbu iz tisuća kulturnih institucija",
+    "subHeadline": "Pretražite, spremite i podijelite, umjetnine, knjige, filmove i muziku iz mnogobrojnih kulturnih ustanova",
     "themesCTA": "Pogledajte sve teme",
     "themesTitle": "Istražite po temi",
     "title": "Otkrijte europsku {digital} kulturnu baštinu",
@@ -795,11 +801,11 @@ export default {
     "handle": "Ručka klizača"
   },
   "items": {
-    "itemCount": "1 stavka |{count} stavki",
-    "itemOf": "{max} od {count} stavki",
-    "recent": "Nedavne stavke",
+    "itemCount": "1 stavka |{count} predmeti",
+    "itemOf": "{max} od {count} predmeti",
+    "recent": "Nedavne predmeti",
     "recommended": "Preporučeni predmeti",
-    "youMightLike": "Stavke koje vam se mogu sviđati"
+    "youMightLike": "Predmeti koje vam se mogu sviđati"
   },
   "klaro": {
     "main": {
@@ -874,7 +880,6 @@ export default {
   "layout": {
     "skipToMain": "Prijeđite na sadržaj stranice"
   },
-  "learnMore": "Saznajte više o izvoru ovog opisa",
   "loading": "Učitavanje",
   "loadingResults": "Učitavanje rezultata",
   "messages": {
@@ -894,7 +899,7 @@ export default {
       "title": "Preuzimanje ne radi"
     },
     "transcribe": {
-      "message": "Pridružite nam se na Europeana Transcribe, online građanskoj inicijativi za obogaćivanje Europeana kolekcija",
+      "message": "Pridružite nam se na Europeana Transcribe, online građanskoj inicijativi za obogaćivanje Europeana zbirke",
       "title": "Prepišite ovu stavku"
     }
   },
@@ -904,13 +909,14 @@ export default {
     "other": "Drugi jezici",
     "stopTranslating": "Prestanite prevoditi ovu stavku na {0}.",
     "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
+    "translateMetadata": "Prevedite metapodatke ove predmet.",
     "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
-    "readMore": "Otkrijte priče",
+    "readMore": "Idite na stranicu za pretraživanje",
     "text": {
-      "storiesTags": "Pogledajte ažuriranu stranicu s pričama. Sada možete pretraživati i filtrirati po oznakama."
+      "advancedSearch": "Stiglo je napredno pretraživanje: pozdravite se sa širokim rezultatima i pozdravite preciznost dok otkrivate točno ono što tražite. Počnite istraživati sada!"
     }
   },
   "newWindow": "otvara se u novom prozoru",
@@ -950,7 +956,7 @@ export default {
         "title": "Vremena"
       },
       "topics": {
-        "title": "Teme"
+        "title": "Sadržaj"
       }
     }
   },
@@ -961,7 +967,6 @@ export default {
     "linkText": "Pogledajte na web stranici pružatelja usluga",
     "providedBy": "Ovu stavku osigurava i održava {provider}"
   },
-  "readMore": "Pročitaj više",
   "recommendation": {
     "prompts": {
       "accept": "Predmet je dodan u galeriju.",
@@ -983,7 +988,7 @@ export default {
     "mediaPlayer": "Media player",
     "record": "Zapis",
     "showAll": "Prikaži sve informacije",
-    "similarItems": "Slične stavke",
+    "similarItems": "Slične predmeti",
     "status": {
       "unpublished": "[Neobjavljena stavka]"
     },
@@ -996,7 +1001,7 @@ export default {
     },
     "collections": {
       "name": "Povezane zbirke",
-      "title": "Otkrijte povezane kolekcije"
+      "title": "Otkrijte povezane zbirke"
     },
     "editorial": {
       "title": "Priče koje bi vam se mogle svidjeti"
@@ -1006,17 +1011,40 @@ export default {
       "title": "Otkrijte povezane galerije"
     },
     "items": {
-      "loginForMore": "Prijavite se kako biste vidjeli druge povezane stavke",
-      "title": "Otkrijte povezane stavke"
+      "loginForMore": "Prijavite se kako biste vidjeli druge povezane predmeti",
+      "title": "Otkrijte povezane predmeti"
     },
     "themes": {
       "title": "Otkrijte povezane teme"
     }
   },
   "removeFilter": "Uklonite filtar {filterLabel} ",
-  "reset": "Resetiraj",
   "resourceWikimedia": "Resurs s Wikimedia Commonsa",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} znači da možete slobodno koristiti ovu Predmet. {readMoreLink}",
+      "permission": "{rightsStatementName} znači da ćete možda moći koristiti ovu predmet ako tražite dopuštenje. {readMoreLink}",
+      "readMore": "Pročitajte više na {link}",
+      "restricted": "{rightsStatementName} znači da ovu predmet možete koristiti uz uvjete. {readMoreLink}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Polje",
+        "modifier": "Modifikator",
+        "searchTerm": "Unesite pojmove za pretraživanje"
+      },
+      "modifiers": {
+        "contains": "sadrži",
+        "doesNotContain": "ne sadrži"
+      },
+      "show": "{showOrHide} napredno pretraživanje",
+      "tooltip": {
+        "field": "Odaberite polje za pretraživanje.",
+        "modifier": "Odaberite modifikator koji želite primijeniti na polje."
+      }
+    },
     "boost": {
       "placeholder": "Unesite upit za povećanje polja"
     },
@@ -1029,19 +1057,20 @@ export default {
     },
     "title": "Traži"
   },
+  "searchFilters": "Filtri pretraživanja {count}",
   "searchHasLoaded": "Vraćeno je {0} rezultata",
-  "searchPlaceholder": "Pretražite više od 50 milijuna artikala",
+  "searchPlaceholder": "Pretražite više od 50 milijuna predmeti",
   "searchResults": "Traži",
   "searchResultsFor": "{0} - Pretraži",
   "searchSuggestions": "Traži prijedloge",
   "searchTier": {
     "button": {
-      "hide": "Sakrij ove stavke",
-      "show": "Pokaži ove stavke"
+      "hide": "Sakrij ove predmeti",
+      "show": "Pokaži ove predmeti"
     },
     "text": {
-      "hide": "Prikazuju se stavke koje ne ispunjavaju naše kriterije objavljivanja.",
-      "show": "Više stavki odgovara vašoj pretraživanju, ali ne zadovoljava naše kriterije za objavljivanje."
+      "hide": "Prikazuju se predmeti koje ne ispunjavaju naše kriterije objavljivanja.",
+      "show": "Više predmeti odgovara vašoj pretraživanju, ali ne zadovoljava naše kriterije za objavljivanje."
     }
   },
   "searchViews": {
@@ -1052,10 +1081,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Dodaj u galeriju",
+      "addToGallery": "Dodajte ovu predmet u galeriju.",
       "create": "Stvori galeriju",
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
+      "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
       "update": "Ažuriraj galeriju"
     },
     "entityBestBets": {
@@ -1076,14 +1107,14 @@ export default {
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
       "likeLimit": {
-        "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 stavke. Uskoro ćemo ukloniti ovo ograničenje!",
+        "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeti. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 sviđanja"
       },
       "updated": "Predmet je dodan u galeriju.",
       "visibilityChanged": "Upozorenje: postavljena vidljivost je već promijenjena i trenutno je \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve stavke koje ste joj dodali."
+      "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve predmeti koje ste joj dodali."
     },
     "publication": {
       "description": "Objavljivanje galerije bit će prikazano na Europeana.eu/galleries.",
@@ -1107,8 +1138,6 @@ export default {
     }
   },
   "shareWhere": "Gdje biste to htjeli podijeliti?",
-  "showLess": "Prikaži manje",
-  "showMore": "Prikaži više",
   "sideFilters": {
     "noOptions": "Nema dostupnih opcija za odabir",
     "search": "traži"
