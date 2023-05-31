@@ -332,7 +332,7 @@
           query.api = this.$route?.query?.api,
           query.qa = this.$route?.query?.qa,
           query.qf = this.$route?.query?.qf,
-          query.reusability = this.$route?.query?.reusability
+          query.reusability = this.$route?.query?.reusability;
         }
         return {
           path: path || this.localePath({

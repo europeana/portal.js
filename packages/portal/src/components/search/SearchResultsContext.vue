@@ -160,13 +160,13 @@
         if (this.advancedSearchEnabled) {
           return this.localePath({
             name: 'search', query: {
-               ...this.activeCriteria
+              ...this.activeCriteria
             }
           });
         } else {
           return this.localePath({
             name: 'search', query: {
-               query: this.$route.query?.query
+              query: this.$route.query?.query
             }
           });
         }
