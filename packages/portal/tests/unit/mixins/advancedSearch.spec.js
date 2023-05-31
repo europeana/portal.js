@@ -44,7 +44,7 @@ describe('mixins/advancedSearch', () => {
     describe('advancedSearchRouteQueryFromRules', () => {
       it('constructs a new route from advanced search rules', () => {
         const rules = [
-          { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' },
+          { field: 'proxy_dc_title', modifier: 'contains', term: 'den haag' },
           { field: 'proxy_dc_type', modifier: 'doesNotContain', term: 'photograph' }
         ];
         const $route = {
@@ -60,7 +60,7 @@ describe('mixins/advancedSearch', () => {
           query: {
             page: 1,
             qa: [
-              'proxy_dc_title:dog',
+              'proxy_dc_title:den\\ haag',
               '-proxy_dc_type:*photograph*'
             ],
             query: 'bone'
@@ -74,7 +74,7 @@ describe('mixins/advancedSearch', () => {
         const $route = {
           query: {
             qa: [
-              'proxy_dc_title:dog',
+              'proxy_dc_title:den\\ haag',
               '-proxy_dc_type:*photograph*',
               'proxy_dc_language:en'
             ]
@@ -85,7 +85,7 @@ describe('mixins/advancedSearch', () => {
         const advancedSearchRulesFromRouteQuery = wrapper.vm.advancedSearchRulesFromRouteQuery();
 
         expect(advancedSearchRulesFromRouteQuery).toEqual([
-          { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' },
+          { field: 'proxy_dc_title', modifier: 'contains', term: 'den haag' },
           { field: 'proxy_dc_type', modifier: 'doesNotContain', term: 'photograph' }
         ]);
       });
