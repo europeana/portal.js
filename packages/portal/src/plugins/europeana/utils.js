@@ -325,7 +325,7 @@ const replaceAll = (string, pattern, replacement) => string.split(pattern).join(
  * @return {string} Escaped string
  * @see https://lucene.apache.org/solr/guide/the-standard-query-parser.html#escaping-special-characters
  */
-export function escapeLuceneSpecials(unescaped, { spaces = false }) {
+export function escapeLuceneSpecials(unescaped, { spaces = false } = {}) {
   let escaped = unescaped;
   for (const char of LUCENE_SPECIAL_CHARACTERS.concat(spaces ? ' ' : [])) {
     escaped = replaceAll(escaped, char, `\\${char}`);
@@ -338,7 +338,7 @@ export function escapeLuceneSpecials(unescaped, { spaces = false }) {
  * @param {string} escaped Escaped string
  * @return {string} Unescaped string
  */
-export function unescapeLuceneSpecials(escaped, { spaces = false }) {
+export function unescapeLuceneSpecials(escaped, { spaces = false } = {}) {
   let unescaped = escaped;
   for (const char of LUCENE_SPECIAL_CHARACTERS.concat(spaces ? ' ' : [])) {
     unescaped = replaceAll(unescaped, `\\${char}`, char);
