@@ -90,6 +90,17 @@
                   <template
                     v-if="likedItems"
                   >
+                    <b-row
+                      v-if="likedItems.length > 0"
+                    >
+                      <b-col>
+                        <h2
+                          class="related-heading text-uppercase"
+                        >
+                          {{ $tc('items.itemCount', likedItems.length) }}
+                        </h2>
+                      </b-col>
+                    </b-row>
                     <ItemPreviewCardGroup
                       v-if="likesId && likedItems.length !== 0"
                       :items="likedItems"

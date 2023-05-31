@@ -1158,6 +1158,7 @@ export default {
       "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
       "toastButton": "Okay"
     },
+    "setCount": "{count} galleries",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."

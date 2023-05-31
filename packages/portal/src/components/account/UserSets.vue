@@ -16,6 +16,17 @@
         <template
           v-else
         >
+          <b-row
+            v-if="total > 0"
+          >
+            <b-col>
+              <h2
+                class="related-heading text-uppercase"
+              >
+                {{ $tc('set.setCount', total) }}
+              </h2>
+            </b-col>
+          </b-row>
           <div
             v-if="emptyText && sets && sets.length === 0"
             class="text-center pb-4"
