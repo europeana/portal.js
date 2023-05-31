@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse / Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -30,14 +30,20 @@ export default {
   },
   "actions": {
     "accept": "Nõustu",
+    "add": "Lisa",
+    "apply": "Kohalda",
     "cancel": "Tühista",
+    "clear": "Lähtesta",
     "close": "Sulge",
     "continue": "jätka",
     "depublish": "Tühista avaldamine",
     "download": "Lae alla",
     "edit": "Muuda",
+    "explore": "Uurige",
     "feedback": "Tagasiside",
+    "filter": "Filter",
     "goHome": "Minge avalehele",
+    "hide": "Peida",
     "learnMore": "Lisateave",
     "like": "Meeldib",
     "move": "Liiguta",
@@ -46,12 +52,17 @@ export default {
     "preview": "Eelvaade",
     "previous": "Eelmine",
     "publish": "Avalda",
+    "readMore": "Loe rohkem",
     "reject": "Tagasi lükata",
     "requestDepublication": "Taotlus mitte avaldada",
+    "reset": "Lähtesta",
     "save": "Salvesta",
     "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
+    "show": "Näita",
+    "showLess": "Näita vähem",
+    "showMore": "Näita rohkem",
     "skipSend": "Jäta vahele ja saada",
     "submitForPublication": "Esitage avaldamiseks",
     "submittedForPublication": "Esitatud avaldamiseks",
@@ -96,9 +107,9 @@ export default {
     "topic": "Teema"
   },
   "categories": {
-    "label": "Tutvu lugudega sildi järgi",
+    "label": "Uurige lugudega sildi järgi",
     "noOptions": "Rohkem silte pole valida",
-    "search": "Tutvu lugudega sildi järgi"
+    "search": "Uurige lugudega sildi järgi"
   },
   "clearAllFilters": "tühjenda kõik filtrid",
   "collections": {
@@ -151,7 +162,7 @@ export default {
     },
     "headerNavigation": {
       "Collections": "Kollektsioonid",
-      "explore": "Tutvuge",
+      "explore": "Uurige",
       "teachers": "Õpetajad"
     }
   },
@@ -186,7 +197,6 @@ export default {
       "title": "Seaded"
     }
   },
-  "delete": "Kustuta",
   "depiction": "{title} kujutis",
   "directions": {
     "left": "Vasak",
@@ -210,10 +220,10 @@ export default {
         "body": "Praegu saate esimesele lehele kinnitada ainult 24 üksust. Kui soovite selle üksuse kinnitada, eemaldage kindlasti uus üksus ja proovige siis seda uuesti kinnitada.",
         "title": "Liiga palju kinnitatud üksusi"
       },
-      "pinned": "Üksus on kinnitatud. See on nüüd selle kogumiku esimese lehe ülaosas. Kõigi kuvamiseks võib kuluda kuni 24 tundi.",
+      "pinned": "Üksus on kinnitatud. See kuvatakse esimese üksusena kogus „ {entity} ”. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "select": "Valige seotud olem üksuse kinnitamiseks/eemaldamiseks selle külge/välja.",
       "unpin": "Seda üksust ei kuvata enam kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
-      "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi."
+      "unpinned": "Üksus on vabastatud. Anname teile teada, kui seda muudatust kogumislehel näha on."
     }
   },
   "error": "Viga",
@@ -261,10 +271,9 @@ export default {
     "chapters": "Peatükid",
     "credits": "Autorid",
     "currentChapter": "Praegune peatükk",
-    "description": "Tutvuge näitustega",
+    "description": "Uurige näitustega",
     "exhibitions": "Näitused"
   },
-  "explore": "Avasta",
   "facets": {
     "api": {
       "name": "Otsing",
@@ -276,10 +285,8 @@ export default {
       "switchMoreInfo": "Selles kollektsioonis saate valida, mida soovite otsida: kui see lüliti on sisse lülitatud, siis otsite ajalehtede ja dokumentide tekstist; kui see on välja lülitatud, siis otsite selle asemel objekti kirjeldavast teabest, nagu teete seda alati enamikus teistes kollektsioonides."
     },
     "button": {
-      "apply": "Kohalda",
-      "cancel": "Tühista",
       "morefilters": "Rohkem filtreid",
-      "reset": "Lähtesta",
+      "showAdditional": "{show} täiendavaid filtreid",
       "showAll": "Kuva kõik {label}",
       "showLess": "Näita vähem {label}"
     },
@@ -457,7 +464,7 @@ export default {
       "name": "Eseme kvaliteet",
       "options": {
         "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
-        "0": "Kuva ainult üksused, mis ei vasta meie avaldamiskriteeriumidele",
+        "0": "Ei vasta avaldamise kriteeriumidele",
         "1": "Madal kvaliteet",
         "2": "Keskmine kvaliteet",
         "3": "Kvaliteetne ja korduvkasutatav koos tingimustega",
@@ -600,7 +607,7 @@ export default {
     "moreOptions": "Otsi, et leida {0} rohkem {1}.",
     "PROVIDER": {
       "moreName": "agregaatorid",
-      "name": "Koondaja",
+      "name": "Agregaator",
       "select": "Valige agregaatorid"
     },
     "proxy_dc_format": {
@@ -675,6 +682,7 @@ export default {
       "dcRights": "Õigused",
       "dcSource": "Allikas",
       "dcSubject": "Teema",
+      "dctermsAlternative": "Alternatiivne pealkiri",
       "dctermsCreated": "Loomise kuupäev",
       "dctermsExtent": "Ulatus ",
       "dctermsHasPart": "Koosneb",
@@ -723,7 +731,6 @@ export default {
       "rdfAbout": "RDF kohta"
     }
   },
-  "filter": "Filter",
   "filterResults": "Filtreeri tulemusi",
   "footer": {
     "customiseWebsiteLanguage": "Kohandage veebisaidi keelt",
@@ -740,7 +747,7 @@ export default {
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
-      "provide": "Hakka andmepakkujaks",
+      "provide": "Saage andmepartneriks",
       "subscribe": "Telli meie uudiskiri",
       "terms": "Kasutustingimused"
     },
@@ -752,10 +759,9 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
-    "description": "Tutvuge meie galeriidega",
+    "description": "Uurige meie galeriidega",
     "galleries": "Galeriid"
   },
-  "goToRecord": "Mine kirje juurde",
   "header": {
     "backToMenu": "Sulge otsinguaken",
     "clearQuery": "Kustuta otsingupäring",
@@ -768,7 +774,7 @@ export default {
       "collections": "Kogud",
       "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",
-      "home": "Kodu",
+      "home": "Avaleht",
       "pro": "Professionaalidele",
       "stories": "Lood"
     },
@@ -874,7 +880,6 @@ export default {
   "layout": {
     "skipToMain": "Otse lehekülje sisule"
   },
-  "learnMore": "Lisateave selle kirjelduse allika kohta",
   "loading": "Laadimine",
   "loadingResults": "Tulemuste laadimine",
   "messages": {
@@ -904,13 +909,14 @@ export default {
     "other": "Muud keeled",
     "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
     "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
+    "translateMetadata": "Tõlgi selle üksuse metaandmed.",
     "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
-    "readMore": "Avastage lugusid",
+    "readMore": "Minge otsingulehele",
     "text": {
-      "storiesTags": "Vaadake uuendatud lugude lehte. Nüüd saate otsida ja filtreerida siltide järgi."
+      "advancedSearch": "Täpsem otsing on saabunud: jätke hüvasti laiaulatuslike tulemustega ja tere täpsusega, kui avastate täpselt seda, mida otsite. Alustage uurimist kohe!"
     }
   },
   "newWindow": "avaneb uues aknas",
@@ -961,7 +967,6 @@ export default {
     "linkText": "Vaadake teenusepakkuja veebisaidilt",
     "providedBy": "Seda üksust pakub ja hooldab {provider}"
   },
-  "readMore": "Loe lähemalt",
   "recommendation": {
     "prompts": {
       "accept": "Pöidla üles, et lisada galeriisse",
@@ -1014,9 +1019,32 @@ export default {
     }
   },
   "removeFilter": "Eemalda filter {filterLabel}",
-  "reset": "Lähtesta",
   "resourceWikimedia": "Wikimedia Commonsist saadud ressurss",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} tähendab, et saate seda üksust vabalt kasutada. {readMoreLink}",
+      "permission": "{rightsStatementName} tähendab, et võite seda üksust kasutada, kui taotlete luba. {readMoreLink}",
+      "readMore": "Loe lähemalt {link}",
+      "restricted": "{rightsStatementName} tähendab, et saate seda üksust tingimustega kasutada. {readMoreLink}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Väli",
+        "modifier": "Modifikaator",
+        "searchTerm": "Sisesta otsingutermin(id)"
+      },
+      "modifiers": {
+        "contains": "sisaldab",
+        "doesNotContain": "ei sisalda"
+      },
+      "show": "{showOrHide} täpsem otsing",
+      "tooltip": {
+        "field": "Valige otsimiseks väli.",
+        "modifier": "Valige väljale rakendatav modifikaator."
+      }
+    },
     "boost": {
       "placeholder": "Sisestage välja võimendamise päring"
     },
@@ -1029,6 +1057,7 @@ export default {
     },
     "title": "Otsing"
   },
+  "searchFilters": "Otsingufiltrid {count}",
   "searchHasLoaded": "{0} tagastatud tulemused",
   "searchPlaceholder": "Otsi 50+ miljonit üksust",
   "searchResults": "Otsing",
@@ -1052,10 +1081,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Lisa galeriisse",
+      "addToGallery": "Lisa see üksus galeriisse.",
       "create": "Loo galerii",
       "createNew": "Loo uus galerii",
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
+      "saveItemToLikes": "Salvestage see üksus oma meeldimiste hulka.",
       "update": "Värskenda galeriid"
     },
     "entityBestBets": {
@@ -1107,8 +1138,6 @@ export default {
     }
   },
   "shareWhere": "Kus soovite seda jagada?",
-  "showLess": "Näita vähem",
-  "showMore": "Näita rohkem",
   "sideFilters": {
     "noOptions": "Valimiseks pole valikuid",
     "search": "Otsing"

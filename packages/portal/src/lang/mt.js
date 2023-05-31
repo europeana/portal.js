@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol/Ingħaqad",
+    "linkLoginJoin": "Idħol / Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -30,14 +30,20 @@ export default {
   },
   "actions": {
     "accept": "Aċċetta",
+    "add": "Żid",
+    "apply": "Applika",
     "cancel": "Ikkanċella",
+    "clear": "Ċara",
     "close": "agħlaq",
     "continue": "kompli",
     "depublish": "Tneħħi l-pubblikazzjoni",
     "download": "Niżżel",
     "edit": "Editja",
+    "explore": "Esplora",
     "feedback": "Feedback",
+    "filter": "Filtru",
     "goHome": "Mur fil-homepage",
+    "hide": "Aħbi",
     "learnMore": "Itagħllem iżjed",
     "like": "Like",
     "move": "Nimxu",
@@ -46,12 +52,17 @@ export default {
     "preview": "Preview",
     "previous": "Preċedenti",
     "publish": "Ippubblika",
+    "readMore": "Aqra iktar",
     "reject": "Irrifjuta",
     "requestDepublication": "Talba għal depubblikazzjoni",
+    "reset": "Irrisettja",
     "save": "Tissejvja",
     "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
+    "show": "Uri",
+    "showLess": "Uri inqas",
+    "showMore": "Uri aktar",
     "skipSend": "Aqbeż u ibgħat",
     "submitForPublication": "Ibgħat għall-pubblikazzjoni",
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
@@ -186,7 +197,6 @@ export default {
       "title": "Settings"
     }
   },
-  "delete": "Iddilitja",
   "depiction": "Tpinġija ta' {title}",
   "directions": {
     "left": "Xellug",
@@ -210,10 +220,10 @@ export default {
         "body": "Għalissa tista 'biss tpoġġi 24 oġġett fl-ewwel paġna. Jekk trid tpoġġi din il-partita, kun żgur li tneħħi pinna oħra u mbagħad erġa 'pprova tpinġiha.",
         "title": "Wisq oġġetti pinned"
       },
-      "pinned": "L-item ġie mwaħħal. Issa tinsab fin-naħa ta' fuq tal-ewwel paġna ta' din il-ġabra. Jista' jieħu sa 24 siegħa biex jidher għal kulħadd.",
+      "pinned": "L-oġġett ġie ippinjat. Jidher bħala l-ewwel oġġett fil-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "select": "Agħżel entità relatata biex tippinja/unpin l-oġġett fuq/minnha.",
       "unpin": "Dan l-oġġett se jieqaf jidher fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
-      "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
+      "unpinned": "L-oġġett ġie mneħħi. Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir."
     }
   },
   "error": "Żball",
@@ -264,7 +274,6 @@ export default {
     "description": "Esplora l-wirjiet",
     "exhibitions": "Wirja | Wirjiet"
   },
-  "explore": "Esplora",
   "facets": {
     "api": {
       "name": "Fittex",
@@ -276,10 +285,8 @@ export default {
       "switchMoreInfo": "F'din il-ġabra, tista' tagħżel dak li trid tfittex: jekk dan is-swiċċ huwa mixgħul, allura inti se tfittex fit-test tal-gazzetta u tad-dokument; jekk tkun mitfija, allura inti minflok tfittex fl-informazzjoni li tiddeskrivi l-oġġett, bħalma dejjem tagħmel fil-biċċa l-kbira tal-kollezzjonijiet l-oħra."
     },
     "button": {
-      "apply": "Applika",
-      "cancel": "Ikkanċella",
       "morefilters": "Aktar filtri",
-      "reset": "Irrisettja",
+      "showAdditional": "{show} filtri addizzjonali",
       "showAll": "Uri kollox {label}",
       "showLess": "Uri inqas {label}"
     },
@@ -457,7 +464,7 @@ export default {
       "name": "Kwalità tal-oġġett",
       "options": {
         "*": "Jinkludi oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
-        "0": "Uri biss l-oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
+        "0": "Li ma jissodisfax il-kriterji tal-pubblikazzjoni",
         "1": "Kwalità baxxa",
         "2": "Kwalità medja",
         "3": "Kwalità għolja & li jistgħu jerġgħu jintużaw b'kundizzjonijiet",
@@ -600,7 +607,7 @@ export default {
     "moreOptions": "Fittex biex issib {0} aktar {1}.",
     "PROVIDER": {
       "moreName": "aggregaturi",
-      "name": "Aggregatur | Aggregaturi",
+      "name": "Aggregatur",
       "select": "Agħżel aggregaturi"
     },
     "proxy_dc_format": {
@@ -675,6 +682,7 @@ export default {
       "dcRights": "Drittijiet",
       "dcSource": "Sors",
       "dcSubject": "Suġġett",
+      "dctermsAlternative": "Titolu alternattiv",
       "dctermsCreated": "Data tal-ħolqien",
       "dctermsExtent": "Limitu",
       "dctermsHasPart": "Jikkonsisti minn",
@@ -723,7 +731,6 @@ export default {
       "rdfAbout": "Dwar RDF"
     }
   },
-  "filter": "Filtru",
   "filterResults": "Riżultati tal-filtru",
   "footer": {
     "customiseWebsiteLanguage": "Ippersonalizza l-lingwa tas-sit web",
@@ -739,10 +746,10 @@ export default {
       "forDevelopers": "Għall-iżviluppaturi",
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
-      "privacy": "Regoli tal-privatezza",
+      "privacy": "Politika tar-privatezza",
       "provide": "Sir fornitur tad-dejta",
       "subscribe": "Abbona għan-Newsletter tagħna",
-      "terms": "Termini tas-Servizz"
+      "terms": "Termini tal-użu"
     },
     "ourMission": "Il-missjoni tagħna",
     "ourMissionQuote": "Europeana tagħti s-setgħa lis-settur tal-wirt kulturali fit-trasformazzjoni diġitali tiegħu. Aħna niżviluppaw għarfien espert, għodod u politiki biex inħaddnu l-bidla diġitali u ninkoraġġixxu lis-sħubiji li jrawmu l-innovazzjoni."
@@ -755,7 +762,6 @@ export default {
     "description": "Esplora d-direttorji tar-ritratti tagħna",
     "galleries": "Direttorju tar-Ritratti | Direttorji tar-Ritratti"
   },
-  "goToRecord": "Mur fir-rekord",
   "header": {
     "backToMenu": "Agħlaq il-Kaxxa tat-Tiftix",
     "clearQuery": "Ħassar il-Query tat-Tiftix",
@@ -874,7 +880,6 @@ export default {
   "layout": {
     "skipToMain": "Aqbeż għall-kontenut paġna"
   },
-  "learnMore": "Tgħallem aktar dawr is-sors ta' din id-deskrizzjoni",
   "loading": "Tagħbija",
   "loadingResults": "Qed jillowdja r-riżultati",
   "messages": {
@@ -904,13 +909,14 @@ export default {
     "other": "Lingwi oħra",
     "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
     "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
+    "translateMetadata": "Ittraduċi l-metadejta ta' dan l-oġġett.",
     "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
-    "readMore": "Skopri stejjer",
+    "readMore": "Mur fil-paġna tat-tfittxija",
     "text": {
-      "storiesTags": "Iċċekkja l-paġna tal-Istejjer aġġornata. Issa tista 'tfittex u tiffiltra bit-tags."
+      "advancedSearch": "Waslet tfittxija avvanzata: għid addiju għal riżultati wiesgħa u hello għall-preċiżjoni hekk kif tikxef eżattament dak li qed tfittex. Ibda tesplora issa!"
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
@@ -961,7 +967,6 @@ export default {
     "linkText": "Ara fuq il-websajt tal-fornitur",
     "providedBy": "Dan l-oġġett huwa pprovdut u miżmum minn {provider}"
   },
-  "readMore": "Aqra iktar",
   "recommendation": {
     "prompts": {
       "accept": "Thumb up biex iżżid mal-gallerija",
@@ -1014,9 +1019,32 @@ export default {
     }
   },
   "removeFilter": "Neħħi l-filtru {filterLabel}",
-  "reset": "Irrisettja",
   "resourceWikimedia": "Riżorsa minn Wikimedia Commons",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} tfisser li tista' tuża dan l-oġġett liberament. {readMoreLink}",
+      "permission": "{rightsStatementName} tfisser li tista' tkun tista' tuża dan l-oġġett jekk tfittex il-permess. {readMoreLink}",
+      "readMore": "Aqra aktar fuq {link}",
+      "restricted": "{rightsStatementName} tfisser li tista' tuża dan l-oġġett b'kundizzjonijiet. {readMoreLink}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Qasam",
+        "modifier": "Modifikatur",
+        "searchTerm": "Daħħal it-terminu(i) tat-tiftix"
+      },
+      "modifiers": {
+        "contains": "jikkontenuta",
+        "doesNotContain": "ma fihx"
+      },
+      "show": "{showOrHide} tfittxija avvanzata",
+      "tooltip": {
+        "field": "Agħżel qasam biex tfittex.",
+        "modifier": "Agħżel modifikatur biex tapplika għall-qasam."
+      }
+    },
     "boost": {
       "placeholder": "Daħħal mistoqsija li tagħti spinta lill-qasam"
     },
@@ -1029,6 +1057,7 @@ export default {
     },
     "title": "Fittex"
   },
+  "searchFilters": "Fittex filtri {count}",
   "searchHasLoaded": "{0} riżultati rritornati",
   "searchPlaceholder": "Fittex 50+ miljun oġġett",
   "searchResults": "Fittex",
@@ -1052,10 +1081,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Żid fid-direttorju tar-ritratti",
+      "addToGallery": "Żid dan l-oġġett ma' gallerija.",
       "create": "Oħloq direttorju",
       "createNew": "Oħloq direttorju tar-ritratti ġdid",
       "delete": "Ħassar id-direttorju tar-ritratti",
       "edit": "Editja d-direttorju tar-ritratti",
+      "saveItemToLikes": "Ħlief dan l-oġġett fil-Likes tiegħek.",
       "update": "Aġġorna d-direttorju tar-ritratti"
     },
     "entityBestBets": {
@@ -1107,8 +1138,6 @@ export default {
     }
   },
   "shareWhere": "Fejn tixtieq taqsam dan?",
-  "showLess": "Uri inqas",
-  "showMore": "Uri aktar",
   "sideFilters": {
     "noOptions": "M'hemm l-ebda għażliet disponibbli biex tagħżel",
     "search": "Fittex"
