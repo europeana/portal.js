@@ -30,6 +30,7 @@ const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchF
   data: () => (data || {}),
   stubs: { ...stubs },
   mocks: {
+    $features: {},
     $i18n: { locale: 'en' },
     $t: () => {},
     $route: { path: '', query: { query: '' } },
@@ -285,7 +286,7 @@ describe('components/search/SearchForm', () => {
         page: '3'
       }
     };
-    const wrapper = factory({ mocks: { $route: route, $store: { state } } });
+    const wrapper = factory({ mocks: { $route: route, $store: { state }, $features: { advancedSearch: true } } });
 
     describe('with a path', () => {
       it('preserves URL params, except page', () => {

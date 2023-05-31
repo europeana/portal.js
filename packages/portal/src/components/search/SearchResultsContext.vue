@@ -103,6 +103,10 @@
     },
 
     computed: {
+      advancedSearchEnabled() {
+        return this.$features.advancedSearch;
+      },
+
       i18nPath() {
         if (this.hasEntity && this.hasQuery) {
           return 'search.results.withinCollectionWithQuery';
@@ -153,21 +157,29 @@
         });
       },
       entityRemovalLink() {
-        return this.localePath({
-          name: 'search', query: {
-            ...this.activeCriteria
-          }
-        });
+        if (this.advancedSearchEnabled) {
+          return this.localePath({
+            name: 'search', query: {
+               ...this.activeCriteria
+            }
+          });
+        } else {
+          return this.localePath({
+            name: 'search', query: {
+               query: this.$route.query?.query
+            }
+          });
+        }
       },
       activeCriteria() {
         return {
-          query: this.$route.query?.query,
-          view: this.$route?.query?.view,
+          api: this.$route?.query?.api,
           boost: this.$route?.query?.boost,
           qa: this.$route?.query?.qa,
           qf: this.$route?.query?.qf,
+          query: this.$route.query?.query,
           reusability: this.$route?.query?.reusability,
-          api: this.$route?.query?.api
+          view: this.$route?.query?.view
         };
       }
     }

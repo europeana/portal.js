@@ -121,6 +121,10 @@
     },
 
     computed: {
+      advancedSearchEnabled() {
+        return this.$features.advancedSearch;
+      },
+
       view() {
         return this.$store.getters['search/activeView'];
       },
@@ -319,14 +323,17 @@
 
       linkGen(queryTerm, path) {
         const query = {
-          view: this.view,
-          query: queryTerm || '',
           boost: this.$route?.query?.boost,
-          qa: this.$route?.query?.qa,
-          qf: this.$route?.query?.qf,
-          reusability: this.$route?.query?.reusability,
-          api: this.$route?.query?.api
+          query: queryTerm || '',
+          view: this.view
         };
+        // TODO: Always apply this after feature active.
+        if (this.advancedSearchEnabled) {
+          query.api = this.$route?.query?.api,
+          query.qa = this.$route?.query?.qa,
+          query.qf = this.$route?.query?.qf,
+          query.reusability = this.$route?.query?.reusability
+        }
         return {
           path: path || this.localePath({
             name: 'search'
