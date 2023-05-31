@@ -49,7 +49,7 @@ Feature: Newspapers collection
     When I enter "paris" in the `search box`
     And I click the `search entire collection button`
     Then I see the `search page`
-    And I should be on `/en/search?view=grid&query=paris`
+    And I should be on `/en/search?query=paris&view=grid`
 
   # TODO: re-implement this version and remove the feature above after advanced search is active
   # Scenario: Newspapers collection API toggle is preserved when searching
