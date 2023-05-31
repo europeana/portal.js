@@ -1,4 +1,5 @@
 import camelCase from 'lodash/camelCase';
+import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils.js';
 
 const FIELD_TYPE_TEXT = 'text';
 const FIELD_TYPE_STRING = 'string';
@@ -58,7 +59,8 @@ export default {
       const qa = rules.map((rule) => {
         const field = this.advancedSearchFields.find((field) => field.name === rule.field);
         const modifier = this.advancedSearchModifiers.find((modifier) => modifier.name === rule.modifier);
-        return modifier?.query[field.type].replace('{field}', field.name).replace('{term}', rule.term);
+        const escapedTerm = escapeLuceneSpecials(rule.term, { spaces: true });
+        return modifier?.query[field.type].replace('{field}', field.name).replace('{term}', escapedTerm);
       }).filter((qa) => !!qa);
 
       const newRouteQuery = { ...this.$route.query, ...{ page: 1, [this.advancedSearchRouteQueryKey]: qa } };
@@ -88,6 +90,7 @@ export default {
             term = term.slice(0, term.length - 1);
           }
         }
+        term = unescapeLuceneSpecials(term, { spaces: true });
 
         if (field && modifier) {
           return {
