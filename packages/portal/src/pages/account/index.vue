@@ -90,6 +90,17 @@
                   <template
                     v-if="likedItems"
                   >
+                    <b-row
+                      v-if="likedItems.length > 0"
+                    >
+                      <b-col>
+                        <h2
+                          class="related-heading text-uppercase"
+                        >
+                          {{ $tc('items.itemCount', likedItems.length) }}
+                        </h2>
+                      </b-col>
+                    </b-row>
                     <ItemPreviewCardGroup
                       v-if="likesId && likedItems.length !== 0"
                       :items="likedItems"
@@ -133,20 +144,7 @@
                 :show-create-set-button="false"
                 :empty-text="$t('account.notifications.noCollections.curated')"
                 data-qa="curated sets"
-              >
-                <template slot="header">
-                  <b-row
-                    class="w-100 px-3"
-                  >
-                    <b-col class="related-heading d-inline-flex px-0">
-                      <span class="icon-info mr-1" />
-                      <h2 class="related-heading text-uppercase">
-                        {{ $t('account.curatedCollectionsInfo') }}
-                      </h2>
-                    </b-col>
-                  </b-row>
-                </template>
-              </UserSets>
+              />
             </template>
           </client-only>
         </b-col>
