@@ -9,6 +9,7 @@ const identifier = '/123/abc';
 
 const factory = ({ propsData = {} } = {}) => shallowMount(UserButtons, {
   localVue,
+  attachTo: document.body,
   propsData: {
     identifier,
     ...propsData
