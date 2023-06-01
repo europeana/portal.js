@@ -1,8 +1,10 @@
 <template>
   <div>
     <b-button
+      v-b-tooltip.bottom
       v-b-modal.set-publication-request-modal
       class="text-decoration-none text-nowrap h-100"
+      :title="$t('account.tooltip.published')"
     >
       {{ $t('actions.submitForPublication') }}
     </b-button>
