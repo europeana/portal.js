@@ -15,6 +15,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   stubs: ['client-only'],
   mocks: {
     $t: key => key,
+    $tc: key => key,
     $auth: {
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false),
       strategy: {

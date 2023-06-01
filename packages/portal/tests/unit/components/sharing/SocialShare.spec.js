@@ -1,9 +1,11 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
+import BootstrapVue from 'bootstrap-vue';
 
 import SocialShare from '@/components/sharing/SocialShare.vue';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(SocialShare, {
   localVue,

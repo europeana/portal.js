@@ -31,6 +31,7 @@ const sets = [
 
 const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMountNuxt(UserSets, {
   localVue,
+  attachTo: document.body,
   propsData: { ...propsData },
   data: () => ({ ...data }),
   mocks: {
