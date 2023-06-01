@@ -165,7 +165,8 @@
               variant="link"
               @click="toggleAdvancedSearch"
             >
-              {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}            </b-button>
+              {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
+            </b-button>
             <b-button
               v-b-tooltip.bottom
               :title="$t('search.advanced.tooltip.advancedSearch')"
