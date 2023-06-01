@@ -180,6 +180,7 @@
       pageMetaMixin
     ],
 
+    // TODO: replace w/ custom middleware
     // middleware: 'auth',
 
     data() {

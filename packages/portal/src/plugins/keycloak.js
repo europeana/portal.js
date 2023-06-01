@@ -1,16 +1,18 @@
+// TODO: move to new workspace pkg?
+
 // docs: https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter
 import Keycloak from 'keycloak-js';
 
 const keycloakRefreshAccessToken = async({ $keycloak, $axios, redirect, route }, requestConfig) => {
-  const updated = await $keycloak.updateToken(-1);
+  const updated = await $keycloak.auth.updateToken(-1);
   if (updated) {
-    localStorage.setItem('kc.token', $keycloak.token);
-    localStorage.setItem('kc.idToken', $keycloak.idToken);
-    localStorage.setItem('kc.refreshToken', $keycloak.refreshToken);
+    localStorage.setItem('kc.token', $keycloak.auth.token);
+    localStorage.setItem('kc.idToken', $keycloak.auth.idToken);
+    localStorage.setItem('kc.refreshToken', $keycloak.auth.refreshToken);
   } else {
     // Refresh token is no longer valid; clear tokens and try again in case it
     // doesn't require auth anyway
-    $keycloak.clearToken();
+    $keycloak.auth.clearToken();
   }
 
   // Retry request with new access token
@@ -26,7 +28,7 @@ const keycloakResponseErrorHandler = (context, error) => {
 };
 
 const keycloakUnauthorizedResponseErrorHandler = ({ $axios, $keycloak, redirect, route }, error) => {
-  if ($keycloak.refreshToken) {
+  if ($keycloak.auth.refreshToken) {
     // User has previously logged in, and we have a refresh token, e.g.
     // access token has expired
     return refreshAccessToken({ $keycloak, $axios, redirect, route }, error.config);
@@ -39,8 +41,8 @@ const keycloakUnauthorizedResponseErrorHandler = ({ $axios, $keycloak, redirect,
 
 const keycloakAxios = (context) => (axiosInstance) => {
   axiosInstance.interceptors.request.use((requestConfig) => {
-    if (context.$keycloak.auth?.token) {
-      requestConfig.headers.authorization = `Bearer ${context.$keycloak.auth.token}`;
+    if (context.$keycloak.auth.auth?.token) {
+      requestConfig.headers.authorization = `Bearer ${context.$keycloak.auth.auth.token}`;
     }
     return requestConfig;
   });
