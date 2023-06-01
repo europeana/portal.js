@@ -20,6 +20,8 @@
       <p>{{ $t('set.publication.process.description') }}</p>
       <h3>{{ $t('set.publication.time.title') }}</h3>
       <p>{{ $t('set.publication.time.description') }}</p>
+      <h3>{{ $t('set.publication.criteria.title') }}</h3>
+      <p>{{ $t('set.publication.criteria.description') }}</p>
 
       <div class="modal-footer">
         <b-button

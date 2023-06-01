@@ -1150,6 +1150,10 @@ export default {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     },
     "publication": {
+      "criteria": {
+        "title": "Publication criteria",
+        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum 20 items."
+      },
       "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
       "failedSubmission": "The request failed. Please try again.",
       "process": {
