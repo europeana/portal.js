@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kuratoidut kokoelmat",
-    "curatedCollectionsInfo": "Etsi alta kaikki kuratoimiasi kokoelmia",
     "editProfile": "Muokkaa profiilia",
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Julkiset galleriat",
     "publishedCollections": "Julkaistut Galleriat",
     "settings": "Asetukset",
-    "title": "Oma tili"
+    "title": "Oma tili",
+    "tooltip": {
+      "EntityBestItemsSet": "Kuroitu galleria näyttää tietyn kokoelman kiinnitetyt aineistot",
+      "private": "Vain sinä voit tarkastella yksityistä galleriaa.",
+      "public": "Julkista galleriaa voivat tarkastella kuka tahansa linkin saanut.",
+      "published": "Kuka tahansa voi tarkastella julkaistua galleriaa, ja se voi olla esillä Galleriat-sivullamme."
+    }
   },
   "actions": {
     "accept": "Hyväksy",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Organisaatiot",
     "place": "Paikat",
     "theme": "Teemat",
-    "time": "Esillä vuosisatoja",
+    "time": "Vuosisadat",
     "topic": "Aiheet"
   },
   "blog": {
@@ -272,11 +277,11 @@ export default {
     "credits": "Tekijät",
     "currentChapter": "Nykyinen luku",
     "description": "Tutustu näyttelyihin",
-    "exhibitions": "Näyttelyt"
+    "exhibitions": "Näyttely | Näyttelyt"
   },
   "facets": {
     "api": {
-      "name": "Hae",
+      "name": "Haku asiakirjojen sisällä",
       "options": {
         "fulltext": "Aineistot, joissa on koko teksti",
         "metadata": "Vain metatiedot aineistot"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "värit",
-      "name": "Väri | värit",
+      "name": "Väri",
       "options": {
         "#000000": "Musta",
         "#000080": "Laivastonsininen",
@@ -531,7 +536,7 @@ export default {
     },
     "DATA_PROVIDER": {
       "moreName": "kulttuurilaitoksista",
-      "name": "kulttuuriperintölaitos",
+      "name": "Instituutio",
       "select": "valitse kulttuuriperintölaitos"
     },
     "IMAGE_ASPECTRATIO": {
@@ -598,7 +603,7 @@ export default {
       "select": "Valitse kielet"
     },
     "MIME_TYPE": {
-      "name": "Tiedostomuoto | Tiedostomuodot",
+      "name": "Tiedostomuoto",
       "options": {
         "text/plain": "Pelkkä teksti"
       },
@@ -615,14 +620,14 @@ export default {
       "select": "Valitse formaatit"
     },
     "proxy_dc_type": {
-      "name": "Tyyppi | Tyypit",
+      "name": "Tyyppi | tyypit",
       "select": "Valitse tyypit"
     },
     "proxy_dcterms_issued": {
-      "name": "Päivämäärä"
+      "name": "Julkaisupäivämäärä"
     },
     "proxy_dcterms_medium": {
-      "name": "Media | Mediat",
+      "name": "Keskikokoinen",
       "select": "Valitse media"
     },
     "REUSABILITY": {
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Tutustu gallerioihimme",
-    "galleries": "Galleriat"
+    "galleries": "Galleria | Galleriat"
   },
   "header": {
     "backToMenu": "Sulje hakuruutu",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Hyväksy kaikki",
       "acceptSelected": "Hyväksy valittu",
       "consentModal": {
-        "description": "Suhtaudumme tietosuojaasi vakavasti. Täällä voit arvioida ja mukauttaa palveluja, joita haluaisimme käyttää tällä verkkosivustolla. Sinä olet vastuussa! Ota palvelut käyttöön tai poista ne käytöstä mielesi mukaan.",
+        "description": "Täällä voit nähdä ja muokata palveluita, joita haluamme käyttää tällä verkkosivustolla. Saat lisätietoja lukemalla <a href='/rights/privacy-policy'> tietosuojakäytäntömme </a> .",
         "title": "Palvelut, joita haluaisimme käyttää."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Automatisoitu käännös",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
-    "other": "Muut kielet",
+    "other": "muut kielet",
     "stopTranslating": "Lopeta tämän aineisto kääntäminen kielelle {0}.",
     "translateLanguage": "Haluaisitko nähdä tämän aineisto {0}?",
     "translateMetadata": "Käännä tämän aineisto metatiedot.",
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Okei",
       "toastMessage": "Tämä galleria on nyt lähetetty julkaistavaksi. Voit tarkistaa {galleries} , onko se julkaistu."
     },
+    "setCount": "{count} galleriat",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) on verkkopohjainen työkalu erityyppisten (mukaan lukien 3D) sisällön hallintaan, kulttuuriperinnön dokumentointiin digitaalisten yhteisötilojen kautta sekä digitaalisten tarinoiden ja kokemusten kuratoimiseen."

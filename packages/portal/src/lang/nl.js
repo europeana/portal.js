@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Samengestelde collecties",
-    "curatedCollectionsInfo": "Hieronder vindt u alle collecties die u heeft samengesteld",
     "editProfile": "Profiel bewerken",
     "likes": "Likes",
     "linkAccount": "Mijn account",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Openbare galerijen",
     "publishedCollections": "Gepubliceerde Galerijen",
     "settings": "Instellingen",
-    "title": "Mijn account"
+    "title": "Mijn account",
+    "tooltip": {
+      "EntityBestItemsSet": "Een gecureerde galerij toont de vastgepinde objecten binnen een specifieke collectie",
+      "private": "Een privé galerij kan alleen door u bekeken worden.",
+      "public": "Een openbare galerij kan door iedereen met de link worden bekeken.",
+      "published": "Een gepubliceerde galerij kan door iedereen worden bekeken, en kan worden opgenomen op onze pagina Galerijen."
+    }
   },
   "actions": {
     "accept": "Accepteren",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Organisaties",
     "place": "Plaatsen",
     "theme": "Thema's",
-    "time": "Aanbevolen eeuwen",
+    "time": "Eeuwen",
     "topic": "Onderwerpen"
   },
   "blog": {
@@ -272,11 +277,11 @@ export default {
     "credits": "Credits",
     "currentChapter": "Huidig hoofdstuk",
     "description": "Ontdek de tentoonstellingen",
-    "exhibitions": "Tentoonstellingen"
+    "exhibitions": "Tentoonstelling | Tentoonstellingen"
   },
   "facets": {
     "api": {
-      "name": "Zoeken naar",
+      "name": "Zoeken in documenten",
       "options": {
         "fulltext": "Objecten met full-text",
         "metadata": "Alleen objecten met Metadata"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "kleuren",
-      "name": "Kleur | Kleuren",
+      "name": "Kleur",
       "options": {
         "#000000": "Zwart",
         "#000080": "Marineblauw",
@@ -461,7 +466,7 @@ export default {
       "select": "Selecteer kleuren"
     },
     "contentTier": {
-      "name": "Item kwaliteit",
+      "name": "Object kwaliteit",
       "options": {
         "*": "Bevat objecten die niet voldoen aan onze publicatiecriteria",
         "0": "Voldoet niet aan publicatiecriteria",
@@ -531,7 +536,7 @@ export default {
     },
     "DATA_PROVIDER": {
       "moreName": "instellingen",
-      "name": "Instelling | Instellingen",
+      "name": "Instelling",
       "select": "Selecteer instellingen"
     },
     "IMAGE_ASPECTRATIO": {
@@ -598,7 +603,7 @@ export default {
       "select": "Selecteer talen"
     },
     "MIME_TYPE": {
-      "name": "Bestandsformaat | Bestandsformaten",
+      "name": "Bestandsformaat",
       "options": {
         "text/plain": "Platte tekst"
       },
@@ -622,11 +627,11 @@ export default {
       "name": "Datum van afgifte"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media",
+      "name": "Medium",
       "select": "Selecteer media"
     },
     "REUSABILITY": {
-      "name": "Kan ik dit hergebruiken?",
+      "name": "Kan ik dit gebruiken?",
       "options": {
         "open": "Ja",
         "permission": "Misschien, vraag toestemming",
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Ontdek onze galeries",
-    "galleries": "Galerijen"
+    "galleries": "Galerij | Galerijen"
   },
   "header": {
     "backToMenu": "Zoekvakje sluiten",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Accepteer alles",
       "acceptSelected": "Geselecteerde accepteren",
       "consentModal": {
-        "description": "Wij nemen uw gegevensprivacy serieus. Hier kunt u de diensten die wij op deze website willen gebruiken, zelf beoordelen en aanpassen. U heeft het voor het zeggen! Schakel diensten in of uit zoals u dat wilt.",
+        "description": "Hier kunt u de diensten zien en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie ons <a href='/rights/privacy-policy'>privacybeleid</a>.",
         "title": "Diensten waar we graag gebruik van willen maken."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Geautomatiseerde vertaling",
     "enrichment": "Verrijking door partnerprojecten",
-    "other": "Andere talen",
+    "other": "andere talen",
     "stopTranslating": "Stop met het vertalen van dit item naar {0}.",
     "translateLanguage": "Wilt u dit item in {0} zien?",
     "translateMetadata": "Vertaal de metadata van dit object.",
@@ -986,7 +991,7 @@ export default {
     "location": "Locatie",
     "locationOnMap": "Locatie op kaart",
     "mediaPlayer": "Mediaspeler",
-    "record": "Registratie",
+    "record": "Object",
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare objecten",
     "status": {
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Oké",
       "toastMessage": "Deze galerij is nu ingediend voor publicatie. U kunt {galleries} controleren om te zien of het is gepubliceerd."
     },
+    "setCount": "{count} galerijen",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is een webtool voor het beheer van verschillende soorten inhoud (waaronder 3D), het documenteren van cultureel erfgoed via digitale gemeenschapsruimtes en het cureren van digitale verhalen en ervaringen."

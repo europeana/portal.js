@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kuraterade samlingar",
-    "curatedCollectionsInfo": "Hitta nedan alla samlingar du har kuraterat",
     "editProfile": "Redigera profil",
     "likes": "Likes",
     "linkAccount": "Mitt konto",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Offentliga gallerier",
     "publishedCollections": "Publicerade Gallerier",
     "settings": "Inställningar",
-    "title": "Mitt konto"
+    "title": "Mitt konto",
+    "tooltip": {
+      "EntityBestItemsSet": "Ett kurerat galleri visar de fästa objekt inom en specifik samling",
+      "private": "Ett privat galleri kan bara ses av dig.",
+      "public": "Ett offentligt galleri kan ses av alla med länken.",
+      "published": "Ett publicerat galleri kan ses av vem som helst och kan visas på vår gallerisida."
+    }
   },
   "actions": {
     "accept": "Acceptera",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Organisationer",
     "place": "Platser",
     "theme": "Teman",
-    "time": "Utvalda århundraden",
+    "time": "Århundraden",
     "topic": "Ämnen"
   },
   "blog": {
@@ -272,11 +277,11 @@ export default {
     "credits": "Upphovsmän",
     "currentChapter": "Aktuellt kapitel",
     "description": "Utforska utställningarna",
-    "exhibitions": "Utställningar"
+    "exhibitions": "Utställning | Utställningar"
   },
   "facets": {
     "api": {
-      "name": "Sök efter",
+      "name": "Sök i dokument",
       "options": {
         "fulltext": "Objekt med fulltext",
         "metadata": "Metadata-endast objekt"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "färger",
-      "name": "Färg | Färger",
+      "name": "Färg",
       "options": {
         "#000000": "Black",
         "#000080": "Marinblå",
@@ -598,7 +603,7 @@ export default {
       "select": "Välj språk"
     },
     "MIME_TYPE": {
-      "name": "Filformat | Filformat",
+      "name": "Filformat",
       "options": {
         "text/plain": "Oformaterad text"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Välj format"
     },
     "proxy_dc_type": {
-      "name": "Typ | Typer",
+      "name": "Typ | typer",
       "select": "Välj typer"
     },
     "proxy_dcterms_issued": {
       "name": "Datum för utfärdande"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media",
+      "name": "Medium",
       "select": "Välj media"
     },
     "REUSABILITY": {
-      "name": "Kan jag återanvända det här?",
+      "name": "Kan jag använda detta?",
       "options": {
         "open": "Ja",
         "permission": "Kanske, sök tillstånd",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Acceptera alla",
       "acceptSelected": "Acceptera valt",
       "consentModal": {
-        "description": "Vi tar din datasekretess på allvar. Här kan du bedöma och anpassa de tjänster som vi vill använda på den här webbplatsen. Du har ansvaret! Aktivera eller inaktivera tjänster som du tycker passar.",
+        "description": "Här kan du se och anpassa de tjänster som vi vill använda på denna webbplats. För att lära dig mer läs vår <a href='/rights/privacy-policy'> sekretesspolicy </a>.",
         "title": "Tjänster som vi skulle vilja använda."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Automatiserad översättning",
     "enrichment": "Berikning genom partnerprojekt",
-    "other": "Andra språk",
+    "other": "andra språk",
     "stopTranslating": "Sluta översätta det här objektet till {0}.",
     "translateLanguage": "Vill du se det här objektet i {0} ?",
     "translateMetadata": "Översätt metadata för detta objekt.",
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Okej",
       "toastMessage": "Detta galleri är nu inlämnat för publicering. Du kan kontrollera {galleries} för att se om den har publicerats."
     },
+    "setCount": "{count} galleri",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) är ett webbaserat verktyg för att hantera innehåll av olika typer (inklusive 3D), dokumentera kulturarv genom digitala gemenskapsutrymmen och kurera digitala berättelser och upplevelser."

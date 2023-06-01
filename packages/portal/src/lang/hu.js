@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kurátori gyűjtemények",
-    "curatedCollectionsInfo": "Az alábbiakban megtalálja az összes gyűjteményt, amelyeket kurált",
     "editProfile": "Profil szerkesztése",
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Nyilvános Galériák",
     "publishedCollections": "Megjelent Galériák",
     "settings": "Beállítások",
-    "title": "Fiókom"
+    "title": "Fiókom",
+    "tooltip": {
+      "EntityBestItemsSet": "A válogatott galéria egy adott gyűjtemény rögzített elemeit mutatja be",
+      "private": "A privát galériát csak Ön tekintheti meg.",
+      "public": "A nyilvános galériát a link birtokában bárki megtekintheti.",
+      "published": "A közzétett galériát bárki megtekintheti, és megjelenhet a Galériák oldalon."
+    }
   },
   "actions": {
     "accept": "Elfogad",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Szervezetek",
     "place": "Helyek",
     "theme": "Témák",
-    "time": "Kiemelt évszázadok",
+    "time": "Századok",
     "topic": "Témakörök"
   },
   "blog": {
@@ -121,7 +126,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "tervezők",
-          "name": "Tervező | Tervezők",
+          "name": "Tervező",
           "select": "Tervezők kiválasztása"
         },
         "proxy_dc_format": {
@@ -272,13 +277,13 @@ export default {
     "credits": "Szerzői információk",
     "currentChapter": "Jelenlegi fejezet",
     "description": "Fedezze fel a kiállításokat",
-    "exhibitions": "Kiállítások"
+    "exhibitions": "Kiállítás | Kiállítások"
   },
   "facets": {
     "api": {
-      "name": "Keresés erre",
+      "name": "Keresés a dokumentumokban",
       "options": {
-        "fulltext": "Rekordok teljes szöveggel",
+        "fulltext": "Teljes szövegű elemek",
         "metadata": "Csak metaadatokat tartalmazó rekordok"
       },
       "switch": "Keresés csak a teljes szövegű elemek tartalmában",
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "színek",
-      "name": "Szín | Színek",
+      "name": "Szín",
       "options": {
         "#000000": "Fekete",
         "#000080": "Sötétkék",
@@ -598,7 +603,7 @@ export default {
       "select": "Nyelvek kiválasztása"
     },
     "MIME_TYPE": {
-      "name": "Fájlformátum | Fájlformátumok",
+      "name": "Fájlformátum",
       "options": {
         "text/plain": "Egyszerű szöveg"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Formátumok kiválasztása"
     },
     "proxy_dc_type": {
-      "name": "Típus | Típusok",
+      "name": "Típus | típusok",
       "select": "Típusok kiválasztása"
     },
     "proxy_dcterms_issued": {
       "name": "Kibocsátás dátuma"
     },
     "proxy_dcterms_medium": {
-      "name": "Adathordozó | Adathordozók",
+      "name": "Közepes",
       "select": "Adathordozó kiválasztása"
     },
     "REUSABILITY": {
-      "name": "Használhatom ezt újból?",
+      "name": "Használhatom ezt?",
       "options": {
         "open": "igen",
         "permission": "Talán, kérjen engedélyt",
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Fedezze fel galériáinkat",
-    "galleries": "Galériák"
+    "galleries": "Galéria | Galériák"
   },
   "header": {
     "backToMenu": "Keresőmező bezárása",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Elfogadni minden",
       "acceptSelected": "Kiválasztott elfogadása",
       "consentModal": {
-        "description": "Komolyan vesszük az Ön adatvédelmét. Itt értékelheti és testre szabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. Te vagy a felelős! Engedélyezze vagy tiltsa le a szolgáltatásokat tetszése szerint.",
+        "description": "Itt láthatja és testreszabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. További információért kérjük, olvassa el <a href='/rights/privacy-policy'> adatvédelmi szabályzatunkat </a>.",
         "title": "Szolgáltatások, amelyeket szeretnénk igénybe venni."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Automatizált fordítás",
     "enrichment": "Gazdagodás partnerprojektek által",
-    "other": "Egyéb nyelvek",
+    "other": "egyéb nyelvek",
     "stopTranslating": "Állítsa le ennek az elemnek a fordítását {0}-ra.",
     "translateLanguage": "Szeretné látni ezt az elemet itt: {0} ?",
     "translateMetadata": "Fordítsa le az elem metaadatait.",
@@ -986,7 +991,7 @@ export default {
     "location": "hely",
     "locationOnMap": "Elhelyezkedés a térképen",
     "mediaPlayer": "Médialejátszó",
-    "record": "Rekord",
+    "record": "Tétel",
     "showAll": "Az összes információ megjelenítése",
     "similarItems": "Hasonló elemek",
     "status": {
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Oké",
       "toastMessage": "Ezt a galériát most beküldték közzétételre. Ellenőrizheti a {galleries} elemet, hogy megjelent-e."
     },
+    "setCount": "{count} galériák",
     "shareTo": {
       "weavex": {
         "tooltip": "A WEAVExperience (WEAVEx) egy webalapú eszköz a különböző típusú (beleértve a 3D-s) tartalmak kezelésére, a kulturális örökség digitális közösségi tereken keresztüli dokumentálására, valamint digitális történetek és élmények gondozására."

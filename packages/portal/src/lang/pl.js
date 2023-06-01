@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kolekcje kuratorowane",
-    "curatedCollectionsInfo": "Poniżej znajdziesz wszystkie kolekcje, których jesteś kuratorem",
     "editProfile": "Edytuj profil",
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Galerie publiczne",
     "publishedCollections": "Opublikowane Galerie",
     "settings": "Ustawienia",
-    "title": "Moje konto"
+    "title": "Moje konto",
+    "tooltip": {
+      "EntityBestItemsSet": "Wyselekcjonowana galeria pokazuje przypięte obiekty cyfrowe w ramach określonej kolekcji",
+      "private": "Tylko Ty możesz oglądać prywatną galerię.",
+      "public": "Galerię publiczną może przeglądać każdy, kto ma link.",
+      "published": "Opublikowana galeria może być oglądana przez każdego i może być prezentowana na naszej stronie Galerie."
+    }
   },
   "actions": {
     "accept": "Akceptuj",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Organizacje",
     "place": "Miejsca",
     "theme": "Motywy",
-    "time": "Polecane wieki",
+    "time": "Wieki",
     "topic": "Tematy"
   },
   "blog": {
@@ -276,7 +281,7 @@ export default {
   },
   "facets": {
     "api": {
-      "name": "Szukaj",
+      "name": "Wyszukiwanie w dokumentach",
       "options": {
         "fulltext": "Obiekty cyfrowe z pełnym tekstem",
         "metadata": "Obiekty cyfrowe tylko z metadanymi"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "kolory",
-      "name": "Kolor | Kolory",
+      "name": "Kolor",
       "options": {
         "#000000": "Czarny",
         "#000080": "Ciemnoniebieski",
@@ -461,7 +466,7 @@ export default {
       "select": "Wybierz kolory"
     },
     "contentTier": {
-      "name": "Jakość obiektu",
+      "name": "Jakość obiekt cyfrowy",
       "options": {
         "*": "Obejmuje obiekty cyfrowe niespełniające naszych kryteriów publikowania",
         "0": "Nie spełnia kryteriów publikacji.",
@@ -531,7 +536,7 @@ export default {
     },
     "DATA_PROVIDER": {
       "moreName": "instytucje",
-      "name": "Instytucja | Instytucje",
+      "name": "Instytucja",
       "select": "Wybierz instytucje"
     },
     "IMAGE_ASPECTRATIO": {
@@ -598,7 +603,7 @@ export default {
       "select": "Wybierz języki"
     },
     "MIME_TYPE": {
-      "name": "Format plików | Formaty plików",
+      "name": "Format pliku",
       "options": {
         "text/plain": "Zwykły tekst"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Wybierz formaty"
     },
     "proxy_dc_type": {
-      "name": "Typ | Typy",
+      "name": "Typ | typy",
       "select": "Wybierz typy"
     },
     "proxy_dcterms_issued": {
       "name": "Data wydania"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media",
+      "name": "Medium",
       "select": "Wybierz media"
     },
     "REUSABILITY": {
-      "name": "Czy mogę to wykorzystać?",
+      "name": "Mogę tego użyć?",
       "options": {
         "open": "Tak",
         "permission": "Może, poproś o pozwolenie",
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Przeglądaj nasze galerie",
-    "galleries": "Galerie"
+    "galleries": "Galeria | Galerie"
   },
   "header": {
     "backToMenu": "Zamknij pole wyszukiwania",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Akceptuj wszystkie",
       "acceptSelected": "Zaakceptuj wybrane",
       "consentModal": {
-        "description": "Poważnie traktujemy prywatność Twoich danych. Tutaj możesz ocenić i dostosować usługi, z których chcielibyśmy korzystać na tej stronie. Ty rządzisz! Włącz lub wyłącz usługi według własnego uznania.",
+        "description": "Tutaj możesz zobaczyć i dostosować usługi, z których chcielibyśmy korzystać na tej stronie. Aby dowiedzieć się więcej, przeczytaj naszą <a href='/rights/privacy-policy'> politykę prywatności </a>.",
         "title": "Usługi, z których chcielibyśmy skorzystać."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Tłumaczenie zautomatyzowane",
     "enrichment": "Rozszerzenie w ramach projektów partnerskich",
-    "other": "Inne języki",
+    "other": "inne języki",
     "stopTranslating": "Przestań tłumaczyć ten element na {0}.",
     "translateLanguage": "Czy chciałbyś zobaczyć ten element w {0}?",
     "translateMetadata": "Przetłumacz metadane tego obiekt cyfrowy.",
@@ -986,7 +991,7 @@ export default {
     "location": "Lokalizacja",
     "locationOnMap": "Lokalizacja na mapie",
     "mediaPlayer": "Odtwarzacz multimediów",
-    "record": "Rekord",
+    "record": "Obiekt cyfrowy",
     "showAll": "Pokaż wszystkie informacje",
     "similarItems": "Podobne obiekty cyfrowe",
     "status": {
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Dobra",
       "toastMessage": "Ta galeria została przesłana do publikacji. Możesz sprawdzić {galleries}, aby zobaczyć, czy został opublikowany."
     },
+    "setCount": "{count} galerii",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) to internetowe narzędzie do zarządzania treściami różnego typu (w tym 3D), dokumentowania dziedzictwa kulturowego poprzez cyfrowe przestrzenie społecznościowe oraz kura torowania cyfrowych historii i doświadczeń."

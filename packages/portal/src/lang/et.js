@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kureeritud kogud",
-    "curatedCollectionsInfo": "Allpool leiate kõik kogud, mida olete kureerinud",
     "editProfile": "Muuda profiili",
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Avalikud galeriid",
     "publishedCollections": "Avaldatud Galeriid",
     "settings": "Seaded",
-    "title": "Minu konto"
+    "title": "Minu konto",
+    "tooltip": {
+      "EntityBestItemsSet": "Kureeritud galeriis kuvatakse konkreetse kollektsiooni kinnitatud üksused",
+      "private": "Privaatset galeriid saate vaadata ainult teie.",
+      "public": "Avalikku galeriid saavad vaadata kõik, kellel on link.",
+      "published": "Avaldatud galeriid saavad vaadata kõik ja seda võidakse kuvada meie galeriide lehel."
+    }
   },
   "actions": {
     "accept": "Nõustu",
@@ -84,8 +89,8 @@ export default {
     "organisation": "Organisatsioonid",
     "place": "Kohad",
     "theme": "Teemad",
-    "time": "Esiletõstetud sajandid",
-    "topic": "Esile tõstetud teemad"
+    "time": "Sajandeid",
+    "topic": "Teemad"
   },
   "blog": {
     "author": "Autor",
@@ -121,7 +126,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "disainerid",
-          "name": "Disainer | Disainerid",
+          "name": "Disainer",
           "select": "Valige disainerid"
         },
         "proxy_dc_format": {
@@ -272,13 +277,13 @@ export default {
     "credits": "Autorid",
     "currentChapter": "Praegune peatükk",
     "description": "Uurige näitustega",
-    "exhibitions": "Näitused"
+    "exhibitions": "Näitus | Näitused"
   },
   "facets": {
     "api": {
-      "name": "Otsing",
+      "name": "Otsing dokumentides",
       "options": {
-        "fulltext": "Täistekstiga kirjed",
+        "fulltext": "Täistekstiga üksused",
         "metadata": "Ainult metaandmete kirjed"
       },
       "switch": "Otsige ainult täistekstiga üksuste sisust",
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "värvid",
-      "name": "Värv | Värvid",
+      "name": "Värv",
       "options": {
         "#000000": "Must",
         "#000080": "Mereväe sinine",
@@ -598,7 +603,7 @@ export default {
       "select": "Valige keeled"
     },
     "MIME_TYPE": {
-      "name": "Failivorming | Failivormingud",
+      "name": "Failivorming",
       "options": {
         "text/plain": "Lihttekst"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Valige vormingud"
     },
     "proxy_dc_type": {
-      "name": "Tüüp | Tüübid",
+      "name": "Tüüp | tüübid",
       "select": "Valige tüübid"
     },
     "proxy_dcterms_issued": {
       "name": "Väljaandmise kuupäev"
     },
     "proxy_dcterms_medium": {
-      "name": "Meedium | Meediumid",
+      "name": "Meedium",
       "select": "Valige meedia"
     },
     "REUSABILITY": {
-      "name": "Kas ma saan seda uuesti kasutada?",
+      "name": "Kas ma saan seda kasutada?",
       "options": {
         "open": "Jah",
         "permission": "Võib-olla, küsige luba",
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Uurige meie galeriidega",
-    "galleries": "Galeriid"
+    "galleries": "Galerii | Galeriid"
   },
   "header": {
     "backToMenu": "Sulge otsinguaken",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Võtke kõik vastu",
       "acceptSelected": "Aktsepteeri valitud",
       "consentModal": {
-        "description": "Võtame teie andmete privaatsust tõsiselt. Siin saate hinnata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Teie olete juhtiv! Lubage või keelake teenused oma äranägemise järgi.",
+        "description": "Siin saate vaadata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege meie <a href='/rights/privacy-policy'> privaatsuspoliitikat </a> .",
         "title": "Teenused, mida sooviksime kasutada."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Automatiseeritud tõlge",
     "enrichment": "Rikastamine partner projektide kaudu",
-    "other": "Muud keeled",
+    "other": "muud keeled",
     "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
     "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
     "translateMetadata": "Tõlgi selle üksuse metaandmed.",
@@ -986,7 +991,7 @@ export default {
     "location": "Asukoht",
     "locationOnMap": "Asukoht kaardil",
     "mediaPlayer": "Meediumipleier",
-    "record": "Kirje",
+    "record": "Üksus",
     "showAll": "Kuva kogu teave",
     "similarItems": "Sarnased tooted",
     "status": {
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Okei",
       "toastMessage": "See galerii on nüüd avaldamiseks esitatud. Saate vaadata {galleries} , et näha, kas see on avaldatud."
     },
+    "setCount": "{count} galeriid",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) on veebipõhine tööriist erinevat tüüpi (sh 3D) sisu haldamiseks, kultuuripärandi dokumenteerimiseks digitaalsete kogukonnaruumide kaudu ning digitaalsete lugude ja kogemuste kureerimiseks."

@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Collezioni curate",
-    "curatedCollectionsInfo": "Trova di seguito tutte le collezioni che hai curato",
     "editProfile": "Modifica Profilo",
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Gallerie pubbliche",
     "publishedCollections": "Gallerie Pubblicate",
     "settings": "Impostazioni",
-    "title": "Il mio account"
+    "title": "Il mio account",
+    "tooltip": {
+      "EntityBestItemsSet": "Una galleria curata mostra gli oggetti appuntati all'interno di una collezioni specifica",
+      "private": "Una galleria privata può essere visualizzata solo da te.",
+      "public": "Una galleria pubblica può essere visualizzata da chiunque disponga del collegamento.",
+      "published": "Una galleria pubblicata può essere visualizzata da chiunque e può essere presentata nella nostra pagina Gallerie."
+    }
   },
   "actions": {
     "accept": "Accettare",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Organizzazioni",
     "place": "Posti",
     "theme": "Temi",
-    "time": "Secoli in primo piano",
+    "time": "Secoli",
     "topic": "Argomenti"
   },
   "blog": {
@@ -121,7 +126,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "designer",
-          "name": "Designer | Designer",
+          "name": "Designer",
           "select": "Seleziona designer"
         },
         "proxy_dc_format": {
@@ -272,11 +277,11 @@ export default {
     "credits": "Realizzato da",
     "currentChapter": "Capitolo attuale",
     "description": "Esplora le mostre",
-    "exhibitions": "Mostre"
+    "exhibitions": "Mostra | Mostre"
   },
   "facets": {
     "api": {
-      "name": "Cerca",
+      "name": "Cerca all'interno dei documenti",
       "options": {
         "fulltext": "Oggetti con testo completo",
         "metadata": "Oggetti con solo metadati"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "colori",
-      "name": "Colore | Colori",
+      "name": "Colore",
       "options": {
         "#000000": "Nero",
         "#000080": "Blu navy",
@@ -461,7 +466,7 @@ export default {
       "select": "Seleziona i colori"
     },
     "contentTier": {
-      "name": "Qualità dell'articolo",
+      "name": "Qualità dell'Oggetto",
       "options": {
         "*": "Comprende oggetti che non soddisfano i nostri criteri di pubblicazione",
         "0": "Non soddisfa i criteri di pubblicazione",
@@ -598,7 +603,7 @@ export default {
       "select": "Seleziona le lingue"
     },
     "MIME_TYPE": {
-      "name": "Formato file | Formati file",
+      "name": "Formato del file",
       "options": {
         "text/plain": "Testo semplice"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Seleziona i formati"
     },
     "proxy_dc_type": {
-      "name": "Tipo | Tipi",
+      "name": "Tipo | tipi",
       "select": "Seleziona i tipi"
     },
     "proxy_dcterms_issued": {
       "name": "Data di emissione"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media",
+      "name": "Medio",
       "select": "Seleziona media"
     },
     "REUSABILITY": {
-      "name": "Posso riutilizzarlo?",
+      "name": "Posso usare questo?",
       "options": {
         "open": "Sì",
         "permission": "Forse, meglio chiedere il permesso",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Accettare tutti",
       "acceptSelected": "Accetta selezionato",
       "consentModal": {
-        "description": "Prendiamo sul serio la privacy dei tuoi dati. Qui puoi valutare e personalizzare i servizi che vorremmo utilizzare su questo sito web. Sei tu al comando! Abilitare o disabilitare i servizi come meglio credi.",
+        "description": "Qui puoi vedere e personalizzare i servizi che vorremmo utilizzare su questo sito web. Per ulteriori informazioni, leggi la nostra <a href='/rights/privacy-policy'> informativa sulla privacy </a>.",
         "title": "Servizi che vorremmo utilizzare."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Traduzione automatica",
     "enrichment": "Arricchimento da parte dei progetti partner",
-    "other": "Altre lingue",
+    "other": "altre lingue",
     "stopTranslating": "Smetti di tradurre questo elemento in {0}.",
     "translateLanguage": "Vuoi vedere questo articolo in {0} ?",
     "translateMetadata": "Traduci i metadati di questo oggetto.",
@@ -986,7 +991,7 @@ export default {
     "location": "Posizione",
     "locationOnMap": "Posizione sulla mappa",
     "mediaPlayer": "Lettore multimediale",
-    "record": "Documentazione",
+    "record": "Oggetto",
     "showAll": "Mostra tutte le informazioni",
     "similarItems": "Oggetti simili",
     "status": {
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Ok",
       "toastMessage": "Questa galleria è ora inviata per la pubblicazione. Puoi controllare {galleries} per vedere se è stato pubblicato."
     },
+    "setCount": "{count} gallerie",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) è uno strumento basato sul Web per la gestione di contenuti di diverso tipo (incluso il 3D), la documentazione del patrimonio culturale attraverso gli spazi della comunità digitale e la cura di storie ed esperienze digitali."

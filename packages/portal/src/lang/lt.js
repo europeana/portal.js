@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kuruojamos kolekcijos",
-    "curatedCollectionsInfo": "Žemiau rasite visas jūsų kuruotas kolekcijas",
     "editProfile": "Redaguoti profilį",
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Viešos galerijos",
     "publishedCollections": "Paskelbtos Galerijos",
     "settings": "Nustatymai",
-    "title": "Mano paskyra"
+    "title": "Mano paskyra",
+    "tooltip": {
+      "EntityBestItemsSet": "Kuruojamoje parodos rodomi prisegti konkrečios kolekcijos skaitmeniniai objektai",
+      "private": "Privačią galeriją galite peržiūrėti tik jūs.",
+      "public": "Viešą parodas gali peržiūrėti visi, turintys nuorodą.",
+      "published": "Paskelbtą parodas gali peržiūrėti bet kas ir ji gali būti pateikta mūsų parodos puslapyje."
+    }
   },
   "actions": {
     "accept": "Priimti",
@@ -84,8 +89,8 @@ export default {
     "organisation": "Organizacijos",
     "place": "Vietos",
     "theme": "Temos",
-    "time": "Rekomenduojami šimtmečiai",
-    "topic": "Temos"
+    "time": "Šimtmečiai",
+    "topic": "Potemė"
   },
   "blog": {
     "author": "Autorius",
@@ -121,7 +126,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "dizaineriai",
-          "name": "Projektuotojas",
+          "name": "Dizaineris",
           "select": "Pasirinkite dizainerius"
         },
         "proxy_dc_format": {
@@ -272,11 +277,11 @@ export default {
     "credits": "Kreditai",
     "currentChapter": "Dabartinis skyrius",
     "description": "Tyrinėti mūsų parodas",
-    "exhibitions": "Parodos"
+    "exhibitions": "Paroda | Parodos"
   },
   "facets": {
     "api": {
-      "name": "Ieškoti",
+      "name": "Ieškokite dokumentuose",
       "options": {
         "fulltext": "Skaitmeniniai objektai su visu tekstu",
         "metadata": "Tik metaduomenų skaitmeniniai objektai"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "spalvos",
-      "name": "Spalva | Spalvos",
+      "name": "Spalva",
       "options": {
         "#000000": "Juoda",
         "#000080": "Tamsiai mėlyna",
@@ -598,7 +603,7 @@ export default {
       "select": "Pasirinkite kalbas"
     },
     "MIME_TYPE": {
-      "name": "Failo formatas | Failų formatai",
+      "name": "Failo formatas",
       "options": {
         "text/plain": "Paprastas tekstas"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Pasirinkite formatus"
     },
     "proxy_dc_type": {
-      "name": "Tipas | Tipai",
+      "name": "Tipas | tipai",
       "select": "Pasirinkite tipus"
     },
     "proxy_dcterms_issued": {
       "name": "Išleidimo data"
     },
     "proxy_dcterms_medium": {
-      "name": "Laikmenos | Laikmena",
+      "name": "Vidutinis",
       "select": "Pasirinkite laikmeną"
     },
     "REUSABILITY": {
-      "name": "Ar galiu tai pakartotinai naudoti?",
+      "name": "Ar galiu tai naudoti?",
       "options": {
         "open": "Taip",
         "permission": "Galbūt, kreipkitės leidimo",
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Tyrinėti mūsų galerijas",
-    "galleries": "Galerijos"
+    "galleries": "Galerija | Galerijos"
   },
   "header": {
     "backToMenu": "Uždaryti paieškos langą",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Priimti visus",
       "acceptSelected": "Priimti pasirinktą",
       "consentModal": {
-        "description": "Mes rimtai žiūrime į jūsų duomenų privatumą. Čia galite įvertinti ir pritaikyti paslaugas, kurias norėtume naudoti šioje svetainėje. Jūs esate atsakingas! Įjunkite arba išjunkite paslaugas, kaip jums atrodo tinkama.",
+        "description": "Čia galite peržiūrėti ir tinkinti paslaugas, kuriomis norėtume naudotis šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų <a href='/rights/privacy-policy'> privatumo politiką </a>.",
         "title": "Paslaugos, kuriomis norėtume naudotis."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Automatinis vertimas",
     "enrichment": "Praturtinimas partnerių projektais",
-    "other": "Kitos kalbos",
+    "other": "kitos kalbos",
     "stopTranslating": "Nustokite versti šį skaitmeninį objektą į {0}.",
     "translateLanguage": "Ar norėtumėte pamatyti šį skaitmeninį objektą {0}?",
     "translateMetadata": "Išverskite šį skaitmeninį objektą metaduomenimis.",
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Gerai",
       "toastMessage": "Ši galerija dabar pateikta publikuoti. Galite patikrinti {galleries}, kad sužinotumėte, ar jis buvo paskelbtas."
     },
+    "setCount": "{count} parodos",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) - tai žiniatinklio įrankis, skirtas įvairių tipų turiniui (įskaitant 3D) tvarkyti, kultūros paveldui dokumentuoti skaitmeninėse bendruomenės erdvėse ir skaitmeninėms istorijoms bei patirtims kuruoti."
