@@ -14,7 +14,7 @@
       {{ buttonText ? $t('actions.save') : '' }}
     </b-button>
     <template
-      v-if="$auth.loggedIn"
+      v-if="$store.state.auth.loggedIn"
     >
       <AddItemToSetModal
         data-qa="add item to set modal"
@@ -103,7 +103,7 @@
         }
       },
       addToSet() {
-        if (this.$auth.loggedIn) {
+        if (this.$store.state.auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
           this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {

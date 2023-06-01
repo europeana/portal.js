@@ -109,7 +109,7 @@
           setDescription: langMapValueForLocale(this.set.description, this.$i18n.locale).values[0],
           setId: this.set.id,
           setCreatorNickname: this.set.creator.nickname,
-          email: this.$auth.user.email
+          email: this.$store.state.auth.profile.email
         };
         try {
           await axios.post(

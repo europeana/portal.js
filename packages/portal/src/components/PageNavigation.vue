@@ -167,7 +167,7 @@
       },
       storageEvent(event) {
         if (event.key === 'logout-event') {
-          this.$auth.logout();
+          this.$router.push({ name: 'account-logout' });
         }
       }
     }

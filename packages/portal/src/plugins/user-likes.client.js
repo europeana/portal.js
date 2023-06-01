@@ -1,5 +1,5 @@
-export default async({ $auth, store }) => {
-  if ($auth?.loggedIn) {
+export default async({ store }) => {
+  if (store.state.auth.loggedIn) {
     try {
       // TODO: assess whether there is a more efficient way to do this with fewer
       //       API requests

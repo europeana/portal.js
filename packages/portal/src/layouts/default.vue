@@ -178,11 +178,11 @@
       const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
       renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
 
-      // if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
+      // if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$store.state.auth.loggedIn) {
       //   this.makeToast(this.$t('account.notifications.loggedIn'));
       //   this.$auth.$storage.removeUniversal('portalLoggingIn');
       // }
-      // if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
+      // if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$store.state.auth.loggedIn) {
       //   this.makeToast(this.$t('account.notifications.loggedOut'));
       //   this.$auth.$storage.removeUniversal('portalLoggingOut');
       // }

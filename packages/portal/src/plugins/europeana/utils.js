@@ -2,7 +2,6 @@ import axios from 'axios';
 import qs from 'qs';
 
 import locales from '../i18n/locales.js';
-// import { keycloakResponseErrorHandler } from './auth.js';
 
 export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
   const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
@@ -20,18 +19,7 @@ export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
 export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
   const axiosInstance = createAxios({ id, baseURL, $axios }, context);
 
-  axiosInstance.interceptors.request.use((requestConfig) => {
-    console.log('req interceptor', context.$keycloak);
-    if (context.$keycloak?.token) {
-      console.log('adding auth header');
-      requestConfig.headers.authorization = `Bearer ${context.$keycloak.token}`;
-    }
-    return requestConfig;
-  });
-
-  // if (typeof axiosInstance.onResponseError === 'function') {
-  //   axiosInstance.onResponseError(error => keycloakResponseErrorHandler(context, error));
-  // }
+  context.$keycloakAxios?.(context, axiosInstance);
 
   return axiosInstance;
 };

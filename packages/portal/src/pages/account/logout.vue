@@ -24,6 +24,9 @@
         redirectUri: window.location.origin + '/',
         ui_locales: this.$i18n.locale
       });
+      localStorage.removeItem('kc.token');
+      localStorage.removeItem('kc.idToken');
+      localStorage.removeItem('kc.refreshToken');
       // this.$auth.logout({ params: { 'ui_locales': this.$i18n.locale } });
       // localStorage.setItem('logout-event', `logout-${Math.random()}`);
       //

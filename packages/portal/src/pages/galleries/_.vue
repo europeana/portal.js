@@ -272,8 +272,8 @@
         return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
       },
       userIsOwner() {
-        return this.$auth.loggedIn && this.$auth.user &&
-          this.setCreatorId?.endsWith(`/${this.$auth.user.sub}`);
+        return this.$store.state.auth.loggedIn && this.$store.state.auth.profile &&
+          this.setCreatorId?.endsWith(`/${this.$store.state.auth.profile.id}`);
       },
       userIsEntityEditor() {
         return this.$store.getters['auth/userHasClientRole']('entities', 'editor') &&
@@ -300,7 +300,7 @@
         return this.set.type === 'EntityBestItemsSet';
       },
       displayRecommendations() {
-        return this.enableRecommendations && this.$auth.loggedIn && this.userCanHandleRecommendations;
+        return this.enableRecommendations && this.$store.state.auth.loggedIn && this.userCanHandleRecommendations;
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
