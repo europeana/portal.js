@@ -7,7 +7,7 @@
       <b-row class="bg-white">
         <b-col class="pt-5 pb-4">
           <h1 class="text-center">
-            @{{ loggedInUser && loggedInUser.preferred_username }}
+            @{{ loggedInUser && loggedInUser.username }}
           </h1>
           <div class="text-center">
             <b-button
@@ -184,7 +184,7 @@
 
     data() {
       return {
-        loggedInUser: this.$store.state.keycloak.user,
+        loggedInUser: this.$store.state.keycloak.profile,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
