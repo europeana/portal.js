@@ -276,11 +276,11 @@
           this.setCreatorId?.endsWith(`/${this.$auth.user.sub}`);
       },
       userIsEntityEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor') &&
-          this.$auth.userHasClientRole('usersets', 'editor');
+        return this.$store.getters['auth/userHasClientRole']('entities', 'editor') &&
+          this.$store.getters['auth/userHasClientRole']('usersets', 'editor');
       },
       userIsPublisher() {
-        return this.$auth.userHasClientRole('usersets', 'publisher');
+        return this.$store.getters['auth/userHasClientRole']('usersets', 'publisher');
       },
       userCanHandleRecommendations() {
         return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);

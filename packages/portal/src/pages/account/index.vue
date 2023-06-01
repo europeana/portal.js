@@ -180,7 +180,7 @@
       pageMetaMixin
     ],
 
-    middleware: 'auth',
+    // middleware: 'auth',
 
     data() {
       return {
@@ -208,8 +208,8 @@
         };
       },
       userIsEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor') &&
-          this.$auth.userHasClientRole('usersets', 'editor');
+        return this.$store.getters['auth/userHasClientRole']('entities', 'editor') &&
+          this.$store.getters['auth/userHasClientRole']('usersets', 'editor');
       },
       ...mapState({
         likesId: state => state.set.likesId,

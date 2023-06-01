@@ -99,7 +99,7 @@
 
     methods: {
       async fetchCollections() {
-        const creator = this.$auth.user?.sub;
+        const creator = this.$store.state.auth.profile?.id;
         // TODO: pagination and/or search within one's collections
         const searchParams = {
           query: `creator:${creator}`,

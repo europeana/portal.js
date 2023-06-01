@@ -18,10 +18,10 @@ export default {
 
     keycloakAccountUrl() {
       const keycloakAccountUrl = new URL(
-        `/auth/realms/${this.$auth.strategy.options.realm}/account`, this.$auth.strategy.options.origin
+        `/realms/${this.$config.keycloak.realm}/account`, this.$config.keycloak.url
       );
       keycloakAccountUrl.search = new URLSearchParams({
-        referrer: this.$auth.strategy.options.client_id,
+        referrer: this.$config.keycloak.clientId,
         'referrer_uri': this.$config.app.baseUrl
       }).toString();
       return keycloakAccountUrl.toString();
@@ -30,9 +30,14 @@ export default {
 
   methods: {
     keycloakLogin() {
-      this.$auth.$storage.setUniversal('redirect', this.keycloakLoginRedirect);
-      this.$auth.$storage.setUniversal('portalLoggingIn', true);
-      this.$auth.loginWith('keycloak', { params: { 'ui_locales': this.$i18n.locale } });
+      console.log('this.$keycloak', this.$keycloak);
+      this.$keycloak?.login({
+        locale: this.$i18n.locale,
+        redirectUri: `${window.location.origin}${this.keycloakLoginRedirect}`
+      });
+      // this.$auth.$storage.setUniversal('redirect', this.keycloakLoginRedirect);
+      // this.$auth.$storage.setUniversal('portalLoggingIn', true);
+      // this.$auth.loginWith('keycloak', { params: { 'ui_locales': this.$i18n.locale } });
     }
   }
 };

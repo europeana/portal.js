@@ -6,6 +6,10 @@
   export default {
     name: 'AccountCallbackPage',
     auth: false,
-    layout: 'minimal'
+    layout: 'minimal',
+    mounted() {
+      this.$store.commit('auth/setLoggedIn', this.$keycloak.authenticated);
+      this.$router.push('/');
+    }
   };
 </script>
