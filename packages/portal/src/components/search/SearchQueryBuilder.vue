@@ -105,10 +105,12 @@
       updateSearch() {
         if (this.$matomo) {
           for (const rule of this.queryRules) {
-            const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
-            const modifierLabel = this.$t(`search.advanced.modifiers.${rule.modifier}`, 'en');
-            const eventName = `Adv search: ${fieldLabel} ${modifierLabel}`;
-            this.$matomo.trackEvent('Adv search', 'Apply adv search', eventName);
+            if (rule.field && rule.modifier) {
+              const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
+              const modifierLabel = this.$t(`search.advanced.modifiers.${rule.modifier}`, 'en');
+              const eventName = `Adv search: ${fieldLabel} ${modifierLabel}`;
+              this.$matomo.trackEvent('Adv search', 'Apply adv search', eventName);
+            }
           }
         }
         this.$router.push(this.advancedSearchRouteQueryFromRules(this.queryRules));

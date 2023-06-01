@@ -57,10 +57,12 @@ export default {
 
     advancedSearchRouteQueryFromRules(rules) {
       const qa = rules.map((rule) => {
-        const field = this.advancedSearchFields.find((field) => field.name === rule.field);
-        const modifier = this.advancedSearchModifiers.find((modifier) => modifier.name === rule.modifier);
-        const escapedTerm = escapeLuceneSpecials(rule.term, { spaces: true });
-        return modifier?.query[field.type].replace('{field}', field.name).replace('{term}', escapedTerm);
+        if (rule.field && rule.modifier && rule.term) {
+          const field = this.advancedSearchFields.find((field) => field.name === rule.field);
+          const modifier = this.advancedSearchModifiers.find((modifier) => modifier.name === rule.modifier);
+          const escapedTerm = escapeLuceneSpecials(rule.term, { spaces: true });
+          return modifier?.query[field.type].replace('{field}', field.name).replace('{term}', escapedTerm);
+        }
       }).filter((qa) => !!qa);
 
       const newRouteQuery = { ...this.$route.query, ...{ page: 1, [this.advancedSearchRouteQueryKey]: qa } };
