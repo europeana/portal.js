@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Bilduma komisarioak",
-    "curatedCollectionsInfo": "Bilatu komisariotzat dituzun bilduma guztiak",
     "editProfile": "Editatu profila",
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
@@ -14,19 +13,25 @@ export default {
       "loggedOut": "Saioa amaitu duzu.",
       "noCollections": {
         "curated": "Oraindik ez duzu bildumarik hautatu",
-        "private": "Oraindik ez duzu bilduma pribaturik sortu",
+        "private": "Oraindik ez duzu galeria pribaturik sortu",
         "public": "Oraindik ez duzu bilduma publikorik sortu",
         "published": "Oraindik ez duzu galeriarik argitaratu"
       },
       "noLikedItems": "Oraindik ez duzu ezein elementu atsegin"
     },
-    "privateCollections": "Bilduma pribatuak",
-    "profile": "Nire gustukoak & Bildumak",
+    "privateCollections": "Galeria pribatuak",
+    "profile": "Nire gustukoak eta galeriak",
     "profileSettings": "Profilaren ezarpenak",
-    "publicCollections": "Bilduma publikoak",
+    "publicCollections": "Galeria Publikoak",
     "publishedCollections": "Argitaratutako Galeriak",
     "settings": "Ezarpenak",
-    "title": "Nire kontua"
+    "title": "Nire kontua",
+    "tooltip": {
+      "EntityBestItemsSet": "Galeria komisario batek bilduma zehatz bateko ainguratutako elementuak erakusten ditu",
+      "private": "Galeria pribatu bat zuk bakarrik ikus dezakezu.",
+      "public": "Galeria publiko bat esteka duen edonork ikus dezake.",
+      "published": "Argitaratutako galeria edonork ikus dezake eta gure Galeriak orrian ager daiteke."
+    }
   },
   "actions": {
     "accept": "Onartu",
@@ -84,8 +89,8 @@ export default {
     "organisation": "Erakundeak",
     "place": "Lekuak",
     "theme": "Gaiak",
-    "time": "Mende aipagarriak",
-    "topic": "Nabarmendutako gaiak"
+    "time": "Mendeak",
+    "topic": "Gaiak"
   },
   "blog": {
     "author": "Egilea",
@@ -121,7 +126,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "diseinatzaileak",
-          "name": "Diseinatzailea | Diseinatzaileak",
+          "name": "Diseinatzailea",
           "select": "Hautatu diseinatzaileak"
         },
         "proxy_dc_format": {
@@ -280,7 +285,7 @@ export default {
   },
   "facets": {
     "api": {
-      "name": "Bilatu",
+      "name": "Dokumentuen barruan bilatu",
       "options": {
         "fulltext": "Testu osoko elementuak",
         "metadata": "Metadatuak soilik diren elementuak"
@@ -315,7 +320,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "koloreak",
-      "name": "Kolorea | Koloreak",
+      "name": "Kolore",
       "options": {
         "#000000": "Beltza",
         "#000080": "Navy-urdina",
@@ -602,7 +607,7 @@ export default {
       "select": "Hautatu hizkuntzak"
     },
     "MIME_TYPE": {
-      "name": "Fitxategiaren formatua | Fitxategien formatuak",
+      "name": "Fitxategi formatua",
       "options": {
         "text/plain": "Testu arrunta"
       },
@@ -626,7 +631,7 @@ export default {
       "name": "Igortze data"
     },
     "proxy_dcterms_medium": {
-      "name": "Komunikabidea | Komunikabideak",
+      "name": "Ertaina",
       "select": "Hautatu euskarria"
     },
     "REUSABILITY": {
@@ -770,7 +775,7 @@ export default {
     "backToMenu": "Menura itzuli",
     "clearQuery": "Garbitu bilaketa kontsulta",
     "closeSidebar": "Itxi Menua",
-    "entireCollection": "Bilatu '{kontsulta}' gure bilduma osoan",
+    "entireCollection": "Bilatu {query} gure bilduma osoan",
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
     "navigation": {
@@ -816,7 +821,7 @@ export default {
       "acceptAll": "Onartu guztiak",
       "acceptSelected": "Onartu hautatutakoa",
       "consentModal": {
-        "description": "Zure datuen pribatutasuna serio hartzen dugu. Hemen webgune honetan erabili nahi genituzkeen zerbitzuak baloratu eta pertsonaliza ditzakezu. Arduraduna zara! Gaitu edo desgaitu zerbitzuak nahi duzun moduan.",
+        "description": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure <a href='/rights/privacy-policy'> pribatutasun-politika </a> .",
         "title": "Erabili nahiko genituzkeen zerbitzuak."
       },
       "consentNotice": {
@@ -910,7 +915,7 @@ export default {
   "multilingual": {
     "automated": "Itzulpen automatizatua",
     "enrichment": "Bazkide proiektuen aberastea",
-    "other": "Beste hizkuntza batzuk",
+    "other": "beste hizkuntza batzuk",
     "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
     "translateLanguage": "{0} -n ikusi nahi duzu?",
     "translateMetadata": "Itzuli elementu honen metadatuak.",
@@ -1086,12 +1091,12 @@ export default {
     "actions": {
       "addTo": "Bildumara gaineratu",
       "addToGallery": "Gehitu elementu hau galeria batera.",
-      "create": "Bilduma sortu",
-      "createNew": "Bilduma berria sortu",
+      "create": "Sortu galeria",
+      "createNew": "Sortu galeria berria",
       "delete": "Bilduma ezabatu",
-      "edit": "Bilduma editatu",
+      "edit": "Editatu galeria",
       "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
-      "update": "Bilduma eguneratu"
+      "update": "Eguneratu galeria"
     },
     "entityBestBets": {
       "title": "{entity} Orria"
@@ -1135,6 +1140,7 @@ export default {
       "toastButton": "Ados",
       "toastMessage": "Galeria hau argitaratzeko aurkeztu da. {galleries} ikus dezakezu argitaratu den ikusteko."
     },
+    "setCount": "{count} galeriak",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) web-oinarritutako tresna bat da, mota ezberdinetako edukiak (3D barne) kudeatzeko, kultur ondarea dokumentatzeko komunitate digitalen espazioen bidez eta istorio eta esperientzia digitalak komisariotzeko."

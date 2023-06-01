@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Colecciones curadas",
-    "curatedCollectionsInfo": "Encuentra a continuación todas las colecciones que has comisariado",
     "editProfile": "Editar perfil",
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Galerías públicas",
     "publishedCollections": "Galerías Publicadas",
     "settings": "Configuración",
-    "title": "Mi cuenta"
+    "title": "Mi cuenta",
+    "tooltip": {
+      "EntityBestItemsSet": "Una galería seleccionada muestra los ítems anclados dentro de una colección específica",
+      "private": "Una galería privada solo puede ser vista por usted.",
+      "public": "Una galería pública puede ser vista por cualquier persona con el enlace.",
+      "published": "Una galería publicada puede ser vista por cualquiera, y puede aparecer en nuestra página de Galerías."
+    }
   },
   "actions": {
     "accept": "Aceptar",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Organizaciones",
     "place": "Lugares",
     "theme": "Materias",
-    "time": "Siglos destacados",
+    "time": "Siglos",
     "topic": "Temática"
   },
   "blog": {
@@ -272,11 +277,11 @@ export default {
     "credits": "Créditos",
     "currentChapter": "Capítulo actual",
     "description": "Explora las exposiciones",
-    "exhibitions": "Exposiciones"
+    "exhibitions": "Exposición | Exposiciones"
   },
   "facets": {
     "api": {
-      "name": "Buscar",
+      "name": "Buscar dentro de los documentos",
       "options": {
         "fulltext": "Ítems de texto completo",
         "metadata": "Ítems de solo metadatos"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "colores",
-      "name": "Color | Colores",
+      "name": "Color",
       "options": {
         "#000000": "Negro",
         "#000080": "Azul marino",
@@ -598,7 +603,7 @@ export default {
       "select": "Seleccionar idiomas"
     },
     "MIME_TYPE": {
-      "name": "Formato de archivo | Formatos de archivo",
+      "name": "Formato de archivo",
       "options": {
         "text/plain": "Texto sin formato"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Seleccionar formatos"
     },
     "proxy_dc_type": {
-      "name": "Tipo | Tipos",
+      "name": "Tipo | tipos",
       "select": "Seleccionar tipos"
     },
     "proxy_dcterms_issued": {
       "name": "Fecha de publicación"
     },
     "proxy_dcterms_medium": {
-      "name": "Medio | Medios",
+      "name": "Mediano",
       "select": "Seleccionar medios"
     },
     "REUSABILITY": {
-      "name": "¿Puede reutilizarse?",
+      "name": "¿Puedo usar esto?",
       "options": {
         "open": "Sí",
         "permission": "Tal vez, solicite permiso",
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Explora nuestras galerías",
-    "galleries": "Galería"
+    "galleries": "Galería | Galerías"
   },
   "header": {
     "backToMenu": "Cerrar cuadro de búsqueda",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Aceptar todo",
       "acceptSelected": "Aceptar seleccionado",
       "consentModal": {
-        "description": "Nos tomamos muy en serio la privacidad de sus datos. Aquí puede evaluar y personalizar los servicios que nos gustaría utilizar en este sitio web. ¡Estás a cargo! Habilite o deshabilite los servicios como mejor le parezca.",
+        "description": "Aquí puede ver y personalizar los servicios que nos gustaría utilizar en este sitio web. Para obtener más información, lea nuestra <a href='/rights/privacy-policy'> política de privacidad </a>.",
         "title": "Servicios que nos gustaría utilizar."
       },
       "consentNotice": {
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Okey",
       "toastMessage": "Esta galería ahora está enviada para su publicación. Puede consultar {galleries} para ver si se ha publicado."
     },
+    "setCount": "{count} galerías",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) es una herramienta basada en la web para administrar contenido de diferentes tipos (incluido 3D), documentar el patrimonio cultural a través de espacios comunitarios digitales y curar historias y experiencias digitales."

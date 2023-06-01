@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kuraterede samlinger",
-    "curatedCollectionsInfo": "Find nedenfor alle samlinger, du har kurateret",
     "editProfile": "Rediger profil",
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Offentlige gallerier",
     "publishedCollections": "Udgivne Gallerier",
     "settings": "Indstillinger",
-    "title": "Min konto"
+    "title": "Min konto",
+    "tooltip": {
+      "EntityBestItemsSet": "Et kurateret galleri viser de fastgjorte genstande inden for en bestemt samling",
+      "private": "Et privat galleri kan kun ses af dig.",
+      "public": "Et offentligt galleri kan ses af alle med linket.",
+      "published": "Et offentliggjort galleri kan ses af alle og kan blive vist på vores Gallerier-side."
+    }
   },
   "actions": {
     "accept": "Acceptere",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Organisationer",
     "place": "Steder",
     "theme": "Temaer",
-    "time": "Udvalgte århundreder",
+    "time": "Århundreder",
     "topic": "Emner"
   },
   "blog": {
@@ -121,7 +126,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "designere",
-          "name": "Designer | Designere",
+          "name": "Designer",
           "select": "Vælg designere"
         },
         "proxy_dc_format": {
@@ -272,11 +277,11 @@ export default {
     "credits": "Credits",
     "currentChapter": "Aktuelt kapitel",
     "description": "Udforsk udstillingerne",
-    "exhibitions": "Udstillinger"
+    "exhibitions": "Udstilling | Udstillinger"
   },
   "facets": {
     "api": {
-      "name": "Søg efter",
+      "name": "Søg i dokumenter",
       "options": {
         "fulltext": "Genstande med fuldtekst",
         "metadata": "Metadata-kun genstande"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "farver",
-      "name": "Farve | Farver",
+      "name": "Farve",
       "options": {
         "#000000": "Sort",
         "#000080": "Marine blå",
@@ -461,7 +466,7 @@ export default {
       "select": "Vælg farver"
     },
     "contentTier": {
-      "name": "Varekvalitet",
+      "name": "Genstand kvalitet",
       "options": {
         "*": "Indeholder genstande, der ikke opfylder vores udgivelseskriterier",
         "0": "Opfylder ikke publiceringskriterier",
@@ -598,7 +603,7 @@ export default {
       "select": "Vælg sprog"
     },
     "MIME_TYPE": {
-      "name": "Filformat | Filformater",
+      "name": "Filformat",
       "options": {
         "text/plain": "Almindelig tekst"
       },
@@ -622,11 +627,11 @@ export default {
       "name": "Udstedelsesdato"
     },
     "proxy_dcterms_medium": {
-      "name": "Medie | Medier",
+      "name": "Medium",
       "select": "Vælg medie"
     },
     "REUSABILITY": {
-      "name": "Må jeg videreformidle dette?",
+      "name": "Kan jeg bruge dette?",
       "options": {
         "open": "Ja",
         "permission": "Måske, søg tilladelse",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Accepter alle",
       "acceptSelected": "Accepter valgt",
       "consentModal": {
-        "description": "Vi tager dit datas privatliv alvorligt. Her kan du vurdere og tilpasse de tjenester, som vi gerne vil bruge på dette websted. Du har ansvaret! Aktivér eller deaktiver tjenester, som du finder det passende.",
+        "description": "Her kan du se og tilpasse de tjenester, som vi gerne vil bruge på denne hjemmeside. For at lære mere, læs venligst vores <a href='/rights/privacy-policy'> privatlivspolitik </a>.",
         "title": "Tjenester, vi gerne vil bruge."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Automatiseret oversættelse",
     "enrichment": "Berigelse ved partnerprojekter",
-    "other": "Andre sprog",
+    "other": "andre sprog",
     "stopTranslating": "Stop med at oversætte dette element til {0}.",
     "translateLanguage": "Vil du gerne se dette element i {0} ?",
     "translateMetadata": "Oversæt metadataene for dette genstand.",
@@ -986,7 +991,7 @@ export default {
     "location": "Placering",
     "locationOnMap": "Placering på kort",
     "mediaPlayer": "Medie afspiller",
-    "record": "Registrering",
+    "record": "Genstand",
     "showAll": "Vis alle oplysninger",
     "similarItems": "Lignende genstande",
     "status": {
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Okay",
       "toastMessage": "Dette galleri er nu indsendt til offentliggørelse. Du kan tjekke {galleries} for at se, om det er blevet offentliggjort."
     },
+    "setCount": "{count} gallerier",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) er et webbaseret værktøj til at administrere indhold af forskellige typer (inklusive 3D), dokumentere kulturarv gennem digitale fællesskabsrum og kuratere digitale historier og oplevelser."

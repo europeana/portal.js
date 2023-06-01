@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kurirane zbirke",
-    "curatedCollectionsInfo": "Spodaj poiščite vse zbirke, ki ste jih kurirali",
     "editProfile": "Uredi profil",
     "likes": "Všečki",
     "linkAccount": "Moj račun",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Javne zbirke",
     "publishedCollections": "Objavljene Galerije",
     "settings": "Nastavitve",
-    "title": "Moj račun"
+    "title": "Moj račun",
+    "tooltip": {
+      "EntityBestItemsSet": "Pripravljena galerija prikazuje pripete enote znotraj določene zbirke",
+      "private": "Zasebno galerijo si lahko ogledate samo vi.",
+      "public": "Javno galerijo si lahko ogleda vsak s povezavo.",
+      "published": "Objavljeno galerijo si lahko ogleda vsak in je lahko predstavljena na naši strani Galerije."
+    }
   },
   "actions": {
     "accept": "Sprejmi",
@@ -84,8 +89,8 @@ export default {
     "organisation": "Organizacije",
     "place": "Mesta",
     "theme": "Teme",
-    "time": "Priporočena stoletja",
-    "topic": "Priporočene teme"
+    "time": "Stoletja",
+    "topic": "Teme"
   },
   "blog": {
     "author": "Avtor",
@@ -121,7 +126,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "oblikovalci",
-          "name": "Oblikovalec | Oblikovalci",
+          "name": "Oblikovalec",
           "select": "Izberite oblikovalce"
         },
         "proxy_dc_format": {
@@ -272,11 +277,11 @@ export default {
     "credits": "Sodelavci",
     "currentChapter": "Trenutno poglavje",
     "description": "Razišči razstave",
-    "exhibitions": "Razstave"
+    "exhibitions": "Razstava | Razstave"
   },
   "facets": {
     "api": {
-      "name": "Išči",
+      "name": "Iskanje v dokumentih",
       "options": {
         "fulltext": "Enote s celotnim besedilom",
         "metadata": "Samo enote z metapodatki"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "barve",
-      "name": "Barva | Barve",
+      "name": "Barva",
       "options": {
         "#000000": "Črna",
         "#000080": "Mornarsko modra",
@@ -461,7 +466,7 @@ export default {
       "select": "Izberite barve"
     },
     "contentTier": {
-      "name": "Kakovost enote",
+      "name": "Kakovost enota",
       "options": {
         "*": "Vključuje enote, ki ne izpolnjujejo naših meril za objavo",
         "0": "Ne izpolnjuje meril za objavo",
@@ -598,7 +603,7 @@ export default {
       "select": "Izberite jezike"
     },
     "MIME_TYPE": {
-      "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
+      "name": "Format datoteke",
       "options": {
         "text/plain": "Golo besedilo"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Izberite formate"
     },
     "proxy_dc_type": {
-      "name": "Vrsta | Vrste",
+      "name": "Vrsta | vrste",
       "select": "Izberite vrste"
     },
     "proxy_dcterms_issued": {
       "name": "Datum izdaje"
     },
     "proxy_dcterms_medium": {
-      "name": "Medij | Mediji",
+      "name": "Medij",
       "select": "Izberite medija"
     },
     "REUSABILITY": {
-      "name": "Ali lahko to ponovno uporabim?",
+      "name": "Ali lahko uporabim to?",
       "options": {
         "open": "Da",
         "permission": "Morda, prosi za dovoljenje",
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Razišči naše zbirke",
-    "galleries": "Galerije"
+    "galleries": "Galerija | Galerije"
   },
   "header": {
     "backToMenu": "Zapri iskalno polje",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Sprejmi vse",
       "acceptSelected": "Sprejmi izbrano",
       "consentModal": {
-        "description": "Vašo zasebnost podatkov jemljemo resno. Tukaj lahko ocenite in prilagodite storitve, ki bi jih radi uporabili na tem spletnem mestu. Vi ste odgovorni! Omogočite ali onemogočite storitve, kot se vam zdi primerno.",
+        "description": "Tukaj si lahko ogledate in prilagodite storitve, ki jih želimo uporabljati na tem spletnem mestu. Če želite izvedeti več, preberite naš <a href='/rights/privacy-policy'> pravilnik o zasebnosti </a>.",
         "title": "Storitve, ki jih želimo uporabljati."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Avtomatizirano prevajanje",
     "enrichment": "Obogatitev s partnerskimi projekti",
-    "other": "Drugi jeziki",
+    "other": "drugi jeziki",
     "stopTranslating": "Prenehajte prevajati ta enota v {0}.",
     "translateLanguage": "Želite ta enota videti v {0}?",
     "translateMetadata": "Prevedite metapodatke tega enota.",
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Okej",
       "toastMessage": "Ta galerija je zdaj poslana v objavo. Preverite {galleries} in preverite, ali je bil objavljen."
     },
+    "setCount": "{count} galerij",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je spletno orodje za upravljanje različnih vrst vsebin (vključno s 3D), dokumentiranje kulturne dediščine prek prostorov digitalne skupnosti ter kuriranje digitalnih zgodb in izkušenj."

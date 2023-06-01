@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Coleções Curadas",
-    "curatedCollectionsInfo": "Encontre abaixo todas as coleções que você curou",
     "editProfile": "Editar Perfil",
     "likes": "Gostos",
     "linkAccount": "A minha conta",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Galerias públicas",
     "publishedCollections": "Galerias Publicadas",
     "settings": "Definições",
-    "title": "A minha conta"
+    "title": "A minha conta",
+    "tooltip": {
+      "EntityBestItemsSet": "Uma galeria com curadoria mostra os itens fixados numa coleção específica",
+      "private": "Uma galeria privada só pode ser vista por si.",
+      "public": "Uma galeria pública pode ser visualizada por qualquer pessoa com o link.",
+      "published": "Uma galeria publicada pode ser vista por qualquer pessoa e pode ser apresentada na nossa página Galerias."
+    }
   },
   "actions": {
     "accept": "Aceitar",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Organizações",
     "place": "Lugares",
     "theme": "Temas",
-    "time": "Séculos em destaque",
+    "time": "Séculos",
     "topic": "Tópicos"
   },
   "blog": {
@@ -272,11 +277,11 @@ export default {
     "credits": "Créditos",
     "currentChapter": "Capítulo atual",
     "description": "Explore as exposições",
-    "exhibitions": "Exposições | Exposições"
+    "exhibitions": "Exposição | Exposições"
   },
   "facets": {
     "api": {
-      "name": "Procurar por",
+      "name": "Pesquisar nos documentos",
       "options": {
         "fulltext": "Itens com texto completo",
         "metadata": "Apenas itens de metadados"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "cores",
-      "name": "Cor | Cores",
+      "name": "Cor",
       "options": {
         "#000000": "Preto",
         "#000080": "Azul marinho",
@@ -531,7 +536,7 @@ export default {
     },
     "DATA_PROVIDER": {
       "moreName": "instituições",
-      "name": "Instituição | Instituições",
+      "name": "Instituição",
       "select": "Selecionar instituições"
     },
     "IMAGE_ASPECTRATIO": {
@@ -598,7 +603,7 @@ export default {
       "select": "Selecionar idiomas"
     },
     "MIME_TYPE": {
-      "name": "Formato de ficheiro | Formatos de ficheiros",
+      "name": "Formato de arquivo",
       "options": {
         "text/plain": "Texto simples"
       },
@@ -615,14 +620,14 @@ export default {
       "select": "Selecionar formatos"
     },
     "proxy_dc_type": {
-      "name": "Tipo | Tipos",
+      "name": "Tipo | tipos",
       "select": "Selecionar tipos"
     },
     "proxy_dcterms_issued": {
       "name": "Data de emissão"
     },
     "proxy_dcterms_medium": {
-      "name": "Médio | Meios de comunicação",
+      "name": "Mídia",
       "select": "Selecionar mídia"
     },
     "REUSABILITY": {
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Explorar as nossas galerias",
-    "galleries": "Galerias"
+    "galleries": "Galeria | Galerias"
   },
   "header": {
     "backToMenu": "Fechar caixa de pesquisa",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Aceitar tudo",
       "acceptSelected": "Aceitar selecionado",
       "consentModal": {
-        "description": "Levamos a sério a privacidade de seus dados. Aqui você pode avaliar e personalizar os serviços que gostaríamos de usar neste site. Você está no comando! Habilite ou desabilite os serviços conforme achar necessário.",
+        "description": "Aqui você pode ver e personalizar os serviços que gostaríamos de usar neste site. Para saber mais, leia nossa <a href='/rights/privacy-policy'> política de privacidade </a>.",
         "title": "Serviços que gostaríamos de usar."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Tradução automatizada",
     "enrichment": "Enriquecimento por projetos de parceiros",
-    "other": "Outras línguas",
+    "other": "outras línguas",
     "stopTranslating": "Pare de traduzir este item para {0}.",
     "translateLanguage": "Gostaria de ver este item em {0} ?",
     "translateMetadata": "Traduza os metadados deste item.",
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "OK",
       "toastMessage": "Esta galeria está agora submetida para publicação. Pode verificar {galleries} para ver se foi publicado."
     },
+    "setCount": "{count} galerias",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) é uma ferramenta baseada na web para gerir conteúdos de diferentes tipos (incluindo 3D), documentar o património cultural através de espaços comunitários digitais, e curar histórias e experiências digitais."

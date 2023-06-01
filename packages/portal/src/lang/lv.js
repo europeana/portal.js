@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kuratora veidotās kolekcijas",
-    "curatedCollectionsInfo": "Zemāk atrodiet visas kolekcijas, kuras esat izveidojis",
     "editProfile": "Rediģēt profilu",
     "likes": "Patīk",
     "linkAccount": "Mans konts",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Publiskas galerijas",
     "publishedCollections": "Publicētās Galerijas",
     "settings": "Iestatījumi",
-    "title": "Mans konts"
+    "title": "Mans konts",
+    "tooltip": {
+      "EntityBestItemsSet": "Kuratoru galerijā tiek rādīti piespraustie digitālie objekti noteiktā kolekcijā",
+      "private": "Privāto galeriju varat apskatīt tikai jūs.",
+      "public": "Publisku galeriju var apskatīt ikviens, kam ir saite.",
+      "published": "Publicēto galeriju var skatīt ikviens, un tā var tikt parādīta mūsu lapā Galerijas."
+    }
   },
   "actions": {
     "accept": "Pieņemt",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Organizācijas",
     "place": "Vietas",
     "theme": "Tēmas",
-    "time": "Izvēlētie gadsimti",
+    "time": "Gadsimtiem",
     "topic": "Tematikas"
   },
   "blog": {
@@ -121,7 +126,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "dizaineri",
-          "name": "Dizainers | Dizaineri",
+          "name": "Dizaineris",
           "select": "Atlasīt dizaineri"
         },
         "proxy_dc_format": {
@@ -276,7 +281,7 @@ export default {
   },
   "facets": {
     "api": {
-      "name": "Meklēt",
+      "name": "Meklēt dokumentos",
       "options": {
         "fulltext": "Digitālie objekti ar pilnu tekstu",
         "metadata": "Tikai metadatu digitālie objekti"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "krāsas",
-      "name": "Krāsa | Krāsas",
+      "name": "Krāsa",
       "options": {
         "#000000": "Melna",
         "#000080": "Jūras zils",
@@ -531,7 +536,7 @@ export default {
     },
     "DATA_PROVIDER": {
       "moreName": "Iestādes",
-      "name": "Iestāde | Iestādes",
+      "name": "Iestāde",
       "select": "Atlasīt iestādes"
     },
     "IMAGE_ASPECTRATIO": {
@@ -598,7 +603,7 @@ export default {
       "select": "Atlasīt valodas"
     },
     "MIME_TYPE": {
-      "name": "Datnes formāts | Datņu formāti",
+      "name": "Faila formāts",
       "options": {
         "text/plain": "Vienkāršs teksts"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Atlasīt formātus"
     },
     "proxy_dc_type": {
-      "name": "Veids | Veidi",
+      "name": "Veids | veidi",
       "select": "Atlasīt tipus"
     },
     "proxy_dcterms_issued": {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi",
+      "name": "Mediji",
       "select": "Atlasīt multividi"
     },
     "REUSABILITY": {
-      "name": "Vai drīkst šo izmantot?",
+      "name": "Vai es varu to izmantot?",
       "options": {
         "open": "Jā",
         "permission": "Varbūt, meklējiet atļauju",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Pieņemt visus",
       "acceptSelected": "Pieņemt atlasīto",
       "consentModal": {
-        "description": "Mēs nopietni uztveram jūsu datu privātumu. Šeit jūs varat novērtēt un pielāgot pakalpojumus, kurus mēs vēlētos izmantot šajā vietnē. Jūs esat atbildīgs! Iespējojiet vai atspējojiet pakalpojumus pēc jūsu ieskatiem.",
+        "description": "Šeit jūs varat redzēt un pielāgot pakalpojumus, kurus mēs vēlētos izmantot šajā vietnē. Lai uzzinātu vairāk, lūdzu, izlasiet mūsu <a href='/rights/privacy-policy'> konfidencialitātes politiku </a>.",
         "title": "Pakalpojumi, kurus mēs vēlētos izmantot."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Automātiskā tulkošana",
     "enrichment": "Bagātināšana ar partneru projektiem",
-    "other": "Citas valodas",
+    "other": "citas valodas",
     "stopTranslating": "Pārtrauciet šī digitālais objekts tulkošanu uz {0}.",
     "translateLanguage": "Vai jūs vēlētos redzēt šo digitālais objekts {0}?",
     "translateMetadata": "Tulkot šī digitālais objekts metadatus.",
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Labi",
       "toastMessage": "Šī galerija tagad ir iesniegta publicēšanai. Varat pārbaudīt {galleries} , lai redzētu, vai tas ir publicēts."
     },
+    "setCount": "{count} galerijas",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) ir tīmekļa rīks dažādu veidu (tostarp 3D) satura pārvaldībai, kultūras mantojuma dokumentēšanai, izmantojot digitālās kopienas telpas, un digitālo stāstu un pieredzes kurēšanai."

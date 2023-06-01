@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Bailiúcháin Coimeádaithe",
-    "curatedCollectionsInfo": "Faigh thíos na bailiúcháin go léir a choinnigh tú",
     "editProfile": "Cuir do phróifíl in eagar",
     "likes": "Toghanna",
     "linkAccount": "Mo Chuntas",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Gailearaithe Poiblí",
     "publishedCollections": "Gailearaithe Foilsithe",
     "settings": "Socruithe",
-    "title": "Mo chuntas"
+    "title": "Mo chuntas",
+    "tooltip": {
+      "EntityBestItemsSet": "Taispeánann gailearaí coimeádta na míreanna pinn laistigh de bhailiúchán ar leith",
+      "private": "Ní féidir ach leatsa gailearaí príobháideach a fheiceáil.",
+      "public": "Is féidir le duine ar bith a bhfuil an nasc acu féachaint ar ghailearaí poiblí.",
+      "published": "Is féidir le duine ar bith breathnú ar ghailearaí foilsithe, agus d'fhéadfadh sé a bheith le feiceáil ar ár leathanach Gailearaithe."
+    }
   },
   "actions": {
     "accept": "Glac leis",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Eagraíochtaí",
     "place": "Áiteanna",
     "theme": "Téamaí",
-    "time": "Na hAois réadmhaoin",
+    "time": "Céadta",
     "topic": "Ábhair"
   },
   "blog": {
@@ -276,7 +281,7 @@ export default {
   },
   "facets": {
     "api": {
-      "name": "Cuardaigh",
+      "name": "Cuardaigh laistigh de dhoiciméid",
       "options": {
         "fulltext": "Míreanna a bhfuil an téacs iomlán díobh le fáil",
         "metadata": "Míreanna nach bhfuil iontu ach na meiteashonraí amháin"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "dathanna",
-      "name": "Dath | Dathanna",
+      "name": "Dath",
       "options": {
         "#000000": "Dubh",
         "#000080": "Dúghorm",
@@ -531,7 +536,7 @@ export default {
     },
     "DATA_PROVIDER": {
       "moreName": "institiúidí",
-      "name": "Institiúid | Institiúidí",
+      "name": "Institiúid",
       "select": "Roghnaigh institiúidí"
     },
     "IMAGE_ASPECTRATIO": {
@@ -598,7 +603,7 @@ export default {
       "select": "Roghnaigh teangacha"
     },
     "MIME_TYPE": {
-      "name": "Formáid chomhaid | Formáidí comhaid",
+      "name": "Formáid comhaid",
       "options": {
         "text/plain": "Téacs simplí"
       },
@@ -615,14 +620,14 @@ export default {
       "select": "Roghnaigh formáidí"
     },
     "proxy_dc_type": {
-      "name": "Cineál | Cineálacha",
+      "name": "Cineál | cineálacha",
       "select": "Roghnaigh cineálacha"
     },
     "proxy_dcterms_issued": {
       "name": "Dáta eisithe"
     },
     "proxy_dcterms_medium": {
-      "name": "Meán | Meáin",
+      "name": "Mheán",
       "select": "Roghnaigh meáin"
     },
     "REUSABILITY": {
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Glac le gach",
       "acceptSelected": "Glac leis roghnaithe",
       "consentModal": {
-        "description": "Glacaimid go dáiríre le do phríobháideacht sonraí. Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a mheas agus a shaincheapadh. Tá tú i gceannas! Seirbhísí a chumasú nó a dhíchumasú mar is cuí leat.",
+        "description": "Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a fheiceáil agus a shaincheapadh. Chun tuilleadh a fhoghlaim léigh ár <a href='/rights/privacy-policy'> polasaí príobháideachais </a> .",
         "title": "Seirbhísí ba mhaith linn a úsáid."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Aistriúchán uathoibrithe",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
-    "other": "Teangacha eile",
+    "other": "teangacha eile",
     "stopTranslating": "Stop an t-earra seo a aistriú go {0}.",
     "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
     "translateMetadata": "Aistrigh meiteashonraí na míre seo.",
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Ceart go leor",
       "toastMessage": "Tá an gailearaí seo curtha isteach anois lena fhoilsiú. Is féidir leat {galleries} a sheiceáil féachaint an bhfuil sé foilsithe."
     },
+    "setCount": "{count} gailearaithe",
     "shareTo": {
       "weavex": {
         "tooltip": "Uirlis gréasánbhunaithe is ea WEAVExperience (WEAVEx) chun inneachar de chineálacha éagsúla a bhainistiú (lena n-áirítear 3D), chun oidhreacht chultúrtha a dhoiciméadú trí spásanna digiteacha pobail, agus chun scéalta agus eispéiris dhigiteacha a choimeád."

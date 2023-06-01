@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Spravované kolekcie",
-    "curatedCollectionsInfo": "Nájdite nižšie všetky kolekcie, ktorých ste správcami",
     "editProfile": "Upraviť profil",
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Verejné galérie",
     "publishedCollections": "Publikované Galérie",
     "settings": "Nastavenia",
-    "title": "Môj účet"
+    "title": "Môj účet",
+    "tooltip": {
+      "EntityBestItemsSet": "Spravovaná galéria zobrazuje pripnuté objekty v rámci konkrétnej zbierky",
+      "private": "Súkromnú galériu si môžete prezerať iba vy.",
+      "public": "Verejnú galériu si môže pozrieť ktokoľvek s odkazom.",
+      "published": "Publikovanú galériu si môže pozrieť ktokoľvek a môže byť uvedená na našej stránke Galérie."
+    }
   },
   "actions": {
     "accept": "Prijať",
@@ -84,8 +89,8 @@ export default {
     "organisation": "Organizácie",
     "place": "Miesta",
     "theme": "Témy",
-    "time": "Odporúčané storočia",
-    "topic": "Odporúčané témy"
+    "time": "Storočia",
+    "topic": "Témy"
   },
   "blog": {
     "author": "Autor",
@@ -272,11 +277,11 @@ export default {
     "credits": "Autori",
     "currentChapter": "Aktuálna kapitola",
     "description": "Preskúmať naše výstavy",
-    "exhibitions": "Výstavy"
+    "exhibitions": "Výstava | Výstavy"
   },
   "facets": {
     "api": {
-      "name": "Vyhľadávať",
+      "name": "Vyhľadávajte v dokumentoch",
       "options": {
         "fulltext": "Objekty s plným textom",
         "metadata": "Výhradne objekty s metaúdajmi"
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "farby",
-      "name": "Farba | Farby",
+      "name": "Farba",
       "options": {
         "#000000": "Čierna",
         "#000080": "Námornícka modrá",
@@ -461,7 +466,7 @@ export default {
       "select": "Vyberte farby"
     },
     "contentTier": {
-      "name": "Kvalita objekty",
+      "name": "Kvalita objekt",
       "options": {
         "*": "Obsahuje objekty, ktoré nespĺňajú naše publikačné kritériá",
         "0": "Nespĺňa kritériá publikovania",
@@ -598,7 +603,7 @@ export default {
       "select": "Vyberte jazyky"
     },
     "MIME_TYPE": {
-      "name": "Formát súboru | Formáty súborov",
+      "name": "Formát súboru",
       "options": {
         "text/plain": "Obyčajný text"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Vyberte formáty"
     },
     "proxy_dc_type": {
-      "name": "Typ | Typy",
+      "name": "Typ | typy",
       "select": "Vyberte typy"
     },
     "proxy_dcterms_issued": {
       "name": "Dátum vydania"
     },
     "proxy_dcterms_medium": {
-      "name": "Médium | Mediá",
+      "name": "Médium",
       "select": "Vyberte média"
     },
     "REUSABILITY": {
-      "name": "Môžem to znova použiť?",
+      "name": "Môžem to použiť?",
       "options": {
         "open": "Áno",
         "permission": "Možno; získajte povolenie",
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Preskúmať naše galérie",
-    "galleries": "Galérie"
+    "galleries": "Galéria | Galérie"
   },
   "header": {
     "backToMenu": "Zatvoriť vyhľadávacie pole",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Prijať všetko",
       "acceptSelected": "Prijať vybrané",
       "consentModal": {
-        "description": "Vaše súkromie údajov berieme vážne. Tu môžete posúdiť a prispôsobiť služby, ktoré by sme chceli použiť na tomto webe. Máte to na starosti! Povoľte alebo zakážte služby, ako uznáte za vhodné.",
+        "description": "Tu si môžete pozrieť a prispôsobiť služby, ktoré by sme chceli používať na tejto webovej stránke. Ak sa chcete dozvedieť viac, prečítajte si naše <a href='/rights/privacy-policy'> zásady ochrany osobných údajov </a>.",
         "title": "Služby, ktoré by sme chceli využiť."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Automatizovaný preklad",
     "enrichment": "Obohatenie o partnerské projekty",
-    "other": "Iné jazyky",
+    "other": "iné jazyky",
     "stopTranslating": "Zastaviť preklad tejto objekt do jazyka {0}.",
     "translateLanguage": "Chceli by ste túto objekt vidieť v položke {0}?",
     "translateMetadata": "Preložte metadáta tejto objekt.",
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "Dobre",
       "toastMessage": "Táto galéria je teraz odoslaná na zverejnenie. Môžete skontrolovať {galleries} a zistiť, či bola zverejnená."
     },
+    "setCount": "{count} galérií",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je webový nástroj na správu rôznych typov obsahu (vrátane 3D), dokumentáciu kultúrneho dedičstva prostredníctvom digitálnych komunitných priestorov a kurátorstvo digitálnych príbehov a zážitkov."

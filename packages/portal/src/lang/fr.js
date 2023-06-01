@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Collections organisées",
-    "curatedCollectionsInfo": "Retrouvez ci-dessous toutes les collections que vous avez organisées",
     "editProfile": "Modifier le profil",
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
@@ -26,7 +25,13 @@ export default {
     "publicCollections": "Galeries publiques",
     "publishedCollections": "Galeries Publiées",
     "settings": "Paramètres",
-    "title": "Mon compte"
+    "title": "Mon compte",
+    "tooltip": {
+      "EntityBestItemsSet": "Une galerie curative présente les éléments épinglés dans une collection spécifique.",
+      "private": "Une galerie privée ne peut être vue que par vous.",
+      "public": "Une galerie publique peut être consultée par toute personne disposant du lien.",
+      "published": "Une galerie publiée peut être vue par n'importe qui et peut être présentée sur notre page Galeries."
+    }
   },
   "actions": {
     "accept": "Accepter",
@@ -84,7 +89,7 @@ export default {
     "organisation": "Organisations",
     "place": "Des endroits",
     "theme": "Thèmes",
-    "time": "Des siècles en vedette",
+    "time": "Des siècles",
     "topic": "Sujets d'actualité"
   },
   "blog": {
@@ -121,7 +126,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "concepteurs",
-          "name": "Concepteur | Concepteurs",
+          "name": "Concepteur",
           "select": "Sélectionnez des concepteurs"
         },
         "proxy_dc_format": {
@@ -272,13 +277,13 @@ export default {
     "credits": "Crédits",
     "currentChapter": "Chapitre actuel",
     "description": "Explorez les expositions",
-    "exhibitions": "Expositions"
+    "exhibitions": "Exposition | Expositions"
   },
   "facets": {
     "api": {
-      "name": "Rechercher",
+      "name": "Rechercher dans les documents",
       "options": {
-        "fulltext": "Enregistrements avec texte intégral",
+        "fulltext": "Éléments avec texte intégral",
         "metadata": "Enregistrements de métadonnées uniquement"
       },
       "switch": "Recherche uniquement dans le contenu des articles avec texte intégral",
@@ -311,7 +316,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "couleurs",
-      "name": "Couleur | Couleurs",
+      "name": "Couleur",
       "options": {
         "#000000": "Noir",
         "#000080": "Bleu marin",
@@ -461,7 +466,7 @@ export default {
       "select": "Sélectionnez les couleurs"
     },
     "contentTier": {
-      "name": "Qualité de l'article",
+      "name": "Qualité d'élément",
       "options": {
         "*": "Inclut les éléments ne répondant pas à nos critères de publication",
         "0": "Ne répondant pas aux critères de publication",
@@ -598,7 +603,7 @@ export default {
       "select": "Sélectionnez les langues"
     },
     "MIME_TYPE": {
-      "name": "Format de fichier | Formats de fichiers",
+      "name": "Format de fichier",
       "options": {
         "text/plain": "Texte brut"
       },
@@ -615,18 +620,18 @@ export default {
       "select": "Sélectionnez les formats"
     },
     "proxy_dc_type": {
-      "name": "Type | Types",
+      "name": "Type | types",
       "select": "Sélectionnez les types"
     },
     "proxy_dcterms_issued": {
       "name": "Date de publication"
     },
     "proxy_dcterms_medium": {
-      "name": "Média | Médias",
+      "name": "Médium",
       "select": "Sélectionnez le média"
     },
     "REUSABILITY": {
-      "name": "Puis-je le réutiliser ?",
+      "name": "Puis-je l'utiliser?",
       "options": {
         "open": "Oui",
         "permission": "Peut-être, demandez la permission",
@@ -760,7 +765,7 @@ export default {
   },
   "galleries": {
     "description": "Explorez nos galeries",
-    "galleries": "Galeries"
+    "galleries": "Galerie | Galeries"
   },
   "header": {
     "backToMenu": "Fermer la boîte de recherche",
@@ -812,7 +817,7 @@ export default {
       "acceptAll": "Accepter tout",
       "acceptSelected": "Accepter sélectionné",
       "consentModal": {
-        "description": "Nous prenons au sérieux la confidentialité de vos données. Vous pouvez ici évaluer et personnaliser les services que nous souhaitons utiliser sur ce site. C'est vous qui décidez ! Activez ou désactivez les services comme bon vous semble.",
+        "description": "Ici, vous pouvez voir et personnaliser les services que nous aimerions utiliser sur ce site Web. Pour en savoir plus, veuillez lire notre <a href='/rights/privacy-policy'> politique de confidentialité </a>.",
         "title": "Services que nous aimerions utiliser."
       },
       "consentNotice": {
@@ -906,7 +911,7 @@ export default {
   "multilingual": {
     "automated": "Traduction automatisée",
     "enrichment": "Enrichissement par des projets partenaires",
-    "other": "Autres langues",
+    "other": "autres langues",
     "stopTranslating": "Arrêtez de traduire cet élément en {0}.",
     "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?",
     "translateMetadata": "Traduisez les métadonnées de cet élément.",
@@ -986,7 +991,7 @@ export default {
     "location": "Emplacement",
     "locationOnMap": "Localisation sur la carte",
     "mediaPlayer": "Lecteur multimédia",
-    "record": "Enregistrement",
+    "record": "Élément",
     "showAll": "Afficher toutes les informations",
     "similarItems": "Éléments similaires",
     "status": {
@@ -1131,6 +1136,7 @@ export default {
       "toastButton": "D'accord",
       "toastMessage": "Cette galerie est maintenant soumise pour publication. Vous pouvez vérifier {galleries} pour voir s'il a été publié."
     },
+    "setCount": "{count} galeries",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) est un outil Web permettant de gérer des contenus de différents types (y compris 3D), de documenter le patrimoine culturel par le biais d'espaces communautaires numériques et de conserver des histoires et des expériences numériques."
