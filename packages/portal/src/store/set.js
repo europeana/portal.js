@@ -83,7 +83,7 @@ export default {
       await this.$apis.set.modifyItems('delete', setId, itemId);
     },
     async setLikes({ commit }) {
-      const likesId = await this.$apis.set.getLikes(this.$store.state.auth.profile ? this.$store.state.auth.profile.id : null);
+      const likesId = await this.$apis.set.getLikes(this.$store.state.keycloak.profile ? this.$store.state.keycloak.profile.id : null);
       commit('setLikesId', likesId);
     },
     async createLikes({ commit }) {

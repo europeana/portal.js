@@ -99,7 +99,7 @@
 
     methods: {
       async fetchCollections() {
-        const creator = this.$store.state.auth.profile?.id;
+        const creator = this.$store.state.keycloak.profile?.id;
         // TODO: pagination and/or search within one's collections
         const searchParams = {
           query: `creator:${creator}`,

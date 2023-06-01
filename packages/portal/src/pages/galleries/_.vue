@@ -272,15 +272,15 @@
         return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
       },
       userIsOwner() {
-        return this.$store.state.auth.loggedIn && this.$store.state.auth.profile &&
-          this.setCreatorId?.endsWith(`/${this.$store.state.auth.profile.id}`);
+        return this.$store.state.keycloak.loggedIn && this.$store.state.keycloak.profile &&
+          this.setCreatorId?.endsWith(`/${this.$store.state.keycloak.profile.id}`);
       },
       userIsEntityEditor() {
-        return this.$store.getters['auth/userHasClientRole']('entities', 'editor') &&
-          this.$store.getters['auth/userHasClientRole']('usersets', 'editor');
+        return this.$store.getters['keycloak/userHasClientRole']('entities', 'editor') &&
+          this.$store.getters['keycloak/userHasClientRole']('usersets', 'editor');
       },
       userIsPublisher() {
-        return this.$store.getters['auth/userHasClientRole']('usersets', 'publisher');
+        return this.$store.getters['keycloak/userHasClientRole']('usersets', 'publisher');
       },
       userCanHandleRecommendations() {
         return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
@@ -300,7 +300,7 @@
         return this.set.type === 'EntityBestItemsSet';
       },
       displayRecommendations() {
-        return this.enableRecommendations && this.$store.state.auth.loggedIn && this.userCanHandleRecommendations;
+        return this.enableRecommendations && this.$store.state.keycloak.loggedIn && this.userCanHandleRecommendations;
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {

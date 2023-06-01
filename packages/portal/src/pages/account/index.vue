@@ -184,7 +184,7 @@
 
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user,
+        loggedInUser: this.$store.state.keycloak.user,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
@@ -208,8 +208,8 @@
         };
       },
       userIsEditor() {
-        return this.$store.getters['auth/userHasClientRole']('entities', 'editor') &&
-          this.$store.getters['auth/userHasClientRole']('usersets', 'editor');
+        return this.$store.getters['keycloak/userHasClientRole']('entities', 'editor') &&
+          this.$store.getters['keycloak/userHasClientRole']('usersets', 'editor');
       },
       ...mapState({
         likesId: state => state.set.likesId,

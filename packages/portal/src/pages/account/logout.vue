@@ -20,7 +20,7 @@
     },
 
     mounted() {
-      this.$keycloak.logout({
+      this.$keycloak.auth.logout({
         redirectUri: window.location.origin + '/',
         ui_locales: this.$i18n.locale
       });

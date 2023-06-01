@@ -231,7 +231,7 @@ export default {
     '~/plugins/vue-matomo.client',
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
-    '~/plugins/keycloak.client',
+    '~/plugins/keycloak',
     '~/plugins/apis',
     '~/plugins/user-likes.client',
     '~/plugins/error',

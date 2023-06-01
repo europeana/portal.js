@@ -1,3 +1,4 @@
+// TODO: move to keycloak plugin?
 export default {
   computed: {
     keycloakLoginRedirect() {
@@ -30,8 +31,7 @@ export default {
 
   methods: {
     keycloakLogin() {
-      console.log('this.$keycloak', this.$keycloak);
-      this.$keycloak?.login({
+      this.$keycloak.auth?.login({
         locale: this.$i18n.locale,
         redirectUri: `${window.location.origin}${this.keycloakLoginRedirect}`
       });

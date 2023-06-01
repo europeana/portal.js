@@ -1,5 +1,5 @@
 export default async({ store }) => {
-  if (store.state.auth.loggedIn) {
+  if (store.state.keycloak.loggedIn) {
     try {
       // TODO: assess whether there is a more efficient way to do this with fewer
       //       API requests

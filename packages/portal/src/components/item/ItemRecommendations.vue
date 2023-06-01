@@ -20,7 +20,7 @@
         data-qa="similar items"
       />
       <b-link
-        v-if="!$store.state.auth.loggedIn"
+        v-if="!$store.state.keycloak.loggedIn"
         data-qa="log in button"
         class="btn btn-outline-secondary"
         @click="keycloakLogin"
@@ -81,7 +81,7 @@
     async fetch() {
       let response;
 
-      if (this.$store.state.auth.loggedIn) {
+      if (this.$store.state.keycloak.loggedIn) {
         response = await this.$apis.recommendation.recommend('record', this.identifier);
         response.items = response.items
           // Remove any recommendations that are the same as the active item,

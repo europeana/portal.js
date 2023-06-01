@@ -144,7 +144,7 @@
     },
     computed: {
       userId() {
-        return this.$store.state.auth.profile?.id;
+        return this.$store.state.keycloak.profile?.id;
       },
       userField() {
         return this.type === 'EntityBestItemsSet' ? 'contributor' : 'creator';

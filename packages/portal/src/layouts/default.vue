@@ -168,7 +168,6 @@
     },
 
     mounted() {
-      console.log('this.$keycloak', this.$keycloak);
       if (!this.klaro) {
         this.klaro = window.klaro;
       }
@@ -178,11 +177,11 @@
       const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
       renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
 
-      // if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$store.state.auth.loggedIn) {
+      // if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$store.state.keycloak.loggedIn) {
       //   this.makeToast(this.$t('account.notifications.loggedIn'));
       //   this.$auth.$storage.removeUniversal('portalLoggingIn');
       // }
-      // if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$store.state.auth.loggedIn) {
+      // if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$store.state.keycloak.loggedIn) {
       //   this.makeToast(this.$t('account.notifications.loggedOut'));
       //   this.$auth.$storage.removeUniversal('portalLoggingOut');
       // }

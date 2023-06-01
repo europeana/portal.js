@@ -1,6 +1,3 @@
-// TODO: need _some_ server-side support, so that e.g. private sets don't
-//       first load with unauth error then refresh to be auth'd.
-//       cookies? make this plugin not just client only? look at keycloak node pkg?
 // docs: https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter
 import Keycloak from 'keycloak-js';
 
@@ -20,7 +17,7 @@ const keycloakRefreshAccessToken = async({ $keycloak, $axios, redirect, route },
   return $axios.request(requestConfig);
 };
 
-export const keycloakResponseErrorHandler = (context, error) => {
+const keycloakResponseErrorHandler = (context, error) => {
   if (error.response?.status === 401) {
     return keycloakUnauthorizedResponseErrorHandler(context, error);
   } else {
@@ -40,12 +37,10 @@ const keycloakUnauthorizedResponseErrorHandler = ({ $axios, $keycloak, redirect,
   }
 };
 
-const keycloakAxios = (context, axiosInstance) => {
+const keycloakAxios = (context) => (axiosInstance) => {
   axiosInstance.interceptors.request.use((requestConfig) => {
-    console.log('keycloak auth req interceptor', context.$keycloak);
-
-    if (context.$keycloak?.token) {
-      requestConfig.headers.authorization = `Bearer ${context.$keycloak.token}`;
+    if (context.$keycloak.auth?.token) {
+      requestConfig.headers.authorization = `Bearer ${context.$keycloak.auth.token}`;
     }
     return requestConfig;
   });
@@ -55,20 +50,8 @@ const keycloakAxios = (context, axiosInstance) => {
   }
 };
 
-export default async(ctx, inject) => {
-  const config = ctx.$config.keycloak;
-
-  const keycloak = new Keycloak(config);
-
-  // keycloak.onTokenExpired = async function() {
-  //   console.log('keycloak.onTokenExpired')
-  //   const updated = this.updateToken(-1);
-  //   if (updated) {
-  //     localStorage.setItem('kc.token', keycloak.token);
-  //     localStorage.setItem('kc.idToken', keycloak.idToken);
-  //     localStorage.setItem('kc.refreshToken', keycloak.refreshToken);
-  //   }
-  // };
+const keycloakAuth = async(ctx) => {
+  const keycloak = new Keycloak(ctx.$config.keycloak);
 
   try {
     await keycloak.init({
@@ -86,7 +69,7 @@ export default async(ctx, inject) => {
     });
   }
 
-  ctx.store.commit('auth/setLoggedIn', keycloak.authenticated);
+  ctx.store.commit('keycloak/setLoggedIn', keycloak.authenticated);
 
   localStorage.setItem('kc.token', keycloak.token);
   localStorage.setItem('kc.idToken', keycloak.idToken);
@@ -94,10 +77,54 @@ export default async(ctx, inject) => {
 
   if (keycloak.authenticated) {
     const profile = await keycloak.loadUserProfile();
-    ctx.store.commit('auth/setProfile', profile);
-    ctx.store.commit('auth/setResourceAccess', keycloak.resourceAccess);
+    ctx.store.commit('keycloak/setProfile', profile);
+    ctx.store.commit('keycloak/setResourceAccess', keycloak.resourceAccess);
   }
 
-  inject('keycloak', keycloak);
-  inject('keycloakAxios', keycloakAxios);
+  return keycloak;
+};
+
+const storeModule = {
+  namespaced: true,
+
+  state: () => ({
+    loggedIn: false,
+    profile: {},
+    resourceAccess: {}
+  }),
+
+  mutations: {
+    setLoggedIn(state, value) {
+      state.loggedIn = value;
+    },
+
+    setProfile(state, value) {
+      state.profile = value;
+    },
+
+    setResourceAccess(state, value) {
+      state.resourceAccess = value;
+    }
+  },
+
+  getters: {
+    userHasClientRole: (state) => (client, role) => {
+      return state.resourceAccess[client]?.roles?.includes(role);
+    }
+  }
+};
+
+export default async(ctx, inject) => {
+  ctx.store.registerModule('keycloak', storeModule);
+
+  // TODO: need _some_ server-side support, so that e.g. private sets don't
+  //       first load with unauth error then refresh to be auth'd.
+  //       cookies? make this plugin not just client only? look at keycloak node pkg?
+  if (process.client) {
+    // TODO: add fn's from keycloak mixin as properties
+    inject('keycloak', {
+      auth: await keycloakAuth(ctx),
+      axios: keycloakAxios(ctx)
+    });
+  }
 };

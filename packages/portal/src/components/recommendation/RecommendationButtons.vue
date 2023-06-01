@@ -60,7 +60,7 @@
 
     methods: {
       async acceptRecommendation() {
-        if (this.$store.state.auth.loggedIn) {
+        if (this.$store.state.keycloak.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'accept' });
           await this.$store.dispatch('set/addItem', { setId: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`, itemId: this.identifier });
           this.$store.dispatch('set/refreshSet');
@@ -70,7 +70,7 @@
         }
       },
       rejectRecommendation() {
-        if (this.$store.state.auth.loggedIn) {
+        if (this.$store.state.keycloak.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'reject' });
         } else {
           this.keycloakLogin();

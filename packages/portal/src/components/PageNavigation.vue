@@ -125,7 +125,7 @@
         return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []);
       },
       isAuthenticated() {
-        return this.$store.state.auth.loggedIn;
+        return this.$store.state.keycloak.loggedIn;
       },
       isAccountPage() {
         return this.$route.name.startsWith('account');

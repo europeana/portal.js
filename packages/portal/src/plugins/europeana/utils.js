@@ -19,7 +19,7 @@ export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
 export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
   const axiosInstance = createAxios({ id, baseURL, $axios }, context);
 
-  context.$keycloakAxios?.(context, axiosInstance);
+  context.$keycloak?.axios?.(axiosInstance);
 
   return axiosInstance;
 };

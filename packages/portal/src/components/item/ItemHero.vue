@@ -192,10 +192,10 @@
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
       },
       userIsEntitiesEditor() {
-        return this.$store.getters['auth/userHasClientRole']('entities', 'editor');
+        return this.$store.getters['keycloak/userHasClientRole']('entities', 'editor');
       },
       userIsSetsEditor() {
-        return this.$store.getters['auth/userHasClientRole']('usersets', 'editor');
+        return this.$store.getters['keycloak/userHasClientRole']('usersets', 'editor');
       },
       showTranscribathonLink() {
         return this.$features.transcribathonCta && this.linkForContributingAnnotation && RegExp(TRANSCRIBATHON_URL_ROOT).test(this.linkForContributingAnnotation);
