@@ -26,7 +26,10 @@ export default {
     "publicCollections": "Public Galleries",
     "publishedCollections": "Published Galleries",
     "settings": "Settings",
-    "title": "My account"
+    "title": "My account",
+    "tooltip": {
+      "reorder": "You can reorder items by clicking this button and dragging the item to move it."
+    }
   },
   "actions": {
     "accept": "Accept",
