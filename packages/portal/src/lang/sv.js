@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} avancerad sökning",
       "tooltip": {
+        "advancedSearch": "Den avancerade sökningen låter dig skapa anpassade sökfrågor.",
         "field": "Välj ett fält att söka på.",
-        "modifier": "Välj en modifier att tillämpa på fältet."
+        "modifier": "Välj en modifier att tillämpa på fältet.",
+        "term": "Ange termen/termerna för att söka efter eller utesluta."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} resultat",
       "withQuery": "{count} resultat för {query}"
     },
+    "selectTheme": "Att välja ett TEMA kan ge ytterligare filteralternativ, t.ex. inkluderar tidningstemat ett UTGIFTSDATUM-filter.",
     "title": "Sök"
   },
   "searchFilters": "Sökfilter {count}",

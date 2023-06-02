@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} täpsem otsing",
       "tooltip": {
+        "advancedSearch": "Täpsem otsing võimaldab teil luua kohandatud otsingu päringuid.",
         "field": "Valige otsimiseks väli.",
-        "modifier": "Valige väljale rakendatav modifikaator."
+        "modifier": "Valige väljale rakendatav modifikaator.",
+        "term": "Sisestage otsimiseks või välistamiseks termin(id)."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} tulemust",
       "withQuery": "{count} tulemust jaoks {query}"
     },
+    "selectTheme": "TEEMA valimine võib pakkuda täiendavaid filtrivalikuid, nt teema Ajalehed sisaldab filtrit VÄLJAANDMISE KUUPÄEV.",
     "title": "Otsing"
   },
   "searchFilters": "Otsingufiltrid {count}",

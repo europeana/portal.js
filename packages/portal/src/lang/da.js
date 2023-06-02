@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} avanceret søgning",
       "tooltip": {
+        "advancedSearch": "Den avancerede søgning giver dig mulighed for at oprette tilpassede søgeforespørgsler.",
         "field": "Vælg et felt at søge på.",
-        "modifier": "Vælg en modifikator, der skal anvendes på feltet."
+        "modifier": "Vælg en modifikator, der skal anvendes på feltet.",
+        "term": "Indtast det eller de termer, der skal søges efter eller ekskluderes."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} resultater",
       "withQuery": "{count} resultater for {query}"
     },
+    "selectTheme": "Valg af et TEMA kan give yderligere filtermuligheder, f.eks. inkluderer Aviser-temaet et UDSTEDT DATO-filter.",
     "title": "Søg"
   },
   "searchFilters": "Søgefiltre {count}",

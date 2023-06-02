@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} ricerca avanzata",
       "tooltip": {
+        "advancedSearch": "La ricerca avanzata ti consente di creare query di ricerca personalizzate.",
         "field": "Seleziona un campo su cui effettuare la ricerca.",
-        "modifier": "Seleziona un modificatore da applicare al campo."
+        "modifier": "Seleziona un modificatore da applicare al campo.",
+        "term": "Inserisci il/i termini da cercare o da escludere."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} risultati",
       "withQuery": "{count} risultati per {query}"
     },
+    "selectTheme": "La selezione di un TEMA può fornire ulteriori opzioni di filtro, ad esempio il tema Giornali include un filtro DATA DI EMISSIONE.",
     "title": "Cerca"
   },
   "searchFilters": "Filtri di ricerca {count}",

@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} wyszukiwanie zaawansowane",
       "tooltip": {
+        "advancedSearch": "Wyszukiwanie zaawansowane umożliwia tworzenie niestandardowych zapytań wyszukiwania.",
         "field": "Wybierz pole do wyszukiwania.",
-        "modifier": "Wybierz modyfikator, który ma zostać zastosowany do pola."
+        "modifier": "Wybierz modyfikator, który ma zostać zastosowany do pola.",
+        "term": "Wprowadź terminy do wyszukania lub wykluczenia."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} wyników",
       "withQuery": "{count} wyników dla {query}"
     },
+    "selectTheme": "Wybranie TEMATU może zapewnić dodatkowe opcje filtrowania, np. motyw Gazety zawiera filtr DATA WYDANIA.",
     "title": "Szukaj"
   },
   "searchFilters": "Filtry wyszukiwania {count}",

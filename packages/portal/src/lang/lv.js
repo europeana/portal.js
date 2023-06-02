@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} izvērstā meklēšana",
       "tooltip": {
+        "advancedSearch": "Izvērstā meklēšana ļauj izveidot pielāgotus meklēšanas vaicājumus.",
         "field": "Izvēlieties meklēšanai lauku",
-        "modifier": "Atlasiet modifikatoru, ko lietot laukam."
+        "modifier": "Atlasiet modifikatoru, ko lietot laukam.",
+        "term": "Ievadiet terminu(-us), kas jāmeklē vai jāizslēdz."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} rezultāti",
       "withQuery": "{count} rezultāti {query}"
     },
+    "selectTheme": "Izvēloties TĒMU, var tikt nodrošinātas papildu filtra opcijas, piemēram, motīvā Laikraksti ir iekļauts IZDOŠANAS DATUMA filtrs.",
     "title": "Meklēt"
   },
   "searchFilters": "Meklēšanas filtri {count}",
