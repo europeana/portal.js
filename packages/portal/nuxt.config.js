@@ -240,7 +240,12 @@ export default {
       'SidebarPlugin',
       'ToastPlugin',
       'TooltipPlugin'
-    ]
+    ],
+    config: {
+      BTooltip: {
+        delay: { show: 300, hide: 50 }
+      }
+    }
   },
 
   /*
