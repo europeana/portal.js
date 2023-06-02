@@ -21,9 +21,7 @@
             >
               <SearchQueryBuilderRule
                 :id="`${id}-${index}`"
-                :field="rule.field"
-                :modifier="rule.modifier"
-                :term="rule.term"
+                v-model="queryRules[index]"
                 @change="(field, value) => handleChangeRule(field, value, index)"
                 @clear="clearRule(index)"
               />
