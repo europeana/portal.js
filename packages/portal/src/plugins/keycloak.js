@@ -3,12 +3,12 @@
 // docs: https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter
 import Keycloak from 'keycloak-js';
 
-const keycloakRefreshAccessToken = async({ $keycloak, $axios, redirect, route }, requestConfig) => {
+const keycloakRefreshAccessToken = async({ $keycloak, $cookies, $axios }, requestConfig) => {
   const updated = await $keycloak.auth.updateToken(-1);
   if (updated) {
-    localStorage.setItem('kc.token', $keycloak.auth.token);
-    localStorage.setItem('kc.idToken', $keycloak.auth.idToken);
-    localStorage.setItem('kc.refreshToken', $keycloak.auth.refreshToken);
+    $cookies.set('kc.token', $keycloak.auth.token);
+    $cookies.set('kc.idToken', $keycloak.auth.idToken);
+    $cookies.set('kc.refreshToken', $keycloak.auth.refreshToken);
   } else {
     // Refresh token is no longer valid; clear tokens and try again in case it
     // doesn't require auth anyway
@@ -19,9 +19,9 @@ const keycloakRefreshAccessToken = async({ $keycloak, $axios, redirect, route },
   return $axios.request(requestConfig);
 };
 
-const keycloakResponseErrorHandler = (context, error) => {
+const keycloakResponseErrorHandler = (ctx, error) => {
   if (error.response?.status === 401) {
-    return keycloakUnauthorizedResponseErrorHandler(context, error);
+    return keycloakUnauthorizedResponseErrorHandler(ctx, error);
   } else {
     return Promise.reject(error);
   }
@@ -31,7 +31,7 @@ const keycloakUnauthorizedResponseErrorHandler = ({ $axios, $keycloak, redirect,
   if ($keycloak.auth.refreshToken) {
     // User has previously logged in, and we have a refresh token, e.g.
     // access token has expired
-    return refreshAccessToken({ $keycloak, $axios, redirect, route }, error.config);
+    return keycloakRefreshAccessToken({ $keycloak, $axios, redirect, route }, error.config);
   } else {
     // User has not already logged in, or we have no refresh token:
     // redirect to OIDC login URL
@@ -39,16 +39,16 @@ const keycloakUnauthorizedResponseErrorHandler = ({ $axios, $keycloak, redirect,
   }
 };
 
-const keycloakAxios = (context) => (axiosInstance) => {
+const keycloakAxios = (ctx) => (axiosInstance) => {
   axiosInstance.interceptors.request.use((requestConfig) => {
-    if (context.$keycloak.auth.auth?.token) {
-      requestConfig.headers.authorization = `Bearer ${context.$keycloak.auth.auth.token}`;
+    if (ctx.$keycloak.auth.auth?.token) {
+      requestConfig.headers.authorization = `Bearer ${ctx.$keycloak.auth.auth.token}`;
     }
     return requestConfig;
   });
 
   if (typeof axiosInstance.onResponseError === 'function') {
-    axiosInstance.onResponseError(error => keycloakRefreshAccessToken(context, error));
+    axiosInstance.onResponseError(error => keycloakResponseErrorHandler(ctx, error));
   }
 };
 
@@ -58,14 +58,14 @@ const keycloakAuth = async(ctx) => {
   try {
     await keycloak.init({
       checkLoginIframe: false,
-      token: localStorage.getItem('kc.token'),
-      idToken: localStorage.getItem('kc.idToken'),
-      refreshToken: localStorage.getItem('kc.refreshToken')
+      token: ctx.$cookies.get('kc.token'),
+      idToken: ctx.$cookies.get('kc.idToken'),
+      refreshToken: ctx.$cookies.get('kc.refreshToken')
     });
   } catch (e) {
-    localStorage.removeItem('kc.token');
-    localStorage.removeItem('kc.idToken');
-    localStorage.removeItem('kc.refreshToken');
+    ctx.$cookies.remove('kc.token');
+    ctx.$cookies.remove('kc.idToken');
+    ctx.$cookies.remove('kc.refreshToken');
     await keycloak.init({
       checkLoginIframe: false
     });
@@ -73,9 +73,9 @@ const keycloakAuth = async(ctx) => {
 
   ctx.store.commit('keycloak/setLoggedIn', keycloak.authenticated);
 
-  localStorage.setItem('kc.token', keycloak.token);
-  localStorage.setItem('kc.idToken', keycloak.idToken);
-  localStorage.setItem('kc.refreshToken', keycloak.refreshToken);
+  ctx.$cookies.set('kc.token', keycloak.token);
+  ctx.$cookies.set('kc.idToken', keycloak.idToken);
+  ctx.$cookies.set('kc.refreshToken', keycloak.refreshToken);
 
   if (keycloak.authenticated) {
     const profile = await keycloak.loadUserProfile();
@@ -118,10 +118,8 @@ const storeModule = {
 
 export default async(ctx, inject) => {
   ctx.store.registerModule('keycloak', storeModule);
+  ctx.store.commit('keycloak/setLoggedIn', !!ctx.$cookies.get('kc.token'));
 
-  // TODO: need _some_ server-side support, so that e.g. private sets don't
-  //       first load with unauth error then refresh to be auth'd.
-  //       cookies? make this plugin not just client only? look at keycloak node pkg?
   if (process.client) {
     // TODO: add fn's from keycloak mixin as properties
     inject('keycloak', {

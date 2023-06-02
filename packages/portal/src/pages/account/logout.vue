@@ -22,7 +22,7 @@
     mounted() {
       this.$keycloak.auth.logout({
         redirectUri: window.location.origin + '/',
-        ui_locales: this.$i18n.locale
+        'ui_locales': this.$i18n.locale
       });
       localStorage.removeItem('kc.token');
       localStorage.removeItem('kc.idToken');
