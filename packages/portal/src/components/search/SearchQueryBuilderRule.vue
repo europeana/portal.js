@@ -129,8 +129,8 @@
       },
       selectFieldOptions() {
         return this.advancedSearchFields.map((field) => ({
-          value: field?.name,
-          text: field?.name ? this.advancedSearchFieldLabel(field.name) : null
+          value: field.name,
+          text: this.advancedSearchFieldLabel(field.name)
         }))
           .sort((a, b) => a.text.localeCompare(b.text));
       },
