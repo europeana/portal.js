@@ -23,7 +23,7 @@
         />
         <b-form-select
           :id="`select-field-${id}`"
-          v-model="value.field"
+          v-model="field"
           :options="selectFieldOptions"
           :required="areAllRequired"
           @change="(value) => handleFieldChange(value)"
@@ -46,7 +46,7 @@
         />
         <b-form-select
           :id="`select-modifier-${id}`"
-          v-model="value.modifier"
+          v-model="modifier"
           :options="selectModifierOptions"
           :required="areAllRequired"
           @change="(value) => handleModifierChange(value)"
@@ -59,7 +59,7 @@
       >
         <b-form-input
           :id="`search-term-${id}`"
-          v-model="value.term"
+          v-model="term"
           :required="areAllRequired"
           @change="(value) => handleTermChange(value)"
         />
@@ -103,6 +103,14 @@
       }
     },
 
+    data() {
+      return {
+        field: this.value.field,
+        modifier: this.value.modifier,
+        term: this.value.term
+      };
+    },
+
     computed: {
       // If any field has a value, all are required. If none have a value, the
       // rule will be ignored and none are required.
@@ -121,6 +129,17 @@
           value: mod.name,
           text: this.$t(`search.advanced.modifiers.${mod.name}`)
         }));
+      }
+    },
+
+    watch: {
+      value: {
+        deep: true,
+        handler(value) {
+          this.field = value.field;
+          this.modifier = value.modifier;
+          this.term = value.term;
+        }
       }
     },
 
