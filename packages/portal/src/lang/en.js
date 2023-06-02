@@ -494,7 +494,7 @@ export default {
     },
     "DATA_PROVIDER": {
       "moreName": "providing institutions",
-      "name": "Providing Institution",
+      "name": "Providing institution",
       "select": "Select providing institutions"
     },
     "IMAGE_ASPECTRATIO": {
