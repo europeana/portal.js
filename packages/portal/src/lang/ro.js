@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "O galerie organizată arată resurse culturale fixate dintr-o anumită colecție",
       "private": "O galerie privată poate fi vizualizată doar de dvs.",
       "public": "O galerie publică poate fi vizualizată de oricine are linkul.",
-      "published": "O galerie publicată poate fi vizualizată de oricine și poate fi prezentată pe pagina noastră Galerii."
+      "published": "O galerie publicată poate fi vizualizată de oricine și poate fi prezentată pe pagina noastră Galerii.",
+      "reorder": "Puteți reordona resurse culturale făcând clic pe acest buton și trăgând resursă culturală pentru a-l muta."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Selectați creatori"
     },
     "DATA_PROVIDER": {
-      "moreName": "instituții",
-      "name": "Instituție",
-      "select": "Selectați instituții"
+      "moreName": "instituții furnizoare",
+      "name": "Instituție furnizoare",
+      "select": "Selectați instituții furnizoare"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientare imagine | Orientări imagine",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Temporal",
       "dctermsTOC": "Cuprins",
       "dcTitle": "Titlu",
-      "dcType": "Tipul obiectului",
+      "dcType": "Tipul resursă culturală",
       "edmCountry": "Țara de proveniență",
       "edmCurrentLocation": "Locația curenta",
       "edmDataProvider": "Instituție furnizoare",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Este reprezentarea",
       "edmIsSimilarTo": "Este asemănător cu",
       "edmIsSuccessorOf": "Urmează după",
-      "edmProvider": "Furnizor",
+      "edmProvider": "Agregator",
       "edmRealizes": "Își dă seama",
       "edmRights": "Mențiunea privind drepturile intelectuale privind drepturile intelectuale media pentru această resursă culturală (cu excepția cazului în care se specifică altfel)",
       "edmUgc": "Conținut generat de utilizator",
@@ -752,7 +753,7 @@ export default {
       "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
-      "provide": "Devino partener de date",
+      "provide": "Devino instituție furnizoare",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "terms": "Termeni de utilizare"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Paginare"
   },
   "provider": {
-    "linkText": "Vizualizează pe site-ul furnizorului",
+    "linkText": "Vizualizează pe site-ul instituție furnizoare",
     "providedBy": "Acest resursă culturală este furnizat și întreținut de {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat."
     },
     "publication": {
+      "criteria": {
+        "description": "Pentru a fi luată în considerare pentru publicare, o galerie trebuie să includă un titlu și o descriere și trebuie să conțină cel puțin 20 de resurse culturale.",
+        "title": "Criterii de publicare"
+      },
       "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
       "failedSubmission": "Solicitarea nu a reușit. Încercați din nou.",
       "process": {

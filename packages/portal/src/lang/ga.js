@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Taispeánann gailearaí coimeádta na míreanna pinn laistigh de bhailiúchán ar leith",
       "private": "Ní féidir ach leatsa gailearaí príobháideach a fheiceáil.",
       "public": "Is féidir le duine ar bith a bhfuil an nasc acu féachaint ar ghailearaí poiblí.",
-      "published": "Is féidir le duine ar bith breathnú ar ghailearaí foilsithe, agus d'fhéadfadh sé a bheith le feiceáil ar ár leathanach Gailearaithe."
+      "published": "Is féidir le duine ar bith breathnú ar ghailearaí foilsithe, agus d'fhéadfadh sé a bheith le feiceáil ar ár leathanach Gailearaithe.",
+      "reorder": "Is féidir leat míreanna a athordú trí chliceáil ar an gcnaipe seo agus tarraing an mhír chun é a bhogadh."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Roghnaigh cruthaitheoirí"
     },
     "DATA_PROVIDER": {
-      "moreName": "institiúidí",
-      "name": "Institiúid",
-      "select": "Roghnaigh institiúidí"
+      "moreName": "institiúidí soláthartha",
+      "name": "Institiúidí soláthartha",
+      "select": "Roghnaigh institiúidí soláthartha"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Treoshuíomh na híomhá | Treoshuímh na n-íomhánna",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Ama",
       "dctermsTOC": "Clár ábhair",
       "dcTitle": "Teideal",
-      "dcType": "Cineál oibiachta",
+      "dcType": "Cineál míre",
       "edmCountry": "Tír sholáthair",
       "edmCurrentLocation": "Suíomh reatha",
       "edmDataProvider": "Institiúidí soláthartha",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Is léiriú é de",
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
-      "edmProvider": "Soláthraí",
+      "edmProvider": "Comhbhailitheoir",
       "edmRealizes": "Tuigeann sé/sí",
       "edmRights": "Ráiteas um Chearta Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
@@ -752,7 +753,7 @@ export default {
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",
       "privacy": "Beartas Príobháideachais",
-      "provide": "Bí I do sholátharí sonraí",
+      "provide": "Bí i d'institiúid sholáthartha",
       "subscribe": "Liostáil lenár Nuachtlitir",
       "terms": "Tearmaí Seirbhís"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Leathanaigh"
   },
   "provider": {
-    "linkText": "Amharc air ag láithreán gréasáin an tsoláthraí",
+    "linkText": "Amharc air ag láithreán institiúid sholáthartha",
     "providedBy": "Soláthraíonn {provider} an mhír seo agus déanann sé cothabháil uirthi"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis."
     },
     "publication": {
+      "criteria": {
+        "description": "Chun a bheith san áireamh le foilsiú, ní mór teideal agus cur síos a bheith i gailearaí, agus ní mór 20 míreanna ar a laghad a bheith ann.",
+        "title": "Critéir foilsithe"
+      },
       "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar Europeana.eu/galleries.",
       "failedSubmission": "Theip ar an iarraidh. Arís, le do thoil.",
       "process": {

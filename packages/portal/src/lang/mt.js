@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Gallerija kkurata turi l-oġġetti ippinjati fi ħdan kollezzjoni speċifika",
       "private": "Gallerija privata tista' taraha biss int.",
       "public": "Gallerija pubblika tista' taraha kull min għandu l-link.",
-      "published": "Gallerija ppubblikata tista' taraha kulħadd, u tista' tidher fuq il-paġna tal-Galleriji tagħna."
+      "published": "Gallerija ppubblikata tista' taraha kulħadd, u tista' tidher fuq il-paġna tal-Galleriji tagħna.",
+      "reorder": "Tista 'terġa' tordna oġġetti billi tikklikkja din il-buttuna u tkaxkar l-oġġett biex iċċaqlaqha."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Agħżel ħallieqa"
     },
     "DATA_PROVIDER": {
-      "moreName": "istituzzjonijiet",
-      "name": "Istituzzjoni",
-      "select": "Agħżel istituzzjonijiet"
+      "moreName": "istituzzjoni fornitriċi",
+      "name": "Istituzzjoni fornitriċi",
+      "select": "Agħżel istituzzjoni fornitriċi"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orjentazzjoni tal-istampa | Orjentazzjonijiet tal-istampa",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Hija rappreżentazzjoni ta'",
       "edmIsSimilarTo": "Hija simili għal",
       "edmIsSuccessorOf": "Huwa s-suċċessur ta'",
-      "edmProvider": "Fornitur",
+      "edmProvider": "Aggregatur",
       "edmRealizes": "Iwettaq",
       "edmRights": "Dikjarazzjoni tad-drittijiet tal-midja f'dan ir-rekord (sakemm mhux speċifikat mod ieħor)",
       "edmUgc": "Kontenut iġġenerat mill-utent",
@@ -969,7 +970,7 @@ export default {
     "label": "Paġnar"
   },
   "provider": {
-    "linkText": "Ara fuq il-websajt tal-fornitur",
+    "linkText": "Ara fuq il-websajt tal-istituzzjoni li tipprovdi",
     "providedBy": "Dan l-oġġett huwa pprovdut u miżmum minn {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha."
     },
     "publication": {
+      "criteria": {
+        "description": "Biex tiġi kkunsidrata għall-pubblikazzjoni, gallerija trid tinkludi titolu u deskrizzjoni, u għandu jkun fiha minimu ta’ 20 oġġett.",
+        "title": "Kriterji ta' pubblikazzjoni"
+      },
       "description": "Il-pubblikazzjoni ta' gallerija ser tidher fuq Europeana.eu/galleries.",
       "failedSubmission": "It-talba falliet. Jekk jogħġbok erġa pprova.",
       "process": {

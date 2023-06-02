@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Ett kurerat galleri visar de fästa objekt inom en specifik samling",
       "private": "Ett privat galleri kan bara ses av dig.",
       "public": "Ett offentligt galleri kan ses av alla med länken.",
-      "published": "Ett publicerat galleri kan ses av vem som helst och kan visas på vår gallerisida."
+      "published": "Ett publicerat galleri kan ses av vem som helst och kan visas på vår gallerisida.",
+      "reorder": "Du kan ändra ordning på objekt genom att klicka på den här knappen och dra objektet för att flytta det."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Välj skapare"
     },
     "DATA_PROVIDER": {
-      "moreName": "institutioner",
-      "name": "Institution",
-      "select": "Välj institutioner"
+      "moreName": "tillhandahållande institutioner",
+      "name": "Tillhandahållande institution",
+      "select": "Välj tillhandahållande institutioner"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Bildorientering | Bildorienteringar",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Är en representation av",
       "edmIsSimilarTo": "Liknar",
       "edmIsSuccessorOf": "Är efterföljare till",
-      "edmProvider": "Leverantör",
+      "edmProvider": "Aggregator",
       "edmRealizes": "Realiserar",
       "edmRights": "Rättighetsmärkning för media i detta objekt (om inte annat anges)",
       "edmUgc": "Användargenererat innehåll",
@@ -752,7 +753,7 @@ export default {
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
-      "provide": "Bli en datapartner",
+      "provide": "Bli en tillhandahållande institution",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
       "terms": "Användarvillkor"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Paginering"
   },
   "provider": {
-    "linkText": "Visa på leverantörens webbplats",
+    "linkText": "Visa på den tillhandahållande institution webbplats",
     "providedBy": "Detta objekt tillhandahålls och underhålls av {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
     },
     "publication": {
+      "criteria": {
+        "description": "För att komma i fråga för publicering måste ett galleri innehålla en titel och beskrivning och måste innehålla minst 20 objekt.",
+        "title": "Kriterier för publicering"
+      },
       "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu/galleries.",
       "failedSubmission": "Begäran misslyckades. Var god försök igen.",
       "process": {

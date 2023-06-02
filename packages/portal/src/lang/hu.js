@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "A válogatott galéria egy adott gyűjtemény rögzített elemeit mutatja be",
       "private": "A privát galériát csak Ön tekintheti meg.",
       "public": "A nyilvános galériát a link birtokában bárki megtekintheti.",
-      "published": "A közzétett galériát bárki megtekintheti, és megjelenhet a Galériák oldalon."
+      "published": "A közzétett galériát bárki megtekintheti, és megjelenhet a Galériák oldalon.",
+      "reorder": "Az elemek átrendezéséhez kattintson erre a gombra, és húzza az elemet az áthelyezéshez."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Válasszon alkotókat"
     },
     "DATA_PROVIDER": {
-      "moreName": "intézmények",
-      "name": "Intézmény",
-      "select": "Válasszon intézményeket"
+      "moreName": "szolgáltató intézmény",
+      "name": "Szolgáltató intézmény",
+      "select": "Válassza ki a szolgáltató intézményeket"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Képtájolás | Képtájolások",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Időbeli",
       "dctermsTOC": "Tartalomjegyzék",
       "dcTitle": "Cím",
-      "dcType": "Objektum típusa",
+      "dcType": "Az elem típusa",
       "edmCountry": "Szolgáltató ország",
       "edmCurrentLocation": "Jelenlegi tartózkodási hely",
       "edmDataProvider": "Szolgáltató intézmény",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Képviselete",
       "edmIsSimilarTo": "Hasonló",
       "edmIsSuccessorOf": "Utódja",
-      "edmProvider": "Szolgáltató",
+      "edmProvider": "Aggregátor",
       "edmRealizes": "Rájön",
       "edmRights": "Az ebben a nyilvántartásban szereplő adathordozó licence (hacsak másképp nincs meghatározva)",
       "edmUgc": "Felhasználó által generált tartalom",
@@ -752,7 +753,7 @@ export default {
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi irányelvek",
-      "provide": "Adatpartneri program",
+      "provide": "Legyen szolgáltató intézmény",
       "subscribe": "Iratkozzon fel hírlevelünkre",
       "terms": "Szolgáltatás feltételei"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Lapszámozás"
   },
   "provider": {
-    "linkText": "Megtekintés a szolgáltató webhelyén",
+    "linkText": "Megtekintés a szolgáltató intézmény honlapján",
     "providedBy": "Ezt az elemet {provider} biztosítja és tartja karban"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet."
     },
     "publication": {
+      "criteria": {
+        "description": "A közzétételhez a galériának tartalmaznia kell egy címet és leírást, és legalább 20 elemet kell tartalmaznia.",
+        "title": "Közzétételi kritériumok"
+      },
       "description": "A galéria közzététele az Europeana.eu/galleries oldalon lesz látható.",
       "failedSubmission": "A kérés meghiúsult. Kérlek próbáld újra.",
       "process": {

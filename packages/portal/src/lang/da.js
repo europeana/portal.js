@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Et kurateret galleri viser de fastgjorte genstande inden for en bestemt samling",
       "private": "Et privat galleri kan kun ses af dig.",
       "public": "Et offentligt galleri kan ses af alle med linket.",
-      "published": "Et offentliggjort galleri kan ses af alle og kan blive vist på vores Gallerier-side."
+      "published": "Et offentliggjort galleri kan ses af alle og kan blive vist på vores Gallerier-side.",
+      "reorder": "Du kan omarrangere genstande ved at klikke på denne knap og trække genstand for at flytte det."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Vælg skabere"
     },
     "DATA_PROVIDER": {
-      "moreName": "institutioner",
-      "name": "Institution",
-      "select": "Vælg institutioner"
+      "moreName": "ejerinstitutioner",
+      "name": "Ejerinstitutioner",
+      "select": "Vælg ejerinstitutioner"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Billedretning | Billedretninger",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Tidsmæssig",
       "dctermsTOC": "Indholdsfortegnelse",
       "dcTitle": "Titel",
-      "dcType": "Objekttype",
+      "dcType": "Type af genstand",
       "edmCountry": "Leverende land",
       "edmCurrentLocation": "Nuværende placering",
       "edmDataProvider": "Ejerinstiution",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Er repræsentation af",
       "edmIsSimilarTo": "Svarer til",
       "edmIsSuccessorOf": "Er efterfølger til",
-      "edmProvider": "Udbyder",
+      "edmProvider": "Aggregator",
       "edmRealizes": "Indser",
       "edmRights": "Rettigheder for medierne i denne optagelse (medmindre andet er angivet)",
       "edmUgc": "Brugergenereret indhold",
@@ -752,7 +753,7 @@ export default {
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
       "privacy": "Fortrolighedspolitik",
-      "provide": "Bliv en datapartner",
+      "provide": "Bliv en ejerinstiution",
       "subscribe": "Abonner på vores nyhedsbrev",
       "terms": "Vilkår for brug"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Paginering"
   },
   "provider": {
-    "linkText": "Se på udbyderens websted",
+    "linkText": "Se på den ejerinstiutions hjemmeside",
     "providedBy": "Denne vare leveres og vedligeholdes af {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de genstande, du har tilføjet i det."
     },
     "publication": {
+      "criteria": {
+        "description": "For at komme i betragtning til udgivelse skal et galleri indeholde en titel og beskrivelse og skal indeholde minimum 20 genstande.",
+        "title": "Kriterier for offentliggørelse"
+      },
       "description": "Udgivelse af et galleri vil vise det på Europeana.eu/galleries.",
       "failedSubmission": "Anmodningen mislykkedes. Prøv venligst igen.",
       "process": {

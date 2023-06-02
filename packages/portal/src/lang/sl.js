@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Pripravljena galerija prikazuje pripete enote znotraj določene zbirke",
       "private": "Zasebno galerijo si lahko ogledate samo vi.",
       "public": "Javno galerijo si lahko ogleda vsak s povezavo.",
-      "published": "Objavljeno galerijo si lahko ogleda vsak in je lahko predstavljena na naši strani Galerije."
+      "published": "Objavljeno galerijo si lahko ogleda vsak in je lahko predstavljena na naši strani Galerije.",
+      "reorder": "Enote lahko preuredite tako, da kliknete ta gumb in povlečete enota, da ga premaknete."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Izberite ustvarjalce"
     },
     "DATA_PROVIDER": {
-      "moreName": "institucije",
-      "name": "Ustanova",
-      "select": "Izberite institucije"
+      "moreName": "ponudniki podatkov",
+      "name": "Ponudnik podatkov",
+      "select": "Izberite ponudniki podatkov"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Usmerjenost slike | Usmerjenosti slik",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Časovno obdobje",
       "dctermsTOC": "Kazalo vsebine",
       "dcTitle": "Naslov",
-      "dcType": "Vrsta predmeta",
+      "dcType": "Vrsta enota",
       "edmCountry": "Država izvora",
       "edmCurrentLocation": "Trenutna lokacija",
       "edmDataProvider": "Ponudnik podatkov",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Predstavlja",
       "edmIsSimilarTo": "Je podoben",
       "edmIsSuccessorOf": "Je naslednik",
-      "edmProvider": "Ponudnik",
+      "edmProvider": "Agregator",
       "edmRealizes": "Uresničuje",
       "edmRights": "Licenca za medije v tem enota (če ni navedeno drugače)",
       "edmUgc": "Vsebina, ki so jo ustvarili uporabniki",
@@ -752,7 +753,7 @@ export default {
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
       "privacy": "Pravilnik o zasebnosti",
-      "provide": "Postanite partner za podatke",
+      "provide": "Postanite ponudnik podatkov",
       "subscribe": "Naročite se na naše novice",
       "terms": "Pogoji uporabe"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Paginacija"
   },
   "provider": {
-    "linkText": "Ogled na spletni strani ponudnika",
+    "linkText": "Oglejte si na spletni strani ponudnik podatkov",
     "providedBy": "Ta enota zagotavlja in vzdržuje {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse enote, ki ste jih dodali."
     },
     "publication": {
+      "criteria": {
+        "description": "Za objavo mora galerija vsebovati naslov in opis ter mora vsebovati najmanj 20 enote.",
+        "title": "Kriteriji objave"
+      },
       "description": "Z objavo galerije bo ta objavljena na Europeana.eu/galleries.",
       "failedSubmission": "Zahteva ni uspela. Prosim poskusite ponovno.",
       "process": {

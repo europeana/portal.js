@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Kuroitu galleria näyttää tietyn kokoelman kiinnitetyt aineistot",
       "private": "Vain sinä voit tarkastella yksityistä galleriaa.",
       "public": "Julkista galleriaa voivat tarkastella kuka tahansa linkin saanut.",
-      "published": "Kuka tahansa voi tarkastella julkaistua galleriaa, ja se voi olla esillä Galleriat-sivullamme."
+      "published": "Kuka tahansa voi tarkastella julkaistua galleriaa, ja se voi olla esillä Galleriat-sivullamme.",
+      "reorder": "Voit järjestää aineistot uudelleen napsauttamalla tätä painiketta ja siirtämällä aineisto vetämällä sitä."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Valitse tekijät"
     },
     "DATA_PROVIDER": {
-      "moreName": "kulttuurilaitoksista",
-      "name": "Instituutio",
-      "select": "valitse kulttuuriperintölaitos"
+      "moreName": "aineiston tarjoajat",
+      "name": "Aineiston tarjoaja",
+      "select": "Valitse aineiston tarjoajat"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Kuvan suunta | Kuvan suunnat",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Ajoitus",
       "dctermsTOC": "Sisällysluettelo",
       "dcTitle": "Nimi",
-      "dcType": "Kohteen tyyppi",
+      "dcType": "Aineisto tyyppi",
       "edmCountry": "Alkuperämaa",
       "edmCurrentLocation": "Nykyinen sijainti",
       "edmDataProvider": "Aineiston tarjoaja",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Kuvaa kohdetta",
       "edmIsSimilarTo": "On samanlainen kuin",
       "edmIsSuccessorOf": "On seuraaja kohteelle",
-      "edmProvider": "Tarjoaja",
+      "edmProvider": "Aggregaattori",
       "edmRealizes": "Sisältää",
       "edmRights": "Tämän aineisto median lisenssi (ellei toisin mainita)",
       "edmUgc": "Käyttäjien tuottama sisältö",
@@ -752,7 +753,7 @@ export default {
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojakäytäntö",
-      "provide": "Ryhdy tietojentarjoajaksi",
+      "provide": "Ryhdy aineiston tarjoaja",
       "subscribe": "Tilaa uutiskirjeemme",
       "terms": "Käyttöehdot"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Sivunumerointi"
   },
   "provider": {
-    "linkText": "Näytä palveluntarjoajan verkkosivustolla",
+    "linkText": "Katso tarjoavan laitoksen verkkosivustolta",
     "providedBy": "Tämän aineisto tarjoaa ja ylläpitää {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi aineistot."
     },
     "publication": {
+      "criteria": {
+        "description": "Jotta galleria voidaan julkaista, sen on sisällettävä otsikko ja kuvaus, ja siinä on oltava vähintään 20 aineistot.",
+        "title": "Julkaisun kriteerit"
+      },
       "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
       "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
       "process": {

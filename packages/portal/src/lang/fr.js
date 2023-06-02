@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Une galerie curative présente les éléments épinglés dans une collection spécifique.",
       "private": "Une galerie privée ne peut être vue que par vous.",
       "public": "Une galerie publique peut être consultée par toute personne disposant du lien.",
-      "published": "Une galerie publiée peut être vue par n'importe qui et peut être présentée sur notre page Galeries."
+      "published": "Une galerie publiée peut être vue par n'importe qui et peut être présentée sur notre page Galeries.",
+      "reorder": "Vous pouvez réorganiser les éléments en cliquant sur ce bouton et en faisant glisser l'élément pour le déplacer."
     }
   },
   "actions": {
@@ -90,7 +91,7 @@ export default {
     "place": "Des endroits",
     "theme": "Thèmes",
     "time": "Des siècles",
-    "topic": "Sujets d'actualité"
+    "topic": "Sujets"
   },
   "blog": {
     "author": "Auteur",
@@ -535,9 +536,9 @@ export default {
       "select": "Sélectionnez les créateurs"
     },
     "DATA_PROVIDER": {
-      "moreName": "institutions",
-      "name": "Institution",
-      "select": "Sélectionner les institutions"
+      "moreName": "Institution fournisseuse",
+      "name": "Institution fournisseuse",
+      "select": "Sélectionnez l'institution fournisseuse"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientation de l'image | Orientations de l'image",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Période",
       "dctermsTOC": "Table des matières",
       "dcTitle": "Titre",
-      "dcType": "Type d'objet",
+      "dcType": "Type d'élément",
       "edmCountry": "Pays fournisseur",
       "edmCurrentLocation": "Emplacement actuel",
       "edmDataProvider": "Institution fournisseuse",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Est la représentation de",
       "edmIsSimilarTo": "Est identique à",
       "edmIsSuccessorOf": "Est la suite de",
-      "edmProvider": "Fournisseur",
+      "edmProvider": "Agrégateur",
       "edmRealizes": "Réalise",
       "edmRights": "Licence du support dans cet enregistrement (sauf indication contraire)",
       "edmUgc": "Contenu généré par l'utilisateur",
@@ -752,7 +753,7 @@ export default {
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
       "privacy": "Politique de confidentialité",
-      "provide": "Devenez un fournisseur de données",
+      "provide": "Devenir une institution fournisseuse",
       "subscribe": "Abonnez-vous à notre newsletter",
       "terms": "Conditions d'utilisation"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Pagination"
   },
   "provider": {
-    "linkText": "Vue sur le site internet du prestataire",
+    "linkText": "Vue sur le site internet de l'institution fournisseuse",
     "providedBy": "Cet élément est fourni et maintenu par {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les éléments que vous y avez ajoutés."
     },
     "publication": {
+      "criteria": {
+        "description": "Pour être considérée pour publication, une galerie doit inclure un titre et une description, et doit contenir un minimum de 20 éléments.",
+        "title": "Critères de publication"
+      },
       "description": "La publication d'une galerie la présentera sur Europeana.eu/galleries.",
       "failedSubmission": "La demande a échoué. Veuillez réessayer.",
       "process": {

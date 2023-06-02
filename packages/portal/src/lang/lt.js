@@ -13,24 +13,25 @@ export default {
       "loggedOut": "Dabar esate prisijungę.",
       "noCollections": {
         "curated": "Dar ne kuravote jokių rinkinių",
-        "private": "Kol kas nesukūrėte jokių privačių galerijų",
-        "public": "Kol kas nesukūrėte jokių viešų galerijų",
-        "published": "Dar nepaskelbėte jokių galerijų"
+        "private": "Kol kas nesukūrėte jokių privačių parodos",
+        "public": "Kol kas nesukūrėte jokių viešų parodos",
+        "published": "Dar nepaskelbėte jokių parodos"
       },
       "noLikedItems": "Kol kas neturite pažymėtų skaitmeninių objektų"
     },
-    "privateCollections": "Privačios galerijos",
-    "profile": "Man patinkančios Skaitmeniniai objektai, kolekcijos ir galerijos",
+    "privateCollections": "Privačios parodos",
+    "profile": "Man patinkančios skaitmeniniai objektai, kolekcijos ir parodos",
     "profileSettings": "Profilio nustatymai",
-    "publicCollections": "Viešos galerijos",
-    "publishedCollections": "Paskelbtos Galerijos",
+    "publicCollections": "Viešos parodos",
+    "publishedCollections": "Paskelbtos Parodos",
     "settings": "Nustatymai",
     "title": "Mano paskyra",
     "tooltip": {
       "EntityBestItemsSet": "Kuruojamoje parodos rodomi prisegti konkrečios kolekcijos skaitmeniniai objektai",
       "private": "Privačią galeriją galite peržiūrėti tik jūs.",
       "public": "Viešą parodas gali peržiūrėti visi, turintys nuorodą.",
-      "published": "Paskelbtą parodas gali peržiūrėti bet kas ir ji gali būti pateikta mūsų parodos puslapyje."
+      "published": "Paskelbtą parodas gali peržiūrėti bet kas ir ji gali būti pateikta mūsų parodos puslapyje.",
+      "reorder": "Galite pertvarkyti skaitmeniniai objektai spustelėdami šį mygtuką ir vilkdami skaitmeninis objektas, kad jį perkeltumėte."
     }
   },
   "actions": {
@@ -84,7 +85,7 @@ export default {
     "title": "Pavadinimas:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerijos",
+    "gallery": "Parodos",
     "item": "Naujausi skaitmeniniai objektai",
     "organisation": "Organizacijos",
     "place": "Vietos",
@@ -242,7 +243,7 @@ export default {
       "title": "Galerija nerasta"
     },
     "galleryUnauthorised": {
-      "description": "Tai neįmanoma, nes privačias galerijas mato tik jų kūrėjas. Jei pažįstate galerijos kūrėją, paprašykite, kad galerija būtų vieša. Arba praneškite apie šią problemą naudodami atsiliepimų mygtuką.",
+      "description": "Tai neįmanoma, nes privačias parodos  mato tik jų kūrėjas. Jei pažįstate galerijos kūrėją, paprašykite, kad galerija būtų vieša. Arba praneškite apie šią problemą naudodami atsiliepimų mygtuką.",
       "metaTitle": "Galerija neteisėta",
       "title": "Ups! {newline} Jūs bandote peržiūrėti kito asmens privačią galeriją."
     },
@@ -535,9 +536,9 @@ export default {
       "select": "Pasirinkite kūrėjus"
     },
     "DATA_PROVIDER": {
-      "moreName": "institucijose",
-      "name": "Institucija",
-      "select": "Pasirinkite institucijas"
+      "moreName": "Teikėjai",
+      "name": "Teikianti institucija",
+      "select": "Pasirinkite teikėjai"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Vaizdo orientacija | Vaizdo orientacijos",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Laiko",
       "dctermsTOC": "Turinio lentelė",
       "dcTitle": "Pavadinimas",
-      "dcType": "Objekto tipas",
+      "dcType": "Skaitmeninis objektas tipas",
       "edmCountry": "Teikianti šalis",
       "edmCurrentLocation": "Dabartinė vieta",
       "edmDataProvider": "Teikianti institucija",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Ar atstovavimas",
       "edmIsSimilarTo": "Yra panašus į",
       "edmIsSuccessorOf": "Yra įpėdinis",
-      "edmProvider": "Teikėjas",
+      "edmProvider": "Agregatorius",
       "edmRealizes": "Suvokia",
       "edmRights": "Šiame Skaitmeninis objektas esančios teisių pareikštys (jei nenurodyta kitaip)",
       "edmUgc": "Vartotojo sugeneruotas turinys",
@@ -752,7 +753,7 @@ export default {
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
-      "provide": "Tapkite duomenų partneriu",
+      "provide": "Tapkite Teikėjas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "terms": "Naudotojo sąlygos"
     },
@@ -764,8 +765,8 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
-    "description": "Tyrinėti mūsų galerijas",
-    "galleries": "Galerija | Galerijos"
+    "description": "Tyrinėti mūsų parodos",
+    "galleries": "Paroda | parodos"
   },
   "header": {
     "backToMenu": "Uždaryti paieškos langą",
@@ -961,7 +962,7 @@ export default {
         "title": "Laikai"
       },
       "topics": {
-        "title": "Temos"
+        "title": "Potemė"
       }
     }
   },
@@ -1012,8 +1013,8 @@ export default {
       "title": "Istorijos, kurios jums gali patikti"
     },
     "galleries": {
-      "name": "Susijusios galerijos",
-      "title": "Atraskite susijusias galerijas"
+      "name": "Susijusios parodos",
+      "title": "Atraskite susijusias parodos"
     },
     "items": {
       "loginForMore": "Prisijunkite, kad pamatytumėte kitus susijusius skaitmeninius objektus",
@@ -1122,7 +1123,11 @@ export default {
       "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas skaitmeniniai objektai."
     },
     "publication": {
-      "description": "Paskelbus galeriją ji bus rodoma Europeana.eu/galleries.",
+      "criteria": {
+        "description": "Kad būtų svarstoma galimybė paskelbti paroda, ji turi turėti pavadinimą, aprašą ir mažiausiai 20 skaitmeniniai objektai.",
+        "title": "Publikavimo kriterijai"
+      },
+      "description": "Paskelbus paroda ji bus rodoma Europeana.eu/galleries.",
       "failedSubmission": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
       "process": {
         "description": "Kai pateiksite galeriją publikavimui, apie tai bus pranešta \"Europeana\" leidėjų komandai. Jie pirmiausia ją peržiūrės ir prieš publikuodami gali padaryti pakeitimų. Gausite pranešimus el. paštu, kai galerija bus peržiūrėta. Jei ji nebus paskelbta, gali būti, kad ji neatitinka mūsų redakcinių gairių.",
@@ -1134,7 +1139,7 @@ export default {
       },
       "title": "Pateikti galeriją publikavimui",
       "toastButton": "Gerai",
-      "toastMessage": "Ši galerija dabar pateikta publikuoti. Galite patikrinti {galleries}, kad sužinotumėte, ar jis buvo paskelbtas."
+      "toastMessage": "Ši paroda dabar pateikta publikuoti. Galite patikrinti {galleries}, kad sužinotumėte, ar jis buvo paskelbtas."
     },
     "setCount": "{count} parodos",
     "shareTo": {

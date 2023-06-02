@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Wyselekcjonowana galeria pokazuje przypięte obiekty cyfrowe w ramach określonej kolekcji",
       "private": "Tylko Ty możesz oglądać prywatną galerię.",
       "public": "Galerię publiczną może przeglądać każdy, kto ma link.",
-      "published": "Opublikowana galeria może być oglądana przez każdego i może być prezentowana na naszej stronie Galerie."
+      "published": "Opublikowana galeria może być oglądana przez każdego i może być prezentowana na naszej stronie Galerie.",
+      "reorder": "Możesz zmienić kolejność obiekty cyfrowe, klikając ten przycisk i przeciągając obiekt cyfrowy, aby go przenieść."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Wybierz twórców"
     },
     "DATA_PROVIDER": {
-      "moreName": "instytucje",
-      "name": "Instytucja",
-      "select": "Wybierz instytucje"
+      "moreName": "dostawcy danych",
+      "name": "Dostawca danych",
+      "select": "Wybierz dostawcy danych"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Układ obrazu",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Okres",
       "dctermsTOC": "Spis treści",
       "dcTitle": "Tytuł",
-      "dcType": "Rodzaj przedmiotu",
+      "dcType": "Rodzaj obiekt cyfrowy",
       "edmCountry": "Kraj dostarczający",
       "edmCurrentLocation": "Aktualna lokalizacja",
       "edmDataProvider": "Dostawca danych",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Reprezentuje",
       "edmIsSimilarTo": "Jest podobna do",
       "edmIsSuccessorOf": "Jest następcą",
-      "edmProvider": "Dostawca",
+      "edmProvider": "Agregator",
       "edmRealizes": "Realizuje",
       "edmRights": "Oświadczenie prawne na media w tym rekordzie (chyba że określono inaczej)",
       "edmUgc": "Treści dodane przez użytkowników",
@@ -752,7 +753,7 @@ export default {
       "help": "Pomoc",
       "MoreInfoLabel": "Więcej informacji",
       "privacy": "Polityka prywatności",
-      "provide": "Zostań partnerem danych",
+      "provide": "Zostań dostawca danych",
       "subscribe": "Zapisz się do naszego newslettera",
       "terms": "Warunki korzystania"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Paginacja"
   },
   "provider": {
-    "linkText": "Zobacz na stronie internetowej dostawcy",
+    "linkText": "Zobacz na stronie internetowej dostawca danych",
     "providedBy": "Ten element jest dostarczany i obsługiwany przez {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Czy na pewno chcesz usunąć tę galerię? Jeśli ją usuniesz, stracisz wszystkie obiekty cyfrowe dodane do niej."
     },
     "publication": {
+      "criteria": {
+        "description": "Aby galeria mogła zostać rozpatrzona do publikacji, musi zawierać tytuł i opis oraz musi zawierać co najmniej 20 obiekty cyfrowe.",
+        "title": "Kryteria publikacji"
+      },
       "description": "Opublikowanie galerii będzie ją prezentować na Europeana.eu/galleries.",
       "failedSubmission": "Żądanie nie powiodło się. Proszę spróbować ponownie.",
       "process": {

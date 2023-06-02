@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Een gecureerde galerij toont de vastgepinde objecten binnen een specifieke collectie",
       "private": "Een privé galerij kan alleen door u bekeken worden.",
       "public": "Een openbare galerij kan door iedereen met de link worden bekeken.",
-      "published": "Een gepubliceerde galerij kan door iedereen worden bekeken, en kan worden opgenomen op onze pagina Galerijen."
+      "published": "Een gepubliceerde galerij kan door iedereen worden bekeken, en kan worden opgenomen op onze pagina Galerijen.",
+      "reorder": "U kunt objecten opnieuw ordenen door op deze knop te klikken en het object te slepen om het te verplaatsen."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Selecteer makers"
     },
     "DATA_PROVIDER": {
-      "moreName": "instellingen",
-      "name": "Instelling",
-      "select": "Selecteer instellingen"
+      "moreName": "deelnemende erfgoedorganisaties",
+      "name": "Deelnemende erfgoedorganisatie",
+      "select": "Selecteer deelnemende erfgoedorganisaties"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Beeldoriëntatie | Beeldoriëntaties",
@@ -612,7 +613,7 @@ export default {
     "moreOptions": "Zoek naar {0} meer {1}.",
     "PROVIDER": {
       "moreName": "informatienetwerken",
-      "name": "Aggregator",
+      "name": "Informatienetwerk",
       "select": "Selecteer informatienetwerken"
     },
     "proxy_dc_format": {
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Is een vertegenwoordiging van",
       "edmIsSimilarTo": "Is vergelijkbaar met",
       "edmIsSuccessorOf": "Is de opvolger van",
-      "edmProvider": "Leverancier",
+      "edmProvider": "Informatienetwerk",
       "edmRealizes": "Realiseert",
       "edmRights": "Rechtenstatus van de media in dit record (tenzij anders vermeld)",
       "edmUgc": "Door gebruikers gegenereerde inhoud",
@@ -752,7 +753,7 @@ export default {
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacybeleid",
-      "provide": "Word een datapartner",
+      "provide": "Word een deelnemende erfgoedorganisatie",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
       "terms": "Gebruiksvoorwaarden"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Paginering"
   },
   "provider": {
-    "linkText": "Bekijk op de website van de aanbieder",
+    "linkText": "Bekijk op de website van de deelnemende erfgoedorganisatie",
     "providedBy": "Dit item wordt geleverd en onderhouden door {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd."
     },
     "publication": {
+      "criteria": {
+        "description": "Om in aanmerking te komen voor publicatie, moet een galerij een titel en beschrijving bevatten en minimaal 20 objecten bevatten.",
+        "title": "Publicatie criteria"
+      },
       "description": "Als u een galerij publiceert, wordt deze op Europeana.eu/galleries weergegeven.",
       "failedSubmission": "Het verzoek is mislukt. Probeer het opnieuw.",
       "process": {

@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Odabrana galerija prikazuje prikvačene predmeti unutar određene zbirke",
       "private": "Privatnu galeriju možete vidjeti samo vi.",
       "public": "Javnu galeriju može pogledati svatko s vezom.",
-      "published": "Objavljenu galeriju može vidjeti bilo tko, a može se istaknuti na našoj stranici Galerije."
+      "published": "Objavljenu galeriju može vidjeti bilo tko, a može se istaknuti na našoj stranici Galerije.",
+      "reorder": "Možete promijeniti redoslijed predmeti klikom na ovaj gumb i povlačenjem predmet da je premjestite."
     }
   },
   "actions": {
@@ -537,7 +538,7 @@ export default {
     "DATA_PROVIDER": {
       "moreName": "institucije",
       "name": "Institucija",
-      "select": "Odaberite institucije"
+      "select": "Odaberite Institucije"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orijentacija slike | Orijentacije slika",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Vremenski",
       "dctermsTOC": "Tablica sadržaja",
       "dcTitle": "Naslov",
-      "dcType": "Vrsta objekta",
+      "dcType": "Vrsta predmet",
       "edmCountry": "Država iz koje dolazi",
       "edmCurrentLocation": "Trenutna lokacija",
       "edmDataProvider": "Institucija iz koje dolazi",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Predstavlja",
       "edmIsSimilarTo": "je slično",
       "edmIsSuccessorOf": "Nasljednik je",
-      "edmProvider": "Dobavljač",
+      "edmProvider": "Agregator",
       "edmRealizes": "Shvaća",
       "edmRights": "Uvjeti korištenja medija u ovom zapisu (osim ako nije drugačije navedeno)",
       "edmUgc": "Korisnički generirani sadržaj",
@@ -752,7 +753,7 @@ export default {
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
       "privacy": "Pravila o privatnosti",
-      "provide": "Postanite davatelj podataka",
+      "provide": "Postanite pružanje institucija",
       "subscribe": "Pretplatite se na naš bilten",
       "terms": "Uvjeti korištenja"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Paginacija"
   },
   "provider": {
-    "linkText": "Pogledajte na web stranici pružatelja usluga",
+    "linkText": "Pogledajte na web stranici institucije koja pruža usluge",
     "providedBy": "Ovu stavku osigurava i održava {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve predmeti koje ste joj dodali."
     },
     "publication": {
+      "criteria": {
+        "description": "Da bi bila uzeta u obzir za objavu, galerija mora sadržavati naslov i opis te mora sadržavati najmanje 20 predmeti.",
+        "title": "Kriteriji objavljivanja"
+      },
       "description": "Objavljivanje galerije bit će prikazano na Europeana.eu/galleries.",
       "failedSubmission": "Zahtjev nije uspio. Molim te pokušaj ponovno.",
       "process": {

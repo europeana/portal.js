@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Kureeritud galeriis kuvatakse konkreetse kollektsiooni kinnitatud üksused",
       "private": "Privaatset galeriid saate vaadata ainult teie.",
       "public": "Avalikku galeriid saavad vaadata kõik, kellel on link.",
-      "published": "Avaldatud galeriid saavad vaadata kõik ja seda võidakse kuvada meie galeriide lehel."
+      "published": "Avaldatud galeriid saavad vaadata kõik ja seda võidakse kuvada meie galeriide lehel.",
+      "reorder": "Saate üksusi ümber järjestada, klõpsates sellel nupul ja lohistades üksust selle teisaldamiseks."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Valige loojad"
     },
     "DATA_PROVIDER": {
-      "moreName": "institutsioonid",
-      "name": "Institutsioon",
-      "select": "Valige institutsioonid"
+      "moreName": "pakkuja institutsioon",
+      "name": "Pakkuja institutsioon",
+      "select": "Valige pakkuvad asutused"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Kujutise orientatsioon | Kujutise orientatsioonid",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Ajaline",
       "dctermsTOC": "Sisukord",
       "dcTitle": "Pealkiri",
-      "dcType": "Objekti tüüp",
+      "dcType": "Üksuse liik",
       "edmCountry": "Pakkuja riik",
       "edmCurrentLocation": "Praegune asukoht",
       "edmDataProvider": "Pakkuja institutsioon",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Esindab",
       "edmIsSimilarTo": "on sarnane",
       "edmIsSuccessorOf": "on järeltulija",
-      "edmProvider": "Pakkuja",
+      "edmProvider": "Agregaator",
       "edmRealizes": "Mõistab",
       "edmRights": "Selle kirje meediumite litsents (kui pole teisiti täpsustatud)",
       "edmUgc": "Kasutaja loodud sisu",
@@ -752,7 +753,7 @@ export default {
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
-      "provide": "Saage andmepartneriks",
+      "provide": "Hakka pakkuvaks asutuseks",
       "subscribe": "Telli meie uudiskiri",
       "terms": "Kasutustingimused"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Paginatsioon"
   },
   "provider": {
-    "linkText": "Vaadake teenusepakkuja veebisaidilt",
+    "linkText": "Vaadake pakkuva asutuse veebisaidilt",
     "providedBy": "Seda üksust pakub ja hooldab {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
     },
     "publication": {
+      "criteria": {
+        "description": "Avaldamiseks peab galerii sisaldama pealkirja ja kirjeldust ning vähemalt 20 üksust.",
+        "title": "Avaldamise kriteeriumid"
+      },
       "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu/galleries.",
       "failedSubmission": "Taotlus ebaõnnestus. Palun proovi uuesti.",
       "process": {

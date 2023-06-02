@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Spravovaná galéria zobrazuje pripnuté objekty v rámci konkrétnej zbierky",
       "private": "Súkromnú galériu si môžete prezerať iba vy.",
       "public": "Verejnú galériu si môže pozrieť ktokoľvek s odkazom.",
-      "published": "Publikovanú galériu si môže pozrieť ktokoľvek a môže byť uvedená na našej stránke Galérie."
+      "published": "Publikovanú galériu si môže pozrieť ktokoľvek a môže byť uvedená na našej stránke Galérie.",
+      "reorder": "Kliknutím na toto tlačidlo a presunutím objekty môžete zmeniť poradie objekt."
     }
   },
   "actions": {
@@ -88,7 +89,7 @@ export default {
     "item": "Nedávne objekty",
     "organisation": "Organizácie",
     "place": "Miesta",
-    "theme": "Témy",
+    "theme": "Kategórie",
     "time": "Storočia",
     "topic": "Témy"
   },
@@ -535,9 +536,9 @@ export default {
       "select": "Vyberte tvorcov"
     },
     "DATA_PROVIDER": {
-      "moreName": "inštitúcií",
-      "name": "Inštitúcia",
-      "select": "Vyberte inštitúcií"
+      "moreName": "správcovské inštitúcie",
+      "name": "Poskytujúca inštitúcia",
+      "select": "Vyberte správcovské inštitúcie"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientácia obrázka | Orientácie obrázkov",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Časové obdobie",
       "dctermsTOC": "Obsah",
       "dcTitle": "Názov",
-      "dcType": "Typ objektu",
+      "dcType": "Typ objekt",
       "edmCountry": "Poskytujúca krajina",
       "edmCurrentLocation": "Aktuálna poloha",
       "edmDataProvider": "Poskytujúca inštitúcia",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Znázorňuje",
       "edmIsSimilarTo": "Podobá sa",
       "edmIsSuccessorOf": "nasleduje po",
-      "edmProvider": "Poskytovateľ",
+      "edmProvider": "Agregátor",
       "edmRealizes": "Zachytáva",
       "edmRights": "Právny stav na médiá v tomto objekt (pokiaľ nie je uvedené inak)",
       "edmUgc": "Obsah generovaný používateľmi",
@@ -752,7 +753,7 @@ export default {
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Zásady ochrany osobných údajov",
-      "provide": "Staňte sa poskytovateľom údajov",
+      "provide": "Staňte sa správcovská inštitúcia",
       "subscribe": "Prihláste sa k odberu nášho newslettera",
       "terms": "Podmienky používania"
     },
@@ -797,8 +798,8 @@ export default {
     "discoverEditorial": "Najnovšie príbehy",
     "storiesCTA": "Zobraziť všetky príbehy",
     "subHeadline": "Hľadaj, sťahuj a zdieľaj umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
-    "themesCTA": "Zobraziť všetky témy",
-    "themesTitle": "Preskúmajte podľa témy",
+    "themesCTA": "Zobraziť všetky kategórie",
+    "themesTitle": "Preskúmajte podľa kategórie",
     "title": "Objavte {digital} kultúrne dedičstvo Európy",
     "titleDigital": "digitálne"
   },
@@ -1020,7 +1021,7 @@ export default {
       "title": "Objavte súvisiace objekty"
     },
     "themes": {
-      "title": "Objavte súvisiace témy"
+      "title": "Objavte súvisiace kategórie"
     }
   },
   "removeFilter": "Odstrániť filter {filterLabel}",
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky objekty, ktoré ste do nej pridali."
     },
     "publication": {
+      "criteria": {
+        "description": "Aby bola galéria vyvážená na zverejnenie, musí obsahovať názov a popis a musí obsahovať minimálne 20 objekty.",
+        "title": "Kritériá zverejnenia"
+      },
       "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",
       "failedSubmission": "Žiadosť zlyhala. Prosím skúste znova.",
       "process": {
@@ -1157,8 +1162,8 @@ export default {
     "title": "Príbehy"
   },
   "themes": {
-    "description": "Prehľadávať podľa témy",
-    "themes": "Témy"
+    "description": "Prehľadávať podľa kategórie",
+    "themes": "Kategórie"
   },
   "website": "Webové stránky"
 };
