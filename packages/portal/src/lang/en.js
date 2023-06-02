@@ -1152,7 +1152,7 @@ export default {
     "publication": {
       "criteria": {
         "title": "Publication criteria",
-        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum 20 items."
+        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum of 20 items."
       },
       "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
       "failedSubmission": "The request failed. Please try again.",
