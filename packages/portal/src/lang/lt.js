@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} išplėstinė paieška",
       "tooltip": {
+        "advancedSearch": "Išplėstinė paieška leidžia kurti pasirinktines paieškos užklausas.",
         "field": "Pasirinkite lauką, kuriame norite ieškoti.",
-        "modifier": "Pasirinkite modifikatorių, kurį taikyti laukui."
+        "modifier": "Pasirinkite modifikatorių, kurį taikyti laukui.",
+        "term": "Įveskite terminą (-us), kurio (-ių) norite ieškoti arba išskirti."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} rezultatai",
       "withQuery": "{count} rezultatai pagal {query}"
     },
+    "selectTheme": "Pasirinkus TEMĄ, gali būti suteikta papildomų filtravimo parinkčių, pvz., temoje \"Laikraščiai\" yra filtras \"IŠLEIDIMO DATA\".",
     "title": "Paieška"
   },
   "searchFilters": "Paieškos filtrai {count}",

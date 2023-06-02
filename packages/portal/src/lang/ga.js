@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} ardchuardach",
       "tooltip": {
+        "advancedSearch": "Ligeann an cuardach casta duit ceisteanna cuardaigh saincheaptha a chruthú.",
         "field": "Roghnaigh réimse le cuardach air.",
-        "modifier": "Roghnaigh mionathraitheoir le cur i bhfeidhm ar an réimse."
+        "modifier": "Roghnaigh mionathraitheoir le cur i bhfeidhm ar an réimse.",
+        "term": "Cuir isteach an téarma(í) chun cuardach a dhéanamh orthu nó lena eisiamh."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} torthaí",
       "withQuery": "{count} torthaí do {query}"
     },
+    "selectTheme": "Trí TÉAMA a roghnú, d'fhéadfadh roghanna breise scagaireachta a bheith ar fáil, mar shampla, tá rogha SCAGAIREACHT NA hIRISÍ sa téama Nuachtáin a bhaineann le SCAGAIREACHT DE DÁTA.",
     "title": "Cuardaigh"
   },
   "searchFilters": "Scagairí cuardaigh {count}",

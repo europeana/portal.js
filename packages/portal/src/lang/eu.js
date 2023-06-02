@@ -1051,8 +1051,10 @@ export default {
       },
       "show": "{showOrHide} bilaketa aurreratua",
       "tooltip": {
+        "advancedSearch": "Bilaketa aurreratuak bilaketa pertsonalizatuak sortzeko aukera ematen du.",
         "field": "Aukeratu bilatzeko zelai bat.",
-        "modifier": "Hautatu modifikatzaile bat eremuari aplikatzeko."
+        "modifier": "Hautatu modifikatzaile bat eremuari aplikatzeko.",
+        "term": "Sartu bilatu edo baztertu nahi dituzun terminoak."
       }
     },
     "boost": {
@@ -1065,6 +1067,7 @@ export default {
       "withoutQuery": "{count} emaitza",
       "withQuery": "{count} emaitza rentzat {query}"
     },
+    "selectTheme": "GAIA hautatzeak iragazki-aukera gehiago eskain ditzake, adibidez, Egunkariak gaiak DATA IRAGARRI iragazkia dakar.",
     "title": "Bilatu"
   },
   "searchFilters": "Bilaketa-iragazkiak {count}",

@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} rozšírené vyhľadávanie",
       "tooltip": {
+        "advancedSearch": "Rozšírené vyhľadávanie vám umožňuje vytvárať vlastné vyhľadávacie dopyty.",
         "field": "Vyberte pole pre vyhľadávanie",
-        "modifier": "Vyberte modifikátor, ktorý sa má aplikovať na pole."
+        "modifier": "Vyberte modifikátor, ktorý sa má aplikovať na pole.",
+        "term": "Zadajte výraz(y), ktorý chcete vyhľadať alebo vylúčiť."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} výsledkov",
       "withQuery": "{count} výsledkov pre {query}"
     },
+    "selectTheme": "Výber KATEGÓRIE môže poskytnúť ďalšie možnosti filtrovania, napr. téma Noviny obsahuje filter DÁTUM VYDANIA.",
     "title": "Vyhľadávanie"
   },
   "searchFilters": "Filtre vyhľadávania {count}",

@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} tfittxija avvanzata",
       "tooltip": {
+        "advancedSearch": "It-tfittxija avvanzata tippermettilek tibni mistoqsijiet ta' tfittxija personalizzati.",
         "field": "Agħżel qasam biex tfittex.",
-        "modifier": "Agħżel modifikatur biex tapplika għall-qasam."
+        "modifier": "Agħżel modifikatur biex tapplika għall-qasam.",
+        "term": "Daħħal it-terminu(i) biex tfittex, jew biex teskludi."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} riżultati",
       "withQuery": "{count} riżultati għal {query}"
     },
+    "selectTheme": "L-għażla ta' TEMA tista' tipprovdi aktar għażliet ta' filtri, eż. it-tema tal-Gazzetti tinkludi filtru DATA ĦRUĠ.",
     "title": "Fittex"
   },
   "searchFilters": "Fittex filtri {count}",

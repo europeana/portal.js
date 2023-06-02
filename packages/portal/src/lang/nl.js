@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} geavanceerd zoeken",
       "tooltip": {
+        "advancedSearch": "Met geavanceerd zoeken kunt u aangepaste zoekopdrachten maken.",
         "field": "Selecteer een veld om op te zoeken.",
-        "modifier": "Selecteer een modificatie om op het veld toe te passen."
+        "modifier": "Selecteer een modificatie om op het veld toe te passen.",
+        "term": "Voer de term(en) in waarop u wilt zoeken of die u wilt uitsluiten."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} resultaten",
       "withQuery": "{count} resultaten voor {query}"
     },
+    "selectTheme": "Het selecteren van een THEMA kan meer filteropties bieden, bijvoorbeeld het thema Kranten bevat een DATUM UITGEGEVEN filter.",
     "title": "Zoeken"
   },
   "searchFilters": "Zoekfilters {count}",

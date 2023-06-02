@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} speciális keresés",
       "tooltip": {
+        "advancedSearch": "A speciális keresés lehetővé teszi egyéni keresési lekérdezések létrehozását.",
         "field": "Válasszon egy mezőt a kereséshez.",
-        "modifier": "Válassza ki a mezőre alkalmazni kívánt módosítót."
+        "modifier": "Válassza ki a mezőre alkalmazni kívánt módosítót.",
+        "term": "Írja be a keresendő vagy kizárandó kifejezés(eke)t."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} eredmények",
       "withQuery": "{count} eredmények a következőhöz: {query}"
     },
+    "selectTheme": "A TÉMAK kiválasztása további szűrési lehetőségeket biztosíthat, pl. az Újságok téma tartalmaz egy KIADÁSI DÁTUM szűrőt.",
     "title": "Keresés"
   },
   "searchFilters": "Keresési szűrők {count}",

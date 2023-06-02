@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} erweiterte Suche",
       "tooltip": {
+        "advancedSearch": "Mit der erweiterten Suche können Sie benutzerdefinierte Suchanfragen erstellen.",
         "field": "Wählen Sie ein Feld für die Suche aus.",
-        "modifier": "Wählen Sie einen Modifikator aus, der auf das Feld angewendet werden soll."
+        "modifier": "Wählen Sie einen Modifikator aus, der auf das Feld angewendet werden soll.",
+        "term": "Geben Sie die Begriffe ein, nach denen gesucht oder ausgeschlossen werden soll."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} Ergebnisse",
       "withQuery": "{count} Ergebnisse für {query}"
     },
+    "selectTheme": "Die Auswahl eines THEMABEREICHE bietet möglicherweise weitere Filteroptionen, z. B. enthält das Thema „Zeitungen“ einen Filter „DATUM AUSGABE“.",
     "title": "Suche"
   },
   "searchFilters": "Suchfilter {count}",

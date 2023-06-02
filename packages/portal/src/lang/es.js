@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} búsqueda avanzada",
       "tooltip": {
+        "advancedSearch": "La búsqueda avanzada le permite crear consultas de búsqueda personalizadas.",
         "field": "Seleccione un campo para buscar.",
-        "modifier": "Seleccione un modificador para aplicarlo al campo."
+        "modifier": "Seleccione un modificador para aplicarlo al campo.",
+        "term": "Introduzca los términos que desea buscar o excluir."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} resultados",
       "withQuery": "{count} resultados para {query}"
     },
+    "selectTheme": "Seleccionar un MATERIA puede proporcionar más opciones de filtro, por ejemplo, el tema Periódicos incluye un filtro FECHA DE EMISIÓN.",
     "title": "Buscar"
   },
   "searchFilters": "Filtros de búsqueda {count}",

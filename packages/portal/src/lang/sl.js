@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} napredno iskanje",
       "tooltip": {
+        "advancedSearch": "Napredno iskanje vam omogoča ustvarjanje iskalnih poizvedb po meri.",
         "field": "Izberite polje za iskanje.",
-        "modifier": "Izberite modifikator, ki ga želite uporabiti za polje."
+        "modifier": "Izberite modifikator, ki ga želite uporabiti za polje.",
+        "term": "Vnesite izraz(e), ki ga želite poiskati ali izključiti."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} rezultatov",
       "withQuery": "{count} rezultatov za {query}"
     },
+    "selectTheme": "Izbira TEME lahko ponudi dodatne možnosti filtra, npr. tema Časopisi vključuje filter DATUM IZDAJE.",
     "title": "Išči"
   },
   "searchFilters": "Iskalni filtri {count}",

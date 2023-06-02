@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} napredno pretraživanje",
       "tooltip": {
+        "advancedSearch": "Napredno pretraživanje omogućuje vam izradu prilagođenih upita za pretraživanje.",
         "field": "Odaberite polje za pretraživanje.",
-        "modifier": "Odaberite modifikator koji želite primijeniti na polje."
+        "modifier": "Odaberite modifikator koji želite primijeniti na polje.",
+        "term": "Unesite izraz(e) za traženje ili isključivanje."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} rezultata",
       "withQuery": "{count} rezultata za {query}"
     },
+    "selectTheme": "Odabir TEME može pružiti dodatne mogućnosti filtriranja, npr. tema Novine uključuje filtar DATUM IZDAVANJA.",
     "title": "Traži"
   },
   "searchFilters": "Filtri pretraživanja {count}",

@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} căutare avansată",
       "tooltip": {
+        "advancedSearch": "Căutarea avansată vă permite să creați interogări de căutare personalizate.",
         "field": "Selectați un câmp în care să căutați.",
-        "modifier": "Selectați un modificator de aplicat câmpului."
+        "modifier": "Selectați un modificator de aplicat câmpului.",
+        "term": "Introduceți termenul (termenii) de căutat sau de exclus."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} rezultate",
       "withQuery": "{count} rezultate pentru {query}"
     },
+    "selectTheme": "Selectarea unei TEMĂ poate oferi opțiuni suplimentare de filtrare, de exemplu, tema Ziare include un filtru DATA EMISĂRII.",
     "title": "Căutare"
   },
   "searchFilters": "Filtre de căutare {count}",

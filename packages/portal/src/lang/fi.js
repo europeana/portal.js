@@ -1047,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} tarkennettu haku",
       "tooltip": {
+        "advancedSearch": "Tarkennetun haun avulla voit luoda mukautettuja hakukyselyitä.",
         "field": "Valitse hakuun kenttä",
-        "modifier": "Valitse kenttään käytettävä muokkaus."
+        "modifier": "Valitse kenttään käytettävä muokkaus.",
+        "term": "Kirjoita termi (termit), jota (joita) etsitään tai jotka halutaan sulkea pois."
       }
     },
     "boost": {
@@ -1061,6 +1063,7 @@ export default {
       "withoutQuery": "{count} tulokset",
       "withQuery": "{count} tulokset :lle {query}"
     },
+    "selectTheme": "TEEMA valitseminen voi tarjota lisää suodatusvaihtoehtoja, esim. Sanomalehdet-teema sisältää JULKAISTUSPÄIVÄN suodattimen.",
     "title": "Hae"
   },
   "searchFilters": "Hakusuodattimet {count}",
