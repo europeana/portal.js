@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "A curated gallery shows the pinned items within a specific collection",
       "private": "A private gallery can only be viewed by you.",
       "public": "A public gallery can be viewed by anyone with the link.",
-      "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page."
+      "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page.",
+      "reorder": "You can reorder items by clicking this button and dragging the item to move it."
     }
   },
   "actions": {
@@ -1149,6 +1150,10 @@ export default {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     },
     "publication": {
+      "criteria": {
+        "title": "Publication criteria",
+        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum of 20 items."
+      },
       "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
       "failedSubmission": "The request failed. Please try again.",
       "process": {

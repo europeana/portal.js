@@ -21,6 +21,7 @@ const userEmailMock = 'user@example.eu';
 
 const factory = (propsData = {}) => shallowMount(SetPublicationRequestWidget, {
   localVue,
+  attachTo: document.body,
   propsData: {
     ...propsData
   },
