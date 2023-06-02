@@ -14,6 +14,10 @@
 
     layout: 'minimal',
 
+    middleware: [
+      'cache-control-private'
+    ],
+
     mounted() {
       this.keycloakLogin();
     }

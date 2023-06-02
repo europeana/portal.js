@@ -69,20 +69,22 @@
               data-qa="language selector"
             />
           </b-col>
-          <b-col
-            sm="6"
-            lg="3"
-            class="right-col pb-4  order-sm-4 order-lg-6"
-          >
-            <LinkGroup
-              v-if="showDebugLinkGroup"
-              list-class="footer-link-list"
-              link-class="footer-link"
-              :caption="debugLinkGroup.name"
-              :links="debugLinkGroup.links"
-              data-qa="debug link group"
-            />
-          </b-col>
+          <client-only>
+            <b-col
+              sm="6"
+              lg="3"
+              class="right-col pb-4  order-sm-4 order-lg-6"
+            >
+              <LinkGroup
+                v-if="showDebugLinkGroup"
+                list-class="footer-link-list"
+                link-class="footer-link"
+                :caption="debugLinkGroup.name"
+                :links="debugLinkGroup.links"
+                data-qa="debug link group"
+              />
+            </b-col>
+          </client-only>
         </b-row>
         <hr class="my-5">
         <b-row>

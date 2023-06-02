@@ -30,31 +30,34 @@
         >
           <span class="icon-file" />{{ type }}
         </span>
-        <UserButtons
-          :identifier="identifier"
-          :show-pins="showPins"
-          :show-move="showMove"
-          :button-text="true"
-          button-variant="light-flat"
-        />
+        <client-only>
+          <UserButtons
+            :identifier="identifier"
+            :show-pins="showPins"
+            :show-move="showMove"
+            :button-text="true"
+            button-variant="light-flat"
+          />
+        </client-only>
       </div>
     </template>
     <template
       v-else
       #image-overlay
     >
-      <RecommendationButtons
-        v-if="enableAcceptRecommendation || enableRejectRecommendation"
-        :identifier="identifier"
-        :enable-accept-button="enableAcceptRecommendation"
-        :enable-reject-button="enableRejectRecommendation"
-      />
-      <UserButtons
-        v-else
-        :identifier="identifier"
-        :show-pins="showPins"
-        :show-move="showMove"
-      />
+      <client-only>
+        <RecommendationButtons
+          v-if="enableAcceptRecommendation || enableRejectRecommendation"
+          :identifier="identifier"
+          :enable-accept-button="enableAcceptRecommendation"
+          :enable-reject-button="enableRejectRecommendation"
+        />
+        <UserButtons
+          :identifier="identifier"
+          :show-pins="showPins"
+          :show-move="showMove"
+        />
+      </client-only>
     </template>
   </ContentCard>
 </template>

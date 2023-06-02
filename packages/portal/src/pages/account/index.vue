@@ -180,7 +180,10 @@
       pageMetaMixin
     ],
 
-    middleware: 'auth',
+    middleware: [
+      'auth',
+      'cache-control-private'
+    ],
 
     data() {
       return {

@@ -255,6 +255,7 @@ export default {
     '~/plugins/vue-matomo.client',
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
+    '~/plugins/i18n-cookie.client',
     '~/plugins/error',
     '~/plugins/link',
     '~/plugins/axios.server',
@@ -362,6 +363,8 @@ export default {
     middleware: [
       'trailing-slash',
       'legacy/index',
+      'no-ssr-cookies',
+      'cache-control-public',
       'l10n',
       'contentful-galleries',
       'set-galleries'

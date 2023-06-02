@@ -15,6 +15,10 @@
 
     layout: 'minimal',
 
+    middleware: [
+      'cache-control-private'
+    ],
+
     created() {
       this.$auth.$storage.setUniversal('portalLoggingOut', true);
     },
