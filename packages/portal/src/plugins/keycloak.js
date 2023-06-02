@@ -3,20 +3,17 @@
 // docs: https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter
 import Keycloak from 'keycloak-js';
 
-const keycloakRefreshAccessToken = async({ $keycloak, $cookies, $axios }, requestConfig) => {
-  const updated = await $keycloak.auth.updateToken(-1);
-  if (updated) {
-    $cookies.set('kc.token', $keycloak.auth.token);
-    $cookies.set('kc.idToken', $keycloak.auth.idToken);
-    $cookies.set('kc.refreshToken', $keycloak.auth.refreshToken);
-  } else {
-    // Refresh token is no longer valid; clear tokens and try again in case it
-    // doesn't require auth anyway
-    $keycloak.auth.clearToken();
-  }
+const keycloakAxios = (ctx) => (axiosInstance) => {
+  axiosInstance.interceptors.request.use((requestConfig) => {
+    if (ctx.$keycloak.auth?.token) {
+      requestConfig.headers.authorization = `Bearer ${ctx.$keycloak.auth.token}`;
+    }
+    return requestConfig;
+  });
 
-  // Retry request with new access token
-  return $axios.request(requestConfig);
+  if (typeof axiosInstance.onResponseError === 'function') {
+    axiosInstance.onResponseError(error => keycloakResponseErrorHandler(ctx, error));
+  }
 };
 
 const keycloakResponseErrorHandler = (ctx, error) => {
@@ -39,17 +36,20 @@ const keycloakUnauthorizedResponseErrorHandler = ({ $axios, $keycloak, redirect,
   }
 };
 
-const keycloakAxios = (ctx) => (axiosInstance) => {
-  axiosInstance.interceptors.request.use((requestConfig) => {
-    if (ctx.$keycloak.auth.auth?.token) {
-      requestConfig.headers.authorization = `Bearer ${ctx.$keycloak.auth.auth.token}`;
-    }
-    return requestConfig;
-  });
-
-  if (typeof axiosInstance.onResponseError === 'function') {
-    axiosInstance.onResponseError(error => keycloakResponseErrorHandler(ctx, error));
+const keycloakRefreshAccessToken = async({ $keycloak, $cookies, $axios }, requestConfig) => {
+  const updated = await $keycloak.auth.updateToken(-1);
+  if (updated) {
+    $cookies.set('kc.token', $keycloak.auth.token);
+    $cookies.set('kc.idToken', $keycloak.auth.idToken);
+    $cookies.set('kc.refreshToken', $keycloak.auth.refreshToken);
+  } else {
+    // Refresh token is no longer valid; clear tokens and try again in case it
+    // doesn't require auth anyway
+    $keycloak.auth.clearToken();
   }
+
+  // Retry request with new access token
+  return $axios.request(requestConfig);
 };
 
 const keycloakAuth = async(ctx) => {
