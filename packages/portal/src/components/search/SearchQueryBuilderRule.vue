@@ -23,7 +23,7 @@
         />
         <b-form-select
           :id="`select-field-${id}`"
-          v-model="selectField"
+          v-model="value.field"
           :options="selectFieldOptions"
           :required="areAllRequired"
           @change="(value) => handleFieldChange(value)"
@@ -46,7 +46,7 @@
         />
         <b-form-select
           :id="`select-modifier-${id}`"
-          v-model="selectModifier"
+          v-model="value.modifier"
           :options="selectModifierOptions"
           :required="areAllRequired"
           @change="(value) => handleModifierChange(value)"
@@ -59,7 +59,7 @@
       >
         <b-form-input
           :id="`search-term-${id}`"
-          v-model="inputTerm"
+          v-model="value.term"
           :required="areAllRequired"
           @change="(value) => handleTermChange(value)"
         />
@@ -93,39 +93,21 @@
     ],
 
     props: {
-      field: {
-        type: String,
-        default: null
-      },
       id: {
         type: String,
         default: null
       },
-      modifier: {
-        type: String,
-        default: null
-      },
-      term: {
-        type: String,
-        default: null
+      value: {
+        type: Object,
+        required: true
       }
-    },
-
-    data() {
-      return {
-        inputTerm: this.term,
-        selectField: this.field,
-        selectModifier: this.modifier
-      };
     },
 
     computed: {
       // If any field has a value, all are required. If none have a value, the
       // rule will be ignored and none are required.
       areAllRequired() {
-        return [this.inputTerm, this.selectField, this.selectModifier].some((value) => (
-          value !== null && value !== ''
-        ));
+        return [this.value.term, this.value.field, this.value.modifier].some((value) => !!value);
       },
       selectFieldOptions() {
         return this.advancedSearchFields.map((field) => ({
@@ -139,18 +121,6 @@
           value: mod.name,
           text: this.$t(`search.advanced.modifiers.${mod.name}`)
         }));
-      }
-    },
-
-    watch: {
-      field(newVal) {
-        this.selectField = newVal;
-      },
-      modifier(newVal) {
-        this.selectModifier = newVal;
-      },
-      term(newVal) {
-        this.inputTerm = newVal;
       }
     },
 
