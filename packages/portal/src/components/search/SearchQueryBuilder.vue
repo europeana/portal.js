@@ -20,6 +20,7 @@
             >
               <SearchQueryBuilderRule
                 :id="`${id}-${index}`"
+                :index="index"
                 :field="rule.field"
                 :modifier="rule.modifier"
                 :term="rule.term"
