@@ -1074,8 +1074,10 @@ export default {
       },
       "show": "{showOrHide} advanced search",
       "tooltip": {
-        "field": "Select a field to search on.",
-        "modifier": "Select a modifier to apply to the field."
+        "advancedSearch": "The advanced search allows you to build custom search queries.",
+        "field": "Select the metadata field to search within.",
+        "modifier": "Choose how this field should modify the search.",
+        "term": "Enter the term(s) to search for, or to exclude."
       }
     },
     "boost": {
@@ -1088,6 +1090,7 @@ export default {
       "withoutQuery": "{count} results",
       "withQuery": "{count} results for {query}"
     },
+    "selectTheme": "Selecting a THEME may provide further filter options, e.g. the Newspapers theme includes a DATE ISSUED filter.",
     "title": "Search"
   },
   "searchFilters": "Search filters {count}",

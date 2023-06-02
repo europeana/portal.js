@@ -11,16 +11,26 @@
         :label-for="`select-field-${id}`"
       >
         <template #label>
-          <span :id="`select-field-label-${id}`">
+          <span
+            :id="`select-field-label-${id}`"
+            class="d-inline-flex align-items-center"
+          >
             {{ $t('search.advanced.input.field') }}
+            <template v-if="tooltips">
+              <b-button
+                :id="`select-field-tooltip-btn-${id}`"
+                class="icon-info py-0 px-1 tooltip-button"
+                variant="light-flat"
+              />
+              <b-tooltip
+                :target="`select-field-tooltip-btn-${id}`"
+                :title="$t('search.advanced.tooltip.field')"
+                boundary-padding="0"
+                placement="bottom"
+              />
+            </template>
           </span>
         </template>
-        <b-tooltip
-          :target="`select-field-label-${id}`"
-          :title="$t('search.advanced.tooltip.field')"
-          boundary-padding="0"
-          placement="bottom"
-        />
         <b-form-select
           :id="`select-field-${id}`"
           v-model="field"
@@ -34,16 +44,26 @@
         :label-for="`select-modifier-${id}`"
       >
         <template #label>
-          <span :id="`select-modifier-label-${id}`">
+          <span
+            :id="`select-modifier-label-${id}`"
+            class="d-inline-flex align-items-center"
+          >
             {{ $t('search.advanced.input.modifier') }}
+            <template v-if="tooltips">
+              <b-button
+                :id="`select-modifier-tooltip-btn-${id}`"
+                class="icon-info py-0 px-1 tooltip-button"
+                variant="light-flat"
+              />
+              <b-tooltip
+                :target="`select-modifier-tooltip-btn-${id}`"
+                :title="$t('search.advanced.tooltip.modifier')"
+                boundary-padding="0"
+                placement="bottom"
+              />
+            </template>
           </span>
         </template>
-        <b-tooltip
-          :target="`select-modifier-label-${id}`"
-          :title="$t('search.advanced.tooltip.modifier')"
-          boundary-padding="0"
-          placement="bottom"
-        />
         <b-form-select
           :id="`select-modifier-${id}`"
           v-model="modifier"
@@ -54,9 +74,29 @@
       </b-form-group>
       <b-form-group
         class="query-rule-form-group"
-        :label="$t('search.advanced.input.searchTerm')"
         :label-for="`search-term-${id}`"
       >
+        <template #label>
+          <span
+            :id="`search-term-label-${id}`"
+            class="d-inline-flex align-items-center"
+          >
+            {{ $t('search.advanced.input.searchTerm') }}
+            <template v-if="tooltips">
+              <b-button
+                :id="`search-term-tooltip-btn-${id}`"
+                class="icon-info py-0 px-1 tooltip-button"
+                variant="light-flat"
+              />
+              <b-tooltip
+                :target="`search-term-tooltip-btn-${id}`"
+                :title="$t('search.advanced.tooltip.term')"
+                boundary-padding="0"
+                placement="bottom"
+              />
+            </template>
+          </span>
+        </template>
         <b-form-input
           :id="`search-term-${id}`"
           v-model="term"
@@ -96,6 +136,10 @@
       id: {
         type: String,
         default: null
+      },
+      tooltips: {
+        type: Boolean,
+        default: true
       },
       value: {
         type: Object,

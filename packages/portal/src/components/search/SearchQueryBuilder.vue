@@ -22,6 +22,7 @@
               <SearchQueryBuilderRule
                 :id="`${id}-${index}`"
                 v-model="queryRules[index]"
+                :tooltips="index === 0"
                 @change="(field, value) => handleChangeRule(field, value, index)"
                 @clear="clearRule(index)"
               />

@@ -92,6 +92,7 @@ const providerFields = [
 
 const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
   localVue,
+  attachTo: document.body,
   mocks: {
     $apis: {
       record: {
