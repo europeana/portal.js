@@ -81,8 +81,8 @@ export default {
     },
     keycloak: {
       clientId: process.env.KEYCLOAK_CLIENT_ID,
-      realm: process.env.KEYCLOAK_REALM,
-      url: process.env.KEYCLOAK_URL
+      realm: process.env.KEYCLOAK_REALM || 'europeana',
+      url: process.env.KEYCLOAK_URL || 'https://auth.europeana.eu/auth'
     },
     matomo: {
       host: process.env.MATOMO_HOST,

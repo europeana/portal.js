@@ -17,7 +17,7 @@ or via ENV variables on your machine.
 
 Some core features such as authentication and editorial content require the
 relevant configuration options to be specified. In particular, pay attention to
-the Europeana APIs, Contentful, Redis and oAuth sections in the example .env file.
+the Europeana APIs, Contentful, Redis and Keycloak sections in the example .env file.
 
 ## Build
 
