@@ -99,7 +99,7 @@
       },
       value: {
         type: Object,
-        required: true
+        default: () => ({})
       }
     },
 
