@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Eine kuratierte Galerie zeigt die angehefteten Objekte innerhalb einer bestimmten Sammlung",
       "private": "Eine private Galerie kann nur von Ihnen angesehen werden.",
       "public": "Eine öffentliche Galerie kann von jedem mit dem Link angesehen werden.",
-      "published": "Eine veröffentlichte Galerie kann von jedem eingesehen und auf unserer Seite Galerien veröffentlicht werden."
+      "published": "Eine veröffentlichte Galerie kann von jedem eingesehen und auf unserer Seite Galerien veröffentlicht werden.",
+      "reorder": "Sie können Objekte neu anordnen, indem Sie auf diese Schaltfläche klicken und das Objekt ziehen, um es zu verschieben."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Ersteller auswählen"
     },
     "DATA_PROVIDER": {
-      "moreName": "Institutionen",
-      "name": "Institution",
-      "select": "Institutionen auswählen"
+      "moreName": "Datenpartner",
+      "name": "Datenpartner",
+      "select": "Auswählen der Datenpartner"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Bildausrichtung | Bildausrichtungen",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Ist die Darstellung von",
       "edmIsSimilarTo": "Ist ähnlich wie",
       "edmIsSuccessorOf": "Ist Nachfolger von",
-      "edmProvider": "Anbieter",
+      "edmProvider": "Aggregator",
       "edmRealizes": "Realisiert",
       "edmRights": "Rechtehinweise der Medien in diesem Datensatz (sofern nicht anders angegeben)",
       "edmUgc": "Benutzergenerierte Inhalte",
@@ -752,7 +753,7 @@ export default {
       "help": "Hilfe",
       "MoreInfoLabel": "Mehr Infos",
       "privacy": "Datenschutz-Bestimmungen",
-      "provide": "Werden Sie Datenanbieter",
+      "provide": "Werden Sie Datenpartner",
       "subscribe": "Abonnieren Sie unseren Newsletter",
       "terms": "Nutzungsbedingungen"
     },
@@ -797,8 +798,8 @@ export default {
     "discoverEditorial": "Neueste Geschichten",
     "storiesCTA": "Alle Geschichten ansehen",
     "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
-    "themesCTA": "Alle Themen anzeigen",
-    "themesTitle": "Erkunden Sie nach Thema",
+    "themesCTA": "Alle Themenbereiche anzeigen",
+    "themesTitle": "Erkunden Sie nach Themenbereiche",
     "title": "Entdecken Sie das {digital} kulturelle Erbe Europas",
     "titleDigital": "digitale"
   },
@@ -1020,7 +1021,7 @@ export default {
       "title": "Entdecken Sie verwandte Objekte"
     },
     "themes": {
-      "title": "Entdecken Sie verwandte Themen"
+      "title": "Entdecken Sie verwandte Themenbereiche"
     }
   },
   "removeFilter": "{filterLabel}-Filter entfernen",
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben."
     },
     "publication": {
+      "criteria": {
+        "description": "Um für eine Veröffentlichung infrage zu kommen, muss eine Galerie einen Titel und eine Beschreibung enthalten und mindestens 20 Objekte enthalten.",
+        "title": "Veröffentlichungskriterien"
+      },
       "description": "Wenn Sie eine Galerie veröffentlichen, wird sie auf Europeana.eu/galleries veröffentlicht.",
       "failedSubmission": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
       "process": {
@@ -1157,7 +1162,7 @@ export default {
     "title": "Geschichten"
   },
   "themes": {
-    "description": "Nach Thema durchsuchen",
+    "description": "Nach Themenbereiche durchsuchen",
     "themes": "Themenbereiche"
   },
   "website": "Webseite"

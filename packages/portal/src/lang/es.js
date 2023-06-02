@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Una galería seleccionada muestra los ítems anclados dentro de una colección específica",
       "private": "Una galería privada solo puede ser vista por usted.",
       "public": "Una galería pública puede ser vista por cualquier persona con el enlace.",
-      "published": "Una galería publicada puede ser vista por cualquiera, y puede aparecer en nuestra página de Galerías."
+      "published": "Una galería publicada puede ser vista por cualquiera, y puede aparecer en nuestra página de Galerías.",
+      "reorder": "Puede reordenar ítems haciendo clic en este botón y arrastrando el ítem para moverlo."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Seleccionar creadores"
     },
     "DATA_PROVIDER": {
-      "moreName": "instituciones",
-      "name": "Institución",
-      "select": "Seleccionar instituciones"
+      "moreName": "Proveedores de datos",
+      "name": "Proveedor de datos",
+      "select": "Seleccionar proveedores de datos"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientación de la imagen | Orientaciones de la imagen",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Temporal",
       "dctermsTOC": "Tabla de contenido",
       "dcTitle": "Título",
-      "dcType": "Tipo de objeto",
+      "dcType": "Tipo de ítem",
       "edmCountry": "País proveedor",
       "edmCurrentLocation": "Ubicación actual",
       "edmDataProvider": "Proveedor de datos",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "es la representación de",
       "edmIsSimilarTo": "es parecido a",
       "edmIsSuccessorOf": "es el sucesor de",
-      "edmProvider": "Proveedor",
+      "edmProvider": "Agregador",
       "edmRealizes": "Se da cuenta",
       "edmRights": "Declaración de derechos de los medios en este Ítem (a menos que se especifique lo contrario)",
       "edmUgc": "Contenido generado por el usuario",
@@ -969,7 +970,7 @@ export default {
     "label": "Paginación"
   },
   "provider": {
-    "linkText": "Ver en el sitio web del proveedor",
+    "linkText": "Ver en el sitio web del proveedor de datos",
     "providedBy": "Este Ítems es proporcionado y mantenido por {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "¿Estás seguro de que quieres eliminar esta galería? Si eliminas esta galería, perderás todos los Ítems que le hayas agregado."
     },
     "publication": {
+      "criteria": {
+        "description": "Para ser considerada para publicación, una galería debe incluir un título y una descripción, y debe contener un mínimo de 20 ítems.",
+        "title": "Criterios de publicación"
+      },
       "description": "Al publicar una galería, aparecerá en Europeana.eu/galleries.",
       "failedSubmission": "La solicitud falló. Inténtalo de nuevo.",
       "process": {

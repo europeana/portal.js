@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Kurátorovaná galerie zobrazuje připnuté položky v rámci konkrétní sbírky",
       "private": "Soukromou galerii můžete prohlížet pouze vy.",
       "public": "Veřejnou galerii může zobrazit kdokoli s odkazem.",
-      "published": "Publikovanou galerii si může prohlédnout kdokoli a může být uvedena na naší stránce Galerie."
+      "published": "Publikovanou galerii si může prohlédnout kdokoli a může být uvedena na naší stránce Galerie.",
+      "reorder": "Kliknutím na toto tlačítko a přetažením položky můžete změnit pořadí položka."
     }
   },
   "actions": {
@@ -90,7 +91,7 @@ export default {
     "place": "Místa",
     "theme": "Témata",
     "time": "Století",
-    "topic": "Tématika"
+    "topic": "Tématy"
   },
   "blog": {
     "author": "Autor",
@@ -535,9 +536,9 @@ export default {
       "select": "Vyberte tvůrce"
     },
     "DATA_PROVIDER": {
-      "moreName": "institucí",
-      "name": "Instituce",
-      "select": "Vyberte instituce"
+      "moreName": "poskytující instituce",
+      "name": "Poskytující instituce",
+      "select": "Vyberte poskytující instituce"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientace obrázku | Orientace obrázků",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Časové",
       "dctermsTOC": "Obsah",
       "dcTitle": "Název",
-      "dcType": "Druh objektu",
+      "dcType": "Typ položka",
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
       "edmDataProvider": "Poskytovatelská instituce",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "představuje",
       "edmIsSimilarTo": "se podobá",
       "edmIsSuccessorOf": "je nástupcem",
-      "edmProvider": "Poskytovatel",
+      "edmProvider": "Agregátor",
       "edmRealizes": "ztvárňuje",
       "edmRights": "Výrok o právech tohoto položka (není-li uvedeno jinak)",
       "edmUgc": "Uživatelský obsah",
@@ -752,7 +753,7 @@ export default {
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",
       "privacy": "Zásady ochrany osobních údajů",
-      "provide": "Přispívejte do naší databáze",
+      "provide": "Staňte se poskytující instituce",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
       "terms": "Podmínky použití"
     },
@@ -961,7 +962,7 @@ export default {
         "title": "Časy"
       },
       "topics": {
-        "title": "Předměty"
+        "title": "Tématy"
       }
     }
   },
@@ -969,7 +970,7 @@ export default {
     "label": "Stránkování"
   },
   "provider": {
-    "linkText": "Zobrazit na webu poskytovatele",
+    "linkText": "Zobrazit na webu poskytující instituce",
     "providedBy": "Tuto položku poskytuje a spravuje {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje."
     },
     "publication": {
+      "criteria": {
+        "description": "Aby byla galerie zvážena k publikaci, musí obsahovat název a popis a musí obsahovat minimálně 20 položky.",
+        "title": "Kritéria publikace"
+      },
       "description": "Publikování galerie ji bude uvádět na Europeana.eu/galleries.",
       "failedSubmission": "Žádost se nezdařila. Prosím zkuste to znovu.",
       "process": {

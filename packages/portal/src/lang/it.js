@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Una galleria curata mostra gli oggetti appuntati all'interno di una collezioni specifica",
       "private": "Una galleria privata può essere visualizzata solo da te.",
       "public": "Una galleria pubblica può essere visualizzata da chiunque disponga del collegamento.",
-      "published": "Una galleria pubblicata può essere visualizzata da chiunque e può essere presentata nella nostra pagina Gallerie."
+      "published": "Una galleria pubblicata può essere visualizzata da chiunque e può essere presentata nella nostra pagina Gallerie.",
+      "reorder": "È possibile riordinare gli oggetti facendo clic su questo pulsante e trascinando l'oggetto per spostarlo."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Seleziona i creatori"
     },
     "DATA_PROVIDER": {
-      "moreName": "istituzioni",
-      "name": "Istituzione",
-      "select": "Seleziona le istituzioni"
+      "moreName": "fornitori di contenuti",
+      "name": "Fornitore di contenuti",
+      "select": "Selezionare fornitori di contenuti"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientamento immagine | Orientamenti immagini",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "È rappresentazione di",
       "edmIsSimilarTo": "È simile a",
       "edmIsSuccessorOf": "È successore di",
-      "edmProvider": "Fornitore",
+      "edmProvider": "Aggregatore",
       "edmRealizes": "Realizza",
       "edmRights": "Dichiarazione dei diritti del supporto in questo record (se non diversamente specificato)",
       "edmUgc": "Contenuto generato dagli utenti",
@@ -752,7 +753,7 @@ export default {
       "help": "Aiuto",
       "MoreInfoLabel": "Maggiori informazioni",
       "privacy": "Informativa sulla privacy",
-      "provide": "Diventa un partner dei dati",
+      "provide": "Diventa un fornitore di contenuti",
       "subscribe": "Iscriviti alla newsletter",
       "terms": "Termini di utilizzo"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Paginazione"
   },
   "provider": {
-    "linkText": "Visualizza sul sito web del fornitore",
+    "linkText": "Visualizza sul sito web del fornitore di contenuti",
     "providedBy": "Questo oggetti è fornito e gestito da {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto."
     },
     "publication": {
+      "criteria": {
+        "description": "Per essere presa in considerazione per la pubblicazione, una galleria deve includere un titolo e una descrizione e deve contenere un minimo di 20 oggetti.",
+        "title": "Criteri di pubblicazione"
+      },
       "description": "La pubblicazione di una galleria la presenterà su Europeana.eu/galleries.",
       "failedSubmission": "La richiesta è fallita. Per favore riprova.",
       "process": {

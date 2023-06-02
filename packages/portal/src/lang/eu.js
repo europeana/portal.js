@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Galeria komisario batek bilduma zehatz bateko ainguratutako elementuak erakusten ditu",
       "private": "Galeria pribatu bat zuk bakarrik ikus dezakezu.",
       "public": "Galeria publiko bat esteka duen edonork ikus dezake.",
-      "published": "Argitaratutako galeria edonork ikus dezake eta gure Galeriak orrian ager daiteke."
+      "published": "Argitaratutako galeria edonork ikus dezake eta gure Galeriak orrian ager daiteke.",
+      "reorder": "Elementuak berrantola ditzakezu botoi honetan klik eginez eta elementua arrastatuz mugitzeko."
     }
   },
   "actions": {
@@ -539,9 +540,9 @@ export default {
       "select": "Hautatu agregatzaileak"
     },
     "DATA_PROVIDER": {
-      "moreName": "erakundeak",
-      "name": "Erakundea:",
-      "select": "Aukeratu erakundeak"
+      "moreName": "erakunde hornitzailea",
+      "name": "Erakunde hornitzailea",
+      "select": "Aukeratu erakunde hornitzaileak"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Irudiaren orientazioa | Irudiaren orientazioak",
@@ -709,7 +710,7 @@ export default {
       "dctermsTemporal": "Aldi baterako",
       "dctermsTOC": "Edukien taula",
       "dcTitle": "Izenburua",
-      "dcType": "Objektu mota",
+      "dcType": "Elementu mota",
       "edmCountry": "Herrialde hornitzailea",
       "edmCurrentLocation": "Egungo kokapena",
       "edmDataProvider": "Erakunde hornitzailea",
@@ -721,7 +722,7 @@ export default {
       "edmIsRepresentationOf": "ordezkaria da",
       "edmIsSimilarTo": "-ren antzekoa da",
       "edmIsSuccessorOf": "ondorengoa da",
-      "edmProvider": "Hornitzailea",
+      "edmProvider": "Agregatzailea",
       "edmRealizes": "Konturatu da",
       "edmRights": "Elementu honen baimenen egoera (besterik adierazi ezean)",
       "edmUgc": "Erabiltzaileak sortutako edukia",
@@ -756,7 +757,7 @@ export default {
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
-      "provide": "Datu hornitzaile bihurtu",
+      "provide": "Bihurtu erakunde hornitzaile bat",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "terms": "Erabilera baldintzak"
     },
@@ -973,7 +974,7 @@ export default {
     "label": "Paginazioa"
   },
   "provider": {
-    "linkText": "Hornitzailearen webgunean ikusi",
+    "linkText": "Erakunde hornitzailearen webgunean ikusi",
     "providedBy": "Elementu hau {provider} k hornitu eta mantentzen du"
   },
   "recommendation": {
@@ -1126,6 +1127,10 @@ export default {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
     },
     "publication": {
+      "criteria": {
+        "description": "Argitalpenerako kontuan hartzeko, galeria batek izenburua eta deskribapena izan behar ditu, eta gutxienez 20 elementu izan behar ditu.",
+        "title": "Argitalpen-irizpideak"
+      },
       "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
       "failedSubmission": "Eskaerak huts egin du. Saiatu berriro mesedez.",
       "process": {

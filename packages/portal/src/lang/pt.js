@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Uma galeria com curadoria mostra os itens fixados numa coleção específica",
       "private": "Uma galeria privada só pode ser vista por si.",
       "public": "Uma galeria pública pode ser visualizada por qualquer pessoa com o link.",
-      "published": "Uma galeria publicada pode ser vista por qualquer pessoa e pode ser apresentada na nossa página Galerias."
+      "published": "Uma galeria publicada pode ser vista por qualquer pessoa e pode ser apresentada na nossa página Galerias.",
+      "reorder": "Você pode reordenar os itens clicando neste botão e arrastando o item para movê-lo."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Selecionar criadores"
     },
     "DATA_PROVIDER": {
-      "moreName": "instituições",
-      "name": "Instituição",
-      "select": "Selecionar instituições"
+      "moreName": "instituições fornecedoras",
+      "name": "Instituição fornecedora",
+      "select": "Selecione instituições fornecedoras"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientação da imagem | Orientações da imagem",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Temporal",
       "dctermsTOC": "Tabela de conteúdos",
       "dcTitle": "Título",
-      "dcType": "Tipo de objeto",
+      "dcType": "Tipo de item",
       "edmCountry": "País fornecedor",
       "edmCurrentLocation": "Localização atual",
       "edmDataProvider": "Instituição fornecedora",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "É representação de",
       "edmIsSimilarTo": "É similar a",
       "edmIsSuccessorOf": "É sucessor de",
-      "edmProvider": "Fornecedor",
+      "edmProvider": "Agregador",
       "edmRealizes": "Alcança",
       "edmRights": "Declaração de direitos para os média neste item (a menos que especificado de outra forma)",
       "edmUgc": "Conteúdo gerado por utilizadores",
@@ -752,7 +753,7 @@ export default {
       "help": "Ajuda",
       "MoreInfoLabel": "Mais informações",
       "privacy": "Política de Privacidade",
-      "provide": "Torne-se um parceiro de dados",
+      "provide": "Torne-se uma instituição fornecedora",
       "subscribe": "Subscreva na nossa newsletter",
       "terms": "Termos de uso"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Paginação"
   },
   "provider": {
-    "linkText": "Ver no site do fornecedor",
+    "linkText": "Veja no site da instituição fornecedora",
     "providedBy": "Este item é fornecido e mantido por {provider}"
   },
   "recommendation": {
@@ -1020,7 +1021,7 @@ export default {
       "title": "Descubra itens relacionados"
     },
     "themes": {
-      "title": "Descubra temas relacionados"
+      "title": "Descubra temáticos relacionados"
     }
   },
   "removeFilter": "Remover o filtro {filterLabel}",
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela."
     },
     "publication": {
+      "criteria": {
+        "description": "Para ser considerada para publicação, uma galeria deve incluir um título e uma descrição, e deve conter um mínimo de 20 itens.",
+        "title": "Critérios de publicação"
+      },
       "description": "A publicação de uma galeria irá apresentá-la em Europeana.eu/galleries.",
       "failedSubmission": "O pedido falhou. Por favor, tente novamente.",
       "process": {

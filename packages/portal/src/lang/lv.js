@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "Kuratoru galerijā tiek rādīti piespraustie digitālie objekti noteiktā kolekcijā",
       "private": "Privāto galeriju varat apskatīt tikai jūs.",
       "public": "Publisku galeriju var apskatīt ikviens, kam ir saite.",
-      "published": "Publicēto galeriju var skatīt ikviens, un tā var tikt parādīta mūsu lapā Galerijas."
+      "published": "Publicēto galeriju var skatīt ikviens, un tā var tikt parādīta mūsu lapā Galerijas.",
+      "reorder": "Varat pārkārtot vienumus, noklikšķinot uz šīs pogas un velkot vienumu, lai to pārvietotu."
     }
   },
   "actions": {
@@ -535,9 +536,9 @@ export default {
       "select": "Atlasīt radītāji"
     },
     "DATA_PROVIDER": {
-      "moreName": "Iestādes",
-      "name": "Iestāde",
-      "select": "Atlasīt iestādes"
+      "moreName": "piegādājošās iestādes",
+      "name": "Piegādājošā iestāde",
+      "select": "Izvēlieties piegādājošās iestādes"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Attēla orientācija | Attēla orientācijas",
@@ -705,7 +706,7 @@ export default {
       "dctermsTemporal": "Periods",
       "dctermsTOC": "Satura rādītājs",
       "dcTitle": "Nosaukums",
-      "dcType": "Objekta veids",
+      "dcType": "Digitālais objekts veids",
       "edmCountry": "Nodrošinošā valsts",
       "edmCurrentLocation": "Pašreizējā atrašanās vieta",
       "edmDataProvider": "Piegādājošā iestāde",
@@ -717,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Pārstāv",
       "edmIsSimilarTo": "Ir līdzīgs(-a)",
       "edmIsSuccessorOf": "Ir pēctecis(-e)",
-      "edmProvider": "Oriģinālais nodrošinātājs",
+      "edmProvider": "Agregators",
       "edmRealizes": "Sasniegumi",
       "edmRights": "Tiesību statuss šim digitālajam objektam (ja nav norādīts citādi)?",
       "edmUgc": "Lietotāja radīts saturs",
@@ -752,7 +753,7 @@ export default {
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Privātuma politika",
-      "provide": "Kļūsti par datu partneri",
+      "provide": "Kļūsti piegādājošā iestāde",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
       "terms": "Lietošanas noteikumi"
     },
@@ -969,7 +970,7 @@ export default {
     "label": "Lapu šķirošana"
   },
   "provider": {
-    "linkText": "Skatīt pakalpojumu sniedzēja vietnē",
+    "linkText": "Skatīt piegādājošās iestādes tīmekļa vietnē.",
     "providedBy": "Šo digitālais objekts nodrošina un uztur {provider}"
   },
   "recommendation": {
@@ -1122,6 +1123,10 @@ export default {
       "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie digitālie objekti."
     },
     "publication": {
+      "criteria": {
+        "description": "Lai galeriju varētu publicēt, tajā ir jāiekļauj nosaukums un apraksts, un tajā ir jābūt vismaz 20 digitālie objekti.",
+        "title": "Publikācijas kritēriji"
+      },
       "description": "Publicējot galeriju, tā būs pieejama vietnē Europeana.eu/galleries.",
       "failedSubmission": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
       "process": {
