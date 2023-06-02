@@ -23,6 +23,7 @@ i18n.locales = [
 
 const factory = (propsData = {}) => mount(ItemLanguageSelector, {
   localVue,
+  attachTo: document.body,
   propsData,
   i18n,
   mocks: {

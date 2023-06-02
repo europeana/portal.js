@@ -1,12 +1,11 @@
 export default {
   "account": {
     "curatedCollections": "Kolekcje kuratorowane",
-    "curatedCollectionsInfo": "Poniżej znajdziesz wszystkie kolekcje, których jesteś kuratorem",
     "editProfile": "Edytuj profil",
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj się / Zarejestruj się",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -18,7 +17,7 @@ export default {
         "public": "Nie masz jeszcze galerii publicznych",
         "published": "Nie miałeś jeszcze żadnej opublikowanej galerii"
       },
-      "noLikedItems": "Nie polubiono jeszcze żadnych przedmiotów"
+      "noLikedItems": "Nie polubiono jeszcze żadnych obiektów cyfrowych"
     },
     "privateCollections": "Galerie prywatne",
     "profile": "Moje polubienia i galerie",
@@ -26,18 +25,31 @@ export default {
     "publicCollections": "Galerie publiczne",
     "publishedCollections": "Opublikowane Galerie",
     "settings": "Ustawienia",
-    "title": "Moje konto"
+    "title": "Moje konto",
+    "tooltip": {
+      "EntityBestItemsSet": "Wyselekcjonowana galeria pokazuje przypięte obiekty cyfrowe w ramach określonej kolekcji",
+      "private": "Tylko Ty możesz oglądać prywatną galerię.",
+      "public": "Galerię publiczną może przeglądać każdy, kto ma link.",
+      "published": "Opublikowana galeria może być oglądana przez każdego i może być prezentowana na naszej stronie Galerie.",
+      "reorder": "Możesz zmienić kolejność obiekty cyfrowe, klikając ten przycisk i przeciągając obiekt cyfrowy, aby go przenieść."
+    }
   },
   "actions": {
     "accept": "Akceptuj",
+    "add": "Dodaj",
+    "apply": "Zastosuj",
     "cancel": "Anuluj",
+    "clear": "Wyczyść",
     "close": "zamknij",
     "continue": "kontynuuj",
     "depublish": "Depublikuj",
     "download": "Ściągnij",
     "edit": "Edytuj",
+    "explore": "Badać",
     "feedback": "Twoja opinia",
+    "filter": "Filtr",
     "goHome": "Przejdź do strony głównej",
+    "hide": "Ukryj",
     "learnMore": "Ucz się więcej",
     "like": "Lubię",
     "move": "Przesuń",
@@ -46,12 +58,17 @@ export default {
     "preview": "Podgląd",
     "previous": "Poprzedni",
     "publish": "Publikować",
+    "readMore": "Czytaj więcej",
     "reject": "Odrzuć",
     "requestDepublication": "Poproś o wycofanie publikacji",
+    "reset": "Resetować",
     "save": "Zapisać",
     "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
+    "show": "Pokaż",
+    "showLess": "Pokaż mniej",
+    "showMore": "Pokaż więcej",
     "skipSend": "Pomiń i wyślij",
     "submitForPublication": "Prześlij do publikacji",
     "submittedForPublication": "Zgłoszony do publikacji",
@@ -69,12 +86,12 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Galerie",
-    "item": "Ostatnie elementy",
+    "item": "Ostatnie obiekty cyfrowe",
     "organisation": "Organizacje",
     "place": "Miejsca",
     "theme": "Motywy",
-    "time": "Polecane wieki",
-    "topic": "Polecane tematy"
+    "time": "Wieki",
+    "topic": "Tematy"
   },
   "blog": {
     "author": "Autor",
@@ -110,22 +127,22 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "projektanci",
-          "name": "Projektant | Projektanci",
+          "name": "Projektant",
           "select": "Wybierz projektantów"
         },
         "proxy_dc_format": {
           "moreName": "techniki",
-          "name": "Technika | Techniki",
+          "name": "Technika",
           "select": "Wybierz techniki"
         },
         "proxy_dc_type": {
           "moreName": "typy przedmiotów",
-          "name": "Typ elementu | Typy elementu",
+          "name": "Typ elementu",
           "select": "Wybierz typy przedmiotów"
         },
         "proxy_dcterms_medium": {
           "moreName": "materiały",
-          "name": "Materiał | Materiały",
+          "name": "Materiał",
           "select": "Wybierz materiały"
         }
       }
@@ -140,7 +157,7 @@ export default {
   "colourSwatch": "Próbka koloru",
   "contentfulManual": {
     "footerNavigation": {
-      "about": "O kolekcjach Europeana",
+      "about": "O Europeana",
       "forDevelopers": "Dla deweloperów",
       "help": "Pomoc",
       "meetUs": "Poznaj zespół",
@@ -186,7 +203,6 @@ export default {
       "title": "Ustawienia"
     }
   },
-  "delete": "Usuń",
   "depiction": "Obraz {title}",
   "directions": {
     "left": "W lewo",
@@ -198,7 +214,7 @@ export default {
       "cancel": "Anuluj",
       "pin": "Przypnij obiekt",
       "unpin": "Odepnij obiekt",
-      "viewPinned": "Zobacz przypięte elementy"
+      "viewPinned": "Zobacz przypięte obiekty cyfrowe"
     },
     "labels": {
       "entity": "Podmiot"
@@ -207,13 +223,13 @@ export default {
       "deleted": "Twoja galeria została usunięta.",
       "pin": "Ten element będzie wyświetlany u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
       "pinLimit": {
-        "body": "Na razie możesz przypiąć tylko 24 obiekty na pierwszej stronie. Jeśli chcesz przypiąć ten obiekt, upewnij się, że najpierw odpiąłeś inny i spróbuj ponownie.",
-        "title": "Za dużo przpiętych obiektów"
+        "body": "Na razie możesz przypiąć tylko 24 obiekty cyfrowe na pierwszej stronie. Jeśli chcesz przypiąć ten obiekt, upewnij się, że najpierw odpiąłeś inny i spróbuj ponownie.",
+        "title": "Za dużo przpiętych obiekty cyfrowe"
       },
-      "pinned": "Obiekt został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
+      "pinned": "Obiekt cyfrowy został przypięty. Pojawi się jako pierwszy element w kolekcji „ {entity} ”. Powiadomimy Cię, gdy ta zmiana będzie widoczna na stronie kolekcji.",
       "select": "Wybierz powiązaną jednostkę, aby przypiąć/odpiąć element do/od niego.",
       "unpin": "Ten element przestanie się wyświetlać u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
-      "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
+      "unpinned": "Obiekt cyfrowy został odpięty. Powiadomimy Cię, gdy ta zmiana będzie widoczna na stronie kolekcji."
     }
   },
   "error": "Błąd",
@@ -264,22 +280,19 @@ export default {
     "description": "Przeglądaj wystawy",
     "exhibitions": "Wystawa | Wystawy"
   },
-  "explore": "Badać",
   "facets": {
     "api": {
-      "name": "Szukaj",
+      "name": "Wyszukiwanie w dokumentach",
       "options": {
-        "fulltext": "Zapisy z pełnym tekstem",
-        "metadata": "Zapisy tylko z metadanymi"
+        "fulltext": "Obiekty cyfrowe z pełnym tekstem",
+        "metadata": "Obiekty cyfrowe tylko z metadanymi"
       },
-      "switch": "Wyszukiwanie tylko w treści artykułów z pełnym tekstem",
+      "switch": "Wyszukiwanie tylko w treści obiekty cyfrowe z pełnym tekstem",
       "switchMoreInfo": "W tej kolekcji możesz wybrać, czego chcesz szukać: jeśli ten przełącznik jest włączony, wtedy będziesz szukał w tekście gazety i dokumentu; jeśli jest wyłączony, wtedy będziesz szukał w informacjach opisujących dany artykuł, tak jak zawsze robisz to w większości innych kolekcji."
     },
     "button": {
-      "apply": "Zastosuj",
-      "cancel": "Anuluj",
       "morefilters": "Więcej filtrów",
-      "reset": "Resetuj",
+      "showAdditional": "{show} dodatkowe filtry",
       "showAll": "Pokaż wszystko {label}",
       "showLess": "Pokaż mniej {label}"
     },
@@ -304,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "kolory",
-      "name": "Kolor | Kolory",
+      "name": "Kolor",
       "options": {
         "#000000": "Czarny",
         "#000080": "Ciemnoniebieski",
@@ -454,10 +467,10 @@ export default {
       "select": "Wybierz kolory"
     },
     "contentTier": {
-      "name": "Jakość obiektu",
+      "name": "Jakość obiekt cyfrowy",
       "options": {
-        "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
-        "0": "Pokaż tylko elementy, które nie spełniają naszych kryteriów publikacji",
+        "*": "Obejmuje obiekty cyfrowe niespełniające naszych kryteriów publikowania",
+        "0": "Nie spełnia kryteriów publikacji.",
         "1": "Niska jakość",
         "2": "Średnia jakość",
         "3": "Wysoka jakość & wielokrotnego użytku z warunkami",
@@ -523,9 +536,9 @@ export default {
       "select": "Wybierz twórców"
     },
     "DATA_PROVIDER": {
-      "moreName": "instytucje",
-      "name": "Instytucja | Instytucje",
-      "select": "Wybierz instytucje"
+      "moreName": "dostawcy danych",
+      "name": "Dostawca danych",
+      "select": "Wybierz dostawcy danych"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Układ obrazu",
@@ -591,7 +604,7 @@ export default {
       "select": "Wybierz języki"
     },
     "MIME_TYPE": {
-      "name": "Format plików | Formaty plików",
+      "name": "Format pliku",
       "options": {
         "text/plain": "Zwykły tekst"
       },
@@ -599,8 +612,8 @@ export default {
     },
     "moreOptions": "Wyszukaj, aby znaleźć {0} więcej {1}.",
     "PROVIDER": {
-      "moreName": "agregatory",
-      "name": "Agregator | Agregatorzy",
+      "moreName": "agregatorzy",
+      "name": "Agregator",
       "select": "Wybierz agregatorów"
     },
     "proxy_dc_format": {
@@ -608,18 +621,18 @@ export default {
       "select": "Wybierz formaty"
     },
     "proxy_dc_type": {
-      "name": "Typ | Typy",
+      "name": "Typ | typy",
       "select": "Wybierz typy"
     },
     "proxy_dcterms_issued": {
       "name": "Data wydania"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media",
+      "name": "Medium",
       "select": "Wybierz media"
     },
     "REUSABILITY": {
-      "name": "Czy mogę to wykorzystać?",
+      "name": "Mogę tego użyć?",
       "options": {
         "open": "Tak",
         "permission": "Może, poproś o pozwolenie",
@@ -675,6 +688,7 @@ export default {
       "dcRights": "Prawa autorskie",
       "dcSource": "Źródło",
       "dcSubject": "Temat",
+      "dctermsAlternative": "Alternatywny tytuł",
       "dctermsCreated": "Data utworzenia",
       "dctermsExtent": "Zakres",
       "dctermsHasPart": "Składa się z",
@@ -692,10 +706,10 @@ export default {
       "dctermsTemporal": "Okres",
       "dctermsTOC": "Spis treści",
       "dcTitle": "Tytuł",
-      "dcType": "Rodzaj przedmiotu",
+      "dcType": "Rodzaj obiekt cyfrowy",
       "edmCountry": "Kraj dostarczający",
       "edmCurrentLocation": "Aktualna lokalizacja",
-      "edmDataProvider": "Instytucja dostarczająca",
+      "edmDataProvider": "Dostawca danych",
       "edmHasMet": "Spotkał",
       "edmIncorporates": "Zawiera",
       "edmIntermediateProvider": "Dostawca pośredni",
@@ -704,9 +718,9 @@ export default {
       "edmIsRepresentationOf": "Reprezentuje",
       "edmIsSimilarTo": "Jest podobna do",
       "edmIsSuccessorOf": "Jest następcą",
-      "edmProvider": "Dostawca",
+      "edmProvider": "Agregator",
       "edmRealizes": "Realizuje",
-      "edmRights": "Licencja na media w tym rekordzie (chyba że określono inaczej)",
+      "edmRights": "Oświadczenie prawne na media w tym rekordzie (chyba że określono inaczej)",
       "edmUgc": "Treści dodane przez użytkowników",
       "europeanaCollectionName": "Nazwa Kolekcji",
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
@@ -719,11 +733,10 @@ export default {
       "about": "RDF Informacje",
       "dcDescription": "Opis",
       "ebucoreHasMimeType": "Typ MIME Ebucore",
-      "edmRights": "Licencja na ten zasób medialny",
+      "edmRights": "Oświadczenie prawne na ten zasób medialny",
       "rdfAbout": "RDF Informacje"
     }
   },
-  "filter": "Filtr",
   "filterResults": "Wyniki filtrowania",
   "footer": {
     "customiseWebsiteLanguage": "Dostosuj język witryny",
@@ -732,7 +745,7 @@ export default {
     "findUsElsewhere": "Znajdź nas w innych miejscach",
     "imageDescription": "Finansowane przez Unię Europejską",
     "navigation": {
-      "about": "O nas",
+      "about": "O Europeana",
       "accessibility": "Dostępność",
       "cookies": "Pliki cookie",
       "faq": "Najczęściej zadawane pytania",
@@ -740,9 +753,9 @@ export default {
       "help": "Pomoc",
       "MoreInfoLabel": "Więcej informacji",
       "privacy": "Polityka prywatności",
-      "provide": "Zostań dostawcą danych",
+      "provide": "Zostań dostawca danych",
       "subscribe": "Zapisz się do naszego newslettera",
-      "terms": "Warunki usługi"
+      "terms": "Warunki korzystania"
     },
     "ourMission": "Nasza misja",
     "ourMissionQuote": "Europeana wspiera sektor dziedzictwa kulturowego w jego transformacji cyfrowej. Rozwijamy wiedzę specjalistyczną, narzędzia i polityki, aby uwzględnić zmiany cyfrowe i zachęcać do partnerstwa wspierającego innowacje."
@@ -753,9 +766,8 @@ export default {
   },
   "galleries": {
     "description": "Przeglądaj nasze galerie",
-    "galleries": "Galerie"
+    "galleries": "Galeria | Galerie"
   },
-  "goToRecord": "Przejdź do rekordu",
   "header": {
     "backToMenu": "Zamknij pole wyszukiwania",
     "clearQuery": "Wyczyść zapytanie",
@@ -764,7 +776,7 @@ export default {
     "europeanaHome": "Strona główna Europeana",
     "inCollection": "Wyszukaj {query} w {collection}",
     "navigation": {
-      "about": "O nas",
+      "about": "O Europeana",
       "collections": "Kolekcje",
       "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
@@ -785,7 +797,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Najnowsze historie",
     "storiesCTA": "Zobacz wszystkie historie",
-    "subHeadline": "Wyszukuj, zapisuj i udostępniaj dzieła sztuki, książki, filmy i muzykę z tysięcy instytucji kulturalnych",
+    "subHeadline": "Wyszukaj, zapisz i udostępnij dzieła sztuki, książki, filmy oraz muzykę pochodzącą z tysięcy instytucji dziedzictwa kulturowego",
     "themesCTA": "Zobacz wszystkie motywy",
     "themesTitle": "Eksploruj według motywu",
     "title": "Odkryj {digital} dziedzictwo kulturowe Europy",
@@ -795,18 +807,18 @@ export default {
     "handle": "Uchwyt suwakowy"
   },
   "items": {
-    "itemCount": "1 pozycja |Pozycje: {count}",
-    "itemOf": "{max} z {count} elementów",
-    "recent": "Ostatnie elementy",
-    "recommended": "Polecane obiekty",
-    "youMightLike": "Przedmioty, które mogą Ci się spodobać"
+    "itemCount": "1 obiekt cyfrowy | {count} obiekty cyfrowe",
+    "itemOf": "{max} z {count} obiekty cyfrowe",
+    "recent": "Ostatnie obiekty cyfrowe",
+    "recommended": "Polecane obiekty cyfrowe",
+    "youMightLike": "Obiekty cyfrowe, które mogą Ci się spodobać"
   },
   "klaro": {
     "main": {
       "acceptAll": "Akceptuj wszystkie",
       "acceptSelected": "Zaakceptuj wybrane",
       "consentModal": {
-        "description": "Poważnie traktujemy prywatność Twoich danych. Tutaj możesz ocenić i dostosować usługi, z których chcielibyśmy korzystać na tej stronie. Ty rządzisz! Włącz lub wyłącz usługi według własnego uznania.",
+        "description": "Tutaj możesz zobaczyć i dostosować usługi, z których chcielibyśmy korzystać na tej stronie. Aby dowiedzieć się więcej, przeczytaj naszą <a href='/rights/privacy-policy'> politykę prywatności </a>.",
         "title": "Usługi, z których chcielibyśmy skorzystać."
       },
       "consentNotice": {
@@ -874,7 +886,6 @@ export default {
   "layout": {
     "skipToMain": "Przejdź do zawartości strony"
   },
-  "learnMore": "Dowiedz się o źródle tego opisu",
   "loading": "Ładowanie",
   "loadingResults": "Ładowanie wyników",
   "messages": {
@@ -889,8 +900,8 @@ export default {
       "modalTitle": "Powiedz dziękuję"
     },
     "downloadFailed": {
-      "linkPrompt": "Radzimy kliknąć przycisk „Instytucja dostarczająca” poniżej, aby sprawdzić, czy element można pobrać na stronie internetowej instytucji udostępniającej.",
-      "message": "Jeśli pobieranie nie działa, może to być spowodowane tym, że zostało usunięte przez instytucję dostarczającą lub może występować problem techniczny z ich usługą.",
+      "linkPrompt": "Radzimy kliknąć przycisk „Dostawca danych” poniżej, aby sprawdzić, czy element można pobrać na stronie internetowej dostawca danych.",
+      "message": "Jeśli pobieranie nie działa, może to być spowodowane tym, że zostało usunięte przez dostawca danych lub może występować problem techniczny z ich usługą.",
       "title": "Pobieranie nie działa"
     },
     "transcribe": {
@@ -901,16 +912,17 @@ export default {
   "multilingual": {
     "automated": "Tłumaczenie zautomatyzowane",
     "enrichment": "Rozszerzenie w ramach projektów partnerskich",
-    "other": "Inne języki",
+    "other": "inne języki",
     "stopTranslating": "Przestań tłumaczyć ten element na {0}.",
     "translateLanguage": "Czy chciałbyś zobaczyć ten element w {0}?",
+    "translateMetadata": "Przetłumacz metadane tego obiekt cyfrowy.",
     "translateQuotaError": "Usługa tłumaczeń jest chwilowo niedostępna. Spróbuj ponownie później."
   },
   "newFeatureNotification": {
     "dismiss": "Zamknij",
-    "readMore": "Odkryj historie",
+    "readMore": "Przejdź do strony wyszukiwania",
     "text": {
-      "storiesTags": "Sprawdź zaktualizowaną stronę historie. Możesz teraz wyszukiwać i filtrować według tagów."
+      "advancedSearch": "Pojawiło się zaawansowane wyszukiwanie: pożegnaj się z szerokimi wynikami i przywitaj się z precyzją, odkrywając dokładnie to, czego szukasz. Zacznij odkrywać już teraz!"
     }
   },
   "newWindow": "otwiera się w nowym oknie",
@@ -943,7 +955,7 @@ export default {
         "title": "Miejsca"
       },
       "table": {
-        "items": "Elementy",
+        "items": "Obiekty cyfrowe",
         "name": "Nazwa"
       },
       "times": {
@@ -958,10 +970,9 @@ export default {
     "label": "Paginacja"
   },
   "provider": {
-    "linkText": "Zobacz na stronie internetowej dostawcy",
+    "linkText": "Zobacz na stronie internetowej dostawca danych",
     "providedBy": "Ten element jest dostarczany i obsługiwany przez {provider}"
   },
-  "readMore": "Czytaj więcej",
   "recommendation": {
     "prompts": {
       "accept": "Kciuk w górę, aby dodać do galerii",
@@ -981,9 +992,9 @@ export default {
     "location": "Lokalizacja",
     "locationOnMap": "Lokalizacja na mapie",
     "mediaPlayer": "Odtwarzacz multimediów",
-    "record": "Rekord",
+    "record": "Obiekt cyfrowy",
     "showAll": "Pokaż wszystkie informacje",
-    "similarItems": "Podobne obiekty",
+    "similarItems": "Podobne obiekty cyfrowe",
     "status": {
       "unpublished": "[Pozycja nieopublikowana]"
     },
@@ -1006,17 +1017,40 @@ export default {
       "title": "Odkryj powiązane galerie"
     },
     "items": {
-      "loginForMore": "Zaloguj się, aby zobaczyć inne powiązane elementy",
-      "title": "Odkryj powiązane elementy"
+      "loginForMore": "Zaloguj się, aby zobaczyć inne powiązane obiekty cyfrowe",
+      "title": "Odkryj powiązane obiekty cyfrowe"
     },
     "themes": {
       "title": "Odkryj powiązane motywy"
     }
   },
   "removeFilter": "Usuń filtr {filterLabel}",
-  "reset": "Resetuj",
   "resourceWikimedia": "Źródło z Wikimedia Commons",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} oznacza, że możesz swobodnie korzystać z tego obiekt cyfrowy. {readMoreLink}",
+      "permission": "{rightsStatementName} oznacza, że możesz korzystać z tego obiekt cyfrowy, jeśli uzyskasz pozwolenie. {readMoreLink}",
+      "readMore": "Przeczytaj więcej na {link}",
+      "restricted": "{rightsStatementName} oznacza, że możesz używać tego obiekt cyfrowy pod pewnymi warunkami. {readMoreLink}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Pole",
+        "modifier": "Modyfikator",
+        "searchTerm": "Wprowadź wyszukiwane hasła"
+      },
+      "modifiers": {
+        "contains": "zawiera",
+        "doesNotContain": "nie zawiera"
+      },
+      "show": "{showOrHide} wyszukiwanie zaawansowane",
+      "tooltip": {
+        "field": "Wybierz pole do wyszukiwania.",
+        "modifier": "Wybierz modyfikator, który ma zostać zastosowany do pola."
+      }
+    },
     "boost": {
       "placeholder": "Wpisz zapytanie zwiększające pole"
     },
@@ -1029,19 +1063,20 @@ export default {
     },
     "title": "Szukaj"
   },
+  "searchFilters": "Filtry wyszukiwania {count}",
   "searchHasLoaded": "{0} zwróconych wyników",
-  "searchPlaceholder": "Przeszukaj ponad 50 milionów przedmiotów",
+  "searchPlaceholder": "Przeszukaj ponad 50 milionów obiekty cyfrowe",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
   "searchSuggestions": "Sugestie wyszukiwania",
   "searchTier": {
     "button": {
-      "hide": "Ukryj te elementy",
-      "show": "Pokaż te elementy"
+      "hide": "Ukryj te obiekty cyfrowe",
+      "show": "Pokaż te obiekty cyfrowe"
     },
     "text": {
-      "hide": "Wyświetlane są elementy, które nie spełniają naszych kryteriów publikowania.",
-      "show": "Więcej elementów pasuje do wyszukiwania, ale nie spełnia naszych kryteriów publikowania."
+      "hide": "Wyświetlane są obiekty cyfrowe, które nie spełniają naszych kryteriów publikowania.",
+      "show": "Więcej obiekty cyfrowe pasuje do wyszukiwania, ale nie spełnia naszych kryteriów publikowania."
     }
   },
   "searchViews": {
@@ -1052,10 +1087,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Dodaj do galerii",
+      "addToGallery": "Dodaj ten obiekt cyfrowy do galerii.",
       "create": "Utwórz galerię",
       "createNew": "Utwórz nową galerię",
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
+      "saveItemToLikes": "Zapisz ten obiekt cyfrowy w swoich polubieniach.",
       "update": "Zaktualizuj galerię"
     },
     "entityBestBets": {
@@ -1076,16 +1113,20 @@ export default {
     "notifications": {
       "deleted": "Twoja galeria została usunięta.",
       "likeLimit": {
-        "body": "Przepraszamy, ale w tej chwili możesz polubić maksymalnie 100 pozycji. Wkrótce usuniemy ten limit!",
+        "body": "Przepraszamy, ale w tej chwili możesz polubić maksymalnie 100 obiektów cyfrowych. Wkrótce ten limit zostanie usunięty!",
         "title": "100 polubień"
       },
       "updated": "Obiekt został dodany do galerii.",
       "visibilityChanged": "Ostrzeżenie: zestaw widoczności już się zmienił i obecnie wynosi „ {visibility} ”."
     },
     "prompts": {
-      "delete": "Czy na pewno chcesz usunąć tę galerię? Jeśli ją usuniesz, utracisz wszystkie dodane do niej elementy."
+      "delete": "Czy na pewno chcesz usunąć tę galerię? Jeśli ją usuniesz, stracisz wszystkie obiekty cyfrowe dodane do niej."
     },
     "publication": {
+      "criteria": {
+        "description": "Aby galeria mogła zostać rozpatrzona do publikacji, musi zawierać tytuł i opis oraz musi zawierać co najmniej 20 obiekty cyfrowe.",
+        "title": "Kryteria publikacji"
+      },
       "description": "Opublikowanie galerii będzie ją prezentować na Europeana.eu/galleries.",
       "failedSubmission": "Żądanie nie powiodło się. Proszę spróbować ponownie.",
       "process": {
@@ -1100,6 +1141,7 @@ export default {
       "toastButton": "Dobra",
       "toastMessage": "Ta galeria została przesłana do publikacji. Możesz sprawdzić {galleries}, aby zobaczyć, czy został opublikowany."
     },
+    "setCount": "{count} galerii",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) to internetowe narzędzie do zarządzania treściami różnego typu (w tym 3D), dokumentowania dziedzictwa kulturowego poprzez cyfrowe przestrzenie społecznościowe oraz kura torowania cyfrowych historii i doświadczeń."
@@ -1107,8 +1149,6 @@ export default {
     }
   },
   "shareWhere": "Gdzie chcesz się tym podzielić?",
-  "showLess": "Pokaż mniej",
-  "showMore": "Pokaż więcej",
   "sideFilters": {
     "noOptions": "Nie ma dostępnych opcji do wyboru",
     "search": "Szukaj"

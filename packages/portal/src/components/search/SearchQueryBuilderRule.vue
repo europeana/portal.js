@@ -33,7 +33,7 @@
         </template>
         <b-form-select
           :id="`select-field-${id}`"
-          v-model="selectField"
+          v-model="field"
           :options="selectFieldOptions"
           :required="areAllRequired"
           @change="(value) => handleFieldChange(value)"
@@ -66,7 +66,7 @@
         </template>
         <b-form-select
           :id="`select-modifier-${id}`"
-          v-model="selectModifier"
+          v-model="modifier"
           :options="selectModifierOptions"
           :required="areAllRequired"
           @change="(value) => handleModifierChange(value)"
@@ -99,7 +99,7 @@
         </template>
         <b-form-input
           :id="`search-term-${id}`"
-          v-model="inputTerm"
+          v-model="term"
           :required="areAllRequired"
           @change="(value) => handleTermChange(value)"
         />
@@ -133,33 +133,25 @@
     ],
 
     props: {
-      field: {
-        type: String,
-        default: null
-      },
       id: {
-        type: String,
-        default: null
-      },
-      modifier: {
-        type: String,
-        default: null
-      },
-      term: {
         type: String,
         default: null
       },
       tooltips: {
         type: Boolean,
         default: true
+      },
+      value: {
+        type: Object,
+        default: () => ({})
       }
     },
 
     data() {
       return {
-        inputTerm: this.term,
-        selectField: this.field,
-        selectModifier: this.modifier
+        field: this.value.field,
+        modifier: this.value.modifier,
+        term: this.value.term
       };
     },
 
@@ -167,14 +159,12 @@
       // If any field has a value, all are required. If none have a value, the
       // rule will be ignored and none are required.
       areAllRequired() {
-        return [this.inputTerm, this.selectField, this.selectModifier].some((value) => (
-          value !== null && value !== ''
-        ));
+        return [this.value.term, this.value.field, this.value.modifier].some((value) => !!value);
       },
       selectFieldOptions() {
         return this.advancedSearchFields.map((field) => ({
-          value: field.name,
-          text: this.advancedSearchFieldLabel(field)
+          value: field?.name,
+          text: field?.name ? this.advancedSearchFieldLabel(field.name) : null
         }))
           .sort((a, b) => a.text.localeCompare(b.text));
       },
@@ -187,14 +177,13 @@
     },
 
     watch: {
-      field(newVal) {
-        this.selectField = newVal;
-      },
-      modifier(newVal) {
-        this.selectModifier = newVal;
-      },
-      term(newVal) {
-        this.inputTerm = newVal;
+      value: {
+        deep: true,
+        handler(value) {
+          this.field = value.field;
+          this.modifier = value.modifier;
+          this.term = value.term;
+        }
       }
     },
 

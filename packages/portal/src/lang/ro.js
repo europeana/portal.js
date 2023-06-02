@@ -1,12 +1,11 @@
 export default {
   "account": {
     "curatedCollections": "Colecții curatori ate",
-    "curatedCollectionsInfo": "Găsiți mai jos toate colecțiile pe care le-ați curatoriat",
     "editProfile": "Editare profil",
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Log in / Join",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -18,7 +17,7 @@ export default {
         "public": "Încă nu ai creat nicio galerie publică",
         "published": "Nu ați avut nici o galerii publicate încă"
       },
-      "noLikedItems": "Încă nu ai apreciat niciun articol"
+      "noLikedItems": "Încă nu ai apreciat niciun resurse culturale"
     },
     "privateCollections": "Galerii private",
     "profile": "Aprecierile și Galeriile mele",
@@ -26,18 +25,31 @@ export default {
     "publicCollections": "Galerii publice",
     "publishedCollections": "Galeriile Publicate",
     "settings": "Setări",
-    "title": "Contul meu"
+    "title": "Contul meu",
+    "tooltip": {
+      "EntityBestItemsSet": "O galerie organizată arată resurse culturale fixate dintr-o anumită colecție",
+      "private": "O galerie privată poate fi vizualizată doar de dvs.",
+      "public": "O galerie publică poate fi vizualizată de oricine are linkul.",
+      "published": "O galerie publicată poate fi vizualizată de oricine și poate fi prezentată pe pagina noastră Galerii.",
+      "reorder": "Puteți reordona resurse culturale făcând clic pe acest buton și trăgând resursă culturală pentru a-l muta."
+    }
   },
   "actions": {
     "accept": "Acceptă",
+    "add": "Adăuga",
+    "apply": "Aplică",
     "cancel": "Anulează",
+    "clear": "Curăță",
     "close": "închidere",
     "continue": "continua",
     "depublish": "Depublicați",
     "download": "Descarcă",
     "edit": "Editare",
+    "explore": "Explora",
     "feedback": "Feedback",
+    "filter": "Filtru",
     "goHome": "Mergeți la pagina de pornire",
+    "hide": "Ascunde",
     "learnMore": "Află mai multe",
     "like": "Apreciere",
     "move": "Muta",
@@ -46,12 +58,17 @@ export default {
     "preview": "Previzualizare",
     "previous": "Anterior",
     "publish": "Publica",
+    "readMore": "Citește mai mult",
     "reject": "Respinge",
     "requestDepublication": "Solicitați depublicarea",
+    "reset": "Resetare",
     "save": "Salva",
     "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
+    "show": "Afișare",
+    "showLess": "Afișează mai puțin",
+    "showMore": "Afișează mai multe",
     "skipSend": "Săriți și trimiteți",
     "submitForPublication": "Trimiteți spre publicare",
     "submittedForPublication": "Trimis spre publicare",
@@ -69,12 +86,12 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Galerii",
-    "item": "Articole recente",
+    "item": "Resurse culturale recente",
     "organisation": "Organizații",
     "place": "Locuri",
     "theme": "Teme",
-    "time": "Secole recomandate",
-    "topic": "Subiecte recomandate"
+    "time": "Secole",
+    "topic": "Subiecte"
   },
   "blog": {
     "author": "Autor",
@@ -96,9 +113,9 @@ export default {
     "topic": "Subiect"
   },
   "categories": {
-    "label": "Explorați poveștile după etichetă",
+    "label": "Explorați narațiuni după etichetă",
     "noOptions": "Nu mai sunt etichete de selectat",
-    "search": "Explorați poveștile după etichetă"
+    "search": "Explorați narațiuni după etichetă"
   },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
@@ -110,22 +127,22 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "designeri",
-          "name": "Designer | Designeri",
+          "name": "Designer",
           "select": "Selectați designeri"
         },
         "proxy_dc_format": {
           "moreName": "tehnici",
-          "name": "Tehnică | Tehnici",
+          "name": "Tehnică",
           "select": "Selectați tehnici"
         },
         "proxy_dc_type": {
-          "moreName": "tipuri de articole",
-          "name": "Tip articol | Tipuri articole",
-          "select": "Selectați tipurile de articole"
+          "moreName": "tipuri de resursă culturală",
+          "name": "Tip resursă culturală",
+          "select": "Selectați tipurile de resursă culturală"
         },
         "proxy_dcterms_medium": {
           "moreName": "materiale",
-          "name": "Material | Materiale",
+          "name": "Material",
           "select": "Selectați materiale"
         }
       }
@@ -142,7 +159,7 @@ export default {
     "footerNavigation": {
       "about": "Despre colecțiile Europeana",
       "forDevelopers": "Pentru dezvoltatori",
-      "help": "Ajutor",
+      "help": "Help",
       "meetUs": "Faceți cunoștință cu echipa",
       "MoreInfoLabel": "Mai multe informații",
       "provide": "Deveni un furnizor de date",
@@ -186,7 +203,6 @@ export default {
       "title": "Setări"
     }
   },
-  "delete": "Șterge",
   "depiction": "O reprezentare a {title}",
   "directions": {
     "left": "Stânga",
@@ -196,24 +212,24 @@ export default {
   "entity": {
     "actions": {
       "cancel": "Anulează",
-      "pin": "Fixare element",
-      "unpin": "Anulați fixarea elementului",
-      "viewPinned": "Vedeți elementele fixate"
+      "pin": "Fixare resursă culturală",
+      "unpin": "Anulați fixarea resursă culturală",
+      "viewPinned": "Vedeți resurse culturale fixate"
     },
     "labels": {
       "entity": "Entitate"
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
-      "pin": "Acest articol va apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
+      "pin": "Acest resursă culturală va apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
       "pinLimit": {
-        "body": "Pentru moment, puteți pin doar 24 elemente de pe prima pagină. Dacă doriți să fixați acest element, asigurați-vă că anulați fixarea altui element și apoi încercați să îl fixați din nou.",
-        "title": "Prea multe articole fixate"
+        "body": "Pentru moment, puteți pin doar 24 resurse culturale de pe prima pagină. Dacă doriți să fixați acest resurse culturale, asigurați-vă că anulați fixarea altui resurse culturale și apoi încercați să îl fixați din nou.",
+        "title": "Prea multe resurse culturale fixate"
       },
-      "pinned": "Elementul a fost fixat. Acum se află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a apărea pentru toată lumea.",
-      "select": "Selectați o entitate conexă pentru a fixa/dezfixa elementul la/de la aceasta.",
-      "unpin": "Acest articol nu va mai apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
-      "unpinned": "Elementul a fost dezlipit. Nu se mai află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a dispărea pentru toată lumea."
+      "pinned": "Resursă culturală a fost fixat. Va apărea ca primul resursă culturală din colecția „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
+      "select": "Selectați o entitate conexă pentru a fixa/dezfixa resursă culturală la/de la aceasta.",
+      "unpin": "Acest resursă culturală nu va mai apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
+      "unpinned": "Resursă culturală a fost anulat fixarea. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție."
     }
   },
   "error": "Eroare",
@@ -236,16 +252,16 @@ export default {
       "title": "Eroare necunoscută"
     },
     "itemNotFound": {
-      "description": "Acest lucru se poate datora următoarelor motive: acest articol nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți elementul din nou.",
-      "metaTitle": "Element nu a fost găsit",
-      "title": "Oh nu! {newline} Nu am putut găsi acest articol."
+      "description": "Acest lucru se poate datora următoarelor motive: acest resursă culturală nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți resursă culturală din nou.",
+      "metaTitle": "Resursă culturală nu a fost găsit",
+      "title": "Oh nu! {newline} Nu am putut găsi acest resursă culturală."
     },
     "pageNotFound": {
       "metaTitle": "Pagina nu a fost găsita",
       "title": "Pagina pe care o cauți nu există."
     },
     "pinningNotFound": {
-      "description": "S-a produs o eroare la fixarea/dezlipirea articolului. Vă rugăm să încercați din nou sau să raportați problema.",
+      "description": "S-a produs o eroare la fixarea/dezlipirea resursă culturală. Vă rugăm să încercați din nou sau să raportați problema.",
       "title": "Colecția curată nu a fost găsită"
     },
     "searchPaginationLimitExceeded": {
@@ -262,24 +278,21 @@ export default {
     "credits": "Credite",
     "currentChapter": "Capitolul actual",
     "description": "Explorează expozițiile",
-    "exhibitions": "Expoziții"
+    "exhibitions": "Expoziție | Expozitii"
   },
-  "explore": "Explora",
   "facets": {
     "api": {
-      "name": "Căutare după",
+      "name": "Căutare în cadrul documentelor",
       "options": {
-        "fulltext": "Înregistrări cu text integral",
-        "metadata": "Înregistrări doar pentru metadate"
+        "fulltext": "Resurse culturale cu text integral",
+        "metadata": "Resurse culturale doar pentru metadate"
       },
-      "switch": "Căutați numai în conținutul articolelor cu text integral",
-      "switchMoreInfo": "În această colecție, puteți alege ceea ce doriți să căutați: dacă acest comutator este pornit, atunci veți căuta în ziar și în textul documentului; dacă este oprit, atunci veți căuta în schimb în informațiile care descriu elementul, la fel cum faceți întotdeauna în majoritatea celorlalte colecții."
+      "switch": "Căutați numai în conținutul resurse culturale cu text integral",
+      "switchMoreInfo": "În această colecție, puteți alege ceea ce doriți să căutați: dacă acest comutator este pornit, atunci veți căuta în ziar și în textul documentului; dacă este oprit, atunci veți căuta în schimb în informațiile care descriu resursă culturală, la fel cum faceți întotdeauna în majoritatea celorlalte colecții."
     },
     "button": {
-      "apply": "Aplică",
-      "cancel": "Anulează",
       "morefilters": "Mai multe filtre",
-      "reset": "Resetează",
+      "showAdditional": "{show} filtre suplimentare",
       "showAll": "Afișează tot {label}",
       "showLess": "Afișează mai puțin {label}"
     },
@@ -304,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "culori",
-      "name": "Culoare | Culori",
+      "name": "Culoare",
       "options": {
         "#000000": "Negru",
         "#000080": "Albastru marin",
@@ -454,16 +467,16 @@ export default {
       "select": "Selectați culorile"
     },
     "contentTier": {
-      "name": "Calitatea articolelor",
+      "name": "Calitatea resursă culturală",
       "options": {
-        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
-        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare",
+        "*": "Sunt incluse resurse culturale care nu îndeplinesc criteriile noastre de publicare",
+        "0": "Nu îndeplinește criteriile de publicare.",
         "1": "Calitate scăzută",
         "2": "Calitate medie",
         "3": "De înaltă calitate și reutilizabil cu condiții",
         "4": "De înaltă calitate și reutilizabil gratuit"
       },
-      "select": "Selectați calitățile articolului"
+      "select": "Selectați calitățile resursă culturală"
     },
     "COUNTRY": {
       "name": "Țara de proveniență",
@@ -523,9 +536,9 @@ export default {
       "select": "Selectați creatori"
     },
     "DATA_PROVIDER": {
-      "moreName": "instituții",
-      "name": "Instituție",
-      "select": "Selectați instituții"
+      "moreName": "instituții furnizoare",
+      "name": "Instituție furnizoare",
+      "select": "Selectați instituții furnizoare"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientare imagine | Orientări imagine",
@@ -591,7 +604,7 @@ export default {
       "select": "Selectați limbile"
     },
     "MIME_TYPE": {
-      "name": "Format fișier| Formate fișier",
+      "name": "Format fișier",
       "options": {
         "text/plain": "Text simplu"
       },
@@ -599,27 +612,27 @@ export default {
     },
     "moreOptions": "Căutați pentru a găsi {0} mai mult {1}.",
     "PROVIDER": {
-      "moreName": "agregatoare",
+      "moreName": "agregatori",
       "name": "Agregator",
-      "select": "Selectați agregatorii"
+      "select": "Selectați agregatori"
     },
     "proxy_dc_format": {
       "name": "Format | Formate",
       "select": "Selectați formate"
     },
     "proxy_dc_type": {
-      "name": "Tip | Tipuri",
+      "name": "Tip | tipuri",
       "select": "Selectați tipuri"
     },
     "proxy_dcterms_issued": {
       "name": "Data emiterii"
     },
     "proxy_dcterms_medium": {
-      "name": "Medii | Media",
+      "name": "Mediu",
       "select": "Selectați media"
     },
     "REUSABILITY": {
-      "name": "Pot reutiliza acest lucru?",
+      "name": "Pot folosi asta?",
       "options": {
         "open": "Da",
         "permission": "Poate, obțineți permisiunea",
@@ -675,6 +688,7 @@ export default {
       "dcRights": "Drepturi",
       "dcSource": "Sursă",
       "dcSubject": "Subiect",
+      "dctermsAlternative": "Titlu alternativ",
       "dctermsCreated": "Data creării",
       "dctermsExtent": "Măsură",
       "dctermsHasPart": "Este format din",
@@ -692,10 +706,10 @@ export default {
       "dctermsTemporal": "Temporal",
       "dctermsTOC": "Cuprins",
       "dcTitle": "Titlu",
-      "dcType": "Tipul obiectului",
+      "dcType": "Tipul resursă culturală",
       "edmCountry": "Țara de proveniență",
       "edmCurrentLocation": "Locația curenta",
-      "edmDataProvider": "Instituția de proveniență",
+      "edmDataProvider": "Instituție furnizoare",
       "edmHasMet": "S-a întâlnit cu",
       "edmIncorporates": "Încorporează",
       "edmIntermediateProvider": "Furnizor intermediar",
@@ -704,9 +718,9 @@ export default {
       "edmIsRepresentationOf": "Este reprezentarea",
       "edmIsSimilarTo": "Este asemănător cu",
       "edmIsSuccessorOf": "Urmează după",
-      "edmProvider": "Furnizor",
+      "edmProvider": "Agregator",
       "edmRealizes": "Își dă seama",
-      "edmRights": "Licența media pentru această înregistrare (cu excepția cazului în care se specifică altfel)",
+      "edmRights": "Mențiunea privind drepturile intelectuale privind drepturile intelectuale media pentru această resursă culturală (cu excepția cazului în care se specifică altfel)",
       "edmUgc": "Conținut generat de utilizator",
       "europeanaCollectionName": "Numele colecției",
       "keywords": "Cuvinte cheie (furnizate de comunitate)",
@@ -719,11 +733,10 @@ export default {
       "about": "Despre RDF",
       "dcDescription": "Descriere",
       "ebucoreHasMimeType": "Tip Ebucore MIME",
-      "edmRights": "Licență pentru această resursă media",
+      "edmRights": "Mențiunea privind drepturile intelectuale pentru această resursă media",
       "rdfAbout": "Despre RDF"
     }
   },
-  "filter": "Filtru",
   "filterResults": "Filtrați rezultatele",
   "footer": {
     "customiseWebsiteLanguage": "Personalizați limba de pe pagina de internet",
@@ -732,15 +745,15 @@ export default {
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
-      "about": "Despre noi",
+      "about": "Despre",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
       "faq": "Întrebări frecvente",
       "forDevelopers": "Pentru dezvoltatori",
-      "help": "Ajutor",
+      "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
-      "provide": "Deveni un furnizor de date",
+      "provide": "Devino instituție furnizoare",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "terms": "Termeni de utilizare"
     },
@@ -753,9 +766,8 @@ export default {
   },
   "galleries": {
     "description": "Explorează galeriile noastre",
-    "galleries": "Galerii"
+    "galleries": "Galerie | Galeriile"
   },
-  "goToRecord": "Mergi la înregistrare",
   "header": {
     "backToMenu": "Închide caseta de căutare",
     "clearQuery": "Șterge căutările",
@@ -764,13 +776,13 @@ export default {
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",
     "navigation": {
-      "about": "Despre noi",
+      "about": "Despre",
       "collections": "Colecții",
       "europeanaClassroom": "Pentru profesori",
-      "help": "Ajutor",
-      "home": "Acasă",
+      "help": "Help",
+      "home": "Pagină natală",
       "pro": "Pentru profesioniști",
-      "stories": "Povești"
+      "stories": "Narațiuni"
     },
     "quickSearch": "Căutare rapidă",
     "searchFor": "Caută pentru {query}",
@@ -783,9 +795,9 @@ export default {
   },
   "homeLinkAlt": "Pagina principală Europeana",
   "homePage": {
-    "discoverEditorial": "Ultimele povești",
-    "storiesCTA": "Vezi toate poveștile",
-    "subHeadline": "Căutați, salvați și distribuiți opere de artă, cărți, filme și muzică de la mii de instituții culturale",
+    "discoverEditorial": "Ultimele narațiuni",
+    "storiesCTA": "Vezi toate narațiuni",
+    "subHeadline": "Căutați, preluați și partajați artă, cărți, filme și muzică provenind din mii de instituții culturale.",
     "themesCTA": "Vezi toate temele",
     "themesTitle": "Explorați după temă",
     "title": "Descoperiți patrimoniul cultural {digital} al Europei",
@@ -795,18 +807,18 @@ export default {
     "handle": "Cursor glisor"
   },
   "items": {
-    "itemCount": "1 articol |{count} articole",
-    "itemOf": "{max} de {count} articole",
-    "recent": "Articole recente",
-    "recommended": "Articole recomandate",
-    "youMightLike": "Articole care ți-ar putea plăcea"
+    "itemCount": "1 resursă culturală |{count} resurse culturale",
+    "itemOf": "{max} de {count} resurse culturale",
+    "recent": "Resurse culturale recente",
+    "recommended": "Resurse culturale recomandate",
+    "youMightLike": "Resurse culturale care ți-ar putea plăcea"
   },
   "klaro": {
     "main": {
       "acceptAll": "Accepta toate",
       "acceptSelected": "Acceptați selectat",
       "consentModal": {
-        "description": "Vă luăm în serios confidențialitatea datelor. Aici puteți evalua și personaliza serviciile pe care am dori să le folosim pe acest site web. Tu ești la conducere! Activați sau dezactivați serviciile după cum doriți.",
+        "description": "Aici puteți vedea și personaliza serviciile pe care am dori să le folosim pe acest site. Pentru a afla mai multe, vă rugăm să citiți <a href='/rights/privacy-policy'> politica noastră de confidențialitate </a>.",
         "title": "Servicii pe care am dori să le folosim."
       },
       "consentNotice": {
@@ -874,7 +886,6 @@ export default {
   "layout": {
     "skipToMain": "Treci la conținutul paginii"
   },
-  "learnMore": "Aflați mai multe despre sursa acestei descrieri",
   "loading": "Încărcare",
   "loadingResults": "Se încarcă rezultatele",
   "messages": {
@@ -885,32 +896,33 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Faceți clic pe atribuire pentru ao copia",
-      "modalIntro": "Dacă folosiți acest articol pe internet sau în altă parte, nu uitați să afișați următoarea atribuție lângă el:",
+      "modalIntro": "Dacă folosiți acest resursă culturală pe internet sau în altă parte, nu uitați să afișați următoarea atribuție lângă el:",
       "modalTitle": "Spune multumesc"
     },
     "downloadFailed": {
-      "linkPrompt": "Vă sfătuim să faceți clic pe butonul „Instituția de proveniență” de mai jos pentru a verifica dacă articolul poate fi descărcat de pe site-ul instituției furnizoare.",
+      "linkPrompt": "Vă sfătuim să faceți clic pe butonul „Instituție furnizoare” de mai jos pentru a verifica dacă resursă culturală poate fi descărcat de pe site-ul instituției furnizoare.",
       "message": "Dacă descărcarea nu funcționează, poate fi din cauză că a fost eliminată de instituția furnizoare sau poate exista o problemă tehnică cu serviciul acestora.",
       "title": "Descărcarea nu funcționează"
     },
     "transcribe": {
       "message": "Alăturați-vă nouă pe Europeana Transcribe, inițiativa cetățenească online pentru îmbogățirea colecțiilor Europeana",
-      "title": "Transcrie acest articol"
+      "title": "Transcrie acest resursă culturală"
     }
   },
   "multilingual": {
     "automated": "Traducere automată",
     "enrichment": "Îmbogățirea prin proiecte partenere",
-    "other": "Alte limbi",
-    "stopTranslating": "Opriți traducerea acestui articol în {0}.",
-    "translateLanguage": "Ați dori să vedeți acest articol în {0}?",
+    "other": "alte limbi",
+    "stopTranslating": "Opriți traducerea acestui resursă culturală în {0}.",
+    "translateLanguage": "Ați dori să vedeți acest resursă culturală în {0}?",
+    "translateMetadata": "Traduceți metadatele acestui resursă culturalăl.",
     "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu."
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Descoperiți povești",
+    "readMore": "Accesați pagina de căutare",
     "text": {
-      "storiesTags": "Consultați pagina Povești actualizată. Acum puteți căuta și filtra după etichete."
+      "advancedSearch": "Căutarea avansată a sosit: spune la revedere rezultatelor ample și salută precizia în timp ce descoperi exact ceea ce cauți. Începeți să explorați acum!"
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
@@ -943,7 +955,7 @@ export default {
         "title": "Locuri"
       },
       "table": {
-        "items": "Articole",
+        "items": "Resurse culturale",
         "name": "Nume"
       },
       "times": {
@@ -958,10 +970,9 @@ export default {
     "label": "Paginare"
   },
   "provider": {
-    "linkText": "Vizualizează pe site-ul furnizorului",
-    "providedBy": "Acest articol este furnizat și întreținut de {provider}"
+    "linkText": "Vizualizează pe site-ul instituție furnizoare",
+    "providedBy": "Acest resursă culturală este furnizat și întreținut de {provider}"
   },
-  "readMore": "Citește mai mult",
   "recommendation": {
     "prompts": {
       "accept": "Degetul mare în sus pentru a adăuga la galerie",
@@ -970,7 +981,7 @@ export default {
   },
   "record": {
     "actions": {
-      "pin": "Fixați elementul la entitățile disponibile"
+      "pin": "Fixați resursă culturală la entitățile disponibile"
     },
     "allMetaData": "Toate metadatele",
     "copyEmbedLabel": "Cod de încorporare (Faceți clic pentru a copia)",
@@ -981,42 +992,65 @@ export default {
     "location": "Locație",
     "locationOnMap": "Localizare pe hartă",
     "mediaPlayer": "Media Player",
-    "record": "Înregistrare",
+    "record": "Resursă culturală",
     "showAll": "Afișează toate informațiile",
-    "similarItems": "Articole similare",
+    "similarItems": "Resurse culturale similare",
     "status": {
-      "unpublished": "[Articol nepublicat]"
+      "unpublished": "[Resursă culturală nepublicat]"
     },
     "transcription": "Transcriere",
-    "transcriptionDisclaimer": "La acest conținut a contribuit publicul, nu instituția care a furnizat acest articol."
+    "transcriptionDisclaimer": "La acest conținut a contribuit publicul, nu instituția care a furnizat acest resursă culturală."
   },
   "related": {
     "categoryTags": {
-      "title": "Descoperiți poveștile conexe"
+      "title": "Descoperiți narațiuni conexe"
     },
     "collections": {
       "name": "Colecții conexe",
       "title": "Descoperiți colecții conexe"
     },
     "editorial": {
-      "title": "Povești care s-ar putea să vă placă"
+      "title": "Narațiuni care s-ar putea să vă placă"
     },
     "galleries": {
       "name": "Galerii conexe",
       "title": "Descoperiți galerii conexe"
     },
     "items": {
-      "loginForMore": "Conectați-vă pentru a vedea alte elemente asociate",
-      "title": "Descoperiți articole conexe"
+      "loginForMore": "Conectați-vă pentru a vedea alte resurse culturale asociate",
+      "title": "Descoperiți resurse culturale conexe"
     },
     "themes": {
       "title": "Descoperiți teme conexe"
     }
   },
   "removeFilter": "Elimină filtrul {filterLabel}",
-  "reset": "Resetează",
   "resourceWikimedia": "Material de la Wikimedia Commons",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} înseamnă că puteți folosi acest resursă culturală în mod liber. {readMoreLink}",
+      "permission": "{rightsStatementName} înseamnă că este posibil să puteți utiliza acest resursă culturală dacă solicitați permisiunea. {readMoreLink}",
+      "readMore": "Citiți mai multe la {link}",
+      "restricted": "{rightsStatementName} înseamnă că puteți utiliza acest resursă culturală cu condiții. {readMoreLink}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Câmp",
+        "modifier": "Modificator",
+        "searchTerm": "Introduceți termenii de căutare"
+      },
+      "modifiers": {
+        "contains": "conține",
+        "doesNotContain": "nu conține"
+      },
+      "show": "{showOrHide} căutare avansată",
+      "tooltip": {
+        "field": "Selectați un câmp în care să căutați.",
+        "modifier": "Selectați un modificator de aplicat câmpului."
+      }
+    },
     "boost": {
       "placeholder": "Introduceți interogarea de creștere a câmpului"
     },
@@ -1029,19 +1063,20 @@ export default {
     },
     "title": "Căutare"
   },
+  "searchFilters": "Filtre de căutare {count}",
   "searchHasLoaded": "{0} rezultate returnate",
-  "searchPlaceholder": "Căutați peste 50 de milioane de articole",
+  "searchPlaceholder": "Căutați peste 50 de milioane de resurse culturale",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
   "searchSuggestions": "Sugestii de căutare",
   "searchTier": {
     "button": {
-      "hide": "Ascunde aceste articole",
-      "show": "Afișează aceste articole"
+      "hide": "Ascunde aceste resurse culturale",
+      "show": "Afișează aceste resurse culturale"
     },
     "text": {
-      "hide": "Sunt afișate articole care nu îndeplinesc criteriile noastre de publicare.",
-      "show": "Mai multe articole corespund căutării tale, dar nu îndeplinesc criteriile noastre de publicare."
+      "hide": "Sunt afișate resurse culturale care nu îndeplinesc criteriile noastre de publicare.",
+      "show": "Mai multe resurse culturale corespund căutării tale, dar nu îndeplinesc criteriile noastre de publicare."
     }
   },
   "searchViews": {
@@ -1052,10 +1087,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Adăugare în galerie",
+      "addToGallery": "Adăugați acest resursă culturală la o galerie.",
       "create": "Creare galerie",
       "createNew": "Creare galerie nouă",
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
+      "saveItemToLikes": "Salvați acest resursă culturală în Like-urile dvs.",
       "update": "Actualizare galerie"
     },
     "entityBestBets": {
@@ -1076,16 +1113,20 @@ export default {
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
       "likeLimit": {
-        "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de articole. Vom elimina această limită în curând!",
+        "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de resurse culturale. Vom elimina această limită în curând!",
         "title": "100 de aprecieri"
       },
-      "updated": "Elementul a fost adăugat la galerie.",
+      "updated": "Resursă culturală a fost adăugat la galerie.",
       "visibilityChanged": "Avertisment: setarea vizibilității a fost deja schimbată și este în prezent „ {visibility} ”."
     },
     "prompts": {
-      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat."
+      "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat."
     },
     "publication": {
+      "criteria": {
+        "description": "Pentru a fi luată în considerare pentru publicare, o galerie trebuie să includă un titlu și o descriere și trebuie să conțină cel puțin 20 de resurse culturale.",
+        "title": "Criterii de publicare"
+      },
       "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
       "failedSubmission": "Solicitarea nu a reușit. Încercați din nou.",
       "process": {
@@ -1100,15 +1141,14 @@ export default {
       "toastButton": "Bine",
       "toastMessage": "Această galerie este acum trimisă spre publicare. Puteți verifica {galleries} pentru a vedea dacă a fost publicat."
     },
+    "setCount": "{count} galerii",
     "shareTo": {
       "weavex": {
-        "tooltip": "WEAVExperience (WEAVEx) este un instrument bazat pe web pentru gestionarea conținutului de diferite tipuri (inclusiv 3D), documentarea moștenirii culturale prin spații comunitare digitale și curatarea poveștilor și experiențelor digitale."
+        "tooltip": "WEAVExperience (WEAVEx) este un instrument bazat pe web pentru gestionarea conținutului de diferite tipuri (inclusiv 3D), documentarea moștenirii culturale prin spații comunitare digitale și curatarea narațiuni și experiențelor digitale."
       }
     }
   },
   "shareWhere": "Unde ai vrea să împărtășești asta?",
-  "showLess": "Afișează mai puțin",
-  "showMore": "Afișează mai multe",
   "sideFilters": {
     "noOptions": "Nu există opțiuni disponibile de selectat",
     "search": "Căutare"
@@ -1118,8 +1158,8 @@ export default {
     "pinned": "Fixat"
   },
   "storiesPage": {
-    "storiesHaveLoaded": "{0} povești găsite",
-    "title": "Povești"
+    "storiesHaveLoaded": "{0} narațiuni găsite",
+    "title": "Narațiuni"
   },
   "themes": {
     "description": "Răsfoiți după temă",

@@ -20,7 +20,7 @@ const stringify = (thing, root = false, indent = 0) => {
   }
 
   if (typeof thing === 'string') {
-    const quoted = thing.replace(/"/g, '\\"');
+    const quoted = thing.replace(/"/g, '\\"').replace(/(\r|\n)/g, '');
     str = str + `"${quoted}"`;
   } else {
     str = str + '{\n';

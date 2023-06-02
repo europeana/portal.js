@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Curated Collections",
-    "curatedCollectionsInfo": "Find below all collections you have curated",
     "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
@@ -26,7 +25,14 @@ export default {
     "publicCollections": "Public Galleries",
     "publishedCollections": "Published Galleries",
     "settings": "Settings",
-    "title": "My account"
+    "title": "My account",
+    "tooltip": {
+      "EntityBestItemsSet": "A curated gallery shows the pinned items within a specific collection",
+      "private": "A private gallery can only be viewed by you.",
+      "public": "A public gallery can be viewed by anyone with the link.",
+      "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page.",
+      "reorder": "You can reorder items by clicking this button and dragging the item to move it."
+    }
   },
   "actions": {
     "accept": "Accept",
@@ -54,6 +60,7 @@ export default {
     "publish": "Publish",
     "readMore": "Read more",
     "reject": "Reject",
+    "reset": "Reset",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
@@ -487,9 +494,9 @@ export default {
       "select": "Select creators"
     },
     "DATA_PROVIDER": {
-      "moreName": "institutions",
-      "name": "Institution",
-      "select": "Select institutions"
+      "moreName": "providing institutions",
+      "name": "Providing institution",
+      "select": "Select providing institutions"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Image orientation",
@@ -709,7 +716,7 @@ export default {
       "dcSource": "Source",
       "dcSubject": "Subject",
       "dcTitle": "Title",
-      "dcType": "Type of object",
+      "dcType": "Type of item",
       "dctermsAlternative": "Alternative title",
       "dctermsCreated": "Creation date",
       "dctermsExtent": "Extent",
@@ -738,7 +745,7 @@ export default {
       "edmIsRepresentationOf": "Is representation of",
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
-      "edmProvider": "Provider",
+      "edmProvider": "Aggregator",
       "edmRealizes": "Realises",
       "edmRights": "Rights statement for the media in this item (unless otherwise specified)",
       "edmUgc": "User generated content",
@@ -773,7 +780,7 @@ export default {
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
-      "provide": "Become a data partner",
+      "provide": "Become a providing institution",
       "subscribe": "Subscribe to our newsletter",
       "terms": "Terms of use"
     },
@@ -990,7 +997,7 @@ export default {
     "label": "Pagination"
   },
   "provider": {
-    "linkText": "View on the provider's website",
+    "linkText": "View on the providing institution's website",
     "providedBy": "This item is provided and maintained by {provider}"
   },
   "recommendation": {
@@ -1146,6 +1153,10 @@ export default {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     },
     "publication": {
+      "criteria": {
+        "title": "Publication criteria",
+        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum of 20 items."
+      },
       "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
       "failedSubmission": "The request failed. Please try again.",
       "process": {
@@ -1160,6 +1171,7 @@ export default {
       "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
       "toastButton": "Okay"
     },
+    "setCount": "{count} galleries",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."

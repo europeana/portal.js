@@ -27,6 +27,7 @@
   display: inline;
   color: $mediumgrey-light;
   font-size: $font-size-base;
+  background-color: transparent;
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {

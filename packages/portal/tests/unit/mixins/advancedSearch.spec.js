@@ -27,7 +27,7 @@ describe('mixins/advancedSearch', () => {
       it('translates "year" label for "YEAR" field', () => {
         const wrapper = factory();
 
-        const advancedSearchFieldLabel = wrapper.vm.advancedSearchFieldLabel({ name: 'YEAR' });
+        const advancedSearchFieldLabel = wrapper.vm.advancedSearchFieldLabel('YEAR');
 
         expect(advancedSearchFieldLabel).toBe('fieldLabels.default.year');
       });
@@ -35,7 +35,7 @@ describe('mixins/advancedSearch', () => {
       it('translates camel-cased field labels without proxy_ prefix for other fields', () => {
         const wrapper = factory();
 
-        const advancedSearchFieldLabel = wrapper.vm.advancedSearchFieldLabel({ name: 'proxy_dc_type' });
+        const advancedSearchFieldLabel = wrapper.vm.advancedSearchFieldLabel('proxy_dc_type');
 
         expect(advancedSearchFieldLabel).toBe('fieldLabels.default.dcType');
       });
@@ -44,7 +44,7 @@ describe('mixins/advancedSearch', () => {
     describe('advancedSearchRouteQueryFromRules', () => {
       it('constructs a new route from advanced search rules', () => {
         const rules = [
-          { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' },
+          { field: 'proxy_dc_title', modifier: 'contains', term: 'den haag' },
           { field: 'proxy_dc_type', modifier: 'doesNotContain', term: 'photograph' }
         ];
         const $route = {
@@ -60,7 +60,7 @@ describe('mixins/advancedSearch', () => {
           query: {
             page: 1,
             qa: [
-              'proxy_dc_title:dog',
+              'proxy_dc_title:den\\ haag',
               '-proxy_dc_type:*photograph*'
             ],
             query: 'bone'
@@ -74,7 +74,7 @@ describe('mixins/advancedSearch', () => {
         const $route = {
           query: {
             qa: [
-              'proxy_dc_title:dog',
+              'proxy_dc_title:den\\ haag',
               '-proxy_dc_type:*photograph*',
               'proxy_dc_language:en'
             ]
@@ -85,7 +85,7 @@ describe('mixins/advancedSearch', () => {
         const advancedSearchRulesFromRouteQuery = wrapper.vm.advancedSearchRulesFromRouteQuery();
 
         expect(advancedSearchRulesFromRouteQuery).toEqual([
-          { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' },
+          { field: 'proxy_dc_title', modifier: 'contains', term: 'den haag' },
           { field: 'proxy_dc_type', modifier: 'doesNotContain', term: 'photograph' }
         ]);
       });

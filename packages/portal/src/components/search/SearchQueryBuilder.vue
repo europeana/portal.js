@@ -8,6 +8,7 @@
         role="search"
       >
         <b-form
+          data-qa="search query builder form"
           @submit.prevent="updateSearch"
         >
           <transition-group
@@ -20,10 +21,8 @@
             >
               <SearchQueryBuilderRule
                 :id="`${id}-${index}`"
+                v-model="queryRules[index]"
                 :tooltips="index === 0"
-                :field="rule.field"
-                :modifier="rule.modifier"
-                :term="rule.term"
                 @change="(field, value) => handleChangeRule(field, value, index)"
                 @clear="clearRule(index)"
               />
@@ -103,7 +102,16 @@
         }
       },
       updateSearch() {
-        // TODO: Add matomo tracking event here?
+        if (this.$matomo) {
+          for (const rule of this.queryRules) {
+            if (rule.field && rule.modifier) {
+              const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
+              const modifierLabel = this.$t(`search.advanced.modifiers.${rule.modifier}`, 'en');
+              const eventName = `Adv search: ${fieldLabel} ${modifierLabel}`;
+              this.$matomo.trackEvent('Adv search', 'Apply adv search', eventName);
+            }
+          }
+        }
         this.$router.push(this.advancedSearchRouteQueryFromRules(this.queryRules));
       },
       initRulesFromRouteQuery() {

@@ -11,6 +11,7 @@ const storeDispatchSuccess = sinon.spy();
 
 const factory = ({ $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemAddButton, {
   localVue,
+  attachTo: document.body,
   propsData: { identifier },
   mocks: {
     $auth,

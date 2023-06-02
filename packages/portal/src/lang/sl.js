@@ -1,12 +1,11 @@
 export default {
   "account": {
     "curatedCollections": "Kurirane zbirke",
-    "curatedCollectionsInfo": "Spodaj poiščite vse zbirke, ki ste jih kurirali",
     "editProfile": "Uredi profil",
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava / Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -18,7 +17,7 @@ export default {
         "public": "Niste še ustvarili nobene javne zbirke.",
         "published": "Niste objavili še nobene galerije"
       },
-      "noLikedItems": "Niste še všečkali nobenih predmetov."
+      "noLikedItems": "Niste še všečkali nobenih enote"
     },
     "privateCollections": "Zasebne zbirke",
     "profile": "Moji všečki & zbirke",
@@ -26,18 +25,31 @@ export default {
     "publicCollections": "Javne zbirke",
     "publishedCollections": "Objavljene Galerije",
     "settings": "Nastavitve",
-    "title": "Moj račun"
+    "title": "Moj račun",
+    "tooltip": {
+      "EntityBestItemsSet": "Pripravljena galerija prikazuje pripete enote znotraj določene zbirke",
+      "private": "Zasebno galerijo si lahko ogledate samo vi.",
+      "public": "Javno galerijo si lahko ogleda vsak s povezavo.",
+      "published": "Objavljeno galerijo si lahko ogleda vsak in je lahko predstavljena na naši strani Galerije.",
+      "reorder": "Enote lahko preuredite tako, da kliknete ta gumb in povlečete enota, da ga premaknete."
+    }
   },
   "actions": {
     "accept": "Sprejmi",
+    "add": "Dodaj",
+    "apply": "Prijavi se",
     "cancel": "Prekliči",
+    "clear": "Počisti",
     "close": "zapri",
     "continue": "nadaljuj",
     "depublish": "Depubliš",
     "download": "Prenos",
     "edit": "Uredi",
+    "explore": "Raziščite",
     "feedback": "Povratne informacije",
+    "filter": "Filter",
     "goHome": "Pojdite na domačo stran",
+    "hide": "Skrij",
     "learnMore": "Nauči se več",
     "like": "Všeč mi je",
     "move": "Premakni se",
@@ -46,12 +58,17 @@ export default {
     "preview": "Predogled",
     "previous": "Prejšnji",
     "publish": "Objavi",
+    "readMore": "Preberi več",
     "reject": "Zavrne",
     "requestDepublication": "Zahtevaj deublikacijo",
+    "reset": "Ponastavi",
     "save": "Shrani",
     "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
+    "show": "Prikaži",
+    "showLess": "Prikaži manj",
+    "showMore": "Prikaži več",
     "skipSend": "Preskoči in pošlji",
     "submitForPublication": "Oddaj za objavo",
     "submittedForPublication": "Oddano v objavo",
@@ -69,12 +86,12 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Galerije",
-    "item": "Nedavni predmeti",
+    "item": "Nedavni enote",
     "organisation": "Organizacije",
     "place": "Mesta",
     "theme": "Teme",
-    "time": "Priporočena stoletja",
-    "topic": "Priporočene teme"
+    "time": "Stoletja",
+    "topic": "Teme"
   },
   "blog": {
     "author": "Avtor",
@@ -110,7 +127,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "oblikovalci",
-          "name": "Oblikovalec | Oblikovalci",
+          "name": "Oblikovalec",
           "select": "Izberite oblikovalce"
         },
         "proxy_dc_format": {
@@ -119,9 +136,9 @@ export default {
           "select": "Izberite tehnike"
         },
         "proxy_dc_type": {
-          "moreName": "vrste elementov",
-          "name": "Vrsta dela | Vrste dela",
-          "select": "Izberite vrste elementov"
+          "moreName": "vrste enota",
+          "name": "Vrsta enota",
+          "select": "Izberite vrste enota"
         },
         "proxy_dcterms_medium": {
           "moreName": "materiali",
@@ -186,7 +203,6 @@ export default {
       "title": "Nastavitve"
     }
   },
-  "delete": "Izbrišite",
   "depiction": "Upodobitev {title}",
   "directions": {
     "left": "Levo",
@@ -196,24 +212,24 @@ export default {
   "entity": {
     "actions": {
       "cancel": "Prekliči",
-      "pin": "Pripni element",
-      "unpin": "Odstrani element",
-      "viewPinned": "Oglejte si pripete predmete"
+      "pin": "Pripni enota",
+      "unpin": "Odstrani enota",
+      "viewPinned": "Oglejte si pripete enote"
     },
     "labels": {
       "entity": "Subjekt"
     },
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
-      "pin": "Ta element bo prikazan na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
+      "pin": "Ta enota bo prikazana na vrhu zbirke » {entity} «. Obvestili vas bomo, ko bo ta sprememba vidna na strani zbirke.",
       "pinLimit": {
-        "body": "Zaenkrat lahko na prvo stran pripnete le 24 elementov. Če želite pripeti ta element, odstranite še enega in poskusite znova pripeti tega.",
-        "title": "Preveč pripete predmete"
+        "body": "Za zdaj lahko pripnete samo 24 enote. Če želite pripeti ta enota, ne pozabite odpeti drugega in poskusite znova pripeti ta enota.",
+        "title": "Preveč pripete enote"
       },
-      "pinned": "Element je bil pripet. Zdaj je na vrhu prve strani te zbirke. Lahko traja do 24 ur, da se prikaže vsem.",
-      "select": "Izberite sorodno entiteto, da pripnete/odpnete element na/iz njega.",
-      "unpin": "Ta element se ne bo več prikazoval na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
-      "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse."
+      "pinned": "Enota je bil pripet. Prikazal se bo kot prvi element v zbirki » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
+      "select": "Izberite sorodno entiteto, da pripnete/odpnete enota nanjo/iz nje.",
+      "unpin": "Ta enota se ne bo več prikazoval na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
+      "unpinned": "Enota je bila odpete. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili."
     }
   },
   "error": "Napaka",
@@ -236,16 +252,16 @@ export default {
       "title": "Neznana napaka"
     },
     "itemNotFound": {
-      "description": "Razlogi za to so lahko naslednji: ta element ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite element poiskati znova.",
-      "metaTitle": "Element ni bil najden",
-      "title": "Oh ne! {newline} Tega predmeta nismo mogli najti."
+      "description": "Razlogi za to so lahko naslednji: ta enota ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite enota poiskati znova.",
+      "metaTitle": "Enota ni bil najden",
+      "title": "Oh ne! {newline} Tega enota nismo mogli najti."
     },
     "pageNotFound": {
       "metaTitle": "Stran ni najdena",
       "title": "Stran, ki jo iščete, ne obstaja."
     },
     "pinningNotFound": {
-      "description": "Pri pripenjanju/odpenjanju elementa je prišlo do napake. Poskusite znova ali prijavite težavo.",
+      "description": "Pri pripenjanju/odpenjanju enota je prišlo do napake. Poskusite znova ali prijavite težavo.",
       "title": "Kurirana zbirka ni bila najdena"
     },
     "searchPaginationLimitExceeded": {
@@ -262,24 +278,21 @@ export default {
     "credits": "Sodelavci",
     "currentChapter": "Trenutno poglavje",
     "description": "Razišči razstave",
-    "exhibitions": "Razstave"
+    "exhibitions": "Razstava | Razstave"
   },
-  "explore": "Raziščite",
   "facets": {
     "api": {
-      "name": "Išči",
+      "name": "Iskanje v dokumentih",
       "options": {
-        "fulltext": "Zapisi s celotnim besedilom",
-        "metadata": "Samo zapisi z metapodatki"
+        "fulltext": "Enote s celotnim besedilom",
+        "metadata": "Samo enote z metapodatki"
       },
-      "switch": "Iskanje samo v vsebini elementov s polnim besedilom",
-      "switchMoreInfo": "V tej zbirki lahko izberete, kaj želite iskati: če je to stikalo vklopljeno, boste iskali po besedilu časopisa in dokumenta; če je izklopljeno, boste iskali po informacijah, ki opisujejo predmet, tako kot v večini drugih zbirk."
+      "switch": "Iskanje samo v vsebini enote s polnim besedilom",
+      "switchMoreInfo": "V tej zbirki lahko izberete, kaj želite iskati: če je to stikalo vklopljeno, boste iskali po besedilu časopisa in dokumenta; če je izklopljeno, boste iskali po informacijah, ki opisujejo enota, tako kot v večini drugih zbirk."
     },
     "button": {
-      "apply": "Prijavi se",
-      "cancel": "Prekliči",
       "morefilters": "Več filtrov",
-      "reset": "Ponastavi",
+      "showAdditional": "{show} dodatnih filtrov",
       "showAll": "Prikaži vse {label}",
       "showLess": "Prikaži manj {label}"
     },
@@ -304,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "barve",
-      "name": "Barva | Barve",
+      "name": "Barva",
       "options": {
         "#000000": "Črna",
         "#000080": "Mornarsko modra",
@@ -454,16 +467,16 @@ export default {
       "select": "Izberite barve"
     },
     "contentTier": {
-      "name": "Kakovost artikla",
+      "name": "Kakovost enota",
       "options": {
-        "*": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo",
-        "0": "Pokaži samo predmete, ki ne ustrezajo našim kriterijem objavljanja.",
+        "*": "Vključuje enote, ki ne izpolnjujejo naših meril za objavo",
+        "0": "Ne izpolnjuje meril za objavo",
         "1": "Nizka kakovost",
         "2": "Srednja kakovost",
         "3": "Visoka kakovost in ponovna uporaba s pogoji",
         "4": "Visoka kakovost & prosto večkratno uporabo"
       },
-      "select": "Izberite kvalitete artikla"
+      "select": "Izberite kvalitete enota"
     },
     "COUNTRY": {
       "name": "Država izvora",
@@ -523,9 +536,9 @@ export default {
       "select": "Izberite ustvarjalce"
     },
     "DATA_PROVIDER": {
-      "moreName": "institucije",
-      "name": "Ustanova",
-      "select": "Izberite institucije"
+      "moreName": "ponudniki podatkov",
+      "name": "Ponudnik podatkov",
+      "select": "Izberite ponudniki podatkov"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Usmerjenost slike | Usmerjenosti slik",
@@ -591,7 +604,7 @@ export default {
       "select": "Izberite jezike"
     },
     "MIME_TYPE": {
-      "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
+      "name": "Format datoteke",
       "options": {
         "text/plain": "Golo besedilo"
       },
@@ -600,26 +613,26 @@ export default {
     "moreOptions": "Poiščite {0} več {1}.",
     "PROVIDER": {
       "moreName": "agregatorji",
-      "name": "Zbiralnik",
-      "select": "Izberite agregatorje"
+      "name": "Agregator",
+      "select": "Izberite agregatorji"
     },
     "proxy_dc_format": {
       "name": "Format | Formati",
       "select": "Izberite formate"
     },
     "proxy_dc_type": {
-      "name": "Vrsta | Vrste",
+      "name": "Vrsta | vrste",
       "select": "Izberite vrste"
     },
     "proxy_dcterms_issued": {
       "name": "Datum izdaje"
     },
     "proxy_dcterms_medium": {
-      "name": "Medij | Mediji",
+      "name": "Medij",
       "select": "Izberite medija"
     },
     "REUSABILITY": {
-      "name": "Ali lahko to ponovno uporabim?",
+      "name": "Ali lahko uporabim to?",
       "options": {
         "open": "Da",
         "permission": "Morda, prosi za dovoljenje",
@@ -675,6 +688,7 @@ export default {
       "dcRights": "Pravice",
       "dcSource": "Vir",
       "dcSubject": "Zadeva",
+      "dctermsAlternative": "Alternativni naslov",
       "dctermsCreated": "Datum ustvarjanja",
       "dctermsExtent": "Obseg",
       "dctermsHasPart": "Je sestavljen iz",
@@ -692,10 +706,10 @@ export default {
       "dctermsTemporal": "Časovno obdobje",
       "dctermsTOC": "Kazalo vsebine",
       "dcTitle": "Naslov",
-      "dcType": "Vrsta predmeta",
+      "dcType": "Vrsta enota",
       "edmCountry": "Država izvora",
       "edmCurrentLocation": "Trenutna lokacija",
-      "edmDataProvider": "Ustanova izvora",
+      "edmDataProvider": "Ponudnik podatkov",
       "edmHasMet": "Je srečal",
       "edmIncorporates": "Vključuje",
       "edmIntermediateProvider": "Vmesni ponudnik",
@@ -704,9 +718,9 @@ export default {
       "edmIsRepresentationOf": "Predstavlja",
       "edmIsSimilarTo": "Je podoben",
       "edmIsSuccessorOf": "Je naslednik",
-      "edmProvider": "Ponudnik",
+      "edmProvider": "Agregator",
       "edmRealizes": "Uresničuje",
-      "edmRights": "Licenca za medije v tem zapisu (če ni navedeno drugače)",
+      "edmRights": "Licenca za medije v tem enota (če ni navedeno drugače)",
       "edmUgc": "Vsebina, ki so jo ustvarili uporabniki",
       "europeanaCollectionName": "Ime zbirke",
       "keywords": "Ključne besede (ki jih je zagotovila skupnost)",
@@ -723,7 +737,6 @@ export default {
       "rdfAbout": "RDF o"
     }
   },
-  "filter": "Filter",
   "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagoditev jezika spletnega mesta",
@@ -741,7 +754,7 @@ export default {
       "MoreInfoLabel": "Več informacij",
       "privacy": "Pravilnik o zasebnosti",
       "provide": "Postanite ponudnik podatkov",
-      "subscribe": "Prijavite se na naša obvestila",
+      "subscribe": "Naročite se na naše novice",
       "terms": "Pogoji uporabe"
     },
     "ourMission": "Naša misija",
@@ -753,9 +766,8 @@ export default {
   },
   "galleries": {
     "description": "Razišči naše zbirke",
-    "galleries": "Galerije"
+    "galleries": "Galerija | Galerije"
   },
-  "goToRecord": "Pojdi na zapis",
   "header": {
     "backToMenu": "Zapri iskalno polje",
     "clearQuery": "Počisti iskalno poizvedbo ",
@@ -795,18 +807,18 @@ export default {
     "handle": "Ročaj drsnika"
   },
   "items": {
-    "itemCount": "1 predmet |{count} predmeti",
-    "itemOf": "{max} od {count} predmetov",
-    "recent": "Nedavni predmeti",
-    "recommended": "Priporočeni predmeti",
-    "youMightLike": "Predmeti, ki vam bodo mogoče všeč"
+    "itemCount": "1 enota |{count} enote",
+    "itemOf": "{max} od {count} enote",
+    "recent": "Nedavni enote",
+    "recommended": "Priporočeni enote",
+    "youMightLike": "Enote, ki vam bodo mogoče všeč"
   },
   "klaro": {
     "main": {
       "acceptAll": "Sprejmi vse",
       "acceptSelected": "Sprejmi izbrano",
       "consentModal": {
-        "description": "Vašo zasebnost podatkov jemljemo resno. Tukaj lahko ocenite in prilagodite storitve, ki bi jih radi uporabili na tem spletnem mestu. Vi ste odgovorni! Omogočite ali onemogočite storitve, kot se vam zdi primerno.",
+        "description": "Tukaj si lahko ogledate in prilagodite storitve, ki jih želimo uporabljati na tem spletnem mestu. Če želite izvedeti več, preberite naš <a href='/rights/privacy-policy'> pravilnik o zasebnosti </a>.",
         "title": "Storitve, ki jih želimo uporabljati."
       },
       "consentNotice": {
@@ -874,7 +886,6 @@ export default {
   "layout": {
     "skipToMain": "Preskoči na vsebino strani"
   },
-  "learnMore": "Izvedite več o viru tega opisa",
   "loading": "Nalaganje",
   "loadingResults": "Nalaganje rezultatov",
   "messages": {
@@ -885,32 +896,33 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Kliknite na pripis, da ga kopirate",
-      "modalIntro": "Če uporabljate ta izdelek v spletu ali drugje, ne pozabite prikazati naslednjega atributa zraven:",
+      "modalIntro": "Če uporabljate to enota na spletu ali drugje, ne pozabite prikazati naslednje atribucije zraven",
       "modalTitle": "Reci hvala"
     },
     "downloadFailed": {
-      "linkPrompt": "Svetujemo vam, da kliknete spodnji gumb \"Ustanova izvora\" in preverite, ali lahko predmet prenesete na spletnem mestu ustanove, ki zagotavlja informacije.",
-      "message": "Če prenos ne deluje, je to morda zato, ker ga je institucija, ki je zagotovila, odstranila, ali pa je prišlo do tehnične težave z njihovo storitvijo.",
+      "linkPrompt": "Priporočamo vam, da kliknete na gumb \"Ponudnik podatkov\" spodaj, da preverite, ali je enota na voljo za prenos na spletni strani ponudnik podatkov.",
+      "message": "Če prenos ne deluje, je to morda zato, ker ga je ponudnik podatkov, ki je zagotovila, odstranila, ali pa je prišlo do tehnične težave z njihovo storitvijo.",
       "title": "Prenos ne deluje"
     },
     "transcribe": {
       "message": "Pridružite se nam na Europeana Transcribe, spletni državljanski pobudi za obogatitev zbirk Europeana",
-      "title": "Prepiši ta element"
+      "title": "Prepiši ta enota"
     }
   },
   "multilingual": {
     "automated": "Avtomatizirano prevajanje",
     "enrichment": "Obogatitev s partnerskimi projekti",
-    "other": "Drugi jeziki",
-    "stopTranslating": "Prenehajte prevajati ta element v {0}.",
-    "translateLanguage": "Želite ta element videti v {0}?",
+    "other": "drugi jeziki",
+    "stopTranslating": "Prenehajte prevajati ta enota v {0}.",
+    "translateLanguage": "Želite ta enota videti v {0}?",
+    "translateMetadata": "Prevedite metapodatke tega enota.",
     "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje."
   },
   "newFeatureNotification": {
     "dismiss": "Zapri",
-    "readMore": "Odkrijte zgodbe",
+    "readMore": "Pojdite na iskalno stran",
     "text": {
-      "storiesTags": "Oglejte si posodobljeno stran Zgodbe. Zdaj lahko iščete in filtrirate po oznakah."
+      "advancedSearch": "Prišlo je napredno iskanje: poslovite se od obsežnih rezultatov in pozdravite natančnost, ko odkrijete točno tisto, kar iščete. Začnite raziskovati zdaj!"
     }
   },
   "newWindow": "odpre se v novem oknu",
@@ -943,7 +955,7 @@ export default {
         "title": "Krajev"
       },
       "table": {
-        "items": "Predmeti",
+        "items": "Enote",
         "name": "Ime"
       },
       "times": {
@@ -958,10 +970,9 @@ export default {
     "label": "Paginacija"
   },
   "provider": {
-    "linkText": "Ogled na spletni strani ponudnika",
-    "providedBy": "Ta predmet zagotavlja in vzdržuje {provider}"
+    "linkText": "Oglejte si na spletni strani ponudnik podatkov",
+    "providedBy": "Ta enota zagotavlja in vzdržuje {provider}"
   },
-  "readMore": "Preberi več",
   "recommendation": {
     "prompts": {
       "accept": "Palec gor za dodajanje v galerijo",
@@ -970,7 +981,7 @@ export default {
   },
   "record": {
     "actions": {
-      "pin": "Pripnite element na razpoložljive entitete"
+      "pin": "Pripnite enota na razpoložljive entitete"
     },
     "allMetaData": "Vsi metapodatki",
     "copyEmbedLabel": "Vdelaj kodo (kliknite za kopiranje)",
@@ -981,14 +992,14 @@ export default {
     "location": "Lokacija",
     "locationOnMap": "Lokacija na zemljevidu",
     "mediaPlayer": "Medijski predvajalnik",
-    "record": "Zapis",
+    "record": "Enota",
     "showAll": "Pokaži vse informacije",
-    "similarItems": "Podobna dela",
+    "similarItems": "Podobna enote",
     "status": {
-      "unpublished": "[Neobjavljeni element]"
+      "unpublished": "[Neobjavljeni enota]"
     },
     "transcription": "Prepis",
-    "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta predmet."
+    "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta enota."
   },
   "related": {
     "categoryTags": {
@@ -1006,17 +1017,40 @@ export default {
       "title": "Odkrijte povezane galerije"
     },
     "items": {
-      "loginForMore": "Prijavite se in si oglejte druge povezane predmete",
-      "title": "Odkrijte povezane predmete"
+      "loginForMore": "Prijavite se in si oglejte druge povezane enote",
+      "title": "Odkrijte povezane enote"
     },
     "themes": {
       "title": "Odkrijte povezane teme"
     }
   },
   "removeFilter": "Odstrani filter {filterLabel}",
-  "reset": "Ponastavi",
   "resourceWikimedia": "Vir iz Wikimedia Commons",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} pomeni, da lahko ta enota prosto uporabljate. {readMoreLink}",
+      "permission": "{rightsStatementName} pomeni, da boste morda lahko uporabljali ta enota, če boste zaprosili za dovoljenje. {readMoreLink}",
+      "readMore": "Preberite več na {link}",
+      "restricted": "{rightsStatementName} pomeni, da lahko ta enota uporabljate pod pogoji. {readMoreLink}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Polje",
+        "modifier": "Modifikator",
+        "searchTerm": "Vnesite iskalne izraze"
+      },
+      "modifiers": {
+        "contains": "vsebuje",
+        "doesNotContain": "ne vsebuje"
+      },
+      "show": "{showOrHide} napredno iskanje",
+      "tooltip": {
+        "field": "Izberite polje za iskanje.",
+        "modifier": "Izberite modifikator, ki ga želite uporabiti za polje."
+      }
+    },
     "boost": {
       "placeholder": "Vnesite poizvedbo za povečanje polja"
     },
@@ -1029,19 +1063,20 @@ export default {
     },
     "title": "Išči"
   },
+  "searchFilters": "Iskalni filtri {count}",
   "searchHasLoaded": "{0} vrnjeni rezultati",
-  "searchPlaceholder": "Iskanje 50+ milijonov elementov",
+  "searchPlaceholder": "Iskanje 50+ milijonov enote",
   "searchResults": "Išči",
   "searchResultsFor": "{0} - Išči",
   "searchSuggestions": "Predlogi za iskanje",
   "searchTier": {
     "button": {
-      "hide": "Skrij te elemente",
-      "show": "Prikaži te elemente"
+      "hide": "Skrij te enote",
+      "show": "Prikaži te enote"
     },
     "text": {
-      "hide": "Prikazani so elementi, ki ne izpolnjujejo naših meril za objavo.",
-      "show": "Z vašim iskanjem se ujema več elementov, vendar ne izpolnjujejo naših meril za objavo."
+      "hide": "Prikazani so enote, ki ne izpolnjujejo naših meril za objavo.",
+      "show": "Z vašim iskanjem se ujema več enote, vendar ne izpolnjujejo naših meril za objavo."
     }
   },
   "searchViews": {
@@ -1052,10 +1087,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Dodaj zbirki",
+      "addToGallery": "Dodajte ta enota v galerijo.",
       "create": "Ustvari zbirko",
       "createNew": "Ustvari novo zbirko",
       "delete": "Izbriši zbirko",
       "edit": "Uredi zbirko",
+      "saveItemToLikes": "Shranite ta enota med svoje všečke.",
       "update": "Posodobi zbirko"
     },
     "entityBestBets": {
@@ -1076,16 +1113,20 @@ export default {
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
       "likeLimit": {
-        "body": "Se opravičujemo, a trenutno lahko všečkate največ 100 predmetov. Kmalu bomo odstranili to omejitev!",
+        "body": "Se opravičujemo, a trenutno lahko všečkate največ 100 enote. Kmalu bomo odstranili to omejitev!",
         "title": "100 všečkov"
       },
-      "updated": "Element je bil dodan v galerijo.",
+      "updated": "Enota je bil dodan v galerijo.",
       "visibilityChanged": "Opozorilo: nastavljena vidnost je že spremenjena in je trenutno \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse predmete, ki ste jih dodali."
+      "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse enote, ki ste jih dodali."
     },
     "publication": {
+      "criteria": {
+        "description": "Za objavo mora galerija vsebovati naslov in opis ter mora vsebovati najmanj 20 enote.",
+        "title": "Kriteriji objave"
+      },
       "description": "Z objavo galerije bo ta objavljena na Europeana.eu/galleries.",
       "failedSubmission": "Zahteva ni uspela. Prosim poskusite ponovno.",
       "process": {
@@ -1100,6 +1141,7 @@ export default {
       "toastButton": "Okej",
       "toastMessage": "Ta galerija je zdaj poslana v objavo. Preverite {galleries} in preverite, ali je bil objavljen."
     },
+    "setCount": "{count} galerij",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je spletno orodje za upravljanje različnih vrst vsebin (vključno s 3D), dokumentiranje kulturne dediščine prek prostorov digitalne skupnosti ter kuriranje digitalnih zgodb in izkušenj."
@@ -1107,8 +1149,6 @@ export default {
     }
   },
   "shareWhere": "Kje želite to deliti?",
-  "showLess": "Prikaži manj",
-  "showMore": "Prikaži več",
   "sideFilters": {
     "noOptions": "Na voljo ni nobenih možnosti za izbiro",
     "search": "Išči"
