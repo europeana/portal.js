@@ -494,9 +494,9 @@ export default {
       "select": "Select creators"
     },
     "DATA_PROVIDER": {
-      "moreName": "institutions",
-      "name": "Institution",
-      "select": "Select institutions"
+      "moreName": "providing institutions",
+      "name": "Providing institution",
+      "select": "Select providing institutions"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Image orientation",
@@ -716,7 +716,7 @@ export default {
       "dcSource": "Source",
       "dcSubject": "Subject",
       "dcTitle": "Title",
-      "dcType": "Type of object",
+      "dcType": "Type of item",
       "dctermsAlternative": "Alternative title",
       "dctermsCreated": "Creation date",
       "dctermsExtent": "Extent",
@@ -745,7 +745,7 @@ export default {
       "edmIsRepresentationOf": "Is representation of",
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
-      "edmProvider": "Provider",
+      "edmProvider": "Aggregator",
       "edmRealizes": "Realises",
       "edmRights": "Rights statement for the media in this item (unless otherwise specified)",
       "edmUgc": "User generated content",
@@ -780,7 +780,7 @@ export default {
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
-      "provide": "Become a data partner",
+      "provide": "Become a providing institution",
       "subscribe": "Subscribe to our newsletter",
       "terms": "Terms of use"
     },
@@ -997,7 +997,7 @@ export default {
     "label": "Pagination"
   },
   "provider": {
-    "linkText": "View on the provider's website",
+    "linkText": "View on the providing institution's website",
     "providedBy": "This item is provided and maintained by {provider}"
   },
   "recommendation": {
