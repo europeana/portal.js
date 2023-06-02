@@ -16,7 +16,7 @@
             class="d-inline-flex align-items-center"
           >
             {{ $t('search.advanced.input.field') }}
-            <template v-if="index === 0">
+            <template v-if="tooltips">
               <b-button
                 :id="`select-field-tooltip-btn-${id}`"
                 class="icon-info py-0 px-1 tooltip-button"
@@ -49,7 +49,7 @@
             class="d-inline-flex align-items-center"
           >
             {{ $t('search.advanced.input.modifier') }}
-            <template v-if="index === 0">
+            <template v-if="tooltips">
               <b-button
                 :id="`select-modifier-tooltip-btn-${id}`"
                 class="icon-info py-0 px-1 tooltip-button"
@@ -82,7 +82,7 @@
             class="d-inline-flex align-items-center"
           >
             {{ $t('search.advanced.input.searchTerm') }}
-            <template v-if="index === 0">
+            <template v-if="tooltips">
               <b-button
                 :id="`search-term-tooltip-btn-${id}`"
                 class="icon-info py-0 px-1 tooltip-button"
@@ -141,10 +141,6 @@
         type: String,
         default: null
       },
-      index: {
-        type: Number,
-        default: null
-      },
       modifier: {
         type: String,
         default: null
@@ -152,6 +148,10 @@
       term: {
         type: String,
         default: null
+      },
+      tooltips: {
+        type: Boolean,
+        default: true
       }
     },
 
