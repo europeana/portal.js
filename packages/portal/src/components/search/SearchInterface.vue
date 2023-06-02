@@ -156,11 +156,13 @@
           v-if="advancedSearchEnabled"
           class="d-flex justify-content-between align-items-center flex-nowrap"
         >
-          <span>
+          <span
+            class="d-flex"
+          >
             <b-button
               aria-controls="search-query-builder search-query-builder-mobile"
               :aria-expanded="showAdvancedSearch"
-              class="search-toggle query-builder-toggle ml-3 my-3"
+              class="search-toggle query-builder-toggle ml-3 my-3 flex-grow-1"
               :class="{ 'open': showAdvancedSearch }"
               variant="link"
               @click="toggleAdvancedSearch"
@@ -170,7 +172,7 @@
             <b-button
               v-b-tooltip.bottom
               :title="$t('search.advanced.tooltip.advancedSearch')"
-              class="icon-info p-0 tooltip-button"
+              class="icon-info p-0 tooltip-button ml-1 mr-3"
               variant="light-flat"
             />
           </span>
