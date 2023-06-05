@@ -35,13 +35,13 @@
     }
   }
 
-  &.icon-info {
-    font-size: $font-size-small;
+  &.icon-info-outline {
+    font-size: $font-size-medium;
     padding: 0.375rem;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        font-size: $font-size-small-4k;
+        font-size: $font-size-medium-4k;
         padding: 0.75rem;
       }
     }

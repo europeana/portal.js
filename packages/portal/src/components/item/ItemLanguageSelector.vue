@@ -48,7 +48,7 @@
               <b-button
                 v-b-tooltip.bottom
                 :title="$t('multilingual.translateMetadata')"
-                class="icon-info tooltip-button"
+                class="icon-info-outline tooltip-button"
                 variant="light-flat"
               />
             </span>

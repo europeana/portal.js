@@ -172,7 +172,7 @@
             <b-button
               v-b-tooltip.bottom
               :title="$t('search.advanced.tooltip.advancedSearch')"
-              class="icon-info p-0 tooltip-button ml-1 mr-3"
+              class="icon-info-outline p-0 tooltip-button ml-1 mr-3"
               variant="light-flat"
             />
           </span>

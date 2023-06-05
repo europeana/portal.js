@@ -19,7 +19,7 @@
             <template v-if="tooltips">
               <b-button
                 :id="`select-field-tooltip-btn-${id}`"
-                class="icon-info py-0 px-1 tooltip-button"
+                class="icon-info-outline py-0 px-1 tooltip-button"
                 variant="light-flat"
               />
               <b-tooltip
@@ -52,7 +52,7 @@
             <template v-if="tooltips">
               <b-button
                 :id="`select-modifier-tooltip-btn-${id}`"
-                class="icon-info py-0 px-1 tooltip-button"
+                class="icon-info-outline py-0 px-1 tooltip-button"
                 variant="light-flat"
               />
               <b-tooltip
@@ -85,7 +85,7 @@
             <template v-if="tooltips">
               <b-button
                 :id="`search-term-tooltip-btn-${id}`"
-                class="icon-info py-0 px-1 tooltip-button"
+                class="icon-info-outline py-0 px-1 tooltip-button"
                 variant="light-flat"
               />
               <b-tooltip

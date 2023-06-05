@@ -22,7 +22,7 @@
           v-if="tooltip"
           v-b-tooltip.bottom
           :title="tooltip"
-          class="icon-info p-0 tooltip-button"
+          class="icon-info-outline p-0 tooltip-button"
           variant="light-flat"
         />
         <b-container v-if="$fetchState.error">
