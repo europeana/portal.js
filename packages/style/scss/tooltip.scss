@@ -35,14 +35,14 @@
     }
   }
 
-  &.icon-info {
-    font-size: $font-size-small;
-    padding: 0.375rem;
+  &.icon-info-outline {
+    font-size: $font-size-medium;
+    padding: 0 0.125rem;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        font-size: $font-size-small-4k;
-        padding: 0.75rem;
+        font-size: $font-size-medium-4k;
+        padding: 0 0.1875rem;
       }
     }
   }

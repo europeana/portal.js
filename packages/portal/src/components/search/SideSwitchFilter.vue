@@ -23,7 +23,7 @@
         v-if="tooltip"
         v-b-tooltip.hover.bottom
         :title="tooltip"
-        class="icon-info p-0 tooltip-button"
+        class="icon-info-outline p-0 tooltip-button"
         variant="light-flat"
         data-qa="switch filter more info button"
       />
