@@ -89,7 +89,7 @@
                   :aria-expanded="showAdditionalFilters"
                   @click="showAdditionalFilters = !showAdditionalFilters"
                 >
-                  {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? 'hide' : 'show' }) }}
+                  {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? $t('actions.hide') : $t('actions.show') }) }}
                 </b-button>
                 <transition
                   name="fade"
