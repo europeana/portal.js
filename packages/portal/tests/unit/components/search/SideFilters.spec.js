@@ -545,6 +545,9 @@ describe('components/search/SideFilters', () => {
 
       describe('in a collection having custom filters', () => {
         const propsData = {
+          apiParams: {
+            api: 'fulltext'
+          },
           userParams: {
             qf: ['proxy_dcterms_issued:1900-01-01']
           },
@@ -560,6 +563,40 @@ describe('components/search/SideFilters', () => {
           expect(updates.qf).toContain('proxy_dcterms_issued:1900-01-02');
           expect(updates.api).toBe('metadata');
         });
+
+        describe('when collection is changed', () => {
+          const wrapper = factory({ propsData });
+          const selected = { 'collection': 'art' };
+
+          it('removes collection-specific facet filters', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.qf).not.toContain('proxy_dcterms_issued:1900-01-01');
+          });
+
+          it('removes the api filter', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.api).toStrictEqual([]);
+          });
+        });
+
+        describe('when collection is removed', () => {
+          const wrapper = factory({ propsData });
+          const selected = { 'collection': null };
+
+          it('removes collection-specific facet filters', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.qf).not.toContain('proxy_dcterms_issued:1900-01-01');
+          });
+
+          it('removes the api filter', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.api).toStrictEqual([]);
+          });
+        });
       });
 
       describe('with collection-specific facets already selected', () => {
@@ -568,7 +605,7 @@ describe('components/search/SideFilters', () => {
             qf: [
               'CREATOR:"Missoni (Designer)"',
               'TYPE:"IMAGE"',
-              'contentTier:*'
+              'contentTier:"3"'
             ]
           },
           collection: 'fashion'
@@ -593,7 +630,7 @@ describe('components/search/SideFilters', () => {
           it('removes tier filter', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
-            expect(updates.qf).not.toContain('contentTier:*');
+            expect(updates.qf).not.toContain('contentTier:"3"');
           });
         });
 
