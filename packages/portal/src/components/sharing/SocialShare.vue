@@ -23,15 +23,14 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import { VBTooltip } from 'bootstrap-vue';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
     name: 'SocialShare',
 
-    directives: {
-      'b-tooltip': VBTooltip
-    },
+    mixins: [
+      canonicalUrlMixin
+    ],
 
     props: {
       mediaUrl: {
@@ -45,9 +44,9 @@
     },
 
     computed: {
-      ...mapGetters({
-        shareUrl: 'http/canonicalUrlWithoutLocale'
-      }),
+      shareUrl() {
+        return this.canonicalUrlWithoutLocale;
+      },
       networks() {
         return [
           {
@@ -71,7 +70,7 @@
 
     methods: {
       trackShare(network) {
-        this.$matomo && this.$matomo.trackEvent('Item_share', 'Click social share button', network.url);
+        this.$matomo?.trackEvent('Item_share', 'Click social share button', network.url);
       }
     }
   };

@@ -121,6 +121,10 @@
     },
 
     computed: {
+      advancedSearchEnabled() {
+        return this.$features.advancedSearch;
+      },
+
       view() {
         return this.$store.getters['search/activeView'];
       },
@@ -191,7 +195,7 @@
       },
 
       routePath() {
-        return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
+        return this.onSearchablePage ? this.$route.path : this.localePath({ name: 'search' });
       },
 
       showQuickSearch() {
@@ -257,7 +261,7 @@
         this.showSearchOptions = false;
 
         this.blurInput();
-        await this.$goto(newRoute);
+        await this.$router.push(newRoute);
       },
 
       updateSuggestions() {
@@ -319,12 +323,19 @@
 
       linkGen(queryTerm, path) {
         const query = {
-          view: this.view,
+          boost: this.$route?.query?.boost,
           query: queryTerm || '',
-          boost: this.$route?.query?.boost
+          view: this.view
         };
+        // TODO: Always apply this after feature active.
+        if (this.advancedSearchEnabled) {
+          query.api = this.$route?.query?.api;
+          query.qa = this.$route?.query?.qa;
+          query.qf = this.$route?.query?.qf;
+          query.reusability = this.$route?.query?.reusability;
+        }
         return {
-          path: path || this.$path({
+          path: path || this.localePath({
             name: 'search'
           }),
           query

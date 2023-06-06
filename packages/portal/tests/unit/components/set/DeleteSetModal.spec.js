@@ -31,8 +31,8 @@ const factory = (propsData = {}, route = { name: '' }) => mount(DeleteSetModal, 
       dispatch: storeDispatch
     },
     $route: route,
-    $goto: sinon.spy(),
-    $path: path => path
+    $router: { push: sinon.spy() },
+    localePath: path => path
   }
 });
 
@@ -97,7 +97,7 @@ describe('components/set/DeleteSetModal', () => {
 
         await wrapper.find('form').trigger('submit.stop.prevent');
 
-        expect(wrapper.vm.$goto.calledWith({ name: 'account' })).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith({ name: 'account' })).toBe(true);
       });
     });
   });

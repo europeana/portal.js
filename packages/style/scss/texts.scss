@@ -1,5 +1,9 @@
 .lead {
-  font-size: $font-size-large;
+  font-size: $font-size-base;
+
+  @media (min-width: $bp-small) {
+    font-size: $font-size-large;
+  }
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
@@ -55,10 +59,14 @@ header .col {
   .subtitle,
   p.lead {
     color: $mediumgrey;
-    font-size: $font-size-large;
     font-weight: normal;
     line-height: normal;
     margin-bottom: 0.5rem;
+    font-size: $font-size-base;
+
+    @media (min-width: $bp-small) {
+      font-size: $font-size-large;
+    }
   }
 
   article {

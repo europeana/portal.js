@@ -1,19 +1,18 @@
 export default {
   "account": {
     "curatedCollections": "Kurátorské sbírky",
-    "curatedCollectionsInfo": "Níže naleznete všechny sbírky, které jste kurátorovali",
     "editProfile": "Upravit profil",
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
-    "linkLoginJoin": "Přihlášení/Připojení",
+    "linkLoginJoin": "Přihlásit se / Zaregistrovat se",
     "linkLogout": "Odhlásit se",
     "myProfile": "Můj profil",
     "notifications": {
       "loggedIn": "Nyní jste přihlášeni. Vítejte!",
       "loggedOut": "Nyní jste odhlášeni.",
       "noCollections": {
-        "curated": "Zatím jste nevybrali žádné kolekce",
+        "curated": "Zatím jste nevybrali žádné sbirky",
         "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
         "public": "Ještě jste nevytvořil/a žádné veřejné galerie.",
         "published": "Dosud jste neměli zveřejněné žádné galerie"
@@ -26,18 +25,31 @@ export default {
     "publicCollections": "Veřejné galerie",
     "publishedCollections": "Publikované Galerie",
     "settings": "Nastavení",
-    "title": "Můj účet"
+    "title": "Můj účet",
+    "tooltip": {
+      "EntityBestItemsSet": "Kurátorovaná galerie zobrazuje připnuté položky v rámci konkrétní sbírky",
+      "private": "Soukromou galerii můžete prohlížet pouze vy.",
+      "public": "Veřejnou galerii může zobrazit kdokoli s odkazem.",
+      "published": "Publikovanou galerii si může prohlédnout kdokoli a může být uvedena na naší stránce Galerie.",
+      "reorder": "Kliknutím na toto tlačítko a přetažením položky můžete změnit pořadí položka."
+    }
   },
   "actions": {
     "accept": "Přijmout",
+    "add": "Přidat",
+    "apply": "Použít",
     "cancel": "Zrušit",
+    "clear": "Vyčistit",
     "close": "zavřít",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
     "download": "Stáhnout",
     "edit": "Upravit",
+    "explore": "Prozkoumat",
     "feedback": "Zpětná vazba",
+    "filter": "Filtr",
     "goHome": "Přejít na domovskou stránku",
+    "hide": "Skrýt",
     "learnMore": "Zjistěte více",
     "like": "Oblíbené",
     "move": "Přestěhovat se",
@@ -46,12 +58,17 @@ export default {
     "preview": "Náhled",
     "previous": "Předchozí",
     "publish": "Publikovat",
+    "readMore": "Přečtěte si více",
     "reject": "Odmítnout",
     "requestDepublication": "Žádost o zrušení publikace",
+    "reset": "Obnovit",
     "save": "Uložit",
     "send": "Poslat",
     "share": "Sdílejte",
     "shareOn": "Sdílet na {social}",
+    "show": "Zobrazit",
+    "showLess": "Zobrazit méně",
+    "showMore": "Zobrazit více",
     "skipSend": "Přeskočit a odeslat",
     "submitForPublication": "Odeslat k publikaci",
     "submittedForPublication": "Odesláno k publikaci",
@@ -73,8 +90,8 @@ export default {
     "organisation": "Organizace",
     "place": "Místa",
     "theme": "Témata",
-    "time": "Vybraná století",
-    "topic": "Doporučená témata"
+    "time": "Století",
+    "topic": "Tématy"
   },
   "blog": {
     "author": "Autor",
@@ -103,14 +120,14 @@ export default {
   "clearAllFilters": "Vymazat všechny filtry",
   "collections": {
     "actions": {
-      "edit": "Upravit kolekci",
-      "update": "Aktualizovat kolekci"
+      "edit": "Upravit sbírku",
+      "update": "Aktualizovat sbírku"
     },
     "fashion": {
       "facets": {
         "CREATOR": {
           "moreName": "návrháři",
-          "name": "Návrhář | Návrháři",
+          "name": "Návrhář",
           "select": "Vyberte návrháři"
         },
         "proxy_dc_format": {
@@ -142,10 +159,10 @@ export default {
     "footerNavigation": {
       "about": "O stránkách Europeana",
       "forDevelopers": "Pro vývojáře",
-      "help": "Nápověda",
+      "help": "Pomoc",
       "meetUs": "O nás",
       "MoreInfoLabel": "Více informací",
-      "provide": "Přispívejte do naší databáze",
+      "provide": "Stát se partnerem dat",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
       "terms": "Podmínky používání a zásady ochrany osobních údajů"
     },
@@ -186,7 +203,6 @@ export default {
       "title": "Nastavení"
     }
   },
-  "delete": "Smazat",
   "depiction": "Znázornění {title}",
   "directions": {
     "left": "Doleva",
@@ -210,10 +226,10 @@ export default {
         "body": "Prozatím můžete na první stránku připnout pouze 24 položek. Chcete-li tuto položku připnout, nezapomeňte odepnout jinou položku a potom ji zkusit připnout znovu.",
         "title": "Příliš mnoho připnutých položek"
       },
-      "pinned": "Položka byla připnutím. Nyní je v horní části první stránky této kolekce. Může trvat až 24 hodin, než se objeví pro všechny.",
+      "pinned": "Položka byla připnuta. Zobrazí se jako první položka ve sbírce „ {entity} “. Až bude tato změna viditelná na stránce sbírky, upozorníme vás.",
       "select": "Vyberte související entitu, chcete-li položku k ní připnout/odepnout.",
       "unpin": "Tato položka se přestane zobrazovat v horní části kolekce \"{entity}\". Upozorníme vás, když bude tato změna viditelná na stránce kolekce.",
-      "unpinned": "Položka byla odepnuta. Už není v horní části první stránky této sbírky. Zmizení pro všechny může trvat až 24 hodin."
+      "unpinned": "Položka byla odepnuta. Až bude tato změna viditelná na stránce sbírky, upozorníme vás."
     }
   },
   "error": "Chyba",
@@ -262,24 +278,21 @@ export default {
     "credits": "Přispěvky",
     "currentChapter": "Aktuální kapitola",
     "description": "Prozkoumat výstavy",
-    "exhibitions": "Výstavy"
+    "exhibitions": "Výstava | Výstavy"
   },
-  "explore": "Prozkoumat",
   "facets": {
     "api": {
-      "name": "Vyhledat",
+      "name": "Vyhledávání v dokumentech",
       "options": {
-        "fulltext": "Záznamy s fulltextem",
-        "metadata": "Pouze záznamy s metadaty"
+        "fulltext": "Položky s fulltextem",
+        "metadata": "Pouze položky s metadaty"
       },
       "switch": "Vyhledávání pouze v obsahu položek s plným textem",
-      "switchMoreInfo": "V této kolekci si můžete vybrat, co chcete vyhledávat: pokud je tento přepínač zapnutý, budete vyhledávat v textu novin a dokumentů; pokud je vypnutý, budete místo toho vyhledávat v informacích popisujících položku, stejně jako ve většině ostatních kolekcí."
+      "switchMoreInfo": "V této kolekci si můžete vybrat, co chcete vyhledávat: pokud je tento přepínač zapnutý, budete vyhledávat v textu novin a dokumentů; pokud je vypnutý, budete místo toho vyhledávat v informacích popisujících položku, stejně jako ve většině ostatních sbírek."
     },
     "button": {
-      "apply": "Použít",
-      "cancel": "Zrušit",
       "morefilters": "Další filtry",
-      "reset": "Obnovit",
+      "showAdditional": "{show} další filtry",
       "showAll": "Zobrazit vše {label}",
       "showLess": "Zobrazit méně {label}"
     },
@@ -304,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "barvy",
-      "name": "Barva | Barvy",
+      "name": "Barva",
       "options": {
         "#000000": "Černá",
         "#000080": "Námořnická modrá",
@@ -457,7 +470,7 @@ export default {
       "name": "Kvalita položky",
       "options": {
         "*": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
-        "0": "Zobrazit pouze položky, které nesplňují naše publikační kritéria.",
+        "0": "Nesplňuje kritéria publikování",
         "1": "Nízká kvalita",
         "2": "Střední kvalita",
         "3": "Vysoká kvalita a opakované použití s podmínkami",
@@ -523,9 +536,9 @@ export default {
       "select": "Vyberte tvůrce"
     },
     "DATA_PROVIDER": {
-      "moreName": "institucí",
-      "name": "Instituce",
-      "select": "Vyberte instituce"
+      "moreName": "poskytující instituce",
+      "name": "Poskytující instituce",
+      "select": "Vyberte poskytující instituce"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientace obrázku | Orientace obrázků",
@@ -591,7 +604,7 @@ export default {
       "select": "Vyberte jazyky"
     },
     "MIME_TYPE": {
-      "name": "Formát souboru | Formáty souborů",
+      "name": "Formát souboru",
       "options": {
         "text/plain": "Prostý text"
       },
@@ -599,7 +612,7 @@ export default {
     },
     "moreOptions": "Hledejte, abyste našli {0} více {1}.",
     "PROVIDER": {
-      "moreName": "agregátory",
+      "moreName": "agregátoři",
       "name": "Agregátor",
       "select": "Vyberte agregátory"
     },
@@ -608,18 +621,18 @@ export default {
       "select": "Vyberte formáty"
     },
     "proxy_dc_type": {
-      "name": "Druh | Druhy",
+      "name": "Druh | druhy",
       "select": "Vyberte typy"
     },
     "proxy_dcterms_issued": {
       "name": "Datum vydání"
     },
     "proxy_dcterms_medium": {
-      "name": "Médium | Média",
+      "name": "Střední",
       "select": "Vyberte média"
     },
     "REUSABILITY": {
-      "name": "Mohu to znovu použít?",
+      "name": "Mohu použít toto?",
       "options": {
         "open": "Ano",
         "permission": "Možná, požádejte o povolení",
@@ -675,6 +688,7 @@ export default {
       "dcRights": "Práva",
       "dcSource": "Zdroj",
       "dcSubject": "Předmět",
+      "dctermsAlternative": "Alternativní název",
       "dctermsCreated": "Datum vzniku",
       "dctermsExtent": "Rozsah",
       "dctermsHasPart": "se skládá z",
@@ -692,7 +706,7 @@ export default {
       "dctermsTemporal": "Časové",
       "dctermsTOC": "Obsah",
       "dcTitle": "Název",
-      "dcType": "Druh objektu",
+      "dcType": "Typ položka",
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
       "edmDataProvider": "Poskytovatelská instituce",
@@ -704,9 +718,9 @@ export default {
       "edmIsRepresentationOf": "představuje",
       "edmIsSimilarTo": "se podobá",
       "edmIsSuccessorOf": "je nástupcem",
-      "edmProvider": "Poskytovatel",
+      "edmProvider": "Agregátor",
       "edmRealizes": "ztvárňuje",
-      "edmRights": "Mediální licence tohoto záznamu (není-li uvedeno jinak)",
+      "edmRights": "Výrok o právech tohoto položka (není-li uvedeno jinak)",
       "edmUgc": "Uživatelský obsah",
       "europeanaCollectionName": "Název kolekce",
       "keywords": "Klíčová slova (poskytnutá komunitou)",
@@ -719,11 +733,10 @@ export default {
       "about": "RDF About",
       "dcDescription": "Popis",
       "ebucoreHasMimeType": "Ebucore typ MIME",
-      "edmRights": "Licence pro tento mediální zdroj",
+      "edmRights": "Výrok o právech pro tento mediální zdrojvýrok o právech",
       "rdfAbout": "RDF About"
     }
   },
-  "filter": "Filtr",
   "filterResults": "Filtrovat výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Přizpůsobit jazyk stránky",
@@ -740,7 +753,7 @@ export default {
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",
       "privacy": "Zásady ochrany osobních údajů",
-      "provide": "Přispívejte do naší databáze",
+      "provide": "Staňte se poskytující instituce",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
       "terms": "Podmínky použití"
     },
@@ -753,9 +766,8 @@ export default {
   },
   "galleries": {
     "description": "Prozkoumat naše galerie",
-    "galleries": "Galerie"
+    "galleries": "Galerie | Galerie"
   },
-  "goToRecord": "Přejít na záznam",
   "header": {
     "backToMenu": "Zavřít vyhledávací okno",
     "clearQuery": "Vymazat vyhledávací kriteria",
@@ -765,10 +777,10 @@ export default {
     "inCollection": "Hledat {query} v {collection}",
     "navigation": {
       "about": "O nás",
-      "collections": "SBÍRKY",
+      "collections": "Sbírky",
       "europeanaClassroom": "Pro učitele",
-      "help": "Nápověda",
-      "home": "Domov",
+      "help": "Pomoc",
+      "home": "Domů",
       "pro": "Pro profesionály",
       "stories": "Příběhy"
     },
@@ -785,7 +797,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Nejnovější příběhy",
     "storiesCTA": "Zobrazit všechny příběhy",
-    "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí",
+    "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí.",
     "themesCTA": "Zobrazit všechna témata",
     "themesTitle": "Prozkoumejte podle tématu",
     "title": "Objevte evropské {digital} kulturní dědictví",
@@ -796,7 +808,7 @@ export default {
   },
   "items": {
     "itemCount": "1 položka |{count} položek",
-    "itemOf": "{max} z {count} položek",
+    "itemOf": "{max} z {count} položky",
     "recent": "Poslední položky",
     "recommended": "Doporučené položky",
     "youMightLike": "Položky, které by se vám mohly líbit"
@@ -806,7 +818,7 @@ export default {
       "acceptAll": "Přijmout vše",
       "acceptSelected": "Přijmout vybrané",
       "consentModal": {
-        "description": "Vaše soukromí bereme vážně. Zde můžete vyhodnotit a přizpůsobit služby, které bychom chtěli použít na tomto webu. Máte to na starosti! Povolte nebo zakažte služby, jak uznáte za vhodné.",
+        "description": "Zde můžete vidět a přizpůsobit služby, které bychom chtěli na tomto webu používat. Chcete-li se dozvědět více, přečtěte si prosím naše zásady ochrany osobních údajů <a href='/rights/privacy-policy'> privacy policy.</a>",
         "title": "Služby, které bychom rádi využili."
       },
       "consentNotice": {
@@ -874,7 +886,6 @@ export default {
   "layout": {
     "skipToMain": "Přeskočit na obsah stránky"
   },
-  "learnMore": "Údaje o zdroji tohoto popisu",
   "loading": "Načítání",
   "loadingResults": "Načítání výsledků",
   "messages": {
@@ -901,16 +912,17 @@ export default {
   "multilingual": {
     "automated": "Automatizovaný překlad",
     "enrichment": "Obohacení partnerskými projekty",
-    "other": "Jiné jazyky",
+    "other": "jiné jazyky",
     "stopTranslating": "Přestaňte tuto položku překládat na {0}.",
     "translateLanguage": "Chcete tuto položku vidět v {0}?",
+    "translateMetadata": "Přeložte metadata této položka.",
     "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později."
   },
   "newFeatureNotification": {
     "dismiss": "Zavřít",
-    "readMore": "Objevujte příběhy",
+    "readMore": "Přejděte na stránku vyhledávání",
     "text": {
-      "storiesTags": "Podívejte se na aktualizovanou stránku Příběhy. Nyní můžete vyhledávat a filtrovat podle značek."
+      "advancedSearch": "Přišlo pokročilé vyhledávání: rozlučte se s širokými výsledky a přivítejte přesnost, když objevíte přesně to, co hledáte. Začněte objevovat hned!"
     }
   },
   "newWindow": "otevře se v novém okně",
@@ -950,7 +962,7 @@ export default {
         "title": "Časy"
       },
       "topics": {
-        "title": "Předměty"
+        "title": "Tématy"
       }
     }
   },
@@ -958,10 +970,9 @@ export default {
     "label": "Stránkování"
   },
   "provider": {
-    "linkText": "Zobrazit na webu poskytovatele",
+    "linkText": "Zobrazit na webu poskytující instituce",
     "providedBy": "Tuto položku poskytuje a spravuje {provider}"
   },
-  "readMore": "Více informací",
   "recommendation": {
     "prompts": {
       "accept": "Palec nahoru pro přidání do galerie",
@@ -981,7 +992,7 @@ export default {
     "location": "Umístění",
     "locationOnMap": "Umístění na mapě",
     "mediaPlayer": "Přehrávač médií",
-    "record": "Záznam",
+    "record": "Položka",
     "showAll": "Zobrazit všechny informace",
     "similarItems": "Podobné položky",
     "status": {
@@ -1014,9 +1025,34 @@ export default {
     }
   },
   "removeFilter": "Odstranit {filterLabel} filtr",
-  "reset": "Obnovit",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} znamená, že tuto položka můžete volně používat. {readMoreLink}",
+      "permission": "{rightsStatementName} znamená, že tuto položka budete moci používat, pokud požádáte o povolení. {readMoreLink}",
+      "readMore": "Přečtěte si více na {link}",
+      "restricted": "{rightsStatementName} znamená, že tuto položku můžete použít s podmínkami. {readMoreLink}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Pole",
+        "modifier": "Modifikátor",
+        "searchTerm": "Zadejte hledané výrazy"
+      },
+      "modifiers": {
+        "contains": "obsahuje",
+        "doesNotContain": "neobsahuje"
+      },
+      "show": "{showOrHide} pokročilé vyhledávání",
+      "tooltip": {
+        "advancedSearch": "Pokročilé vyhledávání umožňuje vytvářet vlastní vyhledávací dotazy.",
+        "field": "Vyberte pole pro vyhledávání",
+        "modifier": "Vyberte modifikátor, který chcete použít na pole.",
+        "term": "Zadejte výraz(y), který chcete vyhledat nebo vyloučit."
+      }
+    },
     "boost": {
       "placeholder": "Zadejte dotaz pro posílení pole"
     },
@@ -1027,8 +1063,10 @@ export default {
       "withoutQuery": "{count} výsledků",
       "withQuery": "{count} výsledků pro {query}"
     },
+    "selectTheme": "Výběr TÉMATU může poskytnout další možnosti filtrování, např. téma Noviny obsahuje filtr DATUM VYDÁNÍ.",
     "title": "Vyhledat"
   },
+  "searchFilters": "Filtry vyhledávání {count}",
   "searchHasLoaded": "Počet vrácených výsledků: {0}",
   "searchPlaceholder": "Hledejte přes 50 milionů položek",
   "searchResults": "Vyhledat",
@@ -1052,10 +1090,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Vložit do galerie",
+      "addToGallery": "Přidat tuto položku do galerie.",
       "create": "Vytvořit galerii",
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
+      "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
       "update": "Aktualizovat galerii"
     },
     "entityBestBets": {
@@ -1086,6 +1126,10 @@ export default {
       "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje."
     },
     "publication": {
+      "criteria": {
+        "description": "Aby byla galerie zvážena k publikaci, musí obsahovat název a popis a musí obsahovat minimálně 20 položky.",
+        "title": "Kritéria publikace"
+      },
       "description": "Publikování galerie ji bude uvádět na Europeana.eu/galleries.",
       "failedSubmission": "Žádost se nezdařila. Prosím zkuste to znovu.",
       "process": {
@@ -1100,6 +1144,7 @@ export default {
       "toastButton": "Dobře",
       "toastMessage": "Tato galerie je nyní odeslána k publikaci. Můžete zkontrolovat {galleries} , abyste zjistili, zda byla publikována."
     },
+    "setCount": "{count} galerie",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) je webový nástroj pro správu obsahu různých typů (včetně 3D), dokumentaci kulturního dědictví prostřednictvím digitálního komunitního prostoru a kurátorství digitálních příběhů a zážitků."
@@ -1107,8 +1152,6 @@ export default {
     }
   },
   "shareWhere": "Kam byste to chtěli sdílet?",
-  "showLess": "Zobrazit méně",
-  "showMore": "Zobrazit více",
   "sideFilters": {
     "noOptions": "Nejsou k dispozici žádné možnosti k výběru",
     "search": "Vyhledat"

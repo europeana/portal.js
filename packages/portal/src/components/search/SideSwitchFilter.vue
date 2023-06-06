@@ -23,7 +23,7 @@
         v-if="tooltip"
         v-b-tooltip.hover.bottom
         :title="tooltip"
-        class="icon-info p-0 tooltip-button"
+        class="icon-info-outline p-0 tooltip-button"
         variant="light-flat"
         data-qa="switch filter more info button"
       />
@@ -32,15 +32,10 @@
 </template>
 
 <script>
-  import { VBTooltip } from 'bootstrap-vue';
   import facetsMixin from '@/mixins/facets';
 
   export default {
     name: 'SideSwitchFilter',
-
-    directives: {
-      'b-tooltip': VBTooltip
-    },
 
     mixins: [facetsMixin],
 
@@ -49,7 +44,7 @@
        * Value to which the switch is set
        */
       value: {
-        type: String,
+        type: [String, Array],
         default: null
       },
 
@@ -138,21 +133,6 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  .btn.tooltip-button {
-    color: $grey;
-    font-size: $font-size-base;
-
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-base-4k;
-      }
-    }
-  }
-</style>
 
 <docs lang="md">
   Switch-style checkbox with tooltip:

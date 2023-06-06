@@ -1,8 +1,10 @@
 <template>
   <div>
     <b-button
+      v-b-tooltip.bottom
       v-b-modal.set-publication-request-modal
       class="text-decoration-none text-nowrap h-100"
+      :title="$t('account.tooltip.published')"
     >
       {{ $t('actions.submitForPublication') }}
     </b-button>
@@ -18,6 +20,8 @@
       <p>{{ $t('set.publication.process.description') }}</p>
       <h3>{{ $t('set.publication.time.title') }}</h3>
       <p>{{ $t('set.publication.time.description') }}</p>
+      <h3>{{ $t('set.publication.criteria.title') }}</h3>
+      <p>{{ $t('set.publication.criteria.description') }}</p>
 
       <div class="modal-footer">
         <b-button
@@ -61,7 +65,7 @@
         <template #galleries>
           <b-link
             class="text-decoration-none"
-            :to="$path('/galleries')"
+            :to="localePath('/galleries')"
           >
             {{ 'Europeana.eu/galleries' }}
           </b-link>
@@ -162,11 +166,6 @@
 
     .icon-cancel-circle::before {
       color: $red;
-      font-size: $font-size-base;
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-base-4k;
-      }
     }
   }
 </style>

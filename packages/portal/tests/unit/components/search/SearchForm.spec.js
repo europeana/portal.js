@@ -6,17 +6,15 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const $goto = sinon.spy();
-
-const $path = sinon.stub();
-$path.withArgs({ name: 'search' }).returns('/search');
-$path.withArgs({
+const localePath = sinon.stub();
+localePath.withArgs({ name: 'search' }).returns('/search');
+localePath.withArgs({
   name: 'collections-type-all', params: {
     type: 'topic',
     pathMatch: '227-fresco'
   }
 }).returns('/collections/topic/227-fresco');
-$path.withArgs({
+localePath.withArgs({
   name: 'collections-type-all', params: {
     type: 'person',
     pathMatch: '59981-frank-sinatra'
@@ -32,11 +30,12 @@ const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchF
   data: () => (data || {}),
   stubs: { ...stubs },
   mocks: {
+    $features: {},
     $i18n: { locale: 'en' },
     $t: () => {},
     $route: { path: '', query: { query: '' } },
-    $goto,
-    $path,
+    $router: { push: sinon.spy() },
+    localePath,
     $matomo: {
       trackEvent: sinon.spy()
     },
@@ -64,7 +63,7 @@ const fullFactory = () => mount(SearchForm, {
     $i18n: { locale: 'en' },
     $t: () => {},
     $route: { path: '', query: { query: '' } },
-    $path,
+    localePath,
     $apis: { entity: { suggest: sinon.stub().resolves() } },
     $store: {
       getters: {
@@ -81,9 +80,7 @@ const fullFactory = () => mount(SearchForm, {
 });
 
 describe('components/search/SearchForm', () => {
-  beforeEach(() => {
-    $goto.resetHistory();
-  });
+  beforeEach(sinon.resetHistory);
 
   describe('query', () => {
     it('is read from the route', () => {
@@ -126,7 +123,7 @@ describe('components/search/SearchForm', () => {
     describe('when not on a search page', () => {
       const wrapper = factory({
         mocks: {
-          $path,
+          localePath,
           $store: {
             state: {
               search: {
@@ -166,7 +163,7 @@ describe('components/search/SearchForm', () => {
           path: wrapper.vm.$route.path,
           query: { query, page: 1, view: state.search.view }
         };
-        expect($goto.calledWith(newRouteParams)).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
       });
 
       it('tracks the suggestion not selected event', async() => {
@@ -183,7 +180,7 @@ describe('components/search/SearchForm', () => {
         //   path: wrapper.vm.$route.path,
         //   query: { query, page: 1, view: state.search.view }
         // };
-        // expect($goto.calledWith(newRouteParams)).toBe(true);
+        // expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
         expect(wrapper.vm.$matomo.trackEvent.calledWith('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query)).toBe(true);
       });
 
@@ -200,7 +197,7 @@ describe('components/search/SearchForm', () => {
             path: wrapper.vm.$route.path,
             query: { query: '', page: 1, view: state.search.view }
           };
-          expect($goto.calledWith(newRouteParams)).toBe(true);
+          expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
         });
       });
     });
@@ -228,7 +225,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: $store.getters['search/activeView'] }
         };
-        expect($goto.calledWith(newRouteParams)).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
       });
 
       it('does not carry non-search query params', async() => {
@@ -243,7 +240,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: $store.getters['search/activeView'] }
         };
-        expect($goto.calledWith(newRouteParams)).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
       });
     });
   });
@@ -265,6 +262,56 @@ describe('components/search/SearchForm', () => {
       expect(link.path).toBe('/search');
       expect(link.query.query).toBe('"Fresco"');
       expect(link.query.view).toBe('grid');
+    });
+  });
+
+  describe('linkGen', () => {
+    const state = {
+      search: {
+        active: false,
+        userParams: {
+          query: ''
+        },
+        view: 'grid'
+      }
+    };
+    const route = {
+      path: '',
+      query: {
+        query: '',
+        qa: 'procy_dc_creator:*',
+        reusability: 'open',
+        qf: 'TYPE:"IMAGE"',
+        api: 'metadata',
+        page: '3'
+      }
+    };
+    const wrapper = factory({ mocks: { $route: route, $store: { state }, $features: { advancedSearch: true } } });
+
+    describe('with a path', () => {
+      it('preserves URL params, except page', () => {
+        const link = wrapper.vm.linkGen('Fresco', '/collections/topic/55');
+        expect(link.path).toBe('/collections/topic/55');
+        expect(link.query.query).toBe('Fresco');
+        expect(link.query.qa).toBe('procy_dc_creator:*');
+        expect(link.query.reusability).toBe('open');
+        expect(link.query.qf).toBe('TYPE:"IMAGE"');
+        expect(link.query.api).toBe('metadata');
+        expect(link.query.page).toBe(undefined);
+      });
+    });
+
+    describe('without a path, like on a search page', () => {
+      it('preserves URL params, except page', () => {
+        const link = wrapper.vm.linkGen('Fresco');
+        expect(link.path).toBe('/search');
+        expect(link.query.query).toBe('Fresco');
+        expect(link.query.qa).toBe('procy_dc_creator:*');
+        expect(link.query.reusability).toBe('open');
+        expect(link.query.qf).toBe('TYPE:"IMAGE"');
+        expect(link.query.api).toBe('metadata');
+        expect(link.query.page).toBe(undefined);
+      });
     });
   });
 

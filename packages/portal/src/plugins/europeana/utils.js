@@ -10,7 +10,7 @@ export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
   const axiosInstance = ($axios || axios).create(axiosOptions);
 
   const app = context.app;
-  if (app && app.$axiosLogger) {
+  if (app?.$axiosLogger) {
     axiosInstance.interceptors.request.use(app.$axiosLogger);
   }
 
@@ -259,7 +259,7 @@ function isJSONLDExpanded(values) {
 
 function langMapValueFromJSONLD(value, locale) {
   const forCurrentLang = value.find(element => element['@language'] === locale);
-  return forCurrentLang && forCurrentLang['@value'];
+  return forCurrentLang?.['@value'];
 }
 
 function setLangMapValuesAndCode(returnValue, langMap, key, locale) {
@@ -312,6 +312,12 @@ function filterEntities(mappedObject) {
   mappedObject.values = mappedObject.values.filter(v => !isEntity(v));
 }
 
+const LUCENE_SPECIAL_CHARACTERS = [
+  '+', '-', '&', '|', '!', '(', ')', '{', '}', '[', ']', '^', '"', '~', '*', '?', ':', '/'
+];
+
+const replaceAll = (string, pattern, replacement) => string.split(pattern).join(replacement);
+
 /**
  * Escapes Lucene syntax special characters
  * For instance, so that a string may be used in a Record API search query.
@@ -319,9 +325,12 @@ function filterEntities(mappedObject) {
  * @return {string} Escaped string
  * @see https://lucene.apache.org/solr/guide/the-standard-query-parser.html#escaping-special-characters
  */
-export function escapeLuceneSpecials(unescaped) {
-  const escapePattern = /([+\-&|!(){}[\]^"~*?:/"])/g; // Lucene reserved characters
-  return unescaped.replace(escapePattern, '\\$1');
+export function escapeLuceneSpecials(unescaped, { spaces = false } = {}) {
+  let escaped = unescaped;
+  for (const char of LUCENE_SPECIAL_CHARACTERS.concat(spaces ? ' ' : [])) {
+    escaped = replaceAll(escaped, char, `\\${char}`);
+  }
+  return escaped;
 }
 
 /**
@@ -329,9 +338,12 @@ export function escapeLuceneSpecials(unescaped) {
  * @param {string} escaped Escaped string
  * @return {string} Unescaped string
  */
-export function unescapeLuceneSpecials(escaped) {
-  const unescapePattern = /\\([+\-&|!(){}[\]^"~*?:/"])/g; // Lucene reserved characters
-  return escaped.replace(unescapePattern, '$1');
+export function unescapeLuceneSpecials(escaped, { spaces = false } = {}) {
+  let unescaped = escaped;
+  for (const char of LUCENE_SPECIAL_CHARACTERS.concat(spaces ? ' ' : [])) {
+    unescaped = replaceAll(unescaped, `\\${char}`, char);
+  }
+  return unescaped;
 }
 
 export const isLangMap = (value) => {

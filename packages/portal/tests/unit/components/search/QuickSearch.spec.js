@@ -20,7 +20,7 @@ const factory = ({ propsData = {} } = {}) => shallowMountNuxt(QuickSearch, {
       isoLocale: () => 'en-GB',
       locale: 'en'
     },
-    $path: () => {},
+    localePath: () => {},
     $route: {
       query: {}
     },

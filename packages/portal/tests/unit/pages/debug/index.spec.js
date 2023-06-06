@@ -14,7 +14,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     return data;
   },
   mocks: {
-    $goto: sinon.spy(),
+    $router: { push: sinon.spy() },
     $store: {
       getters: {
         'debug/settings': {
@@ -61,7 +61,7 @@ describe('pages/debug/index', () => {
 
           wrapper.vm.submitForm();
 
-          expect(wrapper.vm.$goto.calledWith(redirect)).toBe(true);
+          expect(wrapper.vm.$router.push.calledWith(redirect)).toBe(true);
         });
       });
 
@@ -71,7 +71,7 @@ describe('pages/debug/index', () => {
 
           wrapper.vm.submitForm();
 
-          expect(wrapper.vm.$goto.calledWith('/')).toBe(true);
+          expect(wrapper.vm.$router.push.calledWith('/')).toBe(true);
         });
       });
     });

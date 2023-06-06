@@ -40,7 +40,7 @@
         variant="link"
         @click="toggleMoreDescription"
       >
-        {{ showAll ? $t('showLess') : $t('showMore') }}
+        {{ showAll ? $t('actions.showLess') : $t('actions.showMore') }}
       </b-button>
     </b-card-text>
     <template

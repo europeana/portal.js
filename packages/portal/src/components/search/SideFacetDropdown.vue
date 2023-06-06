@@ -18,6 +18,13 @@
             {{ facetName }}
           </label>
         </h3>
+        <b-button
+          v-if="tooltip"
+          v-b-tooltip.bottom
+          :title="tooltip"
+          class="icon-info-outline p-0 tooltip-button"
+          variant="light-flat"
+        />
         <b-container v-if="$fetchState.error">
           <AlertMessage
             :error="$fetchState.error.message"
@@ -408,6 +415,14 @@
 
       activeLabel() {
         return this.selectedFilters[this.name].length > 0 || this.activeSearchInput;
+      },
+
+      tooltip() {
+        if (this.name === 'collection') {
+          return this.$t('search.selectTheme');
+        } else {
+          return null;
+        }
       }
     },
 

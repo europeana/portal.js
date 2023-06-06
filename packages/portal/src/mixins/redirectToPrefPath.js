@@ -5,7 +5,7 @@ export default {
     redirectToPrefPath(page, id, label, params = {}) {
       const desiredPath = getLabelledSlug(id, label);
       if (this.$route.params.pathMatch !== desiredPath) {
-        const redirectPath = this.$path({
+        const redirectPath = this.localePath({
           name: page,
           params: { ...params, pathMatch: desiredPath }
         });

@@ -1,6 +1,5 @@
 <template>
   <b-container>
-    <slot name="header" />
     <b-row class="flex-md-row">
       <b-col cols="12">
         <div
@@ -16,11 +15,40 @@
         <template
           v-else
         >
+          <b-row
+            v-if="total > 0"
+          >
+            <b-col>
+              <span class="d-flex align-items-center mb-3">
+                <h2
+                  class="related-heading text-uppercase mb-0"
+                >
+                  {{ $tc('set.setCount', total) }}
+                </h2>
+                <b-button
+                  v-if="tooltipTitle"
+                  v-b-tooltip.bottom
+                  :title="tooltipTitle"
+                  class="icon-info-outline tooltip-button"
+                  variant="light-flat"
+                />
+              </span>
+            </b-col>
+          </b-row>
           <div
             v-if="emptyText && sets && sets.length === 0"
             class="text-center pb-4"
           >
-            {{ emptyText }}
+            <span class="d-inline-flex align-items-center">
+              {{ emptyText }}
+              <b-button
+                v-if="tooltipTitle"
+                v-b-tooltip.bottom
+                :title="tooltipTitle"
+                class="icon-info-outline tooltip-button"
+                variant="light-flat"
+              />
+            </span>
           </div>
           <!-- TODO: Use SetCardGroup and clean up methods -->
           <b-card-group
@@ -126,6 +154,15 @@
       },
       page() {
         return Number(this.$route.query.page) || 1;
+      },
+      tooltipTitle() {
+        if (this.type === 'EntityBestItemsSet') {
+          return this.$t(`account.tooltip.${this.type}`);
+        } else if (this.visibility) {
+          return this.$t(`account.tooltip.${this.visibility}`);
+        } else {
+          return null;
+        }
       }
     },
     watch: {
@@ -158,7 +195,7 @@
         if (this.page === 1) {
           this.$fetch();
         } else {
-          this.$goto({
+          this.$router.push({
             path: this.$route.path,
             query: { ...this.$route.query, page: 1 },
             hash: this.$route.hash

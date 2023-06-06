@@ -68,7 +68,7 @@
         variant="link"
         @click="toggleMoreDescription"
       >
-        {{ showAll ? $t('showLess') : $t('readMore') }}
+        {{ showAll ? $t('actions.showLess') : $t('actions.readMore') }}
       </b-button>
     </div>
   </div>
@@ -102,7 +102,7 @@
     },
     computed: {
       expandableDescription() {
-        return (this.description && this.description.values) &&
+        return this.description?.values &&
           (this.description.values.length > 1 || this.description.values[0].length > this.limitCharacters);
       },
       truncatedDescription() {

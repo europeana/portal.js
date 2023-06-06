@@ -39,7 +39,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(HomePage, {
     },
     $route: { query: {} },
     $t: (key) => key,
-    $path: (args) => {
+    localePath: (args) => {
       return args.params ? `${args.params.type}/${args.params.pathMatch}` : args;
     },
     $fetchState: {}

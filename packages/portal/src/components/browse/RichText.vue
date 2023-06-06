@@ -7,6 +7,7 @@
     <b-col class="col-12 col-lg-9">
       <b-card
         v-if="html && richTextIsCard"
+        class="rich-text-card"
       >
         <!-- eslint-disable vue/no-v-html -->
         <div
@@ -28,6 +29,8 @@
   import { marked } from 'marked';
 
   export default {
+    name: 'RichText',
+
     props: {
       text: {
         type: String,
@@ -49,7 +52,22 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
   ::v-deep img {
     max-width: 100%;
+  }
+
+  .xxl-page {
+    .col-lg-9 {
+      @media (min-width: $bp-large) {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+
+    .rich-text-card {
+      max-width: $max-text-column-width;
+    }
   }
 </style>

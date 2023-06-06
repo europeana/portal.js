@@ -1,27 +1,32 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vuex from 'vuex';
 import sinon from 'sinon';
+import BootstrapVue from 'bootstrap-vue';
 
 import SocialShare from '@/components/sharing/SocialShare.vue';
 
 const localVue = createLocalVue();
-localVue.use(Vuex);
-
-const store = new Vuex.Store({
-  getters: {
-    'http/canonicalUrlWithoutLocale': () => 'https://www.example.org/page'
-  }
-});
+localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(SocialShare, {
   localVue,
   attachTo: document.body,
-  store,
   stubs: ['b-button'],
   propsData: {
     mediaUrl: '/img/portrait.jpg'
   },
   mocks: {
+    $config: {
+      app: {
+        baseUrl: 'https://www.example.org'
+      }
+    },
+    $i18n: {
+      locale: 'fr'
+    },
+    $route: {
+      fullPath: '/page',
+      path: '/page'
+    },
     $matomo: {
       trackEvent: sinon.spy()
     },

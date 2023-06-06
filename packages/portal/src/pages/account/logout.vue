@@ -25,7 +25,8 @@
 
       const path = this.$auth.strategies.keycloak.options.end_session_endpoint;
       const redirect = window.location.origin + this.$auth.$storage.getUniversal('redirect');
-      this.$goto(`${path}?redirect_uri=${encodeURIComponent(redirect)}`);
+
+      window.location.assign(`${path}?redirect_uri=${encodeURIComponent(redirect)}`);
     }
   };
 </script>

@@ -99,7 +99,7 @@
       this.total = setResponse.data.partOf.total;
       this.perPage = PER_PAGE;
 
-      this.$scrollTo && this.$scrollTo('#header');
+      this.$scrollTo?.('#header');
     },
     computed: {
       pageMeta() {

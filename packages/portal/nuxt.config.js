@@ -13,7 +13,7 @@ import versions from './pkg-versions.js';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
+import features, { featureNotificationExpiration } from './src/features/index.js';
 
 import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
 
@@ -92,16 +92,6 @@ export default {
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
-    },
-    http: {
-      ports: {
-        http: process.env.HTTP_PORT,
-        https: process.env.HTTPS_PORT
-      },
-      sslNegotiation: {
-        enabled: featureIsEnabled(process.env.ENABLE_SSL_NEGOTIATION),
-        datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
-      }
     },
     matomo: {
       host: process.env.MATOMO_HOST,
@@ -215,7 +205,7 @@ export default {
   bootstrapVue: {
     // Set these two settings to `false` to prevent auto-importing of Bootstrap(Vue)
     // CSS. It will then need to be manually imported, e.g. with
-    // assets/scss/bootstrap.scss
+    // @europeana/style/scss/bootstrap.scss
     bootstrapCSS: false,
     bootstrapVueCSS: false,
 
@@ -248,8 +238,14 @@ export default {
       'ModalPlugin',
       'NavbarPlugin',
       'SidebarPlugin',
-      'ToastPlugin'
-    ]
+      'ToastPlugin',
+      'TooltipPlugin'
+    ],
+    config: {
+      BTooltip: {
+        delay: { show: 300, hide: 50 }
+      }
+    }
   },
 
   /*
@@ -261,6 +257,7 @@ export default {
     '~/plugins/hotjar.client',
     '~/plugins/error',
     '~/plugins/link',
+    '~/plugins/axios.server',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
@@ -273,7 +270,6 @@ export default {
   buildModules: [
     '~/modules/contentful',
     '~/modules/axios-logger',
-    '~/modules/http',
     '~/modules/query-sanitiser',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
@@ -411,6 +407,7 @@ export default {
     { path: '/robots.txt', handler: '~/server-middleware/robots.txt' },
     '~/server-middleware/logging',
     '~/server-middleware/referrer-policy',
+    '~/server-middleware/content-security-policy',
     '~/server-middleware/record-json'
   ],
 
@@ -423,10 +420,12 @@ export default {
     extractCSS: false,
 
     extend(config, { isClient }) {
+      // Handle imported .ico files
       config.module.rules.push({
         test: /\.ico(\?[a-z0-9=&.]+)?$/,
         loader: 'file-loader'
       });
+
       // Extend webpack config only for client bundle
       if (isClient) {
         // Build source maps to aid debugging in production builds

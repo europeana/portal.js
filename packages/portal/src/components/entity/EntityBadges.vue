@@ -106,7 +106,7 @@
     methods: {
       draw() {
         this.$nextTick(() => {
-          this.$redrawVueMasonry && this.$redrawVueMasonry();
+          this.$redrawVueMasonry?.();
         });
       }
     }

@@ -13,6 +13,9 @@ const factory = ({ mocks = {} } = {}) => shallowMount(FilterToggleButton, {
     },
     $store: { state: { search: {} } },
     $t: (key) => key,
+    $features: {
+      advancedSearch: false
+    },
     ...mocks
   }
 });

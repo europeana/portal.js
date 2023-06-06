@@ -1,12 +1,14 @@
 <template>
   <div>
     <b-button
+      v-b-tooltip.bottom
       class="like-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       :pressed="liked"
       :variant="buttonVariant"
       data-qa="like button"
       :aria-label="$t('actions.like')"
+      :title="$t('set.actions.saveItemToLikes')"
       @click="toggleLiked"
     >
       <span class="icon-heart" />
@@ -99,7 +101,7 @@
 
         try {
           await this.$store.dispatch('set/like', this.identifier);
-          this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.identifier);
+          this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
           if (e.message === '100 likes') {

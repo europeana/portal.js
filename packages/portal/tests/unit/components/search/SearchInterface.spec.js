@@ -25,11 +25,11 @@ const searchResult = {
 
 const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {}) => shallowMountNuxt(SearchInterface, {
   localVue,
+  attachTo: document.body,
   mocks: {
     $t: (key) => key,
-    $path: () => '/',
-    $goto: () => null,
-    $features: { sideFilters: false, entityHeaderCards: false },
+    localePath: () => '/',
+    $router: { push: sinon.spy() },
     $fetchState,
     $route: { path: '/search', name: 'search', query: {} },
     $error: sinon.spy(),
@@ -65,6 +65,10 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     },
     $i18n: {
       locale: 'en'
+    },
+    $features: {
+      advancedSearch: false,
+      ...mocks.$features || {}
     }
   },
   propsData,
@@ -152,6 +156,36 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('computed', () => {
+    describe('advancedSearchQueryCount', () => {
+      describe('when there is no advanced search query', () => {
+        const route = { query: {} };
+
+        const wrapper = factory({ mocks: { $route: route } });
+
+        it('is undefined', () => {
+          expect(wrapper.vm.advancedSearchQueryCount).toBe(0);
+        });
+      });
+      describe('when there is one advanced search query', () => {
+        const route = { query: { qa: ['proxy_dc_title:The'] } };
+
+        const wrapper = factory({ mocks: { $route: route } });
+
+        it('is 1', () => {
+          expect(wrapper.vm.advancedSearchQueryCount).toBe(1);
+        });
+      });
+      describe('when there are multiple advanced search queries', () => {
+        const route = { query: { qa: ['proxy_dc_title:The', 'proxy_dc_title:Practice', 'proxy_dc_title:of'] } };
+
+        const wrapper = factory({ mocks: { $route: route } });
+
+        it('is 3', () => {
+          expect(wrapper.vm.advancedSearchQueryCount).toBe(3);
+        });
+      });
+    });
+
     describe('noMoreResults', () => {
       describe('when there are 0 results in total', () => {
         const wrapper = factory({
@@ -432,18 +466,36 @@ describe('components/search/SearchInterface', () => {
         });
       });
     });
+
+    describe('toggleAdvancedSearch', () => {
+      it('toggles the advanced search display state', () => {
+        const wrapper = factory();
+
+        wrapper.vm.toggleAdvancedSearch();
+
+        expect(wrapper.vm.showAdvancedSearch).toBe(true);
+      });
+    });
   });
 
   describe('deriveApiSettings', () => {
     it('combines userParams and overrideParams into apiParams', () => {
       const userQuery = 'calais';
       const userQf = 'TYPE:"IMAGE"';
+      const userQa = [
+        'proxy_dc_title:dog'
+      ];
+      const expectedQuery = 'calais AND proxy_dc_title:dog';
       const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
       const profile = 'minimal';
       const wrapper = factory({
         mocks: {
+          $features: {
+            advancedSearch: true
+          },
           $route: {
             query: {
+              qa: userQa,
               query: userQuery,
               qf: userQf
             }
@@ -459,7 +511,7 @@ describe('components/search/SearchInterface', () => {
       wrapper.vm.deriveApiSettings();
 
       expect(wrapper.vm.apiParams).toEqual({
-        query: userQuery,
+        query: expectedQuery,
         qf: [userQf, overrideQf],
         profile
       });

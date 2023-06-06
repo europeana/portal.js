@@ -1,11 +1,13 @@
 <template>
   <div>
     <b-button
+      v-b-tooltip.bottom
       class="add-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       data-qa="add button"
       :variant="buttonVariant"
       :aria-label="$t('set.actions.addTo')"
+      :title="$t('set.actions.addToGallery')"
       @click="addToSet"
     >
       <span class="icon-ic-add" />
@@ -103,7 +105,7 @@
       addToSet() {
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
-          this.$matomo && this.$matomo.trackEvent('Item_add', 'Click add item button', this.identifier);
+          this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
           this.keycloakLogin();
         }

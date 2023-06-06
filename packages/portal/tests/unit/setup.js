@@ -7,14 +7,26 @@ import sinon from 'sinon';
 
 import '@/plugins/vue-filters';
 
-global.localStorage = {
-  getItem: () => sinon.spy(),
-  setItem: () => sinon.spy()
-};
+if (global.localStorage) {
+  sinon.spy(global.localStorage, 'getItem');
+  sinon.spy(global.localStorage, 'setItem');
+} else {
+  global.localStorage = {
+    getItem: () => sinon.spy(),
+    setItem: () => sinon.spy()
+  };
+}
 
-global.navigator.clipboard = {
-  writeText: sinon.spy()
-};
+if (!global.navigator) {
+  global.navigator = {};
+}
+if (global.navigator.clipboard) {
+  sinon.spy(global.navigator, 'clipboard');
+} else {
+  global.navigator.clipboard = {
+    writeText: sinon.spy()
+  };
+}
 
 // Allow using client-only in component tests.
 // https://dev.to/alousilva/how-to-mock-nuxt-client-only-component-with-jest-47da

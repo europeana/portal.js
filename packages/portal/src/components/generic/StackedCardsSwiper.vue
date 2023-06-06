@@ -50,7 +50,7 @@
               :data-qa="`slide link ${i}`"
               @focus="swiper.slideTo(i)"
             >
-              {{ $t('explore') }}
+              {{ $t('actions.explore') }}
             </b-button>
           </div>
         </div>

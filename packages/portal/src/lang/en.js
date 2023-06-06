@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Curated Collections",
-    "curatedCollectionsInfo": "Find below all collections you have curated",
     "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
@@ -26,18 +25,31 @@ export default {
     "publicCollections": "Public Galleries",
     "publishedCollections": "Published Galleries",
     "settings": "Settings",
-    "title": "My account"
+    "title": "My account",
+    "tooltip": {
+      "EntityBestItemsSet": "A curated gallery shows the pinned items within a specific collection",
+      "private": "A private gallery can only be viewed by you.",
+      "public": "A public gallery can be viewed by anyone with the link.",
+      "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page.",
+      "reorder": "You can reorder items by clicking this button and dragging the item to move it."
+    }
   },
   "actions": {
     "accept": "Accept",
+    "add": "Add",
+    "apply": "Apply",
     "cancel": "Cancel",
+    "clear": "Clear",
     "close": "close",
     "continue": "continue",
     "depublish": "Depublish",
     "download": "Download",
     "edit": "Edit",
+    "explore": "Explore",
     "feedback": "Feedback",
+    "filter": "Filter",
     "goHome": "Go to the homepage",
+    "hide": "Hide",
     "learnMore": "Learn more",
     "like": "Like",
     "move": "Move",
@@ -46,12 +58,17 @@ export default {
     "preview": "Preview",
     "previous": "Previous",
     "publish": "Publish",
+    "readMore": "Read more",
     "reject": "Reject",
+    "reset": "Reset",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
+    "show": "Show",
+    "showLess": "Show less",
+    "showMore": "Show more",
     "skipSend": "Skip and send",
     "submitForPublication": "Submit for publication",
     "submittedForPublication": "Submitted for publication",
@@ -190,7 +207,6 @@ export default {
       "title": "Settings"
     }
   },
-  "delete": "Delete",
   "depiction": "A depiction of {title}",
   "directions": {
     "left": "Left",
@@ -268,7 +284,6 @@ export default {
     "description": "Explore the exhibitions",
     "exhibitions": "Exhibition | Exhibitions"
   },
-  "explore": "Explore",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colours",
@@ -479,9 +494,9 @@ export default {
       "select": "Select creators"
     },
     "DATA_PROVIDER": {
-      "moreName": "institutions",
-      "name": "Institution",
-      "select": "Select institutions"
+      "moreName": "providing institutions",
+      "name": "Providing institution",
+      "select": "Select providing institutions"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Image orientation",
@@ -612,10 +627,8 @@ export default {
       "switchMoreInfo": "In this collection, you can choose what you want to search for: if this switch is on, then you will search within the newspaper and document text; if it is off, then you will instead search within the information describing the item, just as you always do in most other collections."
     },
     "button": {
-      "apply": "Apply",
-      "cancel": "Cancel",
       "morefilters": "More filters",
-      "reset": "Reset",
+      "showAdditional": "{show} additional filters",
       "showAll": "Show all {label}",
       "showLess": "Show less {label}"
     },
@@ -703,7 +716,8 @@ export default {
       "dcSource": "Source",
       "dcSubject": "Subject",
       "dcTitle": "Title",
-      "dcType": "Type of object",
+      "dcType": "Type of item",
+      "dctermsAlternative": "Alternative title",
       "dctermsCreated": "Creation date",
       "dctermsExtent": "Extent",
       "dctermsHasPart": "Consists of",
@@ -731,7 +745,7 @@ export default {
       "edmIsRepresentationOf": "Is representation of",
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
-      "edmProvider": "Provider",
+      "edmProvider": "Aggregator",
       "edmRealizes": "Realises",
       "edmRights": "Rights statement for the media in this item (unless otherwise specified)",
       "edmUgc": "User generated content",
@@ -750,7 +764,6 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
-  "filter": "Filter",
   "filterResults": "Filter results",
   "footer": {
     "customiseWebsiteLanguage": "Customise website language",
@@ -767,7 +780,7 @@ export default {
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
-      "provide": "Become a data partner",
+      "provide": "Become a providing institution",
       "subscribe": "Subscribe to our newsletter",
       "terms": "Terms of use"
     },
@@ -782,7 +795,6 @@ export default {
     "description": "Explore our galleries",
     "galleries": "Gallery | Galleries"
   },
-  "goToRecord": "Go to item",
   "header": {
     "backToMenu": "Close Search Box",
     "clearQuery": "Clear Search Query",
@@ -901,7 +913,6 @@ export default {
   "layout": {
     "skipToMain": "Skip to page contents"
   },
-  "learnMore": "Learn about the source of this description",
   "loading": "Loading",
   "loadingResults": "Loading results",
   "messages": {
@@ -931,13 +942,14 @@ export default {
     "other": "other languages",
     "stopTranslating": "Stop translating this item to {0}.",
     "translateLanguage": "Would you like to see this item in {0}?",
+    "translateMetadata": "Translate the metadata of this item.",
     "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Discover stories",
+    "readMore": "Go to the search page",
     "text": {
-      "storiesTags": "Check out the updated Stories page. You can now search and filter by tags."
+      "advancedSearch": "Advanced search has arrived: say goodbye to broad results and hello to precision as you uncover exactly what you're looking for. Start exploring now!"
     }
   },
   "newWindow": "opens in new window",
@@ -985,10 +997,9 @@ export default {
     "label": "Pagination"
   },
   "provider": {
-    "linkText": "View on the provider's website",
+    "linkText": "View on the providing institution's website",
     "providedBy": "This item is provided and maintained by {provider}"
   },
-  "readMore": "Read more",
   "recommendation": {
     "prompts": {
       "accept": "Thumb up to add to the gallery",
@@ -1041,9 +1052,34 @@ export default {
     }
   },
   "removeFilter": "Remove {filterLabel} filter",
-  "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} means you can use this item freely. {readMoreLink}",
+      "permission": "{rightsStatementName} means you may be able to use this item if you seek permission. {readMoreLink}",
+      "restricted": "{rightsStatementName}  means you can use this item with conditions. {readMoreLink}",
+      "readMore": "Read more at {link}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Field",
+        "modifier": "Modifier",
+        "searchTerm": "Enter search term(s)"
+      },
+      "modifiers": {
+        "contains": "contains",
+        "doesNotContain": "does not contain"
+      },
+      "show": "{showOrHide} advanced search",
+      "tooltip": {
+        "advancedSearch": "The advanced search allows you to build custom search queries.",
+        "field": "Select the metadata field to search within.",
+        "modifier": "Choose how this field should modify the search.",
+        "term": "Enter the term(s) to search for, or to exclude."
+      }
+    },
     "boost": {
       "placeholder": "Enter field boosting query"
     },
@@ -1054,8 +1090,10 @@ export default {
       "withoutQuery": "{count} results",
       "withQuery": "{count} results for {query}"
     },
+    "selectTheme": "Selecting a THEME may provide further filter options, e.g. the Newspapers theme includes a DATE ISSUED filter.",
     "title": "Search"
   },
+  "searchFilters": "Search filters {count}",
   "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search 50+ million items",
   "searchResults": "Search",
@@ -1079,10 +1117,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Add to gallery",
+      "addToGallery": "Add this item to a gallery.",
       "create": "Create gallery",
       "createNew": "Create new gallery",
       "delete": "Delete gallery",
       "edit": "Edit gallery",
+      "saveItemToLikes": "Save this item to your Likes.",
       "update": "Update gallery"
     },
     "entityBestBets": {
@@ -1113,6 +1153,10 @@ export default {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     },
     "publication": {
+      "criteria": {
+        "title": "Publication criteria",
+        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum of 20 items."
+      },
       "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
       "failedSubmission": "The request failed. Please try again.",
       "process": {
@@ -1127,6 +1171,7 @@ export default {
       "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
       "toastButton": "Okay"
     },
+    "setCount": "{count} galleries",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is a web-based tool for managing content of different types (including 3D), documenting cultural heritage through digital community spaces, and curating digital stories and experiences."
@@ -1134,8 +1179,6 @@ export default {
     }
   },
   "shareWhere": "Where would you like to share this?",
-  "showLess": "Show less",
-  "showMore": "Show more",
   "sideFilters": {
     "noOptions": "There are no options available to select",
     "search": "Search"

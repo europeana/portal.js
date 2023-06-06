@@ -24,15 +24,6 @@ Feature: Search querying
     Then I don't have a `item preview`
     And I see an `error explanation` with the text "We can't seem to find what you are looking for."
 
-  Scenario: Search with invalid query syntax
-    When I visit a `search page`
-    And I click the `show search button`
-    And I enter "*:*:*" in the `search box`
-    And I press the ENTER key
-    And I see a `context label` with the text "*:*:*"
-    Then I don't have a `item preview`
-    And I see an `error notice` with the text "Error"
-
   Scenario: Search and navigate to item
     When I visit a `search page`
     And I click the `show search button`

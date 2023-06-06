@@ -18,6 +18,20 @@
               class="mb-3"
             />
           </client-only>
+          <client-only>
+            <transition
+              name="fade"
+            >
+              <SearchQueryBuilder
+                v-show="showAdvancedSearch"
+                v-if="advancedSearchEnabled"
+                id="search-query-builder"
+                class="d-none mb-3"
+                :class="{'d-lg-block': showAdvancedSearch}"
+                @show="(show) => showAdvancedSearch = show"
+              />
+            </transition>
+          </client-only>
           <section>
             <div
               class="mb-3 d-flex align-items-start justify-content-between"
@@ -137,7 +151,51 @@
         :api-params="apiParams"
         :api-options="apiOptions"
         :user-params="userParams"
-      />
+      >
+        <b-row
+          v-if="advancedSearchEnabled"
+          class="d-flex justify-content-between align-items-center flex-nowrap"
+        >
+          <span
+            class="d-flex"
+          >
+            <b-button
+              aria-controls="search-query-builder search-query-builder-mobile"
+              :aria-expanded="showAdvancedSearch"
+              class="search-toggle query-builder-toggle ml-3 my-3 flex-grow-1"
+              :class="{ 'open': showAdvancedSearch }"
+              variant="link"
+              @click="toggleAdvancedSearch"
+            >
+              {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
+            </b-button>
+            <b-button
+              v-b-tooltip.bottom
+              :title="$t('search.advanced.tooltip.advancedSearch')"
+              class="icon-info-outline p-0 tooltip-button ml-1 mr-3"
+              variant="light-flat"
+            />
+          </span>
+          <b-button
+            data-qa="close filters button"
+            class="button-icon-only icon-clear mx-3"
+            variant="light-flat"
+            :aria-label="$t('header.closeSidebar')"
+            @click="toggleFilterSheet"
+          />
+        </b-row>
+        <transition
+          name="fade"
+        >
+          <SearchQueryBuilder
+            v-show="showAdvancedSearch"
+            v-if="advancedSearchEnabled"
+            id="search-query-builder-mobile"
+            class="d-lg-none"
+            @show="(show) => showAdvancedSearch = show"
+          />
+        </transition>
+      </SideFilters>
     </b-row>
   </b-container>
 </template>
@@ -159,6 +217,7 @@
     components: {
       ErrorMessage: () => import('../error/ErrorMessage'),
       SearchBoostingForm: () => import('./SearchBoostingForm'),
+      SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
@@ -201,7 +260,8 @@
         results: [],
         theme: null,
         totalResults: null,
-        paginationChanged: false
+        paginationChanged: false,
+        showAdvancedSearch: false
       };
     },
 
@@ -236,6 +296,9 @@
     },
 
     computed: {
+      advancedSearchQueryCount() {
+        return this.userParams?.qa ? [].concat(this.userParams?.qa).length : 0;
+      },
       userParams() {
         return this.$route.query;
       },
@@ -277,6 +340,9 @@
       showSearchBoostingForm() {
         return !!this.debugSettings?.boosting;
       },
+      advancedSearchEnabled() {
+        return this.$features.advancedSearch;
+      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -295,6 +361,7 @@
       '$route.query.api': '$fetch',
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
+      '$route.query.qa': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged'
@@ -313,6 +380,12 @@
         userParams.qf = [].concat(userParams.qf || []);
 
         const apiParams = merge(userParams, this.overrideParams);
+
+        // `qa` params are queries from the advanced search builder
+        if (apiParams.qa && this.advancedSearchEnabled) {
+          apiParams.query = [].concat(apiParams.query || []).concat(apiParams.qa).join(' AND ');
+          delete apiParams.qa;
+        }
 
         if (!apiParams.profile) {
           apiParams.profile = 'minimal';
@@ -385,8 +458,16 @@
       setViewFromRouteQuery() {
         if (this.routeQueryView) {
           this.view = this.routeQueryView;
-          this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
+          this.$cookies?.set('searchResultsView', this.routeQueryView);
         }
+      },
+
+      toggleAdvancedSearch() {
+        this.showAdvancedSearch = !this.showAdvancedSearch;
+      },
+
+      toggleFilterSheet() {
+        this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
       }
     }
   };
@@ -394,6 +475,7 @@
 
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/transitions';
 
 .col-results {
   min-width: 0;
@@ -413,6 +495,42 @@
 ::v-deep .container {
   @media (min-width: $bp-xxl) {
     max-width: calc(7 * $max-card-width);
+  }
+}
+
+::v-deep .search-toggle {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: $font-size-small;
+  padding: 0;
+
+  @media (min-width: $bp-4k) {
+    font-size: $font-size-small-4k;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+
+  &::before {
+    content: '+';
+  }
+
+  &.open::before {
+    content: '-';
+  }
+}
+
+.query-builder-toggle {
+  @media (min-width: $bp-large) {
+    &::before {
+      content: '<';
+    }
+
+    &.open::before {
+      content: '>';
+    }
   }
 }
 </style>

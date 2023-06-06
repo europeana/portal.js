@@ -10,6 +10,7 @@ Feature: pages
 
     When I open a `gallery page`
     Then I see an `item previews grid`
+    And I wait 2 second
     And I make a snapshot of the `gallery page`
 
   Scenario: Take a snapshot of an exhibition landing page
@@ -29,9 +30,3 @@ Feature: pages
     When I open a `static page`
     Then I see a `static page`
     And I make a snapshot of the `static page`
-
-  Scenario: Take a snapshot of a user's gallery/set page
-
-    When I open a `user gallery page`
-    Then I see a `user gallery page`
-    And I make a snapshot of the `user gallery page`

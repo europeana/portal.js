@@ -1,12 +1,11 @@
 export default {
   "account": {
     "curatedCollections": "Bilduma komisarioak",
-    "curatedCollectionsInfo": "Bilatu komisariotzat dituzun bilduma guztiak",
     "editProfile": "Editatu profila",
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi / Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -14,30 +13,43 @@ export default {
       "loggedOut": "Saioa amaitu duzu.",
       "noCollections": {
         "curated": "Oraindik ez duzu bildumarik hautatu",
-        "private": "Oraindik ez duzu bilduma pribaturik sortu",
+        "private": "Oraindik ez duzu galeria pribaturik sortu",
         "public": "Oraindik ez duzu bilduma publikorik sortu",
         "published": "Oraindik ez duzu galeriarik argitaratu"
       },
       "noLikedItems": "Oraindik ez duzu ezein elementu atsegin"
     },
-    "privateCollections": "Bilduma pribatuak",
-    "profile": "Nire gustukoak & Bildumak",
+    "privateCollections": "Galeria pribatuak",
+    "profile": "Nire gustukoak eta galeriak",
     "profileSettings": "Profilaren ezarpenak",
-    "publicCollections": "Bilduma publikoak",
+    "publicCollections": "Galeria Publikoak",
     "publishedCollections": "Argitaratutako Galeriak",
     "settings": "Ezarpenak",
-    "title": "Nire kontua"
+    "title": "Nire kontua",
+    "tooltip": {
+      "EntityBestItemsSet": "Galeria komisario batek bilduma zehatz bateko ainguratutako elementuak erakusten ditu",
+      "private": "Galeria pribatu bat zuk bakarrik ikus dezakezu.",
+      "public": "Galeria publiko bat esteka duen edonork ikus dezake.",
+      "published": "Argitaratutako galeria edonork ikus dezake eta gure Galeriak orrian ager daiteke.",
+      "reorder": "Elementuak berrantola ditzakezu botoi honetan klik eginez eta elementua arrastatuz mugitzeko."
+    }
   },
   "actions": {
     "accept": "Onartu",
+    "add": "Gehitu",
+    "apply": "Aplikatu",
     "cancel": "Utzi",
+    "clear": "Garbi",
     "close": "itxi",
     "continue": "jarraitu",
     "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
     "edit": "Editatu",
+    "explore": "Esploratu",
     "feedback": "Iritzia",
+    "filter": "Iragazkia",
     "goHome": "Joan hasierako orrialdera",
+    "hide": "Ezkutatu",
     "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
     "move": "Mugitu",
@@ -46,12 +58,17 @@ export default {
     "preview": "Aurrebista",
     "previous": "Aurrekoa",
     "publish": "Argitaratu",
+    "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
+    "reset": "Berrezarri",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
+    "show": "Erakutsi",
+    "showLess": "Gutxiago erakutsi",
+    "showMore": "Gehiago erakutsi",
     "skipSend": "Saltatu eta bidali",
     "submitForPublication": "Bidali argitaratzeko",
     "submittedForPublication": "Argitalpenerako aurkeztu da",
@@ -73,8 +90,8 @@ export default {
     "organisation": "Erakundeak",
     "place": "Lekuak",
     "theme": "Gaiak",
-    "time": "Mende aipagarriak",
-    "topic": "Nabarmendutako gaiak"
+    "time": "Mendeak",
+    "topic": "Gaiak"
   },
   "blog": {
     "author": "Egilea",
@@ -110,7 +127,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "diseinatzaileak",
-          "name": "Diseinatzailea | Diseinatzaileak",
+          "name": "Diseinatzailea",
           "select": "Hautatu diseinatzaileak"
         },
         "proxy_dc_format": {
@@ -190,7 +207,6 @@ export default {
       "title": "Ezarpenak"
     }
   },
-  "delete": "Ezabatu",
   "depiction": "{title}-ren irudikapena",
   "directions": {
     "left": "Ezkerra",
@@ -214,10 +230,10 @@ export default {
         "body": "Oraingoz 24 elementu soilik leheneratu ditzakezu lehen orrian. Elementu hau itsatsi nahi baduzu, ziurtatu beste bat ainguratzen duzula eta saiatu berriro ainguratzen.",
         "title": "Ainguratutako elementu gehiegi"
       },
-      "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
+      "pinned": "Elementua ainguratu egin dute. \"{entity}\" bildumako lehen elementu gisa agertuko da. Aldaketa hau bilduma-orrian ikusten denean jakinaraziko dizugu.",
       "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko/desainguratzeko.",
       "unpin": "Elementu hau \"{entity}\" bildumaren goialdean erakusteari utziko zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu.",
-      "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko."
+      "unpinned": "Elementuari aingura kendu zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu."
     }
   },
   "error": "Akatsa",
@@ -268,10 +284,9 @@ export default {
     "description": "Erakusketak arakatu",
     "exhibitions": "Erakusketa | Erakusketak"
   },
-  "explore": "Esploratu",
   "facets": {
     "api": {
-      "name": "Bilatu",
+      "name": "Dokumentuen barruan bilatu",
       "options": {
         "fulltext": "Testu osoko elementuak",
         "metadata": "Metadatuak soilik diren elementuak"
@@ -280,10 +295,8 @@ export default {
       "switchMoreInfo": "Bilduma honetan, zer bilatu nahi duzun aukeratu dezakezu: etengailu hau aktibatuta badago, egunkariaren eta dokumentuaren testuaren barruan bilatuko duzu; desaktibatuta badago, elementua deskribatzen duen informazioaren barruan bilatuko duzu, beste bilduma gehienetan beti egiten duzun bezala."
     },
     "button": {
-      "apply": "Aplikatu",
-      "cancel": "Bertan behera utzi",
       "morefilters": "Iragazki gehiago",
-      "reset": "Berrezarri",
+      "showAdditional": "{show} iragazki gehigarriak",
       "showAll": "Erakutsi guztiak {label}",
       "showLess": "Erakutsi gutxiago {label}"
     },
@@ -308,7 +321,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "koloreak",
-      "name": "Kolorea | Koloreak",
+      "name": "Kolore",
       "options": {
         "#000000": "Beltza",
         "#000080": "Navy-urdina",
@@ -461,7 +474,7 @@ export default {
       "name": "Elementuaren kalitatea",
       "options": {
         "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
-        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak",
+        "0": "Ez ditu argitalpen-irizpideak betetzen",
         "1": "Kalitate baxua",
         "2": "Kalitate ertaina",
         "3": "Kalitate handiko eta baldintzarekin berrerabilgarria",
@@ -527,9 +540,9 @@ export default {
       "select": "Hautatu agregatzaileak"
     },
     "DATA_PROVIDER": {
-      "moreName": "erakundeak",
-      "name": "Erakundea | Erakundeak",
-      "select": "Aukeratu erakundeak"
+      "moreName": "erakunde hornitzailea",
+      "name": "Erakunde hornitzailea",
+      "select": "Aukeratu erakunde hornitzaileak"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Irudiaren orientazioa | Irudiaren orientazioak",
@@ -595,7 +608,7 @@ export default {
       "select": "Hautatu hizkuntzak"
     },
     "MIME_TYPE": {
-      "name": "Fitxategiaren formatua | Fitxategien formatuak",
+      "name": "Fitxategi formatua",
       "options": {
         "text/plain": "Testu arrunta"
       },
@@ -604,7 +617,7 @@ export default {
     "moreOptions": "Bilatu {0} gehiago {1} aurkitzeko.",
     "PROVIDER": {
       "moreName": "agregatzaileak",
-      "name": "Agregatzailea | Agregatzaileak",
+      "name": "Agregatzailea",
       "select": "Hautatu agregatzaileak"
     },
     "proxy_dc_format": {
@@ -619,7 +632,7 @@ export default {
       "name": "Igortze data"
     },
     "proxy_dcterms_medium": {
-      "name": "Komunikabidea | Komunikabideak",
+      "name": "Ertaina",
       "select": "Hautatu euskarria"
     },
     "REUSABILITY": {
@@ -679,6 +692,7 @@ export default {
       "dcRights": "Baimenak",
       "dcSource": "Iturria",
       "dcSubject": "Gaia",
+      "dctermsAlternative": "Titulu alternatiboa",
       "dctermsCreated": "Sortze data",
       "dctermsExtent": "Hedadura",
       "dctermsHasPart": "honetan datza",
@@ -696,7 +710,7 @@ export default {
       "dctermsTemporal": "Aldi baterako",
       "dctermsTOC": "Edukien taula",
       "dcTitle": "Izenburua",
-      "dcType": "Objektu mota",
+      "dcType": "Elementu mota",
       "edmCountry": "Herrialde hornitzailea",
       "edmCurrentLocation": "Egungo kokapena",
       "edmDataProvider": "Erakunde hornitzailea",
@@ -708,7 +722,7 @@ export default {
       "edmIsRepresentationOf": "ordezkaria da",
       "edmIsSimilarTo": "-ren antzekoa da",
       "edmIsSuccessorOf": "ondorengoa da",
-      "edmProvider": "Hornitzailea",
+      "edmProvider": "Agregatzailea",
       "edmRealizes": "Konturatu da",
       "edmRights": "Elementu honen baimenen egoera (besterik adierazi ezean)",
       "edmUgc": "Erabiltzaileak sortutako edukia",
@@ -727,7 +741,6 @@ export default {
       "rdfAbout": "RDF"
     }
   },
-  "filter": "Iragazkia",
   "filterResults": "Iragazi emaitzak",
   "footer": {
     "customiseWebsiteLanguage": "Pertsonalizatu webgunearen hizkuntza",
@@ -744,9 +757,9 @@ export default {
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
-      "provide": "Datu hornitzaile bihurtu",
+      "provide": "Bihurtu erakunde hornitzaile bat",
       "subscribe": "Harpidetu zaitez gure Buletinera",
-      "terms": "Zerbitzu-baldintzak"
+      "terms": "Erabilera baldintzak"
     },
     "ourMission": "Gure eginkizuna",
     "ourMissionQuote": "Europeanak kultura ondarearen sektorea sendotzen du haren eraldaketa digitalean. Aldaketa digitalarekin bat egiteko esperientzia, tresnak eta politikak garatzen ditugu eta berrikuntza bultzatzen duten lankidetzak sustatzen ditugu."
@@ -759,12 +772,11 @@ export default {
     "description": "Gure galeriak arakatu",
     "galleries": "Galeria | Galeriak"
   },
-  "goToRecord": "Elementura joan",
   "header": {
     "backToMenu": "Menura itzuli",
     "clearQuery": "Garbitu bilaketa kontsulta",
     "closeSidebar": "Itxi Menua",
-    "entireCollection": "Bilatu '{kontsulta}' gure bilduma osoan",
+    "entireCollection": "Bilatu {query} gure bilduma osoan",
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
     "navigation": {
@@ -810,7 +822,7 @@ export default {
       "acceptAll": "Onartu guztiak",
       "acceptSelected": "Onartu hautatutakoa",
       "consentModal": {
-        "description": "Zure datuen pribatutasuna serio hartzen dugu. Hemen webgune honetan erabili nahi genituzkeen zerbitzuak baloratu eta pertsonaliza ditzakezu. Arduraduna zara! Gaitu edo desgaitu zerbitzuak nahi duzun moduan.",
+        "description": "Hemen webgune honetan erabili nahi ditugun zerbitzuak ikusi eta pertsonalizatu ditzakezu. Gehiago jakiteko, irakurri gure <a href='/rights/privacy-policy'> pribatutasun-politika </a> .",
         "title": "Erabili nahiko genituzkeen zerbitzuak."
       },
       "consentNotice": {
@@ -878,7 +890,6 @@ export default {
   "layout": {
     "skipToMain": "Orrialdearen edukietara joan"
   },
-  "learnMore": "Deskribapen honen iturria ezagutu",
   "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
   "messages": {
@@ -905,16 +916,17 @@ export default {
   "multilingual": {
     "automated": "Itzulpen automatizatua",
     "enrichment": "Bazkide proiektuen aberastea",
-    "other": "Beste hizkuntza batzuk",
+    "other": "beste hizkuntza batzuk",
     "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
     "translateLanguage": "{0} -n ikusi nahi duzu?",
+    "translateMetadata": "Itzuli elementu honen metadatuak.",
     "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
-    "readMore": "Ezagutu istorioak",
+    "readMore": "Joan bilaketa-orrira",
     "text": {
-      "storiesTags": "Begiratu eguneratutako istorio-orria. Orain bilatu eta etiketekin iragazi dezakezu."
+      "advancedSearch": "Bilaketa aurreratua iritsi da: agur emaitza zabalei eta hola zehaztasunari, bilatzen ari dena zehatz-mehatz aurkitzen duen bitartean. Hasi orain esploratzen!"
     }
   },
   "newWindow": "leiho berrian irekiko da",
@@ -962,10 +974,9 @@ export default {
     "label": "Paginazioa"
   },
   "provider": {
-    "linkText": "Hornitzailearen webgunean ikusi",
+    "linkText": "Erakunde hornitzailearen webgunean ikusi",
     "providedBy": "Elementu hau {provider} k hornitu eta mantentzen du"
   },
-  "readMore": "Gehiago irakurri",
   "recommendation": {
     "prompts": {
       "accept": "Erpurua gora galerian gehitzeko",
@@ -1018,9 +1029,34 @@ export default {
     }
   },
   "removeFilter": "Kendu {filterLabel} iragazkia",
-  "reset": "Berrezarri",
   "resourceWikimedia": "Wikimedia Commons-eko baliabidea",
+  "rights": {
+    "tooltip": {
+      "open": "{rightsStatementName} elementu hau libreki erabil dezakezula esan nahi du. {readMoreLink}",
+      "permission": "{rightsStatementName} esan nahi du elementu hau erabili ahal izango duzula baimena eskatzen baduzu. {readMoreLink}",
+      "readMore": "Irakurri gehiago {link} helbidean",
+      "restricted": "{rightsStatementName} elementu hau baldintzekin erabil dezakezula esan nahi du. {readMoreLink}"
+    }
+  },
   "search": {
+    "advanced": {
+      "input": {
+        "field": "Eremu",
+        "modifier": "Aldatzailea",
+        "searchTerm": "Sartu bilaketa-terminoak"
+      },
+      "modifiers": {
+        "contains": "dauka",
+        "doesNotContain": "ez dauka"
+      },
+      "show": "{showOrHide} bilaketa aurreratua",
+      "tooltip": {
+        "advancedSearch": "Bilaketa aurreratuak bilaketa pertsonalizatuak sortzeko aukera ematen du.",
+        "field": "Aukeratu bilatzeko zelai bat.",
+        "modifier": "Hautatu modifikatzaile bat eremuari aplikatzeko.",
+        "term": "Sartu bilatu edo baztertu nahi dituzun terminoak."
+      }
+    },
     "boost": {
       "placeholder": "Sartu eremua sustatzeko kontsulta"
     },
@@ -1031,8 +1067,10 @@ export default {
       "withoutQuery": "{count} emaitza",
       "withQuery": "{count} emaitza rentzat {query}"
     },
+    "selectTheme": "GAIA hautatzeak iragazki-aukera gehiago eskain ditzake, adibidez, Egunkariak gaiak DATA IRAGARRI iragazkia dakar.",
     "title": "Bilatu"
   },
+  "searchFilters": "Bilaketa-iragazkiak {count}",
   "searchHasLoaded": "{0} emaitza itzuli dira",
   "searchPlaceholder": "Bilatu 50 milioi elementu baino gehiago",
   "searchResults": "Bilatu",
@@ -1056,11 +1094,13 @@ export default {
   "set": {
     "actions": {
       "addTo": "Bildumara gaineratu",
-      "create": "Bilduma sortu",
-      "createNew": "Bilduma berria sortu",
+      "addToGallery": "Gehitu elementu hau galeria batera.",
+      "create": "Sortu galeria",
+      "createNew": "Sortu galeria berria",
       "delete": "Bilduma ezabatu",
-      "edit": "Bilduma editatu",
-      "update": "Bilduma eguneratu"
+      "edit": "Editatu galeria",
+      "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
+      "update": "Eguneratu galeria"
     },
     "entityBestBets": {
       "title": "{entity} Orria"
@@ -1090,6 +1130,10 @@ export default {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
     },
     "publication": {
+      "criteria": {
+        "description": "Argitalpenerako kontuan hartzeko, galeria batek izenburua eta deskribapena izan behar ditu, eta gutxienez 20 elementu izan behar ditu.",
+        "title": "Argitalpen-irizpideak"
+      },
       "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
       "failedSubmission": "Eskaerak huts egin du. Saiatu berriro mesedez.",
       "process": {
@@ -1104,6 +1148,7 @@ export default {
       "toastButton": "Ados",
       "toastMessage": "Galeria hau argitaratzeko aurkeztu da. {galleries} ikus dezakezu argitaratu den ikusteko."
     },
+    "setCount": "{count} galeriak",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) web-oinarritutako tresna bat da, mota ezberdinetako edukiak (3D barne) kudeatzeko, kultur ondarea dokumentatzeko komunitate digitalen espazioen bidez eta istorio eta esperientzia digitalak komisariotzeko."
@@ -1111,8 +1156,6 @@ export default {
     }
   },
   "shareWhere": "Non partekatu nahiko zenuke hau?",
-  "showLess": "Gutxiago erakutsi",
-  "showMore": "Gehiago erakutsi",
   "sideFilters": {
     "noOptions": "Ez dago aukerarik aukeratzeko",
     "search": "Bilatu"

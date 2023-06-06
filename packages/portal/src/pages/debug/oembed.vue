@@ -98,7 +98,7 @@
 
     methods: {
       handleSubmitForm() {
-        this.$goto({ ...this.$route, ...{ query: { url: this.formUrl, endpoint: this.formEndpoint } } });
+        this.$router.push({ ...this.$route, ...{ query: { url: this.formUrl, endpoint: this.formEndpoint } } });
       }
     }
   };

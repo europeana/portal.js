@@ -103,14 +103,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  .fade-enter-active {
-    transition: $standard-transition;
-    opacity: 0;
-  }
-
-  .fade-enter-to {
-    opacity: 1;
-  }
+  @import '@europeana/style/scss/transitions';
 
   .data-provider {
     color: $black;

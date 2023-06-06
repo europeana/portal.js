@@ -4,7 +4,18 @@
 
   .tooltip-inner {
     font-weight: 400;
-    padding: $font-size-smallest;
+    padding: 0.5rem;
+    border: 1px solid $bodygrey;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
+
+    a {
+      color: $white;
+      font-weight: 600;
+      text-decoration: none;
+    }
   }
 
   .arrow {
@@ -14,6 +25,27 @@
 
 .btn.tooltip-button {
   display: inline;
+  color: $mediumgrey-light;
+  font-size: $font-size-base;
+  background-color: transparent;
+
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
+    }
+  }
+
+  &.icon-info-outline {
+    font-size: $font-size-medium;
+    padding: 0 0.125rem;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-medium-4k;
+        padding: 0 0.1875rem;
+      }
+    }
+  }
 
   &:hover {
     color: initial;
@@ -21,20 +53,5 @@
 
   &:not(:disabled):not(.disabled) {
     cursor: default;
-  }
-}
-
-#share-modal {
-  .tooltip-inner {
-    background: $white;
-    color: $mediumgrey;
-    font-size: $font-size-extrasmall;
-    box-shadow: $boxshadow;
-    padding: 1.5rem;
-    max-width: 270px;
-
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-extrasmall-4k;
-    }
   }
 }

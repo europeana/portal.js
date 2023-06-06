@@ -5,7 +5,7 @@
     class="icon-filter p-0 ml-3 my-3"
     :class="{ 'filters-applied' : hasSelectedFilters }"
     variant="light-flat"
-    :aria-label="$t('filter')"
+    :aria-label="$t('actions.filter')"
     @click="toggleFilterSheet"
   />
 </template>
@@ -15,13 +15,17 @@
     name: 'FilterToggleButton',
 
     computed: {
+      advancedSearchEnabled() {
+        return this.$features.advancedSearch;
+      },
+
       showFiltersToggle() {
         return this.$store.state.search.showFiltersToggle;
       },
 
       hasSelectedFilters() {
         return Object.keys(this.$route.query)
-          .some((key) => ['qf', 'api', 'reusability'].includes(key));
+          .some((key) => ['qf', 'api', 'reusability'].concat(this.advancedSearchEnabled ? ['qa'] : []).includes(key));
       }
     },
 

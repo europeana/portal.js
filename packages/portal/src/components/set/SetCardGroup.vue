@@ -2,7 +2,10 @@
   <div
     v-if="sets.length"
   >
-    <h2 v-if="title">
+    <h2
+      v-if="title"
+      class="card-group-title"
+    >
       {{ title }}
     </h2>
     <b-card-group

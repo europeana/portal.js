@@ -4,6 +4,22 @@ import sinon from 'sinon';
 import page from '@/pages/account/logout';
 
 describe('pages/account/logout.vue', () => {
+  let windowLocationWas;
+
+  beforeAll(() => {
+    windowLocationWas = window.location;
+    delete window.location;
+    window.location = {
+      ...windowLocationWas,
+      assign: sinon.stub()
+    };
+  });
+
+  afterAll(() => {
+    window.location = windowLocationWas;
+    sinon.reset();
+  });
+
   describe('beforeRouteEnter', () => {
     const authStorageSetUniversal = sinon.spy();
     const factory = () => shallowMountNuxt(page, {
@@ -23,8 +39,7 @@ describe('pages/account/logout.vue', () => {
             }
           }
         },
-        $i18n: { locale: 'eu' },
-        $goto: sinon.spy()
+        $i18n: { locale: 'eu' }
       }
     });
 
@@ -59,7 +74,7 @@ describe('pages/account/logout.vue', () => {
 
   describe('mounted', () => {
     it('redirects to the keycloak end session endpoint', () => {
-      const wrapper = shallowMountNuxt(page, {
+      shallowMountNuxt(page, {
         mocks: {
           $auth: {
             loginWith: sinon.spy(),
@@ -76,14 +91,13 @@ describe('pages/account/logout.vue', () => {
               }
             }
           },
-          $goto: sinon.spy(),
           $i18n: {
             locale: 'en'
           }
         }
       });
 
-      expect(wrapper.vm.$goto.calledWith('https://auth.example.org/logout?redirect_uri=http%3A%2F%2Flocalhost%2Fabout-us')).toBe(true);
+      expect(window.location.assign.calledWith('https://auth.example.org/logout?redirect_uri=http%3A%2F%2Flocalhost%2Fabout-us')).toBe(true);
     });
   });
 });
