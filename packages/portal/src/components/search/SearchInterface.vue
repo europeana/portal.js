@@ -24,7 +24,6 @@
             >
               <SearchQueryBuilder
                 v-show="showAdvancedSearch"
-                v-if="advancedSearchEnabled"
                 id="search-query-builder"
                 class="d-none mb-3"
                 :class="{'d-lg-block': showAdvancedSearch}"
@@ -153,7 +152,6 @@
         :user-params="userParams"
       >
         <b-row
-          v-if="advancedSearchEnabled"
           class="d-flex justify-content-between align-items-center flex-nowrap"
         >
           <span
@@ -189,7 +187,6 @@
         >
           <SearchQueryBuilder
             v-show="showAdvancedSearch"
-            v-if="advancedSearchEnabled"
             id="search-query-builder-mobile"
             class="d-lg-none"
             @show="(show) => showAdvancedSearch = show"
@@ -340,9 +337,6 @@
       showSearchBoostingForm() {
         return !!this.debugSettings?.boosting;
       },
-      advancedSearchEnabled() {
-        return this.$features.advancedSearch;
-      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -382,7 +376,7 @@
         const apiParams = merge(userParams, this.overrideParams);
 
         // `qa` params are queries from the advanced search builder
-        if (apiParams.qa && this.advancedSearchEnabled) {
+        if (apiParams.qa) {
           apiParams.query = [].concat(apiParams.query || []).concat(apiParams.qa).join(' AND ');
           delete apiParams.qa;
         }

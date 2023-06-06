@@ -50,17 +50,9 @@ describe('components/search/SideFilters', () => {
     });
 
     describe('filters title', () => {
-      it('has a level 2 heading', () => {
-        const wrapper = factory();
-
-        const h2 = wrapper.find('h2');
-
-        expect(h2.text()).toBe('filterResults');
-      });
-
-      describe('when advanced search is enabled', () => {
+      describe('with advanced search', () => {
         it('has a level 2 heading', () => {
-          const wrapper = factory({ mocks: { $features: { advancedSearch: true } } });
+          const wrapper = factory();
 
           const h2 = wrapper.find('h2');
 
@@ -73,7 +65,7 @@ describe('components/search/SideFilters', () => {
                 qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:open']
               }
             };
-            const wrapper = factory({ propsData, mocks: { $features: { advancedSearch: true } } });
+            const wrapper = factory({ propsData });
 
             const h2 = wrapper.find('h2');
 

@@ -30,15 +30,6 @@
             >
               {{ $t('actions.reset') }}
             </button>
-            <!-- TODO: Remove once advanced search is enabled -->
-            <b-button
-              v-if="!advancedSearchEnabled"
-              data-qa="close filters button"
-              class="button-icon-only icon-clear mx-3"
-              variant="light-flat"
-              :aria-label="$t('header.closeSidebar')"
-              @click="toggleFilterSheet"
-            />
           </b-row>
           <b-row class="mb-3 mt-4">
             <b-col
@@ -81,21 +72,21 @@
                   @changed="changeFacet"
                 />
                 <b-button
-                  v-if="advancedSearchEnabled"
                   variant="link"
                   class="search-toggle"
+                  data-qa="additional filters toggle"
                   :class="{ 'open': showAdditionalFilters }"
                   aria-controls="additional-filters"
                   :aria-expanded="showAdditionalFilters"
                   @click="showAdditionalFilters = !showAdditionalFilters"
                 >
-                  {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? 'hide' : 'show' }) }}
+                  {{ $t('facets.button.showAdditional', { 'show': showAdditionalFilters ? $t('actions.hide') : $t('actions.show') }) }}
                 </b-button>
                 <transition
                   name="fade"
                 >
                   <div
-                    v-show="showAdditionalFilters || !advancedSearchEnabled"
+                    v-show="showAdditionalFilters"
                     id="additional-filters"
                   >
                     <SideFacetDropdown
@@ -217,9 +208,6 @@
       };
     },
     computed: {
-      advancedSearchEnabled() {
-        return this.$features.advancedSearch;
-      },
       collectionFacetEnabled() {
         return this.$store.state.search.collectionFacetEnabled;
       },
@@ -248,7 +236,6 @@
         if (this.contentTierFacetSwitch && this.filters.contentTier) {
           filters.push('contentTier');
         }
-
         if (this.enableApiFilter && (this.filters.api !== this.STANDARD_API_DEFAULT)) {
           filters.push('api');
         }
@@ -367,11 +354,7 @@
         return Object.keys(this.filters).length;
       },
       filtersTitle() {
-        if (this.advancedSearchEnabled) {
-          return this.$t('searchFilters', { count: this.resettableFilters.length ? `(${this.resettableFilters.length})` : '' });
-        } else {
-          return this.$t('filterResults');
-        }
+        return this.$t('searchFilters', { count: this.resettableFilters.length ? `(${this.resettableFilters.length})` : '' });
       }
     },
     watch: {

@@ -15,17 +15,13 @@
     name: 'FilterToggleButton',
 
     computed: {
-      advancedSearchEnabled() {
-        return this.$features.advancedSearch;
-      },
-
       showFiltersToggle() {
         return this.$store.state.search.showFiltersToggle;
       },
 
       hasSelectedFilters() {
         return Object.keys(this.$route.query)
-          .some((key) => ['qf', 'api', 'reusability'].concat(this.advancedSearchEnabled ? ['qa'] : []).includes(key));
+          .some((key) => ['qf', 'api', 'reusability', 'qa'].includes(key));
       }
     },
 
