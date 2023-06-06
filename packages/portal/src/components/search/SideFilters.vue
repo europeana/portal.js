@@ -350,9 +350,6 @@
       contentTierFacetSwitchApplied() {
         return this.contentTierFacetSwitch && this.filters.contentTier;
       },
-      selectedFiltersCount() {
-        return Object.keys(this.filters).length;
-      },
       filtersTitle() {
         return this.$t('searchFilters', { count: this.resettableFilters.length ? `(${this.resettableFilters.length})` : '' });
       }
