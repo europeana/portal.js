@@ -80,18 +80,18 @@
       };
     },
 
+    computed: {
+      validQueryRules() {
+        return this.queryRules.filter((rule) => rule.field && rule.modifier && rule.term);
+      }
+    },
+
     watch: {
       '$route.query.qa': 'initRulesFromRouteQuery'
     },
 
     created() {
       this.initRulesFromRouteQuery();
-    },
-
-    computed: {
-      validQueryRules() {
-        return this.queryRules.filter((rule) => rule.field && rule.modifier && rule.term);
-      }
     },
 
     methods: {

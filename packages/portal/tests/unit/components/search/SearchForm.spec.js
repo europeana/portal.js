@@ -286,7 +286,7 @@ describe('components/search/SearchForm', () => {
         page: '3'
       }
     };
-    const wrapper = factory({ mocks: { $route: route, $store: { state }, $features: { advancedSearch: true } } });
+    const wrapper = factory({ mocks: { $route: route, $store: { state } } });
 
     describe('with a path', () => {
       it('preserves URL params, except page', () => {

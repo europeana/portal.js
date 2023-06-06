@@ -13,9 +13,7 @@ const factory = ({ mocks = {} } = {}) => shallowMount(FilterToggleButton, {
     },
     $store: { state: { search: {} } },
     $t: (key) => key,
-    $features: {
-      advancedSearch: false
-    },
+    $features: {},
     ...mocks
   }
 });
@@ -73,6 +71,14 @@ describe('components/search/FilterToggleButton', () => {
 
       it('is `true` if route query includes `api`', () => {
         const wrapper = factory({ mocks: { $route: { query: { api: 'metadata' } } } });
+
+        const hasSelectedFilters = wrapper.vm.hasSelectedFilters;
+
+        expect(hasSelectedFilters).toBe(true);
+      });
+
+      it('is `true` if route query includes `qa`', () => {
+        const wrapper = factory({ mocks: { $route: { query: { qa: 'proxy_dc_description:blue' } } } });
 
         const hasSelectedFilters = wrapper.vm.hasSelectedFilters;
 

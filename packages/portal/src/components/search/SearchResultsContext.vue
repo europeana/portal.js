@@ -103,10 +103,6 @@
     },
 
     computed: {
-      advancedSearchEnabled() {
-        return this.$features.advancedSearch;
-      },
-
       i18nPath() {
         if (this.hasEntity && this.hasQuery) {
           return 'search.results.withinCollectionWithQuery';
@@ -157,19 +153,11 @@
         });
       },
       entityRemovalLink() {
-        if (this.advancedSearchEnabled) {
-          return this.localePath({
-            name: 'search', query: {
-              ...this.activeCriteria
-            }
-          });
-        } else {
-          return this.localePath({
-            name: 'search', query: {
-              query: this.$route.query?.query
-            }
-          });
-        }
+        return this.localePath({
+          name: 'search', query: {
+            ...this.activeCriteria
+          }
+        });
       },
       activeCriteria() {
         return {
