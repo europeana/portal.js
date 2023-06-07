@@ -1,4 +1,5 @@
 import nock from 'nock';
+import md5 from 'md5';
 import record, { isEuropeanaRecordId, recordIdFromUrl, BASE_URL } from '@/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
@@ -507,22 +508,26 @@ describe('plugins/europeana/record', () => {
       expect(proxyUrl.origin).toBe('https://proxy.europeana.eu');
     });
 
-    it('uses europeanaId as path', () => {
+    it('uses europeanaId & web resource hash as path', () => {
       const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
 
-      expect(proxyUrl.pathname).toBe(europeanaId);
+      expect(proxyUrl.pathname).toBe(`${europeanaId}/${md5(mediaUrl)}`);
     });
 
-    it('uses web resource URI as view param', () => {
-      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
+    it('sets recordApiUrl query param if different than configured default', () => {
+      const proxyUrl = new URL(record({
+        store: {
+          state: {
+            apis: {
+              urls: {
+                record: 'https://api.example.org/record'
+              }
+            }
+          }
+        }
+      }).mediaProxyUrl(mediaUrl, europeanaId));
 
-      expect(proxyUrl.searchParams.get('view')).toBe(mediaUrl);
-    });
-
-    it('uses store Record API origin as api_url param', () => {
-      const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
-
-      expect(proxyUrl.searchParams.get('api_url')).toBe('https://api.europeana.eu/api');
+      expect(proxyUrl.searchParams.get('recordApiUrl')).toBe('https://api.example.org/record');
     });
 
     it('sets additional params from final arg', () => {

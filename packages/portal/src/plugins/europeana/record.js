@@ -270,6 +270,9 @@ export default (context = {}) => {
 
       const proxyUrl = new URL(context.$config?.europeana?.apis?.mediaProxy?.url || EUROPEANA_MEDIA_PROXY_URL);
       proxyUrl.pathname = `${proxyUrl.pathname}${europeanaId}/${md5(mediaUrl)}`;
+      if (proxyUrl.pathname.startsWith('//')) {
+        proxyUrl.pathname = proxyUrl.pathname.slice(1);
+      }
 
       for (const name in params) {
         proxyUrl.searchParams.append(name, params[name]);
