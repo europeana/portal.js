@@ -354,6 +354,7 @@
       routeQueryView: 'setViewFromRouteQuery',
       '$route.query.api': '$fetch',
       '$route.query.boost': '$fetch',
+      '$route.query.fulltext': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.qa': '$fetch',
       '$route.query.query': '$fetch',

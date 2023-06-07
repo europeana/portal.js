@@ -143,6 +143,9 @@
         </template>
       </template>
     </b-form-tags>
+    <slot
+      v-show="!$fetchState.error"
+    />
   </div>
 </template>
 

@@ -70,7 +70,13 @@
                   :api-params="apiParams"
                   :api-options="apiOptions"
                   @changed="changeFacet"
-                />
+                >
+                  <SearchFulltextInput
+                    v-if="showSubtitleSearch(facet)"
+                    v-model="fulltext"
+                    @applyFulltext="applyFulltext"
+                  />
+                </SideFacetDropdown>
                 <b-button
                   variant="link"
                   class="search-toggle"
@@ -131,6 +137,7 @@
   import isEqual from 'lodash/isEqual';
   import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
+  import SearchFulltextInput from './SearchFulltextInput';
   import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
@@ -139,6 +146,7 @@
 
     components: {
       ClientOnly,
+      SearchFulltextInput,
       SideFacetDropdown,
       SideDateFilter: () => import('./SideDateFilter'),
       SideSwitchFilter: () => import('./SideSwitchFilter')
@@ -294,6 +302,9 @@
       },
       boost() {
         return this.userParams.boost;
+      },
+      fulltext() {
+        return this.userParams.fulltext;
       },
       qf() {
         return this.userParams.qf;
@@ -457,6 +468,7 @@
       updateCurrentSearchQuery(updates = {}) {
         const current = {
           boost: this.boost,
+          fulltext: this.fulltext,
           page: this.page,
           qa: this.$route.query.qa,
           qf: this.qf,
@@ -497,6 +509,9 @@
         this.isCheckedSpecificDate = dateRange.specific;
         this.changeFacet(facetName, dateQuery);
       },
+      applyFulltext(value) {
+        this.rerouteSearch({ fulltext: value || null });
+      },
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
       },
@@ -524,6 +539,12 @@
         } else {
           return null;
         }
+      },
+      showSubtitleSearch(facet) {
+        return (facet.name === 'TYPE') &&
+          this.filters[facet.name] &&
+          (this.filters[facet.name].length === 1) &&
+          (this.filters[facet.name][0] === '"VIDEO"');
       }
     }
   };
