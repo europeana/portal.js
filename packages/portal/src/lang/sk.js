@@ -800,8 +800,8 @@ export default {
     "subHeadline": "Hľadaj, sťahuj a zdieľaj umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
     "themesCTA": "Zobraziť všetky kategórie",
     "themesTitle": "Preskúmajte podľa kategórie",
-    "title": "Objavte {digital} kultúrne dedičstvo Európy",
-    "titleDigital": "digitálne"
+    "title": "Objavuj {digital} európske kultúrne dedičstvo",
+    "titleDigital": "digitalizované"
   },
   "imageSlider": {
     "handle": "Rukoväť posuvníka"

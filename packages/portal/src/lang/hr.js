@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "vrste stavki",
-          "name": "Vrsta predmet | Vrste predmeti",
+          "name": "Vrsta predmet",
           "select": "Odabir vrsta stavki"
         },
         "proxy_dcterms_medium": {

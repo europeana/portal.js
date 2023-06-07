@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "typy przedmiotów",
-          "name": "Typ elementu",
+          "name": "Typ obiekt cyfrowy",
           "select": "Wybierz typy przedmiotów"
         },
         "proxy_dcterms_medium": {

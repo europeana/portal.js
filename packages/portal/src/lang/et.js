@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "kauba tüübid",
-          "name": "Kauba tüüp | Kauba tüübid",
+          "name": "Eseme tüüp",
           "select": "Valige üksuste tüübid"
         },
         "proxy_dcterms_medium": {

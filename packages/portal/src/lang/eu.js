@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "elementu motak",
-          "name": "Elementu mota | Elementu motak",
+          "name": "Elementu mota",
           "select": "Hautatu elementu motak"
         },
         "proxy_dcterms_medium": {
