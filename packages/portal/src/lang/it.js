@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "tipi di articoli",
-          "name": "Tipo di elemento | Tipi di elementi",
+          "name": "Tipo di oggetto",
           "select": "Seleziona i tipi di articoli"
         },
         "proxy_dcterms_medium": {

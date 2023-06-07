@@ -800,8 +800,8 @@ export default {
     "subHeadline": "Ieškokite, išsaugokite ir dalinkitės meno kūriniais, knygomis, filmais ir muzika iš tūkstančių kultūros įstaigų",
     "themesCTA": "Žiūrėti visas temas",
     "themesTitle": "Naršykite pagal temą",
-    "title": "Pažinkite Europos {digital} kultūros paveldą",
-    "titleDigital": "Skaitmeninis"
+    "title": "Atraskite {digital} Europos kultūros paveldą",
+    "titleDigital": "skaitmenintą"
   },
   "imageSlider": {
     "handle": "Slinkiklio rankena"

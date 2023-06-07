@@ -800,7 +800,7 @@ export default {
     "subHeadline": "Cuardaigh, sábháil agus roinn ealaín, leabhair, scannáin agus ceol ó na mílte institiúid chultúrtha",
     "themesCTA": "Féach ar na téamaí go léir",
     "themesTitle": "Déan iniúchadh de réir téama",
-    "title": "Faigh amach faoi oidhreacht chultúrtha {digital} na hEorpa",
+    "title": "Cuir eolas ar oidhreacht chultúrtha {digital} na hEorpa",
     "titleDigital": "dhigiteach"
   },
   "imageSlider": {

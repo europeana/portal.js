@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "varetyper",
-          "name": "Genstand type | Genstand typer",
+          "name": "Genstand type",
           "select": "Vælg varetyper"
         },
         "proxy_dcterms_medium": {

@@ -800,8 +800,8 @@ export default {
     "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
     "themesCTA": "Alle Themenbereiche anzeigen",
     "themesTitle": "Erkunden Sie nach Themenbereiche",
-    "title": "Entdecken Sie das {digital} kulturelle Erbe Europas",
-    "titleDigital": "digitale"
+    "title": "Europa's {digital} Kulturerbe entdecken",
+    "titleDigital": "digitales"
   },
   "imageSlider": {
     "handle": "Schieberegler"

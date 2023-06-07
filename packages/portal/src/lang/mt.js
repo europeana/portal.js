@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "tipi ta' oġġetti",
-          "name": "Tip ta' oġġett | Tipi ta' oġġett",
+          "name": "Tip ta 'oġġett",
           "select": "Agħżel tipi ta 'oġġetti"
         },
         "proxy_dcterms_medium": {
