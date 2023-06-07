@@ -51,11 +51,13 @@ export default {
   },
   overrides: {
     Mui: {
-      disabled: { // example: disabled pagination buttons
-        color: '#d8d8d8'
-      },
-      selected: { // example: selected view button
-        color: '#0a72cc'
+      root: {
+        '&$disabled': { // example: disabled pagination buttons
+          color: '#d8d8d8'
+        },
+        '&$selected': { // example: selected view button
+          color: '#0a72cc'
+        }
       }
     },
     MuiAutocomplete: {
