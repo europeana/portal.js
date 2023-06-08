@@ -352,7 +352,6 @@
 
     watch: {
       routeQueryView: 'setViewFromRouteQuery',
-      '$route.query.api': '$fetch',
       '$route.query.boost': '$fetch',
       '$route.query.fulltext': '$fetch',
       '$route.query.reusability': '$fetch',
@@ -383,7 +382,7 @@
         }
 
         if (!apiParams.profile) {
-          apiParams.profile = 'minimal';
+          apiParams.profile = apiParams.fulltext ? 'minimal' : 'minimal,hits';
         }
 
         const collectionFilter = filtersFromQf(apiParams.qf).collection;
@@ -391,17 +390,6 @@
         this.theme = themes.find((theme) => theme.qf === this.collection);
 
         const apiOptions = {};
-
-        if (this.theme?.filters?.api) {
-          // Set default API (of fulltext or metadata), from theme config
-          if (!apiParams.api) {
-            apiParams.api = this.theme.filters.api.default;
-          }
-          if (apiParams.api === 'fulltext') {
-            apiParams.profile = 'minimal,hits';
-            apiOptions.url = this.$config.europeana.apis.fulltext.url;
-          }
-        }
 
         this.apiOptions = apiOptions;
         this.apiParams = apiParams;

@@ -36,18 +36,6 @@
               data-qa="search filters"
             >
               <div class="position-relative">
-                <SideSwitchFilter
-                  v-if="enableApiFilter"
-                  :value="filters.api"
-                  name="api"
-                  :label="$t('facets.api.switch')"
-                  :tooltip="$t('facets.api.switchMoreInfo')"
-                  checked-value="fulltext"
-                  unchecked-value="metadata"
-                  :default-value="apiFilterDefaultValue"
-                  :collection="collection"
-                  @changed="changeFacet"
-                />
                 <SideDateFilter
                   v-if="enableDateFilter"
                   :name="dateFilterField"
@@ -70,13 +58,7 @@
                   :api-params="apiParams"
                   :api-options="apiOptions"
                   @changed="changeFacet"
-                >
-                  <SearchFulltextInput
-                    v-if="showSubtitleSearch(facet)"
-                    v-model="fulltext"
-                    @applyFulltext="applyFulltext"
-                  />
-                </SideFacetDropdown>
+                />
                 <b-button
                   variant="link"
                   class="search-toggle"
@@ -95,6 +77,10 @@
                     v-show="showAdditionalFilters"
                     id="additional-filters"
                   >
+                    <SearchFulltextInput
+                      v-model="fulltext"
+                      @applyFulltext="applyFulltext"
+                    />
                     <SideFacetDropdown
                       v-for="facet in additionalFilterableFacets"
                       :key="facet.name"
@@ -243,9 +229,6 @@
         if (this.contentTierFacetSwitch && this.filters.contentTier) {
           filters.push('contentTier');
         }
-        if (this.enableApiFilter && (this.filters.api !== this.apiFilterDefaultValue)) {
-          filters.push('api');
-        }
         if (this.enableDateFilter && this.filters[this.dateFilterField]) {
           filters.push(this.dateFilterField);
         }
@@ -328,12 +311,6 @@
         // This is a workaround
         return Number(this.$route.query.page || 1);
       },
-      enableApiFilter() {
-        return !!this.theme?.filters?.api;
-      },
-      apiFilterDefaultValue() {
-        return this.theme?.filters?.api?.default || null;
-      },
       enableDateFilter() {
         return !!this.theme?.filters?.date;
       },
@@ -379,7 +356,7 @@
     created() {
       this.$store.commit('search/setShowFiltersToggle', true);
 
-      if (this.additionalFilterApplied || this.contentTierFacetSwitchApplied) {
+      if (this.additionalFilterApplied || this.contentTierFacetSwitchApplied || this.fulltext) {
         this.showAdditionalFilters = true;
       }
     },
@@ -539,12 +516,6 @@
         } else {
           return null;
         }
-      },
-      showSubtitleSearch(facet) {
-        return (facet.name === 'TYPE') &&
-          this.filters[facet.name] &&
-          (this.filters[facet.name].length === 1) &&
-          (this.filters[facet.name][0] === '"VIDEO"');
       }
     }
   };
