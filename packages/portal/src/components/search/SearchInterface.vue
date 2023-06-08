@@ -382,18 +382,13 @@
           delete apiParams.qa;
 
           const fulltextQa = qa.filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('!fulltext:'));
-          // qa = qa.filter((rule) => !fulltextQa.includes(rule));
 
           if (fulltextQa.length > 0) {
             apiParams.profile = `${apiParams.profile},hits`;
 
-            if (!apiParams.query.includes(':')) {
+            if (apiParams.query && !apiParams.query.includes(':')) {
               apiParams.query = `text:(${apiParams.query})`;
             }
-
-            // apiParams.query = `${apiParams.query} AND fulltext:${searchParams.fulltext}`;
-            // delete searchParams.fulltext;
-            // searchParams.profile = 'minimal,hits';
 
             // TODO: make this aware of per-request fulltext url, e.g. from ingress headers
             apiOptions.url = this.$config.europeana.apis.fulltext.url;
