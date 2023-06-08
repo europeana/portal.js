@@ -215,10 +215,6 @@
           filters['REUSABILITY'] = this.userParams.reusability.split(',');
         }
 
-        if (this.apiParams?.api) {
-          filters['api'] = this.apiParams.api;
-        }
-
         return filters;
       },
       resettableFilters() {
@@ -298,9 +294,6 @@
       reusability() {
         return this.userParams.reusability;
       },
-      api() {
-        return this.userParams.api;
-      },
       view() {
         return this.userParams.view;
       },
@@ -365,7 +358,7 @@
     },
     methods: {
       facetDropdownType(name) {
-        return name === this.COLLECTION_FACET_NAME || name === 'api' ? 'radio' : 'checkbox';
+        return name === this.COLLECTION_FACET_NAME ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
@@ -414,10 +407,6 @@
             // `reusability` has its own API parameter and can not be queried in `qf`
             queryUpdates.reusability = (filters[name]?.length || 0) > 0 ? filters[name].join(',') : null;
             break;
-          case 'api':
-            // `api` is an option to /plugins/europeana/search/search()
-            queryUpdates.api = filters[name];
-            break;
           default:
             // Everything else goes in `qf`
             queryUpdates.qf = queryUpdates.qf.concat(this.queryUpdatesForFilter(name, filters[name]));
@@ -451,8 +440,7 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
-          view: this.view,
-          api: this.api
+          view: this.view
         };
 
         const updated = { ...current, ...updates };
@@ -468,9 +456,9 @@
       },
       resetFilters() {
         this.rerouteSearch({
+          fulltext: null,
           page: 1,
           qf: null,
-          api: null,
           reusability: null
         });
       },

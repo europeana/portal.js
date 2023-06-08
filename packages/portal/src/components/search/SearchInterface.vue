@@ -308,9 +308,6 @@
       reusability() {
         return this.userParams.reusability;
       },
-      api() {
-        return this.userParams.api;
-      },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
         // return this.userParams.page;

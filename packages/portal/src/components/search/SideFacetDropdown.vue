@@ -433,7 +433,7 @@
         this.init();
       },
       '$route.query.reusability': 'refetch',
-      '$route.query.api': 'refetch',
+      '$route.query.fulltext': 'refetch',
       '$route.query.query': 'refetch',
       '$route.query.qf': 'refetch'
     },
