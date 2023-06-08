@@ -406,7 +406,6 @@
         this.collection = collectionFilter ? collectionFilter[0] : null;
         this.theme = themes.find((theme) => theme.qf === this.collection);
 
-
         this.apiOptions = apiOptions;
         this.apiParams = apiParams;
       },
