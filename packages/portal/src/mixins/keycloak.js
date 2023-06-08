@@ -7,7 +7,7 @@ export default {
       if (this.$route) {
         if (this.$route.query?.redirect) {
           redirectPath = this.$route.query.redirect;
-        } else if (this.$route.path?.endsWith('/account/login')) {
+        } else if (this.$route.path === '/account/login') {
           redirectPath = `/account${this.$route.hash || ''}`;
         } else if (this.$route.fullPath) {
           redirectPath = this.$route.fullPath;

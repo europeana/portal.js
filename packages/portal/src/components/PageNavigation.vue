@@ -67,7 +67,7 @@
         v-b-toggle.menu
         data-qa="log in button"
         class="nav-link"
-        @click="keycloakLogin"
+        :to="{ name: 'account-login', query: { redirect: $route.fullPath } }"
       >
         <span :class="renderIcon('/account/login')" />
         <span>
