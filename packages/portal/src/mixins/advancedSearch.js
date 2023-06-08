@@ -8,6 +8,7 @@ export default {
   data() {
     return {
       advancedSearchFields: [
+        { name: 'fulltext', type: FIELD_TYPE_TEXT },
         { name: 'proxy_dc_contributor', type: FIELD_TYPE_TEXT },
         { name: 'proxy_dc_coverage', type: FIELD_TYPE_STRING },
         { name: 'proxy_dc_creator', type: FIELD_TYPE_TEXT },

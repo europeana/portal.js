@@ -117,18 +117,6 @@ export default (context) => ($axios, params, options = {}) => {
     start
   };
 
-  if (searchParams.fulltext) {
-    if (!searchParams.query.includes(':')) {
-      searchParams.query = `text:(${searchParams.query})`;
-    }
-    searchParams.query = `${searchParams.query} AND fulltext:${searchParams.fulltext}`;
-    delete searchParams.fulltext;
-    // searchParams.profile = 'minimal,hits';
-
-    // TODO: make this aware of per-request fulltext url, e.g. from ingress headers
-    localOptions.url = context.$config.europeana.apis.fulltext.url;
-  }
-
   if (context?.$config?.app?.search?.translateLocales?.includes(localOptions.locale)) {
     const targetLocale = 'en';
     if (localOptions.locale !== targetLocale) {

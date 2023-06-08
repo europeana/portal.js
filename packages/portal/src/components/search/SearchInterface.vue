@@ -350,7 +350,6 @@
     watch: {
       routeQueryView: 'setViewFromRouteQuery',
       '$route.query.boost': '$fetch',
-      '$route.query.fulltext': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.qa': '$fetch',
       '$route.query.query': '$fetch',
@@ -371,22 +370,42 @@
         userParams.qf = [].concat(userParams.qf || []);
 
         const apiParams = merge(userParams, this.overrideParams);
+        const apiOptions = {};
+
+        if (!apiParams.profile) {
+          apiParams.profile = 'minimal';
+        }
 
         // `qa` params are queries from the advanced search builder
         if (apiParams.qa) {
-          apiParams.query = [].concat(apiParams.query || []).concat(apiParams.qa).join(' AND ');
+          let qa = [].concat(apiParams.qa);
           delete apiParams.qa;
-        }
 
-        if (!apiParams.profile) {
-          apiParams.profile = apiParams.fulltext ? 'minimal,hits' : 'minimal';
+          const fulltextQa = qa.filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('!fulltext:'));
+          // qa = qa.filter((rule) => !fulltextQa.includes(rule));
+
+          if (fulltextQa.length > 0) {
+            apiParams.profile = `${apiParams.profile},hits`;
+
+            if (!apiParams.query.includes(':')) {
+              apiParams.query = `text:(${apiParams.query})`;
+            }
+
+            // apiParams.query = `${apiParams.query} AND fulltext:${searchParams.fulltext}`;
+            // delete searchParams.fulltext;
+            // searchParams.profile = 'minimal,hits';
+
+            // TODO: make this aware of per-request fulltext url, e.g. from ingress headers
+            apiOptions.url = this.$config.europeana.apis.fulltext.url;
+          }
+
+          apiParams.query = [].concat(apiParams.query || []).concat(qa).join(' AND ');
         }
 
         const collectionFilter = filtersFromQf(apiParams.qf).collection;
         this.collection = collectionFilter ? collectionFilter[0] : null;
         this.theme = themes.find((theme) => theme.qf === this.collection);
 
-        const apiOptions = {};
 
         this.apiOptions = apiOptions;
         this.apiParams = apiParams;

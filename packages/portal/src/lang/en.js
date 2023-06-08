@@ -750,6 +750,7 @@ export default {
       "edmRights": "Rights statement for the media in this item (unless otherwise specified)",
       "edmUgc": "User generated content",
       "europeanaCollectionName": "Collection name",
+      "fulltext": "Full-text",
       "keywords": "Keywords (provided by the community)",
       "timestampCreated": "Timestamp created",
       "timestampUpdate": "Timestamp updated",

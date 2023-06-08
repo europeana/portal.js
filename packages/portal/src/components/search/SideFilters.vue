@@ -77,10 +77,6 @@
                     v-show="showAdditionalFilters"
                     id="additional-filters"
                   >
-                    <SearchFulltextInput
-                      v-model="fulltext"
-                      @applyFulltext="applyFulltext"
-                    />
                     <SideFacetDropdown
                       v-for="facet in additionalFilterableFacets"
                       :key="facet.name"
@@ -123,7 +119,6 @@
   import isEqual from 'lodash/isEqual';
   import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
-  import SearchFulltextInput from './SearchFulltextInput';
   import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
@@ -132,7 +127,6 @@
 
     components: {
       ClientOnly,
-      SearchFulltextInput,
       SideFacetDropdown,
       SideDateFilter: () => import('./SideDateFilter'),
       SideSwitchFilter: () => import('./SideSwitchFilter')
@@ -282,9 +276,6 @@
       boost() {
         return this.userParams.boost;
       },
-      fulltext() {
-        return this.userParams.fulltext;
-      },
       qf() {
         return this.userParams.qf;
       },
@@ -349,7 +340,7 @@
     created() {
       this.$store.commit('search/setShowFiltersToggle', true);
 
-      if (this.additionalFilterApplied || this.contentTierFacetSwitchApplied || this.fulltext) {
+      if (this.additionalFilterApplied || this.contentTierFacetSwitchApplied) {
         this.showAdditionalFilters = true;
       }
     },
@@ -434,7 +425,6 @@
       updateCurrentSearchQuery(updates = {}) {
         const current = {
           boost: this.boost,
-          fulltext: this.fulltext,
           page: this.page,
           qa: this.$route.query.qa,
           qf: this.qf,
@@ -456,7 +446,6 @@
       },
       resetFilters() {
         this.rerouteSearch({
-          fulltext: null,
           page: 1,
           qf: null,
           reusability: null
@@ -473,9 +462,6 @@
         }
         this.isCheckedSpecificDate = dateRange.specific;
         this.changeFacet(facetName, dateQuery);
-      },
-      applyFulltext(value) {
-        this.rerouteSearch({ fulltext: value || null });
       },
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
