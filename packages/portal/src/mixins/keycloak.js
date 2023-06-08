@@ -2,19 +2,21 @@
 export default {
   computed: {
     keycloakLoginRedirect() {
-      let redirect = '/account';
+      let redirectPath = '/account';
 
       if (this.$route) {
         if (this.$route.query?.redirect) {
-          redirect = this.$route.query.redirect;
+          redirectPath = this.$route.query.redirect;
         } else if (this.$route.path?.endsWith('/account/login')) {
-          redirect = `/account${this.$route.hash || ''}`;
+          redirectPath = `/account${this.$route.hash || ''}`;
         } else if (this.$route.fullPath) {
-          redirect = this.$route.fullPath;
+          redirectPath = this.$route.fullPath;
         }
       }
 
-      return redirect;
+      const redirectUrl = new URL(`${window.location.origin}/account/callback`);
+      redirectUrl.searchParams.set('redirect', redirectPath);
+      return redirectUrl.toString();
     },
 
     keycloakAccountUrl() {
@@ -33,9 +35,7 @@ export default {
     keycloakLogin() {
       this.$keycloak.auth?.login({
         locale: this.$i18n.locale,
-        // FIXME: this should go to /account/callback, which should then
-        //        redirect to the original page
-        redirectUri: `${window.location.origin}${this.keycloakLoginRedirect}`
+        redirectUri: this.keycloakLoginRedirect
       });
       // this.$auth.$storage.setUniversal('redirect', this.keycloakLoginRedirect);
       // this.$auth.$storage.setUniversal('portalLoggingIn', true);

@@ -26,6 +26,7 @@ const localiseRoute = ({ route, req, redirect, app }) => {
 export default ({ app, route, redirect, req }) => {
   // Exit early if this is an auth callback
   if ([
+    '/account/callback',
     '/account/login',
     '/account/logout'
   ].includes(route.path)) {
