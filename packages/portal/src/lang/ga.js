@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Bailiúcháin Coimeádaithe",
-    "curatedCollectionsInfo": "Faigh thíos na bailiúcháin go léir a choinnigh tú",
     "editProfile": "Cuir do phróifíl in eagar",
     "likes": "Toghanna",
     "linkAccount": "Mo Chuntas",
@@ -26,7 +25,14 @@ export default {
     "publicCollections": "Gailearaithe Poiblí",
     "publishedCollections": "Gailearaithe Foilsithe",
     "settings": "Socruithe",
-    "title": "Mo chuntas"
+    "title": "Mo chuntas",
+    "tooltip": {
+      "EntityBestItemsSet": "Taispeánann gailearaí coimeádta na míreanna pinn laistigh de bhailiúchán ar leith",
+      "private": "Ní féidir ach leatsa gailearaí príobháideach a fheiceáil.",
+      "public": "Is féidir le duine ar bith a bhfuil an nasc acu féachaint ar ghailearaí poiblí.",
+      "published": "Is féidir le duine ar bith breathnú ar ghailearaí foilsithe, agus d'fhéadfadh sé a bheith le feiceáil ar ár leathanach Gailearaithe.",
+      "reorder": "Is féidir leat míreanna a athordú trí chliceáil ar an gcnaipe seo agus tarraing an mhír chun é a bhogadh."
+    }
   },
   "actions": {
     "accept": "Glac leis",
@@ -84,7 +90,7 @@ export default {
     "organisation": "Eagraíochtaí",
     "place": "Áiteanna",
     "theme": "Téamaí",
-    "time": "Na hAois réadmhaoin",
+    "time": "Céadta",
     "topic": "Ábhair"
   },
   "blog": {
@@ -276,7 +282,7 @@ export default {
   },
   "facets": {
     "api": {
-      "name": "Cuardaigh",
+      "name": "Cuardaigh laistigh de dhoiciméid",
       "options": {
         "fulltext": "Míreanna a bhfuil an téacs iomlán díobh le fáil",
         "metadata": "Míreanna nach bhfuil iontu ach na meiteashonraí amháin"
@@ -311,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "dathanna",
-      "name": "Dath | Dathanna",
+      "name": "Dath",
       "options": {
         "#000000": "Dubh",
         "#000080": "Dúghorm",
@@ -530,9 +536,9 @@ export default {
       "select": "Roghnaigh cruthaitheoirí"
     },
     "DATA_PROVIDER": {
-      "moreName": "institiúidí",
-      "name": "Institiúid | Institiúidí",
-      "select": "Roghnaigh institiúidí"
+      "moreName": "institiúidí soláthartha",
+      "name": "Institiúidí soláthartha",
+      "select": "Roghnaigh institiúidí soláthartha"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Treoshuíomh na híomhá | Treoshuímh na n-íomhánna",
@@ -598,7 +604,7 @@ export default {
       "select": "Roghnaigh teangacha"
     },
     "MIME_TYPE": {
-      "name": "Formáid chomhaid | Formáidí comhaid",
+      "name": "Formáid comhaid",
       "options": {
         "text/plain": "Téacs simplí"
       },
@@ -615,14 +621,14 @@ export default {
       "select": "Roghnaigh formáidí"
     },
     "proxy_dc_type": {
-      "name": "Cineál | Cineálacha",
+      "name": "Cineál | cineálacha",
       "select": "Roghnaigh cineálacha"
     },
     "proxy_dcterms_issued": {
       "name": "Dáta eisithe"
     },
     "proxy_dcterms_medium": {
-      "name": "Meán | Meáin",
+      "name": "Mheán",
       "select": "Roghnaigh meáin"
     },
     "REUSABILITY": {
@@ -700,7 +706,7 @@ export default {
       "dctermsTemporal": "Ama",
       "dctermsTOC": "Clár ábhair",
       "dcTitle": "Teideal",
-      "dcType": "Cineál oibiachta",
+      "dcType": "Cineál míre",
       "edmCountry": "Tír sholáthair",
       "edmCurrentLocation": "Suíomh reatha",
       "edmDataProvider": "Institiúidí soláthartha",
@@ -712,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Is léiriú é de",
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
-      "edmProvider": "Soláthraí",
+      "edmProvider": "Comhbhailitheoir",
       "edmRealizes": "Tuigeann sé/sí",
       "edmRights": "Ráiteas um Chearta Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
@@ -747,7 +753,7 @@ export default {
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",
       "privacy": "Beartas Príobháideachais",
-      "provide": "Bí I do sholátharí sonraí",
+      "provide": "Bí i d'institiúid sholáthartha",
       "subscribe": "Liostáil lenár Nuachtlitir",
       "terms": "Tearmaí Seirbhís"
     },
@@ -794,7 +800,7 @@ export default {
     "subHeadline": "Cuardaigh, sábháil agus roinn ealaín, leabhair, scannáin agus ceol ó na mílte institiúid chultúrtha",
     "themesCTA": "Féach ar na téamaí go léir",
     "themesTitle": "Déan iniúchadh de réir téama",
-    "title": "Faigh amach faoi oidhreacht chultúrtha {digital} na hEorpa",
+    "title": "Cuir eolas ar oidhreacht chultúrtha {digital} na hEorpa",
     "titleDigital": "dhigiteach"
   },
   "imageSlider": {
@@ -812,7 +818,7 @@ export default {
       "acceptAll": "Glac le gach",
       "acceptSelected": "Glac leis roghnaithe",
       "consentModal": {
-        "description": "Glacaimid go dáiríre le do phríobháideacht sonraí. Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a mheas agus a shaincheapadh. Tá tú i gceannas! Seirbhísí a chumasú nó a dhíchumasú mar is cuí leat.",
+        "description": "Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a fheiceáil agus a shaincheapadh. Chun tuilleadh a fhoghlaim léigh ár <a href='/rights/privacy-policy'> polasaí príobháideachais </a> .",
         "title": "Seirbhísí ba mhaith linn a úsáid."
       },
       "consentNotice": {
@@ -906,7 +912,7 @@ export default {
   "multilingual": {
     "automated": "Aistriúchán uathoibrithe",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
-    "other": "Teangacha eile",
+    "other": "teangacha eile",
     "stopTranslating": "Stop an t-earra seo a aistriú go {0}.",
     "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
     "translateMetadata": "Aistrigh meiteashonraí na míre seo.",
@@ -964,7 +970,7 @@ export default {
     "label": "Leathanaigh"
   },
   "provider": {
-    "linkText": "Amharc air ag láithreán gréasáin an tsoláthraí",
+    "linkText": "Amharc air ag láithreán institiúid sholáthartha",
     "providedBy": "Soláthraíonn {provider} an mhír seo agus déanann sé cothabháil uirthi"
   },
   "recommendation": {
@@ -1041,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} ardchuardach",
       "tooltip": {
+        "advancedSearch": "Ligeann an cuardach casta duit ceisteanna cuardaigh saincheaptha a chruthú.",
         "field": "Roghnaigh réimse le cuardach air.",
-        "modifier": "Roghnaigh mionathraitheoir le cur i bhfeidhm ar an réimse."
+        "modifier": "Roghnaigh mionathraitheoir le cur i bhfeidhm ar an réimse.",
+        "term": "Cuir isteach an téarma(í) chun cuardach a dhéanamh orthu nó lena eisiamh."
       }
     },
     "boost": {
@@ -1055,6 +1063,7 @@ export default {
       "withoutQuery": "{count} torthaí",
       "withQuery": "{count} torthaí do {query}"
     },
+    "selectTheme": "Trí TÉAMA a roghnú, d'fhéadfadh roghanna breise scagaireachta a bheith ar fáil, mar shampla, tá rogha SCAGAIREACHT NA hIRISÍ sa téama Nuachtáin a bhaineann le SCAGAIREACHT DE DÁTA.",
     "title": "Cuardaigh"
   },
   "searchFilters": "Scagairí cuardaigh {count}",
@@ -1117,6 +1126,10 @@ export default {
       "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis."
     },
     "publication": {
+      "criteria": {
+        "description": "Chun a bheith san áireamh le foilsiú, ní mór teideal agus cur síos a bheith i gailearaí, agus ní mór 20 míreanna ar a laghad a bheith ann.",
+        "title": "Critéir foilsithe"
+      },
       "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar Europeana.eu/galleries.",
       "failedSubmission": "Theip ar an iarraidh. Arís, le do thoil.",
       "process": {
@@ -1131,6 +1144,7 @@ export default {
       "toastButton": "Ceart go leor",
       "toastMessage": "Tá an gailearaí seo curtha isteach anois lena fhoilsiú. Is féidir leat {galleries} a sheiceáil féachaint an bhfuil sé foilsithe."
     },
+    "setCount": "{count} gailearaithe",
     "shareTo": {
       "weavex": {
         "tooltip": "Uirlis gréasánbhunaithe is ea WEAVExperience (WEAVEx) chun inneachar de chineálacha éagsúla a bhainistiú (lena n-áirítear 3D), chun oidhreacht chultúrtha a dhoiciméadú trí spásanna digiteacha pobail, agus chun scéalta agus eispéiris dhigiteacha a choimeád."

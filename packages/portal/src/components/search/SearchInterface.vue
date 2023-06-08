@@ -24,7 +24,6 @@
             >
               <SearchQueryBuilder
                 v-show="showAdvancedSearch"
-                v-if="advancedSearchEnabled"
                 id="search-query-builder"
                 class="d-none mb-3"
                 :class="{'d-lg-block': showAdvancedSearch}"
@@ -153,19 +152,28 @@
         :user-params="userParams"
       >
         <b-row
-          v-if="advancedSearchEnabled"
           class="d-flex justify-content-between align-items-center flex-nowrap"
         >
-          <b-button
-            aria-controls="search-query-builder search-query-builder-mobile"
-            :aria-expanded="showAdvancedSearch"
-            class="search-toggle query-builder-toggle m-3"
-            :class="{ 'open': showAdvancedSearch }"
-            variant="link"
-            @click="toggleAdvancedSearch"
+          <span
+            class="d-flex"
           >
-            {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
-          </b-button>
+            <b-button
+              aria-controls="search-query-builder search-query-builder-mobile"
+              :aria-expanded="showAdvancedSearch"
+              class="search-toggle query-builder-toggle ml-3 my-3 flex-grow-1"
+              :class="{ 'open': showAdvancedSearch }"
+              variant="link"
+              @click="toggleAdvancedSearch"
+            >
+              {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
+            </b-button>
+            <b-button
+              v-b-tooltip.bottom
+              :title="$t('search.advanced.tooltip.advancedSearch')"
+              class="icon-info-outline p-0 tooltip-button ml-1 mr-3"
+              variant="light-flat"
+            />
+          </span>
           <b-button
             data-qa="close filters button"
             class="button-icon-only icon-clear mx-3"
@@ -179,7 +187,6 @@
         >
           <SearchQueryBuilder
             v-show="showAdvancedSearch"
-            v-if="advancedSearchEnabled"
             id="search-query-builder-mobile"
             class="d-lg-none"
             @show="(show) => showAdvancedSearch = show"
@@ -330,9 +337,6 @@
       showSearchBoostingForm() {
         return !!this.debugSettings?.boosting;
       },
-      advancedSearchEnabled() {
-        return this.$features.advancedSearch;
-      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -372,7 +376,7 @@
         const apiParams = merge(userParams, this.overrideParams);
 
         // `qa` params are queries from the advanced search builder
-        if (apiParams.qa && this.advancedSearchEnabled) {
+        if (apiParams.qa) {
           apiParams.query = [].concat(apiParams.query || []).concat(apiParams.qa).join(' AND ');
           delete apiParams.qa;
         }

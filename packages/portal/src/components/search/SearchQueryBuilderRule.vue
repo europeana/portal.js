@@ -11,19 +11,29 @@
         :label-for="`select-field-${id}`"
       >
         <template #label>
-          <span :id="`select-field-label-${id}`">
+          <span
+            :id="`select-field-label-${id}`"
+            class="d-inline-flex align-items-center"
+          >
             {{ $t('search.advanced.input.field') }}
+            <template v-if="tooltips">
+              <b-button
+                :id="`select-field-tooltip-btn-${id}`"
+                class="icon-info-outline py-0 px-1 tooltip-button"
+                variant="light-flat"
+              />
+              <b-tooltip
+                :target="`select-field-tooltip-btn-${id}`"
+                :title="$t('search.advanced.tooltip.field')"
+                boundary-padding="0"
+                placement="bottom"
+              />
+            </template>
           </span>
         </template>
-        <b-tooltip
-          :target="`select-field-label-${id}`"
-          :title="$t('search.advanced.tooltip.field')"
-          boundary-padding="0"
-          placement="bottom"
-        />
         <b-form-select
           :id="`select-field-${id}`"
-          v-model="selectField"
+          v-model="field"
           :options="selectFieldOptions"
           :required="areAllRequired"
           @change="(value) => handleFieldChange(value)"
@@ -34,19 +44,29 @@
         :label-for="`select-modifier-${id}`"
       >
         <template #label>
-          <span :id="`select-modifier-label-${id}`">
+          <span
+            :id="`select-modifier-label-${id}`"
+            class="d-inline-flex align-items-center"
+          >
             {{ $t('search.advanced.input.modifier') }}
+            <template v-if="tooltips">
+              <b-button
+                :id="`select-modifier-tooltip-btn-${id}`"
+                class="icon-info-outline py-0 px-1 tooltip-button"
+                variant="light-flat"
+              />
+              <b-tooltip
+                :target="`select-modifier-tooltip-btn-${id}`"
+                :title="$t('search.advanced.tooltip.modifier')"
+                boundary-padding="0"
+                placement="bottom"
+              />
+            </template>
           </span>
         </template>
-        <b-tooltip
-          :target="`select-modifier-label-${id}`"
-          :title="$t('search.advanced.tooltip.modifier')"
-          boundary-padding="0"
-          placement="bottom"
-        />
         <b-form-select
           :id="`select-modifier-${id}`"
-          v-model="selectModifier"
+          v-model="modifier"
           :options="selectModifierOptions"
           :required="areAllRequired"
           @change="(value) => handleModifierChange(value)"
@@ -54,12 +74,32 @@
       </b-form-group>
       <b-form-group
         class="query-rule-form-group"
-        :label="$t('search.advanced.input.searchTerm')"
         :label-for="`search-term-${id}`"
       >
+        <template #label>
+          <span
+            :id="`search-term-label-${id}`"
+            class="d-inline-flex align-items-center"
+          >
+            {{ $t('search.advanced.input.searchTerm') }}
+            <template v-if="tooltips">
+              <b-button
+                :id="`search-term-tooltip-btn-${id}`"
+                class="icon-info-outline py-0 px-1 tooltip-button"
+                variant="light-flat"
+              />
+              <b-tooltip
+                :target="`search-term-tooltip-btn-${id}`"
+                :title="$t('search.advanced.tooltip.term')"
+                boundary-padding="0"
+                placement="bottom"
+              />
+            </template>
+          </span>
+        </template>
         <b-form-input
           :id="`search-term-${id}`"
-          v-model="inputTerm"
+          v-model="term"
           :required="areAllRequired"
           @change="(value) => handleTermChange(value)"
         />
@@ -93,29 +133,25 @@
     ],
 
     props: {
-      field: {
-        type: String,
-        default: null
-      },
       id: {
         type: String,
         default: null
       },
-      modifier: {
-        type: String,
-        default: null
+      tooltips: {
+        type: Boolean,
+        default: true
       },
-      term: {
-        type: String,
-        default: null
+      value: {
+        type: Object,
+        default: () => ({})
       }
     },
 
     data() {
       return {
-        inputTerm: this.term,
-        selectField: this.field,
-        selectModifier: this.modifier
+        field: this.value.field,
+        modifier: this.value.modifier,
+        term: this.value.term
       };
     },
 
@@ -123,9 +159,7 @@
       // If any field has a value, all are required. If none have a value, the
       // rule will be ignored and none are required.
       areAllRequired() {
-        return [this.inputTerm, this.selectField, this.selectModifier].some((value) => (
-          value !== null && value !== ''
-        ));
+        return [this.value.term, this.value.field, this.value.modifier].some((value) => !!value);
       },
       selectFieldOptions() {
         return this.advancedSearchFields.map((field) => ({
@@ -143,14 +177,13 @@
     },
 
     watch: {
-      field(newVal) {
-        this.selectField = newVal;
-      },
-      modifier(newVal) {
-        this.selectModifier = newVal;
-      },
-      term(newVal) {
-        this.inputTerm = newVal;
+      value: {
+        deep: true,
+        handler(value) {
+          this.field = value.field;
+          this.modifier = value.modifier;
+          this.term = value.term;
+        }
       }
     },
 

@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kureeritud kogud",
-    "curatedCollectionsInfo": "Allpool leiate kõik kogud, mida olete kureerinud",
     "editProfile": "Muuda profiili",
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
@@ -26,7 +25,14 @@ export default {
     "publicCollections": "Avalikud galeriid",
     "publishedCollections": "Avaldatud Galeriid",
     "settings": "Seaded",
-    "title": "Minu konto"
+    "title": "Minu konto",
+    "tooltip": {
+      "EntityBestItemsSet": "Kureeritud galeriis kuvatakse konkreetse kollektsiooni kinnitatud üksused",
+      "private": "Privaatset galeriid saate vaadata ainult teie.",
+      "public": "Avalikku galeriid saavad vaadata kõik, kellel on link.",
+      "published": "Avaldatud galeriid saavad vaadata kõik ja seda võidakse kuvada meie galeriide lehel.",
+      "reorder": "Saate üksusi ümber järjestada, klõpsates sellel nupul ja lohistades üksust selle teisaldamiseks."
+    }
   },
   "actions": {
     "accept": "Nõustu",
@@ -84,8 +90,8 @@ export default {
     "organisation": "Organisatsioonid",
     "place": "Kohad",
     "theme": "Teemad",
-    "time": "Esiletõstetud sajandid",
-    "topic": "Esile tõstetud teemad"
+    "time": "Sajandeid",
+    "topic": "Teemad"
   },
   "blog": {
     "author": "Autor",
@@ -121,7 +127,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "disainerid",
-          "name": "Disainer | Disainerid",
+          "name": "Disainer",
           "select": "Valige disainerid"
         },
         "proxy_dc_format": {
@@ -131,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "kauba tüübid",
-          "name": "Kauba tüüp | Kauba tüübid",
+          "name": "Eseme tüüp",
           "select": "Valige üksuste tüübid"
         },
         "proxy_dcterms_medium": {
@@ -272,13 +278,13 @@ export default {
     "credits": "Autorid",
     "currentChapter": "Praegune peatükk",
     "description": "Uurige näitustega",
-    "exhibitions": "Näitused"
+    "exhibitions": "Näitus | Näitused"
   },
   "facets": {
     "api": {
-      "name": "Otsing",
+      "name": "Otsing dokumentides",
       "options": {
-        "fulltext": "Täistekstiga kirjed",
+        "fulltext": "Täistekstiga üksused",
         "metadata": "Ainult metaandmete kirjed"
       },
       "switch": "Otsige ainult täistekstiga üksuste sisust",
@@ -311,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "värvid",
-      "name": "Värv | Värvid",
+      "name": "Värv",
       "options": {
         "#000000": "Must",
         "#000080": "Mereväe sinine",
@@ -530,9 +536,9 @@ export default {
       "select": "Valige loojad"
     },
     "DATA_PROVIDER": {
-      "moreName": "institutsioonid",
-      "name": "Institutsioon",
-      "select": "Valige institutsioonid"
+      "moreName": "pakkuja institutsioon",
+      "name": "Pakkuja institutsioon",
+      "select": "Valige pakkuvad asutused"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Kujutise orientatsioon | Kujutise orientatsioonid",
@@ -598,7 +604,7 @@ export default {
       "select": "Valige keeled"
     },
     "MIME_TYPE": {
-      "name": "Failivorming | Failivormingud",
+      "name": "Failivorming",
       "options": {
         "text/plain": "Lihttekst"
       },
@@ -615,18 +621,18 @@ export default {
       "select": "Valige vormingud"
     },
     "proxy_dc_type": {
-      "name": "Tüüp | Tüübid",
+      "name": "Tüüp | tüübid",
       "select": "Valige tüübid"
     },
     "proxy_dcterms_issued": {
       "name": "Väljaandmise kuupäev"
     },
     "proxy_dcterms_medium": {
-      "name": "Meedium | Meediumid",
+      "name": "Meedium",
       "select": "Valige meedia"
     },
     "REUSABILITY": {
-      "name": "Kas ma saan seda uuesti kasutada?",
+      "name": "Kas ma saan seda kasutada?",
       "options": {
         "open": "Jah",
         "permission": "Võib-olla, küsige luba",
@@ -700,7 +706,7 @@ export default {
       "dctermsTemporal": "Ajaline",
       "dctermsTOC": "Sisukord",
       "dcTitle": "Pealkiri",
-      "dcType": "Objekti tüüp",
+      "dcType": "Üksuse liik",
       "edmCountry": "Pakkuja riik",
       "edmCurrentLocation": "Praegune asukoht",
       "edmDataProvider": "Pakkuja institutsioon",
@@ -712,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Esindab",
       "edmIsSimilarTo": "on sarnane",
       "edmIsSuccessorOf": "on järeltulija",
-      "edmProvider": "Pakkuja",
+      "edmProvider": "Agregaator",
       "edmRealizes": "Mõistab",
       "edmRights": "Selle kirje meediumite litsents (kui pole teisiti täpsustatud)",
       "edmUgc": "Kasutaja loodud sisu",
@@ -747,7 +753,7 @@ export default {
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
-      "provide": "Saage andmepartneriks",
+      "provide": "Hakka pakkuvaks asutuseks",
       "subscribe": "Telli meie uudiskiri",
       "terms": "Kasutustingimused"
     },
@@ -760,7 +766,7 @@ export default {
   },
   "galleries": {
     "description": "Uurige meie galeriidega",
-    "galleries": "Galeriid"
+    "galleries": "Galerii | Galeriid"
   },
   "header": {
     "backToMenu": "Sulge otsinguaken",
@@ -812,7 +818,7 @@ export default {
       "acceptAll": "Võtke kõik vastu",
       "acceptSelected": "Aktsepteeri valitud",
       "consentModal": {
-        "description": "Võtame teie andmete privaatsust tõsiselt. Siin saate hinnata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Teie olete juhtiv! Lubage või keelake teenused oma äranägemise järgi.",
+        "description": "Siin saate vaadata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Lisateabe saamiseks lugege meie <a href='/rights/privacy-policy'> privaatsuspoliitikat </a> .",
         "title": "Teenused, mida sooviksime kasutada."
       },
       "consentNotice": {
@@ -906,7 +912,7 @@ export default {
   "multilingual": {
     "automated": "Automatiseeritud tõlge",
     "enrichment": "Rikastamine partner projektide kaudu",
-    "other": "Muud keeled",
+    "other": "muud keeled",
     "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
     "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
     "translateMetadata": "Tõlgi selle üksuse metaandmed.",
@@ -964,7 +970,7 @@ export default {
     "label": "Paginatsioon"
   },
   "provider": {
-    "linkText": "Vaadake teenusepakkuja veebisaidilt",
+    "linkText": "Vaadake pakkuva asutuse veebisaidilt",
     "providedBy": "Seda üksust pakub ja hooldab {provider}"
   },
   "recommendation": {
@@ -986,7 +992,7 @@ export default {
     "location": "Asukoht",
     "locationOnMap": "Asukoht kaardil",
     "mediaPlayer": "Meediumipleier",
-    "record": "Kirje",
+    "record": "Üksus",
     "showAll": "Kuva kogu teave",
     "similarItems": "Sarnased tooted",
     "status": {
@@ -1041,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} täpsem otsing",
       "tooltip": {
+        "advancedSearch": "Täpsem otsing võimaldab teil luua kohandatud otsingu päringuid.",
         "field": "Valige otsimiseks väli.",
-        "modifier": "Valige väljale rakendatav modifikaator."
+        "modifier": "Valige väljale rakendatav modifikaator.",
+        "term": "Sisestage otsimiseks või välistamiseks termin(id)."
       }
     },
     "boost": {
@@ -1055,6 +1063,7 @@ export default {
       "withoutQuery": "{count} tulemust",
       "withQuery": "{count} tulemust jaoks {query}"
     },
+    "selectTheme": "TEEMA valimine võib pakkuda täiendavaid filtrivalikuid, nt teema Ajalehed sisaldab filtrit VÄLJAANDMISE KUUPÄEV.",
     "title": "Otsing"
   },
   "searchFilters": "Otsingufiltrid {count}",
@@ -1117,6 +1126,10 @@ export default {
       "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
     },
     "publication": {
+      "criteria": {
+        "description": "Avaldamiseks peab galerii sisaldama pealkirja ja kirjeldust ning vähemalt 20 üksust.",
+        "title": "Avaldamise kriteeriumid"
+      },
       "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu/galleries.",
       "failedSubmission": "Taotlus ebaõnnestus. Palun proovi uuesti.",
       "process": {
@@ -1131,6 +1144,7 @@ export default {
       "toastButton": "Okei",
       "toastMessage": "See galerii on nüüd avaldamiseks esitatud. Saate vaadata {galleries} , et näha, kas see on avaldatud."
     },
+    "setCount": "{count} galeriid",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) on veebipõhine tööriist erinevat tüüpi (sh 3D) sisu haldamiseks, kultuuripärandi dokumenteerimiseks digitaalsete kogukonnaruumide kaudu ning digitaalsete lugude ja kogemuste kureerimiseks."

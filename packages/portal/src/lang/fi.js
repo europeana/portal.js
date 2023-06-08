@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kuratoidut kokoelmat",
-    "curatedCollectionsInfo": "Etsi alta kaikki kuratoimiasi kokoelmia",
     "editProfile": "Muokkaa profiilia",
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
@@ -26,7 +25,14 @@ export default {
     "publicCollections": "Julkiset galleriat",
     "publishedCollections": "Julkaistut Galleriat",
     "settings": "Asetukset",
-    "title": "Oma tili"
+    "title": "Oma tili",
+    "tooltip": {
+      "EntityBestItemsSet": "Kuroitu galleria näyttää tietyn kokoelman kiinnitetyt aineistot",
+      "private": "Vain sinä voit tarkastella yksityistä galleriaa.",
+      "public": "Julkista galleriaa voivat tarkastella kuka tahansa linkin saanut.",
+      "published": "Kuka tahansa voi tarkastella julkaistua galleriaa, ja se voi olla esillä Galleriat-sivullamme.",
+      "reorder": "Voit järjestää aineistot uudelleen napsauttamalla tätä painiketta ja siirtämällä aineisto vetämällä sitä."
+    }
   },
   "actions": {
     "accept": "Hyväksy",
@@ -84,7 +90,7 @@ export default {
     "organisation": "Organisaatiot",
     "place": "Paikat",
     "theme": "Teemat",
-    "time": "Esillä vuosisatoja",
+    "time": "Vuosisadat",
     "topic": "Aiheet"
   },
   "blog": {
@@ -272,11 +278,11 @@ export default {
     "credits": "Tekijät",
     "currentChapter": "Nykyinen luku",
     "description": "Tutustu näyttelyihin",
-    "exhibitions": "Näyttelyt"
+    "exhibitions": "Näyttely | Näyttelyt"
   },
   "facets": {
     "api": {
-      "name": "Hae",
+      "name": "Haku asiakirjojen sisällä",
       "options": {
         "fulltext": "Aineistot, joissa on koko teksti",
         "metadata": "Vain metatiedot aineistot"
@@ -311,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "värit",
-      "name": "Väri | värit",
+      "name": "Väri",
       "options": {
         "#000000": "Musta",
         "#000080": "Laivastonsininen",
@@ -530,9 +536,9 @@ export default {
       "select": "Valitse tekijät"
     },
     "DATA_PROVIDER": {
-      "moreName": "kulttuurilaitoksista",
-      "name": "kulttuuriperintölaitos",
-      "select": "valitse kulttuuriperintölaitos"
+      "moreName": "aineiston tarjoajat",
+      "name": "Aineiston tarjoaja",
+      "select": "Valitse aineiston tarjoajat"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Kuvan suunta | Kuvan suunnat",
@@ -598,7 +604,7 @@ export default {
       "select": "Valitse kielet"
     },
     "MIME_TYPE": {
-      "name": "Tiedostomuoto | Tiedostomuodot",
+      "name": "Tiedostomuoto",
       "options": {
         "text/plain": "Pelkkä teksti"
       },
@@ -615,14 +621,14 @@ export default {
       "select": "Valitse formaatit"
     },
     "proxy_dc_type": {
-      "name": "Tyyppi | Tyypit",
+      "name": "Tyyppi | tyypit",
       "select": "Valitse tyypit"
     },
     "proxy_dcterms_issued": {
-      "name": "Päivämäärä"
+      "name": "Julkaisupäivämäärä"
     },
     "proxy_dcterms_medium": {
-      "name": "Media | Mediat",
+      "name": "Keskikokoinen",
       "select": "Valitse media"
     },
     "REUSABILITY": {
@@ -700,7 +706,7 @@ export default {
       "dctermsTemporal": "Ajoitus",
       "dctermsTOC": "Sisällysluettelo",
       "dcTitle": "Nimi",
-      "dcType": "Kohteen tyyppi",
+      "dcType": "Aineisto tyyppi",
       "edmCountry": "Alkuperämaa",
       "edmCurrentLocation": "Nykyinen sijainti",
       "edmDataProvider": "Aineiston tarjoaja",
@@ -712,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Kuvaa kohdetta",
       "edmIsSimilarTo": "On samanlainen kuin",
       "edmIsSuccessorOf": "On seuraaja kohteelle",
-      "edmProvider": "Tarjoaja",
+      "edmProvider": "Aggregaattori",
       "edmRealizes": "Sisältää",
       "edmRights": "Tämän aineisto median lisenssi (ellei toisin mainita)",
       "edmUgc": "Käyttäjien tuottama sisältö",
@@ -747,7 +753,7 @@ export default {
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojakäytäntö",
-      "provide": "Ryhdy tietojentarjoajaksi",
+      "provide": "Ryhdy aineiston tarjoaja",
       "subscribe": "Tilaa uutiskirjeemme",
       "terms": "Käyttöehdot"
     },
@@ -760,7 +766,7 @@ export default {
   },
   "galleries": {
     "description": "Tutustu gallerioihimme",
-    "galleries": "Galleriat"
+    "galleries": "Galleria | Galleriat"
   },
   "header": {
     "backToMenu": "Sulje hakuruutu",
@@ -812,7 +818,7 @@ export default {
       "acceptAll": "Hyväksy kaikki",
       "acceptSelected": "Hyväksy valittu",
       "consentModal": {
-        "description": "Suhtaudumme tietosuojaasi vakavasti. Täällä voit arvioida ja mukauttaa palveluja, joita haluaisimme käyttää tällä verkkosivustolla. Sinä olet vastuussa! Ota palvelut käyttöön tai poista ne käytöstä mielesi mukaan.",
+        "description": "Täällä voit nähdä ja muokata palveluita, joita haluamme käyttää tällä verkkosivustolla. Saat lisätietoja lukemalla <a href='/rights/privacy-policy'> tietosuojakäytäntömme </a> .",
         "title": "Palvelut, joita haluaisimme käyttää."
       },
       "consentNotice": {
@@ -906,7 +912,7 @@ export default {
   "multilingual": {
     "automated": "Automatisoitu käännös",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
-    "other": "Muut kielet",
+    "other": "muut kielet",
     "stopTranslating": "Lopeta tämän aineisto kääntäminen kielelle {0}.",
     "translateLanguage": "Haluaisitko nähdä tämän aineisto {0}?",
     "translateMetadata": "Käännä tämän aineisto metatiedot.",
@@ -964,7 +970,7 @@ export default {
     "label": "Sivunumerointi"
   },
   "provider": {
-    "linkText": "Näytä palveluntarjoajan verkkosivustolla",
+    "linkText": "Katso tarjoavan laitoksen verkkosivustolta",
     "providedBy": "Tämän aineisto tarjoaa ja ylläpitää {provider}"
   },
   "recommendation": {
@@ -1041,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} tarkennettu haku",
       "tooltip": {
+        "advancedSearch": "Tarkennetun haun avulla voit luoda mukautettuja hakukyselyitä.",
         "field": "Valitse hakuun kenttä",
-        "modifier": "Valitse kenttään käytettävä muokkaus."
+        "modifier": "Valitse kenttään käytettävä muokkaus.",
+        "term": "Kirjoita termi (termit), jota (joita) etsitään tai jotka halutaan sulkea pois."
       }
     },
     "boost": {
@@ -1055,6 +1063,7 @@ export default {
       "withoutQuery": "{count} tulokset",
       "withQuery": "{count} tulokset :lle {query}"
     },
+    "selectTheme": "TEEMA valitseminen voi tarjota lisää suodatusvaihtoehtoja, esim. Sanomalehdet-teema sisältää JULKAISTUSPÄIVÄN suodattimen.",
     "title": "Hae"
   },
   "searchFilters": "Hakusuodattimet {count}",
@@ -1117,6 +1126,10 @@ export default {
       "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi aineistot."
     },
     "publication": {
+      "criteria": {
+        "description": "Jotta galleria voidaan julkaista, sen on sisällettävä otsikko ja kuvaus, ja siinä on oltava vähintään 20 aineistot.",
+        "title": "Julkaisun kriteerit"
+      },
       "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
       "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
       "process": {
@@ -1131,6 +1144,7 @@ export default {
       "toastButton": "Okei",
       "toastMessage": "Tämä galleria on nyt lähetetty julkaistavaksi. Voit tarkistaa {galleries} , onko se julkaistu."
     },
+    "setCount": "{count} galleriat",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) on verkkopohjainen työkalu erityyppisten (mukaan lukien 3D) sisällön hallintaan, kulttuuriperinnön dokumentointiin digitaalisten yhteisötilojen kautta sekä digitaalisten tarinoiden ja kokemusten kuratoimiseen."

@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Samengestelde collecties",
-    "curatedCollectionsInfo": "Hieronder vindt u alle collecties die u heeft samengesteld",
     "editProfile": "Profiel bewerken",
     "likes": "Likes",
     "linkAccount": "Mijn account",
@@ -26,7 +25,14 @@ export default {
     "publicCollections": "Openbare galerijen",
     "publishedCollections": "Gepubliceerde Galerijen",
     "settings": "Instellingen",
-    "title": "Mijn account"
+    "title": "Mijn account",
+    "tooltip": {
+      "EntityBestItemsSet": "Een gecureerde galerij toont de vastgepinde objecten binnen een specifieke collectie",
+      "private": "Een privé galerij kan alleen door u bekeken worden.",
+      "public": "Een openbare galerij kan door iedereen met de link worden bekeken.",
+      "published": "Een gepubliceerde galerij kan door iedereen worden bekeken, en kan worden opgenomen op onze pagina Galerijen.",
+      "reorder": "U kunt objecten opnieuw ordenen door op deze knop te klikken en het object te slepen om het te verplaatsen."
+    }
   },
   "actions": {
     "accept": "Accepteren",
@@ -84,7 +90,7 @@ export default {
     "organisation": "Organisaties",
     "place": "Plaatsen",
     "theme": "Thema's",
-    "time": "Aanbevolen eeuwen",
+    "time": "Eeuwen",
     "topic": "Onderwerpen"
   },
   "blog": {
@@ -272,11 +278,11 @@ export default {
     "credits": "Credits",
     "currentChapter": "Huidig hoofdstuk",
     "description": "Ontdek de tentoonstellingen",
-    "exhibitions": "Tentoonstellingen"
+    "exhibitions": "Tentoonstelling | Tentoonstellingen"
   },
   "facets": {
     "api": {
-      "name": "Zoeken naar",
+      "name": "Zoeken in documenten",
       "options": {
         "fulltext": "Objecten met full-text",
         "metadata": "Alleen objecten met Metadata"
@@ -311,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "kleuren",
-      "name": "Kleur | Kleuren",
+      "name": "Kleur",
       "options": {
         "#000000": "Zwart",
         "#000080": "Marineblauw",
@@ -461,7 +467,7 @@ export default {
       "select": "Selecteer kleuren"
     },
     "contentTier": {
-      "name": "Item kwaliteit",
+      "name": "Object kwaliteit",
       "options": {
         "*": "Bevat objecten die niet voldoen aan onze publicatiecriteria",
         "0": "Voldoet niet aan publicatiecriteria",
@@ -530,9 +536,9 @@ export default {
       "select": "Selecteer makers"
     },
     "DATA_PROVIDER": {
-      "moreName": "instellingen",
-      "name": "Instelling | Instellingen",
-      "select": "Selecteer instellingen"
+      "moreName": "deelnemende erfgoedorganisaties",
+      "name": "Deelnemende erfgoedorganisatie",
+      "select": "Selecteer deelnemende erfgoedorganisaties"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Beeldoriëntatie | Beeldoriëntaties",
@@ -598,7 +604,7 @@ export default {
       "select": "Selecteer talen"
     },
     "MIME_TYPE": {
-      "name": "Bestandsformaat | Bestandsformaten",
+      "name": "Bestandsformaat",
       "options": {
         "text/plain": "Platte tekst"
       },
@@ -607,7 +613,7 @@ export default {
     "moreOptions": "Zoek naar {0} meer {1}.",
     "PROVIDER": {
       "moreName": "informatienetwerken",
-      "name": "Aggregator",
+      "name": "Informatienetwerk",
       "select": "Selecteer informatienetwerken"
     },
     "proxy_dc_format": {
@@ -622,11 +628,11 @@ export default {
       "name": "Datum van afgifte"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media",
+      "name": "Medium",
       "select": "Selecteer media"
     },
     "REUSABILITY": {
-      "name": "Kan ik dit hergebruiken?",
+      "name": "Kan ik dit gebruiken?",
       "options": {
         "open": "Ja",
         "permission": "Misschien, vraag toestemming",
@@ -712,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Is een vertegenwoordiging van",
       "edmIsSimilarTo": "Is vergelijkbaar met",
       "edmIsSuccessorOf": "Is de opvolger van",
-      "edmProvider": "Leverancier",
+      "edmProvider": "Informatienetwerk",
       "edmRealizes": "Realiseert",
       "edmRights": "Rechtenstatus van de media in dit record (tenzij anders vermeld)",
       "edmUgc": "Door gebruikers gegenereerde inhoud",
@@ -747,7 +753,7 @@ export default {
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacybeleid",
-      "provide": "Word een datapartner",
+      "provide": "Word een deelnemende erfgoedorganisatie",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
       "terms": "Gebruiksvoorwaarden"
     },
@@ -760,7 +766,7 @@ export default {
   },
   "galleries": {
     "description": "Ontdek onze galeries",
-    "galleries": "Galerijen"
+    "galleries": "Galerij | Galerijen"
   },
   "header": {
     "backToMenu": "Zoekvakje sluiten",
@@ -812,7 +818,7 @@ export default {
       "acceptAll": "Accepteer alles",
       "acceptSelected": "Geselecteerde accepteren",
       "consentModal": {
-        "description": "Wij nemen uw gegevensprivacy serieus. Hier kunt u de diensten die wij op deze website willen gebruiken, zelf beoordelen en aanpassen. U heeft het voor het zeggen! Schakel diensten in of uit zoals u dat wilt.",
+        "description": "Hier kunt u de diensten zien en aanpassen die we op deze website willen gebruiken. Lees voor meer informatie ons <a href='/rights/privacy-policy'>privacybeleid</a>.",
         "title": "Diensten waar we graag gebruik van willen maken."
       },
       "consentNotice": {
@@ -906,7 +912,7 @@ export default {
   "multilingual": {
     "automated": "Geautomatiseerde vertaling",
     "enrichment": "Verrijking door partnerprojecten",
-    "other": "Andere talen",
+    "other": "andere talen",
     "stopTranslating": "Stop met het vertalen van dit item naar {0}.",
     "translateLanguage": "Wilt u dit item in {0} zien?",
     "translateMetadata": "Vertaal de metadata van dit object.",
@@ -964,7 +970,7 @@ export default {
     "label": "Paginering"
   },
   "provider": {
-    "linkText": "Bekijk op de website van de aanbieder",
+    "linkText": "Bekijk op de website van de deelnemende erfgoedorganisatie",
     "providedBy": "Dit item wordt geleverd en onderhouden door {provider}"
   },
   "recommendation": {
@@ -986,7 +992,7 @@ export default {
     "location": "Locatie",
     "locationOnMap": "Locatie op kaart",
     "mediaPlayer": "Mediaspeler",
-    "record": "Registratie",
+    "record": "Object",
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare objecten",
     "status": {
@@ -1041,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} geavanceerd zoeken",
       "tooltip": {
+        "advancedSearch": "Met geavanceerd zoeken kunt u aangepaste zoekopdrachten maken.",
         "field": "Selecteer een veld om op te zoeken.",
-        "modifier": "Selecteer een modificatie om op het veld toe te passen."
+        "modifier": "Selecteer een modificatie om op het veld toe te passen.",
+        "term": "Voer de term(en) in waarop u wilt zoeken of die u wilt uitsluiten."
       }
     },
     "boost": {
@@ -1055,6 +1063,7 @@ export default {
       "withoutQuery": "{count} resultaten",
       "withQuery": "{count} resultaten voor {query}"
     },
+    "selectTheme": "Het selecteren van een THEMA kan meer filteropties bieden, bijvoorbeeld het thema Kranten bevat een DATUM UITGEGEVEN filter.",
     "title": "Zoeken"
   },
   "searchFilters": "Zoekfilters {count}",
@@ -1117,6 +1126,10 @@ export default {
       "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle objecten die u daaraan heeft toegevoegd."
     },
     "publication": {
+      "criteria": {
+        "description": "Om in aanmerking te komen voor publicatie, moet een galerij een titel en beschrijving bevatten en minimaal 20 objecten bevatten.",
+        "title": "Publicatie criteria"
+      },
       "description": "Als u een galerij publiceert, wordt deze op Europeana.eu/galleries weergegeven.",
       "failedSubmission": "Het verzoek is mislukt. Probeer het opnieuw.",
       "process": {
@@ -1131,6 +1144,7 @@ export default {
       "toastButton": "Oké",
       "toastMessage": "Deze galerij is nu ingediend voor publicatie. U kunt {galleries} controleren om te zien of het is gepubliceerd."
     },
+    "setCount": "{count} galerijen",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) is een webtool voor het beheer van verschillende soorten inhoud (waaronder 3D), het documenteren van cultureel erfgoed via digitale gemeenschapsruimtes en het cureren van digitale verhalen en ervaringen."

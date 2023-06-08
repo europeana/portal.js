@@ -29,7 +29,7 @@
                   v-if="tooltipTitle"
                   v-b-tooltip.bottom
                   :title="tooltipTitle"
-                  class="icon-info tooltip-button"
+                  class="icon-info-outline tooltip-button"
                   variant="light-flat"
                 />
               </span>
@@ -45,7 +45,7 @@
                 v-if="tooltipTitle"
                 v-b-tooltip.bottom
                 :title="tooltipTitle"
-                class="icon-info tooltip-button"
+                class="icon-info-outline tooltip-button"
                 variant="light-flat"
               />
             </span>

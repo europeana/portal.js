@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Colecții curatori ate",
-    "curatedCollectionsInfo": "Găsiți mai jos toate colecțiile pe care le-ați curatoriat",
     "editProfile": "Editare profil",
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
@@ -26,7 +25,14 @@ export default {
     "publicCollections": "Galerii publice",
     "publishedCollections": "Galeriile Publicate",
     "settings": "Setări",
-    "title": "Contul meu"
+    "title": "Contul meu",
+    "tooltip": {
+      "EntityBestItemsSet": "O galerie organizată arată resurse culturale fixate dintr-o anumită colecție",
+      "private": "O galerie privată poate fi vizualizată doar de dvs.",
+      "public": "O galerie publică poate fi vizualizată de oricine are linkul.",
+      "published": "O galerie publicată poate fi vizualizată de oricine și poate fi prezentată pe pagina noastră Galerii.",
+      "reorder": "Puteți reordona resurse culturale făcând clic pe acest buton și trăgând resursă culturală pentru a-l muta."
+    }
   },
   "actions": {
     "accept": "Acceptă",
@@ -84,7 +90,7 @@ export default {
     "organisation": "Organizații",
     "place": "Locuri",
     "theme": "Teme",
-    "time": "Secole recomandate",
+    "time": "Secole",
     "topic": "Subiecte"
   },
   "blog": {
@@ -272,11 +278,11 @@ export default {
     "credits": "Credite",
     "currentChapter": "Capitolul actual",
     "description": "Explorează expozițiile",
-    "exhibitions": "Expoziții"
+    "exhibitions": "Expoziție | Expozitii"
   },
   "facets": {
     "api": {
-      "name": "Căutare după",
+      "name": "Căutare în cadrul documentelor",
       "options": {
         "fulltext": "Resurse culturale cu text integral",
         "metadata": "Resurse culturale doar pentru metadate"
@@ -311,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "culori",
-      "name": "Culoare | Culori",
+      "name": "Culoare",
       "options": {
         "#000000": "Negru",
         "#000080": "Albastru marin",
@@ -530,9 +536,9 @@ export default {
       "select": "Selectați creatori"
     },
     "DATA_PROVIDER": {
-      "moreName": "instituții",
-      "name": "Instituție",
-      "select": "Selectați instituții"
+      "moreName": "instituții furnizoare",
+      "name": "Instituție furnizoare",
+      "select": "Selectați instituții furnizoare"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientare imagine | Orientări imagine",
@@ -598,7 +604,7 @@ export default {
       "select": "Selectați limbile"
     },
     "MIME_TYPE": {
-      "name": "Format fișier| Formate fișier",
+      "name": "Format fișier",
       "options": {
         "text/plain": "Text simplu"
       },
@@ -615,18 +621,18 @@ export default {
       "select": "Selectați formate"
     },
     "proxy_dc_type": {
-      "name": "Tip | Tipuri",
+      "name": "Tip | tipuri",
       "select": "Selectați tipuri"
     },
     "proxy_dcterms_issued": {
       "name": "Data emiterii"
     },
     "proxy_dcterms_medium": {
-      "name": "Medii | Media",
+      "name": "Mediu",
       "select": "Selectați media"
     },
     "REUSABILITY": {
-      "name": "Pot reutiliza acest lucru?",
+      "name": "Pot folosi asta?",
       "options": {
         "open": "Da",
         "permission": "Poate, obțineți permisiunea",
@@ -700,7 +706,7 @@ export default {
       "dctermsTemporal": "Temporal",
       "dctermsTOC": "Cuprins",
       "dcTitle": "Titlu",
-      "dcType": "Tipul obiectului",
+      "dcType": "Tipul resursă culturală",
       "edmCountry": "Țara de proveniență",
       "edmCurrentLocation": "Locația curenta",
       "edmDataProvider": "Instituție furnizoare",
@@ -712,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Este reprezentarea",
       "edmIsSimilarTo": "Este asemănător cu",
       "edmIsSuccessorOf": "Urmează după",
-      "edmProvider": "Furnizor",
+      "edmProvider": "Agregator",
       "edmRealizes": "Își dă seama",
       "edmRights": "Mențiunea privind drepturile intelectuale privind drepturile intelectuale media pentru această resursă culturală (cu excepția cazului în care se specifică altfel)",
       "edmUgc": "Conținut generat de utilizator",
@@ -747,7 +753,7 @@ export default {
       "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
-      "provide": "Devino partener de date",
+      "provide": "Devino instituție furnizoare",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "terms": "Termeni de utilizare"
     },
@@ -760,7 +766,7 @@ export default {
   },
   "galleries": {
     "description": "Explorează galeriile noastre",
-    "galleries": "Galerii"
+    "galleries": "Galerie | Galeriile"
   },
   "header": {
     "backToMenu": "Închide caseta de căutare",
@@ -812,7 +818,7 @@ export default {
       "acceptAll": "Accepta toate",
       "acceptSelected": "Acceptați selectat",
       "consentModal": {
-        "description": "Vă luăm în serios confidențialitatea datelor. Aici puteți evalua și personaliza serviciile pe care am dori să le folosim pe acest site web. Tu ești la conducere! Activați sau dezactivați serviciile după cum doriți.",
+        "description": "Aici puteți vedea și personaliza serviciile pe care am dori să le folosim pe acest site. Pentru a afla mai multe, vă rugăm să citiți <a href='/rights/privacy-policy'> politica noastră de confidențialitate </a>.",
         "title": "Servicii pe care am dori să le folosim."
       },
       "consentNotice": {
@@ -906,7 +912,7 @@ export default {
   "multilingual": {
     "automated": "Traducere automată",
     "enrichment": "Îmbogățirea prin proiecte partenere",
-    "other": "Alte limbi",
+    "other": "alte limbi",
     "stopTranslating": "Opriți traducerea acestui resursă culturală în {0}.",
     "translateLanguage": "Ați dori să vedeți acest resursă culturală în {0}?",
     "translateMetadata": "Traduceți metadatele acestui resursă culturalăl.",
@@ -964,7 +970,7 @@ export default {
     "label": "Paginare"
   },
   "provider": {
-    "linkText": "Vizualizează pe site-ul furnizorului",
+    "linkText": "Vizualizează pe site-ul instituție furnizoare",
     "providedBy": "Acest resursă culturală este furnizat și întreținut de {provider}"
   },
   "recommendation": {
@@ -1041,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} căutare avansată",
       "tooltip": {
+        "advancedSearch": "Căutarea avansată vă permite să creați interogări de căutare personalizate.",
         "field": "Selectați un câmp în care să căutați.",
-        "modifier": "Selectați un modificator de aplicat câmpului."
+        "modifier": "Selectați un modificator de aplicat câmpului.",
+        "term": "Introduceți termenul (termenii) de căutat sau de exclus."
       }
     },
     "boost": {
@@ -1055,6 +1063,7 @@ export default {
       "withoutQuery": "{count} rezultate",
       "withQuery": "{count} rezultate pentru {query}"
     },
+    "selectTheme": "Selectarea unei TEMĂ poate oferi opțiuni suplimentare de filtrare, de exemplu, tema Ziare include un filtru DATA EMISĂRII.",
     "title": "Căutare"
   },
   "searchFilters": "Filtre de căutare {count}",
@@ -1117,6 +1126,10 @@ export default {
       "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate resurse culturale pe care le-ai adăugat."
     },
     "publication": {
+      "criteria": {
+        "description": "Pentru a fi luată în considerare pentru publicare, o galerie trebuie să includă un titlu și o descriere și trebuie să conțină cel puțin 20 de resurse culturale.",
+        "title": "Criterii de publicare"
+      },
       "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
       "failedSubmission": "Solicitarea nu a reușit. Încercați din nou.",
       "process": {
@@ -1131,6 +1144,7 @@ export default {
       "toastButton": "Bine",
       "toastMessage": "Această galerie este acum trimisă spre publicare. Puteți verifica {galleries} pentru a vedea dacă a fost publicat."
     },
+    "setCount": "{count} galerii",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) este un instrument bazat pe web pentru gestionarea conținutului de diferite tipuri (inclusiv 3D), documentarea moștenirii culturale prin spații comunitare digitale și curatarea narațiuni și experiențelor digitale."

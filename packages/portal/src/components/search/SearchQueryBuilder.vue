@@ -21,9 +21,8 @@
             >
               <SearchQueryBuilderRule
                 :id="`${id}-${index}`"
-                :field="rule.field"
-                :modifier="rule.modifier"
-                :term="rule.term"
+                v-model="queryRules[index]"
+                :tooltips="index === 0"
                 @change="(field, value) => handleChangeRule(field, value, index)"
                 @clear="clearRule(index)"
               />
@@ -81,6 +80,12 @@
       };
     },
 
+    computed: {
+      validQueryRules() {
+        return this.queryRules.filter((rule) => rule.field && rule.modifier && rule.term);
+      }
+    },
+
     watch: {
       '$route.query.qa': 'initRulesFromRouteQuery'
     },
@@ -104,14 +109,14 @@
       },
       updateSearch() {
         if (this.$matomo) {
-          for (const rule of this.queryRules) {
+          for (const rule of this.validQueryRules) {
             const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
             const modifierLabel = this.$t(`search.advanced.modifiers.${rule.modifier}`, 'en');
             const eventName = `Adv search: ${fieldLabel} ${modifierLabel}`;
             this.$matomo.trackEvent('Adv search', 'Apply adv search', eventName);
           }
         }
-        this.$router.push(this.advancedSearchRouteQueryFromRules(this.queryRules));
+        this.$router.push(this.advancedSearchRouteQueryFromRules(this.validQueryRules));
       },
       initRulesFromRouteQuery() {
         this.queryRules = this.advancedSearchRulesFromRouteQuery();

@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kuratierte Sammlungen",
-    "curatedCollectionsInfo": "Hier finden Sie alle Sammlungen, die Sie kuratiert haben",
     "editProfile": "Profil bearbeiten",
     "likes": "Likes",
     "linkAccount": "Mein Konto",
@@ -26,7 +25,14 @@ export default {
     "publicCollections": "Öffentliche Galerien",
     "publishedCollections": "Veröffentlichte Galerien",
     "settings": "Einstellungen",
-    "title": "Mein Konto"
+    "title": "Mein Konto",
+    "tooltip": {
+      "EntityBestItemsSet": "Eine kuratierte Galerie zeigt die angehefteten Objekte innerhalb einer bestimmten Sammlung",
+      "private": "Eine private Galerie kann nur von Ihnen angesehen werden.",
+      "public": "Eine öffentliche Galerie kann von jedem mit dem Link angesehen werden.",
+      "published": "Eine veröffentlichte Galerie kann von jedem eingesehen und auf unserer Seite Galerien veröffentlicht werden.",
+      "reorder": "Sie können Objekte neu anordnen, indem Sie auf diese Schaltfläche klicken und das Objekt ziehen, um es zu verschieben."
+    }
   },
   "actions": {
     "accept": "Akzeptieren",
@@ -84,7 +90,7 @@ export default {
     "organisation": "Organisationen",
     "place": "Orte",
     "theme": "Themenbereiche",
-    "time": "Ausgewählte Jahrhunderte",
+    "time": "Jahrhunderte",
     "topic": "Themen"
   },
   "blog": {
@@ -272,11 +278,11 @@ export default {
     "credits": "Credits",
     "currentChapter": "Aktuelles Kapitel",
     "description": "Entdecken Sie die Ausstellungen",
-    "exhibitions": "Ausstellungen"
+    "exhibitions": "Ausstellung | Ausstellungen"
   },
   "facets": {
     "api": {
-      "name": "Suche nach",
+      "name": "Suche in Dokumenten",
       "options": {
         "fulltext": "Objekte mit Volltext",
         "metadata": "Nur-Metadaten Objekte"
@@ -311,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "Farben",
-      "name": "Farbe | Farben",
+      "name": "Farbe",
       "options": {
         "#000000": "Schwarz",
         "#000080": "Navy blau",
@@ -530,9 +536,9 @@ export default {
       "select": "Ersteller auswählen"
     },
     "DATA_PROVIDER": {
-      "moreName": "Institutionen",
-      "name": "Institution | Institutionen",
-      "select": "Institutionen auswählen"
+      "moreName": "Datenpartner",
+      "name": "Datenpartner",
+      "select": "Auswählen der Datenpartner"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Bildausrichtung | Bildausrichtungen",
@@ -598,7 +604,7 @@ export default {
       "select": "Sprachen auswählen"
     },
     "MIME_TYPE": {
-      "name": "Dateiformat | Dateiformate",
+      "name": "Dateiformat",
       "options": {
         "text/plain": "Klartext"
       },
@@ -622,11 +628,11 @@ export default {
       "name": "Ausstellungsdatum"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Medien",
+      "name": "Medium",
       "select": "Medien auswählen"
     },
     "REUSABILITY": {
-      "name": "Kann ich es wiederverwenden?",
+      "name": "Kann ich das benutzen?",
       "options": {
         "open": "Ja",
         "permission": "Vielleicht, bitten Sie um Erlaubnis",
@@ -712,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Ist die Darstellung von",
       "edmIsSimilarTo": "Ist ähnlich wie",
       "edmIsSuccessorOf": "Ist Nachfolger von",
-      "edmProvider": "Anbieter",
+      "edmProvider": "Aggregator",
       "edmRealizes": "Realisiert",
       "edmRights": "Rechtehinweise der Medien in diesem Datensatz (sofern nicht anders angegeben)",
       "edmUgc": "Benutzergenerierte Inhalte",
@@ -747,7 +753,7 @@ export default {
       "help": "Hilfe",
       "MoreInfoLabel": "Mehr Infos",
       "privacy": "Datenschutz-Bestimmungen",
-      "provide": "Werden Sie Datenanbieter",
+      "provide": "Werden Sie Datenpartner",
       "subscribe": "Abonnieren Sie unseren Newsletter",
       "terms": "Nutzungsbedingungen"
     },
@@ -760,7 +766,7 @@ export default {
   },
   "galleries": {
     "description": "Erkunden Sie unsere Galerien",
-    "galleries": "Galerien"
+    "galleries": "Galerie | Galerien"
   },
   "header": {
     "backToMenu": "Suchfeld schließen",
@@ -792,10 +798,10 @@ export default {
     "discoverEditorial": "Neueste Geschichten",
     "storiesCTA": "Alle Geschichten ansehen",
     "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
-    "themesCTA": "Alle Themen anzeigen",
-    "themesTitle": "Erkunden Sie nach Thema",
-    "title": "Entdecken Sie das {digital} kulturelle Erbe Europas",
-    "titleDigital": "digitale"
+    "themesCTA": "Alle Themenbereiche anzeigen",
+    "themesTitle": "Erkunden Sie nach Themenbereiche",
+    "title": "Europa's {digital} Kulturerbe entdecken",
+    "titleDigital": "digitales"
   },
   "imageSlider": {
     "handle": "Schieberegler"
@@ -812,7 +818,7 @@ export default {
       "acceptAll": "Alle akzeptieren",
       "acceptSelected": "Ausgewählte akzeptieren",
       "consentModal": {
-        "description": "Wir nehmen Ihren Datenschutz ernst. Hier können Sie die Dienste, die wir auf dieser Website nutzen möchten, bewerten und anpassen. Du bist verantwortlich! Aktivieren oder deaktivieren Sie Dienste nach Belieben.",
+        "description": "Hier können Sie die Dienste sehen und anpassen, die wir auf dieser Website nutzen möchten. Um mehr zu erfahren, lesen Sie bitte unsere <a href='/rights/privacy-policy'> Datenschutzrichtlinie </a>.",
         "title": "Dienste, die wir gerne nutzen würden."
       },
       "consentNotice": {
@@ -986,7 +992,7 @@ export default {
     "location": "Ort",
     "locationOnMap": "Standort auf der Karte",
     "mediaPlayer": "Media Player",
-    "record": "Aufzeichnung",
+    "record": "Objekt",
     "showAll": "Alle Informationen anzeigen",
     "similarItems": "Ähnliche Objekte",
     "status": {
@@ -1015,7 +1021,7 @@ export default {
       "title": "Entdecken Sie verwandte Objekte"
     },
     "themes": {
-      "title": "Entdecken Sie verwandte Themen"
+      "title": "Entdecken Sie verwandte Themenbereiche"
     }
   },
   "removeFilter": "{filterLabel}-Filter entfernen",
@@ -1041,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} erweiterte Suche",
       "tooltip": {
+        "advancedSearch": "Mit der erweiterten Suche können Sie benutzerdefinierte Suchanfragen erstellen.",
         "field": "Wählen Sie ein Feld für die Suche aus.",
-        "modifier": "Wählen Sie einen Modifikator aus, der auf das Feld angewendet werden soll."
+        "modifier": "Wählen Sie einen Modifikator aus, der auf das Feld angewendet werden soll.",
+        "term": "Geben Sie die Begriffe ein, nach denen gesucht oder ausgeschlossen werden soll."
       }
     },
     "boost": {
@@ -1055,6 +1063,7 @@ export default {
       "withoutQuery": "{count} Ergebnisse",
       "withQuery": "{count} Ergebnisse für {query}"
     },
+    "selectTheme": "Die Auswahl eines THEMABEREICHE bietet möglicherweise weitere Filteroptionen, z. B. enthält das Thema „Zeitungen“ einen Filter „DATUM AUSGABE“.",
     "title": "Suche"
   },
   "searchFilters": "Suchfilter {count}",
@@ -1117,6 +1126,10 @@ export default {
       "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben."
     },
     "publication": {
+      "criteria": {
+        "description": "Um für eine Veröffentlichung infrage zu kommen, muss eine Galerie einen Titel und eine Beschreibung enthalten und mindestens 20 Objekte enthalten.",
+        "title": "Veröffentlichungskriterien"
+      },
       "description": "Wenn Sie eine Galerie veröffentlichen, wird sie auf Europeana.eu/galleries veröffentlicht.",
       "failedSubmission": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
       "process": {
@@ -1131,6 +1144,7 @@ export default {
       "toastButton": "Okay",
       "toastMessage": "Diese Galerie wird nun zur Veröffentlichung eingereicht. Sie können in {galleries} nachsehen, ob es veröffentlicht wurde."
     },
+    "setCount": "{count} Galerien",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) ist ein webbasiertes Tool zum Verwalten von Inhalten unterschiedlicher Art (einschließlich 3D), zum Dokumentieren des kulturellen Erbes durch digitale Gemeinschaftsräume und zum Kuratieren digitaler Geschichten und Erfahrungen."
@@ -1151,7 +1165,7 @@ export default {
     "title": "Geschichten"
   },
   "themes": {
-    "description": "Nach Thema durchsuchen",
+    "description": "Nach Themenbereiche durchsuchen",
     "themes": "Themenbereiche"
   },
   "website": "Webseite"

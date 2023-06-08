@@ -25,6 +25,7 @@ const searchResult = {
 
 const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {}) => shallowMountNuxt(SearchInterface, {
   localVue,
+  attachTo: document.body,
   mocks: {
     $t: (key) => key,
     localePath: () => '/',
@@ -66,7 +67,6 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
       locale: 'en'
     },
     $features: {
-      advancedSearch: false,
       ...mocks.$features || {}
     }
   },
@@ -489,9 +489,7 @@ describe('components/search/SearchInterface', () => {
       const profile = 'minimal';
       const wrapper = factory({
         mocks: {
-          $features: {
-            advancedSearch: true
-          },
+          $features: {},
           $route: {
             query: {
               qa: userQa,

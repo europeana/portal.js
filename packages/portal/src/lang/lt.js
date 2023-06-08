@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kuruojamos kolekcijos",
-    "curatedCollectionsInfo": "Žemiau rasite visas jūsų kuruotas kolekcijas",
     "editProfile": "Redaguoti profilį",
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
@@ -14,19 +13,26 @@ export default {
       "loggedOut": "Dabar esate prisijungę.",
       "noCollections": {
         "curated": "Dar ne kuravote jokių rinkinių",
-        "private": "Kol kas nesukūrėte jokių privačių galerijų",
-        "public": "Kol kas nesukūrėte jokių viešų galerijų",
-        "published": "Dar nepaskelbėte jokių galerijų"
+        "private": "Kol kas nesukūrėte jokių privačių parodos",
+        "public": "Kol kas nesukūrėte jokių viešų parodos",
+        "published": "Dar nepaskelbėte jokių parodos"
       },
       "noLikedItems": "Kol kas neturite pažymėtų skaitmeninių objektų"
     },
-    "privateCollections": "Privačios galerijos",
-    "profile": "Man patinkančios Skaitmeniniai objektai, kolekcijos ir galerijos",
+    "privateCollections": "Privačios parodos",
+    "profile": "Man patinkančios skaitmeniniai objektai, kolekcijos ir parodos",
     "profileSettings": "Profilio nustatymai",
-    "publicCollections": "Viešos galerijos",
-    "publishedCollections": "Paskelbtos Galerijos",
+    "publicCollections": "Viešos parodos",
+    "publishedCollections": "Paskelbtos Parodos",
     "settings": "Nustatymai",
-    "title": "Mano paskyra"
+    "title": "Mano paskyra",
+    "tooltip": {
+      "EntityBestItemsSet": "Kuruojamoje parodos rodomi prisegti konkrečios kolekcijos skaitmeniniai objektai",
+      "private": "Privačią galeriją galite peržiūrėti tik jūs.",
+      "public": "Viešą parodas gali peržiūrėti visi, turintys nuorodą.",
+      "published": "Paskelbtą parodas gali peržiūrėti bet kas ir ji gali būti pateikta mūsų parodos puslapyje.",
+      "reorder": "Galite pertvarkyti skaitmeniniai objektai spustelėdami šį mygtuką ir vilkdami skaitmeninis objektas, kad jį perkeltumėte."
+    }
   },
   "actions": {
     "accept": "Priimti",
@@ -79,13 +85,13 @@ export default {
     "title": "Pavadinimas:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerijos",
+    "gallery": "Parodos",
     "item": "Naujausi skaitmeniniai objektai",
     "organisation": "Organizacijos",
     "place": "Vietos",
     "theme": "Temos",
-    "time": "Rekomenduojami šimtmečiai",
-    "topic": "Temos"
+    "time": "Šimtmečiai",
+    "topic": "Potemė"
   },
   "blog": {
     "author": "Autorius",
@@ -121,7 +127,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "dizaineriai",
-          "name": "Projektuotojas",
+          "name": "Dizaineris",
           "select": "Pasirinkite dizainerius"
         },
         "proxy_dc_format": {
@@ -237,7 +243,7 @@ export default {
       "title": "Galerija nerasta"
     },
     "galleryUnauthorised": {
-      "description": "Tai neįmanoma, nes privačias galerijas mato tik jų kūrėjas. Jei pažįstate galerijos kūrėją, paprašykite, kad galerija būtų vieša. Arba praneškite apie šią problemą naudodami atsiliepimų mygtuką.",
+      "description": "Tai neįmanoma, nes privačias parodos  mato tik jų kūrėjas. Jei pažįstate galerijos kūrėją, paprašykite, kad galerija būtų vieša. Arba praneškite apie šią problemą naudodami atsiliepimų mygtuką.",
       "metaTitle": "Galerija neteisėta",
       "title": "Ups! {newline} Jūs bandote peržiūrėti kito asmens privačią galeriją."
     },
@@ -272,11 +278,11 @@ export default {
     "credits": "Kreditai",
     "currentChapter": "Dabartinis skyrius",
     "description": "Tyrinėti mūsų parodas",
-    "exhibitions": "Parodos"
+    "exhibitions": "Paroda | Parodos"
   },
   "facets": {
     "api": {
-      "name": "Ieškoti",
+      "name": "Ieškokite dokumentuose",
       "options": {
         "fulltext": "Skaitmeniniai objektai su visu tekstu",
         "metadata": "Tik metaduomenų skaitmeniniai objektai"
@@ -311,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "spalvos",
-      "name": "Spalva | Spalvos",
+      "name": "Spalva",
       "options": {
         "#000000": "Juoda",
         "#000080": "Tamsiai mėlyna",
@@ -530,9 +536,9 @@ export default {
       "select": "Pasirinkite kūrėjus"
     },
     "DATA_PROVIDER": {
-      "moreName": "institucijose",
-      "name": "Institucija",
-      "select": "Pasirinkite institucijas"
+      "moreName": "Teikėjai",
+      "name": "Teikianti institucija",
+      "select": "Pasirinkite teikėjai"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Vaizdo orientacija | Vaizdo orientacijos",
@@ -598,7 +604,7 @@ export default {
       "select": "Pasirinkite kalbas"
     },
     "MIME_TYPE": {
-      "name": "Failo formatas | Failų formatai",
+      "name": "Failo formatas",
       "options": {
         "text/plain": "Paprastas tekstas"
       },
@@ -615,18 +621,18 @@ export default {
       "select": "Pasirinkite formatus"
     },
     "proxy_dc_type": {
-      "name": "Tipas | Tipai",
+      "name": "Tipas | tipai",
       "select": "Pasirinkite tipus"
     },
     "proxy_dcterms_issued": {
       "name": "Išleidimo data"
     },
     "proxy_dcterms_medium": {
-      "name": "Laikmenos | Laikmena",
+      "name": "Vidutinis",
       "select": "Pasirinkite laikmeną"
     },
     "REUSABILITY": {
-      "name": "Ar galiu tai pakartotinai naudoti?",
+      "name": "Ar galiu tai naudoti?",
       "options": {
         "open": "Taip",
         "permission": "Galbūt, kreipkitės leidimo",
@@ -700,7 +706,7 @@ export default {
       "dctermsTemporal": "Laiko",
       "dctermsTOC": "Turinio lentelė",
       "dcTitle": "Pavadinimas",
-      "dcType": "Objekto tipas",
+      "dcType": "Skaitmeninis objektas tipas",
       "edmCountry": "Teikianti šalis",
       "edmCurrentLocation": "Dabartinė vieta",
       "edmDataProvider": "Teikianti institucija",
@@ -712,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Ar atstovavimas",
       "edmIsSimilarTo": "Yra panašus į",
       "edmIsSuccessorOf": "Yra įpėdinis",
-      "edmProvider": "Teikėjas",
+      "edmProvider": "Agregatorius",
       "edmRealizes": "Suvokia",
       "edmRights": "Šiame Skaitmeninis objektas esančios teisių pareikštys (jei nenurodyta kitaip)",
       "edmUgc": "Vartotojo sugeneruotas turinys",
@@ -747,7 +753,7 @@ export default {
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
-      "provide": "Tapkite duomenų partneriu",
+      "provide": "Tapkite Teikėjas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "terms": "Naudotojo sąlygos"
     },
@@ -759,8 +765,8 @@ export default {
     "listSeperator": ";"
   },
   "galleries": {
-    "description": "Tyrinėti mūsų galerijas",
-    "galleries": "Galerijos"
+    "description": "Tyrinėti mūsų parodos",
+    "galleries": "Paroda | parodos"
   },
   "header": {
     "backToMenu": "Uždaryti paieškos langą",
@@ -794,8 +800,8 @@ export default {
     "subHeadline": "Ieškokite, išsaugokite ir dalinkitės meno kūriniais, knygomis, filmais ir muzika iš tūkstančių kultūros įstaigų",
     "themesCTA": "Žiūrėti visas temas",
     "themesTitle": "Naršykite pagal temą",
-    "title": "Pažinkite Europos {digital} kultūros paveldą",
-    "titleDigital": "Skaitmeninis"
+    "title": "Atraskite {digital} Europos kultūros paveldą",
+    "titleDigital": "skaitmenintą"
   },
   "imageSlider": {
     "handle": "Slinkiklio rankena"
@@ -812,7 +818,7 @@ export default {
       "acceptAll": "Priimti visus",
       "acceptSelected": "Priimti pasirinktą",
       "consentModal": {
-        "description": "Mes rimtai žiūrime į jūsų duomenų privatumą. Čia galite įvertinti ir pritaikyti paslaugas, kurias norėtume naudoti šioje svetainėje. Jūs esate atsakingas! Įjunkite arba išjunkite paslaugas, kaip jums atrodo tinkama.",
+        "description": "Čia galite peržiūrėti ir tinkinti paslaugas, kuriomis norėtume naudotis šioje svetainėje. Norėdami sužinoti daugiau, perskaitykite mūsų <a href='/rights/privacy-policy'> privatumo politiką </a>.",
         "title": "Paslaugos, kuriomis norėtume naudotis."
       },
       "consentNotice": {
@@ -906,7 +912,7 @@ export default {
   "multilingual": {
     "automated": "Automatinis vertimas",
     "enrichment": "Praturtinimas partnerių projektais",
-    "other": "Kitos kalbos",
+    "other": "kitos kalbos",
     "stopTranslating": "Nustokite versti šį skaitmeninį objektą į {0}.",
     "translateLanguage": "Ar norėtumėte pamatyti šį skaitmeninį objektą {0}?",
     "translateMetadata": "Išverskite šį skaitmeninį objektą metaduomenimis.",
@@ -956,7 +962,7 @@ export default {
         "title": "Laikai"
       },
       "topics": {
-        "title": "Temos"
+        "title": "Potemė"
       }
     }
   },
@@ -1007,8 +1013,8 @@ export default {
       "title": "Istorijos, kurios jums gali patikti"
     },
     "galleries": {
-      "name": "Susijusios galerijos",
-      "title": "Atraskite susijusias galerijas"
+      "name": "Susijusios parodos",
+      "title": "Atraskite susijusias parodos"
     },
     "items": {
       "loginForMore": "Prisijunkite, kad pamatytumėte kitus susijusius skaitmeninius objektus",
@@ -1041,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} išplėstinė paieška",
       "tooltip": {
+        "advancedSearch": "Išplėstinė paieška leidžia kurti pasirinktines paieškos užklausas.",
         "field": "Pasirinkite lauką, kuriame norite ieškoti.",
-        "modifier": "Pasirinkite modifikatorių, kurį taikyti laukui."
+        "modifier": "Pasirinkite modifikatorių, kurį taikyti laukui.",
+        "term": "Įveskite terminą (-us), kurio (-ių) norite ieškoti arba išskirti."
       }
     },
     "boost": {
@@ -1055,6 +1063,7 @@ export default {
       "withoutQuery": "{count} rezultatai",
       "withQuery": "{count} rezultatai pagal {query}"
     },
+    "selectTheme": "Pasirinkus TEMĄ, gali būti suteikta papildomų filtravimo parinkčių, pvz., temoje \"Laikraščiai\" yra filtras \"IŠLEIDIMO DATA\".",
     "title": "Paieška"
   },
   "searchFilters": "Paieškos filtrai {count}",
@@ -1117,7 +1126,11 @@ export default {
       "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas skaitmeniniai objektai."
     },
     "publication": {
-      "description": "Paskelbus galeriją ji bus rodoma Europeana.eu/galleries.",
+      "criteria": {
+        "description": "Kad būtų svarstoma galimybė paskelbti paroda, ji turi turėti pavadinimą, aprašą ir mažiausiai 20 skaitmeniniai objektai.",
+        "title": "Publikavimo kriterijai"
+      },
+      "description": "Paskelbus paroda ji bus rodoma Europeana.eu/galleries.",
       "failedSubmission": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
       "process": {
         "description": "Kai pateiksite galeriją publikavimui, apie tai bus pranešta \"Europeana\" leidėjų komandai. Jie pirmiausia ją peržiūrės ir prieš publikuodami gali padaryti pakeitimų. Gausite pranešimus el. paštu, kai galerija bus peržiūrėta. Jei ji nebus paskelbta, gali būti, kad ji neatitinka mūsų redakcinių gairių.",
@@ -1129,8 +1142,9 @@ export default {
       },
       "title": "Pateikti galeriją publikavimui",
       "toastButton": "Gerai",
-      "toastMessage": "Ši galerija dabar pateikta publikuoti. Galite patikrinti {galleries}, kad sužinotumėte, ar jis buvo paskelbtas."
+      "toastMessage": "Ši paroda dabar pateikta publikuoti. Galite patikrinti {galleries}, kad sužinotumėte, ar jis buvo paskelbtas."
     },
+    "setCount": "{count} parodos",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) - tai žiniatinklio įrankis, skirtas įvairių tipų turiniui (įskaitant 3D) tvarkyti, kultūros paveldui dokumentuoti skaitmeninėse bendruomenės erdvėse ir skaitmeninėms istorijoms bei patirtims kuruoti."

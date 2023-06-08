@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Kollezzjonijiet Kurati",
-    "curatedCollectionsInfo": "Sib hawn taħt il-kollezzjonijiet kollha li kkurajt",
     "editProfile": "Editja l-profil",
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
@@ -26,7 +25,14 @@ export default {
     "publicCollections": "Direttorji tar-Ritratti Pubbliċi",
     "publishedCollections": "Galleriji Ippubblikati",
     "settings": "Settings",
-    "title": "Il-kont tiegħi"
+    "title": "Il-kont tiegħi",
+    "tooltip": {
+      "EntityBestItemsSet": "Gallerija kkurata turi l-oġġetti ippinjati fi ħdan kollezzjoni speċifika",
+      "private": "Gallerija privata tista' taraha biss int.",
+      "public": "Gallerija pubblika tista' taraha kull min għandu l-link.",
+      "published": "Gallerija ppubblikata tista' taraha kulħadd, u tista' tidher fuq il-paġna tal-Galleriji tagħna.",
+      "reorder": "Tista 'terġa' tordna oġġetti billi tikklikkja din il-buttuna u tkaxkar l-oġġett biex iċċaqlaqha."
+    }
   },
   "actions": {
     "accept": "Aċċetta",
@@ -84,8 +90,8 @@ export default {
     "organisation": "Organizzazzjonijiet",
     "place": "Postijiet",
     "theme": "Temi",
-    "time": "Sekli dehru",
-    "topic": "Suġġetti temi"
+    "time": "Sekli",
+    "topic": "Suġġetti"
   },
   "blog": {
     "author": "Awtur",
@@ -121,7 +127,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "disinjaturi",
-          "name": "Disinjatur | Disinjaturi",
+          "name": "Disinjatur",
           "select": "Agħżel disinjaturi"
         },
         "proxy_dc_format": {
@@ -131,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "tipi ta' oġġetti",
-          "name": "Tip ta' oġġett | Tipi ta' oġġett",
+          "name": "Tip ta 'oġġett",
           "select": "Agħżel tipi ta 'oġġetti"
         },
         "proxy_dcterms_medium": {
@@ -276,7 +282,7 @@ export default {
   },
   "facets": {
     "api": {
-      "name": "Fittex",
+      "name": "Fittex fi ħdan id-dokumenti",
       "options": {
         "fulltext": "Oġġetti bit-test sħiħ",
         "metadata": "Oġġetti tal-metadata biss"
@@ -311,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "kuluri",
-      "name": "Kulur | Kuluri",
+      "name": "Kulur",
       "options": {
         "#000000": "Iswed",
         "#000080": "Navy Blu",
@@ -530,9 +536,9 @@ export default {
       "select": "Agħżel ħallieqa"
     },
     "DATA_PROVIDER": {
-      "moreName": "istituzzjonijiet",
-      "name": "Istituzzjoni | Istituzzjonijiet",
-      "select": "Agħżel istituzzjonijiet"
+      "moreName": "istituzzjoni fornitriċi",
+      "name": "Istituzzjoni fornitriċi",
+      "select": "Agħżel istituzzjoni fornitriċi"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orjentazzjoni tal-istampa | Orjentazzjonijiet tal-istampa",
@@ -598,7 +604,7 @@ export default {
       "select": "Agħżel il-lingwi"
     },
     "MIME_TYPE": {
-      "name": "Format tal-fajl | Formati tal-fajl",
+      "name": "Format tal-fajl",
       "options": {
         "text/plain": "Test bla format"
       },
@@ -615,18 +621,18 @@ export default {
       "select": "Agħżel formati"
     },
     "proxy_dc_type": {
-      "name": "Tip | Tipi",
+      "name": "Tip | tipi",
       "select": "Agħżel tipi"
     },
     "proxy_dcterms_issued": {
       "name": "Data ta' ħruġ"
     },
     "proxy_dcterms_medium": {
-      "name": "Mezz | Midja",
+      "name": "Medju",
       "select": "Agħżel il-midja"
     },
     "REUSABILITY": {
-      "name": "Nista' nuża dan?",
+      "name": "Nista nuża dan?",
       "options": {
         "open": "Iva",
         "permission": "Forsi, ġib permess",
@@ -712,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Hija rappreżentazzjoni ta'",
       "edmIsSimilarTo": "Hija simili għal",
       "edmIsSuccessorOf": "Huwa s-suċċessur ta'",
-      "edmProvider": "Fornitur",
+      "edmProvider": "Aggregatur",
       "edmRealizes": "Iwettaq",
       "edmRights": "Dikjarazzjoni tad-drittijiet tal-midja f'dan ir-rekord (sakemm mhux speċifikat mod ieħor)",
       "edmUgc": "Kontenut iġġenerat mill-utent",
@@ -760,7 +766,7 @@ export default {
   },
   "galleries": {
     "description": "Esplora d-direttorji tar-ritratti tagħna",
-    "galleries": "Direttorju tar-Ritratti | Direttorji tar-Ritratti"
+    "galleries": "Gallerija | Galleriji"
   },
   "header": {
     "backToMenu": "Agħlaq il-Kaxxa tat-Tiftix",
@@ -812,7 +818,7 @@ export default {
       "acceptAll": "Aċċetta kollox",
       "acceptSelected": "Aċċetta magħżula",
       "consentModal": {
-        "description": "Aħna nieħdu l-privatezza tad-data tiegħek bis-serjetà. Hawnhekk tista 'tivvaluta u tippersonalizza s-servizzi li nixtiequ nużaw fuq din il-websajt. Int inkarigat! Ippermetti jew itfi s-servizzi kif tarah xieraq.",
+        "description": "Hawnhekk tista' tara u tippersonalizza s-servizzi li nixtiequ nużaw fuq din il-websajt. Biex titgħallem aktar jekk jogħġbok aqra l- <a href='/rights/privacy-policy'> politika ta' privatezza tagħna </a>.",
         "title": "Servizzi li nixtiequ nużaw."
       },
       "consentNotice": {
@@ -906,7 +912,7 @@ export default {
   "multilingual": {
     "automated": "Traduzzjoni awtomatizzata",
     "enrichment": "Arrikkiment minn proġetti msieħba",
-    "other": "Lingwi oħra",
+    "other": "lingwi oħra",
     "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
     "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
     "translateMetadata": "Ittraduċi l-metadejta ta' dan l-oġġett.",
@@ -964,7 +970,7 @@ export default {
     "label": "Paġnar"
   },
   "provider": {
-    "linkText": "Ara fuq il-websajt tal-fornitur",
+    "linkText": "Ara fuq il-websajt tal-istituzzjoni li tipprovdi",
     "providedBy": "Dan l-oġġett huwa pprovdut u miżmum minn {provider}"
   },
   "recommendation": {
@@ -986,7 +992,7 @@ export default {
     "location": "Post",
     "locationOnMap": "Post fuq il-mappa",
     "mediaPlayer": "Plejer tal-midja",
-    "record": "Rekord",
+    "record": "Oġġett",
     "showAll": "Uri l-informazzjoni kollha",
     "similarItems": "Oġġetti simili",
     "status": {
@@ -1041,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} tfittxija avvanzata",
       "tooltip": {
+        "advancedSearch": "It-tfittxija avvanzata tippermettilek tibni mistoqsijiet ta' tfittxija personalizzati.",
         "field": "Agħżel qasam biex tfittex.",
-        "modifier": "Agħżel modifikatur biex tapplika għall-qasam."
+        "modifier": "Agħżel modifikatur biex tapplika għall-qasam.",
+        "term": "Daħħal it-terminu(i) biex tfittex, jew biex teskludi."
       }
     },
     "boost": {
@@ -1055,6 +1063,7 @@ export default {
       "withoutQuery": "{count} riżultati",
       "withQuery": "{count} riżultati għal {query}"
     },
+    "selectTheme": "L-għażla ta' TEMA tista' tipprovdi aktar għażliet ta' filtri, eż. it-tema tal-Gazzetti tinkludi filtru DATA ĦRUĠ.",
     "title": "Fittex"
   },
   "searchFilters": "Fittex filtri {count}",
@@ -1117,6 +1126,10 @@ export default {
       "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha."
     },
     "publication": {
+      "criteria": {
+        "description": "Biex tiġi kkunsidrata għall-pubblikazzjoni, gallerija trid tinkludi titolu u deskrizzjoni, u għandu jkun fiha minimu ta’ 20 oġġett.",
+        "title": "Kriterji ta' pubblikazzjoni"
+      },
       "description": "Il-pubblikazzjoni ta' gallerija ser tidher fuq Europeana.eu/galleries.",
       "failedSubmission": "It-talba falliet. Jekk jogħġbok erġa pprova.",
       "process": {
@@ -1131,6 +1144,7 @@ export default {
       "toastButton": "Okay",
       "toastMessage": "Din il-gallerija issa hija sottomessa għall-pubblikazzjoni. Tista' tiċċekkja {galleries} biex tara jekk ġietx ippubblikata."
     },
+    "setCount": "{count} galleriji",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) hija għodda bbażata fuq il-web għall-ġestjoni ta' kontenut ta' tipi differenti (inkluż 3D), id-dokumentazzjoni tal-wirt kulturali permezz ta' spazji tal-komunità diġitali, u l-kura ta' stejjer u esperjenzi diġitali."

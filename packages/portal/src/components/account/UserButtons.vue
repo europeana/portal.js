@@ -13,11 +13,14 @@
     />
     <b-button
       v-if="showMove"
+      v-b-tooltip.bottom
       class="move-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       data-qa="item move button"
       :variant="buttonVariant"
       :aria-label="$t('actions.move')"
+      :title="$t('account.tooltip.reorder')"
+      @mouseleave="hideTooltips"
     >
       <span class="icon-ic-move-xy" />
       {{ buttonText ? $t('actions.move') : '' }}
@@ -91,6 +94,12 @@
       buttonText: {
         type: Boolean,
         default: false
+      }
+    },
+
+    methods: {
+      hideTooltips() {
+        this.$root.$emit('bv::hide::tooltip');
       }
     }
   };

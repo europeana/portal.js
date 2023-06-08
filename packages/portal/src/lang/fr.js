@@ -1,7 +1,6 @@
 export default {
   "account": {
     "curatedCollections": "Collections organisées",
-    "curatedCollectionsInfo": "Retrouvez ci-dessous toutes les collections que vous avez organisées",
     "editProfile": "Modifier le profil",
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
@@ -26,7 +25,14 @@ export default {
     "publicCollections": "Galeries publiques",
     "publishedCollections": "Galeries Publiées",
     "settings": "Paramètres",
-    "title": "Mon compte"
+    "title": "Mon compte",
+    "tooltip": {
+      "EntityBestItemsSet": "Une galerie curative présente les éléments épinglés dans une collection spécifique.",
+      "private": "Une galerie privée ne peut être vue que par vous.",
+      "public": "Une galerie publique peut être consultée par toute personne disposant du lien.",
+      "published": "Une galerie publiée peut être vue par n'importe qui et peut être présentée sur notre page Galeries.",
+      "reorder": "Vous pouvez réorganiser les éléments en cliquant sur ce bouton et en faisant glisser l'élément pour le déplacer."
+    }
   },
   "actions": {
     "accept": "Accepter",
@@ -84,8 +90,8 @@ export default {
     "organisation": "Organisations",
     "place": "Des endroits",
     "theme": "Thèmes",
-    "time": "Des siècles en vedette",
-    "topic": "Sujets d'actualité"
+    "time": "Des siècles",
+    "topic": "Sujets"
   },
   "blog": {
     "author": "Auteur",
@@ -121,7 +127,7 @@ export default {
       "facets": {
         "CREATOR": {
           "moreName": "concepteurs",
-          "name": "Concepteur | Concepteurs",
+          "name": "Concepteur",
           "select": "Sélectionnez des concepteurs"
         },
         "proxy_dc_format": {
@@ -131,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "types d’éléments",
-          "name": "Type d'élément | Types d'éléments",
+          "name": "Type d'élément",
           "select": "Sélectionnez les types d'éléments"
         },
         "proxy_dcterms_medium": {
@@ -272,13 +278,13 @@ export default {
     "credits": "Crédits",
     "currentChapter": "Chapitre actuel",
     "description": "Explorez les expositions",
-    "exhibitions": "Expositions"
+    "exhibitions": "Exposition | Expositions"
   },
   "facets": {
     "api": {
-      "name": "Rechercher",
+      "name": "Rechercher dans les documents",
       "options": {
-        "fulltext": "Enregistrements avec texte intégral",
+        "fulltext": "Éléments avec texte intégral",
         "metadata": "Enregistrements de métadonnées uniquement"
       },
       "switch": "Recherche uniquement dans le contenu des articles avec texte intégral",
@@ -311,7 +317,7 @@ export default {
     },
     "COLOURPALETTE": {
       "moreName": "couleurs",
-      "name": "Couleur | Couleurs",
+      "name": "Couleur",
       "options": {
         "#000000": "Noir",
         "#000080": "Bleu marin",
@@ -461,7 +467,7 @@ export default {
       "select": "Sélectionnez les couleurs"
     },
     "contentTier": {
-      "name": "Qualité de l'article",
+      "name": "Qualité d'élément",
       "options": {
         "*": "Inclut les éléments ne répondant pas à nos critères de publication",
         "0": "Ne répondant pas aux critères de publication",
@@ -530,9 +536,9 @@ export default {
       "select": "Sélectionnez les créateurs"
     },
     "DATA_PROVIDER": {
-      "moreName": "institutions",
-      "name": "Institution",
-      "select": "Sélectionner les institutions"
+      "moreName": "Institution fournisseuse",
+      "name": "Institution fournisseuse",
+      "select": "Sélectionnez l'institution fournisseuse"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientation de l'image | Orientations de l'image",
@@ -598,7 +604,7 @@ export default {
       "select": "Sélectionnez les langues"
     },
     "MIME_TYPE": {
-      "name": "Format de fichier | Formats de fichiers",
+      "name": "Format de fichier",
       "options": {
         "text/plain": "Texte brut"
       },
@@ -615,18 +621,18 @@ export default {
       "select": "Sélectionnez les formats"
     },
     "proxy_dc_type": {
-      "name": "Type | Types",
+      "name": "Type | types",
       "select": "Sélectionnez les types"
     },
     "proxy_dcterms_issued": {
       "name": "Date de publication"
     },
     "proxy_dcterms_medium": {
-      "name": "Média | Médias",
+      "name": "Médium",
       "select": "Sélectionnez le média"
     },
     "REUSABILITY": {
-      "name": "Puis-je le réutiliser ?",
+      "name": "Puis-je l'utiliser?",
       "options": {
         "open": "Oui",
         "permission": "Peut-être, demandez la permission",
@@ -700,7 +706,7 @@ export default {
       "dctermsTemporal": "Période",
       "dctermsTOC": "Table des matières",
       "dcTitle": "Titre",
-      "dcType": "Type d'objet",
+      "dcType": "Type d'élément",
       "edmCountry": "Pays fournisseur",
       "edmCurrentLocation": "Emplacement actuel",
       "edmDataProvider": "Institution fournisseuse",
@@ -712,7 +718,7 @@ export default {
       "edmIsRepresentationOf": "Est la représentation de",
       "edmIsSimilarTo": "Est identique à",
       "edmIsSuccessorOf": "Est la suite de",
-      "edmProvider": "Fournisseur",
+      "edmProvider": "Agrégateur",
       "edmRealizes": "Réalise",
       "edmRights": "Licence du support dans cet enregistrement (sauf indication contraire)",
       "edmUgc": "Contenu généré par l'utilisateur",
@@ -747,7 +753,7 @@ export default {
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
       "privacy": "Politique de confidentialité",
-      "provide": "Devenez un fournisseur de données",
+      "provide": "Devenir une institution fournisseuse",
       "subscribe": "Abonnez-vous à notre newsletter",
       "terms": "Conditions d'utilisation"
     },
@@ -760,7 +766,7 @@ export default {
   },
   "galleries": {
     "description": "Explorez nos galeries",
-    "galleries": "Galeries"
+    "galleries": "Galerie | Galeries"
   },
   "header": {
     "backToMenu": "Fermer la boîte de recherche",
@@ -812,7 +818,7 @@ export default {
       "acceptAll": "Accepter tout",
       "acceptSelected": "Accepter sélectionné",
       "consentModal": {
-        "description": "Nous prenons au sérieux la confidentialité de vos données. Vous pouvez ici évaluer et personnaliser les services que nous souhaitons utiliser sur ce site. C'est vous qui décidez ! Activez ou désactivez les services comme bon vous semble.",
+        "description": "Ici, vous pouvez voir et personnaliser les services que nous aimerions utiliser sur ce site Web. Pour en savoir plus, veuillez lire notre <a href='/rights/privacy-policy'> politique de confidentialité </a>.",
         "title": "Services que nous aimerions utiliser."
       },
       "consentNotice": {
@@ -906,7 +912,7 @@ export default {
   "multilingual": {
     "automated": "Traduction automatisée",
     "enrichment": "Enrichissement par des projets partenaires",
-    "other": "Autres langues",
+    "other": "autres langues",
     "stopTranslating": "Arrêtez de traduire cet élément en {0}.",
     "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?",
     "translateMetadata": "Traduisez les métadonnées de cet élément.",
@@ -964,7 +970,7 @@ export default {
     "label": "Pagination"
   },
   "provider": {
-    "linkText": "Vue sur le site internet du prestataire",
+    "linkText": "Vue sur le site internet de l'institution fournisseuse",
     "providedBy": "Cet élément est fourni et maintenu par {provider}"
   },
   "recommendation": {
@@ -986,7 +992,7 @@ export default {
     "location": "Emplacement",
     "locationOnMap": "Localisation sur la carte",
     "mediaPlayer": "Lecteur multimédia",
-    "record": "Enregistrement",
+    "record": "Élément",
     "showAll": "Afficher toutes les informations",
     "similarItems": "Éléments similaires",
     "status": {
@@ -1041,8 +1047,10 @@ export default {
       },
       "show": "{showOrHide} recherche avancée",
       "tooltip": {
+        "advancedSearch": "La recherche avancée vous permet de créer des requêtes de recherche personnalisées.",
         "field": "Sélectionnez un champ pour effectuer la recherche",
-        "modifier": "Sélectionnez un modificateur à appliquer au champ."
+        "modifier": "Sélectionnez un modificateur à appliquer au champ.",
+        "term": "Saisissez le(s) terme(s) à rechercher ou à exclure."
       }
     },
     "boost": {
@@ -1055,6 +1063,7 @@ export default {
       "withoutQuery": "{count} résultats",
       "withQuery": "{count} résultats pour {query}"
     },
+    "selectTheme": "La sélection d'un THÈME peut fournir d'autres options de filtre, par exemple le thème Journaux inclut un filtre DATE DE PARUTION.",
     "title": "Rechercher"
   },
   "searchFilters": "Filtres de recherche {count}",
@@ -1117,6 +1126,10 @@ export default {
       "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les éléments que vous y avez ajoutés."
     },
     "publication": {
+      "criteria": {
+        "description": "Pour être considérée pour publication, une galerie doit inclure un titre et une description, et doit contenir un minimum de 20 éléments.",
+        "title": "Critères de publication"
+      },
       "description": "La publication d'une galerie la présentera sur Europeana.eu/galleries.",
       "failedSubmission": "La demande a échoué. Veuillez réessayer.",
       "process": {
@@ -1131,6 +1144,7 @@ export default {
       "toastButton": "D'accord",
       "toastMessage": "Cette galerie est maintenant soumise pour publication. Vous pouvez vérifier {galleries} pour voir s'il a été publié."
     },
+    "setCount": "{count} galeries",
     "shareTo": {
       "weavex": {
         "tooltip": "WEAVExperience (WEAVEx) est un outil Web permettant de gérer des contenus de différents types (y compris 3D), de documenter le patrimoine culturel par le biais d'espaces communautaires numériques et de conserver des histoires et des expériences numériques."

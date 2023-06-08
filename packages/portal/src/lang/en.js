@@ -30,7 +30,8 @@ export default {
       "EntityBestItemsSet": "A curated gallery shows the pinned items within a specific collection",
       "private": "A private gallery can only be viewed by you.",
       "public": "A public gallery can be viewed by anyone with the link.",
-      "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page."
+      "published": "A published gallery can be viewed by anyone, and may be featured on our Galleries page.",
+      "reorder": "You can reorder items by clicking this button and dragging the item to move it."
     }
   },
   "actions": {
@@ -493,9 +494,9 @@ export default {
       "select": "Select creators"
     },
     "DATA_PROVIDER": {
-      "moreName": "institutions",
-      "name": "Institution",
-      "select": "Select institutions"
+      "moreName": "providing institutions",
+      "name": "Providing institution",
+      "select": "Select providing institutions"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Image orientation",
@@ -715,7 +716,7 @@ export default {
       "dcSource": "Source",
       "dcSubject": "Subject",
       "dcTitle": "Title",
-      "dcType": "Type of object",
+      "dcType": "Type of item",
       "dctermsAlternative": "Alternative title",
       "dctermsCreated": "Creation date",
       "dctermsExtent": "Extent",
@@ -744,7 +745,7 @@ export default {
       "edmIsRepresentationOf": "Is representation of",
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
-      "edmProvider": "Provider",
+      "edmProvider": "Aggregator",
       "edmRealizes": "Realises",
       "edmRights": "Rights statement for the media in this item (unless otherwise specified)",
       "edmUgc": "User generated content",
@@ -779,7 +780,7 @@ export default {
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
-      "provide": "Become a data partner",
+      "provide": "Become a providing institution",
       "subscribe": "Subscribe to our newsletter",
       "terms": "Terms of use"
     },
@@ -996,7 +997,7 @@ export default {
     "label": "Pagination"
   },
   "provider": {
-    "linkText": "View on the provider's website",
+    "linkText": "View on the providing institution's website",
     "providedBy": "This item is provided and maintained by {provider}"
   },
   "recommendation": {
@@ -1073,8 +1074,10 @@ export default {
       },
       "show": "{showOrHide} advanced search",
       "tooltip": {
-        "field": "Select a field to search on.",
-        "modifier": "Select a modifier to apply to the field."
+        "advancedSearch": "The advanced search allows you to build custom search queries.",
+        "field": "Select the metadata field to search within.",
+        "modifier": "Choose how this field should modify the search.",
+        "term": "Enter the term(s) to search for, or to exclude."
       }
     },
     "boost": {
@@ -1087,6 +1090,7 @@ export default {
       "withoutQuery": "{count} results",
       "withQuery": "{count} results for {query}"
     },
+    "selectTheme": "Selecting a THEME may provide further filter options, e.g. the Newspapers theme includes a DATE ISSUED filter.",
     "title": "Search"
   },
   "searchFilters": "Search filters {count}",
@@ -1149,6 +1153,10 @@ export default {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     },
     "publication": {
+      "criteria": {
+        "title": "Publication criteria",
+        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum of 20 items."
+      },
       "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
       "failedSubmission": "The request failed. Please try again.",
       "process": {
