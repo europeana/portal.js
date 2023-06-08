@@ -11,11 +11,6 @@
     text-decoration: none;
   }
 
-  &.multilingual-selector .dropdown-menu {
-    max-height: 50vh;
-    overflow: auto;
-  }
-
   .dropdown-toggle {
     background: $white;
     font-size: $font-size-small;
@@ -86,7 +81,7 @@
       color: $mediumgrey;
     }
 
-    [role="group"] {
+    [role='group'] {
       margin-left: 1rem;
     }
 
@@ -185,6 +180,11 @@
         }
       }
     }
+  }
+
+  &.multilingual-selector .dropdown-menu {
+    max-height: 50vh;
+    overflow: auto;
   }
 }
 

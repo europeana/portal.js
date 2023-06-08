@@ -47,7 +47,7 @@
               variant="light-flat"
             />
           </b-dropdown-item-button>
-          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-divider />
           <b-dropdown-group header="Aggregated fields">
             <b-dropdown-item-button
               v-for="(fieldOption, index) in aggregatedFieldOptions"
@@ -57,7 +57,7 @@
               {{ fieldOption.text }}
             </b-dropdown-item-button>
           </b-dropdown-group>
-          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-divider />
           <b-dropdown-group header="Individual fields">
             <b-dropdown-item-button
               v-for="(fieldOption, index) in individualFieldOptions"
@@ -183,7 +183,7 @@
         modifier: null,
         term: null,
         fulltextFieldName: 'fulltext',
-        aggregatedFieldNames:['who', 'where', 'when', 'what']
+        aggregatedFieldNames: ['who', 'where', 'when', 'what']
       };
     },
 
