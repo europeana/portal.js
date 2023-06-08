@@ -755,6 +755,10 @@ export default {
       "timestampCreated": "Timestamp created",
       "timestampUpdate": "Timestamp updated",
       "wasPresentAt": "Was present at",
+      "what": "What",
+      "when": "When",
+      "where": "Where",
+      "who": "Who",
       "year": "Year"
     },
     "webResource": {

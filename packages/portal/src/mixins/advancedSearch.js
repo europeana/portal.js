@@ -34,6 +34,10 @@ export default {
         { name: 'proxy_edm_currentLocation', type: FIELD_TYPE_STRING },
         { name: 'proxy_edm_hasMet', type: FIELD_TYPE_STRING },
         { name: 'proxy_edm_isRelatedTo', type: FIELD_TYPE_STRING },
+        { name: 'what', type: FIELD_TYPE_TEXT },
+        { name: 'when', type: FIELD_TYPE_TEXT },
+        { name: 'where', type: FIELD_TYPE_TEXT },
+        { name: 'who', type: FIELD_TYPE_TEXT },
         { name: 'YEAR', type: FIELD_TYPE_STRING }
       ],
       advancedSearchModifiers: [

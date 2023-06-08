@@ -31,44 +31,41 @@
             </template>
           </span>
         </template>
-        <!-- <b-form-select
-          :id="`select-field-${id}`"
-          v-model="field"
-          :options="selectFieldOptions"
-          :required="areAllRequired"
-          @change="(value) => handleFieldChange(value)"
-        /> -->
         <b-dropdown
-          text="Select a field"
+          :text="fieldDropdownText"
           block
           no-flip
         >
-          <b-dropdown-item>
-            <span>Full-text</span>
+          <b-dropdown-item-button
+            @click="handleFieldChange(fulltextFieldName)"
+          >
+            <span>{{ advancedSearchFieldLabel(fulltextFieldName) }}</span>
             <b-button
               v-b-tooltip.bottom
               title="Full-text includes transcriptions, closed captions, subtitles and document text."
               class="icon-info-outline p-0 tooltip-button"
               variant="light-flat"
             />
-          </b-dropdown-item>
+          </b-dropdown-item-button>
           <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-group header="Aggregated fields">
-            <b-dropdown-item
-              v-for="(fieldOption, index) in ['What', 'Where', 'When', 'Who']"
+            <b-dropdown-item-button
+              v-for="(fieldOption, index) in aggregatedFieldOptions"
               :key="index"
+              @click="handleFieldChange(fieldOption.value)"
             >
-              {{ fieldOption }}
-            </b-dropdown-item>
+              {{ fieldOption.text }}
+            </b-dropdown-item-button>
           </b-dropdown-group>
           <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-group header="Individual fields">
-            <b-dropdown-item
-              v-for="(fieldOption, index) in selectFieldOptions"
+            <b-dropdown-item-button
+              v-for="(fieldOption, index) in individualFieldOptions"
               :key="index"
+              @click="handleFieldChange(fieldOption.value)"
             >
               {{ fieldOption.text }}
-            </b-dropdown-item>
+            </b-dropdown-item-button>
           </b-dropdown-group>
         </b-dropdown>
       </b-form-group>
@@ -184,7 +181,9 @@
       return {
         field: this.value.field,
         modifier: this.value.modifier,
-        term: this.value.term
+        term: this.value.term,
+        fulltextFieldName: 'fulltext',
+        aggregatedFieldNames:['who', 'where', 'when', 'what']
       };
     },
 
@@ -194,11 +193,25 @@
       areAllRequired() {
         return [this.value.term, this.value.field, this.value.modifier].some((value) => !!value);
       },
-      selectFieldOptions() {
-        return this.advancedSearchFields.map((field) => ({
-          value: field.name,
-          text: this.advancedSearchFieldLabel(field.name)
-        }))
+      aggregatedFieldOptions() {
+        return this.advancedSearchFields
+          .filter((field) => this.aggregatedFieldNames.includes(field.name))
+          .map((field) => ({
+            value: field.name,
+            text: this.advancedSearchFieldLabel(field.name)
+          }))
+          .sort((a, b) => a.text.localeCompare(b.text));
+      },
+      fieldDropdownText() {
+        return this.field ? this.advancedSearchFieldLabel(this.field) : 'Select a field';
+      },
+      individualFieldOptions() {
+        return this.advancedSearchFields
+          .filter((field) => !this.aggregatedFieldNames.includes(field.name) && (field.name !== this.fulltextFieldName))
+          .map((field) => ({
+            value: field.name,
+            text: this.advancedSearchFieldLabel(field.name)
+          }))
           .sort((a, b) => a.text.localeCompare(b.text));
       },
       selectModifierOptions() {
@@ -221,6 +234,7 @@
     },
 
     methods: {
+
       clearRule() {
         this.$emit('clear');
       },
