@@ -33,6 +33,8 @@ export default {
     keycloakLogin() {
       this.$keycloak.auth?.login({
         locale: this.$i18n.locale,
+        // FIXME: this should go to /account/callback, which should then
+        //        redirect to the original page
         redirectUri: `${window.location.origin}${this.keycloakLoginRedirect}`
       });
       // this.$auth.$storage.setUniversal('redirect', this.keycloakLoginRedirect);
