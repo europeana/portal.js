@@ -4,12 +4,12 @@
       <label
         :for="name"
       >
-        Search in fulltext
+        Search in full-text
       </label>
     </h3>
     <b-button
       v-b-tooltip.bottom
-      title="Full text includes transcriptions, closed caption, subtitles and document text."
+      title="Full-text includes transcriptions, closed captions, subtitles and document text."
       class="icon-info-outline p-0 tooltip-button"
       variant="light-flat"
     />
