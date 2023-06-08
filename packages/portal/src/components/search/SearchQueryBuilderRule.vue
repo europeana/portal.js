@@ -179,9 +179,9 @@
 
     data() {
       return {
-        field: this.value.field,
-        modifier: this.value.modifier,
-        term: this.value.term,
+        field: null,
+        modifier: null,
+        term: null,
         fulltextFieldName: 'fulltext',
         aggregatedFieldNames:['who', 'where', 'when', 'what']
       };
@@ -225,16 +225,22 @@
     watch: {
       value: {
         deep: true,
-        handler(value) {
-          this.field = value.field;
-          this.modifier = value.modifier;
-          this.term = value.term;
+        handler() {
+          this.initData();
         }
       }
     },
 
-    methods: {
+    created() {
+      this.initData();
+    },
 
+    methods: {
+      initData() {
+        this.field = this.value.field;
+        this.modifier = this.value.modifier;
+        this.term = this.value.term;
+      },
       clearRule() {
         this.$emit('clear');
       },
@@ -242,6 +248,7 @@
         this.$emit('change', 'term', value);
       },
       handleFieldChange(value) {
+        this.field = value;
         this.$emit('change', 'field', value);
       },
       handleModifierChange(value) {
