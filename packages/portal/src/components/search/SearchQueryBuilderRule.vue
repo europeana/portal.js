@@ -31,13 +31,46 @@
             </template>
           </span>
         </template>
-        <b-form-select
+        <!-- <b-form-select
           :id="`select-field-${id}`"
           v-model="field"
           :options="selectFieldOptions"
           :required="areAllRequired"
           @change="(value) => handleFieldChange(value)"
-        />
+        /> -->
+        <b-dropdown
+          text="Select a field"
+          block
+          no-flip
+        >
+          <b-dropdown-item>
+            <span>Full-text</span>
+            <b-button
+              v-b-tooltip.bottom
+              title="Full-text includes transcriptions, closed captions, subtitles and document text."
+              class="icon-info-outline p-0 tooltip-button"
+              variant="light-flat"
+            />
+          </b-dropdown-item>
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-group header="Aggregated fields">
+            <b-dropdown-item
+              v-for="(fieldOption, index) in ['What', 'Where', 'When', 'Who']"
+              :key="index"
+            >
+              {{ fieldOption }}
+            </b-dropdown-item>
+          </b-dropdown-group>
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-group header="Individual fields">
+            <b-dropdown-item
+              v-for="(fieldOption, index) in selectFieldOptions"
+              :key="index"
+            >
+              {{ fieldOption.text }}
+            </b-dropdown-item>
+          </b-dropdown-group>
+        </b-dropdown>
       </b-form-group>
       <b-form-group
         class="query-rule-form-group mr-lg-2"
