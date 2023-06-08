@@ -320,7 +320,6 @@
       linkGen(queryTerm, path) {
         const query = {
           boost: this.$route?.query?.boost,
-          fulltext: this.$route?.query?.fulltext,
           qa: this.$route?.query?.qa,
           qf: this.$route?.query?.qf,
           query: queryTerm || '',

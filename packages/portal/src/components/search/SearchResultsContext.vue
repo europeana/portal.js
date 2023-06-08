@@ -162,7 +162,6 @@
       activeCriteria() {
         return {
           boost: this.$route?.query?.boost,
-          fulltext: this.$route?.query?.fulltext,
           qa: this.$route?.query?.qa,
           qf: this.$route?.query?.qf,
           query: this.$route.query?.query,
