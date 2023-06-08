@@ -382,7 +382,7 @@
         }
 
         if (!apiParams.profile) {
-          apiParams.profile = apiParams.fulltext ? 'minimal' : 'minimal,hits';
+          apiParams.profile = apiParams.fulltext ? 'minimal,hits' : 'minimal';
         }
 
         const collectionFilter = filtersFromQf(apiParams.qf).collection;
