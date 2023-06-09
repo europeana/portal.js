@@ -36,6 +36,16 @@
               data-qa="search filters"
             >
               <div class="position-relative">
+                <b-alert
+                  v-for="fulltextCollection in ['newspaper', 'ww1']"
+                  :key="fulltextCollection"
+                  :show="showFulltextHasMovedAlert(fulltextCollection)"
+                  variant="info"
+                  dismissible
+                  @input="(show) => handleFulltextHasMovedAlertInput(show, fulltextCollection)"
+                >
+                  Looking for the full-text option? It's moved to the advanced search.
+                </b-alert>
                 <SideDateFilter
                   v-if="enableDateFilter"
                   :name="dateFilterField"
@@ -115,6 +125,7 @@
 </template>
 
 <script>
+  import { BAlert } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
   import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
@@ -126,6 +137,7 @@
     name: 'SideFilters',
 
     components: {
+      BAlert,
       ClientOnly,
       SideFacetDropdown,
       SideDateFilter: () => import('./SideDateFilter'),
@@ -348,6 +360,16 @@
       this.$store.commit('search/setShowFiltersToggle', false);
     },
     methods: {
+      showFulltextHasMovedAlert(collection) {
+        return process.client &&
+          (collection === this.collection) &&
+          !(localStorage.getItem(`fulltextHasMovedAlertDismissed.${this.collection}`) === 'true');
+      },
+      handleFulltextHasMovedAlertInput(show, collection) {
+        if (show === false) {
+          localStorage.setItem(`fulltextHasMovedAlertDismissed.${collection}`, 'true');
+        }
+      },
       facetDropdownType(name) {
         return name === this.COLLECTION_FACET_NAME ? 'radio' : 'checkbox';
       },
@@ -611,5 +633,9 @@
 
   .form-group {
     margin-bottom: 1.5rem;
+  }
+
+  .alert {
+    font-size: $font-size-extrasmall;
   }
 </style>
