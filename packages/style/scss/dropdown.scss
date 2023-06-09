@@ -186,6 +186,10 @@
     max-height: 50vh;
     overflow: auto;
   }
+
+  &.search-query-builder-field-dropdown .dropdown-menu {
+    max-height: 30rem;
+  }
 }
 
 .b-form-tags.form-control {

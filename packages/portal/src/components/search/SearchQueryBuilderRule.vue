@@ -32,6 +32,7 @@
           </span>
         </template>
         <b-dropdown
+          class="search-query-builder-field-dropdown"
           :text="fieldDropdownText"
           block
           no-flip
