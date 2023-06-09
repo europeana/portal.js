@@ -164,22 +164,6 @@ describe('components/search/SideFilters', () => {
         });
       });
 
-      describe('with api value', () => {
-        it('returns it as a string on api property', async() => {
-          const query = { api: 'metadata' };
-          const expected = { 'api': 'metadata' };
-
-          const propsData = {
-            apiParams: query,
-            userParams: {}
-          };
-
-          const wrapper = factory({ propsData });
-
-          expect(wrapper.vm.filters).toEqual(expected);
-        });
-      });
-
       describe('with query that has two colons', () => {
         it('returns an array with a string seperated by a colon', async() => {
           const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
@@ -311,47 +295,6 @@ describe('components/search/SideFilters', () => {
           expect(wrapper.vm.dateFilterField).toBe('proxy_dcterms_issued');
         });
       });
-
-      describe('enableApiFilter', () => {
-        it('is true', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.enableApiFilter).toBe(true);
-        });
-      });
-
-      describe('apiFilterDefaultValue', () => {
-        it('is "fulltext"', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.apiFilterDefaultValue).toBe('fulltext');
-        });
-      });
-    });
-
-    describe('when on the ww1 collection', () => {
-      const propsData = {
-        collection: 'ww1'
-      };
-
-      describe('enableDateFilter', () => {
-        it('is false', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.enableDateFilter).toBe(false);
-        });
-      });
-
-      describe('enableApiFilter', () => {
-        it('is true', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.enableApiFilter).toBe(true);
-        });
-      });
-
-      describe('apiFilterDefaultValue', () => {
-        it('is "metadata"', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.apiFilterDefaultValue).toBe('metadata');
-        });
-      });
     });
 
     describe('when on a collection without specific filters', () => {
@@ -363,20 +306,6 @@ describe('components/search/SideFilters', () => {
         it('is false', async() => {
           const wrapper = factory({ propsData });
           expect(wrapper.vm.enableDateFilter).toBe(false);
-        });
-      });
-
-      describe('enableApiFilter', () => {
-        it('is false', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.enableApiFilter).toBe(false);
-        });
-      });
-
-      describe('apiFilterDefaultValue', () => {
-        it('is null', async() => {
-          const wrapper = factory({ propsData });
-          expect(wrapper.vm.apiFilterDefaultValue).toBe(null);
         });
       });
 
@@ -393,7 +322,6 @@ describe('components/search/SideFilters', () => {
     describe('resetFilters', () => {
       it('removes all current filters from route', () => {
         const userParams = {
-          api: 'fulltext',
           reusability: 'open',
           qf: [
             'collection:newspaper',
@@ -406,7 +334,7 @@ describe('components/search/SideFilters', () => {
 
         wrapper.vm.resetFilters();
 
-        expect(wrapper.vm.rerouteSearch.calledWith({ page: 1, qf: null, api: null, reusability: null })).toBe(true);
+        expect(wrapper.vm.rerouteSearch.calledWith({ page: 1, qf: null, reusability: null })).toBe(true);
       });
     });
 
@@ -545,12 +473,11 @@ describe('components/search/SideFilters', () => {
 
         it('applies them', () => {
           const wrapper = factory({ propsData });
-          const selected = { api: 'metadata', 'proxy_dcterms_issued': ['1900-01-02'] };
+          const selected = { 'proxy_dcterms_issued': ['1900-01-02'] };
 
           const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
           expect(updates.qf).toContain('proxy_dcterms_issued:1900-01-02');
-          expect(updates.api).toBe('metadata');
         });
       });
 

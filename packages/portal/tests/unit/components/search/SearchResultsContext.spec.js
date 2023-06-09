@@ -215,7 +215,6 @@ describe('SearchResultsContext', () => {
             qa: 'qa',
             qf: 'qf',
             reusability: 'reusability',
-            api: 'api',
             page: '2'
           }
         };
@@ -230,7 +229,6 @@ describe('SearchResultsContext', () => {
         expect(criteria.qa).toBe('qa');
         expect(criteria.qf).toBe('qf');
         expect(criteria.reusability).toBe('reusability');
-        expect(criteria.api).toBe('api');
         expect(criteria.page).toBe(undefined);
       });
     });
