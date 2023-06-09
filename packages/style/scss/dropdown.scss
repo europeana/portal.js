@@ -11,11 +11,6 @@
     text-decoration: none;
   }
 
-  &.multilingual-selector .dropdown-menu {
-    max-height: 50vh;
-    overflow: auto;
-  }
-
   .dropdown-header {
     font-size: 0.75rem;
     font-weight: 600;
@@ -28,6 +23,11 @@
     [role='group'] {
       padding-left: 1rem;
     }
+  }
+
+  &.multilingual-selector .dropdown-menu {
+    max-height: 50vh;
+    overflow: auto;
   }
 }
 
