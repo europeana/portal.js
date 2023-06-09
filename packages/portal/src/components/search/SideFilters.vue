@@ -363,7 +363,7 @@
       showFulltextHasMovedAlert(collection) {
         return process.client &&
           (collection === this.collection) &&
-          !(localStorage.getItem(`fulltextHasMovedAlertDismissed.${this.collection}`) === 'true');
+          (localStorage.getItem(`fulltextHasMovedAlertDismissed.${this.collection}`) !== 'true');
       },
       handleFulltextHasMovedAlertInput(show, collection) {
         if (show === false) {
@@ -415,12 +415,10 @@
         };
 
         for (const name in filters) {
-          switch (name) {
-          case 'REUSABILITY':
+          if (name === 'REUSABILITY') {
             // `reusability` has its own API parameter and can not be queried in `qf`
             queryUpdates.reusability = (filters[name]?.length || 0) > 0 ? filters[name].join(',') : null;
-            break;
-          default:
+          } else {
             // Everything else goes in `qf`
             queryUpdates.qf = queryUpdates.qf.concat(this.queryUpdatesForFilter(name, filters[name]));
           }

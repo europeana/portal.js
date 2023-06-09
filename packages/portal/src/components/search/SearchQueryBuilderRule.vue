@@ -37,6 +37,7 @@
           no-flip
           class="search-query-builder-field-dropdown search-filter-dropdown"
         >
+          <!-- TODO: loop over a single array of (groups of) fields -->
           <b-dropdown-item-button
             @click="handleFieldChange(fulltextFieldName)"
           >
