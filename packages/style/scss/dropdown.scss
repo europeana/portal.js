@@ -16,10 +16,6 @@
     overflow: auto;
   }
 
-  &.search-query-builder-field-dropdown .dropdown-menu {
-    max-height: 30rem;
-  }
-
   .dropdown-header {
     font-size: 0.75rem;
     font-weight: 600;
@@ -28,8 +24,10 @@
     color: $mediumgrey;
   }
 
-  [role='group'] {
-    margin-left: 1rem;
+  .dropdown-menu {
+    [role='group'] {
+      padding-left: 1rem;
+    }
   }
 }
 
@@ -207,5 +205,9 @@
         }
       }
     }
+  }
+
+  &.search-query-builder-field-dropdown .dropdown-menu {
+    max-height: 30rem;
   }
 }
