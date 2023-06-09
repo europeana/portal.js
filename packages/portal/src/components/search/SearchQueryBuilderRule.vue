@@ -32,10 +32,10 @@
           </span>
         </template>
         <b-dropdown
-          class="search-query-builder-field-dropdown"
           :text="fieldDropdownText"
           block
           no-flip
+          class="search-query-builder-field-dropdown search-filter-dropdown"
         >
           <b-dropdown-item-button
             @click="handleFieldChange(fulltextFieldName)"
