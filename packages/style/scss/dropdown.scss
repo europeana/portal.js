@@ -73,6 +73,13 @@
       border: 1px solid $blue;
     }
 
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+      background: $white;
+      color: $mediumgrey-light;
+      border: 1px solid $blue;
+    }
+
     &::after {
       color: $mediumgrey;
     }
