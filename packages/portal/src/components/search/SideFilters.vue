@@ -43,7 +43,7 @@
                   :label="$t('facets.api.switch')"
                   :tooltip="$t('facets.api.switchMoreInfo')"
                   checked-value="fulltext"
-                  unchecked-value="metadata"
+                  :unchecked-value="STANDARD_API_DEFAULT"
                   :default-value="apiFilterDefaultValue"
                   :collection="collection"
                   @changed="changeFacet"
@@ -202,6 +202,7 @@
           'proxy_dc_format.en',
           'proxy_dcterms_medium.en'
         ],
+        STANDARD_API_DEFAULT: 'metadata',
         hideFilterSheet: true,
         showAdditionalFilters: false
       };
@@ -235,7 +236,7 @@
         if (this.contentTierFacetSwitch && this.filters.contentTier) {
           filters.push('contentTier');
         }
-        if (this.enableApiFilter && (this.filters.api !== this.apiFilterDefaultValue)) {
+        if (this.enableApiFilter && (this.filters.api !== this.STANDARD_API_DEFAULT)) {
           filters.push('api');
         }
         if (this.enableDateFilter && this.filters[this.dateFilterField]) {
@@ -349,11 +350,8 @@
       contentTierFacetSwitchApplied() {
         return this.contentTierFacetSwitch && this.filters.contentTier;
       },
-      selectedFiltersCount() {
-        return Object.keys(this.filters).length;
-      },
       filtersTitle() {
-        return this.$t('searchFilters', { count: this.selectedFiltersCount ? `(${this.selectedFiltersCount})` : '' });
+        return this.$t('searchFilters', { count: this.resettableFilters.length ? `(${this.resettableFilters.length})` : '' });
       }
     },
     watch: {
@@ -401,7 +399,7 @@
         // Remove collection-specific filters when collection is changed
         if (Object.prototype.hasOwnProperty.call(selected, this.COLLECTION_FACET_NAME) || !this.collection) {
           for (const name in filters) {
-            if (name !== this.COLLECTION_FACET_NAME && !this.DEFAULT_FACET_NAMES.concat(this.ADDITIONAL_FACET_NAMES).includes(name) && this.resettableFilters.includes(name)) {
+            if (name !== this.COLLECTION_FACET_NAME && !this.DEFAULT_FACET_NAMES.concat(this.ADDITIONAL_FACET_NAMES).includes(name)) {
               filters[name] = [];
             }
           }
