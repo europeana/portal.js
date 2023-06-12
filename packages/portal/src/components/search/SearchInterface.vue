@@ -198,15 +198,14 @@
 </template>
 
 <script>
+  import merge from 'deepmerge';
+
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
 
   import makeToastMixin from '@/mixins/makeToast';
-  import themes from '@/plugins/europeana/themes';
   import { filtersFromQf } from '@/plugins/europeana/search';
-
-  import merge from 'deepmerge';
 
   export default {
     name: 'SearchInterface',
@@ -249,13 +248,9 @@
 
     data() {
       return {
-        apiOptions: {},
-        apiParams: {},
-        collection: null,
         hits: null,
         lastAvailablePage: null,
         results: [],
-        theme: null,
         totalResults: null,
         paginationChanged: false,
         showAdvancedSearch: false
@@ -294,19 +289,53 @@
 
     computed: {
       advancedSearchQueryCount() {
-        return this.userParams?.qa ? [].concat(this.userParams?.qa).length : 0;
+        return this.qa.length;
       },
       userParams() {
         return this.$route.query;
       },
+      apiParams() {
+        const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
+          if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
+            memo[field] = this[field];
+          }
+          return memo;
+        }, {});
+
+        params.page = this.page;
+        params.profile = 'minimal';
+        params.rows = this.perPage;
+
+        if (this.advancedSearchQueryCount > 0) {
+          if (this.hasFulltextQa) {
+            if (params.query && !params.query.includes(':')) {
+              params.query = `text:(${params.query})`;
+            }
+            params.profile = `${params.profile},hits`;
+          }
+
+          params.query = [].concat(params.query || []).concat(this.qa).join(' AND ');
+        }
+
+        return merge(params, this.overrideParams);
+      },
+      boost() {
+        return this.userParams.boost;
+      },
+      qa() {
+        return [].concat(this.userParams.qa || []);
+      },
       qf() {
-        return this.userParams.qf;
+        return [].concat(this.userParams.qf || []);
       },
       query() {
         return this.userParams.query;
       },
       reusability() {
         return this.userParams.reusability;
+      },
+      sort() {
+        return this.userParams.sort;
       },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
@@ -344,6 +373,24 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
+      },
+      collection() {
+        return filtersFromQf(this.apiParams.qf).collection?.[0];
+      },
+      apiOptions() {
+        const apiOptions = {};
+
+        if (this.hasFulltextQa) {
+          // TODO: ensure this is aware of per-request fulltext url, e.g. from ingress headers
+          apiOptions.url = this.$config.europeana.apis.fulltext.url;
+        }
+
+        return apiOptions;
+      },
+      hasFulltextQa() {
+        return this.qa
+          .filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('!fulltext:'))
+          .length > 0;
       }
     },
 
@@ -362,52 +409,7 @@
     },
 
     methods: {
-      // TODO: could this be refactored into two computed properties, for
-      //       apiOptions, and apiParams?
-      deriveApiSettings() {
-        const userParams = { ...this.userParams };
-        // Coerce qf from user input into an array as it may be a single string
-        userParams.qf = [].concat(userParams.qf || []);
-
-        const apiParams = merge(userParams, this.overrideParams);
-        const apiOptions = {};
-
-        if (!apiParams.profile) {
-          apiParams.profile = 'minimal';
-        }
-
-        // `qa` params are queries from the advanced search builder
-        if (apiParams.qa) {
-          let qa = [].concat(apiParams.qa);
-          delete apiParams.qa;
-
-          const fulltextQa = qa.filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('!fulltext:'));
-
-          if (fulltextQa.length > 0) {
-            apiParams.profile = `${apiParams.profile},hits`;
-
-            if (apiParams.query && !apiParams.query.includes(':')) {
-              apiParams.query = `text:(${apiParams.query})`;
-            }
-
-            // TODO: make this aware of per-request fulltext url, e.g. from ingress headers
-            apiOptions.url = this.$config.europeana.apis.fulltext.url;
-          }
-
-          apiParams.query = [].concat(apiParams.query || []).concat(qa).join(' AND ');
-        }
-
-        const collectionFilter = filtersFromQf(apiParams.qf).collection;
-        this.collection = collectionFilter ? collectionFilter[0] : null;
-        this.theme = themes.find((theme) => theme.qf === this.collection);
-
-        this.apiOptions = apiOptions;
-        this.apiParams = apiParams;
-      },
-
       async runSearch() {
-        this.deriveApiSettings();
-
         const response = await this.$apis.record.search(this.apiParams, { ...this.apiOptions, locale: this.$i18n.locale });
 
         this.hits = response.hits;

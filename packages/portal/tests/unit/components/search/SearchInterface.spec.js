@@ -65,9 +65,6 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     },
     $i18n: {
       locale: 'en'
-    },
-    $features: {
-      ...mocks.$features || {}
     }
   },
   propsData,
@@ -155,6 +152,69 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('computed', () => {
+    describe('apiParams', () => {
+      it('combines user params and overrides', () => {
+        const $route = {
+          query: {
+            page: 2,
+            query: 'calais',
+            qf: 'TYPE:"IMAGE"',
+            qa: [
+              'proxy_dc_title:dog'
+            ]
+          }
+        };
+        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
+        const expected = {
+          page: 2,
+          profile: 'minimal',
+          query: 'calais AND proxy_dc_title:dog',
+          qf: ['TYPE:"IMAGE"', 'edm_agent:"http://data.europeana.eu/agent/200"'],
+          rows: 24
+        };
+
+        const wrapper = factory({
+          mocks: {
+            $route
+          },
+          propsData: {
+            overrideParams: {
+              qf: [overrideQf]
+            }
+          }
+        });
+
+        expect(wrapper.vm.apiParams).toEqual(expected);
+      });
+
+      describe('with full-text advanced search rule', () => {
+        it('is incorporated into query, with profile hits', () => {
+          const $route = {
+            query: {
+              query: 'liberty',
+              qa: [
+                'fulltext:europe'
+              ]
+            }
+          };
+          const expected = {
+            page: 1,
+            profile: 'minimal,hits',
+            query: 'text:(liberty) AND fulltext:europe',
+            rows: 24
+          };
+
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+
+          expect(wrapper.vm.apiParams).toEqual(expected);
+        });
+      });
+    });
+
     describe('advancedSearchQueryCount', () => {
       describe('when there is no advanced search query', () => {
         const route = { query: {} };
@@ -473,44 +533,6 @@ describe('components/search/SearchInterface', () => {
         wrapper.vm.toggleAdvancedSearch();
 
         expect(wrapper.vm.showAdvancedSearch).toBe(true);
-      });
-    });
-  });
-
-  describe('deriveApiSettings', () => {
-    it('combines userParams and overrideParams into apiParams', () => {
-      const userQuery = 'calais';
-      const userQf = 'TYPE:"IMAGE"';
-      const userQa = [
-        'proxy_dc_title:dog'
-      ];
-      const expectedQuery = 'calais AND proxy_dc_title:dog';
-      const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
-      const profile = 'minimal';
-      const wrapper = factory({
-        mocks: {
-          $features: {},
-          $route: {
-            query: {
-              qa: userQa,
-              query: userQuery,
-              qf: userQf
-            }
-          }
-        },
-        propsData: {
-          overrideParams: {
-            qf: [overrideQf]
-          }
-        }
-      });
-
-      wrapper.vm.deriveApiSettings();
-
-      expect(wrapper.vm.apiParams).toEqual({
-        query: expectedQuery,
-        qf: [userQf, overrideQf],
-        profile
       });
     });
   });

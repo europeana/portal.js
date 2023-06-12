@@ -95,22 +95,26 @@ export default (context) => ($axios, params, options = {}) => {
     $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
   }
 
+  const localParams = { ...params };
+
   const defaultOptions = { addContentTierFilter: true };
   const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;
-  const perPage = params.rows === undefined ? 24 : Number(params.rows);
-  const page = params.page || 1;
+  const perPage = localParams.rows === undefined ? 24 : Number(localParams.rows);
+
+  const page = localParams.page || 1;
+  delete localParams.page;
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
   const query = params.query || '*:*';
 
-  const qf = localOptions.addContentTierFilter ? addContentTierFilter(params.qf) : params.qf;
+  const qf = localOptions.addContentTierFilter ? addContentTierFilter(localParams.qf) : localParams.qf;
 
   const searchParams = {
     ...$axios.defaults.params,
-    ...params,
-    profile: params.profile || '',
+    ...localParams,
+    profile: localParams.profile || '',
     qf,
     query: localOptions.escape ? escapeLuceneSpecials(query) : query,
     rows,

@@ -167,13 +167,11 @@
         return this.$store.state.entity.entity;
       },
       searchOverrides() {
-        const overrideParams = {
-          qf: []
-        };
+        const overrideParams = {};
 
         if (this.entity) {
           const entityQuery = getEntityQuery(this.entity.id);
-          overrideParams.qf.push(entityQuery);
+          overrideParams.qf = [entityQuery];
           if (!this.$route.query.query) {
             overrideParams.query = entityQuery; // Triggering best bets.
           }
