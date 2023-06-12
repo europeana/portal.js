@@ -44,7 +44,7 @@
                   dismissible
                   @input="(show) => handleFulltextHasMovedAlertInput(show, fulltextCollection)"
                 >
-                  Looking for the full-text option? It's moved to the advanced search.
+                  {{ $t('facets.alert.fulltextHasMoved') }}
                 </b-alert>
                 <SideDateFilter
                   v-if="enableDateFilter"

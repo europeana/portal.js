@@ -37,38 +37,33 @@
           no-flip
           class="search-query-builder-field-dropdown search-filter-dropdown"
         >
-          <!-- TODO: loop over a single array of (groups of) fields -->
-          <b-dropdown-item-button
-            @click="handleFieldChange(fulltextFieldName)"
+          <div
+            v-for="(fieldSection, sectionIndex) in fieldDropdownSections"
+            :key="`section-${sectionIndex}`"
           >
-            <span>{{ advancedSearchFieldLabel(fulltextFieldName) }}</span>
-            <b-button
-              v-b-tooltip.bottom
-              title="Full-text includes transcriptions, closed captions, subtitles and document text."
-              class="icon-info-outline p-0 tooltip-button"
-              variant="light-flat"
+            <component
+              :is="Array.isArray(fieldSection.fields) ? 'b-dropdown-group' : 'div'"
+              :header="fieldSection.header"
+            >
+              <b-dropdown-item-button
+                v-for="(fieldOption, fieldIndex) in [].concat(fieldSection.fields)"
+                :key="`field-${fieldIndex}`"
+                @click="handleFieldChange(fieldOption.value)"
+              >
+                {{ fieldOption.text }}
+                <b-button
+                  v-if="$te(`search.advanced.tooltip.fields.${fieldOption.value}`)"
+                  v-b-tooltip.bottom
+                  :title="$t(`search.advanced.tooltip.fields.${fieldOption.value}`)"
+                  class="icon-info-outline p-0 tooltip-button"
+                  variant="light-flat"
+                />
+              </b-dropdown-item-button>
+            </component>
+            <b-dropdown-divider
+              v-if="(sectionIndex + 1) < fieldDropdownSections.length"
             />
-          </b-dropdown-item-button>
-          <b-dropdown-divider />
-          <b-dropdown-group header="Aggregated fields">
-            <b-dropdown-item-button
-              v-for="(fieldOption, index) in aggregatedFieldOptions"
-              :key="index"
-              @click="handleFieldChange(fieldOption.value)"
-            >
-              {{ fieldOption.text }}
-            </b-dropdown-item-button>
-          </b-dropdown-group>
-          <b-dropdown-divider />
-          <b-dropdown-group header="Individual fields">
-            <b-dropdown-item-button
-              v-for="(fieldOption, index) in individualFieldOptions"
-              :key="index"
-              @click="handleFieldChange(fieldOption.value)"
-            >
-              {{ fieldOption.text }}
-            </b-dropdown-item-button>
-          </b-dropdown-group>
+          </div>
         </b-dropdown>
       </b-form-group>
       <b-form-group
@@ -196,25 +191,32 @@
         return [this.value.term, this.value.field, this.value.modifier].some((value) => !!value);
       },
       aggregatedFieldOptions() {
-        return this.advancedSearchFields
-          .filter((field) => this.aggregatedFieldNames.includes(field.name))
-          .map((field) => ({
-            value: field.name,
-            text: this.advancedSearchFieldLabel(field.name)
-          }))
-          .sort((a, b) => a.text.localeCompare(b.text));
+        return this.fieldOptions
+          .filter((field) => this.aggregatedFieldNames.includes(field.value));
+      },
+      fieldDropdownSections() {
+        return [
+          { fields: this.fulltextFieldOption },
+          { fields: this.aggregatedFieldOptions, header: this.$t('search.advanced.header.aggregated') },
+          { fields: this.individualFieldOptions, header: this.$t('search.advanced.header.individual') }
+        ];
       },
       fieldDropdownText() {
-        return this.field ? this.advancedSearchFieldLabel(this.field) : 'Select a field';
+        return this.field ? this.advancedSearchFieldLabel(this.field) : this.$t('search.advanced.placeholder.field');
+      },
+      fieldOptions() {
+        return this.advancedSearchFields.map((field) => ({
+          value: field.name,
+          text: this.advancedSearchFieldLabel(field.name)
+        }))
+          .sort((a, b) => a.text.localeCompare(b.text));
+      },
+      fulltextFieldOption() {
+        return this.fieldOptions.find((field) => field.value === this.fulltextFieldName);
       },
       individualFieldOptions() {
-        return this.advancedSearchFields
-          .filter((field) => !this.aggregatedFieldNames.includes(field.name) && (field.name !== this.fulltextFieldName))
-          .map((field) => ({
-            value: field.name,
-            text: this.advancedSearchFieldLabel(field.name)
-          }))
-          .sort((a, b) => a.text.localeCompare(b.text));
+        return this.fieldOptions
+          .filter((field) => !this.aggregatedFieldNames.includes(field.value) && (field.value !== this.fulltextFieldName));
       },
       selectModifierOptions() {
         return this.advancedSearchModifiers.map((mod) => ({
