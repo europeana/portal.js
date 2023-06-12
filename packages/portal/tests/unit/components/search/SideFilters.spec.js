@@ -465,9 +465,6 @@ describe('components/search/SideFilters', () => {
 
       describe('in a collection having custom filters', () => {
         const propsData = {
-          apiParams: {
-            api: 'fulltext'
-          },
           userParams: {
             qf: ['proxy_dcterms_issued:1900-01-01']
           },
@@ -485,35 +482,23 @@ describe('components/search/SideFilters', () => {
 
         describe('when collection is changed', () => {
           const wrapper = factory({ propsData });
-          const selected = { 'collection': 'art' };
+          const selected = { collection: 'art' };
 
           it('removes collection-specific facet filters', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
             expect(updates.qf).not.toContain('proxy_dcterms_issued:1900-01-01');
-          });
-
-          it('removes the api filter', () => {
-            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
-
-            expect(updates.api).toStrictEqual([]);
           });
         });
 
         describe('when collection is removed', () => {
           const wrapper = factory({ propsData });
-          const selected = { 'collection': null };
+          const selected = { collection: null };
 
           it('removes collection-specific facet filters', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
             expect(updates.qf).not.toContain('proxy_dcterms_issued:1900-01-01');
-          });
-
-          it('removes the api filter', () => {
-            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
-
-            expect(updates.api).toStrictEqual([]);
           });
         });
       });
@@ -532,7 +517,7 @@ describe('components/search/SideFilters', () => {
 
         describe('when collection is changed', () => {
           const wrapper = factory({ propsData });
-          const selected = { 'collection': 'art' };
+          const selected = { collection: 'art' };
 
           it('removes collection-specific facet filters', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
@@ -555,7 +540,7 @@ describe('components/search/SideFilters', () => {
 
         describe('when collection is removed', () => {
           const wrapper = factory({ propsData });
-          const selected = { 'collection': null };
+          const selected = { collection: null };
 
           it('removes collection-specific facet filters', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
