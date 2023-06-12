@@ -12,7 +12,6 @@
     <template v-else>
       <SearchInterface
         v-if="!$fetchState.pending"
-        :per-page="recordsPerPage"
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
@@ -167,13 +166,9 @@
       entity() {
         return this.$store.state.entity.entity;
       },
-      recordsPerPage() {
-        return this.$store.state.entity.recordsPerPage;
-      },
       searchOverrides() {
         const overrideParams = {
-          qf: [],
-          rows: this.recordsPerPage
+          qf: []
         };
 
         if (this.entity) {

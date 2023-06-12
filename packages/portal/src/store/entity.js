@@ -10,8 +10,7 @@ export default {
     editable: false,
     entity: null,
     id: null,
-    pinned: null,
-    recordsPerPage: 24
+    pinned: null
   }),
 
   mutations: {
