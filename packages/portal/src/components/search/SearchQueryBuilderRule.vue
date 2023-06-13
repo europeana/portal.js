@@ -31,40 +31,53 @@
             </template>
           </span>
         </template>
-        <b-dropdown
-          :text="fieldDropdownText"
-          block
-          no-flip
-          class="search-query-builder-field-dropdown search-filter-dropdown"
+        <div
+          :id="`select-field-${id}`"
         >
-          <div
-            v-for="(fieldSection, sectionIndex) in fieldDropdownSections"
-            :key="`section-${sectionIndex}`"
+          <b-dropdown
+            :text="fieldDropdownText"
+            block
+            no-flip
+            class="search-query-builder-field-dropdown search-filter-dropdown"
           >
-            <component
-              :is="Array.isArray(fieldSection.fields) ? 'b-dropdown-group' : 'div'"
-              :header="fieldSection.header"
+            <div
+              v-for="(fieldSection, sectionIndex) in fieldDropdownSections"
+              :key="`section-${sectionIndex}`"
             >
-              <b-dropdown-item-button
-                v-for="(fieldOption, fieldIndex) in [].concat(fieldSection.fields)"
-                :key="`field-${fieldIndex}`"
-                @click="handleFieldChange(fieldOption.value)"
+              <component
+                :is="Array.isArray(fieldSection.fields) ? 'b-dropdown-group' : 'div'"
+                :header="fieldSection.header"
               >
-                {{ fieldOption.text }}
-                <b-button
-                  v-if="$te(`search.advanced.tooltip.fields.${fieldOption.value}`)"
-                  v-b-tooltip.bottom
-                  :title="$t(`search.advanced.tooltip.fields.${fieldOption.value}`)"
-                  class="icon-info-outline p-0 tooltip-button"
-                  variant="light-flat"
-                />
-              </b-dropdown-item-button>
-            </component>
-            <b-dropdown-divider
-              v-if="(sectionIndex + 1) < fieldDropdownSections.length"
-            />
-          </div>
-        </b-dropdown>
+                <b-dropdown-item-button
+                  v-for="(fieldOption, fieldIndex) in [].concat(fieldSection.fields)"
+                  :key="`field-${fieldIndex}`"
+                  @click="handleRuleChange('field', fieldOption.value)"
+                >
+                  {{ fieldOption.text }}
+                  <b-button
+                    v-if="$te(`search.advanced.tooltip.fields.${fieldOption.value}`)"
+                    v-b-tooltip.bottom
+                    :title="$t(`search.advanced.tooltip.fields.${fieldOption.value}`)"
+                    class="icon-info-outline p-0 tooltip-button"
+                    variant="light-flat"
+                  />
+                </b-dropdown-item-button>
+              </component>
+              <b-dropdown-divider
+                v-if="(sectionIndex + 1) < fieldDropdownSections.length"
+              />
+            </div>
+          </b-dropdown>
+        </div>
+        <b-popover
+          placement="top"
+          triggers="manual"
+          :target="`select-field-${id}`"
+          :ref="`field-popover-${id}`"
+          title="Error"
+        >
+          {{ validations.field }}
+        </b-popover>
       </b-form-group>
       <b-form-group
         class="query-rule-form-group mr-lg-2"
@@ -95,9 +108,17 @@
           :id="`select-modifier-${id}`"
           v-model="modifier"
           :options="selectModifierOptions"
-          :required="areAllRequired"
-          @change="(value) => handleModifierChange(value)"
+          @change="(value) => handleRuleChange('modifier', value)"
         />
+        <b-popover
+          placement="top"
+          triggers="manual"
+          :target="`select-modifier-${id}`"
+          :ref="`modifier-popover-${id}`"
+          title="Error"
+        >
+          {{ validations.modifier }}
+        </b-popover>
       </b-form-group>
       <b-form-group
         class="query-rule-form-group"
@@ -127,10 +148,18 @@
         <b-form-input
           :id="`search-term-${id}`"
           v-model="term"
-          :required="areAllRequired"
           :placeholder="$t('search.advanced.placeholder.searchTerm')"
-          @change="(value) => handleTermChange(value)"
+          @change="(value) => handleRuleChange('term', value)"
         />
+        <b-popover
+          placement="top"
+          triggers="manual"
+          :target="`search-term-${id}`"
+          :ref="`term-popover-${id}`"
+          title="Error"
+        >
+          {{ validations.term }}
+        </b-popover>
       </b-form-group>
     </b-input-group>
     <b-button
@@ -146,14 +175,17 @@
 </template>
 
 <script>
-  import { BFormSelect } from 'bootstrap-vue';
+  import { BFormSelect, BPopover } from 'bootstrap-vue';
+  import AlertMessage from '../generic/AlertMessage'
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRule',
 
     components: {
-      BFormSelect
+      AlertMessage,
+      BFormSelect,
+      BPopover
     },
 
     mixins: [
@@ -168,6 +200,10 @@
       tooltips: {
         type: Boolean,
         default: true
+      },
+      validations: {
+        type: Object,
+        default: () => ({})
       },
       value: {
         type: Object,
@@ -186,11 +222,6 @@
     },
 
     computed: {
-      // If any field has a value, all are required. If none have a value, the
-      // rule will be ignored and none are required.
-      areAllRequired() {
-        return [this.value.term, this.value.field, this.value.modifier].some((value) => !!value);
-      },
       aggregatedFieldOptions() {
         return this.fieldOptions
           .filter((field) => this.aggregatedFieldNames.includes(field.value));
@@ -231,6 +262,14 @@
     },
 
     watch: {
+      validations: {
+        deep: true,
+        handler() {
+          for (const key in this.validations) {
+            this.$refs[`${key}-popover-${this.id}`]?.$emit('open');
+          }
+        }
+      },
       value: {
         deep: true,
         handler() {
@@ -244,23 +283,18 @@
     },
 
     methods: {
+      clearRule() {
+        this.$emit('clear');
+      },
+      handleRuleChange(key, value) {
+        this[key] = value;
+        this.$refs[`${key}-popover-${this.id}`]?.$emit('close');
+        this.$emit('change', key, value);
+      },
       initData() {
         this.field = this.value.field || null;
         this.modifier = this.value.modifier || null;
         this.term = this.value.term || null;
-      },
-      clearRule() {
-        this.$emit('clear');
-      },
-      handleTermChange(value) {
-        this.$emit('change', 'term', value);
-      },
-      handleFieldChange(value) {
-        this.field = value;
-        this.$emit('change', 'field', value);
-      },
-      handleModifierChange(value) {
-        this.$emit('change', 'modifier', value);
       }
     }
   };

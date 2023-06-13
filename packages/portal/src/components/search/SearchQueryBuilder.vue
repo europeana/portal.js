@@ -23,6 +23,7 @@
                 :id="`${id}-${index}`"
                 v-model="queryRules[index]"
                 :tooltips="index === 0"
+                :validations="validations[index]"
                 @change="(field, value) => handleChangeRule(field, value, index)"
                 @clear="clearRule(index)"
               />
@@ -76,7 +77,8 @@
 
     data() {
       return {
-        queryRules: []
+        queryRules: [],
+        validations: []
       };
     },
 
@@ -108,6 +110,9 @@
         }
       },
       updateSearch() {
+        if (!this.validateQueryRules()) {
+          return;
+        }
         if (this.$matomo) {
           for (const rule of this.validQueryRules) {
             const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
@@ -125,6 +130,27 @@
         } else {
           this.$emit('show', true);
         }
+      },
+      validateQueryRules() {
+        let valid = true;
+
+        this.validations = this.queryRules.map((rule) => {
+          const ruleValidation = {};
+
+          // If any field has a value, all are required. If none have a value, the
+          // rule will be ignored and none are required.
+          if ([rule.term, rule.field, rule.modifier].some((value) => !!value)) {
+            for (const key of ['term', 'field', 'modifier']) {
+              if (!rule[key] || (rule[key] === '')) {
+                ruleValidation[key] = this.$t('set.form.required');
+                valid = false;
+              }
+            }
+          }
+          return ruleValidation;
+        });
+
+        return valid;
       }
     }
   };
