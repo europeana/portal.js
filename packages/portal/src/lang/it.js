@@ -53,7 +53,7 @@ export default {
     "learnMore": "Per saperne di più",
     "like": "Mi piace",
     "move": "Spostare",
-    "next": "Prossimo",
+    "next": "Avanti",
     "pin": "Spilla",
     "preview": "Anteprima",
     "previous": "Precedente",
@@ -654,7 +654,7 @@ export default {
     }
   },
   "feedback": {
-    "emailOptional": "Potremmo voler seguire. Inserisci la tua email se sei felice di essere contattato.",
+    "emailOptional": "Potremmo voler dare seguito al tuo feedback. Inserisci la tua email se desideri essere contattato.",
     "failed": "La richiesta è fallita. Per favore riprova.",
     "faq": "Vai alle domande frequenti",
     "form": {
@@ -670,7 +670,7 @@ export default {
     "thankYou": "Grazie!",
     "title": "Invia feedback",
     "validEmail": "Inserire un indirizzo email valido",
-    "validFeedback": "Il tuo feedback deve consistere in 5 parole al minimo"
+    "validFeedback": "Il tuo feedback deve consistere di minimo 5 parole"
   },
   "fieldLabels": {
     "default": {
