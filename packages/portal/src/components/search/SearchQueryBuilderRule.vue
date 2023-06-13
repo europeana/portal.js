@@ -128,6 +128,7 @@
           :id="`search-term-${id}`"
           v-model="term"
           :required="areAllRequired"
+          :placeholder="$t('search.advanced.placeholder.searchTerm')"
           @change="(value) => handleTermChange(value)"
         />
       </b-form-group>
@@ -219,10 +220,13 @@
           .filter((field) => !this.aggregatedFieldNames.includes(field.value) && (field.value !== this.fulltextFieldName));
       },
       selectModifierOptions() {
-        return this.advancedSearchModifiers.map((mod) => ({
-          value: mod.name,
-          text: this.$t(`search.advanced.modifiers.${mod.name}`)
-        }));
+        return [{ value: null,
+                  text: this.$t('search.advanced.placeholder.modifier') }]
+          .concat(
+            this.advancedSearchModifiers.map((mod) => ({
+              value: mod.name,
+              text: this.$t(`search.advanced.modifiers.${mod.name}`)
+            })));
       }
     },
 
@@ -241,9 +245,9 @@
 
     methods: {
       initData() {
-        this.field = this.value.field;
-        this.modifier = this.value.modifier;
-        this.term = this.value.term;
+        this.field = this.value.field || null;
+        this.modifier = this.value.modifier || null;
+        this.term = this.value.term || null;
       },
       clearRule() {
         this.$emit('clear');

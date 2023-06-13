@@ -214,7 +214,14 @@
     }
   }
 
-  &.search-query-builder-field-dropdown .dropdown-menu {
-    max-height: 30rem;
+  &.search-query-builder-field-dropdown {
+    .dropdown-menu {
+      max-height: 30rem;
+    }
+
+    .dropdown-toggle {
+      font-size: $font-size-base;
+      color: $greyblack;
+    }
   }
 }

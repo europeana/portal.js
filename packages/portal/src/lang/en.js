@@ -1076,7 +1076,9 @@ export default {
         "doesNotContain": "does not contain"
       },
       "placeholder": {
-        "field": "Select a field"
+        "field": "Select a field",
+        "modifier": "Select a modifier",
+        "searchTerm": "Enter search term(s)"
       },
       "show": "{showOrHide} advanced search",
       "tooltip": {
