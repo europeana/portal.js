@@ -73,13 +73,6 @@
       border: 1px solid $blue;
     }
 
-    &:not(:disabled):not(.disabled):active,
-    &:not(:disabled):not(.disabled).active {
-      background: $white;
-      color: $mediumgrey-light;
-      border: 1px solid $blue;
-    }
-
     &::after {
       color: $mediumgrey;
     }
@@ -222,6 +215,16 @@
     .dropdown-toggle {
       font-size: $font-size-base;
       color: $greyblack;
+    }
+  }
+
+  .dropdown-toggle:not(:disabled):not(.disabled) {
+
+    &:active,
+    &.active {
+      background: $white;
+      color: $mediumgrey-light;
+      border: 1px solid $blue;
     }
   }
 }

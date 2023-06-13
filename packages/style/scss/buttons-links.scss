@@ -89,21 +89,6 @@
     }
   }
 
-  &:focus,
-  &:active,
-  &:not(:disabled):not(.disabled):active,
-  &:not(:disabled):not(.disabled).active {
-    background: $offwhite;
-    color: $mediumgrey;
-    box-shadow: none;
-    border: 1px solid $offwhite;
-
-    &:hover {
-      color: $blue;
-      box-shadow: $boxshadow;
-    }
-  }
-
   &:hover {
     background: $offwhite;
     color: $blue;
@@ -117,6 +102,32 @@
     color: $mediumgrey;
     opacity: 0.7;
     box-shadow: none;
+  }
+
+  &:focus,
+  &:active {
+    background: $offwhite;
+    color: $mediumgrey;
+    box-shadow: none;
+    border: 1px solid $offwhite;
+
+    &:hover {
+      color: $blue;
+      box-shadow: $boxshadow;
+    }
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    background: $offwhite;
+    color: $mediumgrey;
+    box-shadow: none;
+    border: 1px solid $offwhite;
+
+    &:hover {
+      color: $blue;
+      box-shadow: $boxshadow;
+    }
   }
 
   &.like-button,
