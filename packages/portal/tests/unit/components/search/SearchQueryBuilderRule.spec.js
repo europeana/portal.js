@@ -11,7 +11,7 @@ const factory = ({ propsData = {} } = {}) => shallowMount(SearchQueryBuilderRule
   propsData,
   mocks: {
     $t: (key) => key,
-    $te: (key) => true
+    $te: () => true
   }
 });
 
