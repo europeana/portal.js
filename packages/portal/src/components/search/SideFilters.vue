@@ -202,7 +202,6 @@
           'proxy_dc_format.en',
           'proxy_dcterms_medium.en'
         ],
-        STANDARD_API_DEFAULT: 'metadata',
         hideFilterSheet: true,
         showAdditionalFilters: false
       };
