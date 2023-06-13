@@ -6,10 +6,12 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = ({ propsData = {} } = {}) => shallowMount(SearchQueryBuilderRule, {
+  attachTo: document.body,
   localVue,
   propsData,
   mocks: {
-    $t: (key) => key
+    $t: (key) => key,
+    $te: () => true
   }
 });
 
