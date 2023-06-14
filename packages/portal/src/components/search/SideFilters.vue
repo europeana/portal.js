@@ -273,6 +273,7 @@
           });
         }
 
+        // Remove contentTier (as a SideFacetDropdown) when contentTierFacetSwitch is enabled
         if (this.contentTierFacetSwitch) {
           facets = facets.filter((facet) => facet.name !== 'contentTier');
         }
@@ -405,8 +406,10 @@
           }
         }
 
-        // Remove filters incompatible with change of collection filter
-        if (Object.prototype.hasOwnProperty.call(selected, this.COLLECTION_FACET_NAME) && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
+        // Reset contenTier filter when changed to or from a collection (i.e. contentTierFacetSwitch replaced with contentTier as a SideFacetDropdown and vice versa)
+        // But not when changing from one theme to another
+        if (Object.prototype.hasOwnProperty.call(filters, 'contentTier') && selected[this.COLLECTION_FACET_NAME] &&
+          ((!this.collection && selected[this.COLLECTION_FACET_NAME].length) || (this.collection && !selected[this.COLLECTION_FACET_NAME].length))) {
           filters['contentTier'] = [];
         }
 
