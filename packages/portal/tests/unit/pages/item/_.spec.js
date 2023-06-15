@@ -485,7 +485,6 @@ describe('pages/item/_.vue', () => {
     });
     describe('matomoOptions', () => {
       it('picks the english pref labels from the metadata', async() => {
-        const mediaUrl = 'http://example.org/image.jpeg';
         const wrapper = factory({
           data: {
             metadata: record.metadata
