@@ -167,7 +167,7 @@
 
 <script>
   import { BFormSelect } from 'bootstrap-vue';
-  import AlertMessage from '../generic/AlertMessage'
+  import AlertMessage from '../generic/AlertMessage';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
