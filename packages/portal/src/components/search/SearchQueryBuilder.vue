@@ -23,9 +23,11 @@
                 :id="`${id}-${index}`"
                 v-model="queryRules[index]"
                 :tooltips="index === 0"
-                :validations="validations[index]"
+                :validate="validateRules"
                 @change="(field, value) => handleChangeRule(field, value, index)"
                 @clear="clearRule(index)"
+                @invalid="handleInvalidRule(index)"
+                @valid="handleValidRule(index)"
               />
             </div>
           </transition-group>
@@ -78,6 +80,7 @@
     data() {
       return {
         queryRules: [],
+        validateRules: false,
         validations: []
       };
     },
@@ -100,28 +103,40 @@
       handleChangeRule(field, value, index) {
         this.queryRules[index][field] = value;
       },
+      handleInvalidRule(index) {
+        this.validations[index] = false;
+      },
+      handleValidRule(index) {
+        this.validations[index] = true;
+      },
       addNewRule() {
         this.queryRules.push({});
       },
       clearRule(index) {
         this.queryRules.splice(index, 1);
+        this.validations.splice(index, 1);
         if (this.queryRules.length === 0) {
           this.addNewRule();
         }
       },
       updateSearch() {
-        if (!this.validateQueryRules()) {
-          return;
-        }
-        if (this.$matomo) {
-          for (const rule of this.validQueryRules) {
-            const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
-            const modifierLabel = this.$t(`search.advanced.modifiers.${rule.modifier}`, 'en');
-            const eventName = `Adv search: ${fieldLabel} ${modifierLabel}`;
-            this.$matomo.trackEvent('Adv search', 'Apply adv search', eventName);
+        this.validateRules = true;
+        this.$nextTick(() => {
+          this.validateRules = false;
+          if (!this.validations.every((validation) => validation)) {
+            return;
           }
-        }
-        this.$router.push(this.advancedSearchRouteQueryFromRules(this.validQueryRules));
+
+          if (this.$matomo) {
+            for (const rule of this.validQueryRules) {
+              const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
+              const modifierLabel = this.$t(`search.advanced.modifiers.${rule.modifier}`, 'en');
+              const eventName = `Adv search: ${fieldLabel} ${modifierLabel}`;
+              this.$matomo.trackEvent('Adv search', 'Apply adv search', eventName);
+            }
+          }
+          this.$router.push(this.advancedSearchRouteQueryFromRules(this.validQueryRules));
+        });
       },
       initRulesFromRouteQuery() {
         this.queryRules = this.advancedSearchRulesFromRouteQuery();
@@ -130,27 +145,6 @@
         } else {
           this.$emit('show', true);
         }
-      },
-      validateQueryRules() {
-        let valid = true;
-
-        this.validations = this.queryRules.map((rule) => {
-          const ruleValidation = {};
-
-          // If any field has a value, all are required. If none have a value, the
-          // rule will be ignored and none are required.
-          if ([rule.term, rule.field, rule.modifier].some((value) => !!value)) {
-            for (const key of ['term', 'field', 'modifier']) {
-              if (!rule[key] || (rule[key] === '')) {
-                ruleValidation[key] = this.$t('set.form.required');
-                valid = false;
-              }
-            }
-          }
-          return ruleValidation;
-        });
-
-        return valid;
       }
     }
   };

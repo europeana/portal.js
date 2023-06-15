@@ -69,15 +69,12 @@
             </div>
           </b-dropdown>
         </div>
-        <b-popover
-          placement="top"
-          triggers="manual"
-          :target="`select-field-${id}`"
-          :ref="`field-popover-${id}`"
-          title="Error"
+        <b-form-invalid-feedback
+          v-show="validate"
+          :state="validations.field.state"
         >
-          {{ validations.field }}
-        </b-popover>
+          {{ validations.field.text }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <b-form-group
         class="query-rule-form-group mr-lg-2"
@@ -110,15 +107,12 @@
           :options="selectModifierOptions"
           @change="(value) => handleRuleChange('modifier', value)"
         />
-        <b-popover
-          placement="top"
-          triggers="manual"
-          :target="`select-modifier-${id}`"
-          :ref="`modifier-popover-${id}`"
-          title="Error"
+        <b-form-invalid-feedback
+          v-show="validate"
+          :state="validations.modifier.state"
         >
-          {{ validations.modifier }}
-        </b-popover>
+          {{ validations.modifier.text }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <b-form-group
         class="query-rule-form-group"
@@ -151,15 +145,12 @@
           :placeholder="$t('search.advanced.placeholder.searchTerm')"
           @change="(value) => handleRuleChange('term', value)"
         />
-        <b-popover
-          placement="top"
-          triggers="manual"
-          :target="`search-term-${id}`"
-          :ref="`term-popover-${id}`"
-          title="Error"
+        <b-form-invalid-feedback
+          v-show="validate"
+          :state="validations.term.state"
         >
-          {{ validations.term }}
-        </b-popover>
+          {{ validations.term.text }}
+        </b-form-invalid-feedback>
       </b-form-group>
     </b-input-group>
     <b-button
@@ -175,7 +166,7 @@
 </template>
 
 <script>
-  import { BFormSelect, BPopover } from 'bootstrap-vue';
+  import { BFormSelect } from 'bootstrap-vue';
   import AlertMessage from '../generic/AlertMessage'
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
@@ -184,8 +175,7 @@
 
     components: {
       AlertMessage,
-      BFormSelect,
-      BPopover
+      BFormSelect
     },
 
     mixins: [
@@ -201,9 +191,9 @@
         type: Boolean,
         default: true
       },
-      validations: {
-        type: Object,
-        default: () => ({})
+      validate: {
+        type: Boolean,
+        default: false
       },
       value: {
         type: Object,
@@ -213,11 +203,16 @@
 
     data() {
       return {
+        aggregatedFieldNames: ['who', 'where', 'when', 'what'],
         field: null,
+        fulltextFieldName: 'fulltext',
         modifier: null,
         term: null,
-        fulltextFieldName: 'fulltext',
-        aggregatedFieldNames: ['who', 'where', 'when', 'what']
+        validations: {
+          field: { state: true },
+          modifier: { state: true },
+          term: { state: true }
+        }
       };
     },
 
@@ -262,19 +257,15 @@
     },
 
     watch: {
-      validations: {
-        deep: true,
-        handler() {
-          for (const key in this.validations) {
-            this.$refs[`${key}-popover-${this.id}`]?.$emit('open');
-          }
-        }
-      },
       value: {
         deep: true,
         handler() {
           this.initData();
         }
+      },
+      validate: {
+        deep: true,
+        handler: this.validateRules
       }
     },
 
@@ -286,15 +277,33 @@
       clearRule() {
         this.$emit('clear');
       },
+      forEveryRuleComponent(callback) {
+        for (const component of ['field', 'modifier', 'term']) {
+          callback(component);
+        }
+      },
       handleRuleChange(key, value) {
         this[key] = value;
-        this.$refs[`${key}-popover-${this.id}`]?.$emit('close');
         this.$emit('change', key, value);
       },
       initData() {
-        this.field = this.value.field || null;
-        this.modifier = this.value.modifier || null;
-        this.term = this.value.term || null;
+        this.forEveryRuleComponent((component) => {
+          this[component] = this.value[component] || null;
+        });
+      },
+      validateRules() {
+        // If any rule component has a value, all are required. If none have a value, the
+        // rule will be ignored and none are required.
+        if ([this.term, this.field, this.modifier].some((value) => !!value)) {
+          this.forEveryRuleComponent((component) => {
+            if (this[component]) {
+              this.validations[component] = { state: true };
+            } else {
+              this.validations[component] = { state: false, text: this.$t('set.form.required') };
+            }
+          });
+        }
+        this.$emit(Object.values(this.validations).some((validation) => !validation.state) ? 'invalid' : 'valid');
       }
     }
   };
