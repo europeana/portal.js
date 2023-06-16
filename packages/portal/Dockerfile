@@ -12,8 +12,8 @@ RUN mkdir -p packages/portal
 
 COPY package*.json ./
 COPY packages/portal/package*.json ./packages/portal/
-COPY packages/style ./packages/style
 COPY packages/mirador ./packages/mirador
+COPY packages/style ./packages/style
 
 RUN npm -w packages/portal ci
 
@@ -22,7 +22,7 @@ COPY packages/portal/*.js ./packages/portal/
 COPY packages/portal/src ./packages/portal/src
 
 RUN npm run build
-RUN rm -rf node_modules packages/*/node_modules packages/mirador
+RUN rm -rf node_modules packages/*/node_modules packages/mirador packages/style
 RUN npm -w packages/portal install --omit dev --omit peer
 
 
