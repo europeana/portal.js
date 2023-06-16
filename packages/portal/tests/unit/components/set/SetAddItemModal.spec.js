@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import AddItemToSetModal from '@/components/set/AddItemToSetModal';
+import SetAddItemModal from '@/components/set/SetAddItemModal';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -18,7 +18,7 @@ const sets = [
   }
 ];
 
-const factory = ({ propsData = {}, data = {} } = {}) => mount(AddItemToSetModal, {
+const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
   localVue,
   propsData: {
     modalStatic: true,
@@ -40,7 +40,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(AddItemToSetModal,
   }
 });
 
-describe('components/set/AddItemToSetModal', () => {
+describe('components/set/SetAddItemModal', () => {
   describe('template', () => {
     describe('create set button', () => {
       it('emits "clickCreateSet" event', () => {

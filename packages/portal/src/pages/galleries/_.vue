@@ -133,7 +133,7 @@
                   data-qa="set request publication button"
                   class="mr-2 mt-2"
                 />
-                <PublishSetButton
+                <SetPublishButton
                   v-if="userCanPublishSet"
                   :set-id="set.id"
                   :visibility="set.visibility"
@@ -211,7 +211,7 @@
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations'),
-      PublishSetButton: () => import('@/components/set/PublishSetButton'),
+      SetPublishButton: () => import('@/components/set/SetPublishButton'),
       SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget')
 
     },

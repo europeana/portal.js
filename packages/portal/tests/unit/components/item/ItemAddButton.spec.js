@@ -24,7 +24,7 @@ const factory = ({ $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => s
     $t: (key) => key
   },
   stubs: [
-    'AddItemToSetModal',
+    'SetAddItemModal',
     'SetFormModal'
   ]
 });

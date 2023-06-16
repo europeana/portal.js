@@ -19,7 +19,7 @@
     <div
       class="collections"
     >
-      <AddItemToSetButton
+      <SetAddItemButton
         v-for="(collection, index) in collections"
         :key="index"
         :set="collection"
@@ -44,13 +44,13 @@
 </template>
 
 <script>
-  import AddItemToSetButton from './AddItemToSetButton';
+  import SetAddItemButton from './SetAddItemButton';
 
   export default {
-    name: 'AddItemToSetModal',
+    name: 'SetAddItemModal',
 
     components: {
-      AddItemToSetButton
+      SetAddItemButton
     },
 
     props: {

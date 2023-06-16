@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import PublishSetButton from '@/components/set/PublishSetButton';
+import SetPublishButton from '@/components/set/SetPublishButton';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -12,7 +12,7 @@ const publicSet = { setId: '001', visibility: 'public' };
 
 const publishedSet = { setId: '001', visibility: 'published' };
 
-const factory = (propsData = {}) => shallowMount(PublishSetButton, {
+const factory = (propsData = {}) => shallowMount(SetPublishButton, {
   localVue,
   propsData: {
     ...propsData
@@ -32,7 +32,7 @@ const factory = (propsData = {}) => shallowMount(PublishSetButton, {
   }
 });
 
-describe('components/set/PublishSetButton', () => {
+describe('components/set/SetPublishButton', () => {
   afterEach(sinon.resetHistory);
 
   it('refreshes the active set first', async() => {

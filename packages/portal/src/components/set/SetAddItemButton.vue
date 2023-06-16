@@ -19,7 +19,7 @@
   import { langMapValueForLocale } from '@/plugins/europeana/utils';
 
   export default {
-    name: 'AddItemToSetButton',
+    name: 'SetAddItemButton',
 
     props: {
       set: {

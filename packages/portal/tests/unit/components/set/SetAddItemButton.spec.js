@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import AddItemToSetButton from '@/components/set/AddItemToSetButton';
+import SetAddItemButton from '@/components/set/SetAddItemButton';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -14,7 +14,7 @@ const collection =
     visibility: 'public'
   };
 
-const factory = (propsData = {}) => shallowMount(AddItemToSetButton, {
+const factory = (propsData = {}) => shallowMount(SetAddItemButton, {
   localVue,
   propsData: {
     ...propsData
@@ -25,7 +25,7 @@ const factory = (propsData = {}) => shallowMount(AddItemToSetButton, {
   }
 });
 
-describe('components/set/AddItemToSetButton', () => {
+describe('components/set/SetAddItemButton', () => {
   it('emits the toggle event', async() => {
     const wrapper = factory({ set: collection });
 

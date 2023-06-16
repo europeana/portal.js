@@ -13,7 +13,7 @@
   import makeToastMixin from '@/mixins/makeToast';
 
   export default {
-    name: 'PublishSetButton',
+    name: 'SetPublishButton',
 
     mixins: [makeToastMixin],
 
@@ -66,7 +66,7 @@
 
 <docs lang="md">
   ```jsx
-  <PublishSetButton
+  <SetPublishButton
     set-id="001"
     :visibility="$store.state.set.active.visibility"
   />

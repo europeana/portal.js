@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
-import DeleteSetModal from '@/components/set/DeleteSetModal';
+import SetDeleteModal from '@/components/set/SetDeleteModal';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -19,7 +19,7 @@ const i18n = new VueI18n({
   }
 });
 
-const factory = (propsData = {}, route = { name: '' }) => mount(DeleteSetModal, {
+const factory = (propsData = {}, route = { name: '' }) => mount(SetDeleteModal, {
   localVue,
   propsData: {
     modalStatic: true,
@@ -36,7 +36,7 @@ const factory = (propsData = {}, route = { name: '' }) => mount(DeleteSetModal, 
   }
 });
 
-describe('components/set/DeleteSetModal', () => {
+describe('components/set/SetDeleteModal', () => {
   it('shows a warning message', () => {
     const wrapper = factory({ setId: '123' });
 

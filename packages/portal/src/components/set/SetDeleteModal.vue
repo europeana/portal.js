@@ -32,7 +32,7 @@
   import makeToastMixin from '@/mixins/makeToast';
 
   export default {
-    name: 'DeleteSetModal',
+    name: 'SetDeleteModal',
 
     mixins: [
       makeToastMixin
