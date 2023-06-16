@@ -8,6 +8,8 @@
 const APP_SITE_NAME = 'Europeana';
 const APP_PKG_NAME = '@europeana/portal';
 
+import { defineNuxtConfig } from '@nuxt/bridge'
+
 import versions from './pkg-versions.js';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
@@ -21,99 +23,103 @@ const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
 };
 
-export default {
+export default defineNuxtConfig({
+  bridge: {
+    // Use Vite as the bundler instead of webpack 4
+    vite: true
+  },
+
   /*
   ** Runtime config
   */
-  publicRuntimeConfig: {
-    app: {
-      // TODO: rename env vars to prefix w/ APP_, except feature toggles
-      baseUrl: process.env.PORTAL_BASE_URL,
-      galleries: {
-        europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
-      },
-      featureNotification: process.env.APP_FEATURE_NOTIFICATION,
-      featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
-      internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
-      notificationBanner: process.env.APP_NOTIFICATION_BANNER,
-      schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
-      siteName: APP_SITE_NAME,
-      search: {
-        translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
-      }
-    },
-    auth: {
-      strategies: {
-        keycloak: {
-          client_id: process.env.OAUTH_CLIENT,
-          origin: process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu',
-          scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
-          realm: process.env.OAUTH_REALM || 'europeana',
-          response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
-          access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
-          grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
-          token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
+  runtimeConfig: {
+    public: {
+      app: {
+        // TODO: rename env vars to prefix w/ APP_, except feature toggles
+        baseUrl: process.env.PORTAL_BASE_URL,
+        galleries: {
+          europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
+        },
+        featureNotification: process.env.APP_FEATURE_NOTIFICATION,
+        featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+        internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+        notificationBanner: process.env.APP_NOTIFICATION_BANNER,
+        schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
+        siteName: APP_SITE_NAME,
+        search: {
+          translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
         }
-      }
-    },
-    axios: {
-      baseURL: process.env.PORTAL_BASE_URL
-    },
-    axiosLogger: {
-      clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
-      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(','),
-      // Construct a map of Europeana API URLs to rewrite for logging, so that
-      // private network hostnames are replaced with the public equivalent.
-      rewriteOrigins: publicPrivateRewriteOrigins()
-    },
-    contentful: {
-      spaceId: process.env.CTF_SPACE_ID,
-      environmentId: process.env.CTF_ENVIRONMENT_ID,
-      accessToken: {
-        delivery: process.env.CTF_CDA_ACCESS_TOKEN,
-        preview: process.env.CTF_CPA_ACCESS_TOKEN
       },
-      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN
-    },
-    elastic: {
-      apm: {
-        // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
-        serverUrl: process.env.ELASTIC_APM_SERVER_URL,
-        environment: process.env.ELASTIC_APM_ENVIRONMENT || 'development',
-        logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
-        serviceName: 'portal-js',
-        serviceVersion: versions[APP_PKG_NAME]
+      auth: {
+        strategies: {
+          keycloak: {
+            client_id: process.env.OAUTH_CLIENT,
+            origin: process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu',
+            scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
+            realm: process.env.OAUTH_REALM || 'europeana',
+            response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
+            access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
+            grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
+            token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
+          }
+        }
+      },
+      axios: {
+        baseURL: process.env.PORTAL_BASE_URL
+      },
+      axiosLogger: {
+        clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
+        httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(','),
+        // Construct a map of Europeana API URLs to rewrite for logging, so that
+        // private network hostnames are replaced with the public equivalent.
+        rewriteOrigins: publicPrivateRewriteOrigins()
+      },
+      contentful: {
+        spaceId: process.env.CTF_SPACE_ID,
+        environmentId: process.env.CTF_ENVIRONMENT_ID,
+        accessToken: {
+          delivery: process.env.CTF_CDA_ACCESS_TOKEN,
+          preview: process.env.CTF_CPA_ACCESS_TOKEN
+        },
+        graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN
+      },
+      elastic: {
+        apm: {
+          // Doc: https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
+          serverUrl: process.env.ELASTIC_APM_SERVER_URL,
+          environment: process.env.ELASTIC_APM_ENVIRONMENT || 'development',
+          logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
+          serviceName: 'portal-js',
+          serviceVersion: versions[APP_PKG_NAME]
+        }
+      },
+      europeana: {
+        apis: europeanaApisRuntimeConfig({ scope: 'public' })
+      },
+      features: features(),
+      hotjar: {
+        id: process.env.HOTJAR_ID,
+        sv: process.env.HOTJAR_SNIPPET_VERSION
+      },
+      matomo: {
+        host: process.env.MATOMO_HOST,
+        siteId: process.env.MATOMO_SITE_ID,
+        loadWait: {
+          delay: process.env.MATOMO_LOAD_WAIT_DELAY,
+          retries: process.env.MATOMO_LOAD_WAIT_RETRIES
+        }
+      },
+      oauth: {
+        origin: process.env.OAUTH_ORIGIN,
+        realm: process.env.OAUTH_REALM,
+        client: process.env.OAUTH_CLIENT,
+        scope: process.env.OAUTH_SCOPE,
+        responseType: process.env.OAUTH_RESPONSE_TYPE,
+        accessType: process.env.OAUTH_ACCESS_TYPE,
+        grantType: process.env.OAUTH_GRANT_TYPE,
+        tokenType: process.env.OAUTH_TOKEN_TYPE
       }
     },
-    europeana: {
-      apis: europeanaApisRuntimeConfig({ scope: 'public' })
-    },
-    features: features(),
-    hotjar: {
-      id: process.env.HOTJAR_ID,
-      sv: process.env.HOTJAR_SNIPPET_VERSION
-    },
-    matomo: {
-      host: process.env.MATOMO_HOST,
-      siteId: process.env.MATOMO_SITE_ID,
-      loadWait: {
-        delay: process.env.MATOMO_LOAD_WAIT_DELAY,
-        retries: process.env.MATOMO_LOAD_WAIT_RETRIES
-      }
-    },
-    oauth: {
-      origin: process.env.OAUTH_ORIGIN,
-      realm: process.env.OAUTH_REALM,
-      client: process.env.OAUTH_CLIENT,
-      scope: process.env.OAUTH_SCOPE,
-      responseType: process.env.OAUTH_RESPONSE_TYPE,
-      accessType: process.env.OAUTH_ACCESS_TYPE,
-      grantType: process.env.OAUTH_GRANT_TYPE,
-      tokenType: process.env.OAUTH_TOKEN_TYPE
-    }
-  },
-
-  privateRuntimeConfig: {
     contentful: {
       graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE
     },
@@ -467,4 +473,4 @@ export default {
   telemetry: false,
 
   watch: ['~/**/*.graphql']
-};
+});
