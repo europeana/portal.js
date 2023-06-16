@@ -36,9 +36,11 @@
         >
           <b-dropdown
             :text="fieldDropdownText"
+            :state="validations.field.state"
             block
             no-flip
-            class="search-query-builder-field-dropdown search-filter-dropdown"
+            class="search-query-builder-field-dropdown search-filter-dropdown form-control"
+            :class="{ 'is-invalid': validations.field.state === false, 'is-valid': validations.field.state }"
           >
             <div
               v-for="(fieldSection, sectionIndex) in fieldDropdownSections"
@@ -105,6 +107,7 @@
           :id="`select-modifier-${id}`"
           v-model="modifier"
           :options="selectModifierOptions"
+          :state="validations.modifier.state"
           @change="(value) => handleRuleChange('modifier', value)"
         />
         <b-form-invalid-feedback
@@ -143,6 +146,7 @@
           :id="`search-term-${id}`"
           v-model="term"
           :placeholder="$t('search.advanced.placeholder.searchTerm')"
+          :state="validations.term.state"
           @change="(value) => handleRuleChange('term', value)"
         />
         <b-form-invalid-feedback
@@ -209,9 +213,9 @@
         modifier: null,
         term: null,
         validations: {
-          field: { state: true },
-          modifier: { state: true },
-          term: { state: true }
+          field: { state: null },
+          modifier: { state: null },
+          term: { state: null }
         }
       };
     },
@@ -299,7 +303,7 @@
             if (this[component]) {
               this.validations[component] = { state: true };
             } else {
-              this.validations[component] = { state: false, text: this.$t('set.form.required') };
+              this.validations[component] = { state: false, text: this.$t('statuses.required') };
             }
           });
         }
@@ -340,7 +344,7 @@
 
   .form-control {
     background-color: $white;
-    border: 1px solid $middlegrey;
+    border: 1px;
     border-radius: 0.375rem;
     font-weight: normal;
     height: 3rem;
@@ -352,6 +356,10 @@
         height: 4.5rem;
         padding: calc(1.5 * 0.375rem) calc(1.5 * 0.75rem);
       }
+    }
+
+    &:not(.is-valid):not(.valid) {
+      border-color: $middlegrey;
     }
 
     &:focus {
