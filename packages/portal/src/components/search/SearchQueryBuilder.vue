@@ -124,6 +124,17 @@
           }
         });
       },
+      handleValidRule(index) {
+        this.validations[index] = true;
+      },
+      initRulesFromRouteQuery() {
+        this.queryRules = this.advancedSearchRulesFromRouteQuery();
+        if (this.queryRules.length === 0) {
+          this.addNewRule();
+        } else {
+          this.$emit('show', true);
+        }
+      },
       trackAdvancedSearch() {
         if (!this.$matomo) {
           return;
@@ -149,17 +160,6 @@
 
           callback(this.validations.every((validation) => validation));
         });
-      },
-      handleValidRule(index) {
-        this.validations[index] = true;
-      },
-      initRulesFromRouteQuery() {
-        this.queryRules = this.advancedSearchRulesFromRouteQuery();
-        if (this.queryRules.length === 0) {
-          this.addNewRule();
-        } else {
-          this.$emit('show', true);
-        }
       }
     }
   };
