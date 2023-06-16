@@ -23,6 +23,7 @@ COPY packages/portal/src ./packages/portal/src
 
 RUN npm run build
 RUN rm -rf node_modules packages/*/node_modules packages/mirador packages/style
+RUN rm -rf packages/portal/src/lang
 RUN npm -w packages/portal install --omit dev --omit peer
 
 
