@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import ContentCardSection from '@/components/browse/ContentCardSection.vue';
+import ContentCardSection from '@/components/content/ContentCardSection.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -46,7 +46,7 @@ const factory = (section) => mount(ContentCardSection, {
   }
 });
 
-describe('components/browse/ContentCardSection', () => {
+describe('components/content/ContentCardSection', () => {
   describe('headline', () => {
     it('is displayed as a h2', async() => {
       const wrapper = factory(dummySection);

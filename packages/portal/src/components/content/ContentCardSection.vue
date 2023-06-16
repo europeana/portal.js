@@ -55,8 +55,8 @@
 </template>
 
 <script>
-  import ContentCard from '../generic/ContentCard';
-  import BrowseContentCard from './BrowseContentCard';
+  import ContentCard from './ContentCard';
+  import BrowseContentCard from '../browse/BrowseContentCard';
   import SmartLink from '../generic/SmartLink';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
 

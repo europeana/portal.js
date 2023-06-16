@@ -37,8 +37,8 @@
 </template>
 
 <script>
-  import ShareButton from '../../components/share/ShareButton';
-  import ShareSocialModal from '../../components/share/ShareSocialModal';
+  import ShareButton from '../share/ShareButton';
+  import ShareSocialModal from '../share/ShareSocialModal';
 
   export default {
     name: 'ContentHeader',

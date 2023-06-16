@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import ContentCardSection from './ContentCardSection';
+  import ContentCardSection from '../content/ContentCardSection';
   import InfoCardSection from './InfoCardSection';
   import { daily, getLabelledSlug } from '@/plugins/europeana/utils';
 

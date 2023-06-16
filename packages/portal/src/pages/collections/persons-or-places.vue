@@ -37,8 +37,8 @@
   import { getLabelledSlug } from '@/plugins/europeana/utils';
   import pageMetaMixin from '@/mixins/pageMeta';
 
-  import ContentHeader from '@/components/generic/ContentHeader';
-  import ContentCard from '@/components/generic/ContentCard';
+  import ContentHeader from '@/components/content/ContentHeader';
+  import ContentCard from '@/components/content/ContentCard';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
 
   export default {

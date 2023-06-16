@@ -119,7 +119,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import SmartLink from './SmartLink';
+  import SmartLink from '../generic/SmartLink';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 

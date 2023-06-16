@@ -126,7 +126,7 @@
       ShareSocialModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
       LinkList: () => import('../../../components/generic/LinkList'),
-      ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
+      ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       ThemeBadges: () => import('@/components/theme/ThemeBadges')

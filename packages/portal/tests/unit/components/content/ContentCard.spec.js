@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import SmartLink from '@/components/generic/SmartLink.vue';
-import ContentCard from '@/components/generic/ContentCard.vue';
+import ContentCard from '@/components/content/ContentCard.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -46,7 +46,7 @@ const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
   }
 });
 
-describe('components/generic/ContentCard', () => {
+describe('components/content/ContentCard', () => {
   afterEach(sinon.resetHistory);
 
   describe('template', () => {

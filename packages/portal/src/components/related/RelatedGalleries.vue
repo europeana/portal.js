@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import ContentCard from '../generic/ContentCard';
+  import ContentCard from '../content/ContentCard';
   import { getLabelledSlug } from '@/plugins/europeana/utils';
 
   export default {

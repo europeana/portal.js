@@ -70,7 +70,7 @@
   export default {
     components: {
       ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
-      ContentCardSection: () => import('./ContentCardSection'),
+      ContentCardSection: () => import('../content/ContentCardSection'),
       EmbedHTML: () => import('../embed/EmbedHTML'),
       ImageWithAttribution: () => import('../image/ImageWithAttribution'),
       CallToAction: () => import('../generic/CallToAction'),

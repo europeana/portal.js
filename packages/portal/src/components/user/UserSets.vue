@@ -86,7 +86,7 @@
 <script>
   import AlertMessage from '../generic/AlertMessage';
   import LoadingSpinner from '../generic/LoadingSpinner';
-  import ContentCard from '../generic/ContentCard';
+  import ContentCard from '../content/ContentCard';
   import PaginationNavInput from '../generic/PaginationNavInput';
   import { getLabelledSlug } from '@/plugins/europeana/utils';
 

@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import ContentHeader from '@/components/generic/ContentHeader.vue';
+import ContentHeader from '@/components/content/ContentHeader.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -26,7 +26,7 @@ const details = {
   contextLabel: 'This is a label'
 };
 
-describe('components/generic/ContentHeader', () => {
+describe('components/content/ContentHeader', () => {
   describe('template', () => {
     it('shows the page title in an h1', () => {
       const wrapper = factory(details);

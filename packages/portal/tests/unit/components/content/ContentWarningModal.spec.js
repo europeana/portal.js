@@ -2,7 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import ContentWarningModal from '@/components/generic/ContentWarningModal.vue';
+import ContentWarningModal from '@/components/content/ContentWarningModal.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -28,7 +28,7 @@ const props = {
   pageSlug: 'exhibition/slug-example'
 };
 
-describe('components/generic/ContentWarning', () => {
+describe('components/content/ContentWarning', () => {
   describe('in browser', () => {
     beforeEach(() => {
       process.browser = true;

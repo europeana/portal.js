@@ -62,7 +62,7 @@
 <script>
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
-  import ContentCard from '../generic/ContentCard';
+  import ContentCard from '../content/ContentCard';
 
   export default {
     name: 'ItemPreviewCard',
