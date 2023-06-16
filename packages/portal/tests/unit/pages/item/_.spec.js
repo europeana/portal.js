@@ -484,7 +484,7 @@ describe('pages/item/_.vue', () => {
       });
     });
     describe('matomoOptions', () => {
-      it('picks the english pref labels from the metadata', async() => {
+      it('picks the english pref labels from the metadata', () => {
         const wrapper = factory({
           data: {
             metadata: record.metadata
