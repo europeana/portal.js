@@ -31,40 +31,52 @@
             </template>
           </span>
         </template>
-        <b-dropdown
-          :text="fieldDropdownText"
-          block
-          no-flip
-          class="search-query-builder-field-dropdown search-filter-dropdown"
+        <div
+          :id="`select-field-${id}`"
         >
-          <div
-            v-for="(fieldSection, sectionIndex) in fieldDropdownSections"
-            :key="`section-${sectionIndex}`"
+          <b-dropdown
+            :text="fieldDropdownText"
+            :state="validations.field.state"
+            block
+            no-flip
+            class="search-query-builder-field-dropdown search-filter-dropdown"
+            :toggle-class="{ 'form-control': true, 'is-invalid': validations.field.state === false }"
           >
-            <component
-              :is="Array.isArray(fieldSection.fields) ? 'b-dropdown-group' : 'div'"
-              :header="fieldSection.header"
+            <div
+              v-for="(fieldSection, sectionIndex) in fieldDropdownSections"
+              :key="`section-${sectionIndex}`"
             >
-              <b-dropdown-item-button
-                v-for="(fieldOption, fieldIndex) in [].concat(fieldSection.fields)"
-                :key="`field-${fieldIndex}`"
-                @click="handleFieldChange(fieldOption.value)"
+              <component
+                :is="Array.isArray(fieldSection.fields) ? 'b-dropdown-group' : 'div'"
+                :header="fieldSection.header"
               >
-                {{ fieldOption.text }}
-                <b-button
-                  v-if="$te(`search.advanced.tooltip.fields.${fieldOption.value}`)"
-                  v-b-tooltip.bottom
-                  :title="$t(`search.advanced.tooltip.fields.${fieldOption.value}`)"
-                  class="icon-info-outline p-0 tooltip-button"
-                  variant="light-flat"
-                />
-              </b-dropdown-item-button>
-            </component>
-            <b-dropdown-divider
-              v-if="(sectionIndex + 1) < fieldDropdownSections.length"
-            />
-          </div>
-        </b-dropdown>
+                <b-dropdown-item-button
+                  v-for="(fieldOption, fieldIndex) in [].concat(fieldSection.fields)"
+                  :key="`field-${fieldIndex}`"
+                  @click="handleRuleChange('field', fieldOption.value)"
+                >
+                  {{ fieldOption.text }}
+                  <b-button
+                    v-if="$te(`search.advanced.tooltip.fields.${fieldOption.value}`)"
+                    v-b-tooltip.bottom
+                    :title="$t(`search.advanced.tooltip.fields.${fieldOption.value}`)"
+                    class="icon-info-outline p-0 tooltip-button"
+                    variant="light-flat"
+                  />
+                </b-dropdown-item-button>
+              </component>
+              <b-dropdown-divider
+                v-if="(sectionIndex + 1) < fieldDropdownSections.length"
+              />
+            </div>
+          </b-dropdown>
+        </div>
+        <b-form-invalid-feedback
+          v-show="validate"
+          :state="validations.field.state"
+        >
+          {{ validations.field.text }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <b-form-group
         class="query-rule-form-group mr-lg-2"
@@ -95,9 +107,15 @@
           :id="`select-modifier-${id}`"
           v-model="modifier"
           :options="selectModifierOptions"
-          :required="areAllRequired"
-          @change="(value) => handleModifierChange(value)"
+          :state="validations.modifier.state"
+          @change="(value) => handleRuleChange('modifier', value)"
         />
+        <b-form-invalid-feedback
+          v-show="validate"
+          :state="validations.modifier.state"
+        >
+          {{ validations.modifier.text }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <b-form-group
         class="query-rule-form-group"
@@ -127,10 +145,16 @@
         <b-form-input
           :id="`search-term-${id}`"
           v-model="term"
-          :required="areAllRequired"
           :placeholder="$t('search.advanced.placeholder.searchTerm')"
-          @change="(value) => handleTermChange(value)"
+          :state="validations.term.state"
+          @change="(value) => handleRuleChange('term', value)"
         />
+        <b-form-invalid-feedback
+          v-show="validate"
+          :state="validations.term.state"
+        >
+          {{ validations.term.text }}
+        </b-form-invalid-feedback>
       </b-form-group>
     </b-input-group>
     <b-button
@@ -147,12 +171,14 @@
 
 <script>
   import { BFormSelect } from 'bootstrap-vue';
+  import AlertMessage from '../generic/AlertMessage';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRule',
 
     components: {
+      AlertMessage,
       BFormSelect
     },
 
@@ -169,6 +195,10 @@
         type: Boolean,
         default: true
       },
+      validate: {
+        type: Boolean,
+        default: false
+      },
       value: {
         type: Object,
         default: () => ({})
@@ -177,20 +207,20 @@
 
     data() {
       return {
+        aggregatedFieldNames: ['who', 'where', 'when', 'what'],
         field: null,
+        fulltextFieldName: 'fulltext',
         modifier: null,
         term: null,
-        fulltextFieldName: 'fulltext',
-        aggregatedFieldNames: ['who', 'where', 'when', 'what']
+        validations: {
+          field: { state: null },
+          modifier: { state: null },
+          term: { state: null }
+        }
       };
     },
 
     computed: {
-      // If any field has a value, all are required. If none have a value, the
-      // rule will be ignored and none are required.
-      areAllRequired() {
-        return [this.value.term, this.value.field, this.value.modifier].some((value) => !!value);
-      },
       aggregatedFieldOptions() {
         return this.fieldOptions
           .filter((field) => this.aggregatedFieldNames.includes(field.value));
@@ -236,6 +266,10 @@
         handler() {
           this.initData();
         }
+      },
+      validate: {
+        deep: true,
+        handler: 'validateRules'
       }
     },
 
@@ -244,23 +278,36 @@
     },
 
     methods: {
-      initData() {
-        this.field = this.value.field || null;
-        this.modifier = this.value.modifier || null;
-        this.term = this.value.term || null;
-      },
       clearRule() {
         this.$emit('clear');
       },
-      handleTermChange(value) {
-        this.$emit('change', 'term', value);
+      forEveryRuleComponent(callback) {
+        for (const component of ['field', 'modifier', 'term']) {
+          callback(component);
+        }
       },
-      handleFieldChange(value) {
-        this.field = value;
-        this.$emit('change', 'field', value);
+      handleRuleChange(key, value) {
+        this[key] = value;
+        this.$emit('change', key, value);
       },
-      handleModifierChange(value) {
-        this.$emit('change', 'modifier', value);
+      initData() {
+        this.forEveryRuleComponent((component) => {
+          this[component] = this.value[component] || null;
+        });
+      },
+      validateRules() {
+        // If any rule component has a value, all are required. If none have a value, the
+        // rule will be ignored and none are required.
+        if ([this.term, this.field, this.modifier].some((value) => !!value)) {
+          this.forEveryRuleComponent((component) => {
+            if (this[component]) {
+              this.validations[component] = { state: true };
+            } else {
+              this.validations[component] = { state: false, text: this.$t('statuses.required') };
+            }
+          });
+        }
+        this.$emit(Object.values(this.validations).some((validation) => !validation.state) ? 'invalid' : 'valid');
       }
     }
   };
@@ -313,6 +360,16 @@
 
     &:focus {
       border-color: $blue;
+    }
+
+    &.is-invalid,
+    &.is-valid {
+      background-image: none;
+      padding-right: 0.75rem !important;
+    }
+
+    &.is-invalid {
+      border-color: $red;
     }
   }
 </style>

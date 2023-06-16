@@ -1196,7 +1196,8 @@ export default {
   },
   "statuses": {
     "liked": "Liked",
-    "pinned": "Pinned"
+    "pinned": "Pinned",
+    "required": "Required"
   },
   "storiesPage": {
     "title": "Stories",
