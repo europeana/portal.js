@@ -24,13 +24,17 @@ const record = {
     { 'about': 'https://example.com/provider/entity', 'prefLabel': { 'en': ['Manchester'] } }
   ],
   metadata: {
-    edmCountry: ['Netherlands'],
+    edmCountry: { def: ['Netherlands'] },
     edmDataProvider: {
       def: [
-        { 'about': 'http://data.europeana.eu/organization/01', 'prefLabel': { 'en': ['Data Provider'] } }
+        { about: 'http://data.europeana.eu/organization/01', prefLabel: { en: ['Data Provider'] } }
       ]
     },
-    edmProvider: [{ en: ['Provider'] }],
+    edmProvider: {
+      def: [
+        { about: 'http://data.europeana.eu/organization/02', prefLabel: { en: ['Provider'] } }
+      ]
+    },
     edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] }
   },
   title: { en: ['Item example'] }
@@ -477,6 +481,21 @@ describe('pages/item/_.vue', () => {
         const entityUris = wrapper.vm.relatedEntityUris;
         expect(entityUris.length).toBe(5);
         expect(entityUris.includes('http://data.europeana.eu/organization/01')).toBe(false);
+      });
+    });
+    describe('matomoOptions', () => {
+      it('picks the english pref labels from the metadata', () => {
+        const wrapper = factory({
+          data: {
+            metadata: record.metadata
+          }
+        });
+        const matomoOptions = wrapper.vm.matomoOptions;
+
+        expect(matomoOptions.dimension1).toBe('Netherlands');
+        expect(matomoOptions.dimension2).toBe('Data Provider');
+        expect(matomoOptions.dimension3).toBe('Provider');
+        expect(matomoOptions.dimension4).toBe('http://rightsstatements.org/vocab/InC/1.0/');
       });
     });
   });

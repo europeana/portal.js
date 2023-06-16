@@ -531,16 +531,16 @@ describe('components/search/SideFilters', () => {
             expect(updates.qf).toContain('TYPE:"IMAGE"');
           });
 
-          it('removes tier filter', () => {
+          it('keeps the tier filter', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
-            expect(updates.qf).not.toContain('contentTier:"3"');
+            expect(updates.qf).toContain('contentTier:"3"');
           });
         });
 
         describe('when collection is removed', () => {
           const wrapper = factory({ propsData });
-          const selected = { collection: null };
+          const selected = { collection: [] };
 
           it('removes collection-specific facet filters', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
@@ -552,6 +552,12 @@ describe('components/search/SideFilters', () => {
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
             expect(updates.qf).toContain('TYPE:"IMAGE"');
+          });
+
+          it('removes tier filter', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.qf).not.toContain('contentTier:"3"');
           });
         });
       });
