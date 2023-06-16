@@ -70,7 +70,7 @@
 <script>
   import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
-  import PageHeader from '../components/PageHeader';
+  import PageHeader from '../components/page/PageHeader';
   import ErrorModal from '../components/error/ErrorModal';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import makeToastMixin from '@/mixins/makeToast';
@@ -85,9 +85,9 @@
       ApiRequests: () => import('../components/debug/ApiRequests'),
       BBreadcrumb,
       ClientOnly,
-      PageCookieConsent: () => import('../components/PageCookieConsent'),
+      PageCookieConsent: () => import('../components/page/PageCookieConsent'),
       PageHeader,
-      PageFooter: () => import('../components/PageFooter'),
+      PageFooter: () => import('../components/page/PageFooter'),
       NewFeatureNotification: () => import('../components/generic/NewFeatureNotification'),
       NotificationBanner: () => import('@/components/generic/NotificationBanner'),
       ErrorModal

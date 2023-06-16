@@ -110,16 +110,16 @@
 </template>
 
 <script>
-  import LangSelector from './generic/LanguageSelector';
-  import LinkGroup from './generic/LinkGroup';
-  import EULogo from '@/components/funders/EULogo';
+  import LangSelector from '../generic/LanguageSelector';
+  import LinkGroup from '../generic/LinkGroup';
+  import EULogo from '../funders/EULogo';
 
   export default {
     components: {
       LangSelector,
       LinkGroup,
       EULogo,
-      FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
+      FeedbackWidget: () => import('../feedback/FeedbackWidget')
     },
 
     data() {

@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
 import SmartLink from '@/components/generic/SmartLink.vue';
-import PageFooter from '@/components/PageFooter.vue';
+import PageFooter from '@/components/page/PageFooter.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

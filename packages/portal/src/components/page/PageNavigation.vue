@@ -80,7 +80,7 @@
 </template>
 
 <script>
-  import SmartLink from './generic/SmartLink';
+  import SmartLink from '../generic/SmartLink';
   import keycloak from '@/mixins/keycloak';
 
   export default {

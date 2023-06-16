@@ -105,10 +105,10 @@
 </template>
 
 <script>
-  import SmartLink from './generic/SmartLink';
-  import SearchForm from './search/SearchForm';
+  import SmartLink from '../generic/SmartLink';
+  import SearchForm from '../search/SearchForm';
   import PageNavigation from './PageNavigation';
-  import FilterToggleButton from '@/components/search/FilterToggleButton';
+  import FilterToggleButton from '../search/FilterToggleButton';
 
   export default {
     name: 'PageHeader',
