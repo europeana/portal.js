@@ -131,7 +131,7 @@
             :dc-type="title"
             :dc-subject="metadata.dcSubject"
             :dc-creator="metadata.dcCreator"
-            :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
+            :edm-data-provider="metadata.edmDataProvider?.def?.[0].prefLabel"
           />
         </client-only>
       </b-container>
@@ -268,7 +268,7 @@
           title: langMapValueForLocale(this.title, this.metadataLanguage || this.$i18n.locale).values[0],
           creator: langMapValueForLocale(this.metadata.dcCreator, this.$i18n.locale).values[0],
           year: langMapValueForLocale(this.metadata.year, this.$i18n.locale).values[0],
-          provider: langMapValueForLocale(this.metadata.edmDataProvider?.value, this.$i18n.locale).values[0],
+          provider: langMapValueForLocale(this.metadata.edmDataProvider, this.$i18n.locale).values[0],
           country: langMapValueForLocale(this.metadata.edmCountry, this.$i18n.locale).values[0],
           url: this.shareUrl
         };
@@ -317,7 +317,7 @@
       matomoOptions() {
         return {
           dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
-          dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider?.value, 'en').values[0]),
+          dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider, 'en').values[0]),
           dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
           dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
