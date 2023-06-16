@@ -73,7 +73,7 @@
       CallToAction: () => import('../generic/CallToAction'),
       CallToActionBanner: () => import('../generic/CallToActionBanner'),
       ContentCardSection: () => import('../content/ContentCardSection'),
-      ContentPrimaryCallToAction: () => import('./ContentPrimaryCallToAction'),
+      ContentPrimaryCallToAction: () => import('../content/ContentPrimaryCallToAction'),
       ContentRichText: () => import('../content/ContentRichText'),
       EmbedHTML: () => import('../embed/EmbedHTML'),
       ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
