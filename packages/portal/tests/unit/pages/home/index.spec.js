@@ -116,7 +116,7 @@ describe('pages/home/index', () => {
     });
 
     describe('callsToAction', () => {
-      it('returns the PrimaryCallToAction-type sections', () => {
+      it('returns the ContentPrimaryCallToAction-type sections', () => {
         const data = {
           sections: [
             { '__typename': 'SomethingElse' },

@@ -1,20 +1,20 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import PrimaryCallToAction from '@/components/browse/PrimaryCallToAction.vue';
+import ContentPrimaryCallToAction from '@/components/content/ContentPrimaryCallToAction.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData = { text: 'Call to action!', link: { text: 'I am the link', url: 'https://example.org/call-to-action' } }) => shallowMount(PrimaryCallToAction, {
+const factory = (propsData = { text: 'Call to action!', link: { text: 'I am the link', url: 'https://example.org/call-to-action' } }) => shallowMount(ContentPrimaryCallToAction, {
   localVue,
   propsData
 });
 
-describe('components/browse/PrimaryCallToAction', () => {
+describe('components/content/ContentPrimaryCallToAction', () => {
   it('shows text', async() => {
     const wrapper = factory();
 
-    const cta = wrapper.find('richtext-stub');
+    const cta = wrapper.find('contentrichtext-stub');
 
     expect(cta.vm.text).toBe('Call to action!');
   });

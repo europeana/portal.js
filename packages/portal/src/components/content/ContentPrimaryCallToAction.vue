@@ -1,6 +1,6 @@
 <template>
   <div class="primary-cta text-center">
-    <RichText
+    <ContentRichText
       :text="text"
       :rich-text-is-card="false"
       class="primary-cta-rich-text text-left"
@@ -18,14 +18,14 @@
 
 <script>
   import SmartLink from '../generic/SmartLink';
-  import RichText from './RichText';
+  import ContentRichText from '../content/ContentRichText';
 
   export default {
-    name: 'PrimaryCallToAction',
+    name: 'ContentPrimaryCallToAction',
 
     components: {
       SmartLink,
-      RichText
+      ContentRichText
     },
     props: {
       text: {

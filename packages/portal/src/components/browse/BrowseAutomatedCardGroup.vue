@@ -2,7 +2,7 @@
   <div
     v-if="entries && entries.length > 0"
   >
-    <InfoCardSection
+    <BrowseInfoCardSection
       v-if="key === 'items/type-counts'"
       :section="contentCardSection"
     />
@@ -15,7 +15,7 @@
 
 <script>
   import ContentCardSection from '../content/ContentCardSection';
-  import InfoCardSection from './InfoCardSection';
+  import BrowseInfoCardSection from './BrowseInfoCardSection';
   import { daily, getLabelledSlug } from '@/plugins/europeana/utils';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
@@ -28,11 +28,11 @@
   const LATEST_GALLERIES = 'Latest galleries';
 
   export default {
-    name: 'AutomatedCardGroup',
+    name: 'BrowseAutomatedCardGroup',
 
     components: {
       ContentCardSection,
-      InfoCardSection
+      BrowseInfoCardSection
     },
 
     props: {

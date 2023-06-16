@@ -4,7 +4,7 @@
       v-for="(section, index) in sections"
       :key="index"
     >
-      <RichText
+      <ContentRichText
         v-if="contentType(section, 'ContentTypeRichText')"
         :text="section.text"
         :rich-text-is-card="richTextIsCard"
@@ -13,8 +13,8 @@
         v-else-if="contentType(section, 'CardGroup')"
         :section="section"
       />
-      <AutomatedCardGroup
-        v-else-if="contentType(section, 'AutomatedCardGroup')"
+      <BrowseAutomatedCardGroup
+        v-else-if="contentType(section, 'BrowseAutomatedCardGroup')"
         :section-type="section.genre"
         :more-button="section.moreButton"
       />
@@ -57,7 +57,7 @@
         :link="section.relatedLink"
         :illustration="section.image"
       />
-      <PrimaryCallToAction
+      <ContentPrimaryCallToAction
         v-else-if="contentType(section, 'PrimaryCallToAction')"
         :text="section.text"
         :link="section.relatedLink"
@@ -69,15 +69,15 @@
 <script>
   export default {
     components: {
-      ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
-      ContentCardSection: () => import('../content/ContentCardSection'),
-      EmbedHTML: () => import('../embed/EmbedHTML'),
-      ImageWithAttribution: () => import('../image/ImageWithAttribution'),
+      BrowseAutomatedCardGroup: () => import('./BrowseAutomatedCardGroup'),
       CallToAction: () => import('../generic/CallToAction'),
-      RichText: () => import('./RichText'),
-      AutomatedCardGroup: () => import('./AutomatedCardGroup'),
-      PrimaryCallToAction: () => import('./PrimaryCallToAction'),
-      CallToActionBanner: () => import('../generic/CallToActionBanner')
+      CallToActionBanner: () => import('../generic/CallToActionBanner'),
+      ContentCardSection: () => import('../content/ContentCardSection'),
+      ContentPrimaryCallToAction: () => import('./ContentPrimaryCallToAction'),
+      ContentRichText: () => import('../content/ContentRichText'),
+      EmbedHTML: () => import('../embed/EmbedHTML'),
+      ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
+      ImageWithAttribution: () => import('../image/ImageWithAttribution')
     },
 
     props: {

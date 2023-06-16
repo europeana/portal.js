@@ -1,19 +1,19 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import RichText from '@/components/browse/RichText.vue';
+import ContentRichText from '@/components/content/ContentRichText.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => mount(RichText, {
+const factory = () => mount(ContentRichText, {
   localVue,
   propsData: {
     text: '__This is bold text__'
   }
 });
 
-describe('components/browse/RichText', () => {
+describe('components/content/ContentRichText', () => {
   it('shows bold text', () => {
     const wrapper = factory();
     const markdown = wrapper.find('[data-qa="markdown"]');

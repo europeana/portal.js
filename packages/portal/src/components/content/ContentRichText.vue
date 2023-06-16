@@ -29,7 +29,7 @@
   import { marked } from 'marked';
 
   export default {
-    name: 'RichText',
+    name: 'ContentRichText',
 
     props: {
       text: {

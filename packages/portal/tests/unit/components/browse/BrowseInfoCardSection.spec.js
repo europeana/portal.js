@@ -1,11 +1,11 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import InfoCardSection from '@/components/browse/InfoCardSection.vue';
+import BrowseInfoCardSection from '@/components/browse/BrowseInfoCardSection.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(InfoCardSection, {
+const factory = () => shallowMount(BrowseInfoCardSection, {
   localVue
 });
 
@@ -41,7 +41,7 @@ const defaultSection = {
   hasPartCollection
 };
 
-describe('components/browse/InfoCardSection', () => {
+describe('components/browse/BrowseInfoCardSection', () => {
   it('shows a section with cards', async() => {
     const wrapper = factory();
     await wrapper.setProps({ section: typeCountsSection });

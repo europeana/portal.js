@@ -3,7 +3,7 @@ import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
-import AutomatedCardGroup from '@/components/browse/AutomatedCardGroup.vue';
+import BrowseAutomatedCardGroup from '@/components/browse/BrowseAutomatedCardGroup.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -18,7 +18,7 @@ const LATEST_GALLERIES = 'Latest galleries';
 
 const $axiosGetStub = sinon.stub();
 
-const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(AutomatedCardGroup, {
+const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(BrowseAutomatedCardGroup, {
   localVue,
   propsData,
   mocks: {
@@ -146,7 +146,7 @@ const entries = {
   ]
 };
 
-describe('components/browse/AutomatedCardGroup', () => {
+describe('components/browse/BrowseAutomatedCardGroup', () => {
   describe('fetch()', () => {
     describe('when section is cached', () => {
       const propsData = { sectionType: FEATURED_TOPICS };
