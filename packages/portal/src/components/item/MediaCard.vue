@@ -20,7 +20,7 @@
       :title="$t('record.mediaPlayer')"
     />
   </div>
-  <VideoPlayer
+  <MediaVideoPlayer
     v-else-if="media.isHTMLVideo"
     :europeana-identifier="europeanaIdentifier"
     :src="media.about"
@@ -32,7 +32,7 @@
     v-else-if="media.isHTMLAudio"
     class="audio-slide"
   >
-    <AudioPlayer
+    <MediaAudioPlayer
       :europeana-identifier="europeanaIdentifier"
       :src="media.about"
       :type="media.ebucoreHasMimeType"
@@ -52,8 +52,8 @@
     components: {
       MediaCardImage: () => import('./MediaCardImage'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed'),
-      VideoPlayer: () => import('../media/VideoPlayer'),
-      AudioPlayer: () => import('../media/AudioPlayer')
+      MediaVideoPlayer: () => import('../media/MediaVideoPlayer'),
+      MediaAudioPlayer: () => import('../media/MediaAudioPlayer')
     },
     props: {
       media: {

@@ -1,28 +1,30 @@
 <template>
   <!--
-    `key` attribute is needed to force replacement of the entire audio element
+    `key` attribute is needed to force replacement of the entire video element
     when `src` updates as `source` elements may not have their `src` attribute
     updated after render.
   -->
-  <audio
+  <video
     :key="src"
     :controls="controls"
     :autoplay="autoplay"
     :loop="loop"
-    class="w-100"
-    data-qa="audio player"
+    :muted="muted"
+    :width="width"
+    :height="height"
+    data-qa="video"
   >
     <source
       :src="$apis.record.mediaProxyUrl(src, europeanaIdentifier)"
       :type="type"
-      data-qa="audio source"
+      data-qa="video source"
     >
-  </audio>
+  </video>
 </template>
 
 <script>
   export default {
-    name: 'AudioPlayer',
+    name: 'MediaVideoPlayer',
 
     props: {
       europeanaIdentifier: {
@@ -48,6 +50,18 @@
       loop: {
         type: Boolean,
         default: false
+      },
+      muted: {
+        type: Boolean,
+        default: false
+      },
+      width: {
+        type: Number,
+        default: null
+      },
+      height: {
+        type: Number,
+        default: null
       }
     }
   };

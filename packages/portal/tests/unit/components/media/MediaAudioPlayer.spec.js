@@ -1,11 +1,11 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import AudioPlayer from '@/components/media/AudioPlayer.vue';
+import MediaAudioPlayer from '@/components/media/MediaAudioPlayer.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(AudioPlayer, {
+const factory = () => shallowMount(MediaAudioPlayer, {
   propsData: {
     europeanaIdentifier: '/123/abc',
     src: 'https://example.org',
@@ -21,7 +21,7 @@ const factory = () => shallowMount(AudioPlayer, {
   localVue
 });
 
-describe('components/media/AudioPlayer', () => {
+describe('components/media/MediaAudioPlayer', () => {
   it('has a proxied source', async() => {
     const wrapper = factory();
     const audioSource = wrapper.find('[data-qa="audio source"]');
