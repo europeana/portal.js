@@ -265,7 +265,7 @@
       },
       validate: {
         deep: true,
-        handler: this.validateRules
+        handler: 'validateRules'
       }
     },
 
