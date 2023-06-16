@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import MediaCardImage from '@/components/item/MediaCardImage.vue';
+import MediaCardImage from '@/components/media/MediaCardImage.vue';
 import WebResource from '@/plugins/europeana/edm/WebResource.js';
 
 const localVue = createLocalVue();
@@ -29,7 +29,7 @@ const factory = () => shallowMount(MediaCardImage, {
   }
 });
 
-describe('components/item/MediaCardImage', () => {
+describe('components/media/MediaCardImage', () => {
   it('has a link', () => {
     const wrapper = factory();
     const link = wrapper.find('[data-qa="media link"]');

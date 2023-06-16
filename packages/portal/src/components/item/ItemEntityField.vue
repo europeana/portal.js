@@ -20,7 +20,7 @@
   import { isEntityUri, entityParamsFromUri } from '@/plugins/europeana/entity';
 
   export default {
-    name: 'EntityField',
+    name: 'ItemEntityField',
 
     components: {
       SmartLink

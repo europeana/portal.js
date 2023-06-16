@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import MetadataBox from '@/components/item/MetadataBox';
+import MetadataBox from '@/components/metadata/MetadataBox';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -25,7 +25,7 @@ const fixtures = {
   }
 };
 
-describe('components/item/MetadataBox', () => {
+describe('components/metadata/MetadataBox', () => {
   describe('location tab', () => {
     describe('when location prop is present', () => {
       const location = {

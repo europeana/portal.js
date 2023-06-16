@@ -34,7 +34,7 @@
             >
               {{ nestedValue }}
             </SmartLink>
-            <EntityField
+            <ItemEntityField
               v-else
               :text="nestedValue"
               :about="value.about"
@@ -66,7 +66,7 @@
 
 <script>
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import EntityField from './EntityField';
+  import ItemEntityField from '../item/ItemEntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
@@ -75,7 +75,7 @@
     name: 'MetadataField',
 
     components: {
-      EntityField,
+      ItemEntityField,
       MetadataOriginLabel,
       SmartLink
     },

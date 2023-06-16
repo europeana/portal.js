@@ -1,11 +1,11 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import EntityField from '@/components/item/EntityField.vue';
+import ItemEntityField from '@/components/item/ItemEntityField.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData) => mount(EntityField, {
+const factory = (propsData) => mount(ItemEntityField, {
   localVue,
   propsData,
   mocks: {
@@ -19,7 +19,7 @@ const fixtures = {
   providerEntity: { text: 'Painting', about: 'http://example.org/entities/painting' }
 };
 
-describe('components/item/EntityField', () => {
+describe('components/item/ItemEntityField', () => {
   describe('template', () => {
     describe('when it represents a Europeana Entity', () => {
       it('shows linked entity', () => {

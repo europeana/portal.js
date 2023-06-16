@@ -75,10 +75,10 @@
 </template>
 
 <script>
-  import MetadataOriginLabel from './MetadataOriginLabel';
+  import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
 
   export default {
-    name: 'SummaryInfo',
+    name: 'ItemSummaryInfo',
 
     components: {
       MetadataOriginLabel

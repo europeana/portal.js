@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SummaryInfo from '@/components/item/SummaryInfo.vue';
+import ItemSummaryInfo from '@/components/item/ItemSummaryInfo.vue';
 import VueI18n from 'vue-i18n';
 
 const localVue = createLocalVue();
@@ -24,7 +24,7 @@ const i18n = new VueI18n({
   }
 });
 
-const factory = (propsData, translated = false) => mount(SummaryInfo, {
+const factory = (propsData, translated = false) => mount(ItemSummaryInfo, {
   localVue,
   attachTo: document.body,
   propsData,
@@ -38,7 +38,7 @@ const factory = (propsData, translated = false) => mount(SummaryInfo, {
   }
 });
 
-describe('components/item/SummaryInfo', () => {
+describe('components/item/ItemSummaryInfo', () => {
   describe('displaying summary info', () => {
     const wrapper = factory({
       titles: [

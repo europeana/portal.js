@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import MetadataOriginLabel from '@/components/item/MetadataOriginLabel.vue';
+import MetadataOriginLabel from '@/components/metadata/MetadataOriginLabel.vue';
 
 const $i18n = {
   locales: [{ code: 'en', name: 'English' }, { code: 'de', name: 'Deutsch' }],
@@ -20,7 +20,7 @@ const factory = () => shallowMount(MetadataOriginLabel, {
   }
 });
 
-describe('components/item/MetadataOriginLabel', () => {
+describe('components/metadata/MetadataOriginLabel', () => {
   describe('when the field was translated', () => {
     const props = { translationSource: 'automated' };
     const wrapper = factory();

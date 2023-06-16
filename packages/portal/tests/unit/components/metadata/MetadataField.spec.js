@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import MetadataField from '@/components/item/MetadataField.vue';
+import MetadataField from '@/components/metadata/MetadataField.vue';
 
 const $i18n = {
   locales: [{ code: 'en', name: 'English' }, { code: 'de', name: 'Deutsch' }],
@@ -15,7 +15,7 @@ const factory = () => shallowMount(MetadataField, {
   }
 });
 
-describe('components/item/MetadataField', () => {
+describe('components/metadata/MetadataField', () => {
   const wrapper = factory();
 
   describe('when there is a langMapped value as data', () => {
@@ -28,7 +28,7 @@ describe('components/item/MetadataField', () => {
         await wrapper.setProps(props);
 
         const fieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="literal value"]');
-        const entityFieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="entity value"] entityfield-stub');
+        const entityFieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="entity value"] itementityfield-stub');
         expect(fieldValue.text()).toBe('Artist');
         expect(entityFieldValue.attributes('text')).toBe('English name');
       });
