@@ -11,7 +11,7 @@
       @click="!citeCollapsed ? toggleCite : null"
     >
       <figure>
-        <OptimisedImage
+        <ImageOptimised
           v-if="src"
           :src="src"
           :width="width"
@@ -30,15 +30,15 @@
 </template>
 
 <script>
-  import AttributionToggle from '@/components/generic/AttributionToggle';
-  import OptimisedImage from './OptimisedImage';
+  import AttributionToggle from '../generic/AttributionToggle';
+  import ImageOptimised from './ImageOptimised';
 
   export default {
     name: 'ImageWithAttribution',
 
     components: {
       AttributionToggle,
-      OptimisedImage
+      ImageOptimised
     },
 
     props: {

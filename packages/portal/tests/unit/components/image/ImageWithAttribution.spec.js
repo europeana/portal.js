@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import ImageWithAttribution from '@/components/generic/ImageWithAttribution.vue';
+import ImageWithAttribution from '@/components/image/ImageWithAttribution.vue';
 import BootstrapVue from 'bootstrap-vue';
 
 const localVue = createLocalVue();
@@ -21,7 +21,7 @@ const factory = () => shallowMount(ImageWithAttribution, {
   propsData
 });
 
-describe('components/generic/ImageWithAttribution', () => {
+describe('components/image/ImageWithAttribution', () => {
   it('renders the image', () => {
     const wrapper = factory();
     const image = wrapper.find('figure [data-qa="image"]');

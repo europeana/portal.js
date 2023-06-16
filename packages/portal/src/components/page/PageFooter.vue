@@ -112,7 +112,7 @@
 <script>
   import LangSelector from '../generic/LanguageSelector';
   import LinkGroup from '../generic/LinkGroup';
-  import EULogo from '../funders/EULogo';
+  import EULogo from '../image/ImageEULogo';
 
   export default {
     components: {

@@ -22,7 +22,7 @@
         v-else-if="contentType(section, 'Embed')"
         :html="section.embed"
       />
-      <CompareImageSlider
+      <ImageComparisonSlider
         v-else-if="contentType(section, 'ImageComparison')"
         :left-image-src="imageCompareImage(section, 0) ? imageCompareImage(section, 0).url : null"
         :left-image-content-type="imageCompareImage(section, 0) ? imageCompareImage(section, 0).contentType : null"
@@ -69,10 +69,10 @@
 <script>
   export default {
     components: {
-      CompareImageSlider: () => import('../generic/CompareImageSlider'),
+      ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
       ContentCardSection: () => import('./ContentCardSection'),
       EmbedHTML: () => import('../embed/EmbedHTML'),
-      ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
+      ImageWithAttribution: () => import('../image/ImageWithAttribution'),
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),
       AutomatedCardGroup: () => import('./AutomatedCardGroup'),

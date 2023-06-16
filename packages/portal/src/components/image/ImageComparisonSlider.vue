@@ -7,7 +7,7 @@
       class="compare-image"
       data-qa="compare image"
     >
-      <OptimisedImage
+      <ImageOptimised
         ref="leftImage"
         :style="leftImageClip"
         :src="leftImageSrc"
@@ -18,7 +18,7 @@
         :lazy="lazy"
         data-qa="compare image left image"
       />
-      <OptimisedImage
+      <ImageOptimised
         ref="rightImage"
         :src="rightImageSrc"
         :width="rightImageWidth"
@@ -72,18 +72,18 @@
 </template>
 
 <script>
-  import CiteAttribution from './CiteAttribution';
-  import OptimisedImage from './OptimisedImage';
+  import CiteAttribution from '../generic/CiteAttribution';
+  import ImageOptimised from './ImageOptimised';
 
   /**
    * Slider to compare two images side-by-side
    */
   export default {
-    name: 'CompareImageSlider',
+    name: 'ImageComparisonSlider',
 
     components: {
       CiteAttribution,
-      OptimisedImage
+      ImageOptimised
     },
 
     props: {
@@ -437,7 +437,7 @@
 
 <docs lang="md">
   ```jsx
-  <CompareImageSlider
+  <ImageComparisonSlider
     left-image-src="https://api.europeana.eu/thumbnail/v3/400/e9246ea9b899e724216689ea7df02c5b"
     left-image-content-type="image/jpeg"
     :left-image-width="400"

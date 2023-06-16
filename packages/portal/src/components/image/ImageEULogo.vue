@@ -10,7 +10,7 @@
 
 <script>
   export default {
-    name: 'EULogo',
+    name: 'ImageEULogo',
 
     computed: {
       localisedEULogo() {

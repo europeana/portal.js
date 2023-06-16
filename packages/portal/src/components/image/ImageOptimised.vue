@@ -18,7 +18,7 @@
 
 <script>
   export default {
-    name: 'OptimisedImage',
+    name: 'ImageOptimised',
 
     props: {
       src: {

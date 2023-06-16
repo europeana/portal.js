@@ -1,12 +1,12 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
-import CompareImageSlider from '@/components/generic/CompareImageSlider.vue';
+import ImageComparisonSlider from '@/components/image/ImageComparisonSlider.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData) => shallowMount(CompareImageSlider, {
+const factory = (propsData) => shallowMount(ImageComparisonSlider, {
   localVue,
   attachTo: document.body,
   propsData: {
@@ -30,7 +30,7 @@ const factory = (propsData) => shallowMount(CompareImageSlider, {
   }
 });
 
-describe('components/generic/CompareImageSlider', () => {
+describe('components/image/ImageComparisonSlider', () => {
   it('has left image', () => {
     const wrapper = factory();
 

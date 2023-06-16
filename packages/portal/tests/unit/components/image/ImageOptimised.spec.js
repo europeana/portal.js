@@ -1,10 +1,10 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import OptimisedImage from '@/components/generic/OptimisedImage.vue';
+import ImageOptimised from '@/components/image/ImageOptimised.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
-const factory = (propsData) => shallowMount(OptimisedImage, {
+const factory = (propsData) => shallowMount(ImageOptimised, {
   localVue,
   propsData,
   mocks: {
@@ -18,7 +18,7 @@ const factory = (propsData) => shallowMount(OptimisedImage, {
   stubs: ['b-img', 'b-img-lazy']
 });
 
-describe('components/generic/OptimisedImage', () => {
+describe('components/generic/ImageOptimised', () => {
   afterEach(sinon.resetHistory);
 
   it('uses a lazy loading image by default', () => {
