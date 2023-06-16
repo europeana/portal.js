@@ -1,11 +1,15 @@
 <template>
-  <div class="iiif-viewer-inner-wrapper h-100 d-flex flex-column">
+  <div
+    class="iiif-viewer-inner-wrapper h-100 d-flex flex-column"
+    :class="{ 'error': manifestError}"
+  >
     <IIIFErrorMessage
       v-if="manifestError"
       :provider-url="providerUrl"
     />
     <div
       class="iiif-viewer"
+      :class="{ 'error': manifestError}"
       data-qa="IIIF viewer"
     >
       <div
@@ -620,5 +624,9 @@
 
   .iiif-viewer-inner-wrapper {
     background-color: $black;
+
+    &.error {
+      overflow: auto;
+    }
   }
 </style>

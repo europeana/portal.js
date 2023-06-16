@@ -1,10 +1,11 @@
 <template>
   <div class="iiif-error-message d-flex">
-    <span class="icon-info-outline" />
+    <span class="icon-info" />
     <div>
       <i18n
         path="errorMessage.IIIFManifestFailure.brokenConnection"
         tag="p"
+        class="mb-0"
       >
         <template #linkToProvider>
           <SmartLink
@@ -44,10 +45,26 @@
   @import '@europeana/style/scss/variables';
 
 .iiif-error-message {
-
   color: $white;
   max-width: $max-text-column-width;
-  padding-top: 2.5rem;
+  padding: 2.5rem 2rem 0;
   margin: 0 auto;
+}
+
+.icon-info {
+  font-size: $font-size-medium;
+  line-height: 1.5rem;
+  margin-right: 1rem;
+
+  &:before {
+    display: inline-block;
+    transform: rotateX(180deg);
+  }
+}
+
+.provider-link {
+  color: $white;
+  font-weight: 600;
+  text-transform: lowercase;
 }
 </style>
