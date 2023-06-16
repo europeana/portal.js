@@ -70,7 +70,7 @@
     components: {
       ContentCard,
       RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
-      UserButtons: () => import('../account/UserButtons'),
+      UserButtons: () => import('../user/UserButtons'),
       RightsStatement: () => import('../generic/RightsStatement')
     },
 

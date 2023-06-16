@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import UserButtons from '@/components/account/UserButtons';
+import UserButtons from '@/components/user/UserButtons';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -25,7 +25,7 @@ const factory = ({ propsData = {} } = {}) => shallowMount(UserButtons, {
   ]
 });
 
-describe('components/account/UserButtons', () => {
+describe('components/user/UserButtons', () => {
   describe('pin button', () => {
     it('does not exist by default', () => {
       const wrapper = factory();

@@ -26,7 +26,7 @@
    * Button for initiating creation of a user set (AKA gallery).
    */
   export default {
-    name: 'CreateSetButton',
+    name: 'UserCreateSetButton',
 
     components: {
       SetFormModal: () => import('../set/SetFormModal')
@@ -67,6 +67,6 @@
 
 <docs lang="md">
   ```jsx
-  <CreateSetButton />
+  <UserCreateSetButton />
   ```
 </docs>

@@ -67,7 +67,7 @@
               :offset="index"
               data-qa="user set"
             />
-            <CreateSetButton
+            <UserCreateSetButton
               v-if="showCreateSetButton"
               :visibility="visibility"
               @created="handleSetCreated"
@@ -94,7 +94,7 @@
     name: 'UserSets',
     components: {
       ContentCard,
-      CreateSetButton: () => import('./CreateSetButton'),
+      UserCreateSetButton: () => import('./UserCreateSetButton'),
       AlertMessage,
       LoadingSpinner,
       PaginationNavInput

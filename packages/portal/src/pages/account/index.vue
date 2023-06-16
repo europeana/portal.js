@@ -160,7 +160,7 @@
   import keycloak from '../../mixins/keycloak';
   import pageMetaMixin from '@/mixins/pageMeta';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
-  import UserSets from '../../components/account/UserSets';
+  import UserSets from '../../components/user/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
 

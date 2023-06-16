@@ -101,7 +101,7 @@
       RightsStatementButton,
       ShareButton,
       ShareSocialModal,
-      UserButtons: () => import('../account/UserButtons'),
+      UserButtons: () => import('../user/UserButtons'),
       ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
       IIIFViewer: () => import('../iiif/IIIFViewer.vue')
     },

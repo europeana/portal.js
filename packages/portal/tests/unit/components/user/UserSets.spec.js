@@ -2,7 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
-import UserSets from '@/components/account/UserSets.vue';
+import UserSets from '@/components/user/UserSets.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -62,7 +62,7 @@ const factory = ({ propsData = {}, data = {}, $route = {} } = {}) => shallowMoun
   }
 });
 
-describe('components/account/UserSets', () => {
+describe('components/user/UserSets', () => {
   describe('template', () => {
     it('renders a card for every user set', () => {
       const wrapper = factory({ data: { sets, total: 2 } });
