@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
-import QuickSearch from '@/components/search/QuickSearch.vue';
+import SearchThemeBadges from '@/components/search/SearchThemeBadges.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -9,7 +9,7 @@ localVue.use(BootstrapVue);
 
 const themesOrOptions = [{ prefLabel: { en: 'theme1' } }, { prefLabel: { en: 'theme2' } }];
 
-const factory = ({ propsData = {} } = {}) => shallowMountNuxt(QuickSearch, {
+const factory = ({ propsData = {} } = {}) => shallowMountNuxt(SearchThemeBadges, {
   localVue,
   propsData,
   mocks: {
@@ -28,7 +28,7 @@ const factory = ({ propsData = {} } = {}) => shallowMountNuxt(QuickSearch, {
   }
 });
 
-describe('components/search/QuickSearch', () => {
+describe('components/search/SearchThemeBadges', () => {
   it('fetches all themes', async() => {
     const wrapper = factory();
 

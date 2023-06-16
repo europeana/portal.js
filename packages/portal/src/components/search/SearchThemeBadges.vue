@@ -16,7 +16,7 @@
   import themeDefinitions from '@/plugins/europeana/themes';
 
   export default {
-    name: 'QuickSearch',
+    name: 'SearchThemeBadges',
 
     components: {
       ThemeBadges
@@ -129,7 +129,7 @@
 
 <docs lang="md">
   ```jsx
-  <QuickSearch
+  <SearchThemeBadges
     :options="[
       {
         primaryImageOfPage: {

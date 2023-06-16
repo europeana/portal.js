@@ -2,13 +2,13 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import SideFilters from '@/components/search/SideFilters.vue';
+import SearchFilters from '@/components/search/SearchFilters.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = (options = {}) => {
-  return shallowMount(SideFilters, {
+  return shallowMount(SearchFilters, {
     localVue,
     attachTo: document.body,
     mocks: {
@@ -39,7 +39,7 @@ const factory = (options = {}) => {
   });
 };
 
-describe('components/search/SideFilters', () => {
+describe('components/search/SearchFilters', () => {
   describe('template', () => {
     it('is wrapper in <section role="search">', () => {
       const wrapper = factory();

@@ -35,7 +35,7 @@
   import facetsMixin from '@/mixins/facets';
 
   export default {
-    name: 'SideSwitchFilter',
+    name: 'SearchSwitchFilter',
 
     mixins: [facetsMixin],
 
@@ -137,7 +137,7 @@
 <docs lang="md">
   Switch-style checkbox with tooltip:
   ```jsx
-    <SideSwitchFilter
+    <SearchSwitchFilter
       value="metadata"
       name="api"
       checked-value="fulltext"

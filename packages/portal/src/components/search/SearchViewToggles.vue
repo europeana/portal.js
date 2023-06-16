@@ -32,7 +32,7 @@
 
 <script>
   export default {
-    name: 'ViewToggles',
+    name: 'SearchViewToggles',
     props: {
       /**
        * Selected search results view
@@ -159,6 +159,6 @@
 
 <docs lang="md">
   ```jsx
-  <ViewToggles />
+  <SearchViewToggles />
   ```
 </docs>

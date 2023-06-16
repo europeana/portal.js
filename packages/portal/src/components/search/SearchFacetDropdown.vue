@@ -158,7 +158,7 @@
    * Dropdown for search facet, with removable tags and optional search.
    */
   export default {
-    name: 'SideFacetDropdown',
+    name: 'SearchFacetDropdown',
 
     components: {
       BFormTags,
@@ -568,7 +568,7 @@
 <docs lang="md">
   Type radio:
   ```jsx
-  <SideFacetDropdown
+  <SearchFacetDropdown
     name="collection"
     type="radio"
     :static-fields="['ww1', 'archaeology', 'art', 'fashion']"
@@ -576,7 +576,7 @@
   ```
   Type checkbox:
   ```jsx
-  <SideFacetDropdown
+  <SearchFacetDropdown
     name="TYPE"
     type="checkbox"
     :static-fields="[
@@ -591,7 +591,7 @@
 
   Type checkbox with search option:
   ```jsx
-  <SideFacetDropdown
+  <SearchFacetDropdown
     name="institution"
     type="checkbox"
     search

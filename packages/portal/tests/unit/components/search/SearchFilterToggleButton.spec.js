@@ -1,11 +1,11 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import FilterToggleButton from '@/components/search/FilterToggleButton.vue';
+import SearchFilterToggleButton from '@/components/search/SearchFilterToggleButton.vue';
 import BootstrapVue from 'bootstrap-vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ mocks = {} } = {}) => shallowMount(FilterToggleButton, {
+const factory = ({ mocks = {} } = {}) => shallowMount(SearchFilterToggleButton, {
   localVue,
   mocks: {
     $route: {
@@ -18,7 +18,7 @@ const factory = ({ mocks = {} } = {}) => shallowMount(FilterToggleButton, {
   }
 });
 
-describe('components/search/FilterToggleButton', () => {
+describe('components/search/SearchFilterToggleButton', () => {
   describe('template', () => {
     describe('when no side filters are on the page', () => {
       describe('the filter toggle button', () => {

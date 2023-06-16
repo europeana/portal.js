@@ -65,7 +65,7 @@
 
 <script>
   export default {
-    name: 'SideDateFilter',
+    name: 'SearchDateFilter',
 
     props: {
       name: {

@@ -16,7 +16,7 @@
   import LinkBadge from '../generic/LinkBadge';
 
   export default {
-    name: 'RemovalChip',
+    name: 'SearchRemovalChip',
 
     components: {
       LinkBadge

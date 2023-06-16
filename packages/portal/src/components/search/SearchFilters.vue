@@ -36,7 +36,7 @@
               data-qa="search filters"
             >
               <div class="position-relative">
-                <SideSwitchFilter
+                <SearchSwitchFilter
                   v-if="enableApiFilter"
                   :value="filters.api"
                   name="api"
@@ -48,7 +48,7 @@
                   :collection="collection"
                   @changed="changeFacet"
                 />
-                <SideDateFilter
+                <SearchDateFilter
                   v-if="enableDateFilter"
                   :name="dateFilterField"
                   :start="dateFilter.start"
@@ -56,7 +56,7 @@
                   :specific="dateFilter.specific"
                   @dateFilter="dateFilterSelected"
                 />
-                <SideFacetDropdown
+                <SearchFacetDropdown
                   v-for="facet in defaultFilterableFacets"
                   :key="facet.name"
                   :name="facet.name"
@@ -89,7 +89,7 @@
                     v-show="showAdditionalFilters"
                     id="additional-filters"
                   >
-                    <SideFacetDropdown
+                    <SearchFacetDropdown
                       v-for="facet in additionalFilterableFacets"
                       :key="facet.name"
                       :name="facet.name"
@@ -104,7 +104,7 @@
                       :api-options="apiOptions"
                       @changed="changeFacet"
                     />
-                    <SideSwitchFilter
+                    <SearchSwitchFilter
                       v-if="contentTierFacetSwitch"
                       :value="filters.contentTier"
                       name="contentTier"
@@ -131,17 +131,17 @@
   import isEqual from 'lodash/isEqual';
   import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
-  import SideFacetDropdown from './SideFacetDropdown';
+  import SearchFacetDropdown from './SearchFacetDropdown';
 
   export default {
     // TODO: rename the component now it also includes advanced search?
-    name: 'SideFilters',
+    name: 'SearchFilters',
 
     components: {
       ClientOnly,
-      SideFacetDropdown,
-      SideDateFilter: () => import('./SideDateFilter'),
-      SideSwitchFilter: () => import('./SideSwitchFilter')
+      SearchFacetDropdown,
+      SearchDateFilter: () => import('./SearchDateFilter'),
+      SearchSwitchFilter: () => import('./SearchSwitchFilter')
     },
     props: {
       route: {
@@ -273,7 +273,7 @@
           });
         }
 
-        // Remove contentTier (as a SideFacetDropdown) when contentTierFacetSwitch is enabled
+        // Remove contentTier (as a SearchFacetDropdown) when contentTierFacetSwitch is enabled
         if (this.contentTierFacetSwitch) {
           facets = facets.filter((facet) => facet.name !== 'contentTier');
         }
@@ -406,7 +406,7 @@
           }
         }
 
-        // Reset contenTier filter when changed to or from a collection (i.e. contentTierFacetSwitch replaced with contentTier as a SideFacetDropdown and vice versa)
+        // Reset contenTier filter when changed to or from a collection (i.e. contentTierFacetSwitch replaced with contentTier as a SearchFacetDropdown and vice versa)
         // But not when changing from one theme to another
         if (Object.prototype.hasOwnProperty.call(filters, 'contentTier') && selected[this.COLLECTION_FACET_NAME] &&
           ((!this.collection && selected[this.COLLECTION_FACET_NAME].length) || (this.collection && !selected[this.COLLECTION_FACET_NAME].length))) {

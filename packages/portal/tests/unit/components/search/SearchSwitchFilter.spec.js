@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
 import BootstrapVue from 'bootstrap-vue';
-import SideSwitchFilter from '@/components/search/SideSwitchFilter';
+import SearchSwitchFilter from '@/components/search/SearchSwitchFilter';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -10,7 +10,7 @@ localVue.use(BootstrapVue);
 const storeDispatchSpy = sinon.spy();
 
 const factory = (propsData = {}, keyMock) => {
-  return shallowMount(SideSwitchFilter, {
+  return shallowMount(SearchSwitchFilter, {
     localVue,
     attachTo: document.body,
     propsData,
@@ -28,7 +28,7 @@ const factory = (propsData = {}, keyMock) => {
   });
 };
 
-describe('components/search/SideSwitchFilter', () => {
+describe('components/search/SearchSwitchFilter', () => {
   beforeEach(sinon.resetHistory);
 
   describe('when the value passed in matches the checked value', () => {

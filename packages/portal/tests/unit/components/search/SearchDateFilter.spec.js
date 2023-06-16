@@ -2,12 +2,12 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
 import BootstrapVue from 'bootstrap-vue';
-import SideDateFilter from '@/components/search/SideDateFilter.vue';
+import SearchDateFilter from '@/components/search/SearchDateFilter.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(SideDateFilter, {
+const factory = () => shallowMount(SearchDateFilter, {
   localVue,
   mocks: {
     $t: (key) => key,
@@ -22,7 +22,7 @@ const factory = () => shallowMount(SideDateFilter, {
   }
 });
 
-describe('components/search/SideDateFilter', () => {
+describe('components/search/SearchDateFilter', () => {
   it('emits `dateFilter` event with name and form arguments when user changes Start date input', async() => {
     const wrapper = factory();
     const applyButton = wrapper.find('[data-qa="proxy_dcterms_issued apply button"]');

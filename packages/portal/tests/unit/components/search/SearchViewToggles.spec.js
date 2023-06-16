@@ -2,13 +2,13 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import ViewToggles from '@/components/search/ViewToggles.vue';
+import SearchViewToggles from '@/components/search/SearchViewToggles.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = (propsData = {}) => {
-  return mount(ViewToggles, {
+  return mount(SearchViewToggles, {
     localVue,
     propsData,
     mocks: {
@@ -23,7 +23,7 @@ const factory = (propsData = {}) => {
   });
 };
 
-describe('components/search/ViewToggles', () => {
+describe('components/search/SearchViewToggles', () => {
   for (const view of ['list', 'grid', 'mosaic']) {
     describe(`${view} view`, () => {
       it('has a toggle', () => {

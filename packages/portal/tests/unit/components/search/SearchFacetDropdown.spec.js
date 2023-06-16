@@ -4,7 +4,7 @@ import { shallowMountNuxt, mountNuxt } from '../../utils';
 import VueI18n from 'vue-i18n';
 import BootstrapVue from 'bootstrap-vue';
 
-import SideFacetDropdown from '@/components/search/SideFacetDropdown.vue';
+import SearchFacetDropdown from '@/components/search/SearchFacetDropdown.vue';
 import messages from '@/lang/en';
 
 const localVue = createLocalVue();
@@ -90,7 +90,7 @@ const providerFields = [
   { label: 'Lucian Blaga Central University Library, Cluj-Napoca, Romania', count: 58370 }
 ];
 
-const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
+const factory = (options = {}) => shallowMountNuxt(SearchFacetDropdown, {
   localVue,
   attachTo: document.body,
   mocks: {
@@ -131,7 +131,7 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
   i18n
 });
 
-const fullFactory = (options = {}) => mountNuxt(SideFacetDropdown, {
+const fullFactory = (options = {}) => mountNuxt(SearchFacetDropdown, {
   localVue,
   mocks: {
     $apis: {
@@ -168,7 +168,7 @@ const fullFactory = (options = {}) => mountNuxt(SideFacetDropdown, {
   attachTo: document.body
 });
 
-describe('components/search/SideFacetDropdown', () => {
+describe('components/search/SearchFacetDropdown', () => {
   beforeEach(sinon.resetHistory);
 
   describe('template', () => {

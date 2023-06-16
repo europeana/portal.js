@@ -12,7 +12,7 @@
 
 <script>
   export default {
-    name: 'FilterToggleButton',
+    name: 'SearchFilterToggleButton',
 
     computed: {
       showFiltersToggle() {
