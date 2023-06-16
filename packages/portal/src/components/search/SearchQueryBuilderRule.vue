@@ -39,8 +39,8 @@
             :state="validations.field.state"
             block
             no-flip
-            class="search-query-builder-field-dropdown search-filter-dropdown form-control"
-            :class="{ 'is-invalid': validations.field.state === false, 'is-valid': validations.field.state }"
+            class="search-query-builder-field-dropdown search-filter-dropdown"
+            :toggle-class="{ 'form-control': true, 'is-invalid': validations.field.state === false }"
           >
             <div
               v-for="(fieldSection, sectionIndex) in fieldDropdownSections"
@@ -344,7 +344,7 @@
 
   .form-control {
     background-color: $white;
-    border: 1px;
+    border: 1px solid $middlegrey;
     border-radius: 0.375rem;
     font-weight: normal;
     height: 3rem;
@@ -358,12 +358,18 @@
       }
     }
 
-    &:not(.is-valid):not(.valid) {
-      border-color: $middlegrey;
-    }
-
     &:focus {
       border-color: $blue;
+    }
+
+    &.is-invalid,
+    &.is-valid {
+      background-image: none;
+      padding-right: 0.75rem !important;
+    }
+
+    &.is-invalid {
+      border-color: $red;
     }
   }
 </style>
