@@ -77,11 +77,6 @@
       color: $mediumgrey;
     }
 
-    &.is-invalid {
-      border-color: $red;
-      background-image: none;
-    }
-
     span.select-label {
       white-space: nowrap;
       overflow: hidden;
@@ -220,6 +215,16 @@
     .dropdown-toggle {
       font-size: $font-size-base;
       color: $greyblack;
+
+      &.is-invalid {
+        border-color: $red;
+        background-image: none;
+        padding-right: 0.75rem !important;
+
+        &:focus {
+          border-color: $red;
+        }
+      }
     }
   }
 
