@@ -67,13 +67,13 @@
           </div>
         </b-col>
       </b-row>
-      <SocialShareModal
+      <ShareSocialModal
         :media-url="selectedMedia.about"
       >
         <ItemEmbedCode
           :identifier="identifier"
         />
-      </SocialShareModal>
+      </ShareSocialModal>
     </b-container>
   </div>
 </template>
@@ -84,8 +84,8 @@
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ItemEmbedCode from './ItemEmbedCode';
-  import SocialShareModal from '../sharing/SocialShareModal';
-  import ShareButton from '../sharing/ShareButton';
+  import ShareSocialModal from '../share/ShareSocialModal';
+  import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
 
   import rightsStatementMixin from '@/mixins/rightsStatement';
@@ -100,7 +100,7 @@
       ItemMediaSwiper,
       RightsStatementButton,
       ShareButton,
-      SocialShareModal,
+      ShareSocialModal,
       UserButtons: () => import('../account/UserButtons'),
       ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
       IIIFViewer: () => import('../iiif/IIIFViewer.vue')

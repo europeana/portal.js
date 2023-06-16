@@ -29,7 +29,7 @@
           :variant="buttonVariant"
           class="mt-3 mt-sm-4"
         />
-        <SocialShareModal :media-url="mediaUrl" />
+        <ShareSocialModal :media-url="mediaUrl" />
       </template>
     </b-col>
     <div class="divider" />
@@ -37,15 +37,15 @@
 </template>
 
 <script>
-  import ShareButton from '../../components/sharing/ShareButton';
-  import SocialShareModal from '../../components/sharing/SocialShareModal';
+  import ShareButton from '../../components/share/ShareButton';
+  import ShareSocialModal from '../../components/share/ShareSocialModal';
 
   export default {
     name: 'ContentHeader',
 
     components: {
       ShareButton,
-      SocialShareModal
+      ShareSocialModal
     },
 
     props: {

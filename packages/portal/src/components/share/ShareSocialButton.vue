@@ -26,7 +26,7 @@
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
-    name: 'SocialShare',
+    name: 'ShareSocialButton',
 
     mixins: [
       canonicalUrlMixin

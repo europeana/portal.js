@@ -33,7 +33,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal />
+            <ShareSocialModal />
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="credits text"
@@ -91,8 +91,8 @@
 
 <script>
   import { marked } from 'marked';
-  import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
-  import ShareButton from '../../../components/sharing/ShareButton.vue';
+  import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
+  import ShareButton from '../../../components/share/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -100,7 +100,7 @@
     name: 'ExhibitionCreditsPage',
     components: {
       ShareButton,
-      SocialShareModal,
+      ShareSocialModal,
       LinkList: () => import('../../../components/generic/LinkList'),
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       ThemeBadges: () => import('@/components/theme/ThemeBadges')

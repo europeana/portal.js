@@ -39,7 +39,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="optimisedImageUrl" />
+            <ShareSocialModal :media-url="optimisedImageUrl" />
             <BrowseSections
               v-if="page"
               :sections="page.hasPartCollection.items"
@@ -111,8 +111,8 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import BrowseSections from '../../../components/browse/BrowseSections';
-  import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
-  import ShareButton from '../../../components/sharing/ShareButton.vue';
+  import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
+  import ShareButton from '../../../components/share/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -123,7 +123,7 @@
       BrowseSections,
       ClientOnly,
       ShareButton,
-      SocialShareModal,
+      ShareSocialModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
       LinkList: () => import('../../../components/generic/LinkList'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
