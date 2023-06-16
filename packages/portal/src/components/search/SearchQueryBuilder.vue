@@ -9,7 +9,7 @@
       >
         <b-form
           data-qa="search query builder form"
-          @submit.prevent="updateSearch"
+          @submit.prevent="handleSubmitForm"
         >
           <transition-group
             name="fade"
@@ -23,7 +23,7 @@
                 :id="`${id}-${index}`"
                 v-model="queryRules[index]"
                 :tooltips="index === 0"
-                :validate="validateRules"
+                :validate="validatingRules"
                 @change="(field, value) => handleChangeRule(field, value, index)"
                 @clear="clearRule(index)"
                 @invalid="handleInvalidRule(index)"
@@ -80,7 +80,7 @@
     data() {
       return {
         queryRules: [],
-        validateRules: false,
+        validatingRules: false,
         validations: []
       };
     },
@@ -100,15 +100,6 @@
     },
 
     methods: {
-      handleChangeRule(field, value, index) {
-        this.queryRules[index][field] = value;
-      },
-      handleInvalidRule(index) {
-        this.validations[index] = false;
-      },
-      handleValidRule(index) {
-        this.validations[index] = true;
-      },
       addNewRule() {
         this.queryRules.push({});
       },
@@ -119,24 +110,22 @@
           this.addNewRule();
         }
       },
-      updateSearch() {
-        this.validateRules = true;
-        this.$nextTick(() => {
-          this.validateRules = false;
-          if (!this.validations.every((validation) => validation)) {
-            return;
+      handleChangeRule(field, value, index) {
+        this.queryRules[index][field] = value;
+      },
+      handleInvalidRule(index) {
+        this.validations[index] = false;
+      },
+      handleSubmitForm() {
+        this.validateRules((valid) => {
+          if (valid) {
+            this.trackAdvancedSearch();
+            this.$router.push(this.advancedSearchRouteQueryFromRules(this.validQueryRules));
           }
-
-          if (this.$matomo) {
-            for (const rule of this.validQueryRules) {
-              const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
-              const modifierLabel = this.$t(`search.advanced.modifiers.${rule.modifier}`, 'en');
-              const eventName = `Adv search: ${fieldLabel} ${modifierLabel}`;
-              this.$matomo.trackEvent('Adv search', 'Apply adv search', eventName);
-            }
-          }
-          this.$router.push(this.advancedSearchRouteQueryFromRules(this.validQueryRules));
         });
+      },
+      handleValidRule(index) {
+        this.validations[index] = true;
       },
       initRulesFromRouteQuery() {
         this.queryRules = this.advancedSearchRulesFromRouteQuery();
@@ -145,6 +134,32 @@
         } else {
           this.$emit('show', true);
         }
+      },
+      trackAdvancedSearch() {
+        if (!this.$matomo) {
+          return;
+        }
+
+        for (const rule of this.validQueryRules) {
+          const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
+          const modifierLabel = this.$t(`search.advanced.modifiers.${rule.modifier}`, 'en');
+          const eventName = `Adv search: ${fieldLabel} ${modifierLabel}`;
+          this.$matomo.trackEvent('Adv search', 'Apply adv search', eventName);
+        }
+      },
+      validateRules(callback) {
+        // Instruct the SearchQueryBuilderRule components to validate themselves
+        this.validatingRules = true;
+
+        // Give the SearchQueryBuilderRule components time to validate and emit
+        // validation statuses which will be stored in `this.validations`
+        this.$nextTick(() => {
+          // Instruct the SearchQueryBuilderRule components to stop validating,
+          // so that they only revalidate when the form is next submitted.
+          this.validatingRules = false;
+
+          callback(this.validations.every((validation) => validation));
+        });
       }
     }
   };
