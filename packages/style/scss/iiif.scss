@@ -19,6 +19,7 @@
 }
 
 ::v-deep .mirador-viewer {
+  min-height: 0;
 
   .mosaic-root {
     top: 0;

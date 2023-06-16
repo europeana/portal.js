@@ -1,12 +1,18 @@
 <template>
-  <div
-    class="iiif-viewer"
-    data-qa="IIIF viewer"
-  >
-    <div
-      v-show="isMiradorLoaded"
-      id="viewer"
+  <div class="iiif-viewer-inner-wrapper h-100 d-flex flex-column">
+    <IIIFErrorMessage
+      v-if="manifestError"
+      :provider-url="providerUrl"
     />
+    <div
+      class="iiif-viewer"
+      data-qa="IIIF viewer"
+    >
+      <div
+        v-show="isMiradorLoaded"
+        id="viewer"
+      />
+    </div>
   </div>
 </template>
 
@@ -18,6 +24,10 @@
 
   export default {
     name: 'IIIFViewer',
+
+    components: {
+      IIIFErrorMessage: () => import('./IIIFErrorMessage.vue')
+    },
 
     props: {
       uri: {
@@ -31,6 +41,11 @@
       },
 
       searchQuery: {
+        type: String,
+        default: null
+      },
+
+      providerUrl: {
         type: String,
         default: null
       }
@@ -50,7 +65,8 @@
           { component: () => null, saga: this.watchMiradorSetCanvasSaga },
           { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
         ],
-        proxiedMedia: {}
+        proxiedMedia: {},
+        manifestError: false
       };
     },
 
@@ -246,6 +262,10 @@
           this.coerceAnnotationsOnToCanvases(action.searchJson);
         }
         this.coerceSearchHitsToBeforeMatchAfter(action.searchJson);
+      },
+
+      postprocessMiradorReceiveManifestFailure() {
+        this.manifestError = true;
       },
 
       urlIsForEuropeanaPresentationAPI(url) {
@@ -597,4 +617,8 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/iiif';
+
+  .iiif-viewer-inner-wrapper {
+    background-color: $black;
+  }
 </style>
