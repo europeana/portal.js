@@ -2,12 +2,12 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
-import ApiRequests from '@/components/debug/ApiRequests.vue';
+import DebugApiRequests from '@/components/debug/DebugApiRequests.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ requests = [] } = {}) => shallowMountNuxt(ApiRequests, {
+const factory = ({ requests = [] } = {}) => shallowMountNuxt(DebugApiRequests, {
   localVue,
   mocks: {
     $nuxt: {
@@ -36,7 +36,7 @@ const factory = ({ requests = [] } = {}) => shallowMountNuxt(ApiRequests, {
   stubs: ['i18n']
 });
 
-describe('components/debug/ApiRequests', () => {
+describe('components/debug/DebugApiRequests', () => {
   beforeEach(sinon.resetHistory);
 
   describe('template', () => {

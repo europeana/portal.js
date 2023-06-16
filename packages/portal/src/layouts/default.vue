@@ -51,7 +51,7 @@
     </client-only>
     <client-only>
       <PageFooter />
-      <ApiRequests />
+      <DebugApiRequests />
     </client-only>
     <b-toaster
       name="b-toaster-bottom-left-dynamic"
@@ -82,7 +82,7 @@
     name: 'DefaultLayout',
 
     components: {
-      ApiRequests: () => import('../components/debug/ApiRequests'),
+      DebugApiRequests: () => import('../components/debug/DebugApiRequests'),
       BBreadcrumb,
       ClientOnly,
       PageCookieConsent: () => import('../components/page/PageCookieConsent'),
