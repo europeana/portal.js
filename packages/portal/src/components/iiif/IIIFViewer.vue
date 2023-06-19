@@ -238,6 +238,16 @@
         return options;
       },
 
+      handleManifestError(error) {
+        this.manifestError = true;
+        this.$apm?.captureError({
+          name: 'IIIFManifestError',
+          message: error,
+          item: this.itemId,
+          url: this.uri
+        });
+      },
+
       postprocessMiradorRequest(url, action) {
         const fn = `postprocess${upperFirst(camelCase(action.type))}`;
         this[fn]?.(url, action);
@@ -249,7 +259,7 @@
         // Catch when there are no canvases in the manifest
         // TODO: display media available on the record instead
         if (!this.manifest.sequences && !this.manifest.items) {
-          this.manifestError = true;
+          this.handleManifestError('No canvases')
         }
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.proxyProviderMedia(action.manifestJson);
@@ -273,8 +283,8 @@
         this.coerceSearchHitsToBeforeMatchAfter(action.searchJson);
       },
 
-      postprocessMiradorReceiveManifestFailure() {
-        this.manifestError = true;
+      postprocessMiradorReceiveManifestFailure(url, { error }) {
+        this.handleManifestError(error);
       },
 
       urlIsForEuropeanaPresentationAPI(url) {
