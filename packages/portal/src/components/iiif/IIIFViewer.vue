@@ -239,7 +239,6 @@
       },
 
       postprocessMiradorRequest(url, action) {
-        console.log(action);
         const fn = `postprocess${upperFirst(camelCase(action.type))}`;
         this[fn]?.(url, action);
       },
