@@ -28,7 +28,7 @@
               />
             </div>
           </transition-group>
-          <div class="d-inline-flex d-lg-block flex-column">
+          <div class="d-inline-flex d-lg-block flex-column align-items-start">
             <b-button
               data-qa="search rules button"
               variant="primary"
