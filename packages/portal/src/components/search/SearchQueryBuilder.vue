@@ -16,15 +16,15 @@
           >
             <div
               v-for="(rule, index) in queryRules"
-              :key="`${id}-${index}`"
+              :key="`${id}-rule-${index}`"
               :data-qa="`search query builder rule ${index}`"
             >
               <SearchQueryBuilderRule
-                :id="`${id}-${index}`"
+                :id="`${id}-rule-${index}`"
                 v-model="queryRules[index]"
                 :tooltips="index === 0"
                 :validate="validatingRules"
-                @change="(field, value) => handleChangeRule(field, value, index)"
+                @change="(field, value) => handleChangeRule(index, field, value)"
                 @clear="clearRule(index)"
                 @invalid="handleInvalidRule(index)"
                 @valid="handleValidRule(index)"
@@ -110,7 +110,7 @@
           this.addNewRule();
         }
       },
-      handleChangeRule(field, value, index) {
+      handleChangeRule(index, field, value) {
         this.queryRules[index][field] = value;
       },
       handleInvalidRule(index) {
