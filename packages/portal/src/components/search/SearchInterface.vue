@@ -294,6 +294,16 @@
       userParams() {
         return this.$route.query;
       },
+      apiOptions() {
+        const apiOptions = {};
+
+        if (this.hasFulltextQa) {
+          // TODO: ensure this is aware of per-request fulltext url, e.g. from ingress headers
+          apiOptions.url = this.$config.europeana.apis.fulltext.url;
+        }
+
+        return apiOptions;
+      },
       apiParams() {
         const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
           if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
@@ -376,16 +386,6 @@
       },
       collection() {
         return filtersFromQf(this.apiParams.qf).collection?.[0];
-      },
-      apiOptions() {
-        const apiOptions = {};
-
-        if (this.hasFulltextQa) {
-          // TODO: ensure this is aware of per-request fulltext url, e.g. from ingress headers
-          apiOptions.url = this.$config.europeana.apis.fulltext.url;
-        }
-
-        return apiOptions;
       },
       hasFulltextQa() {
         return this.qa
