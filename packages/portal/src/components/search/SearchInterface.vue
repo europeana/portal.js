@@ -321,10 +321,12 @@
             if (params.query && !params.query.includes(':')) {
               params.query = `text:(${params.query})`;
             }
-            params.qf = this.qf
+            params.qf = this.qf.concat(
+              []
               .concat(params.query || [])
               .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)))
-              .join(' AND ');
+              .join(' AND ')
+            );
             params.query = this.fulltextQas.join(' AND ');
             params.profile = `${params.profile},hits`;
           } else {
