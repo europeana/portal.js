@@ -322,8 +322,7 @@
               params.query = `text:(${params.query})`;
             }
             params.qf = this.qf.concat(
-              []
-              .concat(params.query || [])
+              [].concat(params.query || [])
               .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)))
               .join(' AND ')
             );
