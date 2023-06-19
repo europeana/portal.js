@@ -239,6 +239,7 @@
       },
 
       postprocessMiradorRequest(url, action) {
+        console.log(action);
         const fn = `postprocess${upperFirst(camelCase(action.type))}`;
         this[fn]?.(url, action);
       },
@@ -246,6 +247,11 @@
       // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorReceiveManifest(url, action) {
         this.manifest = action.manifestJson;
+        // Catch when there are no canvases in the manifest
+        // TODO: display media available on the record instead
+        if (!this.manifest.sequences && !this.manifest.items) {
+          this.manifestError = true;
+        }
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.proxyProviderMedia(action.manifestJson);
           this.addAnnotationTextGranularityFilterToManifest(action.manifestJson);
