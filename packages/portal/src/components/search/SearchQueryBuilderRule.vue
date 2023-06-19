@@ -298,15 +298,14 @@
       validateRules() {
         // If any rule component has a value, all are required. If none have a value, the
         // rule will be ignored and none are required.
-        if ([this.term, this.field, this.modifier].some((value) => !!value)) {
-          this.forEveryRuleComponent((component) => {
-            if (this[component]) {
-              this.validations[component] = { state: true };
-            } else {
-              this.validations[component] = { state: false, text: this.$t('statuses.required') };
-            }
-          });
-        }
+        const noRuleComponentHasValue = ![this.term, this.field, this.modifier].some((value) => !!value);
+        this.forEveryRuleComponent((component) => {
+          if (noRuleComponentHasValue || this[component]) {
+            this.validations[component] = { state: true };
+          } else {
+            this.validations[component] = { state: false, text: this.$t('statuses.required') };
+          }
+        });
         this.$emit(Object.values(this.validations).some((validation) => !validation.state) ? 'invalid' : 'valid');
       }
     }
