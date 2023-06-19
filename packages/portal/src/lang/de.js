@@ -48,7 +48,7 @@ export default {
     "explore": "Erkunden",
     "feedback": "Feedback",
     "filter": "Filter",
-    "goHome": "Zur Homepage gehen",
+    "goHome": "Zur Startseite gehen",
     "hide": "Verstecken",
     "learnMore": "Mehr erfahren",
     "like": "Like",
@@ -800,7 +800,7 @@ export default {
     "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
     "themesCTA": "Alle Themenbereiche anzeigen",
     "themesTitle": "Erkunden Sie nach Themenbereiche",
-    "title": "Europa's {digital} Kulturerbe entdecken",
+    "title": "Europas {digital} Kulturerbe entdecken",
     "titleDigital": "digitales"
   },
   "imageSlider": {
