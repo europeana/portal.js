@@ -1,14 +1,15 @@
 import camelCase from 'lodash/camelCase';
 import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils.js';
 
-const FIELD_TYPE_TEXT = 'text';
+const FIELD_TYPE_FULLTEXT = 'fulltext';
 const FIELD_TYPE_STRING = 'string';
+const FIELD_TYPE_TEXT = 'text';
 
 export default {
   data() {
     return {
       advancedSearchFields: [
-        { name: 'fulltext', type: FIELD_TYPE_TEXT },
+        { name: 'fulltext', type: FIELD_TYPE_FULLTEXT },
         { name: 'proxy_dc_contributor', type: FIELD_TYPE_TEXT },
         { name: 'proxy_dc_coverage', type: FIELD_TYPE_STRING },
         { name: 'proxy_dc_creator', type: FIELD_TYPE_TEXT },
@@ -41,8 +42,22 @@ export default {
         { name: 'YEAR', type: FIELD_TYPE_STRING }
       ],
       advancedSearchModifiers: [
-        { name: 'contains', query: { text: '{field}:{term}', string: '{field}:*{term}*' } },
-        { name: 'doesNotContain', query: { text: '-{field}:{term}', string: '-{field}:*{term}*' } }
+        {
+          name: 'contains',
+          query: {
+            [FIELD_TYPE_FULLTEXT]: '{field}:{term}',
+            [FIELD_TYPE_STRING]: '{field}:*{term}*',
+            [FIELD_TYPE_TEXT]: '{field}:{term}'
+          }
+        },
+        {
+          name: 'doesNotContain',
+          query: {
+            [FIELD_TYPE_FULLTEXT]: 'NOT {field}:{term}',
+            [FIELD_TYPE_STRING]: '-{field}:*{term}*',
+            [FIELD_TYPE_TEXT]: '-{field}:{term}'
+          }
+        }
       ],
       advancedSearchRouteQueryKey: 'qa'
     };
@@ -79,6 +94,9 @@ export default {
         if (qa.startsWith('-')) {
           modifier = 'doesNotContain';
           qa = qa.replace('-', '');
+        } else if (qa.startsWith('NOT ')) {
+          modifier = 'doesNotContain';
+          qa = qa.replace('NOT ', '');
         } else {
           modifier = 'contains';
         }

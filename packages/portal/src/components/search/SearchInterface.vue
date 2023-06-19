@@ -321,10 +321,18 @@
             if (params.query && !params.query.includes(':')) {
               params.query = `text:(${params.query})`;
             }
+            params.qf = this.qf
+              .concat(params.query || [])
+              .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)))
+              .join(' AND ');
+            params.query = this.fulltextQas.join(' AND ');
             params.profile = `${params.profile},hits`;
+          } else {
+            params.query = []
+              .concat(params.query || [])
+              .concat(this.qa)
+              .join(' AND ');
           }
-
-          params.query = [].concat(params.query || []).concat(this.qa).join(' AND ');
         }
 
         return merge(params, this.overrideParams);
@@ -387,10 +395,12 @@
       collection() {
         return filtersFromQf(this.apiParams.qf).collection?.[0];
       },
-      hasFulltextQa() {
+      fulltextQas() {
         return this.qa
-          .filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('!fulltext:'))
-          .length > 0;
+          .filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('NOT fulltext:'));
+      },
+      hasFulltextQa() {
+        return this.fulltextQas.length > 0;
       }
     },
 
