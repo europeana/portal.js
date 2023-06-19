@@ -6,156 +6,91 @@
       data-qa="search query builder rule"
       class="query-rule"
     >
-      <b-form-group
-        class="query-rule-form-group mr-lg-2"
-        :label-for="`select-field-${id}`"
+      <template
+        v-for="component in ruleComponents"
       >
-        <template #label>
-          <span
-            :id="`select-field-label-${id}`"
-            class="d-inline-flex align-items-center"
-          >
-            {{ $t('search.advanced.input.field') }}
-            <template v-if="tooltips">
-              <b-button
-                :id="`select-field-tooltip-btn-${id}`"
-                class="icon-info-outline py-0 px-1 tooltip-button"
-                variant="light-flat"
-              />
-              <b-tooltip
-                :target="`select-field-tooltip-btn-${id}`"
-                :title="$t('search.advanced.tooltip.field')"
-                boundary-padding="0"
-                placement="bottom"
-              />
-            </template>
-          </span>
-        </template>
-        <div
-          :id="`select-field-${id}`"
+        <b-form-group
+          :key="`${id}-${component}`"
+          class="query-rule-form-group mr-lg-2"
+          :label-for="`${id}-${component}`"
         >
-          <b-dropdown
-            :text="fieldDropdownText"
-            :state="validations.field.state"
-            block
-            no-flip
-            class="search-query-builder-field-dropdown search-filter-dropdown"
-            :toggle-class="{ 'form-control': true, 'is-invalid': validations.field.state === false }"
-          >
-            <div
-              v-for="(fieldSection, sectionIndex) in fieldDropdownSections"
-              :key="`section-${sectionIndex}`"
+          <template #label>
+            <span
+              :id="`${id}-${component}-label`"
+              class="d-inline-flex align-items-center"
             >
-              <component
-                :is="Array.isArray(fieldSection.fields) ? 'b-dropdown-group' : 'div'"
-                :header="fieldSection.header"
+              {{ $t(`search.advanced.input.${component}`) }}
+              <template v-if="tooltips">
+                <b-button
+                  :id="`${id}-${component}-tooltip-btn`"
+                  class="icon-info-outline py-0 px-1 tooltip-button"
+                  variant="light-flat"
+                />
+                <b-tooltip
+                  :target="`${id}-${component}-tooltip-btn`"
+                  :title="$t(`search.advanced.tooltip.${component}`)"
+                  boundary-padding="0"
+                  placement="bottom"
+                />
+              </template>
+            </span>
+          </template>
+          <div
+            :id="`${id}-${component}`"
+          >
+            <b-form-input
+              v-if="component === 'term'"
+              v-model="term"
+              :placeholder="$t('search.advanced.placeholder.term')"
+              :state="validations.term.state"
+              @change="(value) => handleRuleChange('term', value)"
+            />
+            <b-dropdown
+              v-else
+              :text="dropdownText[component]"
+              :state="validations[component].state"
+              block
+              no-flip
+              class="search-query-builder-rule-dropdown search-filter-dropdown"
+              :toggle-class="{ 'form-control': true, 'is-invalid': validations[component].state === false }"
+            >
+              <div
+                v-for="(section, sectionIndex) in dropdownSections[component]"
+                :key="`${component}-section-${sectionIndex}`"
               >
-                <b-dropdown-item-button
-                  v-for="(fieldOption, fieldIndex) in [].concat(fieldSection.fields)"
-                  :key="`field-${fieldIndex}`"
-                  @click="handleRuleChange('field', fieldOption.value)"
+                <component
+                  :is="Array.isArray(section.options) ? 'b-dropdown-group' : 'div'"
+                  :header="section.header"
                 >
-                  {{ fieldOption.text }}
-                  <b-button
-                    v-if="$te(`search.advanced.tooltip.fields.${fieldOption.value}`)"
-                    v-b-tooltip.bottom
-                    :title="$t(`search.advanced.tooltip.fields.${fieldOption.value}`)"
-                    class="icon-info-outline p-0 tooltip-button"
-                    variant="light-flat"
-                  />
-                </b-dropdown-item-button>
-              </component>
-              <b-dropdown-divider
-                v-if="(sectionIndex + 1) < fieldDropdownSections.length"
-              />
-            </div>
-          </b-dropdown>
-        </div>
-        <b-form-invalid-feedback
-          v-show="validate"
-          :state="validations.field.state"
-        >
-          {{ validations.field.text }}
-        </b-form-invalid-feedback>
-      </b-form-group>
-      <b-form-group
-        class="query-rule-form-group mr-lg-2"
-        :label-for="`select-modifier-${id}`"
-      >
-        <template #label>
-          <span
-            :id="`select-modifier-label-${id}`"
-            class="d-inline-flex align-items-center"
+                  <b-dropdown-item-button
+                    v-for="(sectionOption, sectionOptionIndex) in [].concat(section.options)"
+                    :key="`${component}-section-${sectionIndex}-options-${sectionOptionIndex}`"
+                    @click="handleRuleChange(component, sectionOption.value)"
+                  >
+                    {{ sectionOption.text }}
+                    <b-button
+                      v-if="$te(`search.advanced.tooltip.${component}s.${sectionOption.value}`)"
+                      v-b-tooltip.bottom
+                      :title="$t(`search.advanced.tooltip.${component}s.${sectionOption.value}`)"
+                      class="icon-info-outline p-0 tooltip-button"
+                      variant="light-flat"
+                    />
+                  </b-dropdown-item-button>
+                </component>
+                <b-dropdown-divider
+                  v-if="(sectionIndex + 1) < dropdownSections[component].length"
+                />
+              </div>
+            </b-dropdown>
+          </div>
+          <b-form-invalid-feedback
+            v-show="validate"
+            :state="validations[component].state"
           >
-            {{ $t('search.advanced.input.modifier') }}
-            <template v-if="tooltips">
-              <b-button
-                :id="`select-modifier-tooltip-btn-${id}`"
-                class="icon-info-outline py-0 px-1 tooltip-button"
-                variant="light-flat"
-              />
-              <b-tooltip
-                :target="`select-modifier-tooltip-btn-${id}`"
-                :title="$t('search.advanced.tooltip.modifier')"
-                boundary-padding="0"
-                placement="bottom"
-              />
-            </template>
-          </span>
-        </template>
-        <b-form-select
-          :id="`select-modifier-${id}`"
-          v-model="modifier"
-          :options="selectModifierOptions"
-          :state="validations.modifier.state"
-          @change="(value) => handleRuleChange('modifier', value)"
-        />
-        <b-form-invalid-feedback
-          v-show="validate"
-          :state="validations.modifier.state"
-        >
-          {{ validations.modifier.text }}
-        </b-form-invalid-feedback>
-      </b-form-group>
-      <b-form-group
-        class="query-rule-form-group"
-        :label-for="`search-term-${id}`"
-      >
-        <template #label>
-          <span
-            :id="`search-term-label-${id}`"
-            class="d-inline-flex align-items-center"
-          >
-            {{ $t('search.advanced.input.searchTerm') }}
-            <template v-if="tooltips">
-              <b-button
-                :id="`search-term-tooltip-btn-${id}`"
-                class="icon-info-outline py-0 px-1 tooltip-button"
-                variant="light-flat"
-              />
-              <b-tooltip
-                :target="`search-term-tooltip-btn-${id}`"
-                :title="$t('search.advanced.tooltip.term')"
-                boundary-padding="0"
-                placement="bottom"
-              />
-            </template>
-          </span>
-        </template>
-        <b-form-input
-          :id="`search-term-${id}`"
-          v-model="term"
-          :placeholder="$t('search.advanced.placeholder.searchTerm')"
-          :state="validations.term.state"
-          @change="(value) => handleRuleChange('term', value)"
-        />
-        <b-form-invalid-feedback
-          v-show="validate"
-          :state="validations.term.state"
-        >
-          {{ validations.term.text }}
-        </b-form-invalid-feedback>
-      </b-form-group>
+            {{ validations[component].text }}
+          </b-form-invalid-feedback>
+        </b-form-group>
+      </template>
     </b-input-group>
     <b-button
       data-qa="search query builder rule clear button"
@@ -189,7 +124,7 @@
     props: {
       id: {
         type: String,
-        default: null
+        default: 'search-query-builder-rule'
       },
       tooltips: {
         type: Boolean,
@@ -211,6 +146,7 @@
         field: null,
         fulltextFieldName: 'fulltext',
         modifier: null,
+        ruleComponents: ['field', 'modifier', 'term'],
         term: null,
         validations: {
           field: { state: null },
@@ -225,15 +161,28 @@
         return this.fieldOptions
           .filter((field) => this.aggregatedFieldNames.includes(field.value));
       },
-      fieldDropdownSections() {
-        return [
-          { fields: this.fulltextFieldOption },
-          { fields: this.aggregatedFieldOptions, header: this.$t('search.advanced.header.aggregated') },
-          { fields: this.individualFieldOptions, header: this.$t('search.advanced.header.individual') }
-        ];
+      dropdownSections() {
+        return {
+          field: [
+            { options: this.fulltextFieldOption },
+            { header: this.$t('search.advanced.header.aggregated'), options: this.aggregatedFieldOptions },
+            { header: this.$t('search.advanced.header.individual'), options: this.individualFieldOptions }
+          ],
+          modifier: [
+            {
+              options: this.advancedSearchModifiers.map((mod) => ({
+                value: mod.name,
+                text: this.$t(`search.advanced.modifiers.${mod.name}`)
+              }))
+            }
+          ]
+        };
       },
-      fieldDropdownText() {
-        return this.field ? this.advancedSearchFieldLabel(this.field) : this.$t('search.advanced.placeholder.field');
+      dropdownText() {
+        return {
+          field: this.field ? this.advancedSearchFieldLabel(this.field) : this.$t('search.advanced.placeholder.field'),
+          modifier: this.modifier ? this.$t(`search.advanced.modifiers.${this.modifier}`) : this.$t('search.advanced.placeholder.modifier')
+        };
       },
       fieldOptions() {
         return this.advancedSearchFields.map((field) => ({
@@ -248,15 +197,6 @@
       individualFieldOptions() {
         return this.fieldOptions
           .filter((field) => !this.aggregatedFieldNames.includes(field.value) && (field.value !== this.fulltextFieldName));
-      },
-      selectModifierOptions() {
-        return [{ value: null,
-                  text: this.$t('search.advanced.placeholder.modifier') }]
-          .concat(
-            this.advancedSearchModifiers.map((mod) => ({
-              value: mod.name,
-              text: this.$t(`search.advanced.modifiers.${mod.name}`)
-            })));
       }
     },
 
@@ -282,7 +222,7 @@
         this.$emit('clear');
       },
       forEveryRuleComponent(callback) {
-        for (const component of ['field', 'modifier', 'term']) {
+        for (const component of this.ruleComponents) {
           callback(component);
         }
       },

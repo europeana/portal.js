@@ -1065,7 +1065,7 @@ export default {
       "input": {
         "field": "Field",
         "modifier": "Modifier",
-        "searchTerm": "Enter search term(s)"
+        "term": "Enter search term(s)"
       },
       "header": {
         "aggregated": "Aggregated fields",
@@ -1078,12 +1078,12 @@ export default {
       "placeholder": {
         "field": "Select a field",
         "modifier": "Select a modifier",
-        "searchTerm": "Enter search term(s)"
+        "term": "Enter search term(s)"
       },
       "show": "{showOrHide} advanced search",
       "tooltip": {
         "advancedSearch": "The advanced search allows you to build custom search queries.",
-        "field": "Select the metadata field to search within.",
+        "field": "Select the full-text or metadata field to search within.",
         "fields": {
           "fulltext": "Full-text includes transcriptions, closed captions, subtitles and document text."
         },
