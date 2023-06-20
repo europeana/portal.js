@@ -47,7 +47,7 @@ query BrowseStaticPage(
               text
             }
         	}
-          ... on BrowseAutomatedCardGroup {
+          ... on AutomatedCardGroup {
             genre
             moreButton {
               url
@@ -101,7 +101,7 @@ query BrowseStaticPage(
               }
             }
           }
-          ... on BrowseAutomatedCardGroup {
+          ... on AutomatedCardGroup {
             genre
             moreButton {
               url
