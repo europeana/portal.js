@@ -31,24 +31,26 @@
               />
             </div>
           </transition-group>
-          <b-button
-            data-qa="advanced search query builder: apply button"
-            variant="primary"
-            class="d-inline-flex align-items-center mr-3"
-            type="submit"
-          >
-            <span class="icon-search pr-1" />
-            {{ $t('actions.apply') }}
-          </b-button>
-          <b-button
-            data-qa="add rule button"
-            variant="light"
-            class="d-inline-flex align-items-center"
-            @click="addNewRule"
-          >
-            <span class="icon-ic-add pr-1" />
-            {{ $t('actions.add') }}
-          </b-button>
+          <div class="d-inline-flex d-lg-block flex-column align-items-start">
+            <b-button
+              data-qa="advanced search query builder: apply button"
+              variant="primary"
+              class="d-inline-flex align-items-center mr-lg-3"
+              type="submit"
+            >
+              <span class="icon-search pr-1" />
+              {{ $t('actions.apply') }}
+            </b-button>
+            <b-button
+              data-qa="advanced search query builder: add rule button"
+              variant="light"
+              class="d-inline-flex align-items-center mb-4 mb-lg-0 order-first"
+              @click="addNewRule"
+            >
+              <span class="icon-ic-add pr-1" />
+              {{ $t('actions.add') }}
+            </b-button>
+          </div>          
         </b-form>
       </section>
     </b-col>

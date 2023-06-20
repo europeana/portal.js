@@ -98,7 +98,7 @@
     <b-button
       data-qa="search query builder rule clear button"
       variant="light"
-      class="d-inline-flex align-items-center ml-auto ml-lg-1"
+      class="d-inline-flex align-items-center ml-lg-1 mb-3 mb-lg-0"
       @click="clearRule"
     >
       <span class="icon-cancel-circle pr-1" />

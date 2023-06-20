@@ -278,7 +278,7 @@
   color: $mediumgrey;
   font-size: $font-size-small;
   font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   text-decoration: none;
   text-transform: uppercase;
   transition: $standard-transition;
@@ -307,6 +307,8 @@
 
     &::before {
       font-size: $font-size-medium;
+      margin-left: -2px;
+      margin-right: -1px;
 
       @at-root .xxl-page & {
         @media (min-width: $bp-4k) {
