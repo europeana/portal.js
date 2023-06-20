@@ -56,7 +56,7 @@
       :aria-label="$t('header.clearQuery')"
       @click="clearQuery"
     />
-    <FilterToggleButton
+    <SearchFilterToggleButton
       v-if="inTopNav"
     />
     <div
@@ -70,8 +70,8 @@
         :options="searchQueryOptions"
         @select="showSearchOptions = false;"
       />
-      <QuickSearch
-        v-if="showQuickSearch"
+      <SearchThemeBadges
+        v-if="showSearchThemeBadges"
         ref="quicksearch"
       />
     </div>
@@ -88,8 +88,8 @@
 
     components: {
       SearchQueryOptions,
-      FilterToggleButton: () => import('./FilterToggleButton'),
-      QuickSearch: () => import('@/components/search/QuickSearch')
+      SearchFilterToggleButton: () => import('./SearchFilterToggleButton'),
+      SearchThemeBadges: () => import('@/components/search/SearchThemeBadges')
     },
 
     props: {
@@ -194,7 +194,7 @@
         return this.onSearchablePage ? this.$route.path : this.localePath({ name: 'search' });
       },
 
-      showQuickSearch() {
+      showSearchThemeBadges() {
         return this.inTopNav && !this.onSearchableCollectionPage && !this.query;
       }
     },

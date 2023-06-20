@@ -17,7 +17,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal />
+            <ShareSocialModal />
             <BrowseSections
               :sections="hasPartCollection.items"
               :rich-text-is-card="false"
@@ -46,14 +46,14 @@
 </template>
 
 <script>
-  import SocialShareModal from '../sharing/SocialShareModal.vue';
-  import ShareButton from '../sharing/ShareButton.vue';
+  import ShareSocialModal from '../share/ShareSocialModal.vue';
+  import ShareButton from '../share/ShareButton.vue';
   import BrowseSections from '../browse/BrowseSections';
 
   export default {
     components: {
       AuthoredHead: () => import('../authored/AuthoredHead'),
-      SocialShareModal,
+      ShareSocialModal,
       ShareButton,
       BrowseSections,
       LinkList: () => import('../generic/LinkList')

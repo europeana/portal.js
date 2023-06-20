@@ -33,7 +33,7 @@
 
     components: {
       BlogPost,
-      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
+      ContentWarningModal: () => import('@/components/content/ContentWarningModal')
     },
 
     mixins: [pageMetaMixin],
