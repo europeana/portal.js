@@ -32,7 +32,7 @@
             </div>
           </transition-group>
           <b-button
-            data-qa="search rules button"
+            data-qa="advanced search query builder: apply button"
             variant="primary"
             class="d-inline-flex align-items-center mr-3"
             type="submit"

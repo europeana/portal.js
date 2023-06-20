@@ -162,6 +162,7 @@
               :aria-expanded="showAdvancedSearch"
               class="search-toggle query-builder-toggle ml-3 my-3 flex-grow-1"
               :class="{ 'open': showAdvancedSearch }"
+              data-qa="toggle advanced search button"
               variant="link"
               @click="toggleAdvancedSearch"
             >
@@ -202,6 +203,7 @@
 
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
+  import SideFilters from './SideFilters';
   import ViewToggles from './ViewToggles';
 
   import makeToastMixin from '@/mixins/makeToast';
@@ -219,7 +221,7 @@
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
-      SideFilters: () => import('./SideFilters'),
+      SideFilters,
       ViewToggles
     },
 

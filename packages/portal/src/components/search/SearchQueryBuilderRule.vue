@@ -41,17 +41,19 @@
             <b-form-input
               v-if="component === 'term'"
               v-model="term"
+              :data-qa="`advanced search query builder: ${component} control`"
               :placeholder="$t('search.advanced.placeholder.term')"
               :state="validations.term.state"
               @change="(value) => handleRuleChange('term', value)"
             />
             <b-dropdown
               v-else
-              :text="dropdownText[component]"
-              :state="validations[component].state"
               block
-              no-flip
               class="search-query-builder-rule-dropdown search-filter-dropdown"
+              :data-qa="`advanced search query builder: ${component} control`"
+              no-flip
+              :state="validations[component].state"
+              :text="dropdownText[component]"
               :toggle-class="{ 'form-control': true, 'is-invalid': validations[component].state === false }"
             >
               <div
@@ -65,6 +67,7 @@
                   <b-dropdown-item-button
                     v-for="(sectionOption, sectionOptionIndex) in [].concat(section.options)"
                     :key="`${component}-section-${sectionIndex}-options-${sectionOptionIndex}`"
+                    :data-qa="`advanced search query builder: ${sectionOption.value} ${component} option`"
                     @click="handleRuleChange(component, sectionOption.value)"
                   >
                     {{ sectionOption.text }}
