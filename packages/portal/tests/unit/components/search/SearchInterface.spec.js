@@ -168,8 +168,12 @@ describe('components/search/SearchInterface', () => {
         const expected = {
           page: 2,
           profile: 'minimal',
-          query: 'calais AND proxy_dc_title:dog',
-          qf: ['TYPE:"IMAGE"', 'edm_agent:"http://data.europeana.eu/agent/200"'],
+          query: 'calais',
+          qf: [
+            'TYPE:"IMAGE"',
+            'proxy_dc_title:dog',
+            'edm_agent:"http://data.europeana.eu/agent/200"'
+          ],
           rows: 24
         };
 
@@ -188,19 +192,21 @@ describe('components/search/SearchInterface', () => {
       });
 
       describe('with full-text advanced search rule', () => {
-        it('is incorporated into query, with profile hits', () => {
+        it('is promoted into query, with profile hits', () => {
           const $route = {
             query: {
               query: 'liberty',
               qa: [
-                'fulltext:europe'
+                'fulltext:europe',
+                'NOT fulltext:united'
               ]
             }
           };
           const expected = {
             page: 1,
             profile: 'minimal,hits',
-            query: 'text:(liberty) AND fulltext:europe',
+            query: 'fulltext:europe AND NOT fulltext:united',
+            qf: ['text:(liberty)'],
             rows: 24
           };
 
