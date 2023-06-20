@@ -304,6 +304,7 @@
 
         return apiOptions;
       },
+      // TODO: reduce cognitive complexity
       apiParams() {
         const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
           if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
@@ -318,22 +319,21 @@
 
         if (this.advancedSearchQueryCount > 0) {
           if (this.hasFulltextQa) {
+            // If there are any advanced search full-text rules, then
+            // these are promoted to the primary query, and any other query
+            // (from the simple search bar) is demoted to a qf, fielded to
+            // `text` if not already fielded.
             if (params.query && !params.query.includes(':')) {
               params.query = `text:(${params.query})`;
             }
-            params.qf = this.qf.concat(
-              [].concat(params.query || [])
-              .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)))
-              .join(' AND ')
-            );
+            params.qf = (params.qf || []).concat(params.query || []);
             params.query = this.fulltextQas.join(' AND ');
             params.profile = `${params.profile},hits`;
-          } else {
-            params.query = []
-              .concat(params.query || [])
-              .concat(this.qa)
-              .join(' AND ');
           }
+
+          // All other advanced search rules go into qf's.
+          params.qf = (params.qf || [])
+            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)));
         }
 
         return merge(params, this.overrideParams);
@@ -397,6 +397,7 @@
         return filtersFromQf(this.apiParams.qf).collection?.[0];
       },
       fulltextQas() {
+        // NOTE: this intentionally excludes the "does not contain" rules for full-text
         return this.qa
           .filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('NOT fulltext:'));
       },
