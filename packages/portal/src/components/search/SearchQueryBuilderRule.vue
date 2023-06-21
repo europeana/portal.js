@@ -101,6 +101,7 @@
           :id="`search-term-${id}`"
           v-model="term"
           :required="areAllRequired"
+          :placeholder="placeholder"
           @change="(value) => handleTermChange(value)"
         />
       </b-form-group>
@@ -156,6 +157,10 @@
     },
 
     computed: {
+      placeholder() {
+        const placeholderKey = `search.advanced.placeholders.${this.modifier}`;
+        return this.$te(placeholderKey) ? this.$t(placeholderKey) : null;
+      },
       // If any field has a value, all are required. If none have a value, the
       // rule will be ignored and none are required.
       areAllRequired() {

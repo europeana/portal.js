@@ -37,7 +37,8 @@ export default {
       ],
       advancedSearchModifiers: [
         { name: 'contains', query: { text: '{field}:{term}', string: '{field}:*{term}*' } },
-        { name: 'doesNotContain', query: { text: '-{field}:{term}', string: '-{field}:*{term}*' } }
+        { name: 'doesNotContain', query: { text: '-{field}:{term}', string: '-{field}:*{term}*' } },
+        { name: 'inRange', query: { text: '{field}:[{term}]', string: '{field}:[{term}]' } }
       ],
       advancedSearchRouteQueryKey: 'qa'
     };
@@ -59,7 +60,7 @@ export default {
       const qa = rules.map((rule) => {
         const field = this.advancedSearchFields.find((field) => field.name === rule.field);
         const modifier = this.advancedSearchModifiers.find((modifier) => modifier.name === rule.modifier);
-        const escapedTerm = escapeLuceneSpecials(rule.term, { spaces: true });
+        const escapedTerm = modifier.name === 'inRange' ? rule.term : escapeLuceneSpecials(rule.term, { spaces: true });
         return modifier?.query[field.type].replace('{field}', field.name).replace('{term}', escapedTerm);
       }).filter((qa) => !!qa);
 
@@ -74,14 +75,20 @@ export default {
         if (qa.startsWith('-')) {
           modifier = 'doesNotContain';
           qa = qa.replace('-', '');
-        } else {
-          modifier = 'contains';
         }
 
         const qaParts = qa.split(':');
         const field = this.advancedSearchFields.find((field) => field.name === qaParts[0]);
 
         let term = (qaParts.slice(1) || []).join(':');
+
+        if (term.startsWith('[') && term.endsWith(']')) {
+          modifier = 'inRange';
+          term = term.slice(1, term.length - 1);
+        } else {
+          modifier = 'contains';
+        }
+
         if (field?.type === 'string') {
           if (term.startsWith('*')) {
             term = term.slice(1);

@@ -1070,7 +1070,11 @@ export default {
       },
       "modifiers": {
         "contains": "contains",
-        "doesNotContain": "does not contain"
+        "doesNotContain": "does not contain",
+        "inRange": "is in range"
+      },
+      "placeholders": {
+        "inRange": "e.g. 1900-01-01 TO 1900-12-31"
       },
       "show": "{showOrHide} advanced search",
       "tooltip": {
