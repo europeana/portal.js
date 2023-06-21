@@ -45,7 +45,7 @@ export default {
         {
           name: 'contains',
           query: {
-            [FIELD_TYPE_FULLTEXT]: '{field}:{term}',
+            [FIELD_TYPE_FULLTEXT]: '{field}:({term})',
             [FIELD_TYPE_STRING]: '{field}:*{term}*',
             [FIELD_TYPE_TEXT]: '{field}:{term}'
           }
@@ -53,7 +53,7 @@ export default {
         {
           name: 'doesNotContain',
           query: {
-            [FIELD_TYPE_FULLTEXT]: 'NOT {field}:{term}',
+            [FIELD_TYPE_FULLTEXT]: 'NOT {field}:({term})',
             [FIELD_TYPE_STRING]: '-{field}:*{term}*',
             [FIELD_TYPE_TEXT]: '-{field}:{term}'
           }
@@ -105,11 +105,19 @@ export default {
         const field = this.advancedSearchFields.find((field) => field.name === qaParts[0]);
 
         let term = (qaParts.slice(1) || []).join(':');
-        if (field?.type === 'string') {
+        if (field?.type === FIELD_TYPE_STRING) {
           if (term.startsWith('*')) {
             term = term.slice(1);
           }
           if (term.endsWith('*')) {
+            term = term.slice(0, term.length - 1);
+          }
+        }
+        if (field?.type === FIELD_TYPE_FULLTEXT) {
+          if (term.startsWith('(')) {
+            term = term.slice(1);
+          }
+          if (term.endsWith(')')) {
             term = term.slice(0, term.length - 1);
           }
         }
