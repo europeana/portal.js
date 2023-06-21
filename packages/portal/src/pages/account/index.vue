@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="account page"
-    class="white-page mt-n3"
+    class="white-page xxl-page mt-n3"
   >
     <b-container fluid>
       <b-row>
@@ -28,47 +28,52 @@
       </b-row>
       <b-row>
         <b-col class="p-0 mb-3">
-          <b-nav
-            tabs
-            align="center"
-          >
-            <b-nav-item
-              data-qa="likes collection"
-              :to="localePath({ hash: tabHashes.likes})"
-              :active="activeTab === tabHashes.likes"
-            >
-              {{ $t('account.likes') }}
-            </b-nav-item>
-            <b-nav-item
-              data-qa="public collections"
-              :to="localePath({ hash: tabHashes.publicGalleries})"
-              :active="activeTab === tabHashes.publicGalleries"
-            >
-              {{ $t('account.publicCollections') }}
-            </b-nav-item>
-            <b-nav-item
-              data-qa="private collections"
-              :to="localePath({ hash: tabHashes.privateGalleries})"
-              :active="activeTab === tabHashes.privateGalleries"
-            >
-              {{ $t('account.privateCollections') }}
-            </b-nav-item>
-            <b-nav-item
-              data-qa="published collections"
-              :to="localePath({ hash: tabHashes.publishedGalleries})"
-              :active="activeTab === tabHashes.publishedGalleries"
-            >
-              {{ $t('account.publishedCollections') }}
-            </b-nav-item>
-            <b-nav-item
-              v-if="userIsEditor"
-              data-qa="curated collections"
-              :to="localePath({ hash: tabHashes.curatedCollections})"
-              :active="activeTab === tabHashes.curatedCollections"
-            >
-              {{ $t('account.curatedCollections') }}
-            </b-nav-item>
-          </b-nav>
+          <b-container>
+            <b-row>
+              <b-nav
+                tabs
+                align="center"
+                class="w-100"
+              >
+                <b-nav-item
+                  data-qa="likes collection"
+                  :to="localePath({ hash: tabHashes.likes})"
+                  :active="activeTab === tabHashes.likes"
+                >
+                  {{ $t('account.likes') }}
+                </b-nav-item>
+                <b-nav-item
+                  data-qa="public collections"
+                  :to="localePath({ hash: tabHashes.publicGalleries})"
+                  :active="activeTab === tabHashes.publicGalleries"
+                >
+                  {{ $t('account.publicCollections') }}
+                </b-nav-item>
+                <b-nav-item
+                  data-qa="private collections"
+                  :to="localePath({ hash: tabHashes.privateGalleries})"
+                  :active="activeTab === tabHashes.privateGalleries"
+                >
+                  {{ $t('account.privateCollections') }}
+                </b-nav-item>
+                <b-nav-item
+                  data-qa="published collections"
+                  :to="localePath({ hash: tabHashes.publishedGalleries})"
+                  :active="activeTab === tabHashes.publishedGalleries"
+                >
+                  {{ $t('account.publishedCollections') }}
+                </b-nav-item>
+                <b-nav-item
+                  v-if="userIsEditor"
+                  data-qa="curated collections"
+                  :to="localePath({ hash: tabHashes.curatedCollections})"
+                  :active="activeTab === tabHashes.curatedCollections"
+                >
+                  {{ $t('account.curatedCollections') }}
+                </b-nav-item>
+              </b-nav>
+            </b-row>
+          </b-container>
           <client-only>
             <div
               v-if="$fetchState.pending"
@@ -100,11 +105,13 @@
                         </h2>
                       </b-col>
                     </b-row>
-                    <ItemPreviewCardGroup
-                      v-if="likesId && likedItems.length !== 0"
-                      :items="likedItems"
-                      class="pb-5"
-                    />
+                    <b-row>
+                      <ItemPreviewCardGroup
+                        v-if="likesId && likedItems.length !== 0"
+                        :items="likedItems"
+                        class="pb-5"
+                      />
+                    </b-row>
                   </template>
                   <div
                     v-else
@@ -235,9 +242,17 @@
 
   h1 {
     margin-bottom: 0.75rem;
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: calc(1.5 * 0.75rem);
+    }
   }
 
   .nav-tabs {
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: calc(1.5 * 2.5rem);
+    }
   }
 </style>
