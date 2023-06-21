@@ -15,7 +15,7 @@
         <client-only>
           <slot />
           <b-row
-            class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
+            class="filters-header border-bottom border-top d-flex justify-content-between align-items-center"
           >
             <h2
               class="filters-title"
@@ -24,11 +24,11 @@
             </h2>
             <button
               v-if="hasResettableFilters"
-              class="btn btn-outline-primary mr-3"
+              class="btn btn-outline-primary"
               data-qa="reset filters button"
               @click="resetFilters"
             >
-              {{ $t('actions.reset') }}
+              {{ $t('actions.resetFilters') }}
             </button>
           </b-row>
           <b-row class="mb-3 mt-4">
@@ -536,15 +536,22 @@
   @import '@europeana/style/scss/mixins';
   @import '@europeana/style/scss/transitions';
 
+  .filters-header {
+    padding: 0.5rem 1rem;
+
+    @media (min-width: $bp-4k) {
+      padding: 0.75rem 1.5rem;
+    }
+  }
   .filters-title {
     font-size: $font-size-small;
     font-weight: 600;
     line-height: 1;
-    margin: 1.25rem 1rem;
+    margin: 0.75rem 1rem 0.75rem 0;
 
     @media (min-width: $bp-4k) {
       font-size: $font-size-small-4k;
-      margin: calc(1.5 * 1.25rem) 1.5rem;
+      margin: calc(1.5 * 0.75rem) 0;
     }
   }
 
