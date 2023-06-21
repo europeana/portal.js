@@ -399,7 +399,6 @@
         return filtersFromQf(this.apiParams.qf).collection?.[0];
       },
       fulltextQas() {
-        // NOTE: this intentionally excludes the "does not contain" rules for full-text
         return this.qa
           .filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('NOT fulltext:'));
       },
