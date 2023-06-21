@@ -35,7 +35,7 @@
             <div
               class="mb-3 d-flex align-items-start justify-content-between"
             >
-              <!-- This div prevents ViewToggles jumping around as SearchResultsContext is shown & hidden -->
+              <!-- This div prevents SearchViewToggles jumping around as SearchResultsContext is shown & hidden -->
               <div v-show="$fetchState.pending" />
               <SearchResultsContext
                 v-show="!$fetchState.pending"
@@ -44,7 +44,7 @@
                 :query="query"
                 badge-variant="primary-light"
               />
-              <ViewToggles
+              <SearchViewToggles
                 v-model="view"
               />
             </div>
@@ -144,7 +144,7 @@
           name="after-results"
         />
       </b-col>
-      <SideFilters
+      <SearchFilters
         :route="route"
         :collection="collection"
         :api-params="apiParams"
@@ -193,7 +193,7 @@
             @show="(show) => showAdvancedSearch = show"
           />
         </transition>
-      </SideFilters>
+      </SearchFilters>
     </b-row>
   </b-container>
 </template>
@@ -203,8 +203,8 @@
 
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
-  import SideFilters from './SideFilters';
-  import ViewToggles from './ViewToggles';
+  import SearchFilters from './SearchFilters';
+  import SearchViewToggles from './SearchViewToggles';
 
   import makeToastMixin from '@/mixins/makeToast';
   import { filtersFromQf } from '@/plugins/europeana/search';
@@ -221,8 +221,8 @@
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
-      SideFilters,
-      ViewToggles
+      SearchFilters,
+      SearchViewToggles
     },
 
     mixins: [

@@ -50,7 +50,7 @@
               <span class="icon-ic-add pr-1" />
               {{ $t('actions.add') }}
             </b-button>
-          </div>          
+          </div>
         </b-form>
       </section>
     </b-col>

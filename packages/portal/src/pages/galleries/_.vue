@@ -96,7 +96,7 @@
                   <ShareButton
                     class="mr-2 mt-2"
                   />
-                  <SocialShareModal
+                  <ShareSocialModal
                     :media-url="shareMediaUrl"
                     :share-to="[{
                       identifier: 'weavex',
@@ -133,7 +133,7 @@
                   data-qa="set request publication button"
                   class="mr-2 mt-2"
                 />
-                <PublishSetButton
+                <SetPublishButton
                   v-if="userCanPublishSet"
                   :set-id="set.id"
                   :visibility="set.visibility"
@@ -194,8 +194,8 @@
   } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import ShareButton from '@/components/sharing/ShareButton.vue';
-  import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
+  import ShareButton from '@/components/share/ShareButton.vue';
+  import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -208,10 +208,10 @@
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup,
       ShareButton,
-      SocialShareModal,
+      ShareSocialModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations'),
-      PublishSetButton: () => import('@/components/set/PublishSetButton'),
+      SetPublishButton: () => import('@/components/set/SetPublishButton'),
       SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget')
 
     },

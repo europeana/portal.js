@@ -75,7 +75,7 @@ describe('components/search/SearchQueryBuilder', () => {
     it('adds a new search query builder rule', () => {
       const wrapper = factory();
 
-      const addButton = wrapper.find('[data-qa="add rule button"]');
+      const addButton = wrapper.find('[data-qa="advanced search query builder: add rule button"]');
       addButton.trigger('click');
 
       expect(wrapper.vm.queryRules.length).toBe(2);

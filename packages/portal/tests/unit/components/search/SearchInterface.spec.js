@@ -69,7 +69,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
   },
   propsData,
   data: () => data,
-  stubs: ['SideFilters', 'i18n']
+  stubs: ['SearchFilters', 'i18n']
 });
 
 describe('components/search/SearchInterface', () => {

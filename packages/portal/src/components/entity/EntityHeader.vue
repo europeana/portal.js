@@ -69,7 +69,7 @@
       {{ $t('website') }}
     </b-button>
     <ShareButton />
-    <SocialShareModal :media-url="image ? image : logo" />
+    <ShareSocialModal :media-url="image ? image : logo" />
     <client-only>
       <template
         v-if="editable"
@@ -95,8 +95,8 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
-  import ShareButton from '@/components/sharing/ShareButton';
-  import SocialShareModal from '@/components/sharing/SocialShareModal';
+  import ShareButton from '@/components/share/ShareButton';
+  import ShareSocialModal from '@/components/share/ShareSocialModal';
 
   export default {
     name: 'EntityHeader',
@@ -104,7 +104,7 @@
     components: {
       ClientOnly,
       ShareButton,
-      SocialShareModal,
+      ShareSocialModal,
       EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
       EntityInformationModal: () => import('@/components/entity/EntityInformationModal')
     },

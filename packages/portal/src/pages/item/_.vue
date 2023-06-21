@@ -68,7 +68,7 @@
             cols="12"
             class="col-lg-10"
           >
-            <SummaryInfo
+            <ItemSummaryInfo
               :description="descriptionInCurrentLanguage"
               :titles="titlesInCurrentLanguage"
             />
@@ -155,7 +155,7 @@
   import ItemHero from '@/components/item/ItemHero';
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import MetadataBox from '@/components/item/MetadataBox';
+  import MetadataBox from '@/components/metadata/MetadataBox';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
@@ -175,7 +175,7 @@
       LoadingSpinner,
       MetadataBox,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
-      SummaryInfo: () => import('@/components/item/SummaryInfo')
+      ItemSummaryInfo: () => import('@/components/item/ItemSummaryInfo')
     },
 
     mixins: [
