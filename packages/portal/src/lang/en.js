@@ -60,7 +60,7 @@ export default {
     "publish": "Publish",
     "readMore": "Read more",
     "reject": "Reject",
-    "reset": "Reset",
+    "resetFilters": "Reset filters",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
