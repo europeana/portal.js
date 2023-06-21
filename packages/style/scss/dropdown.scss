@@ -19,12 +19,6 @@
     color: $mediumgrey;
   }
 
-  .dropdown-menu {
-    [role='group'] {
-      padding-left: 1rem;
-    }
-  }
-
   &.multilingual-selector .dropdown-menu {
     max-height: 50vh;
     overflow: auto;
@@ -190,6 +184,16 @@
             height: 1.5rem;
             width: 1.5rem;
           }
+        }
+      }
+    }
+
+    ul[role='group'] .dropdown-item {
+      padding-left: 1.75rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          padding-left: calc(1.5 * 1.75rem);
         }
       }
     }

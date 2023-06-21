@@ -61,7 +61,7 @@
                 :key="`${component}-section-${sectionIndex}`"
               >
                 <component
-                  :is="Array.isArray(section.options) ? 'b-dropdown-group' : 'div'"
+                  :is="Array.isArray(section.options) && section.header ? 'b-dropdown-group' : 'div'"
                   :header="section.header"
                 >
                   <b-dropdown-item-button
