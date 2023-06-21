@@ -73,7 +73,7 @@
 <script>
   import uniq from 'lodash/uniq';
   import ClientOnly from 'vue-client-only';
-  import ContentCard from '@/components/generic/ContentCard';
+  import ContentCard from '@/components/content/ContentCard';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
 
   const CTA_BANNER = 'cta-banner';

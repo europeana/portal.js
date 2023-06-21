@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import ContentCard from '../generic/ContentCard';
+  import ContentCard from '../content/ContentCard';
 
   export default {
     components: {

@@ -61,8 +61,8 @@
 
 <script>
   import { getLabelledSlug } from '@/plugins/europeana/utils';
-  import ContentHeader from '../../components/generic/ContentHeader';
-  import ContentCard from '../../components/generic/ContentCard';
+  import ContentHeader from '../../components/content/ContentHeader';
+  import ContentCard from '../../components/content/ContentCard';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   const PER_PAGE = 20;

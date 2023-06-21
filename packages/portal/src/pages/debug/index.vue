@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import ContentHeader from '@/components/generic/ContentHeader';
+  import ContentHeader from '@/components/content/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {

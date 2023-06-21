@@ -7,7 +7,7 @@
       v-if="illustration"
       class="cta-illustration align-self-stretch"
     >
-      <OptimisedImage
+      <ImageOptimised
         :alt="illustration.image.description"
         :src="illustration.image.url"
         :width="illustration.image.width"
@@ -48,7 +48,7 @@
 
     components: {
       SmartLink,
-      OptimisedImage: () => import('@/components/generic/OptimisedImage')
+      ImageOptimised: () => import('@/components/image/ImageOptimised')
     },
     props: {
       name: {

@@ -51,7 +51,7 @@
 
 <script>
   import swiperMixin from '@/mixins/swiper';
-  import MediaCard from './MediaCard';
+  import MediaCard from '../media/MediaCard';
   import WebResource from '@/plugins/europeana/edm/WebResource';
   import { Pagination, Navigation } from 'swiper';
 

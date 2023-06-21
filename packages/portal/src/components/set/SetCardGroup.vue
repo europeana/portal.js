@@ -35,7 +35,7 @@
     name: 'SetCardGroup',
 
     components: {
-      ContentCard: () => import('@/components/generic/ContentCard')
+      ContentCard: () => import('@/components/content/ContentCard')
     },
 
     props: {

@@ -16,7 +16,7 @@
     <template
       v-if="$auth.loggedIn"
     >
-      <AddItemToSetModal
+      <SetAddItemModal
         data-qa="add item to set modal"
         :modal-id="addItemToSetModalId"
         :item-id="identifier"
@@ -35,14 +35,14 @@
 
 <script>
   import keycloak from '@/mixins/keycloak';
-  import AddItemToSetModal from '../set/AddItemToSetModal';
+  import SetAddItemModal from '../set/SetAddItemModal';
   import SetFormModal from '../set/SetFormModal';
 
   export default {
     name: 'ItemAddButton',
 
     components: {
-      AddItemToSetModal,
+      SetAddItemModal,
       SetFormModal
     },
 
