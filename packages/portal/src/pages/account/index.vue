@@ -1,25 +1,24 @@
 <template>
   <div
     data-qa="account page"
-    class="mt-n3"
+    class="white-page mt-n3"
   >
     <b-container fluid>
-      <b-row class="bg-white">
+      <b-row>
         <b-col class="pt-5 pb-4">
           <h1 class="text-center">
             @{{ loggedInUser && loggedInUser.preferred_username }}
           </h1>
           <div class="text-center">
             <b-button
-              variant="outline-primary"
-              class="mr-1 text-decoration-none"
+              class="mr-1 text-decoration-none d-inline-flex align-items-center"
               :href="keycloakAccountUrl"
             >
+              <span class="icon-edit pr-1" />
               {{ $t('account.editProfile') }}
             </b-button>
             <b-button
               to="/account/logout"
-              variant="outline-primary"
               class="text-decoration-none"
             >
               {{ $t('account.linkLogout') }}
