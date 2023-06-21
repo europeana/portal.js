@@ -663,7 +663,7 @@ export default {
         "feedback": "Inserisci qui il tuo risposta"
       }
     },
-    "policies": "Continuando, accetti la nostra {0} e riconosci la nostra {1}.",
+    "policies": "Continuando, accetti i nostri {0} e riconosci la nostra {1}.",
     "privacyPolicy": "Informativa sulla privacy",
     "success": "Il tuo feedback è stato inviato.",
     "termsOfService": "Termini di servizio",
