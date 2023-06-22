@@ -14,7 +14,7 @@
         :section="section"
       />
       <BrowseAutomatedCardGroup
-        v-else-if="contentType(section, 'BrowseAutomatedCardGroup')"
+        v-else-if="contentType(section, 'AutomatedCardGroup')"
         :section-type="section.genre"
         :more-button="section.moreButton"
       />
