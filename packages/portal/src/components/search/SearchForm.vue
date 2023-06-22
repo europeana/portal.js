@@ -43,8 +43,8 @@
           aria-autocomplete="list"
           :aria-controls="showSearchOptions ? 'search-form-options' : null"
           :aria-label="$t('search.title')"
-          @input="handleQueryInput"
-          @focus="showSearchOptions = true"
+          @focus="showSearchOptions = true; suggestSearchOptions = true"
+          @blur="suggestSearchOptions = false"
         />
       </b-input-group>
     </b-form>
@@ -67,8 +67,8 @@
     >
       <SearchQueryOptions
         ref="searchoptions"
-        :suggest="inTopNav && !onSearchableCollectionPage"
-        :text="suggestText"
+        :suggest="suggestSearchOptions && this.inTopNav && !onSearchableCollectionPage"
+        :text="query"
         @select="showSearchOptions = false;"
       />
       <SearchThemeBadges
@@ -113,7 +113,7 @@
         query: null,
         showSearchOptions: false,
         showForm: this.show,
-        suggestText: null
+        suggestSearchOptions: false
       };
     },
 
@@ -173,12 +173,6 @@
     },
 
     methods: {
-      handleQueryInput() {
-        if (this.showSearchOptions) {
-          this.suggestText = this.query;
-        }
-      },
-
       initQuery() {
         this.query = this.$route.query.query;
       },

@@ -83,48 +83,6 @@
       };
     },
 
-    async fetch() {
-      if (!this.suggest || !this.text || this.text === '') {
-        this.suggestions = {};
-        this.activeSuggestionsQueryTerm = null;
-        return;
-      }
-
-      // Don't go getting more suggestions if we are already waiting for some or they already exist.
-      if (this.gettingSuggestions || (this.text === this.activeSuggestionsQueryTerm)) {
-        return;
-      }
-
-      const locale = this.$i18n.locale;
-      this.gettingSuggestions = true;
-
-      try {
-        const suggestions = await this.$apis.entity.suggest(this.text, {
-          language: locale,
-          type: this.type
-        });
-        this.activeSuggestionsQueryTerm = this.text;
-        this.suggestions = suggestions.reduce((memo, suggestion) => {
-          const candidates = [(suggestion.prefLabel || {})[locale]]
-            .concat((suggestion.altLabel || {})[locale]);
-          memo[suggestion.id] = candidates.find(candidate => matchHighlight(candidate, this.text).length > 0) || candidates[0];
-          return memo;
-        }, {});
-      } catch {
-        this.activeSuggestionsQueryTerm = null;
-        this.suggestions = {};
-      } finally {
-        this.gettingSuggestions = false;
-        // If the query has changed in the meantime, go get new suggestions now
-        // FIXME
-        // if (query !== this.text) {
-        //   this.$fetch(this.text);
-        // }
-        // TODO: this?
-        // this.$emit('change', this.suggestions);
-      }
-    },
-
     computed: {
       onCollectionPage() {
         return this.$route.name.startsWith('collections-type-all');
@@ -185,16 +143,53 @@
 
     watch: {
       text() {
-        console.log('SearchQueryOptions watch text');
-        this.$fetch();
+        this.fetchSuggestions();
       }
     },
 
-    created() {
-      console.log('SearchQueryOptions created');
-    },
-
     methods: {
+      async fetchSuggestions() {
+        if (!this.suggest || !this.text || this.text === '') {
+          this.suggestions = {};
+          this.activeSuggestionsQueryTerm = null;
+          return;
+        }
+
+        // Don't go getting more suggestions if we are already waiting for some or they already exist.
+        if (this.gettingSuggestions || (this.text === this.activeSuggestionsQueryTerm)) {
+          return;
+        }
+
+        const locale = this.$i18n.locale;
+        this.gettingSuggestions = true;
+
+        try {
+          const suggestions = await this.$apis.entity.suggest(this.text, {
+            language: locale,
+            type: this.type
+          });
+          this.activeSuggestionsQueryTerm = this.text;
+          this.suggestions = suggestions.reduce((memo, suggestion) => {
+            const candidates = [(suggestion.prefLabel || {})[locale]]
+              .concat((suggestion.altLabel || {})[locale]);
+            memo[suggestion.id] = candidates.find(candidate => matchHighlight(candidate, this.text).length > 0) || candidates[0];
+            return memo;
+          }, {});
+        } catch {
+          this.activeSuggestionsQueryTerm = null;
+          this.suggestions = {};
+        } finally {
+          this.gettingSuggestions = false;
+          // If the query has changed in the meantime, go get new suggestions now
+          // FIXME
+          // if (query !== this.text) {
+          //   this.$fetch(this.text);
+          // }
+          // TODO: this?
+          // this.$emit('change', this.suggestions);
+        }
+      },
+
       handleClick(index, query) {
         this.suggestions = {};
         this.activeSuggestionsQueryTerm = null;
