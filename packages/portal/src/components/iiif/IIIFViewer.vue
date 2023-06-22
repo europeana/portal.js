@@ -104,6 +104,11 @@
           selectedTheme: 'europeana',
           themes: {
             europeana: window.MiradorTheme
+          },
+          osdConfig: {
+            gestureSettingsMouse: {
+              scrollToZoom: false
+            }
           }
         };
 
