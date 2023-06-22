@@ -258,9 +258,10 @@
       },
 
       iiifPresentationApiVersionFromContext(context) {
-        if ([].concat(context).includes('http://iiif.io/api/presentation/2/context.json')) {
+        const contexts = [].concat(context).filter((context) => !!context);
+        if (contexts.some((uri) => uri.includes('://iiif.io/api/presentation/2/context.json'))) {
           return 2;
-        } else if ([].concat(context).includes('http://iiif.io/api/presentation/3/context.json')) {
+        } else if (contexts.some((uri) => uri.includes('://iiif.io/api/presentation/3/context.json'))) {
           return 3;
         } else {
           return undefined;
