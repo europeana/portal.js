@@ -61,7 +61,7 @@ export default {
     "readMore": "Olvass tovább",
     "reject": "Elutasít",
     "requestDepublication": "Közzététel megszüntetésének kérése",
-    "reset": "Visszaállítás",
+    "resetFilters": "Szűrők visszaállítása",
     "save": "Mentse",
     "send": "Küld",
     "share": "Megosztás",

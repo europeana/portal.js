@@ -61,7 +61,7 @@ export default {
     "readMore": "Přečtěte si více",
     "reject": "Odmítnout",
     "requestDepublication": "Žádost o zrušení publikace",
-    "reset": "Obnovit",
+    "resetFilters": "Resetovat filtry",
     "save": "Uložit",
     "send": "Poslat",
     "share": "Sdílejte",
