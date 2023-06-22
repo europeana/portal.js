@@ -61,7 +61,7 @@ export default {
     "readMore": "Aqra iktar",
     "reject": "Irrifjuta",
     "requestDepublication": "Talba għal depubblikazzjoni",
-    "reset": "Irrisettja",
+    "resetFilters": "Irrisettja l-filtri",
     "save": "Tissejvja",
     "send": "Tibgħat",
     "share": "Ixxerja",
