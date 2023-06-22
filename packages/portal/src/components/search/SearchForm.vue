@@ -43,8 +43,8 @@
           aria-autocomplete="list"
           :aria-controls="showSearchOptions ? 'search-form-options' : null"
           :aria-label="$t('search.title')"
-          @input="getSearchSuggestions(query);"
-          @focus="showSearchOptions = true; updateSuggestions();"
+          @input="handleQueryInput"
+          @focus="showSearchOptions = true"
         />
       </b-input-group>
     </b-form>
@@ -60,14 +60,15 @@
       v-if="inTopNav"
     />
     <div
-      v-if="showSearchOptions"
+      v-show="showSearchOptions"
       id="search-suggest-dropdown"
       class="auto-suggest-dropdown"
       data-qa="search form dropdown"
     >
       <SearchQueryOptions
         ref="searchoptions"
-        :options="searchQueryOptions"
+        :suggest="inTopNav && !onSearchableCollectionPage"
+        :text="suggestText"
         @select="showSearchOptions = false;"
       />
       <SearchThemeBadges
@@ -80,8 +81,6 @@
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
-  import match from 'autosuggest-highlight/match';
-  import parse from 'autosuggest-highlight/parse';
 
   export default {
     name: 'SearchForm',
@@ -112,11 +111,9 @@
     data() {
       return {
         query: null,
-        gettingSuggestions: false,
-        suggestions: {},
-        activeSuggestionsQueryTerm: null,
         showSearchOptions: false,
-        showForm: this.show
+        showForm: this.show,
+        suggestText: null
       };
     },
 
@@ -128,58 +125,6 @@
       onSearchableCollectionPage() {
         // Auto suggest on search form will be disabled on entity pages.
         return !!this.$store.state.entity?.id && !!this.collectionLabel;
-      },
-
-      suggestionSearchOptions() {
-        return Object.values(this.suggestions).map(suggestion => (
-          {
-            link: this.suggestionLinkGen(suggestion),
-            qa: `${suggestion} search suggestion`,
-            texts: this.highlightSuggestion(suggestion)
-          }
-        ));
-      },
-
-      globalSearchOption() {
-        const globalSearchOption = {
-          link: this.linkGen(this.query),
-          qa: 'search entire collection button',
-          i18n: {
-            slots: this.query ? [
-              { name: 'query', value: { highlight: true, text: this.query } }
-            ] : []
-          }
-        };
-
-        if (this.onSearchableCollectionPage) {
-          globalSearchOption.i18n.path = this.query ? 'header.entireCollection' : 'header.searchForEverythingInEntireCollection';
-        } else {
-          globalSearchOption.i18n.path = this.query ? 'header.searchFor' : 'header.searchForEverything';
-        }
-
-        return globalSearchOption;
-      },
-
-      collectionSearchOption() {
-        return {
-          link: this.searchInCollectionLinkGen(this.query),
-          qa: 'search in collection button',
-          i18n: {
-            path: this.query ? 'header.inCollection' : 'header.searchForEverythingInCollection',
-            slots: [
-              { name: 'query', value: { highlight: true, text: this.query } },
-              { name: 'collection', value: { text: this.collectionLabel } }
-            ]
-          }
-        };
-      },
-
-      searchQueryOptions() {
-        if (this.onSearchableCollectionPage) {
-          return [this.collectionSearchOption, this.globalSearchOption];
-        } else {
-          return [this.globalSearchOption].concat(this.suggestionSearchOptions);
-        }
       },
 
       onSearchablePage() {
@@ -228,14 +173,10 @@
     },
 
     methods: {
-      // Highlight the user's query in a suggestion
-      // FIXME: only re-highlight when new suggestions come in, not immediately
-      //        after the query changes?
-      highlightSuggestion(value) {
-        const matchQuery = this.query ? this.query.replace(/(^")|("$)/g, '') : undefined;
-        // Find all the suggestion labels that match the query
-        const matches = match(value, matchQuery);
-        return parse(value, matches);
+      handleQueryInput() {
+        if (this.showSearchOptions) {
+          this.suggestText = this.query;
+        }
       },
 
       initQuery() {
@@ -244,9 +185,10 @@
 
       async submitForm() {
         // Matomo event: suggestions are present, but none is selected
-        if (Object.keys(this.suggestions).length > 0) {
-          this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
-        }
+        // FIXME
+        // if (Object.keys(this.suggestions).length > 0) {
+        //   this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
+        // }
 
         const baseQuery = this.onSearchablePage ? this.$route.query : {};
         // `query` must fall back to blank string to ensure inclusion in URL,
@@ -262,81 +204,18 @@
 
       updateSuggestions() {
         // Re-retrieve suggestions after the query was programmatically changed.
-        if (this.query !== this.activeSuggestionsQueryTerm) {
-          this.getSearchSuggestions(this.query);
-        }
+        // FIXME
+        // if (this.query !== this.activeSuggestionsQueryTerm) {
+        //   this.getSearchSuggestions(this.query);
+        // }
       },
 
-      getSearchSuggestions(query) {
-        if (!query || query === '') {
-          this.suggestions = {};
-          this.activeSuggestionsQueryTerm = null;
-          return;
-        }
-
-        if (this.onSearchableCollectionPage || !this.inTopNav) {
-          return;
-        }
-
-        // Don't go getting more suggestions if we are already waiting for some or they already exist.
-        if (this.gettingSuggestions || query === this.activeSuggestionsQueryTerm) {
-          return;
-        }
-
-        const locale = this.$i18n.locale;
-        this.gettingSuggestions = true;
-
-        this.$apis.entity.suggest(query, {
-          language: locale,
-          type: 'agent,concept,place,timespan'
-        })
-          .then(suggestions => {
-            this.activeSuggestionsQueryTerm = query;
-            this.suggestions = suggestions.reduce((memo, suggestion) => {
-              const candidates = [(suggestion.prefLabel || {})[locale]]
-                .concat((suggestion.altLabel || {})[locale]);
-              memo[suggestion.id] = candidates.find(candidate => match(candidate, query).length > 0) || candidates[0];
-              return memo;
-            }, {});
-          })
-          .catch(() => {
-            this.activeSuggestionsQueryTerm = null;
-            this.suggestions = {};
-          })
-          .then(() => {
-            this.gettingSuggestions = false;
-            // If the query has changed in the meantime, go get new suggestions now
-            if (query !== this.query) {
-              this.getSearchSuggestions(this.query);
-            }
-          });
-      },
-
-      suggestionLinkGen(suggestion) {
-        const formattedSuggestion = suggestion ? `"${suggestion.replace(/(^")|("$)/g, '')}"` : undefined;
-        return this.linkGen(formattedSuggestion);
-      },
-
-      linkGen(queryTerm, path) {
-        const query = {
-          boost: this.$route?.query?.boost,
-          qa: this.$route?.query?.qa,
-          qf: this.$route?.query?.qf,
-          query: queryTerm || '',
-          reusability: this.$route?.query?.reusability,
-          view: this.view
-        };
-        return {
-          path: path || this.localePath({
-            name: 'search'
-          }),
-          query
-        };
-      },
-
-      searchInCollectionLinkGen(query) {
-        return this.linkGen(query, this.$route.path);
-      },
+      // FIXME
+      // getSearchSuggestions(query) {
+      //   if (this.onSearchableCollectionPage || !this.inTopNav) {
+      //     return;
+      //   }
+      // },
 
       clearQuery() {
         this.query = '';

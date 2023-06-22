@@ -18,13 +18,21 @@
         default: 'term'
       },
 
-      value: {
-        type: String,
-        required: true
-      },
-
       state: {
         type: Boolean,
+        default: null
+      },
+
+      /**
+       * @values Agent,Concept,Organization,Place,Timespan
+       */
+      suggestEntityType: {
+        type: String,
+        default: null
+      },
+
+      value: {
+        type: String,
         default: null
       }
     },

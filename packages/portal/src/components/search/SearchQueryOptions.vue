@@ -13,8 +13,8 @@
     -->
     <b-list-group-item
       v-for="(option, index) in options"
-      :key="index"
       ref="options"
+      :key="index"
       :data-qa="option.qa"
       :to="$link.to(option.link.path, option.link.query)"
       :href="$link.href(option.link.path, option.link.query)"
@@ -47,6 +47,8 @@
 </template>
 
 <script>
+  import matchHighlight from 'autosuggest-highlight/match';
+  import parseHighlight from 'autosuggest-highlight/parse';
   import TextHighlighter from '../generic/TextHighlighter';
 
   export default {
@@ -57,57 +59,188 @@
     },
 
     props: {
-      /**
-       * Array of objects for the query options to render as links
-       *
-       * with i18n and named slots
-       * @example
-       * [
-       *   {
-       *     link: { path: '/en/search', query: { query: 'map' } },
-       *     qa: 'search button',
-       *     i18n: { path: 'header.searchFor', slots: [
-       *       { name: 'query', value: { text: 'map', highlight: true } }
-       *     ] }
-       *   }
-       * ];
-       * with non-i18n texts
-       * @example
-       * [
-       *   {
-       *     link: { path: '/en/search', query: { query: '"Charles Dickens"' } },
-       *     qa: 'Charles Dickens search suggestion',
-       *     texts: [
-       *       { text: 'Charles ', highlight: false },
-       *       { text: 'D', highlight: true },
-       *       { text: 'ickens ', highlight: false }
-       *     ]
-       *   }
-       * ];
-       */
-      options: {
-        type: Array,
-        required: true
+      suggest: {
+        type: Boolean,
+        default: true
+      },
+
+      text: {
+        type: String,
+        default: null
+      },
+
+      type: {
+        type: String,
+        default: 'agent,concept,place,timespan'
       }
     },
 
-    methods: {
+    data() {
+      return {
+        activeSuggestionsQueryTerm: null,
+        gettingSuggestions: false,
+        suggestions: {}
+      };
+    },
+
+    async fetch() {
+      if (!this.suggest || !this.text || this.text === '') {
+        this.suggestions = {};
+        this.activeSuggestionsQueryTerm = null;
+        return;
+      }
+
+      // Don't go getting more suggestions if we are already waiting for some or they already exist.
+      if (this.gettingSuggestions || (this.text === this.activeSuggestionsQueryTerm)) {
+        return;
+      }
+
+      const locale = this.$i18n.locale;
+      this.gettingSuggestions = true;
+
+      try {
+        const suggestions = await this.$apis.entity.suggest(this.text, {
+          language: locale,
+          type: this.type
+        });
+        this.activeSuggestionsQueryTerm = this.text;
+        this.suggestions = suggestions.reduce((memo, suggestion) => {
+          const candidates = [(suggestion.prefLabel || {})[locale]]
+            .concat((suggestion.altLabel || {})[locale]);
+          memo[suggestion.id] = candidates.find(candidate => matchHighlight(candidate, this.text).length > 0) || candidates[0];
+          return memo;
+        }, {});
+      } catch {
+        this.activeSuggestionsQueryTerm = null;
+        this.suggestions = {};
+      } finally {
+        this.gettingSuggestions = false;
+        // If the query has changed in the meantime, go get new suggestions now
+        // FIXME
+        // if (query !== this.text) {
+        //   this.$fetch(this.text);
+        // }
+        // TODO: this?
+        // this.$emit('change', this.suggestions);
+      }
+    },
+
+    computed: {
       onCollectionPage() {
-        // Used for deciding if clicks on search suggestions should be tracked.
-        // Uses window.location as the beforeRouteLeave call on collection pages
-        // unsets the entity ID before the @click event fires on each search option.
-        const collectionPagePattern = /(\/[a-z]{2})?\/collections\/(person|topic|time|organisation)\/([0-9]+)+/;
-        return collectionPagePattern.test(window.location.href);
+        return this.$route.name.startsWith('collections-type-all');
       },
 
+      collectionSearchOption() {
+        return {
+          link: this.searchInCollectionLinkGen(this.text),
+          qa: 'search in collection button',
+          i18n: {
+            path: this.text ? 'header.inCollection' : 'header.searchForEverythingInCollection',
+            slots: [
+              { name: 'query', value: { highlight: true, text: this.text } },
+              { name: 'collection', value: { text: this.$store.state.search.collectionLabel } }
+            ]
+          }
+        };
+      },
+
+      globalSearchOption() {
+        const globalSearchOption = {
+          link: this.linkGen(this.text),
+          qa: 'search entire collection button',
+          i18n: {
+            slots: this.text ? [
+              { name: 'query', value: { highlight: true, text: this.text } }
+            ] : []
+          }
+        };
+
+        if (this.onCollectionPage) {
+          globalSearchOption.i18n.path = this.text ? 'header.entireCollection' : 'header.searchForEverythingInEntireCollection';
+        } else {
+          globalSearchOption.i18n.path = this.text ? 'header.searchFor' : 'header.searchForEverything';
+        }
+
+        return globalSearchOption;
+      },
+
+      options() {
+        if (this.onCollectionPage) {
+          return [this.collectionSearchOption, this.globalSearchOption];
+        } else {
+          return [this.globalSearchOption].concat(this.suggestionSearchOptions);
+        }
+      },
+
+      suggestionSearchOptions() {
+        return Object.values(this.suggestions).map(suggestion => (
+          {
+            link: this.suggestionLinkGen(suggestion),
+            qa: `${suggestion} search suggestion`,
+            texts: this.highlightSuggestion(suggestion)
+          }
+        ));
+      }
+    },
+
+    watch: {
+      text() {
+        console.log('SearchQueryOptions watch text');
+        this.$fetch();
+      }
+    },
+
+    created() {
+      console.log('SearchQueryOptions created');
+    },
+
+    methods: {
       handleClick(index, query) {
-        this.$emit('select');
+        this.suggestions = {};
+        this.activeSuggestionsQueryTerm = null;
+        this.$emit('select', query);
         this.trackSuggestionClick(index, query);
+      },
+
+      // Highlight the user's query in a suggestion
+      // FIXME: only re-highlight when new suggestions come in, not immediately
+      //        after the query changes?
+      highlightSuggestion(value) {
+        const matchQuery = this.text?.replace(/(^")|("$)/g, '');
+        // Find all the suggestion labels that match the query
+        const matches = matchHighlight(value, matchQuery);
+        return parseHighlight(value, matches);
+      },
+
+      linkGen(queryTerm, path) {
+        const query = {
+          boost: this.$route.query.boost,
+          qa: this.$route.query.qa,
+          qf: this.$route.query.qf,
+          query: queryTerm || '',
+          reusability: this.$route.query.reusability,
+          view: this.$route.query.view
+        };
+        return {
+          path: path || this.localePath({
+            name: 'search'
+          }),
+          query
+        };
+      },
+
+      searchInCollectionLinkGen(query) {
+        return this.linkGen(query, this.$route.path);
+      },
+
+      suggestionLinkGen(suggestion) {
+        const formattedSuggestion = suggestion ? `"${suggestion.replace(/(^")|("$)/g, '')}"` : undefined;
+        return this.linkGen(formattedSuggestion);
       },
 
       trackSuggestionClick(index, query) {
         // Skip click tracking while on a collection page, there will never be suggestions.
-        if (!this.onCollectionPage()) {
+        if (!this.onCollectionPage) {
           if (index >= 1) {
             this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
           } else if (this.options.length >= 2) {
@@ -204,6 +337,7 @@
 </style>
 
 <docs lang="md">
+  // FIXME
   ```jsx
   <SearchQueryOptions
     :options="[
