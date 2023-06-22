@@ -38,11 +38,9 @@
           <div
             :id="`${id}-${control}`"
           >
-            <b-form-input
+            <SearchQueryBuilderRuleTermInput
               v-if="control === 'term'"
               v-model="term"
-              :data-qa="`advanced search query builder: ${control} control`"
-              :placeholder="$t('search.advanced.placeholder.term')"
               :state="validations.term.state"
               @change="(value) => handleRuleChange('term', value)"
             />
@@ -78,13 +76,15 @@
 
 <script>
   import SearchQueryBuilderRuleDropdown from './SearchQueryBuilderRuleDropdown.vue';
+  import SearchQueryBuilderRuleTermInput from './SearchQueryBuilderRuleTermInput.vue';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRule',
 
     components: {
-      SearchQueryBuilderRuleDropdown
+      SearchQueryBuilderRuleDropdown,
+      SearchQueryBuilderRuleTermInput
     },
 
     mixins: [
