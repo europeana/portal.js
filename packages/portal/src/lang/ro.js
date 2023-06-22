@@ -61,7 +61,7 @@ export default {
     "readMore": "Citește mai mult",
     "reject": "Respinge",
     "requestDepublication": "Solicitați depublicarea",
-    "reset": "Resetare",
+    "resetFilters": "Resetați filtrele",
     "save": "Salva",
     "send": "Trimite",
     "share": "Distribuiți",

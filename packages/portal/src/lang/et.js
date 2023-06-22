@@ -61,7 +61,7 @@ export default {
     "readMore": "Loe rohkem",
     "reject": "Tagasi lükata",
     "requestDepublication": "Taotlus mitte avaldada",
-    "reset": "Lähtesta",
+    "resetFilters": "Lähtestage filtrid",
     "save": "Salvesta",
     "send": "Saada",
     "share": "Jagage",

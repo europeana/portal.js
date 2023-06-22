@@ -61,7 +61,7 @@ export default {
     "readMore": "Czytaj więcej",
     "reject": "Odrzuć",
     "requestDepublication": "Poproś o wycofanie publikacji",
-    "reset": "Resetować",
+    "resetFilters": "Zresetuj filtry",
     "save": "Zapisać",
     "send": "Wyślij",
     "share": "Udostępnij",
