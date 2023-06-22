@@ -7,28 +7,28 @@
       class="query-rule"
     >
       <template
-        v-for="component in ruleComponents"
+        v-for="control in ruleControls"
       >
         <b-form-group
-          :key="`${id}-${component}`"
+          :key="`${id}-${control}`"
           class="query-rule-form-group mr-lg-2"
-          :label-for="`${id}-${component}`"
+          :label-for="`${id}-${control}`"
         >
           <template #label>
             <span
-              :id="`${id}-${component}-label`"
+              :id="`${id}-${control}-label`"
               class="d-inline-flex align-items-center"
             >
-              {{ $t(`search.advanced.input.${component}`) }}
+              {{ $t(`search.advanced.input.${control}`) }}
               <template v-if="tooltips">
                 <b-button
-                  :id="`${id}-${component}-tooltip-btn`"
+                  :id="`${id}-${control}-tooltip-btn`"
                   class="icon-info-outline py-0 px-1 tooltip-button"
                   variant="light-flat"
                 />
                 <b-tooltip
-                  :target="`${id}-${component}-tooltip-btn`"
-                  :title="$t(`search.advanced.tooltip.${component}`)"
+                  :target="`${id}-${control}-tooltip-btn`"
+                  :title="$t(`search.advanced.tooltip.${control}`)"
                   boundary-padding="0"
                   placement="bottom"
                 />
@@ -36,61 +36,30 @@
             </span>
           </template>
           <div
-            :id="`${id}-${component}`"
+            :id="`${id}-${control}`"
           >
             <b-form-input
-              v-if="component === 'term'"
+              v-if="control === 'term'"
               v-model="term"
-              :data-qa="`advanced search query builder: ${component} control`"
+              :data-qa="`advanced search query builder: ${control} control`"
               :placeholder="$t('search.advanced.placeholder.term')"
               :state="validations.term.state"
               @change="(value) => handleRuleChange('term', value)"
             />
-            <b-dropdown
+            <SearchQueryBuilderRuleDropdown
               v-else
-              block
-              class="search-query-builder-rule-dropdown search-filter-dropdown"
-              :data-qa="`advanced search query builder: ${component} control`"
-              no-flip
-              :state="validations[component].state"
-              :text="dropdownText[component]"
-              :toggle-class="{ 'form-control': true, 'is-invalid': validations[component].state === false }"
-            >
-              <div
-                v-for="(section, sectionIndex) in dropdownSections[component]"
-                :key="`${component}-section-${sectionIndex}`"
-              >
-                <component
-                  :is="Array.isArray(section.options) && section.header ? 'b-dropdown-group' : 'div'"
-                  :header="section.header"
-                >
-                  <b-dropdown-item-button
-                    v-for="(sectionOption, sectionOptionIndex) in [].concat(section.options)"
-                    :key="`${component}-section-${sectionIndex}-options-${sectionOptionIndex}`"
-                    :data-qa="`advanced search query builder: ${sectionOption.value} ${component} option`"
-                    @click="handleRuleChange(component, sectionOption.value)"
-                  >
-                    {{ sectionOption.text }}
-                    <b-button
-                      v-if="$te(`search.advanced.tooltip.${component}s.${sectionOption.value}`)"
-                      v-b-tooltip.bottom
-                      :title="$t(`search.advanced.tooltip.${component}s.${sectionOption.value}`)"
-                      class="icon-info-outline p-0 tooltip-button"
-                      variant="light-flat"
-                    />
-                  </b-dropdown-item-button>
-                </component>
-                <b-dropdown-divider
-                  v-if="(sectionIndex + 1) < dropdownSections[component].length"
-                />
-              </div>
-            </b-dropdown>
+              :name="control"
+              :options="dropdownSections[control]"
+              :state="validations[control].state"
+              :text="dropdownText[control]"
+              @change="(value) => handleRuleChange(control, value)"
+            />
           </div>
           <b-form-invalid-feedback
             v-show="validate"
-            :state="validations[component].state"
+            :state="validations[control].state"
           >
-            {{ validations[component].text }}
+            {{ validations[control].text }}
           </b-form-invalid-feedback>
         </b-form-group>
       </template>
@@ -108,16 +77,14 @@
 </template>
 
 <script>
-  import { BFormSelect } from 'bootstrap-vue';
-  import AlertMessage from '../generic/AlertMessage';
+  import SearchQueryBuilderRuleDropdown from './SearchQueryBuilderRuleDropdown.vue';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRule',
 
     components: {
-      AlertMessage,
-      BFormSelect
+      SearchQueryBuilderRuleDropdown
     },
 
     mixins: [
@@ -149,7 +116,7 @@
         field: null,
         fulltextFieldName: 'fulltext',
         modifier: null,
-        ruleComponents: ['field', 'modifier', 'term'],
+        ruleControls: ['field', 'modifier', 'term'],
         term: null,
         validations: {
           field: { state: null },
@@ -224,9 +191,9 @@
       clearRule() {
         this.$emit('clear');
       },
-      forEveryRuleComponent(callback) {
-        for (const component of this.ruleComponents) {
-          callback(component);
+      forEveryRuleControl(callback) {
+        for (const control of this.ruleControls) {
+          callback(control);
         }
       },
       handleRuleChange(key, value) {
@@ -234,19 +201,19 @@
         this.$emit('change', key, value);
       },
       initData() {
-        this.forEveryRuleComponent((component) => {
-          this[component] = this.value[component] || null;
+        this.forEveryRuleControl((control) => {
+          this[control] = this.value[control] || null;
         });
       },
       validateRules() {
-        // If any rule component has a value, all are required. If none have a value, the
+        // If any rule control has a value, all are required. If none have a value, the
         // rule will be ignored and none are required.
-        const noRuleComponentHasValue = ![this.term, this.field, this.modifier].some((value) => !!value);
-        this.forEveryRuleComponent((component) => {
-          if (noRuleComponentHasValue || this[component]) {
-            this.validations[component] = { state: true };
+        const noRuleControlHasValue = ![this.term, this.field, this.modifier].some((value) => !!value);
+        this.forEveryRuleControl((control) => {
+          if (noRuleControlHasValue || this[control]) {
+            this.validations[control] = { state: true };
           } else {
-            this.validations[component] = { state: false, text: this.$t('statuses.required') };
+            this.validations[control] = { state: false, text: this.$t('statuses.required') };
           }
         });
         this.$emit(Object.values(this.validations).some((validation) => !validation.state) ? 'invalid' : 'valid');
