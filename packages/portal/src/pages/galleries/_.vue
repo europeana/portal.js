@@ -324,7 +324,7 @@
         return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
       },
       displayMetadata() {
-        return this.set.visibility === ('private' || 'published') || this.set.creator?.nickname;
+        return ['private', 'published'].includes(this.set.visibility) || this.set.creator?.nickname;
       },
       weaveUrl() {
         return `https://experience.weave-culture.eu/import/europeana/set/${this.setId}`;
