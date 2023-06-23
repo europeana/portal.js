@@ -23,7 +23,7 @@
         v-if="!$store.state.keycloak.loggedIn"
         data-qa="log in button"
         class="btn btn-outline-secondary"
-        @click="keycloakLogin"
+        @click="$keycloak.login"
       >
         {{ $t('related.items.loginForMore') }}
       </b-link>
@@ -35,15 +35,12 @@
   import similarItemsQuery from '@/plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'ItemRecommendations',
     components: {
       ItemPreviewCardGroup
     },
-
-    mixins: [keycloak],
 
     props: {
       identifier: {

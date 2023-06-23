@@ -116,15 +116,109 @@ const storeModule = {
   }
 };
 
+const plugin = async(ctx) => ({
+  get accountUrl() {
+    const keycloakAccountUrl = new URL(ctx.$config.keycloak.url);
+
+    keycloakAccountUrl.pathname = `${keycloakAccountUrl.pathname}/realms/${ctx.$config.keycloak.realm}/account`;
+    if (keycloakAccountUrl.pathname.startsWith('//')) {
+      keycloakAccountUrl.pathname = keycloakAccountUrl.pathname.slice(1);
+    }
+
+    const referrerUri = new URL(ctx.$config.app.baseUrl);
+    referrerUri.pathname = ctx.route.path;
+    referrerUri.search = new URLSearchParams(ctx.route.query).toString();
+    referrerUri.hash = ctx.route.hash;
+
+    keycloakAccountUrl.search = new URLSearchParams({
+      referrer: ctx.$config.keycloak.clientId,
+      'referrer_uri': referrerUri.toString()
+    }).toString();
+
+    return keycloakAccountUrl.toString();
+  },
+  auth: process.client && await keycloakAuth(ctx),
+  axios: keycloakAxios(ctx),
+  callback() {
+    if (ctx.route.query.action === 'login') {
+      this.loginCallback();
+    } else if (ctx.route.query.action === 'logout') {
+      this.logoutCallback();
+    } else {
+      ctx.app.router.push('/');
+    }
+  },
+  login() {
+    this.auth.login({
+      locale: ctx.i18n.locale,
+      redirectUri: this.loginRedirect
+    });
+  },
+  loginCallback() {
+    ctx.store.commit('keycloak/setLoggedIn', this.auth.authenticated);
+    ctx.app.router.push(ctx.route.query.redirect?.startsWith('/') ? ctx.route.query.redirect : '/account');
+  },
+  get loginRedirect() {
+    let redirectPath = '/account';
+
+    if (ctx.route) {
+      if (ctx.route.query?.redirect) {
+        redirectPath = ctx.route.query.redirect;
+      } else if (ctx.route.path === '/account/login') {
+        redirectPath = `/account${ctx.route.hash || ''}`;
+      } else if (ctx.route.fullPath) {
+        redirectPath = ctx.route.fullPath;
+      }
+    }
+
+    const redirectUrl = new URL(`${ctx.$config.app.baseUrl}/account/callback`);
+    redirectUrl.searchParams.set('action', 'login');
+    redirectUrl.searchParams.set('redirect', redirectPath);
+
+    return redirectUrl.toString();
+  },
+  logout() {
+    this.auth.logout({
+      redirectUri: this.logoutRedirect,
+      'ui_locales': ctx.i18n.locale
+    });
+  },
+  logoutCallback() {
+    localStorage.removeItem('kc.token');
+    localStorage.removeItem('kc.idToken');
+    localStorage.removeItem('kc.refreshToken');
+    ctx.store.commit('keycloak/setLoggedIn', this.auth.authenticated);
+    ctx.app.router.push(ctx.route.query.redirect?.startsWith('/') ? ctx.route.query.redirect : '/');
+  },
+  get logoutRedirect() {
+    let redirectPath = '/';
+    if ((ctx.route.query?.redirect || '').startsWith('/')) {
+      redirectPath = ctx.route.query.redirect;
+    }
+
+    const redirectUrl = new URL(`${ctx.$config.app.baseUrl}/account/callback`);
+    redirectUrl.searchParams.set('action', 'logout');
+    redirectUrl.searchParams.set('redirect', redirectPath);
+
+    return redirectUrl.toString();
+  },
+  get logoutRoute() {
+    let redirect = '/';
+    if (!ctx.route.name.startsWith('account')) {
+      redirect = ctx.route.fullPath;
+    }
+    return {
+      name: 'account-logout',
+      query: {
+        redirect
+      }
+    };
+  }
+});
+
 export default async(ctx, inject) => {
   ctx.store.registerModule('keycloak', storeModule);
   ctx.store.commit('keycloak/setLoggedIn', !!ctx.$cookies.get('kc.token'));
 
-  if (process.client) {
-    // TODO: add fn's from keycloak mixin as properties
-    inject('keycloak', {
-      auth: await keycloakAuth(ctx),
-      axios: keycloakAxios(ctx)
-    });
-  }
+  inject('keycloak', await plugin(ctx));
 };

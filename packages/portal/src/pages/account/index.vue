@@ -12,7 +12,7 @@
           <div class="text-center">
             <b-button
               class="mr-1 text-decoration-none d-inline-flex align-items-center"
-              :href="keycloakAccountUrl"
+              :href="$keycloak.accountUrl"
             >
               <span class="icon-edit pr-1" />
               {{ $t('account.editProfile') }}
@@ -163,7 +163,6 @@
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
-  import keycloak from '../../mixins/keycloak';
   import pageMetaMixin from '@/mixins/pageMeta';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/user/UserSets';
@@ -182,7 +181,6 @@
     },
 
     mixins: [
-      keycloak,
       pageMetaMixin
     ],
 

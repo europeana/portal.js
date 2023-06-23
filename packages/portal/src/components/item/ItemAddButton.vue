@@ -34,7 +34,6 @@
 </template>
 
 <script>
-  import keycloak from '@/mixins/keycloak';
   import SetAddItemModal from '../set/SetAddItemModal';
   import SetFormModal from '../set/SetFormModal';
 
@@ -45,10 +44,6 @@
       SetAddItemModal,
       SetFormModal
     },
-
-    mixins: [
-      keycloak
-    ],
 
     props: {
       /**
@@ -107,7 +102,7 @@
           this.$bvModal.show(this.addItemToSetModalId);
           this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       }
     }

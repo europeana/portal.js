@@ -26,14 +26,8 @@
 </template>
 
 <script>
-  import keycloak from '@/mixins/keycloak';
-
   export default {
     name: 'ItemLikeButton',
-
-    mixins: [
-      keycloak
-    ],
 
     props: {
       /**
@@ -91,7 +85,7 @@
             this.$error(e, { scope: 'gallery' });
           }
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       },
       async like() {

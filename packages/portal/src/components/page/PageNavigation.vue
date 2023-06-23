@@ -80,7 +80,6 @@
 
 <script>
   import SmartLink from '../generic/SmartLink';
-  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'PageNavigation',
@@ -88,9 +87,6 @@
     components: {
       SmartLink
     },
-    mixins: [
-      keycloak
-    ],
     props: {
       sidebarNav: {
         type: Boolean,
@@ -102,8 +98,8 @@
       authLinks() {
         return [
           { to: this.localePath({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
-          { href: this.keycloakAccountUrl, text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
-          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
+          { href: this.$keycloak.accountUrl, text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
+          { to: this.$keycloak.logoutRoute, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
         ];
       },
       mainNavigation() {
@@ -167,7 +163,7 @@
       },
       storageEvent(event) {
         if (event.key === 'logout-event') {
-          this.$router.push({ name: 'account-logout' });
+          this.$keycloak.logout();
         }
       }
     }
