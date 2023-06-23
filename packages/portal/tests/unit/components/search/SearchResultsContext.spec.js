@@ -46,7 +46,7 @@ const factory = (options = {}) => mount(SearchResultsContext, {
     },
     $t: (key) => key
   },
-  stubs: ['RemovalChip']
+  stubs: ['SearchRemovalChip']
 });
 
 const fixtures = {

@@ -61,7 +61,7 @@ export default {
     "readMore": "Läs mer",
     "reject": "Avvisa",
     "requestDepublication": "Begär avpublicering",
-    "reset": "Återställ",
+    "resetFilters": "Återställ filter",
     "save": "Spara",
     "send": "Skicka",
     "share": "Dela",

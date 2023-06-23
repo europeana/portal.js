@@ -19,7 +19,7 @@
         v-if="hasEntity"
         #collection
       >
-        <RemovalChip
+        <SearchRemovalChip
           :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
@@ -33,7 +33,7 @@
         v-if="hasQuery"
         #query
       >
-        <RemovalChip
+        <SearchRemovalChip
           :title="query"
           :link-to="queryRemovalLink"
           data-qa="query removal badge"
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-  import RemovalChip from './RemovalChip';
+  import SearchRemovalChip from './SearchRemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
@@ -61,7 +61,7 @@
     name: 'SearchResultsContext',
 
     components: {
-      RemovalChip
+      SearchRemovalChip
     },
 
     mixins: [

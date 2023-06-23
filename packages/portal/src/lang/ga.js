@@ -61,7 +61,7 @@ export default {
     "readMore": "Léigh níos mó",
     "reject": "Diúltaigh",
     "requestDepublication": "Iarratas a dhéanamh ar fhoilseachán",
-    "reset": "Athshocraigh",
+    "resetFilters": "Athshocraigh scagairí",
     "save": "Sábháil",
     "send": "Seol",
     "share": "Roinn",

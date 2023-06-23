@@ -61,7 +61,7 @@ export default {
     "readMore": "Leggi di più",
     "reject": "Rifiuta",
     "requestDepublication": "Richiesta di depubblicazione",
-    "reset": "Ripristina",
+    "resetFilters": "Reimposta i filtri",
     "save": "Salva",
     "send": "Invia",
     "share": "Condividi",
@@ -663,7 +663,7 @@ export default {
         "feedback": "Inserisci qui il tuo risposta"
       }
     },
-    "policies": "Continuando, accetti i nostri {0} e riconosci i nostri {1} .",
+    "policies": "Continuando, accetti i nostri {0} e riconosci la nostra {1}.",
     "privacyPolicy": "Informativa sulla privacy",
     "success": "Il tuo feedback è stato inviato.",
     "termsOfService": "Termini di servizio",
