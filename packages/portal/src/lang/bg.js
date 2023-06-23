@@ -61,7 +61,7 @@ export default {
     "readMore": "Прочетете повече",
     "reject": "Отхвърляне",
     "requestDepublication": "Искане за депубликуване",
-    "reset": "Нулиране",
+    "resetFilters": "Нулиране на филтри",
     "save": "Запазете",
     "send": "Изпрати",
     "share": "Споделяне",

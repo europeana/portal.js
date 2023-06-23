@@ -86,7 +86,7 @@
         </div>
       </b-form>
     </b-modal>
-    <DeleteSetModal
+    <SetDeleteModal
       v-if="!isNew"
       :set-id="setId"
       :modal-id="deleteSetModalId"
@@ -107,7 +107,7 @@
     name: 'SetFormModal',
 
     components: {
-      DeleteSetModal: () => import('./DeleteSetModal')
+      SetDeleteModal: () => import('./SetDeleteModal')
     },
 
     props: {

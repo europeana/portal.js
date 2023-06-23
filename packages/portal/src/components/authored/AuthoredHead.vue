@@ -58,7 +58,7 @@
     name: 'AuthoredHead',
 
     components: {
-      ImageWithAttribution: () => import('../../components/generic/ImageWithAttribution')
+      ImageWithAttribution: () => import('../../components/image/ImageWithAttribution')
     },
 
     props: {

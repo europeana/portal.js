@@ -61,7 +61,7 @@ export default {
     "readMore": "Lasīt vairāk",
     "reject": "Noraidīt",
     "requestDepublication": "Pieprasīt depublikāciju",
-    "reset": "Atiestatīt",
+    "resetFilters": "Atiestatīt filtrus",
     "save": "Glābt",
     "send": "Sūtīt",
     "share": "Dalies",

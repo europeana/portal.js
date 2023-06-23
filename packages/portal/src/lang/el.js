@@ -61,7 +61,7 @@ export default {
     "readMore": "Διαβάστε περισσότερα",
     "reject": "Απορρίπτω",
     "requestDepublication": "Αίτημα αποδημοσίευσης",
-    "reset": "Επαναφορά",
+    "resetFilters": "Επαναφορά φίλτρων",
     "save": "Αποθήκευση",
     "send": "Στείλετε",
     "share": "Κοινοποίηση",

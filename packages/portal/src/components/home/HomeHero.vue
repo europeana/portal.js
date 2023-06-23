@@ -36,7 +36,7 @@
 <script>
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
-  import EULogo from '@/components/funders/EULogo';
+  import EULogo from '@/components/image/ImageEULogo';
 
   export default {
     name: 'HomeHero',

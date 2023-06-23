@@ -61,7 +61,7 @@ export default {
     "readMore": "Skaityti daugiau",
     "reject": "Atmesti",
     "requestDepublication": "Prašymas neskelbti",
-    "reset": "Atstatyti",
+    "resetFilters": "Iš naujo nustatyti filtrus",
     "save": "Išsaugoti",
     "send": "Siųsti",
     "share": "Dalintis",
