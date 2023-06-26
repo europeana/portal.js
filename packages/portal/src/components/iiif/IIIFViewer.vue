@@ -15,6 +15,7 @@
   import { takeEvery } from 'redux-saga/effects';
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
+  import miradorLinksSideBarButtonPlugin from '@europeana/mirador/src/plugins/linksSideBarButtonPlugin';
 
   export default {
     name: 'IIIFViewer',
@@ -48,7 +49,8 @@
         isMiradorLoaded: process.client ? !!window.Mirador : false,
         miradorViewerPlugins: [
           { component: () => null, saga: this.watchMiradorSetCanvasSaga },
-          { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
+          { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga },
+          miradorLinksSideBarButtonPlugin
         ],
         proxiedMedia: {}
       };
