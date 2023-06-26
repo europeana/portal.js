@@ -164,19 +164,11 @@
             this.enableAnnouncer = true;
           }
         });
-      },
-
-      // FIXME: this is never getting fired
-      '$store.state.keycloak.loggedIn'(newVal) {
-        if (newVal) {
-          this.makeToast(this.$t('account.notifications.loggedIn'));
-        } else {
-          this.makeToast(this.$t('account.notifications.loggedOut'));
-        }
       }
     },
 
     mounted() {
+      console.log('default layout mounted')
       if (!this.klaro) {
         this.klaro = window.klaro;
       }
@@ -185,6 +177,16 @@
       // Klaro if it fails to.
       const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
       renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
+
+      // Notify of login/logout
+      if (localStorage['kc.loggedIn']) {
+        this.makeToast(this.$t('account.notifications.loggedIn'));
+        localStorage.removeItem('kc.loggedIn');
+      }
+      if (localStorage['kc.loggedOut']) {
+        this.makeToast(this.$t('account.notifications.loggedOut'));
+        localStorage.removeItem('kc.loggedOut');
+      }
     },
 
     methods: {

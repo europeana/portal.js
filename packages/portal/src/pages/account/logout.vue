@@ -9,6 +9,7 @@
     layout: 'minimal',
 
     mounted() {
+      localStorage['kc.logout'] = 'true';
       this.$keycloak.logout();
     }
   };

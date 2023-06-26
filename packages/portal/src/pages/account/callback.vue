@@ -10,7 +10,7 @@
     layout: 'minimal',
 
     mounted() {
-      this.$keycloak.callback();
+      // this.$keycloak.callback();
     }
   };
 </script>

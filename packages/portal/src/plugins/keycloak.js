@@ -17,6 +17,7 @@ const keycloakAxios = (ctx) => (axiosInstance) => {
 };
 
 const keycloakResponseErrorHandler = (ctx, error) => {
+  console.log('keycloakResponseErrorHandler')
   if (error.response?.status === 401) {
     return keycloakUnauthorizedResponseErrorHandler(ctx, error);
   } else {
@@ -25,6 +26,7 @@ const keycloakResponseErrorHandler = (ctx, error) => {
 };
 
 const keycloakUnauthorizedResponseErrorHandler = ({ $axios, $keycloak, redirect, route }, error) => {
+  console.log('keycloakUnauthorizedResponseErrorHandler')
   if ($keycloak.auth.refreshToken) {
     // User has previously logged in, and we have a refresh token, e.g.
     // access token has expired
@@ -36,12 +38,13 @@ const keycloakUnauthorizedResponseErrorHandler = ({ $axios, $keycloak, redirect,
   }
 };
 
-const keycloakRefreshAccessToken = async({ $keycloak, $cookies, $axios }, requestConfig) => {
+const keycloakRefreshAccessToken = async({ $keycloak, $axios }, requestConfig) => {
+  console.log('keycloakRefreshAccessToken')
   const updated = await $keycloak.auth.updateToken(-1);
   if (updated) {
-    $cookies.set('kc.token', $keycloak.auth.token);
-    $cookies.set('kc.idToken', $keycloak.auth.idToken);
-    $cookies.set('kc.refreshToken', $keycloak.auth.refreshToken);
+    localStorage.setItem('kc.token', $keycloak.auth.token);
+    localStorage.setItem('kc.idToken', $keycloak.auth.idToken);
+    localStorage.setItem('kc.refreshToken', $keycloak.auth.refreshToken);
   } else {
     // Refresh token is no longer valid; clear tokens and try again in case it
     // doesn't require auth anyway
@@ -53,19 +56,22 @@ const keycloakRefreshAccessToken = async({ $keycloak, $cookies, $axios }, reques
 };
 
 const keycloakAuth = async(ctx) => {
+  console.log('keycloakAuth')
   const keycloak = new Keycloak(ctx.$config.keycloak);
 
   try {
+    console.log('keycloakAuth init')
     await keycloak.init({
       checkLoginIframe: false,
-      token: ctx.$cookies.get('kc.token'),
-      idToken: ctx.$cookies.get('kc.idToken'),
-      refreshToken: ctx.$cookies.get('kc.refreshToken')
+      token: localStorage.getItem('kc.token'),
+      idToken: localStorage.getItem('kc.idToken'),
+      refreshToken: localStorage.getItem('kc.refreshToken')
     });
   } catch (e) {
-    ctx.$cookies.remove('kc.token');
-    ctx.$cookies.remove('kc.idToken');
-    ctx.$cookies.remove('kc.refreshToken');
+    console.log('keycloakAuth init catch', e)
+    localStorage.removeItem('kc.token');
+    localStorage.removeItem('kc.idToken');
+    localStorage.removeItem('kc.refreshToken');
     await keycloak.init({
       checkLoginIframe: false
     });
@@ -73,11 +79,12 @@ const keycloakAuth = async(ctx) => {
 
   ctx.store.commit('keycloak/setLoggedIn', keycloak.authenticated);
 
-  ctx.$cookies.set('kc.token', keycloak.token);
-  ctx.$cookies.set('kc.idToken', keycloak.idToken);
-  ctx.$cookies.set('kc.refreshToken', keycloak.refreshToken);
+  localStorage.setItem('kc.token', keycloak.token);
+  localStorage.setItem('kc.idToken', keycloak.idToken);
+  localStorage.setItem('kc.refreshToken', keycloak.refreshToken);
 
   if (keycloak.authenticated) {
+    console.log('keycloakAuth loadUserProfile')
     const profile = await keycloak.loadUserProfile();
     ctx.store.commit('keycloak/setProfile', profile);
     ctx.store.commit('keycloak/setResourceAccess', keycloak.resourceAccess);
@@ -97,6 +104,7 @@ const storeModule = {
 
   mutations: {
     setLoggedIn(state, value) {
+      console.log('keycloak store setLoggedIn', value)
       state.loggedIn = value;
     },
 
@@ -117,6 +125,7 @@ const storeModule = {
 };
 
 const plugin = async(ctx) => ({
+  // TODO: use this.auth.createLoginUrl instead
   get accountUrl() {
     const keycloakAccountUrl = new URL(ctx.$config.keycloak.url);
 
@@ -140,13 +149,20 @@ const plugin = async(ctx) => ({
   auth: process.client && await keycloakAuth(ctx),
   axios: keycloakAxios(ctx),
   callback() {
+    let redirect = '/';
+
     if (ctx.route.query.action === 'login') {
-      this.loginCallback();
+      redirect = '/account';
+      localStorage['kc.loggedIn'] = 'true';
     } else if (ctx.route.query.action === 'logout') {
-      this.logoutCallback();
-    } else {
-      ctx.app.router.push('/');
+      localStorage['kc.loggedOut'] = 'true';
     }
+
+    if (ctx.route.query.redirect?.startsWith('/')) {
+      redirect = ctx.route.query.redirect;
+    }
+
+    ctx.app.router.push(redirect);
   },
   login() {
     this.auth.login({
@@ -154,15 +170,11 @@ const plugin = async(ctx) => ({
       redirectUri: this.loginRedirect
     });
   },
-  loginCallback() {
-    ctx.store.commit('keycloak/setLoggedIn', this.auth.authenticated);
-    ctx.app.router.push(ctx.route.query.redirect?.startsWith('/') ? ctx.route.query.redirect : '/account');
-  },
   get loginRedirect() {
     let redirectPath = '/account';
 
     if (ctx.route) {
-      if (ctx.route.query?.redirect) {
+      if ((ctx.route.query?.redirect || '').startsWith('/')) {
         redirectPath = ctx.route.query.redirect;
       } else if (ctx.route.path === '/account/login') {
         redirectPath = `/account${ctx.route.hash || ''}`;
@@ -171,9 +183,11 @@ const plugin = async(ctx) => ({
       }
     }
 
-    const redirectUrl = new URL(`${ctx.$config.app.baseUrl}/account/callback`);
-    redirectUrl.searchParams.set('action', 'login');
-    redirectUrl.searchParams.set('redirect', redirectPath);
+    // const redirectUrl = new URL(`${ctx.$config.app.baseUrl}/account/callback`);
+    // redirectUrl.searchParams.set('action', 'login');
+    // redirectUrl.searchParams.set('redirect', redirectPath);
+
+    const redirectUrl = new URL(`${ctx.$config.app.baseUrl}${redirectPath}`);
 
     return redirectUrl.toString();
   },
@@ -183,22 +197,20 @@ const plugin = async(ctx) => ({
       'ui_locales': ctx.i18n.locale
     });
   },
-  logoutCallback() {
-    localStorage.removeItem('kc.token');
-    localStorage.removeItem('kc.idToken');
-    localStorage.removeItem('kc.refreshToken');
-    ctx.store.commit('keycloak/setLoggedIn', this.auth.authenticated);
-    ctx.app.router.push(ctx.route.query.redirect?.startsWith('/') ? ctx.route.query.redirect : '/');
-  },
   get logoutRedirect() {
     let redirectPath = '/';
+
     if ((ctx.route.query?.redirect || '').startsWith('/')) {
       redirectPath = ctx.route.query.redirect;
+    } else if (ctx.route.fullPath) {
+      redirectPath = ctx.route.fullPath;
     }
 
-    const redirectUrl = new URL(`${ctx.$config.app.baseUrl}/account/callback`);
-    redirectUrl.searchParams.set('action', 'logout');
-    redirectUrl.searchParams.set('redirect', redirectPath);
+    // const redirectUrl = new URL(`${ctx.$config.app.baseUrl}/account/callback`);
+    // redirectUrl.searchParams.set('action', 'logout');
+    // redirectUrl.searchParams.set('redirect', redirectPath);
+
+    const redirectUrl = new URL(`${ctx.$config.app.baseUrl}${redirectPath}`);
 
     return redirectUrl.toString();
   },
@@ -218,7 +230,6 @@ const plugin = async(ctx) => ({
 
 export default async(ctx, inject) => {
   ctx.store.registerModule('keycloak', storeModule);
-  ctx.store.commit('keycloak/setLoggedIn', !!ctx.$cookies.get('kc.token'));
 
   inject('keycloak', await plugin(ctx));
 };
