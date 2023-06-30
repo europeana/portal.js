@@ -5,8 +5,8 @@ import Keycloak from 'keycloak-js';
 
 const keycloakAxios = (ctx) => (axiosInstance) => {
   axiosInstance.interceptors.request.use((requestConfig) => {
-    if (ctx.$keycloak.auth?.token) {
-      requestConfig.headers.authorization = `Bearer ${ctx.$keycloak.auth.token}`;
+    if (ctx.$keycloak.keycloak?.token) {
+      requestConfig.headers.authorization = `Bearer ${ctx.$keycloak.keycloak.token}`;
     }
     return requestConfig;
   });
@@ -25,65 +25,31 @@ const keycloakResponseErrorHandler = (ctx, error) => {
 };
 
 const keycloakUnauthorizedResponseErrorHandler = (ctx, error) => {
-  if (ctx.$keycloak.auth.refreshToken) {
+  if (ctx.$keycloak.keycloak.refreshToken) {
     // User has previously logged in, and we have a refresh token, e.g.
     // access token has expired
     return keycloakRefreshAccessToken(ctx, error.config);
   } else {
     // User has not already logged in, or we have no refresh token:
     // redirect to OIDC login URL
-    return ctx.redirect('/account/login', { redirect: route.path });
+    return ctx.redirect('/account/login', { redirect: ctx.route.path });
   }
 };
 
 const keycloakRefreshAccessToken = async(ctx, requestConfig) => {
-  const updated = await ctx.$keycloak.auth.updateToken(-1);
+  const updated = await ctx.$keycloak.keycloak.updateToken(-1);
   if (updated) {
-    ctx.$cookies.set('kc.token', ctx.$keycloak.auth.token);
-    ctx.$cookies.set('kc.idToken', ctx.$keycloak.auth.idToken);
-    ctx.$cookies.set('kc.refreshToken', ctx.$keycloak.auth.refreshToken);
+    ctx.$cookies.set('kc.token', ctx.$keycloak.keycloak.token);
+    ctx.$cookies.set('kc.idToken', ctx.$keycloak.keycloak.idToken);
+    ctx.$cookies.set('kc.refreshToken', ctx.$keycloak.keycloak.refreshToken);
   } else {
     // Refresh token is no longer valid; clear tokens and try again in case it
     // doesn't require auth anyway
-    ctx.$keycloak.auth.clearToken();
+    ctx.$keycloak.keycloak.clearToken();
   }
 
   // Retry request with new access token
-  return $axios.request(requestConfig);
-};
-
-const keycloakAuth = async(ctx) => {
-  const keycloak = new Keycloak(ctx.$config.keycloak);
-
-  try {
-    await keycloak.init({
-      checkLoginIframe: false,
-      token: ctx.$cookies.get('kc.token'),
-      idToken: ctx.$cookies.get('kc.idToken'),
-      refreshToken: ctx.$cookies.get('kc.refreshToken')
-    });
-  } catch (e) {
-    ctx.$cookies.remove('kc.token');
-    ctx.$cookies.remove('kc.idToken');
-    ctx.$cookies.remove('kc.refreshToken');
-    await keycloak.init({
-      checkLoginIframe: false
-    });
-  }
-
-  ctx.store.commit('keycloak/setLoggedIn', keycloak.authenticated);
-
-  ctx.$cookies.set('kc.token', keycloak.token);
-  ctx.$cookies.set('kc.idToken', keycloak.idToken);
-  ctx.$cookies.set('kc.refreshToken', keycloak.refreshToken);
-
-  if (keycloak.authenticated) {
-    const profile = await keycloak.loadUserProfile();
-    ctx.store.commit('keycloak/setProfile', profile);
-    ctx.store.commit('keycloak/setResourceAccess', keycloak.resourceAccess);
-  }
-
-  return keycloak;
+  return ctx.$axios.request(requestConfig);
 };
 
 const storeModule = {
@@ -116,8 +82,8 @@ const storeModule = {
   }
 };
 
-const plugin = async(ctx) => ({
-  // TODO: use this.auth.createLoginUrl instead
+const plugin = (ctx) => ({
+  // TODO: use this.keycloak.createLoginUrl instead
   get accountUrl() {
     const keycloakAccountUrl = new URL(ctx.$config.keycloak.url);
 
@@ -138,7 +104,6 @@ const plugin = async(ctx) => ({
 
     return keycloakAccountUrl.toString();
   },
-  auth: process.client && await keycloakAuth(ctx),
   axios: keycloakAxios(ctx),
   callback() {
     let redirect = '/';
@@ -149,8 +114,38 @@ const plugin = async(ctx) => ({
 
     ctx.app.router.replace(redirect);
   },
+  async init() {
+    try {
+      await this.keycloak.init({
+        checkLoginIframe: false,
+        token: ctx.$cookies.get('kc.token'),
+        idToken: ctx.$cookies.get('kc.idToken'),
+        refreshToken: ctx.$cookies.get('kc.refreshToken')
+      });
+    } catch (e) {
+      ctx.$cookies.remove('kc.token');
+      ctx.$cookies.remove('kc.idToken');
+      ctx.$cookies.remove('kc.refreshToken');
+      await this.keycloak.init({
+        checkLoginIframe: false
+      });
+    }
+
+    ctx.store.commit('keycloak/setLoggedIn', this.keycloak.authenticated);
+
+    ctx.$cookies.set('kc.token', this.keycloak.token);
+    ctx.$cookies.set('kc.idToken', this.keycloak.idToken);
+    ctx.$cookies.set('kc.refreshToken', this.keycloak.refreshToken);
+
+    if (this.keycloak.authenticated) {
+      const profile = await this.keycloak.loadUserProfile();
+      ctx.store.commit('keycloak/setProfile', profile);
+      ctx.store.commit('keycloak/setResourceAccess', this.keycloak.resourceAccess);
+    }
+  },
+  keycloak: process.client && new Keycloak(ctx.$config.keycloak),
   login() {
-    this.auth.login({
+    this.keycloak.login({
       locale: ctx.i18n.locale,
       redirectUri: this.loginRedirect
     });
@@ -174,7 +169,7 @@ const plugin = async(ctx) => ({
     return redirectUrl.toString();
   },
   logout() {
-    this.auth.logout({
+    this.keycloak.logout({
       redirectUri: this.logoutRedirect,
       'ui_locales': ctx.i18n.locale
     });

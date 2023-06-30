@@ -174,6 +174,8 @@
       // Klaro if it fails to.
       const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
       renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
+
+      this.$keycloak?.init();
     },
 
     methods: {
