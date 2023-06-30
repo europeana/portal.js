@@ -410,11 +410,14 @@
               }
             }
           }
-        } else {
+        } else if (this.relatedEntityUris.length > 0) {
+          this.dataProviderEntity = null;
+
           const entities  = await this.$apis.entity.find(this.relatedEntityUris, params);
-          if (entities)  {
-            this.relatedCollections = entities;
-          }
+          this.relatedCollections = entities ? entities : [];
+        } else {
+          this.dataProviderEntity = null;
+          this.relatedCollections = [];
         }
       }
     }
