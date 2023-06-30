@@ -188,7 +188,6 @@
 
     data() {
       return {
-        loggedInUser: this.$store.state.keycloak.profile,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
@@ -218,6 +217,7 @@
       ...mapState({
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems,
+        loggedInUser: state => state.keycloak.profile,
         curations: state => state.set.curations
       }),
       activeTab() {
