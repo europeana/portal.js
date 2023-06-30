@@ -4,8 +4,7 @@
 // (Named "l10n" and not "i18n" as the latter is already taken by nuxt-i18n.)
 //
 // This duplicates the browser language detection functionality of the nuxt-i18n
-// package but with additional redirection handling for requests to URL paths
-// without the language in them.
+// package but with additional functionality
 
 const COOKIE_NAME = 'i18n_locale_code';
 
@@ -24,15 +23,6 @@ const localiseRoute = ({ route, req, redirect, app }) => {
 };
 
 export default ({ app, route, redirect, req }) => {
-  // Exit early if this is an auth callback
-  if ([
-    '/account/callback',
-    '/account/login',
-    '/account/logout'
-  ].includes(route.path)) {
-    return;
-  }
-
   // Is there a locale in the URL path already?
   if ((route.path.length === 3 || route.path.slice(3, 4) === '/')) {
     const routePathLocale = route.path.slice(1, 3);

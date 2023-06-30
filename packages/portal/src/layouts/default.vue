@@ -73,7 +73,6 @@
   import PageHeader from '../components/page/PageHeader';
   import ErrorModal from '../components/error/ErrorModal';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
-  import makeToastMixin from '@/mixins/makeToast';
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import versions from '../../pkg-versions';
   import featureNotifications from '@/features/notifications';
@@ -94,8 +93,7 @@
     },
 
     mixins: [
-      canonicalUrlMixin,
-      makeToastMixin
+      canonicalUrlMixin
     ],
 
     data() {
@@ -168,7 +166,6 @@
     },
 
     mounted() {
-      console.log('default layout mounted')
       if (!this.klaro) {
         this.klaro = window.klaro;
       }
@@ -177,16 +174,6 @@
       // Klaro if it fails to.
       const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
       renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
-
-      // Notify of login/logout
-      if (localStorage['kc.loggedIn']) {
-        this.makeToast(this.$t('account.notifications.loggedIn'));
-        localStorage.removeItem('kc.loggedIn');
-      }
-      if (localStorage['kc.loggedOut']) {
-        this.makeToast(this.$t('account.notifications.loggedOut'));
-        localStorage.removeItem('kc.loggedOut');
-      }
     },
 
     methods: {

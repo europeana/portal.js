@@ -19,11 +19,12 @@
 </template>
 
 <script>
-  import locales from '@/mixins/locales';
+  import localesMixin from '@/mixins/locales';
   export default {
     name: 'LangSelector',
+
     mixins: [
-      locales
+      localesMixin
     ],
 
     head() {
@@ -46,7 +47,7 @@
 
     methods: {
       localeHref(code) {
-        const route = { ...this.$route, query: { ...this.$route.query } };
+        const route = { ...this.$route };
         delete route.name;
         if (this.removePaginationAtLanguageSwitch) {
           delete route.query.page;

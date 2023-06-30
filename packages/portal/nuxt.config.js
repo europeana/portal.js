@@ -268,13 +268,6 @@ export default {
         silentFallbackWarn: true,
         dateTimeFormats: i18nDateTime
       },
-      // Disable redirects to account pages
-      parsePages: false,
-      pages: {
-        'account/callback': false,
-        'account/login': false,
-        'account/logout': false
-      },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
       // Set to false to disable

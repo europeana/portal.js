@@ -68,7 +68,7 @@
           v-b-toggle.menu
           data-qa="log in button"
           class="nav-link"
-          :to="{ name: 'account-login', query: { redirect: $route.fullPath } }"
+          :to="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
         >
           <span :class="renderIcon('/account/login')" />
           <span>
@@ -101,7 +101,7 @@
         return [
           { to: this.localePath({ name: 'account' }), text: this.$t('account.myProfile'), url: '/account', dataQa: 'likes and galleries button' },
           { href: this.$keycloak.accountUrl, text: this.$t('account.profileSettings'), url: '/account/settings', dataQa: 'account settings button' },
-          { to: this.$keycloak.logoutRoute, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
+          { to: this.localePath(this.$keycloak.logoutRoute), text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
         ];
       },
       mainNavigation() {
@@ -130,7 +130,6 @@
       }
     },
     mounted() {
-      console.log('PageNavigation mounted')
       window.addEventListener('storage', this.storageEvent);
     },
     methods: {
