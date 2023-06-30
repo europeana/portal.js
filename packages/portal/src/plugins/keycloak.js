@@ -24,28 +24,28 @@ const keycloakResponseErrorHandler = (ctx, error) => {
   }
 };
 
-const keycloakUnauthorizedResponseErrorHandler = ({ $axios, $keycloak, redirect, route }, error) => {
-  if ($keycloak.auth.refreshToken) {
+const keycloakUnauthorizedResponseErrorHandler = (ctx, error) => {
+  if (ctx.$keycloak.auth.refreshToken) {
     // User has previously logged in, and we have a refresh token, e.g.
     // access token has expired
-    return keycloakRefreshAccessToken({ $keycloak, $axios, redirect, route }, error.config);
+    return keycloakRefreshAccessToken(ctx, error.config);
   } else {
     // User has not already logged in, or we have no refresh token:
     // redirect to OIDC login URL
-    return redirect('/account/login', { redirect: route.path });
+    return ctx.redirect('/account/login', { redirect: route.path });
   }
 };
 
-const keycloakRefreshAccessToken = async({ $keycloak, $axios }, requestConfig) => {
-  const updated = await $keycloak.auth.updateToken(-1);
+const keycloakRefreshAccessToken = async(ctx, requestConfig) => {
+  const updated = await ctx.$keycloak.auth.updateToken(-1);
   if (updated) {
-    localStorage.setItem('kc.token', $keycloak.auth.token);
-    localStorage.setItem('kc.idToken', $keycloak.auth.idToken);
-    localStorage.setItem('kc.refreshToken', $keycloak.auth.refreshToken);
+    ctx.$cookies.set('kc.token', ctx.$keycloak.auth.token);
+    ctx.$cookies.set('kc.idToken', ctx.$keycloak.auth.idToken);
+    ctx.$cookies.set('kc.refreshToken', ctx.$keycloak.auth.refreshToken);
   } else {
     // Refresh token is no longer valid; clear tokens and try again in case it
     // doesn't require auth anyway
-    $keycloak.auth.clearToken();
+    ctx.$keycloak.auth.clearToken();
   }
 
   // Retry request with new access token
@@ -58,14 +58,14 @@ const keycloakAuth = async(ctx) => {
   try {
     await keycloak.init({
       checkLoginIframe: false,
-      token: localStorage.getItem('kc.token'),
-      idToken: localStorage.getItem('kc.idToken'),
-      refreshToken: localStorage.getItem('kc.refreshToken')
+      token: ctx.$cookies.get('kc.token'),
+      idToken: ctx.$cookies.get('kc.idToken'),
+      refreshToken: ctx.$cookies.get('kc.refreshToken')
     });
   } catch (e) {
-    localStorage.removeItem('kc.token');
-    localStorage.removeItem('kc.idToken');
-    localStorage.removeItem('kc.refreshToken');
+    ctx.$cookies.remove('kc.token');
+    ctx.$cookies.remove('kc.idToken');
+    ctx.$cookies.remove('kc.refreshToken');
     await keycloak.init({
       checkLoginIframe: false
     });
@@ -73,9 +73,9 @@ const keycloakAuth = async(ctx) => {
 
   ctx.store.commit('keycloak/setLoggedIn', keycloak.authenticated);
 
-  localStorage.setItem('kc.token', keycloak.token);
-  localStorage.setItem('kc.idToken', keycloak.idToken);
-  localStorage.setItem('kc.refreshToken', keycloak.refreshToken);
+  ctx.$cookies.set('kc.token', keycloak.token);
+  ctx.$cookies.set('kc.idToken', keycloak.idToken);
+  ctx.$cookies.set('kc.refreshToken', keycloak.refreshToken);
 
   if (keycloak.authenticated) {
     const profile = await keycloak.loadUserProfile();
@@ -116,8 +116,6 @@ const storeModule = {
   }
 };
 
-// TODO: store tokens etc in cookies instead of localStorage, so that it's
-//       possible to e.g. reload account page and be auth'd
 const plugin = async(ctx) => ({
   // TODO: use this.auth.createLoginUrl instead
   get accountUrl() {
@@ -211,6 +209,8 @@ const plugin = async(ctx) => ({
 
 export default async(ctx, inject) => {
   ctx.store.registerModule('keycloak', storeModule);
+
+  ctx.store.commit('keycloak/setLoggedIn', !!ctx.$cookies.get('kc.token'));
 
   inject('keycloak', await plugin(ctx));
 };
