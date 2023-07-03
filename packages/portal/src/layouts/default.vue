@@ -175,10 +175,26 @@
       const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
       renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
 
-      this.$keycloak?.init();
+      this.initKeycloak();
     },
 
     methods: {
+      async initKeycloak() {
+        await this.$keycloak?.init();
+
+        if (this.$store.state.keycloak?.loggedIn) {
+          try {
+            // TODO: assess whether there is a more efficient way to do this with fewer
+            //       API requests
+            await this.$store.dispatch('set/setLikes');
+            await this.$store.dispatch('set/fetchLikes');
+          } catch (e) {
+            // Don't cause everything to break if the Set API is down...
+            console.error('user likes plugin error', e)
+          }
+        }
+      },
+
       renderKlaro() {
         if (this.klaro) {
           const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);

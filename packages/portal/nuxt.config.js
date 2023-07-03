@@ -238,7 +238,6 @@ export default {
     '~/plugins/hotjar.client',
     '~/plugins/keycloak',
     '~/plugins/apis',
-    '~/plugins/user-likes.client',
     '~/plugins/error',
     '~/plugins/link',
     '~/plugins/axios.server',
