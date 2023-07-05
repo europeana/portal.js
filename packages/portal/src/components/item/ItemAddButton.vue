@@ -14,7 +14,7 @@
       {{ buttonText ? $t('actions.save') : '' }}
     </b-button>
     <template
-      v-if="$auth.loggedIn"
+      v-if="$store.state.keycloak.loggedIn"
     >
       <SetAddItemModal
         data-qa="add item to set modal"
@@ -34,7 +34,6 @@
 </template>
 
 <script>
-  import keycloak from '@/mixins/keycloak';
   import SetAddItemModal from '../set/SetAddItemModal';
   import SetFormModal from '../set/SetFormModal';
 
@@ -45,10 +44,6 @@
       SetAddItemModal,
       SetFormModal
     },
-
-    mixins: [
-      keycloak
-    ],
 
     props: {
       /**
@@ -103,11 +98,11 @@
         }
       },
       addToSet() {
-        if (this.$auth.loggedIn) {
+        if (this.$store.state.keycloak.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
           this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       }
     }

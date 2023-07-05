@@ -7,12 +7,12 @@
       <b-row>
         <b-col class="pt-5 pb-4">
           <h1 class="text-center">
-            @{{ loggedInUser && loggedInUser.preferred_username }}
+            @{{ loggedInUser && loggedInUser.username }}
           </h1>
           <div class="text-center">
             <b-button
               class="mr-1 text-decoration-none d-inline-flex align-items-center"
-              :href="keycloakAccountUrl"
+              :href="$keycloak.accountUrl"
             >
               <span class="icon-edit pr-1" />
               {{ $t('account.editProfile') }}
@@ -163,7 +163,6 @@
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
-  import keycloak from '../../mixins/keycloak';
   import pageMetaMixin from '@/mixins/pageMeta';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
   import UserSets from '../../components/user/UserSets';
@@ -182,7 +181,6 @@
     },
 
     mixins: [
-      keycloak,
       pageMetaMixin
     ],
 
@@ -190,7 +188,6 @@
 
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user,
         tabHashes: {
           likes: '#likes',
           publicGalleries: '#public-galleries',
@@ -214,12 +211,13 @@
         };
       },
       userIsEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor') &&
-          this.$auth.userHasClientRole('usersets', 'editor');
+        return this.$store.getters['keycloak/userHasClientRole']('entities', 'editor') &&
+          this.$store.getters['keycloak/userHasClientRole']('usersets', 'editor');
       },
       ...mapState({
         likesId: state => state.set.likesId,
         likedItems: state => state.set.likedItems,
+        loggedInUser: state => state.keycloak.profile,
         curations: state => state.set.curations
       }),
       activeTab() {

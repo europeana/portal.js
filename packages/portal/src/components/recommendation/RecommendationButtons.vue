@@ -24,13 +24,11 @@
 
 <script>
   import makeToastMixin from '@/mixins/makeToast';
-  import keycloakMixin from '@/mixins/keycloak';
 
   export default {
     name: 'RecommendationButtons',
 
     mixins: [
-      keycloakMixin,
       makeToastMixin
     ],
 
@@ -60,20 +58,20 @@
 
     methods: {
       async acceptRecommendation() {
-        if (this.$auth.loggedIn) {
+        if (this.$store.state.keycloak.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'accept' });
           await this.$store.dispatch('set/addItem', { setId: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`, itemId: this.identifier });
           this.$store.dispatch('set/refreshSet');
           this.makeToast(this.toastMsg);
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       },
       rejectRecommendation() {
-        if (this.$auth.loggedIn) {
+        if (this.$store.state.keycloak.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'reject' });
         } else {
-          this.keycloakLogin();
+          this.$keycloak.login();
         }
       }
     }

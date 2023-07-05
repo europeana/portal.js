@@ -42,20 +42,6 @@ export default {
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }
     },
-    auth: {
-      strategies: {
-        keycloak: {
-          client_id: process.env.OAUTH_CLIENT,
-          origin: process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu',
-          scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
-          realm: process.env.OAUTH_REALM || 'europeana',
-          response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
-          access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
-          grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
-          token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
-        }
-      }
-    },
     axios: {
       baseURL: process.env.PORTAL_BASE_URL
     },
@@ -93,6 +79,11 @@ export default {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
     },
+    keycloak: {
+      clientId: process.env.KEYCLOAK_CLIENT_ID,
+      realm: process.env.KEYCLOAK_REALM || 'europeana',
+      url: process.env.KEYCLOAK_URL || 'https://auth.europeana.eu/auth'
+    },
     matomo: {
       host: process.env.MATOMO_HOST,
       siteId: process.env.MATOMO_SITE_ID,
@@ -100,16 +91,6 @@ export default {
         delay: process.env.MATOMO_LOAD_WAIT_DELAY,
         retries: process.env.MATOMO_LOAD_WAIT_RETRIES
       }
-    },
-    oauth: {
-      origin: process.env.OAUTH_ORIGIN,
-      realm: process.env.OAUTH_REALM,
-      client: process.env.OAUTH_CLIENT,
-      scope: process.env.OAUTH_SCOPE,
-      responseType: process.env.OAUTH_RESPONSE_TYPE,
-      accessType: process.env.OAUTH_ACCESS_TYPE,
-      grantType: process.env.OAUTH_GRANT_TYPE,
-      tokenType: process.env.OAUTH_TOKEN_TYPE
     }
   },
 
@@ -255,6 +236,8 @@ export default {
     '~/plugins/vue-matomo.client',
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
+    '~/plugins/keycloak',
+    '~/plugins/apis',
     '~/plugins/error',
     '~/plugins/link',
     '~/plugins/axios.server',
@@ -272,7 +255,6 @@ export default {
     '~/modules/axios-logger',
     '~/modules/query-sanitiser',
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
     ['@nuxtjs/i18n', {
       locales: i18nLocales,
       baseUrl: ({ $config }) => $config.app.baseUrl,
@@ -284,12 +266,6 @@ export default {
         fallbackLocale: 'en',
         silentFallbackWarn: true,
         dateTimeFormats: i18nDateTime
-      },
-      // Disable redirects to account pages
-      parsePages: false,
-      pages: {
-        'account/callback': false,
-        'account/logout': false
       },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
@@ -313,32 +289,6 @@ export default {
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt'
   ],
-
-  auth: {
-    // Redirect routes: 'callback' option for keycloak redirects,
-    // 'login' option for unauthorised redirection
-    // 'home' option for redirection after login
-    //  no redirect on logout
-    redirect: {
-      login: '/account/login',
-      logout: false,
-      callback: '/account/callback',
-      home: '/account'
-    },
-    fullPathRedirect: true,
-    strategies: {
-      local: false,
-      // Include oauth2 so that ~/plugins/authScheme can extend it
-      _oauth2: {
-        _scheme: 'oauth2'
-      },
-      keycloak: {
-        _scheme: '~/plugins/authScheme'
-      }
-    },
-    defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
-  },
 
   axios: {
     proxyHeadersIgnore: [

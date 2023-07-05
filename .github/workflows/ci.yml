@@ -22,7 +22,7 @@ env:
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
   DOCKER_REPOSITORY: ${{ vars.DOCKER_REPOSITORY }}
   EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
-  OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
+  KEYCLOAK_CLIENT: ${{ secrets.KEYCLOAK_CLIENT }}
 
 jobs:
   annotate:
