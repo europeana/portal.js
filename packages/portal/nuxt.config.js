@@ -389,10 +389,8 @@ export default {
 
     publicPath: buildPublicPath(),
 
-    standalone: true,
-
     // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
-    transpile: ['dom7', 'ssr-window', 'swiper']
+    transpile: ['dom7', 'ssr-window', 'swiper', '@europeana/vue-keycloak']
   },
 
   /*
