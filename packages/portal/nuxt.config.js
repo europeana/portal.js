@@ -236,12 +236,12 @@ export default {
     '~/plugins/vue-matomo.client',
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
-    '~/plugins/keycloak',
     '~/plugins/apis',
     '~/plugins/error',
     '~/plugins/link',
     '~/plugins/axios.server',
     '~/plugins/vue-filters',
+    '~/plugins/vue-keycloak',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
@@ -388,6 +388,8 @@ export default {
     postcss: {},
 
     publicPath: buildPublicPath(),
+
+    standalone: true,
 
     // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
     transpile: ['dom7', 'ssr-window', 'swiper']

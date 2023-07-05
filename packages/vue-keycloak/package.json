@@ -1,0 +1,11 @@
+{
+  "name": "@europeana/vue-keycloak",
+  "version": "1.116.0",
+  "description": "Keyloak adapter for Vue",
+  "license": "EUPL-1.2",
+  "main": "src/index.js",
+  "devDependencies": {
+    "keycloak-js": "^21.1.1"
+  },
+  "type": "module"
+}

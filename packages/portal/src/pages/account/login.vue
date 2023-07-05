@@ -6,10 +6,8 @@
   export default {
     name: 'AccountLoginPage',
 
-    layout: 'minimal',
-
     mounted() {
-      localStorage['kc.login'] = 'true';
+      console.log('account login page mounted')
       this.$keycloak.login();
     }
   };

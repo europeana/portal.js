@@ -34,7 +34,8 @@
     "@europeana/mirador": "link:./packages/mirador",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
-    "@europeana/styleguide": "link:./packages/styleguide"
+    "@europeana/styleguide": "link:./packages/styleguide",
+    "@europeana/vue-keycloak": "link:./packages/vue-keycloak"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",

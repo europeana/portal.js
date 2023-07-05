@@ -166,6 +166,7 @@
     },
 
     mounted() {
+      console.log('default layout mounted')
       if (!this.klaro) {
         this.klaro = window.klaro;
       }
@@ -180,6 +181,7 @@
 
     methods: {
       async initKeycloak() {
+        console.log('default layout initKeycloak', 'this.$keycloak', this.$keycloak)
         await this.$keycloak?.init();
 
         if (this.$store.state.keycloak?.loggedIn) {
