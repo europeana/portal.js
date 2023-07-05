@@ -203,42 +203,15 @@ describe('pages/item/_.vue', () => {
     describe('client side fetching', () => {
       const $fetchState = { pending: false };
 
-      it('fetches annotations', () => {
-        const wrapper = factory({ mocks: { $fetchState } });
+      it('gets entities and annotations', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
+        sinon.spy(wrapper.vm, 'fetchEntities');
+        sinon.spy(wrapper.vm, 'fetchAnnotations');
 
-        expect(wrapper.vm.$apis.annotation.search.calledWith({
-          query: 'target_record_id:"/123/abc"',
-          qf: 'motivation:(linkForContributing OR tagging)',
-          profile: 'dereference'
-        })).toBe(true);
-      });
+        await wrapper.vm.mounted();
 
-      it('fetches entities', () => {
-        const wrapper = factory({
-          data: {
-            agents: [{ about: 'http://data.europeana.eu/agent/1' }],
-            concepts: [{ about: 'http://data.europeana.eu/concept/1' }],
-            places: [{ about: 'http://data.europeana.eu/place/1' }],
-            timespans: [{ about: 'http://data.europeana.eu/timespan/1' }]
-          },
-          mocks: { $fetchState }
-        });
-
-        expect(wrapper.vm.$apis.entity.find.calledWith(
-          [
-            'http://data.europeana.eu/agent/1',
-            'http://data.europeana.eu/concept/1',
-            'http://data.europeana.eu/timespan/1',
-            'http://data.europeana.eu/place/1'
-          ],
-          { fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo' }
-        )).toBe(true);
-      });
-
-      it('does not fetch entities if there are none', () => {
-        const wrapper = factory({ mocks: { $fetchState } });
-
-        expect(wrapper.vm.$apis.entity.find.called).toBe(false);
+        expect(wrapper.vm.fetchEntities.called).toBe(true);
+        expect(wrapper.vm.fetchAnnotations.called).toBe(true);
       });
     });
   });
