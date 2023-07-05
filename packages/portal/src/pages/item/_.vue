@@ -98,6 +98,7 @@
               :metadata="fieldsAndKeywords"
               :location="locationData"
               :metadata-language="metadataLanguage"
+              :transcribing-annotations="transcribingAnnotations || []"
             />
           </b-col>
         </b-row>
@@ -130,7 +131,7 @@
             :dc-type="title"
             :dc-subject="metadata.dcSubject"
             :dc-creator="metadata.dcCreator"
-            :edm-data-provider="dataProviderEntityLabel"
+            :edm-data-provider="metadata.edmDataProvider?.def?.[0].prefLabel"
           />
         </client-only>
       </b-container>
@@ -295,11 +296,11 @@
       dataProviderEntityUri() {
         return this.metadata.edmDataProvider?.def?.[0].about || null;
       },
-      dataProviderEntityLabel() {
-        return this.metadata.edmDataProvider?.def?.[0].prefLabel;
-      },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
+      },
+      transcribingAnnotations() {
+        return this.annotationsByMotivation('transcribing');
       },
       linkForContributingAnnotation() {
         return this.annotationsByMotivation('linkForContributing')[0]?.body;
@@ -376,7 +377,6 @@
       async fetchAnnotations() {
         this.annotations = await this.$apis.annotation.search({
           query: `target_record_id:"${this.identifier}"`,
-          qf: 'motivation:(linkForContributing OR tagging)',
           profile: 'dereference'
         });
       },
@@ -410,14 +410,11 @@
               }
             }
           }
-        } else if (this.relatedEntityUris.length > 0) {
-          this.dataProviderEntity = null;
-
-          const entities  = await this.$apis.entity.find(this.relatedEntityUris, params);
-          this.relatedCollections = entities ? entities : [];
         } else {
-          this.dataProviderEntity = null;
-          this.relatedCollections = [];
+          const entities  = await this.$apis.entity.find(this.relatedEntityUris, params);
+          if (entities)  {
+            this.relatedCollections = entities;
+          }
         }
       }
     }
