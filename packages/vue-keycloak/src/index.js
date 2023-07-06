@@ -2,22 +2,25 @@ import axios from './axios.js';
 import VueKeycloak from './keycloak.js';
 import vuex from './vuex.js';
 
-export {
-  axios,
-  vuex
-};
+function install(Vue, options) {
+  console.log('[vue-keycloak pkg install] installing vue-keycloak with options', options)
 
-export default {
-  install: (Vue, options) => {
-    console.log('installing vue-keycloak with options', options)
-    Object.defineProperty(Vue.prototype, '$keycloak', {
+  if (!Vue.prototype.hasOwnProperty('$keycloak')) {
       get() {
         if (!this._keycloak) {
-          console.log('initialisting $keycloak on', this);
-          this._keycloak = new VueKeycloak(this, options);
+          this._keycloak = new VueKeycloak(this, options)
         }
         return this._keycloak;
       }
     })
   }
+}
+
+export default {
+  install
+};
+
+export {
+  axios,
+  vuex
 };

@@ -4,12 +4,14 @@ import Keycloak from 'keycloak-js';
 // TODO: stop using this.vm.$config.app.baseUrl, this.vm.$cookies
 
 export default class VueKeycloak {
+  static _keycloak = null;
+
   static get keycloak() {
     if (!process.client) {
       return null;
     }
     if (!this._keycloak) {
-      console.log('options', this.options)
+      console.log('new Keycloak', this.options)
       this._keycloak = new Keycloak(this.options);
     }
     return this._keycloak;
