@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.116.0",
+  "version": "1.116.1",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -70,10 +70,10 @@
     "sinon": "^13.0.1",
     "style-resources-loader": "^1.4.1",
     "svg-url-loader": "^7.1.1",
-    "vuedraggable": "^2.24.3",
     "vue-masonry": "^0.13.0",
     "vue-matomo": "^4.2.0",
-    "vue-scrollto": "^2.20.0"
+    "vue-scrollto": "^2.20.0",
+    "vuedraggable": "^2.24.3"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
