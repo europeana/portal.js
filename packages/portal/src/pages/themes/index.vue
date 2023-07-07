@@ -32,8 +32,8 @@
 </template>
 
 <script>
-  import ContentHeader from '../../components/generic/ContentHeader';
-  import ContentCard from '../../components/generic/ContentCard';
+  import ContentHeader from '../../components/content/ContentHeader';
+  import ContentCard from '../../components/content/ContentCard';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {

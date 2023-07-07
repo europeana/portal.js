@@ -43,7 +43,7 @@
               </template>
             </div>
             <ShareButton class="my-4" />
-            <SocialShareModal :media-url="hero ? hero.image.url : null" />
+            <ShareSocialModal :media-url="hero ? hero.image.url : null" />
             <BrowseSections
               :sections="body.items"
               :rich-text-is-card="false"
@@ -76,8 +76,8 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import SocialShareModal from '../sharing/SocialShareModal';
-  import ShareButton from '../sharing/ShareButton.vue';
+  import ShareSocialModal from '../share/ShareSocialModal';
+  import ShareButton from '../share/ShareButton.vue';
   import BrowseSections from '../browse/BrowseSections';
 
   export default {
@@ -88,7 +88,7 @@
       BlogAuthor: () => import('./BlogAuthor'),
       RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
       ClientOnly,
-      SocialShareModal,
+      ShareSocialModal,
       ShareButton,
       BrowseSections,
       EntityBadges: () => import('@/components/entity/EntityBadges'),

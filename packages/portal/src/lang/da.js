@@ -61,7 +61,7 @@ export default {
     "readMore": "Læs mere",
     "reject": "Afvise",
     "requestDepublication": "Anmodning om afpublicering",
-    "reset": "Nulstil",
+    "resetFilters": "Nulstil filtre",
     "save": "Gem",
     "send": "Sende",
     "share": "Del",
@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "varetyper",
-          "name": "Genstand type | Genstand typer",
+          "name": "Genstand type",
           "select": "Vælg varetyper"
         },
         "proxy_dcterms_medium": {

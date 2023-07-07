@@ -56,7 +56,7 @@
       :aria-label="$t('header.clearQuery')"
       @click="clearQuery"
     />
-    <FilterToggleButton
+    <SearchFilterToggleButton
       v-if="inTopNav"
     />
     <div
@@ -70,8 +70,8 @@
         :options="searchQueryOptions"
         @select="showSearchOptions = false;"
       />
-      <QuickSearch
-        v-if="showQuickSearch"
+      <SearchThemeBadges
+        v-if="showSearchThemeBadges"
         ref="quicksearch"
       />
     </div>
@@ -88,8 +88,8 @@
 
     components: {
       SearchQueryOptions,
-      FilterToggleButton: () => import('./FilterToggleButton'),
-      QuickSearch: () => import('@/components/search/QuickSearch')
+      SearchFilterToggleButton: () => import('./SearchFilterToggleButton'),
+      SearchThemeBadges: () => import('@/components/search/SearchThemeBadges')
     },
 
     props: {
@@ -121,10 +121,6 @@
     },
 
     computed: {
-      advancedSearchEnabled() {
-        return this.$features.advancedSearch;
-      },
-
       view() {
         return this.$store.getters['search/activeView'];
       },
@@ -198,7 +194,7 @@
         return this.onSearchablePage ? this.$route.path : this.localePath({ name: 'search' });
       },
 
-      showQuickSearch() {
+      showSearchThemeBadges() {
         return this.inTopNav && !this.onSearchableCollectionPage && !this.query;
       }
     },
@@ -325,15 +321,12 @@
         const query = {
           boost: this.$route?.query?.boost,
           query: queryTerm || '',
-          view: this.view
+          view: this.view,
+          api: this.$route?.query?.api,
+          qa: this.$route?.query?.qa,
+          qf: this.$route?.query?.qf,
+          reusability: this.$route?.query?.reusability
         };
-        // TODO: Always apply this after feature active.
-        if (this.advancedSearchEnabled) {
-          query.api = this.$route?.query?.api;
-          query.qa = this.$route?.query?.qa;
-          query.qf = this.$route?.query?.qf;
-          query.reusability = this.$route?.query?.reusability;
-        }
         return {
           path: path || this.localePath({
             name: 'search'

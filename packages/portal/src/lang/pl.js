@@ -61,7 +61,7 @@ export default {
     "readMore": "Czytaj więcej",
     "reject": "Odrzuć",
     "requestDepublication": "Poproś o wycofanie publikacji",
-    "reset": "Resetować",
+    "resetFilters": "Zresetuj filtry",
     "save": "Zapisać",
     "send": "Wyślij",
     "share": "Udostępnij",
@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "typy przedmiotów",
-          "name": "Typ elementu",
+          "name": "Typ obiekt cyfrowy",
           "select": "Wybierz typy przedmiotów"
         },
         "proxy_dcterms_medium": {

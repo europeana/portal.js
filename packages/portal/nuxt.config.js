@@ -272,16 +272,7 @@ export default {
     '~/modules/axios-logger',
     '~/modules/query-sanitiser',
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
-  ],
-
-  /*
-  ** Nuxt.js modules
-  */
-  modules: [
-    '~/modules/elastic-apm',
-    'bootstrap-vue/nuxt',
-    'cookie-universal-nuxt',
+    '@nuxtjs/auth',
     ['@nuxtjs/i18n', {
       locales: i18nLocales,
       baseUrl: ({ $config }) => $config.app.baseUrl,
@@ -312,6 +303,15 @@ export default {
         syncRouteParams: true
       }
     }]
+  ],
+
+  /*
+  ** Nuxt.js modules
+  */
+  modules: [
+    '~/modules/elastic-apm',
+    'bootstrap-vue/nuxt',
+    'cookie-universal-nuxt'
   ],
 
   auth: {

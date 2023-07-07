@@ -61,7 +61,7 @@ export default {
     "readMore": "Aqra iktar",
     "reject": "Irrifjuta",
     "requestDepublication": "Talba għal depubblikazzjoni",
-    "reset": "Irrisettja",
+    "resetFilters": "Irrisettja l-filtri",
     "save": "Tissejvja",
     "send": "Tibgħat",
     "share": "Ixxerja",
@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "tipi ta' oġġetti",
-          "name": "Tip ta' oġġett | Tipi ta' oġġett",
+          "name": "Tip ta 'oġġett",
           "select": "Agħżel tipi ta 'oġġetti"
         },
         "proxy_dcterms_medium": {
@@ -223,7 +223,7 @@ export default {
       "deleted": "Il-gallerija tiegħek tħassret.",
       "pin": "Dan l-oġġett se juri fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "pinLimit": {
-        "body": "Għalissa tista 'biss tpoġġi 24 oġġett fl-ewwel paġna. Jekk trid tpoġġi din il-partita, kun żgur li tneħħi pinna oħra u mbagħad erġa 'pprova tpinġiha.",
+        "body": "Għalissa tista 'biss tpoġġi 24 oġġett fl-ewwel paġna. Jekk trid tpoġġi din il-partita, kun żgur li tneħħi oġġett oħra u mbagħad erġa 'pprova  tpoġġi.",
         "title": "Wisq oġġetti pinned"
       },
       "pinned": "L-oġġett ġie ippinjat. Jidher bħala l-ewwel oġġett fil-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
@@ -536,9 +536,9 @@ export default {
       "select": "Agħżel ħallieqa"
     },
     "DATA_PROVIDER": {
-      "moreName": "istituzzjoni fornitriċi",
+      "moreName": "istituzzjonijiet fornitriċi",
       "name": "Istituzzjoni fornitriċi",
-      "select": "Agħżel istituzzjoni fornitriċi"
+      "select": "Agħżel istituzzjonijiet fornitriċi"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orjentazzjoni tal-istampa | Orjentazzjonijiet tal-istampa",
@@ -753,7 +753,7 @@ export default {
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Politika tar-privatezza",
-      "provide": "Sir fornitur tad-dejta",
+      "provide": "Issir istituzzjoni fornitriċi",
       "subscribe": "Abbona għan-Newsletter tagħna",
       "terms": "Termini tal-użu"
     },
@@ -900,8 +900,8 @@ export default {
       "modalTitle": "Għid grazzi"
     },
     "downloadFailed": {
-      "linkPrompt": "Aħna nagħtuk parir biex tikklikkja fuq il-buttuna \"Istituzzjoni fornitriċi\" hawn taħt biex tiċċekkja jekk l-oġġett jistax jitniżżel fuq il-websajt tal-istituzzjoni li tipprovdi.",
-      "message": "Jekk it-tniżżil ma taħdimx, jista 'jkun minħabba li tneħħa mill-istituzzjoni li tipprovdi, jew jista' jkun hemm problema teknika bis-servizz tagħhom.",
+      "linkPrompt": "Aħna nagħtuk parir biex tikklikkja fuq il-buttuna \"Istituzzjoni fornitriċi\" hawn taħt biex tiċċekkja jekk l-oġġett jistax jitniżżel fuq il-websajt tal-istituzzjoni fornitriċi.",
+      "message": "Jekk it-tniżżil ma taħdimx, jista 'jkun minħabba li tneħħa mill-istituzzjoni fornitriċi, jew jista' jkun hemm problema teknika bis-servizz tagħhom.",
       "title": "Niżżel mhux qed taħdem"
     },
     "transcribe": {
@@ -970,7 +970,7 @@ export default {
     "label": "Paġnar"
   },
   "provider": {
-    "linkText": "Ara fuq il-websajt tal-istituzzjoni li tipprovdi",
+    "linkText": "Ara fuq il-websajt tal-istituzzjoni fornitriċi",
     "providedBy": "Dan l-oġġett huwa pprovdut u miżmum minn {provider}"
   },
   "recommendation": {

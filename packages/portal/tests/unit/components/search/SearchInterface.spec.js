@@ -67,13 +67,12 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
       locale: 'en'
     },
     $features: {
-      advancedSearch: false,
       ...mocks.$features || {}
     }
   },
   propsData,
   data: () => data,
-  stubs: ['SideFilters', 'i18n']
+  stubs: ['SearchFilters', 'i18n']
 });
 
 describe('components/search/SearchInterface', () => {
@@ -490,9 +489,7 @@ describe('components/search/SearchInterface', () => {
       const profile = 'minimal';
       const wrapper = factory({
         mocks: {
-          $features: {
-            advancedSearch: true
-          },
+          $features: {},
           $route: {
             query: {
               qa: userQa,

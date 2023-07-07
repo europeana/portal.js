@@ -61,7 +61,7 @@ export default {
     "readMore": "Ler mais",
     "reject": "Rejeitar",
     "requestDepublication": "Solicitar despublicação",
-    "reset": "Repor",
+    "resetFilters": "Redefinir filtros",
     "save": "Salve",
     "send": "Enviar",
     "share": "Partilhar",
@@ -800,7 +800,7 @@ export default {
     "subHeadline": "Pesquisa, guarda e partilha arte, livros, filmes e música provenientes de (disponibilizados por) milhares de instituições culturais",
     "themesCTA": "Ver todos os temas",
     "themesTitle": "Explorar por tema",
-    "title": "Descubra o património cultural {digital} da Europa",
+    "title": "À descoberta do património cultural {digital} da Europa",
     "titleDigital": "digital"
   },
   "imageSlider": {

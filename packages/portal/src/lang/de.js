@@ -48,7 +48,7 @@ export default {
     "explore": "Erkunden",
     "feedback": "Feedback",
     "filter": "Filter",
-    "goHome": "Zur Homepage gehen",
+    "goHome": "Zur Startseite gehen",
     "hide": "Verstecken",
     "learnMore": "Mehr erfahren",
     "like": "Like",
@@ -61,7 +61,7 @@ export default {
     "readMore": "Mehr anzeigen",
     "reject": "Ablehnen",
     "requestDepublication": "Depublikation anfordern",
-    "reset": "Zurücksetzen",
+    "resetFilters": "Filter zurücksetzen",
     "save": "Speichern",
     "send": "Senden",
     "share": "Teilen",
@@ -800,8 +800,8 @@ export default {
     "subHeadline": "Kunst, Bücher, Filme und Musik von Tausenden von Kulturinstitutionen durchsuchen, speichern und teilen",
     "themesCTA": "Alle Themenbereiche anzeigen",
     "themesTitle": "Erkunden Sie nach Themenbereiche",
-    "title": "Entdecken Sie das {digital} kulturelle Erbe Europas",
-    "titleDigital": "digitale"
+    "title": "Europas {digital} Kulturerbe entdecken",
+    "titleDigital": "digitales"
   },
   "imageSlider": {
     "handle": "Schieberegler"

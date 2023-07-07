@@ -19,7 +19,7 @@
         v-if="hasEntity"
         #collection
       >
-        <RemovalChip
+        <SearchRemovalChip
           :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
@@ -33,7 +33,7 @@
         v-if="hasQuery"
         #query
       >
-        <RemovalChip
+        <SearchRemovalChip
           :title="query"
           :link-to="queryRemovalLink"
           data-qa="query removal badge"
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-  import RemovalChip from './RemovalChip';
+  import SearchRemovalChip from './SearchRemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
@@ -61,7 +61,7 @@
     name: 'SearchResultsContext',
 
     components: {
-      RemovalChip
+      SearchRemovalChip
     },
 
     mixins: [
@@ -103,10 +103,6 @@
     },
 
     computed: {
-      advancedSearchEnabled() {
-        return this.$features.advancedSearch;
-      },
-
       i18nPath() {
         if (this.hasEntity && this.hasQuery) {
           return 'search.results.withinCollectionWithQuery';
@@ -157,19 +153,11 @@
         });
       },
       entityRemovalLink() {
-        if (this.advancedSearchEnabled) {
-          return this.localePath({
-            name: 'search', query: {
-              ...this.activeCriteria
-            }
-          });
-        } else {
-          return this.localePath({
-            name: 'search', query: {
-              query: this.$route.query?.query
-            }
-          });
-        }
+        return this.localePath({
+          name: 'search', query: {
+            ...this.activeCriteria
+          }
+        });
       },
       activeCriteria() {
         return {

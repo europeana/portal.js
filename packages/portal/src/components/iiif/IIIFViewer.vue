@@ -104,6 +104,11 @@
           selectedTheme: 'europeana',
           themes: {
             europeana: window.MiradorTheme
+          },
+          osdConfig: {
+            gestureSettingsMouse: {
+              scrollToZoom: false
+            }
           }
         };
 
@@ -253,9 +258,10 @@
       },
 
       iiifPresentationApiVersionFromContext(context) {
-        if ([].concat(context).includes('http://iiif.io/api/presentation/2/context.json')) {
+        const contexts = [].concat(context).filter((context) => !!context);
+        if (contexts.some((uri) => uri.includes('://iiif.io/api/presentation/2/context.json'))) {
           return 2;
-        } else if ([].concat(context).includes('http://iiif.io/api/presentation/3/context.json')) {
+        } else if (contexts.some((uri) => uri.includes('://iiif.io/api/presentation/3/context.json'))) {
           return 3;
         } else {
           return undefined;
@@ -267,7 +273,7 @@
         for (const canvas of (manifestJson.items || [])) {
           for (const annotationPage of (canvas.items || [])) {
             for (const annotation of (annotationPage.items || [])) {
-              if ((annotation.motivation === 'painting') && !annotation.body.service?.profile.startsWith('http://iiif.io/api/image/')) {
+              if ((annotation.motivation === 'painting') && !annotation.body?.service?.profile?.startsWith('http://iiif.io/api/image/')) {
                 this.proxiedMedia[annotation.body.id] = this.$apis.record.mediaProxyUrl(annotation.body.id, this.itemId, { disposition: 'inline' });
                 annotation.body.id = this.proxiedMedia[annotation.body.id];
               }

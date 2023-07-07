@@ -24,7 +24,6 @@
             >
               <SearchQueryBuilder
                 v-show="showAdvancedSearch"
-                v-if="advancedSearchEnabled"
                 id="search-query-builder"
                 class="d-none mb-3"
                 :class="{'d-lg-block': showAdvancedSearch}"
@@ -36,7 +35,7 @@
             <div
               class="mb-3 d-flex align-items-start justify-content-between"
             >
-              <!-- This div prevents ViewToggles jumping around as SearchResultsContext is shown & hidden -->
+              <!-- This div prevents SearchViewToggles jumping around as SearchResultsContext is shown & hidden -->
               <div v-show="$fetchState.pending" />
               <SearchResultsContext
                 v-show="!$fetchState.pending"
@@ -45,7 +44,7 @@
                 :query="query"
                 badge-variant="primary-light"
               />
-              <ViewToggles
+              <SearchViewToggles
                 v-model="view"
               />
             </div>
@@ -145,7 +144,7 @@
           name="after-results"
         />
       </b-col>
-      <SideFilters
+      <SearchFilters
         :route="route"
         :collection="collection"
         :api-params="apiParams"
@@ -153,7 +152,6 @@
         :user-params="userParams"
       >
         <b-row
-          v-if="advancedSearchEnabled"
           class="d-flex justify-content-between align-items-center flex-nowrap"
         >
           <span
@@ -189,13 +187,12 @@
         >
           <SearchQueryBuilder
             v-show="showAdvancedSearch"
-            v-if="advancedSearchEnabled"
             id="search-query-builder-mobile"
             class="d-lg-none"
             @show="(show) => showAdvancedSearch = show"
           />
         </transition>
-      </SideFilters>
+      </SearchFilters>
     </b-row>
   </b-container>
 </template>
@@ -203,7 +200,7 @@
 <script>
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
-  import ViewToggles from './ViewToggles';
+  import SearchViewToggles from './SearchViewToggles';
 
   import makeToastMixin from '@/mixins/makeToast';
   import themes from '@/plugins/europeana/themes';
@@ -223,8 +220,8 @@
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
-      SideFilters: () => import('./SideFilters'),
-      ViewToggles
+      SearchFilters: () => import('./SearchFilters'),
+      SearchViewToggles
     },
 
     mixins: [
@@ -340,9 +337,6 @@
       showSearchBoostingForm() {
         return !!this.debugSettings?.boosting;
       },
-      advancedSearchEnabled() {
-        return this.$features.advancedSearch;
-      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -382,7 +376,7 @@
         const apiParams = merge(userParams, this.overrideParams);
 
         // `qa` params are queries from the advanced search builder
-        if (apiParams.qa && this.advancedSearchEnabled) {
+        if (apiParams.qa) {
           apiParams.query = [].concat(apiParams.query || []).concat(apiParams.qa).join(' AND ');
           delete apiParams.qa;
         }

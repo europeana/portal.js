@@ -61,7 +61,7 @@ export default {
     "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
-    "reset": "Berrezarri",
+    "resetFilters": "Berrezarri iragazkiak",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "elementu motak",
-          "name": "Elementu mota | Elementu motak",
+          "name": "Elementu mota",
           "select": "Hautatu elementu motak"
         },
         "proxy_dcterms_medium": {

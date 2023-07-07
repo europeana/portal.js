@@ -61,7 +61,7 @@ export default {
     "readMore": "Přečtěte si více",
     "reject": "Odmítnout",
     "requestDepublication": "Žádost o zrušení publikace",
-    "reset": "Obnovit",
+    "resetFilters": "Resetovat filtry",
     "save": "Uložit",
     "send": "Poslat",
     "share": "Sdílejte",
@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "typy položek",
-          "name": "Druh položky | Druhy položek",
+          "name": "Typ položky",
           "select": "Vyberte typy položek"
         },
         "proxy_dcterms_medium": {
@@ -800,7 +800,7 @@ export default {
     "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí.",
     "themesCTA": "Zobrazit všechna témata",
     "themesTitle": "Prozkoumejte podle tématu",
-    "title": "Objevte evropské {digital} kulturní dědictví",
+    "title": "Objevte {digital} kulturní dědictví Evropy",
     "titleDigital": "digitální"
   },
   "imageSlider": {

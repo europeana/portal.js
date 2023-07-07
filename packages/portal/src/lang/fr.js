@@ -61,7 +61,7 @@ export default {
     "readMore": "En savoir plus",
     "reject": "Rejeter",
     "requestDepublication": "Demander la dépublication",
-    "reset": "Réinitialiser",
+    "resetFilters": "Réinitialiser les filtres",
     "save": "Sauvegarder",
     "send": "Envoyer",
     "share": "Partagez",
@@ -137,7 +137,7 @@ export default {
         },
         "proxy_dc_type": {
           "moreName": "types d’éléments",
-          "name": "Type d'élément | Types d'éléments",
+          "name": "Type d'élément",
           "select": "Sélectionnez les types d'éléments"
         },
         "proxy_dcterms_medium": {

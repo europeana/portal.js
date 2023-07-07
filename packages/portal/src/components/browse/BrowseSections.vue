@@ -4,7 +4,7 @@
       v-for="(section, index) in sections"
       :key="index"
     >
-      <RichText
+      <ContentRichText
         v-if="contentType(section, 'ContentTypeRichText')"
         :text="section.text"
         :rich-text-is-card="richTextIsCard"
@@ -13,7 +13,7 @@
         v-else-if="contentType(section, 'CardGroup')"
         :section="section"
       />
-      <AutomatedCardGroup
+      <BrowseAutomatedCardGroup
         v-else-if="contentType(section, 'AutomatedCardGroup')"
         :section-type="section.genre"
         :more-button="section.moreButton"
@@ -22,7 +22,7 @@
         v-else-if="contentType(section, 'Embed')"
         :html="section.embed"
       />
-      <CompareImageSlider
+      <ImageComparisonSlider
         v-else-if="contentType(section, 'ImageComparison')"
         :left-image-src="imageCompareImage(section, 0) ? imageCompareImage(section, 0).url : null"
         :left-image-content-type="imageCompareImage(section, 0) ? imageCompareImage(section, 0).contentType : null"
@@ -57,7 +57,7 @@
         :link="section.relatedLink"
         :illustration="section.image"
       />
-      <PrimaryCallToAction
+      <ContentPrimaryCallToAction
         v-else-if="contentType(section, 'PrimaryCallToAction')"
         :text="section.text"
         :link="section.relatedLink"
@@ -69,15 +69,15 @@
 <script>
   export default {
     components: {
-      CompareImageSlider: () => import('../generic/CompareImageSlider'),
-      ContentCardSection: () => import('./ContentCardSection'),
-      EmbedHTML: () => import('../embed/EmbedHTML'),
-      ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
+      BrowseAutomatedCardGroup: () => import('./BrowseAutomatedCardGroup'),
       CallToAction: () => import('../generic/CallToAction'),
-      RichText: () => import('./RichText'),
-      AutomatedCardGroup: () => import('./AutomatedCardGroup'),
-      PrimaryCallToAction: () => import('./PrimaryCallToAction'),
-      CallToActionBanner: () => import('../generic/CallToActionBanner')
+      CallToActionBanner: () => import('../generic/CallToActionBanner'),
+      ContentCardSection: () => import('../content/ContentCardSection'),
+      ContentPrimaryCallToAction: () => import('../content/ContentPrimaryCallToAction'),
+      ContentRichText: () => import('../content/ContentRichText'),
+      EmbedHTML: () => import('../embed/EmbedHTML'),
+      ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
+      ImageWithAttribution: () => import('../image/ImageWithAttribution')
     },
 
     props: {
