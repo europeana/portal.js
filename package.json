@@ -49,7 +49,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "lerna": "^5.5.0",
     "postcss-scss": "^4.0.5",
-    "stylelint": "^14.1.0",
+    "stylelint": "^15.10.1",
     "stylelint-config-recommended-scss": "^7.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",
     "vue": "^2.7.10"
