@@ -25,7 +25,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="heroImage && heroImage.url" />
+            <ShareSocialModal :media-url="heroImage && heroImage.url" />
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
@@ -98,8 +98,8 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import { marked } from 'marked';
-  import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
-  import ShareButton from '../../../components/sharing/ShareButton.vue';
+  import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
+  import ShareButton from '../../../components/share/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -109,9 +109,9 @@
       ClientOnly,
       LinkList: () => import('../../../components/generic/LinkList'),
       ShareButton,
-      SocialShareModal,
+      ShareSocialModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
-      ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
+      ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       ThemeBadges: () => import('@/components/theme/ThemeBadges')

@@ -36,7 +36,7 @@
     name: 'EntityCardGroup',
 
     components: {
-      ContentCard: () => import('@/components/generic/ContentCard')
+      ContentCard: () => import('@/components/content/ContentCard')
     },
 
     mixins: [

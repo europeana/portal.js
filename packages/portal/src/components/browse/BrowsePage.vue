@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import ContentHeader from '../generic/ContentHeader';
+  import ContentHeader from '../content/ContentHeader';
   import BrowseSections from './BrowseSections';
 
   export default {

@@ -61,7 +61,7 @@ export default {
     "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
-    "reset": "Berrezarri",
+    "resetFilters": "Berrezarri iragazkiak",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",

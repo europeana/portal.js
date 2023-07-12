@@ -61,7 +61,7 @@ export default {
     "readMore": "Læs mere",
     "reject": "Afvise",
     "requestDepublication": "Anmodning om afpublicering",
-    "reset": "Nulstil",
+    "resetFilters": "Nulstil filtre",
     "save": "Gem",
     "send": "Sende",
     "share": "Del",

@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import ContentHeader from '@/components/generic/ContentHeader';
+  import ContentHeader from '@/components/content/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import StoriesInterface from '@/components/stories/StoriesInterface';
   import pageMetaMixin from '@/mixins/pageMeta';

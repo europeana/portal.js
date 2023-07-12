@@ -61,7 +61,7 @@ export default {
     "readMore": "Lue lisää",
     "reject": "Hylätä",
     "requestDepublication": "Pyydä julkaisun poistamista",
-    "reset": "Nollaa",
+    "resetFilters": "Nollaa suodattimet",
     "save": "Tallenna",
     "send": "Lähettää",
     "share": "Jaa",

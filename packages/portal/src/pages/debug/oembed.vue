@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import ContentHeader from '@/components/generic/ContentHeader';
+  import ContentHeader from '@/components/content/ContentHeader';
   import EmbedOEmbed from '@/components/embed/EmbedOEmbed';
   import pageMetaMixin from '@/mixins/pageMeta';
 
