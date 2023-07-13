@@ -183,6 +183,18 @@
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
       this.initMirador();
+
+      // Catch image request failures as Mirador does not handle them
+      // TODO: remove when Mirador implements better handling. Issue: https://github.com/ProjectMirador/mirador/issues/3775
+      window.onunhandledrejection = (event) => {
+        // As this could be any unhandled rejection on the page, check if unhandled rejection source is image from manifest
+        const failedImageURL = event.reason?.source?.url;
+        const failedImageIsInManifest = Object.keys(this.imageToCanvasMap || {}).includes(failedImageURL);
+
+        if (failedImageIsInManifest) {
+          this.handleManifestError(event.reason.message);
+        }
+      };
     },
 
     beforeDestroy() {
@@ -264,7 +276,7 @@
         // Catch when there are no canvases in the manifest
         // TODO: display media available on the record instead
         if (!this.manifest.sequences && !this.manifest.items) {
-          this.handleManifestError('No canvases')
+          this.handleManifestError('No canvases');
         }
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.proxyProviderMedia(action.manifestJson);

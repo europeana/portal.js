@@ -47,8 +47,10 @@ const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFVie
     $axios: axios,
     $i18n: {
       locale: 'en'
-    }
-  }
+    },
+    $t: key => key
+  },
+  stubs: ['IIIFErrorMessage']
 });
 
 describe('components/iiif/IIIFViewer.vue', () => {
@@ -658,7 +660,7 @@ describe('components/iiif/IIIFViewer.vue', () => {
                 '@id': 'https://iiif.europeana.eu/presentation/123/abc/search'
               }
             };
-            const wrapper = factory({ data: { manifest, searchQuery: 'example' } });
+            const wrapper = factory({ data: { manifest }, propsData: { searchQuery: 'example' } });
             await wrapper.vm.$nextTick();
             const json = { resources: [{}] };
 
@@ -752,6 +754,25 @@ describe('components/iiif/IIIFViewer.vue', () => {
       wrapper.vm.beforeDestroy();
 
       expect(wrapper.vm.miradorViewer.unmount.called).toBe(true);
+    });
+  });
+
+  describe('on unhandled rejection', () => {
+    describe('when event is for a manifest image', () => {
+      it('handles it as a manifest error', async() => {
+        const brokenImage = 'http://www.example.eu/broken.jpg';
+        const manifestImageFailsEvent = new Event('unhandledrejection');
+        manifestImageFailsEvent.reason = { message: 'unhandled rejection',
+          source: { url: brokenImage } };
+
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, 'handleManifestError');
+        wrapper.setData({ imageToCanvasMap: { [brokenImage]: 'http://iiif.example.eu/canvas' } });
+
+        window.dispatchEvent(manifestImageFailsEvent);
+
+        expect(wrapper.vm.handleManifestError.calledWith(manifestImageFailsEvent.reason.message)).toBe(true);
+      });
     });
   });
 });
