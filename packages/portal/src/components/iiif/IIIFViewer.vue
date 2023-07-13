@@ -197,7 +197,7 @@
       };
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
       // NOTE: very important to do this, as it cleans up all the
       //       mirador/react/material stuff from the DOM before moving on
       this.miradorViewer.unmount();
@@ -263,6 +263,7 @@
           item: this.itemId,
           url: this.uri
         });
+        this.$emit('manifestError');
       },
 
       postprocessMiradorRequest(url, action) {

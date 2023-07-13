@@ -1,7 +1,7 @@
 <template>
   <div class="item-hero">
     <div
-      v-if="iiifPresentationManifest"
+      v-if="showInIIIFViewer"
       class="iiif-viewer-wrapper d-flex flex-column"
     >
       <slot name="item-language-selector" />
@@ -11,6 +11,7 @@
         :aria-label="$t('actions.viewDocument')"
         :item-id="identifier"
         :provider-url="providerUrl"
+        @manifestError="() => { if(media) { showInIIIFViewer = false } }"
       />
     </div>
     <ItemMediaSwiper
@@ -158,7 +159,8 @@
     data() {
       return {
         selectedMediaItem: null,
-        selectedCanvas: null
+        selectedCanvas: null,
+        showInIIIFViewer: this.iiifPresentationManifest
       };
     },
     computed: {
