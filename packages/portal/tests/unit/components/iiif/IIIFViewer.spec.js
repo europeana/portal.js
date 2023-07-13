@@ -1,9 +1,18 @@
+import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import axios from 'axios';
 import nock from 'nock';
 import sinon from 'sinon';
+import VueI18n from 'vue-i18n';
 
 import IIIFViewer from '@/components/iiif/IIIFViewer.vue';
+
+const localVue = createLocalVue();
+localVue.use(VueI18n);
+
+const i18n = new VueI18n({
+  locale: 'en'
+});
 
 const mockMiradorModule = {
   default: {
@@ -28,6 +37,7 @@ const mockMiradorModule = {
 };
 
 const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFViewer, {
+  localVue,
   propsData: {
     uri: 'http://example.org/iiif/manifest.json',
     ...propsData
@@ -38,6 +48,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFVie
       ...data
     };
   },
+  i18n,
   mocks: {
     $apis: {
       record: {
@@ -45,12 +56,8 @@ const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFVie
       }
     },
     $axios: axios,
-    $i18n: {
-      locale: 'en'
-    },
     $t: key => key
-  },
-  stubs: ['IIIFErrorMessage']
+  }
 });
 
 describe('components/iiif/IIIFViewer.vue', () => {
