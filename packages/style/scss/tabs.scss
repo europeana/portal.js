@@ -56,5 +56,12 @@
       border-bottom: 2px solid $blue;
       color: $blue;
     }
+
+    h2 {
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin-bottom: inherit;
+    }
   }
 }

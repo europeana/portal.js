@@ -5,15 +5,17 @@
     data-qa="metadata field"
     class="metadata-row d-lg-flex"
   >
-    <label
+    <h3
       v-if="labelled"
+      id="metadata-field-label"
       data-qa="label"
       class="m-0"
     >
       {{ $t(`fieldLabels.${context}.${name}`) }}
-    </label>
+    </h3>
     <ul
       class="m-0 p-0 text-left text-lg-right list-unstyled"
+      aria-labelledby="metadata-field-label"
     >
       <MetadataOriginLabel :translation-source="fieldData.translationSource" />
       <template
@@ -170,6 +172,10 @@
       padding-top: 0;
     }
 
+    h3 {
+      font-size: inherit;
+    }
+
     ul {
       font-weight: 600;
 
@@ -189,7 +195,7 @@
     }
 
     @media (min-width: $bp-large) {
-      label,
+      h3,
       ul {
         flex: 1;
       }

@@ -8,10 +8,12 @@
     >
       <b-tabs card>
         <b-tab
-          :title="$t('record.goodToKnow')"
           data-qa="good to know tab"
           active
         >
+          <template #title>
+            <h2>{{ $t('record.goodToKnow') }}</h2>
+          </template>
           <b-card-text
             text-tag="div"
             data-qa="main metadata section"
@@ -26,9 +28,11 @@
           </b-card-text>
         </b-tab>
         <b-tab
-          :title="$t('record.allMetaData')"
           data-qa="all metadata tab"
         >
+          <template #title>
+            <h2>{{ $t('record.allMetaData') }}</h2>
+          </template>
           <b-card-text
             text-tag="div"
           >
