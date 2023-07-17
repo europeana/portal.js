@@ -20,6 +20,7 @@
               <b-button
                 :id="`select-field-tooltip-btn-${id}`"
                 class="icon-info-outline py-0 px-1 tooltip-button"
+                :aria-label="$t('search.advanced.tooltip.field')"
                 variant="light-flat"
               />
               <b-tooltip
@@ -54,6 +55,7 @@
                 :id="`select-modifier-tooltip-btn-${id}`"
                 class="icon-info-outline py-0 px-1 tooltip-button"
                 variant="light-flat"
+                :aria-label="$t('search.advanced.tooltip.modifier')"
               />
               <b-tooltip
                 :target="`select-modifier-tooltip-btn-${id}`"
@@ -87,6 +89,7 @@
                 :id="`search-term-tooltip-btn-${id}`"
                 class="icon-info-outline py-0 px-1 tooltip-button"
                 variant="light-flat"
+                :aria-label="$t('search.advanced.tooltip.term')"
               />
               <b-tooltip
                 :target="`search-term-tooltip-btn-${id}`"
