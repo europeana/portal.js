@@ -20,6 +20,7 @@
           :disabled="prevDisabled"
           :aria-hidden="prevDisabled"
           class="page-link"
+          :tabindex="prevDisabled && '-1'"
         >
           <span class="icon-arrow-down mr-1" />
           {{ $t('actions.previous') }}
@@ -43,6 +44,7 @@
         :class="{ 'disabled' : nextDisabled }"
         class="page-item btn-next pr-0"
         data-qa="next button"
+        :tabindex="nextDisabled && '-1'"
       >
         <SmartLink
           :destination="nextUrl"
