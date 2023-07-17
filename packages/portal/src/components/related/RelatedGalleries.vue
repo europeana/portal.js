@@ -7,7 +7,7 @@
       class="related-galleries-card mb-4"
     >
       <b-card-title
-        tag="h2"
+        title-tag="h2"
         class="related-heading text-uppercase"
       >
         {{ $t('related.galleries.title') }}
