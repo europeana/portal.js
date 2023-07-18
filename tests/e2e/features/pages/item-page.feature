@@ -98,7 +98,7 @@ Feature: item page
     And I click a `item preview`
     And I see an `item page`
     And I hover over the `metadata box`
-    And I click the "Location" tab
+    And I click the `location tab`
     Then I see a `map embed`
 
   Scenario: No location tab when dcterms:spatial has no co-ordinates
@@ -110,7 +110,7 @@ Feature: item page
     And I click a `item preview`
     And I see an `item page`
     And I hover over the `metadata box`
-    Then I don't see a "Location" tab
+    Then there is no `location tab`
 
   Scenario: Seeing an item language selector
     When I open an `item page`
