@@ -7,7 +7,7 @@
   >
     <h3
       v-if="labelled"
-      id="metadata-field-label"
+      :id="labelId"
       data-qa="label"
       class="m-0"
     >
@@ -15,7 +15,7 @@
     </h3>
     <ul
       class="m-0 p-0 text-left text-lg-right list-unstyled"
-      aria-labelledby="metadata-field-label"
+      :aria-labelledby="labelled && labelId"
     >
       <MetadataOriginLabel :translation-source="fieldData.translationSource" />
       <template
@@ -100,6 +100,10 @@
       context: {
         type: String,
         default: 'default'
+      },
+      labelId: {
+        type: String,
+        default: null
       },
       labelled: {
         type: Boolean,

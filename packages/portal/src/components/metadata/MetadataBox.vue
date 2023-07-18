@@ -8,7 +8,7 @@
     >
       <b-tabs card>
         <b-tab
-          data-qa="good to know tab"
+          :title-link-attributes="{'data-qa': 'good to know tab'}"
           active
         >
           <template #title>
@@ -24,11 +24,12 @@
               :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
+              :label-id="`${name}-main-label`"
             />
           </b-card-text>
         </b-tab>
         <b-tab
-          data-qa="all metadata tab"
+          :title-link-attributes="{'data-qa': 'all metadata tab'}"
         >
           <template #title>
             <h2>{{ $t('record.allMetaData') }}</h2>
@@ -42,14 +43,17 @@
               :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
+              :label-id="`${name}-label`"
             />
           </b-card-text>
         </b-tab>
         <b-tab
           v-if="Boolean(transcribingAnnotations.length)"
-          :title="$t('record.transcription')"
-          data-qa="transcription tab"
+          :title-link-attributes="{'data-qa': 'transcription tab'}"
         >
+          <template #title>
+            <h2>{{ $t('record.transcription') }}</h2>
+          </template>
           <b-card-text
             text-tag="div"
           >
@@ -72,11 +76,13 @@
         </b-tab>
         <b-tab
           v-if="mappableLocation"
-          :title="$t('record.location')"
           class="p-0"
-          data-qa="location tab"
+          :title-link-attributes="{'data-qa': 'location tab'}"
           @click="clickLocationTab"
         >
+          <template #title>
+            <h2>{{ $t('record.location') }}</h2>
+          </template>
           <b-card-text
             text-tag="div"
           >
