@@ -4,11 +4,15 @@ resources:
 - deployment.yaml
 - service.yaml
 - ingress.yaml
-# TODO: mv secrets from ConfigMap to Secret
 configMapGenerator:
 - name: portal-js-env
   envs:
-  - .env
+  - config-map.env
+secretGenerator:
+- name: portal-js-env
+  envs:
+  - secret.env
+  type: Opaque
 labels:
   - pairs:
       app: portal-js

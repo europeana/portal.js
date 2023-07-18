@@ -3,8 +3,6 @@
 # Exit on error
 set -e
 
-# Include files with names starting "." in globs, e.g. base/.template.env
-shopt -s dotglob
 # Enable globstar for recursive globs, e.g. in overlays sub-dirs
 shopt -s globstar
 

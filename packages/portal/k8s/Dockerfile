@@ -7,9 +7,7 @@ USER root
 # Install envsubst
 RUN apt-get update && apt-get install -y gettext-base && apt-get clean
 
-ENTRYPOINT ["/kustomize.sh"]
+ENTRYPOINT ["/k8s/kustomize.sh"]
 CMD ["base"]
-
-COPY kustomize.sh /
 
 COPY . .

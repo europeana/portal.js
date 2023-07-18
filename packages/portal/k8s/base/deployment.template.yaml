@@ -21,6 +21,9 @@ spec:
             - configMapRef:
                 name: portal-js-env
                 optional: false
+            - secretRef:
+                name: portal-js-env
+                optional: false
           image: europeana/portal.js:master
           imagePullPolicy: Always
           name: portal-js-web
