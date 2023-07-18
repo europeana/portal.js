@@ -78,6 +78,7 @@
           v-if="mappableLocation"
           class="p-0"
           :title-link-attributes="{'data-qa': 'location tab'}"
+          data-qa="location tab"
           @click="clickLocationTab"
         >
           <template #title>
