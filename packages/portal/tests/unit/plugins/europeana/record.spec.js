@@ -511,7 +511,7 @@ describe('plugins/europeana/record', () => {
     it('uses europeanaId & web resource hash as path', () => {
       const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
 
-      expect(proxyUrl.pathname).toBe(`${europeanaId}/${md5(mediaUrl)}`);
+      expect(proxyUrl.pathname).toBe(`/media${europeanaId}/${md5(mediaUrl)}`);
     });
 
     it('sets recordApiUrl query param if different than configured default', () => {
