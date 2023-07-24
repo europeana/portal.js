@@ -83,7 +83,8 @@ describe('plugins/europeana/edm/WebResource', () => {
         { ebucoreHasMimeType: 'audio/ogg' },
         { ebucoreHasMimeType: 'audio/mpeg' },
         { ebucoreHasMimeType: 'application/dash+xml' },
-        { about: 'http://www.euscreen.eu/item.html?id=EUS_123' }
+        { about: 'http://www.euscreen.eu/item.html?id=EUS_123' },
+        { about: 'https://www.euscreen.eu/item.html?id=EUS_123' }
       ];
       const unplayableMedia = [
         { ebucoreHasMimeType: 'video/somethingelse' },
