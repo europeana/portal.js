@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Taispeántas | Taispeántais"
   },
   "facets": {
-    "api": {
-      "name": "Cuardaigh laistigh de dhoiciméid",
-      "options": {
-        "fulltext": "Míreanna a bhfuil an téacs iomlán díobh le fáil",
-        "metadata": "Míreanna nach bhfuil iontu ach na meiteashonraí amháin"
-      },
-      "switch": "Ná cuardaigh ach in míreanna na n-ítimí a bhfuil téacs iomlán acu",
-      "switchMoreInfo": "Sa bhailiúchán seo, is féidir leat an méid is mian leat a chuardach a roghnú: má tá an lasc seo ar siúl, ansin déanfaidh tú cuardach laistigh den nuachtán agus téacs doiciméid; má tá sé as, ansin déanfaidh tú cuardach laistigh den fhaisnéis a chuireann síos ar an mír, díreach mar a dhéanann tú i gcónaí i bhformhór na mbailiúchán eile."
+    "alert": {
+      "fulltextHasMoved": "Ag lorg an rogha téacs iomlán? Tá sé bogtha go dtí an cuardach casta."
     },
     "button": {
       "morefilters": "Níos mó scagairí",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Ráiteas um Chearta Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
       "europeanaCollectionName": "Ainm bailiúcháin",
+      "fulltext": "Téacs iomlán",
       "keywords": "Eochairfhocail (a fuarthas iad ó dhaoine den phobal)",
       "timestampCreated": "Stampa ama cruthaithe",
       "timestampUpdate": "Stampa ama nuashonraithe",
       "wasPresentAt": "Bhí i láthair ag",
+      "what": "Cad",
+      "when": "Nuair",
+      "where": "Cá",
+      "who": "Cé",
       "year": "Bliain"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[Mír neamhfhoilsithe]"
     },
     "transcription": "Tras-scríobh",
-    "transcriptionDisclaimer": "Is é an pobal a chuireann an t-ábhar seo ar fáil, ní ag an institiúid a chuir an mhír seo ar fáil."
+    "transcriptionDisclaimer": "Is ón bpobal a chuirtear an t-ábhar seo ar fáil, ní ón institiúid a sholáthraigh an mhír seo."
   },
   "related": {
     "categoryTags": {
@@ -1036,19 +1035,31 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Réimsí comhiomlána",
+        "individual": "Réimsí aonair"
+      },
       "input": {
         "field": "Réimse",
         "modifier": "Mionathraitheoir",
-        "searchTerm": "Cuir isteach téarma(í) cuardaigh"
+        "term": "Cuir isteach téarma(í) cuardaigh"
       },
       "modifiers": {
         "contains": "ina bhfuil",
         "doesNotContain": "nach bhfuil"
       },
+      "placeholder": {
+        "field": "Roghnaigh réimse",
+        "modifier": "Roghnaigh mionathraitheoir",
+        "term": "Cuir isteach téarma(í) cuardaigh"
+      },
       "show": "{showOrHide} ardchuardach",
       "tooltip": {
         "advancedSearch": "Ligeann an cuardach casta duit ceisteanna cuardaigh saincheaptha a chruthú.",
         "field": "Roghnaigh réimse le cuardach air.",
+        "fields": {
+          "fulltext": "Áirítear le téacs iomlán tras-scríbhinní, fotheidil dúnta, fotheidil agus téacs doiciméad."
+        },
         "modifier": "Roghnaigh mionathraitheoir le cur i bhfeidhm ar an réimse.",
         "term": "Cuir isteach an téarma(í) chun cuardach a dhéanamh orthu nó lena eisiamh."
       }
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Thaitin sé",
-    "pinned": "Pionnáilte"
+    "pinned": "Pionnáilte",
+    "required": "Riachtanach"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} scéalta aimsithe",

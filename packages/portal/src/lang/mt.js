@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Wirja | Wirjiet"
   },
   "facets": {
-    "api": {
-      "name": "Fittex fi ħdan id-dokumenti",
-      "options": {
-        "fulltext": "Oġġetti bit-test sħiħ",
-        "metadata": "Oġġetti tal-metadata biss"
-      },
-      "switch": "Fittex biss fil-kontenut ta' oġġetti b'test sħiħ",
-      "switchMoreInfo": "F'din il-ġabra, tista' tagħżel dak li trid tfittex: jekk dan is-swiċċ huwa mixgħul, allura inti se tfittex fit-test tal-gazzetta u tad-dokument; jekk tkun mitfija, allura inti minflok tfittex fl-informazzjoni li tiddeskrivi l-oġġett, bħalma dejjem tagħmel fil-biċċa l-kbira tal-kollezzjonijiet l-oħra."
+    "alert": {
+      "fulltextHasMoved": "Qed tfittex l-għażla tat-test sħiħ? Huwa mċaqlaq għat-tfittxija avvanzata."
     },
     "button": {
       "morefilters": "Aktar filtri",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Dikjarazzjoni tad-drittijiet tal-midja f'dan ir-rekord (sakemm mhux speċifikat mod ieħor)",
       "edmUgc": "Kontenut iġġenerat mill-utent",
       "europeanaCollectionName": "Isem il-kollezzjoni",
+      "fulltext": "Test sħiħ",
       "keywords": "Keywords (ipprovduti mill-komunità)",
       "timestampCreated": "Il-kronogramma ġiet maħluqa",
       "timestampUpdate": "Kronogramma aġġornata",
       "wasPresentAt": "Kien preżenti fi",
+      "what": "Xiex",
+      "when": "Meta",
+      "where": "Fejn",
+      "who": "Min",
       "year": "Sena"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[Oġġett mhux ippubblikat]"
     },
     "transcription": "Traskrizzjoni",
-    "transcriptionDisclaimer": "Dan il-kontenut huwa ġie kkontribwit mill-pubbliku, mhux mill-instituzzjoni li pprovdiet dan l-oġġett."
+    "transcriptionDisclaimer": "Dan il-kontenut huwa kontribwit mill-pubbliku, mhux mill-istituzzjoni li pprovda dan l-oġġett."
   },
   "related": {
     "categoryTags": {
@@ -1036,19 +1035,31 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Oqsma aggregati",
+        "individual": "Oqsma individwali"
+      },
       "input": {
         "field": "Qasam",
         "modifier": "Modifikatur",
-        "searchTerm": "Daħħal it-terminu(i) tat-tiftix"
+        "term": "Daħħal it-terminu(i) tat-tiftix"
       },
       "modifiers": {
         "contains": "jikkontenuta",
         "doesNotContain": "ma fihx"
       },
+      "placeholder": {
+        "field": "Agħżel qasam",
+        "modifier": "Agħżel modifikatur",
+        "term": "Daħħal it-terminu(i) tat-tiftix"
+      },
       "show": "{showOrHide} tfittxija avvanzata",
       "tooltip": {
         "advancedSearch": "It-tfittxija avvanzata tippermettilek tibni mistoqsijiet ta' tfittxija personalizzati.",
         "field": "Agħżel qasam biex tfittex.",
+        "fields": {
+          "fulltext": "It-test sħiħ jinkludi traskrizzjonijiet, kaptjonijiet magħluqa, sottotitoli u test tad-dokument."
+        },
         "modifier": "Agħżel modifikatur biex tapplika għall-qasam.",
         "term": "Daħħal it-terminu(i) biex tfittex, jew biex teskludi."
       }
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Għoġobni",
-    "pinned": "Mehmuż"
+    "pinned": "Mehmuż",
+    "required": "Meħtieġ"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} stejjer misjuba",

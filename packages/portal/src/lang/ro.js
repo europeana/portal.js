@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Expoziție | Expozitii"
   },
   "facets": {
-    "api": {
-      "name": "Căutare în cadrul documentelor",
-      "options": {
-        "fulltext": "Resurse culturale cu text integral",
-        "metadata": "Resurse culturale doar pentru metadate"
-      },
-      "switch": "Căutați numai în conținutul resurse culturale cu text integral",
-      "switchMoreInfo": "În această colecție, puteți alege ceea ce doriți să căutați: dacă acest comutator este pornit, atunci veți căuta în ziar și în textul documentului; dacă este oprit, atunci veți căuta în schimb în informațiile care descriu resursă culturală, la fel cum faceți întotdeauna în majoritatea celorlalte colecții."
+    "alert": {
+      "fulltextHasMoved": "Căutați opțiunea de text integral? A fost mutată la căutarea avansată."
     },
     "button": {
       "morefilters": "Mai multe filtre",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Mențiunea privind drepturile intelectuale privind drepturile intelectuale media pentru această resursă culturală (cu excepția cazului în care se specifică altfel)",
       "edmUgc": "Conținut generat de utilizator",
       "europeanaCollectionName": "Numele colecției",
+      "fulltext": "Text integral",
       "keywords": "Cuvinte cheie (furnizate de comunitate)",
       "timestampCreated": "Marcaj temporal creat",
       "timestampUpdate": "Marcaj temporal actualizat",
       "wasPresentAt": "A fost prezent la",
+      "what": "Ce",
+      "when": "Când",
+      "where": "Unde",
+      "who": "Cine",
       "year": "An"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[Resursă culturală nepublicat]"
     },
     "transcription": "Transcriere",
-    "transcriptionDisclaimer": "La acest conținut a contribuit publicul, nu instituția care a furnizat acest resursă culturală."
+    "transcriptionDisclaimer": "Acest conținut este contribuit de public, nu de instituția care a furnizat acest resursă culturală."
   },
   "related": {
     "categoryTags": {
@@ -1036,19 +1035,31 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Câmpuri agregate",
+        "individual": "Câmpuri individuale"
+      },
       "input": {
         "field": "Câmp",
         "modifier": "Modificator",
-        "searchTerm": "Introduceți termenii de căutare"
+        "term": "Introduceți termenii de căutare"
       },
       "modifiers": {
         "contains": "conține",
         "doesNotContain": "nu conține"
       },
+      "placeholder": {
+        "field": "Selectați un câmp",
+        "modifier": "Selectați un modificator",
+        "term": "Introduceți termenii de căutare"
+      },
       "show": "{showOrHide} căutare avansată",
       "tooltip": {
         "advancedSearch": "Căutarea avansată vă permite să creați interogări de căutare personalizate.",
         "field": "Selectați un câmp în care să căutați.",
+        "fields": {
+          "fulltext": "Textul integral include transcripții, subtitrări închise, subtitrări și textul documentului."
+        },
         "modifier": "Selectați un modificator de aplicat câmpului.",
         "term": "Introduceți termenul (termenii) de căutat sau de exclus."
       }
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "A apreciat",
-    "pinned": "Fixat"
+    "pinned": "Fixat",
+    "required": "Necesar"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} narațiuni găsite",

@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Izstāde | Izstādes"
   },
   "facets": {
-    "api": {
-      "name": "Meklēt dokumentos",
-      "options": {
-        "fulltext": "Digitālie objekti ar pilnu tekstu",
-        "metadata": "Tikai metadatu digitālie objekti"
-      },
-      "switch": "Meklēt tikai to digitālos objektus saturā, kuriem ir pilnteksta",
-      "switchMoreInfo": "Šajā kolekcijā varat izvēlēties, ko vēlaties meklēt: ja šis slēdzis ir ieslēgts, tad meklēsiet laikraksta un dokumenta tekstā; ja tas ir izslēgts, tad meklēsiet informāciju, kas raksturo attiecīgo digitālais objekts, tāpat kā to vienmēr darāt vairumā citu kolekciju."
+    "alert": {
+      "fulltextHasMoved": "Meklējat pilna teksta opciju? Tā ir pārvietota uz paplašināto meklēšanu."
     },
     "button": {
       "morefilters": "Vairāk filtru",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Tiesību statuss šim digitālajam objektam (ja nav norādīts citādi)?",
       "edmUgc": "Lietotāja radīts saturs",
       "europeanaCollectionName": "Kolekcijas nosaukums",
+      "fulltext": "Pilns teksts",
       "keywords": "Atslēgas vārdi (nodrošina kopiena)",
       "timestampCreated": "Laikspiedogs izveidots",
       "timestampUpdate": "Laikspiedogs atjaunināts",
       "wasPresentAt": "Bija",
+      "what": "Kas",
+      "when": "Kad",
+      "where": "Kur",
+      "who": "Kas",
       "year": "Gads"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[Nepublicēts digitālais objekts]"
     },
     "transcription": "Kopija",
-    "transcriptionDisclaimer": "Šī satura veidošanā līdzdarbojušies iedzīvotāji, nevis šo digitālais objekts nodrošinošā iestāde."
+    "transcriptionDisclaimer": "Šo saturu ir sniedzis sabiedrība, nevis iestāde, kas nodrošināja šo digitālo objektu."
   },
   "related": {
     "categoryTags": {
@@ -1036,19 +1035,31 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Apkopotie lauki",
+        "individual": "Atsevišķi lauki"
+      },
       "input": {
         "field": "Lauks",
         "modifier": "Modifikators",
-        "searchTerm": "Levadiet meklēšanas vienumu(s)"
+        "term": "Levadiet meklēšanas vienumu(s)"
       },
       "modifiers": {
         "contains": "satur",
         "doesNotContain": "nesatur"
       },
+      "placeholder": {
+        "field": "Izvēlieties lauku",
+        "modifier": "Izvēlieties modifikatoru",
+        "term": "Levadiet meklēšanas vienumu(s)"
+      },
       "show": "{showOrHide} izvērstā meklēšana",
       "tooltip": {
         "advancedSearch": "Izvērstā meklēšana ļauj izveidot pielāgotus meklēšanas vaicājumus.",
         "field": "Izvēlieties meklēšanai lauku",
+        "fields": {
+          "fulltext": "Pilnteksts ietver transkripcijas, slēgtos subtitrus, subtitrus un dokumenta tekstu."
+        },
         "modifier": "Atlasiet modifikatoru, ko lietot laukam.",
         "term": "Ievadiet terminu(-us), kas jāmeklē vai jāizslēdz."
       }
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Patika",
-    "pinned": "Piesprausts"
+    "pinned": "Piesprausts",
+    "required": "Nepieciešams"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} atrasti stāsti",
