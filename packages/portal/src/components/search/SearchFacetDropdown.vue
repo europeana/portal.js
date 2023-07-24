@@ -54,6 +54,7 @@
             ref="dropdown"
             block
             no-flip
+            class="search-filter-dropdown"
             :data-qa="`${name} side facet dropdown button`"
             @show="prefetch"
             @shown="shownDropdown"

@@ -6,107 +6,64 @@
       data-qa="search query builder rule"
       class="query-rule"
     >
-      <b-form-group
-        class="query-rule-form-group mr-lg-2"
-        :label-for="`select-field-${id}`"
+      <template
+        v-for="control in ruleControls"
       >
-        <template #label>
-          <span
-            :id="`select-field-label-${id}`"
-            class="d-inline-flex align-items-center"
+        <b-form-group
+          :key="`${id}-${control}`"
+          class="query-rule-form-group mr-lg-2"
+          :label-for="`${id}-${control}`"
+        >
+          <template #label>
+            <span
+              :id="`${id}-${control}-label`"
+              class="d-inline-flex align-items-center"
+            >
+              {{ $t(`search.advanced.input.${control}`) }}
+              <template v-if="tooltips">
+                <b-button
+                  :id="`${id}-${control}-tooltip-btn`"
+                  class="icon-info-outline py-0 px-1 tooltip-button"
+                  :aria-label="$t(`search.advanced.tooltip.${control}`)"
+                  variant="light-flat"
+                />
+                <b-tooltip
+                  :target="`${id}-${control}-tooltip-btn`"
+                  :title="$t(`search.advanced.tooltip.${control}`)"
+                  boundary-padding="0"
+                  placement="bottom"
+                />
+              </template>
+            </span>
+          </template>
+          <div
+            :id="`${id}-${control}`"
           >
-            {{ $t('search.advanced.input.field') }}
-            <template v-if="tooltips">
-              <b-button
-                :id="`select-field-tooltip-btn-${id}`"
-                class="icon-info-outline py-0 px-1 tooltip-button"
-                :aria-label="$t('search.advanced.tooltip.field')"
-                variant="light-flat"
-              />
-              <b-tooltip
-                :target="`select-field-tooltip-btn-${id}`"
-                :title="$t('search.advanced.tooltip.field')"
-                boundary-padding="0"
-                placement="bottom"
-              />
-            </template>
-          </span>
-        </template>
-        <b-form-select
-          :id="`select-field-${id}`"
-          v-model="field"
-          :options="selectFieldOptions"
-          :required="areAllRequired"
-          @change="(value) => handleFieldChange(value)"
-        />
-      </b-form-group>
-      <b-form-group
-        class="query-rule-form-group mr-lg-2"
-        :label-for="`select-modifier-${id}`"
-      >
-        <template #label>
-          <span
-            :id="`select-modifier-label-${id}`"
-            class="d-inline-flex align-items-center"
+            <b-form-input
+              v-if="control === 'term'"
+              v-model="term"
+              :data-qa="`advanced search query builder: ${control} control`"
+              :placeholder="$t('search.advanced.placeholder.term')"
+              :state="validations.term.state"
+              @change="(value) => handleRuleChange('term', value)"
+            />
+            <SearchQueryBuilderRuleDropdown
+              v-else
+              :name="control"
+              :options="dropdownSections[control]"
+              :state="validations[control].state"
+              :text="dropdownText[control]"
+              @change="(value) => handleRuleChange(control, value)"
+            />
+          </div>
+          <b-form-invalid-feedback
+            v-show="validate"
+            :state="validations[control].state"
           >
-            {{ $t('search.advanced.input.modifier') }}
-            <template v-if="tooltips">
-              <b-button
-                :id="`select-modifier-tooltip-btn-${id}`"
-                class="icon-info-outline py-0 px-1 tooltip-button"
-                variant="light-flat"
-                :aria-label="$t('search.advanced.tooltip.modifier')"
-              />
-              <b-tooltip
-                :target="`select-modifier-tooltip-btn-${id}`"
-                :title="$t('search.advanced.tooltip.modifier')"
-                boundary-padding="0"
-                placement="bottom"
-              />
-            </template>
-          </span>
-        </template>
-        <b-form-select
-          :id="`select-modifier-${id}`"
-          v-model="modifier"
-          :options="selectModifierOptions"
-          :required="areAllRequired"
-          @change="(value) => handleModifierChange(value)"
-        />
-      </b-form-group>
-      <b-form-group
-        class="query-rule-form-group"
-        :label-for="`search-term-${id}`"
-      >
-        <template #label>
-          <span
-            :id="`search-term-label-${id}`"
-            class="d-inline-flex align-items-center"
-          >
-            {{ $t('search.advanced.input.searchTerm') }}
-            <template v-if="tooltips">
-              <b-button
-                :id="`search-term-tooltip-btn-${id}`"
-                class="icon-info-outline py-0 px-1 tooltip-button"
-                variant="light-flat"
-                :aria-label="$t('search.advanced.tooltip.term')"
-              />
-              <b-tooltip
-                :target="`search-term-tooltip-btn-${id}`"
-                :title="$t('search.advanced.tooltip.term')"
-                boundary-padding="0"
-                placement="bottom"
-              />
-            </template>
-          </span>
-        </template>
-        <b-form-input
-          :id="`search-term-${id}`"
-          v-model="term"
-          :required="areAllRequired"
-          @change="(value) => handleTermChange(value)"
-        />
-      </b-form-group>
+            {{ validations[control].text }}
+          </b-form-invalid-feedback>
+        </b-form-group>
+      </template>
     </b-input-group>
     <b-button
       data-qa="search query builder rule clear button"
@@ -121,14 +78,14 @@
 </template>
 
 <script>
-  import { BFormSelect } from 'bootstrap-vue';
+  import SearchQueryBuilderRuleDropdown from './SearchQueryBuilderRuleDropdown.vue';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRule',
 
     components: {
-      BFormSelect
+      SearchQueryBuilderRuleDropdown
     },
 
     mixins: [
@@ -138,11 +95,15 @@
     props: {
       id: {
         type: String,
-        default: null
+        default: 'search-query-builder-rule'
       },
       tooltips: {
         type: Boolean,
         default: true
+      },
+      validate: {
+        type: Boolean,
+        default: false
       },
       value: {
         type: Object,
@@ -152,56 +113,111 @@
 
     data() {
       return {
-        field: this.value.field,
-        modifier: this.value.modifier,
-        term: this.value.term
+        aggregatedFieldNames: ['who', 'where', 'when', 'what'],
+        field: null,
+        fulltextFieldName: 'fulltext',
+        modifier: null,
+        ruleControls: ['field', 'modifier', 'term'],
+        term: null,
+        validations: {
+          field: { state: null },
+          modifier: { state: null },
+          term: { state: null }
+        }
       };
     },
 
     computed: {
-      // If any field has a value, all are required. If none have a value, the
-      // rule will be ignored and none are required.
-      areAllRequired() {
-        return [this.value.term, this.value.field, this.value.modifier].some((value) => !!value);
+      aggregatedFieldOptions() {
+        return this.fieldOptions
+          .filter((field) => this.aggregatedFieldNames.includes(field.value));
       },
-      selectFieldOptions() {
+      dropdownSections() {
+        return {
+          field: [
+            { options: this.fulltextFieldOption },
+            { header: this.$t('search.advanced.header.aggregated'), options: this.aggregatedFieldOptions },
+            { header: this.$t('search.advanced.header.individual'), options: this.individualFieldOptions }
+          ],
+          modifier: [
+            {
+              options: this.advancedSearchModifiers.map((mod) => ({
+                value: mod.name,
+                text: this.$t(`search.advanced.modifiers.${mod.name}`)
+              }))
+            }
+          ]
+        };
+      },
+      dropdownText() {
+        return {
+          field: this.field ? this.advancedSearchFieldLabel(this.field) : this.$t('search.advanced.placeholder.field'),
+          modifier: this.modifier ? this.$t(`search.advanced.modifiers.${this.modifier}`) : this.$t('search.advanced.placeholder.modifier')
+        };
+      },
+      fieldOptions() {
         return this.advancedSearchFields.map((field) => ({
           value: field.name,
           text: this.advancedSearchFieldLabel(field.name)
         }))
           .sort((a, b) => a.text.localeCompare(b.text));
       },
-      selectModifierOptions() {
-        return this.advancedSearchModifiers.map((mod) => ({
-          value: mod.name,
-          text: this.$t(`search.advanced.modifiers.${mod.name}`)
-        }));
+      fulltextFieldOption() {
+        return this.fieldOptions.find((field) => field.value === this.fulltextFieldName);
+      },
+      individualFieldOptions() {
+        return this.fieldOptions
+          .filter((field) => !this.aggregatedFieldNames.includes(field.value) && (field.value !== this.fulltextFieldName));
       }
     },
 
     watch: {
       value: {
         deep: true,
-        handler(value) {
-          this.field = value.field;
-          this.modifier = value.modifier;
-          this.term = value.term;
+        handler() {
+          this.initData();
         }
+      },
+      validate: {
+        deep: true,
+        handler: 'validateRules'
       }
+    },
+
+    created() {
+      this.initData();
     },
 
     methods: {
       clearRule() {
         this.$emit('clear');
       },
-      handleTermChange(value) {
-        this.$emit('change', 'term', value);
+      forEveryRuleControl(callback) {
+        for (const control of this.ruleControls) {
+          callback(control);
+        }
       },
-      handleFieldChange(value) {
-        this.$emit('change', 'field', value);
+      handleRuleChange(key, value) {
+        this[key] = value;
+        this.$emit('change', key, value);
       },
-      handleModifierChange(value) {
-        this.$emit('change', 'modifier', value);
+      initData() {
+        this.forEveryRuleControl((control) => {
+          this[control] = this.value[control] || null;
+        });
+      },
+      validateRules() {
+        // If any rule control has a value, all are required. If none have a value, the
+        // rule will be ignored and none are required.
+        const noRuleControlHasValue = ![this.term, this.field, this.modifier].some((value) => !!value);
+        this.forEveryRuleControl((control) => {
+          if (noRuleControlHasValue || this[control]) {
+            this.validations[control] = { state: true };
+          } else {
+            this.validations[control] = { state: false, text: this.$t('statuses.required') };
+          }
+        });
+        this.$emit(Object.values(this.validations).some((validation) => !validation.state) ? 'invalid' : 'valid');
       }
     }
   };
@@ -254,6 +270,16 @@
 
     &:focus {
       border-color: $blue;
+    }
+
+    &.is-invalid,
+    &.is-valid {
+      background-image: none;
+      padding-right: 0.75rem !important;
+    }
+
+    &.is-invalid {
+      border-color: $red;
     }
   }
 </style>

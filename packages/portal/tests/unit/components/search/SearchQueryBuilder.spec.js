@@ -75,7 +75,7 @@ describe('components/search/SearchQueryBuilder', () => {
     it('adds a new search query builder rule', () => {
       const wrapper = factory();
 
-      const addButton = wrapper.find('[data-qa="add rule button"]');
+      const addButton = wrapper.find('[data-qa="advanced search query builder: add rule button"]');
       addButton.trigger('click');
 
       expect(wrapper.vm.queryRules.length).toBe(2);
@@ -83,66 +83,135 @@ describe('components/search/SearchQueryBuilder', () => {
   });
 
   describe('form submission', () => {
-    const queryRules = [
-      {
-        field: 'proxy_dc_description',
-        modifier: 'contains',
-        term: 'flute'
-      },
-      {
-        field: 'proxy_dc_title',
-        modifier: 'doesNotContain',
-        term: 'pigeon'
-      }
-    ];
-
-    it('updates the router', async() => {
+    it('validates the rules', async() => {
       const wrapper = factory();
-      await wrapper.setData({ queryRules });
 
       const form = wrapper.find('[data-qa="search query builder form"]');
       form.trigger('submit.prevent');
 
-      expect(wrapper.vm.$router.push.calledWith({
-        query: {
-          page: 1,
-          qa: ['proxy_dc_description:flute', '-proxy_dc_title:pigeon']
-        }
-      })).toBe(true);
+      expect(wrapper.vm.validatingRules).toBe(true);
+      await wrapper.vm.$nextTick();
+      expect(wrapper.vm.validatingRules).toBe(false);
     });
 
-    it('tracks the rules as events in Matomo', async() => {
-      const wrapper = factory();
-      await wrapper.setData({ queryRules });
+    describe('when all rules are valid', () => {
+      const queryRules = [
+        {
+          field: 'proxy_dc_description',
+          modifier: 'contains',
+          term: 'flute'
+        },
+        {
+          field: 'proxy_dc_title',
+          modifier: 'doesNotContain',
+          term: 'pigeon'
+        }
+      ];
+      const validations = [true, true];
 
-      const form = wrapper.find('[data-qa="search query builder form"]');
-      form.trigger('submit.prevent');
+      it('updates the router', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ queryRules, validations });
 
-      expect(wrapper.vm.$matomo.trackEvent.getCalls().length).toBe(2);
-      expect(wrapper.vm.$matomo.trackEvent.calledWith(
-        'Adv search',
-        'Apply adv search',
-        'Adv search: fieldLabels.default.dcDescription search.advanced.modifiers.contains'
-      )).toBe(true);
-      expect(wrapper.vm.$matomo.trackEvent.calledWith(
-        'Adv search',
-        'Apply adv search',
-        'Adv search: fieldLabels.default.dcTitle search.advanced.modifiers.doesNotContain'
-      )).toBe(true);
+        const form = wrapper.find('[data-qa="search query builder form"]');
+        form.trigger('submit.prevent');
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.$router.push.calledWith({
+          query: {
+            page: 1,
+            qa: ['proxy_dc_description:flute', '-proxy_dc_title:pigeon']
+          }
+        })).toBe(true);
+      });
+
+      it('tracks the rules as events in Matomo', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ queryRules, validations });
+
+        const form = wrapper.find('[data-qa="search query builder form"]');
+        form.trigger('submit.prevent');
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.$matomo.trackEvent.getCalls().length).toBe(2);
+        expect(wrapper.vm.$matomo.trackEvent.calledWith(
+          'Adv search',
+          'Apply adv search',
+          'Adv search: fieldLabels.default.dcDescription search.advanced.modifiers.contains'
+        )).toBe(true);
+        expect(wrapper.vm.$matomo.trackEvent.calledWith(
+          'Adv search',
+          'Apply adv search',
+          'Adv search: fieldLabels.default.dcTitle search.advanced.modifiers.doesNotContain'
+        )).toBe(true);
+      });
+
+      describe('when some rules are not valid', () => {
+        const queryRules = [
+          {
+            field: 'proxy_dc_description',
+            term: 'flute'
+          },
+          {
+            field: 'proxy_dc_title',
+            modifier: 'doesNotContain',
+            term: 'pigeon'
+          }
+        ];
+        const validations = [false, true];
+
+        it('does not update the router', async() => {
+          const wrapper = factory();
+          await wrapper.setData({ queryRules, validations });
+
+          const form = wrapper.find('[data-qa="search query builder form"]');
+          form.trigger('submit.prevent');
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.$router.push.called).toBe(false);
+        });
+
+        it('does not track the rules as events in Matomo', async() => {
+          const wrapper = factory();
+          await wrapper.setData({ queryRules, validations });
+
+          const form = wrapper.find('[data-qa="search query builder form"]');
+          form.trigger('submit.prevent');
+          await wrapper.vm.$nextTick();
+
+          expect(wrapper.vm.$matomo.trackEvent.called).toBe(false);
+        });
+      });
     });
   });
 
-  describe('methods', () => {
-    describe('clearRule', () => {
+  describe('rule event handling', () => {
+    describe('@change', () => {
+      it('updates the relevant field of the rule', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ queryRules: [
+          { field: 'proxy_dc_title', modifier: 'contains', term: 'europe' }
+        ] });
+
+        const rule = wrapper.find('#search-query-builder-rule-0');
+        rule.vm.$emit('change', 'modifier', 'doesNotContain');
+
+        expect(wrapper.vm.queryRules[0]).toEqual(
+          { field: 'proxy_dc_title', modifier: 'doesNotContain', term: 'europe' }
+        );
+      });
+    });
+
+    describe('@clear', () => {
       it('removes the relevant rule', async() => {
         const wrapper = factory();
-
         await wrapper.setData({ queryRules: [
           { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' },
           { field: 'proxy_dc_type', modifier: 'doesNotContain', term: 'photograph' }
         ] });
 
-        wrapper.vm.clearRule(0);
+        const rule = wrapper.find('#search-query-builder-rule-0');
+        rule.vm.$emit('clear');
 
         expect(wrapper.vm.queryRules.length).toBe(1);
         expect(wrapper.vm.queryRules[0]).toEqual(
@@ -152,15 +221,43 @@ describe('components/search/SearchQueryBuilder', () => {
 
       it('adds a blank rule if all are gone', async() => {
         const wrapper = factory();
-
         await wrapper.setData({ queryRules: [
           { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' }
         ] });
 
-        wrapper.vm.clearRule(0);
+        const rule = wrapper.find('#search-query-builder-rule-0');
+        rule.vm.$emit('clear');
 
         expect(wrapper.vm.queryRules.length).toBe(1);
         expect(wrapper.vm.queryRules[0]).toEqual({});
+      });
+    });
+
+    describe('@invalid', () => {
+      it('marks the relevant rule as invalid', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ queryRules: [
+          { field: 'proxy_dc_title' }
+        ] });
+
+        const rule = wrapper.find('#search-query-builder-rule-0');
+        rule.vm.$emit('invalid');
+
+        expect(wrapper.vm.validations).toEqual([false]);
+      });
+    });
+
+    describe('@valid', () => {
+      it('marks the relevant rule as invalid', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ queryRules: [
+          { field: 'proxy_dc_title', modifier: 'contains', term: 'dog' }
+        ] });
+
+        const rule = wrapper.find('#search-query-builder-rule-0');
+        rule.vm.$emit('valid');
+
+        expect(wrapper.vm.validations).toEqual([true]);
       });
     });
   });
