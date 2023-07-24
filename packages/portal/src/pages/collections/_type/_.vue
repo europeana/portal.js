@@ -12,7 +12,6 @@
     <template v-else>
       <SearchInterface
         v-if="!$fetchState.pending"
-        :per-page="recordsPerPage"
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
@@ -167,18 +166,12 @@
       entity() {
         return this.$store.state.entity.entity;
       },
-      recordsPerPage() {
-        return this.$store.state.entity.recordsPerPage;
-      },
       searchOverrides() {
-        const overrideParams = {
-          qf: [],
-          rows: this.recordsPerPage
-        };
+        const overrideParams = {};
 
         if (this.entity) {
           const entityQuery = getEntityQuery(this.entity.id);
-          overrideParams.qf.push(entityQuery);
+          overrideParams.qf = [entityQuery];
           if (!this.$route.query.query) {
             overrideParams.query = entityQuery; // Triggering best bets.
           }
