@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: portal-js
+spec:
+  ports:
+    - name: 8080tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  type: ClusterIP
