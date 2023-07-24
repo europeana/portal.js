@@ -162,6 +162,7 @@
               :aria-expanded="showAdvancedSearch"
               class="search-toggle query-builder-toggle ml-3 my-3 flex-grow-1"
               :class="{ 'open': showAdvancedSearch }"
+              data-qa="toggle advanced search button"
               variant="link"
               @click="toggleAdvancedSearch"
             >
@@ -198,15 +199,15 @@
 </template>
 
 <script>
+  import merge from 'deepmerge';
+
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
+  import SearchFilters from './SearchFilters';
   import SearchViewToggles from './SearchViewToggles';
 
   import makeToastMixin from '@/mixins/makeToast';
-  import themes from '@/plugins/europeana/themes';
   import { filtersFromQf } from '@/plugins/europeana/search';
-
-  import merge from 'deepmerge';
 
   export default {
     name: 'SearchInterface',
@@ -220,7 +221,7 @@
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
-      SearchFilters: () => import('./SearchFilters'),
+      SearchFilters,
       SearchViewToggles
     },
 
@@ -249,13 +250,9 @@
 
     data() {
       return {
-        apiOptions: {},
-        apiParams: {},
-        collection: null,
         hits: null,
         lastAvailablePage: null,
         results: [],
-        theme: null,
         totalResults: null,
         paginationChanged: false,
         showAdvancedSearch: false
@@ -294,13 +291,63 @@
 
     computed: {
       advancedSearchQueryCount() {
-        return this.userParams?.qa ? [].concat(this.userParams?.qa).length : 0;
+        return this.qa.length;
       },
       userParams() {
         return this.$route.query;
       },
+      apiOptions() {
+        const apiOptions = {};
+
+        if (this.hasFulltextQa) {
+          // TODO: ensure this is aware of per-request fulltext url, e.g. from ingress headers
+          apiOptions.url = this.$config.europeana.apis.fulltext.url;
+        }
+
+        return apiOptions;
+      },
+      // TODO: reduce cognitive complexity
+      apiParams() {
+        const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
+          if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
+            memo[field] = this[field];
+          }
+          return memo;
+        }, {});
+
+        params.page = this.page;
+        params.profile = 'minimal';
+        params.rows = this.perPage;
+
+        if (this.advancedSearchQueryCount > 0) {
+          if (this.hasFulltextQa) {
+            // If there are any advanced search full-text rules, then
+            // these are promoted to the primary query, and any other query
+            // (from the simple search bar) is demoted to a qf, fielded to
+            // `text` if not already fielded.
+            if (params.query && !params.query.includes(':')) {
+              params.query = `text:(${params.query})`;
+            }
+            params.qf = (params.qf || []).concat(params.query || []);
+            params.query = this.fulltextQas.join(' AND ');
+            params.profile = `${params.profile},hits`;
+          }
+
+          // All other advanced search rules go into qf's.
+          params.qf = (params.qf || [])
+            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)));
+        }
+
+        return merge(params, this.overrideParams);
+      },
+      boost() {
+        return this.userParams.boost;
+      },
+      qa() {
+        return [].concat(this.userParams.qa || []);
+      },
       qf() {
-        return this.userParams.qf;
+        return [].concat(this.userParams.qf || []);
       },
       query() {
         return this.userParams.query;
@@ -308,8 +355,8 @@
       reusability() {
         return this.userParams.reusability;
       },
-      api() {
-        return this.userParams.api;
+      sort() {
+        return this.userParams.sort;
       },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
@@ -347,12 +394,21 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
+      },
+      collection() {
+        return filtersFromQf(this.apiParams.qf).collection?.[0];
+      },
+      fulltextQas() {
+        return this.qa
+          .filter((rule) => rule.startsWith('fulltext:') || rule.startsWith('NOT fulltext:'));
+      },
+      hasFulltextQa() {
+        return this.fulltextQas.length > 0;
       }
     },
 
     watch: {
       routeQueryView: 'setViewFromRouteQuery',
-      '$route.query.api': '$fetch',
       '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.qa': '$fetch',
@@ -366,49 +422,7 @@
     },
 
     methods: {
-      // TODO: could this be refactored into two computed properties, for
-      //       apiOptions, and apiParams?
-      deriveApiSettings() {
-        const userParams = { ...this.userParams };
-        // Coerce qf from user input into an array as it may be a single string
-        userParams.qf = [].concat(userParams.qf || []);
-
-        const apiParams = merge(userParams, this.overrideParams);
-
-        // `qa` params are queries from the advanced search builder
-        if (apiParams.qa) {
-          apiParams.query = [].concat(apiParams.query || []).concat(apiParams.qa).join(' AND ');
-          delete apiParams.qa;
-        }
-
-        if (!apiParams.profile) {
-          apiParams.profile = 'minimal';
-        }
-
-        const collectionFilter = filtersFromQf(apiParams.qf).collection;
-        this.collection = collectionFilter ? collectionFilter[0] : null;
-        this.theme = themes.find((theme) => theme.qf === this.collection);
-
-        const apiOptions = {};
-
-        if (this.theme?.filters?.api) {
-          // Set default API (of fulltext or metadata), from theme config
-          if (!apiParams.api) {
-            apiParams.api = this.theme.filters.api.default;
-          }
-          if (apiParams.api === 'fulltext') {
-            apiParams.profile = 'minimal,hits';
-            apiOptions.url = this.$config.europeana.apis.fulltext.url;
-          }
-        }
-
-        this.apiOptions = apiOptions;
-        this.apiParams = apiParams;
-      },
-
       async runSearch() {
-        this.deriveApiSettings();
-
         const response = await this.$apis.record.search(this.apiParams, { ...this.apiOptions, locale: this.$i18n.locale });
 
         this.hits = response.hits;

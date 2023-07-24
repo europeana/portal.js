@@ -21,14 +21,13 @@ const themes = [
   {
     id: 'newspapers',
     qf: 'newspaper',
-    filters: { api: { default: 'fulltext' }, date: { field: 'proxy_dcterms_issued' } }
+    filters: { date: { field: 'proxy_dcterms_issued' } }
   },
   { id: 'photography', qf: 'photography' },
   { id: 'sport', qf: 'sport' },
   {
     id: 'world-war-i',
-    qf: 'ww1',
-    filters: { api: { default: 'metadata' } }
+    qf: 'ww1'
   }
 ];
 
