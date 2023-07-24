@@ -1,0 +1,4 @@
+name: Deploy
+
+on:
+  workflow_dispatch:

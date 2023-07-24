@@ -272,7 +272,18 @@ export default {
     '~/modules/axios-logger',
     '~/modules/query-sanitiser',
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    '@nuxtjs/auth'
+  ],
+
+  /*
+  ** Nuxt.js modules
+  */
+  modules: [
+    '~/modules/elastic-apm',
+    'bootstrap-vue/nuxt',
+    'cookie-universal-nuxt',
+    // WARN: do not move this to buildModules, else custom transaction naming
+    //       by elastic-apm module won't be applied.
     ['@nuxtjs/i18n', {
       locales: i18nLocales,
       baseUrl: ({ $config }) => $config.app.baseUrl,
