@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Exposição | Exposições"
   },
   "facets": {
-    "api": {
-      "name": "Pesquisar nos documentos",
-      "options": {
-        "fulltext": "Itens com texto completo",
-        "metadata": "Apenas itens de metadados"
-      },
-      "switch": "Pesquise apenas no conteúdo de itens com texto completo",
-      "switchMoreInfo": "Nesta coleção, você pode escolher o que deseja pesquisar: se esta opção estiver ativada, você pesquisará no jornal e no texto do documento; se estiver desativado, você pesquisará nas informações que descrevem o item, assim como sempre faz na maioria das outras coleções."
+    "alert": {
+      "fulltextHasMoved": "Procurando pela opção de texto completo? Ela foi movida para a pesquisa avançada."
     },
     "button": {
       "morefilters": "Mais filtros",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Declaração de direitos para os média neste item (a menos que especificado de outra forma)",
       "edmUgc": "Conteúdo gerado por utilizadores",
       "europeanaCollectionName": "Nome da coleção",
+      "fulltext": "Texto completo",
       "keywords": "Palavras-chave (fornecidas pela comunidade)",
       "timestampCreated": "Registo de data e hora criado",
       "timestampUpdate": "Registo de data e hora atualizado",
       "wasPresentAt": "Estava presente em",
+      "what": "O que",
+      "when": "Quando",
+      "where": "Onde",
+      "who": "Quem",
       "year": "Ano"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[Item não publicado]"
     },
     "transcription": "Transcrição",
-    "transcriptionDisclaimer": "Este conteúdo é fornecido pelo público, não pela instituição que forneceu este item."
+    "transcriptionDisclaimer": "Este conteúdo é contribuído pelo público, não pela instituição que forneceu este item."
   },
   "related": {
     "categoryTags": {
@@ -1036,19 +1035,31 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Campos agregados",
+        "individual": "Campos individuais"
+      },
       "input": {
         "field": "Campo",
         "modifier": "Modificador",
-        "searchTerm": "Insira termos de pesquisa"
+        "term": "Insira termos de pesquisa"
       },
       "modifiers": {
         "contains": "contém",
         "doesNotContain": "não contém"
       },
+      "placeholder": {
+        "field": "Selecione um campo",
+        "modifier": "Selecione um modificador",
+        "term": "Insira termos de pesquisa"
+      },
       "show": "{showOrHide} pesquisa avançada",
       "tooltip": {
         "advancedSearch": "A pesquisa avançada permite criar consultas de pesquisa personalizadas.",
         "field": "Selecione um campo para pesquisar.",
+        "fields": {
+          "fulltext": "O texto completo inclui transcrições, legendas ocultas, legendas e texto do documento."
+        },
         "modifier": "Selecione um modificador para aplicar ao campo.",
         "term": "Introduza o(s) termo(s) a pesquisa ou a excluir."
       }
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Apreciado",
-    "pinned": "Fixado"
+    "pinned": "Fixado",
+    "required": "Obrigatório"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} histórias encontradas",

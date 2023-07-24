@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Näitus | Näitused"
   },
   "facets": {
-    "api": {
-      "name": "Otsing dokumentides",
-      "options": {
-        "fulltext": "Täistekstiga üksused",
-        "metadata": "Ainult metaandmete kirjed"
-      },
-      "switch": "Otsige ainult täistekstiga üksuste sisust",
-      "switchMoreInfo": "Selles kollektsioonis saate valida, mida soovite otsida: kui see lüliti on sisse lülitatud, siis otsite ajalehtede ja dokumentide tekstist; kui see on välja lülitatud, siis otsite selle asemel objekti kirjeldavast teabest, nagu teete seda alati enamikus teistes kollektsioonides."
+    "alert": {
+      "fulltextHasMoved": "Otsid täisteksti valikut? See on nüüd edasijõudnute otsingus."
     },
     "button": {
       "morefilters": "Rohkem filtreid",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Selle kirje meediumite litsents (kui pole teisiti täpsustatud)",
       "edmUgc": "Kasutaja loodud sisu",
       "europeanaCollectionName": "Kollektsiooni nimi",
+      "fulltext": "Täistekst",
       "keywords": "Märksõnad (kogukonna poolt antud)",
       "timestampCreated": "Ajatempel loodud",
       "timestampUpdate": "Ajatempel värskendatud",
       "wasPresentAt": "Oli kohal",
+      "what": "Mis",
+      "when": "Kui",
+      "where": "Kus",
+      "who": "Kes",
       "year": "Aasta"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[Avaldamata üksus]"
     },
     "transcription": "Transkriptsioon",
-    "transcriptionDisclaimer": "See sisu on saadud eraisikult, mitte eset pakkunud institutsioonilt."
+    "transcriptionDisclaimer": "Selle sisu on esitanud avalikkus, mitte asutus, kes selle eseme üksust."
   },
   "related": {
     "categoryTags": {
@@ -1036,19 +1035,31 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Agregeeritud väljad",
+        "individual": "Üksikud väljad"
+      },
       "input": {
         "field": "Väli",
         "modifier": "Modifikaator",
-        "searchTerm": "Sisesta otsingutermin(id)"
+        "term": "Sisesta otsingutermin(id)"
       },
       "modifiers": {
         "contains": "sisaldab",
         "doesNotContain": "ei sisalda"
       },
+      "placeholder": {
+        "field": "Valige väli",
+        "modifier": "Valige modifikaator",
+        "term": "Sisesta otsingutermin(id)"
+      },
       "show": "{showOrHide} täpsem otsing",
       "tooltip": {
         "advancedSearch": "Täpsem otsing võimaldab teil luua kohandatud otsingu päringuid.",
         "field": "Valige otsimiseks väli.",
+        "fields": {
+          "fulltext": "Täistekst sisaldab transkriptsioone, suletud pealdisi, subtiitreid ja dokumendi teksti."
+        },
         "modifier": "Valige väljale rakendatav modifikaator.",
         "term": "Sisestage otsimiseks või välistamiseks termin(id)."
       }
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Meeldis",
-    "pinned": "Kinnitatud"
+    "pinned": "Kinnitatud",
+    "required": "Nõutud"
   },
   "storiesPage": {
     "storiesHaveLoaded": "Leiti {0} lugu",

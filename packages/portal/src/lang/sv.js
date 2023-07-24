@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Utställning | Utställningar"
   },
   "facets": {
-    "api": {
-      "name": "Sök i dokument",
-      "options": {
-        "fulltext": "Objekt med fulltext",
-        "metadata": "Metadata-endast objekt"
-      },
-      "switch": "Sök endast i innehållet i objekt med fulltext",
-      "switchMoreInfo": "I den här samlingen kan du välja vad du vill söka efter: om den här knappen är på, så kommer du att söka i tidningen och dokumenttexten; om den är avstängd kommer du istället att söka i informationen som beskriver föremålet, precis som du alltid gör i de flesta andra samlingar."
+    "alert": {
+      "fulltextHasMoved": "Letar du efter alternativet för fulltext? Det har flyttats till avancerad sökning."
     },
     "button": {
       "morefilters": "Fler filter",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Rättighetsmärkning för media i detta objekt (om inte annat anges)",
       "edmUgc": "Användargenererat innehåll",
       "europeanaCollectionName": "Samlingens namn",
+      "fulltext": "Fulltext",
       "keywords": "Nyckelord (tillhandahålls av communityn)",
       "timestampCreated": "Tidsstämpel skapad",
       "timestampUpdate": "Tidsstämpel uppdaterad",
       "wasPresentAt": "Var närvarande vid",
+      "what": "Vad",
+      "when": "När",
+      "where": "Var",
+      "who": "Vem",
       "year": "År"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[Opublicerat objekt]"
     },
     "transcription": "Transkribering",
-    "transcriptionDisclaimer": "Innehållet har lagts till av allmänheten, inte av institutionen som tillhandahåller detta objekt."
+    "transcriptionDisclaimer": "Detta innehåll bidras av allmänheten, inte av institutionen som tillhandahöll detta objekt."
   },
   "related": {
     "categoryTags": {
@@ -1036,19 +1035,31 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Aggregerade fält",
+        "individual": "Enskilda fält"
+      },
       "input": {
         "field": "Fält",
         "modifier": "Modifierare",
-        "searchTerm": "Ange sökterm(er)"
+        "term": "Ange sökterm(er)"
       },
       "modifiers": {
         "contains": "innehåller",
         "doesNotContain": "innehåller inte"
       },
+      "placeholder": {
+        "field": "Välj ett fält",
+        "modifier": "Välj en modifierare",
+        "term": "Ange sökterm(er)"
+      },
       "show": "{showOrHide} avancerad sökning",
       "tooltip": {
         "advancedSearch": "Den avancerade sökningen låter dig skapa anpassade sökfrågor.",
         "field": "Välj ett fält att söka på.",
+        "fields": {
+          "fulltext": "Fulltext inkluderar transkriptioner, stängda bildtexter, undertexter och dokumenttext."
+        },
         "modifier": "Välj en modifier att tillämpa på fältet.",
         "term": "Ange termen/termerna för att söka efter eller utesluta."
       }
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Gillade",
-    "pinned": "Fäst"
+    "pinned": "Fäst",
+    "required": "Obligatoriskt"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} berättelser hittades",

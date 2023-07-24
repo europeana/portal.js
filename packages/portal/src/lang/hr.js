@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Izložba | izložbe"
   },
   "facets": {
-    "api": {
-      "name": "Pretraživanje unutar dokumenata",
-      "options": {
-        "fulltext": "Predmeti s punim tekstom",
-        "metadata": "Metapodaci-samo predmeti"
-      },
-      "switch": "Pretraživanje samo u sadržaju predmeti s cijelim tekstom",
-      "switchMoreInfo": "U ovoj zbirci možete odabrati što želite tražiti: ako je ovaj prekidač uključen, pretražit ćete unutar novina i teksta dokumenta; ako je isključena, umjesto toga pretražit ćete unutar informacija koje opisuju stavku, baš kao što to uvijek činite u većini drugih zbirke."
+    "alert": {
+      "fulltextHasMoved": "Tražite opciju za cjeloviti tekst? Premještena je na napredno pretraživanje."
     },
     "button": {
       "morefilters": "Više filtera",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Uvjeti korištenja medija u ovom zapisu (osim ako nije drugačije navedeno)",
       "edmUgc": "Korisnički generirani sadržaj",
       "europeanaCollectionName": "Naziv zbirke",
+      "fulltext": "Cijeli tekst",
       "keywords": "Ključne riječi (koje pruža zajednica)",
       "timestampCreated": "Vremenska oznaka stvorena",
       "timestampUpdate": "Vremenska oznaka ažurirana",
       "wasPresentAt": "Bio je prisutan u",
+      "what": "Što",
+      "when": "Kada",
+      "where": "Gdje",
+      "who": "Tko",
       "year": "Godina"
     },
     "webResource": {
@@ -1036,19 +1035,31 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Aggregirana polja",
+        "individual": "Pojedinačna polja"
+      },
       "input": {
         "field": "Polje",
         "modifier": "Modifikator",
-        "searchTerm": "Unesite pojmove za pretraživanje"
+        "term": "Unesite pojmove za pretraživanje"
       },
       "modifiers": {
         "contains": "sadrži",
         "doesNotContain": "ne sadrži"
       },
+      "placeholder": {
+        "field": "Odaberite polje",
+        "modifier": "Odaberite modifikator",
+        "term": "Unesite pojmove za pretraživanje"
+      },
       "show": "{showOrHide} napredno pretraživanje",
       "tooltip": {
         "advancedSearch": "Napredno pretraživanje omogućuje vam izradu prilagođenih upita za pretraživanje.",
         "field": "Odaberite polje za pretraživanje.",
+        "fields": {
+          "fulltext": "Puni tekst uključuje transkripcije, zatvorene titlove, podnaslove i tekst dokumenta."
+        },
         "modifier": "Odaberite modifikator koji želite primijeniti na polje.",
         "term": "Unesite izraz(e) za traženje ili isključivanje."
       }
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Volio",
-    "pinned": "Prikvačeno"
+    "pinned": "Prikvačeno",
+    "required": "Potreban"
   },
   "storiesPage": {
     "storiesHaveLoaded": "Broj pronađenih priča {0}",

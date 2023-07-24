@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Výstava | Výstavy"
   },
   "facets": {
-    "api": {
-      "name": "Vyhledávání v dokumentech",
-      "options": {
-        "fulltext": "Položky s fulltextem",
-        "metadata": "Pouze položky s metadaty"
-      },
-      "switch": "Vyhledávání pouze v obsahu položek s plným textem",
-      "switchMoreInfo": "V této kolekci si můžete vybrat, co chcete vyhledávat: pokud je tento přepínač zapnutý, budete vyhledávat v textu novin a dokumentů; pokud je vypnutý, budete místo toho vyhledávat v informacích popisujících položku, stejně jako ve většině ostatních sbírek."
+    "alert": {
+      "fulltextHasMoved": "Hledáte možnost fulltextu? Je přesunuta do rozšířeného vyhledávání."
     },
     "button": {
       "morefilters": "Další filtry",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Výrok o právech tohoto položka (není-li uvedeno jinak)",
       "edmUgc": "Uživatelský obsah",
       "europeanaCollectionName": "Název kolekce",
+      "fulltext": "Pełny tekst",
       "keywords": "Klíčová slova (poskytnutá komunitou)",
       "timestampCreated": "Časové razítko vytvořeno",
       "timestampUpdate": "Časové razítko bylo aktualizováno",
       "wasPresentAt": "se účastnil/a",
+      "what": "Co",
+      "when": "Kdy",
+      "where": "Kde",
+      "who": "Kdo",
       "year": "Rok"
     },
     "webResource": {
@@ -1036,19 +1035,31 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Agregovaná pole",
+        "individual": "Jednotlivá pole"
+      },
       "input": {
         "field": "Pole",
         "modifier": "Modifikátor",
-        "searchTerm": "Zadejte hledané výrazy"
+        "term": "Zadejte hledané výrazy"
       },
       "modifiers": {
         "contains": "obsahuje",
         "doesNotContain": "neobsahuje"
       },
+      "placeholder": {
+        "field": "Vyberte pole",
+        "modifier": "Vyberte modifikátor",
+        "term": "Zadejte hledané výrazy"
+      },
       "show": "{showOrHide} pokročilé vyhledávání",
       "tooltip": {
         "advancedSearch": "Pokročilé vyhledávání umožňuje vytvářet vlastní vyhledávací dotazy.",
         "field": "Vyberte pole pro vyhledávání",
+        "fields": {
+          "fulltext": "Úplný text zahrnuje transkripce, uzavřené titulky, titulky a text dokumentu."
+        },
         "modifier": "Vyberte modifikátor, který chcete použít na pole.",
         "term": "Zadejte výraz(y), který chcete vyhledat nebo vyloučit."
       }
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Oblíbené",
-    "pinned": "Připnuté"
+    "pinned": "Připnuté",
+    "required": "Požadováno"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} nalezených příběhů",
