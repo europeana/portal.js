@@ -1,4 +1,5 @@
 import { LokaliseApi } from '@lokalise/node-api';
+import stringify from 'json-stable-stringify';
 import fs from 'fs';
 
 const lokaliseApi = new LokaliseApi({ apiKey: process.env.LOKALISE_API_TOKEN });
@@ -11,36 +12,6 @@ const fetchPage = async(page) => {
     'include_translations': 1
   });
   return response.items;
-};
-
-const stringify = (thing, root = false, indent = 0) => {
-  let str = '';
-  if (root) {
-    str = str + 'export default ';
-  }
-
-  if (typeof thing === 'string') {
-    const quoted = thing.replace(/"/g, '\\"').replace(/(\r|\n)/g, '');
-    str = str + `"${quoted}"`;
-  } else {
-    str = str + '{\n';
-    const sorted = Object.keys(thing).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'variant', caseFirst: 'upper' }));
-    for (const key of sorted) {
-      str = str + ' '.repeat(indent + 2) + `"${key}": `;
-      str = str + stringify(thing[key], false, indent + 2);
-      if (key !== sorted[sorted.length - 1]) {
-        str = str + ',';
-      }
-      str = str + '\n';
-    }
-    str = str + ' '.repeat(indent) + '}';
-  }
-
-  if (root) {
-    str = str + ';\n';
-  }
-
-  return str;
 };
 
 const storeTranslation = (i18n, lang, key, translation) => {
@@ -78,7 +49,7 @@ const run = async() => {
         for (const translation of key.translations) {
           const lang = translation.language_iso.split('_')[0];
 
-          if ((lang !== 'en') && (translation.translation !== '')) {
+          if (translation.translation !== '') {
             storeTranslation(i18n, lang, key, translation);
           }
         }
@@ -87,9 +58,9 @@ const run = async() => {
   }
 
   for (const lang in i18n) {
-    const langFilename = new URL(`../src/lang/${lang}.js`, import.meta.url);
+    const langFilename = new URL(`../src/lang/${lang}.json`, import.meta.url);
     console.log(`Writing ${langFilename}`);
-    fs.writeFileSync(langFilename, stringify(i18n[lang], true));
+    fs.writeFileSync(langFilename, stringify(i18n[lang], { space: 2 }));
   }
 };
 
