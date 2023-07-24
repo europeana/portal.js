@@ -134,7 +134,12 @@ export default class WebResource extends Base {
       this.isHTMLAudio || this.isHTMLVideo ||
       (this.mediaType === MEDIA_TYPE_APPLICATION_DASH_XML)
     ) ||
-      this.id?.startsWith('http://www.euscreen.eu/item.html') || this.id?.startsWith('https://www.euscreen.eu/item.html') || false;
+      this.isEUScreenMedia || false;
+  }
+
+  get isEUScreenMedia() {
+    return this.id?.startsWith('http://www.euscreen.eu/item.html') ||
+      this.id?.startsWith('https://www.euscreen.eu/item.html') || false;
   }
 
   get isRichMedia() {

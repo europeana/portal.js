@@ -111,6 +111,32 @@ describe('plugins/europeana/edm/WebResource', () => {
       }
     });
 
+    describe('.isEUScreenMedia', () => {
+      it('is `true` if URL is http EUScreen URI', () => {
+        const wr = new WebResource({ about: 'http://www.euscreen.eu/item.html?id=EUS_123' });
+
+        expect(wr.isEUScreenMedia).toBe(true);
+      });
+
+      it('is `true` if URL is https EUScreen URI', () => {
+        const wr = new WebResource({ about: 'https://www.euscreen.eu/item.html?id=EUS_123' });
+
+        expect(wr.isEUScreenMedia).toBe(true);
+      });
+
+      it('is `false` for non EUScreen URIs', () => {
+        const wr = new WebResource({ about: 'https://soundcloud.com/oembed' });
+
+        expect(wr.isEUScreenMedia).toBe(false);
+      });
+
+      it('is `false` when there is no id present', () => {
+        const wr = new WebResource({ ebucoreHasMimeType: 'image/jpeg' });
+
+        expect(wr.isEUScreenMedia).toBe(false);
+      });
+    });
+
     describe('.isOEmbed', () => {
       it('is `true` if URL is oEmbeddable', () => {
         const wr = new WebResource({ about: 'https://soundcloud.com/oembed' });
