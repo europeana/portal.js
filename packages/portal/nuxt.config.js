@@ -316,15 +316,6 @@ export default {
     }]
   ],
 
-  /*
-  ** Nuxt.js modules
-  */
-  modules: [
-    '~/modules/elastic-apm',
-    'bootstrap-vue/nuxt',
-    'cookie-universal-nuxt'
-  ],
-
   auth: {
     // Redirect routes: 'callback' option for keycloak redirects,
     // 'login' option for unauthorised redirection
