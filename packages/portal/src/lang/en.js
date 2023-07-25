@@ -1065,7 +1065,7 @@ export default {
       "input": {
         "field": "Field",
         "modifier": "Modifier",
-        "term": "Enter search term(s)"
+        "term": "Search term(s)"
       },
       "header": {
         "aggregated": "Aggregated fields",
