@@ -178,6 +178,7 @@
 
     h3 {
       font-size: inherit;
+      line-height: 1.5;
     }
 
     ul {
