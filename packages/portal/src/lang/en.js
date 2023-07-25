@@ -1088,7 +1088,7 @@ export default {
           "fulltext": "Full-text includes transcriptions, closed captions, subtitles and document text."
         },
         "modifier": "Choose how this field should modify the search.",
-        "term": "Enter the term(s) to search for, or to exclude."
+        "term": "Enter the term(s) to search for what the chosen field contains or does not contain."
       }
     },
     "boost": {
