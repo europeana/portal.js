@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Polje",
         "modifier": "Modifikator",
-        "term": "Unesite pojmove za pretraživanje"
+        "term": "Pojam(i) za pretraživanje"
       },
       "modifiers": {
         "contains": "sadrži",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Puni tekst uključuje transkripcije, zatvorene titlove, podnaslove i tekst dokumenta."
         },
         "modifier": "Odaberite modifikator koji želite primijeniti na polje.",
-        "term": "Unesite izraz(e) za traženje ili isključivanje."
+        "term": "Unesite pojmove koje odabrano polje sadrži ili ne sadrži."
       }
     },
     "boost": {

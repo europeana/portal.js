@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Ongepubliceerd item]"
     },
     "transcription": "Transcriptie",
-    "transcriptionDisclaimer": "Deze inhoud is bijgedragen door het publiek, niet door de instelling die dit object heeft geleverd."
+    "transcriptionDisclaimer": "Deze inhoud is bijgedragen door het publiek, niet door de deelnemende erfgoedorganisatie die dit object heeft geleverd."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Veld",
         "modifier": "Modifier",
-        "term": "Voer zoekterm(en) in"
+        "term": "Zoekterm(en)"
       },
       "modifiers": {
         "contains": "bevat",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Volledige tekst omvat transcripties, gesloten ondertiteling, ondertitels en documenttekst."
         },
         "modifier": "Selecteer een modificatie om op het veld toe te passen.",
-        "term": "Voer de term(en) in waarop u wilt zoeken of die u wilt uitsluiten."
+        "term": "Voer de term(en) in die het gekozen veld wel of niet bevat."
       }
     },
     "boost": {

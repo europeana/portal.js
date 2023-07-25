@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Item não publicado]"
     },
     "transcription": "Transcrição",
-    "transcriptionDisclaimer": "Este conteúdo é contribuído pelo público, não pela instituição que forneceu este item."
+    "transcriptionDisclaimer": "Este conteúdo é contribuído pelo público, não pela instituição fornecedora que forneceu este item."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Campo",
         "modifier": "Modificador",
-        "term": "Insira termos de pesquisa"
+        "term": "Termo(s) de pesquisa"
       },
       "modifiers": {
         "contains": "contém",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "O texto completo inclui transcrições, legendas ocultas, legendas e texto do documento."
         },
         "modifier": "Selecione um modificador para aplicar ao campo.",
-        "term": "Introduza o(s) termo(s) a pesquisa ou a excluir."
+        "term": "Insira o(s) termo(s) que o campo escolhido contém ou não."
       }
     },
     "boost": {

@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Mír neamhfhoilsithe]"
     },
     "transcription": "Tras-scríobh",
-    "transcriptionDisclaimer": "Is ón bpobal a chuirtear an t-ábhar seo ar fáil, ní ón institiúid a sholáthraigh an mhír seo."
+    "transcriptionDisclaimer": "Is ón bpobal a chuirtear an t-ábhar seo ar fáil, nem pedig az mhír szolgáltató institiúidí soláthartha."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Réimse",
         "modifier": "Mionathraitheoir",
-        "term": "Cuir isteach téarma(í) cuardaigh"
+        "term": "Cuardaigh téarma(í)"
       },
       "modifiers": {
         "contains": "ina bhfuil",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Áirítear le téacs iomlán tras-scríbhinní, fotheidil dúnta, fotheidil agus téacs doiciméad."
         },
         "modifier": "Roghnaigh mionathraitheoir le cur i bhfeidhm ar an réimse.",
-        "term": "Cuir isteach an téarma(í) chun cuardach a dhéanamh orthu nó lena eisiamh."
+        "term": "Cuir isteach an téarma(í) atá sa réimse roghnaithe nó nach bhfuil."
       }
     },
     "boost": {

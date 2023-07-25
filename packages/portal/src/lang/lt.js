@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Laukas",
         "modifier": "Modifikatorius",
-        "term": "Įveskite paieškos terminą (-us)"
+        "term": "Paieškos terminas (-ai)"
       },
       "modifiers": {
         "contains": "turi",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Pilnas tekstas apima transkripcijas, uždarąsias antraštes, subtitrus ir dokumento tekstą."
         },
         "modifier": "Pasirinkite modifikatorių, kurį taikyti laukui.",
-        "term": "Įveskite terminą (-us), kurio (-ių) norite ieškoti arba išskirti."
+        "term": "Įveskite terminą (-us), kurį (-iuos) turi arba neturi pasirinktas laukas."
       }
     },
     "boost": {

@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Oġġett mhux ippubblikat]"
     },
     "transcription": "Traskrizzjoni",
-    "transcriptionDisclaimer": "Dan il-kontenut huwa kontribwit mill-pubbliku, mhux mill-istituzzjoni li pprovda dan l-oġġett."
+    "transcriptionDisclaimer": "Dan il-kontenut huwa miġbur mill-pubbliku, mhux mill-istituzzjonijiet fornitriċi li pprovdu dan l-oġġett."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Qasam",
         "modifier": "Modifikatur",
-        "term": "Daħħal it-terminu(i) tat-tiftix"
+        "term": "Terminu(i) ta' tfittxija"
       },
       "modifiers": {
         "contains": "jikkontenuta",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "It-test sħiħ jinkludi traskrizzjonijiet, kaptjonijiet magħluqa, sottotitoli u test tad-dokument."
         },
         "modifier": "Agħżel modifikatur biex tapplika għall-qasam.",
-        "term": "Daħħal it-terminu(i) biex tfittex, jew biex teskludi."
+        "term": "Daħħal it-terminu(i) li l-qasam magħżul fih jew ma fihx."
       }
     },
     "boost": {

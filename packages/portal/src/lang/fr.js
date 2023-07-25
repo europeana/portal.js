@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Élément non publié]"
     },
     "transcription": "Transcription",
-    "transcriptionDisclaimer": "Ce contenu est fourni par le public, non par l'institution qui a fourni cet élément."
+    "transcriptionDisclaimer": "Ce contenu est contribué par le public, et non par l'institution fournisseuse de cet élément."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Champ",
         "modifier": "Modificateur",
-        "term": "Entrez-le(s) terme(s) de recherche"
+        "term": "Terme(s) de recherche"
       },
       "modifiers": {
         "contains": "contient",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Le texte intégral comprend des transcriptions, des sous-titres codés, des sous-titres et du texte de document."
         },
         "modifier": "Sélectionnez un modificateur à appliquer au champ.",
-        "term": "Saisissez le(s) terme(s) à rechercher ou à exclure."
+        "term": "Entrez-le(s) terme(s) que le champ choisi contient ou ne contient pas."
       }
     },
     "boost": {

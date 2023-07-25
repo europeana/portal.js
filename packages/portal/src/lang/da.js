@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Ikke-publiceret element]"
     },
     "transcription": "Transskription",
-    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den institution, der leverede denne artikel."
+    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den ejerinstitutioner, der leverede denne genstand."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Mark",
         "modifier": "Modifier",
-        "term": "Indtast søgeterm(er)"
+        "term": "Søgeterm(er)"
       },
       "modifiers": {
         "contains": "indeholder",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Fuldtekst inkluderer transskriptioner, lukkede billedtekster, undertekster og dokumenttekst."
         },
         "modifier": "Vælg en modifikator, der skal anvendes på feltet.",
-        "term": "Indtast det eller de termer, der skal søges efter eller ekskluderes."
+        "term": "Indtast det eller de termer, som det valgte felt indeholder eller ikke indeholder."
       }
     },
     "boost": {

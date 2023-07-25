@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Fält",
         "modifier": "Modifierare",
-        "term": "Ange sökterm(er)"
+        "term": "Sökterm(er)"
       },
       "modifiers": {
         "contains": "innehåller",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Fulltext inkluderar transkriptioner, stängda bildtexter, undertexter och dokumenttext."
         },
         "modifier": "Välj en modifier att tillämpa på fältet.",
-        "term": "Ange termen/termerna för att söka efter eller utesluta."
+        "term": "Ange termen/termerna som det valda fältet innehåller eller inte innehåller."
       }
     },
     "boost": {
