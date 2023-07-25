@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Campo",
         "modifier": "Modificatore",
-        "term": "Inserisci i termini di ricerca"
+        "term": "Termini di ricerca"
       },
       "modifiers": {
         "contains": "contiene",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Il testo completo include trascrizioni, didascalie chiuse, sottotitoli e testo del documento."
         },
         "modifier": "Seleziona un modificatore da applicare al campo.",
-        "term": "Inserisci il/i termini da cercare o da escludere."
+        "term": "Immettere i termini che il campo scelto contiene o non contiene."
       }
     },
     "boost": {

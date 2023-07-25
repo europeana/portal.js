@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Neobjavljeni enota]"
     },
     "transcription": "Prepis",
-    "transcriptionDisclaimer": "To vsebino prispeva javnost, ne ustanova, ki je zagotovila ta enota."
+    "transcriptionDisclaimer": "To vsebino prispeva javnost, ne pa ponudnik podatkov, ki je zagotovil to enoto."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Polje",
         "modifier": "Modifikator",
-        "term": "Vnesite iskalni izraz(e)"
+        "term": "Iskalni izraz(i)"
       },
       "modifiers": {
         "contains": "vsebuje",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Polno besedilo vključuje prepise, zaprte napise, podnapise in besedilo dokumenta."
         },
         "modifier": "Izberite modifikator, ki ga želite uporabiti za polje.",
-        "term": "Vnesite izraz(e), ki ga želite poiskati ali izključiti."
+        "term": "Vnesite termin(e), ki jih izbrano polje vsebuje ali ne vsebuje."
       }
     },
     "boost": {

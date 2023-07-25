@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Pozycja nieopublikowana]"
     },
     "transcription": "Transkrypcja",
-    "transcriptionDisclaimer": "Treść została dostarczona przez publiczność, a nie przez instytucję, która udostępniła ten obiekt cyfrowy."
+    "transcriptionDisclaimer": "Ten zawartość jest dostarczany przez publiczność, a nie przez dostawcę danych, która dostarczyła ten obiekt cyfrowy."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Pole",
         "modifier": "Modyfikator",
-        "term": "Wprowadź wyszukiwane hasła"
+        "term": "Wyszukiwane terminy"
       },
       "modifiers": {
         "contains": "zawiera",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Tekst pełny obejmuje transkrypcje, napisy dla osób niesłyszących, napisy i tekst dokumentu."
         },
         "modifier": "Wybierz modyfikator, który ma zostać zastosowany do pola.",
-        "term": "Wprowadź terminy do wyszukania lub wykluczenia."
+        "term": "Wprowadź terminy, które zawiera lub nie zawiera wybrane pole."
       }
     },
     "boost": {

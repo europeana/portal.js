@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Resursă culturală nepublicat]"
     },
     "transcription": "Transcriere",
-    "transcriptionDisclaimer": "Acest conținut este contribuit de public, nu de instituția care a furnizat acest resursă culturală."
+    "transcriptionDisclaimer": "Această conținut este contribuită de către public, nu de către instituția furnizoare care a furnizat acest resursă culturală."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Câmp",
         "modifier": "Modificator",
-        "term": "Introduceți termenii de căutare"
+        "term": "Termen(i) de căutare"
       },
       "modifiers": {
         "contains": "conține",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Textul integral include transcripții, subtitrări închise, subtitrări și textul documentului."
         },
         "modifier": "Selectați un modificator de aplicat câmpului.",
-        "term": "Introduceți termenul (termenii) de căutat sau de exclus."
+        "term": "Introduceți termenii pe care le conține sau nu câmpul ales."
       }
     },
     "boost": {

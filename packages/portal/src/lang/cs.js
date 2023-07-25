@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Nepublikovaná položka]"
     },
     "transcription": "Přepis",
-    "transcriptionDisclaimer": "Tento obsah pochází z veřejných zdrojů, nikoliv od poskytovatelské instituce."
+    "transcriptionDisclaimer": "Tento obsah přispívá veřejnost, nikoli instituce, která tuto položku poskytla."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Pole",
         "modifier": "Modifikátor",
-        "term": "Zadejte hledané výrazy"
+        "term": "Vyhledávací termín(y)"
       },
       "modifiers": {
         "contains": "obsahuje",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Úplný text zahrnuje transkripce, uzavřené titulky, titulky a text dokumentu."
         },
         "modifier": "Vyberte modifikátor, který chcete použít na pole.",
-        "term": "Zadejte výraz(y), který chcete vyhledat nebo vyloučit."
+        "term": "Zadejte termín(y), které zvolené pole obsahuje nebo neobsahuje."
       }
     },
     "boost": {

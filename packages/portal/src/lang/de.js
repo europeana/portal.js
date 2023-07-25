@@ -998,7 +998,7 @@ export default {
       "unpublished": "[unveröffentlichtes Objekt]"
     },
     "transcription": "Transkription",
-    "transcriptionDisclaimer": "Dieser Inhalt wurde von der Öffentlichkeit und nicht von der Einrichtung bereitgestellt, die diesem Objekt zur Verfügung gestellt hat."
+    "transcriptionDisclaimer": "Dieser Inhalt stammt von der Öffentlichkeit, nicht von dem Datenpartner, der dieses Objekt bereitgestellt hat."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Feld",
         "modifier": "Modifikator",
-        "term": "Suchbegriff(e) eingeben"
+        "term": "Suchbegriff(e)"
       },
       "modifiers": {
         "contains": "enthält",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Der Volltext enthält Transkriptionen, geschlossene Untertitel, Untertitel und Dokumententext."
         },
         "modifier": "Wählen Sie einen Modifikator aus, der auf das Feld angewendet werden soll.",
-        "term": "Geben Sie die Begriffe ein, nach denen gesucht oder ausgeschlossen werden soll."
+        "term": "Geben Sie die Begriffe ein, die das ausgewählte Feld enthält bzw. nicht enthält."
       }
     },
     "boost": {

@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Közzé nem tett tárgy]"
     },
     "transcription": "Átírás",
-    "transcriptionDisclaimer": "Ezt a tartalmat a nyilvánosság bocsátotta rendelkezésre, nem pedig a tételt biztosító tárgyat."
+    "transcriptionDisclaimer": "Ez a tartalom a közönség által van hozzájárulva, nem a tárgyat szolgáltató intézmény által."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Mező",
         "modifier": "Módosító",
-        "term": "Írja be a keresett kifejezés(eke)t"
+        "term": "Keresési kifejezés(ek)"
       },
       "modifiers": {
         "contains": "tartalmaz",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "A teljes szöveg tartalmazza a transzkripciókat, a zárt feliratokat, a feliratokat és a dokumentum szövegét."
         },
         "modifier": "Válassza ki a mezőre alkalmazni kívánt módosítót.",
-        "term": "Írja be a keresendő vagy kizárandó kifejezés(eke)t."
+        "term": "Adja meg a kifejezés(eke)t, amelyeket a kiválasztott mező tartalmaz vagy nem tartalmaz."
       }
     },
     "boost": {

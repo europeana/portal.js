@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Nepublicēts digitālais objekts]"
     },
     "transcription": "Kopija",
-    "transcriptionDisclaimer": "Šo saturu ir sniedzis sabiedrība, nevis iestāde, kas nodrošināja šo digitālo objektu."
+    "transcriptionDisclaimer": "Šo saturu sniedza publisks, nevis piegādājošās iestādes, kas nodrošināja šo digitālo objektu."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Lauks",
         "modifier": "Modifikators",
-        "term": "Levadiet meklēšanas vienumu(s)"
+        "term": "Meklēšanas termins(-i)"
       },
       "modifiers": {
         "contains": "satur",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Pilnteksts ietver transkripcijas, slēgtos subtitrus, subtitrus un dokumenta tekstu."
         },
         "modifier": "Atlasiet modifikatoru, ko lietot laukam.",
-        "term": "Ievadiet terminu(-us), kas jāmeklē vai jāizslēdz."
+        "term": "Ievadiet terminu(-us), ko satur vai nesatur izvēlētais lauks."
       }
     },
     "boost": {

@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Julkaisematon aineisto]"
     },
     "transcription": "Transkriptio",
-    "transcriptionDisclaimer": "Tämän sisällön on tuottanut yleisö, ei laitos, joka tarjosi tämän kohteen."
+    "transcriptionDisclaimer": "Tämä sisältö on yleisön tuottama eikä aineiston tarjoajien tuottama."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Kenttä",
         "modifier": "Modifier",
-        "term": "Kirjoita hakutermi(t)"
+        "term": "Hakusana(t)"
       },
       "modifiers": {
         "contains": "sisältää",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Täysi teksti sisältää transkriptiot, suljetut kuvatekstit, tekstitykset ja asiakirjan tekstin."
         },
         "modifier": "Valitse kenttään käytettävä muokkaus.",
-        "term": "Kirjoita termi (termit), jota (joita) etsitään tai jotka halutaan sulkea pois."
+        "term": "Kirjoita termi (termit), jonka (jotka) valittu kenttä sisältää tai ei sisällä."
       }
     },
     "boost": {

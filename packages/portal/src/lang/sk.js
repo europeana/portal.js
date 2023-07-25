@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Nezverejnená objekt]"
     },
     "transcription": "Prepis",
-    "transcriptionDisclaimer": "Tento obsah prispeli verejnosť, nie inštitúcia, ktorá tento predmet objekt."
+    "transcriptionDisclaimer": "Tento obsah prispel verejnosť, nie správcovská inštitúcia, ktorá tento objekt poskytla."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Pole",
         "modifier": "Modifikátor",
-        "term": "Zadajte hľadaný výraz(y)"
+        "term": "Vyhľadávacie termíny"
       },
       "modifiers": {
         "contains": "obsahuje",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Úplný text zahŕňa prepisy, uzavreté titulky, podtitulky a text dokumentu."
         },
         "modifier": "Vyberte modifikátor, ktorý sa má aplikovať na pole.",
-        "term": "Zadajte výraz(y), ktorý chcete vyhľadať alebo vylúčiť."
+        "term": "Zadajte výraz(y), ktoré zvolené pole obsahuje alebo neobsahuje."
       }
     },
     "boost": {

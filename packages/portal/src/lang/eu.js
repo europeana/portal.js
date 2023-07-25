@@ -1002,7 +1002,7 @@ export default {
       "unpublished": "[Argitaratu gabeko elementua]"
     },
     "transcription": "Transkripzioa",
-    "transcriptionDisclaimer": "Eduki hau publikoaren ekarpena da, ez elementu hau eman duen erakundeak."
+    "transcriptionDisclaimer": "Eduki hau publikoaren ekarpena da, ez elementu hau eman duen erakundeak hornitzailea."
   },
   "related": {
     "categoryTags": {
@@ -1046,7 +1046,7 @@ export default {
       "input": {
         "field": "Eremu",
         "modifier": "Aldatzailea",
-        "term": "Sartu bilaketa-terminoak"
+        "term": "Bilatu termino(a)k"
       },
       "modifiers": {
         "contains": "dauka",
@@ -1065,7 +1065,7 @@ export default {
           "fulltext": "Testu osoak transkripzioak, epigrafe itxia, azpitituluak eta dokumentuaren testua biltzen ditu."
         },
         "modifier": "Hautatu modifikatzaile bat eremuari aplikatzeko.",
-        "term": "Sartu bilatu edo baztertu nahi dituzun terminoak."
+        "term": "Idatzi aukeratutako eremuak dituen edo ez dituen terminoak."
       }
     },
     "boost": {

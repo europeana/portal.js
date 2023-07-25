@@ -998,7 +998,7 @@ export default {
       "unpublished": "[Avaldamata üksus]"
     },
     "transcription": "Transkriptsioon",
-    "transcriptionDisclaimer": "Selle sisu on esitanud avalikkus, mitte asutus, kes selle eseme üksust."
+    "transcriptionDisclaimer": "Sisu on avalikkuse panus, mitte üksuse pakkuja institutsioon."
   },
   "related": {
     "categoryTags": {
@@ -1042,7 +1042,7 @@ export default {
       "input": {
         "field": "Väli",
         "modifier": "Modifikaator",
-        "term": "Sisesta otsingutermin(id)"
+        "term": "Otsingutermin(id)"
       },
       "modifiers": {
         "contains": "sisaldab",
@@ -1061,7 +1061,7 @@ export default {
           "fulltext": "Täistekst sisaldab transkriptsioone, suletud pealdisi, subtiitreid ja dokumendi teksti."
         },
         "modifier": "Valige väljale rakendatav modifikaator.",
-        "term": "Sisestage otsimiseks või välistamiseks termin(id)."
+        "term": "Sisestage termin(id), mida valitud väli sisaldab või ei sisalda."
       }
     },
     "boost": {
