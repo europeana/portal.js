@@ -42,10 +42,10 @@ spec:
             timeoutSeconds: 1
           resources:
             limits:
-              cpu: ${K8S_DEPLOYMENT_CPU_LIMIT}
-              memory: ${K8S_DEPLOYMENT_MEMORY_LIMIT}
+              cpu: 200m
+              memory: 200Mi
             requests:
-              cpu: ${K8S_DEPLOYMENT_CPU_REQUEST}
-              memory: ${K8S_DEPLOYMENT_MEMORY_REQUEST}
+              cpu: 1m
+              memory: 100Mi
       restartPolicy: Always
       terminationGracePeriodSeconds: 30

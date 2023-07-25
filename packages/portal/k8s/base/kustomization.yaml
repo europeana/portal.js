@@ -4,15 +4,11 @@ resources:
 - deployment.yaml
 - service.yaml
 - ingress.yaml
+- external-secret.yaml
 configMapGenerator:
 - name: portal-js-env
   envs:
   - config-map.env
-secretGenerator:
-- name: portal-js-env
-  envs:
-  - secret.env
-  type: Opaque
 labels:
   - pairs:
       app: portal-js

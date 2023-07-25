@@ -11,3 +11,20 @@ patches:
       annotations:
         cert-manager.io/issuer: letsencrypt-production
       name: portal-js
+- patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: portal-js
+    spec:
+      template:
+        spec:
+          containers:
+            - name: portal-js-web
+              resources:
+                limits:
+                  cpu: 400m
+                  memory: 300Mi
+                requests:
+                  cpu: 50m
+                  memory: 100Mi

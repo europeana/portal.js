@@ -3,7 +3,7 @@ kind: Kustomization
 images:
 - name: europeana/portal.js
   newTag: ${K8S_DEPLOYMENT_IMAGE_TAG}
-namespace: preview
+namespace: dev
 nameSuffix: ${K8S_RESOURCE_NAME_SUFFIX}
 resources:
 - ../../base
