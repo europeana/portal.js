@@ -33,15 +33,6 @@
           </transition-group>
           <div class="d-inline-flex d-lg-block flex-column align-items-start">
             <b-button
-              data-qa="advanced search query builder: apply button"
-              variant="primary"
-              class="d-inline-flex align-items-center mr-lg-3"
-              type="submit"
-            >
-              <span class="icon-search pr-1" />
-              {{ $t('actions.apply') }}
-            </b-button>
-            <b-button
               data-qa="advanced search query builder: add rule button"
               variant="light"
               class="d-inline-flex align-items-center mb-4 mb-lg-0 order-first"
@@ -89,7 +80,7 @@
 
     computed: {
       validQueryRules() {
-        return this.queryRules.filter((rule) => rule.field && rule.modifier && rule.term);
+        return this.queryRules.filter(this.checkIfValidRule);
       }
     },
 
@@ -111,9 +102,14 @@
         if (this.queryRules.length === 0) {
           this.addNewRule();
         }
+        this.handleSubmitForm();
       },
       handleChangeRule(index, field, value) {
         this.queryRules[index][field] = value;
+        const validRule = this.checkIfValidRule(this.queryRules[index]);
+        if (validRule || field === 'term') {
+          this.handleSubmitForm();
+        }
       },
       handleInvalidRule(index) {
         this.validations[index] = false;
@@ -136,6 +132,9 @@
         } else {
           this.$emit('show', true);
         }
+      },
+      checkIfValidRule(rule) {
+        return Boolean(rule.field && rule.modifier && rule.term);
       },
       trackAdvancedSearch() {
         if (!this.$matomo) {

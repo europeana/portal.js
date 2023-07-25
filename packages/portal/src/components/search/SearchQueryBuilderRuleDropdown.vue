@@ -2,7 +2,7 @@
   <b-dropdown
     block
     class="search-query-builder-rule-dropdown search-filter-dropdown"
-    :data-qa="`advanced search query builder: ${name} name`"
+    :data-qa="`advanced search query builder: ${name} control`"
     no-flip
     :state="state"
     :text="text"
