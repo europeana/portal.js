@@ -135,7 +135,15 @@ export default (context = {}) => {
           return memo;
         }, {});
 
-      const proxies = merge.all(edm.proxies);
+      // Europeana proxy only really needed for the translate profile
+      let europeanaProxy = {};
+      if (context.$features?.translatedItems && options.metadataLanguage) {
+        europeanaProxy = findProxy(edm.proxies, 'europeana');
+      }
+      const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
+      const providerProxy = findProxy(edm.proxies, 'provider');
+
+      const proxies = merge.all([providerProxy, aggregatorProxy, europeanaProxy].filter((p) => !!p));
 
       for (const field in proxies) {
         if (isLangMap(proxies[field])) {
@@ -152,11 +160,6 @@ export default (context = {}) => {
         prefLang = options.metadataLanguage ? options.metadataLanguage : null;
       }
       const predictedUiLang = prefLang || options.locale;
-
-      // Europeana proxy only really needed for the translate profile
-      const europeanaProxy = findProxy(edm.proxies, 'europeana');
-      const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
-      const providerProxy = findProxy(edm.proxies, 'provider');
 
       for (const field in proxies) {
         if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
