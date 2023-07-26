@@ -44,7 +44,6 @@
         :class="{ 'disabled' : nextDisabled }"
         class="page-item btn-next pr-0"
         data-qa="next button"
-        :tabindex="nextDisabled && '-1'"
       >
         <SmartLink
           :destination="nextUrl"
@@ -52,6 +51,7 @@
           :disabled="nextDisabled"
           :aria-hidden="nextDisabled"
           class="page-link"
+          :tabindex="nextDisabled && '-1'"
         >
           {{ $t('actions.next') }}
           <span class="icon-arrow-down ml-1" />
