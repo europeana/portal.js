@@ -256,7 +256,7 @@ export default {
       "title": "Unknown error"
     },
     "IIIFManifestFailure": {
-      "brokenConnection": "Unfortunately, we can't display this item due to a broken connection with the providing institution's website. Please try to download the media or {linkToProvider}",
+      "brokenConnection": "Unfortunately, we can't display this item due to a broken connection with the providing institution's website. Please try to download the media{linkToProvider}.",
       "multiPageDownload": "Please note: Multiple pages may download.",
       "reportForDeletion": "If the above options do not allow you to view the item, please report it for deletion."
     },
@@ -964,6 +964,7 @@ export default {
     "text": {}
   },
   "of": "Of",
+  "or": "or",
   "organisation": {
     "city": "City",
     "country": "Country",

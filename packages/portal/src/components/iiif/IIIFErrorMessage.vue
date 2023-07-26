@@ -7,9 +7,12 @@
         tag="p"
         class="mb-0"
       >
-        <template #linkToProvider>
+        <template
+          v-if="providerUrl"
+          #linkToProvider
+        >
+          {{ $t('or') }}
           <SmartLink
-            v-if="providerUrl"
             :destination="providerUrl"
             class="text-decoration-none provider-link"
             @click.native="$matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', providerUrl);"
