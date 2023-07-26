@@ -270,7 +270,7 @@
         // Catch when there are no canvases in the manifest
         // TODO: display media available on the record instead
         if (!this.manifest.sequences && !this.manifest.items) {
-          this.handleManifestError('No canvases');
+          this.handleManifestError('No canvases in IIIF manifest');
         }
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.proxyProviderMedia(action.manifestJson);
