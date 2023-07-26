@@ -154,6 +154,7 @@
           justify-content: center;
           transition: background 0.25s;
           width: 2.5rem;
+          color: $black;
 
           &:hover {
             background: rgb(255 255 255 / 75%);
@@ -161,7 +162,6 @@
           }
 
           .footer-link-icon {
-            color: $black;
             font-size: 1.5rem;
 
             &.icon-facebook,

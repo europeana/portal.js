@@ -12,34 +12,33 @@
         <b-form-group
           :key="`${id}-${control}`"
           class="query-rule-form-group mr-lg-2"
-          :label-for="`${id}-${control}`"
         >
-          <template #label>
-            <span
-              :id="`${id}-${control}-label`"
-              class="d-inline-flex align-items-center"
-            >
-              {{ $t(`search.advanced.input.${control}`) }}
-              <template v-if="tooltips">
-                <b-button
-                  :id="`${id}-${control}-tooltip-btn`"
-                  class="icon-info-outline py-0 px-1 tooltip-button"
-                  variant="light-flat"
-                />
-                <b-tooltip
-                  :target="`${id}-${control}-tooltip-btn`"
-                  :title="$t(`search.advanced.tooltip.${control}`)"
-                  boundary-padding="0"
-                  placement="bottom"
-                />
-              </template>
-            </span>
-          </template>
-          <div
-            :id="`${id}-${control}`"
+          <component
+            :is="control === 'term' ? 'label' : 'span'"
+            :id="`${id}-${control}-label`"
+            class="query-rule-field-label d-inline-flex align-items-center"
+            :for="`${id}-${control}`"
           >
+            {{ $t(`search.advanced.input.${control}`) }}
+            <template v-if="tooltips">
+              <b-button
+                :id="`${id}-${control}-tooltip-btn`"
+                class="icon-info-outline py-0 px-1 tooltip-button"
+                :aria-label="$t(`search.advanced.tooltip.${control}`)"
+                variant="light-flat"
+              />
+              <b-tooltip
+                :target="`${id}-${control}-tooltip-btn`"
+                :title="$t(`search.advanced.tooltip.${control}`)"
+                boundary-padding="0"
+                placement="bottom"
+              />
+            </template>
+          </component>
+          <div>
             <b-form-input
               v-if="control === 'term'"
+              :id="`${id}-${control}`"
               v-model="term"
               :data-qa="`advanced search query builder: ${control} control`"
               :placeholder="$t('search.advanced.placeholder.term')"
@@ -48,6 +47,7 @@
             />
             <SearchQueryBuilderRuleDropdown
               v-else
+              :id="`${id}-${control}`"
               :name="control"
               :options="dropdownSections[control]"
               :state="validations[control].state"
