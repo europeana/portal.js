@@ -186,21 +186,15 @@
 
       // Catch image request failures as Mirador does not handle them
       // TODO: remove when Mirador implements better handling. Issue: https://github.com/ProjectMirador/mirador/issues/3775
-      window.onunhandledrejection = (event) => {
-        // As this could be any unhandled rejection on the page, check if unhandled rejection source is image from manifest
-        const failedImageURL = event.reason?.source?.url;
-        const failedImageIsInManifest = Object.keys(this.imageToCanvasMap || {}).includes(failedImageURL);
-
-        if (failedImageIsInManifest) {
-          this.handleManifestError(event.reason.message);
-        }
-      };
+      window.addEventListener('unhandledrejection', this.handleFailedManifestImage);
     },
 
     beforeDestroy() {
       // NOTE: very important to do this, as it cleans up all the
       //       mirador/react/material stuff from the DOM before moving on
       this.miradorViewer.unmount();
+
+      window.removeEventListener('unhandledrejection', this.handleFailedManifestImage);
     },
 
     methods: {
@@ -646,6 +640,16 @@
         return (this.manifest.items || [])
           .find(canvas => canvas.id === pageId)
           ?.items?.[0]?.items?.[0]?.body?.id;
+      },
+
+      handleFailedManifestImage(event) {
+        // As this could be any unhandled rejection on the page, check if unhandled rejection source is image from manifest
+        const failedImageURL = event.reason?.source?.url;
+        const failedImageIsInManifest = Object.keys(this.imageToCanvasMap || {}).includes(failedImageURL);
+
+        if (failedImageIsInManifest) {
+          this.handleManifestError(event.reason.message);
+        }
       }
     }
   };
