@@ -61,7 +61,7 @@ export default {
     "readMore": "Skaityti daugiau",
     "reject": "Atmesti",
     "requestDepublication": "Prašymas neskelbti",
-    "reset": "Atstatyti",
+    "resetFilters": "Iš naujo nustatyti filtrus",
     "save": "Išsaugoti",
     "send": "Siųsti",
     "share": "Dalintis",
@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Paroda | Parodos"
   },
   "facets": {
-    "api": {
-      "name": "Ieškokite dokumentuose",
-      "options": {
-        "fulltext": "Skaitmeniniai objektai su visu tekstu",
-        "metadata": "Tik metaduomenų skaitmeniniai objektai"
-      },
-      "switch": "Ieškoti tik pilno teksto skaitmeniniai objektai turinyje",
-      "switchMoreInfo": "Šioje kolekcijoje galite pasirinkti, ko norite ieškoti: jei šis jungiklis įjungtas, tuomet ieškosite laikraščio ir dokumento tekste; jei jis išjungtas, tuomet ieškosite informacijos, apibūdinančios skaitmeninį objektą, kaip ir daugumoje kitų kolekcijų."
+    "alert": {
+      "fulltextHasMoved": "Ieškote pilno teksto parinkties? Ji perkelta į išplėstinę paiešką."
     },
     "button": {
       "morefilters": "Daugiau filtrų",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Šiame Skaitmeninis objektas esančios teisių pareikštys (jei nenurodyta kitaip)",
       "edmUgc": "Vartotojo sugeneruotas turinys",
       "europeanaCollectionName": "Kolekcijos pavadinimas",
+      "fulltext": "Pilnas tekstas",
       "keywords": "Raktiniai žodžiai (pateikia bendruomenė)",
       "timestampCreated": "Sukurtas laiko žyma",
       "timestampUpdate": "Laiko žyma atnaujinta",
       "wasPresentAt": "Dalyvavo",
+      "what": "Kas",
+      "when": "Kai",
+      "where": "Kur",
+      "who": "Kas",
       "year": "Metai"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[Nepaskelbtas skaitmeninis objektas]"
     },
     "transcription": "Transkripcija",
-    "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne skaitmeninio objekto pateikėjas."
+    "transcriptionDisclaimer": "Šią informaciją pateikė visuomenė, o ne įstaiga, kuri pateikė šį skaitmeninis objektas."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1035,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Agreguoti laukai",
+        "individual": "Atskiri laukai"
+      },
       "input": {
         "field": "Laukas",
         "modifier": "Modifikatorius",
-        "searchTerm": "Įveskite paieškos terminą (-us)"
+        "term": "Paieškos terminas (-ai)"
       },
       "modifiers": {
         "contains": "turi",
         "doesNotContain": "sudėtyje nėra"
       },
+      "placeholder": {
+        "field": "Pasirinkite lauką",
+        "modifier": "Pasirinkite modifikatorių",
+        "term": "Įveskite paieškos terminą (-us)"
+      },
       "show": "{showOrHide} išplėstinė paieška",
       "tooltip": {
         "advancedSearch": "Išplėstinė paieška leidžia kurti pasirinktines paieškos užklausas.",
         "field": "Pasirinkite lauką, kuriame norite ieškoti.",
+        "fields": {
+          "fulltext": "Pilnas tekstas apima transkripcijas, uždarąsias antraštes, subtitrus ir dokumento tekstą."
+        },
         "modifier": "Pasirinkite modifikatorių, kurį taikyti laukui.",
-        "term": "Įveskite terminą (-us), kurio (-ių) norite ieškoti arba išskirti."
+        "term": "Įveskite terminą (-us), kurį (-iuos) turi arba neturi pasirinktas laukas."
       }
     },
     "boost": {
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Patiko",
-    "pinned": "Prisegtas"
+    "pinned": "Prisegtas",
+    "required": "Reikalingas"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} rastos istorijos",

@@ -43,6 +43,7 @@ Feature: Search querying
     And I press the DOWN_ARROW key
     And the `search entire collection button` is highlighted
     And I press the DOWN_ARROW key
+    And I press the DOWN_ARROW key
     And the `World War I search suggestion` is highlighted
     And I press the ENTER key
     Then I see the `search page`

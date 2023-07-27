@@ -24,6 +24,14 @@
           class="col-lg-8 mb-3"
         >
           <article>
+            <time
+              v-if="datePublished"
+              data-qa="date"
+              :datetime="datePublished"
+              class="font-small font-weight-bold d-block mb-4"
+            >
+              {{ $t('blog.published', { date: $d(new Date(datePublished), 'short') }) }}
+            </time>
             <ShareButton class="mb-4" />
             <ShareSocialModal :media-url="heroImage && heroImage.url" />
             <!-- eslint-disable vue/no-v-html -->

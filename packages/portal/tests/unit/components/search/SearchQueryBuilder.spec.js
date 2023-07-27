@@ -233,6 +233,34 @@ describe('components/search/SearchQueryBuilder', () => {
       });
     });
 
+    describe('handleChangeRule', () => {
+      it('sets the changed values for the query rules', async() => {
+        const wrapper = factory();
+
+        wrapper.vm.handleChangeRule(0, 'field', 'proxy_dc_description');
+
+        expect(wrapper.vm.queryRules.length).toBe(1);
+        expect(wrapper.vm.queryRules[0]).toEqual(
+          { field: 'proxy_dc_description' }
+        );
+      });
+
+      describe('when the respective rule is valid', () => {
+        it('automatically updates the search', async() => {
+          const wrapper = factory();
+          sinon.spy(wrapper.vm, 'handleSubmitForm');
+
+          await wrapper.setData({ queryRules: [
+            { field: 'proxy_dc_title', modifier: 'contains' }
+          ] });
+
+          wrapper.vm.handleChangeRule(0, 'term', 'dog');
+
+          expect(wrapper.vm.handleSubmitForm.called).toBe(true);
+        });
+      });
+    });
+
     describe('@invalid', () => {
       it('marks the relevant rule as invalid', async() => {
         const wrapper = factory();

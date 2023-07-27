@@ -60,7 +60,7 @@ export default {
     "publish": "Publish",
     "readMore": "Read more",
     "reject": "Reject",
-    "reset": "Reset",
+    "resetFilters": "Reset filters",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
@@ -1065,7 +1065,7 @@ export default {
       "input": {
         "field": "Field",
         "modifier": "Modifier",
-        "term": "Enter search term(s)"
+        "term": "Search term(s)"
       },
       "header": {
         "aggregated": "Aggregated fields",
@@ -1088,7 +1088,7 @@ export default {
           "fulltext": "Full-text includes transcriptions, closed captions, subtitles and document text."
         },
         "modifier": "Choose how this field should modify the search.",
-        "term": "Enter the term(s) to search for, or to exclude."
+        "term": "Enter the term(s) that the chosen field contains or does not contain."
       }
     },
     "boost": {

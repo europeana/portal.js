@@ -61,7 +61,7 @@ export default {
     "readMore": "Lees verder",
     "reject": "Afwijzen",
     "requestDepublication": "Depublicatie aanvragen",
-    "reset": "Reset",
+    "resetFilters": "Filters resetten",
     "save": "Opslaan",
     "send": "Verzenden",
     "share": "Delen",
@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Tentoonstelling | Tentoonstellingen"
   },
   "facets": {
-    "api": {
-      "name": "Zoeken in documenten",
-      "options": {
-        "fulltext": "Objecten met full-text",
-        "metadata": "Alleen objecten met Metadata"
-      },
-      "switch": "Zoek alleen in de inhoud van objecten met full-text",
-      "switchMoreInfo": "In deze collectie kunt u kiezen waarnaar u wilt zoeken: als deze schakelaar aan staat, zoekt u binnen de krant en documenttekst; als het is uitgeschakeld, zoekt u in plaats daarvan binnen de informatie die het item beschrijft, net zoals u altijd doet in de meeste andere collecties."
+    "alert": {
+      "fulltextHasMoved": "Op zoek naar de full-text optie? Die is verplaatst naar geavanceerd zoeken."
     },
     "button": {
       "morefilters": "Meer filters",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Rechtenstatus van de media in dit record (tenzij anders vermeld)",
       "edmUgc": "Door gebruikers gegenereerde inhoud",
       "europeanaCollectionName": "Naam van de collectie",
+      "fulltext": "Volledige tekst",
       "keywords": "Trefwoorden (verstrekt door de gemeenschap)",
       "timestampCreated": "Tijdstempel gemaakt",
       "timestampUpdate": "Tijdstempel bijgewerkt",
       "wasPresentAt": "Was aanwezig in",
+      "what": "Wat",
+      "when": "Wanneer",
+      "where": "Waar",
+      "who": "Wie",
       "year": "Jaar"
     },
     "webResource": {
@@ -998,8 +997,8 @@ export default {
     "status": {
       "unpublished": "[Ongepubliceerd item]"
     },
-    "transcription": "Transcript",
-    "transcriptionDisclaimer": "Deze content is een bijdrage van ons publiek, niet door de instelling die dit artikel heeft verstrekt."
+    "transcription": "Transcriptie",
+    "transcriptionDisclaimer": "Deze inhoud is bijgedragen door het publiek, niet door de deelnemende erfgoedorganisatie die dit object heeft geleverd."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1035,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Geaggregeerde velden",
+        "individual": "Individuele velden"
+      },
       "input": {
         "field": "Veld",
         "modifier": "Modifier",
-        "searchTerm": "Voer zoekterm(en) in"
+        "term": "Zoekterm(en)"
       },
       "modifiers": {
         "contains": "bevat",
         "doesNotContain": "bevat geen"
       },
+      "placeholder": {
+        "field": "Selecteer een veld",
+        "modifier": "Selecteer een modificator",
+        "term": "Voer zoekterm(en) in"
+      },
       "show": "{showOrHide} geavanceerd zoeken",
       "tooltip": {
         "advancedSearch": "Met geavanceerd zoeken kunt u aangepaste zoekopdrachten maken.",
         "field": "Selecteer een veld om op te zoeken.",
+        "fields": {
+          "fulltext": "Volledige tekst omvat transcripties, gesloten ondertiteling, ondertitels en documenttekst."
+        },
         "modifier": "Selecteer een modificatie om op het veld toe te passen.",
-        "term": "Voer de term(en) in waarop u wilt zoeken of die u wilt uitsluiten."
+        "term": "Voer de term(en) in die het gekozen veld wel of niet bevat."
       }
     },
     "boost": {
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Liked",
-    "pinned": "Pinned"
+    "pinned": "Pinned",
+    "required": "Vereist"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} verhalen gevonden",

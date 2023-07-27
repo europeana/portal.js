@@ -106,7 +106,7 @@
           (this.description.values.length > 1 || this.description.values[0].length > this.limitCharacters);
       },
       truncatedDescription() {
-        if (this.description !== {} && this.description.values) {
+        if (this.description?.values) {
           return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
         }
         return false;

@@ -61,7 +61,7 @@ export default {
     "readMore": "Lue lisää",
     "reject": "Hylätä",
     "requestDepublication": "Pyydä julkaisun poistamista",
-    "reset": "Nollaa",
+    "resetFilters": "Nollaa suodattimet",
     "save": "Tallenna",
     "send": "Lähettää",
     "share": "Jaa",
@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Näyttely | Näyttelyt"
   },
   "facets": {
-    "api": {
-      "name": "Haku asiakirjojen sisällä",
-      "options": {
-        "fulltext": "Aineistot, joissa on koko teksti",
-        "metadata": "Vain metatiedot aineistot"
-      },
-      "switch": "Haku vain aineistot sisällöstä, joissa on kokoteksti.",
-      "switchMoreInfo": "Tässä kokoelmassa voit valita, mitä haluat etsiä: jos tämä kytkin on päällä, etsit sanomalehti- ja asiakirjateksteistä; jos se on pois päältä, etsit sen sijaan aineisto kuvailutiedoista, aivan kuten useimmissa muissa kokoelmissa."
+    "alert": {
+      "fulltextHasMoved": "Etsitkö koko tekstin vaihtoehtoa? Se on siirretty tarkennettuun hakuun."
     },
     "button": {
       "morefilters": "Lisää suodattimia",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Tämän aineisto median lisenssi (ellei toisin mainita)",
       "edmUgc": "Käyttäjien tuottama sisältö",
       "europeanaCollectionName": "Kokoelman nimi",
+      "fulltext": "Koko teksti",
       "keywords": "Avainsanat (yhteisön tarjoamat)",
       "timestampCreated": "Aikaleima luotu",
       "timestampUpdate": "Aikaleima päivitetty",
       "wasPresentAt": "Oli läsnä paikassa",
+      "what": "Mitä",
+      "when": "Kun",
+      "where": "Missä",
+      "who": "Kuka",
       "year": "Vuosi"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[Julkaisematon aineisto]"
     },
     "transcription": "Transkriptio",
-    "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksittäinen henkilö, ei kulttuuriperintölaitos"
+    "transcriptionDisclaimer": "Tämä sisältö on yleisön tuottama eikä aineiston tarjoajien tuottama."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1035,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Kootut kentät",
+        "individual": "Yksittäiset kentät"
+      },
       "input": {
         "field": "Kenttä",
         "modifier": "Modifier",
-        "searchTerm": "Kirjoita hakutermi(t)"
+        "term": "Hakusana(t)"
       },
       "modifiers": {
         "contains": "sisältää",
         "doesNotContain": "ei sisällä"
       },
+      "placeholder": {
+        "field": "Valitse kenttä",
+        "modifier": "Valitse muokkaaja",
+        "term": "Kirjoita hakutermi(t)"
+      },
       "show": "{showOrHide} tarkennettu haku",
       "tooltip": {
         "advancedSearch": "Tarkennetun haun avulla voit luoda mukautettuja hakukyselyitä.",
         "field": "Valitse hakuun kenttä",
+        "fields": {
+          "fulltext": "Täysi teksti sisältää transkriptiot, suljetut kuvatekstit, tekstitykset ja asiakirjan tekstin."
+        },
         "modifier": "Valitse kenttään käytettävä muokkaus.",
-        "term": "Kirjoita termi (termit), jota (joita) etsitään tai jotka halutaan sulkea pois."
+        "term": "Kirjoita termi (termit), jonka (jotka) valittu kenttä sisältää tai ei sisällä."
       }
     },
     "boost": {
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Pidetty",
-    "pinned": "Kiinnitetty"
+    "pinned": "Kiinnitetty",
+    "required": "Pakollinen"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} tarinaa löydetty",

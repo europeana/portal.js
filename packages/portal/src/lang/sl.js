@@ -61,7 +61,7 @@ export default {
     "readMore": "Preberi več",
     "reject": "Zavrne",
     "requestDepublication": "Zahtevaj deublikacijo",
-    "reset": "Ponastavi",
+    "resetFilters": "Ponastavi filtre",
     "save": "Shrani",
     "send": "Pošlji",
     "share": "Deli",
@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Razstava | Razstave"
   },
   "facets": {
-    "api": {
-      "name": "Iskanje v dokumentih",
-      "options": {
-        "fulltext": "Enote s celotnim besedilom",
-        "metadata": "Samo enote z metapodatki"
-      },
-      "switch": "Iskanje samo v vsebini enote s polnim besedilom",
-      "switchMoreInfo": "V tej zbirki lahko izberete, kaj želite iskati: če je to stikalo vklopljeno, boste iskali po besedilu časopisa in dokumenta; če je izklopljeno, boste iskali po informacijah, ki opisujejo enota, tako kot v večini drugih zbirk."
+    "alert": {
+      "fulltextHasMoved": "Iščete možnost celotnega besedila? Premaknjena je v napredno iskanje."
     },
     "button": {
       "morefilters": "Več filtrov",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Licenca za medije v tem enota (če ni navedeno drugače)",
       "edmUgc": "Vsebina, ki so jo ustvarili uporabniki",
       "europeanaCollectionName": "Ime zbirke",
+      "fulltext": "Polno besedilo",
       "keywords": "Ključne besede (ki jih je zagotovila skupnost)",
       "timestampCreated": "Časovni žig ustvarjen",
       "timestampUpdate": "Časovni žig posodobljen",
       "wasPresentAt": "Bil prisoten v",
+      "what": "Kaj",
+      "when": "Kdaj",
+      "where": "Kje",
+      "who": "Kdo",
       "year": "Leto"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[Neobjavljeni enota]"
     },
     "transcription": "Prepis",
-    "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta enota."
+    "transcriptionDisclaimer": "To vsebino prispeva javnost, ne pa ponudnik podatkov, ki je zagotovil to enoto."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1035,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Agregirana polja",
+        "individual": "Posamezna polja"
+      },
       "input": {
         "field": "Polje",
         "modifier": "Modifikator",
-        "searchTerm": "Vnesite iskalne izraze"
+        "term": "Iskalni izraz(i)"
       },
       "modifiers": {
         "contains": "vsebuje",
         "doesNotContain": "ne vsebuje"
       },
+      "placeholder": {
+        "field": "Izberite polje",
+        "modifier": "Izberite modifikator",
+        "term": "Vnesite iskalni izraz(e)"
+      },
       "show": "{showOrHide} napredno iskanje",
       "tooltip": {
         "advancedSearch": "Napredno iskanje vam omogoča ustvarjanje iskalnih poizvedb po meri.",
         "field": "Izberite polje za iskanje.",
+        "fields": {
+          "fulltext": "Polno besedilo vključuje prepise, zaprte napise, podnapise in besedilo dokumenta."
+        },
         "modifier": "Izberite modifikator, ki ga želite uporabiti za polje.",
-        "term": "Vnesite izraz(e), ki ga želite poiskati ali izključiti."
+        "term": "Vnesite termin(e), ki jih izbrano polje vsebuje ali ne vsebuje."
       }
     },
     "boost": {
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Všeč",
-    "pinned": "Pripet"
+    "pinned": "Pripet",
+    "required": "Zahtevano"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} zgodbe najdene",

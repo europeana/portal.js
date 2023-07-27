@@ -35,6 +35,13 @@
     text-decoration: none;
     margin-bottom: 0;
 
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-small-4k;
+        padding: 1.5rem;
+      }
+    }
+
     &::before {
       display: none;
     }
@@ -48,6 +55,13 @@
     &.active {
       border-bottom: 2px solid $blue;
       color: $blue;
+    }
+
+    h2 {
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin-bottom: inherit;
     }
   }
 }

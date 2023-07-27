@@ -61,7 +61,7 @@ export default {
     "readMore": "Mehr anzeigen",
     "reject": "Ablehnen",
     "requestDepublication": "Depublikation anfordern",
-    "reset": "Zurücksetzen",
+    "resetFilters": "Filter zurücksetzen",
     "save": "Speichern",
     "send": "Senden",
     "share": "Teilen",
@@ -281,14 +281,8 @@ export default {
     "exhibitions": "Ausstellung | Ausstellungen"
   },
   "facets": {
-    "api": {
-      "name": "Suche in Dokumenten",
-      "options": {
-        "fulltext": "Objekte mit Volltext",
-        "metadata": "Nur-Metadaten Objekte"
-      },
-      "switch": "Suchen Sie nur im Inhalt von Objekte mit Volltext",
-      "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn er deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
+    "alert": {
+      "fulltextHasMoved": "Suchen Sie die Volltextoption? Sie wurde in die erweiterte Suche verschoben."
     },
     "button": {
       "morefilters": "Weitere Filter",
@@ -723,10 +717,15 @@ export default {
       "edmRights": "Rechtehinweise der Medien in diesem Datensatz (sofern nicht anders angegeben)",
       "edmUgc": "Benutzergenerierte Inhalte",
       "europeanaCollectionName": "Name der Sammlung",
+      "fulltext": "Volltext",
       "keywords": "Schlüsselwörter (von der Gemeinschaft zur Verfügung gestellt)",
       "timestampCreated": "Zeitstempel erstellt",
       "timestampUpdate": "Zeitstempel aktualisiert",
       "wasPresentAt": "War anwesend bei",
+      "what": "Was",
+      "when": "Wann",
+      "where": "Wo",
+      "who": "Wer",
       "year": "Jahr"
     },
     "webResource": {
@@ -999,7 +998,7 @@ export default {
       "unpublished": "[unveröffentlichtes Objekt]"
     },
     "transcription": "Transkription",
-    "transcriptionDisclaimer": "Dieser Inhalt wird von der Öffentlichkeit bereitgestellt, nicht von der Institution, die dieses Objekt bereitgestellt hat."
+    "transcriptionDisclaimer": "Dieser Inhalt stammt von der Öffentlichkeit, nicht von dem Datenpartner, der dieses Objekt bereitgestellt hat."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1035,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Aggregierte Felder",
+        "individual": "Einzelne Felder"
+      },
       "input": {
         "field": "Feld",
         "modifier": "Modifikator",
-        "searchTerm": "Suchbegriff(e) eingeben"
+        "term": "Suchbegriff(e)"
       },
       "modifiers": {
         "contains": "enthält",
         "doesNotContain": "enthält nicht"
       },
+      "placeholder": {
+        "field": "Wählen Sie ein Feld aus",
+        "modifier": "Wählen Sie einen Modifikator",
+        "term": "Suchbegriff(e) eingeben"
+      },
       "show": "{showOrHide} erweiterte Suche",
       "tooltip": {
         "advancedSearch": "Mit der erweiterten Suche können Sie benutzerdefinierte Suchanfragen erstellen.",
         "field": "Wählen Sie ein Feld für die Suche aus.",
+        "fields": {
+          "fulltext": "Der Volltext enthält Transkriptionen, geschlossene Untertitel, Untertitel und Dokumententext."
+        },
         "modifier": "Wählen Sie einen Modifikator aus, der auf das Feld angewendet werden soll.",
-        "term": "Geben Sie die Begriffe ein, nach denen gesucht oder ausgeschlossen werden soll."
+        "term": "Geben Sie die Begriffe ein, die das ausgewählte Feld enthält bzw. nicht enthält."
       }
     },
     "boost": {
@@ -1158,7 +1169,8 @@ export default {
   },
   "statuses": {
     "liked": "Gemocht",
-    "pinned": "Angeheftet"
+    "pinned": "Angeheftet",
+    "required": "Erforderlich"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} Geschichten gefunden",

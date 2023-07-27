@@ -1,4 +1,5 @@
 import pick from 'lodash/pick.js';
+import md5 from 'md5';
 import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
@@ -261,16 +262,18 @@ export default (context = {}) => {
         });
     },
 
+    // TODO: move to media-proxy.js
     mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
-      if (!params['api_url']) {
-        // TODO: it is not ideal to hard-code "/api" here, but the media proxy
-        //       expects Record API URLs to end thus, i.e. not /record or /api/v2
-        params['api_url'] = new URL(this.$axios.defaults.baseURL).origin + '/api';
+      if (this.$axios.defaults.baseURL !== context.$config?.europeana?.apis.record.url) {
+        params.recordApiUrl = this.$axios.defaults.baseURL;
       }
 
-      const proxyUrl = new URL(context.$config?.europeana?.proxy?.media?.url || EUROPEANA_MEDIA_PROXY_URL);
-      proxyUrl.pathname = europeanaId;
-      proxyUrl.searchParams.append('view', mediaUrl);
+      const proxyUrl = new URL(context.$config?.europeana?.apis?.mediaProxy?.url || EUROPEANA_MEDIA_PROXY_URL);
+
+      proxyUrl.pathname = `${proxyUrl.pathname}${europeanaId}/${md5(mediaUrl)}`;
+      if (proxyUrl.pathname.startsWith('//')) {
+        proxyUrl.pathname = proxyUrl.pathname.slice(1);
+      }
 
       for (const name in params) {
         proxyUrl.searchParams.append(name, params[name]);

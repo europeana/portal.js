@@ -61,7 +61,7 @@ export default {
     "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
-    "reset": "Berrezarri",
+    "resetFilters": "Berrezarri iragazkiak",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
@@ -285,14 +285,8 @@ export default {
     "exhibitions": "Erakusketa | Erakusketak"
   },
   "facets": {
-    "api": {
-      "name": "Dokumentuen barruan bilatu",
-      "options": {
-        "fulltext": "Testu osoko elementuak",
-        "metadata": "Metadatuak soilik diren elementuak"
-      },
-      "switch": "Bilatu testu osoa duten elementuen edukian soilik",
-      "switchMoreInfo": "Bilduma honetan, zer bilatu nahi duzun aukeratu dezakezu: etengailu hau aktibatuta badago, egunkariaren eta dokumentuaren testuaren barruan bilatuko duzu; desaktibatuta badago, elementua deskribatzen duen informazioaren barruan bilatuko duzu, beste bilduma gehienetan beti egiten duzun bezala."
+    "alert": {
+      "fulltextHasMoved": "Testu osoaren aukera bilatzen duzu? Bilaketa aurreratura mugitu da."
     },
     "button": {
       "morefilters": "Iragazki gehiago",
@@ -727,10 +721,15 @@ export default {
       "edmRights": "Elementu honen baimenen egoera (besterik adierazi ezean)",
       "edmUgc": "Erabiltzaileak sortutako edukia",
       "europeanaCollectionName": "Bildumaren izena",
+      "fulltext": "Testu osoa",
       "keywords": "Gako-hitzak (komunitateak emandakoak)",
       "timestampCreated": "Dataren marka sortu da",
       "timestampUpdate": "Dataren marka eguneratu da",
       "wasPresentAt": "Bertan egon zen",
+      "what": "Zer",
+      "when": "Noiz",
+      "where": "Non",
+      "who": "Nor",
       "year": "Urtea"
     },
     "webResource": {
@@ -1003,7 +1002,7 @@ export default {
       "unpublished": "[Argitaratu gabeko elementua]"
     },
     "transcription": "Transkripzioa",
-    "transcriptionDisclaimer": "Eduki hori jendeak egin du, eta ez elementu hau eman duen erakundeak"
+    "transcriptionDisclaimer": "Eduki hau publikoaren ekarpena da, ez elementu hau eman duen erakundeak hornitzailea."
   },
   "related": {
     "categoryTags": {
@@ -1040,21 +1039,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Eremu agregatuak",
+        "individual": "Banakako eremuak"
+      },
       "input": {
         "field": "Eremu",
         "modifier": "Aldatzailea",
-        "searchTerm": "Sartu bilaketa-terminoak"
+        "term": "Bilatu termino(a)k"
       },
       "modifiers": {
         "contains": "dauka",
         "doesNotContain": "ez dauka"
       },
+      "placeholder": {
+        "field": "Hautatu eremu bat",
+        "modifier": "Hautatu modifikatzaile bat",
+        "term": "Sartu bilaketa-terminoak"
+      },
       "show": "{showOrHide} bilaketa aurreratua",
       "tooltip": {
         "advancedSearch": "Bilaketa aurreratuak bilaketa pertsonalizatuak sortzeko aukera ematen du.",
         "field": "Aukeratu bilatzeko zelai bat.",
+        "fields": {
+          "fulltext": "Testu osoak transkripzioak, epigrafe itxia, azpitituluak eta dokumentuaren testua biltzen ditu."
+        },
         "modifier": "Hautatu modifikatzaile bat eremuari aplikatzeko.",
-        "term": "Sartu bilatu edo baztertu nahi dituzun terminoak."
+        "term": "Idatzi aukeratutako eremuak dituen edo ez dituen terminoak."
       }
     },
     "boost": {
@@ -1162,7 +1173,8 @@ export default {
   },
   "statuses": {
     "liked": "Gustatu",
-    "pinned": "Ainguratuta"
+    "pinned": "Ainguratuta",
+    "required": "Beharrezkoa"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} istorio aurkitu dira",

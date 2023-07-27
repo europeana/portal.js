@@ -67,7 +67,7 @@
     >
       <SearchQueryOptions
         ref="searchoptions"
-        :suggest="suggestSearchOptions && this.inTopNav && !onSearchableCollectionPage"
+        :suggest="suggestSearchOptions && inTopNav && !onSearchableCollectionPage"
         :text="query"
         @select="showSearchOptions = false;"
       />

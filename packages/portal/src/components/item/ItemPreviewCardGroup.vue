@@ -12,9 +12,9 @@
   >
     <slot />
     <component
-      :is="draggableItems ? 'draggable' : 'div'"
+      :is="useDraggable ? 'draggable' : 'div'"
       v-model="cards"
-      :draggable="draggableItems && '.item'"
+      :draggable="useDraggable && '.item'"
       handle=".move-button"
       @end="endItemDrag"
     >
@@ -58,7 +58,7 @@
           :enable-accept-recommendation="enableAcceptRecommendations"
           :enable-reject-recommendation="enableRejectRecommendations"
           :show-pins="showPins"
-          :show-move="draggableItems"
+          :show-move="useDraggable"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
         />
@@ -66,10 +66,10 @@
     </component>
   </div>
   <component
-    :is="draggableItems ? 'draggable' : 'b-card-group'"
+    :is="useDraggable ? 'draggable' : 'b-card-group'"
     v-else
     v-model="cards"
-    :draggable="draggableItems && '.item'"
+    :draggable="useDraggable && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     :columns="view === 'list'"
@@ -111,7 +111,7 @@
         :hit-selector="itemHitSelector(card)"
         :variant="cardVariant"
         :show-pins="showPins"
-        :show-move="draggableItems"
+        :show-move="useDraggable"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
       />
@@ -120,14 +120,13 @@
 </template>
 
 <script>
-  import draggable from 'vuedraggable';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
     name: 'ItemPreviewCardGroup',
 
     components: {
-      draggable,
+      draggable: () => import('vuedraggable'),
       ItemPreviewCard
     },
 
@@ -203,6 +202,10 @@
 
       masonryActive() {
         return this.view === 'grid' || this.view === 'mosaic';
+      },
+
+      useDraggable() {
+        return process.client && this.draggableItems;
       }
     },
 
