@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "A teljes szöveges keresési opciót keresi? Az a fejlett keresésbe került át."
+      "fulltextHasMoved": {
+        "newspaper": "Ha újságok szövegében szeretne keresni, akkor használja a speciális keresést, és válassza ki a \"teljes szöveg\" mezőt.",
+        "ww1": "Ha az első világháborús dokumentumok szövegében szeretne keresni, akkor használja a speciális keresést, és válassza ki a \"teljes szöveg\" mezőt."
+      }
     },
     "button": {
       "morefilters": "További szűrők",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} speciális keresés",
       "tooltip": {
         "advancedSearch": "A speciális keresés lehetővé teszi egyéni keresési lekérdezések létrehozását.",
-        "field": "Válasszon egy mezőt a kereséshez.",
+        "field": "Válassza ki a teljes szöveges vagy metaadat-mezőt a kereséshez.",
         "fields": {
           "fulltext": "A teljes szöveg tartalmazza a transzkripciókat, a zárt feliratokat, a feliratokat és a dokumentum szövegét."
         },

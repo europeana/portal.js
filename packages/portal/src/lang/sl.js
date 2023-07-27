@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Iščete možnost celotnega besedila? Premaknjena je v napredno iskanje."
+      "fulltextHasMoved": {
+        "newspaper": "Če želite iskati po besedilu časopisov, boste morali uporabiti napredno iskanje in izbrati polje \"polno besedilo\".",
+        "ww1": "Če želite iskati znotraj besedila dokumentov iz prve svetovne vojne, boste morali uporabiti napredno iskanje in izbrati polje \"polno besedilo\"."
+      }
     },
     "button": {
       "morefilters": "Več filtrov",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} napredno iskanje",
       "tooltip": {
         "advancedSearch": "Napredno iskanje vam omogoča ustvarjanje iskalnih poizvedb po meri.",
-        "field": "Izberite polje za iskanje.",
+        "field": "Izberite polje polnega besedila ali metapodatkov, v katerem želite iskati.",
         "fields": {
           "fulltext": "Polno besedilo vključuje prepise, zaprte napise, podnapise in besedilo dokumenta."
         },

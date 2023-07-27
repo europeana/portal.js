@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Tražite opciju za cjeloviti tekst? Premještena je na napredno pretraživanje."
+      "fulltextHasMoved": {
+        "newspaper": "Ako želite pretraživati unutar teksta novina, morat ćete koristiti napredno pretraživanje, te odabrati polje \"cijeli tekst\".",
+        "ww1": "Ako želite pretraživati unutar teksta dokumenata iz Prvog svjetskog rata, morat ćete koristiti napredno pretraživanje i odabrati polje \"cijeli tekst\"."
+      }
     },
     "button": {
       "morefilters": "Više filtera",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} napredno pretraživanje",
       "tooltip": {
         "advancedSearch": "Napredno pretraživanje omogućuje vam izradu prilagođenih upita za pretraživanje.",
-        "field": "Odaberite polje za pretraživanje.",
+        "field": "Odaberite cjeloviti tekst ili metapodatkovno polje za pretraživanje.",
         "fields": {
           "fulltext": "Puni tekst uključuje transkripcije, zatvorene titlove, podnaslove i tekst dokumenta."
         },

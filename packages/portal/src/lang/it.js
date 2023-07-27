@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Cerchi l'opzione per il testo completo? È stata spostata alla ricerca avanzata."
+      "fulltextHasMoved": {
+        "newspaper": "Se si desidera cercare all'interno del testo dei giornali, è necessario utilizzare la ricerca avanzata e scegliere il campo \"testo completo\".",
+        "ww1": "Se si desidera cercare all'interno del testo dei documenti della Prima guerra mondiale, è necessario utilizzare la ricerca avanzata e scegliere il campo \"testo completo\"."
+      }
     },
     "button": {
       "morefilters": "Altri filtri",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} ricerca avanzata",
       "tooltip": {
         "advancedSearch": "La ricerca avanzata ti consente di creare query di ricerca personalizzate.",
-        "field": "Seleziona un campo su cui effettuare la ricerca.",
+        "field": "Seleziona il campo di testo completo o di metadati in cui eseguire la ricerca.",
         "fields": {
           "fulltext": "Il testo completo include trascrizioni, didascalie chiuse, sottotitoli e testo del documento."
         },

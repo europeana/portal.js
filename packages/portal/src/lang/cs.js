@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Hledáte možnost fulltextu? Je přesunuta do rozšířeného vyhledávání."
+      "fulltextHasMoved": {
+        "newspaper": "Pokud chcete vyhledávat v textu novin, musíte použít rozšířené vyhledávání a vybrat pole \"pełny tekst\".",
+        "ww1": "Pokud chcete vyhledávat v textu dokumentů z 1. světové války, budete muset použít pokročilé vyhledávání a vybrat pole \"pełny text\"."
+      }
     },
     "button": {
       "morefilters": "Další filtry",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} pokročilé vyhledávání",
       "tooltip": {
         "advancedSearch": "Pokročilé vyhledávání umožňuje vytvářet vlastní vyhledávací dotazy.",
-        "field": "Vyberte pole pro vyhledávání",
+        "field": "Vyberte plný text nebo pole metadat pro vyhledávání.",
         "fields": {
           "fulltext": "Úplný text zahrnuje transkripce, uzavřené titulky, titulky a text dokumentu."
         },
