@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Suchen Sie die Volltextoption? Sie wurde in die erweiterte Suche verschoben."
+      "fulltextHasMoved": {
+        "newspaper": "Wenn Sie im Zeitungstext suchen möchten, müssen Sie die erweiterte Suche nutzen und das Feld „Volltext“ auswählen.",
+        "ww1": "Wenn Sie im Text der WWI-Dokumente suchen möchten, müssen Sie die erweiterte Suche verwenden und das Feld \"Volltext\" wählen."
+      }
     },
     "button": {
       "morefilters": "Weitere Filter",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} erweiterte Suche",
       "tooltip": {
         "advancedSearch": "Mit der erweiterten Suche können Sie benutzerdefinierte Suchanfragen erstellen.",
-        "field": "Wählen Sie ein Feld für die Suche aus.",
+        "field": "Wählen Sie das Volltext- oder Metadatenfeld aus, in dem gesucht werden soll.",
         "fields": {
           "fulltext": "Der Volltext enthält Transkriptionen, geschlossene Untertitel, Untertitel und Dokumententext."
         },

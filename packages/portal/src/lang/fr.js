@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Vous cherchez l'option de texte intégral ? Elle a été déplacée vers la recherche avancée."
+      "fulltextHasMoved": {
+        "newspaper": "Si vous souhaitez effectuer une recherche dans le texte des journaux, vous devrez utiliser la recherche avancée, et choisir le champ \"texte intégral\".",
+        "ww1": "Si vous souhaitez effectuer une recherche dans le texte des documents de la Première Guerre mondiale, vous devrez utiliser la recherche avancée et choisir le champ \"texte intégral\"."
+      }
     },
     "button": {
       "morefilters": "Plus de filtres",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} recherche avancée",
       "tooltip": {
         "advancedSearch": "La recherche avancée vous permet de créer des requêtes de recherche personnalisées.",
-        "field": "Sélectionnez un champ pour effectuer la recherche",
+        "field": "Sélectionnez le texte intégral ou le champ de métadonnées à rechercher.",
         "fields": {
           "fulltext": "Le texte intégral comprend des transcriptions, des sous-titres codés, des sous-titres et du texte de document."
         },

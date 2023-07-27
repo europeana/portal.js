@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Etsitkö koko tekstin vaihtoehtoa? Se on siirretty tarkennettuun hakuun."
+      "fulltextHasMoved": {
+        "newspaper": "Jos haluat etsiä sanomalehtien tekstistä, sinun on käytettävä tarkennettua hakua ja valittava \"koko Teksti\" -kenttä.",
+        "ww1": "Jos haluat etsiä tekstiä ensimmäisen maailmansodan asiakirjoista, sinun on käytettävä tarkennettua hakua ja valittava \"koko teksti\" -kenttä."
+      }
     },
     "button": {
       "morefilters": "Lisää suodattimia",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} tarkennettu haku",
       "tooltip": {
         "advancedSearch": "Tarkennetun haun avulla voit luoda mukautettuja hakukyselyitä.",
-        "field": "Valitse hakuun kenttä",
+        "field": "Valitse koko teksti tai metatietokenttä haettavaksi.",
         "fields": {
           "fulltext": "Täysi teksti sisältää transkriptiot, suljetut kuvatekstit, tekstitykset ja asiakirjan tekstin."
         },

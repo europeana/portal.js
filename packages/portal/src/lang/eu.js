@@ -286,7 +286,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Testu osoaren aukera bilatzen duzu? Bilaketa aurreratura mugitu da."
+      "fulltextHasMoved": {
+        "newspaper": "Egunkarien testuaren barruan bilatu nahi baduzu, bilaketa aurreratua erabili beharko duzu, eta \"testu osoa\" eremua aukeratu.",
+        "ww1": "Lehen Mundu Gerrako dokumentuen testuan bilatu nahi baduzu, bilaketa aurreratua erabili beharko duzu eta \"testu osoa\" eremua aukeratu."
+      }
     },
     "button": {
       "morefilters": "Iragazki gehiago",
@@ -1060,7 +1063,7 @@ export default {
       "show": "{showOrHide} bilaketa aurreratua",
       "tooltip": {
         "advancedSearch": "Bilaketa aurreratuak bilaketa pertsonalizatuak sortzeko aukera ematen du.",
-        "field": "Aukeratu bilatzeko zelai bat.",
+        "field": "Hautatu testu-osoa edo metadatu-eremua bilatzeko",
         "fields": {
           "fulltext": "Testu osoak transkripzioak, epigrafe itxia, azpitituluak eta dokumentuaren testua biltzen ditu."
         },

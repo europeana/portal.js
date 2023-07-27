@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Qed tfittex l-għażla tat-test sħiħ? Huwa mċaqlaq għat-tfittxija avvanzata."
+      "fulltextHasMoved": {
+        "newspaper": "Jekk trid tfittex fit-test tal-gazzetti, ikollok bżonn tuża t-tfittxija avvanzata, u tagħżel il-qasam \"test sħiħ\".",
+        "ww1": "Jekk trid tfittex fit-test tad-dokumenti tal-WWI, ser ikollok bżonn tuża t-tfittxija avvanzata, u tagħżel il-qasam \"test sħiħ\"."
+      }
     },
     "button": {
       "morefilters": "Aktar filtri",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} tfittxija avvanzata",
       "tooltip": {
         "advancedSearch": "It-tfittxija avvanzata tippermettilek tibni mistoqsijiet ta' tfittxija personalizzati.",
-        "field": "Agħżel qasam biex tfittex.",
+        "field": "Agħżel il-qasam tat-test sħiħ jew tal-metadejta biex tfittex fih.",
         "fields": {
           "fulltext": "It-test sħiħ jinkludi traskrizzjonijiet, kaptjonijiet magħluqa, sottotitoli u test tad-dokument."
         },

@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Op zoek naar de full-text optie? Die is verplaatst naar geavanceerd zoeken."
+      "fulltextHasMoved": {
+        "newspaper": "Als u wilt zoeken in de tekst van kranten, moet u de geavanceerde zoekopdracht gebruiken en het veld \"volledige tekst\" kiezen.",
+        "ww1": "Als u wilt zoeken in de tekst van WWI-documenten, moet u de geavanceerde zoekfunctie gebruiken en het veld \"volledige tekst\" kiezen."
+      }
     },
     "button": {
       "morefilters": "Meer filters",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} geavanceerd zoeken",
       "tooltip": {
         "advancedSearch": "Met geavanceerd zoeken kunt u aangepaste zoekopdrachten maken.",
-        "field": "Selecteer een veld om op te zoeken.",
+        "field": "Selecteer de volledige tekst of het metadata veld om in te zoeken.",
         "fields": {
           "fulltext": "Volledige tekst omvat transcripties, gesloten ondertiteling, ondertitels en documenttekst."
         },

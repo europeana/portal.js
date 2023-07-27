@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Otsid täisteksti valikut? See on nüüd edasijõudnute otsingus."
+      "fulltextHasMoved": {
+        "newspaper": "Kui soovite otsida ajalehtede tekstist, peate kasutama täpsemat otsingut ja valima välja \"täistekst\".",
+        "ww1": "Kui soovite otsida teksti esimese maailmasõja dokumentidest, peate kasutama täpsemat otsingut ja valima \"täistekst\" välja."
+      }
     },
     "button": {
       "morefilters": "Rohkem filtreid",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} täpsem otsing",
       "tooltip": {
         "advancedSearch": "Täpsem otsing võimaldab teil luua kohandatud otsingu päringuid.",
-        "field": "Valige otsimiseks väli.",
+        "field": "Valige otsinguks täistekst või metaandmete väli.",
         "fields": {
           "fulltext": "Täistekst sisaldab transkriptsioone, suletud pealdisi, subtiitreid ja dokumendi teksti."
         },

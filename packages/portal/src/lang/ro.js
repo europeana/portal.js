@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Căutați opțiunea de text integral? A fost mutată la căutarea avansată."
+      "fulltextHasMoved": {
+        "newspaper": "Dacă doriți să căutați în textul ziarelor, va trebui să utilizați căutarea avansată și să alegeți câmpul „text integral”.",
+        "ww1": "Dacă doriți să căutați în textul documentelor din Primul Război Mondial, va trebui să utilizați căutarea avansată și să alegeți câmpul \"text integral\"."
+      }
     },
     "button": {
       "morefilters": "Mai multe filtre",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} căutare avansată",
       "tooltip": {
         "advancedSearch": "Căutarea avansată vă permite să creați interogări de căutare personalizate.",
-        "field": "Selectați un câmp în care să căutați.",
+        "field": "Selectați câmpul de text integral sau câmpul de metadate în care doriți să căutați.",
         "fields": {
           "fulltext": "Textul integral include transcripții, subtitrări închise, subtitrări și textul documentului."
         },
