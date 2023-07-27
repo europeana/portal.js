@@ -2,7 +2,10 @@ import pick from 'lodash/pick.js';
 import md5 from 'md5';
 import merge from 'deepmerge';
 
-import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
+import undefinedLocaleCodes from '../i18n/undefined.js';
+import {
+  apiError, createAxios, forEachLangMapValue, reduceLangMapsForLocale, isLangMap
+} from './utils.js';
 import search from './search.js';
 import Item from './edm/Item.js';
 
@@ -136,24 +139,24 @@ export default (context = {}) => {
         }, {});
 
       // Europeana proxy only really needed for the translate profile
-      let europeanaProxy = {};
-      if (context.$features?.translatedItems && options.metadataLanguage) {
-        europeanaProxy = findProxy(edm.proxies, 'europeana');
+      const europeanaProxy = findProxy(edm.proxies, 'europeana');
+      if (!(context.$features?.translatedItems && options.metadataLanguage)) {
+        forEachLangMapValue(europeanaProxy, (europeanaProxy, field, locale) => {
+          if (!undefinedLocaleCodes.includes(locale)) {
+            delete europeanaProxy[field][locale];
+          }
+        });
       }
       const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
       const providerProxy = findProxy(edm.proxies, 'provider');
 
       const proxies = merge.all([providerProxy, aggregatorProxy, europeanaProxy].filter((p) => !!p));
 
-      for (const field in proxies) {
-        if (isLangMap(proxies[field])) {
-          for (const locale in proxies[field]) {
-            if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
-              proxies[field][locale] = proxies[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
-            }
-          }
+      forEachLangMapValue(proxies, (proxies, field, locale) => {
+        if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
+          proxies[field][locale] = proxies[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
         }
-      }
+      });
 
       let prefLang;
       if (context.$features?.translatedItems) {
