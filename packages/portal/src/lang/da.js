@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Leder du efter muligheden for fuld tekst? Den er flyttet til den avancerede søgning."
+      "fulltextHasMoved": {
+        "newspaper": "Hvis du vil søge i avisens tekst, skal du bruge den avancerede søgning og vælge feltet \"fuldtekst\".",
+        "ww1": "Hvis du vil søge i teksten i WWI-dokumenter, skal du bruge den avancerede søgning og vælge feltet \"fuldtekst\"."
+      }
     },
     "button": {
       "morefilters": "Flere filtre",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} avanceret søgning",
       "tooltip": {
         "advancedSearch": "Den avancerede søgning giver dig mulighed for at oprette tilpassede søgeforespørgsler.",
-        "field": "Vælg et felt at søge på.",
+        "field": "Vælg fuldtekst eller metadata felt til søgning indenfor.",
         "fields": {
           "fulltext": "Fuldtekst inkluderer transskriptioner, lukkede billedtekster, undertekster og dokumenttekst."
         },

@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Hľadáte možnosť plného textu? Je presunutý do rozšíreného vyhľadávania."
+      "fulltextHasMoved": {
+        "newspaper": "Ak chcete vyhľadávať v texte novín, budete musieť použiť rozšírené vyhľadávanie a zvoliť pole „plný text“.",
+        "ww1": "Ak chcete vyhľadávať v texte dokumentov z prvej svetovej vojny, musíte použiť rozšírené vyhľadávanie a vybrať pole \"plný text\"."
+      }
     },
     "button": {
       "morefilters": "Viac filtrov",
@@ -717,7 +720,7 @@ export default {
       "edmRights": "Právny stav na médiá v tomto objekt (pokiaľ nie je uvedené inak)",
       "edmUgc": "Obsah generovaný používateľmi",
       "europeanaCollectionName": "Názov zbierky",
-      "fulltext": "Úplný text",
+      "fulltext": "Plný text",
       "keywords": "Kľúčové slová (poskytnuté komunitou)",
       "timestampCreated": "Vytvorenie časovej pečiatky",
       "timestampUpdate": "Aktualizácia časovej pečiatky",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} rozšírené vyhľadávanie",
       "tooltip": {
         "advancedSearch": "Rozšírené vyhľadávanie vám umožňuje vytvárať vlastné vyhľadávacie dopyty.",
-        "field": "Vyberte pole pre vyhľadávanie",
+        "field": "Vyberte pole plného textu alebo metadát, v ktorom chcete vyhľadávať.",
         "fields": {
           "fulltext": "Úplný text zahŕňa prepisy, uzavreté titulky, podtitulky a text dokumentu."
         },

@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Ag lorg an rogha téacs iomlán? Tá sé bogtha go dtí an cuardach casta."
+      "fulltextHasMoved": {
+        "newspaper": "Más mian leat cuardach a dhéanamh laistigh de théacs na nuachtán, beidh ort an cuardach casta a úsáid, agus an réimse \"téacs iomlán\" a roghnú.",
+        "ww1": "Más mian leat cuardach a dhéanamh laistigh de théacs dhoiciméid WWI, beidh ort an cuardach casta a úsáid, agus an réimse \"téacs iomlán\" a roghnú."
+      }
     },
     "button": {
       "morefilters": "Níos mó scagairí",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} ardchuardach",
       "tooltip": {
         "advancedSearch": "Ligeann an cuardach casta duit ceisteanna cuardaigh saincheaptha a chruthú.",
-        "field": "Roghnaigh réimse le cuardach air.",
+        "field": "Roghnaigh an réimse téacs iomlán nó meiteashonraí chun cuardach a dhéanamh laistigh de.",
         "fields": {
           "fulltext": "Áirítear le téacs iomlán tras-scríbhinní, fotheidil dúnta, fotheidil agus téacs doiciméad."
         },

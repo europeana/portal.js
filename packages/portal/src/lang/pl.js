@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Szukasz opcji pełnego tekstu? Przeniesiono ją do wyszukiwania zaawansowanego."
+      "fulltextHasMoved": {
+        "newspaper": "Jeśli chcesz szukać w tekście gazet, musisz skorzystać z wyszukiwania zaawansowanego i wybrać pole „pełny tekst”.",
+        "ww1": "Jeśli chcesz przeszukiwać tekst dokumentów z I wojny światowej, musisz skorzystać z wyszukiwania zaawansowanego i wybrać pole \"pełny tekst\"."
+      }
     },
     "button": {
       "morefilters": "Więcej filtrów",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} wyszukiwanie zaawansowane",
       "tooltip": {
         "advancedSearch": "Wyszukiwanie zaawansowane umożliwia tworzenie niestandardowych zapytań wyszukiwania.",
-        "field": "Wybierz pole do wyszukiwania.",
+        "field": "Wybierz pole pełny tekstu lub metadanych do wyszukiwania.",
         "fields": {
           "fulltext": "Tekst pełny obejmuje transkrypcje, napisy dla osób niesłyszących, napisy i tekst dokumentu."
         },

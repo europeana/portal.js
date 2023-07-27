@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Meklējat pilna teksta opciju? Tā ir pārvietota uz paplašināto meklēšanu."
+      "fulltextHasMoved": {
+        "newspaper": "Ja vēlaties veikt meklēšanu laikrakstu tekstā, jāizmanto paplašinātā meklēšana un jāizvēlas lauks \"pilnais teksts\".",
+        "ww1": "Ja vēlaties veikt meklēšanu Pirmā pasaules kara dokumentu tekstā, jums būs jāizmanto paplašinātā meklēšana un jāizvēlas lauks \"pilns teksts\"."
+      }
     },
     "button": {
       "morefilters": "Vairāk filtru",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} izvērstā meklēšana",
       "tooltip": {
         "advancedSearch": "Izvērstā meklēšana ļauj izveidot pielāgotus meklēšanas vaicājumus.",
-        "field": "Izvēlieties meklēšanai lauku",
+        "field": "Atlasiet pilnteksta vai metadatu lauku, kurā veikt meklēšanu.",
         "fields": {
           "fulltext": "Pilnteksts ietver transkripcijas, slēgtos subtitrus, subtitrus un dokumenta tekstu."
         },

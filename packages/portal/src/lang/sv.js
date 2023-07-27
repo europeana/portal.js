@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Letar du efter alternativet för fulltext? Det har flyttats till avancerad sökning."
+      "fulltextHasMoved": {
+        "newspaper": "Om du vill söka i tidningstexten måste du använda den avancerade sökningen och välja fältet \"fulltext\".",
+        "ww1": "Om du vill söka inom texten av första världskrigets dokument måste du använda den avancerade sökningen och välja fältet \"fulltext\"."
+      }
     },
     "button": {
       "morefilters": "Fler filter",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} avancerad sökning",
       "tooltip": {
         "advancedSearch": "Den avancerade sökningen låter dig skapa anpassade sökfrågor.",
-        "field": "Välj ett fält att söka på.",
+        "field": "Välj fulltext- eller metadatafältet att söka i.",
         "fields": {
           "fulltext": "Fulltext inkluderar transkriptioner, stängda bildtexter, undertexter och dokumenttext."
         },

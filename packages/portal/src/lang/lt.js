@@ -282,7 +282,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Ieškote pilno teksto parinkties? Ji perkelta į išplėstinę paiešką."
+      "fulltextHasMoved": {
+        "newspaper": "Jei norite ieškoti laikraščių tekstuose, turėsite naudoti pažangųjį paiešką ir pasirinkti \"pilnas tekstas\" lauką.",
+        "ww1": "Jei norite atlikti paiešką Pirmojo pasaulinio karo dokumentų tekste, turite naudoti išplėstinę paiešką ir pasirinkti \"pilnas tekstas\" lauką."
+      }
     },
     "button": {
       "morefilters": "Daugiau filtrų",
@@ -1056,7 +1059,7 @@ export default {
       "show": "{showOrHide} išplėstinė paieška",
       "tooltip": {
         "advancedSearch": "Išplėstinė paieška leidžia kurti pasirinktines paieškos užklausas.",
-        "field": "Pasirinkite lauką, kuriame norite ieškoti.",
+        "field": "Pasirinkite viso teksto arba metaduomenų lauką, kuriame norite ieškoti.",
         "fields": {
           "fulltext": "Pilnas tekstas apima transkripcijas, uždarąsias antraštes, subtitrus ir dokumento tekstą."
         },
