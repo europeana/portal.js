@@ -618,7 +618,10 @@ export default {
       "select": "Select types of media"
     },
     "alert": {
-      "fulltextHasMoved": "Looking for the full-text option? It's moved to the advanced search."
+      "fulltextHasMoved": {
+        "newspaper": "If you want to search within the text of newspapers, you will need to use the advanced search, and choose the \"full-text\" field.",
+        "ww1": "If you want to search within the text of WWI documents, you will need to use the advanced search, and choose the \"full-text\" field."
+      }
     },
     "button": {
       "morefilters": "More filters",
