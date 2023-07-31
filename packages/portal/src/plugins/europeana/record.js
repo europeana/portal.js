@@ -150,7 +150,7 @@ export default (context = {}) => {
       const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
       const providerProxy = findProxy(edm.proxies, 'provider');
 
-      const proxies = merge.all([providerProxy, aggregatorProxy, europeanaProxy].filter((p) => !!p));
+      const proxies = merge.all([europeanaProxy, aggregatorProxy, providerProxy].filter((p) => !!p));
 
       forEachLangMapValue(proxies, (proxies, field, locale) => {
         if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
