@@ -36,7 +36,7 @@
             </template>
           </component>
           <div>
-            <b-form-input
+            <SearchQueryBuilderRuleTermInput
               v-if="control === 'term'"
               :id="`${id}-${control}`"
               v-model="term"
@@ -77,8 +77,8 @@
 </template>
 
 <script>
-  import SearchQueryBuilderRuleDropdown from './SearchQueryBuilderRuleDropdown.vue';
-  import SearchQueryBuilderRuleTermInput from './SearchQueryBuilderRuleTermInput.vue';
+  import SearchQueryBuilderRuleDropdown from './SearchQueryBuilderRuleDropdown';
+  import SearchQueryBuilderRuleTermInput from './SearchQueryBuilderRuleTermInput';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {

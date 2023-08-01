@@ -69,6 +69,7 @@
         ref="searchoptions"
         :suggest="suggestSearchOptions && inTopNav && !onSearchableCollectionPage"
         :text="query"
+        :in-top-nav="inTopNav"
         @select="showSearchOptions = false;"
       />
       <SearchThemeBadges

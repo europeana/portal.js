@@ -16,8 +16,8 @@
       ref="options"
       :key="index"
       :data-qa="option.qa"
-      :to="$link.to(option.link.path, option.link.query)"
-      :href="$link.href(option.link.path, option.link.query)"
+      :to="inTopNav ? $link.to(option.link.path, option.link.query): ''"
+      :href="inTopNav ? $link.href(option.link.path, option.link.query): ''"
       role="option"
       @click="handleClick(index, option.link.query.query)"
     >
@@ -72,6 +72,11 @@
       type: {
         type: String,
         default: 'agent,concept,place,timespan'
+      },
+
+      inTopNav: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -123,10 +128,14 @@
       },
 
       options() {
-        if (this.onCollectionPage) {
-          return [this.collectionSearchOption, this.globalSearchOption];
+        if (this.inTopNav) {
+          if (this.onCollectionPage) {
+            return [this.collectionSearchOption, this.globalSearchOption];
+          } else {
+            return [this.globalSearchOption].concat(this.suggestionSearchOptions);
+          }
         } else {
-          return [this.globalSearchOption].concat(this.suggestionSearchOptions);
+          return this.suggestionSearchOptions;
         }
       },
 
@@ -234,6 +243,7 @@
       },
 
       trackSuggestionClick(index, query) {
+        // TODO add tracking for advanced search
         // Skip click tracking while on a collection page, there will never be suggestions.
         if (!this.onCollectionPage) {
           if (index >= 1) {
