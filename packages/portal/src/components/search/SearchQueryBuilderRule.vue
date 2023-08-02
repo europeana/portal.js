@@ -43,6 +43,7 @@
               :data-qa="`advanced search query builder: ${control} control`"
               :placeholder="$t('search.advanced.placeholder.term')"
               :state="validations.term.state"
+              :suggest-entity-type="suggestEntityTypeForTerm"
               @change="(value) => handleRuleChange('term', value)"
             />
             <SearchQueryBuilderRuleDropdown
@@ -169,6 +170,9 @@
       individualFieldOptions() {
         return this.fieldOptions
           .filter((field) => !this.aggregatedFieldNames.includes(field.value) && (field.value !== this.fulltextFieldName));
+      },
+      suggestEntityTypeForTerm() {
+        return this.advancedSearchFields.filter(field => field.name === this.field)[0]?.suggestEntityType;
       }
     },
 

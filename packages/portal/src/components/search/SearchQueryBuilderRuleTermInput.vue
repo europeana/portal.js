@@ -8,11 +8,14 @@
       @change="(newVal) => $emit('change', newVal)"
       @focus="showSearchOptions = true"
     />
-    <SearchQueryOptions
-      v-show="showSearchOptions"
-      :text="term"
-      @select="(selectedValue) => handleSelect(selectedValue)"
-    />
+    <template v-if="suggestEntityType">
+      <SearchQueryOptions
+        v-show="showSearchOptions"
+        :text="term"
+        :type="suggestEntityType"
+        @select="(selectedValue) => handleSelect(selectedValue)"
+      />
+    </template>
   </div>
 </template>
 
@@ -42,8 +45,7 @@
        */
       suggestEntityType: {
         type: String,
-        // TODO: pass entity type per field
-        default: 'concept'
+        default: null
       },
 
       value: {
