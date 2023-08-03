@@ -5,14 +5,17 @@
       :data-qa="`advanced search query builder: ${name} control`"
       :placeholder="$t('search.advanced.placeholder.term')"
       :state="state"
-      @change="(newVal) => $emit('change', newVal)"
+      @change="handleChange"
       @focus="showSearchOptions = true"
+      @input="showSearchOptions = true"
+      @blur="handleChange"
     />
     <template v-if="suggestEntityType">
       <SearchQueryOptions
         v-show="showSearchOptions"
         :text="term"
         :type="suggestEntityType"
+        :advanced-search="true"
         @select="(selectedValue) => handleSelect(selectedValue)"
       />
     </template>
@@ -57,7 +60,9 @@
     data() {
       return {
         term: this.value,
-        showSearchOptions: false
+        showSearchOptions: false,
+        valueToEmit: null,
+        selectedValue: null
       };
     },
 
@@ -68,9 +73,20 @@
     },
 
     methods: {
+      handleChange() {
+        // Wait for SearchQueryOptions select event
+        setTimeout(() => {
+          this.valueToEmit = this.selectedValue || this.term;
+
+          if (this.valueToEmit !== this.value) {
+            this.$emit('change', this.valueToEmit);
+          }
+
+          this.showSearchOptions = false;
+        }, 500);
+      },
       handleSelect(newVal) {
-        this.$emit('change', newVal);
-        this.showSearchOptions = false;
+        this.selectedValue = newVal;
       }
     }
   };

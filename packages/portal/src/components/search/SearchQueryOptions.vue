@@ -16,9 +16,10 @@
       ref="options"
       :key="index"
       :data-qa="option.qa"
-      :to="inTopNav ? $link.to(option.link.path, option.link.query): ''"
-      :href="inTopNav ? $link.href(option.link.path, option.link.query): ''"
+      :to="!advancedSearch ? $link.to(option.link.path, option.link.query): ''"
+      :href="!advancedSearch ? $link.href(option.link.path, option.link.query): ''"
       role="option"
+      :button="advancedSearch"
       @click="handleClick(index, option.link.query.query)"
     >
       <i18n
@@ -74,7 +75,7 @@
         default: 'agent,concept,place,timespan'
       },
 
-      inTopNav: {
+      advancedSearch: {
         type: Boolean,
         default: false
       }
@@ -128,14 +129,12 @@
       },
 
       options() {
-        if (this.inTopNav) {
-          if (this.onCollectionPage) {
-            return [this.collectionSearchOption, this.globalSearchOption];
-          } else {
-            return [this.globalSearchOption].concat(this.suggestionSearchOptions);
-          }
-        } else {
+        if (this.onCollectionPage) {
+          return [this.collectionSearchOption, this.globalSearchOption];
+        } else if (this.advancedSearch) {
           return this.suggestionSearchOptions;
+        } else {
+          return [this.globalSearchOption].concat(this.suggestionSearchOptions);
         }
       },
 
