@@ -81,6 +81,7 @@
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
+  import searchOptionsKeyboardNav from '@/mixins/searchOptionsKeyboardNav';
 
   export default {
     name: 'SearchForm',
@@ -90,6 +91,8 @@
       SearchFilterToggleButton: () => import('./SearchFilterToggleButton'),
       SearchThemeBadges: () => import('@/components/search/SearchThemeBadges')
     },
+
+    mixins: [searchOptionsKeyboardNav],
 
     props: {
       show: {
@@ -153,13 +156,6 @@
       '$route.path'() {
         this.showSearchOptions = false;
       },
-      showSearchOptions(newVal) {
-        if (newVal === true) {
-          window.addEventListener('click', this.handleClickOrTabOutside);
-        } else {
-          window.removeEventListener('click', this.handleClickOrTabOutside);
-        }
-      },
       show(newVal) {
         this.showForm = newVal;
       }
@@ -218,62 +214,6 @@
         this.$nextTick(() => {
           this.getElement(this.$refs.searchinput).focus();
         });
-      },
-
-      handleClickOrTabOutside(event) {
-        const targetOutsideSearchDropdown = event.target?.id !== 'show-search-button' && this.$refs.searchdropdown && !this.$refs.searchdropdown.contains(event.target);
-        if ((event.type === 'click' || event.key === 'Tab') && targetOutsideSearchDropdown) {
-          this.showSearchOptions = false;
-        }
-      },
-
-      handleKeyDown(event) {
-        this.handleClickOrTabOutside(event);
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-          event.preventDefault();
-          this.navigateWithArrowKeys(event);
-        }
-        if (event.key === 'Escape') {
-          this.handleHide();
-        }
-      },
-
-      handleHide() {
-        this.blurInput();
-        this.showSearchOptions = false;
-        if (this.hidableForm) {
-          this.showForm = false;
-        }
-        this.$emit('hide');
-      },
-
-      navigateWithArrowKeys(event) {
-        const searchQueryOptionsComponentOptions = this.$refs.searchoptions?.$refs.options || [];
-        const quickSearchComponentOptions = this.$refs.quicksearch?.$children[0].$refs.options || [];
-        const searchDropdownOptions = searchQueryOptionsComponentOptions.concat(quickSearchComponentOptions);
-        const activeOption = searchDropdownOptions.map(option => option.$el || option).indexOf(event.target);
-
-        if (searchDropdownOptions.length) {
-          if (activeOption === -1) {
-            this.getElement(searchDropdownOptions[0]).focus();
-          }
-          if (event.key === 'ArrowDown' && activeOption < searchDropdownOptions.length - 1) {
-            this.getElement(searchDropdownOptions[activeOption + 1]).focus();
-          }
-          if (event.key === 'ArrowUp' && activeOption > 0) {
-            this.getElement(searchDropdownOptions[activeOption - 1]).focus();
-          }
-        }
-      },
-
-      getElement(element) {
-        return element.$el || element;
-      },
-
-      blurInput() {
-        if (this.$refs.searchinput.$el) {
-          this.$refs.searchinput.$el.blur();
-        }
       }
     }
   };

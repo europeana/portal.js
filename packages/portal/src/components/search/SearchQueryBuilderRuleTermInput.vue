@@ -1,6 +1,10 @@
 <template>
-  <div>
+  <div
+    ref="searchdropdown"
+    @keydown="handleKeyDown"
+  >
     <b-form-input
+      ref="searchinput"
       v-model="term"
       :data-qa="`advanced search query builder: ${name} control`"
       :placeholder="$t('search.advanced.placeholder.term')"
@@ -8,15 +12,17 @@
       @change="handleChange"
       @focus="showSearchOptions = true"
       @input="showSearchOptions = true"
-      @blur="handleChange"
+      @keydown.enter="showSearchOptions = false"
     />
     <template v-if="suggestEntityType">
       <SearchQueryOptions
         v-show="showSearchOptions"
+        ref="searchoptions"
         :text="term"
         :type="suggestEntityType"
         :advanced-search="true"
         @select="(selectedValue) => handleSelect(selectedValue)"
+        @keydown.enter="(selectedValue) => handleSelect(selectedValue)"
       />
     </template>
   </div>
@@ -24,6 +30,7 @@
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
+  import searchOptionsKeyboardNav from '@/mixins/searchOptionsKeyboardNav';
 
   export default {
     name: 'SearchQueryBuilderRuleTermInput',
@@ -31,6 +38,8 @@
     components: {
       SearchQueryOptions
     },
+
+    mixins: [searchOptionsKeyboardNav],
 
     props: {
       name: {
@@ -73,20 +82,17 @@
     },
 
     methods: {
-      handleChange() {
-        // Wait for SearchQueryOptions select event
+      handleChange(newVal) {
+        // Wait for focusout event to close options
         setTimeout(() => {
-          this.valueToEmit = this.selectedValue || this.term;
-
-          if (this.valueToEmit !== this.value) {
-            this.$emit('change', this.valueToEmit);
+          if (!this.showSearchOptions) {
+            this.$emit('change', newVal);
           }
-
-          this.showSearchOptions = false;
         }, 500);
       },
       handleSelect(newVal) {
-        this.selectedValue = newVal;
+        this.showSearchOptions = false;
+        this.handleChange(newVal);
       }
     }
   };
