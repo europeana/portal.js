@@ -281,14 +281,11 @@ export default {
     "exhibitions": "Kiállítás | Kiállítások"
   },
   "facets": {
-    "api": {
-      "name": "Keresés a dokumentumokban",
-      "options": {
-        "fulltext": "Teljes szövegű tárgyak",
-        "metadata": "Csak metaadatokat tartalmazó tárgyak"
-      },
-      "switch": "Keresés csak a teljes szövegű tárgyak tartalmában",
-      "switchMoreInfo": "Ebben a gyűjteményben kiválaszthatja, hogy mit szeretne keresni: ha ez a kapcsoló be van kapcsolva, akkor az újság és a dokumentum szövegében fog keresni; ha ki van kapcsolva, akkor inkább a tárgyat leíró információk között fog keresni, ahogyan a legtöbb más gyűjteményben is."
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Ha újságok szövegében szeretne keresni, akkor használja a speciális keresést, és válassza ki a \"teljes szöveg\" mezőt.",
+        "ww1": "Ha az első világháborús dokumentumok szövegében szeretne keresni, akkor használja a speciális keresést, és válassza ki a \"teljes szöveg\" mezőt."
+      }
     },
     "button": {
       "morefilters": "További szűrők",
@@ -723,10 +720,15 @@ export default {
       "edmRights": "Az ebben a tárgyban szereplő adathordozó licence (hacsak másképp nincs meghatározva).",
       "edmUgc": "Felhasználó által generált tartalom",
       "europeanaCollectionName": "Gyűjtemény neve",
+      "fulltext": "Teljes szöveg",
       "keywords": "Kulcsszavak (a közösség által megadva)",
       "timestampCreated": "Időbélyeg létrehozva",
       "timestampUpdate": "Időbélyeg frissítve",
       "wasPresentAt": "Jelen volt itt",
+      "what": "Mi",
+      "when": "Mikor",
+      "where": "Hol",
+      "who": "Ki",
       "year": "Év"
     },
     "webResource": {
@@ -999,7 +1001,7 @@ export default {
       "unpublished": "[Közzé nem tett tárgy]"
     },
     "transcription": "Átírás",
-    "transcriptionDisclaimer": "Ezt a tartalmat a nyilvánosság hozza létre, nem az intézmény, amely a cikket szolgáltatta."
+    "transcriptionDisclaimer": "Ez a tartalom a közönség által van hozzájárulva, nem a tárgyat szolgáltató intézmény által."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1038,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Összesített mezők",
+        "individual": "Egyéni mezők"
+      },
       "input": {
         "field": "Mező",
         "modifier": "Módosító",
-        "searchTerm": "Írja be a keresett kifejezés(eke)t"
+        "term": "Keresési kifejezés(ek)"
       },
       "modifiers": {
         "contains": "tartalmaz",
         "doesNotContain": "nem tartalmaz"
       },
+      "placeholder": {
+        "field": "Válasszon egy mezőt",
+        "modifier": "Válasszon egy módosítót",
+        "term": "Írja be a keresett kifejezés(eke)t"
+      },
       "show": "{showOrHide} speciális keresés",
       "tooltip": {
         "advancedSearch": "A speciális keresés lehetővé teszi egyéni keresési lekérdezések létrehozását.",
-        "field": "Válasszon egy mezőt a kereséshez.",
+        "field": "Válassza ki a teljes szöveges vagy metaadat-mezőt a kereséshez.",
+        "fields": {
+          "fulltext": "A teljes szöveg tartalmazza a transzkripciókat, a zárt feliratokat, a feliratokat és a dokumentum szövegét."
+        },
         "modifier": "Válassza ki a mezőre alkalmazni kívánt módosítót.",
-        "term": "Írja be a keresendő vagy kizárandó kifejezés(eke)t."
+        "term": "Adja meg a kifejezés(eke)t, amelyeket a kiválasztott mező tartalmaz vagy nem tartalmaz."
       }
     },
     "boost": {
@@ -1158,7 +1172,8 @@ export default {
   },
   "statuses": {
     "liked": "Tetszett",
-    "pinned": "Odatűzött"
+    "pinned": "Odatűzött",
+    "required": "Szükséges"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} történet található",

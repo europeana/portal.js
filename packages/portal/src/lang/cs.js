@@ -281,14 +281,11 @@ export default {
     "exhibitions": "Výstava | Výstavy"
   },
   "facets": {
-    "api": {
-      "name": "Vyhledávání v dokumentech",
-      "options": {
-        "fulltext": "Položky s fulltextem",
-        "metadata": "Pouze položky s metadaty"
-      },
-      "switch": "Vyhledávání pouze v obsahu položek s plným textem",
-      "switchMoreInfo": "V této kolekci si můžete vybrat, co chcete vyhledávat: pokud je tento přepínač zapnutý, budete vyhledávat v textu novin a dokumentů; pokud je vypnutý, budete místo toho vyhledávat v informacích popisujících položku, stejně jako ve většině ostatních sbírek."
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Pokud chcete vyhledávat v textu novin, musíte použít rozšířené vyhledávání a vybrat pole \"pełny tekst\".",
+        "ww1": "Pokud chcete vyhledávat v textu dokumentů z 1. světové války, budete muset použít pokročilé vyhledávání a vybrat pole \"pełny text\"."
+      }
     },
     "button": {
       "morefilters": "Další filtry",
@@ -723,10 +720,15 @@ export default {
       "edmRights": "Výrok o právech tohoto položka (není-li uvedeno jinak)",
       "edmUgc": "Uživatelský obsah",
       "europeanaCollectionName": "Název kolekce",
+      "fulltext": "Pełny tekst",
       "keywords": "Klíčová slova (poskytnutá komunitou)",
       "timestampCreated": "Časové razítko vytvořeno",
       "timestampUpdate": "Časové razítko bylo aktualizováno",
       "wasPresentAt": "se účastnil/a",
+      "what": "Co",
+      "when": "Kdy",
+      "where": "Kde",
+      "who": "Kdo",
       "year": "Rok"
     },
     "webResource": {
@@ -999,7 +1001,7 @@ export default {
       "unpublished": "[Nepublikovaná položka]"
     },
     "transcription": "Přepis",
-    "transcriptionDisclaimer": "Tento obsah pochází z veřejných zdrojů, nikoliv od poskytovatelské instituce."
+    "transcriptionDisclaimer": "Tento obsah přispívá veřejnost, nikoli instituce, která tuto položku poskytla."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1038,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Agregovaná pole",
+        "individual": "Jednotlivá pole"
+      },
       "input": {
         "field": "Pole",
         "modifier": "Modifikátor",
-        "searchTerm": "Zadejte hledané výrazy"
+        "term": "Vyhledávací termín(y)"
       },
       "modifiers": {
         "contains": "obsahuje",
         "doesNotContain": "neobsahuje"
       },
+      "placeholder": {
+        "field": "Vyberte pole",
+        "modifier": "Vyberte modifikátor",
+        "term": "Zadejte hledané výrazy"
+      },
       "show": "{showOrHide} pokročilé vyhledávání",
       "tooltip": {
         "advancedSearch": "Pokročilé vyhledávání umožňuje vytvářet vlastní vyhledávací dotazy.",
-        "field": "Vyberte pole pro vyhledávání",
+        "field": "Vyberte plný text nebo pole metadat pro vyhledávání.",
+        "fields": {
+          "fulltext": "Úplný text zahrnuje transkripce, uzavřené titulky, titulky a text dokumentu."
+        },
         "modifier": "Vyberte modifikátor, který chcete použít na pole.",
-        "term": "Zadejte výraz(y), který chcete vyhledat nebo vyloučit."
+        "term": "Zadejte termín(y), které zvolené pole obsahuje nebo neobsahuje."
       }
     },
     "boost": {
@@ -1158,7 +1172,8 @@ export default {
   },
   "statuses": {
     "liked": "Oblíbené",
-    "pinned": "Připnuté"
+    "pinned": "Připnuté",
+    "required": "Požadováno"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} nalezených příběhů",

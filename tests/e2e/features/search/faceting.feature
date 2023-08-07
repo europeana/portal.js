@@ -122,7 +122,7 @@ Feature: Search faceting
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22`
     And I click an `item preview`
     Then I see an `item page`
-    And I click the "All metadata" tab
+    And I click the `all metadata tab`
     Then I should see a metadata field for edmCountry with the value "Belgium"
 
   Scenario: Filtering results by two countries and have a corresponding item page
@@ -137,7 +137,7 @@ Feature: Search faceting
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22`
     And I click an `item preview`
     Then I see an `item page`
-    And I click the "All metadata" tab
+    And I click the `all metadata tab`
     Then I should see a metadata field for edmCountry with the value "Belgium" or the value "Germany"
 
   # TODO: Add back - And I click the `search button` instead of press ENTER

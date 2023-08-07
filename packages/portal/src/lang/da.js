@@ -281,14 +281,11 @@ export default {
     "exhibitions": "Udstilling | Udstillinger"
   },
   "facets": {
-    "api": {
-      "name": "Søg i dokumenter",
-      "options": {
-        "fulltext": "Genstande med fuldtekst",
-        "metadata": "Metadata-kun genstande"
-      },
-      "switch": "Søg kun i indholdet af genstande med fuldtekst",
-      "switchMoreInfo": "I denne samling kan du vælge, hvad du vil søge efter: Hvis denne knap er slået til, vil du søge i avis- og dokumentteksten; hvis den er slået fra, vil du i stedet søge i de oplysninger, der beskriver emnet, ligesom du altid gør i de fleste andre samlinger."
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Hvis du vil søge i avisens tekst, skal du bruge den avancerede søgning og vælge feltet \"fuldtekst\".",
+        "ww1": "Hvis du vil søge i teksten i WWI-dokumenter, skal du bruge den avancerede søgning og vælge feltet \"fuldtekst\"."
+      }
     },
     "button": {
       "morefilters": "Flere filtre",
@@ -723,10 +720,15 @@ export default {
       "edmRights": "Rettigheder for medierne i denne optagelse (medmindre andet er angivet)",
       "edmUgc": "Brugergenereret indhold",
       "europeanaCollectionName": "Navn på samling",
+      "fulltext": "Fuldtekst",
       "keywords": "Nøgleord (leveret af fællesskabet)",
       "timestampCreated": "Tidsstempel oprettet",
       "timestampUpdate": "Tidstempel opdateret",
       "wasPresentAt": "Var til stede på",
+      "what": "Hvad",
+      "when": "Hvornår",
+      "where": "Hvor",
+      "who": "Hvem",
       "year": "År"
     },
     "webResource": {
@@ -999,7 +1001,7 @@ export default {
       "unpublished": "[Ikke-publiceret element]"
     },
     "transcription": "Transskription",
-    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den institution, der leverede denne artikel."
+    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den ejerinstitutioner, der leverede denne genstand."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1038,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Aggregerede felter",
+        "individual": "Individuelle felter"
+      },
       "input": {
         "field": "Mark",
         "modifier": "Modifier",
-        "searchTerm": "Indtast søgeterm(er)"
+        "term": "Søgeterm(er)"
       },
       "modifiers": {
         "contains": "indeholder",
         "doesNotContain": "indeholder ikke"
       },
+      "placeholder": {
+        "field": "Vælg et felt",
+        "modifier": "Vælg en modifikator",
+        "term": "Indtast søgeterm(er)"
+      },
       "show": "{showOrHide} avanceret søgning",
       "tooltip": {
         "advancedSearch": "Den avancerede søgning giver dig mulighed for at oprette tilpassede søgeforespørgsler.",
-        "field": "Vælg et felt at søge på.",
+        "field": "Vælg fuldtekst eller metadata felt til søgning indenfor.",
+        "fields": {
+          "fulltext": "Fuldtekst inkluderer transskriptioner, lukkede billedtekster, undertekster og dokumenttekst."
+        },
         "modifier": "Vælg en modifikator, der skal anvendes på feltet.",
-        "term": "Indtast det eller de termer, der skal søges efter eller ekskluderes."
+        "term": "Indtast det eller de termer, som det valgte felt indeholder eller ikke indeholder."
       }
     },
     "boost": {
@@ -1158,7 +1172,8 @@ export default {
   },
   "statuses": {
     "liked": "Kunne lide",
-    "pinned": "Fastgjort"
+    "pinned": "Fastgjort",
+    "required": "Påkrævet"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} historier fundet",

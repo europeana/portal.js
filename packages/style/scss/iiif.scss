@@ -20,6 +20,8 @@
 
 ::v-deep .mirador-viewer {
   min-height: 0;
+  // Allow tooltips to show
+  overflow: visible;
 
   .mosaic-root {
     top: 0;

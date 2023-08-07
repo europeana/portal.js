@@ -622,14 +622,11 @@ export default {
       },
       "select": "Select types of media"
     },
-    "api": {
-      "name": "Search within documents",
-      "options": {
-        "fulltext": "Items with full-text",
-        "metadata": "Metadata-only items"
-      },
-      "switch": "Search only in the content of items with full-text",
-      "switchMoreInfo": "In this collection, you can choose what you want to search for: if this switch is on, then you will search within the newspaper and document text; if it is off, then you will instead search within the information describing the item, just as you always do in most other collections."
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "If you want to search within the text of newspapers, you will need to use the advanced search, and choose the \"full-text\" field.",
+        "ww1": "If you want to search within the text of WWI documents, you will need to use the advanced search, and choose the \"full-text\" field."
+      }
     },
     "button": {
       "morefilters": "More filters",
@@ -755,10 +752,15 @@ export default {
       "edmRights": "Rights statement for the media in this item (unless otherwise specified)",
       "edmUgc": "User generated content",
       "europeanaCollectionName": "Collection name",
+      "fulltext": "Full-text",
       "keywords": "Keywords (provided by the community)",
       "timestampCreated": "Timestamp created",
       "timestampUpdate": "Timestamp updated",
       "wasPresentAt": "Was present at",
+      "what": "What",
+      "when": "When",
+      "where": "Where",
+      "who": "Who",
       "year": "Year"
     },
     "webResource": {
@@ -1072,18 +1074,30 @@ export default {
       "input": {
         "field": "Field",
         "modifier": "Modifier",
-        "searchTerm": "Enter search term(s)"
+        "term": "Search term(s)"
+      },
+      "header": {
+        "aggregated": "Aggregated fields",
+        "individual": "Individual fields"
       },
       "modifiers": {
         "contains": "contains",
         "doesNotContain": "does not contain"
       },
+      "placeholder": {
+        "field": "Select a field",
+        "modifier": "Select a modifier",
+        "term": "Enter search term(s)"
+      },
       "show": "{showOrHide} advanced search",
       "tooltip": {
         "advancedSearch": "The advanced search allows you to build custom search queries.",
-        "field": "Select the metadata field to search within.",
+        "field": "Select the full-text or metadata field to search within.",
+        "fields": {
+          "fulltext": "Full-text includes transcriptions, closed captions, subtitles and document text."
+        },
         "modifier": "Choose how this field should modify the search.",
-        "term": "Enter the term(s) to search for, or to exclude."
+        "term": "Enter the term(s) that the chosen field contains or does not contain."
       }
     },
     "boost": {
@@ -1191,7 +1205,8 @@ export default {
   },
   "statuses": {
     "liked": "Liked",
-    "pinned": "Pinned"
+    "pinned": "Pinned",
+    "required": "Required"
   },
   "storiesPage": {
     "title": "Stories",

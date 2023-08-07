@@ -65,9 +65,6 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     },
     $i18n: {
       locale: 'en'
-    },
-    $features: {
-      ...mocks.$features || {}
     }
   },
   propsData,
@@ -155,6 +152,75 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('computed', () => {
+    describe('apiParams', () => {
+      it('combines user params and overrides', () => {
+        const $route = {
+          query: {
+            page: 2,
+            query: 'calais',
+            qf: 'TYPE:"IMAGE"',
+            qa: [
+              'proxy_dc_title:dog'
+            ]
+          }
+        };
+        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
+        const expected = {
+          page: 2,
+          profile: 'minimal',
+          query: 'calais',
+          qf: [
+            'TYPE:"IMAGE"',
+            'proxy_dc_title:dog',
+            'edm_agent:"http://data.europeana.eu/agent/200"'
+          ],
+          rows: 24
+        };
+
+        const wrapper = factory({
+          mocks: {
+            $route
+          },
+          propsData: {
+            overrideParams: {
+              qf: [overrideQf]
+            }
+          }
+        });
+
+        expect(wrapper.vm.apiParams).toEqual(expected);
+      });
+
+      describe('with full-text advanced search rule', () => {
+        it('is promoted into query, with profile hits', () => {
+          const $route = {
+            query: {
+              query: 'liberty',
+              qa: [
+                'fulltext:europe',
+                'NOT fulltext:united'
+              ]
+            }
+          };
+          const expected = {
+            page: 1,
+            profile: 'minimal,hits',
+            query: 'fulltext:europe AND NOT fulltext:united',
+            qf: ['text:(liberty)'],
+            rows: 24
+          };
+
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+
+          expect(wrapper.vm.apiParams).toEqual(expected);
+        });
+      });
+    });
+
     describe('advancedSearchQueryCount', () => {
       describe('when there is no advanced search query', () => {
         const route = { query: {} };
@@ -473,132 +539,6 @@ describe('components/search/SearchInterface', () => {
         wrapper.vm.toggleAdvancedSearch();
 
         expect(wrapper.vm.showAdvancedSearch).toBe(true);
-      });
-    });
-  });
-
-  describe('deriveApiSettings', () => {
-    it('combines userParams and overrideParams into apiParams', () => {
-      const userQuery = 'calais';
-      const userQf = 'TYPE:"IMAGE"';
-      const userQa = [
-        'proxy_dc_title:dog'
-      ];
-      const expectedQuery = 'calais AND proxy_dc_title:dog';
-      const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
-      const profile = 'minimal';
-      const wrapper = factory({
-        mocks: {
-          $features: {},
-          $route: {
-            query: {
-              qa: userQa,
-              query: userQuery,
-              qf: userQf
-            }
-          }
-        },
-        propsData: {
-          overrideParams: {
-            qf: [overrideQf]
-          }
-        }
-      });
-
-      wrapper.vm.deriveApiSettings();
-
-      expect(wrapper.vm.apiParams).toEqual({
-        query: expectedQuery,
-        qf: [userQf, overrideQf],
-        profile
-      });
-    });
-
-    describe('within a theme having fulltext API support', () => {
-      describe('metadata/fulltext API selection', () => {
-        it('applies user selection if present', () => {
-          const $route = { query: { qf: ['collection:newspaper'], api: 'metadata' } };
-
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiParams.api).toBe('metadata');
-        });
-
-        it('falls back to collection-specific default', () => {
-          const $route = { query: { qf: ['collection:newspaper'] } };
-
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiParams.api).toBe('fulltext');
-        });
-      });
-
-      describe('and fulltext API is selected', () => {
-        const $route = { query: { qf: ['collection:newspaper'], api: 'fulltext' } };
-
-        it('sets profile param to "minimal,hits"', () => {
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiParams.profile).toBe('minimal,hits');
-        });
-
-        it('sets fulltext API URL option', () => {
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiOptions.url).toBe('https://newspapers.eanadev.org/api/v2');
-        });
-      });
-
-      describe('and metadata API is selected', () => {
-        const $route = { query: { qf: ['collection:newspaper'], api: 'metadata' } };
-
-        it('does not set profile param to "minimal,hits"', () => {
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiParams.profile).toBe('minimal');
-        });
-
-        it('does not set fulltext API URL option', () => {
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          wrapper.vm.deriveApiSettings();
-
-          expect(wrapper.vm.apiOptions.url).not.toBe('https://newspapers.eanadev.org/api/v2');
-        });
       });
     });
   });

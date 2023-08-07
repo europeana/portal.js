@@ -281,14 +281,11 @@ export default {
     "exhibitions": "Wystawa | Wystawy"
   },
   "facets": {
-    "api": {
-      "name": "Wyszukiwanie w dokumentach",
-      "options": {
-        "fulltext": "Obiekty cyfrowe z pełnym tekstem",
-        "metadata": "Obiekty cyfrowe tylko z metadanymi"
-      },
-      "switch": "Wyszukiwanie tylko w treści obiekty cyfrowe z pełnym tekstem",
-      "switchMoreInfo": "W tej kolekcji możesz wybrać, czego chcesz szukać: jeśli ten przełącznik jest włączony, wtedy będziesz szukał w tekście gazety i dokumentu; jeśli jest wyłączony, wtedy będziesz szukał w informacjach opisujących dany artykuł, tak jak zawsze robisz to w większości innych kolekcji."
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Jeśli chcesz szukać w tekście gazet, musisz skorzystać z wyszukiwania zaawansowanego i wybrać pole „pełny tekst”.",
+        "ww1": "Jeśli chcesz przeszukiwać tekst dokumentów z I wojny światowej, musisz skorzystać z wyszukiwania zaawansowanego i wybrać pole \"pełny tekst\"."
+      }
     },
     "button": {
       "morefilters": "Więcej filtrów",
@@ -723,10 +720,15 @@ export default {
       "edmRights": "Oświadczenie prawne na media w tym rekordzie (chyba że określono inaczej)",
       "edmUgc": "Treści dodane przez użytkowników",
       "europeanaCollectionName": "Nazwa Kolekcji",
+      "fulltext": "Pełny tekst",
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
       "timestampCreated": "Data utworzenia rekordu",
       "timestampUpdate": "Data zaktualizowania rekordu",
       "wasPresentAt": "Był obecny w/na",
+      "what": "Co",
+      "when": "Kiedy",
+      "where": "Gdzie",
+      "who": "Kto",
       "year": "Rok"
     },
     "webResource": {
@@ -999,7 +1001,7 @@ export default {
       "unpublished": "[Pozycja nieopublikowana]"
     },
     "transcription": "Transkrypcja",
-    "transcriptionDisclaimer": "Treść ta jest tworzona przez społeczeństwo, a nie przez instytucję, która dostarczyła tę pozycję."
+    "transcriptionDisclaimer": "Ten zawartość jest dostarczany przez publiczność, a nie przez dostawcę danych, która dostarczyła ten obiekt cyfrowy."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1038,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Pola zagregowane",
+        "individual": "Pojedyncze pola"
+      },
       "input": {
         "field": "Pole",
         "modifier": "Modyfikator",
-        "searchTerm": "Wprowadź wyszukiwane hasła"
+        "term": "Wyszukiwane terminy"
       },
       "modifiers": {
         "contains": "zawiera",
         "doesNotContain": "nie zawiera"
       },
+      "placeholder": {
+        "field": "Wybierz pole",
+        "modifier": "Wybierz modyfikator",
+        "term": "Wprowadź wyszukiwane hasła"
+      },
       "show": "{showOrHide} wyszukiwanie zaawansowane",
       "tooltip": {
         "advancedSearch": "Wyszukiwanie zaawansowane umożliwia tworzenie niestandardowych zapytań wyszukiwania.",
-        "field": "Wybierz pole do wyszukiwania.",
+        "field": "Wybierz pole pełny tekstu lub metadanych do wyszukiwania.",
+        "fields": {
+          "fulltext": "Tekst pełny obejmuje transkrypcje, napisy dla osób niesłyszących, napisy i tekst dokumentu."
+        },
         "modifier": "Wybierz modyfikator, który ma zostać zastosowany do pola.",
-        "term": "Wprowadź terminy do wyszukania lub wykluczenia."
+        "term": "Wprowadź terminy, które zawiera lub nie zawiera wybrane pole."
       }
     },
     "boost": {
@@ -1158,7 +1172,8 @@ export default {
   },
   "statuses": {
     "liked": "Lubiana",
-    "pinned": "Przypięty"
+    "pinned": "Przypięty",
+    "required": "Wymagane"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} znalezionych historii",

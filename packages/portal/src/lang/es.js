@@ -281,14 +281,11 @@ export default {
     "exhibitions": "Exposición | Exposiciones"
   },
   "facets": {
-    "api": {
-      "name": "Buscar dentro de los documentos",
-      "options": {
-        "fulltext": "Ítems de texto completo",
-        "metadata": "Ítems de solo metadatos"
-      },
-      "switch": "Buscar solo en el contenido de los Ítems con texto completo",
-      "switchMoreInfo": "En esta colección, puede elegir lo que desea buscar: si este interruptor está activado, buscará dentro del periódico y el texto del documento; si está desactivada, buscará dentro de la información que describe el Ítem, como siempre lo hace en la mayoría de las otras colecciones."
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Si desea buscar dentro del texto de los periódicos, deberá utilizar la búsqueda avanzada y elegir el campo \"texto completo\".",
+        "ww1": "Si desea buscar dentro del texto de los documentos de la Primera Guerra Mundial, deberá utilizar la búsqueda avanzada y elegir el campo \"texto completo\"."
+      }
     },
     "button": {
       "morefilters": "Más filtros",
@@ -723,10 +720,15 @@ export default {
       "edmRights": "Declaración de derechos de los medios en este Ítem (a menos que se especifique lo contrario)",
       "edmUgc": "Contenido generado por el usuario",
       "europeanaCollectionName": "Nombre de la colección",
+      "fulltext": "Texto completo",
       "keywords": "Palabras clave (proporcionadas por la comunidad)",
       "timestampCreated": "Sello de creación",
       "timestampUpdate": "Sello de actualización",
       "wasPresentAt": "estuvo presente en",
+      "what": "Qué",
+      "when": "Cuando",
+      "where": "Dónde",
+      "who": "Quien",
       "year": "Año"
     },
     "webResource": {
@@ -999,7 +1001,7 @@ export default {
       "unpublished": "[Ítem no publicado]"
     },
     "transcription": "Transcripción",
-    "transcriptionDisclaimer": "Este contenido ha sido aportado por el público, no por la institución que ha proporcionado este Ítem."
+    "transcriptionDisclaimer": "Este contenido es aportado por el público, no por el proveedor de datos que proporcionó este item."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1038,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Campos agregados",
+        "individual": "Campos individuales"
+      },
       "input": {
         "field": "Campo",
         "modifier": "Modificador",
-        "searchTerm": "Introduzca los términos de búsqueda"
+        "term": "Término(s) de búsqueda"
       },
       "modifiers": {
         "contains": "contiene",
         "doesNotContain": "no contiene"
       },
+      "placeholder": {
+        "field": "Seleccione un campo",
+        "modifier": "Seleccione un modificador",
+        "term": "Introduzca los términos de búsqueda"
+      },
       "show": "{showOrHide} búsqueda avanzada",
       "tooltip": {
         "advancedSearch": "La búsqueda avanzada le permite crear consultas de búsqueda personalizadas.",
-        "field": "Seleccione un campo para buscar.",
+        "field": "Seleccione el campo de texto completo o de metadatos para buscar dentro.",
+        "fields": {
+          "fulltext": "El texto completo incluye transcripciones, subtítulos cerrados, subtítulos y texto del documento."
+        },
         "modifier": "Seleccione un modificador para aplicarlo al campo.",
-        "term": "Introduzca los términos que desea buscar o excluir."
+        "term": "Ingrese los términos que el campo elegido contiene o no contiene."
       }
     },
     "boost": {
@@ -1158,7 +1172,8 @@ export default {
   },
   "statuses": {
     "liked": "Gustó",
-    "pinned": "Fijado"
+    "pinned": "Fijado",
+    "required": "Obligatorio"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} historias encontradas",

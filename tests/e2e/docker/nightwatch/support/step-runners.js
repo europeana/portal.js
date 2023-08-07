@@ -118,12 +118,6 @@ module.exports = {
     await client.waitForElementVisible(selector);
     client.click(selector);
   },
-  async clickOnTab(tab) {
-    await client.click('xpath', '//a[contains(text(),"' + tab + '")]');
-  },
-  async doNotSeeATab(tab) {
-    client.expect.element('//a[contains(text(),"' + tab + '")]', 'xpath').to.not.be.present;
-  },
   countTarget: async(count, qaElementNames) => {
     await client.elements('css selector', qaSelector(qaElementNames), async(result) => {
       await client.expect(result.value).to.have.lengthOf(count);

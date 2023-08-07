@@ -278,12 +278,11 @@ describe('components/search/SearchForm', () => {
     const route = {
       path: '',
       query: {
-        query: '',
+        page: '3',
         qa: 'procy_dc_creator:*',
-        reusability: 'open',
         qf: 'TYPE:"IMAGE"',
-        api: 'metadata',
-        page: '3'
+        query: '',
+        reusability: 'open'
       }
     };
     const wrapper = factory({ mocks: { $route: route, $store: { state } } });
@@ -296,7 +295,6 @@ describe('components/search/SearchForm', () => {
         expect(link.query.qa).toBe('procy_dc_creator:*');
         expect(link.query.reusability).toBe('open');
         expect(link.query.qf).toBe('TYPE:"IMAGE"');
-        expect(link.query.api).toBe('metadata');
         expect(link.query.page).toBe(undefined);
       });
     });
@@ -309,7 +307,6 @@ describe('components/search/SearchForm', () => {
         expect(link.query.qa).toBe('procy_dc_creator:*');
         expect(link.query.reusability).toBe('open');
         expect(link.query.qf).toBe('TYPE:"IMAGE"');
-        expect(link.query.api).toBe('metadata');
         expect(link.query.page).toBe(undefined);
       });
     });
