@@ -964,7 +964,6 @@ export default {
     "text": {}
   },
   "of": "Of",
-  "or": "or",
   "organisation": {
     "city": "City",
     "country": "Country",
