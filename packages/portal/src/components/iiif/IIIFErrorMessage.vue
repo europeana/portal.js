@@ -3,7 +3,7 @@
     <span class="icon-info" />
     <div>
       <i18n
-        path="errorMessage.IIIFManifestFailure.brokenConnection"
+        path="errorMessage.IIIFManifestFailure.description"
         tag="p"
         class="mb-0"
       >
@@ -21,8 +21,6 @@
           </SmartLink>
         </template>
       </i18n>
-      <p>{{ $t('errorMessage.IIIFManifestFailure.multiPageDownload') }}</p>
-      <p>{{ $t('errorMessage.IIIFManifestFailure.reportForDeletion') }}</p>
     </div>
   </div>
 </template>

@@ -251,6 +251,7 @@
 
       handleManifestError(error) {
         this.manifestError = true;
+        this.miradorViewer.unmount();
         this.$apm?.captureError({
           name: 'IIIFManifestError',
           message: error,

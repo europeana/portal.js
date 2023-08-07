@@ -256,9 +256,7 @@ export default {
       "title": "Unknown error"
     },
     "IIIFManifestFailure": {
-      "brokenConnection": "Unfortunately, we can't display this item due to a broken connection with the providing institution's website. Please try to download the media{linkToProvider}.",
-      "multiPageDownload": "Please note: Multiple pages may download.",
-      "reportForDeletion": "If the above options do not allow you to view the item, please report it for deletion."
+      "description": "Unfortunately, the item media as provided to Europeana can not be displayed at the moment. Please try to download the media or view the item on the providing institution's website."
     },
     "itemNotFound": {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
