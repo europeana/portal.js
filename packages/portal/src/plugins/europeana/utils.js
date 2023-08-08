@@ -1,6 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
+import keycloakAxios from '../keycloak-axios.js';
 import locales from '../i18n/locales.js';
 
 export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
@@ -19,7 +20,7 @@ export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
 export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
   const axiosInstance = createAxios({ id, baseURL, $axios }, context);
 
-  context.$keycloak?.axios?.(axiosInstance);
+  keycloakAxios(context, axiosInstance);
 
   return axiosInstance;
 };

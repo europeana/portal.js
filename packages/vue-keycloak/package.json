@@ -9,6 +9,7 @@
   },
   "main": "./src/index.js",
   "dependencies": {
+    "cookie-universal": "^2.2.2",
     "keycloak-js": "^21.1.1"
   }
 }

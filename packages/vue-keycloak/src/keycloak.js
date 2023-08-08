@@ -1,29 +1,17 @@
 // docs: https://www.keycloak.org/docs/latest/securing_apps/index.html#_javascript_adapter
 import Keycloak from 'keycloak-js';
+import Cookie from 'cookie-universal';
 
-// TODO: stop using this.vm.$config.app.baseUrl, this.vm.$cookies
+// TODO: stop using this.vm.$config.app.baseUrl, this.cookies
 
 export default class VueKeycloak {
-  static _keycloak = null;
-
-  static get keycloak() {
-    if (!process.client) {
-      return null;
-    }
-    if (!this._keycloak) {
-      console.log('new Keycloak', this.options)
-      this._keycloak = new Keycloak(this.options);
-    }
-    return this._keycloak;
-  }
-
   constructor(vm, options) {
+    console.log('new VueKeycloak')
     this.vm = vm;
     this.options = options;
-  }
-
-  get keycloak() {
-    return this.constructor.keycloak;
+    this.cookies = Cookie();
+    this.keycloak = new Keycloak(this.options);
+    this.init();
   }
 
   // TODO: use this.keycloak.createLoginUrl instead
@@ -59,18 +47,18 @@ export default class VueKeycloak {
   }
 
   async init() {
-    console.log('init keycloak')
+    console.log('keycloak init')
     try {
       await this.keycloak.init({
         checkLoginIframe: false,
-        token: this.vm.$cookies.get('kc.token'),
-        idToken: this.vm.$cookies.get('kc.idToken'),
-        refreshToken: this.vm.$cookies.get('kc.refreshToken')
+        token: this.cookies.get('kc.token'),
+        idToken: this.cookies.get('kc.idToken'),
+        refreshToken: this.cookies.get('kc.refreshToken')
       });
     } catch (e) {
-      this.vm.$cookies.remove('kc.token');
-      this.vm.$cookies.remove('kc.idToken');
-      this.vm.$cookies.remove('kc.refreshToken');
+      this.cookies.remove('kc.token');
+      this.cookies.remove('kc.idToken');
+      this.cookies.remove('kc.refreshToken');
       await this.keycloak.init({
         checkLoginIframe: false
       });
@@ -78,9 +66,9 @@ export default class VueKeycloak {
 
     this.vm.$store.commit('keycloak/setLoggedIn', this.keycloak.authenticated);
 
-    this.vm.$cookies.set('kc.token', this.keycloak.token);
-    this.vm.$cookies.set('kc.idToken', this.keycloak.idToken);
-    this.vm.$cookies.set('kc.refreshToken', this.keycloak.refreshToken);
+    this.cookies.set('kc.token', this.keycloak.token);
+    this.cookies.set('kc.idToken', this.keycloak.idToken);
+    this.cookies.set('kc.refreshToken', this.keycloak.refreshToken);
 
     if (this.keycloak.authenticated) {
       const profile = await this.keycloak.loadUserProfile();
@@ -92,7 +80,7 @@ export default class VueKeycloak {
     return `/${this.vm.$i18n.locale}${path}`;
   }
   login() {
-    console.log('this.keycloak', this.keycloak)
+    console.log('keycloak login', this.keycloak)
     this.keycloak.login({
       locale: this.vm.$i18n.locale,
       redirectUri: this.loginRedirect

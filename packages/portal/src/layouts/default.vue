@@ -182,7 +182,7 @@
     methods: {
       async initKeycloak() {
         console.log('default layout initKeycloak', 'this.$keycloak', this.$keycloak)
-        await this.$keycloak?.init();
+        // await this.$keycloak?.init();
 
         if (this.$store.state.keycloak?.loggedIn) {
           try {

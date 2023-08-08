@@ -1,5 +1,3 @@
-// TODO: ctx is nuxt specific...
-
 const keycloakResponseErrorHandler = (ctx, error) => {
   if (error.response?.status === 401) {
     return keycloakUnauthorizedResponseErrorHandler(ctx, error);
@@ -36,8 +34,9 @@ const keycloakRefreshAccessToken = async(ctx, requestConfig) => {
   return ctx.$axios.request(requestConfig);
 };
 
-export default (ctx) => (axiosInstance) => {
+export default (ctx, axiosInstance) => {
   axiosInstance.interceptors.request.use((requestConfig) => {
+    console.log('keycloak-axios request interceptor', requestConfig, ctx.$keycloak.keycloak.token)
     if (ctx.$keycloak.keycloak?.token) {
       requestConfig.headers.authorization = `Bearer ${ctx.$keycloak.keycloak.token}`;
     }
