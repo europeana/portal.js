@@ -12,7 +12,6 @@
       :placeholder="$t('search.advanced.placeholder.term')"
       :state="state"
       @change="handleChange"
-      @focus="showSearchOptions = true"
       @input="showSearchOptions = true"
       @keydown.enter="showSearchOptions = false"
     />
@@ -79,6 +78,11 @@
     watch: {
       value() {
         this.term = this.value;
+      },
+      term(newVal) {
+        if (!newVal) {
+          this.showSearchOptions = false;
+        }
       }
     },
 
