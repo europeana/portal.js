@@ -257,7 +257,7 @@
     }
   }
 
-  .form-control {
+  ::v-deep .form-control {
     background-color: $white;
     border: 1px solid $middlegrey;
     border-radius: 0.375rem;

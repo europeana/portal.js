@@ -20,7 +20,7 @@
       :href="!advancedSearch ? $link.href(option.link.path, option.link.query): ''"
       role="option"
       :button="advancedSearch"
-      @click="handleClick(index, option.link.query.query)"
+      @click="handleClick(index, option.link.query.query, option.entityId)"
     >
       <i18n
         v-if="option.i18n"
@@ -131,19 +131,18 @@
       options() {
         if (this.onCollectionPage) {
           return [this.collectionSearchOption, this.globalSearchOption];
-        } else if (this.advancedSearch) {
-          return this.suggestionSearchOptions;
         } else {
           return [this.globalSearchOption].concat(this.suggestionSearchOptions);
         }
       },
 
       suggestionSearchOptions() {
-        return Object.values(this.suggestions).map(suggestion => (
+        return Object.keys(this.suggestions).map(suggestionId => (
           {
-            link: this.suggestionLinkGen(suggestion),
-            qa: `${suggestion} search suggestion`,
-            texts: this.highlightSuggestion(suggestion)
+            entityId: suggestionId,
+            link: this.suggestionLinkGen(this.suggestions[suggestionId]),
+            qa: `${this.suggestions[suggestionId]} search suggestion`,
+            texts: this.highlightSuggestion(this.suggestions[suggestionId])
           }
         ));
       }
@@ -198,10 +197,10 @@
         }
       },
 
-      handleClick(index, query) {
+      handleClick(index, query, entityId) {
         this.suggestions = {};
         this.activeSuggestionsQueryTerm = null;
-        this.$emit('select', query);
+        this.$emit('select', query, entityId);
         this.trackSuggestionClick(index, query);
       },
 
