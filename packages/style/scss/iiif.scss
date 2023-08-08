@@ -19,6 +19,8 @@
 }
 
 ::v-deep .mirador-viewer {
+  // Allow tooltips to show
+  overflow: visible;
 
   .mosaic-root {
     top: 0;

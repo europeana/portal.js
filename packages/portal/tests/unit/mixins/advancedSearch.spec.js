@@ -76,7 +76,8 @@ describe('mixins/advancedSearch', () => {
             qa: [
               'proxy_dc_title:den\\ haag',
               '-proxy_dc_type:*photograph*',
-              'proxy_dc_language:en'
+              'proxy_dc_language:en',
+              'fulltext:(europe)'
             ]
           }
         };
@@ -86,7 +87,8 @@ describe('mixins/advancedSearch', () => {
 
         expect(advancedSearchRulesFromRouteQuery).toEqual([
           { field: 'proxy_dc_title', modifier: 'contains', term: 'den haag' },
-          { field: 'proxy_dc_type', modifier: 'doesNotContain', term: 'photograph' }
+          { field: 'proxy_dc_type', modifier: 'doesNotContain', term: 'photograph' },
+          { field: 'fulltext', modifier: 'contains', term: 'europe' }
         ]);
       });
     });

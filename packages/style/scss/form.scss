@@ -75,7 +75,7 @@
 
 .facet-label,
 h3.facet-label,
-.query-rule-form-group label {
+.query-rule-form-group .query-rule-field-label {
   font-size: $font-size-extrasmall;
   font-weight: 600;
   display: inline-block;
@@ -295,5 +295,20 @@ h3.facet-label,
   &:focus {
     border-color: $blue;
     box-shadow: none;
+  }
+
+  &.is-invalid,
+  &.is-valid {
+    background: $white url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNSIgdmlld0JveD0iMCAwIDEwIDUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wIDBMNSA1TDEwIDBIMFoiIGZpbGw9IiM0RDRENEQiLz4KPC9zdmc+Cg==') right 0.75rem center/8px 4px no-repeat;
+    padding-right: 0.75rem !important;
+  }
+
+  &.is-valid {
+    border-color: $middlegrey;
+
+    &:focus {
+      border-color: $blue;
+      box-shadow: none;
+    }
   }
 }

@@ -150,7 +150,6 @@
     height: 2.5rem;
     vertical-align: bottom;
     margin-left: 0.25rem;
-
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
         height: calc(1.5 * 2.5rem);
@@ -158,9 +157,9 @@
       }
     }
   }
-
   .apply-icon {
     transform: rotate(-90deg);
     display: inline-block;
   }
+
 </style>

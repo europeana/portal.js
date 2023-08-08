@@ -14,9 +14,7 @@
           class="facet-label"
           :class="{ 'facet-label-active' : activeLabel }"
         >
-          <label>
-            {{ facetName }}
-          </label>
+          {{ facetName }}
         </h3>
         <b-button
           v-if="tooltip"
@@ -56,6 +54,7 @@
             ref="dropdown"
             block
             no-flip
+            class="search-filter-dropdown"
             :data-qa="`${name} side facet dropdown button`"
             @show="prefetch"
             @shown="shownDropdown"
@@ -85,6 +84,7 @@
                     autocomplete="off"
                     :placeholder="$t('sideFilters.search')"
                     data-qa="side facet dropdown search input"
+                    :aria-label="$t('sideFilters.search')"
                     @input="activeSearchInput = true"
                     @blur="activeSearchInput = false"
                   />

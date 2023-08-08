@@ -1,7 +1,11 @@
 import pick from 'lodash/pick.js';
+import md5 from 'md5';
 import merge from 'deepmerge';
 
-import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils.js';
+import undefinedLocaleCodes from '../i18n/undefined.js';
+import {
+  apiError, createAxios, forEachLangMapValue, reduceLangMapsForLocale, isLangMap
+} from './utils.js';
 import search from './search.js';
 import Item from './edm/Item.js';
 
@@ -134,28 +138,31 @@ export default (context = {}) => {
           return memo;
         }, {});
 
-      const proxies = merge.all(edm.proxies);
-
-      for (const field in proxies) {
-        if (isLangMap(proxies[field])) {
-          for (const locale in proxies[field]) {
-            if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
-              proxies[field][locale] = proxies[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
-            }
+      // Europeana proxy only really needed for the translate profile
+      const europeanaProxy = findProxy(edm.proxies, 'europeana');
+      if (!(context.$features?.translatedItems && options.metadataLanguage)) {
+        forEachLangMapValue(europeanaProxy, (europeanaProxy, field, locale) => {
+          if (!undefinedLocaleCodes.includes(locale)) {
+            delete europeanaProxy[field][locale];
           }
-        }
+        });
       }
+      const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
+      const providerProxy = findProxy(edm.proxies, 'provider');
+
+      const proxies = merge.all([europeanaProxy, aggregatorProxy, providerProxy].filter((p) => !!p));
+
+      forEachLangMapValue(proxies, (proxies, field, locale) => {
+        if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
+          proxies[field][locale] = proxies[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
+        }
+      });
 
       let prefLang;
       if (context.$features?.translatedItems) {
         prefLang = options.metadataLanguage ? options.metadataLanguage : null;
       }
       const predictedUiLang = prefLang || options.locale;
-
-      // Europeana proxy only really needed for the translate profile
-      const europeanaProxy = findProxy(edm.proxies, 'europeana');
-      const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
-      const providerProxy = findProxy(edm.proxies, 'provider');
 
       for (const field in proxies) {
         if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
@@ -261,16 +268,18 @@ export default (context = {}) => {
         });
     },
 
+    // TODO: move to media-proxy.js
     mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
-      if (!params['api_url']) {
-        // TODO: it is not ideal to hard-code "/api" here, but the media proxy
-        //       expects Record API URLs to end thus, i.e. not /record or /api/v2
-        params['api_url'] = new URL(this.$axios.defaults.baseURL).origin + '/api';
+      if (this.$axios.defaults.baseURL !== context.$config?.europeana?.apis.record.url) {
+        params.recordApiUrl = this.$axios.defaults.baseURL;
       }
 
-      const proxyUrl = new URL(context.$config?.europeana?.proxy?.media?.url || EUROPEANA_MEDIA_PROXY_URL);
-      proxyUrl.pathname = europeanaId;
-      proxyUrl.searchParams.append('view', mediaUrl);
+      const proxyUrl = new URL(context.$config?.europeana?.apis?.mediaProxy?.url || EUROPEANA_MEDIA_PROXY_URL);
+
+      proxyUrl.pathname = `${proxyUrl.pathname}${europeanaId}/${md5(mediaUrl)}`;
+      if (proxyUrl.pathname.startsWith('//')) {
+        proxyUrl.pathname = proxyUrl.pathname.slice(1);
+      }
 
       for (const name in params) {
         proxyUrl.searchParams.append(name, params[name]);

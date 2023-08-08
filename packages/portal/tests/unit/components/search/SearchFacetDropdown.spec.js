@@ -172,10 +172,10 @@ describe('components/search/SearchFacetDropdown', () => {
   beforeEach(sinon.resetHistory);
 
   describe('template', () => {
-    it('shows a label wrapped in an h3 heading', () => {
+    it('shows an h3 heading', () => {
       const wrapper = factory();
 
-      const label = wrapper.find('h3 label');
+      const label = wrapper.find('h3');
 
       expect(label.text()).toBe('facets.COUNTRY.name - 1');
     });

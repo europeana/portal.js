@@ -36,18 +36,16 @@
               data-qa="search filters"
             >
               <div class="position-relative">
-                <SearchSwitchFilter
-                  v-if="enableApiFilter"
-                  :value="filters.api"
-                  name="api"
-                  :label="$t('facets.api.switch')"
-                  :tooltip="$t('facets.api.switchMoreInfo')"
-                  checked-value="fulltext"
-                  :unchecked-value="STANDARD_API_DEFAULT"
-                  :default-value="apiFilterDefaultValue"
-                  :collection="collection"
-                  @changed="changeFacet"
-                />
+                <b-alert
+                  v-for="fulltextCollection in ['newspaper', 'ww1']"
+                  :key="fulltextCollection"
+                  :show="showFulltextHasMovedAlert(fulltextCollection)"
+                  variant="info"
+                  dismissible
+                  @input="(show) => handleFulltextHasMovedAlertInput(show, fulltextCollection)"
+                >
+                  {{ $t(`facets.alert.fulltextHasMoved.${fulltextCollection}`) }}
+                </b-alert>
                 <SearchDateFilter
                   v-if="enableDateFilter"
                   :name="dateFilterField"
@@ -127,6 +125,7 @@
 </template>
 
 <script>
+  import { BAlert } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
   import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
@@ -138,6 +137,7 @@
     name: 'SearchFilters',
 
     components: {
+      BAlert,
       ClientOnly,
       SearchFacetDropdown,
       SearchDateFilter: () => import('./SearchDateFilter'),
@@ -202,7 +202,6 @@
           'proxy_dc_format.en',
           'proxy_dcterms_medium.en'
         ],
-        STANDARD_API_DEFAULT: 'metadata',
         hideFilterSheet: true,
         showAdditionalFilters: false
       };
@@ -222,10 +221,6 @@
           filters['REUSABILITY'] = this.userParams.reusability.split(',');
         }
 
-        if (this.apiParams?.api) {
-          filters['api'] = this.apiParams.api;
-        }
-
         return filters;
       },
       resettableFilters() {
@@ -235,9 +230,6 @@
 
         if (this.contentTierFacetSwitch && this.filters.contentTier) {
           filters.push('contentTier');
-        }
-        if (this.enableApiFilter && (this.filters.api !== this.STANDARD_API_DEFAULT)) {
-          filters.push('api');
         }
         if (this.enableDateFilter && this.filters[this.dateFilterField]) {
           filters.push(this.dateFilterField);
@@ -306,9 +298,6 @@
       reusability() {
         return this.userParams.reusability;
       },
-      api() {
-        return this.userParams.api;
-      },
       view() {
         return this.userParams.view;
       },
@@ -318,12 +307,6 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
-      },
-      enableApiFilter() {
-        return !!this.theme?.filters?.api;
-      },
-      apiFilterDefaultValue() {
-        return this.theme?.filters?.api?.default || null;
       },
       enableDateFilter() {
         return !!this.theme?.filters?.date;
@@ -375,8 +358,18 @@
       this.$store.commit('search/setShowFiltersToggle', false);
     },
     methods: {
+      showFulltextHasMovedAlert(collection) {
+        return process.client &&
+          (collection === this.collection) &&
+          (localStorage.getItem(`fulltextHasMovedAlertDismissed.${this.collection}`) !== 'true');
+      },
+      handleFulltextHasMovedAlertInput(show, collection) {
+        if (show === false) {
+          localStorage.setItem(`fulltextHasMovedAlertDismissed.${collection}`, 'true');
+        }
+      },
       facetDropdownType(name) {
-        return name === this.COLLECTION_FACET_NAME || name === 'api' ? 'radio' : 'checkbox';
+        return name === this.COLLECTION_FACET_NAME ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
@@ -422,16 +415,10 @@
         };
 
         for (const name in filters) {
-          switch (name) {
-          case 'REUSABILITY':
+          if (name === 'REUSABILITY') {
             // `reusability` has its own API parameter and can not be queried in `qf`
             queryUpdates.reusability = (filters[name]?.length || 0) > 0 ? filters[name].join(',') : null;
-            break;
-          case 'api':
-            // `api` is an option to /plugins/europeana/search/search()
-            queryUpdates.api = filters[name];
-            break;
-          default:
+          } else {
             // Everything else goes in `qf`
             queryUpdates.qf = queryUpdates.qf.concat(this.queryUpdatesForFilter(name, filters[name]));
           }
@@ -463,8 +450,7 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
-          view: this.view,
-          api: this.api
+          view: this.view
         };
 
         const updated = { ...current, ...updates };
@@ -482,7 +468,6 @@
         this.rerouteSearch({
           page: 1,
           qf: null,
-          api: null,
           reusability: null
         });
       },
@@ -653,5 +638,9 @@
 
   .form-group {
     margin-bottom: 1.5rem;
+  }
+
+  .alert {
+    font-size: $font-size-extrasmall;
   }
 </style>

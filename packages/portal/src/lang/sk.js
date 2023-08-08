@@ -281,14 +281,11 @@ export default {
     "exhibitions": "Výstava | Výstavy"
   },
   "facets": {
-    "api": {
-      "name": "Vyhľadávajte v dokumentoch",
-      "options": {
-        "fulltext": "Objekty s plným textom",
-        "metadata": "Výhradne objekty s metaúdajmi"
-      },
-      "switch": "Vyhľadávanie len v obsahu objekty s plným textom",
-      "switchMoreInfo": "V tejto zbierke si môžete vybrať, čo chcete vyhľadávať: ak je tento prepínač zapnutý, budete vyhľadávať v texte novín a dokumentov; ak je vypnutý, budete namiesto toho vyhľadávať v informáciách popisujúcich objekt, rovnako ako vždy vo väčšine iných kolekcie."
+    "alert": {
+      "fulltextHasMoved": {
+        "newspaper": "Ak chcete vyhľadávať v texte novín, budete musieť použiť rozšírené vyhľadávanie a zvoliť pole „plný text“.",
+        "ww1": "Ak chcete vyhľadávať v texte dokumentov z prvej svetovej vojny, musíte použiť rozšírené vyhľadávanie a vybrať pole \"plný text\"."
+      }
     },
     "button": {
       "morefilters": "Viac filtrov",
@@ -723,10 +720,15 @@ export default {
       "edmRights": "Právny stav na médiá v tomto objekt (pokiaľ nie je uvedené inak)",
       "edmUgc": "Obsah generovaný používateľmi",
       "europeanaCollectionName": "Názov zbierky",
+      "fulltext": "Plný text",
       "keywords": "Kľúčové slová (poskytnuté komunitou)",
       "timestampCreated": "Vytvorenie časovej pečiatky",
       "timestampUpdate": "Aktualizácia časovej pečiatky",
       "wasPresentAt": "bol prítomný na mieste",
+      "what": "Čo",
+      "when": "Kedy",
+      "where": "Kde",
+      "who": "Kto",
       "year": "Rok"
     },
     "webResource": {
@@ -999,7 +1001,7 @@ export default {
       "unpublished": "[Nezverejnená objekt]"
     },
     "transcription": "Prepis",
-    "transcriptionDisclaimer": "Obsah pridáva verejnosť, nie inštitúcia, ktorá túto objekt."
+    "transcriptionDisclaimer": "Tento obsah prispel verejnosť, nie správcovská inštitúcia, ktorá tento objekt poskytla."
   },
   "related": {
     "categoryTags": {
@@ -1036,21 +1038,33 @@ export default {
   },
   "search": {
     "advanced": {
+      "header": {
+        "aggregated": "Agregované polia",
+        "individual": "Jednotlivé polia"
+      },
       "input": {
         "field": "Pole",
         "modifier": "Modifikátor",
-        "searchTerm": "Zadajte hľadaný výraz(y)"
+        "term": "Vyhľadávacie termíny"
       },
       "modifiers": {
         "contains": "obsahuje",
         "doesNotContain": "neobsahuje"
       },
+      "placeholder": {
+        "field": "Vyberte pole",
+        "modifier": "Vyberte modifikátor",
+        "term": "Zadajte hľadaný výraz(y)"
+      },
       "show": "{showOrHide} rozšírené vyhľadávanie",
       "tooltip": {
         "advancedSearch": "Rozšírené vyhľadávanie vám umožňuje vytvárať vlastné vyhľadávacie dopyty.",
-        "field": "Vyberte pole pre vyhľadávanie",
+        "field": "Vyberte pole plného textu alebo metadát, v ktorom chcete vyhľadávať.",
+        "fields": {
+          "fulltext": "Úplný text zahŕňa prepisy, uzavreté titulky, podtitulky a text dokumentu."
+        },
         "modifier": "Vyberte modifikátor, ktorý sa má aplikovať na pole.",
-        "term": "Zadajte výraz(y), ktorý chcete vyhľadať alebo vylúčiť."
+        "term": "Zadajte výraz(y), ktoré zvolené pole obsahuje alebo neobsahuje."
       }
     },
     "boost": {
@@ -1158,7 +1172,8 @@ export default {
   },
   "statuses": {
     "liked": "Obľúbené",
-    "pinned": "Pripnuté"
+    "pinned": "Pripnuté",
+    "required": "Požadované"
   },
   "storiesPage": {
     "storiesHaveLoaded": "{0} nájdených príbehov",
