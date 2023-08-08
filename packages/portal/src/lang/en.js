@@ -1026,9 +1026,7 @@ export default {
     "similarItems": "Similar items",
     "status": {
       "unpublished": "[Unpublished item]"
-    },
-    "transcription": "Transcription",
-    "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
+    }
   },
   "related": {
     "categoryTags": {
