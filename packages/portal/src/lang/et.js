@@ -251,6 +251,9 @@ export default {
       "description": "Ilmnes tundmatu viga.",
       "title": "Tundmatu viga"
     },
+    "IIIFManifestFailure": {
+      "description": "Kahjuks ei saa hetkel Europeana-le esitatud meediakandjaid kuvada. Palun proovige meediat alla laadida või vaadata objekti selle esitanud institutsiooni veebisaidil."
+    },
     "itemNotFound": {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
       "metaTitle": "Üksust ei leitud",

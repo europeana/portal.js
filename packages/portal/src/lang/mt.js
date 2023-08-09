@@ -251,6 +251,9 @@ export default {
       "description": "Sar żball mhux magħruf.",
       "title": "Żball mhux magħruf"
     },
+    "IIIFManifestFailure": {
+      "description": "Sfortunatament, il-midja tal-oġġett kif ipprovdata lil Europeana ma tistax tiġi murija bħalissa. Jekk jogħġbok, ipprova tniżżel il-midja jew ara l-oġġett fuq is-sit tal-istituzzjoni fornitriċi li pprovdat."
+    },
     "itemNotFound": {
       "description": "Dan jista' jkun minħabba r-raġunijiet li ġejjin: dan l-oġġett ma jeżistix, jew; tneħħiet il-pubblikazzjoni għax ma kinitx taqbel mal-kriterji ta’ kwalità tagħna, jew; ġie aġġornat u ppubblikat mill-ġdid b'identifikatur uniku ġdid, f'liema każ, ipprova erġa' sib l-oġġett.",
       "metaTitle": "Oġġett mhux misjub",

@@ -251,6 +251,9 @@ export default {
       "description": "Įvyko nežinoma klaida.",
       "title": "Nežinoma klaida"
     },
+    "IIIFManifestFailure": {
+      "description": "Deja, šiuo metu negalima rodyti pateiktos Europai medijos. Prašome bandyti atsisiųsti mediją arba peržiūrėti skaitmeninis objektas teikiančios teikėjas svetainėje."
+    },
     "itemNotFound": {
       "description": "Taip gali nutikti dėl šių priežasčių: šio skaitmeninis objektas nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti skaitmeninis objektas dar kartą.",
       "metaTitle": "Skaitmeninis objektas nerasta",

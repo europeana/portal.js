@@ -251,6 +251,9 @@ export default {
       "description": "A apărut o eroare necunoscută.",
       "title": "Eroare necunoscută"
     },
+    "IIIFManifestFailure": {
+      "description": "Din păcate, resursă culturală media furnizat Europeana nu poate fi afișat în acest moment. Încercați să descărcați media sau să vizualizați resursă culturală pe site-ul instituției furnizoare."
+    },
     "itemNotFound": {
       "description": "Acest lucru se poate datora următoarelor motive: acest resursă culturală nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți resursă culturală din nou.",
       "metaTitle": "Resursă culturală nu a fost găsit",

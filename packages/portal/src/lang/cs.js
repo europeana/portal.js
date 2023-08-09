@@ -251,6 +251,9 @@ export default {
       "description": "Došlo k neznámé chybě.",
       "title": "Neznámá chyba"
     },
+    "IIIFManifestFailure": {
+      "description": "Bohužel, položku médií, jak byla poskytnuta Europeana, nelze v tuto chvíli zobrazit. Zkuste prosím stáhnout média nebo si položku prohlédnout na webových stránkách poskytující instituce."
+    },
     "itemNotFound": {
       "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
       "metaTitle": "Položka nenalezena",

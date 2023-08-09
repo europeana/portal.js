@@ -251,6 +251,9 @@ export default {
       "description": "Un error desconocido ocurrió.",
       "title": "Error desconocido"
     },
+    "IIIFManifestFailure": {
+      "description": "Lamentablemente, el item multimedia proporcionado a Europeana no se puede mostrar en este momento. Por favor, intenta descargar el multimedia o ver el item en el sitio web del proveedor de datos."
+    },
     "itemNotFound": {
       "description": "Esto podría deberse a las siguientes razones: este Ítem no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el Ítem nuevamente.",
       "metaTitle": "Item no encontrado",

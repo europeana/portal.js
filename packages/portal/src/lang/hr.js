@@ -251,6 +251,9 @@ export default {
       "description": "Dogodila se nepoznata pogreška.",
       "title": "Nepoznata pogreška"
     },
+    "IIIFManifestFailure": {
+      "description": "Nažalost, mediji predmet koji su dostavljeni Europeani trenutačno se ne mogu prikazati. Molimo pokušajte preuzeti medij ili pogledati predmet na web-mjestu institucije koja pruža podatke."
+    },
     "itemNotFound": {
       "description": "To može biti zbog sljedećih razloga: ova stavka ne postoji ili; povučeno je iz objave jer nije odgovaralo našim kriterijima kvalitete ili; ažuriran je i ponovno objavljen s novim jedinstvenim identifikatorom, u kojem slučaju ponovno pokušajte pronaći stavku.",
       "metaTitle": "Stavka nije pronađena",

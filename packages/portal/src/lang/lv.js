@@ -251,6 +251,9 @@ export default {
       "description": "Radās nezināma kļūda.",
       "title": "Nezināma kļūda"
     },
+    "IIIFManifestFailure": {
+      "description": "Diemžēl šobrīd nevar attēlot objekts mediju, kā tas ir nodrošināts Europeanai. Lūdzu, mēģiniet lejupielādēt mediju vai apskatiet digitālais objekts uz nodrošinošās iestādes piegādājošā iestāde vietnes."
+    },
     "itemNotFound": {
       "description": "Tam var būt šādi iemesli: šis digitālais objekts neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast digitālais objekts vēlreiz.",
       "metaTitle": "Digitālais objekts nav atrasts",

@@ -251,6 +251,9 @@ export default {
       "description": "Ismeretlen hiba történt.",
       "title": "Ismeretlen hiba"
     },
+    "IIIFManifestFailure": {
+      "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
+    },
     "itemNotFound": {
       "description": "Az tárgyat nem található okai lehetnek a következők: az tárgy nem létezik, vagy közzétételre került, mert nem felelt meg minőségi kritériumainknak, vagy frissítve lett, és új egyedi azonosítóval újból közzétéve. Próbálja meg újra megtalálni az tárgyat.",
       "metaTitle": "Az tárgyat nem található",

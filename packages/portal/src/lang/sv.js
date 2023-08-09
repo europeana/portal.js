@@ -251,6 +251,9 @@ export default {
       "description": "Ett okänt fel uppstod.",
       "title": "Okänt fel"
     },
+    "IIIFManifestFailure": {
+      "description": "Tyvärr kan inte det medieobjekt som tillhandahållits till Europeana visas för tillfället. Försök att ladda ner mediaobjektet eller visa objektet på den tillhandahållande institutionens webbplats."
+    },
     "itemNotFound": {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
       "metaTitle": "Objektet hittades inte",
