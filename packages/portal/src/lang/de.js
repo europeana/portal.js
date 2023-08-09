@@ -999,9 +999,7 @@ export default {
     "similarItems": "Ähnliche Objekte",
     "status": {
       "unpublished": "[unveröffentlichtes Objekt]"
-    },
-    "transcription": "Transkription",
-    "transcriptionDisclaimer": "Dieser Inhalt stammt von der Öffentlichkeit, nicht von dem Datenpartner, der dieses Objekt bereitgestellt hat."
+    }
   },
   "related": {
     "categoryTags": {

@@ -999,9 +999,7 @@ export default {
     "similarItems": "Slične predmeti",
     "status": {
       "unpublished": "[Neobjavljena stavka]"
-    },
-    "transcription": "Transkripcija",
-    "transcriptionDisclaimer": "Ovaj sadržaj je ponudila javnost, a ne institucija koja je pružila ovu stavku."
+    }
   },
   "related": {
     "categoryTags": {

@@ -999,9 +999,7 @@ export default {
     "similarItems": "Podobné objekty",
     "status": {
       "unpublished": "[Nezverejnená objekt]"
-    },
-    "transcription": "Prepis",
-    "transcriptionDisclaimer": "Tento obsah prispel verejnosť, nie správcovská inštitúcia, ktorá tento objekt poskytla."
+    }
   },
   "related": {
     "categoryTags": {

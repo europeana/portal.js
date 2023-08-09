@@ -999,9 +999,7 @@ export default {
     "similarItems": "Подобни обекта",
     "status": {
       "unpublished": "[Непубликувани обект]"
-    },
-    "transcription": "Транскрипция",
-    "transcriptionDisclaimer": "Това съдържание е добавено от обществеността, а не от институцията, която е предоставила този обект."
+    }
   },
   "related": {
     "categoryTags": {

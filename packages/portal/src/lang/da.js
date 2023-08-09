@@ -999,9 +999,7 @@ export default {
     "similarItems": "Lignende genstande",
     "status": {
       "unpublished": "[Ikke-publiceret element]"
-    },
-    "transcription": "Transskription",
-    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den ejerinstitutioner, der leverede denne genstand."
+    }
   },
   "related": {
     "categoryTags": {

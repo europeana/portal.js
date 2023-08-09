@@ -999,9 +999,7 @@ export default {
     "similarItems": "Resurse culturale similare",
     "status": {
       "unpublished": "[Resursă culturală nepublicat]"
-    },
-    "transcription": "Transcriere",
-    "transcriptionDisclaimer": "Această conținut este contribuită de către public, nu de către instituția furnizoare care a furnizat acest resursă culturală."
+    }
   },
   "related": {
     "categoryTags": {

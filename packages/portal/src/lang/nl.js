@@ -999,9 +999,7 @@ export default {
     "similarItems": "Vergelijkbare objecten",
     "status": {
       "unpublished": "[Ongepubliceerd item]"
-    },
-    "transcription": "Transcriptie",
-    "transcriptionDisclaimer": "Deze inhoud is bijgedragen door het publiek, niet door de deelnemende erfgoedorganisatie die dit object heeft geleverd."
+    }
   },
   "related": {
     "categoryTags": {

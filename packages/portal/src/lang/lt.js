@@ -97,7 +97,7 @@ export default {
     "author": "Autorius",
     "authors": "Autoriai",
     "blog": "Tinklaraštis",
-    "by": "iki",
+    "by": "autorius",
     "categories": "Kategorijos",
     "category": "Kategorija",
     "posts": "Tinklaraščio įrašai",
@@ -999,9 +999,7 @@ export default {
     "similarItems": "Panašūs skaitmeniniai objektai",
     "status": {
       "unpublished": "[Nepaskelbtas skaitmeninis objektas]"
-    },
-    "transcription": "Transkripcija",
-    "transcriptionDisclaimer": "Šią informaciją pateikė visuomenė, o ne įstaiga, kuri pateikė šį skaitmeninis objektas."
+    }
   },
   "related": {
     "categoryTags": {

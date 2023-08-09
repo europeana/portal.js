@@ -999,9 +999,7 @@ export default {
     "similarItems": "Līdzīgi digitālie objekti",
     "status": {
       "unpublished": "[Nepublicēts digitālais objekts]"
-    },
-    "transcription": "Kopija",
-    "transcriptionDisclaimer": "Šo saturu sniedza publisks, nevis piegādājošās iestādes, kas nodrošināja šo digitālo objektu."
+    }
   },
   "related": {
     "categoryTags": {

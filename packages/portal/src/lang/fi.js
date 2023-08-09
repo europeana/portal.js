@@ -999,9 +999,7 @@ export default {
     "similarItems": "Samanlaisia aineistot",
     "status": {
       "unpublished": "[Julkaisematon aineisto]"
-    },
-    "transcription": "Transkriptio",
-    "transcriptionDisclaimer": "Tämä sisältö on yleisön tuottama eikä aineiston tarjoajien tuottama."
+    }
   },
   "related": {
     "categoryTags": {

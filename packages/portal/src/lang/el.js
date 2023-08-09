@@ -1003,9 +1003,7 @@ export default {
     "similarItems": "Παρόμοια τεκμήρια",
     "status": {
       "unpublished": "[Μη δημοσιευμένο τεκμήριο]"
-    },
-    "transcription": "Απομαγνητοφώνηση",
-    "transcriptionDisclaimer": "Αυτό το περιεχόμενο συνεισφέρεται από το κοινό, όχι από το ίδρυμα που παρείχε αυτά τα τεκμήρια."
+    }
   },
   "related": {
     "categoryTags": {

@@ -999,9 +999,7 @@ export default {
     "similarItems": "Ítems similares",
     "status": {
       "unpublished": "[Ítem no publicado]"
-    },
-    "transcription": "Transcripción",
-    "transcriptionDisclaimer": "Este contenido es aportado por el público, no por el proveedor de datos que proporcionó este item."
+    }
   },
   "related": {
     "categoryTags": {
