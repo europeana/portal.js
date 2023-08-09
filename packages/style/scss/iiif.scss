@@ -19,6 +19,7 @@
 }
 
 ::v-deep .mirador-viewer {
+  min-height: 0;
   // Allow tooltips to show
   overflow: visible;
 
@@ -96,6 +97,43 @@
       .MuiTypography-caption {
         color: $white;
       }
+    }
+  }
+}
+
+.iiif-viewer.error {
+  min-height: 9rem;
+
+  .mirador-window-top-bar,
+  .MuiAlert-filledError {
+    display: none;
+  }
+
+  .mirador-osd-container {
+    height: auto;
+  }
+
+  .mirador-window {
+    overflow: auto;
+  }
+
+  .MuiAccordion-root {
+    max-width: $max-text-column-width;
+    margin: 0 auto;
+    background-color: $black;
+    color: $white;
+    width: 100%;
+    padding: 0 2rem 0 4.5rem;
+
+    .MuiButtonBase-root {
+      color: $white;
+      display: inline-flex;
+      justify-content: flex-start;
+      padding: 0;
+    }
+
+    pre {
+      color: $white;
     }
   }
 }

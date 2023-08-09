@@ -1,12 +1,22 @@
 <template>
   <div
-    class="iiif-viewer"
-    data-qa="IIIF viewer"
+    class="iiif-viewer-inner-wrapper h-100 d-flex flex-column"
+    :class="{ 'error': manifestError}"
   >
-    <div
-      v-show="isMiradorLoaded"
-      id="viewer"
+    <IIIFErrorMessage
+      v-if="manifestError"
+      :provider-url="providerUrl"
     />
+    <div
+      class="iiif-viewer"
+      :class="{ 'error': manifestError}"
+      data-qa="IIIF viewer"
+    >
+      <div
+        v-show="isMiradorLoaded"
+        id="viewer"
+      />
+    </div>
   </div>
 </template>
 
@@ -18,6 +28,10 @@
 
   export default {
     name: 'IIIFViewer',
+
+    components: {
+      IIIFErrorMessage: () => import('./IIIFErrorMessage.vue')
+    },
 
     props: {
       uri: {
@@ -31,6 +45,11 @@
       },
 
       searchQuery: {
+        type: String,
+        default: null
+      },
+
+      providerUrl: {
         type: String,
         default: null
       }
@@ -50,7 +69,8 @@
           { component: () => null, saga: this.watchMiradorSetCanvasSaga },
           { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
         ],
-        proxiedMedia: {}
+        proxiedMedia: {},
+        manifestError: false
       };
     },
 
@@ -163,12 +183,18 @@
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
       this.initMirador();
+
+      // Catch image request failures as Mirador does not handle them
+      // TODO: remove when Mirador implements better handling. Issue: https://github.com/ProjectMirador/mirador/issues/3775
+      window.addEventListener('unhandledrejection', this.handleFailedManifestImage);
     },
 
     beforeDestroy() {
       // NOTE: very important to do this, as it cleans up all the
       //       mirador/react/material stuff from the DOM before moving on
       this.miradorViewer.unmount();
+
+      window.removeEventListener('unhandledrejection', this.handleFailedManifestImage);
     },
 
     methods: {
@@ -223,6 +249,17 @@
         return options;
       },
 
+      handleManifestError(error) {
+        this.manifestError = true;
+        this.miradorViewer.unmount();
+        this.$apm?.captureError({
+          name: 'IIIFManifestError',
+          message: error,
+          item: this.itemId,
+          url: this.uri
+        });
+      },
+
       postprocessMiradorRequest(url, action) {
         const fn = `postprocess${upperFirst(camelCase(action.type))}`;
         this[fn]?.(url, action);
@@ -231,6 +268,11 @@
       // TODO: rewrite thumbnail URLs to use v3 API
       postprocessMiradorReceiveManifest(url, action) {
         this.manifest = action.manifestJson;
+        // Catch when there are no canvases in the manifest
+        // TODO: display media available on the record instead
+        if (!this.manifest.sequences && !this.manifest.items) {
+          this.handleManifestError('No canvases in IIIF manifest');
+        }
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.proxyProviderMedia(action.manifestJson);
           this.addAnnotationTextGranularityFilterToManifest(action.manifestJson);
@@ -251,6 +293,10 @@
           this.coerceAnnotationsOnToCanvases(action.searchJson);
         }
         this.coerceSearchHitsToBeforeMatchAfter(action.searchJson);
+      },
+
+      postprocessMiradorReceiveManifestFailure(url, { error }) {
+        this.handleManifestError(error);
       },
 
       urlIsForEuropeanaPresentationAPI(url) {
@@ -595,6 +641,16 @@
         return (this.manifest.items || [])
           .find(canvas => canvas.id === pageId)
           ?.items?.[0]?.items?.[0]?.body?.id;
+      },
+
+      handleFailedManifestImage(event) {
+        // As this could be any unhandled rejection on the page, check if unhandled rejection source is image from manifest
+        const failedImageURL = event.reason?.source?.url;
+        const failedImageIsInManifest = Object.keys(this.imageToCanvasMap || {}).includes(failedImageURL);
+
+        if (failedImageIsInManifest) {
+          this.handleManifestError(event.reason.message);
+        }
       }
     }
   };
@@ -603,4 +659,12 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/iiif';
+
+  .iiif-viewer-inner-wrapper {
+    background-color: $black;
+
+    &.error {
+      overflow: auto;
+    }
+  }
 </style>
