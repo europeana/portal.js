@@ -999,9 +999,7 @@ export default {
     "similarItems": "Liknande objekt",
     "status": {
       "unpublished": "[Opublicerat objekt]"
-    },
-    "transcription": "Transkribering",
-    "transcriptionDisclaimer": "Detta innehåll bidras av allmänheten, inte av institutionen som tillhandahöll detta objekt."
+    }
   },
   "related": {
     "categoryTags": {

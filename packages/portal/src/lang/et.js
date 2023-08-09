@@ -999,9 +999,7 @@ export default {
     "similarItems": "Sarnased tooted",
     "status": {
       "unpublished": "[Avaldamata üksus]"
-    },
-    "transcription": "Transkriptsioon",
-    "transcriptionDisclaimer": "Sisu on avalikkuse panus, mitte üksuse pakkuja institutsioon."
+    }
   },
   "related": {
     "categoryTags": {

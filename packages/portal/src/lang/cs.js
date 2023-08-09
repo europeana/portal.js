@@ -999,9 +999,7 @@ export default {
     "similarItems": "Podobné položky",
     "status": {
       "unpublished": "[Nepublikovaná položka]"
-    },
-    "transcription": "Přepis",
-    "transcriptionDisclaimer": "Tento obsah přispívá veřejnost, nikoli instituce, která tuto položku poskytla."
+    }
   },
   "related": {
     "categoryTags": {

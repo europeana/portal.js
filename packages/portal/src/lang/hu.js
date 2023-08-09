@@ -999,9 +999,7 @@ export default {
     "similarItems": "Hasonló tárgyak",
     "status": {
       "unpublished": "[Közzé nem tett tárgy]"
-    },
-    "transcription": "Átírás",
-    "transcriptionDisclaimer": "Ez a tartalom a közönség által van hozzájárulva, nem a tárgyat szolgáltató intézmény által."
+    }
   },
   "related": {
     "categoryTags": {

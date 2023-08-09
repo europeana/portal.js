@@ -999,9 +999,7 @@ export default {
     "similarItems": "Míreanna eile den chineál céanna",
     "status": {
       "unpublished": "[Mír neamhfhoilsithe]"
-    },
-    "transcription": "Tras-scríobh",
-    "transcriptionDisclaimer": "Is ón bpobal a chuirtear an t-ábhar seo ar fáil, nem pedig az mhír szolgáltató institiúidí soláthartha."
+    }
   },
   "related": {
     "categoryTags": {

@@ -999,9 +999,7 @@ export default {
     "similarItems": "Podobne obiekty cyfrowe",
     "status": {
       "unpublished": "[Pozycja nieopublikowana]"
-    },
-    "transcription": "Transkrypcja",
-    "transcriptionDisclaimer": "Ten zawartość jest dostarczany przez publiczność, a nie przez dostawcę danych, która dostarczyła ten obiekt cyfrowy."
+    }
   },
   "related": {
     "categoryTags": {

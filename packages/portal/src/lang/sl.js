@@ -999,9 +999,7 @@ export default {
     "similarItems": "Podobna enote",
     "status": {
       "unpublished": "[Neobjavljeni enota]"
-    },
-    "transcription": "Prepis",
-    "transcriptionDisclaimer": "To vsebino prispeva javnost, ne pa ponudnik podatkov, ki je zagotovil to enoto."
+    }
   },
   "related": {
     "categoryTags": {

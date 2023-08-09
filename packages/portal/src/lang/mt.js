@@ -999,9 +999,7 @@ export default {
     "similarItems": "Oġġetti simili",
     "status": {
       "unpublished": "[Oġġett mhux ippubblikat]"
-    },
-    "transcription": "Traskrizzjoni",
-    "transcriptionDisclaimer": "Dan il-kontenut huwa miġbur mill-pubbliku, mhux mill-istituzzjonijiet fornitriċi li pprovdu dan l-oġġett."
+    }
   },
   "related": {
     "categoryTags": {

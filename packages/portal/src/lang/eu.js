@@ -1003,9 +1003,7 @@ export default {
     "similarItems": "Antzeko elementuak",
     "status": {
       "unpublished": "[Argitaratu gabeko elementua]"
-    },
-    "transcription": "Transkripzioa",
-    "transcriptionDisclaimer": "Eduki hau publikoaren ekarpena da, ez elementu hau eman duen erakundeak hornitzailea."
+    }
   },
   "related": {
     "categoryTags": {
