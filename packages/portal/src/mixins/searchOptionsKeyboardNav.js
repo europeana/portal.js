@@ -21,10 +21,14 @@ export default {
     },
 
     handleFocusOut(event) {
-      const relatedTargetOutsideSearchDropdown = event.relatedTarget?.id !== 'show-search-button' && this.$refs.searchdropdown && !this.$refs.searchdropdown.contains(event.relatedTarget);
+      const relatedTargetOutsideSearchDropdown = this.checkIfRelatedTargetOutsideSearchDropdown(event);
       if (relatedTargetOutsideSearchDropdown) {
         this.showSearchOptions = false;
       }
+    },
+
+    checkIfRelatedTargetOutsideSearchDropdown(event) {
+      return event.relatedTarget?.id !== 'show-search-button' && this.$refs.searchdropdown && !this.$refs.searchdropdown.contains(event.relatedTarget);
     },
 
     navigateWithArrowKeys(event) {

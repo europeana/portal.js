@@ -44,6 +44,7 @@
               :placeholder="$t('search.advanced.placeholder.term')"
               :state="validations.term.state"
               :suggest-entity-type="suggestEntityTypeForTerm"
+              :advanced-search-field="field"
               @change="(value) => handleRuleChange('term', value)"
             />
             <SearchQueryBuilderRuleDropdown

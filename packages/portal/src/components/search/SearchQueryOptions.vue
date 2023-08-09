@@ -16,11 +16,9 @@
       ref="options"
       :key="index"
       :data-qa="option.qa"
-      :to="!advancedSearch ? $link.to(option.link.path, option.link.query): ''"
-      :href="!advancedSearch ? $link.href(option.link.path, option.link.query): ''"
       role="option"
-      :button="advancedSearch"
-      @click="handleClick(index, option.link.query.query, option.entityId)"
+      button
+      @click="handleClick(index, option)"
     >
       <i18n
         v-if="option.i18n"
@@ -78,6 +76,16 @@
       advancedSearch: {
         type: Boolean,
         default: false
+      },
+
+      advancedSearchField: {
+        type: String,
+        default: null
+      },
+
+      submitting: {
+        type: String,
+        default: null
       }
     },
 
@@ -140,7 +148,7 @@
         return Object.keys(this.suggestions).map(suggestionId => (
           {
             entityId: suggestionId,
-            link: this.suggestionLinkGen(this.suggestions[suggestionId]),
+            query: this.suggestionQuery(this.suggestions[suggestionId]),
             qa: `${this.suggestions[suggestionId]} search suggestion`,
             texts: this.highlightSuggestion(this.suggestions[suggestionId])
           }
@@ -151,6 +159,11 @@
     watch: {
       text() {
         this.fetchSuggestions();
+      },
+      submitting(newVal) {
+        if (newVal) {
+          this.trackSuggestionClick(newVal);
+        }
       }
     },
 
@@ -197,11 +210,11 @@
         }
       },
 
-      handleClick(index, query, entityId) {
+      handleClick(index, option) {
+        this.$emit('select', option);
+        this.trackSuggestionClick(option.query, index);
         this.suggestions = {};
         this.activeSuggestionsQueryTerm = null;
-        this.$emit('select', query, entityId);
-        this.trackSuggestionClick(index, query);
       },
 
       // Highlight the user's query in a suggestion
@@ -235,15 +248,18 @@
         return this.linkGen(query, this.$route.path);
       },
 
-      suggestionLinkGen(suggestion) {
-        const formattedSuggestion = suggestion ? `"${suggestion.replace(/(^")|("$)/g, '')}"` : undefined;
-        return this.linkGen(formattedSuggestion);
+      suggestionQuery(suggestion) {
+        return suggestion ? `"${suggestion.replace(/(^")|("$)/g, '')}"` : undefined;
       },
 
-      trackSuggestionClick(index, query) {
-        // TODO add tracking for advanced search
-        // Skip click tracking while on a collection page, there will never be suggestions.
-        if (!this.onCollectionPage) {
+      trackSuggestionClick(query, index) {
+        if (this.advancedSearch) {
+          if (index >= 1) {
+            this.$matomo?.trackEvent('Advanced search autosuggest', 'Advanced search autosuggest option is selected', `${this.advancedSearchField}: ${query}`);
+          } else if (this.options.length >= 2) {
+            this.$matomo?.trackEvent('Advanced search autosuggest', 'Advanced search autosuggest option is not selected', `${this.advancedSearchField}: ${query}`);
+          }
+        } else if (!this.onCollectionPage) { // Skip click tracking while on a collection page, there will never be suggestions.
           if (index >= 1) {
             this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
           } else if (this.options.length >= 2) {

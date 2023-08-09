@@ -69,7 +69,8 @@
         ref="searchoptions"
         :suggest="suggestSearchOptions && inTopNav && !onSearchableCollectionPage"
         :text="query"
-        @select="showSearchOptions = false;"
+        :submitting="submitting"
+        @select="(option) => handleSelect(option.query)"
       />
       <SearchThemeBadges
         v-if="showSearchThemeBadges"
@@ -116,7 +117,9 @@
         query: null,
         showSearchOptions: false,
         showForm: this.show,
-        suggestSearchOptions: false
+        suggestSearchOptions: false,
+        selectedOptionQuery: null,
+        submitting: null
       };
     },
 
@@ -174,16 +177,17 @@
       },
 
       async submitForm() {
-        // Matomo event: suggestions are present, but none is selected
-        // FIXME
-        // if (Object.keys(this.suggestions).length > 0) {
-        //   this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
-        // }
+        const queryToSubmit = this.selectedOptionQuery || this.query;
+
+        if (!this.selectedOptionQuery) {
+          // Set submitting state to track the no autosuggest option selected in SearchQueryOptions
+          this.submitting = this.query;
+        }
 
         const baseQuery = this.onSearchablePage ? this.$route.query : {};
         // `query` must fall back to blank string to ensure inclusion in URL,
         // which is required for analytics site search tracking
-        const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: this.query || '' } };
+        const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: queryToSubmit || '' } };
         const newRoute = { path: this.routePath, query: newRouteQuery };
 
         this.showSearchOptions = false;
@@ -214,6 +218,12 @@
         this.$nextTick(() => {
           this.getElement(this.$refs.searchinput).focus();
         });
+      },
+
+      handleSelect(query) {
+        this.selectedOptionQuery = query;
+        this.submitForm();
+        this.selectedOption = null;
       }
     }
   };

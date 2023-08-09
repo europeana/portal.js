@@ -4,6 +4,7 @@
     class="input-wrapper"
     :class="{ 'open': showSearchOptions }"
     @keydown="handleKeyDown"
+    @focusout="handleFocusOutChange"
   >
     <b-form-input
       ref="searchinput"
@@ -11,9 +12,8 @@
       :data-qa="`advanced search query builder: ${name} control`"
       :placeholder="$t('search.advanced.placeholder.term')"
       :state="state"
-      @change="handleChange"
       @input="showSearchOptions = true"
-      @keydown.enter="showSearchOptions = false"
+      @keydown.enter="handleChange"
     />
     <SearchQueryOptions
       v-show="showSearchOptions"
@@ -21,10 +21,11 @@
       class="auto-suggest-dropdown"
       :text="term"
       :type="suggestEntityType"
-      :suggest="suggestEntityType"
+      :suggest="!!suggestEntityType"
       :advanced-search="true"
-      @select="(selectedValue, selectedEntity) => handleSelect(selectedValue, selectedEntity, 'select')"
-      @keydown.enter="(selectedValue, selectedEntity) => handleSelect(selectedValue, selectedEntity, 'enter')"
+      :advanced-search-field="advancedSearchField"
+      :submitting="submitting"
+      @select="(option) => handleSelect(option)"
     />
   </div>
 </template>
@@ -64,6 +65,11 @@
       value: {
         type: String,
         default: null
+      },
+
+      advancedSearchField: {
+        type: String,
+        default: null
       }
     },
 
@@ -71,7 +77,8 @@
       return {
         term: this.value,
         showSearchOptions: false,
-        selectedValue: null
+        selectedValue: null,
+        submitting: null
       };
     },
 
@@ -87,20 +94,27 @@
     },
 
     methods: {
-      handleChange(newVal) {
-        // Wait for focusout event to close options
-        setTimeout(() => {
-          if (!this.showSearchOptions) {
-            const valueToEmit = this.selectedValue || newVal;
-            this.$emit('change', valueToEmit);
-          }
-        }, 500);
+      handleChange() {
+        const valueToEmit = this.selectedValue || this.term;
+
+        if (!this.selectedValue) {
+          // Set submitting state to track the no autosuggest option selected in SearchQueryOptions
+          this.submitting = this.term;
+        }
+
+        this.$emit('change', valueToEmit);
+        this.selectedValue = null; // reset for next query
       },
-      handleSelect(newVal, entityId) {
+      handleSelect(option) {
         this.showSearchOptions = false;
-        console.log(entityId);
-        this.selectedValue = newVal;
+        this.selectedValue = option.query;
         this.handleChange();
+      },
+      handleFocusOutChange(event) {
+        const relatedTargetOutsideSearchDropdown = this.checkIfRelatedTargetOutsideSearchDropdown(event);
+        if (relatedTargetOutsideSearchDropdown && this.term !== this.value) {
+          this.handleChange();
+        }
       }
     }
   };
