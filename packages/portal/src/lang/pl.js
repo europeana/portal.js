@@ -251,6 +251,9 @@ export default {
       "description": "Wystąpił nieznany błąd.",
       "title": "Nieznany błąd"
     },
+    "IIIFManifestFailure": {
+      "description": "Niestety, obiekt cyfrowy multimedialny dostarczony do Europeana nie może być wyświetlony w tej chwili. Proszę spróbować pobrać media lub obejrzeć obiekt cyfrowy na stronie internetowej dostawca danych."
+    },
     "itemNotFound": {
       "description": "Może to być spowodowane następującymi przyczynami: ten element nie istnieje lub; został wycofany z publikacji, ponieważ nie spełniał naszych kryteriów jakości lub; został zaktualizowany i ponownie opublikowany z nowym unikalnym identyfikatorem, w takim przypadku spróbuj ponownie znaleźć przedmiot.",
       "metaTitle": "Nie znaleziono przedmiotu",

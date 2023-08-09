@@ -251,6 +251,9 @@ export default {
       "description": "Une erreur inconnue s'est produite.",
       "title": "Erreur inconnue"
     },
+    "IIIFManifestFailure": {
+      "description": "Malheureusement, le média item tel qu'il a été fourni à Europeana ne peut pas être affiché pour le moment. Veuillez essayer de télécharger le média item ou de consulter l'item sur le site web d’institution partenaire."
+    },
     "itemNotFound": {
       "description": "Cela peut être dû aux raisons suivantes : cet élément n’existe pas, ou ; il a été publié parce qu’il ne correspondait pas à nos critères de qualité, ou; il a été mis à jour et republié avec un nouvel identifiant unique, auquel cas, essayez de retrouver l’élément.",
       "metaTitle": "Objet non-trouvé",

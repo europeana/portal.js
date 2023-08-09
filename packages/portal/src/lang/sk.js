@@ -251,6 +251,9 @@ export default {
       "description": "Vyskytla sa neznáma chyba.",
       "title": "Neznáma chyba"
     },
+    "IIIFManifestFailure": {
+      "description": "Bohužiaľ, objekt médií, ako bola poskytnutá Europeana, momentálne nie je možné zobraziť. Skúste stiahnuť médium alebo si objekt prezrite na webovej stránke správcovská inštitúcia."
+    },
     "itemNotFound": {
       "description": "Môže to byť z nasledujúcich dôvodov: táto objekt neexistuje alebo; bolo zrušené, pretože nezodpovedalo našim kritériám kvality, alebo; bola aktualizovaná a znovu publikovaná s novým jedinečným identifikátorom, v takom prípade skúste objekt znova nájsť.",
       "metaTitle": "Objekt sa nenašla",

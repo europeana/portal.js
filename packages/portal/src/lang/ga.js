@@ -251,6 +251,9 @@ export default {
       "description": "Tharla earráid anaithnid.",
       "title": "Earráid anaithnid"
     },
+    "IIIFManifestFailure": {
+      "description": "Ar an drochuair, ní féidir na meáin mhíreanna a chuirtear ar fáil do Europeana a thaispeáint faoi láthair. Déan iarracht na meáin a íoslódáil nó féachaint ar an mír ar shuíomh Gréasáin na hinstitiúide soláthair."
+    },
     "itemNotFound": {
       "description": "D'fhéadfadh sé seo a bheith mar gheall ar na cúiseanna seo a leanas: níl an mhír seo ann, nó; dífhoilsíodh é toisc nach raibh sé ag teacht lenár gcritéir cháilíochta, nó; Rinneadh é a nuashonrú agus a athfhoilsiú le haitheantóir uathúil nua, agus sa chás sin, déan iarracht an mhír a aimsiú arís.",
       "metaTitle": "Ní bhfuarthas an mhír",
