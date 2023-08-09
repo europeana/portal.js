@@ -196,21 +196,6 @@
         await this.$router.push(newRoute);
       },
 
-      updateSuggestions() {
-        // Re-retrieve suggestions after the query was programmatically changed.
-        // FIXME
-        // if (this.query !== this.activeSuggestionsQueryTerm) {
-        //   this.getSearchSuggestions(this.query);
-        // }
-      },
-
-      // FIXME
-      // getSearchSuggestions(query) {
-      //   if (this.onSearchableCollectionPage || !this.inTopNav) {
-      //     return;
-      //   }
-      // },
-
       clearQuery() {
         this.query = '';
         this.suggestions = {};

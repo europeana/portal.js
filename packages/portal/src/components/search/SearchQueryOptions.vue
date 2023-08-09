@@ -201,12 +201,9 @@
         } finally {
           this.gettingSuggestions = false;
           // If the query has changed in the meantime, go get new suggestions now
-          // FIXME
-          // if (query !== this.text) {
-          //   this.$fetch(this.text);
-          // }
-          // TODO: this?
-          // this.$emit('change', this.suggestions);
+          if (this.activeSuggestionsQueryTerm !== this.text) {
+            this.fetchSuggestions();
+          }
         }
       },
 
