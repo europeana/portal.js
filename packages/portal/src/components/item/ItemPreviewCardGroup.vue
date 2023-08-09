@@ -61,7 +61,7 @@
           :show-move="useDraggable"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
-          @click="$emit('clickItem', items.findIndex(item => item.id === card.id))"
+          :on-click-card="onClickCard"
         />
       </template>
     </component>
@@ -115,7 +115,7 @@
         :show-move="useDraggable"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
-        @click="$emit('clickItem', items.findIndex(item => item.id === card.id))"
+        :on-click-card="onClickCard"
       />
     </template>
   </component>
@@ -164,6 +164,10 @@
       enableRejectRecommendations: {
         type: Boolean,
         default: false
+      },
+      onClickCard: {
+        type: Function,
+        default: null
       }
     },
 

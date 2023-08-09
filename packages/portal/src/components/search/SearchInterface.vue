@@ -93,8 +93,8 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
+                          :on-click-card="onClickItem"
                           @drawn="handleResultsDrawn"
-                          @clickItem="handleClickItem"
                         >
                           <slot />
                           <template
@@ -253,6 +253,7 @@
       return {
         hits: null,
         lastAvailablePage: null,
+        page: null,
         results: [],
         totalResults: null,
         paginationChanged: false,
@@ -265,6 +266,14 @@
       await this.$nextTick();
       this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
       this.setViewFromRouteQuery();
+
+
+      // FIXME: same storage issue applies to qf, query, etc...
+      // Don't use a computed property for page, as it need to be kept for `onClickItem`
+      // This causes double jumps on pagination when using the > arrow, for some reason
+      // this.page = this.userParams.page;
+      // This is a workaround
+      this.page = Number(this.$route.query.page || 1);
 
       this.$store.commit('search/setActive', true);
 
@@ -359,13 +368,6 @@
       sort() {
         return this.userParams.sort;
       },
-      page() {
-        // This causes double jumps on pagination when using the > arrow, for some reason
-        // return this.userParams.page;
-
-        // This is a workaround
-        return Number(this.$route.query.page || 1);
-      },
       hasAnyResults() {
         return this.totalResults > 0;
       },
@@ -423,6 +425,21 @@
     },
 
     methods: {
+      onClickItem(identifier) {
+        const transaction = this.$apm?.startTransaction('Search - result clicked', 'user-interaction');
+        console.log('page', this.page)
+        console.log('per page', this.perPage)
+        const rank = this.results.findIndex(item => item.id === identifier) + 1 + ((this.page - 1) * this.perPage);
+        console.log('rank', rank)
+        transaction?.addLabels({
+          'search_params_qf': this.apiParams.qf || null,
+          'search_params_query': this.apiParams.query || null,
+          'search_params_reusability': this.apiParams.reusability || null,
+          'search_rank': rank
+        });
+        transaction?.end();
+      },
+
       async runSearch() {
         const response = await this.$apis.record.search(this.apiParams, { ...this.apiOptions, locale: this.$i18n.locale });
 
@@ -433,7 +450,7 @@
       },
 
       async runLoggedSearch() {
-        const transaction = this.$apm?.startTransaction('Search', 'user-interaction');
+        const transaction = this.$apm?.startTransaction('Search - results fetched', 'user-interaction');
         transaction?.addLabels({
           'search_params_qf': this.apiParams.qf || null,
           'search_params_query': this.apiParams.query || null,
@@ -446,10 +463,6 @@
           'search_results_total': this.totalResults
         });
         transaction?.end();
-      },
-
-      handleClickItem(index) {
-        console.log('clicked item', index)
       },
 
       handlePaginationChanged() {

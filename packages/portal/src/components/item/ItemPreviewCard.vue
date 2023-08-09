@@ -13,6 +13,7 @@
     :sub-title="subTitle"
     :media-type="type"
     :offset="offset"
+    ref="card"
   >
     <template
       v-if="variant === 'list'"
@@ -140,6 +141,16 @@
       offset: {
         type: Number,
         default: null
+      },
+      onClickCard: {
+        type: Function,
+        default: null
+      }
+    },
+
+    mounted() {
+      if (this.onClickCard) {
+        this.$refs.card.$el.addEventListener('click', () => this.onClickCard(this.identifier));
       }
     },
 
