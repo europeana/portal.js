@@ -61,6 +61,7 @@
           :show-move="useDraggable"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
+          @click="$emit('clickItem', items.findIndex(item => item.id === card.id))"
         />
       </template>
     </component>
@@ -114,6 +115,7 @@
         :show-move="useDraggable"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
+        @click="$emit('clickItem', items.findIndex(item => item.id === card.id))"
       />
     </template>
   </component>

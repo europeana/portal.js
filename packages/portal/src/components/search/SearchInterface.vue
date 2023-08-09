@@ -94,6 +94,7 @@
                           :view="view"
                           :show-pins="showPins"
                           @drawn="handleResultsDrawn"
+                          @clickItem="handleClickItem"
                         >
                           <slot />
                           <template
@@ -268,7 +269,7 @@
       this.$store.commit('search/setActive', true);
 
       try {
-        await this.runSearch();
+        await this.runLoggedSearch();
       } catch (error) {
         const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
         if (paginationError) {
@@ -429,6 +430,26 @@
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
+      },
+
+      async runLoggedSearch() {
+        const transaction = this.$apm?.startTransaction('Search', 'user-interaction');
+        transaction?.addLabels({
+          'search_params_qf': this.apiParams.qf || null,
+          'search_params_query': this.apiParams.query || null,
+          'search_params_reusability': this.apiParams.reusability || null
+        });
+
+        await this.runSearch();
+
+        transaction?.addLabels({
+          'search_results_total': this.totalResults
+        });
+        transaction?.end();
+      },
+
+      handleClickItem(index) {
+        console.log('clicked item', index)
       },
 
       handlePaginationChanged() {
