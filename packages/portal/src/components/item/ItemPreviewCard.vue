@@ -1,5 +1,6 @@
 <template>
   <ContentCard
+    ref="card"
     :title="dcTitle || item.dcDescriptionLangAware"
     :url="url"
     :image-url="imageUrl"
@@ -13,7 +14,6 @@
     :sub-title="subTitle"
     :media-type="type"
     :offset="offset"
-    ref="card"
   >
     <template
       v-if="variant === 'list'"
@@ -148,12 +148,6 @@
       }
     },
 
-    mounted() {
-      if (this.onClickCard) {
-        this.$refs.card.$el.addEventListener('click', () => this.onClickCard(this.identifier));
-      }
-    },
-
     computed: {
       dcTitle() {
         return this.unpublishedItem ?
@@ -213,6 +207,12 @@
 
       type() {
         return this.item.type;
+      }
+    },
+
+    mounted() {
+      if (this.onClickCard) {
+        this.$refs.card.$el.addEventListener('click', () => this.onClickCard(this.identifier));
       }
     }
   };
