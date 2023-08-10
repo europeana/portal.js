@@ -272,7 +272,7 @@
       this.deriveApiParams();
 
       try {
-        await this.runLoggedSearch();
+        await this.logSearchInteraction('fetch results', this.runSearch);
       } catch (error) {
         const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
         if (paginationError) {
@@ -434,15 +434,28 @@
       onClickItem(identifier) {
         const rank = this.results.findIndex(item => item.id === identifier) + 1 +
           ((this.apiParams.page - 1) * this.apiParams.rows);
-        const labels = {
-          'search_params_qf': this.apiParams.qf || null,
-          'search_params_query': this.apiParams.query || null,
-          'search_params_reusability': this.apiParams.reusability || null,
-          'search_rank': rank
-        };
+        this.logSearchInteraction('result clicked', { 'search_rank': rank });
+      },
 
-        const transaction = this.$apm?.startTransaction('Search - result clicked', 'user-interaction');
+      async logSearchInteraction(name, labelsOrCallback) {
+        const transaction = this.$apm?.startTransaction(`Search - ${name}`, 'user-interaction');
+
+        const commonLabels = ['qf', 'query', 'reusability'].reduce((memo, param) => {
+          if (this.apiParams[param]) {
+            memo[`search_params_${param}`] = this.apiParams[param];
+          }
+          return memo;
+        }, {});
+        transaction?.addLabels(commonLabels);
+
+        let labels;
+        if (typeof labelsOrCallback === 'function') {
+          labels = await labelsOrCallback();
+        } else {
+          labels = labelsOrCallback;
+        }
         transaction?.addLabels(labels);
+
         transaction?.end();
       },
 
@@ -453,22 +466,11 @@
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
-      },
 
-      async runLoggedSearch() {
-        const transaction = this.$apm?.startTransaction('Search - results fetched', 'user-interaction');
-        transaction?.addLabels({
-          'search_params_qf': this.apiParams.qf || null,
-          'search_params_query': this.apiParams.query || null,
-          'search_params_reusability': this.apiParams.reusability || null
-        });
-
-        await this.runSearch();
-
-        transaction?.addLabels({
+        // labels used in the search interaction log
+        return {
           'search_results_total': this.totalResults
-        });
-        transaction?.end();
+        };
       },
 
       handlePaginationChanged() {
