@@ -251,13 +251,13 @@
 
     data() {
       return {
+        apiParams: {},
         hits: null,
         lastAvailablePage: null,
-        page: null,
-        results: [],
-        totalResults: null,
         paginationChanged: false,
-        showAdvancedSearch: false
+        results: [],
+        showAdvancedSearch: false,
+        totalResults: null
       };
     },
 
@@ -267,15 +267,9 @@
       this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
       this.setViewFromRouteQuery();
 
-
-      // FIXME: same storage issue applies to qf, query, etc...
-      // Don't use a computed property for page, as it need to be kept for `onClickItem`
-      // This causes double jumps on pagination when using the > arrow, for some reason
-      // this.page = this.userParams.page;
-      // This is a workaround
-      this.page = Number(this.$route.query.page || 1);
-
       this.$store.commit('search/setActive', true);
+
+      this.deriveApiParams();
 
       try {
         await this.runLoggedSearch();
@@ -316,40 +310,6 @@
 
         return apiOptions;
       },
-      // TODO: reduce cognitive complexity
-      apiParams() {
-        const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
-          if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
-            memo[field] = this[field];
-          }
-          return memo;
-        }, {});
-
-        params.page = this.page;
-        params.profile = 'minimal';
-        params.rows = this.perPage;
-
-        if (this.advancedSearchQueryCount > 0) {
-          if (this.hasFulltextQa) {
-            // If there are any advanced search full-text rules, then
-            // these are promoted to the primary query, and any other query
-            // (from the simple search bar) is demoted to a qf, fielded to
-            // `text` if not already fielded.
-            if (params.query && !params.query.includes(':')) {
-              params.query = `text:(${params.query})`;
-            }
-            params.qf = (params.qf || []).concat(params.query || []);
-            params.query = this.fulltextQas.join(' AND ');
-            params.profile = `${params.profile},hits`;
-          }
-
-          // All other advanced search rules go into qf's.
-          params.qf = (params.qf || [])
-            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)));
-        }
-
-        return merge(params, this.overrideParams);
-      },
       boost() {
         return this.userParams.boost;
       },
@@ -367,6 +327,13 @@
       },
       sort() {
         return this.userParams.sort;
+      },
+      page() {
+        // This causes double jumps on pagination when using the > arrow, for some reason
+        // return this.userParams.page;
+
+        // This is a workaround
+        return Number(this.$route.query.page || 1);
       },
       hasAnyResults() {
         return this.totalResults > 0;
@@ -425,19 +392,59 @@
     },
 
     methods: {
+      // NOTE: deliberately not computed, so that `apiParams` can be used by
+      //       `onClickItem`
+      // TODO: reduce cognitive complexity
+      deriveApiParams() {
+        const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
+          if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
+            memo[field] = this[field];
+          }
+          return memo;
+        }, {});
+
+        params.page = this.page;
+        params.profile = 'minimal';
+        params.rows = this.perPage;
+
+        if (this.advancedSearchQueryCount > 0) {
+          if (this.hasFulltextQa) {
+            // If there are any advanced search full-text rules, then
+            // these are promoted to the primary query, and any other query
+            // (from the simple search bar) is demoted to a qf, fielded to
+            // `text` if not already fielded.
+            if (params.query && !params.query.includes(':')) {
+              params.query = `text:(${params.query})`;
+            }
+            params.qf = (params.qf || []).concat(params.query || []);
+            params.query = this.fulltextQas.join(' AND ');
+            params.profile = `${params.profile},hits`;
+          }
+
+          // All other advanced search rules go into qf's.
+          params.qf = (params.qf || [])
+            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)));
+        }
+
+        this.apiParams = merge(params, this.overrideParams);
+      },
+
+      // NOTE: do not use computed properties here as they may change when the
+      //       item is clicked
       onClickItem(identifier) {
-        const transaction = this.$apm?.startTransaction('Search - result clicked', 'user-interaction');
-        console.log('page', this.page)
-        console.log('per page', this.perPage)
-        const rank = this.results.findIndex(item => item.id === identifier) + 1 + ((this.page - 1) * this.perPage);
-        console.log('rank', rank)
-        transaction?.addLabels({
+        const rank = this.results.findIndex(item => item.id === identifier) + 1 +
+          ((this.apiParams.page - 1) * this.apiParams.rows);
+        const labels = {
           'search_params_qf': this.apiParams.qf || null,
           'search_params_query': this.apiParams.query || null,
           'search_params_reusability': this.apiParams.reusability || null,
           'search_rank': rank
-        });
-        transaction?.end();
+        };
+
+        this.$apm
+          ?.startTransaction('Search - result clicked', 'user-interaction')
+          ?.addLabels(labels)
+          ?.end();
       },
 
       async runSearch() {
