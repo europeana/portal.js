@@ -441,10 +441,9 @@
           'search_rank': rank
         };
 
-        this.$apm
-          ?.startTransaction('Search - result clicked', 'user-interaction')
-          ?.addLabels(labels)
-          ?.end();
+        const transaction = this.$apm?.startTransaction('Search - result clicked', 'user-interaction');
+        transaction?.addLabels(labels);
+        transaction?.end();
       },
 
       async runSearch() {
