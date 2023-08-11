@@ -1,15 +1,15 @@
 <template>
   <div
     class="iiif-viewer-inner-wrapper h-100 d-flex flex-column"
-    :class="{ 'error': manifestError}"
+    :class="{ 'error': iiifError}"
   >
     <IIIFErrorMessage
-      v-if="manifestError"
+      v-if="iiifError"
       :provider-url="providerUrl"
     />
     <div
       class="iiif-viewer"
-      :class="{ 'error': manifestError}"
+      :class="{ 'error': iiifError}"
       data-qa="IIIF viewer"
     >
       <div
@@ -70,7 +70,7 @@
           { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
         ],
         proxiedMedia: {},
-        manifestError: false
+        iiifError: false
       };
     },
 
@@ -249,12 +249,12 @@
         return options;
       },
 
-      handleManifestError(error) {
-        this.manifestError = true;
+      handleError(message, name = 'IIIFManifestError') {
+        this.iiifError = true;
         this.miradorViewer.unmount();
         this.$apm?.captureError({
-          name: 'IIIFManifestError',
-          message: error,
+          name,
+          message,
           item: this.itemId,
           url: this.uri
         });
@@ -271,7 +271,7 @@
         // Catch when there are no canvases in the manifest
         // TODO: display media available on the record instead
         if (!this.manifest.sequences && !this.manifest.items) {
-          this.handleManifestError('No canvases in IIIF manifest');
+          this.handleError('No canvases in IIIF manifest');
         }
         if (this.urlIsForEuropeanaPresentationAPI(url)) {
           this.proxyProviderMedia(action.manifestJson);
@@ -296,7 +296,7 @@
       },
 
       postprocessMiradorReceiveManifestFailure(url, { error }) {
-        this.handleManifestError(error);
+        this.handleError(error);
       },
 
       urlIsForEuropeanaPresentationAPI(url) {
@@ -649,7 +649,7 @@
         const failedImageIsInManifest = Object.keys(this.imageToCanvasMap || {}).includes(failedImageURL);
 
         if (failedImageIsInManifest) {
-          this.handleManifestError(event.reason.message);
+          this.handleError(event.reason.message, 'IIIFImageError');
         }
       }
     }

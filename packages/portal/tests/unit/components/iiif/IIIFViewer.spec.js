@@ -769,16 +769,18 @@ describe('components/iiif/IIIFViewer.vue', () => {
       it('handles it as a manifest error', async() => {
         const brokenImage = 'http://www.example.eu/broken.jpg';
         const manifestImageFailsEvent = new Event('unhandledrejection');
-        manifestImageFailsEvent.reason = { message: 'unhandled rejection',
-          source: { url: brokenImage } };
+        manifestImageFailsEvent.reason = {
+          message: 'unhandled rejection',
+          source: { url: brokenImage }
+        };
 
         const wrapper = factory();
-        sinon.spy(wrapper.vm, 'handleManifestError');
+        sinon.spy(wrapper.vm, 'handleError');
         wrapper.setData({ imageToCanvasMap: { [brokenImage]: 'http://iiif.example.eu/canvas' } });
 
         window.dispatchEvent(manifestImageFailsEvent);
 
-        expect(wrapper.vm.handleManifestError.calledWith(manifestImageFailsEvent.reason.message)).toBe(true);
+        expect(wrapper.vm.handleError.calledWith(manifestImageFailsEvent.reason.message, 'IIIFImageError')).toBe(true);
       });
     });
   });
