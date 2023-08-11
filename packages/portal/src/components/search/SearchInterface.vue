@@ -93,6 +93,7 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
+                          :on-aux-click-card="onClickItem"
                           :on-click-card="onClickItem"
                           @drawn="handleResultsDrawn"
                         >
@@ -434,10 +435,15 @@
       onClickItem(identifier) {
         const rank = this.results.findIndex(item => item.id === identifier) + 1 +
           ((this.apiParams.page - 1) * this.apiParams.rows);
-        this.logSearchInteraction('result clicked', { 'search_rank': rank });
+        this.logSearchInteraction('click result', { 'search_result_rank': rank });
       },
 
-      async logSearchInteraction(name, labelsOrCallback) {
+      // TODO: consider moving to a mixin, or the elastic-apm module?
+      async logSearchInteraction(name, labels, callback) {
+        if ((typeof labels === 'function') && !callback) {
+          callback = labels;
+          labels = undefined;
+        }
         const transaction = this.$apm?.startTransaction(`Search - ${name}`, 'user-interaction');
 
         const commonLabels = ['qf', 'query', 'reusability'].reduce((memo, param) => {
@@ -446,15 +452,23 @@
           }
           return memo;
         }, {});
-        transaction?.addLabels(commonLabels);
 
-        let labels;
-        if (typeof labelsOrCallback === 'function') {
-          labels = await labelsOrCallback();
+        if (typeof callback === 'function') {
+          await callback();
         } else {
-          labels = labelsOrCallback;
+          // wait a moment as otherwise the transaction is too fast and the APM
+          // agent appears to discard it
+          const delay = () => new Promise(resolve => {
+            setTimeout(resolve, 100);
+          });
+          await delay();
         }
-        transaction?.addLabels(labels);
+
+        transaction?.addLabels({
+          ...commonLabels,
+          'search_results_total': this.totalResults,
+          ...labels
+        });
 
         transaction?.end();
       },
@@ -466,11 +480,6 @@
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
-
-        // labels used in the search interaction log
-        return {
-          'search_results_total': this.totalResults
-        };
       },
 
       handlePaginationChanged() {

@@ -145,6 +145,10 @@
       onClickCard: {
         type: Function,
         default: null
+      },
+      onAuxClickCard: {
+        type: Function,
+        default: null
       }
     },
 
@@ -213,6 +217,9 @@
     mounted() {
       if (this.onClickCard) {
         this.$refs.card.$el.addEventListener('click', () => this.onClickCard(this.identifier));
+      }
+      if (this.onAuxClickCard) {
+        this.$refs.card.$el.addEventListener('auxclick', () => this.onAuxClickCard(this.identifier));
       }
     }
   };

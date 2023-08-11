@@ -61,6 +61,7 @@
           :show-move="useDraggable"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
+          :on-aux-click-card="onAuxClickCard"
           :on-click-card="onClickCard"
         />
       </template>
@@ -115,6 +116,7 @@
         :show-move="useDraggable"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
+        :on-aux-click-card="onAuxClickCard"
         :on-click-card="onClickCard"
       />
     </template>
@@ -166,6 +168,10 @@
         default: false
       },
       onClickCard: {
+        type: Function,
+        default: null
+      },
+      onAuxClickCard: {
         type: Function,
         default: null
       }
