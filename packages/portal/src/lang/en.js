@@ -814,6 +814,7 @@ export default {
       "help": "Help",
       "home": "Home",
       "pro": "For professionals",
+      "shareYourData": "Share your data",
       "stories": "Stories"
     },
     "quickSearch": "Quick Search",
