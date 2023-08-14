@@ -162,6 +162,9 @@ export default {
         }
       }
     },
+    matomo: {
+      authToken: process.env.MATOMO_AUTH_TOKEN
+    },
     redis: {
       url: process.env.REDIS_URL,
       tlsCa: process.env.REDIS_TLS_CA
