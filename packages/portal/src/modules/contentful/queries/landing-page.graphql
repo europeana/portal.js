@@ -1,0 +1,89 @@
+query landingPage(
+  $locale: String!,
+  $identifier: String!,
+  $preview: Boolean = false
+) {
+	landingPage: landingPageCollection(
+		preview: $preview,
+  	locale: $locale,
+  	limit: 1,
+    where: { identifier: $identifier }
+  ) {
+    items {
+      identifier
+      name
+      description
+      headline
+      relatedLink {
+        url
+        text
+      }
+      primaryImageOfPage {
+        ...imageWithAttributionFields
+      }
+      image {
+        ...imageFields
+      }
+      hasPartCollection(limit:20) {
+        total
+        items {
+          __typename
+          ... on ContentTypeRichText {
+            text
+          }
+          ... on IllustrationGroup {
+            name
+          	text
+            hasPartCollection(limit: 6) {
+              items {
+                __typename
+                ... on Illustration{
+                  name
+                  text
+                  image {
+                    ...imageFields
+                  }
+                }
+              }
+            }
+        	}
+          ... on ImageCardGroup {
+            name
+          	text
+            hasPartCollection(limit: 6) {
+              items {
+                __typename
+                ... on ImageCard{
+                  name
+                  text
+                  image {
+                    ...imageWithAttributionFields
+                  }
+                }
+              }
+            }
+        	}
+        }
+      }
+    }
+  }
+}
+
+fragment imageFields on Asset {
+  url
+  contentType
+  description
+  width
+  height
+}
+
+fragment imageWithAttributionFields on ImageWithAttribution {
+  name
+  creator
+  provider
+  license
+  url
+  image {
+    ...imageFields
+  }
+}
