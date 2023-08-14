@@ -23,10 +23,14 @@ module.exports = async function(migration) {
     helpText: 'Only for when illustrations are accompanied by text. Currently only Welcome pack (Share your data)'
   });
 
+  illustration
+    .description('Illustration with optional text field.');
+
   // Create image card to be used by landing page
   const imageCard = migration
     .createContentType('imageCard')
     .name('Image card')
+    .description('Card With attributed image. Without link.')
     .displayField('name');
 
   imageCard
@@ -70,13 +74,14 @@ module.exports = async function(migration) {
     .omitted(false)
     .linkType('Entry');
 
-  // Create content group to be used by landing page
-  const contentGroup = migration
-    .createContentType('contentGroup')
-    .name('Content group')
+  // Create illustration group to be used by landing page
+  const illustrationGroup = migration
+    .createContentType('illustrationGroup')
+    .name('Illustration group')
+    .description('Section with text and grouped illustrations')
     .displayField('name');
 
-  contentGroup
+  illustrationGroup
     .createField('name')
     .name('Name')
     .type('Symbol')
@@ -90,7 +95,7 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
-  contentGroup
+  illustrationGroup
     .createField('text')
     .name('Text')
     .type('Text')
@@ -100,9 +105,9 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
-  contentGroup.changeFieldControl('text', 'builtin', 'multipleLine', {});
+  illustrationGroup.changeFieldControl('text', 'builtin', 'multipleLine', {});
 
-  contentGroup
+  illustrationGroup
     .createField('hasPart')
     .name('Sections')
     .type('Array')
@@ -111,7 +116,7 @@ module.exports = async function(migration) {
     .validations([
       {
         size: {
-          max: 10
+          max: 6
         }
       }
     ])
@@ -122,7 +127,67 @@ module.exports = async function(migration) {
 
       validations: [
         {
-          linkContentType: ['illustration', 'imageCard', 'richText']
+          linkContentType: ['illustration']
+        }
+      ],
+
+      linkType: 'Entry'
+    });
+
+  // Create image card group to be used by landing page
+  const imageCardGroup = migration
+    .createContentType('imageCardGroup')
+    .name('Image card group')
+    .description('Section with text and grouped image cards')
+    .displayField('name');
+
+  imageCardGroup
+    .createField('name')
+    .name('Name')
+    .type('Symbol')
+    .localized(true)
+    .required(true)
+    .validations([
+      {
+        unique: true
+      }
+    ])
+    .disabled(false)
+    .omitted(false);
+
+  imageCardGroup
+    .createField('text')
+    .name('Text')
+    .type('Text')
+    .localized(true)
+    .required(false)
+    .validations([])
+    .disabled(false)
+    .omitted(false);
+
+  imageCardGroup.changeFieldControl('text', 'builtin', 'multipleLine', {});
+
+  imageCardGroup
+    .createField('hasPart')
+    .name('Sections')
+    .type('Array')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        size: {
+          max: 6
+        }
+      }
+    ])
+    .disabled(false)
+    .omitted(false)
+    .items({
+      type: 'Link',
+
+      validations: [
+        {
+          linkContentType: ['imageCard']
         }
       ],
 
@@ -133,6 +198,7 @@ module.exports = async function(migration) {
   const landingPage = migration
     .createContentType('landingPage')
     .name('Landing page')
+    .description('Page with a hero and several content sections')
     .displayField('name');
 
   landingPage
@@ -202,12 +268,12 @@ module.exports = async function(migration) {
   landingPage
     .createField('headline')
     .name('Headline')
-    .type('Symbol')
+    .type('Text')
     .localized(true)
     .disabled(false)
     .omitted(false);
 
-  landingPage.changeFieldControl('headline', 'builtin', 'singleLine', {
+  landingPage.changeFieldControl('headline', 'builtin', 'multipleLine', {
     helpText: 'Headline to use in the hero.'
   });
 
@@ -253,9 +319,41 @@ module.exports = async function(migration) {
     'builtin',
     'entryLinkEditor',
     {
-      helpText: 'Used in the hero and for link cards and social media image'
+      helpText: 'Used in the hero'
     }
   );
+
+  landingPage
+    .createField('image')
+    .name('Social media image')
+    .type('Link')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        linkMimetypeGroup: ['image']
+      },
+      {
+        assetImageDimensions: {
+          width: {
+            min: 300,
+            max: null
+          },
+
+          height: {
+            min: 250,
+            max: null
+          }
+        },
+
+        message: 'Please make sure the image is at least 300x250px'
+      }
+    ])
+    .disabled(false)
+    .omitted(false)
+    .linkType('Asset');
+
+  landingPage.changeFieldControl('image', 'builtin', 'assetLinkEditor', {});
 
   landingPage
     .createField('hasPart')
@@ -266,7 +364,7 @@ module.exports = async function(migration) {
     .validations([
       {
         size: {
-          max: 40
+          max: 20
         }
       }
     ])
@@ -277,7 +375,7 @@ module.exports = async function(migration) {
 
       validations: [
         {
-          linkContentType: ['contentGroup', 'richText']
+          linkContentType: ['automatedCardGroup', 'illustrationGroup', 'imageCardGroup', 'richText']
         }
       ],
 
