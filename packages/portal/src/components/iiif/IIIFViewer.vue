@@ -257,6 +257,11 @@
           message,
           item: this.itemId,
           url: this.uri
+        },
+        {
+          labels: {
+            'item_dataset_id': this.itemId.split('/')[1]
+          }
         });
       },
 

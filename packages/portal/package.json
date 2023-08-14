@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.3.1",
+    "@elastic/apm-rum-core": "/home/rwdit/Development/github/elastic/apm-agent-rum-js/packages/rum-core",
+    "@elastic/apm-rum": "/home/rwdit/Development/github/elastic/apm-agent-rum-js/packages/rum",
     "@nuxt/cli": "2.17.0",
     "@nuxt/core": "2.17.0",
     "@nuxt/vue-app": "2.17.0",
