@@ -7,7 +7,7 @@ const data = async(config = {}) => {
   const response = await axios.get('/', {
     baseURL: config.matomo.host,
     params: {
-      date: 'yesterday',
+      date: 'last30',
       format: 'JSON',
       idSite: config.matomo.siteId,
       method: 'VisitsSummary.get',
@@ -17,7 +17,10 @@ const data = async(config = {}) => {
     }
   });
 
-  return response.data?.['nb_visits'];
+  const totalVisits = Object.keys(response.data)
+    .reduce((memo, date) => memo + (response.data[date]['nb_visits'] || 0), 0);
+
+  return Math.round(totalVisits / Object.keys(response.data).length);
 };
 
 export {

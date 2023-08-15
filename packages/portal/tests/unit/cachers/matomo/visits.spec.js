@@ -16,14 +16,23 @@ describe('@/cachers/matomo/visits.js', () => {
 
   describe('data', () => {
     const response = {
-      'nb_visits': 16253
+      '2023-01-01': {
+        'nb_visits': undefined
+      },
+      '2023-01-02': {
+        'nb_visits': 10
+      },
+      '2023-01-03': {
+        'nb_visits': 15
+      }
     };
+    const averageVisits = 8;
 
     beforeEach(() => {
       nock(config.matomo.host)
         .get('/')
         .query(query => (
-          query.date === 'yesterday' &&
+          query.date === 'last30' &&
           query.format === 'JSON' &&
           query.idSite === config.matomo.siteId &&
           query.method === 'VisitsSummary.get' &&
@@ -40,10 +49,10 @@ describe('@/cachers/matomo/visits.js', () => {
       expect(nock.isDone()).toBe(true);
     });
 
-    it('returns the number of visits, to cache', async() => {
+    it('returns the average number of visits, to cache', async() => {
       const data = await cacher.data(config);
 
-      expect(data).toBe(response['nb_visits']);
+      expect(data).toBe(averageVisits);
     });
   });
 
