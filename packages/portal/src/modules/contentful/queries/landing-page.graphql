@@ -9,7 +9,7 @@ query landingPage(
   	limit: 1,
     where: { identifier: $identifier }
   ) {
-    items {
+        items {
       identifier
       name
       description
@@ -24,20 +24,17 @@ query landingPage(
       image {
         ...imageFields
       }
-      hasPartCollection(limit:20) {
+      hasPartCollection(limit: 20) {
         total
         items {
           __typename
-          ... on ContentTypeRichText {
-            text
-          }
           ... on IllustrationGroup {
             name
-          	text
+            text
             hasPartCollection(limit: 6) {
               items {
                 __typename
-                ... on Illustration{
+                ... on Illustration {
                   name
                   text
                   image {
@@ -46,14 +43,14 @@ query landingPage(
                 }
               }
             }
-        	}
+          }
           ... on ImageCardGroup {
             name
-          	text
+            text
             hasPartCollection(limit: 6) {
               items {
                 __typename
-                ... on ImageCard{
+                ... on ImageCard {
                   name
                   text
                   image {
@@ -62,7 +59,39 @@ query landingPage(
                 }
               }
             }
-        	}
+          }
+          ... on SubSection {
+            name
+            text
+            hasPartCollection(limit: 6) {
+              items {
+                __typename
+                ... on IllustrationGroup {
+                  name
+                  text
+                  hasPartCollection(limit: 6) {
+                    items {
+                      __typename
+                      ... on Illustration {
+                        name
+                        text
+                        image {
+                          ...imageFields
+                        }
+                      }
+                    }
+                  }
+                }
+                ... on AutomatedCardGroup {
+                  genre
+                  moreButton {
+                    url
+                    text
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

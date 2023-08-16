@@ -19,10 +19,6 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
-  illustration.changeFieldControl('text', 'builtin', 'multipleLine', {
-    helpText: 'Only for when illustrations are accompanied by text. Currently only Welcome pack (Share your data)'
-  });
-
   illustration
     .description('Illustration with optional text field.');
 
@@ -56,8 +52,6 @@ module.exports = async function(migration) {
     .validations([])
     .disabled(false)
     .omitted(false);
-
-  imageCard.changeFieldControl('text', 'builtin', 'multipleLine', {});
 
   imageCard
     .createField('image')
@@ -104,8 +98,6 @@ module.exports = async function(migration) {
     .validations([])
     .disabled(false)
     .omitted(false);
-
-  illustrationGroup.changeFieldControl('text', 'builtin', 'multipleLine', {});
 
   illustrationGroup
     .createField('hasPart')
@@ -165,8 +157,6 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
-  imageCardGroup.changeFieldControl('text', 'builtin', 'multipleLine', {});
-
   imageCardGroup
     .createField('hasPart')
     .name('Sections')
@@ -188,6 +178,64 @@ module.exports = async function(migration) {
       validations: [
         {
           linkContentType: ['imageCard']
+        }
+      ],
+
+      linkType: 'Entry'
+    });
+
+  // Create sub section to be used by landing page
+  const subSection = migration
+    .createContentType('subSection')
+    .name('Sub section')
+    .description('Section with text and sections')
+    .displayField('name');
+
+  subSection
+    .createField('name')
+    .name('Name')
+    .type('Symbol')
+    .localized(true)
+    .required(true)
+    .validations([
+      {
+        unique: true
+      }
+    ])
+    .disabled(false)
+    .omitted(false);
+
+  subSection
+    .createField('text')
+    .name('Text')
+    .type('Text')
+    .localized(true)
+    .required(false)
+    .validations([])
+    .disabled(false)
+    .omitted(false);
+
+  subSection
+    .createField('hasPart')
+    .name('Sections')
+    .type('Array')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        size: {
+          max: 6
+        }
+      }
+    ])
+    .disabled(false)
+    .omitted(false)
+    .items({
+      type: 'Link',
+
+      validations: [
+        {
+          linkContentType: ['automatedCardGroup', 'illustrationGroup']
         }
       ],
 
@@ -222,7 +270,9 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
-  landingPage.changeFieldControl('name', 'builtin', 'singleLine', {});
+  landingPage.changeFieldControl('name', 'builtin', 'singleLine', {
+    helpText: 'Use double curly brackets to highlight part of this title. For example "This page is {{awesome}}"'
+  });
 
   landingPage
     .createField('identifier')
@@ -273,7 +323,7 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
-  landingPage.changeFieldControl('headline', 'builtin', 'multipleLine', {
+  landingPage.changeFieldControl('headline', 'builtin', 'markdown', {
     helpText: 'Headline to use in the hero.'
   });
 
@@ -375,7 +425,7 @@ module.exports = async function(migration) {
 
       validations: [
         {
-          linkContentType: ['automatedCardGroup', 'illustrationGroup', 'imageCardGroup', 'richText']
+          linkContentType: ['illustrationGroup', 'imageCardGroup', 'subSection', 'embed']
         }
       ],
 
