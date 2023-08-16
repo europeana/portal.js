@@ -35,7 +35,11 @@
       />
       <LandingPage
         v-else-if="landingPage"
-        :page="page"
+        :title="page.name"
+        :headline="page.headline"
+        :cta="page.relatedLink"
+        :sections="page.hasPartCollection.items.filter((item) => !!item)"
+        :primary-image-of-page="page.primaryImageOfPage"
       />
     </template>
   </div>
@@ -113,7 +117,7 @@
       },
       socialMediaImage() {
         // use social media image if set in Contentful, else null
-        return this.page.image || this.primaryImageOfPage?.image || null;
+        return this.page.image || this.page.primaryImageOfPage?.image || null;
       },
       socialMediaImageOptimisedUrl() {
         return this.$contentful.assets.optimisedSrc(

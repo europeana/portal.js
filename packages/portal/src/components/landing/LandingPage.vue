@@ -15,20 +15,26 @@
     name: 'LandingPage',
 
     props: {
-      page: {
+      title: {
+        type: String,
+        default: null
+      },
+      headline: {
+        type: String,
+        default: null
+      },
+      cta: {
         type: Object,
-        required: true
+        default: null
+      },
+      sections: {
+        type: Object,
+        default: null
+      },
+      primaryImageOfPage: {
+        type: Object,
+        default: null
       }
-    },
-
-    data() {
-      return {
-        title: this.page.name,
-        headline: this.page.headline,
-        cta: this.page.relatedLink,
-        sections: this.page.hasPartCollection.items.filter((item) => !!item),
-        primaryImageOfPage: this.page.primaryImageOfPage
-      };
     }
   };
 </script>
