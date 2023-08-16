@@ -1,4 +1,4 @@
-query BrowseStaticPage(
+query BrowseLandingStaticPage(
   $identifier: String!,
   $locale: String!,
   $preview: Boolean = false
@@ -127,6 +127,94 @@ query BrowseStaticPage(
       }
       relatedLinks {
         ...linkGroupFields
+      }
+    }
+  }
+  landingPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+    items {
+      identifier
+      name
+      description
+      headline
+      relatedLink {
+        url
+        text
+      }
+      primaryImageOfPage {
+        ...imageWithAttributionFields
+      }
+      image {
+        ...imageFields
+      }
+      hasPartCollection(limit: 20) {
+        total
+        items {
+          __typename
+          ... on IllustrationGroup {
+            name
+            text
+            hasPartCollection(limit: 6) {
+              items {
+                __typename
+                ... on Illustration {
+                  name
+                  text
+                  image {
+                    ...imageFields
+                  }
+                }
+              }
+            }
+          }
+          ... on ImageCardGroup {
+            name
+            text
+            hasPartCollection(limit: 6) {
+              items {
+                __typename
+                ... on ImageCard {
+                  name
+                  text
+                  image {
+                    ...imageWithAttributionFields
+                  }
+                }
+              }
+            }
+          }
+          ... on SubSection {
+            name
+            text
+            hasPartCollection(limit: 6) {
+              items {
+                __typename
+                ... on IllustrationGroup {
+                  name
+                  text
+                  hasPartCollection(limit: 6) {
+                    items {
+                      __typename
+                      ... on Illustration {
+                        name
+                        text
+                        image {
+                          ...imageFields
+                        }
+                      }
+                    }
+                  }
+                }
+                ... on AutomatedCardGroup {
+                  genre
+                  moreButton {
+                    url
+                    text
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
