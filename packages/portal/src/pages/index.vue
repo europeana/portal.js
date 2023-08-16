@@ -130,7 +130,7 @@
       },
       // Remove brackets added for special markup landing page
       unformattedTitle() {
-        return this.page.name?.replaceAll(new RegExp('{{|}}', 'g'), '');
+        return this.page.name?.replaceAll(/{{|}}/g, '');
       }
     }
   };
