@@ -86,19 +86,14 @@ export function rangeFromQueryParam(paramValue) {
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
  * @param {string} options.locale source locale for multilingual search
  * @param {string} options.url override the API URL
- * @param {Boolean} options.addContentTierFilter if `true`, add a content tier filter. default `true`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-// TODO: switch options.addContentTierFilter to default to `false`
 export default (context) => ($axios, params, options = {}) => {
   if (!$axios) {
     $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
   }
 
   const localParams = { ...params };
-
-  const defaultOptions = { addContentTierFilter: true };
-  const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;
   const perPage = localParams.rows === undefined ? 24 : Number(localParams.rows);
@@ -109,29 +104,27 @@ export default (context) => ($axios, params, options = {}) => {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
   const query = params.query || '*:*';
 
-  const qf = localOptions.addContentTierFilter ? addContentTierFilter(localParams.qf) : localParams.qf;
-
   const searchParams = {
     ...$axios.defaults.params,
     ...localParams,
     profile: localParams.profile || '',
-    qf,
-    query: localOptions.escape ? escapeLuceneSpecials(query) : query,
+    qf: localParams.qf,
+    query: options.escape ? escapeLuceneSpecials(query) : query,
     rows,
     start
   };
 
-  if (context?.$config?.app?.search?.translateLocales?.includes(localOptions.locale)) {
+  if (context?.$config?.app?.search?.translateLocales?.includes(options.locale)) {
     const targetLocale = 'en';
-    if (localOptions.locale !== targetLocale) {
+    if (options.locale !== targetLocale) {
       searchParams.profile = `${searchParams.profile},translate`;
-      searchParams.lang = localOptions.locale;
-      searchParams['q.source'] = localOptions.locale;
+      searchParams.lang = options.locale;
+      searchParams['q.source'] = options.locale;
       searchParams['q.target'] = targetLocale;
     }
   }
 
-  return $axios.get(`${localOptions.url || ''}/search.json`, {
+  return $axios.get(`${options.url || ''}/search.json`, {
     params: searchParams
   })
     .then(response => response.data)

@@ -113,7 +113,7 @@ export default (context = {}) => {
       return this.search({
         query,
         ...params
-      }, { addContentTierFilter: false });
+      });
     },
 
     /**

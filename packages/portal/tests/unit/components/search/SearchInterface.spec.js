@@ -152,75 +152,6 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('computed', () => {
-    describe('apiParams', () => {
-      it('combines user params and overrides', () => {
-        const $route = {
-          query: {
-            page: 2,
-            query: 'calais',
-            qf: 'TYPE:"IMAGE"',
-            qa: [
-              'proxy_dc_title:dog'
-            ]
-          }
-        };
-        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
-        const expected = {
-          page: 2,
-          profile: 'minimal',
-          query: 'calais',
-          qf: [
-            'TYPE:"IMAGE"',
-            'proxy_dc_title:dog',
-            'edm_agent:"http://data.europeana.eu/agent/200"'
-          ],
-          rows: 24
-        };
-
-        const wrapper = factory({
-          mocks: {
-            $route
-          },
-          propsData: {
-            overrideParams: {
-              qf: [overrideQf]
-            }
-          }
-        });
-
-        expect(wrapper.vm.apiParams).toEqual(expected);
-      });
-
-      describe('with full-text advanced search rule', () => {
-        it('is promoted into query, with profile hits', () => {
-          const $route = {
-            query: {
-              query: 'liberty',
-              qa: [
-                'fulltext:europe',
-                'NOT fulltext:united'
-              ]
-            }
-          };
-          const expected = {
-            page: 1,
-            profile: 'minimal,hits',
-            query: 'fulltext:europe AND NOT fulltext:united',
-            qf: ['text:(liberty)'],
-            rows: 24
-          };
-
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
-          });
-
-          expect(wrapper.vm.apiParams).toEqual(expected);
-        });
-      });
-    });
-
     describe('advancedSearchQueryCount', () => {
       describe('when there is no advanced search query', () => {
         const route = { query: {} };
@@ -344,6 +275,78 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('methods', () => {
+    describe('deriveApiParams', () => {
+      it('combines user params and overrides', () => {
+        const $route = {
+          query: {
+            page: 2,
+            query: 'calais',
+            qf: 'TYPE:"IMAGE"',
+            qa: [
+              'proxy_dc_title:dog'
+            ]
+          }
+        };
+        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
+        const expected = {
+          page: 2,
+          profile: 'minimal',
+          query: 'calais',
+          qf: [
+            'TYPE:"IMAGE"',
+            'proxy_dc_title:dog',
+            'contentTier:(1 OR 2 OR 3 OR 4)',
+            'edm_agent:"http://data.europeana.eu/agent/200"'
+          ],
+          rows: 24
+        };
+
+        const wrapper = factory({
+          mocks: {
+            $route
+          },
+          propsData: {
+            overrideParams: {
+              qf: [overrideQf]
+            }
+          }
+        });
+        wrapper.vm.deriveApiParams();
+
+        expect(wrapper.vm.apiParams).toEqual(expected);
+      });
+
+      describe('with full-text advanced search rule', () => {
+        it('is promoted into query, with profile hits', () => {
+          const $route = {
+            query: {
+              query: 'liberty',
+              qa: [
+                'fulltext:europe',
+                'NOT fulltext:united'
+              ]
+            }
+          };
+          const expected = {
+            page: 1,
+            profile: 'minimal,hits',
+            query: 'fulltext:europe AND NOT fulltext:united',
+            qf: ['text:(liberty)', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+            rows: 24
+          };
+
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+          wrapper.vm.deriveApiParams();
+
+          expect(wrapper.vm.apiParams).toEqual(expected);
+        });
+      });
+    });
+
     describe('handlePaginationChanged', () => {
       it('is records pagination changed then triggers fetch', async() => {
         const wrapper = factory();

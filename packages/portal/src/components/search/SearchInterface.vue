@@ -209,7 +209,7 @@
   import SearchViewToggles from './SearchViewToggles';
 
   import makeToastMixin from '@/mixins/makeToast';
-  import { filtersFromQf } from '@/plugins/europeana/search';
+  import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
 
   export default {
     name: 'SearchInterface',
@@ -426,6 +426,8 @@
           params.qf = (params.qf || [])
             .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)));
         }
+
+        params.qf = addContentTierFilter(params.qf);
 
         this.apiParams = merge(params, this.overrideParams);
       },

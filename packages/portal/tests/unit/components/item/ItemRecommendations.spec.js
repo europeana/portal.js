@@ -81,6 +81,7 @@ describe('components/item/ItemRecommendations', () => {
 
         expect(wrapper.vm.$apis.record.search.calledWith({
           query: '(what:("whale" OR "image")^0.8 OR DATA_PROVIDER:("Europeana Foundation")^0.2) NOT europeana_id:"/123/abc"',
+          qf: ['contentTier:(1 OR 2 OR 3 OR 4)'],
           rows: 4,
           profile: 'minimal',
           facet: ''
