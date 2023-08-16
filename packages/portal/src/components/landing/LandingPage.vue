@@ -28,8 +28,8 @@
         default: null
       },
       sections: {
-        type: Object,
-        default: null
+        type: Array,
+        default: () => []
       },
       primaryImageOfPage: {
         type: Object,
