@@ -2,17 +2,24 @@
   <div
     class="page white-page xxl-page"
   >
-    <div>
-      <h1>{{ title }}</h1>
-      <p>{{ headline }}</p>
-    </div>
-    <!-- Header/hero -->
+    <LandingHero
+      :title="title"
+      :headline="headline"
+      :cta="cta"
+      :hero-image="primaryImageOfPage"
+    />
   </div>
 </template>
 
 <script>
+  import LandingHero from '@/components/landing/LandingHero';
+
   export default {
     name: 'LandingPage',
+
+    components: {
+      LandingHero
+    },
 
     props: {
       title: {
