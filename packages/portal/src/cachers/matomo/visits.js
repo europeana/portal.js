@@ -17,6 +17,12 @@ const data = async(config = {}) => {
     }
   });
 
+  // Matomo REST API sometimes returns 200 status code for errors, but with
+  // `result` JSON field being "error"
+  if ((response.status !== 200) || (response.data.result === 'error')) {
+    throw new Error('Failed to get visits data from Matomo');
+  }
+
   const totalVisits = Object.keys(response.data)
     .reduce((memo, date) => memo + (response.data[date]['nb_visits'] || 0), 0);
 

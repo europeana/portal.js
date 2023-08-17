@@ -9,6 +9,18 @@ const config = {
   }
 };
 
+const matomoApiRequest = () => nock(config.matomo.host)
+  .get('/')
+  .query(query => (
+    query.date === 'last30' &&
+    query.format === 'JSON' &&
+    query.idSite === config.matomo.siteId &&
+    query.method === 'VisitsSummary.get' &&
+    query.module === 'API' &&
+    query.period === 'day' &&
+    query['token_auth'] === config.matomo.authToken
+  ));
+
 describe('@/cachers/matomo/visits.js', () => {
   afterEach(() => {
     nock.cleanAll();
@@ -28,31 +40,37 @@ describe('@/cachers/matomo/visits.js', () => {
     };
     const averageVisits = 8;
 
-    beforeEach(() => {
-      nock(config.matomo.host)
-        .get('/')
-        .query(query => (
-          query.date === 'last30' &&
-          query.format === 'JSON' &&
-          query.idSite === config.matomo.siteId &&
-          query.method === 'VisitsSummary.get' &&
-          query.module === 'API' &&
-          query.period === 'day' &&
-          query['token_auth'] === config.matomo.authToken
-        ))
-        .reply(200, response);
-    });
-
     it('fetches the count from the Matomo API', async() => {
+      matomoApiRequest().reply(200, response);
+
       await cacher.data(config);
 
       expect(nock.isDone()).toBe(true);
     });
 
     it('returns the average number of visits, to cache', async() => {
+      matomoApiRequest().reply(200, response);
+
       const data = await cacher.data(config);
 
       expect(data).toBe(averageVisits);
+    });
+
+    it('throws an error if the Matomo API returns an error', async() => {
+      // (weird because it has status code 200)
+      const weirdMatomoErrorResponse = {
+        result: 'error'
+      };
+      matomoApiRequest().reply(200, weirdMatomoErrorResponse);
+
+      let error;
+      try {
+        await cacher.data(config);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.message).toBe('Failed to get visits data from Matomo');
     });
   });
 
