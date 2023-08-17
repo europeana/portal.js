@@ -13,13 +13,13 @@
           <p>
             {{ headline }}
           </p>
-          <b-button
-            variant="primary"
-            :href="cta.url"
-            class="mt-1 mt-md-4"
+          <SmartLink
+            v-if="cta"
+            :destination="cta.url"
+            class="btn btn-cta btn-primary d-inline-flex align-items-center mt-1 mt-md-4"
           >
             {{ cta.text }}
-          </b-button>
+          </SmartLink>
         </header>
       </div>
     </b-container>
@@ -36,12 +36,14 @@
 
 <script>
   import AttributionToggle from '@/components/generic/AttributionToggle';
+  import SmartLink from '@/components/generic/SmartLink';
 
   export default {
     name: 'LandingHero',
 
     components: {
-      AttributionToggle
+      AttributionToggle,
+      SmartLink
     },
 
     props: {
@@ -88,120 +90,120 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/responsive-background-image';
+@import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/responsive-background-image';
 
 .landing-hero {
-    background-color: $bodygrey;
-    position: relative
-  }
-  .hero-content-wrapper {
-    background-color: $bodygrey;
-    padding: 3rem 2rem 3rem 0;
+  background-color: $bodygrey;
+  position: relative
+}
+.hero-content-wrapper {
+  background-color: $bodygrey;
+  padding: 3rem 2rem 3rem 0;
 
-    @media (min-width: $bp-medium) {
-      width: 65%;
-      position: relative;
-      z-index: 10;
-      padding: 6.25rem 6.25rem 6.25rem 0;
-
-      clip-path: polygon(0% 0%, 100% 0, 100% calc(100% - 209px), calc(100% - 95px) 100%, 0 100%);
-    }
-
-    @media (min-width: $bp-large) {
-      width: 50%
-    }
-
-    // @media (min-width: $bp-xxxl) {
-    //   clip-path: polygon(0 0, 100% 0, 100% calc(100% - (209 / 16 * 1vw)), calc(100% - calc(95 / 16 * 1vw)) 100%, 0 100%);
-      // clip-path: polygon(0 -100vh, calc(100% - calc(95 / 16 * 1vw)) -100vh, calc(100% - calc(95 / 16 * 1vw)) 0, 100% calc(209 / 16 * 1vw), 100% 100%, 0 100%);
-      // padding-left: 18vw !important;
-      // padding-right: 18vw !important;
-    // }
-
-    @media (min-width: $bp-4k) {
-      padding: calc(1.5 * 6.25rem) calc(1.5 * 6.25rem) calc(1.5 * 6.25rem) 0;
-    }
-  }
-
-  .hero-content {
-    max-width: 443px;
-
-    @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 443px);
-    }
-
-    h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: 2.875rem;
-        line-height: 1.2;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 2.875rem);
-        margin-bottom: calc(1.5 * 0.75rem);
-      }
-    }
-
-    p {
-      color: $mediumgrey;
-    }
-  }
-
-  .hero-image {
-    width: 100%;
-    min-height: 265px;
+  @media (min-width: $bp-medium) {
+    width: 65%;
     position: relative;
+    z-index: 10;
+    padding: 6.25rem 6.25rem 6.25rem 0;
+
+    clip-path: polygon(0% 0%, 100% 0, 100% calc(100% - 209px), calc(100% - 95px) 100%, 0 100%);
+  }
+
+  @media (min-width: $bp-large) {
+    width: 50%
+  }
+
+  // @media (min-width: $bp-xxxl) {
+  //   clip-path: polygon(0 0, 100% 0, 100% calc(100% - (209 / 16 * 1vw)), calc(100% - calc(95 / 16 * 1vw)) 100%, 0 100%);
+  // clip-path: polygon(0 -100vh, calc(100% - calc(95 / 16 * 1vw)) -100vh, calc(100% - calc(95 / 16 * 1vw)) 0, 100% calc(209 / 16 * 1vw), 100% 100%, 0 100%);
+  // padding-left: 18vw !important;
+  // padding-right: 18vw !important;
+  // }
+
+  @media (min-width: $bp-4k) {
+    padding: calc(1.5 * 6.25rem) calc(1.5 * 6.25rem) calc(1.5 * 6.25rem) 0;
+  }
+}
+
+.hero-content {
+  max-width: 443px;
+
+  @media (min-width: $bp-4k) {
+    max-width: calc(1.5 * 443px);
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
 
     @media (min-width: $bp-medium) {
-      width: calc(40% + 95px);
-      margin-left: -95px;
-      right: 0;
-      position: absolute;
-      top: 0;
-      bottom: 0;
+      font-size: 2.875rem;
+      line-height: 1.2;
     }
 
-    @media (min-width: $bp-large) {
-      width: calc(50% + 95px);
-    }
-
-    // @media (min-width: $bp-xxxl) {
-    //   width: calc(50% + (2 * calc(95 / 16 * 1vw)));
-    //   margin-left: calc(95 / 16 * -1vw);
-    // }
-
-    // @media (min-width: $bp-4k) {
-    //   width: calc(50% + (1.5 * 2 * 95px));
-    //   margin-left: calc(1.5 * -95px);
-    // }
-
-    &::before {
-      content: '';
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(0deg, $blue, $blue);
-      mix-blend-mode: multiply;
-      position: absolute;
+    @media (min-width: $bp-4k) {
+      font-size: calc(1.5 * 2.875rem);
+      margin-bottom: calc(1.5 * 0.75rem);
     }
   }
 
-  .responsive-backround-image {
-    background-repeat: no-repeat;
-    background-color: green;
-    background-position: center;
-    background-size: cover;
+  p {
+    color: $mediumgrey;
+  }
+}
+
+.hero-image {
+  width: 100%;
+  min-height: 265px;
+  position: relative;
+
+  @media (min-width: $bp-medium) {
+    width: calc(40% + 95px);
+    margin-left: -95px;
+    right: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
   }
 
-  ::v-deep .title-highlight {
-    color: $blue;
+  @media (min-width: $bp-large) {
+    width: calc(50% + 95px);
   }
+
+  // @media (min-width: $bp-xxxl) {
+  //   width: calc(50% + (2 * calc(95 / 16 * 1vw)));
+  //   margin-left: calc(95 / 16 * -1vw);
+  // }
+
+  // @media (min-width: $bp-4k) {
+  //   width: calc(50% + (1.5 * 2 * 95px));
+  //   margin-left: calc(1.5 * -95px);
+  // }
+
+  &::before {
+    content: '';
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(0deg, $blue, $blue);
+    mix-blend-mode: multiply;
+    position: absolute;
+  }
+}
+
+.responsive-backround-image {
+  background-repeat: no-repeat;
+  background-color: green;
+  background-position: center;
+  background-size: cover;
+}
+
+::v-deep .title-highlight {
+  color: $blue;
+}
 </style>
 
 <docs lang="md">
