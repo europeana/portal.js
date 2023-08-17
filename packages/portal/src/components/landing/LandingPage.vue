@@ -52,11 +52,10 @@
   @import '@europeana/style/scss/transitions';
 
   .page {
-    padding-top: 1rem;
     margin-top: -1rem;
+    min-height: 70vh;
 
     @media (min-width: $bp-4k) {
-      padding-top: 1.5rem;
       margin-top: -1.5rem;
     }
   }
