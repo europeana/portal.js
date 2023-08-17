@@ -1001,7 +1001,7 @@ export default {
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare objecten",
     "status": {
-      "unpublished": "[Ongepubliceerd item]"
+      "unpublished": "[Ongepubliceerd object]"
     }
   },
   "related": {
