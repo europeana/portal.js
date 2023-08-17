@@ -5,7 +5,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Log in / Join",
+    "linkLoginJoin": "Autentificare / Înregistrare",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
