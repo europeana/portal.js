@@ -16,7 +16,7 @@
           <SmartLink
             v-if="cta"
             :destination="cta.url"
-            class="btn btn-cta btn-primary d-inline-flex align-items-center mt-1 mt-md-4"
+            class="btn btn-cta btn-primary d-inline-flex align-items-center mt-1 mt-md-4 mb-0"
           >
             {{ cta.text }}
           </SmartLink>
@@ -99,7 +99,7 @@
 }
 .hero-content-wrapper {
   background-color: $bodygrey;
-  padding: 3rem 2rem 3rem 0;
+  padding: 3rem 1rem 3rem;
 
   @media (min-width: $bp-medium) {
     width: 65%;
@@ -137,6 +137,7 @@
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
+    line-height: 1.5;
 
     @media (min-width: $bp-medium) {
       font-size: 2.875rem;
