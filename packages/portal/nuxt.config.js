@@ -29,6 +29,7 @@ export default {
     app: {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
+      clientOnlyCollection: process.env.APP_CLIENT_ONLY_COLLECTION,
       galleries: {
         europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
       },

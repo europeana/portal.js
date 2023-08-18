@@ -9,7 +9,10 @@
       data-qa="error message container"
       :error="$fetchState.error"
     />
-    <client-only v-else>
+    <component
+      :is="$config?.app?.clientOnlyCollection ? 'client-only' : 'div'"
+      v-else
+    >
       <SearchInterface
         v-if="!$fetchState.pending"
         :route="route"
@@ -60,7 +63,7 @@
           </client-only>
         </template>
       </SearchInterface>
-    </client-only>
+    </component>
   </div>
 </template>
 
