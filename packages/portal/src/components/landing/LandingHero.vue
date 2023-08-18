@@ -9,10 +9,10 @@
           <h1
             v-html="highlightedEuropeanaTitle"
           />
+          <div
+            v-html="headline"
+          />
           <!-- eslint-enable vue/no-v-html -->
-          <p>
-            {{ headline }}
-          </p>
           <SmartLink
             v-if="cta"
             :destination="cta.url"
@@ -97,6 +97,7 @@
   background-color: $bodygrey;
   position: relative
 }
+
 .hero-content-wrapper {
   background-color: $bodygrey;
   padding: 3rem 1rem 3rem;
@@ -113,13 +114,6 @@
   @media (min-width: $bp-large) {
     width: 50%
   }
-
-  // @media (min-width: $bp-xxxl) {
-  //   clip-path: polygon(0 0, 100% 0, 100% calc(100% - (209 / 16 * 1vw)), calc(100% - calc(95 / 16 * 1vw)) 100%, 0 100%);
-  // clip-path: polygon(0 -100vh, calc(100% - calc(95 / 16 * 1vw)) -100vh, calc(100% - calc(95 / 16 * 1vw)) 0, 100% calc(209 / 16 * 1vw), 100% 100%, 0 100%);
-  // padding-left: 18vw !important;
-  // padding-right: 18vw !important;
-  // }
 
   @media (min-width: $bp-4k) {
     padding: calc(1.5 * 6.25rem) calc(1.5 * 6.25rem) calc(1.5 * 6.25rem) 0;
@@ -172,16 +166,6 @@
   @media (min-width: $bp-large) {
     width: calc(50% + 95px);
   }
-
-  // @media (min-width: $bp-xxxl) {
-  //   width: calc(50% + (2 * calc(95 / 16 * 1vw)));
-  //   margin-left: calc(95 / 16 * -1vw);
-  // }
-
-  // @media (min-width: $bp-4k) {
-  //   width: calc(50% + (1.5 * 2 * 95px));
-  //   margin-left: calc(1.5 * -95px);
-  // }
 
   &::before {
     content: '';

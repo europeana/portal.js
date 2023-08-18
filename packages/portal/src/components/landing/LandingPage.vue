@@ -4,7 +4,7 @@
   >
     <LandingHero
       :title="title"
-      :headline="headline"
+      :headline="html(headline)"
       :cta="cta"
       :hero-image="primaryImageOfPage"
     />
@@ -13,6 +13,7 @@
 
 <script>
   import LandingHero from '@/components/landing/LandingHero';
+  import { marked } from 'marked';
 
   export default {
     name: 'LandingPage',
@@ -42,6 +43,12 @@
         type: Object,
         default: null
       }
+    },
+
+    methods: {
+      html(text) {
+        return marked.parse(text);
+      }
     }
   };
 </script>
@@ -53,7 +60,6 @@
 
   .page {
     margin-top: -1rem;
-    min-height: 70vh;
 
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
