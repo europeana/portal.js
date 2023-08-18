@@ -19,6 +19,10 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
+  illustration.changeFieldControl('text', 'builtin', 'markdown', {
+    helpText: 'Text to accompany illustration. Currently only used in the Illustration group on Landing pages.'
+  });
+
   illustration
     .description('Illustration with optional text field.');
 
@@ -185,13 +189,13 @@ module.exports = async function(migration) {
     });
 
   // Create sub section to be used by landing page
-  const subSection = migration
-    .createContentType('subSection')
-    .name('Sub section')
+  const landingSubSection = migration
+    .createContentType('landingSubSection')
+    .name('Landing sub section')
     .description('Section with text and sections')
     .displayField('name');
 
-  subSection
+  landingSubSection
     .createField('name')
     .name('Name')
     .type('Symbol')
@@ -205,7 +209,7 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
-  subSection
+  landingSubSection
     .createField('text')
     .name('Text')
     .type('Text')
@@ -215,7 +219,7 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
-  subSection
+  landingSubSection
     .createField('hasPart')
     .name('Sections')
     .type('Array')
@@ -246,7 +250,7 @@ module.exports = async function(migration) {
   const landingPage = migration
     .createContentType('landingPage')
     .name('Landing page')
-    .description('Page with a hero and several content sections')
+    .description('Page with a CTA header and additional info sections')
     .displayField('name');
 
   landingPage
@@ -324,7 +328,7 @@ module.exports = async function(migration) {
     .omitted(false);
 
   landingPage.changeFieldControl('headline', 'builtin', 'markdown', {
-    helpText: 'Headline to use in the hero.'
+    helpText: 'Headline to use in the top section.'
   });
 
   landingPage
@@ -345,7 +349,7 @@ module.exports = async function(migration) {
     'builtin',
     'entryLinkEditor',
     {
-      helpText: 'Used in the hero'
+      helpText: 'Used in the top section'
     }
   );
 
@@ -369,7 +373,7 @@ module.exports = async function(migration) {
     'builtin',
     'entryLinkEditor',
     {
-      helpText: 'Used in the hero'
+      helpText: 'Used in the top section'
     }
   );
 
@@ -425,7 +429,7 @@ module.exports = async function(migration) {
 
       validations: [
         {
-          linkContentType: ['illustrationGroup', 'imageCardGroup', 'subSection', 'embed']
+          linkContentType: ['illustrationGroup', 'imageCardGroup', 'landingSubSection', 'embed']
         }
       ],
 
