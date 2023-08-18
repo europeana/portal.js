@@ -5,6 +5,21 @@ let axiosClient;
 
 const pageSize = 100;
 
+export const countEntities = async(params = {}, config = {}) => {
+  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
+
+  const response = await axiosClient.get('/search', {
+    params: {
+      ...axiosClient.defaults.config,
+      query: '*:*',
+      scope: 'europeana',
+      pageSize: 0,
+      ...params
+    }
+  });
+  return response.data?.partOf?.total;
+};
+
 const pageOfEntityResults = (page, params = {}) => {
   return axiosClient.get('/search', {
     params: {

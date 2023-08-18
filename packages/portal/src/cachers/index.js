@@ -8,6 +8,7 @@ const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRun
 
 const cacherNames = [
   'collections:organisations',
+  'collections:organisations:count',
   'collections:organisations:featured',
   'collections:places',
   'collections:places:featured',
@@ -16,7 +17,8 @@ const cacherNames = [
   'collections:topics',
   'collections:topics:featured',
   'items:recent',
-  'items:type-counts'
+  'items:type-counts',
+  'matomo:visits'
 ];
 
 const cacherModule = (cacherName) => {
