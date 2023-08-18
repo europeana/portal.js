@@ -182,7 +182,7 @@ query BrowseLandingStaticPage(
               }
             }
           }
-          ... on SubSection {
+          ... on LandingSubSection {
             name
             text
             hasPartCollection(limit: 6) {
