@@ -116,7 +116,8 @@
         };
       },
       socialMediaImage() {
-        // use social media image if set in Contentful, else null
+        // use social media image if set in Contentful,
+        // landing pages use primaryImageOfPage as a fallback, otherwise null
         return this.page.image || this.page.primaryImageOfPage?.image || null;
       },
       socialMediaImageOptimisedUrl() {
