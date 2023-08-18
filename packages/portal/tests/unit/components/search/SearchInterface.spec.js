@@ -15,7 +15,7 @@ const searchResult = {
   totalResults: 1,
   items: [
     {
-      europeanaId: '/123/abc',
+      id: '/123/abc',
       dcTitle: { def: ['Record 123/abc'] },
       edmPreview: 'https://www.example.org/abc.jpg',
       edmDataProvider: ['Provider 123']
@@ -73,7 +73,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
 });
 
 describe('components/search/SearchInterface', () => {
-  beforeEach(() => sinon.resetHistory());
+  afterEach(() => sinon.resetHistory());
 
   describe('fetch', () => {
     it('activates the search in the store', async() => {
@@ -149,6 +149,36 @@ describe('components/search/SearchInterface', () => {
 
       expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
     });
+
+    it('logs the search interaction to APM', async() => {
+      const stubbedTransaction = {
+        addLabels: sinon.spy(),
+        end: sinon.spy()
+      };
+      const wrapper = factory({
+        mocks: {
+          $apm: {
+            startTransaction: sinon.stub().returns(stubbedTransaction)
+          }
+        }
+      });
+      wrapper.vm.$route.query = {
+        query: 'sponge',
+        qf: ['TYPE:"IMAGE"'],
+        reusability: 'open'
+      };
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$apm.startTransaction.calledWith('Search - fetch results', 'user-interaction')).toBe(true);
+      expect(stubbedTransaction.addLabels.calledWith({
+        'search_params_query': 'sponge',
+        'search_params_qf': ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+        'search_params_reusability': 'open',
+        'search_results_total': 1
+      })).toBe(true);
+      expect(stubbedTransaction.end.called).toBe(true);
+    });
   });
 
   describe('computed', () => {
@@ -200,7 +230,7 @@ describe('components/search/SearchInterface', () => {
               totalResults: 100,
               results: [
                 {
-                  europeanaId: '/123/abc',
+                  id: '/123/abc',
                   dcTitle: { def: ['Record 123/abc'] },
                   edmPreview: 'https://www.example.org/abc.jpg',
                   edmDataProvider: ['Provider 123']
@@ -357,6 +387,41 @@ describe('components/search/SearchInterface', () => {
 
         expect(wrapper.vm.paginationChanged).toBe(true);
         expect(wrapper.vm.$fetch.called).toBe(true);
+      });
+    });
+
+    describe('onClickItem', () => {
+      it('logs the interaction to APM', async() => {
+        const stubbedTransaction = {
+          addLabels: sinon.spy(),
+          end: sinon.spy()
+        };
+        const wrapper = factory({
+          mocks: {
+            $apm: {
+              startTransaction: sinon.stub().returns(stubbedTransaction)
+            }
+          }
+        });
+        wrapper.vm.$route.query = {
+          query: 'sponge',
+          qf: ['TYPE:"IMAGE"'],
+          reusability: 'open'
+        };
+        await wrapper.vm.$fetch();
+        stubbedTransaction.addLabels.resetHistory();
+
+        await wrapper.vm.onClickItem(searchResult.items[0].id);
+
+        expect(wrapper.vm.$apm.startTransaction.calledWith('Search - click result', 'user-interaction')).toBe(true);
+        expect(stubbedTransaction.addLabels.calledWith({
+          'search_params_query': 'sponge',
+          'search_params_qf': ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+          'search_params_reusability': 'open',
+          'search_result_rank': 1,
+          'search_results_total': 1
+        })).toBe(true);
+        expect(stubbedTransaction.end.called).toBe(true);
       });
     });
 

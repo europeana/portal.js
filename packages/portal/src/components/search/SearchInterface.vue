@@ -434,18 +434,19 @@
 
       // NOTE: do not use computed properties here as they may change when the
       //       item is clicked
-      onClickItem(identifier) {
+      async onClickItem(identifier) {
         const rank = this.results.findIndex(item => item.id === identifier) + 1 +
           ((this.apiParams.page - 1) * this.apiParams.rows);
-        this.logSearchInteraction('click result', { 'search_result_rank': rank });
+        await this.logSearchInteraction('click result', { 'search_result_rank': rank });
       },
 
       // TODO: consider moving to a mixin, or the elastic-apm module?
       async logSearchInteraction(name, labels, callback) {
         if ((typeof labels === 'function') && !callback) {
           callback = labels;
-          labels = undefined;
+          labels = {};
         }
+
         const transaction = this.$apm?.startTransaction(`Search - ${name}`, 'user-interaction');
 
         const commonLabels = ['qf', 'query', 'reusability'].reduce((memo, param) => {
