@@ -142,10 +142,20 @@
         type: Number,
         default: null
       },
+      /**
+       * Event listener to call when item receives `click` event
+       *
+       * Listener will receive item ID as argument
+       */
       onClickCard: {
         type: Function,
         default: null
       },
+      /**
+       * Event listener to call when item receives `auxclick` event
+       *
+       * Listener will receive item ID as argument
+       */
       onAuxClickCard: {
         type: Function,
         default: null
