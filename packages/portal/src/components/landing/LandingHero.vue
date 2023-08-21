@@ -7,7 +7,7 @@
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
           <h1
-            v-html="highlightedEuropeanaTitle"
+            v-html="title"
           />
           <div
             v-html="headline"
@@ -81,9 +81,6 @@
               '4k': { w: 2148, h: 800, fit: 'fill' }
             }
           );
-      },
-      highlightedEuropeanaTitle() {
-        return this.title.replace('{{', '<span class="title-highlight">').replace('}}', '</span>');
       }
     }
   };
@@ -102,7 +99,7 @@
   background-color: $bodygrey;
   padding: 3rem 1rem 3rem;
 
-  @media (min-width: $bp-medium) {
+  @media (min-width: ($bp-medium + 1px)) {
     width: 65%;
     position: relative;
     z-index: 10;
@@ -133,7 +130,7 @@
     margin-bottom: 0.75rem;
     line-height: 1.5;
 
-    @media (min-width: $bp-medium) {
+    @media (min-width: ($bp-medium + 1px)) {
       font-size: 2.875rem;
       line-height: 1.2;
     }
@@ -141,6 +138,11 @@
     @media (min-width: $bp-4k) {
       font-size: calc(1.5 * 2.875rem);
       margin-bottom: calc(1.5 * 0.75rem);
+    }
+
+    ::v-deep em {
+      font-style: normal;
+      color: $blue;
     }
   }
 
@@ -154,7 +156,7 @@
   min-height: 265px;
   position: relative;
 
-  @media (min-width: $bp-medium) {
+  @media (min-width: ($bp-medium + 1px)) {
     width: calc(40% + 95px);
     margin-left: -95px;
     right: 0;
@@ -181,13 +183,12 @@
 
 .responsive-backround-image {
   background-repeat: no-repeat;
-  background-color: green;
   background-position: center;
   background-size: cover;
-}
 
-::v-deep .title-highlight {
-  color: $blue;
+  @media (min-width: $bp-large) {
+    background-position: right;
+  }
 }
 </style>
 

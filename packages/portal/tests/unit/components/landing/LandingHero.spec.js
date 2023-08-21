@@ -30,14 +30,4 @@ describe('components/landing/LandingHero', () => {
       });
     });
   });
-
-  describe('highlightedEuropeanaTitle', () => {
-    describe('where a part of the title is in curly brackets', () => {
-      it('wraps that part in a span', () => {
-        const wrapper = factory({ title: 'This page is {{awesome}}' });
-
-        expect(wrapper.vm.highlightedEuropeanaTitle).toEqual('This page is <span class="title-highlight">awesome</span>');
-      });
-    });
-  });
 });
