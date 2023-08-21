@@ -275,7 +275,7 @@ module.exports = async function(migration) {
     .omitted(false);
 
   landingPage.changeFieldControl('name', 'builtin', 'singleLine', {
-    helpText: 'Use double curly brackets to highlight part of this title. For example "This page is {{awesome}}"'
+    helpText: 'This field may include markdown. Use underscores to highlight part of the title. For example "This page is _awesome_"'
   });
 
   landingPage

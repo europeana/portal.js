@@ -3,7 +3,7 @@
     class="page white-page xxl-page"
   >
     <LandingHero
-      :title="title"
+      :title="html(title)"
       :headline="html(headline)"
       :cta="cta"
       :hero-image="primaryImageOfPage"
@@ -47,7 +47,7 @@
 
     methods: {
       html(text) {
-        return marked.parse(text);
+        return text ? marked.parse(text) : text;
       }
     }
   };

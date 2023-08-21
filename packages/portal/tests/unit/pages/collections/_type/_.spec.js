@@ -77,6 +77,13 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     },
     localePath: sinon.stub().returns('/'),
     $error: sinon.spy(),
+    $config: {
+      app: {
+        search: {
+          collections: {}
+        }
+      }
+    },
     $store: {
       state: {
         entity: {

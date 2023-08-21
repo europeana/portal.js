@@ -84,7 +84,7 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
- * @param {string} options.locale source locale for multilingual search
+ * @param {string} options.translateLang source locale for multilingual search
  * @param {string} options.url override the API URL
  * @param {Boolean} options.addContentTierFilter if `true`, add a content tier filter. default `true`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
@@ -121,12 +121,14 @@ export default (context) => ($axios, params, options = {}) => {
     start
   };
 
-  if (context?.$config?.app?.search?.translateLocales?.includes(localOptions.locale)) {
+  // TODO: this should be the responsibility of the caller; move to an exported
+  //       function for callers to run first, when needed
+  if (localOptions.translateLang) {
     const targetLocale = 'en';
-    if (localOptions.locale !== targetLocale) {
+    if (localOptions.translateLang !== targetLocale) {
       searchParams.profile = `${searchParams.profile},translate`;
-      searchParams.lang = localOptions.locale;
-      searchParams['q.source'] = localOptions.locale;
+      searchParams.lang = localOptions.translateLang;
+      searchParams['q.source'] = localOptions.translateLang;
       searchParams['q.target'] = targetLocale;
     }
   }
