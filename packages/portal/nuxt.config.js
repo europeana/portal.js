@@ -13,7 +13,7 @@ import versions from './pkg-versions.js';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureNotificationExpiration } from './src/features/index.js';
+import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
 import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
 
@@ -29,7 +29,6 @@ export default {
     app: {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
-      clientOnlyCollection: process.env.APP_CLIENT_ONLY_COLLECTION,
       galleries: {
         europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
       },
@@ -40,6 +39,10 @@ export default {
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
+        collections: {
+          clientOnly: featureIsEnabled(process.env.APP_SEARCH_COLLECTIONS_CLIENT_ONLY),
+          doNotTranslate: featureIsEnabled(process.env.APP_SEARCH_COLLECTIONS_DO_NOT_TRANSLATE)
+        },
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }
     },

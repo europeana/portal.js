@@ -10,11 +10,12 @@
       :error="$fetchState.error"
     />
     <component
-      :is="$config?.app?.clientOnlyCollection ? 'client-only' : 'div'"
+      :is="$config.app.search.collections.clientOnly ? 'client-only' : 'div'"
       v-else
     >
       <SearchInterface
         v-if="!$fetchState.pending"
+        :do-not-translate="$config.app.search.collections.doNotTranslate"
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
