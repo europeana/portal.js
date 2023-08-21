@@ -9,6 +9,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
+const primaryImageUrl = 'https://example.org/primary-image.jpg';
 
 const factory = ({
   $route = { params: {} }, data = {}, contentfulQueryResponse = { data: { data: {} } }
@@ -44,7 +45,7 @@ describe('IndexPage', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('browseStaticPage', {
+      expect(wrapper.vm.$contentful.query.calledWith('browseLandingStaticPage', {
         identifier: slug,
         locale: 'en-GB',
         preview: false
@@ -81,11 +82,26 @@ describe('IndexPage', () => {
       expect(wrapper.vm.page).toEqual(page);
     });
 
-    it('detects no static or browse page and throws 404', async() => {
+    it('detects and stores landing page content', async() => {
+      const page = { name: 'Share your data' };
+      const slug = 'share-your-data';
+      const wrapper = factory({
+        contentfulQueryResponse: { data: { data: { landingPageCollection: { items: [page] } } } },
+        $route: { params: { pathMatch: slug }, query: {} }
+      });
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.landingPage).toBe(true);
+      expect(wrapper.vm.staticPage).toBe(false);
+      expect(wrapper.vm.page).toEqual(page);
+    });
+
+    it('detects no static, landing or browse page and throws 404', async() => {
       process.server = true;
       const slug = 'not-found';
       const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [] }, staticPageCollection: { items: [] } } } },
+        contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [] }, staticPageCollection: { items: [] }, landingPageCollection: { items: [] } } } },
         $route: { params: { pathMatch: slug }, query: {} }
       });
 
@@ -93,6 +109,7 @@ describe('IndexPage', () => {
 
       expect(wrapper.vm.browsePage).toBe(false);
       expect(wrapper.vm.staticPage).toBe(false);
+      expect(wrapper.vm.landingPage).toBe(false);
       expect(wrapper.vm.$error.calledWith(404)).toBe(true);
     });
   });
@@ -127,6 +144,30 @@ describe('IndexPage', () => {
       const pageMeta = wrapper.vm.pageMeta;
 
       expect(pageMeta.ogImage).toBe(`${socialMediaImageUrl}?optimised`);
+    });
+
+    describe('when no social media image but a primary image of page', () => {
+      it('uses the primary image of pagefor og:image', () => {
+        const wrapper = factory({
+          data: {
+            ...data,
+            page: {
+              ...data.page,
+              image: null,
+              primaryImageOfPage: {
+                image: {
+                  url: primaryImageUrl,
+                  contentType: 'image/jpeg'
+                }
+              }
+            }
+          }
+        });
+
+        const pageMeta = wrapper.vm.pageMeta;
+
+        expect(pageMeta.ogImage).toBe(`${primaryImageUrl}?optimised`);
+      });
     });
 
     it('does not set og:image info when no relevant image exist', () => {

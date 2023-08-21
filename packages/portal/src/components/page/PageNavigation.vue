@@ -112,7 +112,7 @@
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
           { url: '/stories', text: this.$t('header.navigation.stories') },
-          { url: '/professionals', text: this.$t('header.navigation.pro') }
+          this.proLink
         ];
       },
       sidebarNavigation() {
@@ -130,6 +130,10 @@
       },
       isAccountPage() {
         return this.$route.name.startsWith('account');
+      },
+      // TODO: clean up after Welcome pack release
+      proLink() {
+        return this.$features.welcomePack ? { url: '/share-your-data', text: this.$t('header.navigation.shareYourData') } : { url: '/professionals', text: this.$t('header.navigation.pro') };
       }
     },
     mounted() {
@@ -158,6 +162,7 @@
           className = 'icon-info';
           break;
         case ('/professionals'):
+        case ('/share-your-data'):
           className = 'icon-pro';
           break;
         default:
