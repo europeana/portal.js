@@ -195,11 +195,11 @@
 <docs lang="md">
   ```jsx
     <LandingHero
-      title="This is a {{landing}} page"
+      title="This is a <em>landing</em> page"
       headline="A description what this page is all about"
       :cta="{
         url: 'https://www.europeana.eu',
-        text: 'Ga naar Europeana'
+        text: 'Go to Pro'
       }"
       :hero-image="{
         creator: 'Europeana Foundation',
