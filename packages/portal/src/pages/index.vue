@@ -99,6 +99,7 @@
         this.browsePage = true;
       } else if ((data.landingPageCollection?.items?.length || 0) > 0) {
         this.page = data.landingPageCollection.items[0];
+        this.page.unformattedTitle = this.page.name?.replaceAll(/_|_/g, '');
         this.landingPage = true;
       } else {
         this.$error(404, { scope: 'page' });
@@ -108,7 +109,8 @@
     computed: {
       pageMeta() {
         return {
-          title: this.unformattedTitle,
+          // use unformatted title for landing pages
+          title: this.page.unformattedTitle || this.page.name,
           description: this.page.description,
           ogType: 'article',
           ogImage: this.socialMediaImage ? this.socialMediaImageOptimisedUrl : null,
@@ -128,10 +130,6 @@
       },
       socialMediaImageAlt() {
         return this.socialMediaImage?.description || '';
-      },
-      // Remove brackets added for special markup landing page
-      unformattedTitle() {
-        return this.page.name?.replaceAll(/{{|}}/g, '');
       }
     }
   };
