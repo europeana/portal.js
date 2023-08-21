@@ -3,7 +3,9 @@
     class="page white-page xxl-page"
   >
     <div>
-      <h1>{{ title }}</h1>
+      <!-- eslint-disable vue/no-v-html -->
+      <h1 v-html="html(title)" />
+      <!-- eslint-enable vue/no-v-html -->
       <p>{{ headline }}</p>
     </div>
     <!-- Header/hero -->
@@ -11,6 +13,8 @@
 </template>
 
 <script>
+  import { marked } from 'marked';
+
   export default {
     name: 'LandingPage',
 
@@ -34,6 +38,12 @@
       primaryImageOfPage: {
         type: Object,
         default: null
+      }
+    },
+
+    methods: {
+      html(text) {
+        return text ? marked.parse(text) : text;
       }
     }
   };
