@@ -134,6 +134,7 @@ query BrowseLandingStaticPage(
     items {
       identifier
       name
+      pageHeading
       description
       headline
       relatedLink {
