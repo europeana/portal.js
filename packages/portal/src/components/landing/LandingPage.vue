@@ -58,7 +58,7 @@
         return section && (section['__typename'] === typeName);
       },
       html(text) {
-        return text && marked.parse(text);
+        return text ? marked.parse(text) : text;
       }
     }
   };

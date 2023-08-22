@@ -6,7 +6,7 @@ export default {
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
     "linkLoginJoin": "Bejelentkezés / Csatlakozás",
-    "linkLogout": "Bejelentkezés",
+    "linkLogout": "Kijelentkezés",
     "myProfile": "Profilom",
     "notifications": {
       "loggedIn": "Most már be van jelentkezve. Üdvözlünk!",

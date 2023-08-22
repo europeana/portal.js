@@ -230,6 +230,10 @@
     ],
 
     props: {
+      doNotTranslate: {
+        type: Boolean,
+        default: false
+      },
       perPage: {
         type: Number,
         default: 24
@@ -302,6 +306,10 @@
         if (this.hasFulltextQa) {
           // TODO: ensure this is aware of per-request fulltext url, e.g. from ingress headers
           apiOptions.url = this.$config.europeana.apis.fulltext.url;
+        }
+
+        if (this.translateLang) {
+          apiOptions.translateLang = this.translateLang;
         }
 
         return apiOptions;
@@ -404,6 +412,20 @@
       },
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
+      },
+      translateLang() {
+        // Translation disabled from prop `doNotTranslate`
+        if (this.doNotTranslate) {
+          return null;
+        }
+
+        // Either translate locale(s) not configured, or current locale is not
+        // among them.
+        if (!this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale)) {
+          return null;
+        }
+
+        return this.$i18n.locale;
       }
     },
 
@@ -423,7 +445,7 @@
 
     methods: {
       async runSearch() {
-        const response = await this.$apis.record.search(this.apiParams, { ...this.apiOptions, locale: this.$i18n.locale });
+        const response = await this.$apis.record.search(this.apiParams, this.apiOptions);
 
         this.hits = response.hits;
         this.lastAvailablePage = response.lastAvailablePage;
