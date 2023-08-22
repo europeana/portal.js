@@ -35,8 +35,8 @@
       />
       <LandingPage
         v-else-if="landingPage"
-        :title="page.pageHeading"
-        :headline="page.headline"
+        :headline="page.headline || page.name"
+        :text="page.text"
         :cta="page.relatedLink"
         :sections="page.hasPartCollection.items.filter((item) => !!item)"
         :primary-image-of-page="page.primaryImageOfPage"

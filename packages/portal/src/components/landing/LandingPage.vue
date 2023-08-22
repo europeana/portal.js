@@ -3,8 +3,8 @@
     class="page white-page xxl-page"
   >
     <LandingHero
-      :title="html(title)"
       :headline="html(headline)"
+      :text="html(text)"
       :cta="cta"
       :hero-image="primaryImageOfPage"
     />
@@ -23,11 +23,11 @@
     },
 
     props: {
-      title: {
+      headline: {
         type: String,
         default: null
       },
-      headline: {
+      text: {
         type: String,
         default: null
       },

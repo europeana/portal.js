@@ -21,20 +21,37 @@ module.exports = async function(migration) {
   });
 
   landingPage
-    .createField('pageHeading')
-    .name('Page heading')
+    .deleteField('headline');
+
+  landingPage
+    .createField('headline')
+    .name('Headline')
     .type('Symbol')
     .localized(true)
-    .required(true)
-    .validations([])
     .disabled(false)
     .omitted(false);
 
-  landingPage.changeFieldControl('pageHeading', 'builtin', 'singleLine', {
+  landingPage.changeFieldControl('headline', 'builtin', 'singleLine', {
     helpText: 'This is the H1 of the page. It may include markdown. Use underscores to highlight part of the title. For example "This page is _awesome_"'
   });
 
   landingPage
-    .moveField('pageHeading')
-    .afterField('name');
+    .createField('text')
+    .name('Text')
+    .type('Text')
+    .localized(true)
+    .disabled(false)
+    .omitted(false);
+
+  landingPage.changeFieldControl('text', 'builtin', 'markdown', {
+    helpText: 'Text to use in the top section, below the headline.'
+  });
+
+  landingPage
+    .moveField('image')
+    .afterField('description');
+
+  landingPage
+    .moveField('text')
+    .afterField('headline');
 };

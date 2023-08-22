@@ -7,10 +7,10 @@
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
           <h1
-            v-html="title"
+            v-html="headline"
           />
           <div
-            v-html="headline"
+            v-html="text"
           />
           <!-- eslint-enable vue/no-v-html -->
           <SmartLink
@@ -47,11 +47,11 @@
     },
 
     props: {
-      title: {
+      headline: {
         type: String,
         required: true
       },
-      headline: {
+      text: {
         type: String,
         default: null
       },
