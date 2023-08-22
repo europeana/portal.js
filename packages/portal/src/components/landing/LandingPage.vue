@@ -81,7 +81,7 @@
     ::v-deep h2 {
       font-family: $font-family-ubuntu;
       font-size: $font-size-medium;
-      font-weight: 600;
+      font-weight: 500;
 
       @media (min-width: $bp-medium) {
         font-size: $font-size-xl;

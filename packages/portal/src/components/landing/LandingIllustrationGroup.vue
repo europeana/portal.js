@@ -122,12 +122,12 @@
 .illustration-title {
   color: $mediumgrey;
   font-family: $font-family-ubuntu;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
 }
 
 .illustration-text {
-  font-weight: 600;
+  font-weight: 500;
   color: $mediumgrey;
   margin-bottom: 2rem;
 }
