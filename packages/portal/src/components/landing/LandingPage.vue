@@ -2,8 +2,9 @@
   <div
     class="page white-page xxl-page"
   >
-    <div class="p-5 bg-primary" />
-    <!-- Header/hero -->
+    <div class="p-5 bg-primary">
+      <h1>Header placeholder</h1>
+    </div>
     <div
       v-for="(section, index) in sections"
       :key="index"
@@ -57,7 +58,7 @@
         return section && (section['__typename'] === typeName);
       },
       html(text) {
-        return marked.parse(text);
+        return text && marked.parse(text);
       }
     }
   };
@@ -78,6 +79,7 @@
     }
 
     ::v-deep h2 {
+      font-family: $font-family-ubuntu;
       font-size: $font-size-medium;
       font-weight: 600;
 
