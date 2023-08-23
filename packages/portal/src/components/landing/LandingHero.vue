@@ -7,10 +7,10 @@
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
           <h1
-            v-html="headline"
+            v-html="html(headline)"
           />
           <div
-            v-html="text"
+            v-html="html(text)"
           />
           <!-- eslint-enable vue/no-v-html -->
           <SmartLink
@@ -37,6 +37,7 @@
 <script>
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import SmartLink from '@/components/generic/SmartLink';
+  import parseMarkdownMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingHero',
@@ -45,6 +46,8 @@
       AttributionToggle,
       SmartLink
     },
+
+    mixins: [parseMarkdownMixin],
 
     props: {
       headline: {
@@ -195,8 +198,8 @@
 <docs lang="md">
   ```jsx
     <LandingHero
-      title="This is a <em>landing</em> page"
-      headline="A description what this page is all about"
+      headline="This is a <em>landing</em> page"
+      text="A description what this page is all about"
       :cta="{
         url: 'https://www.europeana.eu',
         text: 'Go to Pro'

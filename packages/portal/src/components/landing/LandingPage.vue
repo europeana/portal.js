@@ -3,8 +3,8 @@
     class="page white-page xxl-page"
   >
     <LandingHero
-      :headline="html(headline)"
-      :text="html(text)"
+      :headline="headline"
+      :text="text"
       :cta="cta"
       :hero-image="primaryImageOfPage"
     />
@@ -15,9 +15,8 @@
       <LandingInfoCardGroup
         v-if="contentType(section, 'InfoCardGroup')"
         :title="section.name"
-        :text="html(section.text)"
+        :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
-        :html="html"
       />
     </div>
   </div>
@@ -25,7 +24,7 @@
 
 <script>
   import LandingHero from '@/components/landing/LandingHero';
-  import { marked } from 'marked';
+  import parseMarkdownMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingPage',
@@ -34,6 +33,8 @@
       LandingHero,
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
+
+    mixins: [parseMarkdownMixin],
 
     props: {
       headline: {
@@ -61,9 +62,6 @@
     methods: {
       contentType(section, typeName) {
         return section && (section['__typename'] === typeName);
-      },
-      html(text) {
-        return text ? marked.parse(text) : text;
       }
     }
   };

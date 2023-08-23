@@ -8,7 +8,7 @@
       <div
         v-if="text"
         class="mb-3"
-        v-html="text"
+        v-html="html(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
     </div>
@@ -46,6 +46,7 @@
 
 <script>
   import ImageOptimised from '@/components/image/ImageOptimised';
+  import parseMarkdownMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingInfoCardGroup',
@@ -53,6 +54,8 @@
     components: {
       ImageOptimised
     },
+
+    mixins: [parseMarkdownMixin],
 
     props: {
       title: {
@@ -66,10 +69,6 @@
       infoCards: {
         type: Array,
         default: () => []
-      },
-      html: {
-        type: Function,
-        default: () => null
       }
     }
   };
@@ -138,7 +137,7 @@
   ```jsx
     <LandingInfoCardGroup
       title="This is a title for an info card group"
-      text="A description what this section is all about"
+      text="A __description__ what this section is all about"
       :info-cards="[ {
         __typename: 'InfoCard',
         name: 'Usage statistics',
