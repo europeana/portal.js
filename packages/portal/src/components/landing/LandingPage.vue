@@ -16,7 +16,7 @@
         v-if="contentType(section, 'IllustrationGroup')"
         :title="section.name"
         :text="html(section.text)"
-        :illustrations="section.hasPartCollection.items"
+        :illustrations="section.hasPartCollection && section.hasPartCollection.items"
         :html="html"
       />
     </div>
@@ -38,7 +38,7 @@
     props: {
       headline: {
         type: String,
-        default: null
+        required: true
       },
       text: {
         type: String,

@@ -6,6 +6,7 @@
       </h2>
       <!-- eslint-disable vue/no-v-html -->
       <div
+        v-if="text"
         class="mb-3"
         v-html="text"
       />
