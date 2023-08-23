@@ -84,6 +84,7 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
+ * @param {string} options.locale current locale, for localising search results
  * @param {string} options.translateLang source locale for multilingual search
  * @param {string} options.url override the API URL
  * @param {Boolean} options.addContentTierFilter if `true`, add a content tier filter. default `true`
@@ -97,7 +98,7 @@ export default (context) => ($axios, params, options = {}) => {
 
   const localParams = { ...params };
 
-  const defaultOptions = { addContentTierFilter: true };
+  const defaultOptions = { addContentTierFilter: true, locale: context.i18n.locale };
   const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;
@@ -139,7 +140,7 @@ export default (context) => ($axios, params, options = {}) => {
     .then(response => response.data)
     .then(data => ({
       ...data,
-      items: data.items?.map(item => reduceFieldsForItem(item, options)),
+      items: data.items?.map(item => reduceFieldsForItem(item, localOptions)),
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {
