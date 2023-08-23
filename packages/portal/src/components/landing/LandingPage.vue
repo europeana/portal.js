@@ -12,11 +12,11 @@
       v-for="(section, index) in sections"
       :key="index"
     >
-      <LandingIllustrationGroup
-        v-if="contentType(section, 'IllustrationGroup')"
+      <LandingInfoCardGroup
+        v-if="contentType(section, 'InfoCardGroup')"
         :title="section.name"
         :text="html(section.text)"
-        :illustrations="section.hasPartCollection && section.hasPartCollection.items"
+        :info-cards="section.hasPartCollection && section.hasPartCollection.items"
         :html="html"
       />
     </div>
@@ -32,7 +32,7 @@
 
     components: {
       LandingHero,
-      LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup')
+      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
 
     props: {
