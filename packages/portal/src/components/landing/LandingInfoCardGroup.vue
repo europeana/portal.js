@@ -12,60 +12,50 @@
       />
     <!-- eslint-enable vue/no-v-html -->
     </div>
-    <div class="d-lg-inline-flex mx-auto">
-      <div
+    <div
+      v-if="infoCards.length"
+      class="d-lg-inline-flex mx-auto"
+    >
+      <LandingInfoCard
         v-for="(card, index) in infoCards"
         :key="index"
         class="info-card"
-      >
-        <div class="image-wrapper d-flex flex-end justify-content-center mb-2">
-          <ImageOptimised
-            class="image"
-            :alt="card.image.description"
-            :src="card.image.url"
-            :width="card.image.width"
-            :height="card.image.height"
-            :content-type="card.image.contentType"
-            :max-width="1100"
-            :lazy="true"
-          />
-        </div>
-        <h3 class="title mb-2">
-          {{ card.name }}
-        </h3>
-        <!-- eslint-disable vue/no-v-html -->
-        <div
-          class="text"
-          v-html="html(card.text)"
-        />
-        <!-- eslint-enable vue/no-v-html -->
-      </div>
+        :card="card"
+      />
     </div>
   </b-container>
 </template>
 
 <script>
-  import ImageOptimised from '@/components/image/ImageOptimised';
   import parseMarkdownMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingInfoCardGroup',
 
     components: {
-      ImageOptimised
+      LandingInfoCard: () => import('@/components/landing/LandingInfoCard')
     },
 
     mixins: [parseMarkdownMixin],
 
     props: {
+      /**
+       * H2 title to display above the info cards
+       */
       title: {
         type: String,
         default: null
       },
+      /**
+       * Text to display under title and above the info cards
+       */
       text: {
         type: String,
         default: null
       },
+      /**
+       * List of info cards
+       */
       infoCards: {
         type: Array,
         default: () => []
@@ -88,48 +78,6 @@
 
 .header {
   max-width: $max-text-column-width;
-}
-
-.info-card {
-  max-width: 310px;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media (min-width: $bp-large) {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
-
-  @media (min-width: $bp-4k) {
-    max-width: calc(1.5 * 310px);
-    margin-left: 3rem;
-    margin-right: 3rem;
-  }
-}
-.image-wrapper {
-  height: 80px;
-
-  @media (min-width: $bp-large) {
-    height: 111px;
-  }
-}
-
-.image {
-  max-height: 100%;
-  margin: auto auto 0 auto;
-}
-
-.title {
-  color: $mediumgrey;
-  font-family: $font-family-ubuntu;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.text {
-  font-weight: 500;
-  color: $mediumgrey;
-  margin-bottom: 2rem;
 }
 </style>
 

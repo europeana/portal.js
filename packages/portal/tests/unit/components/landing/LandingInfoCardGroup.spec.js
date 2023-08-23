@@ -12,10 +12,11 @@ const factory = (propsData) => shallowMount(LandingInfoCardGroup, {
 
 describe('components/landing/LandingInfoCardGroup', () => {
   it('displays a title', () => {
-    const wrapper = factory({ title: 'Title for an info card group' });
+    const title = 'Title for an info card group';
+    const wrapper = factory({ title });
 
-    const title = wrapper.find('h2');
+    const titleElement = wrapper.find('h2');
 
-    expect(title.exists()).toBe(true);
+    expect(titleElement.text()).toBe(title);
   });
 });

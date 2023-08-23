@@ -50,18 +50,31 @@
     mixins: [parseMarkdownMixin],
 
     props: {
+      /**
+       * H1 title to display in the hero.
+       */
       headline: {
         type: String,
         required: true
       },
+      /**
+       * text to display accompanying the headline
+       */
       text: {
         type: String,
         default: null
       },
+      /**
+       * CTA button to link to a URL or section of the page
+       */
       cta: {
         type: Object,
         default: null
       },
+      /**
+       * Image used as a partial background with attribution.
+       * Gets a blue overlay
+       */
       heroImage: {
         type: Object,
         default: null
