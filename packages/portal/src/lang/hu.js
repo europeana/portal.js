@@ -787,6 +787,7 @@ export default {
       "help": "Súgó",
       "home": "Kezdőlap",
       "pro": "Szakembereknek",
+      "shareYourData": "Ossza meg az adatait",
       "stories": "Történetek"
     },
     "quickSearch": "Gyors keresés",

@@ -787,6 +787,7 @@ export default {
       "help": "Help",
       "home": "Home",
       "pro": "Voor erfgoedprofessionals",
+      "shareYourData": "Deel uw gegevens",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",

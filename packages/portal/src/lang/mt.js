@@ -787,6 +787,7 @@ export default {
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
       "pro": "Għall-professjonisti",
+      "shareYourData": "Aqsam id-data tiegħek",
       "stories": "Stejjer"
     },
     "quickSearch": "Tiftix ta' malajr",
