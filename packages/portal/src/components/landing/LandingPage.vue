@@ -2,28 +2,32 @@
   <div
     class="page white-page xxl-page"
   >
-    <div>
-      <!-- eslint-disable vue/no-v-html -->
-      <h1 v-html="html(title)" />
-      <!-- eslint-enable vue/no-v-html -->
-      <p>{{ headline }}</p>
-    </div>
-    <!-- Header/hero -->
+    <LandingHero
+      :headline="html(headline)"
+      :text="html(text)"
+      :cta="cta"
+      :hero-image="primaryImageOfPage"
+    />
   </div>
 </template>
 
 <script>
+  import LandingHero from '@/components/landing/LandingHero';
   import { marked } from 'marked';
 
   export default {
     name: 'LandingPage',
 
+    components: {
+      LandingHero
+    },
+
     props: {
-      title: {
+      headline: {
         type: String,
         default: null
       },
-      headline: {
+      text: {
         type: String,
         default: null
       },
@@ -55,11 +59,9 @@
   @import '@europeana/style/scss/transitions';
 
   .page {
-    padding-top: 1rem;
     margin-top: -1rem;
 
     @media (min-width: $bp-4k) {
-      padding-top: 1.5rem;
       margin-top: -1.5rem;
     }
   }
