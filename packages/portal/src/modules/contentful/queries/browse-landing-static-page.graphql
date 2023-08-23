@@ -135,16 +135,17 @@ query BrowseLandingStaticPage(
       identifier
       name
       description
+      image {
+        ...imageFields
+      }
       headline
+      text
       relatedLink {
         url
         text
       }
       primaryImageOfPage {
         ...imageWithAttributionFields
-      }
-      image {
-        ...imageFields
       }
       hasPartCollection(limit: 20) {
         total

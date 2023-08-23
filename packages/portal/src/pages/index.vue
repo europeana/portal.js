@@ -35,8 +35,8 @@
       />
       <LandingPage
         v-else-if="landingPage"
-        :title="page.name"
-        :headline="page.headline"
+        :headline="page.headline || page.name"
+        :text="page.text"
         :cta="page.relatedLink"
         :sections="page.hasPartCollection.items.filter((item) => !!item)"
         :primary-image-of-page="page.primaryImageOfPage"
@@ -108,7 +108,7 @@
     computed: {
       pageMeta() {
         return {
-          title: this.unformattedTitle,
+          title: this.page.name,
           description: this.page.description,
           ogType: 'article',
           ogImage: this.socialMediaImage ? this.socialMediaImageOptimisedUrl : null,
@@ -128,10 +128,6 @@
       },
       socialMediaImageAlt() {
         return this.socialMediaImage?.description || '';
-      },
-      // Remove brackets added for special markup landing page
-      unformattedTitle() {
-        return this.page.name?.replaceAll(/{{|}}/g, '');
       }
     }
   };
