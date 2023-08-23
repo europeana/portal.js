@@ -787,6 +787,7 @@ export default {
       "help": "Pagalba",
       "home": "Pradžia",
       "pro": "Specialistams",
+      "shareYourData": "Dalinkitės savo duomenimis",
       "stories": "Istorijos"
     },
     "quickSearch": "Greita paieška",

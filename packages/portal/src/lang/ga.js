@@ -787,6 +787,7 @@ export default {
       "help": "Cabhair",
       "home": "Baile",
       "pro": "Do lucht gairme",
+      "shareYourData": "Comhroinn do shonraí",
       "stories": "Scéalta"
     },
     "quickSearch": "Cuardach Tapa",

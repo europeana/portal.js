@@ -787,6 +787,7 @@ export default {
       "help": "Hjälp",
       "home": "Hem",
       "pro": "För yrkesverksamma",
+      "shareYourData": "Dela dina data",
       "stories": "Berättelser"
     },
     "quickSearch": "Snabb sökning",

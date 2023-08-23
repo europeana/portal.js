@@ -787,6 +787,7 @@ export default {
       "help": "Apua",
       "home": "Etusivu",
       "pro": "Ammattilaisille",
+      "shareYourData": "Jaa tietosi",
       "stories": "Tarinat"
     },
     "quickSearch": "Pikahaku",
