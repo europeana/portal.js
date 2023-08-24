@@ -8,6 +8,17 @@
       :cta="cta"
       :hero-image="primaryImageOfPage"
     />
+    <div
+      v-for="(section, index) in sections"
+      :key="index"
+    >
+      <LandingImageCardGroup
+        v-if="contentType(section, 'ImageCardGroup')"
+        :title="section.name"
+        :text="section.text"
+        :image-cards="section.hasPartCollection && section.hasPartCollection.items"
+      />
+    </div>
   </div>
 </template>
 
@@ -19,7 +30,8 @@
     name: 'LandingPage',
 
     components: {
-      LandingHero
+      LandingHero,
+      LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup')
     },
 
     props: {
@@ -48,21 +60,36 @@
     methods: {
       html(text) {
         return text ? marked.parse(text) : text;
+      },
+      contentType(section, typeName) {
+        return section && (section['__typename'] === typeName);
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/mixins';
-  @import '@europeana/style/scss/transitions';
+@import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/mixins';
+@import '@europeana/style/scss/transitions';
 
-  .page {
-    margin-top: -1rem;
+.page {
+  margin-top: -1rem;
 
+  @media (min-width: $bp-4k) {
+    margin-top: -1.5rem;
+  }
+
+  ::v-deep h2 {
+    font-family: $font-family-ubuntu;
+    font-size: $font-size-medium;
+    font-weight: 500;
+    @media (min-width: $bp-medium) {
+      font-size: $font-size-xl;
+    }
     @media (min-width: $bp-4k) {
-      margin-top: -1.5rem;
+      font-size: $font-size-xl-4k;
     }
   }
+}
 </style>
