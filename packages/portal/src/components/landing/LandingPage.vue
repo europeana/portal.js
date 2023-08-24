@@ -3,29 +3,40 @@
     class="page white-page xxl-page"
   >
     <LandingHero
-      :headline="html(headline)"
-      :text="html(text)"
+      :headline="headline"
+      :text="text"
       :cta="cta"
       :hero-image="primaryImageOfPage"
     />
+    <div
+      v-for="(section, index) in sections"
+      :key="index"
+    >
+      <LandingInfoCardGroup
+        v-if="contentType(section, 'InfoCardGroup')"
+        :title="section.name"
+        :text="section.text"
+        :info-cards="section.hasPartCollection && section.hasPartCollection.items"
+      />
+    </div>
   </div>
 </template>
 
 <script>
   import LandingHero from '@/components/landing/LandingHero';
-  import { marked } from 'marked';
 
   export default {
     name: 'LandingPage',
 
     components: {
-      LandingHero
+      LandingHero,
+      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
 
     props: {
       headline: {
         type: String,
-        default: null
+        required: true
       },
       text: {
         type: String,
@@ -46,8 +57,8 @@
     },
 
     methods: {
-      html(text) {
-        return text ? marked.parse(text) : text;
+      contentType(section, typeName) {
+        return section && (section['__typename'] === typeName);
       }
     }
   };
@@ -64,5 +75,20 @@
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
     }
+
+    ::v-deep h2 {
+      font-family: $font-family-ubuntu;
+      font-size: $font-size-medium;
+      font-weight: 500;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-xl;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl-4k;
+      }
+    }
+
   }
 </style>
