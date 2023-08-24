@@ -19,7 +19,6 @@
       <LandingInfoCard
         v-for="(card, index) in infoCards"
         :key="index"
-        class="info-card"
         :card="card"
       />
     </div>
@@ -65,20 +64,20 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/variables';
 
-.container {
-  padding-top: 4rem;
-  padding-bottom: 3rem;
+  .container {
+    padding-top: 4rem;
+    padding-bottom: 3rem;
 
-  @media (min-width: $bp-large) {
-    padding-top: 4.5rem;
+    @media (min-width: $bp-large) {
+      padding-top: 4.5rem;
+    }
   }
-}
 
-.header {
-  max-width: $max-text-column-width;
-}
+  .header {
+    max-width: $max-text-column-width;
+  }
 </style>
 
 <docs lang="md">

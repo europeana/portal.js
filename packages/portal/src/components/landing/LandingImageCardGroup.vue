@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="image-card-group">
     <div class="header pt-5 pb-5">
       <b-container>
         <div class="header-content text-center mx-auto">
@@ -23,7 +23,6 @@
         <LandingImageCard
           v-for="(card, index) in imageCards"
           :key="index"
-          class="image-card"
           :card="card"
         />
       </div>
@@ -69,16 +68,26 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/variables';
 
-.header {
-  background-color: $blue;
-  color: $white;
-}
+  .image-card-group {
+    background-color: $bodygrey;
+    border-bottom: 1px solid $bodygrey;
+  }
 
-.header-content {
-  max-width: $max-text-column-width;
-}
+  .header {
+    background-color: $blue;
+    color: $white;
+    margin-bottom: 2.5rem;
+
+    @media (min-width: $bp-large) {
+      margin-bottom: 4.625rem;
+    }
+  }
+
+  .header-content {
+    max-width: $max-text-column-width;
+  }
 </style>
 
 <docs lang="md">

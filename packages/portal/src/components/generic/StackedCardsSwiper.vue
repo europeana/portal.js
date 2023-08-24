@@ -143,7 +143,7 @@
           '(max-width: 991px) 280px',
           '(max-width: 1199px) 300px',
           '(max-width: 1439px) 320px',
-          '(max-width: 3839px) 355px',
+          '(max-width: 3019px) 355px',
           '480px'
         ].join(',')
       };
