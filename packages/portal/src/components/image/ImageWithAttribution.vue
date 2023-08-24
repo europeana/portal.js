@@ -7,8 +7,10 @@
       :height="height"
       :alt="alt"
       :content-type="contentType"
-      :max-width="1100"
+      :max-width="maxWidth"
       data-qa="image"
+      :image-srcset="imageSrcset"
+      :image-sizes="imageSizes"
     />
     <AttributionToggle
       :attribution="attribution"
@@ -53,6 +55,18 @@
       attribution: {
         type: Object,
         required: true
+      },
+      maxWidth: {
+        type: Number,
+        default: 1100
+      },
+      imageSrcset: {
+        type: String,
+        default: null
+      },
+      imageSizes: {
+        type: String,
+        default: null
       }
     }
   };

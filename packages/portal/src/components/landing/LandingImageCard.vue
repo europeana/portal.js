@@ -3,18 +3,19 @@
     class="image-card"
   >
     <div
-      v-if="card.image"
+      v-if="cardImageWithAttribution"
       class="image-wrapper d-flex flex-end justify-content-center mb-2"
     >
-      <ImageOptimised
+      <ImageWithAttribution
         class="image"
-        :alt="card.image.description"
-        :src="card.image.url"
-        :width="card.image.width"
-        :height="card.image.height"
-        :content-type="card.image.contentType"
-        :max-width="1100"
-        :lazy="true"
+        :alt="cardImageWithAttribution.image.description"
+        :src="cardImageWithAttribution.image.url"
+        :width="612"
+        :height="365"
+        :content-type="cardImageWithAttribution.image.contentType"
+        :attribution="cardImageWithAttribution"
+        :image-srcset="imageSrcset(cardImageWithAttribution.image)"
+        :image-sizes="imageSizes"
       />
     </div>
     <h3 class="title mb-2">
@@ -23,21 +24,22 @@
     <!-- eslint-disable vue/no-v-html -->
     <div
       class="text"
-      v-html="html(card.text)"
+      v-html="parseMarkdownHtml(card.text)"
     />
     <!-- eslint-enable vue/no-v-html -->
   </div>
 </template>
 
 <script>
-  // TODO: Replace with mixin
-  import { marked } from 'marked';
+  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingImageCard',
     components: {
-      ImageOptimised: () => import('@/components/image/ImageOptimised')
+      ImageWithAttribution: () => import('@/components/image/ImageWithAttribution')
     },
+
+    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -49,10 +51,38 @@
       }
     },
 
+    data() {
+      return {
+        imageSizes: [
+          '(max-width: 575px) 545px',
+          '(max-width: 767px) 360px',
+          '(max-width: 991px) 480px',
+          '(max-width: 1199px) 570px',
+          '(max-width: 3839px) 612px',
+          '918px'
+        ].join(',')
+      };
+    },
+
+    computed: {
+      cardImageWithAttribution() {
+        return this.card.image;
+      }
+    },
+
     methods: {
-      // TODO: Replace with mixin
-      html(text) {
-        return text ? marked.parse(text) : text;
+      imageSrcset(image) {
+        return this.$contentful.assets.responsiveImageSrcset(image,
+                                                             {
+                                                               small: { w: 545, h: 270, fit: 'fill' },
+                                                               medium: { w: 360, h: 216, fit: 'fill' },
+                                                               large: { w: 480, h: 288, fit: 'fill' },
+                                                               xl: { w: 570, h: 342, fit: 'fill' },
+                                                               xxl: { w: 612, h: 367, fit: 'fill' },
+                                                               xxxl: { w: 612, h: 367, fit: 'fill' },
+                                                               wqhd: { w: 612, h: 367, fit: 'fill' },
+                                                               '4k': { w: 918, h: 551, fit: 'fill' }
+                                                             });
       }
     }
   };

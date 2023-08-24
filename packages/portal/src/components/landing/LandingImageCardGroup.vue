@@ -10,7 +10,7 @@
           <div
             v-if="text"
             class="mb-3"
-            v-html="html(text)"
+            v-html="parseMarkdownHtml(text)"
           />
         <!-- eslint-enable vue/no-v-html -->
         </div>
@@ -32,14 +32,15 @@
 </template>
 
 <script>
-  // TODO: Replace with mixin
-  import { marked } from 'marked';
+  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingImageCardGroup',
     components: {
       LandingImageCard: () => import('@/components/landing/LandingImageCard')
     },
+
+    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -62,13 +63,6 @@
       imageCards: {
         type: Array,
         default: () => []
-      }
-    },
-
-    methods: {
-      // TODO: Replace with mixin
-      html(text) {
-        return text ? marked.parse(text) : text;
       }
     }
   };
