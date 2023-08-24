@@ -114,3 +114,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+.btn .icon-external-link {
+  margin-left: 0.5rem;
+}
+</style>

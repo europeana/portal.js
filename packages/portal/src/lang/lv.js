@@ -787,6 +787,7 @@ export default {
       "help": "Palīdzība",
       "home": "Sākumlapa",
       "pro": "Profesionāļiem",
+      "shareYourData": "Kopīgot savus datus",
       "stories": "Stāsti"
     },
     "quickSearch": "Ātrā meklēšana",

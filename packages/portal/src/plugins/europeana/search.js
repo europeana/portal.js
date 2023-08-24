@@ -84,7 +84,8 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
- * @param {string} options.locale source locale for multilingual search
+ * @param {string} options.locale current locale, for localising search results
+ * @param {string} options.translateLang source locale for multilingual search
  * @param {string} options.url override the API URL
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
@@ -94,6 +95,9 @@ export default (context) => ($axios, params, options = {}) => {
   }
 
   const localParams = { ...params };
+
+  const defaultOptions = { locale: context?.i18n?.locale };
+  const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;
   const perPage = localParams.rows === undefined ? 24 : Number(localParams.rows);
@@ -114,12 +118,14 @@ export default (context) => ($axios, params, options = {}) => {
     start
   };
 
-  if (context?.$config?.app?.search?.translateLocales?.includes(options.locale)) {
+  // TODO: this should be the responsibility of the caller; move to an exported
+  //       function for callers to run first, when needed
+  if (localOptions.translateLang) {
     const targetLocale = 'en';
-    if (options.locale !== targetLocale) {
+    if (localOptions.translateLang !== targetLocale) {
       searchParams.profile = `${searchParams.profile},translate`;
-      searchParams.lang = options.locale;
-      searchParams['q.source'] = options.locale;
+      searchParams.lang = localOptions.translateLang;
+      searchParams['q.source'] = localOptions.translateLang;
       searchParams['q.target'] = targetLocale;
     }
   }
@@ -130,7 +136,7 @@ export default (context) => ($axios, params, options = {}) => {
     .then(response => response.data)
     .then(data => ({
       ...data,
-      items: data.items?.map(item => reduceFieldsForItem(item, options)),
+      items: data.items?.map(item => reduceFieldsForItem(item, localOptions)),
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {

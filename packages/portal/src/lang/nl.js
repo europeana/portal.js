@@ -787,6 +787,7 @@ export default {
       "help": "Help",
       "home": "Home",
       "pro": "Voor erfgoedprofessionals",
+      "shareYourData": "Deel uw gegevens",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",
@@ -1001,7 +1002,7 @@ export default {
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare objecten",
     "status": {
-      "unpublished": "[Ongepubliceerd item]"
+      "unpublished": "[Ongepubliceerd object]"
     }
   },
   "related": {

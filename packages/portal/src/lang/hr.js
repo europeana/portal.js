@@ -787,6 +787,7 @@ export default {
       "help": "Pomoć",
       "home": "Početna",
       "pro": "Za stručnjake",
+      "shareYourData": "Podijelite svoje podatke",
       "stories": "Priče"
     },
     "quickSearch": "Brzo pretraživanje",
@@ -986,7 +987,7 @@ export default {
   },
   "record": {
     "actions": {
-      "pin": "Prikvači stavku na dostupne entitete"
+      "pin": "Prikvači predmet na dostupne entitete"
     },
     "allMetaData": "Svi meta podaci",
     "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
@@ -1001,7 +1002,7 @@ export default {
     "showAll": "Prikaži sve informacije",
     "similarItems": "Slične predmeti",
     "status": {
-      "unpublished": "[Neobjavljena stavka]"
+      "unpublished": "[Neobjavljena predmet]"
     }
   },
   "related": {

@@ -787,6 +787,7 @@ export default {
       "help": "Abimaterjal",
       "home": "Avaleht",
       "pro": "Professionaalidele",
+      "shareYourData": "Jaga oma andmeid",
       "stories": "Lood"
     },
     "quickSearch": "Kiire otsing",

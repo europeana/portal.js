@@ -791,6 +791,7 @@ export default {
       "help": "Laguntza",
       "home": "Etxea",
       "pro": "Profesionalentzat",
+      "shareYourData": "Zure datuak partekatu",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",

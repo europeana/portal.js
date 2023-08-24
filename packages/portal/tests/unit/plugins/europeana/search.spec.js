@@ -113,23 +113,21 @@ describe('plugins/europeana/search', () => {
       });
 
       describe('multilingual queries', () => {
-        const context = { $config: { app: { search: { translateLocales: ['es'] } } } };
-
-        it('passes API i18n params if configured and locale option given', async() => {
-          const locale = 'es';
+        it('passes API translation params if translateLang option given', async() => {
+          const translateLang = 'es';
 
           baseRequest()
             .query(query => {
-              return query['q.source'] === locale && query['q.target'] === 'en' && query.lang === locale;
+              return query['q.source'] === translateLang && query['q.target'] === 'en' && query.lang === translateLang;
             })
             .reply(200, defaultResponse);
 
-          await search(context)(null, { query: 'flor' }, { locale });
+          await search()(null, { query: 'flor' }, { translateLang });
 
           expect(nock.isDone()).toBe(true);
         });
 
-        it('does not pass API i18n params if no locale option', async() => {
+        it('does not pass API translation params if no translateLang option', async() => {
           baseRequest()
             .query(query => {
               const queryKeys = Object.keys(query);
@@ -137,13 +135,13 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search(context)(null, { query: 'flor' });
+          await search()(null, { query: 'flor' });
 
           expect(nock.isDone()).toBe(true);
         });
 
-        it('does not pass API i18n params if locale is already "en"', async() => {
-          const locale = 'en';
+        it('does not pass API translation params if translateLang is "en"', async() => {
+          const translateLang = 'en';
 
           baseRequest()
             .query(query => {
@@ -152,7 +150,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search(context)(null, { query: 'flor' }, { locale });
+          await search()(null, { query: 'flor' }, { translateLang });
 
           expect(nock.isDone()).toBe(true);
         });

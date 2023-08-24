@@ -1,6 +1,6 @@
 {
   "name": "@europeana/mirador",
-  "version": "1.116.2",
+  "version": "1.119.0",
   "description": "Mirador for Europeana website IIIF presentation",
   "license": "EUPL-1.2",
   "main": "src/index.js",

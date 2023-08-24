@@ -33,6 +33,14 @@
         :has-part-collection="page.hasPartCollection"
         :related-links="page.relatedLinks"
       />
+      <LandingPage
+        v-else-if="landingPage"
+        :headline="page.headline || page.name"
+        :text="page.text"
+        :cta="page.relatedLink"
+        :sections="page.hasPartCollection.items.filter((item) => !!item)"
+        :primary-image-of-page="page.primaryImageOfPage"
+      />
     </template>
   </div>
 </template>
@@ -41,6 +49,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import BrowsePage from '@/components/browse/BrowsePage';
   import StaticPage from '@/components/static/StaticPage';
+  import LandingPage from '@/components/landing/LandingPage';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -49,6 +58,7 @@
     components: {
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       BrowsePage,
+      LandingPage,
       LoadingSpinner,
       StaticPage
     },
@@ -66,6 +76,7 @@
       return {
         browsePage: false,
         staticPage: false,
+        landingPage: false,
         page: {},
         identifier: this.slug || this.$route.params.pathMatch
       };
@@ -78,7 +89,7 @@
         preview: this.$route.query.mode === 'preview'
       };
 
-      const response = await this.$contentful.query('browseStaticPage', variables);
+      const response = await this.$contentful.query('browseLandingStaticPage', variables);
       const data = response.data.data;
       if ((data.staticPageCollection?.items?.length || 0) > 0) {
         this.page = data.staticPageCollection.items[0];
@@ -86,6 +97,9 @@
       } else if ((data.browsePageCollection?.items?.length || 0) > 0) {
         this.page = data.browsePageCollection.items[0];
         this.browsePage = true;
+      } else if ((data.landingPageCollection?.items?.length || 0) > 0) {
+        this.page = data.landingPageCollection.items[0];
+        this.landingPage = true;
       } else {
         this.$error(404, { scope: 'page' });
       }
@@ -102,8 +116,9 @@
         };
       },
       socialMediaImage() {
-        // use social media image if set in Contentful, else null
-        return this.page.image || null;
+        // use social media image if set in Contentful,
+        // landing pages use primaryImageOfPage as a fallback, otherwise null
+        return this.page.image || this.page.primaryImageOfPage?.image || null;
       },
       socialMediaImageOptimisedUrl() {
         return this.$contentful.assets.optimisedSrc(

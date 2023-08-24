@@ -34,6 +34,24 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     $route: { path: '/search', name: 'search', query: {} },
     $error: sinon.spy(),
     localise: (val) => val,
+    $apis: {
+      record: {
+        search: sinon.stub().resolves(searchResult)
+      }
+    },
+    $i18n: {
+      locale: 'en'
+    },
+    $config: {
+      europeana: {
+        apis: {
+          fulltext: {
+            url: 'https://newspapers.eanadev.org/api/v2'
+          }
+        }
+      },
+      ...mocks.$config
+    },
     ...mocks,
     $store: {
       commit: sinon.spy(),
@@ -48,23 +66,6 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
         },
         ...mocks.$store?.state
       }
-    },
-    $config: {
-      europeana: {
-        apis: {
-          fulltext: {
-            url: 'https://newspapers.eanadev.org/api/v2'
-          }
-        }
-      }
-    },
-    $apis: {
-      record: {
-        search: sinon.stub().resolves(searchResult)
-      }
-    },
-    $i18n: {
-      locale: 'en'
     }
   },
   propsData,
@@ -182,6 +183,64 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('computed', () => {
+    describe('apiOptions', () => {
+      describe('translateLang', () => {
+        describe('when locales to translate are configured', () => {
+          const $config = { app: { search: { translateLocales: ['nl'] } } };
+
+          describe('and current locale is one of the configured locales to translate', () => {
+            const $i18n = { locale: 'nl' };
+
+            describe('and doNotTranslate prop is not set (defaulting to false)', () => {
+              it('returns the current locale', () => {
+                const wrapper = factory({ mocks: { $config, $i18n } });
+
+                const translateLang = wrapper.vm.apiOptions.translateLang;
+
+                expect(translateLang).toBe('nl');
+              });
+            });
+
+            describe('but doNotTranslate prop is set to `true`', () => {
+              const doNotTranslate = true;
+
+              it('is undefined', () => {
+                const wrapper = factory({ mocks: { $config, $i18n }, propsData: { doNotTranslate } });
+
+                const translateLang = wrapper.vm.apiOptions.translateLang;
+
+                expect(translateLang).toBeUndefined();
+              });
+            });
+          });
+
+          describe('but current locale is not one of the configured locales to translate', () => {
+            const $i18n = { locale: 'fr' };
+
+            it('is undefined', () => {
+              const wrapper = factory({ mocks: { $config, $i18n } });
+
+              const translateLang = wrapper.vm.apiOptions.translateLang;
+
+              expect(translateLang).toBeUndefined();
+            });
+          });
+        });
+
+        describe('when locales to translate are not configured', () => {
+          const $config = { app: { search: { translateLocales: [] } } };
+
+          it('is undefined', () => {
+            const wrapper = factory({ mocks: { $config } });
+
+            const translateLang = wrapper.vm.apiOptions.translateLang;
+
+            expect(translateLang).toBeUndefined();
+          });
+        });
+      });
+    });
+
     describe('advancedSearchQueryCount', () => {
       describe('when there is no advanced search query', () => {
         const route = { query: {} };

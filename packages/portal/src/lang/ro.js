@@ -5,7 +5,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Log in / Join",
+    "linkLoginJoin": "Autentificare / Înregistrare",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -787,6 +787,7 @@ export default {
       "help": "Help",
       "home": "Pagină natală",
       "pro": "Pentru profesioniști",
+      "shareYourData": "Împărtășiți-vă datele",
       "stories": "Narațiuni"
     },
     "quickSearch": "Căutare rapidă",
