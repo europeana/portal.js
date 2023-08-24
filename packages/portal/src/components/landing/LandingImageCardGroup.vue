@@ -95,26 +95,52 @@
     <LandingImageCardGroup
       title="This is a title for an image card group"
       text="A __description__ what this section is all about"
-      :image-cards="[ {
+      :image-cards="[{
         __typename: 'ImageCard',
-        name: 'Usage statistics',
-        text: 'Europeana’s usage statistics reports tell you how your data is being accessed and reused on Europeana.eu, empowering you __to measure__ the positive __impact__ of sharing your collections.',
-      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/cjliScwekoFTMkuD4XGHI/7831ed1ea5942256bca70542e7db0739/noun-stats-5341287_1.svg',
-      contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
-    }, {
-      __typename: 'ImageCard',
-    name: 'Usage statistics',
-      text: 'Europeana’s usage statistics reports tell you how your data is being accessed and reused on Europeana.eu, empowering you __to measure__ the positive __impact__ of sharing your collections.',
-      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/cjliScwekoFTMkuD4XGHI/7831ed1ea5942256bca70542e7db0739/noun-stats-5341287_1.svg',
-      contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
-    },
-      {
+        name: 'Card title',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        image: {
+          name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
+          creator: null,
+          provider: 'Wellcome Collection',
+          license: 'http://creativecommons.org/licenses/by/4.0/',
+          url: 'http://data.europeana.eu/item/9200579/hxf3z8ek',
+          image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1l8m0GQ9crP6zvts5zWYos/0006db953cc9a8a08a064c141cd78777/feature_botanical-illustrations.jpg',
+          contentType: 'image/jpeg',
+          description: 'colour illustration of a bunch of colourful flowers in yellow, red, orange',
+          width: 830, height: 470 }
+        }
+      }, {
         __typename: 'ImageCard',
-        name: 'Usage statistics',
-        text: 'Europeana’s usage statistics reports tell you how your data is being accessed and reused on Europeana.eu, empowering you __to measure__ the positive __impact__ of sharing your collections.',
-        image: { url: 'https://images.ctfassets.net/i01duvb6kq77/cjliScwekoFTMkuD4XGHI/7831ed1ea5942256bca70542e7db0739/noun-stats-5341287_1.svg',
-        contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
-      } ]"
+        name: 'Card title',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        image: {
+          name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
+          creator: null,
+          provider: 'Wellcome Collection',
+          license: 'http://creativecommons.org/licenses/by/4.0/',
+          url: 'http://data.europeana.eu/item/9200579/hxf3z8ek',
+          image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1l8m0GQ9crP6zvts5zWYos/0006db953cc9a8a08a064c141cd78777/feature_botanical-illustrations.jpg',
+          contentType: 'image/jpeg',
+          description: 'colour illustration of a bunch of colourful flowers in yellow, red, orange',
+          width: 830, height: 470 }
+        }
+      }, {
+        __typename: 'ImageCard',
+        name: 'Card title',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        image: {
+          name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
+          creator: null,
+          provider: 'Wellcome Collection',
+          license: 'http://creativecommons.org/licenses/by/4.0/',
+          url: 'http://data.europeana.eu/item/9200579/hxf3z8ek',
+          image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1l8m0GQ9crP6zvts5zWYos/0006db953cc9a8a08a064c141cd78777/feature_botanical-illustrations.jpg',
+          contentType: 'image/jpeg',
+          description: 'colour illustration of a bunch of colourful flowers in yellow, red, orange',
+          width: 830, height: 470 }
+        }
+      }]"
     />
   ```
 </docs>
