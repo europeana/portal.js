@@ -787,6 +787,7 @@ export default {
       "help": "Pomoc",
       "home": "Domov",
       "pro": "Pre profesionálov",
+      "shareYourData": "Zdieľajte svoje dáta",
       "stories": "Príbehy"
     },
     "quickSearch": "Rýchle vyhľadávanie",

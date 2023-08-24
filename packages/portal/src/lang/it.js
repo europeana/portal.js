@@ -787,6 +787,7 @@ export default {
       "help": "Aiuto",
       "home": "Home",
       "pro": "Per professionisti",
+      "shareYourData": "Condividi i tuoi dati",
       "stories": "Storie"
     },
     "quickSearch": "Ricerca rapida",
