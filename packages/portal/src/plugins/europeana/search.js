@@ -98,7 +98,7 @@ export default (context) => ($axios, params, options = {}) => {
 
   const localParams = { ...params };
 
-  const defaultOptions = { addContentTierFilter: true, locale: context.i18n.locale };
+  const defaultOptions = { addContentTierFilter: true, locale: context?.i18n?.locale };
   const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;

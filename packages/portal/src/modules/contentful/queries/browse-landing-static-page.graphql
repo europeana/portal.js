@@ -151,13 +151,13 @@ query BrowseLandingStaticPage(
         total
         items {
           __typename
-          ... on IllustrationGroup {
+          ... on InfoCardGroup {
             name
             text
-            hasPartCollection(limit: 6) {
+            hasPartCollection(limit: 12) {
               items {
                 __typename
-                ... on Illustration {
+                ... on InfoCard {
                   name
                   text
                   image {
@@ -189,13 +189,13 @@ query BrowseLandingStaticPage(
             hasPartCollection(limit: 6) {
               items {
                 __typename
-                ... on IllustrationGroup {
+                ... on InfoCardGroup {
                   name
                   text
-                  hasPartCollection(limit: 6) {
+                  hasPartCollection(limit: 12) {
                     items {
                       __typename
-                      ... on Illustration {
+                      ... on InfoCard {
                         name
                         text
                         image {
