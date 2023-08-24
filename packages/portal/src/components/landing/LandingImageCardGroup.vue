@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="header pt-5 pb-5">
-      <b-container class="text-center">
-        <div class="header-content mx-auto">
+      <b-container>
+        <div class="header-content text-center mx-auto">
           <h2>
             {{ title }}
           </h2>
@@ -16,7 +16,7 @@
         </div>
       </b-container>
     </div>
-    <!-- <b-container class="text-center">
+    <b-container>
       <div
         v-if="imageCards.length"
       >
@@ -27,7 +27,7 @@
           :card="card"
         />
       </div>
-    </b-container> -->
+    </b-container>
   </div>
 </template>
 
@@ -38,7 +38,7 @@
   export default {
     name: 'LandingImageCardGroup',
     components: {
-      // LandingImageCard: () => import('@/components/landing/LandingImageCard')
+      LandingImageCard: () => import('@/components/landing/LandingImageCard')
     },
 
     props: {
