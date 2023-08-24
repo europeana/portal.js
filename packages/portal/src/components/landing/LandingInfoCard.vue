@@ -23,14 +23,14 @@
     <!-- eslint-disable vue/no-v-html -->
     <div
       class="text"
-      v-html="html(card.text)"
+      v-html="parseMarkdownHtml(card.text)"
     />
     <!-- eslint-enable vue/no-v-html -->
   </div>
 </template>
 
 <script>
-  import parseMarkdownMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingInfoCard',
@@ -39,7 +39,7 @@
       ImageOptimised: () => import('@/components/image/ImageOptimised')
     },
 
-    mixins: [parseMarkdownMixin],
+    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -51,52 +51,52 @@
       }
     }
   };
-  </script>
+</script>
 
 <style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/variables';
 
-.info-card {
-  max-width: 310px;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media (min-width: $bp-large) {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
-
-  @media (min-width: $bp-4k) {
-    max-width: calc(1.5 * 310px);
-    margin-left: 3rem;
-    margin-right: 3rem;
-  }
-  .image-wrapper {
-    height: 80px;
+  .info-card {
+    max-width: 310px;
+    margin-left: auto;
+    margin-right: auto;
 
     @media (min-width: $bp-large) {
-      height: 111px;
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: calc(1.5 * 310px);
+      margin-left: 3rem;
+      margin-right: 3rem;
+    }
+    .image-wrapper {
+      height: 80px;
+
+      @media (min-width: $bp-large) {
+        height: 111px;
+      }
+    }
+
+    .image {
+      max-height: 100%;
+      margin: auto auto 0 auto;
+    }
+
+    .title {
+      color: $mediumgrey;
+      font-family: $font-family-ubuntu;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .text {
+      font-weight: 500;
+      color: $mediumgrey;
+      margin-bottom: 2rem;
     }
   }
-
-  .image {
-    max-height: 100%;
-    margin: auto auto 0 auto;
-  }
-
-  .title {
-    color: $mediumgrey;
-    font-family: $font-family-ubuntu;
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-
-  .text {
-    font-weight: 500;
-    color: $mediumgrey;
-    margin-bottom: 2rem;
-  }
-}
 </style>
 
 <docs lang="md">

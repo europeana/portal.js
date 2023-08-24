@@ -24,7 +24,6 @@
 
 <script>
   import LandingHero from '@/components/landing/LandingHero';
-  import parseMarkdownMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingPage',
@@ -33,8 +32,6 @@
       LandingHero,
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
-
-    mixins: [parseMarkdownMixin],
 
     props: {
       headline: {

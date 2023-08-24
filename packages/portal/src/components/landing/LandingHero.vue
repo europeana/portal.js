@@ -7,10 +7,10 @@
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
           <h1
-            v-html="html(headline)"
+            v-html="parseMarkdownHtml(headline)"
           />
           <div
-            v-html="html(text)"
+            v-html="parseMarkdownHtml(text)"
           />
           <!-- eslint-enable vue/no-v-html -->
           <SmartLink
@@ -37,7 +37,7 @@
 <script>
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import SmartLink from '@/components/generic/SmartLink';
-  import parseMarkdownMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingHero',
@@ -47,7 +47,7 @@
       SmartLink
     },
 
-    mixins: [parseMarkdownMixin],
+    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**

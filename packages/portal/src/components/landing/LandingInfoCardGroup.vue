@@ -8,7 +8,7 @@
       <div
         v-if="text"
         class="mb-3"
-        v-html="html(text)"
+        v-html="parseMarkdownHtml(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
     </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import parseMarkdownMixin from '@/mixins/parseMarkdownHtml';
+  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingInfoCardGroup',
@@ -36,7 +36,7 @@
       LandingInfoCard: () => import('@/components/landing/LandingInfoCard')
     },
 
-    mixins: [parseMarkdownMixin],
+    mixins: [parseMarkdownHtmlMixin],
 
     props: {
       /**

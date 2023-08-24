@@ -2,7 +2,7 @@ import { marked } from 'marked';
 
 export default {
   methods: {
-    html(text) {
+    parseMarkdownHtml(text) {
       return text ? marked.parse(text) : text;
     }
   }
