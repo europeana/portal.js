@@ -89,7 +89,7 @@
                         </p>
                         <ItemPreviewCardGroup
                           id="item-search-results"
-                          :items="results"
+                          :items="items"
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
@@ -200,6 +200,8 @@
 
 <script>
   import merge from 'deepmerge';
+  import objectHash from 'object-hash';
+  import pick from 'lodash/pick.js';
 
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
@@ -256,7 +258,7 @@
       return {
         hits: null,
         lastAvailablePage: null,
-        results: [],
+        items: null,
         totalResults: null,
         paginationChanged: false,
         showAdvancedSearch: false
@@ -377,7 +379,7 @@
         return this.totalResults > 0;
       },
       noMoreResults() {
-        return this.hasAnyResults && this.results.length === 0;
+        return this.hasAnyResults && (this.items?.length === 0);
       },
       noResults() {
         return this.totalResults === 0 || !this.totalResults;
@@ -426,6 +428,12 @@
         }
 
         return this.$i18n.locale;
+      },
+      apiCriteriaObjectHash() {
+        return objectHash({
+          options: this.apiOptions,
+          params: this.apiParams
+        });
       }
     },
 
@@ -439,18 +447,54 @@
       '$route.query.page': 'handlePaginationChanged'
     },
 
+    mounted() {
+      // Store response on hydration after SSR
+      // TODO: not if there are errors?
+      if (this.items) {
+        sessionStorage.setItem(`europeana.search.${this.apiCriteriaObjectHash}`,
+                               JSON.stringify({
+                                 hits: this.hits,
+                                 items: this.items,
+                                 lastAvailablePage: this.lastAvailablePage,
+                                 totalResults: this.totalResults
+                               })
+        );
+      }
+    },
+
     destroyed() {
       this.$store.commit('search/setActive', false);
     },
 
     methods: {
       async runSearch() {
-        const response = await this.$apis.record.search(this.apiParams, this.apiOptions);
+        let response;
+
+        if (process.client) {
+          const stored = sessionStorage.getItem(`europeana.search.${this.apiCriteriaObjectHash}`);
+          if (stored) {
+            response = JSON.parse(stored);
+          }
+        }
+
+        if (!response) {
+          response = await this.$apis.record.search(this.apiParams, this.apiOptions);
+          response = pick(response, ['hits', 'lastAvailablePage', 'items', 'totalResults']);
+        }
 
         this.hits = response.hits;
         this.lastAvailablePage = response.lastAvailablePage;
-        this.results = response.items;
+        this.items = response.items;
         this.totalResults = response.totalResults;
+
+        if (process.client) {
+          // TODO: put this behind a feature toggle?
+          // TODO: delete when criteria change, e.g. with watcher? why? to prevent
+          //       over-loading the store? is that an issue though?
+          sessionStorage.setItem(`europeana.search.${this.apiCriteriaObjectHash}`,
+                                 JSON.stringify(response)
+          );
+        }
       },
 
       handlePaginationChanged() {
