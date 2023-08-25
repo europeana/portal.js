@@ -379,7 +379,7 @@
         return this.totalResults > 0;
       },
       noMoreResults() {
-        return this.hasAnyResults && (this.items?.length === 0);
+        return this.hasAnyResults && !this.items;
       },
       noResults() {
         return this.totalResults === 0 || !this.totalResults;

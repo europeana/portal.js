@@ -98,7 +98,7 @@ describe('components/search/SearchInterface', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.results).toEqual(searchResult.items);
+      expect(wrapper.vm.items).toEqual(searchResult.items);
     });
 
     it('handles search API errors, via $error', async() => {
@@ -326,7 +326,7 @@ describe('components/search/SearchInterface', () => {
           const wrapper = factory({
             data: {
               totalResults: 100,
-              results: [
+              items: [
                 {
                   europeanaId: '/123/abc',
                   dcTitle: { def: ['Record 123/abc'] },
