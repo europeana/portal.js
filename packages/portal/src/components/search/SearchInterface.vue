@@ -277,7 +277,7 @@
       this.deriveApiParams();
 
       try {
-        await this.logSearchInteraction('fetch results', this.runSearch);
+        await this.runSearch();
       } catch (error) {
         const paginationError = error.message.match(/It is not possible to paginate beyond the first (\d+)/);
         if (paginationError) {
@@ -456,46 +456,26 @@
 
       // NOTE: do not use computed properties here as they may change when the
       //       item is clicked
-      async onClickItem(identifier) {
+      onClickItem(identifier) {
         const rank = this.results.findIndex(item => item.id === identifier) + 1 +
           ((this.apiParams.page - 1) * this.apiParams.rows);
-        await this.logSearchInteraction('click result', { 'search_result_rank': rank });
+        this.recordSearchInteraction('click result', { 'search_result_rank': rank });
       },
 
-      // TODO: consider moving to a mixin, or the elastic-apm module?
-      async logSearchInteraction(name, labels, callback) {
-        if ((typeof labels === 'function') && !callback) {
-          callback = labels;
-          labels = {};
-        }
-
-        const transaction = this.$apm?.startTransaction(`Search - ${name}`, 'user-interaction');
-
-        const commonLabels = ['qf', 'query', 'reusability'].reduce((memo, param) => {
+      recordSearchInteraction(name, labels = {}) {
+        for (const param of ['qf', 'query', 'reusability']) {
           if (this.apiParams[param]) {
-            memo[`search_params_${param}`] = this.apiParams[param];
+            labels[`search_params_${param}`] = this.apiParams[param];
           }
-          return memo;
-        }, {});
-
-        if (typeof callback === 'function') {
-          await callback();
-        } else {
-          // wait a moment as otherwise the transaction is too fast and the APM
-          // agent appears to discard it
-          const delay = () => new Promise(resolve => {
-            setTimeout(resolve, 100);
-          });
-          await delay();
         }
+        labels['search_results_total'] = this.totalResults;
 
-        transaction?.addLabels({
-          ...commonLabels,
-          'search_results_total': this.totalResults,
-          ...labels
-        });
-
-        transaction?.end();
+        console.log('$apmTransaction before', this.$apmTransaction)
+        this.$apmTransaction = {
+          name: `Search - ${name}`,
+          labels
+        };
+        console.log('$apmTransaction after', this.$apmTransaction)
       },
 
       async runSearch() {
@@ -505,6 +485,8 @@
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
+
+        this.recordSearchInteraction('fetch results');
       },
 
       handlePaginationChanged() {
