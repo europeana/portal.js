@@ -14,7 +14,7 @@ const VueSessionId = {
     }
 
     const instanceProperty = `$${SESSION_ID}`;
-    if (!Vue.prototype.hasOwnProperty(instanceProperty)) {
+    if (!Object.prototype.hasOwnProperty.call(Vue.prototype, instanceProperty)) {
       Object.defineProperty(Vue.prototype, instanceProperty, {
         get() {
           return sessionStorage.getItem(storageKey);

@@ -208,6 +208,7 @@
   import SearchFilters from './SearchFilters';
   import SearchViewToggles from './SearchViewToggles';
 
+  import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import makeToastMixin from '@/mixins/makeToast';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
 
@@ -228,6 +229,7 @@
     },
 
     mixins: [
+      elasticApmReporterMixin,
       makeToastMixin
     ],
 
@@ -470,12 +472,10 @@
         }
         labels['search_results_total'] = this.totalResults;
 
-        console.log('$apmTransaction before', this.$apmTransaction)
-        this.$apmTransaction = {
+        this.logApmTransaction({
           name: `Search - ${name}`,
           labels
-        };
-        console.log('$apmTransaction after', this.$apmTransaction)
+        });
       },
 
       async runSearch() {
