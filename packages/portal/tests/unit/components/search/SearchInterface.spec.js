@@ -152,17 +152,8 @@ describe('components/search/SearchInterface', () => {
     });
 
     it('logs the search interaction to APM', async() => {
-      const stubbedTransaction = {
-        addLabels: sinon.spy(),
-        end: sinon.spy()
-      };
-      const wrapper = factory({
-        mocks: {
-          $apm: {
-            startTransaction: sinon.stub().returns(stubbedTransaction)
-          }
-        }
-      });
+      const wrapper = factory();
+      sinon.spy(wrapper.vm, 'logApmTransaction');
       wrapper.vm.$route.query = {
         query: 'sponge',
         qf: ['TYPE:"IMAGE"'],
@@ -171,14 +162,15 @@ describe('components/search/SearchInterface', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$apm.startTransaction.calledWith('Search - fetch results', 'user-interaction')).toBe(true);
-      expect(stubbedTransaction.addLabels.calledWith({
-        'search_params_query': 'sponge',
-        'search_params_qf': ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'],
-        'search_params_reusability': 'open',
-        'search_results_total': 1
+      expect(wrapper.vm.logApmTransaction.calledWith({
+        name: 'Search - fetch results',
+        labels: {
+          'search_params_query': 'sponge',
+          'search_params_qf': ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+          'search_params_reusability': 'open',
+          'search_results_total': 1
+        }
       })).toBe(true);
-      expect(stubbedTransaction.end.called).toBe(true);
     });
   });
 
@@ -451,36 +443,28 @@ describe('components/search/SearchInterface', () => {
 
     describe('onClickItem', () => {
       it('logs the interaction to APM', async() => {
-        const stubbedTransaction = {
-          addLabels: sinon.spy(),
-          end: sinon.spy()
-        };
-        const wrapper = factory({
-          mocks: {
-            $apm: {
-              startTransaction: sinon.stub().returns(stubbedTransaction)
-            }
-          }
-        });
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, 'logApmTransaction');
         wrapper.vm.$route.query = {
           query: 'sponge',
           qf: ['TYPE:"IMAGE"'],
           reusability: 'open'
         };
         await wrapper.vm.$fetch();
-        stubbedTransaction.addLabels.resetHistory();
+        wrapper.vm.logApmTransaction.resetHistory();
 
         await wrapper.vm.onClickItem(searchResult.items[0].id);
 
-        expect(wrapper.vm.$apm.startTransaction.calledWith('Search - click result', 'user-interaction')).toBe(true);
-        expect(stubbedTransaction.addLabels.calledWith({
-          'search_params_query': 'sponge',
-          'search_params_qf': ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'],
-          'search_params_reusability': 'open',
-          'search_result_rank': 1,
-          'search_results_total': 1
+        expect(wrapper.vm.logApmTransaction.calledWith({
+          name: 'Search - click result',
+          labels: {
+            'search_params_query': 'sponge',
+            'search_params_qf': ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+            'search_params_reusability': 'open',
+            'search_result_rank': 1,
+            'search_results_total': 1
+          }
         })).toBe(true);
-        expect(stubbedTransaction.end.called).toBe(true);
       });
     });
 
