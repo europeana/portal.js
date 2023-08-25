@@ -18,6 +18,11 @@
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
+      <LandingSubSection
+        v-if="contentType(section, 'LandingSubSection')"
+        :title="section.name"
+        :text="section.text"
+      />
     </div>
   </div>
 </template>
@@ -30,7 +35,8 @@
 
     components: {
       LandingHero,
-      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
+      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
+      LandingSubSection: () => import('@/components/landing/LandingSubSection')
     },
 
     props: {
@@ -74,20 +80,6 @@
 
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
-    }
-
-    ::v-deep h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-medium;
-      font-weight: 500;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
-      }
     }
 
   }

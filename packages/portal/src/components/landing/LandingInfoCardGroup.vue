@@ -65,20 +65,34 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/variables';
 
-.container {
-  padding-top: 4rem;
-  padding-bottom: 3rem;
+  .container {
+    padding-top: 4rem;
+    padding-bottom: 3rem;
 
-  @media (min-width: $bp-large) {
-    padding-top: 4.5rem;
+    @media (min-width: $bp-large) {
+      padding-top: 4.5rem;
+    }
   }
-}
 
-.header {
-  max-width: $max-text-column-width;
-}
+  .header {
+    max-width: $max-text-column-width;
+
+    h2 {
+      font-family: $font-family-ubuntu;
+      font-size: $font-size-large;
+      font-weight: 500;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-xl;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl-4k;
+      }
+    }
+  }
 </style>
 
 <docs lang="md">
