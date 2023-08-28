@@ -12,6 +12,15 @@
       />
     <!-- eslint-enable vue/no-v-html -->
     </div>
+    <div
+      v-for="(section, index) in sections"
+      :key="index"
+    >
+      <LandingAutomatedCardGroup
+        v-if="contentType(section, 'AutomatedCardGroup')"
+        :genre="section.genre"
+      />
+    </div>
   </b-container>
 </template>
 
@@ -20,6 +29,10 @@
 
   export default {
     name: 'LandingSubSection',
+
+    components: {
+      LandingAutomatedCardGroup: () => import('@/components/landing/LandingAutomatedCardGroup')
+    },
 
     mixins: [parseMarkdownHtmlMixin],
 
@@ -37,6 +50,19 @@
       text: {
         type: String,
         default: null
+      },
+      /**
+       * List of sections
+       */
+      sections: {
+        type: Array,
+        default: () => []
+      }
+    },
+
+    methods: {
+      contentType(section, typeName) {
+        return section && (section['__typename'] === typeName);
       }
     }
   };
