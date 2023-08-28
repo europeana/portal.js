@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="landing-automated-card-group">
     <h3 class="title text-center">
       {{ title }}
     </h3>
@@ -12,14 +12,14 @@
         :key="index"
         :info="item.info"
         :label="item.label"
-        class="px-md-3"
+        class="px-1 px-md-3"
       />
     </div>
   </div>
 </template>
 
 <script>
-  import InfoCard from '../generic/InfoCard.vue';
+  import InfoCard from '@/components/generic/InfoCard';
 
   const EUROPEANA_NUMBERS = 'Europeana numbers';
 
@@ -107,17 +107,50 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  h3 {
+  .landing-automated-card-group {
+    padding-bottom: 0.5rem;
+
+    @media (min-width: $bp-medium) {
+      padding-bottom: 4rem;
+    }
+
+  }
+  .title {
     font-family: $font-family-ubuntu;
     font-size: $font-size-medium;
     font-weight: 500;
 
     @media (min-width: $bp-medium) {
-      font-size: $font-size-large;
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
     }
 
     @media (min-width: $bp-4k) {
-      font-size: $font-size-large-4k;
+      font-size: calc(1.5 * 1.75rem);
+    }
+  }
+
+  ::v-deep .info-card {
+    .card-title {
+      font-family: $font-family-ubuntu;
+      font-size: $font-size-large;
+      font-weight: 500;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-xl;
+        margin-bottom: 1rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl-4k;
+      }
+    }
+
+    .card-text {
+      font-size: $font-size-small;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: $mediumgrey;
     }
   }
 </style>
