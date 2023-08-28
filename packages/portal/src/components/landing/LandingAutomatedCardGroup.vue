@@ -33,7 +33,7 @@
     props: {
       genre: {
         type: String,
-        required: true
+        default: null
       }
     },
     data() {
@@ -44,7 +44,7 @@
       };
       if (this.genre === EUROPEANA_NUMBERS) {
         data.keys = ['matomo/visits', 'items/type-counts', 'collections/organisations/count'];
-        data.title = this.$i18n.t('landing.europeanaNumbers');
+        data.title = this.$t('landing.europeanaNumbers');
       }
       return data;
     },
@@ -98,7 +98,7 @@
         const numberLength = number.toString().length;
         // Number is always rounded down as a plus (+) is added to the count string.
         const floorRoundedNumber =  Math.floor(number / (10 ** (numberLength - precision))) * (10 ** (numberLength - precision));
-        return floorRoundedNumber.toPrecision(precision);
+        return floorRoundedNumber.toFixed();
       }
     }
   };
