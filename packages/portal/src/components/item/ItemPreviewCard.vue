@@ -19,7 +19,10 @@
       v-if="variant === 'list'"
       #footer
     >
-      <div class="data-and-buttons-wrapper d-flex">
+      <div
+        class="data-and-buttons-wrapper d-flex"
+        @click.stop=""
+      >
         <RightsStatement
           v-if="rights"
           :rights-statement-url="rights"
@@ -44,18 +47,22 @@
       v-else
       #image-overlay
     >
-      <RecommendationButtons
-        v-if="enableAcceptRecommendation || enableRejectRecommendation"
-        :identifier="identifier"
-        :enable-accept-button="enableAcceptRecommendation"
-        :enable-reject-button="enableRejectRecommendation"
-      />
-      <UserButtons
-        v-else
-        :identifier="identifier"
-        :show-pins="showPins"
-        :show-move="showMove"
-      />
+      <div
+        @click.stop=""
+      >
+        <RecommendationButtons
+          v-if="enableAcceptRecommendation || enableRejectRecommendation"
+          :identifier="identifier"
+          :enable-accept-button="enableAcceptRecommendation"
+          :enable-reject-button="enableRejectRecommendation"
+        />
+        <UserButtons
+          v-else
+          :identifier="identifier"
+          :show-pins="showPins"
+          :show-move="showMove"
+        />
+      </div>
     </template>
   </ContentCard>
 </template>
