@@ -31,9 +31,19 @@
     },
 
     props: {
+      /**
+       * Genre that identifies the type of data to be fetched and displayed
+       */
       genre: {
         type: String,
         default: null
+      },
+      /**
+       * List of static items to use in styleguide
+       */
+      staticItems: {
+        type: Array,
+        default: () => []
       }
     },
     data() {
@@ -77,6 +87,8 @@
             info: this.$i18n.n(this.roundedNumber(entry.count)) + ' +',
             label: this.$t(`landing.counts.${entry.label}`)
           }));
+        } else if (this.staticItems.length) {
+          items = this.staticItems;
         }
         return items || [];
       }
@@ -154,3 +166,11 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+    <LandingAutomatedCardGroup
+      :staticItems="[ { info: '16,000 +', label: 'Visits per day' }, { info: '57,000,000 +', label: 'Items' }, { info: '2,600 +', label: 'Providing institutions' } ]"
+    />
+  ```
+</docs>

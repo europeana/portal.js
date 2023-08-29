@@ -19,6 +19,7 @@
       <LandingAutomatedCardGroup
         v-if="contentType(section, 'AutomatedCardGroup')"
         :genre="section.genre"
+        :static-items="section.staticItems"
       />
     </div>
   </b-container>
@@ -113,6 +114,10 @@
     <LandingSubSection
       title="This is a title for a sub section"
       text="A __description__ what this section is all about"
+      :sections="[{
+        __typename: 'AutomatedCardGroup',
+        staticItems:[ { info: '16,000 +', label: 'Visits per day' }, { info: '57,000,000 +', label: 'Items' }, { info: '2,600 +', label: 'Providing institutions' } ]
+        }]"
     />
   ```
 </docs>

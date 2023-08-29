@@ -97,6 +97,7 @@ Object.assign(Vue.prototype, {
     return '/';
   },
   $route: { query: {} },
+  localePath: (args) => args,
   switchLocalePath: () => '/'
 });
 
