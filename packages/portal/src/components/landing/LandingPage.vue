@@ -18,6 +18,12 @@
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
+      <LandingImageCardGroup
+        v-if="contentType(section, 'ImageCardGroup')"
+        :title="section.name"
+        :text="section.text"
+        :image-cards="section.hasPartCollection && section.hasPartCollection.items"
+      />
       <LandingSubSection
         v-if="contentType(section, 'LandingSubSection')"
         :title="section.name"
@@ -37,6 +43,7 @@
     components: {
       LandingHero,
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
+      LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
       LandingSubSection: () => import('@/components/landing/LandingSubSection')
     },
 
@@ -82,6 +89,5 @@
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
     }
-
   }
 </style>
