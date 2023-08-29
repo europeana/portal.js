@@ -38,7 +38,7 @@
         cols="12"
         class="col-lg-8"
       >
-        <ImageWithAttribution
+        <ImageWithAttributionContainer
           v-if="heroImage"
           :src="heroImage.url"
           :content-type="heroImage.contentType"
@@ -58,7 +58,7 @@
     name: 'AuthoredHead',
 
     components: {
-      ImageWithAttribution: () => import('../../components/image/ImageWithAttribution')
+      ImageWithAttributionContainer: () => import('../../components/image/ImageWithAttributionContainer')
     },
 
     props: {
