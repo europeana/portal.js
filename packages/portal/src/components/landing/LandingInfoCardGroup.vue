@@ -10,7 +10,7 @@
       <!-- eslint-disable vue/no-v-html -->
       <div
         v-if="text"
-        class="mb-3"
+        class="text mb-3"
         v-html="parseMarkdownHtml(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
@@ -130,9 +130,14 @@
       }
     }
   }
+
+  .text {
+    color: $mediumgrey;
+  }
 </style>
 
 <docs lang="md">
+  Default variant
   ```jsx
     <LandingInfoCardGroup
       title="This is a title for an info card group"
@@ -141,20 +146,53 @@
         __typename: 'InfoCard',
         name: 'Usage statistics',
         text: 'Europeana’s usage statistics reports tell you how your data is being accessed and reused on Europeana.eu, empowering you __to measure__ the positive __impact__ of sharing your collections.',
-      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/cjliScwekoFTMkuD4XGHI/7831ed1ea5942256bca70542e7db0739/noun-stats-5341287_1.svg',
+      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
       contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
     }, {
       __typename: 'InfoCard',
     name: 'Usage statistics',
       text: 'Europeana’s usage statistics reports tell you how your data is being accessed and reused on Europeana.eu, empowering you __to measure__ the positive __impact__ of sharing your collections.',
-      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/cjliScwekoFTMkuD4XGHI/7831ed1ea5942256bca70542e7db0739/noun-stats-5341287_1.svg',
+      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
       contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
     },
       {
         __typename: 'InfoCard',
         name: 'Usage statistics',
         text: 'Europeana’s usage statistics reports tell you how your data is being accessed and reused on Europeana.eu, empowering you __to measure__ the positive __impact__ of sharing your collections.',
-        image: { url: 'https://images.ctfassets.net/i01duvb6kq77/cjliScwekoFTMkuD4XGHI/7831ed1ea5942256bca70542e7db0739/noun-stats-5341287_1.svg',
+        image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+        contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
+      } ]"
+    />
+  ```
+
+'logo' variant specific for share-your-data page
+  ```jsx
+    <LandingInfoCardGroup
+      title="This is a title for an info card group"
+      title-tag='h3'
+      text="A __description__ what this section is all about"
+      variant='logo'
+      :info-cards="[ {
+        __typename: 'InfoCard',
+        name: 'Provider',
+      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+      contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
+    }, {
+      __typename: 'InfoCard',
+    name: 'Provider',
+      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+      contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
+    },
+      {
+        __typename: 'InfoCard',
+        name: 'Provider',
+        image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+        contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
+      },
+      {
+        __typename: 'InfoCard',
+        name: 'Provider',
+        image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
         contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
       } ]"
     />
