@@ -7,7 +7,7 @@ and store it in sessionStorage.
 
 Install the package:
 ```sh
-npm install --save @europeana/vue-session-d
+npm install --save @europeana/vue-session-id
 ```
 
 ## Usage
