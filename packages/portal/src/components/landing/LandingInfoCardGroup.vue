@@ -1,9 +1,12 @@
 <template>
-  <b-container class="text-center">
+  <b-container
+    class="text-center"
+    :class="`${variant}-container`"
+  >
     <div class="header mx-auto pb-1">
-      <h2>
+      <component :is="titleTag">
         {{ title }}
-      </h2>
+      </component>
       <!-- eslint-disable vue/no-v-html -->
       <div
         v-if="text"
@@ -14,13 +17,14 @@
     </div>
     <div
       v-if="infoCards.length"
-      class="d-lg-inline-flex mx-auto"
+      class="d-lg-flex justify-content-center mx-auto"
+      :class="{'d-flex flex-wrap': variant === 'logo'}"
     >
       <LandingInfoCard
         v-for="(card, index) in infoCards"
         :key="index"
-        class="info-card"
         :card="card"
+        :variant="variant"
       />
     </div>
   </b-container>
@@ -40,9 +44,23 @@
 
     props: {
       /**
-       * H2 title to display above the info cards
+       * Heading title to display above the info cards
        */
       title: {
+        type: String,
+        default: null
+      },
+      /**
+       * Heading title level to use. Override default for when used in subsection to keep correct heading structure.
+       */
+      titleTag: {
+        type: String,
+        default: 'h2'
+      },
+      /**
+       * Variant for specific styles and layout
+       */
+      variant: {
         type: String,
         default: null
       },
@@ -74,6 +92,10 @@
     @media (min-width: $bp-large) {
       padding-top: 4.5rem;
     }
+
+    &.logo-container {
+      padding: 0;
+    }
   }
 
   .header {
@@ -90,6 +112,21 @@
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-xl-4k;
+      }
+    }
+
+    h3 {
+      font-family: $font-family-ubuntu;
+      font-size: $font-size-medium;
+      font-weight: 500;
+
+      @media (min-width: $bp-medium) {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 1.75rem);
       }
     }
   }

@@ -12,6 +12,19 @@
       />
     <!-- eslint-enable vue/no-v-html -->
     </div>
+    <div
+      v-for="(section, index) in sections"
+      :key="index"
+    >
+      <LandingInfoCardGroup
+        v-if="contentType(section, 'InfoCardGroup')"
+        :variant="LandingInfoCardGroupVariant"
+        :title="section.name"
+        title-tag="h3"
+        :text="section.text"
+        :info-cards="section.hasPartCollection && section.hasPartCollection.items"
+      />
+    </div>
   </b-container>
 </template>
 
@@ -20,6 +33,10 @@
 
   export default {
     name: 'LandingSubSection',
+
+    components: {
+      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
+    },
 
     mixins: [parseMarkdownHtmlMixin],
 
@@ -37,6 +54,25 @@
       text: {
         type: String,
         default: null
+      },
+      /**
+       * List of sections
+       */
+      sections: {
+        type: Array,
+        default: () => []
+      }
+    },
+
+    data() {
+      return {
+        LandingInfoCardGroupVariant: this.$route.params.pathMatch === 'share-your-data' ? 'logo' : null
+      };
+    },
+
+    methods: {
+      contentType(section, typeName) {
+        return section && (section['__typename'] === typeName);
       }
     }
   };

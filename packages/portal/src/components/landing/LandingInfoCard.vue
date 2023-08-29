@@ -1,10 +1,11 @@
 <template>
   <div
     class="info-card"
+    :class="variant"
   >
     <div
       v-if="card.image"
-      class="image-wrapper d-flex flex-end justify-content-center mb-2"
+      class="image-wrapper d-flex justify-content-center mb-2"
     >
       <ImageOptimised
         class="image"
@@ -17,11 +18,15 @@
         :lazy="true"
       />
     </div>
-    <h3 class="title mb-2">
+    <h3
+      v-if="card.name && showTitle"
+      class="title mb-2"
+    >
       {{ card.name }}
     </h3>
     <!-- eslint-disable vue/no-v-html -->
     <div
+      v-if="card.text"
       class="text"
       v-html="parseMarkdownHtml(card.text)"
     />
@@ -48,7 +53,17 @@
       card: {
         type: Object,
         default: null
+      },
+      variant: {
+        type: String,
+        default: null
       }
+    },
+
+    data() {
+      return {
+        showTitle: this.variant !== 'logo'
+      };
     }
   };
 </script>
@@ -95,6 +110,43 @@
       font-weight: 500;
       color: $mediumgrey;
       margin-bottom: 2rem;
+    }
+
+    &.logo {
+      flex-basis: calc(50% - 2rem);
+      margin: 0 1rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @media (min-width: $bp-small) {
+        flex-basis: calc(25% - 2rem);
+      }
+
+      @media (min-width: $bp-large) {
+        margin: 0 1.5rem 1rem;
+        flex-basis: 127px;
+
+      }
+
+      @media (min-width: $bp-4k) {
+        margin: 0 2rem 1rem;
+        flex-basis: calc(1.5 * 127px);
+      }
+
+      .image-wrapper {
+        height: auto;
+        width: 100%;
+        max-width: 127px;
+
+        @media (min-width: $bp-4k) {
+          max-width: calc(1.5 * 127px);
+        }
+
+        img {
+          width: 100%;
+        }
+      }
     }
   }
 </style>
