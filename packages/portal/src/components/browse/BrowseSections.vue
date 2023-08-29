@@ -35,7 +35,7 @@
         :right-image-width="imageCompareImage(section, 1) ? imageCompareImage(section, 1).width : null"
         :right-image-height="imageCompareImage(section, 1) ? imageCompareImage(section, 1).height : null"
       />
-      <ImageWithAttribution
+      <ImageWithAttributionContainer
         v-else-if="contentType(section, 'ImageWithAttribution')"
         :src="section.image ? section.image.url : null"
         :content-type="section.image ? section.image.contentType : null"
@@ -77,7 +77,7 @@
       ContentRichText: () => import('../content/ContentRichText'),
       EmbedHTML: () => import('../embed/EmbedHTML'),
       ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
-      ImageWithAttribution: () => import('../image/ImageWithAttribution')
+      ImageWithAttributionContainer: () => import('../image/ImageWithAttributionContainer')
     },
 
     props: {

@@ -106,7 +106,7 @@
         __typename: 'InfoCard',
         name: 'Usage statistics',
         text: 'Europeana’s usage statistics reports tell you how your data is being accessed and reused on Europeana.eu, empowering you __to measure__ the positive __impact__ of sharing your collections.',
-      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/cjliScwekoFTMkuD4XGHI/7831ed1ea5942256bca70542e7db0739/noun-stats-5341287_1.svg',
+      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/2JsdSYTl8sz2KIJS0q4rB6/8ea1e1971ca439293da20b63de3bf4b2/Group.svg',
       contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
     }"
     />
