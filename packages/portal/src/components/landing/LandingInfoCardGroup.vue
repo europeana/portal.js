@@ -77,6 +77,20 @@
 
   .header {
     max-width: $max-text-column-width;
+
+    h2 {
+      font-family: $font-family-ubuntu;
+      font-size: $font-size-large;
+      font-weight: 500;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-xl;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl-4k;
+      }
+    }
   }
 </style>
 
