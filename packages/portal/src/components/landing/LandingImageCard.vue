@@ -35,6 +35,17 @@
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
+  const SRCSET_PRESETS = {
+    small: { w: 545, h: 270, fit: 'fill' },
+    medium: { w: 510, h: 306, fit: 'fill' },
+    large: { w: 510, h: 306, fit: 'fill' },
+    xl: { w: 570, h: 342, fit: 'fill' },
+    xxl: { w: 612, h: 367, fit: 'fill' },
+    xxxl: { w: 612, h: 367, fit: 'fill' },
+    wqhd: { w: 612, h: 367, fit: 'fill' },
+    '4k': { w: 918, h: 551, fit: 'fill' }
+  };
+
   export default {
     name: 'LandingImageCard',
     components: {
@@ -73,17 +84,7 @@
 
     methods: {
       imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image,
-                                                             {
-                                                               small: { w: 545, h: 270, fit: 'fill' },
-                                                               medium: { w: 510, h: 306, fit: 'fill' },
-                                                               large: { w: 510, h: 306, fit: 'fill' },
-                                                               xl: { w: 570, h: 342, fit: 'fill' },
-                                                               xxl: { w: 612, h: 367, fit: 'fill' },
-                                                               xxxl: { w: 612, h: 367, fit: 'fill' },
-                                                               wqhd: { w: 612, h: 367, fit: 'fill' },
-                                                               '4k': { w: 918, h: 551, fit: 'fill' }
-                                                             });
+        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
       }
     }
   };
