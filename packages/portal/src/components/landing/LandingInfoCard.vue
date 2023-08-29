@@ -158,10 +158,12 @@
     <LandingInfoCard
       :card="{
         __typename: 'InfoCard',
-        name: 'Usage statistics',
-        text: 'Europeana’s usage statistics reports tell you how your data is being accessed and reused on Europeana.eu, empowering you __to measure__ the positive __impact__ of sharing your collections.',
-      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-      contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
+        name: 'Title for an info card',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image',
+        image: {
+          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+          contentType: 'image/svg+xml', description: '', width: 111, height: 111
+        }
     }"
     />
   ```

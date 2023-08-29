@@ -83,6 +83,20 @@
     @media (min-width: $bp-large) {
       margin-bottom: 4.625rem;
     }
+
+    h2 {
+      font-family: $font-family-ubuntu;
+      font-size: $font-size-large;
+      font-weight: 500;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-xl;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl-4k;
+      }
+    }
   }
 
   .header-content {
@@ -98,7 +112,7 @@
       :image-cards="[{
         __typename: 'ImageCard',
         name: 'Card title',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         image: {
           name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
           creator: null,
@@ -113,7 +127,7 @@
       }, {
         __typename: 'ImageCard',
         name: 'Card title',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         image: {
           name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
           creator: null,
@@ -128,7 +142,7 @@
       }, {
         __typename: 'ImageCard',
         name: 'Card title',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         image: {
           name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
           creator: null,
