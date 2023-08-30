@@ -49,7 +49,7 @@ const organisations = [
 describe('components/entity/EntityTable', () => {
   describe('fetch()', () => {
     beforeEach(() => {
-      $axiosGetStub.withArgs(middlewarePath).resolves({ data: collections });
+      $axiosGetStub.withArgs(middlewarePath).resolves({ data: { 'collections/organisations': collections } });
     });
 
     afterEach(() => {

@@ -180,11 +180,12 @@
         if (process.server) {
           return import('@/server-middleware/api/cache/index.js')
             .then(module => {
-              return module.cached(this.key, this.$config.redis);
+              return module.cached(this.key, this.$config.redis)
+                .then((response) => response[this.key]);
             });
         } else {
           return this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
-            .then((response) => response.data);
+            .then((response) => response.data[this.key]);
         }
       },
       async fetchContentfulData() {

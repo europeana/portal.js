@@ -151,7 +151,9 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
     describe('when section is cached', () => {
       const propsData = { sectionType: FEATURED_TOPICS };
       beforeEach(() => {
-        $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves({ data: entries.featuredTopics });
+        $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves(
+          { data: { 'en/collections/topics/featured': entries.featuredTopics } }
+        );
       });
       afterEach(() => {
         $axiosGetStub.reset();
