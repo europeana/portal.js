@@ -145,8 +145,6 @@
 
         img {
           width: 100%;
-          filter: grayscale(1);
-          opacity: 0.8
         }
       }
     }
