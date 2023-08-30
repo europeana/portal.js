@@ -27,9 +27,7 @@ describe('components/landing/LandingAutomatedCardGroup', () => {
     const propsData = { genre: EUROPEANA_NUMBERS };
     describe('when rendering on the client', () => {
       beforeEach(() => {
-        axiosGetStub.withArgs('/_api/cache/matomo/visits').resolves({ data: 2000 });
-        axiosGetStub.withArgs('/_api/cache/items/type-counts').resolves({ data: [{ count: 10000 }, { count: 25000000 }] });
-        axiosGetStub.withArgs('/_api/cache/collections/organisations/count').resolves({ data: 2000 });
+        axiosGetStub.withArgs('/_api/cache?id=matomo/visits&id=items/type-counts&id=collections/organisations/count').resolves({ data: 2000 });
       });
       afterEach(() => {
         axiosGetStub.reset();
@@ -37,7 +35,7 @@ describe('components/landing/LandingAutomatedCardGroup', () => {
       it('gets the data from the cache API endpoint', async() => {
         const wrapper = factory(propsData);
         await wrapper.vm.fetch();
-        expect(axiosGetStub.calledWith('/_api/cache/matomo/visits')).toBe(true);
+        expect(axiosGetStub.calledWith('/_api/cache?id=matomo/visits&id=items/type-counts&id=collections/organisations/count')).toBe(true);
       });
     });
   });

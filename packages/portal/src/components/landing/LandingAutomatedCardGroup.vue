@@ -94,7 +94,7 @@
       }
     },
     methods: {
-      async fetchCachedData() {
+      fetchCachedData() {
         if (process.server) {
           return import('@/server-middleware/api/cache/index.js')
             .then(module => {
@@ -102,14 +102,10 @@
                 .then((response) => response);
             });
         } else {
-          const data = {};
+          const queryIds = `?id=${this.keys.join('&id=')}`;
 
-          for (const key of this.keys) {
-            const response = await this.$axios.get(`/_api/cache/${key}`, { baseURL: window.location.origin });
-            data[key] = response.data[key];
-          }
-
-          return data;
+          return this.$axios.get(`/_api/cache${queryIds}`, { baseURL: window.location.origin })
+            .then((response) => response.data);
         }
       },
       roundedNumber(number) {
