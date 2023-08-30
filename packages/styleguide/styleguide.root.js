@@ -93,7 +93,6 @@ Object.assign(Vue.prototype, {
     to: route => route,
     href: () => null
   },
-  localePath: () => '/',
   $path: () => {
     return '/';
   },

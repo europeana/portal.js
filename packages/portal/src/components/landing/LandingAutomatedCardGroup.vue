@@ -152,24 +152,28 @@
   ::v-deep .info-card {
     .card-title {
       font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
+      font-size: $font-size-large !important;
       font-weight: 500;
+      line-height: 1.5 !important;
 
       @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
+        font-size: $font-size-xl !important;
       }
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
+        font-size: $font-size-xl-4k !important;
       }
     }
 
     .card-text {
-      font-size: $font-size-small;
-      font-weight: 600;
+      font-size: $font-size-small !important;
+      font-weight: 600 !important;
       text-transform: uppercase;
       color: $mediumgrey;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-small-4k !important;
+      }
     }
   }
 </style>

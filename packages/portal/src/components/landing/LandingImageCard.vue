@@ -4,7 +4,7 @@
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
-      class="image-wrapper mb-3 mb-lg-0"
+      class="image-wrapper mb-2 mb-lg-0"
     >
       <ImageWithAttribution
         class="image"
@@ -145,16 +145,17 @@
     }
 
     .title {
-      font-size: $font-size-base;
       font-family: $font-family-ubuntu;
-      font-weight: 700;
+      font-size: $font-size-medium;
+      font-weight: 500;
 
       @media (min-width: $bp-medium) {
-        font-size: $font-size-large;
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
       }
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-large-4k;
+        font-size: calc(1.5 * 1.75rem);
       }
     }
 

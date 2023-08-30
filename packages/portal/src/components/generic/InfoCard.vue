@@ -8,7 +8,7 @@
     <component
       :is="url ? 'SmartLink' : 'div'"
       :destination="url"
-      link-class="card-link"
+      :link-class="url ? 'card-link' : null"
     >
       <div
         v-if="image"

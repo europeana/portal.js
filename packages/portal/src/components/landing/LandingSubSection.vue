@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div class="header mx-auto">
+    <div class="header mx-auto text-center text-lg-left">
       <h2>
         {{ title }}
       </h2>
