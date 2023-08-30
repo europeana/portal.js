@@ -432,7 +432,6 @@
         // facets properties are updated correctly
         this.init();
       },
-      '$route.query.api': 'refetch',
       '$route.query.qa': 'refetch',
       '$route.query.qf': 'refetch',
       '$route.query.query': 'refetch',

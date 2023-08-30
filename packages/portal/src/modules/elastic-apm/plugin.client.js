@@ -10,9 +10,7 @@ export default ({ app, $config }, inject) => {
     return;
   }
 
-  Vue.use(ApmVuePlugin, {
-    config
-  });
+  Vue.use(ApmVuePlugin, { config });
 
   if (apm.isActive()) {
     routeHooks(app.router, apm, { localeCodes: app.i18n?.localeCodes });

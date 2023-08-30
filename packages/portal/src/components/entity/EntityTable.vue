@@ -104,7 +104,7 @@
     async fetch() {
       try {
         const response = await this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin });
-        let collections = response.data;
+        let collections = response.data[this.cacheKey];
         if (this.type === 'organisations') {
           collections = collections.map(this.organisationData);
         }
@@ -117,10 +117,13 @@
     fetchOnServer: false,
     computed: {
       apiEndpoint() {
+        return `/_api/cache/${this.cacheKey}`;
+      },
+      cacheKey() {
         // For organisations, get unlocalised labels, for both English and native.
         return this.type === 'organisations' ?
-          '/_api/cache/collections/organisations' :
-          `/_api/cache/${this.$i18n.locale}/collections/${this.type}`;
+          'collections/organisations' :
+          `${this.$i18n.locale}/collections/${this.type}`;
       }
     },
     methods: {
