@@ -60,20 +60,20 @@
     },
     async fetch() {
       if (this.genre === EUROPEANA_NUMBERS) {
+        const cachedData = await this.fetchCachedData();
         for (const key of this.keys) {
-          const cachedData = await this.fetchCachedData(key);
           const entry = {};
           if (key === 'matomo/visits') {
             entry.label = 'visits';
-            entry.count = cachedData;
+            entry.count = cachedData[key];
           }
           if (key === 'items/type-counts') {
             entry.label = 'items';
-            entry.count = cachedData.map(data => data.count).reduce((a, b) => a + b);
+            entry.count = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
           }
           if (key === 'collections/organisations/count') {
             entry.label = 'providingInstitutions';
-            entry.count = cachedData;
+            entry.count = cachedData[key];
           }
           this.entries.push(entry);
         }
@@ -94,20 +94,27 @@
       }
     },
     methods: {
-      fetchCachedData(key) {
+      async fetchCachedData() {
         if (process.server) {
           return import('@/server-middleware/api/cache/index.js')
             .then(module => {
-              return module.cached(key, this.$config.redis);
+              return module.cached(this.keys, this.$config.redis)
+                .then((response) => response);
             });
         } else {
-          return this.$axios.get(`/_api/cache/${key}`, { baseURL: window.location.origin })
-            .then((response) => response.data);
+          const data = {};
+
+          for (const key of this.keys) {
+            const response = await this.$axios.get(`/_api/cache/${key}`, { baseURL: window.location.origin });
+            data[key] = response.data[key];
+          }
+
+          return data;
         }
       },
       roundedNumber(number) {
         const precision = 2;
-        const numberLength = number.toString().length;
+        const numberLength = number?.toString().length;
         // Number is always rounded down as a plus (+) is added to the count string.
         const floorRoundedNumber =  Math.floor(number / (10 ** (numberLength - precision))) * (10 ** (numberLength - precision));
         return floorRoundedNumber.toFixed();
