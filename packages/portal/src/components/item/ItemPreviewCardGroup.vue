@@ -61,6 +61,8 @@
           :show-move="useDraggable"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
+          :on-aux-click-card="onAuxClickCard"
+          :on-click-card="onClickCard"
         />
       </template>
     </component>
@@ -114,6 +116,8 @@
         :show-move="useDraggable"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
+        :on-aux-click-card="onAuxClickCard"
+        :on-click-card="onClickCard"
       />
     </template>
   </component>
@@ -162,6 +166,14 @@
       enableRejectRecommendations: {
         type: Boolean,
         default: false
+      },
+      onClickCard: {
+        type: Function,
+        default: null
+      },
+      onAuxClickCard: {
+        type: Function,
+        default: null
       }
     },
 

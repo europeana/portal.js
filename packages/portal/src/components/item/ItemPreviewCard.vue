@@ -1,5 +1,6 @@
 <template>
   <ContentCard
+    ref="card"
     :title="dcTitle || item.dcDescriptionLangAware"
     :url="url"
     :image-url="imageUrl"
@@ -18,7 +19,10 @@
       v-if="variant === 'list'"
       #footer
     >
-      <div class="data-and-buttons-wrapper d-flex">
+      <div
+        class="data-and-buttons-wrapper d-flex"
+        @click.stop=""
+      >
         <RightsStatement
           v-if="rights"
           :rights-statement-url="rights"
@@ -43,18 +47,22 @@
       v-else
       #image-overlay
     >
-      <RecommendationButtons
-        v-if="enableAcceptRecommendation || enableRejectRecommendation"
-        :identifier="identifier"
-        :enable-accept-button="enableAcceptRecommendation"
-        :enable-reject-button="enableRejectRecommendation"
-      />
-      <UserButtons
-        v-else
-        :identifier="identifier"
-        :show-pins="showPins"
-        :show-move="showMove"
-      />
+      <div
+        @click.stop=""
+      >
+        <RecommendationButtons
+          v-if="enableAcceptRecommendation || enableRejectRecommendation"
+          :identifier="identifier"
+          :enable-accept-button="enableAcceptRecommendation"
+          :enable-reject-button="enableRejectRecommendation"
+        />
+        <UserButtons
+          v-else
+          :identifier="identifier"
+          :show-pins="showPins"
+          :show-move="showMove"
+        />
+      </div>
     </template>
   </ContentCard>
 </template>
@@ -140,6 +148,24 @@
       offset: {
         type: Number,
         default: null
+      },
+      /**
+       * Event listener to call when item receives `click` event
+       *
+       * Listener will receive item ID as argument
+       */
+      onClickCard: {
+        type: Function,
+        default: null
+      },
+      /**
+       * Event listener to call when item receives `auxclick` event
+       *
+       * Listener will receive item ID as argument
+       */
+      onAuxClickCard: {
+        type: Function,
+        default: null
       }
     },
 
@@ -202,6 +228,15 @@
 
       type() {
         return this.item.type;
+      }
+    },
+
+    mounted() {
+      if (this.onClickCard) {
+        this.$refs.card.$el.addEventListener('click', () => this.onClickCard(this.identifier));
+      }
+      if (this.onAuxClickCard) {
+        this.$refs.card.$el.addEventListener('auxclick', () => this.onAuxClickCard(this.identifier));
       }
     }
   };
