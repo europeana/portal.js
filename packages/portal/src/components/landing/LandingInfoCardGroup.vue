@@ -1,7 +1,6 @@
 <template>
   <b-container
     class="text-center"
-    :class="`${variant}-container`"
   >
     <div class="header mx-auto pb-1">
       <component :is="titleTag">
@@ -17,14 +16,12 @@
     </div>
     <div
       v-if="infoCards.length"
-      class="d-lg-flex justify-content-center mx-auto"
-      :class="{'d-flex flex-wrap': variant === 'logo'}"
+      class="cards-wrapper d-lg-flex justify-content-center mx-auto"
     >
       <LandingInfoCard
         v-for="(card, index) in infoCards"
         :key="index"
         :card="card"
-        :variant="variant"
       />
     </div>
   </b-container>
@@ -58,13 +55,6 @@
         default: 'h2'
       },
       /**
-       * Variant for specific styles and layout
-       */
-      variant: {
-        type: String,
-        default: null
-      },
-      /**
        * Text to display under title and above the info cards
        */
       text: {
@@ -91,10 +81,6 @@
 
     @media (min-width: $bp-large) {
       padding-top: 4.5rem;
-    }
-
-    &.logo-container {
-      padding: 0;
     }
   }
 
@@ -137,7 +123,6 @@
 </style>
 
 <docs lang="md">
-  Default variant
   ```jsx
     <LandingInfoCardGroup
       title="This is a title for an info card group"
@@ -163,47 +148,6 @@
         __typename: 'InfoCard',
         name: 'Title for an info card',
         text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        }
-      }]"
-    />
-  ```
-
-'logo' variant specific for share-your-data page
-  ```jsx
-    <LandingInfoCardGroup
-      title="This is a title for an info card group"
-      title-tag='h3'
-      text="A __description__ what this section is all about"
-      variant='logo'
-      :info-cards="[{
-        __typename: 'InfoCard',
-        name: 'Provider',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        }
-      }, {
-        __typename: 'InfoCard',
-        name: 'Provider',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        }
-      },
-      {
-        __typename: 'InfoCard',
-        name: 'Provider',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        }
-      },
-      {
-        __typename: 'InfoCard',
-        name: 'Provider',
         image: {
           url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
           contentType: 'image/svg+xml', description: '', width: 111, height: 111
