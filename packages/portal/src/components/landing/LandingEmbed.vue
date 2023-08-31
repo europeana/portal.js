@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="landing-embed">
     <div
       class="header responsive-backround-image"
       :style="imageCSSVars"
@@ -19,7 +19,10 @@
         </b-col>
       </b-container>
     </div>
-    <b-container>
+    <b-container
+      v-if="embed"
+      class="embed-container"
+    >
       <EmbedHTML
         :html="embed.embed"
       />
@@ -84,6 +87,9 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/responsive-background-image';
 
+  .landing-embed {
+    border-bottom: 1px solid $white;
+  }
   .header {
     color: $white;
     background-size: cover;
@@ -128,6 +134,15 @@
       @media (min-width: $bp-4k) {
         font-size: $font-size-xl-4k;
       }
+    }
+  }
+
+  .embed-container {
+    max-width: $max-text-column-width;
+
+    @media (min-width: $bp-medium) {
+      margin-top: -13rem;
+      position: relative;
     }
   }
 
