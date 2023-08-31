@@ -5,15 +5,17 @@ import InfoCard from '@/components/generic/InfoCard.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(InfoCard, {
+const card = {
+  url: { name: 'fakeURL' },
+  info: '12,000,000',
+  label: 'IMAGE',
+  image: 'ic-image',
+  variant: 'default'
+};
+
+const factory = (propsData = card) => shallowMount(InfoCard, {
   localVue,
-  propsData: {
-    url: { name: 'fakeURL' },
-    info: '12,000,000',
-    label: 'IMAGE',
-    image: 'ic-image',
-    variant: 'default'
-  }
+  propsData
 });
 
 describe('components/generic/InfoCard', () => {
@@ -44,7 +46,10 @@ describe('components/generic/InfoCard', () => {
   });
   describe('cardClass', () => {
     it('is based on the variant', async() => {
-      const wrapper = factory();
+      const wrapper = factory({
+        ...card,
+        url: null
+      });
 
       expect(wrapper.vm.cardClass).toBe('default-card');
     });

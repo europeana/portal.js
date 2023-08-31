@@ -93,7 +93,6 @@ Object.assign(Vue.prototype, {
     to: route => route,
     href: () => null
   },
-  localePath: () => '/',
   $path: () => {
     return '/';
   },
@@ -101,6 +100,7 @@ Object.assign(Vue.prototype, {
     params: {
       pathMatch: 'example-page'
     } },
+  localePath: (args) => args,
   switchLocalePath: () => '/'
 });
 
