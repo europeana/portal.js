@@ -1,10 +1,10 @@
 <template>
   <div
-    class="info-card"
+    class="info-card d-inline-flex flex-wrap flex-lg-nowrap"
   >
     <div
       v-if="card.image"
-      class="image-wrapper d-flex justify-content-center mb-2"
+      class="image-wrapper mx-auto"
     >
       <ImageOptimised
         class="image"
@@ -17,18 +17,20 @@
         :lazy="true"
       />
     </div>
-    <h3
-      class="title mb-2"
-    >
-      {{ card.name }}
-    </h3>
-    <!-- eslint-disable vue/no-v-html -->
-    <div
-      v-if="card.text"
-      class="text"
-      v-html="parseMarkdownHtml(card.text)"
-    />
+    <div class="ml-lg-3">
+      <h3
+        class="title mb-2 text-center text-lg-left"
+      >
+        {{ card.name }}
+      </h3>
+      <!-- eslint-disable vue/no-v-html -->
+      <div
+        v-if="card.text"
+        class="text"
+        v-html="parseMarkdownHtml(card.text)"
+      />
     <!-- eslint-enable vue/no-v-html -->
+    </div>
   </div>
 </template>
 
@@ -60,31 +62,42 @@
   @import '@europeana/style/scss/variables';
 
   .info-card {
-    max-width: 310px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 2rem;
 
     @media (min-width: $bp-large) {
-      margin-left: 2rem;
-      margin-right: 2rem;
+      flex: 0 1 calc(50% - 2rem);
+      padding-bottom: 3rem;
     }
 
-    @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 310px);
-      margin-left: 3rem;
-      margin-right: 3rem;
+    @media (min-width: $bp-extralarge) {
+      flex: 0 1 50%;
+      padding: 0 2rem 3rem;
     }
+
+    @media (min-width: $bp-xxxl) {
+      flex: 0 1 50%;
+      padding: 0 4rem 3rem;
+    }
+
+    @media (min-width: $bp-wqhd) {
+      flex: 0 1 25%;
+    }
+
     .image-wrapper {
-      height: 80px;
+      flex: 0 0 100%;
+      max-width: 86px;
 
       @media (min-width: $bp-large) {
-        height: 111px;
+        flex: 0 0 86px;
       }
-    }
 
-    .image {
-      max-height: 100%;
-      margin: auto auto 0 auto;
+      @media (min-width: $bp-4k) {
+        flex: 0 0 calc(1.5 * 86px);
+      }
+
+      img {
+        width: 100%;
+      }
     }
 
     .title {
@@ -97,7 +110,6 @@
     .text {
       font-weight: 500;
       color: $mediumgrey;
-      margin-bottom: 2rem;
     }
   }
 </style>

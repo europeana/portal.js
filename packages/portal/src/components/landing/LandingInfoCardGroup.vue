@@ -1,8 +1,6 @@
 <template>
-  <b-container
-    class="text-center"
-  >
-    <div class="header mx-auto pb-1">
+  <b-container>
+    <div class="header mx-auto pb-5 text-center">
       <component :is="titleTag">
         {{ title }}
       </component>
@@ -16,7 +14,7 @@
     </div>
     <div
       v-if="infoCards.length"
-      class="cards-wrapper d-lg-flex justify-content-center mx-auto"
+      class="cards-wrapper d-lg-flex flex-wrap justify-content-between mx-auto"
     >
       <LandingInfoCard
         v-for="(card, index) in infoCards"
