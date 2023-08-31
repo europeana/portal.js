@@ -31,7 +31,7 @@
         :sections="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingEmbed
-        v-if="contentType(section, 'EmbedWithHeader')"
+        v-if="contentType(section, 'EmbedSection')"
         :title="section.name"
         :text="section.text"
         :background-image="section.image"

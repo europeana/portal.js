@@ -1,13 +1,13 @@
 module.exports = async function(migration) {
-  // Create embedWithHeader content type
+  // Create embedSection content type
 
-  const embedWithHeader = migration
-    .createContentType('embedWithHeader')
-    .name('Embed with header')
+  const embedSection = migration
+    .createContentType('embedSection')
+    .name('Embed section')
     .description('Section with a header (background image, title and text) and an embed')
     .displayField('name');
 
-  embedWithHeader
+  embedSection
     .createField('name')
     .name('Name')
     .type('Symbol')
@@ -21,7 +21,7 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
-  embedWithHeader
+  embedSection
     .createField('text')
     .name('Text')
     .type('Text')
@@ -31,11 +31,11 @@ module.exports = async function(migration) {
     .disabled(false)
     .omitted(false);
 
-  embedWithHeader.changeFieldControl('text', 'builtin', 'markdown', {
+  embedSection.changeFieldControl('text', 'builtin', 'markdown', {
     helpText: 'Text to accompany embed. Currently only used for the embed on Landing pages.'
   });
 
-  embedWithHeader
+  embedSection
     .createField('image')
     .name('Background image')
     .type('Link')
@@ -50,7 +50,7 @@ module.exports = async function(migration) {
     .omitted(false)
     .linkType('Entry');
 
-  embedWithHeader
+  embedSection
     .createField('embed')
     .name('Embed')
     .type('Link')
@@ -75,7 +75,7 @@ module.exports = async function(migration) {
 
       validations: [
         {
-          linkContentType: ['infoCardGroup', 'imageCardGroup', 'landingSubSection', 'embedWithHeader']
+          linkContentType: ['infoCardGroup', 'imageCardGroup', 'landingSubSection', 'embedSection']
         }
       ],
 

@@ -215,7 +215,7 @@ query BrowseLandingStaticPage(
               }
             }
           }
-          ... on EmbedWithHeader {
+          ... on EmbedSection {
             name
             text
             image {
