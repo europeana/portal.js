@@ -28,6 +28,7 @@
         v-if="contentType(section, 'LandingSubSection')"
         :title="section.name"
         :text="section.text"
+        :sections="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingEmbed
         v-if="contentType(section, 'EmbedWithHeader')"
