@@ -1,5 +1,8 @@
 <template>
-  <div class="landing-embed">
+  <div
+    :id="containerId"
+    class="landing-embed"
+  >
     <div
       class="header responsive-backround-image"
       :style="imageCSSVars"
@@ -31,6 +34,7 @@
 </template>
 
 <script>
+  import kebabCase from 'lodash/kebabCase';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import EmbedHTML from '@/components/embed/EmbedHTML';
 
@@ -71,6 +75,12 @@
         type: Object,
         default: null
       }
+    },
+
+    data() {
+      return {
+        containerId: kebabCase(this.title)
+      };
     },
 
     computed: {
