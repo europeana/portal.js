@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div class="header mx-auto">
+    <div class="header mx-auto text-center text-lg-left">
       <h2>
         {{ title }}
       </h2>
@@ -16,6 +16,11 @@
       v-for="(section, index) in sections"
       :key="index"
     >
+      <LandingAutomatedCardGroup
+        v-if="contentType(section, 'AutomatedCardGroup')"
+        :genre="section.genre"
+        :static-items="section.staticItems"
+      />
       <LandingInfoCardGroup
         v-if="contentType(section, 'InfoCardGroup')"
         :class="LandingInfoCardGroupClass"
@@ -35,6 +40,7 @@
     name: 'LandingSubSection',
 
     components: {
+      LandingAutomatedCardGroup: () => import('@/components/landing/LandingAutomatedCardGroup'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
 
@@ -92,6 +98,11 @@
 
   .header {
     max-width: $max-text-column-width;
+    padding-bottom: 1rem;
+
+    @media (min-width: $bp-medium) {
+      padding-bottom: 4rem;
+    }
 
     h2 {
       font-family: $font-family-ubuntu;
@@ -168,7 +179,8 @@
       title="This is a title for a sub section"
       text="A __description__ what this section is all about"
       :sections="[
-        { __typename: 'InfoCardGroup',
+        {
+          __typename: 'InfoCardGroup',
           name: 'This is a title for an info card group',
           text: 'A __description__ what this section is all about',
           hasPartCollection: { items:
@@ -198,6 +210,10 @@
               }
             } ]
           }
+        },
+        {
+          __typename: 'AutomatedCardGroup',
+          staticItems:[ { info: '16,000 +', label: 'Visits per day' }, { info: '57,000,000 +', label: 'Items' }, { info: '2,600 +', label: 'Providing institutions' } ]
         }
       ]"
     />
