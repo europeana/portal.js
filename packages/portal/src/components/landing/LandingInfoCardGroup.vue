@@ -1,6 +1,6 @@
 <template>
   <b-container class="text-center">
-    <div class="header mx-auto pb-1">
+    <b-col class="header col-lg-8 text-center mx-auto pb-1">
       <h2>
         {{ title }}
       </h2>
@@ -11,7 +11,7 @@
         v-html="parseMarkdownHtml(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
-    </div>
+    </b-col>
     <div
       v-if="infoCards.length"
       class="d-lg-inline-flex mx-auto"
@@ -76,7 +76,9 @@
   }
 
   .header {
-    max-width: $max-text-column-width;
+    @media (min-width: $bp-xxl) {
+      max-width: $max-text-column-width;
+    }
 
     h2 {
       font-family: $font-family-ubuntu;

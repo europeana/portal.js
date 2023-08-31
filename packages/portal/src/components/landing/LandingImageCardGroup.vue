@@ -2,7 +2,7 @@
   <div class="image-card-group">
     <div class="header pt-5 pb-5">
       <b-container>
-        <div class="header-content text-center mx-auto">
+        <b-col class="header-content col-lg-8 text-center mx-auto">
           <h2>
             {{ title }}
           </h2>
@@ -13,7 +13,7 @@
             v-html="parseMarkdownHtml(text)"
           />
         <!-- eslint-enable vue/no-v-html -->
-        </div>
+        </b-col>
       </b-container>
     </div>
     <b-container>
@@ -86,7 +86,9 @@
   }
 
   .header-content {
-    max-width: $max-text-column-width;
+    @media (min-width: $bp-xxl) {
+      max-width: $max-text-column-width;
+    }
   }
 </style>
 
