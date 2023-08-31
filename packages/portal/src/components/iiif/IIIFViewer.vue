@@ -25,6 +25,7 @@
   import { takeEvery } from 'redux-saga/effects';
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
+  import miradorMixin from '@europeana/mirador';
 
   export default {
     name: 'IIIFViewer',
@@ -32,6 +33,10 @@
     components: {
       IIIFErrorMessage: () => import('./IIIFErrorMessage.vue')
     },
+
+    mixins: [
+      miradorMixin
+    ],
 
     props: {
       uri: {
@@ -61,10 +66,8 @@
         manifestAnnotationTextGranularities: [],
         imageToCanvasMap: {},
         memoisedImageToCanvasMap: false,
-        miradorViewer: null,
         showAnnotations: false,
         isMobileViewport: false,
-        isMiradorLoaded: process.client ? !!window.Mirador : false,
         miradorViewerPlugins: [
           { component: () => null, saga: this.watchMiradorSetCanvasSaga },
           { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
@@ -123,7 +126,7 @@
           },
           selectedTheme: 'europeana',
           themes: {
-            europeana: window.MiradorTheme
+            europeana: this.miradorTheme
           },
           osdConfig: {
             gestureSettingsMouse: {
@@ -182,7 +185,7 @@
 
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
-      this.initMirador();
+      this.loadMirador();
 
       // Catch image request failures as Mirador does not handle them
       // TODO: remove when Mirador implements better handling. Issue: https://github.com/ProjectMirador/mirador/issues/3775
@@ -198,20 +201,6 @@
     },
 
     methods: {
-      async loadMirador() {
-        const miradorModule = await import('@europeana/mirador');
-        window.Mirador = miradorModule.default;
-        window.MiradorTheme = miradorModule.theme;
-        this.isMiradorLoaded = true;
-      },
-
-      async initMirador() {
-        if (!this.isMiradorLoaded) {
-          await this.loadMirador();
-        }
-        this.miradorViewer = window.Mirador.viewer(this.miradorViewerOptions, this.miradorViewerPlugins);
-      },
-
       *watchMiradorSetCanvasSaga() {
         yield takeEvery('mirador/SET_CANVAS', this.watchMiradorSetCanvas);
       },
