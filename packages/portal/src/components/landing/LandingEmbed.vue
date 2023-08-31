@@ -100,6 +100,7 @@
   .landing-embed {
     border-bottom: 1px solid $white;
   }
+
   .header {
     color: $white;
     background-size: cover;
@@ -148,11 +149,15 @@
   }
 
   .embed-container {
-    max-width: $max-text-column-width;
-
     @media (min-width: $bp-medium) {
       margin-top: -13rem;
       position: relative;
+    }
+
+    ::v-deep iframe {
+      max-width: 920px;
+      width: 100%;
+      min-height: 1200px;
     }
   }
 
