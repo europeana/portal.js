@@ -1,7 +1,7 @@
+import * as redis from 'redis';
 import sinon from 'sinon';
 
 import serverMiddleware from '@/server-middleware/api/cache/index.js';
-import * as cacheUtils from '@/cachers/utils.js';
 
 const expressResStub = {
   set: sinon.stub(),
@@ -17,24 +17,28 @@ const cached = JSON.stringify([
 ]);
 const expressReq = { params: [id], query: {} };
 
-const redisClientStub = {
-  getAsync: sinon.stub().resolves(cached),
-  quitAsync: sinon.stub()
-};
+let redisClientStub;
 
 describe('server-middleware/api/cache/index', () => {
-  beforeEach(() => {
-    sinon.stub(cacheUtils, 'createRedisClient').returns(redisClientStub);
-  });
+  beforeAll(() => {
+    redisClientStub = {
+      connect: sinon.spy(),
+      on: sinon.spy(),
+      get: sinon.stub().resolves(cached),
+      set: sinon.spy(),
+      disconnect: sinon.spy()
+    };
 
-  afterEach(() => {
-    cacheUtils.createRedisClient.restore();
+    sinon.stub(redis, 'createClient').returns(redisClientStub);
+  });
+  afterAll(() => {
+    redis.createClient.restore();
   });
 
   it('fetches from the cache, with app namespace', async() => {
     await serverMiddleware(config)(expressReq, expressResStub);
 
-    expect(redisClientStub.getAsync.calledWith(`@europeana:portal.js:${id}`)).toBe(true);
+    expect(redisClientStub.get.calledWith(`@europeana:portal.js:${id}`)).toBe(true);
   });
 
   it('responds with JSON', async() => {
@@ -47,6 +51,6 @@ describe('server-middleware/api/cache/index', () => {
   it('quits the Redis connection', async() => {
     await serverMiddleware(config)(expressReq, expressResStub);
 
-    expect(redisClientStub.quitAsync.called).toBe(true);
+    expect(redisClientStub.disconnect.called).toBe(true);
   });
 });

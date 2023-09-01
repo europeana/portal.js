@@ -44,7 +44,7 @@ import jiraServiceDeskGalleries from './jira-service-desk/galleries.js';
 app.post('/jira-service-desk/galleries', (req, res) => jiraServiceDeskGalleries(runtimeConfig.jira)(req, res));
 
 import matomoPageHits from './matomo/page-hits.js';
-app.get('/matomo/page-hits', (req, res) => matomoPageHits(runtimeConfig.matomo)(req, res));
+app.get('/matomo/page-hits', (req, res) => matomoPageHits(runtimeConfig)(req, res));
 
 import version from './version.js';
 app.get('/version', version);
