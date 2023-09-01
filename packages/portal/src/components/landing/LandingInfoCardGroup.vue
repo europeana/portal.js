@@ -1,8 +1,6 @@
 <template>
-  <b-container
-    class="text-center"
-  >
-    <div class="header mx-auto pb-1">
+  <b-container class="text-center">
+    <b-col class="header col-lg-8 text-center mx-auto pb-1">
       <component :is="titleTag">
         {{ title }}
       </component>
@@ -13,7 +11,7 @@
         v-html="parseMarkdownHtml(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
-    </div>
+    </b-col>
     <div
       v-if="infoCards.length"
       class="cards-wrapper d-lg-flex justify-content-center mx-auto"
@@ -85,7 +83,9 @@
   }
 
   .header {
-    max-width: $max-text-column-width;
+    @media (min-width: $bp-xxl) {
+      max-width: $max-text-column-width;
+    }
 
     h2 {
       font-family: $font-family-ubuntu;
