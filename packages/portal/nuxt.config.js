@@ -28,9 +28,11 @@ const redisConfig = () => {
   };
 
   if (process.env.REDIS_TLS_CA) {
-    redisOptions.tls = true;
-    redisOptions.ca = [Buffer.from(process.env.REDIS_TLS_CA, 'base64')];
-    redisOptions.rejectUnauthorized = false;
+    redisOptions.socket = {
+      ca: [Buffer.from(process.env.REDIS_TLS_CA, 'base64')],
+      rejectUnauthorized: false,
+      tls: true
+    };
   }
 
   return redisOptions;
