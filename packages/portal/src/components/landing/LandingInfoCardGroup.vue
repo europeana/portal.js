@@ -1,6 +1,6 @@
 <template>
-  <b-container class="text-center">
-    <b-col class="header col-lg-8 text-center mx-auto pb-1">
+  <b-container>
+    <div class="header mx-auto pb-5 text-center">
       <component :is="titleTag">
         {{ title }}
       </component>
@@ -11,10 +11,10 @@
         v-html="parseMarkdownHtml(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
-    </b-col>
+    </div>
     <div
       v-if="infoCards.length"
-      class="cards-wrapper d-lg-flex justify-content-center mx-auto"
+      class="cards-wrapper d-lg-flex flex-wrap justify-content-between mx-auto"
     >
       <LandingInfoCard
         v-for="(card, index) in infoCards"
