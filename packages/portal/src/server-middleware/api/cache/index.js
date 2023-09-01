@@ -38,5 +38,5 @@ export default (config = {}) => (req, res) => {
       res.set('Content-Type', 'application/json');
       res.send(data);
     })
-    // .catch(error => errorHandler(res, error));
+    .catch(error => errorHandler(res, error));
 };
