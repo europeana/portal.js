@@ -21,6 +21,20 @@ const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
 };
 
+const redisConfig = () => {
+  const redisOptions = {
+    url: process.env.REDIS_URL
+  };
+
+  if (process.env.REDIS_TLS_CA) {
+    redisOptions.tls = {
+      ca: [Buffer.from(process.env.REDIS_TLS_CA, 'base64')]
+    };
+  }
+
+  return redisOptions;
+};
+
 export default {
   /*
   ** Runtime config
@@ -169,10 +183,7 @@ export default {
     matomo: {
       authToken: process.env.MATOMO_AUTH_TOKEN
     },
-    redis: {
-      url: process.env.REDIS_URL,
-      tlsCa: process.env.REDIS_TLS_CA
-    }
+    redis: redisConfig()
   },
 
   /*
