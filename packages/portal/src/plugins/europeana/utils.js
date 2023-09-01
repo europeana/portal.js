@@ -1,5 +1,5 @@
 import axios from 'axios';
-import kebabCase from 'lodash/kebabCase';
+import kebabCase from 'lodash/kebabCase.js';
 import qs from 'qs';
 
 import locales from '../i18n/locales.js';
