@@ -41,6 +41,15 @@
           >
             <div class="swiper-pagination" />
           </div>
+
+          <div class="d-flex justify-content-md-center align-items-center button-wrapper">
+            <client-only>
+              <StatsPageHits
+                :url="canonicalUrl"
+              />
+            </client-only>
+          </div>
+
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
               <ItemTranscribeButton
@@ -89,6 +98,7 @@
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
 
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
   const TRANSCRIBATHON_URL_ROOT = '^https?://europeana.transcribathon.eu/';
@@ -97,17 +107,19 @@
     components: {
       ClientOnly,
       DownloadWidget,
+      IIIFViewer: () => import('../iiif/IIIFViewer.vue'),
       ItemEmbedCode,
       ItemMediaSwiper,
+      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
       RightsStatementButton,
       ShareButton,
       ShareSocialModal,
-      UserButtons: () => import('../user/UserButtons'),
-      ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
-      IIIFViewer: () => import('../iiif/IIIFViewer.vue')
+      StatsPageHits: () => import('../stats/StatsPageHits.vue'),
+      UserButtons: () => import('../user/UserButtons')
     },
 
     mixins: [
+      canonicalUrlMixin,
       rightsStatementMixin
     ],
 

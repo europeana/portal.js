@@ -10,6 +10,7 @@ const APP_PKG_NAME = '@europeana/portal';
 
 import versions from './pkg-versions.js';
 
+import i18nCodes from './src/plugins/i18n/codes.js';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
@@ -167,7 +168,8 @@ export default {
       }
     },
     matomo: {
-      authToken: process.env.MATOMO_AUTH_TOKEN
+      authToken: process.env.MATOMO_AUTH_TOKEN,
+      langs: i18nCodes
     },
     redis: {
       url: process.env.REDIS_URL,
