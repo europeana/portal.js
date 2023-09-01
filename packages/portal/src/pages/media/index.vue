@@ -49,8 +49,10 @@
 
     computed: {
       manifest() {
-        return `${this.$config.europeana.apis.iiifPresentation.url}${this.id}/manifest?format=3`;
+        const recordEndpointParam = this.$config.europeana.apis.record.url ? '&recordApi=' + this.$config.europeana.apis.record.url.replace('/api/v2', '') : '';
+        return `${this.$config.europeana.apis.iiifPresentation.url}${this.id}/manifest?format=3${recordEndpointParam}`;
       },
+
       dashRequired() {
         return new WebResource({ ebucoreHasMimeType: this.mediaType }).requiresDashJS;
       }
