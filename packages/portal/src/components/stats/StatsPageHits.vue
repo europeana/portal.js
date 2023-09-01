@@ -1,9 +1,14 @@
 <template>
-  <b-badge
-    v-show="showBadge"
+  <transition
+    appear
+    name="fade"
   >
-    {{ hits }} hits
-  </b-badge>
+    <b-badge
+      v-show="showBadge"
+    >
+      {{ hits }} hits
+    </b-badge>
+  </transition>
 </template>
 
 <script>
@@ -49,3 +54,8 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/transitions';
+</style>
