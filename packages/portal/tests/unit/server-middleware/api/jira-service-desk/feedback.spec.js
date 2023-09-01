@@ -101,8 +101,8 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           expect(res.send.calledWith('Invalid feedback.')).toBe(true);
         });
 
-        it('truncates feedback to 50 characters in summary field', async() => {
-          const feedback = 'One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten.';
+        it('truncates feedback to 50 characters in summary field, removing newlines', async() => {
+          const feedback = 'One,\r\nTwo,\r\nThree,\r\nFour,\r\nFive,\r\nSix,\r\nSeven,\r\nEight,\r\nNine,\r\nTen.';
           const summary = 'One, Two, Three, Four, Five, Six, Seven, Eight, Ni…';
           const reqBody = {
             feedback
