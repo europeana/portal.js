@@ -83,7 +83,9 @@
   }
 
   .header {
-    max-width: $max-text-column-width;
+    @media (min-width: $bp-xxl) {
+      max-width: $max-text-column-width;
+    }
 
     h2 {
       font-family: $font-family-ubuntu;
