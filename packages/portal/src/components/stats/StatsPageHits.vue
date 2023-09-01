@@ -12,8 +12,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
-
   export default {
     name: 'StatsPageHits',
 
@@ -52,7 +50,7 @@
       });
       this.hits = response.data.hits;
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>

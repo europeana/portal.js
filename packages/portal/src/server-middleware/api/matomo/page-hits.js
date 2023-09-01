@@ -2,33 +2,17 @@ import axios from 'axios';
 import flatten from 'lodash/flatten.js';
 import http from 'http';
 import https from 'https';
+import { createClient } from 'redis';
 
 import { errorHandler } from '../index.js';
 
-let axiosInstance;
+const CACHE_KEY_PREFIX = '@europeana:matomo:page-hits';
 
-// TODO: error if config not present
-const pageHitsFromMatomo = async(pageUrl, config = {}) => {
-  if (!axiosInstance) {
-    axiosInstance = axios.create({
-      baseURL: config.host,
-      httpAgent: new http.Agent({ keepAlive: true }),
-      httpsAgent: new https.Agent({ keepAlive: true }),
-      method: 'get',
-      params: {
-        date: 'last30',
-        format: 'JSON',
-        idSite: config.siteId,
-        method: 'Actions.getPageUrl',
-        module: 'API',
-        period: 'day',
-        'token_auth': config.authToken
-      },
-      url: '/'
-    });
-  }
+let matomoAxiosInstance;
+let redisClient;
 
-  const matomoResponse = await axiosInstance.request({
+const pageHitsFromMatomo = async(pageUrl) => {
+  const matomoResponse = await matomoAxiosInstance.request({
     params: {
       pageUrl
     }
@@ -45,8 +29,7 @@ const pageHitsFromMatomo = async(pageUrl, config = {}) => {
 const sum = (vals) => vals.reduce((memo, val) => memo + (val || 0), 0);
 
 // TODO: limit to URLs at PORTAL_BASE_URL
-// TODO: cache for 24 hours
-export const pageHits = async(url, config = {}) => {
+const pageHits = async(url, langs) => {
   url = new URL(url);
 
   const urlPathWithoutLocale = url.pathname.slice(3);
@@ -60,17 +43,26 @@ export const pageHits = async(url, config = {}) => {
     canonicalUrl.pathname = urlPathWithoutLocale;
   }
 
-  const localisedUrls = (config.langs || []).map((lang) => {
-    const localisedUrl = new URL(canonicalUrl);
-    localisedUrl.pathname = `/${lang}${localisedUrl.pathname}`;
-    return localisedUrl;
-  });
+  let hits = await redisClient.get(`${CACHE_KEY_PREFIX}:${canonicalUrl}`);
 
-  const hitsPerLang = await Promise.all(
-    localisedUrls.map((localisedUrl) => pageHitsFromMatomo(localisedUrl.toString(), config))
-  );
+  if (hits === null) {
+    const localisedUrls = (langs || []).map((lang) => {
+      const localisedUrl = new URL(canonicalUrl);
+      localisedUrl.pathname = `/${lang}${localisedUrl.pathname}`;
+      return localisedUrl;
+    });
 
-  const hits = sum(hitsPerLang);
+    const hitsPerLang = await Promise.all(
+      localisedUrls.map((localisedUrl) => pageHitsFromMatomo(localisedUrl.toString()))
+    );
+
+    hits = sum(hitsPerLang);
+    await redisClient.set(`${CACHE_KEY_PREFIX}:${canonicalUrl}`, hits.toString(), {
+      EX: 60 * 60 * 24 // expire after 24 hours
+    });
+  } else {
+    hits = Number(hits);
+  }
 
   return {
     canonicalUrl,
@@ -79,11 +71,45 @@ export const pageHits = async(url, config = {}) => {
   };
 };
 
+// TODO: error if configs not present
 // TODO: don't respond to bots; or only w/ cached data? (based on user-agent)
-export default (config = {}) => (req, res) => {
-  const url = req.query.url;
+export default (config = {}) => {
+  if (!redisClient) {
+    redisClient = createClient(config.redis);
+    redisClient.on('error', console.error);
+  }
+  if (!matomoAxiosInstance) {
+    matomoAxiosInstance = axios.create({
+      baseURL: config.matomo.host,
+      httpAgent: new http.Agent({ keepAlive: true }),
+      httpsAgent: new https.Agent({ keepAlive: true }),
+      method: 'get',
+      params: {
+        date: 'last30',
+        format: 'JSON',
+        idSite: config.matomo.siteId,
+        method: 'Actions.getPageUrl',
+        module: 'API',
+        period: 'day',
+        'token_auth': config.matomo.authToken
+      },
+      url: '/'
+    });
+  }
 
-  return pageHits(url, config)
-    .then(data => res.json(data))
-    .catch(error => errorHandler(res, error));
+  return async(req, res) => {
+    const url = req.query.url;
+
+    try {
+      redisClient.connect();
+      const data = await pageHits(url, config.matomo.langs);
+      res.json(data);
+    } catch (error) {
+      errorHandler(res, error);
+    } finally {
+      if (redisClient.isOpen) {
+        redisClient.disconnect();
+      }
+    }
+  };
 };
