@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div class="header mx-auto text-center text-lg-left">
+    <div class="header text-center text-lg-left">
       <h2>
         {{ title }}
       </h2>
@@ -88,10 +88,11 @@
   @import '@europeana/style/scss/variables';
 
   .container {
-    padding-top: 4rem;
+    padding-top: 3.75rem;
     padding-bottom: 2rem;
 
     @media (min-width: $bp-medium) {
+      padding-top: 4rem;
       padding-bottom: 4rem;
     }
   }
@@ -108,9 +109,11 @@
       font-family: $font-family-ubuntu;
       font-size: $font-size-large;
       font-weight: 500;
+      margin-bottom: 0.5rem;
 
       @media (min-width: $bp-medium) {
         font-size: $font-size-xl;
+        margin-bottom: 1rem;
       }
 
       @media (min-width: $bp-4k) {

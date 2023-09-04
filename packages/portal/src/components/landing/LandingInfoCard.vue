@@ -62,11 +62,12 @@
   @import '@europeana/style/scss/variables';
 
   .info-card {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 
     @media (min-width: $bp-large) {
       flex: 0 1 calc(50% - 2rem);
       padding-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
     @media (min-width: $bp-extralarge) {

@@ -123,7 +123,7 @@
   @import '@europeana/style/scss/variables';
 
   .landing-automated-card-group {
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
 
     @media (min-width: $bp-medium) {
       padding-bottom: 4rem;
@@ -137,7 +137,7 @@
 
     @media (min-width: $bp-medium) {
       font-size: 1.75rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
 
     @media (min-width: $bp-4k) {

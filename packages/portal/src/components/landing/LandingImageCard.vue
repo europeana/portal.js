@@ -4,7 +4,7 @@
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
-      class="image-wrapper mb-2 mb-lg-0"
+      class="image-wrapper"
     >
       <ImageWithAttribution
         class="image"
@@ -19,7 +19,7 @@
       />
     </div>
     <div class="text-wrapper">
-      <h3 class="title mb-2">
+      <h3 class="title mb-2 mb-lg-3">
         {{ card.name }}
       </h3>
       <!-- eslint-disable vue/no-v-html -->
@@ -151,7 +151,6 @@
 
       @media (min-width: $bp-medium) {
         font-size: 1.75rem;
-        margin-bottom: 2rem;
       }
 
       @media (min-width: $bp-4k) {
