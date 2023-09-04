@@ -105,6 +105,10 @@
       padding-bottom: 4rem;
     }
 
+    @media (min-width: $bp-4k) {
+      max-width: calc(1.5 * 1250px);
+    }
+
     h2 {
       font-family: $font-family-ubuntu;
       font-size: $font-size-large;
