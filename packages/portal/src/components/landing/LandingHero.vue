@@ -1,6 +1,6 @@
 <template>
   <div class="landing-hero">
-    <b-container class="p-lg-0">
+    <b-container>
       <div
         class="hero-content-wrapper"
       >
@@ -112,7 +112,11 @@
   position: relative;
 
   .container {
-    max-width: 1250px;
+    @media (min-width: $bp-xxl) {
+      max-width: 1250px;
+      padding-left: 0;
+      padding-right: 0;
+    }
 
     @media (min-width: $bp-4k) {
       max-width: calc(1.5 * 1250px);
