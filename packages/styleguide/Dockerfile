@@ -25,6 +25,7 @@ COPY packages/styleguide/style* ./packages/styleguide/
 COPY packages/portal/*.js ./packages/portal/
 COPY packages/portal/docs ./packages/portal/docs
 COPY packages/portal/src ./packages/portal/src
+COPY packages/vue-session-id ./packages/vue-session-id
 
 RUN npm run build
 
