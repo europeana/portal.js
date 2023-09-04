@@ -15,6 +15,7 @@ COPY packages/portal/package.json ./packages/portal/
 COPY packages/style ./packages/style
 COPY packages/mirador ./packages/mirador
 COPY packages/styleguide/package.json ./packages/styleguide/
+COPY packages/vue-session-id ./packages/vue-session-id
 
 RUN npm ci -w packages/portal -w packages/styleguide
 
@@ -25,7 +26,6 @@ COPY packages/styleguide/style* ./packages/styleguide/
 COPY packages/portal/*.js ./packages/portal/
 COPY packages/portal/docs ./packages/portal/docs
 COPY packages/portal/src ./packages/portal/src
-COPY packages/vue-session-id ./packages/vue-session-id
 
 RUN npm run build
 
