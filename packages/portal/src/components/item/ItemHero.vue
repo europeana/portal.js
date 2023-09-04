@@ -5,7 +5,7 @@
       class="iiif-viewer-wrapper d-flex flex-column"
     >
       <slot name="item-language-selector" />
-      <client-only
+      <client-only>
         <IIIFViewer
           :uri="iiifPresentationManifest"
           :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"

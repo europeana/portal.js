@@ -195,7 +195,7 @@
     beforeDestroy() {
       // NOTE: very important to do this, as it cleans up all the
       //       mirador/react/material stuff from the DOM before moving on
-      this.miradorViewer.unmount();
+      this.miradorViewer?.unmount();
 
       window.removeEventListener('unhandledrejection', this.handleFailedManifestImage);
     },
@@ -240,7 +240,7 @@
 
       handleError(message, name = 'IIIFManifestError') {
         this.iiifError = true;
-        this.miradorViewer.unmount();
+        this.miradorViewer?.unmount();
         this.$apm?.captureError({
           name,
           message,
