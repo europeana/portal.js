@@ -1,6 +1,6 @@
 <template>
   <div class="landing-automated-card-group">
-    <b-col class="col-lg-8 text-center mx-auto">
+    <b-col class="col-lg-8 px-0 text-center mx-auto">
       <h3 class="title">
         {{ title }}
       </h3>

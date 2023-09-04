@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <b-col class="header col-lg-8 text-center mx-auto pb-4 pb-lg-5">
+    <b-col class="header col-lg-8 text-center mx-auto px-0 pb-4 pb-lg-5">
       <component :is="titleTag">
         {{ title }}
       </component>
@@ -79,6 +79,9 @@
 
     @media (min-width: $bp-large) {
       padding-top: 4.5rem;
+    }
+
+    @media (min-width: $bp-4k) {
       padding-bottom: 3rem;
     }
   }
@@ -122,6 +125,14 @@
 
   .text {
     color: $mediumgrey;
+  }
+
+  .cards-wrapper {
+    max-width: 1250px;
+
+    @media (min-width: $bp-4k) {
+      max-width: 1760px;
+    }
   }
 </style>
 

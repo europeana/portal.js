@@ -4,7 +4,7 @@
   >
     <div
       v-if="card.image"
-      class="image-wrapper mx-auto"
+      class="image-wrapper mx-auto mx-lg-0"
     >
       <ImageOptimised
         class="image"
@@ -17,7 +17,7 @@
         :lazy="true"
       />
     </div>
-    <div class="ml-lg-3">
+    <div class="text-wrapper ml-lg-3">
       <h3
         class="title mb-2 text-center text-lg-left"
       >
@@ -67,21 +67,16 @@
     @media (min-width: $bp-large) {
       flex: 0 1 calc(50% - 2rem);
       padding-bottom: 3rem;
-      margin-bottom: 2rem;
+      margin-bottom: 0;
     }
 
     @media (min-width: $bp-extralarge) {
       flex: 0 1 50%;
-      padding: 0 2rem 3rem;
+      padding: 0 2rem 2.5rem;
     }
 
     @media (min-width: $bp-xxxl) {
-      flex: 0 1 50%;
       padding: 0 4rem 3rem;
-    }
-
-    @media (min-width: $bp-wqhd) {
-      flex: 0 1 25%;
     }
 
     .image-wrapper {
@@ -94,11 +89,16 @@
 
       @media (min-width: $bp-4k) {
         flex: 0 0 calc(1.5 * 80px);
+        max-width: calc(1.5 * 80px);
       }
 
       img {
         width: 100%;
       }
+    }
+
+    .text-wrapper {
+      max-width: 650px;
     }
 
     .title {

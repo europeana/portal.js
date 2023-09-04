@@ -8,7 +8,7 @@
       :style="imageCSSVars"
     >
       <b-container>
-        <b-col class="header-content col-lg-8 text-center mx-auto">
+        <b-col class="header-content col-lg-8 px-0 text-center mx-auto">
           <h2>
             {{ title }}
           </h2>
