@@ -1,8 +1,10 @@
 <template>
   <div class="landing-automated-card-group">
-    <h3 class="title text-center">
-      {{ title }}
-    </h3>
+    <b-col class="col-lg-8 text-center mx-auto">
+      <h3 class="title">
+        {{ title }}
+      </h3>
+    </b-col>
     <div
       v-if="hasPartCollectionItems.length"
       class="d-flex flex-wrap justify-content-center"

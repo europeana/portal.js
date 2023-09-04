@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div class="header text-center text-lg-left">
+    <div class="header mx-auto text-center text-lg-left">
       <h2>
         {{ title }}
       </h2>
@@ -98,7 +98,7 @@
   }
 
   .header {
-    max-width: $max-text-column-width;
+    max-width: 1250px;
     padding-bottom: 1rem;
 
     @media (min-width: $bp-medium) {
@@ -110,6 +110,7 @@
       font-size: $font-size-large;
       font-weight: 500;
       margin-bottom: 0.5rem;
+      max-width: $max-text-column-width;
 
       @media (min-width: $bp-medium) {
         font-size: $font-size-xl;
@@ -124,6 +125,7 @@
 
   .text {
     color: $mediumgrey;
+    max-width: $max-text-column-width;
   }
 
   //style overrides for providing institutions section Share your data
