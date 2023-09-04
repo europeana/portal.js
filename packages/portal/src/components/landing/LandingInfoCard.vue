@@ -86,14 +86,14 @@
 
     .image-wrapper {
       flex: 0 0 100%;
-      max-width: 86px;
+      max-width: 80px;
 
       @media (min-width: $bp-large) {
-        flex: 0 0 86px;
+        flex: 0 0 80px;
       }
 
       @media (min-width: $bp-4k) {
-        flex: 0 0 calc(1.5 * 86px);
+        flex: 0 0 calc(1.5 * 80px);
       }
 
       img {
