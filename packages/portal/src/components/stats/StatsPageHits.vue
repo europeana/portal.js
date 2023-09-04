@@ -1,14 +1,27 @@
 <template>
-  <transition
-    appear
-    name="fade"
-  >
-    <b-badge
-      v-show="showBadge"
+  <div>
+    <transition
+      appear
+      name="fade"
     >
-      {{ hits }} hits
-    </b-badge>
-  </transition>
+      <b-badge
+        v-show="showBadge"
+        id="stats-page-hits-badge"
+        variant="secondary"
+        class="badge-pill"
+      >
+        <!-- TODO: i18n -->
+        {{ hits }} hits
+      </b-badge>
+    </transition>
+    <b-tooltip
+      target="stats-page-hits-badge"
+      placement="bottom"
+    >
+      <!-- TODO: i18n -->
+      The number of times this page was visited in the past 30 days, updated daily.
+    </b-tooltip>
+  </div>
 </template>
 
 <script>
