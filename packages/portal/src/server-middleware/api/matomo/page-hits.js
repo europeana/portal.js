@@ -28,6 +28,10 @@ const pageHitsFromMatomo = async(pageUrl) => {
 
 const sum = (vals) => vals.reduce((memo, val) => memo + (val || 0), 0);
 
+const cacheKey = (url) => {
+  return `${CACHE_KEY_PREFIX}:${url}`;
+};
+
 // TODO: limit to URLs at PORTAL_BASE_URL
 const pageHits = async(url, langs) => {
   url = new URL(url);
@@ -43,7 +47,7 @@ const pageHits = async(url, langs) => {
     canonicalUrl.pathname = urlPathWithoutLocale;
   }
 
-  let hits = await redisClient.get(`${CACHE_KEY_PREFIX}:${canonicalUrl}`);
+  let hits = await redisClient.get(cacheKey(canonicalUrl));
 
   if (hits === null) {
     const localisedUrls = (langs || []).map((lang) => {
@@ -57,7 +61,7 @@ const pageHits = async(url, langs) => {
     );
 
     hits = sum(hitsPerLang);
-    await redisClient.set(`${CACHE_KEY_PREFIX}:${canonicalUrl}`, hits.toString(), {
+    await redisClient.set(cacheKey(canonicalUrl), hits.toString(), {
       EX: 60 * 60 * 24 // expire after 24 hours
     });
   } else {
