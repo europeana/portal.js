@@ -25,7 +25,7 @@
   import { takeEvery } from 'redux-saga/effects';
   import uniq from 'lodash/uniq';
   import upperFirst from 'lodash/upperFirst';
-  import miradorMixin from '@europeana/mirador';
+  import miradorMixin from '@/mixins/mirador/index.js';
 
   export default {
     name: 'IIIFViewer',
