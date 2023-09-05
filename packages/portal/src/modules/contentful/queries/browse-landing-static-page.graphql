@@ -225,6 +225,17 @@ query BrowseLandingStaticPage(
               embed
             }
           }
+          ... on PrimaryCallToAction {
+            name
+            text
+            relatedLink {
+              url
+              text
+            }
+            image {
+              ...illustrationFields
+            }
+          }
         }
       }
     }

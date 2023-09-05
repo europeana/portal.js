@@ -37,6 +37,11 @@
         :background-image="section.image"
         :embed="section.embed"
       />
+      <LandingCallToAction
+        v-if="contentType(section, 'PrimaryCallToAction')"
+        :text="section.text"
+        :link="section.relatedLink"
+      />
     </div>
   </div>
 </template>
@@ -48,6 +53,7 @@
     name: 'LandingPage',
 
     components: {
+      LandingCallToAction: () => import('@/components/landing/LandingCallToAction'),
       LandingHero,
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
