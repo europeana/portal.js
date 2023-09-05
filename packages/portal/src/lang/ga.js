@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Míreanna",
+      "providingInstitutions": "Institiúidí soláthartha",
+      "visits": "Cuairteanna in aghaidh an lae"
+    },
+    "europeanaNumbers": "Europeana.eu sna huimhreacha"
+  },
   "layout": {
     "skipToMain": "Scipeáil chuig inneachar leathanaigh"
   },

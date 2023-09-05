@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Resurse culturale",
+      "providingInstitutions": "Instituții furnizoare",
+      "visits": "Vizite pe zi"
+    },
+    "europeanaNumbers": "Europeana.eu în cifre"
+  },
   "layout": {
     "skipToMain": "Treci la conținutul paginii"
   },

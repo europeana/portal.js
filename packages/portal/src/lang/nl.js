@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Objecten",
+      "providingInstitutions": "Deelnemende erfgoedorganisaties",
+      "visits": "Bezoeken per dag"
+    },
+    "europeanaNumbers": "Europeana.eu in cijfers"
+  },
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
   },
