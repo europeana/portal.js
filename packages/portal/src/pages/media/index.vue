@@ -49,8 +49,10 @@
 
     computed: {
       manifest() {
-        const recordEndpointParam = this.$config.europeana.apis.record.url ? '&recordApi=' + this.$config.europeana.apis.record.url.replace('/api/v2', '') : '';
-        return `${this.$config.europeana.apis.iiifPresentation.url}${this.id}/manifest?format=3${recordEndpointParam}`;
+        const manifestUrl = new URL(`/presentation/${this.id}/manifest`, this.$config.europeana.apis.iiifPresentation.url);
+        manifestUrl.searchParams.set('format', '3');
+        manifestUrl.searchParams.set('recordApi', new URL(this.$config.europeana.apis.record.url).origin);
+        return manifestUrl.toString();
       },
 
       dashRequired() {
