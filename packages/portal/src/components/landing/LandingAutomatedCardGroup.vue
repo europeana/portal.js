@@ -1,8 +1,10 @@
 <template>
   <div class="landing-automated-card-group">
-    <h3 class="title text-center">
-      {{ title }}
-    </h3>
+    <b-col class="col-lg-8 px-0 text-center mx-auto">
+      <h3 class="title">
+        {{ title }}
+      </h3>
+    </b-col>
     <div
       v-if="hasPartCollectionItems.length"
       class="d-flex flex-wrap justify-content-center"
@@ -123,7 +125,7 @@
   @import '@europeana/style/scss/variables';
 
   .landing-automated-card-group {
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
 
     @media (min-width: $bp-medium) {
       padding-bottom: 4rem;
@@ -137,7 +139,7 @@
 
     @media (min-width: $bp-medium) {
       font-size: 1.75rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
 
     @media (min-width: $bp-4k) {
