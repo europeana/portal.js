@@ -68,6 +68,7 @@
         memoisedImageToCanvasMap: false,
         showAnnotations: false,
         isMobileViewport: false,
+        miradorManifestUri: this.uri,
         miradorViewerPlugins: [
           { component: () => null, saga: this.watchMiradorSetCanvasSaga },
           { component: () => null, saga: this.watchMiradorReceiveAnnotationSaga }
@@ -78,66 +79,6 @@
     },
 
     computed: {
-      miradorViewerOptions() {
-        // Doc: https://github.com/ProjectMirador/mirador/blob/v3.3.0/src/config/settings.js
-        const options = {
-          id: 'viewer',
-          windows: [
-            {
-              manifestId: this.uri,
-              thumbnailNavigationPosition: 'off'
-            }
-          ],
-          window: {
-            allowClose: false,
-            allowFullscreen: true,
-            allowMaximize: false,
-            allowTopMenuButton: false,
-            allowWindowSideBar: false,
-            sideBarOpen: false,
-            panels: {
-              info: false,
-              attribution: false,
-              canvas: false,
-              annotations: true,
-              search: true
-            },
-            defaultSideBarPanel: this.searchQuery ? 'search' : 'annotations',
-            views: [
-              { key: 'single' },
-              { key: 'book' },
-              { key: 'gallery' }
-            ]
-          },
-          language: this.$i18n.locale,
-          workspace: {
-            showZoomControls: true,
-            type: 'mosaic'
-          },
-          workspaceControlPanel: {
-            enabled: false
-          },
-          annotations: {
-            filteredMotivations: ['transcribing', 'supplementing', 'oa:commenting', 'oa:tagging', 'sc:painting', 'commenting', 'tagging']
-          },
-          requests: {
-            preprocessors: [this.addAcceptHeaderToPresentationRequests],
-            postprocessors: [this.postprocessMiradorRequest]
-          },
-          selectedTheme: 'europeana',
-          themes: {
-            europeana: this.miradorTheme
-          },
-          osdConfig: {
-            gestureSettingsMouse: {
-              scrollToZoom: false
-            }
-          }
-        };
-
-        return options;
-      },
-
       iiifPresentationApiVersion() {
         return this.iiifPresentationApiVersionFromContext(this.manifest?.['@context']);
       },
@@ -183,9 +124,14 @@
       }
     },
 
+    created() {
+      this.miradorViewerOptions.requests.preprocessors = [this.addAcceptHeaderToPresentationRequests];
+      this.miradorViewerOptions.requests.postprocessors = [this.postprocessMiradorRequest];
+      this.miradorViewerOptions.window.defaultSideBarPanel = this.searchQuery ? 'search' : 'annotations';
+    },
+
     mounted() {
       this.isMobileViewport = window.innerWidth <= 576;
-      this.loadMirador();
 
       // Catch image request failures as Mirador does not handle them
       // TODO: remove when Mirador implements better handling. Issue: https://github.com/ProjectMirador/mirador/issues/3775
@@ -193,10 +139,6 @@
     },
 
     beforeDestroy() {
-      // NOTE: very important to do this, as it cleans up all the
-      //       mirador/react/material stuff from the DOM before moving on
-      this.miradorViewer?.unmount();
-
       window.removeEventListener('unhandledrejection', this.handleFailedManifestImage);
     },
 

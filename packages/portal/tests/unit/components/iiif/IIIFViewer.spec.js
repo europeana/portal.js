@@ -753,16 +753,6 @@ describe('components/iiif/IIIFViewer.vue', () => {
     });
   });
 
-  describe('beforeDestroy', () => {
-    it('unmounts the Mirador viewer instance', () => {
-      const wrapper = factory();
-
-      wrapper.vm.beforeDestroy();
-
-      expect(wrapper.vm.miradorViewer.unmount.called).toBe(true);
-    });
-  });
-
   describe('on unhandled rejection', () => {
     describe('when event is for a manifest image', () => {
       it('handles it as a manifest error', async() => {
