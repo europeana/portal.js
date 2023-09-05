@@ -1,4 +1,5 @@
 import axios from 'axios';
+import kebabCase from 'lodash/kebabCase.js';
 import qs from 'qs';
 
 import locales from '../i18n/locales.js';
@@ -155,7 +156,7 @@ function entityValue(value, locale) {
  */
 export function getLabelledSlug(id, name) {
   const numericId = id.toString().split('/').pop();
-  return numericId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
+  return numericId + (name ? `-${kebabCase(name)}` : '');
 }
 
 function languageKeys(locale) {

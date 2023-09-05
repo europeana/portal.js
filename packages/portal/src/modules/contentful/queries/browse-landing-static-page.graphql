@@ -215,6 +215,16 @@ query BrowseLandingStaticPage(
               }
             }
           }
+          ... on EmbedSection {
+            name
+            text
+            image {
+              ...imageWithAttributionFields
+            }
+            embed {
+              embed
+            }
+          }
         }
       }
     }

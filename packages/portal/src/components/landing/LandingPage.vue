@@ -28,6 +28,14 @@
         v-if="contentType(section, 'LandingSubSection')"
         :title="section.name"
         :text="section.text"
+        :sections="section.hasPartCollection && section.hasPartCollection.items"
+      />
+      <LandingEmbed
+        v-if="contentType(section, 'EmbedSection')"
+        :title="section.name"
+        :text="section.text"
+        :background-image="section.image"
+        :embed="section.embed"
       />
     </div>
   </div>
@@ -43,7 +51,8 @@
       LandingHero,
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
-      LandingSubSection: () => import('@/components/landing/LandingSubSection')
+      LandingSubSection: () => import('@/components/landing/LandingSubSection'),
+      LandingEmbed: () => import('@/components/landing/LandingEmbed')
     },
 
     props: {

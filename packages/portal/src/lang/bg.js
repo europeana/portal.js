@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "обекта",
+      "providingInstitutions": "Доставчици на данни",
+      "visits": "Посещения на ден"
+    },
+    "europeanaNumbers": "Europeana.eu в числа"
+  },
   "layout": {
     "skipToMain": "Напред към съдържанието на страницата"
   },

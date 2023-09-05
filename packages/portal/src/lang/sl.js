@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Enote",
+      "providingInstitutions": "Ponudniki podatkov",
+      "visits": "Obiski na dan"
+    },
+    "europeanaNumbers": "Europeana.eu v številkah"
+  },
   "layout": {
     "skipToMain": "Preskoči na vsebino strani"
   },

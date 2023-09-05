@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Položky",
+      "providingInstitutions": "Poskytující instituce",
+      "visits": "Návštěvy za den"
+    },
+    "europeanaNumbers": "Europeana.eu v číslech"
+  },
   "layout": {
     "skipToMain": "Přeskočit na obsah stránky"
   },

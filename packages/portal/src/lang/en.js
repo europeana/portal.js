@@ -916,6 +916,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "europeanaNumbers": "Europeana.eu in numbers",
+    "counts": {
+      "visits": "Visits per day",
+      "items": "Items",
+      "providingInstitutions": "Providing institutions"
+    }
+  },
   "layout": {
     "skipToMain": "Skip to page contents"
   },

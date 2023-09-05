@@ -69,6 +69,7 @@ module.exports = async() => {
           'Home',
           'Item',
           'Landing',
+          'Page',
           'Related',
           'Search',
           'Set',

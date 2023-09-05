@@ -8,11 +8,14 @@ const JSON_CONTENT_TYPE = 'application/json';
 
 const jiraData = (options, req) => {
   const { customFields } = options.serviceDesk.feedback;
+
+  const summary = truncate(req.body.feedback?.replace(/[\r\n]+/g, ' '), 50);
+
   const data = {
     serviceDeskId: options.serviceDesk.feedback.serviceDeskId,
     requestTypeId: options.serviceDesk.feedback.requestTypeId,
     requestFieldValues: {
-      summary: truncate(req.body.feedback, 50),
+      summary,
       description: req.body.feedback
     }
   };

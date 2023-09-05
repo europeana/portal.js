@@ -2,7 +2,7 @@
   <div class="image-card-group">
     <div class="header pt-5 pb-5">
       <b-container>
-        <div class="header-content text-center mx-auto">
+        <b-col class="header-content col-lg-8 text-center mx-auto">
           <h2>
             {{ title }}
           </h2>
@@ -13,7 +13,7 @@
             v-html="parseMarkdownHtml(text)"
           />
         <!-- eslint-enable vue/no-v-html -->
-        </div>
+        </b-col>
       </b-container>
     </div>
     <b-container>
@@ -83,10 +83,26 @@
     @media (min-width: $bp-large) {
       margin-bottom: 4.625rem;
     }
+
+    h2 {
+      font-family: $font-family-ubuntu;
+      font-size: $font-size-large;
+      font-weight: 500;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-xl;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl-4k;
+      }
+    }
   }
 
   .header-content {
-    max-width: $max-text-column-width;
+    @media (min-width: $bp-xxl) {
+      max-width: $max-text-column-width;
+    }
   }
 </style>
 
@@ -98,7 +114,7 @@
       :image-cards="[{
         __typename: 'ImageCard',
         name: 'Card title',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         image: {
           name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
           creator: null,
@@ -113,7 +129,7 @@
       }, {
         __typename: 'ImageCard',
         name: 'Card title',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         image: {
           name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
           creator: null,
@@ -128,7 +144,7 @@
       }, {
         __typename: 'ImageCard',
         name: 'Card title',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         image: {
           name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
           creator: null,

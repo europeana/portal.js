@@ -39,6 +39,17 @@
   import SmartLink from '@/components/generic/SmartLink';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
+  const SRCSET_PRESETS = {
+    small: { w: 576, h: 265, fit: 'fill' },
+    medium: { w: 768, h: 265, fit: 'fill' },
+    large: { w: 591, h: 600, fit: 'fill' },
+    xl: { w: 695, h: 580, fit: 'fill' },
+    xxl: { w: 815, h: 550, fit: 'fill' },
+    xxxl: { w: 1074, h: 550, fit: 'fill' },
+    wqhd: { w: 1432, h: 800, fit: 'fill' },
+    '4k': { w: 2148, h: 800, fit: 'fill' }
+  };
+
   export default {
     name: 'LandingHero',
 
@@ -85,17 +96,7 @@
       imageCSSVars() {
         return this.heroImage?.image &&
           this.$contentful.assets.responsiveBackgroundImageCSSVars(
-            this.heroImage.image,
-            {
-              small: { w: 576, h: 265, fit: 'fill' },
-              medium: { w: 768, h: 265, fit: 'fill' },
-              large: { w: 591, h: 600, fit: 'fill' },
-              xl: { w: 695, h: 580, fit: 'fill' },
-              xxl: { w: 815, h: 550, fit: 'fill' },
-              xxxl: { w: 1074, h: 550, fit: 'fill' },
-              wqhd: { w: 1432, h: 800, fit: 'fill' },
-              '4k': { w: 2148, h: 800, fit: 'fill' }
-            }
+            this.heroImage.image, SRCSET_PRESETS
           );
       }
     }

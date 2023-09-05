@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Digitālie objekti",
+      "providingInstitutions": "Piegādājošās iestādes",
+      "visits": "Apmeklējumi dienā"
+    },
+    "europeanaNumbers": "Europeana.eu skaitļos"
+  },
   "layout": {
     "skipToMain": "Pāriet uz lapas saturu"
   },

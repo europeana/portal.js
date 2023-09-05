@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Tárgyak",
+      "providingInstitutions": "Szolgáltató intézmény",
+      "visits": "Napi látogatások"
+    },
+    "europeanaNumbers": "Europeana.eu számokban"
+  },
   "layout": {
     "skipToMain": "Ugrás az oldal tartalmához"
   },

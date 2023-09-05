@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Esemed",
+      "providingInstitutions": "Pakkuja institutsioon",
+      "visits": "Külastused päevas"
+    },
+    "europeanaNumbers": "Europeana.eu numbrites"
+  },
   "layout": {
     "skipToMain": "Otse lehekülje sisule"
   },

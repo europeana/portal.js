@@ -14,6 +14,7 @@ COPY package*.json ./
 COPY packages/portal/package.json ./packages/portal/
 COPY packages/style ./packages/style
 COPY packages/styleguide/package.json ./packages/styleguide/
+COPY packages/vue-session-id ./packages/vue-session-id
 
 RUN npm ci -w packages/portal -w packages/styleguide
 

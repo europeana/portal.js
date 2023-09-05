@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Genstande",
+      "providingInstitutions": "Ejerinstitutioner",
+      "visits": "Besøg pr. dag"
+    },
+    "europeanaNumbers": "Europeana.eu i tal"
+  },
   "layout": {
     "skipToMain": "Spring til sideindhold"
   },

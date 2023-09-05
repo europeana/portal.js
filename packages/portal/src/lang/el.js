@@ -893,6 +893,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Τεκμήρια",
+      "providingInstitutions": "Φορείς προέλευσης",
+      "visits": "Επισκέψεις ανά ημέρα"
+    },
+    "europeanaNumbers": "Europeana.eu σε αριθμούς"
+  },
   "layout": {
     "skipToMain": "Μετάβαση στο περιεχόμενο της σελίδας"
   },
