@@ -14,63 +14,62 @@ const i18n = new VueI18n({
   locale: 'en'
 });
 
-const mockMiradorModule = {
-  default: {
-    viewer: sinon.stub().returns({
-      unmount: sinon.spy(),
-      store: {
-        dispatch: sinon.stub(),
-        getState: sinon.stub().returns({
-          windows: { '001': {} },
-          companionWindows: ['companionWindowId001']
-        }),
-        subscribe: sinon.stub()
-      }
-    }),
-    actions: {
-      fetchSearch: sinon.stub(),
-      setWindowThumbnailPosition: sinon.stub(),
-      updateWindow: sinon.stub()
+const mockMirador = {
+  viewer: sinon.stub().returns({
+    unmount: sinon.spy(),
+    store: {
+      dispatch: sinon.stub(),
+      getState: sinon.stub().returns({
+        windows: { '001': {} },
+        companionWindows: ['companionWindowId001']
+      }),
+      subscribe: sinon.stub()
     }
-  },
-  theme: {}
+  }),
+  actions: {
+    fetchSearch: sinon.stub(),
+    setWindowThumbnailPosition: sinon.stub(),
+    updateWindow: sinon.stub()
+  }
 };
 
-const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(IIIFViewer, {
-  localVue,
-  propsData: {
-    uri: 'http://example.org/iiif/manifest.json',
-    ...propsData
-  },
-  data() {
-    return {
-      isMiradorLoaded: true,
-      ...data
-    };
-  },
-  i18n,
-  mocks: {
-    $apis: {
-      record: {
-        mediaProxyUrl: (url, itemId) => `Proxy ${itemId} ${url}`
-      }
+const factory = ({ propsData = {}, data = {} } = {}) => {
+  const wrapper = shallowMountNuxt(IIIFViewer, {
+    localVue,
+    propsData: {
+      uri: 'http://example.org/iiif/manifest.json',
+      ...propsData
     },
-    $axios: axios,
-    $t: key => key
-  }
-});
+    data() {
+      return {
+        isMiradorLoaded: true,
+        ...data
+      };
+    },
+    i18n,
+    mocks: {
+      $apis: {
+        record: {
+          mediaProxyUrl: (url, itemId) => `Proxy ${itemId} ${url}`
+        }
+      },
+      $axios: axios,
+      $t: key => key
+    }
+  });
+  wrapper.vm.initMirador();
+  return wrapper;
+};
 
 describe('components/iiif/IIIFViewer.vue', () => {
   beforeAll(() => {
-    window.Mirador = mockMiradorModule.default;
-    window.MiradorTheme = mockMiradorModule.theme;
+    window.Mirador = mockMirador;
   });
 
   afterEach(sinon.restore);
 
   afterAll(() => {
     delete window.Mirador;
-    delete window.MiradorTheme;
   });
 
   describe('computed', () => {
@@ -747,8 +746,8 @@ describe('components/iiif/IIIFViewer.vue', () => {
           wrapper.vm.manifest.sequences = [{ canvases: [{}] }, { canvases: [{}] }];
           await wrapper.vm.$nextTick();
 
-          expect(wrapper.vm.miradorViewer.store.dispatch.calledWith(mockMiradorModule.default.actions.setWindowThumbnailPosition(wrapper.vm.miradorWindowId, 'far-right'))).toBe(true);
-          expect(wrapper.vm.miradorViewer.store.dispatch.calledWith(mockMiradorModule.default.actions.updateWindow(wrapper.vm.miradorWindowId, { allowTopMenuButton: true }))).toBe(true);
+          expect(wrapper.vm.miradorViewer.store.dispatch.calledWith(mockMirador.actions.setWindowThumbnailPosition(wrapper.vm.miradorWindowId, 'far-right'))).toBe(true);
+          expect(wrapper.vm.miradorViewer.store.dispatch.calledWith(mockMirador.actions.updateWindow(wrapper.vm.miradorWindowId, { allowTopMenuButton: true }))).toBe(true);
         });
       });
     });

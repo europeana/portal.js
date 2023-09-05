@@ -11,6 +11,10 @@ export default {
 
   methods: {
     async loadMirador() {
+      if (this.isMiradorLoaded) {
+        return;
+      }
+
       const script = document.createElement('script');
       script.src = 'https://cdn.jsdelivr.net/npm/mirador@3.3.0/dist/mirador.min.js';
       script.onload = this.initMirador;
