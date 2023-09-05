@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Obiekty cyfrowe",
+      "providingInstitutions": "Dostawcy danych",
+      "visits": "Odwiedziny dziennie"
+    },
+    "europeanaNumbers": "Europeana.eu w liczbach"
+  },
   "layout": {
     "skipToMain": "Przejdź do zawartości strony"
   },

@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Objekty",
+      "providingInstitutions": "Správcovské inštitúcie",
+      "visits": "Návštevy za deň"
+    },
+    "europeanaNumbers": "Europeana.eu v číslach"
+  },
   "layout": {
     "skipToMain": "Preskočiť na stránku s obsahom"
   },

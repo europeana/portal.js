@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Itens",
+      "providingInstitutions": "Instituições fornecedoras",
+      "visits": "Visitas por dia"
+    },
+    "europeanaNumbers": "Europeana.eu em números"
+  },
   "layout": {
     "skipToMain": "Ir para o conteúdo da página"
   },

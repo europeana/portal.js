@@ -893,6 +893,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Elementuak",
+      "providingInstitutions": "Erakunde hornitzailea",
+      "visits": "Eguneko bisitak"
+    },
+    "europeanaNumbers": "Europeana.eu zenbakitan"
+  },
   "layout": {
     "skipToMain": "Orrialdearen edukietara joan"
   },

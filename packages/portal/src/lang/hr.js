@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Predmeti",
+      "providingInstitutions": "Institucije",
+      "visits": "Posjete po danu"
+    },
+    "europeanaNumbers": "Europeana.eu u brojkama"
+  },
   "layout": {
     "skipToMain": "Prijeđite na sadržaj stranice"
   },

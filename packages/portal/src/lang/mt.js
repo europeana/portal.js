@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Oġġetti",
+      "providingInstitutions": "Istituzzjonijiet fornitriċi",
+      "visits": "Żjarat kuljum"
+    },
+    "europeanaNumbers": "Europeana.eu fin-numri"
+  },
   "layout": {
     "skipToMain": "Aqbeż għall-kontenut paġna"
   },

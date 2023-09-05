@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Objekt",
+      "providingInstitutions": "Tillhandahållande institutioner",
+      "visits": "Besök per dag"
+    },
+    "europeanaNumbers": "Europeana.eu i siffror"
+  },
   "layout": {
     "skipToMain": "Hoppa till sidans innehåll"
   },

@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Aineistot",
+      "providingInstitutions": "Aineiston tarjoajat",
+      "visits": "Käyntejä päivässä"
+    },
+    "europeanaNumbers": "Europeana.eu numeroina"
+  },
   "layout": {
     "skipToMain": "Siirry sivun sisältöön"
   },
