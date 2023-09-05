@@ -8,17 +8,18 @@ ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
 
 WORKDIR /app
 
-RUN mkdir -p packages/styleguide packages/portal
+RUN mkdir -p styleguide packages/portal
 
+COPY styleguide/package*.json ./styleguide/
 COPY package*.json ./
 COPY packages/portal/package.json ./packages/portal/
 COPY packages/style ./packages/style
-COPY packages/styleguide/package.json ./packages/styleguide/
 COPY packages/vue-session-id ./packages/vue-session-id
 
-RUN npm ci -w packages/portal -w packages/styleguide
+RUN npm ci -w packages/portal
+RUN npm --prefix ./styleguide ci ./styleguide
 
-COPY packages/styleguide/style* ./packages/styleguide/
+COPY styleguide/style* ./styleguide/
 
 # TODO: copy from pre-built portal image instead? e.g.
 # COPY --from=europeana/portal.js:master /app/packages/portal ./packages/portal
@@ -33,4 +34,4 @@ RUN npm run styleguide:build
 
 FROM nginx:stable-alpine
 
-COPY --from=build /app/packages/styleguide/dist /usr/share/nginx/html
+COPY --from=build /app/styleguide/dist /usr/share/nginx/html

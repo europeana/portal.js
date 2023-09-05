@@ -12,8 +12,10 @@
     "lint": "eslint --no-fix --ignore-path .gitignore packages",
     "start:inspect": "npm run -w packages/portal start:inspect",
     "start": "npm run -w packages/portal start",
-    "styleguide": "npm run -w packages/styleguide start",
-    "styleguide:build": "npm run -w packages/styleguide build",
+    "styleguide": "npm run --prefix styleguide start",
+    "styleguide:build": "npm run --prefix styleguide build",
+    "styleguide:ci": "npm run --prefix styleguide ci",
+    "styleguide:install": "npm run --prefix styleguide install",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.cjs",
     "test:e2e": "npm run test:e2e:init && npm run test:e2e:run",
     "test:e2e:init": "touch tests/e2e/docker/nightwatch/.env tests/e2e/docker/nightwatch-visual/.env",
@@ -34,7 +36,6 @@
     "@europeana/mirador": "link:./packages/mirador",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
-    "@europeana/styleguide": "link:./packages/styleguide",
     "@europeana/vue-session-id": "link:./packages/vue-session-id"
   },
   "devDependencies": {
