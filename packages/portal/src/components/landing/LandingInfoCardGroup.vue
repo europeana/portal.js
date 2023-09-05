@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div class="header mx-auto pb-5 text-center">
+    <b-col class="header col-lg-8 text-center mx-auto px-0 pb-4 pb-lg-5">
       <component :is="titleTag">
         {{ title }}
       </component>
@@ -11,7 +11,7 @@
         v-html="parseMarkdownHtml(text)"
       />
     <!-- eslint-enable vue/no-v-html -->
-    </div>
+    </b-col>
     <div
       v-if="infoCards.length"
       class="cards-wrapper d-lg-flex flex-wrap justify-content-between mx-auto"
@@ -74,11 +74,15 @@
   @import '@europeana/style/scss/variables';
 
   .container {
-    padding-top: 4rem;
-    padding-bottom: 3rem;
+    padding-top: 3.75rem;
+    padding-bottom: 2rem;
 
     @media (min-width: $bp-large) {
       padding-top: 4.5rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      padding-bottom: 3rem;
     }
   }
 
@@ -91,9 +95,11 @@
       font-family: $font-family-ubuntu;
       font-size: $font-size-large;
       font-weight: 500;
+      margin-bottom: 0.5rem;
 
       @media (min-width: $bp-medium) {
         font-size: $font-size-xl;
+        margin-bottom: 1rem;
       }
 
       @media (min-width: $bp-4k) {
@@ -108,7 +114,7 @@
 
       @media (min-width: $bp-medium) {
         font-size: 1.75rem;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
       }
 
       @media (min-width: $bp-4k) {
@@ -119,6 +125,14 @@
 
   .text {
     color: $mediumgrey;
+  }
+
+  .cards-wrapper {
+    max-width: 1250px;
+
+    @media (min-width: $bp-4k) {
+      max-width: 1760px;
+    }
   }
 </style>
 

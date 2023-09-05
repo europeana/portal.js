@@ -1,31 +1,12 @@
 import axios from 'axios';
-import redis from 'redis';
+import { createClient } from 'redis';
 import _pick from 'lodash/pick.js';
-import { promisify } from 'util';
 import { daily, langMapValueForLocale } from '../plugins/europeana/utils.js';
 
-const redisConfig = (config = {}) => {
-  const redisOptions = {
-    url: config.url
-  };
-
-  if (config.tlsCa) {
-    redisOptions.tls = {
-      ca: [Buffer.from(config.tlsCa, 'base64')]
-    };
-  }
-
-  return redisOptions;
-};
-
 const createRedisClient = (config = {}) => {
-  const redisClient = redis.createClient(redisConfig(config));
+  const redisClient = createClient(config);
 
   redisClient.on('error', console.error);
-
-  for (const fn of ['get', 'set', 'quit']) {
-    redisClient[`${fn}Async`] = promisify(redisClient[fn]).bind(redisClient);
-  }
 
   return redisClient;
 };

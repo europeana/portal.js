@@ -8,7 +8,7 @@
       :style="imageCSSVars"
     >
       <b-container>
-        <b-col class="header-content col-lg-8 text-center mx-auto">
+        <b-col class="header-content col-lg-8 px-0 text-center mx-auto">
           <h2>
             {{ title }}
           </h2>
@@ -137,9 +137,11 @@
       font-family: $font-family-ubuntu;
       font-size: $font-size-large;
       font-weight: 500;
+      margin-bottom: 0.5rem;
 
       @media (min-width: $bp-medium) {
         font-size: $font-size-xl;
+        margin-bottom: 1rem;
       }
 
       @media (min-width: $bp-4k) {

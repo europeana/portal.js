@@ -88,29 +88,37 @@
   @import '@europeana/style/scss/variables';
 
   .container {
-    padding-top: 4rem;
+    padding-top: 3.75rem;
     padding-bottom: 2rem;
 
     @media (min-width: $bp-medium) {
+      padding-top: 4rem;
       padding-bottom: 4rem;
     }
   }
 
   .header {
-    max-width: $max-text-column-width;
+    max-width: 1250px;
     padding-bottom: 1rem;
 
     @media (min-width: $bp-medium) {
       padding-bottom: 4rem;
     }
 
+    @media (min-width: $bp-4k) {
+      max-width: calc(1.5 * 1250px);
+    }
+
     h2 {
       font-family: $font-family-ubuntu;
       font-size: $font-size-large;
       font-weight: 500;
+      margin-bottom: 0.5rem;
+      max-width: $max-text-column-width;
 
       @media (min-width: $bp-medium) {
         font-size: $font-size-xl;
+        margin-bottom: 1rem;
       }
 
       @media (min-width: $bp-4k) {
@@ -121,6 +129,7 @@
 
   .text {
     color: $mediumgrey;
+    max-width: $max-text-column-width;
   }
 
   //style overrides for providing institutions section Share your data
