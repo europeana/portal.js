@@ -232,9 +232,6 @@ query BrowseLandingStaticPage(
               url
               text
             }
-            image {
-              ...illustrationFields
-            }
           }
         }
       }

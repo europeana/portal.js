@@ -14,9 +14,9 @@ describe('components/content/ContentPrimaryCallToAction', () => {
   it('shows text', async() => {
     const wrapper = factory();
 
-    const cta = wrapper.find('contentrichtext-stub');
+    const cta = wrapper.find('.primary-cta-rich-text');
 
-    expect(cta.vm.text).toBe('Call to action!');
+    expect(cta.text()).toBe('Call to action!');
   });
 
   it('shows the link with the text and no external link icon', async() => {

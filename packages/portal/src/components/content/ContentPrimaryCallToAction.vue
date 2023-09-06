@@ -2,8 +2,8 @@
   <div class="primary-cta text-center">
     <!-- eslint-disable vue/no-v-html -->
     <div
-      v-html="parseMarkdownHtml(text)"
       class="primary-cta-rich-text text-left"
+      v-html="parseMarkdownHtml(text)"
     />
     <!-- eslint-enable vue/no-v-html -->
     <SmartLink
