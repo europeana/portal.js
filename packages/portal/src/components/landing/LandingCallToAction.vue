@@ -10,14 +10,13 @@
 <script>
   import ContentPrimaryCallToAction from '@/components/content/ContentPrimaryCallToAction';
   export default {
-    name: 'LandingSubSection',
+    name: 'LandingCallToAction',
 
     components: {
       ContentPrimaryCallToAction
     },
 
     props: {
-
       /**
        * Text to display under title and above the info cards
        */
@@ -59,10 +58,3 @@
     }
   }
 </style>
-
-<docs lang="md">
-  ```jsx
-    <LandingCallToAction
-    />
-  ```
-</docs>
