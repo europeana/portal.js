@@ -49,7 +49,7 @@
 
     computed: {
       manifest() {
-        const manifestUrl = new URL(`/presentation/${this.id}/manifest`, this.$config.europeana.apis.iiifPresentation.url);
+        const manifestUrl = new URL(`/presentation${this.id}/manifest`, this.$config.europeana.apis.iiifPresentation.url);
         manifestUrl.searchParams.set('format', '3');
         manifestUrl.searchParams.set('recordApi', new URL(this.$config.europeana.apis.record.url).origin);
         return manifestUrl.toString();
