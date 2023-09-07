@@ -10,6 +10,7 @@
         :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
         :aria-label="$t('actions.viewDocument')"
         :item-id="identifier"
+        :provider-url="providerUrl"
       />
     </div>
     <ItemMediaSwiper

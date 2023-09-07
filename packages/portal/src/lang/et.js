@@ -251,6 +251,9 @@ export default {
       "description": "Ilmnes tundmatu viga.",
       "title": "Tundmatu viga"
     },
+    "IIIFManifestFailure": {
+      "description": "Kahjuks ei saa hetkel Europeana-le esitatud meediakandjaid kuvada. Palun proovige meediat alla laadida või vaadata objekti selle esitanud institutsiooni veebisaidil."
+    },
     "itemNotFound": {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
       "metaTitle": "Üksust ei leitud",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Otsid täisteksti valikut? See on nüüd edasijõudnute otsingus."
+      "fulltextHasMoved": {
+        "newspaper": "Kui soovite otsida ajalehtede tekstist, peate kasutama täpsemat otsingut ja valima välja \"täistekst\".",
+        "ww1": "Kui soovite otsida teksti esimese maailmasõja dokumentidest, peate kasutama täpsemat otsingut ja valima \"täistekst\" välja."
+      }
     },
     "button": {
       "morefilters": "Rohkem filtreid",
@@ -781,6 +787,7 @@ export default {
       "help": "Abimaterjal",
       "home": "Avaleht",
       "pro": "Professionaalidele",
+      "shareYourData": "Jaga oma andmeid",
       "stories": "Lood"
     },
     "quickSearch": "Kiire otsing",
@@ -881,6 +888,14 @@ export default {
         "title": "Otsingutulemite vaade (loend / ruudustik)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Esemed",
+      "providingInstitutions": "Pakkuja institutsioon",
+      "visits": "Külastused päevas"
+    },
+    "europeanaNumbers": "Europeana.eu numbrites"
   },
   "layout": {
     "skipToMain": "Otse lehekülje sisule"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Sarnased tooted",
     "status": {
       "unpublished": "[Avaldamata üksus]"
-    },
-    "transcription": "Transkriptsioon",
-    "transcriptionDisclaimer": "Sisu on avalikkuse panus, mitte üksuse pakkuja institutsioon."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} täpsem otsing",
       "tooltip": {
         "advancedSearch": "Täpsem otsing võimaldab teil luua kohandatud otsingu päringuid.",
-        "field": "Valige otsimiseks väli.",
+        "field": "Valige otsinguks täistekst või metaandmete väli.",
         "fields": {
           "fulltext": "Täistekst sisaldab transkriptsioone, suletud pealdisi, subtiitreid ja dokumendi teksti."
         },

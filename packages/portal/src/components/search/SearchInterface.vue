@@ -93,6 +93,8 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
+                          :on-aux-click-card="onClickItem"
+                          :on-click-card="onClickItem"
                           @drawn="handleResultsDrawn"
                         >
                           <slot />
@@ -206,8 +208,9 @@
   import SearchFilters from './SearchFilters';
   import SearchViewToggles from './SearchViewToggles';
 
+  import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import makeToastMixin from '@/mixins/makeToast';
-  import { filtersFromQf } from '@/plugins/europeana/search';
+  import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
 
   export default {
     name: 'SearchInterface',
@@ -226,10 +229,15 @@
     },
 
     mixins: [
+      elasticApmReporterMixin,
       makeToastMixin
     ],
 
     props: {
+      doNotTranslate: {
+        type: Boolean,
+        default: false
+      },
       perPage: {
         type: Number,
         default: 24
@@ -250,12 +258,13 @@
 
     data() {
       return {
+        apiParams: {},
         hits: null,
         lastAvailablePage: null,
-        results: [],
-        totalResults: null,
         paginationChanged: false,
-        showAdvancedSearch: false
+        results: [],
+        showAdvancedSearch: false,
+        totalResults: null
       };
     },
 
@@ -266,6 +275,8 @@
       this.setViewFromRouteQuery();
 
       this.$store.commit('search/setActive', true);
+
+      this.deriveApiParams();
 
       try {
         await this.runSearch();
@@ -304,41 +315,11 @@
           apiOptions.url = this.$config.europeana.apis.fulltext.url;
         }
 
-        return apiOptions;
-      },
-      // TODO: reduce cognitive complexity
-      apiParams() {
-        const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
-          if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
-            memo[field] = this[field];
-          }
-          return memo;
-        }, {});
-
-        params.page = this.page;
-        params.profile = 'minimal';
-        params.rows = this.perPage;
-
-        if (this.advancedSearchQueryCount > 0) {
-          if (this.hasFulltextQa) {
-            // If there are any advanced search full-text rules, then
-            // these are promoted to the primary query, and any other query
-            // (from the simple search bar) is demoted to a qf, fielded to
-            // `text` if not already fielded.
-            if (params.query && !params.query.includes(':')) {
-              params.query = `text:(${params.query})`;
-            }
-            params.qf = (params.qf || []).concat(params.query || []);
-            params.query = this.fulltextQas.join(' AND ');
-            params.profile = `${params.profile},hits`;
-          }
-
-          // All other advanced search rules go into qf's.
-          params.qf = (params.qf || [])
-            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)));
+        if (this.translateLang) {
+          apiOptions.translateLang = this.translateLang;
         }
 
-        return merge(params, this.overrideParams);
+        return apiOptions;
       },
       boost() {
         return this.userParams.boost;
@@ -404,6 +385,20 @@
       },
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
+      },
+      translateLang() {
+        // Translation disabled from prop `doNotTranslate`
+        if (this.doNotTranslate) {
+          return null;
+        }
+
+        // Either translate locale(s) not configured, or current locale is not
+        // among them.
+        if (!this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale)) {
+          return null;
+        }
+
+        return this.$i18n.locale;
       }
     },
 
@@ -422,13 +417,76 @@
     },
 
     methods: {
+      // NOTE: deliberately not computed, so that `apiParams` can be used by
+      //       `onClickItem`
+      // TODO: reduce cognitive complexity
+      deriveApiParams() {
+        const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
+          if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
+            memo[field] = this[field];
+          }
+          return memo;
+        }, {});
+
+        params.page = this.page;
+        params.profile = 'minimal';
+        params.rows = this.perPage;
+
+        if (this.advancedSearchQueryCount > 0) {
+          if (this.hasFulltextQa) {
+            // If there are any advanced search full-text rules, then
+            // these are promoted to the primary query, and any other query
+            // (from the simple search bar) is demoted to a qf, fielded to
+            // `text` if not already fielded.
+            if (params.query && !params.query.includes(':')) {
+              params.query = `text:(${params.query})`;
+            }
+            params.qf = (params.qf || []).concat(params.query || []);
+            params.query = this.fulltextQas.join(' AND ');
+            params.profile = `${params.profile},hits`;
+          }
+
+          // All other advanced search rules go into qf's.
+          params.qf = (params.qf || [])
+            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)));
+        }
+
+        params.qf = addContentTierFilter(params.qf);
+
+        this.apiParams = merge(params, this.overrideParams);
+      },
+
+      // NOTE: do not use computed properties here as they may change when the
+      //       item is clicked
+      onClickItem(identifier) {
+        const rank = this.results.findIndex(item => item.id === identifier) + 1 +
+          ((this.apiParams.page - 1) * this.apiParams.rows);
+        this.recordSearchInteraction('click result', { 'search_result_rank': rank });
+      },
+
+      recordSearchInteraction(name, labels = {}) {
+        for (const param of ['qf', 'query', 'reusability']) {
+          if (this.apiParams[param]) {
+            labels[`search_params_${param}`] = this.apiParams[param];
+          }
+        }
+        labels['search_results_total'] = this.totalResults;
+
+        this.logApmTransaction({
+          name: `Search - ${name}`,
+          labels
+        });
+      },
+
       async runSearch() {
-        const response = await this.$apis.record.search(this.apiParams, { ...this.apiOptions, locale: this.$i18n.locale });
+        const response = await this.$apis.record.search(this.apiParams, this.apiOptions);
 
         this.hits = response.hits;
         this.lastAvailablePage = response.lastAvailablePage;
         this.results = response.items;
         this.totalResults = response.totalResults;
+
+        this.recordSearchInteraction('fetch results');
       },
 
       handlePaginationChanged() {

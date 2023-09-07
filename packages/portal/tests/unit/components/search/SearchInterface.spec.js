@@ -15,7 +15,7 @@ const searchResult = {
   totalResults: 1,
   items: [
     {
-      europeanaId: '/123/abc',
+      id: '/123/abc',
       dcTitle: { def: ['Record 123/abc'] },
       edmPreview: 'https://www.example.org/abc.jpg',
       edmDataProvider: ['Provider 123']
@@ -34,6 +34,24 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     $route: { path: '/search', name: 'search', query: {} },
     $error: sinon.spy(),
     localise: (val) => val,
+    $apis: {
+      record: {
+        search: sinon.stub().resolves(searchResult)
+      }
+    },
+    $i18n: {
+      locale: 'en'
+    },
+    $config: {
+      europeana: {
+        apis: {
+          fulltext: {
+            url: 'https://newspapers.eanadev.org/api/v2'
+          }
+        }
+      },
+      ...mocks.$config
+    },
     ...mocks,
     $store: {
       commit: sinon.spy(),
@@ -48,23 +66,6 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
         },
         ...mocks.$store?.state
       }
-    },
-    $config: {
-      europeana: {
-        apis: {
-          fulltext: {
-            url: 'https://newspapers.eanadev.org/api/v2'
-          }
-        }
-      }
-    },
-    $apis: {
-      record: {
-        search: sinon.stub().resolves(searchResult)
-      }
-    },
-    $i18n: {
-      locale: 'en'
     }
   },
   propsData,
@@ -73,7 +74,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
 });
 
 describe('components/search/SearchInterface', () => {
-  beforeEach(() => sinon.resetHistory());
+  afterEach(() => sinon.resetHistory());
 
   describe('fetch', () => {
     it('activates the search in the store', async() => {
@@ -149,74 +150,85 @@ describe('components/search/SearchInterface', () => {
 
       expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
     });
+
+    it('logs the search interaction to APM', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm, 'logApmTransaction');
+      wrapper.vm.$route.query = {
+        query: 'sponge',
+        qf: ['TYPE:"IMAGE"'],
+        reusability: 'open'
+      };
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.logApmTransaction.calledWith({
+        name: 'Search - fetch results',
+        labels: {
+          'search_params_query': 'sponge',
+          'search_params_qf': ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+          'search_params_reusability': 'open',
+          'search_results_total': 1
+        }
+      })).toBe(true);
+    });
   });
 
   describe('computed', () => {
-    describe('apiParams', () => {
-      it('combines user params and overrides', () => {
-        const $route = {
-          query: {
-            page: 2,
-            query: 'calais',
-            qf: 'TYPE:"IMAGE"',
-            qa: [
-              'proxy_dc_title:dog'
-            ]
-          }
-        };
-        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
-        const expected = {
-          page: 2,
-          profile: 'minimal',
-          query: 'calais',
-          qf: [
-            'TYPE:"IMAGE"',
-            'proxy_dc_title:dog',
-            'edm_agent:"http://data.europeana.eu/agent/200"'
-          ],
-          rows: 24
-        };
+    describe('apiOptions', () => {
+      describe('translateLang', () => {
+        describe('when locales to translate are configured', () => {
+          const $config = { app: { search: { translateLocales: ['nl'] } } };
 
-        const wrapper = factory({
-          mocks: {
-            $route
-          },
-          propsData: {
-            overrideParams: {
-              qf: [overrideQf]
-            }
-          }
-        });
+          describe('and current locale is one of the configured locales to translate', () => {
+            const $i18n = { locale: 'nl' };
 
-        expect(wrapper.vm.apiParams).toEqual(expected);
-      });
+            describe('and doNotTranslate prop is not set (defaulting to false)', () => {
+              it('returns the current locale', () => {
+                const wrapper = factory({ mocks: { $config, $i18n } });
 
-      describe('with full-text advanced search rule', () => {
-        it('is promoted into query, with profile hits', () => {
-          const $route = {
-            query: {
-              query: 'liberty',
-              qa: [
-                'fulltext:europe',
-                'NOT fulltext:united'
-              ]
-            }
-          };
-          const expected = {
-            page: 1,
-            profile: 'minimal,hits',
-            query: 'fulltext:europe AND NOT fulltext:united',
-            qf: ['text:(liberty)'],
-            rows: 24
-          };
+                const translateLang = wrapper.vm.apiOptions.translateLang;
 
-          const wrapper = factory({
-            mocks: {
-              $route
-            }
+                expect(translateLang).toBe('nl');
+              });
+            });
+
+            describe('but doNotTranslate prop is set to `true`', () => {
+              const doNotTranslate = true;
+
+              it('is undefined', () => {
+                const wrapper = factory({ mocks: { $config, $i18n }, propsData: { doNotTranslate } });
+
+                const translateLang = wrapper.vm.apiOptions.translateLang;
+
+                expect(translateLang).toBeUndefined();
+              });
+            });
           });
 
-          expect(wrapper.vm.apiParams).toEqual(expected);
+          describe('but current locale is not one of the configured locales to translate', () => {
+            const $i18n = { locale: 'fr' };
+
+            it('is undefined', () => {
+              const wrapper = factory({ mocks: { $config, $i18n } });
+
+              const translateLang = wrapper.vm.apiOptions.translateLang;
+
+              expect(translateLang).toBeUndefined();
+            });
+          });
+        });
+
+        describe('when locales to translate are not configured', () => {
+          const $config = { app: { search: { translateLocales: [] } } };
+
+          it('is undefined', () => {
+            const wrapper = factory({ mocks: { $config } });
+
+            const translateLang = wrapper.vm.apiOptions.translateLang;
+
+            expect(translateLang).toBeUndefined();
+          });
         });
       });
     });
@@ -269,7 +281,7 @@ describe('components/search/SearchInterface', () => {
               totalResults: 100,
               results: [
                 {
-                  europeanaId: '/123/abc',
+                  id: '/123/abc',
                   dcTitle: { def: ['Record 123/abc'] },
                   edmPreview: 'https://www.example.org/abc.jpg',
                   edmDataProvider: ['Provider 123']
@@ -344,6 +356,78 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('methods', () => {
+    describe('deriveApiParams', () => {
+      it('combines user params and overrides', () => {
+        const $route = {
+          query: {
+            page: 2,
+            query: 'calais',
+            qf: 'TYPE:"IMAGE"',
+            qa: [
+              'proxy_dc_title:dog'
+            ]
+          }
+        };
+        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
+        const expected = {
+          page: 2,
+          profile: 'minimal',
+          query: 'calais',
+          qf: [
+            'TYPE:"IMAGE"',
+            'proxy_dc_title:dog',
+            'contentTier:(1 OR 2 OR 3 OR 4)',
+            'edm_agent:"http://data.europeana.eu/agent/200"'
+          ],
+          rows: 24
+        };
+
+        const wrapper = factory({
+          mocks: {
+            $route
+          },
+          propsData: {
+            overrideParams: {
+              qf: [overrideQf]
+            }
+          }
+        });
+        wrapper.vm.deriveApiParams();
+
+        expect(wrapper.vm.apiParams).toEqual(expected);
+      });
+
+      describe('with full-text advanced search rule', () => {
+        it('is promoted into query, with profile hits', () => {
+          const $route = {
+            query: {
+              query: 'liberty',
+              qa: [
+                'fulltext:europe',
+                'NOT fulltext:united'
+              ]
+            }
+          };
+          const expected = {
+            page: 1,
+            profile: 'minimal,hits',
+            query: 'fulltext:europe AND NOT fulltext:united',
+            qf: ['text:(liberty)', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+            rows: 24
+          };
+
+          const wrapper = factory({
+            mocks: {
+              $route
+            }
+          });
+          wrapper.vm.deriveApiParams();
+
+          expect(wrapper.vm.apiParams).toEqual(expected);
+        });
+      });
+    });
+
     describe('handlePaginationChanged', () => {
       it('is records pagination changed then triggers fetch', async() => {
         const wrapper = factory();
@@ -354,6 +438,33 @@ describe('components/search/SearchInterface', () => {
 
         expect(wrapper.vm.paginationChanged).toBe(true);
         expect(wrapper.vm.$fetch.called).toBe(true);
+      });
+    });
+
+    describe('onClickItem', () => {
+      it('logs the interaction to APM', async() => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, 'logApmTransaction');
+        wrapper.vm.$route.query = {
+          query: 'sponge',
+          qf: ['TYPE:"IMAGE"'],
+          reusability: 'open'
+        };
+        await wrapper.vm.$fetch();
+        wrapper.vm.logApmTransaction.resetHistory();
+
+        await wrapper.vm.onClickItem(searchResult.items[0].id);
+
+        expect(wrapper.vm.logApmTransaction.calledWith({
+          name: 'Search - click result',
+          labels: {
+            'search_params_query': 'sponge',
+            'search_params_qf': ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'],
+            'search_params_reusability': 'open',
+            'search_result_rank': 1,
+            'search_results_total': 1
+          }
+        })).toBe(true);
       });
     });
 

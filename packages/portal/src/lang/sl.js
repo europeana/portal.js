@@ -251,6 +251,9 @@ export default {
       "description": "Prišlo je do neznane napake.",
       "title": "Neznana napaka"
     },
+    "IIIFManifestFailure": {
+      "description": "Na žalost, enota medij, kot je bil zagotovljen Europeani, trenutno ni mogoče prikazati. Prosimo, poskusite prenesti medij ali si enota oglejte na spletni strani ponudnik podatkov."
+    },
     "itemNotFound": {
       "description": "Razlogi za to so lahko naslednji: ta enota ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite enota poiskati znova.",
       "metaTitle": "Enota ni bil najden",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Iščete možnost celotnega besedila? Premaknjena je v napredno iskanje."
+      "fulltextHasMoved": {
+        "newspaper": "Če želite iskati po besedilu časopisov, boste morali uporabiti napredno iskanje in izbrati polje \"polno besedilo\".",
+        "ww1": "Če želite iskati znotraj besedila dokumentov iz prve svetovne vojne, boste morali uporabiti napredno iskanje in izbrati polje \"polno besedilo\"."
+      }
     },
     "button": {
       "morefilters": "Več filtrov",
@@ -781,6 +787,7 @@ export default {
       "help": "Pomoč",
       "home": "Domov",
       "pro": "Za strokovnjake",
+      "shareYourData": "Delite svoje podatke",
       "stories": "Zgodbe"
     },
     "quickSearch": "Hitro iskanje",
@@ -881,6 +888,14 @@ export default {
         "title": "Pogled rezultatov iskanja (seznam / mreža)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Enote",
+      "providingInstitutions": "Ponudniki podatkov",
+      "visits": "Obiski na dan"
+    },
+    "europeanaNumbers": "Europeana.eu v številkah"
   },
   "layout": {
     "skipToMain": "Preskoči na vsebino strani"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Podobna enote",
     "status": {
       "unpublished": "[Neobjavljeni enota]"
-    },
-    "transcription": "Prepis",
-    "transcriptionDisclaimer": "To vsebino prispeva javnost, ne pa ponudnik podatkov, ki je zagotovil to enoto."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} napredno iskanje",
       "tooltip": {
         "advancedSearch": "Napredno iskanje vam omogoča ustvarjanje iskalnih poizvedb po meri.",
-        "field": "Izberite polje za iskanje.",
+        "field": "Izberite polje polnega besedila ali metapodatkov, v katerem želite iskati.",
         "fields": {
           "fulltext": "Polno besedilo vključuje prepise, zaprte napise, podnapise in besedilo dokumenta."
         },

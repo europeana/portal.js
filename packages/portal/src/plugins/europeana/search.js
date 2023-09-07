@@ -84,12 +84,11 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
- * @param {string} options.locale source locale for multilingual search
+ * @param {string} options.locale current locale, for localising search results
+ * @param {string} options.translateLang source locale for multilingual search
  * @param {string} options.url override the API URL
- * @param {Boolean} options.addContentTierFilter if `true`, add a content tier filter. default `true`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-// TODO: switch options.addContentTierFilter to default to `false`
 export default (context) => ($axios, params, options = {}) => {
   if (!$axios) {
     $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
@@ -97,7 +96,7 @@ export default (context) => ($axios, params, options = {}) => {
 
   const localParams = { ...params };
 
-  const defaultOptions = { addContentTierFilter: true };
+  const defaultOptions = { locale: context?.i18n?.locale };
   const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;
@@ -109,35 +108,35 @@ export default (context) => ($axios, params, options = {}) => {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
   const query = params.query || '*:*';
 
-  const qf = localOptions.addContentTierFilter ? addContentTierFilter(localParams.qf) : localParams.qf;
-
   const searchParams = {
     ...$axios.defaults.params,
     ...localParams,
     profile: localParams.profile || '',
-    qf,
-    query: localOptions.escape ? escapeLuceneSpecials(query) : query,
+    qf: localParams.qf,
+    query: options.escape ? escapeLuceneSpecials(query) : query,
     rows,
     start
   };
 
-  if (context?.$config?.app?.search?.translateLocales?.includes(localOptions.locale)) {
+  // TODO: this should be the responsibility of the caller; move to an exported
+  //       function for callers to run first, when needed
+  if (localOptions.translateLang) {
     const targetLocale = 'en';
-    if (localOptions.locale !== targetLocale) {
+    if (localOptions.translateLang !== targetLocale) {
       searchParams.profile = `${searchParams.profile},translate`;
-      searchParams.lang = localOptions.locale;
-      searchParams['q.source'] = localOptions.locale;
+      searchParams.lang = localOptions.translateLang;
+      searchParams['q.source'] = localOptions.translateLang;
       searchParams['q.target'] = targetLocale;
     }
   }
 
-  return $axios.get(`${localOptions.url || ''}/search.json`, {
+  return $axios.get(`${options.url || ''}/search.json`, {
     params: searchParams
   })
     .then(response => response.data)
     .then(data => ({
       ...data,
-      items: data.items?.map(item => reduceFieldsForItem(item, options)),
+      items: data.items?.map(item => reduceFieldsForItem(item, localOptions)),
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {

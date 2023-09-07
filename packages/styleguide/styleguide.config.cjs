@@ -68,6 +68,8 @@ module.exports = async() => {
           'Generic',
           'Home',
           'Item',
+          'Landing',
+          'Page',
           'Related',
           'Search',
           'Set',

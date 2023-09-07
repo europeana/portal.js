@@ -251,6 +251,9 @@ export default {
       "description": "Dogodila se nepoznata pogreška.",
       "title": "Nepoznata pogreška"
     },
+    "IIIFManifestFailure": {
+      "description": "Nažalost, mediji predmet koji su dostavljeni Europeani trenutačno se ne mogu prikazati. Molimo pokušajte preuzeti medij ili pogledati predmet na web-mjestu institucije koja pruža podatke."
+    },
     "itemNotFound": {
       "description": "To može biti zbog sljedećih razloga: ova stavka ne postoji ili; povučeno je iz objave jer nije odgovaralo našim kriterijima kvalitete ili; ažuriran je i ponovno objavljen s novim jedinstvenim identifikatorom, u kojem slučaju ponovno pokušajte pronaći stavku.",
       "metaTitle": "Stavka nije pronađena",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Tražite opciju za cjeloviti tekst? Premještena je na napredno pretraživanje."
+      "fulltextHasMoved": {
+        "newspaper": "Ako želite pretraživati unutar teksta novina, morat ćete koristiti napredno pretraživanje, te odabrati polje \"cijeli tekst\".",
+        "ww1": "Ako želite pretraživati unutar teksta dokumenata iz Prvog svjetskog rata, morat ćete koristiti napredno pretraživanje i odabrati polje \"cijeli tekst\"."
+      }
     },
     "button": {
       "morefilters": "Više filtera",
@@ -781,6 +787,7 @@ export default {
       "help": "Pomoć",
       "home": "Početna",
       "pro": "Za stručnjake",
+      "shareYourData": "Podijelite svoje podatke",
       "stories": "Priče"
     },
     "quickSearch": "Brzo pretraživanje",
@@ -882,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Predmeti",
+      "providingInstitutions": "Institucije",
+      "visits": "Posjete po danu"
+    },
+    "europeanaNumbers": "Europeana.eu u brojkama"
+  },
   "layout": {
     "skipToMain": "Prijeđite na sadržaj stranice"
   },
@@ -980,7 +995,7 @@ export default {
   },
   "record": {
     "actions": {
-      "pin": "Prikvači stavku na dostupne entitete"
+      "pin": "Prikvači predmet na dostupne entitete"
     },
     "allMetaData": "Svi meta podaci",
     "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
@@ -995,10 +1010,8 @@ export default {
     "showAll": "Prikaži sve informacije",
     "similarItems": "Slične predmeti",
     "status": {
-      "unpublished": "[Neobjavljena stavka]"
-    },
-    "transcription": "Transkripcija",
-    "transcriptionDisclaimer": "Ovaj sadržaj je ponudila javnost, a ne institucija koja je pružila ovu stavku."
+      "unpublished": "[Neobjavljena predmet]"
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} napredno pretraživanje",
       "tooltip": {
         "advancedSearch": "Napredno pretraživanje omogućuje vam izradu prilagođenih upita za pretraživanje.",
-        "field": "Odaberite polje za pretraživanje.",
+        "field": "Odaberite cjeloviti tekst ili metapodatkovno polje za pretraživanje.",
         "fields": {
           "fulltext": "Puni tekst uključuje transkripcije, zatvorene titlove, podnaslove i tekst dokumenta."
         },

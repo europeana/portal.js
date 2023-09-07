@@ -251,6 +251,9 @@ export default {
       "description": "Ein unbekannter Fehler ist aufgetreten.",
       "title": "Unbekannter Fehler"
     },
+    "IIIFManifestFailure": {
+      "description": "Leider können die Objektmedien, wie sie Europeana zur Verfügung gestellt wurden, derzeit nicht angezeigt werden. Bitte versuchen Sie, die Medien herunterzuladen oder sich das Objekt auf der Website des Datenpartners anzusehen."
+    },
     "itemNotFound": {
       "description": "Dies kann folgende Gründe haben: Dieses Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
       "metaTitle": "Objekt nicht gefunden",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Suchen Sie die Volltextoption? Sie wurde in die erweiterte Suche verschoben."
+      "fulltextHasMoved": {
+        "newspaper": "Wenn Sie im Zeitungstext suchen möchten, müssen Sie die erweiterte Suche nutzen und das Feld „Volltext“ auswählen.",
+        "ww1": "Wenn Sie im Text der WWI-Dokumente suchen möchten, müssen Sie die erweiterte Suche verwenden und das Feld \"Volltext\" wählen."
+      }
     },
     "button": {
       "morefilters": "Weitere Filter",
@@ -781,6 +787,7 @@ export default {
       "help": "Hilfe",
       "home": "Startseite",
       "pro": "Für Experten",
+      "shareYourData": "Teilen Sie Ihre Daten",
       "stories": "Geschichten"
     },
     "quickSearch": "Schnelle Suche",
@@ -881,6 +888,14 @@ export default {
         "title": "Suchergebnisansicht (Liste/Raster)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Objekte",
+      "providingInstitutions": "Datenpartner",
+      "visits": "Besuche pro Tag"
+    },
+    "europeanaNumbers": "Europeana.eu in Zahlen"
   },
   "layout": {
     "skipToMain": "Direkt zum Seiteninhalt"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Ähnliche Objekte",
     "status": {
       "unpublished": "[unveröffentlichtes Objekt]"
-    },
-    "transcription": "Transkription",
-    "transcriptionDisclaimer": "Dieser Inhalt stammt von der Öffentlichkeit, nicht von dem Datenpartner, der dieses Objekt bereitgestellt hat."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} erweiterte Suche",
       "tooltip": {
         "advancedSearch": "Mit der erweiterten Suche können Sie benutzerdefinierte Suchanfragen erstellen.",
-        "field": "Wählen Sie ein Feld für die Suche aus.",
+        "field": "Wählen Sie das Volltext- oder Metadatenfeld aus, in dem gesucht werden soll.",
         "fields": {
           "fulltext": "Der Volltext enthält Transkriptionen, geschlossene Untertitel, Untertitel und Dokumententext."
         },

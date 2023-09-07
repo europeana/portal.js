@@ -251,6 +251,9 @@ export default {
       "description": "Un error desconocido ocurrió.",
       "title": "Error desconocido"
     },
+    "IIIFManifestFailure": {
+      "description": "Lamentablemente, el item multimedia proporcionado a Europeana no se puede mostrar en este momento. Por favor, intenta descargar el multimedia o ver el item en el sitio web del proveedor de datos."
+    },
     "itemNotFound": {
       "description": "Esto podría deberse a las siguientes razones: este Ítem no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el Ítem nuevamente.",
       "metaTitle": "Item no encontrado",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "¿Buscas la opción de texto completo? Se ha trasladado a la búsqueda avanzada."
+      "fulltextHasMoved": {
+        "newspaper": "Si desea buscar dentro del texto de los periódicos, deberá utilizar la búsqueda avanzada y elegir el campo \"texto completo\".",
+        "ww1": "Si desea buscar dentro del texto de los documentos de la Primera Guerra Mundial, deberá utilizar la búsqueda avanzada y elegir el campo \"texto completo\"."
+      }
     },
     "button": {
       "morefilters": "Más filtros",
@@ -781,6 +787,7 @@ export default {
       "help": "Ayuda",
       "home": "Inicio",
       "pro": "Para profesionales",
+      "shareYourData": "Comparte tus datos",
       "stories": "Historias"
     },
     "quickSearch": "Búsqueda rápida",
@@ -881,6 +888,14 @@ export default {
         "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Ítems",
+      "providingInstitutions": "Proveedores de datos",
+      "visits": "Visitas por día"
+    },
+    "europeanaNumbers": "Europeana.eu en números"
   },
   "layout": {
     "skipToMain": "Saltar al contenido de la página"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Ítems similares",
     "status": {
       "unpublished": "[Ítem no publicado]"
-    },
-    "transcription": "Transcripción",
-    "transcriptionDisclaimer": "Este contenido es aportado por el público, no por el proveedor de datos que proporcionó este item."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} búsqueda avanzada",
       "tooltip": {
         "advancedSearch": "La búsqueda avanzada le permite crear consultas de búsqueda personalizadas.",
-        "field": "Seleccione un campo para buscar.",
+        "field": "Seleccione el campo de texto completo o de metadatos para buscar dentro.",
         "fields": {
           "fulltext": "El texto completo incluye transcripciones, subtítulos cerrados, subtítulos y texto del documento."
         },

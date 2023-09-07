@@ -251,6 +251,9 @@ export default {
       "description": "Tapahtui tuntematon virhe.",
       "title": "Tuntematon virhe"
     },
+    "IIIFManifestFailure": {
+      "description": "Valitettavasti Europeanaan toimitettua media aineisto ei voida näyttää tällä hetkellä. Yritä ladata media tai katso aineisto tarjoavan laitoksen verkkosivustolla."
+    },
     "itemNotFound": {
       "description": "Tämä voi johtua seuraavista syistä: tätä aineisto ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää aineisto uudelleen.",
       "metaTitle": "Aineisto ei löydy",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Etsitkö koko tekstin vaihtoehtoa? Se on siirretty tarkennettuun hakuun."
+      "fulltextHasMoved": {
+        "newspaper": "Jos haluat etsiä sanomalehtien tekstistä, sinun on käytettävä tarkennettua hakua ja valittava \"koko Teksti\" -kenttä.",
+        "ww1": "Jos haluat etsiä tekstiä ensimmäisen maailmansodan asiakirjoista, sinun on käytettävä tarkennettua hakua ja valittava \"koko teksti\" -kenttä."
+      }
     },
     "button": {
       "morefilters": "Lisää suodattimia",
@@ -781,6 +787,7 @@ export default {
       "help": "Apua",
       "home": "Etusivu",
       "pro": "Ammattilaisille",
+      "shareYourData": "Jaa tietosi",
       "stories": "Tarinat"
     },
     "quickSearch": "Pikahaku",
@@ -881,6 +888,14 @@ export default {
         "title": "Hakutulosnäkymä (luettelo/ruudukko)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Aineistot",
+      "providingInstitutions": "Aineiston tarjoajat",
+      "visits": "Käyntejä päivässä"
+    },
+    "europeanaNumbers": "Europeana.eu numeroina"
   },
   "layout": {
     "skipToMain": "Siirry sivun sisältöön"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Samanlaisia aineistot",
     "status": {
       "unpublished": "[Julkaisematon aineisto]"
-    },
-    "transcription": "Transkriptio",
-    "transcriptionDisclaimer": "Tämä sisältö on yleisön tuottama eikä aineiston tarjoajien tuottama."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} tarkennettu haku",
       "tooltip": {
         "advancedSearch": "Tarkennetun haun avulla voit luoda mukautettuja hakukyselyitä.",
-        "field": "Valitse hakuun kenttä",
+        "field": "Valitse koko teksti tai metatietokenttä haettavaksi.",
         "fields": {
           "fulltext": "Täysi teksti sisältää transkriptiot, suljetut kuvatekstit, tekstitykset ja asiakirjan tekstin."
         },

@@ -97,7 +97,7 @@ export default {
     "author": "Autorius",
     "authors": "Autoriai",
     "blog": "Tinklaraštis",
-    "by": "iki",
+    "by": "autorius",
     "categories": "Kategorijos",
     "category": "Kategorija",
     "posts": "Tinklaraščio įrašai",
@@ -251,6 +251,9 @@ export default {
       "description": "Įvyko nežinoma klaida.",
       "title": "Nežinoma klaida"
     },
+    "IIIFManifestFailure": {
+      "description": "Deja, šiuo metu negalima rodyti pateiktos Europai medijos. Prašome bandyti atsisiųsti mediją arba peržiūrėti skaitmeninis objektas teikiančios teikėjas svetainėje."
+    },
     "itemNotFound": {
       "description": "Taip gali nutikti dėl šių priežasčių: šio skaitmeninis objektas nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti skaitmeninis objektas dar kartą.",
       "metaTitle": "Skaitmeninis objektas nerasta",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Ieškote pilno teksto parinkties? Ji perkelta į išplėstinę paiešką."
+      "fulltextHasMoved": {
+        "newspaper": "Jei norite ieškoti laikraščių tekstuose, turėsite naudoti pažangųjį paiešką ir pasirinkti \"pilnas tekstas\" lauką.",
+        "ww1": "Jei norite atlikti paiešką Pirmojo pasaulinio karo dokumentų tekste, turite naudoti išplėstinę paiešką ir pasirinkti \"pilnas tekstas\" lauką."
+      }
     },
     "button": {
       "morefilters": "Daugiau filtrų",
@@ -531,7 +537,7 @@ export default {
     },
     "DATA_PROVIDER": {
       "moreName": "Teikėjai",
-      "name": "Teikianti institucija",
+      "name": "Teikėjas",
       "select": "Pasirinkite teikėjai"
     },
     "IMAGE_ASPECTRATIO": {
@@ -703,7 +709,7 @@ export default {
       "dcType": "Skaitmeninis objektas tipas",
       "edmCountry": "Teikianti šalis",
       "edmCurrentLocation": "Dabartinė vieta",
-      "edmDataProvider": "Teikianti institucija",
+      "edmDataProvider": "Teikėjas",
       "edmHasMet": "Susitiko",
       "edmIncorporates": "Įtraukia",
       "edmIntermediateProvider": "Tarpinis teikėjas",
@@ -752,7 +758,7 @@ export default {
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
-      "provide": "Tapkite Teikėjas",
+      "provide": "Tapkite teikėjas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "terms": "Naudotojo sąlygos"
     },
@@ -781,6 +787,7 @@ export default {
       "help": "Pagalba",
       "home": "Pradžia",
       "pro": "Specialistams",
+      "shareYourData": "Dalinkitės savo duomenimis",
       "stories": "Istorijos"
     },
     "quickSearch": "Greita paieška",
@@ -882,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Skaitmeniniai objektai",
+      "providingInstitutions": "Teikėjai",
+      "visits": "Apsilankymai per dieną"
+    },
+    "europeanaNumbers": "Europeana.eu skaičiais"
+  },
   "layout": {
     "skipToMain": "Pereiti į puslapio turinį"
   },
@@ -899,8 +914,8 @@ export default {
       "modalTitle": "Pasakykite ačiū"
     },
     "downloadFailed": {
-      "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"Teikianti institucija“, kad patikrintumėte, ar skaitmeninis objektas galima atsisiųsti iš teikiančios institucijos svetainės.",
-      "message": "Jei atsisiuntimas neveikia, gali būti, kad jį pašalino teikianti institucija, arba gali kilti techninių problemų, susijusių su jų paslauga.",
+      "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"teikėjas“, kad patikrintumėte, ar skaitmeninis objektas galima atsisiųsti iš teikėjas svetainės.",
+      "message": "Jei atsisiuntimas neveikia, gali būti, kad jį pašalino teikėjas, arba gali kilti techninių problemų, susijusių su jų paslauga.",
       "title": "Atsisiųsti neveikia"
     },
     "transcribe": {
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Panašūs skaitmeniniai objektai",
     "status": {
       "unpublished": "[Nepaskelbtas skaitmeninis objektas]"
-    },
-    "transcription": "Transkripcija",
-    "transcriptionDisclaimer": "Šią informaciją pateikė visuomenė, o ne įstaiga, kuri pateikė šį skaitmeninis objektas."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} išplėstinė paieška",
       "tooltip": {
         "advancedSearch": "Išplėstinė paieška leidžia kurti pasirinktines paieškos užklausas.",
-        "field": "Pasirinkite lauką, kuriame norite ieškoti.",
+        "field": "Pasirinkite viso teksto arba metaduomenų lauką, kuriame norite ieškoti.",
         "fields": {
           "fulltext": "Pilnas tekstas apima transkripcijas, uždarąsias antraštes, subtitrus ir dokumento tekstą."
         },

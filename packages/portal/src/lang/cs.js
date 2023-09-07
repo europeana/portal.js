@@ -251,6 +251,9 @@ export default {
       "description": "Došlo k neznámé chybě.",
       "title": "Neznámá chyba"
     },
+    "IIIFManifestFailure": {
+      "description": "Bohužel, položku médií, jak byla poskytnuta Europeana, nelze v tuto chvíli zobrazit. Zkuste prosím stáhnout média nebo si položku prohlédnout na webových stránkách poskytující instituce."
+    },
     "itemNotFound": {
       "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
       "metaTitle": "Položka nenalezena",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Hledáte možnost fulltextu? Je přesunuta do rozšířeného vyhledávání."
+      "fulltextHasMoved": {
+        "newspaper": "Pokud chcete vyhledávat v textu novin, musíte použít rozšířené vyhledávání a vybrat pole \"pełny tekst\".",
+        "ww1": "Pokud chcete vyhledávat v textu dokumentů z 1. světové války, budete muset použít pokročilé vyhledávání a vybrat pole \"pełny text\"."
+      }
     },
     "button": {
       "morefilters": "Další filtry",
@@ -781,6 +787,7 @@ export default {
       "help": "Pomoc",
       "home": "Domů",
       "pro": "Pro profesionály",
+      "shareYourData": "Sdílejte svá data",
       "stories": "Příběhy"
     },
     "quickSearch": "Rychlé hledání",
@@ -881,6 +888,14 @@ export default {
         "title": "Zobrazení výsledků hledání (seznam / mřížka)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Položky",
+      "providingInstitutions": "Poskytující instituce",
+      "visits": "Návštěvy za den"
+    },
+    "europeanaNumbers": "Europeana.eu v číslech"
   },
   "layout": {
     "skipToMain": "Přeskočit na obsah stránky"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Podobné položky",
     "status": {
       "unpublished": "[Nepublikovaná položka]"
-    },
-    "transcription": "Přepis",
-    "transcriptionDisclaimer": "Tento obsah přispívá veřejnost, nikoli instituce, která tuto položku poskytla."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} pokročilé vyhledávání",
       "tooltip": {
         "advancedSearch": "Pokročilé vyhledávání umožňuje vytvářet vlastní vyhledávací dotazy.",
-        "field": "Vyberte pole pro vyhledávání",
+        "field": "Vyberte plný text nebo pole metadat pro vyhledávání.",
         "fields": {
           "fulltext": "Úplný text zahrnuje transkripce, uzavřené titulky, titulky a text dokumentu."
         },

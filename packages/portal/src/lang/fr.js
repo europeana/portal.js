@@ -251,6 +251,9 @@ export default {
       "description": "Une erreur inconnue s'est produite.",
       "title": "Erreur inconnue"
     },
+    "IIIFManifestFailure": {
+      "description": "Malheureusement, le média item tel qu'il a été fourni à Europeana ne peut pas être affiché pour le moment. Veuillez essayer de télécharger le média item ou de consulter l'item sur le site web d’institution partenaire."
+    },
     "itemNotFound": {
       "description": "Cela peut être dû aux raisons suivantes : cet élément n’existe pas, ou ; il a été publié parce qu’il ne correspondait pas à nos critères de qualité, ou; il a été mis à jour et republié avec un nouvel identifiant unique, auquel cas, essayez de retrouver l’élément.",
       "metaTitle": "Objet non-trouvé",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Vous cherchez l'option de texte intégral ? Elle a été déplacée vers la recherche avancée."
+      "fulltextHasMoved": {
+        "newspaper": "Si vous souhaitez effectuer une recherche dans le texte des journaux, vous devrez utiliser la recherche avancée, et choisir le champ \"texte intégral\".",
+        "ww1": "Si vous souhaitez effectuer une recherche dans le texte des documents de la Première Guerre mondiale, vous devrez utiliser la recherche avancée et choisir le champ \"texte intégral\"."
+      }
     },
     "button": {
       "morefilters": "Plus de filtres",
@@ -530,9 +536,9 @@ export default {
       "select": "Sélectionnez les créateurs"
     },
     "DATA_PROVIDER": {
-      "moreName": "Institution fournisseuse",
-      "name": "Institution fournisseuse",
-      "select": "Sélectionnez l'institution fournisseuse"
+      "moreName": "institutions partenaires",
+      "name": "Institution partenaire",
+      "select": "Sélectionnez l'institution partenaires"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientation de l'image | Orientations de l'image",
@@ -703,7 +709,7 @@ export default {
       "dcType": "Type d'élément",
       "edmCountry": "Pays fournisseur",
       "edmCurrentLocation": "Emplacement actuel",
-      "edmDataProvider": "Institution fournisseuse",
+      "edmDataProvider": "Institution partenaire",
       "edmHasMet": "A rencontré",
       "edmIncorporates": "Intègre",
       "edmIntermediateProvider": "Fournisseur intermédiaire",
@@ -752,7 +758,7 @@ export default {
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
       "privacy": "Politique de confidentialité",
-      "provide": "Devenir une institution fournisseuse",
+      "provide": "Devenir une institution partenaire",
       "subscribe": "Abonnez-vous à notre newsletter",
       "terms": "Conditions d'utilisation"
     },
@@ -781,6 +787,7 @@ export default {
       "help": "Aide",
       "home": "Accueil",
       "pro": "Pour les professionnels",
+      "shareYourData": "Partagez vos données",
       "stories": "Histoires"
     },
     "quickSearch": "Recherche rapide",
@@ -882,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Éléments",
+      "providingInstitutions": "Institutions partenaires",
+      "visits": "Visites par jour"
+    },
+    "europeanaNumbers": "Europeana.eu en chiffres"
+  },
   "layout": {
     "skipToMain": "Passer au contenu de la page"
   },
@@ -899,8 +914,8 @@ export default {
       "modalTitle": "Dis merci"
     },
     "downloadFailed": {
-      "linkPrompt": "Nous vous conseillons de cliquer sur le bouton 'Institution fournisseuse' ci-dessous pour vérifier si l'article est téléchargeable sur le site internet de l'établissement fournisseur.",
-      "message": "Si le téléchargement ne fonctionne pas, c'est peut-être parce qu'il a été supprimé par l'établissement fournisseur, ou il peut y avoir un problème technique avec leur service.",
+      "linkPrompt": "Nous vous conseillons de cliquer sur le bouton 'Institution partenaire' ci-dessous pour vérifier si l'article est téléchargeable sur le site internet de l'Institution partenaire.",
+      "message": "Si le téléchargement ne fonctionne pas, c'est peut-être parce qu'il a été supprimé par l'Institution partenaire, ou il peut y avoir un problème technique avec leur service.",
       "title": "Le téléchargement ne fonctionne pas"
     },
     "transcribe": {
@@ -969,7 +984,7 @@ export default {
     "label": "Pagination"
   },
   "provider": {
-    "linkText": "Vue sur le site internet de l'institution fournisseuse",
+    "linkText": "Vue sur le site internet de l'institution partenaires",
     "providedBy": "Cet élément est fourni et maintenu par {provider}"
   },
   "recommendation": {
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Éléments similaires",
     "status": {
       "unpublished": "[Élément non publié]"
-    },
-    "transcription": "Transcription",
-    "transcriptionDisclaimer": "Ce contenu est contribué par le public, et non par l'institution fournisseuse de cet élément."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} recherche avancée",
       "tooltip": {
         "advancedSearch": "La recherche avancée vous permet de créer des requêtes de recherche personnalisées.",
-        "field": "Sélectionnez un champ pour effectuer la recherche",
+        "field": "Sélectionnez le texte intégral ou le champ de métadonnées à rechercher.",
         "fields": {
           "fulltext": "Le texte intégral comprend des transcriptions, des sous-titres codés, des sous-titres et du texte de document."
         },

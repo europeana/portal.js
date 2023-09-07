@@ -48,33 +48,6 @@
           </b-card-text>
         </b-tab>
         <b-tab
-          v-if="Boolean(transcribingAnnotations.length)"
-          :title-link-attributes="{'data-qa': 'transcription tab'}"
-        >
-          <template #title>
-            <h2>{{ $t('record.transcription') }}</h2>
-          </template>
-          <b-card-text
-            text-tag="div"
-          >
-            <p
-              class="disclaimer px-2 pb-3 d-flex"
-            >
-              {{ $t('record.transcriptionDisclaimer') }}
-            </p>
-            <div
-              v-for="(transcription, index) in transcribingAnnotations"
-              :key="index"
-              :lang="transcription.body.language"
-            >
-              <p>{{ transcription.body.value }}</p>
-              <hr
-                v-if="index !== (transcribingAnnotations.length - 1)"
-              >
-            </div>
-          </b-card-text>
-        </b-tab>
-        <b-tab
           v-if="mappableLocation"
           class="p-0"
           :title-link-attributes="{'data-qa': 'location tab'}"
@@ -126,10 +99,6 @@
       metadataLanguage: {
         type: String,
         default: null
-      },
-      transcribingAnnotations: {
-        type: Array,
-        default: () => []
       }
     },
 

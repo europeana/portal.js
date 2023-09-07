@@ -251,6 +251,9 @@ export default {
       "description": "Tharla earráid anaithnid.",
       "title": "Earráid anaithnid"
     },
+    "IIIFManifestFailure": {
+      "description": "Ar an drochuair, ní féidir na meáin mhíreanna a chuirtear ar fáil do Europeana a thaispeáint faoi láthair. Déan iarracht na meáin a íoslódáil nó féachaint ar an mír ar shuíomh Gréasáin na hinstitiúide soláthair."
+    },
     "itemNotFound": {
       "description": "D'fhéadfadh sé seo a bheith mar gheall ar na cúiseanna seo a leanas: níl an mhír seo ann, nó; dífhoilsíodh é toisc nach raibh sé ag teacht lenár gcritéir cháilíochta, nó; Rinneadh é a nuashonrú agus a athfhoilsiú le haitheantóir uathúil nua, agus sa chás sin, déan iarracht an mhír a aimsiú arís.",
       "metaTitle": "Ní bhfuarthas an mhír",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Ag lorg an rogha téacs iomlán? Tá sé bogtha go dtí an cuardach casta."
+      "fulltextHasMoved": {
+        "newspaper": "Más mian leat cuardach a dhéanamh laistigh de théacs na nuachtán, beidh ort an cuardach casta a úsáid, agus an réimse \"téacs iomlán\" a roghnú.",
+        "ww1": "Más mian leat cuardach a dhéanamh laistigh de théacs dhoiciméid WWI, beidh ort an cuardach casta a úsáid, agus an réimse \"téacs iomlán\" a roghnú."
+      }
     },
     "button": {
       "morefilters": "Níos mó scagairí",
@@ -781,6 +787,7 @@ export default {
       "help": "Cabhair",
       "home": "Baile",
       "pro": "Do lucht gairme",
+      "shareYourData": "Comhroinn do shonraí",
       "stories": "Scéalta"
     },
     "quickSearch": "Cuardach Tapa",
@@ -881,6 +888,14 @@ export default {
         "title": "Amharc toraidh cuardaigh (liosta/greille)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Míreanna",
+      "providingInstitutions": "Institiúidí soláthartha",
+      "visits": "Cuairteanna in aghaidh an lae"
+    },
+    "europeanaNumbers": "Europeana.eu sna huimhreacha"
   },
   "layout": {
     "skipToMain": "Scipeáil chuig inneachar leathanaigh"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Míreanna eile den chineál céanna",
     "status": {
       "unpublished": "[Mír neamhfhoilsithe]"
-    },
-    "transcription": "Tras-scríobh",
-    "transcriptionDisclaimer": "Is ón bpobal a chuirtear an t-ábhar seo ar fáil, nem pedig az mhír szolgáltató institiúidí soláthartha."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} ardchuardach",
       "tooltip": {
         "advancedSearch": "Ligeann an cuardach casta duit ceisteanna cuardaigh saincheaptha a chruthú.",
-        "field": "Roghnaigh réimse le cuardach air.",
+        "field": "Roghnaigh an réimse téacs iomlán nó meiteashonraí chun cuardach a dhéanamh laistigh de.",
         "fields": {
           "fulltext": "Áirítear le téacs iomlán tras-scríbhinní, fotheidil dúnta, fotheidil agus téacs doiciméad."
         },

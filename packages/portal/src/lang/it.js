@@ -251,6 +251,9 @@ export default {
       "description": "Si è verificato un errore sconosciuto.",
       "title": "Errore sconosciuto"
     },
+    "IIIFManifestFailure": {
+      "description": "Purtroppo, l'elemento multimediale fornito a Europeana non può essere visualizzato al momento. Si prega di provare a scaricare il media o visualizzare l'elemento sul sito web dell'istituzione fornitrice."
+    },
     "itemNotFound": {
       "description": "Ciò potrebbe essere dovuto ai seguenti motivi: questo elemento non esiste, o; è stato ritirato dalla pubblicazione perché non corrispondeva ai nostri criteri di qualità, oppure; è stato aggiornato e ripubblicato con un nuovo identificatore univoco, nel qual caso prova a ritrovare l'elemento.",
       "metaTitle": "Elemento non trovato",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Cerchi l'opzione per il testo completo? È stata spostata alla ricerca avanzata."
+      "fulltextHasMoved": {
+        "newspaper": "Se si desidera cercare all'interno del testo dei giornali, è necessario utilizzare la ricerca avanzata e scegliere il campo \"testo completo\".",
+        "ww1": "Se si desidera cercare all'interno del testo dei documenti della Prima guerra mondiale, è necessario utilizzare la ricerca avanzata e scegliere il campo \"testo completo\"."
+      }
     },
     "button": {
       "morefilters": "Altri filtri",
@@ -781,6 +787,7 @@ export default {
       "help": "Aiuto",
       "home": "Home",
       "pro": "Per professionisti",
+      "shareYourData": "Condividi i tuoi dati",
       "stories": "Storie"
     },
     "quickSearch": "Ricerca rapida",
@@ -881,6 +888,14 @@ export default {
         "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Oggetti",
+      "providingInstitutions": "Fornitori di contenuti",
+      "visits": "Visite al giorno"
+    },
+    "europeanaNumbers": "Europeana.eu in numeri"
   },
   "layout": {
     "skipToMain": "Passa al contenuto della pagina"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Oggetti simili",
     "status": {
       "unpublished": "[Articolo non pubblicato]"
-    },
-    "transcription": "Trascrizione",
-    "transcriptionDisclaimer": "Questo contenuto è fornito dal pubblico, non dall'istituzione che ha fornito questo oggetto."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} ricerca avanzata",
       "tooltip": {
         "advancedSearch": "La ricerca avanzata ti consente di creare query di ricerca personalizzate.",
-        "field": "Seleziona un campo su cui effettuare la ricerca.",
+        "field": "Seleziona il campo di testo completo o di metadati in cui eseguire la ricerca.",
         "fields": {
           "fulltext": "Il testo completo include trascrizioni, didascalie chiuse, sottotitoli e testo del documento."
         },

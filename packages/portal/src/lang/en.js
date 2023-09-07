@@ -255,6 +255,9 @@ export default {
       "description": "An unknown error occurred.",
       "title": "Unknown error"
     },
+    "IIIFManifestFailure": {
+      "description": "Unfortunately, the item media as provided to Europeana can not be displayed at the moment. Please try to download the media or view the item on the providing institution's website."
+    },
     "itemNotFound": {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
       "metaTitle": "Item not found",
@@ -618,7 +621,10 @@ export default {
       "select": "Select types of media"
     },
     "alert": {
-      "fulltextHasMoved": "Looking for the full-text option? It's moved to the advanced search."
+      "fulltextHasMoved": {
+        "newspaper": "If you want to search within the text of newspapers, you will need to use the advanced search, and choose the \"full-text\" field.",
+        "ww1": "If you want to search within the text of WWI documents, you will need to use the advanced search, and choose the \"full-text\" field."
+      }
     },
     "button": {
       "morefilters": "More filters",
@@ -808,6 +814,7 @@ export default {
       "help": "Help",
       "home": "Home",
       "pro": "For professionals",
+      "shareYourData": "Share your data",
       "stories": "Stories"
     },
     "quickSearch": "Quick Search",
@@ -907,6 +914,14 @@ export default {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
         "title": "Search result view (list/grid)"
       }
+    }
+  },
+  "landing": {
+    "europeanaNumbers": "Europeana.eu in numbers",
+    "counts": {
+      "visits": "Visits per day",
+      "items": "Items",
+      "providingInstitutions": "Providing institutions"
     }
   },
   "layout": {
@@ -1023,9 +1038,7 @@ export default {
     "similarItems": "Similar items",
     "status": {
       "unpublished": "[Unpublished item]"
-    },
-    "transcription": "Transcription",
-    "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
+    }
   },
   "related": {
     "categoryTags": {

@@ -1,4 +1,4 @@
-import redis from 'redis';
+import * as redis from 'redis';
 import sinon from 'sinon';
 
 const utils = require('@/cachers/utils');
@@ -35,14 +35,6 @@ describe('cachers/utils', () => {
       utils.createRedisClient();
 
       expect(redisClientStub.on.calledWith('error', console.error)).toBe(true);
-    });
-
-    it('defines async get, set and quit methods', () => {
-      const redisClient = utils.createRedisClient();
-
-      expect(typeof redisClient.getAsync).toBe('function');
-      expect(typeof redisClient.setAsync).toBe('function');
-      expect(typeof redisClient.quitAsync).toBe('function');
     });
   });
 

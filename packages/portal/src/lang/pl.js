@@ -251,6 +251,9 @@ export default {
       "description": "Wystąpił nieznany błąd.",
       "title": "Nieznany błąd"
     },
+    "IIIFManifestFailure": {
+      "description": "Niestety, obiekt cyfrowy multimedialny dostarczony do Europeana nie może być wyświetlony w tej chwili. Proszę spróbować pobrać media lub obejrzeć obiekt cyfrowy na stronie internetowej dostawca danych."
+    },
     "itemNotFound": {
       "description": "Może to być spowodowane następującymi przyczynami: ten element nie istnieje lub; został wycofany z publikacji, ponieważ nie spełniał naszych kryteriów jakości lub; został zaktualizowany i ponownie opublikowany z nowym unikalnym identyfikatorem, w takim przypadku spróbuj ponownie znaleźć przedmiot.",
       "metaTitle": "Nie znaleziono przedmiotu",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Szukasz opcji pełnego tekstu? Przeniesiono ją do wyszukiwania zaawansowanego."
+      "fulltextHasMoved": {
+        "newspaper": "Jeśli chcesz szukać w tekście gazet, musisz skorzystać z wyszukiwania zaawansowanego i wybrać pole „pełny tekst”.",
+        "ww1": "Jeśli chcesz przeszukiwać tekst dokumentów z I wojny światowej, musisz skorzystać z wyszukiwania zaawansowanego i wybrać pole \"pełny tekst\"."
+      }
     },
     "button": {
       "morefilters": "Więcej filtrów",
@@ -781,6 +787,7 @@ export default {
       "help": "Pomoc",
       "home": "Strona główna",
       "pro": "Dla profesjonalistów",
+      "shareYourData": "Udostępnij swoje dane",
       "stories": "Historie"
     },
     "quickSearch": "Szybkie wyszukiwanie",
@@ -881,6 +888,14 @@ export default {
         "title": "Widok wyników wyszukiwania (lista/siatka)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Obiekty cyfrowe",
+      "providingInstitutions": "Dostawcy danych",
+      "visits": "Odwiedziny dziennie"
+    },
+    "europeanaNumbers": "Europeana.eu w liczbach"
   },
   "layout": {
     "skipToMain": "Przejdź do zawartości strony"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Podobne obiekty cyfrowe",
     "status": {
       "unpublished": "[Pozycja nieopublikowana]"
-    },
-    "transcription": "Transkrypcja",
-    "transcriptionDisclaimer": "Ten zawartość jest dostarczany przez publiczność, a nie przez dostawcę danych, która dostarczyła ten obiekt cyfrowy."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} wyszukiwanie zaawansowane",
       "tooltip": {
         "advancedSearch": "Wyszukiwanie zaawansowane umożliwia tworzenie niestandardowych zapytań wyszukiwania.",
-        "field": "Wybierz pole do wyszukiwania.",
+        "field": "Wybierz pole pełny tekstu lub metadanych do wyszukiwania.",
         "fields": {
           "fulltext": "Tekst pełny obejmuje transkrypcje, napisy dla osób niesłyszących, napisy i tekst dokumentu."
         },

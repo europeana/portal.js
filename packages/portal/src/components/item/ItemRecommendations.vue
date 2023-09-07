@@ -33,6 +33,7 @@
 
 <script>
   import similarItemsQuery from '@/plugins/europeana/record/similar-items';
+  import { addContentTierFilter } from '@/plugins/europeana/search';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import keycloak from '@/mixins/keycloak';
@@ -92,6 +93,7 @@
       } else {
         response = await this.$apis.record.search({
           query: similarItemsQuery(this.identifier, this.similarItemsFields),
+          qf: addContentTierFilter(),
           rows: 4,
           profile: 'minimal',
           facet: ''

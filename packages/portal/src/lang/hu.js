@@ -6,7 +6,7 @@ export default {
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
     "linkLoginJoin": "Bejelentkezés / Csatlakozás",
-    "linkLogout": "Bejelentkezés",
+    "linkLogout": "Kijelentkezés",
     "myProfile": "Profilom",
     "notifications": {
       "loggedIn": "Most már be van jelentkezve. Üdvözlünk!",
@@ -251,6 +251,9 @@ export default {
       "description": "Ismeretlen hiba történt.",
       "title": "Ismeretlen hiba"
     },
+    "IIIFManifestFailure": {
+      "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
+    },
     "itemNotFound": {
       "description": "Az tárgyat nem található okai lehetnek a következők: az tárgy nem létezik, vagy közzétételre került, mert nem felelt meg minőségi kritériumainknak, vagy frissítve lett, és új egyedi azonosítóval újból közzétéve. Próbálja meg újra megtalálni az tárgyat.",
       "metaTitle": "Az tárgyat nem található",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "A teljes szöveges keresési opciót keresi? Az a fejlett keresésbe került át."
+      "fulltextHasMoved": {
+        "newspaper": "Ha újságok szövegében szeretne keresni, akkor használja a speciális keresést, és válassza ki a \"teljes szöveg\" mezőt.",
+        "ww1": "Ha az első világháborús dokumentumok szövegében szeretne keresni, akkor használja a speciális keresést, és válassza ki a \"teljes szöveg\" mezőt."
+      }
     },
     "button": {
       "morefilters": "További szűrők",
@@ -781,6 +787,7 @@ export default {
       "help": "Súgó",
       "home": "Kezdőlap",
       "pro": "Szakembereknek",
+      "shareYourData": "Ossza meg az adatait",
       "stories": "Történetek"
     },
     "quickSearch": "Gyors keresés",
@@ -881,6 +888,14 @@ export default {
         "title": "Keresési eredmény nézet (lista / rács)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Tárgyak",
+      "providingInstitutions": "Szolgáltató intézmény",
+      "visits": "Napi látogatások"
+    },
+    "europeanaNumbers": "Europeana.eu számokban"
   },
   "layout": {
     "skipToMain": "Ugrás az oldal tartalmához"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Hasonló tárgyak",
     "status": {
       "unpublished": "[Közzé nem tett tárgy]"
-    },
-    "transcription": "Átírás",
-    "transcriptionDisclaimer": "Ez a tartalom a közönség által van hozzájárulva, nem a tárgyat szolgáltató intézmény által."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} speciális keresés",
       "tooltip": {
         "advancedSearch": "A speciális keresés lehetővé teszi egyéni keresési lekérdezések létrehozását.",
-        "field": "Válasszon egy mezőt a kereséshez.",
+        "field": "Válassza ki a teljes szöveges vagy metaadat-mezőt a kereséshez.",
         "fields": {
           "fulltext": "A teljes szöveg tartalmazza a transzkripciókat, a zárt feliratokat, a feliratokat és a dokumentum szövegét."
         },

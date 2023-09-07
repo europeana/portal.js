@@ -13,12 +13,28 @@ import versions from './pkg-versions.js';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureNotificationExpiration } from './src/features/index.js';
+import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
 import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
+};
+
+const redisConfig = () => {
+  const redisOptions = {
+    url: process.env.REDIS_URL
+  };
+
+  if (process.env.REDIS_TLS_CA) {
+    redisOptions.socket = {
+      ca: [Buffer.from(process.env.REDIS_TLS_CA, 'base64')],
+      rejectUnauthorized: false,
+      tls: true
+    };
+  }
+
+  return redisOptions;
 };
 
 export default {
@@ -39,6 +55,10 @@ export default {
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
+        collections: {
+          clientOnly: featureIsEnabled(process.env.APP_SEARCH_COLLECTIONS_CLIENT_ONLY),
+          doNotTranslate: featureIsEnabled(process.env.APP_SEARCH_COLLECTIONS_DO_NOT_TRANSLATE)
+        },
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }
     },
@@ -162,10 +182,10 @@ export default {
         }
       }
     },
-    redis: {
-      url: process.env.REDIS_URL,
-      tlsCa: process.env.REDIS_TLS_CA
-    }
+    matomo: {
+      authToken: process.env.MATOMO_AUTH_TOKEN
+    },
+    redis: redisConfig()
   },
 
   /*
@@ -260,6 +280,7 @@ export default {
     '~/plugins/axios.server',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
+    '~/plugins/vue-session-id.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',

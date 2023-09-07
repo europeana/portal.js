@@ -255,6 +255,9 @@ export default {
       "description": "Errore ezezagun bat gertatu da.",
       "title": "Errore ezezaguna"
     },
+    "IIIFManifestFailure": {
+      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
+    },
     "itemNotFound": {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
@@ -286,7 +289,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Testu osoaren aukera bilatzen duzu? Bilaketa aurreratura mugitu da."
+      "fulltextHasMoved": {
+        "newspaper": "Egunkarien testuaren barruan bilatu nahi baduzu, bilaketa aurreratua erabili beharko duzu, eta \"testu osoa\" eremua aukeratu.",
+        "ww1": "Lehen Mundu Gerrako dokumentuen testuan bilatu nahi baduzu, bilaketa aurreratua erabili beharko duzu eta \"testu osoa\" eremua aukeratu."
+      }
     },
     "button": {
       "morefilters": "Iragazki gehiago",
@@ -785,6 +791,7 @@ export default {
       "help": "Laguntza",
       "home": "Etxea",
       "pro": "Profesionalentzat",
+      "shareYourData": "Zure datuak partekatu",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -885,6 +892,14 @@ export default {
         "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Elementuak",
+      "providingInstitutions": "Erakunde hornitzailea",
+      "visits": "Eguneko bisitak"
+    },
+    "europeanaNumbers": "Europeana.eu zenbakitan"
   },
   "layout": {
     "skipToMain": "Orrialdearen edukietara joan"
@@ -1000,9 +1015,7 @@ export default {
     "similarItems": "Antzeko elementuak",
     "status": {
       "unpublished": "[Argitaratu gabeko elementua]"
-    },
-    "transcription": "Transkripzioa",
-    "transcriptionDisclaimer": "Eduki hau publikoaren ekarpena da, ez elementu hau eman duen erakundeak hornitzailea."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1060,7 +1073,7 @@ export default {
       "show": "{showOrHide} bilaketa aurreratua",
       "tooltip": {
         "advancedSearch": "Bilaketa aurreratuak bilaketa pertsonalizatuak sortzeko aukera ematen du.",
-        "field": "Aukeratu bilatzeko zelai bat.",
+        "field": "Hautatu testu-osoa edo metadatu-eremua bilatzeko",
         "fields": {
           "fulltext": "Testu osoak transkripzioak, epigrafe itxia, azpitituluak eta dokumentuaren testua biltzen ditu."
         },

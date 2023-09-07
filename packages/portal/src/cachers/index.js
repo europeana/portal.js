@@ -8,6 +8,7 @@ const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRun
 
 const cacherNames = [
   'collections:organisations',
+  'collections:organisations:count',
   'collections:organisations:featured',
   'collections:places',
   'collections:places:featured',
@@ -16,7 +17,8 @@ const cacherNames = [
   'collections:topics',
   'collections:topics:featured',
   'items:recent',
-  'items:type-counts'
+  'items:type-counts',
+  'matomo:visits'
 ];
 
 const cacherModule = (cacherName) => {
@@ -74,14 +76,16 @@ const runSetCacher = async(cacherName) => {
 
 const writeCacheKey = async(cacheKey, data) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  await redisClient.setAsync(cacheKey, JSON.stringify(data));
-  await redisClient.quitAsync();
+  await redisClient.connect();
+  await redisClient.set(cacheKey, JSON.stringify(data));
+  await redisClient.disconnect();
 };
 
 const readCacheKey = async(cacheKey) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  const data = await redisClient.getAsync(cacheKey);
-  await redisClient.quitAsync();
+  await redisClient.connect();
+  const data = await redisClient.get(cacheKey);
+  await redisClient.disconnect();
   return data;
 };
 

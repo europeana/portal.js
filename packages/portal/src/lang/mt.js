@@ -251,6 +251,9 @@ export default {
       "description": "Sar żball mhux magħruf.",
       "title": "Żball mhux magħruf"
     },
+    "IIIFManifestFailure": {
+      "description": "Sfortunatament, il-midja tal-oġġett kif ipprovdata lil Europeana ma tistax tiġi murija bħalissa. Jekk jogħġbok, ipprova tniżżel il-midja jew ara l-oġġett fuq is-sit tal-istituzzjoni fornitriċi li pprovdat."
+    },
     "itemNotFound": {
       "description": "Dan jista' jkun minħabba r-raġunijiet li ġejjin: dan l-oġġett ma jeżistix, jew; tneħħiet il-pubblikazzjoni għax ma kinitx taqbel mal-kriterji ta’ kwalità tagħna, jew; ġie aġġornat u ppubblikat mill-ġdid b'identifikatur uniku ġdid, f'liema każ, ipprova erġa' sib l-oġġett.",
       "metaTitle": "Oġġett mhux misjub",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Qed tfittex l-għażla tat-test sħiħ? Huwa mċaqlaq għat-tfittxija avvanzata."
+      "fulltextHasMoved": {
+        "newspaper": "Jekk trid tfittex fit-test tal-gazzetti, ikollok bżonn tuża t-tfittxija avvanzata, u tagħżel il-qasam \"test sħiħ\".",
+        "ww1": "Jekk trid tfittex fit-test tad-dokumenti tal-WWI, ser ikollok bżonn tuża t-tfittxija avvanzata, u tagħżel il-qasam \"test sħiħ\"."
+      }
     },
     "button": {
       "morefilters": "Aktar filtri",
@@ -781,6 +787,7 @@ export default {
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
       "pro": "Għall-professjonisti",
+      "shareYourData": "Aqsam id-data tiegħek",
       "stories": "Stejjer"
     },
     "quickSearch": "Tiftix ta' malajr",
@@ -881,6 +888,14 @@ export default {
         "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Oġġetti",
+      "providingInstitutions": "Istituzzjonijiet fornitriċi",
+      "visits": "Żjarat kuljum"
+    },
+    "europeanaNumbers": "Europeana.eu fin-numri"
   },
   "layout": {
     "skipToMain": "Aqbeż għall-kontenut paġna"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Oġġetti simili",
     "status": {
       "unpublished": "[Oġġett mhux ippubblikat]"
-    },
-    "transcription": "Traskrizzjoni",
-    "transcriptionDisclaimer": "Dan il-kontenut huwa miġbur mill-pubbliku, mhux mill-istituzzjonijiet fornitriċi li pprovdu dan l-oġġett."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} tfittxija avvanzata",
       "tooltip": {
         "advancedSearch": "It-tfittxija avvanzata tippermettilek tibni mistoqsijiet ta' tfittxija personalizzati.",
-        "field": "Agħżel qasam biex tfittex.",
+        "field": "Agħżel il-qasam tat-test sħiħ jew tal-metadejta biex tfittex fih.",
         "fields": {
           "fulltext": "It-test sħiħ jinkludi traskrizzjonijiet, kaptjonijiet magħluqa, sottotitoli u test tad-dokument."
         },

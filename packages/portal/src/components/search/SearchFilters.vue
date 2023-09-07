@@ -44,7 +44,7 @@
                   dismissible
                   @input="(show) => handleFulltextHasMovedAlertInput(show, fulltextCollection)"
                 >
-                  {{ $t('facets.alert.fulltextHasMoved') }}
+                  {{ $t(`facets.alert.fulltextHasMoved.${fulltextCollection}`) }}
                 </b-alert>
                 <SearchDateFilter
                   v-if="enableDateFilter"

@@ -6,6 +6,8 @@
     :blank-width="optimisedWidth"
     :blank-height="optimisedHeight"
     :alt="alt"
+    :srcset="imageSrcset"
+    :sizes="imageSizes"
   />
   <b-img
     v-else
@@ -13,6 +15,8 @@
     :width="optimisedWidth"
     :height="optimisedHeight"
     :alt="alt"
+    :srcset="imageSrcset"
+    :sizes="imageSizes"
   />
 </template>
 
@@ -53,6 +57,14 @@
       lazy: {
         type: Boolean,
         default: true
+      },
+      imageSrcset: {
+        type: String,
+        default: null
+      },
+      imageSizes: {
+        type: String,
+        default: null
       }
     },
 

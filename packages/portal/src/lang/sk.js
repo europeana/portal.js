@@ -251,6 +251,9 @@ export default {
       "description": "Vyskytla sa neznáma chyba.",
       "title": "Neznáma chyba"
     },
+    "IIIFManifestFailure": {
+      "description": "Bohužiaľ, objekt médií, ako bola poskytnutá Europeana, momentálne nie je možné zobraziť. Skúste stiahnuť médium alebo si objekt prezrite na webovej stránke správcovská inštitúcia."
+    },
     "itemNotFound": {
       "description": "Môže to byť z nasledujúcich dôvodov: táto objekt neexistuje alebo; bolo zrušené, pretože nezodpovedalo našim kritériám kvality, alebo; bola aktualizovaná a znovu publikovaná s novým jedinečným identifikátorom, v takom prípade skúste objekt znova nájsť.",
       "metaTitle": "Objekt sa nenašla",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Hľadáte možnosť plného textu? Je presunutý do rozšíreného vyhľadávania."
+      "fulltextHasMoved": {
+        "newspaper": "Ak chcete vyhľadávať v texte novín, budete musieť použiť rozšírené vyhľadávanie a zvoliť pole „plný text“.",
+        "ww1": "Ak chcete vyhľadávať v texte dokumentov z prvej svetovej vojny, musíte použiť rozšírené vyhľadávanie a vybrať pole \"plný text\"."
+      }
     },
     "button": {
       "morefilters": "Viac filtrov",
@@ -717,7 +723,7 @@ export default {
       "edmRights": "Právny stav na médiá v tomto objekt (pokiaľ nie je uvedené inak)",
       "edmUgc": "Obsah generovaný používateľmi",
       "europeanaCollectionName": "Názov zbierky",
-      "fulltext": "Úplný text",
+      "fulltext": "Plný text",
       "keywords": "Kľúčové slová (poskytnuté komunitou)",
       "timestampCreated": "Vytvorenie časovej pečiatky",
       "timestampUpdate": "Aktualizácia časovej pečiatky",
@@ -781,6 +787,7 @@ export default {
       "help": "Pomoc",
       "home": "Domov",
       "pro": "Pre profesionálov",
+      "shareYourData": "Zdieľajte svoje dáta",
       "stories": "Príbehy"
     },
     "quickSearch": "Rýchle vyhľadávanie",
@@ -881,6 +888,14 @@ export default {
         "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Objekty",
+      "providingInstitutions": "Správcovské inštitúcie",
+      "visits": "Návštevy za deň"
+    },
+    "europeanaNumbers": "Europeana.eu v číslach"
   },
   "layout": {
     "skipToMain": "Preskočiť na stránku s obsahom"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Podobné objekty",
     "status": {
       "unpublished": "[Nezverejnená objekt]"
-    },
-    "transcription": "Prepis",
-    "transcriptionDisclaimer": "Tento obsah prispel verejnosť, nie správcovská inštitúcia, ktorá tento objekt poskytla."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} rozšírené vyhľadávanie",
       "tooltip": {
         "advancedSearch": "Rozšírené vyhľadávanie vám umožňuje vytvárať vlastné vyhľadávacie dopyty.",
-        "field": "Vyberte pole pre vyhľadávanie",
+        "field": "Vyberte pole plného textu alebo metadát, v ktorom chcete vyhľadávať.",
         "fields": {
           "fulltext": "Úplný text zahŕňa prepisy, uzavreté titulky, podtitulky a text dokumentu."
         },

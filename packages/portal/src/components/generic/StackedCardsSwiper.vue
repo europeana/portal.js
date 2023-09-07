@@ -70,6 +70,17 @@
   import swiperMixin from '@/mixins/swiper';
   import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
 
+  const SRCSET_PRESETS = {
+    small: { w: 245, h: 440, fit: 'fill' },
+    medium: { w: 260, h: 420, fit: 'fill' },
+    large: { w: 280, h: 400, fit: 'fill' },
+    xl: { w: 300, h: 400, fit: 'fill' },
+    xxl: { w: 320, h: 370, fit: 'fill' },
+    xxxl: { w: 355, h: 345, fit: 'fill' },
+    wqhd: { w: 405, h: 323, fit: 'fill' },
+    '4k': { w: 480, h: 470, fit: 'fill' }
+  };
+
   export default {
     name: 'StackedCardsSwiper',
 
@@ -143,7 +154,7 @@
           '(max-width: 991px) 280px',
           '(max-width: 1199px) 300px',
           '(max-width: 1439px) 320px',
-          '(max-width: 3839px) 355px',
+          '(max-width: 3019px) 355px',
           '480px'
         ].join(',')
       };
@@ -168,17 +179,7 @@
         }
       },
       imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image,
-                                                             {
-                                                               small: { w: 245, h: 440, fit: 'fill' },
-                                                               medium: { w: 260, h: 420, fit: 'fill' },
-                                                               large: { w: 280, h: 400, fit: 'fill' },
-                                                               xl: { w: 300, h: 400, fit: 'fill' },
-                                                               xxl: { w: 320, h: 370, fit: 'fill' },
-                                                               xxxl: { w: 355, h: 345, fit: 'fill' },
-                                                               wqhd: { w: 405, h: 323, fit: 'fill' },
-                                                               '4k': { w: 480, h: 470, fit: 'fill' }
-                                                             });
+        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
       }
     }
   };

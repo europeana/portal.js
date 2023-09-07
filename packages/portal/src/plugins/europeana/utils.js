@@ -1,7 +1,9 @@
 import axios from 'axios';
+import kebabCase from 'lodash/kebabCase.js';
 import qs from 'qs';
 
 import locales from '../i18n/locales.js';
+import undefinedLocaleCodes from '../i18n/undefined.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
 export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
@@ -83,7 +85,6 @@ export function apiError(error) {
   return error;
 }
 
-const undefinedLocaleCodes = ['def', 'und'];
 export const uriRegex = /^https?:\/\//; // Used to determine if a value is a URI
 
 const isoAlpha3Map = locales.reduce((memo, locale) => {
@@ -155,7 +156,7 @@ function entityValue(value, locale) {
  */
 export function getLabelledSlug(id, name) {
   const numericId = id.toString().split('/').pop();
-  return numericId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
+  return numericId + (name ? `-${kebabCase(name)}` : '');
 }
 
 function languageKeys(locale) {
@@ -215,6 +216,16 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
     return withEntities;
   }
   return omitUrisIfOtherValues(withEntities);
+}
+
+export function forEachLangMapValue(langMapContainer, callback) {
+  for (const field in langMapContainer) {
+    if (isLangMap(langMapContainer[field])) {
+      for (const locale in langMapContainer[field]) {
+        callback(langMapContainer, field, locale);
+      }
+    }
+  }
 }
 
 function omitUrisIfOtherValues(localizedLangmap) {

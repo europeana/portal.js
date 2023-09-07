@@ -6,5 +6,6 @@ export default [
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'rejectEntityRecommendations' },
   { name: 'transcribathonCta' },
-  { name: 'translatedItems' }
+  { name: 'translatedItems' },
+  { name: 'welcomePack' }
 ];

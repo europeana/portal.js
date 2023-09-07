@@ -251,6 +251,9 @@ export default {
       "description": "Er is een onbekende fout opgetreden.",
       "title": "Onbekende fout"
     },
+    "IIIFManifestFailure": {
+      "description": "Helaas kan het object media zoals aangeleverd aan Europeana nu niet worden weergegeven. Probeer het te downloaden of bekijk het object op de website van de deelnemende erfgoedorganisatie."
+    },
     "itemNotFound": {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Op zoek naar de full-text optie? Die is verplaatst naar geavanceerd zoeken."
+      "fulltextHasMoved": {
+        "newspaper": "Als u wilt zoeken in de tekst van kranten, moet u de geavanceerde zoekopdracht gebruiken en het veld \"volledige tekst\" kiezen.",
+        "ww1": "Als u wilt zoeken in de tekst van WWI-documenten, moet u de geavanceerde zoekfunctie gebruiken en het veld \"volledige tekst\" kiezen."
+      }
     },
     "button": {
       "morefilters": "Meer filters",
@@ -781,6 +787,7 @@ export default {
       "help": "Help",
       "home": "Home",
       "pro": "Voor erfgoedprofessionals",
+      "shareYourData": "Deel uw gegevens",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",
@@ -881,6 +888,14 @@ export default {
         "title": "Zoekresultaatweergave (lijst/raster)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Objecten",
+      "providingInstitutions": "Deelnemende erfgoedorganisaties",
+      "visits": "Bezoeken per dag"
+    },
+    "europeanaNumbers": "Europeana.eu in cijfers"
   },
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
@@ -995,10 +1010,8 @@ export default {
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare objecten",
     "status": {
-      "unpublished": "[Ongepubliceerd item]"
-    },
-    "transcription": "Transcriptie",
-    "transcriptionDisclaimer": "Deze inhoud is bijgedragen door het publiek, niet door de deelnemende erfgoedorganisatie die dit object heeft geleverd."
+      "unpublished": "[Ongepubliceerd object]"
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} geavanceerd zoeken",
       "tooltip": {
         "advancedSearch": "Met geavanceerd zoeken kunt u aangepaste zoekopdrachten maken.",
-        "field": "Selecteer een veld om op te zoeken.",
+        "field": "Selecteer de volledige tekst of het metadata veld om in te zoeken.",
         "fields": {
           "fulltext": "Volledige tekst omvat transcripties, gesloten ondertiteling, ondertitels en documenttekst."
         },

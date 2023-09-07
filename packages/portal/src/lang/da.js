@@ -251,6 +251,9 @@ export default {
       "description": "Der opstod en ukendt fejl.",
       "title": "Ukendt fejl"
     },
+    "IIIFManifestFailure": {
+      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
+    },
     "itemNotFound": {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
       "metaTitle": "Varen blev ikke fundet",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Leder du efter muligheden for fuld tekst? Den er flyttet til den avancerede søgning."
+      "fulltextHasMoved": {
+        "newspaper": "Hvis du vil søge i avisens tekst, skal du bruge den avancerede søgning og vælge feltet \"fuldtekst\".",
+        "ww1": "Hvis du vil søge i teksten i WWI-dokumenter, skal du bruge den avancerede søgning og vælge feltet \"fuldtekst\"."
+      }
     },
     "button": {
       "morefilters": "Flere filtre",
@@ -781,6 +787,7 @@ export default {
       "help": "Hjælp",
       "home": "Hjem",
       "pro": "Til professionelle",
+      "shareYourData": "Del dine data",
       "stories": "Historier"
     },
     "quickSearch": "Hurtig søgning",
@@ -881,6 +888,14 @@ export default {
         "title": "Visning af søgeresultater (liste / gitter)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Genstande",
+      "providingInstitutions": "Ejerinstitutioner",
+      "visits": "Besøg pr. dag"
+    },
+    "europeanaNumbers": "Europeana.eu i tal"
   },
   "layout": {
     "skipToMain": "Spring til sideindhold"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Lignende genstande",
     "status": {
       "unpublished": "[Ikke-publiceret element]"
-    },
-    "transcription": "Transskription",
-    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den ejerinstitutioner, der leverede denne genstand."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} avanceret søgning",
       "tooltip": {
         "advancedSearch": "Den avancerede søgning giver dig mulighed for at oprette tilpassede søgeforespørgsler.",
-        "field": "Vælg et felt at søge på.",
+        "field": "Vælg fuldtekst eller metadata felt til søgning indenfor.",
         "fields": {
           "fulltext": "Fuldtekst inkluderer transskriptioner, lukkede billedtekster, undertekster og dokumenttekst."
         },

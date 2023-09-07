@@ -99,7 +99,7 @@
           return false;
         }
 
-        if (!this.internalDomain) {
+        if (!this.internalDomain && typeof path === 'string') {
           return path.startsWith('http://') || path.startsWith('https://');
         }
 
@@ -114,3 +114,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+.btn .icon-external-link {
+  margin-left: 0.5rem;
+}
+</style>

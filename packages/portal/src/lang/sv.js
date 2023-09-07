@@ -251,6 +251,9 @@ export default {
       "description": "Ett okänt fel uppstod.",
       "title": "Okänt fel"
     },
+    "IIIFManifestFailure": {
+      "description": "Tyvärr kan inte det medieobjekt som tillhandahållits till Europeana visas för tillfället. Försök att ladda ner mediaobjektet eller visa objektet på den tillhandahållande institutionens webbplats."
+    },
     "itemNotFound": {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
       "metaTitle": "Objektet hittades inte",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Letar du efter alternativet för fulltext? Det har flyttats till avancerad sökning."
+      "fulltextHasMoved": {
+        "newspaper": "Om du vill söka i tidningstexten måste du använda den avancerade sökningen och välja fältet \"fulltext\".",
+        "ww1": "Om du vill söka inom texten av första världskrigets dokument måste du använda den avancerade sökningen och välja fältet \"fulltext\"."
+      }
     },
     "button": {
       "morefilters": "Fler filter",
@@ -781,6 +787,7 @@ export default {
       "help": "Hjälp",
       "home": "Hem",
       "pro": "För yrkesverksamma",
+      "shareYourData": "Dela dina data",
       "stories": "Berättelser"
     },
     "quickSearch": "Snabb sökning",
@@ -881,6 +888,14 @@ export default {
         "title": "Visa sökresultat (lista/rutnät)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Objekt",
+      "providingInstitutions": "Tillhandahållande institutioner",
+      "visits": "Besök per dag"
+    },
+    "europeanaNumbers": "Europeana.eu i siffror"
   },
   "layout": {
     "skipToMain": "Hoppa till sidans innehåll"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Liknande objekt",
     "status": {
       "unpublished": "[Opublicerat objekt]"
-    },
-    "transcription": "Transkribering",
-    "transcriptionDisclaimer": "Detta innehåll bidras av allmänheten, inte av institutionen som tillhandahöll detta objekt."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} avancerad sökning",
       "tooltip": {
         "advancedSearch": "Den avancerade sökningen låter dig skapa anpassade sökfrågor.",
-        "field": "Välj ett fält att söka på.",
+        "field": "Välj fulltext- eller metadatafältet att söka i.",
         "fields": {
           "fulltext": "Fulltext inkluderar transkriptioner, stängda bildtexter, undertexter och dokumenttext."
         },

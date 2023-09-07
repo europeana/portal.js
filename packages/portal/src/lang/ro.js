@@ -5,7 +5,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Log in / Join",
+    "linkLoginJoin": "Autentificare / Înregistrare",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -251,6 +251,9 @@ export default {
       "description": "A apărut o eroare necunoscută.",
       "title": "Eroare necunoscută"
     },
+    "IIIFManifestFailure": {
+      "description": "Din păcate, resursă culturală media furnizat Europeana nu poate fi afișat în acest moment. Încercați să descărcați media sau să vizualizați resursă culturală pe site-ul instituției furnizoare."
+    },
     "itemNotFound": {
       "description": "Acest lucru se poate datora următoarelor motive: acest resursă culturală nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți resursă culturală din nou.",
       "metaTitle": "Resursă culturală nu a fost găsit",
@@ -282,7 +285,10 @@ export default {
   },
   "facets": {
     "alert": {
-      "fulltextHasMoved": "Căutați opțiunea de text integral? A fost mutată la căutarea avansată."
+      "fulltextHasMoved": {
+        "newspaper": "Dacă doriți să căutați în textul ziarelor, va trebui să utilizați căutarea avansată și să alegeți câmpul „text integral”.",
+        "ww1": "Dacă doriți să căutați în textul documentelor din Primul Război Mondial, va trebui să utilizați căutarea avansată și să alegeți câmpul \"text integral\"."
+      }
     },
     "button": {
       "morefilters": "Mai multe filtre",
@@ -781,6 +787,7 @@ export default {
       "help": "Help",
       "home": "Pagină natală",
       "pro": "Pentru profesioniști",
+      "shareYourData": "Împărtășiți-vă datele",
       "stories": "Narațiuni"
     },
     "quickSearch": "Căutare rapidă",
@@ -881,6 +888,14 @@ export default {
         "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Resurse culturale",
+      "providingInstitutions": "Instituții furnizoare",
+      "visits": "Vizite pe zi"
+    },
+    "europeanaNumbers": "Europeana.eu în cifre"
   },
   "layout": {
     "skipToMain": "Treci la conținutul paginii"
@@ -996,9 +1011,7 @@ export default {
     "similarItems": "Resurse culturale similare",
     "status": {
       "unpublished": "[Resursă culturală nepublicat]"
-    },
-    "transcription": "Transcriere",
-    "transcriptionDisclaimer": "Această conținut este contribuită de către public, nu de către instituția furnizoare care a furnizat acest resursă culturală."
+    }
   },
   "related": {
     "categoryTags": {
@@ -1056,7 +1069,7 @@ export default {
       "show": "{showOrHide} căutare avansată",
       "tooltip": {
         "advancedSearch": "Căutarea avansată vă permite să creați interogări de căutare personalizate.",
-        "field": "Selectați un câmp în care să căutați.",
+        "field": "Selectați câmpul de text integral sau câmpul de metadate în care doriți să căutați.",
         "fields": {
           "fulltext": "Textul integral include transcripții, subtitrări închise, subtitrări și textul documentului."
         },
