@@ -6,8 +6,8 @@ import locales from '../i18n/locales.js';
 import undefinedLocaleCodes from '../i18n/undefined.js';
 import { keycloakResponseErrorHandler } from './auth.js';
 
-export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
-  const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
+export const createAxios = ({ id, $axios } = {}, context = {}) => {
+  const axiosOptions = axiosInstanceOptions({ id }, context);
 
   const axiosInstance = ($axios || axios).create(axiosOptions);
 
@@ -19,8 +19,8 @@ export const createAxios = ({ id, baseURL, $axios } = {}, context = {}) => {
   return axiosInstance;
 };
 
-export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
-  const axiosInstance = createAxios({ id, baseURL, $axios }, context);
+export const createKeycloakAuthAxios = ({ id, $axios }, context) => {
+  const axiosInstance = createAxios({ id, $axios }, context);
 
   if (typeof axiosInstance.onResponseError === 'function') {
     axiosInstance.onResponseError(error => keycloakResponseErrorHandler(context, error));
@@ -29,31 +29,11 @@ export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
   return axiosInstance;
 };
 
-const storedAPIBaseURL = (store, id) => {
-  if (store?.state?.apis?.urls?.[id]) {
-    return store.state.apis.urls[id];
-  } else {
-    return null;
-  }
-};
-
-export const preferredAPIBaseURL = ({ id, baseURL }, { store, $config }) => {
-  return storedAPIBaseURL(store, id) || apiConfig($config, id).url || baseURL;
-};
-
-export const apiConfig = ($config, id) => {
-  if ($config?.europeana?.apis?.[id]) {
-    return $config.europeana.apis[id];
-  } else {
-    return {};
-  }
-};
-
-const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
-  const config = apiConfig($config, id);
+const axiosInstanceOptions = ({ id }, { store, $config }) => {
+  const config = $config?.europeana?.apis?.[id] || {};
 
   return {
-    baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
+    baseURL: store?.state?.apis?.urls[id] || config.url,
     params: {
       wskey: config.key
     },

@@ -5,7 +5,7 @@ export const AUTHENTICATING = true;
 
 export default (context = {}) => {
   const $axios = createKeycloakAuthAxios(
-    { id: 'recommendation', baseURL: BASE_URL, $axios: context.$axios },
+    { id: 'recommendation', $axios: context.$axios },
     context
   );
 

@@ -7,7 +7,7 @@ export const BASE_URL = 'https://api.europeana.eu/entity';
 export const AUTHENTICATING = true;
 
 export default (context = {}) => {
-  const $axios = createAxios({ id: 'entity', baseURL: BASE_URL }, context);
+  const $axios = createAxios({ id: 'entity' }, context);
 
   return {
     $axios,

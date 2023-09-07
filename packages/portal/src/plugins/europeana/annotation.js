@@ -4,7 +4,7 @@ export const BASE_URL = 'https://api.europeana.eu/annotation';
 export const AUTHENTICATING = true;
 
 export default (context = {}) => {
-  const $axios = createAxios({ id: 'annotation', baseURL: BASE_URL }, context);
+  const $axios = createAxios({ id: 'annotation' }, context);
 
   return {
     $axios,

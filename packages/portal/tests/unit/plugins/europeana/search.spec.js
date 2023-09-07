@@ -3,6 +3,7 @@ import search, {
   addContentTierFilter, rangeToQueryParam, rangeFromQueryParam
 } from '@/plugins/europeana/search';
 import { BASE_URL } from '@/plugins/europeana/record';
+const store = { state: { apis: { urls: { record: BASE_URL } } } };
 
 const apiEndpoint = '/search.json';
 
@@ -14,7 +15,7 @@ describe('plugins/europeana/search', () => {
     nock.cleanAll();
   });
 
-  describe('search({})()', () => {
+  describe('search()()', () => {
     describe('API request', () => {
       it('requests 24 results by default', async() => {
         baseRequest()
@@ -23,7 +24,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({})(null, { query: 'anything' });
+        await search({ store })(null, { query: 'anything' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -35,7 +36,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({})(null, { query: 'anything', rows: 9 });
+        await search({ store })(null, { query: 'anything', rows: 9 });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -47,7 +48,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({})(null, { page: 2, query: 'anything' });
+        await search({ store })(null, { page: 2, query: 'anything' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -59,7 +60,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({})(null, { page: 42, query: 'anything' });
+        await search({ store })(null, { page: 42, query: 'anything' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -71,7 +72,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({})(null, { query: 'anything', facet: 'LANGUAGE' });
+        await search({ store })(null, { query: 'anything', facet: 'LANGUAGE' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -83,7 +84,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({})(null, { query: 'anything', facet: 'COUNTRY,REUSABILITY' });
+        await search({ store })(null, { query: 'anything', facet: 'COUNTRY,REUSABILITY' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -95,7 +96,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({})(null, { query: '' });
+        await search({ store })(null, { query: '' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -107,7 +108,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({})(null, { query: 'anything', reusability: 'open' });
+        await search({ store })(null, { query: 'anything', reusability: 'open' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -122,7 +123,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search()(null, { query: 'flor' }, { translateLang });
+          await search({ store })(null, { query: 'flor' }, { translateLang });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -135,7 +136,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search()(null, { query: 'flor' });
+          await search({ store })(null, { query: 'flor' });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -150,7 +151,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search()(null, { query: 'flor' }, { translateLang });
+          await search({ store })(null, { query: 'flor' }, { translateLang });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -164,7 +165,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search({})(null, { query: 'dress (red OR blue)' });
+          await search({ store })(null, { query: 'dress (red OR blue)' });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -176,7 +177,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search({})(null, { query: 'dress (red OR blue)' }, { escape: true });
+          await search({ store })(null, { query: 'dress (red OR blue)' }, { escape: true });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -192,7 +193,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search({})(null, { query: 'test', boost: 'BOOST' });
+          await search({ store })(null, { query: 'test', boost: 'BOOST' });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -212,7 +213,7 @@ describe('plugins/europeana/search', () => {
 
           let error;
           try {
-            await search({})(null, { query: 'NOT ' });
+            await search({ store })(null, { query: 'NOT ' });
           } catch (e) {
             error = e;
           }
@@ -224,7 +225,7 @@ describe('plugins/europeana/search', () => {
 
       describe('with `items`', () => {
         function searchResponse(options = {}) {
-          return search({})(null, { query: 'painting' }, options);
+          return search({ store })(null, { query: 'painting' }, options);
         }
 
         describe('.items', () => {
@@ -335,7 +336,7 @@ describe('plugins/europeana/search', () => {
 
           describe('when page is at the API limit', () => {
             function searchResponse() {
-              return search({})(null, { query: 'painting', page: 42 });
+              return search({ store })(null, { query: 'painting', page: 42 });
             }
 
             it('is `true`', async() => {

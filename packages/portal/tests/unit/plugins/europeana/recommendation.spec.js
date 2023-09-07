@@ -1,8 +1,7 @@
 import nock from 'nock';
 
 import recommendation, { BASE_URL } from '@/plugins/europeana/recommendation';
-
-import axios from 'axios';
+const store = { state: { apis: { urls: { recommendation: BASE_URL } } } };
 
 const recommendations = ['/123/def', '/123/ghi'];
 const oldRecommendedItem = ['/123/jkl'];
@@ -20,7 +19,7 @@ describe('plugins/europeana/recommendation', () => {
           .get('/record/123/abc')
           .reply(200, recommendations);
 
-        const response = await recommendation(axios).recommend('record', '/123/abc');
+        const response = await recommendation({ store }).recommend('record', '/123/abc');
 
         expect(nock.isDone()).toBe(true);
         expect(response).toEqual(recommendations);
@@ -33,7 +32,7 @@ describe('plugins/europeana/recommendation', () => {
           .get('/set/123')
           .reply(200, recommendations);
 
-        const response = await recommendation(axios).recommend('set', '/123');
+        const response = await recommendation({ store }).recommend('set', '/123');
 
         expect(nock.isDone()).toBe(true);
         expect(response).toEqual(recommendations);
@@ -48,7 +47,7 @@ describe('plugins/europeana/recommendation', () => {
           .post('/set/123')
           .reply(200, newRecommendedItem);
 
-        const response = await recommendation(axios).accept('set', '/123', oldRecommendedItem);
+        const response = await recommendation({ store }).accept('set', '/123', oldRecommendedItem);
 
         expect(nock.isDone()).toBe(true);
         expect(response).toEqual(newRecommendedItem);
@@ -63,7 +62,7 @@ describe('plugins/europeana/recommendation', () => {
           .post('/set/123')
           .reply(200, newRecommendedItem);
 
-        const response = await recommendation(axios).accept('set', '/123', oldRecommendedItem);
+        const response = await recommendation({ store }).accept('set', '/123', oldRecommendedItem);
 
         expect(nock.isDone()).toBe(true);
         expect(response).toEqual(newRecommendedItem);

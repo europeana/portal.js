@@ -2,6 +2,7 @@ import nock from 'nock';
 import sinon from 'sinon';
 
 import plugin, { BASE_URL } from '@/plugins/europeana/set';
+const store = { state: { apis: { urls: { set: BASE_URL } } } };
 
 const setId = '1234';
 const itemId = '/123/abc';
@@ -38,7 +39,7 @@ describe('@/plugins/europeana/set', () => {
         .query(true)
         .reply(200, setGetResponse);
 
-      const response = await plugin({ $config }).get(setId);
+      const response = await plugin({ $config, store }).get(setId);
       expect(response.items).toEqual(['http://data.europeana.eu/item/123/abc', 'http://data.europeana.eu/item/123/def']);
     });
 
@@ -48,7 +49,7 @@ describe('@/plugins/europeana/set', () => {
         .query(query => query.wskey === 'apikey')
         .reply(200, setGetResponse);
 
-      await plugin({ $config }).get(setId);
+      await plugin({ $config, store }).get(setId);
       expect(nock.isDone()).toBe(true);
     });
   });
@@ -65,7 +66,7 @@ describe('@/plugins/europeana/set', () => {
         .query(query => query.query === 'creator:auth-user-sub type:BookmarkFolder')
         .reply(200, searchResponse);
 
-      const response = await plugin({ $config }).getLikes('auth-user-sub');
+      const response = await plugin({ $config, store }).getLikes('auth-user-sub');
       expect(response).toBe('http://data.europeana.eu/set/163');
     });
   });
@@ -77,7 +78,7 @@ describe('@/plugins/europeana/set', () => {
         .query(true)
         .reply(200, likesResponse);
 
-      const response = await plugin({ $config }).createLikes();
+      const response = await plugin({ $config, store }).createLikes();
       expect(response.id).toBe('http://data.europeana.eu/set/1234');
     });
   });
@@ -88,7 +89,7 @@ describe('@/plugins/europeana/set', () => {
         .put(`/${setId}${itemId}`)
         .query(true)
         .reply(200, likesResponse);
-      const response =  await plugin({ $config }).modifyItems('add', setId, itemId);
+      const response =  await plugin({ $config, store }).modifyItems('add', setId, itemId);
       expect(response.id).toBe('http://data.europeana.eu/set/1234');
     });
   });
@@ -100,7 +101,7 @@ describe('@/plugins/europeana/set', () => {
         .query(true)
         .reply(204);
 
-      await plugin({ $config }).delete(setId);
+      await plugin({ $config, store }).delete(setId);
       expect(nock.isDone()).toBe(true);
     });
   });
@@ -113,7 +114,7 @@ describe('@/plugins/europeana/set', () => {
         .query(true)
         .reply(200);
 
-      await plugin({ $config }).update(setId, body);
+      await plugin({ $config, store }).update(setId, body);
       expect(nock.isDone()).toBe(true);
     });
 
@@ -125,7 +126,7 @@ describe('@/plugins/europeana/set', () => {
         .query(query => query.profile === params.profile)
         .reply(200);
 
-      await plugin({ $config }).update(setId, body, params);
+      await plugin({ $config, store }).update(setId, body, params);
       expect(nock.isDone()).toBe(true);
     });
   });
@@ -137,7 +138,7 @@ describe('@/plugins/europeana/set', () => {
         .query(true)
         .reply(200);
 
-      await plugin({ $config }).publish(setId);
+      await plugin({ $config, store }).publish(setId);
       expect(nock.isDone()).toBe(true);
     });
     describe('when request errors', () => {
@@ -152,7 +153,7 @@ describe('@/plugins/europeana/set', () => {
 
         let error;
         try {
-          await plugin({ $config }).publish(setId);
+          await plugin({ $config, store }).publish(setId);
         } catch (e) {
           error = e;
         }
@@ -170,7 +171,7 @@ describe('@/plugins/europeana/set', () => {
         .query(true)
         .reply(200);
 
-      await plugin({ $config }).unpublish(setId);
+      await plugin({ $config, store }).unpublish(setId);
       expect(nock.isDone()).toBe(true);
     });
     describe('when request errors', () => {
@@ -185,7 +186,7 @@ describe('@/plugins/europeana/set', () => {
 
         let error;
         try {
-          await plugin({ $config }).unpublish(setId);
+          await plugin({ $config, store }).unpublish(setId);
         } catch (e) {
           error = e;
         }
@@ -211,7 +212,7 @@ describe('@/plugins/europeana/set', () => {
         .query(true)
         .reply(200, 'response');
 
-      const response = await plugin({ $config }).search(searchParams);
+      const response = await plugin({ $config, store }).search(searchParams);
 
       expect(response.data).toEqual('response');
     });
@@ -225,7 +226,8 @@ describe('@/plugins/europeana/set', () => {
         };
         const context = {
           $config,
-          $apis: { record: { find: sinon.stub().resolves(recordSearchResponse) } }
+          $apis: { record: { find: sinon.stub().resolves(recordSearchResponse) } },
+          store
         };
         const setSearchResponse = {
           items: [
