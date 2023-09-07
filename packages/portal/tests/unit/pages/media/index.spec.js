@@ -1,6 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import sinon from 'sinon';
 
 import page from '@/pages/media/index';
 
@@ -37,8 +36,10 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
 
 describe('pages/media/index', () => {
   beforeAll(() => {
-    // global stubbed media player to quiet warnings
-    EuropeanaMediaPlayer = function() { return {} };
+    // global stubbed media player constructor to quiet warnings
+    EuropeanaMediaPlayer = function() {
+      return {};
+    };
   });
 
   afterAll(() => {
