@@ -127,7 +127,7 @@
           }
         };
 
-        if (this.onCollectionPage) {
+        if (this.onCollectionPage && !this.advancedSearch) {
           globalSearchOption.i18n.path = this.text ? 'header.entireCollection' : 'header.searchForEverythingInEntireCollection';
         } else {
           globalSearchOption.i18n.path = this.text ? 'header.searchFor' : 'header.searchForEverything';
@@ -137,7 +137,7 @@
       },
 
       options() {
-        if (this.onCollectionPage) {
+        if (this.onCollectionPage && !this.advancedSearch) {
           return [this.collectionSearchOption, this.globalSearchOption];
         } else {
           return [this.globalSearchOption].concat(this.suggestionSearchOptions);
