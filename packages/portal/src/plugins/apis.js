@@ -100,7 +100,9 @@ export const publicPrivateRewriteOrigins = () => {
 
 export default (context, inject) => {
   context.store.registerModule(MODULE_NAME, storeModule);
-  context.store.commit('apis/init', context);
+  if (process.server) {
+    context.store.commit('apis/init', context);
+  }
 
   const plugin = Object.keys(apis).reduce((memo, id) => {
     if (apis[id].default) {

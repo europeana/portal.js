@@ -17,6 +17,12 @@ describe('store/index.js', () => {
 
   describe('actions', () => {
     describe('nuxtServerInit', () => {
+      it('commits apis/init with the context', () => {
+        actions.nuxtServerInit(store, context);
+
+        expect(store.commit.calledWith('apis/init', context)).toBe(true);
+      });
+
       it('commits search/setView with the searchResultsView cookie', () => {
         actions.nuxtServerInit(store, context);
 
