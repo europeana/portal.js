@@ -7,7 +7,6 @@ export const actions = {
   async nuxtServerInit(store, context) {
     // TODO: ideally the contentful module would run this itself...
     store.commit('contentful/setAcceptedMediaTypes', context.req);
-    store.commit('apis/init', context);
     context.$cookies && store.commit('search/setView', context.$cookies.get('searchResultsView'));
   }
 };

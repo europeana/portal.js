@@ -7,7 +7,6 @@ import pick from 'lodash/pick.js';
 import {
   apiError, createAxios, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
 } from './utils.js';
-import { BASE_URL } from './record.js';
 import { truncate } from '../vue-filters.js';
 
 // Some facets do not support enquoting of their field values.
@@ -91,7 +90,7 @@ export function rangeFromQueryParam(paramValue) {
  */
 export default (context) => ($axios, params, options = {}) => {
   if (!$axios) {
-    $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
+    $axios = createAxios({ id: 'record' }, context);
   }
 
   const localParams = { ...params };

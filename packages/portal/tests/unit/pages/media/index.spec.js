@@ -18,14 +18,12 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
         mediaType: data.mediaType || 'video/mpeg'
       }
     },
-    $config: {
-      europeana: {
+    $store: {
+      state: {
         apis: {
-          iiifPresentation: {
-            url: 'https://iiifpresentation.eanadev.org/'
-          },
-          record: {
-            url: 'https://api.eanadev.org/record'
+          urls: {
+            iiifPresentation: 'https://iiifpresentation.eanadev.org/',
+            record: 'https://api.eanadev.org/record'
           }
         }
       }

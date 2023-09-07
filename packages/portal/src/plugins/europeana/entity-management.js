@@ -7,7 +7,7 @@ export const AUTHENTICATING = true;
 
 export default (context = {}) => {
   const $axios = createKeycloakAuthAxios(
-    { id: 'entityManagement', baseURL: BASE_URL, $axios: context.$axios },
+    { id: 'entityManagement', $axios: context.$axios },
     context
   );
 

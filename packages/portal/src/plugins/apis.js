@@ -26,11 +26,11 @@ const apis = {
   thumbnail
 };
 
-const apiUrlFromRequestHeaders = (api, headers) => {
+const apiUrlFromRequestHeaders = (api, headers = {}) => {
   return headers[`x-europeana-${api}-api-url`];
 };
 
-const storeModule = {
+export const storeModule = {
   namespaced: true,
 
   state: () => ({
@@ -38,50 +38,47 @@ const storeModule = {
   }),
 
   mutations: {
-    init(state, { req }) {
-      for (const api in apis) {
-        const apiBaseURL = apiUrlFromRequestHeaders(api, req.headers);
-
-        if (apiBaseURL && this.$apis?.[api]?.$axios) {
-          this.$apis[api].$axios.defaults.baseURL = apiBaseURL;
-        }
-        state.urls[api] = apiBaseURL;
+    init(state, { req, $config }) {
+      for (const id in apis) {
+        state.urls[id] = apiUrlFromRequestHeaders(id, req?.headers) ||
+          $config?.europeana?.apis?.[id]?.url ||
+          apis[id].BASE_URL;
       }
     }
   }
 };
 
-const apiConfig = (id, scope) => {
+const apiConfigFromEnv = (id, scope) => {
   const envKeySuffix = scope === 'public' ? '' : `_${scope.toUpperCase()}`;
 
-  const apiConfig = {};
+  const apiConfigFromEnv = {};
 
   const envKeyPrefix = `EUROPEANA_${snakeCase(id).toUpperCase()}_API_`;
 
   if (process.env[`${envKeyPrefix}URL${envKeySuffix}`]) {
     // Overriden API URL
-    apiConfig.url = process.env[`${envKeyPrefix}URL${envKeySuffix}`];
+    apiConfigFromEnv.url = process.env[`${envKeyPrefix}URL${envKeySuffix}`];
   } else if (scope === 'public') {
     // Fallback to default API URL, public scope only
-    apiConfig.url = apis[id].BASE_URL;
+    apiConfigFromEnv.url = apis[id].BASE_URL;
   }
 
   if (apis[id].AUTHENTICATING) {
     if (process.env[`${envKeyPrefix}KEY${envKeySuffix}`]) {
       // API-specific key
-      apiConfig.key = process.env[`${envKeyPrefix}KEY${envKeySuffix}`];
+      apiConfigFromEnv.key = process.env[`${envKeyPrefix}KEY${envKeySuffix}`];
     } else if (process.env[`EUROPEANA_API_KEY${envKeySuffix}`]) {
       // Shared API key
-      apiConfig.key = process.env[`EUROPEANA_API_KEY${envKeySuffix}`];
+      apiConfigFromEnv.key = process.env[`EUROPEANA_API_KEY${envKeySuffix}`];
     }
   }
 
-  return apiConfig;
+  return apiConfigFromEnv;
 };
 
 export const nuxtRuntimeConfig = ({ scope = 'public' } = {}) => {
   return Object.keys(apis).reduce((memo, id) => {
-    memo[id] = apiConfig(id, scope);
+    memo[id] = apiConfigFromEnv(id, scope);
     return memo;
   }, {});
 };
@@ -103,6 +100,7 @@ export const publicPrivateRewriteOrigins = () => {
 
 export default (context, inject) => {
   context.store.registerModule(MODULE_NAME, storeModule);
+  context.store.commit('apis/init', context);
 
   const plugin = Object.keys(apis).reduce((memo, id) => {
     if (apis[id].default) {

@@ -11,7 +11,7 @@ const setIdFromUri = (uri) => uri.split('/').pop();
 
 export default (context = {}) => {
   const $axios = createKeycloakAuthAxios(
-    { id: 'set', baseURL: BASE_URL, $axios: context.$axios },
+    { id: 'set', $axios: context.$axios },
     context
   );
 

@@ -5,12 +5,11 @@
 
 import md5 from 'md5';
 
-import { preferredAPIBaseURL } from './utils.js';
-
 export const BASE_URL = 'https://api.europeana.eu/thumbnail/v3';
 
+// TODO: why does this get called multiple times on a single page load?
 export default (context = {}) => {
-  const baseUrl = preferredAPIBaseURL({ id: 'thumbnail', baseURL: BASE_URL }, context);
+  const baseUrl = context.store?.state?.apis?.urls?.thumbnail || BASE_URL;
   if (!baseUrl.endsWith('/v3')) {
     throw new Error('Only Thumbnail API v3 is supported for thumbnail URL generation.');
   }

@@ -42,16 +42,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     $i18n: {
       locale: 'en'
     },
-    $config: {
-      europeana: {
-        apis: {
-          fulltext: {
-            url: 'https://newspapers.eanadev.org/api/v2'
-          }
-        }
-      },
-      ...mocks.$config
-    },
+    $config: mocks.$config,
     ...mocks,
     $store: {
       commit: sinon.spy(),
@@ -61,6 +52,11 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
         ...mocks.$store?.getters
       },
       state: {
+        apis: {
+          urls: {
+            fulltext: 'https://newspapers.eanadev.org/api/v2'
+          }
+        },
         entity: {
           entity: {}
         },

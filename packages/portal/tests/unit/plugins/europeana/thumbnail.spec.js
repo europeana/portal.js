@@ -1,22 +1,24 @@
-import thumbnail from '@/plugins/europeana/thumbnail';
+import thumbnail, { BASE_URL } from '@/plugins/europeana/thumbnail';
+const store = { state: { apis: { urls: { thumbnail: BASE_URL } } } };
 
 describe('plugins/europeana/thumbnail', () => {
   describe('default export', () => {
     describe('media()', () => {
       const uri = 'https://www.example.org/doc.pdf';
 
-      it('defaults to the v3 production thumbnail API', () => {
-        expect(thumbnail().media(uri).startsWith('https://api.europeana.eu/thumbnail/v3')).toBe(true);
+      it('defaults to the production thumbnail API', () => {
+        const context = { store: { state: { apis: { urls: {} } } } };
+        expect(thumbnail(context).media(uri).startsWith('https://api.europeana.eu/thumbnail/v3')).toBe(true);
       });
 
-      it('favours a thumbnail API in the context', () => {
-        const context = { $config: { europeana: { apis: { thumbnail: { url: 'https://thumbnail.example.org/thumbnail/v3' } } } } };
+      it('favours a thumbnail API in the store', () => {
+        const context = { store: { state: { apis: { urls: { thumbnail: 'https://thumbnail.example.org/thumbnail/v3' } } } } };
 
         expect(thumbnail(context).media(uri).startsWith('https://thumbnail.example.org/thumbnail/v3')).toBe(true);
       });
 
       describe('Thumbnail API v2', () => {
-        const context = { $config: { europeana: { apis: { thumbnail: { url: 'https://api.europeana.eu/thumbnail/v2' } } } } };
+        const context = { store: { state: { apis: { urls: { thumbnail: 'https://api.europeana.eu/thumbnail/v2' } } } } };
 
         it('is not supported', () => {
           expect(() => {
@@ -26,7 +28,7 @@ describe('plugins/europeana/thumbnail', () => {
       });
 
       describe('Thumbnail API v3', () => {
-        const context = { $config: { europeana: { apis: { thumbnail: { url: 'https://api.europeana.eu/thumbnail/v3' } } } } };
+        const context = { store, $config: { europeana: { apis: { thumbnail: { url: 'https://api.europeana.eu/thumbnail/v3' } } } } };
 
         describe('hash', () => {
           it('is used as-is when supplied', () => {
@@ -53,17 +55,9 @@ describe('plugins/europeana/thumbnail', () => {
     });
 
     describe('edmPreview()', () => {
-      describe('for Thumbnail API v2 edm:preview URL', () => {
-        describe('with v3 API URL in context', () => {
-          // const context = { $config: { europeana: { apis: { thumbnail: { url: 'https://api.europeana.eu/thumbnail/v3' } } } } };
-
-          test.todo('spec this');
-        });
-      });
-
       describe('for Thumbnail API v3 edm:preview URL', () => {
         describe('with v3 API URL in context', () => {
-          const context = { $config: { europeana: { apis: { thumbnail: { url: 'https://api.europeana.eu/thumbnail/v3' } } } } };
+          const context = { store, $config: { europeana: { apis: { thumbnail: { url: 'https://api.europeana.eu/thumbnail/v3' } } } } };
 
           it('overwrites API URL using context', () => {
             const url = 'https://example.org/thumbnail/v3/200/cffc370c6c63744ed934701a47b0349a';
@@ -84,7 +78,7 @@ describe('plugins/europeana/thumbnail', () => {
       });
 
       it('is `null` if edmPreview is absent', () => {
-        const edmPreview = thumbnail().edmPreview();
+        const edmPreview = thumbnail({ store }).edmPreview();
 
         expect(edmPreview).toBe(null);
       });

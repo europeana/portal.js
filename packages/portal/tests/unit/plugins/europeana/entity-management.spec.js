@@ -1,8 +1,7 @@
 import nock from 'nock';
 
 import entitymanage, { BASE_URL } from '@/plugins/europeana/entity-management';
-
-import axios from 'axios';
+const store = { state: { apis: { urls: { entityManagement: BASE_URL } } } };
 
 const proxyBody = { type: 'Concept',
   prefLabel: { en: 'Painting' },
@@ -53,7 +52,7 @@ describe('plugins/europeana/entity-management', () => {
         .query(query => query.profile === profile)
         .reply(200, entityResponses.items[0]);
 
-      const response = await entitymanage(axios).get(entityUri);
+      const response = await entitymanage({ store }).get(entityUri);
 
       expect(response.note.en).toEqual(['A medium for recording information in the form of writing or images']);
     });
@@ -67,7 +66,7 @@ describe('plugins/europeana/entity-management', () => {
         .query(query => query.profile === profile)
         .reply(200, entityResponses.items[0]);
 
-      await entitymanage(axios).get(entityUri, { profile });
+      await entitymanage({ store }).get(entityUri, { profile });
 
       expect(nock.isDone()).toBe(true);
     });
@@ -81,7 +80,7 @@ describe('plugins/europeana/entity-management', () => {
         .put(`/concept/${entityId}`)
         .reply(200, updatedEntity);
 
-      const response = await entitymanage(axios).update(entityUri, proxyBody);
+      const response = await entitymanage({ store }).update(entityUri, proxyBody);
 
       expect(response.id).toBe('http://data.europeana.eu/concept/124');
     });
