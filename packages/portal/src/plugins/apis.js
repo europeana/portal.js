@@ -1,3 +1,4 @@
+import kebabCase from 'lodash/kebabCase.js';
 import snakeCase from 'lodash/snakeCase.js';
 
 import * as annotation from './europeana/annotation.js';
@@ -26,8 +27,8 @@ const apis = {
   thumbnail
 };
 
-const apiUrlFromRequestHeaders = (api, headers = {}) => {
-  return headers[`x-europeana-${api}-api-url`];
+const apiUrlFromRequestHeaders = (id, headers = {}) => {
+  return headers[`x-europeana-${kebabCase(id)}-api-url`];
 };
 
 export const storeModule = {
