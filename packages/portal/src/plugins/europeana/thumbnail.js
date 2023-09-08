@@ -20,7 +20,7 @@ export default class EuropeanaThumbnailApi extends EuropeanaApi {
     if (!hash && uri) {
       hash = md5(uri);
     }
-    return `${this.config.url}/${size}/${hash}`;
+    return `${this.baseUrl}/${size}/${hash}`;
   }
 
   edmPreview(thumbnailApiUrl, { size } = {}) {

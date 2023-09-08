@@ -49,9 +49,9 @@
 
     computed: {
       manifest() {
-        const manifestUrl = new URL(`/presentation${this.id}/manifest`, this.$apis.iiifPresentation.url);
+        const manifestUrl = new URL(`/presentation${this.id}/manifest`, this.$apis.iiifPresentation.baseUrl);
         manifestUrl.searchParams.set('format', '3');
-        manifestUrl.searchParams.set('recordApi', new URL(this.apis.record.url).origin);
+        manifestUrl.searchParams.set('recordApi', new URL(this.apis.record.baseUrl).origin);
         return manifestUrl.toString();
       },
 

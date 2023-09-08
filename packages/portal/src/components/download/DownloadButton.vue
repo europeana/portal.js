@@ -54,7 +54,7 @@
         return !this.urlValidated && !this.validationNetworkError;
       },
       target() {
-        if (this.validationNetworkError || !this.url.startsWith(this.$apis.mediaProxy.url)) {
+        if (this.validationNetworkError || !this.url.startsWith(this.$apis.mediaProxy.baseUrl)) {
           return '_blank';
         }
         return '_self';

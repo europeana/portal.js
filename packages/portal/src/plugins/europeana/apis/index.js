@@ -12,7 +12,7 @@ import thumbnail from '../thumbnail.js';
 
 const MODULE_NAME = 'apis';
 
-export const APIS = {
+const APIS = {
   annotation,
   entity,
   entityManagement,
@@ -24,6 +24,8 @@ export const APIS = {
   set,
   thumbnail
 };
+
+export const API_IDS = Object.keys(APIS);
 
 export const storeModule = {
   namespaced: true,
@@ -44,8 +46,9 @@ export const storeModule = {
 export default (context, inject) => {
   context.store.registerModule(MODULE_NAME, storeModule);
 
-  const plugin = Object.keys(APIS).reduce((memo, id) => {
+  const plugin = API_IDS.reduce((memo, id) => {
     memo[id] = new APIS[id](context);
+    console.log('API config', id, memo[id].baseUrl, memo[id].config);
     return memo;
   }, {});
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 
 import { keycloakResponseErrorHandler } from '../../auth.js';
-import { EuropeanaApiContextConfig } from './config.js';
+import EuropeanaApiContextConfig from '../config/context.js';
 
 export default class EuropeanaApi {
   static ID;
@@ -10,7 +10,7 @@ export default class EuropeanaApi {
   static AUTHENTICATING = false;
   // whether authorisation via Keycloak is used
   static AUTHORISING = false;
-  static BASE_URL;
+  static BASE_URL = 'https://api.europeana.eu/';
   #axios;
 
   constructor(context) {
@@ -23,6 +23,10 @@ export default class EuropeanaApi {
       this.#axios = this.createAxios();
     }
     return this.#axios;
+  }
+
+  get baseUrl() {
+    return this.config.url || this.constructor.BASE_URL;
   }
 
   // TODO: should this be a new class extending Error?
@@ -48,10 +52,10 @@ export default class EuropeanaApi {
   }
 
   createAxios() {
-    const axiosBase = this.constructor.AUTHORISING ? this.context.$axios : axios;
+    const axiosBase = (this.constructor.AUTHORISING && this.context?.$axios) ? this.context?.$axios : axios;
     const axiosInstance = axiosBase.create(this.axiosInstanceOptions);
 
-    const app = this.context.app;
+    const app = this.context?.app;
     if (app?.$axiosLogger) {
       axiosInstance.interceptors.request.use(app.$axiosLogger);
     }
@@ -64,11 +68,14 @@ export default class EuropeanaApi {
   }
 
   get axiosInstanceOptions() {
+    const params = {};
+    if (this.constructor.AUTHENTICATING) {
+      params.wskey = this.config.key;
+    }
+
     return {
-      baseURL: this.config.url,
-      params: {
-        wskey: this.config.key
-      },
+      baseURL: this.baseUrl,
+      params,
       paramsSerializer(params) {
         return qs.stringify(params, { arrayFormat: 'repeat' });
       },

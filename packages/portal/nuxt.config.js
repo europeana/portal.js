@@ -17,7 +17,7 @@ import features, { featureIsEnabled, featureNotificationExpiration } from './src
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins
-} from './src/plugins/europeana/apis/utils/config.js';
+} from './src/plugins/europeana/apis/config/nuxt.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
