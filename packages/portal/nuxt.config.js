@@ -15,7 +15,9 @@ import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
-import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
+import {
+  nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins
+} from './src/plugins/europeana/apis/utils/config.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
@@ -360,7 +362,7 @@ export default {
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
+    plugins: ['~/plugins/europeana/apis', '~/plugins/user-likes.client']
   },
 
   axios: {
