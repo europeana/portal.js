@@ -7,16 +7,23 @@
     @focusout="handleFocusOutChange"
   >
     <b-form-input
+      :id="id"
       ref="searchinput"
       v-model="term"
       :data-qa="`advanced search query builder: ${name} control`"
       :placeholder="$t('search.advanced.placeholder.term')"
       :state="state"
+      role="searchbox"
+      aria-autocomplete="list"
+      :aria-owns="showSearchOptions ? optionsId : null"
+      :aria-expanded="showSearchOptions"
+      :aria-controls="showSearchOptions ? optionsId : null"
       @input="showSearchOptions = true"
       @keydown.enter="handleChange"
     />
     <SearchQueryOptions
       v-show="showSearchOptions"
+      :id="optionsId"
       ref="searchoptions"
       class="auto-suggest-dropdown"
       :text="term"
@@ -44,6 +51,11 @@
     mixins: [searchOptionsKeyboardNav],
 
     props: {
+      id: {
+        type: String,
+        default: null
+      },
+
       name: {
         type: String,
         default: 'term'
@@ -80,6 +92,12 @@
         selectedValue: null,
         submitting: null
       };
+    },
+
+    computed: {
+      optionsId() {
+        return `${this.id}-options`;
+      }
     },
 
     watch: {

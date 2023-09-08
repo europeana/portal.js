@@ -1,6 +1,6 @@
 <template>
   <b-list-group
-    id="search-form-options"
+    :id="id"
     role="listbox"
     data-qa="search query options"
     :aria-label="$t('searchSuggestions')"
@@ -58,6 +58,10 @@
     },
 
     props: {
+      id: {
+        type: String,
+        default: 'search-form-options'
+      },
       suggest: {
         type: Boolean,
         default: true
