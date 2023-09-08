@@ -58,38 +58,64 @@
     },
 
     props: {
+      /**
+       * Id to set a unique value for each options list group
+       */
       id: {
         type: String,
         default: 'search-form-options'
       },
+      /**
+       * If `false` will not fetch suggestions
+       */
       suggest: {
         type: Boolean,
         default: true
       },
-
+      /**
+       * Text value to search for and highlight suggestions
+       */
       text: {
         type: String,
         default: null
       },
-
+      /**
+       * Enitty type(s) to look up suggestions for the term
+       * @values agent,concept,organization,place,timespan
+       */
       type: {
         type: String,
         default: 'agent,concept,place,timespan'
       },
-
+      /**
+       * Defines context of the SearchQueryOptions component
+       */
       advancedSearch: {
         type: Boolean,
         default: false
       },
-
+      /**
+       * Advanced search field for which a suggested option might be selected to be used as the search value
+       * Used for tracking
+       */
       advancedSearchField: {
         type: String,
         default: null
       },
-
+      /**
+       * State of the search form
+       * Used for tracking
+       */
       submitting: {
         type: String,
         default: null
+      },
+      /**
+       * Static options to use in style guide
+       */
+      staticOptions: {
+        type: Array,
+        default: () => []
       }
     },
 
@@ -103,7 +129,7 @@
 
     computed: {
       onCollectionPage() {
-        return this.$route.name.startsWith('collections-type-all');
+        return this.$route.name?.startsWith('collections-type-all');
       },
 
       collectionSearchOption() {
@@ -142,9 +168,9 @@
 
       options() {
         if (this.onCollectionPage && !this.advancedSearch) {
-          return [this.collectionSearchOption, this.globalSearchOption];
+          return [this.collectionSearchOption, this.globalSearchOption].concat(this.staticOptions);
         } else {
-          return [this.globalSearchOption].concat(this.suggestionSearchOptions);
+          return [this.globalSearchOption].concat(this.suggestionSearchOptions).concat(this.staticOptions);
         }
       },
 
@@ -357,19 +383,16 @@
 </style>
 
 <docs lang="md">
-  // FIXME
   ```jsx
   <SearchQueryOptions
-    :options="[
+    :staticOptions="[
       {
-        link: { path: '/en/search', query: { query: 'map' } },
         qa: 'search button',
         i18n: { path: 'header.searchFor', slots: [
           { name: 'query', value: { text: 'map', highlight: true } }
         ] }
       },
       {
-        link: { path: '/en/search', query: { query: 'Charles Dickens' } },
         qa: 'Charles Dickens search suggestion',
         texts: [
           { text: 'Charles ', highlight: false },

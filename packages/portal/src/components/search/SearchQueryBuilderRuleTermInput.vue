@@ -51,34 +51,45 @@
     mixins: [searchOptionsKeyboardNav],
 
     props: {
+      /**
+       * Id to set a unique value for each term input
+       */
       id: {
         type: String,
         default: null
       },
-
+      /**
+       * Name of the term input
+       */
       name: {
         type: String,
         default: 'term'
       },
-
+      /**
+       * Validation state for submitting the term input value as part of the form
+       */
       state: {
         type: Boolean,
         default: null
       },
-
       /**
-       * @values Agent,Concept,Organization,Place,Timespan
+       * Enitty type(s) to look up suggestions for the term
+       * @values agent,concept,organization,place,timespan
        */
       suggestEntityType: {
         type: String,
         default: null
       },
-
+      /**
+       * Value of the term input
+       */
       value: {
         type: String,
         default: null
       },
-
+      /**
+       * Advanced search field for which the term will the searched value
+       */
       advancedSearchField: {
         type: String,
         default: null
@@ -145,6 +156,37 @@
     position: relative;
   }
 
+  .form-control {
+    background-color: $white;
+    border: 1px solid $middlegrey;
+    border-radius: 0.375rem;
+    font-weight: normal;
+    height: 3rem;
+    color: $greyblack;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+        height: 4.5rem;
+        padding: calc(1.5 * 0.375rem) calc(1.5 * 0.75rem);
+      }
+    }
+
+    &:focus {
+      border-color: $blue;
+    }
+
+    &.is-invalid,
+    &.is-valid {
+      background-image: none;
+      padding-right: 0.75rem !important;
+    }
+
+    &.is-invalid {
+      border-color: $red;
+    }
+  }
+
   .open .form-control {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -164,3 +206,16 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+    <SearchQueryBuilderRuleTermInput />
+  ```
+  With suggestions
+  ```jsx
+    <SearchQueryBuilderRuleTermInput
+      suggestEntityType="concept"
+      advanced-search-field="what"
+    />
+  ```
+</docs>

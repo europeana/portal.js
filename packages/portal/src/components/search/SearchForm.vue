@@ -96,16 +96,26 @@
     mixins: [searchOptionsKeyboardNav],
 
     props: {
+      /**
+       * If `true`, shows the form. If `false` hides the form.
+       * Toggle control is outside this component
+       */
       show: {
         type: Boolean,
         default: true
       },
-
+      /**
+       * If `true`, additional elements and styles are added
+       */
       inTopNav: {
         type: Boolean,
         default: false
       },
 
+      /**
+       * If `true` defines hidability of the form
+       * Used in keyboard navigation on 'Esc' key
+       */
       hidableForm: {
         type: Boolean,
         default: false
@@ -221,6 +231,7 @@
   .top-search {
     &.open {
       width: 100%;
+      position: relative;
 
       .form-inline {
         align-items: flex-start;

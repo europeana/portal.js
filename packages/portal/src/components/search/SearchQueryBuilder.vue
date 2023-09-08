@@ -64,6 +64,9 @@
     ],
 
     props: {
+      /**
+       * Id to set a unique value
+       */
       id: {
         type: String,
         default: 'search-query-builder'
@@ -193,3 +196,9 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+    <SearchQueryBuilder />
+  ```
+</docs>
