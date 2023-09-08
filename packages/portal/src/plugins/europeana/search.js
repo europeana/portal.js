@@ -111,7 +111,9 @@ export default (context) => async($axios, params, options = {}) => {
   const query = params.query || '*:*';
 
   const entityValuesForAdvancedSearchFields = await addEntityValuesToAdvancedSearchFields(localParams.qf, context);
-  localParams.qf = localParams.qf.concat(entityValuesForAdvancedSearchFields);
+  if (entityValuesForAdvancedSearchFields) {
+    localParams.qf = localParams.qf.concat(entityValuesForAdvancedSearchFields);
+  }
 
   const searchParams = {
     ...$axios.defaults.params,
@@ -224,7 +226,7 @@ async function addEntityValuesToAdvancedSearchFields(qfs, context) {
   // Aggregated fields include entity search by keyword
   const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field => field.suggestEntityType && !field.aggregated).map(field => field.name);
   // Filter the requested advanced search queries to those which need the entity look up
-  const qfsToLookUp = qfs.filter(query => advancedSearchFieldsForEntityLookUp.includes(query.split(':')[0]));
+  const qfsToLookUp = [].concat(qfs).filter(query => advancedSearchFieldsForEntityLookUp.includes(query?.split(':')[0]));
   const locale = context?.i18n?.locale;
 
   if (qfsToLookUp.length) {

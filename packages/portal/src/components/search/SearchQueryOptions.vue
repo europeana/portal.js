@@ -256,12 +256,12 @@
 
       linkGen(queryTerm, path) {
         const query = {
-          boost: this.$route.query.boost,
-          qa: this.$route.query.qa,
-          qf: this.$route.query.qf,
+          boost: this.$route.query?.boost,
+          qa: this.$route.query?.qa,
+          qf: this.$route.query?.qf,
           query: queryTerm || '',
-          reusability: this.$route.query.reusability,
-          view: this.$route.query.view
+          reusability: this.$route.query?.reusability,
+          view: this.$route.query?.view
         };
         return {
           path: path || this.localePath({
@@ -272,7 +272,7 @@
       },
 
       searchInCollectionLinkGen(query) {
-        return this.linkGen(query, this.$route.path);
+        return this.linkGen(query, this.$route?.path);
       },
 
       suggestionQuery(suggestion) {
