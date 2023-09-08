@@ -16,9 +16,8 @@ describe('plugins/europeana/annotation', () => {
           return query.query === apiQuery;
         })
         .reply(200, {});
-      const api = new EuropeanaAnnotationApi;
 
-      await api.search({ query: apiQuery });
+      await (new EuropeanaAnnotationApi).search({ query: apiQuery });
 
       expect(nock.isDone()).toBe(true);
     });

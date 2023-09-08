@@ -6,11 +6,12 @@ export default class EuropeanaThumbnailApi extends EuropeanaApi {
   static ID = 'thumbnail';
   static BASE_URL = 'https://api.europeana.eu/thumbnail/v3';
 
-  // TODO: port URL validation to class?
-  // const baseUrl = context.store?.state?.apis?.urls?.thumbnail || BASE_URL;
-  // if (!baseUrl.endsWith('/v3')) {
-  //   throw new Error('Only Thumbnail API v3 is supported for thumbnail URL generation.');
-  // }
+  constructor(context) {
+    super(context);
+    if (!this.baseURL.endsWith('/v3')) {
+      throw new Error('Only Thumbnail API v3 is supported for thumbnail URL generation.');
+    }
+  }
 
   media(uri, { hash, size } = {}) {
     if (!size) {
@@ -20,7 +21,7 @@ export default class EuropeanaThumbnailApi extends EuropeanaApi {
     if (!hash && uri) {
       hash = md5(uri);
     }
-    return `${this.baseUrl}/${size}/${hash}`;
+    return `${this.baseURL}/${size}/${hash}`;
   }
 
   edmPreview(thumbnailApiUrl, { size } = {}) {

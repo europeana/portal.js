@@ -139,7 +139,7 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
 
     // Europeana proxy only really needed for the translate profile
     const europeanaProxy = findProxy(edm.proxies, 'europeana');
-    if (!(this.context.$features?.translatedItems && options.metadataLanguage)) {
+    if (!(this.context?.$features?.translatedItems && options.metadataLanguage)) {
       forEachLangMapValue(europeanaProxy, (europeanaProxy, field, locale) => {
         if (!undefinedLocaleCodes.includes(locale)) {
           delete europeanaProxy[field][locale];
@@ -158,7 +158,7 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
     });
 
     let prefLang;
-    if (this.context.$features?.translatedItems) {
+    if (this.context?.$features?.translatedItems) {
       prefLang = options.metadataLanguage ? options.metadataLanguage : null;
     }
     const predictedUiLang = prefLang || options.locale;
@@ -166,7 +166,7 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
     for (const field in proxies) {
       if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
         proxies[field].translationSource = 'enrichment';
-      } else if (europeanaProxy?.[field]?.[predictedUiLang] && this.context.$features?.translatedItems) {
+      } else if (europeanaProxy?.[field]?.[predictedUiLang] && this.context?.$features?.translatedItems) {
         proxies[field].translationSource = 'automated';
       }
     }
@@ -219,7 +219,7 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
     }
 
     const params = { ...this.axios.defaults.params };
-    if (this.context.$features?.translatedItems) {
+    if (this.context?.$features?.translatedItems) {
       if (options.metadataLanguage) {
         params.profile = 'translate';
         params.lang = options.metadataLanguage;
@@ -228,8 +228,8 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
       // No point in switching on experimental schema.org with item translations.
       // The profiles would interfere with each other.
       let schemaOrgDatasetId;
-      if (this.context.$config?.app?.schemaOrgDatasetId) {
-        schemaOrgDatasetId = this.context.$config.app.schemaOrgDatasetId;
+      if (this.context?.$config?.app?.schemaOrgDatasetId) {
+        schemaOrgDatasetId = this.context?.$config.app.schemaOrgDatasetId;
       }
       if (schemaOrgDatasetId && europeanaId.startsWith(`/${schemaOrgDatasetId}/`)) {
         params.profile = 'schemaOrg';
@@ -269,11 +269,9 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
 
   // TODO: move to media-proxy.js
   mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
-    if (this.axios.defaults.baseURL !== this.context.$config?.europeana?.apis.record.url) {
-      params.recordApiUrl = this.axios.defaults.baseURL;
-    }
+    params.recordApiUrl = this.baseURL;
 
-    const proxyUrl = new URL(this.context.$config?.europeana?.apis?.mediaProxy?.url || EuropeanaMediaProxyApi.BASE_URL);
+    const proxyUrl = new URL(this.context?.$apis?.mediaProxy?.baseURL || EuropeanaMediaProxyApi.BASE_URL);
 
     proxyUrl.pathname = `${proxyUrl.pathname}${europeanaId}/${md5(mediaUrl)}`;
     if (proxyUrl.pathname.startsWith('//')) {

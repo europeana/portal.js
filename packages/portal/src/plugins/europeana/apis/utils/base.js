@@ -25,7 +25,7 @@ export default class EuropeanaApi {
     return this.#axios;
   }
 
-  get baseUrl() {
+  get baseURL() {
     return this.config.url || this.constructor.BASE_URL;
   }
 
@@ -74,7 +74,7 @@ export default class EuropeanaApi {
     }
 
     return {
-      baseURL: this.baseUrl,
+      baseURL: this.baseURL,
       params,
       paramsSerializer(params) {
         return qs.stringify(params, { arrayFormat: 'repeat' });

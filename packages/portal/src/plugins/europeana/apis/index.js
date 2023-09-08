@@ -48,7 +48,7 @@ export default (context, inject) => {
 
   const plugin = API_IDS.reduce((memo, id) => {
     memo[id] = new APIS[id](context);
-    console.log('API config', id, memo[id].baseUrl, memo[id].config);
+    console.log('API config', id, memo[id].baseURL, memo[id].config);
     return memo;
   }, {});
 
