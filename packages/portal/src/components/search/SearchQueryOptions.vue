@@ -214,11 +214,11 @@
         this.gettingSuggestions = true;
 
         try {
+          this.activeSuggestionsQueryTerm = this.text;
           const suggestions = await this.$apis.entity.suggest(this.text, {
             language: locale,
             type: this.type
           });
-          this.activeSuggestionsQueryTerm = this.text;
           this.suggestions = suggestions.reduce((memo, suggestion) => {
             const candidates = [(suggestion.prefLabel || {})[locale]]
               .concat((suggestion.altLabel || {})[locale]);
