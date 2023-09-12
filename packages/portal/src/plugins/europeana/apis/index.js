@@ -12,7 +12,7 @@ import thumbnail from '../thumbnail.js';
 
 const MODULE_NAME = 'apis';
 
-const APIS = {
+export const APIS = {
   annotation,
   entity,
   entityManagement,
