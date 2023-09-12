@@ -4,7 +4,6 @@
     class="input-wrapper"
     :class="{ 'open': showSearchOptions }"
     @keydown="handleKeyDown"
-    @focusout="handleFocusOutChange"
   >
     <b-form-input
       :id="id"

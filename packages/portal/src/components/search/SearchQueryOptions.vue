@@ -122,6 +122,7 @@
     data() {
       return {
         activeSuggestionsQueryTerm: null,
+        fetchFailed: false,
         gettingSuggestions: false,
         suggestions: {}
       };
@@ -225,14 +226,19 @@
             memo[suggestion.id] = candidates.find(candidate => matchHighlight(candidate, this.text).length > 0) || candidates[0];
             return memo;
           }, {});
-        } catch {
-          this.activeSuggestionsQueryTerm = null;
-          this.suggestions = {};
+        } catch (error) {
+          console.error(error);
+          this.fetchFailed = true;
         } finally {
           this.gettingSuggestions = false;
           // If the query has changed in the meantime, go get new suggestions now
           if (this.activeSuggestionsQueryTerm !== this.text) {
             this.fetchSuggestions();
+          }
+          // Only reset after checking the changed query to prevent infinite fetch
+          if (this.fetchFailed) {
+            this.activeSuggestionsQueryTerm = null;
+            this.suggestions = {};
           }
         }
       },
@@ -248,10 +254,12 @@
       // FIXME: only re-highlight when new suggestions come in, not immediately
       //        after the query changes?
       highlightSuggestion(value) {
-        const matchQuery = this.text?.replace(/(^")|("$)/g, '');
-        // Find all the suggestion labels that match the query
-        const matches = matchHighlight(value, matchQuery);
-        return parseHighlight(value, matches);
+        if (this.text) {
+          const matchQuery = this.text?.replace(/(^")|("$)/g, '');
+          // Find all the suggestion labels that match the query
+          const matches = matchHighlight(value, matchQuery);
+          return parseHighlight(value, matches);
+        }
       },
 
       linkGen(queryTerm, path) {
