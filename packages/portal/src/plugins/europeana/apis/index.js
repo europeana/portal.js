@@ -37,7 +37,7 @@ export const storeModule = {
   mutations: {
     init(state, { $apis, req }) {
       for (const id in APIS) {
-        state.reqHeaderUrls[id] = $apis[id]?.config?.apiUrlFromRequestHeaders?.(req?.headers);
+        state.reqHeaderUrls[id] = $apis?.[id]?.config?.apiUrlFromRequestHeaders?.(req?.headers);
       }
     }
   }

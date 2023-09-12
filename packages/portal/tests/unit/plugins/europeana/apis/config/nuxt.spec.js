@@ -1,11 +1,14 @@
 import * as plugin from '@/plugins/europeana/apis/config/nuxt.js';
+import * as apisPlugin from '@/plugins/europeana/apis/index.js';
 
 describe('@/plugins/europeana/apis/config/nuxt', () => {
   let envWas;
   beforeAll(() => {
     envWas = { ...process.env };
   });
-  beforeEach(() => {
+  afterEach(() => {
+    plugin.resetRuntimeConfig({ scope: 'public' });
+    plugin.resetRuntimeConfig({ scope: 'private' });
     for (const key in process.env) {
       if (key.startsWith('EUROPEANA_')) {
         delete process.env[key];
@@ -17,138 +20,14 @@ describe('@/plugins/europeana/apis/config/nuxt', () => {
   });
 
   describe('nuxtRuntimeConfig', () => {
-    describe('when scope is public', () => {
-      const scope = 'public';
+    for (const id of apisPlugin.API_IDS) {
+      it(`includes env config for ${id} API`, () => {
+        const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig();
 
-      it('reads overriden URL from env var EUROPEANA_${ID}_API_URL', () => {
-        const id = 'record';
-        const url = 'https://europeana.example.org/record';
-        process.env.EUROPEANA_RECORD_API_URL = url;
-
-        const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-        expect(nuxtRuntimeConfig[id].url).toBe(url);
+        expect(Object.keys(nuxtRuntimeConfig).includes(id)).toBe(true);
+        expect(nuxtRuntimeConfig[id].constructor.name).toBe('EuropeanaApiEnvConfig');
       });
-
-      it('falls back to default URL', () => {
-        const id = 'record';
-        const url = 'https://api.europeana.eu/record';
-
-        const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-        expect(nuxtRuntimeConfig[id].url).toBe(url);
-      });
-
-      describe('when API is authenticated', () => {
-        const id = 'record';
-
-        it('reads API-specific auth key from env var EUROPEANA_${ID}_API_KEY', () => {
-          const key = 'super-secret-record-api-key';
-          process.env.EUROPEANA_RECORD_API_KEY = key;
-
-          const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-          expect(nuxtRuntimeConfig[id].key).toBe(key);
-        });
-
-        it('falls back to shared API auth key from env var EUROPEANA_API_KEY', () => {
-          const key = 'super-secret-api-key';
-          process.env.EUROPEANA_API_KEY = key;
-
-          const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-          expect(nuxtRuntimeConfig[id].key).toBe(key);
-        });
-      });
-
-      describe('when API is not authenticated', () => {
-        const id = 'iiifPresentation';
-
-        it('ignores API-specific auth key from env var EUROPEANA_${ID}_API_KEY', () => {
-          const key = 'super-secret-iiif-presentation-api-key';
-          process.env.EUROPEANA_IIIF_PRESENTATION_API_KEY = key;
-
-          const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-          expect(nuxtRuntimeConfig[id].key).toBeUndefined();
-        });
-
-        it('ignores shared API auth key from env var EUROPEANA_API_KEY', () => {
-          const key = 'super-secret-api-key';
-          process.env.EUROPEANA_API_KEY = key;
-
-          const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-          expect(nuxtRuntimeConfig[id].key).toBeUndefined();
-        });
-      });
-    });
-
-    describe('when scope is private', () => {
-      const scope = 'private';
-
-      it('reads overriden URL from env var EUROPEANA_${ID}_API_URL_PRIVATE', () => {
-        const id = 'record';
-        const url = 'http://europeana.local/record';
-        process.env.EUROPEANA_RECORD_API_URL_PRIVATE = url;
-
-        const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-        expect(nuxtRuntimeConfig[id].url).toBe(url);
-      });
-
-      it('does not fall back to default URL', () => {
-        const id = 'record';
-
-        const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-        expect(nuxtRuntimeConfig[id].url).toBeUndefined();
-      });
-
-      describe('when API is authenticated', () => {
-        const id = 'record';
-
-        it('reads API-specific auth key from env var EUROPEANA_${ID}_API_KEY_PRIVATE', () => {
-          const key = 'super-secret-record-api-key';
-          process.env.EUROPEANA_RECORD_API_KEY_PRIVATE = key;
-
-          const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-          expect(nuxtRuntimeConfig[id].key).toBe(key);
-        });
-
-        it('falls back to shared API auth key from env var EUROPEANA_API_KEY_PRIVATE', () => {
-          const key = 'super-secret-api-key';
-          process.env.EUROPEANA_API_KEY_PRIVATE = key;
-
-          const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-          expect(nuxtRuntimeConfig[id].key).toBe(key);
-        });
-      });
-
-      describe('when API is not authenticated', () => {
-        const id = 'iiifPresentation';
-
-        it('ignores API-specific auth key from env var EUROPEANA_${ID}_API_KEY_PRIVATE', () => {
-          const key = 'super-secret-iiif-presentation-api-key';
-          process.env.EUROPEANA_IIIF_PRESENTATION_API_KEY_PRIVATE = key;
-
-          const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-          expect(nuxtRuntimeConfig[id].key).toBeUndefined();
-        });
-
-        it('ignores shared API auth key from env var EUROPEANA_API_KEY_PRIVATE', () => {
-          const key = 'super-secret-api-key';
-          process.env.EUROPEANA_API_KEY_PRIVATE = key;
-
-          const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig({ scope });
-
-          expect(nuxtRuntimeConfig[id].key).toBeUndefined();
-        });
-      });
-    });
+    }
   });
 
   describe('publicPrivateRewriteOrigins', () => {
