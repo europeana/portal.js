@@ -37,6 +37,9 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     $apis: {
       record: {
         search: sinon.stub().resolves(searchResult)
+      },
+      fulltext: {
+        baseURL: 'https://newspapers.eanadev.org/api/v2'
       }
     },
     $i18n: {
@@ -52,11 +55,6 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
         ...mocks.$store?.getters
       },
       state: {
-        apis: {
-          urls: {
-            fulltext: 'https://newspapers.eanadev.org/api/v2'
-          }
-        },
         entity: {
           entity: {}
         },

@@ -311,7 +311,7 @@
         const apiOptions = {};
 
         if (this.hasFulltextQa) {
-          apiOptions.url = this.$apis.fulltext.baseUrl;
+          apiOptions.url = this.$apis.fulltext.baseURL;
         }
 
         if (this.translateLang) {
