@@ -23,9 +23,16 @@ export const publicPrivateRewriteOrigins = () => {
 
   return Object.keys(privateNuxtRuntimeConfig).reduce((memo, id) => {
     if (privateNuxtRuntimeConfig[id].url) {
+      let from = privateNuxtRuntimeConfig[id].url;
+      let to = publicNuxtRuntimeConfig[id].url || APIS[id].BASE_URL;
+      if (id === 'record') {
+        from = from.endsWith('/record') ? from : `${from}/record`;
+        to = to.endsWith('/record') ? to : `${to}/record`;
+      }
+
       memo.push({
-        from: privateNuxtRuntimeConfig[id].url,
-        to: publicNuxtRuntimeConfig[id].url || APIS[id].BASE_URL
+        from,
+        to
       });
     }
     return memo;
