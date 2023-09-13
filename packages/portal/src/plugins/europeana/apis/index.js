@@ -1,3 +1,6 @@
+// TODO: refactor to not be a plugin, to reduce the weight of pages not using
+//       it, e.g. the homepage
+
 // TODO: move these files into this directory?
 import annotation from '../annotation.js';
 import entity from '../entity.js';
