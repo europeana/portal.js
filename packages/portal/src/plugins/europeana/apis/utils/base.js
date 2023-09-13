@@ -15,7 +15,11 @@ export default class EuropeanaApi {
 
   constructor(context) {
     this.context = context;
-    this.config = new EuropeanaApiContextConfig(this.constructor.ID, context);
+
+    const contextConfig = new EuropeanaApiContextConfig(this.constructor.ID, context);
+
+    this.key = contextConfig.key;
+    this.baseURL = contextConfig.url || this.constructor.BASE_URL;
   }
 
   get axios() {
@@ -23,10 +27,6 @@ export default class EuropeanaApi {
       this.#axios = this.createAxios();
     }
     return this.#axios;
-  }
-
-  get baseURL() {
-    return this.config.url || this.constructor.BASE_URL;
   }
 
   // TODO: should this be a new class extending Error?
@@ -70,7 +70,7 @@ export default class EuropeanaApi {
   get axiosInstanceOptions() {
     const params = {};
     if (this.constructor.AUTHENTICATING) {
-      params.wskey = this.config.key;
+      params.wskey = this.key;
     }
 
     return {
