@@ -1,4 +1,4 @@
-import EuropeanaApi from './apis/utils/base.js';
+import EuropeanaApi from './apis/base.js';
 
 export default class EuropeanaAnnotationApi extends EuropeanaApi {
   static ID = 'annotation';

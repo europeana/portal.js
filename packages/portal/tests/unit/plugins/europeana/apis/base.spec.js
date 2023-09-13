@@ -1,4 +1,4 @@
-import EuropeanaApi from '@/plugins/europeana/apis/utils/base.js';
+import EuropeanaApi from '@/plugins/europeana/apis/base.js';
 import EuropeanaApiEnvConfig from '@/plugins/europeana/apis/config/env.js';
 
 describe('EuropeanaApi', () => {

@@ -1,6 +1,6 @@
 import md5 from 'md5';
 
-import EuropeanaApi from './apis/utils/base.js';
+import EuropeanaApi from './apis/base.js';
 import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
 
 export default class EuropeanaEntityApi extends EuropeanaApi {

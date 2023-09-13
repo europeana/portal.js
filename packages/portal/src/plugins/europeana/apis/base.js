@@ -1,8 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import { keycloakResponseErrorHandler } from '../../auth.js';
-import EuropeanaApiContextConfig from '../config/context.js';
+import { keycloakResponseErrorHandler } from '../auth.js';
+import EuropeanaApiContextConfig from './config/context.js';
 
 export default class EuropeanaApi {
   static ID;
@@ -15,11 +15,7 @@ export default class EuropeanaApi {
 
   constructor(context) {
     this.context = context;
-
-    const contextConfig = new EuropeanaApiContextConfig(this.constructor.ID, context);
-
-    this.key = contextConfig.key;
-    this.baseURL = contextConfig.url || this.constructor.BASE_URL;
+    this.config = new EuropeanaApiContextConfig(this.constructor.ID, context);
   }
 
   get axios() {
@@ -27,6 +23,14 @@ export default class EuropeanaApi {
       this.#axios = this.createAxios();
     }
     return this.#axios;
+  }
+
+  get baseURL() {
+    return this.config.url || this.constructor.BASE_URL;
+  }
+
+  get key() {
+    return this.config.key;
   }
 
   // TODO: should this be a new class extending Error?

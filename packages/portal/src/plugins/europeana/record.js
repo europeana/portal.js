@@ -2,7 +2,7 @@ import pick from 'lodash/pick.js';
 import md5 from 'md5';
 import merge from 'deepmerge';
 
-import EuropeanaApi from './apis/utils/base.js';
+import EuropeanaApi from './apis/base.js';
 
 import undefinedLocaleCodes from '../i18n/undefined.js';
 import {

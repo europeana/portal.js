@@ -2,7 +2,7 @@ import nock from 'nock';
 import search, {
   addContentTierFilter, rangeToQueryParam, rangeFromQueryParam
 } from '@/plugins/europeana/search';
-import EuropeanaApi from '@/plugins/europeana/apis/utils/base.js';
+import EuropeanaApi from '@/plugins/europeana/apis/base.js';
 
 const apiEndpoint = '/search.json';
 

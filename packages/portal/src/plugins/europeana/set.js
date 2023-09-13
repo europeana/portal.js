@@ -7,7 +7,7 @@ export const EUROPEANA_SET_VISIBILITY_PUBLISHED = 'published';
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
-import EuropeanaApi from './apis/utils/base.js';
+import EuropeanaApi from './apis/base.js';
 
 export default class EuropeanaSetApi extends EuropeanaApi {
   static ID = 'set';
