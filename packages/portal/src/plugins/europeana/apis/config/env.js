@@ -24,7 +24,6 @@ export default class EuropeanaApiEnvConfig {
       keyFromEnv = this.env('key', { serverSide: false, shared: false }) ||
         this.env('key', { serverSide: false, shared: true });
     } else if (this.scope === 'private') {
-      keyFromEnv = this.env('key') || this.env('key', true);
       keyFromEnv = this.env('key', { serverSide: true, shared: false }) ||
         this.env('key', { serverSide: true, shared: true }) ||
         this.env('key', { serverSide: false, shared: false }) ||
