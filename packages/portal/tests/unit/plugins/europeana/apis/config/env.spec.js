@@ -119,4 +119,16 @@ describe('EuropeanaApiEnvConfig', () => {
       });
     });
   });
+
+  describe('toJSON', () => {
+    it('includes key, id, scope & url', () => {
+      process.env.EUROPEANA_TEST_API_KEY = 'secret';
+      process.env.EUROPEANA_TEST_API_URL = 'https://test.example.org/';
+      const config = new EuropeanaApiEnvConfig('test', 'public');
+
+      const json = config.toJSON();
+
+      expect(json).toBe('{"key":"secret","id":"test","scope":"public","url":"https://test.example.org/"}');
+    });
+  });
 });
