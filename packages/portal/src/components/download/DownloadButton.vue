@@ -4,7 +4,7 @@
     :href="url"
     :disabled="validating"
     data-qa="download button"
-    class="ml-2 d-inline-flex align-items-center download-button h-100"
+    class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
     :target="target"
     variant="primary"
     @click.native="handleClickDownloadButton"
@@ -58,6 +58,10 @@
           return '_blank';
         }
         return '_self';
+      },
+      canonicalPageUrl() {
+        const pageUrl = new URL( '/item' + this.identifier, this.$config.app.baseUrl);
+        return pageUrl.toString();
       }
     },
     watch: {
@@ -124,9 +128,12 @@
         });
       },
       trackDownload() {
-        if (!this.disabled && this.$matomo && !this.clicked) {
-          this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
-          this.clicked = true;
+        if (!this.disabled && this.$matomo) {
+          this.$matomo.trackLink(this.canonicalPageUrl, 'download');
+          if (!this.clicked) {
+            this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
+            this.clicked = true;
+          }
         }
       }
     }

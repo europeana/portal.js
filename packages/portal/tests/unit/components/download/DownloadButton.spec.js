@@ -14,8 +14,13 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     data: () => ({ ...data }),
     mocks: {
       $apm: { captureError: sinon.spy() },
+      $config: {
+        app: {
+          baseUrl: 'https://www.europeana.eu'
+        }
+      },
       $store: { state: { apis: { urls: { mediaProxy: 'https://proxy.europeana.eu' } } } },
-      $matomo: { trackEvent: sinon.spy() },
+      $matomo: { trackEvent: sinon.spy(), trackLink: sinon.spy() },
       $t: (key) => key,
       ...mocks
     }
@@ -149,6 +154,18 @@ describe('components/download/DownloadButton', () => {
 
           expect(wrapper.vm.target).toBe('_blank');
         });
+      });
+    });
+
+    describe('canonicalPageUrl', () => {
+      it('appends the identfier to the item path of the configured baseUrl', () => {
+        const propsData = {
+          identifier: '/123/abc',
+          url: 'https://proxy.europeana.eu/123/abc'
+        };
+        const wrapper = factory({ propsData });
+
+        expect(wrapper.vm.canonicalPageUrl).toBe('https://www.europeana.eu/item/123/abc');
       });
     });
   });
@@ -324,6 +341,33 @@ describe('components/download/DownloadButton', () => {
 
             expect(wrapper.emitted('downloadError').length).toBe(1);
           });
+        });
+      });
+    });
+
+    describe('trackDownload', () => {
+      describe('the first download', () => {
+        it('tracks both the file and custom download event', async() => {
+          const wrapper = factory({ propsData });
+
+          wrapper.vm.trackDownload();
+
+          expect(wrapper.vm.$matomo.trackLink.calledWith(wrapper.vm.canonicalPageUrl, 'download')).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', wrapper.vm.url)).toBe(true);
+          expect(wrapper.vm.clicked).toBe(true);
+        });
+      });
+
+      describe('a subsequent download on the same page', () => {
+        it('tracks only the file download', async() => {
+          const data = { clicked: true };
+          const wrapper = factory({ propsData, data });
+
+          wrapper.vm.trackDownload();
+
+          expect(wrapper.vm.$matomo.trackLink.calledWith(wrapper.vm.canonicalPageUrl, 'download')).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', wrapper.vm.url)).toBe(false);
+          expect(wrapper.vm.clicked).toBe(true);
         });
       });
     });
