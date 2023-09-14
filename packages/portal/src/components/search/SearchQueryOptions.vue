@@ -222,7 +222,7 @@
           });
           this.suggestions = suggestions.reduce((memo, suggestion) => {
             const candidates = [(suggestion.prefLabel || {})[locale]]
-              .concat((suggestion.altLabel || {})[locale]);
+              .concat((suggestion.altLabel || {})[locale] || []);
             memo[suggestion.id] = candidates.find(candidate => matchHighlight(candidate, this.text).length > 0) || candidates[0];
             return memo;
           }, {});
