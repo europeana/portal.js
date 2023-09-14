@@ -217,15 +217,6 @@
       await this.fetchMetadata();
     },
 
-    head() {
-      return {
-        ...this.pageMetaHead,
-        script: [].concat(this.iiifPresentationManifest ? [
-          { src: 'https://cdn.jsdelivr.net/npm/@europeana/mirador-ec-6478@3.3.0-rc2/dist/europeana-mirador.js', defer: true }
-        ] : [])
-      };
-    },
-
     computed: {
       webResources() {
         return this.media.map((webResource) => new WebResource(webResource, this.identifier));
