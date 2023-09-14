@@ -226,7 +226,11 @@ async function addEntityValuesToAdvancedSearchFields(qfs, context) {
   // Aggregated fields include entity search by keyword
   const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field => field.suggestEntityType && !field.aggregated).map(field => field.name);
   // Filter the requested advanced search queries to those which need the entity look up
-  const qfsToLookUp = [].concat(qfs).filter(query => advancedSearchFieldsForEntityLookUp.includes(query?.split(':')[0]));
+  const qfsToLookUp = [].concat(qfs).filter(query => {
+    // remove the dash for fields with 'does not contain' modifier to include them in the qf's to look up
+    const queryField = query?.split(':')[0].replace('-', '');
+    return advancedSearchFieldsForEntityLookUp.includes(queryField);
+  });
   const locale = context?.i18n?.locale;
 
   if (qfsToLookUp.length) {
@@ -234,17 +238,18 @@ async function addEntityValuesToAdvancedSearchFields(qfs, context) {
 
     await Promise.all(
       qfsToLookUp.map(async query => {
-        // Clean up the query value to search for and compare to the entity suggestions
-        const text = unescapeLuceneSpecials(query.split(':')[1], { spaces: true }).replaceAll(new RegExp('("|\\*|-)', 'g'), '');
+        const queryField = query.split(':')[0];
+        const queryValue = query.split(':')[1];
+        // Clean up the query value to search for and compare to the entity suggestions (including syntax for String type field values)
+        const text = unescapeLuceneSpecials(queryValue, { spaces: true }).replaceAll(new RegExp('("|\\*)', 'g'), '');
         const suggestions = await entity.default(context).suggest(text, {
           language: locale,
           // TODO: only look up specific entity type as defined for the advanced search field
           type: 'agent,concept,timespan,place'
         });
-        const queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale] === text);
-
+        const queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
         if (queryEqualsEntity) {
-          fieldsWithEntityValues.push(`${query.split(':')[0]}: "${queryEqualsEntity.id}"`);
+          fieldsWithEntityValues.push(`${queryField}: "${queryEqualsEntity.id}"`);
         }
       })
     );
