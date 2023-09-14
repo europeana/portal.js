@@ -60,7 +60,7 @@
         return '_self';
       },
       canonicalPageUrl() {
-        const pageUrl = new URL( '/item' + this.identifier, this.$config.app.baseUrl);
+        const pageUrl = new URL('/item' + this.identifier, this.$config.app.baseUrl);
         return pageUrl.toString();
       }
     },
