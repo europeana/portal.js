@@ -90,6 +90,7 @@ export default {
 
       const script = document.createElement('script');
       script.src = `https://cdn.jsdelivr.net/npm/@europeana/mirador-ec-6478@${this.MIRADOR_VERSION}/dist/europeana-mirador.js`;
+      script.async = true;
       script.onload = this.initMirador;
       document.head.appendChild(script);
 
