@@ -1,12 +1,16 @@
 export default {
   head() {
-    return {
-      title: this.headTitle,
-      meta: this.headMeta
-    };
+    return this.pageMetaHead;
   },
 
   computed: {
+    pageMetaHead() {
+      return {
+        title: this.headTitle,
+        meta: this.headMeta
+      };
+    },
+
     headTitle() {
       return [this.pageTitle, this.$config.app.siteName].filter((part) => !!part).join(' | ');
     },
