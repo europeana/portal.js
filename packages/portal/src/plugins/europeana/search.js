@@ -231,20 +231,23 @@ async function addEntityValuesToAdvancedSearchFields(qfs, context) {
 
   if (qfsToLookUp.length) {
     const fieldsWithEntityValues = [];
-    for (const query of qfsToLookUp) {
-      // Clean up the query value to search for and compare to the entity suggestions
-      const text = unescapeLuceneSpecials(query.split(':')[1], { spaces: true }).replaceAll('"', '');
-      const suggestions = await entity.default(context).suggest(text, {
-        language: locale,
-        // TODO: only look up specific entity type as defined for the advanced search field
-        type: 'agent,concept,timespan,place'
-      });
-      const queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale] === text);
 
-      if (queryEqualsEntity) {
-        fieldsWithEntityValues.push(`${query.split(':')[0]}: "${queryEqualsEntity.id}"`);
-      }
-    }
+    await Promise.all(
+      qfsToLookUp.map(async query => {
+        // Clean up the query value to search for and compare to the entity suggestions
+        const text = unescapeLuceneSpecials(query.split(':')[1], { spaces: true }).replaceAll(new RegExp('("|\\*|-)', 'g'), '');
+        const suggestions = await entity.default(context).suggest(text, {
+          language: locale,
+          // TODO: only look up specific entity type as defined for the advanced search field
+          type: 'agent,concept,timespan,place'
+        });
+        const queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale] === text);
+
+        if (queryEqualsEntity) {
+          fieldsWithEntityValues.push(`${query.split(':')[0]}: "${queryEqualsEntity.id}"`);
+        }
+      })
+    );
 
     return fieldsWithEntityValues;
   }
