@@ -27,7 +27,7 @@
       class="auto-suggest-dropdown"
       :text="term"
       :type="suggestEntityType"
-      :suggest="!!suggestEntityType"
+      :suggest="!!suggestEntityType && showSearchOptions"
       :advanced-search="true"
       :advanced-search-field="advancedSearchField"
       :submitting="submitting"
