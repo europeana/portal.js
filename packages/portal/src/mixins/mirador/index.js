@@ -3,7 +3,7 @@ import theme from './theme.js';
 export default {
   data() {
     return {
-      MIRADOR_VERSION: '3.3.0',
+      MIRADOR_VERSION: '3.3.0-rc1',
       isMiradorLoaded: process.client ? !!window.Mirador : false,
       miradorManifestUri: null,
       miradorTheme: theme,
@@ -89,7 +89,7 @@ export default {
       }
 
       const script = document.createElement('script');
-      script.src = `https://cdn.jsdelivr.net/npm/mirador@${this.MIRADOR_VERSION}/dist/mirador.min.js`;
+      script.src = `https://cdn.jsdelivr.net/npm/@europeana/mirador-ec-6478@${this.MIRADOR_VERSION}/dist/europeana-mirador.js`
       script.onload = this.initMirador;
       document.head.appendChild(script);
 
