@@ -3,7 +3,7 @@ import theme from './theme.js';
 export default {
   data() {
     return {
-      MIRADOR_VERSION: '3.3.0-rc1',
+      MIRADOR_VERSION: '3.3.0-rc2',
       isMiradorLoaded: process.client ? !!window.Mirador : false,
       miradorManifestUri: null,
       miradorTheme: theme,
