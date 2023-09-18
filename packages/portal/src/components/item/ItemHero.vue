@@ -5,7 +5,7 @@
       class="iiif-viewer-wrapper d-flex flex-column"
     >
       <slot name="item-language-selector" />
-      <IIIFViewer
+      <IIIFOpenLayers
         :uri="iiifPresentationManifest"
         :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
         :aria-label="$t('actions.viewDocument')"
@@ -104,7 +104,7 @@
       ShareSocialModal,
       UserButtons: () => import('../user/UserButtons'),
       ItemTranscribeButton: () => import('./ItemTranscribeButton.vue'),
-      IIIFViewer: () => import('../iiif/IIIFViewer.vue')
+      IIIFOpenLayers: () => import('../iiif/IIIFOpenLayers.vue')
     },
 
     mixins: [
