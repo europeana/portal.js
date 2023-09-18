@@ -224,13 +224,24 @@ const hasFilterForField = (filters, fieldName) => {
 async function addEntityValuesToAdvancedSearchFields(qfs, context) {
   // Filter all advanced search fields to those that we are suggesting entities for and are only entity searchable using the entity URI
   // Aggregated fields include entity search by keyword
-  const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field => field.suggestEntityType && !field.aggregated).map(field => field.name);
+  const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field => field.suggestEntityType && !field.aggregated);
   // Filter the requested advanced search queries to those which need the entity look up
-  const qfsToLookUp = [].concat(qfs).filter(query => {
-    // remove the dash for fields with 'does not contain' modifier to include them in the qf's to look up
-    const queryField = query?.split(':')[0].replace('-', '');
-    return advancedSearchFieldsForEntityLookUp.includes(queryField);
-  });
+  const qfsToLookUp = [].concat(qfs)
+    .map(query => {
+      return {
+        // remove the dash for fields with 'does not contain' modifier to include them in the qf's to look up
+        fieldWithoutModifier: query?.split(':')[0].replace('-', ''),
+        field: query.split(':')[0],
+        value: query.split(':')[1]
+      };
+    })
+    .filter(query => advancedSearchFieldsForEntityLookUp.map(field => field.name).includes(query.fieldWithoutModifier))
+    .map(query => {
+      return {
+        ...query,
+        suggestEntityType: advancedSearchFieldsForEntityLookUp.find(field => field.name === query.fieldWithoutModifier).suggestEntityType
+      };
+    });
   const locale = context?.i18n?.locale;
 
   if (qfsToLookUp.length) {
@@ -238,18 +249,16 @@ async function addEntityValuesToAdvancedSearchFields(qfs, context) {
 
     await Promise.all(
       qfsToLookUp.map(async query => {
-        const queryField = query.split(':')[0];
-        const queryValue = query.split(':')[1];
         // Clean up the query value to search for and compare to the entity suggestions (including syntax for String type field values)
-        const text = unescapeLuceneSpecials(queryValue, { spaces: true }).replaceAll(new RegExp('("|\\*)', 'g'), '');
+        const text = unescapeLuceneSpecials(query.value, { spaces: true }).replaceAll(/["*]/g, '');
         const suggestions = await entity.default(context).suggest(text, {
           language: locale,
-          // TODO: only look up specific entity type as defined for the advanced search field
-          type: 'agent,concept,timespan,place'
+          // Only look up specific entity type as defined for the advanced search field
+          type: query.suggestEntityType
         });
         const queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
         if (queryEqualsEntity) {
-          fieldsWithEntityValues.push(`${queryField}: "${queryEqualsEntity.id}"`);
+          fieldsWithEntityValues.push(`${query.field}: "${queryEqualsEntity.id}"`);
         }
       })
     );

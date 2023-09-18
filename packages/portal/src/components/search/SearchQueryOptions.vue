@@ -221,9 +221,9 @@
             type: this.type
           });
           this.suggestions = suggestions.reduce((memo, suggestion) => {
-            const candidates = [(suggestion.prefLabel || {})[locale]]
-              .concat((suggestion.altLabel || {})[locale] || []);
-            memo[suggestion.id] = candidates.find(candidate => matchHighlight(candidate, this.text).length > 0) || candidates[0];
+            const localisedSuggestionLabels = [suggestion?.prefLabel?.[locale]]
+              .concat(suggestion?.altLabel?.[locale] || []);
+            memo[suggestion.id] = localisedSuggestionLabels.find(label => matchHighlight(label, this.text).length > 0) || localisedSuggestionLabels[0];
             return memo;
           }, {});
         } catch (error) {
