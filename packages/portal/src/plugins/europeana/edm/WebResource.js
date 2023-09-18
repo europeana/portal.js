@@ -1,5 +1,4 @@
 import { oEmbeddable } from '../../oembed/index.js';
-import thumbnail from  '../thumbnail.js';
 import { IIIF_PRESENTATION_API_URL } from '../iiif/index.js';
 import Base from './Base.js';
 
@@ -85,13 +84,11 @@ export default class WebResource extends Base {
   // TODO: refactor as a getter, not requiring passing Nuxt context,
   //       or move out into Nuxt mixin?
   thumbnails(context) {
-    const thumbnailUrl = thumbnail(context).media;
-
     const uri = this.thumbnail || this.about;
 
     return {
-      small: thumbnailUrl(uri, { size: 200 }),
-      large: thumbnailUrl(uri, { size: 400 })
+      small: context.$apis.thumbnail.media(uri, { size: 200 }),
+      large: context.$apis.thumbnail.media(uri, { size: 400 })
     };
   }
 

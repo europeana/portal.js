@@ -88,7 +88,15 @@ const factory = (options = { data: {}, mocks: {} }) => shallowMountNuxt(page, {
     $matomo: {
       trackPageView: sinon.spy()
     },
-    $nuxt: { context: {} },
+    $nuxt: {
+      context: {
+        $apis: {
+          thumbnail: {
+            media: () => 'https://api.europeana.eu/thumbnail/v3/400/476e256434ddaadd580d4f15500fbed0'
+          }
+        }
+      }
+    },
     $error: sinon.spy(),
     ...options.mocks
   }

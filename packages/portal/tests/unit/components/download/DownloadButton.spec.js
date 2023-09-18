@@ -13,6 +13,7 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     propsData,
     data: () => ({ ...data }),
     mocks: {
+      $apis: { mediaProxy: { baseURL: 'https://proxy.europeana.eu' } },
       $apm: { captureError: sinon.spy() },
       $config: {
         app: {
@@ -26,7 +27,6 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
         fullPath: '/de/item/123/abc?query=tree',
         path: '/de/item/123/abc'
       },
-      $store: { state: { apis: { urls: { mediaProxy: 'https://proxy.europeana.eu' } } } },
       $matomo: { trackEvent: sinon.spy(), trackLink: sinon.spy() },
       $t: (key) => key,
       ...mocks

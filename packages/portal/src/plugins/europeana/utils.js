@@ -1,69 +1,7 @@
-import axios from 'axios';
 import kebabCase from 'lodash/kebabCase.js';
-import qs from 'qs';
 
 import locales from '../i18n/locales.js';
 import undefinedLocaleCodes from '../i18n/undefined.js';
-import { keycloakResponseErrorHandler } from './auth.js';
-
-export const createAxios = ({ id, $axios } = {}, context = {}) => {
-  const axiosOptions = axiosInstanceOptions({ id }, context);
-
-  const axiosInstance = ($axios || axios).create(axiosOptions);
-
-  const app = context.app;
-  if (app?.$axiosLogger) {
-    axiosInstance.interceptors.request.use(app.$axiosLogger);
-  }
-
-  return axiosInstance;
-};
-
-export const createKeycloakAuthAxios = ({ id, $axios }, context) => {
-  const axiosInstance = createAxios({ id, $axios }, context);
-
-  if (typeof axiosInstance.onResponseError === 'function') {
-    axiosInstance.onResponseError(error => keycloakResponseErrorHandler(context, error));
-  }
-
-  return axiosInstance;
-};
-
-const axiosInstanceOptions = ({ id }, { store, $config }) => {
-  const config = $config?.europeana?.apis?.[id] || {};
-
-  return {
-    baseURL: store?.state?.apis?.urls[id] || config.url,
-    params: {
-      wskey: config.key
-    },
-    paramsSerializer(params) {
-      return qs.stringify(params, { arrayFormat: 'repeat' });
-    },
-    timeout: 10000
-  };
-};
-
-export function apiError(error) {
-  error.isEuropeanaApiError = true;
-  error.statusCode = 500;
-
-  if (error.isAxiosError) {
-    if (error.response) {
-      error.statusCode = error.response.status;
-      if (error.response.headers?.['content-type']?.startsWith('application/json') && error.response.data?.error) {
-        error.message = error.response.data.error;
-      }
-    }
-    // Too much information to pass around, dispose of it
-    delete error.response;
-    delete error.config;
-    delete error.request;
-    delete error.toJSON;
-  }
-
-  return error;
-}
 
 export const uriRegex = /^https?:\/\//; // Used to determine if a value is a URI
 
