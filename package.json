@@ -4,38 +4,38 @@
     "packages/*"
   ],
   "scripts": {
-    "analyze": "npm run -w packages/portal analyze",
-    "build": "npm run -w packages/portal build",
-    "cache": "npm run -w packages/portal cache",
-    "dev": "npm run -w packages/portal dev",
-    "lint:fix": "npm run lint -- --fix",
+    "analyze": "pnpm --filter @europeana/portal run analyze",
+    "build": "pnpm --filter @europeana/portal run build",
+    "cache": "pnpm --filter @europeana/portal run cache",
+    "dev": "pnpm --filter @europeana/portal run dev",
+    "lint:fix": "pnpm run lint --fix",
     "lint": "eslint --no-fix --ignore-path .gitignore packages",
-    "start:inspect": "npm run -w packages/portal start:inspect",
-    "start": "npm run -w packages/portal start",
-    "styleguide": "npm run -w packages/styleguide start",
-    "styleguide:build": "npm run -w packages/styleguide build",
+    "start:inspect": "pnpm --filter @europeana/portal run start:inspect",
+    "start": "pnpm --filter @europeana/portal run start",
+    "styleguide": "pnpm --filter @europeana/styleguide run start",
+    "styleguide:build": "pnpm --filter @europeana/styleguide run build",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.cjs",
-    "test:e2e": "npm run test:e2e:init && npm run test:e2e:run",
+    "test:e2e": "pnpm run test:e2e:init && pnpm run test:e2e:run",
     "test:e2e:init": "touch tests/e2e/docker/nightwatch/.env tests/e2e/docker/nightwatch-visual/.env",
     "test:e2e:run": "docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features",
-    "test:coverage": "npm run -w packages/portal test:coverage",
-    "test:coverage:ci": "npm run -w packages/portal test:coverage:ci",
+    "test:coverage": "pnpm --filter @europeana/portal run test:coverage",
+    "test:coverage:ci": "pnpm --filter @europeana/portal run test:coverage:ci",
     "test:stack:build": "docker-compose -f ./tests/e2e/docker/docker-compose.yml build",
     "test:stack:down": "docker-compose -f ./tests/e2e/docker/docker-compose.yml down",
-    "test:stack:rebuild": "docker-compose -f ./tests/e2e/docker/docker-compose.yml down && npm run test:stack:build",
+    "test:stack:rebuild": "docker-compose -f ./tests/e2e/docker/docker-compose.yml down && pnpm run test:stack:build",
     "test:stack:start": "docker-compose -f ./tests/e2e/docker/docker-compose.yml start app nginx chrome-en chrome-ja chrome-nl",
     "test:stack:stop": "docker-compose -f ./tests/e2e/docker/docker-compose.yml stop app nginx chrome-en chrome-ja chrome-nl",
-    "test:unit": "npm run -w packages/portal test:unit",
+    "test:unit": "pnpm --filter @europeana/portal run test:unit",
     "test:visual": "touch tests/e2e/docker/nightwatch-visual/.env && docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual",
-    "test": "npm run lint && npm run stylelint && npm run test:unit && npm run -w packages/portal test:size && npm run test:stack:rebuild && npm run test:e2e"
+    "test": "pnpm run lint && pnpm run stylelint && pnpm run test:unit && pnpm --filter @europeana/portal run test:size && pnpm run test:stack:rebuild && pnpm run test:e2e"
   },
   "resolutions": {
-    "@europeana/contentful": "link:./packages/contentful",
-    "@europeana/mirador": "link:./packages/mirador",
-    "@europeana/portal": "link:./packages/portal",
-    "@europeana/style": "link:./packages/style",
-    "@europeana/styleguide": "link:./packages/styleguide",
-    "@europeana/vue-session-id": "link:./packages/vue-session-id"
+    "@europeana/contentful": "workspace:*",
+    "@europeana/mirador": "workspace:*",
+    "@europeana/portal": "workspace:*",
+    "@europeana/style": "workspace:*",
+    "@europeana/styleguide": "workspace:*",
+    "@europeana/vue-session-id": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
@@ -63,9 +63,9 @@
     "Alan Sutherland <alan.sutherland@europeana.eu>"
   ],
   "engines": {
-    "node": "^18",
-    "npm": "^9"
+    "node": "^18"
   },
+  "packageManager": "pnpm@8.7.4",
   "keywords": [
     "code4lib"
   ],
