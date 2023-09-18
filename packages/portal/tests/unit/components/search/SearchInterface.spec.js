@@ -37,21 +37,15 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     $apis: {
       record: {
         search: sinon.stub().resolves(searchResult)
+      },
+      fulltext: {
+        baseURL: 'https://newspapers.eanadev.org/api/v2'
       }
     },
     $i18n: {
       locale: 'en'
     },
-    $config: {
-      europeana: {
-        apis: {
-          fulltext: {
-            url: 'https://newspapers.eanadev.org/api/v2'
-          }
-        }
-      },
-      ...mocks.$config
-    },
+    $config: mocks.$config,
     ...mocks,
     $store: {
       commit: sinon.spy(),

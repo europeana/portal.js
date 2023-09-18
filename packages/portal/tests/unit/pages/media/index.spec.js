@@ -11,23 +11,19 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     return data;
   },
   mocks: {
+    $apis: {
+      iiifPresentation: {
+        baseURL: 'https://iiifpresentation.eanadev.org/'
+      },
+      record: {
+        baseURL: 'https://api.eanadev.org/record'
+      }
+    },
     $route: {
       query: {
         id: '/123/Identifier_456',
         mediaUrl: 'https//example.com/media',
         mediaType: data.mediaType || 'video/mpeg'
-      }
-    },
-    $config: {
-      europeana: {
-        apis: {
-          iiifPresentation: {
-            url: 'https://iiifpresentation.eanadev.org/'
-          },
-          record: {
-            url: 'https://api.eanadev.org/record'
-          }
-        }
       }
     },
     $t: key => key

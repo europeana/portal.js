@@ -2,20 +2,6 @@ import * as utils from '@/plugins/europeana/utils';
 import sinon from 'sinon';
 
 describe('plugins/europeana/utils', () => {
-  describe('createAxios', () => {
-    it('uses app.$axiosLogger from context as request interceptor', () => {
-      const $axiosLogger = (requestConfig) => requestConfig;
-      const context = {
-        app: { $axiosLogger }
-      };
-      const axiosInstance = utils.createAxios({}, context);
-
-      expect(axiosInstance.interceptors.request.handlers.some((handler) => {
-        return handler.fulfilled === $axiosLogger;
-      })).toBe(true);
-    });
-  });
-
   describe('escapeLuceneSpecials', () => {
     it('escapes Lucene special characters', () => {
       const unescaped = '+ - & | ! ( ) { } [ ] ^ " ~ * ? : /';

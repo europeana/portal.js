@@ -1,21 +1,19 @@
-/**
- * @file Functions for working with the Europeana Thumbnail API
- * @see https://pro.europeana.eu/page/record#thumbnails
- */
-
 import md5 from 'md5';
 
-import { preferredAPIBaseURL } from './utils.js';
+import EuropeanaApi from './apis/base.js';
 
-export const BASE_URL = 'https://api.europeana.eu/thumbnail/v3';
+export default class EuropeanaThumbnailApi extends EuropeanaApi {
+  static ID = 'thumbnail';
+  static BASE_URL = 'https://api.europeana.eu/thumbnail/v3';
 
-export default (context = {}) => {
-  const baseUrl = preferredAPIBaseURL({ id: 'thumbnail', baseURL: BASE_URL }, context);
-  if (!baseUrl.endsWith('/v3')) {
-    throw new Error('Only Thumbnail API v3 is supported for thumbnail URL generation.');
+  constructor(context) {
+    super(context);
+    if (!this.baseURL.endsWith('/v3')) {
+      throw new Error('Only Thumbnail API v3 is supported for thumbnail URL generation.');
+    }
   }
 
-  const media = (uri, { hash, size } = {}) => {
+  media(uri, { hash, size } = {}) {
     if (!size) {
       size = 200;
     }
@@ -23,10 +21,10 @@ export default (context = {}) => {
     if (!hash && uri) {
       hash = md5(uri);
     }
-    return `${baseUrl}/${size}/${hash}`;
-  };
+    return `${this.baseURL}/${size}/${hash}`;
+  }
 
-  const edmPreview = (thumbnailApiUrl, { size } = {}) => {
+  edmPreview(thumbnailApiUrl, { size } = {}) {
     if (!thumbnailApiUrl) {
       return null;
     }
@@ -42,7 +40,7 @@ export default (context = {}) => {
         }
       }
 
-      return media(edmPreviewUrl.searchParams.get('uri'), { size });
+      return this.media(edmPreviewUrl.searchParams.get('uri'), { size });
     };
 
     const v3 = () => {
@@ -51,14 +49,9 @@ export default (context = {}) => {
         size = sizeAndHash[0];
       }
       const hash = sizeAndHash[1];
-      return media(null, { hash, size });
+      return this.media(null, { hash, size });
     };
 
     return (edmPreviewUrl.pathname.includes('/v3/') ? v3() : v2());
-  };
-
-  return {
-    media,
-    edmPreview
-  };
-};
+  }
+}

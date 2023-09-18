@@ -8,17 +8,20 @@ const factory = () => shallowMount(MediaCardImage, {
   stubs: ['b-img-lazy', 'b-link', 'b-img'],
   propsData: {
     media: new WebResource({
-      about: 'http://collections.rmg.co.uk/mediaLib/422/media-422123/large.jpg',
-      thumbnails: {
-        large: 'https://api.europeana.eu/thumbnail/v3/400/83ef43b6ede8c8b98c7b90b64b717234'
-      }
+      about: 'http://collections.rmg.co.uk/mediaLib/422/media-422123/large.jpg'
     }),
     lazy: false,
     europeanaIdentifier: '/123/abcdef'
   },
   mocks: {
     $nuxt: {
-      context: {}
+      context: {
+        $apis: {
+          thumbnail: {
+            media: () => 'https://api.europeana.eu/thumbnail/v3/400/83ef43b6ede8c8b98c7b90b64b717234'
+          }
+        }
+      }
     },
     $t: (key) => key,
     $apis: {

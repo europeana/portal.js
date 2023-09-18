@@ -16,7 +16,7 @@
 
     data() {
       return {
-        MEDIA_PLAYER_VERSION: '0.9.1',
+        MEDIA_PLAYER_VERSION: '0.9.2',
         JQUERY_VERSION: '3.4.1',
         JQUERY_UI_VERSION: '1.12.1',
         DASHJS_VERSION: '2.9.0',
@@ -49,9 +49,9 @@
 
     computed: {
       manifest() {
-        const manifestUrl = new URL(`/presentation${this.id}/manifest`, this.$config.europeana.apis.iiifPresentation.url);
+        const manifestUrl = new URL(`/presentation${this.id}/manifest`, this.$apis.iiifPresentation.baseURL);
         manifestUrl.searchParams.set('format', '3');
-        manifestUrl.searchParams.set('recordApi', new URL(this.$config.europeana.apis.record.url).origin);
+        manifestUrl.searchParams.set('recordApi', new URL(this.$apis.record.baseURL).origin);
         return manifestUrl.toString();
       },
 

@@ -311,8 +311,7 @@
         const apiOptions = {};
 
         if (this.hasFulltextQa) {
-          // TODO: ensure this is aware of per-request fulltext url, e.g. from ingress headers
-          apiOptions.url = this.$config.europeana.apis.fulltext.url;
+          apiOptions.url = this.$apis.fulltext.baseURL;
         }
 
         if (this.translateLang) {

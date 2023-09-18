@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 
 import page from '@/pages/contentful/image-harvester/index';
 import sinon from 'sinon';
-import { apiError } from '@/plugins/europeana/utils';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -141,7 +140,7 @@ describe('pages/contentful/image-harvester/index', () => {
       describe('when the item can not be retrieved', () => {
         it('shows an error for the response', async() => {
           const wrapper = factory();
-          wrapper.vm.$apis.record.$axios.get.rejects(apiError(apiErrorResponse));
+          wrapper.vm.$apis.record.$axios.get.rejects(apiErrorResponse);
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(apiResponse().object.about));
           wrapper.vm.showError = sinon.spy();
           wrapper.vm.populateFields = sinon.spy();

@@ -1,7 +1,7 @@
 import nock from 'nock';
 import sinon from 'sinon';
 
-import plugin, { BASE_URL } from '@/plugins/europeana/set';
+import EuropeanaSetApi from '@/plugins/europeana/set';
 
 const setId = '1234';
 const itemId = '/123/abc';
@@ -33,22 +33,22 @@ describe('@/plugins/europeana/set', () => {
     };
 
     it('gets the set data', async() => {
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .get(`/${setId}`)
         .query(true)
         .reply(200, setGetResponse);
 
-      const response = await plugin({ $config }).get(setId);
+      const response = await (new EuropeanaSetApi({ $config })).get(setId);
       expect(response.items).toEqual(['http://data.europeana.eu/item/123/abc', 'http://data.europeana.eu/item/123/def']);
     });
 
     it('includes the axios default params', async() => {
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .get(`/${setId}`)
         .query(query => query.wskey === 'apikey')
         .reply(200, setGetResponse);
 
-      await plugin({ $config }).get(setId);
+      await (new EuropeanaSetApi({ $config })).get(setId);
       expect(nock.isDone()).toBe(true);
     });
   });
@@ -60,47 +60,47 @@ describe('@/plugins/europeana/set', () => {
           'http://data.europeana.eu/set/163'
         ]
       };
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .get('/search')
         .query(query => query.query === 'creator:auth-user-sub type:BookmarkFolder')
         .reply(200, searchResponse);
 
-      const response = await plugin({ $config }).getLikes('auth-user-sub');
+      const response = await (new EuropeanaSetApi({ $config })).getLikes('auth-user-sub');
       expect(response).toBe('http://data.europeana.eu/set/163');
     });
   });
 
   describe('createLikes()', () => {
     it('creates a likes set', async() => {
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .post('/')
         .query(true)
         .reply(200, likesResponse);
 
-      const response = await plugin({ $config }).createLikes();
+      const response = await (new EuropeanaSetApi({ $config })).createLikes();
       expect(response.id).toBe('http://data.europeana.eu/set/1234');
     });
   });
 
   describe('modifyItems()', () => {
     it('adds item to set', async() => {
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .put(`/${setId}${itemId}`)
         .query(true)
         .reply(200, likesResponse);
-      const response =  await plugin({ $config }).modifyItems('add', setId, itemId);
+      const response =  await (new EuropeanaSetApi({ $config })).modifyItems('add', setId, itemId);
       expect(response.id).toBe('http://data.europeana.eu/set/1234');
     });
   });
 
   describe('delete()', () => {
     it('deletes item from set', async() => {
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .delete(`/${setId}`)
         .query(true)
         .reply(204);
 
-      await plugin({ $config }).delete(setId);
+      await (new EuropeanaSetApi({ $config })).delete(setId);
       expect(nock.isDone()).toBe(true);
     });
   });
@@ -108,42 +108,42 @@ describe('@/plugins/europeana/set', () => {
   describe('update()', () => {
     it('updates the set', async() => {
       const body = { type: 'Collection', visibility: 'public' };
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .put(`/${setId}`, body)
         .query(true)
         .reply(200);
 
-      await plugin({ $config }).update(setId, body);
+      await (new EuropeanaSetApi({ $config })).update(setId, body);
       expect(nock.isDone()).toBe(true);
     });
 
     it('includes params if supplied', async() => {
       const body = { type: 'Collection', visibility: 'public' };
       const params = { profile: 'standard' };
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .put(`/${setId}`, body)
         .query(query => query.profile === params.profile)
         .reply(200);
 
-      await plugin({ $config }).update(setId, body, params);
+      await (new EuropeanaSetApi({ $config })).update(setId, body, params);
       expect(nock.isDone()).toBe(true);
     });
   });
 
   describe('publish()', () => {
     it('publishes the set', async() => {
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .put(`/${setId}/publish`)
         .query(true)
         .reply(200);
 
-      await plugin({ $config }).publish(setId);
+      await (new EuropeanaSetApi({ $config })).publish(setId);
       expect(nock.isDone()).toBe(true);
     });
     describe('when request errors', () => {
       it('throws an error', async() => {
         const errorMessage = 'Set already published';
-        nock(BASE_URL)
+        nock(EuropeanaSetApi.BASE_URL)
           .put(`/${setId}/publish`)
           .query(true)
           .reply(400, {
@@ -152,7 +152,7 @@ describe('@/plugins/europeana/set', () => {
 
         let error;
         try {
-          await plugin({ $config }).publish(setId);
+          await (new EuropeanaSetApi({ $config })).publish(setId);
         } catch (e) {
           error = e;
         }
@@ -165,18 +165,18 @@ describe('@/plugins/europeana/set', () => {
 
   describe('unpublish()', () => {
     it('unpublishes the set', async() => {
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .put(`/${setId}/unpublish`)
         .query(true)
         .reply(200);
 
-      await plugin({ $config }).unpublish(setId);
+      await (new EuropeanaSetApi({ $config })).unpublish(setId);
       expect(nock.isDone()).toBe(true);
     });
     describe('when request errors', () => {
       it('throws an error', async() => {
         const errorMessage = 'Set not published';
-        nock(BASE_URL)
+        nock(EuropeanaSetApi.BASE_URL)
           .put(`/${setId}/unpublish`)
           .query(true)
           .reply(400, {
@@ -185,7 +185,7 @@ describe('@/plugins/europeana/set', () => {
 
         let error;
         try {
-          await plugin({ $config }).unpublish(setId);
+          await (new EuropeanaSetApi({ $config })).unpublish(setId);
         } catch (e) {
           error = e;
         }
@@ -204,14 +204,14 @@ describe('@/plugins/europeana/set', () => {
         pageSize: 1
       };
 
-      nock(BASE_URL)
+      nock(EuropeanaSetApi.BASE_URL)
         .get('/search')
         // TODO: Expect the params, this isn't matching the request though.
         // .query({ params: { wskey: 'apikey', ...searchParams } })
         .query(true)
         .reply(200, 'response');
 
-      const response = await plugin({ $config }).search(searchParams);
+      const response = await (new EuropeanaSetApi({ $config })).search(searchParams);
 
       expect(response.data).toEqual('response');
     });
@@ -244,7 +244,7 @@ describe('@/plugins/europeana/set', () => {
         };
 
         beforeEach(() => {
-          nock(BASE_URL)
+          nock(EuropeanaSetApi.BASE_URL)
             .get('/search')
             .query(true)
             .reply(200, setSearchResponse);
@@ -254,7 +254,7 @@ describe('@/plugins/europeana/set', () => {
           const options = { withMinimalItemPreviews: true };
 
           it('requests the minimal profile for the first item in each set from the Record API', async() => {
-            await plugin(context).search({}, options);
+            await (new EuropeanaSetApi(context)).search({}, options);
 
             expect(context.$apis.record.find.calledWith(
               [
@@ -266,13 +266,13 @@ describe('@/plugins/europeana/set', () => {
           });
 
           it('stores the found items on the sets', async() => {
-            const response = await plugin(context).search({}, options);
+            const response = await (new EuropeanaSetApi(context)).search({}, options);
 
             expect(response.data.items[0].items[0]).toEqual(recordSearchResponse.items[0]);
           });
 
           it('stores just the id for first set items not found', async() => {
-            const response = await plugin(context).search({}, options);
+            const response = await (new EuropeanaSetApi(context)).search({}, options);
 
             expect(response.data.items[1].items[0]).toEqual({
               id: '/123/def'
@@ -280,7 +280,7 @@ describe('@/plugins/europeana/set', () => {
           });
 
           it('stores just the id for non-first set items', async() => {
-            const response = await plugin(context).search({}, options);
+            const response = await (new EuropeanaSetApi(context)).search({}, options);
 
             expect(response.data.items[0].items[1]).toEqual({
               id: '/123/ghi'
@@ -292,13 +292,13 @@ describe('@/plugins/europeana/set', () => {
           const options = {};
 
           it('does not request items from the Record API', async() => {
-            await plugin(context).search({}, options);
+            await (new EuropeanaSetApi(context)).search({}, options);
 
             expect(context.$apis.record.find.called).toBe(false);
           });
 
           it('leaves the item URIs on the sets', async() => {
-            const response = await plugin(context).search({}, options);
+            const response = await (new EuropeanaSetApi(context)).search({}, options);
 
             expect(response.data.items[0].items).toEqual(setSearchResponse.items[0].items);
             expect(response.data.items[1].items).toEqual(setSearchResponse.items[1].items);

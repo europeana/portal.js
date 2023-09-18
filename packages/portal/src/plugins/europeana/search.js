@@ -5,9 +5,8 @@
 import pick from 'lodash/pick.js';
 
 import {
-  apiError, createAxios, escapeLuceneSpecials, unescapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
+  escapeLuceneSpecials, unescapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
 } from './utils.js';
-import { BASE_URL } from './record.js';
 import { truncate } from '../vue-filters.js';
 import { advancedSearchFields } from './advancedSearchFields.js';
 import * as entity from './entity.js';
@@ -75,7 +74,6 @@ export function rangeFromQueryParam(paramValue) {
 
 /**
  * Search Europeana Record API
- * @param {Object} $axios Axios instance for Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
  * @param {number} params.rows number of results to retrieve per page
@@ -91,14 +89,11 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} options.url override the API URL
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-export default (context) => async($axios, params, options = {}) => {
-  if (!$axios) {
-    $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
-  }
 
+export default async function(params, options = {}) {
   const localParams = { ...params };
 
-  const defaultOptions = { locale: context?.i18n?.locale };
+  const defaultOptions = { locale: this.context?.i18n?.locale };
   const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;
@@ -110,13 +105,13 @@ export default (context) => async($axios, params, options = {}) => {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
   const query = params.query || '*:*';
 
-  const entityValuesForAdvancedSearchFields = await addEntityValuesToAdvancedSearchFields(localParams.qf, context);
+  const entityValuesForAdvancedSearchFields = await addEntityValuesToAdvancedSearchFields(localParams.qf, this.context);
   if (entityValuesForAdvancedSearchFields) {
     localParams.qf = localParams.qf.concat(entityValuesForAdvancedSearchFields);
   }
 
   const searchParams = {
-    ...$axios.defaults.params,
+    ...this.axios.defaults.params,
     ...localParams,
     profile: localParams.profile || '',
     qf: localParams.qf,
@@ -137,7 +132,7 @@ export default (context) => async($axios, params, options = {}) => {
     }
   }
 
-  return $axios.get(`${options.url || ''}/search.json`, {
+  return this.axios.get(`${options.url || ''}/search.json`, {
     params: searchParams
   })
     .then(response => response.data)
@@ -147,9 +142,9 @@ export default (context) => async($axios, params, options = {}) => {
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {
-      throw apiError(error);
+      throw this.apiError(error);
     });
-};
+}
 
 const reduceFieldsForItem = (item, options = {}) => {
   // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue
@@ -251,7 +246,7 @@ async function addEntityValuesToAdvancedSearchFields(qfs, context) {
       qfsToLookUp.map(async query => {
         // Clean up the query value to search for and compare to the entity suggestions (including syntax for String type field values)
         const text = unescapeLuceneSpecials(query.value, { spaces: true }).replaceAll(/["*]/g, '');
-        const suggestions = await entity.default(context).suggest(text, {
+        const suggestions = await new entity.default(context).suggest(text, {
           language: locale,
           // Only look up specific entity type as defined for the advanced search field
           type: query.suggestEntityType
