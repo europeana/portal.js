@@ -19,6 +19,13 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
           baseUrl: 'https://www.europeana.eu'
         }
       },
+      $i18n: {
+        locale: 'de'
+      },
+      $route: {
+        fullPath: '/de/item/123/abc?query=tree',
+        path: '/de/item/123/abc'
+      },
       $store: { state: { apis: { urls: { mediaProxy: 'https://proxy.europeana.eu' } } } },
       $matomo: { trackEvent: sinon.spy(), trackLink: sinon.spy() },
       $t: (key) => key,
@@ -154,18 +161,6 @@ describe('components/download/DownloadButton', () => {
 
           expect(wrapper.vm.target).toBe('_blank');
         });
-      });
-    });
-
-    describe('canonicalPageUrl', () => {
-      it('appends the identfier to the item path of the configured baseUrl', () => {
-        const propsData = {
-          identifier: '/123/abc',
-          url: 'https://proxy.europeana.eu/123/abc'
-        };
-        const wrapper = factory({ propsData });
-
-        expect(wrapper.vm.canonicalPageUrl).toBe('https://www.europeana.eu/item/123/abc');
       });
     });
   });
@@ -346,13 +341,15 @@ describe('components/download/DownloadButton', () => {
     });
 
     describe('trackDownload', () => {
+      const canonicalUrl = 'https://www.europeana.eu/item/123/abc';
+
       describe('the first download', () => {
         it('tracks both the file and custom download event', async() => {
           const wrapper = factory({ propsData });
 
           wrapper.vm.trackDownload();
 
-          expect(wrapper.vm.$matomo.trackLink.calledWith(wrapper.vm.canonicalPageUrl, 'download')).toBe(true);
+          expect(wrapper.vm.$matomo.trackLink.calledWith(canonicalUrl, 'download')).toBe(true);
           expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', wrapper.vm.url)).toBe(true);
           expect(wrapper.vm.clicked).toBe(true);
         });
@@ -365,7 +362,7 @@ describe('components/download/DownloadButton', () => {
 
           wrapper.vm.trackDownload();
 
-          expect(wrapper.vm.$matomo.trackLink.calledWith(wrapper.vm.canonicalPageUrl, 'download')).toBe(true);
+          expect(wrapper.vm.$matomo.trackLink.calledWith(canonicalUrl, 'download')).toBe(true);
           expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', wrapper.vm.url)).toBe(false);
           expect(wrapper.vm.clicked).toBe(true);
         });

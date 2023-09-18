@@ -21,12 +21,16 @@
 <script>
   import axios from 'axios';
   import LoadingSpinner from '../generic/LoadingSpinner';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
     name: 'DownloadButton',
     components: {
       LoadingSpinner
     },
+    mixins: [
+      canonicalUrlMixin
+    ],
     props: {
       url: {
         type: String,
@@ -58,10 +62,6 @@
           return '_blank';
         }
         return '_self';
-      },
-      canonicalPageUrl() {
-        const pageUrl = new URL('/item' + this.identifier, this.$config.app.baseUrl);
-        return pageUrl.toString();
       }
     },
     watch: {
@@ -129,7 +129,7 @@
       },
       trackDownload() {
         if (!this.disabled && this.$matomo) {
-          this.$matomo.trackLink(this.canonicalPageUrl, 'download');
+          this.$matomo.trackLink(this.canonicalUrl({ fullPath: false, locale: false }), 'download');
           if (!this.clicked) {
             this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
             this.clicked = true;
