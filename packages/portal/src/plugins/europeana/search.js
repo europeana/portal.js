@@ -5,7 +5,7 @@
 import pick from 'lodash/pick.js';
 
 import {
-  apiError, createAxios, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
+  escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
 } from './utils.js';
 import { truncate } from '../vue-filters.js';
 
@@ -72,7 +72,6 @@ export function rangeFromQueryParam(paramValue) {
 
 /**
  * Search Europeana Record API
- * @param {Object} $axios Axios instance for Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
  * @param {number} params.rows number of results to retrieve per page
@@ -88,14 +87,10 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} options.url override the API URL
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-export default (context) => ($axios, params, options = {}) => {
-  if (!$axios) {
-    $axios = createAxios({ id: 'record' }, context);
-  }
-
+export default function(params, options = {}) {
   const localParams = { ...params };
 
-  const defaultOptions = { locale: context?.i18n?.locale };
+  const defaultOptions = { locale: this.context?.i18n?.locale };
   const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;
@@ -108,7 +103,7 @@ export default (context) => ($axios, params, options = {}) => {
   const query = params.query || '*:*';
 
   const searchParams = {
-    ...$axios.defaults.params,
+    ...this.axios.defaults.params,
     ...localParams,
     profile: localParams.profile || '',
     qf: localParams.qf,
@@ -129,7 +124,7 @@ export default (context) => ($axios, params, options = {}) => {
     }
   }
 
-  return $axios.get(`${options.url || ''}/search.json`, {
+  return this.axios.get(`${options.url || ''}/search.json`, {
     params: searchParams
   })
     .then(response => response.data)
@@ -139,9 +134,9 @@ export default (context) => ($axios, params, options = {}) => {
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {
-      throw apiError(error);
+      throw this.apiError(error);
     });
-};
+}
 
 const reduceFieldsForItem = (item, options = {}) => {
   // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue

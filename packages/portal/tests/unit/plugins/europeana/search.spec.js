@@ -2,12 +2,11 @@ import nock from 'nock';
 import search, {
   addContentTierFilter, rangeToQueryParam, rangeFromQueryParam
 } from '@/plugins/europeana/search';
-import { BASE_URL } from '@/plugins/europeana/record';
-const store = { state: { apis: { urls: { record: BASE_URL } } } };
+import EuropeanaApi from '@/plugins/europeana/apis/base.js';
 
 const apiEndpoint = '/search.json';
 
-const baseRequest = () => nock(BASE_URL).get(apiEndpoint);
+const baseRequest = () => nock(EuropeanaApi.BASE_URL).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 
 describe('plugins/europeana/search', () => {
@@ -24,7 +23,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({ store })(null, { query: 'anything' });
+        await search.bind(new EuropeanaApi)({ query: 'anything' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -36,7 +35,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({ store })(null, { query: 'anything', rows: 9 });
+        await search.bind(new EuropeanaApi)({ query: 'anything', rows: 9 });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -48,7 +47,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({ store })(null, { page: 2, query: 'anything' });
+        await search.bind(new EuropeanaApi)({ page: 2, query: 'anything' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -60,7 +59,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({ store })(null, { page: 42, query: 'anything' });
+        await search.bind(new EuropeanaApi)({ page: 42, query: 'anything' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -72,7 +71,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({ store })(null, { query: 'anything', facet: 'LANGUAGE' });
+        await search.bind(new EuropeanaApi)({ query: 'anything', facet: 'LANGUAGE' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -84,7 +83,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({ store })(null, { query: 'anything', facet: 'COUNTRY,REUSABILITY' });
+        await search.bind(new EuropeanaApi)({ query: 'anything', facet: 'COUNTRY,REUSABILITY' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -96,7 +95,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({ store })(null, { query: '' });
+        await search.bind(new EuropeanaApi)({ query: '' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -108,7 +107,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search({ store })(null, { query: 'anything', reusability: 'open' });
+        await search.bind(new EuropeanaApi)({ query: 'anything', reusability: 'open' });
 
         expect(nock.isDone()).toBe(true);
       });
@@ -123,7 +122,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search({ store })(null, { query: 'flor' }, { translateLang });
+          await search.bind(new EuropeanaApi)({ query: 'flor' }, { translateLang });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -136,7 +135,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search({ store })(null, { query: 'flor' });
+          await search.bind(new EuropeanaApi)({ query: 'flor' });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -151,7 +150,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search({ store })(null, { query: 'flor' }, { translateLang });
+          await search.bind(new EuropeanaApi)({ query: 'flor' }, { translateLang });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -165,7 +164,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search({ store })(null, { query: 'dress (red OR blue)' });
+          await search.bind(new EuropeanaApi)({ query: 'dress (red OR blue)' });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -177,7 +176,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search({ store })(null, { query: 'dress (red OR blue)' }, { escape: true });
+          await search.bind(new EuropeanaApi)({ query: 'dress (red OR blue)' }, { escape: true });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -193,7 +192,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search({ store })(null, { query: 'test', boost: 'BOOST' });
+          await search.bind(new EuropeanaApi)({ query: 'test', boost: 'BOOST' });
 
           expect(nock.isDone()).toBe(true);
         });
@@ -213,7 +212,7 @@ describe('plugins/europeana/search', () => {
 
           let error;
           try {
-            await search({ store })(null, { query: 'NOT ' });
+            await search.bind(new EuropeanaApi)({ query: 'NOT ' });
           } catch (e) {
             error = e;
           }
@@ -225,7 +224,7 @@ describe('plugins/europeana/search', () => {
 
       describe('with `items`', () => {
         function searchResponse(options = {}) {
-          return search({ store })(null, { query: 'painting' }, options);
+          return search.bind(new EuropeanaApi)({ query: 'painting' }, options);
         }
 
         describe('.items', () => {
@@ -336,7 +335,7 @@ describe('plugins/europeana/search', () => {
 
           describe('when page is at the API limit', () => {
             function searchResponse() {
-              return search({ store })(null, { query: 'painting', page: 42 });
+              return search.bind(new EuropeanaApi)({ query: 'painting', page: 42 });
             }
 
             it('is `true`', async() => {
