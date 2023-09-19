@@ -74,6 +74,10 @@
       this.annotations = await this.dereferenceAnnotations(annotations);
     },
 
+    watch: {
+      uri: '$fetch'
+    },
+
     methods: {
       async dereferenceAnnotations(annotations) {
         const resourceUrls = uniq(annotations.map((anno) => {

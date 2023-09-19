@@ -102,6 +102,7 @@
         page: 1,
         fullsize: false,
         imageInfo: null,
+        layer: null,
         manifest: null,
         map: null,
         otherContent: null,
@@ -116,14 +117,20 @@
     },
 
     async fetch() {
-      const manifestResponse = await axios.get(this.uri);
-      this.manifest = manifestResponse.data;
+      if (!this.manifest) {
+        const manifestResponse = await axios.get(this.uri);
+        this.manifest = manifestResponse.data;
+      }
+      if (this.layer) {
+        this.map.removeLayer(this.layer);
+        this.layer = null;
+      }
 
       await this.selectCanvas();
     },
 
     watch: {
-      '$route.query.page': 'selectCanvas'
+      '$route.query.page': '$fetch'
     },
 
     mounted() {
@@ -159,6 +166,8 @@
         if (this.canvas.otherContent) {
           // TODO: handle multiple resources
           this.otherContent = [].concat(this.canvas.otherContent)[0];
+        } else {
+          this.otherContent = null;
         }
 
         if (process.client) {
@@ -204,14 +213,14 @@
         const { default: IIIFInfo } = await import('ol/format/IIIFInfo.js');
         const { default: TileLayer } = await import('ol/layer/Tile.js');
 
-        const layer = new TileLayer();
-        this.map.setLayers([layer]);
+        this.layer = new TileLayer();
+        this.map.setLayers([this.layer]);
 
         const options = new IIIFInfo(this.imageInfo).getTileSourceOptions();
         options.zDirection = -1;
         const iiifTileSource = new IIIF(options);
 
-        layer.setSource(iiifTileSource);
+        this.layer.setSource(iiifTileSource);
         this.map.setView(
           new View({
             resolutions: iiifTileSource.getTileGrid().getResolutions(),
@@ -236,14 +245,14 @@
           units: 'pixels',
           extent
         });
-        const layer = new ImageLayer({
+        this.layer = new ImageLayer({
           source: new ImageStatic({
             url,
             projection,
             imageExtent: extent
           })
         });
-        this.map.setLayers([layer]);
+        this.map.setLayers([this.layer]);
         this.map.setView(new View({
           projection,
           center: getCenter(extent),
