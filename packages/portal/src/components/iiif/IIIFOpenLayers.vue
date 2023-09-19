@@ -10,31 +10,36 @@
         class="h-100"
         :class="{ 'w-75': showSidebar, 'w-100': !showSidebar }"
       />
-      <div
-        v-show="showSidebar"
-        class="w-25 h-100 iiif-viewer-sidebar border-bottom"
+      <transition
+        appear
+        name="fade"
       >
-        <b-tabs>
-          <b-tab title="Manifest">
-            <a
-              :href="uri"
+        <div
+          v-show="showSidebar"
+          class="w-25 h-100 iiif-viewer-sidebar border-bottom"
+        >
+          <b-tabs>
+            <b-tab title="Manifest">
+              <a
+                :href="uri"
+              >
+                {{ uri }}
+              </a>
+            </b-tab>
+            <b-tab
+              v-if="otherContent"
+              title="Annotations"
+              lazy
             >
-              {{ uri }}
-            </a>
-          </b-tab>
-          <b-tab
-            v-if="otherContent"
-            title="Annotations"
-            lazy
-          >
-            <IIIFAnnotationList
-              :uri="otherContent"
-              class="iiif-viewer-sidebar-panel"
-              @clickAnno="onClickAnno"
-            />
-          </b-tab>
-        </b-tabs>
-      </div>
+              <IIIFAnnotationList
+                :uri="otherContent"
+                class="iiif-viewer-sidebar-panel"
+                @clickAnno="onClickAnno"
+              />
+            </b-tab>
+          </b-tabs>
+        </div>
+      </transition>
     </div>
     <div
       class="d-flex flex-row"
@@ -273,6 +278,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/iiif';
+  @import '@europeana/style/scss/transitions';
 
   .iiif-viewer-inner-wrapper {
     background-color: $black;
