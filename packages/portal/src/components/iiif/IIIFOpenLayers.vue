@@ -1,9 +1,9 @@
 <template>
   <div
-    class="h-100"
+    class="iiif-viewer-inner-wrapper h-100 d-flex flex-column"
   >
     <div
-      class="iiif-viewer-inner-wrapper h-100 d-flex flex-row-reverse"
+      class="h-100 d-flex flex-row-reverse"
     >
       <div
         id="iiif-open-layers"
@@ -42,9 +42,11 @@
       </transition>
     </div>
     <div
-      class="d-flex flex-row"
+      class="iiif-viewer-toolbar d-flex"
     >
       <b-button
+        class="d-inline-flex"
+        variant="secondary"
         @click="showSidebar = !showSidebar"
       >
         {{ showSidebar ? 'Hide sidebar' : 'Show sidebar' }}
@@ -295,6 +297,10 @@
         overflow-wrap: break-word;
         padding: 1rem;
       }
+    }
+
+    .iiif-viewer-toolbar {
+      background-color: $white;
     }
   }
 </style>
