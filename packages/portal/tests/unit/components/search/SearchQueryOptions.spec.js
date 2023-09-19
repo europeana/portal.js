@@ -140,7 +140,7 @@ describe('components/search/SearchQueryOptions', () => {
             const option = wrapper.find('[data-qa="Medicine search suggestion"]');
             option.trigger('click');
 
-            expect(wrapper.vm.$matomo.trackEvent.calledWith('Advanced search autosuggest', 'Advanced search autosuggest option is selected', 'what: "Medicine"')).toBe(true);
+            expect(wrapper.vm.$matomo.trackEvent.calledWith('Advanced search autosuggest', 'Advanced search autosuggest option is selected', 'what: Medicine')).toBe(true);
           });
         });
       });

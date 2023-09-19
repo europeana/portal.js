@@ -284,7 +284,11 @@
       },
 
       suggestionQuery(suggestion) {
-        return suggestion ? `"${suggestion.replace(/(^")|("$)/g, '')}"` : undefined;
+        if (this.advancedSearch) {
+          return suggestion;
+        } else {
+          return suggestion ? `"${suggestion.replace(/(^")|("$)/g, '')}"` : undefined;
+        }
       },
 
       trackSuggestionClick(query, index) {
