@@ -5,8 +5,10 @@ import search, {
 import EuropeanaApi from '@/plugins/europeana/apis/base.js';
 
 const apiEndpoint = '/search.json';
+const entitySuggestApiEndpoint = '/entity/suggest';
 
 const baseRequest = () => nock(EuropeanaApi.BASE_URL).get(apiEndpoint);
+const entitySuggestRequest = () => nock(EuropeanaApi.BASE_URL).get(entitySuggestApiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 
 describe('plugins/europeana/search', () => {
@@ -473,6 +475,37 @@ describe('plugins/europeana/search', () => {
       it('returns both values', () => {
         const expected = { start: '"START"', end: '\'END\'' };
         expect(rangeFromQueryParam('["START" TO \'END\']')).toEqual(expected);
+      });
+    });
+  });
+
+  describe('addEntityValuesToAdvancedSearchFields', () => {
+    describe('when advanced search fields are queried', () => {
+      describe('when advanced search fields need an entity look up', () => {
+        it('fetches entity suggestions and adds field with entity value to the search query', async() => {
+          baseRequest()
+            .query(query => {
+              return query.qf === 'proxy_dc_date:*"19th century"*proxy_dc_date:"http://data.example.eu/123"';
+            })
+            .reply(200, defaultResponse);
+
+          const entitySuggestResponse =  {
+            success: true,
+            items: [{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }],
+            totalResults: 1
+          };
+          const locale = 'en';
+
+          entitySuggestRequest()
+            .query(query => {
+              return query.text === '19th century' && query.type === 'timespan' && query.language === locale;
+            })
+            .reply(200, entitySuggestResponse);
+
+          await search.bind(new EuropeanaApi)({ qf: 'proxy_dc_date:*"19th century"*'  }, { locale });
+
+          expect(nock.isDone()).toBe(true);
+        });
       });
     });
   });

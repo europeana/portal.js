@@ -105,7 +105,7 @@ export default async function(params, options = {}) {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
   const query = params.query || '*:*';
 
-  const entityValuesForAdvancedSearchFields = await addEntityValuesToAdvancedSearchFields(localParams.qf, this.context);
+  const entityValuesForAdvancedSearchFields = await addEntityValuesToAdvancedSearchFields(localParams.qf, localOptions.locale, this.context);
   if (entityValuesForAdvancedSearchFields) {
     localParams.qf = localParams.qf.concat(entityValuesForAdvancedSearchFields);
   }
@@ -216,7 +216,7 @@ const hasFilterForField = (filters, fieldName) => {
   return filters.some((filter) => filter.startsWith(`${fieldName}:`));
 };
 
-async function addEntityValuesToAdvancedSearchFields(qfs, context) {
+async function addEntityValuesToAdvancedSearchFields(qfs, locale, context) {
   // Filter all advanced search fields to those that we are suggesting entities for and are only entity searchable using the entity URI
   // Aggregated fields include entity search by keyword
   const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field => field.suggestEntityType && !field.aggregated);
@@ -226,18 +226,17 @@ async function addEntityValuesToAdvancedSearchFields(qfs, context) {
       return {
         // remove the dash for fields with 'does not contain' modifier to include them in the qf's to look up
         fieldWithoutModifier: query?.split(':')[0].replace('-', ''),
-        field: query.split(':')[0],
-        value: query.split(':')[1]
+        field: query?.split(':')[0],
+        value: query?.split(':')[1]
       };
     })
-    .filter(query => advancedSearchFieldsForEntityLookUp.map(field => field.name).includes(query.fieldWithoutModifier))
+    .filter(query => advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.fieldWithoutModifier))
     .map(query => {
       return {
         ...query,
-        suggestEntityType: advancedSearchFieldsForEntityLookUp.find(field => field.name === query.fieldWithoutModifier).suggestEntityType
+        suggestEntityType: advancedSearchFieldsForEntityLookUp.find(field => field?.name === query?.fieldWithoutModifier).suggestEntityType
       };
     });
-  const locale = context?.i18n?.locale;
 
   if (qfsToLookUp.length) {
     const fieldsWithEntityValues = [];
@@ -253,7 +252,7 @@ async function addEntityValuesToAdvancedSearchFields(qfs, context) {
         });
         const queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
         if (queryEqualsEntity) {
-          fieldsWithEntityValues.push(`${query.field}: "${queryEqualsEntity.id}"`);
+          fieldsWithEntityValues.push(`${query.field}:"${queryEqualsEntity.id}"`);
         }
       })
     );
