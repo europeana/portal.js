@@ -113,11 +113,6 @@
     watch: {
       value() {
         this.term = this.value;
-      },
-      term(newVal) {
-        if (!newVal) {
-          this.showSearchOptions = false;
-        }
       }
     },
 
@@ -131,6 +126,9 @@
         }
 
         this.$emit('change', valueToEmit);
+        // update term to update in case of selecting the already selected option
+        this.term = this.value;
+        this.showSearchOptions = false;
         this.selectedValue = null; // reset for next query
       },
       handleSelect(option) {

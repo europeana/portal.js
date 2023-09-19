@@ -204,6 +204,8 @@
 
         this.blurInput();
         await this.$router.push(newRoute);
+        // init query to update in case of selecting the already selected option
+        this.initQuery();
       },
 
       clearQuery() {

@@ -37,18 +37,6 @@ describe('components/search/SearchQueryBuilderRuleTermInput', () => {
         expect(wrapper.vm.term).toEqual(value);
       });
     });
-
-    describe('term', () => {
-      describe('when no new value', () => {
-        it('hides the search options', async() => {
-          const wrapper = factory({ showSearchOptions: true });
-
-          await wrapper.setData({ term: '' });
-
-          expect(wrapper.vm.showSearchOptions).toEqual(false);
-        });
-      });
-    });
   });
 
   describe('methods', () => {
