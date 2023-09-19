@@ -1,13 +1,12 @@
 <template>
   <div
-    class="iiif-viewer-inner-wrapper h-100 d-flex flex-column"
+    class="iiif-viewer-inner-wrapper h-100 d-flex flex-column overflow-hidden"
   >
     <div
-      class="h-100 d-flex flex-row-reverse"
+      class="h-100 d-flex flex-row-reverse overflow-auto"
     >
       <div
         id="iiif-open-layers"
-        class="h-100"
         :class="{ 'w-75': showSidebar, 'w-100': !showSidebar }"
       />
       <transition
@@ -16,7 +15,7 @@
       >
         <div
           v-show="showSidebar"
-          class="w-25 h-100 iiif-viewer-sidebar border-bottom"
+          class="w-25 iiif-viewer-sidebar border-bottom"
         >
           <b-tabs>
             <b-tab title="Manifest">
@@ -42,7 +41,7 @@
       </transition>
     </div>
     <div
-      class="iiif-viewer-toolbar d-flex"
+      class="iiif-viewer-toolbar pt-2 px-2 d-flex align-items-center"
     >
       <b-button
         class="d-inline-flex"
@@ -54,6 +53,7 @@
       <PaginationNavInput
         :per-page="1"
         :total-results="canvasCount"
+        class="pagination mx-auto"
       />
     </div>
   </div>
@@ -310,6 +310,12 @@
 
     .iiif-viewer-toolbar {
       background-color: $white;
+    }
+  }
+
+  ::v-deep .pagination {
+    ul {
+      margin-bottom: 0;
     }
   }
 </style>
