@@ -138,7 +138,7 @@
         this.selectedValue = option.query;
         this.handleChange();
       },
-      handleFocusOutChange(event) {
+      handleFocusOut(event) {
         const relatedTargetOutsideSearchDropdown = this.checkIfRelatedTargetOutsideSearchDropdown(event);
         if (relatedTargetOutsideSearchDropdown && this.term !== this.value) {
           this.handleChange();

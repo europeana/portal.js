@@ -49,7 +49,7 @@
 </template>
 
 <script>
-  import SearchQueryBuilderRule from './SearchQueryBuilderRule.vue';
+  import SearchQueryBuilderRule from './SearchQueryBuilderRule';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {

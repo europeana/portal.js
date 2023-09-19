@@ -54,7 +54,7 @@ describe('components/search/SearchQueryOptions', () => {
   });
 
   describe('when the search form is submitting', () => {
-    it('tracks the chose suggestion', async() => {
+    it('tracks the chosen suggestion', async() => {
       const wrapper = factory();
       const track = sinon.spy(wrapper.vm, 'trackSuggestionClick');
       const submitting = 'med';

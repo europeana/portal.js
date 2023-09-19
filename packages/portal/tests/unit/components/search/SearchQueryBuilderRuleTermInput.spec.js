@@ -75,13 +75,13 @@ describe('components/search/SearchQueryBuilderRuleTermInput', () => {
       });
     });
 
-    describe('handleFocusOutChange', () => {
+    describe('handleFocusOut', () => {
       describe('when focus is moved outside the search dropdown', () => {
         it('handles change', () => {
           const wrapper = factory({ term: 'flower' });
           sinon.spy(wrapper.vm, 'handleChange');
 
-          wrapper.vm.handleFocusOutChange({ event: { relatedTarget: { id: 'some-element-outside' } } });
+          wrapper.vm.handleFocusOut({ event: { relatedTarget: { id: 'some-element-outside' } } });
 
           expect(wrapper.vm.handleChange.called).toBe(true);
         });

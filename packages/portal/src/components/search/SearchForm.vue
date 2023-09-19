@@ -70,7 +70,7 @@
         :suggest="suggestSearchOptions && inTopNav && !onSearchableCollectionPage"
         :text="query"
         :submitting="submitting"
-        @select="(option) => handleSelect(option.query)"
+        @select="(option) => handleSelect(option)"
       />
       <SearchThemeBadges
         v-if="showSearchThemeBadges"
@@ -128,7 +128,7 @@
         showSearchOptions: false,
         showForm: this.show,
         suggestSearchOptions: false,
-        selectedOptionQuery: null,
+        selectedOption: null,
         submitting: null
       };
     },
@@ -187,9 +187,9 @@
       },
 
       async submitForm() {
-        const queryToSubmit = this.selectedOptionQuery || this.query;
+        const queryToSubmit = this.selectedOption?.query || this.query;
 
-        if (!this.selectedOptionQuery) {
+        if (!this.selectedOption?.query) {
           // Set submitting state to track the no autosuggest option selected in SearchQueryOptions
           this.submitting = this.query;
         }
@@ -198,7 +198,7 @@
         // `query` must fall back to blank string to ensure inclusion in URL,
         // which is required for analytics site search tracking
         const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: queryToSubmit || '' } };
-        const newRoute = { path: this.routePath, query: newRouteQuery };
+        const newRoute = this.selectedOption?.link || { path: this.routePath, query: newRouteQuery };
 
         this.showSearchOptions = false;
 
@@ -215,8 +215,8 @@
         });
       },
 
-      handleSelect(query) {
-        this.selectedOptionQuery = query;
+      handleSelect(option) {
+        this.selectedOption = option;
         this.submitForm();
         this.selectedOption = null;
       }

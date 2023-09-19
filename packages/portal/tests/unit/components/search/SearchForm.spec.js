@@ -145,6 +145,21 @@ describe('components/search/SearchForm', () => {
           expect(wrapper.vm.$router.push.calledWith(newRouteParams)).toBe(true);
         });
       });
+
+      describe('when selected option contains a link', () => {
+        it('navigates to the link', async() => {
+          const wrapper = factory({ mocks: { $store: { state } } });
+
+          const link = 'http://www.example.eu';
+
+          await wrapper.setData({
+            selectedOption: { link }
+          });
+          wrapper.vm.submitForm();
+
+          expect(wrapper.vm.$router.push.calledWith(link)).toBe(true);
+        });
+      });
     });
 
     describe('when not on a search page', () => {
@@ -328,6 +343,17 @@ describe('components/search/SearchForm', () => {
       backButton.trigger('click.prevent');
 
       expect(wrapper.vm.handleHide.called).toBe(true);
+    });
+  });
+
+  describe('when selecting an option', () => {
+    it('calls submitForm', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm, 'submitForm');
+
+      wrapper.vm.handleSelect();
+
+      expect(wrapper.vm.submitForm.called).toBe(true);
     });
   });
 });
