@@ -787,7 +787,7 @@ export default {
       "help": "Help",
       "home": "Pagină natală",
       "pro": "Pentru profesioniști",
-      "shareYourData": "Împărtășiți-vă datele",
+      "shareYourData": "Contribuiți datele voastre",
       "stories": "Narațiuni"
     },
     "quickSearch": "Căutare rapidă",

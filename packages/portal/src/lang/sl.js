@@ -787,7 +787,7 @@ export default {
       "help": "Pomoč",
       "home": "Domov",
       "pro": "Za strokovnjake",
-      "shareYourData": "Delite svoje podatke",
+      "shareYourData": "Delite vaše podatke",
       "stories": "Zgodbe"
     },
     "quickSearch": "Hitro iskanje",
