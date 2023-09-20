@@ -14,27 +14,28 @@
         name="fade"
       >
         <div
-          v-show="showSidebar"
+          v-if="showSidebar"
           class="w-25 iiif-viewer-sidebar border-bottom"
         >
           <b-tabs>
+            <b-tab
+              title="Annotations"
+              :disabled="!otherContent"
+              :active="otherContent"
+            >
+              <IIIFAnnotationList
+                v-if="otherContent"
+                :uri="otherContent"
+                class="iiif-viewer-sidebar-panel"
+                @clickAnno="onClickAnno"
+              />
+            </b-tab>
             <b-tab title="Manifest">
               <a
                 :href="uri"
               >
                 {{ uri }}
               </a>
-            </b-tab>
-            <b-tab
-              v-if="otherContent"
-              title="Annotations"
-              lazy
-            >
-              <IIIFAnnotationList
-                :uri="otherContent"
-                class="iiif-viewer-sidebar-panel"
-                @clickAnno="onClickAnno"
-              />
             </b-tab>
           </b-tabs>
         </div>
@@ -107,7 +108,7 @@
         map: null,
         otherContent: null,
         resource: null,
-        showSidebar: false,
+        showSidebar: null,
         /**
          * @values IIIF,ImageStatic
          */
