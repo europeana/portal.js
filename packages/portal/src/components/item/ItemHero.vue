@@ -5,13 +5,15 @@
       class="iiif-viewer-wrapper d-flex flex-column"
     >
       <slot name="item-language-selector" />
-      <IIIFOpenLayers
-        :uri="iiifPresentationManifest"
-        :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
-        :aria-label="$t('actions.viewDocument')"
-        :item-id="identifier"
-        :provider-url="providerUrl"
-      />
+      <client-only>
+        <IIIFOpenLayers
+          :uri="iiifPresentationManifest"
+          :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
+          :aria-label="$t('actions.viewDocument')"
+          :item-id="identifier"
+          :provider-url="providerUrl"
+        />
+      </client-only>
     </div>
     <ItemMediaSwiper
       v-else
