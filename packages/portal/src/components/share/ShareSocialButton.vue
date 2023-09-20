@@ -45,7 +45,7 @@
 
     computed: {
       shareUrl() {
-        return this.canonicalUrlWithoutLocale;
+        return this.canonicalUrl({ fullPath: true, locale: false });
       },
       networks() {
         return [

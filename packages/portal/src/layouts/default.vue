@@ -124,7 +124,7 @@
           { rel: 'icon', href: require('@europeana/style/img/favicon.ico').default, type: 'image/x-icon' },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
-          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl({ fullPath: true, locale: false }) },
           ...i18nHead.link
         ],
         script: [
@@ -134,7 +134,7 @@
           ...i18nHead.meta,
           { hid: 'description', name: 'description', content: this.$config.app.siteName },
           { hid: 'og:description', property: 'og:description', content: this.$config.app.siteName },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true, locale: true }) }
         ]
       };
     },
