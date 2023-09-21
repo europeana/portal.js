@@ -280,13 +280,13 @@
       this.$store.commit('search/setActive', true);
 
       // Remove cleared rules
-      this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qall => {
-        return this.qa.includes(qall.qa);
+      this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qaWithEntity => {
+        return this.qa.includes(qaWithEntity.qa);
       });
 
       if (this.qa.length) {
         // Only look up entities for advanced search fields when they are not yet added
-        const qasToLookUp = this.qa.filter(qa => !this.qasWithAddedEntityValue.map(qall => qall.qa).includes(qa));
+        const qasToLookUp = this.qa.filter(qa => !this.qasWithAddedEntityValue.map(qaWithEntity => qaWithEntity.qa).includes(qa));
 
         const entityValuesForAdvancedSearchFields = await this.addEntityValuesToAdvancedSearchFields(qasToLookUp, this.$i18n.locale);
         if (entityValuesForAdvancedSearchFields) {
@@ -345,7 +345,7 @@
         return [].concat(this.userParams.qa || []);
       },
       qaes() {
-        return this.qasWithAddedEntityValue.map(qall => qall.qae);
+        return this.qasWithAddedEntityValue.map(qaWithEntity => qaWithEntity.qae).filter(qae => !!qae);
       },
       qf() {
         return [].concat(this.userParams.qf || []);
@@ -596,6 +596,12 @@
                 fieldsWithEntityValues.push({
                   qa: `${query.field}:${query.value}`,
                   qae: `${query.field}:"${queryEqualsEntity.id}"`
+                });
+              } else {
+                // save fields that do not match entity to prevent reattempt to find matching entitiy
+                fieldsWithEntityValues.push({
+                  qa: `${query.field}:${query.value}`,
+                  qae: null
                 });
               }
             })
