@@ -180,21 +180,6 @@
   &:hover {
     box-shadow: none;
   }
-
-  &.multilingual-dropdown {
-    padding: 0;
-    color: $greyblack;
-    text-decoration: underline;
-
-    &::after {
-      @extend %icon-font;
-
-      content: '\e93e';
-      border: none;
-      margin-left: 0.25rem;
-      transform: scale(1.5);
-    }
-  }
 }
 
 // Expected ".btn-outline-primary:hover" to come before
@@ -347,9 +332,12 @@
     }
   }
 
-  &.icon-clear,
   &.icon-filter {
     font-size: $font-size-large;
+  }
+
+  &.icon-clear {
+    font-size: $font-size-small;
   }
 
   &:hover {

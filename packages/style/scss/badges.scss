@@ -278,6 +278,7 @@
     border: 0;
     background-color: $lightblue;
     box-shadow: 0;
+
     &:hover,
     &:focus {
       background-color: $lightblue-dark !important;
@@ -286,8 +287,8 @@
 
   .icon-clear {
     color: $greyblack;
-    font-size: $font-size-medium;
-    margin-left: 0.25rem;
+    font-size: $font-size-smallest;
+    margin-left: 0.5rem;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
