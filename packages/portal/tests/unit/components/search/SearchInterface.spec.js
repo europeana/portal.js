@@ -166,6 +166,26 @@ describe('components/search/SearchInterface', () => {
         }
       })).toBe(true);
     });
+
+    describe('when there are advanced search fields applied', () => {
+      describe('and they require an entity look up', () => {
+        it('adds the matched entity as an additional field to look up', async() => {
+          const wrapper = factory({ mocks: { $apis: {
+            entity: {
+              suggest: sinon.stub().resolves([{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }])
+            }
+          } } });
+
+          wrapper.vm.$route.query = {
+            qa: ['proxy_dc_date:*19th\\ century*']
+          };
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.qaes.length).toBe(1);
+        });
+      });
+    });
   });
 
   describe('computed', () => {

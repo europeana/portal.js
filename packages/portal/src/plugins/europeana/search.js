@@ -5,11 +5,9 @@
 import pick from 'lodash/pick.js';
 
 import {
-  escapeLuceneSpecials, unescapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
+  escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
 } from './utils.js';
 import { truncate } from '../vue-filters.js';
-import { advancedSearchFields } from './advancedSearchFields.js';
-import * as entity from './entity.js';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -104,11 +102,6 @@ export default async function(params, options = {}) {
   const start = ((page - 1) * perPage) + 1;
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
   const query = params.query || '*:*';
-
-  const entityValuesForAdvancedSearchFields = await addEntityValuesToAdvancedSearchFields(localParams.qf, localOptions.locale, this.context);
-  if (entityValuesForAdvancedSearchFields) {
-    localParams.qf = localParams.qf.concat(entityValuesForAdvancedSearchFields);
-  }
 
   const searchParams = {
     ...this.axios.defaults.params,
@@ -215,48 +208,3 @@ export function addContentTierFilter(qf) {
 const hasFilterForField = (filters, fieldName) => {
   return filters.some((filter) => filter.startsWith(`${fieldName}:`));
 };
-
-async function addEntityValuesToAdvancedSearchFields(qfs, locale, context) {
-  // Filter all advanced search fields to those that we are suggesting entities for and are only entity searchable using the entity URI
-  // Aggregated fields include entity search by keyword
-  const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field => field.suggestEntityType && !field.aggregated);
-  // Filter the requested advanced search queries to those which need the entity look up
-  const qfsToLookUp = [].concat(qfs)
-    .map(query => {
-      return {
-        // remove the dash for fields with 'does not contain' modifier to include them in the qf's to look up
-        fieldWithoutModifier: query?.split(':')[0].replace('-', ''),
-        field: query?.split(':')[0],
-        value: query?.split(':')[1]
-      };
-    })
-    .filter(query => advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.fieldWithoutModifier))
-    .map(query => {
-      return {
-        ...query,
-        suggestEntityType: advancedSearchFieldsForEntityLookUp.find(field => field?.name === query?.fieldWithoutModifier).suggestEntityType
-      };
-    });
-
-  if (qfsToLookUp.length) {
-    const fieldsWithEntityValues = [];
-
-    await Promise.all(
-      qfsToLookUp.map(async query => {
-        // Clean up the query value to search for and compare to the entity suggestions (including syntax for String type field values)
-        const text = unescapeLuceneSpecials(query.value, { spaces: true }).replaceAll(/["*]/g, '');
-        const suggestions = await new entity.default(context).suggest(text, {
-          language: locale,
-          // Only look up specific entity type as defined for the advanced search field
-          type: query.suggestEntityType
-        });
-        const queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
-        if (queryEqualsEntity) {
-          fieldsWithEntityValues.push(`${query.field}:"${queryEqualsEntity.id}"`);
-        }
-      })
-    );
-
-    return fieldsWithEntityValues;
-  }
-}
