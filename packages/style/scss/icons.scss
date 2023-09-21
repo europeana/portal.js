@@ -24,6 +24,10 @@
   content: '\e938';
 }
 
+.icon-add::before {
+  content: '\e904'
+}
+
 .icon-ic-add::before {
   content: '\e923';
 }
@@ -40,20 +44,16 @@
   content: '\e934';
 }
 
-.icon-caret-down::before {
-  content: '\e903';
-}
-
 .icon-check-circle::before {
   content: '\e92f';
 }
 
-.icon-clear::before {
-  content: '\e931';
+.icon-chevron::before {
+  content: '\e91b'
 }
 
-.icon-close::before {
-  content: '\e904';
+.icon-clear::before {
+  content: '\e903';
 }
 
 .icon-ic-download::before {
@@ -186,10 +186,6 @@
 
 .icon-unavailable::before {
   content: '\e953';
-}
-
-.icon-ic-move-vert::before {
-  content: '\e958';
 }
 
 .icon-ic-move-xy::before {
