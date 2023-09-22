@@ -103,6 +103,7 @@
 
   .header {
     color: $white;
+    background-color: $blue;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
