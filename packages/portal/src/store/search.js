@@ -6,7 +6,8 @@ export default {
     showFiltersSheet: false,
     showFiltersToggle: false,
     showSearchBar: false,
-    view: null
+    view: null,
+    qasWithSelectedEntityValue: []
   }),
 
   mutations: {
@@ -36,6 +37,12 @@ export default {
     },
     setShowFiltersToggle(state, value) {
       state.showFiltersToggle = value;
+    },
+    addQasWithSelectedEntityValue(state, value) {
+      state.qasWithSelectedEntityValue.push(value);
+    },
+    setQasWithSelectedEntityValue(state, value) {
+      state.qasWithSelectedEntityValue = value;
     }
   },
 

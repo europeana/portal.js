@@ -58,6 +58,9 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
         entity: {
           entity: {}
         },
+        search: {
+          qasWithSelectedEntityValue: []
+        },
         ...mocks.$store?.state
       }
     }

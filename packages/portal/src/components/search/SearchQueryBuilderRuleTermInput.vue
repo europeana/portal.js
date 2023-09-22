@@ -39,6 +39,7 @@
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
   import searchOptionsKeyboardNav from '@/mixins/searchOptionsKeyboardNav';
+  import { advancedSearchFieldsForEntityLookUp } from '@/plugins/europeana/advancedSearchFields';
 
   export default {
     name: 'SearchQueryBuilderRuleTermInput',
@@ -87,7 +88,7 @@
         default: null
       },
       /**
-       * Advanced search field for which the term will the searched value
+       * Advanced search field for which the term will be the searched value
        */
       advancedSearchField: {
         type: String,
@@ -107,6 +108,9 @@
     computed: {
       optionsId() {
         return `${this.id}-options`;
+      },
+      fieldNeedsEntityLookUp() {
+        return advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(this.advancedSearchField);
       }
     },
 
@@ -135,6 +139,9 @@
         this.showSearchOptions = false;
         this.selectedValue = option.query;
         this.handleChange();
+        if (this.fieldNeedsEntityLookUp) {
+          this.$store.commit('search/addQasWithSelectedEntityValue', { field: this.advancedSearchField, qa: option.query, id: option.entityId });
+        }
       },
       handleFocusOut(event) {
         const relatedTargetOutsideSearchDropdown = this.checkIfRelatedTargetOutsideSearchDropdown(event);

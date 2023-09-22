@@ -211,7 +211,7 @@
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import makeToastMixin from '@/mixins/makeToast';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
-  import { advancedSearchFields } from '@/plugins/europeana/advancedSearchFields';
+  import { advancedSearchFieldsForEntityLookUp } from '@/plugins/europeana/advancedSearchFields';
   import { unescapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   export default {
@@ -419,6 +419,9 @@
         }
 
         return this.$i18n.locale;
+      },
+      qasWithSelectedEntityValue() {
+        return this.$store.state.search.qasWithSelectedEntityValue;
       }
     },
 
@@ -557,9 +560,6 @@
       },
 
       async addEntityValuesToAdvancedSearchFields(qfs, locale) {
-        // Filter all advanced search fields to those that we are suggesting entities for and are only entity searchable using the entity URI
-        // Aggregated fields include entity search by keyword
-        const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field => field.suggestEntityType && !field.aggregated);
         // Filter the requested advanced search queries to those which need the entity look up
         const qfsToLookUp = [].concat(qfs)
           .map(query => {
@@ -583,15 +583,25 @@
 
           await Promise.all(
             qfsToLookUp.map(async query => {
+              let queryEqualsEntity;
               // Clean up the query value to search for and compare to the entity suggestions (including syntax for String type field values)
               const text = unescapeLuceneSpecials(query.value, { spaces: true }).replaceAll(/["*]/g, '');
 
-              const suggestions = await this.$apis.entity.suggest(text, {
-                language: locale,
-                // Only look up specific entity type as defined for the advanced search field
-                type: query.suggestEntityType
-              });
-              const queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
+              // Check if term is selected and stored from the entity dropdown
+              const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find(queryWithSelectedEntity => queryWithSelectedEntity.qa === text);
+              queryEqualsEntity = queryHasSelectedEntity;
+
+              // Look up possible enitty value for SSR or when no option selected, the qa might still match an entity
+              if (!queryHasSelectedEntity) {
+                const suggestions = await this.$apis.entity.suggest(text, {
+                  language: locale,
+                  // Only look up specific entity type as defined for the advanced search field
+                  type: query.suggestEntityType
+                });
+
+                queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
+              }
+
               if (queryEqualsEntity) {
                 fieldsWithEntityValues.push({
                   qa: `${query.field}:${query.value}`,
@@ -606,6 +616,9 @@
               }
             })
           );
+
+          // Clean up the store to prevent accumulating outdated data
+          this.$store.commit('search/setQasWithSelectedEntityValue', []);
 
           return fieldsWithEntityValues;
         }

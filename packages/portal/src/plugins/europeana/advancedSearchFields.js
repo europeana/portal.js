@@ -41,3 +41,5 @@ export const advancedSearchFields = [
   { name: 'who', type: FIELD_TYPE_TEXT, suggestEntityType: FIELD_SUGGEST_AGENT, aggregated: true },
   { name: 'YEAR', type: FIELD_TYPE_STRING }
 ];
+
+export const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field => field.suggestEntityType && !field.aggregated);
