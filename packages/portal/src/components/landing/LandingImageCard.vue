@@ -8,7 +8,7 @@
     >
       <ImageWithAttribution
         class="image"
-        :alt="cardImageWithAttribution.image.description"
+        :alt="cardImageWithAttribution.image.description || ''"
         :src="cardImageWithAttribution.image.url"
         :width="612"
         :height="365"
