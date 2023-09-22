@@ -1,6 +1,5 @@
 import camelCase from 'lodash/camelCase';
 import escapeRegExp from 'lodash/escapeRegExp';
-import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils.js';
 
 const FIELD_TYPE_FULLTEXT = 'fulltext';
 const FIELD_TYPE_STRING = 'string';
@@ -46,7 +45,7 @@ const advancedSearchModifiers = [
     name: 'contains',
     query: {
       [FIELD_TYPE_FULLTEXT]: '<field>:(<term>)',
-      [FIELD_TYPE_STRING]: '<field>:*<term>*',
+      [FIELD_TYPE_STRING]: '<field>:<term>',
       [FIELD_TYPE_TEXT]: '<field>:<term>'
     }
   },
@@ -54,7 +53,7 @@ const advancedSearchModifiers = [
     name: 'doesNotContain',
     query: {
       [FIELD_TYPE_FULLTEXT]: 'NOT <field>:(<term>)',
-      [FIELD_TYPE_STRING]: '-<field>:*<term>*',
+      [FIELD_TYPE_STRING]: '-<field>:<term>',
       [FIELD_TYPE_TEXT]: '-<field>:<term>'
     }
   }
@@ -95,8 +94,7 @@ export default {
       const qa = rules.map((rule) => {
         const field = this.advancedSearchFields.find((field) => field.name === rule.field);
         const modifier = this.advancedSearchModifiers.find((modifier) => modifier.name === rule.modifier);
-        const escapedTerm = escapeLuceneSpecials(rule.term, { spaces: true });
-        return modifier?.query[field.type].replace('<field>', field.name).replace('<term>', escapedTerm);
+        return modifier?.query[field.type].replace('<field>', field.name).replace('<term>', rule.term);
       }).filter((qa) => !!qa);
 
       const newRouteQuery = { ...this.$route.query, ...{ page: 1, [this.advancedSearchRouteQueryKey]: qa } };
@@ -114,7 +112,7 @@ export default {
               return {
                 field: match.groups.field,
                 modifier: modifier.name,
-                term: unescapeLuceneSpecials(match.groups.term, { spaces: true })
+                term: match.groups.term
               };
             }
           }
