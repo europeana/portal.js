@@ -159,7 +159,7 @@
     ::v-deep iframe {
       max-width: 920px;
       width: 100%;
-      min-height: 1200px;
+      min-height: 1440px;
     }
   }
 
