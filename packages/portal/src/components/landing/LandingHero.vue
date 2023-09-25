@@ -6,11 +6,8 @@
       >
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
-          <span
-            v-html="parseMarkdownHtml(`# ${headline}`)"
-          />
           <div
-            v-html="parseMarkdownHtml(text)"
+            v-html="parseMarkdownHtml(`# ${headline}\n${text}`)"
           />
           <!-- eslint-enable vue/no-v-html -->
           <SmartLink
