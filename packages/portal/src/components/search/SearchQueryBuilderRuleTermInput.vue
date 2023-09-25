@@ -39,7 +39,7 @@
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
   import searchOptionsKeyboardNav from '@/mixins/searchOptionsKeyboardNav';
-  import { advancedSearchFieldsForEntityLookUp } from '@/plugins/europeana/advancedSearchFields';
+  import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRuleTermInput',
@@ -48,7 +48,7 @@
       SearchQueryOptions
     },
 
-    mixins: [searchOptionsKeyboardNav],
+    mixins: [searchOptionsKeyboardNav, advancedSearchMixin],
 
     props: {
       /**
@@ -110,7 +110,7 @@
         return `${this.id}-options`;
       },
       fieldNeedsEntityLookUp() {
-        return advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(this.advancedSearchField);
+        return this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(this.advancedSearchField);
       }
     },
 

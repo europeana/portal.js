@@ -88,7 +88,7 @@ export function rangeFromQueryParam(paramValue) {
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
 
-export default async function(params, options = {}) {
+export default function(params, options = {}) {
   const localParams = { ...params };
 
   const defaultOptions = { locale: this.context?.i18n?.locale };

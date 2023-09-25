@@ -211,7 +211,7 @@
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import makeToastMixin from '@/mixins/makeToast';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
-  import { advancedSearchFieldsForEntityLookUp } from '@/plugins/europeana/advancedSearchFields';
+  import advancedSearchMixin from '@/mixins/advancedSearch.js';
   import { unescapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   export default {
@@ -231,6 +231,7 @@
     },
 
     mixins: [
+      advancedSearchMixin,
       elasticApmReporterMixin,
       makeToastMixin
     ],
@@ -570,11 +571,11 @@
               value: query?.split(':')[1]
             };
           })
-          .filter(query => advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.fieldWithoutModifier))
+          .filter(query => this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.fieldWithoutModifier))
           .map(query => {
             return {
               ...query,
-              suggestEntityType: advancedSearchFieldsForEntityLookUp.find(field => field?.name === query?.fieldWithoutModifier).suggestEntityType
+              suggestEntityType: this.advancedSearchFieldsForEntityLookUp.find(field => field?.name === query?.fieldWithoutModifier).suggestEntityType
             };
           });
 
@@ -591,7 +592,7 @@
               const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find(queryWithSelectedEntity => queryWithSelectedEntity.qa === text);
               queryEqualsEntity = queryHasSelectedEntity;
 
-              // Look up possible enitty value for SSR or when no option selected, the qa might still match an entity
+              // Look up possible entity value for SSR or when no option selected, the qa might still match an entity
               if (!queryHasSelectedEntity) {
                 const suggestions = await this.$apis.entity.suggest(text, {
                   language: locale,
