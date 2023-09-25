@@ -20,7 +20,7 @@ const factory = (propsData) => shallowMount(LandingEmbed, {
 describe('components/landing/LandingEmbed', () => {
   describe('template', () => {
     it('has a container ID derived from the title', () => {
-      const wrapper = factory({ title: 'Embed this' });
+      const wrapper = factory({ englishTitle: 'Embed this' });
 
       const containerId = wrapper.find('.landing-embed').attributes('id');
 

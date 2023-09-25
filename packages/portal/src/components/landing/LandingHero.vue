@@ -6,11 +6,8 @@
       >
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
-          <h1
-            v-html="parseMarkdownHtml(headline)"
-          />
           <div
-            v-html="parseMarkdownHtml(text)"
+            v-html="parseMarkdownHtml(`# ${headline}\n${text}`)"
           />
           <!-- eslint-enable vue/no-v-html -->
           <SmartLink
@@ -153,7 +150,7 @@
     max-width: calc(1.5 * 443px);
   }
 
-  h1 {
+  ::v-deep h1 {
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
@@ -169,7 +166,7 @@
       margin-bottom: calc(1.5 * 0.75rem);
     }
 
-    ::v-deep em {
+    em {
       font-style: normal;
       color: $blue;
     }
