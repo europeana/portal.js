@@ -134,6 +134,27 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
+    describe('when entity ID in route is invalid', () => {
+      const type = 'topic';
+      const pathMatch = 'undefined';
+
+      it('triggers 404 error via $error', async() => {
+        const wrapper = factory({ type, pathMatch });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$error.calledWith(404, { scope: 'page' })).toBe(true);
+      });
+
+      it('does not request entity from Entity API', async() => {
+        const wrapper = factory({ type, pathMatch });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$apis.entity.get.called).toBe(false);
+      });
+    });
+
     it('disables collection facet via search store', async() => {
       const wrapper = factory(topicEntity);
 

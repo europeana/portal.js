@@ -124,7 +124,7 @@
     },
 
     async fetch() {
-      if (!getEntityTypeApi(this.collectionType)) {
+      if (!this.isRouteValid) {
         return this.$error(404, { scope: 'page' });
       }
 
@@ -164,6 +164,10 @@
     },
 
     computed: {
+      isRouteValid() {
+        return !!getEntityTypeApi(this.collectionType) &&
+          this.entityId?.match(/^\d+$/);
+      },
       pageMeta() {
         return {
           title: this.title.values[0],
