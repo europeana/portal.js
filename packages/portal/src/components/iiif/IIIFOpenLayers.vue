@@ -63,6 +63,7 @@
 <script>
   import axios from 'axios';
   import { BTab, BTabs } from 'bootstrap-vue';
+  import { Traverse } from '@iiif/parser';
 
   export default {
     name: 'IIIFOpenLayers',
@@ -120,6 +121,10 @@
     async fetch() {
       if (!this.manifest) {
         const manifestResponse = await axios.get(this.uri);
+        if (manifestResponse.data['@context'].endsWith('//iiif.io/api/presentation/2/context.json')) {
+          const { convertPresentation2 } = await import('@iiif/parser/dist/presentation-2/esm/index.mjs');
+          const p3Manifest = convertPresentation2(manifestResponse.data);
+        }
         this.manifest = manifestResponse.data;
       }
       if (this.layer) {
