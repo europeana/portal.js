@@ -114,6 +114,26 @@ describe('pages/collections/_type/_', () => {
   afterEach(sinon.resetHistory);
 
   describe('fetch', () => {
+    describe('when entity type in route is invalid', () => {
+      const type = 'train';
+
+      it('triggers 404 error via $error', async() => {
+        const wrapper = factory({ type });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$error.calledWith(404, { scope: 'page' })).toBe(true);
+      });
+
+      it('does not request entity from Entity API', async() => {
+        const wrapper = factory({ type });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$apis.entity.get.called).toBe(false);
+      });
+    });
+
     it('disables collection facet via search store', async() => {
       const wrapper = factory(topicEntity);
 
@@ -141,7 +161,7 @@ describe('pages/collections/_type/_', () => {
     describe('on errors', () => {
       it('handles errors via $error', async() => {
         const apiError = new Error({ message: 'No collection found' });
-        const wrapper = factory({ get: sinon.stub().rejects(apiError) });
+        const wrapper = factory({ ...topicEntity, get: sinon.stub().rejects(apiError) });
 
         await wrapper.vm.fetch();
 

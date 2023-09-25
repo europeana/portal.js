@@ -78,7 +78,7 @@
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
   import {
-    getEntityUri, getEntityQuery, normalizeEntityId
+    getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
@@ -124,6 +124,10 @@
     },
 
     async fetch() {
+      if (!getEntityTypeApi(this.collectionType)) {
+        return this.$error(404, { scope: 'page' });
+      }
+
       this.$store.commit('search/disableCollectionFacet');
 
       const entityUri = getEntityUri(this.collectionType, this.$route.params.pathMatch);
