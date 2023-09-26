@@ -63,13 +63,13 @@ describe('components/search/SearchQueryBuilderRuleTermInput', () => {
       });
     });
 
-    describe('handleFocusOut', () => {
-      describe('when focus is moved outside the search dropdown', () => {
-        it('handles change', () => {
-          const wrapper = factory({ term: 'flower' });
+    describe('when the suggestes options are hidden', () => {
+      describe('and there is a new term', () => {
+        it('handles change', async() => {
+          const wrapper = factory({ term: 'flower', showSearchOptions: true });
           sinon.spy(wrapper.vm, 'handleChange');
 
-          wrapper.vm.handleFocusOut({ event: { relatedTarget: { id: 'some-element-outside' } } });
+          await wrapper.setData({ showSearchOptions: false });
 
           expect(wrapper.vm.handleChange.called).toBe(true);
         });

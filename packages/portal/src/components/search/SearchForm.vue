@@ -7,7 +7,6 @@
       'top-search': inTopNav,
       'suggestions-open': showSearchOptions
     }"
-    @keydown="handleKeyDown"
   >
     <b-button
       v-if="inTopNav"
@@ -15,7 +14,7 @@
       class="button-icon-only icon-back back-button"
       variant="light-flat"
       :aria-label="$t('header.backToMenu')"
-      @click.prevent="handleHide"
+      @click.prevent="() => showSearchOptions = false"
     />
     <b-form
       ref="form"
@@ -70,7 +69,9 @@
         :suggest="suggestSearchOptions && inTopNav && !onSearchableCollectionPage"
         :text="query"
         :submitting="submitting"
+        :show-search-options="showSearchOptions"
         @select="(option) => handleSelect(option)"
+        @show="(value) => showSearchOptions = value"
       />
       <SearchThemeBadges
         v-if="showSearchThemeBadges"
@@ -82,7 +83,6 @@
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
-  import searchOptionsKeyboardNav from '@/mixins/searchOptionsKeyboardNav';
 
   export default {
     name: 'SearchForm',
@@ -92,8 +92,6 @@
       SearchFilterToggleButton: () => import('./SearchFilterToggleButton'),
       SearchThemeBadges: () => import('@/components/search/SearchThemeBadges')
     },
-
-    mixins: [searchOptionsKeyboardNav],
 
     props: {
       /**
@@ -171,6 +169,14 @@
       },
       show(newVal) {
         this.showForm = newVal;
+      },
+      showSearchOptions(newVal) {
+        if (newVal === false) {
+          if (this.hidableForm) {
+            this.showForm = false;
+            this.$store.commit('search/setShowSearchBar', false);
+          }
+        }
       }
     },
 
@@ -213,7 +219,7 @@
         this.suggestions = {};
 
         this.$nextTick(() => {
-          this.getElement(this.$refs.searchinput).focus();
+          this.$refs.searchinput.$el.focus();
         });
       },
 
@@ -221,6 +227,9 @@
         this.selectedOption = option;
         this.submitForm();
         this.selectedOption = null;
+      },
+      blurInput() {
+        this.$refs.searchinput.$el && this.$refs.searchinput.$el.blur();
       }
     }
   };

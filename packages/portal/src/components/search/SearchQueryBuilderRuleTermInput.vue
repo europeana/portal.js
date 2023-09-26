@@ -3,7 +3,6 @@
     ref="searchdropdown"
     class="input-wrapper"
     :class="{ 'open': showSearchOptions }"
-    @keydown="handleKeyDown"
   >
     <b-form-input
       :id="id"
@@ -30,15 +29,16 @@
       :suggest="!!suggestEntityType && showSearchOptions"
       :advanced-search="true"
       :advanced-search-field="advancedSearchField"
+      :show-search-options="showSearchOptions"
       :submitting="submitting"
       @select="(option) => handleSelect(option)"
+      @show="(value) => showSearchOptions = value"
     />
   </div>
 </template>
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
-  import searchOptionsKeyboardNav from '@/mixins/searchOptionsKeyboardNav';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
@@ -48,7 +48,7 @@
       SearchQueryOptions
     },
 
-    mixins: [searchOptionsKeyboardNav, advancedSearchMixin],
+    mixins: [advancedSearchMixin],
 
     props: {
       /**
@@ -117,6 +117,13 @@
     watch: {
       value() {
         this.term = this.value;
+      },
+      showSearchOptions(newVal) {
+        if (newVal === false) {
+          if (this.term !== this.value) {
+            this.handleChange();
+          }
+        }
       }
     },
 
@@ -141,12 +148,6 @@
         this.handleChange();
         if (this.fieldNeedsEntityLookUp) {
           this.$store.commit('search/addQasWithSelectedEntityValue', { field: this.advancedSearchField, qa: option.query, id: option.entityId });
-        }
-      },
-      handleFocusOut(event) {
-        const relatedTargetOutsideSearchDropdown = this.checkIfRelatedTargetOutsideSearchDropdown(event);
-        if (relatedTargetOutsideSearchDropdown && this.term !== this.value) {
-          this.handleChange();
         }
       }
     }

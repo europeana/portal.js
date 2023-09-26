@@ -116,6 +116,13 @@
       staticOptions: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Display state of the options
+       */
+      showSearchOptions: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -188,6 +195,15 @@
     },
 
     watch: {
+      showSearchOptions(newVal) {
+        if (newVal === true) {
+          this.$parent.$refs.searchdropdown.addEventListener('focusout', this.handleFocusOut);
+          this.$parent.$refs.searchdropdown.addEventListener('keydown', this.handleKeyDown);
+        } else {
+          this.$parent.$refs.searchdropdown.removeEventListener('focusout', this.handleFocusOut);
+          this.$parent.$refs.searchdropdown.removeEventListener('keydown', this.handleKeyDown);
+        }
+      },
       text() {
         this.fetchSuggestions();
       },
@@ -305,6 +321,51 @@
             this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
           }
         }
+      },
+
+      handleKeyDown(event) {
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          this.navigateWithArrowKeys(event);
+        }
+        if (event.key === 'Escape') {
+          this.$emit('show', false);
+        }
+      },
+
+      handleFocusOut(event) {
+        const relatedTargetOutsideSearchDropdown = this.checkIfRelatedTargetOutsideSearchDropdown(event);
+        if (relatedTargetOutsideSearchDropdown) {
+          this.$emit('show', false);
+        }
+      },
+
+      checkIfRelatedTargetOutsideSearchDropdown(event) {
+        return event.relatedTarget?.id !== 'show-search-button' && this.$parent.$refs.searchdropdown && !this.$parent.$refs.searchdropdown.contains(event.relatedTarget);
+      },
+
+      navigateWithArrowKeys(event) {
+        const quicksearchOptionsElements = this.$parent.$refs.quicksearch?.$children[0]?.$refs.options || [];
+        const searchQueryOptionsElements = this.$refs.options || [];
+        const searchDropdownOptionsElements = (searchQueryOptionsElements).concat(quicksearchOptionsElements);
+
+        const activeOption = searchDropdownOptionsElements.map(option => option.$el || option).indexOf(event.target);
+
+        if (searchDropdownOptionsElements.length) {
+          if (activeOption === -1) {
+            this.getElement(searchDropdownOptionsElements[0]).focus();
+          }
+          if (event.key === 'ArrowDown' && activeOption < searchDropdownOptionsElements.length - 1) {
+            this.getElement(searchDropdownOptionsElements[activeOption + 1]).focus();
+          }
+          if (event.key === 'ArrowUp' && activeOption > 0) {
+            this.getElement(searchDropdownOptionsElements[activeOption - 1]).focus();
+          }
+        }
+      },
+
+      getElement(element) {
+        return element.$el || element;
       }
     }
   };

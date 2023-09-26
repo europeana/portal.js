@@ -241,25 +241,6 @@ describe('components/search/SearchForm', () => {
     });
   });
 
-  it('suggestions and quick search are navigable by keyboard arrows', async() => {
-    const componentWithOptions = { template: '<ul><li v-for="(option, index) in [{ $el: {focus: () => {} } }, { $el: { focus: () => {} } }]" ref="options"></li></ul>' };
-    const arrowDownEvent = new KeyboardEvent('keydown', { 'key': 'ArrowDown' });
-
-    const wrapper = factory({ stubs: { SearchQueryOptions: componentWithOptions } });
-
-    await wrapper.setData({ showSearchOptions: true, query: 't', suggestions: { suggetion01: 'trees', suggestion02: 'Tiziano' } });
-
-    const focus0 = sinon.spy(wrapper.vm.$refs.searchoptions.$refs.options[0], 'focus');
-    const focus1 = sinon.spy(wrapper.vm.$refs.searchoptions.$refs.options[1], 'focus');
-
-    wrapper.vm.handleKeyDown(arrowDownEvent);
-    expect(focus0.called).toBe(true);
-    wrapper.vm.handleKeyDown({ key: 'ArrowDown', target: wrapper.vm.$refs.searchoptions.$refs.options[0], preventDefault: () => {} });
-    expect(focus1.called).toBe(true);
-    wrapper.vm.handleKeyDown({ key: 'ArrowUp', target: wrapper.vm.$refs.searchoptions.$refs.options[1], preventDefault: () => {} });
-    expect(focus0.called).toBe(true);
-  });
-
   it('re-shows the form when prop updates', async() => {
     const wrapper = factory({ propsData: { show: false } });
 
@@ -271,33 +252,12 @@ describe('components/search/SearchForm', () => {
     expect(searchForm.isVisible()).toBe(true);
   });
 
-  describe('when pressing the Escape key', () => {
-    const escapeEvent = new KeyboardEvent('keydown', { 'key': 'Escape' });
-
-    it('hides the search options', async() => {
-      const wrapper = factory({ data: { showSearchOptions: true } });
-
-      expect(wrapper.vm.showSearchOptions).toBe(true);
-      expect(wrapper.vm.showForm).toBe(true);
-
-      await wrapper.vm.handleKeyDown(escapeEvent);
-
-      expect(wrapper.vm.showSearchOptions).toBe(false);
-    });
-
-    it('emits hide event', async() => {
-      const wrapper = factory();
-
-      await wrapper.vm.handleKeyDown(escapeEvent);
-
-      expect(wrapper.emitted('hide').length).toBe(1);
-    });
-
+  describe('when the search options are hidden', () => {
     describe('when the search form is hidable', () => {
       it('hides it', async() => {
-        const wrapper = factory({ propsData: { hidableForm: true } });
+        const wrapper = factory({ propsData: { hidableForm: true }, data: { showSearchOptions: true } });
 
-        await wrapper.vm.handleKeyDown(escapeEvent);
+        await wrapper.setData({ showSearchOptions: false });
         const searchForm = wrapper.find('[data-qa="search form"]');
 
         expect(wrapper.vm.showForm).toBe(false);
@@ -307,9 +267,9 @@ describe('components/search/SearchForm', () => {
 
     describe('when the search form is not hidable', () => {
       it('does not hide it', async() => {
-        const wrapper = factory();
+        const wrapper = factory({ data: { showSearchOptions: true } });
 
-        await wrapper.vm.handleKeyDown(escapeEvent);
+        await wrapper.setData({ showSearchOptions: false });
         const searchForm = wrapper.find('[data-qa="search form"]');
 
         expect(wrapper.vm.showForm).toBe(true);
@@ -335,14 +295,13 @@ describe('components/search/SearchForm', () => {
   });
 
   describe('when clicking the back button', () => {
-    it('closes the search bar', () => {
-      const wrapper = factory();
-      sinon.spy(wrapper.vm, 'handleHide');
+    it('closes the search bar', async() => {
+      const wrapper = factory({ propsData: { hidableForm: true, inTopNav: true }, data: { showSearchOptions: true } });
 
       const backButton = wrapper.find('[data-qa="back button"]');
-      backButton.trigger('click.prevent');
+      await backButton.trigger('click.prevent');
 
-      expect(wrapper.vm.handleHide.called).toBe(true);
+      expect(wrapper.vm.showForm).toBe(false);
     });
   });
 
