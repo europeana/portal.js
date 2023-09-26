@@ -18,10 +18,10 @@
         v-for="(anno, index) in annotations"
         :key="index"
         :action="true"
-        :active="activeAnnotation === anno['@id']"
+        :active="activeAnnotation === anno.id"
         @click="onClickAnnotation(anno)"
       >
-        {{ anno.resource.value }}
+        {{ anno.body.value }}
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -29,9 +29,8 @@
 
 <script>
   import axios from 'axios';
-  import uniq from 'lodash/uniq';
 
-  import EuropeanaIIIFPresentation from '@europeana/iiif/src/presentation/index.js';
+  import IIIFPresentation from '@europeana/iiif/src/presentation/index.js';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
 
   export default {
@@ -57,16 +56,17 @@
         /**
          * Individual annotations
          */
-        annotations: null,
-        annotationPage: null
+        annotations: null
       };
     },
 
     // TODO: filter by motivation(s)
     async fetch() {
-      this.annotationPage = await EuropeanaIIIFPresentation.fetch(this.uri);
+      const annotationPage = await IIIFPresentation.fetch(this.uri);
 
-      this.annotations = await this.dereferenceAnnotations(this.annotationPage.annotations);
+      await annotationPage.fetchAnnotationBodies();
+
+      this.annotations = annotationPage.annotations;
     },
 
     watch: {
@@ -74,41 +74,8 @@
     },
 
     methods: {
-      // TODO: mv into @europeana/iiif/presentation
-      async dereferenceAnnotations(annotations) {
-        const resourceUrls = uniq(annotations.map((anno) => {
-          const resourceUrl = new URL(anno.resource['@id']);
-          resourceUrl.hash = '';
-          return resourceUrl.toString();
-        }));
-        const annotationResourceResponses = await Promise.all(resourceUrls.map((resourceUrl) => axios.get(resourceUrl)));
-
-        for (const annoResourceResponse of annotationResourceResponses) {
-          const annoResourceData = annoResourceResponse.data;
-          if (annoResourceData.type === 'FullTextResource') {
-            for (const anno of annotations) {
-              const resourceUrl = new URL(anno.resource['@id']);
-              if (resourceUrl.toString().startsWith(annoResourceData.id)) {
-                for (const annoResourceProperty in annoResourceData) {
-                  if ((annoResourceProperty === 'value') && resourceUrl.hash.startsWith('#char=')) {
-                    const charMatch = resourceUrl.hash.match(/^#char=(\d+),(\d+)$/);
-                    anno.resource[annoResourceProperty] = annoResourceData[annoResourceProperty].slice(
-                      Number(charMatch[1]), Number(charMatch[2]) + 1
-                    );
-                  } else if (!['id', '@id'].includes(annoResourceProperty)) {
-                    anno.resource[annoResourceProperty] = annoResourceData[annoResourceProperty];
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        return annotations;
-      },
-
       onClickAnnotation(anno) {
-        this.activeAnnotation = anno['@id'];
+        this.activeAnnotation = anno.id;
         this.$emit('clickAnno', anno);
       }
     }

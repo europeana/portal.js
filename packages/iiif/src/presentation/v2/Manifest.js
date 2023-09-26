@@ -1,7 +1,7 @@
 import Base from '../Base.js';
 import Canvas from './Canvas.js';
 
-export default class EuropeanaIIIFPresentationV2Manifest extends Base {
+export default class IIIFPresentationV2Manifest extends Base {
   constructor(data) {
     super(data);
 

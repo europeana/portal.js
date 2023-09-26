@@ -1,13 +1,15 @@
-import axios from 'axios';
+// TODO: move up to src/index.js?
 
+import fetchResource from '../utils/fetch.js';
+import Base from './Base.js';
 import V2Manifest from './v2/Manifest.js';
 import V3Manifest from './v3/Manifest.js';
 // import V2AnnotationPage from './v2/AnnotationPage.js';
 import V3AnnotationPage from './v3/AnnotationPage.js';
 
-export default class EuropeanaIIIFPresentation {
+export default class IIIFPresentation {
   static async fetch(url, options = {}) {
-    const response = await axios.get(url, options);
+    const response = await fetchResource(url, options);
     const data = response.data;
 
     const type = data.type || data['@type'];

@@ -65,7 +65,7 @@
 <script>
   import axios from 'axios';
   import { BTab, BTabs } from 'bootstrap-vue';
-  import EuropeanaIIIFPresentation from '@europeana/iiif/src/presentation/index.js';
+  import IIIFPresentation from '@europeana/iiif/src/presentation/index.js';
 
   export default {
     name: 'IIIFOpenLayers',
@@ -124,12 +124,7 @@
 
     async fetch() {
       if (!this.manifest) {
-        const options = {
-          headers: {
-            'Accept': 'application/ld+json;profile="http://iiif.io/api/presentation/3/context.json";q=1.0, application/ld+json;profile="http://iiif.io/api/presentation/2/context.json";q=0.9, application/ld+json;q=0.8, application/json;q=0.7'
-          }
-        };
-        this.manifest = await EuropeanaIIIFPresentation.fetch(this.uri, options);
+        this.manifest = await IIIFPresentation.fetch(this.uri);
       }
 
       if (this.layer) {

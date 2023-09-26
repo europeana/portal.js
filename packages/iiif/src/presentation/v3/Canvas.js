@@ -2,7 +2,7 @@ import Base from '../Base.js';
 import AnnotationPage from './AnnotationPage.js';
 import Image from './Image.js';
 
-export default class EuropeanaIIIFPresentationV3Canvas extends Base {
+export default class IIIFPresentationV3Canvas extends Base {
   constructor(data) {
     super(data);
 

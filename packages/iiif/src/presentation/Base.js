@@ -1,28 +1,30 @@
-import axios from 'axios';
+import fetchResource from '../utils/fetch.js';
+import { isInEuropeanaDomain } from '../utils/url.js';
 
-export default class EuropeanaIIIFPresentationBase {
+export default class IIIFPresentationBase {
   id;
   type;
-  #url;
 
   static structure(val) {
     if (Array.isArray(val)) {
       return val.map(this.structure);
     } else if (typeof val === 'object') {
-      return new EuropeanaIIIFPresentationBase(val);
+      return new IIIFPresentationBase(val);
     } else {
       return val;
     }
   }
 
-  static isByEuropeana(id) {
-    const url = new URL(id);
-    return url.origin.endsWith('.europeana.eu') ||
-      url.origin.endsWith('.eanadev.org');
+  static isInEuropeanaDomain(id) {
+    return isInEuropeanaDomain(id);
   }
 
   static url(id) {
     return new URL(id);
+  }
+
+  static fetch(url, options = {}) {
+    return fetchResource(url, options);
   }
 
   constructor(data) {
@@ -49,15 +51,15 @@ export default class EuropeanaIIIFPresentationBase {
     }
   }
 
-  fetch() {
-    return axios.get(this.url);
+  fetch(options = {}) {
+    return this.constructor.fetch(this.url, options);
   }
 
   get url() {
     return this.constructor.url(this.id);
   }
 
-  get isByEuropeana() {
-    return this.constructor.isByEuropeana(this.id);
+  get isInEuropeanaDomain() {
+    return this.constructor.isInEuropeanaDomain(this.id);
   }
 }
