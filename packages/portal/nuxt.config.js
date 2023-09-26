@@ -465,7 +465,7 @@ export default {
     publicPath: buildPublicPath(),
 
     // Pure ESM modules need to be transpiled to be used by Vue2
-    transpile: ['dom7', 'ssr-window', 'swiper']
+    transpile: ['@europeana/iiif', 'dom7', 'ssr-window', 'swiper']
   },
 
   /*

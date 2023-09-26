@@ -1,3 +1,5 @@
+<!-- TODO: move entire component to @europeana/iiif pkg? -->
+
 <template>
   <div
     class="iiif-viewer-inner-wrapper h-100 d-flex flex-column overflow-hidden"
@@ -20,12 +22,12 @@
           <b-tabs>
             <b-tab
               title="Annotations"
-              :disabled="!otherContent"
-              :active="otherContent"
+              :disabled="!annotationPage"
+              :active="!!annotationPage"
             >
               <IIIFAnnotationList
-                v-if="otherContent"
-                :uri="otherContent"
+                v-if="!!annotationPage"
+                :uri="annotationPage.url.toString()"
                 class="iiif-viewer-sidebar-panel"
                 @clickAnno="onClickAnno"
               />
@@ -63,7 +65,7 @@
 <script>
   import axios from 'axios';
   import { BTab, BTabs } from 'bootstrap-vue';
-  import { Traverse } from '@iiif/parser';
+  import EuropeanaIIIFPresentation from '@europeana/iiif/src/presentation/index.js';
 
   export default {
     name: 'IIIFOpenLayers',
@@ -99,16 +101,18 @@
 
     data() {
       return {
-        canvas: null,
+        annotationPage: null,
+        // canvas: null,
         canvasCount: 0,
         page: 1,
         fullsize: false,
+        imageHeight: null,
+        imageWidth: null,
+        imageUrl: null,
         imageInfo: null,
         layer: null,
-        manifest: null,
         map: null,
-        otherContent: null,
-        resource: null,
+        manifest: null,
         showSidebar: null,
         /**
          * @values IIIF,ImageStatic
@@ -120,13 +124,14 @@
 
     async fetch() {
       if (!this.manifest) {
-        const manifestResponse = await axios.get(this.uri);
-        if (manifestResponse.data['@context'].endsWith('//iiif.io/api/presentation/2/context.json')) {
-          const { convertPresentation2 } = await import('@iiif/parser/dist/presentation-2/esm/index.mjs');
-          const p3Manifest = convertPresentation2(manifestResponse.data);
-        }
-        this.manifest = manifestResponse.data;
+        const options = {
+          headers: {
+            'Accept': 'application/ld+json;profile="http://iiif.io/api/presentation/3/context.json";q=1.0, application/ld+json;profile="http://iiif.io/api/presentation/2/context.json";q=0.9, application/ld+json;q=0.8, application/json;q=0.7'
+          }
+        };
+        this.manifest = await EuropeanaIIIFPresentation.fetch(this.uri, options);
       }
+
       if (this.layer) {
         this.map.removeLayer(this.layer);
         this.layer = null;
@@ -147,33 +152,37 @@
 
     methods: {
       async selectCanvas() {
-        this.page = Number(this.$route.query.page) || 1;
-        this.canvas = this.manifest.sequences?.[0]?.canvases?.[this.page - 1];
-        this.canvasCount = this.manifest.sequences?.[0]?.canvases?.length || 0;
-        // TODO: make computed?
-        this.resource = this.canvas?.images?.[0]?.resource;
-        this.thumbnail = this.canvas?.thumbnail;
+        this.canvasCount = this.manifest.canvases.length || 0;
 
-        const serviceId = this.resource?.service?.['@id'];
-        if (serviceId) {
-          const imageInfoUrl = `${serviceId}/info.json`;
-          const imageInfoResponse = await axios.get(imageInfoUrl);
+        const page = Number(this.$route.query.page) || 1;
+        const canvas = this.manifest.canvases[page - 1];
+
+        const image = canvas?.images?.[0];
+        this.imageUrl = image?.id;
+        this.imageHeight = image?.height;
+        this.imageWidth = image?.width;
+
+        const imageService = image?.service;
+
+        if (imageService?.infoJson) {
+          // TODO: why are we doing this here and not in renderIIIFImage?
+          const imageInfoResponse = await axios.get(imageService.infoJson);
           this.imageInfo = imageInfoResponse.data;
           this.source = 'IIIF';
           // TODO: can we get a IIIF thumbnail from the image service, without
           //       fetching the info.json first? (Mirador appears to manage to.)
           this.fullsize = true;
-        } else if (this.resource?.['@id']) {
+        } else {
           this.imageInfo = null;
           this.source = 'ImageStatic';
           this.fullsize = false;
         }
 
-        if (this.canvas.otherContent) {
-          // TODO: handle multiple resources
-          this.otherContent = [].concat(this.canvas.otherContent)[0];
+        if (canvas.annotationPages) {
+          // TODO: handle multiple resources?
+          this.annotationPage = [].concat(canvas.annotationPages)[0];
         } else {
-          this.otherContent = null;
+          this.annotationPage = null;
         }
 
         if (process.client) {

@@ -31,6 +31,7 @@
   import axios from 'axios';
   import uniq from 'lodash/uniq';
 
+  import EuropeanaIIIFPresentation from '@europeana/iiif/src/presentation/index.js';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
 
   export default {
@@ -42,7 +43,7 @@
 
     props: {
       /**
-       * URI of the annotation list
+       * URI of the annotation page/list
        */
       uri: {
         type: String,
@@ -56,22 +57,16 @@
         /**
          * Individual annotations
          */
-        annotations: null
+        annotations: null,
+        annotationPage: null
       };
     },
 
+    // TODO: filter by motivation(s)
     async fetch() {
-      const annotationListResponse = await axios.get(this.uri);
-      if (annotationListResponse.data['@type'] !== 'sc:AnnotationList') {
-        return;
-      }
+      this.annotationPage = await EuropeanaIIIFPresentation.fetch(this.uri);
 
-      const annotations = annotationListResponse.data.resources
-        // TODO: filter by motivation(s) too
-        .filter((resource) => resource['@type'] === 'oa:Annotation')
-        .filter((anno) => !anno.textGranularity || (anno.textGranularity === 'line'));
-
-      this.annotations = await this.dereferenceAnnotations(annotations);
+      this.annotations = await this.dereferenceAnnotations(this.annotationPage.annotations);
     },
 
     watch: {
@@ -79,6 +74,7 @@
     },
 
     methods: {
+      // TODO: mv into @europeana/iiif/presentation
       async dereferenceAnnotations(annotations) {
         const resourceUrls = uniq(annotations.map((anno) => {
           const resourceUrl = new URL(anno.resource['@id']);
