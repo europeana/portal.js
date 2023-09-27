@@ -77,6 +77,11 @@
 
     data() {
       return {
+        preconnectOriginUrls: [
+          this.$apis.entity.baseURL,
+          this.$apis.set.baseURL,
+          this.$apis.thumbnail.baseURL
+        ],
         relatedCollections: null,
         relatedGalleries: null
       };

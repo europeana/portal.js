@@ -203,6 +203,11 @@
         metadataLanguage: null,
         organizations: [],
         places: [],
+        preconnectOriginUrls: [
+          this.$apis.annotation.baseURL,
+          this.$apis.entity.baseURL,
+          this.$apis.record.baseURL
+        ],
         relatedCollections: [],
         schemaOrg: null,
         showItemLanguageSelector: true,
@@ -215,6 +220,10 @@
 
     async fetch() {
       await this.fetchMetadata();
+
+      if (this.iiifPresentationManifest) {
+        this.preconnectOriginUrls.push(new URL(this.iiifPresentationManifest).origin);
+      }
     },
 
     computed: {

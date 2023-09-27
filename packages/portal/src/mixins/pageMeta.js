@@ -1,12 +1,36 @@
+import uniq from 'lodash/uniq';
+
 export default {
-  head() {
+  data() {
     return {
-      title: this.headTitle,
-      meta: this.headMeta
+      preconnectOriginUrls: []
     };
   },
 
+  head() {
+    return this.pageMetaHead;
+  },
+
   computed: {
+    pageMetaHead() {
+      return {
+        link: this.headLink,
+        meta: this.headMeta,
+        title: this.headTitle
+      };
+    },
+
+    headLink() {
+      const preconnectOriginUrls = this.preconnectOriginUrls.map((url) => {
+        for (const rewriteOrigin of this.$config.axiosLogger.rewriteOrigins) {
+          url = url.replace(rewriteOrigin.from, rewriteOrigin.to);
+        }
+        return url;
+      });
+      const preconnectOrigins = preconnectOriginUrls.map((url) => new URL(url).origin);
+      return uniq(preconnectOrigins).map((href) => ({ rel: 'preconnect', href }));
+    },
+
     headTitle() {
       return [this.pageTitle, this.$config.app.siteName].filter((part) => !!part).join(' | ');
     },
