@@ -77,7 +77,7 @@
 
     data() {
       return {
-        preconnectOriginUrls: [
+        headLinkPreconnect: [
           this.$apis.entity.baseURL,
           this.$apis.set.baseURL,
           this.$apis.thumbnail.baseURL

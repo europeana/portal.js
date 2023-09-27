@@ -203,7 +203,7 @@
         metadataLanguage: null,
         organizations: [],
         places: [],
-        preconnectOriginUrls: [
+        headLinkPreconnect: [
           this.$apis.annotation.baseURL,
           this.$apis.entity.baseURL,
           this.$apis.record.baseURL
@@ -222,7 +222,7 @@
       await this.fetchMetadata();
 
       if (this.iiifPresentationManifest) {
-        this.preconnectOriginUrls.push(new URL(this.iiifPresentationManifest).origin);
+        this.headLinkPreload.push({ href: this.iiifPresentationManifest, as: 'fetch' });
       }
     },
 

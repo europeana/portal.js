@@ -53,7 +53,7 @@
 
     data() {
       return {
-        preconnectOriginUrls: [
+        headLinkPreconnect: [
           // NOTE: can't do this without handling the _PRIVATE SSR env var, i.e.
           //       rewriting it to the CSR equivalent
           // this.$config.contentful.graphQlOrigin || 'https://graphql.contentful.com',

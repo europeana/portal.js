@@ -3,7 +3,8 @@ import uniq from 'lodash/uniq';
 export default {
   data() {
     return {
-      preconnectOriginUrls: []
+      headLinkPreconnect: [],
+      headLinkPreload: []
     };
   },
 
@@ -21,14 +22,20 @@ export default {
     },
 
     headLink() {
-      const preconnectOriginUrls = this.preconnectOriginUrls.map((url) => {
+      let link = [];
+
+      const headLinkPreconnect = this.headLinkPreconnect.map((url) => {
         for (const rewriteOrigin of this.$config.axiosLogger.rewriteOrigins) {
           url = url.replace(rewriteOrigin.from, rewriteOrigin.to);
         }
         return url;
       });
-      const preconnectOrigins = preconnectOriginUrls.map((url) => new URL(url).origin);
-      return uniq(preconnectOrigins).map((href) => ({ rel: 'preconnect', href }));
+      const preconnectOrigins = headLinkPreconnect.map((url) => new URL(url).origin);
+      link = link.concat(uniq(preconnectOrigins).map((href) => ({ rel: 'preconnect', href })));
+
+      link = link.concat(this.headLinkPreload.map((link) => ({ ...link, rel: 'preload' })));
+
+      return link;
     },
 
     headTitle() {
