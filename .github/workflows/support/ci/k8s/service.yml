@@ -13,3 +13,19 @@ spec:
     workload.user.cattle.io/workloadselector: apps.deployment-dev-${K8S_RESOURCE_NAME}
   sessionAffinity: None
   type: ClusterIP
+-
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${K8S_RESOURCE_NAME}-nginx
+  namespace: dev
+spec:
+  ports:
+  - name: 8080tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 80
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-dev-${K8S_RESOURCE_NAME}
+  sessionAffinity: None
+  type: ClusterIP

@@ -19,8 +19,18 @@ spec:
           service:
             name: ${K8S_RESOURCE_NAME}
             port:
-              number: 8080
+              number: 80
         path: /
+        pathType: Prefix
+  - host: ${K8S_INGRESS_HOST}
+    http:
+      paths:
+      - backend:
+          service:
+            name: ${K8S_RESOURCE_NAME}
+            port:
+              number: 8080
+        path: /_nuxt
         pathType: Prefix
   tls:
   - hosts:

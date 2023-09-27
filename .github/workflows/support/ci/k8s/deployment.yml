@@ -31,7 +31,7 @@ spec:
             optional: false
         image: ${DOCKER_IMAGE_TAG}
         imagePullPolicy: Always
-        name: portal-js-web
+        name: portal-js-app
         ports:
         - containerPort: 8080
           name: 8080tcp
@@ -54,6 +54,26 @@ spec:
             memory: 100Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+        volumeMounts:
+          - name: nuxt-client-assets
+            mountPath: /app/packages/portal/.nuxt/dist/client
+      - image: nginx:stable-alpine
+        imagePullPolicy: Always
+        name: portal-js-nginx
+        ports:
+          - containerPort: 80
+            name: 80tcp
+            protocol: TCP
+        resources:
+          limits:
+            cpu: 50m
+            memory: 64Mi
+          requests:
+            cpu: 1m
+            memory: 16Mi
+        volumeMounts:
+          - name: nuxt-client-assets
+            mountPath: /usr/share/nginx/html/.nuxt
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
