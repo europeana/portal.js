@@ -22,7 +22,7 @@ metadata:
 spec:
   ports:
   - name: 8080tcp
-    port: 8080
+    port: 80
     protocol: TCP
     targetPort: 80
   selector:
