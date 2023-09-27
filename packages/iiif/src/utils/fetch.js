@@ -7,7 +7,7 @@ export default (url, options = {}) => {
     if (!options.headers) {
       options.headers = {};
     }
-    // NOTE: it would be nice to do this with all requests, but some providers
+    // NOTE: it would be preferable to do this with all requests, but some providers
     //       CORS support do not permit the Accept header, preventing the manifest
     //       loading
     options.headers['Accept'] = (
