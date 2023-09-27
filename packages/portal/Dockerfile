@@ -44,12 +44,12 @@ EXPOSE ${PORT}
 WORKDIR /app
 
 COPY --from=build /app .
-COPY docker-entrypoint.sh /
-
-USER 1000
+COPY packages/portal/docker-entrypoint.sh /
 
 RUN mkdir -p /usr/share/nginx/html
 
-ENTRYPOINT docker-entrypoint.sh
+USER 1000
+
+ENTRYPOINT /docker-entrypoint.sh
 
 CMD ["node_modules/.bin/nuxt-cli", "start", "./packages/portal"]
