@@ -173,12 +173,9 @@
           this.fullsize = false;
         }
 
-        if (canvas.annotationPages) {
-          // TODO: handle multiple resources?
-          this.annotationPage = [].concat(canvas.annotationPages)[0];
-        } else {
-          this.annotationPage = null;
-        }
+        this.thumbnail = canvas?.thumbnail || null;
+
+        this.annotationPage = [].concat(canvas.annotationPages)[0] || null;
 
         if (process.client) {
           this.renderImage();
@@ -203,8 +200,8 @@
 
         if ((this.source === 'ImageStatic') && this.thumbnail) {
           const thumbWidth = 400;
-          const thumbHeight = (this.resource.height / this.resource.width) * thumbWidth;
-          await this.renderStaticImage(this.thumbnail['@id'], thumbWidth, thumbHeight);
+          const thumbHeight = (this.imageHeight / this.imageWidth) * thumbWidth;
+          await this.renderStaticImage(this.thumbnail.url, thumbWidth, thumbHeight);
         }
       },
 
@@ -275,7 +272,7 @@
         if (this.source === 'IIIF') {
           this.renderIIIFImage();
         } else if (this.source === 'ImageStatic') {
-          this.renderStaticImage(this.resource['@id'], this.resource.width, this.resource.height);
+          this.renderStaticImage(this.imageUrl, this.imageWidth, this.imageHeight);
         }
       },
 

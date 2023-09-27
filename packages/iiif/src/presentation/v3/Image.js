@@ -5,6 +5,6 @@ export default class IIIFPresentationV3Image extends Base {
   constructor(data) {
     super(data);
 
-    this.service = new Service(data.service);
+    this.service = data.service && new Service(data.service);
   }
 }
