@@ -28,8 +28,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
-
   import IIIFPresentation from '@europeana/iiif/src/presentation/index.js';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
 
@@ -64,7 +62,7 @@
     async fetch() {
       const annotationPage = await IIIFPresentation.fetch(this.uri);
 
-      await annotationPage.fetchAnnotationBodies();
+      await annotationPage.deferenceAnnotations();
 
       this.annotations = annotationPage.annotations;
     },

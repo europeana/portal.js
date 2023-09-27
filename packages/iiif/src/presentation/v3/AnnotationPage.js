@@ -29,12 +29,14 @@ export default class IIIFPresentationV3AnnotationPage extends Base {
     return url;
   }
 
-  // Annotation bodies may be links to the content. Fetches that content,
+  // Dereferences annotations
+  //
+  // Annotation bodies may be links to the content. This fetches that content,
   // accounting for links on multiple annotations' body sharing the same content
   // source but with sections selected by the #char= URL hash (and not wanting
   // to duplicate the request for each annotation)
   // TODO: skip if body has content already
-  async fetchAnnotationBodies() {
+  async deferenceAnnotations() {
     const urls = [];
     for (const anno of this.annotations) {
       const url = new URL(anno.body.id);
