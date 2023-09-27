@@ -32,7 +32,7 @@
       :show-search-options="showSearchOptions"
       :submitting="submitting"
       @select="(option) => handleSelect(option)"
-      @show="(value) => showSearchOptions = value"
+      @hideOptions="showSearchOptions = false"
     />
   </div>
 </template>

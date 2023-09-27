@@ -248,8 +248,7 @@ describe('components/search/SearchQueryOptions', () => {
 
           searchOptionsComponent.vm.handleFocusOut(handleFocusOutEvent);
 
-          expect(searchOptionsComponent.emitted('show').length).toBe(1);
-          expect(searchOptionsComponent.emitted('show')[0]).toEqual([false]);
+          expect(searchOptionsComponent.emitted('hideOptions').length).toBe(1);
         });
       });
 
@@ -259,8 +258,7 @@ describe('components/search/SearchQueryOptions', () => {
 
           searchOptionsComponent.vm.handleFocusOut(tabOutsideEvent);
 
-          expect(searchOptionsComponent.emitted('show').length).toBe(2);
-          expect(searchOptionsComponent.emitted('show')[1]).toEqual([false]);
+          expect(searchOptionsComponent.emitted('hideOptions').length).toBe(2);
         });
       });
     });
@@ -297,14 +295,15 @@ describe('components/search/SearchQueryOptions', () => {
       });
 
       describe('when using the Escape key', () => {
-        it('emits the show event with false value', () => {
+        it('hides the search query options and the form (when hidable)', () => {
           const handleKeyDownEvent = new KeyboardEvent('keydown', { key: 'Escape' });
           const wrapper = parentFactory();
           const searchOptionsComponent = wrapper.find('[data-qa="search query options"]');
 
           searchOptionsComponent.vm.handleKeyDown(handleKeyDownEvent);
 
-          expect(searchOptionsComponent.emitted('show')[0]).toEqual([false]);
+          expect(searchOptionsComponent.emitted('hideOptions').length).toBe(1);
+          expect(searchOptionsComponent.emitted('hideForm').length).toBe(1);
         });
       });
     });

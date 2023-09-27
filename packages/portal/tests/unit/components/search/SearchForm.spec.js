@@ -29,6 +29,7 @@ const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchF
     },
     ...(mocks || {}),
     $store: {
+      commit: sinon.spy(),
       getters: {
         'search/activeView': 'grid',
         ...mocks?.$store?.getters || {}
@@ -252,12 +253,12 @@ describe('components/search/SearchForm', () => {
     expect(searchForm.isVisible()).toBe(true);
   });
 
-  describe('when the search options are hidden', () => {
+  describe('handlehide()', () => {
     describe('when the search form is hidable', () => {
       it('hides it', async() => {
         const wrapper = factory({ propsData: { hidableForm: true }, data: { showSearchOptions: true } });
 
-        await wrapper.setData({ showSearchOptions: false });
+        await wrapper.vm.handleHide();
         const searchForm = wrapper.find('[data-qa="search form"]');
 
         expect(wrapper.vm.showForm).toBe(false);
@@ -267,9 +268,9 @@ describe('components/search/SearchForm', () => {
 
     describe('when the search form is not hidable', () => {
       it('does not hide it', async() => {
-        const wrapper = factory({ data: { showSearchOptions: true } });
+        const wrapper = factory();
 
-        await wrapper.setData({ showSearchOptions: false });
+        await wrapper.vm.handleHide();
         const searchForm = wrapper.find('[data-qa="search form"]');
 
         expect(wrapper.vm.showForm).toBe(true);

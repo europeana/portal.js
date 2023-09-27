@@ -329,14 +329,15 @@
           this.navigateWithArrowKeys(event);
         }
         if (event.key === 'Escape') {
-          this.$emit('show', false);
+          this.$emit('hideOptions');
+          this.$emit('hideForm');
         }
       },
 
       handleFocusOut(event) {
         const relatedTargetOutsideSearchDropdown = this.checkIfRelatedTargetOutsideSearchDropdown(event);
         if (relatedTargetOutsideSearchDropdown) {
-          this.$emit('show', false);
+          this.$emit('hideOptions');
         }
       },
 

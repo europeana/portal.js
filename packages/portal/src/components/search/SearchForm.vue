@@ -14,7 +14,7 @@
       class="button-icon-only icon-back back-button"
       variant="light-flat"
       :aria-label="$t('header.backToMenu')"
-      @click.prevent="() => showSearchOptions = false"
+      @click.prevent="handleHide"
     />
     <b-form
       ref="form"
@@ -71,7 +71,8 @@
         :submitting="submitting"
         :show-search-options="showSearchOptions"
         @select="(option) => handleSelect(option)"
-        @show="(value) => showSearchOptions = value"
+        @hideForm="handleHide"
+        @hideOptions="showSearchOptions = false"
       />
       <SearchThemeBadges
         v-if="showSearchThemeBadges"
@@ -169,14 +170,6 @@
       },
       show(newVal) {
         this.showForm = newVal;
-      },
-      showSearchOptions(newVal) {
-        if (newVal === false) {
-          if (this.hidableForm) {
-            this.showForm = false;
-            this.$store.commit('search/setShowSearchBar', false);
-          }
-        }
       }
     },
 
@@ -208,7 +201,6 @@
 
         this.showSearchOptions = false;
 
-        this.blurInput();
         await this.$router.push(newRoute);
         // init query to update in case of selecting the already selected option
         this.initQuery();
@@ -228,8 +220,16 @@
         this.submitForm();
         this.selectedOption = null;
       },
+      handleHide() {
+        this.blurInput();
+        this.showSearchOptions = false;
+        if (this.hidableForm) {
+          this.showForm = false;
+          this.$store.commit('search/setShowSearchBar', false);
+        }
+      },
       blurInput() {
-        this.$refs.searchinput.$el && this.$refs.searchinput.$el.blur();
+        this.$refs.searchinput.$el?.blur();
       }
     }
   };
