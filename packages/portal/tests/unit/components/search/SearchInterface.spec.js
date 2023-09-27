@@ -170,22 +170,70 @@ describe('components/search/SearchInterface', () => {
       })).toBe(true);
     });
 
-    describe('when there are advanced search fields applied', () => {
-      describe('and they require an entity look up', () => {
-        it('adds the matched entity as an additional field to look up', async() => {
-          const wrapper = factory({ mocks: { $apis: {
-            entity: {
-              suggest: sinon.stub().resolves([{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }])
-            }
-          } } });
+    describe('when advanced search queries have been enriched with entities', () => {
+      describe('and the advanced search query is cleared', () => {
+        it('removes the entity enriched advanced search field query', async() => {
+          const wrapper = factory({ data: {
+            qasWithAddedEntityValue: [{
+              qa: {
+                field: 'proxy_dc_date',
+                modifier: 'contains',
+                suggestEntityType: 'timespan',
+                term: '19th century'
+              },
+              qae: 'proxy_dc_date:*"http://data.europeana.eu/timespan/19"*'
+            }]
+          } });
 
           wrapper.vm.$route.query = {
-            qa: ['proxy_dc_date:*19th\\ century*']
+            qa: []
           };
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.qaes.length).toBe(1);
+          expect(wrapper.vm.qasWithAddedEntityValue).toEqual([]);
+        });
+      });
+    });
+
+    describe('when there are advanced search fields applied', () => {
+      describe('and they require an entity look up', () => {
+        describe('and a matching entity is found', () => {
+          it('adds the matched entity as an additional field to look up', async() => {
+            const wrapper = factory({ mocks: { $apis: {
+              entity: {
+                suggest: sinon.stub().resolves([{ id: 'http://data.example.eu/123', prefLabel: { en: '19th century' } }])
+              }
+            } } });
+
+            wrapper.vm.$route.query = {
+              qa: ['proxy_dc_date:*19th\\ century*']
+            };
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.qaes.length).toBe(1);
+          });
+        });
+
+        describe('and there is no matching entity', () => {
+          it('saves the query anwyay', async() => {
+            const wrapper = factory({ mocks: { $apis: {
+              entity: {
+                suggest: sinon.stub().resolves([])
+              }
+            } } });
+
+            wrapper.vm.$route.query = {
+              qa: ['proxy_dc_date:*2023*']
+            };
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.qaes.length).toBe(0);
+            expect(wrapper.vm.qasWithAddedEntityValue.length).toBe(1);
+            expect(wrapper.vm.qasWithAddedEntityValue[0].qae).toEqual(null);
+          });
         });
       });
     });

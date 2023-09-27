@@ -100,13 +100,17 @@ export default {
       return this.$t(`fieldLabels.default.${fieldKey}`, locale);
     },
 
+    advancedSearchQueryFromRule(rule, escaped) {
+      const field = this.advancedSearchFields.find((field) => field.name === rule.field);
+      const modifier = this.advancedSearchModifiers.find((modifier) => modifier.name === rule.modifier);
+      const escapedTerm = escapeLuceneSpecials(rule.term, { spaces: true });
+      const term = escaped ? escapedTerm : rule.term;
+      return modifier?.query[field.type].replace('<field>', field.name).replace('<term>', term);
+    },
+
     advancedSearchRouteQueryFromRules(rules) {
-      const qa = rules.map((rule) => {
-        const field = this.advancedSearchFields.find((field) => field.name === rule.field);
-        const modifier = this.advancedSearchModifiers.find((modifier) => modifier.name === rule.modifier);
-        const escapedTerm = escapeLuceneSpecials(rule.term, { spaces: true });
-        return modifier?.query[field.type].replace('<field>', field.name).replace('<term>', escapedTerm);
-      }).filter((qa) => !!qa);
+      const qa = rules.map((rule) => this.advancedSearchQueryFromRule(rule, true))
+        .filter((qa) => !!qa);
 
       const newRouteQuery = { ...this.$route.query, ...{ page: 1, [this.advancedSearchRouteQueryKey]: qa } };
 
@@ -119,10 +123,12 @@ export default {
           for (const fieldType in modifier.patterns) {
             const pattern = modifier.patterns[fieldType];
             const match = qa.match(pattern);
-            if (match?.groups && this.advancedSearchFieldNames.includes(match.groups.field)) {
+            const field = advancedSearchFields.find((f) => f.name === match?.groups?.field);
+            if (match?.groups && field) {
               return {
-                field: match.groups.field,
+                field: field.name,
                 modifier: modifier.name,
+                ...(field.suggestEntityType && { suggestEntityType: field.suggestEntityType }),
                 term: unescapeLuceneSpecials(match.groups.term, { spaces: true })
               };
             }

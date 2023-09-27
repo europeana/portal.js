@@ -202,6 +202,7 @@
 
 <script>
   import merge from 'deepmerge';
+  import isEqual from 'lodash/isEqual';
 
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
@@ -212,7 +213,6 @@
   import makeToastMixin from '@/mixins/makeToast';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
-  import { unescapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   export default {
     name: 'SearchInterface',
@@ -281,18 +281,15 @@
       this.$store.commit('search/setActive', true);
 
       // Remove cleared rules
+      const qaRules = this.advancedSearchRulesFromRouteQuery();
       this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qaWithEntity => {
-        return this.qa.includes(qaWithEntity.qa);
+        return qaRules.find(qa => isEqual(qa, qaWithEntity.qa));
       });
 
-      if (this.qa.length) {
-        // Only look up entities for advanced search fields when they are not yet added
-        const qasToLookUp = this.qa.filter(qa => !this.qasWithAddedEntityValue.map(qaWithEntity => qaWithEntity.qa).includes(qa));
+      const qasToLookUp = this.advancedSearchQueriesForEntityLookUp();
 
-        const entityValuesForAdvancedSearchFields = await this.addEntityValuesToAdvancedSearchFields(qasToLookUp, this.$i18n.locale);
-        if (entityValuesForAdvancedSearchFields) {
-          this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.concat(entityValuesForAdvancedSearchFields);
-        }
+      if (qasToLookUp.length) {
+        await this.addEntityValuesToAdvancedSearchFields(qasToLookUp);
       }
 
       this.deriveApiParams();
@@ -560,69 +557,62 @@
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
       },
 
-      async addEntityValuesToAdvancedSearchFields(qfs, locale) {
-        // Filter the requested advanced search queries to those which need the entity look up
-        const qfsToLookUp = [].concat(qfs)
-          .map(query => {
-            return {
-              // remove the dash for fields with 'does not contain' modifier to include them in the qf's to look up
-              fieldWithoutModifier: query?.split(':')[0].replace('-', ''),
-              field: query?.split(':')[0],
-              value: query?.split(':')[1]
-            };
-          })
-          .filter(query => this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.fieldWithoutModifier))
-          .map(query => {
-            return {
-              ...query,
-              suggestEntityType: this.advancedSearchFieldsForEntityLookUp.find(field => field?.name === query?.fieldWithoutModifier).suggestEntityType
-            };
+      advancedSearchQueriesForEntityLookUp() {
+        const qasToLookUp = this.advancedSearchRulesFromRouteQuery()
+          .filter(query => {
+            const fieldNeedsLookUp = this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.field);
+            const newQuery = !this.qasWithAddedEntityValue.find(qaWithEntity => isEqual(qaWithEntity.qa, query));
+
+            return fieldNeedsLookUp && newQuery;
+          });
+        return qasToLookUp;
+      },
+
+      async lookupQaEntity(query) {
+        const locale = this.$i18n.locale;
+        let queryEqualsEntity;
+        const text = query.term;
+
+        // Check if term is selected and stored from the entity dropdown
+        const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find(queryWithSelectedEntity => queryWithSelectedEntity.qa === text);
+        queryEqualsEntity = queryHasSelectedEntity;
+
+        // Look up possible entity value for SSR or when no option selected, the qa might still match an entity
+        if (!queryHasSelectedEntity) {
+          const suggestions = await this.$apis.entity.suggest(text, {
+            language: locale,
+            // Only look up specific entity type as defined for the advanced search field
+            type: query.suggestEntityType
           });
 
-        if (qfsToLookUp.length) {
-          const fieldsWithEntityValues = [];
-
-          await Promise.all(
-            qfsToLookUp.map(async query => {
-              let queryEqualsEntity;
-              // Clean up the query value to search for and compare to the entity suggestions (including syntax for String type field values)
-              const text = unescapeLuceneSpecials(query.value, { spaces: true }).replaceAll(/["*]/g, '');
-
-              // Check if term is selected and stored from the entity dropdown
-              const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find(queryWithSelectedEntity => queryWithSelectedEntity.qa === text);
-              queryEqualsEntity = queryHasSelectedEntity;
-
-              // Look up possible entity value for SSR or when no option selected, the qa might still match an entity
-              if (!queryHasSelectedEntity) {
-                const suggestions = await this.$apis.entity.suggest(text, {
-                  language: locale,
-                  // Only look up specific entity type as defined for the advanced search field
-                  type: query.suggestEntityType
-                });
-
-                queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
-              }
-
-              if (queryEqualsEntity) {
-                fieldsWithEntityValues.push({
-                  qa: `${query.field}:${query.value}`,
-                  qae: `${query.field}:"${queryEqualsEntity.id}"`
-                });
-              } else {
-                // save fields that do not match entity to prevent reattempt to find matching entitiy
-                fieldsWithEntityValues.push({
-                  qa: `${query.field}:${query.value}`,
-                  qae: null
-                });
-              }
-            })
-          );
-
-          // Clean up the store to prevent accumulating outdated data
-          this.$store.commit('search/setQasWithSelectedEntityValue', []);
-
-          return fieldsWithEntityValues;
+          queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
         }
+
+        if (queryEqualsEntity) {
+          const qae = this.advancedSearchQueryFromRule({ ...query, term: `"${queryEqualsEntity.id}"` });
+          return {
+            qa: query,
+            qae
+          };
+        } else {
+          // save fields that do not match entity to prevent reattempt to find matching entitiy
+          return {
+            qa: query,
+            qae: null
+          };
+        }
+      },
+
+      async addEntityValuesToAdvancedSearchFields(qas) {
+        const fieldsWithEntityValues = await Promise.all(qas.map(this.lookupQaEntity));
+
+        // Save the enriched queries to data prop (local store) to prevent repeated suggest requests
+        if (fieldsWithEntityValues.length) {
+          this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.concat(fieldsWithEntityValues);
+        }
+
+        // Clean up the store to prevent accumulating outdated data
+        this.$store.commit('search/setQasWithSelectedEntityValue', []);
       }
     }
   };
