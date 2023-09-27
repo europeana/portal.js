@@ -28,7 +28,12 @@ RUN rm -rf packages/portal/src/lang
 RUN npm -w packages/portal ci --omit dev --omit peer
 
 
-FROM gcr.io/distroless/nodejs:18
+# FROM nginx:stable-alpine AS assets
+#
+# COPY --from=build /app/packages/portal/.nuxt/dist/client /usr/share/nginx/html/.nuxt
+
+
+FROM node:18-alpine
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
@@ -39,7 +44,12 @@ EXPOSE ${PORT}
 WORKDIR /app
 
 COPY --from=build /app .
+COPY docker-entrypoint.sh /
 
 USER 1000
+
+RUN mkdir -p /usr/share/nginx/html
+
+ENTRYPOINT docker-entrypoint.sh
 
 CMD ["node_modules/.bin/nuxt-cli", "start", "./packages/portal"]

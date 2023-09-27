@@ -59,7 +59,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
           - name: nuxt-client-assets
-            mountPath: /app/packages/portal/.nuxt/dist/client
+            mountPath: /usr/share/nginx/html/.nuxt
       - image: nginx:stable-alpine
         imagePullPolicy: Always
         name: portal-js-nginx
