@@ -12,6 +12,7 @@ RUN mkdir -p packages/portal
 
 COPY package*.json ./
 COPY packages/portal/package*.json ./packages/portal/
+COPY packages/iiif ./packages/iiif
 COPY packages/style ./packages/style
 COPY packages/vue-session-id ./packages/vue-session-id
 
