@@ -181,7 +181,7 @@ describe('components/search/SearchInterface', () => {
                 suggestEntityType: 'timespan',
                 term: '19th century'
               },
-              qae: 'proxy_dc_date:*"http://data.europeana.eu/timespan/19"*'
+              qae: 'proxy_dc_date:"http://data.europeana.eu/timespan/19"'
             }]
           } });
 
@@ -207,7 +207,7 @@ describe('components/search/SearchInterface', () => {
             } } });
 
             wrapper.vm.$route.query = {
-              qa: ['proxy_dc_date:*19th\\ century*']
+              qa: ['proxy_dc_date:19th\\ century']
             };
 
             await wrapper.vm.fetch();
@@ -225,7 +225,7 @@ describe('components/search/SearchInterface', () => {
             } } });
 
             wrapper.vm.$route.query = {
-              qa: ['proxy_dc_date:*2023*']
+              qa: ['proxy_dc_date:2023']
             };
 
             await wrapper.vm.fetch();

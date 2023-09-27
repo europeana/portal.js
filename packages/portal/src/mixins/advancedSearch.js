@@ -54,7 +54,7 @@ const advancedSearchModifiers = [
     name: 'contains',
     query: {
       [FIELD_TYPE_FULLTEXT]: '<field>:(<term>)',
-      [FIELD_TYPE_STRING]: '<field>:*<term>*',
+      [FIELD_TYPE_STRING]: '<field>:<term>',
       [FIELD_TYPE_TEXT]: '<field>:<term>'
     }
   },
@@ -62,7 +62,7 @@ const advancedSearchModifiers = [
     name: 'doesNotContain',
     query: {
       [FIELD_TYPE_FULLTEXT]: 'NOT <field>:(<term>)',
-      [FIELD_TYPE_STRING]: '-<field>:*<term>*',
+      [FIELD_TYPE_STRING]: '-<field>:<term>',
       [FIELD_TYPE_TEXT]: '-<field>:<term>'
     }
   }
