@@ -6,9 +6,11 @@
     <HomeHero
       :background-image="backgroundImage"
     />
-    <client-only>
-      <b-container class="page">
+    <b-container class="page">
+      <lazy-component>
         <HomeThemes />
+      </lazy-component>
+      <lazy-component>
         <CallToActionBanner
           v-if="callsToAction[0]"
           :name="callsToAction[0].name"
@@ -18,7 +20,11 @@
           variant="innovationblue"
           class="home-cta"
         />
+      </lazy-component>
+      <lazy-component>
         <HomeLatest />
+      </lazy-component>
+      <lazy-component>
         <CallToActionBanner
           v-if="callsToAction[1]"
           :name="callsToAction[1].name"
@@ -27,8 +33,8 @@
           :illustration="callsToAction[1].image"
           class="home-cta"
         />
-      </b-container>
-    </client-only>
+      </lazy-component>
+    </b-container>
   </div>
 </template>
 

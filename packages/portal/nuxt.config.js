@@ -280,6 +280,7 @@ export default {
     '~/plugins/error',
     '~/plugins/link',
     '~/plugins/axios.server',
+    '~/plugins/v-lazy-component',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-session-id.client',

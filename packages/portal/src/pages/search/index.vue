@@ -37,13 +37,13 @@
         v-if="!!searchQuery"
         #after-results
       >
-        <client-only>
+        <lazy-component>
           <b-container class="px-0">
             <RelatedEditorial
               :query="searchQuery"
             />
           </b-container>
-        </client-only>
+        </lazy-component>
       </template>
     </SearchInterface>
   </div>

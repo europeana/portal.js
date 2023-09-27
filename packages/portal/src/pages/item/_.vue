@@ -101,7 +101,7 @@
             />
           </b-col>
         </b-row>
-        <client-only
+        <lazy-component
           v-if="relatedCollections.length > 0"
         >
           <b-row
@@ -117,8 +117,8 @@
               />
             </b-col>
           </b-row>
-        </client-only>
-        <client-only>
+        </lazy-component>
+        <lazy-component>
           <!--
             NOTE: dcType/title does not make sense here, but leave it alone as
                   eventually this will be deprecated and the Recommendation API
@@ -132,7 +132,7 @@
             :dc-creator="metadata.dcCreator"
             :edm-data-provider="dataProviderEntityLabel"
           />
-        </client-only>
+        </lazy-component>
       </b-container>
     </template>
     <client-only>

@@ -71,6 +71,7 @@
     "sinon": "^13.0.1",
     "style-resources-loader": "^1.4.1",
     "svg-url-loader": "^7.1.1",
+    "v-lazy-component": "^3.0.9",
     "vue-masonry": "^0.13.0",
     "vue-matomo": "^4.2.0",
     "vue-scrollto": "^2.20.0",
