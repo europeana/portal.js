@@ -13,7 +13,7 @@ spec:
     workload.user.cattle.io/workloadselector: apps.deployment-dev-${K8S_RESOURCE_NAME}
   sessionAffinity: None
   type: ClusterIP
--
+---
 apiVersion: v1
 kind: Service
 metadata:
