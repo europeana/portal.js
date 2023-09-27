@@ -21,6 +21,9 @@ spec:
         workload.user.cattle.io/workloadselector: apps.deployment-dev-${K8S_RESOURCE_NAME}
     spec:
       affinity: {}
+      volumes:
+        - name: nuxt-client-assets
+          emptyDir: {}
       containers:
       - env:
         - name: PORTAL_BASE_URL
