@@ -25,6 +25,17 @@
   }
 }
 
+.dropdown-toggle {
+  &::after {
+    @extend %icon-font;
+
+    border: 0;
+    content: '\e91b'; // icon-chevron
+    font-size: 0.425rem;
+    margin-right: 0.25rem;
+  }
+}
+
 .b-form-tags.form-control {
   padding: 0;
   margin-bottom: 1.25rem;
