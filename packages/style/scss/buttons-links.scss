@@ -23,11 +23,13 @@
     box-shadow: $boxshadow;
   }
 
-  .icon-cancel-circle::before {
-    font-size: $font-size-base;
+  .icon-clear {
+    font-size: $font-size-smallest;
 
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-base-4k;
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-smallest-4k;
+      }
     }
   }
 }

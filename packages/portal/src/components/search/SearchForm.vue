@@ -588,19 +588,12 @@
 
     .clear-button {
       position: absolute;
-      font-size: 1.5rem;
-      right: 0.75em;
-      top: 0.75em;
+      right: 1rem;
+      top: 1rem;
       z-index: 99;
-      width: 1em;
-      height: 1em;
       display: flex;
       justify-content: center;
       align-items: center;
-
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.5rem);
-      }
     }
 
     ::v-deep .list-group-item {
