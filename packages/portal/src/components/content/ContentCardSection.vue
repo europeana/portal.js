@@ -1,10 +1,10 @@
 <template>
   <section
     v-if="section"
-    class="browse-section row mb-5"
+    class="browse-section mb-5"
     data-qa="browse section"
   >
-    <div class="col-12 col-lg-6">
+    <div class="card-group-header">
       <h2
         class="card-group-title"
         data-qa="section headline"
@@ -15,7 +15,7 @@
         {{ section.text }}
       </p>
     </div>
-    <div class="col-12">
+    <div>
       <b-card-group
         class="card-deck-4-cols"
         deck
@@ -103,7 +103,10 @@
   @import '@europeana/style/scss/mixins';
 
   .browse-section {
-    .col-lg-6 {
+    .card-group-header {
+      @media (min-width: $bp-large) {
+        max-width: 50%;
+      }
       @media (min-width: $bp-wqhd) {
         max-width: $max-text-column-width;
       }

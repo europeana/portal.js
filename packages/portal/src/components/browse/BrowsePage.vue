@@ -70,16 +70,21 @@
     }
 
     ::v-deep .card {
-      @media (min-width: $bp-xxxl) {
-        max-width: calc($max-card-width - 100px);
-      }
+      $max-xxxl-container-width: calc(100vw - $max-card-width);
 
       @media (min-width: ($bp-wqhd)) {
-        flex-grow: 1;
+        flex: 0 0 calc(#{$max-xxxl-container-width} / 6 - #{$grid-gutter * 2});
+        max-width: calc(#{$max-xxxl-container-width} / 6 - #{$grid-gutter * 2})
       }
 
       @media (min-width: $bp-4k) {
-        max-width: $max-card-width;
+        flex: 0 0 calc(#{$max-xxxl-container-width} / 6 - #{$grid-gutter-4k * 2});
+        max-width: calc(#{$max-xxxl-container-width} / 6 - #{$grid-gutter-4k * 2});
+      }
+
+      @media (min-width: calc((6 * $max-card-width) + (1.5 * $max-card-width))) {
+        flex: 0 0 calc(#{$max-card-width} - #{$grid-gutter-4k});
+        max-width: calc(#{$max-card-width} - #{$grid-gutter-4k});
       }
     }
   }
