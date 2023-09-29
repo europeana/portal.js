@@ -26,6 +26,7 @@
   .icon-add,
   .icon-clear {
     font-size: $font-size-smallest;
+    line-height: 1;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {

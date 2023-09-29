@@ -67,10 +67,10 @@
     <b-button
       data-qa="search query builder rule clear button"
       variant="light"
-      class="d-inline-flex align-items-center ml-lg-1 mb-3 mb-lg-0"
+      class="d-inline-flex align-items-baseline ml-lg-1 mb-3 mb-lg-0"
       @click="clearRule"
     >
-      <span class="icon-clear d-block pr-2" />
+      <span class="icon-clear pr-2" />
       {{ $t('actions.clear') }}
     </b-button>
   </div>

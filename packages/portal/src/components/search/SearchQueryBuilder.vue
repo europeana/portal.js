@@ -35,7 +35,7 @@
             <b-button
               data-qa="advanced search query builder: add rule button"
               variant="light"
-              class="d-inline-flex align-items-center mb-4 mb-lg-0 order-first"
+              class="d-inline-flex align-items-baseline mb-4 mb-lg-0 order-first"
               @click="addNewRule"
             >
               <span class="icon-add pr-2" />
