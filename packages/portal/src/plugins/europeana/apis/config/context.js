@@ -5,6 +5,7 @@ export default class EuropeanaApiContextConfig {
     this.id = id;
     this.key = this.keyFromContext(context);
     this.url = this.urlFromContext(context);
+    this.urlRewrite = this.urlRewriteFromContext(context);
   }
 
   keyFromContext(context) {
@@ -15,6 +16,10 @@ export default class EuropeanaApiContextConfig {
     return this.apiUrlFromRequestHeaders(context.req?.headers) ||
       context.store?.state?.apis?.reqHeaderUrls?.[this.id] ||
       context.$config?.europeana?.apis[this.id]?.url;
+  }
+
+  urlRewriteFromContext(context) {
+    return context.$config?.europeana?.apis?.[this.id]?.urlRewrite;
   }
 
   apiUrlFromRequestHeaders(headers) {

@@ -7,43 +7,33 @@ export default class EuropeanaApiEnvConfig {
 
     this.key = this.keyFromEnv;
     this.url = this.urlFromEnv;
+    this.urlRewrite = this.urlRewriteFromEnv;
   }
 
-  env(prop, { serverSide = false, shared = false } = {}) {
+  env(prop, { shared = false } = {}) {
     const apiSpecificInfix = shared ? '' : `_${snakeCase(this.id).toUpperCase()}`;
-    const privateSuffix = serverSide ? '_PRIVATE' : '';
-    const propInfix = prop.toUpperCase();
+    const propInfix = snakeCase(prop).toUpperCase();
 
-    return process.env[`EUROPEANA${apiSpecificInfix}_API_${propInfix}${privateSuffix}`];
+    return process.env[`EUROPEANA${apiSpecificInfix}_API_${propInfix}`];
   }
 
   get keyFromEnv() {
-    let keyFromEnv;
-
-    if (this.scope === 'public') {
-      keyFromEnv = this.env('key', { serverSide: false, shared: false }) ||
-        this.env('key', { serverSide: false, shared: true });
-    } else if (this.scope === 'private') {
-      keyFromEnv = this.env('key', { serverSide: true, shared: false }) ||
-        this.env('key', { serverSide: true, shared: true }) ||
-        this.env('key', { serverSide: false, shared: false }) ||
-        this.env('key', { serverSide: false, shared: true });
-    }
-
-    return keyFromEnv;
+    return this.env('key', { shared: false }) ||
+      this.env('key', { shared: true });
   }
 
   get urlFromEnv() {
-    let urlFromEnv;
+    return this.env('url', { shared: false });
+  }
 
-    if (this.scope === 'public') {
-      urlFromEnv = this.env('url', { serverSide: false, shared: false });
-    } else if (this.scope === 'private') {
-      urlFromEnv = this.env('url', { serverSide: true, shared: false }) ||
-        this.env('url', { serverSide: false, shared: false });
+  get urlRewriteFromEnv() {
+    let urlRewriteFromEnv;
+
+    if (this.scope === 'private') {
+      urlRewriteFromEnv = this.env('urlPrivate', { shared: false });
     }
 
-    return urlFromEnv;
+    return urlRewriteFromEnv;
   }
 
   toJSON() {
@@ -51,7 +41,8 @@ export default class EuropeanaApiEnvConfig {
       key: this.key,
       id: this.id,
       scope: this.scope,
-      url: this.url
+      url: this.url,
+      urlRewrite: this.urlRewrite
     });
   }
 }
