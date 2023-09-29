@@ -150,8 +150,8 @@
       },
       dropdownText() {
         return {
-          field: this.field ? this.advancedSearchFieldLabel(this.field) : this.$t('search.advanced.placeholder.field'),
-          modifier: this.modifier ? this.$t(`search.advanced.modifiers.${this.modifier}`) : this.$t('search.advanced.placeholder.modifier')
+          field: this.field && this.advancedSearchFieldLabel(this.field),
+          modifier: this.modifier && this.$t(`search.advanced.modifiers.${this.modifier}`)
         };
       },
       fieldOptions() {
@@ -253,7 +253,7 @@
 
   .form-control {
     background-color: $white;
-    border: 1px solid $middlegrey;
+    border: 1px solid $bodygrey;
     border-radius: 0.375rem;
     font-weight: normal;
     height: 3rem;

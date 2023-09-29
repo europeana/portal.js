@@ -58,7 +58,7 @@
     font-size: $font-size-small;
     color: $mediumgrey-light;
     height: 3rem;
-    border: 1px solid $middlegrey;
+    border: 1px solid $bodygrey;
     text-align: left;
     display: inline-flex;
     align-items: center;
@@ -229,7 +229,6 @@
 
     .dropdown-toggle {
       font-size: $font-size-base;
-      color: $greyblack;
 
       &.is-invalid {
         border-color: $red;
@@ -239,6 +238,10 @@
         &:focus {
           border-color: $red;
         }
+      }
+
+      &.option-selected {
+        color: $greyblack;
       }
     }
   }
