@@ -23,6 +23,7 @@
     box-shadow: $boxshadow;
   }
 
+  .icon-add,
   .icon-clear {
     font-size: $font-size-smallest;
 
@@ -262,7 +263,7 @@
 .btn-light {
   background: $white;
   border: 0;
-  color: $mediumgrey;
+  color: $mediumgrey-light;
   font-size: $font-size-small;
   font-weight: 600;
   padding: 0.5rem 0.75rem;
@@ -285,7 +286,7 @@
   &:disabled,
   &.disabled {
     background: $white;
-    color: $mediumgrey;
+    color: $mediumgrey-light;
     opacity: 0.7;
   }
 
@@ -338,8 +339,7 @@
     font-size: $font-size-large;
   }
 
-  &.icon-clear,
-  &.icon-add {
+  &.icon-clear {
     font-size: $font-size-small;
   }
 
