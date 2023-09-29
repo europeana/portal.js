@@ -1,5 +1,8 @@
 import EuropeanaApiEnvConfig from '@/plugins/europeana/apis/config/env.js';
 
+const scopes = ['public', 'private'];
+const id = 'record';
+
 describe('EuropeanaApiEnvConfig', () => {
   let envWas;
   beforeAll(() => {
@@ -16,119 +19,97 @@ describe('EuropeanaApiEnvConfig', () => {
     process.env = { ...envWas };
   });
 
-  describe('when scope is public', () => {
-    const id = 'record';
-    const scope = 'public';
+  describe('url', () => {
+    for (const scope of scopes) {
+      describe(`when scope is ${scope}`, () => {
+        it('is set from env var EUROPEANA_${ID}_API_URL', () => {
+          const url = 'https://europeana.example.org/record';
+          process.env.EUROPEANA_RECORD_API_URL = url;
 
-    describe('url', () => {
-      it('is set from env var EUROPEANA_${ID}_API_URL', () => {
-        const url = 'https://europeana.example.org/record';
-        process.env.EUROPEANA_RECORD_API_URL = url;
+          const config = new EuropeanaApiEnvConfig(id, scope);
 
-        const config = new EuropeanaApiEnvConfig(id, scope);
+          expect(config.url).toBe(url);
+        });
 
-        expect(config.url).toBe(url);
+        it('is otherwise undefined', () => {
+          const id = 'record';
+
+          const config = new EuropeanaApiEnvConfig(id, scope);
+
+          expect(config.url).toBeUndefined();
+        });
       });
-
-      it('is otherwise undefined', () => {
-        const id = 'record';
-
-        const config = new EuropeanaApiEnvConfig(id, scope);
-
-        expect(config.url).toBeUndefined();
-      });
-    });
-
-    describe('key', () => {
-      it('is set to API-specific auth key from env var EUROPEANA_${ID}_API_KEY', () => {
-        const key = 'super-secret-record-api-key';
-        process.env.EUROPEANA_RECORD_API_KEY = key;
-
-        const config = new EuropeanaApiEnvConfig(id, scope);
-
-        expect(config.key).toBe(key);
-      });
-
-      it('falls back to shared API auth key from env var EUROPEANA_API_KEY', () => {
-        const key = 'super-secret-api-key';
-        process.env.EUROPEANA_API_KEY = key;
-
-        const config = new EuropeanaApiEnvConfig(id, scope);
-
-        expect(config.key).toBe(key);
-      });
-
-      it('is otherwise undefined', () => {
-        const id = 'record';
-
-        const config = new EuropeanaApiEnvConfig(id, scope);
-
-        expect(config.key).toBeUndefined();
-      });
-    });
+    }
   });
 
-  describe('when scope is private', () => {
-    const id = 'record';
-    const scope = 'private';
-
-    describe('url', () => {
+  describe('urlRewrite', () => {
+    describe('when scope is private', () => {
+      const scope = 'private';
       it('is set from env var EUROPEANA_${ID}_API_URL_PRIVATE', () => {
-        const url = 'http://europeana.local/record';
+        const url = 'https://europeana.example.org/record';
         process.env.EUROPEANA_RECORD_API_URL_PRIVATE = url;
 
         const config = new EuropeanaApiEnvConfig(id, scope);
 
-        expect(config.url).toBe(url);
-      });
-
-      it('is otherwise undefined', () => {
-        const id = 'record';
-
-        const config = new EuropeanaApiEnvConfig(id, scope);
-
-        expect(config.url).toBeUndefined();
+        expect(config.urlRewrite).toBe(url);
       });
     });
 
-    describe('key', () => {
-      it('is set to API-specific auth key from env var EUROPEANA_${ID}_API_KEY_PRIVATE', () => {
-        const key = 'super-secret-record-api-key';
-        process.env.EUROPEANA_RECORD_API_KEY_PRIVATE = key;
+    describe('when scope is public', () => {
+      const scope = 'public';
+      it('is not set from env var EUROPEANA_${ID}_API_URL_PRIVATE', () => {
+        const url = 'https://europeana.example.org/record';
+        process.env.EUROPEANA_RECORD_API_URL_PRIVATE = url;
 
         const config = new EuropeanaApiEnvConfig(id, scope);
 
-        expect(config.key).toBe(key);
-      });
-
-      it('falls back to shared API auth key from env var EUROPEANA_API_KEY_PRIVATE', () => {
-        const key = 'super-secret-api-key';
-        process.env.EUROPEANA_API_KEY_PRIVATE = key;
-
-        const config = new EuropeanaApiEnvConfig(id, scope);
-
-        expect(config.key).toBe(key);
-      });
-
-      it('is otherwise undefined', () => {
-        const id = 'record';
-
-        const config = new EuropeanaApiEnvConfig(id, scope);
-
-        expect(config.key).toBeUndefined();
+        expect(config.urlRewrite).toBeUndefined();
       });
     });
+  });
+
+  describe('key', () => {
+    for (const scope of scopes) {
+      describe(`when scope is ${scope}`, () => {
+        it('is set to API-specific auth key from env var EUROPEANA_${ID}_API_KEY', () => {
+          const key = 'super-secret-record-api-key';
+          process.env.EUROPEANA_RECORD_API_KEY = key;
+
+          const config = new EuropeanaApiEnvConfig(id, scope);
+
+          expect(config.key).toBe(key);
+        });
+
+        it('falls back to shared API auth key from env var EUROPEANA_API_KEY', () => {
+          const key = 'super-secret-api-key';
+          process.env.EUROPEANA_API_KEY = key;
+
+          const config = new EuropeanaApiEnvConfig(id, scope);
+
+          expect(config.key).toBe(key);
+        });
+
+        it('is otherwise undefined', () => {
+          const id = 'record';
+
+          const config = new EuropeanaApiEnvConfig(id, scope);
+
+          expect(config.key).toBeUndefined();
+        });
+      });
+    }
   });
 
   describe('toJSON', () => {
     it('includes key, id, scope & url', () => {
       process.env.EUROPEANA_TEST_API_KEY = 'secret';
       process.env.EUROPEANA_TEST_API_URL = 'https://test.example.org/';
-      const config = new EuropeanaApiEnvConfig('test', 'public');
+      process.env.EUROPEANA_TEST_API_URL_PRIVATE = 'https://priv.example.org/';
+      const config = new EuropeanaApiEnvConfig('test', 'private');
 
       const json = config.toJSON();
 
-      expect(json).toBe('{"key":"secret","id":"test","scope":"public","url":"https://test.example.org/"}');
+      expect(json).toBe('{"key":"secret","id":"test","scope":"private","url":"https://test.example.org/","urlRewrite":"https://priv.example.org/"}');
     });
   });
 });

@@ -1,4 +1,4 @@
-import { APIS, API_IDS } from '../index.js';
+import { API_IDS } from '../index.js';
 import EuropeanaApiEnvConfig from './env.js';
 
 const runtimeConfig = {};
