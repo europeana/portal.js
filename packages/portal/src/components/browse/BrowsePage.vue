@@ -50,19 +50,19 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/variables';
 
-.page {
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  margin-top: -1rem;
+  .page {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    margin-top: -1rem;
 
-  @media (min-width: $bp-4k) {
-    padding-bottom: 1.5rem;
-    padding-top: 1.5rem;
-    margin-top: -1.5rem;
+    @media (min-width: $bp-4k) {
+      padding-bottom: 1.5rem;
+      padding-top: 1.5rem;
+      margin-top: -1.5rem;
+    }
   }
-}
 
   .container {
     @media (min-width: $bp-wqhd) {
