@@ -63,4 +63,24 @@
     margin-top: -1.5rem;
   }
 }
+
+  .container {
+    @media (min-width: $bp-wqhd) {
+      width: fit-content;
+    }
+
+    ::v-deep .card {
+      @media (min-width: $bp-xxxl) {
+        max-width: calc($max-card-width - 100px);
+      }
+
+      @media (min-width: ($bp-wqhd)) {
+        flex-grow: 1;
+      }
+
+      @media (min-width: $bp-4k) {
+        max-width: $max-card-width;
+      }
+    }
+  }
 </style>
