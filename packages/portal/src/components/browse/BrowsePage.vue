@@ -70,7 +70,8 @@
     }
 
     ::v-deep .card {
-      $max-xxxl-container-width: calc(100vw - $max-card-width);
+      // max container width is 100% minus max-card-width minus container padding and scrollbar
+      $max-xxxl-container-width: calc(100vw - 50px - $max-card-width);
 
       @media (min-width: ($bp-wqhd)) {
         flex: 0 0 calc(#{$max-xxxl-container-width} / 6 - #{$grid-gutter * 2});
