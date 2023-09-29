@@ -38,7 +38,7 @@
               class="d-inline-flex align-items-center mb-4 mb-lg-0 order-first"
               @click="addNewRule"
             >
-              <span class="icon-ic-add pr-1" />
+              <span class="icon-add pr-2" />
               {{ $t('actions.add') }}
             </b-button>
           </div>
