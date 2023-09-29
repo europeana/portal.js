@@ -19,7 +19,11 @@ export default class EuropeanaApiContextConfig {
   }
 
   urlRewriteFromContext(context) {
-    return context.$config?.europeana?.apis?.[this.id]?.urlRewrite;
+    if (this.apiUrlFromRequestHeaders(context.req?.headers) || context.store?.state?.apis?.reqHeaderUrls?.[this.id]) {
+      return undefined;
+    } else {
+      return context.$config?.europeana?.apis?.[this.id]?.urlRewrite;
+    }
   }
 
   apiUrlFromRequestHeaders(headers) {
