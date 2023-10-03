@@ -128,7 +128,7 @@ describe('EuropeanaApi', () => {
       const api = new EuropeanaApi;
       api.config = { urlRewrite };
 
-      const rewriteAxiosRequestUrl = api.rewriteAxiosRequestUrl(requestConfig);
+      api.rewriteAxiosRequestUrl(requestConfig);
 
       expect(requestConfig.baseURL).toEqual(urlRewrite);
     });
