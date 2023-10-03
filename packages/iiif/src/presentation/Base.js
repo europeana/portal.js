@@ -28,24 +28,28 @@ export default class IIIFPresentationBase {
   }
 
   constructor(data) {
-    for (const prop in data) {
-      const val = data[prop];
+    if (typeof data !== 'object') {
+      this.id = data;
+    } else {
+      for (const prop in data) {
+        const val = data[prop];
 
-      // normalise id and type
-      if (['@id', '@type'].includes(prop)) {
-        this[prop.slice(1)] = val;
-      } else {
-        let keep = false;
-        // only keep scalar properties, and arrays of scalars. if others are wanted,
-        // add in sub-class constructors
-        if (typeof val !== 'object') {
-          keep = true;
-        } else if (Array.isArray(val) && val.every((elm) => typeof elm !== 'object')) {
-          keep = true;
-        }
+        // normalise id and type
+        if (['@id', '@type'].includes(prop)) {
+          this[prop.slice(1)] = val;
+        } else {
+          let keep = false;
+          // only keep scalar properties, and arrays of scalars. if others are wanted,
+          // add in sub-class constructors
+          if (typeof val !== 'object') {
+            keep = true;
+          } else if (Array.isArray(val) && val.every((elm) => typeof elm !== 'object')) {
+            keep = true;
+          }
 
-        if (keep) {
-          this[prop] = this.constructor.structure(val);
+          if (keep) {
+            this[prop] = this.constructor.structure(val);
+          }
         }
       }
     }

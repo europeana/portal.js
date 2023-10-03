@@ -65,7 +65,7 @@
 <script>
   import axios from 'axios';
   import { BTab, BTabs } from 'bootstrap-vue';
-  import IIIFPresentation from '@europeana/iiif/src/presentation/index.js';
+  import IIIFFactory from '@europeana/iiif/src/index.js';
 
   export default {
     name: 'IIIFOpenLayers',
@@ -123,7 +123,7 @@
 
     async fetch() {
       if (!this.manifest) {
-        this.manifest = await IIIFPresentation.fetch(this.uri);
+        this.manifest = await IIIFFactory.fetch(this.uri);
       }
 
       if (this.layer) {

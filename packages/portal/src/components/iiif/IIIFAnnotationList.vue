@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import IIIFPresentation from '@europeana/iiif/src/presentation/index.js';
+  import IIIFFactory from '@europeana/iiif/src/index.js';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
 
   export default {
@@ -60,7 +60,7 @@
 
     // TODO: filter by motivation(s)
     async fetch() {
-      const annotationPage = await IIIFPresentation.fetch(this.uri);
+      const annotationPage = await IIIFFactory.fetch(this.uri);
 
       await annotationPage.deferenceAnnotations();
 
