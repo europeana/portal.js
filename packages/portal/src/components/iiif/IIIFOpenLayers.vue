@@ -184,9 +184,17 @@
       async drawMap() {
         if (!this.map) {
           const { default: Map } = await import('ol/Map.js');
+          const { default: Collection } = await import('ol/Collection.js');
+          // const { default: FullScreenControl } = await import('ol/control/FullScreen.js');
+          // const { default: ZoomControl } = await import('ol/control/Zoom.js');
+
+          const controls = new Collection([
+            // new FullScreenControl(),
+            // new ZoomControl()
+          ]);
 
           this.map = new Map({
-            controls: [],
+            controls,
             layers: [],
             target: 'iiif-open-layers'
           });
