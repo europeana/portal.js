@@ -28,9 +28,7 @@ export default class IIIFPresentationBase {
   }
 
   constructor(data) {
-    if (typeof data !== 'object') {
-      this.id = data;
-    } else {
+    if (typeof data === 'object') {
       for (const prop in data) {
         const val = data[prop];
 
@@ -52,6 +50,8 @@ export default class IIIFPresentationBase {
           }
         }
       }
+    } else {
+      this.id = data;
     }
   }
 
