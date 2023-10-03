@@ -102,7 +102,6 @@
     data() {
       return {
         annotationPage: null,
-        // canvas: null,
         canvasCount: 0,
         page: 1,
         fullsize: false,

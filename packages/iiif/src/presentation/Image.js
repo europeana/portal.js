@@ -1,7 +1,7 @@
-import Base from '../Base.js';
+import Base from './Base.js';
 import Service from './Service.js';
 
-export default class IIIFPresentationV2Image extends Base {
+export default class IIIFPresentationImage extends Base {
   constructor(data) {
     super(data);
 

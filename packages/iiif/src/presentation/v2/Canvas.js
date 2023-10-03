@@ -1,5 +1,5 @@
 import Base from '../Base.js';
-import Image from './Image.js';
+import Image from '../Image.js';
 
 export default class IIIFPresentationV2Canvas extends Base {
   constructor(data) {
