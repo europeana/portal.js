@@ -120,4 +120,17 @@ describe('EuropeanaApi', () => {
       })).toBe(true);
     });
   });
+
+  describe('rewriteAxiosRequestUrl', () => {
+    it('favours urlRewrite from config for request baseURL', () => {
+      const urlRewrite = 'http://rewrite.internal/';
+      const requestConfig = {};
+      const api = new EuropeanaApi;
+      api.config = { urlRewrite };
+
+      const rewriteAxiosRequestUrl = api.rewriteAxiosRequestUrl(requestConfig);
+
+      expect(requestConfig.baseURL).toEqual(urlRewrite);
+    });
+  });
 });

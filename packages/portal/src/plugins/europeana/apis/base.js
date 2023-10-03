@@ -59,7 +59,7 @@ export default class EuropeanaApi {
     const axiosBase = (this.constructor.AUTHORISING && this.context?.$axios) ? this.context?.$axios : axios;
     const axiosInstance = axiosBase.create(this.axiosInstanceOptions);
 
-    axiosInstance.interceptors.request.use(this.rewriteUrl.bind(this));
+    axiosInstance.interceptors.request.use(this.rewriteAxiosRequestUrl.bind(this));
 
     const app = this.context?.app;
     if (app?.$axiosLogger) {
@@ -73,7 +73,7 @@ export default class EuropeanaApi {
     return axiosInstance;
   }
 
-  rewriteUrl(requestConfig) {
+  rewriteAxiosRequestUrl(requestConfig) {
     if (this.config.urlRewrite) {
       requestConfig.baseURL = this.config.urlRewrite;
     }
