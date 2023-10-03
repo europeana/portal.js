@@ -1,4 +1,4 @@
-import { APIS, API_IDS } from '../index.js';
+import { API_IDS } from '../index.js';
 import EuropeanaApiEnvConfig from './env.js';
 
 const runtimeConfig = {};
@@ -15,24 +15,4 @@ export const nuxtRuntimeConfig = ({ scope = 'public' } = {}) => {
     }, {});
   }
   return runtimeConfig[scope];
-};
-
-export const publicPrivateRewriteOrigins = () => {
-  const publicNuxtRuntimeConfig = nuxtRuntimeConfig({ scope: 'public' });
-  const privateNuxtRuntimeConfig = nuxtRuntimeConfig({ scope: 'private' });
-
-  return Object.keys(privateNuxtRuntimeConfig).reduce((memo, id) => {
-    if (privateNuxtRuntimeConfig[id].url) {
-      const from = privateNuxtRuntimeConfig[id].url;
-      const to = publicNuxtRuntimeConfig[id].url || APIS[id].BASE_URL;
-
-      if (from !== to) {
-        memo.push({
-          from,
-          to
-        });
-      }
-    }
-    return memo;
-  }, []);
 };

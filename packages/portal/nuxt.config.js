@@ -16,7 +16,7 @@ import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
 import {
-  nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins
+  nuxtRuntimeConfig as europeanaApisRuntimeConfig
 } from './src/plugins/europeana/apis/config/nuxt.js';
 
 const buildPublicPath = () => {
@@ -83,10 +83,7 @@ export default {
     },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
-      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(','),
-      // Construct a map of Europeana API URLs to rewrite for logging, so that
-      // private network hostnames are replaced with the public equivalent.
-      rewriteOrigins: publicPrivateRewriteOrigins()
+      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
     },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
