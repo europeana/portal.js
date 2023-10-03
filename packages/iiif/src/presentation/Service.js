@@ -1,10 +1,18 @@
 import Base from './Base.js';
 
 export default class IIIFPresentationService extends Base {
+  constructor(data) {
+    super(data);
+
+    // profile may be an array containing non-scalar values, which would be
+    // skipped by Base.constructor
+    this.profile = this.constructor.structure(data.profile);
+  }
+
   get isForIIIFImageAPI() {
-    // TODO: profile may be an array
-    return (this.protocol === 'http://iiif.io/api/image') ||
-      this.profile?.includes('://iiif.io/api/image/');
+    return [].concat(this.profile || []).some((prof) => {
+      return (typeof prof === 'string') && prof.includes('://iiif.io/api/image/');
+    });
   }
 
   get infoJson() {
