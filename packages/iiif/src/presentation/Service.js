@@ -10,9 +10,7 @@ export default class IIIFPresentationService extends Base {
   }
 
   get isForIIIFImageAPI() {
-    return [].concat(this.profile || []).some((prof) => {
-      return (typeof prof === 'string') && prof.includes('://iiif.io/api/image/');
-    });
+    return (this['@context'] || '').includes('://iiif.io/api/image/');
   }
 
   get infoJson() {
