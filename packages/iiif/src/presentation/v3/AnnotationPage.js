@@ -3,11 +3,9 @@ import Annotation from './Annotation.js';
 import EuropeanaFullTextResource from '../Europeana/FullTextResource.js';
 
 export default class IIIFPresentationV3AnnotationPage extends Base {
-  constructor(data) {
-    super(data);
-
-    this.annotations = [].concat(data.items || []).map((ann) => new Annotation(ann));
-  }
+  static MAPPINGS = [
+    { as: Annotation, from: 'items', to: 'annotations' }
+  ];
 
   get url() {
     const url = super.url;

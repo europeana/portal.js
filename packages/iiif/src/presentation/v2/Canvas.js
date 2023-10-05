@@ -2,18 +2,9 @@ import Base from '../Base.js';
 import Image from '../Image.js';
 
 export default class IIIFPresentationV2Canvas extends Base {
-  constructor(data) {
-    super(data);
-
-    const images = [].concat(data.images || []);
-    const resources = images.map((img) => img.resource)
-      .filter((res) => res?.['@type'] === 'dctypes:Image');
-    this.images = resources.map((res) => new Image(res));
-
+  static MAPPINGS = [
+    { as: Image, filter: (thumb) => thumb.type === 'dctypes:Image', from: 'thumbnail', which: 'first' },
+    { as: Image, filter: (image) => image.type === 'dctypes:Image', from: 'images.resource', to: 'images', which: 'all' }
     // TODO: annotation pages
-
-    this.thumbnail = [].concat(data.thumbnail || [])
-      .filter((thumb) => thumb['@type'] === 'dctypes:Image')
-      .map((thumb) => new Image(thumb))[0];
-  }
+  ];
 }
