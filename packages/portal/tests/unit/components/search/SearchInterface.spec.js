@@ -178,7 +178,7 @@ describe('components/search/SearchInterface', () => {
               qa: {
                 field: 'proxy_dc_date',
                 modifier: 'contains',
-                suggestEntityType: 'timespan',
+                suggestEntityTypes: ['timespan'],
                 term: '19th century'
               },
               qae: 'proxy_dc_date:"http://data.europeana.eu/timespan/19"'

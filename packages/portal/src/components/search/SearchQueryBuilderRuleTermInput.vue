@@ -25,8 +25,8 @@
       ref="searchoptions"
       class="auto-suggest-dropdown"
       :text="term"
-      :type="suggestEntityType"
-      :suggest="!!suggestEntityType && showSearchOptions"
+      :types="suggestEntityTypes"
+      :suggest="hasEntitySuggestType && showSearchOptions"
       :advanced-search="true"
       :advanced-search-field="advancedSearchField"
       :show-search-options="showSearchOptions"
@@ -76,9 +76,9 @@
        * Enitty type(s) to look up suggestions for the term
        * @values agent,concept,organization,place,timespan
        */
-      suggestEntityType: {
-        type: String,
-        default: null
+      suggestEntityTypes: {
+        type: Array,
+        default: () => []
       },
       /**
        * Value of the term input
@@ -111,6 +111,9 @@
       },
       fieldNeedsEntityLookUp() {
         return this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(this.advancedSearchField);
+      },
+      hasEntitySuggestType() {
+        return this.suggestEntityTypes.length > 0;
       }
     },
 
@@ -219,7 +222,7 @@
   With suggestions
   ```jsx
     <SearchQueryBuilderRuleTermInput
-      suggestEntityType="concept"
+      suggestEntityTypes=["concept"]
       advanced-search-field="what"
     />
   ```

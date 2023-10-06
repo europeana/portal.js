@@ -41,7 +41,7 @@
             :data-qa="`advanced search query builder: ${control} control`"
             :placeholder="$t('search.advanced.placeholder.term')"
             :state="validations.term.state"
-            :suggest-entity-type="suggestEntityTypeForTerm"
+            :suggest-entity-types="suggestEntityTypesForTerm"
             :advanced-search-field="field"
             @change="(value) => handleRuleChange('term', value)"
           />
@@ -181,8 +181,8 @@
         return this.fieldOptions
           .filter((field) => !this.aggregatedFieldNames.includes(field.value) && (field.value !== this.fulltextFieldName));
       },
-      suggestEntityTypeForTerm() {
-        return this.advancedSearchFields.filter(field => field.name === this.field)[0]?.suggestEntityType;
+      suggestEntityTypesForTerm() {
+        return this.advancedSearchFields.filter(field => field.name === this.field)[0]?.suggestEntityTypes;
       }
     },
 

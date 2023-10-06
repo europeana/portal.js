@@ -581,8 +581,8 @@
         if (!queryHasSelectedEntity) {
           const suggestions = await this.$apis.entity.suggest(text, {
             language: locale,
-            // Only look up specific entity type as defined for the advanced search field
-            type: query.suggestEntityType
+            // Only look up specific entity type(s) as defined for the advanced search field
+            type: query.suggestEntityTypes.join(',')
           });
 
           queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());

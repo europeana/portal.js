@@ -83,9 +83,9 @@
        * Enitty type(s) to look up suggestions for the term
        * @values agent,concept,organization,place,timespan
        */
-      type: {
-        type: String,
-        default: 'agent,concept,place,timespan'
+      types: {
+        type: Array,
+        default: () => ['agent', 'concept', 'place', 'timespan']
       },
       /**
        * Defines context of the SearchQueryOptions component
@@ -234,7 +234,7 @@
           this.activeSuggestionsQueryTerm = this.text;
           const suggestions = await this.$apis.entity.suggest(this.text, {
             language: locale,
-            type: this.type
+            type: this.types.join(',')
           });
           this.suggestions = suggestions.reduce((memo, suggestion) => {
             const localisedSuggestionLabels = [suggestion?.prefLabel?.[locale]]
