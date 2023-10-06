@@ -16,7 +16,7 @@
       :aria-owns="showSearchOptions ? optionsId : null"
       :aria-expanded="showSearchOptions"
       :aria-controls="showSearchOptions ? optionsId : null"
-      @input="showSearchOptions = true"
+      @input="handleInput"
       @keydown.enter="handleChange"
     />
     <SearchQueryOptions
@@ -131,12 +131,19 @@
     },
 
     methods: {
+      handleInput(input) {
+        if (input.length > 0) {
+          this.showSearchOptions = true;
+        } else {
+          this.showSearchOptions = false;
+        }
+      },
       handleChange() {
         const valueToEmit = this.selectedValue || this.term;
 
         if (!this.selectedValue) {
           // Set submitting state to track the no autosuggest option selected in SearchQueryOptions
-          this.submitting = this.term;
+          this.submitting = valueToEmit;
         }
 
         this.$emit('change', valueToEmit);
