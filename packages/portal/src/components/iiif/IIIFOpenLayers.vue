@@ -67,6 +67,21 @@
   import { BTab, BTabs } from 'bootstrap-vue';
   import IIIFFactory from '@europeana/iiif/src/index.js';
 
+  // NOTE: each of the imported OpenLayers modules needs to be added to
+  //       build.transpile in nuxt.config.js
+  import IIIF from 'ol/source/IIIF.js';
+  import IIIFInfo from 'ol/format/IIIFInfo.js';
+  import TileLayer from 'ol/layer/Tile.js';
+  import Map from 'ol/Map.js';
+  import Collection from 'ol/Collection.js';
+  import ImageLayer from 'ol/layer/Image.js';
+  import Projection from 'ol/proj/Projection.js';
+  import ImageStatic from 'ol/source/ImageStatic.js';
+  import { getCenter } from 'ol/extent.js';
+  import View from 'ol/View.js';
+  // import FullScreenControl from 'ol/control/FullScreen.js';
+  // import ZoomControl from 'ol/control/Zoom.js';
+
   export default {
     name: 'IIIFOpenLayers',
 
@@ -183,11 +198,6 @@
 
       async drawMap() {
         if (!this.map) {
-          const { default: Map } = await import('ol/Map.js');
-          const { default: Collection } = await import('ol/Collection.js');
-          // const { default: FullScreenControl } = await import('ol/control/FullScreen.js');
-          // const { default: ZoomControl } = await import('ol/control/Zoom.js');
-
           const controls = new Collection([
             // new FullScreenControl(),
             // new ZoomControl()
@@ -222,11 +232,6 @@
       async renderIIIFImage() {
         // IIIF Image API
         // https://openlayers.org/en/latest/examples/iiif.html
-        const { default: View } = await import('ol/View.js');
-        const { default: IIIF } = await import('ol/source/IIIF.js');
-        const { default: IIIFInfo } = await import('ol/format/IIIFInfo.js');
-        const { default: TileLayer } = await import('ol/layer/Tile.js');
-
         this.layer = new TileLayer();
         this.map.setLayers([this.layer]);
 
@@ -248,11 +253,6 @@
       async renderStaticImage(url, width, height) {
         // Static image
         // https://openlayers.org/en/latest/examples/static-image.html
-        const { default: View } = await import('ol/View.js');
-        const { default: ImageLayer } = await import('ol/layer/Image.js');
-        const { default: Projection } = await import('ol/proj/Projection.js');
-        const { default: ImageStatic } = await import('ol/source/ImageStatic.js');
-        const { getCenter } = await import('ol/extent.js');
 
         const extent = [0, 0, width, height];
         const projection = new Projection({

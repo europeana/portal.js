@@ -465,7 +465,23 @@ export default {
     publicPath: buildPublicPath(),
 
     // Pure ESM modules need to be transpiled to be used by Vue2
-    transpile: ['@europeana/iiif', 'dom7', 'ssr-window', 'swiper']
+    transpile: [
+      '@europeana/iiif',
+      'dom7',
+      'ol/Collection.js',
+      'ol/extent.js',
+      'ol/format/IIIFInfo.js',
+      'ol/layer/Image.js',
+      'ol/layer/Tile.js',
+      'ol/Map.js',
+      'ol/proj/Projection.js',
+      'ol/source/IIIF.js',
+      'ol/source/ImageStatic.js',
+      'ol/View.js',
+      'ol/View.js',
+      'ssr-window',
+      'swiper'
+    ]
   },
 
   /*
