@@ -52,7 +52,7 @@
 
         let itemResponse;
         try {
-          itemResponse = await this.$apis.record.$axios.get(`${id}.json`);
+          itemResponse = await this.$apis.record.axios.get(`${id}.json`);
         } catch (error) {
           this.showError(`Unable to harvest "${itemUrl}". Please make sure the item can be accessed on the Record API.`);
           return;

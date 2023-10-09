@@ -6,63 +6,62 @@
       data-qa="search query builder rule"
       class="query-rule"
     >
-      <template
+      <b-form-group
         v-for="control in ruleControls"
+        :key="`${id}-${control}`"
+        class="query-rule-form-group mr-lg-2"
       >
-        <b-form-group
-          :key="`${id}-${control}`"
-          class="query-rule-form-group mr-lg-2"
+        <component
+          :is="control === 'term' ? 'label' : 'span'"
+          :id="`${id}-${control}-label`"
+          class="query-rule-field-label d-inline-flex align-items-center"
+          :for="`${id}-${control}`"
         >
-          <component
-            :is="control === 'term' ? 'label' : 'span'"
-            :id="`${id}-${control}-label`"
-            class="query-rule-field-label d-inline-flex align-items-center"
-            :for="`${id}-${control}`"
-          >
-            {{ $t(`search.advanced.input.${control}`) }}
-            <template v-if="tooltips">
-              <b-button
-                :id="`${id}-${control}-tooltip-btn`"
-                class="icon-info-outline py-0 px-1 tooltip-button"
-                :aria-label="$t(`search.advanced.tooltip.${control}`)"
-                variant="light-flat"
-              />
-              <b-tooltip
-                :target="`${id}-${control}-tooltip-btn`"
-                :title="$t(`search.advanced.tooltip.${control}`)"
-                boundary-padding="0"
-                placement="bottom"
-              />
-            </template>
-          </component>
-          <div>
-            <b-form-input
-              v-if="control === 'term'"
-              :id="`${id}-${control}`"
-              v-model="term"
-              :data-qa="`advanced search query builder: ${control} control`"
-              :placeholder="$t('search.advanced.placeholder.term')"
-              :state="validations.term.state"
-              @change="(value) => handleRuleChange('term', value)"
+          {{ $t(`search.advanced.input.${control}`) }}
+          <template v-if="tooltips">
+            <b-button
+              :id="`${id}-${control}-tooltip-btn`"
+              class="icon-info-outline py-0 px-1 tooltip-button"
+              :aria-label="$t(`search.advanced.tooltip.${control}`)"
+              variant="light-flat"
             />
-            <SearchQueryBuilderRuleDropdown
-              v-else
-              :id="`${id}-${control}`"
-              :name="control"
-              :options="dropdownSections[control]"
-              :state="validations[control].state"
-              :text="dropdownText[control]"
-              @change="(value) => handleRuleChange(control, value)"
+            <b-tooltip
+              :target="`${id}-${control}-tooltip-btn`"
+              :title="$t(`search.advanced.tooltip.${control}`)"
+              boundary-padding="0"
+              placement="bottom"
             />
-          </div>
-          <b-form-invalid-feedback
-            v-show="validate"
+          </template>
+        </component>
+        <div>
+          <SearchQueryBuilderRuleTermInput
+            v-if="control === 'term'"
+            :id="`${id}-${control}`"
+            v-model="term"
+            :data-qa="`advanced search query builder: ${control} control`"
+            :placeholder="$t('search.advanced.placeholder.term')"
+            :state="validations.term.state"
+            :suggest-entity-type="suggestEntityTypeForTerm"
+            :advanced-search-field="field"
+            @change="(value) => handleRuleChange('term', value)"
+          />
+          <SearchQueryBuilderRuleDropdown
+            v-else
+            :id="`${id}-${control}`"
+            :name="control"
+            :options="dropdownSections[control]"
             :state="validations[control].state"
-          >
-            {{ validations[control].text }}
-          </b-form-invalid-feedback>
-        </b-form-group>
-      </template>
+            :text="dropdownText[control]"
+            @change="(value) => handleRuleChange(control, value)"
+          />
+        </div>
+        <b-form-invalid-feedback
+          v-show="validate"
+          :state="validations[control].state"
+        >
+          {{ validations[control].text }}
+        </b-form-invalid-feedback>
+      </b-form-group>
     </b-input-group>
     <b-button
       data-qa="search query builder rule clear button"
@@ -77,14 +76,16 @@
 </template>
 
 <script>
-  import SearchQueryBuilderRuleDropdown from './SearchQueryBuilderRuleDropdown.vue';
+  import SearchQueryBuilderRuleDropdown from './SearchQueryBuilderRuleDropdown';
+  import SearchQueryBuilderRuleTermInput from './SearchQueryBuilderRuleTermInput';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRule',
 
     components: {
-      SearchQueryBuilderRuleDropdown
+      SearchQueryBuilderRuleDropdown,
+      SearchQueryBuilderRuleTermInput
     },
 
     mixins: [
@@ -92,18 +93,30 @@
     ],
 
     props: {
+      /**
+       * Id to set a unique value for each rule
+       */
       id: {
         type: String,
         default: 'search-query-builder-rule'
       },
+      /**
+       * If `true`, shows tooltips beside the input labels
+       */
       tooltips: {
         type: Boolean,
         default: true
       },
+      /**
+       * If `true`, triggers the validation of the rule
+       */
       validate: {
         type: Boolean,
         default: false
       },
+      /**
+       * Value of the rule
+       */
       value: {
         type: Object,
         default: () => ({})
@@ -167,6 +180,9 @@
       individualFieldOptions() {
         return this.fieldOptions
           .filter((field) => !this.aggregatedFieldNames.includes(field.value) && (field.value !== this.fulltextFieldName));
+      },
+      suggestEntityTypeForTerm() {
+        return this.advancedSearchFields.filter(field => field.name === this.field)[0]?.suggestEntityType;
       }
     },
 
@@ -250,35 +266,10 @@
       }
     }
   }
-
-  .form-control {
-    background-color: $white;
-    border: 1px solid $bodygrey;
-    border-radius: 0.375rem;
-    font-weight: normal;
-    height: 3rem;
-    color: $greyblack;
-
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-base-4k;
-        height: 4.5rem;
-        padding: calc(1.5 * 0.375rem) calc(1.5 * 0.75rem);
-      }
-    }
-
-    &:focus {
-      border-color: $blue;
-    }
-
-    &.is-invalid,
-    &.is-valid {
-      background-image: none;
-      padding-right: 0.75rem !important;
-    }
-
-    &.is-invalid {
-      border-color: $red;
-    }
-  }
 </style>
+
+<docs lang="md">
+  ```jsx
+    <SearchQueryBuilderRule />
+  ```
+</docs>

@@ -1,5 +1,6 @@
 <template>
   <b-dropdown
+    :id="id"
     block
     class="search-query-builder-rule-dropdown search-filter-dropdown"
     :data-qa="`advanced search query builder: ${name} control`"
@@ -47,21 +48,37 @@
     name: 'SearchQueryBuilderRuleDropdown',
 
     props: {
+      /**
+       * Id to set a unique value for each dropdown
+       */
+      id: {
+        type: String,
+        default: null
+      },
+      /**
+       * Name of the dropdown
+       */
       name: {
         type: String,
         required: true
       },
-
+      /**
+       * Options to display in the dropdpwn
+       */
       options: {
         type: Array,
         required: true
       },
-
+      /**
+       * Validation state for submitting the dropdown value as part of the form
+       */
       state: {
         type: Boolean,
         default: null
       },
-
+      /**
+       * Text to place in the toggle button
+       */
       text: {
         type: String,
         default: null
@@ -75,3 +92,23 @@
     }
   };
 </script>
+
+<docs lang="md">
+  ```jsx
+    <SearchQueryBuilderRuleDropdown
+      name="modifier"
+      :options="[
+        {
+          options: [{
+            value: 'contains',
+            text: 'Contains'
+          },{
+            value: 'doesNotContain',
+            text: 'Does not contain'
+          }]
+        }
+      ]"
+      :text="this.$t('search.advanced.placeholder.modifier')"
+    />
+  ```
+</docs>

@@ -22,12 +22,13 @@ export default ({ store } = {}) => ({
     }
   },
 
-  optimisedSrc(asset, params = {}) {
+  optimisedSrc(asset, options = {}) {
     // TODO: use isValidUrl here?
     if (!asset?.url) {
       return null;
     }
     const imageUrl = new URL(asset.url);
+    const params = { ...options };
 
     if (!params.fm && (asset.contentType !== MEDIA_TYPE_SVG) && this.acceptedMediaTypes().includes(MEDIA_TYPE_WEBP)) {
       params.fm = CONTENTFUL_IMAGES_PARAMS_FM_WEBP;

@@ -32,6 +32,7 @@
       />
       <LandingEmbed
         v-if="contentType(section, 'EmbedSection')"
+        :english-title="section.nameEN"
         :title="section.name"
         :text="section.text"
         :background-image="section.image"

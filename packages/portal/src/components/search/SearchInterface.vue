@@ -202,6 +202,7 @@
 
 <script>
   import merge from 'deepmerge';
+  import isEqual from 'lodash/isEqual';
 
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
@@ -211,6 +212,7 @@
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import makeToastMixin from '@/mixins/makeToast';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
+  import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchInterface',
@@ -229,6 +231,7 @@
     },
 
     mixins: [
+      advancedSearchMixin,
       elasticApmReporterMixin,
       makeToastMixin
     ],
@@ -264,7 +267,8 @@
         paginationChanged: false,
         results: [],
         showAdvancedSearch: false,
-        totalResults: null
+        totalResults: null,
+        qasWithAddedEntityValue: []
       };
     },
 
@@ -275,6 +279,18 @@
       this.setViewFromRouteQuery();
 
       this.$store.commit('search/setActive', true);
+
+      // Remove cleared rules
+      const qaRules = this.advancedSearchRulesFromRouteQuery();
+      this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qaWithEntity => {
+        return qaRules.find(qa => isEqual(qa, qaWithEntity.qa));
+      });
+
+      const qasToLookUp = this.advancedSearchQueriesForEntityLookUp();
+
+      if (qasToLookUp.length) {
+        await this.addEntityValuesToAdvancedSearchFields(qasToLookUp);
+      }
 
       this.deriveApiParams();
 
@@ -325,6 +341,9 @@
       },
       qa() {
         return [].concat(this.userParams.qa || []);
+      },
+      qaes() {
+        return this.qasWithAddedEntityValue.map(qaWithEntity => qaWithEntity.qae).filter(qae => !!qae);
       },
       qf() {
         return [].concat(this.userParams.qf || []);
@@ -398,6 +417,9 @@
         }
 
         return this.$i18n.locale;
+      },
+      qasWithSelectedEntityValue() {
+        return this.$store.state.search.qasWithSelectedEntityValue;
       }
     },
 
@@ -447,7 +469,7 @@
 
           // All other advanced search rules go into qf's.
           params.qf = (params.qf || [])
-            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)));
+            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa))).concat(this.qaes);
         }
 
         params.qf = addContentTierFilter(params.qf);
@@ -533,6 +555,64 @@
 
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+      },
+
+      advancedSearchQueriesForEntityLookUp() {
+        const qasToLookUp = this.advancedSearchRulesFromRouteQuery()
+          .filter(query => {
+            const fieldNeedsLookUp = this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.field);
+            const newQuery = !this.qasWithAddedEntityValue.find(qaWithEntity => isEqual(qaWithEntity.qa, query));
+
+            return fieldNeedsLookUp && newQuery;
+          });
+        return qasToLookUp;
+      },
+
+      async lookupQaEntity(query) {
+        const locale = this.$i18n.locale;
+        let queryEqualsEntity;
+        const text = query.term;
+
+        // Check if term is selected and stored from the entity dropdown
+        const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find(queryWithSelectedEntity => queryWithSelectedEntity.qa === text);
+        queryEqualsEntity = queryHasSelectedEntity;
+
+        // Look up possible entity value for SSR or when no option selected, the qa might still match an entity
+        if (!queryHasSelectedEntity) {
+          const suggestions = await this.$apis.entity.suggest(text, {
+            language: locale,
+            // Only look up specific entity type as defined for the advanced search field
+            type: query.suggestEntityType
+          });
+
+          queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
+        }
+
+        if (queryEqualsEntity) {
+          const qae = this.advancedSearchQueryFromRule({ ...query, term: `"${queryEqualsEntity.id}"` });
+          return {
+            qa: query,
+            qae
+          };
+        } else {
+          // save fields that do not match entity to prevent reattempt to find matching entitiy
+          return {
+            qa: query,
+            qae: null
+          };
+        }
+      },
+
+      async addEntityValuesToAdvancedSearchFields(qas) {
+        const fieldsWithEntityValues = await Promise.all(qas.map(this.lookupQaEntity));
+
+        // Save the enriched queries to data prop (local store) to prevent repeated suggest requests
+        if (fieldsWithEntityValues.length) {
+          this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.concat(fieldsWithEntityValues);
+        }
+
+        // Clean up the store to prevent accumulating outdated data
+        this.$store.commit('search/setQasWithSelectedEntityValue', []);
       }
     }
   };
