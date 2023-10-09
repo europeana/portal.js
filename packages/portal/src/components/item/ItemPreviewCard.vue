@@ -173,7 +173,7 @@
       dcTitle() {
         return this.unpublishedItem ?
           { [this.$i18n.locale]: [this.$t('record.status.unpublished')] } :
-          this.item.dcTitleLangAware;
+          this.item.dcTitleLangAware || this.item.title?.[0];
       },
 
       unpublishedItem() {
