@@ -24,14 +24,8 @@ export default {
     headLink() {
       let link = [];
 
-      const headLinkPreconnect = this.headLinkPreconnect.map((url) => {
-        for (const rewriteOrigin of this.$config.axiosLogger.rewriteOrigins) {
-          url = url.replace(rewriteOrigin.from, rewriteOrigin.to);
-        }
-        return url;
-      });
-      const preconnectOrigins = headLinkPreconnect.map((url) => new URL(url).origin);
-      link = link.concat(uniq(preconnectOrigins).map((href) => ({ rel: 'preconnect', href })));
+      const preconnectOrigins = this.headLinkPreconnect.map((url) => new URL(url).origin);
+      link = link.concat(uniq(preconnectOrigins).map((href) => ({ href, rel: 'preconnect' })));
 
       link = link.concat(this.headLinkPreload.map((link) => ({ ...link, rel: 'preload' })));
 
