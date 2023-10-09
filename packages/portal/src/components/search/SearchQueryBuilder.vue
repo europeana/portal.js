@@ -9,6 +9,7 @@
       >
         <b-form
           data-qa="search query builder form"
+          autocomplete="off"
           @submit.prevent="handleSubmitForm"
         >
           <transition-group
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-  import SearchQueryBuilderRule from './SearchQueryBuilderRule.vue';
+  import SearchQueryBuilderRule from './SearchQueryBuilderRule';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
@@ -64,6 +65,9 @@
     ],
 
     props: {
+      /**
+       * Id to set a unique value
+       */
       id: {
         type: String,
         default: 'search-query-builder'
@@ -193,3 +197,9 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+    <SearchQueryBuilder />
+  ```
+</docs>

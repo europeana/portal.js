@@ -87,6 +87,7 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} options.url override the API URL
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
+
 export default function(params, options = {}) {
   const localParams = { ...params };
 

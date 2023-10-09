@@ -16,7 +16,6 @@
         :in-top-nav="true"
         :show="showSearchBar"
         :hidable-form="true"
-        @hide="toggleSearchBar"
       />
     </div>
     <template
