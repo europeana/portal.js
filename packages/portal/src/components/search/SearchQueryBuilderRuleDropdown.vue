@@ -5,7 +5,7 @@
     :data-qa="`advanced search query builder: ${name} control`"
     no-flip
     :state="state"
-    :text="toggleText"
+    :text="displayText"
     :toggle-class="{
       'form-name': true,
       'is-invalid': state === false,
@@ -69,7 +69,7 @@
     },
 
     computed: {
-      toggleText() {
+      displayText() {
         return this.text || this.$t(`search.advanced.placeholder.${this.name}`);
       }
     }
