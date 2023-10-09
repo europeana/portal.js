@@ -6,8 +6,11 @@
     :data-qa="`advanced search query builder: ${name} control`"
     no-flip
     :state="state"
-    :text="text"
-    :toggle-class="{ 'form-name': true, 'is-invalid': state === false }"
+    :text="displayText"
+    :toggle-class="{
+      'form-name': true,
+      'is-invalid': state === false,
+      'option-selected': text }"
   >
     <div
       v-for="(section, sectionIndex) in options"
@@ -79,6 +82,12 @@
       text: {
         type: String,
         default: null
+      }
+    },
+
+    computed: {
+      displayText() {
+        return this.text || this.$t(`search.advanced.placeholder.${this.name}`);
       }
     }
   };

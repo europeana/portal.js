@@ -66,10 +66,10 @@
     <b-button
       data-qa="search query builder rule clear button"
       variant="light"
-      class="d-inline-flex align-items-center ml-lg-1 mb-3 mb-lg-0"
+      class="d-inline-flex align-items-baseline ml-lg-1 mb-3 mb-lg-0 mt-lg-2"
       @click="clearRule"
     >
-      <span class="icon-cancel-circle pr-1" />
+      <span class="icon-clear pr-2" />
       {{ $t('actions.clear') }}
     </b-button>
   </div>
@@ -163,8 +163,8 @@
       },
       dropdownText() {
         return {
-          field: this.field ? this.advancedSearchFieldLabel(this.field) : this.$t('search.advanced.placeholder.field'),
-          modifier: this.modifier ? this.$t(`search.advanced.modifiers.${this.modifier}`) : this.$t('search.advanced.placeholder.modifier')
+          field: this.field && this.advancedSearchFieldLabel(this.field),
+          modifier: this.modifier && this.$t(`search.advanced.modifiers.${this.modifier}`)
         };
       },
       fieldOptions() {

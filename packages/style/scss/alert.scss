@@ -13,7 +13,7 @@
 
 
   .close {
-    @extend %icon-font, .icon-close;
+    @extend %icon-font, .icon-clear;
 
     color: $mediumgrey;
     font-size: 0 !important;
@@ -28,11 +28,11 @@
     }
 
     &::before {
-      font-size: $font-size-base;
+      font-size: $font-size-extrasmall;
 
       @at-root .xxl-page & {
         @media (min-width: $bp-4k) {
-          font-size: $font-size-base-4k;
+          font-size: $font-size-extrasmall-4k;
         }
       }
     }

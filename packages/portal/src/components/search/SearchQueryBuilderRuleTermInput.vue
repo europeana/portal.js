@@ -170,7 +170,7 @@
 
   .form-control {
     background-color: $white;
-    border: 1px solid $middlegrey;
+    border: 1px solid $bodygrey;
     border-radius: 0.375rem;
     font-weight: normal;
     height: 3rem;

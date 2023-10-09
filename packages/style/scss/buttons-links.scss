@@ -23,11 +23,15 @@
     box-shadow: $boxshadow;
   }
 
-  .icon-cancel-circle::before {
-    font-size: $font-size-base;
+  .icon-add,
+  .icon-clear {
+    font-size: $font-size-smallest;
+    line-height: 1;
 
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-base-4k;
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-smallest-4k;
+      }
     }
   }
 }
@@ -180,21 +184,6 @@
   &:hover {
     box-shadow: none;
   }
-
-  &.multilingual-dropdown {
-    padding: 0;
-    color: $greyblack;
-    text-decoration: underline;
-
-    &::after {
-      @extend %icon-font;
-
-      content: '\e93e';
-      border: none;
-      margin-left: 0.25rem;
-      transform: scale(1.5);
-    }
-  }
 }
 
 // Expected ".btn-outline-primary:hover" to come before
@@ -275,7 +264,7 @@
 .btn-light {
   background: $white;
   border: 0;
-  color: $mediumgrey;
+  color: $mediumgrey-light;
   font-size: $font-size-small;
   font-weight: 600;
   padding: 0.5rem 0.75rem;
@@ -298,7 +287,7 @@
   &:disabled,
   &.disabled {
     background: $white;
-    color: $mediumgrey;
+    color: $mediumgrey-light;
     opacity: 0.7;
   }
 
@@ -347,9 +336,12 @@
     }
   }
 
-  &.icon-clear,
   &.icon-filter {
     font-size: $font-size-large;
+  }
+
+  &.icon-clear {
+    font-size: $font-size-small;
   }
 
   &:hover {

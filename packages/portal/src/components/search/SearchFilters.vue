@@ -22,14 +22,16 @@
             >
               {{ filtersTitle }}
             </h2>
-            <button
+            <b-button
               v-if="hasResettableFilters"
-              class="btn btn-outline-primary"
+              variant="light"
+              class="d-inline-flex align-items-center"
               data-qa="reset filters button"
               @click="resetFilters"
             >
-              {{ $t('actions.resetFilters') }}
-            </button>
+              <span class="icon-clear d-block pr-2" />
+              {{ $t('actions.clearFilters') }}
+            </b-button>
           </b-row>
           <b-row class="mb-3 mt-4">
             <b-col
