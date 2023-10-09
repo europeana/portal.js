@@ -9,6 +9,7 @@
       >
         <b-form
           data-qa="search query builder form"
+          autocomplete="off"
           @submit.prevent="handleSubmitForm"
         >
           <transition-group
