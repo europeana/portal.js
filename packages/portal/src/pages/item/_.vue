@@ -222,6 +222,7 @@
       await this.fetchMetadata();
 
       if (this.iiifPresentationManifest) {
+        // TODO: Image API info.json too
         this.headLinkPreload.push({ href: this.iiifPresentationManifest, as: 'fetch' });
       }
     },

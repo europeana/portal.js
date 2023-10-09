@@ -71,7 +71,9 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       record: {
         getRecord: sinon.stub().resolves({}),
         search: sinon.spy()
-      }
+      },
+      set: {},
+      thumbnail: {}
     }
   },
   store
