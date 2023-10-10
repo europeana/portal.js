@@ -40,6 +40,7 @@ export default {
     "apply": "Aplică",
     "cancel": "Anulează",
     "clear": "Curăță",
+    "clearFilters": "Ștergeți filtrele",
     "close": "închidere",
     "continue": "continua",
     "depublish": "Depublicați",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Citește mai mult",
     "reject": "Respinge",
     "requestDepublication": "Solicitați depublicarea",
-    "resetFilters": "Resetați filtrele",
     "save": "Salva",
     "send": "Trimite",
     "share": "Distribuiți",
@@ -81,7 +81,7 @@ export default {
     "country": "Țară:",
     "creator": "Creator:",
     "date": "Dată:",
-    "institution": "Instituție",
+    "institution": "Instituție:",
     "title": "Titlu:"
   },
   "automatedCardGroup": {
