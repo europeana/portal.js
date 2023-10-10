@@ -18,6 +18,8 @@
         view="explore"
         class="mb-0"
         data-qa="similar items"
+        :on-aux-click-card="onClickItem"
+        :on-click-card="onClickItem"
       />
       <b-link
         v-if="!$auth.loggedIn"
@@ -37,6 +39,7 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import keycloak from '@/mixins/keycloak';
+  import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
 
   export default {
     name: 'ItemRecommendations',
@@ -44,7 +47,10 @@
       ItemPreviewCardGroup
     },
 
-    mixins: [keycloak],
+    mixins: [
+      elasticApmReporterMixin,
+      keycloak
+    ],
 
     props: {
       identifier: {
@@ -122,6 +128,19 @@
         return langMapValueForLocale(value, this.$i18n.locale)
           .values
           .filter(item => typeof item === 'string');
+      },
+      // NOTE: do not use computed properties here as they may change when the
+      //       item is clicked
+      onClickItem(identifier) {
+        const itemCount = this.items.length;
+        const rank = this.items.findIndex(item => item.id === identifier) + 1;
+
+        this.logApmTransaction({
+          name: 'Similar items - click item',
+          labels: { 'logged_in_user': !!this.$auth.loggedIn,
+                    'similar_items_count': itemCount,
+                    'similar_item_rank': rank }
+        });
       }
     }
   };
