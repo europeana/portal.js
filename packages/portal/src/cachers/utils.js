@@ -13,14 +13,6 @@ const createRedisClient = (config = {}) => {
   return redisClient;
 };
 
-const fallbackApiUrl = (apiId) => {
-  if (apiId === 'record') {
-    return EuropeanaRecordApi.BASE_URL;
-  } else if (apiId === 'entity') {
-    return EuropeanaEntityAPi.BASE_URL;
-  }
-};
-
 const createEuropeanaApiClient = (config = {}) => {
   return axios.create({
     baseURL: config.url || fallbackApiUrl(config.id),
@@ -44,6 +36,14 @@ const errorMessage = (error) => {
   }
 
   return message;
+};
+
+const fallbackApiUrl = (apiId) => {
+  if (apiId === 'record') {
+    return EuropeanaRecordApi.BASE_URL;
+  } else if (apiId === 'entity') {
+    return EuropeanaEntityAPi.BASE_URL;
+  }
 };
 
 const localiseOne = (item, fields, locale) => {
@@ -89,6 +89,7 @@ export {
   createEuropeanaApiClient,
   createRedisClient,
   errorMessage,
+  fallbackApiUrl,
   daily,
   localise,
   pick,
