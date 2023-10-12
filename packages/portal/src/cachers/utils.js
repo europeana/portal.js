@@ -2,6 +2,8 @@ import axios from 'axios';
 import { createClient } from 'redis';
 import _pick from 'lodash/pick.js';
 import { daily, langMapValueForLocale } from '../plugins/europeana/utils.js';
+import EuropeanaRecordApi from '../plugins/europeana/record.js';
+import EuropeanaEntityAPi from '../plugins/europeana/entity.js';
 
 const createRedisClient = (config = {}) => {
   const redisClient = createClient(config);
@@ -11,9 +13,17 @@ const createRedisClient = (config = {}) => {
   return redisClient;
 };
 
+const fallbackApiUrl = (apiId) => {
+  if (apiId === 'record') {
+    return EuropeanaRecordApi.BASE_URL;
+  } else if (apiId === 'entity') {
+    return EuropeanaEntityAPi.BASE_URL;
+  }
+};
+
 const createEuropeanaApiClient = (config = {}) => {
   return axios.create({
-    baseURL: config.url,
+    baseURL: config.url || fallbackApiUrl(config.id),
     params: {
       wskey: config.key
     }
