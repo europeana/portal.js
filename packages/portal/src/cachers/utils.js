@@ -3,7 +3,7 @@ import { createClient } from 'redis';
 import _pick from 'lodash/pick.js';
 import { daily, langMapValueForLocale } from '../plugins/europeana/utils.js';
 import EuropeanaRecordApi from '../plugins/europeana/record.js';
-import EuropeanaEntityAPi from '../plugins/europeana/entity.js';
+import EuropeanaEntityApi from '../plugins/europeana/entity.js';
 
 const createRedisClient = (config = {}) => {
   const redisClient = createClient(config);
@@ -42,7 +42,7 @@ const fallbackApiUrl = (apiId) => {
   if (apiId === 'record') {
     return EuropeanaRecordApi.BASE_URL;
   } else if (apiId === 'entity') {
-    return EuropeanaEntityAPi.BASE_URL;
+    return EuropeanaEntityApi.BASE_URL;
   }
 };
 
