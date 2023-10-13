@@ -81,7 +81,8 @@
 
     data() {
       return {
-        items: []
+        items: [],
+        algorithmUsedToFetchSimilarItems: null
       };
     },
 
@@ -96,6 +97,7 @@
           // TODO: remove if/when recommendations become useful.
           .filter((item) => item.id !== this.identifier)
           .slice(0, 8);
+        this.algorithmUsedToFetchSimilarItems = 'Recommendation API';
       } else {
         response = await this.$apis.record.search({
           query: similarItemsQuery(this.identifier, this.similarItemsFields),
@@ -104,6 +106,7 @@
           profile: 'minimal',
           facet: ''
         });
+        this.algorithmUsedToFetchSimilarItems = 'Portal similar items query';
       }
 
       this.items = response.items;
@@ -131,14 +134,17 @@
       },
       // NOTE: do not use computed properties here as they may change when the
       //       item is clicked
-      onClickItem(identifier) {
+      onClickItem(clickedItemId) {
         const itemCount = this.items.length;
-        const rank = this.items.findIndex(item => item.id === identifier) + 1;
+        const rank = this.items.findIndex(item => item.id === clickedItemId) + 1;
 
         this.logApmTransaction({
           name: 'Similar items - click item',
           labels: { 'logged_in_user': !!this.$auth.loggedIn,
+                    'similar_items_algorithm_used': this.algorithmUsedToFetchSimilarItems,
+                    'similar_items_clicked_item': clickedItemId,
                     'similar_items_count': itemCount,
+                    'similar_items_current_item': this.identifier,
                     'similar_item_rank': rank }
         });
       }
