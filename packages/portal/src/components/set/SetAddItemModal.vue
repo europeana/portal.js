@@ -44,6 +44,7 @@
 </template>
 
 <script>
+  import logEventMixin from '@/mixins/logEvent';
   import SetAddItemButton from './SetAddItemButton';
 
   export default {
@@ -52,6 +53,10 @@
     components: {
       SetAddItemButton
     },
+
+    mixins: [
+      logEventMixin
+    ],
 
     props: {
       itemId: {
@@ -135,6 +140,7 @@
             this.added = this.added.filter(id => id !== setId);
           } else {
             await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
+            this.logEvent('add');
             this.added.push(setId);
           }
         } catch (e) {

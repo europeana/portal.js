@@ -37,6 +37,10 @@ const cacheMiddleware = (req, res) => cache(runtimeConfig.redis)(req, res);
 app.get('/cache', cacheMiddleware);
 app.get('/cache/*', cacheMiddleware);
 
+import logEvent from './events/log.js';
+const logEventMiddleware = (req, res) => logEvent(runtimeConfig.postgres)(req, res);
+app.post('/events/log', logEventMiddleware);
+
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));
 

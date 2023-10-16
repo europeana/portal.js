@@ -22,6 +22,7 @@
   import axios from 'axios';
   import LoadingSpinner from '../generic/LoadingSpinner';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
+  import logEventMixin from '@/mixins/logEvent';
 
   export default {
     name: 'DownloadButton',
@@ -29,7 +30,8 @@
       LoadingSpinner
     },
     mixins: [
-      canonicalUrlMixin
+      canonicalUrlMixin,
+      logEventMixin
     ],
     props: {
       url: {
@@ -128,11 +130,14 @@
         });
       },
       trackDownload() {
-        if (!this.disabled && this.$matomo) {
-          this.$matomo.trackLink(this.canonicalUrl({ fullPath: false, locale: false }), 'download');
-          if (!this.clicked) {
-            this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
-            this.clicked = true;
+        if (!this.disabled) {
+          this.logEvent('download');
+          if (this.$matomo) {
+            this.$matomo.trackLink(this.canonicalUrl({ fullPath: false, locale: false }), 'download');
+            if (!this.clicked) {
+              this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
+              this.clicked = true;
+            }
           }
         }
       }

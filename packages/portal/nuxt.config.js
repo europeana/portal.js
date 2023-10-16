@@ -39,6 +39,20 @@ const redisConfig = () => {
   return redisOptions;
 };
 
+const postgresConfig = () => {
+  const postgresOptions = {
+    connectionString: process.env.POSTGRES_URL
+  };
+
+  if (process.env.POSTGRES_SSL_CA) {
+    postgresOptions.ssl = {
+      ca: Buffer.from(process.env.REDIS_TLS_CA, 'base64')
+    };
+  }
+
+  return postgresOptions;
+};
+
 export default {
   /*
   ** Runtime config
@@ -184,6 +198,7 @@ export default {
     matomo: {
       authToken: process.env.MATOMO_AUTH_TOKEN
     },
+    postgres: postgresConfig(),
     redis: redisConfig()
   },
 

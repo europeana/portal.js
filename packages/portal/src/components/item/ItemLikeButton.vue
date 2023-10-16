@@ -27,12 +27,14 @@
 
 <script>
   import keycloak from '@/mixins/keycloak';
+  import logEventMixin from '@/mixins/logEvent';
 
   export default {
     name: 'ItemLikeButton',
 
     mixins: [
-      keycloak
+      keycloak,
+      logEventMixin
     ],
 
     props: {
@@ -101,6 +103,7 @@
 
         try {
           await this.$store.dispatch('set/like', this.identifier);
+          this.logEvent('like');
           this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
