@@ -2,24 +2,13 @@
   <header
     id="header"
     v-visible-on-scroll
-    class="m-0 header-navbar container-fluid d-flex justify-content-between show xxl-page"
+    class="container-fluid m-0 show xxl-page"
     role="banner"
     :aria-label="$t('header.europeanaHome')"
     data-qa="header"
   >
     <div
-      v-if="showSearchBar"
-      class="d-flex justify-content-center w-100"
-      data-qa="search form wrapper"
-    >
-      <SearchForm
-        :in-top-nav="true"
-        :show="showSearchBar"
-        :hidable-form="true"
-      />
-    </div>
-    <template
-      v-else
+      class="header-navbar d-flex justify-content-between"
     >
       <b-button
         v-b-toggle.sidebar
@@ -99,7 +88,18 @@
           <div />
         </b-navbar>
       </b-sidebar>
-    </template>
+    </div>
+    <div
+      v-if="showSearchBar"
+      class="search-bar d-flex justify-content-center"
+      data-qa="search form wrapper"
+    >
+      <SearchForm
+        :in-top-nav="true"
+        :show="showSearchBar"
+        :hidable-form="true"
+      />
+    </div>
   </header>
 </template>
 
@@ -161,21 +161,15 @@
 
   .container-fluid {
     background: $white;
-    height: 3.5rem;
     position: fixed;
     right: 0;
     top: 0;
     left: 0;
     z-index: 1030;
     padding: 0;
-    box-shadow: $boxshadow-small;
 
     @media (min-width: $bp-large) {
       transition: $standard-transition;
-    }
-
-    @media (min-width: $bp-4k) {
-      height: calc(1.5 * 3.5rem);
     }
 
     &:not(.show) {
@@ -198,7 +192,14 @@
 
   .header-navbar {
     min-width: 11.0625rem;
-    flex: 0 0 auto;
+    height: 3.5rem;
+    box-shadow: $boxshadow-small;
+    position: relative;
+    z-index: 10;
+
+    @media (min-width: $bp-4k) {
+      height: calc(1.5 * 3.5rem);
+    }
 
     .logo {
       min-width: 9.5625rem;
@@ -280,6 +281,11 @@
     @media (min-width: $bp-medium) {
       display: none;
     }
+  }
+
+  .search-bar {
+    background-color: $white;
+    box-shadow: $boxshadow-light;
   }
 
 </style>

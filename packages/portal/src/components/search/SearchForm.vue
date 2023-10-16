@@ -366,12 +366,12 @@
       display: block;
       box-shadow: $boxshadow-light;
       position: absolute;
-      top: 3.45rem;
       width: 100%;
       z-index: 20;
       border-radius: 0;
       background-color: $white;
       transition: $standard-transition;
+      border-top: 1px solid $bodygrey;
 
       @media (min-width: $bp-4k) {
         top: calc(1.5 * 3.45rem);
