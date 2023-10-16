@@ -175,7 +175,7 @@
 
     mounted() {
       this.initQuery();
-      this.inTopNav && this.$nextTick(() => {
+      !this.onSearchablePage && this.inTopNav && this.$nextTick(() => {
         this.$refs.searchinput.$el.focus();
       });
     },

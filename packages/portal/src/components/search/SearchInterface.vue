@@ -2,6 +2,7 @@
   <b-container
     data-qa="search interface"
     class="white-page pt-5 page-container side-filters-enabled"
+    :class="{ 'search-bar-open': showSearchBar }"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -273,12 +274,12 @@
     },
 
     async fetch() {
+      this.$store.commit('search/setActive', true);
+
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
       this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
       this.setViewFromRouteQuery();
-
-      this.$store.commit('search/setActive', true);
 
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
@@ -420,6 +421,9 @@
       },
       qasWithSelectedEntityValue() {
         return this.$store.state.search.qasWithSelectedEntityValue;
+      },
+      showSearchBar() {
+        return this.$store.state.search.showSearchBar;
       }
     },
 
@@ -431,6 +435,12 @@
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged'
+    },
+
+    mounted() {
+      if (this.query) {
+        this.$store.commit('search/setShowSearchBar', true);
+      }
     },
 
     destroyed() {
@@ -677,5 +687,9 @@
       content: '>';
     }
   }
+}
+
+.search-bar-open {
+  padding-top: 6.5rem !important;
 }
 </style>
