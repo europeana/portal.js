@@ -2,7 +2,7 @@
   <div
     v-show="showForm"
     ref="searchdropdown"
-    class="open"
+    class="search-dropdown open"
     :class="{
       'top-search': inTopNav,
       'suggestions-open': showSearchOptions
@@ -30,7 +30,7 @@
         role="combobox"
         :aria-owns="showSearchOptions ? 'search-form-options' : null"
         :aria-expanded="showSearchOptions"
-        class="auto-suggest pr-3"
+        class="auto-suggest"
       >
         <b-form-input
           ref="searchinput"
@@ -54,9 +54,6 @@
       variant="light-flat"
       :aria-label="$t('header.clearQuery')"
       @click="clearQuery"
-    />
-    <SearchFilterToggleButton
-      v-if="inTopNav"
     />
     <div
       v-show="showSearchOptions"
@@ -90,7 +87,6 @@
 
     components: {
       SearchQueryOptions,
-      SearchFilterToggleButton: () => import('./SearchFilterToggleButton'),
       SearchThemeBadges: () => import('@/components/search/SearchThemeBadges')
     },
 
@@ -265,7 +261,7 @@
 
         .form-control {
           background-color: $white;
-          padding: 0.375rem 4.5rem 0.375rem 3.5rem;
+          padding: 0.375rem 1rem 0.375rem 3.5rem;
           height: 3.4rem;
           box-shadow: none;
           border-radius: 0;
@@ -341,7 +337,7 @@
 
     .clear-button {
       position: absolute;
-      right: 3.5rem;
+      right: 1rem;
       top: 1rem;
       z-index: 99;
 

@@ -155,6 +155,20 @@
         :user-params="userParams"
       >
         <b-row
+          class="filter-sheet-header d-lg-none py-3"
+        >
+          <b-button
+            data-qa="close filters button"
+            class="button-icon-only icon-clear mr-3 ml-auto"
+            variant="light-flat"
+            :aria-label="$t('header.closeSidebar')"
+            @click="toggleFilterSheet"
+          />
+        </b-row>
+        <SearchForm
+          class="d-lg-none"
+        />
+        <b-row
           class="d-flex justify-content-between align-items-center flex-nowrap"
         >
           <span
@@ -178,13 +192,6 @@
               variant="light-flat"
             />
           </span>
-          <b-button
-            data-qa="close filters button"
-            class="button-icon-only icon-clear mx-3"
-            variant="light-flat"
-            :aria-label="$t('header.closeSidebar')"
-            @click="toggleFilterSheet"
-          />
         </b-row>
         <transition
           name="fade"
@@ -221,6 +228,7 @@
     components: {
       ErrorMessage: () => import('../error/ErrorMessage'),
       SearchBoostingForm: () => import('./SearchBoostingForm'),
+      SearchForm: () => import('./SearchForm'),
       SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
@@ -691,5 +699,9 @@
 
 .search-bar-open {
   padding-top: 6.5rem !important;
+}
+
+.filter-sheet-header {
+  border-bottom: 1px solid $middlegrey;
 }
 </style>

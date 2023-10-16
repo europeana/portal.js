@@ -581,6 +581,21 @@
             margin-right: 0;
           }
         }
+
+        ::v-deep .search-dropdown {
+          width: auto;
+          margin-left: -15px;
+          margin-right: -15px;
+
+          .search-form {
+            padding-left: 0;
+            box-shadow: $boxshadow-light;
+
+            &::before {
+              content: '';
+            }
+          }
+        }
       }
 
       &.hide {
