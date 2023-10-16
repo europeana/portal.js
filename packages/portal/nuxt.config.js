@@ -46,7 +46,8 @@ const postgresConfig = () => {
 
   if (process.env.POSTGRES_SSL_CA) {
     postgresOptions.ssl = {
-      ca: Buffer.from(process.env.REDIS_TLS_CA, 'base64')
+      ca: Buffer.from(process.env.POSTGRES_SSL_CA, 'base64'),
+      rejectUnauthorized: false
     };
   }
 
