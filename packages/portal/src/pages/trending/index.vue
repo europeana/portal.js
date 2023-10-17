@@ -50,7 +50,7 @@
         items: null,
         pageMeta: {
           title: 'Trending items'
-        },
+        }
       };
     },
 

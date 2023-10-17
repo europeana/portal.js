@@ -1,11 +1,16 @@
 import axios from 'axios';
+import isbot from 'isbot';
 import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
 export default {
   methods: {
-    // TODO: log user agent and session id?
     logEvent(actionType, itemIdentifier) {
-      if (!this.$features.eventLogging) {
+      const loggingPermitted = this.$features.eventLogging &&
+        process.client &&
+        !isbot(navigator?.userAgent) &&
+        this.$sessionId;
+
+      if (!loggingPermitted) {
         return;
       }
 
@@ -16,7 +21,8 @@ export default {
 
       const postData = {
         actionType,
-        objectUri
+        objectUri,
+        sessionId: this.$sessionId
       };
 
       return axios.create({
