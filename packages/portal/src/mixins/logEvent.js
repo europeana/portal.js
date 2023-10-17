@@ -22,6 +22,7 @@ export default {
       const postData = {
         actionType,
         objectUri,
+        // FIXME: different session ids result from opening new tabs...
         sessionId: this.$sessionId
       };
 
