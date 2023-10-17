@@ -39,11 +39,10 @@ app.get('/cache/*', cacheMiddleware);
 
 import logEvent from './events/log.js';
 const logEventMiddleware = (req, res) => logEvent(runtimeConfig.postgres)(req, res);
-app.post('/events/log', logEventMiddleware);
-import eventTrends from './events/trends.js';
-const eventTrendsMiddleware = (req, res) => eventTrends(runtimeConfig.postgres)(req, res);
-// TODO: rename to "trending"
-app.get('/events/trends', eventTrendsMiddleware);
+app.post('/events', logEventMiddleware);
+import eventTrending from './events/trending.js';
+const eventTrendingMiddleware = (req, res) => eventTrending(runtimeConfig.postgres)(req, res);
+app.get('/events/trending', eventTrendingMiddleware);
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));

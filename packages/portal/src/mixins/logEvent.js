@@ -28,7 +28,7 @@ export default {
       return axios.create({
         baseURL: this.$config.app.baseUrl
       }).post(
-        '/_api/events/log',
+        '/_api/events',
         postData
       );
     }

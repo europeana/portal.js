@@ -57,7 +57,7 @@
     async fetch() {
       const trendsResponse = await axios.create({
         baseURL: this.$config.app.baseUrl
-      }).get('/_api/events/trends');
+      }).get('/_api/events/trending');
 
       const itemIds = trendsResponse.data.items.map((item) => recordIdFromUrl(item.uri));
 
