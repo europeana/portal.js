@@ -10,10 +10,12 @@
   >
     <b-button
       v-if="inTopNav"
+      v-b-tooltip.bottom
       data-qa="back button"
       class="button-icon-only icon-chevron back-button"
       variant="light-flat"
-      :aria-label="$t('header.backToMenu')"
+      :aria-label="$t('header.collapseSearchBar')"
+      :title="$t('header.collapseSearchBar')"
       @click.prevent="handleHide"
     />
     <b-form
