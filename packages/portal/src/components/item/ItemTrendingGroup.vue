@@ -36,7 +36,11 @@
       const itemIds = trendsResponse.data.items.map((item) => recordIdFromUrl(item.uri));
 
       const findResponse = await this.$apis.record.find(itemIds);
-      this.items = findResponse.items;
+
+      // reorder based on trending
+      this.items = itemIds
+        .map((id) => findResponse.items.find((item) => item.id === id))
+        .filter((item) => !!item);
     }
   };
 </script>
