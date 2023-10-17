@@ -37,6 +37,9 @@ const cacheMiddleware = (req, res) => cache(runtimeConfig.redis)(req, res);
 app.get('/cache', cacheMiddleware);
 app.get('/cache/*', cacheMiddleware);
 
+// TODO: move to a standalone express micro-service, so the portal.js app does
+//       not have a direct dependency on postgres, indeed need not know what
+//       back-end storage is used.
 import logEvent from './events/log.js';
 const logEventMiddleware = (req, res) => logEvent(runtimeConfig.postgres)(req, res);
 app.post('/events', logEventMiddleware);
