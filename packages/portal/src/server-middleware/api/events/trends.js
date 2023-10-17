@@ -15,6 +15,7 @@ export default (options = {}) => async(req, res) => {
       FROM events.actions a
       LEFT JOIN events.objects o ON a.object_id=o.id
       WHERE a.occurred_at > (current_date - INTERVAL '1 day')
+      AND o.uri LIKE '%/item/%'
       GROUP BY o.uri
       ORDER BY num DESC
       LIMIT 4
