@@ -3,6 +3,7 @@ import { Client } from 'pg';
 let client;
 
 // TODO: use `next` for error handling
+// TODO: accept multiple uris for the same action
 export default (options = {}) => async(req, res) => {
   try {
     if (!client) {
