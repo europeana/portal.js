@@ -45,7 +45,7 @@
           :aria-label="$t('search.title')"
           @click="toggleSearchBar"
         />
-        <SearchFilterToggleButton />
+        <SearchSidebarToggleButton />
       </b-navbar>
       <b-sidebar
         id="sidebar"
@@ -107,7 +107,7 @@
   import SmartLink from '../generic/SmartLink';
   import SearchForm from '../search/SearchForm';
   import PageNavigation from './PageNavigation';
-  import SearchFilterToggleButton from '../search/SearchFilterToggleButton';
+  import SearchSidebarToggleButton from '../search/SearchSidebarToggleButton';
 
   export default {
     name: 'PageHeader',
@@ -116,7 +116,7 @@
       SmartLink,
       SearchForm,
       PageNavigation,
-      SearchFilterToggleButton
+      SearchSidebarToggleButton
     },
 
     data() {

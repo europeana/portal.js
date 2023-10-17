@@ -1,11 +1,11 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import SearchFilterToggleButton from '@/components/search/SearchFilterToggleButton.vue';
+import SearchSidebarToggleButton from '@/components/search/SearchSidebarToggleButton.vue';
 import BootstrapVue from 'bootstrap-vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ mocks = {} } = {}) => shallowMount(SearchFilterToggleButton, {
+const factory = ({ mocks = {} } = {}) => shallowMount(SearchSidebarToggleButton, {
   localVue,
   mocks: {
     $route: {
@@ -18,26 +18,26 @@ const factory = ({ mocks = {} } = {}) => shallowMount(SearchFilterToggleButton, 
   }
 });
 
-describe('components/search/SearchFilterToggleButton', () => {
+describe('components/search/SearchSidebarToggleButton', () => {
   describe('template', () => {
-    describe('when no side filters are on the page', () => {
-      describe('the filter toggle button', () => {
+    describe('when no search sidebar is on the page', () => {
+      describe('the sidebar toggle button', () => {
         it('should not exist', () => {
-          const wrapper = factory({ mocks: { $store: { state: { search: { showFiltersToggle: false } } } } });
+          const wrapper = factory({ mocks: { $store: { state: { search: { showSidebarToggle: false } } } } });
 
-          const filterButton = wrapper.find('[data-qa="search filter button"]');
-          expect(filterButton.isVisible()).toBe(false);
+          const sidebarButton = wrapper.find('[data-qa="search sidebar button"]');
+          expect(sidebarButton.isVisible()).toBe(false);
         });
       });
     });
 
-    describe('when side filters are on the page', () => {
-      describe('the filter toggle button', () => {
+    describe('when search sidebar is on the page', () => {
+      describe('the sidebar toggle button', () => {
         it('should exist', () => {
-          const wrapper = factory({ mocks: { $store: { state: { search: { showFiltersToggle: true } } } } });
+          const wrapper = factory({ mocks: { $store: { state: { search: { showSidebarToggle: true } } } } });
 
-          const filterButton = wrapper.find('[data-qa="search filter button"]');
-          expect(filterButton.isVisible()).toBe(true);
+          const sidebarButton = wrapper.find('[data-qa="search sidebar button"]');
+          expect(sidebarButton.isVisible()).toBe(true);
         });
       });
     });

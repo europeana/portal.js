@@ -1,22 +1,22 @@
 <template>
   <b-button
-    v-show="showFiltersToggle"
-    data-qa="search filter button"
+    v-show="showSidebarToggle"
+    data-qa="search sidebar button"
     class="icon-filter p-0 ml-3 my-3"
     :class="{ 'filters-applied' : hasSelectedFilters }"
     variant="light-flat"
     :aria-label="$t('actions.filter')"
-    @click="toggleFilterSheet"
+    @click="toggleSearchSidebar"
   />
 </template>
 
 <script>
   export default {
-    name: 'SearchFilterToggleButton',
+    name: 'SearchSidebarToggleButton',
 
     computed: {
-      showFiltersToggle() {
-        return this.$store.state.search.showFiltersToggle;
+      showSidebarToggle() {
+        return this.$store.state.search.showSidebarToggle;
       },
 
       hasSelectedFilters() {
@@ -26,8 +26,8 @@
     },
 
     methods: {
-      toggleFilterSheet() {
-        this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+      toggleSearchSidebar() {
+        this.$store.commit('search/setShowSearchSidebar', !this.$store.state.search.showSearchSidebar);
       }
     }
   };
