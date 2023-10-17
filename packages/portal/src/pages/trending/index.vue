@@ -47,10 +47,7 @@
 
     data() {
       return {
-        items: null,
-        pageMeta: {
-          title: 'Trending items'
-        }
+        items: null
       };
     },
 
@@ -67,6 +64,15 @@
       this.items = itemIds
         .map((id) => findResponse.items.find((item) => item.id === id))
         .filter((item) => !!item);
+    },
+
+    computed: {
+      pageMeta() {
+        return {
+          title: 'Trending items'
+        };
+      },
+
     }
   };
 </script>

@@ -4,9 +4,9 @@ import isbot from 'isbot';
 let client;
 
 // TODO: use `next` for error handling
+// TODO: end pg conn when done?
 // TODO: accept multiple uris for the same action
-// TODO: log user agent and session id?
-// TODO: rate limit to 1 action per session id per 24 hours?
+// TODO: log user agent?
 // TODO: validate action_types
 export default (options = {}) => async(req, res) => {
   try {
@@ -17,6 +17,10 @@ export default (options = {}) => async(req, res) => {
 
     if (!client) {
       client = new Client(options);
+      client.on('error', (err) => {
+        console.error('PostgreSQL client error', err);
+        client = null;
+      });
       await client.connect();
     }
 
@@ -83,8 +87,8 @@ export default (options = {}) => async(req, res) => {
     );
 
     res.sendStatus(201);
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
     res.sendStatus(500);
   }
 };

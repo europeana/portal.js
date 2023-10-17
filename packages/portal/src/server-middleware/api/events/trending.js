@@ -3,10 +3,15 @@ import { Client } from 'pg';
 let client;
 
 // TODO: use `next` for error handling
+// TODO: end pg conn when done?
 export default (options = {}) => async(req, res) => {
   try {
     if (!client) {
       client = new Client(options);
+      client.on('error', (err) => {
+        console.error('PostgreSQL client error', err);
+        client = null;
+      });
       await client.connect();
     }
 
