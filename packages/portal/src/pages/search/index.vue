@@ -45,6 +45,16 @@
           </b-container>
         </client-only>
       </template>
+      <template
+        v-else
+        #after-results
+      >
+        <client-only>
+          <b-container class="px-0">
+            <ItemTrendingGroup />
+          </b-container>
+        </client-only>
+      </template>
     </SearchInterface>
   </div>
 </template>
@@ -62,7 +72,8 @@
       SearchInterface,
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       RelatedGalleries: () => import('@/components/related/RelatedGalleries'),
-      RelatedCollectionsCard: () => import('@/components/related/RelatedCollectionsCard')
+      RelatedCollectionsCard: () => import('@/components/related/RelatedCollectionsCard'),
+      ItemTrendingGroup: () => import('@/components/item/ItemTrendingGroup')
     },
 
     mixins: [pageMetaMixin],

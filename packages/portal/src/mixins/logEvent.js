@@ -16,7 +16,7 @@ export default {
         actionType,
         objectUri: this.canonicalUrl({ fullPath: false, locale: false })
       };
-      console.log('logEvent', postData);
+
       // TODO: validate contents of postData, e.g.
       //       { objectUri: "https:/www.europeana.eu/item/123/abc", actionType: "view" }
       // TODO: exclude certain user agents, e.g. bots
