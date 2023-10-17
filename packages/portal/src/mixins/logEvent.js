@@ -3,6 +3,8 @@ import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
 export default {
   methods: {
+    // TODO: exclude certain user agents, e.g. bots
+    // TODO: log user agent and session id?
     logEvent(actionType, itemIdentifier) {
       if (!this.$features.eventLogging) {
         return;
@@ -17,10 +19,6 @@ export default {
         actionType,
         objectUri
       };
-
-      // TODO: validate contents of postData, e.g.
-      //       { objectUri: "https:/www.europeana.eu/item/123/abc", actionType: "view" }
-      // TODO: exclude certain user agents, e.g. bots
 
       return axios.create({
         baseURL: this.$config.app.baseUrl
