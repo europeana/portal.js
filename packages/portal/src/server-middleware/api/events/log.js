@@ -1,4 +1,5 @@
 import { Client } from 'pg';
+import isbot from 'isbot';
 
 let client;
 
@@ -6,6 +7,11 @@ let client;
 // TODO: accept multiple uris for the same action
 export default (options = {}) => async(req, res) => {
   try {
+    if (isbot(req.get('user-agent'))) {
+      res.sendStatus(200);
+      return;
+    }
+
     if (!client) {
       client = new Client(options);
       await client.connect();

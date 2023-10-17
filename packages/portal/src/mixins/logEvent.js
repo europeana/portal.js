@@ -3,7 +3,6 @@ import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
 export default {
   methods: {
-    // TODO: exclude certain user agents, e.g. bots
     // TODO: log user agent and session id?
     logEvent(actionType, itemIdentifier) {
       if (!this.$features.eventLogging) {
