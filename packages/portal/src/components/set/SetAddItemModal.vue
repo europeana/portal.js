@@ -140,7 +140,7 @@
             this.added = this.added.filter(id => id !== setId);
           } else {
             await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
-            this.logEvent('add');
+            this.logEvent('add', this.itemId);
             this.added.push(setId);
           }
         } catch (e) {

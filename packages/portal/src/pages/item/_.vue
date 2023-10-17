@@ -337,7 +337,7 @@
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
-      this.logEvent('view');
+      this.logEvent('view', this.identifier);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }

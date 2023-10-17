@@ -342,7 +342,8 @@
             if (this.currentStep < 3) {
               this.goToStep(this.currentStep + 1);
             }
-            this.logEvent('feedback');
+            // TODO: limit to item pages
+            // this.logEvent('feedback');
           })
           .catch(() => {
             this.requestSuccess = false;

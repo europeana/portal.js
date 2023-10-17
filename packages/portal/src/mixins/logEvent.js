@@ -1,20 +1,21 @@
 import axios from 'axios';
-import canonicalUrlMixin from '@/mixins/canonicalUrl';
+import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
 export default {
-  mixins: [
-    canonicalUrlMixin
-  ],
-
   methods: {
-    logEvent(actionType) {
+    logEvent(actionType, itemIdentifier) {
       if (!this.$features.eventLogging) {
         return;
       }
 
+      let objectUri = itemIdentifier;
+      if (!objectUri.startsWith(ITEM_URL_PREFIX)) {
+        objectUri = `${ITEM_URL_PREFIX}${objectUri}`;
+      }
+
       const postData = {
         actionType,
-        objectUri: this.canonicalUrl({ fullPath: false, locale: false })
+        objectUri
       };
 
       // TODO: validate contents of postData, e.g.
