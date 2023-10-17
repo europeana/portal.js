@@ -10,8 +10,10 @@ let client;
 // TODO: validate action_types
 export default (options = {}) => async(req, res) => {
   try {
+    // Respond early as clients don't need to wait for the results of this logging
+    res.sendStatus(204);
+
     if (isbot(req.get('user-agent'))) {
-      res.sendStatus(204);
       return;
     }
 
@@ -73,7 +75,6 @@ export default (options = {}) => async(req, res) => {
     if (selectActionResult.rowCount > 0) {
       // this session has already logged this action type for this object in the
       // past 24 hours; don't log it again
-      res.sendStatus(204);
       return;
     }
 
@@ -85,10 +86,7 @@ export default (options = {}) => async(req, res) => {
       `,
     [objectRow.id, sessionRow.id, actionType]
     );
-
-    res.sendStatus(201);
   } catch (err) {
     console.error(err);
-    res.sendStatus(500);
   }
 };
