@@ -41,6 +41,7 @@
           id="show-search-button"
           data-qa="show search button"
           class="button-icon-only icon-search ml-lg-3"
+          :class="{ 'query-applied': hasQuery }"
           variant="light-flat"
           :aria-label="$t('search.title')"
           @click="toggleSearchBar"
@@ -129,6 +130,9 @@
     computed: {
       showSearchBar() {
         return this.$store.state.search.showSearchBar;
+      },
+      hasQuery() {
+        return this.$route.query.query;
       }
     },
 
@@ -142,6 +146,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
   @import '@europeana/style/scss/icons';
 
   ::v-deep .b-sidebar-backdrop.bg-black {
@@ -286,6 +291,16 @@
   .search-bar {
     background-color: $white;
     box-shadow: $boxshadow-light;
+  }
+
+  .query-applied {
+    position: relative;
+
+    @include status-indicator;
+    &::after {
+      right: 6px;
+      top: 0px;
+    }
   }
 
 </style>
