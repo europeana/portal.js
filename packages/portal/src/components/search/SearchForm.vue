@@ -350,6 +350,7 @@
 
       @media (max-width: ($bp-large - 1px)) {
         font-size: 0;
+        right: 0.5rem;
 
         .icon-clear {
           line-height: 1.5;
@@ -429,12 +430,18 @@
 
     .clear-button {
       position: absolute;
-      right: 1rem;
-      top: 1rem;
+      right: 0.5rem;
+      top: 0.5rem;
       z-index: 99;
       display: flex;
       justify-content: center;
       align-items: center;
+      font-size: 0;
+
+      .icon-clear {
+        line-height: 1.5;
+        font-size: 0.875rem;
+      }
     }
 
     ::v-deep .list-group-item {
