@@ -28,7 +28,7 @@ export default (options = {}) => async(req, res) => {
       AND o.uri LIKE '%/item/%'
       GROUP BY o.uri
       ORDER BY num DESC
-      LIMIT 4
+      LIMIT 10
       `
     );
 
