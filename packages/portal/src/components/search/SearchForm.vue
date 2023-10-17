@@ -11,7 +11,7 @@
     <b-button
       v-if="inTopNav"
       data-qa="back button"
-      class="button-icon-only icon-back back-button"
+      class="button-icon-only icon-chevron back-button"
       variant="light-flat"
       :aria-label="$t('header.backToMenu')"
       @click.prevent="handleHide"
@@ -50,11 +50,13 @@
     <b-button
       v-show="query"
       data-qa="clear button"
-      class="button-icon-only icon-clear clear-button"
-      variant="light-flat"
-      :aria-label="$t('header.clearQuery')"
+      class="clear-button"
+      variant="light"
       @click="clearQuery"
-    />
+    >
+      <span class="icon-clear pr-lg-2" />
+      {{ $t('actions.clear') }}
+    </b-button>
     <div
       v-show="showSearchOptions"
       id="search-suggest-dropdown"
@@ -329,6 +331,11 @@
       top: 1rem;
       z-index: 99;
 
+      &::before {
+        font-size: 0.5rem;
+        transform: rotateX(180deg);
+      }
+
       @media (min-width: $bp-4k) {
         left: 1.5rem;
         top: 1.5rem;
@@ -338,8 +345,17 @@
     .clear-button {
       position: absolute;
       right: 1rem;
-      top: 1rem;
+      top: 0.5rem;
       z-index: 99;
+
+      @media (max-width: ($bp-large - 1px)) {
+        font-size: 0;
+
+        .icon-clear {
+          line-height: 1.5;
+          font-size: 0.875rem;
+        }
+      }
 
       @media (min-width: $bp-large) {
         right: 1rem;
@@ -347,7 +363,6 @@
 
       @media (min-width: $bp-4k) {
         right: 1.5rem;
-        top: 1.5rem;
       }
     }
 
