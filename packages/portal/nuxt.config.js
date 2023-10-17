@@ -13,7 +13,7 @@ import versions from './pkg-versions.js';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
+import features, { featureIsEnabled, featureNotificationExpiration, valueIsTruthy } from './src/features/index.js';
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
@@ -41,6 +41,7 @@ const redisConfig = () => {
 
 const postgresConfig = () => {
   const postgresOptions = {
+    enabled: featureIsEnabled('eventLogging'),
     connectionString: process.env.POSTGRES_URL
   };
 
@@ -73,8 +74,8 @@ export default {
       siteName: APP_SITE_NAME,
       search: {
         collections: {
-          clientOnly: featureIsEnabled(process.env.APP_SEARCH_COLLECTIONS_CLIENT_ONLY),
-          doNotTranslate: featureIsEnabled(process.env.APP_SEARCH_COLLECTIONS_DO_NOT_TRANSLATE)
+          clientOnly: valueIsTruthy(process.env.APP_SEARCH_COLLECTIONS_CLIENT_ONLY),
+          doNotTranslate: valueIsTruthy(process.env.APP_SEARCH_COLLECTIONS_DO_NOT_TRANSLATE)
         },
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }

@@ -37,7 +37,6 @@ const cacheMiddleware = (req, res) => cache(runtimeConfig.redis)(req, res);
 app.get('/cache', cacheMiddleware);
 app.get('/cache/*', cacheMiddleware);
 
-// TODO: only enable if feature enabled in nuxt config
 import logEvent from './events/log.js';
 const logEventMiddleware = (req, res) => logEvent(runtimeConfig.postgres)(req, res);
 app.post('/events', logEventMiddleware);

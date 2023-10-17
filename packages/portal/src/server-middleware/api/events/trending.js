@@ -6,6 +6,11 @@ let client;
 // TODO: end pg conn when done?
 export default (options = {}) => async(req, res) => {
   try {
+    if (!options.enabled) {
+      res.json({ items: [] });
+      return;
+    }
+
     if (!client) {
       client = new Client(options);
       client.on('error', (err) => {

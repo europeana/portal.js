@@ -13,7 +13,7 @@ export default (options = {}) => async(req, res) => {
     // Respond early as clients don't need to wait for the results of this logging
     res.sendStatus(204);
 
-    if (isbot(req.get('user-agent'))) {
+    if (!options.enabled || isbot(req.get('user-agent'))) {
       return;
     }
 
