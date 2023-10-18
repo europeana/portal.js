@@ -38,7 +38,6 @@
             v-if="control === 'term'"
             :id="`${id}-${control}`"
             v-model="term"
-            :data-qa="`advanced search query builder: ${control} control`"
             :placeholder="$t('search.advanced.placeholder.term')"
             :state="validations.term.state"
             :suggest-entity-type="suggestEntityTypeForTerm"

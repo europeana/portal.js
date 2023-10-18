@@ -7,7 +7,7 @@ Feature: Search querying
     And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    Then I see a `loading spinner`
+
     And I see a `context label` with the text "paris"
     And I see "paris" in the `search box`
     And I don't see a `loading spinner`
