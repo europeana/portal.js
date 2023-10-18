@@ -26,6 +26,7 @@
           </b-row>
           <SearchForm
             class="d-lg-none"
+            :in-search-sidebar="true"
           />
           <b-row
             class="d-flex justify-content-between align-items-center flex-nowrap"

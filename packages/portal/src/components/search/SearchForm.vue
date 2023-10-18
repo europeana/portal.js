@@ -20,7 +20,7 @@
     />
     <b-form
       ref="form"
-      role="search"
+      :role="!inSearchSidebar && 'search'"
       :class="{'search-form': !inTopNav}"
       :aria-label="$t('header.searchForm')"
       data-qa="search form"
@@ -30,7 +30,7 @@
     >
       <b-input-group
         role="combobox"
-        :aria-owns="showSearchOptions ? 'search-form-options' : null"
+        :aria-owns="showSearchOptions ? searchFormOptionsId : null"
         :aria-expanded="showSearchOptions"
         class="auto-suggest"
       >
@@ -42,7 +42,7 @@
           data-qa="search box"
           role="searchbox"
           aria-autocomplete="list"
-          :aria-controls="showSearchOptions ? 'search-form-options' : null"
+          :aria-controls="showSearchOptions ? searchFormOptionsId : null"
           :aria-label="$t('search.title')"
           @focus="showSearchOptions = true; suggestSearchOptions = true"
           @blur="suggestSearchOptions = false"
@@ -61,13 +61,13 @@
     </b-button>
     <div
       v-show="showSearchOptions"
-      id="search-suggest-dropdown"
       class="auto-suggest-dropdown"
       data-qa="search form dropdown"
     >
       <SearchQueryOptions
+        :id="searchFormOptionsId"
         ref="searchoptions"
-        :suggest="suggestSearchOptions && inTopNav && !onSearchableCollectionPage"
+        :suggest="suggestSearchOptions && (inTopNav || inSearchSidebar) && !onSearchableCollectionPage"
         :text="query"
         :submitting="submitting"
         :show-search-options="showSearchOptions"
@@ -118,6 +118,10 @@
       hidableForm: {
         type: Boolean,
         default: false
+      },
+      inSearchSidebar: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -155,7 +159,17 @@
       },
 
       showSearchThemeBadges() {
-        return this.inTopNav && !this.onSearchableCollectionPage && !this.query;
+        return (this.inTopNav || this.inSearchSidebar) && !this.onSearchableCollectionPage && !this.query;
+      },
+
+      searchFormOptionsId() {
+        if (this.inSearchSidebar) {
+          return 'search-form-options-sidebar';
+        } else if (this.inTopNav) {
+          return 'search-form-options-top-nav';
+        } else {
+          return 'search-form-options';
+        }
       }
     },
 
@@ -175,7 +189,7 @@
 
     mounted() {
       this.initQuery();
-      !this.onSearchablePage && this.inTopNav && this.$nextTick(() => {
+      !this.query && this.inTopNav && this.$nextTick(() => {
         this.$refs.searchinput.$el.focus();
       });
     },
