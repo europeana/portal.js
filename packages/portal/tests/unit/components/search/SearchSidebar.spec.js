@@ -11,6 +11,7 @@ localVue.use(BootstrapVue);
 const factory = () => {
   return shallowMountNuxt(SearchSidebar, {
     localVue,
+    attachTo: document.body,
     mocks: {
       $t: (key) => key,
       $route: { query: {} },
@@ -48,12 +49,14 @@ describe('components/search/SearchSidebar', () => {
         expect(wrapper.vm.hideSearchSidebar).toEqual(false);
       });
       it('otherwise it hides the search sidebar', async() => {
+        jest.useFakeTimers();
         const wrapper = factory();
 
         wrapper.vm.$store.state.search.showSearchSidebar = true;
         await wrapper.vm.$nextTick();
         wrapper.vm.$store.state.search.showSearchSidebar = false;
         await wrapper.vm.$nextTick();
+        jest.advanceTimersByTime(300);
 
         expect(wrapper.vm.hideSearchSidebar).toEqual(true);
       });

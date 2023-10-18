@@ -107,7 +107,7 @@
         if (newVal) {
           this.hideSearchSidebar = false;
         } else {
-          setTimeout(this.hideSearchSidebar = true, 300);
+          setTimeout(() => this.hideSearchSidebar = true, 300);
         }
       }
     },
