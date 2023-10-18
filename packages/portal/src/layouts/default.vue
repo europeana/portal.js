@@ -178,7 +178,6 @@
       }
 
       window.onpopstate = this.setNativeNavigationState;
-      //document.addEventListener("backbutton", this.setNativeNavigationState, false);
 
       // If Matomo plugin is installed, wait for Matomo to load, but still render
       // Klaro if it fails to.
