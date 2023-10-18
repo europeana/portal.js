@@ -144,6 +144,10 @@
         return this.$store.state.breadcrumb.data;
       },
 
+      browserNative() {
+        return this.$store.state.navigation.browserNative;
+      },
+
       newFeatureNotificationEnabled() {
         return !!this.featureNotification &&
           (!this.featureNotificationExpiration || (this.dateNow < this.featureNotificationExpiration)) &&
@@ -155,6 +159,7 @@
       '$i18n.locale': 'renderKlaro',
 
       $route(to, from) {
+        this.clearNativeNavigationState();
         this.$nextTick(() => {
           if (to.path === from.path) {
             this.enableAnnouncer = false;
@@ -171,6 +176,9 @@
       if (!this.klaro) {
         this.klaro = window.klaro;
       }
+
+      window.onpopstate = this.setNativeNavigationState;
+      //document.addEventListener("backbutton", this.setNativeNavigationState, false);
 
       // If Matomo plugin is installed, wait for Matomo to load, but still render
       // Klaro if it fails to.
@@ -220,6 +228,18 @@
         setTimeout(() => {
           this.setToastBottomOffset();
         }, 10);
+      },
+
+      setNativeNavigationState(){
+        if(!this.browserNative) {
+          this.$store.commit('navigation/updateBrowserNative', true);
+        }
+      },
+
+      clearNativeNavigationState(){
+        if(this.browserNative) {
+          this.$store.commit('navigation/updateBrowserNative', false);
+        }
       },
 
       trackKlaroClickEvent(eventName) {

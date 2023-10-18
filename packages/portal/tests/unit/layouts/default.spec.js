@@ -23,6 +23,8 @@ const nuxtI18nHead = {
   }]
 };
 
+const storeCommitStub = sinon.spy();
+
 const factory = (options = {}) => shallowMountNuxt(layout, {
   localVue,
   data() {
@@ -31,8 +33,12 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
   mocks: {
     $store: {
       state: {
-        breadcrumb: {}
-      }
+        breadcrumb: {},
+        navigation: {
+          browserNative: options?.store?.state?.navigation?.browserNative || false
+        }
+      },
+      commit: storeCommitStub
     },
     $t: key => key,
     $auth: {
@@ -277,6 +283,30 @@ describe('layouts/default.vue', () => {
 
         expect(headMeta.find((tag) => tag.property === 'og:description').content).toBe('Europeana');
       });
+    });
+  });
+
+  describe('setNativeNavigationState',() => {
+    it('sets the navigation browserNative store value to true', () => {
+      sinon.resetHistory();
+
+      const wrapper = factory();
+
+      wrapper.vm.setNativeNavigationState();
+
+      expect(storeCommitStub.calledWith('navigation/updateBrowserNative', true)).toBe(true);
+    });
+  });
+
+  describe('clearNativeNavigationState',() => {
+    it('sets the navigation browserNative store value to false', () => {
+      sinon.resetHistory();
+
+      const wrapper = factory({store: { state: { navigation: { browserNative: true } } } });
+
+      wrapper.vm.clearNativeNavigationState();
+      
+      expect(storeCommitStub.calledWith('navigation/updateBrowserNative', false)).toBe(true);
     });
   });
 });

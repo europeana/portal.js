@@ -507,7 +507,10 @@
         this.results = response.items;
         this.totalResults = response.totalResults;
 
-        this.recordSearchInteraction('fetch results');
+        if (!this.paginationChanged && !this.$store.state.navigation.browserNative) {
+          // Only track new searches, not browser back/forward or search pagination
+          this.recordSearchInteraction('fetch results');
+        }
       },
 
       handlePaginationChanged() {
