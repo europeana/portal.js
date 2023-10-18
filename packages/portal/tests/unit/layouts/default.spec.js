@@ -286,7 +286,7 @@ describe('layouts/default.vue', () => {
     });
   });
 
-  describe('setNativeNavigationState',() => {
+  describe('setNativeNavigationState', () => {
     it('sets the navigation browserNative store value to true', () => {
       sinon.resetHistory();
 
@@ -298,14 +298,14 @@ describe('layouts/default.vue', () => {
     });
   });
 
-  describe('clearNativeNavigationState',() => {
+  describe('clearNativeNavigationState', () => {
     it('sets the navigation browserNative store value to false', () => {
       sinon.resetHistory();
 
-      const wrapper = factory({store: { state: { navigation: { browserNative: true } } } });
+      const wrapper = factory({ store: { state: { navigation: { browserNative: true } } } });
 
       wrapper.vm.clearNativeNavigationState();
-      
+
       expect(storeCommitStub.calledWith('navigation/updateBrowserNative', false)).toBe(true);
     });
   });

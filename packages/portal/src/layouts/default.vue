@@ -229,14 +229,14 @@
         }, 10);
       },
 
-      setNativeNavigationState(){
-        if(!this.browserNative) {
+      setNativeNavigationState() {
+        if (!this.browserNative) {
           this.$store.commit('navigation/updateBrowserNative', true);
         }
       },
 
-      clearNativeNavigationState(){
-        if(this.browserNative) {
+      clearNativeNavigationState() {
+        if (this.browserNative) {
           this.$store.commit('navigation/updateBrowserNative', false);
         }
       },
