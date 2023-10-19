@@ -60,6 +60,10 @@ Run the full test suite with: `npm test`
 To run unit tests from a single file, append the full path, e.g.
 `npm run test:unit packages/portal/tests/unit/components/PageHeader.spec.js`
 
+To run unit tests from just one of the packages registered as a Jest project,
+run e.g.
+`npm run test:unit -- --selectProjects portal`
+
 ### End-to-end tests
 
 First, create an env file for the app container, copying
