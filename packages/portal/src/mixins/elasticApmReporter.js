@@ -28,8 +28,8 @@ export default {
       const labels = {
         ...(this.apmTransaction.labels || {})
       };
-      if (this.$sessionId) {
-        labels['session_id'] = this.$sessionId;
+      if (this.$session.id) {
+        labels['session_id'] = this.$session.id;
       }
 
       const transaction = this.$apm?.startTransaction(this.apmTransaction.name, 'user-interaction');

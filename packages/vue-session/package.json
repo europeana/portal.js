@@ -1,7 +1,7 @@
 {
-  "name": "@europeana/vue-session-id",
+  "name": "@europeana/vue-session",
   "version": "1.122.0",
-  "description": "Vue session ID",
+  "description": "Vue session",
   "license": "EUPL-1.2",
   "type": "module",
   "exports": {

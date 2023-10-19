@@ -35,7 +35,7 @@
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
     "@europeana/styleguide": "link:./packages/styleguide",
-    "@europeana/vue-session-id": "link:./packages/vue-session-id"
+    "@europeana/vue-session": "link:./packages/vue-session"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
