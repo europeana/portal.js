@@ -1,10 +1,6 @@
-import sinon from 'sinon';
-
 import Storage from '@/storage.js';
 
 describe('Storage', () => {
-  afterEach(sinon.resetHistory);
-
   describe('constructor', () => {
     describe('key', () => {
       it('includes prefix from 1st arg if supplied', () => {
