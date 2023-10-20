@@ -14,15 +14,18 @@
       <section role="search">
         <client-only>
           <b-row
-            class="search-sidebar-header d-lg-none py-3"
+            class="search-sidebar-header d-lg-none"
           >
             <b-button
               data-qa="close filters button"
-              class="button-icon-only icon-clear mr-3 ml-auto"
+              class="close-sidebar-button mr-3 ml-auto text-uppercase d-flex align-items-center"
               variant="light-flat"
               :aria-label="$t('header.closeSidebar')"
               @click="toggleSearchSidebar"
-            />
+            >
+              <span class="icon-clear pr-2" />
+              {{ $t('actions.close') }}
+            </b-button>
           </b-row>
           <SearchForm
             class="d-lg-none"
@@ -233,12 +236,11 @@
 
     .search-sidebar-header {
       border-bottom: 1px solid $middlegrey;
+      height: 3.5rem;
     }
 
-    .icon-clear {
-      @media (min-width: $bp-large) {
-        display: none;
-      }
+    .close-sidebar-button {
+      font-weight: 600;
     }
 
     .query-builder-toggle {
