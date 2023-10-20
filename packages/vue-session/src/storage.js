@@ -1,3 +1,6 @@
+/**
+ * Handle storage (to localStorage) of user session data.
+ */
 export default class Storage {
   /**
    * @typedef {Object} StorageOptions

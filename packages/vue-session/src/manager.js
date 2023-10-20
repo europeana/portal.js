@@ -2,6 +2,9 @@ import Monitor from './monitor.js';
 import Session from './session.js';
 import Storage from './storage.js';
 
+/**
+ * Manages session(s) for the user
+ */
 export default class Manager {
   #monitor;
   #session;

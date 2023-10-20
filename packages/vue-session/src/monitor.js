@@ -1,6 +1,9 @@
+/**
+ * Monitors user activity
+ */
 export default class Monitor {
   static DEFAULTS = {
-    events: ['keypress', 'mousedown', 'mousemove', 'scroll', 'touchstart'],
+    events: ['drag', 'keydown', 'mousedown', 'mousemove', 'scroll', 'touchstart', 'wheel'],
     interval: 60 // in seconds
   };
 

@@ -1,5 +1,8 @@
 import { v4 as uuid } from 'uuid';
 
+/**
+ * Models a user session with id, timestamp and timeout.
+ */
 export default class Session {
   static DEFAULTS = {
     timeout: 30 // in minutes
