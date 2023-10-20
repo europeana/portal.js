@@ -28,7 +28,7 @@ export default {
       const labels = {
         ...(this.apmTransaction.labels || {})
       };
-      if (this.$session.id) {
+      if (this.$session?.id) {
         labels['session_id'] = this.$session.id;
       }
 

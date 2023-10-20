@@ -5,7 +5,8 @@ Vue plugin to handle activity-based sessions.
 A session is defined as user activity on a website across any number of tabs
 and browser restarts, so long as there continues to be activity within a given
 timeframe, defaulting to 30 minutes. If no activity is detected within that
-timeframe, then a new session starts when it resumes.
+timeframe, then a new session starts when it resumes. Sessions are not
+created for known bots.
 
 
 ## Installation

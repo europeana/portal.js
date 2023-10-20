@@ -1,9 +1,15 @@
+import isbot from 'isbot';
+
 import SessionManager from './manager.js';
 
 const instanceProperty = '$session';
 
 const VueSession = {
   install(Vue, options = {}) {
+    if (isbot(navigator.userAgent)) {
+      return;
+    }
+
     if (!Object.hasOwn(Vue.prototype, instanceProperty)) {
       const manager = new SessionManager(options);
 
