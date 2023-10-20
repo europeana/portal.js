@@ -528,7 +528,11 @@
         if (process.client) {
           const stored = sessionStorage.getItem(`europeana.search.${this.apiCriteriaObjectHash}`);
           if (stored) {
-            response = JSON.parse(stored);
+            try {
+              response = JSON.parse(stored);
+            } catch() {
+              // don't fall over if the session storage is corrupt
+            }
           }
         }
 
