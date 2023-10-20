@@ -280,12 +280,8 @@
 
       linkGen(queryTerm, path) {
         const query = {
-          boost: this.$route.query?.boost,
-          qa: this.$route.query?.qa,
-          qf: this.$route.query?.qf,
-          query: queryTerm || '',
-          reusability: this.$route.query?.reusability,
-          view: this.$route.query?.view
+          ...this.$route.query,
+          query: queryTerm || ''
         };
         return {
           path: path || this.localePath({
