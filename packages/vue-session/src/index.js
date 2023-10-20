@@ -4,7 +4,7 @@ const instanceProperty = '$session';
 
 const VueSession = {
   install(Vue, options = {}) {
-    if (!Object.prototype.hasOwnProperty.call(Vue.prototype, instanceProperty)) {
+    if (!Object.hasOwn(Vue.prototype, instanceProperty)) {
       const manager = new SessionManager(options);
 
       Object.defineProperty(Vue.prototype, instanceProperty, {
