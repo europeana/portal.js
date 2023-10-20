@@ -108,4 +108,28 @@ describe('components/item/ItemPreviewCard', () => {
       expect(wrapper.vm.type).toEqual(item.type);
     });
   });
+
+  describe('event listeneres', () => {
+    describe('onClickCard', () => {
+      it('is called with item ID when card receives `click` event', () => {
+        const onClickCard = sinon.spy();
+        const wrapper = factory({ item, onClickCard });
+
+        wrapper.vm.$refs.card.$el.dispatchEvent(new Event('click'));
+
+        expect(onClickCard.calledWith(item.id)).toBe(true);
+      });
+    });
+
+    describe('onAuxClickCard', () => {
+      it('is called with item ID when card receives `click` event', () => {
+        const onAuxClickCard = sinon.spy();
+        const wrapper = factory({ item, onAuxClickCard });
+
+        wrapper.vm.$refs.card.$el.dispatchEvent(new Event('auxclick'));
+
+        expect(onAuxClickCard.calledWith(item.id)).toBe(true);
+      });
+    });
+  });
 });

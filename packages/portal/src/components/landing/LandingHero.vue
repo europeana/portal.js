@@ -1,16 +1,13 @@
 <template>
   <div class="landing-hero">
-    <b-container class="hero-container">
+    <b-container>
       <div
         class="hero-content-wrapper"
       >
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
-          <h1
-            v-html="parseMarkdownHtml(headline)"
-          />
           <div
-            v-html="parseMarkdownHtml(text)"
+            v-html="parseMarkdownHtml(`# ${headline}\n${text}`)"
           />
           <!-- eslint-enable vue/no-v-html -->
           <SmartLink
@@ -38,6 +35,17 @@
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import SmartLink from '@/components/generic/SmartLink';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+
+  const SRCSET_PRESETS = {
+    small: { w: 576, h: 265, fit: 'fill' },
+    medium: { w: 768, h: 265, fit: 'fill' },
+    large: { w: 591, h: 600, fit: 'fill' },
+    xl: { w: 695, h: 580, fit: 'fill' },
+    xxl: { w: 815, h: 550, fit: 'fill' },
+    xxxl: { w: 1074, h: 550, fit: 'fill' },
+    wqhd: { w: 1432, h: 800, fit: 'fill' },
+    '4k': { w: 2148, h: 800, fit: 'fill' }
+  };
 
   export default {
     name: 'LandingHero',
@@ -85,17 +93,7 @@
       imageCSSVars() {
         return this.heroImage?.image &&
           this.$contentful.assets.responsiveBackgroundImageCSSVars(
-            this.heroImage.image,
-            {
-              small: { w: 576, h: 265, fit: 'fill' },
-              medium: { w: 768, h: 265, fit: 'fill' },
-              large: { w: 591, h: 600, fit: 'fill' },
-              xl: { w: 695, h: 580, fit: 'fill' },
-              xxl: { w: 815, h: 550, fit: 'fill' },
-              xxxl: { w: 1074, h: 550, fit: 'fill' },
-              wqhd: { w: 1432, h: 800, fit: 'fill' },
-              '4k': { w: 2148, h: 800, fit: 'fill' }
-            }
+            this.heroImage.image, SRCSET_PRESETS
           );
       }
     }
@@ -108,7 +106,19 @@
 
 .landing-hero {
   background-color: $bodygrey;
-  position: relative
+  position: relative;
+
+  .container {
+    @media (min-width: $bp-xxl) {
+      max-width: 1250px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: calc(1.5 * 1250px);
+    }
+  }
 }
 
 .hero-content-wrapper {
@@ -140,7 +150,7 @@
     max-width: calc(1.5 * 443px);
   }
 
-  h1 {
+  ::v-deep h1 {
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
@@ -156,7 +166,7 @@
       margin-bottom: calc(1.5 * 0.75rem);
     }
 
-    ::v-deep em {
+    em {
       font-style: normal;
       color: $blue;
     }

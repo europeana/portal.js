@@ -305,7 +305,7 @@
         return this.annotationsByMotivation('linkForContributing')[0]?.body;
       },
       shareUrl() {
-        return this.canonicalUrlWithoutLocale;
+        return this.canonicalUrl({ fullPath: true, locale: false });
       },
       relatedEntityUris() {
         return this.europeanaEntityUris.filter(entityUri => entityUri !== this.dataProviderEntityUri).slice(0, 5);

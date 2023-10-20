@@ -25,6 +25,17 @@
   }
 }
 
+.dropdown-toggle {
+  &::after {
+    @extend %icon-font;
+
+    border: 0;
+    content: '\e91b'; // icon-chevron
+    font-size: 0.425rem;
+    margin-right: 0.25rem;
+  }
+}
+
 .b-form-tags.form-control {
   padding: 0;
   margin-bottom: 1.25rem;
@@ -47,7 +58,7 @@
     font-size: $font-size-small;
     color: $mediumgrey-light;
     height: 3rem;
-    border: 1px solid $middlegrey;
+    border: 1px solid $bodygrey;
     text-align: left;
     display: inline-flex;
     align-items: center;
@@ -218,7 +229,6 @@
 
     .dropdown-toggle {
       font-size: $font-size-base;
-      color: $greyblack;
 
       &.is-invalid {
         border-color: $red;
@@ -228,6 +238,10 @@
         &:focus {
           border-color: $red;
         }
+      }
+
+      &.option-selected {
+        color: $greyblack;
       }
     }
   }

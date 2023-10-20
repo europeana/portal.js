@@ -40,6 +40,7 @@ export default {
     "apply": "Pieteikties",
     "cancel": "Atcelt",
     "clear": "Notīrīt",
+    "clearFilters": "Notīrīt filtrus",
     "close": "aizvērt",
     "continue": "turpināt",
     "depublish": "Depublicēt",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Lasīt vairāk",
     "reject": "Noraidīt",
     "requestDepublication": "Pieprasīt depublikāciju",
-    "resetFilters": "Atiestatīt filtrus",
     "save": "Glābt",
     "send": "Sūtīt",
     "share": "Dalies",
@@ -888,6 +888,14 @@ export default {
         "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Digitālie objekti",
+      "providingInstitutions": "Piegādājošās iestādes",
+      "visits": "Apmeklējumi dienā"
+    },
+    "europeanaNumbers": "Europeana.eu skaitļos"
   },
   "layout": {
     "skipToMain": "Pāriet uz lapas saturu"

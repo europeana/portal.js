@@ -9,6 +9,7 @@
       >
         <b-form
           data-qa="search query builder form"
+          autocomplete="off"
           @submit.prevent="handleSubmitForm"
         >
           <transition-group
@@ -35,10 +36,10 @@
             <b-button
               data-qa="advanced search query builder: add rule button"
               variant="light"
-              class="d-inline-flex align-items-center mb-4 mb-lg-0 order-first"
+              class="d-inline-flex align-items-baseline mb-4 mb-lg-0 order-first"
               @click="addNewRule"
             >
-              <span class="icon-ic-add pr-1" />
+              <span class="icon-add pr-2" />
               {{ $t('actions.add') }}
             </b-button>
           </div>
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-  import SearchQueryBuilderRule from './SearchQueryBuilderRule.vue';
+  import SearchQueryBuilderRule from './SearchQueryBuilderRule';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
@@ -64,6 +65,9 @@
     ],
 
     props: {
+      /**
+       * Id to set a unique value
+       */
       id: {
         type: String,
         default: 'search-query-builder'
@@ -193,3 +197,9 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+    <SearchQueryBuilder />
+  ```
+</docs>

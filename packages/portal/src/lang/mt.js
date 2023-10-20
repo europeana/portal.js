@@ -40,6 +40,7 @@ export default {
     "apply": "Applika",
     "cancel": "Ikkanċella",
     "clear": "Ċara",
+    "clearFilters": "Filtri ċari",
     "close": "agħlaq",
     "continue": "kompli",
     "depublish": "Tneħħi l-pubblikazzjoni",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Aqra iktar",
     "reject": "Irrifjuta",
     "requestDepublication": "Talba għal depubblikazzjoni",
-    "resetFilters": "Irrisettja l-filtri",
     "save": "Tissejvja",
     "send": "Tibgħat",
     "share": "Ixxerja",
@@ -888,6 +888,14 @@ export default {
         "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Oġġetti",
+      "providingInstitutions": "Istituzzjonijiet fornitriċi",
+      "visits": "Żjarat kuljum"
+    },
+    "europeanaNumbers": "Europeana.eu fin-numri"
   },
   "layout": {
     "skipToMain": "Aqbeż għall-kontenut paġna"

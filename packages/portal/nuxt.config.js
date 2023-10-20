@@ -15,10 +15,28 @@ import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
-import { nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins } from './src/plugins/apis.js';
+import {
+  nuxtRuntimeConfig as europeanaApisRuntimeConfig
+} from './src/plugins/europeana/apis/config/nuxt.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
+};
+
+const redisConfig = () => {
+  const redisOptions = {
+    url: process.env.REDIS_URL
+  };
+
+  if (process.env.REDIS_TLS_CA) {
+    redisOptions.socket = {
+      ca: [Buffer.from(process.env.REDIS_TLS_CA, 'base64')],
+      rejectUnauthorized: false,
+      tls: true
+    };
+  }
+
+  return redisOptions;
 };
 
 export default {
@@ -65,10 +83,7 @@ export default {
     },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
-      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(','),
-      // Construct a map of Europeana API URLs to rewrite for logging, so that
-      // private network hostnames are replaced with the public equivalent.
-      rewriteOrigins: publicPrivateRewriteOrigins()
+      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
     },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
@@ -169,10 +184,7 @@ export default {
     matomo: {
       authToken: process.env.MATOMO_AUTH_TOKEN
     },
-    redis: {
-      url: process.env.REDIS_URL,
-      tlsCa: process.env.REDIS_TLS_CA
-    }
+    redis: redisConfig()
   },
 
   /*
@@ -267,6 +279,7 @@ export default {
     '~/plugins/axios.server',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
+    '~/plugins/vue-session-id.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
@@ -346,7 +359,7 @@ export default {
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
+    plugins: ['~/plugins/europeana/apis', '~/plugins/user-likes.client']
   },
 
   axios: {

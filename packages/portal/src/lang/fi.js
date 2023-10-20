@@ -40,6 +40,7 @@ export default {
     "apply": "Käytä",
     "cancel": "Peruuttaa",
     "clear": "Tyhjennä",
+    "clearFilters": "Tyhjennä suodattimet",
     "close": "sulje",
     "continue": "jatka",
     "depublish": "Julkaisun peruuttaminen",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Lue lisää",
     "reject": "Hylätä",
     "requestDepublication": "Pyydä julkaisun poistamista",
-    "resetFilters": "Nollaa suodattimet",
     "save": "Tallenna",
     "send": "Lähettää",
     "share": "Jaa",
@@ -81,7 +81,7 @@ export default {
     "country": "Maa:",
     "creator": "Luoja:",
     "date": "Päivämäärä:",
-    "institution": "kulttuuriperintölaitos",
+    "institution": "kulttuuriperintölaitos:",
     "title": "Nimi:"
   },
   "automatedCardGroup": {
@@ -888,6 +888,14 @@ export default {
         "title": "Hakutulosnäkymä (luettelo/ruudukko)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Aineistot",
+      "providingInstitutions": "Aineiston tarjoajat",
+      "visits": "Käyntejä päivässä"
+    },
+    "europeanaNumbers": "Europeana.eu numeroina"
   },
   "layout": {
     "skipToMain": "Siirry sivun sisältöön"

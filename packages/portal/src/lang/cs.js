@@ -40,6 +40,7 @@ export default {
     "apply": "Použít",
     "cancel": "Zrušit",
     "clear": "Vyčistit",
+    "clearFilters": "Vymazat filtry",
     "close": "zavřít",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Přečtěte si více",
     "reject": "Odmítnout",
     "requestDepublication": "Žádost o zrušení publikace",
-    "resetFilters": "Resetovat filtry",
     "save": "Uložit",
     "send": "Poslat",
     "share": "Sdílejte",
@@ -888,6 +888,14 @@ export default {
         "title": "Zobrazení výsledků hledání (seznam / mřížka)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Položky",
+      "providingInstitutions": "Poskytující instituce",
+      "visits": "Návštěvy za den"
+    },
+    "europeanaNumbers": "Europeana.eu v číslech"
   },
   "layout": {
     "skipToMain": "Přeskočit na obsah stránky"

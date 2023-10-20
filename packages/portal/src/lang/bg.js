@@ -40,6 +40,7 @@ export default {
     "apply": "Прилагане",
     "cancel": "Отказ",
     "clear": "ясно",
+    "clearFilters": "Изчисти филтрите",
     "close": "затвори",
     "continue": "продължи",
     "depublish": "Депубликувай",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Прочетете повече",
     "reject": "Отхвърляне",
     "requestDepublication": "Искане за депубликуване",
-    "resetFilters": "Нулиране на филтри",
     "save": "Запазете",
     "send": "Изпрати",
     "share": "Споделяне",
@@ -888,6 +888,14 @@ export default {
         "title": "Преглед на резултатите от търсенето (списък / мрежа)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "обекта",
+      "providingInstitutions": "Доставчици на данни",
+      "visits": "Посещения на ден"
+    },
+    "europeanaNumbers": "Europeana.eu в числа"
   },
   "layout": {
     "skipToMain": "Напред към съдържанието на страницата"

@@ -40,6 +40,7 @@ export default {
     "apply": "Anvend",
     "cancel": "Annuller",
     "clear": "Ryd",
+    "clearFilters": "Ryd filtre",
     "close": "luk",
     "continue": "fortsæt",
     "depublish": "Depublicer",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Læs mere",
     "reject": "Afvise",
     "requestDepublication": "Anmodning om afpublicering",
-    "resetFilters": "Nulstil filtre",
     "save": "Gem",
     "send": "Sende",
     "share": "Del",
@@ -888,6 +888,14 @@ export default {
         "title": "Visning af søgeresultater (liste / gitter)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Genstande",
+      "providingInstitutions": "Ejerinstitutioner",
+      "visits": "Besøg pr. dag"
+    },
+    "europeanaNumbers": "Europeana.eu i tal"
   },
   "layout": {
     "skipToMain": "Spring til sideindhold"

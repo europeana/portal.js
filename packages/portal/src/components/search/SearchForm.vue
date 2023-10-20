@@ -7,7 +7,6 @@
       'top-search': inTopNav,
       'suggestions-open': showSearchOptions
     }"
-    @keydown="handleKeyDown"
   >
     <b-button
       v-if="inTopNav"
@@ -43,8 +42,8 @@
           aria-autocomplete="list"
           :aria-controls="showSearchOptions ? 'search-form-options' : null"
           :aria-label="$t('search.title')"
-          @input="getSearchSuggestions(query);"
-          @focus="showSearchOptions = true; updateSuggestions();"
+          @focus="showSearchOptions = true; suggestSearchOptions = true"
+          @blur="suggestSearchOptions = false"
         />
       </b-input-group>
     </b-form>
@@ -60,15 +59,20 @@
       v-if="inTopNav"
     />
     <div
-      v-if="showSearchOptions"
+      v-show="showSearchOptions"
       id="search-suggest-dropdown"
       class="auto-suggest-dropdown"
       data-qa="search form dropdown"
     >
       <SearchQueryOptions
         ref="searchoptions"
-        :options="searchQueryOptions"
-        @select="showSearchOptions = false;"
+        :suggest="suggestSearchOptions && inTopNav && !onSearchableCollectionPage"
+        :text="query"
+        :submitting="submitting"
+        :show-search-options="showSearchOptions"
+        @select="(option) => handleSelect(option)"
+        @hideForm="handleHide"
+        @hideOptions="showSearchOptions = false"
       />
       <SearchThemeBadges
         v-if="showSearchThemeBadges"
@@ -80,8 +84,6 @@
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
-  import match from 'autosuggest-highlight/match';
-  import parse from 'autosuggest-highlight/parse';
 
   export default {
     name: 'SearchForm',
@@ -93,16 +95,26 @@
     },
 
     props: {
+      /**
+       * If `true`, shows the form. If `false` hides the form.
+       * Toggle control is outside this component
+       */
       show: {
         type: Boolean,
         default: true
       },
-
+      /**
+       * If `true`, additional elements and styles are added
+       */
       inTopNav: {
         type: Boolean,
         default: false
       },
 
+      /**
+       * If `true` defines hidability of the form
+       * Used in keyboard navigation on 'Esc' key
+       */
       hidableForm: {
         type: Boolean,
         default: false
@@ -112,11 +124,11 @@
     data() {
       return {
         query: null,
-        gettingSuggestions: false,
-        suggestions: {},
-        activeSuggestionsQueryTerm: null,
         showSearchOptions: false,
-        showForm: this.show
+        showForm: this.show,
+        suggestSearchOptions: false,
+        selectedOption: null,
+        submitting: null
       };
     },
 
@@ -128,58 +140,6 @@
       onSearchableCollectionPage() {
         // Auto suggest on search form will be disabled on entity pages.
         return !!this.$store.state.entity?.id && !!this.collectionLabel;
-      },
-
-      suggestionSearchOptions() {
-        return Object.values(this.suggestions).map(suggestion => (
-          {
-            link: this.suggestionLinkGen(suggestion),
-            qa: `${suggestion} search suggestion`,
-            texts: this.highlightSuggestion(suggestion)
-          }
-        ));
-      },
-
-      globalSearchOption() {
-        const globalSearchOption = {
-          link: this.linkGen(this.query),
-          qa: 'search entire collection button',
-          i18n: {
-            slots: this.query ? [
-              { name: 'query', value: { highlight: true, text: this.query } }
-            ] : []
-          }
-        };
-
-        if (this.onSearchableCollectionPage) {
-          globalSearchOption.i18n.path = this.query ? 'header.entireCollection' : 'header.searchForEverythingInEntireCollection';
-        } else {
-          globalSearchOption.i18n.path = this.query ? 'header.searchFor' : 'header.searchForEverything';
-        }
-
-        return globalSearchOption;
-      },
-
-      collectionSearchOption() {
-        return {
-          link: this.searchInCollectionLinkGen(this.query),
-          qa: 'search in collection button',
-          i18n: {
-            path: this.query ? 'header.inCollection' : 'header.searchForEverythingInCollection',
-            slots: [
-              { name: 'query', value: { highlight: true, text: this.query } },
-              { name: 'collection', value: { text: this.collectionLabel } }
-            ]
-          }
-        };
-      },
-
-      searchQueryOptions() {
-        if (this.onSearchableCollectionPage) {
-          return [this.collectionSearchOption, this.globalSearchOption];
-        } else {
-          return [this.globalSearchOption].concat(this.suggestionSearchOptions);
-        }
       },
 
       onSearchablePage() {
@@ -208,13 +168,6 @@
       '$route.path'() {
         this.showSearchOptions = false;
       },
-      showSearchOptions(newVal) {
-        if (newVal === true) {
-          window.addEventListener('click', this.handleClickOrTabOutside);
-        } else {
-          window.removeEventListener('click', this.handleClickOrTabOutside);
-        }
-      },
       show(newVal) {
         this.showForm = newVal;
       }
@@ -228,114 +181,29 @@
     },
 
     methods: {
-      // Highlight the user's query in a suggestion
-      // FIXME: only re-highlight when new suggestions come in, not immediately
-      //        after the query changes?
-      highlightSuggestion(value) {
-        const matchQuery = this.query ? this.query.replace(/(^")|("$)/g, '') : undefined;
-        // Find all the suggestion labels that match the query
-        const matches = match(value, matchQuery);
-        return parse(value, matches);
-      },
-
       initQuery() {
         this.query = this.$route.query.query;
       },
 
       async submitForm() {
-        // Matomo event: suggestions are present, but none is selected
-        if (Object.keys(this.suggestions).length > 0) {
-          this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
+        const queryToSubmit = this.selectedOption?.query || this.query;
+
+        if (!this.selectedOption?.query) {
+          // Set submitting state to track the no autosuggest option selected in SearchQueryOptions
+          this.submitting = this.query;
         }
 
         const baseQuery = this.onSearchablePage ? this.$route.query : {};
         // `query` must fall back to blank string to ensure inclusion in URL,
         // which is required for analytics site search tracking
-        const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: this.query || '' } };
-        const newRoute = { path: this.routePath, query: newRouteQuery };
+        const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: queryToSubmit || '' } };
+        const newRoute = this.selectedOption?.link || { path: this.routePath, query: newRouteQuery };
 
         this.showSearchOptions = false;
 
-        this.blurInput();
         await this.$router.push(newRoute);
-      },
-
-      updateSuggestions() {
-        // Re-retrieve suggestions after the query was programmatically changed.
-        if (this.query !== this.activeSuggestionsQueryTerm) {
-          this.getSearchSuggestions(this.query);
-        }
-      },
-
-      getSearchSuggestions(query) {
-        if (!query || query === '') {
-          this.suggestions = {};
-          this.activeSuggestionsQueryTerm = null;
-          return;
-        }
-
-        if (this.onSearchableCollectionPage || !this.inTopNav) {
-          return;
-        }
-
-        // Don't go getting more suggestions if we are already waiting for some or they already exist.
-        if (this.gettingSuggestions || query === this.activeSuggestionsQueryTerm) {
-          return;
-        }
-
-        const locale = this.$i18n.locale;
-        this.gettingSuggestions = true;
-
-        this.$apis.entity.suggest(query, {
-          language: locale,
-          type: 'agent,concept,place,timespan'
-        })
-          .then(suggestions => {
-            this.activeSuggestionsQueryTerm = query;
-            this.suggestions = suggestions.reduce((memo, suggestion) => {
-              const candidates = [(suggestion.prefLabel || {})[locale]]
-                .concat((suggestion.altLabel || {})[locale]);
-              memo[suggestion.id] = candidates.find(candidate => match(candidate, query).length > 0) || candidates[0];
-              return memo;
-            }, {});
-          })
-          .catch(() => {
-            this.activeSuggestionsQueryTerm = null;
-            this.suggestions = {};
-          })
-          .then(() => {
-            this.gettingSuggestions = false;
-            // If the query has changed in the meantime, go get new suggestions now
-            if (query !== this.query) {
-              this.getSearchSuggestions(this.query);
-            }
-          });
-      },
-
-      suggestionLinkGen(suggestion) {
-        const formattedSuggestion = suggestion ? `"${suggestion.replace(/(^")|("$)/g, '')}"` : undefined;
-        return this.linkGen(formattedSuggestion);
-      },
-
-      linkGen(queryTerm, path) {
-        const query = {
-          boost: this.$route?.query?.boost,
-          qa: this.$route?.query?.qa,
-          qf: this.$route?.query?.qf,
-          query: queryTerm || '',
-          reusability: this.$route?.query?.reusability,
-          view: this.view
-        };
-        return {
-          path: path || this.localePath({
-            name: 'search'
-          }),
-          query
-        };
-      },
-
-      searchInCollectionLinkGen(query) {
-        return this.linkGen(query, this.$route.path);
+        // init query to update in case of selecting the already selected option
+        this.initQuery();
       },
 
       clearQuery() {
@@ -343,64 +211,25 @@
         this.suggestions = {};
 
         this.$nextTick(() => {
-          this.getElement(this.$refs.searchinput).focus();
+          this.$refs.searchinput.$el.focus();
         });
       },
 
-      handleClickOrTabOutside(event) {
-        const targetOutsideSearchDropdown = event.target?.id !== 'show-search-button' && this.$refs.searchdropdown && !this.$refs.searchdropdown.contains(event.target);
-        if ((event.type === 'click' || event.key === 'Tab') && targetOutsideSearchDropdown) {
-          this.showSearchOptions = false;
-        }
+      handleSelect(option) {
+        this.selectedOption = option;
+        this.submitForm();
+        this.selectedOption = null;
       },
-
-      handleKeyDown(event) {
-        this.handleClickOrTabOutside(event);
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-          event.preventDefault();
-          this.navigateWithArrowKeys(event);
-        }
-        if (event.key === 'Escape') {
-          this.handleHide();
-        }
-      },
-
       handleHide() {
         this.blurInput();
         this.showSearchOptions = false;
         if (this.hidableForm) {
           this.showForm = false;
-        }
-        this.$emit('hide');
-      },
-
-      navigateWithArrowKeys(event) {
-        const searchQueryOptionsComponentOptions = this.$refs.searchoptions?.$refs.options || [];
-        const quickSearchComponentOptions = this.$refs.quicksearch?.$children[0].$refs.options || [];
-        const searchDropdownOptions = searchQueryOptionsComponentOptions.concat(quickSearchComponentOptions);
-        const activeOption = searchDropdownOptions.map(option => option.$el || option).indexOf(event.target);
-
-        if (searchDropdownOptions.length) {
-          if (activeOption === -1) {
-            this.getElement(searchDropdownOptions[0]).focus();
-          }
-          if (event.key === 'ArrowDown' && activeOption < searchDropdownOptions.length - 1) {
-            this.getElement(searchDropdownOptions[activeOption + 1]).focus();
-          }
-          if (event.key === 'ArrowUp' && activeOption > 0) {
-            this.getElement(searchDropdownOptions[activeOption - 1]).focus();
-          }
+          this.$store.commit('search/setShowSearchBar', false);
         }
       },
-
-      getElement(element) {
-        return element.$el || element;
-      },
-
       blurInput() {
-        if (this.$refs.searchinput.$el) {
-          this.$refs.searchinput.$el.blur();
-        }
+        this.$refs.searchinput.$el?.blur();
       }
     }
   };
@@ -413,6 +242,7 @@
   .top-search {
     &.open {
       width: 100%;
+      position: relative;
 
       .form-inline {
         align-items: flex-start;
@@ -588,19 +418,12 @@
 
     .clear-button {
       position: absolute;
-      font-size: 1.5rem;
-      right: 0.75em;
-      top: 0.75em;
+      right: 1rem;
+      top: 1rem;
       z-index: 99;
-      width: 1em;
-      height: 1em;
       display: flex;
       justify-content: center;
       align-items: center;
-
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.5rem);
-      }
     }
 
     ::v-deep .list-group-item {

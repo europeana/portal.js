@@ -8,7 +8,7 @@
     data-qa="removal chip"
     :click-event-handler="clickEventHandler"
   >
-    <span class="icon close" />
+    <span class="icon icon-clear" />
   </LinkBadge>
 </template>
 

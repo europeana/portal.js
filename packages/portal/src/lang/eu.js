@@ -40,6 +40,7 @@ export default {
     "apply": "Aplikatu",
     "cancel": "Utzi",
     "clear": "Garbi",
+    "clearFilters": "Garbitu iragazkiak",
     "close": "itxi",
     "continue": "jarraitu",
     "depublish": "Argitalpena bertan behera utzi",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
-    "resetFilters": "Berrezarri iragazkiak",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
@@ -892,6 +892,14 @@ export default {
         "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Elementuak",
+      "providingInstitutions": "Erakunde hornitzailea",
+      "visits": "Eguneko bisitak"
+    },
+    "europeanaNumbers": "Europeana.eu zenbakitan"
   },
   "layout": {
     "skipToMain": "Orrialdearen edukietara joan"

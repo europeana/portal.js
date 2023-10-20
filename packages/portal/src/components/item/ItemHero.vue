@@ -24,10 +24,10 @@
       <b-row>
         <b-col
           cols="12"
-          class="col-lg-10 media-bar d-flex mx-auto"
+          class="col-lg-10 media-bar d-flex mx-auto justify-content-between"
           data-qa="action bar"
         >
-          <div class="d-flex justify-content-md-center align-items-center rights-wrapper mr-2">
+          <div class="rights-wrapper d-inline-flex justify-content-md-center align-items-center mr-2">
             <RightsStatementButton
               :disabled="!rightsStatementIsUrl"
               :rights-statement="rightsStatement"
@@ -39,7 +39,7 @@
             v-if="!iiifPresentationManifest && (media.length !== 1)"
             class="d-flex justify-content-md-center align-items-center pagination-wrapper"
           >
-            <div class="swiper-pagination" />
+            <div class="swiper-pagination mx-lg-4" />
           </div>
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
@@ -239,6 +239,7 @@
 
     .swiper-pagination {
       display: inline-flex;
+      position: relative;
 
       &.swiper-pagination-fraction {
         left: auto;
@@ -272,12 +273,6 @@
       }
     }
 
-    .rights-wrapper,
-    .pagination-wrapper,
-    .button-wrapper {
-      flex: 1;
-    }
-
     @media (max-width: ($bp-large - 1px)) {
       .media-bar {
         flex-direction: column;
@@ -294,7 +289,6 @@
           margin-bottom: 1.125rem;
 
           .swiper-pagination {
-            position: relative;
             margin: auto;
           }
         }

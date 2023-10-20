@@ -40,6 +40,7 @@ export default {
     "apply": "Ισχύουν",
     "cancel": "Ακύρωση",
     "clear": "Εκκαθάριση",
+    "clearFilters": "Καθαρισμός φίλτρων",
     "close": "κλείσιμο",
     "continue": "Συνέχεια",
     "depublish": "Αναδημοσίευση",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Διαβάστε περισσότερα",
     "reject": "Απορρίπτω",
     "requestDepublication": "Αίτημα αποδημοσίευσης",
-    "resetFilters": "Επαναφορά φίλτρων",
     "save": "Αποθήκευση",
     "send": "Στείλετε",
     "share": "Κοινοποίηση",
@@ -892,6 +892,14 @@ export default {
         "title": "Προβολή αποτελεσμάτων αναζήτησης (λίστα / πλέγμα)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Τεκμήρια",
+      "providingInstitutions": "Φορείς προέλευσης",
+      "visits": "Επισκέψεις ανά ημέρα"
+    },
+    "europeanaNumbers": "Europeana.eu σε αριθμούς"
   },
   "layout": {
     "skipToMain": "Μετάβαση στο περιεχόμενο της σελίδας"

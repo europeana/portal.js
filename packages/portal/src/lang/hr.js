@@ -40,6 +40,7 @@ export default {
     "apply": "Primijeni",
     "cancel": "Otkazati",
     "clear": "Očisti",
+    "clearFilters": "Izbriši filtre",
     "close": "zatvori",
     "continue": "nastaviti",
     "depublish": "Depublish",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Pročitaj više",
     "reject": "Odbiti",
     "requestDepublication": "Zahtjev za depublifikaciju",
-    "resetFilters": "Resetiraj filtere",
     "save": "Uštedjeti",
     "send": "Slati",
     "share": "Podijeli",
@@ -888,6 +888,14 @@ export default {
         "title": "Prikaz rezultata pretraživanja (popis / mreža)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Predmeti",
+      "providingInstitutions": "Institucije",
+      "visits": "Posjete po danu"
+    },
+    "europeanaNumbers": "Europeana.eu u brojkama"
   },
   "layout": {
     "skipToMain": "Prijeđite na sadržaj stranice"

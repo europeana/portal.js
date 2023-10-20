@@ -55,7 +55,7 @@ Feature: Search querying
     And I enter "World" in the `search box`
     And I see `search query options` with the text "World War I"
     And I press the ESCAPE key
-    Then I don't have `search query options`
+    Then I don't see `search query options`
 
   Scenario: No auto suggestion on entity pages, only the search buttons
     Given I am on an `entity page`

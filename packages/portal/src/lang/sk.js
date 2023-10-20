@@ -40,6 +40,7 @@ export default {
     "apply": "Použiť",
     "cancel": "Zrušiť",
     "clear": "Vyčistiť",
+    "clearFilters": "Vymazať filtre",
     "close": "zatvoriť",
     "continue": "pokračovať",
     "depublish": "Zrušiť zverejnenie",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Čítaj viac",
     "reject": "Odmietnuť",
     "requestDepublication": "Žiadosť zrušiť zverejnenie",
-    "resetFilters": "Obnoviť filtre",
     "save": "Uložiť",
     "send": "poslať",
     "share": "Zdieľať",
@@ -888,6 +888,14 @@ export default {
         "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Objekty",
+      "providingInstitutions": "Správcovské inštitúcie",
+      "visits": "Návštevy za deň"
+    },
+    "europeanaNumbers": "Europeana.eu v číslach"
   },
   "layout": {
     "skipToMain": "Preskočiť na stránku s obsahom"

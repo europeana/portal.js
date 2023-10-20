@@ -1,10 +1,10 @@
 <template>
   <div
-    class="info-card"
+    class="info-card d-inline-flex flex-wrap flex-lg-nowrap"
   >
     <div
       v-if="card.image"
-      class="image-wrapper d-flex flex-end justify-content-center mb-2"
+      class="image-wrapper mx-auto mx-lg-0"
     >
       <ImageOptimised
         class="image"
@@ -17,15 +17,20 @@
         :lazy="true"
       />
     </div>
-    <h3 class="title mb-2">
-      {{ card.name }}
-    </h3>
-    <!-- eslint-disable vue/no-v-html -->
-    <div
-      class="text"
-      v-html="parseMarkdownHtml(card.text)"
-    />
+    <div class="text-wrapper ml-lg-3">
+      <h3
+        class="title mb-2 text-center text-lg-left"
+      >
+        {{ card.name }}
+      </h3>
+      <!-- eslint-disable vue/no-v-html -->
+      <div
+        v-if="card.text"
+        class="text"
+        v-html="parseMarkdownHtml(card.text)"
+      />
     <!-- eslint-enable vue/no-v-html -->
+    </div>
   </div>
 </template>
 
@@ -57,31 +62,43 @@
   @import '@europeana/style/scss/variables';
 
   .info-card {
-    max-width: 310px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 1rem;
 
     @media (min-width: $bp-large) {
-      margin-left: 2rem;
-      margin-right: 2rem;
+      flex: 0 1 calc(50% - 2rem);
+      padding-bottom: 3rem;
+      margin-bottom: 0;
     }
 
-    @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 310px);
-      margin-left: 3rem;
-      margin-right: 3rem;
+    @media (min-width: $bp-extralarge) {
+      flex: 0 1 50%;
+      padding: 0 2rem 2.5rem;
     }
+
+    @media (min-width: $bp-xxxl) {
+      padding: 0 4rem 3rem;
+    }
+
     .image-wrapper {
-      height: 80px;
+      flex: 0 0 100%;
+      max-width: 80px;
 
       @media (min-width: $bp-large) {
-        height: 111px;
+        flex: 0 0 80px;
+      }
+
+      @media (min-width: $bp-4k) {
+        flex: 0 0 calc(1.5 * 80px);
+        max-width: calc(1.5 * 80px);
+      }
+
+      img {
+        width: 100%;
       }
     }
 
-    .image {
-      max-height: 100%;
-      margin: auto auto 0 auto;
+    .text-wrapper {
+      max-width: 650px;
     }
 
     .title {
@@ -94,7 +111,6 @@
     .text {
       font-weight: 500;
       color: $mediumgrey;
-      margin-bottom: 2rem;
     }
   }
 </style>
@@ -104,10 +120,12 @@
     <LandingInfoCard
       :card="{
         __typename: 'InfoCard',
-        name: 'Usage statistics',
-        text: 'Europeana’s usage statistics reports tell you how your data is being accessed and reused on Europeana.eu, empowering you __to measure__ the positive __impact__ of sharing your collections.',
-      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/cjliScwekoFTMkuD4XGHI/7831ed1ea5942256bca70542e7db0739/noun-stats-5341287_1.svg',
-      contentType: 'image/svg+xml', description: '', width: 111, height: 111 }
+        name: 'Title for an info card',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image',
+        image: {
+          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+          contentType: 'image/svg+xml', description: '', width: 111, height: 111
+        }
     }"
     />
   ```

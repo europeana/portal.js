@@ -40,6 +40,7 @@ export default {
     "apply": "Kohalda",
     "cancel": "Tühista",
     "clear": "Lähtesta",
+    "clearFilters": "Tühjenda filtrid",
     "close": "Sulge",
     "continue": "jätka",
     "depublish": "Tühista avaldamine",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Loe rohkem",
     "reject": "Tagasi lükata",
     "requestDepublication": "Taotlus mitte avaldada",
-    "resetFilters": "Lähtestage filtrid",
     "save": "Salvesta",
     "send": "Saada",
     "share": "Jagage",
@@ -888,6 +888,14 @@ export default {
         "title": "Otsingutulemite vaade (loend / ruudustik)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Esemed",
+      "providingInstitutions": "Pakkuja institutsioon",
+      "visits": "Külastused päevas"
+    },
+    "europeanaNumbers": "Europeana.eu numbrites"
   },
   "layout": {
     "skipToMain": "Otse lehekülje sisule"

@@ -18,6 +18,31 @@
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
+      <LandingImageCardGroup
+        v-if="contentType(section, 'ImageCardGroup')"
+        :title="section.name"
+        :text="section.text"
+        :image-cards="section.hasPartCollection && section.hasPartCollection.items"
+      />
+      <LandingSubSection
+        v-if="contentType(section, 'LandingSubSection')"
+        :title="section.name"
+        :text="section.text"
+        :sections="section.hasPartCollection && section.hasPartCollection.items"
+      />
+      <LandingEmbed
+        v-if="contentType(section, 'EmbedSection')"
+        :english-title="section.nameEN"
+        :title="section.name"
+        :text="section.text"
+        :background-image="section.image"
+        :embed="section.embed"
+      />
+      <LandingCallToAction
+        v-if="contentType(section, 'PrimaryCallToAction')"
+        :text="section.text"
+        :link="section.relatedLink"
+      />
     </div>
   </div>
 </template>
@@ -29,8 +54,12 @@
     name: 'LandingPage',
 
     components: {
+      LandingCallToAction: () => import('@/components/landing/LandingCallToAction'),
       LandingHero,
-      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
+      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
+      LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
+      LandingSubSection: () => import('@/components/landing/LandingSubSection'),
+      LandingEmbed: () => import('@/components/landing/LandingEmbed')
     },
 
     props: {
@@ -75,20 +104,5 @@
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
     }
-
-    ::v-deep h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-medium;
-      font-weight: 500;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
-      }
-    }
-
   }
 </style>

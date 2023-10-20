@@ -40,6 +40,7 @@ export default {
     "apply": "Apply",
     "cancel": "Cancel",
     "clear": "Clear",
+    "clearFilters": "Clear filters",
     "close": "close",
     "continue": "continue",
     "depublish": "Depublish",
@@ -60,7 +61,6 @@ export default {
     "publish": "Publish",
     "readMore": "Read more",
     "reject": "Reject",
-    "resetFilters": "Reset filters",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
@@ -914,6 +914,14 @@ export default {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
         "title": "Search result view (list/grid)"
       }
+    }
+  },
+  "landing": {
+    "europeanaNumbers": "Europeana.eu in numbers",
+    "counts": {
+      "visits": "Visits per day",
+      "items": "Items",
+      "providingInstitutions": "Providing institutions"
     }
   },
   "layout": {

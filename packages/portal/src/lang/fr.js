@@ -40,6 +40,7 @@ export default {
     "apply": "Appliquer",
     "cancel": "Annuler",
     "clear": "Réinitialiser",
+    "clearFilters": "Effacer les filtres",
     "close": "fermer",
     "continue": "continuer",
     "depublish": "Dépublier",
@@ -61,7 +62,6 @@ export default {
     "readMore": "En savoir plus",
     "reject": "Rejeter",
     "requestDepublication": "Demander la dépublication",
-    "resetFilters": "Réinitialiser les filtres",
     "save": "Sauvegarder",
     "send": "Envoyer",
     "share": "Partagez",
@@ -536,9 +536,9 @@ export default {
       "select": "Sélectionnez les créateurs"
     },
     "DATA_PROVIDER": {
-      "moreName": "Institution fournisseuse",
-      "name": "Institution fournisseuse",
-      "select": "Sélectionnez l'institution fournisseuse"
+      "moreName": "institutions partenaires",
+      "name": "Institution partenaire",
+      "select": "Sélectionnez l'institution partenaires"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientation de l'image | Orientations de l'image",
@@ -709,7 +709,7 @@ export default {
       "dcType": "Type d'élément",
       "edmCountry": "Pays fournisseur",
       "edmCurrentLocation": "Emplacement actuel",
-      "edmDataProvider": "Institution fournisseuse",
+      "edmDataProvider": "Institution partenaire",
       "edmHasMet": "A rencontré",
       "edmIncorporates": "Intègre",
       "edmIntermediateProvider": "Fournisseur intermédiaire",
@@ -758,7 +758,7 @@ export default {
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
       "privacy": "Politique de confidentialité",
-      "provide": "Devenir une institution fournisseuse",
+      "provide": "Devenir une institution partenaire",
       "subscribe": "Abonnez-vous à notre newsletter",
       "terms": "Conditions d'utilisation"
     },
@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Éléments",
+      "providingInstitutions": "Institutions partenaires",
+      "visits": "Visites par jour"
+    },
+    "europeanaNumbers": "Europeana.eu en chiffres"
+  },
   "layout": {
     "skipToMain": "Passer au contenu de la page"
   },
@@ -906,8 +914,8 @@ export default {
       "modalTitle": "Dis merci"
     },
     "downloadFailed": {
-      "linkPrompt": "Nous vous conseillons de cliquer sur le bouton 'Institution fournisseuse' ci-dessous pour vérifier si l'article est téléchargeable sur le site internet de l'établissement fournisseur.",
-      "message": "Si le téléchargement ne fonctionne pas, c'est peut-être parce qu'il a été supprimé par l'établissement fournisseur, ou il peut y avoir un problème technique avec leur service.",
+      "linkPrompt": "Nous vous conseillons de cliquer sur le bouton 'Institution partenaire' ci-dessous pour vérifier si l'article est téléchargeable sur le site internet de l'Institution partenaire.",
+      "message": "Si le téléchargement ne fonctionne pas, c'est peut-être parce qu'il a été supprimé par l'Institution partenaire, ou il peut y avoir un problème technique avec leur service.",
       "title": "Le téléchargement ne fonctionne pas"
     },
     "transcribe": {
@@ -976,7 +984,7 @@ export default {
     "label": "Pagination"
   },
   "provider": {
-    "linkText": "Vue sur le site internet de l'institution fournisseuse",
+    "linkText": "Vue sur le site internet de l'institution partenaires",
     "providedBy": "Cet élément est fourni et maintenu par {provider}"
   },
   "recommendation": {

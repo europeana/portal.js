@@ -215,6 +215,25 @@ query BrowseLandingStaticPage(
               }
             }
           }
+          ... on EmbedSection {
+            name
+            nameEN: name(locale: "en-GB")
+            text
+            image {
+              ...imageWithAttributionFields
+            }
+            embed {
+              embed
+            }
+          }
+          ... on PrimaryCallToAction {
+            name
+            text
+            relatedLink {
+              url
+              text
+            }
+          }
         }
       }
     }

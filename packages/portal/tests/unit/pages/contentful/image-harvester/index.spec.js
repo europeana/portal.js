@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 
 import page from '@/pages/contentful/image-harvester/index';
 import sinon from 'sinon';
-import { apiError } from '@/plugins/europeana/utils';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -85,7 +84,7 @@ const factory = () => shallowMountNuxt(page, {
     },
     $apis: {
       record: {
-        $axios: {
+        axios: {
           get: sinon.stub()
         }
       }
@@ -115,7 +114,7 @@ describe('pages/contentful/image-harvester/index', () => {
       describe('when the item can be retrieved', () => {
         it('calls populateFields for the item', async() => {
           const wrapper = factory();
-          wrapper.vm.$apis.record.$axios.get.resolves({ data: apiResponse() });
+          wrapper.vm.$apis.record.axios.get.resolves({ data: apiResponse() });
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(apiResponse().object.about));
           wrapper.vm.populateFields = sinon.spy();
 
@@ -141,7 +140,7 @@ describe('pages/contentful/image-harvester/index', () => {
       describe('when the item can not be retrieved', () => {
         it('shows an error for the response', async() => {
           const wrapper = factory();
-          wrapper.vm.$apis.record.$axios.get.rejects(apiError(apiErrorResponse));
+          wrapper.vm.$apis.record.axios.get.rejects(apiErrorResponse);
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(apiResponse().object.about));
           wrapper.vm.showError = sinon.spy();
           wrapper.vm.populateFields = sinon.spy();
@@ -155,7 +154,7 @@ describe('pages/contentful/image-harvester/index', () => {
       describe('when the entry fields can not be set', () => {
         it('shows an error', async() => {
           const wrapper = factory();
-          wrapper.vm.$apis.record.$axios.get.resolves({ data: apiResponse() });
+          wrapper.vm.$apis.record.axios.get.resolves({ data: apiResponse() });
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(apiResponse().object.about));
           sinon.replace(wrapper.vm, 'populateFields', () => {
             throw Error('Contentful error');

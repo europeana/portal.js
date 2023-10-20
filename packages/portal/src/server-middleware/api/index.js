@@ -33,7 +33,9 @@ import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
 import cache from './cache/index.js';
-app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig.redis)(req, res));
+const cacheMiddleware = (req, res) => cache(runtimeConfig.redis)(req, res);
+app.get('/cache', cacheMiddleware);
+app.get('/cache/*', cacheMiddleware);
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));

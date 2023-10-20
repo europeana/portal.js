@@ -40,6 +40,7 @@ export default {
     "apply": "Alkalmaz",
     "cancel": "Mégse",
     "clear": "Törlés",
+    "clearFilters": "Szűrők törlése",
     "close": "bezárás",
     "continue": "folytatás",
     "depublish": "Közzététel visszavonása",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Olvass tovább",
     "reject": "Elutasít",
     "requestDepublication": "Közzététel megszüntetésének kérése",
-    "resetFilters": "Szűrők visszaállítása",
     "save": "Mentse",
     "send": "Küld",
     "share": "Megosztás",
@@ -888,6 +888,14 @@ export default {
         "title": "Keresési eredmény nézet (lista / rács)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Tárgyak",
+      "providingInstitutions": "Szolgáltató intézmény",
+      "visits": "Napi látogatások"
+    },
+    "europeanaNumbers": "Europeana.eu számokban"
   },
   "layout": {
     "skipToMain": "Ugrás az oldal tartalmához"

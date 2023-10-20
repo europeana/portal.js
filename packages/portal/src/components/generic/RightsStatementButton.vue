@@ -91,6 +91,7 @@
     font-size: $font-size-small;
     transition: $standard-transition;
     overflow: hidden;
+    display: inline-block;
 
     &:hover {
       cursor: pointer;

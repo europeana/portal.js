@@ -4,7 +4,7 @@
     :href="url"
     :disabled="validating"
     data-qa="download button"
-    class="ml-2 d-inline-flex align-items-center download-button h-100"
+    class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
     :target="target"
     variant="primary"
     @click.native="handleClickDownloadButton"
@@ -21,12 +21,16 @@
 <script>
   import axios from 'axios';
   import LoadingSpinner from '../generic/LoadingSpinner';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
     name: 'DownloadButton',
     components: {
       LoadingSpinner
     },
+    mixins: [
+      canonicalUrlMixin
+    ],
     props: {
       url: {
         type: String,
@@ -54,7 +58,7 @@
         return !this.urlValidated && !this.validationNetworkError;
       },
       target() {
-        if (this.validationNetworkError || !this.url.startsWith(this.$config.europeana.apis.mediaProxy.url)) {
+        if (this.validationNetworkError || !this.url.startsWith(this.$apis.mediaProxy.baseURL)) {
           return '_blank';
         }
         return '_self';
@@ -124,9 +128,12 @@
         });
       },
       trackDownload() {
-        if (!this.disabled && this.$matomo && !this.clicked) {
-          this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
-          this.clicked = true;
+        if (!this.disabled && this.$matomo) {
+          this.$matomo.trackLink(this.canonicalUrl({ fullPath: false, locale: false }), 'download');
+          if (!this.clicked) {
+            this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
+            this.clicked = true;
+          }
         }
       }
     }

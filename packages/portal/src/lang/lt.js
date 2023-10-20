@@ -40,6 +40,7 @@ export default {
     "apply": "Taikyti",
     "cancel": "Atšaukti",
     "clear": "Išvalyti",
+    "clearFilters": "Išvalyti filtrai",
     "close": "uždaryti",
     "continue": "tęsti",
     "depublish": "Išskelbti",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Skaityti daugiau",
     "reject": "Atmesti",
     "requestDepublication": "Prašymas neskelbti",
-    "resetFilters": "Iš naujo nustatyti filtrus",
     "save": "Išsaugoti",
     "send": "Siųsti",
     "share": "Dalintis",
@@ -537,7 +537,7 @@ export default {
     },
     "DATA_PROVIDER": {
       "moreName": "Teikėjai",
-      "name": "Teikianti institucija",
+      "name": "Teikėjas",
       "select": "Pasirinkite teikėjai"
     },
     "IMAGE_ASPECTRATIO": {
@@ -709,7 +709,7 @@ export default {
       "dcType": "Skaitmeninis objektas tipas",
       "edmCountry": "Teikianti šalis",
       "edmCurrentLocation": "Dabartinė vieta",
-      "edmDataProvider": "Teikianti institucija",
+      "edmDataProvider": "Teikėjas",
       "edmHasMet": "Susitiko",
       "edmIncorporates": "Įtraukia",
       "edmIntermediateProvider": "Tarpinis teikėjas",
@@ -758,7 +758,7 @@ export default {
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
-      "provide": "Tapkite Teikėjas",
+      "provide": "Tapkite teikėjas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "terms": "Naudotojo sąlygos"
     },
@@ -889,6 +889,14 @@ export default {
       }
     }
   },
+  "landing": {
+    "counts": {
+      "items": "Skaitmeniniai objektai",
+      "providingInstitutions": "Teikėjai",
+      "visits": "Apsilankymai per dieną"
+    },
+    "europeanaNumbers": "Europeana.eu skaičiais"
+  },
   "layout": {
     "skipToMain": "Pereiti į puslapio turinį"
   },
@@ -906,8 +914,8 @@ export default {
       "modalTitle": "Pasakykite ačiū"
     },
     "downloadFailed": {
-      "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"Teikianti institucija“, kad patikrintumėte, ar skaitmeninis objektas galima atsisiųsti iš teikiančios institucijos svetainės.",
-      "message": "Jei atsisiuntimas neveikia, gali būti, kad jį pašalino teikianti institucija, arba gali kilti techninių problemų, susijusių su jų paslauga.",
+      "linkPrompt": "Rekomenduojame spustelėti toliau esantį mygtuką \"teikėjas“, kad patikrintumėte, ar skaitmeninis objektas galima atsisiųsti iš teikėjas svetainės.",
+      "message": "Jei atsisiuntimas neveikia, gali būti, kad jį pašalino teikėjas, arba gali kilti techninių problemų, susijusių su jų paslauga.",
       "title": "Atsisiųsti neveikia"
     },
     "transcribe": {

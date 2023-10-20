@@ -1,10 +1,11 @@
 <template>
   <div class="primary-cta text-center">
-    <ContentRichText
-      :text="text"
-      :rich-text-is-card="false"
+    <!-- eslint-disable vue/no-v-html -->
+    <div
       class="primary-cta-rich-text text-left"
+      v-html="parseMarkdownHtml(text)"
     />
+    <!-- eslint-enable vue/no-v-html -->
     <SmartLink
       :destination="link.url"
       data-qa="call to action"
@@ -18,15 +19,17 @@
 
 <script>
   import SmartLink from '../generic/SmartLink';
-  import ContentRichText from '../content/ContentRichText';
+  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'ContentPrimaryCallToAction',
 
     components: {
-      SmartLink,
-      ContentRichText
+      SmartLink
     },
+
+    mixins: [parseMarkdownHtmlMixin],
+
     props: {
       text: {
         type: String,
@@ -56,6 +59,7 @@
 
     .btn-primary.btn-cta {
       margin-bottom: 0;
+      margin-top: 0;
     }
   }
 

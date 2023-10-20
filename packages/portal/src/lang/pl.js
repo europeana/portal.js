@@ -40,6 +40,7 @@ export default {
     "apply": "Zastosuj",
     "cancel": "Anuluj",
     "clear": "Wyczyść",
+    "clearFilters": "Wyczyść filtry",
     "close": "zamknij",
     "continue": "kontynuuj",
     "depublish": "Depublikuj",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Czytaj więcej",
     "reject": "Odrzuć",
     "requestDepublication": "Poproś o wycofanie publikacji",
-    "resetFilters": "Zresetuj filtry",
     "save": "Zapisać",
     "send": "Wyślij",
     "share": "Udostępnij",
@@ -888,6 +888,14 @@ export default {
         "title": "Widok wyników wyszukiwania (lista/siatka)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Obiekty cyfrowe",
+      "providingInstitutions": "Dostawcy danych",
+      "visits": "Odwiedziny dziennie"
+    },
+    "europeanaNumbers": "Europeana.eu w liczbach"
   },
   "layout": {
     "skipToMain": "Przejdź do zawartości strony"

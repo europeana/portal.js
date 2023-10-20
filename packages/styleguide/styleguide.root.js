@@ -96,7 +96,11 @@ Object.assign(Vue.prototype, {
   $path: () => {
     return '/';
   },
-  $route: { query: {} },
+  $route: { query: {},
+    params: {
+      pathMatch: 'example-page'
+    } },
+  localePath: (args) => args,
   switchLocalePath: () => '/'
 });
 

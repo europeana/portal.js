@@ -127,6 +127,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/transitions';
+  @import '@europeana/style/scss/icons';
 
   .icon-translate::before {
     font-size: 1.4375rem;
@@ -134,6 +135,22 @@
 
   .multilingual-selector {
     vertical-align: baseline;
+  }
+
+  ::v-deep .multilingual-dropdown {
+    padding: 0;
+    color: $greyblack;
+    text-decoration: underline;
+
+    &::after {
+      @extend %icon-font;
+
+      // icon-chevron
+      content: '\e91b';
+      font-size: 0.5rem;
+      border: none;
+      margin-left: 0.25rem;
+    }
   }
 
   .multilingual-dropdown-item {

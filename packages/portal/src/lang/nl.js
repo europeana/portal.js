@@ -40,6 +40,7 @@ export default {
     "apply": "Toepassen",
     "cancel": "Annuleren",
     "clear": "Wissen",
+    "clearFilters": "Filters wissen",
     "close": "sluiten",
     "continue": "doorgaan",
     "depublish": "Depubliceren",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Lees verder",
     "reject": "Afwijzen",
     "requestDepublication": "Depublicatie aanvragen",
-    "resetFilters": "Filters resetten",
     "save": "Opslaan",
     "send": "Verzenden",
     "share": "Delen",
@@ -888,6 +888,14 @@ export default {
         "title": "Zoekresultaatweergave (lijst/raster)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Objecten",
+      "providingInstitutions": "Deelnemende erfgoedorganisaties",
+      "visits": "Bezoeken per dag"
+    },
+    "europeanaNumbers": "Europeana.eu in cijfers"
   },
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"

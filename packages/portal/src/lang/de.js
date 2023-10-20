@@ -40,6 +40,7 @@ export default {
     "apply": "Anwenden",
     "cancel": "Abbrechen",
     "clear": "Zurücksetzen",
+    "clearFilters": "Filter löschen",
     "close": "schließen",
     "continue": "Fortfahren",
     "depublish": "Veröffentlichung aufheben",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Mehr anzeigen",
     "reject": "Ablehnen",
     "requestDepublication": "Depublikation anfordern",
-    "resetFilters": "Filter zurücksetzen",
     "save": "Speichern",
     "send": "Senden",
     "share": "Teilen",
@@ -888,6 +888,14 @@ export default {
         "title": "Suchergebnisansicht (Liste/Raster)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Objekte",
+      "providingInstitutions": "Datenpartner",
+      "visits": "Besuche pro Tag"
+    },
+    "europeanaNumbers": "Europeana.eu in Zahlen"
   },
   "layout": {
     "skipToMain": "Direkt zum Seiteninhalt"

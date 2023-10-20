@@ -40,6 +40,7 @@ export default {
     "apply": "Cuir i bhfeidhm",
     "cancel": "Cealaigh",
     "clear": "Glan",
+    "clearFilters": "Glan scagairí",
     "close": "dún",
     "continue": "Lean ar aghaidh",
     "depublish": "Dífhoilsiú",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Léigh níos mó",
     "reject": "Diúltaigh",
     "requestDepublication": "Iarratas a dhéanamh ar fhoilseachán",
-    "resetFilters": "Athshocraigh scagairí",
     "save": "Sábháil",
     "send": "Seol",
     "share": "Roinn",
@@ -888,6 +888,14 @@ export default {
         "title": "Amharc toraidh cuardaigh (liosta/greille)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Míreanna",
+      "providingInstitutions": "Institiúidí soláthartha",
+      "visits": "Cuairteanna in aghaidh an lae"
+    },
+    "europeanaNumbers": "Europeana.eu sna huimhreacha"
   },
   "layout": {
     "skipToMain": "Scipeáil chuig inneachar leathanaigh"

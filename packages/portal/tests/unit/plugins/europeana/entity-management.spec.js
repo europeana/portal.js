@@ -1,8 +1,6 @@
 import nock from 'nock';
 
-import entitymanage, { BASE_URL } from '@/plugins/europeana/entity-management';
-
-import axios from 'axios';
+import entityManagement from '@/plugins/europeana/entity-management';
 
 const proxyBody = { type: 'Concept',
   prefLabel: { en: 'Painting' },
@@ -48,12 +46,12 @@ describe('plugins/europeana/entity-management', () => {
       const entityId = '123';
       const entityUri = 'http://data.europeana.eu/concept/123';
       const profile = 'internal';
-      nock(BASE_URL)
+      nock(entityManagement.BASE_URL)
         .get(`/concept/${entityId}`)
         .query(query => query.profile === profile)
         .reply(200, entityResponses.items[0]);
 
-      const response = await entitymanage(axios).get(entityUri);
+      const response = await (new entityManagement).get(entityUri);
 
       expect(response.note.en).toEqual(['A medium for recording information in the form of writing or images']);
     });
@@ -62,12 +60,12 @@ describe('plugins/europeana/entity-management', () => {
       const entityId = '123';
       const entityUri = 'http://data.europeana.eu/concept/123';
       const profile = 'external';
-      nock(BASE_URL)
+      nock(entityManagement.BASE_URL)
         .get(`/concept/${entityId}`)
         .query(query => query.profile === profile)
         .reply(200, entityResponses.items[0]);
 
-      await entitymanage(axios).get(entityUri, { profile });
+      await (new entityManagement).get(entityUri, { profile });
 
       expect(nock.isDone()).toBe(true);
     });
@@ -77,11 +75,11 @@ describe('plugins/europeana/entity-management', () => {
     it('updates the data', async() => {
       const entityId = '124';
       const entityUri = 'http://data.europeana.eu/concept/124';
-      nock(BASE_URL)
+      nock(entityManagement.BASE_URL)
         .put(`/concept/${entityId}`)
         .reply(200, updatedEntity);
 
-      const response = await entitymanage(axios).update(entityUri, proxyBody);
+      const response = await (new entityManagement).update(entityUri, proxyBody);
 
       expect(response.id).toBe('http://data.europeana.eu/concept/124');
     });

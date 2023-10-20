@@ -2,18 +2,18 @@ import pick from 'lodash/pick.js';
 import md5 from 'md5';
 import merge from 'deepmerge';
 
+import EuropeanaApi from './apis/base.js';
+
 import undefinedLocaleCodes from '../i18n/undefined.js';
 import {
-  apiError, createAxios, forEachLangMapValue, reduceLangMapsForLocale, isLangMap
+  forEachLangMapValue, reduceLangMapsForLocale, isLangMap
 } from './utils.js';
 import search from './search.js';
 import Item from './edm/Item.js';
 
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
-import { BASE_URL as EUROPEANA_MEDIA_PROXY_URL } from './media-proxy.js';
+import EuropeanaMediaProxyApi from './media-proxy.js';
 
-export const BASE_URL = 'https://api.europeana.eu/record';
-export const AUTHENTICATING = true;
 const MAX_VALUES_PER_PROXY_FIELD = 10;
 
 function isUndefined(value) {
@@ -91,204 +91,200 @@ const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
   return (!proxy[field]?.[targetLanguage] && fallbackProxy[field]?.['en']);
 };
 
-export default (context = {}) => {
-  const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
+export default class EuropeanaRecordApi extends EuropeanaApi {
+  static ID = 'record';
+  static BASE_URL = 'https://api.europeana.eu/record';
+  static AUTHENTICATING = true;
 
-  return {
-    $axios,
+  get search() {
+    return search.bind(this);
+  }
 
-    search(params, options = {}) {
-      return search(context)($axios, params, options);
-    },
+  /**
+   * Find records by their identifier
+   * @param {Array} europeanaIds record identifiers or URIs
+   * @param {Object} params additional options to include in the API search query
+   * @return {Array} record data as returned by the API
+   */
+  find(europeanaIds, params = {}) {
+    europeanaIds = europeanaIds.map(id => id.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, ''));
+    const query = `europeana_id:("${europeanaIds.join('" OR "')}")`;
+    return this.search({
+      query,
+      ...params
+    });
+  }
 
-    /**
-     * Find records by their identifier
-     * @param {Array} europeanaIds record identifiers or URIs
-     * @param {Object} params additional options to include in the API search query
-     * @return {Array} record data as returned by the API
-     */
-    find(europeanaIds, params = {}) {
-      europeanaIds = europeanaIds.map(id => id.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, ''));
-      const query = `europeana_id:("${europeanaIds.join('" OR "')}")`;
-      return this.search({
-        query,
-        ...params
-      }, { addContentTierFilter: false });
-    },
+  /**
+   * Parse the record data based on the data from the API response
+   * @param {Object} edm data from API response
+   * @return {Object} parsed data
+   */
+  parseRecordDataFromApiResponse(data, options = {}) {
+    const edm = data.object;
+    const providerAggregation = edm.aggregations[0];
 
-    /**
-     * Parse the record data based on the data from the API response
-     * @param {Object} edm data from API response
-     * @return {Object} parsed data
-     */
-    parseRecordDataFromApiResponse(data, options = {}) {
-      const edm = data.object;
-      const providerAggregation = edm.aggregations[0];
+    const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
+    const places = (edm.places || []).map(reduceEntity).map(Object.freeze);
+    const agents = (edm.agents || []).map(reduceEntity).map(Object.freeze);
+    const timespans = (edm.timespans || []).map(reduceEntity).map(Object.freeze);
+    const organizations = (edm.organizations || []).map(reduceEntity).map(Object.freeze);
 
-      const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
-      const places = (edm.places || []).map(reduceEntity).map(Object.freeze);
-      const agents = (edm.agents || []).map(reduceEntity).map(Object.freeze);
-      const timespans = (edm.timespans || []).map(reduceEntity).map(Object.freeze);
-      const organizations = (edm.organizations || []).map(reduceEntity).map(Object.freeze);
+    const entities = [].concat(concepts, places, agents, timespans, organizations)
+      .filter(isNotUndefined)
+      .reduce((memo, entity) => {
+        memo[entity.about] = entity;
+        return memo;
+      }, {});
 
-      const entities = [].concat(concepts, places, agents, timespans, organizations)
-        .filter(isNotUndefined)
-        .reduce((memo, entity) => {
-          memo[entity.about] = entity;
-          return memo;
-        }, {});
-
-      // Europeana proxy only really needed for the translate profile
-      const europeanaProxy = findProxy(edm.proxies, 'europeana');
-      if (!(context.$features?.translatedItems && options.metadataLanguage)) {
-        forEachLangMapValue(europeanaProxy, (europeanaProxy, field, locale) => {
-          if (!undefinedLocaleCodes.includes(locale)) {
-            delete europeanaProxy[field][locale];
-          }
-        });
-      }
-      const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
-      const providerProxy = findProxy(edm.proxies, 'provider');
-
-      const proxies = merge.all([europeanaProxy, aggregatorProxy, providerProxy].filter((p) => !!p));
-
-      forEachLangMapValue(proxies, (proxies, field, locale) => {
-        if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
-          proxies[field][locale] = proxies[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
+    // Europeana proxy only really needed for the translate profile
+    const europeanaProxy = findProxy(edm.proxies, 'europeana');
+    if (!(this.context?.$features?.translatedItems && options.metadataLanguage)) {
+      forEachLangMapValue(europeanaProxy, (europeanaProxy, field, locale) => {
+        if (!undefinedLocaleCodes.includes(locale)) {
+          delete europeanaProxy[field][locale];
         }
       });
+    }
+    const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
+    const providerProxy = findProxy(edm.proxies, 'provider');
 
-      let prefLang;
-      if (context.$features?.translatedItems) {
-        prefLang = options.metadataLanguage ? options.metadataLanguage : null;
+    const proxies = merge.all([europeanaProxy, aggregatorProxy, providerProxy].filter((p) => !!p));
+
+    forEachLangMapValue(proxies, (proxies, field, locale) => {
+      if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
+        proxies[field][locale] = proxies[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
       }
-      const predictedUiLang = prefLang || options.locale;
+    });
 
-      for (const field in proxies) {
-        if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
-          proxies[field].translationSource = 'enrichment';
-        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$features?.translatedItems) {
-          proxies[field].translationSource = 'automated';
-        }
+    let prefLang;
+    if (this.context?.$features?.translatedItems) {
+      prefLang = options.metadataLanguage ? options.metadataLanguage : null;
+    }
+    const predictedUiLang = prefLang || options.locale;
+
+    for (const field in proxies) {
+      if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
+        proxies[field].translationSource = 'enrichment';
+      } else if (europeanaProxy?.[field]?.[predictedUiLang] && this.context?.$features?.translatedItems) {
+        proxies[field].translationSource = 'automated';
       }
+    }
 
-      const metadata = {
-        ...lookupEntities(
-          merge.all([proxies, providerAggregation, edm.europeanaAggregation]), entities
-        ),
-        europeanaCollectionName: edm.europeanaCollectionName ? {
-          url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
-          value: edm.europeanaCollectionName
-        } : null,
-        timestampCreated: edm.timestamp_created,
-        timestampUpdate: edm.timestamp_update
-      };
+    const metadata = {
+      ...lookupEntities(
+        merge.all([proxies, providerAggregation, edm.europeanaAggregation]), entities
+      ),
+      europeanaCollectionName: edm.europeanaCollectionName ? {
+        url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
+        value: edm.europeanaCollectionName
+      } : null,
+      timestampCreated: edm.timestamp_created,
+      timestampUpdate: edm.timestamp_update
+    };
 
-      const item = new Item(edm);
+    const item = new Item(edm);
 
-      return {
-        allMediaUris: item.providerAggregation.displayableWebResources.map((wr) => wr.about),
-        altTitle: proxies.dctermsAlternative,
-        description: proxies.dcDescription,
-        fromTranslationError: options.fromTranslationError,
-        identifier: edm.about,
-        type: edm.type, // TODO: Evaluate if this is used, if not remove.
-        isShownAt: item.providerAggregation.edmIsShownAt,
-        metadata: Object.freeze(metadata),
-        media: item.providerAggregation.displayableWebResources,
-        agents,
-        concepts,
-        timespans,
-        organizations,
-        places,
-        title: proxies.dcTitle,
-        schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
-        metadataLanguage: prefLang,
-        iiifPresentationManifest: item.iiifPresentationManifest
-      };
-    },
+    return {
+      allMediaUris: item.providerAggregation.displayableWebResources.map((wr) => wr.about),
+      altTitle: proxies.dctermsAlternative,
+      description: proxies.dcDescription,
+      fromTranslationError: options.fromTranslationError,
+      identifier: edm.about,
+      type: edm.type, // TODO: Evaluate if this is used, if not remove.
+      isShownAt: item.providerAggregation.edmIsShownAt,
+      metadata: Object.freeze(metadata),
+      media: item.providerAggregation.displayableWebResources,
+      agents,
+      concepts,
+      timespans,
+      organizations,
+      places,
+      title: proxies.dcTitle,
+      schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
+      metadataLanguage: prefLang,
+      iiifPresentationManifest: item.iiifPresentationManifest
+    };
+  }
 
-    /**
-     * Get the record data from the API
-     * @param {string} europeanaId ID of Europeana record
-     * @return {Object} parsed record data
-     */
-    getRecord(europeanaId, options = {}) {
-      let path = '';
-      if (!this.$axios.defaults.baseURL.endsWith('/record')) {
-        path = '/record';
+  /**
+   * Get the record data from the API
+   * @param {string} europeanaId ID of Europeana record
+   * @return {Object} parsed record data
+   */
+  getRecord(europeanaId, options = {}) {
+    let path = '';
+    if (!this.axios.defaults.baseURL.endsWith('/record')) {
+      path = '/record';
+    }
+
+    const params = { ...this.axios.defaults.params };
+    if (this.context?.$features?.translatedItems) {
+      if (options.metadataLanguage) {
+        params.profile = 'translate';
+        params.lang = options.metadataLanguage;
       }
-
-      const params = { ...this.$axios.defaults.params };
-      if (context.$features?.translatedItems) {
-        if (options.metadataLanguage) {
-          params.profile = 'translate';
-          params.lang = options.metadataLanguage;
-        }
-      } else {
-        // No point in switching on experimental schema.org with item translations.
-        // The profiles would interfere with each other.
-        let schemaOrgDatasetId;
-        if (context.$config?.app?.schemaOrgDatasetId) {
-          schemaOrgDatasetId = context.$config.app.schemaOrgDatasetId;
-        }
-        if (schemaOrgDatasetId && europeanaId.startsWith(`/${schemaOrgDatasetId}/`)) {
-          params.profile = 'schemaOrg';
-        }
+    } else {
+      // No point in switching on experimental schema.org with item translations.
+      // The profiles would interfere with each other.
+      let schemaOrgDatasetId;
+      if (this.context?.$config?.app?.schemaOrgDatasetId) {
+        schemaOrgDatasetId = this.context?.$config.app.schemaOrgDatasetId;
       }
+      if (schemaOrgDatasetId && europeanaId.startsWith(`/${schemaOrgDatasetId}/`)) {
+        params.profile = 'schemaOrg';
+      }
+    }
 
-      return this.$axios.get(`${path}${europeanaId}.json`, { params })
-        .then((response) => {
-          const parsed = this.parseRecordDataFromApiResponse(response.data, options);
-          const reduced = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, { freeze: false });
+    return this.axios.get(`${path}${europeanaId}.json`, { params })
+      .then((response) => {
+        const parsed = this.parseRecordDataFromApiResponse(response.data, options);
+        const reduced = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, { freeze: false });
 
-          // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
-          for (const entityType of ['agents', 'concepts', 'organizations', 'places', 'timespans']) {
-            for (const reducedEntity of (reduced[entityType] || [])) {
-              const fullEntity = parsed[entityType].find(entity => entity.about === reducedEntity.about);
-              if (fullEntity.prefLabel?.en !== reducedEntity.prefLabel?.en) {
-                reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
-              }
+        // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
+        for (const entityType of ['agents', 'concepts', 'organizations', 'places', 'timespans']) {
+          for (const reducedEntity of (reduced[entityType] || [])) {
+            const fullEntity = parsed[entityType].find(entity => entity.about === reducedEntity.about);
+            if (fullEntity.prefLabel?.en !== reducedEntity.prefLabel?.en) {
+              reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
             }
           }
+        }
 
-          return {
-            record: reduced,
-            error: null
-          };
-        })
-        .catch((error) => {
-          const errorResponse = error.response;
-          if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
-            delete (options.metadataLanguage);
-            options.fromTranslationError = true;
-            return this.getRecord(europeanaId, options);
-          }
-          throw apiError(error);
-        });
-    },
+        return {
+          record: reduced,
+          error: null
+        };
+      })
+      .catch((error) => {
+        const errorResponse = error.response;
+        if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
+          delete (options.metadataLanguage);
+          options.fromTranslationError = true;
+          return this.getRecord(europeanaId, options);
+        }
+        throw this.apiError(error);
+      });
+  }
 
-    // TODO: move to media-proxy.js
-    mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
-      if (this.$axios.defaults.baseURL !== context.$config?.europeana?.apis.record.url) {
-        params.recordApiUrl = this.$axios.defaults.baseURL;
-      }
+  // TODO: move to media-proxy.js
+  mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
+    params.recordApiUrl = this.baseURL;
 
-      const proxyUrl = new URL(context.$config?.europeana?.apis?.mediaProxy?.url || EUROPEANA_MEDIA_PROXY_URL);
+    const proxyUrl = new URL(this.context?.$apis?.mediaProxy?.baseURL || EuropeanaMediaProxyApi.BASE_URL);
 
-      proxyUrl.pathname = `${proxyUrl.pathname}${europeanaId}/${md5(mediaUrl)}`;
-      if (proxyUrl.pathname.startsWith('//')) {
-        proxyUrl.pathname = proxyUrl.pathname.slice(1);
-      }
-
-      for (const name in params) {
-        proxyUrl.searchParams.append(name, params[name]);
-      }
-
-      return proxyUrl.toString();
+    proxyUrl.pathname = `${proxyUrl.pathname}${europeanaId}/${md5(mediaUrl)}`;
+    if (proxyUrl.pathname.startsWith('//')) {
+      proxyUrl.pathname = proxyUrl.pathname.slice(1);
     }
-  };
-};
+
+    for (const name in params) {
+      proxyUrl.searchParams.append(name, params[name]);
+    }
+
+    return proxyUrl.toString();
+  }
+}
 
 const reduceEntity = (entity) => {
   return pick(entity, [

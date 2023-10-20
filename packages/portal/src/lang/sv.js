@@ -40,6 +40,7 @@ export default {
     "apply": "Tillämpa",
     "cancel": "Avbryt",
     "clear": "Rensa",
+    "clearFilters": "Rensa filter",
     "close": "stäng",
     "continue": "Fortsätt",
     "depublish": "Avpublicera",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Läs mer",
     "reject": "Avvisa",
     "requestDepublication": "Begär avpublicering",
-    "resetFilters": "Återställ filter",
     "save": "Spara",
     "send": "Skicka",
     "share": "Dela",
@@ -888,6 +888,14 @@ export default {
         "title": "Visa sökresultat (lista/rutnät)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Objekt",
+      "providingInstitutions": "Tillhandahållande institutioner",
+      "visits": "Besök per dag"
+    },
+    "europeanaNumbers": "Europeana.eu i siffror"
   },
   "layout": {
     "skipToMain": "Hoppa till sidans innehåll"

@@ -93,6 +93,8 @@
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
+                          :on-aux-click-card="onClickItem"
+                          :on-click-card="onClickItem"
                           @drawn="handleResultsDrawn"
                         >
                           <slot />
@@ -202,14 +204,17 @@
   import merge from 'deepmerge';
   import objectHash from 'object-hash';
   import pick from 'lodash/pick.js';
+  import isEqual from 'lodash/isEqual';
 
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import SearchFilters from './SearchFilters';
   import SearchViewToggles from './SearchViewToggles';
 
+  import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import makeToastMixin from '@/mixins/makeToast';
-  import { filtersFromQf } from '@/plugins/europeana/search';
+  import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
+  import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchInterface',
@@ -228,6 +233,8 @@
     },
 
     mixins: [
+      advancedSearchMixin,
+      elasticApmReporterMixin,
       makeToastMixin
     ],
 
@@ -256,12 +263,14 @@
 
     data() {
       return {
+        apiParams: {},
         hits: null,
-        lastAvailablePage: null,
         items: null,
-        totalResults: null,
+        lastAvailablePage: null,
         paginationChanged: false,
-        showAdvancedSearch: false
+        qasWithAddedEntityValue: [],
+        showAdvancedSearch: false,
+        totalResults: null
       };
     },
 
@@ -272,6 +281,20 @@
       this.setViewFromRouteQuery();
 
       this.$store.commit('search/setActive', true);
+
+      // Remove cleared rules
+      const qaRules = this.advancedSearchRulesFromRouteQuery();
+      this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qaWithEntity => {
+        return qaRules.find(qa => isEqual(qa, qaWithEntity.qa));
+      });
+
+      const qasToLookUp = this.advancedSearchQueriesForEntityLookUp();
+
+      if (qasToLookUp.length) {
+        await this.addEntityValuesToAdvancedSearchFields(qasToLookUp);
+      }
+
+      this.deriveApiParams();
 
       try {
         await this.runSearch();
@@ -306,8 +329,7 @@
         const apiOptions = {};
 
         if (this.hasFulltextQa) {
-          // TODO: ensure this is aware of per-request fulltext url, e.g. from ingress headers
-          apiOptions.url = this.$config.europeana.apis.fulltext.url;
+          apiOptions.url = this.$apis.fulltext.baseURL;
         }
 
         if (this.translateLang) {
@@ -316,45 +338,14 @@
 
         return apiOptions;
       },
-      // TODO: reduce cognitive complexity
-      apiParams() {
-        const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
-          if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
-            memo[field] = this[field];
-          }
-          return memo;
-        }, {});
-
-        params.page = this.page;
-        params.profile = 'minimal';
-        params.rows = this.perPage;
-
-        if (this.advancedSearchQueryCount > 0) {
-          if (this.hasFulltextQa) {
-            // If there are any advanced search full-text rules, then
-            // these are promoted to the primary query, and any other query
-            // (from the simple search bar) is demoted to a qf, fielded to
-            // `text` if not already fielded.
-            if (params.query && !params.query.includes(':')) {
-              params.query = `text:(${params.query})`;
-            }
-            params.qf = (params.qf || []).concat(params.query || []);
-            params.query = this.fulltextQas.join(' AND ');
-            params.profile = `${params.profile},hits`;
-          }
-
-          // All other advanced search rules go into qf's.
-          params.qf = (params.qf || [])
-            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)));
-        }
-
-        return merge(params, this.overrideParams);
-      },
       boost() {
         return this.userParams.boost;
       },
       qa() {
         return [].concat(this.userParams.qa || []);
+      },
+      qaes() {
+        return this.qasWithAddedEntityValue.map(qaWithEntity => qaWithEntity.qae).filter(qae => !!qae);
       },
       qf() {
         return [].concat(this.userParams.qf || []);
@@ -434,6 +425,9 @@
           options: this.apiOptions,
           params: this.apiParams
         });
+      },
+      qasWithSelectedEntityValue() {
+        return this.$store.state.search.qasWithSelectedEntityValue;
       }
     },
 
@@ -467,6 +461,67 @@
     },
 
     methods: {
+      // NOTE: deliberately not computed, so that `apiParams` can be used by
+      //       `onClickItem`
+      // TODO: reduce cognitive complexity
+      deriveApiParams() {
+        const params = ['boost', 'qf', 'query', 'reusability', 'sort'].reduce((memo, field) => {
+          if (this[field] && (!Array.isArray(this[field]) || this[field].length > 0)) {
+            memo[field] = this[field];
+          }
+          return memo;
+        }, {});
+
+        params.page = this.page;
+        params.profile = 'minimal';
+        params.rows = this.perPage;
+
+        if (this.advancedSearchQueryCount > 0) {
+          if (this.hasFulltextQa) {
+            // If there are any advanced search full-text rules, then
+            // these are promoted to the primary query, and any other query
+            // (from the simple search bar) is demoted to a qf, fielded to
+            // `text` if not already fielded.
+            if (params.query && !params.query.includes(':')) {
+              params.query = `text:(${params.query})`;
+            }
+            params.qf = (params.qf || []).concat(params.query || []);
+            params.query = this.fulltextQas.join(' AND ');
+            params.profile = `${params.profile},hits`;
+          }
+
+          // All other advanced search rules go into qf's.
+          params.qf = (params.qf || [])
+            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa))).concat(this.qaes);
+        }
+
+        params.qf = addContentTierFilter(params.qf);
+
+        this.apiParams = merge(params, this.overrideParams);
+      },
+
+      // NOTE: do not use computed properties here as they may change when the
+      //       item is clicked
+      onClickItem(identifier) {
+        const rank = this.items.findIndex(item => item.id === identifier) + 1 +
+          ((this.apiParams.page - 1) * this.apiParams.rows);
+        this.recordSearchInteraction('click result', { 'search_result_rank': rank });
+      },
+
+      recordSearchInteraction(name, labels = {}) {
+        for (const param of ['qf', 'query', 'reusability']) {
+          if (this.apiParams[param]) {
+            labels[`search_params_${param}`] = this.apiParams[param];
+          }
+        }
+        labels['search_results_total'] = this.totalResults;
+
+        this.logApmTransaction({
+          name: `Search - ${name}`,
+          labels
+        });
+      },
+
       async runSearch() {
         let response;
 
@@ -495,6 +550,7 @@
                                  JSON.stringify(response)
           );
         }
+        this.recordSearchInteraction('fetch results');
       },
 
       handlePaginationChanged() {
@@ -542,6 +598,64 @@
 
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+      },
+
+      advancedSearchQueriesForEntityLookUp() {
+        const qasToLookUp = this.advancedSearchRulesFromRouteQuery()
+          .filter(query => {
+            const fieldNeedsLookUp = this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.field);
+            const newQuery = !this.qasWithAddedEntityValue.find(qaWithEntity => isEqual(qaWithEntity.qa, query));
+
+            return fieldNeedsLookUp && newQuery;
+          });
+        return qasToLookUp;
+      },
+
+      async lookupQaEntity(query) {
+        const locale = this.$i18n.locale;
+        let queryEqualsEntity;
+        const text = query.term;
+
+        // Check if term is selected and stored from the entity dropdown
+        const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find(queryWithSelectedEntity => queryWithSelectedEntity.qa === text);
+        queryEqualsEntity = queryHasSelectedEntity;
+
+        // Look up possible entity value for SSR or when no option selected, the qa might still match an entity
+        if (!queryHasSelectedEntity) {
+          const suggestions = await this.$apis.entity.suggest(text, {
+            language: locale,
+            // Only look up specific entity type as defined for the advanced search field
+            type: query.suggestEntityType
+          });
+
+          queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
+        }
+
+        if (queryEqualsEntity) {
+          const qae = this.advancedSearchQueryFromRule({ ...query, term: `"${queryEqualsEntity.id}"` });
+          return {
+            qa: query,
+            qae
+          };
+        } else {
+          // save fields that do not match entity to prevent reattempt to find matching entitiy
+          return {
+            qa: query,
+            qae: null
+          };
+        }
+      },
+
+      async addEntityValuesToAdvancedSearchFields(qas) {
+        const fieldsWithEntityValues = await Promise.all(qas.map(this.lookupQaEntity));
+
+        // Save the enriched queries to data prop (local store) to prevent repeated suggest requests
+        if (fieldsWithEntityValues.length) {
+          this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.concat(fieldsWithEntityValues);
+        }
+
+        // Clean up the store to prevent accumulating outdated data
+        this.$store.commit('search/setQasWithSelectedEntityValue', []);
       }
     }
   };

@@ -99,7 +99,7 @@
           return false;
         }
 
-        if (!this.internalDomain) {
+        if (!this.internalDomain && typeof path === 'string') {
           return path.startsWith('http://') || path.startsWith('https://');
         }
 

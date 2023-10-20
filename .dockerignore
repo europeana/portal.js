@@ -92,3 +92,6 @@ Dockerfile
 
 # Tests
 tests/
+
+# SonarScanner output
+.scannerwork

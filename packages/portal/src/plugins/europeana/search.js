@@ -5,9 +5,8 @@
 import pick from 'lodash/pick.js';
 
 import {
-  apiError, createAxios, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
+  escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
 } from './utils.js';
-import { BASE_URL } from './record.js';
 import { truncate } from '../vue-filters.js';
 
 // Some facets do not support enquoting of their field values.
@@ -73,7 +72,6 @@ export function rangeFromQueryParam(paramValue) {
 
 /**
  * Search Europeana Record API
- * @param {Object} $axios Axios instance for Record API
  * @param {Object} params parameters for search query
  * @param {number} params.page page of results to retrieve
  * @param {number} params.rows number of results to retrieve per page
@@ -87,18 +85,13 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} options.locale current locale, for localising search results
  * @param {string} options.translateLang source locale for multilingual search
  * @param {string} options.url override the API URL
- * @param {Boolean} options.addContentTierFilter if `true`, add a content tier filter. default `true`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-// TODO: switch options.addContentTierFilter to default to `false`
-export default (context) => ($axios, params, options = {}) => {
-  if (!$axios) {
-    $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
-  }
 
+export default function(params, options = {}) {
   const localParams = { ...params };
 
-  const defaultOptions = { addContentTierFilter: true, locale: context?.i18n?.locale };
+  const defaultOptions = { locale: this.context?.i18n?.locale };
   const localOptions = { ...defaultOptions, ...options };
 
   const maxResults = 1000;
@@ -110,14 +103,12 @@ export default (context) => ($axios, params, options = {}) => {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
   const query = params.query || '*:*';
 
-  const qf = localOptions.addContentTierFilter ? addContentTierFilter(localParams.qf) : localParams.qf;
-
   const searchParams = {
-    ...$axios.defaults.params,
+    ...this.axios.defaults.params,
     ...localParams,
     profile: localParams.profile || '',
-    qf,
-    query: localOptions.escape ? escapeLuceneSpecials(query) : query,
+    qf: localParams.qf,
+    query: options.escape ? escapeLuceneSpecials(query) : query,
     rows,
     start
   };
@@ -134,7 +125,7 @@ export default (context) => ($axios, params, options = {}) => {
     }
   }
 
-  return $axios.get(`${localOptions.url || ''}/search.json`, {
+  return this.axios.get(`${options.url || ''}/search.json`, {
     params: searchParams
   })
     .then(response => response.data)
@@ -144,9 +135,9 @@ export default (context) => ($axios, params, options = {}) => {
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {
-      throw apiError(error);
+      throw this.apiError(error);
     });
-};
+}
 
 const reduceFieldsForItem = (item, options = {}) => {
   // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue

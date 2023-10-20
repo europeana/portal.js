@@ -40,6 +40,7 @@ export default {
     "apply": "Prijavi se",
     "cancel": "Prekliči",
     "clear": "Počisti",
+    "clearFilters": "Počisti filtre",
     "close": "zapri",
     "continue": "nadaljuj",
     "depublish": "Depubliš",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Preberi več",
     "reject": "Zavrne",
     "requestDepublication": "Zahtevaj deublikacijo",
-    "resetFilters": "Ponastavi filtre",
     "save": "Shrani",
     "send": "Pošlji",
     "share": "Deli",
@@ -787,7 +787,7 @@ export default {
       "help": "Pomoč",
       "home": "Domov",
       "pro": "Za strokovnjake",
-      "shareYourData": "Delite svoje podatke",
+      "shareYourData": "Delite vaše podatke",
       "stories": "Zgodbe"
     },
     "quickSearch": "Hitro iskanje",
@@ -888,6 +888,14 @@ export default {
         "title": "Pogled rezultatov iskanja (seznam / mreža)"
       }
     }
+  },
+  "landing": {
+    "counts": {
+      "items": "Enote",
+      "providingInstitutions": "Ponudniki podatkov",
+      "visits": "Obiski na dan"
+    },
+    "europeanaNumbers": "Europeana.eu v številkah"
   },
   "layout": {
     "skipToMain": "Preskoči na vsebino strani"
