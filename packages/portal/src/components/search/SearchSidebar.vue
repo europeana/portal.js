@@ -18,7 +18,7 @@
           >
             <b-button
               data-qa="close filters button"
-              class="close-sidebar-button mr-3 ml-auto text-uppercase d-flex align-items-center"
+              class="close-sidebar-button mr-1 ml-auto text-uppercase d-flex align-items-center"
               variant="light-flat"
               :aria-label="$t('header.closeSidebar')"
               @click="toggleSearchSidebar"
