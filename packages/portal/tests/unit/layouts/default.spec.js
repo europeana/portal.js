@@ -309,4 +309,30 @@ describe('layouts/default.vue', () => {
       expect(storeCommitStub.calledWith('navigation/updateBrowserNative', false)).toBe(true);
     });
   });
+
+  describe('when the route changes', () => {
+    const routeTo = { path: '/search' };
+    const routeFrom = { path: '/item' };
+    describe('and it\'s not caused by popstate event', () => {
+      it('clears the native navigation state', async() => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, 'clearNativeNavigationState');
+
+        await wrapper.vm.watch.$route.call(wrapper.vm, routeTo, routeFrom);
+
+        expect(wrapper.vm.clearNativeNavigationState.called).toBe(true);
+      });
+    });
+
+    describe('and it\'s caused by popstate event', () => {
+      it('does not clear the native navigation state', async() => {
+        const wrapper = factory({ data: { browserNativeInProgress: true } });
+        sinon.spy(wrapper.vm, 'clearNativeNavigationState');
+
+        await wrapper.vm.watch.$route.call(wrapper.vm, routeTo, routeFrom);
+
+        expect(wrapper.vm.clearNativeNavigationState.called).toBe(false);
+      });
+    });
+  });
 });

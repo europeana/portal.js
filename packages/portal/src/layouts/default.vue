@@ -108,7 +108,8 @@
         toastBottomOffset: '20px',
         featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
         featureNotificationExpiration: this.$config.app.featureNotificationExpiration,
-        notificationBanner: this.$config?.app?.notificationBanner
+        notificationBanner: this.$config?.app?.notificationBanner,
+        browserNativeInProgress: false
       };
     },
 
@@ -159,7 +160,11 @@
       '$i18n.locale': 'renderKlaro',
 
       $route(to, from) {
-        this.clearNativeNavigationState();
+        // The route watcher and the onpopstate event are called after each other and at times in different order
+        // browserNativeInProgress assures the correct call order of setting and clearing the browser native navigation state
+        !this.browserNativeInProgress && this.clearNativeNavigationState();
+        this.browserNativeInProgress = false;
+
         this.$nextTick(() => {
           if (to.path === from.path) {
             this.enableAnnouncer = false;
@@ -232,6 +237,7 @@
       setNativeNavigationState() {
         if (!this.browserNative) {
           this.$store.commit('navigation/updateBrowserNative', true);
+          this.browserNativeInProgress = true;
         }
       },
 
