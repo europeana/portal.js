@@ -1,7 +1,9 @@
 export default {
   displayName: 'vue-session-id',
   moduleFileExtensions: [
-    'js'
+    'js',
+    'json',
+    'mjs'
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
@@ -11,6 +13,9 @@ export default {
     '/node_modules/'
   ],
   transform: {
-    '^.+\\.js$': 'babel-jest'
-  }
+    '^.+\\.(js|mjs)$': 'babel-jest'
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!uuid)'
+  ]
 };
