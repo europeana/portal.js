@@ -191,13 +191,13 @@ jobs:
       -
         name: Archive code coverage
         run: |
-          tar -cf packages-portal-coverage.tar packages/portal/coverage
+          tar -cf test-coverage.tar coverage
       -
         name: Upload code coverage
         uses: actions/upload-artifact@v3
         with:
-          name: packages-portal-coverage
-          path: packages-portal-coverage.tar
+          name: test-coverage
+          path: test-coverage.tar
 
   sonarcloud:
     runs-on: ubuntu-latest
@@ -213,16 +213,14 @@ jobs:
         name: Download code coverage
         uses: actions/download-artifact@v3
         with:
-          name: packages-portal-coverage
+          name: test-coverage
           path: .
       -
         name: Unarchive code coverage
-        run: tar -xf packages-portal-coverage.tar && rm packages-portal-coverage.tar
+        run: tar -xf test-coverage.tar && rm test-coverage.tar
       -
         name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2.0.0
-        with:
-          projectBaseDir: packages/portal
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
