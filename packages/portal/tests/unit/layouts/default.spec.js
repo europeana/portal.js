@@ -313,7 +313,7 @@ describe('layouts/default.vue', () => {
   describe('when the route changes', () => {
     const routeTo = { path: '/search' };
     const routeFrom = { path: '/item' };
-    describe('and it\'s not caused by popstate event', () => {
+    describe('and it is not caused by popstate event', () => {
       it('clears the native navigation state', async() => {
         const wrapper = factory();
         sinon.spy(wrapper.vm, 'clearNativeNavigationState');
@@ -324,7 +324,7 @@ describe('layouts/default.vue', () => {
       });
     });
 
-    describe('and it\'s caused by popstate event', () => {
+    describe('and it is caused by popstate event', () => {
       it('does not clear the native navigation state', async() => {
         const wrapper = factory({ data: { browserNativeInProgress: true } });
         sinon.spy(wrapper.vm, 'clearNativeNavigationState');
