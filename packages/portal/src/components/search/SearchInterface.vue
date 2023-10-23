@@ -530,7 +530,7 @@
           if (stored) {
             try {
               response = JSON.parse(stored);
-            } catch() {
+            } catch(err) {
               // don't fall over if the session storage is corrupt
             }
           }
