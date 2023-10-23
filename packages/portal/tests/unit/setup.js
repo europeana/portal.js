@@ -7,6 +7,10 @@ import sinon from 'sinon';
 
 import '@/plugins/vue-filters';
 
+// Required for pg-dependent code
+import { TextEncoder, TextDecoder } from 'util';
+Object.assign(global, { TextDecoder, TextEncoder });
+
 if (global.localStorage) {
   sinon.spy(global.localStorage, 'getItem');
   sinon.spy(global.localStorage, 'setItem');
