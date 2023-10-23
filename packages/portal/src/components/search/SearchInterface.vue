@@ -202,7 +202,6 @@
 
 <script>
   import merge from 'deepmerge';
-  import pick from 'lodash/pick.js';
   import isEqual from 'lodash/isEqual';
 
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
