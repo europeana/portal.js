@@ -10,6 +10,6 @@ export default {
   ],
   projects: [
     '<rootDir>/packages/portal',
-    '<rootDir>/packages/vue-session-id'
+    '<rootDir>/packages/vue-session'
   ]
 };
