@@ -95,6 +95,7 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
   static ID = 'record';
   static BASE_URL = 'https://api.europeana.eu/record';
   static AUTHENTICATING = true;
+  static CACHING = (requestConfig) => requestConfig.url?.endsWith('/search.json');
 
   get search() {
     return search.bind(this);
@@ -236,7 +237,11 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
       }
     }
 
-    return this.axios.get(`${path}${europeanaId}.json`, { params })
+    return this.fetch({
+      method: 'get',
+      params,
+      url: `${path}${europeanaId}.json`
+    })
       .then((response) => {
         const parsed = this.parseRecordDataFromApiResponse(response.data, options);
         const reduced = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, { freeze: false });

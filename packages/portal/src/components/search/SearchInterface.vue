@@ -202,7 +202,6 @@
 
 <script>
   import merge from 'deepmerge';
-  import objectHash from 'object-hash';
   import pick from 'lodash/pick.js';
   import isEqual from 'lodash/isEqual';
 
@@ -420,12 +419,6 @@
 
         return this.$i18n.locale;
       },
-      apiCriteriaObjectHash() {
-        return objectHash({
-          options: this.apiOptions,
-          params: this.apiParams
-        });
-      },
       qasWithSelectedEntityValue() {
         return this.$store.state.search.qasWithSelectedEntityValue;
       }
@@ -439,21 +432,6 @@
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged'
-    },
-
-    mounted() {
-      // Store response on hydration after SSR
-      // TODO: not if there are errors?
-      if (this.items) {
-        sessionStorage.setItem(`europeana.search.${this.apiCriteriaObjectHash}`,
-                               JSON.stringify({
-                                 hits: this.hits,
-                                 items: this.items,
-                                 lastAvailablePage: this.lastAvailablePage,
-                                 totalResults: this.totalResults
-                               })
-        );
-      }
     },
 
     destroyed() {
@@ -525,17 +503,6 @@
       async runSearch() {
         let response;
 
-        if (process.client) {
-          const stored = sessionStorage.getItem(`europeana.search.${this.apiCriteriaObjectHash}`);
-          if (stored) {
-            try {
-              response = JSON.parse(stored);
-            } catch(err) {
-              // don't fall over if the session storage is corrupt
-            }
-          }
-        }
-
         if (!response) {
           response = await this.$apis.record.search(this.apiParams, this.apiOptions);
           response = pick(response, ['hits', 'lastAvailablePage', 'items', 'totalResults']);
@@ -546,14 +513,6 @@
         this.items = response.items;
         this.totalResults = response.totalResults;
 
-        if (process.client) {
-          // TODO: put this behind a feature toggle?
-          // TODO: delete when criteria change, e.g. with watcher? why? to prevent
-          //       over-loading the store? is that an issue though?
-          sessionStorage.setItem(`europeana.search.${this.apiCriteriaObjectHash}`,
-                                 JSON.stringify(response)
-          );
-        }
         this.recordSearchInteraction('fetch results');
       },
 

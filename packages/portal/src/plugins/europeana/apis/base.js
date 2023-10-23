@@ -3,19 +3,44 @@ import qs from 'qs';
 
 import { keycloakResponseErrorHandler } from '../auth.js';
 import EuropeanaApiContextConfig from './config/context.js';
+import EuropeanaApiCacheClient from './cache/client.js';
 
 export default class EuropeanaApi {
+  // API identifier, e.g. "record", "entity"
   static ID;
   // whether an API key is needed
   static AUTHENTICATING = false;
   // whether authorisation via Keycloak is used
   static AUTHORISING = false;
+  // base URL for the API
   static BASE_URL = 'https://api.europeana.eu/';
+  // whether to cache responses from the API
+  static CACHING = false;
+
+  // axios instance for making requests to the API
   #axios;
+  // API response cache
+  #cache;
 
   constructor(context) {
     this.context = context;
     this.config = new EuropeanaApiContextConfig(this.constructor.ID, context);
+    if (process.client) {
+      this.#cache = new EuropeanaApiCacheClient();
+    }
+  }
+
+  fetch(config) {
+    if (this.#cache && this.#mayCacheRequestResponse(config)) {
+      return this.#cache.fetch(config, this.axios.request);
+    } else {
+      return this.axios.request(config);
+    }
+  }
+
+  #mayCacheRequestResponse(config) {
+    return ((typeof this.constructor.CACHING === 'function') && this.constructor.CACHING(config)) ||
+      this.constructor.CACHING;
   }
 
   get axios() {
