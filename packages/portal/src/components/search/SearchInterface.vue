@@ -501,12 +501,7 @@
       },
 
       async runSearch() {
-        let response;
-
-        if (!response) {
-          response = await this.$apis.record.search(this.apiParams, this.apiOptions);
-          response = pick(response, ['hits', 'lastAvailablePage', 'items', 'totalResults']);
-        }
+        const response = await this.$apis.record.search(this.apiParams, this.apiOptions);
 
         this.hits = response.hits;
         this.lastAvailablePage = response.lastAvailablePage;
