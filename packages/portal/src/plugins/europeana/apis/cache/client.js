@@ -20,6 +20,7 @@ class EuropeanaApiCacheClient {
 
     return callback(requestConfig)
       .then((response) => {
+        // TODO: don't cache errors
         this.set(key, response.data);
         return response;
       });
