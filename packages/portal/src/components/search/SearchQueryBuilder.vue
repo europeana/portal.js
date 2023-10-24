@@ -122,6 +122,7 @@
         this.validateRules((valid) => {
           if (valid) {
             this.trackAdvancedSearch();
+            this.$store.commit('search/setLoggableInteraction', true);
             this.$router.push(this.advancedSearchRouteQueryFromRules(this.validQueryRules));
           }
         });

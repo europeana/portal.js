@@ -49,6 +49,7 @@
     },
 
     methods: {
+      // FIXME: does this ever get triggered?
       clickEventHandler() {
         if (this.$matomo) {
           this.$matomo.trackEvent('Remove_search_criterion', 'Click remove search criteria', this.linkTo);

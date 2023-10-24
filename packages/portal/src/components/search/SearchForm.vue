@@ -201,6 +201,7 @@
 
         this.showSearchOptions = false;
 
+        this.$store.commit('search/setLoggableInteraction', true);
         await this.$router.push(newRoute);
         // init query to update in case of selecting the already selected option
         this.initQuery();

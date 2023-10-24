@@ -507,7 +507,10 @@
         this.results = response.items;
         this.totalResults = response.totalResults;
 
-        this.recordSearchInteraction('fetch results');
+        if (process.server || this.$store.state.search.loggableInteraction) {
+          this.recordSearchInteraction('fetch results');
+          this.$store.commit('search/setLoggableInteraction', false);
+        }
       },
 
       handlePaginationChanged() {
