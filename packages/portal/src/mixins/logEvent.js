@@ -8,7 +8,7 @@ export default {
       const loggingPermitted = this.$features.eventLogging &&
         process.client &&
         !isbot(navigator?.userAgent) &&
-        this.$sessionId;
+        this.$session?.id;
 
       if (!loggingPermitted) {
         return;
@@ -22,8 +22,7 @@ export default {
       const postData = {
         actionType,
         objectUri,
-        // FIXME: different session ids result from opening new tabs...
-        sessionId: this.$sessionId
+        sessionId: this.$session.id
       };
 
       return axios.create({

@@ -104,7 +104,7 @@ describe('mixins/logEvent', () => {
 
           describe('when there is no session ID', () => {
             it('does not post to event logging API', async() => {
-              const wrapper = factory({ mocks: { $features, $sessionId: undefined } });
+              const wrapper = factory({ mocks: { $features, $session: {} } });
 
               await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
 
@@ -114,7 +114,7 @@ describe('mixins/logEvent', () => {
 
           describe('when there is a session ID', () => {
             it('posts to event logging API', async() => {
-              const wrapper = factory({ mocks: { $features, $sessionId: 'uuid' } });
+              const wrapper = factory({ mocks: { $features, $session: { id: 'uuid' } } });
 
               await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
 
