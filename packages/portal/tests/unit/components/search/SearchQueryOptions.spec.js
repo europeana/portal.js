@@ -235,6 +235,22 @@ describe('components/search/SearchQueryOptions', () => {
 
             expect(wrapper.vm.$matomo.trackEvent.calledWith('Autosuggest_option_selected', 'Autosuggest option is selected', '"Medicine"')).toBe(true);
           });
+
+          it('logs the selected suggestion to APM', async() => {
+            const wrapper = factory();
+            sinon.spy(wrapper.vm, 'logApmTransaction');
+
+            const option = wrapper.find('[data-qa="Medicine search suggestion"]');
+            option.trigger('click');
+
+            expect(wrapper.vm.logApmTransaction.calledWith({
+              name: 'Search - select autosuggest option',
+              labels: {
+                'search_params_query': '"Medicine"',
+                'suggestion_rank': 1
+              }
+            })).toBe(true);
+          });
         });
       });
     });
