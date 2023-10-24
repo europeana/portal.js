@@ -7,7 +7,7 @@
     :class="{ 'img-chip': imageUrl }"
     :data-qa="localisedTitle.values[0] + ' related chip'"
     :lang="localisedTitle.code"
-    @click.native="handleClickEvent"
+    @click.capture.native="handleClickEvent"
   >
     <div
       v-if="imageUrl && type === 'Organization'"
