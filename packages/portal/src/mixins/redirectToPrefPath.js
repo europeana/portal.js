@@ -2,12 +2,13 @@ import { getLabelledSlug } from '@/plugins/europeana/utils';
 
 export default {
   methods: {
-    redirectToPrefPath(page, id, label, params = {}) {
-      const desiredPath = getLabelledSlug(id, label);
+    redirectToPrefPath(page, id, label, params = {}, query) {
+      const desiredPath = label ? getLabelledSlug(id, label) : id;
       if (this.$route.params.pathMatch !== desiredPath) {
         const redirectPath = this.localePath({
           name: page,
-          params: { ...params, pathMatch: desiredPath }
+          params: { ...params, pathMatch: desiredPath },
+          query
         });
         if (process.server) {
           this.$nuxt.context.redirect(302, redirectPath);

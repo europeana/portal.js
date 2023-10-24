@@ -127,6 +127,17 @@ describe('pages/item/_.vue', () => {
       });
     });
 
+    describe('when the requested item identifier is different from the identifier in the response', () => {
+      it('redirects to the response identifier item page', async() => {
+        const wrapper = factory({ data: { identifier: '/old/id' } });
+        wrapper.vm.redirectToPrefPath = sinon.spy();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.redirectToPrefPath.calledWith('item-all', record.identifier.replace('/', ''), null, null, {})).toBe(true);
+      });
+    });
+
     it('stores the response', async() => {
       const wrapper = factory();
 

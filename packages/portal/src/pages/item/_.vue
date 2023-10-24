@@ -162,6 +162,7 @@
   import stringify from '@/mixins/stringify';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
   export default {
     name: 'ItemPage',
@@ -180,7 +181,8 @@
     mixins: [
       stringify,
       canonicalUrlMixin,
-      pageMetaMixin
+      pageMetaMixin,
+      redirectToPrefPathMixin
     ],
 
     data() {
@@ -361,6 +363,12 @@
             this.identifier,
             { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
           );
+
+          const responseIdentifier = response.record.identifier;
+          if (this.identifier !== responseIdentifier) {
+            this.redirectToPrefPath('item-all', responseIdentifier.replace('/', ''), null, null, this.$route.query);
+          }
+
           for (const key in response.record) {
             this[key] = response.record[key];
           }
