@@ -296,7 +296,7 @@ export default {
     '~/plugins/axios.server',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
-    '~/plugins/vue-session-id.client',
+    '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',

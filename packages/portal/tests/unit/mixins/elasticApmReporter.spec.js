@@ -22,7 +22,9 @@ const factory = () => shallowMountNuxt(component, {
     $apm: {
       startTransaction: sinon.stub().returns(stubbedTransaction)
     },
-    $sessionId: 'session ID'
+    $session: {
+      id: 'session ID'
+    }
   }
 });
 
