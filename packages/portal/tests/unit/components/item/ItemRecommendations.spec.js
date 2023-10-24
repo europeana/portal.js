@@ -103,7 +103,7 @@ describe('components/item/ItemRecommendations', () => {
       expect(wrapper.vm.logApmTransaction.calledWith({
         name: 'Similar items - click item',
         labels: { 'logged_in_user': false,
-          'similar_items_algorithm_used': wrapper.vm.algorithmUsedToFetchSimilarItems,
+          'similar_items_algorithm': wrapper.vm.similarItemsAlgorithm,
           'similar_items_clicked_item': recommendedItems[0].id,
           'similar_items_count': 10,
           'similar_items_current_item': identifier,

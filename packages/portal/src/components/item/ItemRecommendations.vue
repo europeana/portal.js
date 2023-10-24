@@ -41,6 +41,9 @@
   import keycloak from '@/mixins/keycloak';
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
 
+  const PORTAL_ALGORITHM = 'Portal similar items query';
+  const RECOMMENDATION_ALGORITHM = 'Recommendation API';
+
   export default {
     name: 'ItemRecommendations',
     components: {
@@ -82,7 +85,7 @@
     data() {
       return {
         items: [],
-        algorithmUsedToFetchSimilarItems: null
+        similarItemsAlgorithm: null
       };
     },
 
@@ -97,7 +100,7 @@
           // TODO: remove if/when recommendations become useful.
           .filter((item) => item.id !== this.identifier)
           .slice(0, 8);
-        this.algorithmUsedToFetchSimilarItems = 'Recommendation API';
+        this.similarItemsAlgorithm = RECOMMENDATION_ALGORITHM;
       } else {
         response = await this.$apis.record.search({
           query: similarItemsQuery(this.identifier, this.similarItemsFields),
@@ -106,7 +109,7 @@
           profile: 'minimal',
           facet: ''
         });
-        this.algorithmUsedToFetchSimilarItems = 'Portal similar items query';
+        this.similarItemsAlgorithm = PORTAL_ALGORITHM;
       }
 
       this.items = response.items;
@@ -141,7 +144,7 @@
         this.logApmTransaction({
           name: 'Similar items - click item',
           labels: { 'logged_in_user': !!this.$auth.loggedIn,
-                    'similar_items_algorithm_used': this.algorithmUsedToFetchSimilarItems,
+                    'similar_items_algorithm': this.similarItemsAlgorithm,
                     'similar_items_clicked_item': clickedItemId,
                     'similar_items_count': itemCount,
                     'similar_items_current_item': this.identifier,
