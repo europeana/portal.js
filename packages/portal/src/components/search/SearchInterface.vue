@@ -89,7 +89,7 @@
                         </p>
                         <ItemPreviewCardGroup
                           id="item-search-results"
-                          :items="results"
+                          :items="items"
                           :hits="hits"
                           :view="view"
                           :show-pins="showPins"
@@ -263,12 +263,12 @@
       return {
         apiParams: {},
         hits: null,
+        items: null,
         lastAvailablePage: null,
         paginationChanged: false,
-        results: [],
+        qasWithAddedEntityValue: [],
         showAdvancedSearch: false,
-        totalResults: null,
-        qasWithAddedEntityValue: []
+        totalResults: null
       };
     },
 
@@ -368,7 +368,7 @@
         return this.totalResults > 0;
       },
       noMoreResults() {
-        return this.hasAnyResults && this.results.length === 0;
+        return this.hasAnyResults && !this.items;
       },
       noResults() {
         return this.totalResults === 0 || !this.totalResults;
@@ -480,7 +480,7 @@
       // NOTE: do not use computed properties here as they may change when the
       //       item is clicked
       onClickItem(identifier) {
-        const rank = this.results.findIndex(item => item.id === identifier) + 1 +
+        const rank = this.items.findIndex(item => item.id === identifier) + 1 +
           ((this.apiParams.page - 1) * this.apiParams.rows);
         this.recordSearchInteraction('click result', { 'search_result_rank': rank });
       },
@@ -504,7 +504,7 @@
 
         this.hits = response.hits;
         this.lastAvailablePage = response.lastAvailablePage;
-        this.results = response.items;
+        this.items = response.items;
         this.totalResults = response.totalResults;
 
         this.recordSearchInteraction('fetch results');

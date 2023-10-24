@@ -125,8 +125,11 @@ export default function(params, options = {}) {
     }
   }
 
-  return this.axios.get(`${options.url || ''}/search.json`, {
-    params: searchParams
+  return this.fetch({
+    baseURL: options.url,
+    method: 'get',
+    params: searchParams,
+    url: '/search.json'
   })
     .then(response => response.data)
     .then(data => ({
