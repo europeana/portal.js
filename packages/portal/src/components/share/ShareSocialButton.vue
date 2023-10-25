@@ -55,8 +55,8 @@
             url: `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.shareUrl}`
           },
           {
-            identifier: 'twitter',
-            name: 'Twitter',
+            identifier: 'x',
+            name: 'X',
             url: `https://twitter.com/intent/tweet?text=${this.shareUrl}`
           },
           {
@@ -120,17 +120,17 @@
       }
     }
 
-    &.twitter {
-      $twitter-blue: #00acee;
-      border: solid 1px $twitter-blue;
-      color: $twitter-blue;
+    &.x {
+      $x-blue: #00acee;
+      border: solid 1px $x-blue;
+      color: $x-blue;
 
       &:not(:disabled):not(.disabled) {
         &:active,
         &.active {
-          color: $twitter-blue;
+          color: $x-blue;
           background-color: $white;
-          border-color: $twitter-blue;
+          border-color: $x-blue;
         }
       }
     }
