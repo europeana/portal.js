@@ -1,4 +1,5 @@
 {
+  "name": "@europeana/www.europeana.eu",
   "version": "1.128.0",
   "private": true,
   "workspaces": [
