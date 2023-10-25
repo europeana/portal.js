@@ -105,7 +105,7 @@
     }
 
     &.facebook {
-      $facebook-blue: #3b5998;
+      $facebook-blue: #0866FF;
 
       border: solid 1px $facebook-blue;
       color: $facebook-blue;
@@ -121,16 +121,16 @@
     }
 
     &.x {
-      $x-blue: #00acee;
-      border: solid 1px $x-blue;
-      color: $x-blue;
+      $x-black: #000000;
+      border: solid 1px $x-black;
+      color: $x-black;
 
       &:not(:disabled):not(.disabled) {
         &:active,
         &.active {
-          color: $x-blue;
+          color: $x-black;
           background-color: $white;
-          border-color: $x-blue;
+          border-color: $x-black;
         }
       }
     }
