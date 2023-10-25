@@ -1,6 +1,6 @@
 {
   "name": "@europeana/vue-session",
-  "version": "1.128.0",
+  "version": "1.128.1",
   "description": "Vue session",
   "license": "EUPL-1.2",
   "type": "module",
