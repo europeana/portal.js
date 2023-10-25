@@ -27,7 +27,8 @@
     "test:stack:stop": "docker-compose -f ./tests/e2e/docker/docker-compose.yml stop app nginx chrome-en chrome-ja chrome-nl",
     "test:unit": "node --expose-gc --no-compilation-cache node_modules/jest/bin/jest.js --config jest.config.js",
     "test:visual": "touch tests/e2e/docker/nightwatch-visual/.env && docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual",
-    "test": "npm run lint && npm run stylelint && npm run test:unit && npm run -w packages/portal test:size && npm run test:stack:rebuild && npm run test:e2e"
+    "test": "npm run lint && npm run stylelint && npm run test:unit && npm run -w packages/portal test:size && npm run test:stack:rebuild && npm run test:e2e",
+    "version": "node bin/sonar-project-version.js && git add sonar-project.properties"
   },
   "resolutions": {
     "@europeana/contentful": "link:./packages/contentful",
@@ -35,7 +36,7 @@
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
     "@europeana/styleguide": "link:./packages/styleguide",
-    "@europeana/vue-session-id": "link:./packages/vue-session-id"
+    "@europeana/vue-session": "link:./packages/vue-session"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",

@@ -49,6 +49,7 @@
   import matchHighlight from 'autosuggest-highlight/match';
   import parseHighlight from 'autosuggest-highlight/parse';
   import TextHighlighter from '../generic/TextHighlighter';
+  import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
 
   export default {
     name: 'SearchQueryOptions',
@@ -56,6 +57,8 @@
     components: {
       TextHighlighter
     },
+
+    mixins: [elasticApmReporterMixin],
 
     props: {
       /**
@@ -317,6 +320,13 @@
         } else if (!this.onCollectionPage) { // Skip click tracking while on a collection page, there will never be suggestions.
           if (index >= 1) {
             this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
+            this.logApmTransaction({
+              name: 'Search - select autosuggest option',
+              labels: {
+                'search_params_query': query,
+                'suggestion_rank': index
+              }
+            });
           } else if (this.options.length >= 2) {
             this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
           }

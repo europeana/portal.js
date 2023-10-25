@@ -160,6 +160,7 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/mixins/stringify';
+  import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
@@ -182,7 +183,8 @@
       stringify,
       canonicalUrlMixin,
       pageMetaMixin,
-      redirectToPrefPathMixin
+      redirectToPrefPathMixin,
+      logEventMixin
     ],
 
     data() {
@@ -337,6 +339,7 @@
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
+      this.logEvent('view', this.identifier);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }

@@ -1,5 +1,5 @@
 export default {
-  displayName: 'vue-session-id',
+  displayName: 'vue-session',
   moduleFileExtensions: [
     'js',
     'json',

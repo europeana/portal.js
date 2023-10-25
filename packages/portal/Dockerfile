@@ -14,7 +14,7 @@ COPY package*.json ./
 COPY packages/portal/package*.json ./packages/portal/
 COPY packages/mirador ./packages/mirador
 COPY packages/style ./packages/style
-COPY packages/vue-session-id ./packages/vue-session-id
+COPY packages/vue-session ./packages/vue-session
 
 RUN npm -w packages/portal ci
 
