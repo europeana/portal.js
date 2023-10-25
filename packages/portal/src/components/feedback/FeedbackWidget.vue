@@ -199,8 +199,14 @@
 <script>
   import axios from 'axios';
 
+  import logEventMixin from '@/mixins/logEvent';
+
   export default {
     name: 'FeedbackWidget',
+
+    mixins: [
+      logEventMixin
+    ],
 
     data() {
       return {
@@ -336,6 +342,8 @@
             if (this.currentStep < 3) {
               this.goToStep(this.currentStep + 1);
             }
+            // TODO: limit to item pages
+            // this.logEvent('feedback');
           })
           .catch(() => {
             this.requestSuccess = false;

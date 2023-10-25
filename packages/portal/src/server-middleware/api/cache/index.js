@@ -1,5 +1,5 @@
 import { createClient } from 'redis';
-import { errorHandler } from '../index.js';
+import { errorHandler } from '../utils.js';
 
 const cacheKey = (id) => `@europeana:portal.js:${id.replace(/\//g, ':')}`;
 

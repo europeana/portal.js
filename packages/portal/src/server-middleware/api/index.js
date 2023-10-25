@@ -37,6 +37,16 @@ const cacheMiddleware = (req, res) => cache(runtimeConfig.redis)(req, res);
 app.get('/cache', cacheMiddleware);
 app.get('/cache/*', cacheMiddleware);
 
+// TODO: move to a standalone express micro-service, so the portal.js app does
+//       not have a direct dependency on postgres, indeed need not know what
+//       back-end storage is used.
+import logEvent from './events/log.js';
+const logEventMiddleware = (req, res) => logEvent(runtimeConfig.postgres)(req, res);
+app.post('/events', logEventMiddleware);
+import eventTrending from './events/trending.js';
+const eventTrendingMiddleware = (req, res) => eventTrending(runtimeConfig.postgres)(req, res);
+app.get('/events/trending', eventTrendingMiddleware);
+
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 app.post('/jira-service-desk/feedback', (req, res) => jiraServiceDeskFeedback(runtimeConfig.jira)(req, res));
 
@@ -47,17 +57,5 @@ import version from './version.js';
 app.get('/version', version);
 
 app.all('/*', (req, res) => res.sendStatus(404));
-
-export const errorHandler = (res, error) => {
-  let status = error.status || 500;
-  let message = error.message;
-
-  if (error.response) {
-    status = error.response.status;
-    message = error.response.data.errorMessage;
-  }
-
-  res.status(status).set('Content-Type', 'text/plain').send(message);
-};
 
 export default app;

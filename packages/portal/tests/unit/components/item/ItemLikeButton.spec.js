@@ -16,6 +16,7 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
   propsData: { identifier },
   mocks: {
     $auth,
+    $features: {},
     $matomo: {
       trackEvent: sinon.spy()
     },

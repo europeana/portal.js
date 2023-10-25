@@ -20,6 +20,7 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
           baseUrl: 'https://www.europeana.eu'
         }
       },
+      $features: {},
       $i18n: {
         locale: 'de'
       },
