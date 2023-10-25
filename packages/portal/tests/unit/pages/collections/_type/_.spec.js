@@ -403,7 +403,7 @@ describe('pages/collections/_type/_', () => {
         wrapper.vm.redirectToPrefPath = redirectToPrefPathStub;
 
         await wrapper.vm.fetch();
-        expect(redirectToPrefPathStub.calledWith('collections-type-all', 'http://data.europeana.eu/concept/01234567890', 'Topic', sinon.match.object)).toBe(true);
+        expect(redirectToPrefPathStub.calledWith('collections-type-all', 'http://data.europeana.eu/concept/01234567890', 'Topic', null, sinon.match.object)).toBe(true);
       });
     });
   });

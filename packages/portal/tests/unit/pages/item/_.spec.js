@@ -134,7 +134,7 @@ describe('pages/item/_.vue', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.redirectToPrefPath.calledWith('item-all', record.identifier.replace('/', ''), null, null, {})).toBe(true);
+        expect(wrapper.vm.redirectToPrefPath.calledWith('item-all', record.identifier.replace('/', ''), null, {})).toBe(true);
       });
     });
 
