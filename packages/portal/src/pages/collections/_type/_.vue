@@ -157,7 +157,7 @@
           }
         }
 
-        return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+        return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, null, { type: this.collectionType });
       } catch (e) {
         this.$error(e, { scope: 'page' });
       }

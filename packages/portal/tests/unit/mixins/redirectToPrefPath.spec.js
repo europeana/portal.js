@@ -11,7 +11,7 @@ const component = {
 
 const localVue = createLocalVue();
 
-const factory = (options) => shallowMountNuxt(component, {
+const factory = (options = {}) => shallowMountNuxt(component, {
   localVue,
   mocks: {
     $route: { params: { type: options.type, pathMatch: options.pathMatch } },
@@ -22,7 +22,7 @@ const factory = (options) => shallowMountNuxt(component, {
 
 describe('mixins/redirectToPrefPath', () => {
   describe('redirectToPrefPath', () => {
-    const redirectIssued = async({ page, id, label, params, pathMatch, serverOrClient = 'server' }) => {
+    const redirectIssued = async({ page, id, label, query, params, pathMatch, serverOrClient = 'server' }) => {
       if (serverOrClient === 'server') {
         process.server = true;
         process.client = false;
@@ -34,7 +34,7 @@ describe('mixins/redirectToPrefPath', () => {
       const wrapper = factory({ ...params, pathMatch });
       wrapper.vm.$route.params.pathMatch = pathMatch;
 
-      await wrapper.vm.redirectToPrefPath(page, id, label, params);
+      await wrapper.vm.redirectToPrefPath(page, id, label, query, params);
 
       if (process.server) {
         return wrapper.vm.$nuxt.context.redirect.calledWith(302, '/');
@@ -45,6 +45,7 @@ describe('mixins/redirectToPrefPath', () => {
 
     const id = '123';
     const label = 'label';
+    const query = '';
     for (const serverOrClient of ['server', 'client']) {
       const redirectOrReplace = serverOrClient === 'server' ? 'redirect' : 'replace';
 
@@ -56,14 +57,14 @@ describe('mixins/redirectToPrefPath', () => {
           describe('when the slug already uses the name', () => {
             const pathMatch = '123-label';
             it(`does not ${redirectOrReplace}`, async() => {
-              expect(await redirectIssued({ page, id, label, params, pathMatch, serverOrClient })).toBe(false);
+              expect(await redirectIssued({ page, id, label, query, params, pathMatch, serverOrClient })).toBe(false);
             });
           });
 
           describe('when the URL slug does not use the name', () => {
             const pathMatch = '123-not-the-label';
             it(`${redirectOrReplace}s`, async() => {
-              expect(await redirectIssued({ page, id, label, params, pathMatch, serverOrClient })).toBe(true);
+              expect(await redirectIssued({ page, id, label, query, params, pathMatch, serverOrClient })).toBe(true);
             });
           });
         });
@@ -75,18 +76,38 @@ describe('mixins/redirectToPrefPath', () => {
           describe('when the slug already uses the name', () => {
             const pathMatch = '123-label';
             it(`does not ${redirectOrReplace}`, async() => {
-              expect(await redirectIssued({ page, id, label, params, pathMatch, serverOrClient })).toBe(false);
+              expect(await redirectIssued({ page, id, label, query, params, pathMatch, serverOrClient })).toBe(false);
             });
           });
 
           describe('when the URL slug does not use the name', () => {
             const pathMatch = '123-not-the-label';
             it(`${redirectOrReplace}s`, async() => {
-              expect(await redirectIssued({ page, id, label, params, pathMatch, serverOrClient })).toBe(true);
+              expect(await redirectIssued({ page, id, label, query, params, pathMatch, serverOrClient })).toBe(true);
             });
           });
         });
       });
     }
+
+    describe('when there is no label', () => {
+      const id = '123/abc';
+      const page = 'item-all';
+      it('uses the id as desired path', async() => {
+        const wrapper = factory();
+
+        wrapper.vm.localePath = (path) => path;
+
+        await wrapper.vm.redirectToPrefPath(page, id);
+
+        expect(wrapper.vm.$nuxt.context.app.router.replace.calledWith(
+          {
+            name: page,
+            params: { pathMatch: id },
+            query: undefined
+          }
+        )).toBe(true);
+      });
+    });
   });
 });

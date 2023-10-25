@@ -366,7 +366,7 @@
 
           const responseIdentifier = response.record.identifier;
           if (this.identifier !== responseIdentifier) {
-            this.redirectToPrefPath('item-all', responseIdentifier.replace('/', ''), null, null, this.$route.query);
+            this.redirectToPrefPath('item-all', responseIdentifier.replace('/', ''), null, this.$route.query);
           }
 
           for (const key in response.record) {

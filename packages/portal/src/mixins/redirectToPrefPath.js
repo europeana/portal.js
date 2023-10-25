@@ -2,7 +2,7 @@ import { getLabelledSlug } from '@/plugins/europeana/utils';
 
 export default {
   methods: {
-    redirectToPrefPath(page, id, label, params = {}, query) {
+    redirectToPrefPath(page, id, label, query, params = {}) {
       const desiredPath = label ? getLabelledSlug(id, label) : id;
       if (this.$route.params.pathMatch !== desiredPath) {
         const redirectPath = this.localePath({
