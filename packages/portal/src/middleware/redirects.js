@@ -12,4 +12,5 @@ export default ({ route, redirect }) => {
       return redirect(`/${routePathParts[1]}/${redirectTo}`);
     }
   }
+  return null;
 };
