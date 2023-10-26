@@ -1,8 +1,8 @@
 import sinon from 'sinon';
 
-import middleware from '@/middleware/professionals';
+import middleware from '@/middleware/redirects';
 
-describe('middleware/professionals', () => {
+describe('middleware/redirects', () => {
   const redirect = sinon.spy();
 
   describe('when route path is for /professionals', () => {

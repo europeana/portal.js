@@ -404,7 +404,7 @@ export default {
       'l10n',
       'contentful-galleries',
       'set-galleries',
-      'professionals'
+      'redirects'
     ],
     extendRoutes(routes) {
       const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
