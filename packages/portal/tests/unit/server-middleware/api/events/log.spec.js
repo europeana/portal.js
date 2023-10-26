@@ -1,7 +1,7 @@
 import pg from 'pg';
 import sinon from 'sinon';
 
-import logEventsMiddleware from '@/server-middleware/api/events/log';
+import logEventsHandler from '@/server-middleware/api/events/log';
 
 const fixtures = {
   db: {
@@ -15,35 +15,33 @@ const fixtures = {
   }
 };
 
-const pgClientConnect = sinon.stub();
-const pgClientOn = sinon.stub();
-const pgClientQuery = sinon.stub();
-pgClientQuery.withArgs(
+const pgPoolQuery = sinon.stub();
+pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('SELECT id FROM events.objects ')),
   [fixtures.reqBody.objectUri]
 )
   .resolves({ rowCount: 0 });
-pgClientQuery.withArgs(
+pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('INSERT INTO events.objects ')),
   [fixtures.reqBody.objectUri]
 )
   .resolves({ rows: [{ id: fixtures.db.objectId }] });
-pgClientQuery.withArgs(
+pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('SELECT id FROM events.sessions ')),
   [fixtures.reqBody.sessionId]
 )
   .resolves({ rowCount: 0 });
-pgClientQuery.withArgs(
+pgPoolQuery.withArgs(
   sinon.match((sql) => sql.startsWith('INSERT INTO events.sessions ')),
   [fixtures.reqBody.sessionId]
 )
   .resolves({ rows: [{ id: fixtures.db.sessionId }] });
-pgClientQuery.withArgs(
+pgPoolQuery.withArgs(
   sinon.match((sql) => sql.trim().startsWith('SELECT a.id FROM events.actions a LEFT JOIN events.action_types at')),
   [fixtures.db.objectId, fixtures.reqBody.actionType, fixtures.db.sessionId]
 )
   .resolves({ rowCount: 0 });
-pgClientQuery.withArgs(
+pgPoolQuery.withArgs(
   sinon.match((sql) => sql.trim().startsWith('INSERT INTO events.actions ')),
   [fixtures.db.objectId, fixtures.db.sessionId, fixtures.reqBody.actionType]
 )
@@ -60,9 +58,7 @@ const expressResStub = {
 
 describe('@/server-middleware/api/events/log', () => {
   beforeAll(() => {
-    sinon.replace(pg.Client.prototype, 'connect', pgClientConnect);
-    sinon.replace(pg.Client.prototype, 'on', pgClientOn);
-    sinon.replace(pg.Client.prototype, 'query', pgClientQuery);
+    sinon.replace(pg.Pool.prototype, 'query', pgPoolQuery);
   });
   afterEach(sinon.resetHistory);
   afterAll(sinon.resetBehavior);
@@ -70,14 +66,14 @@ describe('@/server-middleware/api/events/log', () => {
   describe('when not explicitly enabled', () => {
     const options = {};
 
-    it('does not connect to postgres', async() => {
-      await logEventsMiddleware(options)(expressReqStub, expressResStub);
+    it('does not query postgres', async() => {
+      await logEventsHandler(options)(expressReqStub, expressResStub);
 
-      expect(pgClientConnect.called).toBe(false);
+      expect(pgPoolQuery.called).toBe(false);
     });
 
     it('responds with 204 status', async() => {
-      await logEventsMiddleware(options)(expressReqStub, expressResStub);
+      await logEventsHandler(options)(expressReqStub, expressResStub);
 
       expect(expressResStub.sendStatus.calledWith(204)).toBe(true);
     });
@@ -91,14 +87,14 @@ describe('@/server-middleware/api/events/log', () => {
         get: sinon.stub().withArgs('user-agent').returns('search engine bot')
       };
 
-      it('does not connect to postgres', async() => {
-        await logEventsMiddleware(options)(expressReqStub, expressResStub);
+      it('does not query postgres', async() => {
+        await logEventsHandler(options)(expressReqStub, expressResStub);
 
-        expect(pgClientConnect.called).toBe(false);
+        expect(pgPoolQuery.called).toBe(false);
       });
 
       it('responds with 204 status', async() => {
-        await logEventsMiddleware(options)(expressReqStub, expressResStub);
+        await logEventsHandler(options)(expressReqStub, expressResStub);
 
         expect(expressResStub.sendStatus.calledWith(204)).toBe(true);
       });
@@ -109,26 +105,15 @@ describe('@/server-middleware/api/events/log', () => {
         body: fixtures.reqBody,
         get: sinon.spy()
       };
-      it('connects to postgres', async() => {
-        await logEventsMiddleware(options)(expressReqStub, expressResStub);
-
-        expect(pgClientConnect.called).toBe(true);
-      });
-
-      it('registers postgres error handler', async() => {
-        await logEventsMiddleware(options)(expressReqStub, expressResStub);
-
-        expect(pgClientOn.calledWith('error', sinon.match.func)).toBe(true);
-      });
 
       it('runs all postgres queries to log event', async() => {
-        await logEventsMiddleware(options)(expressReqStub, expressResStub);
+        await logEventsHandler(options)(expressReqStub, expressResStub);
 
-        expect(pgClientQuery.getCalls().length).toBe(6);
+        expect(pgPoolQuery.getCalls().length).toBe(6);
       });
 
       it('responds with 204 status', async() => {
-        await logEventsMiddleware(options)(expressReqStub, expressResStub);
+        await logEventsHandler(options)(expressReqStub, expressResStub);
 
         expect(expressResStub.sendStatus.calledWith(204)).toBe(true);
       });
