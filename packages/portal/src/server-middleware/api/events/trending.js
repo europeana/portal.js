@@ -33,7 +33,6 @@ export default (options = {}) => {
         `
       );
 
-      console.log('selectObjectResult', selectObjectResult);
       res.json({ items: selectObjectResult.rows });
     } catch (e) {
       console.error(e);
