@@ -486,7 +486,7 @@ export default {
   /*
   ** Enable modern builds
   */
-  modern: false,
+  modern: true,
 
   /*
   ** Render configuration
