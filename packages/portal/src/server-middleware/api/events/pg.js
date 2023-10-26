@@ -21,6 +21,6 @@ export default {
   },
 
   query() {
-    return this.pool.query.apply(this.pool, arguments);
+    return this.pool.query(...arguments);
   }
 };
