@@ -42,7 +42,8 @@ const redisConfig = () => {
 const postgresConfig = () => {
   const postgresOptions = {
     enabled: featureIsEnabled('eventLogging'),
-    connectionString: process.env.POSTGRES_URL
+    connectionString: process.env.POSTGRES_URL,
+    max: Number(process.env.POSTGRES_MAX || 10)
   };
 
   if (process.env.POSTGRES_SSL_CA) {

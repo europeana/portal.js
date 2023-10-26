@@ -1,27 +1,17 @@
-import { Client } from 'pg';
+import pg from './pg.js';
 
 // TODO: use `next` for error handling
-// TODO: end pg conn when done?
-export default (options = {}) => {
-  let client;
+export default (config = {}) => {
+  pg.config = config;
 
   return async(req, res) => {
     try {
-      if (!options.enabled) {
+      if (!pg.enabled) {
         res.json({ items: [] });
         return;
       }
 
-      if (!client) {
-        client = new Client(options);
-        client.on('error', (err) => {
-          console.error('PostgreSQL client error', err);
-          client = null;
-        });
-        await client.connect();
-      }
-
-      const selectObjectResult = await client.query(`
+      const selectObjectResult = await pg.query(`
         SELECT o.uri, COUNT(a.id) AS num
         FROM events.actions a
         LEFT JOIN events.objects o ON a.object_id=o.id
