@@ -89,4 +89,26 @@ describe('components/item/ItemRecommendations', () => {
       });
     });
   });
+
+  describe('when a similar item is clicked', () => {
+    it('logs the clicked item rank to APM', async() => {
+      const identifier = '/123/abc';
+      const propsData = { identifier };
+      const wrapper = factory({ propsData });
+      sinon.spy(wrapper.vm, 'logApmTransaction');
+
+      await wrapper.vm.$fetch();
+      await wrapper.vm.onClickItem(recommendedItems[0].id);
+
+      expect(wrapper.vm.logApmTransaction.calledWith({
+        name: 'Similar items - click item',
+        labels: { 'logged_in_user': false,
+          'similar_items_algorithm': wrapper.vm.similarItemsAlgorithm,
+          'similar_items_clicked_item': recommendedItems[0].id,
+          'similar_items_count': 10,
+          'similar_items_current_item': identifier,
+          'similar_item_rank': 1 }
+      })).toBe(true);
+    });
+  });
 });

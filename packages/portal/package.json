@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.127.1",
+  "version": "1.129.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -10,15 +10,12 @@
     "lokalise": "node --require dotenv/config bin/lokalise.js",
     "start:inspect": "npx --node-options=\"--inspect\" nuxt-cli start",
     "start": "nuxt-cli start",
-    "test:coverage": "npm run test:unit -- --coverage",
-    "test:coverage:ci": "npm run test:unit -- --coverage --maxWorkers 2",
     "test:size": "docker build -t europeana/portal.js-test-size tests/size && [ -e .nuxt/dist ] || npm run build && docker run --mount type=bind,source=\"$(pwd)\"/.nuxt,target=/app/.nuxt --mount type=bind,source=\"$(pwd)\"/tests/size/.size-limit.json,target=/app/.size-limit.json europeana/portal.js-test-size",
-    "test:unit": "node --expose-gc --no-compilation-cache ../../node_modules/jest/bin/jest.js --config jest.config.js",
-    "version": "node bin/pkg-versions.js && node bin/sonar-project-version.js && git add pkg-versions.js sonar-project.properties"
+    "version": "node bin/pkg-versions.js && git add pkg-versions.js"
   },
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.3.1",
-    "@europeana/vue-session-id": "^1.122.0",
+    "@europeana/vue-session": "^1.128.1",
     "@nuxt/cli": "2.17.0",
     "@nuxt/core": "2.17.0",
     "@nuxt/vue-app": "2.17.0",
@@ -39,10 +36,12 @@
     "elastic-apm-node": "^3.24.0",
     "express": "^4.17.1",
     "http-errors": "^2.0.0",
+    "isbot": "^3.7.0",
     "lodash": "^4.17.21",
     "marked": "^4.0.10",
     "md5": "^2.3.0",
     "morgan": "^1.10.0",
+    "pg": "^8.11.3",
     "qs": "^6.10.1",
     "redis": "^4.6.8",
     "redux": "^4.0.5",
@@ -55,8 +54,8 @@
     "weighted-random": "^0.1.0"
   },
   "devDependencies": {
-    "@europeana/mirador": "^1.119.0",
-    "@europeana/style": "^1.127.0",
+    "@europeana/mirador": "^1.128.1",
+    "@europeana/style": "^1.128.1",
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
     "camelcase": "^6.2.1",

@@ -160,8 +160,10 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/mixins/stringify';
+  import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import redirectToMixin from '@/mixins/redirectTo';
 
   export default {
     name: 'ItemPage',
@@ -180,7 +182,9 @@
     mixins: [
       stringify,
       canonicalUrlMixin,
-      pageMetaMixin
+      pageMetaMixin,
+      redirectToMixin,
+      logEventMixin
     ],
 
     data() {
@@ -335,6 +339,7 @@
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
+      this.logEvent('view', this.identifier);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }
@@ -361,6 +366,12 @@
             this.identifier,
             { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
           );
+
+          const responseIdentifier = response.record.identifier;
+          if (this.identifier !== responseIdentifier) {
+            this.redirectToAltRoute({ params: { pathMatch: responseIdentifier.slice(1) } });
+          }
+
           for (const key in response.record) {
             this[key] = response.record[key];
           }

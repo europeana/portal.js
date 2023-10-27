@@ -51,8 +51,6 @@ const agentEntity = {
   pathMatch: '60305-william-shakespeare'
 };
 
-const redirectToPrefPathStub = sinon.stub();
-
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
   mocks: {
@@ -400,10 +398,10 @@ describe('pages/collections/_type/_', () => {
       it('uses the english prefLabel', async() => {
         const wrapper = factory(topicEntity);
 
-        wrapper.vm.redirectToPrefPath = redirectToPrefPathStub;
+        sinon.spy(wrapper.vm, 'redirectToPrefPath');
 
         await wrapper.vm.fetch();
-        expect(redirectToPrefPathStub.calledWith('collections-type-all', 'http://data.europeana.eu/concept/01234567890', 'Topic', sinon.match.object)).toBe(true);
+        expect(wrapper.vm.redirectToPrefPath.calledWith('http://data.europeana.eu/concept/01234567890', 'Topic')).toBe(true);
       });
     });
   });

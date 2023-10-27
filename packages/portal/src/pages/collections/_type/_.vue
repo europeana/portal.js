@@ -75,7 +75,7 @@
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import pageMetaMixin from '@/mixins/pageMeta';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
+  import redirectToMixin from '@/mixins/redirectTo';
 
   import {
     getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
@@ -98,7 +98,7 @@
       entityBestItemsSetMixin,
       europeanaEntitiesOrganizationsMixin,
       pageMetaMixin,
-      redirectToPrefPathMixin
+      redirectToMixin
     ],
 
     beforeRouteLeave(to, from, next) {
@@ -157,7 +157,7 @@
           }
         }
 
-        return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+        return this.redirectToPrefPath(this.entity.id, urlLabel);
       } catch (e) {
         this.$error(e, { scope: 'page' });
       }

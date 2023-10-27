@@ -813,7 +813,6 @@ export default {
       "europeanaClassroom": "For teachers",
       "help": "Help",
       "home": "Home",
-      "pro": "For professionals",
       "shareYourData": "Share your data",
       "stories": "Stories"
     },
