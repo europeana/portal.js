@@ -153,9 +153,14 @@
       text-transform: none;
       border: 0.1875em solid $greyblack;
       box-shadow: 0.25em 0.25em 0 0 $greyblack;
+      font-size: $font-size-base;
       font-weight: 700;
       border-radius: 0.25em;
       margin-top: 0;
+    }
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-base-4k;
     }
 
     &.light {
