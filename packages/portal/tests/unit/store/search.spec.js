@@ -79,6 +79,13 @@ describe('store/search', () => {
         expect(state.qasWithSelectedEntityValue).toEqual(['qa3']);
       });
     });
+    describe('setQueryInputValue', () => {
+      it('sets the queryInputValue state', () => {
+        const state = { queryInputValue: 'cat' };
+        store.mutations.setQueryInputValue(state, 'dog');
+        expect(state.queryInputValue).toEqual('dog');
+      });
+    });
   });
 
   describe('getters', () => {

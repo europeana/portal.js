@@ -127,7 +127,6 @@
 
     data() {
       return {
-        query: null,
         showSearchOptions: false,
         showForm: this.show,
         suggestSearchOptions: false,
@@ -137,6 +136,14 @@
     },
 
     computed: {
+      query: {
+        get() {
+          return this.$store.state.search.queryInputValue;
+        },
+        set(value) {
+          this.$store.commit('search/setQueryInputValue', value);
+        }
+      },
       view() {
         return this.$store.getters['search/activeView'];
       },
@@ -196,7 +203,7 @@
 
     methods: {
       initQuery() {
-        this.query = this.$route.query.query;
+        this.$store.commit('search/setQueryInputValue', this.$route.query.query);
       },
 
       async submitForm() {
@@ -221,7 +228,7 @@
       },
 
       clearQuery() {
-        this.query = '';
+        this.$store.commit('search/setQueryInputValue', '');
         this.suggestions = {};
 
         this.$nextTick(() => {

@@ -3,6 +3,7 @@ export default {
     active: false,
     collectionFacetEnabled: true,
     collectionLabel: null,
+    queryInputValue: null,
     showSearchSidebar: false,
     showSidebarToggle: false,
     showSearchBar: false,
@@ -43,6 +44,9 @@ export default {
     },
     setQasWithSelectedEntityValue(state, value) {
       state.qasWithSelectedEntityValue = value;
+    },
+    setQueryInputValue(state, value) {
+      state.queryInputValue = value;
     }
   },
 

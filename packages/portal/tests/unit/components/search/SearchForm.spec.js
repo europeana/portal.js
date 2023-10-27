@@ -10,6 +10,7 @@ const localePath = sinon.stub();
 localePath.withArgs({ name: 'search' }).returns('/search');
 
 const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchForm, {
+  attachTo: document.body,
   localVue,
   propsData: {
     inTopNav: propsData ? propsData.inTopNav : true,
@@ -46,18 +47,19 @@ const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchF
 describe('components/search/SearchForm', () => {
   beforeEach(sinon.resetHistory);
 
-  describe('query', () => {
-    it('is read from the route', () => {
+  describe('initQuery', () => {
+    it('sets the query read from the route', () => {
+      const value = 'cartography';
       const wrapper = factory({
         mocks: {
           $route: {
             query: {
-              query: 'cartography'
+              query: value
             }
           }
         }
       });
-      expect(wrapper.vm.query).toBe('cartography');
+      expect(wrapper.vm.$store.commit.calledWith('search/setQueryInputValue', value)).toBe(true);
     });
   });
 
@@ -111,6 +113,7 @@ describe('components/search/SearchForm', () => {
       const state = {
         search: {
           active: true,
+          queryInputValue: query,
           view: 'grid'
         }
       };
@@ -118,9 +121,6 @@ describe('components/search/SearchForm', () => {
       it('updates current route', async() => {
         const wrapper = factory({ mocks: { $store: { state } } });
 
-        await wrapper.setData({
-          query
-        });
         wrapper.vm.submitForm();
 
         const newRouteParams = {
@@ -132,11 +132,9 @@ describe('components/search/SearchForm', () => {
 
       describe('when query is blank', () => {
         it('includes empty query param', async() => {
+          state.search.queryInputValue = undefined;
           const wrapper = factory({ mocks: { $store: { state } } });
 
-          await wrapper.setData({
-            query: undefined
-          });
           wrapper.vm.submitForm();
 
           const newRouteParams = {
@@ -170,16 +168,14 @@ describe('components/search/SearchForm', () => {
         },
         state: {
           search: {
-            active: false
+            active: false,
+            queryInputValue: query
           }
         }
       };
       it('reroutes to search', async() => {
         const wrapper = factory({ mocks: { $store } });
 
-        await wrapper.setData({
-          query
-        });
         wrapper.vm.submitForm();
 
         const newRouteParams = {
@@ -192,9 +188,6 @@ describe('components/search/SearchForm', () => {
       it('does not carry non-search query params', async() => {
         const wrapper = factory({ mocks: { $store, $route: { query: { lang: 'it' } } } });
 
-        await wrapper.setData({
-          query
-        });
         wrapper.vm.submitForm();
 
         const newRouteParams = {
@@ -285,7 +278,8 @@ describe('components/search/SearchForm', () => {
     it('resets focus on the input', async() => {
       const wrapper = factory({ mocks: { $refs: [buttonRef] } });
 
-      await wrapper.setData({ showSearchOptions: true, query: 'tree' });
+      await wrapper.setData({ showSearchOptions: true  });
+      wrapper.vm.query = 'tree';
 
       const clearButton = wrapper.find('[data-qa="clear button"]');
 
