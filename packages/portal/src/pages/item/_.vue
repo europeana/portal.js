@@ -163,7 +163,7 @@
   import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
+  import redirectToMixin from '@/mixins/redirectTo';
 
   export default {
     name: 'ItemPage',
@@ -183,7 +183,7 @@
       stringify,
       canonicalUrlMixin,
       pageMetaMixin,
-      redirectToPrefPathMixin,
+      redirectToMixin,
       logEventMixin
     ],
 
@@ -369,7 +369,7 @@
 
           const responseIdentifier = response.record.identifier;
           if (this.identifier !== responseIdentifier) {
-            this.redirectToPrefPath('item-all', responseIdentifier.replace('/', ''), null, this.$route.query);
+            this.redirectToAltRoute({ params: { pathMatch: responseIdentifier.slice(1) } });
           }
 
           for (const key in response.record) {
