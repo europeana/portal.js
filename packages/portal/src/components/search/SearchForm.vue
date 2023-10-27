@@ -1,86 +1,93 @@
 <template>
-  <div
-    v-show="showForm"
-    ref="searchdropdown"
-    class="search-dropdown open"
-    :class="{
-      'top-search': inTopNav,
-      'suggestions-open': showSearchOptions
-    }"
+  <transition
+    appear
+    name="fade"
   >
-    <b-button
-      v-if="inTopNav"
-      v-b-tooltip.bottom
-      data-qa="back button"
-      class="button-icon-only icon-chevron back-button"
-      variant="light-flat"
-      :aria-label="$t('header.collapseSearchBar')"
-      :title="$t('header.collapseSearchBar')"
-      @click.prevent="handleHide"
-    />
-    <b-form
-      ref="form"
-      :role="!inSearchSidebar && 'search'"
-      :class="{'search-form': !inTopNav}"
-      :aria-label="$t('header.searchForm')"
-      data-qa="search form"
-      inline
-      autocomplete="off"
-      @submit.prevent="submitForm"
-    >
-      <b-input-group
-        role="combobox"
-        :aria-owns="showSearchOptions ? searchFormOptionsId : null"
-        :aria-expanded="showSearchOptions"
-        class="auto-suggest"
-      >
-        <b-form-input
-          ref="searchinput"
-          v-model="query"
-          :placeholder="$t('searchPlaceholder')"
-          name="query"
-          data-qa="search box"
-          role="searchbox"
-          aria-autocomplete="list"
-          :aria-controls="showSearchOptions ? searchFormOptionsId : null"
-          :aria-label="$t('search.title')"
-          @focus="showSearchOptions = true; suggestSearchOptions = true"
-          @blur="suggestSearchOptions = false"
-        />
-      </b-input-group>
-    </b-form>
-    <b-button
-      v-show="query"
-      data-qa="clear button"
-      class="clear-button"
-      variant="light"
-      @click="clearQuery"
-    >
-      <span class="icon-clear pr-lg-2" />
-      {{ $t('actions.clear') }}
-    </b-button>
     <div
-      v-show="showSearchOptions"
-      class="auto-suggest-dropdown"
-      data-qa="search form dropdown"
+      v-show="showForm"
+      ref="searchdropdown"
+      class="search-dropdown open"
+      :class="{
+        'top-search': inTopNav,
+        'suggestions-open': showSearchOptions
+      }"
     >
-      <SearchQueryOptions
-        :id="searchFormOptionsId"
-        ref="searchoptions"
-        :suggest="suggestSearchOptions && (inTopNav || inSearchSidebar) && !onSearchableCollectionPage"
-        :text="query"
-        :submitting="submitting"
-        :show-search-options="showSearchOptions"
-        @select="(option) => handleSelect(option)"
-        @hideForm="handleHide"
-        @hideOptions="showSearchOptions = false"
-      />
-      <SearchThemeBadges
-        v-if="showSearchThemeBadges"
-        ref="quicksearch"
-      />
+      <div>
+        <b-button
+          v-if="inTopNav"
+          v-b-tooltip.bottom
+          data-qa="back button"
+          class="button-icon-only icon-chevron back-button"
+          variant="light-flat"
+          :aria-label="$t('header.collapseSearchBar')"
+          :title="$t('header.collapseSearchBar')"
+          @click.prevent="handleHide"
+        />
+        <b-form
+          ref="form"
+          :role="!inSearchSidebar && 'search'"
+          :class="{'search-form': !inTopNav}"
+          :aria-label="$t('header.searchForm')"
+          data-qa="search form"
+          inline
+          autocomplete="off"
+          @submit.prevent="submitForm"
+        >
+          <b-input-group
+            role="combobox"
+            :aria-owns="showSearchOptions ? searchFormOptionsId : null"
+            :aria-expanded="showSearchOptions"
+            class="auto-suggest"
+          >
+            <b-form-input
+              ref="searchinput"
+              v-model="query"
+              :placeholder="$t('searchPlaceholder')"
+              name="query"
+              data-qa="search box"
+              role="searchbox"
+              aria-autocomplete="list"
+              :aria-controls="showSearchOptions ? searchFormOptionsId : null"
+              :aria-label="$t('search.title')"
+              @focus="showSearchOptions = true; suggestSearchOptions = true"
+              @blur="suggestSearchOptions = false"
+            />
+          </b-input-group>
+        </b-form>
+        <b-button
+          v-show="query"
+          data-qa="clear button"
+          class="clear-button"
+          variant="light"
+          @click="clearQuery"
+        >
+          <span class="icon-clear pr-lg-2" />
+          {{ $t('actions.clear') }}
+        </b-button>
+      </div>
+      <div
+        v-show="showSearchOptions"
+        class="auto-suggest-dropdown"
+        data-qa="search form dropdown"
+      >
+        <SearchQueryOptions
+          :id="searchFormOptionsId"
+          ref="searchoptions"
+          :suggest="suggestSearchOptions && (inTopNav || inSearchSidebar) && !onSearchableCollectionPage"
+          :text="query"
+          :submitting="submitting"
+          :show-search-options="showSearchOptions"
+          @select="(option) => handleSelect(option)"
+          @hideForm="handleHide"
+          @hideOptions="showSearchOptions = false"
+        />
+        <SearchThemeBadges
+          v-if="showSearchThemeBadges"
+          ref="quicksearch"
+        />
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -259,6 +266,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/transitions';
 
   .top-search {
     &.open {
