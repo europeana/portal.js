@@ -267,6 +267,7 @@
   color: $mediumgrey-light;
   font-size: $font-size-small;
   font-weight: 600;
+  line-height: 1.25rem;
   padding: 0.5rem 0.75rem;
   text-decoration: none;
   text-transform: uppercase;
@@ -275,6 +276,7 @@
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
       font-size: $font-size-small-4k;
+      line-height: calc(1.5 * 1.25rem);
     }
   }
 
