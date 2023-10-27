@@ -163,6 +163,7 @@
   import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import redirectToMixin from '@/mixins/redirectTo';
 
   export default {
     name: 'ItemPage',
@@ -182,6 +183,7 @@
       stringify,
       canonicalUrlMixin,
       pageMetaMixin,
+      redirectToMixin,
       logEventMixin
     ],
 
@@ -364,6 +366,12 @@
             this.identifier,
             { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
           );
+
+          const responseIdentifier = response.record.identifier;
+          if (this.identifier !== responseIdentifier) {
+            this.redirectToAltRoute({ params: { pathMatch: responseIdentifier.slice(1) } });
+          }
+
           for (const key in response.record) {
             this[key] = response.record[key];
           }

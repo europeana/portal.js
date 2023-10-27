@@ -197,7 +197,7 @@
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
+  import redirectToMixin from '@/mixins/redirectTo';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -217,7 +217,7 @@
     },
     mixins: [
       entityBestItemsSetMixin,
-      redirectToPrefPathMixin,
+      redirectToMixin,
       pageMetaMixin
     ],
     beforeRouteLeave(_to, _from, next) {
@@ -240,7 +240,7 @@
       try {
         this.validateRoute();
         await this.$store.dispatch('set/fetchActive', this.setId);
-        this.redirectToPrefPath('galleries-all', this.setId, this.set.title.en);
+        this.redirectToPrefPath(this.setId, this.set.title.en);
 
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
           this.$store.commit('entity/setBestItemsSetId', this.setId);
