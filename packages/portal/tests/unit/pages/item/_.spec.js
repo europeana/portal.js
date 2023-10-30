@@ -42,6 +42,8 @@ const record = {
 
 const entityFindStub = sinon.stub();
 
+const logEventSpy = sinon.spy();
+
 const factory = (options = { data: {}, mocks: {} }) => shallowMountNuxt(page, {
   localVue,
   stubs: ['client-only', 'i18n', 'ErrorMessage', 'EntityBadges', 'ItemLanguageSelector'],
@@ -50,6 +52,13 @@ const factory = (options = { data: {}, mocks: {} }) => shallowMountNuxt(page, {
       ...options.data
     };
   },
+  mixins: [
+    {
+      methods: {
+        logEvent: logEventSpy
+      }
+    }
+  ],
   mocks: {
     $features: { translatedItems: true },
     $config: {
@@ -204,6 +213,12 @@ describe('pages/item/_.vue', () => {
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
       });
+
+      it('does not log event via logEvent mixin', async() => {
+        await factory({ mocks: { $fetchState } });
+
+        expect(logEventSpy.called).toBe(false);
+      });
     });
 
     describe('when fetch completed without error', () => {
@@ -216,6 +231,12 @@ describe('pages/item/_.vue', () => {
           'item page custom dimensions',
           wrapper.vm.matomoOptions
         )).toBe(true);
+      });
+
+      it('logs event via logEvent mixin', async() => {
+        await factory({ mocks: { $fetchState } });
+
+        expect(logEventSpy.calledWith('view', record.identifier)).toBe(true);
       });
     });
 
