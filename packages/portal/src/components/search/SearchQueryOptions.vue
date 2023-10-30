@@ -200,10 +200,12 @@
     watch: {
       showSearchOptions(newVal) {
         if (newVal === true) {
-          this.$parent.$refs.searchdropdown.addEventListener('focusout', this.handleFocusOut);
+          window.addEventListener('click', this.handleClickOrFocusOutside);
+          window.addEventListener('focusin', this.handleClickOrFocusOutside);
           this.$parent.$refs.searchdropdown.addEventListener('keydown', this.handleKeyDown);
         } else {
-          this.$parent.$refs.searchdropdown.removeEventListener('focusout', this.handleFocusOut);
+          window.removeEventListener('click', this.handleClickOrFocusOutside);
+          window.removeEventListener('focusin', this.handleClickOrFocusOutside);
           this.$parent.$refs.searchdropdown.removeEventListener('keydown', this.handleKeyDown);
         }
       },
@@ -344,15 +346,15 @@
         }
       },
 
-      handleFocusOut(event) {
-        const relatedTargetOutsideSearchDropdown = this.checkIfRelatedTargetOutsideSearchDropdown(event);
-        if (relatedTargetOutsideSearchDropdown) {
+      handleClickOrFocusOutside(event) {
+        const targetOutsideSearchDropdown = this.checkIftargetOutsideSearchDropdown(event);
+        if (targetOutsideSearchDropdown) {
           this.$emit('hideOptions');
         }
       },
 
-      checkIfRelatedTargetOutsideSearchDropdown(event) {
-        return event.relatedTarget?.id !== 'show-search-button' && this.$parent.$refs.searchdropdown && !this.$parent.$refs.searchdropdown.contains(event.relatedTarget);
+      checkIftargetOutsideSearchDropdown(event) {
+        return event.target?.id !== 'show-search-button' && this.$parent.$refs.searchdropdown && !this.$parent.$refs.searchdropdown.contains(event.target);
       },
 
       navigateWithArrowKeys(event) {

@@ -255,14 +255,14 @@ describe('components/search/SearchQueryOptions', () => {
       });
     });
 
-    describe('handleFocusOut', () => {
+    describe('handleClickOrFocusOutside', () => {
       const wrapper = parentFactory();
       const searchOptionsComponent = wrapper.find('[data-qa="search query options"]');
       describe('when user clicks outside the search form dropdown', () => {
         it('hides the search options', async() => {
-          const handleFocusOutEvent = new Event('click');
+          const handleClickEvent = new Event('click');
 
-          searchOptionsComponent.vm.handleFocusOut(handleFocusOutEvent);
+          searchOptionsComponent.vm.handleClickOrFocusOutside(handleClickEvent);
 
           expect(searchOptionsComponent.emitted('hideOptions').length).toBe(1);
         });
@@ -272,7 +272,7 @@ describe('components/search/SearchQueryOptions', () => {
         it('hides the search options', async() => {
           const tabOutsideEvent = new KeyboardEvent('keydown', { key: 'Tab' });
 
-          searchOptionsComponent.vm.handleFocusOut(tabOutsideEvent);
+          searchOptionsComponent.vm.handleClickOrFocusOutside(tabOutsideEvent);
 
           expect(searchOptionsComponent.emitted('hideOptions').length).toBe(2);
         });
