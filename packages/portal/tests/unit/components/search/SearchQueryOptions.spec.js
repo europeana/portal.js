@@ -323,5 +323,19 @@ describe('components/search/SearchQueryOptions', () => {
         });
       });
     });
+
+    describe('checkIftargetOutsideSearchDropdown', () => {
+      const wrapper = parentFactory();
+      const searchOptionsComponent = wrapper.find('[data-qa="search query options"]');
+      describe('when user clicks the show search button', () => {
+        it('returns false', async() => {
+          const handleClickEvent = { target: { id: 'show-search-button' } };
+
+          const check = searchOptionsComponent.vm.checkIftargetOutsideSearchDropdown(handleClickEvent);
+
+          expect(check).toBe(false);
+        });
+      });
+    });
   });
 });
