@@ -8,6 +8,8 @@ export default class Session {
     timeout: 30 // in minutes
   };
 
+  #active = false;
+
   /**
    * @typedef {Object} SessionOptions
    * @property {number} timeout Number of minutes of inactivity after which a
@@ -23,13 +25,20 @@ export default class Session {
     this.id = data?.id || uuid();
     this.timestamp = data?.timestamp || Date.now();
     this.timeout = options.timeout || this.constructor.DEFAULTS.timeout;
+    console.log('new session', this.id)
   }
 
   get hasExpired() {
     return Date.now() - this.timestamp > (this.timeout * 60 * 1000);
   }
 
+  get isActive() {
+    return !this.hasExpired && this.#active;
+  }
+
   touch() {
+    console.log('touching session', this.id)
+    this.#active = true;
     this.timestamp = Date.now();
   }
 }

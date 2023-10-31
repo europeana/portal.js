@@ -213,7 +213,8 @@
         timespans: [],
         title: null,
         type: null,
-        useProxy: true
+        useProxy: true,
+        viewLogged: false
       };
     },
 
@@ -333,6 +334,12 @@
       },
       'relatedEntityUris'() {
         this.fetchEntities();
+      },
+      async '$session.isActive'(sessionActive) {
+        console.log('$session.isActive changed to', sessionActive);
+        if (!this.viewLogged) {
+          this.viewLogged = await this.logEvent('view', this.identifier);
+        }
       }
     },
 
@@ -340,7 +347,6 @@
       this.fetchEntities();
       this.fetchAnnotations();
       if (!this.$fetchState.error) {
-        this.logEvent('view', this.identifier);
         if (!this.$fetchState.pending) {
           this.trackCustomDimensions();
         }
