@@ -65,27 +65,22 @@
   }
 
   .container {
-    @media (min-width: $bp-wqhd) {
-      width: fit-content;
+    $max-xxxl-container-width: 102.5rem; // fixed xxxl width to preserve card aspect ratio
+
+    @media (min-width: $bp-xxxl) {
+
+      max-width: $max-xxxl-container-width;
     }
 
-    ::v-deep .card {
-      // max container width is 100% minus max-card-width minus container padding and scrollbar
-      $max-xxxl-container-width: calc(100vw - 50px - $max-card-width);
+    @media (min-width: $bp-4k) {
+      // 4k uses dynamic text sizing & larger gutters, so size needs to be larger to keep 4 cards
+      max-width: calc(#{$max-xxxl-container-width} +  #{$grid-gutter * 4});
+    }
 
-      @media (min-width: ($bp-wqhd)) {
-        flex: 0 0 calc(#{$max-xxxl-container-width} / 6 - #{$grid-gutter * 2});
-        max-width: calc(#{$max-xxxl-container-width} / 6 - #{$grid-gutter * 2})
-      }
-
-      @media (min-width: $bp-4k) {
-        flex: 0 0 calc(#{$max-xxxl-container-width} / 6 - #{$grid-gutter-4k * 2});
-        max-width: calc(#{$max-xxxl-container-width} / 6 - #{$grid-gutter-4k * 2});
-      }
-
-      @media (min-width: calc((6 * $max-card-width) + (1.5 * $max-card-width))) {
-        flex: 0 0 calc(#{$max-card-width} - #{$grid-gutter-4k});
-        max-width: calc(#{$max-card-width} - #{$grid-gutter-4k});
+      ::v-deep .card {
+      @media (min-width: ($bp-xxxl)) {
+        flex: 0 0 calc(#{$max-xxxl-container-width} / 4 - #{$grid-gutter * 2});
+        max-width: calc(#{$max-xxxl-container-width} / 4 - #{$grid-gutter * 2});
       }
     }
   }
