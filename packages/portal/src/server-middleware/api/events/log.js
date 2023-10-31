@@ -57,19 +57,17 @@ export default (config = {}) => {
         WHERE a.object_id=$1
           AND at.name=$2
           AND a.session_id=$3
-          AND a.occurred_at > (current_date - INTERVAL '1 day')
         `,
       [objectRow.id, actionType, sessionRow.id]
       );
       if (selectActionResult.rowCount > 0) {
-        // this session has already logged this action type for this object in the
-        // past 24 hours; don't log it again
+        // this session has already logged this action type for this object; don't log it again
         return;
       }
 
       await pg.query(`
         INSERT INTO events.actions (object_id, action_type_id, session_id, occurred_at)
-        SELECT $1, at.id, $2, current_timestamp
+        SELECT $1, at.id, $2, CURRENT_TIMESTAMP
         FROM events.action_types at
         WHERE at.name=$3
         `,
