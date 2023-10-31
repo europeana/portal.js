@@ -13,29 +13,58 @@ export default (config = {}) => {
 
       const selectObjectResult = await pg.query(`
         SELECT uri,
-               SUM(action_score) score
+               previous_score,
+               current_score,
+               CEIL(current_score ^ ((current_score - previous_score) / current_score)) score
         FROM
-          (SELECT uri,
-                  num * action_weight AS action_score
+          (SELECT current_scores.uri,
+                  COALESCE(SUM(current_scores.action_score), 0) current_score,
+                  COALESCE(SUM(previous_scores.action_score), 0) previous_score
            FROM
-             (SELECT o.uri,
-                     at.name,
-                     COUNT(a.id) AS num,
-                     CASE
-                         WHEN at.name = 'view' THEN 1
-                         WHEN at.name = 'download' THEN 2
-                         WHEN at.name = 'like' THEN 4
-                         WHEN at.name = 'add' THEN 6
-                         ELSE 0
-                     END AS action_weight
-              FROM events.actions a
-              LEFT JOIN events.objects o ON a.object_id = o.id
-              LEFT JOIN events.action_types AT ON a.action_type_id = at.id
-              WHERE a.occurred_at > (CURRENT_DATE - INTERVAL '1 day')
-                AND o.uri LIKE '%/item/%'
-              GROUP BY o.uri,
-                       at.name) AS action_counts) AS action_scores
-        GROUP BY uri
+             (SELECT uri,
+                     num * action_weight AS action_score
+              FROM
+                (SELECT o.uri,
+                        at.name,
+                        COUNT(a.id) AS num,
+                        CASE
+                            WHEN at.name = 'view' THEN 1
+                            WHEN at.name = 'download' THEN 2
+                            WHEN at.name = 'like' THEN 4
+                            WHEN at.name = 'add' THEN 6
+                            ELSE 0
+                        END AS action_weight
+                 FROM events.actions a
+                 LEFT JOIN events.objects o ON a.object_id=o.id
+                 LEFT JOIN events.action_types AT ON a.action_type_id=at.id
+                 WHERE a.occurred_at > (CURRENT_DATE - INTERVAL '1 day')
+                   AND o.uri LIKE '%/item/%'
+                 GROUP BY o.uri,
+                          at.name) AS action_counts) AS current_scores
+           LEFT JOIN
+             (SELECT uri,
+                     num * action_weight AS action_score
+              FROM
+                (SELECT o.uri,
+                        at.name,
+                        COUNT(a.id) AS num,
+                        CASE
+                            WHEN at.name = 'view' THEN 1
+                            WHEN at.name = 'download' THEN 2
+                            WHEN at.name = 'like' THEN 4
+                            WHEN at.name = 'add' THEN 6
+                            ELSE 0
+                        END AS action_weight
+                 FROM events.actions a
+                 LEFT JOIN events.objects o ON a.object_id=o.id
+                 LEFT JOIN events.action_types AT ON a.action_type_id=at.id
+                 WHERE a.occurred_at > (CURRENT_DATE - INTERVAL '2 day')
+                   AND a.occurred_at < (CURRENT_DATE - INTERVAL '1 day')
+                   AND o.uri LIKE '%/item/%'
+                 GROUP BY o.uri,
+                          at.name) AS action_counts) AS previous_scores ON current_scores.uri=previous_scores.uri
+           GROUP BY current_scores.uri) AS scores
+        WHERE current_score > 0
         ORDER BY score DESC
         LIMIT 10
         `
