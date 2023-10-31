@@ -235,6 +235,25 @@ describe('components/search/SearchForm', () => {
     });
   });
 
+  describe('when the search options are hidden and on a searchable page', () => {
+    describe('and there is a new query', () => {
+      it('submits the form', async() => {
+        const state = {
+          search: {
+            active: true,
+            queryInputValue: 'art'
+          }
+        };
+        const wrapper = factory({ data: { showSearchOptions: true }, mocks: { $store: { state } } });
+        sinon.spy(wrapper.vm, 'submitForm');
+
+        await wrapper.setData({ showSearchOptions: false });
+
+        expect(wrapper.vm.submitForm.called).toBe(true);
+      });
+    });
+  });
+
   it('re-shows the form when prop updates', async() => {
     const wrapper = factory({ propsData: { show: false } });
 
@@ -286,6 +305,24 @@ describe('components/search/SearchForm', () => {
       await clearButton.trigger('click');
 
       expect(focusStub.focus.called).toBe(false);
+    });
+
+    describe('and on a searchable page', () => {
+      it('submits the form', async() => {
+        const state = {
+          search: {
+            active: true,
+            queryInputValue: 'art'
+          }
+        };
+        const wrapper = factory({ mocks: { $store: { state } } });
+        sinon.spy(wrapper.vm, 'submitForm');
+
+        const clearButton = wrapper.find('[data-qa="clear button"]');
+        await clearButton.trigger('click');
+
+        expect(wrapper.vm.submitForm.called).toBe(true);
+      });
     });
   });
 

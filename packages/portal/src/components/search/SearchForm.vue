@@ -198,6 +198,13 @@
       },
       show(newVal) {
         this.showForm = newVal;
+      },
+      showSearchOptions(newVal) {
+        if (newVal === false && this.onSearchablePage) {
+          if (this.query !== this.$route.query.query) {
+            this.submitForm();
+          }
+        }
       }
     },
 
@@ -237,7 +244,7 @@
       clearQuery() {
         this.$store.commit('search/setQueryInputValue', '');
         this.suggestions = {};
-
+        this.onSearchablePage && this.submitForm();
         this.$nextTick(() => {
           this.$refs.searchinput.$el.focus();
         });
