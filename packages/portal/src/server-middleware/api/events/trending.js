@@ -70,7 +70,7 @@ export default (config = {}) => {
                  GROUP BY o.uri,
                           at.name) AS action_counts) AS previous_scores ON current_scores.uri=previous_scores.uri
            GROUP BY current_scores.uri) AS scores
-        WHERE current_score > 0
+        WHERE current_score > previous_score
         ORDER BY trending_score DESC,
                  last_occurred_at DESC
         LIMIT 10
