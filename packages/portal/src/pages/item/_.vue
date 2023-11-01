@@ -335,22 +335,27 @@
       'relatedEntityUris'() {
         this.fetchEntities();
       },
-      async '$session.isActive'(sessionActive) {
-        if (!this.$fetchState.error && !this.viewLogged && sessionActive) {
-          this.viewLogged = await this.logEvent('view', this.identifier);
-        }
+      '$session.isActive'() {
+        this.logEventIfNeeded();
       }
     },
 
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
+      this.logEventIfNeeded();
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }
     },
 
     methods: {
+      async logEventIfNeeded() {
+        if (!this.$fetchState.error && !this.viewLogged && this.$session.isActive) {
+          this.viewLogged = await this.logEvent('view', this.identifier);
+        }
+      },
+
       trackCustomDimensions() {
         if (!this.$waitForMatomo) {
           return;
