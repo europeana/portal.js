@@ -234,11 +234,10 @@
         const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: queryToSubmit || '' } };
         const newRoute = this.selectedOption?.link || { path: this.routePath, query: newRouteQuery };
 
-        this.showSearchOptions = false;
-
         await this.$router.push(newRoute);
         // init query to update in case of selecting the already selected option
         this.initQuery();
+        this.showSearchOptions = false;
       },
 
       clearQuery() {
