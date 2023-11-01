@@ -15,18 +15,22 @@ export default (config = {}) => {
         SELECT uri,
                previous_score,
                current_score,
-               CEIL(current_score ^ ((current_score - previous_score) / current_score)) trending_score
+               CEIL(current_score ^ ((current_score - previous_score) / current_score)) trending_score,
+               last_occurred_at
         FROM
           (SELECT current_scores.uri,
                   COALESCE(SUM(current_scores.action_score), 0) current_score,
-                  COALESCE(SUM(previous_scores.action_score), 0) previous_score
+                  COALESCE(SUM(previous_scores.action_score), 0) previous_score,
+                  GREATEST(MAX(current_scores.last_occurred_at), MAX(previous_scores.last_occurred_at)) last_occurred_at
            FROM
              (SELECT uri,
-                     num * action_weight AS action_score
+                     num * action_weight AS action_score,
+                     last_occurred_at
               FROM
                 (SELECT o.uri,
                         at.name,
                         COUNT(a.id) AS num,
+                        MAX(a.occurred_at) AS last_occurred_at,
                         CASE
                             WHEN at.name = 'view' THEN 1
                             WHEN at.name = 'download' THEN 2
@@ -43,11 +47,13 @@ export default (config = {}) => {
                           at.name) AS action_counts) AS current_scores
            LEFT JOIN
              (SELECT uri,
-                     num * action_weight AS action_score
+                     num * action_weight AS action_score,
+                     last_occurred_at
               FROM
                 (SELECT o.uri,
                         at.name,
                         COUNT(a.id) AS num,
+                        MAX(a.occurred_at) AS last_occurred_at,
                         CASE
                             WHEN at.name = 'view' THEN 1
                             WHEN at.name = 'download' THEN 2
@@ -65,7 +71,8 @@ export default (config = {}) => {
                           at.name) AS action_counts) AS previous_scores ON current_scores.uri=previous_scores.uri
            GROUP BY current_scores.uri) AS scores
         WHERE current_score > 0
-        ORDER BY trending_score DESC
+        ORDER BY trending_score DESC,
+                 last_occurred_at DESC
         LIMIT 10
         `
       );
