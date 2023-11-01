@@ -79,8 +79,8 @@
 
     ::v-deep .card {
       @media (min-width: ($bp-xxxl)) {
-      flex: 0 0 calc(#{$max-xxxl-container-width} / 4 - #{$grid-gutter * 2});
-      max-width: calc(#{$max-xxxl-container-width} / 4 - #{$grid-gutter * 2});
+        flex: 0 0 calc(#{$max-xxxl-container-width} / 4 - #{$grid-gutter * 2});
+        max-width: calc(#{$max-xxxl-container-width} / 4 - #{$grid-gutter * 2});
       }
     }
   }
