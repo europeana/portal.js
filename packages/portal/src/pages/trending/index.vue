@@ -1,5 +1,7 @@
 <template>
-  <div class="page white-page trending-page">
+  <div
+    class="page white-page trending-page xxl-page"
+  >
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -19,6 +21,7 @@
       <ItemPreviewCardGroup
         v-if="items"
         :items="items"
+        view="list"
       />
     </b-container>
   </div>
