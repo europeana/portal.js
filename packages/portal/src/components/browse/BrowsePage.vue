@@ -74,13 +74,13 @@
 
     @media (min-width: $bp-4k) {
       // 4k uses dynamic text sizing & larger gutters, so size needs to be larger to keep 4 cards
-      max-width: calc(#{$max-xxxl-container-width} +  #{$grid-gutter * 4});
+      max-width: calc(#{$max-xxxl-container-width} + #{$grid-gutter * 4});
     }
 
-      ::v-deep .card {
+    ::v-deep .card {
       @media (min-width: ($bp-xxxl)) {
-        flex: 0 0 calc(#{$max-xxxl-container-width} / 4 - #{$grid-gutter * 2});
-        max-width: calc(#{$max-xxxl-container-width} / 4 - #{$grid-gutter * 2});
+      flex: 0 0 calc(#{$max-xxxl-container-width} / 4 - #{$grid-gutter * 2});
+      max-width: calc(#{$max-xxxl-container-width} / 4 - #{$grid-gutter * 2});
       }
     }
   }
