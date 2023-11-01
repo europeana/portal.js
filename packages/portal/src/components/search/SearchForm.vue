@@ -1,20 +1,21 @@
 <template>
-  <transition
-    appear
-    name="fade"
+  <div
+    v-show="showForm"
+    ref="searchdropdown"
+    class="search-dropdown open"
+    :class="{
+      'home-search-form': inHomeHero,
+      'page-header-form': inPageHeader,
+      'suggestions-open': showSearchOptions
+    }"
   >
-    <div
-      v-show="showForm"
-      ref="searchdropdown"
-      class="search-dropdown open"
-      :class="{
-        'top-search': inTopNav,
-        'suggestions-open': showSearchOptions
-      }"
+    <transition
+      appear
+      :name="transition && 'fade' || ''"
     >
       <div>
         <b-button
-          v-if="inTopNav"
+          v-if="inPageHeader"
           v-b-tooltip.bottom
           data-qa="back button"
           class="button-icon-only icon-chevron back-button"
@@ -26,7 +27,7 @@
         <b-form
           ref="form"
           :role="!inSearchSidebar && 'search'"
-          :class="{'search-form': !inTopNav}"
+          :class="{'search-form': !inPageHeader}"
           :aria-label="$t('header.searchForm')"
           data-qa="search form"
           inline
@@ -65,29 +66,29 @@
           {{ $t('actions.clear') }}
         </b-button>
       </div>
-      <div
-        v-show="showSearchOptions"
-        class="auto-suggest-dropdown"
-        data-qa="search form dropdown"
-      >
-        <SearchQueryOptions
-          :id="searchFormOptionsId"
-          ref="searchoptions"
-          :suggest="suggestSearchOptions && (inTopNav || inSearchSidebar) && !onSearchableCollectionPage"
-          :text="query"
-          :submitting="submitting"
-          :show-search-options="showSearchOptions"
-          @select="(option) => handleSelect(option)"
-          @hideForm="handleHide"
-          @hideOptions="showSearchOptions = false"
-        />
-        <SearchThemeBadges
-          v-if="showSearchThemeBadges"
-          ref="quicksearch"
-        />
-      </div>
+    </transition>
+    <div
+      v-show="showSearchOptions"
+      class="auto-suggest-dropdown"
+      data-qa="search form dropdown"
+    >
+      <SearchQueryOptions
+        :id="searchFormOptionsId"
+        ref="searchoptions"
+        :suggest="suggestSearchOptions && (inPageHeader || inSearchSidebar) && !onSearchableCollectionPage"
+        :text="query"
+        :submitting="submitting"
+        :show-search-options="showSearchOptions"
+        @select="(option) => handleSelect(option)"
+        @hideForm="handleHide"
+        @hideOptions="showSearchOptions = false"
+      />
+      <SearchThemeBadges
+        v-if="showSearchThemeBadges"
+        ref="quicksearch"
+      />
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
@@ -111,11 +112,12 @@
         default: true
       },
       /**
-       * If `true`, additional elements and styles are added
+       * Depending on the parent, elements and styles are added
+       * @values home, page-header, search-sidebar
        */
-      inTopNav: {
-        type: Boolean,
-        default: false
+      parent: {
+        type: String,
+        default: 'home-hero'
       },
 
       /**
@@ -123,10 +125,6 @@
        * Used in keyboard navigation on 'Esc' key
        */
       hidableForm: {
-        type: Boolean,
-        default: false
-      },
-      inSearchSidebar: {
         type: Boolean,
         default: false
       }
@@ -173,17 +171,29 @@
       },
 
       showSearchThemeBadges() {
-        return (this.inTopNav || this.inSearchSidebar) && !this.onSearchableCollectionPage && !this.query;
+        return (this.inPageHeader || this.inSearchSidebar) && !this.onSearchableCollectionPage && !this.query;
       },
 
       searchFormOptionsId() {
         if (this.inSearchSidebar) {
-          return 'search-form-options-sidebar';
-        } else if (this.inTopNav) {
-          return 'search-form-options-top-nav';
+          return 'search-form-options-search-sidebar';
+        } else if (this.inPageHeader) {
+          return 'search-form-options-page-header';
         } else {
           return 'search-form-options';
         }
+      },
+      transition() {
+        return this.onSearchablePage && this.query;
+      },
+      inPageHeader() {
+        return this.parent === 'page-header';
+      },
+      inSearchSidebar() {
+        return this.parent === 'search-sidebar';
+      },
+      inHomeHero() {
+        return this.parent === 'home-hero';
       }
     },
 
@@ -210,7 +220,7 @@
 
     mounted() {
       this.initQuery();
-      !this.query && this.inTopNav && this.$nextTick(() => {
+      !this.query && this.inPageHeader && this.$nextTick(() => {
         this.$refs.searchinput.$el.focus();
       });
     },
@@ -274,129 +284,103 @@
   @import '@europeana/style/scss/icons';
   @import '@europeana/style/scss/transitions';
 
-  .top-search {
-    &.open {
-      width: 100%;
-      position: relative;
+  .search-dropdown {
+    width: 100%;
+    position: relative;
+  }
 
-      .form-inline {
-        align-items: flex-start;
-        width: auto;
+  .back-button {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 99;
 
-        .input-group {
-          width: 100%;
-          flex-wrap: nowrap;
-          height: 3.4rem;
-          box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
+    &::before {
+      font-size: 0.5rem;
+      transform: rotateX(180deg);
+    }
 
-          @media (min-width: $bp-4k) {
-            height: calc(1.5 * 3.4rem);
-          }
+    @media (min-width: $bp-4k) {
+      left: 1.5rem;
+      top: 1.5rem;
+    }
+  }
 
-          .input-group-prepend {
-            display: none;
-          }
-        }
+  .clear-button {
+    position: absolute;
+    z-index: 99;
+    right: 0.5rem;
+    top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0;
 
-        .form-control {
-          background-color: $white;
-          padding: 0.375rem 1rem 0.375rem 3.5rem;
-          height: 3.4rem;
-          box-shadow: none;
-          border-radius: 0;
-          color: $mediumgrey;
-          width: 100%;
+    .icon-clear {
+      line-height: 1.5;
+      font-size: $font-size-small;
+    }
+  }
 
-          @media (min-width: $bp-large) {
-            padding-right: 1rem;
-          }
+  .icon-filter {
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    z-index: 99;
+  }
 
-          @media (min-width: $bp-4k) {
-            padding: calc(1.5 * 0.375rem) calc(1.5 * 4.5rem) calc(1.5 * 0.375rem) calc(1.5 * 3.5rem);
-            height: calc(1.5 * 3.4rem);
-          }
-        }
-      }
+  .auto-suggest-dropdown {
+    display: block;
+    box-shadow: $boxshadow-light;
+    position: absolute;
+    width: 100%;
+    z-index: 20;
+    border-radius: 0;
+    background-color: $white;
+  }
 
-      .search-query {
-        box-shadow: $boxshadow-light;
+  .page-header-form {
+
+    .form-inline {
+      background-color: $white;
+      align-items: flex-start;
+      width: auto;
+
+      .input-group {
         width: 100%;
-        height: 3.5rem;
-        font-size: 1rem;
-        color: $mediumgrey;
-        display: flex;
-        align-items: center;
-        position: relative;
-        background: $white;
+        flex-wrap: nowrap;
+        height: 3.4rem;
+        box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
 
-        .search {
-          position: absolute;
-          width: 100%;
-          left: 0;
-          top: 0;
-          z-index: 99;
-          height: 3.5rem;
-          padding: 0.375rem 1rem 0.375rem 3.5rem;
-          justify-content: flex-start;
-
-          &:focus {
-            color: $greyblack;
-            background-color: $offwhite;
-
-            ~ span {
-              z-index: 99;
-            }
-          }
-
-          &::before {
-            left: 1rem;
-            top: 1rem;
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
+        @media (min-width: $bp-4k) {
+          height: calc(1.5 * 3.4rem);
         }
       }
     }
 
-    .back-button {
-      position: absolute;
-      left: 1rem;
-      top: 1rem;
-      z-index: 99;
-
-      &::before {
-        font-size: 0.5rem;
-        transform: rotateX(180deg);
-      }
+    .form-control {
+      background-color: $white;
+      padding: 0.375rem 1rem 0.375rem 3.5rem;
+      border-radius: 0;
+      height: 3.4rem;
+      box-shadow: none;
 
       @media (min-width: $bp-4k) {
-        left: 1.5rem;
-        top: 1.5rem;
+        padding: calc(1.5 * 0.375rem) calc(1.5 * 4.5rem) calc(1.5 * 0.375rem) calc(1.5 * 3.5rem);
+        height: calc(1.5 * 3.4rem);
       }
     }
 
     .clear-button {
-      position: absolute;
-      right: 1rem;
-      top: 0.5rem;
-      z-index: 99;
-
-      @media (max-width: ($bp-large - 1px)) {
-        font-size: 0;
-        right: 0.5rem;
-
-        .icon-clear {
-          line-height: 1.5;
-          font-size: 0.875rem;
-        }
-      }
+      right: 0.5;
 
       @media (min-width: $bp-large) {
+        font-size: $font-size-small;
         right: 1rem;
+
+        .icon-clear {
+          font-size: $font-size-smallest;
+        }
       }
 
       @media (min-width: $bp-4k) {
@@ -404,21 +388,7 @@
       }
     }
 
-    .icon-filter {
-      position: absolute;
-      right: 1rem;
-      top: 0;
-      z-index: 99;
-    }
-
     .auto-suggest-dropdown {
-      display: block;
-      box-shadow: $boxshadow-light;
-      position: absolute;
-      width: 100%;
-      z-index: 20;
-      border-radius: 0;
-      background-color: $white;
       transition: $standard-transition;
       border-top: 1px solid $bodygrey;
 
@@ -428,18 +398,12 @@
     }
   }
 
-  .open:not(.top-search) {
-    width: 100%;
-    position: relative;
+  .home-search-form.open {
 
     .auto-suggest-dropdown {
-      width: 100%;
       border-radius: 0 0 0.5em 0.5em;
-      background-color: $white;
       overflow: hidden;
       animation: appear 750ms ease-in-out;
-      position: absolute;
-      z-index: 20;
       box-shadow: $boxshadow-light, $boxshadow-light-left;
 
       @media (min-width: $bp-4k) {
@@ -462,22 +426,6 @@
 
       .form-inline {
         border-radius: 0.5em 0.5em 0 0;
-      }
-    }
-
-    .clear-button {
-      position: absolute;
-      right: 0.5rem;
-      top: 0.5rem;
-      z-index: 99;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0;
-
-      .icon-clear {
-        line-height: 1.5;
-        font-size: 0.875rem;
       }
     }
 

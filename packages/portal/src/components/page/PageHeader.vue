@@ -96,7 +96,7 @@
       data-qa="search form wrapper"
     >
       <SearchForm
-        :in-top-nav="true"
+        parent="page-header"
         :show="showSearchBar"
         :hidable-form="true"
       />

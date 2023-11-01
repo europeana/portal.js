@@ -13,7 +13,7 @@ const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchF
   attachTo: document.body,
   localVue,
   propsData: {
-    inTopNav: propsData ? propsData.inTopNav : true,
+    parent: propsData ? propsData.parent : 'page-header',
     ...propsData
   },
   data: () => (data || {}),
@@ -328,7 +328,7 @@ describe('components/search/SearchForm', () => {
 
   describe('when clicking the back button', () => {
     it('closes the search bar', async() => {
-      const wrapper = factory({ propsData: { hidableForm: true, inTopNav: true }, data: { showSearchOptions: true } });
+      const wrapper = factory({ propsData: { hidableForm: true, parent: 'page-header' }, data: { showSearchOptions: true } });
 
       const backButton = wrapper.find('[data-qa="back button"]');
       await backButton.trigger('click.prevent');
