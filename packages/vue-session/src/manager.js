@@ -23,7 +23,6 @@ export default class Manager {
     this.#storage = new Storage(options.storage);
 
     this.loadStoredSession();
-    // this.touch();
     this.startMonitoring();
   }
 

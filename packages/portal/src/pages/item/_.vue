@@ -336,8 +336,7 @@
         this.fetchEntities();
       },
       async '$session.isActive'(sessionActive) {
-        console.log('$session.isActive changed to', sessionActive);
-        if (!this.viewLogged) {
+        if (!this.$fetchState.error && !this.viewLogged && sessionActive) {
           this.viewLogged = await this.logEvent('view', this.identifier);
         }
       }
@@ -346,10 +345,8 @@
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
-      if (!this.$fetchState.error) {
-        if (!this.$fetchState.pending) {
-          this.trackCustomDimensions();
-        }
+      if (!this.$fetchState.error && !this.$fetchState.pending) {
+        this.trackCustomDimensions();
       }
     },
 
