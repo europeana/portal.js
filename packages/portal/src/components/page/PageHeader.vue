@@ -91,7 +91,7 @@
       </b-sidebar>
     </div>
     <div
-      v-if="showSearchBar"
+      v-show="showSearchBar"
       class="search-bar d-flex justify-content-center"
       data-qa="search form wrapper"
     >
