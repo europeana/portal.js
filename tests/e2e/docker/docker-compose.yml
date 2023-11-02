@@ -10,6 +10,13 @@ services:
       - app
     volumes:
       - nginx-proxy-cache-apis:/var/cache/nginx/proxy/apis
+  media-proxy:
+    image: europeana/media-proxy.js:main
+    environment:
+      EUROPEANA_PERMITTED_API_URLS: https://nginx/api/record
+      PORT: 80
+    ports:
+      - "80:80"
   app:
     image: europeana/portal.js:${APP_IMAGE_VERSION:-latest}
     build:
@@ -17,6 +24,7 @@ services:
       dockerfile: ./packages/portal/Dockerfile
     depends_on:
       - cache
+      - media-proxy
     expose:
       - "8080"
     env_file: ./app/.env
@@ -27,6 +35,7 @@ services:
       - EUROPEANA_ANNOTATION_API_URL=https://nginx/api/annotation
       - EUROPEANA_ENTITY_API_URL=https://nginx/api/entity
       - EUROPEANA_FULLTEXT_API_URL=https://nginx/api/newspapers/api/v2
+      - EUROPEANA_MEDIA_PROXY_API_URL=http://media-proxy/media
       - EUROPEANA_RECOMMENDATION_API_URL=https://nginx/api/recommendation
       - EUROPEANA_RECORD_API_URL=https://nginx/api/record
       - EUROPEANA_SET_API_URL=https://nginx/api/set
