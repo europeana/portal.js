@@ -401,9 +401,9 @@
 
   .home-search-form {
 
-  .form-control {
-    border-radius: 0.5em;
-  }
+    .form-control {
+      border-radius: 0.5em;
+    }
 
     &.suggestions-open {
       box-shadow: $boxshadow-light;
