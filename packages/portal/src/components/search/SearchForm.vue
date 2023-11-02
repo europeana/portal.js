@@ -62,7 +62,7 @@
           variant="light"
           @click="clearQuery"
         >
-          <span class="icon-clear pr-lg-2" />
+          <span class="icon-clear" />
           {{ $t('actions.clear') }}
         </b-button>
       </div>
@@ -317,7 +317,7 @@
     font-size: 0;
 
     .icon-clear {
-      line-height: 1.5;
+      line-height: 1;
       font-size: $font-size-small;
     }
   }
@@ -380,6 +380,7 @@
 
         .icon-clear {
           font-size: $font-size-smallest;
+          padding-right: 0.5rem;
         }
       }
 
@@ -398,7 +399,19 @@
     }
   }
 
-  .home-search-form.open {
+  .home-search-form {
+
+  .form-control {
+    border-radius: 0.5em;
+  }
+
+    &.suggestions-open {
+      box-shadow: $boxshadow-light;
+
+      .form-inline {
+        border-radius: 0.5em 0.5em 0 0;
+      }
+    }
 
     .auto-suggest-dropdown {
       border-radius: 0 0 0.5em 0.5em;
@@ -418,14 +431,6 @@
 
       to {
         max-height: 100vh;
-      }
-    }
-
-    &.suggestions-open {
-      box-shadow: $boxshadow-light;
-
-      .form-inline {
-        border-radius: 0.5em 0.5em 0 0;
       }
     }
 
