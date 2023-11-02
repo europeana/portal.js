@@ -393,7 +393,7 @@
         }
 
         // Remove collection-specific filters when collection is changed
-        if (Object.prototype.hasOwnProperty.call(selected, this.COLLECTION_FACET_NAME) || !this.collection) {
+        if (Object.hasOwn(selected, this.COLLECTION_FACET_NAME) || !this.collection) {
           for (const name in filters) {
             if (name !== this.COLLECTION_FACET_NAME && !this.DEFAULT_FACET_NAMES.concat(this.ADDITIONAL_FACET_NAMES).includes(name)) {
               filters[name] = [];
@@ -403,7 +403,7 @@
 
         // Reset contenTier filter when changed to or from a collection (i.e. contentTierFacetSwitch replaced with contentTier as a SearchFacetDropdown and vice versa)
         // But not when changing from one theme to another
-        if (Object.prototype.hasOwnProperty.call(filters, 'contentTier') && selected[this.COLLECTION_FACET_NAME] &&
+        if (Object.hasOwn(filters, 'contentTier') && selected[this.COLLECTION_FACET_NAME] &&
           ((!this.collection && selected[this.COLLECTION_FACET_NAME].length) || (this.collection && !selected[this.COLLECTION_FACET_NAME].length))) {
           filters['contentTier'] = [];
         }

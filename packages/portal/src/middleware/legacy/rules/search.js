@@ -108,7 +108,7 @@ function baseRedirect(route, query = {}) {
   } else {
     const collectionPattern = /^\/portal(\/[a-z]{2})?\/collections\/([^/]+)$/;
     const collectionMatch = route.path.match(collectionPattern);
-    if (collectionMatch && Object.prototype.hasOwnProperty.call(query, 'q')) {
+    if (collectionMatch && Object.hasOwn(query, 'q')) {
       redirect.path = [collectionMatch[1], '/search'];
       redirect.query.qf.push(`collection:${mapCollectionToTheme(collectionMatch[2])}`);
     }
