@@ -125,7 +125,7 @@
 
     computed: {
       displayValues() {
-        const display = Object.assign({}, this.langMappedValues);
+        const display = { ...this.langMappedValues };
 
         if (this.limitDisplayValues && (display.values.length > this.limit)) {
           display.values = display.values.slice(0, this.limit).concat(this.$t('formatting.ellipsis'));
