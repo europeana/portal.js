@@ -201,7 +201,6 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
       organizations,
       places,
       title: proxies.dcTitle,
-      schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
       metadataLanguage: prefLang,
       iiifPresentationManifest: item.iiifPresentationManifest
     };
@@ -223,16 +222,6 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
       if (options.metadataLanguage) {
         params.profile = 'translate';
         params.lang = options.metadataLanguage;
-      }
-    } else {
-      // No point in switching on experimental schema.org with item translations.
-      // The profiles would interfere with each other.
-      let schemaOrgDatasetId;
-      if (this.context?.$config?.app?.schemaOrgDatasetId) {
-        schemaOrgDatasetId = this.context?.$config.app.schemaOrgDatasetId;
-      }
-      if (schemaOrgDatasetId && europeanaId.startsWith(`/${schemaOrgDatasetId}/`)) {
-        params.profile = 'schemaOrg';
       }
     }
 
