@@ -135,15 +135,6 @@
         </client-only>
       </b-container>
     </template>
-    <client-only>
-      <!-- eslint-disable vue/no-v-html -->
-      <script
-        v-if="schemaOrg"
-        type="application/ld+json"
-        v-html="schemaOrg"
-      />
-      <!-- eslint-enable vue/no-v-html -->
-    </client-only>
   </div>
 </template>
 
@@ -208,7 +199,6 @@
         organizations: [],
         places: [],
         relatedCollections: [],
-        schemaOrg: null,
         showItemLanguageSelector: true,
         timespans: [],
         title: null,
