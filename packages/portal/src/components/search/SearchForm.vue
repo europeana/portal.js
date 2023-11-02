@@ -315,6 +315,11 @@
     justify-content: center;
     align-items: center;
     font-size: 0;
+    line-height: 1.25rem;
+
+    @media (min-width: $bp-4k) {
+      line-height: calc(1.5 * 1.25rem);
+    }
 
     .icon-clear {
       line-height: 1;
