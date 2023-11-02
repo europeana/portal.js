@@ -14,8 +14,6 @@ export default {
         return false;
       }
 
-      console.log('logEvent', actionType, itemIdentifier);
-
       let objectUri = itemIdentifier;
       if (!objectUri.startsWith(ITEM_URL_PREFIX)) {
         objectUri = `${ITEM_URL_PREFIX}${objectUri}`;
