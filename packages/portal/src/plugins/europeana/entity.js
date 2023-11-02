@@ -156,7 +156,7 @@ export function getEntityQuery(uri) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri, types) {
-  types = types ? types : ['concept', 'agent', 'place', 'timespan', 'organization'];
+  types = types || ['concept', 'agent', 'place', 'timespan', 'organization'];
   return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/\\d+$`).test(uri);
 }
 

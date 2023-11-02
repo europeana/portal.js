@@ -22,7 +22,7 @@ export default {
       return {
         name: 'collections-type-all', params: {
           type: getEntityTypeHumanReadable(uriMatch[1]),
-          pathMatch: slug ? slug : uriMatch[2]
+          pathMatch: slug || uriMatch[2]
         }
       };
     }

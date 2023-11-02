@@ -417,7 +417,7 @@
           this.dataProviderEntity = null;
 
           const entities  = await this.$apis.entity.find(this.relatedEntityUris, params);
-          this.relatedCollections = entities ? entities : [];
+          this.relatedCollections = entities || [];
         } else {
           this.dataProviderEntity = null;
           this.relatedCollections = [];
