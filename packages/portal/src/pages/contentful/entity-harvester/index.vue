@@ -105,7 +105,7 @@
         if (isEntityUri(url)) {
           return entityParamsFromUri(url);
         }
-        const pageMatch = url.match(new RegExp('^https?://[^/]+(/[a-z]{2})?/collections/(person|topic|time)/(\d+)'));
+        const pageMatch = url.match(new RegExp('^https?://[^/]+(/[a-z]{2})?/collections/(person|topic|time)/([\d]+)'));
         if (pageMatch) {
           const type = pageMatch[2];
           const id = pageMatch[3];
