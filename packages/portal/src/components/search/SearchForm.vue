@@ -315,17 +315,13 @@
   .clear-button {
     position: absolute;
     z-index: 99;
-    right: 0.5rem;
-    top: 0.5rem;
+    top: 0.8125rem;
+    right: 0.8125rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 0;
-    line-height: 1.25rem;
-
-    @media (min-width: $bp-4k) {
-      line-height: calc(1.5 * 1.25rem);
-    }
+    padding: 0.5rem;
 
     .icon-clear {
       line-height: 1;
@@ -383,14 +379,18 @@
     }
 
     .clear-button {
-      right: 0.5;
+      top: 0.75rem;
+      right: 0.75rem;
 
       @media (min-width: $bp-large) {
         font-size: $font-size-small;
-        right: 1rem;
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.5rem 0.75rem;
 
         .icon-clear {
           font-size: $font-size-smallest;
+          line-height: 1.2;
           padding-right: 0.5rem;
         }
       }
@@ -412,16 +412,16 @@
 
   .home-search-form {
 
-    .form-control {
-      border-radius: 0.5em;
-    }
-
     &.suggestions-open {
       box-shadow: $boxshadow-light;
 
       .form-inline {
         border-radius: 0.5em 0.5em 0 0;
       }
+    }
+
+    .form-control {
+      border-radius: 0.5em;
     }
 
     .auto-suggest-dropdown {

@@ -511,4 +511,8 @@
   .alert {
     font-size: $font-size-extrasmall;
   }
+
+  .icon-clear {
+    line-height: 1.2;
+  }
 </style>
