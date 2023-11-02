@@ -34,7 +34,7 @@ describe('components/PageHeader', () => {
 
         const form = wrapper.find('[data-qa="search form wrapper"]');
 
-        expect(form.exists()).toBe(false);
+        expect(form.isVisible()).toBe(false);
       });
 
       it('is shown when toggled by the search button', async() => {

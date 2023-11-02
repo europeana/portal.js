@@ -13,7 +13,7 @@
       appear
       :name="transition && 'fade' || ''"
     >
-      <div>
+      <div v-show="showForm">
         <b-button
           v-if="inPageHeader"
           v-b-tooltip.bottom
@@ -84,7 +84,7 @@
         @hideOptions="showSearchOptions = false"
       />
       <SearchThemeBadges
-        v-if="showSearchThemeBadges"
+        v-show="showSearchThemeBadges"
         ref="quicksearch"
       />
     </div>
@@ -208,6 +208,12 @@
       },
       show(newVal) {
         this.showForm = newVal;
+
+        if (newVal && !this.query) {
+          this.$nextTick(() => {
+            this.$refs.searchinput.$el.focus();
+          });
+        }
       },
       showSearchOptions(newVal) {
         if (newVal === false && this.onSearchablePage) {
