@@ -486,7 +486,7 @@ export default {
   /*
   ** Enable modern builds
   */
-  modern: featureIsEnabled('modernBuild'),
+  modern: !featureIsEnabled('skipModernBuild'),
 
   /*
   ** Render configuration
