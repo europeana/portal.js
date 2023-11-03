@@ -66,6 +66,35 @@ describe('Session', () => {
     });
   });
 
+  describe('isActive', () => {
+    it('starts `false`', () => {
+      const session = new Session();
+
+      expect(session.isActive).toBe(false);
+    });
+
+    describe('when session touched', () => {
+      it('becomes `true`', () => {
+        const timeout = 10;
+        const timestamp = Date.now() - ((timeout + 1) * 60 * 1000);
+        const session = new Session({}, { timeout });
+
+        session.touch();
+        session.timestamp = timestamp;
+
+        expect(session.isActive).toBe(false);
+      });
+
+      it('is `false` again if session expired', () => {
+        const session = new Session();
+
+        session.touch();
+
+        expect(session.isActive).toBe(true);
+      });
+    });
+  });
+
   describe('touch', () => {
     it('updates the timestamp', () => {
       const timestamp = Date.now() - (60 * 1000);

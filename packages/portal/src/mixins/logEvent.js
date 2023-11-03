@@ -4,14 +4,14 @@ import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
 export default {
   methods: {
-    logEvent(actionType, itemIdentifier) {
-      const loggingPermitted = this.$features.eventLogging &&
+    async logEvent(actionType, itemIdentifier) {
+      const loggingPermitted = this.$features?.eventLogging &&
         process.client &&
         !isbot(navigator?.userAgent) &&
-        this.$session?.id;
+        this.$session?.isActive;
 
       if (!loggingPermitted) {
-        return;
+        return false;
       }
 
       let objectUri = itemIdentifier;
@@ -25,12 +25,17 @@ export default {
         sessionId: this.$session.id
       };
 
-      return axios.create({
-        baseURL: this.$config.app.baseUrl
-      }).post(
-        '/_api/events',
-        postData
-      );
+      try {
+        await axios.create({
+          baseURL: this.$config.app.baseUrl
+        }).post(
+          '/_api/events',
+          postData
+        );
+        return true;
+      } catch (e) {
+        return false;
+      }
     }
   }
 };

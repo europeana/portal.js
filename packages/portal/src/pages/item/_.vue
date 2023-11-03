@@ -203,7 +203,8 @@
         timespans: [],
         title: null,
         type: null,
-        useProxy: true
+        useProxy: true,
+        viewLogged: false
       };
     },
 
@@ -323,21 +324,28 @@
       },
       'relatedEntityUris'() {
         this.fetchEntities();
+      },
+      '$session.isActive'() {
+        this.logEventIfNeeded();
       }
     },
 
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
-      if (!this.$fetchState.error) {
-        this.logEvent('view', this.identifier);
-        if (!this.$fetchState.pending) {
-          this.trackCustomDimensions();
-        }
+      this.logEventIfNeeded();
+      if (!this.$fetchState.error && !this.$fetchState.pending) {
+        this.trackCustomDimensions();
       }
     },
 
     methods: {
+      async logEventIfNeeded() {
+        if (!this.$fetchState.error && !this.viewLogged && this.$session.isActive) {
+          this.viewLogged = await this.logEvent('view', this.identifier);
+        }
+      },
+
       trackCustomDimensions() {
         if (!this.$waitForMatomo) {
           return;

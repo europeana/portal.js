@@ -1,6 +1,7 @@
 import Monitor from './monitor.js';
 import Session from './session.js';
 import Storage from './storage.js';
+import Vue from 'vue';
 
 /**
  * Manages session(s) for the user
@@ -22,7 +23,6 @@ export default class Manager {
     this.#storage = new Storage(options.storage);
 
     this.loadStoredSession();
-    this.touch();
     this.startMonitoring();
   }
 
@@ -34,7 +34,7 @@ export default class Manager {
   }
 
   set session(session) {
-    this.#session = session;
+    this.#session = Vue.observable(session);
   }
 
   loadStoredSession() {
