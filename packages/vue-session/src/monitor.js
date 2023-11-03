@@ -10,7 +10,7 @@ export default class Monitor {
   /**
    * @typedef {Object} MonitorOptions
    * @property {string[]} events Document events to listen to for activity.
-   *   Default to `['keypress', 'mousedown', 'mousemove', 'scroll', 'touchstart']`.
+   *   Defaults to `['keypress', 'mousedown', 'mousemove', 'scroll', 'touchstart']`.
    * @property {number} interval Number of seconds to pause event listeners
    *   after activity is detected before resuming them. Defaults to 60 seconds.
    */

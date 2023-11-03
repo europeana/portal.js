@@ -255,14 +255,14 @@ describe('components/search/SearchQueryOptions', () => {
       });
     });
 
-    describe('handleFocusOut', () => {
+    describe('handleClickOrFocusOutside', () => {
       const wrapper = parentFactory();
       const searchOptionsComponent = wrapper.find('[data-qa="search query options"]');
       describe('when user clicks outside the search form dropdown', () => {
         it('hides the search options', async() => {
-          const handleFocusOutEvent = new Event('click');
+          const handleClickEvent = new Event('click');
 
-          searchOptionsComponent.vm.handleFocusOut(handleFocusOutEvent);
+          searchOptionsComponent.vm.handleClickOrFocusOutside(handleClickEvent);
 
           expect(searchOptionsComponent.emitted('hideOptions').length).toBe(1);
         });
@@ -272,7 +272,7 @@ describe('components/search/SearchQueryOptions', () => {
         it('hides the search options', async() => {
           const tabOutsideEvent = new KeyboardEvent('keydown', { key: 'Tab' });
 
-          searchOptionsComponent.vm.handleFocusOut(tabOutsideEvent);
+          searchOptionsComponent.vm.handleClickOrFocusOutside(tabOutsideEvent);
 
           expect(searchOptionsComponent.emitted('hideOptions').length).toBe(2);
         });
@@ -320,6 +320,20 @@ describe('components/search/SearchQueryOptions', () => {
 
           expect(searchOptionsComponent.emitted('hideOptions').length).toBe(1);
           expect(searchOptionsComponent.emitted('hideForm').length).toBe(1);
+        });
+      });
+    });
+
+    describe('checkIftargetOutsideSearchDropdown', () => {
+      const wrapper = parentFactory();
+      const searchOptionsComponent = wrapper.find('[data-qa="search query options"]');
+      describe('when user clicks the show search button', () => {
+        it('returns false', async() => {
+          const handleClickEvent = { target: { id: 'show-search-button' } };
+
+          const check = searchOptionsComponent.vm.checkIftargetOutsideSearchDropdown(handleClickEvent);
+
+          expect(check).toBe(false);
         });
       });
     });

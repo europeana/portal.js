@@ -8,6 +8,8 @@ export default class Session {
     timeout: 30 // in minutes
   };
 
+  #active = false;
+
   /**
    * @typedef {Object} SessionOptions
    * @property {number} timeout Number of minutes of inactivity after which a
@@ -29,7 +31,12 @@ export default class Session {
     return Date.now() - this.timestamp > (this.timeout * 60 * 1000);
   }
 
+  get isActive() {
+    return !this.hasExpired && this.#active;
+  }
+
   touch() {
+    this.#active = true;
     this.timestamp = Date.now();
   }
 }

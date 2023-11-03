@@ -15,19 +15,19 @@ describe('Manager', () => {
       expect(manager.session.id).toBe('uuid');
     });
 
-    it('touches session to update timestamp', () => {
+    it('does not touch session to update timestamp', () => {
       const timestamp = Date.now() - 1000;
       localStorage.setItem('session', `{"id":"uuid","timestamp":${timestamp}}`);
 
       const manager = new Manager();
 
-      expect(manager.session.timestamp).toBeGreaterThan(timestamp);
+      expect(manager.session.timestamp).toBe(timestamp);
     });
 
     it('starts monitoring, touching session on activity', () => {
       const manager = new Manager({ monitor: { events: ['wheel'] } });
       sinon.spy(manager.session, 'touch');
-      sinon.resetHistory();
+      // sinon.resetHistory();
 
       document.dispatchEvent(new WheelEvent('wheel'));
 

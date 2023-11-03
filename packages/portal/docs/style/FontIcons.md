@@ -190,9 +190,9 @@ Example:
           <td><span class="icon icon-translate" /></td>
         </tr>
         <tr>
-          <td>Twitter</td>
-          <td><code>icon-twitter</code></td>
-          <td><span class="icon icon-twitter" /></td>
+          <td>X</td>
+          <td><code>icon-x</code></td>
+          <td><span class="icon icon-x" /></td>
         </tr>
         <!-- Template for additional icons follows.
              Be sure to insert into table in alphabetical order. -->

@@ -356,30 +356,6 @@ describe('plugins/europeana/record', () => {
       expect(nock.isDone()).toBe(true);
     });
 
-    describe('profile parameter', () => {
-      it('is "schemaOrg" for configured dataset items', async() => {
-        nock(record.BASE_URL)
-          .get(apiEndpoint)
-          .query(query => query.profile === 'schemaOrg')
-          .reply(200, apiResponse);
-
-        await (new record({ $config: { app: { schemaOrgDatasetId: '123' } } })).getRecord(europeanaId);
-
-        expect(nock.isDone()).toBe(true);
-      });
-
-      it('is omitted for other dataset items', async() => {
-        nock(record.BASE_URL)
-          .get(apiEndpoint)
-          .query(query => !Object.keys(query).includes('profile'))
-          .reply(200, apiResponse);
-
-        await (new record({ $config: { app: { schemaOrgDatasetId: '456' } } })).getRecord(europeanaId);
-
-        expect(nock.isDone()).toBe(true);
-      });
-    });
-
     describe('API response', () => {
       describe('with "Invalid record identifier: ..." error', () => {
         const errorMessage = `Invalid record identifier: ${europeanaId}`;

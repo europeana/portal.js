@@ -132,9 +132,9 @@
             hideExternalIcon: true
           },
           {
-            text: 'Twitter',
+            text: 'X',
             url: 'https://twitter.com/europeanaeu',
-            icon: 'icon-twitter',
+            icon: 'icon-x',
             hideExternalIcon: true
           },
           {

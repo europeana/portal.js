@@ -96,29 +96,32 @@ describe('mixins/logEvent', () => {
             it('does not post to event logging API', async() => {
               const wrapper = factory({ mocks: { $features } });
 
-              await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+              const logged = await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
 
               expect(nock.isDone()).toBe(false);
+              expect(logged).toBe(false);
             });
           });
 
-          describe('when there is no session ID', () => {
+          describe('when there is no active session', () => {
             it('does not post to event logging API', async() => {
               const wrapper = factory({ mocks: { $features, $session: {} } });
 
-              await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+              const logged = await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
 
               expect(nock.isDone()).toBe(false);
+              expect(logged).toBe(false);
             });
           });
 
-          describe('when there is a session ID', () => {
+          describe('when there is an active session', () => {
             it('posts to event logging API', async() => {
-              const wrapper = factory({ mocks: { $features, $session: { id: 'uuid' } } });
+              const wrapper = factory({ mocks: { $features, $session: { isActive: true } } });
 
-              await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+              const logged = await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
 
               expect(nock.isDone()).toBe(true);
+              expect(logged).toBe(true);
             });
           });
         });

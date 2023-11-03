@@ -44,12 +44,12 @@ describe('components/share/ShareSocialButton', () => {
       expect(facebook.attributes().href).toContain('https://www.example.org/page');
     });
 
-    it('one button has a twitter share url', () => {
+    it('one button has a x share url', () => {
       const wrapper = factory();
-      const twitter = wrapper.find('[data-qa="share twitter button"]');
+      const x = wrapper.find('[data-qa="share x button"]');
 
-      expect(twitter.attributes().href.startsWith('https://twitter.com/intent/tweet')).toBe(true);
-      expect(twitter.attributes().href).toContain('https://www.example.org/page');
+      expect(x.attributes().href.startsWith('https://twitter.com/intent/tweet')).toBe(true);
+      expect(x.attributes().href).toContain('https://www.example.org/page');
     });
 
     it('one button has a pinterest share url', () => {
