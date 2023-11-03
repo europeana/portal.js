@@ -145,6 +145,8 @@
         get() {
           return this.$store.state.search.queryInputValue;
         },
+        // Store the query so that other instances of SearchForm rendered at
+        // the same time also have it.
         set(value) {
           this.$store.commit('search/setQueryInputValue', value);
         }
