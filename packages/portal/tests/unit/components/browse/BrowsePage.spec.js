@@ -19,7 +19,7 @@ describe('components/browse/BrowsePage', () => {
             {
               '__typename': 'AutomatedCardGroup',
               genre: 'Featured themes',
-              moreButton : {
+              moreButton: {
                 url: '/themes',
                 text: 'Show more themes'
               }
@@ -44,7 +44,7 @@ describe('components/browse/BrowsePage', () => {
                   },
                   {
                     '__typename': 'CuratedCard',
-                    name: "Middle Ages"
+                    name: 'Middle Ages'
                   },
                   {
                     '__typename': 'CuratedCard',
@@ -85,7 +85,7 @@ describe('components/browse/BrowsePage', () => {
                   },
                   {
                     '__typename': 'CuratedCard',
-                    name: "Middle Ages"
+                    name: 'Middle Ages'
                   },
                   {
                     '__typename': 'CuratedCard',
@@ -96,7 +96,7 @@ describe('components/browse/BrowsePage', () => {
             },
             {
               '__typename': 'CardGroup',
-              headline:null,
+              headline: null,
               text: null,
               moreButton: null,
               hasPartCollection: {
@@ -138,7 +138,7 @@ describe('components/browse/BrowsePage', () => {
           const wrapper = factory({ name: 'Features page', hasPartCollection });
 
           const layoutClass = wrapper.vm.layoutClass;
-          expect(layoutClass).toBe(undefined);
+          expect(layoutClass).toBe(null);
         });
       });
     });

@@ -57,6 +57,7 @@
         if (largeCardGroupSections.length <= 0) {
           return 'browse-page-4-col';
         }
+        return null;
       }
     }
   };
