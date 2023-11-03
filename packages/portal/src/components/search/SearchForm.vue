@@ -211,7 +211,7 @@
       show(newVal) {
         this.showForm = newVal;
 
-        if (newVal && !this.query) {
+        if (newVal) {
           this.$nextTick(() => {
             this.$refs.searchinput.$el.focus();
           });
