@@ -5,7 +5,7 @@
   >
     <slot />
     <b-container
-      :class="defineCardLayoutClass(hasPartCollection?.items)"
+      :class="layoutClass"
     >
       <ContentHeader
         :title="name"
@@ -49,10 +49,10 @@
       }
     },
 
-    methods: {
-      defineCardLayoutClass(sections) {
-        const cardGroupSections = sections.filter(section => section['__typename'] === 'CardGroup');
-        const largeCardGroupSections = cardGroupSections.filter(section => section.hasPartCollection?.items.length > 5);
+    computed: {
+      layoutClass() {
+        const cardGroupSections = this.hasPartCollection?.items.filter(section => section['__typename'] === 'CardGroup');
+        const largeCardGroupSections = cardGroupSections.filter(section => section.hasPartCollection?.items.length >= 5);
 
         if (largeCardGroupSections.length <= 0) {
           return 'browse-page-4-col';
