@@ -233,7 +233,7 @@ export function entityParamsFromUri(uri) {
  * @return {String} formatted thumbnail url
  */
 export function getWikimediaThumbnailUrl(image, size = 255) {
-  if (!(new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(image))) {
+  if (!(/\.wiki[mp]edia\.org\/wiki\/Special:FilePath\//.test(image))) {
     return image;
   }
 

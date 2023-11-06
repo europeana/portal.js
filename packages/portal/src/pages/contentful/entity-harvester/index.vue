@@ -101,7 +101,7 @@
       },
 
       entityParamsFromUrl(url) {
-        url = url.replace(new RegExp('^https?://api.europeana.eu/entity'), BASE_URL);
+        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, BASE_URL);
         if (isEntityUri(url)) {
           return entityParamsFromUri(url);
         }
