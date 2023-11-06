@@ -138,7 +138,7 @@
 
     methods: {
       toggleSearchBar() {
-        this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
+        this.$store.commit('search/setShowSearchBar', !this.showSearchBar);
       }
     }
   };

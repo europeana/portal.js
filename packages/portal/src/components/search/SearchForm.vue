@@ -145,6 +145,8 @@
         get() {
           return this.$store.state.search.queryInputValue;
         },
+        // Store the query so that other instances of SearchForm rendered at
+        // the same time also have it.
         set(value) {
           this.$store.commit('search/setQueryInputValue', value);
         }
@@ -209,7 +211,7 @@
       show(newVal) {
         this.showForm = newVal;
 
-        if (newVal && !this.query) {
+        if (newVal) {
           this.$nextTick(() => {
             this.$refs.searchinput.$el.focus();
           });
