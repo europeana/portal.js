@@ -167,7 +167,7 @@
         return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
-        return /^https?:\/\//).test(this.rightsStatement);
+        return /^https?:\/\//.test(this.rightsStatement);
       },
       rightsStatement() {
         if (this.selectedMedia.webResourceEdmRights) {
