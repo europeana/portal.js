@@ -41,7 +41,7 @@
         <div
           v-if="entry === ctaBanner"
           :key="index"
-          class="cta-banner"
+          class="cta-banner-wrapper"
         >
           <CallToActionBanner
             v-if="callToAction"
@@ -225,7 +225,7 @@
   }
 }
 
-.cta-banner {
+.cta-banner-wrapper {
   flex-basis: 100%;
 
   @media (min-width: $bp-small) {
