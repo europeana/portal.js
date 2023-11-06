@@ -386,7 +386,7 @@
         this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       queryUpdatesForFacetChanges(selected = {}) {
-        const filters = Object.assign({}, this.filters);
+        const filters = { ...this.filters };
 
         for (const name in selected) {
           filters[name] = selected[name];

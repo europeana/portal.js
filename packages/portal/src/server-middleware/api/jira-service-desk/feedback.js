@@ -1,6 +1,7 @@
 import axios from 'axios';
+import createHttpError from 'http-errors';
 
-import { errorHandler } from '..';
+import { errorHandler } from '../utils.js';
 import { truncate, wordLength } from '../../../plugins/vue-filters';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
@@ -42,7 +43,7 @@ const validateFeedback = feedback => new Promise((resolve, reject) => {
   if (validateFeedbackLength(feedback)) {
     resolve();
   } else {
-    reject({ status: 400, message: 'Invalid feedback.' });
+    reject(createHttpError(400, 'Invalid feedback.'));
   }
 });
 

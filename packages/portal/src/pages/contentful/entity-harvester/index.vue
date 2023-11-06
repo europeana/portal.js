@@ -101,11 +101,11 @@
       },
 
       entityParamsFromUrl(url) {
-        url = url.replace(new RegExp('^https?://api.europeana.eu/entity'), BASE_URL);
+        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, BASE_URL);
         if (isEntityUri(url)) {
           return entityParamsFromUri(url);
         }
-        const pageMatch = url.match(new RegExp('^https?://[^/]+(/[a-z]{2})?/collections/(person|topic|time)/([0-9]+)+'));
+        const pageMatch = url.match(/^https?:\/\/[^/]+(\/[a-z]{2})?\/collections\/(person|topic|time)\/(\d+)/);
         if (pageMatch) {
           const type = pageMatch[2];
           const id = pageMatch[3];

@@ -42,14 +42,23 @@ const record = {
 
 const entityFindStub = sinon.stub();
 
-const factory = (options = { data: {}, mocks: {} }) => shallowMountNuxt(page, {
+const logEventSpy = sinon.spy();
+
+const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
   localVue,
   stubs: ['client-only', 'i18n', 'ErrorMessage', 'EntityBadges', 'ItemLanguageSelector'],
   data() {
     return {
-      ...options.data
+      ...data
     };
   },
+  mixins: [
+    {
+      methods: {
+        logEvent: logEventSpy
+      }
+    }
+  ],
   mocks: {
     $features: { translatedItems: true },
     $config: {
@@ -98,7 +107,8 @@ const factory = (options = { data: {}, mocks: {} }) => shallowMountNuxt(page, {
       }
     },
     $error: sinon.spy(),
-    ...options.mocks
+    $session: { isActive: false },
+    ...mocks
   }
 });
 
@@ -124,6 +134,17 @@ describe('pages/item/_.vue', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
+      });
+    });
+
+    describe('when the requested item identifier is different from the identifier in the response', () => {
+      it('redirects to the response identifier item page', async() => {
+        const wrapper = factory({ data: { identifier: '/old/id' } });
+        sinon.spy(wrapper.vm, 'redirectToAltRoute');
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.redirectToAltRoute.calledWith({ params: { pathMatch: record.identifier.slice(1) } })).toBe(true);
       });
     });
 
@@ -170,6 +191,51 @@ describe('pages/item/_.vue', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
+  });
+
+  describe('watch', () => {
+    describe('$session.isActive', () => {
+      describe('when fetch errored', () => {
+        const $fetchState = { pending: false, error: { message: 'Item not found' } };
+
+        it('does not log event via logEvent mixin', async() => {
+          const wrapper = factory({ mocks: { $fetchState } });
+
+          wrapper.vm.$session.isActive = true;
+          await wrapper.vm.$nextTick();
+
+          expect(logEventSpy.calledWith('view', record.identifier)).toBe(false);
+        });
+      });
+
+      describe('when fetch completed without error', () => {
+        const $fetchState = { pending: false };
+
+        describe('when view already logged', () => {
+          const data = { viewLogged: true };
+          it('does not log event via logEvent mixin', async() => {
+            const wrapper = factory({ data, mocks: { $fetchState } });
+
+            wrapper.vm.$session.isActive = true;
+            await wrapper.vm.$nextTick();
+
+            expect(logEventSpy.calledWith('view', record.identifier)).toBe(false);
+          });
+        });
+
+        describe('when view not yet logged', () => {
+          const data = { viewLogged: false };
+          it('logs event via logEvent mixin', async() => {
+            const wrapper = factory({ data, mocks: { $fetchState } });
+
+            wrapper.vm.$session.isActive = true;
+            await wrapper.vm.$nextTick();
+
+            expect(logEventSpy.calledWith('view', record.identifier)).toBe(true);
+          });
+        });
       });
     });
   });

@@ -38,7 +38,7 @@ const waitForMatomo = ({ delay = 100, retries = 20 }) => function() {
       if (that.$matomo) {
         return resolve();
       } else if (counter >= retries) {
-        return reject('No Matomo');
+        return reject(new Error('No Matomo'));
       } else {
         return setTimeout(() => attempt(counter + 1), delay);
       }

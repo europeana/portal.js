@@ -49,6 +49,7 @@
   import matchHighlight from 'autosuggest-highlight/match';
   import parseHighlight from 'autosuggest-highlight/parse';
   import TextHighlighter from '../generic/TextHighlighter';
+  import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
 
   export default {
     name: 'SearchQueryOptions',
@@ -56,6 +57,8 @@
     components: {
       TextHighlighter
     },
+
+    mixins: [elasticApmReporterMixin],
 
     props: {
       /**
@@ -197,10 +200,12 @@
     watch: {
       showSearchOptions(newVal) {
         if (newVal === true) {
-          this.$parent.$refs.searchdropdown.addEventListener('focusout', this.handleFocusOut);
+          window.addEventListener('click', this.handleClickOrFocusOutside);
+          window.addEventListener('focusin', this.handleClickOrFocusOutside);
           this.$parent.$refs.searchdropdown.addEventListener('keydown', this.handleKeyDown);
         } else {
-          this.$parent.$refs.searchdropdown.removeEventListener('focusout', this.handleFocusOut);
+          window.removeEventListener('click', this.handleClickOrFocusOutside);
+          window.removeEventListener('focusin', this.handleClickOrFocusOutside);
           this.$parent.$refs.searchdropdown.removeEventListener('keydown', this.handleKeyDown);
         }
       },
@@ -317,6 +322,13 @@
         } else if (!this.onCollectionPage) { // Skip click tracking while on a collection page, there will never be suggestions.
           if (index >= 1) {
             this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
+            this.logApmTransaction({
+              name: 'Search - select autosuggest option',
+              labels: {
+                'search_params_query': query,
+                'suggestion_rank': index
+              }
+            });
           } else if (this.options.length >= 2) {
             this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
           }
@@ -334,15 +346,15 @@
         }
       },
 
-      handleFocusOut(event) {
-        const relatedTargetOutsideSearchDropdown = this.checkIfRelatedTargetOutsideSearchDropdown(event);
-        if (relatedTargetOutsideSearchDropdown) {
+      handleClickOrFocusOutside(event) {
+        const targetOutsideSearchDropdown = this.checkIftargetOutsideSearchDropdown(event);
+        if (targetOutsideSearchDropdown) {
           this.$emit('hideOptions');
         }
       },
 
-      checkIfRelatedTargetOutsideSearchDropdown(event) {
-        return event.relatedTarget?.id !== 'show-search-button' && this.$parent.$refs.searchdropdown && !this.$parent.$refs.searchdropdown.contains(event.relatedTarget);
+      checkIftargetOutsideSearchDropdown(event) {
+        return event.target?.id !== 'show-search-button' && this.$parent.$refs.searchdropdown && !this.$parent.$refs.searchdropdown.contains(event.target);
       },
 
       navigateWithArrowKeys(event) {

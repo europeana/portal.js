@@ -108,7 +108,7 @@
           return false;
         }
 
-        const hostname = path.match(hostnamePattern)[1];
+        const hostname = hostnamePattern.exec(path)[1];
         return !hostname.endsWith(this.internalDomain);
       }
     }

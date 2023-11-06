@@ -135,15 +135,6 @@
         </client-only>
       </b-container>
     </template>
-    <client-only>
-      <!-- eslint-disable vue/no-v-html -->
-      <script
-        v-if="schemaOrg"
-        type="application/ld+json"
-        v-html="schemaOrg"
-      />
-      <!-- eslint-enable vue/no-v-html -->
-    </client-only>
   </div>
 </template>
 
@@ -160,8 +151,10 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/mixins/stringify';
+  import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import redirectToMixin from '@/mixins/redirectTo';
 
   export default {
     name: 'ItemPage',
@@ -180,7 +173,9 @@
     mixins: [
       stringify,
       canonicalUrlMixin,
-      pageMetaMixin
+      pageMetaMixin,
+      redirectToMixin,
+      logEventMixin
     ],
 
     data() {
@@ -204,12 +199,12 @@
         organizations: [],
         places: [],
         relatedCollections: [],
-        schemaOrg: null,
         showItemLanguageSelector: true,
         timespans: [],
         title: null,
         type: null,
-        useProxy: true
+        useProxy: true,
+        viewLogged: false
       };
     },
 
@@ -329,18 +324,28 @@
       },
       'relatedEntityUris'() {
         this.fetchEntities();
+      },
+      '$session.isActive'() {
+        this.logEventIfNeeded();
       }
     },
 
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
+      this.logEventIfNeeded();
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }
     },
 
     methods: {
+      async logEventIfNeeded() {
+        if (!this.$fetchState.error && !this.viewLogged && this.$session.isActive) {
+          this.viewLogged = await this.logEvent('view', this.identifier);
+        }
+      },
+
       trackCustomDimensions() {
         if (!this.$waitForMatomo) {
           return;
@@ -361,6 +366,12 @@
             this.identifier,
             { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
           );
+
+          const responseIdentifier = response.record.identifier;
+          if (this.identifier !== responseIdentifier) {
+            this.redirectToAltRoute({ params: { pathMatch: responseIdentifier.slice(1) } });
+          }
+
           for (const key in response.record) {
             this[key] = response.record[key];
           }
@@ -414,7 +425,7 @@
           this.dataProviderEntity = null;
 
           const entities  = await this.$apis.entity.find(this.relatedEntityUris, params);
-          this.relatedCollections = entities ? entities : [];
+          this.relatedCollections = entities || [];
         } else {
           this.dataProviderEntity = null;
           this.relatedCollections = [];
