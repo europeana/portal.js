@@ -235,6 +235,20 @@ describe('components/search/SearchForm', () => {
     });
   });
 
+  describe('on searchable page changes', () => {
+    describe('with an input query value', () => {
+      it('blurs the input', async() => {
+        const wrapper = factory({ mocks: { $route: { query: { query: 'art' } }, $store: { state: { search: { active: false } } } } });
+        wrapper.vm.blurInput = sinon.spy();
+
+        wrapper.vm.$store.state.search.active = true;
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.blurInput.called).toBe(true);
+      });
+    });
+  });
+
   describe('when the search options are hidden and on a searchable page', () => {
     describe('and there is a new query', () => {
       it('submits the form', async() => {

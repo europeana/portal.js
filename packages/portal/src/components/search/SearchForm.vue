@@ -202,7 +202,6 @@
     watch: {
       '$route.query.query'() {
         this.blurInput();
-        this.showSearchOptions = false;
         this.initQuery();
       },
       '$route.path'() {
@@ -214,6 +213,14 @@
         if (newVal) {
           this.$nextTick(() => {
             this.$refs.searchinput.$el.focus();
+          });
+        }
+      },
+      // Prevent opening dropdown when navigating back to a search page with query
+      onSearchablePage(newVal, oldVal) {
+        if (this.$route.query.query && oldVal !== newVal) {
+          this.$nextTick(() => {
+            this.blurInput();
           });
         }
       },
@@ -274,7 +281,6 @@
       },
       handleHide() {
         this.blurInput();
-        this.showSearchOptions = false;
         if (this.hidableForm) {
           this.showForm = false;
           this.$store.commit('search/setShowSearchBar', false);
@@ -282,6 +288,7 @@
       },
       blurInput() {
         this.$refs.searchinput.$el?.blur();
+        this.showSearchOptions = false;
       },
       handleHideOptions(submit) {
         // When hiding options should not trigger a submit, reset the query to prevent submission and to show the applied query in the input field
