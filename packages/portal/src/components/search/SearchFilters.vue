@@ -11,11 +11,11 @@
       <b-button
         v-if="hasResettableFilters"
         variant="light"
-        class="d-inline-flex align-items-center"
+        class="d-inline-flex align-items-baseline"
         data-qa="reset filters button"
         @click="resetFilters"
       >
-        <span class="icon-clear d-block pr-2" />
+        <span class="icon-clear pr-2" />
         {{ $t('actions.clearFilters') }}
       </b-button>
     </b-row>
@@ -510,9 +510,5 @@
 
   .alert {
     font-size: $font-size-extrasmall;
-  }
-
-  .icon-clear {
-    line-height: 1.2;
   }
 </style>
