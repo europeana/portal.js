@@ -115,6 +115,14 @@ describe('components/search/SearchForm', () => {
         }
       };
 
+      it('stores that the interaction is loggable', () => {
+        const wrapper = factory({ mocks: { $store: { state } } });
+
+        wrapper.vm.submitForm();
+
+        expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
+      });
+
       it('updates current route', async() => {
         const wrapper = factory({ mocks: { $store: { state } } });
 

@@ -432,7 +432,7 @@
           .filter((value) => (value !== undefined) && (value !== null))
           .map((value) => `${name}:${value}`);
       },
-      rerouteSearch(queryUpdates) {
+      rerouteSearch(queryUpdates = {}) {
         this.$store.commit('search/setLoggableInteraction', true);
         const query = this.updateCurrentSearchQuery(queryUpdates);
         this.$router.push(this.localePath({ ...this.route, ...{ query } }));
