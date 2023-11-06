@@ -91,7 +91,7 @@
 
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
-  const TRANSCRIBATHON_URL_ROOT = '^https?://europeana.transcribathon.eu/';
+  const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
   export default {
     components: {
@@ -167,7 +167,7 @@
         return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
-        return RegExp('^https?://*').test(this.rightsStatement);
+        return /^https?:\/\//.test(this.rightsStatement);
       },
       rightsStatement() {
         if (this.selectedMedia.webResourceEdmRights) {
@@ -199,7 +199,7 @@
         return this.$auth.userHasClientRole('usersets', 'editor');
       },
       showTranscribathonLink() {
-        return this.$features.transcribathonCta && this.linkForContributingAnnotation && RegExp(TRANSCRIBATHON_URL_ROOT).test(this.linkForContributingAnnotation);
+        return this.$features.transcribathonCta && this.linkForContributingAnnotation && TRANSCRIBATHON_URL_ROOT.test(this.linkForContributingAnnotation);
       }
     },
     mounted() {
