@@ -345,7 +345,13 @@
       handleClickOrFocusOutside(event) {
         const targetOutsideSearchDropdown = this.checkIftargetOutsideSearchDropdown(event);
         if (targetOutsideSearchDropdown) {
-          this.$emit('hideOptions');
+          if  (['A', 'BUTTON', 'INPUT'].includes(event.target?.tagName) ||
+            event.target?.role === 'menu'
+          ) {
+            this.$emit('hideOptions');
+          } else {
+            this.$emit('hideOptions', true);
+          }
         }
       },
 

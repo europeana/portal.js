@@ -81,7 +81,7 @@
         :show-search-options="showSearchOptions"
         @select="(option) => handleSelect(option)"
         @hideForm="handleHide"
-        @hideOptions="showSearchOptions = false"
+        @hideOptions="(submit) => handleHideOptions(submit)"
       />
       <SearchThemeBadges
         v-show="showSearchThemeBadges"
@@ -280,6 +280,13 @@
       },
       blurInput() {
         this.$refs.searchinput.$el?.blur();
+      },
+      handleHideOptions(submit) {
+        // When hiding options should not trigger a submit, reset the query to prevent submission and to show the applied query in the input field
+        if (!submit) {
+          this.initQuery();
+        }
+        this.showSearchOptions = false;
       }
     }
   };
@@ -299,7 +306,7 @@
     position: absolute;
     left: 1rem;
     top: 1rem;
-    z-index: 99;
+    z-index: 4;
 
     &::before {
       font-size: 0.5rem;
@@ -314,7 +321,7 @@
 
   .clear-button {
     position: absolute;
-    z-index: 99;
+    z-index: 4;
     top: 0.8125rem;
     right: 0.8125rem;
     display: flex;

@@ -347,4 +347,20 @@ describe('components/search/SearchForm', () => {
       expect(wrapper.vm.submitForm.called).toBe(true);
     });
   });
+
+  describe('handleHideOptions()', () => {
+    describe('when hiding options should not trigger a submit', () => {
+      it('resets the query', async() => {
+        const query = 'nature';
+
+        const wrapper = factory({ data: { showSearchOptions: true },
+          mocks: { $store: { state: { search: { queryInputValue: query } } } } });
+
+        wrapper.vm.query = 'art';
+        wrapper.vm.handleHideOptions(undefined);
+
+        expect(wrapper.vm.query).toEqual(query);
+      });
+    });
+  });
 });
