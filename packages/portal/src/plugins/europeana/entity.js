@@ -219,7 +219,7 @@ export function getEntityUri(type, id) {
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
-  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan|organization)\/(\d+)$/);
+  const matched = /^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan|organization)\/(\d+)$/.exec(uri);
   const id = matched[matched.length - 1];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };

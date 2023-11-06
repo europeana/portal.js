@@ -303,6 +303,6 @@ export function isEuropeanaRecordId(value) {
  * @return {string}
  */
 export function recordIdFromUrl(value) {
-  const urlMatch = value.match(/(\/\d+\/\w+)($|\?)/);
+  const urlMatch = /(\/\d+\/\w+)($|\?)/.exec(value);
   return urlMatch?.[1];
 }
