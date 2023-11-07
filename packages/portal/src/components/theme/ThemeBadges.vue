@@ -20,6 +20,7 @@
         :img="imageUrl(relatedTheme, 28, 28)"
         :image-src-set="imageSrcSet(relatedTheme)"
         badge-variant="outline-primary"
+        :click-event-handler="() => clickEventHandler(relatedTheme.url)"
       />
     </div>
   </div>
@@ -104,6 +105,13 @@
           return `${smallImage} 28w, ${wqhdImage} 45w, ${fourKImage} 67w`;
         }
         return null;
+      },
+
+      clickEventHandler(link) {
+        this.$store.commit('search/setLoggableInteraction', true);
+        if (this.$matomo) {
+          this.$matomo.trackEvent('Related_collections', 'Click related collection', link);
+        }
       }
     }
   };
