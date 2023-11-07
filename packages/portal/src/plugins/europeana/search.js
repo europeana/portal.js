@@ -60,7 +60,7 @@ export function rangeToQueryParam(values) {
  * @return {Object} Object with start and end keys
  */
 export function rangeFromQueryParam(paramValue) {
-  const matches = paramValue.match(/^\[([^ ].*) TO ([^ ].*)\]$/);
+  const matches = /^\[([^ ].*) TO ([^ ].*)\]$/.exec(paramValue);
   if (matches === null) {
     return null;
   }

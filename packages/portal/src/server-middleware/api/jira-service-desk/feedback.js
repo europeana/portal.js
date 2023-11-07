@@ -1,4 +1,5 @@
 import axios from 'axios';
+import createHttpError from 'http-errors';
 
 import { errorHandler } from '../utils.js';
 import { truncate, wordLength } from '../../../plugins/vue-filters';
@@ -42,7 +43,7 @@ const validateFeedback = feedback => new Promise((resolve, reject) => {
   if (validateFeedbackLength(feedback)) {
     resolve();
   } else {
-    reject({ status: 400, message: 'Invalid feedback.' });
+    reject(createHttpError(400, 'Invalid feedback.'));
   }
 });
 

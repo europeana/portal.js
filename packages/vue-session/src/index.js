@@ -10,7 +10,7 @@ const VueSession = {
       return;
     }
 
-    if (!Object.hasOwn(Vue.prototype, instanceProperty)) {
+    if (!Object.prototype.hasOwnProperty.call(Vue.prototype, instanceProperty)) {
       const manager = new SessionManager(options);
 
       Object.defineProperty(Vue.prototype, instanceProperty, {

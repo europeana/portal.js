@@ -156,7 +156,7 @@ describe('plugins/vue-matomo.client', () => {
 
         const promise = vm.waitForMatomo();
 
-        await expect(promise).rejects.toBe('No Matomo');
+        await expect(promise).rejects.toEqual(Error('No Matomo'));
       });
     });
   });
