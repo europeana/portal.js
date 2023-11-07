@@ -774,9 +774,9 @@ export default {
     "galleries": "Galerii | Galeriid"
   },
   "header": {
-    "backToMenu": "Sulge otsinguaken",
     "clearQuery": "Kustuta otsingupäring",
     "closeSidebar": "Sule menüü",
+    "collapseSearchBar": "Kokkuvolditav otsinguriba",
     "entireCollection": "Otsi {query} kogu meie kollektsioonist",
     "europeanaHome": "Europeana avaleht",
     "inCollection": "Otsi {query} {collection}",
@@ -786,7 +786,6 @@ export default {
       "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",
       "home": "Avaleht",
-      "pro": "Professionaalidele",
       "shareYourData": "Jaga oma andmeid",
       "stories": "Lood"
     },
