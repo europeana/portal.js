@@ -75,5 +75,21 @@ describe('components/search/SearchQueryBuilderRuleTermInput', () => {
         });
       });
     });
+
+    describe('handleHideOptions()', () => {
+      describe('when hiding options should not trigger a submit', () => {
+        it('resets the query', async() => {
+          const query = 'nature';
+
+          const wrapper = factory({ data: { showSearchOptions: true } });
+
+          await wrapper.setProps({ value: query });
+          wrapper.vm.term = 'art';
+          wrapper.vm.handleHideOptions(undefined);
+
+          expect(wrapper.vm.term).toEqual(query);
+        });
+      });
+    });
   });
 });

@@ -3,8 +3,9 @@ export default {
     active: false,
     collectionFacetEnabled: true,
     collectionLabel: null,
-    showFiltersSheet: false,
-    showFiltersToggle: false,
+    queryInputValue: null,
+    showSearchSidebar: false,
+    showSidebarToggle: false,
     showSearchBar: false,
     view: null,
     qasWithSelectedEntityValue: []
@@ -32,17 +33,20 @@ export default {
     setCollectionLabel(state, value) {
       state.collectionLabel = value;
     },
-    setShowFiltersSheet(state, value) {
-      state.showFiltersSheet = value;
+    setShowSearchSidebar(state, value) {
+      state.showSearchSidebar = value;
     },
-    setShowFiltersToggle(state, value) {
-      state.showFiltersToggle = value;
+    setShowSidebarToggle(state, value) {
+      state.showSidebarToggle = value;
     },
     addQasWithSelectedEntityValue(state, value) {
       state.qasWithSelectedEntityValue.push(value);
     },
     setQasWithSelectedEntityValue(state, value) {
       state.qasWithSelectedEntityValue = value;
+    },
+    setQueryInputValue(state, value) {
+      state.queryInputValue = value;
     }
   },
 

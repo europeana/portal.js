@@ -67,6 +67,33 @@ describe('mixins/advancedSearch', () => {
           }
         });
       });
+      describe('when search rules are cleared', () => {
+        it('deletes the advanced search query from the route', () => {
+          const rules = [];
+          const $route = {
+            path: '/en/search',
+            query: {
+              query: 'bone',
+              page: 2,
+              qa: [
+                'proxy_dc_title:den\\ haag',
+                '-proxy_dc_type:photograph'
+              ]
+            }
+          };
+          const wrapper = factory({ mocks: { $route } });
+
+          const advancedSearchRouteQueryFromRules = wrapper.vm.advancedSearchRouteQueryFromRules(rules);
+
+          expect(advancedSearchRouteQueryFromRules).toEqual({
+            path: '/en/search',
+            query: {
+              page: 1,
+              query: 'bone'
+            }
+          });
+        });
+      });
     });
 
     describe('advancedSearchRulesFromRouteQuery', () => {

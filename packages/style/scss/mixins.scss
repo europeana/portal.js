@@ -43,3 +43,17 @@
     height: calc($swiper-height-medium + $extra-height);
   }
 }
+
+@mixin status-indicator {
+  &::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: $blue;
+    outline: 2px solid rgba(255 255 255 / 90%);
+    border-radius: 50%;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+  }
+}

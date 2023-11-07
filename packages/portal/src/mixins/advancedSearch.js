@@ -112,7 +112,13 @@ export default {
       const qa = rules.map((rule) => this.advancedSearchQueryFromRule(rule, true))
         .filter((qa) => !!qa);
 
-      const newRouteQuery = { ...this.$route.query, ...{ page: 1, [this.advancedSearchRouteQueryKey]: qa } };
+      const newRouteQuery = { ...this.$route.query, ...{ page: 1 } };
+
+      if (qa.length) {
+        newRouteQuery[this.advancedSearchRouteQueryKey] = qa;
+      } else {
+        delete newRouteQuery[this.advancedSearchRouteQueryKey];
+      }
 
       return { ...this.$route, query: newRouteQuery };
     },

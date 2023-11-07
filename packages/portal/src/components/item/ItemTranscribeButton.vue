@@ -68,6 +68,7 @@
 
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/mixins';
 
 .transcribe-button {
   font-size: $font-size-medium;
@@ -77,15 +78,9 @@
   margin-right: 0.5rem;
   position: relative;
   border: none;
+  @include status-indicator;
 
   &::after {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background-color: $blue;
-    outline: 2px solid $offwhite;
-    border-radius: 50%;
-    position: absolute;
     right: 8px;
     top: 8px;
   }
