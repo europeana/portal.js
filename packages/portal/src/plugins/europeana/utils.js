@@ -84,7 +84,7 @@ function languageKeys(locale) {
 
 export const selectLocaleForLangMap = (langMap, locale) => {
   for (const key of languageKeys(locale)) {
-    if (Object.prototype.hasOwnProperty.call(langMap, key)) {
+    if (Object.hasOwn(langMap, key)) {
       return key;
     }
   }
@@ -183,7 +183,7 @@ function onlyUriValues(values) {
 }
 
 function isJSONLDExpanded(values) {
-  return values[0] && Object.prototype.hasOwnProperty.call(values[0], '@language');
+  return values[0] && Object.hasOwn(values[0], '@language');
 }
 
 function langMapValueFromJSONLD(value, locale) {

@@ -148,7 +148,7 @@
           return { values: [this.fieldData], code: '' };
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
-        } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
+        } else if (Object.hasOwn(this.fieldData, 'url')) {
           return langMapValueForLocale(this.fieldData.value, this.prefLanguage);
         }
         return langMapValueForLocale(this.fieldData, this.prefLanguage, {
