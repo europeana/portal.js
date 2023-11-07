@@ -774,9 +774,9 @@ export default {
     "galleries": "Galleria | Galleriat"
   },
   "header": {
-    "backToMenu": "Sulje hakuruutu",
     "clearQuery": "Tyhjennä hakuehdot",
     "closeSidebar": "Sulje valikko",
+    "collapseSearchBar": "Tiivistä hakupalkki",
     "entireCollection": "Hae ehdoilla {query} koko kokoelmastamme",
     "europeanaHome": "Europeana etusivu",
     "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
@@ -786,7 +786,6 @@ export default {
       "europeanaClassroom": "Opettajille",
       "help": "Apua",
       "home": "Etusivu",
-      "pro": "Ammattilaisille",
       "shareYourData": "Jaa tietosi",
       "stories": "Tarinat"
     },

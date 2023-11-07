@@ -774,9 +774,9 @@ export default {
     "galleries": "Galéria | Galériák"
   },
   "header": {
-    "backToMenu": "Keresőmező bezárása",
     "clearQuery": "Keresőkifejezés törlése",
     "closeSidebar": "Menü bezárása",
+    "collapseSearchBar": "Keresősáv összecsukása",
     "entireCollection": "Keresés az egész gyűjteményben erre: {query}",
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
@@ -786,7 +786,6 @@ export default {
       "europeanaClassroom": "Tanároknak",
       "help": "Súgó",
       "home": "Kezdőlap",
-      "pro": "Szakembereknek",
       "shareYourData": "Ossza meg az adatait",
       "stories": "Történetek"
     },

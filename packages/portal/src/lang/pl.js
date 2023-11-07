@@ -774,9 +774,9 @@ export default {
     "galleries": "Galeria | Galerie"
   },
   "header": {
-    "backToMenu": "Zamknij pole wyszukiwania",
     "clearQuery": "Wyczyść zapytanie",
     "closeSidebar": "Zamknij menu",
+    "collapseSearchBar": "Zwiń pasek wyszukiwania",
     "entireCollection": "Wyszukaj {query} w całej naszej kolekcji",
     "europeanaHome": "Strona główna Europeana",
     "inCollection": "Wyszukaj {query} w {collection}",
@@ -786,7 +786,6 @@ export default {
       "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
       "home": "Strona główna",
-      "pro": "Dla profesjonalistów",
       "shareYourData": "Udostępnij swoje dane",
       "stories": "Historie"
     },

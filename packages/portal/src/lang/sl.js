@@ -774,9 +774,9 @@ export default {
     "galleries": "Galerija | Galerije"
   },
   "header": {
-    "backToMenu": "Zapri iskalno polje",
     "clearQuery": "Počisti iskalno poizvedbo ",
     "closeSidebar": "Zapri meni",
+    "collapseSearchBar": "Strnitev iskalne vrstice",
     "entireCollection": "Išči {query} v naši celotni zbirki",
     "europeanaHome": "Na začetno stran Europeana",
     "inCollection": "Išči {query} v {collection}",
@@ -786,7 +786,6 @@ export default {
       "europeanaClassroom": "Za učitelje",
       "help": "Pomoč",
       "home": "Domov",
-      "pro": "Za strokovnjake",
       "shareYourData": "Delite vaše podatke",
       "stories": "Zgodbe"
     },

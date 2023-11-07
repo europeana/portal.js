@@ -774,9 +774,9 @@ export default {
     "galleries": "Gallerija | Galleriji"
   },
   "header": {
-    "backToMenu": "Agħlaq il-Kaxxa tat-Tiftix",
     "clearQuery": "Ħassar il-Query tat-Tiftix",
     "closeSidebar": "Agħlaq il-Menu",
+    "collapseSearchBar": "Ikkollassa l-bara ta' tiftix",
     "entireCollection": "Fittex {query} fil-kollezzjoni sħiħa tagħna",
     "europeanaHome": "Europeana home",
     "inCollection": "Fittex {query} fi {collection}",
@@ -786,7 +786,6 @@ export default {
       "europeanaClassroom": "Għall-għalliema",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
-      "pro": "Għall-professjonisti",
       "shareYourData": "Aqsam id-data tiegħek",
       "stories": "Stejjer"
     },

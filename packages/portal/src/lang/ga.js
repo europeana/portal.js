@@ -774,9 +774,9 @@ export default {
     "galleries": "Gailearaí | Gailearaithe"
   },
   "header": {
-    "backToMenu": "Dún Bosca Cuardaigh",
     "clearQuery": "Glan Ceist Cuardaigh",
     "closeSidebar": "Dún Roghchlár",
+    "collapseSearchBar": "Laghdaigh an barra cuardaigh",
     "entireCollection": "Cuardaigh {query} inár mbailiúchán iomlán",
     "europeanaHome": "Baile Europeana",
     "inCollection": "Cuardaigh {query} i {collection}",
@@ -786,7 +786,6 @@ export default {
       "europeanaClassroom": "Do mhúinteoirí",
       "help": "Cabhair",
       "home": "Baile",
-      "pro": "Do lucht gairme",
       "shareYourData": "Comhroinn do shonraí",
       "stories": "Scéalta"
     },

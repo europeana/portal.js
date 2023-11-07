@@ -778,9 +778,9 @@ export default {
     "galleries": "Galeria | Galeriak"
   },
   "header": {
-    "backToMenu": "Menura itzuli",
     "clearQuery": "Garbitu bilaketa kontsulta",
     "closeSidebar": "Itxi Menua",
+    "collapseSearchBar": "Bilaketa barra tolestu",
     "entireCollection": "Bilatu {query} gure bilduma osoan",
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
@@ -790,7 +790,6 @@ export default {
       "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",
       "home": "Etxea",
-      "pro": "Profesionalentzat",
       "shareYourData": "Zure datuak partekatu",
       "stories": "Istorioak"
     },
