@@ -10,6 +10,19 @@
       <b-col
         class="col-results"
       >
+        <client-only>
+          <transition
+            name="fade"
+          >
+            <SearchQueryBuilder
+              v-show="showAdvancedSearch"
+              id="search-query-builder"
+              class="d-none mb-3"
+              :class="{'d-lg-block': showAdvancedSearch}"
+              @show="(show) => showAdvancedSearch = show"
+            />
+          </transition>
+        </client-only>
         <b-container
           class="px-0 pb-3"
         >
@@ -18,19 +31,6 @@
               v-if="showSearchBoostingForm"
               class="mb-3"
             />
-          </client-only>
-          <client-only>
-            <transition
-              name="fade"
-            >
-              <SearchQueryBuilder
-                v-show="showAdvancedSearch"
-                id="search-query-builder"
-                class="d-none mb-3"
-                :class="{'d-lg-block': showAdvancedSearch}"
-                @show="(show) => showAdvancedSearch = show"
-              />
-            </transition>
           </client-only>
           <section>
             <div

@@ -12,11 +12,17 @@
   }
 
   .dropdown-header {
-    font-size: 0.75rem;
+    font-size: $font-size-extrasmall;
     font-weight: 600;
     text-transform: uppercase;
     padding-left: 1rem;
     color: $mediumgrey;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+      }
+    }
   }
 
   &.multilingual-selector .dropdown-menu {
@@ -229,6 +235,10 @@
 
     .dropdown-toggle {
       font-size: $font-size-base;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+      }
 
       &.is-invalid {
         border-color: $red;
