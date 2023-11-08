@@ -27,6 +27,8 @@
 <script>
   import pageMetaMixin from '@/mixins/pageMeta';
   import BlogPost from '@/components/blog/BlogPost';
+  import logEventMixin from '@/mixins/logEvent';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
     name: 'BlogPostPage',
@@ -36,7 +38,11 @@
       ContentWarningModal: () => import('@/components/content/ContentWarningModal')
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      canonicalUrlMixin,
+      pageMetaMixin,
+      logEventMixin
+    ],
 
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');
@@ -83,7 +89,8 @@
     data() {
       return {
         post: null,
-        error: null
+        error: null,
+        viewLogged: false
       };
     },
 
@@ -99,6 +106,24 @@
       },
       hero() {
         return this.post.primaryImageOfPage || null;
+      }
+    },
+
+    watch: {
+      '$session.isActive'() {
+        this.logEventOnce();
+      }
+    },
+
+    mounted() {
+      this.logEventOnce();
+    },
+
+    methods: {
+      async logEventOnce() {
+        if (!this.$fetchState?.error && !this.viewLogged && this.$session.isActive) {
+          this.viewLogged = await this.logEvent('view', this.canonicalUrl({ fullPath: true, locale: false }));
+        }
       }
     }
   };

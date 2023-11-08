@@ -115,6 +115,7 @@
   import ShareButton from '../../../components/share/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import logEventMixin from '@/mixins/logEvent';
 
   export default {
     name: 'ExhibitionChapterPage',
@@ -133,6 +134,7 @@
     },
     mixins: [
       exhibitionChapters,
+      logEventMixin,
       pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
@@ -196,6 +198,13 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+
+    data() {
+      return {
+        viewLogged: false
+      };
+    },
+
     computed: {
       pageMeta() {
         return {
@@ -229,6 +238,17 @@
         );
       }
     },
+
+    watch: {
+      '$session.isActive'() {
+        this.logEventOnce();
+      }
+    },
+
+    mounted() {
+      this.logEventOnce();
+    },
+
     methods: {
       chapterUrl(identifier) {
         return this.localePath({
@@ -237,6 +257,14 @@
             exhibition: this.exhibitionIdentifier, chapter: identifier
           }
         });
+      },
+
+      async logEventOnce() {
+        if (!this.$fetchState?.error && !this.viewLogged && this.$session.isActive) {
+          const exhibitionUrl = `${this.$config.app.baseUrl}/exhibition/${this.exhibitionIdentifier}`;
+          console.log(exhibitionUrl);
+          this.viewLogged = await this.logEvent('view', exhibitionUrl);
+        }
       }
     }
   };

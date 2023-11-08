@@ -110,6 +110,8 @@
   import ShareButton from '../../../components/share/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import logEventMixin from '@/mixins/logEvent';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
     name: 'ExhibitionPage',
@@ -125,7 +127,9 @@
       ThemeBadges: () => import('@/components/theme/ThemeBadges')
     },
     mixins: [
+      canonicalUrlMixin,
       exhibitionChapters,
+      logEventMixin,
       pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
@@ -167,6 +171,13 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+
+    data() {
+      return {
+        viewLogged: false
+      };
+    },
+
     computed: {
       pageMeta() {
         return {
@@ -194,6 +205,24 @@
           this.heroImage,
           { w: 800, h: 800 }
         );
+      }
+    },
+
+    watch: {
+      '$session.isActive'() {
+        this.logEventOnce();
+      }
+    },
+
+    mounted() {
+      this.logEventOnce();
+    },
+    
+    methods: {
+      async logEventOnce() {
+        if (!this.$fetchState?.error && !this.viewLogged && this.$session.isActive) {
+          this.viewLogged = await this.logEvent('view', this.canonicalUrl({ fullPath: true, locale: false }));
+        }
       }
     }
   };

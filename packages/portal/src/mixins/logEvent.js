@@ -1,10 +1,9 @@
 import axios from 'axios';
 import isbot from 'isbot';
-import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
 export default {
   methods: {
-    async logEvent(actionType, itemIdentifier) {
+    async logEvent(actionType, objectUri) {
       const loggingPermitted = this.$features?.eventLogging &&
         process.client &&
         !isbot(navigator?.userAgent) &&
@@ -12,11 +11,6 @@ export default {
 
       if (!loggingPermitted) {
         return false;
-      }
-
-      let objectUri = itemIdentifier;
-      if (!objectUri.startsWith(ITEM_URL_PREFIX)) {
-        objectUri = `${ITEM_URL_PREFIX}${objectUri}`;
       }
 
       const postData = {

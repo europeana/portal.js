@@ -155,6 +155,7 @@
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
+  import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'ItemPage',
@@ -326,23 +327,23 @@
         this.fetchEntities();
       },
       '$session.isActive'() {
-        this.logEventIfNeeded();
+        this.logEventOnce();
       }
     },
 
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
-      this.logEventIfNeeded();
+      this.logEventOnce();
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }
     },
 
     methods: {
-      async logEventIfNeeded() {
+      async logEventOnce() {
         if (!this.$fetchState.error && !this.viewLogged && this.$session.isActive) {
-          this.viewLogged = await this.logEvent('view', this.identifier);
+          this.viewLogged = await this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
         }
       },
 
