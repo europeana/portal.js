@@ -335,27 +335,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    @media (max-width: ($bp-large - 1px)) {
-      top: 0.75rem;
-      right: 0.75rem;
-    }
+    top: 0.75rem;
+    right: 0.75rem;
 
     @media (min-width: $bp-large) {
       top: 0.5rem;
       right: 0.5rem;
-
-      .icon-clear {
-        padding-right: 0.5rem;
-      }
     }
 
     @media (min-width: $bp-4k) {
       font-size: $font-size-small-4k;
       right: 1.5rem;
       top: 1rem;
+    }
 
-      .icon-clear {
+    .icon-clear {
+      padding-right: 0.5rem;
+
+      @media (min-width: $bp-4k) {
         font-size: $font-size-smallest-4k;
       }
     }
@@ -369,6 +366,7 @@
       .icon-clear {
         line-height: 1;
         font-size: $font-size-small;
+        padding-right: 0;
       }
     }
   }
@@ -430,6 +428,7 @@
         .icon-clear {
           line-height: 1;
           font-size: $font-size-small;
+          padding-right: 0;
         }
       }
     }
