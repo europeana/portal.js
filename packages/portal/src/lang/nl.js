@@ -774,9 +774,9 @@ export default {
     "galleries": "Galerij | Galerijen"
   },
   "header": {
-    "backToMenu": "Zoekvakje sluiten",
     "clearQuery": "Zoekopdracht wissen",
     "closeSidebar": "Menu sluiten",
+    "collapseSearchBar": "Zoekbalk inklappen",
     "entireCollection": "Zoek op {query} in onze gehele collectie",
     "europeanaHome": "Europeana Home",
     "inCollection": "Zoek op {query} in {collection}",
@@ -786,7 +786,6 @@ export default {
       "europeanaClassroom": "Voor leraren",
       "help": "Help",
       "home": "Home",
-      "pro": "Voor erfgoedprofessionals",
       "shareYourData": "Deel uw gegevens",
       "stories": "Verhalen"
     },

@@ -13,6 +13,7 @@ const factory = () => shallowMount(PageHeader, {
       return `TRANSLATED: ${key}`;
     },
     localePath: (code) => window.location.href + code,
+    $route: { query: {} },
     $store: {
       commit(mutation, payload) {
         if (mutation === 'search/setShowSearchBar') {
@@ -33,7 +34,7 @@ describe('components/PageHeader', () => {
 
         const form = wrapper.find('[data-qa="search form wrapper"]');
 
-        expect(form.exists()).toBe(false);
+        expect(form.isVisible()).toBe(false);
       });
 
       it('is shown when toggled by the search button', async() => {

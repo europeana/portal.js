@@ -2,80 +2,89 @@
   <div
     v-show="showForm"
     ref="searchdropdown"
-    class="open"
+    class="search-dropdown open"
     :class="{
-      'top-search': inTopNav,
+      'home-search-form': inHomeHero,
+      'page-header-form': inPageHeader,
       'suggestions-open': showSearchOptions
     }"
   >
-    <b-button
-      v-if="inTopNav"
-      data-qa="back button"
-      class="button-icon-only icon-back back-button"
-      variant="light-flat"
-      :aria-label="$t('header.backToMenu')"
-      @click.prevent="handleHide"
-    />
-    <b-form
-      ref="form"
-      role="search"
-      :class="{'search-form': !inTopNav}"
-      :aria-label="$t('header.searchForm')"
-      data-qa="search form"
-      inline
-      autocomplete="off"
-      @submit.prevent="submitForm"
+    <transition
+      appear
+      :name="transition && 'fade' || ''"
     >
-      <b-input-group
-        role="combobox"
-        :aria-owns="showSearchOptions ? 'search-form-options' : null"
-        :aria-expanded="showSearchOptions"
-        class="auto-suggest pr-3"
-      >
-        <b-form-input
-          ref="searchinput"
-          v-model="query"
-          :placeholder="$t('searchPlaceholder')"
-          name="query"
-          data-qa="search box"
-          role="searchbox"
-          aria-autocomplete="list"
-          :aria-controls="showSearchOptions ? 'search-form-options' : null"
-          :aria-label="$t('search.title')"
-          @focus="showSearchOptions = true; suggestSearchOptions = true"
-          @blur="suggestSearchOptions = false"
+      <div v-show="showForm">
+        <b-button
+          v-if="inPageHeader"
+          v-b-tooltip.bottom
+          data-qa="back button"
+          class="button-icon-only icon-chevron back-button"
+          variant="light-flat"
+          :aria-label="$t('header.collapseSearchBar')"
+          :title="$t('header.collapseSearchBar')"
+          @click.prevent="handleHide"
         />
-      </b-input-group>
-    </b-form>
-    <b-button
-      v-show="query"
-      data-qa="clear button"
-      class="button-icon-only icon-clear clear-button"
-      variant="light-flat"
-      :aria-label="$t('header.clearQuery')"
-      @click="clearQuery"
-    />
-    <SearchFilterToggleButton
-      v-if="inTopNav"
-    />
+        <b-form
+          ref="form"
+          :role="!inSearchSidebar && 'search'"
+          :class="{'search-form': !inPageHeader}"
+          :aria-label="$t('header.searchForm')"
+          data-qa="search form"
+          inline
+          autocomplete="off"
+          @submit.prevent="submitForm"
+        >
+          <b-input-group
+            role="combobox"
+            :aria-owns="showSearchOptions ? searchFormOptionsId : null"
+            :aria-expanded="showSearchOptions"
+            class="auto-suggest"
+          >
+            <b-form-input
+              ref="searchinput"
+              v-model="query"
+              :placeholder="$t('searchPlaceholder')"
+              name="query"
+              data-qa="search box"
+              role="searchbox"
+              aria-autocomplete="list"
+              :aria-controls="showSearchOptions ? searchFormOptionsId : null"
+              :aria-label="$t('search.title')"
+              @focus="showSearchOptions = true; suggestSearchOptions = true"
+              @blur="suggestSearchOptions = false"
+            />
+          </b-input-group>
+        </b-form>
+        <b-button
+          v-show="query"
+          data-qa="clear button"
+          class="clear-button"
+          variant="light"
+          @click="clearQuery"
+        >
+          <span class="icon-clear" />
+          {{ $t('actions.clear') }}
+        </b-button>
+      </div>
+    </transition>
     <div
       v-show="showSearchOptions"
-      id="search-suggest-dropdown"
       class="auto-suggest-dropdown"
       data-qa="search form dropdown"
     >
       <SearchQueryOptions
+        :id="searchFormOptionsId"
         ref="searchoptions"
-        :suggest="suggestSearchOptions && inTopNav && !onSearchableCollectionPage"
+        :suggest="suggestSearchOptions && (inPageHeader || inSearchSidebar) && !onSearchableCollectionPage"
         :text="query"
         :submitting="submitting"
         :show-search-options="showSearchOptions"
         @select="(option) => handleSelect(option)"
         @hideForm="handleHide"
-        @hideOptions="showSearchOptions = false"
+        @hideOptions="(submit) => handleHideOptions(submit)"
       />
       <SearchThemeBadges
-        v-if="showSearchThemeBadges"
+        v-show="showSearchThemeBadges"
         ref="quicksearch"
       />
     </div>
@@ -90,7 +99,6 @@
 
     components: {
       SearchQueryOptions,
-      SearchFilterToggleButton: () => import('./SearchFilterToggleButton'),
       SearchThemeBadges: () => import('@/components/search/SearchThemeBadges')
     },
 
@@ -104,11 +112,12 @@
         default: true
       },
       /**
-       * If `true`, additional elements and styles are added
+       * Depending on the parent, elements and styles are added
+       * @values home, page-header, search-sidebar
        */
-      inTopNav: {
-        type: Boolean,
-        default: false
+      parent: {
+        type: String,
+        default: 'home-hero'
       },
 
       /**
@@ -123,7 +132,6 @@
 
     data() {
       return {
-        query: null,
         showSearchOptions: false,
         showForm: this.show,
         suggestSearchOptions: false,
@@ -133,6 +141,16 @@
     },
 
     computed: {
+      query: {
+        get() {
+          return this.$store.state.search.queryInputValue;
+        },
+        // Store the query so that other instances of SearchForm rendered at
+        // the same time also have it.
+        set(value) {
+          this.$store.commit('search/setQueryInputValue', value);
+        }
+      },
       view() {
         return this.$store.getters['search/activeView'];
       },
@@ -155,14 +173,35 @@
       },
 
       showSearchThemeBadges() {
-        return this.inTopNav && !this.onSearchableCollectionPage && !this.query;
+        return (this.inPageHeader || this.inSearchSidebar) && !this.onSearchableCollectionPage && !this.query;
+      },
+
+      searchFormOptionsId() {
+        if (this.inSearchSidebar) {
+          return 'search-form-options-search-sidebar';
+        } else if (this.inPageHeader) {
+          return 'search-form-options-page-header';
+        } else {
+          return 'search-form-options';
+        }
+      },
+      transition() {
+        return this.onSearchablePage && this.query;
+      },
+      inPageHeader() {
+        return this.parent === 'page-header';
+      },
+      inSearchSidebar() {
+        return this.parent === 'search-sidebar';
+      },
+      inHomeHero() {
+        return this.parent === 'home-hero';
       }
     },
 
     watch: {
       '$route.query.query'() {
         this.blurInput();
-        this.showSearchOptions = false;
         this.initQuery();
       },
       '$route.path'() {
@@ -170,19 +209,40 @@
       },
       show(newVal) {
         this.showForm = newVal;
+
+        if (newVal) {
+          this.$nextTick(() => {
+            this.$refs.searchinput.$el.focus();
+          });
+        }
+      },
+      // Prevent opening dropdown when navigating back to a search page with query
+      onSearchablePage(newVal, oldVal) {
+        if (this.$route.query.query && oldVal !== newVal) {
+          this.$nextTick(() => {
+            this.blurInput();
+          });
+        }
+      },
+      showSearchOptions(newVal) {
+        if (newVal === false && this.onSearchablePage) {
+          if (this.query !== this.$route.query.query) {
+            this.submitForm();
+          }
+        }
       }
     },
 
     mounted() {
       this.initQuery();
-      this.inTopNav && this.$nextTick(() => {
+      !this.query && this.inPageHeader && this.$nextTick(() => {
         this.$refs.searchinput.$el.focus();
       });
     },
 
     methods: {
       initQuery() {
-        this.query = this.$route.query.query;
+        this.$store.commit('search/setQueryInputValue', this.$route.query.query);
       },
 
       async submitForm() {
@@ -205,12 +265,13 @@
         await this.$router.push(newRoute);
         // init query to update in case of selecting the already selected option
         this.initQuery();
+        this.showSearchOptions = false;
       },
 
       clearQuery() {
-        this.query = '';
+        this.$store.commit('search/setQueryInputValue', '');
         this.suggestions = {};
-
+        this.onSearchablePage && this.submitForm();
         this.$nextTick(() => {
           this.$refs.searchinput.$el.focus();
         });
@@ -223,7 +284,6 @@
       },
       handleHide() {
         this.blurInput();
-        this.showSearchOptions = false;
         if (this.hidableForm) {
           this.showForm = false;
           this.$store.commit('search/setShowSearchBar', false);
@@ -231,6 +291,14 @@
       },
       blurInput() {
         this.$refs.searchinput.$el?.blur();
+        this.showSearchOptions = false;
+      },
+      handleHideOptions(submit) {
+        // When hiding options should not trigger a submit, reset the query to prevent submission and to show the applied query in the input field
+        if (!submit) {
+          this.initQuery();
+        }
+        this.showSearchOptions = false;
       }
     }
   };
@@ -239,140 +307,121 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icons';
+  @import '@europeana/style/scss/transitions';
 
-  .top-search {
-    &.open {
-      width: 100%;
-      position: relative;
+  .search-dropdown {
+    width: 100%;
+    position: relative;
+  }
 
-      .form-inline {
-        align-items: flex-start;
-        width: auto;
+  .back-button {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 4;
 
-        .input-group {
-          width: 100%;
-          flex-wrap: nowrap;
-          height: 3.4rem;
-          box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
+    &::before {
+      font-size: 0.5rem;
+      transform: rotateX(180deg);
+    }
 
-          @media (min-width: $bp-4k) {
-            height: calc(1.5 * 3.4rem);
-          }
+    @media (min-width: $bp-4k) {
+      left: 1.5rem;
+      top: 1.5rem;
+    }
+  }
 
-          .input-group-prepend {
-            display: none;
-          }
-        }
+  .clear-button {
+    position: absolute;
+    z-index: 4;
+    top: 0.8125rem;
+    right: 0.8125rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0;
+    padding: 0.5rem;
 
-        .form-control {
-          background-color: $white;
-          padding: 0.375rem 4.5rem 0.375rem 3.5rem;
-          height: 3.4rem;
-          box-shadow: none;
-          border-radius: 0;
-          color: $mediumgrey;
-          width: 100%;
+    .icon-clear {
+      line-height: 1;
+      font-size: $font-size-small;
+    }
+  }
 
-          @media (min-width: $bp-large) {
-            padding-right: 1rem;
-          }
+  .icon-filter {
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    z-index: 99;
+  }
 
-          @media (min-width: $bp-4k) {
-            padding: calc(1.5 * 0.375rem) calc(1.5 * 4.5rem) calc(1.5 * 0.375rem) calc(1.5 * 3.5rem);
-            height: calc(1.5 * 3.4rem);
-          }
-        }
-      }
+  .auto-suggest-dropdown {
+    display: block;
+    box-shadow: $boxshadow-light;
+    position: absolute;
+    width: 100%;
+    z-index: 20;
+    border-radius: 0;
+    background-color: $white;
+  }
 
-      .search-query {
-        box-shadow: $boxshadow-light;
+  .page-header-form {
+
+    .form-inline {
+      background-color: $white;
+      align-items: flex-start;
+      width: auto;
+
+      .input-group {
         width: 100%;
-        height: 3.5rem;
-        font-size: 1rem;
-        color: $mediumgrey;
-        display: flex;
-        align-items: center;
-        position: relative;
-        background: $white;
+        flex-wrap: nowrap;
+        height: 3.4rem;
+        box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
 
-        .search {
-          position: absolute;
-          width: 100%;
-          left: 0;
-          top: 0;
-          z-index: 99;
-          height: 3.5rem;
-          padding: 0.375rem 1rem 0.375rem 3.5rem;
-          justify-content: flex-start;
-
-          &:focus {
-            color: $greyblack;
-            background-color: $offwhite;
-
-            ~ span {
-              z-index: 99;
-            }
-          }
-
-          &::before {
-            left: 1rem;
-            top: 1rem;
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
+        @media (min-width: $bp-4k) {
+          height: calc(1.5 * 3.4rem);
         }
       }
     }
 
-    .back-button {
-      position: absolute;
-      left: 1rem;
-      top: 1rem;
-      z-index: 99;
+    .form-control {
+      background-color: $white;
+      padding: 0.375rem 1rem 0.375rem 3.5rem;
+      border-radius: 0;
+      height: 3.4rem;
+      box-shadow: none;
 
       @media (min-width: $bp-4k) {
-        left: 1.5rem;
-        top: 1.5rem;
+        padding: calc(1.5 * 0.375rem) calc(1.5 * 4.5rem) calc(1.5 * 0.375rem) calc(1.5 * 3.5rem);
+        height: calc(1.5 * 3.4rem);
       }
     }
 
     .clear-button {
-      position: absolute;
-      right: 3.5rem;
-      top: 1rem;
-      z-index: 99;
+      top: 0.75rem;
+      right: 0.75rem;
 
       @media (min-width: $bp-large) {
-        right: 1rem;
+        font-size: $font-size-small;
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.5rem 0.75rem;
+
+        .icon-clear {
+          font-size: $font-size-smallest;
+          line-height: 1.2;
+          padding-right: 0.5rem;
+        }
       }
 
       @media (min-width: $bp-4k) {
         right: 1.5rem;
-        top: 1.5rem;
       }
     }
 
-    .icon-filter {
-      position: absolute;
-      right: 1rem;
-      top: 0;
-      z-index: 99;
-    }
-
     .auto-suggest-dropdown {
-      display: block;
-      box-shadow: $boxshadow-light;
-      position: absolute;
-      top: 3.45rem;
-      width: 100%;
-      z-index: 20;
-      border-radius: 0;
-      background-color: $white;
       transition: $standard-transition;
+      border-top: 1px solid $bodygrey;
 
       @media (min-width: $bp-4k) {
         top: calc(1.5 * 3.45rem);
@@ -380,18 +429,24 @@
     }
   }
 
-  .open:not(.top-search) {
-    width: 100%;
-    position: relative;
+  .home-search-form {
+
+    &.suggestions-open {
+      box-shadow: $boxshadow-light;
+
+      .form-inline {
+        border-radius: 0.5em 0.5em 0 0;
+      }
+    }
+
+    .form-control {
+      border-radius: 0.5em;
+    }
 
     .auto-suggest-dropdown {
-      width: 100%;
       border-radius: 0 0 0.5em 0.5em;
-      background-color: $white;
       overflow: hidden;
       animation: appear 750ms ease-in-out;
-      position: absolute;
-      z-index: 20;
       box-shadow: $boxshadow-light, $boxshadow-light-left;
 
       @media (min-width: $bp-4k) {
@@ -407,24 +462,6 @@
       to {
         max-height: 100vh;
       }
-    }
-
-    &.suggestions-open {
-      box-shadow: $boxshadow-light;
-
-      .form-inline {
-        border-radius: 0.5em 0.5em 0 0;
-      }
-    }
-
-    .clear-button {
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
-      z-index: 99;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     ::v-deep .list-group-item {

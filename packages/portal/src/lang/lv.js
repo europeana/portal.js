@@ -774,9 +774,9 @@ export default {
     "galleries": "Galerija | Galerijas"
   },
   "header": {
-    "backToMenu": "Aizvērt meklēšanas lodziņu",
     "clearQuery": "Notīrīt meklēšanas vaicājumu",
     "closeSidebar": "Aizvērt izvēlni",
+    "collapseSearchBar": "Sakļaut meklēšanas joslu",
     "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana vietne",
     "inCollection": "Meklēt {query} kolekcijā {collection}",
@@ -786,7 +786,6 @@ export default {
       "europeanaClassroom": "Pedagogiem",
       "help": "Palīdzība",
       "home": "Sākumlapa",
-      "pro": "Profesionāļiem",
       "shareYourData": "Kopīgot savus datus",
       "stories": "Stāsti"
     },

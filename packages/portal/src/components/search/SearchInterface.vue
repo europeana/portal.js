@@ -2,6 +2,7 @@
   <b-container
     data-qa="search interface"
     class="white-page pt-5 page-container side-filters-enabled"
+    :class="{ 'search-bar-open': showSearchBar }"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -146,56 +147,19 @@
           name="after-results"
         />
       </b-col>
-      <SearchFilters
-        :route="route"
-        :collection="collection"
-        :api-params="apiParams"
-        :api-options="apiOptions"
-        :user-params="userParams"
+      <SearchSidebar
+        :advanced-search-query-count="advancedSearchQueryCount"
+        :show-advanced-search="showAdvancedSearch"
+        @showAdvancedSearch="(val) => showAdvancedSearch = val"
       >
-        <b-row
-          class="d-flex justify-content-between align-items-center flex-nowrap"
-        >
-          <span
-            class="d-flex"
-          >
-            <b-button
-              aria-controls="search-query-builder search-query-builder-mobile"
-              :aria-expanded="showAdvancedSearch"
-              class="search-toggle query-builder-toggle ml-3 my-3 flex-grow-1"
-              :class="{ 'open': showAdvancedSearch }"
-              data-qa="toggle advanced search button"
-              variant="link"
-              @click="toggleAdvancedSearch"
-            >
-              {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
-            </b-button>
-            <b-button
-              v-b-tooltip.bottom
-              :title="$t('search.advanced.tooltip.advancedSearch')"
-              class="icon-info-outline p-0 tooltip-button ml-1 mr-3"
-              variant="light-flat"
-            />
-          </span>
-          <b-button
-            data-qa="close filters button"
-            class="button-icon-only icon-clear mx-3"
-            variant="light-flat"
-            :aria-label="$t('header.closeSidebar')"
-            @click="toggleFilterSheet"
-          />
-        </b-row>
-        <transition
-          name="fade"
-        >
-          <SearchQueryBuilder
-            v-show="showAdvancedSearch"
-            id="search-query-builder-mobile"
-            class="d-lg-none"
-            @show="(show) => showAdvancedSearch = show"
-          />
-        </transition>
-      </SearchFilters>
+        <SearchFilters
+          :route="route"
+          :collection="collection"
+          :api-params="apiParams"
+          :api-options="apiOptions"
+          :user-params="userParams"
+        />
+      </SearchSidebar>
     </b-row>
   </b-container>
 </template>
@@ -207,6 +171,7 @@
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import SearchFilters from './SearchFilters';
+  import SearchSidebar from './SearchSidebar';
   import SearchViewToggles from './SearchViewToggles';
 
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
@@ -227,6 +192,7 @@
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
       SearchFilters,
+      SearchSidebar,
       SearchViewToggles
     },
 
@@ -273,12 +239,12 @@
     },
 
     async fetch() {
+      this.$store.commit('search/setActive', true);
+
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
       this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
       this.setViewFromRouteQuery();
-
-      this.$store.commit('search/setActive', true);
 
       // Remove cleared rules
       const qaRules = this.advancedSearchRulesFromRouteQuery();
@@ -420,6 +386,9 @@
       },
       qasWithSelectedEntityValue() {
         return this.$store.state.search.qasWithSelectedEntityValue;
+      },
+      showSearchBar() {
+        return this.$store.state.search.showSearchBar;
       }
     },
 
@@ -431,6 +400,12 @@
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged'
+    },
+
+    created() {
+      if (this.query) {
+        this.$store.commit('search/setShowSearchBar', true);
+      }
     },
 
     destroyed() {
@@ -552,14 +527,6 @@
         }
       },
 
-      toggleAdvancedSearch() {
-        this.showAdvancedSearch = !this.showAdvancedSearch;
-      },
-
-      toggleFilterSheet() {
-        this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
-      },
-
       advancedSearchQueriesForEntityLookUp() {
         const qasToLookUp = this.advancedSearchRulesFromRouteQuery()
           .filter(query => {
@@ -669,16 +636,7 @@
     content: '-';
   }
 }
-
-.query-builder-toggle {
-  @media (min-width: $bp-large) {
-    &::before {
-      content: '<';
-    }
-
-    &.open::before {
-      content: '>';
-    }
-  }
+.search-bar-open {
+  padding-top: 6.5rem !important;
 }
 </style>

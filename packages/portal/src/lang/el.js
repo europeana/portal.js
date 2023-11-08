@@ -778,9 +778,9 @@ export default {
     "galleries": "Γκαλερί | Γκαλλερί"
   },
   "header": {
-    "backToMenu": "Κλείσιμο πλαισίου αναζήτησης",
     "clearQuery": "Διαγραφή ιστορικού αναζήτησης",
     "closeSidebar": "Κλείσιμο μενού",
+    "collapseSearchBar": "Σύμπτυξη γραμμής αναζήτησης",
     "entireCollection": "Αναζητήστε τον όρο {query} σε όλη τη συλλογή",
     "europeanaHome": "Αρχική σελίδα της Europeana",
     "inCollection": "Αναζητήστε τον όρο {query} στη συλλογή {collection}",
@@ -790,7 +790,6 @@ export default {
       "europeanaClassroom": "Για εκπαιδευτικούς",
       "help": "Βοήθεια",
       "home": "Αρχική",
-      "pro": "Για επαγγελματίες/ για ειδικούς",
       "shareYourData": "Μοιραστείτε τα δεδομένα σας",
       "stories": "Ιστορίες"
     },

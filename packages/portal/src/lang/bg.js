@@ -774,9 +774,9 @@ export default {
     "galleries": "Галерия | Галерии"
   },
   "header": {
-    "backToMenu": "Затвори полето за търсене",
     "clearQuery": "Изчистване на заявките за търсене",
     "closeSidebar": "Затвори менюто",
+    "collapseSearchBar": "Свиване на лентата за търсене",
     "entireCollection": "Търсене на {query} в цялата ни колекция",
     "europeanaHome": "Начална страница на Europeana",
     "inCollection": "Търсене на {query} в {collection}",
@@ -786,7 +786,6 @@ export default {
       "europeanaClassroom": "За учители",
       "help": "Помощ",
       "home": "Начало",
-      "pro": "За професионалисти",
       "shareYourData": "Споделете вашите данни",
       "stories": "Истории"
     },

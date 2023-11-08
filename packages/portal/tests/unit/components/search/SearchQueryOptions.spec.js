@@ -266,15 +266,23 @@ describe('components/search/SearchQueryOptions', () => {
 
           expect(searchOptionsComponent.emitted('hideOptions').length).toBe(1);
         });
-      });
 
-      describe('when user tabs outside the search form dropdown', () => {
-        it('hides the search options', async() => {
-          const tabOutsideEvent = new KeyboardEvent('keydown', { key: 'Tab' });
+        describe('and clicks an interactive element', () => {
+          it('hides the search options, without submitting the query', async() => {
+            const handleClickButtonEvent = { target: { id: 'button', tagName: 'BUTTON' } };
+            searchOptionsComponent.vm.checkIftargetOutsideSearchDropdown = () => true;
+            searchOptionsComponent.vm.handleClickOrFocusOutside(handleClickButtonEvent);
 
-          searchOptionsComponent.vm.handleClickOrFocusOutside(tabOutsideEvent);
+            expect(searchOptionsComponent.emitted('hideOptions').length).toBe(2);
+            expect(searchOptionsComponent.emitted('hideOptions')[2]).toEqual(undefined);
 
-          expect(searchOptionsComponent.emitted('hideOptions').length).toBe(2);
+            const handleClickMenuEvent = { target: { id: 'button', role: 'menu' } };
+
+            searchOptionsComponent.vm.handleClickOrFocusOutside(handleClickMenuEvent);
+
+            expect(searchOptionsComponent.emitted('hideOptions').length).toBe(3);
+            expect(searchOptionsComponent.emitted('hideOptions')[3]).toEqual(undefined);
+          });
         });
       });
     });

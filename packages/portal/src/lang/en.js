@@ -801,9 +801,9 @@ export default {
     "galleries": "Gallery | Galleries"
   },
   "header": {
-    "backToMenu": "Close Search Box",
     "clearQuery": "Clear Search Query",
     "closeSidebar": "Close Menu",
+    "collapseSearchBar": "Collapse search bar",
     "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",

@@ -9,4 +9,6 @@ Feature: Advanced search
     And I click the `advanced search query builder: fulltext field option`
     And I click the `advanced search query builder: modifier control`
     And I click the `advanced search query builder: contains modifier option`
+    And I wait for an `item preview`
     Then I see a `highlighted search term` with the text "Zeitung"
+    And I am on an accessible page

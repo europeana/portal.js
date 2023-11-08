@@ -31,7 +31,7 @@ const factory = (options = {}) => shallowMount(SearchFilters, {
       state: {
         search: {
           collectionFacetEnabled: true,
-          showFiltersSheet: false
+          showSearchSidebar: false
         },
         ...options.mocks?.$store?.state
       }
@@ -44,14 +44,6 @@ describe('components/search/SearchFilters', () => {
   afterEach(sinon.resetHistory);
 
   describe('template', () => {
-    it('is wrapper in <section role="search">', () => {
-      const wrapper = factory();
-
-      const section = wrapper.find('section[role="search"]');
-
-      expect(section.exists()).toBe(true);
-    });
-
     describe('filters title', () => {
       describe('with advanced search', () => {
         it('has a level 2 heading', () => {
