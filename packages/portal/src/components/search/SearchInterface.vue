@@ -635,5 +635,9 @@
 }
 .search-bar-open {
   padding-top: 6.5rem !important;
+
+  @media (min-width: $bp-4k) {
+    padding-top: 8.457rem !important;
+  }
 }
 </style>
