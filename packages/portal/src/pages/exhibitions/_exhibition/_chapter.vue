@@ -261,8 +261,7 @@
 
       async logEventOnce() {
         if (!this.$fetchState?.error && !this.viewLogged && this.$session.isActive) {
-          const exhibitionUrl = `${this.$config.app.baseUrl}/exhibition/${this.exhibitionIdentifier}`;
-          console.log(exhibitionUrl);
+          const exhibitionUrl = `${this.$config.app.baseUrl}/exhibitions/${this.exhibitionIdentifier}`;
           this.viewLogged = await this.logEvent('view', exhibitionUrl);
         }
       }

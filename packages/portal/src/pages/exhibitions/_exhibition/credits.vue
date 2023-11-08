@@ -95,6 +95,7 @@
   import ShareButton from '../../../components/share/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import logEventMixin from '@/mixins/logEvent';
 
   export default {
     name: 'ExhibitionCreditsPage',
@@ -107,6 +108,7 @@
     },
     mixins: [
       exhibitionChapters,
+      logEventMixin,
       pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
@@ -164,7 +166,8 @@
         credits: '',
         relatedLink: null,
         hasPartCollection: null,
-        genre: null
+        genre: null,
+        viewLogged: false
       };
     },
 
@@ -183,6 +186,25 @@
       },
       exhibitionTitle() {
         return this.name;
+      }
+    },
+
+    watch: {
+      '$session.isActive'() {
+        this.logEventOnce();
+      }
+    },
+
+    mounted() {
+      this.logEventOnce();
+    },
+
+    methods: {
+      async logEventOnce() {
+        if (!this.$fetchState?.error && !this.viewLogged && this.$session.isActive) {
+          const exhibitionUrl = `${this.$config.app.baseUrl}/exhibitions/${this.identifier}`;
+          this.viewLogged = await this.logEvent('view', exhibitionUrl);
+        }
       }
     }
   };
