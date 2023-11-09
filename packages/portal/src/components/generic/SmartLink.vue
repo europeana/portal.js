@@ -125,7 +125,7 @@
           const localeStrippedPath = this.path.slice(3);
           return searchablePagePathPattern.test(localeStrippedPath);
         }
-        return null;
+        return false;
       },
 
       logSearchLink() {
