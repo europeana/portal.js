@@ -1219,5 +1219,9 @@ export default {
     "themes": "Themes",
     "description": "Browse by theme"
   },
+  "views": {
+    "count": "{count} views",
+    "tooltip": "The number of times this has been viewed in the past 30 days."
+  },
   "website": "Website"
 };

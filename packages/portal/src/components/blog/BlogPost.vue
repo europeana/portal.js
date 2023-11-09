@@ -42,8 +42,11 @@
                 />
               </template>
             </div>
-            <ShareButton class="my-4" />
+            <ShareButton class="my-4 mr-4" />
             <ShareSocialModal :media-url="hero ? hero.image.url : null" />
+            <ViewCount
+              :url="viewUrl"
+            />
             <BrowseSections
               :sections="body.items"
               :rich-text-is-card="false"
@@ -79,6 +82,7 @@
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton.vue';
   import BrowseSections from '../browse/BrowseSections';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
     name: 'BlogPost',
@@ -92,8 +96,13 @@
       ShareButton,
       BrowseSections,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
-      ThemeBadges: () => import('@/components/theme/ThemeBadges')
+      ThemeBadges: () => import('@/components/theme/ThemeBadges'),
+      ViewCount: () => import('../generic/ViewCount')
     },
+
+    mixins: [
+      canonicalUrlMixin
+    ],
 
     props: {
       datePublished: {
@@ -144,6 +153,11 @@
       themes: {
         type: Array,
         default: () => []
+      }
+    },
+    computed: {
+      viewUrl() {
+        return this.canonicalUrl({ fullPath: true, locale: false });
       }
     }
   };
