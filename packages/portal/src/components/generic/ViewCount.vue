@@ -2,7 +2,7 @@
   <div
     id="view-count"
     data-qa="view count"
-    class="view-count d-inline-flex align-items-center my-4"
+    class="view-count d-inline-flex align-items-center"
   >
     <span
       class="icon-ic-view d-inline-flex pr-1"
@@ -58,5 +58,6 @@
     font-weight: 600;
     line-height: 1.5;
     color: #4d4d4d;
+    padding: 0.5rem 0.75rem;
   }
 </style>

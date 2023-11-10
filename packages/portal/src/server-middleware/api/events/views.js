@@ -10,7 +10,6 @@ export default (config = {}) => {
         res.json({ viewCount: 0 });
         return;
       }
-      // TODO: sanitize in some way? This is going straight into the SQL now
       const url = req.query.url;
 
       const selectResult = await pg.query(`
@@ -20,9 +19,10 @@ export default (config = {}) => {
         LEFT JOIN events.objects o ON a.object_id=o.id
         LEFT JOIN events.action_types AT ON a.action_type_id=at.id
         WHERE a.occurred_at > (CURRENT_TIMESTAMP - INTERVAL '30 days')
-          AND o.uri LIKE '${url}'
+          AND o.uri LIKE $1
           AND AT.name LIKE 'view'
-        `
+        `,
+        [url]
       );
 
       res.json({ viewCount: selectResult.rows[0].count });

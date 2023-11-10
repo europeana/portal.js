@@ -32,8 +32,12 @@
             >
               {{ $t('blog.published', { date: $d(new Date(datePublished), 'short') }) }}
             </time>
-            <ShareButton class="mb-4" />
+            <ShareButton class="mb-4 mr-4" />
             <ShareSocialModal :media-url="heroImage && heroImage.url" />
+            <ViewCount
+              :url="viewUrl"
+              class="mb-4"
+            />
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
@@ -99,7 +103,7 @@
           </b-col>
         </b-row>
       </client-only>
-    </b-container>
+    </b-container>node-postgres
   </div>
 </template>
 
@@ -124,7 +128,8 @@
       ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       EntityBadges: () => import('@/components/entity/EntityBadges'),
-      ThemeBadges: () => import('@/components/theme/ThemeBadges')
+      ThemeBadges: () => import('@/components/theme/ThemeBadges'),
+      ViewCount: () => import('@/components/generic/ViewCount')
     },
     mixins: [
       canonicalUrlMixin,
@@ -205,6 +210,9 @@
           this.heroImage,
           { w: 800, h: 800 }
         );
+      },
+      viewUrl() {
+        return this.canonicalUrl({ fullPath: true, locale: false });
       }
     },
 
@@ -217,7 +225,7 @@
     mounted() {
       this.logEventOnce();
     },
-    
+
     methods: {
       async logEventOnce() {
         if (!this.$fetchState?.error && !this.viewLogged && this.$session.isActive) {
