@@ -22,7 +22,7 @@ export default (config = {}) => {
           AND o.uri LIKE $1
           AND AT.name LIKE 'view'
         `,
-        [url]
+      [url]
       );
 
       res.json({ viewCount: selectResult.rows[0].count });
