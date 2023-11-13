@@ -17,7 +17,7 @@ query HomePage(
     items {
       name
       identifier
-      sectionsCollection {
+      sectionsCollection(limit:3) {
         items {
           __typename
           ... on PrimaryCallToAction {
