@@ -1,6 +1,9 @@
 <template>
-  <div
+  <b-button
     id="view-count"
+    v-b-tooltip.hover
+    v-b-tooltip.bottom
+    :title="$t(`views.tooltip`)"
     data-qa="view count"
     class="view-count d-inline-flex align-items-center"
   >
@@ -8,13 +11,7 @@
       class="icon-ic-view d-inline-flex pr-1"
     />
     {{ $t('views.count', { count: viewCount }) }}
-    <b-tooltip
-      target="view-count"
-      :title="$t(`views.tooltip`)"
-      boundary-padding="0"
-      placement="bottom"
-    />
-  </div>
+  </b-button>
 </template>
 
 <script>
@@ -59,5 +56,10 @@
     line-height: 1.5;
     color: #4d4d4d;
     padding: 0.5rem 0.75rem;
+    background: rgba(0,0,0,0);
+    border: rgba(0,0,0,0);
+    &:hover {
+      box-shadow: none;
+    }
   }
 </style>
