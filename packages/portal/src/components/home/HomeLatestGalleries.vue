@@ -52,6 +52,7 @@
 
     .card-deck {
       flex-flow: row wrap;
+      justify-content: center;
       margin-top: 1.25rem;
       margin-bottom: 2.25rem;
 
