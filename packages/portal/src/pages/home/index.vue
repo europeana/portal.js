@@ -27,6 +27,7 @@
           :illustration="callsToAction[1].image"
           class="home-cta"
         />
+        <HomeLatestGalleries />
       </b-container>
     </client-only>
   </div>
@@ -38,6 +39,7 @@
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatestStories from '@/components/home/HomeLatestStories';
   import HomeThemes from '@/components/home/HomeThemes';
+  import HomeLatestGalleries from '@/components/home/HomeLatestGalleries';
 
   export default {
     name: 'HomePage',
@@ -46,7 +48,8 @@
       CallToActionBanner,
       HomeHero,
       HomeLatestStories,
-      HomeThemes
+      HomeThemes,
+      HomeLatestGalleries
     },
 
     mixins: [pageMetaMixin],

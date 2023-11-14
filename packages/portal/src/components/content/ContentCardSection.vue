@@ -11,7 +11,7 @@
       >
         {{ section.headline }}
       </h2>
-      <p>
+      <p v-if="section.text">
         {{ section.text }}
       </p>
     </div>
