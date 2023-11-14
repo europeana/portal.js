@@ -18,7 +18,7 @@
           variant="innovationblue"
           class="home-cta"
         />
-        <HomeLatest />
+        <HomeLatestStories />
         <CallToActionBanner
           v-if="callsToAction[1]"
           :name="callsToAction[1].name"
@@ -36,7 +36,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
-  import HomeLatest from '@/components/home/HomeLatest';
+  import HomeLatestStories from '@/components/home/HomeLatestStories';
   import HomeThemes from '@/components/home/HomeThemes';
 
   export default {
@@ -45,7 +45,7 @@
     components: {
       CallToActionBanner,
       HomeHero,
-      HomeLatest,
+      HomeLatestStories,
       HomeThemes
     },
 

@@ -34,6 +34,8 @@
   import ContentCard from '../content/ContentCard';
 
   export default {
+    name: 'HomeLatestStories',
+
     components: {
       ContentCard
     },
