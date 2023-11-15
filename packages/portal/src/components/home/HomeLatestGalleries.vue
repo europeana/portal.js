@@ -9,7 +9,7 @@
   import BrowseAutomatedCardGroup from '@/components/browse/BrowseAutomatedCardGroup';
 
   export default {
-    name: 'HomeLatestStories',
+    name: 'HomeLatestGalleries',
 
     components: {
       BrowseAutomatedCardGroup
