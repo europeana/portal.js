@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Przeglądaj nasze galerie",
-    "galleries": "Galeria | Galerie"
+    "galleries": "Galeria | Galerie",
+    "seeAllPublished": "Zobacz wszystkie opublikowane galerie"
   },
   "header": {
     "clearQuery": "Wyczyść zapytanie",

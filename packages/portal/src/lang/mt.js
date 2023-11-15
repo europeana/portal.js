@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Esplora d-direttorji tar-ritratti tagħna",
-    "galleries": "Gallerija | Galleriji"
+    "galleries": "Gallerija | Galleriji",
+    "seeAllPublished": "Ara l-galleriji kollha ppubblikati"
   },
   "header": {
     "clearQuery": "Ħassar il-Query tat-Tiftix",

@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Déan iniúchadh ar ár ngailearaithe",
-    "galleries": "Gailearaí | Gailearaithe"
+    "galleries": "Gailearaí | Gailearaithe",
+    "seeAllPublished": "Féach ar gach gailearaí atá foilsithe"
   },
   "header": {
     "clearQuery": "Glan Ceist Cuardaigh",

@@ -775,7 +775,8 @@ export default {
   },
   "galleries": {
     "description": "Gure galeriak arakatu",
-    "galleries": "Galeria | Galeriak"
+    "galleries": "Galeria | Galeriak",
+    "seeAllPublished": "Ikusi argitaratutako galeria guztiak"
   },
   "header": {
     "clearQuery": "Garbitu bilaketa kontsulta",

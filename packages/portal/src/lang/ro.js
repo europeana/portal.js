@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Explorează galeriile noastre",
-    "galleries": "Galerie | Galeriile"
+    "galleries": "Galerie | Galeriile",
+    "seeAllPublished": "Vedeți toate galeriile publicate"
   },
   "header": {
     "clearQuery": "Șterge căutările",

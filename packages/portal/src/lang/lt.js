@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Tyrinėti mūsų parodos",
-    "galleries": "Paroda | parodos"
+    "galleries": "Paroda | parodos",
+    "seeAllPublished": "Peržiūrėkite visas paskelbtos parodos"
   },
   "header": {
     "clearQuery": "Išvalyti paieškos užklausą",

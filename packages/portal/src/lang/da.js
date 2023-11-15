@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Udforsk vores gallerier",
-    "galleries": "Galleri | Gallerier"
+    "galleries": "Galleri | Gallerier",
+    "seeAllPublished": "Se alle offentliggjorte gallerier"
   },
   "header": {
     "clearQuery": "Ryd søgning",

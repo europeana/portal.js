@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Fedezze fel galériáinkat",
-    "galleries": "Galéria | Galériák"
+    "galleries": "Galéria | Galériák",
+    "seeAllPublished": "Az összes közzétett galéria megtekintése"
   },
   "header": {
     "clearQuery": "Keresőkifejezés törlése",

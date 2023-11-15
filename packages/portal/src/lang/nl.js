@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Ontdek onze galeries",
-    "galleries": "Galerij | Galerijen"
+    "galleries": "Galerij | Galerijen",
+    "seeAllPublished": "Bekijk alle gepubliceerde galerijen"
   },
   "header": {
     "clearQuery": "Zoekopdracht wissen",

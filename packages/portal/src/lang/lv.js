@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Pārlūkot mūsu galerijas",
-    "galleries": "Galerija | Galerijas"
+    "galleries": "Galerija | Galerijas",
+    "seeAllPublished": "Apskatiet visas publicētās galerijas"
   },
   "header": {
     "clearQuery": "Notīrīt meklēšanas vaicājumu",

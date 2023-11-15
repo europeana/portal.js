@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Uurige meie galeriidega",
-    "galleries": "Galerii | Galeriid"
+    "galleries": "Galerii | Galeriid",
+    "seeAllPublished": "Vaata kõiki avaldatud galeriisid"
   },
   "header": {
     "clearQuery": "Kustuta otsingupäring",

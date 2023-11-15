@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Prozkoumat naše galerie",
-    "galleries": "Galerie | Galerie"
+    "galleries": "Galerie | Galerie",
+    "seeAllPublished": "Zobrazit všechny publikované galerie"
   },
   "header": {
     "clearQuery": "Vymazat vyhledávací kriteria",

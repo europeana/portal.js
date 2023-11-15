@@ -775,7 +775,8 @@ export default {
   },
   "galleries": {
     "description": "Εξερευνήστε τα γκαλερί μας.",
-    "galleries": "Γκαλερί | Γκαλλερί"
+    "galleries": "Γκαλερί | Γκαλλερί",
+    "seeAllPublished": "Δείτε όλες τις δημοσιευμένες γκαλερί"
   },
   "header": {
     "clearQuery": "Διαγραφή ιστορικού αναζήτησης",

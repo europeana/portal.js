@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Razišči naše zbirke",
-    "galleries": "Galerija | Galerije"
+    "galleries": "Galerija | Galerije",
+    "seeAllPublished": "Oglejte si vse objavljene galerije"
   },
   "header": {
     "clearQuery": "Počisti iskalno poizvedbo ",

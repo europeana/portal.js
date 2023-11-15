@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Utforska våra gallerier",
-    "galleries": "Galleri | Gallerier"
+    "galleries": "Galleri | Gallerier",
+    "seeAllPublished": "Se alla publicerade gallerier"
   },
   "header": {
     "clearQuery": "Rensa sökning",

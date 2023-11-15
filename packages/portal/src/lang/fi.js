@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Tutustu gallerioihimme",
-    "galleries": "Galleria | Galleriat"
+    "galleries": "Galleria | Galleriat",
+    "seeAllPublished": "Näytä kaikki julkaistut galleriat"
   },
   "header": {
     "clearQuery": "Tyhjennä hakuehdot",
