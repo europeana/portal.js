@@ -15,7 +15,7 @@
           :text="callsToAction[0].text"
           :link="callsToAction[0].relatedLink"
           :illustration="callsToAction[0].image"
-          variant="innovationblue"
+          :variant="callsToAction[2] ? 'light' : 'innovationblue'"
           class="home-cta"
         />
         <HomeLatest />
@@ -25,6 +25,15 @@
           :text="callsToAction[1].text"
           :link="callsToAction[1].relatedLink"
           :illustration="callsToAction[1].image"
+          :variant="callsToAction[2] ? 'innovationblue' : 'yellowgrey'"
+          class="home-cta"
+        />
+        <CallToActionBanner
+          v-if="callsToAction[2]"
+          :name="callsToAction[2].name"
+          :text="callsToAction[2].text"
+          :link="callsToAction[2].relatedLink"
+          :illustration="callsToAction[2].image"
           class="home-cta"
         />
       </b-container>
