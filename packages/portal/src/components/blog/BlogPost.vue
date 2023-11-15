@@ -45,6 +45,7 @@
             <ShareButton class="my-4 mr-4" />
             <ShareSocialModal :media-url="hero ? hero.image.url : null" />
             <ViewCount
+              v-if="showViewCount"
               :url="viewUrl"
             />
             <BrowseSections
@@ -156,6 +157,9 @@
       }
     },
     computed: {
+      showViewCount() {
+        return this.$features.storiesViewCounts;
+      },
       viewUrl() {
         return this.canonicalUrl({ fullPath: true, locale: false });
       }

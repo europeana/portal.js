@@ -35,6 +35,7 @@
             <ShareButton class="mb-4 mr-4" />
             <ShareSocialModal :media-url="heroImage && heroImage.url" />
             <ViewCount
+              v-if="showViewCount"
               :url="viewUrl"
               class="mb-4"
             />
@@ -210,6 +211,9 @@
           this.heroImage,
           { w: 800, h: 800 }
         );
+      },
+      showViewCount() {
+        return this.$features.storiesViewCounts;
       },
       viewUrl() {
         return this.canonicalUrl({ fullPath: true, locale: false });
