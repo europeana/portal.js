@@ -85,7 +85,7 @@ export default {
     "title": "Nimi:"
   },
   "automatedCardGroup": {
-    "gallery": "Galleriat",
+    "gallery": "Uusimmat galleriat",
     "item": "Viimeaikaiset aineistot",
     "organisation": "Organisaatiot",
     "place": "Paikat",
@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Tutustu gallerioihimme",
-    "galleries": "Galleria | Galleriat"
+    "galleries": "Galleria | Galleriat",
+    "seeAllPublished": "Näytä kaikki julkaistut galleriat"
   },
   "header": {
     "clearQuery": "Tyhjennä hakuehdot",

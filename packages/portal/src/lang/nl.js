@@ -85,7 +85,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerijen",
+    "gallery": "Nieuwste galerijen",
     "item": "Recente objecten",
     "organisation": "Organisaties",
     "place": "Plaatsen",
@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Ontdek onze galeries",
-    "galleries": "Galerij | Galerijen"
+    "galleries": "Galerij | Galerijen",
+    "seeAllPublished": "Bekijk alle gepubliceerde galerijen"
   },
   "header": {
     "clearQuery": "Zoekopdracht wissen",

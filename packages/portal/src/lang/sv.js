@@ -85,7 +85,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
-    "gallery": "Gallerier",
+    "gallery": "Senaste gallerier",
     "item": "Senaste objekt",
     "organisation": "Organisationer",
     "place": "Platser",
@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Utforska våra gallerier",
-    "galleries": "Galleri | Gallerier"
+    "galleries": "Galleri | Gallerier",
+    "seeAllPublished": "Se alla publicerade gallerier"
   },
   "header": {
     "clearQuery": "Rensa sökning",
