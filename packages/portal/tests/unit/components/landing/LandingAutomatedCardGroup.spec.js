@@ -19,7 +19,8 @@ const factory = (propsData) => shallowMountNuxt(LandingAutomatedCardGroup, {
     $config: { redis: {} },
     $i18n: { n: (num) => `${num}` },
     $t: key => key
-  }
+  },
+  stubs: ['b-container', 'b-col']
 });
 
 describe('components/landing/LandingAutomatedCardGroup', () => {

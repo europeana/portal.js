@@ -7,7 +7,7 @@ const localVue = createLocalVue();
 const factory = (propsData) => shallowMount(LandingPage, {
   localVue,
   propsData,
-  stubs: ['b-container']
+  stubs: ['b-container', 'b-col']
 });
 
 describe('components/landing/LandingPage', () => {
