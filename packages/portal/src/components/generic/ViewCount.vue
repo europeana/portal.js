@@ -56,8 +56,8 @@
     line-height: 1.5;
     color: #4d4d4d;
     padding: 0.5rem 0.75rem;
-    background: rgba(0,0,0,0);
-    border: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
+    border: rgba(0, 0, 0, 0);
     &:hover {
       box-shadow: none;
     }
