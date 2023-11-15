@@ -18,7 +18,7 @@
           :variant="callsToAction[2] ? 'light' : 'innovationblue'"
           class="home-cta"
         />
-        <HomeLatest />
+        <HomeLatestStories />
         <CallToActionBanner
           v-if="callsToAction[1]"
           :name="callsToAction[1].name"
@@ -36,6 +36,7 @@
           :illustration="callsToAction[2].image"
           class="home-cta"
         />
+        <HomeLatestGalleries />
       </b-container>
     </client-only>
   </div>
@@ -45,8 +46,9 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
-  import HomeLatest from '@/components/home/HomeLatest';
+  import HomeLatestStories from '@/components/home/HomeLatestStories';
   import HomeThemes from '@/components/home/HomeThemes';
+  import HomeLatestGalleries from '@/components/home/HomeLatestGalleries';
 
   export default {
     name: 'HomePage',
@@ -54,7 +56,8 @@
     components: {
       CallToActionBanner,
       HomeHero,
-      HomeLatest,
+      HomeLatestGalleries,
+      HomeLatestStories,
       HomeThemes
     },
 

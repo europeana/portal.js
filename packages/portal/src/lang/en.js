@@ -86,7 +86,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recent items",
-    "gallery": "Galleries",
+    "gallery": "Latest galleries",
     "organisation": "Organisations",
     "place": "Places",
     "theme": "Themes",
@@ -798,7 +798,8 @@ export default {
   },
   "galleries": {
     "description": "Explore our galleries",
-    "galleries": "Gallery | Galleries"
+    "galleries": "Gallery | Galleries",
+    "seeAllPublished": "See all published galleries"
   },
   "header": {
     "clearQuery": "Clear Search Query",
