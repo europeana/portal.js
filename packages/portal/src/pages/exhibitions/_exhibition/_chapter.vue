@@ -199,12 +199,6 @@
         });
     },
 
-    data() {
-      return {
-        viewLogged: false
-      };
-    },
-
     computed: {
       pageMeta() {
         return {
@@ -239,14 +233,8 @@
       }
     },
 
-    watch: {
-      '$session.isActive'() {
-        this.logEventOnce();
-      }
-    },
-
     mounted() {
-      this.logEventOnce();
+      this.logEvent('view', `${this.$config.app.baseUrl}/exhibitions/${this.exhibitionIdentifier}`);
     },
 
     methods: {
@@ -257,13 +245,6 @@
             exhibition: this.exhibitionIdentifier, chapter: identifier
           }
         });
-      },
-
-      async logEventOnce() {
-        if (!this.$fetchState?.error && !this.viewLogged && this.$session.isActive) {
-          const exhibitionUrl = `${this.$config.app.baseUrl}/exhibitions/${this.exhibitionIdentifier}`;
-          this.viewLogged = await this.logEvent('view', exhibitionUrl);
-        }
       }
     }
   };

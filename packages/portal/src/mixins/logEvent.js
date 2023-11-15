@@ -2,21 +2,45 @@ import axios from 'axios';
 import isbot from 'isbot';
 
 export default {
-  methods: {
-    async logEvent(actionType, objectUri) {
-      const loggingPermitted = this.$features?.eventLogging &&
+  data() {
+    return {
+      eventLogged: false,
+      eventToLog: null
+    };
+  },
+
+  computed: {
+    eventMayBeLogged() {
+      return this.$features?.eventLogging &&
+        this.eventToLog &&
+        !this.eventLogged &&
+        !this.$fetchState?.error &&
         process.client &&
         !isbot(navigator?.userAgent) &&
         this.$session?.isActive;
+    }
+  },
 
-      if (!loggingPermitted) {
-        return false;
+  watch: {
+    eventMayBeLogged() {
+      this.logEventToApi();
+    }
+  },
+
+  methods: {
+    async logEvent(actionType, objectUri) {
+      this.eventToLog = { actionType, objectUri };
+      await this.logEventToApi();
+    },
+
+    async logEventToApi() {
+      if (!this.eventMayBeLogged) {
+        return null;
       }
 
       const postData = {
-        actionType,
-        objectUri,
-        sessionId: this.$session.id
+        ...this.eventToLog,
+        sessionId: this.$session?.id
       };
 
       try {
@@ -26,9 +50,9 @@ export default {
           '/_api/events',
           postData
         );
-        return true;
+        this.eventLogged = true;
       } catch (e) {
-        return false;
+        this.eventLogged = false;
       }
     }
   }

@@ -96,10 +96,9 @@ describe('mixins/logEvent', () => {
             it('does not post to event logging API', async() => {
               const wrapper = factory({ mocks: { $features } });
 
-              const logged = await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+              await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
 
               expect(nock.isDone()).toBe(false);
-              expect(logged).toBe(false);
             });
           });
 
@@ -107,10 +106,9 @@ describe('mixins/logEvent', () => {
             it('does not post to event logging API', async() => {
               const wrapper = factory({ mocks: { $features, $session: {} } });
 
-              const logged = await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+              await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
 
               expect(nock.isDone()).toBe(false);
-              expect(logged).toBe(false);
             });
           });
 
@@ -121,7 +119,6 @@ describe('mixins/logEvent', () => {
               const logged = await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
 
               expect(nock.isDone()).toBe(true);
-              expect(logged).toBe(true);
             });
           });
         });

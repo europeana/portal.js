@@ -204,8 +204,7 @@
         timespans: [],
         title: null,
         type: null,
-        useProxy: true,
-        viewLogged: false
+        useProxy: true
       };
     },
 
@@ -325,28 +324,19 @@
       },
       'relatedEntityUris'() {
         this.fetchEntities();
-      },
-      '$session.isActive'() {
-        this.logEventOnce();
       }
     },
 
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
-      this.logEventOnce();
+      this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }
     },
 
     methods: {
-      async logEventOnce() {
-        if (!this.$fetchState.error && !this.viewLogged && this.$session.isActive) {
-          this.viewLogged = await this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
-        }
-      },
-
       trackCustomDimensions() {
         if (!this.$waitForMatomo) {
           return;

@@ -89,8 +89,7 @@
     data() {
       return {
         post: null,
-        error: null,
-        viewLogged: false
+        error: null
       };
     },
 
@@ -109,22 +108,8 @@
       }
     },
 
-    watch: {
-      '$session.isActive'() {
-        this.logEventOnce();
-      }
-    },
-
     mounted() {
-      this.logEventOnce();
-    },
-
-    methods: {
-      async logEventOnce() {
-        if (!this.$fetchState?.error && !this.viewLogged && this.$session.isActive) {
-          this.viewLogged = await this.logEvent('view', this.canonicalUrl({ fullPath: true, locale: false }));
-        }
-      }
+      this.logEvent('view', this.canonicalUrl({ fullPath: true, locale: false }));
     }
   };
 </script>

@@ -166,8 +166,7 @@
         credits: '',
         relatedLink: null,
         hasPartCollection: null,
-        genre: null,
-        viewLogged: false
+        genre: null
       };
     },
 
@@ -189,23 +188,8 @@
       }
     },
 
-    watch: {
-      '$session.isActive'() {
-        this.logEventOnce();
-      }
-    },
-
     mounted() {
-      this.logEventOnce();
-    },
-
-    methods: {
-      async logEventOnce() {
-        if (!this.$fetchState?.error && !this.viewLogged && this.$session.isActive) {
-          const exhibitionUrl = `${this.$config.app.baseUrl}/exhibitions/${this.identifier}`;
-          this.viewLogged = await this.logEvent('view', exhibitionUrl);
-        }
-      }
+      this.logEvent('view', `${this.$config.app.baseUrl}/exhibitions/${this.identifier}`);
     }
   };
 </script>
