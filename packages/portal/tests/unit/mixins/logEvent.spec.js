@@ -116,7 +116,7 @@ describe('mixins/logEvent', () => {
             it('posts to event logging API', async() => {
               const wrapper = factory({ mocks: { $features, $session: { isActive: true } } });
 
-              const logged = await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
+              await wrapper.vm.logEvent('like', 'http://data.europeana.eu/item/123/abc');
 
               expect(nock.isDone()).toBe(true);
             });
