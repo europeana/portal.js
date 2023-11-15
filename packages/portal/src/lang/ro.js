@@ -85,7 +85,7 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerii",
+    "gallery": "Ultimele galerii",
     "item": "Resurse culturale recente",
     "organisation": "Organizații",
     "place": "Locuri",
@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Explorează galeriile noastre",
-    "galleries": "Galerie | Galeriile"
+    "galleries": "Galerie | Galeriile",
+    "seeAllPublished": "Vedeți toate galeriile publicate"
   },
   "header": {
     "clearQuery": "Șterge căutările",

@@ -85,7 +85,7 @@ export default {
     "title": "Izenburua:"
   },
   "automatedCardGroup": {
-    "gallery": "Galeriak",
+    "gallery": "Azken galeriak",
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
     "place": "Lekuak",
@@ -775,7 +775,8 @@ export default {
   },
   "galleries": {
     "description": "Gure galeriak arakatu",
-    "galleries": "Galeria | Galeriak"
+    "galleries": "Galeria | Galeriak",
+    "seeAllPublished": "Ikusi argitaratutako galeria guztiak"
   },
   "header": {
     "clearQuery": "Garbitu bilaketa kontsulta",

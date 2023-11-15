@@ -85,7 +85,7 @@ export default {
     "title": "Název:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerie",
+    "gallery": "Nejnovější galerie",
     "item": "Poslední položky",
     "organisation": "Organizace",
     "place": "Místa",
@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Prozkoumat naše galerie",
-    "galleries": "Galerie | Galerie"
+    "galleries": "Galerie | Galerie",
+    "seeAllPublished": "Zobrazit všechny publikované galerie"
   },
   "header": {
     "clearQuery": "Vymazat vyhledávací kriteria",

@@ -85,7 +85,7 @@ export default {
     "title": "Titre :"
   },
   "automatedCardGroup": {
-    "gallery": "Galeries",
+    "gallery": "Dernières galeries",
     "item": "Éléments récents",
     "organisation": "Organisations",
     "place": "Des endroits",
@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Explorez nos galeries",
-    "galleries": "Galerie | Galeries"
+    "galleries": "Galerie | Galeries",
+    "seeAllPublished": "Voir toutes les galeries publiées"
   },
   "header": {
     "clearQuery": "Effacer la requête de recherche",

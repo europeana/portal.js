@@ -85,7 +85,7 @@ export default {
     "title": "Τίτλος:"
   },
   "automatedCardGroup": {
-    "gallery": "Γκαλερί",
+    "gallery": "Τελευταίες γκαλερί",
     "item": "Πρόσφατα τεκμήριο",
     "organisation": "Οργανισμοί",
     "place": "Μέρη",
@@ -775,7 +775,8 @@ export default {
   },
   "galleries": {
     "description": "Εξερευνήστε τα γκαλερί μας.",
-    "galleries": "Γκαλερί | Γκαλλερί"
+    "galleries": "Γκαλερί | Γκαλλερί",
+    "seeAllPublished": "Δείτε όλες τις δημοσιευμένες γκαλερί"
   },
   "header": {
     "clearQuery": "Διαγραφή ιστορικού αναζήτησης",

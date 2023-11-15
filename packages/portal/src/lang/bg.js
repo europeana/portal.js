@@ -85,7 +85,7 @@ export default {
     "title": "Заглавие:"
   },
   "automatedCardGroup": {
-    "gallery": "Галерия",
+    "gallery": "Последни галерии",
     "item": "Скорошни обекта",
     "organisation": "Организации",
     "place": "Места",
@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Разгледайте нашите галерии",
-    "galleries": "Галерия | Галерии"
+    "galleries": "Галерия | Галерии",
+    "seeAllPublished": "Вижте всички публикувани галерии"
   },
   "header": {
     "clearQuery": "Изчистване на заявките за търсене",
