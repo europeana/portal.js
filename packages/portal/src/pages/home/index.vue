@@ -47,9 +47,9 @@
     components: {
       CallToActionBanner,
       HomeHero,
+      HomeLatestGalleries,
       HomeLatestStories,
-      HomeThemes,
-      HomeLatestGalleries
+      HomeThemes
     },
 
     mixins: [pageMetaMixin],
