@@ -88,34 +88,9 @@
                         >
                           {{ $t('noMoreResults') }}
                         </p>
-                        <ItemPreviewCardGroup
-                          id="item-search-results"
+                        <ItemPreviewCardMosaic
                           :items="results"
-                          :hits="hits"
-                          :view="view"
-                          :show-pins="showPins"
-                          :on-aux-click-card="onClickItem"
-                          :on-click-card="onClickItem"
-                          @drawn="handleResultsDrawn"
-                        >
-                          <slot />
-                          <template
-                            v-if="page === 1"
-                            #related-galleries
-                          >
-                            <slot
-                              name="related-galleries"
-                            />
-                          </template>
-                          <template
-                            v-if="page === 1"
-                            #related-collections
-                          >
-                            <slot
-                              name="related-collections"
-                            />
-                          </template>
-                        </ItemPreviewCardGroup>
+                        />
                         <InfoMessage
                           v-show="lastAvailablePage"
                         >
@@ -168,7 +143,6 @@
   import merge from 'deepmerge';
   import isEqual from 'lodash/isEqual';
 
-  import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import SearchFilters from './SearchFilters';
   import SearchSidebar from './SearchSidebar';
@@ -178,6 +152,7 @@
   import makeToastMixin from '@/mixins/makeToast';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
+  import ItemPreviewCardMosaic from '../item/ItemPreviewCardMosaic.vue';
 
   export default {
     name: 'SearchInterface',
@@ -188,12 +163,12 @@
       SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
-      ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
       SearchFilters,
       SearchSidebar,
-      SearchViewToggles
+      SearchViewToggles,
+      ItemPreviewCardMosaic
     },
 
     mixins: [
@@ -209,7 +184,7 @@
       },
       perPage: {
         type: Number,
-        default: 24
+        default: 18
       },
       route: {
         type: Object,
