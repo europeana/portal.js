@@ -11,31 +11,33 @@ export default {
 
   computed: {
     eventMayBeLogged() {
-      return this.$features?.eventLogging &&
+      return !!(
+        this.$features?.eventLogging &&
         this.eventToLog &&
         !this.eventLogged &&
         !this.$fetchState?.error &&
         process.client &&
         !isbot(navigator?.userAgent) &&
-        this.$session?.isActive;
+        this.$session?.isActive
+      );
     }
   },
 
   watch: {
     eventMayBeLogged() {
-      this.logEventToApi();
+      this.sendEventLog();
     }
   },
 
   methods: {
     async logEvent(actionType, objectUri) {
       this.eventToLog = { actionType, objectUri };
-      await this.logEventToApi();
+      await this.sendEventLog();
     },
 
-    async logEventToApi() {
+    async sendEventLog() {
       if (!this.eventMayBeLogged) {
-        return null;
+        return;
       }
 
       const postData = {
@@ -44,12 +46,12 @@ export default {
       };
 
       try {
-        await axios.create({
-          baseURL: this.$config.app.baseUrl
-        }).post(
-          '/_api/events',
-          postData
-        );
+        await axios({
+          baseURL: this.$config.app.baseUrl,
+          method: 'post',
+          postData,
+          url: '/_api/events'
+        });
         this.eventLogged = true;
       } catch (e) {
         this.eventLogged = false;
