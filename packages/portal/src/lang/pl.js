@@ -85,7 +85,7 @@ export default {
     "title": "Tytuł:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerie",
+    "gallery": "Najnowsze galerie",
     "item": "Ostatnie obiekty cyfrowe",
     "organisation": "Organizacje",
     "place": "Miejsca",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Przeglądaj nasze galerie",
-    "galleries": "Galeria | Galerie"
+    "galleries": "Galeria | Galerie",
+    "seeAllPublished": "Zobacz wszystkie opublikowane galerie"
   },
   "header": {
-    "backToMenu": "Zamknij pole wyszukiwania",
     "clearQuery": "Wyczyść zapytanie",
     "closeSidebar": "Zamknij menu",
+    "collapseSearchBar": "Zwiń pasek wyszukiwania",
     "entireCollection": "Wyszukaj {query} w całej naszej kolekcji",
     "europeanaHome": "Strona główna Europeana",
     "inCollection": "Wyszukaj {query} w {collection}",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
       "home": "Strona główna",
-      "pro": "Dla profesjonalistów",
       "shareYourData": "Udostępnij swoje dane",
       "stories": "Historie"
     },

@@ -85,7 +85,7 @@ export default {
     "title": "Název:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerie",
+    "gallery": "Nejnovější galerie",
     "item": "Poslední položky",
     "organisation": "Organizace",
     "place": "Místa",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Prozkoumat naše galerie",
-    "galleries": "Galerie | Galerie"
+    "galleries": "Galerie | Galerie",
+    "seeAllPublished": "Zobrazit všechny publikované galerie"
   },
   "header": {
-    "backToMenu": "Zavřít vyhledávací okno",
     "clearQuery": "Vymazat vyhledávací kriteria",
     "closeSidebar": "Zavřít nabídku",
+    "collapseSearchBar": "Sbalit vyhledávací panel",
     "entireCollection": "Hledat {query} v celé sbírce",
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hledat {query} v {collection}",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "Pro učitele",
       "help": "Pomoc",
       "home": "Domů",
-      "pro": "Pro profesionály",
       "shareYourData": "Sdílejte svá data",
       "stories": "Příběhy"
     },

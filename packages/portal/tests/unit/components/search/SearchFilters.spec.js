@@ -29,7 +29,7 @@ const factory = (options = {}) => {
         state: {
           search: {
             collectionFacetEnabled: true,
-            showFiltersSheet: false
+            showSearchSidebar: false
           },
           ...options.mocks?.$store?.state
         }
@@ -41,14 +41,6 @@ const factory = (options = {}) => {
 
 describe('components/search/SearchFilters', () => {
   describe('template', () => {
-    it('is wrapper in <section role="search">', () => {
-      const wrapper = factory();
-
-      const section = wrapper.find('section[role="search"]');
-
-      expect(section.exists()).toBe(true);
-    });
-
     describe('filters title', () => {
       describe('with advanced search', () => {
         it('has a level 2 heading', () => {

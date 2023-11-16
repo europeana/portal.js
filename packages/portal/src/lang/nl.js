@@ -85,7 +85,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerijen",
+    "gallery": "Nieuwste galerijen",
     "item": "Recente objecten",
     "organisation": "Organisaties",
     "place": "Plaatsen",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Ontdek onze galeries",
-    "galleries": "Galerij | Galerijen"
+    "galleries": "Galerij | Galerijen",
+    "seeAllPublished": "Bekijk alle gepubliceerde galerijen"
   },
   "header": {
-    "backToMenu": "Zoekvakje sluiten",
     "clearQuery": "Zoekopdracht wissen",
     "closeSidebar": "Menu sluiten",
+    "collapseSearchBar": "Zoekbalk inklappen",
     "entireCollection": "Zoek op {query} in onze gehele collectie",
     "europeanaHome": "Europeana Home",
     "inCollection": "Zoek op {query} in {collection}",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "Voor leraren",
       "help": "Help",
       "home": "Home",
-      "pro": "Voor erfgoedprofessionals",
       "shareYourData": "Deel uw gegevens",
       "stories": "Verhalen"
     },

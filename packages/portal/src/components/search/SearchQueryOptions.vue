@@ -285,12 +285,8 @@
 
       linkGen(queryTerm, path) {
         const query = {
-          boost: this.$route.query?.boost,
-          qa: this.$route.query?.qa,
-          qf: this.$route.query?.qf,
-          query: queryTerm || '',
-          reusability: this.$route.query?.reusability,
-          view: this.$route.query?.view
+          ...this.$route.query,
+          query: queryTerm || ''
         };
         return {
           path: path || this.localePath({
@@ -349,7 +345,13 @@
       handleClickOrFocusOutside(event) {
         const targetOutsideSearchDropdown = this.checkIftargetOutsideSearchDropdown(event);
         if (targetOutsideSearchDropdown) {
-          this.$emit('hideOptions');
+          if  (['A', 'BUTTON', 'INPUT'].includes(event.target?.tagName) ||
+            event.target?.role === 'menu'
+          ) {
+            this.$emit('hideOptions');
+          } else {
+            this.$emit('hideOptions', true);
+          }
         }
       },
 

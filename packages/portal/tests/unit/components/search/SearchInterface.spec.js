@@ -707,15 +707,5 @@ describe('components/search/SearchInterface', () => {
         });
       });
     });
-
-    describe('toggleAdvancedSearch', () => {
-      it('toggles the advanced search display state', () => {
-        const wrapper = factory();
-
-        wrapper.vm.toggleAdvancedSearch();
-
-        expect(wrapper.vm.showAdvancedSearch).toBe(true);
-      });
-    });
   });
 });

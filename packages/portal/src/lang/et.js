@@ -85,7 +85,7 @@ export default {
     "title": "Pealkiri:"
   },
   "automatedCardGroup": {
-    "gallery": "Galeriid",
+    "gallery": "Viimased galeriid",
     "item": "Hiljutised esemed",
     "organisation": "Organisatsioonid",
     "place": "Kohad",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Uurige meie galeriidega",
-    "galleries": "Galerii | Galeriid"
+    "galleries": "Galerii | Galeriid",
+    "seeAllPublished": "Vaata kõiki avaldatud galeriisid"
   },
   "header": {
-    "backToMenu": "Sulge otsinguaken",
     "clearQuery": "Kustuta otsingupäring",
     "closeSidebar": "Sule menüü",
+    "collapseSearchBar": "Kokkuvolditav otsinguriba",
     "entireCollection": "Otsi {query} kogu meie kollektsioonist",
     "europeanaHome": "Europeana avaleht",
     "inCollection": "Otsi {query} {collection}",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",
       "home": "Avaleht",
-      "pro": "Professionaalidele",
       "shareYourData": "Jaga oma andmeid",
       "stories": "Lood"
     },

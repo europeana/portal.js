@@ -85,7 +85,7 @@ export default {
     "title": "Τίτλος:"
   },
   "automatedCardGroup": {
-    "gallery": "Γκαλερί",
+    "gallery": "Τελευταίες γκαλερί",
     "item": "Πρόσφατα τεκμήριο",
     "organisation": "Οργανισμοί",
     "place": "Μέρη",
@@ -775,12 +775,13 @@ export default {
   },
   "galleries": {
     "description": "Εξερευνήστε τα γκαλερί μας.",
-    "galleries": "Γκαλερί | Γκαλλερί"
+    "galleries": "Γκαλερί | Γκαλλερί",
+    "seeAllPublished": "Δείτε όλες τις δημοσιευμένες γκαλερί"
   },
   "header": {
-    "backToMenu": "Κλείσιμο πλαισίου αναζήτησης",
     "clearQuery": "Διαγραφή ιστορικού αναζήτησης",
     "closeSidebar": "Κλείσιμο μενού",
+    "collapseSearchBar": "Σύμπτυξη γραμμής αναζήτησης",
     "entireCollection": "Αναζητήστε τον όρο {query} σε όλη τη συλλογή",
     "europeanaHome": "Αρχική σελίδα της Europeana",
     "inCollection": "Αναζητήστε τον όρο {query} στη συλλογή {collection}",
@@ -790,7 +791,6 @@ export default {
       "europeanaClassroom": "Για εκπαιδευτικούς",
       "help": "Βοήθεια",
       "home": "Αρχική",
-      "pro": "Για επαγγελματίες/ για ειδικούς",
       "shareYourData": "Μοιραστείτε τα δεδομένα σας",
       "stories": "Ιστορίες"
     },

@@ -85,7 +85,7 @@ export default {
     "title": "Nimi:"
   },
   "automatedCardGroup": {
-    "gallery": "Galleriat",
+    "gallery": "Uusimmat galleriat",
     "item": "Viimeaikaiset aineistot",
     "organisation": "Organisaatiot",
     "place": "Paikat",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Tutustu gallerioihimme",
-    "galleries": "Galleria | Galleriat"
+    "galleries": "Galleria | Galleriat",
+    "seeAllPublished": "Näytä kaikki julkaistut galleriat"
   },
   "header": {
-    "backToMenu": "Sulje hakuruutu",
     "clearQuery": "Tyhjennä hakuehdot",
     "closeSidebar": "Sulje valikko",
+    "collapseSearchBar": "Tiivistä hakupalkki",
     "entireCollection": "Hae ehdoilla {query} koko kokoelmastamme",
     "europeanaHome": "Europeana etusivu",
     "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "Opettajille",
       "help": "Apua",
       "home": "Etusivu",
-      "pro": "Ammattilaisille",
       "shareYourData": "Jaa tietosi",
       "stories": "Tarinat"
     },

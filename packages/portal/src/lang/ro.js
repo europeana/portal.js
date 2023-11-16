@@ -85,7 +85,7 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerii",
+    "gallery": "Ultimele galerii",
     "item": "Resurse culturale recente",
     "organisation": "Organizații",
     "place": "Locuri",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Explorează galeriile noastre",
-    "galleries": "Galerie | Galeriile"
+    "galleries": "Galerie | Galeriile",
+    "seeAllPublished": "Vedeți toate galeriile publicate"
   },
   "header": {
-    "backToMenu": "Închide caseta de căutare",
     "clearQuery": "Șterge căutările",
     "closeSidebar": "Închideți meniul",
+    "collapseSearchBar": "Contragerea barei de căutare",
     "entireCollection": "Căutare pentru {query} în întreaga noastră colecție",
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "Pentru profesori",
       "help": "Help",
       "home": "Pagină natală",
-      "pro": "Pentru profesioniști",
       "shareYourData": "Contribuiți datele voastre",
       "stories": "Narațiuni"
     },

@@ -85,7 +85,7 @@ export default {
     "title": "Pavadinimas:"
   },
   "automatedCardGroup": {
-    "gallery": "Parodos",
+    "gallery": "Naujausios parodos",
     "item": "Naujausi skaitmeniniai objektai",
     "organisation": "Organizacijos",
     "place": "Vietos",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Tyrinėti mūsų parodos",
-    "galleries": "Paroda | parodos"
+    "galleries": "Paroda | parodos",
+    "seeAllPublished": "Peržiūrėkite visas paskelbtos parodos"
   },
   "header": {
-    "backToMenu": "Uždaryti paieškos langą",
     "clearQuery": "Išvalyti paieškos užklausą",
     "closeSidebar": "Uždaryti meniu",
+    "collapseSearchBar": "Suskleisti paieškos juostą",
     "entireCollection": "Ieškoti {query} visoje kolekcijoje",
     "europeanaHome": "„Europeana“ pagrindinis puslapis",
     "inCollection": "Ieškoti {query} {collection}",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
       "home": "Pradžia",
-      "pro": "Specialistams",
       "shareYourData": "Dalinkitės savo duomenimis",
       "stories": "Istorijos"
     },

@@ -85,7 +85,7 @@ export default {
     "title": "Cím:"
   },
   "automatedCardGroup": {
-    "gallery": "Galériák",
+    "gallery": "Legújabb galériák",
     "item": "Legutóbbi tárgyak",
     "organisation": "Szervezetek",
     "place": "Helyek",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Fedezze fel galériáinkat",
-    "galleries": "Galéria | Galériák"
+    "galleries": "Galéria | Galériák",
+    "seeAllPublished": "Az összes közzétett galéria megtekintése"
   },
   "header": {
-    "backToMenu": "Keresőmező bezárása",
     "clearQuery": "Keresőkifejezés törlése",
     "closeSidebar": "Menü bezárása",
+    "collapseSearchBar": "Keresősáv összecsukása",
     "entireCollection": "Keresés az egész gyűjteményben erre: {query}",
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "Tanároknak",
       "help": "Súgó",
       "home": "Kezdőlap",
-      "pro": "Szakembereknek",
       "shareYourData": "Ossza meg az adatait",
       "stories": "Történetek"
     },

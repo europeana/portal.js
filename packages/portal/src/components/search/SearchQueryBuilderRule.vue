@@ -38,7 +38,6 @@
             v-if="control === 'term'"
             :id="`${id}-${control}`"
             v-model="term"
-            :data-qa="`advanced search query builder: ${control} control`"
             :placeholder="$t('search.advanced.placeholder.term')"
             :state="validations.term.state"
             :suggest-entity-type="suggestEntityTypeForTerm"
@@ -66,7 +65,7 @@
     <b-button
       data-qa="search query builder rule clear button"
       variant="light"
-      class="d-inline-flex align-items-baseline ml-lg-1 mb-3 mb-lg-0 mt-lg-2"
+      class="d-inline-flex align-items-center ml-lg-1 mb-3 mb-lg-0 mt-lg-2"
       @click="clearRule"
     >
       <span class="icon-clear pr-2" />
@@ -265,6 +264,10 @@
         margin-right: 0.75rem !important;
       }
     }
+  }
+
+  .icon-clear {
+    line-height: 1.2;
   }
 </style>
 

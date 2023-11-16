@@ -85,7 +85,7 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
-    "gallery": "Galleriji",
+    "gallery": "L-aħħar galleriji",
     "item": "Oġġetti reċenti",
     "organisation": "Organizzazzjonijiet",
     "place": "Postijiet",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Esplora d-direttorji tar-ritratti tagħna",
-    "galleries": "Gallerija | Galleriji"
+    "galleries": "Gallerija | Galleriji",
+    "seeAllPublished": "Ara l-galleriji kollha ppubblikati"
   },
   "header": {
-    "backToMenu": "Agħlaq il-Kaxxa tat-Tiftix",
     "clearQuery": "Ħassar il-Query tat-Tiftix",
     "closeSidebar": "Agħlaq il-Menu",
+    "collapseSearchBar": "Ikkollassa l-bara ta' tiftix",
     "entireCollection": "Fittex {query} fil-kollezzjoni sħiħa tagħna",
     "europeanaHome": "Europeana home",
     "inCollection": "Fittex {query} fi {collection}",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "Għall-għalliema",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
-      "pro": "Għall-professjonisti",
       "shareYourData": "Aqsam id-data tiegħek",
       "stories": "Stejjer"
     },

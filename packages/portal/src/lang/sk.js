@@ -85,7 +85,7 @@ export default {
     "title": "Názov:"
   },
   "automatedCardGroup": {
-    "gallery": "Galérie",
+    "gallery": "Najnovšie galérie",
     "item": "Nedávne objekty",
     "organisation": "Organizácie",
     "place": "Miesta",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Preskúmať naše galérie",
-    "galleries": "Galéria | Galérie"
+    "galleries": "Galéria | Galérie",
+    "seeAllPublished": "Zobraziť všetky publikované galérie"
   },
   "header": {
-    "backToMenu": "Zatvoriť vyhľadávacie pole",
     "clearQuery": "Zmazať vyhľadávací dopyt",
     "closeSidebar": "Zavrieť ponuku",
+    "collapseSearchBar": "Zbaliť vyhľadávací panel",
     "entireCollection": "Hľadajte výraz {query} v celej našej zbierke",
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hľadajte výraz {query} v zbierke {collection}",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "Pre učiteľov",
       "help": "Pomoc",
       "home": "Domov",
-      "pro": "Pre profesionálov",
       "shareYourData": "Zdieľajte svoje dáta",
       "stories": "Príbehy"
     },

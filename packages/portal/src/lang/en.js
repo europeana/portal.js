@@ -86,7 +86,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recent items",
-    "gallery": "Galleries",
+    "gallery": "Latest galleries",
     "organisation": "Organisations",
     "place": "Places",
     "theme": "Themes",
@@ -798,12 +798,13 @@ export default {
   },
   "galleries": {
     "description": "Explore our galleries",
-    "galleries": "Gallery | Galleries"
+    "galleries": "Gallery | Galleries",
+    "seeAllPublished": "See all published galleries"
   },
   "header": {
-    "backToMenu": "Close Search Box",
     "clearQuery": "Clear Search Query",
     "closeSidebar": "Close Menu",
+    "collapseSearchBar": "Collapse search bar",
     "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",

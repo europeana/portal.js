@@ -14,7 +14,7 @@ localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
 const searchEnableCollectionFacet = sinon.spy();
-const searchSetShowFiltersToggle = sinon.spy();
+const searchSetShowSidebarToggle = sinon.spy();
 const searchSet = sinon.spy();
 const setShowSearchBar = sinon.spy();
 
@@ -24,17 +24,17 @@ const store = new Vuex.Store({
       overrideParams: {
         query: {}
       },
-      showFiltersToggle: false
+      showSidebarToggle: false
     }
   },
   mutations: {
     'search/enableCollectionFacet': searchEnableCollectionFacet,
-    'search/setShowFiltersToggle': searchSetShowFiltersToggle,
+    'search/setShowSidebarToggle': searchSetShowSidebarToggle,
     'search/set': searchSet,
     'search/setShowSearchBar': (state, value) => setShowSearchBar(value)
   },
   getters: {
-    'search/showFiltersSheet': () => () => false,
+    'search/showSearchSidebar': () => () => false,
     'search/collection': () => () => false,
     'search/filters': () => () => false
   }

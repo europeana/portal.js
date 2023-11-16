@@ -85,7 +85,7 @@ export default {
     "title": "Izenburua:"
   },
   "automatedCardGroup": {
-    "gallery": "Galeriak",
+    "gallery": "Azken galeriak",
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
     "place": "Lekuak",
@@ -775,12 +775,13 @@ export default {
   },
   "galleries": {
     "description": "Gure galeriak arakatu",
-    "galleries": "Galeria | Galeriak"
+    "galleries": "Galeria | Galeriak",
+    "seeAllPublished": "Ikusi argitaratutako galeria guztiak"
   },
   "header": {
-    "backToMenu": "Menura itzuli",
     "clearQuery": "Garbitu bilaketa kontsulta",
     "closeSidebar": "Itxi Menua",
+    "collapseSearchBar": "Bilaketa barra tolestu",
     "entireCollection": "Bilatu {query} gure bilduma osoan",
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
@@ -790,7 +791,6 @@ export default {
       "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",
       "home": "Etxea",
-      "pro": "Profesionalentzat",
       "shareYourData": "Zure datuak partekatu",
       "stories": "Istorioak"
     },

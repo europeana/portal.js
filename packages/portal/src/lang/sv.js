@@ -85,7 +85,7 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
-    "gallery": "Gallerier",
+    "gallery": "Senaste gallerier",
     "item": "Senaste objekt",
     "organisation": "Organisationer",
     "place": "Platser",
@@ -771,12 +771,13 @@ export default {
   },
   "galleries": {
     "description": "Utforska våra gallerier",
-    "galleries": "Galleri | Gallerier"
+    "galleries": "Galleri | Gallerier",
+    "seeAllPublished": "Se alla publicerade gallerier"
   },
   "header": {
-    "backToMenu": "Stäng sökruta",
     "clearQuery": "Rensa sökning",
     "closeSidebar": "Stäng menyn",
+    "collapseSearchBar": "Fäll ihop sökfältet",
     "entireCollection": "Sök efter {query} i hela vår samling",
     "europeanaHome": "Europeana hem",
     "inCollection": "Sök efter {query} i {collection}",
@@ -786,7 +787,6 @@ export default {
       "europeanaClassroom": "För lärare",
       "help": "Hjälp",
       "home": "Hem",
-      "pro": "För yrkesverksamma",
       "shareYourData": "Dela dina data",
       "stories": "Berättelser"
     },

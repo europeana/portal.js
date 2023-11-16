@@ -32,7 +32,7 @@
       :show-search-options="showSearchOptions"
       :submitting="submitting"
       @select="(option) => handleSelect(option)"
-      @hideOptions="showSearchOptions = false"
+      @hideOptions="(submit) => handleHideOptions(submit)"
     />
   </div>
 </template>
@@ -156,6 +156,13 @@
         if (this.fieldNeedsEntityLookUp) {
           this.$store.commit('search/addQasWithSelectedEntityValue', { field: this.advancedSearchField, qa: option.query, id: option.entityId });
         }
+      },
+      handleHideOptions(submit) {
+        // When hiding options should not trigger a submit, reset the query to prevent submission and to show the applied query in the input field
+        if (!submit) {
+          this.term = this.value;
+        }
+        this.showSearchOptions = false;
       }
     }
   };
