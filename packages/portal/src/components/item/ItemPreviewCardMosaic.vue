@@ -59,18 +59,9 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  .mosaic-container {
-    overflow: auto;
-    // scrollbar-width: none;
-    // -ms-overflow-style: none;  /* IE and Edge */
-
-    // &::-webkit-scrollbar {
-    //   display: none;
-    // }
-  }
-
   .mosaic-left-column,
   .mosaic-right-column {
+    overflow: hidden;
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
@@ -90,7 +81,7 @@
       flex: 0 0 calc(50% + $grid-gutter);
     }
 
-    @media (min-width: $bp-xxl) {
+    @media (min-width: $bp-extralarge) {
       flex: 0 0 calc(33% + $grid-gutter);
     }
   }
@@ -108,7 +99,7 @@
       flex: 0 0 calc(50% + $grid-gutter);
     }
 
-    @media (min-width: $bp-xxl) {
+    @media (min-width: $bp-extralarge) {
       flex: 0 0 calc(67% + $grid-gutter);
     }
   }
@@ -123,6 +114,23 @@
     left: 0;
     right: 0;
     bottom: 0;
+  }
+
+  ::v-deep {
+    .card-wrapper {
+      height: 100%;
+      min-height: 0;
+    }
+  }
+
+  ::v-deep .card-img {
+    min-height: 0;
+    max-height: 100% !important;
+
+    img {
+      min-height: 100%;
+      min-width: 100%;
+    }
   }
 
   .card.mosaic-item-0 {
@@ -203,26 +211,9 @@
       width: calc(33.333% - #{$grid-gutter * 2});
     }
 
-    @media (min-width: $bp-xxl) {
+    @media (min-width: $bp-wqhd) {
       min-height: calc(20% - 1.5rem);
       width: calc(25% - #{$grid-gutter * 2});
     }
   }
-
-    ::v-deep {
-      .card-wrapper {
-        height: 100%;
-        min-height: 0;
-      }
-    }
-
-    ::v-deep .card-img {
-      min-height: 0;
-      max-height: 100% !important;
-
-      img {
-        min-height: 100%;
-        min-width: 100%;
-      }
-    }
 </style>
