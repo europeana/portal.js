@@ -3,7 +3,7 @@
     v-if="items.length"
     class="mosaic-container d-flex justify-content-between"
   >
-    <div class="mosaic-left-wrapper">
+    <div class="mosaic-left-column">
       <ItemPreviewCard
         v-for="(card, index) in items.slice(0,3)"
         :key="index"
@@ -16,10 +16,10 @@
       />
     </div>
     <div
-      class="mosaic-right-wrapper"
+      class="mosaic-right-column"
     >
       <div
-        class="mosaic-right-wrapper-inner"
+        class="mosaic-right-column-inner-wrapper"
       >
         <ItemPreviewCard
           v-for="(card, index) in items.slice(3)"
@@ -69,8 +69,8 @@
     // }
   }
 
-  .mosaic-left-wrapper,
-  .mosaic-right-wrapper {
+  .mosaic-left-column,
+  .mosaic-right-column {
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
@@ -79,11 +79,11 @@
     max-height: 100%;
   }
 
-  .mosaic-left-wrapper {
+  .mosaic-left-column {
     flex: 0 0 calc(100% + $grid-gutter);
 
     @media (min-width: $bp-medium) {
-      flex: 0 0 calc(66.667% + $grid-gutter);
+      flex: 0 0 calc(66% + $grid-gutter);
     }
 
     @media (min-width: $bp-large) {
@@ -91,17 +91,17 @@
     }
 
     @media (min-width: $bp-xxl) {
-      flex: 0 0 calc(33.333% + $grid-gutter);
+      flex: 0 0 calc(33% + $grid-gutter);
     }
   }
 
-  .mosaic-right-wrapper {
+  .mosaic-right-column {
     position: relative;
     display: none;
 
     @media (min-width: $bp-medium) {
       display: flex;
-      flex: 0 0 calc(33.333% + $grid-gutter);
+      flex: 0 0 calc(33% + $grid-gutter);
     }
 
     @media (min-width: $bp-large) {
@@ -109,11 +109,11 @@
     }
 
     @media (min-width: $bp-xxl) {
-      flex: 0 0 calc(66.667% + $grid-gutter);
+      flex: 0 0 calc(67% + $grid-gutter);
     }
   }
 
-  .mosaic-right-wrapper-inner {
+  .mosaic-right-column-inner-wrapper {
     flex-direction: column;
     display: flex;
     flex-wrap: wrap;
