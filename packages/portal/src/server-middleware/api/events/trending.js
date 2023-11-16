@@ -73,7 +73,7 @@ export default (config = {}) => {
         WHERE current_score > previous_score
         ORDER BY trending_score DESC,
                  last_occurred_at DESC
-        LIMIT 14
+        LIMIT 18
         `
       );
 
