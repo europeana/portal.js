@@ -104,7 +104,7 @@
           </b-col>
         </b-row>
       </client-only>
-    </b-container>node-postgres
+    </b-container>
   </div>
 </template>
 
