@@ -45,11 +45,6 @@
       hideExternalIcon: {
         type: Boolean,
         default: false
-      },
-
-      loggable: {
-        type: Boolean,
-        default: true
       }
     },
 
@@ -129,7 +124,7 @@
       },
 
       logSearchLink() {
-        return this.loggable && this.isLinkToSearchablePage;
+        return this.isLinkToSearchablePage;
       }
     },
 
