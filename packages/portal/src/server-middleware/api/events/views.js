@@ -10,7 +10,7 @@ export default (config = {}) => {
         res.json({ viewCount: 0 });
         return;
       }
-      const url = req.query.url;
+      const url = req.query?.url;
 
       const selectResult = await pg.query(`
         SELECT
