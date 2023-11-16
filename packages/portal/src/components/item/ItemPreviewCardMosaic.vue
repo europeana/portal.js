@@ -84,6 +84,10 @@
     @media (min-width: $bp-extralarge) {
       flex: 0 0 calc(33% + $grid-gutter);
     }
+
+    @media (min-width: $bp-4k) {
+      flex: 0 0 calc(33% + $grid-gutter-4k);
+    }
   }
 
   .mosaic-right-column {
@@ -101,6 +105,10 @@
 
     @media (min-width: $bp-extralarge) {
       flex: 0 0 calc(67% + $grid-gutter);
+    }
+
+    @media (min-width: $bp-4k) {
+      flex: 0 0 calc(67% + $grid-gutter-4k);
     }
   }
 
@@ -139,8 +147,10 @@
     margin-right: $grid-gutter;
     max-width: none;
 
-    @media (min-width: $bp-large) {
-      flex: 0 0 calc(100% - #{$grid-gutter * 2});
+    @media (min-width: $bp-4k) {
+      flex: 0 0 calc(100% - #{$grid-gutter-4k * 2});
+      margin-left: $grid-gutter-4k;
+      margin-right: $grid-gutter-4k;
     }
 
     ::v-deep .card-img {
@@ -168,9 +178,12 @@
     margin-right: $grid-gutter;
     min-width: 0;
 
-    @media (min-width: $bp-large) {
-      flex: 0 0 calc(50% - #{$grid-gutter * 2});
+    @media (min-width: $bp-4k) {
+      flex: 0 0 calc(50% - #{$grid-gutter-4k * 2});
+      margin-left: $grid-gutter-4k;
+      margin-right: $grid-gutter-4k;
     }
+
     ::v-deep .card-img {
       position: relative;
       padding-top: 100%;
@@ -211,9 +224,15 @@
       width: calc(33.333% - #{$grid-gutter * 2});
     }
 
-    @media (min-width: $bp-wqhd) {
+    @media (min-width: $bp-xxl) {
       min-height: calc(20% - 1.5rem);
       width: calc(25% - #{$grid-gutter * 2});
+    }
+
+    @media (min-width: $bp-4k) {
+      margin-left: $grid-gutter-4k;
+      margin-right: $grid-gutter-4k;
+      width: calc(25% - #{$grid-gutter-4k * 2});
     }
   }
 </style>
