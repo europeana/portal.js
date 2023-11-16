@@ -30,10 +30,21 @@ const factory = () => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $features: {},
     $t: key => key,
     $auth: {
       loggedIn: false
+    },
+    $route: {
+      fullPath: 'https://www.europeana.eu/en/blog/fake-blog-post',
+      path: '/en/blog/fake-blog-post'
+    },
+    $i18n: {
+      locale: 'en'
+    },
+    $config: {
+      app: {
+        baseUrl: 'https://www.europeana.eu'
+      }
     }
   }
 });
