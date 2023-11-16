@@ -91,7 +91,8 @@ export default {
     "place": "Places",
     "theme": "Themes",
     "time": "Centuries",
-    "topic": "Topics"
+    "topic": "Topics",
+    "trending": "Trending items"
   },
   "blog": {
     "author": "Author",

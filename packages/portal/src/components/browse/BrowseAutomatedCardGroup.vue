@@ -1,10 +1,14 @@
 <template>
   <div
-    v-if="entries && entries.length > 0"
+    v-if="(entries && entries.length > 0) || trending"
   >
     <BrowseInfoCardSection
       v-if="key === 'items/type-counts'"
       :section="contentCardSection"
+    />
+    <TrendingItems
+      v-else-if="trending"
+      :headline="headline"
     />
     <ContentCardSection
       v-else
@@ -15,6 +19,7 @@
 
 <script>
   import ContentCardSection from '../content/ContentCardSection';
+  import TrendingItems from '@/components/trending/TrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
   import { daily, getLabelledSlug } from '@/plugins/europeana/utils';
 
@@ -26,13 +31,15 @@
   const RECENT_ITEMS = 'Recent items';
   const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
   const LATEST_GALLERIES = 'Latest galleries';
+  const TRENDING_ITEMS = 'Trending items';
 
   export default {
     name: 'BrowseAutomatedCardGroup',
 
     components: {
       ContentCardSection,
-      BrowseInfoCardSection
+      BrowseInfoCardSection,
+      TrendingItems
     },
 
     props: {
@@ -53,6 +60,7 @@
         headline: null,
         contentful: null,
         galleries: null,
+        trending: null,
         daily: false,
         entries: []
       };
@@ -94,13 +102,18 @@
         data.galleries = 'recent';
         data.cardType = 'AutomatedGalleryCard';
         data.headline = this.$i18n.t('automatedCardGroup.gallery');
+      } else if (this.sectionType === TRENDING_ITEMS) {
+        data.trending = true;
+        data.headline = this.$i18n.t('automatedCardGroup.trending');
       }
 
       return data;
     },
 
     async fetch() {
-      if (this.contentful) {
+      if (this.trending) {
+        return;
+      } else if (this.contentful) {
         this.entries = await this.fetchContentfulData();
       } else if (this.galleries) {
         this.entries = await this.fetchSetData();
