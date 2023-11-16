@@ -9,11 +9,11 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const apiResponse = {
-    viewCount: 5
+  viewCount: 5
 };
 const baseUrl = 'http://www.example.org';
 
-const createContainer = (tag = "div") => {
+const createContainer = (tag = 'div') => {
   const container = document.createElement(tag);
   document.body.appendChild(container);
 
@@ -48,7 +48,7 @@ describe('components/generic/ViewCount', () => {
         .query(query => query.url === url)
         .reply(200, apiResponse);
     });
-    const propsData = { url: url };
+    const propsData = { url };
 
     it('should render view counter', async() => {
       const wrapper = factory({ propsData });
