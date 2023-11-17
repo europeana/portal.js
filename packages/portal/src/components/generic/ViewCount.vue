@@ -1,5 +1,6 @@
 <template>
   <b-button
+    v-if="$features.storiesViewCounts && viewCount > 0"
     id="view-count"
     v-b-tooltip.hover
     v-b-tooltip.bottom
@@ -10,19 +11,26 @@
     <span
       class="icon-ic-view d-inline-flex pr-1"
     />
-    {{ $t('views.count', { count: viewCount }) }}
+    {{ $tc('views.count', viewCount) }}
   </b-button>
 </template>
 
 <script>
   import axios from 'axios';
 
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
+
   export default {
     name: 'ViewCount',
+
+    mixins: [
+      canonicalUrlMixin
+    ],
+
     props: {
       url: {
         type: String,
-        required: true
+        default: null
       }
     },
 
@@ -33,10 +41,18 @@
     },
 
     async fetch() {
-      const viewsResponse = await axios.create({
+      if (!this.$features.storiesViewCounts) {
+        return;
+      }
+
+      const url = this.url || this.canonicalUrl({ fullPath: true, locale: false });
+
+      const viewsResponse = await axios({
         baseURL: this.$config.app.baseUrl,
-        params: { url: this.url }
-      }).get('/_api/events/views');
+        method: 'get',
+        params: { url },
+        url: '/_api/events/views'
+      });
 
       this.viewCount = viewsResponse.data.viewCount;
     }

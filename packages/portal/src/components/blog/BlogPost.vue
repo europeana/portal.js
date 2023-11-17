@@ -44,10 +44,7 @@
             </div>
             <ShareButton class="my-4 mr-4" />
             <ShareSocialModal :media-url="hero ? hero.image.url : null" />
-            <ViewCount
-              v-if="showViewCount"
-              :url="viewUrl"
-            />
+            <ViewCount />
             <BrowseSections
               :sections="body.items"
               :rich-text-is-card="false"
@@ -83,7 +80,7 @@
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton.vue';
   import BrowseSections from '../browse/BrowseSections';
-  import canonicalUrlMixin from '@/mixins/canonicalUrl';
+  import ViewCount from '../generic/ViewCount.vue';
 
   export default {
     name: 'BlogPost',
@@ -91,19 +88,15 @@
     components: {
       AuthoredHead: () => import('../authored/AuthoredHead'),
       BlogAuthor: () => import('./BlogAuthor'),
-      RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
-      ClientOnly,
-      ShareSocialModal,
-      ShareButton,
       BrowseSections,
+      ClientOnly,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
+      RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
+      ShareButton,
+      ShareSocialModal,
       ThemeBadges: () => import('@/components/theme/ThemeBadges'),
-      ViewCount: () => import('../generic/ViewCount')
+      ViewCount
     },
-
-    mixins: [
-      canonicalUrlMixin
-    ],
 
     props: {
       datePublished: {
@@ -154,14 +147,6 @@
       themes: {
         type: Array,
         default: () => []
-      }
-    },
-    computed: {
-      showViewCount() {
-        return this.$features.storiesViewCounts;
-      },
-      viewUrl() {
-        return this.canonicalUrl({ fullPath: true, locale: false });
       }
     }
   };

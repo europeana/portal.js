@@ -1221,7 +1221,7 @@ export default {
     "description": "Browse by theme"
   },
   "views": {
-    "count": "{count} views",
+    "count": "{count} view | {count} views",
     "tooltip": "The number of times this story has been viewed in the past 30 days."
   },
   "website": "Website"
