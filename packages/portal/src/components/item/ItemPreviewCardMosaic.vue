@@ -74,7 +74,7 @@
     flex: 0 0 calc(100% + $grid-gutter);
 
     @media (min-width: $bp-medium) {
-      flex: 0 0 calc(66% + $grid-gutter);
+      flex: 0 0 calc(75% + $grid-gutter);
     }
 
     @media (min-width: $bp-large) {
@@ -96,7 +96,7 @@
 
     @media (min-width: $bp-medium) {
       display: flex;
-      flex: 0 0 calc(33% + $grid-gutter);
+      flex: 0 0 calc(25% + $grid-gutter);
     }
 
     @media (min-width: $bp-large) {
@@ -216,15 +216,11 @@
     }
 
     @media (min-width: $bp-large) {
-      width: calc(50% - #{$grid-gutter * 2});
-    }
-
-    @media (min-width: $bp-extralarge) {
       max-height: calc(50% - 1.5rem);
       width: calc(33.333% - #{$grid-gutter * 2});
     }
 
-    @media (min-width: $bp-xxl) {
+    @media (min-width: $bp-extralarge) {
       min-height: calc(20% - 1.5rem);
       width: calc(25% - #{$grid-gutter * 2});
     }
