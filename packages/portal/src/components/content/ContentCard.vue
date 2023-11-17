@@ -1,9 +1,11 @@
 <template>
   <b-card
+    v-b-tooltip.bottom="tooltipTitle"
     class="text-left content-card"
     data-qa="content card"
     no-body
     :class="cardClass"
+    :title="tooltipTitle"
   >
     <div class="card-wrapper">
       <MediaDefaultThumbnail
@@ -42,7 +44,6 @@
         v-if="(variant === 'mosaic') || !displayTitle"
         :destination="url"
         link-class="card-link no-title"
-        :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
       >
         <span
           v-if="displayTitle"
@@ -386,6 +387,22 @@
           { url: this.imageUrl, contentType: this.imageContentType },
           { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height }
         );
+      },
+
+      tooltipTexts() {
+        return this.displayTexts.map(text => text.values).join(' - ');
+      },
+
+      tooltipTitle() {
+        if (this.variant === 'mosaic') {
+          if (this.tooltipTexts) {
+            return `${this.displayTitle.value} - ${this.tooltipTexts}`;
+          } else {
+            return `${this.displayTitle.value}`;
+          }
+        } else {
+          return null;
+        }
       }
     },
 
