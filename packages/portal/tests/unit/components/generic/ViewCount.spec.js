@@ -26,12 +26,14 @@ const factory = ({ propsData = {} }) => {
     localVue,
     propsData,
     mocks: {
-      $t: (key, args) => args ? `${key} ${args.count}` : key,
       $config: {
         app: {
           baseUrl
         }
-      }
+      },
+      $t: (key) => key,
+      $tc: (key, count) => `${key} ${count}`,
+      $features: { storiesViewCounts: true }
     }
   });
 };
@@ -40,8 +42,9 @@ describe('components/generic/ViewCount', () => {
   afterEach(() => {
     nock.cleanAll();
   });
-  describe('when passed a blog URL', () => {
+  describe('when passed a URL', () => {
     const url = 'https://www.europeana.eu/blog/example';
+
     beforeEach(() => {
       nock(baseUrl)
         .get('/_api/events/views')
@@ -50,7 +53,14 @@ describe('components/generic/ViewCount', () => {
     });
     const propsData = { url };
 
-    it('should render view counter', async() => {
+    it('fetches view count for URL from local API', async() => {
+      const wrapper = factory({ propsData });
+      await wrapper.vm.fetch();
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('renders view counter', async() => {
       const wrapper = factory({ propsData });
       await wrapper.vm.fetch();
 
