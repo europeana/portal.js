@@ -182,7 +182,7 @@
       },
 
       texts() {
-        const textlessVariants = ['explore', 'mosaic'];
+        const textlessVariants = ['explore'];
         if (textlessVariants.includes(this.variant)) {
           return [];
         }
