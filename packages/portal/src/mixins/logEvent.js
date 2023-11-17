@@ -49,7 +49,7 @@ export default {
         await axios({
           baseURL: this.$config.app.baseUrl,
           method: 'post',
-          postData,
+          data: postData,
           url: '/_api/events'
         });
         this.eventLogged = true;
