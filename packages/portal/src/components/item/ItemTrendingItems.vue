@@ -25,7 +25,7 @@
   import ItemPreviewCardMosaic from '@/components/item/ItemPreviewCardMosaic';
 
   export default {
-    name: 'TrendingItems',
+    name: 'ItemTrendingItems',
 
     components: {
       ItemPreviewCardMosaic

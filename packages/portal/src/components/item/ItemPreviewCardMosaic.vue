@@ -3,9 +3,9 @@
     v-if="items.length"
     class="mosaic-container d-flex justify-content-between"
   >
-    <div class="mosaic-left-column d-flex flex-wrap overflow-hidden">
+    <div class="mosaic-column-1 d-flex flex-column">
       <ItemPreviewCard
-        v-for="(card, index) in items.slice(0,3)"
+        v-for="(card, index) in items.slice(0,2)"
         :key="index"
         ref="cards"
         :item="card"
@@ -15,24 +15,32 @@
         data-qa="item preview"
       />
     </div>
+    <div class="mosaic-column-2 d-flex flex-column">
+      <ItemPreviewCard
+        v-for="(card, index) in items.slice(2,4)"
+        :key="index + 2"
+        ref="cards"
+        :item="card"
+        variant="mosaic"
+        :class="`item mosaic-item mosaic-item-${index}`"
+        :lazy="true"
+        data-qa="item preview"
+      />
+    </div>
     <div
-      class="mosaic-right-column d-flex flex-wrap overflow-hidden position-relative d-none d-md-flex"
+      class="mosaic-column-3 d-none d-lg-flex flex-column flex-wrap align-content-start overflow-hidden "
     >
-      <div
-        class="mosaic-right-column-inner-wrapper d-flex flex-column flex-wrap align-content-start position-absolute"
-      >
-        <ItemPreviewCard
-          v-for="(card, index) in items.slice(3)"
-          :key="index"
-          ref="cards"
-          :item="card"
-          variant="mosaic"
-          class="item mosaic-item mosaic-item-x grid-item--width"
-          :lazy="true"
-          :offset="items.findIndex(item => item.id === card.id)"
-          data-qa="item preview"
-        />
-      </div>
+      <ItemPreviewCard
+        v-for="(card, index) in items.slice(4)"
+        :key="index"
+        ref="cards"
+        :item="card"
+        variant="mosaic"
+        class="item mosaic-item mosaic-item-x grid-item--width"
+        :lazy="true"
+        :offset="items.findIndex(item => item.id === card.id)"
+        data-qa="item preview"
+      />
     </div>
   </div>
 </template>
@@ -59,55 +67,51 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  .mosaic-left-column,
-  .mosaic-right-column {
+  .mosaic-container {
+    height: 100vw;
+    min-height: 300px;
     margin-left: -$grid-gutter;
     margin-right: -$grid-gutter;
-  }
-
-  .mosaic-left-column {
-    flex: 0 0 calc(100% + #{$grid-gutter * 2});
-
-    @media (min-width: $bp-medium) {
-      flex: 0 0 calc(75% + $grid-gutter);
-    }
 
     @media (min-width: $bp-large) {
-      flex: 0 0 calc(50% + $grid-gutter);
+      height: 600px;
     }
 
     @media (min-width: $bp-extralarge) {
-      flex: 0 0 calc(33% + $grid-gutter);
+      min-height: 600px;
+      height: 50vw;
     }
 
-    @media (min-width: $bp-4k) {
-      flex: 0 0 calc(33% + $grid-gutter-4k);
+    @media (min-width: $bp-xxxl) {
+      height: 40vw;
+    }
+
+    @media (min-width: $bp-wqhd) {
+      height: 1100px;
     }
   }
 
-  .mosaic-right-column {
-    @media (min-width: $bp-medium) {
-      flex: 0 0 calc(25% + $grid-gutter);
-    }
+  .mosaic-column-1,
+  .mosaic-column-2 {
+    flex: 0 0 calc(50%);
 
     @media (min-width: $bp-large) {
-      flex: 0 0 calc(50% + $grid-gutter);
-    }
-
-    @media (min-width: $bp-extralarge) {
-      flex: 0 0 calc(67% + $grid-gutter);
+      flex: 0 0 calc(25%);
     }
 
     @media (min-width: $bp-4k) {
-      flex: 0 0 calc(67% + $grid-gutter-4k);
+      flex: 0 0 calc(25%);
     }
   }
 
-  .mosaic-right-column-inner-wrapper {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  .mosaic-column-3 {
+    @media (min-width: $bp-large) {
+      flex: 0 0 calc(50%);
+    }
+
+    @media (min-width: $bp-4k) {
+      flex: 0 0 calc(50%);
+    }
   }
 
   ::v-deep {
@@ -117,78 +121,55 @@
   }
 
   ::v-deep .card-img {
-    min-height: 0;
-    max-height: 100% !important;
+    min-height: 0 !important;
+    max-height: 107% !important;
+    margin-top: -5%;
+    align-items: flex-start;
+
+    &.default-thumbnail {
+      align-items: center;
+    }
+
+    img {
+      min-height: 100%;
+      min-width: 100%;
+    }
   }
 
-  .card.mosaic-item-0,
-  .card.mosaic-item-1,
-  .card.mosaic-item-2 {
+  .card.mosaic-item {
     margin-left: $grid-gutter;
     margin-right: $grid-gutter;
     min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
 
     @media (min-width: $bp-4k) {
       margin-left: $grid-gutter-4k;
       margin-right: $grid-gutter-4k;
     }
-
-    ::v-deep .card-img {
-      position: relative;
-      padding-top: 100%;
-
-      img,
-      span {
-        min-height: 100%;
-        position: absolute;
-        top: 0;
-      }
-
-      span {
-        display: flex;
-        align-items: center;
-      }
-    }
-  }
-
-  .card.mosaic-item-0 {
-    flex: 0 0 calc(100% - #{$grid-gutter * 2});
-    max-width: none;
-
-    @media (min-width: $bp-4k) {
-      flex: 0 0 calc(100% - #{$grid-gutter-4k * 2});
-    }
-  }
-
-  .card.mosaic-item-1,
-  .card.mosaic-item-2 {
-    flex: 0 0 calc(50% - #{$grid-gutter * 2});
-
-    @media (min-width: $bp-4k) {
-      flex: 0 0 calc(50% - #{$grid-gutter-4k * 2});
-    }
   }
 
   .card.mosaic-item-x {
-    margin-left: $grid-gutter;
-    margin-right: $grid-gutter;
-    flex: 1 1 auto;
     max-height: calc(33.333% - 1.5rem);
     min-height: calc(16.667% - 1.5rem);
-    min-width: 0;
-
-    @media (min-width: $bp-medium) {
-      width: calc(100% - #{$grid-gutter * 2});
-    }
 
     @media (min-width: $bp-large) {
+      width: calc(50% - #{$grid-gutter * 2});
       max-height: calc(50% - 1.5rem);
-      width: calc(33.333% - #{$grid-gutter * 2});
     }
 
     @media (min-width: $bp-extralarge) {
+      width: calc(33.333% - #{$grid-gutter * 2});
+    }
+
+    @media (min-width: $bp-xxxl) {
       min-height: calc(20% - 1.5rem);
       width: calc(25% - #{$grid-gutter * 2});
+    }
+
+    @media (min-width: $bp-wqhd) {
+      max-height: calc(33.333% - 1.5rem);
     }
 
     @media (min-width: $bp-4k) {

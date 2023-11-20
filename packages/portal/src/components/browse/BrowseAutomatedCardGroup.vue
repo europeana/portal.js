@@ -6,10 +6,13 @@
       v-if="key === 'items/type-counts'"
       :section="contentCardSection"
     />
-    <TrendingItems
+    <client-only
       v-else-if="trending"
-      :headline="headline"
-    />
+    >
+      <ItemTrendingItems
+        :headline="headline"
+      />
+    </client-only>
     <ContentCardSection
       v-else
       :section="contentCardSection"
@@ -19,7 +22,7 @@
 
 <script>
   import ContentCardSection from '../content/ContentCardSection';
-  import TrendingItems from '@/components/trending/TrendingItems';
+  import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
   import { daily, getLabelledSlug } from '@/plugins/europeana/utils';
 
@@ -39,7 +42,7 @@
     components: {
       ContentCardSection,
       BrowseInfoCardSection,
-      TrendingItems
+      ItemTrendingItems
     },
 
     props: {
