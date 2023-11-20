@@ -6,7 +6,7 @@
       <ContentHeader
         :title="pageMeta.title"
       />
-      <TrendingItems />
+      <ItemTrendingItems />
     </b-container>
   </div>
 </template>
@@ -14,7 +14,7 @@
 <script>
   import ContentHeader from '@/components/content/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import TrendingItems from '@/components/trending/TrendingItems';
+  import ItemTrendingItems from '@/components/item/ItemTrendingItems';
 
   export default {
     name: 'TrendingPage',
@@ -22,7 +22,7 @@
     components: {
       ContentHeader,
 
-      TrendingItems
+      ItemTrendingItems
     },
 
     mixins: [
