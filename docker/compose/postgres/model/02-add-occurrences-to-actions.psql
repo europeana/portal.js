@@ -1,0 +1,6 @@
+SET search_path TO events;
+
+ALTER TABLE actions
+  ADD COLUMN occurrences INT;
+ALTER TABLE actions
+  ALTER COLUMN session_id DROP NOT NULL;
