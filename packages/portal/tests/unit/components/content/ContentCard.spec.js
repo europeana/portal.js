@@ -17,6 +17,7 @@ const $store = {
 };
 
 const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
+  attachTo: document.body,
   localVue,
   propsData,
   mocks: {
