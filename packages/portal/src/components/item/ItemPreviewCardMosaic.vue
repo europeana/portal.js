@@ -28,7 +28,7 @@
       />
     </div>
     <div
-      class="mosaic-column-3 d-none d-md-flex flex-column flex-wrap align-content-start overflow-hidden "
+      class="mosaic-column-3 d-none d-lg-flex flex-column flex-wrap align-content-start overflow-hidden "
     >
       <ItemPreviewCard
         v-for="(card, index) in items.slice(4)"
@@ -68,19 +68,26 @@
   @import '@europeana/style/scss/variables';
 
   .mosaic-container {
-    height: 60vh;
-    min-height: 500px;
-    max-height: 700px;
+    height: 100vw;
+    min-height: 300px;
     margin-left: -$grid-gutter;
     margin-right: -$grid-gutter;
 
     @media (min-width: $bp-large) {
-      height: 70vh;
+      height: 600px;
+    }
+
+    @media (min-width: $bp-extralarge) {
       min-height: 600px;
+      height: 50vw;
     }
 
     @media (min-width: $bp-xxxl) {
-      max-height: 900px;
+      height: 40vw;
+    }
+
+    @media (min-width: $bp-wqhd) {
+      height: 1100px;
     }
   }
 
@@ -114,8 +121,19 @@
   }
 
   ::v-deep .card-img {
-    min-height: 0;
-    max-height: 100% !important;
+    min-height: 0 !important;
+    max-height: 107% !important;
+    margin-top: -5%;
+    align-items: flex-start;
+
+    &.default-thumbnail {
+      align-items: center;
+    }
+
+    img {
+      min-height: 100%;
+      min-width: 100%;
+    }
   }
 
   .card.mosaic-item {
@@ -136,13 +154,9 @@
     max-height: calc(33.333% - 1.5rem);
     min-height: calc(16.667% - 1.5rem);
 
-    @media (min-width: $bp-medium) {
-      width: calc(100% - #{$grid-gutter * 2});
-    }
-
     @media (min-width: $bp-large) {
-      max-height: calc(50% - 1.5rem);
       width: calc(50% - #{$grid-gutter * 2});
+      max-height: calc(50% - 1.5rem);
     }
 
     @media (min-width: $bp-extralarge) {
@@ -152,6 +166,10 @@
     @media (min-width: $bp-xxxl) {
       min-height: calc(20% - 1.5rem);
       width: calc(25% - #{$grid-gutter * 2});
+    }
+
+    @media (min-width: $bp-wqhd) {
+      max-height: calc(33.333% - 1.5rem);
     }
 
     @media (min-width: $bp-4k) {
