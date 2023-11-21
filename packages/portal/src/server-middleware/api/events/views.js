@@ -1,6 +1,7 @@
 import pg from './pg.js';
 
 // TODO: use `next` for error handling
+// TODO: combine two queries into one
 export default (config = {}) => {
   pg.config = config;
 
@@ -18,8 +19,7 @@ export default (config = {}) => {
         FROM events.actions a
         LEFT JOIN events.objects o ON a.object_id=o.id
         LEFT JOIN events.action_types at ON a.action_type_id=at.id
-        WHERE a.occurred_at > (CURRENT_TIMESTAMP - INTERVAL '30 days')
-          AND o.uri=$1
+        WHERE o.uri=$1
           AND at.name='view'
           AND a.session_id IS NOT NULL
         `,
@@ -33,8 +33,7 @@ export default (config = {}) => {
         FROM events.actions a
         LEFT JOIN events.objects o ON a.object_id=o.id
         LEFT JOIN events.action_types at ON a.action_type_id=at.id
-        WHERE a.occurred_at > (CURRENT_TIMESTAMP - INTERVAL '30 days')
-          AND o.uri=$1
+        WHERE o.uri=$1
           AND at.name='view'
           AND a.session_id IS NULL
         `,
