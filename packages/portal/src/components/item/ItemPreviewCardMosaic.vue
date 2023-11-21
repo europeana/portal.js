@@ -28,7 +28,7 @@
       />
     </div>
     <div
-      class="mosaic-column-3 d-none d-lg-flex flex-column flex-wrap align-content-start overflow-hidden "
+      class="mosaic-column-3 d-none d-lg-flex flex-column flex-wrap align-content-start overflow-hidden"
     >
       <ItemPreviewCard
         v-for="(card, index) in items.slice(4)"
@@ -40,6 +40,8 @@
         :lazy="true"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
+        :image-width="100"
+        :image-height="100"
       />
     </div>
   </div>
