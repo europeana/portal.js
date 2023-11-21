@@ -85,7 +85,7 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
-    "gallery": "Galleriji",
+    "gallery": "L-aħħar galleriji",
     "item": "Oġġetti reċenti",
     "organisation": "Organizzazzjonijiet",
     "place": "Postijiet",
@@ -771,7 +771,8 @@ export default {
   },
   "galleries": {
     "description": "Esplora d-direttorji tar-ritratti tagħna",
-    "galleries": "Gallerija | Galleriji"
+    "galleries": "Gallerija | Galleriji",
+    "seeAllPublished": "Ara l-galleriji kollha ppubblikati"
   },
   "header": {
     "clearQuery": "Ħassar il-Query tat-Tiftix",

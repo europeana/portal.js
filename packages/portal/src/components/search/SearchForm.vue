@@ -60,6 +60,7 @@
           data-qa="clear button"
           class="clear-button"
           variant="light"
+          :class="{ 'icon-only': inSearchSidebar || inHomeHero}"
           @click="clearQuery"
         >
           <span class="icon-clear" />
@@ -334,17 +335,42 @@
   .clear-button {
     position: absolute;
     z-index: 4;
-    top: 0.8125rem;
-    right: 0.8125rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0;
-    padding: 0.5rem;
+    top: 0.75rem;
+    right: 0.75rem;
+
+    @media (min-width: $bp-large) {
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+      right: 1.5rem;
+      top: 1rem;
+    }
 
     .icon-clear {
-      line-height: 1;
-      font-size: $font-size-small;
+      padding-right: 0.5rem;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-smallest-4k;
+      }
+    }
+
+    &.icon-only {
+      top: 0.8125rem;
+      right: 0.8125rem;
+      font-size: 0;
+      padding: 0.5rem;
+
+      .icon-clear {
+        line-height: 1;
+        font-size: $font-size-small;
+        padding-right: 0;
+      }
     }
   }
 
@@ -398,24 +424,15 @@
     }
 
     .clear-button {
-      top: 0.75rem;
-      right: 0.75rem;
-
-      @media (min-width: $bp-large) {
-        font-size: $font-size-small;
-        top: 0.5rem;
-        right: 0.5rem;
-        padding: 0.5rem 0.75rem;
+      @media (max-width: ($bp-large - 1px)) {
+        font-size: 0;
+        padding: 0.5rem;
 
         .icon-clear {
-          font-size: $font-size-smallest;
-          line-height: 1.2;
-          padding-right: 0.5rem;
+          line-height: 1;
+          font-size: $font-size-small;
+          padding-right: 0;
         }
-      }
-
-      @media (min-width: $bp-4k) {
-        right: 1.5rem;
       }
     }
 

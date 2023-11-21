@@ -3,7 +3,7 @@ import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
-import HomeLatest from '@/components/home/HomeLatest.vue';
+import HomeLatestStories from '@/components/home/HomeLatestStories.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -27,7 +27,7 @@ const contentfulQueryResponse = {
   }
 };
 
-const factory = () => shallowMountNuxt(HomeLatest, {
+const factory = () => shallowMountNuxt(HomeLatestStories, {
   localVue,
   stubs: ['b-card-group'],
   mocks: {
@@ -44,7 +44,7 @@ const factory = () => shallowMountNuxt(HomeLatest, {
   }
 });
 
-describe('components/home/HomeLatest', () => {
+describe('components/home/HomeLatestStories', () => {
   describe('template', () => {
     it('shows a section with editorial content', async() => {
       const wrapper = factory();

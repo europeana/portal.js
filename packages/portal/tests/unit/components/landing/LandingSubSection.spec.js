@@ -14,7 +14,7 @@ const factory = (propsData) => shallowMount(LandingSubSection, {
       }
     }
   },
-  stubs: ['b-container']
+  stubs: ['b-container', 'b-col']
 });
 
 describe('components/landing/LandingSubSection', () => {
