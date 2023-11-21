@@ -15,9 +15,29 @@
       hide-header-close
       hide-footer
     >
-      <p>{{ $t('set.publication.description') }}</p>
+      <i18n
+        path="set.publication.description"
+        tag="p"
+      >
+        <template #galleries>
+          <b-link :to="localePath('/galleries')">
+            {{ 'Galleries' }}<!-- This comment removes white space
+                  -->
+          </b-link>
+        </template>
+      </i18n>
       <h3>{{ $t('set.publication.process.title') }}</h3>
-      <p>{{ $t('set.publication.process.description') }}</p>
+      <i18n
+        path="set.publication.process.description"
+        tag="p"
+      >
+        <template #guidelines>
+          <b-link :to="localePath('/create-and-use-a-europeana-account')">
+            {{ 'editorial guidelines' }}<!-- This comment removes white space
+                  -->
+          </b-link>
+        </template>
+      </i18n>
       <h3>{{ $t('set.publication.time.title') }}</h3>
       <p>{{ $t('set.publication.time.description') }}</p>
       <h3>{{ $t('set.publication.criteria.title') }}</h3>
