@@ -29,7 +29,7 @@ export default (config = {}) => {
 
       const sessionlessResult = await pg.query(`
         SELECT
-          occurrences AS count
+          SUM(occurrences) AS count
         FROM events.actions a
         LEFT JOIN events.objects o ON a.object_id=o.id
         LEFT JOIN events.action_types at ON a.action_type_id=at.id
