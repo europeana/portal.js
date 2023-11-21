@@ -1222,7 +1222,7 @@ export default {
   },
   "views": {
     "count": "{count} view | {count} views",
-    "tooltip": "The number of times this story has been viewed in the past 30 days."
+    "tooltip": "The number of times this page has been viewed."
   },
   "website": "Website"
 };

@@ -4,7 +4,6 @@
     id="view-count"
     v-b-tooltip.hover
     v-b-tooltip.bottom
-    :title="$t(`views.tooltip`)"
     data-qa="view count"
     class="view-count d-inline-flex align-items-center"
   >

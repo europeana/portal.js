@@ -40,13 +40,13 @@ describe('@/server-middleware/api/events/views', () => {
     it('queries postgres for the count of the url', async() => {
       await viewsEventsHandler(options)(expressReqStub, expressResStub);
 
-      expect(pgPoolQuery.called).toBe(true);
+      expect(pgPoolQuery.getCalls().length).toBe(2);
     });
 
-    it('responds with the view count as json', async() => {
+    it('responds with the combined view count as json', async() => {
       await viewsEventsHandler(options)(expressReqStub, expressResStub);
 
-      expect(expressResStub.json.calledWith({ viewCount: 5 })).toBe(true);
+      expect(expressResStub.json.calledWith({ viewCount: 10 })).toBe(true);
     });
   });
 });
