@@ -100,6 +100,10 @@
     },
 
     methods: {
+      selectRandomBackground(images) {
+        return images[Math.floor(Math.random() * images.length)] || false;
+      },
+
       async fetchContentfulEntry() {
         const variables = {
           locale: this.$i18n.isoLocale(),
@@ -109,8 +113,9 @@
         };
         const response = await this.$contentful.query('homePage', variables);
         const homePage = response.data.data.homePageCollection.items[0];
+        const backgroundImages = response.data.data.scheduledImageSetCollection?.items?.[0]?.hasPartCollection?.items || [];
         this.sections = homePage.sectionsCollection.items.filter((item) => !!item);
-        this.backgroundImage = homePage.primaryImageOfPage;
+        this.backgroundImage = this.selectRandomBackground(backgroundImages) || homePage.primaryImageOfPage;
         this.socialMediaImage = homePage.image;
       }
     }

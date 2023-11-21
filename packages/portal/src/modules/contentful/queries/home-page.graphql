@@ -41,6 +41,15 @@ query HomePage(
       }
     }
   }
+  scheduledImageSetCollection(preview: $preview, locale: $locale, where: { datePublished_lte: $date }, order: datePublished_DESC, limit: 1) {
+    items {
+      hasPartCollection(limit: 8) {
+        items {
+          ...imageWithAttributionFields
+        }
+      }
+    }
+  }
 }
 
 fragment imageWithAttributionFields on ImageWithAttribution {
