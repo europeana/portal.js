@@ -10,7 +10,7 @@
     <span
       class="icon-ic-view d-inline-flex pr-1"
     />
-    {{ $tc('views.count', viewCount) }}
+    {{ $tc('views.count', viewCount, { count: $options.filters.localise(viewCount) }) }}
   </b-button>
 </template>
 
