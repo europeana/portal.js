@@ -119,22 +119,20 @@
   ::v-deep {
     .card-wrapper {
       height: 100%;
+      flex: 1 1 auto;
     }
   }
 
   ::v-deep .card-img {
     min-height: 0 !important;
-    max-height: 107% !important;
-    margin-top: -5%;
-    align-items: flex-start;
+    max-height: none !important;
 
     &.default-thumbnail {
       align-items: center;
     }
 
     img {
-      min-height: 100%;
-      min-width: 100%;
+      object-position: 50% 20%;
     }
   }
 
@@ -144,6 +142,7 @@
     min-width: 0;
     min-height: 0;
     flex: 1 1 auto;
+    flex-direction: column;
     overflow: hidden;
 
     @media (min-width: $bp-4k) {
