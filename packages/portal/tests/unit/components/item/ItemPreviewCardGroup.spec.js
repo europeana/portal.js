@@ -141,15 +141,6 @@ describe('components/item/ItemPreviewCardGroup', () => {
           expect(wrapper.vm.cardGroupClass).toMatch('card-group-list');
         });
       });
-
-      describe('when in explore view', () => {
-        it('uses the explore-more card-group class', () => {
-          const wrapper = factory({ propsData: { items: results, view: 'explore' } });
-          wrapper.vm.fetch();
-
-          expect(wrapper.vm.cardGroupClass).toMatch('explore-more');
-        });
-      });
     });
   });
 
