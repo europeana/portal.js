@@ -6,8 +6,7 @@ import viewsEventsHandler from '@/server-middleware/api/events/views';
 const pgPoolQuery = sinon.stub().resolves({
   rows: [
     {
-      'actions_count': 5,
-      'history_count': 123
+      'views': 128
     }
   ]
 });
@@ -50,7 +49,7 @@ describe('@/server-middleware/api/events/views', () => {
       expect(pgPoolQuery.getCalls().length).toBe(1);
     });
 
-    it('responds with the combined view count as json', async() => {
+    it('responds with the view count as json', async() => {
       await viewsEventsHandler(options)(expressReqStub, expressResStub);
 
       expect(expressResStub.json.calledWith({ viewCount: 128 })).toBe(true);
