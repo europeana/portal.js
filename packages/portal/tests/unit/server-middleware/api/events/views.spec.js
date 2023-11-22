@@ -3,7 +3,14 @@ import sinon from 'sinon';
 
 import viewsEventsHandler from '@/server-middleware/api/events/views';
 
-const pgPoolQuery = sinon.stub().resolves({ rows: [{ count: 5 }] });
+const pgPoolQuery = sinon.stub().resolves({
+  rows: [
+    {
+      'actions_count': 5,
+      'history_count': 123
+    }
+  ]
+});
 
 const expressReqStub = { query: { url: 'https://example.com/example' } };
 const expressResStub = {
@@ -37,16 +44,16 @@ describe('@/server-middleware/api/events/views', () => {
   describe('when explicitly enabled', () => {
     const options = { enabled: true };
 
-    it('queries postgres for the count of the url', async() => {
+    it('queries postgres for the views', async() => {
       await viewsEventsHandler(options)(expressReqStub, expressResStub);
 
-      expect(pgPoolQuery.getCalls().length).toBe(2);
+      expect(pgPoolQuery.getCalls().length).toBe(1);
     });
 
     it('responds with the combined view count as json', async() => {
       await viewsEventsHandler(options)(expressReqStub, expressResStub);
 
-      expect(expressResStub.json.calledWith({ viewCount: 10 })).toBe(true);
+      expect(expressResStub.json.calledWith({ viewCount: 128 })).toBe(true);
     });
   });
 });
