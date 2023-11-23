@@ -32,6 +32,7 @@ query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = fals
           }
           ... on PrimaryCallToAction {
             name
+            nameEN: name(locale: "en-GB")
             text
             relatedLink {
               url

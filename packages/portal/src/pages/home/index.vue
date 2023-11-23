@@ -12,6 +12,7 @@
         <CallToActionBanner
           v-if="callsToAction[0]"
           :name="callsToAction[0].name"
+          :name-english="callsToAction[0].nameEN"
           :text="callsToAction[0].text"
           :link="callsToAction[0].relatedLink"
           :illustration="callsToAction[0].image"
@@ -22,6 +23,7 @@
         <CallToActionBanner
           v-if="callsToAction[1]"
           :name="callsToAction[1].name"
+          :name-english="callsToAction[1].nameEN"
           :text="callsToAction[1].text"
           :link="callsToAction[1].relatedLink"
           :illustration="callsToAction[1].image"
@@ -31,6 +33,7 @@
         <CallToActionBanner
           v-if="callsToAction[2]"
           :name="callsToAction[2].name"
+          :name-english="callsToAction[2].nameEN"
           :text="callsToAction[2].text"
           :link="callsToAction[2].relatedLink"
           :illustration="callsToAction[2].image"
