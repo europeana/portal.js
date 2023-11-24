@@ -7,39 +7,42 @@ import SearchFilters from '@/components/search/SearchFilters.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (options = {}) => {
-  return shallowMount(SearchFilters, {
-    localVue,
-    attachTo: document.body,
-    mocks: {
-      $t: (key, arg) => arg?.count ? key + '-' + arg.count : key,
-      $tc: (key) => key,
-      $te: () => true,
-      $features: {},
-      localePath: () => '/',
-      ...options.mocks,
-      $route: { query: {} },
-      $router: { push: sinon.spy() },
-      $store: {
-        commit: () => sinon.spy(),
-        getters: {
-          'entity/id': null,
-          ...options.mocks?.$store?.getters
-        },
-        state: {
-          search: {
-            collectionFacetEnabled: true,
-            showSearchSidebar: false
-          },
-          ...options.mocks?.$store?.state
-        }
-      }
+const factory = (options = {}) => shallowMount(SearchFilters, {
+  localVue,
+  attachTo: document.body,
+  mocks: {
+    $t: (key, arg) => arg?.count ? key + '-' + arg.count : key,
+    $tc: (key) => key,
+    $te: () => true,
+    $features: {},
+    localePath: () => '/',
+    ...options.mocks,
+    $matomo: {
+      trackEvent: sinon.spy()
     },
-    propsData: options.propsData
-  });
-};
+    $route: { query: {} },
+    $router: { push: sinon.spy() },
+    $store: {
+      commit: sinon.spy(),
+      getters: {
+        'entity/id': null,
+        ...options.mocks?.$store?.getters
+      },
+      state: {
+        search: {
+          collectionFacetEnabled: true,
+          showSearchSidebar: false
+        },
+        ...options.mocks?.$store?.state
+      }
+    }
+  },
+  propsData: options.propsData
+});
 
 describe('components/search/SearchFilters', () => {
+  afterEach(sinon.resetHistory);
+
   describe('template', () => {
     describe('filters title', () => {
       describe('with advanced search', () => {
@@ -311,6 +314,48 @@ describe('components/search/SearchFilters', () => {
   });
 
   describe('methods', () => {
+    describe('rerouteSearch', () => {
+      it('stores that the interaction is loggable', () => {
+        const wrapper = factory();
+
+        wrapper.vm.rerouteSearch();
+
+        expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
+      });
+
+      it('updates the route', () => {
+        const wrapper = factory();
+
+        wrapper.vm.rerouteSearch();
+
+        expect(wrapper.vm.$router.push.called).toBe(true);
+      });
+
+      it('tracks each qf filter in Matomo', () => {
+        const wrapper = factory();
+
+        wrapper.vm.rerouteSearch({
+          qf: [
+            'TYPE:"IMAGE"',
+            'LANGUAGE:"DE"'
+          ]
+        });
+
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Filters', 'Filter selected', 'TYPE:"IMAGE"')).toBe(true);
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Filters', 'Filter selected', 'LANGUAGE:"DE"')).toBe(true);
+      });
+
+      it('tracks reusability filter in Matomo', () => {
+        const wrapper = factory();
+
+        wrapper.vm.rerouteSearch({
+          reusability: 'open'
+        });
+
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Filters', 'Reusability filter selected', 'open')).toBe(true);
+      });
+    });
+
     describe('resetFilters', () => {
       it('removes all current filters from route', () => {
         const userParams = {

@@ -23,6 +23,8 @@ const searchResult = {
   ]
 };
 
+const logApmTransactionSpy = sinon.spy();
+
 const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {}) => shallowMountNuxt(SearchInterface, {
   localVue,
   attachTo: document.body,
@@ -67,11 +69,18 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
   },
   propsData,
   data: () => data,
+  mixins: [
+    {
+      methods: {
+        logApmTransaction: logApmTransactionSpy
+      }
+    }
+  ],
   stubs: ['SearchFilters', 'i18n']
 });
 
 describe('components/search/SearchInterface', () => {
-  afterEach(() => sinon.resetHistory());
+  afterEach(sinon.resetHistory);
 
   describe('fetch', () => {
     it('activates the search in the store', async() => {
@@ -233,6 +242,88 @@ describe('components/search/SearchInterface', () => {
             expect(wrapper.vm.qaes.length).toBe(0);
             expect(wrapper.vm.qasWithAddedEntityValue.length).toBe(1);
             expect(wrapper.vm.qasWithAddedEntityValue[0].qae).toEqual(null);
+          });
+        });
+      });
+    });
+
+    describe('interaction logging', () => {
+      describe('when server-side', () => {
+        beforeAll(() => {
+          process.server = true;
+          process.client = false;
+        });
+        afterAll(() => {
+          delete process.server;
+          delete process.client;
+        });
+
+        it('logs the interaction to APM', async() => {
+          const wrapper = factory();
+          sinon.resetHistory();
+
+          await wrapper.vm.fetch();
+
+          expect(logApmTransactionSpy.calledWith({
+            name: 'Search - fetch results',
+            labels: { 'search_params_qf': ['contentTier:(1 OR 2 OR 3 OR 4)'], 'search_results_total': 1 }
+          })).toBe(true);
+        });
+
+        it('resets the stored loggable interaction flag', async() => {
+          const wrapper = factory();
+          sinon.resetHistory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', false)).toBe(true);
+        });
+      });
+
+      describe('when client-side', () => {
+        beforeAll(() => {
+          process.server = false;
+          process.client = true;
+        });
+        afterAll(() => {
+          delete process.server;
+          delete process.client;
+        });
+
+        describe('and interaction is flagged as loggable in the store', () => {
+          const mocks = { $store: { state: { search: { loggableInteraction: true } } } };
+          it('logs the interaction to APM', async() => {
+            const wrapper = factory({ mocks });
+            sinon.resetHistory();
+
+            await wrapper.vm.fetch();
+
+            expect(logApmTransactionSpy.calledWith({
+              name: 'Search - fetch results',
+              labels: { 'search_params_qf': ['contentTier:(1 OR 2 OR 3 OR 4)'], 'search_results_total': 1 }
+            })).toBe(true);
+          });
+
+          it('resets the stored loggable interaction flag', async() => {
+            const wrapper = factory({ mocks });
+            sinon.resetHistory();
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', false)).toBe(true);
+          });
+        });
+
+        describe('but interaction is not flagged as loggable in the store', () => {
+          const mocks = { $store: { state: { search: { loggableInteraction: false } } } };
+
+          it('does not record the interaction', async() => {
+            const wrapper = factory({ mocks });
+            sinon.resetHistory();
+
+            await wrapper.vm.fetch();
+
+            expect(logApmTransactionSpy.called).toBe(false);
           });
         });
       });

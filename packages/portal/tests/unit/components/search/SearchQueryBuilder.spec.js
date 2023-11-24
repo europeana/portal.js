@@ -25,6 +25,9 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => shallowMount
     $router: {
       push: sinon.spy()
     },
+    $store: {
+      commit: sinon.spy()
+    },
     $t: (key) => key,
     ...mocks
   }
@@ -108,6 +111,17 @@ describe('components/search/SearchQueryBuilder', () => {
         }
       ];
       const validations = [true, true];
+
+      it('stores that the interaction is loggable', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ queryRules, validations });
+
+        const form = wrapper.find('[data-qa="search query builder form"]');
+        form.trigger('submit.prevent');
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
+      });
 
       it('updates the router', async() => {
         const wrapper = factory();
