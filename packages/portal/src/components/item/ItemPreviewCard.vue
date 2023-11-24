@@ -14,6 +14,8 @@
     :sub-title="subTitle"
     :media-type="type"
     :offset="offset"
+    :image-width="imageWidth"
+    :image-height="imageHeight"
   >
     <template
       v-if="variant === 'list'"
@@ -166,6 +168,20 @@
       onAuxClickCard: {
         type: Function,
         default: null
+      },
+      /**
+       * Width of the image
+       */
+      imageWidth: {
+        type: Number,
+        default: null
+      },
+      /**
+       * Height of the image
+       */
+      imageHeight: {
+        type: Number,
+        default: null
       }
     },
 
@@ -182,7 +198,7 @@
       },
 
       texts() {
-        const textlessVariants = ['explore', 'mosaic'];
+        const textlessVariants = ['explore'];
         if (textlessVariants.includes(this.variant)) {
           return [];
         }
