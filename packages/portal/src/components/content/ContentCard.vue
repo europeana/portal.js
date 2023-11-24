@@ -396,17 +396,11 @@
       tooltipTitle() {
         if (this.variant === 'mosaic') {
           if (this.displayTitle?.value && this.tooltipTexts) {
-            return `${this.displayTitle?.value} - ${this.tooltipTexts}`;
-          } else if (this.displayTitle?.value) {
-            return `${this.displayTitle?.value}`;
-          } else if (this.tooltipTexts) {
-            return `${this.tooltipTexts}`;
-          } else {
-            return null;
+            return `${this.displayTitle.value} - ${this.tooltipTexts}`;
           }
-        } else {
-          return null;
+          return this.displayTitle?.value || this.tooltipTexts;
         }
+        return null;
       }
     },
 
