@@ -1194,5 +1194,8 @@ export default {
     "description": "Navegar por materias",
     "themes": "Materias"
   },
+  "views": {
+    "count": "{count} vista | {count} vistas"
+  },
   "website": "Sitio web"
 };

@@ -1194,5 +1194,8 @@ export default {
     "description": "Procházet podle tématu",
     "themes": "Témata"
   },
+  "views": {
+    "count": "{count} zobrazení | {count} zobrazení"
+  },
   "website": "Webové stránky"
 };

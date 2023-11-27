@@ -1194,5 +1194,8 @@ export default {
     "description": "Gennemse efter tema",
     "themes": "Temaer"
   },
+  "views": {
+    "count": "{count} visning | {count} visninger"
+  },
   "website": "Websted"
 };

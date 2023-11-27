@@ -1194,5 +1194,8 @@ export default {
     "description": "Blader op thema",
     "themes": "Thema's"
   },
+  "views": {
+    "count": "{count} weergave | {count} weergaven"
+  },
   "website": "Website"
 };

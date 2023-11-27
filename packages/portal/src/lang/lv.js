@@ -1194,5 +1194,8 @@ export default {
     "description": "Pārlūkojiet pēc tēmas",
     "themes": "Tēmas"
   },
+  "views": {
+    "count": "{count} skats | {count} skatījumi"
+  },
   "website": "Vietne"
 };

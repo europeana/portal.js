@@ -1194,5 +1194,8 @@ export default {
     "description": "Navegar por tema",
     "themes": "Temas"
   },
+  "views": {
+    "count": "{count} visualização | {count} visualizações"
+  },
   "website": "Sítio Web"
 };

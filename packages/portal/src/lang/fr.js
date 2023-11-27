@@ -1194,5 +1194,8 @@ export default {
     "description": "Parcourir par thème",
     "themes": "Thèmes"
   },
+  "views": {
+    "count": "{count} vue | {count} vues"
+  },
   "website": "Site Internet"
 };

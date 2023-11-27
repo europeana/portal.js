@@ -1194,5 +1194,8 @@ export default {
     "description": "Naršyti pagal temą",
     "themes": "Temos"
   },
+  "views": {
+    "count": "{count} peržiūra | {count} peržiūros"
+  },
   "website": "Interneto svetainė"
 };

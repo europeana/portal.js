@@ -1194,5 +1194,8 @@ export default {
     "description": "Brabhsáil de réir téama",
     "themes": "Téamaí"
   },
+  "views": {
+    "count": "{count} amharc | {count} amharcanna"
+  },
   "website": "Suíomh Gréasáin"
 };

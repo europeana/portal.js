@@ -1194,5 +1194,8 @@ export default {
     "description": "Sfoglia per tema",
     "themes": "Temi"
   },
+  "views": {
+    "count": "{count} visualizzazione | {count} visualizzazioni"
+  },
   "website": "Sito web"
 };

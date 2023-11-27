@@ -1194,5 +1194,8 @@ export default {
     "description": "Bläddra efter tema",
     "themes": "Teman"
   },
+  "views": {
+    "count": "{count} visning | {count} visningar"
+  },
   "website": "Webbplats"
 };

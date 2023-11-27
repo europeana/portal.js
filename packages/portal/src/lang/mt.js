@@ -1194,5 +1194,8 @@ export default {
     "description": "Ibbrawżja skont it-tema",
     "themes": "Temi"
   },
+  "views": {
+    "count": "{count} veduta | {count} veduti"
+  },
   "website": "Websajt"
 };

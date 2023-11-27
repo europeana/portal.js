@@ -1194,5 +1194,8 @@ export default {
     "description": "Böngésszen téma szerint",
     "themes": "Témák"
   },
+  "views": {
+    "count": "{count} megtekintés | {count} megtekintések"
+  },
   "website": "Weboldal"
 };

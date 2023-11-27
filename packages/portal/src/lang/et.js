@@ -1194,5 +1194,8 @@ export default {
     "description": "Sirvi teemade kaupa",
     "themes": "Teemad"
   },
+  "views": {
+    "count": "{count} vaade | {count} vaadet"
+  },
   "website": "Veebisait"
 };
