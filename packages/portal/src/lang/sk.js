@@ -91,7 +91,8 @@ export default {
     "place": "Miesta",
     "theme": "Kategórie",
     "time": "Storočia",
-    "topic": "Témy"
+    "topic": "Témy",
+    "trending": "Trendujúce objekty"
   },
   "blog": {
     "author": "Autor",

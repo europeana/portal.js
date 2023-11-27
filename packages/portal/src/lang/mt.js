@@ -91,7 +91,8 @@ export default {
     "place": "Postijiet",
     "theme": "Temi",
     "time": "Sekli",
-    "topic": "Suġġetti"
+    "topic": "Suġġetti",
+    "trending": "Oġġetti trending"
   },
   "blog": {
     "author": "Awtur",

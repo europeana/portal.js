@@ -91,7 +91,8 @@ export default {
     "place": "Steder",
     "theme": "Temaer",
     "time": "Århundreder",
-    "topic": "Emner"
+    "topic": "Emner",
+    "trending": "Trending genstande"
   },
   "blog": {
     "author": "Forfatter",

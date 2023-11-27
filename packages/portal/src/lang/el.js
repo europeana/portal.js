@@ -91,7 +91,8 @@ export default {
     "place": "Μέρη",
     "theme": "Κατηγορίες",
     "time": "Αιώνες",
-    "topic": "Θέματα"
+    "topic": "Θέματα",
+    "trending": "Δημοφιλή τεκμήρια"
   },
   "blog": {
     "author": "Συγγραφέας",

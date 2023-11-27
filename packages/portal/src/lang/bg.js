@@ -91,7 +91,8 @@ export default {
     "place": "Места",
     "theme": "Теми",
     "time": "Векове",
-    "topic": "Рубрика"
+    "topic": "Рубрика",
+    "trending": "Тенденционни обекта"
   },
   "blog": {
     "author": "Автор",

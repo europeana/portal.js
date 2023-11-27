@@ -91,7 +91,8 @@ export default {
     "place": "Mesta",
     "theme": "Teme",
     "time": "Stoletja",
-    "topic": "Teme"
+    "topic": "Teme",
+    "trending": "Trendovski enote"
   },
   "blog": {
     "author": "Avtor",

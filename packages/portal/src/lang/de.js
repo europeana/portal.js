@@ -91,7 +91,8 @@ export default {
     "place": "Orte",
     "theme": "Themenbereiche",
     "time": "Jahrhunderte",
-    "topic": "Themen"
+    "topic": "Themen",
+    "trending": "Trendige Objekte"
   },
   "blog": {
     "author": "Autor",

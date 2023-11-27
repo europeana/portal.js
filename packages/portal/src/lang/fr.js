@@ -17,7 +17,7 @@ export default {
         "public": "Vous n'avez pas encore créé de galeries publiques",
         "published": "Vous n'avez pas encore publié de galeries"
       },
-      "noLikedItems": "Vous n'avez pas encore aimé d'articles"
+      "noLikedItems": "Vous n'avez pas encore aimé d'items"
     },
     "privateCollections": "Galeries privées",
     "profile": "Mes mentions J'aime et mes galeries",
@@ -27,11 +27,11 @@ export default {
     "settings": "Paramètres",
     "title": "Mon compte",
     "tooltip": {
-      "EntityBestItemsSet": "Une galerie curative présente les éléments épinglés dans une collection spécifique.",
+      "EntityBestItemsSet": "Une galerie curative présente les items épinglés dans une collection spécifique.",
       "private": "Une galerie privée ne peut être vue que par vous.",
       "public": "Une galerie publique peut être consultée par toute personne disposant du lien.",
       "published": "Une galerie publiée peut être vue par n'importe qui et peut être présentée sur notre page Galeries.",
-      "reorder": "Vous pouvez réorganiser les éléments en cliquant sur ce bouton et en faisant glisser l'élément pour le déplacer."
+      "reorder": "Vous pouvez réorganiser les items en cliquant sur ce bouton et en faisant glisser l'item pour le déplacer."
     }
   },
   "actions": {
@@ -86,12 +86,13 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Dernières galeries",
-    "item": "Éléments récents",
+    "item": "Items récents",
     "organisation": "Organisations",
     "place": "Des endroits",
     "theme": "Thèmes",
     "time": "Des siècles",
-    "topic": "Sujets"
+    "topic": "Sujets",
+    "trending": "Items tendance"
   },
   "blog": {
     "author": "Auteur",
@@ -136,9 +137,9 @@ export default {
           "select": "Sélectionner les techniques"
         },
         "proxy_dc_type": {
-          "moreName": "types d’éléments",
-          "name": "Type d'élément",
-          "select": "Sélectionnez les types d'éléments"
+          "moreName": "types d’item",
+          "name": "Type d'item",
+          "select": "Sélectionnez les types d'item"
         },
         "proxy_dcterms_medium": {
           "moreName": "matériaux",
@@ -212,24 +213,24 @@ export default {
   "entity": {
     "actions": {
       "cancel": "Annuler",
-      "pin": "Épingler l'élément",
-      "unpin": "Détacher l'élément",
-      "viewPinned": "Voir les éléments épinglés"
+      "pin": "Épingler l'item",
+      "unpin": "Détacher l'item",
+      "viewPinned": "Voir les items épinglés"
     },
     "labels": {
       "entity": "Entité"
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
-      "pin": "Cet élément s'affichera en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
+      "pin": "Cet item s'affichera en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "pinLimit": {
-        "body": "Pour l'instant, vous ne pouvez épingler que 24 éléments sur la première page. Si vous souhaitez épingler cet élément, assurez-vous d'en désépingler un autre, puis réessayez d'épingler celui-ci.",
-        "title": "Trop d'éléments épinglés"
+        "body": "Pour l’instant, vous ne pouvez épingler que 24 items. Si vous souhaitez épingler cet item, assurez-vous d’en détacher un autre et essayez à nouveau d’épingler cet item.",
+        "title": "Trop d'items épinglés"
       },
-      "pinned": "L'élément a été épinglé. Il apparaîtra comme le premier élément de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
-      "select": "Sélectionnez une entité associée pour y épingler/détacher l'élément.",
-      "unpin": "Cet élément ne s'affichera plus en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
-      "unpinned": "L’élément a été désépinglé. Nous vous informerons lorsque ce changement sera visible sur la page de la collection."
+      "pinned": "L'item a été épinglé. Il apparaîtra comme le premier item de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
+      "select": "Sélectionnez une entité associée pour y épingler/détacher l'item.",
+      "unpin": "Cet item ne s'affichera plus en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
+      "unpinned": "L’item a été désépinglé. Nous vous informerons lorsque ce changement sera visible sur la page de la collection."
     }
   },
   "error": "Erreur",
@@ -255,16 +256,16 @@ export default {
       "description": "Malheureusement, le média item tel qu'il a été fourni à Europeana ne peut pas être affiché pour le moment. Veuillez essayer de télécharger le média item ou de consulter l'item sur le site web d’institution partenaire."
     },
     "itemNotFound": {
-      "description": "Cela peut être dû aux raisons suivantes : cet élément n’existe pas, ou ; il a été publié parce qu’il ne correspondait pas à nos critères de qualité, ou; il a été mis à jour et republié avec un nouvel identifiant unique, auquel cas, essayez de retrouver l’élément.",
-      "metaTitle": "Objet non-trouvé",
-      "title": "Oh non! {newline} Nous n'avons pas pu trouver cet élément."
+      "description": "Cela peut être dû aux raisons suivantes : cet item n’existe pas, ou ; il a été publié parce qu’il ne correspondait pas à nos critères de qualité, ou; il a été mis à jour et republié avec un nouvel identifiant unique, auquel cas, essayez de retrouver l’item.",
+      "metaTitle": "Item non-trouvé",
+      "title": "Oh non! {newline} Nous n'avons pas pu trouver cet item."
     },
     "pageNotFound": {
       "metaTitle": "Page non trouvée",
       "title": "La page que vous recherchez n'existe pas."
     },
     "pinningNotFound": {
-      "description": "Une erreur s'est produite lors de l'épinglage/détachement de l'élément. Veuillez réessayer ou signaler le problème.",
+      "description": "Une erreur s'est produite lors de l'épinglage/détachement de l'item. Veuillez réessayer ou signaler le problème.",
       "title": "Collection organisée introuvable"
     },
     "searchPaginationLimitExceeded": {
@@ -467,16 +468,16 @@ export default {
       "select": "Sélectionnez les couleurs"
     },
     "contentTier": {
-      "name": "Qualité d'élément",
+      "name": "Qualité d'item",
       "options": {
-        "*": "Inclut les éléments ne répondant pas à nos critères de publication",
+        "*": "Inclut les items ne répondant pas à nos critères de publication",
         "0": "Ne répondant pas aux critères de publication",
         "1": "Basse qualité",
         "2": "Qualité moyenne",
         "3": "Haute qualité et réutilisable sous certaines conditions",
         "4": "Haute qualité et librement réutilisable"
       },
-      "select": "Sélectionnez les qualités de l'article"
+      "select": "Sélectionnez les qualités de l'item"
     },
     "COUNTRY": {
       "name": "Pays fournisseur",
@@ -706,7 +707,7 @@ export default {
       "dctermsTemporal": "Période",
       "dctermsTOC": "Table des matières",
       "dcTitle": "Titre",
-      "dcType": "Type d'élément",
+      "dcType": "Type d'item",
       "edmCountry": "Pays fournisseur",
       "edmCurrentLocation": "Emplacement actuel",
       "edmDataProvider": "Institution partenaire",
@@ -813,11 +814,11 @@ export default {
     "handle": "Poignée de curseur"
   },
   "items": {
-    "itemCount": "1 article |{count} éléments",
-    "itemOf": "{max} sur {count} éléments",
-    "recent": "Éléments récents",
-    "recommended": "Éléments recommandés",
-    "youMightLike": "Articles susceptibles de vous intéresser"
+    "itemCount": "1 item |{count} items",
+    "itemOf": "{max} sur {count} items",
+    "recent": "Items récents",
+    "recommended": "Items recommandés",
+    "youMightLike": "Items susceptibles de vous intéresser"
   },
   "klaro": {
     "main": {
@@ -891,7 +892,7 @@ export default {
   },
   "landing": {
     "counts": {
-      "items": "Éléments",
+      "items": "Items",
       "providingInstitutions": "Institutions partenaires",
       "visits": "Visites par jour"
     },
@@ -910,26 +911,26 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Cliquez sur l'attribution pour la copier",
-      "modalIntro": "Si vous utilisez cet élément sur le Web ou ailleurs, n'oubliez pas d'afficher l'attribution suivante à côté :",
+      "modalIntro": "Si vous utilisez cet item sur le Web ou ailleurs, n'oubliez pas d'afficher l'attribution suivante à côté :",
       "modalTitle": "Dis merci"
     },
     "downloadFailed": {
-      "linkPrompt": "Nous vous conseillons de cliquer sur le bouton 'Institution partenaire' ci-dessous pour vérifier si l'article est téléchargeable sur le site internet de l'Institution partenaire.",
+      "linkPrompt": "Nous vous conseillons de cliquer sur le bouton 'Institution partenaire' ci-dessous pour vérifier si l'item est téléchargeable sur le site internet de l'Institution partenaire.",
       "message": "Si le téléchargement ne fonctionne pas, c'est peut-être parce qu'il a été supprimé par l'Institution partenaire, ou il peut y avoir un problème technique avec leur service.",
       "title": "Le téléchargement ne fonctionne pas"
     },
     "transcribe": {
       "message": "Rejoignez-nous sur Europeana Transcribe, l'initiative citoyenne en ligne pour l'enrichissement des collections d'Europeana",
-      "title": "Transcrire cet élément"
+      "title": "Transcrire cet item"
     }
   },
   "multilingual": {
     "automated": "Traduction automatisée",
     "enrichment": "Enrichissement par des projets partenaires",
     "other": "autres langues",
-    "stopTranslating": "Arrêtez de traduire cet élément en {0}.",
-    "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?",
-    "translateMetadata": "Traduisez les métadonnées de cet élément.",
+    "stopTranslating": "Arrêtez de traduire cet item en {0}.",
+    "translateLanguage": "Souhaitez-vous voir cet item dans {0} ?",
+    "translateMetadata": "Traduisez les métadonnées de cet item.",
     "translateQuotaError": "Le service de traduction est temporairement indisponible. Veuillez réessayer plus tard."
   },
   "newFeatureNotification": {
@@ -969,7 +970,7 @@ export default {
         "title": "Des endroits"
       },
       "table": {
-        "items": "Éléments",
+        "items": "Items",
         "name": "Nom"
       },
       "times": {
@@ -985,7 +986,7 @@ export default {
   },
   "provider": {
     "linkText": "Vue sur le site internet de l'institution partenaires",
-    "providedBy": "Cet élément est fourni et maintenu par {provider}"
+    "providedBy": "Cet item est fourni et maintenu par {provider}"
   },
   "recommendation": {
     "prompts": {
@@ -995,7 +996,7 @@ export default {
   },
   "record": {
     "actions": {
-      "pin": "Épingler l'élément aux entités disponibles"
+      "pin": "Épingler l'item aux entités disponibles"
     },
     "allMetaData": "Toutes les métadonnées",
     "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
@@ -1006,11 +1007,11 @@ export default {
     "location": "Emplacement",
     "locationOnMap": "Localisation sur la carte",
     "mediaPlayer": "Lecteur multimédia",
-    "record": "Élément",
+    "record": "Item",
     "showAll": "Afficher toutes les informations",
-    "similarItems": "Éléments similaires",
+    "similarItems": "Items similaires",
     "status": {
-      "unpublished": "[Élément non publié]"
+      "unpublished": "[Item non publié]"
     }
   },
   "related": {
@@ -1029,8 +1030,8 @@ export default {
       "title": "Découvrez des galeries connexes"
     },
     "items": {
-      "loginForMore": "Connectez-vous pour voir d’autres éléments connexes",
-      "title": "Découvrez les éléments associés"
+      "loginForMore": "Connectez-vous pour voir d’autres items connexes",
+      "title": "Découvrez les items associés"
     },
     "themes": {
       "title": "Découvrez les thèmes connexes"
@@ -1040,10 +1041,10 @@ export default {
   "resourceWikimedia": "Ressource de Wikimedia Commons",
   "rights": {
     "tooltip": {
-      "open": "{rightsStatementName} signifie que vous pouvez utiliser cet élément librement. {readMoreLink}",
-      "permission": "{rightsStatementName} signifie que vous pouvez utiliser cet élément si vous en demandez l'autorisation. {readMoreLink}",
+      "open": "{rightsStatementName} signifie que vous pouvez utiliser cet item librement. {readMoreLink}",
+      "permission": "{rightsStatementName} signifie que vous pouvez utiliser cet item si vous en demandez l'autorisation. {readMoreLink}",
       "readMore": "En savoir plus sur {link}",
-      "restricted": "{rightsStatementName} signifie que vous pouvez utiliser cet élément avec des conditions. {readMoreLink}"
+      "restricted": "{rightsStatementName} signifie que vous pouvez utiliser cet item avec des conditions. {readMoreLink}"
     }
   },
   "search": {
@@ -1092,18 +1093,18 @@ export default {
   },
   "searchFilters": "Filtres de recherche {count}",
   "searchHasLoaded": "{0} résultats retournés",
-  "searchPlaceholder": "Rechercher plus de 50 millions d'objets",
+  "searchPlaceholder": "Rechercher plus de 50 millions d'items",
   "searchResults": "Rechercher",
   "searchResultsFor": "{0} - Rechercher",
   "searchSuggestions": "Suggestions de recherche",
   "searchTier": {
     "button": {
-      "hide": "Masquer ces éléments",
-      "show": "Afficher ces éléments"
+      "hide": "Masquer ces items",
+      "show": "Afficher ces items"
     },
     "text": {
-      "hide": "Les éléments qui ne répondent pas à nos critères de publication sont affichés.",
-      "show": "Plus d'éléments correspondent à votre recherche mais ne répondent pas à nos critères de publication."
+      "hide": "Les items qui ne répondent pas à nos critères de publication sont affichés.",
+      "show": "Plus d'items correspondent à votre recherche mais ne répondent pas à nos critères de publication."
     }
   },
   "searchViews": {
@@ -1114,12 +1115,12 @@ export default {
   "set": {
     "actions": {
       "addTo": "Ajouter à la galerie",
-      "addToGallery": "Ajouter cet élément à une galerie.",
+      "addToGallery": "Ajouter cet item à une galerie.",
       "create": "Créer une galerie",
       "createNew": "Créer une nouvelle galerie",
       "delete": "Supprimer la galerie",
       "edit": "Modifier la galerie",
-      "saveItemToLikes": "Enregistrez cet élément dans vos J'aime.",
+      "saveItemToLikes": "Enregistrez cet item dans vos J'aime.",
       "update": "Mettre à jour la galerie"
     },
     "entityBestBets": {
@@ -1140,18 +1141,18 @@ export default {
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
       "likeLimit": {
-        "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 articles pour le moment. Nous allons bientôt supprimer cette limite !",
+        "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 items pour le moment. Nous allons bientôt supprimer cette limite !",
         "title": "100 mentions J’aime"
       },
-      "updated": "L'élément a été ajouté à la galerie.",
+      "updated": "L'item a été ajouté à la galerie.",
       "visibilityChanged": "Attention : la visibilité définie a déjà changé et est actuellement \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les éléments que vous y avez ajoutés."
+      "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les items que vous y avez ajoutés."
     },
     "publication": {
       "criteria": {
-        "description": "Pour être considérée pour publication, une galerie doit inclure un titre et une description, et doit contenir un minimum de 20 éléments.",
+        "description": "Pour être considérée pour publication, une galerie doit inclure un titre et une description, et doit contenir un minimum de 20 items.",
         "title": "Critères de publication"
       },
       "description": "La publication d'une galerie la présentera sur Europeana.eu/galleries.",
