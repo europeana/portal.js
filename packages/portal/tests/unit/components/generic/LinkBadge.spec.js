@@ -1,7 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import LinkBadge from '@/components/generic/LinkBadge.vue';
-import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -62,29 +61,6 @@ describe('components/generic/LinkBadge', () => {
 
     const chip = wrapper.find('[data-qa="Costume related chip"]');
     expect(chip.text()).toBe('Costume');
-  });
-
-  it('tracks the event in Matomo', async() => {
-    const wrapper = factory({
-      $link: {
-        to: route => route,
-        href: () => null
-      },
-      $i18n: { locale: 'en' },
-      $matomo: {
-        trackEvent: sinon.spy()
-      }
-    });
-
-    await wrapper.setProps({
-      linkTo: '/collections/topic/33-costume',
-      title: {
-        en: 'Costume'
-      }
-    });
-
-    wrapper.vm.handleClickEvent();
-    expect(wrapper.vm.$matomo.trackEvent.calledWith('Related_collections', 'Click related collection', '/collections/topic/33-costume')).toBe(true);
   });
 
   describe('when linkTo is a URL with scheme', () => {

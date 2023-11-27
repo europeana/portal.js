@@ -2,72 +2,32 @@
   <div
     class="page white-page trending-page xxl-page"
   >
-    <b-container
-      v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
-    <b-container
-      v-else
-    >
+    <b-container>
       <ContentHeader
         :title="pageMeta.title"
       />
-      <ItemPreviewCardGroup
-        v-if="items"
-        :items="items"
-        view="list"
-      />
+      <ItemTrendingItems />
     </b-container>
   </div>
 </template>
 
 <script>
-  import axios from 'axios';
-  import { recordIdFromUrl } from '@/plugins/europeana/record.js';
   import ContentHeader from '@/components/content/ContentHeader';
-  import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import ItemTrendingItems from '@/components/item/ItemTrendingItems';
 
   export default {
     name: 'TrendingPage',
 
     components: {
       ContentHeader,
-      ItemPreviewCardGroup,
-      LoadingSpinner
+
+      ItemTrendingItems
     },
 
     mixins: [
       pageMetaMixin
     ],
-
-    data() {
-      return {
-        items: null
-      };
-    },
-
-    async fetch() {
-      const trendsResponse = await axios.create({
-        baseURL: this.$config.app.baseUrl
-      }).get('/_api/events/trending');
-
-      const itemIds = trendsResponse.data.items.map((item) => recordIdFromUrl(item.uri));
-
-      const findResponse = await this.$apis.record.find(itemIds);
-
-      // reorder based on trending
-      this.items = itemIds
-        .map((id) => findResponse.items.find((item) => item.id === id))
-        .filter((item) => !!item);
-    },
 
     computed: {
       pageMeta() {

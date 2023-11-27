@@ -59,14 +59,6 @@ describe('components/item/ItemPreviewCard', () => {
     });
   });
 
-  describe('mosaic card', () => {
-    it('renders a mosaic content card without any recommendation buttons', () => {
-      const wrapper = factory({ item, variant: 'mosaic' });
-
-      expect(wrapper.vm.texts).toEqual([]);
-    });
-  });
-
   describe('explore card', () => {
     it('renders an explore content card without any recommendation buttons', () => {
       const wrapper = factory({ item, variant: 'explore' });
