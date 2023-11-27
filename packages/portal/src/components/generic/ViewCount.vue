@@ -2,8 +2,6 @@
   <b-button
     v-if="$features.storiesViewCounts && viewCount > 0"
     id="view-count"
-    v-b-tooltip.hover
-    v-b-tooltip.bottom
     data-qa="view count"
     class="view-count d-inline-flex align-items-center"
   >
