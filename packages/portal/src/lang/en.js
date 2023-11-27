@@ -1183,6 +1183,8 @@ export default {
       },
       "description": "Publishing a gallery will feature it on {galleries}.",
       "failedSubmission": "The request failed. Please try again.",
+      "galleries": "Galleries",
+      "guidelines": "editorial guidlines",
       "process": {
         "title": "How the process works",
         "description": "When you submit a gallery for publication, a team of publishers at Europeana will be notified. They will first review it, and may make changes before it is published. You will receive notifications by email as the gallery is reviewed. If it is not published, it could be that it does not conform to our {guidelines}."
