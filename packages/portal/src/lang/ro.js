@@ -1194,5 +1194,8 @@ export default {
     "description": "Răsfoiți după temă",
     "themes": "Teme"
   },
+  "views": {
+    "count": "{count} vizualizare | {count} vizualizări"
+  },
   "website": "Site-ul web"
 };

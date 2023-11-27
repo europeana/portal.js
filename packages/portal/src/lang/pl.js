@@ -1194,5 +1194,8 @@ export default {
     "description": "Przeglądaj według motywu",
     "themes": "Motywy"
   },
+  "views": {
+    "count": "{count} wyświetlenie | {count} wyświetlenia"
+  },
   "website": "Strona internetowa"
 };

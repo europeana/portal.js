@@ -1194,5 +1194,8 @@ export default {
     "description": "Преглед по тема",
     "themes": "Теми"
   },
+  "views": {
+    "count": "{count} преглед | {count} прегледи"
+  },
   "website": "Уебсайт"
 };

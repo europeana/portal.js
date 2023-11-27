@@ -1194,5 +1194,8 @@ export default {
     "description": "Nach Themenbereiche durchsuchen",
     "themes": "Themenbereiche"
   },
+  "views": {
+    "count": "{count} Ansicht | {count} Ansichten"
+  },
   "website": "Webseite"
 };

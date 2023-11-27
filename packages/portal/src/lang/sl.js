@@ -1194,5 +1194,8 @@ export default {
     "description": "Brskajte po temi",
     "themes": "Teme"
   },
+  "views": {
+    "count": "{count} ogled | {count} ogledov"
+  },
   "website": "Spletno mesto"
 };

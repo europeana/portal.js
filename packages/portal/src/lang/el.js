@@ -1198,5 +1198,8 @@ export default {
     "description": "Περιήγηση ανά κατηγορίες.",
     "themes": "Κατηγορίες"
   },
+  "views": {
+    "count": "{count} προβολή | {count} προβολές"
+  },
   "website": "Δικτυακός τόπος"
 };

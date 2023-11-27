@@ -1194,5 +1194,8 @@ export default {
     "description": "Prehľadávať podľa kategórie",
     "themes": "Kategórie"
   },
+  "views": {
+    "count": "{count} prezretie | {count} prezretia"
+  },
   "website": "Webové stránky"
 };

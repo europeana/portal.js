@@ -1198,5 +1198,8 @@ export default {
     "description": "Arakatu gaiaren arabera",
     "themes": "Gaiak"
   },
+  "views": {
+    "count": "{count} ikuspen | {count} ikuspen"
+  },
   "website": "Webgunea"
 };
