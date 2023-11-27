@@ -21,7 +21,7 @@
       >
         <template #galleries>
           <b-link :to="localePath('/galleries')">
-            {{ $t('set.publication.criteria.galleries') }}<!-- This comment removes white space
+            {{ $t('set.publication.galleries') }}<!-- This comment removes white space
                   -->
           </b-link>
         </template>
@@ -33,7 +33,7 @@
       >
         <template #guidelines>
           <b-link :to="localePath('/create-and-use-a-europeana-account')">
-            {{ $t('set.publication.criteria.guidelines') }}<!-- This comment removes white space
+            {{ $t('set.publication.process.guidelines') }}<!-- This comment removes white space
                   -->
           </b-link>
         </template>
