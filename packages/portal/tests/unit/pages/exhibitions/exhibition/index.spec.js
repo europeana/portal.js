@@ -61,6 +61,7 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     };
   },
   mocks: {
+    $features: {},
     $contentful: {
       assets: {
         optimisedSrc: (img) => `${img?.url}?optimised`
@@ -71,6 +72,18 @@ const factory = (options = defaultOptions) => shallowMountNuxt(page, {
     localePath: () => '/',
     $store: {
       commit: sinon.spy()
+    },
+    $route: {
+      fullPath: 'https://www.europeana.eu/en/exhibitions/exhibition',
+      path: '/en/exhibitions/exhibition'
+    },
+    $i18n: {
+      locale: 'en'
+    },
+    $config: {
+      app: {
+        baseUrl: 'https://www.europeana.eu'
+      }
     }
   }
 });

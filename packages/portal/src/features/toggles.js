@@ -6,6 +6,7 @@ export default [
   { name: 'fieldBoosting' },
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'rejectEntityRecommendations' },
+  { name: 'storiesViewCounts' },
   { name: 'transcribathonCta' },
   { name: 'translatedItems' }
 ];
