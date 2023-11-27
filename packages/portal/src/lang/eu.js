@@ -91,7 +91,8 @@ export default {
     "place": "Lekuak",
     "theme": "Gaiak",
     "time": "Mendeak",
-    "topic": "Gaiak"
+    "topic": "Gaiak",
+    "trending": "Joerako elementuak"
   },
   "blog": {
     "author": "Egilea",

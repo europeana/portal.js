@@ -91,7 +91,8 @@ export default {
     "place": "Áiteanna",
     "theme": "Téamaí",
     "time": "Céadta",
-    "topic": "Ábhair"
+    "topic": "Ábhair",
+    "trending": "Míreanna treochta"
   },
   "blog": {
     "author": "Údar",

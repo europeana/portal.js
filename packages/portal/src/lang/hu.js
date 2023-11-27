@@ -91,7 +91,8 @@ export default {
     "place": "Helyek",
     "theme": "Témák",
     "time": "Századok",
-    "topic": "Témakörök"
+    "topic": "Témakörök",
+    "trending": "Népszerű tárgyak"
   },
   "blog": {
     "author": "Szerző",

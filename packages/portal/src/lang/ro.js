@@ -91,7 +91,8 @@ export default {
     "place": "Locuri",
     "theme": "Teme",
     "time": "Secole",
-    "topic": "Subiecte"
+    "topic": "Subiecte",
+    "trending": "Resurse culturale populare"
   },
   "blog": {
     "author": "Autor",

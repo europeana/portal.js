@@ -91,7 +91,8 @@ export default {
     "place": "Plaatsen",
     "theme": "Thema's",
     "time": "Eeuwen",
-    "topic": "Onderwerpen"
+    "topic": "Onderwerpen",
+    "trending": "Populaire objecten"
   },
   "blog": {
     "author": "Auteur",

@@ -91,7 +91,8 @@ export default {
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Vuosisadat",
-    "topic": "Aiheet"
+    "topic": "Aiheet",
+    "trending": "Trendaavat aineistot"
   },
   "blog": {
     "author": "Kirjoittaja",
