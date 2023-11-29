@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Wenn Sie eine Galerie veröffentlichen, wird sie auf Europeana.eu/galleries veröffentlicht.",
       "failedSubmission": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+      "galleries": "Galerien",
       "process": {
         "description": "Wenn Sie eine Galerie zur Veröffentlichung einreichen, wird ein Team von Verlagen bei Europeana benachrichtigt. Sie werden es zuerst überprüfen und möglicherweise Änderungen vornehmen, bevor es veröffentlicht wird. Sie erhalten Benachrichtigungen per E-Mail, wenn die Galerie überprüft wird. Wenn es nicht veröffentlicht wird, kann es sein, dass es nicht unseren redaktionellen Richtlinien entspricht.",
+        "guidelines": "Redaktionelle Richtlinien",
         "title": "Wie der Prozess funktioniert"
       },
       "time": {

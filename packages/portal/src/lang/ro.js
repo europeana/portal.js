@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
       "failedSubmission": "Solicitarea nu a reușit. Încercați din nou.",
+      "galleries": "Galerii",
       "process": {
         "description": "Când trimiteți o galerie spre publicare, o echipă de editori de la Europeana va fi anunțată. Ei îl vor revizui mai întâi și pot face modificări înainte de a fi publicat. Veți primi notificări prin e-mail pe măsură ce galeria este revizuită. Dacă nu este publicat, s-ar putea să nu fie în conformitate cu îndrumările noastre editoriale.",
+        "guidelines": "ghiduri editoriale",
         "title": "Cum funcționează procesul"
       },
       "time": {

@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu/galleries.",
       "failedSubmission": "Taotlus ebaõnnestus. Palun proovi uuesti.",
+      "galleries": "Galeriid",
       "process": {
         "description": "Kui esitate galerii avaldamiseks, teavitatakse sellest Europeana kirjastajate meeskonda. Nad vaatavad selle kõigepealt üle ja võivad teha muudatusi enne selle avaldamist. Galerii ülevaatamisel saate teateid e-posti teel. Kui seda ei avaldata, võib juhtuda, et see ei vasta meie toimetuse juhistele.",
+        "guidelines": "toimetuse juhised",
         "title": "Kuidas protsess toimib"
       },
       "time": {

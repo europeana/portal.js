@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "A galéria közzététele az Europeana.eu/galleries oldalon lesz látható.",
       "failedSubmission": "A kérés meghiúsult. Kérlek próbáld újra.",
+      "galleries": "Galériák",
       "process": {
         "description": "Amikor galériát küld be közzétételre, az Europeana kiadói csapata értesítést kap. Először átnézik, és a közzététel előtt módosításokat végezhetnek. A galéria felülvizsgálata után e-mailben értesítést fog kapni. Ha nem teszik közzé, akkor előfordulhat, hogy nem felel meg a szerkesztési irányelveinknek.",
+        "guidelines": "szerkesztési irányelvek",
         "title": "Hogyan működik a folyamat"
       },
       "time": {

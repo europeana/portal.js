@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Al publicar una galería, aparecerá en Europeana.eu/galleries.",
       "failedSubmission": "La solicitud falló. Inténtalo de nuevo.",
+      "galleries": "Galerías",
       "process": {
         "description": "Cuando envíe una galería para su publicación, se notificará a un equipo de editores de Europeana. Primero lo revisarán y pueden hacer cambios antes de que se publique. Recibirá notificaciones por correo electrónico a medida que se revise la galería. Si no se publica, es posible que no se ajuste a nuestras pautas editoriales.",
+        "guidelines": "directrices editoriales",
         "title": "Cómo funciona el proceso"
       },
       "time": {

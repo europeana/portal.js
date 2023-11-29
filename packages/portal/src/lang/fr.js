@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "La publication d'une galerie la présentera sur Europeana.eu/galleries.",
       "failedSubmission": "La demande a échoué. Veuillez réessayer.",
+      "galleries": "Galeries",
       "process": {
         "description": "Lorsque vous soumettez une galerie pour publication, une équipe d'éditeurs d'Europeana en est informée. Ils l'examineront d'abord, et pourront apporter des modifications avant qu'elle ne soit publiée. Vous recevrez des notifications par courrier électronique au fur et à mesure de l'examen de votre galerie. Si elle n'est pas publiée, c'est peut-être parce qu'elle n'est pas conforme à nos directives éditoriales.",
+        "guidelines": "directives éditoriales",
         "title": "Comment fonctionne le processus"
       },
       "time": {

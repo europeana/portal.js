@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu/galleries.",
       "failedSubmission": "Begäran misslyckades. Var god försök igen.",
+      "galleries": "Gallerier",
       "process": {
         "description": "När du skickar in ett galleri för publicering kommer ett team av utgivare på Europeana att meddelas. De kommer först att granska den och kan göra ändringar innan den publiceras. Du kommer att få meddelanden via e-post när galleriet granskas. Om den inte publiceras kan det vara så att den inte överensstämmer med våra redaktionella riktlinjer.",
+        "guidelines": "redaktionella riktlinjer",
         "title": "Hur processen fungerar"
       },
       "time": {

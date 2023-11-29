@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Udgivelse af et galleri vil vise det på Europeana.eu/galleries.",
       "failedSubmission": "Anmodningen mislykkedes. Prøv venligst igen.",
+      "galleries": "Gallerier",
       "process": {
         "description": "Når du indsender et galleri til offentliggørelse, får et team af udgivere hos Europeana besked. De vil først gennemgå det og kan foretage ændringer, før det offentliggøres. Du vil modtage meddelelser via e-mail, når galleriet gennemgås. Hvis den ikke offentliggøres, kan det være, at den ikke er i overensstemmelse med vores redaktionelle retningslinjer.",
+        "guidelines": "redaktionelle retningslinjer",
         "title": "Hvordan processen fungerer"
       },
       "time": {

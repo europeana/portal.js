@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Paskelbus paroda ji bus rodoma Europeana.eu/galleries.",
       "failedSubmission": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
+      "galleries": "Parodos",
       "process": {
         "description": "Kai pateiksite galeriją publikavimui, apie tai bus pranešta \"Europeana\" leidėjų komandai. Jie pirmiausia ją peržiūrės ir prieš publikuodami gali padaryti pakeitimų. Gausite pranešimus el. paštu, kai galerija bus peržiūrėta. Jei ji nebus paskelbta, gali būti, kad ji neatitinka mūsų redakcinių gairių.",
+        "guidelines": "redakcinės gairės",
         "title": "Kaip veikia procesas"
       },
       "time": {

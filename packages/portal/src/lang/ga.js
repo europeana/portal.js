@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar Europeana.eu/galleries.",
       "failedSubmission": "Theip ar an iarraidh. Arís, le do thoil.",
+      "galleries": "Gailearaithe",
       "process": {
         "description": "Nuair a chuireann tú gailearaí isteach lena fhoilsiú, cuirfear foireann foilsitheoirí in Europeana ar an eolas. Déanfaidh siad athbhreithniú air ar dtús, agus féadfaidh siad athruithe a dhéanamh sula bhfoilseofar é. Gheobhaidh tú fógraí trí ríomhphost de réir mar a dhéantar athbhreithniú ar an ngailearaí. Mura bhfoilsítear é, d'fhéadfadh sé a bheith nach gcloíonn sé lenár dtreoirlínte eagarthóireachta.",
+        "guidelines": "treoirlínte eagarthóireachta",
         "title": "Conas a oibríonn an próiseas"
       },
       "time": {

@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Als u een galerij publiceert, wordt deze op Europeana.eu/galleries weergegeven.",
       "failedSubmission": "Het verzoek is mislukt. Probeer het opnieuw.",
+      "galleries": "Galerijen",
       "process": {
         "description": "Wanneer u een galerij indient voor publicatie, wordt een team van uitgevers bij Europeana op de hoogte gebracht. Ze zullen het eerst beoordelen en mogelijk wijzigingen aanbrengen voordat het wordt gepubliceerd. U ontvangt meldingen per e-mail wanneer de galerij wordt beoordeeld. Als het niet wordt gepubliceerd, is het mogelijk dat het niet voldoet aan onze redactionele richtlijnen.",
+        "guidelines": "redactionele richtlijnen",
         "title": "Hoe het proces werkt"
       },
       "time": {

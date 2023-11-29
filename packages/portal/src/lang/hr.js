@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Objavljivanje galerije bit će prikazano na Europeana.eu/galleries.",
       "failedSubmission": "Zahtjev nije uspio. Molim te pokušaj ponovno.",
+      "galleries": "Galerije",
       "process": {
         "description": "Kada pošaljete galeriju za objavljivanje, tim izdavača na Europeani bit će obaviješten. Oni će ga najprije pregledati i mogu unijeti izmjene prije nego što se objavi. Primat ćete obavijesti e-poštom dok galerija bude pregledana. Ako se ne objavi, moguće je da nije u skladu s našim uredničkim smjernicama.",
+        "guidelines": "uredničke smjernice",
         "title": "Kako proces funkcionira"
       },
       "time": {

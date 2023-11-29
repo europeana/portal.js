@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",
       "failedSubmission": "Žiadosť zlyhala. Prosím skúste znova.",
+      "galleries": "Galérie",
       "process": {
         "description": "Keď odošlete galériu na zverejnenie, tím vydavateľov Europeana bude upozornený. Najprv ho skontrolujú a pred zverejnením môžu vykonať zmeny. Počas kontroly galérie budete dostávať upozornenia e-mailom. Ak nie je zverejnený, je možné, že nie je v súlade s našimi redakčnými pokynmi.",
+        "guidelines": "redakčné pokyny",
         "title": "Ako proces funguje"
       },
       "time": {

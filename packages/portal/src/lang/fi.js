@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
       "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
+      "galleries": "Galleriat",
       "process": {
         "description": "Kun lähetät gallerian julkaistavaksi, Europeanan kustantajatiimi saa ilmoituksen. He tarkastavat sen ensin ja saattavat tehdä muutoksia ennen julkaisemista. Saat ilmoituksia sähköpostitse, kun galleriaa tarkistetaan. Jos galleriaa ei julkaista, se voi johtua siitä, että se ei ole toimituksellisten ohjeidemme mukainen.",
+        "guidelines": "toimitukselliset ohjeet",
         "title": "Kuinka prosessi toimii"
       },
       "time": {
