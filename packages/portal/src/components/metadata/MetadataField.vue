@@ -169,7 +169,7 @@
       },
 
       isValidFieldData() {
-        return !this.timestampIsUnixEpochValue;
+        return !this.timestampIsUnixEpochValue && (this.name !== 'edmUgc');
       }
     }
   };

@@ -9,7 +9,7 @@
       <i18n
         v-if="dataProviderEntity || dataProvider"
         data-qa="data provider attribution"
-        path="provider.providedBy"
+        :path="providedByStringPath"
         tag="div"
       >
         <template #provider>
@@ -82,10 +82,17 @@
       isShownAt: {
         type: String,
         default: null
+      },
+      userGeneratedContent: {
+        type: Boolean,
+        default: false
       }
     },
 
     computed: {
+      providedByStringPath() {
+        return this.userGeneratedContent ? 'provider.providedByUgc' : 'provider.providedBy';
+      },
       namePrefLanguage() {
         return this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
       },

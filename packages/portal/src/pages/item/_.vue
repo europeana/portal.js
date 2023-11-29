@@ -86,6 +86,7 @@
               :data-provider-entity="dataProviderEntity"
               :metadata-language="metadataLanguage"
               :is-shown-at="isShownAt"
+              :user-generated-content="metadata.edmUgc === 'true'"
             />
           </b-col>
         </b-row>

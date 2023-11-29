@@ -1013,7 +1013,8 @@ export default {
   },
   "provider": {
     "linkText": "View on the providing institution's website",
-    "providedBy": "This item is provided and maintained by {provider}"
+    "providedBy": "This item is provided and maintained by {provider}",
+    "providedByUgc": "This item was contributed to {provider} by a member of the public"
   },
   "recommendation": {
     "prompts": {

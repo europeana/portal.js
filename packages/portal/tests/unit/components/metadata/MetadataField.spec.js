@@ -269,14 +269,31 @@ describe('components/metadata/MetadataField', () => {
       });
     });
 
-    describe('when the field name is timestampCreated or timestampUpdate', () => {
-      describe('and the field value equals the unix epoch', () => {
+    describe('isValidFieldData', () => {
+      describe('when the field name is timestampCreated or timestampUpdate', () => {
+        describe('and the field value equals the unix epoch', () => {
+          const props = {
+            name: 'timestampCreated',
+            fieldData: '1970-01-01T00:00:00.000Z'
+          };
+
+          it('is `false`', async() => {
+            const wrapper = factory();
+
+            await wrapper.setProps(props);
+
+            expect(wrapper.vm.isValidFieldData).toBe(false);
+          });
+        });
+      });
+
+      describe('when the field name is edmUgc', () => {
         const props = {
-          name: 'timestampCreated',
-          fieldData: '1970-01-01T00:00:00.000Z'
+          name: 'edmUgc',
+          fieldData: 'true'
         };
 
-        it('is defined as not valid field data', async() => {
+        it('is `false`', async() => {
           const wrapper = factory();
 
           await wrapper.setProps(props);
