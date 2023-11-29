@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Vizualizează pe site-ul instituție furnizoare",
-    "providedBy": "Acest resursă culturală este furnizat și întreținut de {provider}"
+    "providedBy": "Acest resursă culturală este furnizat și întreținut de {provider}",
+    "providedByUgc": "Acest resursă culturală a fost contribuit la {provider} de către un membru al publicului"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Pentru a fi luată în considerare pentru publicare, o galerie trebuie să includă un titlu și o descriere și trebuie să conțină cel puțin 20 de resurse culturale.",
+        "description": "Pentru a fi luată în considerare pentru publicare, o galerie trebuie să includă un titlu și o descriere și trebuie să conțină cel puțin 15 de resurse culturale.",
         "title": "Criterii de publicare"
       },
       "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",

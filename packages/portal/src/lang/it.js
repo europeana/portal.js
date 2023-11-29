@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Visualizza sul sito web del fornitore di contenuti",
-    "providedBy": "Questo oggetti è fornito e gestito da {provider}"
+    "providedBy": "Questo oggetti è fornito e gestito da {provider}",
+    "providedByUgc": "Questo oggetto è stato fornito a {provider} da un membro del pubblico"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Per essere presa in considerazione per la pubblicazione, una galleria deve includere un titolo e una descrizione e deve contenere un minimo di 20 oggetti.",
+        "description": "Per essere presa in considerazione per la pubblicazione, una galleria deve includere un titolo e una descrizione e deve contenere un minimo di 15 oggetti.",
         "title": "Criteri di pubblicazione"
       },
       "description": "La pubblicazione di una galleria la presenterà su Europeana.eu/galleries.",

@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Peržiūrėti teikėjo svetainę",
-    "providedBy": "Šis skaitmeninis objektas teikiamas ir prižiūrimas {provider}."
+    "providedBy": "Šis skaitmeninis objektas teikiamas ir prižiūrimas {provider}.",
+    "providedByUgc": "Prie šio skaitmeninis objektas {provider} pateikė visuomenės narys"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Kad būtų svarstoma galimybė paskelbti paroda, ji turi turėti pavadinimą, aprašą ir mažiausiai 20 skaitmeniniai objektai.",
+        "description": "Kad būtų svarstoma galimybė paskelbti paroda, ji turi turėti pavadinimą, aprašą ir mažiausiai 15 skaitmeniniai objektai.",
         "title": "Publikavimo kriterijai"
       },
       "description": "Paskelbus paroda ji bus rodoma Europeana.eu/galleries.",

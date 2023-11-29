@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Zobrazit na webu poskytující instituce",
-    "providedBy": "Tuto položku poskytuje a spravuje {provider}"
+    "providedBy": "Tuto položku poskytuje a spravuje {provider}",
+    "providedByUgc": "Tato položka byla poskytnuta {provider} členem veřejnosti"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Aby byla galerie zvážena k publikaci, musí obsahovat název a popis a musí obsahovat minimálně 20 položky.",
+        "description": "Aby byla galerie zvážena k publikaci, musí obsahovat název a popis a musí obsahovat minimálně 15 položky.",
         "title": "Kritéria publikace"
       },
       "description": "Publikování galerie ji bude uvádět na Europeana.eu/galleries.",

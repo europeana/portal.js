@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Bekijk op de website van de deelnemende erfgoedorganisatie",
-    "providedBy": "Dit item wordt geleverd en onderhouden door {provider}"
+    "providedBy": "Dit item wordt geleverd en onderhouden door {provider}",
+    "providedByUgc": "Dit object is bijgedragen aan {provider} door een lid van het publiek"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Om in aanmerking te komen voor publicatie, moet een galerij een titel en beschrijving bevatten en minimaal 20 objecten bevatten.",
+        "description": "Om in aanmerking te komen voor publicatie, moet een galerij een titel en beschrijving bevatten en minimaal 15 objecten bevatten.",
         "title": "Publicatie criteria"
       },
       "description": "Als u een galerij publiceert, wordt deze op Europeana.eu/galleries weergegeven.",

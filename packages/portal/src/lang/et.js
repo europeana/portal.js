@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Vaadake pakkuva asutuse veebisaidilt",
-    "providedBy": "Seda üksust pakub ja hooldab {provider}"
+    "providedBy": "Seda üksust pakub ja hooldab {provider}",
+    "providedByUgc": "Selle üksuse panustas üks avalikkuse liige teenusele {provider}"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Avaldamiseks peab galerii sisaldama pealkirja ja kirjeldust ning vähemalt 20 üksust.",
+        "description": "Avaldamiseks peab galerii sisaldama pealkirja ja kirjeldust ning vähemalt 15 üksust.",
         "title": "Avaldamise kriteeriumid"
       },
       "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu/galleries.",

@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Auf der Website des Anbieters ansehen",
-    "providedBy": "Dieses Objekt wird von {provider} bereitgestellt und gepflegt"
+    "providedBy": "Dieses Objekt wird von {provider} bereitgestellt und gepflegt",
+    "providedByUgc": "Diesem Objekt wurde von einem Mitglied der Öffentlichkeit zu {provider} beigetragen"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Um für eine Veröffentlichung infrage zu kommen, muss eine Galerie einen Titel und eine Beschreibung enthalten und mindestens 20 Objekte enthalten.",
+        "description": "Um für eine Veröffentlichung infrage zu kommen, muss eine Galerie einen Titel und eine Beschreibung enthalten und mindestens 15 Objekte enthalten.",
         "title": "Veröffentlichungskriterien"
       },
       "description": "Wenn Sie eine Galerie veröffentlichen, wird sie auf Europeana.eu/galleries veröffentlicht.",

@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Katso tarjoavan laitoksen verkkosivustolta",
-    "providedBy": "Tämän aineisto tarjoaa ja ylläpitää {provider}"
+    "providedBy": "Tämän aineisto tarjoaa ja ylläpitää {provider}",
+    "providedByUgc": "Yleisön jäsen on lisännyt tämän aineisto palveluun {provider}"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Jotta galleria voidaan julkaista, sen on sisällettävä otsikko ja kuvaus, ja siinä on oltava vähintään 20 aineistot.",
+        "description": "Jotta galleria voidaan julkaista, sen on sisällettävä otsikko ja kuvaus, ja siinä on oltava vähintään 15 aineistot.",
         "title": "Julkaisun kriteerit"
       },
       "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
