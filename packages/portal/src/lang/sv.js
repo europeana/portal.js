@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Visa på den tillhandahållande institution webbplats",
-    "providedBy": "Detta objekt tillhandahålls och underhålls av {provider}"
+    "providedBy": "Detta objekt tillhandahålls och underhålls av {provider}",
+    "providedByUgc": "Detta objekt har bidragit till {provider} av en medlem av allmänheten"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "För att komma i fråga för publicering måste ett galleri innehålla en titel och beskrivning och måste innehålla minst 20 objekt.",
+        "description": "För att komma i fråga för publicering måste ett galleri innehålla en titel och beskrivning och måste innehålla minst 15 objekt.",
         "title": "Kriterier för publicering"
       },
       "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu/galleries.",

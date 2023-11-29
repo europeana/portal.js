@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Zobacz na stronie internetowej dostawca danych",
-    "providedBy": "Ten element jest dostarczany i obsługiwany przez {provider}"
+    "providedBy": "Ten element jest dostarczany i obsługiwany przez {provider}",
+    "providedByUgc": "Ten obiekt cyfrowy został dodany do {provider} przez członka społeczeństwa"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Aby galeria mogła zostać rozpatrzona do publikacji, musi zawierać tytuł i opis oraz musi zawierać co najmniej 20 obiekty cyfrowe.",
+        "description": "Aby galeria mogła zostać rozpatrzona do publikacji, musi zawierać tytuł i opis oraz musi zawierać co najmniej 15 obiekty cyfrowe.",
         "title": "Kryteria publikacji"
       },
       "description": "Opublikowanie galerii będzie ją prezentować na Europeana.eu/galleries.",

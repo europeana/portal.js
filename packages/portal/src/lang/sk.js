@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Zobrazenie na webovej stránke poskytovateľa",
-    "providedBy": "Túto objekt poskytuje a spravuje {provider}"
+    "providedBy": "Túto objekt poskytuje a spravuje {provider}",
+    "providedByUgc": "Túto objekt poskytol {provider} člen verejnosti"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Aby bola galéria vyvážená na zverejnenie, musí obsahovať názov a popis a musí obsahovať minimálne 20 objekty.",
+        "description": "Aby bola galéria vyvážená na zverejnenie, musí obsahovať názov a popis a musí obsahovať minimálne 15 objekty.",
         "title": "Kritériá zverejnenia"
       },
       "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",

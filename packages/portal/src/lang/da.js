@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Se på den ejerinstiutions hjemmeside",
-    "providedBy": "Denne vare leveres og vedligeholdes af {provider}"
+    "providedBy": "Denne vare leveres og vedligeholdes af {provider}",
+    "providedByUgc": "Dette genstand blev bidraget til {provider} af et medlem af offentligheden"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "For at komme i betragtning til udgivelse skal et galleri indeholde en titel og beskrivelse og skal indeholde minimum 20 genstande.",
+        "description": "For at komme i betragtning til udgivelse skal et galleri indeholde en titel og beskrivelse og skal indeholde minimum 15 genstande.",
         "title": "Kriterier for offentliggørelse"
       },
       "description": "Udgivelse af et galleri vil vise det på Europeana.eu/galleries.",

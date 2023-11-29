@@ -258,7 +258,7 @@ export default {
     "itemNotFound": {
       "description": "Az tárgyat nem található okai lehetnek a következők: az tárgy nem létezik, vagy közzétételre került, mert nem felelt meg minőségi kritériumainknak, vagy frissítve lett, és új egyedi azonosítóval újból közzétéve. Próbálja meg újra megtalálni az tárgyat.",
       "metaTitle": "Az tárgyat nem található",
-      "title": "Ó, nem! {newline} Nem találtuk meg ezt a tárgy."
+      "title": "Jaj, ne! {newline} Nem találtuk meg ezt a tételt."
     },
     "pageNotFound": {
       "metaTitle": "Az oldal nem található",
@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Megtekintés a szolgáltató intézmény honlapján",
-    "providedBy": "Ezt az tárgyat az {provider} biztosítja és karbantartja"
+    "providedBy": "Ezt az tárgyat az {provider} biztosítja és karbantartja",
+    "providedByUgc": "Ezt az tárgy a nyilvánosság egyik tagja adta hozzá {provider} számára"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "A közzétételhez a galériának tartalmaznia kell egy címet és leírást, és legalább 20 tárgyak kell tartalmaznia.",
+        "description": "A közzétételhez a galériának tartalmaznia kell egy címet és leírást, és legalább 15 tárgyak kell tartalmaznia.",
         "title": "Közzétételi kritériumok"
       },
       "description": "A galéria közzététele az Europeana.eu/galleries oldalon lesz látható.",

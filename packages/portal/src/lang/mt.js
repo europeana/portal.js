@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Ara fuq il-websajt tal-istituzzjoni fornitriċi",
-    "providedBy": "Dan l-oġġett huwa pprovdut u miżmum minn {provider}"
+    "providedBy": "Dan l-oġġett huwa pprovdut u miżmum minn {provider}",
+    "providedByUgc": "Dan l-oġġett ġie kkontribwit lil {provider} minn membru tal-pubbliku"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Biex tiġi kkunsidrata għall-pubblikazzjoni, gallerija trid tinkludi titolu u deskrizzjoni, u għandu jkun fiha minimu ta’ 20 oġġett.",
+        "description": "Biex tiġi kkunsidrata għall-pubblikazzjoni, gallerija trid tinkludi titolu u deskrizzjoni, u għandu jkun fiha minimu ta’ 15 oġġett.",
         "title": "Kriterji ta' pubblikazzjoni"
       },
       "description": "Il-pubblikazzjoni ta' gallerija ser tidher fuq Europeana.eu/galleries.",

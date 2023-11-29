@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Amharc air ag láithreán institiúid sholáthartha",
-    "providedBy": "Soláthraíonn {provider} an mhír seo agus déanann sé cothabháil uirthi"
+    "providedBy": "Soláthraíonn {provider} an mhír seo agus déanann sé cothabháil uirthi",
+    "providedByUgc": "Chuir duine den phobal an mhír seo le {provider}"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Chun a bheith san áireamh le foilsiú, ní mór teideal agus cur síos a bheith i gailearaí, agus ní mór 20 míreanna ar a laghad a bheith ann.",
+        "description": "Chun a bheith san áireamh le foilsiú, ní mór teideal agus cur síos a bheith i gailearaí, agus ní mór 15 míreanna ar a laghad a bheith ann.",
         "title": "Critéir foilsithe"
       },
       "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar Europeana.eu/galleries.",

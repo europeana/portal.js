@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Skatīt piegādājošās iestādes tīmekļa vietnē.",
-    "providedBy": "Šo digitālais objekts nodrošina un uztur {provider}"
+    "providedBy": "Šo digitālais objekts nodrošina un uztur {provider}",
+    "providedByUgc": "Šo digitālais objekts pakalpojumam {provider} iesniedza kāds sabiedrības pārstāvis"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Lai galeriju varētu publicēt, tajā ir jāiekļauj nosaukums un apraksts, un tajā ir jābūt vismaz 20 digitālie objekti.",
+        "description": "Lai galeriju varētu publicēt, tajā ir jāiekļauj nosaukums un apraksts, un tajā ir jābūt vismaz 15 digitālie objekti.",
         "title": "Publikācijas kritēriji"
       },
       "description": "Publicējot galeriju, tā būs pieejama vietnē Europeana.eu/galleries.",

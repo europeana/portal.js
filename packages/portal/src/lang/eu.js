@@ -990,7 +990,8 @@ export default {
   },
   "provider": {
     "linkText": "Erakunde hornitzailearen webgunean ikusi",
-    "providedBy": "Elementu hau {provider} k hornitu eta mantentzen du"
+    "providedBy": "Elementu hau {provider} k hornitu eta mantentzen du",
+    "providedByUgc": "Elementu hau {provider} -i ekarpena egin dio publikoko kide batek"
   },
   "recommendation": {
     "prompts": {
@@ -1156,7 +1157,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Argitalpenerako kontuan hartzeko, galeria batek izenburua eta deskribapena izan behar ditu, eta gutxienez 20 elementu izan behar ditu.",
+        "description": "Argitalpenerako kontuan hartzeko, galeria batek izenburua eta deskribapena izan behar ditu, eta gutxienez 15 elementu izan behar ditu.",
         "title": "Argitalpen-irizpideak"
       },
       "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",

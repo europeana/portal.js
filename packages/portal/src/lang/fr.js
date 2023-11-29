@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Vue sur le site internet de l'institution partenaires",
-    "providedBy": "Cet item est fourni et maintenu par {provider}"
+    "providedBy": "Cet item est fourni et maintenu par {provider}",
+    "providedByUgc": "Cet item a été soumis à {provider} par un membre du public"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Pour être considérée pour publication, une galerie doit inclure un titre et une description, et doit contenir un minimum de 20 items.",
+        "description": "Pour être considérée pour publication, une galerie doit inclure un titre et une description, et doit contenir un minimum de 15 items.",
         "title": "Critères de publication"
       },
       "description": "La publication d'une galerie la présentera sur Europeana.eu/galleries.",

@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Pogledajte na web stranici institucije koja pruža usluge",
-    "providedBy": "Ovu stavku osigurava i održava {provider}"
+    "providedBy": "Ovu stavku osigurava i održava {provider}",
+    "providedByUgc": "Ovu je predmet {provider} pridonio član javnosti"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Da bi bila uzeta u obzir za objavu, galerija mora sadržavati naslov i opis te mora sadržavati najmanje 20 predmeti.",
+        "description": "Da bi bila uzeta u obzir za objavu, galerija mora sadržavati naslov i opis te mora sadržavati najmanje 15 predmeti.",
         "title": "Kriteriji objavljivanja"
       },
       "description": "Objavljivanje galerije bit će prikazano na Europeana.eu/galleries.",

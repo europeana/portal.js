@@ -986,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Oglejte si na spletni strani ponudnik podatkov",
-    "providedBy": "Ta enota zagotavlja in vzdržuje {provider}"
+    "providedBy": "Ta enota zagotavlja in vzdržuje {provider}",
+    "providedByUgc": "Ta enota je {provider} prispeval član javnosti"
   },
   "recommendation": {
     "prompts": {
@@ -1152,7 +1153,7 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Za objavo mora galerija vsebovati naslov in opis ter mora vsebovati najmanj 20 enote.",
+        "description": "Za objavo mora galerija vsebovati naslov in opis ter mora vsebovati najmanj 15 enote.",
         "title": "Kriteriji objave"
       },
       "description": "Z objavo galerije bo ta objavljena na Europeana.eu/galleries.",
