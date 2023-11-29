@@ -7,7 +7,7 @@
       <slot name="item-language-selector" />
       <IIIFViewer
         :uri="iiifPresentationManifest"
-        :search-query="searchQuery"
+        :search-query="fulltextSearchQuery"
         :aria-label="$t('actions.viewDocument')"
         :item-id="identifier"
         :provider-url="providerUrl"
@@ -179,19 +179,15 @@
         }
         return '';
       },
-      searchQuery() {
+      fulltextSearchQuery() {
         let query = [];
 
         if (this.$nuxt.context.from) {
-          if (this.$nuxt.context.from.query.query) {
-            query.push(this.$nuxt.context.from.query.query);
-          }
           if (this.$nuxt.context.from.query.qa) {
             const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$nuxt.context.from.query.qa);
-            const fulltextTerms = advSearchRules
+            query = advSearchRules
               .filter((rule) => (rule.field === 'fulltext') && (rule.modifier === 'contains'))
               .map((rule) => rule.term);
-            query = query.concat(fulltextTerms);
           }
         }
 

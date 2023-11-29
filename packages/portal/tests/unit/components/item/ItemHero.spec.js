@@ -180,26 +180,16 @@ describe('components/item/ItemHero', () => {
     });
   });
 
-  describe('searchQuery', () => {
-    it('includes query from Nuxt context from route', () => {
-      const query = 'hamburger';
-      const mocks = { $nuxt: { context: { from: { query: { query } } } } };
-      const wrapper = factory({ propsData: { identifier }, mocks });
-
-      const searchQuery = wrapper.vm.searchQuery;
-
-      expect(searchQuery).toBe(query);
-    });
-
+  describe('fulltextSearchQuery', () => {
     it('includes adv search fulltext contains terms from Nuxt context from route', () => {
       const query = 'hamburger';
       const qa = ['fulltext:(theater)', 'fulltext:(zeitung)', 'NOT fulltext:(direktor)', 'when:1901'];
       const mocks = { $nuxt: { context: { from: { query: { qa, query } } } } };
       const wrapper = factory({ propsData: { identifier }, mocks });
 
-      const searchQuery = wrapper.vm.searchQuery;
+      const fulltextSearchQuery = wrapper.vm.fulltextSearchQuery;
 
-      expect(searchQuery).toBe('hamburger theater zeitung');
+      expect(fulltextSearchQuery).toBe('theater zeitung');
     });
   });
 
