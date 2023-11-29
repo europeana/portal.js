@@ -726,8 +726,8 @@ export default {
       "europeanaCollectionName": "Nombre de la colección",
       "fulltext": "Texto completo",
       "keywords": "Palabras clave (proporcionadas por la comunidad)",
-      "timestampCreated": "Sello de creación",
-      "timestampUpdate": "Sello de actualización",
+      "timestampCreated": "Publicado por primera vez en Europeana",
+      "timestampUpdate": "Última actualización por parte del Proveedor de datos",
       "wasPresentAt": "estuvo presente en",
       "what": "Qué",
       "when": "Cuando",
@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Al publicar una galería, aparecerá en Europeana.eu/galleries.",
       "failedSubmission": "La solicitud falló. Inténtalo de nuevo.",
+      "galleries": "Galerías",
       "process": {
         "description": "Cuando envíe una galería para su publicación, se notificará a un equipo de editores de Europeana. Primero lo revisarán y pueden hacer cambios antes de que se publique. Recibirá notificaciones por correo electrónico a medida que se revise la galería. Si no se publica, es posible que no se ajuste a nuestras pautas editoriales.",
+        "guidelines": "directrices editoriales",
         "title": "Cómo funciona el proceso"
       },
       "time": {
