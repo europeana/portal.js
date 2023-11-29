@@ -11,7 +11,7 @@ const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 
-const factory = (propsData, options = {}) => shallowMount(ItemHero, {
+const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemHero, {
   localVue,
   propsData,
   mocks: {
@@ -20,9 +20,9 @@ const factory = (propsData, options = {}) => shallowMount(ItemHero, {
     $features: { itemEmbedCode: false, transcribathonCta: true },
     $auth: {
       loggedIn: true,
-      userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
+      userHasClientRole: sinon.stub().returns(false)
     },
-    $store: options.store || {
+    $store: {
       state: {
         set: { ...{ liked: [] }, ...{} }
       },
@@ -46,7 +46,8 @@ const factory = (propsData, options = {}) => shallowMount(ItemHero, {
           }
         }
       }
-    }
+    },
+    ...mocks
   }
 });
 
@@ -96,17 +97,17 @@ describe('components/item/ItemHero', () => {
   describe('selectMedia', () => {
     describe('when a new item is selected', () => {
       it('updates the identifier', () => {
-        const wrapper = factory({ media, identifier });
+        const wrapper = factory({ propsData: { media, identifier } });
         wrapper.vm.selectMedia(media[1].about);
         expect(wrapper.vm.selectedMedia.about).toBe(media[1].about);
       });
       it('updates the rights statement', () => {
-        const wrapper = factory({ media, identifier });
+        const wrapper = factory({ propsData: { media, identifier } });
         wrapper.vm.selectMedia(media[1].about);
         expect(wrapper.vm.selectedMedia.webResourceEdmRights.def[0]).toBe(media[1].webResourceEdmRights.def[0]);
       });
       it('unsets any selected IIIF canvas', async() => {
-        const wrapper = factory({ media, identifier });
+        const wrapper = factory({ propsData: { media, identifier } });
         await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
         wrapper.vm.selectMedia(media[1].about);
         expect(wrapper.vm.selectedCanvas === null).toBe(true);
@@ -117,19 +118,19 @@ describe('components/item/ItemHero', () => {
   describe('downloadEnabled', () => {
     describe('when the rightsstatement is in copyright', () => {
       it('is false', () => {
-        const wrapper = factory({ media: [media[1]], identifier });
+        const wrapper = factory({ propsData: { media: [media[1]], identifier } });
         expect(wrapper.vm.downloadEnabled).toBe(false);
       });
     });
     describe('when the selected media is the isShownAt, hence not downloadable', () => {
       it('is false', () => {
-        const wrapper = factory({ media: [media[5]], identifier });
+        const wrapper = factory({ propsData: { media: [media[5]], identifier } });
         expect(wrapper.vm.downloadEnabled).toBe(false);
       });
     });
     describe('when the rightsstatement is not in copyright and the selected media is not the isShownAt', () => {
       it('is true', () => {
-        const wrapper = factory({ media: [media[0]], identifier });
+        const wrapper = factory({ propsData: { media: [media[0]], identifier } });
         expect(wrapper.vm.downloadEnabled).toBe(true);
       });
     });
@@ -140,14 +141,14 @@ describe('components/item/ItemHero', () => {
     const propsData = { allMediaUris: media.map((media) => media.about).concat('http://www.example.org/canvas'), media, identifier };
     describe('when the webresource is the isShownBy', () => {
       it('uses the proxy', async() => {
-        const wrapper = factory(propsData);
+        const wrapper = factory({ propsData });
         await wrapper.setData({ selectedMedia: media[0] });
         expect(wrapper.vm.downloadUrl).toBe('proxied - https://europeana1914-1918.s3.amazonaws.com/attachments/119112/10265.119112.original.jpg');
       });
     });
     describe('when the webresource is a newspaper IIIF canvas', () => {
       it('uses the proxy', async() => {
-        const wrapper = factory(propsData);
+        const wrapper = factory({ propsData });
         await wrapper.setData({ selectedMedia: media[0] });
         await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
         expect(wrapper.vm.downloadUrl).toBe('proxied - http://www.example.org/canvas');
@@ -155,7 +156,7 @@ describe('components/item/ItemHero', () => {
     });
     describe('when the webresource is an unknown IIIF canvas', () => {
       it('does not use the proxy', async() => {
-        const wrapper = factory(propsData);
+        const wrapper = factory({ propsData });
         await wrapper.setData({ selectedMedia: media[0] });
         await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/another-canvas' } });
         expect(wrapper.vm.downloadUrl).toBe('http://www.example.org/another-canvas');
@@ -167,22 +168,45 @@ describe('components/item/ItemHero', () => {
     const propsData = { allMediaUris: ['http://www.example.org/canvas'], media: [media[0]], identifier };
     describe('when the url is in the list of allMediaUris', () => {
       it('returns true', () => {
-        const wrapper = factory(propsData);
+        const wrapper = factory({ propsData });
         expect(wrapper.vm.downloadViaProxy('http://www.example.org/canvas')).toBe(true);
       });
     });
     describe('when the url is NOT in the list of allMediaUris', () => {
       it('returns false', () => {
-        const wrapper = factory(propsData);
+        const wrapper = factory({ propsData });
         expect(wrapper.vm.downloadViaProxy('http://www.example.org/another-resource')).toBe(false);
       });
+    });
+  });
+
+  describe('searchQuery', () => {
+    it('includes query from Nuxt context from route', () => {
+      const query = 'hamburger';
+      const mocks = { $nuxt: { context: { from: { query: { query } } } } };
+      const wrapper = factory({ propsData: { identifier }, mocks });
+
+      const searchQuery = wrapper.vm.searchQuery;
+
+      expect(searchQuery).toBe(query);
+    });
+
+    it('includes adv search fulltext contains terms from Nuxt context from route', () => {
+      const query = 'hamburger';
+      const qa = ['fulltext:(theater)', 'fulltext:(zeitung)', 'NOT fulltext:(direktor)', 'when:1901'];
+      const mocks = { $nuxt: { context: { from: { query: { qa, query } } } } };
+      const wrapper = factory({ propsData: { identifier }, mocks });
+
+      const searchQuery = wrapper.vm.searchQuery;
+
+      expect(searchQuery).toBe('hamburger theater zeitung');
     });
   });
 
   describe('showTranscribathonLink', () => {
     describe('when the linkForContributingAnnotation goes to a transcribathon URL', () => {
       it('is true', async() => {
-        const wrapper = factory({ linkForContributingAnnotation: 'https://europeana.transcribathon.eu/documents/story/?story=123', media, identifier, entities });
+        const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://europeana.transcribathon.eu/documents/story/?story=123', media, identifier, entities } });
 
         expect(wrapper.vm.showTranscribathonLink).toBe(true);
       });
@@ -190,7 +214,7 @@ describe('components/item/ItemHero', () => {
 
     describe('when the linkForContributingAnnotation goes to a NON transcribathon URL', () => {
       it('is true', async() => {
-        const wrapper = factory({ linkForContributingAnnotation: 'https://example.org/123', media, identifier, entities });
+        const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://example.org/123', media, identifier, entities } });
 
         expect(wrapper.vm.showTranscribathonLink).toBe(false);
       });
@@ -199,12 +223,18 @@ describe('components/item/ItemHero', () => {
 
   describe('showPins', () => {
     describe('when the user is an editor', () => {
-      const userHasClientRoleStub = sinon.stub().returns(false)
+      const userHasClientRole = sinon.stub().returns(false)
         .withArgs('entities', 'editor').returns(true)
         .withArgs('usersets', 'editor').returns(true);
+      const mocks = {
+        $auth: {
+          loggedIn: true,
+          userHasClientRole
+        }
+      };
 
       it('is `true`', () => {
-        const wrapper = factory({ media, identifier, entities }, { userHasClientRoleStub });
+        const wrapper = factory({ propsData: { media, identifier, entities }, mocks });
 
         const showPins = wrapper.vm.showPins;
 
@@ -212,7 +242,7 @@ describe('components/item/ItemHero', () => {
       });
 
       it('is `false` if no entities', () => {
-        const wrapper = factory({ media, identifier, entities: [] }, { userHasClientRoleStub });
+        const wrapper = factory({ propsData: { media, identifier, entities: [] }, mocks });
 
         const showPins = wrapper.vm.showPins;
 
@@ -222,7 +252,7 @@ describe('components/item/ItemHero', () => {
 
     describe('when the user is NOT an editor', () => {
       it('is `false`', () => {
-        const wrapper = factory({ media, identifier, entities });
+        const wrapper = factory({ propsData: { media, identifier, entities } });
 
         const showPins = wrapper.vm.showPins;
 
