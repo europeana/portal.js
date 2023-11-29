@@ -726,8 +726,8 @@ export default {
       "europeanaCollectionName": "Kolekcijas nosaukums",
       "fulltext": "Pilns teksts",
       "keywords": "Atslēgas vārdi (nodrošina kopiena)",
-      "timestampCreated": "Laikspiedogs izveidots",
-      "timestampUpdate": "Laikspiedogs atjaunināts",
+      "timestampCreated": "Pirmo reizi publicēts Europeana",
+      "timestampUpdate": "Pēdējoreiz atjaunināts no piegādājošās iestādes",
       "wasPresentAt": "Bija",
       "what": "Kas",
       "when": "Kad",
@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Publicējot galeriju, tā būs pieejama vietnē Europeana.eu/galleries.",
       "failedSubmission": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
+      "galleries": "Galerijas",
       "process": {
         "description": "Kad jūs iesniedzat galeriju publicēšanai, Europeana izdevēju komanda tiks informēta. Viņi vispirms to pārskatīs un var veikt izmaiņas pirms publicēšanas. Jūs saņemsiet paziņojumus pa e-pastu, kad galerija tiks pārskatīta. Ja tas netiek publicēts, iespējams, tas neatbilst mūsu redakcijas vadlīnijām.",
+        "guidelines": "redakcionālās vadlīnijas",
         "title": "Kā process darbojas"
       },
       "time": {

@@ -726,8 +726,8 @@ export default {
       "europeanaCollectionName": "Nazwa Kolekcji",
       "fulltext": "Pełny tekst",
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
-      "timestampCreated": "Data utworzenia rekordu",
-      "timestampUpdate": "Data zaktualizowania rekordu",
+      "timestampCreated": "Po raz pierwszy opublikowano w Europeana",
+      "timestampUpdate": "Ostatnia aktualizacja od dostawcy danych",
       "wasPresentAt": "Był obecny w/na",
       "what": "Co",
       "when": "Kiedy",
@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Opublikowanie galerii będzie ją prezentować na Europeana.eu/galleries.",
       "failedSubmission": "Żądanie nie powiodło się. Proszę spróbować ponownie.",
+      "galleries": "Galerie",
       "process": {
         "description": "Gdy prześlesz galerię do publikacji, zespół wydawców Europeana zostanie o tym powiadomiony. Najpierw go przejrzą i mogą wprowadzić zmiany przed opublikowaniem. Otrzymasz powiadomienia e-mailem, gdy galeria zostanie sprawdzona. Jeśli nie zostanie opublikowany, może to oznaczać, że nie jest zgodny z naszymi wytycznymi redakcyjnymi.",
+        "guidelines": "wytyczne redakcyjne",
         "title": "Jak działa proces"
       },
       "time": {

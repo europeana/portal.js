@@ -726,8 +726,8 @@ export default {
       "europeanaCollectionName": "Ime zbirke",
       "fulltext": "Polno besedilo",
       "keywords": "Ključne besede (ki jih je zagotovila skupnost)",
-      "timestampCreated": "Časovni žig ustvarjen",
-      "timestampUpdate": "Časovni žig posodobljen",
+      "timestampCreated": "Prvič objavljeno na Europeana",
+      "timestampUpdate": "Zadnjič posodobljeno s strani ponudnika podatkov",
       "wasPresentAt": "Bil prisoten v",
       "what": "Kaj",
       "when": "Kdaj",
@@ -1157,8 +1157,10 @@ export default {
       },
       "description": "Z objavo galerije bo ta objavljena na Europeana.eu/galleries.",
       "failedSubmission": "Zahteva ni uspela. Prosim poskusite ponovno.",
+      "galleries": "Galerije",
       "process": {
         "description": "Ko pošljete galerijo v objavo, bo o tem obveščena ekipa založnikov Europeana. Ti jo bodo najprej pregledali in jo pred objavo morda spremenili. Obvestila o pregledu galerije boste prejeli po elektronski pošti. Če galerija ne bo objavljena, se lahko zgodi, da ni v skladu z našimi uredniškimi smernicami.",
+        "guidelines": "uredniška navodila",
         "title": "Kako poteka proces"
       },
       "time": {

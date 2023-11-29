@@ -730,8 +730,8 @@ export default {
       "europeanaCollectionName": "Bildumaren izena",
       "fulltext": "Testu osoa",
       "keywords": "Gako-hitzak (komunitateak emandakoak)",
-      "timestampCreated": "Dataren marka sortu da",
-      "timestampUpdate": "Dataren marka eguneratu da",
+      "timestampCreated": "Lehenengo aldiz argitaratua Europeana-n",
+      "timestampUpdate": "Erakunde hornitzaileak azken aldiz eguneratu du",
       "wasPresentAt": "Bertan egon zen",
       "what": "Zer",
       "when": "Noiz",
@@ -1161,8 +1161,10 @@ export default {
       },
       "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
       "failedSubmission": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+      "galleries": "Galeriak",
       "process": {
         "description": "Galeria bat argitaratzeko bidaltzen duzunean, Europeana-ko argitaletxe talde bati jakinaraziko zaio. Lehenik eta behin aztertuko dute, eta aldaketak egin ditzakete argitaratu aurretik. Galeria berrikusten den heinean jakinarazpenak jasoko dituzu posta elektronikoz. Argitaratzen ez bada, baliteke gure editorialen jarraibideekin bat ez egitea.",
+        "guidelines": "jarraibide editorialak",
         "title": "Nola funtzionatzen duen prozesua"
       },
       "time": {
