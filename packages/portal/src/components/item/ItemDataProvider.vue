@@ -83,14 +83,14 @@
         default: null
       },
       userGeneratedContent: {
-        type: String,
-        default: 'false'
+        type: Boolean,
+        default: false
       }
     },
 
     computed: {
       providedByStringPath() {
-        return this.userGeneratedContent === 'true' ? 'provider.providedByUgc' : 'provider.providedBy';
+        return this.userGeneratedContent ? 'provider.providedByUgc' : 'provider.providedBy';
       },
       namePrefLanguage() {
         return this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });

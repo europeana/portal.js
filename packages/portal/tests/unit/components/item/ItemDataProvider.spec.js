@@ -136,7 +136,7 @@ describe('components/item/ItemDataProvider', () => {
     describe('providedByStringPath', () => {
       describe('when there is user generated content', () => {
         it('is reflected in the text', () => {
-          const wrapper = factory({ dataProviderEntity, userGeneratedContent: 'true' });
+          const wrapper = factory({ dataProviderEntity, userGeneratedContent: true });
 
           const name = wrapper.vm.providedByStringPath;
 
