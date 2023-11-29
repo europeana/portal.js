@@ -7,7 +7,7 @@
       <slot name="item-language-selector" />
       <IIIFViewer
         :uri="iiifPresentationManifest"
-        :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
+        :search-query="fulltextSearchQuery"
         :aria-label="$t('actions.viewDocument')"
         :item-id="identifier"
         :provider-url="providerUrl"
@@ -89,6 +89,7 @@
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
 
+  import advancedSearchMixin from '@/mixins/advancedSearch';
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
@@ -108,6 +109,7 @@
     },
 
     mixins: [
+      advancedSearchMixin,
       rightsStatementMixin
     ],
 
@@ -176,6 +178,20 @@
           return this.edmRights;
         }
         return '';
+      },
+      fulltextSearchQuery() {
+        let query = [];
+
+        if (this.$nuxt.context.from) {
+          if (this.$nuxt.context.from.query.qa) {
+            const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$nuxt.context.from.query.qa);
+            query = advSearchRules
+              .filter((rule) => (rule.field === 'fulltext') && (rule.modifier === 'contains'))
+              .map((rule) => rule.term);
+          }
+        }
+
+        return query.join(' ');
       },
       selectedMedia: {
         get() {
