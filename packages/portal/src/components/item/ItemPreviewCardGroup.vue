@@ -194,11 +194,7 @@
 
     computed: {
       cardGroupClass() {
-        if (this.view === 'list') {
-          return 'card-group-list';
-        } else {
-          return null;
-        }
+        return this.view === 'list' ? 'card-group-list' : null;
       },
 
       cardVariant() {
