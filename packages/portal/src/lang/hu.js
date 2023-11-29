@@ -91,7 +91,8 @@ export default {
     "place": "Helyek",
     "theme": "Témák",
     "time": "Századok",
-    "topic": "Témakörök"
+    "topic": "Témakörök",
+    "trending": "Népszerű tárgyak"
   },
   "blog": {
     "author": "Szerző",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Böngésszen téma szerint",
     "themes": "Témák"
+  },
+  "views": {
+    "count": "{count} megtekintés | {count} megtekintések"
   },
   "website": "Weboldal"
 };

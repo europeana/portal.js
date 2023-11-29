@@ -91,7 +91,8 @@ export default {
     "place": "Μέρη",
     "theme": "Κατηγορίες",
     "time": "Αιώνες",
-    "topic": "Θέματα"
+    "topic": "Θέματα",
+    "trending": "Δημοφιλή τεκμήρια"
   },
   "blog": {
     "author": "Συγγραφέας",
@@ -1196,6 +1197,9 @@ export default {
   "themes": {
     "description": "Περιήγηση ανά κατηγορίες.",
     "themes": "Κατηγορίες"
+  },
+  "views": {
+    "count": "{count} προβολή | {count} προβολές"
   },
   "website": "Δικτυακός τόπος"
 };

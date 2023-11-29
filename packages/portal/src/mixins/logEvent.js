@@ -1,40 +1,60 @@
 import axios from 'axios';
 import isbot from 'isbot';
-import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
 export default {
-  methods: {
-    async logEvent(actionType, itemIdentifier) {
-      const loggingPermitted = this.$features?.eventLogging &&
+  data() {
+    return {
+      eventLogged: false,
+      eventToLog: null
+    };
+  },
+
+  computed: {
+    eventMayBeLogged() {
+      return !!(
+        this.$features?.eventLogging &&
+        this.eventToLog &&
+        !this.eventLogged &&
+        !this.$fetchState?.error &&
         process.client &&
         !isbot(navigator?.userAgent) &&
-        this.$session?.isActive;
+        this.$session?.isActive
+      );
+    }
+  },
 
-      if (!loggingPermitted) {
-        return false;
-      }
+  watch: {
+    eventMayBeLogged() {
+      this.sendEventLog();
+    }
+  },
 
-      let objectUri = itemIdentifier;
-      if (!objectUri.startsWith(ITEM_URL_PREFIX)) {
-        objectUri = `${ITEM_URL_PREFIX}${objectUri}`;
+  methods: {
+    async logEvent(actionType, objectUri) {
+      this.eventToLog = { actionType, objectUri };
+      await this.sendEventLog();
+    },
+
+    async sendEventLog() {
+      if (!this.eventMayBeLogged) {
+        return;
       }
 
       const postData = {
-        actionType,
-        objectUri,
-        sessionId: this.$session.id
+        ...this.eventToLog,
+        sessionId: this.$session?.id
       };
 
       try {
-        await axios.create({
-          baseURL: this.$config.app.baseUrl
-        }).post(
-          '/_api/events',
-          postData
-        );
-        return true;
+        await axios({
+          baseURL: this.$config.app.baseUrl,
+          method: 'post',
+          data: postData,
+          url: '/_api/events'
+        });
+        this.eventLogged = true;
       } catch (e) {
-        return false;
+        this.eventLogged = false;
       }
     }
   }

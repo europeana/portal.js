@@ -91,7 +91,8 @@ export default {
     "place": "Postijiet",
     "theme": "Temi",
     "time": "Sekli",
-    "topic": "Suġġetti"
+    "topic": "Suġġetti",
+    "trending": "Oġġetti trending"
   },
   "blog": {
     "author": "Awtur",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Ibbrawżja skont it-tema",
     "themes": "Temi"
+  },
+  "views": {
+    "count": "{count} veduta | {count} veduti"
   },
   "website": "Websajt"
 };

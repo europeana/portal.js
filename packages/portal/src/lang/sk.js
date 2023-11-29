@@ -91,7 +91,8 @@ export default {
     "place": "Miesta",
     "theme": "Kategórie",
     "time": "Storočia",
-    "topic": "Témy"
+    "topic": "Témy",
+    "trending": "Trendujúce objekty"
   },
   "blog": {
     "author": "Autor",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Prehľadávať podľa kategórie",
     "themes": "Kategórie"
+  },
+  "views": {
+    "count": "{count} prezretie | {count} prezretia"
   },
   "website": "Webové stránky"
 };

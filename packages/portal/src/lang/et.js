@@ -17,7 +17,7 @@ export default {
         "public": "Te pole veel ühtegi avalikku galeriid loonud",
         "published": "Teil pole veel ühtegi galeriid avaldatud"
       },
-      "noLikedItems": "Teile pole veel ükski toode meeldinud"
+      "noLikedItems": "Teile pole veel ükski üksus meeldinud"
     },
     "privateCollections": "Privaatgaleriid",
     "profile": "Minu meeldimised ja galeriid",
@@ -86,12 +86,13 @@ export default {
   },
   "automatedCardGroup": {
     "gallery": "Viimased galeriid",
-    "item": "Hiljutised esemed",
+    "item": "Hiljutised üksused",
     "organisation": "Organisatsioonid",
     "place": "Kohad",
     "theme": "Teemad",
     "time": "Sajandeid",
-    "topic": "Teemad"
+    "topic": "Teemad",
+    "trending": "Trendivad  üksused"
   },
   "blog": {
     "author": "Autor",
@@ -136,8 +137,8 @@ export default {
           "select": "Valige tehnikad"
         },
         "proxy_dc_type": {
-          "moreName": "kauba tüübid",
-          "name": "Eseme tüüp",
+          "moreName": "üksus tüübid",
+          "name": "Üksus tüüp",
           "select": "Valige üksuste tüübid"
         },
         "proxy_dcterms_medium": {
@@ -252,7 +253,7 @@ export default {
       "title": "Tundmatu viga"
     },
     "IIIFManifestFailure": {
-      "description": "Kahjuks ei saa hetkel Europeana-le esitatud meediakandjaid kuvada. Palun proovige meediat alla laadida või vaadata objekti selle esitanud institutsiooni veebisaidil."
+      "description": "Kahjuks ei saa Europeanale pakutavaid andmekandjaid praegu kuvada. Palun proovige meedia alla laadida või vaadake üksust edastava asutuse veebisaidil."
     },
     "itemNotFound": {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
@@ -264,7 +265,7 @@ export default {
       "title": "Lehte, mida otsite, pole olemas."
     },
     "pinningNotFound": {
-      "description": "Eseme kinnitamisel/lahti kinnitamisel ilmnes viga. Palun proovige uuesti või teatage probleemist.",
+      "description": "Üksuse kinnitamisel/eemaldamisel ilmnes viga. Proovige uuesti või teatage probleemist.",
       "title": "Kureeritud kollektsiooni ei leitud"
     },
     "searchPaginationLimitExceeded": {
@@ -467,7 +468,7 @@ export default {
       "select": "Valige värvid"
     },
     "contentTier": {
-      "name": "Eseme kvaliteet",
+      "name": "Üksus kvaliteet",
       "options": {
         "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
         "0": "Ei vasta avaldamise kriteeriumidele",
@@ -476,7 +477,7 @@ export default {
         "3": "Kvaliteetne ja korduvkasutatav koos tingimustega",
         "4": "Kvaliteetne ja vabalt taaskasutatav"
       },
-      "select": "Valige esemete omadused"
+      "select": "Valige üksus omadused"
     },
     "COUNTRY": {
       "name": "Pakkuja riik",
@@ -720,7 +721,7 @@ export default {
       "edmIsSuccessorOf": "on järeltulija",
       "edmProvider": "Agregaator",
       "edmRealizes": "Mõistab",
-      "edmRights": "Selle kirje meediumite litsents (kui pole teisiti täpsustatud)",
+      "edmRights": "Selles üksuses sisalduva meedia õiguste avaldus (kui pole teisiti märgitud)",
       "edmUgc": "Kasutaja loodud sisu",
       "europeanaCollectionName": "Kollektsiooni nimi",
       "fulltext": "Täistekst",
@@ -813,11 +814,11 @@ export default {
     "handle": "Liugkäepide"
   },
   "items": {
-    "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
-    "recent": "Hiljutised esemed",
-    "recommended": "Soovitatavad esemed",
-    "youMightLike": "Tooted, mis võivad teile meeldida"
+    "itemCount": "1 üksus | {count} üksused",
+    "itemOf": "{max} / {count} üksused",
+    "recent": "Hiljutised üksused",
+    "recommended": "Soovitatavad üksused",
+    "youMightLike": "Üksused, mis võivad teile meeldida"
   },
   "klaro": {
     "main": {
@@ -891,7 +892,7 @@ export default {
   },
   "landing": {
     "counts": {
-      "items": "Esemed",
+      "items": "Üksused",
       "providingInstitutions": "Pakkuja institutsioon",
       "visits": "Külastused päevas"
     },
@@ -969,7 +970,7 @@ export default {
         "title": "Kohad"
       },
       "table": {
-        "items": "Esemed",
+        "items": "Üksused",
         "name": "Nimi"
       },
       "times": {
@@ -1008,7 +1009,7 @@ export default {
     "mediaPlayer": "Meediumipleier",
     "record": "Üksus",
     "showAll": "Kuva kogu teave",
-    "similarItems": "Sarnased tooted",
+    "similarItems": "Sarnased üksused",
     "status": {
       "unpublished": "[Avaldamata üksus]"
     }
@@ -1029,8 +1030,8 @@ export default {
       "title": "Avastage seotud galeriid"
     },
     "items": {
-      "loginForMore": "Logi sisse, et näha teisi seotud esemed",
-      "title": "Avasta seotud esemed"
+      "loginForMore": "Logige sisse, et näha muid seotud üksusi",
+      "title": "Avastage seotud üksused"
     },
     "themes": {
       "title": "Avasta seotud teemad"
@@ -1140,14 +1141,14 @@ export default {
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
       "likeLimit": {
-        "body": "Vabandame, kuid praegu piirdute maksimaalselt 100 toote meeldimisega. Varsti eemaldame selle limiidi!",
+        "body": "Meil on kahju, kuid hetkel on teil piiratud maksimaalselt 100 üksused meeldimine. Me kaotame selle piirangu peagi!",
         "title": "100 meeldimist"
       },
       "updated": "Üksus lisati galeriisse.",
       "visibilityChanged": "Hoiatus: määratud nähtavus on juba muudetud ja on praegu \" {visibility} \"."
     },
     "prompts": {
-      "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
+      "delete": "Kas olete kindel, et soovite selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sellesse lisatud üksused."
     },
     "publication": {
       "criteria": {
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Sirvi teemade kaupa",
     "themes": "Teemad"
+  },
+  "views": {
+    "count": "{count} vaade | {count} vaadet"
   },
   "website": "Veebisait"
 };

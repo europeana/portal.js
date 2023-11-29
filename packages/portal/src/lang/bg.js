@@ -91,7 +91,8 @@ export default {
     "place": "Места",
     "theme": "Теми",
     "time": "Векове",
-    "topic": "Рубрика"
+    "topic": "Рубрика",
+    "trending": "Тенденционни обекта"
   },
   "blog": {
     "author": "Автор",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Преглед по тема",
     "themes": "Теми"
+  },
+  "views": {
+    "count": "{count} преглед | {count} прегледи"
   },
   "website": "Уебсайт"
 };

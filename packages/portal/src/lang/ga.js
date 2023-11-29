@@ -91,7 +91,8 @@ export default {
     "place": "Áiteanna",
     "theme": "Téamaí",
     "time": "Céadta",
-    "topic": "Ábhair"
+    "topic": "Ábhair",
+    "trending": "Míreanna treochta"
   },
   "blog": {
     "author": "Údar",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Brabhsáil de réir téama",
     "themes": "Téamaí"
+  },
+  "views": {
+    "count": "{count} amharc | {count} amharcanna"
   },
   "website": "Suíomh Gréasáin"
 };

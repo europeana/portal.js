@@ -91,7 +91,8 @@ export default {
     "place": "Plaatsen",
     "theme": "Thema's",
     "time": "Eeuwen",
-    "topic": "Onderwerpen"
+    "topic": "Onderwerpen",
+    "trending": "Populaire objecten"
   },
   "blog": {
     "author": "Auteur",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Blader op thema",
     "themes": "Thema's"
+  },
+  "views": {
+    "count": "{count} weergave | {count} weergaven"
   },
   "website": "Website"
 };

@@ -91,7 +91,8 @@ export default {
     "place": "Místa",
     "theme": "Témata",
     "time": "Století",
-    "topic": "Tématy"
+    "topic": "Tématy",
+    "trending": "Trendové položky"
   },
   "blog": {
     "author": "Autor",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Procházet podle tématu",
     "themes": "Témata"
+  },
+  "views": {
+    "count": "{count} zobrazení | {count} zobrazení"
   },
   "website": "Webové stránky"
 };

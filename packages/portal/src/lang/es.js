@@ -91,7 +91,8 @@ export default {
     "place": "Lugares",
     "theme": "Materias",
     "time": "Siglos",
-    "topic": "Temática"
+    "topic": "Temática",
+    "trending": "Ítems de tendencia"
   },
   "blog": {
     "author": "Autor",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Navegar por materias",
     "themes": "Materias"
+  },
+  "views": {
+    "count": "{count} vista | {count} vistas"
   },
   "website": "Sitio web"
 };

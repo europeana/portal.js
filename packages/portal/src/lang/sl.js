@@ -91,7 +91,8 @@ export default {
     "place": "Mesta",
     "theme": "Teme",
     "time": "Stoletja",
-    "topic": "Teme"
+    "topic": "Teme",
+    "trending": "Trendovski enote"
   },
   "blog": {
     "author": "Avtor",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Brskajte po temi",
     "themes": "Teme"
+  },
+  "views": {
+    "count": "{count} ogled | {count} ogledov"
   },
   "website": "Spletno mesto"
 };

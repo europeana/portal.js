@@ -91,7 +91,8 @@ export default {
     "place": "Vietos",
     "theme": "Temos",
     "time": "Šimtmečiai",
-    "topic": "Potemė"
+    "topic": "Potemė",
+    "trending": "Populiarūs skaitmeniniai objektai"
   },
   "blog": {
     "author": "Autorius",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Naršyti pagal temą",
     "themes": "Temos"
+  },
+  "views": {
+    "count": "{count} peržiūra | {count} peržiūros"
   },
   "website": "Interneto svetainė"
 };

@@ -91,7 +91,8 @@ export default {
     "place": "Steder",
     "theme": "Temaer",
     "time": "Århundreder",
-    "topic": "Emner"
+    "topic": "Emner",
+    "trending": "Trending genstande"
   },
   "blog": {
     "author": "Forfatter",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Gennemse efter tema",
     "themes": "Temaer"
+  },
+  "views": {
+    "count": "{count} visning | {count} visninger"
   },
   "website": "Websted"
 };

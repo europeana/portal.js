@@ -91,7 +91,8 @@ export default {
     "place": "Vietas",
     "theme": "Tēmas",
     "time": "Gadsimtiem",
-    "topic": "Tematikas"
+    "topic": "Tematikas",
+    "trending": "Populārākās digitālie objekti"
   },
   "blog": {
     "author": "Autors",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Pārlūkojiet pēc tēmas",
     "themes": "Tēmas"
+  },
+  "views": {
+    "count": "{count} skats | {count} skatījumi"
   },
   "website": "Vietne"
 };

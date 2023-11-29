@@ -91,7 +91,8 @@ export default {
     "place": "Mjesta",
     "theme": "Teme",
     "time": "Stoljeća",
-    "topic": "Sadržaj"
+    "topic": "Sadržaj",
+    "trending": "Trendovski predmeti"
   },
   "blog": {
     "author": "Autor",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Pregledajte po temi",
     "themes": "Teme"
+  },
+  "views": {
+    "count": "{count} pregled | {count} pregleda"
   },
   "website": "Web stranica"
 };

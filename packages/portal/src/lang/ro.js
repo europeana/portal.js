@@ -91,7 +91,8 @@ export default {
     "place": "Locuri",
     "theme": "Teme",
     "time": "Secole",
-    "topic": "Subiecte"
+    "topic": "Subiecte",
+    "trending": "Resurse culturale populare"
   },
   "blog": {
     "author": "Autor",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Răsfoiți după temă",
     "themes": "Teme"
+  },
+  "views": {
+    "count": "{count} vizualizare | {count} vizualizări"
   },
   "website": "Site-ul web"
 };

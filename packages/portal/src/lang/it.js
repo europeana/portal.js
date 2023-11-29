@@ -91,7 +91,8 @@ export default {
     "place": "Posti",
     "theme": "Temi",
     "time": "Secoli",
-    "topic": "Argomenti"
+    "topic": "Argomenti",
+    "trending": "Oggetti di tendenza"
   },
   "blog": {
     "author": "Autore",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Sfoglia per tema",
     "themes": "Temi"
+  },
+  "views": {
+    "count": "{count} visualizzazione | {count} visualizzazioni"
   },
   "website": "Sito web"
 };

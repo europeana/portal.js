@@ -95,6 +95,7 @@
   import ShareButton from '../../../components/share/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import logEventMixin from '@/mixins/logEvent';
 
   export default {
     name: 'ExhibitionCreditsPage',
@@ -107,6 +108,7 @@
     },
     mixins: [
       exhibitionChapters,
+      logEventMixin,
       pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
@@ -184,6 +186,10 @@
       exhibitionTitle() {
         return this.name;
       }
+    },
+
+    mounted() {
+      this.logEvent('view', `${this.$config.app.baseUrl}/exhibitions/${this.identifier}`);
     }
   };
 </script>

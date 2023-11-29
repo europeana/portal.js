@@ -28,6 +28,7 @@ const dummySection = {
 };
 
 const factory = (section) => mount(ContentCardSection, {
+  attachTo: document.body,
   localVue,
   propsData: {
     section: section || dummySection

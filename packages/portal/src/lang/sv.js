@@ -91,7 +91,8 @@ export default {
     "place": "Platser",
     "theme": "Teman",
     "time": "Århundraden",
-    "topic": "Ämnen"
+    "topic": "Ämnen",
+    "trending": "Trendiga objekt"
   },
   "blog": {
     "author": "Författare",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Bläddra efter tema",
     "themes": "Teman"
+  },
+  "views": {
+    "count": "{count} visning | {count} visningar"
   },
   "website": "Webbplats"
 };

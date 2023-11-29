@@ -91,7 +91,8 @@ export default {
     "place": "Lekuak",
     "theme": "Gaiak",
     "time": "Mendeak",
-    "topic": "Gaiak"
+    "topic": "Gaiak",
+    "trending": "Joerako elementuak"
   },
   "blog": {
     "author": "Egilea",
@@ -1196,6 +1197,9 @@ export default {
   "themes": {
     "description": "Arakatu gaiaren arabera",
     "themes": "Gaiak"
+  },
+  "views": {
+    "count": "{count} ikuspen | {count} ikuspen"
   },
   "website": "Webgunea"
 };

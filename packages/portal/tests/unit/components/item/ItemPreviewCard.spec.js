@@ -59,14 +59,6 @@ describe('components/item/ItemPreviewCard', () => {
     });
   });
 
-  describe('mosaic card', () => {
-    it('renders a mosaic content card without any recommendation buttons', () => {
-      const wrapper = factory({ item, variant: 'mosaic' });
-
-      expect(wrapper.vm.texts).toEqual([]);
-    });
-  });
-
   describe('list card', () => {
     describe('when hit-selector is present', () => {
       it('renders a list content card with hit-selector text', () => {

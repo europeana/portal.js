@@ -91,7 +91,8 @@ export default {
     "place": "Orte",
     "theme": "Themenbereiche",
     "time": "Jahrhunderte",
-    "topic": "Themen"
+    "topic": "Themen",
+    "trending": "Trendige Objekte"
   },
   "blog": {
     "author": "Autor",
@@ -1192,6 +1193,9 @@ export default {
   "themes": {
     "description": "Nach Themenbereiche durchsuchen",
     "themes": "Themenbereiche"
+  },
+  "views": {
+    "count": "{count} Ansicht | {count} Ansichten"
   },
   "website": "Webseite"
 };
