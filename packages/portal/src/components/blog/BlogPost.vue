@@ -42,9 +42,11 @@
                 />
               </template>
             </div>
-            <ShareButton class="my-4 mr-4" />
-            <ShareSocialModal :media-url="hero ? hero.image.url : null" />
-            <ViewCount />
+            <div class="my-4 d-flex align-items-center">
+              <ShareButton class="mr-4" />
+              <ShareSocialModal :media-url="hero ? hero.image.url : null" />
+              <ViewCount />
+            </div>
             <BrowseSections
               :sections="body.items"
               :rich-text-is-card="false"
