@@ -22,6 +22,7 @@
             :title="collectionTitle(dataProviderEntity)"
             :img="$apis.entity.imageUrl(dataProviderEntity)"
             type="Organization"
+            :click-event-handler="badgeClickEventHandler"
           />
           <span
             v-else
@@ -103,6 +104,9 @@
     methods: {
       isEntityUri(uri) {
         return isEntityUri(uri);
+      },
+      badgeClickEventHandler() {
+        this.$store.commit('search/setLoggableInteraction', true);
       }
     }
   };

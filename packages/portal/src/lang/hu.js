@@ -91,7 +91,8 @@ export default {
     "place": "Helyek",
     "theme": "Témák",
     "time": "Századok",
-    "topic": "Témakörök"
+    "topic": "Témakörök",
+    "trending": "Népszerű tárgyak"
   },
   "blog": {
     "author": "Szerző",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Gyűjtemény neve",
       "fulltext": "Teljes szöveg",
       "keywords": "Kulcsszavak (a közösség által megadva)",
-      "timestampCreated": "Időbélyeg létrehozva",
-      "timestampUpdate": "Időbélyeg frissítve",
+      "timestampCreated": "Először jelent meg az Europeana",
+      "timestampUpdate": "Utolsó frissítés a szolgáltató intézménytől",
       "wasPresentAt": "Jelen volt itt",
       "what": "Mi",
       "when": "Mikor",
@@ -1156,8 +1157,10 @@ export default {
       },
       "description": "A galéria közzététele az Europeana.eu/galleries oldalon lesz látható.",
       "failedSubmission": "A kérés meghiúsult. Kérlek próbáld újra.",
+      "galleries": "Galériák",
       "process": {
         "description": "Amikor galériát küld be közzétételre, az Europeana kiadói csapata értesítést kap. Először átnézik, és a közzététel előtt módosításokat végezhetnek. A galéria felülvizsgálata után e-mailben értesítést fog kapni. Ha nem teszik közzé, akkor előfordulhat, hogy nem felel meg a szerkesztési irányelveinknek.",
+        "guidelines": "szerkesztési irányelvek",
         "title": "Hogyan működik a folyamat"
       },
       "time": {
@@ -1192,6 +1195,9 @@ export default {
   "themes": {
     "description": "Böngésszen téma szerint",
     "themes": "Témák"
+  },
+  "views": {
+    "count": "{count} megtekintés | {count} megtekintések"
   },
   "website": "Weboldal"
 };

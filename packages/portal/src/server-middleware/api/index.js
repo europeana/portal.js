@@ -36,6 +36,8 @@ import logEvent from './events/log.js';
 app.post('/events', logEvent(runtimeConfig.postgres));
 import eventTrending from './events/trending.js';
 app.get('/events/trending', eventTrending(runtimeConfig.postgres));
+import eventViews from './events/views.js';
+app.get('/events/views', eventViews(runtimeConfig.postgres));
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 app.post('/jira-service-desk/feedback', jiraServiceDeskFeedback(runtimeConfig.jira));

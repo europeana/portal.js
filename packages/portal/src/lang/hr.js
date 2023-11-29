@@ -91,7 +91,8 @@ export default {
     "place": "Mjesta",
     "theme": "Teme",
     "time": "Stoljeća",
-    "topic": "Sadržaj"
+    "topic": "Sadržaj",
+    "trending": "Trendovski predmeti"
   },
   "blog": {
     "author": "Autor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Naziv zbirke",
       "fulltext": "Cijeli tekst",
       "keywords": "Ključne riječi (koje pruža zajednica)",
-      "timestampCreated": "Vremenska oznaka stvorena",
-      "timestampUpdate": "Vremenska oznaka ažurirana",
+      "timestampCreated": "Prvi put objavljeno na Europeana",
+      "timestampUpdate": "Zadnji put ažurirano od institucije koja pruža podatke",
       "wasPresentAt": "Bio je prisutan u",
       "what": "Što",
       "when": "Kada",
@@ -1156,8 +1157,10 @@ export default {
       },
       "description": "Objavljivanje galerije bit će prikazano na Europeana.eu/galleries.",
       "failedSubmission": "Zahtjev nije uspio. Molim te pokušaj ponovno.",
+      "galleries": "Galerije",
       "process": {
         "description": "Kada pošaljete galeriju za objavljivanje, tim izdavača na Europeani bit će obaviješten. Oni će ga najprije pregledati i mogu unijeti izmjene prije nego što se objavi. Primat ćete obavijesti e-poštom dok galerija bude pregledana. Ako se ne objavi, moguće je da nije u skladu s našim uredničkim smjernicama.",
+        "guidelines": "uredničke smjernice",
         "title": "Kako proces funkcionira"
       },
       "time": {
@@ -1192,6 +1195,9 @@ export default {
   "themes": {
     "description": "Pregledajte po temi",
     "themes": "Teme"
+  },
+  "views": {
+    "count": "{count} pregled | {count} pregleda"
   },
   "website": "Web stranica"
 };

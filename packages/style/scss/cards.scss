@@ -206,25 +206,6 @@
     }
   }
 
-  &.explore-card {
-    flex: 100%;
-    margin-bottom: 1rem;
-    min-height: auto;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    @media (min-width: $bp-medium) {
-      margin-right: $grid-gutter-narrow;
-      margin-left: $grid-gutter-narrow !important;
-
-      &:last-child {
-        margin-bottom: 1rem;
-      }
-    }
-  }
-
   &.create-card {
     background: $white;
     cursor: pointer;

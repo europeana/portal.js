@@ -91,7 +91,8 @@ export default {
     "place": "Locuri",
     "theme": "Teme",
     "time": "Secole",
-    "topic": "Subiecte"
+    "topic": "Subiecte",
+    "trending": "Resurse culturale populare"
   },
   "blog": {
     "author": "Autor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Numele colecției",
       "fulltext": "Text integral",
       "keywords": "Cuvinte cheie (furnizate de comunitate)",
-      "timestampCreated": "Marcaj temporal creat",
-      "timestampUpdate": "Marcaj temporal actualizat",
+      "timestampCreated": "Publicat pentru prima dată pe Europeana",
+      "timestampUpdate": "Ultima actualizare de la instituția furnizoare",
       "wasPresentAt": "A fost prezent la",
       "what": "Ce",
       "when": "Când",
@@ -1156,8 +1157,10 @@ export default {
       },
       "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
       "failedSubmission": "Solicitarea nu a reușit. Încercați din nou.",
+      "galleries": "Galerii",
       "process": {
         "description": "Când trimiteți o galerie spre publicare, o echipă de editori de la Europeana va fi anunțată. Ei îl vor revizui mai întâi și pot face modificări înainte de a fi publicat. Veți primi notificări prin e-mail pe măsură ce galeria este revizuită. Dacă nu este publicat, s-ar putea să nu fie în conformitate cu îndrumările noastre editoriale.",
+        "guidelines": "ghiduri editoriale",
         "title": "Cum funcționează procesul"
       },
       "time": {
@@ -1192,6 +1195,9 @@ export default {
   "themes": {
     "description": "Răsfoiți după temă",
     "themes": "Teme"
+  },
+  "views": {
+    "count": "{count} vizualizare | {count} vizualizări"
   },
   "website": "Site-ul web"
 };

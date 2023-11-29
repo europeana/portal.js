@@ -42,8 +42,9 @@
                 />
               </template>
             </div>
-            <ShareButton class="my-4" />
+            <ShareButton class="my-4 mr-4" />
             <ShareSocialModal :media-url="hero ? hero.image.url : null" />
+            <ViewCount />
             <BrowseSections
               :sections="body.items"
               :rich-text-is-card="false"
@@ -79,6 +80,7 @@
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton.vue';
   import BrowseSections from '../browse/BrowseSections';
+  import ViewCount from '../generic/ViewCount.vue';
 
   export default {
     name: 'BlogPost',
@@ -86,13 +88,14 @@
     components: {
       AuthoredHead: () => import('../authored/AuthoredHead'),
       BlogAuthor: () => import('./BlogAuthor'),
-      RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
-      ClientOnly,
-      ShareSocialModal,
-      ShareButton,
       BrowseSections,
+      ClientOnly,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
-      ThemeBadges: () => import('@/components/theme/ThemeBadges')
+      RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
+      ShareButton,
+      ShareSocialModal,
+      ThemeBadges: () => import('@/components/theme/ThemeBadges'),
+      ViewCount
     },
 
     props: {

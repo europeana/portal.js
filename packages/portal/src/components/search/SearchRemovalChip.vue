@@ -50,6 +50,7 @@
 
     methods: {
       clickEventHandler() {
+        this.$store.commit('search/setLoggableInteraction', true);
         if (this.$matomo) {
           this.$matomo.trackEvent('Remove_search_criterion', 'Click remove search criteria', this.linkTo);
         }

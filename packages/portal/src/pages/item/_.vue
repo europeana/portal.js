@@ -156,6 +156,7 @@
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
+  import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'ItemPage',
@@ -204,8 +205,7 @@
         timespans: [],
         title: null,
         type: null,
-        useProxy: true,
-        viewLogged: false
+        useProxy: true
       };
     },
 
@@ -325,28 +325,19 @@
       },
       'relatedEntityUris'() {
         this.fetchEntities();
-      },
-      '$session.isActive'() {
-        this.logEventIfNeeded();
       }
     },
 
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
-      this.logEventIfNeeded();
+      this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }
     },
 
     methods: {
-      async logEventIfNeeded() {
-        if (!this.$fetchState.error && !this.viewLogged && this.$session.isActive) {
-          this.viewLogged = await this.logEvent('view', this.identifier);
-        }
-      },
-
       trackCustomDimensions() {
         if (!this.$waitForMatomo) {
           return;

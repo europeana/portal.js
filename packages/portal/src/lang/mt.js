@@ -91,7 +91,8 @@ export default {
     "place": "Postijiet",
     "theme": "Temi",
     "time": "Sekli",
-    "topic": "Suġġetti"
+    "topic": "Suġġetti",
+    "trending": "Oġġetti trending"
   },
   "blog": {
     "author": "Awtur",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Isem il-kollezzjoni",
       "fulltext": "Test sħiħ",
       "keywords": "Keywords (ipprovduti mill-komunità)",
-      "timestampCreated": "Il-kronogramma ġiet maħluqa",
-      "timestampUpdate": "Kronogramma aġġornata",
+      "timestampCreated": "L-ewwel darba ppubblikata fuq Europeana",
+      "timestampUpdate": "L-aħħar aġġornament mill-istituzzjoni fornitriċi",
       "wasPresentAt": "Kien preżenti fi",
       "what": "Xiex",
       "when": "Meta",
@@ -1156,8 +1157,10 @@ export default {
       },
       "description": "Il-pubblikazzjoni ta' gallerija ser tidher fuq Europeana.eu/galleries.",
       "failedSubmission": "It-talba falliet. Jekk jogħġbok erġa pprova.",
+      "galleries": "Galleriji",
       "process": {
         "description": "Meta tissottometti gallerija għall-pubblikazzjoni, tim ta' pubblikaturi f'Europeana jiġi nnotifikat. L-ewwel se jirreveduha, u jistgħu jagħmlu bidliet qabel ma tiġi ppubblikata. Inti ser tirċievi notifiki bl-email hekk kif il-gallerija tiġi riveduta. Jekk ma tiġix ippubblikata, jista' jkun li ma tikkonformax mal-linji gwida editorjali tagħna.",
+        "guidelines": "linji gwida editorjali",
         "title": "Kif jaħdem il-proċess"
       },
       "time": {
@@ -1192,6 +1195,9 @@ export default {
   "themes": {
     "description": "Ibbrawżja skont it-tema",
     "themes": "Temi"
+  },
+  "views": {
+    "count": "{count} veduta | {count} veduti"
   },
   "website": "Websajt"
 };

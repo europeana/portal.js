@@ -91,7 +91,8 @@ export default {
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Vuosisadat",
-    "topic": "Aiheet"
+    "topic": "Aiheet",
+    "trending": "Trendaavat aineistot"
   },
   "blog": {
     "author": "Kirjoittaja",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Kokoelman nimi",
       "fulltext": "Koko teksti",
       "keywords": "Avainsanat (yhteisön tarjoamat)",
-      "timestampCreated": "Aikaleima luotu",
-      "timestampUpdate": "Aikaleima päivitetty",
+      "timestampCreated": "Julkaistu ensimmäistä kertaa Europeana",
+      "timestampUpdate": "Viimeksi päivitetty aineiston tarjoajalta",
       "wasPresentAt": "Oli läsnä paikassa",
       "what": "Mitä",
       "when": "Kun",
@@ -1156,8 +1157,10 @@ export default {
       },
       "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
       "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
+      "galleries": "Galleriat",
       "process": {
         "description": "Kun lähetät gallerian julkaistavaksi, Europeanan kustantajatiimi saa ilmoituksen. He tarkastavat sen ensin ja saattavat tehdä muutoksia ennen julkaisemista. Saat ilmoituksia sähköpostitse, kun galleriaa tarkistetaan. Jos galleriaa ei julkaista, se voi johtua siitä, että se ei ole toimituksellisten ohjeidemme mukainen.",
+        "guidelines": "toimitukselliset ohjeet",
         "title": "Kuinka prosessi toimii"
       },
       "time": {
@@ -1192,6 +1195,9 @@ export default {
   "themes": {
     "description": "Selaa teemoittain",
     "themes": "Teemat"
+  },
+  "views": {
+    "count": "{count} näkymä | {count} näkymät"
   },
   "website": "Verkkosivusto"
 };

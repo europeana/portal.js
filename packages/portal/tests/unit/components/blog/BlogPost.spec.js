@@ -9,6 +9,7 @@ localVue.use(BootstrapVue);
 const factory = () => shallowMount(BlogPost, {
   localVue,
   mocks: {
+    $features: {},
     $d: () => {},
     $t: () => {},
     $tc: () => {}

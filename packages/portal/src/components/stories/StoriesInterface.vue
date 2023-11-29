@@ -46,6 +46,7 @@
           <CallToActionBanner
             v-if="callToAction"
             :name="callToAction.name"
+            :name-english="callToAction.nameEN"
             :text="callToAction.text"
             :link="callToAction.relatedLink"
             :illustration="callToAction.image"

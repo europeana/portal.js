@@ -20,6 +20,7 @@
         :img="$apis.entity.imageUrl(relatedCollection)"
         :type="relatedCollection.type"
         :badge-variant="badgeVariant"
+        :click-event-handler="() => clickEventHandler(relatedCollection.url || collectionLinkGen(relatedCollection))"
       />
     </div>
   </div>
@@ -108,6 +109,12 @@
         this.$nextTick(() => {
           this.$redrawVueMasonry?.();
         });
+      },
+      clickEventHandler(link) {
+        this.$store.commit('search/setLoggableInteraction', true);
+        if (this.$matomo) {
+          this.$matomo.trackEvent('Related_collections', 'Click related collection', link);
+        }
       }
     }
   };

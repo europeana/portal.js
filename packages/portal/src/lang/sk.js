@@ -91,7 +91,8 @@ export default {
     "place": "Miesta",
     "theme": "Kategórie",
     "time": "Storočia",
-    "topic": "Témy"
+    "topic": "Témy",
+    "trending": "Trendujúce objekty"
   },
   "blog": {
     "author": "Autor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Názov zbierky",
       "fulltext": "Plný text",
       "keywords": "Kľúčové slová (poskytnuté komunitou)",
-      "timestampCreated": "Vytvorenie časovej pečiatky",
-      "timestampUpdate": "Aktualizácia časovej pečiatky",
+      "timestampCreated": "Prvýkrát zverejnené na Europeana",
+      "timestampUpdate": "Naposledy aktualizované zo strany správcovskej inštitúcie",
       "wasPresentAt": "bol prítomný na mieste",
       "what": "Čo",
       "when": "Kedy",
@@ -1156,8 +1157,10 @@ export default {
       },
       "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",
       "failedSubmission": "Žiadosť zlyhala. Prosím skúste znova.",
+      "galleries": "Galérie",
       "process": {
         "description": "Keď odošlete galériu na zverejnenie, tím vydavateľov Europeana bude upozornený. Najprv ho skontrolujú a pred zverejnením môžu vykonať zmeny. Počas kontroly galérie budete dostávať upozornenia e-mailom. Ak nie je zverejnený, je možné, že nie je v súlade s našimi redakčnými pokynmi.",
+        "guidelines": "redakčné pokyny",
         "title": "Ako proces funguje"
       },
       "time": {
@@ -1192,6 +1195,9 @@ export default {
   "themes": {
     "description": "Prehľadávať podľa kategórie",
     "themes": "Kategórie"
+  },
+  "views": {
+    "count": "{count} prezretie | {count} prezretia"
   },
   "website": "Webové stránky"
 };

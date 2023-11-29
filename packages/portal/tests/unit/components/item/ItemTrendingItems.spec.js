@@ -3,7 +3,7 @@ import { shallowMountNuxt } from '../../utils';
 import nock from 'nock';
 import sinon from 'sinon';
 
-import page from '@/pages/trending/index';
+import ItemTrendingItems from '@/components/item/ItemTrendingItems';
 
 const localVue = createLocalVue();
 
@@ -22,7 +22,7 @@ const fixtures = {
   }
 };
 
-const factory = () => shallowMountNuxt(page, {
+const factory = () => shallowMountNuxt(ItemTrendingItems, {
   localVue,
   mocks: {
     $apis: {
@@ -40,7 +40,7 @@ const factory = () => shallowMountNuxt(page, {
   stubs: ['b-container']
 });
 
-describe('TrendingPage', () => {
+describe('ItemTrendingItems', () => {
   beforeEach(() => {
     nock('http://localhost')
       .get('/_api/events/trending')

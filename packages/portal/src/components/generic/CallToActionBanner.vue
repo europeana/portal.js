@@ -32,6 +32,7 @@
         data-qa="call to action"
         class="btn btn-cta btn-primary"
         hide-external-icon
+        @click.capture.native="handleClickEvent"
       >
         {{ link.text }}
       </SmartLink>
@@ -54,6 +55,10 @@
       name: {
         type: String,
         required: true
+      },
+      nameEnglish: {
+        type: String,
+        default: null
       },
       text: {
         type: String,
@@ -80,6 +85,12 @@
       html() {
         // TODO: Update the styling of the RichString component and use that instead.
         return marked.parse(this.text);
+      }
+    },
+
+    methods: {
+      handleClickEvent() {
+        this.$matomo?.trackEvent('CTA banner', 'Click CTA banner link', `CTA banner: ${this.nameEnglish}`);
       }
     }
   };

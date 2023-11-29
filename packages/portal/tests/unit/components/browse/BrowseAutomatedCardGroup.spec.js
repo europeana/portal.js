@@ -15,6 +15,7 @@ const FEATURED_TIMES = 'Featured centuries';
 const RECENT_ITEMS = 'Recent items';
 const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
 const LATEST_GALLERIES = 'Latest galleries';
+const TRENDING_ITEMS = 'Trending items';
 
 const $axiosGetStub = sinon.stub();
 
@@ -252,6 +253,19 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
           { withMinimalItemPreviews: sinon.match.truthy }
         )).toBe(true);
         expect(wrapper.vm.entries).toEqual(setResponse.data.items);
+      });
+    });
+
+    describe('when the section is for trending items section', () => {
+      const propsData = { sectionType: TRENDING_ITEMS };
+
+      it('does not fetch entries', async() => {
+        const wrapper = factory(propsData);
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.trending).toEqual(true);
+        expect(wrapper.vm.entries).toEqual([]);
       });
     });
   });

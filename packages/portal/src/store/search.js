@@ -3,6 +3,7 @@ export default {
     active: false,
     collectionFacetEnabled: true,
     collectionLabel: null,
+    loggableInteraction: false,
     queryInputValue: null,
     showSearchSidebar: false,
     showSidebarToggle: false,
@@ -20,6 +21,9 @@ export default {
     },
     setActive(state, value) {
       state.active = value;
+    },
+    setLoggableInteraction(state, value) {
+      state.loggableInteraction = value;
     },
     setShowSearchBar(state, value) {
       state.showSearchBar = value;

@@ -53,6 +53,7 @@
       <CallToActionBanner
         v-else-if="contentType(section, 'PrimaryCallToAction') && section.image"
         :name="section.name"
+        :name-english="section.nameEN"
         :text="section.text"
         :link="section.relatedLink"
         :illustration="section.image"

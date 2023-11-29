@@ -15,7 +15,6 @@
       <ItemPreviewCardGroup
         v-show="items.length > 0"
         :items="items"
-        view="explore"
         class="mb-0"
         data-qa="similar items"
         :on-aux-click-card="onClickItem"
