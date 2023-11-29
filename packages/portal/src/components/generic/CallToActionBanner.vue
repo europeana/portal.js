@@ -90,7 +90,7 @@
 
     methods: {
       handleClickEvent() {
-        this.$matomo && this.$matomo.trackEvent('CTA banner', 'Click CTA banner link', this.nameEnglish);
+        this.$matomo?.trackEvent('CTA banner', 'Click CTA banner link', `CTA banner: ${this.nameEnglish}`);
       }
     }
   };

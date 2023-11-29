@@ -50,7 +50,7 @@ describe('components/generic/CallToActionBanner', () => {
 
         wrapper.vm.handleClickEvent();
 
-        expect(wrapper.vm.$matomo.trackEvent.calledWith('CTA banner', 'Click CTA banner link', 'CTA in English')).toBe(true);
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('CTA banner', 'Click CTA banner link', 'CTA banner: CTA in English')).toBe(true);
       });
     });
   });
