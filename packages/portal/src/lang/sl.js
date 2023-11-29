@@ -1156,16 +1156,16 @@ export default {
         "description": "Za objavo mora galerija vsebovati naslov in opis ter mora vsebovati najmanj 15 enote.",
         "title": "Kriteriji objave"
       },
-      "description": "Z objavo galerije bo ta objavljena na Europeana.eu/galleries.",
+      "description": "Če objavite galerijo, bo prikazana na {galleries}.",
       "failedSubmission": "Zahteva ni uspela. Prosim poskusite ponovno.",
       "galleries": "Galerije",
       "process": {
-        "description": "Ko pošljete galerijo v objavo, bo o tem obveščena ekipa založnikov Europeana. Ti jo bodo najprej pregledali in jo pred objavo morda spremenili. Obvestila o pregledu galerije boste prejeli po elektronski pošti. Če galerija ne bo objavljena, se lahko zgodi, da ni v skladu z našimi uredniškimi smernicami.",
+        "description": "Ko oddate galerijo za objavo, bo o tem obveščena ekipa založnikov Europeana. Najprej ga bodo pregledali in morda spremenili, preden bo objavljen. Ko bo galerija pregledana, boste prejeli obvestila po e-pošti. Če ni objavljen, morda ni v skladu z našimi {guidelines}.",
         "guidelines": "uredniška navodila",
         "title": "Kako poteka proces"
       },
       "time": {
-        "description": "1-3 dni.",
+        "description": "Naš cilj je, da pregledamo vašo galerijo v enem delovnem tednu.",
         "title": "Koliko časa traja"
       },
       "title": "Pošljite galerijo za objavo",

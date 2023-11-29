@@ -1156,16 +1156,16 @@ export default {
         "description": "For at komme i betragtning til udgivelse skal et galleri indeholde en titel og beskrivelse og skal indeholde minimum 15 genstande.",
         "title": "Kriterier for offentliggørelse"
       },
-      "description": "Udgivelse af et galleri vil vise det på Europeana.eu/galleries.",
+      "description": "Udgivelse af et galleri vil vise det på {galleries}.",
       "failedSubmission": "Anmodningen mislykkedes. Prøv venligst igen.",
       "galleries": "Gallerier",
       "process": {
-        "description": "Når du indsender et galleri til offentliggørelse, får et team af udgivere hos Europeana besked. De vil først gennemgå det og kan foretage ændringer, før det offentliggøres. Du vil modtage meddelelser via e-mail, når galleriet gennemgås. Hvis den ikke offentliggøres, kan det være, at den ikke er i overensstemmelse med vores redaktionelle retningslinjer.",
+        "description": "Når du indsender et galleri til offentliggørelse, vil et team af udgivere hos Europeana blive underrettet. De vil først gennemgå det, og kan foretage ændringer, før det offentliggøres. Du vil modtage meddelelser via e-mail, efterhånden som galleriet gennemgås. Hvis det ikke er offentliggjort, kan det være, at det ikke overholder vores {guidelines}.",
         "guidelines": "redaktionelle retningslinjer",
         "title": "Hvordan processen fungerer"
       },
       "time": {
-        "description": "1-3 dage.",
+        "description": "Vi bestræber os på at gennemgå dit galleri inden for en arbejdsuge.",
         "title": "Hvor længe det tager"
       },
       "title": "Indsend galleri til offentliggørelse",

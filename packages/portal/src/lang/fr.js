@@ -1156,16 +1156,16 @@ export default {
         "description": "Pour être considérée pour publication, une galerie doit inclure un titre et une description, et doit contenir un minimum de 15 items.",
         "title": "Critères de publication"
       },
-      "description": "La publication d'une galerie la présentera sur Europeana.eu/galleries.",
+      "description": "La publication d'une galerie la présentera sur {galleries}.",
       "failedSubmission": "La demande a échoué. Veuillez réessayer.",
       "galleries": "Galeries",
       "process": {
-        "description": "Lorsque vous soumettez une galerie pour publication, une équipe d'éditeurs d'Europeana en est informée. Ils l'examineront d'abord, et pourront apporter des modifications avant qu'elle ne soit publiée. Vous recevrez des notifications par courrier électronique au fur et à mesure de l'examen de votre galerie. Si elle n'est pas publiée, c'est peut-être parce qu'elle n'est pas conforme à nos directives éditoriales.",
+        "description": "Lorsque vous soumettez une galerie pour publication, une équipe d’éditeurs d’Europeana en sera informée. Ils l’examineront d’abord et pourront y apporter des modifications avant sa publication. Vous recevrez des notifications par e-mail au fur et à mesure de l'examen de la galerie. S'il n'est pas publié, il se peut qu'il ne soit pas conforme à nos {guidelines}.",
         "guidelines": "directives éditoriales",
         "title": "Comment fonctionne le processus"
       },
       "time": {
-        "description": "1-3 jours.",
+        "description": "Notre objectif est d’examiner votre galerie dans un délai d’une semaine ouvrable.",
         "title": "Combien de temps cela prend-il"
       },
       "title": "Soumettre la galerie pour publication",

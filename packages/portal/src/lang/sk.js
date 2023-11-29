@@ -1156,16 +1156,16 @@ export default {
         "description": "Aby bola galéria vyvážená na zverejnenie, musí obsahovať názov a popis a musí obsahovať minimálne 15 objekty.",
         "title": "Kritériá zverejnenia"
       },
-      "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",
+      "description": "Zverejnením galérie sa zobrazí na {galleries}.",
       "failedSubmission": "Žiadosť zlyhala. Prosím skúste znova.",
       "galleries": "Galérie",
       "process": {
-        "description": "Keď odošlete galériu na zverejnenie, tím vydavateľov Europeana bude upozornený. Najprv ho skontrolujú a pred zverejnením môžu vykonať zmeny. Počas kontroly galérie budete dostávať upozornenia e-mailom. Ak nie je zverejnený, je možné, že nie je v súlade s našimi redakčnými pokynmi.",
+        "description": "Keď odošlete galériu na zverejnenie, tím vydavateľov Europeana bude upozornený. Najprv ho skontrolujú a pred zverejnením môžu vykonať zmeny. Počas kontroly galérie budete dostávať upozornenia e-mailom. Ak nie je zverejnený, je možné, že nie je v súlade s našimi {guidelines}.",
         "guidelines": "redakčné pokyny",
         "title": "Ako proces funguje"
       },
       "time": {
-        "description": "1-3 dni.",
+        "description": "Naším cieľom je skontrolovať vašu galériu do jedného pracovného týždňa.",
         "title": "Ako dlho to trvá"
       },
       "title": "Odoslať galériu na zverejnenie",

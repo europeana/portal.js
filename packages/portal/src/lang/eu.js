@@ -1160,16 +1160,16 @@ export default {
         "description": "Argitalpenerako kontuan hartzeko, galeria batek izenburua eta deskribapena izan behar ditu, eta gutxienez 15 elementu izan behar ditu.",
         "title": "Argitalpen-irizpideak"
       },
-      "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
+      "description": "Galeria bat argitaratuz gero {galleries} webgunean agertuko da.",
       "failedSubmission": "Eskaerak huts egin du. Saiatu berriro mesedez.",
       "galleries": "Galeriak",
       "process": {
-        "description": "Galeria bat argitaratzeko bidaltzen duzunean, Europeana-ko argitaletxe talde bati jakinaraziko zaio. Lehenik eta behin aztertuko dute, eta aldaketak egin ditzakete argitaratu aurretik. Galeria berrikusten den heinean jakinarazpenak jasoko dituzu posta elektronikoz. Argitaratzen ez bada, baliteke gure editorialen jarraibideekin bat ez egitea.",
+        "description": "Galeria bat argitaratzeko bidaltzen duzunean, Europeana-ko argitaletxe talde bati jakinaraziko zaio. Lehenik eta behin aztertuko dute, eta aldaketak egin ditzakete argitaratu aurretik. Galeria berrikusten den heinean jakinarazpenak jasoko dituzu posta elektronikoz. Argitaratzen ez bada, baliteke gure {guidelines} bat ez izatea.",
         "guidelines": "jarraibide editorialak",
         "title": "Nola funtzionatzen duen prozesua"
       },
       "time": {
-        "description": "1-3 egun.",
+        "description": "Zure galeria astebeteko epean berrikustea dugu helburu.",
         "title": "Zenbat denbora behar duen"
       },
       "title": "Bidali galeria argitaratzeko",

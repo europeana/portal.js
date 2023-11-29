@@ -1156,16 +1156,16 @@ export default {
         "description": "Para ser considerada para publicación, una galería debe incluir un título y una descripción, y debe contener un mínimo de 15 ítems.",
         "title": "Criterios de publicación"
       },
-      "description": "Al publicar una galería, aparecerá en Europeana.eu/galleries.",
+      "description": "La publicación de una galería la mostrará en {galleries}.",
       "failedSubmission": "La solicitud falló. Inténtalo de nuevo.",
       "galleries": "Galerías",
       "process": {
-        "description": "Cuando envíe una galería para su publicación, se notificará a un equipo de editores de Europeana. Primero lo revisarán y pueden hacer cambios antes de que se publique. Recibirá notificaciones por correo electrónico a medida que se revise la galería. Si no se publica, es posible que no se ajuste a nuestras pautas editoriales.",
+        "description": "Cuando envíe una galería para su publicación, se notificará a un equipo de editores de Europeana. Primero lo revisarán y podrán realizar cambios antes de su publicación. Recibirás notificaciones por correo electrónico a medida que se revise la galería. Si no se publica, puede ser que no se ajuste a nuestras {guidelines}.",
         "guidelines": "directrices editoriales",
         "title": "Cómo funciona el proceso"
       },
       "time": {
-        "description": "1-3 días",
+        "description": "Nuestro objetivo es revisar su galería dentro de una semana hábil.",
         "title": "Cuánto se tarda"
       },
       "title": "Enviar galería para publicación",
