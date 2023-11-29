@@ -1156,16 +1156,16 @@ export default {
         "description": "Avaldamiseks peab galerii sisaldama pealkirja ja kirjeldust ning vähemalt 15 üksust.",
         "title": "Avaldamise kriteeriumid"
       },
-      "description": "Galerii avaldamisel kuvatakse see veebisaidil Europeana.eu/galleries.",
+      "description": "Galerii avaldamisel kuvatakse see saidil {galleries}.",
       "failedSubmission": "Taotlus ebaõnnestus. Palun proovi uuesti.",
       "galleries": "Galeriid",
       "process": {
-        "description": "Kui esitate galerii avaldamiseks, teavitatakse sellest Europeana kirjastajate meeskonda. Nad vaatavad selle kõigepealt üle ja võivad teha muudatusi enne selle avaldamist. Galerii ülevaatamisel saate teateid e-posti teel. Kui seda ei avaldata, võib juhtuda, et see ei vasta meie toimetuse juhistele.",
+        "description": "Kui saadate galerii avaldamiseks, teavitatakse Europeana kirjastajate meeskonda. Nad vaatavad selle esmalt üle ja võivad enne avaldamist muudatusi teha. Galerii ülevaatamise ajal saate e-posti teel teateid. Kui seda ei avaldata, võib juhtuda, et see ei vasta meie {guidelines} .",
         "guidelines": "toimetuse juhised",
         "title": "Kuidas protsess toimib"
       },
       "time": {
-        "description": "1-3 päeva.",
+        "description": "Meie eesmärk on vaadata teie galerii läbi ühe töönädala jooksul.",
         "title": "Kui kaua see võtab"
       },
       "title": "Saada galerii avaldamiseks",

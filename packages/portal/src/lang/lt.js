@@ -1156,16 +1156,16 @@ export default {
         "description": "Kad būtų svarstoma galimybė paskelbti paroda, ji turi turėti pavadinimą, aprašą ir mažiausiai 15 skaitmeniniai objektai.",
         "title": "Publikavimo kriterijai"
       },
-      "description": "Paskelbus paroda ji bus rodoma Europeana.eu/galleries.",
+      "description": "Paskelbus galeriją ji bus rodoma {galleries}.",
       "failedSubmission": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
       "galleries": "Parodos",
       "process": {
-        "description": "Kai pateiksite galeriją publikavimui, apie tai bus pranešta \"Europeana\" leidėjų komandai. Jie pirmiausia ją peržiūrės ir prieš publikuodami gali padaryti pakeitimų. Gausite pranešimus el. paštu, kai galerija bus peržiūrėta. Jei ji nebus paskelbta, gali būti, kad ji neatitinka mūsų redakcinių gairių.",
+        "description": "Kai pateikiate galeriją publikuoti, apie tai bus pranešta Europeanos leidėjų komandai. Jie pirmiausia jį peržiūrės ir gali atlikti pakeitimus prieš paskelbdami. Gausite pranešimus el. paštu, kai bus peržiūrėta galerija. Jei jis nepaskelbtas, gali būti, kad jis neatitinka mūsų {guidelines} .",
         "guidelines": "redakcinės gairės",
         "title": "Kaip veikia procesas"
       },
       "time": {
-        "description": "1-3 dienas.",
+        "description": "Jūsų galeriją siekiame peržiūrėti per vieną darbo savaitę.",
         "title": "Kiek laiko tai trunka"
       },
       "title": "Pateikti galeriją publikavimui",

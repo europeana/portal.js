@@ -1156,16 +1156,16 @@ export default {
         "description": "Jotta galleria voidaan julkaista, sen on sisällettävä otsikko ja kuvaus, ja siinä on oltava vähintään 15 aineistot.",
         "title": "Julkaisun kriteerit"
       },
-      "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
+      "description": "Gallerian julkaiseminen esittelee sen {galleries} -sivustolla.",
       "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
       "galleries": "Galleriat",
       "process": {
-        "description": "Kun lähetät gallerian julkaistavaksi, Europeanan kustantajatiimi saa ilmoituksen. He tarkastavat sen ensin ja saattavat tehdä muutoksia ennen julkaisemista. Saat ilmoituksia sähköpostitse, kun galleriaa tarkistetaan. Jos galleriaa ei julkaista, se voi johtua siitä, että se ei ole toimituksellisten ohjeidemme mukainen.",
+        "description": "Kun lähetät gallerian julkaistavaksi, Europeanan julkaisijaryhmä saa ilmoituksen. He tarkistavat sen ensin ja voivat tehdä muutoksia ennen kuin se julkaistaan. Saat ilmoitukset sähköpostitse, kun galleria tarkistetaan. Jos sitä ei julkaista, se ei ehkä ole {guidelines} mukainen.",
         "guidelines": "toimitukselliset ohjeet",
         "title": "Kuinka prosessi toimii"
       },
       "time": {
-        "description": "1-3 päivää.",
+        "description": "Pyrimme tarkistamaan galleriasi yhden työviikon sisällä.",
         "title": "Kuinka kauan se kestää"
       },
       "title": "Lähetä galleria julkaistavaksi",

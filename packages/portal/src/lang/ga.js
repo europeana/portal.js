@@ -1156,16 +1156,16 @@ export default {
         "description": "Chun a bheith san áireamh le foilsiú, ní mór teideal agus cur síos a bheith i gailearaí, agus ní mór 15 míreanna ar a laghad a bheith ann.",
         "title": "Critéir foilsithe"
       },
-      "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar Europeana.eu/galleries.",
+      "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar {galleries}.",
       "failedSubmission": "Theip ar an iarraidh. Arís, le do thoil.",
       "galleries": "Gailearaithe",
       "process": {
-        "description": "Nuair a chuireann tú gailearaí isteach lena fhoilsiú, cuirfear foireann foilsitheoirí in Europeana ar an eolas. Déanfaidh siad athbhreithniú air ar dtús, agus féadfaidh siad athruithe a dhéanamh sula bhfoilseofar é. Gheobhaidh tú fógraí trí ríomhphost de réir mar a dhéantar athbhreithniú ar an ngailearaí. Mura bhfoilsítear é, d'fhéadfadh sé a bheith nach gcloíonn sé lenár dtreoirlínte eagarthóireachta.",
+        "description": "Nuair a chuireann tú gailearaí isteach lena fhoilsiú, cuirfear foireann foilsitheoirí ag Europeana ar an eolas. Déanfaidh siad athbhreithniú air ar dtús, agus féadfaidh siad athruithe a dhéanamh sula bhfoilseofar é. Gheobhaidh tú fógraí trí ríomhphost agus an gailearaí á athbhreithniú. Mura bhfoilsítear é, d’fhéadfadh sé tarlú nach gcloíonn sé lenár {guidelines}.",
         "guidelines": "treoirlínte eagarthóireachta",
         "title": "Conas a oibríonn an próiseas"
       },
       "time": {
-        "description": "1-3 lá.",
+        "description": "Tá sé mar aidhm againn do ghailearaí a athbhreithniú laistigh de sheachtain oibre amháin.",
         "title": "Cé chomh fada a thógann sé"
       },
       "title": "Cuir gailearaí isteach lena fhoilsiú",

@@ -1156,16 +1156,16 @@ export default {
         "description": "Lai galeriju varētu publicēt, tajā ir jāiekļauj nosaukums un apraksts, un tajā ir jābūt vismaz 15 digitālie objekti.",
         "title": "Publikācijas kritēriji"
       },
-      "description": "Publicējot galeriju, tā būs pieejama vietnē Europeana.eu/galleries.",
+      "description": "Publicējot galeriju, tā būs pieejama vietnē {galleries}.",
       "failedSubmission": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
       "galleries": "Galerijas",
       "process": {
-        "description": "Kad jūs iesniedzat galeriju publicēšanai, Europeana izdevēju komanda tiks informēta. Viņi vispirms to pārskatīs un var veikt izmaiņas pirms publicēšanas. Jūs saņemsiet paziņojumus pa e-pastu, kad galerija tiks pārskatīta. Ja tas netiek publicēts, iespējams, tas neatbilst mūsu redakcijas vadlīnijām.",
+        "description": "Kad jūs iesniedzat galeriju publicēšanai, Europeana izdevēju komanda tiks informēta. Viņi vispirms to pārskatīs un var veikt izmaiņas pirms publicēšanas. Jūs saņemsiet paziņojumus pa e-pastu, kad galerija tiks pārskatīta. Ja tas netiek publicēts, iespējams, tas neatbilst mūsu {guidelines} .",
         "guidelines": "redakcionālās vadlīnijas",
         "title": "Kā process darbojas"
       },
       "time": {
-        "description": "1-3 dienas.",
+        "description": "Mūsu mērķis ir pārskatīt jūsu galeriju vienas darba nedēļas laikā.",
         "title": "Cik ilgs laiks nepieciešams"
       },
       "title": "Nosūtīt galeriju publicēšanai",

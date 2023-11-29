@@ -1156,16 +1156,16 @@ export default {
         "description": "För att komma i fråga för publicering måste ett galleri innehålla en titel och beskrivning och måste innehålla minst 15 objekt.",
         "title": "Kriterier för publicering"
       },
-      "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu/galleries.",
+      "description": "Om du publicerar ett galleri visas det på {galleries}.",
       "failedSubmission": "Begäran misslyckades. Var god försök igen.",
       "galleries": "Gallerier",
       "process": {
-        "description": "När du skickar in ett galleri för publicering kommer ett team av utgivare på Europeana att meddelas. De kommer först att granska den och kan göra ändringar innan den publiceras. Du kommer att få meddelanden via e-post när galleriet granskas. Om den inte publiceras kan det vara så att den inte överensstämmer med våra redaktionella riktlinjer.",
+        "description": "När du skickar in ett galleri för publicering kommer ett team av förlag på Europeana att meddelas. De kommer först att granska den och kan göra ändringar innan den publiceras. Du kommer att få meddelanden via e-post när galleriet granskas. Om den inte publiceras kan det vara så att den inte följer våra {guidelines}.",
         "guidelines": "redaktionella riktlinjer",
         "title": "Hur processen fungerar"
       },
       "time": {
-        "description": "1-3 dagar.",
+        "description": "Vi siktar på att granska ditt galleri inom en arbetsvecka.",
         "title": "Hur lång tid det tar"
       },
       "title": "Skicka in galleri för publicering",
