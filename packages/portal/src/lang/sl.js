@@ -91,7 +91,8 @@ export default {
     "place": "Mesta",
     "theme": "Teme",
     "time": "Stoletja",
-    "topic": "Teme"
+    "topic": "Teme",
+    "trending": "Trendovski enote"
   },
   "blog": {
     "author": "Avtor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Ime zbirke",
       "fulltext": "Polno besedilo",
       "keywords": "Ključne besede (ki jih je zagotovila skupnost)",
-      "timestampCreated": "Časovni žig ustvarjen",
-      "timestampUpdate": "Časovni žig posodobljen",
+      "timestampCreated": "Prvič objavljeno na Europeana",
+      "timestampUpdate": "Zadnjič posodobljeno s strani ponudnika podatkov",
       "wasPresentAt": "Bil prisoten v",
       "what": "Kaj",
       "when": "Kdaj",
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Oglejte si na spletni strani ponudnik podatkov",
-    "providedBy": "Ta enota zagotavlja in vzdržuje {provider}"
+    "providedBy": "Ta enota zagotavlja in vzdržuje {provider}",
+    "providedByUgc": "Ta enota je {provider} prispeval član javnosti"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Za objavo mora galerija vsebovati naslov in opis ter mora vsebovati najmanj 20 enote.",
+        "description": "Za objavo mora galerija vsebovati naslov in opis ter mora vsebovati najmanj 15 enote.",
         "title": "Kriteriji objave"
       },
-      "description": "Z objavo galerije bo ta objavljena na Europeana.eu/galleries.",
+      "description": "Če objavite galerijo, bo prikazana na {galleries}.",
       "failedSubmission": "Zahteva ni uspela. Prosim poskusite ponovno.",
+      "galleries": "Galerije",
       "process": {
-        "description": "Ko pošljete galerijo v objavo, bo o tem obveščena ekipa založnikov Europeana. Ti jo bodo najprej pregledali in jo pred objavo morda spremenili. Obvestila o pregledu galerije boste prejeli po elektronski pošti. Če galerija ne bo objavljena, se lahko zgodi, da ni v skladu z našimi uredniškimi smernicami.",
+        "description": "Ko oddate galerijo za objavo, bo o tem obveščena ekipa založnikov Europeana. Najprej ga bodo pregledali in morda spremenili, preden bo objavljen. Ko bo galerija pregledana, boste prejeli obvestila po e-pošti. Če ni objavljen, morda ni v skladu z našimi {guidelines}.",
+        "guidelines": "uredniška navodila",
         "title": "Kako poteka proces"
       },
       "time": {
-        "description": "1-3 dni.",
+        "description": "Naš cilj je, da pregledamo vašo galerijo v enem delovnem tednu.",
         "title": "Koliko časa traja"
       },
       "title": "Pošljite galerijo za objavo",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Brskajte po temi",
     "themes": "Teme"
+  },
+  "views": {
+    "count": "{count} ogled | {count} ogledov"
   },
   "website": "Spletno mesto"
 };

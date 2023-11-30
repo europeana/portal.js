@@ -91,7 +91,8 @@ export default {
     "place": "Orte",
     "theme": "Themenbereiche",
     "time": "Jahrhunderte",
-    "topic": "Themen"
+    "topic": "Themen",
+    "trending": "Trendige Objekte"
   },
   "blog": {
     "author": "Autor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Name der Sammlung",
       "fulltext": "Volltext",
       "keywords": "Schlüsselwörter (von der Gemeinschaft zur Verfügung gestellt)",
-      "timestampCreated": "Zeitstempel erstellt",
-      "timestampUpdate": "Zeitstempel aktualisiert",
+      "timestampCreated": "Erstmals auf Europeana veröffentlicht",
+      "timestampUpdate": "Zuletzt aktualisiert vom Datenpartner",
       "wasPresentAt": "War anwesend bei",
       "what": "Was",
       "when": "Wann",
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Auf der Website des Anbieters ansehen",
-    "providedBy": "Dieses Objekt wird von {provider} bereitgestellt und gepflegt"
+    "providedBy": "Dieses Objekt wird von {provider} bereitgestellt und gepflegt",
+    "providedByUgc": "Diesem Objekt wurde von einem Mitglied der Öffentlichkeit zu {provider} beigetragen"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Um für eine Veröffentlichung infrage zu kommen, muss eine Galerie einen Titel und eine Beschreibung enthalten und mindestens 20 Objekte enthalten.",
+        "description": "Um für eine Veröffentlichung infrage zu kommen, muss eine Galerie einen Titel und eine Beschreibung enthalten und mindestens 15 Objekte enthalten.",
         "title": "Veröffentlichungskriterien"
       },
-      "description": "Wenn Sie eine Galerie veröffentlichen, wird sie auf Europeana.eu/galleries veröffentlicht.",
+      "description": "Wenn Sie eine Galerie veröffentlichen, erscheint sie auf {galleries}.",
       "failedSubmission": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+      "galleries": "Galerien",
       "process": {
-        "description": "Wenn Sie eine Galerie zur Veröffentlichung einreichen, wird ein Team von Verlagen bei Europeana benachrichtigt. Sie werden es zuerst überprüfen und möglicherweise Änderungen vornehmen, bevor es veröffentlicht wird. Sie erhalten Benachrichtigungen per E-Mail, wenn die Galerie überprüft wird. Wenn es nicht veröffentlicht wird, kann es sein, dass es nicht unseren redaktionellen Richtlinien entspricht.",
+        "description": "Wenn Sie eine Galerie zur Veröffentlichung einreichen, wird ein Team von Verlegern bei Europeana benachrichtigt. Es wird die Galerie zunächst prüfen und möglicherweise Änderungen vornehmen, bevor sie veröffentlicht wird. Sie werden per E-Mail benachrichtigt, wenn die Galerie geprüft wird. Wenn sie nicht veröffentlicht wird, könnte es sein, dass sie nicht unseren {guidelines} entspricht.",
+        "guidelines": "Redaktionelle Richtlinien",
         "title": "Wie der Prozess funktioniert"
       },
       "time": {
-        "description": "1-3 Tage.",
+        "description": "Wir bemühen uns, Ihre Galerie innerhalb einer Arbeitswoche zu prüfen.",
         "title": "Wie lange es dauert"
       },
       "title": "Galerie zur Veröffentlichung einreichen",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Nach Themenbereiche durchsuchen",
     "themes": "Themenbereiche"
+  },
+  "views": {
+    "count": "{count} Ansicht | {count} Ansichten"
   },
   "website": "Webseite"
 };

@@ -91,7 +91,8 @@ export default {
     "place": "Postijiet",
     "theme": "Temi",
     "time": "Sekli",
-    "topic": "Suġġetti"
+    "topic": "Suġġetti",
+    "trending": "Oġġetti trending"
   },
   "blog": {
     "author": "Awtur",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Isem il-kollezzjoni",
       "fulltext": "Test sħiħ",
       "keywords": "Keywords (ipprovduti mill-komunità)",
-      "timestampCreated": "Il-kronogramma ġiet maħluqa",
-      "timestampUpdate": "Kronogramma aġġornata",
+      "timestampCreated": "L-ewwel darba ppubblikata fuq Europeana",
+      "timestampUpdate": "L-aħħar aġġornament mill-istituzzjoni fornitriċi",
       "wasPresentAt": "Kien preżenti fi",
       "what": "Xiex",
       "when": "Meta",
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Ara fuq il-websajt tal-istituzzjoni fornitriċi",
-    "providedBy": "Dan l-oġġett huwa pprovdut u miżmum minn {provider}"
+    "providedBy": "Dan l-oġġett huwa pprovdut u miżmum minn {provider}",
+    "providedByUgc": "Dan l-oġġett ġie kkontribwit lil {provider} minn membru tal-pubbliku"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Biex tiġi kkunsidrata għall-pubblikazzjoni, gallerija trid tinkludi titolu u deskrizzjoni, u għandu jkun fiha minimu ta’ 20 oġġett.",
+        "description": "Biex tiġi kkunsidrata għall-pubblikazzjoni, gallerija trid tinkludi titolu u deskrizzjoni, u għandu jkun fiha minimu ta’ 15 oġġett.",
         "title": "Kriterji ta' pubblikazzjoni"
       },
-      "description": "Il-pubblikazzjoni ta' gallerija ser tidher fuq Europeana.eu/galleries.",
+      "description": "Il-pubblikazzjoni ta' gallerija se tidher fuq {galleries}.",
       "failedSubmission": "It-talba falliet. Jekk jogħġbok erġa pprova.",
+      "galleries": "Galleriji",
       "process": {
-        "description": "Meta tissottometti gallerija għall-pubblikazzjoni, tim ta' pubblikaturi f'Europeana jiġi nnotifikat. L-ewwel se jirreveduha, u jistgħu jagħmlu bidliet qabel ma tiġi ppubblikata. Inti ser tirċievi notifiki bl-email hekk kif il-gallerija tiġi riveduta. Jekk ma tiġix ippubblikata, jista' jkun li ma tikkonformax mal-linji gwida editorjali tagħna.",
+        "description": "Meta tissottometti gallerija għall-pubblikazzjoni, tim ta' pubblikaturi f'Europeana jiġi nnotifikat. L-ewwel se jirreveduha, u jistgħu jagħmlu bidliet qabel ma tiġi ppubblikata. Inti ser tirċievi notifiki bl-email hekk kif il-gallerija tiġi riveduta. Jekk ma tiġix ippubblikata, jista' jkun li ma tikkonformax mal- {guidelines} tagħna.",
+        "guidelines": "linji gwida editorjali",
         "title": "Kif jaħdem il-proċess"
       },
       "time": {
-        "description": "1-3 ijiem.",
+        "description": "Aħna nimmiraw li nirrevedu l-gallerija tiegħek fi żmien ġimgħa tax-xogħol.",
         "title": "Kemm idum"
       },
       "title": "Issottometti l-gallerija għall-pubblikazzjoni",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Ibbrawżja skont it-tema",
     "themes": "Temi"
+  },
+  "views": {
+    "count": "{count} veduta | {count} veduti"
   },
   "website": "Websajt"
 };

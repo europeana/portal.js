@@ -260,9 +260,11 @@
         const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: queryToSubmit || '' } };
         const newRoute = this.selectedOption?.link || { path: this.routePath, query: newRouteQuery };
 
+        this.$store.commit('search/setLoggableInteraction', true);
         await this.$router.push(newRoute);
         // init query to update in case of selecting the already selected option
         this.initQuery();
+        // Hide search options after initQuery to prevent watcher being called and form resubmitted
         this.showSearchOptions = false;
       },
 

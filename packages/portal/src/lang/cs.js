@@ -91,7 +91,8 @@ export default {
     "place": "Místa",
     "theme": "Témata",
     "time": "Století",
-    "topic": "Tématy"
+    "topic": "Tématy",
+    "trending": "Trendové položky"
   },
   "blog": {
     "author": "Autor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Název kolekce",
       "fulltext": "Pełny tekst",
       "keywords": "Klíčová slova (poskytnutá komunitou)",
-      "timestampCreated": "Časové razítko vytvořeno",
-      "timestampUpdate": "Časové razítko bylo aktualizováno",
+      "timestampCreated": "Poprvé zveřejněno na Europeana",
+      "timestampUpdate": "Poslední aktualizace od poskytující instituce",
       "wasPresentAt": "se účastnil/a",
       "what": "Co",
       "when": "Kdy",
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Zobrazit na webu poskytující instituce",
-    "providedBy": "Tuto položku poskytuje a spravuje {provider}"
+    "providedBy": "Tuto položku poskytuje a spravuje {provider}",
+    "providedByUgc": "Tato položka byla poskytnuta {provider} členem veřejnosti"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Aby byla galerie zvážena k publikaci, musí obsahovat název a popis a musí obsahovat minimálně 20 položky.",
+        "description": "Aby byla galerie zvážena k publikaci, musí obsahovat název a popis a musí obsahovat minimálně 15 položky.",
         "title": "Kritéria publikace"
       },
-      "description": "Publikování galerie ji bude uvádět na Europeana.eu/galleries.",
+      "description": "Publikováním galerie se zobrazí na {galleries}.",
       "failedSubmission": "Žádost se nezdařila. Prosím zkuste to znovu.",
+      "galleries": "Galerie",
       "process": {
-        "description": "Když odešlete galerii k publikaci, bude o tom informován tým vydavatelů v Europeaně. Nejprve jej zkontrolují a před zveřejněním mohou provést změny. Při kontrole galerie budete dostávat upozornění e-mailem. Pokud není zveřejněn, může se stát, že neodpovídá našim redakčním pokynům.",
+        "description": "Když odešlete galerii k publikaci, bude o tom informován tým vydavatelů v Europeaně. Nejprve jej zkontrolují a před zveřejněním mohou provést změny. Při kontrole galerie budete dostávat upozornění e-mailem. Pokud není zveřejněn, může se stát, že neodpovídá našim {guidelines}.",
+        "guidelines": "redakční pokyny",
         "title": "Jak proces funguje"
       },
       "time": {
-        "description": "1-3 dny.",
+        "description": "Naším cílem je zkontrolovat vaši galerii do jednoho pracovního týdne.",
         "title": "Jak dlouho to trvá"
       },
       "title": "Odeslat galerii ke zveřejnění",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Procházet podle tématu",
     "themes": "Témata"
+  },
+  "views": {
+    "count": "{count} zobrazení | {count} zobrazení"
   },
   "website": "Webové stránky"
 };

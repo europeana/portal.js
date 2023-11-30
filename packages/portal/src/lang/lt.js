@@ -91,7 +91,8 @@ export default {
     "place": "Vietos",
     "theme": "Temos",
     "time": "Šimtmečiai",
-    "topic": "Potemė"
+    "topic": "Potemė",
+    "trending": "Populiarūs skaitmeniniai objektai"
   },
   "blog": {
     "author": "Autorius",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Kolekcijos pavadinimas",
       "fulltext": "Pilnas tekstas",
       "keywords": "Raktiniai žodžiai (pateikia bendruomenė)",
-      "timestampCreated": "Sukurtas laiko žyma",
-      "timestampUpdate": "Laiko žyma atnaujinta",
+      "timestampCreated": "Pirmą kartą paskelbta Europeana",
+      "timestampUpdate": "Paskutinį kartą atnaujinta iš teikėjas",
       "wasPresentAt": "Dalyvavo",
       "what": "Kas",
       "when": "Kai",
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Peržiūrėti teikėjo svetainę",
-    "providedBy": "Šis skaitmeninis objektas teikiamas ir prižiūrimas {provider}."
+    "providedBy": "Šis skaitmeninis objektas teikiamas ir prižiūrimas {provider}.",
+    "providedByUgc": "Prie šio skaitmeninis objektas {provider} pateikė visuomenės narys"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Kad būtų svarstoma galimybė paskelbti paroda, ji turi turėti pavadinimą, aprašą ir mažiausiai 20 skaitmeniniai objektai.",
+        "description": "Kad būtų svarstoma galimybė paskelbti paroda, ji turi turėti pavadinimą, aprašą ir mažiausiai 15 skaitmeniniai objektai.",
         "title": "Publikavimo kriterijai"
       },
-      "description": "Paskelbus paroda ji bus rodoma Europeana.eu/galleries.",
+      "description": "Paskelbus galeriją ji bus rodoma {galleries}.",
       "failedSubmission": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
+      "galleries": "Parodos",
       "process": {
-        "description": "Kai pateiksite galeriją publikavimui, apie tai bus pranešta \"Europeana\" leidėjų komandai. Jie pirmiausia ją peržiūrės ir prieš publikuodami gali padaryti pakeitimų. Gausite pranešimus el. paštu, kai galerija bus peržiūrėta. Jei ji nebus paskelbta, gali būti, kad ji neatitinka mūsų redakcinių gairių.",
+        "description": "Kai pateikiate galeriją publikuoti, apie tai bus pranešta Europeanos leidėjų komandai. Jie pirmiausia jį peržiūrės ir gali atlikti pakeitimus prieš paskelbdami. Gausite pranešimus el. paštu, kai bus peržiūrėta galerija. Jei jis nepaskelbtas, gali būti, kad jis neatitinka mūsų {guidelines} .",
+        "guidelines": "redakcinės gairės",
         "title": "Kaip veikia procesas"
       },
       "time": {
-        "description": "1-3 dienas.",
+        "description": "Jūsų galeriją siekiame peržiūrėti per vieną darbo savaitę.",
         "title": "Kiek laiko tai trunka"
       },
       "title": "Pateikti galeriją publikavimui",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Naršyti pagal temą",
     "themes": "Temos"
+  },
+  "views": {
+    "count": "{count} peržiūra | {count} peržiūros"
   },
   "website": "Interneto svetainė"
 };

@@ -145,7 +145,7 @@
       },
       /**
        * Layout view to use
-       * @values grid, mosaic, list, explore
+       * @values grid, mosaic, list
        */
       view: {
         type: String,
@@ -194,18 +194,7 @@
 
     computed: {
       cardGroupClass() {
-        let cardGroupClass;
-
-        switch (this.view) {
-        case 'list':
-          cardGroupClass = 'card-group-list';
-          break;
-        case 'explore':
-          cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
-          break;
-        }
-
-        return cardGroupClass;
+        return this.view === 'list' ? 'card-group-list' : null;
       },
 
       cardVariant() {

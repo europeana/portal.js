@@ -123,8 +123,8 @@ export default {
       return { ...this.$route, query: newRouteQuery };
     },
 
-    advancedSearchRulesFromRouteQuery() {
-      return [].concat(this.advancedSearchRouteQuery || []).map((qa) => {
+    advancedSearchRulesFromRouteQuery(routeQuery) {
+      return [].concat(routeQuery || this.advancedSearchRouteQuery || []).map((qa) => {
         for (const modifier of this.advancedSearchModifiers) {
           for (const fieldType in modifier.patterns) {
             const pattern = modifier.patterns[fieldType];

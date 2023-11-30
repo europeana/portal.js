@@ -1,0 +1,15 @@
+SET search_path TO events;
+DROP FUNCTION IF EXISTS get_action_type_id(VARCHAR(100));
+CREATE FUNCTION get_action_type_id
+(action_type_name VARCHAR(100)) RETURNS integer
+AS
+$$
+DECLARE
+   _id integer;
+BEGIN
+   SELECT id FROM action_types WHERE name=action_type_name
+   INTO _id;
+   RETURN _id;
+END;
+$$
+LANGUAGE plpgsql;

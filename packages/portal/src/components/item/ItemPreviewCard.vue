@@ -14,6 +14,8 @@
     :sub-title="subTitle"
     :media-type="type"
     :offset="offset"
+    :image-width="imageWidth"
+    :image-height="imageHeight"
   >
     <template
       v-if="variant === 'list'"
@@ -101,7 +103,7 @@
       },
       /**
        * Style variant to use
-       * @values default, entity, mini, mosaic, list, explore
+       * @values default, entity, mini, mosaic, list
        */
       variant: {
         type: String,
@@ -166,6 +168,20 @@
       onAuxClickCard: {
         type: Function,
         default: null
+      },
+      /**
+       * Width of the image
+       */
+      imageWidth: {
+        type: Number,
+        default: null
+      },
+      /**
+       * Height of the image
+       */
+      imageHeight: {
+        type: Number,
+        default: null
       }
     },
 
@@ -182,11 +198,6 @@
       },
 
       texts() {
-        const textlessVariants = ['explore', 'mosaic'];
-        if (textlessVariants.includes(this.variant)) {
-          return [];
-        }
-
         const texts = [];
         if (this.variant === 'list') {
           if (!this.hitSelector && this.item.dcDescriptionLangAware) {
@@ -322,22 +333,6 @@
           type: 'IMAGE',
           rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
     :showPins="true"
-  />
-  ```
-    Variant "explore":
-  ```jsx
-  <ItemPreviewCard
-    variant="explore"
-    :item="{ dataProvider: ['United Archives / WHA'],
-          dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de:
-          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
-          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
-          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
-          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
-          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
-          type: 'IMAGE',
-          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
   />
   ```
 </docs>

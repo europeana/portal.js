@@ -91,7 +91,8 @@ export default {
     "place": "Platser",
     "theme": "Teman",
     "time": "Århundraden",
-    "topic": "Ämnen"
+    "topic": "Ämnen",
+    "trending": "Trendiga objekt"
   },
   "blog": {
     "author": "Författare",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Samlingens namn",
       "fulltext": "Fulltext",
       "keywords": "Nyckelord (tillhandahålls av communityn)",
-      "timestampCreated": "Tidsstämpel skapad",
-      "timestampUpdate": "Tidsstämpel uppdaterad",
+      "timestampCreated": "Första gången publicerad på Europeana",
+      "timestampUpdate": "Sista uppdateringen från tillhandahållande institution",
       "wasPresentAt": "Var närvarande vid",
       "what": "Vad",
       "when": "När",
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Visa på den tillhandahållande institution webbplats",
-    "providedBy": "Detta objekt tillhandahålls och underhålls av {provider}"
+    "providedBy": "Detta objekt tillhandahålls och underhålls av {provider}",
+    "providedByUgc": "Detta objekt har bidragit till {provider} av en medlem av allmänheten"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "För att komma i fråga för publicering måste ett galleri innehålla en titel och beskrivning och måste innehålla minst 20 objekt.",
+        "description": "För att komma i fråga för publicering måste ett galleri innehålla en titel och beskrivning och måste innehålla minst 15 objekt.",
         "title": "Kriterier för publicering"
       },
-      "description": "Att publicera ett galleri kommer att presentera det på Europeana.eu/galleries.",
+      "description": "Om du publicerar ett galleri visas det på {galleries}.",
       "failedSubmission": "Begäran misslyckades. Var god försök igen.",
+      "galleries": "Gallerier",
       "process": {
-        "description": "När du skickar in ett galleri för publicering kommer ett team av utgivare på Europeana att meddelas. De kommer först att granska den och kan göra ändringar innan den publiceras. Du kommer att få meddelanden via e-post när galleriet granskas. Om den inte publiceras kan det vara så att den inte överensstämmer med våra redaktionella riktlinjer.",
+        "description": "När du skickar in ett galleri för publicering kommer ett team av förlag på Europeana att meddelas. De kommer först att granska den och kan göra ändringar innan den publiceras. Du kommer att få meddelanden via e-post när galleriet granskas. Om den inte publiceras kan det vara så att den inte följer våra {guidelines}.",
+        "guidelines": "redaktionella riktlinjer",
         "title": "Hur processen fungerar"
       },
       "time": {
-        "description": "1-3 dagar.",
+        "description": "Vi siktar på att granska ditt galleri inom en arbetsvecka.",
         "title": "Hur lång tid det tar"
       },
       "title": "Skicka in galleri för publicering",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Bläddra efter tema",
     "themes": "Teman"
+  },
+  "views": {
+    "count": "{count} visning | {count} visningar"
   },
   "website": "Webbplats"
 };

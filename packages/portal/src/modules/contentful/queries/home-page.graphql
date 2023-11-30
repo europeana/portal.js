@@ -22,6 +22,7 @@ query HomePage(
           __typename
           ... on PrimaryCallToAction {
             name
+            nameEN: name(locale: "en-GB")
       			text
       			relatedLink {
         			url
