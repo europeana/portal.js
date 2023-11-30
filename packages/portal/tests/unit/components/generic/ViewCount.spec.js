@@ -64,8 +64,9 @@ describe('components/generic/ViewCount', () => {
       const wrapper = factory({ propsData });
       await wrapper.vm.fetch();
 
+      const viewCounter = wrapper.find('[data-qa="view count"]');
       expect(nock.isDone()).toBe(true);
-      expect(wrapper.find('button').text()).toBe('views.count 5');
+      expect(viewCounter.text()).toBe('views.count 5');
     });
   });
 });

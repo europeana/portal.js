@@ -32,11 +32,11 @@
             >
               {{ $t('blog.published', { date: $d(new Date(datePublished), 'short') }) }}
             </time>
-            <ShareButton class="mb-4 mr-4" />
-            <ShareSocialModal :media-url="heroImage && heroImage.url" />
-            <ViewCount
-              class="mb-4"
-            />
+            <div class="mb-4 d-flex align-items-center">
+              <ShareButton class="mr-4" />
+              <ShareSocialModal :media-url="heroImage && heroImage.url" />
+              <ViewCount />
+            </div>
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
