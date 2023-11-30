@@ -40,6 +40,7 @@ export default {
     "apply": "Aplică",
     "cancel": "Anulează",
     "clear": "Curăță",
+    "clearFilters": "Ștergeți filtrele",
     "close": "închidere",
     "continue": "continua",
     "depublish": "Depublicați",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Citește mai mult",
     "reject": "Respinge",
     "requestDepublication": "Solicitați depublicarea",
-    "resetFilters": "Resetați filtrele",
     "save": "Salva",
     "send": "Trimite",
     "share": "Distribuiți",
@@ -81,17 +81,18 @@ export default {
     "country": "Țară:",
     "creator": "Creator:",
     "date": "Dată:",
-    "institution": "Instituție",
+    "institution": "Instituție:",
     "title": "Titlu:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerii",
+    "gallery": "Ultimele galerii",
     "item": "Resurse culturale recente",
     "organisation": "Organizații",
     "place": "Locuri",
     "theme": "Teme",
     "time": "Secole",
-    "topic": "Subiecte"
+    "topic": "Subiecte",
+    "trending": "Resurse culturale populare"
   },
   "blog": {
     "author": "Autor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Numele colecției",
       "fulltext": "Text integral",
       "keywords": "Cuvinte cheie (furnizate de comunitate)",
-      "timestampCreated": "Marcaj temporal creat",
-      "timestampUpdate": "Marcaj temporal actualizat",
+      "timestampCreated": "Publicat pentru prima dată pe Europeana",
+      "timestampUpdate": "Ultima actualizare de la instituția furnizoare",
       "wasPresentAt": "A fost prezent la",
       "what": "Ce",
       "when": "Când",
@@ -771,12 +772,13 @@ export default {
   },
   "galleries": {
     "description": "Explorează galeriile noastre",
-    "galleries": "Galerie | Galeriile"
+    "galleries": "Galerie | Galeriile",
+    "seeAllPublished": "Vedeți toate galeriile publicate"
   },
   "header": {
-    "backToMenu": "Închide caseta de căutare",
     "clearQuery": "Șterge căutările",
     "closeSidebar": "Închideți meniul",
+    "collapseSearchBar": "Contragerea barei de căutare",
     "entireCollection": "Căutare pentru {query} în întreaga noastră colecție",
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",
@@ -786,8 +788,7 @@ export default {
       "europeanaClassroom": "Pentru profesori",
       "help": "Help",
       "home": "Pagină natală",
-      "pro": "Pentru profesioniști",
-      "shareYourData": "Împărtășiți-vă datele",
+      "shareYourData": "Contribuiți datele voastre",
       "stories": "Narațiuni"
     },
     "quickSearch": "Căutare rapidă",
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Vizualizează pe site-ul instituție furnizoare",
-    "providedBy": "Acest resursă culturală este furnizat și întreținut de {provider}"
+    "providedBy": "Acest resursă culturală este furnizat și întreținut de {provider}",
+    "providedByUgc": "Acest resursă culturală a fost contribuit la {provider} de către un membru al publicului"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Pentru a fi luată în considerare pentru publicare, o galerie trebuie să includă un titlu și o descriere și trebuie să conțină cel puțin 20 de resurse culturale.",
+        "description": "Pentru a fi luată în considerare pentru publicare, o galerie trebuie să includă un titlu și o descriere și trebuie să conțină cel puțin 15 de resurse culturale.",
         "title": "Criterii de publicare"
       },
-      "description": "Publicarea unei galerii o va prezenta pe Europeana.eu/galleries.",
+      "description": "Publicarea unei galerii o va prezenta pe {galleries}.",
       "failedSubmission": "Solicitarea nu a reușit. Încercați din nou.",
+      "galleries": "Galerii",
       "process": {
-        "description": "Când trimiteți o galerie spre publicare, o echipă de editori de la Europeana va fi anunțată. Ei îl vor revizui mai întâi și pot face modificări înainte de a fi publicat. Veți primi notificări prin e-mail pe măsură ce galeria este revizuită. Dacă nu este publicat, s-ar putea să nu fie în conformitate cu îndrumările noastre editoriale.",
+        "description": "Când trimiteți o galerie spre publicare, o echipă de editori de la Europeana va fi anunțată. Ei îl vor revizui mai întâi și pot face modificări înainte de a fi publicat. Veți primi notificări prin e-mail pe măsură ce galeria este revizuită. Dacă nu este publicat, s-ar putea să nu fie conform cu {guidelines} noastre.",
+        "guidelines": "ghiduri editoriale",
         "title": "Cum funcționează procesul"
       },
       "time": {
-        "description": "1-3 zile.",
+        "description": "Ne propunem să vă revizuim galeria în termen de o săptămână lucrătoare.",
         "title": "Cât timp durează"
       },
       "title": "Trimiteți galeria pentru publicare",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Răsfoiți după temă",
     "themes": "Teme"
+  },
+  "views": {
+    "count": "{count} vizualizare | {count} vizualizări"
   },
   "website": "Site-ul web"
 };

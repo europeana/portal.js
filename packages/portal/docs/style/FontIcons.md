@@ -26,6 +26,11 @@ Example:
         </tr>
         <tr>
           <td>Add</td>
+          <td><code>icon-add</code></td>
+          <td><span class="icon icon-add" /></td>
+        </tr>
+        <tr>
+          <td>Add</td>
           <td><code>icon-ic-add</code></td>
           <td><span class="icon icon-ic-add" /></td>
         </tr>
@@ -45,9 +50,9 @@ Example:
           <td><span class="icon icon-cancel-circle" /></td>
         </tr>
         <tr>
-          <td>Caret down</td>
-          <td><code>icon-caret-down</code></td>
-          <td><span class="icon icon-caret-down" /></td>
+          <td>Chevron</td>
+          <td><code>icon-chevron</code></td>
+          <td><span class="icon icon-chevron" /></td>
         </tr>
         <tr>
           <td>Check circle</td>
@@ -58,11 +63,6 @@ Example:
           <td>Clear</td>
           <td><code>icon-clear</code></td>
           <td><span class="icon icon-clear" /></td>
-        </tr>
-        <tr>
-          <td>Close</td>
-          <td><code>icon-close</code></td>
-          <td><span class="icon icon-close" /></td>
         </tr>
         <tr>
           <td>Download</td>
@@ -190,9 +190,9 @@ Example:
           <td><span class="icon icon-translate" /></td>
         </tr>
         <tr>
-          <td>Twitter</td>
-          <td><code>icon-twitter</code></td>
-          <td><span class="icon icon-twitter" /></td>
+          <td>X</td>
+          <td><code>icon-x</code></td>
+          <td><span class="icon icon-x" /></td>
         </tr>
         <!-- Template for additional icons follows.
              Be sure to insert into table in alphabetical order. -->

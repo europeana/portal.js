@@ -59,6 +59,7 @@ query BrowseLandingStaticPage(
           }
           ... on PrimaryCallToAction {
             name
+            nameEN: name(locale: "en-GB")
             text
             relatedLink {
               url
@@ -114,6 +115,7 @@ query BrowseLandingStaticPage(
           }
           ... on PrimaryCallToAction {
             name
+            nameEN: name(locale: "en-GB")
             text
             relatedLink {
               url
@@ -217,6 +219,7 @@ query BrowseLandingStaticPage(
           }
           ... on EmbedSection {
             name
+            nameEN: name(locale: "en-GB")
             text
             image {
               ...imageWithAttributionFields

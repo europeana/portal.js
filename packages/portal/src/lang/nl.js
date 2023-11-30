@@ -40,6 +40,7 @@ export default {
     "apply": "Toepassen",
     "cancel": "Annuleren",
     "clear": "Wissen",
+    "clearFilters": "Filters wissen",
     "close": "sluiten",
     "continue": "doorgaan",
     "depublish": "Depubliceren",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Lees verder",
     "reject": "Afwijzen",
     "requestDepublication": "Depublicatie aanvragen",
-    "resetFilters": "Filters resetten",
     "save": "Opslaan",
     "send": "Verzenden",
     "share": "Delen",
@@ -85,13 +85,14 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerijen",
+    "gallery": "Nieuwste galerijen",
     "item": "Recente objecten",
     "organisation": "Organisaties",
     "place": "Plaatsen",
     "theme": "Thema's",
     "time": "Eeuwen",
-    "topic": "Onderwerpen"
+    "topic": "Onderwerpen",
+    "trending": "Populaire objecten"
   },
   "blog": {
     "author": "Auteur",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Naam van de collectie",
       "fulltext": "Volledige tekst",
       "keywords": "Trefwoorden (verstrekt door de gemeenschap)",
-      "timestampCreated": "Tijdstempel gemaakt",
-      "timestampUpdate": "Tijdstempel bijgewerkt",
+      "timestampCreated": "Voor het eerst gepubliceerd op Europeana",
+      "timestampUpdate": "Laatste keer bijgewerkt door deelnemende erfgoedorganisatie",
       "wasPresentAt": "Was aanwezig in",
       "what": "Wat",
       "when": "Wanneer",
@@ -771,12 +772,13 @@ export default {
   },
   "galleries": {
     "description": "Ontdek onze galeries",
-    "galleries": "Galerij | Galerijen"
+    "galleries": "Galerij | Galerijen",
+    "seeAllPublished": "Bekijk alle gepubliceerde galerijen"
   },
   "header": {
-    "backToMenu": "Zoekvakje sluiten",
     "clearQuery": "Zoekopdracht wissen",
     "closeSidebar": "Menu sluiten",
+    "collapseSearchBar": "Zoekbalk inklappen",
     "entireCollection": "Zoek op {query} in onze gehele collectie",
     "europeanaHome": "Europeana Home",
     "inCollection": "Zoek op {query} in {collection}",
@@ -786,7 +788,6 @@ export default {
       "europeanaClassroom": "Voor leraren",
       "help": "Help",
       "home": "Home",
-      "pro": "Voor erfgoedprofessionals",
       "shareYourData": "Deel uw gegevens",
       "stories": "Verhalen"
     },
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Bekijk op de website van de deelnemende erfgoedorganisatie",
-    "providedBy": "Dit item wordt geleverd en onderhouden door {provider}"
+    "providedBy": "Dit item wordt geleverd en onderhouden door {provider}",
+    "providedByUgc": "Dit object is bijgedragen aan {provider} door een lid van het publiek"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Om in aanmerking te komen voor publicatie, moet een galerij een titel en beschrijving bevatten en minimaal 20 objecten bevatten.",
+        "description": "Om in aanmerking te komen voor publicatie, moet een galerij een titel en beschrijving bevatten en minimaal 15 objecten bevatten.",
         "title": "Publicatie criteria"
       },
-      "description": "Als u een galerij publiceert, wordt deze op Europeana.eu/galleries weergegeven.",
+      "description": "Als u een galerij publiceert, wordt deze weergegeven op {galleries}.",
       "failedSubmission": "Het verzoek is mislukt. Probeer het opnieuw.",
+      "galleries": "Galerijen",
       "process": {
-        "description": "Wanneer u een galerij indient voor publicatie, wordt een team van uitgevers bij Europeana op de hoogte gebracht. Ze zullen het eerst beoordelen en mogelijk wijzigingen aanbrengen voordat het wordt gepubliceerd. U ontvangt meldingen per e-mail wanneer de galerij wordt beoordeeld. Als het niet wordt gepubliceerd, is het mogelijk dat het niet voldoet aan onze redactionele richtlijnen.",
+        "description": "Wanneer u een galerij ter publicatie indient, wordt een team van uitgevers bij Europeana op de hoogte gebracht. Ze zullen het eerst beoordelen en eventueel wijzigingen aanbrengen voordat het wordt gepubliceerd. U ontvangt meldingen per e-mail zodra de galerij wordt beoordeeld. Als het niet wordt gepubliceerd, kan het zijn dat het niet voldoet aan onze {guidelines}.",
+        "guidelines": "redactionele richtlijnen",
         "title": "Hoe het proces werkt"
       },
       "time": {
-        "description": "1-3 dagen.",
+        "description": "Wij streven ernaar uw galerie binnen een werkweek te beoordelen.",
         "title": "Hoe lang het duurt"
       },
       "title": "Galerij indienen voor publicatie",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Blader op thema",
     "themes": "Thema's"
+  },
+  "views": {
+    "count": "{count} weergave | {count} weergaven"
   },
   "website": "Website"
 };

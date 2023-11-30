@@ -156,7 +156,7 @@ export function getEntityQuery(uri) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri, types) {
-  types = types ? types : ['concept', 'agent', 'place', 'timespan', 'organization'];
+  types = types || ['concept', 'agent', 'place', 'timespan', 'organization'];
   return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/\\d+$`).test(uri);
 }
 
@@ -219,7 +219,7 @@ export function getEntityUri(type, id) {
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
-  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan|organization)\/(\d+)$/);
+  const matched = /^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan|organization)\/(\d+)$/.exec(uri);
   const id = matched[matched.length - 1];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };
@@ -233,7 +233,7 @@ export function entityParamsFromUri(uri) {
  * @return {String} formatted thumbnail url
  */
 export function getWikimediaThumbnailUrl(image, size = 255) {
-  if (!(new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(image))) {
+  if (!(/\.wiki[mp]edia\.org\/wiki\/Special:FilePath\//.test(image))) {
     return image;
   }
 

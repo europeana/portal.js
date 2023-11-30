@@ -9,7 +9,7 @@
       <i18n
         v-if="dataProviderEntity || dataProvider"
         data-qa="data provider attribution"
-        path="provider.providedBy"
+        :path="providedByStringPath"
         tag="div"
       >
         <template #provider>
@@ -22,6 +22,7 @@
             :title="collectionTitle(dataProviderEntity)"
             :img="$apis.entity.imageUrl(dataProviderEntity)"
             type="Organization"
+            :click-event-handler="badgeClickEventHandler"
           />
           <span
             v-else
@@ -81,10 +82,17 @@
       isShownAt: {
         type: String,
         default: null
+      },
+      userGeneratedContent: {
+        type: Boolean,
+        default: false
       }
     },
 
     computed: {
+      providedByStringPath() {
+        return this.userGeneratedContent ? 'provider.providedByUgc' : 'provider.providedBy';
+      },
       namePrefLanguage() {
         return this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
       },
@@ -96,6 +104,9 @@
     methods: {
       isEntityUri(uri) {
         return isEntityUri(uri);
+      },
+      badgeClickEventHandler() {
+        this.$store.commit('search/setLoggableInteraction', true);
       }
     }
   };

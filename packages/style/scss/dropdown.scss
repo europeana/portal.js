@@ -12,16 +12,33 @@
   }
 
   .dropdown-header {
-    font-size: 0.75rem;
+    font-size: $font-size-extrasmall;
     font-weight: 600;
     text-transform: uppercase;
     padding-left: 1rem;
     color: $mediumgrey;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+      }
+    }
   }
 
   &.multilingual-selector .dropdown-menu {
     max-height: 50vh;
     overflow: auto;
+  }
+}
+
+.dropdown-toggle {
+  &::after {
+    @extend %icon-font;
+
+    border: 0;
+    content: '\e91b'; // icon-chevron
+    font-size: 0.425rem;
+    margin-right: 0.25rem;
   }
 }
 
@@ -47,7 +64,7 @@
     font-size: $font-size-small;
     color: $mediumgrey-light;
     height: 3rem;
-    border: 1px solid $middlegrey;
+    border: 1px solid $bodygrey;
     text-align: left;
     display: inline-flex;
     align-items: center;
@@ -218,7 +235,10 @@
 
     .dropdown-toggle {
       font-size: $font-size-base;
-      color: $greyblack;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+      }
 
       &.is-invalid {
         border-color: $red;
@@ -228,6 +248,10 @@
         &:focus {
           border-color: $red;
         }
+      }
+
+      &.option-selected {
+        color: $greyblack;
       }
     }
   }

@@ -21,64 +21,102 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(component, {
     $i18n: {
       locale: 'en'
     },
-    $route: {
-      path: '/en',
-      fullPath: '/en?query=art'
-    },
+    $route: {},
     ...mocks
   }
 });
 
+const fixtures = {
+  routes: {
+    home: {
+      path: '/en',
+      fullPath: '/en?query=art'
+    },
+    item: {
+      path: '/en/item/123/abc',
+      fullPath: '/en/item/123/abc?query=art'
+    }
+  }
+};
+
 describe('mixins/canonicalUrl', () => {
-  describe('computed', () => {
+  describe('methods', () => {
     describe('canonicalUrl', () => {
-      it('concatenates base URL and route full path', () => {
-        const wrapper = factory();
+      describe('with fullPath: true', () => {
+        const fullPath = true;
 
-        const canonicalUrl = wrapper.vm.canonicalUrl;
+        describe('and locale: true', () => {
+          const locale = true;
+          it('concatenates base URL and route full path, keeping locale', () => {
+            const wrapper = factory({ mocks: { $route: fixtures.routes.home } });
 
-        expect(canonicalUrl).toBe('https://www.example.org/en?query=art');
-      });
-    });
+            const canonicalUrl = wrapper.vm.canonicalUrl({ fullPath, locale });
 
-    describe('canonicalUrlWithoutLocale', () => {
-      describe('when on the homepage in the current locale', () => {
-        it('removes locale from canonical URL', () => {
-          const wrapper = factory();
+            expect(canonicalUrl).toBe('https://www.example.org/en?query=art');
+          });
+        });
 
-          const canonicalUrl = wrapper.vm.canonicalUrlWithoutLocale;
+        describe('and locale: false', () => {
+          const locale = false;
 
-          expect(canonicalUrl).toBe('https://www.example.org/?query=art');
+          describe('on the homepage', () => {
+            it('concatenates base URL and route full path, removing locale', () => {
+              const wrapper = factory({ mocks: { $route: fixtures.routes.home } });
+
+              const canonicalUrl = wrapper.vm.canonicalUrl({ fullPath, locale });
+
+              expect(canonicalUrl).toBe('https://www.example.org/?query=art');
+            });
+          });
+
+          describe('on an item page', () => {
+            it('concatenates base URL and route full path, removing locale', () => {
+              const wrapper = factory({ mocks: { $route: fixtures.routes.item } });
+
+              const canonicalUrl = wrapper.vm.canonicalUrl({ fullPath, locale });
+
+              expect(canonicalUrl).toBe('https://www.example.org/item/123/abc?query=art');
+            });
+          });
         });
       });
 
-      describe('when on another page in the current locale', () => {
-        const $route = {
-          path: '/en/search',
-          fullPath: '/en/search?query=art'
-        };
+      describe('with fullPath: false', () => {
+        const fullPath = false;
 
-        it('removes locale from canonical URL', () => {
-          const wrapper = factory({ mocks: { $route } });
+        describe('and locale: true', () => {
+          const locale = true;
+          it('concatenates base URL and route path, keeping locale', () => {
+            const wrapper = factory({ mocks: { $route: fixtures.routes.home } });
 
-          const canonicalUrl = wrapper.vm.canonicalUrlWithoutLocale;
+            const canonicalUrl = wrapper.vm.canonicalUrl({ fullPath, locale });
 
-          expect(canonicalUrl).toBe('https://www.example.org/search?query=art');
+            expect(canonicalUrl).toBe('https://www.example.org/en');
+          });
         });
-      });
 
-      describe('when not on a page in the current locale', () => {
-        const $route = {
-          path: '/iiif',
-          fullPath: '/iiif?query=art'
-        };
+        describe('and locale: false', () => {
+          const locale = false;
 
-        it('returns canonical URL as-is', () => {
-          const wrapper = factory({ mocks: { $route } });
+          describe('on the homepage', () => {
+            it('concatenates base URL and route path, removing locale', () => {
+              const wrapper = factory({ mocks: { $route: fixtures.routes.home } });
 
-          const canonicalUrl = wrapper.vm.canonicalUrlWithoutLocale;
+              const canonicalUrl = wrapper.vm.canonicalUrl({ fullPath, locale });
 
-          expect(canonicalUrl).toBe('https://www.example.org/iiif?query=art');
+              expect(canonicalUrl).toBe('https://www.example.org/');
+            });
+          });
+
+          describe('on an item page', () => {
+            it('concatenates base URL and route path, removing locale', () => {
+              const wrapper = factory({ mocks: { $route: fixtures.routes.item } });
+
+              const canonicalUrl = wrapper.vm.canonicalUrl({ fullPath, locale });
+
+              expect(canonicalUrl).toBe('https://www.example.org/item/123/abc');
+            });
+          });
         });
       });
     });

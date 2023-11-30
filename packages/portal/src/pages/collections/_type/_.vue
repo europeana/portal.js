@@ -75,10 +75,10 @@
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import pageMetaMixin from '@/mixins/pageMeta';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
+  import redirectToMixin from '@/mixins/redirectTo';
 
   import {
-    getEntityUri, getEntityQuery, normalizeEntityId
+    getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
@@ -98,7 +98,7 @@
       entityBestItemsSetMixin,
       europeanaEntitiesOrganizationsMixin,
       pageMetaMixin,
-      redirectToPrefPathMixin
+      redirectToMixin
     ],
 
     beforeRouteLeave(to, from, next) {
@@ -124,6 +124,10 @@
     },
 
     async fetch() {
+      if (!this.isRouteValid) {
+        return this.$error(404, { scope: 'page' });
+      }
+
       this.$store.commit('search/disableCollectionFacet');
 
       const entityUri = getEntityUri(this.collectionType, this.$route.params.pathMatch);
@@ -153,13 +157,17 @@
           }
         }
 
-        return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+        return this.redirectToPrefPath(this.entity.id, urlLabel);
       } catch (e) {
         this.$error(e, { scope: 'page' });
       }
     },
 
     computed: {
+      isRouteValid() {
+        return !!getEntityTypeApi(this.collectionType) &&
+          this.entityId?.match(/^\d+$/);
+      },
       pageMeta() {
         return {
           title: this.title.values[0],

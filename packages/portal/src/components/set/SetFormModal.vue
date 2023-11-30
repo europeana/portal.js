@@ -230,8 +230,8 @@
     methods: {
       // TODO: how to handle existing set having title/description in other languages?
       init() {
-        this.titleValue = (this.title || {})[this.$i18n.locale];
-        this.descriptionValue = (this.description || {})[this.$i18n.locale];
+        this.titleValue = this.title?.[this.$i18n.locale];
+        this.descriptionValue = this.description?.[this.$i18n.locale];
         this.isPrivate = this.visibility === EUROPEANA_SET_VISIBILITY_PRIVATE;
       },
 

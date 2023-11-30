@@ -44,7 +44,9 @@
 </template>
 
 <script>
+  import logEventMixin from '@/mixins/logEvent';
   import SetAddItemButton from './SetAddItemButton';
+  import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'SetAddItemModal',
@@ -52,6 +54,10 @@
     components: {
       SetAddItemButton
     },
+
+    mixins: [
+      logEventMixin
+    ],
 
     props: {
       itemId: {
@@ -135,6 +141,7 @@
             this.added = this.added.filter(id => id !== setId);
           } else {
             await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
+            this.logEvent('add', `${ITEM_URL_PREFIX}${this.itemId}`);
             this.added.push(setId);
           }
         } catch (e) {

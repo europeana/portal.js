@@ -40,6 +40,7 @@ export default {
     "apply": "Käytä",
     "cancel": "Peruuttaa",
     "clear": "Tyhjennä",
+    "clearFilters": "Tyhjennä suodattimet",
     "close": "sulje",
     "continue": "jatka",
     "depublish": "Julkaisun peruuttaminen",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Lue lisää",
     "reject": "Hylätä",
     "requestDepublication": "Pyydä julkaisun poistamista",
-    "resetFilters": "Nollaa suodattimet",
     "save": "Tallenna",
     "send": "Lähettää",
     "share": "Jaa",
@@ -81,17 +81,18 @@ export default {
     "country": "Maa:",
     "creator": "Luoja:",
     "date": "Päivämäärä:",
-    "institution": "kulttuuriperintölaitos",
+    "institution": "kulttuuriperintölaitos:",
     "title": "Nimi:"
   },
   "automatedCardGroup": {
-    "gallery": "Galleriat",
+    "gallery": "Uusimmat galleriat",
     "item": "Viimeaikaiset aineistot",
     "organisation": "Organisaatiot",
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Vuosisadat",
-    "topic": "Aiheet"
+    "topic": "Aiheet",
+    "trending": "Trendaavat aineistot"
   },
   "blog": {
     "author": "Kirjoittaja",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Kokoelman nimi",
       "fulltext": "Koko teksti",
       "keywords": "Avainsanat (yhteisön tarjoamat)",
-      "timestampCreated": "Aikaleima luotu",
-      "timestampUpdate": "Aikaleima päivitetty",
+      "timestampCreated": "Julkaistu ensimmäistä kertaa Europeana",
+      "timestampUpdate": "Viimeksi päivitetty aineiston tarjoajalta",
       "wasPresentAt": "Oli läsnä paikassa",
       "what": "Mitä",
       "when": "Kun",
@@ -771,12 +772,13 @@ export default {
   },
   "galleries": {
     "description": "Tutustu gallerioihimme",
-    "galleries": "Galleria | Galleriat"
+    "galleries": "Galleria | Galleriat",
+    "seeAllPublished": "Näytä kaikki julkaistut galleriat"
   },
   "header": {
-    "backToMenu": "Sulje hakuruutu",
     "clearQuery": "Tyhjennä hakuehdot",
     "closeSidebar": "Sulje valikko",
+    "collapseSearchBar": "Tiivistä hakupalkki",
     "entireCollection": "Hae ehdoilla {query} koko kokoelmastamme",
     "europeanaHome": "Europeana etusivu",
     "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
@@ -786,7 +788,6 @@ export default {
       "europeanaClassroom": "Opettajille",
       "help": "Apua",
       "home": "Etusivu",
-      "pro": "Ammattilaisille",
       "shareYourData": "Jaa tietosi",
       "stories": "Tarinat"
     },
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Katso tarjoavan laitoksen verkkosivustolta",
-    "providedBy": "Tämän aineisto tarjoaa ja ylläpitää {provider}"
+    "providedBy": "Tämän aineisto tarjoaa ja ylläpitää {provider}",
+    "providedByUgc": "Yleisön jäsen on lisännyt tämän aineisto palveluun {provider}"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Jotta galleria voidaan julkaista, sen on sisällettävä otsikko ja kuvaus, ja siinä on oltava vähintään 20 aineistot.",
+        "description": "Jotta galleria voidaan julkaista, sen on sisällettävä otsikko ja kuvaus, ja siinä on oltava vähintään 15 aineistot.",
         "title": "Julkaisun kriteerit"
       },
-      "description": "Gallerian julkaiseminen esittelee sen osoitteessa Europeana.eu/galleries.",
+      "description": "Gallerian julkaiseminen esittelee sen {galleries} -sivustolla.",
       "failedSubmission": "Pyyntö epäonnistui. Yritä uudelleen.",
+      "galleries": "Galleriat",
       "process": {
-        "description": "Kun lähetät gallerian julkaistavaksi, Europeanan kustantajatiimi saa ilmoituksen. He tarkastavat sen ensin ja saattavat tehdä muutoksia ennen julkaisemista. Saat ilmoituksia sähköpostitse, kun galleriaa tarkistetaan. Jos galleriaa ei julkaista, se voi johtua siitä, että se ei ole toimituksellisten ohjeidemme mukainen.",
+        "description": "Kun lähetät gallerian julkaistavaksi, Europeanan julkaisijaryhmä saa ilmoituksen. He tarkistavat sen ensin ja voivat tehdä muutoksia ennen kuin se julkaistaan. Saat ilmoitukset sähköpostitse, kun galleria tarkistetaan. Jos sitä ei julkaista, se ei ehkä ole {guidelines} mukainen.",
+        "guidelines": "toimitukselliset ohjeet",
         "title": "Kuinka prosessi toimii"
       },
       "time": {
-        "description": "1-3 päivää.",
+        "description": "Pyrimme tarkistamaan galleriasi yhden työviikon sisällä.",
         "title": "Kuinka kauan se kestää"
       },
       "title": "Lähetä galleria julkaistavaksi",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Selaa teemoittain",
     "themes": "Teemat"
+  },
+  "views": {
+    "count": "{count} näkymä | {count} näkymät"
   },
   "website": "Verkkosivusto"
 };

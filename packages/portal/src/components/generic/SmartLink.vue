@@ -3,6 +3,7 @@
     v-if="useRouterLink"
     :to="path"
     :class="linkClass"
+    @click.capture.native="logSearchLink && setLoggableInteraction()"
   >
     <slot />
   </b-link>
@@ -108,8 +109,28 @@
           return false;
         }
 
-        const hostname = path.match(hostnamePattern)[1];
+        const hostname = hostnamePattern.exec(path)[1];
         return !hostname.endsWith(this.internalDomain);
+      },
+
+      isLinkToSearchablePage() {
+        // only needed for relative paths. Absolute paths trigger a SSR and will log the search in SearchInterface.
+        if (this.useRouterLink) {
+          const searchablePagePathPattern = /(search|collections\/(topic\/|organisation\/|time\/|person\/|place\/))/;
+          const localeStrippedPath = this.path.slice(3);
+          return searchablePagePathPattern.test(localeStrippedPath);
+        }
+        return false;
+      },
+
+      logSearchLink() {
+        return this.isLinkToSearchablePage;
+      }
+    },
+
+    methods: {
+      setLoggableInteraction() {
+        this.$store.commit('search/setLoggableInteraction', true);
       }
     }
   };

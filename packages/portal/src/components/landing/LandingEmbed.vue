@@ -59,6 +59,10 @@
     mixins: [parseMarkdownHtmlMixin],
 
     props: {
+      englishTitle: {
+        type: String,
+        default: null
+      },
       title: {
         type: String,
         default: null
@@ -79,7 +83,7 @@
 
     data() {
       return {
-        containerId: kebabCase(this.title)
+        containerId: kebabCase(this.englishTitle)
       };
     },
 
@@ -103,6 +107,7 @@
 
   .header {
     color: $white;
+    background-color: $blue;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
@@ -159,7 +164,7 @@
     ::v-deep iframe {
       max-width: 920px;
       width: 100%;
-      min-height: 1200px;
+      min-height: 1440px;
     }
   }
 

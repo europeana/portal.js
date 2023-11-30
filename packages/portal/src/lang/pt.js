@@ -40,6 +40,7 @@ export default {
     "apply": "Aplicar",
     "cancel": "Cancelar",
     "clear": "Limpar",
+    "clearFilters": "Limpar filtros",
     "close": "fechar",
     "continue": "continuar",
     "depublish": "Despublicar",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Ler mais",
     "reject": "Rejeitar",
     "requestDepublication": "Solicitar despublicação",
-    "resetFilters": "Redefinir filtros",
     "save": "Salve",
     "send": "Enviar",
     "share": "Partilhar",
@@ -85,13 +85,14 @@ export default {
     "title": "Título:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerias",
+    "gallery": "Últimas galerias",
     "item": "Itens recentes",
     "organisation": "Organizações",
     "place": "Lugares",
     "theme": "Temas",
     "time": "Séculos",
-    "topic": "Tópicos"
+    "topic": "Tópicos",
+    "trending": "Itens em tendência"
   },
   "blog": {
     "author": "Autor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Nome da coleção",
       "fulltext": "Texto completo",
       "keywords": "Palavras-chave (fornecidas pela comunidade)",
-      "timestampCreated": "Registo de data e hora criado",
-      "timestampUpdate": "Registo de data e hora atualizado",
+      "timestampCreated": "Publicado pela primeira vez na Europeana",
+      "timestampUpdate": "Última atualização da instituição fornecedora",
       "wasPresentAt": "Estava presente em",
       "what": "O que",
       "when": "Quando",
@@ -771,12 +772,13 @@ export default {
   },
   "galleries": {
     "description": "Explorar as nossas galerias",
-    "galleries": "Galeria | Galerias"
+    "galleries": "Galeria | Galerias",
+    "seeAllPublished": "Veja todas as galerias publicadas"
   },
   "header": {
-    "backToMenu": "Fechar caixa de pesquisa",
     "clearQuery": "Limpar consulta de pesquisa",
     "closeSidebar": "Fechar Menu",
+    "collapseSearchBar": "Recolher barra de pesquisa",
     "entireCollection": "Pesquise por {query} em toda a nossa coleção",
     "europeanaHome": "Inicial Europeana",
     "inCollection": "Pesquisar por {query} em {collection}",
@@ -786,7 +788,6 @@ export default {
       "europeanaClassroom": "Para professores",
       "help": "Ajuda",
       "home": "Início",
-      "pro": "Para profissionais",
       "shareYourData": "Partilhe os seus dados",
       "stories": "Histórias"
     },
@@ -803,7 +804,7 @@ export default {
   "homePage": {
     "discoverEditorial": "Últimas histórias",
     "storiesCTA": "Veja todas as histórias",
-    "subHeadline": "Pesquisa, guarda e partilha arte, livros, filmes e música provenientes de (disponibilizados por) milhares de instituições culturais",
+    "subHeadline": "Pesquisa, guarda e partilha arte, livros, filmes e música provenientes de milhares de instituições culturais",
     "themesCTA": "Ver todos os temas",
     "themesTitle": "Explorar por tema",
     "title": "À descoberta do património cultural {digital} da Europa",
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Veja no site da instituição fornecedora",
-    "providedBy": "Este item é fornecido e mantido por {provider}"
+    "providedBy": "Este item é fornecido e mantido por {provider}",
+    "providedByUgc": "Este item foi contribuído para {provider} por um membro do público"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Para ser considerada para publicação, uma galeria deve incluir um título e uma descrição, e deve conter um mínimo de 20 itens.",
+        "description": "Para ser considerada para publicação, uma galeria deve incluir um título e uma descrição, e deve conter um mínimo de 15 itens.",
         "title": "Critérios de publicação"
       },
-      "description": "A publicação de uma galeria irá apresentá-la em Europeana.eu/galleries.",
+      "description": "Publicar uma galeria irá apresentá-la em {galleries}.",
       "failedSubmission": "O pedido falhou. Por favor, tente novamente.",
+      "galleries": "Galerias",
       "process": {
-        "description": "Quando submeter uma galeria para publicação, uma equipa de editores da Europeana será notificada. Eles irão primeiro revê-la, e poderão fazer alterações antes da sua publicação. Receberá notificações por correio eletrónico à medida que a galeria for revista. Se não for publicada, poderá ser que não esteja em conformidade com as nossas diretrizes editoriais.",
+        "description": "Quando submete uma galeria para publicação, uma equipa de editores da Europeana será notificada. Esta equipa irá rever a galeria e poderá efetuar alterações antes da sua publicação. Receberá notificações por correio eletrónico à medida que a galeria for sendo revista. Se a galeria não for publicada, pode ser porque não está em conformidade com as nossas {guidelines}.",
+        "guidelines": "diretrizes editoriais",
         "title": "Como funciona o processo"
       },
       "time": {
-        "description": "1-3 dias.",
+        "description": "O nosso objetivo é analisar a sua galeria no prazo de uma semana útil.",
         "title": "Quanto tempo demora"
       },
       "title": "Enviar galeria para publicação",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Navegar por tema",
     "themes": "Temas"
+  },
+  "views": {
+    "count": "{count} visualização | {count} visualizações"
   },
   "website": "Sítio Web"
 };

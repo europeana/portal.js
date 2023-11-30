@@ -1,0 +1,12 @@
+{
+  "Servers": {
+    "1": {
+        "Name": "Docker Compose postgres service",
+        "Group": "Servers",
+        "Port": 5432,
+        "Username": "postgres",
+        "Host": "postgres",
+        "MaintenanceDB": "postgres"
+    }
+  }
+}

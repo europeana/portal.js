@@ -40,6 +40,7 @@ export default {
     "apply": "Zastosuj",
     "cancel": "Anuluj",
     "clear": "Wyczyść",
+    "clearFilters": "Wyczyść filtry",
     "close": "zamknij",
     "continue": "kontynuuj",
     "depublish": "Depublikuj",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Czytaj więcej",
     "reject": "Odrzuć",
     "requestDepublication": "Poproś o wycofanie publikacji",
-    "resetFilters": "Zresetuj filtry",
     "save": "Zapisać",
     "send": "Wyślij",
     "share": "Udostępnij",
@@ -85,13 +85,14 @@ export default {
     "title": "Tytuł:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerie",
+    "gallery": "Najnowsze galerie",
     "item": "Ostatnie obiekty cyfrowe",
     "organisation": "Organizacje",
     "place": "Miejsca",
     "theme": "Motywy",
     "time": "Wieki",
-    "topic": "Tematy"
+    "topic": "Tematy",
+    "trending": "Popularne obiekty cyfrowe"
   },
   "blog": {
     "author": "Autor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Nazwa Kolekcji",
       "fulltext": "Pełny tekst",
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
-      "timestampCreated": "Data utworzenia rekordu",
-      "timestampUpdate": "Data zaktualizowania rekordu",
+      "timestampCreated": "Po raz pierwszy opublikowano w Europeana",
+      "timestampUpdate": "Ostatnia aktualizacja od dostawcy danych",
       "wasPresentAt": "Był obecny w/na",
       "what": "Co",
       "when": "Kiedy",
@@ -771,12 +772,13 @@ export default {
   },
   "galleries": {
     "description": "Przeglądaj nasze galerie",
-    "galleries": "Galeria | Galerie"
+    "galleries": "Galeria | Galerie",
+    "seeAllPublished": "Zobacz wszystkie opublikowane galerie"
   },
   "header": {
-    "backToMenu": "Zamknij pole wyszukiwania",
     "clearQuery": "Wyczyść zapytanie",
     "closeSidebar": "Zamknij menu",
+    "collapseSearchBar": "Zwiń pasek wyszukiwania",
     "entireCollection": "Wyszukaj {query} w całej naszej kolekcji",
     "europeanaHome": "Strona główna Europeana",
     "inCollection": "Wyszukaj {query} w {collection}",
@@ -786,7 +788,6 @@ export default {
       "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
       "home": "Strona główna",
-      "pro": "Dla profesjonalistów",
       "shareYourData": "Udostępnij swoje dane",
       "stories": "Historie"
     },
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Zobacz na stronie internetowej dostawca danych",
-    "providedBy": "Ten element jest dostarczany i obsługiwany przez {provider}"
+    "providedBy": "Ten element jest dostarczany i obsługiwany przez {provider}",
+    "providedByUgc": "Ten obiekt cyfrowy został dodany do {provider} przez członka społeczeństwa"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Aby galeria mogła zostać rozpatrzona do publikacji, musi zawierać tytuł i opis oraz musi zawierać co najmniej 20 obiekty cyfrowe.",
+        "description": "Aby galeria mogła zostać rozpatrzona do publikacji, musi zawierać tytuł i opis oraz musi zawierać co najmniej 15 obiekty cyfrowe.",
         "title": "Kryteria publikacji"
       },
-      "description": "Opublikowanie galerii będzie ją prezentować na Europeana.eu/galleries.",
+      "description": "Opublikowanie galerii spowoduje wyświetlenie jej w {galleries}.",
       "failedSubmission": "Żądanie nie powiodło się. Proszę spróbować ponownie.",
+      "galleries": "Galerie",
       "process": {
-        "description": "Gdy prześlesz galerię do publikacji, zespół wydawców Europeana zostanie o tym powiadomiony. Najpierw go przejrzą i mogą wprowadzić zmiany przed opublikowaniem. Otrzymasz powiadomienia e-mailem, gdy galeria zostanie sprawdzona. Jeśli nie zostanie opublikowany, może to oznaczać, że nie jest zgodny z naszymi wytycznymi redakcyjnymi.",
+        "description": "Gdy prześlesz galerię do publikacji, zespół wydawców Europeana zostanie o tym powiadomiony. Najpierw go sprawdzą i mogą wprowadzić zmiany przed publikacją. Gdy galeria będzie przeglądana, otrzymasz powiadomienie e-mailem. Jeśli nie zostanie opublikowany, może to oznaczać, że nie jest zgodny z naszymi {guidelines}.",
+        "guidelines": "wytyczne redakcyjne",
         "title": "Jak działa proces"
       },
       "time": {
-        "description": "1-3 dni.",
+        "description": "Staramy się sprawdzić Twoją galerię w ciągu jednego tygodnia roboczego.",
         "title": "Jak długo to trwa"
       },
       "title": "Zgłoś galerię do publikacji",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Przeglądaj według motywu",
     "themes": "Motywy"
+  },
+  "views": {
+    "count": "{count} wyświetlenie | {count} wyświetlenia"
   },
   "website": "Strona internetowa"
 };

@@ -60,7 +60,7 @@ export function rangeToQueryParam(values) {
  * @return {Object} Object with start and end keys
  */
 export function rangeFromQueryParam(paramValue) {
-  const matches = paramValue.match(/^\[([^ ].*) TO ([^ ].*)\]$/);
+  const matches = /^\[([^ ].*) TO ([^ ].*)\]$/.exec(paramValue);
   if (matches === null) {
     return null;
   }
@@ -87,6 +87,7 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} options.url override the API URL
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
+
 export default function(params, options = {}) {
   const localParams = { ...params };
 

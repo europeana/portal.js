@@ -40,6 +40,7 @@ export default {
     "apply": "Primijeni",
     "cancel": "Otkazati",
     "clear": "Očisti",
+    "clearFilters": "Izbriši filtre",
     "close": "zatvori",
     "continue": "nastaviti",
     "depublish": "Depublish",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Pročitaj više",
     "reject": "Odbiti",
     "requestDepublication": "Zahtjev za depublifikaciju",
-    "resetFilters": "Resetiraj filtere",
     "save": "Uštedjeti",
     "send": "Slati",
     "share": "Podijeli",
@@ -85,13 +85,14 @@ export default {
     "title": "Naslov:"
   },
   "automatedCardGroup": {
-    "gallery": "Galerije",
+    "gallery": "Najnovije galerije",
     "item": "Nedavne predmeti",
     "organisation": "Organizacije",
     "place": "Mjesta",
     "theme": "Teme",
     "time": "Stoljeća",
-    "topic": "Sadržaj"
+    "topic": "Sadržaj",
+    "trending": "Trendovski predmeti"
   },
   "blog": {
     "author": "Autor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Naziv zbirke",
       "fulltext": "Cijeli tekst",
       "keywords": "Ključne riječi (koje pruža zajednica)",
-      "timestampCreated": "Vremenska oznaka stvorena",
-      "timestampUpdate": "Vremenska oznaka ažurirana",
+      "timestampCreated": "Prvi put objavljeno na Europeana",
+      "timestampUpdate": "Zadnji put ažurirano od institucije koja pruža podatke",
       "wasPresentAt": "Bio je prisutan u",
       "what": "Što",
       "when": "Kada",
@@ -771,12 +772,13 @@ export default {
   },
   "galleries": {
     "description": "Istražite naše galerije",
-    "galleries": "Galerija | Galerije"
+    "galleries": "Galerija | Galerije",
+    "seeAllPublished": "Pogledajte sve objavljene galerije"
   },
   "header": {
-    "backToMenu": "Zatvori okvir za pretraživanje",
     "clearQuery": "Očisti upit za pretraživanje",
     "closeSidebar": "Zatvori izbornik",
+    "collapseSearchBar": "Sažmi traku za pretraživanje",
     "entireCollection": "Potražite {query} u cijeloj našoj kolekciji",
     "europeanaHome": "Glavna stranica Europeana",
     "inCollection": "Potražite {query} u {collection}",
@@ -786,7 +788,6 @@ export default {
       "europeanaClassroom": "Za nastavnike",
       "help": "Pomoć",
       "home": "Početna",
-      "pro": "Za stručnjake",
       "shareYourData": "Podijelite svoje podatke",
       "stories": "Priče"
     },
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Pogledajte na web stranici institucije koja pruža usluge",
-    "providedBy": "Ovu stavku osigurava i održava {provider}"
+    "providedBy": "Ovu stavku osigurava i održava {provider}",
+    "providedByUgc": "Ovu je predmet {provider} pridonio član javnosti"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Da bi bila uzeta u obzir za objavu, galerija mora sadržavati naslov i opis te mora sadržavati najmanje 20 predmeti.",
+        "description": "Da bi bila uzeta u obzir za objavu, galerija mora sadržavati naslov i opis te mora sadržavati najmanje 15 predmeti.",
         "title": "Kriteriji objavljivanja"
       },
-      "description": "Objavljivanje galerije bit će prikazano na Europeana.eu/galleries.",
+      "description": "Objavljivanjem galerije ona će se pojaviti na {galleries}.",
       "failedSubmission": "Zahtjev nije uspio. Molim te pokušaj ponovno.",
+      "galleries": "Galerije",
       "process": {
-        "description": "Kada pošaljete galeriju za objavljivanje, tim izdavača na Europeani bit će obaviješten. Oni će ga najprije pregledati i mogu unijeti izmjene prije nego što se objavi. Primat ćete obavijesti e-poštom dok galerija bude pregledana. Ako se ne objavi, moguće je da nije u skladu s našim uredničkim smjernicama.",
+        "description": "Kada pošaljete galeriju za objavljivanje, tim izdavača na Europeani bit će obaviješten. Oni će ga prvo pregledati i mogu napraviti izmjene prije nego što bude objavljen. Primat ćete obavijesti e-poštom dok galerija bude pregledana. Ako nije objavljeno, moguće je da nije u skladu s našim {guidelines}.",
+        "guidelines": "uredničke smjernice",
         "title": "Kako proces funkcionira"
       },
       "time": {
-        "description": "1-3 dana.",
+        "description": "Cilj nam je pregledati vašu galeriju unutar jednog radnog tjedna.",
         "title": "Koliko dugo treba"
       },
       "title": "Pošalji galeriju za publikaciju",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Pregledajte po temi",
     "themes": "Teme"
+  },
+  "views": {
+    "count": "{count} pregled | {count} pregleda"
   },
   "website": "Web stranica"
 };

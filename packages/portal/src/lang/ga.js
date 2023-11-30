@@ -40,6 +40,7 @@ export default {
     "apply": "Cuir i bhfeidhm",
     "cancel": "Cealaigh",
     "clear": "Glan",
+    "clearFilters": "Glan scagairí",
     "close": "dún",
     "continue": "Lean ar aghaidh",
     "depublish": "Dífhoilsiú",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Léigh níos mó",
     "reject": "Diúltaigh",
     "requestDepublication": "Iarratas a dhéanamh ar fhoilseachán",
-    "resetFilters": "Athshocraigh scagairí",
     "save": "Sábháil",
     "send": "Seol",
     "share": "Roinn",
@@ -85,13 +85,14 @@ export default {
     "title": "Teideal:"
   },
   "automatedCardGroup": {
-    "gallery": "Gailearaithe",
+    "gallery": "Gailearaithe is déanaí",
     "item": "Míreanna le déanaí",
     "organisation": "Eagraíochtaí",
     "place": "Áiteanna",
     "theme": "Téamaí",
     "time": "Céadta",
-    "topic": "Ábhair"
+    "topic": "Ábhair",
+    "trending": "Míreanna treochta"
   },
   "blog": {
     "author": "Údar",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Ainm bailiúcháin",
       "fulltext": "Téacs iomlán",
       "keywords": "Eochairfhocail (a fuarthas iad ó dhaoine den phobal)",
-      "timestampCreated": "Stampa ama cruthaithe",
-      "timestampUpdate": "Stampa ama nuashonraithe",
+      "timestampCreated": "Ar fáil den chéad uair ar Europeana",
+      "timestampUpdate": "An uair dheireanach a nuashonraíodh ón institiúid sholáthartha",
       "wasPresentAt": "Bhí i láthair ag",
       "what": "Cad",
       "when": "Nuair",
@@ -771,12 +772,13 @@ export default {
   },
   "galleries": {
     "description": "Déan iniúchadh ar ár ngailearaithe",
-    "galleries": "Gailearaí | Gailearaithe"
+    "galleries": "Gailearaí | Gailearaithe",
+    "seeAllPublished": "Féach ar gach gailearaí atá foilsithe"
   },
   "header": {
-    "backToMenu": "Dún Bosca Cuardaigh",
     "clearQuery": "Glan Ceist Cuardaigh",
     "closeSidebar": "Dún Roghchlár",
+    "collapseSearchBar": "Laghdaigh an barra cuardaigh",
     "entireCollection": "Cuardaigh {query} inár mbailiúchán iomlán",
     "europeanaHome": "Baile Europeana",
     "inCollection": "Cuardaigh {query} i {collection}",
@@ -786,7 +788,6 @@ export default {
       "europeanaClassroom": "Do mhúinteoirí",
       "help": "Cabhair",
       "home": "Baile",
-      "pro": "Do lucht gairme",
       "shareYourData": "Comhroinn do shonraí",
       "stories": "Scéalta"
     },
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Amharc air ag láithreán institiúid sholáthartha",
-    "providedBy": "Soláthraíonn {provider} an mhír seo agus déanann sé cothabháil uirthi"
+    "providedBy": "Soláthraíonn {provider} an mhír seo agus déanann sé cothabháil uirthi",
+    "providedByUgc": "Chuir duine den phobal an mhír seo le {provider}"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Chun a bheith san áireamh le foilsiú, ní mór teideal agus cur síos a bheith i gailearaí, agus ní mór 20 míreanna ar a laghad a bheith ann.",
+        "description": "Chun a bheith san áireamh le foilsiú, ní mór teideal agus cur síos a bheith i gailearaí, agus ní mór 15 míreanna ar a laghad a bheith ann.",
         "title": "Critéir foilsithe"
       },
-      "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar Europeana.eu/galleries.",
+      "description": "Má fhoilsítear gailearaí beidh sé le feiceáil ar {galleries}.",
       "failedSubmission": "Theip ar an iarraidh. Arís, le do thoil.",
+      "galleries": "Gailearaithe",
       "process": {
-        "description": "Nuair a chuireann tú gailearaí isteach lena fhoilsiú, cuirfear foireann foilsitheoirí in Europeana ar an eolas. Déanfaidh siad athbhreithniú air ar dtús, agus féadfaidh siad athruithe a dhéanamh sula bhfoilseofar é. Gheobhaidh tú fógraí trí ríomhphost de réir mar a dhéantar athbhreithniú ar an ngailearaí. Mura bhfoilsítear é, d'fhéadfadh sé a bheith nach gcloíonn sé lenár dtreoirlínte eagarthóireachta.",
+        "description": "Nuair a chuireann tú gailearaí isteach lena fhoilsiú, cuirfear foireann foilsitheoirí ag Europeana ar an eolas. Déanfaidh siad athbhreithniú air ar dtús, agus féadfaidh siad athruithe a dhéanamh sula bhfoilseofar é. Gheobhaidh tú fógraí trí ríomhphost agus an gailearaí á athbhreithniú. Mura bhfoilsítear é, d’fhéadfadh sé tarlú nach gcloíonn sé lenár {guidelines}.",
+        "guidelines": "treoirlínte eagarthóireachta",
         "title": "Conas a oibríonn an próiseas"
       },
       "time": {
-        "description": "1-3 lá.",
+        "description": "Tá sé mar aidhm againn do ghailearaí a athbhreithniú laistigh de sheachtain oibre amháin.",
         "title": "Cé chomh fada a thógann sé"
       },
       "title": "Cuir gailearaí isteach lena fhoilsiú",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Brabhsáil de réir téama",
     "themes": "Téamaí"
+  },
+  "views": {
+    "count": "{count} amharc | {count} amharcanna"
   },
   "website": "Suíomh Gréasáin"
 };

@@ -51,7 +51,10 @@ const factory = (propsData) => mount(ItemDataProvider, {
       to: route => route,
       href: () => null
     },
-    getPrefLanguage: sinon.stub()
+    getPrefLanguage: sinon.stub(),
+    $store: {
+      commit: sinon.spy()
+    }
   }
 });
 
@@ -130,6 +133,30 @@ describe('components/item/ItemDataProvider', () => {
 
           expect(name).toBe('Example organisation');
         });
+      });
+    });
+
+    describe('providedByStringPath', () => {
+      describe('when there is user generated content', () => {
+        it('is reflected in the text', () => {
+          const wrapper = factory({ dataProviderEntity, userGeneratedContent: true });
+
+          const name = wrapper.vm.providedByStringPath;
+
+          expect(name).toBe('provider.providedByUgc');
+        });
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('badgeClickEventHandler', () => {
+      it('sets the loggable interaction state', () => {
+        const wrapper = factory();
+
+        wrapper.vm.badgeClickEventHandler();
+
+        expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
       });
     });
   });

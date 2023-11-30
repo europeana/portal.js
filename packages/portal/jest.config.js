@@ -3,15 +3,7 @@ export default {
     '<rootDir>/src/plugins/i18n/locales.js',
     '<rootDir>/src/lang/'
   ],
-  collectCoverageFrom: [
-    '<rootDir>/src/**/*.{cjs,js,vue}'
-  ],
-  coverageProvider: 'v8',
-  coverageReporters: [
-    'html',
-    'lcov',
-    'text'
-  ],
+  displayName: 'portal',
   moduleFileExtensions: [
     'js',
     'json',

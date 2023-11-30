@@ -17,6 +17,7 @@ const $store = {
 };
 
 const factory = ({ propsData, mocks } = {}) => mount(ContentCard, {
+  attachTo: document.body,
   localVue,
   propsData,
   mocks: {
@@ -266,6 +267,40 @@ describe('components/content/ContentCard', () => {
 
         const body =  wrapper.find('[data-qa="highlighted search term"] strong');
         expect(body.text()).toBe('fox');
+      });
+    });
+
+    describe('when the card variant is mosaic', () => {
+      const wrapper = factory({ propsData: {
+        variant: 'mosaic'
+      } });
+
+      describe('and there is a title and texts available', () => {
+        it('there is a tooltip title', async() => {
+          await wrapper.setProps({ title: 'Work of art',
+            texts: ['Museum'] });
+
+          const tooltipTitle =  wrapper.vm.tooltipTitle;
+          expect(tooltipTitle).toEqual('Work of art - Museum');
+        });
+      });
+
+      describe('and there is a title available', () => {
+        it('there is a tooltip title', async() => {
+          await wrapper.setProps({ title: 'Work of art', texts: [] });
+
+          const tooltipTitle =  wrapper.vm.tooltipTitle;
+          expect(tooltipTitle).toEqual('Work of art');
+        });
+      });
+
+      describe('and there are texts available', () => {
+        it('there is a tooltip title', async() => {
+          await wrapper.setProps({ title: null, texts: ['Museum', 'Europe'] });
+
+          const tooltipTitle =  wrapper.vm.tooltipTitle;
+          expect(tooltipTitle).toEqual('Museum - Europe');
+        });
       });
     });
   });

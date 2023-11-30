@@ -15,7 +15,20 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     mocks: {
       $apis: { mediaProxy: { baseURL: 'https://proxy.europeana.eu' } },
       $apm: { captureError: sinon.spy() },
-      $matomo: { trackEvent: sinon.spy() },
+      $config: {
+        app: {
+          baseUrl: 'https://www.europeana.eu'
+        }
+      },
+      $features: {},
+      $i18n: {
+        locale: 'de'
+      },
+      $route: {
+        fullPath: '/de/item/123/abc?query=tree',
+        path: '/de/item/123/abc'
+      },
+      $matomo: { trackEvent: sinon.spy(), trackLink: sinon.spy() },
       $t: (key) => key,
       ...mocks
     }
@@ -324,6 +337,35 @@ describe('components/download/DownloadButton', () => {
 
             expect(wrapper.emitted('downloadError').length).toBe(1);
           });
+        });
+      });
+    });
+
+    describe('trackDownload', () => {
+      const canonicalUrl = 'https://www.europeana.eu/item/123/abc';
+
+      describe('the first download', () => {
+        it('tracks both the file and custom download event', async() => {
+          const wrapper = factory({ propsData });
+
+          wrapper.vm.trackDownload();
+
+          expect(wrapper.vm.$matomo.trackLink.calledWith(canonicalUrl, 'download')).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', wrapper.vm.url)).toBe(true);
+          expect(wrapper.vm.clicked).toBe(true);
+        });
+      });
+
+      describe('a subsequent download on the same page', () => {
+        it('tracks only the file download', async() => {
+          const data = { clicked: true };
+          const wrapper = factory({ propsData, data });
+
+          wrapper.vm.trackDownload();
+
+          expect(wrapper.vm.$matomo.trackLink.calledWith(canonicalUrl, 'download')).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', wrapper.vm.url)).toBe(false);
+          expect(wrapper.vm.clicked).toBe(true);
         });
       });
     });

@@ -40,6 +40,7 @@ export default {
     "apply": "Apply",
     "cancel": "Cancel",
     "clear": "Clear",
+    "clearFilters": "Clear filters",
     "close": "close",
     "continue": "continue",
     "depublish": "Depublish",
@@ -60,7 +61,6 @@ export default {
     "publish": "Publish",
     "readMore": "Read more",
     "reject": "Reject",
-    "resetFilters": "Reset filters",
     "requestDepublication": "Request depublication",
     "save": "Save",
     "send": "Send",
@@ -86,12 +86,13 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recent items",
-    "gallery": "Galleries",
+    "gallery": "Latest galleries",
     "organisation": "Organisations",
     "place": "Places",
     "theme": "Themes",
     "time": "Centuries",
-    "topic": "Topics"
+    "topic": "Topics",
+    "trending": "Trending items"
   },
   "blog": {
     "author": "Author",
@@ -752,8 +753,8 @@ export default {
       "europeanaCollectionName": "Collection name",
       "fulltext": "Full-text",
       "keywords": "Keywords (provided by the community)",
-      "timestampCreated": "Timestamp created",
-      "timestampUpdate": "Timestamp updated",
+      "timestampCreated": "First time published on Europeana",
+      "timestampUpdate": "Last time updated from providing institution",
       "wasPresentAt": "Was present at",
       "what": "What",
       "when": "When",
@@ -798,12 +799,13 @@ export default {
   },
   "galleries": {
     "description": "Explore our galleries",
-    "galleries": "Gallery | Galleries"
+    "galleries": "Gallery | Galleries",
+    "seeAllPublished": "See all published galleries"
   },
   "header": {
-    "backToMenu": "Close Search Box",
     "clearQuery": "Clear Search Query",
     "closeSidebar": "Close Menu",
+    "collapseSearchBar": "Collapse search bar",
     "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",
@@ -813,7 +815,6 @@ export default {
       "europeanaClassroom": "For teachers",
       "help": "Help",
       "home": "Home",
-      "pro": "For professionals",
       "shareYourData": "Share your data",
       "stories": "Stories"
     },
@@ -1012,7 +1013,8 @@ export default {
   },
   "provider": {
     "linkText": "View on the providing institution's website",
-    "providedBy": "This item is provided and maintained by {provider}"
+    "providedBy": "This item is provided and maintained by {provider}",
+    "providedByUgc": "This item was contributed to {provider} by a member of the public"
   },
   "recommendation": {
     "prompts": {
@@ -1179,17 +1181,19 @@ export default {
     "publication": {
       "criteria": {
         "title": "Publication criteria",
-        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum of 20 items."
+        "description": "To be considered for publication, a gallery must include a title and description, and must contain a minimum of 15 items."
       },
-      "description": "Publishing a gallery will feature it on Europeana.eu/galleries.",
+      "description": "Publishing a gallery will feature it on {galleries}.",
+      "galleries": "Galleries",
       "failedSubmission": "The request failed. Please try again.",
       "process": {
         "title": "How the process works",
-        "description": "When you submit a gallery for publication, a team of publishers at Europeana will be notified. They will first review it, and may make changes before it is published. You will receive notifications by email as the gallery is reviewed. If it is not published, it could be that it does not conform to our editorial guidelines."
+        "description": "When you submit a gallery for publication, a team of publishers at Europeana will be notified. They will first review it, and may make changes before it is published. You will receive notifications by email as the gallery is reviewed. If it is not published, it could be that it does not conform to our {guidelines}.",
+        "guidelines": "editorial guidelines"
       },
       "time": {
         "title": "How long it takes",
-        "description": "1-3 days."
+        "description": "We aim to review your gallery within one working week."
       },
       "title": "Submit gallery for publication",
       "toastMessage": "This gallery is now submitted for publication. You can check {galleries} to see if it has been published.",
@@ -1219,6 +1223,9 @@ export default {
   "themes": {
     "themes": "Themes",
     "description": "Browse by theme"
+  },
+  "views": {
+    "count": "{count} view | {count} views"
   },
   "website": "Website"
 };

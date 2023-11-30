@@ -1,0 +1,25 @@
+SET search_path TO events;
+
+ALTER INDEX ix_object_id RENAME TO ix_actions_object_id;
+ALTER INDEX ix_action_type_id RENAME TO ix_actions_action_type_id;
+ALTER INDEX ix_session_id RENAME TO ix_actions_session_id;
+ALTER INDEX ix_occurred_at RENAME TO ix_actions_occurred_at;
+ALTER INDEX ix_name RENAME TO ix_action_types_name;
+ALTER INDEX ix_uri RENAME TO ix_objects_uri;
+
+CREATE TABLE IF NOT EXISTS history (
+  id SERIAL PRIMARY KEY,
+  object_id INT NOT NULL,
+  action_type_id INT NOT NULL,
+  occurrences INT NOT NULL,
+  occurred_before TIMESTAMPTZ NOT NULL,
+  CONSTRAINT fk_object
+    FOREIGN KEY(object_id)
+	  REFERENCES objects(id),
+  CONSTRAINT fk_action_type
+    FOREIGN KEY(action_type_id)
+	  REFERENCES action_types(id)
+);
+
+CREATE INDEX ix_history_object_id ON history(object_id);
+CREATE INDEX ix_history_action_type_id ON history(action_type_id);;

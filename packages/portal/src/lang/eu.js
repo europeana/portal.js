@@ -40,6 +40,7 @@ export default {
     "apply": "Aplikatu",
     "cancel": "Utzi",
     "clear": "Garbi",
+    "clearFilters": "Garbitu iragazkiak",
     "close": "itxi",
     "continue": "jarraitu",
     "depublish": "Argitalpena bertan behera utzi",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Irakurri gehiago",
     "reject": "Baztertu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
-    "resetFilters": "Berrezarri iragazkiak",
     "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
@@ -85,13 +85,14 @@ export default {
     "title": "Izenburua:"
   },
   "automatedCardGroup": {
-    "gallery": "Galeriak",
+    "gallery": "Azken galeriak",
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
     "place": "Lekuak",
     "theme": "Gaiak",
     "time": "Mendeak",
-    "topic": "Gaiak"
+    "topic": "Gaiak",
+    "trending": "Joerako elementuak"
   },
   "blog": {
     "author": "Egilea",
@@ -729,8 +730,8 @@ export default {
       "europeanaCollectionName": "Bildumaren izena",
       "fulltext": "Testu osoa",
       "keywords": "Gako-hitzak (komunitateak emandakoak)",
-      "timestampCreated": "Dataren marka sortu da",
-      "timestampUpdate": "Dataren marka eguneratu da",
+      "timestampCreated": "Lehenengo aldiz argitaratua Europeana-n",
+      "timestampUpdate": "Erakunde hornitzaileak azken aldiz eguneratu du",
       "wasPresentAt": "Bertan egon zen",
       "what": "Zer",
       "when": "Noiz",
@@ -775,12 +776,13 @@ export default {
   },
   "galleries": {
     "description": "Gure galeriak arakatu",
-    "galleries": "Galeria | Galeriak"
+    "galleries": "Galeria | Galeriak",
+    "seeAllPublished": "Ikusi argitaratutako galeria guztiak"
   },
   "header": {
-    "backToMenu": "Menura itzuli",
     "clearQuery": "Garbitu bilaketa kontsulta",
     "closeSidebar": "Itxi Menua",
+    "collapseSearchBar": "Bilaketa barra tolestu",
     "entireCollection": "Bilatu {query} gure bilduma osoan",
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
@@ -790,7 +792,6 @@ export default {
       "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",
       "home": "Etxea",
-      "pro": "Profesionalentzat",
       "shareYourData": "Zure datuak partekatu",
       "stories": "Istorioak"
     },
@@ -989,7 +990,8 @@ export default {
   },
   "provider": {
     "linkText": "Erakunde hornitzailearen webgunean ikusi",
-    "providedBy": "Elementu hau {provider} k hornitu eta mantentzen du"
+    "providedBy": "Elementu hau {provider} k hornitu eta mantentzen du",
+    "providedByUgc": "Elementu hau {provider} -i ekarpena egin dio publikoko kide batek"
   },
   "recommendation": {
     "prompts": {
@@ -1155,17 +1157,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Argitalpenerako kontuan hartzeko, galeria batek izenburua eta deskribapena izan behar ditu, eta gutxienez 20 elementu izan behar ditu.",
+        "description": "Argitalpenerako kontuan hartzeko, galeria batek izenburua eta deskribapena izan behar ditu, eta gutxienez 15 elementu izan behar ditu.",
         "title": "Argitalpen-irizpideak"
       },
-      "description": "Galeria bat argitaratzeak Europeana.eu/galleries webgunean agertuko du.",
+      "description": "Galeria bat argitaratuz gero {galleries} webgunean agertuko da.",
       "failedSubmission": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+      "galleries": "Galeriak",
       "process": {
-        "description": "Galeria bat argitaratzeko bidaltzen duzunean, Europeana-ko argitaletxe talde bati jakinaraziko zaio. Lehenik eta behin aztertuko dute, eta aldaketak egin ditzakete argitaratu aurretik. Galeria berrikusten den heinean jakinarazpenak jasoko dituzu posta elektronikoz. Argitaratzen ez bada, baliteke gure editorialen jarraibideekin bat ez egitea.",
+        "description": "Galeria bat argitaratzeko bidaltzen duzunean, Europeana-ko argitaletxe talde bati jakinaraziko zaio. Lehenik eta behin aztertuko dute, eta aldaketak egin ditzakete argitaratu aurretik. Galeria berrikusten den heinean jakinarazpenak jasoko dituzu posta elektronikoz. Argitaratzen ez bada, baliteke gure {guidelines} bat ez izatea.",
+        "guidelines": "jarraibide editorialak",
         "title": "Nola funtzionatzen duen prozesua"
       },
       "time": {
-        "description": "1-3 egun.",
+        "description": "Zure galeria astebeteko epean berrikustea dugu helburu.",
         "title": "Zenbat denbora behar duen"
       },
       "title": "Bidali galeria argitaratzeko",
@@ -1196,6 +1200,9 @@ export default {
   "themes": {
     "description": "Arakatu gaiaren arabera",
     "themes": "Gaiak"
+  },
+  "views": {
+    "count": "{count} ikuspen | {count} ikuspen"
   },
   "website": "Webgunea"
 };

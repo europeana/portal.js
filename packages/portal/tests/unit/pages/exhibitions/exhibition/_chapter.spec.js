@@ -47,7 +47,12 @@ const factory = (heroImage) => shallowMountNuxt(page, {
       }
     },
     $t: key => key,
-    $tc: () => {}
+    $tc: () => {},
+    $config: {
+      app: {
+        baseUrl: 'https://www.europeana.eu'
+      }
+    }
   }
 });
 

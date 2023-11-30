@@ -40,6 +40,7 @@ export default {
     "apply": "Alkalmaz",
     "cancel": "Mégse",
     "clear": "Törlés",
+    "clearFilters": "Szűrők törlése",
     "close": "bezárás",
     "continue": "folytatás",
     "depublish": "Közzététel visszavonása",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Olvass tovább",
     "reject": "Elutasít",
     "requestDepublication": "Közzététel megszüntetésének kérése",
-    "resetFilters": "Szűrők visszaállítása",
     "save": "Mentse",
     "send": "Küld",
     "share": "Megosztás",
@@ -85,13 +85,14 @@ export default {
     "title": "Cím:"
   },
   "automatedCardGroup": {
-    "gallery": "Galériák",
+    "gallery": "Legújabb galériák",
     "item": "Legutóbbi tárgyak",
     "organisation": "Szervezetek",
     "place": "Helyek",
     "theme": "Témák",
     "time": "Századok",
-    "topic": "Témakörök"
+    "topic": "Témakörök",
+    "trending": "Népszerű tárgyak"
   },
   "blog": {
     "author": "Szerző",
@@ -255,9 +256,9 @@ export default {
       "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
     },
     "itemNotFound": {
-      "description": "Az tárgyat nem található okai lehetnek a következők: az tárgy nem létezik, vagy közzétételre került, mert nem felelt meg minőségi kritériumainknak, vagy frissítve lett, és új egyedi azonosítóval újból közzétéve. Próbálja meg újra megtalálni az tárgyat.",
+      "description": "Ennek a következő okai lehetnek: ez a tárgy nem létezik; vagy eltávolítottuk, mert nem felelt meg a minőségi kritériumainknak; vagy frissítettük és új egyedi azonosítóval tettük közzé, ebben az esetben próbálja meg újra megtalálni a tárgy.",
       "metaTitle": "Az tárgyat nem található",
-      "title": "Ó, nem! {newline} Nem találtuk meg ezt a tárgy."
+      "title": "Jaj, ne! {newline} Nem találtuk meg ezt a tárgy."
     },
     "pageNotFound": {
       "metaTitle": "Az oldal nem található",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Gyűjtemény neve",
       "fulltext": "Teljes szöveg",
       "keywords": "Kulcsszavak (a közösség által megadva)",
-      "timestampCreated": "Időbélyeg létrehozva",
-      "timestampUpdate": "Időbélyeg frissítve",
+      "timestampCreated": "Először jelent meg az Europeana",
+      "timestampUpdate": "Utolsó frissítés a szolgáltató intézménytől",
       "wasPresentAt": "Jelen volt itt",
       "what": "Mi",
       "when": "Mikor",
@@ -771,12 +772,13 @@ export default {
   },
   "galleries": {
     "description": "Fedezze fel galériáinkat",
-    "galleries": "Galéria | Galériák"
+    "galleries": "Galéria | Galériák",
+    "seeAllPublished": "Az összes közzétett galéria megtekintése"
   },
   "header": {
-    "backToMenu": "Keresőmező bezárása",
     "clearQuery": "Keresőkifejezés törlése",
     "closeSidebar": "Menü bezárása",
+    "collapseSearchBar": "Keresősáv összecsukása",
     "entireCollection": "Keresés az egész gyűjteményben erre: {query}",
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
@@ -786,7 +788,6 @@ export default {
       "europeanaClassroom": "Tanároknak",
       "help": "Súgó",
       "home": "Kezdőlap",
-      "pro": "Szakembereknek",
       "shareYourData": "Ossza meg az adatait",
       "stories": "Történetek"
     },
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Megtekintés a szolgáltató intézmény honlapján",
-    "providedBy": "Ezt az tárgyat az {provider} biztosítja és karbantartja"
+    "providedBy": "Ezt az tárgyat az {provider} biztosítja és karbantartja",
+    "providedByUgc": "Ezt az tárgy a nyilvánosság egyik tagja adta hozzá {provider} számára"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "A közzétételhez a galériának tartalmaznia kell egy címet és leírást, és legalább 20 tárgyak kell tartalmaznia.",
+        "description": "A közzétételhez a galériának tartalmaznia kell egy címet és leírást, és legalább 15 tárgyak kell tartalmaznia.",
         "title": "Közzétételi kritériumok"
       },
-      "description": "A galéria közzététele az Europeana.eu/galleries oldalon lesz látható.",
+      "description": "A galéria közzététele {galleries} oldalon jelenik meg.",
       "failedSubmission": "A kérés meghiúsult. Kérlek próbáld újra.",
+      "galleries": "Galériák",
       "process": {
-        "description": "Amikor galériát küld be közzétételre, az Europeana kiadói csapata értesítést kap. Először átnézik, és a közzététel előtt módosításokat végezhetnek. A galéria felülvizsgálata után e-mailben értesítést fog kapni. Ha nem teszik közzé, akkor előfordulhat, hogy nem felel meg a szerkesztési irányelveinknek.",
+        "description": "Amikor közzétesz egy galériát, az Europeana kiadóinak csapata értesítést kap. Először felülvizsgálják, és módosításokat hajthatnak végre a közzététel előtt. A galéria felülvizsgálatáról e-mailben kap értesítést. Ha nem teszik közzé, akkor lehet, hogy nem felel meg az {guidelines}.",
+        "guidelines": "szerkesztési irányelvek",
         "title": "Hogyan működik a folyamat"
       },
       "time": {
-        "description": "1-3 nap.",
+        "description": "Célunk, hogy galériáját egy munkahéten belül átnézzük.",
         "title": "Mennyi ideig tart"
       },
       "title": "Galéria beküldése közzétételre",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Böngésszen téma szerint",
     "themes": "Témák"
+  },
+  "views": {
+    "count": "{count} megtekintés | {count} megtekintések"
   },
   "website": "Weboldal"
 };

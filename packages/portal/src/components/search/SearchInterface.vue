@@ -2,6 +2,7 @@
   <b-container
     data-qa="search interface"
     class="white-page pt-5 page-container side-filters-enabled"
+    :class="{ 'search-bar-open': showSearchBar }"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -9,6 +10,19 @@
       <b-col
         class="col-results"
       >
+        <client-only>
+          <transition
+            name="fade"
+          >
+            <SearchQueryBuilder
+              v-show="showAdvancedSearch"
+              id="search-query-builder"
+              class="d-none mb-3"
+              :class="{'d-lg-block': showAdvancedSearch}"
+              @show="(show) => showAdvancedSearch = show"
+            />
+          </transition>
+        </client-only>
         <b-container
           class="px-0 pb-3"
         >
@@ -17,19 +31,6 @@
               v-if="showSearchBoostingForm"
               class="mb-3"
             />
-          </client-only>
-          <client-only>
-            <transition
-              name="fade"
-            >
-              <SearchQueryBuilder
-                v-show="showAdvancedSearch"
-                id="search-query-builder"
-                class="d-none mb-3"
-                :class="{'d-lg-block': showAdvancedSearch}"
-                @show="(show) => showAdvancedSearch = show"
-              />
-            </transition>
           </client-only>
           <section>
             <div
@@ -146,71 +147,37 @@
           name="after-results"
         />
       </b-col>
-      <SearchFilters
-        :route="route"
-        :collection="collection"
-        :api-params="apiParams"
-        :api-options="apiOptions"
-        :user-params="userParams"
+      <SearchSidebar
+        :advanced-search-query-count="advancedSearchQueryCount"
+        :show-advanced-search="showAdvancedSearch"
+        @showAdvancedSearch="(val) => showAdvancedSearch = val"
       >
-        <b-row
-          class="d-flex justify-content-between align-items-center flex-nowrap"
-        >
-          <span
-            class="d-flex"
-          >
-            <b-button
-              aria-controls="search-query-builder search-query-builder-mobile"
-              :aria-expanded="showAdvancedSearch"
-              class="search-toggle query-builder-toggle ml-3 my-3 flex-grow-1"
-              :class="{ 'open': showAdvancedSearch }"
-              data-qa="toggle advanced search button"
-              variant="link"
-              @click="toggleAdvancedSearch"
-            >
-              {{ $t('search.advanced.show', { 'showOrHide': showAdvancedSearch ? $t('actions.hide') : $t('actions.show') }) }} {{ advancedSearchQueryCount ? `(${advancedSearchQueryCount})` : '' }}
-            </b-button>
-            <b-button
-              v-b-tooltip.bottom
-              :title="$t('search.advanced.tooltip.advancedSearch')"
-              class="icon-info-outline p-0 tooltip-button ml-1 mr-3"
-              variant="light-flat"
-            />
-          </span>
-          <b-button
-            data-qa="close filters button"
-            class="button-icon-only icon-clear mx-3"
-            variant="light-flat"
-            :aria-label="$t('header.closeSidebar')"
-            @click="toggleFilterSheet"
-          />
-        </b-row>
-        <transition
-          name="fade"
-        >
-          <SearchQueryBuilder
-            v-show="showAdvancedSearch"
-            id="search-query-builder-mobile"
-            class="d-lg-none"
-            @show="(show) => showAdvancedSearch = show"
-          />
-        </transition>
-      </SearchFilters>
+        <SearchFilters
+          :route="route"
+          :collection="collection"
+          :api-params="apiParams"
+          :api-options="apiOptions"
+          :user-params="userParams"
+        />
+      </SearchSidebar>
     </b-row>
   </b-container>
 </template>
 
 <script>
   import merge from 'deepmerge';
+  import isEqual from 'lodash/isEqual';
 
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import SearchFilters from './SearchFilters';
+  import SearchSidebar from './SearchSidebar';
   import SearchViewToggles from './SearchViewToggles';
 
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import makeToastMixin from '@/mixins/makeToast';
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
+  import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchInterface',
@@ -225,10 +192,12 @@
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNavInput: () => import('../generic/PaginationNavInput'),
       SearchFilters,
+      SearchSidebar,
       SearchViewToggles
     },
 
     mixins: [
+      advancedSearchMixin,
       elasticApmReporterMixin,
       makeToastMixin
     ],
@@ -264,17 +233,30 @@
         paginationChanged: false,
         results: [],
         showAdvancedSearch: false,
-        totalResults: null
+        totalResults: null,
+        qasWithAddedEntityValue: []
       };
     },
 
     async fetch() {
+      this.$store.commit('search/setActive', true);
+
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
       this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
       this.setViewFromRouteQuery();
 
-      this.$store.commit('search/setActive', true);
+      // Remove cleared rules
+      const qaRules = this.advancedSearchRulesFromRouteQuery();
+      this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.filter(qaWithEntity => {
+        return qaRules.find(qa => isEqual(qa, qaWithEntity.qa));
+      });
+
+      const qasToLookUp = this.advancedSearchQueriesForEntityLookUp();
+
+      if (qasToLookUp.length) {
+        await this.addEntityValuesToAdvancedSearchFields(qasToLookUp);
+      }
 
       this.deriveApiParams();
 
@@ -325,6 +307,9 @@
       },
       qa() {
         return [].concat(this.userParams.qa || []);
+      },
+      qaes() {
+        return this.qasWithAddedEntityValue.map(qaWithEntity => qaWithEntity.qae).filter(qae => !!qae);
       },
       qf() {
         return [].concat(this.userParams.qf || []);
@@ -398,6 +383,12 @@
         }
 
         return this.$i18n.locale;
+      },
+      qasWithSelectedEntityValue() {
+        return this.$store.state.search.qasWithSelectedEntityValue;
+      },
+      showSearchBar() {
+        return this.$store.state.search.showSearchBar;
       }
     },
 
@@ -409,6 +400,12 @@
       '$route.query.query': '$fetch',
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.page': 'handlePaginationChanged'
+    },
+
+    created() {
+      if (this.query) {
+        this.$store.commit('search/setShowSearchBar', true);
+      }
     },
 
     destroyed() {
@@ -447,7 +444,7 @@
 
           // All other advanced search rules go into qf's.
           params.qf = (params.qf || [])
-            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa)));
+            .concat(this.qa.filter((qa) => !this.fulltextQas.includes(qa))).concat(this.qaes);
         }
 
         params.qf = addContentTierFilter(params.qf);
@@ -485,7 +482,10 @@
         this.results = response.items;
         this.totalResults = response.totalResults;
 
-        this.recordSearchInteraction('fetch results');
+        if (process.server || this.$store.state.search.loggableInteraction) {
+          this.recordSearchInteraction('fetch results');
+          this.$store.commit('search/setLoggableInteraction', false);
+        }
       },
 
       handlePaginationChanged() {
@@ -527,12 +527,62 @@
         }
       },
 
-      toggleAdvancedSearch() {
-        this.showAdvancedSearch = !this.showAdvancedSearch;
+      advancedSearchQueriesForEntityLookUp() {
+        const qasToLookUp = this.advancedSearchRulesFromRouteQuery()
+          .filter(query => {
+            const fieldNeedsLookUp = this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(query?.field);
+            const newQuery = !this.qasWithAddedEntityValue.find(qaWithEntity => isEqual(qaWithEntity.qa, query));
+
+            return fieldNeedsLookUp && newQuery;
+          });
+        return qasToLookUp;
       },
 
-      toggleFilterSheet() {
-        this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+      async lookupQaEntity(query) {
+        const locale = this.$i18n.locale;
+        let queryEqualsEntity;
+        const text = query.term;
+
+        // Check if term is selected and stored from the entity dropdown
+        const queryHasSelectedEntity = this.qasWithSelectedEntityValue.find(queryWithSelectedEntity => queryWithSelectedEntity.qa === text);
+        queryEqualsEntity = queryHasSelectedEntity;
+
+        // Look up possible entity value for SSR or when no option selected, the qa might still match an entity
+        if (!queryHasSelectedEntity) {
+          const suggestions = await this.$apis.entity.suggest(text, {
+            language: locale,
+            // Only look up specific entity type as defined for the advanced search field
+            type: query.suggestEntityType
+          });
+
+          queryEqualsEntity = suggestions.find(entity => entity.prefLabel[locale].toLowerCase() === text.toLowerCase());
+        }
+
+        if (queryEqualsEntity) {
+          const qae = this.advancedSearchQueryFromRule({ ...query, term: `"${queryEqualsEntity.id}"` });
+          return {
+            qa: query,
+            qae
+          };
+        } else {
+          // save fields that do not match entity to prevent reattempt to find matching entitiy
+          return {
+            qa: query,
+            qae: null
+          };
+        }
+      },
+
+      async addEntityValuesToAdvancedSearchFields(qas) {
+        const fieldsWithEntityValues = await Promise.all(qas.map(this.lookupQaEntity));
+
+        // Save the enriched queries to data prop (local store) to prevent repeated suggest requests
+        if (fieldsWithEntityValues.length) {
+          this.qasWithAddedEntityValue = this.qasWithAddedEntityValue.concat(fieldsWithEntityValues);
+        }
+
+        // Clean up the store to prevent accumulating outdated data
+        this.$store.commit('search/setQasWithSelectedEntityValue', []);
       }
     }
   };
@@ -586,16 +636,11 @@
     content: '-';
   }
 }
+.search-bar-open {
+  padding-top: 6.5rem !important;
 
-.query-builder-toggle {
-  @media (min-width: $bp-large) {
-    &::before {
-      content: '<';
-    }
-
-    &.open::before {
-      content: '>';
-    }
+  @media (min-width: $bp-4k) {
+    padding-top: 8.457rem !important;
   }
 }
 </style>

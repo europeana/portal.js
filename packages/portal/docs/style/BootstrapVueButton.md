@@ -10,18 +10,18 @@ Variant "secondary"<br>
   <b-container>
     <b-button>label</b-button>
     <b-button class="d-inline-flex align-items-center">
-      <span class="icon-twitter d-inline-flex pr-1" />
+      <span class="icon-pinterest d-inline-flex pr-1" />
       label
     </b-button>
     <b-button class="d-inline-flex align-items-center">
       label
-      <span class="icon-twitter d-inline-flex pl-1" />
+      <span class="icon-pinterest d-inline-flex pl-1" />
     </b-button>
     <b-button
       class="d-inline-flex align-items-center"
       aria-label="label for textless button"
     >
-      <span class="icon-twitter" />
+      <span class="icon-pinterest" />
     </b-button>
     <b-button disabled>label</b-button>
   </b-container>
@@ -39,7 +39,7 @@ Variant "outline-primary":
       variant="outline-primary"
       class="d-inline-flex align-items-center"
     >
-      <span class="icon-twitter d-inline-flex pr-1" />
+      <span class="icon-pinterest d-inline-flex pr-1" />
       label
     </b-button>
     <b-button
@@ -47,14 +47,14 @@ Variant "outline-primary":
       class="d-inline-flex align-items-center"
     >
       label
-      <span class="icon-twitter d-inline-flex pl-1" />
+      <span class="icon-pinterest d-inline-flex pl-1" />
     </b-button>
     <b-button
       variant="outline-primary"
       class="d-inline-flex align-items-center"
       aria-label="label for textless button"
     >
-      <span class="icon-twitter" />
+      <span class="icon-pinterest" />
     </b-button>
     <b-button
       variant="outline-primary"
@@ -86,7 +86,7 @@ Variant "primary":
       variant="primary"
       class="d-inline-flex align-items-center"
     >
-      <span class="icon-twitter d-inline-flex pr-1" />
+      <span class="icon-pinterest d-inline-flex pr-1" />
       label
     </b-button>
     <b-button
@@ -94,14 +94,14 @@ Variant "primary":
       class="d-inline-flex align-items-center"
     >
       label
-      <span class="icon-twitter d-inline-flex pl-1" />
+      <span class="icon-pinterest d-inline-flex pl-1" />
     </b-button>
     <b-button
       variant="primary"
       class="d-inline-flex align-items-center"
       aria-label="label for textless button"
     >
-      <span class="icon-twitter" />
+      <span class="icon-pinterest" />
     </b-button>
     <b-button
       variant="primary"
@@ -124,7 +124,7 @@ Variant "success":
       variant="success"
       class="d-inline-flex align-items-center"
     >
-      <span class="icon-twitter d-inline-flex pr-1" />
+      <span class="icon-pinterest d-inline-flex pr-1" />
       label
     </b-button>
     <b-button
@@ -132,14 +132,14 @@ Variant "success":
       class="d-inline-flex align-items-center"
     >
       label
-      <span class="icon-twitter d-inline-flex pl-1" />
+      <span class="icon-pinterest d-inline-flex pl-1" />
     </b-button>
     <b-button
       variant="success"
       class="d-inline-flex align-items-center"
       aria-label="label for textless button"
     >
-      <span class="icon-twitter" />
+      <span class="icon-pinterest" />
     </b-button>
     <b-button
       variant="success"
@@ -162,7 +162,7 @@ Variant "danger":
       variant="danger"
       class="d-inline-flex align-items-center"
     >
-      <span class="icon-twitter d-inline-flex pr-1" />
+      <span class="icon-pinterest d-inline-flex pr-1" />
       label
     </b-button>
     <b-button
@@ -170,14 +170,14 @@ Variant "danger":
       class="d-inline-flex align-items-center"
     >
       label
-      <span class="icon-twitter d-inline-flex pl-1" />
+      <span class="icon-pinterest d-inline-flex pl-1" />
     </b-button>
     <b-button
       variant="danger"
       class="d-inline-flex align-items-center"
       aria-label="label for textless button"
     >
-      <span class="icon-twitter" />
+      <span class="icon-pinterest" />
     </b-button>
     <b-button
       variant="danger"
@@ -200,7 +200,7 @@ Variant "link":
       variant="link"
       class="d-inline-flex align-items-center"
     >
-      <span class="icon-twitter d-inline-flex pr-1" />
+      <span class="icon-pinterest d-inline-flex pr-1" />
       label
     </b-button>
     <b-button
@@ -208,14 +208,14 @@ Variant "link":
       class="d-inline-flex align-items-center"
     >
       label
-      <span class="icon-twitter d-inline-flex pl-1" />
+      <span class="icon-pinterest d-inline-flex pl-1" />
     </b-button>
     <b-button
       variant="link"
       class="d-inline-flex align-items-center"
       aria-label="label for textless button"
     >
-      <span class="icon-twitter" />
+      <span class="icon-pinterest" />
     </b-button>
     <b-button
       variant="link"
@@ -238,7 +238,7 @@ Variant "light":
       variant="light"
       class="d-inline-flex align-items-center"
     >
-      <span class="icon-twitter d-inline-flex pr-1" />
+      <span class="icon-pinterest d-inline-flex pr-1" />
       label
     </b-button>
     <b-button
@@ -246,14 +246,14 @@ Variant "light":
       class="d-inline-flex align-items-center"
     >
       label
-      <span class="icon-twitter d-inline-flex pl-1" />
+      <span class="icon-pinterest d-inline-flex pl-1" />
     </b-button>
     <b-button
       variant="light"
       class="d-inline-flex align-items-center"
       aria-label="label for textless button"
     >
-      <span class="icon-twitter" />
+      <span class="icon-pinterest" />
     </b-button>
     <b-button
       variant="light"
@@ -277,7 +277,7 @@ Variant "outline-light"<br>
       variant="outline-light"
       class="d-inline-flex align-items-center"
     >
-      <span class="icon-twitter d-inline-flex pr-1" />
+      <span class="icon-pinterest d-inline-flex pr-1" />
       label
     </b-button>
     <b-button
@@ -285,14 +285,14 @@ Variant "outline-light"<br>
       class="d-inline-flex align-items-center"
     >
       label
-      <span class="icon-twitter d-inline-flex pl-1" />
+      <span class="icon-pinterest d-inline-flex pl-1" />
     </b-button>
     <b-button
       variant="outline-light"
       class="d-inline-flex align-items-center"
       aria-label="label for textless button"
     >
-      <span class="icon-twitter" />
+      <span class="icon-pinterest" />
     </b-button>
     <b-button
       variant="outline-light"
@@ -323,7 +323,7 @@ Variant "light-flat"<br>
       variant="light-flat"
       class="d-inline-flex align-items-center"
     >
-      <span class="icon-twitter d-inline-flex pr-1" />
+      <span class="icon-pinterest d-inline-flex pr-1" />
       label
     </b-button>
     <b-button
@@ -331,14 +331,14 @@ Variant "light-flat"<br>
       class="d-inline-flex align-items-center"
     >
       label
-      <span class="icon-twitter d-inline-flex pl-1" />
+      <span class="icon-pinterest d-inline-flex pl-1" />
     </b-button>
     <b-button
       variant="light-flat"
       class="d-inline-flex align-items-center"
       aria-label="label for textless button"
     >
-      <span class="icon-twitter" />
+      <span class="icon-pinterest" />
     </b-button>
     <b-button
       variant="light-flat"

@@ -40,6 +40,7 @@ export default {
     "apply": "Použiť",
     "cancel": "Zrušiť",
     "clear": "Vyčistiť",
+    "clearFilters": "Vymazať filtre",
     "close": "zatvoriť",
     "continue": "pokračovať",
     "depublish": "Zrušiť zverejnenie",
@@ -61,7 +62,6 @@ export default {
     "readMore": "Čítaj viac",
     "reject": "Odmietnuť",
     "requestDepublication": "Žiadosť zrušiť zverejnenie",
-    "resetFilters": "Obnoviť filtre",
     "save": "Uložiť",
     "send": "poslať",
     "share": "Zdieľať",
@@ -85,13 +85,14 @@ export default {
     "title": "Názov:"
   },
   "automatedCardGroup": {
-    "gallery": "Galérie",
+    "gallery": "Najnovšie galérie",
     "item": "Nedávne objekty",
     "organisation": "Organizácie",
     "place": "Miesta",
     "theme": "Kategórie",
     "time": "Storočia",
-    "topic": "Témy"
+    "topic": "Témy",
+    "trending": "Trendujúce objekty"
   },
   "blog": {
     "author": "Autor",
@@ -725,8 +726,8 @@ export default {
       "europeanaCollectionName": "Názov zbierky",
       "fulltext": "Plný text",
       "keywords": "Kľúčové slová (poskytnuté komunitou)",
-      "timestampCreated": "Vytvorenie časovej pečiatky",
-      "timestampUpdate": "Aktualizácia časovej pečiatky",
+      "timestampCreated": "Prvýkrát zverejnené na Europeana",
+      "timestampUpdate": "Naposledy aktualizované zo strany správcovskej inštitúcie",
       "wasPresentAt": "bol prítomný na mieste",
       "what": "Čo",
       "when": "Kedy",
@@ -771,12 +772,13 @@ export default {
   },
   "galleries": {
     "description": "Preskúmať naše galérie",
-    "galleries": "Galéria | Galérie"
+    "galleries": "Galéria | Galérie",
+    "seeAllPublished": "Zobraziť všetky publikované galérie"
   },
   "header": {
-    "backToMenu": "Zatvoriť vyhľadávacie pole",
     "clearQuery": "Zmazať vyhľadávací dopyt",
     "closeSidebar": "Zavrieť ponuku",
+    "collapseSearchBar": "Zbaliť vyhľadávací panel",
     "entireCollection": "Hľadajte výraz {query} v celej našej zbierke",
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hľadajte výraz {query} v zbierke {collection}",
@@ -786,7 +788,6 @@ export default {
       "europeanaClassroom": "Pre učiteľov",
       "help": "Pomoc",
       "home": "Domov",
-      "pro": "Pre profesionálov",
       "shareYourData": "Zdieľajte svoje dáta",
       "stories": "Príbehy"
     },
@@ -985,7 +986,8 @@ export default {
   },
   "provider": {
     "linkText": "Zobrazenie na webovej stránke poskytovateľa",
-    "providedBy": "Túto objekt poskytuje a spravuje {provider}"
+    "providedBy": "Túto objekt poskytuje a spravuje {provider}",
+    "providedByUgc": "Túto objekt poskytol {provider} člen verejnosti"
   },
   "recommendation": {
     "prompts": {
@@ -1151,17 +1153,19 @@ export default {
     },
     "publication": {
       "criteria": {
-        "description": "Aby bola galéria vyvážená na zverejnenie, musí obsahovať názov a popis a musí obsahovať minimálne 20 objekty.",
+        "description": "Aby bola galéria vyvážená na zverejnenie, musí obsahovať názov a popis a musí obsahovať minimálne 15 objekty.",
         "title": "Kritériá zverejnenia"
       },
-      "description": "Zverejnením galérie bude uvedená na Europeana.eu/galleries.",
+      "description": "Zverejnením galérie sa zobrazí na {galleries}.",
       "failedSubmission": "Žiadosť zlyhala. Prosím skúste znova.",
+      "galleries": "Galérie",
       "process": {
-        "description": "Keď odošlete galériu na zverejnenie, tím vydavateľov Europeana bude upozornený. Najprv ho skontrolujú a pred zverejnením môžu vykonať zmeny. Počas kontroly galérie budete dostávať upozornenia e-mailom. Ak nie je zverejnený, je možné, že nie je v súlade s našimi redakčnými pokynmi.",
+        "description": "Keď odošlete galériu na zverejnenie, tím vydavateľov Europeana bude upozornený. Najprv ho skontrolujú a pred zverejnením môžu vykonať zmeny. Počas kontroly galérie budete dostávať upozornenia e-mailom. Ak nie je zverejnený, je možné, že nie je v súlade s našimi {guidelines}.",
+        "guidelines": "redakčné pokyny",
         "title": "Ako proces funguje"
       },
       "time": {
-        "description": "1-3 dni.",
+        "description": "Naším cieľom je skontrolovať vašu galériu do jedného pracovného týždňa.",
         "title": "Ako dlho to trvá"
       },
       "title": "Odoslať galériu na zverejnenie",
@@ -1192,6 +1196,9 @@ export default {
   "themes": {
     "description": "Prehľadávať podľa kategórie",
     "themes": "Kategórie"
+  },
+  "views": {
+    "count": "{count} prezretie | {count} prezretia"
   },
   "website": "Webové stránky"
 };

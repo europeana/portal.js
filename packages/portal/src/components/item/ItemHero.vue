@@ -8,7 +8,7 @@
       <client-only>
         <IIIFOpenLayers
           :uri="iiifPresentationManifest"
-          :search-query="$nuxt.context.from ? $nuxt.context.from.query.query : ''"
+          :search-query="fulltextSearchQuery"
           :aria-label="$t('actions.viewDocument')"
           :item-id="identifier"
           :provider-url="providerUrl"
@@ -91,9 +91,10 @@
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
 
+  import advancedSearchMixin from '@/mixins/advancedSearch';
   import rightsStatementMixin from '@/mixins/rightsStatement';
 
-  const TRANSCRIBATHON_URL_ROOT = '^https?://europeana.transcribathon.eu/';
+  const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
   export default {
     components: {
@@ -110,6 +111,7 @@
     },
 
     mixins: [
+      advancedSearchMixin,
       rightsStatementMixin
     ],
 
@@ -169,7 +171,7 @@
         return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
       },
       rightsStatementIsUrl() {
-        return RegExp('^https?://*').test(this.rightsStatement);
+        return /^https?:\/\//.test(this.rightsStatement);
       },
       rightsStatement() {
         if (this.selectedMedia.webResourceEdmRights) {
@@ -178,6 +180,20 @@
           return this.edmRights;
         }
         return '';
+      },
+      fulltextSearchQuery() {
+        let query = [];
+
+        if (this.$nuxt.context.from) {
+          if (this.$nuxt.context.from.query.qa) {
+            const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$nuxt.context.from.query.qa);
+            query = advSearchRules
+              .filter((rule) => (rule.field === 'fulltext') && (rule.modifier === 'contains'))
+              .map((rule) => rule.term);
+          }
+        }
+
+        return query.join(' ');
       },
       selectedMedia: {
         get() {
@@ -201,7 +217,7 @@
         return this.$auth.userHasClientRole('usersets', 'editor');
       },
       showTranscribathonLink() {
-        return this.$features.transcribathonCta && this.linkForContributingAnnotation && RegExp(TRANSCRIBATHON_URL_ROOT).test(this.linkForContributingAnnotation);
+        return this.$features.transcribathonCta && this.linkForContributingAnnotation && TRANSCRIBATHON_URL_ROOT.test(this.linkForContributingAnnotation);
       }
     },
     mounted() {

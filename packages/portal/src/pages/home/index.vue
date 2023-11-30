@@ -12,21 +12,34 @@
         <CallToActionBanner
           v-if="callsToAction[0]"
           :name="callsToAction[0].name"
+          :name-english="callsToAction[0].nameEN"
           :text="callsToAction[0].text"
           :link="callsToAction[0].relatedLink"
           :illustration="callsToAction[0].image"
-          variant="innovationblue"
+          :variant="callsToAction[2] ? 'light' : 'innovationblue'"
           class="home-cta"
         />
-        <HomeLatest />
+        <HomeLatestStories />
         <CallToActionBanner
           v-if="callsToAction[1]"
           :name="callsToAction[1].name"
+          :name-english="callsToAction[1].nameEN"
           :text="callsToAction[1].text"
           :link="callsToAction[1].relatedLink"
           :illustration="callsToAction[1].image"
+          :variant="callsToAction[2] ? 'innovationblue' : 'yellowgrey'"
           class="home-cta"
         />
+        <CallToActionBanner
+          v-if="callsToAction[2]"
+          :name="callsToAction[2].name"
+          :name-english="callsToAction[2].nameEN"
+          :text="callsToAction[2].text"
+          :link="callsToAction[2].relatedLink"
+          :illustration="callsToAction[2].image"
+          class="home-cta"
+        />
+        <HomeLatestGalleries />
       </b-container>
     </client-only>
   </div>
@@ -36,8 +49,9 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
-  import HomeLatest from '@/components/home/HomeLatest';
+  import HomeLatestStories from '@/components/home/HomeLatestStories';
   import HomeThemes from '@/components/home/HomeThemes';
+  import HomeLatestGalleries from '@/components/home/HomeLatestGalleries';
 
   export default {
     name: 'HomePage',
@@ -45,7 +59,8 @@
     components: {
       CallToActionBanner,
       HomeHero,
-      HomeLatest,
+      HomeLatestGalleries,
+      HomeLatestStories,
       HomeThemes
     },
 

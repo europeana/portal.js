@@ -29,33 +29,4 @@ describe('@/plugins/europeana/apis/config/nuxt', () => {
       });
     }
   });
-
-  describe('publicPrivateRewriteOrigins', () => {
-    describe('when private runtime config has an API URL', () => {
-      it('maps it to the public API URL', () => {
-        const publicUrl = 'https://example.org/annotation';
-        const privateUrl = 'http://europeana.local/annotation';
-        process.env.EUROPEANA_ANNOTATION_API_URL = publicUrl;
-        process.env.EUROPEANA_ANNOTATION_API_URL_PRIVATE = privateUrl;
-
-        const publicPrivateRewriteOrigins = plugin.publicPrivateRewriteOrigins();
-
-        expect(publicPrivateRewriteOrigins[0]).toEqual({
-          from: privateUrl,
-          to: publicUrl
-        });
-      });
-    });
-
-    describe('when private runtime config has no API URL', () => {
-      it('is omitted from the map', () => {
-        const publicUrl = 'https://example.org/annotation';
-        process.env.EUROPEANA_ANNOTATION_API_URL = publicUrl;
-
-        const publicPrivateRewriteOrigins = plugin.publicPrivateRewriteOrigins();
-
-        expect(publicPrivateRewriteOrigins.length).toBe(0);
-      });
-    });
-  });
 });

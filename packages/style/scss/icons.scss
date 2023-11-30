@@ -24,6 +24,10 @@
   content: '\e938';
 }
 
+.icon-add::before {
+  content: '\e904'
+}
+
 .icon-ic-add::before {
   content: '\e923';
 }
@@ -40,20 +44,16 @@
   content: '\e934';
 }
 
-.icon-caret-down::before {
-  content: '\e903';
-}
-
 .icon-check-circle::before {
   content: '\e92f';
 }
 
-.icon-clear::before {
-  content: '\e931';
+.icon-chevron::before {
+  content: '\e91b'
 }
 
-.icon-close::before {
-  content: '\e904';
+.icon-clear::before {
+  content: '\e903';
 }
 
 .icon-ic-download::before {
@@ -160,10 +160,6 @@
   content: '\e93c';
 }
 
-.icon-twitter::before {
-  content: '\e902';
-}
-
 .icon-3d::before {
   content: '\e957';
 }
@@ -184,12 +180,12 @@
   content: '\e947';
 }
 
-.icon-unavailable::before {
-  content: '\e953';
+.icon-ic-view::before {
+  content: '\e902';
 }
 
-.icon-ic-move-vert::before {
-  content: '\e958';
+.icon-unavailable::before {
+  content: '\e953';
 }
 
 .icon-ic-move-xy::before {
@@ -198,4 +194,8 @@
 
 .icon-menu::before {
   content: '\e9bd';
+}
+
+.icon-x::before {
+  content: '\e906';
 }

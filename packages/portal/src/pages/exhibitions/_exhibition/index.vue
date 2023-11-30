@@ -32,8 +32,11 @@
             >
               {{ $t('blog.published', { date: $d(new Date(datePublished), 'short') }) }}
             </time>
-            <ShareButton class="mb-4" />
+            <ShareButton class="mb-4 mr-4" />
             <ShareSocialModal :media-url="heroImage && heroImage.url" />
+            <ViewCount
+              class="mb-4"
+            />
             <!-- eslint-disable vue/no-v-html -->
             <div
               data-qa="exhibition text"
@@ -106,26 +109,32 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import { marked } from 'marked';
-  import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
-  import ShareButton from '../../../components/share/ShareButton.vue';
-  import exhibitionChapters from '../../../mixins/exhibitionChapters';
+  import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
+  import ShareButton from '@/components/share/ShareButton.vue';
+  import ViewCount from '@/components/generic/ViewCount.vue';
+  import exhibitionChapters from '@/mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import logEventMixin from '@/mixins/logEvent';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
 
   export default {
     name: 'ExhibitionPage',
     components: {
+      AuthoredHead: () => import('@/components/authored/AuthoredHead'),
       ClientOnly,
-      LinkList: () => import('../../../components/generic/LinkList'),
+      ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
+      LinkList: () => import('@/components/generic/LinkList'),
+      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
-      AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
-      ContentWarningModal: () => import('@/components/content/ContentWarningModal'),
-      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
-      EntityBadges: () => import('@/components/entity/EntityBadges'),
-      ThemeBadges: () => import('@/components/theme/ThemeBadges')
+      ThemeBadges: () => import('@/components/theme/ThemeBadges'),
+      ViewCount
     },
     mixins: [
+      canonicalUrlMixin,
       exhibitionChapters,
+      logEventMixin,
       pageMetaMixin
     ],
     beforeRouteLeave(to, from, next) {
@@ -167,6 +176,7 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+
     computed: {
       pageMeta() {
         return {
@@ -195,6 +205,10 @@
           { w: 800, h: 800 }
         );
       }
+    },
+
+    mounted() {
+      this.logEvent('view', this.canonicalUrl({ fullPath: true, locale: false }));
     }
   };
 </script>

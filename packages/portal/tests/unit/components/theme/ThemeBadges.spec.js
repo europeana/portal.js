@@ -42,6 +42,12 @@ const factory = ({ propsData = props, mocks } = {}) => {
       $t: () => {},
       localePath: (path) => `/${path.params?.pathMatch || ''}`,
       $route: { query: { mode: null } },
+      $store: {
+        commit: sinon.spy()
+      },
+      $matomo: {
+        trackEvent: sinon.spy()
+      },
       ...mocks
     },
     stubs: ['LinkBadge']
@@ -80,6 +86,16 @@ describe('components/related/ThemeBadges', () => {
 
         expect(wrapper.vm.themesData).toEqual(themesAfterFetch);
       });
+    });
+  });
+
+  describe('clickEventHandler', () => {
+    it('sets the loggable interaction state', () => {
+      const wrapper = factory();
+
+      wrapper.vm.clickEventHandler();
+
+      expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
     });
   });
 });

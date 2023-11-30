@@ -68,7 +68,7 @@
 
     methods: {
       isUrl(value) {
-        return RegExp('^https?://*').test(value);
+        return /^https?:\/\//.test(value);
       }
     }
   };

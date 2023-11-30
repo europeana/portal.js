@@ -2,6 +2,8 @@ import axios from 'axios';
 import { createClient } from 'redis';
 import _pick from 'lodash/pick.js';
 import { daily, langMapValueForLocale } from '../plugins/europeana/utils.js';
+import EuropeanaRecordApi from '../plugins/europeana/record.js';
+import EuropeanaEntityApi from '../plugins/europeana/entity.js';
 
 const createRedisClient = (config = {}) => {
   const redisClient = createClient(config);
@@ -13,7 +15,7 @@ const createRedisClient = (config = {}) => {
 
 const createEuropeanaApiClient = (config = {}) => {
   return axios.create({
-    baseURL: config.url,
+    baseURL: config.url || fallbackApiUrl(config.id),
     params: {
       wskey: config.key
     }
@@ -34,6 +36,14 @@ const errorMessage = (error) => {
   }
 
   return message;
+};
+
+const fallbackApiUrl = (apiId) => {
+  if (apiId === 'record') {
+    return EuropeanaRecordApi.BASE_URL;
+  } else if (apiId === 'entity') {
+    return EuropeanaEntityApi.BASE_URL;
+  }
 };
 
 const localiseOne = (item, fields, locale) => {
@@ -79,6 +89,7 @@ export {
   createEuropeanaApiClient,
   createRedisClient,
   errorMessage,
+  fallbackApiUrl,
   daily,
   localise,
   pick,

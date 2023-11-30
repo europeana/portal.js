@@ -13,10 +13,10 @@ import versions from './pkg-versions.js';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
+import features, { featureIsEnabled, featureNotificationExpiration, valueIsTruthy } from './src/features/index.js';
 
 import {
-  nuxtRuntimeConfig as europeanaApisRuntimeConfig, publicPrivateRewriteOrigins
+  nuxtRuntimeConfig as europeanaApisRuntimeConfig
 } from './src/plugins/europeana/apis/config/nuxt.js';
 
 const buildPublicPath = () => {
@@ -39,6 +39,23 @@ const redisConfig = () => {
   return redisOptions;
 };
 
+const postgresConfig = () => {
+  const postgresOptions = {
+    enabled: featureIsEnabled('eventLogging'),
+    connectionString: process.env.POSTGRES_URL,
+    max: Number(process.env.POSTGRES_MAX || 10)
+  };
+
+  if (process.env.POSTGRES_SSL_CA) {
+    postgresOptions.ssl = {
+      ca: Buffer.from(process.env.POSTGRES_SSL_CA, 'base64'),
+      rejectUnauthorized: false
+    };
+  }
+
+  return postgresOptions;
+};
+
 export default {
   /*
   ** Runtime config
@@ -54,12 +71,11 @@ export default {
       featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
-      schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
         collections: {
-          clientOnly: featureIsEnabled(process.env.APP_SEARCH_COLLECTIONS_CLIENT_ONLY),
-          doNotTranslate: featureIsEnabled(process.env.APP_SEARCH_COLLECTIONS_DO_NOT_TRANSLATE)
+          clientOnly: valueIsTruthy(process.env.APP_SEARCH_COLLECTIONS_CLIENT_ONLY),
+          doNotTranslate: valueIsTruthy(process.env.APP_SEARCH_COLLECTIONS_DO_NOT_TRANSLATE)
         },
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }
@@ -83,10 +99,7 @@ export default {
     },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
-      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(','),
-      // Construct a map of Europeana API URLs to rewrite for logging, so that
-      // private network hostnames are replaced with the public equivalent.
-      rewriteOrigins: publicPrivateRewriteOrigins()
+      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
     },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
@@ -187,6 +200,7 @@ export default {
     matomo: {
       authToken: process.env.MATOMO_AUTH_TOKEN
     },
+    postgres: postgresConfig(),
     redis: redisConfig()
   },
 
@@ -282,7 +296,7 @@ export default {
     '~/plugins/axios.server',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
-    '~/plugins/vue-session-id.client',
+    '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
@@ -389,7 +403,8 @@ export default {
       'legacy/index',
       'l10n',
       'contentful-galleries',
-      'set-galleries'
+      'set-galleries',
+      'redirects'
     ],
     extendRoutes(routes) {
       const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
@@ -487,7 +502,7 @@ export default {
   /*
   ** Enable modern builds
   */
-  modern: true,
+  modern: !featureIsEnabled('skipModernBuild'),
 
   /*
   ** Render configuration

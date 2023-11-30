@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="hasValuesForLocale"
+    v-if="isValidFieldData && hasValuesForLocale"
     :data-field-name="name"
     data-qa="metadata field"
     class="metadata-row d-lg-flex"
@@ -125,7 +125,7 @@
 
     computed: {
       displayValues() {
-        const display = Object.assign({}, this.langMappedValues);
+        const display = { ...this.langMappedValues };
 
         if (this.limitDisplayValues && (display.values.length > this.limit)) {
           display.values = display.values.slice(0, this.limit).concat(this.$t('formatting.ellipsis'));
@@ -158,6 +158,18 @@
 
       hasValuesForLocale() {
         return (this.langMappedValues?.values?.length || 0) >= 1;
+      },
+
+      timestampIsUnixEpochValue() {
+        if (['timestampCreated', 'timestampUpdate'].includes(this.name)) {
+          return new Date(this.fieldData).getTime() === 0;
+        } else {
+          return false;
+        }
+      },
+
+      isValidFieldData() {
+        return !this.timestampIsUnixEpochValue && (this.name !== 'edmUgc');
       }
     }
   };

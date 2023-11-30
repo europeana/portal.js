@@ -42,14 +42,23 @@ const record = {
 
 const entityFindStub = sinon.stub();
 
-const factory = (options = { data: {}, mocks: {} }) => shallowMountNuxt(page, {
+const logEventSpy = sinon.spy();
+
+const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
   localVue,
   stubs: ['client-only', 'i18n', 'ErrorMessage', 'EntityBadges', 'ItemLanguageSelector'],
   data() {
     return {
-      ...options.data
+      ...data
     };
   },
+  mixins: [
+    {
+      methods: {
+        logEvent: logEventSpy
+      }
+    }
+  ],
   mocks: {
     $features: { translatedItems: true },
     $config: {
@@ -98,7 +107,8 @@ const factory = (options = { data: {}, mocks: {} }) => shallowMountNuxt(page, {
       }
     },
     $error: sinon.spy(),
-    ...options.mocks
+    $session: { isActive: false },
+    ...mocks
   }
 });
 
@@ -124,6 +134,17 @@ describe('pages/item/_.vue', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
+      });
+    });
+
+    describe('when the requested item identifier is different from the identifier in the response', () => {
+      it('redirects to the response identifier item page', async() => {
+        const wrapper = factory({ data: { identifier: '/old/id' } });
+        sinon.spy(wrapper.vm, 'redirectToAltRoute');
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.redirectToAltRoute.calledWith({ params: { pathMatch: record.identifier.slice(1) } })).toBe(true);
       });
     });
 
