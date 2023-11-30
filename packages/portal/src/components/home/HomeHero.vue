@@ -1,8 +1,12 @@
 <template>
   <div
-    class="hero responsive-backround-image"
-    :style="imageCSSVars"
+    class="hero"
   >
+    <div
+      ref="hero"
+      class="hero-background responsive-backround-image"
+      :style="imageCSSVars"
+    />
     <div
       class="hero-content"
     >
@@ -71,6 +75,14 @@
             }
           );
       }
+    },
+
+    mounted() {
+      const heroHeight = this.$refs.hero.clientHeight;
+      window.addEventListener('scroll', () => {
+        const zoom = (window.scrollY / heroHeight * 0.5) + 1;
+        this.$refs.hero.style.transform = `scale(${zoom})`;
+      });
     }
   };
 </script>
@@ -85,25 +97,13 @@
     background-color: $mediumgrey-light;
     padding: 25vh 1.5rem 1.5rem;
     min-height: 100vh;
-    background-size: cover;
-    background-repeat: no-repeat;
     position: relative;
     padding-bottom: 128px; // save space for absolute positioned EULogo of height 64px, doubled for spacing around the logo
+    overflow: hidden;
 
     @media (min-width: $bp-4k) {
       margin-top: calc(1.5 * -70px);
       padding-bottom: calc(1.5 * 128px);
-    }
-
-    &::before {
-      content: '';
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(0deg, #0b60aa, #0b60aa);
-      mix-blend-mode: multiply;
-      position: absolute;
     }
 
     &::after {
@@ -122,6 +122,27 @@
         border-bottom-width: calc(209 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
         border-left-width: calc(95 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
         top: calc(100% - (209 / 16 * 1vw) + 1px); // Adding one pixel so as to prevent a black line due to rounding
+      }
+    }
+
+    .hero-background {
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      &::before {
+        content: '';
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-image: linear-gradient(0deg, #0b60aa, #0b60aa);
+        mix-blend-mode: multiply;
+        position: absolute;
       }
     }
 
