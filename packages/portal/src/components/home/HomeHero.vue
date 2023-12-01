@@ -3,7 +3,7 @@
     class="hero"
   >
     <div
-      ref="hero"
+      ref="heroBackground"
       class="hero-background responsive-backround-image"
       :style="imageCSSVars"
     />
@@ -78,11 +78,15 @@
     },
 
     mounted() {
-      const heroHeight = this.$refs.hero.clientHeight;
-      window.addEventListener('scroll', () => {
-        const zoom = (window.scrollY / heroHeight * 0.5) + 1;
-        this.$refs.hero.style.transform = `scale(${zoom})`;
-      });
+      const heroBackgroundHeight = this.$refs.heroBackground?.clientHeight;
+      window.addEventListener('scroll', () => this.transformBackground(heroBackgroundHeight));
+    },
+
+    methods: {
+      transformBackground(height) {
+        const zoom = (window.scrollY / height * 0.5) + 1;
+        this.$refs.heroBackground.style.transform = `scale(${zoom})`;
+      }
     }
   };
 </script>
