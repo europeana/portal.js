@@ -116,7 +116,7 @@
         };
         const response = await this.$contentful.query('homePage', variables);
         const homePage = response.data.data.homePageCollection.items[0];
-        const backgroundImages = response.data.data.scheduledImageSetCollection?.items?.[0]?.hasPartCollection?.items || [];
+        const backgroundImages = homePage.primaryImageSetOfPageCollection?.items?.[0]?.hasPartCollection?.items || [];
         this.sections = homePage.sectionsCollection.items.filter((item) => !!item);
         this.backgroundImage = this.selectRandomBackground(backgroundImages) || homePage.primaryImageOfPage;
         this.socialMediaImage = homePage.image;
