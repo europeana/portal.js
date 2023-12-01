@@ -788,7 +788,7 @@ export default {
       "europeanaClassroom": "Voor leraren",
       "help": "Help",
       "home": "Home",
-      "shareYourData": "Deel uw gegevens",
+      "shareYourData": "Deel uw data",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",

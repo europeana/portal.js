@@ -256,9 +256,9 @@ export default {
       "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
     },
     "itemNotFound": {
-      "description": "Ennek a következő okai lehetnek: ez a tárgy nem létezik; vagy eltávolítottuk, mert nem felelt meg a minőségi kritériumainknak; vagy frissítettük és új egyedi azonosítóval tettük közzé, ebben az esetben próbálja meg újra megtalálni a tárgy.",
+      "description": "Ennek a következő okai lehetnek: ez a tárgy nem létezik; vagy eltávolítottuk, mert nem felelt meg a minőségi kritériumainknak; vagy frissítettük és új egyedi azonosítóval tettük közzé, ebben az esetben próbálja meg újra megtalálni.",
       "metaTitle": "Az tárgyat nem található",
-      "title": "Jaj, ne! {newline} Nem találtuk meg ezt a tárgy."
+      "title": "Jaj, ne! {newline} Nem találtuk meg ezt a tárgyat."
     },
     "pageNotFound": {
       "metaTitle": "Az oldal nem található",
