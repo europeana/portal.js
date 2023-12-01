@@ -5,6 +5,11 @@ import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
+const imageWithAttribution = {
+  url: 'https://images.ctfassets.net/image.jpeg',
+  contentType: 'image/jpeg'
+};
+
 const homePageContentfulResponse = {
   data: {
     data: {
@@ -13,6 +18,17 @@ const homePageContentfulResponse = {
           {
             sectionsCollection: {
               items: []
+            },
+            primaryImageSetOfPageCollection: {
+              items: [
+                {
+                  hasPartCollection: {
+                    items: [
+                      imageWithAttribution
+                    ]
+                  }
+                }
+              ]
             }
           }
         ]
@@ -66,6 +82,17 @@ describe('pages/home/index', () => {
 
       clock.restore();
     });
+
+    it('sets the backgroundImage from the available options', async() => {
+      const wrapper = factory();
+      const clock = sinon.useFakeTimers();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.backgroundImage).toBe(imageWithAttribution);
+
+      clock.restore();
+    });
   });
 
   describe('computed', () => {
@@ -87,15 +114,11 @@ describe('pages/home/index', () => {
       });
 
       describe('og:image', () => {
-        const image = {
-          url: 'https://images.ctfassets.net/image.jpeg',
-          contentType: 'image/jpeg'
-        };
         const expected = 'https://images.ctfassets.net/image.jpeg?optimised';
 
         it('favours CTF social media image', async() => {
           const wrapper = factory();
-          await wrapper.setData({ socialMediaImage: image });
+          await wrapper.setData({ socialMediaImage: imageWithAttribution });
           await wrapper.vm.$nextTick();
 
           const pageMeta = wrapper.vm.pageMeta;
@@ -105,7 +128,7 @@ describe('pages/home/index', () => {
 
         it('falls back to CTF background image', async() => {
           const wrapper = factory();
-          await wrapper.setData({ backgroundImage: { image } });
+          await wrapper.setData({ backgroundImage: { image: imageWithAttribution } });
           await wrapper.vm.$nextTick();
 
           const pageMeta = wrapper.vm.pageMeta;
