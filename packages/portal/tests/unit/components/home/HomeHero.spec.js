@@ -1,5 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import VueI18n from 'vue-i18n';
+import sinon from 'sinon';
 
 import HomeHero from '@/components/home/HomeHero.vue';
 
@@ -27,6 +28,16 @@ describe('components/home/HomeHero', () => {
 
         expect(wrapper.vm.imageCSSVars).toBeTruthy();
       });
+    });
+  });
+
+  describe('when the page is scrolled', () => {
+    it('sets transform styles on the background', () => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm, 'transformBackground');
+      window.dispatchEvent(new Event('scroll'));
+
+      expect(wrapper.vm.transformBackground.called).toBe(true);
     });
   });
 });
