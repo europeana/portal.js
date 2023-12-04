@@ -962,9 +962,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dismiss",
-    "readMore": "Go to the search page",
+    "readMore": "Go to the collections page",
     "text": {
-      "advancedSearch": "Advanced search has arrived: say goodbye to broad results and hello to precision as you uncover exactly what you're looking for. Start exploring now!"
+      "trendingItems": "Discover which items capture people's attention and gain popularity in real-time. Take advantage of the chance to stay ahead of the curve - see what people view, like, curate and reuse the most right now."
     }
   },
   "newWindow": "opens in new window",
