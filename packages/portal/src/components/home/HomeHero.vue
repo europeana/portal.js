@@ -78,12 +78,11 @@
     },
 
     mounted() {
-      const heroBackgroundHeight = this.$refs.heroBackground?.clientHeight;
-      window.addEventListener('scroll', () => this.transformBackground(heroBackgroundHeight));
+      window.addEventListener('scroll', () => this.transformBackground());
     },
 
     methods: {
-      transformBackground(height) {
+      transformBackground() {
         const scrollPercentage = (window.top.scrollY * 100) / (window.innerHeight);
         const zoom = 1 + (Math.log(scrollPercentage + 1) / 25);
         this.$refs.heroBackground.style.transform = `scale(${zoom})`;
