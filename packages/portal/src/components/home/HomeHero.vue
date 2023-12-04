@@ -84,7 +84,8 @@
 
     methods: {
       transformBackground(height) {
-        const zoom = (window.scrollY / height * 0.5) + 1;
+        const scrollPercentage = (window.top.scrollY * 100) / (window.innerHeight);
+        const zoom = 1 + (Math.log(scrollPercentage + 1) / 25);
         this.$refs.heroBackground.style.transform = `scale(${zoom})`;
       }
     }
