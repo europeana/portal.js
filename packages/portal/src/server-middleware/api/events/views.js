@@ -10,7 +10,9 @@ export default (config = {}) => {
         res.json({ viewCount: 0 });
         return;
       }
-      const url = req.query?.url;
+      const url = new URL(req.query?.url);
+      // Ignore any search query or hash
+      const uri = `${url.origin}${url.pathname}`;
 
       const result = await pg.query(`
         SELECT uri,
@@ -33,11 +35,11 @@ export default (config = {}) => {
            LEFT JOIN events.action_types AT ON a.action_type_id=at.id
            GROUP BY at.name,
                     o.uri) actions_and_history
-        WHERE action_type_name='view' AND uri=$1
+        WHERE action_type_name='view' AND (uri=$1 OR uri LIKE $2)
         GROUP BY uri,
                  action_type_name
         `,
-      [url]
+      [uri, `${uri}?%`]
       );
 
       const viewCount = Number(result.rows[0]?.views);
