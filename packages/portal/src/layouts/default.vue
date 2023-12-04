@@ -17,7 +17,9 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader />
+    <PageHeader
+      ref="pageHeader"
+    />
     <main
       id="default"
       role="main"
@@ -168,6 +170,14 @@
     },
 
     mounted() {
+      if (this.$route.hash) {
+        this.$scrollTo?.(this.$route.hash, {
+          duration: 0,
+          easing: 'linear',
+          offset: -this.$refs.pageHeader.$el.clientHeight
+        });
+      }
+
       if (!this.klaro) {
         this.klaro = window.klaro;
       }
