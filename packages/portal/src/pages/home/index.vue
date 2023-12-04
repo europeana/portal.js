@@ -104,7 +104,7 @@
 
     methods: {
       selectRandomBackground(images) {
-        return images[Math.floor(Math.random() * images.length)] || false;
+        return images[Math.floor(Math.random() * images.length)] || null;
       },
 
       async fetchContentfulEntry() {

@@ -85,13 +85,10 @@ describe('pages/home/index', () => {
 
     it('sets the backgroundImage from the available options', async() => {
       const wrapper = factory();
-      const clock = sinon.useFakeTimers();
 
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.backgroundImage).toBe(imageWithAttribution);
-
-      clock.restore();
     });
   });
 
