@@ -15,9 +15,7 @@ export default (config = {}) => {
       const uri = `${url.origin}${url.pathname}`;
 
       const result = await pg.query(`
-        SELECT uri,
-               action_type_name,
-               sum(views) AS views
+        SELECT SUM(views) AS views
         FROM
           (SELECT o.uri,
                   at.name AS action_type_name,
@@ -36,8 +34,6 @@ export default (config = {}) => {
            GROUP BY at.name,
                     o.uri) actions_and_history
         WHERE action_type_name='view' AND (uri=$1 OR uri LIKE $2)
-        GROUP BY uri,
-                 action_type_name
         `,
       [uri, `${uri}?%`]
       );
