@@ -83,8 +83,9 @@
 
     methods: {
       transformBackground() {
+        const zoomSpeed = 25 - ((this.$route.query.zoomSpeed || 1) * 2);
         const scrollPercentage = (window.top.scrollY * 100) / (window.innerHeight);
-        const zoom = 1 + (Math.log(scrollPercentage + 1) / 25);
+        const zoom = 1 + (Math.log(scrollPercentage + 1) / zoomSpeed);
         this.$refs.heroBackground.style.transform = `scale(${zoom})`;
       }
     }
