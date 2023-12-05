@@ -84,7 +84,7 @@
 
     methods: {
       transformBackground(height) {
-        const zoom = (window.scrollY / height * 0.5) + 1;
+        const zoom = (window.scrollY / height * 0.25) + 1;
         this.$refs.heroBackground.style.transform = `scale(${zoom})`;
       }
     }
@@ -137,6 +137,7 @@
       position: absolute;
       background-size: cover;
       background-repeat: no-repeat;
+      transition: transform 500ms ease-out;
 
       &::before {
         content: '';
