@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriť",
-    "readMore": "Prejdite na stránku vyhľadávania",
+    "readMore": "Ukáž mi",
     "text": {
-      "advancedSearch": "Prišlo rozšírené vyhľadávanie: rozlúčte sa so širokými výsledkami a pozdravte presnosť, keď objavíte presne to, čo hľadáte. Začnite objavovať hneď teraz!"
+      "trendingItems": "Zistite, ktoré objekty zaujmú pozornosť ľudí a stávajú sa populárne v reálnom čase. Využite príležitosť byť o krok vpred-pozrite si, čo ľudia práve teraz najviac sledujú, majú radi, kurát ujú a znovu používajú."
     }
   },
   "newWindow": "otvorí sa v novom okne",

@@ -939,9 +939,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Itxi",
-    "readMore": "Joan bilaketa-orrira",
+    "readMore": "Erakutsi",
     "text": {
-      "advancedSearch": "Bilaketa aurreratua iritsi da: agur emaitza zabalei eta hola zehaztasunari, bilatzen ari dena zehatz-mehatz aurkitzen duen bitartean. Hasi orain esploratzen!"
+      "trendingItems": "Ezagutu zein elementuk erakartzen duten jendearen arreta eta lortu ospea denbora errealean. Aprobetxatu kurbaren aurretik egoteko aukera. Ikusi jendeak zer ikusten duen, gustatzen, kudeatzen eta berrerabiltzen duena une honetan."
     }
   },
   "newWindow": "leiho berrian irekiko da",

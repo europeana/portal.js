@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Aizvērt",
-    "readMore": "Dodieties uz meklēšanas lapu",
+    "readMore": "Parādi man",
     "text": {
-      "advancedSearch": "Ir ieviesta izvērstā meklēšana: atvadieties no plašiem rezultātiem un sveicināties ar precizitāti, atklājot tieši to, ko meklējat. Sāciet izpēti tūlīt!"
+      "trendingItems": "Uzziniet, kuri digitālie objekti piesaista cilvēku uzmanību un iegūst popularitāti reālajā laikā. Izmantojiet iespēju būt priekšā līknei - skatieties, ko cilvēki skatās, patīk, kurē un atkārtoti izmanto tieši tagad."
     }
   },
   "newWindow": "tiek atvērts jaunā logā",

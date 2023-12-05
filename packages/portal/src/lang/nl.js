@@ -788,7 +788,7 @@ export default {
       "europeanaClassroom": "Voor leraren",
       "help": "Help",
       "home": "Home",
-      "shareYourData": "Deel uw gegevens",
+      "shareYourData": "Deel uw data",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",
@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sluiten",
-    "readMore": "Ga naar de zoekpagina",
+    "readMore": "Toon mij",
     "text": {
-      "advancedSearch": "Geavanceerd zoeken is gearriveerd: zeg vaarwel tegen brede resultaten en hallo tegen precisie, terwijl u precies ontdekt wat u zoekt. Begin nu met verkennen!"
+      "trendingItems": "Ontdek welke objecten de aandacht van mensen trekken en in realtime aan populariteit winnen. Profiteer van de kans om voorop te blijven lopen en kijk wat mensen op dit moment het meest bekijken, leuk vinden, cureren en hergebruiken."
     }
   },
   "newWindow": "opent in nieuw venster",

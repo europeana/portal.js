@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Agħlaq",
-    "readMore": "Mur fil-paġna tat-tfittxija",
+    "readMore": "Uri lili",
     "text": {
-      "advancedSearch": "Waslet tfittxija avvanzata: għid addiju għal riżultati wiesgħa u hello għall-preċiżjoni hekk kif tikxef eżattament dak li qed tfittex. Ibda tesplora issa!"
+      "trendingItems": "Skopri liema oġġetti jiksbu l-attenzjoni tan-nies u jiksbu popolarità f'real-time. Approfitta mill-opportunità li tibqa' 'l quddiem mill-kurva - ara x'nies jaraw, jgħoġbuhom, jikkuraw u jerġgħu jużaw l-aktar issa."
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
