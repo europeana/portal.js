@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zatvoriti",
-    "readMore": "Idite na stranicu za pretraživanje",
+    "readMore": "Pokaži mi",
     "text": {
-      "advancedSearch": "Stiglo je napredno pretraživanje: pozdravite se sa širokim rezultatima i pozdravite preciznost dok otkrivate točno ono što tražite. Počnite istraživati sada!"
+      "trendingItems": "Otkrijte koji predmeti privlače pažnju ljudi i stječu popularnost u stvarnom vremenu. Iskoristite priliku da ostanete ispred krivulje - pogledajte što ljudi trenutno najviše gledaju, sviđaju im se, pripremaju i ponovno koriste."
     }
   },
   "newWindow": "otvara se u novom prozoru",

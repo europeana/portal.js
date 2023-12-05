@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Uždaryti",
-    "readMore": "Eikite į paieškos puslapį",
+    "readMore": "Parodyk man",
     "text": {
-      "advancedSearch": "Atėjo išplėstinė paieška: atsisveikinkite su plačiais rezultatais ir pasisveikinkite su tikslumu, kai atskleisite būtent tai, ko ieškote. Pradėkite tyrinėti dabar!"
+      "trendingItems": "Sužinokite, kurie skaitmeniniai objektai žmonių dėmesį ir tampa populiarūs realiuoju laiku. Pasinaudokite galimybe būti priekyje – pažiūrėkite, ką žmonės šiuo metu dažniausiai žiūri, mėgsta, kuruoja ir pakartotinai naudoja."
     }
   },
   "newWindow": "atsidaro naujame lange",

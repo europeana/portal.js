@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulje",
-    "readMore": "Siirry hakusivulle",
+    "readMore": "Näytä minulle",
     "text": {
-      "advancedSearch": "Tarkennettu haku on saapunut: sano hyvästit laajoille tuloksille ja hei tarkkuudelle, kun löydät etsimäsi. Aloita tutkiminen nyt!"
+      "trendingItems": "Selvitä, mitkä aineistot kiinnittävät ihmisten huomion ja saavat suosiota reaaliajassa. Hyödynnä tilaisuus pysyä kehityksen kärjessä – katso, mitä ihmiset näkevät, pitävät, kuratoivat ja käyttävät uudelleen eniten juuri nyt."
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",

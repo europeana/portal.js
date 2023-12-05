@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Schließen",
-    "readMore": "Gehen Sie zur Suchseite",
+    "readMore": "Zeig mir",
     "text": {
-      "advancedSearch": "Die erweiterte Suche ist da: Verabschieden Sie sich von umfassenden Ergebnissen und begrüßen Sie die Präzision, während Sie genau das finden, wonach Sie suchen. Beginnen Sie jetzt mit der Erkundung!"
+      "trendingItems": "Entdecken Sie, welche Objekte die Aufmerksamkeit der Menschen auf sich ziehen und in Echtzeit an Beliebtheit gewinnen. Nutzen Sie die Chance, der Zeit voraus zu sein - sehen Sie, was die Leute gerade am meisten ansehen, mögen, kuratieren und wiederverwenden."
     }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",

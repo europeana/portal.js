@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Stäng",
-    "readMore": "Gå till söksidan",
+    "readMore": "Visa mig",
     "text": {
-      "advancedSearch": "Avancerad sökning har kommit: säg adjö till breda resultat och hej till precision när du upptäcker exakt vad du letar efter. Börja utforska nu!"
+      "trendingItems": "Upptäck vilka objekt som fångar människors uppmärksamhet och blir populära i realtid. Utnyttja chansen att ligga före kurvan - se vad folk tittar på, gillar, kuraterar och återanvänder mest just nu."
     }
   },
   "newWindow": "öppnas i nytt fönster",
