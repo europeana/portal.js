@@ -118,8 +118,7 @@
         const homePage = response.data.data.homePageCollection.items[0];
         const backgroundImages = homePage.primaryImageSetOfPageCollection?.items?.[0]?.hasPartCollection?.items || [];
         this.sections = homePage.sectionsCollection.items.filter((item) => !!item);
-        // TODO: Remove primaryImageOfPage fallback.
-        this.backgroundImage = this.selectRandomBackground(backgroundImages) || homePage.primaryImageOfPage;
+        this.backgroundImage = this.selectRandomBackground(backgroundImages);
         this.socialMediaImage = homePage.image;
       }
     }
