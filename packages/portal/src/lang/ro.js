@@ -937,7 +937,7 @@ export default {
     "dismiss": "Închidere",
     "readMore": "Arată-mi",
     "text": {
-      "trendingItems": "Descoperiți care resurse culturale captează atenția oamenilor și devin populare în timp real. Profitați de șansa de a fi în fruntea curbei - vedeți ce vizualizează, apreciază, curariza și reutilizează oamenii cel mai mult în acest moment."
+      "trendingItems": "Descoperiți resursele culturale captivante care devin populare în timp real. Profitați de ocazia vizualizări lor în avans - cum le văd alții, cum le apreaciază, curatoriază și reutilizează ei, cel mai mult, acum."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
