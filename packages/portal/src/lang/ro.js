@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Închidere",
-    "readMore": "Accesați pagina de căutare",
+    "readMore": "Arată-mi",
     "text": {
-      "advancedSearch": "Căutarea avansată a sosit: spune la revedere rezultatelor ample și salută precizia în timp ce descoperi exact ceea ce cauți. Începeți să explorați acum!"
+      "trendingItems": "Descoperiți care resurse culturale captează atenția oamenilor și devin populare în timp real. Profitați de șansa de a fi în fruntea curbei - vedeți ce vizualizează, apreciază, curariza și reutilizează oamenii cel mai mult în acest moment."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",

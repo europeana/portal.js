@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Dún",
-    "readMore": "Téigh go dtí an leathanach cuardaigh",
+    "readMore": "Taispeáin dom",
     "text": {
-      "advancedSearch": "Tá cuardach casta tagtha: slán a fhágáil le torthaí leathana agus dia duit le cruinneas mar a nochtann tú go díreach cad atá á lorg agat. Tosaigh ag iniúchadh anois!"
+      "trendingItems": "Faigh amach cé na míreanna a ghabháil aird daoine agus tóir a fháil i bhfíor-am. Bain leas as an deis chun fanachta chun tosaigh ar na gcuar - féach cad a amharcann daoine, cosúil le, curata agus athúsáid an chuid is mó ceart anois."
     }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",

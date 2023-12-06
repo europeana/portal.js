@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zamknij",
-    "readMore": "Przejdź do strony wyszukiwania",
+    "readMore": "Pokaż mi",
     "text": {
-      "advancedSearch": "Pojawiło się zaawansowane wyszukiwanie: pożegnaj się z szerokimi wynikami i przywitaj się z precyzją, odkrywając dokładnie to, czego szukasz. Zacznij odkrywać już teraz!"
+      "trendingItems": "Dowiedz się, które obiekty cyfrowe przyciągają uwagę ludzi i stają się popularne w czasie rzeczywistym. Skorzystaj z okazji, aby być o krok do przodu-zobacz, co ludzie teraz najbardziej oglądają, lubią, kurują i ponownie wykorzystują."
     }
   },
   "newWindow": "otwiera się w nowym oknie",

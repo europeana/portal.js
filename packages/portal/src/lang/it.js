@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Chiudi",
-    "readMore": "Vai alla pagina di ricerca",
+    "readMore": "Mostrami",
     "text": {
-      "advancedSearch": "La ricerca avanzata è arrivata: dite addio ai risultati ampi e date il benvenuto alla precisione, scoprendo esattamente ciò che state cercando. Iniziate subito a esplorare!"
+      "trendingItems": "Scopri quali oggetti catturano l'attenzione delle persone e guadagnano popolarità in tempo reale. Approfitta dell'opportunità di rimanere avanti rispetto alla curva - vedi cosa le persone visualizzano, apprezzano, curano e riutilizzano di più in questo momento."
     }
   },
   "newWindow": "si apre in una nuova finestra",

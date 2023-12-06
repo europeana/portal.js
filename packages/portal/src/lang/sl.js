@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Zapri",
-    "readMore": "Pojdite na iskalno stran",
+    "readMore": "Pokaži mi",
     "text": {
-      "advancedSearch": "Prišlo je napredno iskanje: poslovite se od obsežnih rezultatov in pozdravite natančnost, ko odkrijete točno tisto, kar iščete. Začnite raziskovati zdaj!"
+      "trendingItems": "Odkrijte, kateri enote pritegnejo pozornost ljudi in pridobijo priljubljenost v realnem času. Izkoristite priložnost, da ostanete pred krivuljo – oglejte si, kaj si ljudje trenutno največ ogledujejo, všečkajo, kurirajo in ponovno uporabljajo."
     }
   },
   "newWindow": "odpre se v novem oknu",

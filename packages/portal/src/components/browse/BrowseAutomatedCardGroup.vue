@@ -6,13 +6,10 @@
       v-if="key === 'items/type-counts'"
       :section="contentCardSection"
     />
-    <client-only
+    <ItemTrendingItems
       v-else-if="trending"
-    >
-      <ItemTrendingItems
-        :headline="headline"
-      />
-    </client-only>
+      :headline="headline"
+    />
     <ContentCardSection
       v-else
       :section="contentCardSection"
