@@ -1,7 +1,7 @@
 module.exports = function(migration) {
   const imageSet = migration
     .createContentType('imageSet')
-    .name('Image Set')
+    .name('Image set')
     .description('Set of Images that can be scheduled for use on the homepage')
     .displayField('headline');
 

@@ -1,6 +1,7 @@
 <template>
   <section
     v-if="items"
+    id="trending-items"
     class="browse-section row mb-5"
     data-qa="browse section"
   >

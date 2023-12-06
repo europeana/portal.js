@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Sulge",
-    "readMore": "Minge otsingulehele",
+    "readMore": "Näita mulle",
     "text": {
-      "advancedSearch": "Täpsem otsing on saabunud: jätke hüvasti laiaulatuslike tulemustega ja tere täpsusega, kui avastate täpselt seda, mida otsite. Alustage uurimist kohe!"
+      "trendingItems": "Avastage, millised predmeti köidavad inimeste tähelepanu ja saavutavad populaarsuse reaalajas. Kasutage võimalust olla trendide ees - vaadake, mida inimesed praegu kõige rohkem vaatavad, meeldivad, kureerivad ja uuesti kasutavad."
     }
   },
   "newWindow": "avaneb uues aknas",

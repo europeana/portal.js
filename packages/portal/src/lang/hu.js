@@ -256,9 +256,9 @@ export default {
       "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
     },
     "itemNotFound": {
-      "description": "Ennek a következő okai lehetnek: ez a tárgy nem létezik; vagy eltávolítottuk, mert nem felelt meg a minőségi kritériumainknak; vagy frissítettük és új egyedi azonosítóval tettük közzé, ebben az esetben próbálja meg újra megtalálni a tárgy.",
+      "description": "Ennek a következő okai lehetnek: ez a tárgy nem létezik; vagy eltávolítottuk, mert nem felelt meg a minőségi kritériumainknak; vagy frissítettük és új egyedi azonosítóval tettük közzé, ebben az esetben próbálja meg újra megtalálni.",
       "metaTitle": "Az tárgyat nem található",
-      "title": "Jaj, ne! {newline} Nem találtuk meg ezt a tárgy."
+      "title": "Jaj, ne! {newline} Nem találtuk meg ezt a tárgyat."
     },
     "pageNotFound": {
       "metaTitle": "Az oldal nem található",
@@ -935,9 +935,9 @@ export default {
   },
   "newFeatureNotification": {
     "dismiss": "Bezárás",
-    "readMore": "Menjen a keresési oldalra",
+    "readMore": "Mutasd meg",
     "text": {
-      "advancedSearch": "Megérkezett a speciális keresés: mondjon búcsút a széles körű találatoknak, és üdvözölje a pontosságot, amikor pontosan megtalálja, amit keres. Kezdje el a felfedezést most!"
+      "trendingItems": "Fedezd fel, mely tárgyak ragadják meg valós időben az emberek figyelmét és szereznek népszerűséget. Használja ki a lehetőséget, hogy élen járjon – nézze meg, mit tekintenek meg, szeretnek, válogatnak össze és használnak fel újra az emberek a leghasznosabban."
     }
   },
   "newWindow": "új ablakban nyílik meg",
