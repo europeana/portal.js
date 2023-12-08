@@ -29,9 +29,24 @@ More info about font styles and examples where they are applied can be found on 
         <td><code>normal</code></td>
       </tr>
       <tr>
-        <td><h2 class="font-large font-ubuntu mb-0">Title 3</h2></td>
+        <td><h2 class="font-ubuntu mb-0"
+        style="font-size: 1.75rem;">Title 3</h2></td>
+        <td><code>Ubuntu</code></td>
+        <td><code>1.75rem (28px)</code></td>
+        <td><code>400</code></td>
+        <td><code>normal</code></td>
+      </tr>
+      <tr>
+        <td><h2 class="font-large font-ubuntu mb-0">Title 4</h2></td>
         <td><code>Ubuntu</code></td>
         <td><code>1.5rem (24px)</code></td>
+        <td><code>400</code></td>
+        <td><code>normal</code></td>
+      </tr>
+      <tr>
+        <td><h2 class="font-medium font-ubuntu mb-0">Title 5</h2></td>
+        <td><code>Ubuntu</code></td>
+        <td><code>1.25rem (20px)</code></td>
         <td><code>400</code></td>
         <td><code>normal</code></td>
       </tr>
@@ -63,6 +78,35 @@ More info about font styles and examples where they are applied can be found on 
         <td><code>400</code></td>
         <td><code>normal</code></td>
       </tr>
+      <tr class="text-page">
+        <td><p class="lead mb-0">Lead paragraph</p></td>
+        <td><code>Open Sans</code></td>
+        <td><code>1.5rem (24px)</code></td>
+        <td><code>400</code></td>
+        <td><code>normal</code></td>
+      </tr>
+      <tr>
+        <td><p class="mb-0" style="font-size: 1.125rem;">Body large</p></td>
+        <td><code>Open Sans</code></td>
+        <td><code>1.125rem (18px)</code></td>
+        <td><code>400</code></td>
+        <td><code>normal</code></td>
+      </tr>
+      <tr>
+        <td><p class="font-base mb-0">Body regular</p></td>
+        <td><code>Open Sans</code></td>
+        <td><code>1rem (16px)</code></td>
+        <td><code>400</code></td>
+        <td><code>normal</code></td>
+      </tr>
+      <tr>
+        <td><span class="font-small font-weight-semibold text-uppercase"
+        style="font-size: 1.75rem;">Navigation / pagination</span></td>
+        <td><code>Open Sans</code></td>
+        <td><code>0.875rem (14px)</code></td>
+        <td><code>600</code></td>
+        <td><code>uppercase</code></td>
+      </tr>
       <tr>
         <td><span class="context-label font-small">Label 1</span></td>
         <td><code>Open Sans</code></td>
@@ -76,29 +120,6 @@ More info about font styles and examples where they are applied can be found on 
         <td><code>0.75rem (12px)</code></td>
         <td><code>600</code></td>
         <td><code>uppercase</code></td>
-      </tr>
-      <tr class="text-page">
-        <td><p class="lead mb-0">Lead paragraph</p></td>
-        <td><code>Open Sans</code></td>
-        <td><code>1.5rem (24px)</code></td>
-        <td><code>400</code></td>
-        <td><code>normal</code></td>
-      </tr>
-      <tr>
-        <td><p class="mb-0" style="{
-          font-size: 1.125rem;
-        }">Body large</p></td>
-        <td><code>Open Sans</code></td>
-        <td><code>1.125rem (18px)</code></td>
-        <td><code>400</code></td>
-        <td><code>normal</code></td>
-      </tr>
-      <tr>
-        <td><p class="font-base mb-0">Body regular</p></td>
-        <td><code>Open Sans</code></td>
-        <td><code>1rem (16px)</code></td>
-        <td><code>400</code></td>
-        <td><code>normal</code></td>
       </tr>
       <tr>
         <td><span class="font-small">Component text 1</span></td>
@@ -115,7 +136,7 @@ More info about font styles and examples where they are applied can be found on 
         <td><code>normal</code></td>
       </tr>
       <tr>
-        <td><span class="font-extrasmall">Component text 2</span></td>
+        <td><span class="font-extra-small">Component text 2</span></td>
         <td><code>Open Sans</code></td>
         <td><code>0.75rem (12px)</code></td>
         <td><code>400</code></td>
