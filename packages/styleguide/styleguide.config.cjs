@@ -35,6 +35,10 @@ module.exports = async() => {
         name: 'Style',
         sections: [
           {
+            name: 'Typography',
+            content: '../portal/docs/style/Typography.md'
+          },
+          {
             name: 'Font icons',
             content: '../portal/docs/style/FontIcons.md'
           },
