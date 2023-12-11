@@ -43,8 +43,12 @@ module.exports = async() => {
             content: '../portal/docs/style/FontIcons.md'
           },
           {
-            name: 'Colours and shades',
-            content: '../portal/docs/style/ColoursAndShades.vue'
+            name: 'Colours',
+            content: '../portal/docs/style/Colours.md'
+          },
+          {
+            name: 'Shadows',
+            content: '../portal/docs/style/Shadows.md'
           },
           {
             name: 'Bootstrap Vue',
