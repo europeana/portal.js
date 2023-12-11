@@ -26,14 +26,6 @@
   padding-top: 4rem;
 }
 
-.font-xxl {
-  font-size: $font-size-xxl;
-}
-
-.font-xl {
-  font-size: $font-size-xl;
-}
-
 .font-large {
   font-size: $font-size-large;
 }
@@ -47,7 +39,7 @@
 }
 
 .font-small {
-  font-size: $font-size-small !important;
+  font-size: $font-size-small;
 }
 
 .font-extra-small {
@@ -62,13 +54,4 @@
   .flex-basis-md-auto {
     flex-basis: auto;
   }
-}
-
-.font-ubuntu {
-  font-weight: 500;
-  font-family: $font-family-ubuntu;
-}
-
-.font-weight-semibold {
-  font-weight: 600;
 }
