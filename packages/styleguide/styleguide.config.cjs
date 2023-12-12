@@ -47,8 +47,8 @@ module.exports = async() => {
             content: '../portal/docs/style/Colours.md'
           },
           {
-            name: 'Shadows',
-            content: '../portal/docs/style/Shadows.md'
+            name: 'Borders and shadows',
+            content: '../portal/docs/style/BordersAndShadows.md'
           },
           {
             name: 'Bootstrap Vue',

@@ -1,10 +1,10 @@
-Bax shadows are used to distinguish a component from its background and/or as hover effect.
+Box shadows are used to distinguish a component from its background and/or as hover effect.
 ```jsx
 <b-table
   fixed
   :fields="[{
     key: 'boxshadow',
-    label: 'Box shadow'
+    label: 'Box-shadow'
   }, {
     key: 'name',
     label: 'Name'
@@ -21,6 +21,31 @@ Bax shadows are used to distinguish a component from its background and/or as ho
   <template #cell(boxshadow)="data">
     <div
       :style="`border-radius: 0.375rem; padding: 1rem; box-shadow: ${data.item.code};`"
+    >
+      {{ data.value }}
+    </div>
+  </template>
+</b-table>
+
+<b-table
+  fixed
+  :fields="[{
+    key: 'borderradius',
+    label: 'Border-radius'
+  }, {
+    key: 'name',
+    label: 'Name'
+  }, {
+    key: 'code',
+    label: 'Code'
+  }]"
+  :items="[{ name: 'border-radius-small', code: '0.25rem' },
+  { name: 'border-radius', code: '0.375rem' },
+  { name: 'border-radius-large', code: '0.5rem' }]"
+>
+  <template #cell(borderradius)="data">
+    <div
+      :style="`border-radius: ${data.item.code}; padding: 1rem; border: 1px solid #000;`"
     >
       {{ data.value }}
     </div>
