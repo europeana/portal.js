@@ -13,12 +13,10 @@ WHERE id in
                count(a.id) num,
                min(a.id) first_action_id
         FROM actions a
-        INNER JOIN objects o ON a.object_id=o.id
-        INNER JOIN action_types AT ON a.action_type_id=at.id
-        INNER JOIN sessions s ON a.session_id=s.id
-        GROUP BY action_type_id,
-                 session_id,
-                 object_id) an ON a.object_id=an.object_id
+        GROUP BY object_id,
+                 action_type_id,
+                 session_id
+                 ) an ON a.object_id=an.object_id
      AND a.action_type_id=an.action_type_id
      AND a.session_id=an.session_id
      AND a.id <> an.first_action_id
