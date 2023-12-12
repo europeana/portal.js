@@ -1,0 +1,28 @@
+SET search_path TO EVENTS;
+
+-- remove the event actions, leaving one of each
+DELETE
+FROM actions
+WHERE id in
+    (SELECT id
+     FROM actions a
+     INNER JOIN
+       (SELECT object_id,
+               action_type_id,
+               session_id,
+               count(a.id) num,
+               min(a.id) first_action_id
+        FROM actions a
+        GROUP BY object_id,
+                 action_type_id,
+                 session_id
+                 ) an ON a.object_id=an.object_id
+     AND a.action_type_id=an.action_type_id
+     AND a.session_id=an.session_id
+     AND a.id <> an.first_action_id
+     WHERE num > 1 );
+
+-- add a uniqueness constraint on the three foreign keys to prevent recurrence
+ALTER TABLE actions
+ADD CONSTRAINT unq_object_id_action_type_id_session_id
+UNIQUE(object_id, action_type_id, session_id);
