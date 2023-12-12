@@ -53,27 +53,16 @@ module.exports = async() => {
           {
             name: 'Bootstrap Vue',
             sections: [
-              {
-                name: 'Alert',
-                content: '../portal/docs/style/BootstrapVueAlert.md'
-              },
-              {
-                name: 'Badge',
-                content: '../portal/docs/style/BootstrapVueBadge.md'
-              },
-              {
-                name: 'Breadcrumb',
-                content: '../portal/docs/style/BootstrapVueBreadcrumb.md'
-              },
-              {
-                name: 'Button',
-                content: '../portal/docs/style/BootstrapVueButton.md'
-              },
-              {
-                name: 'Card',
-                content: '../portal/docs/style/BootstrapVueCard.md'
-              }
-            ]
+              'Alert',
+              'Badge',
+              'Breadcrumb',
+              'Button',
+              'Card',
+              'Dropdown'
+            ].map((name) => ({
+              name,
+              content: `../portal/docs/style/BootstrapVue/${name}.md`
+            }))
           }
         ]
       },

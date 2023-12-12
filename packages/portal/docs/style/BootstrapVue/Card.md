@@ -1,6 +1,6 @@
-Customised BootstrapVue card component. It is not directly used as in the examples, but forms the base of other card components.
+Customised BootstrapVue card component. Currently it is not directly used as in the examples, but could be and forms the base of other card components.
 
-Docs: https://bootstrap-vue.org/docs/components/breadcrumb
+Docs: https://bootstrap-vue.org/docs/components/card
 
 Also see:
 - [InfoCard](/#/Components/Generic?id=infocard)
@@ -8,7 +8,7 @@ Also see:
 
 With top image, header, footer, title, subtitle, text and links
 ```jsx
-import { thumbnails } from '../../../styleguide/images';
+import { thumbnails } from '../../../../styleguide/images';
   <b-card-group
     class="card-deck-3-cols align-items-start"
     deck
