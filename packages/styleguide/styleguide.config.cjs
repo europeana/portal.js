@@ -68,6 +68,10 @@ module.exports = async() => {
               {
                 name: 'Button',
                 content: '../portal/docs/style/BootstrapVueButton.md'
+              },
+              {
+                name: 'Card',
+                content: '../portal/docs/style/BootstrapVueCard.md'
               }
             ]
           }
