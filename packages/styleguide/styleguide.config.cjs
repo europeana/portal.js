@@ -54,6 +54,10 @@ module.exports = async() => {
             name: 'Bootstrap Vue',
             sections: [
               {
+                name: 'Alert',
+                content: '../portal/docs/style/BootstrapVueAlert.md'
+              },
+              {
                 name: 'Badge',
                 content: '../portal/docs/style/BootstrapVueBadge.md'
               },
