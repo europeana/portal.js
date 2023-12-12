@@ -62,6 +62,10 @@ module.exports = async() => {
                 content: '../portal/docs/style/BootstrapVueBadge.md'
               },
               {
+                name: 'Breadcrumb',
+                content: '../portal/docs/style/BootstrapVueBreadcrumb.md'
+              },
+              {
                 name: 'Button',
                 content: '../portal/docs/style/BootstrapVueButton.md'
               }
