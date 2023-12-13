@@ -58,7 +58,8 @@ module.exports = async() => {
               'Breadcrumb',
               'Button',
               'Card',
-              'Dropdown'
+              'Dropdown',
+              'Form'
             ].map((name) => ({
               name,
               content: `../portal/docs/style/BootstrapVue/${name}.md`
