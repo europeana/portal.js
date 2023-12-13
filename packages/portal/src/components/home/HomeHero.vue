@@ -78,14 +78,18 @@
     },
 
     mounted() {
-      const heroBackgroundHeight = this.$refs.heroBackground?.clientHeight;
-      window.addEventListener('scroll', () => this.transformBackground(heroBackgroundHeight));
+      window.addEventListener('scroll', this.transformBackground);
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.transformBackground);
     },
 
     methods: {
-      transformBackground(height) {
-        const zoomSpeed = ((this.$route.query.zoomSpeed || 1) / 10);
-        const zoom = (window.scrollY / height * zoomSpeed) + 1;
+      transformBackground() {
+        const scrollPosition = window.scrollY || 1;
+        const heroBackgroundHeight = this.$refs.heroBackground?.clientHeight || 1;
+        const zoom = (scrollPosition / heroBackgroundHeight * 0.25) + 1;
         this.$refs.heroBackground.style.transform = `scale(${zoom})`;
       }
     }

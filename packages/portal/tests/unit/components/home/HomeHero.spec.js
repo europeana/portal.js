@@ -1,4 +1,5 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue } from '@vue/test-utils';
+import { shallowMountNuxt } from '../../utils';
 import VueI18n from 'vue-i18n';
 import sinon from 'sinon';
 
@@ -7,7 +8,7 @@ import HomeHero from '@/components/home/HomeHero.vue';
 const localVue = createLocalVue();
 localVue.use(VueI18n);
 
-const factory = (propsData) => shallowMount(HomeHero, {
+const factory = (propsData) => shallowMountNuxt(HomeHero, {
   localVue,
   propsData,
   mocks: {
@@ -37,7 +38,18 @@ describe('components/home/HomeHero', () => {
       sinon.spy(wrapper.vm, 'transformBackground');
       window.dispatchEvent(new Event('scroll'));
 
-      expect(wrapper.vm.transformBackground.called).toBe(true);
+      expect(wrapper.vm.$refs.heroBackground.style.transform).toEqual('scale(1.25)');
+    });
+  });
+
+  describe('beforeDestroy', () => {
+    it('unmounts the Mirador viewer instance', () => {
+      sinon.spy(window, 'removeEventListener');
+      const wrapper = factory();
+
+      wrapper.vm.beforeDestroy();
+
+      expect(window.removeEventListener.calledWith('scroll', wrapper.vm.transformBackground)).toBe(true);
     });
   });
 });
