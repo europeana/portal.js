@@ -100,7 +100,7 @@ Object.assign(Vue.prototype, {
     params: {
       pathMatch: 'example-page'
     } },
-  localePath: (args) => args,
+  localePath: () => '/en/localepath',
   switchLocalePath: () => '/'
 });
 
