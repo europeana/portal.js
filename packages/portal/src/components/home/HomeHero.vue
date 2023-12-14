@@ -150,6 +150,17 @@
         top: 0;
         right: 0;
         bottom: 0;
+        background-image: linear-gradient(0deg, #000, #000);
+        mix-blend-mode: saturation;
+        position: absolute;
+      }
+
+      &::after {
+        content: '';
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
         background-image: linear-gradient(0deg, #0b60aa, #0b60aa);
         mix-blend-mode: multiply;
         position: absolute;
