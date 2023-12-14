@@ -60,7 +60,16 @@ module.exports = async() => {
               'Card',
               'Dropdown',
               'Form',
-              'Link'
+              'Link',
+              'ListGroup',
+              'Modal',
+              'Nav',
+              'Navbar',
+              'Sidebar',
+              'Table',
+              'Tabs',
+              'Toast',
+              'Tooltip'
             ].map((name) => ({
               name,
               content: `../portal/docs/style/BootstrapVue/${name}.md`
