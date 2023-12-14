@@ -30,7 +30,7 @@ Used by:
     Hover or tab for tooltip with a link
   </b-button>
   <b-tooltip target="tooltip-target-1" placement="bottom">
-    <span>This tooltip contains a link <b-link href="/#">link</b-link></span>
+    <span>This tooltip contains a <b-link href="/#">link</b-link></span>
   </b-tooltip>
 </div>
 ```

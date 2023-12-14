@@ -5,6 +5,7 @@ Docs including more features and variants: https://bootstrap-vue.org/docs/compon
 Used by:
 - Account page
 
+Default
 ```jsx
   <b-nav>
     <b-nav-item active>Active</b-nav-item>

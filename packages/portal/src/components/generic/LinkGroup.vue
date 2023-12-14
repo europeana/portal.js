@@ -96,22 +96,10 @@
 </script>
 
 <docs lang="md">
-  Variant without caption
   ```jsx
   <LinkGroup
-    :links="[{ 'url': '/help', 'text': 'Help' }, { 'url': '/rights', 'text': 'Terms of use' }]"
-    linkClass="footer-link"
-    listClass="footer-link-list"
-  />
-  ```
-
-  Variant with caption
-  ```jsx
-  <LinkGroup
-    caption="This is a link group"
-    :links="[{ 'url': '/help', 'text': 'Help' }, { 'url': '/rights', 'text': 'Terms of use' }]"
-    linkClass="footer-link"
-    listClass="footer-link-list"
+    caption="This caption is optional"
+    :links="[{ url: '/help', text: 'Help' }, { url: '/rights', text: 'Terms of use' }]"
   />
   ```
 </docs>

@@ -366,18 +366,20 @@ Variant "light-flat"<br>
 Variant "overlay"<br>
 *Used in the 'add item to gallery' modal*
 ```jsx
+import { thumbnails } from '../../../../styleguide/images';
   <b-container>
     <b-button
       variant="overlay"
+      class="p-3 mb-3 mr-3"
     >
-      <span>Label</span>
+      <span>Label overlay button without image</span>
     </b-button>
     <b-button
       variant="overlay"
-      style='background-image: url("https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214");'
-      class="w-100 text-left"
+      :style="`background-image: url(${thumbnails[10]});`"
+      class="p-3 mb-3 text-left"
     >
-      <span>Label: add to gallery</span>
+      <span>Label overlay button with image</span>
     </b-button>
   </b-container>
 ```
@@ -385,12 +387,20 @@ Variant "overlay"<br>
 Variant "outline-overlay"<br>
 *Used in the themes swiper*
 ```jsx
-  <b-container>
-    <div style='margin: -16px; padding: 16px; background-image: url("https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214");'>
+import { thumbnails } from '../../../../styleguide/images';
+  <b-container class="d-flex flex-wrap">
+    <div class="mr-3 mb-3" :style="`{ margin: -16px; padding: 32px; background-color: #000; }`">
       <b-button
         variant="outline-overlay"
       >
-        <span>Label</span>
+        <span>Label no image</span>
+      </b-button>
+    </div>
+    <div class="mr-3 mb-3" :style="`{ margin: -16px; padding: 32px; background-image: url(${thumbnails[3]}); background-size: cover; }`">
+      <b-button
+        variant="outline-overlay"
+      >
+        <span>Label with image</span>
       </b-button>
     </div>
   </b-container>

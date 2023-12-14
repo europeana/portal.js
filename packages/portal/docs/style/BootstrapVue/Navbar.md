@@ -5,6 +5,7 @@ Docs including more features and variants: https://bootstrap-vue.org/docs/compon
 Used by:
 - [PageHeader](/#/Components/Page?id=pageheader)
 
+Default
 ```jsx
   <b-navbar toggleable="lg">
     <b-navbar-brand href="#">NavBar</b-navbar-brand>

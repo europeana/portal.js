@@ -40,7 +40,7 @@ default modal
       <b-button
         variant="outline-primary"
         data-qa="close button"
-        @click="$bvModal.hide('modalId')"
+        @click="$bvModal.hide('modal-2')"
       >
         close
       </b-button>

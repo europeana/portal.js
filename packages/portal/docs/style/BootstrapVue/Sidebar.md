@@ -5,6 +5,7 @@ Docs including more features, styles and variants: https://bootstrap-vue.org/doc
 Used by:
 - [PageHeader](/#/Components/Page?id=pageheader)
 
+Default
 ```jsx
 import { thumbnails } from '../../../../styleguide/images';
   <div>

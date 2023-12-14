@@ -1,4 +1,5 @@
 Customised BootstrapVue alert component.
+
 Docs including more features and variants: https://bootstrap-vue.org/docs/components/alert
 
 Used by:

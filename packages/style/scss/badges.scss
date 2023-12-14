@@ -53,6 +53,7 @@
     margin-left: 0.5rem !important;
     font-size: 0 !important;
     opacity: 1;
+    text-shadow: none;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
@@ -148,7 +149,6 @@
 
 .badge-primary {
   background: $blue;
-  font-size: $font-size-smallest;
   font-weight: normal;
   padding: 0.5rem;
 
@@ -162,6 +162,10 @@
     &:hover {
       background-color: $innovationblue-dark;
     }
+  }
+
+  .close {
+    color: $white;
   }
 }
 

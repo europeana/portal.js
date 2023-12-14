@@ -18,12 +18,3 @@ List group
     <b-list-group-item>List group item</b-list-group-item>
   </b-list-group>
 ```
-
-Actionable list group with links
-```jsx
-  <b-list-group>
-    <b-list-group-item href="#">Awesome link</b-list-group-item>
-    <b-list-group-item href="#" active>Link with active state</b-list-group-item>
-    <b-list-group-item href="#">Action links are easy</b-list-group-item>
-    <b-list-group-item href="#" disabled>Disabled link</b-list-group-item>
-  </b-list-group>
