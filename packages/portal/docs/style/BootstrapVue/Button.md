@@ -1,5 +1,3 @@
-### Button
-
 Customised BootstrapVue Button component.
 
 Docs: https://bootstrap-vue.org/docs/components/button

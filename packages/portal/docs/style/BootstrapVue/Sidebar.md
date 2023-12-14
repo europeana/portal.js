@@ -30,7 +30,6 @@ import { thumbnails } from '../../../../styleguide/images';
         <b-form-group id="input-group-2" label="Your Name:" label-for="input-2" description="Description about name field">
           <b-form-input
             id="input-2"
-            v-model="name"
             placeholder="Enter name"
           ></b-form-input>
         </b-form-group>
