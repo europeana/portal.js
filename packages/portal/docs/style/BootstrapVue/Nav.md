@@ -2,6 +2,9 @@ Customised BootstrapVue nav component.
 
 Docs including more features and variants: https://bootstrap-vue.org/docs/components/nav
 
+Used by:
+- Account page
+
 ```jsx
   <b-nav>
     <b-nav-item active>Active</b-nav-item>
