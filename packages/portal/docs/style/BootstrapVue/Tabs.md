@@ -8,7 +8,6 @@ Used by:
 Also see:
 - [Nav with tab style](/#/Style/Bootstrap%20Vue?id=nav)
 
-
 ```jsx
 <div>
   <b-tabs content-class="mt-3">

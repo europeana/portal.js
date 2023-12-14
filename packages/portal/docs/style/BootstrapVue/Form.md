@@ -6,6 +6,19 @@ Docs including more features: https://bootstrap-vue.org/docs/components/form
 Other available input fields:
 [datepicker](https://bootstrap-vue.org/docs/components/form-datepicker), [file](https://bootstrap-vue.org/docs/components/form-file), [rating](https://bootstrap-vue.org/docs/components/form-rating), [spinbutton](https://bootstrap-vue.org/docs/components/form-spinbutton), [timepicker](https://bootstrap-vue.org/docs/components/form-timepicker)
 
+Used by:
+- DownloadSuccessModal
+- [EntityUpdateModal](/#/Components/Entity?id=entityheader)
+- FeedbackWidget
+- ItemEmbedCode
+- SearchDateFilter
+- [SearchFacetDropdown](/#/Components/Search?id=searchfacetdropdown)
+- [SearchForm](/#/Components/Search?id=searchform)
+- [SearchQueryBuilder](/#/Components/Search?id=searchquerybuilder)
+- SetFormModal
+- StoriesTagsDropdown
+- debug page
+
 ```jsx
 <template>
   <b-form @submit="onSubmit" @reset="onReset" v-if="show">

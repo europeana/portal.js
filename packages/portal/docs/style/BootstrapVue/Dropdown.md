@@ -2,6 +2,12 @@ Customised BootstrapVue dropdown component.
 
 Docs: https://bootstrap-vue.org/docs/components/dropdown
 
+Used by:
+- LanguageSelector
+- ItemLanguageSelector
+- [SearchFacetDropdown](/#/Components/Search?id=searchfacetdropdown)
+- [SearchQueryRuleDropdown](/#/Components/Search?id=searchquerybuilderruledropdown)
+
 ```jsx
   <b-dropdown text="Default variant dropdown">
     <b-dropdown-item href="#">An item</b-dropdown-item>

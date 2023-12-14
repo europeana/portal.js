@@ -1,6 +1,10 @@
-Customised BootstrapVue badge component. AKA 'pill', 'chip' or 'tag'
+Customised BootstrapVue badge component. AKA 'pill', 'chip' or 'tag'.
 
 Docs: https://bootstrap-vue.org/docs/components/badge
+
+Used by:
+- LinkBadge
+- [RelatedCategoryTags](/#/Components/Related?id=relatedcategorytags)
 
 Variant "secondary": regular, pill<br>
 *Used as default*

@@ -2,9 +2,16 @@ Customised BootstrapVue card component. Currently it is not directly used as in 
 
 Docs: https://bootstrap-vue.org/docs/components/card
 
-Also see:
+Used by:
+- ContentCard
+- [EntityHeader](/#/Components/Entity?id=entityheader)
 - [InfoCard](/#/Components/Generic?id=infocard)
 - [ItemPreviewCard](/#/Components/Item?id=itempreviewcard)
+- MetadataBox
+- RelatedCollectionsCard
+- [RelatedEditorial](/#/Components/Related?id=relatededitorial)
+- RelatedGalleries
+- UserCreateSetButton
 
 With top image, header, footer, title, subtitle, text and links
 ```jsx
