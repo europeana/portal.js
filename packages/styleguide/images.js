@@ -7,7 +7,7 @@ export const thumbnails = [
   'https://api.europeana.eu/thumbnail/v3/400/c05a1e113a4456407eb33c608e804068', // MG 007 Figure Of A Squatting Monkey https://www.europeana.eu/en/item/181/share3d_200
   'https://api.europeana.eu/thumbnail/v3/400/6c5a64d12605a4a873a4781a9a689831', // In the Morning Sun (Village Courtyard) https://www.europeana.eu/en/item/07101/O_5179
   'https://api.europeana.eu/thumbnail/v3/400/2cf841213010733ee7114e35e0a40995', // Sun over the Sea https://www.europeana.eu/en/item/2020903/KMS3853
-  'https://www.europeana.eu/en/item/669/item_55MVSCAD7QQUZWFSYEP5THIZIP5RM4OT', // Letter-reading girl at the open window https://www.europeana.eu/en/item/669/item_55MVSCAD7QQUZWFSYEP5THIZIP5RM4OT
+  'https://api.europeana.eu/thumbnail/v3/400/fb8c441eeaa8d346a62facea9ce4c8e8', // Letter-reading girl at the open window https://www.europeana.eu/en/item/669/item_55MVSCAD7QQUZWFSYEP5THIZIP5RM4OT
   'https://api.europeana.eu/thumbnail/v3/400/9230c39c429d6a1da1684c5768bae50a', // Vrouw bekijkt bloemen in het veld https://www.europeana.eu/en/item/90402/RP_P_1896_A_19368_566
   'https://api.europeana.eu/thumbnail/v3/400/01da00dce89dadcdfaa8f6890ccc49da' // Malerei | S2511/12-1333 Tidal Tales, Ropes and Snails  https://www.europeana.eu/en/item/2058611/_kimbl_d801476e_a436_4d34_a555_0a28b4211ead
 ];

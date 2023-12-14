@@ -86,18 +86,22 @@ module.exports = async() => {
           }
         ].concat([
           'Account',
+          'Content',
           'Download',
           'Entity',
           'Error',
           'Generic',
           'Home',
+          'Image',
           'Item',
           'Landing',
           'Page',
           'Related',
           'Search',
           'Set',
-          'Theme'
+          'Share',
+          'Theme',
+          'User'
         ].map((name) => ({
           name,
           components: `../portal/src/components/${name.toLowerCase()}/[A-Z]*.vue`

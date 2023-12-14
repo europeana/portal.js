@@ -61,11 +61,6 @@
       }
     }
 
-    &:hover,
-    &:hover:not(:disabled):not(.disabled) {
-      opacity: 1;
-    }
-
     &::before {
       font-size: $font-size-smallest;
 
@@ -301,5 +296,13 @@
     &:focus {
       background-color: $lightblue-dark !important;
     }
+  }
+}
+
+.badge .close:hover {
+
+  &,
+  &:not(:disabled):not(.disabled) {
+    opacity: 1;
   }
 }
