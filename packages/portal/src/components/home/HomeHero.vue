@@ -155,7 +155,7 @@
         position: absolute;
       }
 
-      &::after{
+      &::after {
         content: '';
         left: 0;
         top: 0;
