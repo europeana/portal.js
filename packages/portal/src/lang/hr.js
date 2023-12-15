@@ -974,7 +974,7 @@ export default {
         "name": "Ime"
       },
       "times": {
-        "title": "Vremena"
+        "title": "Stoljeća"
       },
       "topics": {
         "title": "Sadržaj"

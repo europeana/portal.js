@@ -978,7 +978,7 @@ export default {
         "name": "Izena"
       },
       "times": {
-        "title": "Garaiak"
+        "title": "Mendeak"
       },
       "topics": {
         "title": "Gaiak"

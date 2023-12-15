@@ -978,7 +978,7 @@ export default {
         "name": "Ονομα"
       },
       "times": {
-        "title": "Φορές"
+        "title": "Αιώνες"
       },
       "topics": {
         "title": "Θέματα"

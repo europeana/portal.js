@@ -974,7 +974,7 @@ export default {
         "name": "Isem"
       },
       "times": {
-        "title": "Times"
+        "title": "Sekli"
       },
       "topics": {
         "title": "Suġġetti"

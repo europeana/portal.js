@@ -974,7 +974,7 @@ export default {
         "name": "Nome"
       },
       "times": {
-        "title": "Tempi"
+        "title": "Secoli"
       },
       "topics": {
         "title": "Argomenti"
