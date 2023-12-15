@@ -974,7 +974,7 @@ export default {
         "name": "Nimi"
       },
       "times": {
-        "title": "Korda"
+        "title": "Sajandeid"
       },
       "topics": {
         "title": "Teemad"

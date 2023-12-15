@@ -974,7 +974,7 @@ export default {
         "name": "Meno"
       },
       "times": {
-        "title": "Krát"
+        "title": "Storočia"
       },
       "topics": {
         "title": "Témy"

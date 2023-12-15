@@ -974,7 +974,7 @@ export default {
         "name": "Název"
       },
       "times": {
-        "title": "Časy"
+        "title": "Století"
       },
       "topics": {
         "title": "Tématy"

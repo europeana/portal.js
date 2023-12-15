@@ -974,7 +974,7 @@ export default {
         "name": "Nume"
       },
       "times": {
-        "title": "Ori"
+        "title": "Secole"
       },
       "topics": {
         "title": "Subiecte"

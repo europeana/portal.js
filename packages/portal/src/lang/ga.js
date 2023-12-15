@@ -974,7 +974,7 @@ export default {
         "name": "Ainm"
       },
       "times": {
-        "title": "Amanna"
+        "title": "Céadta"
       },
       "topics": {
         "title": "Ábhair"

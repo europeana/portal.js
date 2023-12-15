@@ -974,7 +974,7 @@ export default {
         "name": "Navn"
       },
       "times": {
-        "title": "Tider"
+        "title": "Århundreder"
       },
       "topics": {
         "title": "Emner"

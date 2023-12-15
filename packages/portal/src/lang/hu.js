@@ -974,7 +974,7 @@ export default {
         "name": "Név"
       },
       "times": {
-        "title": "Idők"
+        "title": "Századok"
       },
       "topics": {
         "title": "Témakörök"

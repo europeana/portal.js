@@ -974,7 +974,7 @@ export default {
         "name": "Vārds"
       },
       "times": {
-        "title": "Laiki"
+        "title": "Gadsimtiem"
       },
       "topics": {
         "title": "Tematikas"

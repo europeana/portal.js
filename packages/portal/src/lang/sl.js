@@ -974,7 +974,7 @@ export default {
         "name": "Ime"
       },
       "times": {
-        "title": "Krat"
+        "title": "Stoletja"
       },
       "topics": {
         "title": "Teme"
