@@ -1001,7 +1001,7 @@ export default {
         "name": "Name"
       },
       "times": {
-        "title": "Times"
+        "title": "Centuries"
       },
       "topics": {
         "title": "Topics"
