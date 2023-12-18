@@ -227,38 +227,40 @@ Variant "link":
 Variant "light":
 ```jsx
   <b-container>
-    <b-button
-      variant="light"
-    >
-      label
-    </b-button>
+    <div style="background-color: #ededed; margin: -16px; padding: 16px;">
       <b-button
-      variant="light"
-      class="d-inline-flex align-items-center"
-    >
-      <span class="icon-pinterest d-inline-flex pr-1" />
-      label
-    </b-button>
-    <b-button
-      variant="light"
-      class="d-inline-flex align-items-center"
-    >
-      label
-      <span class="icon-pinterest d-inline-flex pl-1" />
-    </b-button>
-    <b-button
-      variant="light"
-      class="d-inline-flex align-items-center"
-      aria-label="label for textless button"
-    >
-      <span class="icon-pinterest" />
-    </b-button>
-    <b-button
-      variant="light"
-      disabled
-    >
-      label
-    </b-button>
+        variant="light"
+      >
+        label
+      </b-button>
+        <b-button
+        variant="light"
+        class="d-inline-flex align-items-center"
+      >
+        <span class="icon-pinterest d-inline-flex pr-1" />
+        label
+      </b-button>
+      <b-button
+        variant="light"
+        class="d-inline-flex align-items-center"
+      >
+        label
+        <span class="icon-pinterest d-inline-flex pl-1" />
+      </b-button>
+      <b-button
+        variant="light"
+        class="d-inline-flex align-items-center"
+        aria-label="label for textless button"
+      >
+        <span class="icon-pinterest" />
+      </b-button>
+      <b-button
+        variant="light"
+        disabled
+      >
+        label
+      </b-button>
+    </div>
   </b-container>
 ```
 
