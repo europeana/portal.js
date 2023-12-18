@@ -364,7 +364,7 @@ Variant "light-flat"<br>
 Variant "overlay"<br>
 *Used in the 'add item to gallery' modal*
 ```jsx
-import { thumbnails } from '../../../../styleguide/images';
+import { thumbnails } from '@europeana/styleguide/images';
   <b-container>
     <b-button
       variant="overlay"
@@ -385,7 +385,7 @@ import { thumbnails } from '../../../../styleguide/images';
 Variant "outline-overlay"<br>
 *Used in the themes swiper*
 ```jsx
-import { thumbnails } from '../../../../styleguide/images';
+import { thumbnails } from '@europeana/styleguide/images';
   <b-container class="d-flex flex-wrap">
     <div class="mr-3 mb-3" :style="`{ margin: -16px; padding: 32px; background-color: #000; }`">
       <b-button

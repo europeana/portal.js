@@ -9,7 +9,7 @@ Used by:
 Variant "secondary": regular, pill<br>
 *Used as default*
 ```jsx
-import { thumbnails } from '../../../../styleguide/images';
+import { thumbnails } from '@europeana/styleguide/images';
 
   <b-container>
     <b-badge>badge</b-badge>
@@ -43,7 +43,7 @@ import { thumbnails } from '../../../../styleguide/images';
 
 Variant "primary":
 ```jsx
-import { thumbnails } from '../../../../styleguide/images';
+import { thumbnails } from '@europeana/styleguide/images';
 
   <b-container>
     <b-badge
@@ -89,7 +89,7 @@ import { thumbnails } from '../../../../styleguide/images';
 
 Variant "outline-primary":
 ```jsx
-import { thumbnails } from '../../../../styleguide/images';
+import { thumbnails } from '@europeana/styleguide/images';
 
   <b-container>
     <b-badge
@@ -135,7 +135,7 @@ import { thumbnails } from '../../../../styleguide/images';
 
 Variant "primary-light":
 ```jsx
-import { thumbnails } from '../../../../styleguide/images';
+import { thumbnails } from '@europeana/styleguide/images';
 
   <b-container>
     <b-badge
@@ -182,7 +182,7 @@ import { thumbnails } from '../../../../styleguide/images';
 
 Variant "light":
 ```jsx
-import { thumbnails } from '../../../../styleguide/images';
+import { thumbnails } from '@europeana/styleguide/images';
 
   <b-container>
     <div style="background-color: #ededed; margin: -16px; padding: 16px;">
