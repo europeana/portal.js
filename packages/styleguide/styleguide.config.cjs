@@ -112,8 +112,7 @@ module.exports = async() => {
     skipComponentsWithoutExample: true,
     require: [
       resolve(__dirname, '../style/scss/style.scss'),
-      resolve(__dirname, './style.scss'),
-      resolve(__dirname, './dummy-data.js')
+      resolve(__dirname, './style.scss')
     ],
     renderRootJsx: resolve(__dirname, './styleguide.root.js'),
     template: {

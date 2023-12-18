@@ -119,6 +119,14 @@ i18n.locales = [
   { code: 'nl', name: 'Nederlands', iso: 'nl-NL' }
 ];
 
+import dummyData from '@europeana/portal/docs/dummy-data.js';
+
+Vue.mixin({
+  data() {
+    return dummyData;
+  }
+});
+
 export default previewComponent => {
   // https://vuejs.org/v2/guide/render-function.html
   return {
