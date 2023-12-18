@@ -68,6 +68,12 @@
 
     data() {
       return {
+        headLinkPreconnect: [
+          // NOTE: can't do this without handling the _PRIVATE SSR env var, i.e.
+          //       rewriting it to the CSR equivalent
+          // this.$config.contentful.graphQlOrigin || 'https://graphql.contentful.com',
+          'https://images.ctfassets.net'
+        ],
         sections: [],
         backgroundImage: null,
         socialMediaImage: null

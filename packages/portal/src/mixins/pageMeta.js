@@ -1,12 +1,37 @@
+import uniq from 'lodash/uniq';
+
 export default {
-  head() {
+  data() {
     return {
-      title: this.headTitle,
-      meta: this.headMeta
+      headLinkPreconnect: [],
+      headLinkPreload: []
     };
   },
 
+  head() {
+    return this.pageMetaHead;
+  },
+
   computed: {
+    pageMetaHead() {
+      return {
+        link: this.headLink,
+        meta: this.headMeta,
+        title: this.headTitle
+      };
+    },
+
+    headLink() {
+      let link = [];
+
+      const preconnectOrigins = this.headLinkPreconnect.map((url) => new URL(url).origin);
+      link = link.concat(uniq(preconnectOrigins).map((href) => ({ href, rel: 'preconnect' })));
+
+      link = link.concat(this.headLinkPreload.map((link) => ({ ...link, rel: 'preload' })));
+
+      return link;
+    },
+
     headTitle() {
       return [this.pageTitle, this.$config.app.siteName].filter((part) => !!part).join(' | ');
     },

@@ -200,6 +200,11 @@
         metadataLanguage: null,
         organizations: [],
         places: [],
+        headLinkPreconnect: [
+          this.$apis.annotation.baseURL,
+          this.$apis.entity.baseURL,
+          this.$apis.record.baseURL
+        ],
         relatedCollections: [],
         showItemLanguageSelector: true,
         timespans: [],
@@ -211,6 +216,11 @@
 
     async fetch() {
       await this.fetchMetadata();
+
+      if (this.iiifPresentationManifest) {
+        // TODO: Image API info.json too
+        this.headLinkPreload.push({ href: this.iiifPresentationManifest, as: 'fetch' });
+      }
     },
 
     computed: {
