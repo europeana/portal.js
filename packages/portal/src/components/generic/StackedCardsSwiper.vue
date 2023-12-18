@@ -311,93 +311,91 @@
 
 <docs lang="md">
   ```jsx
-  import { thumbnails } from '@europeana/styleguide/images';
-
   <StackedCardsSwiper
-  title="Swiper title"
-  :slides="[
-  {
-    title: 'Title slide 1',
-    description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by \
-    European citizens.',
-    url: '/',
-    image: { url: thumbnails[0] }
-  },
-  {
-    title: 'Title slide 2',
-    description: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.',
-    url: '/',
-    image: { url: thumbnails[1] }
-  },
-  {
-    title: 'Title slide 3',
-    description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, \
-    drawings, engravings and sculpture from cultural heritage institutions across Europe.',
-    url: '/',
-    image: { url: thumbnails[2] }
-  },
-  {
-    title: 'Title slide 4',
-    description: 'Explore fashion – historical clothing and accessories, contemporary designs, catwalk photographs, drawings, sketches, plates, catalogues and videos \
-    – from more than 30 European public and private institutions.',
-    url: '/',
-    image: { url: thumbnails[3] }
-  },
-  {
-    title: 'Title slide 5',
-    description: 'Explore Europe\'s industrial heritage through the digitised collections of European cultural heritage organisations and personal stories of our working lives.',
-    url: '/',
-    image: { url: thumbnails[4] }
-  },
-  {
-    title: 'Title slide 6',
-    description: 'Explore the roots of European written culture through manuscripts from antiquity to the early print era. ',
-    url: '/',
-    image: { url: thumbnails[5] }
-  },
-  {
-    title: 'Title slide 7',
-    description: 'Explore history, geography and cartography through the digitised collections of European cultural heritage institutions.',
-    url: '/',
-    image: { url: thumbnails[6] }
-  },
-  {
-    title: 'Title slide 8',
-    description: 'Collections on the theme of migration to, from and within Europe, sourced from cultural heritage institutions and members of the public',
-    url: '/',
-    image: { url: thumbnails[7] }
-  },
-  {
-    title: 'Title slide 9',
-    description: 'Explore recordings, sheet music, instruments and music-related collections from European audio-visual archives, libraries and museums.',
-    url: '/',
-    image: { url: thumbnails[8] }
-  },
-  {
-    title: 'Title slide 10',
-    description: 'Natural history is the research and study of organisms including plants or animals in their environment. Explore the world\'s natural history in drawings, \
-    specimens and collections from European cultural heritage institutions.',
-    url: '/',
-    image: { url: thumbnails[9] }
-  },
-  {
-    title: 'Title slide 11',
-    description: 'Explore the headlines, articles, advertisements, and opinion pieces from European newspapers from 20 countries, dating from 1618 to the 1980s.',
-    url: '/',
-    image: { url: thumbnails[10] }
-  },
-  {
-    title: 'Title slide 12',
-    description: 'Discover inspiring images and the history of photography through the collections of European cultural heritage institutions.',
-    url: '/',
-    image: { url: thumbnails[0] }
-  },
-  {
-    title: 'Title slide 13',
-    description: 'Explore sporting heritage and culture in photographs, films, sound recordings and texts from European collections.',
-    url: '/',
-    image: { url: thumbnails[1] }
-  }
+    title="Swiper title"
+    :slides="[
+    {
+      title: 'Title slide 1',
+      description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by \
+      European citizens.',
+      url: '/',
+      image: { url: thumbnails[0] }
+    },
+    {
+      title: 'Title slide 2',
+      description: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.',
+      url: '/',
+      image: { url: thumbnails[1] }
+    },
+    {
+      title: 'Title slide 3',
+      description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, \
+      drawings, engravings and sculpture from cultural heritage institutions across Europe.',
+      url: '/',
+      image: { url: thumbnails[2] }
+    },
+    {
+      title: 'Title slide 4',
+      description: 'Explore fashion – historical clothing and accessories, contemporary designs, catwalk photographs, drawings, sketches, plates, catalogues and videos \
+      – from more than 30 European public and private institutions.',
+      url: '/',
+      image: { url: thumbnails[3] }
+    },
+    {
+      title: 'Title slide 5',
+      description: 'Explore Europe\'s industrial heritage through the digitised collections of European cultural heritage organisations and personal stories of our working lives.',
+      url: '/',
+      image: { url: thumbnails[4] }
+    },
+    {
+      title: 'Title slide 6',
+      description: 'Explore the roots of European written culture through manuscripts from antiquity to the early print era. ',
+      url: '/',
+      image: { url: thumbnails[5] }
+    },
+    {
+      title: 'Title slide 7',
+      description: 'Explore history, geography and cartography through the digitised collections of European cultural heritage institutions.',
+      url: '/',
+      image: { url: thumbnails[6] }
+    },
+    {
+      title: 'Title slide 8',
+      description: 'Collections on the theme of migration to, from and within Europe, sourced from cultural heritage institutions and members of the public',
+      url: '/',
+      image: { url: thumbnails[7] }
+    },
+    {
+      title: 'Title slide 9',
+      description: 'Explore recordings, sheet music, instruments and music-related collections from European audio-visual archives, libraries and museums.',
+      url: '/',
+      image: { url: thumbnails[8] }
+    },
+    {
+      title: 'Title slide 10',
+      description: 'Natural history is the research and study of organisms including plants or animals in their environment. Explore the world\'s natural history in drawings, \
+      specimens and collections from European cultural heritage institutions.',
+      url: '/',
+      image: { url: thumbnails[9] }
+    },
+    {
+      title: 'Title slide 11',
+      description: 'Explore the headlines, articles, advertisements, and opinion pieces from European newspapers from 20 countries, dating from 1618 to the 1980s.',
+      url: '/',
+      image: { url: thumbnails[10] }
+    },
+    {
+      title: 'Title slide 12',
+      description: 'Discover inspiring images and the history of photography through the collections of European cultural heritage institutions.',
+      url: '/',
+      image: { url: thumbnails[0] }
+    },
+    {
+      title: 'Title slide 13',
+      description: 'Explore sporting heritage and culture in photographs, films, sound recordings and texts from European collections.',
+      url: '/',
+      image: { url: thumbnails[1] }
+    }
   ]" />
   ```
 </docs>

@@ -7,7 +7,6 @@ Used by:
 
 Default
 ```jsx
-import { thumbnails } from '@europeana/styleguide/images';
   <div>
     <b-button v-b-toggle.sidebar-1>Toggle Sidebar</b-button>
     <b-sidebar id="sidebar-1" title="Sidebar">

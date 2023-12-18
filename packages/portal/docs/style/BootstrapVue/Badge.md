@@ -9,8 +9,6 @@ Used by:
 Variant "secondary": regular, pill<br>
 *Used as default*
 ```jsx
-import { thumbnails } from '@europeana/styleguide/images';
-
   <b-container>
     <b-badge>badge</b-badge>
     <b-badge pill>
@@ -43,8 +41,6 @@ import { thumbnails } from '@europeana/styleguide/images';
 
 Variant "primary":
 ```jsx
-import { thumbnails } from '@europeana/styleguide/images';
-
   <b-container>
     <b-badge
       variant="primary"
@@ -89,8 +85,6 @@ import { thumbnails } from '@europeana/styleguide/images';
 
 Variant "outline-primary":
 ```jsx
-import { thumbnails } from '@europeana/styleguide/images';
-
   <b-container>
     <b-badge
       variant="outline-primary"
@@ -135,8 +129,6 @@ import { thumbnails } from '@europeana/styleguide/images';
 
 Variant "primary-light":
 ```jsx
-import { thumbnails } from '@europeana/styleguide/images';
-
   <b-container>
     <b-badge
       variant="primary-light"
@@ -182,8 +174,6 @@ import { thumbnails } from '@europeana/styleguide/images';
 
 Variant "light":
 ```jsx
-import { thumbnails } from '@europeana/styleguide/images';
-
   <b-container>
     <div style="background-color: #ededed; margin: -16px; padding: 16px;">
       <b-badge

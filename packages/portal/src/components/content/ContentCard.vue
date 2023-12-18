@@ -447,9 +447,7 @@
 <docs lang="md">
   Variant "default":
   ```jsx
-  import { thumbnails } from '@europeana/styleguide/images';
-
-  <div>
+    <div>
     <ContentCard
       title="Title"
       :image-url="thumbnails[0]"

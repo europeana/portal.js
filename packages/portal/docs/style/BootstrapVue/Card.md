@@ -15,7 +15,6 @@ Used by:
 
 With top image, header, footer, title, subtitle, text and links
 ```jsx
-import { thumbnails } from '@europeana/styleguide/images';
   <b-card-group
     class="card-deck-3-cols align-items-start"
     deck
