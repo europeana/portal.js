@@ -54,7 +54,6 @@
     "weighted-random": "^0.1.0"
   },
   "devDependencies": {
-    "@europeana/mirador": "^1.128.1",
     "@europeana/style": "^1.135.0",
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
