@@ -337,7 +337,8 @@ export default {
       parsePages: false,
       pages: {
         'account/callback': false,
-        'account/logout': false
+        'account/logout': false,
+        'microsite/DS4CH.eu': false
       },
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time

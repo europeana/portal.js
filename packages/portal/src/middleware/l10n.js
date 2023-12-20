@@ -27,7 +27,8 @@ export default ({ app, route, redirect, req }) => {
   // Exit early if this is an auth callback
   if (app.$auth && [
     app.$auth.options.redirect.callback,
-    '/account/logout'
+    '/account/logout',
+    '/microsite/DS4CH.eu'
   ].includes(route.path)) {
     return;
   }
