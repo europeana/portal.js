@@ -1,12 +1,23 @@
-@import 'fonts';
-
-$font-family-montserrat: 'Montserrat', 'Impact', $font-family-sans-serif;
-$white: #fff;
-$black: #191817;
-$yellow: #ffc200;
-$grey: #c6c6c6;
-$grey--light: #e2e2e2;
+@import 'variables';
 
 .ds4ch-layout {
   font-family: $font-family-montserrat;
+}
+
+.btn {
+
+  &.btn-light-flat {
+    background-color: transparent;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      color: $yellow;
+      transition: $standard-transition;
+    }
+  }
+}
+
+.bg-dark {
+  background-color: $black !important;
 }

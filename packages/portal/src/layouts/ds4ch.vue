@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ds4ch-layout">
     <a
       class="skip-main"
       href="#main"
@@ -7,6 +7,9 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
+    <DS4CHPageHeader
+      ref="pageHeader"
+    />
     <main
       id="default"
       role="main"
@@ -19,11 +22,18 @@
 </template>
 
 <script>
+  import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import versions from '../../pkg-versions';
 
   export default {
     name: 'DS4CHLayout',
+
+    nuxtI18n: false,
+
+    components: {
+      DS4CHPageHeader
+    },
 
     mixins: [
       canonicalUrlMixin
@@ -74,3 +84,7 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@europeana/style/scss/DS4CH/style';
+</style>
