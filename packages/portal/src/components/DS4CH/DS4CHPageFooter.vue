@@ -28,11 +28,16 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/variables';
 
   .page-footer {
     background-color: $black;
+
+    // styleguide fix
+    &::after {
+      content: none;
+    }
 
     .container {
       padding-top: 6rem;
