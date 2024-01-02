@@ -86,7 +86,3 @@
     }
   };
 </script>
-
-<style lang="scss">
-  @import '@europeana/style/scss/DS4CH/style';
-</style>

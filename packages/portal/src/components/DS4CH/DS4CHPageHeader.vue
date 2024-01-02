@@ -83,6 +83,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/style';
   @import '@europeana/style/scss/DS4CH/variables';
 
   ::v-deep .b-sidebar-backdrop.bg-black {
@@ -91,6 +92,7 @@
   }
 
   ::v-deep .b-sidebar {
+    background-color: $black !important;
     width: 16rem;
     max-height: 100vh;
     transition: $standard-transition; // fixes header appear/disappear

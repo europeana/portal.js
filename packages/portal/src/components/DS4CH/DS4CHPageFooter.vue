@@ -29,6 +29,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/style';
   @import '@europeana/style/scss/DS4CH/variables';
 
   .page-footer {
