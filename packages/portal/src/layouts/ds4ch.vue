@@ -18,11 +18,13 @@
         id="main"
       />
     </main>
+    <DS4CHPageFooter />
   </div>
 </template>
 
 <script>
   import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
+  import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import versions from '../../pkg-versions';
 
@@ -32,7 +34,8 @@
     nuxtI18n: false,
 
     components: {
-      DS4CHPageHeader
+      DS4CHPageHeader,
+      DS4CHPageFooter
     },
 
     mixins: [

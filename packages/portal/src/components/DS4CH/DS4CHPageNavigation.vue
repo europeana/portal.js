@@ -55,6 +55,7 @@
 
     .nav-link {
       text-transform: uppercase;
+      font-family: $font-family-montserrat;
       font-size: $font-size-extrasmall;
       letter-spacing: 0.6px;
       font-weight: 600;
