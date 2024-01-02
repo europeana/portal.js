@@ -52,13 +52,12 @@
         link: [
           // TODO: add favicon
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
-          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrl({ fullPath: true, locale: false }) }
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
           { hid: 'description', name: 'description', content: APP_SITENAME },
           { hid: 'og:description', property: 'og:description', content: APP_SITENAME },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true, locale: true }) }
+          { hid: 'og:url', property: 'og:url', content: this.$route.fullPath }
         ]
       };
     },

@@ -9,6 +9,41 @@ describe('middleware/l10n', () => {
   const redirect = sinon.spy();
   const req = {};
 
+  describe('if route path should be ignored for l10n', () => {
+    describe('because it is the English only DS4CH page', () => {
+      const route = { path: '/microsite/DS4CH.eu' };
+
+      it('is is not stored in the cookie', () => {
+        middleware({ app, route, redirect, req });
+
+        expect(app.$cookies.set.called).toBe(false);
+      });
+
+      it('does not redirect', () => {
+        middleware({ app, route, redirect, req });
+
+        expect(redirect.called).toBe(false);
+      });
+    });
+
+    describe('because it is an auth callback', () => {
+      const route = { path: '/login' };
+      app.$auth = { options: { redirect: { callback: route.path } } };
+
+      it('is is not stored in the cookie', () => {
+        middleware({ app, route, redirect, req });
+
+        expect(app.$cookies.set.called).toBe(false);
+      });
+
+      it('does not redirect', () => {
+        middleware({ app, route, redirect, req });
+
+        expect(redirect.called).toBe(false);
+      });
+    });
+  });
+
   describe('if route path seems to include a locale', () => {
     describe('and that locale is supported', () => {
       describe('and it is the root path for that locale', () => {

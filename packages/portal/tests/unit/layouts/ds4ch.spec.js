@@ -30,4 +30,14 @@ describe('layouts/default.vue', () => {
       )).toBe(true);
     });
   });
+
+  describe('head', () => {
+    describe('title', () => {
+      it('uses site name', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.head().title).toBe('Data space for cultural heritage');
+      });
+    });
+  });
 });

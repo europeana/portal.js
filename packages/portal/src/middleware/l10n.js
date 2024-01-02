@@ -24,12 +24,11 @@ const localiseRoute = ({ route, req, redirect, app }) => {
 };
 
 export default ({ app, route, redirect, req }) => {
-  // Exit early if this is an auth callback
-  if (app.$auth && [
+  // Exit early if route path is to DS4CH (non i18n page) or it is an auth callback
+  if (['/microsite/DS4CH.eu'].includes(route.path) || (app.$auth && [
     app.$auth.options.redirect.callback,
-    '/account/logout',
-    '/microsite/DS4CH.eu'
-  ].includes(route.path)) {
+    '/account/logout'
+  ].includes(route.path))) {
     return;
   }
 
