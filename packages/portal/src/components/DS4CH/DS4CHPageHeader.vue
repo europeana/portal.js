@@ -85,12 +85,12 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/variables';
 
-  .b-sidebar-backdrop.bg-black {
+  ::v-deep .b-sidebar-backdrop.bg-black {
     background-color: $black;
     opacity: 0.7;
   }
 
-  .b-sidebar {
+  ::v-deep .b-sidebar {
     width: 16rem;
     max-height: 100vh;
     transition: $standard-transition; // fixes header appear/disappear
