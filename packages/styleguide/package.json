@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@europeana/portal": "^1.137.0",
-    "vue": "^2.7.10",
+    "vue": "^2.7.16",
     "vue-styleguidist": "4.35.0"
   },
   "contributors": [
