@@ -3,9 +3,9 @@
     class="background-attribution"
     @mouseleave="toggleCite"
   >
-    <span
+    <b-button
       v-if="citeCollapsed"
-      class="icon-info"
+      class="button-icon-only icon-info bg-transparent border-0"
       @click="toggleCite"
       @mouseover="toggleCite"
       @touchstart="toggleCite"
@@ -52,13 +52,40 @@
       }
     },
 
+    watch: {
+      citeCollapsed(newVal) {
+        if (newVal) {
+          window.removeEventListener('keydown', this.handleKeydown);
+        } else {
+          window.addEventListener('keydown', this.handleKeydown);
+        }
+      }
+    },
+
+    // TODO: Focus first focusable element when cite opened by keyboard, trap focus? Add close button for keyboard only?
     methods: {
       toggleCite() {
         this.citeCollapsed = !this.citeCollapsed;
+      },
+      handleKeydown(event) {
+        if (event.key === 'Escape') {
+          this.citeCollapsed = true;
+        }
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .btn-secondary.button-icon-only {
+    &:focus {
+      background: transparent;
+      color: $white;
+    }
+  }
+</style>
 
 <docs lang="md">
   ```jsx
