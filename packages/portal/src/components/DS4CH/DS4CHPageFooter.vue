@@ -4,14 +4,14 @@
     class="page-footer xxl-page"
   >
     <b-container class="xxl-container">
-      <div class="sub-footer">
+      <b-row class="sub-footer">
         <EULogo
           class="eu-logo mb-3"
         />
         <p>{{ $t('footer.disclaimerLine1') }}</p>
 
         <p>{{ $t('footer.disclaimerLine2') }}</p>
-      </div>
+      </b-row>
     </b-container>
   </footer>
 </template>
@@ -41,15 +41,26 @@
     }
 
     .container {
-      padding-top: 6rem;
-      padding-bottom: 6.5rem;
+      padding: 6rem 2rem 6.5rem;
 
       @media (min-width: $bp-large) {
+        margin-left: 2rem;
+      }
+
+      @media (min-width: $bp-extralarge) {
         padding-bottom: 10rem ;
+        padding-left: 4rem;
+        padding-right: 4rem;
+        margin-left: 4rem;
       }
 
       @media (min-width: $bp-4k) {
         padding-bottom: 26rem ;
+      }
+
+      .row {
+        margin-left: 0;
+        margin-right: 0;
       }
     }
   }
