@@ -240,43 +240,10 @@ export default {
     entries: [
       {
         name: 'FeedbackWidget',
-        webPackExtend(config, {client, modern}) {
-          config.output.publicPath = 'http://localhost:3000/custom-elements/feedback-widget/'
-
-          return config
-          // /**
-          //  * Defines the webpack output options (`publicPath`, `filename`, `chunkFilename`).
-          //  **/
-          // config.output = {
-          //   ...config.output,
-          //   publicPath: 'http://localhost:3000/nuxt-custom-elements/feedback-widget/',
-          //   filename: (webpackConfig, moduleOptions) => {
-          //     if (moduleOptions.modern) {
-          //       if (webpackConfig.name === 'modern') {
-          //         return 'feedback.modern.js'
-          //       } else {
-          //         return 'feedback.client.js'
-          //       }
-          //     } else {
-          //       return 'feedback.js'
-          //     }
-          //   }
-          //   // chunkFilename: (webpackConfig, moduleOptions) => {
-          //   //   if (moduleOptions.modern) {
-          //   //     return '[name].[hash].js'
-          //   //   } else {
-          //   //     return '[name].js'
-          //   //   }
-          //   // }
-          // };
-        },
         tags: [
           {
-            name: 'CustomElementFeedbackWidget',
-            path: '~/components/feedback/FeedbackWidget.ce.vue',
-            options: {
-              props: {}
-            }
+            name: 'EuropeanaFeedbackWidget',
+            path: '~/components/feedback/FeedbackWidget.ce.vue'
           }
         ]
       }
@@ -356,7 +323,8 @@ export default {
     '~/modules/axios-logger',
     '~/modules/query-sanitiser',
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    'nuxt-custom-elements'
   ],
 
   /*
@@ -366,7 +334,6 @@ export default {
     '~/modules/elastic-apm',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
-    'nuxt-custom-elements',
     // WARN: do not move this to buildModules, else custom transaction naming
     //       by elastic-apm module won't be applied.
     ['@nuxtjs/i18n', {

@@ -23,6 +23,8 @@ COPY packages/portal/*.js ./packages/portal/
 COPY packages/portal/src ./packages/portal/src
 
 RUN npm run build
+RUN mkdir -p packages/portal/src/static
+RUN mv packages/portal/.nuxt/nuxt-custom-elements/dist/* packages/portal/src/static/
 RUN rm -rf node_modules packages/*/node_modules packages/mirador packages/style
 RUN rm -rf packages/portal/src/lang
 RUN npm -w packages/portal ci --omit dev --omit peer
