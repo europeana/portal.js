@@ -69,7 +69,8 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@europeana/style/scss/DS4CH/variables';
+  @import '@europeana/style/scss/DS4CH/variables';
+
   .white-page {
     margin-top: -4.375rem;
 
