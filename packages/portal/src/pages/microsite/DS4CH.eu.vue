@@ -21,6 +21,7 @@
       class="page white-page xxl-page"
     >
       <LandingHero
+        v-if="page.headline"
         :headline="page.headline"
         :text="page.text"
         :hero-image="page.primaryImageOfPage"
