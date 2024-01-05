@@ -300,6 +300,7 @@
       @media (min-width: ($bp-4k)) {
         inset: 10rem;
         top: 15rem;
+        border-width: 2px;
       }
     }
 
@@ -437,6 +438,7 @@
       position: absolute;
       inset: 0;
       margin-left: auto;
+      transition: transform 500ms ease-out;
 
       &::before {
         content: '';
