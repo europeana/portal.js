@@ -25,13 +25,13 @@
       </div>
     </b-container>
     <div
+      ref="heroBackground"
       class="hero-image responsive-backround-image"
       :style="imageCSSVars"
-    >
-      <AttributionToggle
-        :attribution="heroImage"
-      />
-    </div>
+    />
+    <AttributionToggle
+      :attribution="heroImage"
+    />
   </div>
 </template>
 
@@ -121,6 +121,26 @@
           this.$contentful.assets.responsiveBackgroundImageCSSVars(
             this.heroImage.image, this.srcSetPreset
           );
+      }
+    },
+
+    // TODO refactor into a mixin if it stays exactly the same as on the home hero
+    mounted() {
+      if (this.variant === 'ds4ch') {
+        window.addEventListener('scroll', this.transformBackground);
+      }
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.transformBackground);
+    },
+
+    methods: {
+      transformBackground() {
+        const scrollPosition = window.scrollY || 1;
+        const heroBackgroundHeight = this.$refs.heroBackground?.clientHeight || 1;
+        const zoom = (scrollPosition / heroBackgroundHeight * 0.25) + 1;
+        this.$refs.heroBackground.style.transform = `scale(${zoom})`;
       }
     }
   };
@@ -251,6 +271,37 @@
   @import '@europeana/style/scss/DS4CH/style';
 
   .landing-hero.ds4ch {
+    overflow: hidden;
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      inset: 2rem;
+      top: 5.5rem;
+      border: 1px solid $white;
+      opacity: 0;
+      animation: appear 400ms ease-out 500ms forwards;
+
+      @keyframes appear {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @media (min-width: ($bp-extralarge)) {
+        inset: 4rem;
+        top: 7.5rem;
+      }
+
+      @media (min-width: ($bp-4k)) {
+        inset: 10rem;
+        top: 15rem;
+      }
+    }
 
     .container {
       padding-left: 2rem;
@@ -395,74 +446,44 @@
         mix-blend-mode: multiply;
         position: absolute;
       }
+    }
 
-      &::after {
-        content: '';
-
-        position: absolute;
-        inset: 2rem;
-        top: 5.5rem;
-        border: 1px solid $white;
-        opacity: 0;
-        animation: appear 400ms ease-out 500ms forwards;
-
-        @keyframes appear {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
+    ::v-deep .background-attribution {
+      .icon-info {
+        z-index: 1;
+        right: 2.5rem;
+        bottom: 2.5rem;
+        opacity: 0.5;
 
         @media (min-width: ($bp-extralarge)) {
-          inset: 4rem;
-          top: 7.5rem;
+          right: 5rem;
+          bottom: 5rem;
         }
 
         @media (min-width: ($bp-4k)) {
-          inset: 10rem;
-          top: 15rem;
+          right: 12.625rem;
+          bottom: 12.625rem;
+          width: 4rem;
+          height: 4rem;
+
+          &::before {
+            font-size: 4rem;
+          }
         }
       }
+      .cite-attribution {
+        z-index: 1;
+        right: 2.5rem;
+        bottom: 2.5rem;
 
-      ::v-deep .background-attribution {
-        .icon-info {
-          z-index: 1;
-          right: 2.5rem;
-          bottom: 2.5rem;
-          opacity: 0.5;
-
-          @media (min-width: ($bp-extralarge)) {
-            right: 5rem;
-            bottom: 5rem;
-          }
-
-          @media (min-width: ($bp-4k)) {
-            right: 12.625rem;
-            bottom: 12.625rem;
-            width: 4rem;
-            height: 4rem;
-
-            &::before {
-              font-size: 4rem;
-            }
-          }
+        @media (min-width: ($bp-extralarge)) {
+          right: 5rem;
+          bottom: 5rem;
         }
-        .cite-attribution {
-          z-index: 1;
-          right: 2.5rem;
-          bottom: 2.5rem;
 
-          @media (min-width: ($bp-extralarge)) {
-            right: 5rem;
-            bottom: 5rem;
-          }
-
-          @media (min-width: ($bp-4k)) {
-            right: 12.625rem;
-            bottom: 12.625rem;
-          }
+        @media (min-width: ($bp-4k)) {
+          right: 12.625rem;
+          bottom: 12.625rem;
         }
       }
     }

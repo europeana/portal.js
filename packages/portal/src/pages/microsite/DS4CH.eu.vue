@@ -26,6 +26,7 @@
         :hero-image="page.primaryImageOfPage"
         variant="ds4ch"
       />
+      <div style="height: 100vh;" />
     </div>
   </div>
 </template>
