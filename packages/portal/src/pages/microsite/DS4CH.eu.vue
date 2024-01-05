@@ -16,30 +16,29 @@
       :error="$fetchState.error"
       :show-message="false"
     />
-    <div
+    <LandingPage
       v-else
-      class="page white-page xxl-page"
-    >
-      <LandingHero
-        v-if="page.headline"
-        :headline="page.headline"
-        :text="page.text"
-        :hero-image="page.primaryImageOfPage"
-        variant="ds4ch"
-      />
-      <div style="height: 100vh;" />
-    </div>
+      :headline="page.headline || page.name"
+      :text="page.text"
+      :cta="page.relatedLink"
+      :sections="page.hasPartCollection.items.filter((item) => !!item)"
+      :primary-image-of-page="page.primaryImageOfPage"
+      variant="ds4ch"
+    />
   </div>
 </template>
 
 <script>
-  import LandingHero from '@/components/landing/LandingHero';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import LandingPage from '@/components/landing/LandingPage';
 
   export default {
     name: 'DS4CHPage',
 
     components: {
-      LandingHero
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      LandingPage,
+      LoadingSpinner
     },
 
     layout: 'ds4ch',
@@ -65,23 +64,5 @@
         this.$error(404, { scope: 'page' });
       }
     }
-
-    // TODO: add page meta
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-
-  .white-page {
-    margin-top: -4.375rem;
-
-    @media (min-width: ($bp-4k)) {
-      margin-top: -6.5625rem;
-    }
-
-    &:after {
-      content: none;
-    }
-  }
-</style>
