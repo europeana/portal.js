@@ -102,6 +102,10 @@
         type: Object,
         default: null
       },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
       variant: {
         type: String,
         default: 'pro'
@@ -137,7 +141,8 @@
 
     methods: {
       transformBackground() {
-        const scrollPosition = window.scrollY || 1;
+        const heroViewportPosition = this.$refs.heroBackground.getBoundingClientRect().top;
+        const scrollPosition = (heroViewportPosition < 0 && heroViewportPosition * -1) || 1;
         const heroBackgroundHeight = this.$refs.heroBackground?.clientHeight || 1;
         const zoom = (scrollPosition / heroBackgroundHeight * 0.25) + 1;
         this.$refs.heroBackground.style.transform = `scale(${zoom})`;
@@ -493,6 +498,7 @@
 </style>
 
 <docs lang="md">
+  Variant 'pro'
   ```jsx
     <LandingHero
       headline="This is a <em>landing</em> page"
@@ -501,6 +507,29 @@
         url: 'https://www.europeana.eu',
         text: 'Go to Pro'
       }"
+      :hero-image="{
+        creator: 'Europeana Foundation',
+        license: 'https://creativecommons.org/publicdomain/zero/1.0',
+        name: 'Image landing page',
+        provider: null,
+        url: null,
+        image: {
+          contentType: 'image/jpeg',
+          description: null,
+          height: 2694,
+          url: 'https://images.ctfassets.net/i01duvb6kq77/1trzaYGwJsR79hW38lMpJO/465bdac6bb52df2f574c50dacdc74ef8/slantedimagecover_v1.jpg',
+          width: 4320
+        }
+      }"
+    />
+  ```
+
+  Variant 'ds4ch'
+  ```jsx
+    <LandingHero
+      variant="ds4ch"
+      headline="This is an example of <em>a DS4CH hero</em>"
+      text="A description what this page is all about"
       :hero-image="{
         creator: 'Europeana Foundation',
         license: 'https://creativecommons.org/publicdomain/zero/1.0',
