@@ -5,6 +5,7 @@ import { VueMasonryPlugin } from 'vue-masonry';
 import VueI18n from 'vue-i18n';
 
 import contentfulModuleAssets from '@europeana/portal/src/modules/contentful/templates/assets.js';
+import messages from '@europeana/portal/src/lang/en.js';
 
 Vue.use(VueI18n);
 Vue.use(Vuex);
@@ -103,9 +104,6 @@ Object.assign(Vue.prototype, {
   localePath: (args) => args,
   switchLocalePath: () => '/'
 });
-
-import messages from '@europeana/portal/src/lang/en.js';
-import '@europeana/portal/src/plugins/vue-filters';
 
 const i18n = new VueI18n({
   locale: 'en',

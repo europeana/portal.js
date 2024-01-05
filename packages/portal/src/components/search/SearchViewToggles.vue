@@ -20,6 +20,7 @@
           {{ $t(`searchViews.${view}`) }}
         </span>
         <span
+          v-b-tooltip.bottom
           :class="view"
           class="icon-view-toggle"
           :title="$t(`searchViews.${view}`)"

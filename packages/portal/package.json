@@ -54,7 +54,6 @@
     "weighted-random": "^0.1.0"
   },
   "devDependencies": {
-    "@europeana/mirador": "^1.128.1",
     "@europeana/style": "^1.135.0",
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
@@ -74,6 +73,9 @@
     "vue-matomo": "^4.2.0",
     "vue-scrollto": "^2.20.0",
     "vuedraggable": "^2.24.3"
+  },
+  "peerDependencies": {
+    "@europeana/mirador": "^1.128.1"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
