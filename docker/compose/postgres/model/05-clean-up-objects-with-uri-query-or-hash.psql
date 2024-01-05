@@ -1,0 +1,67 @@
+SET search_path TO EVENTS;
+
+-- ensure an object without the query in the uri exists for all uris with the query
+
+INSERT INTO objects (uri)
+  (SELECT DISTINCT SPLIT_PART(uri, '?', 1)
+   FROM objects) ON CONFLICT DO NOTHING;
+
+-- on actions/history linked to objects with query, update the link to be to the object without query
+
+UPDATE actions
+SET object_id=good_id
+FROM
+  (SELECT bad.id bad_id,
+          good.id good_id
+   FROM objects bad
+   INNER JOIN objects good ON good.uri=SPLIT_PART(bad.uri, '?', 1)
+   WHERE bad.uri like '%?%'
+     AND good.uri not like '%?%') bad_good
+WHERE object_id=bad_id;
+
+UPDATE history
+SET object_id=good_id
+FROM
+  (SELECT bad.id bad_id,
+          good.id good_id
+   FROM objects bad
+   INNER JOIN objects good ON good.uri=SPLIT_PART(bad.uri, '?', 1)
+   WHERE bad.uri like '%?%'
+     AND good.uri not like '%?%') bad_good
+WHERE object_id=bad_id;
+
+-- delete the objects with query
+
+DELETE
+FROM objects
+WHERE uri like '%?%';
+
+-- on actions/history linked to objects with hash, update the link to be to the object without hash
+
+UPDATE actions
+SET object_id=good_id
+FROM
+  (SELECT bad.id bad_id,
+          good.id good_id
+   FROM objects bad
+   INNER JOIN objects good ON good.uri=SPLIT_PART(bad.uri, '#', 1)
+   WHERE bad.uri like '%#%'
+     AND good.uri not like '%#%') bad_good
+WHERE object_id=bad_id;
+
+UPDATE history
+SET object_id=good_id
+FROM
+  (SELECT bad.id bad_id,
+          good.id good_id
+   FROM objects bad
+   INNER JOIN objects good ON good.uri=SPLIT_PART(bad.uri, '#', 1)
+   WHERE bad.uri like '%#%'
+     AND good.uri not like '%#%') bad_good
+WHERE object_id=bad_id;
+
+-- delete the objects with hash
+
+DELETE
+FROM objects
+WHERE uri like '%#%';

@@ -974,7 +974,7 @@ export default {
         "name": "Vardas"
       },
       "times": {
-        "title": "Laikai"
+        "title": "Šimtmečiai"
       },
       "topics": {
         "title": "Potemė"

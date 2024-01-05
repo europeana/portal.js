@@ -974,7 +974,7 @@ export default {
         "name": "Име"
       },
       "times": {
-        "title": "времеви периоди"
+        "title": "Векове"
       },
       "topics": {
         "title": "Рубрика"

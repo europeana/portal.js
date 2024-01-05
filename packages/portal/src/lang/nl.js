@@ -974,7 +974,7 @@ export default {
         "name": "Naam"
       },
       "times": {
-        "title": "Tijden"
+        "title": "Eeuwen"
       },
       "topics": {
         "title": "Onderwerpen"

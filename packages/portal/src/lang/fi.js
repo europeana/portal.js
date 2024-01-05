@@ -974,7 +974,7 @@ export default {
         "name": "Nimi"
       },
       "times": {
-        "title": "aika"
+        "title": "Vuosisadat"
       },
       "topics": {
         "title": "Aiheet"
