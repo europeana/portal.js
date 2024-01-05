@@ -1,36 +1,45 @@
 <template>
-  <b-container>
-    <div class="header mx-auto text-center text-lg-left">
-      <h2>
-        {{ title }}
-      </h2>
-      <!-- eslint-disable vue/no-v-html -->
+  <div
+    class="sub-section"
+    :class="`${variant}`"
+  >
+    <div class="header">
+      <b-container>
+        <div class="header-content mx-auto text-center text-lg-left">
+          <h2>
+            {{ title }}
+          </h2>
+          <!-- eslint-disable vue/no-v-html -->
+          <div
+            v-if="text"
+            class="text mb-3"
+            v-html="parseMarkdownHtml(text)"
+          />
+        <!-- eslint-enable vue/no-v-html -->
+        </div>
+      </b-container>
+    </div>
+    <b-container>
       <div
-        v-if="text"
-        class="text mb-3"
-        v-html="parseMarkdownHtml(text)"
-      />
-    <!-- eslint-enable vue/no-v-html -->
-    </div>
-    <div
-      v-for="(section, index) in sections"
-      :key="index"
-    >
-      <LandingAutomatedCardGroup
-        v-if="contentType(section, 'AutomatedCardGroup')"
-        :genre="section.genre"
-        :static-items="section.staticItems"
-      />
-      <LandingInfoCardGroup
-        v-if="contentType(section, 'InfoCardGroup')"
-        :class="LandingInfoCardGroupClass"
-        :title="section.name"
-        title-tag="h3"
-        :text="section.text"
-        :info-cards="section.hasPartCollection && section.hasPartCollection.items"
-      />
-    </div>
-  </b-container>
+        v-for="(section, index) in sections"
+        :key="index"
+      >
+        <LandingAutomatedCardGroup
+          v-if="contentType(section, 'AutomatedCardGroup')"
+          :genre="section.genre"
+          :static-items="section.staticItems"
+        />
+        <LandingInfoCardGroup
+          v-if="contentType(section, 'InfoCardGroup')"
+          :class="LandingInfoCardGroupClass"
+          :title="section.name"
+          title-tag="h3"
+          :text="section.text"
+          :info-cards="section.hasPartCollection && section.hasPartCollection.items"
+        />
+      </div>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -67,6 +76,14 @@
       sections: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
 
@@ -87,7 +104,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  .container {
+  .sub-section {
     padding-top: 3.75rem;
     padding-bottom: 2rem;
 
@@ -98,15 +115,20 @@
   }
 
   .header {
-    max-width: 1250px;
     padding-bottom: 1rem;
 
     @media (min-width: $bp-medium) {
       padding-bottom: 4rem;
     }
 
-    @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 1250px);
+    .header-content {
+      @media (min-width: $bp-extralarge) {
+        max-width: 1250px;
+      }
+
+      @media (min-width: $bp-4k) {
+        max-width: calc(1.5 * 1250px);
+      }
     }
 
     h2 {
@@ -179,6 +201,19 @@
         }
       }
     }
+  }
+</style>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/variables';
+
+  .sub-section.ds4ch {
+
+    .header {
+      background: $black;
+      color: $white;
+    }
+
   }
 </style>
 
