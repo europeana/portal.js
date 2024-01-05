@@ -10,6 +10,7 @@
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
           <div
+            class="hero-content-text-block"
             v-html="parseMarkdownHtml(`# ${headline}\n${text}`)"
           />
           <!-- eslint-enable vue/no-v-html -->
@@ -291,6 +292,7 @@
     .hero-content {
       max-width: 591px;
       margin: auto;
+      overflow: hidden;
 
       @media (min-width: ($bp-large)) {
         margin: 0;
@@ -298,6 +300,23 @@
 
       @media (min-width: $bp-4k) {
         max-width: 1573px;
+      }
+
+      .hero-content-text-block {
+        transform: translateY(100%);
+        opacity: 0;
+        animation: slide 400ms ease-out 100ms forwards;
+
+        @keyframes slide {
+          from {
+            opacity: 1;
+            transform: translateY(100%);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
       }
 
       ::v-deep h1 {
@@ -384,6 +403,17 @@
         inset: 2rem;
         top: 5.5rem;
         border: 1px solid $white;
+        opacity: 0;
+        animation: appear 400ms ease-out 500ms forwards;
+
+        @keyframes appear {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
 
         @media (min-width: ($bp-extralarge)) {
           inset: 4rem;
@@ -411,6 +441,12 @@
           @media (min-width: ($bp-4k)) {
             right: 12.625rem;
             bottom: 12.625rem;
+            width: 4rem;
+            height: 4rem;
+
+            &::before {
+              font-size: 4rem;
+            }
           }
         }
         .cite-attribution {
