@@ -28,6 +28,8 @@
           v-if="contentType(section, 'AutomatedCardGroup')"
           :genre="section.genre"
           :static-items="section.staticItems"
+          :headline="section.headline"
+          :text="section.text"
         />
         <LandingInfoCardGroup
           v-if="contentType(section, 'InfoCardGroup')"
@@ -208,6 +210,7 @@
   @import '@europeana/style/scss/DS4CH/variables';
 
   .sub-section.ds4ch {
+    padding-top: 0;
 
     .header {
       background: $black;

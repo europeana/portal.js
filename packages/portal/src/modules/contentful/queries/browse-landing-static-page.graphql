@@ -208,6 +208,8 @@ query BrowseLandingStaticPage(
                   }
                 }
                 ... on AutomatedCardGroup {
+                  headline
+                  text
                   genre
                   moreButton {
                     url

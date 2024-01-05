@@ -4,6 +4,13 @@
       <h3 class="title">
         {{ title }}
       </h3>
+      <!-- eslint-disable vue/no-v-html -->
+      <div
+        v-if="text"
+        class="text mb-3"
+        v-html="parseMarkdownHtml(text)"
+      />
+      <!-- eslint-enable vue/no-v-html -->
     </b-col>
     <div
       v-if="hasPartCollectionItems.length"
@@ -22,6 +29,7 @@
 
 <script>
   import InfoCard from '@/components/generic/InfoCard';
+  import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const EUROPEANA_NUMBERS = 'Europeana numbers';
 
@@ -32,7 +40,23 @@
       InfoCard
     },
 
+    mixins: [parseMarkdownHtmlMixin],
+
     props: {
+      /**
+       * Headline can be used as title
+       */
+      headline: {
+        type: String,
+        default: null
+      },
+      /**
+       * Text to accompany the card group
+       */
+      text: {
+        type: String,
+        default: null
+      },
       /**
        * Genre that identifies the type of data to be fetched and displayed
        */
@@ -56,7 +80,7 @@
       };
       if (this.genre === EUROPEANA_NUMBERS) {
         data.keys = ['matomo/visits', 'items/type-counts', 'collections/organisations/count'];
-        data.title = this.$t('landing.europeanaNumbers');
+        data.title = this.headline || this.$t('landing.europeanaNumbers');
       }
       return data;
     },
