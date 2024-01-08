@@ -1,11 +1,11 @@
 <template>
   <div
     class="sub-section"
-    :class="`${variant}`"
+    :class="variant"
   >
     <div class="header">
       <b-container>
-        <div class="header-content mx-auto text-center text-lg-left">
+        <div class="header-content mx-auto text-center">
           <h2>
             {{ title }}
           </h2>
@@ -30,6 +30,8 @@
           :static-items="section.staticItems"
           :headline="section.headline"
           :text="section.text"
+          :more-button="section.moreButton"
+          :variant="variant"
         />
         <LandingInfoCardGroup
           v-if="contentType(section, 'InfoCardGroup')"
@@ -131,6 +133,12 @@
       @media (min-width: $bp-4k) {
         max-width: calc(1.5 * 1250px);
       }
+
+      @at-root .pro-page &.text-center {
+        @media(min-width: $bp-large) {
+          text-align: left !important;
+        }
+      }
     }
 
     h2 {
@@ -207,7 +215,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
+  @import '@europeana/style/scss/DS4CH/style';
 
   .sub-section.ds4ch {
     padding-top: 0;
@@ -215,8 +223,29 @@
     .header {
       background: $black;
       color: $white;
-    }
+      padding: 2rem 0 1.5rem;
 
+      @media(min-width: $bp-4k) {
+        padding: 10.625rem 0 9.625rem;
+      }
+
+      h2 {
+        font-family: $font-family-montserrat;
+        font-size: 1.375rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media(min-width: $bp-medium) {
+          font-size: $font-size-xl;
+        }
+
+        @media(min-width: $bp-4k) {
+          font-size: 5.625rem;
+        }
+      }
+    }
   }
 </style>
 

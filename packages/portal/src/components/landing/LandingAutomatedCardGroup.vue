@@ -1,6 +1,9 @@
 <template>
-  <div class="landing-automated-card-group">
-    <b-col class="col-lg-8 px-0 text-center mx-auto">
+  <div
+    class="landing-automated-card-group"
+    :class="variant"
+  >
+    <b-col class="card-group-header col-lg-8 px-0 text-center mx-auto">
       <h3 class="title">
         {{ title }}
       </h3>
@@ -14,7 +17,7 @@
     </b-col>
     <div
       v-if="hasPartCollectionItems.length"
-      class="d-flex flex-wrap justify-content-center"
+      class="card-group-wrapper d-flex flex-wrap justify-content-center"
     >
       <InfoCard
         v-for="(item, index) in hasPartCollectionItems"
@@ -24,6 +27,14 @@
         class="px-1 px-md-3"
       />
     </div>
+    <SmartLink
+      v-if="moreButton"
+      :destination="moreButton.url"
+      class="btn btn-primary"
+      data-qa="section more button"
+    >
+      {{ moreButton.text }}
+    </SmartLink>
   </div>
 </template>
 
@@ -37,7 +48,8 @@
     name: 'LandingAutomatedCardGroup',
 
     components: {
-      InfoCard
+      InfoCard,
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [parseMarkdownHtmlMixin],
@@ -65,11 +77,26 @@
         default: null
       },
       /**
+       * Link button to direct to related content
+       */
+      moreButton: {
+        type: Object,
+        default: null
+      },
+      /**
        * List of static items to use in styleguide
        */
       staticItems: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
     data() {
@@ -195,6 +222,97 @@
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-small-4k !important;
+      }
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/style';
+
+  .landing-automated-card-group.ds4ch {
+    margin-top: 3rem;
+    text-align: center;
+
+    @media(min-width: $bp-4k) {
+      margin-top: 16rem;
+    }
+
+    .card-group-header {
+      margin-bottom: 2rem;
+
+      @media(min-width: $bp-4k) {
+        margin-bottom: 16rem;
+      }
+
+      &.col-lg-8 {
+        @media(min-width: $bp-4k) {
+          max-width: none;
+        }
+      }
+    }
+
+    .card-group-wrapper {
+      margin-bottom: 2rem;
+
+      @media(min-width: $bp-4k) {
+        margin-bottom: 16rem;
+      }
+    }
+
+    h3.title {
+      font-family: $font-family-montserrat;
+      font-size: 1.375rem;
+      font-weight: 600;
+      line-height: 1.2;
+
+      @media(min-width: $bp-medium) {
+        font-size: 1.75rem;
+      }
+
+      @media(min-width: $bp-4k) {
+        font-size: 4.625rem;
+        margin-bottom: 4rem;
+      }
+    }
+
+    ::v-deep p {
+      @media(min-width: $bp-medium) {
+        font-size: $font-size-medium;
+      }
+
+      @media(min-width: $bp-4k) {
+        font-size: 3.3125rem;
+      }
+    }
+
+    ::v-deep .info-card {
+      max-width: none;
+      .card-title {
+        font-family: $font-family-montserrat;
+        font-size: $font-size-medium !important;
+        font-weight: 700;
+        line-height: 1.2 !important;
+        color: $black;
+
+        @media(min-width: $bp-medium) {
+          font-size: $font-size-xl !important;
+        }
+
+        @media(min-width: $bp-4k) {
+          font-size: 5.625rem !important;
+          margin-bottom: 2.625rem;
+        }
+      }
+
+      .card-text {
+        font-family: $font-family-montserrat;
+        font-size: $font-size-extrasmall !important;
+        font-weight: 600 !important;
+
+        @media(min-width: $bp-4k) {
+          font-size: 2rem !important;
+        }
       }
     }
   }

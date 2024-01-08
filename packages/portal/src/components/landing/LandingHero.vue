@@ -309,23 +309,17 @@
       }
     }
 
-    .container {
-      padding-left: 2rem;
-      padding-right: 2rem;
+    ::v-deep .container {
 
       @media (min-width: $bp-large) {
         margin-left: 2rem;
       }
 
       @media (min-width: ($bp-extralarge)) {
-        padding-left: 4rem;
-        padding-right: 4rem;
         margin-left: 4rem;
       }
 
       @media (min-width: ($bp-4k)) {
-        padding-left: 10rem;
-        padding-right: 10rem;
         margin-left: 10rem;
       }
     }
@@ -383,7 +377,6 @@
         font-size: $font-size-extrasmall;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.6px;
         margin-bottom: 7.5rem;
 
         @media (min-width: ($bp-medium)) {
@@ -406,12 +399,10 @@
           font-size: $font-size-large;
           font-weight: 700;
           text-transform: none;
-          letter-spacing: -0.48px;
 
           @media (min-width: ($bp-medium)) {
             font-size: 2.25rem;
             line-height: 1.2;
-            letter-spacing: normal;
           }
 
           @media (min-width: $bp-4k) {
