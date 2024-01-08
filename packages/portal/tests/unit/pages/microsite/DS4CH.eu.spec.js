@@ -30,7 +30,7 @@ const factory = ({
 describe('DS4CHPage', () => {
   describe('fetch', () => {
     it('fetches the content from Contentful', async() => {
-      const page = { headline: 'Welcom to the DS4CH' };
+      const page = { headline: 'Welcome to the DS4CH' };
       const wrapper = factory({
         contentfulQueryResponse: { data: { data: { landingPageCollection: { items: [page] } } } }
       });

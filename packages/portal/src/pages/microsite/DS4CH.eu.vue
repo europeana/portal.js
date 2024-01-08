@@ -21,7 +21,7 @@
       :headline="page.headline || page.name"
       :text="page.text"
       :cta="page.relatedLink"
-      :sections="page.hasPartCollection.items.filter((item) => !!item)"
+      :sections="page.hasPartCollection?.items.filter((item) => !!item)"
       :primary-image-of-page="page.primaryImageOfPage"
       variant="ds4ch"
     />
