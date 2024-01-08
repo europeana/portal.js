@@ -13,7 +13,8 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $t: key => key,
     $route: {},
     ...options.mocks
-  }
+  },
+  stubs: ['nuxt']
 });
 
 describe('layouts/ds4ch.vue', () => {
@@ -22,7 +23,7 @@ describe('layouts/ds4ch.vue', () => {
       it('uses site name', () => {
         const wrapper = factory();
 
-        expect(wrapper.vm.head().title).toBe('Data space for cultural heritage');
+        expect(wrapper.vm.head().title).toBe('ds4ch.dataSpaceForCulturalHeritage');
       });
     });
   });
