@@ -5,7 +5,7 @@ import middleware from '@/middleware/l10n';
 describe('middleware/l10n', () => {
   afterEach(sinon.resetHistory);
 
-  const app = { $cookies: { set: sinon.spy() } };
+  const app = { $cookies: { get: sinon.spy(), set: sinon.spy() } };
   const redirect = sinon.spy();
   const req = {};
 
@@ -27,8 +27,7 @@ describe('middleware/l10n', () => {
     });
 
     describe('because it is an auth callback', () => {
-      const route = { path: '/login' };
-      app.$auth = { options: { redirect: { callback: route.path } } };
+      const route = { path: '/account/callback' };
 
       it('is is not stored in the cookie', () => {
         middleware({ app, route, redirect, req });

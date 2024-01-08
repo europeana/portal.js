@@ -11,6 +11,7 @@ const COOKIE_NAME = 'i18n_locale_code';
 
 // Codes of all languages supported by the app
 import localeCodes from '../plugins/i18n/codes';
+import { exclude as i18nRoutesExclude } from '../plugins/i18n/routes.js';
 
 function appSupportsLocale(locale) {
   return locale && localeCodes.includes(locale);
@@ -24,11 +25,8 @@ const localiseRoute = ({ route, req, redirect, app }) => {
 };
 
 export default ({ app, route, redirect, req }) => {
-  // Exit early if route path is to DS4CH (non i18n page) or it is an auth callback
-  if (['/microsite/DS4CH.eu'].includes(route.path) || (app.$auth && [
-    app.$auth.options.redirect.callback,
-    '/account/logout'
-  ].includes(route.path))) {
+  // Exit early if route path is excluded from i18n
+  if (i18nRoutesExclude.includes(route.path)) {
     return;
   }
 
