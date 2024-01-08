@@ -6,11 +6,18 @@ import VueI18n from 'vue-i18n';
 
 import contentfulModuleAssets from '@europeana/portal/src/modules/contentful/templates/assets.js';
 import messages from '@europeana/portal/src/lang/en.js';
+import sampleData from '@europeana/portal/docs/sample-data.js';
 
 Vue.use(VueI18n);
 Vue.use(Vuex);
 Vue.use(BootstrapVue);
 Vue.use(VueMasonryPlugin);
+
+Vue.mixin({
+  data() {
+    return sampleData;
+  }
+});
 
 Vue.directive('visible-on-scroll', () => {});
 
@@ -116,14 +123,6 @@ i18n.locales = [
   { code: 'de', name: 'Deutsch', iso: 'de-DE' },
   { code: 'nl', name: 'Nederlands', iso: 'nl-NL' }
 ];
-
-import dummyData from '@europeana/portal/docs/dummy-data.js';
-
-Vue.mixin({
-  data() {
-    return dummyData;
-  }
-});
 
 export default previewComponent => {
   // https://vuejs.org/v2/guide/render-function.html
