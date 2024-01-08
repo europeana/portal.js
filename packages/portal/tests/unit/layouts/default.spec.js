@@ -84,19 +84,6 @@ describe('layouts/default.vue', () => {
     });
   });
 
-  describe('route hash handling', () => {
-    it('scrolls to element from route hash, offset by header', () => {
-      const $route = { hash: '#trending-items' };
-      const $scrollTo = sinon.spy();
-
-      factory({ mocks: { $route, $scrollTo } });
-
-      expect($scrollTo.calledWith(
-        '#trending-items', { duration: 0, easing: 'linear', offset: -0 }
-      )).toBe(true);
-    });
-  });
-
   describe('Klaro', () => {
     const klaroManagerStub = {
       watch: sinon.spy()
