@@ -20,7 +20,6 @@ Used by:
 - [SetPublicationRequestWidget](/#/Components/Set?id=setpublishbutton)
 - ShareSocialModal ()
 
-default modal
 ```jsx
 <div>
   <b-button v-b-modal.modal-1 class="mb-3 mr-3">Show default modal</b-button>

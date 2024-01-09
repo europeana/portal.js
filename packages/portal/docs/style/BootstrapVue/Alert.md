@@ -4,10 +4,9 @@ Docs including more features and variants: https://bootstrap-vue.org/docs/compon
 
 Used by:
 - AlertMessage
-- InfoMessage
+- [InfoMessage](/#/Components/Generic?id=infomessage)
 - SearchFilters (Newspaper/WWI api filter alert)
 
-Default variant
 ```jsx
   <b-alert show dismissible class="mb-4">
     This is a default info variant alert and it is configured to be dismissible
@@ -16,6 +15,6 @@ Default variant
     show
     variant="dark"
   >
-    This is a dark variant alert and it is configured to be dismissible
+    This is a dark variant alert and it is configured to not be dismissible
   </b-alert>
 ```

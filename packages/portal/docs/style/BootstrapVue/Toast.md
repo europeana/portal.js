@@ -25,7 +25,7 @@ Used by:
     <b-toast 
       id="example-toast"
       static
-      noCloseButton
+      no-close-button
       solid
       autoHideDelay="5000"
       toastClass="brand-toast"
@@ -35,7 +35,7 @@ Used by:
     <b-toast 
       id="example-toast-2"
       static
-      noCloseButton
+      no-close-button
       solid
       auto-hide-delay="60000"
       toast-class="brand-toast-white"
