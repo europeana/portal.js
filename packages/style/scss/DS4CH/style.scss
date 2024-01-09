@@ -1,0 +1,19 @@
+@import 'variables';
+
+.btn {
+
+  &.btn-light-flat {
+    background-color: transparent;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      color: $yellow;
+      transition: $standard-transition;
+    }
+  }
+}
+
+.bg-dark {
+  background-color: $black !important;
+}
