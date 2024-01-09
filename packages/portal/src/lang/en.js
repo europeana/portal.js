@@ -213,6 +213,15 @@ export default {
     "left": "Left",
     "right": "Right"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Data space for cultural heritage",
+    "logoAlt": "Data space for cultural heritage home page",
+    "header": {
+      "contributors": "Contributors",
+      "dataOffer": "Data offer",
+      "stayInTouch": "Stay in touch"
+    }
+  },
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
     "actions": {
