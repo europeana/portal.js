@@ -4,9 +4,9 @@ Docs including more features: https://bootstrap-vue.org/docs/components/toast
 
 Used by:
 - EntityUpdateModal
-- NewFeatureNotification
 - ItemPinButton
 - ItemPinModal
+- NewFeatureNotification
 - RecommendationButtons
 - SearchInterface
 - SetDeleteModal

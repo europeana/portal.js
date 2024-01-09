@@ -18,7 +18,7 @@ Used by:
 - SetDeleteModal
 - SetFormModal
 - [SetPublicationRequestWidget](/#/Components/Set?id=setpublishbutton)
-- ShareSocialModal ()
+- ShareSocialModal
 
 ```jsx
 <div>

@@ -3,18 +3,18 @@ Customised BootstrapVue tooltip component.
 Docs including more features: https://bootstrap-vue.org/docs/components/tooltip
 
 Used by:
-- ContentCard (mosaic variant)
-- RightsStatementButton
-- ItemAddButton
+- [ContentCard (mosaic variant)](/#/Components/Content?id=contentcard)
+- [ItemAddButton](/#/Components/Item?id=itempreviewcard)
 - ItemLanguageSelector
-- ItemLikeButton
+- [ItemLikeButton](/#/Components/Item?id=itempreviewcard)
 - MetadataOriginLabel
-- SearchFacetDropdown (theme)
+- RightsStatementButton
+- [SearchFacetDropdown (theme)](/#/Components/Search?id=searchfacetdropdown)
 - SearchForm (collapse toggle)
-- SearchQueryBuilderRule
-- SearchQueryBuilderRuleDropdown
+- [SearchQueryBuilderRule](/#/Components/Search?id=searchquerybuilderrule)
+- [SearchQueryBuilderRuleDropdown](/#/Components/Search?id=searchquerybuilderruledropdown)
 - SearchSidebar
-- SearchSwitchFilter
+- [SearchSwitchFilter](/#/Components/Search?id=searchswitchfilter)
 - SetPublicationRequestWidget
 - ShareSocialButton (Weave)
 - UserButtons (item drag button)

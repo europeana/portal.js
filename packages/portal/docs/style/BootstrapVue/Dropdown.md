@@ -3,8 +3,8 @@ Customised BootstrapVue dropdown component.
 Docs: https://bootstrap-vue.org/docs/components/dropdown
 
 Used by:
-- LanguageSelector
 - ItemLanguageSelector
+- LanguageSelector
 - [SearchFacetDropdown](/#/Components/Search?id=searchfacetdropdown)
 - [SearchQueryRuleDropdown](/#/Components/Search?id=searchquerybuilderruledropdown)
 

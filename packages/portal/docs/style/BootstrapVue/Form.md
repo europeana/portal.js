@@ -17,7 +17,7 @@ Used by:
 - [SearchQueryBuilder](/#/Components/Search?id=searchquerybuilder)
 - SetFormModal
 - StoriesTagsDropdown
-- debug page
+- Debug page
 
 ```jsx
 <template>
