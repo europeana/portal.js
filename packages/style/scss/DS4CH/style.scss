@@ -9,7 +9,7 @@
       border-radius: 0;
       background-color: $yellow;
       background-image: linear-gradient(to right, $black 50%, $yellow 50%);
-      background-size: 200% 100%;
+      background-size: 201% 100%; // Extra percent to prevent yellow line on hover effect
       background-position: right;
       color: $black;
       display: inline-flex;
@@ -45,6 +45,7 @@
       &:active {
         background-position: left;
         color: $yellow;
+        box-shadow: none;
       }
     }
 
