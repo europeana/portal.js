@@ -181,7 +181,7 @@
     @media (min-width: ($bp-medium + 1px)) {
       width: 65%;
       position: relative;
-      z-index: 10;
+      z-index: 1;
       padding: 6.25rem 6.25rem 6.25rem 0;
 
       clip-path: polygon(0% 0%, 100% 0, 100% calc(100% - 209px), calc(100% - 95px) 100%, 0 100%);

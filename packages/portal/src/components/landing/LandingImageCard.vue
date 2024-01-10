@@ -1,6 +1,7 @@
 <template>
   <div
     class="image-card d-lg-flex mx-auto"
+    :class="variant"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -61,6 +62,14 @@
       card: {
         type: Object,
         default: null
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
 
@@ -162,6 +171,78 @@
       color: $mediumgrey;
     }
   }
+</style>
+
+<!-- Only DS4CH styles after this line! -->
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/style';
+
+  .image-card.ds4ch {
+    padding: 0;
+    max-width: none;
+
+    &.single-card {
+
+      .text-wrapper {
+        @media (min-width: $bp-large) {
+          order: -1;
+        }
+      }
+    }
+
+    .image-wrapper {
+      margin-bottom: 2rem;
+
+      @media (min-width: $bp-large) {
+        flex: 0 0 50%;
+      }
+
+      figure {
+        display: block;
+      }
+    }
+
+    .text-wrapper {
+      @media (min-width: $bp-large) {
+        flex: 0 0 50%;
+      }
+
+      @media (min-width: $bp-4k) {
+        padding: 16rem 16rem 16rem 10rem;
+      }
+
+      .text {
+        @media (min-width: $bp-large) {
+          max-width: $max-text-column-width;
+        }
+
+        @media (min-width: $bp-4k) {
+          font-size: 2.667rem;
+          max-width: 1250px;
+        }
+      }
+    }
+
+    h3.title {
+      @extend %title-3;
+
+      text-align: center;
+      margin-bottom: 1rem !important;
+
+      @media (min-width: $bp-large) {
+        text-align: left;
+        margin-bottom: 1.5rem !important;
+        max-width: $max-text-column-width;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: 5.667rem;
+        max-width: 1250px;
+        margin-bottom: 4rem !important;
+      }
+    }
+  }
+
 </style>
 
 <docs lang="md">
