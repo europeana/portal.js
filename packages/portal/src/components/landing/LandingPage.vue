@@ -1,6 +1,7 @@
 <template>
   <div
     class="page white-page xxl-page"
+    :class="`${variant}-page`"
   >
     <LandingHero
       :headline="headline"
@@ -17,6 +18,12 @@
         :title="section.name"
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
+      />
+      <LandingImageCard
+        v-if="contentType(section, 'ImageCard')"
+        :card="section"
+        :variant="variant"
+        class="single-card container"
       />
       <LandingImageCardGroup
         v-if="contentType(section, 'ImageCardGroup')"
@@ -57,6 +64,7 @@
       LandingCallToAction: () => import('@/components/landing/LandingCallToAction'),
       LandingHero,
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
+      LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
       LandingSubSection: () => import('@/components/landing/LandingSubSection'),
       LandingEmbed: () => import('@/components/landing/LandingEmbed')
@@ -82,6 +90,14 @@
       primaryImageOfPage: {
         type: Object,
         default: null
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
 

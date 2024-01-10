@@ -169,6 +169,13 @@ query BrowseLandingStaticPage(
               }
             }
           }
+          ... on ImageCard {
+            name
+            text
+            image {
+              ...imageWithAttributionFields
+            }
+          }
           ... on ImageCardGroup {
             name
             text
