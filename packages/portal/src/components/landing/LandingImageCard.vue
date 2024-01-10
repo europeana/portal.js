@@ -181,15 +181,6 @@
     padding: 0;
     max-width: none;
 
-    &.single-card {
-
-      .text-wrapper {
-        @media (min-width: $bp-large) {
-          order: -1;
-        }
-      }
-    }
-
     .image-wrapper {
       margin-bottom: 2rem;
 
@@ -239,6 +230,15 @@
         font-size: 5.667rem;
         max-width: 1250px;
         margin-bottom: 4rem !important;
+      }
+    }
+
+    &.single-card {
+
+      .text-wrapper {
+        @media (min-width: $bp-large) {
+          order: -1;
+        }
       }
     }
   }
