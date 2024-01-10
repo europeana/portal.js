@@ -215,7 +215,7 @@ export default {
   },
   "ds4ch": {
     "dataSpaceForCulturalHeritage": "Data space for cultural heritage",
-    "ds4chHome": "Data space for cultural heritage home page",
+    "logoAlt": "Data space for cultural heritage home page",
     "header": {
       "contributors": "Contributors",
       "dataOffer": "Data offer",

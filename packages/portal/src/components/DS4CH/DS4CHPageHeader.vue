@@ -17,7 +17,7 @@
       >
         <img
           :src="logoSrc"
-          :alt="$t('ds4chHome')"
+          :alt="$t('ds4ch.logoAlt')"
           data-qa="logo"
         >
       </SmartLink>
