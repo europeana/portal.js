@@ -1,5 +1,8 @@
 <template>
-  <b-container>
+  <b-container
+    class="landing-info-card-group"
+    :class="variant"
+  >
     <b-col class="header col-lg-8 text-center mx-auto px-0 pb-4 pb-lg-5">
       <component :is="titleTag">
         {{ title }}
@@ -65,6 +68,14 @@
       infoCards: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     }
   };
@@ -132,6 +143,98 @@
 
     @media (min-width: $bp-4k) {
       max-width: 1760px;
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/style';
+
+  .landing-info-card-group.ds4ch {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+
+    .header {
+
+      @media (min-width: ($bp-4k)) {
+        max-width: none;
+        margin-top: 16rem;
+        margin-bottom: 13rem;
+      }
+
+      h3 {
+        @extend %title-3;
+
+        @media (min-width: ($bp-4k)) {
+          margin-bottom: 2rem;
+        }
+      }
+
+      .text {
+        @media (min-width: ($bp-medium)) {
+          font-size: $font-size-medium;
+        }
+
+        @media (min-width: ($bp-4k)) {
+          font-size: 3.333rem;
+        }
+      }
+
+    }
+
+    .cards-wrapper {
+      margin-left: -2rem !important;
+      margin-right: -2rem !important;
+
+      @media (min-width: ($bp-4k)) {
+        max-width: none;
+        margin-left: -4rem !important;
+        margin-right: -4rem !important;
+      }
+    }
+
+    ::v-deep .info-card {
+
+      @media (min-width: ($bp-4k)) {
+        padding: 0 4rem 8rem;
+      }
+
+      .title {
+        color: $black;
+        font-family: $font-family-montserrat;
+        font-size: $font-size-base;
+
+        @media (min-width: ($bp-medium)) {
+          font-size: $font-size-medium;
+        }
+
+        @media (min-width: ($bp-4k)) {
+          font-size: 3.333rem;
+        }
+      }
+
+      .text-wrapper {
+        max-width: none;
+
+        @media (min-width: ($bp-4k)) {
+          margin-left: 4rem !important;
+        }
+      }
+
+      .text {
+        @media (min-width: ($bp-4k)) {
+          font-size: 2.667rem;
+        }
+      }
+      .image-wrapper {
+        margin-bottom: 1rem;
+
+        @media (min-width: ($bp-4k)) {
+          flex: 0 0 214px;
+          max-width: 214px;
+        }
+      }
     }
   }
 </style>

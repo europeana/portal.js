@@ -40,6 +40,7 @@
           title-tag="h3"
           :text="section.text"
           :info-cards="section.hasPartCollection && section.hasPartCollection.items"
+          :variant="variant"
         />
       </div>
     </b-container>

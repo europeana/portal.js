@@ -261,17 +261,9 @@
     }
 
     h3.title {
-      font-family: $font-family-montserrat;
-      font-size: 1.375rem;
-      font-weight: 600;
-      line-height: 1.2;
-
-      @media(min-width: $bp-medium) {
-        font-size: 1.75rem;
-      }
+      @extend %title-3;
 
       @media(min-width: $bp-4k) {
-        font-size: 4.625rem;
         margin-bottom: 4rem;
       }
     }
