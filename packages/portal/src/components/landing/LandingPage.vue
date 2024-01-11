@@ -1,12 +1,14 @@
 <template>
   <div
     class="page white-page xxl-page"
+    :class="`${variant}-page`"
   >
     <LandingHero
       :headline="headline"
       :text="text"
       :cta="cta"
       :hero-image="primaryImageOfPage"
+      :variant="variant"
     />
     <div
       v-for="(section, index) in sections"
@@ -42,6 +44,7 @@
         v-if="contentType(section, 'PrimaryCallToAction')"
         :text="section.text"
         :link="section.relatedLink"
+        :variant="variant"
       />
     </div>
   </div>
@@ -82,6 +85,14 @@
       primaryImageOfPage: {
         type: Object,
         default: null
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
 
