@@ -16,7 +16,7 @@
         :content-type="cardImageWithAttribution.image.contentType"
         :attribution="cardImageWithAttribution"
         :image-srcset="imageSrcset(cardImageWithAttribution.image)"
-        :image-sizes="imageSizes"
+        :image-sizes="sizesPresets"
       />
     </div>
     <div class="text-wrapper">
@@ -47,6 +47,37 @@
     '4k': { w: 918, h: 551, fit: 'fill' }
   };
 
+  const SIZES_PRESETS = [
+    '(max-width: 575px) 545px', // bp-small
+    '(max-width: 991px) 510px', // bp-large
+    '(max-width: 1199px) 570px', // bp-xl
+    '(max-width: 3019px) 612px', // bp-4k
+    '918px'
+  ].join(',');
+
+  const SRCSET_PRESETS_DS4CH = {
+    small: { w: 576, h: 345, fit: 'fill' },
+    medium: { w: 768, h: 460, fit: 'fill' },
+    large: { w: 992, h: 595, fit: 'fill' },
+    xl: { w: 600, h: 460, fit: 'fill' },
+    xxl: { w: 700, h: 420, fit: 'fill' },
+    xxxl: { w: 940, h: 480, fit: 'fill' },
+    wqhd: { w: 1270, h: 600, fit: 'fill' },
+    '4k': { w: 1510, h: 906, fit: 'fill' }
+  };
+
+  const SIZES_PRESETS_DS4CH = [
+    '(max-width: 575px) 576px', // bp-small
+    '(max-width: 767px) 768px', // bp-medium
+    '(max-width: 991px) 992px', // bp-large
+    '(max-width: 1199px) 600px', // bp-xl
+    '(max-width: 1399px) 700px', // bp-xxl
+    '(max-width: 1879px) 940px', // bp-xxxl
+    '(max-width: 2519px) 1270px', // bp-wqhd
+    '(max-width: 3019px) 1510px', // bp-4k
+    '1510px'
+  ].join(',');
+
   export default {
     name: 'LandingImageCard',
     components: {
@@ -73,27 +104,29 @@
       }
     },
 
-    data() {
-      return {
-        imageSizes: [
-          '(max-width: 575px) 545px', // bp-small
-          '(max-width: 991px) 510px', // bp-large
-          '(max-width: 1199px) 570px', // bp-xl
-          '(max-width: 3019px) 612px', // bp-4k
-          '918px'
-        ].join(',')
-      };
-    },
-
     computed: {
       cardImageWithAttribution() {
         return this.card.image;
+      },
+      sizesPresets() {
+        if (this.variant === 'ds4ch') {
+          return SIZES_PRESETS_DS4CH;
+        } else {
+          return SIZES_PRESETS;
+        }
+      },
+      srcSetPresets() {
+        if (this.variant === 'ds4ch') {
+          return SRCSET_PRESETS_DS4CH;
+        } else {
+          return SRCSET_PRESETS;
+        }
       }
     },
 
     methods: {
       imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
+        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS_DS4CH);
       }
     }
   };
@@ -186,6 +219,7 @@
 
       @media (min-width: $bp-large) {
         flex: 0 0 50%;
+        margin-bottom: 0;
       }
 
       figure {
@@ -198,13 +232,17 @@
         flex: 0 0 50%;
       }
 
+      @media (min-width: $bp-xxl) {
+        padding: 8rem;
+      }
+
       @media (min-width: $bp-4k) {
-        padding: 16rem 16rem 16rem 10rem;
+        padding: 16rem 16rem 16rem 20rem;
       }
 
       .text {
         @media (min-width: $bp-large) {
-          max-width: $max-text-column-width;
+          max-width: $max-card-width;
         }
 
         @media (min-width: $bp-4k) {
