@@ -4,28 +4,27 @@
       v-if="$fetchState.error"
       data-qa="error message container"
       :error="$fetchState.error"
-      :show-message="false"
+      :show-message="true"
     />
     <LandingPage
       v-else
-      :headline="page.headline"
+      :headline="page.headline || page.name"
       :text="page.text"
-      :cta="page.relatedLink"
       :sections="page.hasPartCollection?.items.filter((item) => !!item)"
       :primary-image-of-page="page.primaryImageOfPage"
+      variant="ds4ch"
     />
   </div>
 </template>
 
 <script>
-  import ErrorMessage from '@/components/error/ErrorMessage';
   import LandingPage from '@/components/landing/LandingPage';
 
   export default {
     name: 'DS4CHPage',
 
     components: {
-      ErrorMessage,
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       LandingPage
     },
 
