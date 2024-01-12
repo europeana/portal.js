@@ -4,11 +4,11 @@ const bootstrapVersion = require('bootstrap/package.json').version;
 const bootstrapVueVersion = require('bootstrap-vue/package.json').version;
 
 const FILTERED_PLUGINS = [
-	'WebpackBarPlugin',
-	'HtmlWebpackPlugin',
-	'VueSSRClientPlugin',
-	'HotModuleReplacementPlugin',
-	'FriendlyErrorsWebpackPlugin'
+  'WebpackBarPlugin',
+  'HtmlWebpackPlugin',
+  'VueSSRClientPlugin',
+  'HotModuleReplacementPlugin',
+  'FriendlyErrorsWebpackPlugin'
 ];
 
 /** @type import("vue-styleguidist").Config */
@@ -19,31 +19,31 @@ module.exports = async() => {
     rootDir: '../packages/portal'
   });
 
-	const webpackConfig = {
-		module: {
-			rules: [
-				...nuxtWebpackConfig.module.rules.filter(
-					// remove the eslint-loader
-					a => a.loader !== 'eslint-loader'
-				)
-			]
-		},
-		resolve: {
-			...nuxtWebpackConfig.resolve,
-			alias: {
-				...nuxtWebpackConfig.resolve.alias,
-				// Prevent multiple instances of Vue
+  const webpackConfig = {
+    module: {
+      rules: [
+        ...nuxtWebpackConfig.module.rules.filter(
+          // remove the eslint-loader
+          a => a.loader !== 'eslint-loader'
+        )
+      ]
+    },
+    resolve: {
+      ...nuxtWebpackConfig.resolve,
+      alias: {
+        ...nuxtWebpackConfig.resolve.alias,
+        // Prevent multiple instances of Vue
 	      // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/3351
-	      vue$: resolve( __dirname, 'node_modules/vue/dist/vue.esm.js')
-			}
-		},
-		plugins: [
-			...nuxtWebpackConfig.plugins.filter(
-				// remove plugins that conflict with vue-styleguidist's
-				(p) => FILTERED_PLUGINS.indexOf(p.constructor.name) === -1
-			)
-		]
-	};
+	      vue$: resolve(__dirname, 'node_modules/vue/dist/vue.esm.js')
+      }
+    },
+    plugins: [
+      ...nuxtWebpackConfig.plugins.filter(
+        // remove plugins that conflict with vue-styleguidist's
+        (p) => FILTERED_PLUGINS.indexOf(p.constructor.name) === -1
+      )
+    ]
+  };
 
   return {
     title: 'Europeana Style Guide',
@@ -52,21 +52,45 @@ module.exports = async() => {
         name: 'Style',
         sections: [
           {
+            name: 'Typography',
+            content: '../packages/portal/docs/style/Typography.md'
+          },
+          {
             name: 'Font icons',
             content: '../packages/portal/docs/style/FontIcons.md'
           },
           {
+            name: 'Colours',
+            content: '../packages/portal/docs/style/Colours.md'
+          },
+          {
+            name: 'Borders and shadows',
+            content: '../packages/portal/docs/style/BordersAndShadows.md'
+          },
+          {
             name: 'Bootstrap Vue',
             sections: [
-              {
-                name: 'Badge',
-                content: '../packages/portal/docs/style/BootstrapVueBadge.md'
-              },
-              {
-                name: 'Button',
-                content: '../packages/portal/docs/style/BootstrapVueButton.md'
-              }
-            ]
+              'Alert',
+              'Badge',
+              'Breadcrumb',
+              'Button',
+              'Card',
+              'Dropdown',
+              'Form',
+              'Link',
+              'ListGroup',
+              'Modal',
+              'Nav',
+              'Navbar',
+              'Sidebar',
+              'Table',
+              'Tabs',
+              'Toast',
+              'Tooltip'
+            ].map((name) => ({
+              name,
+              content: `../packages/portal/docs/style/BootstrapVue/${name}.md`
+            }))
           }
         ]
       },
@@ -79,18 +103,22 @@ module.exports = async() => {
           }
         ].concat([
           'Account',
+          'Content',
           'Download',
           'Entity',
           'Error',
           'Generic',
           'Home',
+          'Image',
           'Item',
           'Landing',
           'Page',
           'Related',
           'Search',
           'Set',
-          'Theme'
+          'Share',
+          'Theme',
+          'User'
         ].map((name) => ({
           name,
           components: `../packages/portal/src/components/${name.toLowerCase()}/[A-Z]*.vue`
@@ -107,7 +135,7 @@ module.exports = async() => {
     assetsDir: '../packages/style',
     skipComponentsWithoutExample: true,
     require: [
-			resolve(__dirname, '../packages/portal/src/plugins/vue-filters.js'),
+      resolve(__dirname, '../packages/portal/src/plugins/vue-filters.js'),
       resolve(__dirname, '../packages/style/scss/style.scss'),
       resolve(__dirname, './style.scss')
     ],

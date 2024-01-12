@@ -77,6 +77,8 @@
   import InfoMessage from '../generic/InfoMessage';
 
   export default {
+    name: 'DebugApiRequests',
+
     components: {
       InfoMessage
     },
