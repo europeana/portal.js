@@ -22,17 +22,17 @@ Used by:
       Show white toast with buttons
     </b-button>
 
-    <b-toast 
+    <b-toast
       id="example-toast"
       static
       no-close-button
       solid
-      autoHideDelay="5000"
-      toastClass="brand-toast"
+      auto-hide-delay="5000"
+      toast-class="brand-toast"
     >
       This toast message hides after 5s
     </b-toast>
-    <b-toast 
+    <b-toast
       id="example-toast-2"
       static
       no-close-button
