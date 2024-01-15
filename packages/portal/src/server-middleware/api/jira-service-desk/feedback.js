@@ -40,7 +40,7 @@ const jiraData = (options, req) => {
 const validateFeedbackLength = feedback => wordLength(feedback) >= 5;
 
 const validateHost = (host, allowedHosts) => {
-  return allowedHosts.some(allowedHost => host === allowedHost)
+  return allowedHosts.some(allowedHost => host === allowedHost);
 };
 
 const validateFeedback = (requestBody, allowedHosts) => {
