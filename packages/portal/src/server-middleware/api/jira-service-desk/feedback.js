@@ -39,13 +39,19 @@ const jiraData = (options, req) => {
 
 const validateFeedbackLength = feedback => wordLength(feedback) >= 5;
 
-const validateFeedback = feedback => new Promise((resolve, reject) => {
-  if (validateFeedbackLength(feedback)) {
-    resolve();
-  } else {
-    reject(createHttpError(400, 'Invalid feedback.'));
-  }
-});
+const validateHost = (host, allowedHosts) => {
+  return allowedHosts.some(allowedHost => host === allowedHost)
+};
+
+const validateFeedback = (requestBody, allowedHosts) => {
+  return new Promise((resolve, reject) => {
+    if (validateFeedbackLength(requestBody.feedback) && validateHost(new URL(requestBody.pageUrl).host, allowedHosts)) {
+      resolve();
+    } else {
+      reject(createHttpError(400, 'Invalid feedback.'));
+    }
+  });
+};
 
 const jiraOptions = options => ({
   auth: {
@@ -60,7 +66,7 @@ const jiraOptions = options => ({
 
 // Docs: https://developer.atlassian.com/cloud/jira/service-desk/rest/api-group-request/#api-rest-servicedeskapi-request-post
 export default (options = {}) => (req, res) => {
-  return validateFeedback(req.body.feedback)
+  return validateFeedback(req.body, options.serviceDesk.feedback.allowedHosts)
     .then(() => (axios
       .create({ baseURL: options.origin })
       .post(JIRA_SERVICE_DESK_API_PATH, jiraData(options, req), jiraOptions(options))

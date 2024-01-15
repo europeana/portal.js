@@ -8,6 +8,7 @@ const options = {
   origin: 'https://jira.example.org',
   serviceDesk: {
     feedback: {
+      allowedHosts: ['www.example.eu'],
       username: 'example@europeana.eu',
       password: 'YOUR_TOKEN',
       serviceDeskId: '7',
@@ -22,7 +23,7 @@ const options = {
 };
 const middleware = serviceDesk(options);
 
-const mockRequest = (body = { feedback: 'Hello there, five word minimum :)' }) => ({ body });
+const mockRequest = (body = { feedback: 'Hello there, five word minimum :)', pageUrl: 'http://www.example.eu/en' }) => ({ body });
 const mockResponse = () => {
   const res = {};
   res.sendStatus = sinon.stub().returns(res);
@@ -66,7 +67,8 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
 
         it('uses full feedback for description field', async() => {
           const reqBody = {
-            feedback: 'Hello there, five word minimum :)'
+            feedback: 'Hello there, five word minimum :)',
+            pageUrl: 'http://www.example.eu/en'
           };
           const req = mockRequest(reqBody);
           const res = mockResponse();
@@ -79,7 +81,8 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
 
         it('responds with an error when the feedback is blank', async() => {
           const reqBody = {
-            feedback: ''
+            feedback: '',
+            pageUrl: 'http://www.example.eu/en'
           };
           const req = mockRequest(reqBody);
           const res = mockResponse();
@@ -91,7 +94,21 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
 
         it('responds with an error when the feedback is less than five words', async() => {
           const reqBody = {
-            feedback: 'only three words'
+            feedback: 'only three words',
+            pageUrl: 'http://www.example.eu/en'
+          };
+          const req = mockRequest(reqBody);
+          const res = mockResponse();
+
+          await middleware(req, res);
+          expect(res.status.calledWith(400)).toBe(true);
+          expect(res.send.calledWith('Invalid feedback.')).toBe(true);
+        });
+
+        it('responds with an error when the feedback is NOT from an allowed host', async() => {
+          const reqBody = {
+            feedback: 'Hello there, five word minimum :',
+            pageUrl: 'http://www.external.eu/en'
           };
           const req = mockRequest(reqBody);
           const res = mockResponse();
@@ -105,7 +122,8 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           const feedback = 'One,\r\nTwo,\r\nThree,\r\nFour,\r\nFive,\r\nSix,\r\nSeven,\r\nEight,\r\nNine,\r\nTen.';
           const summary = 'One, Two, Three, Four, Five, Six, Seven, Eight, Ni…';
           const reqBody = {
-            feedback
+            feedback,
+            pageUrl: 'http://www.example.eu/en'
           };
           const req = mockRequest(reqBody);
           const res = mockResponse();
@@ -119,7 +137,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
         it('includes custom fields when available', async() => {
           const reqBody = {
             feedback: 'Hello there, five word minimum :)',
-            pageUrl: 'www.example.eu',
+            pageUrl: 'http://www.example.eu',
             browser: 'Firefox',
             screensize: '1200 x 800'
           };
@@ -134,7 +152,8 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
 
         it('omits raiseOnBehalfOf if no email', async() => {
           const reqBody = {
-            feedback: 'Hello there, five word minimum :)'
+            feedback: 'Hello there, five word minimum :)',
+            pageUrl: 'http://www.example.eu/en'
           };
           const req = mockRequest(reqBody);
           const res = mockResponse();
@@ -148,6 +167,7 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
         it('includes raiseOnBehalfOf if email present', async() => {
           const reqBody = {
             feedback: 'Hello there, five word minimum :)',
+            pageUrl: 'http://www.example.eu/en',
             email: 'human@example.org'
           };
           const req = mockRequest(reqBody);

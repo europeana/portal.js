@@ -179,6 +179,7 @@ export default {
           password: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_PASSWORD || process.env.JIRA_API_PASSWORD,
           serviceDeskId: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_ID,
           requestTypeId: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_REQUEST_TYPE_ID,
+          allowedHosts: (process.env.FEEDBACK_ALLOWED_HOSTS || 'www.europeana.eu').split(','),
           customFields: {
             pageUrl: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_CUSTOM_FIELD_PAGE_URL,
             browser: process.env.JIRA_API_SERVICE_DESK_FEEDBACK_CUSTOM_FIELD_BROWSER,
