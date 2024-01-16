@@ -29,6 +29,7 @@
               :caption="$t('footer.findUsElsewhere')"
               :links="social"
             />
+            <hr class="mt-4 mb-1 w-100 d-lg-none">
           </b-col>
           <b-col
             sm="6"
@@ -70,12 +71,12 @@
             />
           </b-col>
           <b-col
+            v-if="showDebugLinkGroup"
             sm="6"
             lg="3"
             class="right-col pb-4  order-sm-4 order-lg-6"
           >
             <LinkGroup
-              v-if="showDebugLinkGroup"
               list-class="footer-link-list"
               link-class="footer-link"
               :caption="debugLinkGroup.name"
@@ -84,7 +85,7 @@
             />
           </b-col>
         </b-row>
-        <hr class="my-5">
+        <hr>
         <b-row>
           <b-col lg="6">
             <div class="sub-footer">

@@ -76,8 +76,8 @@
 
   .group-title {
     font-size: $font-size-small;
-    color: $paper;
-    margin-bottom: 0.75rem;
+    color: $bodygrey;
+    margin-bottom: 0.5rem;
 
     @media (min-width: $bp-wqhd) {
       font-size: 1.125rem;
@@ -94,6 +94,13 @@
 
   hr {
     border-top-color: $white;
+    margin-top: 0.75rem;
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-large) {
+      margin-top: 1.5rem;
+      margin-bottom: 3rem;
+    }
 
     @media (min-width: $bp-wqhd) {
       border-top-width: 2px;
@@ -138,10 +145,10 @@
 
       li {
         &:not(:last-child) {
-          margin-right: 0.5rem;
+          margin-right: 0.75rem;
 
           @media (min-width: $bp-wqhd) {
-            margin-right: 0.5em;
+            margin-right: 0.75em;
           }
         }
 
