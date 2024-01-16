@@ -791,13 +791,13 @@ export default {
       "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
-      "faq": "Frequently asked questions",
+      "faq": "Frequently Asked Questions (FAQ)",
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
       "provide": "Become a providing institution",
       "subscribe": "Subscribe to our newsletter",
-      "terms": "Terms of use"
+      "terms": "Terms & Policies"
     },
     "ourMission": "Our mission",
     "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation."
