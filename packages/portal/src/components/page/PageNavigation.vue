@@ -158,7 +158,7 @@
           className = 'icon-info';
           break;
         case ('/share-your-data'):
-          className = 'icon-pro';
+          className = 'icon-institution';
           break;
         default:
           className = 'icon-info blank';
@@ -234,7 +234,6 @@
         &::before {
           @extend %icon-font;
 
-          content: '';
           color: $greyblack;
           transition: $standard-transition;
           font-size: $font-size-large;
@@ -242,50 +241,6 @@
           @media (min-width: $bp-4k) {
             font-size: $font-size-large-4k;
           }
-        }
-
-        &.icon-home::before {
-          content: '\e922';
-        }
-
-        &.icon-collections::before {
-          content: '\e91d';
-        }
-
-        &.icon-pro::before {
-          content: '\e95a';
-        }
-
-        &.icon-school::before {
-          content: '\e952';
-        }
-
-        &.icon-info::before {
-          content: '\e91f';
-        }
-
-        &.icon-help::before {
-          content: '\e94f';
-        }
-
-        &.icon-login::before {
-          content: '\e950';
-        }
-
-        &.icon-logout::before {
-          content: '\e950';
-        }
-
-        &.icon-settings::before {
-          content: '\e928';
-        }
-
-        &.icon-account::before {
-          content: '\e932';
-        }
-
-        &.icon-stories::before {
-          content: '\e951';
         }
 
         &.blank::before {
