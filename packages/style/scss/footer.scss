@@ -78,6 +78,7 @@
     font-size: $font-size-small;
     color: $bodygrey;
     margin-bottom: 0.5rem;
+    line-height: 1.5;
 
     @media (min-width: $bp-wqhd) {
       font-size: 1.125rem;
