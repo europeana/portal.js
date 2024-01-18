@@ -24,6 +24,10 @@
   content: '\e938';
 }
 
+.icon-account::before {
+  content: '\e932';
+}
+
 .icon-add::before {
   content: '\e904'
 }
@@ -54,6 +58,10 @@
 
 .icon-clear::before {
   content: '\e903';
+}
+
+.icon-collections::before {
+  content: '\e91d';
 }
 
 .icon-ic-download::before {
@@ -92,6 +100,14 @@
   content: '\e9da';
 }
 
+.icon-help::before {
+  content: '\e94f';
+}
+
+.icon-home::before {
+  content: '\e922';
+}
+
 .icon-info::before {
   content: '\e91f';
 }
@@ -102,6 +118,10 @@
 
 .icon-instagram::before {
   content: '\e909';
+}
+
+.icon-institution::before {
+  content: '\e95a';
 }
 
 .icon-language::before {
@@ -124,6 +144,14 @@
   content: '\e92d';
 }
 
+.icon-login::before {
+  content: '\e950';
+}
+
+.icon-logout::before {
+  content: '\e950';
+}
+
 .icon-pinterest::before {
   content: '\e908';
 }
@@ -136,12 +164,24 @@
   content: '\e939';
 }
 
+.icon-settings::before {
+  content: '\e928';
+}
+
+.icon-school::before {
+  content: '\e952';
+}
+
 .icon-search::before {
   content: '\e92b';
 }
 
 .icon-share::before {
   content: '\e925';
+}
+
+.icon-stories::before {
+  content: '\e951';
 }
 
 .icon-ic-tag::before {
