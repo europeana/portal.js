@@ -15,6 +15,7 @@
         :info="item.info"
         :label="item.label"
         class="px-1 px-md-3"
+        variant="dark"
       />
     </div>
   </div>

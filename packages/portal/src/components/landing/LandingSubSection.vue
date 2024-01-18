@@ -1,36 +1,38 @@
 <template>
-  <b-container>
-    <div class="header mx-auto text-center text-lg-left">
-      <h2>
-        {{ title }}
-      </h2>
-      <!-- eslint-disable vue/no-v-html -->
+  <div class="landing-sub-section">
+    <b-container>
+      <div class="header mx-auto text-center text-lg-left">
+        <h2>
+          {{ title }}
+        </h2>
+        <!-- eslint-disable vue/no-v-html -->
+        <div
+          v-if="text"
+          class="text mb-3"
+          v-html="parseMarkdownHtml(text)"
+        />
+        <!-- eslint-enable vue/no-v-html -->
+      </div>
       <div
-        v-if="text"
-        class="text mb-3"
-        v-html="parseMarkdownHtml(text)"
-      />
-    <!-- eslint-enable vue/no-v-html -->
-    </div>
-    <div
-      v-for="(section, index) in sections"
-      :key="index"
-    >
-      <LandingAutomatedCardGroup
-        v-if="contentType(section, 'AutomatedCardGroup')"
-        :genre="section.genre"
-        :static-items="section.staticItems"
-      />
-      <LandingInfoCardGroup
-        v-if="contentType(section, 'InfoCardGroup')"
-        :class="LandingInfoCardGroupClass"
-        :title="section.name"
-        title-tag="h3"
-        :text="section.text"
-        :info-cards="section.hasPartCollection && section.hasPartCollection.items"
-      />
-    </div>
-  </b-container>
+        v-for="(section, index) in sections"
+        :key="index"
+      >
+        <LandingAutomatedCardGroup
+          v-if="contentType(section, 'AutomatedCardGroup')"
+          :genre="section.genre"
+          :static-items="section.staticItems"
+        />
+        <LandingInfoCardGroup
+          v-if="contentType(section, 'InfoCardGroup')"
+          :class="LandingInfoCardGroupClass"
+          :title="section.name"
+          title-tag="h3"
+          :text="section.text"
+          :info-cards="section.hasPartCollection && section.hasPartCollection.items"
+        />
+      </div>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -86,6 +88,10 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
+
+  .landing-sub-section {
+    background-color: $bodygrey;
+  }
 
   .container {
     padding-top: 3.75rem;
