@@ -71,7 +71,6 @@
   @import '@europeana/style/scss/variables';
 
   .image-card-group {
-    background-color: $bodygrey;
     border-bottom: 1px solid $bodygrey;
   }
 
