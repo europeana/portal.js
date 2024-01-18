@@ -4,18 +4,19 @@
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
-      class="image-wrapper"
+      class="image-wrapper d-lg-flex align-items-center"
     >
       <ImageWithAttribution
         class="image"
+        :class="{ 'svg-image': isSVG }"
         :alt="cardImageWithAttribution.image.description || ''"
         :src="cardImageWithAttribution.image.url"
         :width="612"
         :height="365"
         :content-type="cardImageWithAttribution.image.contentType"
         :attribution="cardImageWithAttribution"
-        :image-srcset="imageSrcset(cardImageWithAttribution.image)"
-        :image-sizes="imageSizes"
+        :image-srcset="!isSVG && imageSrcset(cardImageWithAttribution.image)"
+        :image-sizes="!isSVG && imageSizes"
       />
     </div>
     <div class="text-wrapper">
@@ -79,6 +80,9 @@
     computed: {
       cardImageWithAttribution() {
         return this.card.image;
+      },
+      isSVG() {
+        return this.cardImageWithAttribution.image.contentType === 'image/svg+xml';
       }
     },
 
@@ -108,7 +112,6 @@
         .text-wrapper {
           order: -1;
           padding: 5rem 3.625rem 5rem 6rem;
-          clip-path: polygon(95px 0, 100% 0, 100% 100%, 0 100%, 0 calc(100% - 209px));
         }
       }
     }
@@ -131,7 +134,6 @@
         justify-content: center;
         background-color: $white;
         padding: 5rem 6rem 5rem 3.625rem;
-        clip-path: polygon(0% 0%, calc(100% - 95px) 0, 100% calc(100% - 209px), 100% 100%, 0 100%);
       }
     }
 
@@ -141,6 +143,16 @@
 
       img {
         height: 100%;
+      }
+    }
+
+    figure.svg-image {
+      width: 100%;
+      height: auto;
+
+      ::v-deep img {
+        width: 100%;
+        height: auto;
       }
     }
 
