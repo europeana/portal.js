@@ -323,7 +323,7 @@ export default {
         "sport": "Sport",
         "ww1": "Erster Weltkrieg"
       },
-      "select": "Ein thema auswählen"
+      "select": "Ein Thema auswählen"
     },
     "COLOURPALETTE": {
       "moreName": "Farben",
