@@ -15,8 +15,8 @@
         :height="365"
         :content-type="cardImageWithAttribution.image.contentType"
         :attribution="cardImageWithAttribution"
-        :image-srcset="!isSVG && imageSrcset(cardImageWithAttribution.image)"
-        :image-sizes="!isSVG && imageSizes"
+        :image-srcset="isSVG ? null : imageSrcset(cardImageWithAttribution.image)"
+        :image-sizes="isSVG ? null : imageSizes"
       />
     </div>
     <div class="text-wrapper">
