@@ -179,8 +179,10 @@
 
 <docs lang="md">
   ```jsx
-    <LandingAutomatedCardGroup
-      :staticItems="[ { info: '16,000 +', label: 'Visits per day' }, { info: '57,000,000 +', label: 'Items' }, { info: '2,600 +', label: 'Providing institutions' } ]"
-    />
+    <div style="background-color: #ededed; margin: -16px; padding: 16px;">
+      <LandingAutomatedCardGroup
+        :staticItems="[ { info: '16,000 +', label: 'Visits per day' }, { info: '57,000,000 +', label: 'Items' }, { info: '2,600 +', label: 'Providing institutions' } ]"
+      />
+    </div>
   ```
 </docs>
