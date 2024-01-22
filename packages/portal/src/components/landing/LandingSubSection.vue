@@ -183,6 +183,10 @@
         @media (min-width: $bp-4k) {
           max-width: calc(1.5 * 127px);
         }
+
+        img {
+          mix-blend-mode: multiply; // fixes logo img with white background
+        }
       }
     }
   }
