@@ -213,6 +213,15 @@ export default {
     "left": "Ezkerra",
     "right": "Eskuma"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kultura ondarearen datu espazioa",
+    "header": {
+      "contributors": "Laguntzaileak",
+      "dataOffer": "Datu eskaintza",
+      "stayInTouch": "Kontaktuan jarraitu"
+    },
+    "logoAlt": "Kultura-ondarearen hasierako orrirako datu-espazioa"
+  },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
   "entity": {
     "actions": {
@@ -753,19 +762,20 @@ export default {
     "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
     "disclaimerLine2": "Europako Batzordeak ez du informazioaren zehaztasuna bermatzen eta ez du inolako erantzukizunik edo inolako erantzukizunik onartzen webgune honetako informazioari dagokionez. Ez Europako Batzordeak ez Europako Batzordearen izenean jarduten duen inor ez da erantzule edo erantzule egiten webgune honetako informazioaren zehaztasunaz edo erabileraz.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
+    "footer": "Orri-oin",
     "imageDescription": "Europar Batasunak finantzatua",
     "navigation": {
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
-      "faq": "Maiz Egindako Galderak",
+      "faq": "Maiz Egindako Galderak (MEG)",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
       "provide": "Bihurtu erakunde hornitzaile bat",
       "subscribe": "Harpidetu zaitez gure Buletinera",
-      "terms": "Erabilera baldintzak"
+      "terms": "Baldintzak eta politikak"
     },
     "ourMission": "Gure eginkizuna",
     "ourMissionQuote": "Europeanak kultura ondarearen sektorea sendotzen du haren eraldaketa digitalean. Aldaketa digitalarekin bat egiteko esperientzia, tresnak eta politikak garatzen ditugu eta berrikuntza bultzatzen duten lankidetzak sustatzen ditugu."
@@ -1123,7 +1133,7 @@ export default {
       "addToGallery": "Gehitu elementu hau galeria batera.",
       "create": "Sortu galeria",
       "createNew": "Sortu galeria berria",
-      "delete": "Bilduma ezabatu",
+      "delete": "Ezabatu galeria",
       "edit": "Editatu galeria",
       "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
       "update": "Eguneratu galeria"

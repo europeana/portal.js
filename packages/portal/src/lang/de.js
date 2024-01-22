@@ -209,6 +209,15 @@ export default {
     "left": "Links",
     "right": "Rechts"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Datenraum für kulturelles Erbe",
+    "header": {
+      "contributors": "Beitragende",
+      "dataOffer": "Datenangebot",
+      "stayInTouch": "Bleiben Sie in Kontakt"
+    },
+    "logoAlt": "Datenraum für das Kulturerbe Startseite"
+  },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana ist eine Initiative der Europäischen Union, die von der \"Connecting Europe Facility“ der Europäischen Union und den Mitgliedstaaten der Europäischen Union finanziert wird. Die Europeana-Dienste, einschließlich dieser Website, werden von einem Konsortium betrieben, das von der Europeana Foundation im Rahmen eines Dienstleistungsvertrags mit der Europäischen Kommission geführt wird.",
     "disclaimerLine2": "Die Europäische Kommission übernimmt keine Gewähr für die Richtigkeit der Informationen und übernimmt keinerlei Verantwortung oder Haftung für die Informationen auf dieser Website. Weder die Europäische Kommission noch eine Person, die im Namen der Europäischen Kommission handelt, ist für die Richtigkeit oder Verwendung der Informationen auf dieser Website verantwortlich oder haftbar.",
     "findUsElsewhere": "Finden Sie uns anderswo",
+    "footer": "Fußzeile",
     "imageDescription": "Finanziert von der Europäischen Union",
     "navigation": {
       "about": "Über (uns)",
       "accessibility": "Barrierefreiheit",
       "cookies": "Cookies",
-      "faq": "Häufig gestellte Fragen",
+      "faq": "Häufig gestellte Fragen (FAQ)",
       "forDevelopers": "Für Entwickler",
       "help": "Hilfe",
       "MoreInfoLabel": "Mehr Infos",
       "privacy": "Datenschutz-Bestimmungen",
       "provide": "Werden Sie Datenpartner",
       "subscribe": "Abonnieren Sie unseren Newsletter",
-      "terms": "Nutzungsbedingungen"
+      "terms": "Bedingungen und Richtlinien"
     },
     "ourMission": "Unser Auftrag",
     "ourMissionQuote": "Europeana befähigt den Sektor des kulturellen Erbes bei seiner digitalen Transformation. Wir entwickeln Fachwissen, Tools und Richtlinien, um den digitalen Wandel zu nutzen und Partnerschaften zu fördern, die Innovationen fördern."

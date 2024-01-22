@@ -209,6 +209,15 @@ export default {
     "left": "Esquerda",
     "right": "Direita"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Espaço de dados para património cultural",
+    "header": {
+      "contributors": "Contribuidores",
+      "dataOffer": "Oferta de dados",
+      "stayInTouch": "Mantenha contacto"
+    },
+    "logoAlt": "Espaço de dados para a página inicial do património cultural"
+  },
   "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana é uma iniciativa da União Europeia, financiada pelo Connecting Europe Facility da União Europeia e pelos Estados-Membros da União Europeia. Os serviços da Europeana, incluindo este site, são operados por um consórcio liderado pela Fundação Europeana ao abrigo de um contrato de serviços com a Comissão Europeia.",
     "disclaimerLine2": "A Comissão Europeia não garante a exactidão das informações e não aceita qualquer responsabilidade ou obrigação no que diz respeito às informações apresentadas neste site. Nem a Comissão Europeia, nem qualquer pessoa agindo em seu nome, é responsável pela exatidão ou pelo uso das informações contidas neste site.",
     "findUsElsewhere": "Encontre-nos em outro lugar",
+    "footer": "Rodapé",
     "imageDescription": "Financiado pela União Europeia",
     "navigation": {
       "about": "Acerca",
       "accessibility": "Acessibilidade",
       "cookies": "Cookies",
-      "faq": "Perguntas frequentes",
+      "faq": "Perguntas frequentes (FAQ)",
       "forDevelopers": "Para desenvolvedores",
       "help": "Ajuda",
       "MoreInfoLabel": "Mais informações",
       "privacy": "Política de Privacidade",
       "provide": "Torne-se uma instituição fornecedora",
       "subscribe": "Subscreva na nossa newsletter",
-      "terms": "Termos de uso"
+      "terms": "Termos e políticas"
     },
     "ourMission": "A Nossa missão",
     "ourMissionQuote": "A Europeana fortalece o setor do património cultural na sua transformação digital. Desenvolvemos conhecimento, ferramentas e políticas para abraçar a mudança digital e incentivar parcerias que promovam a inovação."

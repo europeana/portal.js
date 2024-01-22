@@ -209,6 +209,15 @@ export default {
     "left": "Xellug",
     "right": "Lemin"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Spazju tad-data għall-wirt kulturali",
+    "header": {
+      "contributors": "Kontributuri",
+      "dataOffer": "Offerta tad-dejta",
+      "stayInTouch": "Żomm f'kuntatt"
+    },
+    "logoAlt": "Spazju tad-data għall-paġna ewlenija tal-wirt kulturali"
+  },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
     "disclaimerLine2": "Il-Kummissjoni Ewropea ma tiggarantix l-eżattezza tal-informazzjoni u ma taċċetta l-ebda responsabbiltà jew responsabbiltà fir-rigward tal-informazzjoni f'dan il-websajt. La l-Kummissjoni Ewropea, u lanqas kwalunkwe persuna li taġixxi f'isem il-Kummissjoni Ewropea, ma hija responsabbli jew responsabbli għall-eżattezza jew l-użu tal-informazzjoni f'dan il-websajt.",
     "findUsElsewhere": "Sibna x'imkien ieħor",
+    "footer": "Footer",
     "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
     "navigation": {
       "about": "Dwarna",
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
-      "faq": "Mistoqsijiet frekwenti",
+      "faq": "Mistoqsijiet Frekwenti (FAQ)",
       "forDevelopers": "Għall-iżviluppaturi",
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Politika tar-privatezza",
       "provide": "Issir istituzzjoni fornitriċi",
       "subscribe": "Abbona għan-Newsletter tagħna",
-      "terms": "Termini tal-użu"
+      "terms": "Termini u Politiki"
     },
     "ourMission": "Il-missjoni tagħna",
     "ourMissionQuote": "Europeana tagħti s-setgħa lis-settur tal-wirt kulturali fit-trasformazzjoni diġitali tiegħu. Aħna niżviluppaw għarfien espert, għodod u politiki biex inħaddnu l-bidla diġitali u ninkoraġġixxu lis-sħubiji li jrawmu l-innovazzjoni."

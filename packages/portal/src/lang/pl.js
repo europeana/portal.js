@@ -209,6 +209,15 @@ export default {
     "left": "W lewo",
     "right": "W prawo"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Przestrzeń danych dla dziedzictwa kulturowego",
+    "header": {
+      "contributors": "Współtwórcy",
+      "dataOffer": "Oferta danych",
+      "stayInTouch": "Pozostać w kontakcie"
+    },
+    "logoAlt": "Strona główna przestrzeni danych dla dziedzictwa kulturowego"
+  },
   "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana jest inicjatywą Unii Europejskiej, finansowaną z unijnego Connecting Europe Facility oraz przez państwa członkowskie Unii Europejskiej. Usługi Europeany, w tym niniejsza strona internetowa, są prowadzone przez konsorcjum kierowane przez Fundację Europeana na podstawie umowy o świadczenie usług zawartej z Komisją Europejską.",
     "disclaimerLine2": "Komisja Europejska nie gwarantuje dokładności informacji i nie ponosi żadnej odpowiedzialności w odniesieniu do informacji na tej stronie internetowej. Ani Komisja Europejska, ani żadna osoba działająca w imieniu Komisji Europejskiej nie ponosi odpowiedzialności za dokładność lub wykorzystanie informacji na tej stronie internetowej.",
     "findUsElsewhere": "Znajdź nas w innych miejscach",
+    "footer": "Stopka",
     "imageDescription": "Finansowane przez Unię Europejską",
     "navigation": {
       "about": "O Europeana",
       "accessibility": "Dostępność",
       "cookies": "Pliki cookie",
-      "faq": "Najczęściej zadawane pytania",
+      "faq": "Często zadawane pytania (FAQ)",
       "forDevelopers": "Dla deweloperów",
       "help": "Pomoc",
       "MoreInfoLabel": "Więcej informacji",
       "privacy": "Polityka prywatności",
       "provide": "Zostań dostawca danych",
       "subscribe": "Zapisz się do naszego newslettera",
-      "terms": "Warunki korzystania"
+      "terms": "Warunki i zasady"
     },
     "ourMission": "Nasza misja",
     "ourMissionQuote": "Europeana wspiera sektor dziedzictwa kulturowego w jego transformacji cyfrowej. Rozwijamy wiedzę specjalistyczną, narzędzia i polityki, aby uwzględnić zmiany cyfrowe i zachęcać do partnerstwa wspierającego innowacje."

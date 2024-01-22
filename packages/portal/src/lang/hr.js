@@ -209,6 +209,15 @@ export default {
     "left": "Lijevo",
     "right": "Desno"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Prostor podataka za kulturnu baštinu",
+    "header": {
+      "contributors": "Doprinositelji",
+      "dataOffer": "Ponuda podataka",
+      "stayInTouch": "Ostanite u kontaktu"
+    },
+    "logoAlt": "Podatkovni prostor za početnu stranicu kulturne baštine"
+  },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
     "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
+    "footer": "Podnožje",
     "imageDescription": "Financira Europska unija",
     "navigation": {
       "about": "O nama",
       "accessibility": "Pristupačnost",
       "cookies": "Kolačići",
-      "faq": "Često postavljana pitanja",
+      "faq": "Često postavljana pitanja (FAQ)",
       "forDevelopers": "Za programere",
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
       "privacy": "Pravila o privatnosti",
       "provide": "Postanite pružanje institucija",
       "subscribe": "Pretplatite se na naš bilten",
-      "terms": "Uvjeti korištenja"
+      "terms": "Uvjeti i pravila"
     },
     "ourMission": "Naša misija",
     "ourMissionQuote": "Europeana osnažuje sektor kulturne baštine u svojoj digitalnoj transformaciji. Razvijamo stručnost, alate i politike kako bismo prihvatili digitalne promjene i potaknuli partnerstva koja potiču inovacije."
