@@ -209,6 +209,15 @@ export default {
     "left": "Sinistra",
     "right": "Destra"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Spazio dati per il patrimonio culturale",
+    "header": {
+      "contributors": "Collaboratori",
+      "dataOffer": "Offerta dati",
+      "stayInTouch": "Rimani in contatto"
+    },
+    "logoAlt": "Spazio dati per la pagina principale del patrimonio culturale"
+  },
   "edmIsShownAtLinkAlt": "Visualizza sul sito web del fornitore",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana è un'iniziativa dell'Unione europea, finanziata dal Connecting Europe Facility dell'Unione europea e dagli Stati membri dell'Unione europea. I servizi Europeana, compreso questo sito web, sono gestiti da un consorzio guidato dalla Fondazione Europeana nell'ambito di un contratto di servizio con la Commissione europea.",
     "disclaimerLine2": "La Commissione europea non garantisce l'accuratezza delle informazioni e non si assume alcuna responsabilità in merito alle informazioni contenute in questo sito web. Né la Commissione europea, né alcuna persona che agisce per conto della Commissione europea, è responsabile o obbligata per l'accuratezza o l'uso delle informazioni su questo sito web.",
     "findUsElsewhere": "Trovaci altrove",
+    "footer": "Piè di pagina",
     "imageDescription": "Finanziato dall'Unione Europea",
     "navigation": {
       "about": "Su di noi",
       "accessibility": "Accessibilità",
       "cookies": "Cookie",
-      "faq": "Domande frequenti",
+      "faq": "Domande frequenti (FAQ)",
       "forDevelopers": "Per sviluppatori",
       "help": "Aiuto",
       "MoreInfoLabel": "Maggiori informazioni",
       "privacy": "Informativa sulla privacy",
       "provide": "Diventa un fornitore di contenuti",
       "subscribe": "Iscriviti alla newsletter",
-      "terms": "Termini di utilizzo"
+      "terms": "Termini e politiche"
     },
     "ourMission": "La nostra missione",
     "ourMissionQuote": "Europeana sostiene il settore dei beni culturali nella sua trasformazione digitale. Sviluppiamo competenze, strumenti e strategie per accogliere i cambiamenti del mondo digitale e incoraggiare collaborazioni che promuovano l'innovazione."
