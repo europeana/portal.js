@@ -45,7 +45,10 @@ const validateHost = (host, allowedHosts) => {
 
 const validateFeedback = (requestBody, allowedHosts) => {
   return new Promise((resolve, reject) => {
-    if (validateFeedbackLength(requestBody.feedback) && validateHost(new URL(requestBody.pageUrl).host, allowedHosts)) {
+    if (!validateHost(new URL(requestBody.pageUrl).host, allowedHosts)) {
+      reject(createHttpError(403, 'Forbidden pageUrl.'));
+    }
+    else if (validateFeedbackLength(requestBody.feedback)) {
       resolve();
     } else {
       reject(createHttpError(400, 'Invalid feedback.'));

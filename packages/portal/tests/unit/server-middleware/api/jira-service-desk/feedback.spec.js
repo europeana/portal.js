@@ -114,8 +114,8 @@ describe('server-middleware/api/jira-service-desk/feedback', () => {
           const res = mockResponse();
 
           await middleware(req, res);
-          expect(res.status.calledWith(400)).toBe(true);
-          expect(res.send.calledWith('Invalid feedback.')).toBe(true);
+          expect(res.status.calledWith(403)).toBe(true);
+          expect(res.send.calledWith('Forbidden pageUrl.')).toBe(true);
         });
 
         it('truncates feedback to 50 characters in summary field, removing newlines', async() => {
