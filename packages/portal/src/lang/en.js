@@ -785,19 +785,20 @@ export default {
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
     "findUsElsewhere": "Find us elsewhere",
+    "footer": "Footer",
     "imageDescription": "Funded by the European Union",
     "navigation": {
       "MoreInfoLabel": "More Info",
       "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
-      "faq": "Frequently asked questions",
+      "faq": "Frequently Asked Questions (FAQ)",
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
       "provide": "Become a providing institution",
       "subscribe": "Subscribe to our newsletter",
-      "terms": "Terms of use"
+      "terms": "Terms & Policies"
     },
     "ourMission": "Our mission",
     "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation."
