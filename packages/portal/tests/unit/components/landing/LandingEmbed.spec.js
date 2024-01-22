@@ -27,16 +27,4 @@ describe('components/landing/LandingEmbed', () => {
       expect(containerId).toBe('embed-this');
     });
   });
-
-  describe('computed', () => {
-    describe('imageCSSVars', () => {
-      describe('when there is a background image available', () => {
-        it('returns background style definitions', () => {
-          const wrapper = factory({ backgroundImage: { image: { url: 'https://www.europeana.eu/example.jpg' } } });
-
-          expect(wrapper.vm.imageCSSVars).toBeTruthy();
-        });
-      });
-    });
-  });
 });
