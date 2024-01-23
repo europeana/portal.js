@@ -748,7 +748,7 @@ export default {
       "about": "À propos de RDF",
       "dcDescription": "Description",
       "ebucoreHasMimeType": "Type Ebucore MIME",
-      "edmRights": "Licence pour cette ressource média",
+      "edmRights": "Mentions de droit pour cette ressource médiatique",
       "rdfAbout": "À propos de RDF"
     }
   },

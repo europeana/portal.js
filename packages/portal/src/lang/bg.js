@@ -764,7 +764,7 @@ export default {
       "about": "За нас",
       "accessibility": "Достъпност",
       "cookies": "Бисквитки",
-      "faq": "Често задавани въпроси (ЧЗВ)",
+      "faq": "Често задавани въпроси (FAQ)",
       "forDevelopers": "За разработчици",
       "help": "Помощ",
       "MoreInfoLabel": "Повече информация",
