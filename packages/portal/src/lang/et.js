@@ -748,7 +748,7 @@ export default {
       "about": "RDF kohta",
       "dcDescription": "Kirjeldus",
       "ebucoreHasMimeType": "Ebucore MIME tüüp",
-      "edmRights": "Selle meediumiressursi litsents",
+      "edmRights": "Selle meediaressursi õiguste avaldus",
       "rdfAbout": "RDF kohta"
     }
   },
@@ -764,7 +764,7 @@ export default {
       "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
-      "faq": "Korduma kippuvad küsimused  (KKK)",
+      "faq": "Korduma kippuvad küsimused  (FAQ)",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",

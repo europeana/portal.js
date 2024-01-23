@@ -748,7 +748,7 @@ export default {
       "about": "RDF Névjegy",
       "dcDescription": "Leírás",
       "ebucoreHasMimeType": "Ebucore MIME típus",
-      "edmRights": "Licenc ehhez a média-erőforráshoz",
+      "edmRights": "Jogokról szóló nyilatkozat ehhez a médiaforráshoz",
       "rdfAbout": "RDF Névjegy"
     }
   },
@@ -764,7 +764,7 @@ export default {
       "about": "Rólunk",
       "accessibility": "Hozzáférhetőség",
       "cookies": "Sütik",
-      "faq": "Gyakran Ismételt Kérdések (GYIK)",
+      "faq": "Gyakran Ismételt Kérdések (FAQ)",
       "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "MoreInfoLabel": "További információ",

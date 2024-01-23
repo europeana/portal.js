@@ -764,7 +764,7 @@ export default {
       "about": "Apie mus",
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
-      "faq": "Dažnai užduodami klausimai (DUK)",
+      "faq": "Dažnai užduodami klausimai (FAQ)",
       "forDevelopers": "Programuotojams",
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",

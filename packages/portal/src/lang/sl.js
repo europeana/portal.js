@@ -748,7 +748,7 @@ export default {
       "about": "RDF o",
       "dcDescription": "Opis",
       "ebucoreHasMimeType": "Vrsta Ebucore MIME",
-      "edmRights": "Licenca za ta medijski vir",
+      "edmRights": "Pravice za ta medijski vir",
       "rdfAbout": "RDF o"
     }
   },
