@@ -102,9 +102,9 @@
     <client-only
       v-if="feedbackEnabled"
     >
-      <FeedbackWidget
-        data-qa="feedback widget"
-      />
+      <div id="europeana-feedback-widget"></div>
+      <script type="module" src="http://localhost:4173/europeana-feedback-widget.js"></script>
+      <link rel="stylesheet" href="http://localhost:4173/europeana-feedback-widget.css" />
     </client-only>
   </footer>
 </template>
@@ -118,8 +118,7 @@
     components: {
       LangSelector,
       LinkGroup,
-      EULogo,
-      FeedbackWidget: () => import('../feedback/FeedbackWidget')
+      EULogo
     },
 
     data() {
