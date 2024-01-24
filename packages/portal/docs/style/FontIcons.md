@@ -25,6 +25,11 @@ Example:
           <td><span class="icon icon-accept" /></td>
         </tr>
         <tr>
+          <td>Account</td>
+          <td><code>icon-account</code></td>
+          <td><span class="icon icon-account" /></td>
+        </tr>
+        <tr>
           <td>Add</td>
           <td><code>icon-add</code></td>
           <td><span class="icon icon-add" /></td>
@@ -63,6 +68,11 @@ Example:
           <td>Clear</td>
           <td><code>icon-clear</code></td>
           <td><span class="icon icon-clear" /></td>
+        </tr>
+        <tr>
+          <td>Collections</td>
+          <td><code>icon-collections</code></td>
+          <td><span class="icon icon-collections" /></td>
         </tr>
         <tr>
           <td>Download</td>
@@ -110,6 +120,16 @@ Example:
           <td><span class="icon icon-heart" /></td>
         </tr>
         <tr>
+          <td>Help</td>
+          <td><code>icon-help</code></td>
+          <td><span class="icon icon-help" /></td>
+        </tr>
+        <tr>
+          <td>Home</td>
+          <td><code>icon-home</code></td>
+          <td><span class="icon icon-home" /></td>
+        </tr>
+        <tr>
           <td>Info</td>
           <td><code>icon-info</code></td>
           <td><span class="icon icon-info" /></td>
@@ -123,6 +143,11 @@ Example:
           <td>Instagram</td>
           <td><code>icon-instagram</code></td>
           <td><span class="icon icon-instagram" /></td>
+        </tr>
+        <tr>
+          <td>Institution</td>
+          <td><code>icon-institution</code></td>
+          <td><span class="icon icon-institution" /></td>
         </tr>
         <tr>
           <td>Language</td>
@@ -150,6 +175,16 @@ Example:
           <td><span class="icon icon-lock" /></td>
         </tr>
         <tr>
+          <td>Login</td>
+          <td><code>icon-login</code></td>
+          <td><span class="icon icon-login" /></td>
+        </tr>
+        <tr>
+          <td>Logout</td>
+          <td><code>icon-logout</code></td>
+          <td><span class="icon icon-logout" /></td>
+        </tr>
+        <tr>
           <td>Pinterest</td>
           <td><code>icon-pinterest</code></td>
           <td><span class="icon icon-pinterest" /></td>
@@ -165,14 +200,29 @@ Example:
           <td><span class="icon icon-reject" /></td>
         </tr>
         <tr>
+          <td>School</td>
+          <td><code>icon-school</code></td>
+          <td><span class="icon icon-school" /></td>
+        </tr>
+        <tr>
           <td>Search</td>
           <td><code>icon-search</code></td>
           <td><span class="icon icon-search" /></td>
         </tr>
         <tr>
+          <td>Settings</td>
+          <td><code>icon-settings</code></td>
+          <td><span class="icon icon-settings" /></td>
+        </tr>
+        <tr>
           <td>Share</td>
           <td><code>icon-share</code></td>
           <td><span class="icon icon-share" /></td>
+        </tr>
+        <tr>
+          <td>Stories</td>
+          <td><code>icon-stories</code></td>
+          <td><span class="icon icon-stories" /></td>
         </tr>
         <tr>
           <td>Tag</td>

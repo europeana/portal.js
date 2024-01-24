@@ -209,6 +209,15 @@ export default {
     "left": "Vľavo",
     "right": "Vpravo"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Dátový priestor pre kultúrne dedičstvo",
+    "header": {
+      "contributors": "Prispievatelia",
+      "dataOffer": "Ponuka dát",
+      "stayInTouch": "Zostať v kontakte"
+    },
+    "logoAlt": "Dátový priestor pre domovskú stránku kultúrneho dedičstva"
+  },
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
     "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
+    "footer": "Pätička",
     "imageDescription": "Financované Európskou úniou",
     "navigation": {
       "about": "O nás",
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
-      "faq": "Často kladené otázky",
+      "faq": "Často kladené otázky (FAQ)",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Zásady ochrany osobných údajov",
       "provide": "Staňte sa správcovská inštitúcia",
       "subscribe": "Prihláste sa k odberu nášho newslettera",
-      "terms": "Podmienky používania"
+      "terms": "Podmienky a zásady"
     },
     "ourMission": "Náš cieľ",
     "ourMissionQuote": "Europeana posilňuje digitálnu transformáciu odvetvia kultúrneho dedičstva. Rozvíjame odborné znalosti, nástroje a zásady na prijímanie digitálnych zmien a nadväzujeme partnerstvá, ktoré sú založené na inovácii."
@@ -974,7 +984,7 @@ export default {
         "name": "Meno"
       },
       "times": {
-        "title": "Krát"
+        "title": "Storočia"
       },
       "topics": {
         "title": "Témy"

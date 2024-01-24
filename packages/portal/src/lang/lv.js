@@ -209,6 +209,15 @@ export default {
     "left": "Kreisais",
     "right": "Labais"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kultūras mantojuma datu telpa",
+    "header": {
+      "contributors": "Līdzstrādātāji",
+      "dataOffer": "Datu piedāvājums",
+      "stayInTouch": "Saglabājiet kontaktu"
+    },
+    "logoAlt": "Datu telpa kultūras mantojuma mājas lapai"
+  },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
     "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
+    "footer": "Kājene",
     "imageDescription": "Finansē Eiropas Savienība",
     "navigation": {
       "about": "Par Europeana",
       "accessibility": "Pieejamība",
       "cookies": "Sīkdatnes",
-      "faq": "Bieži uzdotie jautājumi",
+      "faq": "Bieži uzdotie jautājumi (FAQ)",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Privātuma politika",
       "provide": "Kļūsti piegādājošā iestāde",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
-      "terms": "Lietošanas noteikumi"
+      "terms": "Noteikumi un politikas"
     },
     "ourMission": "Mūsu misija",
     "ourMissionQuote": "Europeana nodrošina iespējas kultūras mantojuma nozarei tās digitālajā pārveidē. Mēs izstrādājam zināšanas, instrumentus un politikas virzienus, lai atbalstītu digitālās izmaiņas un veicinātu partnerības, kas veicina jauninājumus."
@@ -974,7 +984,7 @@ export default {
         "name": "Vārds"
       },
       "times": {
-        "title": "Laiki"
+        "title": "Gadsimtiem"
       },
       "topics": {
         "title": "Tematikas"

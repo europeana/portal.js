@@ -1,12 +1,13 @@
 <template>
   <div>
-    <div
-      v-if="caption"
+    <component
+      :is="titleTag"
+      v-if="title"
       class="group-title text-uppercase font-weight-bold"
-      data-qa="link group caption"
+      data-qa="link group title"
     >
-      {{ caption }}
-    </div>
+      {{ title }}
+    </component>
     <ul
       class="m-0 p-0"
       data-qa="link group links"
@@ -53,11 +54,18 @@
 
     props: {
       /**
-       * Caption of the link group
+       * Title of the link group
        */
-      caption: {
+      title: {
         type: String,
         default: ''
+      },
+      /**
+       * HTML tag element to use for the title
+       */
+      titleTag: {
+        type: String,
+        default: 'h3'
       },
 
       /**
@@ -96,22 +104,10 @@
 </script>
 
 <docs lang="md">
-  Variant without caption
   ```jsx
   <LinkGroup
-    :links="[{ 'url': '/help', 'text': 'Help' }, { 'url': '/rights', 'text': 'Terms of use' }]"
-    linkClass="footer-link"
-    listClass="footer-link-list"
-  />
-  ```
-
-  Variant with caption
-  ```jsx
-  <LinkGroup
-    caption="This is a link group"
-    :links="[{ 'url': '/help', 'text': 'Help' }, { 'url': '/rights', 'text': 'Terms of use' }]"
-    linkClass="footer-link"
-    listClass="footer-link-list"
+    title="This title is optional"
+    :links="[{ url: '/help', text: 'Help' }, { url: '/rights', text: 'Terms of use' }]"
   />
   ```
 </docs>

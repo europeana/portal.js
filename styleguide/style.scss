@@ -1,6 +1,5 @@
-.icon {
-  font-size: 2rem;
-}
+@import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/tabs';
 
 table {
   thead th {
@@ -12,5 +11,9 @@ table {
     padding: 1.125rem 1rem;
     border-top: 1px solid #d8d8d8;
     vertical-align: middle;
+  }
+
+  .icon {
+    font-size: 2rem;
   }
 }

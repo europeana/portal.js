@@ -209,6 +209,15 @@ export default {
     "left": "Kairė",
     "right": "Dešinė"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kultūros paveldo duomenų erdvė",
+    "header": {
+      "contributors": "Įnešėjai",
+      "dataOffer": "Duomenų pasiūlymas",
+      "stayInTouch": "Išlikti susisiekę"
+    },
+    "logoAlt": "Kultūros paveldo namų puslapio duomenų erdvė"
+  },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
     "disclaimerLine2": "Europos Komisija negarantuoja informacijos tikslumo ir neprisiima jokios atsakomybės ar atsakomybės už šioje svetainėje pateiktą informaciją. Nei Europos Komisija, nei joks asmuo, veikiantis Europos Komisijos vardu, nėra atsakingas už šioje svetainėje esančios informacijos tikslumą ar naudojimą.",
     "findUsElsewhere": "Raskite mus kitur",
+    "footer": "Poraštė",
     "imageDescription": "Finansuoja Europos Sąjunga",
     "navigation": {
       "about": "Apie mus",
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
-      "faq": "Dažnai užduodami klausimai",
+      "faq": "Dažnai užduodami klausimai (FAQ)",
       "forDevelopers": "Programuotojams",
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
       "provide": "Tapkite teikėjas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
-      "terms": "Naudotojo sąlygos"
+      "terms": "Sąlygos ir politika"
     },
     "ourMission": "Mūsų misija",
     "ourMissionQuote": "„Europeana“ suteikia kultūros paveldo sektoriui skaitmeninimo galimybes. Rengiame žinias, įrankius ir politikas, skatinančias skaitmeninius pokyčius bei partnerystes, kurios spartina inovacijas."
@@ -974,7 +984,7 @@ export default {
         "name": "Vardas"
       },
       "times": {
-        "title": "Laikai"
+        "title": "Šimtmečiai"
       },
       "topics": {
         "title": "Potemė"

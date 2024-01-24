@@ -209,6 +209,15 @@ export default {
     "left": "Doleva",
     "right": "Doprava"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Datový prostor pro kulturní dědictví",
+    "header": {
+      "contributors": "Přispěvatelé",
+      "dataOffer": "Nabídka dat",
+      "stayInTouch": "Zůstaňte v kontaktu"
+    },
+    "logoAlt": "Datový prostor pro domovskou stránku kulturního dědictví"
+  },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana je iniciativa Evropské unie financovaná z Nástroje pro propojení Evropy a z prostředků členských států Evropské unie. Služby Europeany, včetně těchto webových stránek, provozuje konsorcium vedené nadací Europeana Foundation na základě smlouvy o poskytování služeb s Evropskou komisí.",
     "disclaimerLine2": "Evropská komise nezaručuje přesnost informací a nepřijímá žádnou odpovědnost ani žádnou odpovědnost, pokud jde o informace na této webové stránce. Evropská komise ani žádná osoba jednající jejím jménem nenese odpovědnost ani odpovědnost za přesnost nebo použití informací na tomto webu.",
     "findUsElsewhere": "Najděte nás jinde",
+    "footer": "Zápatí",
     "imageDescription": "Financováno Evropskou unií",
     "navigation": {
       "about": "O nás",
       "accessibility": "Přístupnost",
       "cookies": "Cookies",
-      "faq": "Často kladené dotazy",
+      "faq": "Často kladené dotazy (FAQ)",
       "forDevelopers": "Pro vývojáře",
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",
       "privacy": "Zásady ochrany osobních údajů",
       "provide": "Staňte se poskytující instituce",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
-      "terms": "Podmínky použití"
+      "terms": "Podmínky a zásady"
     },
     "ourMission": "Naše mise",
     "ourMissionQuote": "Europeana umožňuje převod předmětů kulturního dědictví do digitální podoby. Rozvíjíme odbornou způsobilost, nástroje a pravidla digitální přeměny a podporujeme partnerství, která urychlují inovace."
@@ -974,7 +984,7 @@ export default {
         "name": "Název"
       },
       "times": {
-        "title": "Časy"
+        "title": "Století"
       },
       "topics": {
         "title": "Tématy"

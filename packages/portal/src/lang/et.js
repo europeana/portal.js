@@ -209,6 +209,15 @@ export default {
     "left": "Vasak",
     "right": "Parem"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kultuuripärandi andmeruum",
+    "header": {
+      "contributors": "Panustajad",
+      "dataOffer": "Andmepakkumine",
+      "stayInTouch": "Hoidke ühendust"
+    },
+    "logoAlt": "Andmepaik kultuuripärandi avaleht"
+  },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "entity": {
     "actions": {
@@ -739,7 +748,7 @@ export default {
       "about": "RDF kohta",
       "dcDescription": "Kirjeldus",
       "ebucoreHasMimeType": "Ebucore MIME tüüp",
-      "edmRights": "Selle meediumiressursi litsents",
+      "edmRights": "Selle meediaressursi õiguste avaldus",
       "rdfAbout": "RDF kohta"
     }
   },
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
     "disclaimerLine2": "Euroopa Komisjon ei taga teabe õigsust ega võta mingit vastutust sellel veebisaidil oleva teabe eest. Euroopa Komisjon ega ükski Euroopa Komisjoni nimel tegutsev isik ei vastuta ega vastuta sellel veebisaidil oleva teabe õigsuse ega kasutamise eest.",
     "findUsElsewhere": "Leidke meid mujalt",
+    "footer": "Jalus",
     "imageDescription": "Rahastab Euroopa Liit",
     "navigation": {
       "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
-      "faq": "Korduma kippuvad küsimused",
+      "faq": "Korduma kippuvad küsimused  (FAQ)",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
       "provide": "Hakka pakkuvaks asutuseks",
       "subscribe": "Telli meie uudiskiri",
-      "terms": "Kasutustingimused"
+      "terms": "Tingimused ja eeskirjad"
     },
     "ourMission": "Meie missioon",
     "ourMissionQuote": "Europeana annab kultuuripärandisektorile digitaalse ümberkujundamise võimaluse. Arendame teadmisi, tööriistu ja poliitikaid, et omaks võtta digitaalsed muutused ja julgustada partnerlussuhteid, mis edendavad innovatsiooni."
@@ -974,7 +984,7 @@ export default {
         "name": "Nimi"
       },
       "times": {
-        "title": "Korda"
+        "title": "Sajandeid"
       },
       "topics": {
         "title": "Teemad"

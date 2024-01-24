@@ -209,6 +209,15 @@ export default {
     "left": "Vänster",
     "right": "Höger"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Datautrymme för kulturarv",
+    "header": {
+      "contributors": "Bidragsgivare",
+      "dataOffer": "Data Erbjudande",
+      "stayInTouch": "Håll kontakten"
+    },
+    "logoAlt": "Datautrymme för kulturarvets hemsida"
+  },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
     "disclaimerLine2": "Europeiska kommissionen garanterar inte att informationen är korrekt och tar inget ansvar för informationen på denna webbplats. Varken Europeiska kommissionen eller någon person som agerar på Europeiska kommissionens vägnar är ansvarig för att informationen på denna webbplats är korrekt eller används.",
     "findUsElsewhere": "Hitta oss någon annanstans",
+    "footer": "Sidfot",
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
       "about": "Om",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
-      "faq": "Vanliga frågor",
+      "faq": "Vanliga frågor (FAQ)",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
       "provide": "Bli en tillhandahållande institution",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
-      "terms": "Användarvillkor"
+      "terms": "Villkor och policyer"
     },
     "ourMission": "Vårt uppdrag",
     "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omvandlingen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
@@ -974,7 +984,7 @@ export default {
         "name": "Namn"
       },
       "times": {
-        "title": "Tider"
+        "title": "Århundraden"
       },
       "topics": {
         "title": "Ämnen"

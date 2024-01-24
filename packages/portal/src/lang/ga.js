@@ -209,6 +209,15 @@ export default {
     "left": "Ar chlé",
     "right": "Ar dheis"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Spás sonraí don oidhreacht chultúrtha",
+    "header": {
+      "contributors": "Rannpháirtithe",
+      "dataOffer": "Tairiscint Sonraí",
+      "stayInTouch": "Fan i dteagmháil"
+    },
+    "logoAlt": "Spás sonraí do leathanach baile oidhreachta cultúir"
+  },
   "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Is tionscnamh de chuid an Aontais Eorpaigh é Europeana, arna mhaoiniú ag Saoráid Nascadh na hEorpa agus Ballstáit an Aontais Eorpaigh. Is iad cuibhreannas faoi stiúir Fhondúireacht Europeana a oibríonn seirbhísí Europeana, an láithreán gréasáin seo san áireamh, faoi chonradh seirbhíse leis an gCoimisiún Eorpach.",
     "disclaimerLine2": "Ní ráthaíonn an Coimisiún Eorpach cruinneas na faisnéise agus ní ghlacann sé aon fhreagracht ná dliteanas ar bith maidir leis an bhfaisnéis ar an suíomh Gréasáin seo. Níl an Coimisiún Eorpach, ná aon duine atá ag gníomhú thar ceann an Choimisiúin Eorpaigh, freagrach ná faoi dhliteanas as cruinneas nó úsáid na faisnéise ar an suíomh Gréasáin seo.",
     "findUsElsewhere": "Aimsigh muid áit eile",
+    "footer": "Buntásc",
     "imageDescription": "Maoinithe ag an Aontas Eorpach",
     "navigation": {
       "about": "Maidir linn",
       "accessibility": "Inrochtaineacht",
       "cookies": "Fianáin",
-      "faq": "Ceisteanna Coitianta",
+      "faq": "Ceisteanna Coitianta (FAQ)",
       "forDevelopers": "Do fhorbróirí",
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",
       "privacy": "Beartas Príobháideachais",
       "provide": "Bí i d'institiúid sholáthartha",
       "subscribe": "Liostáil lenár Nuachtlitir",
-      "terms": "Tearmaí Seirbhís"
+      "terms": "Téarmaí & Beartais"
     },
     "ourMission": "Ár misean",
     "ourMissionQuote": "Tugann Europeana cumhacht don earnáil oidhreachta cultúrtha tabhairt faoin gclaochlú digiteach. Forbraímid saineolas, uirlisí agus beartais chun glacadh leis an athrú digiteach agus spreagaimid comhpháirtíochtaí a chothaíonn an nuálaíocht."
@@ -974,7 +984,7 @@ export default {
         "name": "Ainm"
       },
       "times": {
-        "title": "Amanna"
+        "title": "Céadta"
       },
       "topics": {
         "title": "Ábhair"

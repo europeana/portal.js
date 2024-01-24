@@ -209,6 +209,15 @@ export default {
     "left": "Links",
     "right": "Rechts"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Dataruimte voor cultureel erfgoed",
+    "header": {
+      "contributors": "Bijdragers",
+      "dataOffer": "Data-aanbod",
+      "stayInTouch": "Houd contact"
+    },
+    "logoAlt": "Data ruimte voor cultureel erfgoed homepagina"
+  },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
     "disclaimerLine2": "De Europese Commissie staat niet in voor de juistheid van de informatie en aanvaardt geen enkele verantwoordelijkheid of aansprakelijkheid met betrekking tot de informatie op deze website. Noch de Europese Commissie, noch enige persoon die namens de Europese Commissie handelt, is verantwoordelijk of aansprakelijk voor de juistheid of het gebruik van de informatie op deze website.",
     "findUsElsewhere": "Vind ons ergens anders",
+    "footer": "Voettekst",
     "imageDescription": "Gefinancierd door de Europese Unie",
     "navigation": {
       "about": "Over ons",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
-      "faq": "Veelgestelde vragen",
+      "faq": "Veelgestelde vragen (FAQ)",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacybeleid",
       "provide": "Word een deelnemende erfgoedorganisatie",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
-      "terms": "Gebruiksvoorwaarden"
+      "terms": "Voorwaarden en beleid"
     },
     "ourMission": "Onze missie",
     "ourMissionQuote": "Europeana ondersteunt de sector cultureel erfgoed bij haar digitale transformatie. We ontwikkelen expertise, tools en beleid om digitale verandering te omarmen en partnerschappen aan te moedigen die innovatie stimuleren."
@@ -974,7 +984,7 @@ export default {
         "name": "Naam"
       },
       "times": {
-        "title": "Tijden"
+        "title": "Eeuwen"
       },
       "topics": {
         "title": "Onderwerpen"

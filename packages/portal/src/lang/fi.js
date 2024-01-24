@@ -209,6 +209,15 @@ export default {
     "left": "Vasen",
     "right": "Oikea"
   },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kulttuuriperinnön datatila",
+    "header": {
+      "contributors": "Osallistujat",
+      "dataOffer": "Data tarjous",
+      "stayInTouch": "Pidä yhteyttä"
+    },
+    "logoAlt": "Kulttuuriperinnön data-avaruuden kotisivu"
+  },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
   "entity": {
     "actions": {
@@ -749,19 +758,20 @@ export default {
     "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
     "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
+    "footer": "Alatunniste",
     "imageDescription": "Euroopan unionin rahoittama",
     "navigation": {
       "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
-      "faq": "Usein kysytyt kysymykset",
+      "faq": "Usein kysytyt kysymykset (FAQ)",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojakäytäntö",
       "provide": "Ryhdy aineiston tarjoaja",
       "subscribe": "Tilaa uutiskirjeemme",
-      "terms": "Käyttöehdot"
+      "terms": "Ehdot ja käytännöt"
     },
     "ourMission": "Tehtävämme",
     "ourMissionQuote": "Europeana edesauttaa kulttuuriperinnön digitaalista muodonmuutosta. Kehitämme asiantuntemusta, välineitä ja menettelytapoja digitaalisen muutoksen omaksumiseksi ja kannustamme innovaatioita edistäviä kumppanuuksia."
@@ -974,7 +984,7 @@ export default {
         "name": "Nimi"
       },
       "times": {
-        "title": "aika"
+        "title": "Vuosisadat"
       },
       "topics": {
         "title": "Aiheet"
