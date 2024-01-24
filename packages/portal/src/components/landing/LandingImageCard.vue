@@ -4,7 +4,7 @@
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
-      class="image-wrapper d-lg-flex align-items-center"
+      class="image-wrapper d-lg-flex align-items-end"
     >
       <ImageWithAttribution
         class="image"
@@ -102,16 +102,22 @@
 
     @media (min-width: $bp-medium) {
       max-width: 510px;
+      align-items: flex-end;
     }
 
     @media (min-width: $bp-large) {
       max-width: 1250px;
-      margin-bottom: 4.625rem;
+      margin-bottom: 8rem;
 
       &:nth-child(even) {
         .text-wrapper {
           order: -1;
-          padding: 5rem 3.625rem 5rem 6rem;
+          padding-right: 3.625rem;
+          padding-left: 2rem;
+
+          @media (min-width: $bp-extralarge) {
+            padding-left: 6rem;
+          }
         }
       }
     }
@@ -131,9 +137,22 @@
         flex: 0 0 51%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-end;
         background-color: $white;
-        padding: 5rem 6rem 5rem 3.625rem;
+        padding-left: 3.625rem;
+        padding-right: 2rem;
+      }
+
+      @media (min-width: $bp-extralarge) {
+        padding-right: 6rem;
+      }
+
+      @media (min-width: $bp-xxl) {
+        padding-bottom: 1rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        padding-bottom: 3rem;
       }
     }
 
