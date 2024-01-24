@@ -768,7 +768,7 @@ export default {
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
-      "faq": "Maiz Egindako Galderak (MEG)",
+      "faq": "Maiz Egindako Galderak (FAQ)",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",

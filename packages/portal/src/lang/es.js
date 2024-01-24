@@ -635,7 +635,7 @@ export default {
       "select": "Seleccionar tipos"
     },
     "proxy_dcterms_issued": {
-      "name": "Fecha de publicación"
+      "name": "Fecha de emisión"
     },
     "proxy_dcterms_medium": {
       "name": "Mediano",
