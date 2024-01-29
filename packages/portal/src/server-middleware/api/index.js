@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import defu  from 'defu';
 import apm from 'elastic-apm-node';
 import logging from '../logging.js';
@@ -7,6 +8,7 @@ const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
 app.use(express.json());
 app.use(logging);
+app.options('*', cors()); // pre-flight requests
 
 import nuxtConfig from '../../../nuxt.config.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
@@ -40,7 +42,10 @@ import eventViews from './events/views.js';
 app.get('/events/views', eventViews(runtimeConfig.postgres));
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
-app.post('/jira-service-desk/feedback', jiraServiceDeskFeedback(runtimeConfig.jira));
+app.post('/jira-service-desk/feedback',
+  cors(runtimeConfig.app.feedback.cors),
+  jiraServiceDeskFeedback(runtimeConfig.jira)
+);
 
 import jiraServiceDeskGalleries from './jira-service-desk/galleries.js';
 app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(runtimeConfig.jira));

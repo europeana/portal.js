@@ -106,9 +106,19 @@
     <client-only
       v-if="feedbackEnabled"
     >
-      <div id="europeana-feedback-widget"></div>
-      <script type="module" src="http://localhost:4173/europeana-feedback-widget.js"></script>
-      <link rel="stylesheet" href="http://localhost:4173/europeana-feedback-widget.css" />
+      <div
+        id="europeana-feedback-widget"
+        data-api-url="/_api/jira-service-desk/feedback"
+        :data-locale="$i18n.locale"
+      />
+      <script
+        type="module"
+        src="http://localhost:4173/europeana-feedback-widget.js"
+      />
+      <link
+        rel="stylesheet"
+        href="http://localhost:4173/europeana-feedback-widget.css"
+      >
     </client-only>
   </footer>
 </template>
