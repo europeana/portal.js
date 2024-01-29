@@ -110,6 +110,7 @@
         id="europeana-feedback-widget"
         data-api-url="/_api/jira-service-desk/feedback"
         :data-locale="$i18n.locale"
+        data-qa="feedback widget"
       />
       <script
         type="module"
