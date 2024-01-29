@@ -113,11 +113,11 @@
       />
       <script
         type="module"
-        src="http://localhost:4173/europeana-feedback-widget.js"
+        src="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget/dist/europeana-feedback-widget.js"
       />
       <link
         rel="stylesheet"
-        href="http://localhost:4173/europeana-feedback-widget.css"
+        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget/dist/europeana-feedback-widget.css"
       >
     </client-only>
   </footer>
