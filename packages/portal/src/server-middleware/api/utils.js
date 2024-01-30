@@ -28,18 +28,10 @@ export const nuxtRuntimeConfig = (key) => {
   }
 };
 
-export const forbiddenUnlessOriginAllowed = (req, res, next) => {
-  const reqOrigin = req.get('origin');
-  const resAccessControlAllowOrigin = res.get('access-control-allow-origin');
-
-  // TODO: require origin to be present?
-  const originAllowed = !reqOrigin ||
-    (reqOrigin === nuxtRuntimeConfig('app').baseUrl) ||
-    ['*', reqOrigin].includes(resAccessControlAllowOrigin);
-
-  if (originAllowed) {
-    next();
+export const forbiddenUnlessOriginAllowed = (origins) => (origin, callback) => {
+  if (origins.includes(origin)) {
+    callback(null, true);
   } else {
-    errorHandler(res, createHttpError(403, 'Origin not permitted'));
+    callback(createHttpError(403, 'Origin not permitted'));
   }
 };

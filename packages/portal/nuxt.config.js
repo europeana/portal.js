@@ -72,7 +72,7 @@ export default {
       featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
       feedback: {
         cors: {
-          origin: process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')
+          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
         }
       },
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
