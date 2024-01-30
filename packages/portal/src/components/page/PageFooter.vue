@@ -119,7 +119,7 @@
       <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.1.0-rc.3/dist/europeana-feedback-widget.css"
-      />
+      >
     </client-only>
   </footer>
 </template>
