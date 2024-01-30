@@ -1,4 +1,5 @@
 import defu  from 'defu';
+import createHttpError from 'http-errors';
 
 import nuxtConfig from '../../../nuxt.config.js';
 
@@ -20,5 +21,16 @@ export const nuxtRuntimeConfig = (key) => {
     return runtimeConfig[key];
   } else {
     return runtimeConfig;
+  }
+};
+
+export const forbiddenUnlessOriginAllowed = (req, res, next) => {
+  const reqOrigin = req.get('origin');
+  const resAccessControlAllowOrigin = res.get('access-control-allow-origin');
+
+  if (reqOrigin && !['*', reqOrigin].includes(resAccessControlAllowOrigin)) {
+    errorHandler(res, createHttpError(403, 'Origin not permitted'));
+  } else {
+    next();
   }
 };

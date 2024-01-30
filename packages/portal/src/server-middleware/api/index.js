@@ -3,12 +3,12 @@ import cors from 'cors';
 import defu  from 'defu';
 import apm from 'elastic-apm-node';
 import logging from '../logging.js';
+import { forbiddenUnlessOriginAllowed } from './utils.js';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
 app.use(express.json());
 app.use(logging);
-app.options('*', cors()); // pre-flight requests
 
 import nuxtConfig from '../../../nuxt.config.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
@@ -42,8 +42,14 @@ import eventViews from './events/views.js';
 app.get('/events/views', eventViews(runtimeConfig.postgres));
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
+app.options('/jira-service-desk/feedback',
+  cors(runtimeConfig.app.feedback.cors),
+  forbiddenUnlessOriginAllowed,
+  (req, res) => res.sendStatus(200)
+);
 app.post('/jira-service-desk/feedback',
   cors(runtimeConfig.app.feedback.cors),
+  forbiddenUnlessOriginAllowed,
   jiraServiceDeskFeedback(runtimeConfig.jira)
 );
 
