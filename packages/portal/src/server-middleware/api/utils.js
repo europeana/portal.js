@@ -15,8 +15,12 @@ export const errorHandler = (res, error) => {
   res.status(status).set('Content-Type', 'text/plain').send(message);
 };
 
+let runtimeConfig;
 export const nuxtRuntimeConfig = (key) => {
-  const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
+  if (!runtimeConfig) {
+    runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
+  }
+
   if (key) {
     return runtimeConfig[key];
   } else {
@@ -28,9 +32,14 @@ export const forbiddenUnlessOriginAllowed = (req, res, next) => {
   const reqOrigin = req.get('origin');
   const resAccessControlAllowOrigin = res.get('access-control-allow-origin');
 
-  if (reqOrigin && !['*', reqOrigin].includes(resAccessControlAllowOrigin)) {
-    errorHandler(res, createHttpError(403, 'Origin not permitted'));
-  } else {
+  // TODO: require origin to be present?
+  const originAllowed = !reqOrigin ||
+    (reqOrigin === nuxtRuntimeConfig('app').baseUrl) ||
+    ['*', reqOrigin].includes(resAccessControlAllowOrigin);
+
+  if (originAllowed) {
     next();
+  } else {
+    errorHandler(res, createHttpError(403, 'Origin not permitted'));
   }
 };
