@@ -106,9 +106,22 @@
     <client-only
       v-if="feedbackEnabled"
     >
-      <FeedbackWidget
+      <div
+        id="europeana-feedback-widget"
+        data-api-url="/_api/jira-service-desk/feedback"
+        data-faq-url="/faq"
+        :data-locale="$i18n.locale"
         data-qa="feedback widget"
       />
+      <script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.1.0/dist/europeana-feedback-widget.js"
+        integrity="sha384-w3k1iYmZcTD//J+fYTbS3BVA2MFsbNV0HkEj2gIVkVEoV67BH4aoroUoVYzF96BT"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.1.0/dist/europeana-feedback-widget.css"
+      >
     </client-only>
   </footer>
 </template>
@@ -122,8 +135,7 @@
     components: {
       LangSelector,
       LinkGroup,
-      EULogo,
-      FeedbackWidget: () => import('../feedback/FeedbackWidget')
+      EULogo
     },
 
     data() {

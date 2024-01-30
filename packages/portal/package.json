@@ -29,6 +29,7 @@
     "bootstrap-vue": "2.22.0",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.19.1",
+    "cors": "^2.8.5",
     "dateformat": "^4.6.3",
     "deepmerge": "^4.2.2",
     "defu": "^5.0.0",

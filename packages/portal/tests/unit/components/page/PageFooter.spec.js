@@ -13,6 +13,9 @@ const factory = ({ mocks = {} } = {}) => shallowMount(PageFooter, {
   mocks: {
     $config: { app: { baseUrl: 'https://www.example.eu' } },
     $features: {},
+    $i18n: {
+      locale: 'en'
+    },
     $store: {
       getters: {
         'debug/settings': { enabled: false }
