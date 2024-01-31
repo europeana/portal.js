@@ -47,7 +47,6 @@ export default {
     "download": "Letöltés",
     "edit": "Szerkesztés",
     "explore": "Felfedez",
-    "feedback": "Visszacsatolás",
     "filter": "Szűrő",
     "goHome": "Ugrás a kezdőlapra",
     "hide": "Elrejt",
@@ -63,13 +62,11 @@ export default {
     "reject": "Elutasít",
     "requestDepublication": "Közzététel megszüntetésének kérése",
     "save": "Mentse",
-    "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
     "show": "Mutat",
     "showLess": "Kevesebb megjelenítése",
     "showMore": "Továbbiak megjelenítése",
-    "skipSend": "Kihagyás és küldés",
     "submitForPublication": "Nyújtsa be közzétételre",
     "submittedForPublication": "Közzétételre benyújtva",
     "transcribe": "Átírni",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Adathordozó-típusok kiválasztása"
     }
-  },
-  "feedback": {
-    "emailOptional": "Érdemes lehet utánajárnunk. Írja be az e-mail címét, ha örül, hogy kapcsolatba lépünk Önnel.",
-    "failed": "A kérés nem sikerült. Kérlek próbáld újra.",
-    "faq": "Ugrás a gyakran ismételt kérdésekre",
-    "form": {
-      "placeholders": {
-        "email": "Adja meg e-mail címét",
-        "feedback": "Írja be ide visszajelzését"
-      }
-    },
-    "policies": "A folytatással elfogadja {0} és a {1} .",
-    "privacyPolicy": "Adatvédelmi irányelvek",
-    "success": "Visszajelzését elküldtük.",
-    "termsOfService": "Szolgáltatás feltételei",
-    "thankYou": "Köszönöm!",
-    "title": "Visszajelzés küldése",
-    "validEmail": "Adjon meg egy érvényes email címet",
-    "validFeedback": "A visszajelzésnek legalább 5 szóból kell állnia"
   },
   "fieldLabels": {
     "default": {

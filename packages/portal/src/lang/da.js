@@ -47,7 +47,6 @@ export default {
     "download": "Hent",
     "edit": "Rediger",
     "explore": "Udforske",
-    "feedback": "Feedback",
     "filter": "Filter",
     "goHome": "Gå til hjemmesiden",
     "hide": "Skjul",
@@ -63,13 +62,11 @@ export default {
     "reject": "Afvise",
     "requestDepublication": "Anmodning om afpublicering",
     "save": "Gem",
-    "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
     "show": "Vis",
     "showLess": "Vis mindre",
     "showMore": "Vis mere",
-    "skipSend": "Spring over og send",
     "submitForPublication": "Indsend til offentliggørelse",
     "submittedForPublication": "Indsendt til offentliggørelse",
     "transcribe": "Transskriber",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Vælg typer af medier"
     }
-  },
-  "feedback": {
-    "emailOptional": "Vi ønsker måske at følge op. Indtast din e-mail, hvis du er glad for, at vi kontakter dig.",
-    "failed": "Anmodningen mislykkedes. Prøv igen.",
-    "faq": "Gå til ofte stillede spørgsmål",
-    "form": {
-      "placeholders": {
-        "email": "Indtast din e-mailadresse",
-        "feedback": "Indtast din feedback her"
-      }
-    },
-    "policies": "Ved at fortsætte accepterer du vores {0} og anerkender vores {1} .",
-    "privacyPolicy": "Fortrolighedspolitik",
-    "success": "Din feedback er sendt.",
-    "termsOfService": "Vilkår for brug",
-    "thankYou": "Tak!",
-    "title": "Send feedback",
-    "validEmail": "Indtast en gyldig email addresse",
-    "validFeedback": "Din feedback skal mindst bestå af 5 ord"
   },
   "fieldLabels": {
     "default": {

@@ -47,7 +47,6 @@ export default {
     "download": "Download",
     "edit": "Bewerken",
     "explore": "Ontdekken",
-    "feedback": "Feedback",
     "filter": "Filter",
     "goHome": "Ga naar de homepage",
     "hide": "Verbergen",
@@ -63,13 +62,11 @@ export default {
     "reject": "Afwijzen",
     "requestDepublication": "Depublicatie aanvragen",
     "save": "Opslaan",
-    "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
     "show": "Weergeven",
     "showLess": "Minder weergeven",
     "showMore": "Meer weergeven",
-    "skipSend": "Overslaan en verzenden",
     "submitForPublication": "Indienen voor publicatie",
     "submittedForPublication": "Ingezonden voor publicatie",
     "transcribe": "Transcriberen",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Selecteer soorten media"
     }
-  },
-  "feedback": {
-    "emailOptional": "We willen hier misschien een vervolg aan geven. Voer uw e-mailadres in als u het niet erg vindt als wij contact met u opnemen.",
-    "failed": "Het verzoek is mislukt. Probeer het opnieuw.",
-    "faq": "Ga naar veelgestelde vragen",
-    "form": {
-      "placeholders": {
-        "email": "Voer uw e-mailadres in",
-        "feedback": "Vul hier uw feedback in"
-      }
-    },
-    "policies": "Door verder te gaan, gaat u akkoord met onze {0} en erkent u onze {1} .",
-    "privacyPolicy": "Privacybeleid",
-    "success": "Uw feedback is verzonden.",
-    "termsOfService": "Servicevoorwaarden",
-    "thankYou": "Dank u!",
-    "title": "Feedback verzenden",
-    "validEmail": "Voer een geldig e-mailadres in",
-    "validFeedback": "Je feedback moet minimaal uit 5 woorden bestaan"
   },
   "fieldLabels": {
     "default": {

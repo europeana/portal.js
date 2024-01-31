@@ -47,7 +47,6 @@ export default {
     "download": "Prenos",
     "edit": "Uredi",
     "explore": "Raziščite",
-    "feedback": "Povratne informacije",
     "filter": "Filter",
     "goHome": "Pojdite na domačo stran",
     "hide": "Skrij",
@@ -63,13 +62,11 @@ export default {
     "reject": "Zavrne",
     "requestDepublication": "Zahtevaj deublikacijo",
     "save": "Shrani",
-    "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
     "show": "Prikaži",
     "showLess": "Prikaži manj",
     "showMore": "Prikaži več",
-    "skipSend": "Preskoči in pošlji",
     "submitForPublication": "Oddaj za objavo",
     "submittedForPublication": "Oddano v objavo",
     "transcribe": "Prepisujte",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Izberite vrste medijev"
     }
-  },
-  "feedback": {
-    "emailOptional": "Morda bi želeli slediti. Vnesite svojo e-pošto, če ste veseli, da vas kontaktiramo.",
-    "failed": "Zahteva ni uspela. Prosim poskusite ponovno.",
-    "faq": "Pojdite na pogosto zastavljena vprašanja",
-    "form": {
-      "placeholders": {
-        "email": "Vnesite svoj e-poštni naslov",
-        "feedback": "Tukaj vnesite svoje povratne informacije"
-      }
-    },
-    "policies": "Z nadaljevanjem se strinjate z našimi {0} in potrjujete naše {1} .",
-    "privacyPolicy": "Pravilnik o zasebnosti",
-    "success": "Vaše povratne informacije so bile poslane.",
-    "termsOfService": "Pogoji storitve",
-    "thankYou": "Hvala!",
-    "title": "Pošlji povratno informacijo",
-    "validEmail": "Vnesite veljaven e-poštni naslov",
-    "validFeedback": "Vaše povratne informacije morajo biti sestavljene iz 5 besed najmanj"
   },
   "fieldLabels": {
     "default": {

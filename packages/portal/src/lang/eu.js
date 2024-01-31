@@ -47,7 +47,6 @@ export default {
     "download": "Deskargatu",
     "edit": "Editatu",
     "explore": "Esploratu",
-    "feedback": "Iritzia",
     "filter": "Iragazkia",
     "goHome": "Joan hasierako orrialdera",
     "hide": "Ezkutatu",
@@ -63,13 +62,11 @@ export default {
     "reject": "Baztertu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
     "save": "Gorde",
-    "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
     "show": "Erakutsi",
     "showLess": "Gutxiago erakutsi",
     "showMore": "Gehiago erakutsi",
-    "skipSend": "Saltatu eta bidali",
     "submitForPublication": "Bidali argitaratzeko",
     "submittedForPublication": "Argitalpenerako aurkeztu da",
     "transcribe": "Transkribatu",
@@ -666,25 +663,6 @@ export default {
       },
       "select": "Hautatu euskarri motak"
     }
-  },
-  "feedback": {
-    "emailOptional": "Baliteke jarraipena egitea nahi izatea. Idatzi zure posta elektronikoa gu zurekin harremanetan jartzeko pozik bazaude.",
-    "failed": "Eskaerak huts egin du. Saiatu berriro mesedez.",
-    "faq": "Joan maiz egindako galderak",
-    "form": {
-      "placeholders": {
-        "email": "Idatzi zure helbide elektronikoa",
-        "feedback": "Idatzi zure iritzia hemen"
-      }
-    },
-    "policies": "Jarraituz gero, gure {0} onartzen duzu eta gure {1} onartzen duzu.",
-    "privacyPolicy": "Pribatutasun politika",
-    "success": "Zure iritzia bidali da.",
-    "termsOfService": "Zerbitzu-baldintzak",
-    "thankYou": "Eskerrik asko!",
-    "title": "Bidali iritzia",
-    "validEmail": "Idatzi balio duen helbide elektronikoa",
-    "validFeedback": "Zure iritziak gutxienez 5 hitz izan behar ditu"
   },
   "fieldLabels": {
     "default": {
