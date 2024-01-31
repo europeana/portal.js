@@ -47,7 +47,6 @@ export default {
     "download": "Stáhnout",
     "edit": "Upravit",
     "explore": "Prozkoumat",
-    "feedback": "Zpětná vazba",
     "filter": "Filtr",
     "goHome": "Přejít na domovskou stránku",
     "hide": "Skrýt",
@@ -63,13 +62,11 @@ export default {
     "reject": "Odmítnout",
     "requestDepublication": "Žádost o zrušení publikace",
     "save": "Uložit",
-    "send": "Poslat",
     "share": "Sdílejte",
     "shareOn": "Sdílet na {social}",
     "show": "Zobrazit",
     "showLess": "Zobrazit méně",
     "showMore": "Zobrazit více",
-    "skipSend": "Přeskočit a odeslat",
     "submitForPublication": "Odeslat k publikaci",
     "submittedForPublication": "Odesláno k publikaci",
     "transcribe": "Přepsat",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Vyberte typy médií"
     }
-  },
-  "feedback": {
-    "emailOptional": "Možná budeme chtít navázat. Pokud si přejete, abychom vás kontaktovali, zadejte svůj e-mail.",
-    "failed": "Požadavek se nezdařil. Zkuste to znovu.",
-    "faq": "Přejít na často kladené dotazy",
-    "form": {
-      "placeholders": {
-        "email": "Zadejte svou e-mailovou adresu",
-        "feedback": "Zde zadejte svou zpětnou vazbu"
-      }
-    },
-    "policies": "Pokračováním souhlasíte s naším {0} a berete na vědomí naše {1}.",
-    "privacyPolicy": "Zásady ochrany osobních údajů",
-    "success": "Vaše zpětná vazba byla odeslána.",
-    "termsOfService": "Podmínky používání ",
-    "thankYou": "Děkujeme!",
-    "title": "Odeslat zpětnou vazbu",
-    "validEmail": "Zadejte platnou e-mailovou adresu.",
-    "validFeedback": "Vaše zpětná vazba musí obsahovat minimálně 5 slov"
   },
   "fieldLabels": {
     "default": {

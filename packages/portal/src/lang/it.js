@@ -47,7 +47,6 @@ export default {
     "download": "Scarica",
     "edit": "Modifica",
     "explore": "Esplorare",
-    "feedback": "Feedback",
     "filter": "Filtro",
     "goHome": "Vai alla homepage",
     "hide": "Nascondere",
@@ -63,13 +62,11 @@ export default {
     "reject": "Rifiuta",
     "requestDepublication": "Richiesta di depubblicazione",
     "save": "Salva",
-    "send": "Invia",
     "share": "Condividi",
     "shareOn": "Condividi su {social}",
     "show": "Mostra",
     "showLess": "Mostra meno",
     "showMore": "Mostra di più",
-    "skipSend": "Salta e invia",
     "submitForPublication": "Invia per la pubblicazione",
     "submittedForPublication": "Inviato per la pubblicazione",
     "transcribe": "Trascrivere",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Seleziona i tipi di media"
     }
-  },
-  "feedback": {
-    "emailOptional": "Potremmo voler dare seguito al tuo feedback. Inserisci la tua email se desideri essere contattato.",
-    "failed": "La richiesta è fallita. Per favore riprova.",
-    "faq": "Vai alle domande frequenti",
-    "form": {
-      "placeholders": {
-        "email": "Inserisci il tuo indirizzo email",
-        "feedback": "Inserisci qui il tuo risposta"
-      }
-    },
-    "policies": "Continuando, accetti i nostri {0} e riconosci la nostra {1}.",
-    "privacyPolicy": "Informativa sulla privacy",
-    "success": "Il tuo feedback è stato inviato.",
-    "termsOfService": "Termini di servizio",
-    "thankYou": "Grazie!",
-    "title": "Invia feedback",
-    "validEmail": "Inserire un indirizzo email valido",
-    "validFeedback": "Il tuo feedback deve consistere di minimo 5 parole"
   },
   "fieldLabels": {
     "default": {

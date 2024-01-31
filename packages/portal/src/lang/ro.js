@@ -47,7 +47,6 @@ export default {
     "download": "Descarcă",
     "edit": "Editare",
     "explore": "Explora",
-    "feedback": "Feedback",
     "filter": "Filtru",
     "goHome": "Mergeți la pagina de pornire",
     "hide": "Ascunde",
@@ -63,13 +62,11 @@ export default {
     "reject": "Respinge",
     "requestDepublication": "Solicitați depublicarea",
     "save": "Salva",
-    "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
     "show": "Afișare",
     "showLess": "Afișează mai puțin",
     "showMore": "Afișează mai multe",
-    "skipSend": "Săriți și trimiteți",
     "submitForPublication": "Trimiteți spre publicare",
     "submittedForPublication": "Trimis spre publicare",
     "transcribe": "Transcrie",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Selectați tipurile de media"
     }
-  },
-  "feedback": {
-    "emailOptional": "S-ar putea să dorim să urmărim acest lucru. Introduceți adresa dvs. de e-mail dacă sunteți de acord să vă contactăm.",
-    "failed": "Solicitarea nu a reușit. Încercați din nou.",
-    "faq": "Accesați întrebările frecvente",
-    "form": {
-      "placeholders": {
-        "email": "Introduceți adresa de e-mail",
-        "feedback": "Introduceți feedback-ul aici"
-      }
-    },
-    "policies": "Continuând, sunteți de acord cu {0} și acceptați {1}.",
-    "privacyPolicy": "Politica de Confidențialitate",
-    "success": "Feedbackul dvs. a fost trimis.",
-    "termsOfService": "Termenii serviciului",
-    "thankYou": "Mulțumesc!",
-    "title": "Trimite feedback",
-    "validEmail": "Introduceți o adresă de email validă",
-    "validFeedback": "Feedback-ul tău trebuie să fie format din minim 5 cuvinte."
   },
   "fieldLabels": {
     "default": {

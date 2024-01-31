@@ -47,7 +47,6 @@ export default {
     "download": "Niżżel",
     "edit": "Editja",
     "explore": "Esplora",
-    "feedback": "Feedback",
     "filter": "Filtru",
     "goHome": "Mur fil-homepage",
     "hide": "Aħbi",
@@ -63,13 +62,11 @@ export default {
     "reject": "Irrifjuta",
     "requestDepublication": "Talba għal depubblikazzjoni",
     "save": "Tissejvja",
-    "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
     "show": "Uri",
     "showLess": "Uri inqas",
     "showMore": "Uri aktar",
-    "skipSend": "Aqbeż u ibgħat",
     "submitForPublication": "Ibgħat għall-pubblikazzjoni",
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
     "transcribe": "Traskrivi",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Agħżel tipi ta 'midja"
     }
-  },
-  "feedback": {
-    "emailOptional": "Aħna jista 'jkun li nixtiequ nsegwu. Daħħal l-email tiegħek jekk int kuntent li aħna nikkuntattjawk.",
-    "failed": "It-talba falliet. Jekk jogħġbok erġa pprova.",
-    "faq": "Mur għall-mistoqsijiet frekwenti",
-    "form": {
-      "placeholders": {
-        "email": "Daħħal l-indirizz tal-email tiegħek",
-        "feedback": "Daħħal il-feedback tiegħek hawn"
-      }
-    },
-    "policies": "Billi tkompli, taqbel ma ' {0} tagħna u tirrikonoxxi lil {1} tagħna.",
-    "privacyPolicy": "Regoli tal-privatezza",
-    "success": "Il-feedback tiegħek intbagħat.",
-    "termsOfService": "Termini tas-Servizz",
-    "thankYou": "Grazzi!",
-    "title": "Ibgħat feedback",
-    "validEmail": "Daħħal indirizz tal-email validu",
-    "validFeedback": "Il-feedback tiegħek irid jikkonsisti f'minimu ta' 5 kelmiet"
   },
   "fieldLabels": {
     "default": {

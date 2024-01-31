@@ -47,7 +47,6 @@ export default {
     "download": "Lae alla",
     "edit": "Muuda",
     "explore": "Uurige",
-    "feedback": "Tagasiside",
     "filter": "Filter",
     "goHome": "Minge avalehele",
     "hide": "Peida",
@@ -63,13 +62,11 @@ export default {
     "reject": "Tagasi lükata",
     "requestDepublication": "Taotlus mitte avaldada",
     "save": "Salvesta",
-    "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
     "show": "Näita",
     "showLess": "Näita vähem",
     "showMore": "Näita rohkem",
-    "skipSend": "Jäta vahele ja saada",
     "submitForPublication": "Esitage avaldamiseks",
     "submittedForPublication": "Esitatud avaldamiseks",
     "transcribe": "Transkribeeri",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Valige kandja tüübid"
     }
-  },
-  "feedback": {
-    "emailOptional": "Võime soovida jätkata. Sisestage oma e-posti aadress, kui olete rahul, et meiega ühendust võtame.",
-    "failed": "Taotlus nurjus. Palun proovi uuesti.",
-    "faq": "Minge korduma kippuvate küsimuste juurde",
-    "form": {
-      "placeholders": {
-        "email": "Sisestage oma e-posti aadress",
-        "feedback": "Sisestage oma tagasiside siia"
-      }
-    },
-    "policies": "Jätkates nõustute meie {0} ja kinnitate meie {1} .",
-    "privacyPolicy": "Privaatsuspoliitika",
-    "success": "Teie tagasiside on saadetud.",
-    "termsOfService": "Kasutustingimused",
-    "thankYou": "Aitäh!",
-    "title": "Saada tagasisidet",
-    "validEmail": "Sisestage kehtiv e-posti aadress",
-    "validFeedback": "Teie tagasiside peab koosnema vähemalt 5 sõnast"
   },
   "fieldLabels": {
     "default": {

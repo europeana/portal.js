@@ -47,7 +47,6 @@ export default {
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "explore": "Naršyti",
-    "feedback": "Atsiliepimas",
     "filter": "Filtras",
     "goHome": "Eikite į pagrindinį puslapį",
     "hide": "Slėpti",
@@ -63,13 +62,11 @@ export default {
     "reject": "Atmesti",
     "requestDepublication": "Prašymas neskelbti",
     "save": "Išsaugoti",
-    "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
     "show": "Rodyti",
     "showLess": "Rodyti mažiau",
     "showMore": "Rodyti daugiau",
-    "skipSend": "Praleisti ir siųsti",
     "submitForPublication": "Pateikti publikavimui",
     "submittedForPublication": "Pateikta publikuoti",
     "transcribe": "Transkribuoti",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Pasirinkite laikmenos tipus"
     }
-  },
-  "feedback": {
-    "emailOptional": "Galbūt norėsime tęsti. Įveskite savo el. Pašto adresą, jei džiaugiatės, kad susisieksime su jumis.",
-    "failed": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
-    "faq": "Eikite į dažniausiai užduodamus klausimus",
-    "form": {
-      "placeholders": {
-        "email": "Įveskite savo elektroninio pašto adresą",
-        "feedback": "Čia įveskite savo atsiliepimą"
-      }
-    },
-    "policies": "Tęsdami sutinkate su mūsų {0} ir patvirtinate mūsų {1} .",
-    "privacyPolicy": "Privatumo politika",
-    "success": "Jūsų atsiliepimas išsiųstas.",
-    "termsOfService": "Paslaugų teikimo sąlygos",
-    "thankYou": "Ačiū!",
-    "title": "Siųsti atsiliepimą",
-    "validEmail": "Įveskite galiojantį el. Pašto adresą",
-    "validFeedback": "Jūsų atsiliepimą turi sudaryti mažiausiai 5 žodžiai"
   },
   "fieldLabels": {
     "default": {

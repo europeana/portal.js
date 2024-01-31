@@ -47,7 +47,6 @@ export default {
     "download": "Télécharger",
     "edit": "Modifier",
     "explore": "Explorer",
-    "feedback": "Commentaires",
     "filter": "Filtre",
     "goHome": "Aller à la page d'accueil",
     "hide": "Cacher",
@@ -63,13 +62,11 @@ export default {
     "reject": "Rejeter",
     "requestDepublication": "Demander la dépublication",
     "save": "Sauvegarder",
-    "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
     "show": "Afficher",
     "showLess": "Afficher moins",
     "showMore": "Afficher plus",
-    "skipSend": "Ignorer et envoyer",
     "submitForPublication": "Soumettre pour publication",
     "submittedForPublication": "Soumis pour publication",
     "transcribe": "Transcrire",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Sélectionnez les types de médias"
     }
-  },
-  "feedback": {
-    "emailOptional": "Nous souhaiterions peut-être faire un suivi. Entrez votre e-mail si vous souhaitez que nous vous contactions.",
-    "failed": "La demande a échoué. Veuillez réessayer.",
-    "faq": "Aller à la foire aux questions",
-    "form": {
-      "placeholders": {
-        "email": "Entrez votre adresse email",
-        "feedback": "Entrez vos commentaires ici"
-      }
-    },
-    "policies": "En continuant, vous acceptez notre {0} et reconnaissez notre {1} .",
-    "privacyPolicy": "Politique de confidentialité",
-    "success": "Votre commentaire a été envoyé.",
-    "termsOfService": "Conditions d'utilisation",
-    "thankYou": "Merci!",
-    "title": "Envoyer des commentaires",
-    "validEmail": "Entrez une adresse mail valide",
-    "validFeedback": "Vos commentaires doivent comprendre au moins 5 mots"
   },
   "fieldLabels": {
     "default": {

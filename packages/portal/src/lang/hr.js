@@ -47,7 +47,6 @@ export default {
     "download": "Preuzmi",
     "edit": "Uredi",
     "explore": "Istražiti",
-    "feedback": "Povratna informacija",
     "filter": "Filtar",
     "goHome": "Idite na početnu stranicu",
     "hide": "Sakriti",
@@ -63,13 +62,11 @@ export default {
     "reject": "Odbiti",
     "requestDepublication": "Zahtjev za depublifikaciju",
     "save": "Uštedjeti",
-    "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
     "show": "Pokazati",
     "showLess": "Prikaži manje",
     "showMore": "Prikaži više",
-    "skipSend": "Preskoči i pošalji",
     "submitForPublication": "Predajte za objavu",
     "submittedForPublication": "Predano za objavu",
     "transcribe": "Prepisati",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Odaberite vrste medija"
     }
-  },
-  "feedback": {
-    "emailOptional": "Možda bismo željeli pratiti. Unesite svoju e-poštu ako ste sretni da vas kontaktiramo.",
-    "failed": "Zahtjev nije uspio. Pokušajte ponovo.",
-    "faq": "Idi na često postavljana pitanja",
-    "form": {
-      "placeholders": {
-        "email": "Unesite svoju adresu e-pošte",
-        "feedback": "Ovdje unesite povratne informacije"
-      }
-    },
-    "policies": "Nastavljajući, slažete se s našim {0} i priznajete našu {1}.",
-    "privacyPolicy": "Pravila o privatnosti",
-    "success": "Poslane su vaše povratne informacije.",
-    "termsOfService": "Uvjeti korištenja",
-    "thankYou": "Hvala!",
-    "title": "Slanje povratnih informacija",
-    "validEmail": "Unesite valjanu adresu e-pošte",
-    "validFeedback": "Vaše povratne informacije moraju se sastojati od najmanje 5 riječi"
   },
   "fieldLabels": {
     "default": {
