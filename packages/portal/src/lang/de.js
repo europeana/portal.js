@@ -47,7 +47,6 @@ export default {
     "download": "Herunterladen",
     "edit": "Bearbeiten",
     "explore": "Erkunden",
-    "feedback": "Feedback",
     "filter": "Filter",
     "goHome": "Zur Startseite gehen",
     "hide": "Verstecken",
@@ -63,13 +62,11 @@ export default {
     "reject": "Ablehnen",
     "requestDepublication": "Depublikation anfordern",
     "save": "Speichern",
-    "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
     "show": "Anzeigen",
     "showLess": "Weniger anzeigen",
     "showMore": "Mehr anzeigen",
-    "skipSend": "Überspringen und senden",
     "submitForPublication": "Zur Veröffentlichung einreichen",
     "submittedForPublication": "Zur Veröffentlichung eingereicht",
     "transcribe": "Transkribieren",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Medientypen auswählen"
     }
-  },
-  "feedback": {
-    "emailOptional": "Möglicherweise möchten wir nachfassen. Geben Sie Ihre E-Mail-Adresse ein, wenn Sie damit einverstanden sind, dass wir Sie kontaktieren.",
-    "failed": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
-    "faq": "Gehen Sie zu den häufig gestellten Fragen",
-    "form": {
-      "placeholders": {
-        "email": "Geben sie ihre E-Mailadresse ein",
-        "feedback": "Geben Sie hier Ihr Feedback ein"
-      }
-    },
-    "policies": "Indem Sie fortfahren, stimmen Sie unseren {0} und erkennen unsere {1} .",
-    "privacyPolicy": "Datenschutz-Bestimmungen",
-    "success": "Ihr Feedback wurde gesendet.",
-    "termsOfService": "Nutzungsbedingungen",
-    "thankYou": "Vielen Dank!",
-    "title": "Feedback abschicken",
-    "validEmail": "Geben Sie eine gültige E-Mail Adresse ein",
-    "validFeedback": "Ihr Feedback muss aus mindestens 5 Wörtern bestehen"
   },
   "fieldLabels": {
     "default": {

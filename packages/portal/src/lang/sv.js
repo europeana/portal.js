@@ -47,7 +47,6 @@ export default {
     "download": "Ladda ner",
     "edit": "Redigera",
     "explore": "Utforska",
-    "feedback": "Feedback",
     "filter": "Filtrera",
     "goHome": "Gå till hemsidan",
     "hide": "Dölj",
@@ -63,13 +62,11 @@ export default {
     "reject": "Avvisa",
     "requestDepublication": "Begär avpublicering",
     "save": "Spara",
-    "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
     "show": "Visa",
     "showLess": "Visa mindre",
     "showMore": "Visa mer",
-    "skipSend": "Hoppa över och skicka",
     "submitForPublication": "Skicka in för publicering",
     "submittedForPublication": "Inlämnad för publicering",
     "transcribe": "Transkribera",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Välj typer av media"
     }
-  },
-  "feedback": {
-    "emailOptional": "Vi kanske vill följa upp detta. Ange din e-postadress om du vill att vi ska kontakta dig.",
-    "failed": "Begäran misslyckades. Var god försök igen.",
-    "faq": "Gå till vanliga frågor",
-    "form": {
-      "placeholders": {
-        "email": "Ange din e-postadress",
-        "feedback": "Ange din feedback här"
-      }
-    },
-    "policies": "Genom att fortsätta godkänner du vår {0} och godkänner vår {1} .",
-    "privacyPolicy": "Integritetspolicy",
-    "success": "Din feedback har skickats.",
-    "termsOfService": "Användarvillkor",
-    "thankYou": "Tack!",
-    "title": "Skicka feedback",
-    "validEmail": "Ange en giltig e-postadress",
-    "validFeedback": "Din feedback måste bestå av minst 5 ord"
   },
   "fieldLabels": {
     "default": {

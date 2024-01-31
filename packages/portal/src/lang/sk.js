@@ -47,7 +47,6 @@ export default {
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "explore": "Preskúmať",
-    "feedback": "Spätná väzba",
     "filter": "Filter",
     "goHome": "Prejsť na domovskú stránku",
     "hide": "Skryť",
@@ -63,13 +62,11 @@ export default {
     "reject": "Odmietnuť",
     "requestDepublication": "Žiadosť zrušiť zverejnenie",
     "save": "Uložiť",
-    "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
     "show": "Zobraziť",
     "showLess": "Zobraziť menej",
     "showMore": "Zobraziť viac",
-    "skipSend": "Preskočiť a odoslať",
     "submitForPublication": "Odoslať na zverejnenie",
     "submittedForPublication": "Predložené na zverejnenie",
     "transcribe": "Prepísať",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Vyberte typy médií"
     }
-  },
-  "feedback": {
-    "emailOptional": "Možno budeme chcieť nadviazať ďalšie kroky. Ak chcete, aby sme vás kontaktovali, zadajte svoj e-mail.",
-    "failed": "Žiadosť zlyhala. Prosím skúste znova.",
-    "faq": "Prejdite na často kladené otázky",
-    "form": {
-      "placeholders": {
-        "email": "Zadajte svoju e-mailovú adresu",
-        "feedback": "Sem zadajte svoju spätnú väzbu"
-      }
-    },
-    "policies": "Pokračovaním súhlasíte s našimi {0} a beriete na vedomie naše {1}.",
-    "privacyPolicy": "Zásady ochrany osobných údajov",
-    "success": "Vaša spätná väzba bola odoslaná.",
-    "termsOfService": "Podmienky služby",
-    "thankYou": "Ďakujeme!",
-    "title": "Odoslať spätnú väzbu",
-    "validEmail": "Zadajte platnú e-mailovú adresu",
-    "validFeedback": "Vaša spätná väzba musí obsahovať minimálne 5 slov"
   },
   "fieldLabels": {
     "default": {

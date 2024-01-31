@@ -47,7 +47,6 @@ export default {
     "download": "Ściągnij",
     "edit": "Edytuj",
     "explore": "Badać",
-    "feedback": "Twoja opinia",
     "filter": "Filtr",
     "goHome": "Przejdź do strony głównej",
     "hide": "Ukryj",
@@ -63,13 +62,11 @@ export default {
     "reject": "Odrzuć",
     "requestDepublication": "Poproś o wycofanie publikacji",
     "save": "Zapisać",
-    "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
     "show": "Pokaż",
     "showLess": "Pokaż mniej",
     "showMore": "Pokaż więcej",
-    "skipSend": "Pomiń i wyślij",
     "submitForPublication": "Prześlij do publikacji",
     "submittedForPublication": "Zgłoszony do publikacji",
     "transcribe": "Transkrybować",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Wybierz rodzaje mediów"
     }
-  },
-  "feedback": {
-    "emailOptional": "Możemy chcieć podjąć działania następcze. Jeśli chcesz się z Nami skontaktować, wpisz swój adres e-mail.",
-    "failed": "Żądanie nie powiodło się. Proszę spróbować ponownie.",
-    "faq": "Przejdź do najczęściej zadawanych pytań",
-    "form": {
-      "placeholders": {
-        "email": "Wpisz swój adres e-mail",
-        "feedback": "Wpisz tutaj swoją opinię"
-      }
-    },
-    "policies": "Kontynuując, zgadzasz się na nasze {0} i przyjmujesz do wiadomości nasze {1}.",
-    "privacyPolicy": "Polityka prywatności",
-    "success": "Twoja opinia została wysłana.",
-    "termsOfService": "Warunki usługi",
-    "thankYou": "Dziękuję!",
-    "title": "Wyślij opinię",
-    "validEmail": "Wprowadzanie prawidłowego adresu e-mail",
-    "validFeedback": "Twoja opinia musi składać się z co najmniej 5 słów"
   },
   "fieldLabels": {
     "default": {

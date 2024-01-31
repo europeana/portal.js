@@ -47,7 +47,6 @@ export default {
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
     "explore": "Izpētīt",
-    "feedback": "Atsauksmes",
     "filter": "Filtrs",
     "goHome": "Dodieties uz sākumlapu",
     "hide": "Slēpt",
@@ -63,13 +62,11 @@ export default {
     "reject": "Noraidīt",
     "requestDepublication": "Pieprasīt depublikāciju",
     "save": "Glābt",
-    "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
     "show": "Rādīt",
     "showLess": "Rādīt mazāk",
     "showMore": "Rādīt vairāk",
-    "skipSend": "Izlaist un nosūtīt",
     "submitForPublication": "Iesniegt publicēšanai",
     "submittedForPublication": "Iesniegts publicēšanai",
     "transcribe": "Transkribēt",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Atlasīt multivides veidus"
     }
-  },
-  "feedback": {
-    "emailOptional": "Mēs varētu vēlēties sekot. Ievadiet savu e-pasta adresi, ja esat priecīgs, ka mēs ar jums sazināsimies.",
-    "failed": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
-    "faq": "Dodieties uz bieži uzdotajiem jautājumiem",
-    "form": {
-      "placeholders": {
-        "email": "ievadiet savu e-pasta adresi",
-        "feedback": "Ievadiet atsauksmes šeit"
-      }
-    },
-    "policies": "Turpinot jūs piekrītat mūsu {0} un atzīstat mūsu {1} .",
-    "privacyPolicy": "Privātuma politika",
-    "success": "Jūsu atsauksmes ir nosūtītas.",
-    "termsOfService": "Pakalpojuma noteikumi",
-    "thankYou": "Paldies!",
-    "title": "Sūtīt atsauksmes",
-    "validEmail": "ievadiet derīgu epasta adresi",
-    "validFeedback": "Jūsu atsauksmēm jābūt vismaz 5 vārdiem."
   },
   "fieldLabels": {
     "default": {

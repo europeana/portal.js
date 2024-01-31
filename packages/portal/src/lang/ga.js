@@ -47,7 +47,6 @@ export default {
     "download": "Íoslódáil",
     "edit": "Cuir in eagar",
     "explore": "Déan iniúchadh",
-    "feedback": "Aiseolas",
     "filter": "Scagaire",
     "goHome": "Téigh go dtí an leathanach baile",
     "hide": "Folaigh",
@@ -63,13 +62,11 @@ export default {
     "reject": "Diúltaigh",
     "requestDepublication": "Iarratas a dhéanamh ar fhoilseachán",
     "save": "Sábháil",
-    "send": "Seol",
     "share": "Roinn",
     "shareOn": "Roinn ar {social}",
     "show": "Taispeáin",
     "showLess": "Taispeáin níos lú",
     "showMore": "Taispeáin níos mó",
-    "skipSend": "Scipeáil agus seol",
     "submitForPublication": "Cuir isteach le foilsiú",
     "submittedForPublication": "Arna chur isteach le foilsiú",
     "transcribe": "Tras-scríobh",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Roghnaigh cineálacha meán"
     }
-  },
-  "feedback": {
-    "emailOptional": "B’fhéidir gur mhaith linn obair leantach a dhéanamh. Cuir isteach do r-phost má tá tú sásta go ndéanfaimis teagmháil leat.",
-    "failed": "Theip ar an iarraidh. Arís, le do thoil.",
-    "faq": "Téigh go dtí ceisteanna coitianta",
-    "form": {
-      "placeholders": {
-        "email": "Cuir isteach do sheoladh ríomhphoist",
-        "feedback": "Cuir isteach d'aiseolas anseo"
-      }
-    },
-    "policies": "Trí leanúint ar aghaidh, aontaíonn tú lenár {0} agus aithníonn tú ár {1} .",
-    "privacyPolicy": "Beartas Príobháideachais",
-    "success": "Tá d'aiseolas seolta.",
-    "termsOfService": "Tearmaí Seirbhís",
-    "thankYou": "Go raibh maith agat!",
-    "title": "Seol Aiseolas",
-    "validEmail": "Iontráil seoladh bailí ríomhphoist",
-    "validFeedback": "Caithfidh 5 fhocal ar a laghad a bheith i d’aiseolas"
   },
   "fieldLabels": {
     "default": {

@@ -47,7 +47,6 @@ export default {
     "download": "Lataa",
     "edit": "Muokkaa",
     "explore": "Tutustu",
-    "feedback": "Palaute",
     "filter": "Suodattaa",
     "goHome": "Siirry kotisivulle",
     "hide": "Piilota",
@@ -63,13 +62,11 @@ export default {
     "reject": "Hylätä",
     "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
-    "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
     "show": "Näytä",
     "showLess": "Näytä vähemmän",
     "showMore": "Näytä lisää",
-    "skipSend": "Ohita ja lähetä",
     "submitForPublication": "Lähetä julkaistavaksi",
     "submittedForPublication": "Lähetetty julkaistavaksi",
     "transcribe": "Transkribeerida",
@@ -662,25 +659,6 @@ export default {
       },
       "select": "Valitse mediatyypit"
     }
-  },
-  "feedback": {
-    "emailOptional": "Saatamme haluta seurata asiaa. Kirjoita sähköpostiosoitteesi, jos olet iloinen siitä, että voimme ottaa sinuun yhteyttä.",
-    "failed": "Pyyntö epäonnistui. Yritä uudelleen.",
-    "faq": "Siirry usein kysyttyihin kysymyksiin",
-    "form": {
-      "placeholders": {
-        "email": "Syötä sähköpostiosoitteesi",
-        "feedback": "Kirjoita palautteesi tähän"
-      }
-    },
-    "policies": "Jatkamalla hyväksyt {0} ja tunnustamme {1} .",
-    "privacyPolicy": "Tietosuojakäytäntö",
-    "success": "Palautteesi on lähetetty.",
-    "termsOfService": "Käyttöehdot",
-    "thankYou": "Kiitos!",
-    "title": "Lähetä palautetta",
-    "validEmail": "syötä voimassa oleva sähköpostiosoite",
-    "validFeedback": "Palautteen tulee koostua vähintään viidestä sanasta"
   },
   "fieldLabels": {
     "default": {
