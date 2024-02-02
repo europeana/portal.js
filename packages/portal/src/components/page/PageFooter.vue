@@ -115,12 +115,12 @@
       />
       <script
         type="module"
-        src="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.1.0/dist/europeana-feedback-widget.js"
-        integrity="sha384-w3k1iYmZcTD//J+fYTbS3BVA2MFsbNV0HkEj2gIVkVEoV67BH4aoroUoVYzF96BT"
+        src="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.2.0-rc.1/dist/europeana-feedback-widget.js"
+        integrity="sha384-kbJ+7SsEsY6jo1/8rW6KnmZHUYA8SLkQvn3TMVntnsYqucdyNb1CuWKsrIeBuu8/"
       />
       <link
         rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.1.0/dist/europeana-feedback-widget.css"
+        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.2.0-rc.1/dist/europeana-feedback-widget.css"
       >
     </client-only>
   </footer>
