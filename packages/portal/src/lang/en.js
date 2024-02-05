@@ -942,6 +942,8 @@ export default {
   "multilingual": {
     "automated": "Automated translation",
     "enrichment": "Enrichment by partner projects",
+    "login": "Log in",
+    "loginToTranslate": "{login} to see this item in other languages",
     "other": "other languages",
     "stopTranslating": "Stop translating this item to {0}.",
     "translateLanguage": "Would you like to see this item in {0}?",

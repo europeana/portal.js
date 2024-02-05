@@ -20,6 +20,21 @@
                 data-qa="translate item error"
               />
               <i18n
+                v-else-if="!$auth.loggedIn"
+                path="multilingual.loginToTranslate"
+                tag="span"
+                data-qa="translate item login"
+              >
+                <template #login>
+                  <b-link
+                    data-qa="log in button"
+                    @click="keycloakLogin"
+                  >
+                    {{ $t('multilingual.login') }}
+                  </b-link>
+                </template>
+              </i18n>
+              <i18n
                 v-else
                 path="multilingual.translateLanguage"
                 tag="span"
@@ -80,11 +95,13 @@
 </template>
 
 <script>
+  import keycloak from '@/mixins/keycloak';
   import locales from '@/mixins/locales';
 
   export default {
     name: 'ItemLanguageSelector',
     mixins: [
+      keycloak,
       locales
     ],
     props: {
