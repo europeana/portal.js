@@ -200,11 +200,28 @@
           view: this.$route?.query?.view
         };
       },
+      translateProfileEnabledForCurrentLocale() {
+        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+      },
+      translateProfileEnabledForCollections() {
+        return !this.$config?.app?.search?.collections?.doNotTranslate;
+      },
+      translateProfileEnabledBehindLogin() {
+        if (this.translateProfileEnabledForCurrentLocale) {
+          if (this.hasEntity) {
+            return this.translateProfileEnabledForCollections;
+          } else {
+            return true;
+          }
+        } else {
+          return false;
+        }
+      },
       suggestLoginForMoreResults() {
-        return this.$route.query.query && !this.$auth.loggedIn && this.$i18n.locale === this.$config?.app?.search?.translateLocales;
+        return this.$route.query.query && !this.$auth.loggedIn && this.translateProfileEnabledBehindLogin;
       },
       multilingualSearchTooltip() {
-        if (this.$route.query.query && this.$i18n.locale === this.$config?.app?.search?.translateLocales) {
+        if (this.$route.query.query && this.translateProfileEnabledBehindLogin) {
           if (this.$auth.loggedIn) {
             return this.$t('search.results.showingMultilingualResults');
           } else {

@@ -20,7 +20,7 @@ const factory = (options = {}) => mount(SearchResultsContext, {
   propsData: options.propsData,
   i18n: options.i18n || i18n,
   mocks: {
-    $config: { app: { search: { translateLocales: 'es' } } },
+    $config: { app: { search: { translateLocales: 'es', ...options.searchConfig } } },
     $apis: {
       entity: {
         imageUrl: (entity) => entity.logo || entity.isShownBy
@@ -262,6 +262,32 @@ describe('SearchResultsContext', () => {
           const tooltip = wrapper.find('[data-qa="results more tooltip"]');
 
           expect(tooltip.exists()).toBe(true);
+        });
+      });
+      describe('when multilingual search is disabled for collections', () => {
+        describe('searching on keyword inside a collection', () => {
+          const wrapper = factory({
+            propsData: { entity: fixtures.thematicCollectionTopicEntity },
+            i18n: new VueI18n({
+              locale: 'es',
+              messages: {
+                es: { 'search.results.withoutQuery': 'search.results.withoutQuery',
+                  'search.results.loginToSeeMore': 'search.results.loginToSeeMore' }
+              }
+            }),
+            route: { query: { query: 'casa' } },
+            searchConfig: { collections: { doNotTranslate: true } }
+          });
+          it('does not suggest to log in to see more results', () => {
+            const suggestion = wrapper.find('[data-qa="results more link"]');
+
+            expect(suggestion.exists()).toBe(false);
+          });
+          it('does not display a tooltip explaining the multilingual results', () => {
+            const tooltip = wrapper.find('[data-qa="results more tooltip"]');
+
+            expect(tooltip.exists()).toBe(false);
+          });
         });
       });
       describe('searching without keyword', () => {
