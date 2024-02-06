@@ -1,9 +1,13 @@
 <template>
-  <div class="overflow-hidden">
+  <div class="overflow-hidden d-inline-flex flex-wrap align-items-center">
     <i18n
       :path="i18nPath"
       tag="h1"
       class="context-label"
+      :class="{
+        'mr-4': suggestLoginForMoreResults,
+        'mr-1': multilingualSearchTooltip
+      }"
       data-qa="context label"
     >
       <template #count>
@@ -41,12 +45,13 @@
           :badge-variant="badgeVariant"
         />
       </template>
-    </i18n>
+    </i18n><!-- This comment removes white space which gets underlined
+ -->
     <i18n
       v-if="suggestLoginForMoreResults"
       path="search.results.loginToSeeMore"
       tag="span"
-      class="context-label"
+      class="context-label mr-1"
       data-qa="results more link"
     >
       <template #login>
@@ -57,7 +62,15 @@
           {{ $t('search.results.login') }}
         </b-link>
       </template>
-    </i18n>
+    </i18n><!-- This comment removes white space which gets underlined
+ --><b-button
+      v-if="multilingualSearchTooltip"
+      v-b-tooltip.bottom
+      :title="multilingualSearchTooltip"
+      class="icon-info-outline p-0 tooltip-button"
+      variant="light-flat"
+      data-qa="results more tooltip"
+    />
     <div
       class="visually-hidden"
       role="status"
@@ -189,7 +202,19 @@
       },
       suggestLoginForMoreResults() {
         return this.$route.query.query && !this.$auth.loggedIn && this.$i18n.locale === 'es';
+      },
+      multilingualSearchTooltip() {
+        if (this.$route.query.query && this.$i18n.locale === 'es') {
+          if (this.$auth.loggedIn) {
+            return this.$t('search.results.showingMultilungualResults');
+          } else {
+            return this.$t('search.results.loginToSeeMultilingualResults');
+          }
+        } else {
+          return null;
+        }
       }
+
     }
   };
 </script>
