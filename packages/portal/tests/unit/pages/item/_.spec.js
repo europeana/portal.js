@@ -119,13 +119,15 @@ describe('pages/item/_.vue', () => {
   describe('when the page is loaded with a metadataLanguage', () => {
     describe('and the user is not logged in', () => {
       it('redirects to the non-translated item page', async() => {
-        factory({ mocks: {
+        const wrapper = factory({ mocks: {
           $auth: { loggedIn: false },
           $route: { params: { pathMatch: '123/abc' },
             query: { lang: 'fr' },
             fullPath: '/en/item/123/abc',
             path: '/en/item/123/abc' }
         } });
+
+        await wrapper.vm.fetch();
 
         expect(redirectSpy.calledWith({ query: { lang: undefined } })).toBe(true);
       });
