@@ -232,11 +232,11 @@
   .more-link {
     text-decoration: none;
     color: $blue;
-    transition: color .15s ease-in-out;
+    transition: color 150ms ease-in-out;
 
     &:hover {
       color: $darkblue;
-      transition: color .15s ease-in-out;
+      transition: color 150ms ease-in-out;
     }
   }
 
