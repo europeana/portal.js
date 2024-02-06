@@ -42,6 +42,22 @@
         />
       </template>
     </i18n>
+    <i18n
+      v-if="suggestLoginForMoreResults"
+      path="search.results.loginToSeeMore"
+      tag="span"
+      class="context-label"
+      data-qa="results more link"
+    >
+      <template #login>
+        <b-link
+          class="more-link"
+          @click="keycloakLogin"
+        >
+          {{ $t('search.results.login') }}
+        </b-link>
+      </template>
+    </i18n>
     <div
       class="visually-hidden"
       role="status"
@@ -56,6 +72,7 @@
   import SearchRemovalChip from './SearchRemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'SearchResultsContext',
@@ -65,7 +82,8 @@
     },
 
     mixins: [
-      europeanaEntitiesOrganizationsMixin
+      europeanaEntitiesOrganizationsMixin,
+      keycloak
     ],
 
     props: {
@@ -168,6 +186,9 @@
           reusability: this.$route?.query?.reusability,
           view: this.$route?.query?.view
         };
+      },
+      suggestLoginForMoreResults() {
+        return this.$route.query.query && !this.$auth.loggedIn && this.$i18n.locale === 'es';
       }
     }
   };
@@ -181,6 +202,18 @@
   line-height: 3;
   min-width: 0;
   font-size: $font-size-small;
+  display: inline-block;
+
+  .more-link {
+    text-decoration: none;
+    color: $blue;
+    transition: color .15s ease-in-out;
+
+    &:hover {
+      color: $darkblue;
+      transition: color .15s ease-in-out;
+    }
+  }
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
