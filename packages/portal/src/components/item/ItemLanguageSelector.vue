@@ -23,7 +23,7 @@
                 v-else-if="!$auth.loggedIn"
                 path="multilingual.loginToTranslate"
                 tag="span"
-                data-qa="translate item login"
+                data-qa="translate item login suggestion"
               >
                 <template #login>
                   <b-link

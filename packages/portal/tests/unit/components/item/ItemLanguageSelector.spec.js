@@ -54,7 +54,7 @@ describe('components/item/ItemLanguageSelector', () => {
     it('suggests to log in to enable the translation feature', () => {
       const wrapper = factory();
 
-      const suggestion = wrapper.find('[data-qa="translate item login"]');
+      const suggestion = wrapper.find('[data-qa="translate item login suggestion"]');
       expect(suggestion.text()).toContain('see this item in other languages');
     });
   });
