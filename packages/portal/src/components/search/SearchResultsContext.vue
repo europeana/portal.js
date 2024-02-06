@@ -206,7 +206,7 @@
       multilingualSearchTooltip() {
         if (this.$route.query.query && this.$i18n.locale === this.$config?.app?.search?.translateLocales) {
           if (this.$auth.loggedIn) {
-            return this.$t('search.results.showingMultilungualResults');
+            return this.$t('search.results.showingMultilingualResults');
           } else {
             return this.$t('search.results.loginToSeeMultilingualResults');
           }
