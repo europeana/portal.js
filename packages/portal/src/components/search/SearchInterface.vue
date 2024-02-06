@@ -34,7 +34,7 @@
           </client-only>
           <section>
             <div
-              class="mb-3 d-flex align-items-start justify-content-between"
+              class="mb-3 d-flex flex-wrap align-items-center justify-content-between"
             >
               <!-- This div prevents SearchViewToggles jumping around as SearchResultsContext is shown & hidden -->
               <div v-show="$fetchState.pending" />
@@ -47,6 +47,7 @@
               />
               <SearchViewToggles
                 v-model="view"
+                class="ml-auto"
               />
             </div>
             <b-row
