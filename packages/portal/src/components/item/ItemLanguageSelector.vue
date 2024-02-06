@@ -28,9 +28,11 @@
                 <template #login>
                   <b-link
                     data-qa="log in button"
-                    @click="keycloakLogin"
+                    :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+                    @click.prevent="keycloakLogin"
                   >
-                    {{ $t('multilingual.login') }}
+                    {{ $t('multilingual.login') }}<!-- This comment removes white space
+                  -->
                   </b-link>
                 </template>
               </i18n>
