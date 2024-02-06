@@ -28,6 +28,7 @@ const factory = (propsData = {}) => mount(ItemLanguageSelector, {
   i18n,
   mocks: {
     $auth: { loggedIn: propsData.loggedIn || false },
+    localePath: () => {},
     $t: (key) => {
       if (key === 'multilingual.differentLanguage') {
         return 'a different language';

@@ -96,9 +96,9 @@
         const sort = 'score desc,contentTier desc,random_europeana asc,timestamp_update desc,europeana_id asc';
         return !this.searchQuery && !this.$route.query.sort ? { sort } : {};
       },
-      // Disable translate profile (multilingual search) when enabled in the runtime config, but not logged in
+      // Disable translate profile (multilingual search) when not logged in
       doNotTranslate() {
-        return !this.$auth.loggedIn && this.$i18n.locale === this.$config?.app?.search?.translateLocales;
+        return !this.$auth.loggedIn;
       }
     },
 
