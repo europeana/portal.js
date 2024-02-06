@@ -6,6 +6,7 @@
     <SearchInterface
       id="search-interface"
       :override-params="searchOverrides"
+      :do-not-translate="doNotTranslate"
     >
       <template
         v-if="!!searchQuery"
@@ -94,6 +95,9 @@
       searchOverrides() {
         const sort = 'score desc,contentTier desc,random_europeana asc,timestamp_update desc,europeana_id asc';
         return !this.searchQuery && !this.$route.query.sort ? { sort } : {};
+      },
+      doNotTranslate() {
+        return !this.$auth.loggedIn && this.$i18n.locale === 'es';
       }
     },
 

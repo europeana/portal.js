@@ -15,7 +15,7 @@
     >
       <SearchInterface
         v-if="!$fetchState.pending"
-        :do-not-translate="$config.app.search.collections.doNotTranslate"
+        :do-not-translate="doNotTranslate"
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
@@ -307,6 +307,9 @@
         }
 
         return labelledMoreInfo;
+      },
+      doNotTranslate() {
+        return this.$config.app.search.collections.doNotTranslate || (!this.$auth.loggedIn && this.$i18n.locale === 'es');
       }
     },
     methods: {
