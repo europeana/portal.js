@@ -41,8 +41,8 @@ const record = {
 };
 
 const entityFindStub = sinon.stub();
-
 const logEventSpy = sinon.spy();
+const redirectSpy = sinon.spy();
 
 const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
   localVue,
@@ -55,7 +55,8 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
   mixins: [
     {
       methods: {
-        logEvent: logEventSpy
+        logEvent: logEventSpy,
+        redirectToAltRoute: redirectSpy
       }
     }
   ],
@@ -115,6 +116,22 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
 describe('pages/item/_.vue', () => {
   afterEach(sinon.resetHistory);
 
+  describe('when the page is loaded with a metadataLanguage', () => {
+    describe('and the user is not logged in', () => {
+      it('redirects to the non-translated item page', async() => {
+        factory({ mocks: {
+          $auth: { loggedIn: false },
+          $route: { params: { pathMatch: '123/abc' },
+            query: { lang: 'fr' },
+            fullPath: '/en/item/123/abc',
+            path: '/en/item/123/abc' }
+        } });
+
+        expect(redirectSpy.calledWith({ query: { lang: undefined } })).toBe(true);
+      });
+    });
+  });
+
   describe('fetch', () => {
     describe('when the page is loaded without a metadataLanguage', () => {
       it('gets a record from the API for the ID in the route params pathMatch, for the current locale', async() => {
@@ -127,24 +144,25 @@ describe('pages/item/_.vue', () => {
     });
 
     describe('when the page is loaded with a metadataLanguage', () => {
-      it('gets a record from the API for the ID in the params pathMatch, with metadataLanguage from `lang` query', async() => {
-        const wrapper = factory();
-        wrapper.vm.$route.query = { lang: 'fr' };
+      describe('and the user is logged in', () => {
+        it('gets a record from the API for the ID in the params pathMatch, with metadataLanguage from `lang` query', async() => {
+          const wrapper = factory({ mocks: { $auth: { loggedIn: true } } });
+          wrapper.vm.$route.query = { lang: 'fr' };
 
-        await wrapper.vm.fetch();
+          await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
+          expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
+        });
       });
     });
 
     describe('when the requested item identifier is different from the identifier in the response', () => {
       it('redirects to the response identifier item page', async() => {
         const wrapper = factory({ data: { identifier: '/old/id' } });
-        sinon.spy(wrapper.vm, 'redirectToAltRoute');
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.redirectToAltRoute.calledWith({ params: { pathMatch: record.identifier.slice(1) } })).toBe(true);
+        expect(redirectSpy.calledWith({ params: { pathMatch: record.identifier.slice(1) } })).toBe(true);
       });
     });
 

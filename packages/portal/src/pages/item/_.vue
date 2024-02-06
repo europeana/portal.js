@@ -328,6 +328,13 @@
       }
     },
 
+    created() {
+      // When entering a translated item page, but not logged in, redirect to non-translated item page
+      if (this.$route.query.lang && !this.$auth.loggedIn) {
+        this.redirectToAltRoute({ query: { lang: undefined } });
+      }
+    },
+
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
@@ -356,7 +363,7 @@
         try {
           const response = await this.$apis.record.getRecord(
             this.identifier,
-            { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
+            { locale: this.$i18n.locale, metadataLanguage: this.$auth.loggedIn ? this.$route.query.lang : undefined }
           );
 
           const responseIdentifier = response.record.identifier;
