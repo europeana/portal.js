@@ -97,7 +97,7 @@
         return !this.searchQuery && !this.$route.query.sort ? { sort } : {};
       },
       doNotTranslate() {
-        return !this.$auth.loggedIn && this.$i18n.locale === 'es';
+        return !this.$auth.loggedIn && this.$i18n.locale === this.$config?.app?.search?.translateLocales;
       }
     },
 

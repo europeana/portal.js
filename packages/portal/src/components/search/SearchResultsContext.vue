@@ -201,10 +201,10 @@
         };
       },
       suggestLoginForMoreResults() {
-        return this.$route.query.query && !this.$auth.loggedIn && this.$i18n.locale === 'es';
+        return this.$route.query.query && !this.$auth.loggedIn && this.$i18n.locale === this.$config?.app?.search?.translateLocales;
       },
       multilingualSearchTooltip() {
-        if (this.$route.query.query && this.$i18n.locale === 'es') {
+        if (this.$route.query.query && this.$i18n.locale === this.$config?.app?.search?.translateLocales) {
           if (this.$auth.loggedIn) {
             return this.$t('search.results.showingMultilungualResults');
           } else {

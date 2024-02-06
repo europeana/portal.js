@@ -309,7 +309,7 @@
         return labelledMoreInfo;
       },
       doNotTranslate() {
-        return this.$config.app.search.collections.doNotTranslate || (!this.$auth.loggedIn && this.$i18n.locale === 'es');
+        return this.$config.app.search.collections.doNotTranslate || (!this.$auth.loggedIn && this.$i18n.locale === this.$config?.app?.search?.translateLocales);
       }
     },
     methods: {

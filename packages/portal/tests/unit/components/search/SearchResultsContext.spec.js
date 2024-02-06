@@ -20,6 +20,7 @@ const factory = (options = {}) => mount(SearchResultsContext, {
   propsData: options.propsData,
   i18n: options.i18n || i18n,
   mocks: {
+    $config: { app: { search: { translateLocales: 'es' } } },
     $apis: {
       entity: {
         imageUrl: (entity) => entity.logo || entity.isShownBy
@@ -239,7 +240,7 @@ describe('SearchResultsContext', () => {
     });
   });
 
-  describe('when on the Spanish portal', () => {
+  describe('when multilingual search is enabled for the selected UI language', () => {
     describe('and not logged in', () => {
       describe('searching on keyword', () => {
         const wrapper = factory({
