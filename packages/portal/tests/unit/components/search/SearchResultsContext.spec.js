@@ -271,8 +271,9 @@ describe('SearchResultsContext', () => {
             i18n: new VueI18n({
               locale: 'es',
               messages: {
-                es: { 'search.results.withoutQuery': 'search.results.withoutQuery',
-                  'search.results.loginToSeeMore': 'search.results.loginToSeeMore' }
+                es: { 'search.results.loginToSeeMore': 'search.results.loginToSeeMore',
+                  'search.results.withinCollection': 'search.results.withinCollection',
+                  'search.results.withoutQuery': 'search.results.withoutQuery' }
               }
             }),
             route: { query: { query: 'casa' } },

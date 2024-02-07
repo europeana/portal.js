@@ -57,7 +57,8 @@
       <template #login>
         <b-link
           class="more-link"
-          @click="keycloakLogin"
+          :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+          @click.prevent="keycloakLogin"
         >
           {{ $t('search.results.login') }}
         </b-link>
