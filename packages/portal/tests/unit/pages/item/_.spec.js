@@ -118,18 +118,26 @@ describe('pages/item/_.vue', () => {
 
   describe('when the page is loaded with a metadataLanguage', () => {
     describe('and the user is not logged in', () => {
-      it('redirects to the non-translated item page', async() => {
-        const wrapper = factory({ mocks: {
-          $auth: { loggedIn: false },
-          $route: { params: { pathMatch: '123/abc' },
-            query: { lang: 'fr' },
-            fullPath: '/en/item/123/abc',
-            path: '/en/item/123/abc' }
-        } });
+      const wrapper = factory({ mocks: {
+        $auth: { loggedIn: false },
+        $route: { params: { pathMatch: '123/abc' },
+          query: { lang: 'fr' },
+          fullPath: '/en/item/123/abc',
+          path: '/en/item/123/abc' }
+      } });
 
+      it('redirects to the non-translated item page', async() => {
         await wrapper.vm.fetch();
 
         expect(redirectSpy.calledWith({ query: { lang: undefined } })).toBe(true);
+      });
+      it('does not fetch metadata with translate profile', async() => {
+        const fetchMetadata = sinon.spy(wrapper.vm, 'fetchMetadata');
+
+        await wrapper.vm.fetch();
+
+        expect(fetchMetadata.called).toBe(false);
+        expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(false);
       });
     });
   });

@@ -213,9 +213,9 @@
       // When entering a translated item page, but not logged in, redirect to non-translated item page
       if (this.$route.query.lang && !this.$auth.loggedIn) {
         this.redirectToAltRoute({ query: { lang: undefined } });
+      } else {
+        await this.fetchMetadata();
       }
-
-      await this.fetchMetadata();
     },
 
     computed: {
