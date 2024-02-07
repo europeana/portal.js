@@ -10,7 +10,7 @@
       <b-container>
         <b-row>
           <b-col class="col-12 py-3 d-inline-flex align-items-center flex-wrap">
-            <span>
+            <span class="d-inline-flex align-items-center flex-wrap">
               <span class="icon-translate pr-2" />
               <i18n
                 v-if="fromTranslationError"
@@ -65,7 +65,7 @@
               <b-button
                 v-b-tooltip.bottom
                 :title="$t('multilingual.translateMetadata')"
-                class="icon-info-outline tooltip-button"
+                class="icon-info-outline tooltip-button px-2"
                 variant="light-flat"
               />
             </span>
