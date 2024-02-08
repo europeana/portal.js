@@ -52,6 +52,7 @@ export default {
     "hide": "Ukryj",
     "learnMore": "Ucz się więcej",
     "like": "Lubię",
+    "login": "Zaloguj się",
     "move": "Przesuń",
     "next": "Następny",
     "pin": "Szpilka",
@@ -915,6 +916,7 @@ export default {
   "multilingual": {
     "automated": "Tłumaczenie zautomatyzowane",
     "enrichment": "Rozszerzenie w ramach projektów partnerskich",
+    "loginToTranslate": "{login} aby zobaczyć ten obiekt cyfrowy w innych językach",
     "other": "inne języki",
     "stopTranslating": "Przestań tłumaczyć ten element na {0}.",
     "translateLanguage": "Czy chciałbyś zobaczyć ten element w {0}?",
@@ -1072,6 +1074,9 @@ export default {
     },
     "results": {
       "limitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najtrafniejszych wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
+      "loginToSeeMore": "{login} aby zobaczyć więcej wyników",
+      "loginToSeeMultilingualResults": "Zaloguj się, aby przeszukać całą kolekcję i uzyskać wyniki nie ograniczone do języka wyszukiwanego hasła.",
+      "showingMultilingualResults": "Wyświetlanie wyników dla całej kolekcji i wszystkich języków.",
       "withinCollection": "{count} wyniki w ramach {type} {collection}",
       "withinCollectionWithQuery": "{count} wyników w {type} {collection} dla {query}",
       "withoutQuery": "{count} wyników",

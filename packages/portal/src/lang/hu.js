@@ -52,6 +52,7 @@ export default {
     "hide": "Elrejt",
     "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
+    "login": "Bejelentkezés",
     "move": "Mozgás",
     "next": "Következő",
     "pin": "Pin",
@@ -915,6 +916,7 @@ export default {
   "multilingual": {
     "automated": "Automatizált fordítás",
     "enrichment": "Gazdagodás partnerprojektek által",
+    "loginToTranslate": "{login} hogy ezt a tárgyat más nyelveken is megtekinthesse.",
     "other": "egyéb nyelvek",
     "stopTranslating": "Állítsa le ennek az tárgynak a fordítását {0}-ra.",
     "translateLanguage": "Szeretné megtekinteni ezt az tárgyat itt: {0}?",
@@ -1072,6 +1074,9 @@ export default {
     },
     "results": {
       "limitWarning": "A további eredmények nem jelennek meg, mivel csak az első 1000 legrelevánsabb eredmény jelenik meg. Ha nem találta meg, amit keres, kérjük, fontolja meg a keresés finomítását.",
+      "loginToSeeMore": "{login} további eredmények megtekintéséhez",
+      "loginToSeeMultilingualResults": "Jelentkezzen be, ha a teljes gyűjteményben szeretne keresni, és nem korlátozódik a keresett kifejezés nyelvére.",
+      "showingMultilingualResults": "Eredmények megjelenítése a teljes gyűjteményben és az összes nyelven.",
       "withinCollection": "{count} eredmények a belül {type} {collection}",
       "withinCollectionWithQuery": "{count} eredmények a {type} belül {collection} a {query} számára",
       "withoutQuery": "{count} eredmények",

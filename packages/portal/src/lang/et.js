@@ -52,6 +52,7 @@ export default {
     "hide": "Peida",
     "learnMore": "Lisateave",
     "like": "Meeldib",
+    "login": "Logi sisse",
     "move": "Liiguta",
     "next": "Järgmine",
     "pin": "Pin",
@@ -915,6 +916,7 @@ export default {
   "multilingual": {
     "automated": "Automatiseeritud tõlge",
     "enrichment": "Rikastamine partner projektide kaudu",
+    "loginToTranslate": "{login} et näha seda üksust teistes keeltes",
     "other": "muud keeled",
     "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
     "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
@@ -1072,6 +1074,9 @@ export default {
     },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
+      "loginToSeeMore": "{login} , et näha rohkem tulemusi",
+      "loginToSeeMultilingualResults": "Logige sisse, et otsida kogu kollektsioonist ja saada tulemusi, mis ei piirdu teie otsingutermini keelega.",
+      "showingMultilingualResults": "Kuvatakse tulemusi kogu kogumiku ja kõigi keelte lõikes.",
       "withinCollection": "{count} tulemust jaotises {type} {collection}",
       "withinCollectionWithQuery": "{count} tulemust jaotises {type} {collection} jaoks {query}",
       "withoutQuery": "{count} tulemust",

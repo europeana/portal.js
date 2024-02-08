@@ -52,6 +52,7 @@ export default {
     "hide": "Folaigh",
     "learnMore": "Foghlaim níos mó",
     "like": "Is maith liom",
+    "login": "Logáil isteach",
     "move": "Bog",
     "next": "Ar Aghaidh",
     "pin": "Bioráin",
@@ -915,6 +916,7 @@ export default {
   "multilingual": {
     "automated": "Aistriúchán uathoibrithe",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
+    "loginToTranslate": "{login} chun an mhír seo a fheiceáil i dteangacha eile",
     "other": "teangacha eile",
     "stopTranslating": "Stop an t-earra seo a aistriú go {0}.",
     "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
@@ -1072,6 +1074,9 @@ export default {
     },
     "results": {
       "limitWarning": "Ní thaispeántar torthaí breise mar ní léirítear ach an chéad 1000 toradh is ábhartha. Mura bhfuil a bhfuil uait aimsithe agat, smaoinigh ar do chuardach a bheachtú.",
+      "loginToSeeMore": "{login} chun tuilleadh torthaí a fheiceáil",
+      "loginToSeeMultilingualResults": "Logáil isteach chun cuardach a dhéanamh ar fud an bhailiúcháin ar fad, agus faigh torthaí nach bhfuil teoranta do theanga do théarma cuardaigh.",
+      "showingMultilingualResults": "Torthaí a thaispeáint ar fud an bhailiúcháin ar fad agus gach teanga.",
       "withinCollection": "{count} torthaí laistigh de {type} {collection}",
       "withinCollectionWithQuery": "{count} torthaí laistigh de {type} {collection} le haghaidh {query}",
       "withoutQuery": "{count} torthaí",
