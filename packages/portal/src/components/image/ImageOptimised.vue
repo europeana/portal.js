@@ -30,11 +30,11 @@
         required: true
       },
       width: {
-        type: Number,
+        type: [Number, String],
         required: true
       },
       height: {
-        type: Number,
+        type: [Number, String],
         required: true
       },
       alt: {

@@ -24,6 +24,9 @@
         :attribution="heroImage"
         :image-srcset="isSVG ? null : imageSrcset"
         :image-sizes="isSVG ? null : imageSizes"
+        :lazy="false"
+        width="auto"
+        height="auto"
       />
     </b-container>
   </div>
