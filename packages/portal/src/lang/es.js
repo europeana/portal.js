@@ -47,7 +47,6 @@ export default {
     "download": "Descargar",
     "edit": "Editar",
     "explore": "Explorar",
-    "feedback": "Comentarios",
     "filter": "Filtrar",
     "goHome": "Ir a la página de inicio",
     "hide": "Ocultar",
@@ -63,13 +62,11 @@ export default {
     "reject": "Rechazar",
     "requestDepublication": "Solicitud de despublicación",
     "save": "Salvar",
-    "send": "Enviar",
     "share": "Compartir",
     "shareOn": "Compartir en {social}",
     "show": "Mostrar",
     "showLess": "Mostrar menos",
     "showMore": "Mostrar más",
-    "skipSend": "Saltar y enviar",
     "submitForPublication": "Enviar para publicación",
     "submittedForPublication": "Enviado para publicación",
     "transcribe": "Transcribir",
@@ -208,6 +205,15 @@ export default {
   "directions": {
     "left": "Izquierda",
     "right": "Derecha"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Espacio de datos para el patrimonio cultural",
+    "header": {
+      "contributors": "Colaboradores",
+      "dataOffer": "Oferta de datos",
+      "stayInTouch": "Mantente en contacto"
+    },
+    "logoAlt": "Espacio de datos para la página de inicio del patrimonio cultural"
   },
   "edmIsShownAtLinkAlt": "Ver en el sitio web del proveedor",
   "entity": {
@@ -626,7 +632,7 @@ export default {
       "select": "Seleccionar tipos"
     },
     "proxy_dcterms_issued": {
-      "name": "Fecha de publicación"
+      "name": "Fecha de emisión"
     },
     "proxy_dcterms_medium": {
       "name": "Mediano",
@@ -653,25 +659,6 @@ export default {
       },
       "select": "Seleccionar tipos de medios"
     }
-  },
-  "feedback": {
-    "emailOptional": "Es posible que queremos hacer un seguimiento. Introduce tu correo electrónico si estás de acuerdo en que nos pongamos en contacto contigo.",
-    "failed": "La solicitud falló. Inténtalo de nuevo.",
-    "faq": "Ir a preguntas frecuentes",
-    "form": {
-      "placeholders": {
-        "email": "Ingrese su dirección de correo electrónico",
-        "feedback": "Ingrese sus comentarios aquí"
-      }
-    },
-    "policies": "Al continuar, usted acepta nuestro {0} y reconoce nuestro {1}.",
-    "privacyPolicy": "Política de privacidad",
-    "success": "Su comentario ha sido enviado.",
-    "termsOfService": "Términos de servicio",
-    "thankYou": "Gracias.",
-    "title": "Enviar comentarios",
-    "validEmail": "Introduzca una dirección de correo electrónico válida",
-    "validFeedback": "Sus comentarios deben constar de 5 palabras como mínimo"
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +736,20 @@ export default {
     "disclaimerLine1": "Europeana es una iniciativa de la Unión Europea, financiada por el Connecting Europe Facility de la Unión Europea y los Estados miembros de la Unión Europea. Los servicios de Europeana, incluido este sitio web, son operados por un consorcio liderado por la Fundación Europeana en virtud de un contrato de servicios con la Comisión Europea.",
     "disclaimerLine2": "La Comisión Europea no garantiza la exactitud de la información y no acepta responsabilidad alguna con respecto a la información en este sitio web. Ni la Comisión Europea, ni ninguna persona que actúe en nombre de la Comisión Europea, es responsable de la exactitud o el uso de la información en este sitio web.",
     "findUsElsewhere": "Puedes encontrarnos también en",
+    "footer": "Pie de página",
     "imageDescription": "Financiado por la Unión Europea",
     "navigation": {
       "about": "Sobre nosotros",
       "accessibility": "Accesibilidad",
       "cookies": "Cookies",
-      "faq": "Preguntas frecuentes",
+      "faq": "Preguntas frecuentes (FAQ)",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "MoreInfoLabel": "Más información",
       "privacy": "Política de privacidad",
       "provide": "Conviértete en proveedor de datos",
       "subscribe": "Suscríbete a nuestro boletín",
-      "terms": "Términos de uso"
+      "terms": "Términos y Políticas"
     },
     "ourMission": "Nuestra misión",
     "ourMissionQuote": "Europeana sostiene el sector del patrimonio cultural en su transformación digital. Desarrollamos competencias, herramientas y estrategias para adoptar el cambio digital y fomentar colaboraciones que promuevan la innovación."

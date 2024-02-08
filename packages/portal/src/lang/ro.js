@@ -47,7 +47,6 @@ export default {
     "download": "Descarcă",
     "edit": "Editare",
     "explore": "Explora",
-    "feedback": "Feedback",
     "filter": "Filtru",
     "goHome": "Mergeți la pagina de pornire",
     "hide": "Ascunde",
@@ -63,13 +62,11 @@ export default {
     "reject": "Respinge",
     "requestDepublication": "Solicitați depublicarea",
     "save": "Salva",
-    "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
     "show": "Afișare",
     "showLess": "Afișează mai puțin",
     "showMore": "Afișează mai multe",
-    "skipSend": "Săriți și trimiteți",
     "submitForPublication": "Trimiteți spre publicare",
     "submittedForPublication": "Trimis spre publicare",
     "transcribe": "Transcrie",
@@ -208,6 +205,15 @@ export default {
   "directions": {
     "left": "Stânga",
     "right": "Dreapta"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Spațiu de date pentru patrimoniul cultural",
+    "header": {
+      "contributors": "Contribuitori",
+      "dataOffer": "Oferta de date",
+      "stayInTouch": "Păstrați legătura"
+    },
+    "logoAlt": "Spațiu de date pentru pagina principală a patrimoniului cultural"
   },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
   "entity": {
@@ -654,25 +660,6 @@ export default {
       "select": "Selectați tipurile de media"
     }
   },
-  "feedback": {
-    "emailOptional": "S-ar putea să dorim să urmărim acest lucru. Introduceți adresa dvs. de e-mail dacă sunteți de acord să vă contactăm.",
-    "failed": "Solicitarea nu a reușit. Încercați din nou.",
-    "faq": "Accesați întrebările frecvente",
-    "form": {
-      "placeholders": {
-        "email": "Introduceți adresa de e-mail",
-        "feedback": "Introduceți feedback-ul aici"
-      }
-    },
-    "policies": "Continuând, sunteți de acord cu {0} și acceptați {1}.",
-    "privacyPolicy": "Politica de Confidențialitate",
-    "success": "Feedbackul dvs. a fost trimis.",
-    "termsOfService": "Termenii serviciului",
-    "thankYou": "Mulțumesc!",
-    "title": "Trimite feedback",
-    "validEmail": "Introduceți o adresă de email validă",
-    "validFeedback": "Feedback-ul tău trebuie să fie format din minim 5 cuvinte."
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Contribuitori",
@@ -749,19 +736,20 @@ export default {
     "disclaimerLine1": "Europeana este o inițiativă a Uniunii Europene, finanțată de Connecting Europe Facility al Uniunii Europene și de statele membre ale Uniunii Europene. Serviciile Europeana, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în temeiul unui contract de servicii cu Comisia Europeană.",
     "disclaimerLine2": "Comisia Europeană nu garantează acuratețea informațiilor și nu își asumă nicio răspundere sau răspundere cu privire la informațiile de pe acest site web. Nici Comisia Europeană, nici nicio persoană care acționează în numele Comisiei Europene, nu este responsabilă sau răspunzătoare pentru acuratețea sau utilizarea informațiilor de pe acest site web.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
+    "footer": "Subsol",
     "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
       "about": "Despre",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
-      "faq": "Întrebări frecvente",
+      "faq": "Întrebări frecvente (FAQ)",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
       "provide": "Devino instituție furnizoare",
       "subscribe": "Abonează-te la buletinul nostru de știri",
-      "terms": "Termeni de utilizare"
+      "terms": "Termeni și politici"
     },
     "ourMission": "Misiunea noastră",
     "ourMissionQuote": "Europeana sprijină sectorul patrimoniului cultural în transformarea sa digitală. Dezvoltăm expertiza, uneltele și politicile pentru a adopta schimbările digitale și încurajăm parteneriate care stau la baza inovației."

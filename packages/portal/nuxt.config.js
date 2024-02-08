@@ -12,6 +12,7 @@ import versions from './pkg-versions.js';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
+import { exclude as i18nRoutesExclude } from './src/plugins/i18n/routes.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration, valueIsTruthy } from './src/features/index.js';
 
@@ -69,6 +70,11 @@ export default {
       },
       featureNotification: process.env.APP_FEATURE_NOTIFICATION,
       featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      feedback: {
+        cors: {
+          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
+        }
+      },
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       siteName: APP_SITE_NAME,
@@ -335,10 +341,7 @@ export default {
       },
       // Disable redirects to account pages
       parsePages: false,
-      pages: {
-        'account/callback': false,
-        'account/logout': false
-      },
+      pages: i18nRoutesExclude.reduce((memo, route) => ({ ...memo, [route.slice(1)]: false }), {}),
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
       // Set to false to disable

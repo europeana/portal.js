@@ -47,7 +47,6 @@ export default {
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "explore": "Preskúmať",
-    "feedback": "Spätná väzba",
     "filter": "Filter",
     "goHome": "Prejsť na domovskú stránku",
     "hide": "Skryť",
@@ -63,13 +62,11 @@ export default {
     "reject": "Odmietnuť",
     "requestDepublication": "Žiadosť zrušiť zverejnenie",
     "save": "Uložiť",
-    "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
     "show": "Zobraziť",
     "showLess": "Zobraziť menej",
     "showMore": "Zobraziť viac",
-    "skipSend": "Preskočiť a odoslať",
     "submitForPublication": "Odoslať na zverejnenie",
     "submittedForPublication": "Predložené na zverejnenie",
     "transcribe": "Prepísať",
@@ -208,6 +205,15 @@ export default {
   "directions": {
     "left": "Vľavo",
     "right": "Vpravo"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Dátový priestor pre kultúrne dedičstvo",
+    "header": {
+      "contributors": "Prispievatelia",
+      "dataOffer": "Ponuka dát",
+      "stayInTouch": "Zostať v kontakte"
+    },
+    "logoAlt": "Dátový priestor pre domovskú stránku kultúrneho dedičstva"
   },
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
   "entity": {
@@ -654,25 +660,6 @@ export default {
       "select": "Vyberte typy médií"
     }
   },
-  "feedback": {
-    "emailOptional": "Možno budeme chcieť nadviazať ďalšie kroky. Ak chcete, aby sme vás kontaktovali, zadajte svoj e-mail.",
-    "failed": "Žiadosť zlyhala. Prosím skúste znova.",
-    "faq": "Prejdite na často kladené otázky",
-    "form": {
-      "placeholders": {
-        "email": "Zadajte svoju e-mailovú adresu",
-        "feedback": "Sem zadajte svoju spätnú väzbu"
-      }
-    },
-    "policies": "Pokračovaním súhlasíte s našimi {0} a beriete na vedomie naše {1}.",
-    "privacyPolicy": "Zásady ochrany osobných údajov",
-    "success": "Vaša spätná väzba bola odoslaná.",
-    "termsOfService": "Podmienky služby",
-    "thankYou": "Ďakujeme!",
-    "title": "Odoslať spätnú väzbu",
-    "validEmail": "Zadajte platnú e-mailovú adresu",
-    "validFeedback": "Vaša spätná väzba musí obsahovať minimálne 5 slov"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Prispievatelia",
@@ -749,19 +736,20 @@ export default {
     "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
     "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
+    "footer": "Pätička",
     "imageDescription": "Financované Európskou úniou",
     "navigation": {
       "about": "O nás",
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
-      "faq": "Často kladené otázky",
+      "faq": "Často kladené otázky (FAQ)",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Zásady ochrany osobných údajov",
       "provide": "Staňte sa správcovská inštitúcia",
       "subscribe": "Prihláste sa k odberu nášho newslettera",
-      "terms": "Podmienky používania"
+      "terms": "Podmienky a zásady"
     },
     "ourMission": "Náš cieľ",
     "ourMissionQuote": "Europeana posilňuje digitálnu transformáciu odvetvia kultúrneho dedičstva. Rozvíjame odborné znalosti, nástroje a zásady na prijímanie digitálnych zmien a nadväzujeme partnerstvá, ktoré sú založené na inovácii."

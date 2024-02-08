@@ -47,7 +47,6 @@ export default {
     "download": "Lataa",
     "edit": "Muokkaa",
     "explore": "Tutustu",
-    "feedback": "Palaute",
     "filter": "Suodattaa",
     "goHome": "Siirry kotisivulle",
     "hide": "Piilota",
@@ -63,13 +62,11 @@ export default {
     "reject": "Hylätä",
     "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
-    "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
     "show": "Näytä",
     "showLess": "Näytä vähemmän",
     "showMore": "Näytä lisää",
-    "skipSend": "Ohita ja lähetä",
     "submitForPublication": "Lähetä julkaistavaksi",
     "submittedForPublication": "Lähetetty julkaistavaksi",
     "transcribe": "Transkribeerida",
@@ -208,6 +205,15 @@ export default {
   "directions": {
     "left": "Vasen",
     "right": "Oikea"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kulttuuriperinnön datatila",
+    "header": {
+      "contributors": "Osallistujat",
+      "dataOffer": "Data tarjous",
+      "stayInTouch": "Pidä yhteyttä"
+    },
+    "logoAlt": "Kulttuuriperinnön data-avaruuden kotisivu"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
   "entity": {
@@ -654,25 +660,6 @@ export default {
       "select": "Valitse mediatyypit"
     }
   },
-  "feedback": {
-    "emailOptional": "Saatamme haluta seurata asiaa. Kirjoita sähköpostiosoitteesi, jos olet iloinen siitä, että voimme ottaa sinuun yhteyttä.",
-    "failed": "Pyyntö epäonnistui. Yritä uudelleen.",
-    "faq": "Siirry usein kysyttyihin kysymyksiin",
-    "form": {
-      "placeholders": {
-        "email": "Syötä sähköpostiosoitteesi",
-        "feedback": "Kirjoita palautteesi tähän"
-      }
-    },
-    "policies": "Jatkamalla hyväksyt {0} ja tunnustamme {1} .",
-    "privacyPolicy": "Tietosuojakäytäntö",
-    "success": "Palautteesi on lähetetty.",
-    "termsOfService": "Käyttöehdot",
-    "thankYou": "Kiitos!",
-    "title": "Lähetä palautetta",
-    "validEmail": "syötä voimassa oleva sähköpostiosoite",
-    "validFeedback": "Palautteen tulee koostua vähintään viidestä sanasta"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Myötävaikuttajat",
@@ -749,19 +736,20 @@ export default {
     "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
     "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
+    "footer": "Alatunniste",
     "imageDescription": "Euroopan unionin rahoittama",
     "navigation": {
       "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
-      "faq": "Usein kysytyt kysymykset",
+      "faq": "Usein kysytyt kysymykset (FAQ)",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojakäytäntö",
       "provide": "Ryhdy aineiston tarjoaja",
       "subscribe": "Tilaa uutiskirjeemme",
-      "terms": "Käyttöehdot"
+      "terms": "Ehdot ja käytännöt"
     },
     "ourMission": "Tehtävämme",
     "ourMissionQuote": "Europeana edesauttaa kulttuuriperinnön digitaalista muodonmuutosta. Kehitämme asiantuntemusta, välineitä ja menettelytapoja digitaalisen muutoksen omaksumiseksi ja kannustamme innovaatioita edistäviä kumppanuuksia."

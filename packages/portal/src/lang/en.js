@@ -47,7 +47,6 @@ export default {
     "download": "Download",
     "edit": "Edit",
     "explore": "Explore",
-    "feedback": "Feedback",
     "filter": "Filter",
     "goHome": "Go to the homepage",
     "hide": "Hide",
@@ -63,13 +62,11 @@ export default {
     "reject": "Reject",
     "requestDepublication": "Request depublication",
     "save": "Save",
-    "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
     "show": "Show",
     "showLess": "Show less",
     "showMore": "Show more",
-    "skipSend": "Skip and send",
     "submitForPublication": "Submit for publication",
     "submittedForPublication": "Submitted for publication",
     "transcribe": "Transcribe",
@@ -212,6 +209,15 @@ export default {
   "directions": {
     "left": "Left",
     "right": "Right"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Data space for cultural heritage",
+    "logoAlt": "Data space for cultural heritage home page",
+    "header": {
+      "contributors": "Contributors",
+      "dataOffer": "Data offer",
+      "stayInTouch": "Stay in touch"
+    }
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
@@ -681,25 +687,6 @@ export default {
       "select": "Select media"
     }
   },
-  "feedback": {
-    "emailOptional": "We may wish to follow up. Enter your email if you're happy for us to contact you.",
-    "failed": "The request failed. Please try again.",
-    "faq": "Go to frequently asked questions",
-    "form": {
-      "placeholders": {
-        "email": "Enter your email address",
-        "feedback": "Enter your feedback here"
-      }
-    },
-    "policies": "By continuing, you agree to our {0} and acknowledge our {1}.",
-    "privacyPolicy": "Privacy Policy",
-    "success": "Your feedback has been sent.",
-    "termsOfService": "Terms of Service",
-    "thankYou": "Thank you!",
-    "title": "Send feedback",
-    "validEmail": "Enter a valid email address",
-    "validFeedback": "Your feedback has to consist of 5 words at minimum"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Contributors",
@@ -776,19 +763,20 @@ export default {
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
     "findUsElsewhere": "Find us elsewhere",
+    "footer": "Footer",
     "imageDescription": "Funded by the European Union",
     "navigation": {
       "MoreInfoLabel": "More Info",
       "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
-      "faq": "Frequently asked questions",
+      "faq": "Frequently Asked Questions (FAQ)",
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
       "provide": "Become a providing institution",
       "subscribe": "Subscribe to our newsletter",
-      "terms": "Terms of use"
+      "terms": "Terms & Policies"
     },
     "ourMission": "Our mission",
     "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation."

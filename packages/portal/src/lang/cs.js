@@ -47,7 +47,6 @@ export default {
     "download": "Stáhnout",
     "edit": "Upravit",
     "explore": "Prozkoumat",
-    "feedback": "Zpětná vazba",
     "filter": "Filtr",
     "goHome": "Přejít na domovskou stránku",
     "hide": "Skrýt",
@@ -63,13 +62,11 @@ export default {
     "reject": "Odmítnout",
     "requestDepublication": "Žádost o zrušení publikace",
     "save": "Uložit",
-    "send": "Poslat",
     "share": "Sdílejte",
     "shareOn": "Sdílet na {social}",
     "show": "Zobrazit",
     "showLess": "Zobrazit méně",
     "showMore": "Zobrazit více",
-    "skipSend": "Přeskočit a odeslat",
     "submitForPublication": "Odeslat k publikaci",
     "submittedForPublication": "Odesláno k publikaci",
     "transcribe": "Přepsat",
@@ -208,6 +205,15 @@ export default {
   "directions": {
     "left": "Doleva",
     "right": "Doprava"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Datový prostor pro kulturní dědictví",
+    "header": {
+      "contributors": "Přispěvatelé",
+      "dataOffer": "Nabídka dat",
+      "stayInTouch": "Zůstaňte v kontaktu"
+    },
+    "logoAlt": "Datový prostor pro domovskou stránku kulturního dědictví"
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
   "entity": {
@@ -654,25 +660,6 @@ export default {
       "select": "Vyberte typy médií"
     }
   },
-  "feedback": {
-    "emailOptional": "Možná budeme chtít navázat. Pokud si přejete, abychom vás kontaktovali, zadejte svůj e-mail.",
-    "failed": "Požadavek se nezdařil. Zkuste to znovu.",
-    "faq": "Přejít na často kladené dotazy",
-    "form": {
-      "placeholders": {
-        "email": "Zadejte svou e-mailovou adresu",
-        "feedback": "Zde zadejte svou zpětnou vazbu"
-      }
-    },
-    "policies": "Pokračováním souhlasíte s naším {0} a berete na vědomí naše {1}.",
-    "privacyPolicy": "Zásady ochrany osobních údajů",
-    "success": "Vaše zpětná vazba byla odeslána.",
-    "termsOfService": "Podmínky používání ",
-    "thankYou": "Děkujeme!",
-    "title": "Odeslat zpětnou vazbu",
-    "validEmail": "Zadejte platnou e-mailovou adresu.",
-    "validFeedback": "Vaše zpětná vazba musí obsahovat minimálně 5 slov"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Přispěvatelé",
@@ -749,19 +736,20 @@ export default {
     "disclaimerLine1": "Europeana je iniciativa Evropské unie financovaná z Nástroje pro propojení Evropy a z prostředků členských států Evropské unie. Služby Europeany, včetně těchto webových stránek, provozuje konsorcium vedené nadací Europeana Foundation na základě smlouvy o poskytování služeb s Evropskou komisí.",
     "disclaimerLine2": "Evropská komise nezaručuje přesnost informací a nepřijímá žádnou odpovědnost ani žádnou odpovědnost, pokud jde o informace na této webové stránce. Evropská komise ani žádná osoba jednající jejím jménem nenese odpovědnost ani odpovědnost za přesnost nebo použití informací na tomto webu.",
     "findUsElsewhere": "Najděte nás jinde",
+    "footer": "Zápatí",
     "imageDescription": "Financováno Evropskou unií",
     "navigation": {
       "about": "O nás",
       "accessibility": "Přístupnost",
       "cookies": "Cookies",
-      "faq": "Často kladené dotazy",
+      "faq": "Často kladené dotazy (FAQ)",
       "forDevelopers": "Pro vývojáře",
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",
       "privacy": "Zásady ochrany osobních údajů",
       "provide": "Staňte se poskytující instituce",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
-      "terms": "Podmínky použití"
+      "terms": "Podmínky a zásady"
     },
     "ourMission": "Naše mise",
     "ourMissionQuote": "Europeana umožňuje převod předmětů kulturního dědictví do digitální podoby. Rozvíjíme odbornou způsobilost, nástroje a pravidla digitální přeměny a podporujeme partnerství, která urychlují inovace."

@@ -5,15 +5,18 @@
   >
     <div class="footer-wrapper py-5">
       <b-container>
+        <h2 class="visually-hidden">
+          {{ $t('footer.footer') }}
+        </h2>
         <b-row>
           <b-col
             lg="5"
             class="left-col pb-4 order-lg-1"
           >
             <div class="pr-5 pr-lg-3">
-              <div class="group-title text-uppercase font-weight-bold">
+              <h3 class="group-title text-uppercase font-weight-bold">
                 {{ $t('footer.ourMission') }}
-              </div>
+              </h3>
               <p class="mission font-italic mb-0">
                 {{ $t('footer.ourMissionQuote') }}
               </p>
@@ -26,9 +29,10 @@
             <LinkGroup
               list-class="footer-link-list social-links"
               link-class="footer-link mt-1"
-              :caption="$t('footer.findUsElsewhere')"
+              :title="$t('footer.findUsElsewhere')"
               :links="social"
             />
+            <hr class="mt-4 mb-1 w-100 d-lg-none">
           </b-col>
           <b-col
             sm="6"
@@ -39,7 +43,7 @@
               v-if="footerMoreInfo"
               list-class="footer-link-list"
               link-class="footer-link"
-              :caption="footerMoreInfo.name"
+              :title="footerMoreInfo.name"
               :links="footerMoreInfo.links"
             />
           </b-col>
@@ -52,7 +56,7 @@
               v-if="footerHelp"
               list-class="footer-link-list"
               link-class="footer-link"
-              :caption="footerHelp.name"
+              :title="footerHelp.name"
               :links="footerHelp.links"
             />
           </b-col>
@@ -61,30 +65,30 @@
             lg="3"
             class="right-col pb-4  order-sm-2 order-lg-3"
           >
-            <div class="group-title text-uppercase font-weight-bold pr-2">
+            <h3 class="group-title text-uppercase font-weight-bold pr-2">
               {{ $t('footer.customiseWebsiteLanguage') }}
-            </div>
+            </h3>
             <LangSelector
               class="mt-1"
               data-qa="language selector"
             />
           </b-col>
           <b-col
+            v-if="showDebugLinkGroup"
             sm="6"
             lg="3"
             class="right-col pb-4  order-sm-4 order-lg-6"
           >
             <LinkGroup
-              v-if="showDebugLinkGroup"
               list-class="footer-link-list"
               link-class="footer-link"
-              :caption="debugLinkGroup.name"
+              :title="debugLinkGroup.name"
               :links="debugLinkGroup.links"
               data-qa="debug link group"
             />
           </b-col>
         </b-row>
-        <hr class="my-5">
+        <hr>
         <b-row>
           <b-col lg="6">
             <div class="sub-footer">
@@ -102,9 +106,22 @@
     <client-only
       v-if="feedbackEnabled"
     >
-      <FeedbackWidget
+      <div
+        id="europeana-feedback-widget"
+        data-api-url="/_api/jira-service-desk/feedback"
+        data-faq-url="/faq"
+        :data-locale="$i18n.locale"
         data-qa="feedback widget"
       />
+      <script
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.2.0/dist/europeana-feedback-widget.js"
+        integrity="sha384-u9uk9KOvOrG5X4yAGn1xMj1P5YmrJWanSqij7tvI4eZTjI/UQGK98lq3e/I6XfuP"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.2.0/dist/europeana-feedback-widget.css"
+      >
     </client-only>
   </footer>
 </template>
@@ -118,8 +135,7 @@
     components: {
       LangSelector,
       LinkGroup,
-      EULogo,
-      FeedbackWidget: () => import('../feedback/FeedbackWidget')
+      EULogo
     },
 
     data() {

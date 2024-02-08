@@ -47,7 +47,6 @@ export default {
     "download": "Prenos",
     "edit": "Uredi",
     "explore": "Raziščite",
-    "feedback": "Povratne informacije",
     "filter": "Filter",
     "goHome": "Pojdite na domačo stran",
     "hide": "Skrij",
@@ -63,13 +62,11 @@ export default {
     "reject": "Zavrne",
     "requestDepublication": "Zahtevaj deublikacijo",
     "save": "Shrani",
-    "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
     "show": "Prikaži",
     "showLess": "Prikaži manj",
     "showMore": "Prikaži več",
-    "skipSend": "Preskoči in pošlji",
     "submitForPublication": "Oddaj za objavo",
     "submittedForPublication": "Oddano v objavo",
     "transcribe": "Prepisujte",
@@ -208,6 +205,15 @@ export default {
   "directions": {
     "left": "Levo",
     "right": "Desno"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Podatkovni prostor za kulturno dediščino",
+    "header": {
+      "contributors": "Sodelavci",
+      "dataOffer": "Ponudba podatkov",
+      "stayInTouch": "Ostanite v stiku"
+    },
+    "logoAlt": "Podatkovni prostor za domačo stran kulturne dediščine"
   },
   "edmIsShownAtLinkAlt": "Ogled na spletni strani ponudnika",
   "entity": {
@@ -654,25 +660,6 @@ export default {
       "select": "Izberite vrste medijev"
     }
   },
-  "feedback": {
-    "emailOptional": "Morda bi želeli slediti. Vnesite svojo e-pošto, če ste veseli, da vas kontaktiramo.",
-    "failed": "Zahteva ni uspela. Prosim poskusite ponovno.",
-    "faq": "Pojdite na pogosto zastavljena vprašanja",
-    "form": {
-      "placeholders": {
-        "email": "Vnesite svoj e-poštni naslov",
-        "feedback": "Tukaj vnesite svoje povratne informacije"
-      }
-    },
-    "policies": "Z nadaljevanjem se strinjate z našimi {0} in potrjujete naše {1} .",
-    "privacyPolicy": "Pravilnik o zasebnosti",
-    "success": "Vaše povratne informacije so bile poslane.",
-    "termsOfService": "Pogoji storitve",
-    "thankYou": "Hvala!",
-    "title": "Pošlji povratno informacijo",
-    "validEmail": "Vnesite veljaven e-poštni naslov",
-    "validFeedback": "Vaše povratne informacije morajo biti sestavljene iz 5 besed najmanj"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Sodelavci",
@@ -739,7 +726,7 @@ export default {
       "about": "RDF o",
       "dcDescription": "Opis",
       "ebucoreHasMimeType": "Vrsta Ebucore MIME",
-      "edmRights": "Licenca za ta medijski vir",
+      "edmRights": "Pravice za ta medijski vir",
       "rdfAbout": "RDF o"
     }
   },
@@ -749,19 +736,20 @@ export default {
     "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
     "disclaimerLine2": "Evropska komisija ne zagotavlja točnosti informacij in ne sprejema nobene odgovornosti ali odgovornosti v zvezi z informacijami na tej spletni strani. Niti Evropska komisija niti nobena oseba, ki deluje v imenu Evropske komisije, ni odgovorna ali odgovorna za točnost ali uporabo informacij na tej spletni strani.",
     "findUsElsewhere": "Najdite nas drugje",
+    "footer": "Noga",
     "imageDescription": "Financira Evropska unija",
     "navigation": {
       "about": "O nas",
       "accessibility": "Dostopnost",
       "cookies": "Piškotki",
-      "faq": "Pogosto zastavljena vprašanja",
+      "faq": "Pogosto zastavljena vprašanja (FAQ)",
       "forDevelopers": "Za razvijalce",
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
       "privacy": "Pravilnik o zasebnosti",
       "provide": "Postanite ponudnik podatkov",
       "subscribe": "Naročite se na naše novice",
-      "terms": "Pogoji uporabe"
+      "terms": "Pogoji in pravilniki"
     },
     "ourMission": "Naša misija",
     "ourMissionQuote": "Europeana krepi panogo kulturne dediščine pri njeni digitalni preobrazbi. Razvijamo strokovno znanje, orodja in politike za sprejemanje digitalnih sprememb ter spodbujamo partnerstva, ki negujejo inovacije."

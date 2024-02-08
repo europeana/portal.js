@@ -47,7 +47,6 @@ export default {
     "download": "Scarica",
     "edit": "Modifica",
     "explore": "Esplorare",
-    "feedback": "Feedback",
     "filter": "Filtro",
     "goHome": "Vai alla homepage",
     "hide": "Nascondere",
@@ -63,13 +62,11 @@ export default {
     "reject": "Rifiuta",
     "requestDepublication": "Richiesta di depubblicazione",
     "save": "Salva",
-    "send": "Invia",
     "share": "Condividi",
     "shareOn": "Condividi su {social}",
     "show": "Mostra",
     "showLess": "Mostra meno",
     "showMore": "Mostra di più",
-    "skipSend": "Salta e invia",
     "submitForPublication": "Invia per la pubblicazione",
     "submittedForPublication": "Inviato per la pubblicazione",
     "transcribe": "Trascrivere",
@@ -208,6 +205,15 @@ export default {
   "directions": {
     "left": "Sinistra",
     "right": "Destra"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Spazio dati per il patrimonio culturale",
+    "header": {
+      "contributors": "Collaboratori",
+      "dataOffer": "Offerta dati",
+      "stayInTouch": "Rimani in contatto"
+    },
+    "logoAlt": "Spazio dati per la pagina principale del patrimonio culturale"
   },
   "edmIsShownAtLinkAlt": "Visualizza sul sito web del fornitore",
   "entity": {
@@ -654,25 +660,6 @@ export default {
       "select": "Seleziona i tipi di media"
     }
   },
-  "feedback": {
-    "emailOptional": "Potremmo voler dare seguito al tuo feedback. Inserisci la tua email se desideri essere contattato.",
-    "failed": "La richiesta è fallita. Per favore riprova.",
-    "faq": "Vai alle domande frequenti",
-    "form": {
-      "placeholders": {
-        "email": "Inserisci il tuo indirizzo email",
-        "feedback": "Inserisci qui il tuo risposta"
-      }
-    },
-    "policies": "Continuando, accetti i nostri {0} e riconosci la nostra {1}.",
-    "privacyPolicy": "Informativa sulla privacy",
-    "success": "Il tuo feedback è stato inviato.",
-    "termsOfService": "Termini di servizio",
-    "thankYou": "Grazie!",
-    "title": "Invia feedback",
-    "validEmail": "Inserire un indirizzo email valido",
-    "validFeedback": "Il tuo feedback deve consistere di minimo 5 parole"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Contributori",
@@ -749,19 +736,20 @@ export default {
     "disclaimerLine1": "Europeana è un'iniziativa dell'Unione europea, finanziata dal Connecting Europe Facility dell'Unione europea e dagli Stati membri dell'Unione europea. I servizi Europeana, compreso questo sito web, sono gestiti da un consorzio guidato dalla Fondazione Europeana nell'ambito di un contratto di servizio con la Commissione europea.",
     "disclaimerLine2": "La Commissione europea non garantisce l'accuratezza delle informazioni e non si assume alcuna responsabilità in merito alle informazioni contenute in questo sito web. Né la Commissione europea, né alcuna persona che agisce per conto della Commissione europea, è responsabile o obbligata per l'accuratezza o l'uso delle informazioni su questo sito web.",
     "findUsElsewhere": "Trovaci altrove",
+    "footer": "Piè di pagina",
     "imageDescription": "Finanziato dall'Unione Europea",
     "navigation": {
       "about": "Su di noi",
       "accessibility": "Accessibilità",
       "cookies": "Cookie",
-      "faq": "Domande frequenti",
+      "faq": "Domande frequenti (FAQ)",
       "forDevelopers": "Per sviluppatori",
       "help": "Aiuto",
       "MoreInfoLabel": "Maggiori informazioni",
       "privacy": "Informativa sulla privacy",
       "provide": "Diventa un fornitore di contenuti",
       "subscribe": "Iscriviti alla newsletter",
-      "terms": "Termini di utilizzo"
+      "terms": "Termini e politiche"
     },
     "ourMission": "La nostra missione",
     "ourMissionQuote": "Europeana sostiene il settore dei beni culturali nella sua trasformazione digitale. Sviluppiamo competenze, strumenti e strategie per accogliere i cambiamenti del mondo digitale e incoraggiare collaborazioni che promuovano l'innovazione."

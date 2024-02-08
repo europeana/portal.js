@@ -47,7 +47,6 @@ export default {
     "download": "Télécharger",
     "edit": "Modifier",
     "explore": "Explorer",
-    "feedback": "Commentaires",
     "filter": "Filtre",
     "goHome": "Aller à la page d'accueil",
     "hide": "Cacher",
@@ -63,13 +62,11 @@ export default {
     "reject": "Rejeter",
     "requestDepublication": "Demander la dépublication",
     "save": "Sauvegarder",
-    "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
     "show": "Afficher",
     "showLess": "Afficher moins",
     "showMore": "Afficher plus",
-    "skipSend": "Ignorer et envoyer",
     "submitForPublication": "Soumettre pour publication",
     "submittedForPublication": "Soumis pour publication",
     "transcribe": "Transcrire",
@@ -208,6 +205,15 @@ export default {
   "directions": {
     "left": "Gauche",
     "right": "Droite"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Espace de données pour le patrimoine culturel",
+    "header": {
+      "contributors": "Contributeurs",
+      "dataOffer": "Offre de données",
+      "stayInTouch": "Restez en contact"
+    },
+    "logoAlt": "Espace de données pour la page d'accueil du patrimoine culturel"
   },
   "edmIsShownAtLinkAlt": "Vue sur le site internet du prestataire",
   "entity": {
@@ -654,25 +660,6 @@ export default {
       "select": "Sélectionnez les types de médias"
     }
   },
-  "feedback": {
-    "emailOptional": "Nous souhaiterions peut-être faire un suivi. Entrez votre e-mail si vous souhaitez que nous vous contactions.",
-    "failed": "La demande a échoué. Veuillez réessayer.",
-    "faq": "Aller à la foire aux questions",
-    "form": {
-      "placeholders": {
-        "email": "Entrez votre adresse email",
-        "feedback": "Entrez vos commentaires ici"
-      }
-    },
-    "policies": "En continuant, vous acceptez notre {0} et reconnaissez notre {1} .",
-    "privacyPolicy": "Politique de confidentialité",
-    "success": "Votre commentaire a été envoyé.",
-    "termsOfService": "Conditions d'utilisation",
-    "thankYou": "Merci!",
-    "title": "Envoyer des commentaires",
-    "validEmail": "Entrez une adresse mail valide",
-    "validFeedback": "Vos commentaires doivent comprendre au moins 5 mots"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Contributeurs",
@@ -739,7 +726,7 @@ export default {
       "about": "À propos de RDF",
       "dcDescription": "Description",
       "ebucoreHasMimeType": "Type Ebucore MIME",
-      "edmRights": "Licence pour cette ressource média",
+      "edmRights": "Mentions de droit pour cette ressource médiatique",
       "rdfAbout": "À propos de RDF"
     }
   },
@@ -749,19 +736,20 @@ export default {
     "disclaimerLine1": "Europeana est une initiative de l'Union européenne, financée par le Connecting Europe Facility de l'Union européenne et les États membres de l'Union européenne. Les services Europeana, y compris ce site Web, sont exploités par un consortium dirigé par la Fondation Europeana dans le cadre d'un contrat de service avec la Commission européenne.",
     "disclaimerLine2": "La Commission européenne ne garantit pas l'exactitude des informations et n'accepte aucune responsabilité ou obligation quelle qu'elle soit en ce qui concerne les informations sur ce site. Ni la Commission européenne, ni aucune personne agissant au nom de la Commission européenne, n'est responsable de l'exactitude ou de l'utilisation des informations sur ce site Web.",
     "findUsElsewhere": "Nous trouver ailleurs",
+    "footer": "Pied de page",
     "imageDescription": "Financé par l'Union européenne",
     "navigation": {
       "about": "À propos d'Europeana",
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
-      "faq": "Foire aux questions",
+      "faq": "Foire aux questions (FAQ)",
       "forDevelopers": "Pour les développeurs",
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
       "privacy": "Politique de confidentialité",
       "provide": "Devenir une institution partenaire",
       "subscribe": "Abonnez-vous à notre newsletter",
-      "terms": "Conditions d'utilisation"
+      "terms": "Conditions et politiques"
     },
     "ourMission": "Notre mission",
     "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les strategies pour adopter le changement numérique et encourageons les partenariats qui favorisent l'innovation."
