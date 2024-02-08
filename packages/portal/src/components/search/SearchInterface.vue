@@ -204,10 +204,6 @@
     ],
 
     props: {
-      doNotTranslate: {
-        type: Boolean,
-        default: false
-      },
       perPage: {
         type: Number,
         default: 24
@@ -371,8 +367,11 @@
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
       },
+      // Disable translate profile (multilingual search) when not logged in
+      doNotTranslate() {
+        return !this.$auth.loggedIn;
+      },
       translateLang() {
-        // Translation disabled from prop `doNotTranslate`
         if (this.doNotTranslate) {
           return null;
         }

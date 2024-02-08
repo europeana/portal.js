@@ -95,10 +95,6 @@
       searchOverrides() {
         const sort = 'score desc,contentTier desc,random_europeana asc,timestamp_update desc,europeana_id asc';
         return !this.searchQuery && !this.$route.query.sort ? { sort } : {};
-      },
-      // Disable translate profile (multilingual search) when not logged in
-      doNotTranslate() {
-        return !this.$auth.loggedIn;
       }
     },
 

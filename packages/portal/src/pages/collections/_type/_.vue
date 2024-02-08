@@ -9,13 +9,11 @@
       data-qa="error message container"
       :error="$fetchState.error"
     />
-    <component
-      :is="$config.app.search.collections.clientOnly ? 'client-only' : 'div'"
+    <div
       v-else
     >
       <SearchInterface
         v-if="!$fetchState.pending"
-        :do-not-translate="doNotTranslate"
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
@@ -64,7 +62,7 @@
           </client-only>
         </template>
       </SearchInterface>
-    </component>
+    </div>
   </div>
 </template>
 
@@ -307,9 +305,6 @@
         }
 
         return labelledMoreInfo;
-      },
-      doNotTranslate() {
-        return this.$config.app.search.collections.doNotTranslate || !this.$auth.loggedIn;
       }
     },
     methods: {
