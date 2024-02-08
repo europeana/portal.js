@@ -6,7 +6,6 @@
     <SearchInterface
       id="search-interface"
       :override-params="searchOverrides"
-      :do-not-translate="doNotTranslate"
     >
       <template
         v-if="!!searchQuery"

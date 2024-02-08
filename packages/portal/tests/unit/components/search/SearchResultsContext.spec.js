@@ -279,20 +279,20 @@ describe('SearchResultsContext', () => {
             route: { query: { query: 'casa' } },
             searchConfig: { collections: { doNotTranslate: true } }
           });
-          it('does not suggest to log in to see more results', () => {
+          it('suggests to log in to see more results', () => {
             const suggestion = wrapper.find('[data-qa="results more link"]');
 
-            expect(suggestion.exists()).toBe(false);
+            expect(suggestion.exists()).toBe(true);
           });
-          it('does not display a tooltip explaining the multilingual results', () => {
+          it('displays a tooltip explaining the multilingual results', () => {
             const tooltip = wrapper.find('[data-qa="results more tooltip"]');
 
-            expect(tooltip.exists()).toBe(false);
+            expect(tooltip.exists()).toBe(true);
           });
         });
       });
       describe('searching without keyword', () => {
-        it('does not suggest to log in to see more results', () => {
+        it('suggests to log in to see more results', () => {
           const wrapper = factory({
             i18n: new VueI18n({
               locale: 'es',
@@ -305,7 +305,7 @@ describe('SearchResultsContext', () => {
 
           const suggestion = wrapper.find('[data-qa="results more link"]');
 
-          expect(suggestion.exists()).toBeFalsy();
+          expect(suggestion.text()).toContain('search.results.loginToSeeMore');
         });
       });
     });
