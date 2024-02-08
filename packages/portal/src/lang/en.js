@@ -52,6 +52,7 @@ export default {
     "hide": "Hide",
     "learnMore": "Learn more",
     "like": "Like",
+    "login": "Log in",
     "move": "Move",
     "next": "Next",
     "pin": "Pin",
@@ -942,7 +943,6 @@ export default {
   "multilingual": {
     "automated": "Automated translation",
     "enrichment": "Enrichment by partner projects",
-    "login": "Log in",
     "loginToTranslate": "{login} to see this item in other languages",
     "other": "other languages",
     "stopTranslating": "Stop translating this item to {0}.",
@@ -1101,7 +1101,6 @@ export default {
     },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
-      "login": "Log in",
       "loginToSeeMore": "{login} to see more results",
       "loginToSeeMultilingualResults": "Log in to search across the entire collection, and get results not limited to the language of your search term.",
       "showingMultilingualResults": "Showing results across the entire collection and all languages.",

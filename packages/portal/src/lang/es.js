@@ -52,6 +52,7 @@ export default {
     "hide": "Ocultar",
     "learnMore": "Aprende más",
     "like": "Me gusta",
+    "login": "Inicie sesión",
     "move": "Mover",
     "next": "próximo",
     "pin": "Alfiler",
@@ -1072,7 +1073,6 @@ export default {
     },
     "results": {
       "limitWarning": "No se muestran resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere refinar su búsqueda.",
-      "login": "Inicie sesión",
       "loginToSeeMore": "{login} para ver más resultados",
       "withinCollection": "{count} resultados dentro de {type} {collection}",
       "withinCollectionWithQuery": "{count} resultados dentro de {type} {collection} para {query}",

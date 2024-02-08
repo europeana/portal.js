@@ -60,7 +60,7 @@
           :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
           @click.prevent="keycloakLogin"
         >
-          {{ $t('search.results.login') }}
+          {{ $t('actions.login') }}
         </b-link>
       </template>
     </i18n><!-- This comment removes white space which gets underlined

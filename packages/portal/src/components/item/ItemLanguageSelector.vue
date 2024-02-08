@@ -31,7 +31,7 @@
                     :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
                     @click.prevent="keycloakLogin"
                   >
-                    {{ $t('multilingual.login') }}<!-- This comment removes white space
+                    {{ $t('actions.login') }}<!-- This comment removes white space
                   -->
                   </b-link>
                 </template>
