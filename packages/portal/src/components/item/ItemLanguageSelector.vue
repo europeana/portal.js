@@ -45,7 +45,7 @@
                 <b-dropdown
                   :text="$t('multilingual.other')"
                   variant="link"
-                  toggle-class="multilingual-dropdown"
+                  toggle-class="multilingual-dropdown border-0"
                   toggle-tag="span"
                   no-flip
                   class="multilingual-selector"
