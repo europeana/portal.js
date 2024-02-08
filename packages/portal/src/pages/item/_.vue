@@ -210,7 +210,12 @@
     },
 
     async fetch() {
-      await this.fetchMetadata();
+      // When entering a translated item page, but not logged in, redirect to non-translated item page
+      if (this.$route.query.lang && !this.$auth.loggedIn) {
+        this.redirectToAltRoute({ query: { lang: undefined } });
+      } else {
+        await this.fetchMetadata();
+      }
     },
 
     computed: {
@@ -356,7 +361,7 @@
         try {
           const response = await this.$apis.record.getRecord(
             this.identifier,
-            { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
+            { locale: this.$i18n.locale, metadataLanguage: this.$auth.loggedIn ? this.$route.query.lang : undefined }
           );
 
           const responseIdentifier = response.record.identifier;

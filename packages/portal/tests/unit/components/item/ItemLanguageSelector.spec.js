@@ -27,6 +27,8 @@ const factory = (propsData = {}) => mount(ItemLanguageSelector, {
   propsData,
   i18n,
   mocks: {
+    $auth: { loggedIn: propsData.loggedIn || false },
+    localePath: () => {},
     $t: (key) => {
       if (key === 'multilingual.differentLanguage') {
         return 'a different language';
@@ -49,34 +51,44 @@ const factory = (propsData = {}) => mount(ItemLanguageSelector, {
 });
 
 describe('components/item/ItemLanguageSelector', () => {
-  describe('when no translations are applied', () => {
-    it('suggests to translate the item metadata to other languages', () => {
+  describe('when not logged in', () => {
+    it('suggests to log in to enable the translation feature', () => {
       const wrapper = factory();
 
-      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      expect(suggestion.text()).toContain('Would you like to see this item in');
-
-      expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
+      const suggestion = wrapper.find('[data-qa="translate item login suggestion"]');
+      expect(suggestion.text()).toContain('see this item in other languages');
     });
   });
-  describe('when tanslations are requested to a language other than the UI language', () => {
-    it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
-      const wrapper = factory({ metadataLanguage: 'de' });
+  describe('when logged in', () => {
+    describe('when no translations are applied', () => {
+      it('suggests to translate the item metadata to other languages', () => {
+        const wrapper = factory({ loggedIn: true });
 
-      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      const removeButton = wrapper.find('[data-qa="remove item translation button"]');
-      expect(suggestion.text()).toContain('Would you like to see this item in');
-      expect(removeButton.text()).toBe('Stop translating this item to Deutsch.');
+        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+        expect(suggestion.text()).toContain('Would you like to see this item in');
+
+        expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
+      });
     });
-  });
-  describe('when tanslations are requested to the UI language', () => {
-    it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
-      const wrapper = factory({ metadataLanguage: 'en'  });
+    describe('when tanslations are requested to a language other than the UI language', () => {
+      it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
+        const wrapper = factory({ metadataLanguage: 'de', loggedIn: true });
 
-      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      const removeButton = wrapper.find('[data-qa="remove item translation button"]');
-      expect(suggestion.text()).toContain('Would you like to see this item in');
-      expect(removeButton.text()).toBe('Stop translating this item to English.');
+        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+        const removeButton = wrapper.find('[data-qa="remove item translation button"]');
+        expect(suggestion.text()).toContain('Would you like to see this item in');
+        expect(removeButton.text()).toBe('Stop translating this item to Deutsch.');
+      });
+    });
+    describe('when tanslations are requested to the UI language', () => {
+      it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
+        const wrapper = factory({ metadataLanguage: 'en', loggedIn: true  });
+
+        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+        const removeButton = wrapper.find('[data-qa="remove item translation button"]');
+        expect(suggestion.text()).toContain('Would you like to see this item in');
+        expect(removeButton.text()).toBe('Stop translating this item to English.');
+      });
     });
   });
 

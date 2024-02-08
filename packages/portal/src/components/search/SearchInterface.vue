@@ -34,7 +34,7 @@
           </client-only>
           <section>
             <div
-              class="mb-3 d-flex align-items-start justify-content-between"
+              class="mb-3 d-flex flex-wrap align-items-center justify-content-between"
             >
               <!-- This div prevents SearchViewToggles jumping around as SearchResultsContext is shown & hidden -->
               <div v-show="$fetchState.pending" />
@@ -47,6 +47,7 @@
               />
               <SearchViewToggles
                 v-model="view"
+                class="ml-auto"
               />
             </div>
             <b-row
@@ -203,10 +204,6 @@
     ],
 
     props: {
-      doNotTranslate: {
-        type: Boolean,
-        default: false
-      },
       perPage: {
         type: Number,
         default: 24
@@ -370,8 +367,11 @@
       hasFulltextQa() {
         return this.fulltextQas.length > 0;
       },
+      // Disable translate profile (multilingual search) when not logged in
+      doNotTranslate() {
+        return !this.$auth.loggedIn;
+      },
       translateLang() {
-        // Translation disabled from prop `doNotTranslate`
         if (this.doNotTranslate) {
           return null;
         }

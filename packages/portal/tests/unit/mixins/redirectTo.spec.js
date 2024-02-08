@@ -14,6 +14,7 @@ const localVue = createLocalVue();
 const factory = ({ mocks = {} } = {}) => shallowMountNuxt(component, {
   localVue,
   mocks: {
+    $config: { app: { search: { translateLocales: 'es' } } },
     $route: {},
     $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
     ...mocks
