@@ -10,7 +10,7 @@ const factory = (propsData) => shallowMount(LandingHero, {
   mocks: {
     $contentful: {
       assets: {
-        responsiveBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
+        responsiveImageSrcset: (img, sizes) => Object.keys(sizes)
       }
     }
   },
@@ -18,13 +18,13 @@ const factory = (propsData) => shallowMount(LandingHero, {
 });
 
 describe('components/landing/LandingHero', () => {
-  describe('imageCSSVars', () => {
+  describe('imageSrcset', () => {
     describe('when there is a hero image available', () => {
       it('returns background style definitions', () => {
         const wrapper = factory({ headline: 'This page is awesome',
           heroImage: { image: { url: 'https://www.europeana.eu/example.jpg' } } });
 
-        expect(wrapper.vm.imageCSSVars).toBeTruthy();
+        expect(wrapper.vm.imageSrcset).toBeTruthy();
       });
     });
   });

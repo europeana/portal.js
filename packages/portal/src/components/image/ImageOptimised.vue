@@ -30,11 +30,11 @@
         required: true
       },
       width: {
-        type: Number,
+        type: [Number, String],
         required: true
       },
       height: {
-        type: Number,
+        type: [Number, String],
         required: true
       },
       alt: {
@@ -82,13 +82,16 @@
       },
 
       optimisedSrc() {
-        if (typeof this.contentType !== 'string' || !this.$contentful.assets.isValidUrl(this.src)) {
+        if (typeof this.contentType !== 'string' || !this.$contentful.assets.isValidUrl(this.src) || this.isSVG) {
           return this.src;
         }
         return this.$contentful.assets.optimisedSrc(
           { url: this.src, contentType: this.contentType },
           { w: this.maxWidth, q: this.quality }
         );
+      },
+      isSVG() {
+        return this.contentType === 'image/svg+xml';
       }
     }
   };

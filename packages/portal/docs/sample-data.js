@@ -1,4 +1,23 @@
 export default {
+  illustrations: {
+    events: 'https://images.ctfassets.net/i01duvb6kq77/3o9KQ2GWTLnEdPkF1wNyPe/5a7d9a9e8c3d314e530e0c275ef152dd/illustration_events.svg',
+    newsletter: 'https://images.ctfassets.net/i01duvb6kq77/1tvbbzdiq0sc0hBjbqlihZ/a60ff9eb7d24df0b0a1e54ae19d3c3d9/il_newsletter.svg',
+    curate: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+    audience: 'https://images.ctfassets.net/i01duvb6kq77/B0VJ9of5sryy5n34hS93I/991133dbbc2dd0f48fd215e3aa1c3c75/Audience.svg'
+  },
+  imagesWithAttribution: [
+    {
+      name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
+      creator: 'Undefined',
+      provider: 'Wellcome Collection',
+      license: 'http://creativecommons.org/licenses/by/4.0/',
+      url: 'http://data.europeana.eu/item/9200579/hxf3z8ek',
+      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1l8m0GQ9crP6zvts5zWYos/0006db953cc9a8a08a064c141cd78777/feature_botanical-illustrations.jpg',
+        contentType: 'image/jpeg',
+        description: 'colour illustration of a bunch of colourful flowers in yellow, red, orange',
+        width: 830, height: 470 }
+    }
+  ],
   thumbnails: [
     'https://api.europeana.eu/thumbnail/v3/400/3bc0291af7adc6b013a4be826af1f794', // Portrait of a young Woman, with 'Puck' the Dog https://www.europeana.eu/en/item/90402/SK_A_1703
     'https://api.europeana.eu/thumbnail/v3/400/3fa6a7d3f040cb177dc5b3f02d5570ab', // An eruption of Mount Etna at night https://www.europeana.eu/en/item/9200579/czyxv8m8
