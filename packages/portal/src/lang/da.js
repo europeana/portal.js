@@ -52,6 +52,7 @@ export default {
     "hide": "Skjul",
     "learnMore": "Lær mere",
     "like": "Synes om",
+    "login": "Log ind",
     "move": "Bevæge sig",
     "next": "Næste",
     "pin": "Pin",
@@ -915,6 +916,7 @@ export default {
   "multilingual": {
     "automated": "Automatiseret oversættelse",
     "enrichment": "Berigelse ved partnerprojekter",
+    "loginToTranslate": "{login} for at se denne genstand på andre sprog.",
     "other": "andre sprog",
     "stopTranslating": "Stop med at oversætte dette element til {0}.",
     "translateLanguage": "Vil du gerne se dette element i {0} ?",
@@ -1072,6 +1074,9 @@ export default {
     },
     "results": {
       "limitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at justere din søgning.",
+      "loginToSeeMore": "{login} for at se flere resultater",
+      "loginToSeeMultilingualResults": "Log ind for at søge på tværs af hele samlingen og få resultater, der ikke er begrænset til sproget i dit søgeord.",
+      "showingMultilingualResults": "Viser resultater på tværs af hele samlingen og alle sprog.",
       "withinCollection": "{count} resultater inden for {type} {collection}",
       "withinCollectionWithQuery": "{count} resultater inden for {type} {collection} for {query}",
       "withoutQuery": "{count} resultater",

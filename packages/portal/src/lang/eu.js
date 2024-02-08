@@ -52,6 +52,7 @@ export default {
     "hide": "Ezkutatu",
     "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
+    "login": "Hasi saioa",
     "move": "Mugitu",
     "next": "Hurrengoa",
     "pin": "Pin",
@@ -919,6 +920,7 @@ export default {
   "multilingual": {
     "automated": "Itzulpen automatizatua",
     "enrichment": "Bazkide proiektuen aberastea",
+    "loginToTranslate": "{login} elementu hau beste hizkuntza batzuetan ikusteko",
     "other": "beste hizkuntza batzuk",
     "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
     "translateLanguage": "{0} -n ikusi nahi duzu?",
@@ -1076,6 +1078,9 @@ export default {
     },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
+      "loginToSeeMore": "{login} emaitza gehiago ikusteko",
+      "loginToSeeMultilingualResults": "Hasi saioa bilduma osoan bilatzeko eta lortu emaitzak bilaketa-terminoaren hizkuntzara mugatu gabe.",
+      "showingMultilingualResults": "Bilduma osoan eta hizkuntza guztietan emaitzak erakusten.",
       "withinCollection": "{count} emaitza barruan {type} {collection}",
       "withinCollectionWithQuery": "{count} emaitza {type} {collection} barruan {query}",
       "withoutQuery": "{count} emaitza",
