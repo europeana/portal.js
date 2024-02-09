@@ -1,11 +1,15 @@
 <template>
   <figcaption
+    ref="attributiontoggle"
     class="background-attribution"
+    data-qa="attribution toggle"
     @mouseleave="toggleCite"
   >
     <b-button
-      v-if="citeCollapsed"
+      v-if="!showCite"
+      ref="toggle"
       class="button-icon-only icon-info bg-transparent border-0"
+      data-qa="toggle"
       @click="toggleCite"
       @mouseover="toggleCite"
       @touchstart="toggleCite"
@@ -42,7 +46,7 @@
 
     data() {
       return {
-        citeCollapsed: true
+        showCite: false
       };
     },
 
@@ -53,25 +57,40 @@
     },
 
     watch: {
-      citeCollapsed(newVal) {
+      showCite(newVal) {
         if (newVal) {
-          window.removeEventListener('keydown', this.handleKeydown);
-        } else {
           window.addEventListener('keydown', this.handleKeydown);
+          window.addEventListener('focusin', this.handleFocusOutside);
+        } else {
+          window.removeEventListener('keydown', this.handleKeydown);
+          window.removeEventListener('focusin', this.handleFocusOutside);
         }
       }
     },
 
-    // TODO: Focus first focusable element when cite opened by keyboard, trap focus? Add close button for keyboard only?
     methods: {
       toggleCite() {
-        this.citeCollapsed = !this.citeCollapsed;
+        this.showCite = !this.showCite;
       },
       handleKeydown(event) {
         if (event.key === 'Escape') {
-          this.citeCollapsed = true;
+          this.toggleCite();
+          this.$nextTick(() => {
+            this.$refs.toggle.focus();
+          });
         }
+      },
+      handleFocusOutside(event) {
+        const targetOutsideAttribution = this.checkIftargetOutsideAttribution(event);
+        if (targetOutsideAttribution) {
+          this.toggleCite();
+        }
+      },
+
+      checkIftargetOutsideAttribution(event) {
+        return this.$refs.attributiontoggle && !this.$refs.attributiontoggle.contains(event.target);
       }
+
     }
   };
 </script>
