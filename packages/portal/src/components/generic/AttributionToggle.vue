@@ -15,6 +15,7 @@
       @click="toggleCite"
       @mouseover="toggleCite"
       @touchstart="toggleCite"
+      @keydown="keyboardNav = true"
     />
     <CiteAttribution
       v-if="showCite"
@@ -23,6 +24,7 @@
       :provider="attribution ? attribution.provider : null"
       :rights-statement="rightsStatement"
       :url="attribution ? attribution.url : null"
+      :keyboard-nav="keyboardNav"
       extended
       data-qa="attribution"
     />
@@ -48,6 +50,7 @@
 
     data() {
       return {
+        keyboardNav: false,
         showCite: false
       };
     },

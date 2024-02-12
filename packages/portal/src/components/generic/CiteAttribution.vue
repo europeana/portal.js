@@ -119,12 +119,25 @@
       extended: {
         type: Boolean,
         default: false
+      },
+      /**
+       * If `true`, expanded using keydown event
+       */
+      keyboardNav: {
+        type: Boolean,
+        default: false
       }
     },
 
     computed: {
       linkText() {
         return [this.name, this.creator, this.provider].filter(Boolean).join(', ');
+      }
+    },
+
+    mounted() {
+      if (this.extended && this.keyboardNav) {
+        this.$el.getElementsByTagName('a')[0].focus();
       }
     }
   };
