@@ -19,6 +19,9 @@ const factory = (propsData = attribution) => mount(AttributionToggle, {
   localVue,
   attachTo: document.body,
   propsData,
+  mocks: {
+    $t: (key) => key
+  },
   stubs: ['CiteAttribution']
 });
 
@@ -104,7 +107,7 @@ describe('components/generic/AttributionToggle', () => {
     describe('and tabbing outside the attribution component', () => {
       it('closes the attribution and shows the toggle button', async() => {
         const wrapper = factory();
-        wrapper.vm.checkIftargetOutsideAttribution = sinon.stub().returns(true);
+        wrapper.vm.$refs.attributiontoggle.contains = sinon.stub().returns(false);
 
         wrapper.find('[data-qa="toggle"]').trigger('click');
         await wrapper.vm.$nextTick();

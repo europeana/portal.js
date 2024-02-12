@@ -6,16 +6,17 @@
     @mouseleave="toggleCite"
   >
     <b-button
-      v-if="!showCite"
+      v-show="!showCite"
       ref="toggle"
       class="button-icon-only icon-info bg-transparent border-0"
       data-qa="toggle"
+      :aria-label="$t('attribution.show')"
       @click="toggleCite"
       @mouseover="toggleCite"
       @touchstart="toggleCite"
     />
     <CiteAttribution
-      v-else
+      v-if="showCite"
       :name="attribution ? attribution.name : null"
       :creator="attribution ? attribution.creator : null"
       :provider="attribution ? attribution.provider : null"
