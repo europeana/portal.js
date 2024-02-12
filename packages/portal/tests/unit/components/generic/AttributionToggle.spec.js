@@ -1,4 +1,4 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import AttributionToggle from '@/components/generic/AttributionToggle.vue';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
@@ -15,10 +15,11 @@ const attribution = {
     url: 'http://www.example.org/'
   }
 };
-const factory = (propsData = attribution) => shallowMount(AttributionToggle, {
+const factory = (propsData = attribution) => mount(AttributionToggle, {
   localVue,
   attachTo: document.body,
-  propsData
+  propsData,
+  stubs: ['CiteAttribution']
 });
 
 describe('components/generic/AttributionToggle', () => {
@@ -85,7 +86,7 @@ describe('components/generic/AttributionToggle', () => {
 
   describe('when the attribution is open', () => {
     describe('and the escape key is pressed', () => {
-      it('closes the attribution and displays the toggle button', async() => {
+      it('closes the attribution and displays and sets focus on the toggle button', async() => {
         const wrapper = factory();
 
         wrapper.find('[data-qa="toggle"]').trigger('click');
@@ -94,10 +95,10 @@ describe('components/generic/AttributionToggle', () => {
         await wrapper.vm.$nextTick();
 
         const attribution = wrapper.find('[data-qa="attribution"]');
-        const toggle = wrapper.find('[data-qa="toggle"]');
+        const toggleWithFocus = wrapper.find('[data-qa="toggle"]:focus');
 
         expect(attribution.exists()).toBe(false);
-        expect(toggle.isVisible()).toBe(true);
+        expect(toggleWithFocus.isVisible()).toBe(true);
       });
     });
     describe('and tabbing outside the attribution component', () => {
