@@ -24,14 +24,12 @@
       v-else
     >
       <!-- render item language selector inside IIIF wrapper so the iframe can take the available width becoming available upon closing -->
-      <client-only v-if="!iiifPresentationManifest">
-        <ItemLanguageSelector
-          v-if="translatedItemsEnabled && showItemLanguageSelector"
-          :from-translation-error="fromTranslationError"
-          :metadata-language="metadataLanguage"
-          @hidden="() => showItemLanguageSelector = false"
-        />
-      </client-only>
+      <ItemLanguageSelector
+        v-if="!iiifPresentationManifest && translatedItemsEnabled && showItemLanguageSelector"
+        :from-translation-error="fromTranslationError"
+        :metadata-language="metadataLanguage"
+        @hidden="() => showItemLanguageSelector = false"
+      />
       <b-container
         fluid
         class="bg-white mb-3 px-0"
@@ -49,14 +47,12 @@
           :iiif-presentation-manifest="iiifPresentationManifest"
         >
           <template slot="item-language-selector">
-            <client-only>
-              <ItemLanguageSelector
-                v-if="translatedItemsEnabled && showItemLanguageSelector"
-                :from-translation-error="fromTranslationError"
-                :metadata-language="metadataLanguage"
-                @hidden="() => showItemLanguageSelector = false"
-              />
-            </client-only>
+            <ItemLanguageSelector
+              v-if="translatedItemsEnabled && showItemLanguageSelector"
+              :from-translation-error="fromTranslationError"
+              :metadata-language="metadataLanguage"
+              @hidden="() => showItemLanguageSelector = false"
+            />
           </template>
         </ItemHero>
       </b-container>
