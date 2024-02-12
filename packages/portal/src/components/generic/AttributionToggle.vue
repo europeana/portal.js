@@ -8,6 +8,7 @@
     <b-button
       v-show="!showCite"
       ref="toggle"
+      :aria-expanded="showCite"
       class="button-icon-only icon-info bg-transparent border-0"
       data-qa="toggle"
       :aria-label="$t('attribution.show')"
@@ -87,11 +88,9 @@
           this.toggleCite();
         }
       },
-
       checkIftargetOutsideAttribution(event) {
         return this.$refs.attributiontoggle && !this.$refs.attributiontoggle.contains(event.target);
       }
-
     }
   };
 </script>
