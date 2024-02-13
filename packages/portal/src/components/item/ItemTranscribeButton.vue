@@ -80,6 +80,10 @@
   border: none;
   @include status-indicator;
 
+  &:hover {
+    color: $mediumgrey;
+  }
+
   &::after {
     right: 8px;
     top: 8px;
