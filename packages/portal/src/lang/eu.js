@@ -585,6 +585,7 @@ export default {
         "en": "Ingelesa",
         "es": "Gaztelania",
         "et": "Estoniarra",
+        "eu": "Euskara",
         "fi": "Finlandiera",
         "fr": "Frantsesa",
         "ga": "Irlandarra",
