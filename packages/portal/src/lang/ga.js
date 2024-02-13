@@ -581,6 +581,7 @@ export default {
         "en": "Béarla",
         "es": "Spáinnis ",
         "et": "Eastóinis",
+        "eu": "Bascais",
         "fi": "Fionlainnis",
         "fr": "Fraincis",
         "ga": "Gaeilge",

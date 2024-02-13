@@ -581,6 +581,7 @@ export default {
         "en": "Engelsk",
         "es": "Spansk",
         "et": "Estisk",
+        "eu": "Baskisk",
         "fi": "Finsk",
         "fr": "Fransk",
         "ga": "Irsk",
