@@ -60,8 +60,8 @@ describe('mixins/advancedSearch', () => {
           query: {
             page: 1,
             qa: [
-              'proxy_dc_title:den\\ haag',
-              '-proxy_dc_type:photograph'
+              'proxy_dc_title:"den\\ haag"',
+              '-proxy_dc_type:"photograph"'
             ],
             query: 'bone'
           }
@@ -101,10 +101,10 @@ describe('mixins/advancedSearch', () => {
         const $route = {
           query: {
             qa: [
-              'proxy_dc_title:den\\ haag',
-              '-proxy_dc_type:photograph',
-              'proxy_dc_language:en',
-              'fulltext:(europe)'
+              'proxy_dc_title:"den\\ haag"',
+              '-proxy_dc_type:"photograph"',
+              'proxy_dc_language:"en"',
+              'fulltext:"europe"'
             ]
           }
         };
