@@ -52,6 +52,7 @@ export default {
     "hide": "Skrýt",
     "learnMore": "Zjistěte více",
     "like": "Oblíbené",
+    "login": "Přihlásit se",
     "move": "Přestěhovat se",
     "next": "Další",
     "pin": "Kolík",
@@ -580,6 +581,7 @@ export default {
         "en": "Angličtina",
         "es": "Španělština",
         "et": "Estonština",
+        "eu": "Baskický",
         "fi": "Finština",
         "fr": "Francouzština",
         "ga": "Irština",
@@ -915,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automatizovaný překlad",
     "enrichment": "Obohacení partnerskými projekty",
+    "loginToTranslate": "{login} pro zobrazení této položky v jiných jazycích",
     "other": "jiné jazyky",
     "stopTranslating": "Přestaňte tuto položku překládat na {0}.",
     "translateLanguage": "Chcete tuto položku vidět v {0}?",
@@ -1072,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Další výsledky nejsou zobrazeny, protože je zobrazeno pouze prvních 1000 nejrelevantnějších výsledků. Pokud jste nenašli, co jste hledali, zvažte prosím upřesnění vyhledávání.",
+      "loginToSeeMore": "{login} zobrazíte další výsledky",
+      "loginToSeeMultilingualResults": "Přihlaste se, abyste mohli vyhledávat v celé kolekci a získejte výsledky, které nejsou omezeny na jazyk hledaného výrazu.",
+      "showingMultilingualResults": "Zobrazují se výsledky napříč celou sbírkou a ve všech jazycích.",
       "withinCollection": "{count} výsledků v rámci {type} {collection}",
       "withinCollectionWithQuery": "{count} výsledků v rámci {type} {collection} pro {query}",
       "withoutQuery": "{count} výsledků",

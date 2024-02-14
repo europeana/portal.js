@@ -52,6 +52,7 @@ export default {
     "hide": "Verstecken",
     "learnMore": "Mehr erfahren",
     "like": "Like",
+    "login": "Anmelden",
     "move": "Verschieben",
     "next": "Weiter",
     "pin": "Stift",
@@ -580,6 +581,7 @@ export default {
         "en": "Englisch",
         "es": "Spanisch",
         "et": "Estnisch",
+        "eu": "Baskisch",
         "fi": "Finnisch",
         "fr": "Französisch",
         "ga": "Irisch",
@@ -915,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automatisierte Übersetzung",
     "enrichment": "Anreicherung durch Partnerprojekte",
+    "loginToTranslate": "{login} um dies Objekt in anderen Sprachen anzuzeigen",
     "other": "anderen Sprachen",
     "stopTranslating": "Beenden Sie die Übersetzung dieses Objektes ins {0}.",
     "translateLanguage": "Möchten Sie dieses Objekt in {0} sehen?",
@@ -1072,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, verfeinern Sie bitte Ihre Suche.",
+      "loginToSeeMore": "{login} um mehr Ergebnisse zu sehen",
+      "loginToSeeMultilingualResults": "Melden Sie sich an, um die gesamte Sammlung zu durchsuchen, und erhalten Sie Ergebnisse, die nicht auf die Sprache Ihres Suchbegriffs beschränkt sind.",
+      "showingMultilingualResults": "Anzeige der Ergebnisse für die gesamte Sammlung und alle Sprachen.",
       "withinCollection": "{count} Ergebnisse innerhalb von {type} {collection}",
       "withinCollectionWithQuery": "{count} Ergebnisse innerhalb von {type} {collection} für {query}",
       "withoutQuery": "{count} Ergebnisse",

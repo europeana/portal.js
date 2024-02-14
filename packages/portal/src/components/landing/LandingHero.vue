@@ -1,14 +1,10 @@
 <template>
   <div class="landing-hero">
-    <b-container>
-      <div
-        class="hero-content-wrapper"
-      >
+    <b-container class="d-lg-flex align-items-center">
+      <div class="hero-content-wrapper">
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
-          <div
-            v-html="parseMarkdownHtml(`# ${headline}\n${text}`)"
-          />
+          <div v-html="parseMarkdownHtml(`# ${headline}\n${text}`)" />
           <!-- eslint-enable vue/no-v-html -->
           <SmartLink
             v-if="cta"
@@ -19,39 +15,44 @@
           </SmartLink>
         </header>
       </div>
-    </b-container>
-    <div
-      class="hero-image responsive-backround-image"
-      :style="imageCSSVars"
-    >
-      <AttributionToggle
+      <ImageWithAttribution
+        class="hero-image pl-3 pr-3 mb-5 mb-lg-0 p-lg-0"
+        :class="{ 'svg-image': isSVG }"
+        :alt="heroImage.image.description || ''"
+        :src="heroImage.image.url"
+        :content-type="heroImage.image.contentType"
         :attribution="heroImage"
+        :image-srcset="isSVG ? null : imageSrcset"
+        :image-sizes="isSVG ? null : imageSizes"
+        :lazy="false"
+        width="auto"
+        height="auto"
       />
-    </div>
+    </b-container>
   </div>
 </template>
 
 <script>
-  import AttributionToggle from '@/components/generic/AttributionToggle';
+  import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import SmartLink from '@/components/generic/SmartLink';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
-    small: { w: 576, h: 265, fit: 'fill' },
-    medium: { w: 768, h: 265, fit: 'fill' },
-    large: { w: 591, h: 600, fit: 'fill' },
-    xl: { w: 695, h: 580, fit: 'fill' },
-    xxl: { w: 815, h: 550, fit: 'fill' },
-    xxxl: { w: 1074, h: 550, fit: 'fill' },
-    wqhd: { w: 1432, h: 800, fit: 'fill' },
-    '4k': { w: 2148, h: 800, fit: 'fill' }
+    small: { w: 500 },
+    medium: { w: 500 },
+    large: { w: 660 },
+    xl: { w: 465 },
+    xxl: { w: 555 },
+    xxxl: { w: 625 },
+    wqhd: { w: 625 },
+    '4k': { w: 938 }
   };
 
   export default {
     name: 'LandingHero',
 
     components: {
-      AttributionToggle,
+      ImageWithAttribution,
       SmartLink
     },
 
@@ -89,12 +90,31 @@
       }
     },
 
+    data() {
+      return {
+        imageSizes: [
+          '(max-width: 767px) 500px', // bp-medium
+          '(max-width: 991px) 660px', // bp-large
+          '(max-width: 1199px) 465px', // bp-xl
+          '(max-width: 1399px) 555px', // bp-xxl
+          '(max-width: 3019px) 625px', // bp-4k
+          '938px'
+        ].join(',')
+      };
+    },
+
     computed: {
-      imageCSSVars() {
-        return this.heroImage?.image &&
-          this.$contentful.assets.responsiveBackgroundImageCSSVars(
-            this.heroImage.image, SRCSET_PRESETS
-          );
+      imageSrcset() {
+        return (
+          this.heroImage?.image &&
+          this.$contentful.assets.responsiveImageSrcset(
+            this.heroImage.image,
+            SRCSET_PRESETS
+          )
+        );
+      },
+      isSVG() {
+        return this.heroImage.image.contentType === 'image/svg+xml';
       }
     }
   };
@@ -102,7 +122,6 @@
 
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
-@import '@europeana/style/scss/responsive-background-image';
 
 .landing-hero {
   background-color: $bodygrey;
@@ -123,19 +142,11 @@
 
 .hero-content-wrapper {
   background-color: $bodygrey;
-  padding: 3rem 1rem 3rem;
-
-  @media (min-width: ($bp-medium + 1px)) {
-    width: 65%;
-    position: relative;
-    z-index: 10;
-    padding: 6.25rem 6.25rem 6.25rem 0;
-
-    clip-path: polygon(0% 0%, 100% 0, 100% calc(100% - 209px), calc(100% - 95px) 100%, 0 100%);
-  }
+  padding: 3rem 1rem 1rem;
 
   @media (min-width: $bp-large) {
-    width: 50%
+    width: 50%;
+    padding: 6.25rem 4rem 6.25rem 0;
   }
 
   @media (min-width: $bp-4k) {
@@ -179,68 +190,35 @@
 
 .hero-image {
   width: 100%;
-  min-height: 265px;
   position: relative;
 
-  @media (min-width: ($bp-medium + 1px)) {
-    width: calc(40% + 95px);
-    margin-left: -95px;
-    right: 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-  }
-
   @media (min-width: $bp-large) {
-    width: calc(50% + 95px);
-  }
-
-  &::before {
-    content: '';
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-image: linear-gradient(0deg, $blue, $blue);
-    mix-blend-mode: multiply;
-    position: absolute;
-  }
-}
-
-.responsive-backround-image {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-
-  @media (min-width: $bp-large) {
-    background-position: right;
+    width: 50%;
   }
 }
 </style>
 
 <docs lang="md">
-  ```jsx
-    <LandingHero
-      headline="This is a <em>landing</em> page"
-      text="A description what this page is all about"
-      :cta="{
-        url: 'https://www.europeana.eu',
-        text: 'Go to Pro'
-      }"
-      :hero-image="{
-        creator: 'Europeana Foundation',
-        license: 'https://creativecommons.org/publicdomain/zero/1.0',
-        name: 'Image landing page',
-        provider: null,
-        url: null,
-        image: {
-          contentType: 'image/jpeg',
-          description: null,
-          height: 2694,
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1trzaYGwJsR79hW38lMpJO/465bdac6bb52df2f574c50dacdc74ef8/slantedimagecover_v1.jpg',
-          width: 4320
-        }
-      }"
-    />
-  ```
+```jsx
+  <LandingHero
+    headline="This is a <em>landing</em> page"
+    text="A description what this page is all about"
+    :cta="{
+      url: 'https://www.europeana.eu',
+      text: 'Go to Pro'
+    }"
+    :hero-image="{
+      creator: 'Europeana Foundation',
+      license: 'https://creativecommons.org/publicdomain/zero/1.0',
+      name: 'Image landing page',
+      provider: null,
+      url: null,
+      image: {
+        contentType: 'image/svg+xml',
+        description: null,
+        url: illustrations.audience,
+      }
+    }"
+  />
+```
 </docs>

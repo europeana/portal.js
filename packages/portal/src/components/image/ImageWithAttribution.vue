@@ -11,6 +11,7 @@
       data-qa="image"
       :image-srcset="imageSrcset"
       :image-sizes="imageSizes"
+      :lazy="lazy"
     />
     <AttributionToggle
       :attribution="attribution"
@@ -37,11 +38,11 @@
         default: null
       },
       width: {
-        type: Number,
+        type: [Number, String],
         default: 550
       },
       height: {
-        type: Number,
+        type: [Number, String],
         default: 790
       },
       alt: {
@@ -67,6 +68,10 @@
       imageSizes: {
         type: String,
         default: null
+      },
+      lazy: {
+        type: Boolean,
+        default: true
       }
     }
   };

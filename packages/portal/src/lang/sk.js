@@ -52,6 +52,7 @@ export default {
     "hide": "Skryť",
     "learnMore": "Uč sa viac",
     "like": "Označenie Páči sa mi",
+    "login": "Prihlásiť sa",
     "move": "Hýbať",
     "next": "Ďalšie",
     "pin": "Kolík",
@@ -580,6 +581,7 @@ export default {
         "en": "Angličtina",
         "es": "Španielčina",
         "et": "Estónčina",
+        "eu": "Baskický",
         "fi": "Fínsky",
         "fr": "Francúzsky",
         "ga": "Írsky",
@@ -915,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automatizovaný preklad",
     "enrichment": "Obohatenie o partnerské projekty",
+    "loginToTranslate": "{login}, aby sa táto objekt zobrazila v iných jazykoch",
     "other": "iné jazyky",
     "stopTranslating": "Zastaviť preklad tejto objekt do jazyka {0}.",
     "translateLanguage": "Chceli by ste túto objekt vidieť v položke {0}?",
@@ -1072,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Ďalšie výsledky sa nezobrazujú, pretože je zobrazených iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli to, čo ste hľadali, zvážte spresnenie vyhľadávania.",
+      "loginToSeeMore": "{login} pre zobrazenie viac výsledkov",
+      "loginToSeeMultilingualResults": "Prihláste sa a vyhľadávajte v celej zbierke a získajte výsledky, ktoré nie sú obmedzené na jazyk vyhľadávaného výrazu.",
+      "showingMultilingualResults": "Zobrazujú sa výsledky z celej kolekcie a vo všetkých jazykoch.",
       "withinCollection": "{count} výsledkov v rámci {type} {collection}",
       "withinCollectionWithQuery": "{count} výsledkov v rámci {type} {collection} pre {query}",
       "withoutQuery": "{count} výsledkov",

@@ -52,6 +52,7 @@ export default {
     "hide": "Ascunde",
     "learnMore": "Află mai multe",
     "like": "Apreciere",
+    "login": "Autentificare",
     "move": "Muta",
     "next": "Următorul",
     "pin": "Pin",
@@ -580,6 +581,7 @@ export default {
         "en": "Engleză",
         "es": "Spaniolă",
         "et": "Estonă",
+        "eu": "Bască",
         "fi": "Finlandeză",
         "fr": "Franceză",
         "ga": "Irlandeză",
@@ -915,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Traducere automată",
     "enrichment": "Îmbogățirea prin proiecte partenere",
+    "loginToTranslate": "{login} pentru a vedea acest resursă culturală în alte limbi",
     "other": "alte limbi",
     "stopTranslating": "Opriți traducerea acestui resursă culturală în {0}.",
     "translateLanguage": "Ați dori să vedeți acest resursă culturală în {0}?",
@@ -1072,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
+      "loginToSeeMore": "{login} pentru a vedea mai multe rezultate",
+      "loginToSeeMultilingualResults": "Conectați-vă pentru a căuta în întreaga colecție și pentru a obține rezultate care nu se limitează la limba termenului dvs. de căutare.",
+      "showingMultilingualResults": "Afișare rezultate din întreaga colecție și toate limbile.",
       "withinCollection": "{count} rezultate în cadrul {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultate în {type} {collection} pentru {query}",
       "withoutQuery": "{count} rezultate",

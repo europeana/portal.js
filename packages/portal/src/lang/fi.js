@@ -52,6 +52,7 @@ export default {
     "hide": "Piilota",
     "learnMore": "Opi lisää",
     "like": "Tykkää",
+    "login": "Kirjaudu sisään",
     "move": "Liikkua",
     "next": "Seuraava",
     "pin": "Pin",
@@ -580,6 +581,7 @@ export default {
         "en": "Englanti",
         "es": "Espanjan",
         "et": "Viron",
+        "eu": "Baski",
         "fi": "Suomalainen",
         "fr": "Ranskan",
         "ga": "Irlantilainen",
@@ -915,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automatisoitu käännös",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
+    "loginToTranslate": "{login} nähdäksesi tämän aineisto muilla kielillä",
     "other": "muut kielet",
     "stopTranslating": "Lopeta tämän aineisto kääntäminen kielelle {0}.",
     "translateLanguage": "Haluaisitko nähdä tämän aineisto {0}?",
@@ -1072,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",
+      "loginToSeeMore": "{login} nähdäksesi lisää tuloksia",
+      "loginToSeeMultilingualResults": "Kirjaudu sisään tehdäksesi hakuja koko kokoelmasta ja saat tuloksia, jotka eivät rajoitu hakusanasi kieleen.",
+      "showingMultilingualResults": "Näytetään tulosta koko kokoelmasta ja kaikilla kielillä.",
       "withinCollection": "{count} tulokset sisällä {type} {collection}",
       "withinCollectionWithQuery": "{count} tulokset sisällä {type} {collection} for {query}",
       "withoutQuery": "{count} tulokset",

@@ -52,6 +52,7 @@ export default {
     "hide": "Sakriti",
     "learnMore": "Uči više",
     "like": "Sviđanje",
+    "login": "Prijava",
     "move": "Potez",
     "next": "Sljedeći",
     "pin": "Klin",
@@ -580,6 +581,7 @@ export default {
         "en": "Engleski",
         "es": "Španjolski",
         "et": "Estonski",
+        "eu": "Baskijski",
         "fi": "Finski",
         "fr": "Francuski",
         "ga": "Irski",
@@ -915,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automatizirani prijevod",
     "enrichment": "Obogaćivanje partnerskim projektima",
+    "loginToTranslate": "{login} za pregled ovog predmeta na drugim jezicima",
     "other": "drugi jezici",
     "stopTranslating": "Prestanite prevoditi ovu stavku na {0}.",
     "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
@@ -1072,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o suženju pretraživanja.",
+      "loginToSeeMore": "{login} da biste vidjeli više rezultata",
+      "loginToSeeMultilingualResults": "Prijavite se kako biste pretraživali cijelu zbirku i dobili rezultate koji nisu ograničeni na jezik vašeg pojma za pretraživanje.",
+      "showingMultilingualResults": "Prikaz rezultata kroz cijelu kolekciju i sve jezike.",
       "withinCollection": "{count} rezultata unutar {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultata unutar {type} {collection} za {query}",
       "withoutQuery": "{count} rezultata",

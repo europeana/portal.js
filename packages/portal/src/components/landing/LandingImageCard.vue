@@ -4,18 +4,19 @@
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
-      class="image-wrapper"
+      class="image-wrapper d-lg-flex align-items-end"
     >
       <ImageWithAttribution
         class="image"
+        :class="{ 'svg-image': isSVG }"
         :alt="cardImageWithAttribution.image.description || ''"
         :src="cardImageWithAttribution.image.url"
         :width="612"
         :height="365"
         :content-type="cardImageWithAttribution.image.contentType"
         :attribution="cardImageWithAttribution"
-        :image-srcset="imageSrcset(cardImageWithAttribution.image)"
-        :image-sizes="imageSizes"
+        :image-srcset="isSVG ? null : imageSrcset(cardImageWithAttribution.image)"
+        :image-sizes="isSVG ? null : imageSizes"
       />
     </div>
     <div class="text-wrapper">
@@ -79,6 +80,9 @@
     computed: {
       cardImageWithAttribution() {
         return this.card.image;
+      },
+      isSVG() {
+        return this.cardImageWithAttribution.image.contentType === 'image/svg+xml';
       }
     },
 
@@ -98,17 +102,22 @@
 
     @media (min-width: $bp-medium) {
       max-width: 510px;
+      align-items: flex-end;
     }
 
     @media (min-width: $bp-large) {
       max-width: 1250px;
-      margin-bottom: 4.625rem;
+      margin-bottom: 8rem;
 
       &:nth-child(even) {
         .text-wrapper {
           order: -1;
-          padding: 5rem 3.625rem 5rem 6rem;
-          clip-path: polygon(95px 0, 100% 0, 100% 100%, 0 100%, 0 calc(100% - 209px));
+          padding-right: 3.625rem;
+          padding-left: 2rem;
+
+          @media (min-width: $bp-extralarge) {
+            padding-left: 6rem;
+          }
         }
       }
     }
@@ -128,10 +137,22 @@
         flex: 0 0 51%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-end;
         background-color: $white;
-        padding: 5rem 6rem 5rem 3.625rem;
-        clip-path: polygon(0% 0%, calc(100% - 95px) 0, 100% calc(100% - 209px), 100% 100%, 0 100%);
+        padding-left: 3.625rem;
+        padding-right: 2rem;
+      }
+
+      @media (min-width: $bp-extralarge) {
+        padding-right: 6rem;
+      }
+
+      @media (min-width: $bp-xxl) {
+        padding-bottom: 1rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        padding-bottom: 3rem;
       }
     }
 
@@ -141,6 +162,16 @@
 
       img {
         height: 100%;
+      }
+    }
+
+    figure.svg-image {
+      width: 100%;
+      height: auto;
+
+      ::v-deep img {
+        width: 100%;
+        height: auto;
       }
     }
 
@@ -166,25 +197,13 @@
 
 <docs lang="md">
   ```jsx
-    <div style="background-color: #ededed; margin: -16px; padding: 16px;">
       <LandingImageCard
         :card="{
           __typename: 'ImageCard',
           name: 'Card title',
           text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          image: {
-            name: 'Eight plants, including two orchids, a crocus and some tulips: flowering stems. Coloured etching, c.1837.',
-            creator: 'Undefined',
-            provider: 'Wellcome Collection',
-            license: 'http://creativecommons.org/licenses/by/4.0/',
-            url: 'http://data.europeana.eu/item/9200579/hxf3z8ek',
-            image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1l8m0GQ9crP6zvts5zWYos/0006db953cc9a8a08a064c141cd78777/feature_botanical-illustrations.jpg',
-            contentType: 'image/jpeg',
-            description: 'colour illustration of a bunch of colourful flowers in yellow, red, orange',
-            width: 830, height: 470 }
-          }
+          image: imagesWithAttribution[0]
         }"
       />
-    </div>
   ```
 </docs>

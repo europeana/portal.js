@@ -221,9 +221,6 @@ query BrowseLandingStaticPage(
             name
             nameEN: name(locale: "en-GB")
             text
-            image {
-              ...imageWithAttributionFields
-            }
             embed {
               embed
             }

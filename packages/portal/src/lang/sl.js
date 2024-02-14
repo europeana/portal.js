@@ -52,6 +52,7 @@ export default {
     "hide": "Skrij",
     "learnMore": "Nauči se več",
     "like": "Všeč mi je",
+    "login": "Vpis",
     "move": "Premakni se",
     "next": "Naslednji",
     "pin": "Pin",
@@ -580,6 +581,7 @@ export default {
         "en": "Angleščina",
         "es": "Španščina",
         "et": "Estonski",
+        "eu": "Baskovščina",
         "fi": "Finska",
         "fr": "Francoski",
         "ga": "Irski",
@@ -915,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Avtomatizirano prevajanje",
     "enrichment": "Obogatitev s partnerskimi projekti",
+    "loginToTranslate": "{login} za ogled tega enote v drugih jezikih",
     "other": "drugi jeziki",
     "stopTranslating": "Prenehajte prevajati ta enota v {0}.",
     "translateLanguage": "Želite ta enota videti v {0}?",
@@ -1072,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Dodatni rezultati niso prikazani, saj je prikazanih le prvih 1000 najpomembnejših rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
+      "loginToSeeMore": "{login} za ogled več rezultatov",
+      "loginToSeeMultilingualResults": "Prijavite se za iskanje po celotni zbirki in dobite rezultate, ki niso omejeni na jezik vašega iskalnega izraza.",
+      "showingMultilingualResults": "Prikaz rezultatov po celotni zbirki in vseh jezikih.",
       "withinCollection": "{count} rezultatov znotraj {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultatov znotraj {type} {collection} za {query}",
       "withoutQuery": "{count} rezultatov",

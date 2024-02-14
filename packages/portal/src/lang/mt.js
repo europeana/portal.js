@@ -52,6 +52,7 @@ export default {
     "hide": "Aħbi",
     "learnMore": "Itagħllem iżjed",
     "like": "Like",
+    "login": "Illoggja",
     "move": "Nimxu",
     "next": "Li jmiss",
     "pin": "Pin",
@@ -580,6 +581,7 @@ export default {
         "en": "Ingliż",
         "es": "Spanjol",
         "et": "Estonjan",
+        "eu": "Bask",
         "fi": "Fillandiż",
         "fr": "Franċiż",
         "ga": "Irlandiż",
@@ -915,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Traduzzjoni awtomatizzata",
     "enrichment": "Arrikkiment minn proġetti msieħba",
+    "loginToTranslate": "{login} biex tara dan l-oġġett f'lingwi oħra",
     "other": "lingwi oħra",
     "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
     "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
@@ -1072,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Riżultati addizzjonali mhumiex murija peress li jintwerew biss l-ewwel 1000 riżultat l-aktar rilevanti. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina t-tfittxija tiegħek.",
+      "loginToSeeMore": "{login} biex tara aktar riżultati",
+      "loginToSeeMultilingualResults": "Illoggja biex tfittex madwar il-kollezzjoni kollha, u tikseb riżultati li mhumiex limitati għall-lingwa tat-terminu tat-tfittxija tiegħek.",
+      "showingMultilingualResults": "Li juru r-riżultati fil-kollezzjoni kollha u l-lingwi kollha.",
       "withinCollection": "{count} riżultati fi ħdan {type} {collection}",
       "withinCollectionWithQuery": "{count} riżultati fi ħdan {type} {collection} għal {query}",
       "withoutQuery": "{count} riżultati",

@@ -52,6 +52,7 @@ export default {
     "hide": "Verbergen",
     "learnMore": "Leer meer",
     "like": "Liken",
+    "login": "Inloggen",
     "move": "Verplaats",
     "next": "Volgende",
     "pin": "Pin",
@@ -580,6 +581,7 @@ export default {
         "en": "Engels",
         "es": "Spaans",
         "et": "Ests",
+        "eu": "Baskisch",
         "fi": "Fins",
         "fr": "Frans",
         "ga": "Iers",
@@ -915,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Geautomatiseerde vertaling",
     "enrichment": "Verrijking door partnerprojecten",
+    "loginToTranslate": "{login} om dit object in andere talen te zien",
     "other": "andere talen",
     "stopTranslating": "Stop met het vertalen van dit item naar {0}.",
     "translateLanguage": "Wilt u dit item in {0} zien?",
@@ -1072,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Aanvullende resultaten worden niet getoond, omdat alleen de eerste 1000 meest relevante resultaten worden getoond. Als u niet heeft gevonden wat u zocht, kunt u overwegen uw zoekopdracht te verfijnen.",
+      "loginToSeeMore": "{login} om meer resultaten te zien",
+      "loginToSeeMultilingualResults": "Log in om in de hele collectie te zoeken en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm.",
+      "showingMultilingualResults": "Resultaten weergeven voor de gehele collectie en alle talen.",
       "withinCollection": "{count} resultaten binnen {type} {collection}",
       "withinCollectionWithQuery": "{count} resultaten binnen {type} {collection} voor {query}",
       "withoutQuery": "{count} resultaten",
