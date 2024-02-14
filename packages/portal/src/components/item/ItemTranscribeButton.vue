@@ -71,7 +71,7 @@
 @import '@europeana/style/scss/mixins';
 
 .transcribe-button {
-  font-size: $font-size-medium;
+  font-size: $font-size-large;
   height: 2.25rem;
   max-width: 2.25rem;
   padding: 0.5rem;

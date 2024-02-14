@@ -9,7 +9,7 @@
       :aria-label="$t('entity.actions.pin')"
       @click="pinAction"
     >
-      <span class="icon-push-pin" />
+      <span :class="pinned ? 'icon-pin' : 'icon-pin-outlined'" />
       {{ pinButtonText }}
     </b-button>
     <b-modal
