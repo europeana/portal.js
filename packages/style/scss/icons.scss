@@ -32,7 +32,7 @@
   content: '\e904'
 }
 
-.icon-ic-add::before {
+.icon-add-circle::before {
   content: '\e923';
 }
 
@@ -97,6 +97,10 @@
 }
 
 .icon-heart::before {
+  content: '\e918';
+}
+
+.icon-heart-outlined::before {
   content: '\e9da';
 }
 
@@ -156,7 +160,11 @@
   content: '\e908';
 }
 
-.icon-push-pin::before {
+.icon-pin::before {
+  content: '\e91e';
+}
+
+.icon-pin-outlined::before {
   content: '\e936';
 }
 

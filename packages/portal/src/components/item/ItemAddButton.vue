@@ -10,7 +10,7 @@
       :title="$t('set.actions.addToGallery')"
       @click="addToSet"
     >
-      <span class="icon-ic-add" />
+      <span class="icon-add-circle" />
       {{ buttonText ? $t('actions.save') : '' }}
     </b-button>
     <template

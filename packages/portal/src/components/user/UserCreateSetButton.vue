@@ -6,7 +6,7 @@
     @click="clickCreateSet"
   >
     <div class="card-inner d-flex justify-content-center align-items-center">
-      <span class="icon-ic-add" />
+      <span class="icon-add-circle" />
       <b-card-body data-qa="card body">
         <b-card-title title-tag="div">
           {{ $t('set.actions.createNew') }}
