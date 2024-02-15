@@ -65,10 +65,10 @@
       showCite(newVal) {
         if (newVal) {
           window.addEventListener('keydown', this.handleKeydown);
-          window.addEventListener('focusin', this.handleFocusOutside);
+          window.addEventListener('focusin', this.handleWindowFocusin);
         } else {
           window.removeEventListener('keydown', this.handleKeydown);
-          window.removeEventListener('focusin', this.handleFocusOutside);
+          window.removeEventListener('focusin', this.handleWindowFocusin);
         }
       }
     },
@@ -85,14 +85,9 @@
           });
         }
       },
-      handleFocusOutside(event) {
-        const targetOutsideAttribution = this.checkIftargetOutsideAttribution(event);
-        if (targetOutsideAttribution) {
-          this.toggleCite();
-        }
-      },
-      checkIftargetOutsideAttribution(event) {
-        return this.$refs.attributiontoggle && !this.$refs.attributiontoggle.contains(event.target);
+      handleWindowFocusin(event) {
+        // focus has changed, toggle the citation if not to a child element
+        !this.$refs.attributiontoggle?.contains(event.target) && this.toggleCite();
       }
     }
   };
