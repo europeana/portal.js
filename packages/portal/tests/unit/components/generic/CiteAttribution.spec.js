@@ -69,7 +69,7 @@ describe('components/generic/CiteAttribution', () => {
 
   describe('when extended through keyboard navigation', () => {
     it('sets focus on the first link', () => {
-      const wrapper = factory({ ...requiredProps, extended: true, keyboardNav: true });
+      const wrapper = factory({ ...requiredProps, extended: true, setFocus: true });
 
       const link = wrapper.find('cite a:focus');
       expect(link.exists()).toBe(true);

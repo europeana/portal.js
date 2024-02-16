@@ -123,7 +123,7 @@
       /**
        * If `true`, expanded using keydown event
        */
-      keyboardNav: {
+      setFocus: {
         type: Boolean,
         default: false
       }
@@ -136,8 +136,8 @@
     },
 
     mounted() {
-      if (this.extended && this.keyboardNav) {
-        this.$el.getElementsByTagName('a')[0].focus();
+      if (this.extended && this.setFocus) {
+        this.$el.getElementsByTagName('a')[0]?.focus();
       }
     }
   };

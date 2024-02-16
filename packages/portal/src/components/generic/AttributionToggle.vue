@@ -24,7 +24,7 @@
       :provider="attribution ? attribution.provider : null"
       :rights-statement="rightsStatement"
       :url="attribution ? attribution.url : null"
-      :keyboard-nav="keyboardNav"
+      :set-focus="keyboardNav"
       extended
       data-qa="attribution"
     />
@@ -71,6 +71,11 @@
           window.removeEventListener('focusin', this.handleWindowFocusin);
         }
       }
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('keydown', this.handleKeydown);
+      window.removeEventListener('focusin', this.handleWindowFocusin);
     },
 
     methods: {
