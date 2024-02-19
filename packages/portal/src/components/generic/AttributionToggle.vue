@@ -64,17 +64,17 @@
     watch: {
       showCite(newVal) {
         if (newVal) {
-          window.addEventListener('keydown', this.handleKeydown);
+          window.addEventListener('keydown', this.handleWindowKeydown);
           window.addEventListener('focusin', this.handleWindowFocusin);
         } else {
-          window.removeEventListener('keydown', this.handleKeydown);
+          window.removeEventListener('keydown', this.handleWindowKeydown);
           window.removeEventListener('focusin', this.handleWindowFocusin);
         }
       }
     },
 
     beforeDestroy() {
-      window.removeEventListener('keydown', this.handleKeydown);
+      window.removeEventListener('keydown', this.handleWindowKeydown);
       window.removeEventListener('focusin', this.handleWindowFocusin);
     },
 
@@ -82,7 +82,7 @@
       toggleCite() {
         this.showCite = !this.showCite;
       },
-      handleKeydown(event) {
+      handleWindowKeydown(event) {
         if (event.key === 'Escape') {
           this.toggleCite();
           this.$nextTick(() => {
