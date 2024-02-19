@@ -80,6 +80,7 @@ export default {
     "creator": "Δημιουργός:",
     "date": "Ημερομηνία:",
     "institution": "Ίδρυμα:",
+    "show": "Εμφάνιση απόδοσης",
     "title": "Τίτλος:"
   },
   "automatedCardGroup": {

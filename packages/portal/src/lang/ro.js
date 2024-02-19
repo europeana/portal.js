@@ -80,6 +80,7 @@ export default {
     "creator": "Creator:",
     "date": "Dată:",
     "institution": "Instituție:",
+    "show": "Arată atribuirea",
     "title": "Titlu:"
   },
   "automatedCardGroup": {

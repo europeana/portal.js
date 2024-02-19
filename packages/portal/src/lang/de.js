@@ -80,6 +80,7 @@ export default {
     "creator": "Urheber:",
     "date": "Datum:",
     "institution": "Institution:",
+    "show": "Namensnennung anzeigen",
     "title": "Titel:"
   },
   "automatedCardGroup": {
@@ -901,7 +902,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klicken Sie auf die Namensnennung, um sie zu kopieren",
-      "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Attribution daneben anzuzeigen:",
+      "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Namensnennung daneben anzuzeigen:",
       "modalTitle": "Dank sagen"
     },
     "downloadFailed": {

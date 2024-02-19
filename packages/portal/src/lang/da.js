@@ -80,6 +80,7 @@ export default {
     "creator": "Oprettet af:",
     "date": "Dato:",
     "institution": "Institution:",
+    "show": "Vis tilskrivning",
     "title": "Titel:"
   },
   "automatedCardGroup": {

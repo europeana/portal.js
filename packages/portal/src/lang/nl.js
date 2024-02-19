@@ -80,6 +80,7 @@ export default {
     "creator": "Maker:",
     "date": "Datum:",
     "institution": "Instelling:",
+    "show": "Toon toeschrijving",
     "title": "Titel:"
   },
   "automatedCardGroup": {

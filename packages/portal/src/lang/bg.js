@@ -80,6 +80,7 @@ export default {
     "creator": "Създател:",
     "date": "Дата:",
     "institution": "Институция:",
+    "show": "Покажи атрибуция",
     "title": "Заглавие:"
   },
   "automatedCardGroup": {

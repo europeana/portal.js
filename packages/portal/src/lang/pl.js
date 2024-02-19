@@ -80,6 +80,7 @@ export default {
     "creator": "Twórca:",
     "date": "Data:",
     "institution": "Instytucja:",
+    "show": "Pokaż atrybucję",
     "title": "Tytuł:"
   },
   "automatedCardGroup": {
@@ -900,8 +901,8 @@ export default {
   },
   "modal": {
     "download": {
-      "clickToCopy": "Kilknij na opis, aby go skopiować",
-      "modalIntro": "Jeśli używasz tego elementu w Internecie lub w innym miejscu, nie zapomnij wyświetlić obok niego następującego opisu:",
+      "clickToCopy": "Kliknij atrybucję, aby ją skopiować.",
+      "modalIntro": "Jeśli używasz tego obiektu cyfrowego w sieci lub gdzie indziej, nie zapomnij wyświetlić obok niego następującej atrybucji:",
       "modalTitle": "Powiedz dziękuję"
     },
     "downloadFailed": {

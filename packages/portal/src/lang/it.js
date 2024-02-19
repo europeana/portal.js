@@ -80,6 +80,7 @@ export default {
     "creator": "Creatore:",
     "date": "Data:",
     "institution": "Istituzione:",
+    "show": "Mostra attribuzione",
     "title": "Titolo:"
   },
   "automatedCardGroup": {
@@ -651,7 +652,7 @@ export default {
       "select": "Selezionare se è possibile utilizzarlo"
     },
     "TYPE": {
-      "name": "Tipo di supporto",
+      "name": "Tipo di Supporto",
       "options": {
         "3D": "3D",
         "IMAGE": "Immagine",

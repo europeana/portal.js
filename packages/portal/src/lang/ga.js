@@ -80,6 +80,7 @@ export default {
     "creator": "Cruthaitheoir:",
     "date": "Dáta:",
     "institution": "Institiúid:",
+    "show": "Taispeáin sannadh",
     "title": "Teideal:"
   },
   "automatedCardGroup": {
