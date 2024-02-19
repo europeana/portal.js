@@ -27,6 +27,7 @@
       :set-focus="keyboardNav"
       extended
       data-qa="attribution"
+      @keydown.escape.native="handleCiteAttributionKeydownEscape"
     />
   </figcaption>
 </template>
@@ -64,17 +65,14 @@
     watch: {
       showCite(newVal) {
         if (newVal) {
-          window.addEventListener('keydown', this.handleWindowKeydown);
           window.addEventListener('focusin', this.handleWindowFocusin);
         } else {
-          window.removeEventListener('keydown', this.handleWindowKeydown);
           window.removeEventListener('focusin', this.handleWindowFocusin);
         }
       }
     },
 
     beforeDestroy() {
-      window.removeEventListener('keydown', this.handleWindowKeydown);
       window.removeEventListener('focusin', this.handleWindowFocusin);
     },
 
@@ -82,13 +80,11 @@
       toggleCite() {
         this.showCite = !this.showCite;
       },
-      handleWindowKeydown(event) {
-        if (event.key === 'Escape') {
-          this.toggleCite();
-          this.$nextTick(() => {
-            this.$refs.toggle.focus();
-          });
-        }
+      handleCiteAttributionKeydownEscape() {
+        this.toggleCite();
+        this.$nextTick(() => {
+          this.$refs.toggle.focus();
+        });
       },
       handleWindowFocusin(event) {
         // focus has changed, toggle the citation if not to a child element

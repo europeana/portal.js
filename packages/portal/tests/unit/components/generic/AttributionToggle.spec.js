@@ -94,7 +94,7 @@ describe('components/generic/AttributionToggle', () => {
 
         wrapper.find('[data-qa="toggle"]').trigger('click');
         await wrapper.vm.$nextTick();
-        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+        wrapper.find('[data-qa="attribution"]').trigger('keydown.escape.native');
         await wrapper.vm.$nextTick();
 
         const attribution = wrapper.find('[data-qa="attribution"]');
