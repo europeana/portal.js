@@ -121,7 +121,7 @@
         default: false
       },
       /**
-       * If `true`, expanded using keydown event
+       * If `true`, focus the first link when mounted
        */
       setFocus: {
         type: Boolean,
