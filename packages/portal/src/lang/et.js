@@ -80,6 +80,7 @@ export default {
     "creator": "Looja:",
     "date": "Kuupäev:",
     "institution": "Institutsioon:",
+    "show": "Kuva atribuutika",
     "title": "Pealkiri:"
   },
   "automatedCardGroup": {
@@ -900,8 +901,8 @@ export default {
   },
   "modal": {
     "download": {
-      "clickToCopy": "Selle kopeerimiseks klõpsake omistusel",
-      "modalIntro": "Kui kasutate seda üksust veebis või mujal, ärge unustage selle kõrval kuvada järgmist omistust:",
+      "clickToCopy": "Kopeerimiseks klõpsa atribuuti",
+      "modalIntro": "Kui kasutate seda objekti veebis või mujal, ärge unustage selle kõrval avaldada järgmist atribuuti:",
       "modalTitle": "Ütle aitäh"
     },
     "downloadFailed": {

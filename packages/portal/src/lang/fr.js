@@ -80,6 +80,7 @@ export default {
     "creator": "Créateur :",
     "date": "Date :",
     "institution": "Institution :",
+    "show": "Afficher l'attribution",
     "title": "Titre :"
   },
   "automatedCardGroup": {

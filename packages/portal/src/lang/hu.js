@@ -80,6 +80,7 @@ export default {
     "creator": "Alkotó:",
     "date": "Dátum:",
     "institution": "Intézmény:",
+    "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
   "automatedCardGroup": {

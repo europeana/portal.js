@@ -80,6 +80,7 @@ export default {
     "creator": "Autorius:",
     "date": "Data:",
     "institution": "Įstaiga:",
+    "show": "Rodyti priskyrimą",
     "title": "Pavadinimas:"
   },
   "automatedCardGroup": {
