@@ -44,8 +44,6 @@
 
     layout: 'ds4ch',
 
-    nuxtI18n: false,
-
     data() {
       return {
         page: {}
