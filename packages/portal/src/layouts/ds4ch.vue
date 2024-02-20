@@ -32,8 +32,6 @@
   export default {
     name: 'DS4CHLayout',
 
-    nuxtI18n: false,
-
     components: {
       DS4CHPageHeader,
       DS4CHPageFooter
