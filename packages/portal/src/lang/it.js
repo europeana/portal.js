@@ -652,7 +652,7 @@ export default {
       "select": "Selezionare se è possibile utilizzarlo"
     },
     "TYPE": {
-      "name": "Tipo di Supporto",
+      "name": "Tipo di Media",
       "options": {
         "3D": "3D",
         "IMAGE": "Immagine",
