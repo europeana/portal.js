@@ -1078,6 +1078,7 @@ export default {
         "individual": "Individual fields"
       },
       "modifiers": {
+        "exact": "exact match",
         "contains": "contains",
         "doesNotContain": "does not contain"
       },

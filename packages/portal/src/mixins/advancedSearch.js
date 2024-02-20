@@ -12,7 +12,7 @@ const FIELD_SUGGEST_CONCEPT = 'concept';
 const FIELD_SUGGEST_PLACE = 'place';
 
 const advancedSearchFields = [
-  { name: 'fulltext', type: FIELD_TYPE_FULLTEXT },
+  { name: 'fulltext', type: FIELD_TYPE_FULLTEXT, supportsExact: true },
   { name: 'proxy_dc_contributor', type: FIELD_TYPE_TEXT, suggestEntityType: FIELD_SUGGEST_AGENT },
   { name: 'proxy_dc_coverage', type: FIELD_TYPE_STRING, suggestEntityType: FIELD_SUGGEST_PLACE },
   { name: 'proxy_dc_creator', type: FIELD_TYPE_TEXT, suggestEntityType: FIELD_SUGGEST_AGENT },
@@ -50,6 +50,12 @@ const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field =>
 const advancedSearchFieldNames = advancedSearchFields.map((field) => field.name);
 
 const advancedSearchModifiers = [
+  {
+    name: 'exact',
+    query: {
+      [FIELD_TYPE_FULLTEXT]: '<field>:"<term>"'
+    }
+  },
   {
     name: 'contains',
     query: {
@@ -95,17 +101,23 @@ export default {
   },
 
   methods: {
+    advancedSearchFieldByName(name) {
+      return this.advancedSearchFields.find((field) => field.name === name);
+    },
+    advancedSearchFieldSupportsExact(field) {
+      return this.advancedSearchFieldByName(field)?.supportsExact;
+    },
     advancedSearchFieldLabel(fieldName, locale) {
       const fieldKey = fieldName === 'YEAR' ? 'year' : camelCase(fieldName.replace('proxy_', ''));
       return this.$t(`fieldLabels.default.${fieldKey}`, locale);
     },
 
     advancedSearchQueryFromRule(rule, escaped) {
-      const field = this.advancedSearchFields.find((field) => field.name === rule.field);
+      const field = this.advancedSearchFieldByName(rule.field);
       const modifier = this.advancedSearchModifiers.find((modifier) => modifier.name === rule.modifier);
       const escapedTerm = escapeLuceneSpecials(rule.term, { spaces: true });
       const term = escaped ? escapedTerm : rule.term;
-      return modifier?.query[field.type].replace('<field>', field.name).replace('<term>', term);
+      return modifier.query[field.type].replace('<field>', field.name).replace('<term>', term);
     },
 
     advancedSearchRouteQueryFromRules(rules) {

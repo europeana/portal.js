@@ -28,7 +28,7 @@
                     v-model="queryRules[index]"
                     :tooltips="index === 0"
                     :validate="validatingRules"
-                    @change="(field, value) => handleChangeRule(index, field, value)"
+                    @change="(formField, value) => handleChangeRule(index, formField, value)"
                     @clear="clearRule(index)"
                     @invalid="handleInvalidRule(index)"
                     @valid="handleValidRule(index)"
@@ -113,10 +113,10 @@
         }
         this.handleSubmitForm();
       },
-      handleChangeRule(index, field, value) {
-        this.queryRules[index][field] = value;
+      handleChangeRule(index, formField, value) {
+        this.queryRules[index][formField] = value;
         const validRule = this.checkIfValidRule(this.queryRules[index]);
-        if (validRule || field === 'term') {
+        if (validRule || formField === 'term') {
           this.handleSubmitForm();
         }
       },
@@ -144,6 +144,9 @@
         }
       },
       checkIfValidRule(rule) {
+        if (!this.advancedSearchFieldSupportsExact(rule.field) && rule.modifier === 'exact') {
+          rule.modifier = null;
+        }
         return Boolean(rule.field && rule.modifier && rule.term);
       },
       trackAdvancedSearch() {
