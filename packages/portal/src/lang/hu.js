@@ -47,12 +47,12 @@ export default {
     "download": "Letöltés",
     "edit": "Szerkesztés",
     "explore": "Felfedez",
-    "feedback": "Visszacsatolás",
     "filter": "Szűrő",
     "goHome": "Ugrás a kezdőlapra",
     "hide": "Elrejt",
     "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
+    "login": "Bejelentkezés",
     "move": "Mozgás",
     "next": "Következő",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Elutasít",
     "requestDepublication": "Közzététel megszüntetésének kérése",
     "save": "Mentse",
-    "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
     "show": "Mutat",
     "showLess": "Kevesebb megjelenítése",
     "showMore": "Továbbiak megjelenítése",
-    "skipSend": "Kihagyás és küldés",
     "submitForPublication": "Nyújtsa be közzétételre",
     "submittedForPublication": "Közzétételre benyújtva",
     "transcribe": "Átírni",
@@ -208,6 +206,15 @@ export default {
   "directions": {
     "left": "Bal",
     "right": "Jobb"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kulturális örökség adattere",
+    "header": {
+      "contributors": "Közreműködők",
+      "dataOffer": "Adat ajánlat",
+      "stayInTouch": "Maradjunk kapcsolatban"
+    },
+    "logoAlt": "Adattér a kulturális örökség kezdőlapjához"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
   "entity": {
@@ -574,6 +581,7 @@ export default {
         "en": "Angol",
         "es": "Spanyol",
         "et": "Észt",
+        "eu": "Baszk",
         "fi": "Finn",
         "fr": "Francia",
         "ga": "Ír",
@@ -654,25 +662,6 @@ export default {
       "select": "Adathordozó-típusok kiválasztása"
     }
   },
-  "feedback": {
-    "emailOptional": "Érdemes lehet utánajárnunk. Írja be az e-mail címét, ha örül, hogy kapcsolatba lépünk Önnel.",
-    "failed": "A kérés nem sikerült. Kérlek próbáld újra.",
-    "faq": "Ugrás a gyakran ismételt kérdésekre",
-    "form": {
-      "placeholders": {
-        "email": "Adja meg e-mail címét",
-        "feedback": "Írja be ide visszajelzését"
-      }
-    },
-    "policies": "A folytatással elfogadja {0} és a {1} .",
-    "privacyPolicy": "Adatvédelmi irányelvek",
-    "success": "Visszajelzését elküldtük.",
-    "termsOfService": "Szolgáltatás feltételei",
-    "thankYou": "Köszönöm!",
-    "title": "Visszajelzés küldése",
-    "validEmail": "Adjon meg egy érvényes email címet",
-    "validFeedback": "A visszajelzésnek legalább 5 szóból kell állnia"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Közreműködők",
@@ -739,7 +728,7 @@ export default {
       "about": "RDF Névjegy",
       "dcDescription": "Leírás",
       "ebucoreHasMimeType": "Ebucore MIME típus",
-      "edmRights": "Licenc ehhez a média-erőforráshoz",
+      "edmRights": "Jogokról szóló nyilatkozat ehhez a médiaforráshoz",
       "rdfAbout": "RDF Névjegy"
     }
   },
@@ -749,19 +738,20 @@ export default {
     "disclaimerLine1": "Az Europeana az Európai Unió kezdeményezése, amelyet az Európai Unió Európai Uniót összekötő eszközének és az Európai Unió tagállamainak finanszíroz. Az Europeana szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium üzemelteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
     "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és semmilyen felelősséget nem vállal a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró személyek nem felelősek vagy felelősek a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Keressen minket máshol",
+    "footer": "Lábléc",
     "imageDescription": "Az Európai Unió által finanszírozott",
     "navigation": {
       "about": "Rólunk",
       "accessibility": "Hozzáférhetőség",
       "cookies": "Sütik",
-      "faq": "Gyakori kérdések",
+      "faq": "Gyakran Ismételt Kérdések (FAQ)",
       "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi irányelvek",
       "provide": "Legyen szolgáltató intézmény",
       "subscribe": "Iratkozzon fel hírlevelünkre",
-      "terms": "Szolgáltatás feltételei"
+      "terms": "Feltételek és szabályzatok"
     },
     "ourMission": "Küldetésünk",
     "ourMissionQuote": "Az Europeana segíti a kulturális örökség ágazatát a digitális átalakulásban. Szakértelmet, eszközöket és irányelveket dolgozunk ki a digitális változások befogadására és az innovációt elősegítő partnerségek ösztönzésére."
@@ -927,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automatizált fordítás",
     "enrichment": "Gazdagodás partnerprojektek által",
+    "loginToTranslate": "{login} hogy ezt a tárgyat más nyelveken is megtekinthesse.",
     "other": "egyéb nyelvek",
     "stopTranslating": "Állítsa le ennek az tárgynak a fordítását {0}-ra.",
     "translateLanguage": "Szeretné megtekinteni ezt az tárgyat itt: {0}?",
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "A további eredmények nem jelennek meg, mivel csak az első 1000 legrelevánsabb eredmény jelenik meg. Ha nem találta meg, amit keres, kérjük, fontolja meg a keresés finomítását.",
+      "loginToSeeMore": "{login} további eredmények megtekintéséhez",
+      "loginToSeeMultilingualResults": "Jelentkezzen be, ha a teljes gyűjteményben szeretne keresni, és nem korlátozódik a keresett kifejezés nyelvére.",
+      "showingMultilingualResults": "Eredmények megjelenítése a teljes gyűjteményben és az összes nyelven.",
       "withinCollection": "{count} eredmények a belül {type} {collection}",
       "withinCollectionWithQuery": "{count} eredmények a {type} belül {collection} a {query} számára",
       "withoutQuery": "{count} eredmények",

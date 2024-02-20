@@ -47,12 +47,12 @@ export default {
     "download": "Lae alla",
     "edit": "Muuda",
     "explore": "Uurige",
-    "feedback": "Tagasiside",
     "filter": "Filter",
     "goHome": "Minge avalehele",
     "hide": "Peida",
     "learnMore": "Lisateave",
     "like": "Meeldib",
+    "login": "Logi sisse",
     "move": "Liiguta",
     "next": "Järgmine",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Tagasi lükata",
     "requestDepublication": "Taotlus mitte avaldada",
     "save": "Salvesta",
-    "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
     "show": "Näita",
     "showLess": "Näita vähem",
     "showMore": "Näita rohkem",
-    "skipSend": "Jäta vahele ja saada",
     "submitForPublication": "Esitage avaldamiseks",
     "submittedForPublication": "Esitatud avaldamiseks",
     "transcribe": "Transkribeeri",
@@ -208,6 +206,15 @@ export default {
   "directions": {
     "left": "Vasak",
     "right": "Parem"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kultuuripärandi andmeruum",
+    "header": {
+      "contributors": "Panustajad",
+      "dataOffer": "Andmepakkumine",
+      "stayInTouch": "Hoidke ühendust"
+    },
+    "logoAlt": "Andmepaik kultuuripärandi avaleht"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "entity": {
@@ -574,6 +581,7 @@ export default {
         "en": "Inglise",
         "es": "Hispaania",
         "et": "Eesti",
+        "eu": "Baski",
         "fi": "Soome",
         "fr": "Prantsuse",
         "ga": "Iiri",
@@ -654,25 +662,6 @@ export default {
       "select": "Valige kandja tüübid"
     }
   },
-  "feedback": {
-    "emailOptional": "Võime soovida jätkata. Sisestage oma e-posti aadress, kui olete rahul, et meiega ühendust võtame.",
-    "failed": "Taotlus nurjus. Palun proovi uuesti.",
-    "faq": "Minge korduma kippuvate küsimuste juurde",
-    "form": {
-      "placeholders": {
-        "email": "Sisestage oma e-posti aadress",
-        "feedback": "Sisestage oma tagasiside siia"
-      }
-    },
-    "policies": "Jätkates nõustute meie {0} ja kinnitate meie {1} .",
-    "privacyPolicy": "Privaatsuspoliitika",
-    "success": "Teie tagasiside on saadetud.",
-    "termsOfService": "Kasutustingimused",
-    "thankYou": "Aitäh!",
-    "title": "Saada tagasisidet",
-    "validEmail": "Sisestage kehtiv e-posti aadress",
-    "validFeedback": "Teie tagasiside peab koosnema vähemalt 5 sõnast"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Kaasautorid",
@@ -739,7 +728,7 @@ export default {
       "about": "RDF kohta",
       "dcDescription": "Kirjeldus",
       "ebucoreHasMimeType": "Ebucore MIME tüüp",
-      "edmRights": "Selle meediumiressursi litsents",
+      "edmRights": "Selle meediaressursi õiguste avaldus",
       "rdfAbout": "RDF kohta"
     }
   },
@@ -749,19 +738,20 @@ export default {
     "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
     "disclaimerLine2": "Euroopa Komisjon ei taga teabe õigsust ega võta mingit vastutust sellel veebisaidil oleva teabe eest. Euroopa Komisjon ega ükski Euroopa Komisjoni nimel tegutsev isik ei vastuta ega vastuta sellel veebisaidil oleva teabe õigsuse ega kasutamise eest.",
     "findUsElsewhere": "Leidke meid mujalt",
+    "footer": "Jalus",
     "imageDescription": "Rahastab Euroopa Liit",
     "navigation": {
       "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
-      "faq": "Korduma kippuvad küsimused",
+      "faq": "Korduma kippuvad küsimused  (FAQ)",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
       "provide": "Hakka pakkuvaks asutuseks",
       "subscribe": "Telli meie uudiskiri",
-      "terms": "Kasutustingimused"
+      "terms": "Tingimused ja eeskirjad"
     },
     "ourMission": "Meie missioon",
     "ourMissionQuote": "Europeana annab kultuuripärandisektorile digitaalse ümberkujundamise võimaluse. Arendame teadmisi, tööriistu ja poliitikaid, et omaks võtta digitaalsed muutused ja julgustada partnerlussuhteid, mis edendavad innovatsiooni."
@@ -927,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automatiseeritud tõlge",
     "enrichment": "Rikastamine partner projektide kaudu",
+    "loginToTranslate": "{login} et näha seda üksust teistes keeltes",
     "other": "muud keeled",
     "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
     "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
+      "loginToSeeMore": "{login} , et näha rohkem tulemusi",
+      "loginToSeeMultilingualResults": "Logige sisse, et otsida kogu kollektsioonist ja saada tulemusi, mis ei piirdu teie otsingutermini keelega.",
+      "showingMultilingualResults": "Kuvatakse tulemusi kogu kogumiku ja kõigi keelte lõikes.",
       "withinCollection": "{count} tulemust jaotises {type} {collection}",
       "withinCollectionWithQuery": "{count} tulemust jaotises {type} {collection} jaoks {query}",
       "withoutQuery": "{count} tulemust",

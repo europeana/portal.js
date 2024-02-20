@@ -24,14 +24,12 @@
       v-else
     >
       <!-- render item language selector inside IIIF wrapper so the iframe can take the available width becoming available upon closing -->
-      <client-only v-if="!iiifPresentationManifest">
-        <ItemLanguageSelector
-          v-if="translatedItemsEnabled && showItemLanguageSelector"
-          :from-translation-error="fromTranslationError"
-          :metadata-language="metadataLanguage"
-          @hidden="() => showItemLanguageSelector = false"
-        />
-      </client-only>
+      <ItemLanguageSelector
+        v-if="!iiifPresentationManifest && translatedItemsEnabled && showItemLanguageSelector"
+        :from-translation-error="fromTranslationError"
+        :metadata-language="metadataLanguage"
+        @hidden="() => showItemLanguageSelector = false"
+      />
       <b-container
         fluid
         class="bg-white mb-3 px-0"
@@ -49,14 +47,12 @@
           :iiif-presentation-manifest="iiifPresentationManifest"
         >
           <template slot="item-language-selector">
-            <client-only>
-              <ItemLanguageSelector
-                v-if="translatedItemsEnabled && showItemLanguageSelector"
-                :from-translation-error="fromTranslationError"
-                :metadata-language="metadataLanguage"
-                @hidden="() => showItemLanguageSelector = false"
-              />
-            </client-only>
+            <ItemLanguageSelector
+              v-if="translatedItemsEnabled && showItemLanguageSelector"
+              :from-translation-error="fromTranslationError"
+              :metadata-language="metadataLanguage"
+              @hidden="() => showItemLanguageSelector = false"
+            />
           </template>
         </ItemHero>
       </b-container>
@@ -210,7 +206,12 @@
     },
 
     async fetch() {
-      await this.fetchMetadata();
+      // When entering a translated item page, but not logged in, redirect to non-translated item page
+      if (this.$route.query.lang && !this.$auth.loggedIn) {
+        this.redirectToAltRoute({ query: { lang: undefined } });
+      } else {
+        await this.fetchMetadata();
+      }
     },
 
     computed: {
@@ -356,7 +357,7 @@
         try {
           const response = await this.$apis.record.getRecord(
             this.identifier,
-            { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
+            { locale: this.$i18n.locale, metadataLanguage: this.$auth.loggedIn ? this.$route.query.lang : undefined }
           );
 
           const responseIdentifier = response.record.identifier;

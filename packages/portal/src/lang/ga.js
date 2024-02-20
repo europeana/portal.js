@@ -47,12 +47,12 @@ export default {
     "download": "Íoslódáil",
     "edit": "Cuir in eagar",
     "explore": "Déan iniúchadh",
-    "feedback": "Aiseolas",
     "filter": "Scagaire",
     "goHome": "Téigh go dtí an leathanach baile",
     "hide": "Folaigh",
     "learnMore": "Foghlaim níos mó",
     "like": "Is maith liom",
+    "login": "Logáil isteach",
     "move": "Bog",
     "next": "Ar Aghaidh",
     "pin": "Bioráin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Diúltaigh",
     "requestDepublication": "Iarratas a dhéanamh ar fhoilseachán",
     "save": "Sábháil",
-    "send": "Seol",
     "share": "Roinn",
     "shareOn": "Roinn ar {social}",
     "show": "Taispeáin",
     "showLess": "Taispeáin níos lú",
     "showMore": "Taispeáin níos mó",
-    "skipSend": "Scipeáil agus seol",
     "submitForPublication": "Cuir isteach le foilsiú",
     "submittedForPublication": "Arna chur isteach le foilsiú",
     "transcribe": "Tras-scríobh",
@@ -208,6 +206,15 @@ export default {
   "directions": {
     "left": "Ar chlé",
     "right": "Ar dheis"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Spás sonraí don oidhreacht chultúrtha",
+    "header": {
+      "contributors": "Rannpháirtithe",
+      "dataOffer": "Tairiscint Sonraí",
+      "stayInTouch": "Fan i dteagmháil"
+    },
+    "logoAlt": "Spás sonraí do leathanach baile oidhreachta cultúir"
   },
   "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
   "entity": {
@@ -574,6 +581,7 @@ export default {
         "en": "Béarla",
         "es": "Spáinnis ",
         "et": "Eastóinis",
+        "eu": "Bascais",
         "fi": "Fionlainnis",
         "fr": "Fraincis",
         "ga": "Gaeilge",
@@ -654,25 +662,6 @@ export default {
       "select": "Roghnaigh cineálacha meán"
     }
   },
-  "feedback": {
-    "emailOptional": "B’fhéidir gur mhaith linn obair leantach a dhéanamh. Cuir isteach do r-phost má tá tú sásta go ndéanfaimis teagmháil leat.",
-    "failed": "Theip ar an iarraidh. Arís, le do thoil.",
-    "faq": "Téigh go dtí ceisteanna coitianta",
-    "form": {
-      "placeholders": {
-        "email": "Cuir isteach do sheoladh ríomhphoist",
-        "feedback": "Cuir isteach d'aiseolas anseo"
-      }
-    },
-    "policies": "Trí leanúint ar aghaidh, aontaíonn tú lenár {0} agus aithníonn tú ár {1} .",
-    "privacyPolicy": "Beartas Príobháideachais",
-    "success": "Tá d'aiseolas seolta.",
-    "termsOfService": "Tearmaí Seirbhís",
-    "thankYou": "Go raibh maith agat!",
-    "title": "Seol Aiseolas",
-    "validEmail": "Iontráil seoladh bailí ríomhphoist",
-    "validFeedback": "Caithfidh 5 fhocal ar a laghad a bheith i d’aiseolas"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Rannchuiditheoirí",
@@ -749,19 +738,20 @@ export default {
     "disclaimerLine1": "Is tionscnamh de chuid an Aontais Eorpaigh é Europeana, arna mhaoiniú ag Saoráid Nascadh na hEorpa agus Ballstáit an Aontais Eorpaigh. Is iad cuibhreannas faoi stiúir Fhondúireacht Europeana a oibríonn seirbhísí Europeana, an láithreán gréasáin seo san áireamh, faoi chonradh seirbhíse leis an gCoimisiún Eorpach.",
     "disclaimerLine2": "Ní ráthaíonn an Coimisiún Eorpach cruinneas na faisnéise agus ní ghlacann sé aon fhreagracht ná dliteanas ar bith maidir leis an bhfaisnéis ar an suíomh Gréasáin seo. Níl an Coimisiún Eorpach, ná aon duine atá ag gníomhú thar ceann an Choimisiúin Eorpaigh, freagrach ná faoi dhliteanas as cruinneas nó úsáid na faisnéise ar an suíomh Gréasáin seo.",
     "findUsElsewhere": "Aimsigh muid áit eile",
+    "footer": "Buntásc",
     "imageDescription": "Maoinithe ag an Aontas Eorpach",
     "navigation": {
       "about": "Maidir linn",
       "accessibility": "Inrochtaineacht",
       "cookies": "Fianáin",
-      "faq": "Ceisteanna Coitianta",
+      "faq": "Ceisteanna Coitianta (FAQ)",
       "forDevelopers": "Do fhorbróirí",
       "help": "Cabhair",
       "MoreInfoLabel": "Tuilleadh eolais",
       "privacy": "Beartas Príobháideachais",
       "provide": "Bí i d'institiúid sholáthartha",
       "subscribe": "Liostáil lenár Nuachtlitir",
-      "terms": "Tearmaí Seirbhís"
+      "terms": "Téarmaí & Beartais"
     },
     "ourMission": "Ár misean",
     "ourMissionQuote": "Tugann Europeana cumhacht don earnáil oidhreachta cultúrtha tabhairt faoin gclaochlú digiteach. Forbraímid saineolas, uirlisí agus beartais chun glacadh leis an athrú digiteach agus spreagaimid comhpháirtíochtaí a chothaíonn an nuálaíocht."
@@ -927,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Aistriúchán uathoibrithe",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
+    "loginToTranslate": "{login} chun an mhír seo a fheiceáil i dteangacha eile",
     "other": "teangacha eile",
     "stopTranslating": "Stop an t-earra seo a aistriú go {0}.",
     "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Ní thaispeántar torthaí breise mar ní léirítear ach an chéad 1000 toradh is ábhartha. Mura bhfuil a bhfuil uait aimsithe agat, smaoinigh ar do chuardach a bheachtú.",
+      "loginToSeeMore": "{login} chun tuilleadh torthaí a fheiceáil",
+      "loginToSeeMultilingualResults": "Logáil isteach chun cuardach a dhéanamh ar fud an bhailiúcháin ar fad, agus faigh torthaí nach bhfuil teoranta do theanga do théarma cuardaigh.",
+      "showingMultilingualResults": "Torthaí a thaispeáint ar fud an bhailiúcháin ar fad agus gach teanga.",
       "withinCollection": "{count} torthaí laistigh de {type} {collection}",
       "withinCollectionWithQuery": "{count} torthaí laistigh de {type} {collection} le haghaidh {query}",
       "withoutQuery": "{count} torthaí",

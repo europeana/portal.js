@@ -47,12 +47,12 @@ export default {
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
     "explore": "Izpētīt",
-    "feedback": "Atsauksmes",
     "filter": "Filtrs",
     "goHome": "Dodieties uz sākumlapu",
     "hide": "Slēpt",
     "learnMore": "Apgūt vairāk",
     "like": "Patīk",
+    "login": "Pieteikties",
     "move": "Pārvietot",
     "next": "Nākamais",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Noraidīt",
     "requestDepublication": "Pieprasīt depublikāciju",
     "save": "Glābt",
-    "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
     "show": "Rādīt",
     "showLess": "Rādīt mazāk",
     "showMore": "Rādīt vairāk",
-    "skipSend": "Izlaist un nosūtīt",
     "submitForPublication": "Iesniegt publicēšanai",
     "submittedForPublication": "Iesniegts publicēšanai",
     "transcribe": "Transkribēt",
@@ -208,6 +206,15 @@ export default {
   "directions": {
     "left": "Kreisais",
     "right": "Labais"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kultūras mantojuma datu telpa",
+    "header": {
+      "contributors": "Līdzstrādātāji",
+      "dataOffer": "Datu piedāvājums",
+      "stayInTouch": "Saglabājiet kontaktu"
+    },
+    "logoAlt": "Datu telpa kultūras mantojuma mājas lapai"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "entity": {
@@ -574,6 +581,7 @@ export default {
         "en": "Angļu",
         "es": "Spāņu",
         "et": "Igauņu",
+        "eu": "Basku",
         "fi": "Somu",
         "fr": "Franču",
         "ga": "Īru",
@@ -654,25 +662,6 @@ export default {
       "select": "Atlasīt multivides veidus"
     }
   },
-  "feedback": {
-    "emailOptional": "Mēs varētu vēlēties sekot. Ievadiet savu e-pasta adresi, ja esat priecīgs, ka mēs ar jums sazināsimies.",
-    "failed": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
-    "faq": "Dodieties uz bieži uzdotajiem jautājumiem",
-    "form": {
-      "placeholders": {
-        "email": "ievadiet savu e-pasta adresi",
-        "feedback": "Ievadiet atsauksmes šeit"
-      }
-    },
-    "policies": "Turpinot jūs piekrītat mūsu {0} un atzīstat mūsu {1} .",
-    "privacyPolicy": "Privātuma politika",
-    "success": "Jūsu atsauksmes ir nosūtītas.",
-    "termsOfService": "Pakalpojuma noteikumi",
-    "thankYou": "Paldies!",
-    "title": "Sūtīt atsauksmes",
-    "validEmail": "ievadiet derīgu epasta adresi",
-    "validFeedback": "Jūsu atsauksmēm jābūt vismaz 5 vārdiem."
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Atbalstītāji",
@@ -749,19 +738,20 @@ export default {
     "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
     "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
+    "footer": "Kājene",
     "imageDescription": "Finansē Eiropas Savienība",
     "navigation": {
       "about": "Par Europeana",
       "accessibility": "Pieejamība",
       "cookies": "Sīkdatnes",
-      "faq": "Bieži uzdotie jautājumi",
+      "faq": "Bieži uzdotie jautājumi (FAQ)",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Privātuma politika",
       "provide": "Kļūsti piegādājošā iestāde",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
-      "terms": "Lietošanas noteikumi"
+      "terms": "Noteikumi un politikas"
     },
     "ourMission": "Mūsu misija",
     "ourMissionQuote": "Europeana nodrošina iespējas kultūras mantojuma nozarei tās digitālajā pārveidē. Mēs izstrādājam zināšanas, instrumentus un politikas virzienus, lai atbalstītu digitālās izmaiņas un veicinātu partnerības, kas veicina jauninājumus."
@@ -927,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automātiskā tulkošana",
     "enrichment": "Bagātināšana ar partneru projektiem",
+    "loginToTranslate": "{login}, lai skatītu šo digitālo objektu citās valodās",
     "other": "citas valodas",
     "stopTranslating": "Pārtrauciet šī digitālais objekts tulkošanu uz {0}.",
     "translateLanguage": "Vai jūs vēlētos redzēt šo digitālais objekts {0}?",
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Papildu rezultāti netiek rādīti, jo tiek rādīti tikai pirmie 1000 visatbilstošākie rezultāti. Ja neatradāt to, ko meklējat, lūdzu, apsveriet iespēju uzlabot meklēšanu.",
+      "loginToSeeMore": "{login} lai redzētu vairāk rezultātu",
+      "loginToSeeMultilingualResults": "Piesakieties, lai meklētu visā kolekcijā un saņemiet rezultātus ne tikai jūsu meklēšanas vienuma valodā.",
+      "showingMultilingualResults": "Rāda rezultātus visā kolekcijā un visās valodās.",
       "withinCollection": "{count} rezultāti sadaļā {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultāti sadaļā {type} {collection} par {query}",
       "withoutQuery": "{count} rezultāti",

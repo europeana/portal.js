@@ -4,8 +4,7 @@
     class="landing-embed"
   >
     <div
-      class="header responsive-backround-image"
-      :style="imageCSSVars"
+      class="header"
     >
       <b-container>
         <b-col class="header-content col-lg-8 px-0 text-center mx-auto">
@@ -38,17 +37,6 @@
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import EmbedHTML from '@/components/embed/EmbedHTML';
 
-  const SRCSET_PRESETS = {
-    small: { w: 576, h: 360, fit: 'fill' },
-    medium: { w: 768, h: 270, fit: 'fill' },
-    large: { w: 992, h: 480, fit: 'fill' },
-    xl: { w: 1200, h: 480, fit: 'fill' },
-    xxl: { w: 1440, h: 480, fit: 'fill' },
-    xxxl: { w: 1920, h: 480, fit: 'fill' },
-    wqhd: { w: 2560, h: 480, fit: 'fill' },
-    '4k': { w: 3840, h: 480, fit: 'fill' }
-  };
-
   export default {
     name: 'LandingEmbed',
 
@@ -71,10 +59,6 @@
         type: String,
         default: null
       },
-      backgroundImage: {
-        type: Object,
-        default: null
-      },
       embed: {
         type: Object,
         default: null
@@ -85,21 +69,12 @@
       return {
         containerId: kebabCase(this.englishTitle)
       };
-    },
-
-    computed: {
-      imageCSSVars() {
-        return this.backgroundImage?.image &&
-          this.$contentful.assets.responsiveBackgroundImageCSSVars(
-            this.backgroundImage.image, SRCSET_PRESETS);
-      }
     }
   };
 </script>
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/responsive-background-image';
 
   .landing-embed {
     border-bottom: 1px solid $white;
@@ -115,17 +90,6 @@
 
     @media (min-width: $bp-medium) {
       padding: 4rem 0 17rem;
-    }
-
-    &::before {
-      content: '';
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(0deg, #0b60aa, #0b60aa);
-      mix-blend-mode: multiply;
-      position: absolute;
     }
 
     .container {

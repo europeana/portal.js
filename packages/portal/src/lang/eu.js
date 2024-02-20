@@ -47,12 +47,12 @@ export default {
     "download": "Deskargatu",
     "edit": "Editatu",
     "explore": "Esploratu",
-    "feedback": "Iritzia",
     "filter": "Iragazkia",
     "goHome": "Joan hasierako orrialdera",
     "hide": "Ezkutatu",
     "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
+    "login": "Hasi saioa",
     "move": "Mugitu",
     "next": "Hurrengoa",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Baztertu",
     "requestDepublication": "Argitalpenik ez egiteko eskaera",
     "save": "Gorde",
-    "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
     "show": "Erakutsi",
     "showLess": "Gutxiago erakutsi",
     "showMore": "Gehiago erakutsi",
-    "skipSend": "Saltatu eta bidali",
     "submitForPublication": "Bidali argitaratzeko",
     "submittedForPublication": "Argitalpenerako aurkeztu da",
     "transcribe": "Transkribatu",
@@ -212,6 +210,15 @@ export default {
   "directions": {
     "left": "Ezkerra",
     "right": "Eskuma"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kultura ondarearen datu espazioa",
+    "header": {
+      "contributors": "Laguntzaileak",
+      "dataOffer": "Datu eskaintza",
+      "stayInTouch": "Kontaktuan jarraitu"
+    },
+    "logoAlt": "Kultura-ondarearen hasierako orrirako datu-espazioa"
   },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
   "entity": {
@@ -578,6 +585,7 @@ export default {
         "en": "Ingelesa",
         "es": "Gaztelania",
         "et": "Estoniarra",
+        "eu": "Euskara",
         "fi": "Finlandiera",
         "fr": "Frantsesa",
         "ga": "Irlandarra",
@@ -658,25 +666,6 @@ export default {
       "select": "Hautatu euskarri motak"
     }
   },
-  "feedback": {
-    "emailOptional": "Baliteke jarraipena egitea nahi izatea. Idatzi zure posta elektronikoa gu zurekin harremanetan jartzeko pozik bazaude.",
-    "failed": "Eskaerak huts egin du. Saiatu berriro mesedez.",
-    "faq": "Joan maiz egindako galderak",
-    "form": {
-      "placeholders": {
-        "email": "Idatzi zure helbide elektronikoa",
-        "feedback": "Idatzi zure iritzia hemen"
-      }
-    },
-    "policies": "Jarraituz gero, gure {0} onartzen duzu eta gure {1} onartzen duzu.",
-    "privacyPolicy": "Pribatutasun politika",
-    "success": "Zure iritzia bidali da.",
-    "termsOfService": "Zerbitzu-baldintzak",
-    "thankYou": "Eskerrik asko!",
-    "title": "Bidali iritzia",
-    "validEmail": "Idatzi balio duen helbide elektronikoa",
-    "validFeedback": "Zure iritziak gutxienez 5 hitz izan behar ditu"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Laguntzaileak",
@@ -753,19 +742,20 @@ export default {
     "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
     "disclaimerLine2": "Europako Batzordeak ez du informazioaren zehaztasuna bermatzen eta ez du inolako erantzukizunik edo inolako erantzukizunik onartzen webgune honetako informazioari dagokionez. Ez Europako Batzordeak ez Europako Batzordearen izenean jarduten duen inor ez da erantzule edo erantzule egiten webgune honetako informazioaren zehaztasunaz edo erabileraz.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
+    "footer": "Orri-oin",
     "imageDescription": "Europar Batasunak finantzatua",
     "navigation": {
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
-      "faq": "Maiz Egindako Galderak",
+      "faq": "Maiz Egindako Galderak (FAQ)",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
       "provide": "Bihurtu erakunde hornitzaile bat",
       "subscribe": "Harpidetu zaitez gure Buletinera",
-      "terms": "Erabilera baldintzak"
+      "terms": "Baldintzak eta politikak"
     },
     "ourMission": "Gure eginkizuna",
     "ourMissionQuote": "Europeanak kultura ondarearen sektorea sendotzen du haren eraldaketa digitalean. Aldaketa digitalarekin bat egiteko esperientzia, tresnak eta politikak garatzen ditugu eta berrikuntza bultzatzen duten lankidetzak sustatzen ditugu."
@@ -931,6 +921,7 @@ export default {
   "multilingual": {
     "automated": "Itzulpen automatizatua",
     "enrichment": "Bazkide proiektuen aberastea",
+    "loginToTranslate": "{login} elementu hau beste hizkuntza batzuetan ikusteko",
     "other": "beste hizkuntza batzuk",
     "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
     "translateLanguage": "{0} -n ikusi nahi duzu?",
@@ -1088,6 +1079,9 @@ export default {
     },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
+      "loginToSeeMore": "{login} emaitza gehiago ikusteko",
+      "loginToSeeMultilingualResults": "Hasi saioa bilduma osoan bilatzeko eta lortu emaitzak bilaketa-terminoaren hizkuntzara mugatu gabe.",
+      "showingMultilingualResults": "Bilduma osoan eta hizkuntza guztietan emaitzak erakusten.",
       "withinCollection": "{count} emaitza barruan {type} {collection}",
       "withinCollectionWithQuery": "{count} emaitza {type} {collection} barruan {query}",
       "withoutQuery": "{count} emaitza",
@@ -1123,7 +1117,7 @@ export default {
       "addToGallery": "Gehitu elementu hau galeria batera.",
       "create": "Sortu galeria",
       "createNew": "Sortu galeria berria",
-      "delete": "Bilduma ezabatu",
+      "delete": "Ezabatu galeria",
       "edit": "Editatu galeria",
       "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
       "update": "Eguneratu galeria"

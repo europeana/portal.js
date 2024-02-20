@@ -1,6 +1,10 @@
-Customised BootstrapVue badge component. AKA 'pill', 'chip' or 'tag'
+Customised BootstrapVue badge component. AKA 'pill', 'chip' or 'tag'.
 
 Docs: https://bootstrap-vue.org/docs/components/badge
+
+Used by:
+- LinkBadge
+- [RelatedCategoryTags](/#/Components/Related?id=relatedcategorytags)
 
 Variant "secondary": regular, pill<br>
 *Used as default*
@@ -26,7 +30,7 @@ Variant "secondary": regular, pill<br>
       class="img-chip"
     >
       <b-img
-        src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fcc.museon.nl%2Fimageproxy.aspx%3Fserver%3Dlocalhost%26port%3D17512%26filename%3Dimages%2Fscreen2%2F116201a.jpg&type=IMAGE&size=w200"
+        :src="thumbnails[1]"
         rounded="circle"
         class="mr-2"
       />
@@ -70,7 +74,7 @@ Variant "primary":
       class="img-chip"
     >
       <b-img
-        src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fcc.museon.nl%2Fimageproxy.aspx%3Fserver%3Dlocalhost%26port%3D17512%26filename%3Dimages%2Fscreen2%2F116201a.jpg&type=IMAGE&size=w200"
+        :src="thumbnails[2]"
         rounded="circle"
         class="mr-2"
       />
@@ -114,7 +118,7 @@ Variant "outline-primary":
       class="img-chip"
     >
       <b-img
-        src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fcc.museon.nl%2Fimageproxy.aspx%3Fserver%3Dlocalhost%26port%3D17512%26filename%3Dimages%2Fscreen2%2F116201a.jpg&type=IMAGE&size=w200"
+        :src="thumbnails[3]"
         rounded="circle"
         class="mr-2"
       />
@@ -159,7 +163,7 @@ Variant "primary-light":
       class="img-chip"
     >
       <b-img
-        src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fcc.museon.nl%2Fimageproxy.aspx%3Fserver%3Dlocalhost%26port%3D17512%26filename%3Dimages%2Fscreen2%2F116201a.jpg&type=IMAGE&size=w200"
+        :src="thumbnails[4]"
         rounded="circle"
         class="mr-2"
       />
@@ -204,7 +208,7 @@ Variant "light":
         class="img-chip"
       >
         <b-img
-          src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fcc.museon.nl%2Fimageproxy.aspx%3Fserver%3Dlocalhost%26port%3D17512%26filename%3Dimages%2Fscreen2%2F116201a.jpg&type=IMAGE&size=w200"
+          :src="thumbnails[5]"
           rounded="circle"
           class="mr-2"
         />

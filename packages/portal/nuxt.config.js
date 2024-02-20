@@ -14,7 +14,7 @@ import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { exclude as i18nRoutesExclude } from './src/plugins/i18n/routes.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled, featureNotificationExpiration, valueIsTruthy } from './src/features/index.js';
+import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
@@ -70,14 +70,15 @@ export default {
       },
       featureNotification: process.env.APP_FEATURE_NOTIFICATION,
       featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      feedback: {
+        cors: {
+          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
+        }
+      },
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       siteName: APP_SITE_NAME,
       search: {
-        collections: {
-          clientOnly: valueIsTruthy(process.env.APP_SEARCH_COLLECTIONS_CLIENT_ONLY),
-          doNotTranslate: valueIsTruthy(process.env.APP_SEARCH_COLLECTIONS_DO_NOT_TRANSLATE)
-        },
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }
     },

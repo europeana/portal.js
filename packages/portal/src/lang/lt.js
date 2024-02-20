@@ -47,12 +47,12 @@ export default {
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "explore": "Naršyti",
-    "feedback": "Atsiliepimas",
     "filter": "Filtras",
     "goHome": "Eikite į pagrindinį puslapį",
     "hide": "Slėpti",
     "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
+    "login": "Prisijungti",
     "move": "Perkelti",
     "next": "Kitas",
     "pin": "Kaištis",
@@ -63,13 +63,11 @@ export default {
     "reject": "Atmesti",
     "requestDepublication": "Prašymas neskelbti",
     "save": "Išsaugoti",
-    "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
     "show": "Rodyti",
     "showLess": "Rodyti mažiau",
     "showMore": "Rodyti daugiau",
-    "skipSend": "Praleisti ir siųsti",
     "submitForPublication": "Pateikti publikavimui",
     "submittedForPublication": "Pateikta publikuoti",
     "transcribe": "Transkribuoti",
@@ -208,6 +206,15 @@ export default {
   "directions": {
     "left": "Kairė",
     "right": "Dešinė"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Kultūros paveldo duomenų erdvė",
+    "header": {
+      "contributors": "Įnešėjai",
+      "dataOffer": "Duomenų pasiūlymas",
+      "stayInTouch": "Išlikti susisiekę"
+    },
+    "logoAlt": "Kultūros paveldo namų puslapio duomenų erdvė"
   },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
   "entity": {
@@ -574,6 +581,7 @@ export default {
         "en": "Anglų",
         "es": "Ispanų",
         "et": "Estų",
+        "eu": "Baskų",
         "fi": "Suomių",
         "fr": "Prancūzų",
         "ga": "Airių",
@@ -654,25 +662,6 @@ export default {
       "select": "Pasirinkite laikmenos tipus"
     }
   },
-  "feedback": {
-    "emailOptional": "Galbūt norėsime tęsti. Įveskite savo el. Pašto adresą, jei džiaugiatės, kad susisieksime su jumis.",
-    "failed": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
-    "faq": "Eikite į dažniausiai užduodamus klausimus",
-    "form": {
-      "placeholders": {
-        "email": "Įveskite savo elektroninio pašto adresą",
-        "feedback": "Čia įveskite savo atsiliepimą"
-      }
-    },
-    "policies": "Tęsdami sutinkate su mūsų {0} ir patvirtinate mūsų {1} .",
-    "privacyPolicy": "Privatumo politika",
-    "success": "Jūsų atsiliepimas išsiųstas.",
-    "termsOfService": "Paslaugų teikimo sąlygos",
-    "thankYou": "Ačiū!",
-    "title": "Siųsti atsiliepimą",
-    "validEmail": "Įveskite galiojantį el. Pašto adresą",
-    "validFeedback": "Jūsų atsiliepimą turi sudaryti mažiausiai 5 žodžiai"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Įnešėjai",
@@ -749,19 +738,20 @@ export default {
     "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
     "disclaimerLine2": "Europos Komisija negarantuoja informacijos tikslumo ir neprisiima jokios atsakomybės ar atsakomybės už šioje svetainėje pateiktą informaciją. Nei Europos Komisija, nei joks asmuo, veikiantis Europos Komisijos vardu, nėra atsakingas už šioje svetainėje esančios informacijos tikslumą ar naudojimą.",
     "findUsElsewhere": "Raskite mus kitur",
+    "footer": "Poraštė",
     "imageDescription": "Finansuoja Europos Sąjunga",
     "navigation": {
       "about": "Apie mus",
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
-      "faq": "Dažnai užduodami klausimai",
+      "faq": "Dažnai užduodami klausimai (FAQ)",
       "forDevelopers": "Programuotojams",
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
       "provide": "Tapkite teikėjas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
-      "terms": "Naudotojo sąlygos"
+      "terms": "Sąlygos ir politika"
     },
     "ourMission": "Mūsų misija",
     "ourMissionQuote": "„Europeana“ suteikia kultūros paveldo sektoriui skaitmeninimo galimybes. Rengiame žinias, įrankius ir politikas, skatinančias skaitmeninius pokyčius bei partnerystes, kurios spartina inovacijas."
@@ -927,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automatinis vertimas",
     "enrichment": "Praturtinimas partnerių projektais",
+    "loginToTranslate": "{login} kad pamatytumėte šį skaitmeninį objektą kitomis kalbomis",
     "other": "kitos kalbos",
     "stopTranslating": "Nustokite versti šį skaitmeninį objektą į {0}.",
     "translateLanguage": "Ar norėtumėte pamatyti šį skaitmeninį objektą {0}?",
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Papildomi rezultatai nerodomi, nes rodomi tik pirmieji 1000 aktualiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
+      "loginToSeeMore": "{login} kad pamatytumėte daugiau rezultatų",
+      "loginToSeeMultilingualResults": "Prisijunkite, kad galėtumėte ieškoti visoje kolekcijoje ir gauti rezultatus, neribotus jūsų paieškos termino kalba.",
+      "showingMultilingualResults": "Rodomi rezultatai iš visos kolekcijos ir visomis kalbomis.",
       "withinCollection": "{count} rezultatų pagal {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultatų pagal {type} {collection} dėl {query}",
       "withoutQuery": "{count} rezultatai",

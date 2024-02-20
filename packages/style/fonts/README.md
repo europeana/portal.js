@@ -20,9 +20,9 @@ To add new icons:
 
 - Either search for icons in the library of free icons, most common icons are in this library
 
-- Or use “Import icons” to load own SVGs
+- Or use "Import to set" from the set menu (to keep all in the same set) to load own SVGs
 
-- When ready, press the “generate font” button at the bottom, check if everything is there, and then press “download”
+- When ready, press the “generate font” button at the bottom, check if everything is there, rename icons where needed and then press “download”
 
 - Extract the .woff from the downloaded Zip into this `fonts` directory
 

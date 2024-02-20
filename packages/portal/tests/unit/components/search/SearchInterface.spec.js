@@ -44,6 +44,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
         baseURL: 'https://newspapers.eanadev.org/api/v2'
       }
     },
+    $auth: {},
     $i18n: {
       locale: 'en'
     },
@@ -339,9 +340,11 @@ describe('components/search/SearchInterface', () => {
           describe('and current locale is one of the configured locales to translate', () => {
             const $i18n = { locale: 'nl' };
 
-            describe('and doNotTranslate prop is not set (defaulting to false)', () => {
+            describe('and user is logged in', () => {
+              const $auth = { loggedIn: true };
+
               it('returns the current locale', () => {
-                const wrapper = factory({ mocks: { $config, $i18n } });
+                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
 
                 const translateLang = wrapper.vm.apiOptions.translateLang;
 
@@ -349,11 +352,11 @@ describe('components/search/SearchInterface', () => {
               });
             });
 
-            describe('but doNotTranslate prop is set to `true`', () => {
-              const doNotTranslate = true;
+            describe('but user is not logged in', () => {
+              const $auth = { loggedIn: false };
 
               it('is undefined', () => {
-                const wrapper = factory({ mocks: { $config, $i18n }, propsData: { doNotTranslate } });
+                const wrapper = factory({ mocks: { $auth, $config, $i18n } });
 
                 const translateLang = wrapper.vm.apiOptions.translateLang;
 

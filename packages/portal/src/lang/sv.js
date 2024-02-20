@@ -47,12 +47,12 @@ export default {
     "download": "Ladda ner",
     "edit": "Redigera",
     "explore": "Utforska",
-    "feedback": "Feedback",
     "filter": "Filtrera",
     "goHome": "Gå till hemsidan",
     "hide": "Dölj",
     "learnMore": "Läs mer",
     "like": "Gilla",
+    "login": "Logga in",
     "move": "Flytta",
     "next": "Nästa",
     "pin": "Stift",
@@ -63,13 +63,11 @@ export default {
     "reject": "Avvisa",
     "requestDepublication": "Begär avpublicering",
     "save": "Spara",
-    "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
     "show": "Visa",
     "showLess": "Visa mindre",
     "showMore": "Visa mer",
-    "skipSend": "Hoppa över och skicka",
     "submitForPublication": "Skicka in för publicering",
     "submittedForPublication": "Inlämnad för publicering",
     "transcribe": "Transkribera",
@@ -208,6 +206,15 @@ export default {
   "directions": {
     "left": "Vänster",
     "right": "Höger"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Datautrymme för kulturarv",
+    "header": {
+      "contributors": "Bidragsgivare",
+      "dataOffer": "Data Erbjudande",
+      "stayInTouch": "Håll kontakten"
+    },
+    "logoAlt": "Datautrymme för kulturarvets hemsida"
   },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
   "entity": {
@@ -574,6 +581,7 @@ export default {
         "en": "Engelska",
         "es": "Spanska",
         "et": "Estniska",
+        "eu": "Baskiska",
         "fi": "Finska",
         "fr": "Franska",
         "ga": "Irländska",
@@ -654,25 +662,6 @@ export default {
       "select": "Välj typer av media"
     }
   },
-  "feedback": {
-    "emailOptional": "Vi kanske vill följa upp detta. Ange din e-postadress om du vill att vi ska kontakta dig.",
-    "failed": "Begäran misslyckades. Var god försök igen.",
-    "faq": "Gå till vanliga frågor",
-    "form": {
-      "placeholders": {
-        "email": "Ange din e-postadress",
-        "feedback": "Ange din feedback här"
-      }
-    },
-    "policies": "Genom att fortsätta godkänner du vår {0} och godkänner vår {1} .",
-    "privacyPolicy": "Integritetspolicy",
-    "success": "Din feedback har skickats.",
-    "termsOfService": "Användarvillkor",
-    "thankYou": "Tack!",
-    "title": "Skicka feedback",
-    "validEmail": "Ange en giltig e-postadress",
-    "validFeedback": "Din feedback måste bestå av minst 5 ord"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Medverkande",
@@ -749,19 +738,20 @@ export default {
     "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
     "disclaimerLine2": "Europeiska kommissionen garanterar inte att informationen är korrekt och tar inget ansvar för informationen på denna webbplats. Varken Europeiska kommissionen eller någon person som agerar på Europeiska kommissionens vägnar är ansvarig för att informationen på denna webbplats är korrekt eller används.",
     "findUsElsewhere": "Hitta oss någon annanstans",
+    "footer": "Sidfot",
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
       "about": "Om",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
-      "faq": "Vanliga frågor",
+      "faq": "Vanliga frågor (FAQ)",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
       "provide": "Bli en tillhandahållande institution",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
-      "terms": "Användarvillkor"
+      "terms": "Villkor och policyer"
     },
     "ourMission": "Vårt uppdrag",
     "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omvandlingen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
@@ -927,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automatiserad översättning",
     "enrichment": "Berikning genom partnerprojekt",
+    "loginToTranslate": "{login} för att se detta objekt på andra språk",
     "other": "andra språk",
     "stopTranslating": "Sluta översätta det här objektet till {0}.",
     "translateLanguage": "Vill du se det här objektet i {0} ?",
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
+      "loginToSeeMore": "{login} för att se fler resultat",
+      "loginToSeeMultilingualResults": "Logga in för att söka i hela samlingen och få resultat som inte är begränsade till språket för din sökterm.",
+      "showingMultilingualResults": "Visar resultat över hela samlingen och alla språk.",
       "withinCollection": "{count} resultat inom {type} {collection}",
       "withinCollectionWithQuery": "{count} resultat inom {type} {collection} för {query}",
       "withoutQuery": "{count} resultat",

@@ -6,11 +6,18 @@ import VueI18n from 'vue-i18n';
 
 import contentfulModuleAssets from '@europeana/portal/src/modules/contentful/templates/assets.js';
 import messages from '@europeana/portal/src/lang/en.js';
+import sampleData from '@europeana/portal/docs/sample-data.js';
 
 Vue.use(VueI18n);
 Vue.use(Vuex);
 Vue.use(BootstrapVue);
 Vue.use(VueMasonryPlugin);
+
+Vue.mixin({
+  data() {
+    return sampleData;
+  }
+});
 
 Vue.directive('visible-on-scroll', () => {});
 
@@ -101,7 +108,7 @@ Object.assign(Vue.prototype, {
     params: {
       pathMatch: 'example-page'
     } },
-  localePath: (args) => args,
+  localePath: () => '/en/localepath',
   switchLocalePath: () => '/'
 });
 

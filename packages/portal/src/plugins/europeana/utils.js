@@ -254,12 +254,8 @@ const replaceAll = (string, pattern, replacement) => string.split(pattern).join(
  * @return {string} Escaped string
  * @see https://lucene.apache.org/solr/guide/the-standard-query-parser.html#escaping-special-characters
  */
-export function escapeLuceneSpecials(unescaped, { spaces = false } = {}) {
-  let escaped = unescaped;
-  for (const char of LUCENE_SPECIAL_CHARACTERS.concat(spaces ? ' ' : [])) {
-    escaped = replaceAll(escaped, char, `\\${char}`);
-  }
-  return escaped;
+export function escapeLuceneSpecials(unescaped, options = {}) {
+  return handleLuceneSpecials(unescaped, (escaped, char) => replaceAll(escaped, char, `\\${char}`), options);
 }
 
 /**
@@ -267,13 +263,22 @@ export function escapeLuceneSpecials(unescaped, { spaces = false } = {}) {
  * @param {string} escaped Escaped string
  * @return {string} Unescaped string
  */
-export function unescapeLuceneSpecials(escaped, { spaces = false } = {}) {
-  let unescaped = escaped;
-  for (const char of LUCENE_SPECIAL_CHARACTERS.concat(spaces ? ' ' : [])) {
-    unescaped = replaceAll(unescaped, `\\${char}`, char);
-  }
-  return unescaped;
+export function unescapeLuceneSpecials(escaped, options = {}) {
+  return handleLuceneSpecials(escaped, (unescaped, char) => replaceAll(unescaped, `\\${char}`, char), options);
 }
+
+const handleLuceneSpecials = (source, callback, { spaces = false } = {}) => {
+  let chars = [].concat(LUCENE_SPECIAL_CHARACTERS);
+  if (spaces) {
+    chars = chars.concat(' ');
+  }
+
+  let dest = source;
+  for (const char of chars) {
+    dest = callback(dest, char);
+  }
+  return dest;
+};
 
 export const isLangMap = (value) => {
   return (typeof value === 'object') && (value.constructor.name === Object.name) && Object.keys(value).every(key => {

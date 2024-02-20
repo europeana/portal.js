@@ -47,12 +47,12 @@ export default {
     "download": "Niżżel",
     "edit": "Editja",
     "explore": "Esplora",
-    "feedback": "Feedback",
     "filter": "Filtru",
     "goHome": "Mur fil-homepage",
     "hide": "Aħbi",
     "learnMore": "Itagħllem iżjed",
     "like": "Like",
+    "login": "Illoggja",
     "move": "Nimxu",
     "next": "Li jmiss",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Irrifjuta",
     "requestDepublication": "Talba għal depubblikazzjoni",
     "save": "Tissejvja",
-    "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
     "show": "Uri",
     "showLess": "Uri inqas",
     "showMore": "Uri aktar",
-    "skipSend": "Aqbeż u ibgħat",
     "submitForPublication": "Ibgħat għall-pubblikazzjoni",
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
     "transcribe": "Traskrivi",
@@ -208,6 +206,15 @@ export default {
   "directions": {
     "left": "Xellug",
     "right": "Lemin"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Spazju tad-data għall-wirt kulturali",
+    "header": {
+      "contributors": "Kontributuri",
+      "dataOffer": "Offerta tad-dejta",
+      "stayInTouch": "Żomm f'kuntatt"
+    },
+    "logoAlt": "Spazju tad-data għall-paġna ewlenija tal-wirt kulturali"
   },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
   "entity": {
@@ -574,6 +581,7 @@ export default {
         "en": "Ingliż",
         "es": "Spanjol",
         "et": "Estonjan",
+        "eu": "Bask",
         "fi": "Fillandiż",
         "fr": "Franċiż",
         "ga": "Irlandiż",
@@ -654,25 +662,6 @@ export default {
       "select": "Agħżel tipi ta 'midja"
     }
   },
-  "feedback": {
-    "emailOptional": "Aħna jista 'jkun li nixtiequ nsegwu. Daħħal l-email tiegħek jekk int kuntent li aħna nikkuntattjawk.",
-    "failed": "It-talba falliet. Jekk jogħġbok erġa pprova.",
-    "faq": "Mur għall-mistoqsijiet frekwenti",
-    "form": {
-      "placeholders": {
-        "email": "Daħħal l-indirizz tal-email tiegħek",
-        "feedback": "Daħħal il-feedback tiegħek hawn"
-      }
-    },
-    "policies": "Billi tkompli, taqbel ma ' {0} tagħna u tirrikonoxxi lil {1} tagħna.",
-    "privacyPolicy": "Regoli tal-privatezza",
-    "success": "Il-feedback tiegħek intbagħat.",
-    "termsOfService": "Termini tas-Servizz",
-    "thankYou": "Grazzi!",
-    "title": "Ibgħat feedback",
-    "validEmail": "Daħħal indirizz tal-email validu",
-    "validFeedback": "Il-feedback tiegħek irid jikkonsisti f'minimu ta' 5 kelmiet"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Kontributuri",
@@ -749,19 +738,20 @@ export default {
     "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
     "disclaimerLine2": "Il-Kummissjoni Ewropea ma tiggarantix l-eżattezza tal-informazzjoni u ma taċċetta l-ebda responsabbiltà jew responsabbiltà fir-rigward tal-informazzjoni f'dan il-websajt. La l-Kummissjoni Ewropea, u lanqas kwalunkwe persuna li taġixxi f'isem il-Kummissjoni Ewropea, ma hija responsabbli jew responsabbli għall-eżattezza jew l-użu tal-informazzjoni f'dan il-websajt.",
     "findUsElsewhere": "Sibna x'imkien ieħor",
+    "footer": "Footer",
     "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
     "navigation": {
       "about": "Dwarna",
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
-      "faq": "Mistoqsijiet frekwenti",
+      "faq": "Mistoqsijiet Frekwenti (FAQ)",
       "forDevelopers": "Għall-iżviluppaturi",
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Politika tar-privatezza",
       "provide": "Issir istituzzjoni fornitriċi",
       "subscribe": "Abbona għan-Newsletter tagħna",
-      "terms": "Termini tal-użu"
+      "terms": "Termini u Politiki"
     },
     "ourMission": "Il-missjoni tagħna",
     "ourMissionQuote": "Europeana tagħti s-setgħa lis-settur tal-wirt kulturali fit-trasformazzjoni diġitali tiegħu. Aħna niżviluppaw għarfien espert, għodod u politiki biex inħaddnu l-bidla diġitali u ninkoraġġixxu lis-sħubiji li jrawmu l-innovazzjoni."
@@ -927,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Traduzzjoni awtomatizzata",
     "enrichment": "Arrikkiment minn proġetti msieħba",
+    "loginToTranslate": "{login} biex tara dan l-oġġett f'lingwi oħra",
     "other": "lingwi oħra",
     "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
     "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Riżultati addizzjonali mhumiex murija peress li jintwerew biss l-ewwel 1000 riżultat l-aktar rilevanti. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina t-tfittxija tiegħek.",
+      "loginToSeeMore": "{login} biex tara aktar riżultati",
+      "loginToSeeMultilingualResults": "Illoggja biex tfittex madwar il-kollezzjoni kollha, u tikseb riżultati li mhumiex limitati għall-lingwa tat-terminu tat-tfittxija tiegħek.",
+      "showingMultilingualResults": "Li juru r-riżultati fil-kollezzjoni kollha u l-lingwi kollha.",
       "withinCollection": "{count} riżultati fi ħdan {type} {collection}",
       "withinCollectionWithQuery": "{count} riżultati fi ħdan {type} {collection} għal {query}",
       "withoutQuery": "{count} riżultati",

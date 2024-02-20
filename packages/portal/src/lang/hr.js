@@ -47,12 +47,12 @@ export default {
     "download": "Preuzmi",
     "edit": "Uredi",
     "explore": "Istražiti",
-    "feedback": "Povratna informacija",
     "filter": "Filtar",
     "goHome": "Idite na početnu stranicu",
     "hide": "Sakriti",
     "learnMore": "Uči više",
     "like": "Sviđanje",
+    "login": "Prijava",
     "move": "Potez",
     "next": "Sljedeći",
     "pin": "Klin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Odbiti",
     "requestDepublication": "Zahtjev za depublifikaciju",
     "save": "Uštedjeti",
-    "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
     "show": "Pokazati",
     "showLess": "Prikaži manje",
     "showMore": "Prikaži više",
-    "skipSend": "Preskoči i pošalji",
     "submitForPublication": "Predajte za objavu",
     "submittedForPublication": "Predano za objavu",
     "transcribe": "Prepisati",
@@ -208,6 +206,15 @@ export default {
   "directions": {
     "left": "Lijevo",
     "right": "Desno"
+  },
+  "ds4ch": {
+    "dataSpaceForCulturalHeritage": "Prostor podataka za kulturnu baštinu",
+    "header": {
+      "contributors": "Doprinositelji",
+      "dataOffer": "Ponuda podataka",
+      "stayInTouch": "Ostanite u kontaktu"
+    },
+    "logoAlt": "Podatkovni prostor za početnu stranicu kulturne baštine"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
   "entity": {
@@ -574,6 +581,7 @@ export default {
         "en": "Engleski",
         "es": "Španjolski",
         "et": "Estonski",
+        "eu": "Baskijski",
         "fi": "Finski",
         "fr": "Francuski",
         "ga": "Irski",
@@ -654,25 +662,6 @@ export default {
       "select": "Odaberite vrste medija"
     }
   },
-  "feedback": {
-    "emailOptional": "Možda bismo željeli pratiti. Unesite svoju e-poštu ako ste sretni da vas kontaktiramo.",
-    "failed": "Zahtjev nije uspio. Pokušajte ponovo.",
-    "faq": "Idi na često postavljana pitanja",
-    "form": {
-      "placeholders": {
-        "email": "Unesite svoju adresu e-pošte",
-        "feedback": "Ovdje unesite povratne informacije"
-      }
-    },
-    "policies": "Nastavljajući, slažete se s našim {0} i priznajete našu {1}.",
-    "privacyPolicy": "Pravila o privatnosti",
-    "success": "Poslane su vaše povratne informacije.",
-    "termsOfService": "Uvjeti korištenja",
-    "thankYou": "Hvala!",
-    "title": "Slanje povratnih informacija",
-    "validEmail": "Unesite valjanu adresu e-pošte",
-    "validFeedback": "Vaše povratne informacije moraju se sastojati od najmanje 5 riječi"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Suradnici",
@@ -749,19 +738,20 @@ export default {
     "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
     "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
+    "footer": "Podnožje",
     "imageDescription": "Financira Europska unija",
     "navigation": {
       "about": "O nama",
       "accessibility": "Pristupačnost",
       "cookies": "Kolačići",
-      "faq": "Često postavljana pitanja",
+      "faq": "Često postavljana pitanja (FAQ)",
       "forDevelopers": "Za programere",
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
       "privacy": "Pravila o privatnosti",
       "provide": "Postanite pružanje institucija",
       "subscribe": "Pretplatite se na naš bilten",
-      "terms": "Uvjeti korištenja"
+      "terms": "Uvjeti i pravila"
     },
     "ourMission": "Naša misija",
     "ourMissionQuote": "Europeana osnažuje sektor kulturne baštine u svojoj digitalnoj transformaciji. Razvijamo stručnost, alate i politike kako bismo prihvatili digitalne promjene i potaknuli partnerstva koja potiču inovacije."
@@ -927,6 +917,7 @@ export default {
   "multilingual": {
     "automated": "Automatizirani prijevod",
     "enrichment": "Obogaćivanje partnerskim projektima",
+    "loginToTranslate": "{login} za pregled ovog predmeta na drugim jezicima",
     "other": "drugi jezici",
     "stopTranslating": "Prestanite prevoditi ovu stavku na {0}.",
     "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o suženju pretraživanja.",
+      "loginToSeeMore": "{login} da biste vidjeli više rezultata",
+      "loginToSeeMultilingualResults": "Prijavite se kako biste pretraživali cijelu zbirku i dobili rezultate koji nisu ograničeni na jezik vašeg pojma za pretraživanje.",
+      "showingMultilingualResults": "Prikaz rezultata kroz cijelu kolekciju i sve jezike.",
       "withinCollection": "{count} rezultata unutar {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultata unutar {type} {collection} za {query}",
       "withoutQuery": "{count} rezultata",
