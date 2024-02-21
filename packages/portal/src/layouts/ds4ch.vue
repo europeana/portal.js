@@ -53,8 +53,8 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
-          { hid: 'description', name: 'description', content: this.$t('ds4ch.dataSpaceForCulturalHeritage') },
-          { hid: 'og:description', property: 'og:description', content: this.$t('ds4ch.dataSpaceForCulturalHeritage') },
+          { hid: 'description', name: 'description', content: this.$t('ds4ch.title') },
+          { hid: 'og:description', property: 'og:description', content: this.$t('ds4ch.title') },
           { hid: 'og:url', property: 'og:url', content: this.$route.fullPath }
         ]
       };
