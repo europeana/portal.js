@@ -1,17 +1,7 @@
 <template>
   <div :class="$fetchState.error && 'white-page'">
-    <b-container
-      v-if="$fetchState.pending"
-      data-qa="loading spinner container"
-    >
-      <b-row class="flex-md-row py-4 text-center">
-        <b-col cols="12">
-          <LoadingSpinner />
-        </b-col>
-      </b-row>
-    </b-container>
     <ErrorMessage
-      v-else-if="$fetchState.error"
+      v-if="$fetchState.error"
       data-qa="error message container"
       :error="$fetchState.error"
       :show-message="false"
@@ -33,12 +23,14 @@
 </template>
 
 <script>
+  import ErrorMessage from '@/components/error/ErrorMessage';
   import LandingHero from '@/components/landing/LandingHero';
 
   export default {
     name: 'DS4CHPage',
 
     components: {
+      ErrorMessage,
       LandingHero
     },
 
