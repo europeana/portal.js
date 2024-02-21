@@ -9,7 +9,7 @@
   >
     <b-navbar
       role="navigation"
-      class="d-flex align-items-center justify-content-between"
+      class="d-flex align-items-center justify-content-end"
     >
       <DS4CHPageNavigation
         class="d-none d-lg-flex"
