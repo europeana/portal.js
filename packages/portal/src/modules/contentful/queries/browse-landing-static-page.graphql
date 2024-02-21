@@ -153,6 +153,38 @@ query BrowseLandingStaticPage(
         total
         items {
           __typename
+          ... on CardGroup {
+            headline
+          	text
+            hasPartCollection(limit: 28) {
+              items {
+                __typename
+                ... on AutomatedEntityCard {
+                  name
+                  identifier
+                  description
+                  slug
+                  entityImage: image
+                }
+                ... on AutomatedRecordCard {
+                  identifier
+                  encoding
+                }
+                ... on CuratedCard {
+                  name
+                  description
+                  url
+                  image {
+                    ...imageFields
+                  }
+                }
+              }
+            }
+            moreButton {
+              url
+              text
+            }
+        	}
           ... on InfoCardGroup {
             name
             text
