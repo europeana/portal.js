@@ -8,9 +8,7 @@
         <EULogo
           class="eu-logo mb-3"
         />
-        <p>{{ $t('footer.disclaimerLine1') }}</p>
-
-        <p>{{ $t('footer.disclaimerLine2') }}</p>
+        <p>{{ $t('ds4ch.footer.disclaimerLine1') }}</p>
       </b-row>
     </b-container>
   </footer>
