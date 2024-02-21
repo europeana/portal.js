@@ -4,23 +4,13 @@
     v-visible-on-scroll
     class="page-header show xxl-page"
     role="banner"
-    :aria-label="$t('ds4ch.dataSpaceForCulturalHeritage')"
+    :aria-label="$t('ds4ch.title')"
     data-qa="header"
   >
     <b-navbar
       role="navigation"
       class="d-flex align-items-center justify-content-between"
     >
-      <SmartLink
-        destination="#"
-        class="logo d-inline-flex"
-      >
-        <img
-          :src="logoSrc"
-          :alt="$t('ds4ch.logoAlt')"
-          data-qa="logo"
-        >
-      </SmartLink>
       <DS4CHPageNavigation
         class="d-none d-lg-flex"
         data-qa="top navigation"
@@ -63,21 +53,13 @@
 </template>
 
 <script>
-  import SmartLink from '@/components/generic/SmartLink';
   import DS4CHPageNavigation from './DS4CHPageNavigation';
 
   export default {
     name: 'DS4CHPageHeader',
 
     components: {
-      SmartLink,
       DS4CHPageNavigation
-    },
-
-    data() {
-      return {
-        logoSrc: require('@europeana/style/img/DS4CHlogo.svg')
-      };
     }
   };
 </script>

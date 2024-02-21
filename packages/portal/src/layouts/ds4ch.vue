@@ -46,7 +46,7 @@
       // TODO: add i18n head when decided page should be multilingual
 
       return {
-        title: this.$t('ds4ch.dataSpaceForCulturalHeritage'),
+        title: this.$t('ds4ch.title'),
         link: [
           // TODO: add favicon
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },

@@ -23,7 +23,7 @@ describe('layouts/ds4ch.vue', () => {
       it('uses site name', () => {
         const wrapper = factory();
 
-        expect(wrapper.vm.head().title).toBe('ds4ch.dataSpaceForCulturalHeritage');
+        expect(wrapper.vm.head().title).toBe('ds4ch.title');
       });
     });
   });

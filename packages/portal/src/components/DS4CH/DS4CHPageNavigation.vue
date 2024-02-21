@@ -31,10 +31,9 @@
     computed: {
       links() {
         return [
-          // TODO: Add URLs when available
-          { url: '#', text: this.$t('ds4ch.header.dataOffer') },
-          { url: '#', text: this.$t('ds4ch.header.contributors') },
-          { url: '#', text: this.$t('ds4ch.header.stayInTouch') }
+          { url: '#about', text: this.$t('ds4ch.header.navigation.about') },
+          { url: '#partners', text: this.$t('ds4ch.header.navigation.partners') },
+          { url: '#explore', text: this.$t('ds4ch.header.navigation.explore') }
         ];
       }
     }
