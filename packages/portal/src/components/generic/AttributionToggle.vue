@@ -28,7 +28,6 @@
       extended
       data-qa="attribution"
       @keydown.escape.native="handleCiteAttributionKeydownEscape"
-      @blur="resetKeyboardNav"
     />
   </figcaption>
 </template>
@@ -90,7 +89,7 @@
       },
       handleWindowFocusin(event) {
         // focus has changed, toggle the citation if not to a child element
-        !this.$refs.attributiontoggle?.contains(event.target) && this.toggleCite();
+        !this.$refs.attributiontoggle?.contains(event.target) && this.toggleCite() && this.resetKeyboardNav();
       },
       resetKeyboardNav() {
         this.keyboardNav = false;
