@@ -6,32 +6,27 @@
       :error="$fetchState.error"
       :show-message="false"
     />
-    <div
+    <LandingPage
       v-else
-      class="page white-page xxl-page"
-    >
-      <LandingHero
-        v-if="page.headline"
-        :headline="page.headline"
-        :text="page.text"
-        :hero-image="page.primaryImageOfPage"
-        variant="ds4ch"
-      />
-      <div style="height: 100vh;" />
-    </div>
+      :headline="page.headline"
+      :text="page.text"
+      :cta="page.relatedLink"
+      :sections="page.hasPartCollection?.items.filter((item) => !!item)"
+      :primary-image-of-page="page.primaryImageOfPage"
+    />
   </div>
 </template>
 
 <script>
   import ErrorMessage from '@/components/error/ErrorMessage';
-  import LandingHero from '@/components/landing/LandingHero';
+  import LandingPage from '@/components/landing/LandingPage';
 
   export default {
     name: 'DS4CHPage',
 
     components: {
       ErrorMessage,
-      LandingHero
+      LandingPage
     },
 
     layout: 'ds4ch',
