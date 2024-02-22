@@ -8,7 +8,6 @@
       text-variant="white"
       class="mt-0"
       :class="hero ? 'hero' : ''"
-      @click="!citeCollapsed ? toggleCite : null"
     >
       <ImageWithAttribution
         :src="src"

@@ -32,8 +32,6 @@
   export default {
     name: 'DS4CHLayout',
 
-    nuxtI18n: false,
-
     components: {
       DS4CHPageHeader,
       DS4CHPageFooter
@@ -48,15 +46,15 @@
       // TODO: add i18n head when decided page should be multilingual
 
       return {
-        title: this.$t('ds4ch.dataSpaceForCulturalHeritage'),
+        title: this.$t('ds4ch.title'),
         link: [
           // TODO: add favicon
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
-          { hid: 'description', name: 'description', content: this.$t('ds4ch.dataSpaceForCulturalHeritage') },
-          { hid: 'og:description', property: 'og:description', content: this.$t('ds4ch.dataSpaceForCulturalHeritage') },
+          { hid: 'description', name: 'description', content: this.$t('ds4ch.title') },
+          { hid: 'og:description', property: 'og:description', content: this.$t('ds4ch.title') },
           { hid: 'og:url', property: 'og:url', content: this.$route.fullPath }
         ]
       };

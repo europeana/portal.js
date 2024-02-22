@@ -80,6 +80,7 @@ export default {
     "creator": "Creador:",
     "date": "Fecha:",
     "institution": "Institución:",
+    "show": "Mostrar atribución",
     "title": "Título:"
   },
   "automatedCardGroup": {
@@ -581,7 +582,7 @@ export default {
         "en": "Inglés",
         "es": "Español",
         "et": "Estonio",
-        "eu": "Vasco",
+        "eu": "Euskera",
         "fi": "Finlandés",
         "fr": "Francés",
         "ga": "Irlandés",

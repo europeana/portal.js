@@ -80,6 +80,7 @@ export default {
     "creator": "Sortzailea:",
     "date": "Data:",
     "institution": "Erakundea:",
+    "show": "Erakutsi atribuzioa",
     "title": "Izenburua:"
   },
   "automatedCardGroup": {

@@ -80,6 +80,7 @@ export default {
     "creator": "Creator:",
     "date": "Date:",
     "institution": "Institution:",
+    "show": "Show attribution",
     "title": "Title:"
   },
   "automatedCardGroup": {
@@ -212,13 +213,17 @@ export default {
     "right": "Right"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Data space for cultural heritage",
-    "logoAlt": "Data space for cultural heritage home page",
+    "footer": {
+      "disclaimerLine1": "The data space is an initiative of the European Union, financed by the European Union’s Digital Europe Programme and European Union Member States. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission."
+    },
     "header": {
-      "contributors": "Contributors",
-      "dataOffer": "Data offer",
-      "stayInTouch": "Stay in touch"
-    }
+      "navigation": {
+        "about": "About the data space",
+        "explore": "Explore the data",
+        "partners": "Partners"
+      }
+    },
+    "title": "Common European data space for cultural heritage"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {

@@ -80,6 +80,7 @@ export default {
     "creator": "Stvorio/la:",
     "date": "Datum:",
     "institution": "Institucija:",
+    "show": "Prikaži atribuciju",
     "title": "Naslov:"
   },
   "automatedCardGroup": {

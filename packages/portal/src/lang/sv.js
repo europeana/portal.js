@@ -80,6 +80,7 @@ export default {
     "creator": "Upphovsperson:",
     "date": "Datum:",
     "institution": "Institution:",
+    "show": "Visa attribution",
     "title": "Titel:"
   },
   "automatedCardGroup": {

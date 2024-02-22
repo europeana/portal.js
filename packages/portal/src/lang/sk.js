@@ -80,6 +80,7 @@ export default {
     "creator": "Autor:",
     "date": "Dátum:",
     "institution": "Inštitúcia:",
+    "show": "Zobraziť atribút",
     "title": "Názov:"
   },
   "automatedCardGroup": {

@@ -80,6 +80,7 @@ export default {
     "creator": "Luoja:",
     "date": "Päivämäärä:",
     "institution": "kulttuuriperintölaitos:",
+    "show": "Näytä attribuutio",
     "title": "Nimi:"
   },
   "automatedCardGroup": {

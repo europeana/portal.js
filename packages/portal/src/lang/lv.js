@@ -80,6 +80,7 @@ export default {
     "creator": "Autors:",
     "date": "Datums",
     "institution": "Iestāde:",
+    "show": "Rādīt attiecinājumu",
     "title": "Nosaukums:"
   },
   "automatedCardGroup": {

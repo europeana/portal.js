@@ -15,12 +15,12 @@ const factory = () => shallowMount(DS4CHPageHeader, {
 
 describe('components/DS4CH/DS4CHPageHeader', () => {
   describe('template', () => {
-    it('contains the logo', () => {
+    it('contains the top navigation', () => {
       const wrapper = factory();
 
-      const logo = wrapper.find('[data-qa="logo"]');
+      const topNav = wrapper.find('[data-qa="top navigation"]');
 
-      expect(logo.attributes().src).toBe('DS4CHlogo.svg');
+      expect(topNav.exists()).toBe(true);
     });
   });
 });
