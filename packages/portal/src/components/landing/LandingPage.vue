@@ -46,6 +46,7 @@
       />
       <LandingCallToAction
         v-if="contentType(section, 'PrimaryCallToAction')"
+        :title="variant === 'ds4ch' ? section.name : null"
         :text="section.text"
         :link="section.relatedLink"
         :variant="variant"

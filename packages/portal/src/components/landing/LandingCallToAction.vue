@@ -1,10 +1,13 @@
 <template>
-  <b-container :class="variant">
-    <ContentPrimaryCallToAction
-      :text="text"
-      :link="link"
-    />
-  </b-container>
+  <div :class="variant">
+    <b-container>
+      <ContentPrimaryCallToAction
+        :title="title"
+        :text="text"
+        :link="link"
+      />
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -18,7 +21,14 @@
 
     props: {
       /**
-       * Text to display under title and above the info cards
+       * Title
+       */
+      title: {
+        type: String,
+        default: null
+      },
+      /**
+       * Text to display under title
        */
       text: {
         type: String,
@@ -71,7 +81,7 @@
 <style lang="scss">
   @import '@europeana/style/scss/DS4CH/style';
 
-  .container.ds4ch {
+  .ds4ch .container {
     padding-top: 6rem;
     padding-bottom: 6rem;
 
@@ -87,6 +97,14 @@
       margin-left: 10rem;
       padding-top: 16rem;
       padding-bottom: 16rem;
+    }
+
+    h2 {
+      @extend %title-2;
+
+      @media (min-width: $bp-4k) {
+        margin-bottom: 4rem;
+      }
     }
 
     .primary-cta {
@@ -117,14 +135,6 @@
       @media (min-width: $bp-4k) {
         font-size: 2.667rem;
         margin-bottom: 6rem;
-      }
-
-      h2 {
-        @extend %title-2;
-
-        @media (min-width: $bp-4k) {
-          margin-bottom: 4rem;
-        }
       }
     }
   }
