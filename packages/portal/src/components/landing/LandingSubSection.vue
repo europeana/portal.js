@@ -24,7 +24,6 @@
         />
         <LandingInfoCardGroup
           v-if="contentType(section, 'InfoCardGroup')"
-          :class="LandingInfoCardGroupClass"
           :title="section.name"
           title-tag="h3"
           :text="section.text"
@@ -70,12 +69,6 @@
         type: Array,
         default: () => []
       }
-    },
-
-    data() {
-      return {
-        LandingInfoCardGroupClass: this.$route.params.pathMatch === 'share-your-data' ? 'logo' : null
-      };
     },
 
     methods: {
@@ -136,59 +129,6 @@
   .text {
     color: $mediumgrey;
     max-width: $max-text-column-width;
-  }
-
-  //style overrides for providing institutions section Share your data
-  ::v-deep .logo {
-    &.container {
-      padding: 0;
-    }
-
-    .cards-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center !important;
-    }
-
-    .info-card {
-      flex-basis: calc(50% - 2rem);
-      margin: 0 1rem 1rem;
-      padding: 0;
-      align-items: center;
-      justify-content: center;
-
-      @media (min-width: $bp-small) {
-        flex-basis: calc(25% - 2rem);
-      }
-
-      @media (min-width: $bp-large) {
-        margin: 0 1.5rem 1rem;
-        flex-basis: 127px;
-      }
-
-      @media (min-width: $bp-4k) {
-        margin: 0 2rem 1rem;
-        flex-basis: calc(1.5 * 127px);
-      }
-
-      .title {
-        display: none;
-      }
-      .image-wrapper {
-        flex: 0 0 100%;
-        height: auto;
-        width: 100%;
-        max-width: 127px;
-
-        @media (min-width: $bp-4k) {
-          max-width: calc(1.5 * 127px);
-        }
-
-        img {
-          mix-blend-mode: multiply; // fixes logo img with white background
-        }
-      }
-    }
   }
 </style>
 

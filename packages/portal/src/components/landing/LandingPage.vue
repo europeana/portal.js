@@ -16,6 +16,12 @@
         v-if="contentType(section, 'CardGroup')"
         :section="section"
       />
+      <LandingIllustrationGroup
+        v-if="contentType(section, 'IllustrationGroup')"
+        :title="section.name"
+        :text="section.text"
+        :illustrations="section.hasPartCollection && section.hasPartCollection.items"
+      />
       <LandingInfoCardGroup
         v-if="contentType(section, 'InfoCardGroup')"
         :title="section.name"
@@ -61,6 +67,7 @@
       ContentCardSection: () => import('../content/ContentCardSection'),
       LandingCallToAction: () => import('@/components/landing/LandingCallToAction'),
       LandingHero,
+      LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
       LandingSubSection: () => import('@/components/landing/LandingSubSection'),
