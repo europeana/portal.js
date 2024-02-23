@@ -25,6 +25,8 @@
   import InfoCard from '@/components/generic/InfoCard';
 
   const EUROPEANA_NUMBERS = 'Europeana numbers';
+  // TODO: update to DS numbers when available in CTF
+  const DS4CH_NUMBERS = 'Europeana numbers';
 
   export default {
     name: 'LandingAutomatedCardGroup',
@@ -53,16 +55,40 @@
       const data = {
         keys: null,
         title: null,
-        entries: []
+        entries: [],
+        ds4chHardCodedCounts: [
+          { info: this.$i18n.n(4500),
+            label: this.$t('ds4ch.counts.networkMembers') },
+          { info: this.$i18n.n(19),
+            label: this.$t('ds4ch.counts.partners') },
+          { info: '+10%',
+            label: this.$t('ds4ch.counts.increaseHighQualityData') }
+        ]
       };
-      if (this.genre === EUROPEANA_NUMBERS) {
+      if (this.genre === DS4CH_NUMBERS) {
+        data.keys = ['items/type-counts', 'collections/organisations/count'];
+      } else if (this.genre === EUROPEANA_NUMBERS) {
         data.keys = ['matomo/visits', 'items/type-counts', 'collections/organisations/count'];
         data.title = this.$t('landing.europeanaNumbers');
       }
       return data;
     },
     async fetch() {
-      if (this.genre === EUROPEANA_NUMBERS) {
+      if (this.genre === DS4CH_NUMBERS) {
+        const cachedData = await this.fetchCachedData();
+        for (const key of this.keys) {
+          const entry = {};
+          if (key === 'items/type-counts') {
+            entry.label = 'items';
+            entry.count = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
+          }
+          if (key === 'collections/organisations/count') {
+            entry.label = 'providingInstitutions';
+            entry.count = cachedData[key];
+          }
+          this.entries.push(entry);
+        }
+      } else if (this.genre === EUROPEANA_NUMBERS) {
         const cachedData = await this.fetchCachedData();
         for (const key of this.keys) {
           const entry = {};
@@ -85,7 +111,14 @@
     computed: {
       hasPartCollectionItems() {
         let items;
-        if (this.genre === EUROPEANA_NUMBERS) {
+        if (this.genre === DS4CH_NUMBERS) {
+          items = this.entries?.map(entry => ({
+            info: this.$i18n.n(this.roundedNumber(entry.count)) + ' +',
+            label: this.$t(`landing.counts.${entry.label}`)
+          }));
+          items.splice(1, 0, this.ds4chHardCodedCounts[0]);
+          items.push(this.ds4chHardCodedCounts[1], this.ds4chHardCodedCounts[2]);
+        } else if (this.genre === EUROPEANA_NUMBERS) {
           items = this.entries?.map(entry => ({
             info: this.$i18n.n(this.roundedNumber(entry.count)) + ' +',
             label: this.$t(`landing.counts.${entry.label}`)

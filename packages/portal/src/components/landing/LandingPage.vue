@@ -33,6 +33,7 @@
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
+        :variant="variant"
       />
       <LandingEmbed
         v-if="contentType(section, 'EmbedSection')"
@@ -87,6 +88,14 @@
       primaryImageOfPage: {
         type: Object,
         default: null
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
 

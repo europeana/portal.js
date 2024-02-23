@@ -1,7 +1,10 @@
 <template>
-  <div class="landing-sub-section">
+  <div
+    class="landing-sub-section"
+    :class="variant"
+  >
     <b-container>
-      <div class="header mx-auto text-center text-lg-left">
+      <div class="header mx-auto">
         <h2>
           {{ title }}
         </h2>
@@ -69,6 +72,14 @@
       sections: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
 
@@ -106,9 +117,14 @@
   .header {
     max-width: 1250px;
     padding-bottom: 1rem;
+    text-align: center;
 
     @media (min-width: $bp-medium) {
       padding-bottom: 4rem;
+    }
+
+    @media (min-width: $bp-large) {
+      text-align: left;
     }
 
     @media (min-width: $bp-4k) {
@@ -187,6 +203,40 @@
         img {
           mix-blend-mode: multiply; // fixes logo img with white background
         }
+      }
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/style';
+  .landing-sub-section.ds4ch {
+    background-color: transparent;
+
+    .header {
+      text-align: center;
+
+      h2 {
+        font-family: $font-family-montserrat;
+        font-size: 1.375rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+
+        @media(min-width: $bp-medium) {
+          font-size: $font-size-xl;
+        }
+        @media(min-width: $bp-4k) {
+          font-size: 5.625rem;
+        }
+      }
+
+      .text {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
       }
     }
   }
