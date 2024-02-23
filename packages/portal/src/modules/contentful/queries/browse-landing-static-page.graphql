@@ -1,9 +1,14 @@
 query BrowseLandingStaticPage(
-  $identifier: String!,
-  $locale: String!,
+  $identifier: String!
+  $locale: String!
   $preview: Boolean = false
 ) {
-  browsePageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  browsePageCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
     items {
       identifier
       name
@@ -17,7 +22,7 @@ query BrowseLandingStaticPage(
           __typename
           ... on CardGroup {
             headline
-          	text
+            text
             hasPartCollection(limit: 28) {
               items {
                 __typename
@@ -46,7 +51,7 @@ query BrowseLandingStaticPage(
               url
               text
             }
-        	}
+          }
           ... on AutomatedCardGroup {
             genre
             moreButton {
@@ -73,7 +78,12 @@ query BrowseLandingStaticPage(
       }
     }
   }
-  staticPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  staticPageCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
     items {
       identifier
       name
@@ -92,13 +102,13 @@ query BrowseLandingStaticPage(
             embed
           }
           ... on ImageWithAttribution {
-            ... imageWithAttributionFields
+            ...imageWithAttributionFields
           }
           ... on ImageComparison {
             name
             hasPartCollection(limit: 2) {
               items {
-                ... imageWithAttributionFields
+                ...imageWithAttributionFields
               }
             }
           }
@@ -132,7 +142,12 @@ query BrowseLandingStaticPage(
       }
     }
   }
-  landingPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  landingPageCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
     items {
       identifier
       name
@@ -155,7 +170,7 @@ query BrowseLandingStaticPage(
           __typename
           ... on CardGroup {
             headline
-          	text
+            text
             hasPartCollection(limit: 28) {
               items {
                 __typename
@@ -184,7 +199,7 @@ query BrowseLandingStaticPage(
               url
               text
             }
-        	}
+          }
           ... on InfoCardGroup {
             name
             text
@@ -264,6 +279,9 @@ query BrowseLandingStaticPage(
               url
               text
             }
+            image {
+              ...illustrationFields
+            }
           }
         }
       }
@@ -271,6 +289,7 @@ query BrowseLandingStaticPage(
   }
 }
 fragment imageFields on Asset {
+  title
   url
   contentType
   description
