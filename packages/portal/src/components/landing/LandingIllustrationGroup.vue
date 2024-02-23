@@ -125,53 +125,55 @@
     color: $mediumgrey;
   }
 
-  .cards-wrapper {
-    max-width: 1250px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center !important;
-
-    @media (min-width: $bp-4k) {
-      max-width: 1760px;
-    }
-  }
-
-  .info-card {
-    flex-basis: calc(50% - 2rem);
-    margin: 0 1rem 1rem;
-    padding: 0;
-    align-items: center;
-    justify-content: center;
-
-    @media (min-width: $bp-small) {
-      flex-basis: calc(25% - 2rem);
-    }
-
-    @media (min-width: $bp-large) {
-      margin: 0 1.5rem 1rem;
-      flex-basis: 127px;
-    }
-
-    @media (min-width: $bp-4k) {
-      margin: 0 2rem 1rem;
-      flex-basis: calc(1.5 * 127px);
-    }
-
-    .title {
-      display: none;
-    }
-    .image-wrapper {
-      flex: 0 0 100%;
-      height: auto;
-      width: 100%;
-      max-width: 127px;
+  ::v-deep {
+    .cards-wrapper {
+      max-width: 1250px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center !important;
 
       @media (min-width: $bp-4k) {
-        max-width: calc(1.5 * 127px);
+        max-width: 1760px;
+      }
+    }
+
+    .info-card {
+      flex-basis: calc(50% - 2rem);
+      margin: 0 1rem 1rem;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+
+      @media (min-width: $bp-small) {
+        flex-basis: calc(25% - 2rem);
       }
 
-      img {
-        mix-blend-mode: multiply; // fixes logo img with white background
+      @media (min-width: $bp-large) {
+        margin: 0 1.5rem 1rem;
+        flex-basis: 127px;
+      }
+
+      @media (min-width: $bp-4k) {
+        margin: 0 2rem 1rem;
+        flex-basis: calc(1.5 * 127px);
+      }
+
+      .title {
+        display: none;
+      }
+      .image-wrapper {
+        flex: 0 0 100%;
+        height: auto;
+        width: 100%;
+        max-width: 127px;
+
+        @media (min-width: $bp-4k) {
+          max-width: calc(1.5 * 127px);
+        }
+
+        img {
+          mix-blend-mode: multiply; // fixes logo img with white background
+        }
       }
     }
   }
