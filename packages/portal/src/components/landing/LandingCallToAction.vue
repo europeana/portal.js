@@ -202,7 +202,7 @@
       }
 
       .primary-cta {
-        background-color: transparent;
+        background-color: transparent !important;
         padding: 0;
         max-width: $max-text-column-width !important;
 
