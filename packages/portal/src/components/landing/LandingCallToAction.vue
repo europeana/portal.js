@@ -97,7 +97,7 @@
               xl: { w: 1200, h: 300, fit: 'fill' },
               xxl: { w: 1400, h: 300, fit: 'fill' },
               xxxl: { w: 1880, h: 300, fit: 'fill' },
-              wqhd: { w: 3020, h: 300, fit: 'fill' },
+              wqhd: { w: 3020, h: 500, fit: 'fill' },
               '4k': { w: 3840, h: 680, fit: 'fill' }
             }
           );
