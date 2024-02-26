@@ -36,11 +36,13 @@
               :destination="slide.url"
               class="image-wrapper"
             >
-              <img
+              <ImageOptimised
                 :src="slide.image.url"
+                :image-srcset="imageSrcset(slide.image)"
+                :image-sizes="imageSizes"
                 :alt="slide.image && slide.image.description || ''"
                 class="swiper-lazy"
-              >
+              />
             </component>
           </div>
         </div>
@@ -61,14 +63,22 @@
 </template>
 
 <script>
+  import ImageOptimised from '@/components/image/ImageOptimised';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import swiperMixin from '@/mixins/swiper';
   import { Grid, Keyboard, Lazy, Navigation, Pagination } from 'swiper';
+
+  const SRCSET_PRESETS = {
+    small: { w: 98, h: 98 },
+    large: { w: 127, h: 127 },
+    '4k': { w: 340, h: 340 }
+  };
 
   export default {
     name: 'LandingIllustrationGroup',
 
     components: {
+      ImageOptimised,
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
@@ -115,6 +125,12 @@
 
     data() {
       return {
+        imageSizes: [
+          '(max-width: 991px) 98px',
+          '(max-width: 3019px) 127px',
+          '340px'
+        ].join(','),
+
         swiperOptions: {
           modules: [Grid, Keyboard, Lazy, Navigation, Pagination],
           grid: {
@@ -157,6 +173,12 @@
           }
         }
       };
+    },
+
+    methods: {
+      imageSrcset(image) {
+        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
+      }
     }
   };
 </script>
@@ -213,10 +235,10 @@
         font-size: calc(1.5 * 1.75rem);
       }
     }
-  }
 
-  .text {
-    color: $mediumgrey;
+    .text {
+      color: $mediumgrey;
+    }
   }
 
   .swiper-container-wrapper {
@@ -241,6 +263,33 @@
 
     @media (min-width: $bp-large) {
       width: 671px;
+    }
+    .image-wrapper {
+      width: 98px;
+      height: 98px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      @media (min-width: $bp-large) {
+        width: 127px;
+        height: 127px;
+      }
+
+      @media (min-width: $bp-4k) {
+        width: calc(1.5 * 127px);
+        height: calc(1.5 * 127px);
+      }
+
+      img {
+        mix-blend-mode: multiply; // fixes logo img with white background
+        max-height: 100%;
+
+      }
+
+      ::v-deep .icon-external-link {
+        display: none;
+      }
     }
   }
 
@@ -299,34 +348,6 @@
       background-color: $black;
     }
   }
-
-  .image-wrapper {
-    width: 98px;
-    height: 98px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    @media (min-width: $bp-large) {
-      width: 127px;
-      height: 127px;
-    }
-
-    @media (min-width: $bp-4k) {
-      width: calc(1.5 * 127px);
-      height: calc(1.5 * 127px);
-    }
-
-    img {
-      mix-blend-mode: multiply; // fixes logo img with white background
-      max-height: 100%;
-
-    }
-
-    ::v-deep .icon-external-link {
-      display: none;
-    }
-  }
 </style>
 
 <!-- Only DS4CH styles after this line! -->
@@ -334,6 +355,24 @@
   @import '@europeana/style/scss/DS4CH/style';
   @import '@europeana/style/scss/responsive-background-image';
   .landing-illustration-group.ds4ch {
+
+    .swiper-container-wrapper {
+      @media (min-width: $bp-4k) {
+        width: 2810px;
+      }
+    }
+    .swiper-container {
+      @media (min-width: $bp-4k) {
+        width: 2272px;
+      }
+      .image-wrapper {
+        @media (min-width: $bp-4k) {
+          width: 340px;
+          height: 340px;
+        }
+      }
+    }
+
     .swiper-button-prev,
     .swiper-button-next {
       @media (min-width: $bp-4k) {
@@ -368,23 +407,6 @@
 
       &-active {
         background-color: $black;
-      }
-    }
-
-    .swiper-container-wrapper {
-      @media (min-width: $bp-4k) {
-        width: 2810px;
-      }
-    }
-    .swiper-container {
-      @media (min-width: $bp-4k) {
-        width: 2272px;
-      }
-    }
-    .image-wrapper {
-      @media (min-width: $bp-4k) {
-        width: 340px;
-        height: 340px;
       }
     }
   }
