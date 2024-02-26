@@ -40,7 +40,7 @@
                 :src="slide.image.url"
                 :image-srcset="imageSrcset(slide.image)"
                 :image-sizes="imageSizes"
-                :alt="slide.image && slide.image.description || ''"
+                :alt="slide.name || ''"
                 class="swiper-lazy"
               />
             </component>
