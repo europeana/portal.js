@@ -78,7 +78,7 @@
     width: 16rem;
     max-height: 100vh;
     transition: $standard-transition; // fixes header appear/disappear
-    border-left: 1px solid $white;
+    border-left: 2px solid $white;
   }
 
   .page-header {
@@ -88,6 +88,7 @@
     top: 0;
     left: 0;
     z-index: 10;
+    border-bottom: 1px solid $white;
 
     @media (min-width: $bp-large) {
       transition: $standard-transition;

@@ -8,6 +8,7 @@
     />
     <LandingPage
       v-else
+      variant="ds4ch"
       :headline="page.headline"
       :text="page.text"
       :cta="page.relatedLink"

@@ -213,6 +213,7 @@ export default {
     "right": "Right"
   },
   "ds4ch": {
+    "broughtBy": "Brought to you by",
     "footer": {
       "disclaimerLine1": "The data space is an initiative of the European Union, financed by the European Union’s Digital Europe Programme and European Union Member States. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission."
     },

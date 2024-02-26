@@ -7,6 +7,7 @@
       :text="text"
       :cta="cta"
       :hero-image="primaryImageOfPage"
+      :variant="variant"
     />
     <div
       v-for="(section, index) in sections"
@@ -87,6 +88,14 @@
       primaryImageOfPage: {
         type: Object,
         default: null
+      },
+      /**
+       * Variant to define layout and style
+       * @values default, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'default'
       }
     },
 
