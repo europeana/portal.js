@@ -1,12 +1,14 @@
 <template>
   <div
     class="page white-page xxl-page"
+    :class="`${variant}-page`"
   >
     <LandingHero
       :headline="headline"
       :text="text"
       :cta="cta"
       :hero-image="primaryImageOfPage"
+      :variant="variant"
     />
     <div
       v-for="(section, index) in sections"
@@ -51,8 +53,11 @@
       />
       <LandingCallToAction
         v-if="contentType(section, 'PrimaryCallToAction')"
+        :title="section.name"
         :text="section.text"
         :link="section.relatedLink"
+        :background-image="section.image"
+        :variant="variant"
       />
     </div>
   </div>
