@@ -74,63 +74,60 @@
       return data;
     },
     async fetch() {
-      if (this.genre === DS4CH_NUMBERS) {
-        const cachedData = await this.fetchCachedData();
-        for (const key of this.keys) {
-          const entry = {};
-          if (key === 'items/type-counts') {
-            entry.label = 'items';
-            entry.count = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
-          }
-          if (key === 'collections/organisations/count') {
-            entry.label = 'providingInstitutions';
-            entry.count = cachedData[key];
-          }
-          this.entries.push(entry);
+      const cachedData = await this.fetchCachedData();
+
+      for (const key of this.keys) {
+        const entry = {};
+        if (key === 'items/type-counts') {
+          entry.label = 'items';
+          entry.count = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
         }
-      } else if (this.genre === EUROPEANA_NUMBERS) {
-        const cachedData = await this.fetchCachedData();
-        for (const key of this.keys) {
-          const entry = {};
-          if (key === 'matomo/visits') {
-            entry.label = 'visits';
-            entry.count = cachedData[key];
-          }
-          if (key === 'items/type-counts') {
-            entry.label = 'items';
-            entry.count = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
-          }
-          if (key === 'collections/organisations/count') {
-            entry.label = 'providingInstitutions';
-            entry.count = cachedData[key];
-          }
-          this.entries.push(entry);
+        if (key === 'collections/organisations/count') {
+          entry.label = 'providingInstitutions';
+          entry.count = cachedData[key];
         }
+        if (key === 'matomo/visits') {
+          entry.label = 'visits';
+          entry.count = cachedData[key];
+        }
+        if (key === 'items/type-counts') {
+          entry.label = 'items';
+          entry.count = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
+        }
+        if (key === 'collections/organisations/count') {
+          entry.label = 'providingInstitutions';
+          entry.count = cachedData[key];
+        }
+        this.entries.push(entry);
       }
     },
     computed: {
       hasPartCollectionItems() {
         let items;
-        if (this.genre === DS4CH_NUMBERS) {
-          items = this.entries?.map(entry => ({
-            info: this.$i18n.n(this.roundedNumber(entry.count)) + ' +',
-            label: this.$t(`landing.counts.${entry.label}`)
-          }));
-          items.splice(1, 0, this.ds4chHardCodedCounts[0]);
-          items.push(this.ds4chHardCodedCounts[1], this.ds4chHardCodedCounts[2]);
-        } else if (this.genre === EUROPEANA_NUMBERS) {
-          items = this.entries?.map(entry => ({
-            info: this.$i18n.n(this.roundedNumber(entry.count)) + ' +',
-            label: this.$t(`landing.counts.${entry.label}`)
-          }));
-        } else if (this.staticItems.length) {
+
+        if (this.staticItems.length) {
           items = this.staticItems;
+        } else {
+          items = this.entries?.map(entry => ({
+            info: this.$i18n.n(this.roundedNumber(entry.count)) + ' +',
+            label: this.$t(`landing.counts.${entry.label}`)
+          }));
+
+          if (this.genre === DS4CH_NUMBERS) {
+            items.splice(1, 0, this.ds4chHardCodedCounts[0]);
+            items.push(this.ds4chHardCodedCounts[1], this.ds4chHardCodedCounts[2]);
+          }
         }
+
         return items || [];
       }
     },
     methods: {
       fetchCachedData() {
+        if (!this.keys) {
+          return Promise.resolve();
+        }
+
         if (process.server) {
           return import('@/server-middleware/api/cache/index.js')
             .then(module => {
