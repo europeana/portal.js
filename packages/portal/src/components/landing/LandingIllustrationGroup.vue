@@ -13,12 +13,39 @@
     <!-- eslint-enable vue/no-v-html -->
     </b-col>
     <div
-      class="cards-wrapper d-lg-flex flex-wrap justify-content-between mx-auto"
+      v-show="swiperReady"
+      class="swiper swiper-container"
     >
-      <LandingInfoCard
-        v-for="(card, index) in illustrations"
-        :key="index"
-        :card="card"
+      <div
+        class="swiper-wrapper"
+      >
+        <div
+          v-for="(slide, i) in illustrations"
+          :key="i"
+          :index="i"
+          class="swiper-slide text-center"
+        >
+          <component
+            :is="slide.url ? 'SmartLink' : 'div'"
+            :destination="slide.url"
+            class="image-wrapper"
+          >
+            <img
+              :src="slide.image.url"
+              :alt="slide.image && slide.image.description || ''"
+              class="swiper-lazy"
+            >
+          </component>
+        </div>
+      </div>
+      <div
+        class="swiper-button-prev"
+      />
+      <div
+        class="swiper-button-next"
+      />
+      <div
+        class="swiper-pagination"
       />
     </div>
   </b-container>
@@ -26,15 +53,17 @@
 
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
+  import swiperMixin from '@/mixins/swiper';
+  import { Grid, Pagination, Navigation, Keyboard, Lazy } from 'swiper';
 
   export default {
-    name: 'LandingInfoCardGroup',
+    name: 'LandingIllustrationGroup',
 
     components: {
-      LandingInfoCard: () => import('@/components/landing/LandingInfoCard')
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    mixins: [parseMarkdownHtmlMixin],
+    mixins: [parseMarkdownHtmlMixin, swiperMixin],
 
     props: {
       /**
@@ -65,24 +94,56 @@
         type: Array,
         default: () => []
       }
+    },
+
+    data() {
+      return {
+        swiperOptions: {
+          modules: [Grid, Pagination, Navigation, Keyboard, Lazy],
+          grid: {
+            fill: 'row',
+            rows: 2
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets'
+          },
+          slidesPerGroup: 2,
+          slidesPerView: 2,
+          preloadImages: false,
+          lazy: {
+            enabled: true,
+            checkInView: true
+          },
+          breakpoints: {
+            576: {
+              grid: {
+                rows: 1
+              },
+              slidesPerGroup: 4,
+              slidesPerView: 4
+            }
+          },
+          keyboard: {
+            enabled: true,
+            pageUpDown: false
+          },
+          on: {
+            afterInit: this.swiperOnAfterInit,
+            activeIndexChange: this.setFocusOnActiveSlideLink
+          }
+        }
+      };
     }
   };
 </script>
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-
-  .container {
-    padding: 0;
-
-    @media (min-width: $bp-large) {
-      padding-top: 4.5rem;
-    }
-
-    @media (min-width: $bp-4k) {
-      padding-bottom: 3rem;
-    }
-  }
 
   .header {
     @media (min-width: $bp-xxl) {
@@ -125,55 +186,27 @@
     color: $mediumgrey;
   }
 
-  ::v-deep {
-    .cards-wrapper {
-      max-width: 1250px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center !important;
+  .swiper {
+    --swiper-navigation-size: 24px;
+    --swiper-navigation-sides-offset: 50px;
+    --swiper-navigation-color: $black;
+  }
 
-      @media (min-width: $bp-4k) {
-        max-width: 1760px;
-      }
-    }
+  .swiper-slide {
 
-    .info-card {
-      flex-basis: calc(50% - 2rem);
-      margin: 0 1rem 1rem;
-      padding: 0;
-      align-items: center;
-      justify-content: center;
+    .image-wrapper {
+      width: 98px;
+      height: 98px;
+      display: inline-block;
 
-      @media (min-width: $bp-small) {
-        flex-basis: calc(25% - 2rem);
+      img {
+        mix-blend-mode: multiply; // fixes logo img with white background
+        max-height: 100%;
+
       }
 
-      @media (min-width: $bp-large) {
-        margin: 0 1.5rem 1rem;
-        flex-basis: 127px;
-      }
-
-      @media (min-width: $bp-4k) {
-        margin: 0 2rem 1rem;
-        flex-basis: calc(1.5 * 127px);
-      }
-
-      .title {
+      ::v-deep .icon-external-link {
         display: none;
-      }
-      .image-wrapper {
-        flex: 0 0 100%;
-        height: auto;
-        width: 100%;
-        max-width: 127px;
-
-        @media (min-width: $bp-4k) {
-          max-width: calc(1.5 * 127px);
-        }
-
-        img {
-          mix-blend-mode: multiply; // fixes logo img with white background
-        }
       }
     }
   }
