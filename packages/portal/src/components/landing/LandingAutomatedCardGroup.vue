@@ -22,11 +22,11 @@
 </template>
 
 <script>
+  import camelCase from 'camelcase';
   import InfoCard from '@/components/generic/InfoCard';
 
+  const DS4CH_NUMBERS = 'Data space numbers';
   const EUROPEANA_NUMBERS = 'Europeana numbers';
-  // TODO: update to DS numbers when available in CTF
-  const DS4CH_NUMBERS = 'Europeana numbers';
 
   export default {
     name: 'LandingAutomatedCardGroup',
@@ -55,18 +55,16 @@
       const data = {
         keys: null,
         title: null,
-        entries: [],
-        ds4chHardCodedCounts: [
-          { info: this.$i18n.n(4500),
-            label: this.$t('ds4ch.counts.networkMembers') },
-          { info: this.$i18n.n(19),
-            label: this.$t('ds4ch.counts.partners') },
-          { info: '+10%',
-            label: this.$t('ds4ch.counts.increaseHighQualityData') }
-        ]
+        entries: []
       };
       if (this.genre === DS4CH_NUMBERS) {
-        data.keys = ['items/type-counts', 'collections/organisations/count'];
+        data.keys = [
+          'items/type-counts',
+          'dataspace/network-members',
+          'collections/organisations/count',
+          'dataspace/partners',
+          'dataspace/hq-data'
+        ];
       } else if (this.genre === EUROPEANA_NUMBERS) {
         data.keys = ['matomo/visits', 'items/type-counts', 'collections/organisations/count'];
         data.title = this.$t('landing.europeanaNumbers');
@@ -77,26 +75,15 @@
       const cachedData = await this.fetchCachedData();
 
       for (const key of this.keys) {
-        const entry = {};
+        const entry = {
+          info: cachedData[key],
+          label: camelCase(key.split('/').pop())
+        };
         if (key === 'items/type-counts') {
           entry.label = 'items';
-          entry.count = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
-        }
-        if (key === 'collections/organisations/count') {
+          entry.info = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
+        } else if (key === 'collections/organisations/count') {
           entry.label = 'providingInstitutions';
-          entry.count = cachedData[key];
-        }
-        if (key === 'matomo/visits') {
-          entry.label = 'visits';
-          entry.count = cachedData[key];
-        }
-        if (key === 'items/type-counts') {
-          entry.label = 'items';
-          entry.count = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
-        }
-        if (key === 'collections/organisations/count') {
-          entry.label = 'providingInstitutions';
-          entry.count = cachedData[key];
         }
         this.entries.push(entry);
       }
@@ -109,14 +96,9 @@
           items = this.staticItems;
         } else {
           items = this.entries?.map(entry => ({
-            info: this.$i18n.n(this.roundedNumber(entry.count)) + ' +',
+            info: isNaN(entry.info) ? entry.info : this.$i18n.n(this.roundedNumber(entry.info)) + ' +',
             label: this.$t(`landing.counts.${entry.label}`)
           }));
-
-          if (this.genre === DS4CH_NUMBERS) {
-            items.splice(1, 0, this.ds4chHardCodedCounts[0]);
-            items.push(this.ds4chHardCodedCounts[1], this.ds4chHardCodedCounts[2]);
-          }
         }
 
         return items || [];
