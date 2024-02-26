@@ -139,6 +139,12 @@
             fill: 'row',
             rows: 2
           },
+          lazy: {
+            enabled: true,
+            checkInView: true,
+            loadPrevNext: true,
+            loadPrevNextAmount: 4
+          },
           navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
@@ -149,13 +155,10 @@
             el: '.swiper-pagination',
             type: 'bullets'
           },
+          preloadImages: false,
           slidesPerGroup: 2,
           slidesPerView: 2,
-          preloadImages: false,
-          lazy: {
-            enabled: true,
-            checkInView: true
-          },
+          speed: 600,
           breakpoints: {
             768: {
               grid: {
