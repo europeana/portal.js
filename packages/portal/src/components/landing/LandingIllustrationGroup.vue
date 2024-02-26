@@ -1,5 +1,8 @@
 <template>
-  <b-container>
+  <b-container
+    class="landing-illustration-group"
+    :class="variant"
+  >
     <b-col class="header col-lg-8 text-center mx-auto px-0 pb-4 pb-lg-5">
       <component :is="titleTag">
         {{ title }}
@@ -13,39 +16,45 @@
     <!-- eslint-enable vue/no-v-html -->
     </b-col>
     <div
-      v-show="swiperReady"
-      class="swiper swiper-container"
+      class="swiper-container-wrapper"
     >
       <div
-        class="swiper-wrapper"
+        v-show="swiperReady"
+        class="swiper swiper-container"
       >
         <div
-          v-for="(slide, i) in illustrations"
-          :key="i"
-          :index="i"
-          class="swiper-slide text-center"
+          class="swiper-wrapper"
         >
-          <component
-            :is="slide.url ? 'SmartLink' : 'div'"
-            :destination="slide.url"
-            class="image-wrapper"
+          <div
+            v-for="(slide, i) in illustrations"
+            :key="i"
+            :index="i"
+            class="swiper-slide text-center"
           >
-            <img
-              :src="slide.image.url"
-              :alt="slide.image && slide.image.description || ''"
-              class="swiper-lazy"
+            <component
+              :is="slide.url ? 'SmartLink' : 'div'"
+              :destination="slide.url"
+              class="image-wrapper"
             >
-          </component>
+              <img
+                :src="slide.image.url"
+                :alt="slide.image && slide.image.description || ''"
+                class="swiper-lazy"
+              >
+            </component>
+          </div>
         </div>
       </div>
       <div
+        class="swiper-pagination"
+      />
+      <div
+        v-show="illustrations.length > 4"
         class="swiper-button-prev"
       />
       <div
+        v-show="illustrations.length > 4"
         class="swiper-button-next"
-      />
-      <div
-        class="swiper-pagination"
       />
     </div>
   </b-container>
@@ -54,7 +63,7 @@
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import swiperMixin from '@/mixins/swiper';
-  import { Grid, Pagination, Navigation, Keyboard, Lazy } from 'swiper';
+  import { Grid, Keyboard, Lazy, Navigation, Pagination } from 'swiper';
 
   export default {
     name: 'LandingIllustrationGroup',
@@ -93,13 +102,21 @@
       illustrations: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
 
     data() {
       return {
         swiperOptions: {
-          modules: [Grid, Pagination, Navigation, Keyboard, Lazy],
+          modules: [Grid, Keyboard, Lazy, Navigation, Pagination],
           grid: {
             fill: 'row',
             rows: 2
@@ -109,6 +126,8 @@
             prevEl: '.swiper-button-prev'
           },
           pagination: {
+            bulletElement: 'button',
+            clickable: true,
             el: '.swiper-pagination',
             type: 'bullets'
           },
@@ -120,7 +139,7 @@
             checkInView: true
           },
           breakpoints: {
-            576: {
+            768: {
               grid: {
                 rows: 1
               },
@@ -145,6 +164,20 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
+  .container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    @media (min-width: $bp-medium) {
+      padding-top: 6rem;
+      padding-bottom: 8rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      padding-top: 12rem;
+      padding-bottom: 12rem;
+    }
+  }
   .header {
     @media (min-width: $bp-xxl) {
       max-width: $max-text-column-width;
@@ -186,27 +219,172 @@
     color: $mediumgrey;
   }
 
-  .swiper {
-    --swiper-navigation-size: 24px;
-    --swiper-navigation-sides-offset: 50px;
-    --swiper-navigation-color: $black;
+  .swiper-container-wrapper {
+    margin: 0 auto;
+    position: relative;
+
+    @media (min-width: $bp-medium) {
+      width: 100%;
+    }
+
+    @media (min-width: $bp-large) {
+      width: 873px;
+    }
+
+  }
+  .swiper-container {
+    width: 100%;
+
+    @media (min-width: $bp-medium) {
+      width: calc(100% - 101px);
+    }
+
+    @media (min-width: $bp-large) {
+      width: 671px;
+    }
   }
 
-  .swiper-slide {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+    height: 48px;
+    width: 48px;
+    color: $black;
+    background: $bodygrey;
+    border-radius: 50%;
+    top: calc(50% - 2rem);
 
-    .image-wrapper {
-      width: 98px;
-      height: 98px;
-      display: inline-block;
+    @media (min-width: $bp-medium) {
+      display: flex;
+    }
 
-      img {
-        mix-blend-mode: multiply; // fixes logo img with white background
-        max-height: 100%;
+    @media (min-width: $bp-large) {
+      top: calc(50% - 3rem);
+    }
 
+    &:after {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+  }
+
+  .swiper-pagination {
+    width: 100%;
+    margin-top: 2rem;
+    position: relative;
+
+    @media (min-width: $bp-large) {
+      margin-top: 4rem;
+    }
+  }
+
+  ::v-deep .swiper-pagination-bullet {
+    height: 12px;
+    width: 12px;
+    color: $black;
+    background-color: transparent;
+    border: 2px solid $black;
+    opacity: 1;
+    margin-right: 6px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &-active {
+      background-color: $black;
+    }
+  }
+
+  .image-wrapper {
+    width: 98px;
+    height: 98px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (min-width: $bp-large) {
+      width: 127px;
+      height: 127px;
+    }
+
+    @media (min-width: $bp-4k) {
+      width: calc(1.5 * 127px);
+      height: calc(1.5 * 127px);
+    }
+
+    img {
+      mix-blend-mode: multiply; // fixes logo img with white background
+      max-height: 100%;
+
+    }
+
+    ::v-deep .icon-external-link {
+      display: none;
+    }
+  }
+</style>
+
+<!-- Only DS4CH styles after this line! -->
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/style';
+  @import '@europeana/style/scss/responsive-background-image';
+  .landing-illustration-group.ds4ch {
+    .swiper-button-prev,
+    .swiper-button-next {
+      @media (min-width: $bp-4k) {
+        height: 128px;
+        width: 128px;
+
+        &:after {
+          font-size: 3.5rem;
+        }
+      }
+    }
+
+    .swiper-pagination {
+      @media (min-width: $bp-4k) {
+        margin-top: 4rem;
+      }
+    }
+
+    ::v-deep .swiper-pagination-bullet {
+      border: 2px solid $black;
+
+      @media (min-width: $bp-4k) {
+        height: 32px;
+        width: 32px;
+        border: 4px solid $black;
+        margin-right: 12px;
+
+        &:last-child {
+          margin-right: 0;
+        }
       }
 
-      ::v-deep .icon-external-link {
-        display: none;
+      &-active {
+        background-color: $black;
+      }
+    }
+
+    .swiper-container-wrapper {
+      @media (min-width: $bp-4k) {
+        width: 2810px;
+      }
+    }
+    .swiper-container {
+      @media (min-width: $bp-4k) {
+        width: 2272px;
+      }
+    }
+    .image-wrapper {
+      @media (min-width: $bp-4k) {
+        width: 340px;
+        height: 340px;
       }
     }
   }

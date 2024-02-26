@@ -21,6 +21,7 @@
         :title="section.name"
         :text="section.text"
         :illustrations="section.hasPartCollection && section.hasPartCollection.items"
+        :variant="variant"
       />
       <LandingInfoCardGroup
         v-if="contentType(section, 'InfoCardGroup')"
@@ -94,6 +95,14 @@
       primaryImageOfPage: {
         type: Object,
         default: null
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
 

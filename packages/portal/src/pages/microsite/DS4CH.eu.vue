@@ -13,6 +13,7 @@
       :cta="page.relatedLink"
       :sections="page.hasPartCollection?.items.filter((item) => !!item)"
       :primary-image-of-page="page.primaryImageOfPage"
+      :variant="'ds4ch'"
     />
   </div>
 </template>
