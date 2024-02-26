@@ -40,6 +40,8 @@
                 :src="slide.image.url"
                 :image-srcset="imageSrcset(slide.image)"
                 :image-sizes="imageSizes"
+                :width="slide.image.width"
+                :height="slide.image.height"
                 :alt="slide.name || ''"
                 class="swiper-lazy"
               />
