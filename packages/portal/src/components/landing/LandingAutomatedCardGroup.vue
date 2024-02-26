@@ -72,20 +72,22 @@
       return data;
     },
     async fetch() {
-      const cachedData = await this.fetchCachedData();
+      if (this.keys) {
+        const cachedData = await this.fetchCachedData();
 
-      for (const key of this.keys) {
-        const entry = {
-          info: cachedData[key],
-          label: camelCase(key.split('/').pop())
-        };
-        if (key === 'items/type-counts') {
-          entry.label = 'items';
-          entry.info = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
-        } else if (key === 'collections/organisations/count') {
-          entry.label = 'providingInstitutions';
+        for (const key of this.keys) {
+          const entry = {
+            info: cachedData[key],
+            label: camelCase(key.split('/').pop())
+          };
+          if (key === 'items/type-counts') {
+            entry.label = 'items';
+            entry.info = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
+          } else if (key === 'collections/organisations/count') {
+            entry.label = 'providingInstitutions';
+          }
+          this.entries.push(entry);
         }
-        this.entries.push(entry);
       }
     },
     computed: {
@@ -106,10 +108,6 @@
     },
     methods: {
       fetchCachedData() {
-        if (!this.keys) {
-          return Promise.resolve();
-        }
-
         if (process.server) {
           return import('@/server-middleware/api/cache/index.js')
             .then(module => {
