@@ -95,6 +95,7 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
   static ID = 'record';
   static BASE_URL = 'https://api.europeana.eu/record';
   static AUTHENTICATING = true;
+  static AUTHORISING = true;
 
   get search() {
     return search.bind(this);
