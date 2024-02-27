@@ -130,6 +130,9 @@ query BrowseLandingStaticPage(
           ... on InfoCardGroup {
             ...infoCardGroupFields
           }
+          ... on ImageCard {
+            ...imageCardFields
+          }
           ... on ImageCardGroup {
             name
             text

@@ -31,6 +31,10 @@
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
+      <LandingImageCard
+        v-if="contentType(section, 'ImageCard')"
+        :card="section"
+      />
       <LandingImageCardGroup
         v-if="contentType(section, 'ImageCardGroup')"
         :title="section.name"
@@ -75,6 +79,7 @@
       LandingHero,
       LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
+      LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
       LandingSubSection: () => import('@/components/landing/LandingSubSection'),
       LandingEmbed: () => import('@/components/landing/LandingEmbed')
