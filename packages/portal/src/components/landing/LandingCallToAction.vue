@@ -197,8 +197,6 @@
       }
 
       h2 {
-        @extend %title-2;
-
         @media (min-width: $bp-4k) {
           margin-bottom: 4rem;
         }
@@ -210,7 +208,7 @@
         max-width: $max-text-column-width !important;
 
         @media (min-width: $bp-4k) {
-          max-width: 1450px !important;
+          max-width: $max-text-column-width-4k !important;
         }
       }
       .primary-cta-rich-text {

@@ -915,9 +915,12 @@ export default {
   "landing": {
     "europeanaNumbers": "Europeana.eu in numbers",
     "counts": {
-      "visits": "Visits per day",
+      "hqData": "Increase in high-quality data per year",
       "items": "Items",
-      "providingInstitutions": "Providing institutions"
+      "networkMembers": "Network members",
+      "partners": "Partners develop the data space",
+      "providingInstitutions": "Providing institutions",
+      "visits": "Visits per day"
     }
   },
   "layout": {
