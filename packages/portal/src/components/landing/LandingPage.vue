@@ -2,12 +2,19 @@
   <div
     class="page white-page xxl-page"
   >
-    <LandingHero
+    <DS4CHLandingHero
+      v-if="variant === 'ds4ch'"
       :headline="headline"
       :text="text"
       :cta="cta"
       :hero-image="primaryImageOfPage"
-      :variant="variant"
+    />
+    <LandingHero
+      v-else
+      :headline="headline"
+      :text="text"
+      :cta="cta"
+      :hero-image="primaryImageOfPage"
     />
     <div
       v-for="(section, index) in sections"
@@ -65,7 +72,8 @@
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
       LandingSubSection: () => import('@/components/landing/LandingSubSection'),
-      LandingEmbed: () => import('@/components/landing/LandingEmbed')
+      LandingEmbed: () => import('@/components/landing/LandingEmbed'),
+      DS4CHLandingHero: () => import('@/components/DS4CH/DS4CHLandingHero')
     },
 
     props: {
