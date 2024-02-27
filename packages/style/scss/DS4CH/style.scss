@@ -18,7 +18,26 @@
   }
 }
 
+%title-5 {
+  font-family: $font-family-montserrat;
+  font-size: $font-size-small;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  text-transform: uppercase;
+  color: $black;
+
+  @media(min-width: $bp-4k) {
+    font-size: $font-size-xl;
+  }
+}
+
 .ds4ch-layout {
+
+  h2 {
+    @extend %title-2;
+  }
+
   .btn {
 
     &.btn-primary {

@@ -1,5 +1,8 @@
 <template>
-  <div class="landing-automated-card-group">
+  <div
+    class="landing-automated-card-group"
+    :class="variant"
+  >
     <b-col class="col-lg-8 px-0 text-center mx-auto">
       <h3 class="title">
         {{ title }}
@@ -15,7 +18,7 @@
         :info="item.info"
         :label="item.label"
         class="px-1 px-md-3"
-        variant="dark"
+        :variant="cardVariant"
       />
     </div>
   </div>
@@ -49,6 +52,14 @@
       staticItems: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
     data() {
@@ -104,6 +115,9 @@
         }
 
         return items || [];
+      },
+      cardVariant() {
+        return this.variant === 'pro' ? 'dark' : 'default';
       }
     },
     methods: {
@@ -161,27 +175,93 @@
   ::v-deep .info-card {
     .card-title {
       font-family: $font-family-ubuntu;
-      font-size: $font-size-large !important;
+      font-size: $font-size-large;
       font-weight: 500;
-      line-height: 1.5 !important;
+      line-height: 1.5;
 
       @media (min-width: $bp-medium) {
-        font-size: $font-size-xl !important;
+        font-size: $font-size-xl;
       }
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k !important;
+        font-size: $font-size-xl-4k;
       }
     }
 
     .card-text {
-      font-size: $font-size-small !important;
-      font-weight: 600 !important;
+      font-size: $font-size-small;
+      font-weight: 600;
       text-transform: uppercase;
       color: $mediumgrey;
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-small-4k !important;
+        font-size: $font-size-small-4k;
+      }
+    }
+  }
+</style>
+
+<!-- Only DS4CH styles after this line! -->
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/style';
+
+  .landing-automated-card-group.ds4ch {
+    max-width: $max-text-column-width;
+    margin: 0 auto;
+    padding-bottom: 0;
+
+    @media (min-width: $bp-4k) {
+      max-width: 1640px;
+    }
+
+    ::v-deep .info-card {
+      @media (min-width: $bp-small) {
+        flex-basis: 50%;
+      }
+
+      @media (min-width: $bp-large) {
+        flex-basis: auto;
+      }
+
+      @media (min-width: $bp-4k) {
+        max-width: none;
+      }
+
+      .card-body {
+        padding: 1rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media (min-width: $bp-small) {
+          padding: 1rem;
+        }
+
+        @media (min-width: $bp-large) {
+          padding: 2rem;
+        }
+      }
+      .card-title {
+        @extend %title-2;
+        color: $black;
+        margin-bottom: 0.875rem;
+
+        @media (min-width: $bp-medium) {
+          margin-bottom: 1rem;
+        }
+      }
+
+      .card-text {
+        @extend %title-5;
+        max-width: 145px;
+
+        @media (min-width: $bp-small) {
+          max-width: 200px;
+        }
+
+        @media (min-width: $bp-4k) {
+          max-width: 510px;
+        }
       }
     }
   }

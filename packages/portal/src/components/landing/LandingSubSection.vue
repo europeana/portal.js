@@ -24,6 +24,7 @@
           v-if="contentType(section, 'AutomatedCardGroup')"
           :genre="section.genre"
           :static-items="section.staticItems"
+          :variant="variant"
         />
         <LandingInfoCardGroup
           v-if="contentType(section, 'InfoCardGroup')"
@@ -213,8 +214,28 @@
   .landing-sub-section.ds4ch {
     background-color: transparent;
 
+    .container {
+      @media(min-width: $bp-large) {
+        padding-top: 6rem;
+      }
+
+      @media(min-width: $bp-4k) {
+        padding-top: 12rem;
+        padding-bottom: 8rem;
+      }
+    }
+
     .header {
       text-align: center;
+      padding-bottom: 0;
+
+      @media(min-width: $bp-medium) {
+        padding-bottom: 1rem;
+      }
+
+      @media(min-width: $bp-4k) {
+        padding-bottom: 10rem;
+      }
 
       h2 {
         font-family: $font-family-montserrat;
@@ -230,6 +251,7 @@
         }
         @media(min-width: $bp-4k) {
           font-size: 5.625rem;
+          max-width: $max-text-column-width-4k;
         }
       }
 
@@ -237,6 +259,12 @@
         margin-left: auto;
         margin-right: auto;
         text-align: center;
+
+        @media (min-width: $bp-4k) {
+          color: $black;
+          font-size: 2.5rem;
+          max-width: $max-text-column-width-4k;
+        }
       }
     }
   }
