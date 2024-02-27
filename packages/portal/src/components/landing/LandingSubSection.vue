@@ -72,6 +72,7 @@
       }
     },
 
+    // TODO: Remove once replaced with LandingIllustrationGroup
     data() {
       return {
         LandingInfoCardGroupClass: this.$route.params.pathMatch === 'share-your-data' ? 'logo' : null
@@ -138,6 +139,7 @@
     max-width: $max-text-column-width;
   }
 
+  // TODO: Remove once replaced with LandingIllustrationGroup
   //style overrides for providing institutions section Share your data
   ::v-deep .logo {
     &.container {

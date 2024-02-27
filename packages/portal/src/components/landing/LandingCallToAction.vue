@@ -1,5 +1,8 @@
 <template>
-  <div :class="variant">
+  <div
+    class="landing-cta"
+    :class="variant"
+  >
     <div
       v-if="backgroundImage"
       data-qa="landing cta background image"
@@ -136,7 +139,7 @@
   @import '@europeana/style/scss/DS4CH/style';
   @import '@europeana/style/scss/responsive-background-image';
 
-  .ds4ch {
+  .landing-cta.ds4ch {
     background-color: $black;
     position: relative;
     color: $white;
