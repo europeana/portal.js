@@ -42,6 +42,7 @@
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
+        :variant="variant"
       />
       <LandingEmbed
         v-if="contentType(section, 'EmbedSection')"
