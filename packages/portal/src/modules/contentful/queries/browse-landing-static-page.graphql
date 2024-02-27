@@ -137,11 +137,7 @@ query BrowseLandingStaticPage(
               items {
                 __typename
                 ... on ImageCard {
-                  name
-                  text
-                  image {
-                    ...imageWithAttributionFields
-                  }
+                  ...imageCardFields
                 }
               }
             }
@@ -152,11 +148,17 @@ query BrowseLandingStaticPage(
             hasPartCollection(limit: 6) {
               items {
                 __typename
+                ... on CardGroup {
+                  ...cardGroupFields
+                }
                 ... on InfoCardGroup {
                   ...infoCardGroupFields
                 }
                 ... on AutomatedCardGroup {
                   ...automatedCardGroupFields
+                }
+                ... on ImageCard {
+                  ...imageCardFields
                 }
               }
             }
@@ -286,5 +288,16 @@ fragment cardGroupFields on CardGroup {
   moreButton {
     url
     text
+  }
+}
+fragment imageCardFields on ImageCard {
+  name
+  text
+  image {
+    ...imageWithAttributionFields
+  }
+  link {
+    text
+    url
   }
 }

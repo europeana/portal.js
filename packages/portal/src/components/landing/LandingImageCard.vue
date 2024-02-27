@@ -28,7 +28,16 @@
         class="text"
         v-html="parseMarkdownHtml(card.text)"
       />
-    <!-- eslint-enable vue/no-v-html -->
+      <!-- eslint-enable vue/no-v-html -->
+      <SmartLink
+        v-if="card.link"
+        :destination="card.link.url"
+        data-qa="call to action"
+        class="btn btn-cta btn-primary"
+        hide-external-icon
+      >
+        {{ card.link.text }}
+      </SmartLink>
     </div>
   </div>
 </template>
@@ -50,7 +59,8 @@
   export default {
     name: 'LandingImageCard',
     components: {
-      ImageWithAttribution: () => import('@/components/image/ImageWithAttribution')
+      ImageWithAttribution: () => import('@/components/image/ImageWithAttribution'),
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [parseMarkdownHtmlMixin],

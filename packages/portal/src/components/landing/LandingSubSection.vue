@@ -17,6 +17,14 @@
         v-for="(section, index) in sections"
         :key="index"
       >
+        <ContentCardSection
+          v-if="contentType(section, 'CardGroup')"
+          :section="section"
+        />
+        <LandingImageCard
+          v-if="contentType(section, 'ImageCard')"
+          :card="section"
+        />
         <LandingAutomatedCardGroup
           v-if="contentType(section, 'AutomatedCardGroup')"
           :genre="section.genre"
@@ -42,7 +50,9 @@
     name: 'LandingSubSection',
 
     components: {
+      ContentCardSection: () => import('../content/ContentCardSection'),
       LandingAutomatedCardGroup: () => import('@/components/landing/LandingAutomatedCardGroup'),
+      LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
 
