@@ -69,14 +69,14 @@
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
-    small: { w: 576, h: 896, fit: 'fill', q: 100 },
-    medium: { w: 768, h: 1080, fit: 'fill', q: 100 },
-    large: { w: 992, h: 1080, fit: 'fill', q: 100 },
-    xl: { w: 1200, h: 1080, fit: 'fill', q: 100 },
-    xxl: { w: 1440, h: 1080, fit: 'fill', q: 100 },
-    xxxl: { w: 1920, h: 1080, fit: 'fill', q: 100 },
-    wqhd: { w: 2560, h: 1440, fit: 'fill', q: 100 },
-    '4k': { w: 3840, h: 2160, fit: 'fill', q: 100 }
+    small: { w: 576, h: 896, fit: 'fill', q: 100, f: 'right' },
+    medium: { w: 768, h: 1080, fit: 'fill', q: 100, f: 'right' },
+    large: { w: 992, h: 1080, fit: 'fill', q: 100, f: 'right' },
+    xl: { w: 1200, h: 1080, fit: 'fill', q: 100, f: 'right' },
+    xxl: { w: 1440, h: 1080, fit: 'fill', q: 100, f: 'right' },
+    xxxl: { w: 1920, h: 1080, fit: 'fill', q: 100, f: 'right' },
+    wqhd: { w: 2560, h: 1440, fit: 'fill', q: 100, f: 'right' },
+    '4k': { w: 3840, h: 2160, fit: 'fill', q: 100, f: 'right' }
   };
 
   export default {
@@ -174,6 +174,13 @@
       }
       .col {
         min-height: 2rem;
+        @media (min-width: ($bp-medium)) {
+          min-height: 4rem;
+        }
+
+        @media (min-width: ($bp-wqhd)) {
+          min-height: 8rem;
+        }
       }
     }
 
@@ -181,22 +188,54 @@
       padding: 0;
       min-height: 2rem;
       border-bottom: 1px solid $grey;
+
+      @media (min-width: ($bp-medium)) {
+        min-height: 4rem;
+      }
+
+      @media (min-width: ($bp-wqhd)) {
+        min-height: 8rem;
+      }
     }
     .hero-bottom {
       padding: 0;
       min-height: 2rem;
       border-top: 1px solid $grey;
+
+      @media (min-width: ($bp-medium)) {
+        min-height: 4rem;
+      }
+
+      @media (min-width: ($bp-wqhd)) {
+        min-height: 8rem;
+      }
     }
 
     .hero-left {
       padding: 0;
       max-width: 2rem;
       border-right: 1px solid $grey;
+
+      @media (min-width: ($bp-medium)) {
+        max-width: 4rem;
+      }
+
+      @media (min-width: ($bp-wqhd)) {
+        max-width: 8rem;
+      }
     }
     .hero-right {
       padding: 0;
       max-width: 2rem;
       border-left: 1px solid $grey;
+
+      @media (min-width: ($bp-medium)) {
+        max-width: 4rem;
+      }
+
+      @media (min-width: ($bp-wqhd)) {
+        max-width: 8rem;
+      }
     }
 
     .hero-content {
@@ -212,7 +251,7 @@
         margin-top: auto;
         max-width: 70%;
 
-        @media (min-width: ($bp-medium)) {
+        @media (min-width: ($bp-large)) {
           max-width: 40%;
         }
 
