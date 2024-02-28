@@ -20,12 +20,14 @@
         v-for="(section, index) in sections"
         :key="index"
       >
-        <LandingAutomatedCardGroup
-          v-if="contentType(section, 'AutomatedCardGroup')"
-          :genre="section.genre"
-          :static-items="section.staticItems"
-          :variant="variant"
-        />
+        <client-only>
+          <LandingAutomatedCardGroup
+            v-if="contentType(section, 'AutomatedCardGroup')"
+            :genre="section.genre"
+            :static-items="section.staticItems"
+            :variant="variant"
+          />
+        </client-only>
         <LandingInfoCardGroup
           v-if="contentType(section, 'InfoCardGroup')"
           :class="LandingInfoCardGroupClass"
