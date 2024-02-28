@@ -18,15 +18,13 @@
         v-if="contentType(section, 'CardGroup')"
         :section="section"
       />
-      <client-only>
-        <LandingIllustrationGroup
-          v-if="contentType(section, 'IllustrationGroup')"
-          :title="section.name"
-          :text="section.text"
-          :illustrations="section.hasPartCollection && section.hasPartCollection.items"
-          :variant="variant"
-        />
-      </client-only>
+      <LandingIllustrationGroup
+        v-if="contentType(section, 'IllustrationGroup')"
+        :title="section.name"
+        :text="section.text"
+        :illustrations="section.hasPartCollection && section.hasPartCollection.items"
+        :variant="variant"
+      />
       <LandingInfoCardGroup
         v-if="contentType(section, 'InfoCardGroup')"
         :title="section.name"
