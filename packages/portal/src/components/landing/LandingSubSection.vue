@@ -27,6 +27,7 @@
         <LandingImageCard
           v-if="contentType(section, 'ImageCard')"
           :card="section"
+          :variant="variant"
         />
         <LandingAutomatedCardGroup
           v-if="contentType(section, 'AutomatedCardGroup')"
@@ -221,6 +222,7 @@
   }
 </style>
 
+<!-- Only DS4CH styles after this line! -->
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
   .landing-sub-section.ds4ch {
@@ -254,6 +256,7 @@
         font-size: 1.375rem;
         font-weight: 700;
         line-height: 1.2;
+        margin-bottom: 2rem;
         margin-left: auto;
         margin-right: auto;
         text-align: center;
@@ -277,6 +280,31 @@
           font-size: 2.5rem;
           max-width: $max-text-column-width-4k;
         }
+      }
+    }
+
+    .ds4ch.image-card {
+      @media (min-width: $bp-xxl) {
+        max-width: 1500px;
+      }
+
+      @media(min-width: $bp-extralarge) {
+        margin-left: -4rem;
+        margin-right: -4rem;
+      }
+
+      @media(min-width: $bp-xxl) {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @media (min-width: $bp-4k) {
+        max-width:3000px;
+      }
+
+      // TODO specify for specific index
+      ::v-deep figure {
+        height: auto;
       }
     }
   }

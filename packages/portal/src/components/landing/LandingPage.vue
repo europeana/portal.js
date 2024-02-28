@@ -34,6 +34,7 @@
       <LandingImageCard
         v-if="contentType(section, 'ImageCard')"
         :card="section"
+        :variant="variant"
       />
       <LandingImageCardGroup
         v-if="contentType(section, 'ImageCardGroup')"
