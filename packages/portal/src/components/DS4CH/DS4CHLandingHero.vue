@@ -210,6 +210,11 @@
         animation: slide 400ms ease-out 100ms forwards;
         margin-bottom: auto;
         margin-top: auto;
+        max-width: 70%;
+
+        @media (min-width: ($bp-medium)) {
+          max-width: 40%;
+        }
 
         @keyframes slide {
           from {
@@ -225,20 +230,16 @@
 
       ::v-deep h1 {
         color: $white;
-        text-align: center;
+        text-align: left;
         font-family: $font-family-montserrat;
         font-size: $font-size-extrasmall;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.6px;
-        margin-bottom: 7.5rem;
+        margin-bottom: 1rem;
 
         @media (min-width: ($bp-medium)) {
           margin-bottom: 1.5rem;
-        }
-
-        @media (min-width: ($bp-large)) {
-          text-align: left;
         }
 
         @media (min-width: $bp-4k) {
@@ -269,14 +270,10 @@
 
       ::v-deep p {
         color: $white;
-        text-align: center;
+        text-align: left;
 
         @media (min-width: ($bp-medium)) {
           font-size: $font-size-medium;
-        }
-
-        @media (min-width: ($bp-large)) {
-          text-align: left;
         }
 
         @media (min-width: $bp-4k) {
