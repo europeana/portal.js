@@ -146,7 +146,9 @@
     },
 
     mounted() {
-      this.imageCardIndex = [...document.querySelectorAll('.image-card')].indexOf(this.$refs?.imagecard);
+      if (this.variant === 'ds4ch') {
+        this.imageCardIndex = [...document.querySelectorAll('.image-card')].indexOf(this.$refs?.imagecard);
+      }
     },
 
     methods: {
