@@ -333,6 +333,10 @@
       .text {
         color: $black;
         text-align: left;
+
+        @media(min-width: $bp-4k) {
+          font-size: 2.5rem;
+        }
       }
 
       .btn {

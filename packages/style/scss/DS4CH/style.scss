@@ -58,12 +58,6 @@
     @extend %title-3;
   }
 
-  p {
-    @media(min-width: $bp-4k) {
-      font-size: 2.5rem;
-    }
-  }
-
   .btn {
 
     &.btn-primary {
@@ -182,6 +176,29 @@
     @media (min-width: ($bp-4k)) {
       padding-left: 0;
       padding-right: 0;
+    }
+  }
+
+  figcaption {
+    @media(min-width: $bp-4k) {
+      .icon-info {
+        width: 3.125rem;
+        height: 3.125rem;
+
+        &::before {
+          font-size: 3.125rem;
+        }
+      }
+
+      cite {
+        padding: 1.5rem;
+
+        p,
+        [class^='icon-'],
+        .attribution > span .license {
+          font-size: 1.75rem;
+        }
+      }
     }
   }
 }
