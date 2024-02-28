@@ -299,7 +299,7 @@
       }
 
       @media (min-width: $bp-4k) {
-        max-width:3000px;
+        max-width: 3000px;
       }
     }
   }
