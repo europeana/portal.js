@@ -301,11 +301,6 @@
       @media (min-width: $bp-4k) {
         max-width:3000px;
       }
-
-      // TODO specify for specific index
-      ::v-deep figure {
-        height: auto;
-      }
     }
   }
 </style>

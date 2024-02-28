@@ -2,7 +2,7 @@
   <div
     ref="imagecard"
     class="image-card d-lg-flex"
-    :class="variant"
+    :class="[variant, `image-card-${imageCardIndex}`]"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -18,7 +18,7 @@
         :content-type="cardImageWithAttribution.image.contentType"
         :attribution="cardImageWithAttribution"
         :image-srcset="isSVG ? null : imageSrcset(cardImageWithAttribution.image)"
-        :image-sizes="isSVG ? null : imageSizes"
+        :image-sizes="isSVG ? null : sizesPresets"
       />
     </div>
     <div class="text-wrapper">
@@ -48,6 +48,25 @@
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
+    small: { w: 545, h: 270, fit: 'fill' },
+    medium: { w: 510, h: 306, fit: 'fill' },
+    large: { w: 510, h: 306, fit: 'fill' },
+    xl: { w: 570, h: 342, fit: 'fill' },
+    xxl: { w: 612, h: 367, fit: 'fill' },
+    xxxl: { w: 612, h: 367, fit: 'fill' },
+    wqhd: { w: 612, h: 367, fit: 'fill' },
+    '4k': { w: 918, h: 551, fit: 'fill' }
+  };
+
+  const SIZES_PRESETS = [
+    '(max-width: 575px) 545px', // bp-small
+    '(max-width: 991px) 510px', // bp-large
+    '(max-width: 1199px) 570px', // bp-xl
+    '(max-width: 3019px) 612px', // bp-4k
+    '918px'
+  ].join(',');
+
+  const SRCSET_PRESETS_DS4CH = {
     small: { w: 512, fit: 'fill' },
     medium: { w: 510, fit: 'fill' },
     large: { w: 690, fit: 'fill' },
@@ -57,6 +76,18 @@
     wqhd: { w: 1500, fit: 'fill' },
     '4k': { w: 1500, fit: 'fill' }
   };
+
+  const SIZES_PRESETS_DS4CH = [
+    '(max-width: 575px) 512px', // bp-small
+    '(max-width: 767px) 510px', // bp-medium
+    '(max-width: 991px) 690px', // bp-large
+    '(max-width: 1199px) 600px', // bp-xl
+    '(max-width: 1399px) 700px', // bp-xxl
+    '(max-width: 1879px) 940px', // bp-xxxl
+    '(max-width: 2519px) 1500px', // bp-wqhd
+    '(max-width: 3019px) 1500px', // bp-4k
+    '1500px'
+  ].join(',');
 
   export default {
     name: 'LandingImageCard',
@@ -87,17 +118,6 @@
 
     data() {
       return {
-        imageSizes: [
-          '(max-width: 575px) 512px', // bp-small
-          '(max-width: 767px) 510px', // bp-medium
-          '(max-width: 991px) 690px', // bp-large
-          '(max-width: 1199px) 600px', // bp-xl
-          '(max-width: 1399px) 700px', // bp-xxl
-          '(max-width: 1879px) 940px', // bp-xxxl
-          '(max-width: 2519px) 1500px', // bp-wqhd
-          '(max-width: 3019px) 1500px', // bp-4k
-          '1500px'
-        ].join(','),
         imageCardIndex: -1
       };
     },
@@ -108,6 +128,20 @@
       },
       isSVG() {
         return this.cardImageWithAttribution.image.contentType === 'image/svg+xml';
+      },
+      sizesPresets() {
+        if (this.variant === 'ds4ch') {
+          return SIZES_PRESETS_DS4CH;
+        } else {
+          return SIZES_PRESETS;
+        }
+      },
+      srcSetPresets() {
+        if (this.variant === 'ds4ch') {
+          return SRCSET_PRESETS_DS4CH;
+        } else {
+          return SRCSET_PRESETS;
+        }
       }
     },
 
@@ -117,7 +151,7 @@
 
     methods: {
       imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, SRCSET_PRESETS);
+        return this.$contentful.assets.responsiveImageSrcset(image, this.srcSetPresets);
       }
     }
   };
@@ -203,7 +237,8 @@
       }
 
       img {
-        height: 100%;
+        width: auto;
+        max-width: none;
       }
     }
 
@@ -305,6 +340,15 @@
 
         @media (min-width: $bp-4k) {
           margin-top: 3rem;
+        }
+      }
+    }
+
+    &.image-card-3 {
+      ::v-deep figure {
+        height: auto;
+        img {
+          width: 100%;
         }
       }
     }
