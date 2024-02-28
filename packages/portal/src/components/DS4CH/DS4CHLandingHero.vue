@@ -5,7 +5,7 @@
       class="hero-background responsive-backround-image"
       :style="imageCSSVars"
     />
-    <b-container class="hero-grid">
+    <b-container class="hero-grid d-flex">
       <b-row
         class="hero-top mb-auto"
         align-v="start"
@@ -15,16 +15,14 @@
         <b-col class="hero-right" />
       </b-row>
       <b-row
-        class="hero-content"
+        class="hero-content flex-fill"
         align-v="stretch"
       >
         <b-col class="hero-left" />
         <b-col
-          class="hero-center"
+          class="hero-center d-flex"
         >
-          <header
-            class="mt-auto"
-          >
+          <header class="mt-auto mb-auto">
             <!-- eslint-disable vue/no-v-html -->
             <div
               class="hero-content-text-block"
@@ -39,7 +37,10 @@
               {{ cta.text }}
             </SmartLink>
           </header>
-          <div id="europeana-logo">
+          <div
+            id="europeana-logo"
+            class="mt-auto"
+          >
             <h1>
               {{ $t('ds4ch.broughtBy') }}
             </h1>
@@ -68,14 +69,14 @@
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
-    small: { w: 576, h: 896, fit: 'fill' },
-    medium: { w: 768, h: 1080, fit: 'fill' },
-    large: { w: 992, h: 1080, fit: 'fill' },
-    xl: { w: 1200, h: 1080, fit: 'fill' },
-    xxl: { w: 1440, h: 1080, fit: 'fill' },
-    xxxl: { w: 1920, h: 1080, fit: 'fill' },
-    wqhd: { w: 2560, h: 1440, fit: 'fill' },
-    '4k': { w: 3840, h: 2160, fit: 'fill' }
+    small: { w: 576, h: 896, fit: 'fill', q: 100 },
+    medium: { w: 768, h: 1080, fit: 'fill', q: 100 },
+    large: { w: 992, h: 1080, fit: 'fill', q: 100 },
+    xl: { w: 1200, h: 1080, fit: 'fill', q: 100 },
+    xxl: { w: 1440, h: 1080, fit: 'fill', q: 100 },
+    xxxl: { w: 1920, h: 1080, fit: 'fill', q: 100 },
+    wqhd: { w: 2560, h: 1440, fit: 'fill', q: 100 },
+    '4k': { w: 3840, h: 2160, fit: 'fill', q: 100 }
   };
 
   export default {
@@ -161,8 +162,7 @@
       margin: 0;
       padding: 0;
       max-width: 100%;
-      height: 100%;
-      min-height: 100%;
+      flex-direction: column;
 
       @media (min-width: $bp-4k) {
         margin-top: 5rem;
@@ -200,6 +200,10 @@
     }
 
     .hero-content {
+
+      .hero-center {
+        flex-direction: column;
+      }
       .hero-content-text-block {
         transform: translateY(100%);
         opacity: 0;
