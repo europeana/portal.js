@@ -2,6 +2,7 @@
   <div
     class="page white-page xxl-page"
     :class="`${variant}-page`"
+    data-qa="landing page"
   >
     <LandingHero
       :headline="headline"

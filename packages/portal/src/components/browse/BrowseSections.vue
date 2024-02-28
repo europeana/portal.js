@@ -21,6 +21,7 @@
       <EmbedHTML
         v-else-if="contentType(section, 'Embed')"
         :html="section.embed"
+        :title="section.title"
       />
       <ImageComparisonSlider
         v-else-if="contentType(section, 'ImageComparison')"
