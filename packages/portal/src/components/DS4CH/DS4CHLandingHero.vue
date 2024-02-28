@@ -7,18 +7,18 @@
     />
     <b-container class="hero-grid">
       <b-row
-        class="hero-top"
+        class="hero-top mb-auto"
         align-v="start"
       >
-        <b-col class="hero-left"></b-col>
-        <b-col class="hero-center"></b-col>
-        <b-col class="hero-right"></b-col>
+        <b-col class="hero-left" />
+        <b-col class="hero-center" />
+        <b-col class="hero-right" />
       </b-row>
       <b-row
         class="hero-content"
         align-v="stretch"
       >
-        <b-col class="hero-left"></b-col>
+        <b-col class="hero-left" />
         <b-col
           class="hero-center"
         >
@@ -49,15 +49,15 @@
             >
           </div>
         </b-col>
-        <b-col class="hero-right"></b-col>
+        <b-col class="hero-right" />
       </b-row>
       <b-row
-        class="hero-bottom"
+        class="hero-bottom mt-auto"
         align-v="end"
       >
-        <b-col class="hero-left"></b-col>
-        <b-col class="hero-center"></b-col>
-        <b-col class="hero-right"></b-col>
+        <b-col class="hero-left" />
+        <b-col class="hero-center" />
+        <b-col class="hero-right" />
       </b-row>
     </b-container>
   </div>
@@ -139,6 +139,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
+  @import '@europeana/style/scss/responsive-background-image';
 
   #europeana-logo {
     img {
@@ -147,16 +148,21 @@
   }
 
   .landing-hero {
-    background-color: $black;
     overflow: hidden;
     min-height: 100vh;
+    position: relative;
 
     .hero-grid {
-      max-width: 100%;
-      width: 100%;
-      min-height: calc(100vh - 3.5rem);
-      margin: 3.5rem 0 0;
+      left: 0;
+      top: 3.5rem;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+      margin: 0;
       padding: 0;
+      max-width: 100%;
+      height: 100%;
+      min-height: 100%;
 
       @media (min-width: $bp-4k) {
         margin-top: 5rem;
@@ -275,59 +281,16 @@
       }
     }
 
-    .hero-image {
-      width: 100%;
+    .hero-background {
+      left: 0;
+      top: 3.5rem;
+      right: 0;
+      bottom: 0;
       position: absolute;
-      inset: 0;
-      margin-left: auto;
+      background-size: cover;
+      background-repeat: no-repeat;
       transition: transform 500ms ease-out;
-
-      &::before {
-        content: '';
-        inset: 0;
-        mix-blend-mode: multiply;
-        position: absolute;
-      }
-    }
-
-    ::v-deep .background-attribution {
-      .icon-info {
-        z-index: 1;
-        right: 2.5rem;
-        bottom: 2.5rem;
-        opacity: 0.5;
-
-        @media (min-width: ($bp-extralarge)) {
-          right: 5rem;
-          bottom: 5rem;
-        }
-
-        @media (min-width: ($bp-4k)) {
-          right: 12.625rem;
-          bottom: 12.625rem;
-          width: 4rem;
-          height: 4rem;
-
-          &::before {
-            font-size: 4rem;
-          }
-        }
-      }
-      .cite-attribution {
-        z-index: 1;
-        right: 2.5rem;
-        bottom: 2.5rem;
-
-        @media (min-width: ($bp-extralarge)) {
-          right: 5rem;
-          bottom: 5rem;
-        }
-
-        @media (min-width: ($bp-4k)) {
-          right: 12.625rem;
-          bottom: 12.625rem;
-        }
-      }
+      background-color: $black;
     }
   }
 </style>
