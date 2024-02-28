@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import camelCase from 'camelcase';
+  import camelCase from 'lodash/camelCase.js';
   import InfoCard from '@/components/generic/InfoCard';
 
   const DS4CH_NUMBERS = 'Data space numbers';

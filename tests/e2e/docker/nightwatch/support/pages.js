@@ -30,6 +30,7 @@ const pages = {
   'item page': `${url}/en/item/09102/_GNM_693983`,
   'search page': `${url}/en/search`,
   'search page with a search query': `${url}/en/search?query=art`,
+  'share your data page': `${url}/en/share-your-data`,
   'user gallery page': `${url}/en/set/2`,
   'Swedish home page': `${url}/sv`,
   'topics listing page': `${url}/en/collections/topics`,

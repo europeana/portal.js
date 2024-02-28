@@ -26,6 +26,7 @@
       class="embed-container"
     >
       <EmbedHTML
+        :title="title"
         :html="embed.embed"
       />
     </b-container>
