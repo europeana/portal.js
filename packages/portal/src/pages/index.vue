@@ -72,6 +72,10 @@
       }
     },
 
+    layout({ route }) {
+      return (route.params.pathMatch === 'microsite/DS4CH.eu') ? 'ds4ch' : 'default';
+    },
+
     data() {
       return {
         browsePage: false,
@@ -83,13 +87,20 @@
     },
 
     async fetch() {
+      let ctfQuery = 'browseStaticPage';
+      const landingPages = ['share-your-data', 'microsite/DS4CH.eu'];
+      if (landingPages.includes(this.identifier)) {
+        this.landingPage = true;
+        ctfQuery = 'landingPage';
+      }
+
       const variables = {
         identifier: this.identifier,
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview'
       };
 
-      const response = await this.$contentful.query('browseLandingStaticPage', variables);
+      const response = await this.$contentful.query(ctfQuery, variables);
       const data = response.data.data;
       if ((data.staticPageCollection?.items?.length || 0) > 0) {
         this.page = data.staticPageCollection.items[0];
