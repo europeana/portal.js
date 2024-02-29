@@ -5,12 +5,36 @@ import ContentPrimaryCallToAction from '@/components/content/ContentPrimaryCallT
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData = { text: 'Call to action!', link: { text: 'I am the link', url: 'https://example.org/call-to-action' } }) => shallowMount(ContentPrimaryCallToAction, {
+const testPropsData = { title: 'Title', text: 'Call to action!', link: { text: 'I am the link', url: 'https://example.org/call-to-action' } };
+
+const factory = (propsData = testPropsData) => shallowMount(ContentPrimaryCallToAction, {
   localVue,
   propsData
 });
 
 describe('components/content/ContentPrimaryCallToAction', () => {
+  describe('when a title is available', () => {
+    it('shows a title', async() => {
+      const wrapper = factory();
+
+      const title = wrapper.find('[data-qa="primary cta title"');
+
+      expect(title.text()).toBe('Title');
+    });
+  });
+  describe('when there is no title', () => {
+    it('no title exists', async() => {
+      const propsDataWithoutTitle = { ...testPropsData };
+      delete propsDataWithoutTitle.title;
+
+      const wrapper = factory(propsDataWithoutTitle);
+
+      const title = wrapper.find('[data-qa="primary cta title"');
+
+      expect(title.exists()).toBe(false);
+    });
+  });
+
   it('shows text', async() => {
     const wrapper = factory();
 

@@ -1,9 +1,14 @@
 query BrowseLandingStaticPage(
-  $identifier: String!,
-  $locale: String!,
+  $identifier: String!
+  $locale: String!
   $preview: Boolean = false
 ) {
-  browsePageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  browsePageCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
     items {
       identifier
       name
@@ -16,64 +21,27 @@ query BrowseLandingStaticPage(
         items {
           __typename
           ... on CardGroup {
-            headline
-          	text
-            hasPartCollection(limit: 28) {
-              items {
-                __typename
-                ... on AutomatedEntityCard {
-                  name
-                  identifier
-                  description
-                  slug
-                  entityImage: image
-                }
-                ... on AutomatedRecordCard {
-                  identifier
-                  encoding
-                }
-                ... on CuratedCard {
-                  name
-                  description
-                  url
-                  image {
-                    ...imageFields
-                  }
-                }
-              }
-            }
-            moreButton {
-              url
-              text
-            }
-        	}
+            ...cardGroupFields
+          }
           ... on AutomatedCardGroup {
-            genre
-            moreButton {
-              url
-              text
-            }
+            ...automatedCardGroupFields
           }
           ... on ContentTypeRichText {
             text
           }
           ... on PrimaryCallToAction {
-            name
-            nameEN: name(locale: "en-GB")
-            text
-            relatedLink {
-              url
-              text
-            }
-            image {
-              ...illustrationFields
-            }
+            ...primaryCallToActionFields
           }
         }
       }
     }
   }
-  staticPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  staticPageCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
     items {
       identifier
       name
@@ -92,38 +60,25 @@ query BrowseLandingStaticPage(
             embed
           }
           ... on ImageWithAttribution {
-            ... imageWithAttributionFields
+            ...imageWithAttributionFields
           }
           ... on ImageComparison {
             name
             hasPartCollection(limit: 2) {
               items {
-                ... imageWithAttributionFields
+                ...imageWithAttributionFields
               }
             }
           }
           ... on AutomatedCardGroup {
-            genre
-            moreButton {
-              url
-              text
-            }
+            ...automatedCardGroupFields
           }
           ... on Link {
             url
             text
           }
           ... on PrimaryCallToAction {
-            name
-            nameEN: name(locale: "en-GB")
-            text
-            relatedLink {
-              url
-              text
-            }
-            image {
-              ...illustrationFields
-            }
+            ...primaryCallToActionFields
           }
         }
       }
@@ -132,7 +87,12 @@ query BrowseLandingStaticPage(
       }
     }
   }
-  landingPageCollection(preview: $preview, locale: $locale, where: { identifier: $identifier }, limit: 1) {
+  landingPageCollection(
+    preview: $preview
+    locale: $locale
+    where: { identifier: $identifier }
+    limit: 1
+  ) {
     items {
       identifier
       name
@@ -154,52 +114,21 @@ query BrowseLandingStaticPage(
         items {
           __typename
           ... on CardGroup {
-            headline
-          	text
-            hasPartCollection(limit: 28) {
-              items {
-                __typename
-                ... on AutomatedEntityCard {
-                  name
-                  identifier
-                  description
-                  slug
-                  entityImage: image
-                }
-                ... on AutomatedRecordCard {
-                  identifier
-                  encoding
-                }
-                ... on CuratedCard {
-                  name
-                  description
-                  url
-                  image {
-                    ...imageFields
-                  }
-                }
-              }
-            }
-            moreButton {
-              url
-              text
-            }
-        	}
-          ... on InfoCardGroup {
+            ...cardGroupFields
+          }
+          ... on IllustrationGroup {
             name
             text
-            hasPartCollection(limit: 12) {
+            hasPartCollection(limit: 20) {
               items {
-                __typename
-                ... on InfoCard {
-                  name
-                  text
-                  image {
-                    ...imageFields
-                  }
+                ... on Illustration {
+                  ...illustrationFields
                 }
               }
             }
+          }
+          ... on InfoCardGroup {
+            ...infoCardGroupFields
           }
           ... on ImageCardGroup {
             name
@@ -224,27 +153,10 @@ query BrowseLandingStaticPage(
               items {
                 __typename
                 ... on InfoCardGroup {
-                  name
-                  text
-                  hasPartCollection(limit: 12) {
-                    items {
-                      __typename
-                      ... on InfoCard {
-                        name
-                        text
-                        image {
-                          ...imageFields
-                        }
-                      }
-                    }
-                  }
+                  ...infoCardGroupFields
                 }
                 ... on AutomatedCardGroup {
-                  genre
-                  moreButton {
-                    url
-                    text
-                  }
+                  ...automatedCardGroupFields
                 }
               }
             }
@@ -258,12 +170,7 @@ query BrowseLandingStaticPage(
             }
           }
           ... on PrimaryCallToAction {
-            name
-            text
-            relatedLink {
-              url
-              text
-            }
+            ...primaryCallToActionFields
           }
         }
       }
@@ -271,6 +178,7 @@ query BrowseLandingStaticPage(
   }
 }
 fragment imageFields on Asset {
+  title
   url
   contentType
   description
@@ -298,7 +206,85 @@ fragment linkGroupFields on LinkGroup {
   }
 }
 fragment illustrationFields on Illustration {
+  name
   image {
     ...imageFields
+  }
+  url
+}
+fragment infoCardFields on InfoCard {
+  name
+  text
+  image {
+    ...imageFields
+  }
+}
+fragment infoCardGroupFields on InfoCardGroup {
+  name
+  text
+  hasPartCollection(limit: 12) {
+    items {
+      __typename
+      ... on InfoCard {
+        ...infoCardFields
+      }
+    }
+  }
+}
+fragment automatedCardGroupFields on AutomatedCardGroup {
+  genre
+  moreButton {
+    url
+    text
+  }
+}
+fragment automatedEntityCardFields on AutomatedEntityCard {
+  name
+  identifier
+  description
+  slug
+  entityImage: image
+}
+fragment curatedCardFields on CuratedCard {
+  name
+  description
+  url
+  image {
+    ...imageFields
+  }
+}
+fragment primaryCallToActionFields on PrimaryCallToAction {
+  name
+  nameEN: name(locale: "en-GB")
+  text
+  relatedLink {
+    url
+    text
+  }
+  image {
+    ...illustrationFields
+  }
+}
+fragment cardGroupFields on CardGroup {
+  headline
+  text
+  hasPartCollection(limit: 28) {
+    items {
+      __typename
+      ... on AutomatedEntityCard {
+        ...automatedEntityCardFields
+      }
+      ... on AutomatedRecordCard {
+        identifier
+        encoding
+      }
+      ... on CuratedCard {
+        ...curatedCardFields
+      }
+    }
+  }
+  moreButton {
+    url
+    text
   }
 }

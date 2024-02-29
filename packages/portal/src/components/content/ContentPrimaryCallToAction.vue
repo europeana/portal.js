@@ -1,5 +1,11 @@
 <template>
   <div class="primary-cta text-center">
+    <h2
+      v-if="title"
+      data-qa="primary cta title"
+    >
+      {{ title }}
+    </h2>
     <!-- eslint-disable vue/no-v-html -->
     <div
       class="primary-cta-rich-text text-left"
@@ -31,6 +37,10 @@
     mixins: [parseMarkdownHtmlMixin],
 
     props: {
+      title: {
+        type: String,
+        default: ''
+      },
       text: {
         type: String,
         default: ''

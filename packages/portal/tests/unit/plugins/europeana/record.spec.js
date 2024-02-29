@@ -1,6 +1,6 @@
 import nock from 'nock';
 import md5 from 'md5';
-import record, { isEuropeanaRecordId, recordIdFromUrl } from '@/plugins/europeana/record';
+import EuropeanaRecordApi, { isEuropeanaRecordId, recordIdFromUrl } from '@/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
@@ -206,42 +206,52 @@ describe('plugins/europeana/record', () => {
     nock.cleanAll();
   });
 
-  describe('record().getRecord()', () => {
+  describe('EuropeanaRecordApi', () => {
+    it('is authenticating', () => {
+      expect(EuropeanaRecordApi.AUTHENTICATING).toBe(true);
+    });
+
+    it('is authorising', () => {
+      expect(EuropeanaRecordApi.AUTHORISING).toBe(true);
+    });
+  });
+
+  describe('EuropeanaRecordApi().getRecord()', () => {
     describe('when using the translation profile', () => {
       const translateConf = { $features: { translatedItems: true } };
       it('makes an API request', async() => {
-        nock(record.BASE_URL)
+        nock(EuropeanaRecordApi.BASE_URL)
           .get(apiEndpoint)
           .query(true)
           .reply(200, translateProfileApiResponse);
 
-        await (new record(translateConf)).getRecord(europeanaId);
+        await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId);
 
         expect(nock.isDone()).toBe(true);
       });
       describe('profile parameter', () => {
         describe('when no translations are explicitly requested', () => {
           beforeEach(() => {
-            nock(record.BASE_URL)
+            nock(EuropeanaRecordApi.BASE_URL)
               .get(apiEndpoint)
               .query(query => !Object.keys(query).includes('profile'))
               .reply(200, translateProfileApiResponse);
           });
 
           it('is omitted when the item translation feature is enabled', async() => {
-            await (new record(translateConf)).getRecord(europeanaId);
+            await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId);
 
             expect(nock.isDone()).toBe(true);
           });
 
           it('ignores language-specific metadata from the europeana proxy', async() => {
-            const response = await (new record(translateConf)).getRecord(europeanaId);
+            const response = await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId);
 
             expect(response.record.title).toEqual({ en: ['Provider title'] });
           });
 
           it('includes non-language-specific metadata from the europeana proxy', async() => {
-            const response = await (new record(translateConf)).getRecord(europeanaId);
+            const response = await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId);
 
             expect(response.record.concepts[1]).toEqual({
               about: 'http://data.europeana.eu/concept/221',
@@ -251,27 +261,27 @@ describe('plugins/europeana/record', () => {
         });
         describe('when translations are explicitly requested', () => {
           it('is "translate" when the item translation feature is enabled', async() => {
-            nock(record.BASE_URL)
+            nock(EuropeanaRecordApi.BASE_URL)
               .get(apiEndpoint)
               .query(query => query.profile === 'translate' && query.lang === 'de')
               .reply(200, translateProfileApiResponse);
 
-            await (new record(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
+            await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
 
             expect(nock.isDone()).toBe(true);
           });
           describe('when the API returns a quota exhaustion error', () => {
             it('re-requests the record without the profile', async() => {
-              nock(record.BASE_URL)
+              nock(EuropeanaRecordApi.BASE_URL)
                 .get(apiEndpoint)
                 .query(query => query.profile === 'translate' && query.lang === 'de')
                 .reply(502, translateErrorApiResponse);
-              nock(record.BASE_URL)
+              nock(EuropeanaRecordApi.BASE_URL)
                 .get(apiEndpoint)
                 .query(query => !Object.keys(query).includes('profile'))
                 .reply(200, apiResponse);
 
-              await (new record(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
+              await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
 
               expect(nock.isDone()).toBe(true);
             });
@@ -280,12 +290,12 @@ describe('plugins/europeana/record', () => {
       });
       describe('metadadataLanguge', () => {
         it('uses the edmLanguage', async() => {
-          nock(record.BASE_URL)
+          nock(EuropeanaRecordApi.BASE_URL)
             .get(apiEndpoint)
             .query(query => query.profile === 'translate')
             .reply(200, translateProfileApiResponse);
 
-          const recordData = await (new record(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
+          const recordData = await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
           expect(recordData.record.metadataLanguage).toBe('de');
           expect(nock.isDone()).toBe(true);
         });
@@ -293,12 +303,12 @@ describe('plugins/europeana/record', () => {
       describe('translation source labels', () => {
         describe('when there is a value in the Europeana proxy', () => {
           it('is considered an automated translation', async() => {
-            nock(record.BASE_URL)
+            nock(EuropeanaRecordApi.BASE_URL)
               .get(apiEndpoint)
               .query(query => query.profile === 'translate' && query.lang === 'de')
               .reply(200, translateProfileApiResponse);
 
-            const recordData = await (new record(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
+            const recordData = await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
             expect(recordData.record.title.translationSource).toBe('automated');
             expect(nock.isDone()).toBe(true);
           });
@@ -306,24 +316,24 @@ describe('plugins/europeana/record', () => {
         describe('when there is a value in the aggregator proxy', () => {
           describe('when the value is in a lang map', () => {
             it('is considered an enrichment', async() => {
-              nock(record.BASE_URL)
+              nock(EuropeanaRecordApi.BASE_URL)
                 .get(apiEndpoint)
                 .query(query => query.profile === 'translate' && query.lang === 'de')
                 .reply(200, translateProfileApiResponse);
 
-              const recordData = await (new record(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
+              const recordData = await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
               expect(recordData.record.description.translationSource).toBe('enrichment');
               expect(nock.isDone()).toBe(true);
             });
           });
           describe('when the value refers to an entity', () => {
             it('is considered an enrichment', async() => {
-              nock(record.BASE_URL)
+              nock(EuropeanaRecordApi.BASE_URL)
                 .get(apiEndpoint)
                 .query(query => query.profile === 'translate' && query.lang === 'de')
                 .reply(200, translateProfileApiResponse);
 
-              const recordData = await (new record(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
+              const recordData = await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
               expect(recordData.record.metadata.edmIsRelatedTo.translationSource).toBe('enrichment');
               expect(nock.isDone()).toBe(true);
             });
@@ -331,12 +341,12 @@ describe('plugins/europeana/record', () => {
         });
         describe('when there is only a value in the default proxy', () => {
           it('does not flag the field with a translation source', async() => {
-            nock(record.BASE_URL)
+            nock(EuropeanaRecordApi.BASE_URL)
               .get(apiEndpoint)
               .query(query => query.profile === 'translate' && query.lang === 'de')
               .reply(200, translateProfileApiResponse);
 
-            const recordData = await (new record(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
+            const recordData = await (new EuropeanaRecordApi(translateConf)).getRecord(europeanaId, { metadataLanguage: 'de' });
 
             expect(recordData.record.metadata.dcType.translationSource === undefined).toBe(true);
             expect(nock.isDone()).toBe(true);
@@ -346,12 +356,12 @@ describe('plugins/europeana/record', () => {
     });
 
     it('makes an API request', async() => {
-      nock(record.BASE_URL)
+      nock(EuropeanaRecordApi.BASE_URL)
         .get(apiEndpoint)
         .query(true)
         .reply(200, apiResponse);
 
-      await (new record).getRecord(europeanaId);
+      await (new EuropeanaRecordApi).getRecord(europeanaId);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -361,7 +371,7 @@ describe('plugins/europeana/record', () => {
         const errorMessage = `Invalid record identifier: ${europeanaId}`;
 
         beforeEach(() => {
-          nock(record.BASE_URL)
+          nock(EuropeanaRecordApi.BASE_URL)
             .get(apiEndpoint)
             .query(true)
             .reply(404, {
@@ -373,7 +383,7 @@ describe('plugins/europeana/record', () => {
         it('throws error with API error message and status code', async() => {
           let error;
           try {
-            await (new record).getRecord(europeanaId);
+            await (new EuropeanaRecordApi).getRecord(europeanaId);
           } catch (e) {
             error = e;
           }
@@ -385,34 +395,34 @@ describe('plugins/europeana/record', () => {
 
       describe('with object in response', () => {
         beforeEach(() => {
-          nock(record.BASE_URL)
+          nock(EuropeanaRecordApi.BASE_URL)
             .get(apiEndpoint)
             .query(true)
             .reply(200, apiResponse);
         });
 
         it('returns record data', async() => {
-          const response = await (new record).getRecord(europeanaId);
+          const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
           expect(response.record).toBeDefined();
         });
 
         it('includes identifier', async() => {
-          const response = await (new record).getRecord(europeanaId);
+          const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
           expect(response.record.identifier).toBe(europeanaId);
         });
 
         it('includes edmIsShownAt', async() => {
-          const response = await (new record).getRecord(europeanaId);
+          const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
           expect(response.record.isShownAt).toBe(edmIsShownAt);
         });
 
         it('includes type', async() => {
-          const response = await (new record).getRecord(europeanaId);
+          const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
           expect(response.record.type).toBe(type);
         });
 
         it('includes europeanaCollectionName with link to search', async() => {
-          const response = await (new record).getRecord(europeanaId);
+          const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
           expect(response.record.metadata.europeanaCollectionName.value).toEqual(europeanaCollectionName);
           expect(response.record.metadata.europeanaCollectionName.url).toEqual({
             name: 'search',
@@ -422,24 +432,24 @@ describe('plugins/europeana/record', () => {
 
         describe('.media', () => {
           it('includes edmIsShownBy web resource', async() => {
-            const response = await (new record).getRecord(europeanaId);
+            const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
             expect(response.record.media.find((item) => item.about === edmIsShownByWebResource.about)).toBeDefined();
           });
 
           it('includes edmHasView web resource', async() => {
-            const response = await (new record).getRecord(europeanaId);
+            const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
             for (const hasView of [edmHasViewWebResourceFirst, edmHasViewWebResourceSecond, edmHasViewWebResourceThird]) {
               expect(response.record.media.find((item) => item.about === hasView.about)).toBeDefined();
             }
           });
 
           it('omits other web resources', async() => {
-            const response = await (new record).getRecord(europeanaId);
+            const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
             expect(typeof response.record.media.find((item) => item.about === someOtherWebResource.about)).toBe('undefined');
           });
 
           it('sorts by isNextInSequence', async() => {
-            const response = await (new record).getRecord(europeanaId);
+            const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
 
             expect(response.record.media[0].about).toBe(edmIsShownByWebResource.about);
             expect(response.record.media[1].about).toBe(edmHasViewWebResourceFirst.about);
@@ -449,7 +459,7 @@ describe('plugins/europeana/record', () => {
         });
 
         it('includes agents, reduced to about and prefLabel', async() => {
-          const response = await (new record).getRecord(europeanaId);
+          const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
           const agent = response.record.agents[0];
           expect(Object.keys(agent)).toEqual(['about', 'prefLabel']);
           expect(agent.about).toEqual(apiResponse.object.agents[0].about);
@@ -457,7 +467,7 @@ describe('plugins/europeana/record', () => {
         });
 
         it('includes concepts, reduced to about and prefLabel', async() => {
-          const response = await (new record).getRecord(europeanaId);
+          const response = await (new EuropeanaRecordApi).getRecord(europeanaId);
           const concept = response.record.concepts[0];
           expect(Object.keys(concept)).toEqual(['about', 'prefLabel']);
           expect(concept.about).toEqual(apiResponse.object.concepts[0].about);
@@ -467,10 +477,10 @@ describe('plugins/europeana/record', () => {
     });
   });
 
-  describe('record().find()', () => {
+  describe('EuropeanaRecordApi().find()', () => {
     it('searches the Record API for specified item IDs', async() => {
       const ids = ['/123/abc', '/123/def'];
-      nock(record.BASE_URL)
+      nock(EuropeanaRecordApi.BASE_URL)
         .get('/search.json')
         .query(query => {
           return query.profile === 'minimal' &&
@@ -479,14 +489,14 @@ describe('plugins/europeana/record', () => {
         })
         .reply(200);
 
-      await (new record).find(ids, { profile: 'minimal' });
+      await (new EuropeanaRecordApi).find(ids, { profile: 'minimal' });
 
       expect(nock.isDone()).toBe(true);
     });
 
     it('searches the Record API for specified item URIs', async() => {
       const uris = ['http://data.europeana.eu/item/123/abc', 'http://data.europeana.eu/item/123/def'];
-      nock(record.BASE_URL)
+      nock(EuropeanaRecordApi.BASE_URL)
         .get('/search.json')
         .query(query => {
           return !query.profile &&
@@ -495,36 +505,36 @@ describe('plugins/europeana/record', () => {
         })
         .reply(200);
 
-      await (new record).find(uris);
+      await (new EuropeanaRecordApi).find(uris);
 
       expect(nock.isDone()).toBe(true);
     });
   });
 
-  describe('record().mediaProxyUrl()', () => {
+  describe('EuropeanaRecordApi().mediaProxyUrl()', () => {
     const europeanaId = '/123/abc';
     const mediaUrl = 'https://www.example.org/audio.ogg';
 
     it('uses origin https://proxy.europeana.eu', () => {
-      const proxyUrl = new URL((new record).mediaProxyUrl(mediaUrl, europeanaId));
+      const proxyUrl = new URL((new EuropeanaRecordApi).mediaProxyUrl(mediaUrl, europeanaId));
 
       expect(proxyUrl.origin).toBe('https://proxy.europeana.eu');
     });
 
     it('uses europeanaId & web resource hash as path', () => {
-      const proxyUrl = new URL((new record).mediaProxyUrl(mediaUrl, europeanaId));
+      const proxyUrl = new URL((new EuropeanaRecordApi).mediaProxyUrl(mediaUrl, europeanaId));
 
       expect(proxyUrl.pathname).toBe(`/media${europeanaId}/${md5(mediaUrl)}`);
     });
 
     it('sets recordApiUrl query param', () => {
-      const proxyUrl = new URL((new record).mediaProxyUrl(mediaUrl, europeanaId));
+      const proxyUrl = new URL((new EuropeanaRecordApi).mediaProxyUrl(mediaUrl, europeanaId));
 
       expect(proxyUrl.searchParams.get('recordApiUrl')).toBe('https://api.europeana.eu/record');
     });
 
     it('sets additional params from final arg', () => {
-      const proxyUrl = new URL((new record).mediaProxyUrl(mediaUrl, europeanaId, { disposition: 'inline' }));
+      const proxyUrl = new URL((new EuropeanaRecordApi).mediaProxyUrl(mediaUrl, europeanaId, { disposition: 'inline' }));
 
       expect(proxyUrl.searchParams.get('disposition')).toBe('inline');
     });

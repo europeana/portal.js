@@ -55,7 +55,8 @@ export default ({ store } = {}) => ({
   responsiveImageSrcset(image, params) {
     if (this.isValidUrl(image?.url) && params) {
       return RESPONSIVE_IMAGE_SIZES
-        .map((size) => `${this.optimisedSrc(image, params[size])} ${params[size].w}w`)
+        .map((size) => params[size] && `${this.optimisedSrc(image, params[size])} ${params[size].w}w`)
+        .filter(src => !!src)
         .join(',');
     } else {
       return null;

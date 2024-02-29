@@ -1,6 +1,8 @@
 <template>
   <div
     class="page white-page xxl-page"
+    :class="`${variant}-page`"
+    data-qa="landing page"
   >
     <DS4CHLandingHero
       v-if="variant === 'ds4ch'"
@@ -24,6 +26,13 @@
         v-if="contentType(section, 'CardGroup')"
         :section="section"
       />
+      <LandingIllustrationGroup
+        v-if="contentType(section, 'IllustrationGroup')"
+        :title="section.name"
+        :text="section.text"
+        :illustrations="section.hasPartCollection && section.hasPartCollection.items"
+        :variant="variant"
+      />
       <LandingInfoCardGroup
         v-if="contentType(section, 'InfoCardGroup')"
         :title="section.name"
@@ -41,6 +50,7 @@
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
+        :variant="variant"
       />
       <LandingEmbed
         v-if="contentType(section, 'EmbedSection')"
@@ -52,8 +62,11 @@
       />
       <LandingCallToAction
         v-if="contentType(section, 'PrimaryCallToAction')"
+        :title="section.name"
         :text="section.text"
         :link="section.relatedLink"
+        :background-image="section.image"
+        :variant="variant"
       />
     </div>
   </div>
@@ -69,6 +82,7 @@
       ContentCardSection: () => import('../content/ContentCardSection'),
       LandingCallToAction: () => import('@/components/landing/LandingCallToAction'),
       LandingHero,
+      LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
       LandingSubSection: () => import('@/components/landing/LandingSubSection'),
@@ -99,11 +113,11 @@
       },
       /**
        * Variant to define layout and style
-       * @values default, ds4ch
+       * @values pro, ds4ch
        */
       variant: {
         type: String,
-        default: 'default'
+        default: 'pro'
       }
     },
 
