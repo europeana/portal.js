@@ -145,6 +145,10 @@
   #europeana-logo {
     img {
       filter: invert(1);
+
+      @media (min-width: ($bp-4k)) {
+        min-width: 17rem;
+      }
     }
   }
 
@@ -168,6 +172,10 @@
 
     @media (min-width: ($bp-wqhd)) {
       min-height: 53rem;
+    }
+
+    @media (min-width: ($bp-4k)) {
+      min-height: 78rem;
     }
 
     .hero-grid {
@@ -274,7 +282,10 @@
         max-width: 70%;
 
         @media (min-width: ($bp-large)) {
-          max-width: 40%;
+          max-width: 36rem;
+        }
+        @media (min-width: ($bp-4k)) {
+          max-width: 72rem;
         }
 
         @keyframes slide {
