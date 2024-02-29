@@ -5,61 +5,36 @@
       class="hero-background responsive-backround-image"
       :style="imageCSSVars"
     />
-    <b-container class="hero-grid d-flex">
-      <b-row
-        class="hero-top mb-auto"
-        align-v="start"
-      >
-        <b-col class="hero-left" />
-        <b-col class="hero-center" />
-        <b-col class="hero-right" />
-      </b-row>
-      <b-row
-        class="hero-content flex-fill"
-        align-v="stretch"
-      >
-        <b-col class="hero-left" />
-        <b-col
-          class="hero-center d-flex"
+    <b-container
+      class="hero-content d-flex"
+    >
+      <header class="mt-auto mb-auto">
+        <!-- eslint-disable vue/no-v-html -->
+        <div
+          class="hero-content-text-block"
+          v-html="parseMarkdownHtml(`# ${headline}\n${text}`)"
+        />
+        <!-- eslint-enable vue/no-v-html -->
+        <SmartLink
+          v-if="cta"
+          :destination="cta.url"
+          class="btn btn-cta btn-primary d-inline-flex align-items-center mt-1 mt-md-4 mb-0"
         >
-          <header class="mt-auto mb-auto">
-            <!-- eslint-disable vue/no-v-html -->
-            <div
-              class="hero-content-text-block"
-              v-html="parseMarkdownHtml(`# ${headline}\n${text}`)"
-            />
-            <!-- eslint-enable vue/no-v-html -->
-            <SmartLink
-              v-if="cta"
-              :destination="cta.url"
-              class="btn btn-cta btn-primary d-inline-flex align-items-center mt-1 mt-md-4 mb-0"
-            >
-              {{ cta.text }}
-            </SmartLink>
-          </header>
-          <div
-            id="europeana-logo"
-            class="mt-auto"
-          >
-            <h1>
-              {{ $t('ds4ch.broughtBy') }}
-            </h1>
-            <img
-              :src="europeanaLogoSrc"
-              class="logo-white"
-            >
-          </div>
-        </b-col>
-        <b-col class="hero-right" />
-      </b-row>
-      <b-row
-        class="hero-bottom mt-auto"
-        align-v="end"
+          {{ cta.text }}
+        </SmartLink>
+      </header>
+      <div
+        id="europeana-logo"
+        class="mt-auto"
       >
-        <b-col class="hero-left" />
-        <b-col class="hero-center" />
-        <b-col class="hero-right" />
-      </b-row>
+        <h1>
+          {{ $t('ds4ch.broughtBy') }}
+        </h1>
+        <img
+          :src="europeanaLogoSrc"
+          class="logo-white"
+        >
+      </div>
     </b-container>
   </div>
 </template>
@@ -178,101 +153,28 @@
       min-height: 78rem;
     }
 
-    .hero-grid {
+    .hero-content {
       left: 0;
       top: 3.5rem;
       right: 0;
       bottom: 0;
       position: absolute;
       margin: 0;
-      padding: 0;
+      padding: 4rem;
       max-width: 100%;
       flex-direction: column;
-
-      .row {
-        // override negative margin from "row"
-        margin-right: 0;
-        margin-left: 0;
-      }
-      .col {
-        min-height: 2rem;
-        @media (min-width: ($bp-medium)) {
-          min-height: 4rem;
-        }
-
-        @media (min-width: ($bp-wqhd)) {
-          min-height: 8rem;
-        }
-      }
-    }
-
-    .hero-top {
-      padding: 0;
-      min-height: 2rem;
-      border-bottom: 1px solid $grey;
-
       @media (min-width: ($bp-medium)) {
-        min-height: 4rem;
+        padding: 8rem;
       }
 
       @media (min-width: ($bp-wqhd)) {
-        min-height: 8rem;
-      }
-    }
-    .hero-bottom {
-      padding: 0;
-      min-height: 2rem;
-      border-top: 1px solid $grey;
-
-      @media (min-width: ($bp-medium)) {
-        min-height: 4rem;
+        padding: 14rem 16rem; // top and bottom have slightly less spacing
       }
 
-      @media (min-width: ($bp-wqhd)) {
-        min-height: 8rem;
-      }
-    }
-
-    .hero-left {
-      padding: 0;
-      max-width: 2rem;
-      border-right: 1px solid $grey;
-
-      @media (min-width: ($bp-medium)) {
-        max-width: 4rem;
+      @media (min-width: ($bp-4k)) {
+        top: 5rem;
       }
 
-      @media (min-width: ($bp-wqhd)) {
-        max-width: 8rem;
-      }
-    }
-    .hero-right {
-      padding: 0;
-      max-width: 2rem;
-      border-left: 1px solid $grey;
-
-      @media (min-width: ($bp-medium)) {
-        max-width: 4rem;
-      }
-
-      @media (min-width: ($bp-wqhd)) {
-        max-width: 8rem;
-      }
-    }
-
-    .hero-content {
-
-      .hero-center {
-        flex-direction: column;
-        padding: 2rem;
-        @media (min-width: ($bp-medium)) {
-          padding: 4rem;
-        }
-
-        @media (min-width: ($bp-wqhd)) {
-          padding: 6rem 8rem;
-        }
-      }
       .hero-content-text-block {
         transform: translateY(100%);
         opacity: 0;
@@ -352,6 +254,48 @@
           font-size: 3.3125rem;
         }
       }
+
+      // before and after for internal border
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 2rem;
+        right: 2rem;
+        bottom: 0;
+        border-left: 1px solid $grey;
+        border-right: 1px solid $grey;
+        @media (min-width: ($bp-medium)) {
+          left: 4rem;
+          right: 4rem;
+        }
+
+        @media (min-width: ($bp-wqhd)) {
+          left: 8rem;
+          right: 8rem;
+        }
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 2rem;
+        left: 0;
+        right: 0;
+        bottom: 2rem;
+        border-top: 1px solid $grey;
+        border-bottom: 1px solid $grey;
+
+        @media (min-width: ($bp-medium)) {
+          top: 4rem;
+          bottom: 4rem;
+        }
+
+        @media (min-width: ($bp-wqhd)) {
+          top: 8rem;
+          bottom: 8rem;
+        }
+      }
     }
 
     .hero-background {
@@ -365,7 +309,12 @@
       transition: transform 500ms ease-out;
       background-color: $black;
 
-      @media (max-width: $bp-large) or ((max-width: $bp-extralarge) and (orientation: portrait)) {
+      @media (min-width: ($bp-4k)) {
+        top: 5rem;
+      }
+
+      // overlay to keep image & text contrast
+      @media (max-width: $bp-extralarge) or ((max-width: $bp-xxl) and (orientation: portrait)) {
         &::after {
           content: '';
           left: 0;
