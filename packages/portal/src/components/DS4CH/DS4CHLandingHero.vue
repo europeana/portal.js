@@ -132,6 +132,7 @@
     height: 100vh;
     min-height: 37rem;
     position: relative;
+    background-color: $black;
 
     @media (min-width: ($bp-small)) {
       min-height: 30rem;
@@ -176,9 +177,6 @@
       }
 
       .hero-content-text-block {
-        transform: translateY(100%);
-        opacity: 0;
-        animation: slide 400ms ease-out 100ms forwards;
         margin-bottom: auto;
         margin-top: auto;
         max-width: 70%;
@@ -188,17 +186,6 @@
         }
         @media (min-width: ($bp-4k)) {
           max-width: 72rem;
-        }
-
-        @keyframes slide {
-          from {
-            opacity: 1;
-            transform: translateY(100%);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
         }
       }
 
