@@ -15,10 +15,11 @@
       v-for="(section, index) in sections"
       :key="index"
     >
-      <ContentCardSection
-        v-if="contentType(section, 'CardGroup')"
-        :section="section"
-      />
+      <b-col v-if="contentType(section, 'CardGroup')">
+        <ContentCardSection
+          :section="section"
+        />
+      </b-col>
       <LandingIllustrationGroup
         v-if="contentType(section, 'IllustrationGroup')"
         :title="section.name"
@@ -32,11 +33,15 @@
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
-      <LandingImageCard
+      <b-container
         v-if="contentType(section, 'ImageCard')"
-        :card="section"
-        :variant="variant"
-      />
+        class="image-card-container"
+      >
+        <LandingImageCard
+          :card="section"
+          :variant="variant"
+        />
+      </b-container>
       <LandingImageCardGroup
         v-if="contentType(section, 'ImageCardGroup')"
         :title="section.name"
@@ -137,6 +142,28 @@
 
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
+    }
+
+    ::v-deep .container {
+      @media (max-width: $bp-small) {
+        padding-right: 2rem;
+        padding-left: 2rem;
+      }
+    }
+  }
+</style>
+
+<!-- Only DS4CH styles after this line! -->
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/style';
+
+  .ds4ch-page {
+    .image-card-container {
+      @media (min-width: $bp-large) {
+        max-width: none;
+        padding-left: 0;
+        padding-right: 0;
+      }
     }
   }
 </style>
