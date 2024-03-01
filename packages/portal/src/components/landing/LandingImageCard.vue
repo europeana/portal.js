@@ -240,7 +240,6 @@
 
       img {
         width: auto;
-        max-width: none;
       }
     }
 
@@ -283,12 +282,14 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
   .ds4ch.image-card {
-    max-width: none;
+    max-width: 100%;
     text-align: center;
+    margin-bottom: 3rem;
 
     @media (min-width: $bp-large) {
       text-align: left;
       align-items: center;
+      margin-bottom: 6rem;
     }
 
     .image-wrapper {
@@ -297,10 +298,16 @@
       }
 
       ::v-deep figure {
-        height: 306px;
+        height: auto;
+        max-height: 306px;
 
         @media (min-width: $bp-medium) {
+          max-height: 367px;
+        }
+
+        @media (min-width: $bp-large) {
           height: 367px;
+          max-height: none;
         }
 
         @media (min-width: $bp-xxl) {
@@ -310,14 +317,28 @@
         @media (min-width: $bp-4k) {
           height: 908px;
         }
+
+        img {
+          width: 100%;
+        }
       }
     }
     .text-wrapper {
       padding-right: 0;
       display: block;
+      padding-bottom: 0;
+
+      @media (min-width: $bp-large) {
+        padding-right: 2rem;
+      }
+
+      @media (min-width: $bp-xxl) {
+        max-width: 625px;
+      }
 
       @media (min-width: $bp-4k) {
         padding-left: 12rem;
+        max-width: 1500px;
       }
 
       .title {

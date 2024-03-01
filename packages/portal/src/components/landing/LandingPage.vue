@@ -11,17 +11,20 @@
       :hero-image="primaryImageOfPage"
       :variant="variant"
     />
-    <div
+    <template
       v-for="(section, index) in sections"
-      :key="index"
     >
-      <b-col v-if="contentType(section, 'CardGroup')">
+      <b-col
+        v-if="contentType(section, 'CardGroup')"
+        :key="index"
+      >
         <ContentCardSection
           :section="section"
         />
       </b-col>
       <LandingIllustrationGroup
         v-if="contentType(section, 'IllustrationGroup')"
+        :key="index"
         :title="section.name"
         :text="section.text"
         :illustrations="section.hasPartCollection && section.hasPartCollection.items"
@@ -29,12 +32,14 @@
       />
       <LandingInfoCardGroup
         v-if="contentType(section, 'InfoCardGroup')"
+        :key="index"
         :title="section.name"
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
       <b-container
         v-if="contentType(section, 'ImageCard')"
+        :key="index"
         class="image-card-container"
       >
         <LandingImageCard
@@ -44,12 +49,14 @@
       </b-container>
       <LandingImageCardGroup
         v-if="contentType(section, 'ImageCardGroup')"
+        :key="index"
         :title="section.name"
         :text="section.text"
         :image-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingSubSection
         v-if="contentType(section, 'LandingSubSection')"
+        :key="index"
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
@@ -57,6 +64,7 @@
       />
       <LandingEmbed
         v-if="contentType(section, 'EmbedSection')"
+        :key="index"
         :english-title="section.nameEN"
         :title="section.name"
         :text="section.text"
@@ -65,13 +73,14 @@
       />
       <LandingCallToAction
         v-if="contentType(section, 'PrimaryCallToAction')"
+        :key="index"
         :title="section.name"
         :text="section.text"
         :link="section.relatedLink"
         :background-image="section.image"
         :variant="variant"
       />
-    </div>
+    </template>
   </div>
 </template>
 
@@ -159,7 +168,21 @@
 
   .ds4ch-page {
     .image-card-container {
+      margin-top: 3rem;
+
       @media (min-width: $bp-large) {
+        margin-top: 6rem;
+      }
+
+      + .image-card-container {
+        margin-top: 0rem;
+
+        @media (min-width: $bp-large) {
+          margin-top: -2rem;
+        }
+      }
+
+      @media (min-width: $bp-large) and (max-width: $bp-xxxl) {
         max-width: none;
         padding-left: 0;
         padding-right: 0;
