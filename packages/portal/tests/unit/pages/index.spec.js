@@ -36,6 +36,15 @@ const factory = ({
 });
 
 describe('IndexPage', () => {
+  it('uses default layout', () => {
+    const $route = { params: { pathMatch: 'about' } };
+    const wrapper = factory({ mocks: { $route } });
+
+    const layout = wrapper.vm.layout({ route: $route });
+
+    expect(layout).toBe('default');
+  });
+
   describe('fetch', () => {
     describe('landing pages', () => {
       const slug = 'share-your-data';
