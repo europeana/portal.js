@@ -90,7 +90,6 @@ query BrowseStaticPage(
 
 }
 fragment imageFields on Asset {
-  title
   url
   contentType
   description

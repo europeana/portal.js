@@ -53,6 +53,8 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import landingPageMixin from '@/mixins/landingPage';
 
+  const ds4chLayout = (route) => landingPageMixin.methods.landingPageIdForRoute(route) === 'ds4ch';
+
   export default {
     name: 'IndexPage',
 
@@ -67,7 +69,7 @@
     mixins: [landingPageMixin, pageMetaMixin],
 
     layout({ route }) {
-      return (landingPageMixin.methods.landingPageIdForRoute(route) === 'ds4ch') ? 'ds4ch' : 'default';
+      return ds4chLayout(route) ? 'ds4ch' : 'default';
     },
 
     props: {
@@ -140,6 +142,9 @@
     created() {
       if (this.landingPageId) {
         this.landingPage = true;
+      }
+      if (ds4chLayout(this.$route)) {
+        this.pageMetaSuffixTitle = null;
       }
     }
   };
