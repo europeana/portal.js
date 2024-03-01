@@ -38,7 +38,7 @@
         :headline="page.headline || page.name"
         :text="page.text"
         :cta="page.relatedLink"
-        :sections="page.hasPartCollection.items.filter((item) => !!item)"
+        :sections="page.hasPartCollection?.items.filter((item) => !!item)"
         :primary-image-of-page="page.primaryImageOfPage"
       />
     </template>
@@ -51,6 +51,9 @@
   import StaticPage from '@/components/static/StaticPage';
   import LandingPage from '@/components/landing/LandingPage';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import landingPageMixin from '@/mixins/landingPage';
+
+  const ds4chLayout = (route) => landingPageMixin.methods.landingPageIdForRoute(route) === 'ds4ch';
 
   export default {
     name: 'IndexPage',
@@ -63,7 +66,11 @@
       StaticPage
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [landingPageMixin, pageMetaMixin],
+
+    layout({ route }) {
+      return ds4chLayout(route) ? 'ds4ch' : 'default';
+    },
 
     props: {
       slug: {
@@ -83,13 +90,15 @@
     },
 
     async fetch() {
+      const ctfQuery = this.landingPage ? 'landingPage' : 'browseStaticPage';
+
       const variables = {
         identifier: this.identifier,
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview'
       };
 
-      const response = await this.$contentful.query('browseLandingStaticPage', variables);
+      const response = await this.$contentful.query(ctfQuery, variables);
       const data = response.data.data;
       if ((data.staticPageCollection?.items?.length || 0) > 0) {
         this.page = data.staticPageCollection.items[0];
@@ -99,7 +108,6 @@
         this.browsePage = true;
       } else if ((data.landingPageCollection?.items?.length || 0) > 0) {
         this.page = data.landingPageCollection.items[0];
-        this.landingPage = true;
       } else {
         this.$error(404, { scope: 'page' });
       }
@@ -128,6 +136,16 @@
       },
       socialMediaImageAlt() {
         return this.socialMediaImage?.description || '';
+      }
+    },
+
+    created() {
+      if (this.landingPageId) {
+        this.landingPage = true;
+      }
+
+      if (ds4chLayout(this.$route)) {
+        this.pageMetaSuffixTitle = null;
       }
     }
   };

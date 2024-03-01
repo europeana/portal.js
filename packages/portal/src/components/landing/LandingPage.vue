@@ -67,6 +67,7 @@
 
 <script>
   import LandingHero from '@/components/landing/LandingHero';
+  import landingPageMixin from '@/mixins/landingPage.js';
   import contentfulMixin from '@/mixins/contentful.js';
 
   export default {
@@ -83,7 +84,10 @@
       LandingEmbed: () => import('@/components/landing/LandingEmbed')
     },
 
-    mixins: [contentfulMixin],
+    mixins: [
+      contentfulMixin,
+      landingPageMixin
+    ],
 
     props: {
       headline: {
@@ -105,14 +109,22 @@
       primaryImageOfPage: {
         type: Object,
         default: null
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
+      }
+    },
+
+    data() {
+      return {
+        /**
+         * Variant to define layout and style
+         * @values pro, ds4ch
+         */
+        variant: 'pro'
+      };
+    },
+
+    created() {
+      if (this.landingPageId === 'ds4ch') {
+        this.variant = 'ds4ch';
       }
     }
   };
@@ -128,6 +140,22 @@
 
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
+    }
+  }
+</style>
+
+<style lang="scss">
+  @import '@europeana/style/scss/DS4CH/variables';
+
+  .ds4ch-page {
+    margin-top: -4.375rem;
+
+    @media (min-width: ($bp-4k)) {
+      margin-top: -6.5625rem;
+    }
+
+    &:after {
+      content: none;
     }
   }
 </style>
