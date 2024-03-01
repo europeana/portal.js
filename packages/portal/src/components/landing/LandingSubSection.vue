@@ -28,6 +28,7 @@
           v-if="contentType(section, 'ImageCard')"
           :card="section"
           :variant="variant"
+          title-tag="h3"
         />
         <LandingAutomatedCardGroup
           v-if="contentType(section, 'AutomatedCardGroup')"

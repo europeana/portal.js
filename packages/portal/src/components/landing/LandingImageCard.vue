@@ -1,7 +1,7 @@
 <template>
   <div
     ref="imagecard"
-    class="image-card d-lg-flex"
+    class="image-card d-lg-flex justify-content-center"
     :class="[variant, `image-card-${imageCardIndex}`]"
   >
     <div
@@ -22,9 +22,12 @@
       />
     </div>
     <div class="text-wrapper">
-      <h3 class="title">
+      <component
+        :is="titleTag"
+        class="title"
+      >
         {{ card.name }}
-      </h3>
+      </component>
       <!-- eslint-disable vue/no-v-html -->
       <div
         class="text"
@@ -113,6 +116,13 @@
       variant: {
         type: String,
         default: 'pro'
+      },
+      /**
+       * Heading title level to use. Override default for when used in subsection to keep correct heading structure.
+       */
+      titleTag: {
+        type: String,
+        default: 'h2'
       }
     },
 
@@ -253,7 +263,7 @@
       }
     }
 
-    .title {
+    h3.title {
       font-family: $font-family-ubuntu;
       font-size: $font-size-medium;
       font-weight: 500;
@@ -285,6 +295,8 @@
     max-width: 100%;
     text-align: center;
     margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
 
     @media (min-width: $bp-large) {
       text-align: left;
@@ -297,26 +309,17 @@
         max-width: none;
       }
 
+      @media (min-width: $bp-xxl) {
+        flex-basis: 625px;
+      }
+
+      @media (min-width: $bp-4k) {
+        flex-basis: 1500px;
+      }
+
       ::v-deep figure {
-        height: auto;
-        max-height: 306px;
-
-        @media (min-width: $bp-medium) {
-          max-height: 367px;
-        }
-
-        @media (min-width: $bp-large) {
-          height: 367px;
-          max-height: none;
-        }
-
-        @media (min-width: $bp-xxl) {
-          height: 436px;
-        }
-
-        @media (min-width: $bp-4k) {
-          height: 908px;
-        }
+        height: 100%;
+        aspect-ratio: 3 / 2;
 
         img {
           width: 100%;
@@ -333,12 +336,12 @@
       }
 
       @media (min-width: $bp-xxl) {
-        max-width: 625px;
+        flex-basis: 625px;
       }
 
       @media (min-width: $bp-4k) {
         padding-left: 12rem;
-        max-width: 1500px;
+        flex-basis: 1500px;
       }
 
       .title {
@@ -347,6 +350,10 @@
         @media (min-width: $bp-large) {
           text-align: left;
         }
+      }
+
+      h2.title {
+        @extend %title-2;
       }
 
       h3.title {
@@ -367,15 +374,6 @@
 
         @media (min-width: $bp-4k) {
           margin-top: 3rem;
-        }
-      }
-    }
-
-    &.image-card-3 {
-      ::v-deep figure {
-        height: auto;
-        img {
-          width: 100%;
         }
       }
     }
