@@ -16,37 +16,37 @@
       :key="index"
     >
       <ContentCardSection
-        v-if="contentType(section, 'CardGroup')"
+        v-if="contentfulEntryHasContentType(section, 'CardGroup')"
         :section="section"
       />
       <LandingIllustrationGroup
-        v-if="contentType(section, 'IllustrationGroup')"
+        v-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
         :title="section.name"
         :text="section.text"
         :illustrations="section.hasPartCollection && section.hasPartCollection.items"
         :variant="variant"
       />
       <LandingInfoCardGroup
-        v-if="contentType(section, 'InfoCardGroup')"
+        v-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
         :title="section.name"
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingImageCardGroup
-        v-if="contentType(section, 'ImageCardGroup')"
+        v-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
         :title="section.name"
         :text="section.text"
         :image-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingSubSection
-        v-if="contentType(section, 'LandingSubSection')"
+        v-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
         :variant="variant"
       />
       <LandingEmbed
-        v-if="contentType(section, 'EmbedSection')"
+        v-if="contentfulEntryHasContentType(section, 'EmbedSection')"
         :english-title="section.nameEN"
         :title="section.name"
         :text="section.text"
@@ -54,7 +54,7 @@
         :embed="section.embed"
       />
       <LandingCallToAction
-        v-if="contentType(section, 'PrimaryCallToAction')"
+        v-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
         :title="section.name"
         :text="section.text"
         :link="section.relatedLink"
@@ -67,7 +67,8 @@
 
 <script>
   import LandingHero from '@/components/landing/LandingHero';
-  import landingPageMixin from '@/mixins/landingPage';
+  import landingPageMixin from '@/mixins/landingPage.js';
+  import contentfulMixin from '@/mixins/contentful.js';
 
   export default {
     name: 'LandingPage',
@@ -84,6 +85,7 @@
     },
 
     mixins: [
+      contentfulMixin,
       landingPageMixin
     ],
 
@@ -123,12 +125,6 @@
     created() {
       if (this.landingPageId === 'ds4ch') {
         this.variant = 'ds4ch';
-      }
-    },
-
-    methods: {
-      contentType(section, typeName) {
-        return section && (section['__typename'] === typeName);
       }
     }
   };
