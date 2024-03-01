@@ -7,6 +7,9 @@ const localVue = createLocalVue();
 const factory = (propsData) => shallowMount(LandingPage, {
   localVue,
   propsData,
+  mocks: {
+    $route: { params: {} }
+  },
   stubs: ['b-container', 'b-col']
 });
 

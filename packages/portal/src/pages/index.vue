@@ -38,7 +38,7 @@
         :headline="page.headline || page.name"
         :text="page.text"
         :cta="page.relatedLink"
-        :sections="page.hasPartCollection.items.filter((item) => !!item)"
+        :sections="page.hasPartCollection?.items.filter((item) => !!item)"
         :primary-image-of-page="page.primaryImageOfPage"
       />
     </template>
@@ -51,6 +51,7 @@
   import StaticPage from '@/components/static/StaticPage';
   import LandingPage from '@/components/landing/LandingPage';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import landingPageMixin from '@/mixins/landingPage';
 
   export default {
     name: 'IndexPage',
@@ -63,17 +64,17 @@
       StaticPage
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [landingPageMixin, pageMetaMixin],
+
+    layout({ route }) {
+      return (landingPageMixin.methods.landingPageIdForRoute(route) === 'ds4ch') ? 'ds4ch' : 'default';
+    },
 
     props: {
       slug: {
         type: String,
         default: null
       }
-    },
-
-    layout({ route }) {
-      return (route.params.pathMatch === 'microsite/DS4CH.eu') ? 'ds4ch' : 'default';
     },
 
     data() {
@@ -87,12 +88,7 @@
     },
 
     async fetch() {
-      let ctfQuery = 'browseStaticPage';
-      const landingPages = ['share-your-data', 'microsite/DS4CH.eu'];
-      if (landingPages.includes(this.identifier)) {
-        this.landingPage = true;
-        ctfQuery = 'landingPage';
-      }
+      const ctfQuery = this.landingPage ? 'landingPage' : 'browseStaticPage';
 
       const variables = {
         identifier: this.identifier,
@@ -110,7 +106,6 @@
         this.browsePage = true;
       } else if ((data.landingPageCollection?.items?.length || 0) > 0) {
         this.page = data.landingPageCollection.items[0];
-        this.landingPage = true;
       } else {
         this.$error(404, { scope: 'page' });
       }
@@ -139,6 +134,12 @@
       },
       socialMediaImageAlt() {
         return this.socialMediaImage?.description || '';
+      }
+    },
+
+    created() {
+      if (this.landingPageId) {
+        this.landingPage = true;
       }
     }
   };

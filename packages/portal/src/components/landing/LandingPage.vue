@@ -67,6 +67,7 @@
 
 <script>
   import LandingHero from '@/components/landing/LandingHero';
+  import landingPageMixin from '@/mixins/landingPage';
 
   export default {
     name: 'LandingPage',
@@ -81,6 +82,10 @@
       LandingSubSection: () => import('@/components/landing/LandingSubSection'),
       LandingEmbed: () => import('@/components/landing/LandingEmbed')
     },
+
+    mixins: [
+      landingPageMixin
+    ],
 
     props: {
       headline: {
@@ -102,14 +107,22 @@
       primaryImageOfPage: {
         type: Object,
         default: null
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
+      }
+    },
+
+    data() {
+      return {
+        /**
+         * Variant to define layout and style
+         * @values pro, ds4ch
+         */
+        variant: 'pro'
+      };
+    },
+
+    created() {
+      if (this.landingPageId === 'ds4ch') {
+        this.variant = 'ds4ch';
       }
     },
 

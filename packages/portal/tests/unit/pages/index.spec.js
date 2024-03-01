@@ -36,65 +36,88 @@ const factory = ({
 
 describe('IndexPage', () => {
   describe('fetch', () => {
-    it('fetches the content from Contentful', async() => {
-      const slug = 'about-us';
-      const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [{}] } } } },
-        $route: { params: { pathMatch: slug }, query: {} }
-      });
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.$contentful.query.calledWith('browseLandingStaticPage', {
-        identifier: slug,
-        locale: 'en-GB',
-        preview: false
-      })).toBe(true);
-    });
-
-    it('detects and stores static page content', async() => {
-      const page = { name: 'About us' };
-      const slug = 'about-us';
-      const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [page] } } } },
-        $route: { params: { pathMatch: slug }, query: {} }
-      });
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.staticPage).toBe(true);
-      expect(wrapper.vm.browsePage).toBe(false);
-      expect(wrapper.vm.page).toEqual(page);
-    });
-
-    it('detects and stores browse page content', async() => {
-      const page = { name: 'Collections' };
-      const slug = 'collections';
-      const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [page] } } } },
-        $route: { params: { pathMatch: slug }, query: {} }
-      });
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.browsePage).toBe(true);
-      expect(wrapper.vm.staticPage).toBe(false);
-      expect(wrapper.vm.page).toEqual(page);
-    });
-
-    it('detects and stores landing page content', async() => {
-      const page = { name: 'Share your data' };
+    describe('landing pages', () => {
       const slug = 'share-your-data';
-      const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { landingPageCollection: { items: [page] } } } },
-        $route: { params: { pathMatch: slug }, query: {} }
+      const page = { name: 'Share your data' };
+      const contentfulQueryResponse = { data: { data: { landingPageCollection: { items: [page] } } } };
+      const $route = { params: { pathMatch: slug }, query: {} };
+
+      it('fetches the content from Contentful', async() => {
+        const wrapper = factory({
+          contentfulQueryResponse,
+          $route
+        });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('landingPage', {
+          identifier: slug,
+          locale: 'en-GB',
+          preview: false
+        })).toBe(true);
       });
 
-      await wrapper.vm.fetch();
+      it('detects and stores landing page content', async() => {
+        const wrapper = factory({
+          contentfulQueryResponse,
+          $route
+        });
 
-      expect(wrapper.vm.landingPage).toBe(true);
-      expect(wrapper.vm.staticPage).toBe(false);
-      expect(wrapper.vm.page).toEqual(page);
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.landingPage).toBe(true);
+        expect(wrapper.vm.staticPage).toBe(false);
+        expect(wrapper.vm.browsePage).toBe(false);
+        expect(wrapper.vm.page).toEqual(page);
+      });
+    });
+
+    describe('browse and static pages', () => {
+      it('fetches the content from Contentful', async() => {
+        const slug = 'about-us';
+        const wrapper = factory({
+          contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [{}] } } } },
+          $route: { params: { pathMatch: slug }, query: {} }
+        });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('browseStaticPage', {
+          identifier: slug,
+          locale: 'en-GB',
+          preview: false
+        })).toBe(true);
+      });
+
+      it('detects and stores static page content', async() => {
+        const page = { name: 'About us' };
+        const slug = 'about-us';
+        const wrapper = factory({
+          contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [page] } } } },
+          $route: { params: { pathMatch: slug }, query: {} }
+        });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.staticPage).toBe(true);
+        expect(wrapper.vm.browsePage).toBe(false);
+        expect(wrapper.vm.page).toEqual(page);
+      });
+
+      it('detects and stores browse page content', async() => {
+        const page = { name: 'Collections' };
+        const slug = 'collections';
+        const wrapper = factory({
+          contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [page] } } } },
+          $route: { params: { pathMatch: slug }, query: {} }
+        });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.browsePage).toBe(true);
+        expect(wrapper.vm.staticPage).toBe(false);
+        expect(wrapper.vm.page).toEqual(page);
+      });
     });
 
     it('detects no static, landing or browse page and throws 404', async() => {
