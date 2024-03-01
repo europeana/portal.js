@@ -12,7 +12,7 @@ const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
 const primaryImageUrl = 'https://example.org/primary-image.jpg';
 
 const factory = ({
-  $route = { params: {} }, data = {}, contentfulQueryResponse = { data: { data: {} } }
+  mocks = {}, $route = { params: {} }, data = {}, contentfulQueryResponse = { data: { data: {} } }
 } = {}) => shallowMountNuxt(page, {
   localVue,
   data() {
@@ -30,7 +30,8 @@ const factory = ({
     $i18n: { isoLocale: () => 'en-GB' },
     $error: sinon.spy(),
     $route,
-    $t: key => key
+    $t: key => key,
+    ...mocks
   }
 });
 
@@ -199,6 +200,26 @@ describe('IndexPage', () => {
       const pageMeta = wrapper.vm.pageMeta;
 
       expect(pageMeta.ogImage).toBeNull();
+    });
+  });
+
+  describe('when route is for DS4CH page', () => {
+    const $route = { params: { pathMatch: 'microsite/DS4CH.eu' } };
+
+    it('uses ds4ch layout', () => {
+      const wrapper = factory({ mocks: { $route } });
+
+      const layout = wrapper.vm.layout({ route: $route });
+
+      expect(layout).toBe('ds4ch');
+    });
+
+    it('sets pageMetaSuffixTitle to null', () => {
+      const wrapper = factory({ mocks: { $route } });
+
+      const pageMetaSuffixTitle = wrapper.vm.pageMetaSuffixTitle;
+
+      expect(pageMetaSuffixTitle).toBeNull();
     });
   });
 });

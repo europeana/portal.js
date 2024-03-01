@@ -143,7 +143,9 @@
       if (this.landingPageId) {
         this.landingPage = true;
       }
+      console.log('pages/index created');
       if (ds4chLayout(this.$route)) {
+        console.log('pages/index ds4ch layout');
         this.pageMetaSuffixTitle = null;
       }
     }
