@@ -1,7 +1,7 @@
 <template>
   <b-badge
-    :to="$link.to(linkTo)"
-    :href="$link.href(linkTo)"
+    :to="linkToRoute(linkTo)"
+    :href="linkHrefUrl(linkTo)"
     pill
     :variant="badgeVariant"
     :class="{ 'img-chip': imageUrl }"
@@ -34,9 +34,12 @@
 
 <script>
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import linkMixin from '@/mixins/link.js';
 
   export default {
     name: 'LinkBadge',
+
+    mixins: [linkMixin],
 
     props: {
       linkTo: {

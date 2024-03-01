@@ -294,7 +294,6 @@ export default {
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/error',
-    '~/plugins/link',
     '~/plugins/axios.server',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',

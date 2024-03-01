@@ -28,7 +28,7 @@
 </template>
 
 <script>
-// TODO: refactor to use $link.to and $link.href
+  // TODO: refactor to use link mixin?
 
   export default {
     props: {
