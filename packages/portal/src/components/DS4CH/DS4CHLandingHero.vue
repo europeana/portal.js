@@ -1,7 +1,6 @@
 <template>
   <div class="landing-hero">
     <div
-      ref="heroBackground"
       class="hero-background responsive-backround-image"
       :style="imageCSSVars"
     />
@@ -32,7 +31,6 @@
         </h1>
         <img
           :src="europeanaLogoSrc"
-          class="logo-white"
         >
       </div>
     </b-container>
@@ -86,8 +84,8 @@
         default: null
       },
       /**
-       * Image used as a partial background with attribution.
-       * Gets a blue overlay
+       * Image used as background
+       * Gets a black overlay (medium portrait)
        */
       heroImage: {
         type: Object,
@@ -165,6 +163,7 @@
       padding: 4rem;
       max-width: 100%;
       flex-direction: column;
+
       @media (min-width: ($bp-medium)) {
         padding: 8rem;
       }
@@ -178,6 +177,10 @@
         margin: -5rem 0 0 0;
       }
 
+      header {
+        position: relative;
+        z-index: 10;
+      }
       .hero-content-text-block {
         margin-bottom: auto;
         margin-top: auto;
@@ -198,7 +201,6 @@
         font-size: $font-size-extrasmall;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.6px;
         margin-bottom: 1rem;
 
         @media (min-width: ($bp-medium)) {
@@ -217,12 +219,10 @@
           font-size: $font-size-large;
           font-weight: 700;
           text-transform: none;
-          letter-spacing: -0.48px;
 
           @media (min-width: ($bp-medium)) {
             font-size: 2.25rem;
             line-height: 1.2;
-            letter-spacing: normal;
           }
 
           @media (min-width: $bp-4k) {
@@ -295,7 +295,6 @@
       position: absolute;
       background-size: cover;
       background-repeat: no-repeat;
-      transition: transform 500ms ease-out;
       background-color: $black;
 
       // overlay to keep image & text contrast
