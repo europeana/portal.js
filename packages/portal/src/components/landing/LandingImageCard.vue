@@ -2,7 +2,7 @@
   <div
     ref="imagecard"
     class="image-card d-lg-flex justify-content-center"
-    :class="[variant, `image-card-${imageCardIndex}`]"
+    :class="[variant, ...cardClasses]"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+  import kebabCase from 'lodash/kebabCase.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
@@ -70,14 +71,14 @@
   ].join(',');
 
   const SRCSET_PRESETS_DS4CH = {
-    small: { w: 512, fit: 'fill' },
-    medium: { w: 510, fit: 'fill' },
-    large: { w: 690, fit: 'fill' },
-    xl: { w: 600, fit: 'fill' },
-    xxl: { w: 700, fit: 'fill' },
-    xxxl: { w: 940, fit: 'fill' },
-    wqhd: { w: 1500, fit: 'fill' },
-    '4k': { w: 1500, fit: 'fill' }
+    small: { w: 512, h: 342, fit: 'fill' },
+    medium: { w: 510, h: 340, fit: 'fill' },
+    large: { w: 690, h: 460, fit: 'fill' },
+    xl: { w: 600, h: 400, fit: 'fill' },
+    xxl: { w: 700, h: 467, fit: 'fill' },
+    xxxl: { w: 940, h: 627, fit: 'fill' },
+    wqhd: { w: 1500, h: 1000, fit: 'fill' },
+    '4k': { w: 1500, h: 1000, fit: 'fill' }
   };
 
   const SIZES_PRESETS_DS4CH = [
@@ -126,13 +127,10 @@
       }
     },
 
-    data() {
-      return {
-        imageCardIndex: -1
-      };
-    },
-
     computed: {
+      cardClasses() {
+        return this.card.contentfulMetadata?.tags?.map(tag => kebabCase(tag.id));
+      },
       cardImageWithAttribution() {
         return this.card.image;
       },
@@ -152,12 +150,6 @@
         } else {
           return SRCSET_PRESETS;
         }
-      }
-    },
-
-    mounted() {
-      if (this.variant === 'ds4ch') {
-        this.imageCardIndex = [...document.querySelectorAll('.image-card')].indexOf(this.$refs?.imagecard);
       }
     },
 
@@ -185,7 +177,8 @@
       max-width: 1250px;
       margin-bottom: 8rem;
 
-      &:nth-child(even) {
+      &:nth-child(even),
+      &.image-position-right {
         .text-wrapper {
           order: -1;
           padding-right: 3.625rem;
@@ -320,10 +313,6 @@
       ::v-deep figure {
         height: 100%;
         aspect-ratio: 3 / 2;
-
-        img {
-          width: 100%;
-        }
       }
     }
     .text-wrapper {

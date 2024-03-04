@@ -214,4 +214,9 @@ fragment imageCardFields on ImageCard {
     text
     url
   }
+  contentfulMetadata {
+    tags {
+      id
+    }
+  }
 }
