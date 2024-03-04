@@ -147,7 +147,8 @@
 <docs lang="md">
   ```jsx
   import '@europeana/style/scss/DS4CH/style.scss';
-
-  <DS4CHPageHeader style="position: relative;"/>
+  <div class="ds4ch-layout">
+    <DS4CHPageHeader style="position: relative;"/>
+  </div>
   ```
 </docs>

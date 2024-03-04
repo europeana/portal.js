@@ -19,7 +19,7 @@
         <SmartLink
           v-if="cta"
           :destination="cta.url"
-          class="btn btn-cta btn-primary d-inline-flex align-items-center mt-1 mt-md-4 mb-0"
+          class="btn btn-primary d-inline-flex align-items-center mt-1 mt-md-4 mb-0"
         >
           {{ cta.text }}
         </SmartLink>
@@ -56,7 +56,7 @@
   };
 
   export default {
-    name: 'LandingHero',
+    name: 'DS4CHLandingHero',
 
     components: {
       SmartLink
@@ -321,23 +321,28 @@
 
 <docs lang="md">
 ```jsx
+  import '@europeana/style/scss/DS4CH/style.scss';
+
+  <div class="ds4ch-layout">
     <DS4CHLandingHero
-    headline="This is an example of <em>a DS4CH hero</em>"
-    text="A description what this page is all about"
-    :hero-image="{
-        creator: 'Europeana Foundation',
-        license: 'https://creativecommons.org/publicdomain/zero/1.0',
-        name: 'Image landing page',
-        provider: null,
-        url: null,
-        image: {
-        contentType: 'image/jpeg',
-        description: null,
-        height: 2694,
-        url: 'https://images.ctfassets.net/i01duvb6kq77/1trzaYGwJsR79hW38lMpJO/465bdac6bb52df2f574c50dacdc74ef8/slantedimagecover_v1.jpg',
-        width: 4320
-        }
-    }"
+      :cta="{ url: '/', text: 'Call to action' }"
+      headline="This is an example of <em>a DS4CH hero</em>"
+      text="A description what this page is all about"
+      :hero-image="{
+          creator: 'Europeana Foundation',
+          license: 'https://creativecommons.org/publicdomain/zero/1.0',
+          name: 'Image landing page',
+          provider: null,
+          url: null,
+          image: {
+          contentType: 'image/jpeg',
+          description: null,
+          height: 2694,
+          url: 'https://images.ctfassets.net/i01duvb6kq77/1trzaYGwJsR79hW38lMpJO/465bdac6bb52df2f574c50dacdc74ef8/slantedimagecover_v1.jpg',
+          width: 4320
+          }
+      }"
     />
+  </div>
 ```
 </docs>
