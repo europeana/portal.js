@@ -37,16 +37,19 @@
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
-      <b-container
+      <div
         v-if="contentfulEntryHasContentType(section, 'ImageCard')"
         :key="index"
-        class="image-card-container"
+        class="image-card-container-wrapper"
+        :class="getClasses(section)"
       >
-        <LandingImageCard
-          :card="section"
-          :variant="variant"
-        />
-      </b-container>
+        <b-container class="image-card-container">
+          <LandingImageCard
+            :card="section"
+            :variant="variant"
+          />
+        </b-container>
+      </div>
       <LandingImageCardGroup
         v-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
         :key="index"
@@ -85,6 +88,7 @@
 </template>
 
 <script>
+  import kebabCase from 'lodash/kebabCase.js';
   import LandingHero from '@/components/landing/LandingHero';
   import landingPageMixin from '@/mixins/landingPage.js';
   import contentfulMixin from '@/mixins/contentful.js';
@@ -146,6 +150,12 @@
       if (this.landingPageId === 'ds4ch') {
         this.variant = 'ds4ch';
       }
+    },
+
+    methods: {
+      getClasses(section) {
+        return section.contentfulMetadata?.tags?.map(tag => kebabCase(tag.id));
+      }
     }
   };
 </script>
@@ -168,6 +178,10 @@
         padding-left: 2rem;
       }
     }
+
+    .background-grey {
+      background-color: $bodygrey;
+    }
   }
 </style>
 
@@ -182,8 +196,10 @@
         padding-left: 0;
         padding-right: 0;
       }
+    }
+    .image-card-container-wrapper {
 
-      + .image-card-container {
+      + .image-card-container-wrapper {
         margin-top: -4rem;
 
         @media (min-width: $bp-large) {

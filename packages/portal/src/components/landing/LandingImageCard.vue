@@ -129,7 +129,7 @@
 
     computed: {
       cardClasses() {
-        return this.card.contentfulMetadata?.tags?.map(tag => kebabCase(tag.id));
+        return this.card.contentfulMetadata?.tags?.map(tag => kebabCase(tag.id)) || [];
       },
       cardImageWithAttribution() {
         return this.card.image;
@@ -195,14 +195,6 @@
       max-width: calc(1.5 * 1250px);
     }
 
-    &.background-grey {
-      background-color: $bodygrey;
-
-      .text-wrapper {
-        background-color: $bodygrey;
-      }
-    }
-
     .image-wrapper {
       margin-bottom: 1rem;
 
@@ -233,6 +225,14 @@
 
       @media (min-width: $bp-4k) {
         padding-bottom: 3rem;
+      }
+    }
+
+    &.background-grey {
+      background-color: $bodygrey;
+
+      .text-wrapper {
+        background-color: $bodygrey;
       }
     }
 
@@ -327,8 +327,8 @@
       }
 
       ::v-deep figure {
-        height: 100%;
-        aspect-ratio: 3 / 2;
+        width: auto;
+        height: auto;
       }
     }
     .text-wrapper {
