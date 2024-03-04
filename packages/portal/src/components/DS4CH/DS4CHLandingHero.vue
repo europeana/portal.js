@@ -127,7 +127,7 @@
 
   .landing-hero {
     overflow: hidden;
-    height: calc(100vh - 3.5rem);
+    height: 100vh;
     min-height: 37rem;
     position: relative;
     background-color: $black;
@@ -150,7 +150,6 @@
 
     @media (min-width: ($bp-4k)) {
       min-height: 78rem;
-      height: calc(100vh - 5rem);
     }
 
     .hero-content {
@@ -160,7 +159,7 @@
       bottom: 0;
       position: absolute;
       margin: -3.5rem 0 0 0;
-      padding: 4rem;
+      padding: 7.5rem 4rem 4rem;
       max-width: 100%;
       flex-direction: column;
 
@@ -179,12 +178,15 @@
 
       header {
         position: relative;
-        z-index: 10;
+        z-index: 1;
       }
       .hero-content-text-block {
         margin-bottom: auto;
         margin-top: auto;
-        max-width: 70%;
+
+        @media (min-width: ($bp-small)) {
+          max-width: 70%;
+        }
 
         @media (min-width: ($bp-large)) {
           max-width: 36rem;
@@ -268,7 +270,7 @@
       &::after {
         content: '';
         position: absolute;
-        top: 2rem;
+        top: 5.5rem;
         left: 0;
         right: 0;
         bottom: 2rem;
@@ -276,12 +278,12 @@
         border-bottom: 1px solid $grey;
 
         @media (min-width: ($bp-medium)) {
-          top: 4rem;
+          top: 7.5rem;
           bottom: 4rem;
         }
 
         @media (min-width: ($bp-wqhd)) {
-          top: 8rem;
+          top: 11.5rem;
           bottom: 8rem;
         }
       }

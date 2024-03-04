@@ -155,12 +155,8 @@
 <style lang="scss">
   @import '@europeana/style/scss/DS4CH/variables';
 
-  .ds4ch-page {
-    margin-top: -4.375rem;
-
-    @media (min-width: ($bp-4k)) {
-      margin-top: -6.5625rem;
-    }
+  .page.ds4ch-page {
+    margin-top: 0;
 
     &:after {
       content: none;
