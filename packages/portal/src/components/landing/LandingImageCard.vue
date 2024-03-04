@@ -195,6 +195,14 @@
       max-width: calc(1.5 * 1250px);
     }
 
+    &.background-grey {
+      background-color: $bodygrey;
+
+      .text-wrapper {
+        background-color: $bodygrey;
+      }
+    }
+
     .image-wrapper {
       margin-bottom: 1rem;
 
@@ -287,14 +295,22 @@
   .ds4ch.image-card {
     max-width: 100%;
     text-align: center;
-    margin-bottom: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-bottom: 0;
     margin-left: auto;
     margin-right: auto;
 
     @media (min-width: $bp-large) {
       text-align: left;
       align-items: center;
-      margin-bottom: 6rem;
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      padding-top: 15rem;
+      padding-bottom: 15rem;
     }
 
     .image-wrapper {
@@ -329,6 +345,7 @@
       }
 
       @media (min-width: $bp-4k) {
+        padding-right: 4rem;
         padding-left: 12rem;
         flex-basis: 1500px;
       }

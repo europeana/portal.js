@@ -177,24 +177,22 @@
 
   .ds4ch-page {
     .image-card-container {
-      margin-top: 3rem;
-
       @media (min-width: $bp-large) {
-        margin-top: 6rem;
-      }
-
-      + .image-card-container {
-        margin-top: 0rem;
-
-        @media (min-width: $bp-large) {
-          margin-top: -2rem;
-        }
-      }
-
-      @media (min-width: $bp-large) and (max-width: $bp-xxxl) {
         max-width: none;
         padding-left: 0;
         padding-right: 0;
+      }
+
+      + .image-card-container {
+        margin-top: -4rem;
+
+        @media (min-width: $bp-large) {
+          margin-top: -8rem;
+        }
+
+        @media (min-width: $bp-4k) {
+          margin-top: -20rem;
+        }
       }
     }
   }
