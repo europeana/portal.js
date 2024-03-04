@@ -22,10 +22,11 @@
       v-for="(section, index) in sections"
       :key="index"
     >
-      <ContentCardSection
-        v-if="contentfulEntryHasContentType(section, 'CardGroup')"
-        :section="section"
-      />
+      <b-col v-if="contentfulEntryHasContentType(section, 'CardGroup')">
+        <ContentCardSection
+          :section="section"
+        />
+      </b-col>
       <LandingIllustrationGroup
         v-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
         :title="section.name"
