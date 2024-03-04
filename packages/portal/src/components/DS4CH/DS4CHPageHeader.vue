@@ -4,7 +4,6 @@
     v-visible-on-scroll
     class="page-header show xxl-page"
     role="banner"
-    :aria-label="$t('ds4ch.title')"
     data-qa="header"
   >
     <b-navbar

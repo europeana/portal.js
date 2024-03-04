@@ -223,8 +223,7 @@ export default {
         "explore": "Explore the data",
         "partners": "Partners"
       }
-    },
-    "title": "Common European data space for cultural heritage"
+    }
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
