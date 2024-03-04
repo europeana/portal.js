@@ -299,7 +299,7 @@
       background-color: $black;
 
       // overlay to keep image & text contrast
-      @media (max-width: $bp-extralarge) or ((max-width: $bp-xxl) and (orientation: portrait)) {
+      @media (max-width: $bp-extralarge) {
         &::after {
           content: '';
           left: 0;
