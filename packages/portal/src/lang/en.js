@@ -293,6 +293,7 @@ export default {
       "title": "We can't seem to find what you are looking for."
     }
   },
+  "europeana": "Europeana",
   "exhibitions": {
     "chapters": "Chapters",
     "credits": "Credits",

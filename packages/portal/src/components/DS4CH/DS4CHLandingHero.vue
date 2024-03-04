@@ -3,6 +3,8 @@
     <div
       class="hero-background responsive-backround-image"
       :style="imageCSSVars"
+      role="img"
+      :aria-label="heroImage.image.description"
     />
     <b-container
       class="hero-content d-flex"
@@ -31,6 +33,7 @@
         </h1>
         <img
           :src="europeanaLogoSrc"
+          :alt="$t('europeana')"
         >
       </div>
     </b-container>
@@ -307,7 +310,7 @@
           top: 0;
           right: 0;
           bottom: 0;
-          background-image: linear-gradient(0deg, rgba(25, 24, 23, 0.6), rgba(25, 24, 23, 0.6));
+          background-image: linear-gradient(0deg, rgba(25, 24, 23, 0.8), rgba(25, 24, 23, 0.8));
           mix-blend-mode: multiply;
           position: absolute;
         }
