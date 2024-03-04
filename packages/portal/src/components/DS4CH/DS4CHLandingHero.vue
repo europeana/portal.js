@@ -129,7 +129,7 @@
 
   .landing-hero {
     overflow: hidden;
-    height: 100vh;
+    height: calc(100vh - 3.5rem);
     min-height: 37rem;
     position: relative;
     background-color: $black;
@@ -152,6 +152,7 @@
 
     @media (min-width: ($bp-4k)) {
       min-height: 78rem;
+      height: calc(100vh - 5rem);
     }
 
     .hero-content {
@@ -160,7 +161,7 @@
       right: 0;
       bottom: 0;
       position: absolute;
-      margin: 0;
+      margin: -3.5rem 0 0 0;
       padding: 4rem;
       max-width: 100%;
       flex-direction: column;
@@ -174,6 +175,7 @@
 
       @media (min-width: ($bp-4k)) {
         top: 5rem;
+        margin: -5rem 0 0 0;
       }
 
       .hero-content-text-block {
@@ -287,7 +289,7 @@
 
     .hero-background {
       left: 0;
-      top: 3.5rem;
+      top: 0;
       right: 0;
       bottom: 0;
       position: absolute;
@@ -295,10 +297,6 @@
       background-repeat: no-repeat;
       transition: transform 500ms ease-out;
       background-color: $black;
-
-      @media (min-width: ($bp-4k)) {
-        top: 5rem;
-      }
 
       // overlay to keep image & text contrast
       @media (max-width: $bp-extralarge) or ((max-width: $bp-xxl) and (orientation: portrait)) {
