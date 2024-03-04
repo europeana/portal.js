@@ -5,9 +5,6 @@ const CONTENTFUL_IMAGES_PARAMS_FM_JPEG = 'jpg';
 const MEDIA_TYPE_JPEG = 'image/jpeg';
 const MEDIA_TYPE_SVG = 'image/svg+xml';
 const MEDIA_TYPE_WEBP = 'image/webp';
-const RESPONSIVE_IMAGE_SIZES = [
-  'small', 'medium', 'large', 'xl', 'xxl', 'xxxl', 'wqhd', '4k'
-];
 
 export default ({ store } = {}) => ({
   acceptedMediaTypes() {
@@ -52,21 +49,20 @@ export default ({ store } = {}) => ({
     return imageUrl.toString();
   },
 
-  responsiveImageSrcset(image, params) {
-    if (this.isValidUrl(image?.url) && params) {
-      return RESPONSIVE_IMAGE_SIZES
-        .map((size) => params[size] && `${this.optimisedSrc(image, params[size])} ${params[size].w}w`)
-        .filter(src => !!src)
+  responsiveImageSrcset(image, sizes) {
+    if (this.isValidUrl(image?.url) && sizes) {
+      return Object.keys(sizes)
+        .map((size) => sizes[size] && `${this.optimisedSrc(image, sizes[size])} ${sizes[size].w}w`)
         .join(',');
     } else {
       return null;
     }
   },
 
-  responsiveBackgroundImageCSSVars(image, params) {
-    if (image?.url && this.isValidUrl(image.url) && params) {
-      return RESPONSIVE_IMAGE_SIZES.reduce((memo, size) => {
-        memo[`--bg-img-${size}`] = `url('${this.optimisedSrc(image, params[size])}')`;
+  responsiveBackgroundImageCSSVars(image, sizes) {
+    if (this.isValidUrl(image?.url) && sizes) {
+      return Object.keys(sizes).reduce((memo, size) => {
+        memo[`--bg-img-${size}`] = `url('${this.optimisedSrc(image, sizes[size])}')`;
         return memo;
       }, {});
     } else if (image?.url) {

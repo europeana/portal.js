@@ -68,43 +68,44 @@
       }
     },
 
+    data() {
+      return {
+        fit: 'fill',
+        focus: this.backgroundImage?.focus || 'center',
+        quality: this.backgroundImage?.quality || 40
+      };
+    },
+
     computed: {
       displayTitle() {
         return this.variant === 'ds4ch' ? this.title : null;
       },
       twinItBackground() {
-        if (this.variant === 'ds4ch' && this.backgroundImage?.image?.title) {
-          return this.backgroundImage?.image?.title?.includes('Twin it');
-        } else {
-          return false;
-        }
+        return (this.variant === 'ds4ch') && this.backgroundImage?.image?.title?.includes('Twin it');
       },
       imageCSSVars() {
+        const sizes = {
+          small: { w: 576, h: 350, fit: this.fit, f: this.focus, q: this.quality },
+          medium: { w: 768, h: 310, fit: this.fit, f: this.focus, q: this.quality },
+          large: { w: 992, h: 300, fit: this.fit, f: this.focus, q: this.quality },
+          xl: { w: 1200, h: 300, fit: this.fit, f: this.focus, q: this.quality },
+          xxl: { w: 1400, h: 300, fit: this.fit, f: this.focus, q: this.quality },
+          xxxl: { w: 1880, h: 300, fit: this.fit, f: this.focus, q: this.quality },
+          wqhd: { w: 3020, h: 500, fit: this.fit, f: this.focus, q: this.quality },
+          '4k': { w: 3840, h: 680, fit: this.fit, f: this.focus, q: this.quality }
+        };
+
         if (this.twinItBackground) {
-          return this.$contentful.assets.responsiveBackgroundImageCSSVars(
-            this.backgroundImage.image,
-            {
-              xxl: { w: 1400, h: 300, fit: 'fill', f: 'left', q: 100 },
-              xxxl: { w: 1880, h: 300, fit: 'fill', f: 'left', q: 100 },
-              wqhd: { w: 3020, h: 500, fit: 'fill', f: 'left', q: 100 },
-              '4k': { w: 3840, h: 680, fit: 'fill', f: 'left', q: 100 }
-            }
-          );
-        } else {
-          return this.$contentful.assets.responsiveBackgroundImageCSSVars(
-            this.backgroundImage.image,
-            {
-              small: { w: 576, h: 350, fit: 'fill' },
-              medium: { w: 768, h: 310, fit: 'fill' },
-              large: { w: 992, h: 300, fit: 'fill' },
-              xl: { w: 1200, h: 300, fit: 'fill' },
-              xxl: { w: 1400, h: 300, fit: 'fill' },
-              xxxl: { w: 1880, h: 300, fit: 'fill' },
-              wqhd: { w: 3020, h: 500, fit: 'fill' },
-              '4k': { w: 3840, h: 680, fit: 'fill' }
-            }
-          );
+          delete sizes.small;
+          delete sizes.medium;
+          delete sizes.large;
+          delete sizes.xl;
         }
+
+        return this.$contentful.assets.responsiveBackgroundImageCSSVars(
+          this.backgroundImage.image,
+          sizes
+        );
       }
     }
   };

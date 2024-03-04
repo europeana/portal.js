@@ -122,6 +122,8 @@ fragment illustrationFields on Illustration {
     ...imageFields
   }
   url
+  focus
+  quality
 }
 fragment infoCardFields on InfoCard {
   name
