@@ -2,7 +2,7 @@
   <div
     ref="imagecard"
     class="image-card d-lg-flex"
-    :class="[variant, `image-card-${imageCardIndex}`]"
+    :class="imageCardClasses"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -118,7 +118,10 @@
 
     data() {
       return {
-        imageCardIndex: -1
+        imageCardClasses: {
+          [this.variant]: true,
+          'bg-img-no-crop': !this.card?.profile?.crop
+        }
       };
     },
 
@@ -142,12 +145,6 @@
         } else {
           return SRCSET_PRESETS;
         }
-      }
-    },
-
-    mounted() {
-      if (this.variant === 'ds4ch') {
-        this.imageCardIndex = [...document.querySelectorAll('.image-card')].indexOf(this.$refs?.imagecard);
       }
     },
 
@@ -350,7 +347,7 @@
       }
     }
 
-    &.image-card-3 {
+    &.bg-img-no-crop {
       ::v-deep figure {
         height: auto;
         img {
