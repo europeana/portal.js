@@ -12,10 +12,6 @@ const testPropsWithBackground = { ...testProps,
 const testPropsDs4ch = {
   ...testPropsWithBackground, variant: 'ds4ch'
 };
-const testPropsTwinItBackground = {
-  ...testPropsDs4ch,
-  backgroundImage: { image: { title: 'Twin it! background', url: 'https://www.example.eu/img.jpg' } }
-};
 const factory = (propsData = testProps) => shallowMount(LandingCallToAction, {
   localVue,
   propsData,
@@ -66,13 +62,40 @@ describe('components/landing/LandingCallToAction', () => {
 
       expect(ctaElement.attributes('title')).toBe('This is the title');
     });
-    describe('and the background image needs specific Twin it images and styles', () => {
-      it('add the twin-it class to the background element', () => {
-        const wrapper = factory(testPropsTwinItBackground);
 
-        const backgroundTwinIt = wrapper.find('[data-qa="landing cta background image"].twin-it');
+    describe('and the image profile has "highlight" background', () => {
+      const propsData = {
+        ...testPropsDs4ch,
+        backgroundImage: {
+          image: { url: 'https://www.example.eu/img.jpg' },
+          profile: { background: 'highlight' }
+        }
+      };
 
-        expect(backgroundTwinIt.exists()).toBe(true);
+      it('adds the bg-color-highlight class to the background element', () => {
+        const wrapper = factory(propsData);
+
+        const backgroundColorHighlight = wrapper.find('[data-qa="landing cta background image"].bg-color-highlight');
+
+        expect(backgroundColorHighlight.exists()).toBe(true);
+      });
+    });
+
+    describe('and the image profile has `false` overlay', () => {
+      const propsData = {
+        ...testPropsDs4ch,
+        backgroundImage: {
+          image: { url: 'https://www.example.eu/img.jpg' },
+          profile: { overlay: false }
+        }
+      };
+
+      it('adds the no-overlay class to the background element', () => {
+        const wrapper = factory(propsData);
+
+        const backgroundNoOverlay = wrapper.find('[data-qa="landing cta background image"].no-overlay');
+
+        expect(backgroundNoOverlay.exists()).toBe(true);
       });
     });
   });
