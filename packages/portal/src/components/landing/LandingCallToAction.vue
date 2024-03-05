@@ -84,8 +84,7 @@
       return {
         backgroundImageClasses: {
           'no-overlay': this.backgroundImage?.profile && !this.backgroundImage.profile.overlay,
-          // TODO: refactor not to require this class
-          'twin-it': (this.variant === 'ds4ch') && this.backgroundImage?.image?.title?.includes('Twin it')
+          'bg-position-y-center': ['left', 'right'].includes(this.backgroundImage?.profile?.focus)
         },
         displayTitle: this.variant === 'ds4ch' ? this.title : null,
         imageCSSVars: this.$contentful.assets.responsiveBackgroundImageCSSVars(
@@ -152,28 +151,18 @@
         position: absolute;
       }
 
-      &.no-overlay {
-        &::after {
-          content: none;
-        }
+      &.no-overlay::after {
+        content: none;
       }
 
-      &.twin-it {
+      &.bg-position-y-center {
         background-position-y: center;
-
-        @media (max-width: $bp-extralarge) {
-          background-image: none;
-          background-color: $blue;
-        }
-
-        @media (min-width: ($bp-extralarge + 1px)) and (max-width: $bp-xxl) {
-          margin-left: -5rem;
-        }
-
-        @media (min-width: ($bp-xxl + 1px)) and (max-width: $bp-xxxl) {
-          margin-left: -1rem;
-        }
       }
+
+      // TODO: add blue background for Twin it exception
+      //   @media (max-width: $bp-extralarge) {
+      //     background-color: $blue;
+      //   }
     }
 
     .container {
