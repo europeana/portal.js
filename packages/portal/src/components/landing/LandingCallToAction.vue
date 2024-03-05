@@ -7,7 +7,7 @@
       v-if="backgroundImage"
       data-qa="landing cta background image"
       class="background-image responsive-backround-image"
-      :class="{'twin-it': twinItBackground}"
+      :class="backgroundImageClasses"
       :style="imageCSSVars"
     />
     <b-container>
@@ -22,6 +22,18 @@
 
 <script>
   import ContentPrimaryCallToAction from '@/components/content/ContentPrimaryCallToAction';
+
+  const CSS_VARS_SIZES = {
+    small: { w: 576, h: 350 },
+    medium: { w: 768, h: 310 },
+    large: { w: 992, h: 300 },
+    xl: { w: 1200, h: 300 },
+    xxl: { w: 1400, h: 300 },
+    xxxl: { w: 1880, h: 300 },
+    wqhd: { w: 3020, h: 500 },
+    '4k': { w: 3840, h: 680 }
+  };
+
   export default {
     name: 'LandingCallToAction',
 
@@ -70,43 +82,18 @@
 
     data() {
       return {
-        fit: 'fill',
-        focus: this.backgroundImage?.focus || 'center',
-        quality: this.backgroundImage?.quality || 40
+        backgroundImageClasses: {
+          'no-overlay': this.backgroundImage?.profile && !this.backgroundImage.profile.overlay,
+          // TODO: refactor not to require this class
+          'twin-it': (this.variant === 'ds4ch') && this.backgroundImage?.image?.title?.includes('Twin it')
+        },
+        displayTitle: this.variant === 'ds4ch' ? this.title : null,
+        imageCSSVars: this.$contentful.assets.responsiveBackgroundImageCSSVars(
+          this.backgroundImage?.image,
+          CSS_VARS_SIZES,
+          this.backgroundImage?.profile
+        )
       };
-    },
-
-    computed: {
-      displayTitle() {
-        return this.variant === 'ds4ch' ? this.title : null;
-      },
-      twinItBackground() {
-        return (this.variant === 'ds4ch') && this.backgroundImage?.image?.title?.includes('Twin it');
-      },
-      imageCSSVars() {
-        const sizes = {
-          small: { w: 576, h: 350, fit: this.fit, f: this.focus, q: this.quality },
-          medium: { w: 768, h: 310, fit: this.fit, f: this.focus, q: this.quality },
-          large: { w: 992, h: 300, fit: this.fit, f: this.focus, q: this.quality },
-          xl: { w: 1200, h: 300, fit: this.fit, f: this.focus, q: this.quality },
-          xxl: { w: 1400, h: 300, fit: this.fit, f: this.focus, q: this.quality },
-          xxxl: { w: 1880, h: 300, fit: this.fit, f: this.focus, q: this.quality },
-          wqhd: { w: 3020, h: 500, fit: this.fit, f: this.focus, q: this.quality },
-          '4k': { w: 3840, h: 680, fit: this.fit, f: this.focus, q: this.quality }
-        };
-
-        if (this.twinItBackground) {
-          delete sizes.small;
-          delete sizes.medium;
-          delete sizes.large;
-          delete sizes.xl;
-        }
-
-        return this.$contentful.assets.responsiveBackgroundImageCSSVars(
-          this.backgroundImage.image,
-          sizes
-        );
-      }
     }
   };
 </script>
@@ -165,6 +152,12 @@
         position: absolute;
       }
 
+      &.no-overlay {
+        &::after {
+          content: none;
+        }
+      }
+
       &.twin-it {
         background-position-y: center;
 
@@ -179,10 +172,6 @@
 
         @media (min-width: ($bp-xxl + 1px)) and (max-width: $bp-xxxl) {
           margin-left: -1rem;
-        }
-
-        &::after {
-          content: none;
         }
       }
     }
