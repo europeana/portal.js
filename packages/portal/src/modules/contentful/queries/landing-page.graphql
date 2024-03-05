@@ -122,6 +122,9 @@ fragment illustrationFields on Illustration {
     ...imageFields
   }
   url
+  profile {
+    ...imageDisplayProfileFields
+  }
 }
 fragment infoCardFields on InfoCard {
   name
@@ -198,4 +201,13 @@ fragment cardGroupFields on CardGroup {
     url
     text
   }
+}
+fragment imageDisplayProfileFields on ImageDisplayProfile {
+  fit
+  sizes
+  focus
+  quality
+  overlay
+  crop
+  background
 }
