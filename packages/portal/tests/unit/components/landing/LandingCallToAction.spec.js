@@ -9,9 +9,6 @@ localVue.use(BootstrapVue);
 const testProps = { title: 'This is the title', text: 'this is the text', link: { text: 'link text', url: 'https://example.com/link' } };
 const testPropsWithBackground = { ...testProps,
   backgroundImage: { image: { url: 'https://www.example.eu/img.jpg' } } };
-const testPropsDs4ch = {
-  ...testPropsWithBackground, variant: 'ds4ch'
-};
 const factory = (propsData = testProps) => shallowMount(LandingCallToAction, {
   localVue,
   propsData,
@@ -55,6 +52,11 @@ describe('components/landing/LandingCallToAction', () => {
   });
 
   describe('when the variant is ds4ch', () => {
+    const testPropsDs4ch = {
+      ...testPropsWithBackground,
+      variant: 'ds4ch'
+    };
+
     it('passes a title prop', () => {
       const wrapper = factory(testPropsDs4ch);
 
@@ -96,6 +98,42 @@ describe('components/landing/LandingCallToAction', () => {
         const backgroundNoOverlay = wrapper.find('[data-qa="landing cta background image"].no-overlay');
 
         expect(backgroundNoOverlay.exists()).toBe(true);
+      });
+    });
+
+    describe('and the image profile has "left" focus', () => {
+      const propsData = {
+        ...testPropsDs4ch,
+        backgroundImage: {
+          image: { url: 'https://www.example.eu/img.jpg' },
+          profile: { focus: 'left' }
+        }
+      };
+
+      it('adds the bg-position-y-center class to the background element', () => {
+        const wrapper = factory(propsData);
+
+        const backgroundPositionYCenter = wrapper.find('[data-qa="landing cta background image"].bg-position-y-center');
+
+        expect(backgroundPositionYCenter.exists()).toBe(true);
+      });
+    });
+
+    describe('and the image profile has "right" focus', () => {
+      const propsData = {
+        ...testPropsDs4ch,
+        backgroundImage: {
+          image: { url: 'https://www.example.eu/img.jpg' },
+          profile: { focus: 'right' }
+        }
+      };
+
+      it('adds the bg-position-y-center class to the background element', () => {
+        const wrapper = factory(propsData);
+
+        const backgroundPositionYCenter = wrapper.find('[data-qa="landing cta background image"].bg-position-y-center');
+
+        expect(backgroundPositionYCenter.exists()).toBe(true);
       });
     });
   });
