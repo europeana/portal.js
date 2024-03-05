@@ -127,6 +127,23 @@ module.exports = function (migration) {
     .disabled(false)
     .omitted(false);
 
+  imageDisplayProfile
+    .createField('background')
+    .name('Background')
+    .type('Symbol')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        in: ['alternate', 'highlight'],
+      },
+    ])
+    .defaultValue({
+      'en-GB': 'default',
+    })
+    .disabled(false)
+    .omitted(false);
+
   imageDisplayProfile.changeFieldControl('name', 'builtin', 'singleLine', {});
 
   imageDisplayProfile.changeFieldControl('fit', 'builtin', 'dropdown', {
@@ -156,5 +173,10 @@ module.exports = function (migration) {
     helpText: 'Permit the presentation to crop the image.',
     trueLabel: 'Yes',
     falseLabel: 'No',
+  });
+
+  imageDisplayProfile.changeFieldControl('background', 'builtin', 'dropdown', {
+    helpText:
+      'Select a background colour variant if contrast with the default is needed.',
   });
 };

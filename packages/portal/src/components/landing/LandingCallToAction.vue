@@ -84,7 +84,8 @@
       return {
         backgroundImageClasses: {
           'no-overlay': this.backgroundImage?.profile && !this.backgroundImage.profile.overlay,
-          'bg-position-y-center': ['left', 'right'].includes(this.backgroundImage?.profile?.focus)
+          'bg-position-y-center': ['left', 'right'].includes(this.backgroundImage?.profile?.focus),
+          'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
         },
         displayTitle: this.variant === 'ds4ch' ? this.title : null,
         imageCSSVars: this.$contentful.assets.responsiveBackgroundImageCSSVars(
@@ -159,10 +160,9 @@
         background-position-y: center;
       }
 
-      // TODO: add blue background for Twin it exception
-      //   @media (max-width: $bp-extralarge) {
-      //     background-color: $blue;
-      //   }
+      &.bg-color-highlight {
+        background-color: $blue;
+      }
     }
 
     .container {
