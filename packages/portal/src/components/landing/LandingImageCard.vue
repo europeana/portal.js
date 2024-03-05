@@ -300,12 +300,27 @@
     margin-bottom: 0;
     margin-left: auto;
     margin-right: auto;
+    &.image-position-right {
+      .text-wrapper {
+        order: -1;
+        padding-right: 3.625rem;
+        padding-left: 2rem;
+
+        @media (min-width: $bp-extralarge) {
+          padding-left: 6rem;
+        }
+        @media (min-width: $bp-xxl) {
+          padding-left: 0;
+        }
+      }
+    }
 
     @media (min-width: $bp-large) {
       text-align: left;
       align-items: center;
       padding-top: 6rem;
       padding-bottom: 6rem;
+      padding-right: 0;
     }
 
     @media (min-width: $bp-4k) {
@@ -340,8 +355,13 @@
         padding-right: 2rem;
       }
 
+      @media (min-width: $bp-extralarge) {
+        padding-right: 6rem;
+      }
+
       @media (min-width: $bp-xxl) {
         flex-basis: 625px;
+        padding-right: 0;
       }
 
       @media (min-width: $bp-4k) {
