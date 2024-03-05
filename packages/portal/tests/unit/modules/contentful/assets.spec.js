@@ -60,7 +60,7 @@ describe('modules/contentful/templates/assets', () => {
           contentType: 'image/jpeg'
         };
 
-        expect(assets({ store }).optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=webp&q=40');
+        expect(assets({ store }).optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?q=40&fm=webp');
       });
 
       it('respects supplied quality param for WebP', () => {
@@ -89,7 +89,7 @@ describe('modules/contentful/templates/assets', () => {
         contentType: 'image/jpeg'
       };
 
-      expect(assets().optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=jpg&fl=progressive&q=80');
+      expect(assets().optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?q=80&fm=jpg&fl=progressive');
     });
 
     it('joins all the options', () => {
@@ -98,7 +98,7 @@ describe('modules/contentful/templates/assets', () => {
         contentType: 'image/jpeg'
       };
 
-      expect(assets().optimisedSrc(asset, { w: 200, q: 80 })).toBe('https://images.ctfassets.net/asset.jpeg?w=200&q=80&fm=jpg&fl=progressive');
+      expect(assets().optimisedSrc(asset, { w: 200, q: 80 })).toBe('https://images.ctfassets.net/asset.jpeg?q=80&w=200&fm=jpg&fl=progressive');
     });
 
     it('applies passed max width', () => {
@@ -120,7 +120,8 @@ describe('modules/contentful/templates/assets', () => {
         };
 
         const srcset = assets().responsiveImageSrcset(asset, responsiveParams);
-        expect(srcset).toContain('https://images.ctfassets.net/asset.jpeg?w=245&h=440&fit=fill&fm=jpg&fl=progressive&q=80 245w');
+
+        expect(srcset).toContain('https://images.ctfassets.net/asset.jpeg?fit=fill&q=80&w=245&h=440&fm=jpg&fl=progressive 245w');
       });
     });
 

@@ -56,7 +56,11 @@ query LandingPage(
               items {
                 __typename
                 ... on ImageCard {
-                  ...imageCardFields
+                  name
+                  text
+                  image {
+                    ...imageWithAttributionFields
+                  }
                 }
               }
             }
@@ -127,6 +131,9 @@ fragment illustrationFields on Illustration {
     ...imageFields
   }
   url
+  profile {
+    ...imageDisplayProfileFields
+  }
 }
 fragment infoCardFields on InfoCard {
   name
@@ -219,4 +226,13 @@ fragment imageCardFields on ImageCard {
       id
     }
   }
+}
+fragment imageDisplayProfileFields on ImageDisplayProfile {
+  fit
+  sizes
+  focus
+  quality
+  overlay
+  crop
+  background
 }
