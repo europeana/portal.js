@@ -7,7 +7,7 @@
       v-if="backgroundImage"
       data-qa="landing cta background image"
       class="background-image responsive-backround-image"
-      :class="{'twin-it': twinItBackground}"
+      :class="backgroundImageClasses"
       :style="imageCSSVars"
     />
     <b-container>
@@ -22,6 +22,18 @@
 
 <script>
   import ContentPrimaryCallToAction from '@/components/content/ContentPrimaryCallToAction';
+
+  const CSS_VARS_SIZES = {
+    small: { w: 576, h: 350 },
+    medium: { w: 768, h: 310 },
+    large: { w: 992, h: 300 },
+    xl: { w: 1200, h: 300 },
+    xxl: { w: 1400, h: 300 },
+    xxxl: { w: 1880, h: 300 },
+    wqhd: { w: 3020, h: 500 },
+    '4k': { w: 3840, h: 680 }
+  };
+
   export default {
     name: 'LandingCallToAction',
 
@@ -68,44 +80,20 @@
       }
     },
 
-    computed: {
-      displayTitle() {
-        return this.variant === 'ds4ch' ? this.title : null;
-      },
-      twinItBackground() {
-        if (this.variant === 'ds4ch' && this.backgroundImage?.image?.title) {
-          return this.backgroundImage?.image?.title?.includes('Twin it');
-        } else {
-          return false;
-        }
-      },
-      imageCSSVars() {
-        if (this.twinItBackground) {
-          return this.$contentful.assets.responsiveBackgroundImageCSSVars(
-            this.backgroundImage.image,
-            {
-              xxl: { w: 1400, h: 300, fit: 'fill', f: 'left', q: 100 },
-              xxxl: { w: 1880, h: 300, fit: 'fill', f: 'left', q: 100 },
-              wqhd: { w: 3020, h: 500, fit: 'fill', f: 'left', q: 100 },
-              '4k': { w: 3840, h: 680, fit: 'fill', f: 'left', q: 100 }
-            }
-          );
-        } else {
-          return this.$contentful.assets.responsiveBackgroundImageCSSVars(
-            this.backgroundImage.image,
-            {
-              small: { w: 576, h: 350, fit: 'fill' },
-              medium: { w: 768, h: 310, fit: 'fill' },
-              large: { w: 992, h: 300, fit: 'fill' },
-              xl: { w: 1200, h: 300, fit: 'fill' },
-              xxl: { w: 1400, h: 300, fit: 'fill' },
-              xxxl: { w: 1880, h: 300, fit: 'fill' },
-              wqhd: { w: 3020, h: 500, fit: 'fill' },
-              '4k': { w: 3840, h: 680, fit: 'fill' }
-            }
-          );
-        }
-      }
+    data() {
+      return {
+        backgroundImageClasses: {
+          'no-overlay': this.backgroundImage?.profile && !this.backgroundImage.profile.overlay,
+          'bg-position-y-center': ['left', 'right'].includes(this.backgroundImage?.profile?.focus),
+          'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
+        },
+        displayTitle: this.variant === 'ds4ch' ? this.title : null,
+        imageCSSVars: this.$contentful.assets.responsiveBackgroundImageCSSVars(
+          this.backgroundImage?.image,
+          CSS_VARS_SIZES,
+          this.backgroundImage?.profile
+        )
+      };
     }
   };
 </script>
@@ -164,25 +152,16 @@
         position: absolute;
       }
 
-      &.twin-it {
+      &.no-overlay::after {
+        content: none;
+      }
+
+      &.bg-position-y-center {
         background-position-y: center;
+      }
 
-        @media (max-width: $bp-extralarge) {
-          background-image: none;
-          background-color: $blue;
-        }
-
-        @media (min-width: ($bp-extralarge + 1px)) and (max-width: $bp-xxl) {
-          margin-left: -5rem;
-        }
-
-        @media (min-width: ($bp-xxl + 1px)) and (max-width: $bp-xxxl) {
-          margin-left: -1rem;
-        }
-
-        &::after {
-          content: none;
-        }
+      &.bg-color-highlight {
+        background-color: $blue;
       }
     }
 

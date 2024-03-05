@@ -21,22 +21,22 @@
         :key="index"
       >
         <ContentCardSection
-          v-if="contentType(section, 'CardGroup')"
+          v-if="contentfulEntryHasContentType(section, 'CardGroup')"
           :section="section"
         />
         <LandingImageCard
-          v-if="contentType(section, 'ImageCard')"
+          v-if="contentfulEntryHasContentType(section, 'ImageCard')"
           :card="section"
           :variant="variant"
         />
         <LandingAutomatedCardGroup
-          v-if="contentType(section, 'AutomatedCardGroup')"
+          v-if="contentfulEntryHasContentType(section, 'AutomatedCardGroup')"
           :genre="section.genre"
           :static-items="section.staticItems"
           :variant="variant"
         />
         <LandingInfoCardGroup
-          v-if="contentType(section, 'InfoCardGroup')"
+          v-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
           :class="LandingInfoCardGroupClass"
           :title="section.name"
           title-tag="h3"
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+  import contentfulMixin from '@/mixins/contentful.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
@@ -61,7 +62,7 @@
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
 
-    mixins: [parseMarkdownHtmlMixin],
+    mixins: [contentfulMixin, parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -100,12 +101,6 @@
       return {
         LandingInfoCardGroupClass: this.$route.params.pathMatch === 'share-your-data' ? 'logo' : null
       };
-    },
-
-    methods: {
-      contentType(section, typeName) {
-        return section && (section['__typename'] === typeName);
-      }
     }
   };
 </script>
@@ -322,7 +317,7 @@
               text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               image: {
                 url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentType: 'image/svg+xml', description: '', width: 111, height: 111
+                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
               }
             }, {
               __typename: 'InfoCard',
@@ -330,7 +325,7 @@
               text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               image: {
                 url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentType: 'image/svg+xml', description: '', width: 111, height: 111
+                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
               }
             }, {
               __typename: 'InfoCard',
@@ -338,7 +333,7 @@
               text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               image: {
                 url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentType: 'image/svg+xml', description: '', width: 111, height: 111
+                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
               }
             } ]
           }
