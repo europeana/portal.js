@@ -4,7 +4,7 @@
       class="hero-background responsive-backround-image"
       :style="imageCSSVars"
       role="img"
-      :aria-label="heroImage.image.description"
+      :aria-label="heroImage?.image?.description"
     />
     <b-container
       class="hero-content d-flex"
@@ -28,13 +28,13 @@
         id="europeana-logo"
         class="mt-auto"
       >
-        <h1>
+        <p class="text-uppercase mb-0">
           {{ $t('ds4ch.broughtBy') }}
-        </h1>
-        <img
-          :src="europeanaLogoSrc"
-          :alt="$t('europeana')"
-        >
+          <img
+            :src="europeanaLogoSrc"
+            alt="Europeana"
+          >
+        </p>
       </div>
     </b-container>
   </div>
@@ -98,18 +98,13 @@
 
     data() {
       return {
-        europeanaLogoSrc: require('@europeana/style/img/logo.svg')
-      };
-    },
-
-    computed: {
-      imageCSSVars() {
-        return this.heroImage?.image &&
+        europeanaLogoSrc: require('@europeana/style/img/logo.svg'),
+        imageCSSVars: this.heroImage?.image &&
           this.$contentful.assets.responsiveBackgroundImageCSSVars(
             this.heroImage.image,
             SRCSET_PRESETS
-          );
-      }
+          )
+      };
     }
   };
 </script>
@@ -117,16 +112,6 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
   @import '@europeana/style/scss/responsive-background-image';
-
-  #europeana-logo {
-    img {
-      filter: invert(1);
-
-      @media (min-width: ($bp-4k)) {
-        min-width: 17rem;
-      }
-    }
-  }
 
   .landing-hero {
     overflow: hidden;
@@ -175,8 +160,8 @@
       }
 
       @media (min-width: ($bp-4k)) {
-        top: 5rem;
-        margin: -5rem 0 0 0;
+        top: 5.125rem;
+        margin: -5.125rem 0 0 0;
       }
 
       header {
@@ -286,7 +271,7 @@
         }
 
         @media (min-width: ($bp-wqhd)) {
-          top: 11.5rem;
+          top: 13.125rem;
           bottom: 8rem;
         }
       }
@@ -294,7 +279,7 @@
 
     .hero-background {
       left: 0;
-      top: 0;
+      top: 3.5rem;
       right: 0;
       bottom: 0;
       position: absolute;
@@ -313,6 +298,41 @@
           background-image: linear-gradient(0deg, rgba(25, 24, 23, 0.8), rgba(25, 24, 23, 0.8));
           mix-blend-mode: multiply;
           position: absolute;
+        }
+      }
+
+      @media (min-width: ($bp-wqhd)) {
+        top: 5.125rem;
+      }
+    }
+
+    #europeana-logo {
+      p {
+        font-size: $font-size-smallest;
+
+        @media (min-width: ($bp-medium)) {
+          font-size: $font-size-extrasmall;
+        }
+
+        @media (min-width: ($bp-4k)) {
+          font-size: 1.875rem;
+        }
+      }
+
+      img {
+        display: block;
+        margin-top: 0.25rem;
+        width: 100px;
+        filter: invert(1);
+
+        @media (min-width: ($bp-medium)) {
+          margin-top: 0.75rem;
+          width: 176px;
+        }
+
+        @media (min-width: ($bp-4k)) {
+          margin-top: 1.5rem;
+          width: 440px;
         }
       }
     }
