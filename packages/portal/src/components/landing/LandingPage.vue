@@ -30,7 +30,7 @@
         />
       </b-col>
       <LandingIllustrationGroup
-        v-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
+        v-else-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -38,7 +38,7 @@
         :variant="variant"
       />
       <LandingInfoCardGroup
-        v-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
+        v-else-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -47,7 +47,7 @@
         :variant="variant"
       />
       <div
-        v-if="contentfulEntryHasContentType(section, 'ImageCard')"
+        v-else-if="contentfulEntryHasContentType(section, 'ImageCard')"
         :key="index"
         class="image-card-container-wrapper"
         :class="getClasses(section)"
@@ -60,14 +60,14 @@
         </b-container>
       </div>
       <LandingImageCardGroup
-        v-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
+        v-else-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
         :key="index"
         :title="section.name"
         :text="section.text"
         :image-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingSubSection
-        v-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
+        v-else-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -75,7 +75,7 @@
         :variant="variant"
       />
       <LandingEmbed
-        v-if="contentfulEntryHasContentType(section, 'EmbedSection')"
+        v-else-if="contentfulEntryHasContentType(section, 'EmbedSection')"
         :key="index"
         :english-title="section.nameEN"
         :title="section.name"
@@ -84,7 +84,7 @@
         :embed="section.embed"
       />
       <LandingCallToAction
-        v-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
+        v-else-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
         :key="index"
         :title="section.name"
         :text="section.text"
