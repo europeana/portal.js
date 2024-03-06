@@ -1,12 +1,14 @@
 <template>
-  <b-container
+  <div
     class="landing-content-card-group"
     :class="variant"
   >
-    <ContentCardSection
-      :section="section"
-    />
-  </b-container>
+    <b-container>
+      <ContentCardSection
+        :section="section"
+      />
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -19,7 +21,7 @@
 
     props: {
       /**
-       * Heading title to display above the illustrations
+       * Section with content card group contents
        */
       section: {
         type: String,
@@ -42,22 +44,115 @@
 
   .landing-content-card-group {
     text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 1px;
 
+    @media (min-width: $bp-medium) {
+      padding-top: 6rem;
+      padding-bottom: 1.5rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      padding-top: 15rem;
+      padding-bottom: 15rem;
+    }
+
+    ::v-deep .browse-section .text {
+      text-align: center;
+    }
+
+    ::v-deep .card-deck {
+      justify-content: center;
+    }
   }
 </style>
 
 <!-- Only DS4CH styles after this line! -->
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/DS4CH/variables';
 
   .landing-content-card-group.ds4ch {
-    max-width: 100%;
     margin: 0;
     background-color: $bodygrey;
 
-    @media (min-width: $bp-medium) {
-      padding-top: 6rem;
-      padding-bottom: 8rem;
+    .container {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    ::v-deep .col-lg-6 {
+      text-align: center;
+      margin-right: auto;
+      margin-bottom: 1rem;
+      margin-left: auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      flex: 0 1 auto;
+      max-width: $max-text-column-width !important;
+
+      @media (min-width: $bp-large) {
+        margin-bottom: 3rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        max-width: $max-text-column-width-4k !important;
+        margin-bottom: 9rem;
+      }
+    }
+
+    ::v-deep h2.card-group-title {
+      color: $black;
+    }
+
+    ::v-deep .text {
+      color: $black;
+
+      @media (min-width: $bp-4k) {
+        font-size: 2.5rem;
+      }
+    }
+
+    ::v-deep .content-card {
+      @media (min-width: $bp-4k) {
+        min-height: 57rem;
+        border-radius: 0.5rem;
+      }
+
+      .card-body {
+        @media (min-width: $bp-4k) {
+          padding: 2.5rem;
+        }
+      }
+
+      .card-title {
+        @media (min-width: $bp-4k) {
+          font-size: 3.125rem;
+        }
+      }
+
+      .card-text {
+        color: $black;
+        @media (min-width: $bp-4k) {
+          font-size: 2.5rem;
+          line-height: 1.5;
+        }
+      }
+
+      .card-img {
+        @media (min-width: $bp-4k) {
+          max-height: 30.5rem;
+          border-radius: 0.5rem 0.5rem 0 0;
+        }
+      }
+    }
+
+    ::v-deep .card-deck-4-cols {
+      .card {
+        @media (min-width: $bp-4k) {
+          max-width: none;
+          flex: 0 0 calc(100% / 4 - 45px);
+        }
+      }
     }
   }
 </style>
