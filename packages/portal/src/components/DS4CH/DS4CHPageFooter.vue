@@ -11,17 +11,20 @@
         <p>{{ $t('ds4ch.footer.disclaimerLine1') }}</p>
       </b-row>
     </b-container>
+    <FeedbackWidget />
   </footer>
 </template>
 
 <script>
   import EULogo from '../image/ImageEULogo';
+  import FeedbackWidget from '../feedback/FeedbackWidget.vue';
 
   export default {
     name: 'DS4CHPageFooter',
 
     components: {
-      EULogo
+      EULogo,
+      FeedbackWidget
     }
   };
 </script>
