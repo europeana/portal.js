@@ -48,6 +48,7 @@
         v-if="contentfulEntryHasContentType(section, 'ImageCard')"
         :key="index"
         class="image-card-container-wrapper"
+        :class="getClasses(section)"
       >
         <b-container class="image-card-container">
           <LandingImageCard
@@ -156,6 +157,12 @@
       if (this.landingPageId === 'ds4ch') {
         this.variant = 'ds4ch';
       }
+    },
+
+    methods: {
+      getClasses(section) {
+        return section.profile?.background ? `bg-color-${section.profile.background}` : '';
+      }
     }
   };
 </script>
@@ -179,7 +186,7 @@
       }
     }
 
-    .background-grey {
+    .bg-color-alternate {
       background-color: $bodygrey;
     }
   }
