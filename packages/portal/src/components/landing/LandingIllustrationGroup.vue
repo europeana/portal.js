@@ -3,7 +3,7 @@
     class="landing-illustration-group"
     :class="variant"
   >
-    <b-col class="header col-lg-8 text-center mx-auto px-0 pb-4 pb-lg-5">
+    <b-col class="header col-lg-8 text-center mx-auto px-0">
       <component :is="titleTag">
         {{ title }}
       </component>
@@ -192,20 +192,22 @@
   @import '@europeana/style/scss/variables';
 
   .container {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 
     @media (min-width: $bp-medium) {
-      padding-top: 6rem;
-      padding-bottom: 8rem;
+      margin-top: 6rem;
+      margin-bottom: 6rem;
     }
 
     @media (min-width: $bp-4k) {
-      padding-top: 12rem;
-      padding-bottom: 12rem;
+      margin-top: 12rem;
+      margin-bottom: 12rem;
     }
   }
   .header {
+    padding-bottom: 1rem;
+
     @media (min-width: $bp-xxl) {
       max-width: $max-text-column-width;
     }
@@ -360,6 +362,32 @@
   @import '@europeana/style/scss/DS4CH/style';
   @import '@europeana/style/scss/responsive-background-image';
   .landing-illustration-group.ds4ch {
+    @media (min-width: $bp-4k) {
+      margin-top: 15rem;
+      margin-bottom: 15rem;
+    }
+
+    .header {
+      @media (min-width: $bp-4k) {
+        max-width: 1450px !important;
+        padding-bottom: 5rem;
+      }
+    }
+
+    h2 {
+      @media (min-width: $bp-4k) {
+        margin-bottom: 2rem;
+      }
+    }
+
+    .text {
+      color: $black;
+
+      @media (min-width: $bp-4k) {
+        font-size: 2.5rem;
+        margin-bottom: 3.125rem;
+      }
+    }
 
     .swiper-container-wrapper {
       @media (min-width: $bp-4k) {

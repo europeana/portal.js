@@ -24,14 +24,25 @@ export default ({ store } = {}) => ({
 
   imageApiParamsForImageDisplayProfile(profile) {
     return {
-      f: profile?.focus,
-      fit: profile?.fit,
-      q: profile?.quality
+      ...profile?.focus && { f: profile.focus },
+      ...profile?.fit && { fit: profile.fit },
+      ...profile?.quality && { q: profile.quality }
     };
   },
 
   imageDisplayProfileResponsiveSizes(sizes, profile) {
-    return Object.keys(sizes).filter((size) => !profile || profile.sizes.includes(size));
+    const deleteHeight = profile?.fit === 'pad' && !profile?.crop;
+
+    return Object.keys(sizes).reduce((memo, size) => {
+      if (!profile || profile.sizes.includes(size)) {
+        memo[size] = { ...sizes[size] };
+
+        if (deleteHeight) {
+          delete memo[size].h;
+        }
+      }
+      return memo;
+    }, {});
   },
 
   // TODO: remove if unused
@@ -58,7 +69,7 @@ export default ({ store } = {}) => ({
     const imageUrl = new URL(asset.url);
     const profileParams = this.imageApiParamsForImageDisplayProfile(profile);
 
-    const params = { ...profileParams, ...options };
+    const params = { ...options, ...profileParams };
 
     if (!params.fm && (asset.contentType !== MEDIA_TYPE_SVG) && this.acceptedMediaTypes().includes(MEDIA_TYPE_WEBP)) {
       params.fm = CONTENTFUL_IMAGES_PARAMS_FM_WEBP;
@@ -86,10 +97,10 @@ export default ({ store } = {}) => ({
     if (this.isValidUrl(image?.url) && sizes) {
       const profileSizes = this.imageDisplayProfileResponsiveSizes(sizes, profile);
 
-      return profileSizes
+      return Object.keys(profileSizes)
         .map((size) => {
-          const url = this.optimisedSrc(image, sizes[size], profile);
-          return `${url} ${sizes[size].w}w`;
+          const url = this.optimisedSrc(image, profileSizes[size], profile);
+          return `${url} ${profileSizes[size].w}w`;
         })
         .join(',');
     } else {
@@ -101,8 +112,8 @@ export default ({ store } = {}) => ({
     if (this.isValidUrl(image?.url) && sizes) {
       const profileSizes = this.imageDisplayProfileResponsiveSizes(sizes, profile);
 
-      return profileSizes.reduce((memo, size) => {
-        const url = this.optimisedSrc(image, sizes[size], profile);
+      return Object.keys(profileSizes).reduce((memo, size) => {
+        const url = this.optimisedSrc(image, profileSizes[size], profile);
         memo[`--bg-img-${size}`] = `url('${url}')`;
         return memo;
       }, {});
