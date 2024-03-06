@@ -8,6 +8,7 @@ const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(LandingPag
   localVue,
   propsData,
   mocks: {
+    $t: (key) => key,
     $route: { params: {} },
     ...mocks
   },
@@ -44,5 +45,19 @@ describe('components/landing/LandingPage', () => {
 
       expect(landingPage.classes().includes('ds4ch-page')).toBe(true);
     });
+  });
+
+  it('derives section IDs from their English name', () => {
+    const propsData = {
+      headline: 'This page is awesome',
+      sections: [
+        { __typename: 'LandingImageCard', nameEN: 'about us' }
+      ]
+    };
+    const wrapper = factory({ propsData });
+
+    const aboutUs = wrapper.find('#about-us');
+
+    expect(aboutUs.exists()).toBe(true);
   });
 });

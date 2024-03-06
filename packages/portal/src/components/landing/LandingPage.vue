@@ -20,6 +20,7 @@
     />
     <div
       v-for="(section, index) in sections"
+      :id="sectionId(section)"
       :key="index"
     >
       <b-col v-if="contentfulEntryHasContentType(section, 'CardGroup')">
@@ -79,6 +80,7 @@
 </template>
 
 <script>
+  import kebabCase from 'lodash/kebabCase';
   import LandingHero from '@/components/landing/LandingHero';
   import landingPageMixin from '@/mixins/landingPage.js';
   import contentfulMixin from '@/mixins/contentful.js';
@@ -147,6 +149,12 @@
 
     mounted() {
       this.$nextTick(() => this.markParity('image-card'));
+    },
+
+    methods: {
+      sectionId(section) {
+        return kebabCase(section.nameEN);
+      }
     }
   };
 </script>
