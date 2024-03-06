@@ -5,25 +5,26 @@
       :key="index"
     >
       <ContentRichText
-        v-if="contentType(section, 'ContentTypeRichText')"
+        v-if="contentfulEntryHasContentType(section, 'ContentTypeRichText')"
         :text="section.text"
         :rich-text-is-card="richTextIsCard"
       />
       <ContentCardSection
-        v-else-if="contentType(section, 'CardGroup')"
+        v-else-if="contentfulEntryHasContentType(section, 'CardGroup')"
         :section="section"
       />
       <BrowseAutomatedCardGroup
-        v-else-if="contentType(section, 'AutomatedCardGroup')"
+        v-else-if="contentfulEntryHasContentType(section, 'AutomatedCardGroup')"
         :section-type="section.genre"
         :more-button="section.moreButton"
       />
       <EmbedHTML
-        v-else-if="contentType(section, 'Embed')"
+        v-else-if="contentfulEntryHasContentType(section, 'Embed')"
         :html="section.embed"
+        :title="section.title"
       />
       <ImageComparisonSlider
-        v-else-if="contentType(section, 'ImageComparison')"
+        v-else-if="contentfulEntryHasContentType(section, 'ImageComparison')"
         :left-image-src="imageCompareImage(section, 0) ? imageCompareImage(section, 0).url : null"
         :left-image-content-type="imageCompareImage(section, 0) ? imageCompareImage(section, 0).contentType : null"
         :left-image-attribution="attributionFields(section.hasPartCollection.items[0])"
@@ -36,7 +37,7 @@
         :right-image-height="imageCompareImage(section, 1) ? imageCompareImage(section, 1).height : null"
       />
       <ImageWithAttributionContainer
-        v-else-if="contentType(section, 'ImageWithAttribution')"
+        v-else-if="contentfulEntryHasContentType(section, 'ImageWithAttribution')"
         :src="section.image ? section.image.url : null"
         :content-type="section.image ? section.image.contentType : null"
         :width="section.image ? section.image.width : null"
@@ -46,12 +47,12 @@
         :rights-statement="section.license"
       />
       <CallToAction
-        v-else-if="contentType(section, 'Link')"
+        v-else-if="contentfulEntryHasContentType(section, 'Link')"
         :text="section.text"
         :url="section.url"
       />
       <CallToActionBanner
-        v-else-if="contentType(section, 'PrimaryCallToAction') && section.image"
+        v-else-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction') && section.image"
         :name="section.name"
         :name-english="section.nameEN"
         :text="section.text"
@@ -59,7 +60,7 @@
         :illustration="section.image"
       />
       <ContentPrimaryCallToAction
-        v-else-if="contentType(section, 'PrimaryCallToAction')"
+        v-else-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
         :text="section.text"
         :link="section.relatedLink"
       />
@@ -68,6 +69,8 @@
 </template>
 
 <script>
+  import contentfulMixin from '@/mixins/contentful.js';
+
   export default {
     components: {
       BrowseAutomatedCardGroup: () => import('./BrowseAutomatedCardGroup'),
@@ -80,6 +83,8 @@
       ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
       ImageWithAttributionContainer: () => import('../image/ImageWithAttributionContainer')
     },
+
+    mixins: [contentfulMixin],
 
     props: {
       richTextIsCard: {
@@ -94,9 +99,6 @@
     },
 
     methods: {
-      contentType(section, typeName) {
-        return section && (section['__typename'] === typeName);
-      },
       attributionFields(fields) {
         return {
           name: fields?.name,

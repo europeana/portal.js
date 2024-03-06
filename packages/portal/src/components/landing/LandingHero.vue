@@ -1,10 +1,14 @@
 <template>
-  <div class="landing-hero">
+  <div
+    class="landing-hero"
+  >
     <b-container class="d-lg-flex align-items-center">
       <div class="hero-content-wrapper">
         <header class="hero-content">
           <!-- eslint-disable vue/no-v-html -->
-          <div v-html="parseMarkdownHtml(`# ${headline}\n${text}`)" />
+          <div
+            v-html="parseMarkdownHtml(`# ${headline}\n${text}`)"
+          />
           <!-- eslint-enable vue/no-v-html -->
           <SmartLink
             v-if="cta"
@@ -121,104 +125,113 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/variables';
 
-.landing-hero {
-  background-color: $bodygrey;
-  position: relative;
+  .landing-hero {
+    background-color: $bodygrey;
+    position: relative;
+    .container {
+      @media (min-width: $bp-xxl) {
+        max-width: 1250px;
+        padding-left: 0;
+        padding-right: 0;
+      }
 
-  .container {
-    @media (min-width: $bp-xxl) {
-      max-width: 1250px;
-      padding-left: 0;
-      padding-right: 0;
+      @media (min-width: $bp-4k) {
+        max-width: calc(1.5 * 1250px);
+      }
     }
-
-    @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 1250px);
-    }
-  }
-}
-
-.hero-content-wrapper {
-  background-color: $bodygrey;
-  padding: 3rem 1rem 1rem;
-
-  @media (min-width: $bp-large) {
-    width: 50%;
-    padding: 6.25rem 4rem 6.25rem 0;
   }
 
-  @media (min-width: $bp-4k) {
-    padding: calc(1.5 * 6.25rem) calc(1.5 * 6.25rem) calc(1.5 * 6.25rem) 0;
-  }
-}
-
-.hero-content {
-  max-width: 443px;
-
-  @media (min-width: $bp-4k) {
-    max-width: calc(1.5 * 443px);
-  }
-
-  ::v-deep h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-    line-height: 1.5;
+  .hero-content-wrapper {
+    background-color: $bodygrey;
+    padding: 3rem 1rem 1rem;
 
     @media (min-width: ($bp-medium + 1px)) {
-      font-size: 2.875rem;
-      line-height: 1.2;
+      width: 65%;
+      position: relative;
+      z-index: 10;
+      padding: 6.25rem 6.25rem 6.25rem 0;
+      clip-path: polygon(0% 0%, 100% 0, 100% calc(100% - 209px), calc(100% - 95px) 100%, 0 100%);
+    }
+
+    @media (min-width: $bp-large) {
+      width: 50%;
+      padding: 6.25rem 4rem 6.25rem 0;
     }
 
     @media (min-width: $bp-4k) {
-      font-size: calc(1.5 * 2.875rem);
-      margin-bottom: calc(1.5 * 0.75rem);
-    }
-
-    em {
-      font-style: normal;
-      color: $blue;
+      padding: calc(1.5 * 6.25rem) calc(1.5 * 6.25rem) calc(1.5 * 6.25rem) 0;
     }
   }
 
-  p {
-    color: $mediumgrey;
-  }
-}
+  .hero-content {
+    max-width: 443px;
 
-.hero-image {
-  width: 100%;
-  position: relative;
+    @media (min-width: $bp-4k) {
+      max-width: calc(1.5 * 443px);
+    }
 
-  @media (min-width: $bp-large) {
-    width: 50%;
+    ::v-deep h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+
+      @media (min-width: ($bp-medium + 1px)) {
+        font-size: 2.875rem;
+        line-height: 1.2;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: calc(1.5 * 2.875rem);
+        margin-bottom: calc(1.5 * 0.75rem);
+      }
+
+      em {
+        font-style: normal;
+        color: $blue;
+      }
+    }
+
+    p {
+      color: $mediumgrey;
+    }
   }
-}
+
+  .hero-image {
+    width: 100%;
+    position: relative;
+
+    @media (min-width: $bp-large) {
+      width: 50%;
+    }
+  }
 </style>
 
 <docs lang="md">
-```jsx
-  <LandingHero
-    headline="This is a <em>landing</em> page"
-    text="A description what this page is all about"
-    :cta="{
-      url: 'https://www.europeana.eu',
-      text: 'Go to Pro'
-    }"
-    :hero-image="{
-      creator: 'Europeana Foundation',
-      license: 'https://creativecommons.org/publicdomain/zero/1.0',
-      name: 'Image landing page',
-      provider: null,
-      url: null,
-      image: {
-        contentType: 'image/svg+xml',
-        description: null,
-        url: illustrations.audience,
-      }
-    }"
-  />
-```
+  ```jsx
+    <LandingHero
+      headline="This is a <em>landing</em> page"
+      text="A description what this page is all about"
+      :cta="{
+        url: 'https://www.europeana.eu',
+        text: 'Go to Pro'
+      }"
+      :hero-image="{
+        creator: 'Europeana Foundation',
+        license: 'https://creativecommons.org/publicdomain/zero/1.0',
+        name: 'Image landing page',
+        provider: null,
+        url: null,
+        image: {
+          contentType: 'image/jpeg',
+          description: null,
+          height: 2694,
+          url: 'https://images.ctfassets.net/i01duvb6kq77/1trzaYGwJsR79hW38lMpJO/465bdac6bb52df2f574c50dacdc74ef8/slantedimagecover_v1.jpg',
+          width: 4320
+        }
+      }"
+    />
+  ```
 </docs>

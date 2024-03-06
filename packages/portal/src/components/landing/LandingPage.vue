@@ -4,51 +4,57 @@
     :class="`${variant}-page`"
     data-qa="landing page"
   >
-    <LandingHero
+    <DS4CHLandingHero
+      v-if="variant === 'ds4ch'"
       :headline="headline"
       :text="text"
       :cta="cta"
       :hero-image="primaryImageOfPage"
-      :variant="variant"
+    />
+    <LandingHero
+      v-else
+      :headline="headline"
+      :text="text"
+      :cta="cta"
+      :hero-image="primaryImageOfPage"
     />
     <div
       v-for="(section, index) in sections"
       :key="index"
     >
-      <ContentCardSection
-        v-if="contentType(section, 'CardGroup')"
-        :section="section"
-      />
-      <client-only>
-        <LandingIllustrationGroup
-          v-if="contentType(section, 'IllustrationGroup')"
-          :title="section.name"
-          :text="section.text"
-          :illustrations="section.hasPartCollection && section.hasPartCollection.items"
-          :variant="variant"
+      <b-col v-if="contentfulEntryHasContentType(section, 'CardGroup')">
+        <ContentCardSection
+          :section="section"
         />
-      </client-only>
+      </b-col>
+      <LandingIllustrationGroup
+        v-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
+        :title="section.name"
+        :text="section.text"
+        :illustrations="section.hasPartCollection && section.hasPartCollection.items"
+        :variant="variant"
+      />
       <LandingInfoCardGroup
-        v-if="contentType(section, 'InfoCardGroup')"
+        v-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
         :title="section.name"
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingImageCardGroup
-        v-if="contentType(section, 'ImageCardGroup')"
+        v-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
         :title="section.name"
         :text="section.text"
         :image-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingSubSection
-        v-if="contentType(section, 'LandingSubSection')"
+        v-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
         :variant="variant"
       />
       <LandingEmbed
-        v-if="contentType(section, 'EmbedSection')"
+        v-if="contentfulEntryHasContentType(section, 'EmbedSection')"
         :english-title="section.nameEN"
         :title="section.name"
         :text="section.text"
@@ -56,7 +62,7 @@
         :embed="section.embed"
       />
       <LandingCallToAction
-        v-if="contentType(section, 'PrimaryCallToAction')"
+        v-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
         :title="section.name"
         :text="section.text"
         :link="section.relatedLink"
@@ -69,6 +75,8 @@
 
 <script>
   import LandingHero from '@/components/landing/LandingHero';
+  import landingPageMixin from '@/mixins/landingPage.js';
+  import contentfulMixin from '@/mixins/contentful.js';
 
   export default {
     name: 'LandingPage',
@@ -81,8 +89,14 @@
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
       LandingSubSection: () => import('@/components/landing/LandingSubSection'),
-      LandingEmbed: () => import('@/components/landing/LandingEmbed')
+      LandingEmbed: () => import('@/components/landing/LandingEmbed'),
+      DS4CHLandingHero: () => import('@/components/DS4CH/DS4CHLandingHero')
     },
+
+    mixins: [
+      contentfulMixin,
+      landingPageMixin
+    ],
 
     props: {
       headline: {
@@ -104,20 +118,22 @@
       primaryImageOfPage: {
         type: Object,
         default: null
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       }
     },
 
-    methods: {
-      contentType(section, typeName) {
-        return section && (section['__typename'] === typeName);
+    data() {
+      return {
+        /**
+         * Variant to define layout and style
+         * @values pro, ds4ch
+         */
+        variant: 'pro'
+      };
+    },
+
+    created() {
+      if (this.landingPageId === 'ds4ch') {
+        this.variant = 'ds4ch';
       }
     }
   };
@@ -133,6 +149,18 @@
 
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
+    }
+  }
+</style>
+
+<style lang="scss">
+  @import '@europeana/style/scss/DS4CH/variables';
+
+  .page.ds4ch-page {
+    margin-top: 0;
+
+    &:after {
+      content: none;
     }
   }
 </style>

@@ -58,7 +58,6 @@
     "@europeana/style": "^1.141.0",
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
-    "camelcase": "^6.2.1",
     "css-loader": "^4.2.0",
     "nock": "^13.2.7",
     "nuxt": "2.17.0",

@@ -4,7 +4,6 @@
     v-visible-on-scroll
     class="page-header show xxl-page"
     role="banner"
-    :aria-label="$t('ds4ch.title')"
     data-qa="header"
   >
     <b-navbar
@@ -78,7 +77,7 @@
     width: 16rem;
     max-height: 100vh;
     transition: $standard-transition; // fixes header appear/disappear
-    border-left: 1px solid $white;
+    border-left: 2px solid $white;
   }
 
   .page-header {
@@ -88,6 +87,7 @@
     top: 0;
     left: 0;
     z-index: 10;
+    border-bottom: 1px solid $white;
 
     @media (min-width: $bp-large) {
       transition: $standard-transition;
@@ -147,7 +147,8 @@
 <docs lang="md">
   ```jsx
   import '@europeana/style/scss/DS4CH/style.scss';
-
-  <DS4CHPageHeader style="position: relative;"/>
+  <div class="ds4ch-layout">
+    <DS4CHPageHeader style="position: relative;"/>
+  </div>
   ```
 </docs>

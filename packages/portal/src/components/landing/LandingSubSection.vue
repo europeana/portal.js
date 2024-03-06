@@ -20,16 +20,14 @@
         v-for="(section, index) in sections"
         :key="index"
       >
-        <client-only>
-          <LandingAutomatedCardGroup
-            v-if="contentType(section, 'AutomatedCardGroup')"
-            :genre="section.genre"
-            :static-items="section.staticItems"
-            :variant="variant"
-          />
-        </client-only>
+        <LandingAutomatedCardGroup
+          v-if="contentfulEntryHasContentType(section, 'AutomatedCardGroup')"
+          :genre="section.genre"
+          :static-items="section.staticItems"
+          :variant="variant"
+        />
         <LandingInfoCardGroup
-          v-if="contentType(section, 'InfoCardGroup')"
+          v-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
           :class="LandingInfoCardGroupClass"
           :title="section.name"
           title-tag="h3"
@@ -42,6 +40,7 @@
 </template>
 
 <script>
+  import contentfulMixin from '@/mixins/contentful.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
@@ -52,7 +51,7 @@
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
 
-    mixins: [parseMarkdownHtmlMixin],
+    mixins: [contentfulMixin, parseMarkdownHtmlMixin],
 
     props: {
       /**
@@ -91,12 +90,6 @@
       return {
         LandingInfoCardGroupClass: this.$route.params.pathMatch === 'share-your-data' ? 'logo' : null
       };
-    },
-
-    methods: {
-      contentType(section, typeName) {
-        return section && (section['__typename'] === typeName);
-      }
     }
   };
 </script>

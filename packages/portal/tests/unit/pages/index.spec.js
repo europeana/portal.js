@@ -12,7 +12,7 @@ const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
 const primaryImageUrl = 'https://example.org/primary-image.jpg';
 
 const factory = ({
-  $route = { params: {} }, data = {}, contentfulQueryResponse = { data: { data: {} } }
+  mocks = {}, $route = { params: {} }, data = {}, contentfulQueryResponse = { data: { data: {} } }
 } = {}) => shallowMountNuxt(page, {
   localVue,
   data() {
@@ -30,71 +30,104 @@ const factory = ({
     $i18n: { isoLocale: () => 'en-GB' },
     $error: sinon.spy(),
     $route,
-    $t: key => key
+    $t: key => key,
+    ...mocks
   }
 });
 
 describe('IndexPage', () => {
+  it('uses default layout', () => {
+    const $route = { params: { pathMatch: 'about' } };
+    const wrapper = factory({ mocks: { $route } });
+
+    const layout = wrapper.vm.layout({ route: $route });
+
+    expect(layout).toBe('default');
+  });
+
   describe('fetch', () => {
-    it('fetches the content from Contentful', async() => {
-      const slug = 'about-us';
-      const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [{}] } } } },
-        $route: { params: { pathMatch: slug }, query: {} }
-      });
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.$contentful.query.calledWith('browseLandingStaticPage', {
-        identifier: slug,
-        locale: 'en-GB',
-        preview: false
-      })).toBe(true);
-    });
-
-    it('detects and stores static page content', async() => {
-      const page = { name: 'About us' };
-      const slug = 'about-us';
-      const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [page] } } } },
-        $route: { params: { pathMatch: slug }, query: {} }
-      });
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.staticPage).toBe(true);
-      expect(wrapper.vm.browsePage).toBe(false);
-      expect(wrapper.vm.page).toEqual(page);
-    });
-
-    it('detects and stores browse page content', async() => {
-      const page = { name: 'Collections' };
-      const slug = 'collections';
-      const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [page] } } } },
-        $route: { params: { pathMatch: slug }, query: {} }
-      });
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.browsePage).toBe(true);
-      expect(wrapper.vm.staticPage).toBe(false);
-      expect(wrapper.vm.page).toEqual(page);
-    });
-
-    it('detects and stores landing page content', async() => {
-      const page = { name: 'Share your data' };
+    describe('landing pages', () => {
       const slug = 'share-your-data';
-      const wrapper = factory({
-        contentfulQueryResponse: { data: { data: { landingPageCollection: { items: [page] } } } },
-        $route: { params: { pathMatch: slug }, query: {} }
+      const page = { name: 'Share your data' };
+      const contentfulQueryResponse = { data: { data: { landingPageCollection: { items: [page] } } } };
+      const $route = { params: { pathMatch: slug }, query: {} };
+
+      it('fetches the content from Contentful', async() => {
+        const wrapper = factory({
+          contentfulQueryResponse,
+          $route
+        });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('landingPage', {
+          identifier: slug,
+          locale: 'en-GB',
+          preview: false
+        })).toBe(true);
       });
 
-      await wrapper.vm.fetch();
+      it('detects and stores landing page content', async() => {
+        const wrapper = factory({
+          contentfulQueryResponse,
+          $route
+        });
 
-      expect(wrapper.vm.landingPage).toBe(true);
-      expect(wrapper.vm.staticPage).toBe(false);
-      expect(wrapper.vm.page).toEqual(page);
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.landingPage).toBe(true);
+        expect(wrapper.vm.staticPage).toBe(false);
+        expect(wrapper.vm.browsePage).toBe(false);
+        expect(wrapper.vm.page).toEqual(page);
+      });
+    });
+
+    describe('browse and static pages', () => {
+      it('fetches the content from Contentful', async() => {
+        const slug = 'about-us';
+        const wrapper = factory({
+          contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [{}] } } } },
+          $route: { params: { pathMatch: slug }, query: {} }
+        });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('browseStaticPage', {
+          identifier: slug,
+          locale: 'en-GB',
+          preview: false
+        })).toBe(true);
+      });
+
+      it('detects and stores static page content', async() => {
+        const page = { name: 'About us' };
+        const slug = 'about-us';
+        const wrapper = factory({
+          contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [page] } } } },
+          $route: { params: { pathMatch: slug }, query: {} }
+        });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.staticPage).toBe(true);
+        expect(wrapper.vm.browsePage).toBe(false);
+        expect(wrapper.vm.page).toEqual(page);
+      });
+
+      it('detects and stores browse page content', async() => {
+        const page = { name: 'Collections' };
+        const slug = 'collections';
+        const wrapper = factory({
+          contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [page] } } } },
+          $route: { params: { pathMatch: slug }, query: {} }
+        });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.browsePage).toBe(true);
+        expect(wrapper.vm.staticPage).toBe(false);
+        expect(wrapper.vm.page).toEqual(page);
+      });
     });
 
     it('detects no static, landing or browse page and throws 404', async() => {
@@ -176,6 +209,26 @@ describe('IndexPage', () => {
       const pageMeta = wrapper.vm.pageMeta;
 
       expect(pageMeta.ogImage).toBeNull();
+    });
+  });
+
+  describe('when route is for DS4CH page', () => {
+    const $route = { params: { pathMatch: 'microsite/DS4CH.eu' } };
+
+    it('uses ds4ch layout', () => {
+      const wrapper = factory({ mocks: { $route } });
+
+      const layout = wrapper.vm.layout({ route: $route });
+
+      expect(layout).toBe('ds4ch');
+    });
+
+    it('sets pageMetaSuffixTitle to null', () => {
+      const wrapper = factory({ mocks: { $route } });
+
+      const pageMetaSuffixTitle = wrapper.vm.pageMetaSuffixTitle;
+
+      expect(pageMetaSuffixTitle).toBeNull();
     });
   });
 });

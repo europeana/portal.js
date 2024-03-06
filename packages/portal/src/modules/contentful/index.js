@@ -1,4 +1,4 @@
-import camelCase from 'camelcase';
+import camelCase from 'lodash/camelCase.js';
 import fs from 'fs';
 import glob from 'glob';
 import path from 'path';

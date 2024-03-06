@@ -30,6 +30,7 @@
           :variant="callsToAction[2] ? 'innovationblue' : 'yellowgrey'"
           class="home-cta"
         />
+        <HomeLatestGalleries />
         <CallToActionBanner
           v-if="callsToAction[2]"
           :name="callsToAction[2].name"
@@ -39,7 +40,6 @@
           :illustration="callsToAction[2].image"
           class="home-cta"
         />
-        <HomeLatestGalleries />
       </b-container>
     </client-only>
   </div>

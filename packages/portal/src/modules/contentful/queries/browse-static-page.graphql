@@ -1,4 +1,4 @@
-query BrowseLandingStaticPage(
+query BrowseStaticPage(
   $identifier: String!
   $locale: String!
   $preview: Boolean = false
@@ -87,98 +87,9 @@ query BrowseLandingStaticPage(
       }
     }
   }
-  landingPageCollection(
-    preview: $preview
-    locale: $locale
-    where: { identifier: $identifier }
-    limit: 1
-  ) {
-    items {
-      identifier
-      name
-      description
-      image {
-        ...imageFields
-      }
-      headline
-      text
-      relatedLink {
-        url
-        text
-      }
-      primaryImageOfPage {
-        ...imageWithAttributionFields
-      }
-      hasPartCollection(limit: 20) {
-        total
-        items {
-          __typename
-          ... on CardGroup {
-            ...cardGroupFields
-          }
-          ... on IllustrationGroup {
-            name
-            text
-            hasPartCollection(limit: 20) {
-              items {
-                ... on Illustration {
-                  ...illustrationFields
-                }
-              }
-            }
-          }
-          ... on InfoCardGroup {
-            ...infoCardGroupFields
-          }
-          ... on ImageCardGroup {
-            name
-            text
-            hasPartCollection(limit: 6) {
-              items {
-                __typename
-                ... on ImageCard {
-                  name
-                  text
-                  image {
-                    ...imageWithAttributionFields
-                  }
-                }
-              }
-            }
-          }
-          ... on LandingSubSection {
-            name
-            text
-            hasPartCollection(limit: 6) {
-              items {
-                __typename
-                ... on InfoCardGroup {
-                  ...infoCardGroupFields
-                }
-                ... on AutomatedCardGroup {
-                  ...automatedCardGroupFields
-                }
-              }
-            }
-          }
-          ... on EmbedSection {
-            name
-            nameEN: name(locale: "en-GB")
-            text
-            embed {
-              embed
-            }
-          }
-          ... on PrimaryCallToAction {
-            ...primaryCallToActionFields
-          }
-        }
-      }
-    }
-  }
+
 }
 fragment imageFields on Asset {
-  title
   url
   contentType
   description
@@ -211,25 +122,6 @@ fragment illustrationFields on Illustration {
     ...imageFields
   }
   url
-}
-fragment infoCardFields on InfoCard {
-  name
-  text
-  image {
-    ...imageFields
-  }
-}
-fragment infoCardGroupFields on InfoCardGroup {
-  name
-  text
-  hasPartCollection(limit: 12) {
-    items {
-      __typename
-      ... on InfoCard {
-        ...infoCardFields
-      }
-    }
-  }
 }
 fragment automatedCardGroupFields on AutomatedCardGroup {
   genre
