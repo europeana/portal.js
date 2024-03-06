@@ -20,6 +20,15 @@
         v-for="(section, index) in sections"
         :key="index"
       >
+        <ContentCardSection
+          v-if="contentfulEntryHasContentType(section, 'CardGroup')"
+          :section="section"
+        />
+        <LandingImageCard
+          v-if="contentfulEntryHasContentType(section, 'ImageCard')"
+          :card="section"
+          :variant="variant"
+        />
         <LandingAutomatedCardGroup
           v-if="contentfulEntryHasContentType(section, 'AutomatedCardGroup')"
           :genre="section.genre"
@@ -48,7 +57,9 @@
     name: 'LandingSubSection',
 
     components: {
+      ContentCardSection: () => import('../content/ContentCardSection'),
       LandingAutomatedCardGroup: () => import('@/components/landing/LandingAutomatedCardGroup'),
+      LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
     },
 
@@ -207,6 +218,7 @@
   }
 </style>
 
+<!-- Only DS4CH styles after this line! -->
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
   .landing-sub-section.ds4ch {
@@ -240,6 +252,7 @@
         font-size: 1.375rem;
         font-weight: 700;
         line-height: 1.2;
+        margin-bottom: 2rem;
         margin-left: auto;
         margin-right: auto;
         text-align: center;
@@ -265,6 +278,26 @@
         }
       }
     }
+
+    .ds4ch.image-card {
+      @media (min-width: $bp-xxl) {
+        max-width: 1500px;
+      }
+
+      @media(min-width: $bp-extralarge) {
+        margin-left: -4rem;
+        margin-right: -4rem;
+      }
+
+      @media(min-width: $bp-xxl) {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @media (min-width: $bp-4k) {
+        max-width: 3000px;
+      }
+    }
   }
 </style>
 
@@ -285,7 +318,7 @@
               text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               image: {
                 url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentType: 'image/svg+xml', description: '', width: 111, height: 111
+                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
               }
             }, {
               __typename: 'InfoCard',
@@ -293,7 +326,7 @@
               text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               image: {
                 url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentType: 'image/svg+xml', description: '', width: 111, height: 111
+                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
               }
             }, {
               __typename: 'InfoCard',
@@ -301,7 +334,7 @@
               text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               image: {
                 url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentType: 'image/svg+xml', description: '', width: 111, height: 111
+                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
               }
             } ]
           }
