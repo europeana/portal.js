@@ -35,7 +35,7 @@ export default ({ store } = {}) => ({
 
     return Object.keys(sizes).reduce((memo, size) => {
       if (!profile || profile.sizes.includes(size)) {
-        memo[size] = sizes[size];
+        memo[size] = { ...sizes[size] };
 
         if (deleteHeight) {
           delete memo[size].h;
