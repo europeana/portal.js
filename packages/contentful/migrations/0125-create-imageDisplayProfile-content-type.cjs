@@ -135,7 +135,7 @@ module.exports = function (migration) {
     .required(false)
     .validations([
       {
-        in: ['alternate', 'highlight'],
+        in: ['default', 'alternate', 'highlight'],
       },
     ])
     .defaultValue({
