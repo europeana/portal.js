@@ -85,6 +85,50 @@
       }
     }
 
+    &.btn-secondary:not(.button-icon-only) {
+      border-radius: 0;
+      background-color: $black;
+      color: $white;
+      display: inline-flex;
+      align-items: center;
+      font-family: $font-family-montserrat;
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      transition: all 400ms ease-in-out;
+      text-transform: uppercase;
+
+      @media (min-width: ($bp-4k)) {
+        font-size: 2.625rem;
+        padding: 2rem 2.625rem;
+      }
+
+      &.icon-chevron {
+        line-height: 1.5;
+
+        &::before {
+          @extend %icon-font;
+          order: 2;
+          display: inline-flex;
+          align-items: center;
+          transform: rotate(-90deg);
+          font-size: 0.625rem;
+          margin-left: 0.625rem;
+          color: $white;
+
+          @media (min-width: ($bp-4k)) {
+            font-size: 1.75rem;
+            margin-left: 1.75rem;
+          }
+        }
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: none;
+      }
+    }
+
     &.btn-light-flat {
       background-color: transparent;
       color: $white;
