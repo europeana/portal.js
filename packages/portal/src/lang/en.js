@@ -915,10 +915,10 @@ export default {
   "landing": {
     "europeanaNumbers": "Europeana.eu in numbers",
     "counts": {
+      "apiRequests": "Average number of monthly API requests",
       "hqData": "Increase in high-quality data per year",
       "items": "Items",
       "networkMembers": "Network members",
-      "partners": "Partners develop the data space",
       "providingInstitutions": "Providing institutions",
       "visits": "Visits per day"
     }
