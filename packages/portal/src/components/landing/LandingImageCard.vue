@@ -255,6 +255,7 @@
 <!-- Only DS4CH styles after this line! -->
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
+
   .ds4ch.image-card {
     max-width: 100%;
     text-align: center;
