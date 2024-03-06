@@ -21,14 +21,12 @@
     <template
       v-for="(section, index) in sections"
     >
-      <b-col
+      <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
         :key="index"
-      >
-        <ContentCardSection
-          :section="section"
-        />
-      </b-col>
+        :section="section"
+        :variant="variant"
+      />
       <LandingIllustrationGroup
         v-else-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
         :key="index"
@@ -106,7 +104,7 @@
     name: 'LandingPage',
 
     components: {
-      ContentCardSection: () => import('../content/ContentCardSection'),
+      LandingContentCardGroup: () => import('../landing/LandingContentCardGroup'),
       LandingCallToAction: () => import('@/components/landing/LandingCallToAction'),
       LandingHero,
       LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
