@@ -77,7 +77,7 @@
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import makeToastMixin from '@/mixins/makeToast';
   import scrollToRouteHash from '@/mixins/scrollToRouteHash';
-  import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
+  import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
   import featureNotifications from '@/features/notifications';
 
@@ -99,7 +99,8 @@
     mixins: [
       canonicalUrlMixin,
       makeToastMixin,
-      scrollToRouteHash
+      scrollToRouteHash,
+      klaroMixin
     ],
 
     data() {
@@ -132,7 +133,7 @@
           ...i18nHead.link
         ],
         script: [
-          { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
+          this.klaroHeadScript
         ],
         meta: [
           ...i18nHead.meta,
@@ -172,15 +173,6 @@
     },
 
     mounted() {
-      if (!this.klaro) {
-        this.klaro = window.klaro;
-      }
-
-      // If Matomo plugin is installed, wait for Matomo to load, but still render
-      // Klaro if it fails to.
-      const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
-      renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
-
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedIn'));
         this.$auth.$storage.removeUniversal('portalLoggingIn');
@@ -188,51 +180,6 @@
       if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedOut'));
         this.$auth.$storage.removeUniversal('portalLoggingOut');
-      }
-    },
-
-    methods: {
-      renderKlaro() {
-        if (this.klaro) {
-          const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);
-          const manager = this.klaro.getManager(config);
-
-          this.cookieConsentRequired = !manager.confirmed;
-
-          this.klaro.render(config, true);
-          manager.watch({ update: this.watchKlaroManagerUpdate });
-
-          setTimeout(() => {
-            this.setToastBottomOffset();
-          }, 100);
-        }
-      },
-
-      watchKlaroManagerUpdate(manager, eventType, data) {
-        let eventName;
-
-        if (eventType === 'saveConsents') {
-          eventName = {
-            accept: 'Okay/Accept all',
-            decline: 'Decline',
-            save: 'Accept selected'
-          }[data.type];
-        }
-
-        eventName && this.trackKlaroClickEvent(eventName);
-
-        setTimeout(() => {
-          this.setToastBottomOffset();
-        }, 10);
-      },
-
-      trackKlaroClickEvent(eventName) {
-        this.$matomo?.trackEvent('Klaro', 'Clicked', eventName);
-      },
-
-      setToastBottomOffset() {
-        const cookieNoticeHeight = document.getElementsByClassName('cookie-notice')[0]?.offsetHeight;
-        this.toastBottomOffset = cookieNoticeHeight ? `${cookieNoticeHeight + 40}px` : '20px';
       }
     }
   };
