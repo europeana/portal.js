@@ -225,6 +225,10 @@ fragment imageDisplayProfileFields on ImageDisplayProfile {
 fragment imageCardFields on ImageCard {
   name
   text
+  link {
+    url
+    text
+  }
   image {
     ...imageWithAttributionFields
   }
