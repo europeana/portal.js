@@ -1,8 +1,8 @@
 <template>
   <div
     ref="imagecard"
-    class="image-card d-lg-flex"
-    :class="variant"
+    class="image-card d-lg-flex justify-content-center"
+    :class="[variant, cardClasses]"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -22,9 +22,12 @@
       />
     </div>
     <div class="text-wrapper">
-      <h3 class="title">
+      <component
+        :is="titleTag"
+        class="title"
+      >
         {{ card.name }}
-      </h3>
+      </component>
       <!-- eslint-disable vue/no-v-html -->
       <div
         class="text"
@@ -113,11 +116,19 @@
       variant: {
         type: String,
         default: 'pro'
+      },
+      /**
+       * Heading title level to use. Override default for when used in subsection to keep correct heading structure.
+       */
+      titleTag: {
+        type: String,
+        default: 'h2'
       }
     },
 
     data() {
       return {
+        cardClasses: this.card?.profile?.background ? `bg-color-${this.card.profile.background}` : '',
         cardImageWithAttribution: this.card?.image,
         isSVG: this.card?.image?.image?.contentType === 'image/svg+xml',
         sizesPresets: this.variant === 'ds4ch' ? SIZES_PRESETS_DS4CH : SIZES_PRESETS,
@@ -149,7 +160,8 @@
       max-width: 1250px;
       margin-bottom: 8rem;
 
-      &:nth-child(even) {
+      &:nth-child(even),
+      &[data-parity='even'] {
         .text-wrapper {
           order: -1;
           padding-right: 3.625rem;
@@ -199,6 +211,14 @@
       }
     }
 
+    &.bg-color-alternate {
+      background-color: $bodygrey;
+
+      .text-wrapper {
+        background-color: $bodygrey;
+      }
+    }
+
     ::v-deep figure {
       margin: 0;
       height: 306px;
@@ -227,7 +247,7 @@
       }
     }
 
-    .title {
+    h3.title {
       font-family: $font-family-ubuntu;
       font-size: $font-size-medium;
       font-weight: 500;
@@ -258,10 +278,23 @@
   .ds4ch.image-card {
     max-width: 100%;
     text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
 
     @media (min-width: $bp-large) {
       text-align: left;
       align-items: center;
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+      padding-right: 0;
+    }
+
+    @media (min-width: $bp-4k) {
+      padding-top: 15rem;
+      padding-bottom: 15rem;
     }
 
     .image-wrapper {
@@ -282,15 +315,31 @@
         height: auto;
       }
     }
+
     .text-wrapper {
       padding-right: 0;
       display: block;
+      padding-bottom: 0;
+
+      @media (min-width: $bp-large) {
+        padding-right: 2rem;
+      }
+
+      @media (min-width: $bp-extralarge) {
+        padding-right: 6rem;
+      }
+
+      @media (min-width: $bp-xxl) {
+        flex-basis: 625px;
+        padding-right: 0;
+      }
 
       @media (min-width: $bp-xxl) {
         flex-basis: 625px;
       }
 
       @media (min-width: $bp-4k) {
+        padding-right: 4rem;
         padding-left: 12rem;
         flex-basis: 1500px;
       }
@@ -301,6 +350,10 @@
         @media (min-width: $bp-large) {
           text-align: left;
         }
+      }
+
+      h2.title {
+        @extend %title-2;
       }
 
       h3.title {
@@ -321,6 +374,23 @@
 
         @media (min-width: $bp-4k) {
           margin-top: 3rem;
+        }
+      }
+    }
+
+    &:nth-child(even),
+    &[data-parity='even'] {
+      .text-wrapper {
+        order: -1;
+        padding-right: 3.625rem;
+        padding-left: 2rem;
+
+        @media (min-width: $bp-extralarge) {
+          padding-left: 6rem;
+        }
+        @media (min-width: $bp-xxl) {
+          padding-right: 6rem;
+          padding-left: 0;
         }
       }
     }

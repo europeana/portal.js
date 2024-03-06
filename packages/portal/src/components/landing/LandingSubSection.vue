@@ -28,6 +28,7 @@
           v-if="contentfulEntryHasContentType(section, 'ImageCard')"
           :card="section"
           :variant="variant"
+          title-tag="h3"
         />
         <LandingAutomatedCardGroup
           v-if="contentfulEntryHasContentType(section, 'AutomatedCardGroup')"
@@ -280,6 +281,8 @@
     }
 
     .ds4ch.image-card {
+      padding-top: 0;
+
       @media (min-width: $bp-xxl) {
         max-width: 1500px;
       }
