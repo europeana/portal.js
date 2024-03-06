@@ -43,21 +43,26 @@
     }
 
     .container {
-      padding: 6rem 2rem 6.5rem;
+      padding-top: 3.5rem;
+      padding-bottom: 3.5rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
 
       @media (min-width: $bp-large) {
-        margin-left: 2rem;
+        padding-top: 3.5rem;
+        padding-bottom: 6rem ;
       }
 
-      @media (min-width: $bp-extralarge) {
-        padding-bottom: 10rem ;
+      @media (min-width: ($bp-extralarge)) {
         padding-left: 4rem;
         padding-right: 4rem;
-        margin-left: 4rem;
       }
 
       @media (min-width: $bp-4k) {
-        padding-bottom: 26rem ;
+        padding-top: 16.5rem;
+        padding-bottom: 16.5rem;
+        padding-left: 0;
+        padding-right: 0;
       }
 
       .row {
@@ -77,6 +82,7 @@
     .eu-logo {
       @media (min-width: $bp-4k) {
         width: 810px;
+        height: auto;
         margin-bottom: 2.625rem !important;
       }
     }
