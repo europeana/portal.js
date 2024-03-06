@@ -60,7 +60,7 @@ describe('modules/contentful/templates/assets', () => {
           contentType: 'image/jpeg'
         };
 
-        expect(assets({ store }).optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?q=40&fm=webp');
+        expect(assets({ store }).optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=webp&q=40');
       });
 
       it('respects supplied quality param for WebP', () => {
@@ -89,7 +89,7 @@ describe('modules/contentful/templates/assets', () => {
         contentType: 'image/jpeg'
       };
 
-      expect(assets().optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?q=80&fm=jpg&fl=progressive');
+      expect(assets().optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=jpg&fl=progressive&q=80');
     });
 
     it('joins all the options', () => {
@@ -98,7 +98,7 @@ describe('modules/contentful/templates/assets', () => {
         contentType: 'image/jpeg'
       };
 
-      expect(assets().optimisedSrc(asset, { w: 200, q: 80 })).toBe('https://images.ctfassets.net/asset.jpeg?q=80&w=200&fm=jpg&fl=progressive');
+      expect(assets().optimisedSrc(asset, { w: 200, q: 80 })).toBe('https://images.ctfassets.net/asset.jpeg?w=200&q=80&fm=jpg&fl=progressive');
     });
 
     it('applies passed max width', () => {
@@ -108,6 +108,31 @@ describe('modules/contentful/templates/assets', () => {
       };
 
       expect(assets().optimisedSrc(asset, { w: 40 })).toBe('https://images.ctfassets.net/asset.png?w=40');
+    });
+  });
+
+  describe('imageDisplayProfileResponsiveSizes', () => {
+    it('removes sizes if profile present and has them disabled', () => {
+      const profile = {
+        sizes: ['small']
+      };
+
+      const sizes = assets().imageDisplayProfileResponsiveSizes(responsiveParams, profile);
+
+      expect(sizes).toEqual({ small: responsiveParams.small });
+    });
+
+    it('removes height property if profile has fit: pad and crop: false', () => {
+      const profile = {
+        crop: false,
+        fit: 'pad',
+        sizes: ['small']
+      };
+
+      const sizes = { small: { w: 245, h: 440, fit: 'pad' } };
+      const profileSizes = assets().imageDisplayProfileResponsiveSizes(sizes, profile);
+
+      expect(profileSizes).toEqual({ small: { w: 245, fit: 'pad' } });
     });
   });
 
@@ -121,7 +146,7 @@ describe('modules/contentful/templates/assets', () => {
 
         const srcset = assets().responsiveImageSrcset(asset, responsiveParams);
 
-        expect(srcset).toContain('https://images.ctfassets.net/asset.jpeg?fit=fill&q=80&w=245&h=440&fm=jpg&fl=progressive 245w');
+        expect(srcset).toContain('https://images.ctfassets.net/asset.jpeg?w=245&h=440&fit=fill&fm=jpg&fl=progressive&q=80 245w,https://images.ctfassets.net/asset.jpeg?w=260&h=420&fit=fill&fm=jpg&fl=progressive&q=80 260w,https://images.ctfassets.net/asset.jpeg?w=280&h=400&fit=fill&fm=jpg&fl=progressive&q=80 280w,https://images.ctfassets.net/asset.jpeg?w=300&h=400&fit=fill&fm=jpg&fl=progressive&q=80 300w,https://images.ctfassets.net/asset.jpeg?w=320&h=370&fit=fill&fm=jpg&fl=progressive&q=80 320w,https://images.ctfassets.net/asset.jpeg?w=355&h=345&fit=fill&fm=jpg&fl=progressive&q=80 355w,https://images.ctfassets.net/asset.jpeg?w=510&h=540&fit=fill&fm=jpg&fl=progressive&q=80 510w,https://images.ctfassets.net/asset.jpeg?w=700&h=900&fit=fill&fm=jpg&fl=progressive&q=80 700w');
       });
     });
 

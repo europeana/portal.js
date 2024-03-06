@@ -18,6 +18,22 @@
   }
 }
 
+%title-3 {
+  font-family: $font-family-montserrat;
+  font-size: $font-size-base;
+  font-weight: 700;
+  line-height: 1.2;
+
+  @media(min-width: $bp-medium) {
+    font-size: 1.75rem;
+  }
+
+  @media(min-width: $bp-4k) {
+    font-size: 4rem;
+    margin-bottom: 3rem;
+  }
+}
+
 %title-5 {
   font-family: $font-family-montserrat;
   font-size: $font-size-small;
@@ -36,6 +52,10 @@
 
   h2 {
     @extend %title-2;
+  }
+
+  h3 {
+    @extend %title-3;
   }
 
   .btn {
@@ -85,6 +105,50 @@
       }
     }
 
+    &.btn-secondary:not(.button-icon-only) {
+      border-radius: 0;
+      background-color: $black;
+      color: $white;
+      display: inline-flex;
+      align-items: center;
+      font-family: $font-family-montserrat;
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      transition: all 400ms ease-in-out;
+      text-transform: uppercase;
+
+      @media (min-width: ($bp-4k)) {
+        font-size: 2.625rem;
+        padding: 2rem 2.625rem;
+      }
+
+      &.icon-chevron {
+        line-height: 1.5;
+
+        &::before {
+          @extend %icon-font;
+          order: 2;
+          display: inline-flex;
+          align-items: center;
+          transform: rotate(-90deg);
+          font-size: 0.625rem;
+          margin-left: 0.625rem;
+          color: $white;
+
+          @media (min-width: ($bp-4k)) {
+            font-size: 1.75rem;
+            margin-left: 1.75rem;
+          }
+        }
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: none;
+      }
+    }
+
     &.btn-light-flat {
       background-color: transparent;
       color: $white;
@@ -111,8 +175,31 @@
     }
 
     @media (min-width: ($bp-4k)) {
-      padding-left: 10rem;
-      padding-right: 10rem;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  figcaption {
+    @media(min-width: $bp-4k) {
+      .icon-info {
+        width: 3.125rem;
+        height: 3.125rem;
+
+        &::before {
+          font-size: 3.125rem;
+        }
+      }
+
+      cite {
+        padding: 1.5rem;
+
+        p,
+        [class^='icon-'],
+        .attribution > span .license {
+          font-size: 1.75rem;
+        }
+      }
     }
   }
 }

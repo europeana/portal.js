@@ -33,18 +33,13 @@ query LandingPage(
             ...cardGroupFields
           }
           ... on IllustrationGroup {
-            name
-            text
-            hasPartCollection(limit: 20) {
-              items {
-                ... on Illustration {
-                  ...illustrationFields
-                }
-              }
-            }
+            ...illustrationGroupFields
           }
           ... on InfoCardGroup {
             ...infoCardGroupFields
+          }
+          ... on ImageCard {
+            ...imageCardFields
           }
           ... on ImageCardGroup {
             name
@@ -53,11 +48,7 @@ query LandingPage(
               items {
                 __typename
                 ... on ImageCard {
-                  name
-                  text
-                  image {
-                    ...imageWithAttributionFields
-                  }
+                  ...imageCardFields
                 }
               }
             }
@@ -68,11 +59,20 @@ query LandingPage(
             hasPartCollection(limit: 6) {
               items {
                 __typename
-                ... on InfoCardGroup {
-                  ...infoCardGroupFields
+                ... on CardGroup {
+                  ...cardGroupFields
                 }
                 ... on AutomatedCardGroup {
                   ...automatedCardGroupFields
+                }
+                ... on IllustrationGroup {
+                  ...illustrationGroupFields
+                }
+                ... on ImageCard {
+                  ...imageCardFields
+                }
+                ... on InfoCardGroup {
+                  ...infoCardGroupFields
                 }
               }
             }
@@ -133,6 +133,17 @@ fragment infoCardFields on InfoCard {
     ...imageFields
   }
 }
+fragment illustrationGroupFields on IllustrationGroup {
+  name
+  text
+  hasPartCollection(limit: 20) {
+    items {
+      ... on Illustration {
+        ...illustrationFields
+      }
+    }
+  }
+}
 fragment infoCardGroupFields on InfoCardGroup {
   name
   text
@@ -143,6 +154,10 @@ fragment infoCardGroupFields on InfoCardGroup {
         ...infoCardFields
       }
     }
+  }
+  link {
+    url
+    text
   }
 }
 fragment automatedCardGroupFields on AutomatedCardGroup {
@@ -210,4 +225,18 @@ fragment imageDisplayProfileFields on ImageDisplayProfile {
   overlay
   crop
   background
+}
+fragment imageCardFields on ImageCard {
+  name
+  text
+  link {
+    url
+    text
+  }
+  image {
+    ...imageWithAttributionFields
+  }
+  profile {
+    ...imageDisplayProfileFields
+  }
 }
