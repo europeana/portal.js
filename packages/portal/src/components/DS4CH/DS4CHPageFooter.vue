@@ -11,7 +11,9 @@
         <p>{{ $t('ds4ch.footer.disclaimerLine1') }}</p>
       </b-row>
     </b-container>
-    <FeedbackWidget />
+    <FeedbackWidget
+      :faq-url="null"
+    />
   </footer>
 </template>
 

@@ -4,7 +4,7 @@
       <div
         id="europeana-feedback-widget"
         data-api-url="/_api/jira-service-desk/feedback"
-        data-faq-url="/faq"
+        :data-faq-url="faqUrl"
         :data-locale="$i18n.locale"
         data-qa="feedback widget"
       />
@@ -23,6 +23,12 @@
 
 <script>
   export default {
+    props: {
+      faqUrl: {
+        type: String,
+        default: '/faq'
+      }
+    },
     data() {
       return {
         feedbackEnabled: this.$features?.jiraServiceDeskFeedbackForm && !!this.$config?.app?.baseUrl
