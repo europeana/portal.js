@@ -18,17 +18,20 @@
       :cta="cta"
       :hero-image="primaryImageOfPage"
     />
-    <div
+    <template
       v-for="(section, index) in sections"
-      :key="index"
     >
-      <b-col v-if="contentfulEntryHasContentType(section, 'CardGroup')">
+      <b-col
+        v-if="contentfulEntryHasContentType(section, 'CardGroup')"
+        :key="index"
+      >
         <ContentCardSection
           :section="section"
         />
       </b-col>
       <LandingIllustrationGroup
         v-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
+        :key="index"
         :title="section.name"
         :text="section.text"
         :illustrations="section.hasPartCollection && section.hasPartCollection.items"
@@ -36,23 +39,34 @@
       />
       <LandingInfoCardGroup
         v-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
+        :key="index"
         :title="section.name"
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
-      <LandingImageCard
+      <div
         v-if="contentfulEntryHasContentType(section, 'ImageCard')"
-        :card="section"
-        :variant="variant"
-      />
+        :key="index"
+        class="image-card-container-wrapper"
+        :class="getClasses(section)"
+      >
+        <b-container class="image-card-container">
+          <LandingImageCard
+            :card="section"
+            :variant="variant"
+          />
+        </b-container>
+      </div>
       <LandingImageCardGroup
         v-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
+        :key="index"
         :title="section.name"
         :text="section.text"
         :image-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingSubSection
         v-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
+        :key="index"
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
@@ -60,6 +74,7 @@
       />
       <LandingEmbed
         v-if="contentfulEntryHasContentType(section, 'EmbedSection')"
+        :key="index"
         :english-title="section.nameEN"
         :title="section.name"
         :text="section.text"
@@ -68,13 +83,14 @@
       />
       <LandingCallToAction
         v-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
+        :key="index"
         :title="section.name"
         :text="section.text"
         :link="section.relatedLink"
         :background-image="section.image"
         :variant="variant"
       />
-    </div>
+    </template>
   </div>
 </template>
 
@@ -147,6 +163,12 @@
 
     mounted() {
       this.$nextTick(() => this.markParity('image-card'));
+    },
+
+    methods: {
+      getClasses(section) {
+        return section.profile?.background ? `bg-color-${section.profile.background}` : '';
+      }
     }
   };
 </script>
@@ -161,6 +183,53 @@
 
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
+    }
+
+    ::v-deep .container {
+      @media (max-width: $bp-small) {
+        padding-right: 2rem;
+        padding-left: 2rem;
+      }
+    }
+
+    .bg-color-alternate {
+      background-color: $bodygrey;
+    }
+  }
+</style>
+
+<!-- Only DS4CH styles after this line! -->
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/style';
+
+  .ds4ch-page {
+    .image-card-container {
+      @media (min-width: $bp-large) {
+        max-width: none;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+    .image-card-container-wrapper {
+      + .image-card-container-wrapper {
+        margin-top: -4rem;
+
+        @media (min-width: $bp-large) {
+          margin-top: -8rem;
+        }
+
+        @media (min-width: $bp-4k) {
+          margin-top: -20rem;
+        }
+      }
+
+      @media (min-width: $bp-large) {
+        &:nth-child(even) {
+          ::v-deep .text-wrapper {
+            order: -1;
+          }
+        }
+      }
     }
   }
 </style>
