@@ -205,7 +205,6 @@
       }
     }
     .image-card-container-wrapper {
-
       + .image-card-container-wrapper {
         margin-top: -4rem;
 
@@ -215,6 +214,14 @@
 
         @media (min-width: $bp-4k) {
           margin-top: -20rem;
+        }
+      }
+
+      @media (min-width: $bp-large) {
+        &:nth-child(even) {
+          ::v-deep .text-wrapper {
+            order: -1;
+          }
         }
       }
     }
