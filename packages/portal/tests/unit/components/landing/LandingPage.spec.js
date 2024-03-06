@@ -37,7 +37,7 @@ describe('components/landing/LandingPage', () => {
     });
 
     it('detects ds4ch variant from route', () => {
-      const $route = { params: { pathMatch: 'microsite/DS4CH.eu' } };
+      const $route = { params: { pathMatch: 'dataspace-culturalheritage' } };
       const wrapper = factory({ mocks: { $route }, propsData });
 
       const landingPage = wrapper.find('[data-qa="landing page"]');

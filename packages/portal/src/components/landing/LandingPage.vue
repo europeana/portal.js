@@ -40,6 +40,11 @@
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
+      <LandingImageCard
+        v-if="contentfulEntryHasContentType(section, 'ImageCard')"
+        :card="section"
+        :variant="variant"
+      />
       <LandingImageCardGroup
         v-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
         :title="section.name"
@@ -77,6 +82,7 @@
   import LandingHero from '@/components/landing/LandingHero';
   import landingPageMixin from '@/mixins/landingPage.js';
   import contentfulMixin from '@/mixins/contentful.js';
+  import parityMixin from '@/mixins/parity.js';
 
   export default {
     name: 'LandingPage',
@@ -87,6 +93,7 @@
       LandingHero,
       LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
+      LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
       LandingSubSection: () => import('@/components/landing/LandingSubSection'),
       LandingEmbed: () => import('@/components/landing/LandingEmbed'),
@@ -95,7 +102,8 @@
 
     mixins: [
       contentfulMixin,
-      landingPageMixin
+      landingPageMixin,
+      parityMixin
     ],
 
     props: {
@@ -135,6 +143,10 @@
       if (this.landingPageId === 'ds4ch') {
         this.variant = 'ds4ch';
       }
+    },
+
+    mounted() {
+      this.$nextTick(() => this.markParity('image-card'));
     }
   };
 </script>
