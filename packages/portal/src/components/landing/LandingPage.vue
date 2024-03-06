@@ -4,21 +4,29 @@
     :class="`${variant}-page`"
     data-qa="landing page"
   >
-    <LandingHero
+    <DS4CHLandingHero
+      v-if="variant === 'ds4ch'"
       :headline="headline"
       :text="text"
       :cta="cta"
       :hero-image="primaryImageOfPage"
-      :variant="variant"
+    />
+    <LandingHero
+      v-else
+      :headline="headline"
+      :text="text"
+      :cta="cta"
+      :hero-image="primaryImageOfPage"
     />
     <div
       v-for="(section, index) in sections"
       :key="index"
     >
-      <ContentCardSection
-        v-if="contentfulEntryHasContentType(section, 'CardGroup')"
-        :section="section"
-      />
+      <b-col v-if="contentfulEntryHasContentType(section, 'CardGroup')">
+        <ContentCardSection
+          :section="section"
+        />
+      </b-col>
       <LandingIllustrationGroup
         v-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
         :title="section.name"
@@ -81,7 +89,8 @@
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
       LandingSubSection: () => import('@/components/landing/LandingSubSection'),
-      LandingEmbed: () => import('@/components/landing/LandingEmbed')
+      LandingEmbed: () => import('@/components/landing/LandingEmbed'),
+      DS4CHLandingHero: () => import('@/components/DS4CH/DS4CHLandingHero')
     },
 
     mixins: [
@@ -147,12 +156,8 @@
 <style lang="scss">
   @import '@europeana/style/scss/DS4CH/variables';
 
-  .ds4ch-page {
-    margin-top: -4.375rem;
-
-    @media (min-width: ($bp-4k)) {
-      margin-top: -6.5625rem;
-    }
+  .page.ds4ch-page {
+    margin-top: 0;
 
     &:after {
       content: none;

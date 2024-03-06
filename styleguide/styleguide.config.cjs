@@ -128,7 +128,7 @@ module.exports = async() => {
         name: 'DS4CH',
         sections: [{
           name: 'DS4CH',
-          components: '../portal/src/components/DS4CH/[A-Z]*.vue'
+          components: '../packages/portal/src/components/DS4CH/[A-Z]*.vue'
         }]
       }
     ],
