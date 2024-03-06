@@ -161,7 +161,7 @@
       margin-bottom: 8rem;
 
       &:nth-child(even),
-      &.image-position-right {
+      &[data-parity='even'] {
         .text-wrapper {
           order: -1;
           padding-right: 3.625rem;
@@ -378,7 +378,8 @@
       }
     }
 
-    &.image-position-right {
+    &:nth-child(even),
+    &[data-parity='even'] {
       .text-wrapper {
         order: -1;
         padding-right: 3.625rem;
@@ -388,6 +389,7 @@
           padding-left: 6rem;
         }
         @media (min-width: $bp-xxl) {
+          padding-right: 6rem;
           padding-left: 0;
         }
       }
