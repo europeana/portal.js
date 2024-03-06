@@ -111,6 +111,31 @@ describe('modules/contentful/templates/assets', () => {
     });
   });
 
+  describe('imageDisplayProfileResponsiveSizes', () => {
+    it('removes sizes if profile present and has them disabled', () => {
+      const profile = {
+        sizes: ['small']
+      };
+
+      const sizes = assets().imageDisplayProfileResponsiveSizes(responsiveParams, profile);
+
+      expect(sizes).toEqual({ small: responsiveParams.small });
+    });
+
+    it('removes height property if profile has fit: pad and crop: false', () => {
+      const profile = {
+        crop: false,
+        fit: 'pad',
+        sizes: ['small']
+      };
+
+      const sizes = { small: { w: 245, h: 440, fit: 'pad' } };
+      const profileSizes = assets().imageDisplayProfileResponsiveSizes(sizes, profile);
+
+      expect(profileSizes).toEqual({ small: { w: 245, fit: 'pad' } });
+    });
+  });
+
   describe('responsiveImageSrcset', () => {
     describe('when a Contentful asset and params are available', () => {
       it('returns image srcset for all breakpoints', () => {

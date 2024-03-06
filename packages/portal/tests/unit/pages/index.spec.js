@@ -213,7 +213,7 @@ describe('IndexPage', () => {
   });
 
   describe('when route is for DS4CH page', () => {
-    const $route = { params: { pathMatch: 'microsite/DS4CH.eu' } };
+    const $route = { params: { pathMatch: 'dataspace-culturalheritage' } };
 
     it('uses ds4ch layout', () => {
       const wrapper = factory({ mocks: { $route } });
