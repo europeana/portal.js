@@ -24,14 +24,14 @@
   import ContentPrimaryCallToAction from '@/components/content/ContentPrimaryCallToAction';
 
   const CSS_VARS_SIZES = {
-    small: { w: 576, h: 350 },
-    medium: { w: 768, h: 310 },
-    large: { w: 992, h: 300 },
-    xl: { w: 1200, h: 300 },
-    xxl: { w: 1400, h: 300 },
-    xxxl: { w: 1880, h: 300 },
-    wqhd: { w: 3020, h: 500 },
-    '4k': { w: 3840, h: 680 }
+    small: { w: 576, h: 350, fit: 'fill' },
+    medium: { w: 768, h: 310, fit: 'fill' },
+    large: { w: 992, h: 300, fit: 'fill' },
+    xl: { w: 1200, h: 300, fit: 'fill' },
+    xxl: { w: 1400, h: 300, fit: 'fill' },
+    xxxl: { w: 1880, h: 300, fit: 'fill' },
+    wqhd: { w: 3020, h: 500, fit: 'fill' },
+    '4k': { w: 3840, h: 680, fit: 'fill' }
   };
 
   export default {
