@@ -103,26 +103,7 @@
         </b-row>
       </b-container>
     </div>
-    <client-only
-      v-if="feedbackEnabled"
-    >
-      <div
-        id="europeana-feedback-widget"
-        data-api-url="/_api/jira-service-desk/feedback"
-        data-faq-url="/faq"
-        :data-locale="$i18n.locale"
-        data-qa="feedback widget"
-      />
-      <script
-        type="module"
-        src="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.2.0/dist/europeana-feedback-widget.js"
-        integrity="sha384-u9uk9KOvOrG5X4yAGn1xMj1P5YmrJWanSqij7tvI4eZTjI/UQGK98lq3e/I6XfuP"
-      />
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.2.0/dist/europeana-feedback-widget.css"
-      >
-    </client-only>
+    <FeedbackWidget />
   </footer>
 </template>
 
@@ -130,12 +111,14 @@
   import LangSelector from '../generic/LanguageSelector';
   import LinkGroup from '../generic/LinkGroup';
   import EULogo from '../image/ImageEULogo';
+  import FeedbackWidget from '../feedback/FeedbackWidget.vue';
 
   export default {
     components: {
+      EULogo,
+      FeedbackWidget,
       LangSelector,
-      LinkGroup,
-      EULogo
+      LinkGroup
     },
 
     data() {
@@ -176,9 +159,6 @@
     },
 
     computed: {
-      feedbackEnabled() {
-        return this.$features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
-      },
       debugSettings() {
         return this.$store.getters['debug/settings'];
       },
