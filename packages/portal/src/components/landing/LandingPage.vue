@@ -39,6 +39,7 @@
         :title="section.name"
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
+        :link="section.link"
       />
       <LandingImageCardGroup
         v-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"

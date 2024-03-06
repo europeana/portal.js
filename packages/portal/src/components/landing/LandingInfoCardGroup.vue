@@ -22,17 +22,28 @@
         :card="card"
       />
     </div>
+    <SmartLink
+      v-if="link?.url"
+      :destination="link.url"
+      data-qa="call to action"
+      class="btn btn-cta btn-primary"
+      hide-external-icon
+    >
+      {{ link.text }}
+    </SmartLink>
   </b-container>
 </template>
 
 <script>
+  import SmartLink from '../generic/SmartLink';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingInfoCardGroup',
 
     components: {
-      LandingInfoCard: () => import('@/components/landing/LandingInfoCard')
+      LandingInfoCard: () => import('@/components/landing/LandingInfoCard'),
+      SmartLink
     },
 
     mixins: [parseMarkdownHtmlMixin],
@@ -65,6 +76,10 @@
       infoCards: {
         type: Array,
         default: () => []
+      },
+      link: {
+        type: Object,
+        default: null
       }
     }
   };

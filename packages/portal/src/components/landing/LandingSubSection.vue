@@ -33,6 +33,7 @@
           title-tag="h3"
           :text="section.text"
           :info-cards="section.hasPartCollection && section.hasPartCollection.items"
+          :link="section.link"
         />
       </div>
     </b-container>
