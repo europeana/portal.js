@@ -4,12 +4,19 @@
     :class="`${variant}-page`"
     data-qa="landing page"
   >
-    <LandingHero
+    <DS4CHLandingHero
+      v-if="variant === 'ds4ch'"
       :headline="headline"
       :text="text"
       :cta="cta"
       :hero-image="primaryImageOfPage"
-      :variant="variant"
+    />
+    <LandingHero
+      v-else
+      :headline="headline"
+      :text="text"
+      :cta="cta"
+      :hero-image="primaryImageOfPage"
     />
     <template
       v-for="(section, index) in sections"
@@ -41,7 +48,6 @@
         v-if="contentfulEntryHasContentType(section, 'ImageCard')"
         :key="index"
         class="image-card-container-wrapper"
-        :class="getClasses(section)"
       >
         <b-container class="image-card-container">
           <LandingImageCard
@@ -88,7 +94,6 @@
 </template>
 
 <script>
-  import kebabCase from 'lodash/kebabCase.js';
   import LandingHero from '@/components/landing/LandingHero';
   import landingPageMixin from '@/mixins/landingPage.js';
   import contentfulMixin from '@/mixins/contentful.js';
@@ -105,7 +110,8 @@
       LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
       LandingSubSection: () => import('@/components/landing/LandingSubSection'),
-      LandingEmbed: () => import('@/components/landing/LandingEmbed')
+      LandingEmbed: () => import('@/components/landing/LandingEmbed'),
+      DS4CHLandingHero: () => import('@/components/DS4CH/DS4CHLandingHero')
     },
 
     mixins: [
@@ -149,12 +155,6 @@
     created() {
       if (this.landingPageId === 'ds4ch') {
         this.variant = 'ds4ch';
-      }
-    },
-
-    methods: {
-      getClasses(section) {
-        return section.contentfulMetadata?.tags?.map(tag => kebabCase(tag.id));
       }
     }
   };
@@ -217,12 +217,8 @@
 <style lang="scss">
   @import '@europeana/style/scss/DS4CH/variables';
 
-  .ds4ch-page {
-    margin-top: -4.375rem;
-
-    @media (min-width: ($bp-4k)) {
-      margin-top: -6.5625rem;
-    }
+  .page.ds4ch-page {
+    margin-top: 0;
 
     &:after {
       content: none;

@@ -318,7 +318,7 @@
               text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               image: {
                 url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentType: 'image/svg+xml', description: '', width: 111, height: 111
+                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
               }
             }, {
               __typename: 'InfoCard',
@@ -326,7 +326,7 @@
               text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               image: {
                 url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentType: 'image/svg+xml', description: '', width: 111, height: 111
+                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
               }
             }, {
               __typename: 'InfoCard',
@@ -334,7 +334,7 @@
               text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               image: {
                 url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentType: 'image/svg+xml', description: '', width: 111, height: 111
+                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
               }
             } ]
           }

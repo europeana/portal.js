@@ -11,7 +11,7 @@
       ref="pageHeader"
     />
     <main
-      id="default"
+      id="ds4ch"
       role="main"
     >
       <nuxt

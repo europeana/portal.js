@@ -2,7 +2,7 @@
   <div
     ref="imagecard"
     class="image-card d-lg-flex justify-content-center"
-    :class="[variant, ...cardClasses]"
+    :class="[variant, cardClasses]"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -48,7 +48,6 @@
 </template>
 
 <script>
-  import kebabCase from 'lodash/kebabCase.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
@@ -129,7 +128,7 @@
 
     computed: {
       cardClasses() {
-        return this.card.contentfulMetadata?.tags?.map(tag => kebabCase(tag.id)) || [];
+        return `bg-color-${this.card?.profile?.background}`;
       },
       cardImageWithAttribution() {
         return this.card.image;
@@ -139,6 +138,11 @@
       },
       sizesPresets() {
         if (this.variant === 'ds4ch') {
+          if (this.card?.profile && this.card.profile.fit === 'pad' && !this.card?.profile?.crop) {
+            Object.keys(SRCSET_PRESETS_DS4CH).forEach(size => {
+              delete SRCSET_PRESETS_DS4CH[size].h;
+            });
+          }
           return SIZES_PRESETS_DS4CH;
         } else {
           return SIZES_PRESETS;
@@ -155,7 +159,7 @@
 
     methods: {
       imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, this.srcSetPresets);
+        return this.$contentful.assets.responsiveImageSrcset(image, this.srcSetPresets, this.card?.profile);
       }
     }
   };
@@ -362,6 +366,10 @@
       @media (min-width: $bp-xxl) {
         flex-basis: 625px;
         padding-right: 0;
+      }
+
+      @media (min-width: $bp-xxl) {
+        flex-basis: 625px;
       }
 
       @media (min-width: $bp-4k) {

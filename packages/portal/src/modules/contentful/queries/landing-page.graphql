@@ -33,21 +33,17 @@ query LandingPage(
             ...cardGroupFields
           }
           ... on IllustrationGroup {
-            name
-            text
-            hasPartCollection(limit: 20) {
-              items {
-                ... on Illustration {
-                  ...illustrationFields
-                }
-              }
-            }
+            ...illustrationGroupFields
           }
           ... on InfoCardGroup {
             ...infoCardGroupFields
           }
           ... on ImageCard {
-            ...imageCardFields
+            name
+            text
+            image {
+              ...imageWithAttributionFields
+            }
           }
           ... on ImageCardGroup {
             name
@@ -74,14 +70,17 @@ query LandingPage(
                 ... on CardGroup {
                   ...cardGroupFields
                 }
-                ... on InfoCardGroup {
-                  ...infoCardGroupFields
-                }
                 ... on AutomatedCardGroup {
                   ...automatedCardGroupFields
                 }
+                ... on IllustrationGroup {
+                  ...illustrationGroupFields
+                }
                 ... on ImageCard {
                   ...imageCardFields
+                }
+                ... on InfoCardGroup {
+                  ...infoCardGroupFields
                 }
               }
             }
@@ -140,6 +139,17 @@ fragment infoCardFields on InfoCard {
   text
   image {
     ...imageFields
+  }
+}
+fragment illustrationGroupFields on IllustrationGroup {
+  name
+  text
+  hasPartCollection(limit: 20) {
+    items {
+      ... on Illustration {
+        ...illustrationFields
+      }
+    }
   }
 }
 fragment infoCardGroupFields on InfoCardGroup {
@@ -211,22 +221,6 @@ fragment cardGroupFields on CardGroup {
     text
   }
 }
-fragment imageCardFields on ImageCard {
-  name
-  text
-  image {
-    ...imageWithAttributionFields
-  }
-  link {
-    text
-    url
-  }
-  contentfulMetadata {
-    tags {
-      id
-    }
-  }
-}
 fragment imageDisplayProfileFields on ImageDisplayProfile {
   fit
   sizes
@@ -235,4 +229,14 @@ fragment imageDisplayProfileFields on ImageDisplayProfile {
   overlay
   crop
   background
+}
+fragment imageCardFields on ImageCard {
+  name
+  text
+  image {
+    ...imageWithAttributionFields
+  }
+  profile {
+    ...imageDisplayProfileFields
+  }
 }

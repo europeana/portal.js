@@ -25,14 +25,14 @@ const SIZES_PRESETS = [
 ].join(',');
 
 const SRCSET_PRESETS_DS4CH = {
-  small: { w: 512, fit: 'fill' },
-  medium: { w: 510, fit: 'fill' },
-  large: { w: 690, fit: 'fill' },
-  xl: { w: 600, fit: 'fill' },
-  xxl: { w: 700, fit: 'fill' },
-  xxxl: { w: 940, fit: 'fill' },
-  wqhd: { w: 1500, fit: 'fill' },
-  '4k': { w: 1500, fit: 'fill' }
+  small: { w: 512, h: 342, fit: 'fill' },
+  medium: { w: 510, h: 340, fit: 'fill' },
+  large: { w: 690, h: 460, fit: 'fill' },
+  xl: { w: 600, h: 400, fit: 'fill' },
+  xxl: { w: 700, h: 467, fit: 'fill' },
+  xxxl: { w: 940, h: 627, fit: 'fill' },
+  wqhd: { w: 1500, h: 1000, fit: 'fill' },
+  '4k': { w: 1500, h: 1000, fit: 'fill' }
 }.toString();
 
 const SIZES_PRESETS_DS4CH = [
@@ -62,6 +62,15 @@ const testPropsData = {
 const ds4chTestPropsData = {
   ...testPropsData,
   variant: 'ds4ch'
+};
+
+const ds4chTestPropsDataNoCropProfile = {
+  ...ds4chTestPropsData,
+  card: { ...ds4chTestPropsData.card,
+    profile: {
+      fit: 'pad',
+      crop: false
+    } }
 };
 
 const factory = (propsData = testPropsData) => shallowMount(LandingImageCard, {
@@ -97,6 +106,16 @@ describe('components/landing/LandingImageCard', () => {
 
       expect(imageWithAttribution.attributes('image-sizes')).toEqual(SIZES_PRESETS_DS4CH);
       expect(imageWithAttribution.attributes('image-srcset')).toEqual(SRCSET_PRESETS_DS4CH);
+    });
+    describe('and there is a profile image with pad fit and no crop set', () => {
+      it('passes specific ds4ch image srcset and sizes', () => {
+        const wrapper = factory(ds4chTestPropsDataNoCropProfile);
+
+        const imageWithAttribution = wrapper.find('imagewithattribution-stub');
+
+        expect(imageWithAttribution.attributes('image-sizes')).toEqual(SIZES_PRESETS_DS4CH);
+        expect(imageWithAttribution.attributes('image-srcset')).toEqual(SRCSET_PRESETS_DS4CH);
+      });
     });
   });
 });

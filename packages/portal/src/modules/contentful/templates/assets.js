@@ -24,9 +24,9 @@ export default ({ store } = {}) => ({
 
   imageApiParamsForImageDisplayProfile(profile) {
     return {
-      f: profile?.focus,
-      fit: profile?.fit,
-      q: profile?.quality
+      ...profile?.focus && { f: profile.focus },
+      ...profile?.fit && { fit: profile.fit },
+      ...profile?.quality && { q: profile.quality }
     };
   },
 
@@ -58,7 +58,7 @@ export default ({ store } = {}) => ({
     const imageUrl = new URL(asset.url);
     const profileParams = this.imageApiParamsForImageDisplayProfile(profile);
 
-    const params = { ...profileParams, ...options };
+    const params = { ...options, ...profileParams };
 
     if (!params.fm && (asset.contentType !== MEDIA_TYPE_SVG) && this.acceptedMediaTypes().includes(MEDIA_TYPE_WEBP)) {
       params.fm = CONTENTFUL_IMAGES_PARAMS_FM_WEBP;
