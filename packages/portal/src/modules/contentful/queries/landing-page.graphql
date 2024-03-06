@@ -155,6 +155,10 @@ fragment infoCardGroupFields on InfoCardGroup {
       }
     }
   }
+  link {
+    url
+    text
+  }
 }
 fragment automatedCardGroupFields on AutomatedCardGroup {
   genre
