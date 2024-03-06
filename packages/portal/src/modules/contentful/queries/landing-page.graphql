@@ -39,11 +39,7 @@ query LandingPage(
             ...infoCardGroupFields
           }
           ... on ImageCard {
-            name
-            text
-            image {
-              ...imageWithAttributionFields
-            }
+            ...imageCardFields
           }
           ... on ImageCardGroup {
             name
@@ -52,11 +48,7 @@ query LandingPage(
               items {
                 __typename
                 ... on ImageCard {
-                  name
-                  text
-                  image {
-                    ...imageWithAttributionFields
-                  }
+                  ...imageCardFields
                 }
               }
             }

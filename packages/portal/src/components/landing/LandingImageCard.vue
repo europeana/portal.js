@@ -128,7 +128,7 @@
 
     computed: {
       cardClasses() {
-        return `bg-color-${this.card?.profile?.background}`;
+        return this.card?.profile?.background ? `bg-color-${this.card.profile.background}` : '';
       },
       cardImageWithAttribution() {
         return this.card.image;
@@ -232,7 +232,7 @@
       }
     }
 
-    &.background-grey {
+    &.bg-color-alternate {
       background-color: $bodygrey;
 
       .text-wrapper {
@@ -304,20 +304,6 @@
     margin-bottom: 0;
     margin-left: auto;
     margin-right: auto;
-    &.image-position-right {
-      .text-wrapper {
-        order: -1;
-        padding-right: 3.625rem;
-        padding-left: 2rem;
-
-        @media (min-width: $bp-extralarge) {
-          padding-left: 6rem;
-        }
-        @media (min-width: $bp-xxl) {
-          padding-left: 0;
-        }
-      }
-    }
 
     @media (min-width: $bp-large) {
       text-align: left;
@@ -350,6 +336,7 @@
         height: auto;
       }
     }
+
     .text-wrapper {
       padding-right: 0;
       display: block;
@@ -408,6 +395,21 @@
 
         @media (min-width: $bp-4k) {
           margin-top: 3rem;
+        }
+      }
+    }
+
+    &.image-position-right {
+      .text-wrapper {
+        order: -1;
+        padding-right: 3.625rem;
+        padding-left: 2rem;
+
+        @media (min-width: $bp-extralarge) {
+          padding-left: 6rem;
+        }
+        @media (min-width: $bp-xxl) {
+          padding-left: 0;
         }
       }
     }
