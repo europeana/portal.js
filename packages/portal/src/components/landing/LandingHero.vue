@@ -20,7 +20,7 @@
         </header>
       </div>
       <ImageWithAttribution
-        class="hero-image pl-3 pr-3 mb-5 mb-lg-0 p-lg-0"
+        class="hero-image px-sm-3 mb-5 mb-lg-0 p-lg-0"
         :class="{ 'svg-image': isSVG }"
         :alt="heroImage.image.description || ''"
         :src="heroImage.image.url"
