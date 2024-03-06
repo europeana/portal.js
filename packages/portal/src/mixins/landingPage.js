@@ -1,5 +1,5 @@
 const LANDING_PAGES = {
-  ds4ch: 'microsite/DS4CH.eu',
+  ds4ch: 'dataspace-culturalheritage',
   'share-your-data': 'share-your-data'
 };
 

@@ -30,8 +30,8 @@ describe('mixins/landingPage', () => {
         });
       });
 
-      describe('when route slug is "microsite/DS4CH.eu"', () => {
-        const $route = { params: { pathMatch: 'microsite/DS4CH.eu' } };
+      describe('when route slug is "dataspace-culturalheritage"', () => {
+        const $route = { params: { pathMatch: 'dataspace-culturalheritage' } };
 
         it('is "ds4ch"', () => {
           const wrapper = factory({ mocks: { $route } });
