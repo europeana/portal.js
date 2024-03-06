@@ -31,7 +31,18 @@ export default ({ store } = {}) => ({
   },
 
   imageDisplayProfileResponsiveSizes(sizes, profile) {
-    return Object.keys(sizes).filter((size) => !profile || profile.sizes.includes(size));
+    const deleteHeight = profile?.fit === 'pad' && !profile?.crop;
+
+    return Object.keys(sizes).reduce((memo, size) => {
+      if (!profile || profile.sizes.includes(size)) {
+        memo[size] = sizes[size];
+
+        if (deleteHeight) {
+          delete memo[size].h;
+        }
+      }
+      return memo;
+    }, {});
   },
 
   // TODO: remove if unused
@@ -86,10 +97,10 @@ export default ({ store } = {}) => ({
     if (this.isValidUrl(image?.url) && sizes) {
       const profileSizes = this.imageDisplayProfileResponsiveSizes(sizes, profile);
 
-      return profileSizes
+      return Object.keys(profileSizes)
         .map((size) => {
-          const url = this.optimisedSrc(image, sizes[size], profile);
-          return `${url} ${sizes[size].w}w`;
+          const url = this.optimisedSrc(image, profileSizes[size], profile);
+          return `${url} ${profileSizes[size].w}w`;
         })
         .join(',');
     } else {
@@ -101,8 +112,8 @@ export default ({ store } = {}) => ({
     if (this.isValidUrl(image?.url) && sizes) {
       const profileSizes = this.imageDisplayProfileResponsiveSizes(sizes, profile);
 
-      return profileSizes.reduce((memo, size) => {
-        const url = this.optimisedSrc(image, sizes[size], profile);
+      return Object.keys(profileSizes).reduce((memo, size) => {
+        const url = this.optimisedSrc(image, profileSizes[size], profile);
         memo[`--bg-img-${size}`] = `url('${url}')`;
         return memo;
       }, {});

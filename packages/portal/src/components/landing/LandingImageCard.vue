@@ -116,32 +116,13 @@
       }
     },
 
-    computed: {
-      cardImageWithAttribution() {
-        return this.card.image;
-      },
-      isSVG() {
-        return this.cardImageWithAttribution.image.contentType === 'image/svg+xml';
-      },
-      sizesPresets() {
-        if (this.variant === 'ds4ch') {
-          if (this.card?.profile && this.card.profile.fit === 'pad' && !this.card?.profile?.crop) {
-            Object.keys(SRCSET_PRESETS_DS4CH).forEach(size => {
-              delete SRCSET_PRESETS_DS4CH[size].h;
-            });
-          }
-          return SIZES_PRESETS_DS4CH;
-        } else {
-          return SIZES_PRESETS;
-        }
-      },
-      srcSetPresets() {
-        if (this.variant === 'ds4ch') {
-          return SRCSET_PRESETS_DS4CH;
-        } else {
-          return SRCSET_PRESETS;
-        }
-      }
+    data() {
+      return {
+        cardImageWithAttribution: this.card?.image,
+        isSVG: this.card?.image?.image?.contentType === 'image/svg+xml',
+        sizesPresets: this.variant === 'ds4ch' ? SIZES_PRESETS_DS4CH : SIZES_PRESETS,
+        srcSetPresets: this.variant === 'ds4ch' ? SRCSET_PRESETS_DS4CH : SRCSET_PRESETS
+      };
     },
 
     methods: {

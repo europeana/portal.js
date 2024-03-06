@@ -23,7 +23,7 @@
 <script>
   import ContentPrimaryCallToAction from '@/components/content/ContentPrimaryCallToAction';
 
-  const CSS_VARS_SIZES = {
+  const SIZES_PRESETS = {
     small: { w: 576, h: 350, fit: 'fill' },
     medium: { w: 768, h: 310, fit: 'fill' },
     large: { w: 992, h: 300, fit: 'fill' },
@@ -90,7 +90,7 @@
         displayTitle: this.variant === 'ds4ch' ? this.title : null,
         imageCSSVars: this.$contentful.assets.responsiveBackgroundImageCSSVars(
           this.backgroundImage?.image,
-          CSS_VARS_SIZES,
+          SIZES_PRESETS,
           this.backgroundImage?.profile
         )
       };
