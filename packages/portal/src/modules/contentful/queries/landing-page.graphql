@@ -38,6 +38,9 @@ query LandingPage(
           ... on InfoCardGroup {
             ...infoCardGroupFields
           }
+          ... on ImageCard {
+            ...imageCardFields
+          }
           ... on ImageCardGroup {
             name
             nameEN: name(locale: "en-GB")
@@ -73,7 +76,6 @@ query LandingPage(
                 ... on InfoCardGroup {
                   ...infoCardGroupFields
                 }
-
               }
             }
           }
@@ -232,6 +234,10 @@ fragment imageDisplayProfileFields on ImageDisplayProfile {
 fragment imageCardFields on ImageCard {
   name
   text
+  link {
+    url
+    text
+  }
   image {
     ...imageWithAttributionFields
   }

@@ -12,7 +12,7 @@ const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(LandingPag
     $route: { params: {} },
     ...mocks
   },
-  stubs: ['b-container', 'b-col']
+  stubs: ['b-container', 'b-col', 'LandingImageCard']
 });
 
 describe('components/landing/LandingPage', () => {
@@ -51,7 +51,7 @@ describe('components/landing/LandingPage', () => {
     const propsData = {
       headline: 'This page is awesome',
       sections: [
-        { __typename: 'LandingImageCard', nameEN: 'about us' }
+        { __typename: 'ImageCard', nameEN: 'about us' }
       ]
     };
     const wrapper = factory({ propsData });
