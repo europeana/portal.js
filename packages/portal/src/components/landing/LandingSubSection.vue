@@ -280,6 +280,8 @@
     }
 
     .ds4ch.image-card {
+      padding-top: 0;
+
       @media (min-width: $bp-xxl) {
         max-width: 1500px;
       }
