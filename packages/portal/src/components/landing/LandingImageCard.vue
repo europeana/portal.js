@@ -2,7 +2,7 @@
   <div
     ref="imagecard"
     class="image-card d-lg-flex"
-    :class="imageCardClasses"
+    :class="variant"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -67,14 +67,14 @@
   ].join(',');
 
   const SRCSET_PRESETS_DS4CH = {
-    small: { w: 512, fit: 'fill' },
-    medium: { w: 510, fit: 'fill' },
-    large: { w: 690, fit: 'fill' },
-    xl: { w: 600, fit: 'fill' },
-    xxl: { w: 700, fit: 'fill' },
-    xxxl: { w: 940, fit: 'fill' },
-    wqhd: { w: 1500, fit: 'fill' },
-    '4k': { w: 1500, fit: 'fill' }
+    small: { w: 512, h: 342, fit: 'fill' },
+    medium: { w: 510, h: 340, fit: 'fill' },
+    large: { w: 690, h: 460, fit: 'fill' },
+    xl: { w: 600, h: 400, fit: 'fill' },
+    xxl: { w: 700, h: 467, fit: 'fill' },
+    xxxl: { w: 940, h: 627, fit: 'fill' },
+    wqhd: { w: 1500, h: 1000, fit: 'fill' },
+    '4k': { w: 1500, h: 1000, fit: 'fill' }
   };
 
   const SIZES_PRESETS_DS4CH = [
@@ -116,15 +116,6 @@
       }
     },
 
-    data() {
-      return {
-        imageCardClasses: {
-          [this.variant]: true,
-          'bg-img-no-crop': !this.card?.profile?.crop
-        }
-      };
-    },
-
     computed: {
       cardImageWithAttribution() {
         return this.card.image;
@@ -134,6 +125,11 @@
       },
       sizesPresets() {
         if (this.variant === 'ds4ch') {
+          if (this.card?.profile && this.card.profile.fit === 'pad' && !this.card?.profile?.crop) {
+            Object.keys(SRCSET_PRESETS_DS4CH).forEach(size => {
+              delete SRCSET_PRESETS_DS4CH[size].h;
+            });
+          }
           return SIZES_PRESETS_DS4CH;
         } else {
           return SIZES_PRESETS;
@@ -150,7 +146,7 @@
 
     methods: {
       imageSrcset(image) {
-        return this.$contentful.assets.responsiveImageSrcset(image, this.srcSetPresets);
+        return this.$contentful.assets.responsiveImageSrcset(image, this.srcSetPresets, this.card?.profile);
       }
     }
   };
@@ -237,7 +233,6 @@
 
       img {
         width: auto;
-        max-width: none;
       }
     }
 
@@ -280,7 +275,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
   .ds4ch.image-card {
-    max-width: none;
+    max-width: 100%;
     text-align: center;
 
     @media (min-width: $bp-large) {
@@ -293,28 +288,30 @@
         max-width: none;
       }
 
+      @media (min-width: $bp-xxl) {
+        flex-basis: 625px;
+      }
+
+      @media (min-width: $bp-4k) {
+        flex-basis: 1500px;
+      }
+
       ::v-deep figure {
-        height: 306px;
-
-        @media (min-width: $bp-medium) {
-          height: 367px;
-        }
-
-        @media (min-width: $bp-xxl) {
-          height: 436px;
-        }
-
-        @media (min-width: $bp-4k) {
-          height: 908px;
-        }
+        width: auto;
+        height: auto;
       }
     }
     .text-wrapper {
       padding-right: 0;
       display: block;
 
+      @media (min-width: $bp-xxl) {
+        flex-basis: 625px;
+      }
+
       @media (min-width: $bp-4k) {
         padding-left: 12rem;
+        flex-basis: 1500px;
       }
 
       .title {
@@ -343,15 +340,6 @@
 
         @media (min-width: $bp-4k) {
           margin-top: 3rem;
-        }
-      }
-    }
-
-    &.bg-img-no-crop {
-      ::v-deep figure {
-        height: auto;
-        img {
-          width: 100%;
         }
       }
     }
