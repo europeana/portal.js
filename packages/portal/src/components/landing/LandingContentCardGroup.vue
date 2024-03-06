@@ -24,7 +24,7 @@
        * Section with content card group contents
        */
       section: {
-        type: String,
+        type: Object,
         default: null
       },
       /**
@@ -73,7 +73,10 @@
 
   .landing-content-card-group.ds4ch {
     margin: 0;
-    background-color: $bodygrey;
+
+    &[data-parity='odd'] {
+      background-color: $bodygrey;
+    }
 
     .container {
       padding-left: 15px;

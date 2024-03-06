@@ -163,6 +163,7 @@
 
     mounted() {
       this.$nextTick(() => this.markParity('image-card'));
+      this.$nextTick(() => this.markParity('landing-content-card-group'));
     },
 
     methods: {
@@ -220,14 +221,6 @@
 
         @media (min-width: $bp-4k) {
           margin-top: -20rem;
-        }
-      }
-
-      @media (min-width: $bp-large) {
-        &:nth-child(even) {
-          ::v-deep .text-wrapper {
-            order: -1;
-          }
         }
       }
     }
