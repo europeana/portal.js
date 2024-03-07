@@ -375,6 +375,8 @@
     }
 
     h2 {
+      @extend %title-2;
+
       @media (min-width: $bp-4k) {
         margin-bottom: 2rem;
       }
