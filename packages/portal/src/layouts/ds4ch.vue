@@ -19,6 +19,11 @@
       />
     </main>
     <DS4CHPageFooter />
+    <client-only>
+      <PageCookieConsent
+        v-if="cookieConsentRequired"
+      />
+    </client-only>
   </div>
 </template>
 
@@ -26,6 +31,7 @@
   import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
   import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
   import scrollToRouteHash from '@/mixins/scrollToRouteHash';
+  import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
 
   export default {
@@ -33,10 +39,12 @@
 
     components: {
       DS4CHPageHeader,
-      DS4CHPageFooter
+      DS4CHPageFooter,
+      PageCookieConsent: () => import('@/components/page/PageCookieConsent')
     },
 
     mixins: [
+      klaroMixin,
       scrollToRouteHash
     ],
 
@@ -49,6 +57,9 @@
         ],
         meta: [
           { hid: 'og:url', property: 'og:url', content: this.$route.fullPath }
+        ],
+        script: [
+          this.klaroHeadScript
         ]
       };
     }

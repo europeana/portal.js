@@ -3,9 +3,15 @@ export const version = '0.7.18';
 export default {
   data() {
     return {
+      cookieConsentRequired: false,
       klaro: null,
-      klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true }
+      klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
+      toastBottomOffset: '20px'
     };
+  },
+
+  watch: {
+    '$i18n.locale': 'renderKlaro'
   },
 
   mounted() {

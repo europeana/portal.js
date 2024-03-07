@@ -108,9 +108,6 @@
         dateNow: Date.now(),
         linkGroups: {},
         enableAnnouncer: true,
-        klaro: null,
-        cookieConsentRequired: false,
-        toastBottomOffset: '20px',
         featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
         featureNotificationExpiration: this.$config.app.featureNotificationExpiration,
         notificationBanner: this.$config?.app?.notificationBanner
@@ -157,8 +154,6 @@
     },
 
     watch: {
-      '$i18n.locale': 'renderKlaro',
-
       $route(to, from) {
         this.$nextTick(() => {
           if (to.path === from.path) {
