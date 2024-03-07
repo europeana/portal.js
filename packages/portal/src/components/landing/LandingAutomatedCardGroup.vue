@@ -203,7 +203,7 @@
 
 <!-- Only DS4CH styles after this line! -->
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/style';
+  @import '@europeana/style/scss/DS4CH/variables';
 
   .landing-automated-card-group.ds4ch {
     max-width: $max-text-column-width;

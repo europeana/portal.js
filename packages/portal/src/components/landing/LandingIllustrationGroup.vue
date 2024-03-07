@@ -166,6 +166,13 @@
               },
               slidesPerGroup: 4,
               slidesPerView: 4
+            },
+            3020: {
+              grid: {
+                rows: 1
+              },
+              slidesPerGroup: 5,
+              slidesPerView: 5
             }
           },
           keyboard: {
@@ -268,9 +275,6 @@
       width: calc(100% - 101px);
     }
 
-    @media (min-width: $bp-large) {
-      width: 671px;
-    }
     .image-wrapper {
       width: 98px;
       height: 98px;
@@ -375,6 +379,8 @@
     }
 
     h2 {
+      @extend %title-2;
+
       @media (min-width: $bp-4k) {
         margin-bottom: 2rem;
       }
@@ -391,13 +397,11 @@
 
     .swiper-container-wrapper {
       @media (min-width: $bp-4k) {
-        width: 2810px;
+        width: 100%;
       }
     }
     .swiper-container {
-      @media (min-width: $bp-4k) {
-        width: 2272px;
-      }
+
       .image-wrapper {
         @media (min-width: $bp-4k) {
           width: 340px;

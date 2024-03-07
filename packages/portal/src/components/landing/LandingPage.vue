@@ -205,10 +205,16 @@
 </style>
 
 <!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/DS4CH/style';
 
-  .ds4ch-page {
+  .page.ds4ch-page {
+    margin-top: 0;
+
+    &:after {
+      content: none;
+    }
+
     .image-card-container {
       @media (min-width: $bp-large) {
         max-width: none;
@@ -228,18 +234,6 @@
           margin-top: -20rem;
         }
       }
-    }
-  }
-</style>
-
-<style lang="scss">
-  @import '@europeana/style/scss/DS4CH/style';
-
-  .page.ds4ch-page {
-    margin-top: 0;
-
-    &:after {
-      content: none;
     }
   }
 </style>
