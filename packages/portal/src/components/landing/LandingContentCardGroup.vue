@@ -1,6 +1,6 @@
 <template>
   <div
-    ref="landingcontentcardgroup"
+    :ref="refName"
     class="landing-content-card-group"
     :class="[variant, parityClasses]"
     data-qa="landing content card group"
@@ -43,9 +43,15 @@
       }
     },
 
+    data() {
+      return {
+        refName: 'landingContentCardGroup'
+      };
+    },
+
     mounted() {
       if (this.variant === 'ds4ch') {
-        this.$nextTick(() => this.markParity('landing-content-card-group', 'landingcontentcardgroup'));
+        this.$nextTick(() => this.markParity('landing-content-card-group', this.refName));
       }
     }
   };
