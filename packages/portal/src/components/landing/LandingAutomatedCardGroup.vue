@@ -64,9 +64,10 @@
     },
     data() {
       const data = {
+        entries: [],
+        fetched: false,
         keys: null,
-        title: null,
-        entries: []
+        title: null
       };
       if (this.genre === DS4CH_NUMBERS) {
         data.keys = [
@@ -83,7 +84,7 @@
       return data;
     },
     async fetch() {
-      if (this.keys) {
+      if (this.keys && !this.fetched) {
         const cachedData = await this.fetchCachedData();
 
         for (const key of this.keys) {
@@ -100,6 +101,8 @@
           this.entries.push(entry);
         }
       }
+
+      this.fetched = true;
     },
     computed: {
       hasPartCollectionItems() {
