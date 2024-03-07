@@ -43,6 +43,7 @@ query LandingPage(
           }
           ... on ImageCardGroup {
             name
+            nameEN: name(locale: "en-GB")
             text
             hasPartCollection(limit: 6) {
               items {
@@ -55,6 +56,7 @@ query LandingPage(
           }
           ... on LandingSubSection {
             name
+            nameEN: name(locale: "en-GB")
             text
             hasPartCollection(limit: 6) {
               items {
@@ -108,6 +110,7 @@ fragment imageFields on Asset {
 }
 fragment imageWithAttributionFields on ImageWithAttribution {
   name
+  nameEN: name(locale: "en-GB")
   creator
   provider
   license
@@ -118,6 +121,7 @@ fragment imageWithAttributionFields on ImageWithAttribution {
 }
 fragment illustrationFields on Illustration {
   name
+  nameEN: name(locale: "en-GB")
   image {
     ...imageFields
   }
@@ -128,6 +132,7 @@ fragment illustrationFields on Illustration {
 }
 fragment infoCardFields on InfoCard {
   name
+  nameEN: name(locale: "en-GB")
   text
   image {
     ...imageFields
@@ -135,6 +140,7 @@ fragment infoCardFields on InfoCard {
 }
 fragment illustrationGroupFields on IllustrationGroup {
   name
+  nameEN: name(locale: "en-GB")
   text
   hasPartCollection(limit: 20) {
     items {
@@ -146,6 +152,7 @@ fragment illustrationGroupFields on IllustrationGroup {
 }
 fragment infoCardGroupFields on InfoCardGroup {
   name
+  nameEN: name(locale: "en-GB")
   text
   hasPartCollection(limit: 12) {
     items {
@@ -169,6 +176,7 @@ fragment automatedCardGroupFields on AutomatedCardGroup {
 }
 fragment automatedEntityCardFields on AutomatedEntityCard {
   name
+  nameEN: name(locale: "en-GB")
   identifier
   description
   slug
@@ -176,6 +184,7 @@ fragment automatedEntityCardFields on AutomatedEntityCard {
 }
 fragment curatedCardFields on CuratedCard {
   name
+  nameEN: name(locale: "en-GB")
   description
   url
   image {
@@ -228,6 +237,7 @@ fragment imageDisplayProfileFields on ImageDisplayProfile {
 }
 fragment imageCardFields on ImageCard {
   name
+  nameEN: name(locale: "en-GB")
   text
   link {
     url

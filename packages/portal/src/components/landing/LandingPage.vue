@@ -23,12 +23,14 @@
     >
       <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
+        :id="sectionId(section)"
         :key="index"
         :section="section"
         :variant="variant"
       />
       <LandingIllustrationGroup
         v-else-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
+        :id="sectionId(section)"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -37,6 +39,7 @@
       />
       <LandingInfoCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
+        :id="sectionId(section)"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -52,6 +55,7 @@
       >
         <b-container class="image-card-container">
           <LandingImageCard
+            :id="sectionId(section)"
             :card="section"
             :variant="variant"
           />
@@ -59,6 +63,7 @@
       </div>
       <LandingImageCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
+        :id="sectionId(section)"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -66,6 +71,7 @@
       />
       <LandingSubSection
         v-else-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
+        :id="sectionId(section)"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -74,8 +80,8 @@
       />
       <LandingEmbed
         v-else-if="contentfulEntryHasContentType(section, 'EmbedSection')"
+        :id="sectionId(section)"
         :key="index"
-        :english-title="section.nameEN"
         :title="section.name"
         :text="section.text"
         :background-image="section.image"
@@ -83,6 +89,7 @@
       />
       <LandingCallToAction
         v-else-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
+        :id="sectionId(section)"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -95,6 +102,7 @@
 </template>
 
 <script>
+  import kebabCase from 'lodash/kebabCase';
   import LandingHero from './LandingHero';
   import landingPageMixin from '@/mixins/landingPage.js';
   import contentfulMixin from '@/mixins/contentful.js';
@@ -162,6 +170,10 @@
     methods: {
       getClasses(section) {
         return section.profile?.background ? `bg-color-${section.profile.background}` : '';
+      },
+
+      sectionId(section) {
+        return kebabCase(section.nameEN);
       }
     }
   };
