@@ -21,14 +21,12 @@
     <template
       v-for="(section, index) in sections"
     >
-      <b-col
+      <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
         :key="index"
-      >
-        <ContentCardSection
-          :section="section"
-        />
-      </b-col>
+        :section="section"
+        :variant="variant"
+      />
       <LandingIllustrationGroup
         v-else-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
         :key="index"
@@ -97,7 +95,7 @@
 </template>
 
 <script>
-  import LandingHero from '@/components/landing/LandingHero';
+  import LandingHero from './LandingHero';
   import landingPageMixin from '@/mixins/landingPage.js';
   import contentfulMixin from '@/mixins/contentful.js';
 
@@ -105,16 +103,16 @@
     name: 'LandingPage',
 
     components: {
-      ContentCardSection: () => import('../content/ContentCardSection'),
-      LandingCallToAction: () => import('@/components/landing/LandingCallToAction'),
+      LandingContentCardGroup: () => import('./LandingContentCardGroup'),
+      LandingCallToAction: () => import('./LandingCallToAction'),
       LandingHero,
-      LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
-      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
-      LandingImageCard: () => import('@/components/landing/LandingImageCard'),
-      LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
-      LandingSubSection: () => import('@/components/landing/LandingSubSection'),
-      LandingEmbed: () => import('@/components/landing/LandingEmbed'),
-      DS4CHLandingHero: () => import('@/components/DS4CH/DS4CHLandingHero')
+      LandingIllustrationGroup: () => import('./LandingIllustrationGroup'),
+      LandingInfoCardGroup: () => import('./LandingInfoCardGroup'),
+      LandingImageCard: () => import('./LandingImageCard'),
+      LandingImageCardGroup: () => import('./LandingImageCardGroup'),
+      LandingSubSection: () => import('./LandingSubSection'),
+      LandingEmbed: () => import('./LandingEmbed'),
+      DS4CHLandingHero: () => import('../DS4CH/DS4CHLandingHero')
     },
 
     mixins: [
@@ -216,14 +214,6 @@
 
         @media (min-width: $bp-4k) {
           margin-top: -20rem;
-        }
-      }
-
-      @media (min-width: $bp-large) {
-        &:nth-child(even) {
-          ::v-deep .text-wrapper {
-            order: -1;
-          }
         }
       }
     }
