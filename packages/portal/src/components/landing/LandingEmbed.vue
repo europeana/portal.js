@@ -46,10 +46,6 @@
     mixins: [parseMarkdownHtmlMixin],
 
     props: {
-      englishTitle: {
-        type: String,
-        default: null
-      },
       title: {
         type: String,
         default: null

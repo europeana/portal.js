@@ -82,7 +82,6 @@
         v-else-if="contentfulEntryHasContentType(section, 'EmbedSection')"
         :id="sectionId(section)"
         :key="index"
-        :english-title="section.nameEN"
         :title="section.name"
         :text="section.text"
         :background-image="section.image"
