@@ -73,8 +73,8 @@
           'items/type-counts',
           'dataspace/network-members',
           'collections/organisations/count',
-          'dataspace/partners',
-          'dataspace/hq-data'
+          'dataspace/hq-data',
+          'dataspace/api-requests'
         ];
       } else if (this.genre === EUROPEANA_NUMBERS) {
         data.keys = ['matomo/visits', 'items/type-counts', 'collections/organisations/count'];

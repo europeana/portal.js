@@ -227,6 +227,8 @@
     background-color: transparent;
 
     .container {
+      padding-bottom: 0;
+
       @media(min-width: $bp-large) {
         padding-top: 6rem;
       }
@@ -283,6 +285,7 @@
 
     .ds4ch.image-card {
       padding-top: 0;
+      padding-bottom: 0;
 
       @media (min-width: $bp-xxl) {
         max-width: 1500px;
@@ -300,6 +303,10 @@
 
       @media (min-width: $bp-4k) {
         max-width: 3000px;
+      }
+
+      ::v-deep .text-wrapper {
+        padding-right: 0;
       }
     }
   }
