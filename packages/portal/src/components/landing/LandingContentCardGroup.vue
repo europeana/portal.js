@@ -64,6 +64,38 @@
       padding-bottom: 15rem;
     }
 
+    ::v-deep .col-lg-6 {
+      text-align: center;
+      margin-right: auto;
+      margin-bottom: 1rem;
+      margin-left: auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      flex: 0 1 auto;
+      max-width: $max-text-column-width !important;
+
+      @media (min-width: $bp-large) {
+        margin-bottom: 3rem;
+      }
+    }
+
+    ::v-deep h2.card-group-title {
+      color: $black;
+      font-family: $font-family-ubuntu;
+      font-size: $font-size-large;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+
+      @media (min-width: $bp-medium) {
+        font-size: $font-size-xl;
+        margin-bottom: 1rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl-4k;
+      }
+    }
+
     ::v-deep .browse-section .text {
       text-align: center;
     }
@@ -91,19 +123,6 @@
     }
 
     ::v-deep .col-lg-6 {
-      text-align: center;
-      margin-right: auto;
-      margin-bottom: 1rem;
-      margin-left: auto;
-      padding-left: 2rem;
-      padding-right: 2rem;
-      flex: 0 1 auto;
-      max-width: $max-text-column-width !important;
-
-      @media (min-width: $bp-large) {
-        margin-bottom: 3rem;
-      }
-
       @media (min-width: $bp-4k) {
         max-width: $max-text-column-width-4k !important;
         margin-bottom: 9rem;
