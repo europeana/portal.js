@@ -103,23 +103,14 @@
           '(max-width: 1399px) 555px', // bp-xxl
           '(max-width: 3019px) 625px', // bp-4k
           '938px'
-        ].join(',')
-      };
-    },
-
-    computed: {
-      imageSrcset() {
-        return (
-          this.heroImage?.image &&
+        ].join(','),
+        imageSrcset: this.heroImage?.image &&
           this.$contentful.assets.responsiveImageSrcset(
             this.heroImage.image,
             SRCSET_PRESETS
-          )
-        );
-      },
-      isSVG() {
-        return this.heroImage.image.contentType === 'image/svg+xml';
-      }
+          ),
+        isSVG: this.heroImage?.image?.contentType === 'image/svg+xml'
+      };
     }
   };
 </script>
