@@ -28,14 +28,14 @@
       SmartLink
     },
 
-    computed: {
-      links() {
-        return [
+    data() {
+      return {
+        links: [
           { url: '#about-us', text: this.$t('ds4ch.header.navigation.about') },
           { url: '#consortium-partners', text: this.$t('ds4ch.header.navigation.partners') },
           { url: '#explore-the-data-offer', text: this.$t('ds4ch.header.navigation.explore') }
-        ];
-      }
+        ]
+      };
     }
   };
 </script>

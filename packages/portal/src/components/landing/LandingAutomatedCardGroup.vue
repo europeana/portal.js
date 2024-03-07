@@ -9,11 +9,11 @@
       </h3>
     </b-col>
     <div
-      v-if="hasPartCollectionItems.length"
+      v-if="items.length"
       class="d-flex flex-wrap justify-content-center"
     >
       <InfoCard
-        v-for="(item, index) in hasPartCollectionItems"
+        v-for="(item, index) in items"
         :key="index"
         :info="item.info"
         :label="item.label"
@@ -64,9 +64,10 @@
     },
     data() {
       const data = {
+        cardVariant: this.variant === 'pro' ? 'dark' : 'default',
+        items: this.staticItems || [],
         keys: null,
-        title: null,
-        entries: []
+        title: null
       };
       if (this.genre === DS4CH_NUMBERS) {
         data.keys = [
@@ -86,6 +87,7 @@
       if (this.keys) {
         const cachedData = await this.fetchCachedData();
 
+        const entries = [];
         for (const key of this.keys) {
           const entry = {
             info: cachedData[key],
@@ -97,27 +99,13 @@
           } else if (key === 'collections/organisations/count') {
             entry.label = 'providingInstitutions';
           }
-          this.entries.push(entry);
-        }
-      }
-    },
-    computed: {
-      hasPartCollectionItems() {
-        let items;
-
-        if (this.staticItems.length) {
-          items = this.staticItems;
-        } else {
-          items = this.entries?.map(entry => ({
-            info: isNaN(entry.info) ? entry.info : this.$i18n.n(this.roundedNumber(entry.info)) + ' +',
-            label: this.$t(`landing.counts.${entry.label}`)
-          }));
+          entries.push(entry);
         }
 
-        return items || [];
-      },
-      cardVariant() {
-        return this.variant === 'pro' ? 'dark' : 'default';
+        this.items = entries?.map(entry => ({
+          info: isNaN(entry.info) ? entry.info : this.$i18n.n(this.roundedNumber(entry.info)) + ' +',
+          label: this.$t(`landing.counts.${entry.label}`)
+        }));
       }
     },
     methods: {
