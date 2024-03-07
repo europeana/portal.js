@@ -15,12 +15,13 @@
 
 <script>
   import parityMixin from '@/mixins/parity.js';
+  import ContentCardSection from '../content/ContentCardSection';
 
   export default {
     name: 'LandingContentCardGroup',
 
     components: {
-      ContentCardSection: () => import('../content/ContentCardSection')
+      ContentCardSection
     },
 
     mixins: [parityMixin],
