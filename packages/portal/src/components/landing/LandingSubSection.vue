@@ -221,7 +221,8 @@
 
 <!-- Only DS4CH styles after this line! -->
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/style';
+  @import '@europeana/style/scss/DS4CH/variables';
+
   .landing-sub-section.ds4ch {
     background-color: transparent;
 
