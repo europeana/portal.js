@@ -2,7 +2,7 @@
   <header
     id="header"
     v-visible-on-scroll
-    class="page-header show xxl-page"
+    class="page-header ds4ch-page-header show xxl-page"
     role="banner"
     data-qa="header"
   >
@@ -65,7 +65,6 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
-  @import '@europeana/style/scss/DS4CH/variables';
 
   ::v-deep .b-sidebar-backdrop.bg-black {
     background-color: $black;
