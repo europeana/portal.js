@@ -237,6 +237,7 @@ fragment imageDisplayProfileFields on ImageDisplayProfile {
 }
 fragment imageCardFields on ImageCard {
   name
+  nameEN: name(locale: "en-GB")
   text
   link {
     url
