@@ -237,7 +237,7 @@
 </style>
 
 <style lang="scss">
-  @import '@europeana/style/scss/DS4CH/variables';
+  @import '@europeana/style/scss/DS4CH/style';
 
   .page.ds4ch-page {
     margin-top: 0;
