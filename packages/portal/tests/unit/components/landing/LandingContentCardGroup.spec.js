@@ -8,16 +8,8 @@ const testPropsData = {
   section: {
     headline: 'This is a headline',
     hasPartCollection: { items: [] }
-  }
-};
-
-const testPropsDataWithProfile = {
-  section: {
-    ...testPropsData.section,
-    profile: {
-      background: 'alternate'
-    }
-  }
+  },
+  variant: 'ds4ch'
 };
 
 const factory = (propsData = testPropsData) => shallowMount(LandingContentCardGroup, {
@@ -32,16 +24,6 @@ describe('components/landing/LandingContentCardGroup', () => {
 
     const cardGroup = wrapper.find('[data-qa="landing content card group"]');
 
-    expect(cardGroup.classes().includes('pro')).toBe(true);
-  });
-
-  describe('when there is a background set in the profile', () => {
-    it('adds a class to style the card group', () => {
-      const wrapper = factory(testPropsDataWithProfile);
-
-      const cardGroup = wrapper.find('[data-qa="landing content card group"]');
-
-      expect(cardGroup.classes().includes('bg-color-alternate')).toBe(true);
-    });
+    expect(cardGroup.classes().includes('ds4ch')).toBe(true);
   });
 });

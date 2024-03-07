@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="imagecard"
     class="image-card d-lg-flex justify-content-center"
     :class="[variant, cardClasses, parityClasses]"
   >

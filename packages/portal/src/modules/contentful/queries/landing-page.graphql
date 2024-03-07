@@ -216,9 +216,6 @@ fragment cardGroupFields on CardGroup {
     url
     text
   }
-  profile {
-    ...imageDisplayProfileFields
-  }
 }
 fragment imageDisplayProfileFields on ImageDisplayProfile {
   fit

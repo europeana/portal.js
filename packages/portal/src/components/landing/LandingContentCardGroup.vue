@@ -1,7 +1,8 @@
 <template>
   <div
+    ref="landingcontentcardgroup"
     class="landing-content-card-group"
-    :class="[variant, cardClasses]"
+    :class="[variant, parityClasses]"
     data-qa="landing content card group"
   >
     <b-container>
@@ -13,12 +14,16 @@
 </template>
 
 <script>
+  import parityMixin from '@/mixins/parity.js';
+
   export default {
     name: 'LandingContentCardGroup',
 
     components: {
       ContentCardSection: () => import('../content/ContentCardSection')
     },
+
+    mixins: [parityMixin],
 
     props: {
       /**
@@ -38,10 +43,10 @@
       }
     },
 
-    data() {
-      return {
-        cardClasses: this.section?.profile?.background ? `bg-color-${this.section.profile.background}` : ''
-      };
+    mounted() {
+      if (this.variant === 'ds4ch') {
+        this.$nextTick(() => this.markParity('landing-content-card-group', 'landingcontentcardgroup'));
+      }
     }
   };
 </script>
@@ -113,7 +118,7 @@
   .landing-content-card-group.ds4ch {
     margin: 0;
 
-    &.b-color-alternate {
+    &.landing-content-card-group-odd {
       background-color: $bodygrey;
     }
 
