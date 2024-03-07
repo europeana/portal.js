@@ -83,6 +83,11 @@
       }
       return data;
     },
+
+    // only doing this because for some reason this component fetches twice on SSR:
+    // once on the server; once on the client
+    fetchOnServer: false,
+
     async fetch() {
       if (this.keys && !this.fetched) {
         const cachedData = await this.fetchCachedData();
