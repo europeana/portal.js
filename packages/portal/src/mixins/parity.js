@@ -1,12 +1,18 @@
 export default {
-  methods: {
-    markParity(klass) {
-      const elements = document.getElementsByClassName(klass);
+  data() {
+    return {
+      parityClasses: []
+    };
+  },
 
-      for (let i = 0; i < elements.length; i++) {
-        const parity = (((i + 1) % 2) === 1) ? 'odd' : 'even';
-        elements[i].dataset.parity = parity;
-      }
+  methods: {
+    markParity(klass, refName) {
+      const elements = Array.from(document.getElementsByClassName(klass));
+      const index = elements.indexOf(this.$refs[refName]);
+      const num = index + 1;
+      const parity = ((num % 2) === 1) ? 'odd' : 'even';
+
+      this.parityClasses.push(`${klass}-${parity}`);
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div
     class="image-card d-lg-flex justify-content-center"
-    :class="[variant, cardClasses]"
+    :class="[variant, cardClasses, parityClasses]"
   >
     <div
       v-if="cardImageWithAttribution && cardImageWithAttribution.image"
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+  import parityMixin from '@/mixins/parity.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
@@ -98,7 +99,10 @@
       SmartLink: () => import('@/components/generic/SmartLink')
     },
 
-    mixins: [parseMarkdownHtmlMixin],
+    mixins: [
+      parityMixin,
+      parseMarkdownHtmlMixin
+    ],
 
     props: {
       /**
@@ -135,6 +139,10 @@
       };
     },
 
+    mounted() {
+      this.$nextTick(() => this.markParity('image-card', 'imagecard'));
+    },
+
     methods: {
       imageSrcset(image) {
         return this.$contentful.assets.responsiveImageSrcset(image, this.srcSetPresets, this.card?.profile);
@@ -160,7 +168,7 @@
       margin-bottom: 8rem;
 
       &:nth-child(even),
-      &[data-parity='even'] {
+      &.image-card-even {
         .text-wrapper {
           order: -1;
           padding-right: 3.625rem;
@@ -274,6 +282,7 @@
 <!-- Only DS4CH styles after this line! -->
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
+
   .ds4ch.image-card {
     max-width: 100%;
     text-align: center;
@@ -378,7 +387,7 @@
     }
 
     &:nth-child(even),
-    &[data-parity='even'] {
+    &.image-card-even {
       .text-wrapper {
         order: -1;
         padding-right: 3.625rem;
