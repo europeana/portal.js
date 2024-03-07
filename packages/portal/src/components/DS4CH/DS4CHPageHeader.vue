@@ -87,6 +87,7 @@
     left: 0;
     z-index: 10;
     border-bottom: 1px solid $white;
+    z-index: 11;
 
     @media (min-width: $bp-large) {
       transition: $standard-transition;
