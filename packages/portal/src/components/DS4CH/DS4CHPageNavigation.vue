@@ -31,9 +31,9 @@
     computed: {
       links() {
         return [
-          { url: '#about', text: this.$t('ds4ch.header.navigation.about') },
-          { url: '#partners', text: this.$t('ds4ch.header.navigation.partners') },
-          { url: '#explore', text: this.$t('ds4ch.header.navigation.explore') }
+          { url: '#about-us', text: this.$t('ds4ch.header.navigation.about') },
+          { url: '#consortium-partners', text: this.$t('ds4ch.header.navigation.partners') },
+          { url: '#explore-the-data-offer', text: this.$t('ds4ch.header.navigation.explore') }
         ];
       }
     }
