@@ -2,6 +2,7 @@
   <div
     class="landing-content-card-group"
     :class="[variant, cardClasses]"
+    data-qa="landing content card group"
   >
     <b-container>
       <ContentCardSection

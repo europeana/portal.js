@@ -1,5 +1,4 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-// import sinon from 'sinon';
 
 import LandingImageCard from '@/components/landing/LandingImageCard.vue';
 
