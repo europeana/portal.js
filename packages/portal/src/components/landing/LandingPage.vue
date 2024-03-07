@@ -100,7 +100,6 @@
   import LandingHero from '@/components/landing/LandingHero';
   import landingPageMixin from '@/mixins/landingPage.js';
   import contentfulMixin from '@/mixins/contentful.js';
-  import parityMixin from '@/mixins/parity.js';
 
   export default {
     name: 'LandingPage',
@@ -120,8 +119,7 @@
 
     mixins: [
       contentfulMixin,
-      landingPageMixin,
-      parityMixin
+      landingPageMixin
     ],
 
     props: {
@@ -161,10 +159,6 @@
       if (this.landingPageId === 'ds4ch') {
         this.variant = 'ds4ch';
       }
-    },
-
-    mounted() {
-      this.$nextTick(() => this.markParity('image-card'));
     },
 
     methods: {
