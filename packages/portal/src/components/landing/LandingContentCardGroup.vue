@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-content-card-group"
-    :class="variant"
+    :class="[variant, cardClasses]"
   >
     <b-container>
       <ContentCardSection
@@ -35,6 +35,12 @@
         type: String,
         default: 'pro'
       }
+    },
+
+    data() {
+      return {
+        cardClasses: this.section?.profile?.background ? `bg-color-${this.section.profile.background}` : ''
+      };
     }
   };
 </script>
@@ -74,7 +80,7 @@
   .landing-content-card-group.ds4ch {
     margin: 0;
 
-    &[data-parity='odd'] {
+    &.b-color-alternate {
       background-color: $bodygrey;
     }
 

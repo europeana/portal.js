@@ -163,7 +163,6 @@
 
     mounted() {
       this.$nextTick(() => this.markParity('image-card'));
-      this.$nextTick(() => this.markParity('landing-content-card-group'));
     },
 
     methods: {
