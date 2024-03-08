@@ -5,6 +5,10 @@ export default {
     };
   },
 
+  watch: {
+    '$route.hash': 'scrollToRouteHash'
+  },
+
   mounted() {
     this.scrollToRouteHash();
   },

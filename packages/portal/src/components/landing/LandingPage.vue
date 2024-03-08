@@ -21,16 +21,16 @@
     <template
       v-for="(section, index) in sections"
     >
-      <b-col
+      <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
+        :id="sectionId(section)"
         :key="index"
-      >
-        <ContentCardSection
-          :section="section"
-        />
-      </b-col>
+        :section="section"
+        :variant="variant"
+      />
       <LandingIllustrationGroup
         v-else-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
+        :id="sectionId(section)"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -39,6 +39,7 @@
       />
       <LandingInfoCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
+        :id="sectionId(section)"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -54,6 +55,7 @@
       >
         <b-container class="image-card-container">
           <LandingImageCard
+            :id="sectionId(section)"
             :card="section"
             :variant="variant"
           />
@@ -61,6 +63,7 @@
       </div>
       <LandingImageCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
+        :id="sectionId(section)"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -68,6 +71,7 @@
       />
       <LandingSubSection
         v-else-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
+        :id="sectionId(section)"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -76,8 +80,8 @@
       />
       <LandingEmbed
         v-else-if="contentfulEntryHasContentType(section, 'EmbedSection')"
+        :id="sectionId(section)"
         :key="index"
-        :english-title="section.nameEN"
         :title="section.name"
         :text="section.text"
         :background-image="section.image"
@@ -85,6 +89,7 @@
       />
       <LandingCallToAction
         v-else-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
+        :id="sectionId(section)"
         :key="index"
         :title="section.name"
         :text="section.text"
@@ -97,7 +102,8 @@
 </template>
 
 <script>
-  import LandingHero from '@/components/landing/LandingHero';
+  import kebabCase from 'lodash/kebabCase';
+  import LandingHero from './LandingHero';
   import landingPageMixin from '@/mixins/landingPage.js';
   import contentfulMixin from '@/mixins/contentful.js';
 
@@ -105,16 +111,16 @@
     name: 'LandingPage',
 
     components: {
-      ContentCardSection: () => import('../content/ContentCardSection'),
-      LandingCallToAction: () => import('@/components/landing/LandingCallToAction'),
+      LandingContentCardGroup: () => import('./LandingContentCardGroup'),
+      LandingCallToAction: () => import('./LandingCallToAction'),
       LandingHero,
-      LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
-      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
-      LandingImageCard: () => import('@/components/landing/LandingImageCard'),
-      LandingImageCardGroup: () => import('@/components/landing/LandingImageCardGroup'),
-      LandingSubSection: () => import('@/components/landing/LandingSubSection'),
-      LandingEmbed: () => import('@/components/landing/LandingEmbed'),
-      DS4CHLandingHero: () => import('@/components/DS4CH/DS4CHLandingHero')
+      LandingIllustrationGroup: () => import('./LandingIllustrationGroup'),
+      LandingInfoCardGroup: () => import('./LandingInfoCardGroup'),
+      LandingImageCard: () => import('./LandingImageCard'),
+      LandingImageCardGroup: () => import('./LandingImageCardGroup'),
+      LandingSubSection: () => import('./LandingSubSection'),
+      LandingEmbed: () => import('./LandingEmbed'),
+      DS4CHLandingHero: () => import('../DS4CH/DS4CHLandingHero')
     },
 
     mixins: [
@@ -164,6 +170,10 @@
     methods: {
       getClasses(section) {
         return section.profile?.background ? `bg-color-${section.profile.background}` : '';
+      },
+
+      sectionId(section) {
+        return kebabCase(section.nameEN);
       }
     }
   };
@@ -195,10 +205,16 @@
 </style>
 
 <!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/DS4CH/style';
 
-  .ds4ch-page {
+  .page.ds4ch-page {
+    margin-top: 0;
+
+    &:after {
+      content: none;
+    }
+
     .image-card-container {
       @media (min-width: $bp-large) {
         max-width: none;
@@ -218,26 +234,6 @@
           margin-top: -20rem;
         }
       }
-
-      @media (min-width: $bp-large) {
-        &:nth-child(even) {
-          ::v-deep .text-wrapper {
-            order: -1;
-          }
-        }
-      }
-    }
-  }
-</style>
-
-<style lang="scss">
-  @import '@europeana/style/scss/DS4CH/style';
-
-  .page.ds4ch-page {
-    margin-top: 0;
-
-    &:after {
-      content: none;
     }
   }
 </style>

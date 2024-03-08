@@ -1,16 +1,18 @@
 <template>
   <footer
     data-qa="footer"
-    class="page-footer xxl-page"
+    class="page-footer"
   >
-    <b-container class="xxl-container">
-      <b-row class="sub-footer">
-        <EULogo
-          class="eu-logo mb-3"
-        />
-        <p>{{ $t('ds4ch.footer.disclaimerLine1') }}</p>
-      </b-row>
-    </b-container>
+    <div class="xxl-page">
+      <b-container class="xxl-container">
+        <b-row class="sub-footer">
+          <EULogo
+            class="eu-logo mb-3"
+          />
+          <p>{{ $t('ds4ch.footer.disclaimerLine1') }}</p>
+        </b-row>
+      </b-container>
+    </div>
     <FeedbackWidget
       :faq-url="null"
     />

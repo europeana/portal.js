@@ -1,53 +1,6 @@
 @import 'variables';
 @import '../icons';
 
-%title-2 {
-  font-family: $font-family-montserrat;
-  font-size: 1.375rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media(min-width: $bp-medium) {
-    font-size: $font-size-xl;
-  }
-
-  @media(min-width: $bp-4k) {
-    font-size: 4.75rem;
-  }
-}
-
-%title-3 {
-  font-family: $font-family-montserrat;
-  font-size: $font-size-base;
-  font-weight: 700;
-  line-height: 1.2;
-
-  @media(min-width: $bp-medium) {
-    font-size: 1.75rem;
-  }
-
-  @media(min-width: $bp-4k) {
-    font-size: 4rem;
-    margin-bottom: 3rem;
-  }
-}
-
-%title-5 {
-  font-family: $font-family-montserrat;
-  font-size: $font-size-small;
-  font-weight: 600;
-  line-height: 1.5;
-  text-align: center;
-  text-transform: uppercase;
-  color: $black;
-
-  @media(min-width: $bp-4k) {
-    font-size: $font-size-xl;
-  }
-}
-
 .ds4ch-page-header,
 .ds4ch-page {
 
