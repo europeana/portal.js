@@ -165,8 +165,13 @@
       }
 
       header {
+        transform: translateY(15%);
         position: relative;
         z-index: 1;
+
+        @media (min-width: ($bp-small)) {
+          transform: translateY(50%);
+        }
       }
       .hero-content-text-block {
         margin-bottom: auto;
