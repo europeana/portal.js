@@ -915,7 +915,7 @@ export default {
   "landing": {
     "europeanaNumbers": "Europeana.eu in numbers",
     "counts": {
-      "apiRequests": "Average number of monthly API requests",
+      "apiRequests": "Monthly API requests, on average",
       "hqData": "Increase in high-quality data per year",
       "items": "Items",
       "networkMembers": "Network members",
