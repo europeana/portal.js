@@ -26,7 +26,6 @@
       </header>
       <div
         id="europeana-logo"
-        class="mt-auto"
       >
         <p class="text-uppercase mb-0">
           {{ $t('ds4ch.broughtBy') }}
@@ -165,13 +164,8 @@
       }
 
       header {
-        transform: translateY(15%);
         position: relative;
         z-index: 1;
-
-        @media (min-width: ($bp-small)) {
-          transform: translateY(50%);
-        }
       }
       .hero-content-text-block {
         margin-bottom: auto;
