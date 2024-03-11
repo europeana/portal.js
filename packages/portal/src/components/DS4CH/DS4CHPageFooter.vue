@@ -5,6 +5,9 @@
   >
     <div class="xxl-page">
       <b-container class="xxl-container">
+        <h2 class="visually-hidden">
+          {{ $t('footer.footer') }}
+        </h2>
         <b-row>
           <b-col
             class="disclaimer mb-4 mb-lg-0"
