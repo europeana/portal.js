@@ -153,7 +153,7 @@
           modifier: [
             {
               options: this.advancedSearchModifiers.map((mod) => {
-                if (mod.name === 'exact' && !(this.field === this.fulltextFieldName)) {
+                if (mod.name === 'exact' && (this.field !== this.fulltextFieldName)) {
                   return null;
                 }
                 return {
