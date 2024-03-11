@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="`link-group-${variant}`">
     <component
       :is="titleTag"
       v-if="title"
@@ -9,9 +9,8 @@
       {{ title }}
     </component>
     <ul
-      class="m-0 p-0"
+      class="link-group-list m-0 p-0"
       data-qa="link group links"
-      :class="listClass"
     >
       <li
         v-for="(link, index) in filteredLinks"
@@ -21,7 +20,6 @@
         <SmartLink
           v-if="link.url"
           :destination="link.url"
-          :link-class="linkClass"
           :data-qa="link.dataQa"
           :hide-external-icon="link.hideExternalIcon"
         >
@@ -77,19 +75,12 @@
       },
 
       /**
-       * Optional class for styling of links
+       * Variant for specific styles
+       * @values light, social
        */
-      linkClass: {
+      variant: {
         type: String,
-        default: ''
-      },
-
-      /**
-       * Optional class for styling of list
-       */
-      listClass: {
-        type: String,
-        default: ''
+        default: 'default'
       }
     },
     computed: {
@@ -103,11 +94,60 @@
   };
 </script>
 
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .group-title {
+    font-size: $font-size-small;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  ::v-deep .link-group-list {
+    list-style-type: none;
+
+    li {
+      a {
+        font-size: $font-size-small;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .link-group-light {
+    .group-title {
+      color: $bodygrey;
+    }
+
+    li {
+      ::v-deep a {
+        color: $white;
+      }
+    }
+  }
+</style>
+
 <docs lang="md">
+  Variant "default"
   ```jsx
   <LinkGroup
     title="This title is optional"
     :links="[{ url: '/help', text: 'Help' }, { url: '/rights', text: 'Terms of use' }]"
   />
+
+  ```
+  Variant "light"
+  ```jsx
+  <div style="background-color: #000; margin: -16px; padding: 16px;">
+    <LinkGroup
+      title="This title is optional"
+      :links="[{ url: '/help', text: 'Help' }, { url: '/rights', text: 'Terms of use' }]"
+      variant="light"
+    />
+  </div>
   ```
 </docs>
