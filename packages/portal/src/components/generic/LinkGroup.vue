@@ -103,7 +103,7 @@
     line-height: 1.5;
   }
 
-  ::v-deep .link-group-list {
+  .link-group-list {
     list-style-type: none;
 
     li {
@@ -118,13 +118,13 @@
     }
   }
 
-  .link-group-light {
+  .link-group-light .link-group-list {
     .group-title {
       color: $bodygrey;
     }
 
     li {
-      ::v-deep a {
+      a {
         color: $white;
       }
     }
