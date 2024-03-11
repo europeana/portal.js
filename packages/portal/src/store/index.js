@@ -8,6 +8,7 @@ export const actions = {
     // TODO: ideally the contentful module would run this itself...
     store.commit('contentful/setAcceptedMediaTypes', context.req);
     store.commit('apis/init', context);
+    store.commit('microsite/init', context);
     context.$cookies && store.commit('search/setView', context.$cookies.get('searchResultsView'));
   }
 };

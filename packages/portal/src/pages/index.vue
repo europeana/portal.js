@@ -60,7 +60,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import landingPageMixin from '@/mixins/landingPage';
 
-  const ds4chLayout = (route) => landingPageMixin.methods.landingPageIdForRoute(route) === 'ds4ch';
+  const ds4chLayout = ({ route, store }) => landingPageMixin.methods.landingPageIdForRoute({ route, store }) === 'ds4ch';
 
   export default {
     name: 'IndexPage',
@@ -77,8 +77,8 @@
 
     mixins: [landingPageMixin, pageMetaMixin],
 
-    layout({ route }) {
-      return ds4chLayout(route) ? 'ds4ch' : 'default';
+    layout({ route, store }) {
+      return ds4chLayout({ route, store }) ? 'ds4ch' : 'default';
     },
 
     props: {
@@ -91,6 +91,7 @@
     data() {
       return {
         browsePage: false,
+        homeLandingPage: null,
         homePage: false,
         identifier: this.slug || this.$route.params.pathMatch,
         landingPage: false,
@@ -100,7 +101,21 @@
     },
 
     async fetch() {
-      const ctfQuery = this.homePage ? 'homePage' : (this.landingPage ? 'landingPage' : 'browseStaticPage');
+      this.homeLandingPage = this.$store.state.microsite.home;
+
+      let ctfQuery = 'browseStaticPage';
+      if (this.homeLandingPage) {
+        this.identifier = this.homeLandingPage;
+        this.homePage = false;
+        this.landingPage = true;
+      }
+      if (this.homePage) {
+        ctfQuery = 'homePage';
+      }
+      if (this.landingPage) {
+        ctfQuery = 'landingPage';
+      }
+
 
       const variables = {
         // TODO: make this work w/ home page specification by route query
@@ -161,7 +176,7 @@
         this.landingPage = true;
       }
 
-      if (ds4chLayout(this.$route)) {
+      if (ds4chLayout({ route: this.$route, store: this.$store })) {
         this.pageMetaSuffixTitle = null;
       }
     }

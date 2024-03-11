@@ -6,13 +6,13 @@ const LANDING_PAGES = {
 export default {
   data() {
     return {
-      landingPageId: this.landingPageIdForRoute(this.$route)
+      landingPageId: this.landingPageIdForRoute({ store: this.$store, route: this.$route })
     };
   },
 
   methods: {
-    landingPageIdForRoute(route) {
-      return Object.keys(LANDING_PAGES).find(key => LANDING_PAGES[key] === route.params.pathMatch);
+    landingPageIdForRoute({ route, store }) {
+      return Object.keys(LANDING_PAGES).find(key => [store?.state?.microsite?.home, route.params.pathMatch].includes(LANDING_PAGES[key]));
     }
   }
 };

@@ -56,6 +56,7 @@ export default ({ app, $config: { matomo: { host, siteId, loadWait = {} } }, sto
   Vue.use(VueMatomo, {
     router: app.router,
     host,
+    // TODO: could we make this into a function evaluated against the context?
     siteId,
     trackSiteSearch: trackSiteSearch(store),
     requireCookieConsent: true
