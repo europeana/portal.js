@@ -75,6 +75,7 @@ export default {
           origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
         }
       },
+      homeSlug: process.env.APP_HOME_SLUG,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       siteName: APP_SITE_NAME,

@@ -66,17 +66,32 @@
 
     mixins: [pageMetaMixin],
 
+    props: {
+      sections: {
+        type: Array,
+        default: () => []
+      },
+
+      backgroundImages: {
+        type: Array,
+        default: () => []
+      },
+
+      socialMediaImage: {
+        type: Object,
+        default: null
+      }
+    },
+
     data() {
       return {
-        sections: [],
-        backgroundImage: null,
-        socialMediaImage: null
+        backgroundImage: this.selectRandomBackground(this.backgroundImages)
       };
     },
 
-    async fetch() {
-      await this.fetchContentfulEntry();
-    },
+    // async fetch() {
+    //   await this.fetchContentfulEntry();
+    // },
 
     computed: {
       pageMeta() {

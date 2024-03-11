@@ -19,6 +19,12 @@
     <template
       v-else
     >
+      <HomePage
+        v-if="homePage"
+        :sections="page.sectionsCollection?.items.filter((item) => !!item)"
+        :background-images="page.primaryImageSetOfPageCollection?.items?.[0]?.hasPartCollection?.items || []"
+        :social-media-image="this.page.image"
+      />
       <BrowsePage
         v-if="browsePage"
         :name="page.name"
@@ -48,6 +54,7 @@
 <script>
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import BrowsePage from '@/components/browse/BrowsePage';
+  import HomePage from '@/components/home/HomePage';
   import StaticPage from '@/components/static/StaticPage';
   import LandingPage from '@/components/landing/LandingPage';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -60,7 +67,9 @@
 
     components: {
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      // TODO: dynamic imports
       BrowsePage,
+      HomePage,
       LandingPage,
       LoadingSpinner,
       StaticPage
@@ -82,25 +91,30 @@
     data() {
       return {
         browsePage: false,
-        staticPage: false,
+        homePage: false,
+        identifier: this.slug || this.$route.params.pathMatch,
         landingPage: false,
         page: {},
-        identifier: this.slug || this.$route.params.pathMatch
+        staticPage: false
       };
     },
 
     async fetch() {
-      const ctfQuery = this.landingPage ? 'landingPage' : 'browseStaticPage';
+      const ctfQuery = this.homePage ? 'homePage' : (this.landingPage ? 'landingPage' : 'browseStaticPage');
 
       const variables = {
+        // TODO: make this work w/ home page specification by route query
         identifier: this.identifier,
         locale: this.$i18n.isoLocale(),
-        preview: this.$route.query.mode === 'preview'
+        preview: this.$route.query.mode === 'preview',
+        date: (new Date()).toISOString()
       };
 
       const response = await this.$contentful.query(ctfQuery, variables);
       const data = response.data.data;
-      if ((data.staticPageCollection?.items?.length || 0) > 0) {
+      if ((data.homePageCollection?.items?.length || 0) > 0) {
+        this.page = data.homePageCollection.items[0];
+      } else if ((data.staticPageCollection?.items?.length || 0) > 0) {
         this.page = data.staticPageCollection.items[0];
         this.staticPage = true;
       } else if ((data.browsePageCollection?.items?.length || 0) > 0) {
@@ -140,6 +154,9 @@
     },
 
     created() {
+      if (!this.identifier) {
+        this.homePage = true;
+      }
       if (this.landingPageId) {
         this.landingPage = true;
       }
