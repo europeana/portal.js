@@ -18,6 +18,7 @@ const MEDIA_TYPE_SVG = 'image/svg+xml';
 const MEDIA_TYPE_WEBP = 'image/webp';
 
 export default ({ store } = {}) => ({
+  // TODO: assume webp supported, for static-generated scenarios?
   acceptedMediaTypes() {
     return store?.state?.contentful?.acceptedMediaTypes || [];
   },

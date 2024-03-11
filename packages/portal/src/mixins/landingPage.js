@@ -12,7 +12,9 @@ export default {
 
   methods: {
     landingPageIdForRoute(route) {
-      return Object.keys(LANDING_PAGES).find(key => LANDING_PAGES[key] === route.params.pathMatch);
+      return Object.keys(LANDING_PAGES)
+        // match on the path with trailing slash for static-generation
+        .find(key => [LANDING_PAGES[key], `${LANDING_PAGES[key]}/`, `${LANDING_PAGES[key]}/index.html`].includes(route.params.pathMatch));
     }
   }
 };

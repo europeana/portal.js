@@ -7,6 +7,7 @@
     "build": "nuxt build",
     "cache": "node --require dotenv/config src/cachers/cli.js",
     "dev": "nuxt",
+    "generate": "nuxt generate",
     "lokalise": "node --require dotenv/config bin/lokalise.js",
     "start:inspect": "npx --node-options=\"--inspect\" nuxt-cli start",
     "start": "nuxt-cli start",

@@ -58,6 +58,15 @@ const postgresConfig = () => {
 };
 
 export default {
+  target: 'static',
+
+  generate: {
+    exclude: [/^/], // exclude everything
+    // TODO: prevent generation to dist/en/dataspace-culturalheritage/index.html
+    //       which results in / at end of urls
+    routes: ['/en/dataspace-culturalheritage']
+  },
+
   /*
   ** Runtime config
   */

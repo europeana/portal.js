@@ -8,6 +8,7 @@
     "build": "npm run -w packages/portal build",
     "cache": "npm run -w packages/portal cache",
     "dev": "npm run -w packages/portal dev",
+    "generate": "npm run -w packages/portal generate",
     "lint:fix": "npm run lint -- --fix",
     "lint": "eslint --no-fix --ignore-path .gitignore packages",
     "start:inspect": "npm run -w packages/portal start:inspect",

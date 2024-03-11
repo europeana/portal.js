@@ -1,5 +1,5 @@
 const acceptedMediaTypes = (req) => {
-  return (req.headers.accept || '')
+  return (req?.headers.accept || '')
     .split(',')
     .map((accept) => accept.split(';')[0])
     .filter((accept) => accept !== '*/*');
