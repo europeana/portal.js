@@ -23,6 +23,33 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(component, {
 
 describe('mixins/advancedSearch', () => {
   describe('methods', () => {
+    describe('advancedSearchFieldByName', () => {
+      it('looks up the field based on the name attribute', () => {
+        const wrapper = factory();
+
+        const advancedSearchField = wrapper.vm.advancedSearchFieldByName('proxy_dc_date');
+
+        expect(advancedSearchField).toStrictEqual({ name: 'proxy_dc_date', type: 'string', suggestEntityType: 'timespan' });
+      });
+    });
+    describe('advancedSearchFieldSupportsExact', () => {
+      describe('when the field is configured to support exact match searches', () => {
+        it('returns true', () => {
+          const wrapper = factory();
+
+          const supportsExact = wrapper.vm.advancedSearchFieldSupportsExact('fulltext');
+          expect(supportsExact).toBe(true);
+        });
+      });
+      describe('when the field is NOT configured to support exact match searches', () => {
+        it('returns false', () => {
+          const wrapper = factory();
+
+          const supportsExact = wrapper.vm.advancedSearchFieldSupportsExact('fullproxy_dc_date');
+          expect(supportsExact).toBe(false);
+        });
+      });
+    });
     describe('advancedSearchFieldLabel', () => {
       it('translates "year" label for "YEAR" field', () => {
         const wrapper = factory();

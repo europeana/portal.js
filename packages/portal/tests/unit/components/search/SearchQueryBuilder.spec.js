@@ -273,6 +273,21 @@ describe('components/search/SearchQueryBuilder', () => {
           expect(wrapper.vm.handleSubmitForm.called).toBe(true);
         });
       });
+
+      describe('when the respective rule does not support an exact modfier, but it was present on the rule', () => {
+        it('unsets the modifier and does NOT trigger a search', async() => {
+          const wrapper = factory();
+          sinon.spy(wrapper.vm, 'handleSubmitForm');
+
+          await wrapper.setData({ queryRules: [
+            { field: 'fulltext', modifier: 'exact', term: 'dog' }
+          ] });
+
+          wrapper.vm.handleChangeRule(0, 'field', 'proxy_dc_title');
+          expect(wrapper.vm.queryRules[0].modifier).toBe(null);
+          expect(wrapper.vm.handleSubmitForm.called).toBe(false);
+        });
+      });
     });
 
     describe('@invalid', () => {

@@ -105,7 +105,7 @@ export default {
       return this.advancedSearchFields.find((field) => field.name === name);
     },
     advancedSearchFieldSupportsExact(field) {
-      return this.advancedSearchFieldByName(field)?.supportsExact;
+      return !!this.advancedSearchFieldByName(field)?.supportsExact;
     },
     advancedSearchFieldLabel(fieldName, locale) {
       const fieldKey = fieldName === 'YEAR' ? 'year' : camelCase(fieldName.replace('proxy_', ''));
