@@ -123,7 +123,7 @@
       color: $bodygrey;
     }
 
-    .link-group-list{
+    .link-group-list {
       li {
         a {
           color: $white;
