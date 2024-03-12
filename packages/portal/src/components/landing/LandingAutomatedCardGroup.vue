@@ -65,7 +65,6 @@
     data() {
       const data = {
         entries: [],
-        fetched: false,
         keys: null,
         title: null
       };
@@ -89,7 +88,7 @@
     fetchOnServer: false,
 
     async fetch() {
-      if (this.keys && !this.fetched) {
+      if (this.keys) {
         const cachedData = await this.fetchCachedData();
 
         for (const key of this.keys) {
@@ -106,8 +105,6 @@
           this.entries.push(entry);
         }
       }
-
-      this.fetched = true;
     },
     computed: {
       hasPartCollectionItems() {
