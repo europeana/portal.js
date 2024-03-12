@@ -26,7 +26,6 @@
             <LinkGroup
               :title="footerMoreInfo.name"
               :links="footerMoreInfo.links"
-              variant="light"
             />
           </b-col>
         </b-row>

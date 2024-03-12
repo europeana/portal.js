@@ -76,11 +76,11 @@
 
       /**
        * Variant for specific styles
-       * @values light, social
+       * @values light, social, dark
        */
       variant: {
         type: String,
-        default: 'default'
+        default: 'light'
       }
     },
     computed: {
@@ -118,36 +118,38 @@
     }
   }
 
-  .link-group-light .link-group-list {
+  .link-group-light {
     .group-title {
       color: $bodygrey;
     }
 
-    li {
-      a {
-        color: $white;
+    .link-group-list{
+      li {
+        a {
+          color: $white;
+        }
       }
     }
   }
 </style>
 
 <docs lang="md">
-  Variant "default"
-  ```jsx
-  <LinkGroup
-    title="This title is optional"
-    :links="[{ url: '/help', text: 'Help' }, { url: '/rights', text: 'Terms of use' }]"
-  />
-
-  ```
-  Variant "light"
+    Variant "light" (default)
   ```jsx
   <div style="background-color: #000; margin: -16px; padding: 16px;">
     <LinkGroup
       title="This title is optional"
       :links="[{ url: '/help', text: 'Help' }, { url: '/rights', text: 'Terms of use' }]"
-      variant="light"
     />
   </div>
+  ```
+  Variant "dark"
+  ```jsx
+  <LinkGroup
+    title="This title is optional"
+    :links="[{ url: '/help', text: 'Help' }, { url: '/rights', text: 'Terms of use' }]"
+    variant="dark"
+  />
+
   ```
 </docs>

@@ -43,7 +43,6 @@
               v-if="footerMoreInfo"
               :title="footerMoreInfo.name"
               :links="footerMoreInfo.links"
-              variant="light"
             />
           </b-col>
           <b-col
@@ -55,7 +54,6 @@
               v-if="footerHelp"
               :title="footerHelp.name"
               :links="footerHelp.links"
-              variant="light"
             />
           </b-col>
           <b-col
@@ -81,7 +79,6 @@
               :title="debugLinkGroup.name"
               :links="debugLinkGroup.links"
               data-qa="debug link group"
-              variant="light"
             />
           </b-col>
         </b-row>
