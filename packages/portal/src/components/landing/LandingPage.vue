@@ -20,8 +20,8 @@
     />
     <div
       v-for="(section, index) in sections"
-      :key="index"
       :id="sectionId(section)"
+      :key="index"
     >
       <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
