@@ -8,6 +8,7 @@
     <b-container>
       <ContentCardSection
         :section="section"
+        :title-tag="titleTag"
       />
     </b-container>
   </div>
@@ -41,6 +42,13 @@
       variant: {
         type: String,
         default: 'pro'
+      },
+      /**
+       * Heading title level to use. Override default for when used in subsection to keep correct heading structure.
+       */
+      titleTag: {
+        type: String,
+        default: 'h2'
       }
     },
 

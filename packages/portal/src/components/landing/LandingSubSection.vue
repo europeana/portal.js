@@ -20,9 +20,11 @@
         v-for="(section, index) in sections"
         :key="index"
       >
-        <ContentCardSection
+        <LandingContentCardGroup
           v-if="contentfulEntryHasContentType(section, 'CardGroup')"
           :section="section"
+          :variant="variant"
+          title-tag="h3"
         />
         <LandingImageCard
           v-if="contentfulEntryHasContentType(section, 'ImageCard')"
@@ -58,7 +60,7 @@
     name: 'LandingSubSection',
 
     components: {
-      ContentCardSection: () => import('../content/ContentCardSection'),
+      LandingContentCardGroup: () => import('@/components/landing/LandingContentCardGroup'),
       LandingAutomatedCardGroup: () => import('@/components/landing/LandingAutomatedCardGroup'),
       LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
@@ -162,6 +164,10 @@
   .text {
     color: $mediumgrey;
     max-width: $max-text-column-width;
+  }
+
+  ::v-deep .landing-content-card-group .container {
+    max-width: none;
   }
 
   // TODO: Remove once replaced with LandingIllustrationGroup

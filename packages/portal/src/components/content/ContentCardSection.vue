@@ -5,12 +5,13 @@
     data-qa="browse section"
   >
     <div class="col-12 col-lg-6">
-      <h2
+      <component
+        :is="titleTag"
         class="card-group-title"
         data-qa="section headline"
       >
         {{ section.headline }}
-      </h2>
+      </component>
       <p
         v-if="section.text"
         class="text"
@@ -78,6 +79,13 @@
       section: {
         type: Object,
         default: () => (null)
+      },
+      /**
+       * Heading title level to use. Override default for when used in subsection to keep correct heading structure.
+       */
+      titleTag: {
+        type: String,
+        default: 'h2'
       }
     },
     computed: {
