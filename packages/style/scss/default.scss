@@ -404,3 +404,8 @@ main#default {
   @include min-page-height;
   @include white-cutout;
 }
+
+// Adds extra space for top header when navigating to a hash route
+:target {
+  scroll-margin-top: 56px;
+}

@@ -76,7 +76,6 @@
   import ErrorModal from '../components/error/ErrorModal';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import makeToastMixin from '@/mixins/makeToast';
-  import scrollToRouteHash from '@/mixins/scrollToRouteHash';
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import versions from '../../pkg-versions';
   import featureNotifications from '@/features/notifications';
@@ -98,8 +97,7 @@
 
     mixins: [
       canonicalUrlMixin,
-      makeToastMixin,
-      scrollToRouteHash
+      makeToastMixin
     ],
 
     data() {
