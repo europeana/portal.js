@@ -21,16 +21,13 @@
     >
       <HomePage
         v-if="homePage"
-        :sections="page.sectionsCollection?.items.filter((item) => !!item)"
-        :background-images="page.primaryImageSetOfPageCollection?.items?.[0]?.hasPartCollection?.items || []"
-        :social-media-image="this.page.image"
       />
       <BrowsePage
-        v-if="browsePage"
+        v-else-if="browsePage"
         :name="page.name"
         :headline="page.headline"
         :has-part-collection="page.hasPartCollection"
-        :social-media-image-url="socialMediaImage ? socialMediaImageOptimisedUrl : null"
+        :image-url="socialMediaImageUrl"
       />
       <StaticPage
         v-else-if="staticPage"
@@ -53,10 +50,6 @@
 
 <script>
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import BrowsePage from '@/components/browse/BrowsePage';
-  import HomePage from '@/components/home/HomePage';
-  import StaticPage from '@/components/static/StaticPage';
-  import LandingPage from '@/components/landing/LandingPage';
   import pageMetaMixin from '@/mixins/pageMeta';
   import landingPageMixin from '@/mixins/landingPage';
 
@@ -67,12 +60,11 @@
 
     components: {
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
-      // TODO: dynamic imports
-      BrowsePage,
-      HomePage,
-      LandingPage,
+      BrowsePage: () => import('@/components/browse/BrowsePage'),
+      HomePage: () => import('@/components/home/HomePage'),
+      LandingPage: () => import('@/components/landing/LandingPage'),
       LoadingSpinner,
-      StaticPage
+      StaticPage: () => import('@/components/static/StaticPage')
     },
 
     mixins: [landingPageMixin, pageMetaMixin],
@@ -81,49 +73,50 @@
       return ds4chLayout(route) ? 'ds4ch' : 'default';
     },
 
-    props: {
-      slug: {
-        type: String,
-        default: null
-      }
-    },
-
     data() {
       return {
         browsePage: false,
         homePage: false,
-        identifier: this.slug || this.$route.params.pathMatch,
+        identifier: this.$route.params.pathMatch,
         landingPage: false,
         page: {},
+        socialMediaImageAlt: null,
+        socialMediaImageUrl: null,
         staticPage: false
       };
     },
 
     async fetch() {
-      const ctfQuery = this.homePage ? 'homePage' : (this.landingPage ? 'landingPage' : 'browseStaticPage');
+      if (!this.identifier) {
+        this.homePage = true;
+        // HomePage fetches itself
+        return;
+      // TODO: make LandingPage fetch itself
+      } else if (this.landingPageId) {
+        this.landingPage = true;
+      }
 
-      const variables = {
-        // TODO: make this work w/ home page specification by route query
-        identifier: this.identifier,
-        locale: this.$i18n.isoLocale(),
-        preview: this.$route.query.mode === 'preview',
-        date: (new Date()).toISOString()
-      };
+      try {
+        await this.fetchContentfulEntry();
+      } catch (e) {
+        if (e.message === 'Not Found') {
+          this.$error(404, { scope: 'page' });
+        } else {
+          throw (e);
+        }
+      }
 
-      const response = await this.$contentful.query(ctfQuery, variables);
-      const data = response.data.data;
-      if ((data.homePageCollection?.items?.length || 0) > 0) {
-        this.page = data.homePageCollection.items[0];
-      } else if ((data.staticPageCollection?.items?.length || 0) > 0) {
-        this.page = data.staticPageCollection.items[0];
-        this.staticPage = true;
-      } else if ((data.browsePageCollection?.items?.length || 0) > 0) {
-        this.page = data.browsePageCollection.items[0];
-        this.browsePage = true;
-      } else if ((data.landingPageCollection?.items?.length || 0) > 0) {
-        this.page = data.landingPageCollection.items[0];
-      } else {
-        this.$error(404, { scope: 'page' });
+      // use social media image if set in Contentful,
+      // landing pages use primaryImageOfPage as a fallback, otherwise null
+      const socialMediaImage = this.page.image || this.page.primaryImageOfPage?.image || null;
+      this.socialMediaImageAlt = socialMediaImage?.description || '';
+      this.socialMediaImageUrl = this.$contentful.assets.optimisedSrc(
+        socialMediaImage,
+        { w: 800, h: 800 }
+      );
+
+      if (ds4chLayout(this.$route)) {
+        this.pageMetaSuffixTitle = null;
       }
     },
 
@@ -133,36 +126,39 @@
           title: this.page.name,
           description: this.page.description,
           ogType: 'article',
-          ogImage: this.socialMediaImage ? this.socialMediaImageOptimisedUrl : null,
-          ogImageAlt: this.socialMediaImage ? this.socialMediaImageAlt : null
+          ogImage: this.socialMediaImageUrl,
+          ogImageAlt: this.socialMediaImageAlt
         };
-      },
-      socialMediaImage() {
-        // use social media image if set in Contentful,
-        // landing pages use primaryImageOfPage as a fallback, otherwise null
-        return this.page.image || this.page.primaryImageOfPage?.image || null;
-      },
-      socialMediaImageOptimisedUrl() {
-        return this.$contentful.assets.optimisedSrc(
-          this.socialMediaImage,
-          { w: 800, h: 800 }
-        );
-      },
-      socialMediaImageAlt() {
-        return this.socialMediaImage?.description || '';
       }
     },
 
-    created() {
-      if (!this.identifier) {
-        this.homePage = true;
-      }
-      if (this.landingPageId) {
-        this.landingPage = true;
-      }
+    methods: {
+      async fetchContentfulEntry() {
+        let ctfQuery = 'browseStaticPage';
+        if (this.landingPage) {
+          ctfQuery = 'landingPage';
+        }
 
-      if (ds4chLayout(this.$route)) {
-        this.pageMetaSuffixTitle = null;
+        const variables = {
+          identifier: this.identifier,
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview'
+        };
+        if (this.homePage) {
+          variables.date = (new Date()).toISOString();
+          variables.identifier = this.$route.query.identifier || null;
+        }
+
+        const response = await this.$contentful.query(ctfQuery, variables);
+        const data = response.data.data;
+
+        const entryCollection = Object.keys(data).find((key) => (data[key]?.items?.length || 0) > 0);
+        if (entryCollection) {
+          this.page = data[entryCollection].items[0];
+          this[entryCollection.replace('Collection', '')] = true;
+        } else {
+          throw new Error('Not Found');
+        }
       }
     }
   };
