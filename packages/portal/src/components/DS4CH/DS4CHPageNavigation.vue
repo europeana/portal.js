@@ -31,7 +31,7 @@
     computed: {
       links() {
         return [
-          { url: '#about-us', text: this.$t('ds4ch.header.navigation.about') },
+          { url: '#about-the-data-space', text: this.$t('ds4ch.header.navigation.about') },
           { url: '#consortium-partners', text: this.$t('ds4ch.header.navigation.partners') },
           { url: '#explore-the-data-offer', text: this.$t('ds4ch.header.navigation.explore') }
         ];

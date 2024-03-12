@@ -26,7 +26,6 @@
       </header>
       <div
         id="europeana-logo"
-        class="mt-auto"
       >
         <p class="text-uppercase mb-0">
           {{ $t('ds4ch.broughtBy') }}

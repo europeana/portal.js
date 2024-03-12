@@ -190,7 +190,8 @@
           max-width: $max-text-column-width-4k !important;
         }
       }
-      .primary-cta-rich-text {
+
+      ::v-deep .primary-cta-rich-text {
         text-align: center !important;
         margin-bottom: 2rem;
 
