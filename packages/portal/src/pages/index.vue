@@ -111,6 +111,8 @@
       } else {
         this.$error(404, { scope: 'page' });
       }
+
+      this.page = Object.freeze(this.page);
     },
 
     computed: {

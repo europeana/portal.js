@@ -18,20 +18,18 @@
       :cta="cta"
       :hero-image="primaryImageOfPage"
     />
-    <template
+    <div
       v-for="(section, index) in sections"
+      :key="index"
+      :id="sectionId(section)"
     >
       <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
-        :id="sectionId(section)"
-        :key="index"
         :section="section"
         :variant="variant"
       />
       <LandingIllustrationGroup
         v-else-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :illustrations="section.hasPartCollection && section.hasPartCollection.items"
@@ -39,8 +37,6 @@
       />
       <LandingInfoCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
@@ -49,13 +45,11 @@
       />
       <div
         v-else-if="contentfulEntryHasContentType(section, 'ImageCard')"
-        :key="index"
         class="image-card-container-wrapper"
         :class="getClasses(section)"
       >
         <b-container class="image-card-container">
           <LandingImageCard
-            :id="sectionId(section)"
             :card="section"
             :variant="variant"
           />
@@ -63,16 +57,12 @@
       </div>
       <LandingImageCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :image-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingSubSection
         v-else-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
@@ -80,8 +70,6 @@
       />
       <LandingEmbed
         v-else-if="contentfulEntryHasContentType(section, 'EmbedSection')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :background-image="section.image"
@@ -89,15 +77,13 @@
       />
       <LandingCallToAction
         v-else-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :link="section.relatedLink"
         :background-image="section.image"
         :variant="variant"
       />
-    </template>
+    </div>
   </div>
 </template>
 
