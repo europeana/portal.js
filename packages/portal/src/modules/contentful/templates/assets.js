@@ -7,7 +7,7 @@
 //   name: null,
 //   overlay: true,
 //   quality: 40,
-//   sizes: ['small', 'medium', 'large', 'xl', 'xxl', 'xxxl', '4k', 'wqhd']
+//   sizes: ['small', 'medium', 'large', 'xl', 'xxl', 'xxxl', 'wqhd', '4k', '4k+']
 // };
 const CONTENTFUL_IMAGES_ASSET_HOST = 'images.ctfassets.net';
 const CONTENTFUL_IMAGES_PARAMS_FL_PROGRESSIVE = 'progressive';
