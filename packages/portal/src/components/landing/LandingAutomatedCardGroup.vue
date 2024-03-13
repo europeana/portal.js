@@ -150,13 +150,19 @@
   @import '@europeana/style/scss/variables';
 
   .landing-automated-card-group {
-    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    margin-right: auto;
+    margin-left: auto;
 
-    @media (min-width: $bp-medium) {
-      padding-bottom: 4rem;
+    @media (min-width: $bp-large) {
+      margin-bottom: 4rem;
     }
 
+    @media (min-width: $bp-4k) {
+      margin-bottom: 13rem;
+    }
   }
+
   .title {
     font-family: $font-family-ubuntu;
     font-size: $font-size-medium;
@@ -207,8 +213,6 @@
 
   .landing-automated-card-group.ds4ch {
     max-width: $max-text-column-width;
-    margin: 0 auto;
-    padding-bottom: 0;
 
     @media (min-width: $bp-4k) {
       max-width: 1640px;

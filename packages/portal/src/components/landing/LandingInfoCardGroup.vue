@@ -101,16 +101,28 @@
 
   .container {
     margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 
     @media (min-width: $bp-large) {
       margin-top: 6rem;
-      margin-bottom: 6rem;
+      margin-bottom: 2rem;
     }
 
     @media (min-width: $bp-4k) {
       margin-top: 15rem;
-      margin-bottom: 15rem;
+      margin-bottom: 11rem;
+    }
+  }
+
+  .btn {
+    margin-bottom: 2rem;
+
+    @media (min-width: $bp-large) {
+      margin-bottom: 4rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: 3rem;
     }
   }
 

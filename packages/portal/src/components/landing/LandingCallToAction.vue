@@ -102,13 +102,6 @@
   @import '@europeana/style/scss/variables';
 
   .container {
-    padding-top: 3.75rem;
-    padding-bottom: 2rem;
-
-    @media (min-width: $bp-medium) {
-      padding-top: 4rem;
-      padding-bottom: 4rem;
-    }
 
     .primary-cta {
       margin-left: auto !important;

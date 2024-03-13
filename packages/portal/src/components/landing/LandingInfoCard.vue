@@ -72,7 +72,7 @@
 
     @media (min-width: $bp-extralarge) {
       flex: 0 1 50%;
-      padding: 0 2rem 2.5rem;
+      padding: 0 2rem 3rem;
     }
 
     @media (min-width: $bp-xxxl) {

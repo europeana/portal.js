@@ -66,7 +66,15 @@
   @import '@europeana/style/scss/variables';
 
   .landing-embed {
-    border-bottom: 1px solid $white;
+    margin-bottom: 3rem;
+
+    @media (min-width: $bp-large) {
+      margin-bottom: 6rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: 15rem;
+    }
   }
 
   .header {
