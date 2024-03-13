@@ -56,7 +56,7 @@
 
     computed: {
       useRouterLink() {
-        return !!this.path?.startsWith('/');
+        return !!this.path?.startsWith('/') || this.isHashLink;
       },
 
       path() {
@@ -125,6 +125,10 @@
 
       logSearchLink() {
         return this.isLinkToSearchablePage;
+      },
+
+      isHashLink() {
+        return !!this.path?.startsWith('#');
       }
     },
 
