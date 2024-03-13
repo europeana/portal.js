@@ -177,7 +177,7 @@
       .primary-cta {
         background-color: transparent !important;
         padding: 0;
-        max-width: $max-text-column-width !important;
+        max-width: 535px !important;
 
         @media (min-width: $bp-4k) {
           max-width: $max-text-column-width-4k !important;
