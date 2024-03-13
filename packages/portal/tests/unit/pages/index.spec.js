@@ -238,7 +238,7 @@ describe('IndexPage', () => {
           }
         }
       };
-      it('uses the primary image of pagefor og:image', async() => {
+      it('uses the primary image of page for og:image', async() => {
         const wrapper = factory({ contentfulQueryResponse });
         await wrapper.vm.fetch();
 

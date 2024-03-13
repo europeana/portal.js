@@ -19,8 +19,16 @@
     <template
       v-else
     >
+      <LandingPage
+        v-if="landingPage"
+        :headline="page.headline || page.name"
+        :text="page.text"
+        :cta="page.relatedLink"
+        :sections="page.hasPartCollection?.items.filter((item) => !!item)"
+        :primary-image-of-page="page.primaryImageOfPage"
+      />
       <HomePage
-        v-if="homePage"
+        v-else-if="homePage"
       />
       <BrowsePage
         v-else-if="browsePage"
@@ -35,14 +43,6 @@
         :description="page.description"
         :has-part-collection="page.hasPartCollection"
         :related-links="page.relatedLinks"
-      />
-      <LandingPage
-        v-else-if="landingPage"
-        :headline="page.headline || page.name"
-        :text="page.text"
-        :cta="page.relatedLink"
-        :sections="page.hasPartCollection?.items.filter((item) => !!item)"
-        :primary-image-of-page="page.primaryImageOfPage"
       />
     </template>
   </div>
@@ -91,9 +91,10 @@
         if (this.$config?.app?.homeLandingPageSlug) {
           this.identifier = this.$config.app.homeLandingPageSlug;
           this.landingPage = true;
+          this.homePage = true;
         } else {
           this.homePage = true;
-          // HomePage fetches itself
+          // HomePage component fetches itself
           return;
         }
       // TODO: make LandingPage fetch itself
@@ -130,7 +131,7 @@
         return {
           title: this.page.name,
           description: this.page.description,
-          ogType: 'article',
+          ogType: this.homePage ? 'website' : 'article',
           ogImage: this.socialMediaImageUrl,
           ogImageAlt: this.socialMediaImageAlt
         };
@@ -149,10 +150,6 @@
           locale: this.$i18n.isoLocale(),
           preview: this.$route.query.mode === 'preview'
         };
-        if (this.homePage) {
-          variables.date = (new Date()).toISOString();
-          variables.identifier = this.$route.query.identifier || null;
-        }
 
         const response = await this.$contentful.query(ctfQuery, variables);
         const data = response.data.data;
