@@ -38,8 +38,8 @@ describe('components/landing/LandingPage', () => {
     });
 
     it('detects ds4ch variant from route', () => {
-      const $route = { params: { pathMatch: 'dataspace-culturalheritage' } };
-      const wrapper = factory({ mocks: { $route }, propsData });
+      const route = { params: { pathMatch: 'dataspace-culturalheritage' } };
+      const wrapper = factory({ mocks: { $nuxt: { context: { route } } }, propsData });
 
       const landingPage = wrapper.find('[data-qa="landing page"]');
 

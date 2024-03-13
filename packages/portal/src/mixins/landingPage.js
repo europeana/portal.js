@@ -6,13 +6,18 @@ const LANDING_PAGES = {
 export default {
   data() {
     return {
-      landingPageId: this.landingPageIdForRoute(this.$route)
+      landingPageId: this.landingPageIdForRoute({ $config: this.$config, route: this.$route })
     };
   },
 
   methods: {
-    landingPageIdForRoute(route) {
-      return Object.keys(LANDING_PAGES).find(key => LANDING_PAGES[key] === route.params.pathMatch);
+    landingPageIdForRoute({ $config, route } = {}) {
+      let identifier = route?.params?.pathMatch;
+      if (!identifier && $config?.app?.homeLandingPageSlug) {
+        identifier = $config.app.homeLandingPageSlug;
+      }
+
+      return Object.keys(LANDING_PAGES).find(key => LANDING_PAGES[key] === identifier);
     }
   }
 };

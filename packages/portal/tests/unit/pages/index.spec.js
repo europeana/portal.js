@@ -12,7 +12,9 @@ const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
 const primaryImageUrl = 'https://example.org/primary-image.jpg';
 
 const factory = ({
-  mocks = {}, $route = { params: {}, query: {} }, data = {}, contentfulQueryResponse = { data: { data: {} } }
+  mocks = {},
+  data = {},
+  contentfulQueryResponse = { data: { data: {} } }
 } = {}) => shallowMountNuxt(page, {
   localVue,
   data() {
@@ -25,17 +27,19 @@ const factory = ({
       },
       query: sinon.stub().resolves(contentfulQueryResponse)
     },
+    $error: sinon.spy(),
     $features: {},
     $fetchState: {},
     $i18n: { isoLocale: () => 'en-GB' },
-    $error: sinon.spy(),
-    $route,
+    $route: { params: { pathMatch: 'about' }, query: {} },
     $t: key => key,
     ...mocks
   }
 });
 
 describe('IndexPage', () => {
+  afterEach(sinon.resetHistory);
+
   it('uses default layout', () => {
     const $route = { params: { pathMatch: 'about' } };
     const wrapper = factory({ mocks: { $route } });
@@ -47,12 +51,32 @@ describe('IndexPage', () => {
 
   describe('fetch', () => {
     describe('home page', () => {
+      const $route = { params: {}, query: {} };
       it('does not fetch from Contentful', async() => {
-        const wrapper = factory();
+        const wrapper = factory({ mocks: { $route } });
 
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$contentful.query.called).toBe(false);
+      });
+
+      describe('when landing page configured to act as home page', () => {
+        const slug = 'share-your-data';
+        const $config = { app: { homeLandingPageSlug: slug } };
+
+        it('fetches the content from Contentful', async() => {
+          const wrapper = factory({
+            mocks: { $config, $route }
+          });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$contentful.query.calledWith('landingPage', {
+            identifier: slug,
+            locale: 'en-GB',
+            preview: false
+          })).toBe(true);
+        });
       });
     });
 
@@ -65,7 +89,7 @@ describe('IndexPage', () => {
       it('fetches the content from Contentful', async() => {
         const wrapper = factory({
           contentfulQueryResponse,
-          $route
+          mocks: { $route }
         });
 
         await wrapper.vm.fetch();
@@ -80,7 +104,7 @@ describe('IndexPage', () => {
       it('detects and stores landing page content', async() => {
         const wrapper = factory({
           contentfulQueryResponse,
-          $route
+          mocks: { $route }
         });
 
         await wrapper.vm.fetch();
@@ -97,7 +121,7 @@ describe('IndexPage', () => {
         const slug = 'about-us';
         const wrapper = factory({
           contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [{}] } } } },
-          $route: { params: { pathMatch: slug }, query: {} }
+          mocks: { $route: { params: { pathMatch: slug }, query: {} } }
         });
 
         await wrapper.vm.fetch();
@@ -114,7 +138,7 @@ describe('IndexPage', () => {
         const slug = 'about-us';
         const wrapper = factory({
           contentfulQueryResponse: { data: { data: { staticPageCollection: { items: [page] } } } },
-          $route: { params: { pathMatch: slug }, query: {} }
+          mocks: { $route: { params: { pathMatch: slug }, query: {} } }
         });
 
         await wrapper.vm.fetch();
@@ -129,7 +153,7 @@ describe('IndexPage', () => {
         const slug = 'collections';
         const wrapper = factory({
           contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [page] } } } },
-          $route: { params: { pathMatch: slug }, query: {} }
+          mocks: { $route: { params: { pathMatch: slug }, query: {} } }
         });
 
         await wrapper.vm.fetch();
@@ -145,7 +169,7 @@ describe('IndexPage', () => {
       const slug = 'not-found';
       const wrapper = factory({
         contentfulQueryResponse: { data: { data: { browsePageCollection: { items: [] }, staticPageCollection: { items: [] }, landingPageCollection: { items: [] } } } },
-        $route: { params: { pathMatch: slug }, query: {} }
+        mocks: { $route: { params: { pathMatch: slug }, query: {} } }
       });
 
       await wrapper.vm.fetch();
@@ -187,7 +211,7 @@ describe('IndexPage', () => {
           }
         }
       };
-      const wrapper = factory({ contentfulQueryResponse, $route: { params: { pathMatch: 'about' }, query: {} } });
+      const wrapper = factory({ contentfulQueryResponse });
       await wrapper.vm.fetch();
 
       const pageMeta = wrapper.vm.pageMeta;
@@ -215,7 +239,7 @@ describe('IndexPage', () => {
         }
       };
       it('uses the primary image of pagefor og:image', async() => {
-        const wrapper = factory({ contentfulQueryResponse, $route: { params: { pathMatch: 'about' }, query: {} } });
+        const wrapper = factory({ contentfulQueryResponse });
         await wrapper.vm.fetch();
 
         const pageMeta = wrapper.vm.pageMeta;

@@ -53,7 +53,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import landingPageMixin from '@/mixins/landingPage';
 
-  const ds4chLayout = (route) => landingPageMixin.methods.landingPageIdForRoute(route) === 'ds4ch';
+  const ds4chLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'ds4ch';
 
   export default {
     name: 'IndexPage',
@@ -69,8 +69,8 @@
 
     mixins: [landingPageMixin, pageMetaMixin],
 
-    layout({ route }) {
-      return ds4chLayout(route) ? 'ds4ch' : 'default';
+    layout(ctx) {
+      return ds4chLayout(ctx) ? 'ds4ch' : 'default';
     },
 
     data() {
@@ -88,9 +88,14 @@
 
     async fetch() {
       if (!this.identifier) {
-        this.homePage = true;
-        // HomePage fetches itself
-        return;
+        if (this.$config?.app?.homeLandingPageSlug) {
+          this.identifier = this.$config.app.homeLandingPageSlug;
+          this.landingPage = true;
+        } else {
+          this.homePage = true;
+          // HomePage fetches itself
+          return;
+        }
       // TODO: make LandingPage fetch itself
       } else if (this.landingPageId) {
         this.landingPage = true;
@@ -115,7 +120,7 @@
         { w: 800, h: 800 }
       );
 
-      if (ds4chLayout(this.$route)) {
+      if (ds4chLayout({ $config: this.$config, route: this.$route })) {
         this.pageMetaSuffixTitle = null;
       }
     },
