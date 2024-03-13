@@ -215,7 +215,7 @@ export default {
   "ds4ch": {
     "broughtBy": "Brought to you by",
     "footer": {
-      "disclaimerLine1": "The data space is an initiative of the European Union, financed by the European Union’s Digital Europe Programme and European Union Member States. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission."
+      "disclaimerLine1": "The common European data space for cultural heritage is an initiative of the European Union, financed by the European Union’s Digital Europe Programme. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission."
     },
     "header": {
       "navigation": {
@@ -915,10 +915,10 @@ export default {
   "landing": {
     "europeanaNumbers": "Europeana.eu in numbers",
     "counts": {
+      "apiRequests": "Monthly API requests, on average",
       "hqData": "Increase in high-quality data per year",
       "items": "Items",
       "networkMembers": "Network members",
-      "partners": "Partners develop the data space",
       "providingInstitutions": "Providing institutions",
       "visits": "Visits per day"
     }

@@ -123,8 +123,8 @@
 </style>
 
 <!-- Only DS4CH styles after this line! -->
-<style lang="scss">
-  @import '@europeana/style/scss/DS4CH/style';
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/variables';
   @import '@europeana/style/scss/responsive-background-image';
 
   .landing-cta.ds4ch {
@@ -190,7 +190,8 @@
           max-width: $max-text-column-width-4k !important;
         }
       }
-      .primary-cta-rich-text {
+
+      ::v-deep .primary-cta-rich-text {
         text-align: center !important;
         margin-bottom: 2rem;
 

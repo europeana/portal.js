@@ -16,9 +16,9 @@ const cacherNames = [
   'collections:times:featured',
   'collections:topics',
   'collections:topics:featured',
+  'dataspace:api-requests',
   'dataspace:hq-data',
   'dataspace:network-members',
-  'dataspace:partners',
   'items:recent',
   'items:type-counts',
   'matomo:visits'

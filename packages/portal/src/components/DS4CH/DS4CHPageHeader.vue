@@ -2,7 +2,7 @@
   <header
     id="header"
     v-visible-on-scroll
-    class="page-header show xxl-page"
+    class="page-header ds4ch-page-header show xxl-page"
     role="banner"
     data-qa="header"
   >
@@ -65,7 +65,6 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
-  @import '@europeana/style/scss/DS4CH/variables';
 
   ::v-deep .b-sidebar-backdrop.bg-black {
     background-color: $black;
@@ -86,8 +85,8 @@
     right: 0;
     top: 0;
     left: 0;
-    z-index: 10;
     border-bottom: 1px solid $white;
+    z-index: 11;
 
     @media (min-width: $bp-large) {
       transition: $standard-transition;

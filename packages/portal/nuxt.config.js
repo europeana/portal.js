@@ -406,13 +406,6 @@ export default {
       'redirects'
     ],
     extendRoutes(routes) {
-      const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
-      routes[nuxtHomeRouteIndex] = {
-        name: 'home',
-        path: '/',
-        component: 'src/pages/home/index.vue'
-      };
-
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
       routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
 
@@ -491,9 +484,9 @@ export default {
   ** Render configuration
    */
   render: {
-    // Disable compression: leave it to a gateway/reverse proxy like NGINX or
-    // Cloudflare.
-    compressor: false,
+    // Compression disabled by default, to leave it to a gateway/reverse proxy
+    // like NGINX or Cloudflare.
+    ...(featureIsEnabled('nuxtRenderCompressor') ? {} : { compressor: false }),
 
     static: {
       maxAge: '1d'
