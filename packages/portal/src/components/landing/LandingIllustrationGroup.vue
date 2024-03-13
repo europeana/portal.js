@@ -328,6 +328,14 @@
     }
   }
 
+  .swiper-button-prev::after {
+    padding-right: 2px;
+  }
+
+  .swiper-button-next::after {
+    padding-left: 2px;
+  }
+
   .swiper-pagination {
     width: 100%;
     margin-top: 2rem;
