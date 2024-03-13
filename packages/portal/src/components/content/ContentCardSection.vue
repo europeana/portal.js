@@ -1,7 +1,7 @@
 <template>
   <section
     v-if="section"
-    class="browse-section row mb-5"
+    class="browse-section row"
     data-qa="browse section"
   >
     <div class="col-12 col-lg-6">

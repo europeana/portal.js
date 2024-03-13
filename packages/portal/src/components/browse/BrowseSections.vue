@@ -12,6 +12,7 @@
       <ContentCardSection
         v-else-if="contentfulEntryHasContentType(section, 'CardGroup')"
         :section="section"
+        class="mb-5"
       />
       <BrowseAutomatedCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'AutomatedCardGroup')"
