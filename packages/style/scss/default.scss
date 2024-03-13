@@ -407,5 +407,9 @@ main#default {
 
 // Adds extra space for top header when navigating to a hash route
 :target {
-  scroll-margin-top: 56px;
+  scroll-margin-top: 3.5rem;
+
+  @media (min-width: $bp-4k) {
+    scroll-margin-top: 5rem;
+  }
 }
