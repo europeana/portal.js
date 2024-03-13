@@ -406,13 +406,6 @@ export default {
       'redirects'
     ],
     extendRoutes(routes) {
-      const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
-      routes[nuxtHomeRouteIndex] = {
-        name: 'home',
-        path: '/',
-        component: 'src/pages/home/index.vue'
-      };
-
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
       routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
 

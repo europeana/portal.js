@@ -12,11 +12,11 @@ const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
 const primaryImageUrl = 'https://example.org/primary-image.jpg';
 
 const factory = ({
-  mocks = {}, $route = { params: {} }, data = {}, contentfulQueryResponse = { data: { data: {} } }
+  mocks = {}, $route = { params: {}, query: {} }, data = {}, contentfulQueryResponse = { data: { data: {} } }
 } = {}) => shallowMountNuxt(page, {
   localVue,
   data() {
-    return data;
+    return { ...data };
   },
   mocks: {
     $contentful: {
@@ -46,6 +46,16 @@ describe('IndexPage', () => {
   });
 
   describe('fetch', () => {
+    describe('home page', () => {
+      it('does not fetch from Contentful', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.called).toBe(false);
+      });
+    });
+
     describe('landing pages', () => {
       const slug = 'share-your-data';
       const page = { name: 'Share your data' };
@@ -159,20 +169,26 @@ describe('IndexPage', () => {
       }
     };
 
-    it('uses the social media image for og:image', () => {
-      const wrapper = factory({
+    it('uses the social media image for og:image', async() => {
+      const contentfulQueryResponse = {
         data: {
-          ...data,
-          page: {
-            ...data.page,
-            image: {
-              url: socialMediaImageUrl,
-              contentType: 'image/jpeg',
-              description: 'Social media image description'
+          data: {
+            staticPageCollection: {
+              items: [
+                {
+                  image: {
+                    url: socialMediaImageUrl,
+                    contentType: 'image/jpeg',
+                    description: 'Social media image description'
+                  }
+                }
+              ]
             }
           }
         }
-      });
+      };
+      const wrapper = factory({ contentfulQueryResponse, $route: { params: { pathMatch: 'about' }, query: {} } });
+      await wrapper.vm.fetch();
 
       const pageMeta = wrapper.vm.pageMeta;
 
@@ -180,22 +196,27 @@ describe('IndexPage', () => {
     });
 
     describe('when no social media image but a primary image of page', () => {
-      it('uses the primary image of pagefor og:image', () => {
-        const wrapper = factory({
+      const contentfulQueryResponse = {
+        data: {
           data: {
-            ...data,
-            page: {
-              ...data.page,
-              image: null,
-              primaryImageOfPage: {
-                image: {
-                  url: primaryImageUrl,
-                  contentType: 'image/jpeg'
+            staticPageCollection: {
+              items: [
+                {
+                  primaryImageOfPage: {
+                    image: {
+                      url: primaryImageUrl,
+                      contentType: 'image/jpeg'
+                    }
+                  }
                 }
-              }
+              ]
             }
           }
-        });
+        }
+      };
+      it('uses the primary image of pagefor og:image', async() => {
+        const wrapper = factory({ contentfulQueryResponse, $route: { params: { pathMatch: 'about' }, query: {} } });
+        await wrapper.vm.fetch();
 
         const pageMeta = wrapper.vm.pageMeta;
 
@@ -213,7 +234,7 @@ describe('IndexPage', () => {
   });
 
   describe('when route is for DS4CH page', () => {
-    const $route = { params: { pathMatch: 'dataspace-culturalheritage' } };
+    const $route = { params: { pathMatch: 'dataspace-culturalheritage' }, query: {} };
 
     it('uses ds4ch layout', () => {
       const wrapper = factory({ mocks: { $route } });
@@ -223,8 +244,9 @@ describe('IndexPage', () => {
       expect(layout).toBe('ds4ch');
     });
 
-    it('sets pageMetaSuffixTitle to null', () => {
+    it('sets pageMetaSuffixTitle to null', async() => {
       const wrapper = factory({ mocks: { $route } });
+      await wrapper.vm.fetch();
 
       const pageMetaSuffixTitle = wrapper.vm.pageMetaSuffixTitle;
 
