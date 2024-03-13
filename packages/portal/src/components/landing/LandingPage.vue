@@ -22,6 +22,7 @@
       v-for="(section, index) in sections"
       :id="sectionId(section)"
       :key="index"
+      class="scroll-margin-top"
     >
       <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
@@ -186,6 +187,15 @@
 
     .bg-color-alternate {
       background-color: $bodygrey;
+    }
+
+    // Adds extra space for top header when navigating to a hash route
+    .scroll-margin-top {
+      scroll-margin-top: 3.5rem;
+
+      @media (min-width: $bp-4k) {
+        scroll-margin-top: 5rem;
+      }
     }
   }
 </style>
