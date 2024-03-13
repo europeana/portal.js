@@ -276,7 +276,6 @@
         font-size: 1.375rem;
         font-weight: 700;
         line-height: 1.2;
-        margin-bottom: 2rem;
         margin-left: auto;
         margin-right: auto;
         text-align: center;
@@ -291,12 +290,12 @@
       }
 
       .text {
+        color: $black;
         margin-left: auto;
         margin-right: auto;
         text-align: center;
 
         @media (min-width: $bp-4k) {
-          color: $black;
           font-size: 2.5rem;
           max-width: $max-text-column-width-4k;
         }
