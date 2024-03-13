@@ -258,13 +258,20 @@
   .swiper-container-wrapper {
     margin: 0 auto;
     position: relative;
+    height: 264px;
 
     @media (min-width: $bp-medium) {
       width: 100%;
+      height: 160px;
     }
 
     @media (min-width: $bp-large) {
       width: 873px;
+      height: 221px;
+    }
+
+    @media (min-width: $bp-4k) {
+      height: 456px;
     }
 
   }
