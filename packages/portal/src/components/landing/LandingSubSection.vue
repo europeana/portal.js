@@ -51,6 +51,11 @@
 </template>
 
 <script>
+  import ContentCardSection from '../content/ContentCardSection';
+  import LandingAutomatedCardGroup from './LandingAutomatedCardGroup';
+  import LandingImageCard from './LandingImageCard';
+  import LandingInfoCardGroup from './LandingInfoCardGroup';
+
   import contentfulMixin from '@/mixins/contentful.js';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
@@ -58,10 +63,10 @@
     name: 'LandingSubSection',
 
     components: {
-      ContentCardSection: () => import('../content/ContentCardSection'),
-      LandingAutomatedCardGroup: () => import('@/components/landing/LandingAutomatedCardGroup'),
-      LandingImageCard: () => import('@/components/landing/LandingImageCard'),
-      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
+      ContentCardSection,
+      LandingAutomatedCardGroup,
+      LandingImageCard,
+      LandingInfoCardGroup
     },
 
     mixins: [contentfulMixin, parseMarkdownHtmlMixin],
