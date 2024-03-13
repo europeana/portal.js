@@ -89,24 +89,35 @@
 
 <script>
   import kebabCase from 'lodash/kebabCase';
+
+  import DS4CHLandingHero from '../DS4CH/DS4CHLandingHero';
+  import LandingContentCardGroup from './LandingContentCardGroup';
+  import LandingCallToAction from './LandingCallToAction';
+  import LandingEmbed from './LandingEmbed';
   import LandingHero from './LandingHero';
-  import landingPageMixin from '@/mixins/landingPage.js';
+  import LandingImageCard from './LandingImageCard';
+  import LandingImageCardGroup from './LandingImageCardGroup';
+  import LandingInfoCardGroup from './LandingInfoCardGroup';
+  import LandingIllustrationGroup from './LandingIllustrationGroup';
+  import LandingSubSection from './LandingSubSection';
+
   import contentfulMixin from '@/mixins/contentful.js';
+  import landingPageMixin from '@/mixins/landingPage.js';
 
   export default {
     name: 'LandingPage',
 
     components: {
-      LandingContentCardGroup: () => import('./LandingContentCardGroup'),
-      LandingCallToAction: () => import('./LandingCallToAction'),
+      LandingContentCardGroup,
+      LandingCallToAction,
       LandingHero,
-      LandingIllustrationGroup: () => import('./LandingIllustrationGroup'),
-      LandingInfoCardGroup: () => import('./LandingInfoCardGroup'),
-      LandingImageCard: () => import('./LandingImageCard'),
-      LandingImageCardGroup: () => import('./LandingImageCardGroup'),
-      LandingSubSection: () => import('./LandingSubSection'),
-      LandingEmbed: () => import('./LandingEmbed'),
-      DS4CHLandingHero: () => import('../DS4CH/DS4CHLandingHero')
+      LandingIllustrationGroup,
+      LandingInfoCardGroup,
+      LandingImageCard,
+      LandingImageCardGroup,
+      LandingSubSection,
+      LandingEmbed,
+      DS4CHLandingHero
     },
 
     mixins: [
