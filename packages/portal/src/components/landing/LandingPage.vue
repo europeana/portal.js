@@ -23,6 +23,7 @@
       :id="sectionId(section)"
       :key="index"
       class="scroll-margin-top"
+      :class="getClasses(section)"
     >
       <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
@@ -44,18 +45,16 @@
         :link="section.link"
         :variant="variant"
       />
-      <div
+      <b-container
         v-else-if="contentfulEntryHasContentType(section, 'ImageCard')"
-        class="image-card-container-wrapper"
-        :class="getClasses(section)"
+        class="image-card-container"
       >
-        <b-container class="image-card-container">
-          <LandingImageCard
-            :card="section"
-            :variant="variant"
-          />
-        </b-container>
-      </div>
+        <LandingImageCard
+          :card="section"
+          :variant="variant"
+        />
+      </b-container>
+
       <LandingImageCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
         :title="section.name"
@@ -156,7 +155,14 @@
 
     methods: {
       getClasses(section) {
-        return section.profile?.background ? `bg-color-${section.profile.background}` : '';
+        const classes = [];
+        if (section.profile?.background) {
+          classes.push(`bg-color-${section.profile.background}`);
+        }
+        if (this.contentfulEntryHasContentType(section, 'ImageCard')) {
+          classes.push('image-card-container-wrapper');
+        }
+        return classes;
       },
 
       sectionId(section) {
