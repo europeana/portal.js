@@ -298,6 +298,11 @@ module.exports = {
       await client.expect(title).to.match(new RegExp('\\| Europeana$'));
     });
   },
+  async doNotHaveEuropeanaBrandedTitle() {
+    await client.getTitle(async(title) => {
+      await client.expect(title).not.to.match(new RegExp('\\| Europeana$'));
+    });
+  },
   async haveNotExcededMemoryUsageInMB(memoryUsageMB) {
     const response = await axios.get(`${url}/_api/debug/memory-usage`, {
       httpsAgent: new https.Agent({
