@@ -42,14 +42,12 @@
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
-    small: { w: 500 },
     medium: { w: 500 },
     large: { w: 660 },
     xl: { w: 465 },
     xxl: { w: 555 },
-    xxxl: { w: 625 },
-    wqhd: { w: 625 },
-    '4k': { w: 938 }
+    '4k': { w: 625 },
+    '4k+': { w: 938 }
   };
 
   export default {

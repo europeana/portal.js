@@ -76,9 +76,8 @@
     large: { w: 280, h: 400, fit: 'fill' },
     xl: { w: 300, h: 400, fit: 'fill' },
     xxl: { w: 320, h: 370, fit: 'fill' },
-    xxxl: { w: 355, h: 345, fit: 'fill' },
-    wqhd: { w: 405, h: 323, fit: 'fill' },
-    '4k': { w: 480, h: 470, fit: 'fill' }
+    '4k': { w: 355, h: 345, fit: 'fill' },
+    '4k+': { w: 480, h: 470, fit: 'fill' }
   };
 
   export default {
@@ -149,12 +148,12 @@
           }
         },
         imageSizes: [
-          '(max-width: 575px) 245px',
-          '(max-width: 767px) 260px',
-          '(max-width: 991px) 280px',
-          '(max-width: 1199px) 300px',
-          '(max-width: 1439px) 320px',
-          '(max-width: 3019px) 355px',
+          '(max-width: 575px) 245px', // bp-small
+          '(max-width: 767px) 260px', // bp-medium
+          '(max-width: 991px) 280px', // bp-large
+          '(max-width: 1199px) 300px', // bp-xl
+          '(max-width: 1399px) 320px', // bp-xxl
+          '(max-width: 3019px) 355px', // bp-4k
           '480px'
         ].join(',')
       };

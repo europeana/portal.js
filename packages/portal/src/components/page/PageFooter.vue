@@ -27,10 +27,10 @@
             class="left-col pb-4 order-lg-4"
           >
             <LinkGroup
-              list-class="footer-link-list social-links"
-              link-class="footer-link mt-1"
+              class="social-links"
               :title="$t('footer.findUsElsewhere')"
               :links="social"
+              variant="social"
             />
             <hr class="mt-4 mb-1 w-100 d-lg-none">
           </b-col>
@@ -41,8 +41,6 @@
           >
             <LinkGroup
               v-if="footerMoreInfo"
-              list-class="footer-link-list"
-              link-class="footer-link"
               :title="footerMoreInfo.name"
               :links="footerMoreInfo.links"
             />
@@ -54,8 +52,6 @@
           >
             <LinkGroup
               v-if="footerHelp"
-              list-class="footer-link-list"
-              link-class="footer-link"
               :title="footerHelp.name"
               :links="footerHelp.links"
             />
@@ -80,8 +76,6 @@
             class="right-col pb-4  order-sm-4 order-lg-6"
           >
             <LinkGroup
-              list-class="footer-link-list"
-              link-class="footer-link"
               :title="debugLinkGroup.name"
               :links="debugLinkGroup.links"
               data-qa="debug link group"

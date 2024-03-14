@@ -71,9 +71,9 @@
   import { Grid, Keyboard, Lazy, Navigation, Pagination } from 'swiper';
 
   const SRCSET_PRESETS = {
-    small: { w: 98, h: 98 },
-    large: { w: 127, h: 127 },
-    '4k': { w: 340, h: 340 }
+    large: { w: 98, h: 98 },
+    '4k': { w: 127, h: 127 },
+    '4k+': { w: 340, h: 340 }
   };
 
   export default {
@@ -128,8 +128,8 @@
     data() {
       return {
         imageSizes: [
-          '(max-width: 991px) 98px',
-          '(max-width: 3019px) 127px',
+          '(max-width: 991px) 98px', // bp-large
+          '(max-width: 3019px) 127px', // bp-4k
           '340px'
         ].join(','),
 
