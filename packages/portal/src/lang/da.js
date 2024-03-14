@@ -208,15 +208,6 @@ export default {
     "left": "Venstre",
     "right": "Højre"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Data plads for kulturarv",
-    "header": {
-      "contributors": "Bidragsydere",
-      "dataOffer": "Data tilbud",
-      "stayInTouch": "Hold kontakten"
-    },
-    "logoAlt": "Dataplads til kulturarvens hjemmeside"
-  },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
   "entity": {
     "actions": {
@@ -883,6 +874,7 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Månedlige API-anmodninger i gennemsnit",
       "items": "Genstande",
       "providingInstitutions": "Ejerinstitutioner",
       "visits": "Besøg pr. dag"

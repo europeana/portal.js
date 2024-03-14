@@ -208,15 +208,6 @@ export default {
     "left": "Sinistra",
     "right": "Destra"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Spazio dati per il patrimonio culturale",
-    "header": {
-      "contributors": "Collaboratori",
-      "dataOffer": "Offerta dati",
-      "stayInTouch": "Rimani in contatto"
-    },
-    "logoAlt": "Spazio dati per la pagina principale del patrimonio culturale"
-  },
   "edmIsShownAtLinkAlt": "Visualizza sul sito web del fornitore",
   "entity": {
     "actions": {

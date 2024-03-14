@@ -208,15 +208,6 @@ export default {
     "left": "Xellug",
     "right": "Lemin"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Spazju tad-data għall-wirt kulturali",
-    "header": {
-      "contributors": "Kontributuri",
-      "dataOffer": "Offerta tad-dejta",
-      "stayInTouch": "Żomm f'kuntatt"
-    },
-    "logoAlt": "Spazju tad-data għall-paġna ewlenija tal-wirt kulturali"
-  },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
   "entity": {
     "actions": {

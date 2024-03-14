@@ -208,15 +208,6 @@ export default {
     "left": "Ляво",
     "right": "Дясно"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Пространство за данни за културно наследство",
-    "header": {
-      "contributors": "Сътрудници",
-      "dataOffer": "Оферта за данни",
-      "stayInTouch": "Поддържате връзка"
-    },
-    "logoAlt": "Пространство за данни за началната страница на културното наследство"
-  },
   "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
   "entity": {
     "actions": {
@@ -883,6 +874,7 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Средно месечни заявки за API",
       "items": "обекта",
       "providingInstitutions": "Доставчици на данни",
       "visits": "Посещения на ден"
