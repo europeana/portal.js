@@ -62,21 +62,28 @@
   @import '@europeana/style/scss/variables';
 
   .info-card {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     @media (min-width: $bp-large) {
       flex: 0 1 calc(50% - 2rem);
-      padding-bottom: 3rem;
-      margin-bottom: 0;
+      margin-bottom: 3rem;
+
+      &:nth-last-child(2) {
+        margin-bottom: 0;
+      }
     }
 
     @media (min-width: $bp-extralarge) {
       flex: 0 1 50%;
-      padding: 0 2rem 3rem;
+      padding: 0 2rem;
     }
 
     @media (min-width: $bp-xxxl) {
-      padding: 0 4rem 3rem;
+      padding: 0 4rem;
     }
 
     .image-wrapper {
@@ -111,6 +118,10 @@
     .text {
       font-weight: 500;
       color: $mediumgrey;
+
+      ::v-deep p:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 </style>

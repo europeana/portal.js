@@ -324,8 +324,10 @@
         max-width: 3000px;
       }
 
-      ::v-deep .text-wrapper {
-        padding-right: 0;
+      &.image-card-odd {
+        ::v-deep .text-wrapper {
+          padding-right: 0;
+        }
       }
     }
   }
