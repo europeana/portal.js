@@ -111,13 +111,9 @@
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
-          slidesPerView: 'auto',
           slideToClickedSlide: true,
           preloadImages: false,
           lazy: {
-            enabled: true,
-            checkInView: true,
-            loadPrevNext: true,
             loadPrevNextAmount: 10
           },
           breakpoints: {
@@ -131,10 +127,6 @@
               spaceBetween: 0
             }
           },
-          keyboard: {
-            enabled: true,
-            pageUpDown: false
-          },
           coverflowEffect: {
             rotate: 0,
             stretch: 100,
@@ -144,7 +136,6 @@
             scale: 1
           },
           on: {
-            afterInit: this.swiperOnAfterInit,
             activeIndexChange: this.setFocusOnActiveSlideLink
           }
         },
