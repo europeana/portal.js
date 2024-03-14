@@ -53,7 +53,7 @@
   import swiperMixin from '@/mixins/swiper';
   import MediaCard from '../media/MediaCard';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-  import { Navigation } from 'swiper';
+  import { Pagination, Navigation } from 'swiper';
 
   export default {
     name: 'ItemMediaSwiper',
@@ -84,12 +84,15 @@
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
-          modules: [Navigation],
+          modules: [Navigation, Pagination],
           init: true,
           threshold: singleMediaResource ? 5000000 :  null,
           spaceBetween: singleMediaResource ? null : 40,
           centeredSlides: true,
           slideToClickedSlide: true,
+          pagination: {
+            type: 'fraction'
+          },
           on: {
             slideChange: this.onSlideChange,
             slideChangeTransitionEnd: this.updateSwiper
