@@ -140,20 +140,7 @@
             rows: 2
           },
           lazy: {
-            enabled: true,
-            checkInView: true,
-            loadPrevNext: true,
             loadPrevNextAmount: 4
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          },
-          pagination: {
-            bulletElement: 'button',
-            clickable: true,
-            el: '.swiper-pagination',
-            type: 'bullets'
           },
           preloadImages: false,
           slidesPerGroup: 2,
@@ -175,12 +162,7 @@
               slidesPerView: 5
             }
           },
-          keyboard: {
-            enabled: true,
-            pageUpDown: false
-          },
           on: {
-            afterInit: this.swiperOnAfterInit,
             activeIndexChange: this.setFocusOnActiveSlideLink
           }
         }

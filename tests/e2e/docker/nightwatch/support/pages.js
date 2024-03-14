@@ -9,6 +9,7 @@ const pages = {
   'account page': `${url}/en/account`,
   'blog page': `${url}/en/blog`,
   'collections page': `${url}/en/collections`,
+  'data space page': `${url}/en/dataspace-culturalheritage`,
   '"Easter with art" blog page': `${url}/blog/easter-with-art-and-culture-5-activities-for-the-whole-family`,
   'English home page': `${url}/en`,
   'entity page': `${url}/en/collections/person/60305-william-shakespeare`,
