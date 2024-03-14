@@ -208,15 +208,6 @@ export default {
     "left": "Vasak",
     "right": "Parem"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kultuuripärandi andmeruum",
-    "header": {
-      "contributors": "Panustajad",
-      "dataOffer": "Andmepakkumine",
-      "stayInTouch": "Hoidke ühendust"
-    },
-    "logoAlt": "Andmepaik kultuuripärandi avaleht"
-  },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "entity": {
     "actions": {

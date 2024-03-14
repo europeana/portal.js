@@ -208,15 +208,6 @@ export default {
     "left": "Lijevo",
     "right": "Desno"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Prostor podataka za kulturnu baštinu",
-    "header": {
-      "contributors": "Doprinositelji",
-      "dataOffer": "Ponuda podataka",
-      "stayInTouch": "Ostanite u kontaktu"
-    },
-    "logoAlt": "Podatkovni prostor za početnu stranicu kulturne baštine"
-  },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
   "entity": {
     "actions": {
@@ -883,6 +874,7 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Mjesečni API zahtjevi, u prosjeku",
       "items": "Predmeti",
       "providingInstitutions": "Institucije",
       "visits": "Posjete po danu"

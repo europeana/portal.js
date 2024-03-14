@@ -208,15 +208,6 @@ export default {
     "left": "W lewo",
     "right": "W prawo"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Przestrzeń danych dla dziedzictwa kulturowego",
-    "header": {
-      "contributors": "Współtwórcy",
-      "dataOffer": "Oferta danych",
-      "stayInTouch": "Pozostać w kontakcie"
-    },
-    "logoAlt": "Strona główna przestrzeni danych dla dziedzictwa kulturowego"
-  },
   "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
   "entity": {
     "actions": {

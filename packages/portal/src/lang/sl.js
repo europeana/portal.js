@@ -208,15 +208,6 @@ export default {
     "left": "Levo",
     "right": "Desno"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Podatkovni prostor za kulturno dediščino",
-    "header": {
-      "contributors": "Sodelavci",
-      "dataOffer": "Ponudba podatkov",
-      "stayInTouch": "Ostanite v stiku"
-    },
-    "logoAlt": "Podatkovni prostor za domačo stran kulturne dediščine"
-  },
   "edmIsShownAtLinkAlt": "Ogled na spletni strani ponudnika",
   "entity": {
     "actions": {

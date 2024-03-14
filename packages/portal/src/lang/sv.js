@@ -208,15 +208,6 @@ export default {
     "left": "Vänster",
     "right": "Höger"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Datautrymme för kulturarv",
-    "header": {
-      "contributors": "Bidragsgivare",
-      "dataOffer": "Data Erbjudande",
-      "stayInTouch": "Håll kontakten"
-    },
-    "logoAlt": "Datautrymme för kulturarvets hemsida"
-  },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
   "entity": {
     "actions": {
