@@ -27,7 +27,7 @@ export default {
           clickable: true,
           el: '.swiper-pagination',
           type: 'bullets',
-          renderBullet: (index, className) => `<button aria-label="${index + 1}" class="${className}"></button>`
+          renderBullet: (index, className) => `<button aria-label="${this.$t('swiper.paginationBulletLabel', { page: index + 1 })}" class="${className}"></button>`
         },
         slidesPerView: 'auto'
       },
