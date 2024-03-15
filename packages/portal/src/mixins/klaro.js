@@ -70,10 +70,7 @@ export default {
     },
 
     klaroConfig() {
-      // TODO: uncomment when we have translations
-      // const locale = $i18n.locale;
-      // TODO: remove when we have translations
-      const locale = 'en';
+      const locale = this.$i18n.locale;
       const translations = key => ({
         [locale]: this.$t(key)
       });

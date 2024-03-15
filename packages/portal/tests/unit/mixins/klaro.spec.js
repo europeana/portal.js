@@ -16,6 +16,9 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMount(component, {
     };
   },
   mocks: {
+    $i18n: {
+      locale: 'en'
+    },
     $matomo: {
       trackEvent: () => {}
     },
