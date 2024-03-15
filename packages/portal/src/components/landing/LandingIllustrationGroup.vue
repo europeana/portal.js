@@ -184,14 +184,14 @@
     margin-top: 3rem;
     margin-bottom: 3rem;
 
-    @media (min-width: $bp-medium) {
+    @media (min-width: $bp-large) {
       margin-top: 6rem;
       margin-bottom: 6rem;
     }
 
     @media (min-width: $bp-4k) {
-      margin-top: 12rem;
-      margin-bottom: 12rem;
+      margin-top: 15rem;
+      margin-bottom: 15rem;
     }
   }
   .header {
@@ -315,6 +315,14 @@
       font-size: 1.25rem;
       font-weight: 700;
     }
+  }
+
+  .swiper-button-prev::after {
+    padding-right: 2px;
+  }
+
+  .swiper-button-next::after {
+    padding-left: 2px;
   }
 
   .swiper-pagination {

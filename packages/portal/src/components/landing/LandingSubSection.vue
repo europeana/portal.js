@@ -20,9 +20,11 @@
         v-for="(section, index) in sections"
         :key="index"
       >
-        <ContentCardSection
+        <LandingContentCardGroup
           v-if="contentfulEntryHasContentType(section, 'CardGroup')"
           :section="section"
+          :variant="variant"
+          title-tag="h3"
         />
         <LandingImageCard
           v-if="contentfulEntryHasContentType(section, 'ImageCard')"
@@ -58,7 +60,7 @@
     name: 'LandingSubSection',
 
     components: {
-      ContentCardSection: () => import('../content/ContentCardSection'),
+      LandingContentCardGroup: () => import('@/components/landing/LandingContentCardGroup'),
       LandingAutomatedCardGroup: () => import('@/components/landing/LandingAutomatedCardGroup'),
       LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
@@ -115,12 +117,15 @@
   }
 
   .container {
-    padding-top: 3.75rem;
-    padding-bottom: 2rem;
+    padding-top: 3rem;
+    border-bottom: 1px solid transparent; // fix for when any margin of the last child component causes different bg to display
 
-    @media (min-width: $bp-medium) {
-      padding-top: 4rem;
-      padding-bottom: 4rem;
+    @media (min-width: $bp-large) {
+      padding-top: 6rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      padding-top: 15rem;
     }
   }
 
@@ -164,11 +169,24 @@
     max-width: $max-text-column-width;
   }
 
+  ::v-deep .landing-content-card-group .container {
+    max-width: none;
+  }
+
   // TODO: Remove once replaced with LandingIllustrationGroup
   //style overrides for providing institutions section Share your data
   ::v-deep .logo {
     &.container {
       padding: 0;
+      margin-bottom: 2rem;
+
+      @media (min-width: $bp-large) {
+        margin-bottom: 4rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        margin-bottom: 3rem;
+      }
     }
 
     .cards-wrapper {
@@ -227,15 +245,17 @@
     background-color: transparent;
 
     .container {
+      padding-top: 0;
       padding-bottom: 0;
+      border-bottom: none;
+      margin-top: 3rem;
 
       @media(min-width: $bp-large) {
-        padding-top: 6rem;
+        margin-top: 6rem;
       }
 
       @media(min-width: $bp-4k) {
-        padding-top: 12rem;
-        padding-bottom: 8rem;
+        margin-top: 15rem;
       }
     }
 
@@ -256,7 +276,6 @@
         font-size: 1.375rem;
         font-weight: 700;
         line-height: 1.2;
-        margin-bottom: 2rem;
         margin-left: auto;
         margin-right: auto;
         text-align: center;
@@ -271,12 +290,12 @@
       }
 
       .text {
+        color: $black;
         margin-left: auto;
         margin-right: auto;
         text-align: center;
 
         @media (min-width: $bp-4k) {
-          color: $black;
           font-size: 2.5rem;
           max-width: $max-text-column-width-4k;
         }
@@ -305,8 +324,10 @@
         max-width: 3000px;
       }
 
-      ::v-deep .text-wrapper {
-        padding-right: 0;
+      &.image-card-odd {
+        ::v-deep .text-wrapper {
+          padding-right: 0;
+        }
       }
     }
   }

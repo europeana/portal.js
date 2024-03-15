@@ -179,6 +179,7 @@
 
   .page {
     margin-top: -1rem;
+    border-bottom: 1px solid transparent; // fix for when any margin of the last component on the page causes grey bg to display
 
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
@@ -195,7 +196,34 @@
       background-color: $bodygrey;
     }
 
-    // Adds extra space for top header when navigating to a hash route
+    .image-card-container-wrapper {
+      + .image-card-container-wrapper {
+
+        @media (min-width: $bp-large) {
+          margin-top: -2rem;
+        }
+
+        @media (min-width: $bp-4k) {
+          margin-top: -5rem;
+        }
+      }
+
+      .image-card {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+
+        @media (min-width: $bp-large) {
+          margin-top: 6rem;
+          margin-bottom: 6rem;
+        }
+
+        @media (min-width: $bp-4k) {
+          margin-top: 15rem;
+          margin-bottom: 15rem;
+        }
+      }
+    }
+
     .scroll-margin-top {
       scroll-margin-top: 3.5rem;
 
@@ -222,19 +250,6 @@
         max-width: none;
         padding-left: 0;
         padding-right: 0;
-      }
-    }
-    .image-card-container-wrapper {
-      + .image-card-container-wrapper {
-        margin-top: -4rem;
-
-        @media (min-width: $bp-large) {
-          margin-top: -8rem;
-        }
-
-        @media (min-width: $bp-4k) {
-          margin-top: -20rem;
-        }
       }
     }
   }

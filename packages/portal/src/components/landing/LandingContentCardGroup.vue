@@ -8,6 +8,7 @@
     <b-container>
       <ContentCardSection
         :section="section"
+        :title-tag="titleTag"
       />
     </b-container>
   </div>
@@ -41,6 +42,13 @@
       variant: {
         type: String,
         default: 'pro'
+      },
+      /**
+       * Heading title level to use. Override default for when used in subsection to keep correct heading structure.
+       */
+      titleTag: {
+        type: String,
+        default: 'h2'
       }
     },
 
@@ -63,17 +71,17 @@
 
   .landing-content-card-group {
     text-align: center;
-    padding-top: 3rem;
-    padding-bottom: 1px;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
 
-    @media (min-width: $bp-medium) {
-      padding-top: 6rem;
-      padding-bottom: 1.5rem;
+    @media (min-width: $bp-large) {
+      margin-top: 6rem;
+      margin-bottom: 4.5rem;
     }
 
     @media (min-width: $bp-4k) {
-      padding-top: 15rem;
-      padding-bottom: 15rem;
+      margin-top: 15rem;
+      margin-bottom: 13.5rem;
     }
 
     ::v-deep .col-lg-6 {
@@ -123,10 +131,23 @@
   @import '@europeana/style/scss/DS4CH/variables';
 
   .landing-content-card-group.ds4ch {
-    margin: 0;
-
     &.landing-content-card-group-odd {
       background-color: $bodygrey;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      padding-top: 3rem;
+      padding-bottom: 1.5rem;
+
+      @media (min-width: $bp-large) {
+        padding-top: 6rem;
+        padding-bottom: 4.5rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        padding-top: 15rem;
+        padding-bottom: 13.5rem;
+      }
     }
 
     .container {

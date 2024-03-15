@@ -103,13 +103,6 @@
   @import '@europeana/style/scss/variables';
 
   .container {
-    padding-top: 3.75rem;
-    padding-bottom: 2rem;
-
-    @media (min-width: $bp-medium) {
-      padding-top: 4rem;
-      padding-bottom: 4rem;
-    }
 
     .primary-cta {
       margin-left: auto !important;
@@ -185,7 +178,7 @@
       .primary-cta {
         background-color: transparent !important;
         padding: 0;
-        max-width: $max-text-column-width !important;
+        max-width: 535px !important;
 
         @media (min-width: $bp-4k) {
           max-width: $max-text-column-width-4k !important;
