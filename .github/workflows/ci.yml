@@ -453,7 +453,7 @@ jobs:
         if: github.event_name == 'push'
         run: |
           echo "K8S_NAMESPACE=test" >> $GITHUB_ENV
-          echo "K8S_RESOURCE_NAMES='deployment/portal-js deployment/ds4ch'" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAMES=deployment/portal-js\ deployment/ds4ch" >> $GITHUB_ENV
       -
         name: Create K8s resource manifests for dev deployments
         if: github.event_name == 'pull_request'
