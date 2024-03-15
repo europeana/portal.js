@@ -124,6 +124,8 @@
       if (ds4chLayout({ $config: this.$config, route: this.$route })) {
         this.pageMetaSuffixTitle = null;
       }
+
+      this.page = Object.freeze(this.page);
     },
 
     computed: {
