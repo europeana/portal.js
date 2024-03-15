@@ -208,15 +208,6 @@ export default {
     "left": "Bal",
     "right": "Jobb"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kulturális örökség adattere",
-    "header": {
-      "contributors": "Közreműködők",
-      "dataOffer": "Adat ajánlat",
-      "stayInTouch": "Maradjunk kapcsolatban"
-    },
-    "logoAlt": "Adattér a kulturális örökség kezdőlapjához"
-  },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
   "entity": {
     "actions": {

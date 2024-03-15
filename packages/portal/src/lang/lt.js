@@ -208,15 +208,6 @@ export default {
     "left": "Kairė",
     "right": "Dešinė"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kultūros paveldo duomenų erdvė",
-    "header": {
-      "contributors": "Įnešėjai",
-      "dataOffer": "Duomenų pasiūlymas",
-      "stayInTouch": "Išlikti susisiekę"
-    },
-    "logoAlt": "Kultūros paveldo namų puslapio duomenų erdvė"
-  },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
   "entity": {
     "actions": {

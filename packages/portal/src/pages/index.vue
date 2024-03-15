@@ -19,8 +19,16 @@
     <template
       v-else
     >
+      <LandingPage
+        v-if="landingPage"
+        :headline="page.headline || page.name"
+        :text="page.text"
+        :cta="page.relatedLink"
+        :sections="page.hasPartCollection?.items.filter((item) => !!item)"
+        :primary-image-of-page="page.primaryImageOfPage"
+      />
       <HomePage
-        v-if="homePage"
+        v-else-if="homePage"
       />
       <BrowsePage
         v-else-if="browsePage"
@@ -36,14 +44,6 @@
         :has-part-collection="page.hasPartCollection"
         :related-links="page.relatedLinks"
       />
-      <LandingPage
-        v-else-if="landingPage"
-        :headline="page.headline || page.name"
-        :text="page.text"
-        :cta="page.relatedLink"
-        :sections="page.hasPartCollection?.items.filter((item) => !!item)"
-        :primary-image-of-page="page.primaryImageOfPage"
-      />
     </template>
   </div>
 </template>
@@ -53,7 +53,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import landingPageMixin from '@/mixins/landingPage';
 
-  const ds4chLayout = (route) => landingPageMixin.methods.landingPageIdForRoute(route) === 'ds4ch';
+  const ds4chLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'ds4ch';
 
   export default {
     name: 'IndexPage',
@@ -69,8 +69,8 @@
 
     mixins: [landingPageMixin, pageMetaMixin],
 
-    layout({ route }) {
-      return ds4chLayout(route) ? 'ds4ch' : 'default';
+    layout(ctx) {
+      return ds4chLayout(ctx) ? 'ds4ch' : 'default';
     },
 
     data() {
@@ -88,9 +88,15 @@
 
     async fetch() {
       if (!this.identifier) {
-        this.homePage = true;
-        // HomePage fetches itself
-        return;
+        if (this.$config?.app?.homeLandingPageSlug) {
+          this.identifier = this.$config.app.homeLandingPageSlug;
+          this.landingPage = true;
+          this.homePage = true;
+        } else {
+          this.homePage = true;
+          // HomePage component fetches itself
+          return;
+        }
       // TODO: make LandingPage fetch itself
       } else if (this.landingPageId) {
         this.landingPage = true;
@@ -115,7 +121,7 @@
         { w: 800, h: 800 }
       );
 
-      if (ds4chLayout(this.$route)) {
+      if (ds4chLayout({ $config: this.$config, route: this.$route })) {
         this.pageMetaSuffixTitle = null;
       }
     },
@@ -125,7 +131,7 @@
         return {
           title: this.page.name,
           description: this.page.description,
-          ogType: 'article',
+          ogType: this.homePage ? 'website' : 'article',
           ogImage: this.socialMediaImageUrl,
           ogImageAlt: this.socialMediaImageAlt
         };
@@ -144,10 +150,6 @@
           locale: this.$i18n.isoLocale(),
           preview: this.$route.query.mode === 'preview'
         };
-        if (this.homePage) {
-          variables.date = (new Date()).toISOString();
-          variables.identifier = this.$route.query.identifier || null;
-        }
 
         const response = await this.$contentful.query(ctfQuery, variables);
         const data = response.data.data;

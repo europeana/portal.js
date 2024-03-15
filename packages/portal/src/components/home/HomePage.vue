@@ -84,8 +84,6 @@
         return {
           title: this.$t('homePage.title', { digital: this.$t('homePage.titleDigital') }),
           description: this.$t('homePage.subHeadline'),
-          // TODO: make this apply even if the homePage content type isn't requested,
-          //       e.g. when a landing page override has been requested at / instead
           ogType: 'website',
           ogImage: this.$contentful.assets.optimisedSrc(this.socialMediaImage, { w: 1200, h: 630, fit: 'fill' })
         };

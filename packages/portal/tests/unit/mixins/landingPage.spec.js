@@ -41,6 +41,17 @@ describe('mixins/landingPage', () => {
           expect(landingPageId).toBe('ds4ch');
         });
       });
+
+      it('detects config for landing page-based home page', () => {
+        const $config = { app: { homeLandingPageSlug: 'dataspace-culturalheritage' } };
+        const $route = { params: {} };
+
+        const wrapper = factory({ mocks: { $config, $route } });
+
+        const landingPageId = wrapper.vm.landingPageId;
+
+        expect(landingPageId).toBe('ds4ch');
+      });
     });
   });
 });

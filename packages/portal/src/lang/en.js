@@ -1222,6 +1222,9 @@ export default {
     "title": "Stories",
     "storiesHaveLoaded": "{0} stories found"
   },
+  "swiper": {
+    "paginationBulletLabel": "Slide group {page}"
+  },
   "themes": {
     "themes": "Themes",
     "description": "Browse by theme"
