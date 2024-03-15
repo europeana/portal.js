@@ -46,6 +46,12 @@
       klaroMixin
     ],
 
+    data() {
+      return {
+        klaroServices: ['auth-strategy', 'i18n']
+      };
+    },
+
     head() {
       return {
         link: [

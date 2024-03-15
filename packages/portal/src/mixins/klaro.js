@@ -6,6 +6,9 @@ export default {
       cookieConsentRequired: false,
       klaro: null,
       klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
+      // context-specific whitelist of services to declare in klaro, e.g.
+      // `klaroServices: ['auth-strategy', 'i18n']`
+      klaroServices: null,
       toastBottomOffset: '20px'
     };
   },
@@ -93,7 +96,7 @@ export default {
         service('debugSettings', ['essential'], ['debugSettings'], true),
         service('auth-strategy', ['essential'], ['auth.strategy'], true),
         service('newFeatureNotification', ['essential'], ['new_feature_notification'], true)
-      ];
+      ].filter((service) => !this.klaroServices || this.klaroServices.includes(service.name));
 
       return {
         testing: false,
