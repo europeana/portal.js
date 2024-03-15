@@ -4,7 +4,10 @@
     :class="variant"
   >
     <b-col class="col-lg-8 px-0 text-center mx-auto">
-      <h3 class="title">
+      <h3
+        v-if="title"
+        class="title"
+      >
         {{ title }}
       </h3>
     </b-col>

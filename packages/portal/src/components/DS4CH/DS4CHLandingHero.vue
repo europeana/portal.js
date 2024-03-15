@@ -26,7 +26,6 @@
       </header>
       <div
         id="europeana-logo"
-        class="mt-auto"
       >
         <p class="text-uppercase mb-0">
           {{ $t('ds4ch.broughtBy') }}
@@ -44,15 +43,16 @@
   import SmartLink from '@/components/generic/SmartLink';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
-  const SRCSET_PRESETS = {
+  const CSS_VARS_PRESETS = {
     small: { w: 576, h: 896, fit: 'fill', q: 100, f: 'right' },
     medium: { w: 768, h: 1080, fit: 'fill', q: 100, f: 'right' },
     large: { w: 992, h: 1080, fit: 'fill', q: 100, f: 'right' },
     xl: { w: 1200, h: 1080, fit: 'fill', q: 100, f: 'right' },
-    xxl: { w: 1440, h: 1080, fit: 'fill', q: 100, f: 'right' },
-    xxxl: { w: 1920, h: 1080, fit: 'fill', q: 100, f: 'right' },
-    wqhd: { w: 2560, h: 1440, fit: 'fill', q: 100, f: 'right' },
-    '4k': { w: 3840, h: 2160, fit: 'fill', q: 100, f: 'right' }
+    xxl: { w: 1400, h: 1080, fit: 'fill', q: 100, f: 'right' },
+    xxxl: { w: 1880, h: 1080, fit: 'fill', q: 100, f: 'right' },
+    wqhd: { w: 2520, h: 1440, fit: 'fill', q: 100, f: 'right' },
+    '4k': { w: 3020, h: 1440, fit: 'fill', q: 100, f: 'right' },
+    '4k+': { w: 3840, h: 2160, fit: 'fill', q: 100, f: 'right' }
   };
 
   export default {
@@ -102,7 +102,7 @@
         imageCSSVars: this.heroImage?.image &&
           this.$contentful.assets.responsiveBackgroundImageCSSVars(
             this.heroImage.image,
-            SRCSET_PRESETS
+            CSS_VARS_PRESETS
           )
       };
     }

@@ -208,15 +208,6 @@ export default {
     "left": "Links",
     "right": "Rechts"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Datenraum für kulturelles Erbe",
-    "header": {
-      "contributors": "Beitragende",
-      "dataOffer": "Datenangebot",
-      "stayInTouch": "Bleiben Sie in Kontakt"
-    },
-    "logoAlt": "Datenraum für das Kulturerbe Startseite"
-  },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
   "entity": {
     "actions": {

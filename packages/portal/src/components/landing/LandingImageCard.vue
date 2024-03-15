@@ -52,22 +52,21 @@
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   const SRCSET_PRESETS = {
-    small: { w: 545, h: 270, fit: 'fill' },
-    medium: { w: 510, h: 306, fit: 'fill' },
-    large: { w: 510, h: 306, fit: 'fill' },
-    xl: { w: 570, h: 342, fit: 'fill' },
-    xxl: { w: 612, h: 367, fit: 'fill' },
-    xxxl: { w: 612, h: 367, fit: 'fill' },
-    wqhd: { w: 612, h: 367, fit: 'fill' },
-    '4k': { w: 918, h: 551, fit: 'fill' }
+    small: { w: 512, h: 342, fit: 'fill' },
+    medium: { w: 510, h: 340, fit: 'fill' },
+    large: { w: 690, h: 460, fit: 'fill' },
+    xl: { w: 465, h: 310, fit: 'fill' },
+    '4k': { w: 625, h: 417, fit: 'fill' },
+    '4k+': { w: 938, h: 625, fit: 'fill' }
   };
 
   const SIZES_PRESETS = [
-    '(max-width: 575px) 545px', // bp-small
-    '(max-width: 991px) 510px', // bp-large
-    '(max-width: 1199px) 570px', // bp-xl
-    '(max-width: 3019px) 612px', // bp-4k
-    '918px'
+    '(max-width: 575px) 512px', // bp-small
+    '(max-width: 767px) 510px', // bp-medium
+    '(max-width: 991px) 690px', // bp-large
+    '(max-width: 1199px) 465px', // bp-xl
+    '(max-width: 3019px) 625px', // bp-4k
+    '938px'
   ].join(',');
 
   const SRCSET_PRESETS_DS4CH = {
@@ -76,9 +75,8 @@
     large: { w: 690, h: 460, fit: 'fill' },
     xl: { w: 600, h: 400, fit: 'fill' },
     xxl: { w: 700, h: 467, fit: 'fill' },
-    xxxl: { w: 940, h: 627, fit: 'fill' },
-    wqhd: { w: 1500, h: 1000, fit: 'fill' },
-    '4k': { w: 1500, h: 1000, fit: 'fill' }
+    '4k': { w: 625, h: 417, fit: 'fill' },
+    '4k+': { w: 1500, h: 1000, fit: 'fill' }
   };
 
   const SIZES_PRESETS_DS4CH = [
@@ -87,9 +85,7 @@
     '(max-width: 991px) 690px', // bp-large
     '(max-width: 1199px) 600px', // bp-xl
     '(max-width: 1399px) 700px', // bp-xxl
-    '(max-width: 1879px) 940px', // bp-xxxl
-    '(max-width: 2519px) 1500px', // bp-wqhd
-    '(max-width: 3019px) 1500px', // bp-4k
+    '(max-width: 3019px) 625px', // bp-4k
     '1500px'
   ].join(',');
 
@@ -229,16 +225,8 @@
 
     ::v-deep figure {
       margin: 0;
-      height: 306px;
-      width: 100%;
-
-      @media (min-width: $bp-large) {
-        height: 367px;
-      }
-
-      @media (min-width: $bp-4k) {
-        height: 551px;
-      }
+      width: auto;
+      height: auto;
 
       img {
         width: auto;
@@ -319,10 +307,6 @@
         flex-basis: 1500px;
       }
 
-      ::v-deep figure {
-        width: auto;
-        height: auto;
-      }
     }
 
     .text-wrapper {

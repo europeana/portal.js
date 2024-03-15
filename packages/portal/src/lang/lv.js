@@ -208,15 +208,6 @@ export default {
     "left": "Kreisais",
     "right": "Labais"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kultūras mantojuma datu telpa",
-    "header": {
-      "contributors": "Līdzstrādātāji",
-      "dataOffer": "Datu piedāvājums",
-      "stayInTouch": "Saglabājiet kontaktu"
-    },
-    "logoAlt": "Datu telpa kultūras mantojuma mājas lapai"
-  },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "entity": {
     "actions": {

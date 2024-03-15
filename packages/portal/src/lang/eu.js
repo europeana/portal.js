@@ -212,15 +212,6 @@ export default {
     "left": "Ezkerra",
     "right": "Eskuma"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kultura ondarearen datu espazioa",
-    "header": {
-      "contributors": "Laguntzaileak",
-      "dataOffer": "Datu eskaintza",
-      "stayInTouch": "Kontaktuan jarraitu"
-    },
-    "logoAlt": "Kultura-ondarearen hasierako orrirako datu-espazioa"
-  },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
   "entity": {
     "actions": {
@@ -887,6 +878,7 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Hileroko API eskaerak, batez beste",
       "items": "Elementuak",
       "providingInstitutions": "Erakunde hornitzailea",
       "visits": "Eguneko bisitak"

@@ -68,8 +68,9 @@
 
     data() {
       return {
-        sections: [],
         backgroundImage: null,
+        callsToAction: [],
+        sections: [],
         socialMediaImage: null
       };
     },
@@ -82,31 +83,14 @@
       pageMeta() {
         return {
           title: this.$t('homePage.title', { digital: this.$t('homePage.titleDigital') }),
-          description: this.pageSubHeadline,
+          description: this.$t('homePage.subHeadline'),
           ogType: 'website',
-          ogImage: this.headMetaOgImage
+          ogImage: this.$contentful.assets.optimisedSrc(this.socialMediaImage, { w: 1200, h: 630, fit: 'fill' })
         };
-      },
-
-      pageSubHeadline() {
-        return this.$t('homePage.subHeadline');
-      },
-
-      headMetaOgImage() {
-        const image = this.socialMediaImage ? this.socialMediaImage : this.backgroundImage?.image;
-        return this.$contentful.assets.optimisedSrc(image, { w: 1200, h: 630, fit: 'fill' });
-      },
-
-      callsToAction() {
-        return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
       }
     },
 
     methods: {
-      selectRandomBackground(images) {
-        return images[Math.floor(Math.random() * images.length)] || null;
-      },
-
       async fetchContentfulEntry() {
         const variables = {
           locale: this.$i18n.isoLocale(),
@@ -115,11 +99,17 @@
           date: (new Date()).toISOString()
         };
         const response = await this.$contentful.query('homePage', variables);
+
         const homePage = response.data.data.homePageCollection.items[0];
         const backgroundImages = homePage.primaryImageSetOfPageCollection?.items?.[0]?.hasPartCollection?.items || [];
         this.sections = homePage.sectionsCollection.items.filter((item) => !!item);
+        this.callsToAction = this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
         this.backgroundImage = this.selectRandomBackground(backgroundImages);
         this.socialMediaImage = homePage.image;
+      },
+
+      selectRandomBackground(images) {
+        return images[Math.floor(Math.random() * images.length)] || null;
       }
     }
   };

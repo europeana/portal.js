@@ -208,15 +208,6 @@ export default {
     "left": "Stânga",
     "right": "Dreapta"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Spațiu de date pentru patrimoniul cultural",
-    "header": {
-      "contributors": "Contribuitori",
-      "dataOffer": "Oferta de date",
-      "stayInTouch": "Păstrați legătura"
-    },
-    "logoAlt": "Spațiu de date pentru pagina principală a patrimoniului cultural"
-  },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
   "entity": {
     "actions": {

@@ -30,7 +30,6 @@
 <script>
   import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
   import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
-  import scrollToRouteHash from '@/mixins/scrollToRouteHash';
   import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
 
@@ -44,8 +43,7 @@
     },
 
     mixins: [
-      klaroMixin,
-      scrollToRouteHash
+      klaroMixin
     ],
 
     head() {

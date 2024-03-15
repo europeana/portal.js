@@ -71,9 +71,9 @@
   import { Grid, Keyboard, Lazy, Navigation, Pagination } from 'swiper';
 
   const SRCSET_PRESETS = {
-    small: { w: 98, h: 98 },
-    large: { w: 127, h: 127 },
-    '4k': { w: 340, h: 340 }
+    large: { w: 98, h: 98 },
+    '4k': { w: 127, h: 127 },
+    '4k+': { w: 340, h: 340 }
   };
 
   export default {
@@ -128,8 +128,8 @@
     data() {
       return {
         imageSizes: [
-          '(max-width: 991px) 98px',
-          '(max-width: 3019px) 127px',
+          '(max-width: 991px) 98px', // bp-large
+          '(max-width: 3019px) 127px', // bp-4k
           '340px'
         ].join(','),
 
@@ -140,20 +140,7 @@
             rows: 2
           },
           lazy: {
-            enabled: true,
-            checkInView: true,
-            loadPrevNext: true,
             loadPrevNextAmount: 4
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          },
-          pagination: {
-            bulletElement: 'button',
-            clickable: true,
-            el: '.swiper-pagination',
-            type: 'bullets'
           },
           preloadImages: false,
           slidesPerGroup: 2,
@@ -175,12 +162,7 @@
               slidesPerView: 5
             }
           },
-          keyboard: {
-            enabled: true,
-            pageUpDown: false
-          },
           on: {
-            afterInit: this.swiperOnAfterInit,
             activeIndexChange: this.setFocusOnActiveSlideLink
           }
         }
@@ -258,13 +240,20 @@
   .swiper-container-wrapper {
     margin: 0 auto;
     position: relative;
+    height: 264px;
 
     @media (min-width: $bp-medium) {
       width: 100%;
+      height: 160px;
     }
 
     @media (min-width: $bp-large) {
       width: 873px;
+      height: 221px;
+    }
+
+    @media (min-width: $bp-4k) {
+      height: 456px;
     }
 
   }
