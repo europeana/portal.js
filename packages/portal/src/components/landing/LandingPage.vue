@@ -18,20 +18,20 @@
       :cta="cta"
       :hero-image="primaryImageOfPage"
     />
-    <template
+    <div
       v-for="(section, index) in sections"
+      :id="sectionId(section)"
+      :key="index"
+      class="scroll-margin-top"
+      :class="getClasses(section)"
     >
       <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
-        :id="sectionId(section)"
-        :key="index"
         :section="section"
         :variant="variant"
       />
       <LandingIllustrationGroup
         v-else-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :illustrations="section.hasPartCollection && section.hasPartCollection.items"
@@ -39,40 +39,30 @@
       />
       <LandingInfoCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
         :link="section.link"
         :variant="variant"
       />
-      <div
+      <b-container
         v-else-if="contentfulEntryHasContentType(section, 'ImageCard')"
-        :key="index"
-        class="image-card-container-wrapper"
-        :class="getClasses(section)"
+        class="image-card-container"
       >
-        <b-container class="image-card-container">
-          <LandingImageCard
-            :id="sectionId(section)"
-            :card="section"
-            :variant="variant"
-          />
-        </b-container>
-      </div>
+        <LandingImageCard
+          :card="section"
+          :variant="variant"
+        />
+      </b-container>
+
       <LandingImageCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'ImageCardGroup')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :image-cards="section.hasPartCollection && section.hasPartCollection.items"
       />
       <LandingSubSection
         v-else-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
@@ -80,8 +70,6 @@
       />
       <LandingEmbed
         v-else-if="contentfulEntryHasContentType(section, 'EmbedSection')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :background-image="section.image"
@@ -89,15 +77,13 @@
       />
       <LandingCallToAction
         v-else-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
-        :id="sectionId(section)"
-        :key="index"
         :title="section.name"
         :text="section.text"
         :link="section.relatedLink"
         :background-image="section.image"
         :variant="variant"
       />
-    </template>
+    </div>
   </div>
 </template>
 
@@ -169,7 +155,14 @@
 
     methods: {
       getClasses(section) {
-        return section.profile?.background ? `bg-color-${section.profile.background}` : '';
+        const classes = [];
+        if (section.profile?.background) {
+          classes.push(`bg-color-${section.profile.background}`);
+        }
+        if (this.contentfulEntryHasContentType(section, 'ImageCard')) {
+          classes.push('image-card-container-wrapper');
+        }
+        return classes;
       },
 
       sectionId(section) {
@@ -228,6 +221,14 @@
           margin-top: 15rem;
           margin-bottom: 15rem;
         }
+      }
+    }
+
+    .scroll-margin-top {
+      scroll-margin-top: 3.5rem;
+
+      @media (min-width: $bp-4k) {
+        scroll-margin-top: 5rem;
       }
     }
   }
