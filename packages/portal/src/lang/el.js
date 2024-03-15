@@ -80,6 +80,7 @@ export default {
     "creator": "Δημιουργός:",
     "date": "Ημερομηνία:",
     "institution": "Ίδρυμα:",
+    "show": "Εμφάνιση απόδοσης",
     "title": "Τίτλος:"
   },
   "automatedCardGroup": {
@@ -210,15 +211,6 @@ export default {
   "directions": {
     "left": "Αριστερά",
     "right": "Δεξιά"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Χώρος δεδομένων για την πολιτιστική κληρονομιά",
-    "header": {
-      "contributors": "Συνεισφέροντες",
-      "dataOffer": "Προσφορά δεδομένων",
-      "stayInTouch": "Μείνετε σε επαφή"
-    },
-    "logoAlt": "Χώρος δεδομένων για την αρχική σελίδα πολιτιστικής κληρονομιάς"
   },
   "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
   "entity": {

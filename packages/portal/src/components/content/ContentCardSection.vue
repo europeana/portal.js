@@ -11,7 +11,10 @@
       >
         {{ section.headline }}
       </h2>
-      <p v-if="section.text">
+      <p
+        v-if="section.text"
+        class="text"
+      >
         {{ section.text }}
       </p>
     </div>
@@ -79,7 +82,7 @@
     },
     computed: {
       cards() {
-        return this.section.hasPartCollection.items.filter(card => !!card);
+        return this.section.hasPartCollection?.items.filter(card => !!card) || [];
       },
 
       isPeopleSection() {
@@ -109,7 +112,7 @@
       }
     }
 
-    p {
+    .text {
       color: $mediumgrey;
       text-align: left;
       line-height: 1.5;

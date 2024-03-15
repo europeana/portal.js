@@ -80,6 +80,7 @@ export default {
     "creator": "Tvůrce:",
     "date": "Datum:",
     "institution": "Instituce:",
+    "show": "Zobrazit atribuci",
     "title": "Název:"
   },
   "automatedCardGroup": {
@@ -207,15 +208,6 @@ export default {
     "left": "Doleva",
     "right": "Doprava"
   },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Datový prostor pro kulturní dědictví",
-    "header": {
-      "contributors": "Přispěvatelé",
-      "dataOffer": "Nabídka dat",
-      "stayInTouch": "Zůstaňte v kontaktu"
-    },
-    "logoAlt": "Datový prostor pro domovskou stránku kulturního dědictví"
-  },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
   "entity": {
     "actions": {
@@ -286,7 +278,7 @@ export default {
   },
   "exhibitions": {
     "chapters": "Kapitoly",
-    "credits": "Přispěvky",
+    "credits": "Příspěvky",
     "currentChapter": "Aktuální kapitola",
     "description": "Prozkoumat výstavy",
     "exhibitions": "Výstava | Výstavy"
@@ -882,6 +874,7 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Průměrně měsíční požadavky API",
       "items": "Položky",
       "providingInstitutions": "Poskytující instituce",
       "visits": "Návštěvy za den"

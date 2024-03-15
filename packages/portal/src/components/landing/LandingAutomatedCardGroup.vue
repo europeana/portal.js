@@ -1,7 +1,13 @@
 <template>
-  <div class="landing-automated-card-group">
+  <div
+    class="landing-automated-card-group"
+    :class="variant"
+  >
     <b-col class="col-lg-8 px-0 text-center mx-auto">
-      <h3 class="title">
+      <h3
+        v-if="title"
+        class="title"
+      >
         {{ title }}
       </h3>
     </b-col>
@@ -15,15 +21,17 @@
         :info="item.info"
         :label="item.label"
         class="px-1 px-md-3"
-        variant="dark"
+        :variant="cardVariant"
       />
     </div>
   </div>
 </template>
 
 <script>
+  import camelCase from 'lodash/camelCase.js';
   import InfoCard from '@/components/generic/InfoCard';
 
+  const DS4CH_NUMBERS = 'Data space numbers';
   const EUROPEANA_NUMBERS = 'Europeana numbers';
 
   export default {
@@ -47,6 +55,14 @@
       staticItems: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     },
     data() {
@@ -55,28 +71,34 @@
         title: null,
         entries: []
       };
-      if (this.genre === EUROPEANA_NUMBERS) {
+      if (this.genre === DS4CH_NUMBERS) {
+        data.keys = [
+          'items/type-counts',
+          'dataspace/network-members',
+          'collections/organisations/count',
+          'dataspace/hq-data',
+          'dataspace/api-requests'
+        ];
+      } else if (this.genre === EUROPEANA_NUMBERS) {
         data.keys = ['matomo/visits', 'items/type-counts', 'collections/organisations/count'];
         data.title = this.$t('landing.europeanaNumbers');
       }
       return data;
     },
     async fetch() {
-      if (this.genre === EUROPEANA_NUMBERS) {
+      if (this.keys) {
         const cachedData = await this.fetchCachedData();
+
         for (const key of this.keys) {
-          const entry = {};
-          if (key === 'matomo/visits') {
-            entry.label = 'visits';
-            entry.count = cachedData[key];
-          }
+          const entry = {
+            info: cachedData[key],
+            label: camelCase(key.split('/').pop())
+          };
           if (key === 'items/type-counts') {
             entry.label = 'items';
-            entry.count = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
-          }
-          if (key === 'collections/organisations/count') {
+            entry.info = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
+          } else if (key === 'collections/organisations/count') {
             entry.label = 'providingInstitutions';
-            entry.count = cachedData[key];
           }
           this.entries.push(entry);
         }
@@ -85,15 +107,20 @@
     computed: {
       hasPartCollectionItems() {
         let items;
-        if (this.genre === EUROPEANA_NUMBERS) {
+
+        if (this.staticItems.length) {
+          items = this.staticItems;
+        } else {
           items = this.entries?.map(entry => ({
-            info: this.$i18n.n(this.roundedNumber(entry.count)) + ' +',
+            info: isNaN(entry.info) ? entry.info : this.$i18n.n(this.roundedNumber(entry.info)) + ' +',
             label: this.$t(`landing.counts.${entry.label}`)
           }));
-        } else if (this.staticItems.length) {
-          items = this.staticItems;
         }
+
         return items || [];
+      },
+      cardVariant() {
+        return this.variant === 'pro' ? 'dark' : 'default';
       }
     },
     methods: {
@@ -151,27 +178,93 @@
   ::v-deep .info-card {
     .card-title {
       font-family: $font-family-ubuntu;
-      font-size: $font-size-large !important;
+      font-size: $font-size-large;
       font-weight: 500;
-      line-height: 1.5 !important;
+      line-height: 1.5;
 
       @media (min-width: $bp-medium) {
-        font-size: $font-size-xl !important;
+        font-size: $font-size-xl;
       }
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k !important;
+        font-size: $font-size-xl-4k;
       }
     }
 
     .card-text {
-      font-size: $font-size-small !important;
-      font-weight: 600 !important;
+      font-size: $font-size-small;
+      font-weight: 600;
       text-transform: uppercase;
       color: $mediumgrey;
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-small-4k !important;
+        font-size: $font-size-small-4k;
+      }
+    }
+  }
+</style>
+
+<!-- Only DS4CH styles after this line! -->
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/variables';
+
+  .landing-automated-card-group.ds4ch {
+    max-width: $max-text-column-width;
+    margin: 0 auto;
+    padding-bottom: 0;
+
+    @media (min-width: $bp-4k) {
+      max-width: 1640px;
+    }
+
+    ::v-deep .info-card {
+      @media (min-width: $bp-small) {
+        flex-basis: 50%;
+      }
+
+      @media (min-width: $bp-large) {
+        flex-basis: auto;
+      }
+
+      @media (min-width: $bp-4k) {
+        max-width: none;
+      }
+
+      .card-body {
+        padding: 1rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media (min-width: $bp-small) {
+          padding: 1rem;
+        }
+
+        @media (min-width: $bp-large) {
+          padding: 2rem;
+        }
+      }
+      .card-title {
+        @extend %title-2;
+        color: $black;
+        margin-bottom: 0.875rem;
+
+        @media (min-width: $bp-medium) {
+          margin-bottom: 1rem;
+        }
+      }
+
+      .card-text {
+        @extend %title-5;
+        max-width: 145px;
+
+        @media (min-width: $bp-small) {
+          max-width: 200px;
+        }
+
+        @media (min-width: $bp-4k) {
+          max-width: 510px;
+        }
       }
     }
   }

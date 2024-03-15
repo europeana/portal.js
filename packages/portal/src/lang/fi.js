@@ -80,6 +80,7 @@ export default {
     "creator": "Luoja:",
     "date": "Päivämäärä:",
     "institution": "kulttuuriperintölaitos:",
+    "show": "Näytä attribuutio",
     "title": "Nimi:"
   },
   "automatedCardGroup": {
@@ -206,15 +207,6 @@ export default {
   "directions": {
     "left": "Vasen",
     "right": "Oikea"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kulttuuriperinnön datatila",
-    "header": {
-      "contributors": "Osallistujat",
-      "dataOffer": "Data tarjous",
-      "stayInTouch": "Pidä yhteyttä"
-    },
-    "logoAlt": "Kulttuuriperinnön data-avaruuden kotisivu"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
   "entity": {

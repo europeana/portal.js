@@ -80,6 +80,7 @@ export default {
     "creator": "Autor:",
     "date": "Dátum:",
     "institution": "Inštitúcia:",
+    "show": "Zobraziť atribút",
     "title": "Názov:"
   },
   "automatedCardGroup": {
@@ -206,15 +207,6 @@ export default {
   "directions": {
     "left": "Vľavo",
     "right": "Vpravo"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Dátový priestor pre kultúrne dedičstvo",
-    "header": {
-      "contributors": "Prispievatelia",
-      "dataOffer": "Ponuka dát",
-      "stayInTouch": "Zostať v kontakte"
-    },
-    "logoAlt": "Dátový priestor pre domovskú stránku kultúrneho dedičstva"
   },
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
   "entity": {

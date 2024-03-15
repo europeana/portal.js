@@ -80,6 +80,7 @@ export default {
     "creator": "Stvorio/la:",
     "date": "Datum:",
     "institution": "Institucija:",
+    "show": "Prikaži atribuciju",
     "title": "Naslov:"
   },
   "automatedCardGroup": {
@@ -206,15 +207,6 @@ export default {
   "directions": {
     "left": "Lijevo",
     "right": "Desno"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Prostor podataka za kulturnu baštinu",
-    "header": {
-      "contributors": "Doprinositelji",
-      "dataOffer": "Ponuda podataka",
-      "stayInTouch": "Ostanite u kontaktu"
-    },
-    "logoAlt": "Podatkovni prostor za početnu stranicu kulturne baštine"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
   "entity": {
@@ -882,6 +874,7 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Mjesečni API zahtjevi, u prosjeku",
       "items": "Predmeti",
       "providingInstitutions": "Institucije",
       "visits": "Posjete po danu"

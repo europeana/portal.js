@@ -31,10 +31,9 @@
     computed: {
       links() {
         return [
-          // TODO: Add URLs when available
-          { url: '#', text: this.$t('ds4ch.header.dataOffer') },
-          { url: '#', text: this.$t('ds4ch.header.contributors') },
-          { url: '#', text: this.$t('ds4ch.header.stayInTouch') }
+          { url: '#about-the-data-space', text: this.$t('ds4ch.header.navigation.about') },
+          { url: '#consortium-partners', text: this.$t('ds4ch.header.navigation.partners') },
+          { url: '#explore-the-data-offer', text: this.$t('ds4ch.header.navigation.explore') }
         ];
       }
     }
@@ -42,7 +41,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/style';
+  @import '@europeana/style/scss/DS4CH/variables';
 
   .nav-item {
     @media (min-width: $bp-large) {

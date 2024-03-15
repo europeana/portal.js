@@ -80,6 +80,7 @@ export default {
     "creator": "Autorius:",
     "date": "Data:",
     "institution": "Įstaiga:",
+    "show": "Rodyti priskyrimą",
     "title": "Pavadinimas:"
   },
   "automatedCardGroup": {
@@ -206,15 +207,6 @@ export default {
   "directions": {
     "left": "Kairė",
     "right": "Dešinė"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kultūros paveldo duomenų erdvė",
-    "header": {
-      "contributors": "Įnešėjai",
-      "dataOffer": "Duomenų pasiūlymas",
-      "stayInTouch": "Išlikti susisiekę"
-    },
-    "logoAlt": "Kultūros paveldo namų puslapio duomenų erdvė"
   },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
   "entity": {

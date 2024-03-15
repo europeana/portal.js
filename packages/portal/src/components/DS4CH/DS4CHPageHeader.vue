@@ -2,25 +2,14 @@
   <header
     id="header"
     v-visible-on-scroll
-    class="page-header show xxl-page"
+    class="page-header ds4ch-page-header show xxl-page"
     role="banner"
-    :aria-label="$t('ds4ch.dataSpaceForCulturalHeritage')"
     data-qa="header"
   >
     <b-navbar
       role="navigation"
-      class="d-flex align-items-center justify-content-between"
+      class="d-flex align-items-center justify-content-end"
     >
-      <SmartLink
-        destination="#"
-        class="logo d-inline-flex"
-      >
-        <img
-          :src="logoSrc"
-          :alt="$t('ds4ch.logoAlt')"
-          data-qa="logo"
-        >
-      </SmartLink>
       <DS4CHPageNavigation
         class="d-none d-lg-flex"
         data-qa="top navigation"
@@ -63,28 +52,19 @@
 </template>
 
 <script>
-  import SmartLink from '@/components/generic/SmartLink';
   import DS4CHPageNavigation from './DS4CHPageNavigation';
 
   export default {
     name: 'DS4CHPageHeader',
 
     components: {
-      SmartLink,
       DS4CHPageNavigation
-    },
-
-    data() {
-      return {
-        logoSrc: require('@europeana/style/img/DS4CHlogo.svg')
-      };
     }
   };
 </script>
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/DS4CH/style';
-  @import '@europeana/style/scss/DS4CH/variables';
 
   ::v-deep .b-sidebar-backdrop.bg-black {
     background-color: $black;
@@ -96,7 +76,7 @@
     width: 16rem;
     max-height: 100vh;
     transition: $standard-transition; // fixes header appear/disappear
-    border-left: 1px solid $white;
+    border-left: 2px solid $white;
   }
 
   .page-header {
@@ -105,7 +85,8 @@
     right: 0;
     top: 0;
     left: 0;
-    z-index: 10;
+    border-bottom: 1px solid $white;
+    z-index: 11;
 
     @media (min-width: $bp-large) {
       transition: $standard-transition;
@@ -165,7 +146,8 @@
 <docs lang="md">
   ```jsx
   import '@europeana/style/scss/DS4CH/style.scss';
-
-  <DS4CHPageHeader style="position: relative;"/>
+  <div class="ds4ch-layout">
+    <DS4CHPageHeader style="position: relative;"/>
+  </div>
   ```
 </docs>

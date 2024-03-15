@@ -80,6 +80,7 @@ export default {
     "creator": "Creator:",
     "date": "Date:",
     "institution": "Institution:",
+    "show": "Show attribution",
     "title": "Title:"
   },
   "automatedCardGroup": {
@@ -212,12 +213,16 @@ export default {
     "right": "Right"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Data space for cultural heritage",
-    "logoAlt": "Data space for cultural heritage home page",
+    "broughtBy": "Brought to you by",
+    "footer": {
+      "disclaimerLine1": "The common European data space for cultural heritage is an initiative of the European Union, financed by the European Union’s Digital Europe Programme. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission."
+    },
     "header": {
-      "contributors": "Contributors",
-      "dataOffer": "Data offer",
-      "stayInTouch": "Stay in touch"
+      "navigation": {
+        "about": "About the data space",
+        "explore": "Explore the data",
+        "partners": "Partners"
+      }
     }
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
@@ -910,9 +915,12 @@ export default {
   "landing": {
     "europeanaNumbers": "Europeana.eu in numbers",
     "counts": {
-      "visits": "Visits per day",
+      "apiRequests": "Monthly API requests, on average",
+      "hqData": "Increase in high-quality data per year",
       "items": "Items",
-      "providingInstitutions": "Providing institutions"
+      "networkMembers": "Network members",
+      "providingInstitutions": "Providing institutions",
+      "visits": "Visits per day"
     }
   },
   "layout": {
@@ -1214,6 +1222,9 @@ export default {
   "storiesPage": {
     "title": "Stories",
     "storiesHaveLoaded": "{0} stories found"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slide group {page}"
   },
   "themes": {
     "themes": "Themes",

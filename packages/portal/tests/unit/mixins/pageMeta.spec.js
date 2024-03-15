@@ -5,7 +5,7 @@ import mixin from '@/mixins/pageMeta';
 
 const localVue = createLocalVue();
 
-const factory = ({ computed = {}, mocks = {} } = {}) => {
+const factory = ({ computed = {}, data = {}, mocks = {} } = {}) => {
   const component = {
     template: '<div></div>',
     computed,
@@ -14,6 +14,11 @@ const factory = ({ computed = {}, mocks = {} } = {}) => {
 
   const wrapper = shallowMountNuxt(component, {
     localVue,
+    data() {
+      return {
+        ...data
+      };
+    },
     mocks: {
       $config: { app: { siteName: 'Europeana' } },
       $fetchState: {},
@@ -40,6 +45,23 @@ describe('mixins/pageMeta', () => {
         const wrapper = factory({ computed });
 
         expect(wrapper.vm.head().title).toBe('Home | Europeana');
+      });
+
+      it('respects component-level overriden suffix', () => {
+        const computed = {
+          pageMeta() {
+            return {
+              title: 'Home'
+            };
+          }
+        };
+        const data = {
+          pageMetaSuffixTitle: null
+        };
+
+        const wrapper = factory({ computed, data });
+
+        expect(wrapper.vm.head().title).toBe('Home');
       });
     });
 

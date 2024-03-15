@@ -80,6 +80,7 @@ export default {
     "creator": "Urheber:",
     "date": "Datum:",
     "institution": "Institution:",
+    "show": "Namensnennung anzeigen",
     "title": "Titel:"
   },
   "automatedCardGroup": {
@@ -206,15 +207,6 @@ export default {
   "directions": {
     "left": "Links",
     "right": "Rechts"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Datenraum für kulturelles Erbe",
-    "header": {
-      "contributors": "Beitragende",
-      "dataOffer": "Datenangebot",
-      "stayInTouch": "Bleiben Sie in Kontakt"
-    },
-    "logoAlt": "Datenraum für das Kulturerbe Startseite"
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
   "entity": {
@@ -901,7 +893,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klicken Sie auf die Namensnennung, um sie zu kopieren",
-      "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Attribution daneben anzuzeigen:",
+      "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Namensnennung daneben anzuzeigen:",
       "modalTitle": "Dank sagen"
     },
     "downloadFailed": {

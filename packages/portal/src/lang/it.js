@@ -80,6 +80,7 @@ export default {
     "creator": "Creatore:",
     "date": "Data:",
     "institution": "Istituzione:",
+    "show": "Mostra attribuzione",
     "title": "Titolo:"
   },
   "automatedCardGroup": {
@@ -206,15 +207,6 @@ export default {
   "directions": {
     "left": "Sinistra",
     "right": "Destra"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Spazio dati per il patrimonio culturale",
-    "header": {
-      "contributors": "Collaboratori",
-      "dataOffer": "Offerta dati",
-      "stayInTouch": "Rimani in contatto"
-    },
-    "logoAlt": "Spazio dati per la pagina principale del patrimonio culturale"
   },
   "edmIsShownAtLinkAlt": "Visualizza sul sito web del fornitore",
   "entity": {
@@ -651,7 +643,7 @@ export default {
       "select": "Selezionare se è possibile utilizzarlo"
     },
     "TYPE": {
-      "name": "Tipo di supporto",
+      "name": "Tipo di Media",
       "options": {
         "3D": "3D",
         "IMAGE": "Immagine",

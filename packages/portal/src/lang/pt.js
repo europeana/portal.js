@@ -80,6 +80,7 @@ export default {
     "creator": "Criador:",
     "date": "Date:",
     "institution": "Instituição:",
+    "show": "Mostrar atribuição",
     "title": "Título:"
   },
   "automatedCardGroup": {
@@ -206,15 +207,6 @@ export default {
   "directions": {
     "left": "Esquerda",
     "right": "Direita"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Espaço de dados para património cultural",
-    "header": {
-      "contributors": "Contribuidores",
-      "dataOffer": "Oferta de dados",
-      "stayInTouch": "Mantenha contacto"
-    },
-    "logoAlt": "Espaço de dados para a página inicial do património cultural"
   },
   "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
   "entity": {

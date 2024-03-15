@@ -80,6 +80,7 @@ export default {
     "creator": "Cruthaitheoir:",
     "date": "Dáta:",
     "institution": "Institiúid:",
+    "show": "Taispeáin sannadh",
     "title": "Teideal:"
   },
   "automatedCardGroup": {
@@ -206,15 +207,6 @@ export default {
   "directions": {
     "left": "Ar chlé",
     "right": "Ar dheis"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Spás sonraí don oidhreacht chultúrtha",
-    "header": {
-      "contributors": "Rannpháirtithe",
-      "dataOffer": "Tairiscint Sonraí",
-      "stayInTouch": "Fan i dteagmháil"
-    },
-    "logoAlt": "Spás sonraí do leathanach baile oidhreachta cultúir"
   },
   "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
   "entity": {

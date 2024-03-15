@@ -80,6 +80,7 @@ export default {
     "creator": "Autors:",
     "date": "Datums",
     "institution": "Iestāde:",
+    "show": "Rādīt attiecinājumu",
     "title": "Nosaukums:"
   },
   "automatedCardGroup": {
@@ -206,15 +207,6 @@ export default {
   "directions": {
     "left": "Kreisais",
     "right": "Labais"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kultūras mantojuma datu telpa",
-    "header": {
-      "contributors": "Līdzstrādātāji",
-      "dataOffer": "Datu piedāvājums",
-      "stayInTouch": "Saglabājiet kontaktu"
-    },
-    "logoAlt": "Datu telpa kultūras mantojuma mājas lapai"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "entity": {

@@ -80,6 +80,7 @@ export default {
     "creator": "Maker:",
     "date": "Datum:",
     "institution": "Instelling:",
+    "show": "Toon toeschrijving",
     "title": "Titel:"
   },
   "automatedCardGroup": {
@@ -206,15 +207,6 @@ export default {
   "directions": {
     "left": "Links",
     "right": "Rechts"
-  },
-  "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Dataruimte voor cultureel erfgoed",
-    "header": {
-      "contributors": "Bijdragers",
-      "dataOffer": "Data-aanbod",
-      "stayInTouch": "Houd contact"
-    },
-    "logoAlt": "Data ruimte voor cultureel erfgoed homepagina"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
   "entity": {

@@ -27,10 +27,10 @@
             class="left-col pb-4 order-lg-4"
           >
             <LinkGroup
-              list-class="footer-link-list social-links"
-              link-class="footer-link mt-1"
+              class="social-links"
               :title="$t('footer.findUsElsewhere')"
               :links="social"
+              variant="social"
             />
             <hr class="mt-4 mb-1 w-100 d-lg-none">
           </b-col>
@@ -41,8 +41,6 @@
           >
             <LinkGroup
               v-if="footerMoreInfo"
-              list-class="footer-link-list"
-              link-class="footer-link"
               :title="footerMoreInfo.name"
               :links="footerMoreInfo.links"
             />
@@ -54,8 +52,6 @@
           >
             <LinkGroup
               v-if="footerHelp"
-              list-class="footer-link-list"
-              link-class="footer-link"
               :title="footerHelp.name"
               :links="footerHelp.links"
             />
@@ -80,8 +76,6 @@
             class="right-col pb-4  order-sm-4 order-lg-6"
           >
             <LinkGroup
-              list-class="footer-link-list"
-              link-class="footer-link"
               :title="debugLinkGroup.name"
               :links="debugLinkGroup.links"
               data-qa="debug link group"
@@ -103,26 +97,7 @@
         </b-row>
       </b-container>
     </div>
-    <client-only
-      v-if="feedbackEnabled"
-    >
-      <div
-        id="europeana-feedback-widget"
-        data-api-url="/_api/jira-service-desk/feedback"
-        data-faq-url="/faq"
-        :data-locale="$i18n.locale"
-        data-qa="feedback widget"
-      />
-      <script
-        type="module"
-        src="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.2.0/dist/europeana-feedback-widget.js"
-        integrity="sha384-u9uk9KOvOrG5X4yAGn1xMj1P5YmrJWanSqij7tvI4eZTjI/UQGK98lq3e/I6XfuP"
-      />
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@europeana/feedback-widget@0.2.0/dist/europeana-feedback-widget.css"
-      >
-    </client-only>
+    <FeedbackWidget />
   </footer>
 </template>
 
@@ -130,12 +105,14 @@
   import LangSelector from '../generic/LanguageSelector';
   import LinkGroup from '../generic/LinkGroup';
   import EULogo from '../image/ImageEULogo';
+  import FeedbackWidget from '../feedback/FeedbackWidget.vue';
 
   export default {
     components: {
+      EULogo,
+      FeedbackWidget,
       LangSelector,
-      LinkGroup,
-      EULogo
+      LinkGroup
     },
 
     data() {
@@ -176,9 +153,6 @@
     },
 
     computed: {
-      feedbackEnabled() {
-        return this.$features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
-      },
       debugSettings() {
         return this.$store.getters['debug/settings'];
       },

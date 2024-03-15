@@ -24,6 +24,7 @@
           v-for="(card, index) in imageCards"
           :key="index"
           :card="card"
+          title-tag="h3"
         />
       </div>
     </b-container>

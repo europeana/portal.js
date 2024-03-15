@@ -10,7 +10,7 @@
       <ContentHeader
         :title="name"
         :description="headline"
-        :media-url="socialMediaImageUrl"
+        :media-url="imageUrl"
         button-variant="secondary"
         class="half-col"
       />
@@ -43,7 +43,7 @@
         type: Object,
         default: null
       },
-      socialMediaImageUrl: {
+      imageUrl: {
         type: String,
         default: null
       }
