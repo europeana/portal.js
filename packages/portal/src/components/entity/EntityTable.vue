@@ -10,13 +10,27 @@
         />
       </b-col>
     </b-row>
+    <b-form
+      inline
+      @submit.stop.prevent="() => {}"
+    >
+      <b-form-input
+        v-model="filter"
+        role="searchbox"
+        :placeholder="$t('pages.collections.table.searchPlaceholder')"
+        :aria-label="$t('search.title')"
+      />
+    </b-form>
     <b-table
       :fields="fields"
       :items="collections"
       :sort-by.sync="sortBy"
       :busy="$fetchState.pending"
+      :filter="filter"
+      :per-page="20"
       striped
       class="borderless"
+      @filtered="onFiltered"
     >
       <template #table-busy>
         <div class="text-center my-2">
@@ -84,6 +98,7 @@
       return {
         collections: null,
         sortBy: 'prefLabel',
+        filter: this.$route?.query?.query || null,
         fields: [
           {
             key: 'prefLabel',
@@ -126,6 +141,13 @@
           `${this.$i18n.locale}/collections/${this.type}`;
       }
     },
+
+    watch: {
+      '$route.query.query'() {
+        this.filter = this.$route?.query?.query || null;
+      }
+    },
+
     methods: {
       organisationData(org) {
         const nativeName = this.organizationEntityNativeName({ ...org, type: 'Organization' });
@@ -143,6 +165,9 @@
       },
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;
+      },
+      onFiltered() {
+        this.$router.push({ ...this.$route, query: { query: this.filter } });
       }
     }
   };

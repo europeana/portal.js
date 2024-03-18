@@ -997,7 +997,8 @@ export default {
       },
       "table": {
         "items": "Items",
-        "name": "Name"
+        "name": "Name",
+        "searchPlaceholder": "Search within table"
       },
       "times": {
         "title": "Centuries"
