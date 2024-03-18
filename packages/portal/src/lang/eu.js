@@ -212,6 +212,14 @@ export default {
     "left": "Ezkerra",
     "right": "Eskuma"
   },
+  "ds4ch": {
+    "broughtBy": "Zuretzat ekarrita",
+    "header": {
+      "navigation": {
+        "partners": "Bazkideak"
+      }
+    }
+  },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
   "entity": {
     "actions": {
@@ -879,7 +887,9 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Hileroko API eskaerak, batez beste",
+      "hqData": "Urtean kalitate handiko datuen gehikuntza",
       "items": "Elementuak",
+      "networkMembers": "Sareko kideak",
       "providingInstitutions": "Erakunde hornitzailea",
       "visits": "Eguneko bisitak"
     },
@@ -1183,6 +1193,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} istorio aurkitu dira",
     "title": "Istorioak"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Diapositiva taldea {page}"
   },
   "themes": {
     "description": "Arakatu gaiaren arabera",

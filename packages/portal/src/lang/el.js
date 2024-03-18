@@ -212,6 +212,9 @@ export default {
     "left": "Αριστερά",
     "right": "Δεξιά"
   },
+  "ds4ch": {
+    "broughtBy": "Έφερε σε σας από"
+  },
   "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
   "entity": {
     "actions": {
@@ -878,7 +881,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Μηνιαία αιτήματα API, κατά μέσο όρο",
+      "hqData": "Αύξηση σε υψηλής ποιότητας δεδομένα ανά έτος",
       "items": "Τεκμήρια",
+      "networkMembers": "Μέλη του δικτύου",
       "providingInstitutions": "Φορείς προέλευσης",
       "visits": "Επισκέψεις ανά ημέρα"
     },
@@ -1182,6 +1188,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} ιστορίες βρέθηκαν",
     "title": "Ιστορίες"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Ομάδα διαφανειών {page}"
   },
   "themes": {
     "description": "Περιήγηση ανά κατηγορίες.",

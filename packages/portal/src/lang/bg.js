@@ -208,6 +208,14 @@ export default {
     "left": "Ляво",
     "right": "Дясно"
   },
+  "ds4ch": {
+    "broughtBy": "Донесено ви от",
+    "header": {
+      "navigation": {
+        "partners": "Партньори"
+      }
+    }
+  },
   "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
   "entity": {
     "actions": {
@@ -875,7 +883,9 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Средно месечни заявки за API",
+      "hqData": "Увеличаване на висококачествените данни на година",
       "items": "обекта",
+      "networkMembers": "Членове на мрежата",
       "providingInstitutions": "Доставчици на данни",
       "visits": "Посещения на ден"
     },
@@ -1179,6 +1189,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} намерени истории",
     "title": "Истории"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Група слайдове {page}"
   },
   "themes": {
     "description": "Преглед по тема",

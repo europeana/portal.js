@@ -208,6 +208,9 @@ export default {
     "left": "Vasen",
     "right": "Oikea"
   },
+  "ds4ch": {
+    "broughtBy": "Tuotu sinulle"
+  },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Keskimäärin kuukausittaiset API-pyynnöt",
+      "hqData": "Korkealaatuisten tietojen lisääntyminen vuodessa",
       "items": "Aineistot",
+      "networkMembers": "Verkoston jäsenet",
       "providingInstitutions": "Aineiston tarjoajat",
       "visits": "Käyntejä päivässä"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} tarinaa löydetty",
     "title": "Tarinat"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Dia-ryhmä {page}"
   },
   "themes": {
     "description": "Selaa teemoittain",

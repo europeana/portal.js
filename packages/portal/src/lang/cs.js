@@ -208,6 +208,9 @@ export default {
     "left": "Doleva",
     "right": "Doprava"
   },
+  "ds4ch": {
+    "broughtBy": "Vám přináší"
+  },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
   "entity": {
     "actions": {
@@ -875,7 +878,9 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Průměrně měsíční požadavky API",
+      "hqData": "Nárůst vysoce kvalitních dat za rok",
       "items": "Položky",
+      "networkMembers": "Členové sítě",
       "providingInstitutions": "Poskytující instituce",
       "visits": "Návštěvy za den"
     },
@@ -1179,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} nalezených příběhů",
     "title": "Příběhy"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Skupina snímků {page}"
   },
   "themes": {
     "description": "Procházet podle tématu",

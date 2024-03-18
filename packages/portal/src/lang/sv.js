@@ -208,6 +208,9 @@ export default {
     "left": "Vänster",
     "right": "Höger"
   },
+  "ds4ch": {
+    "broughtBy": "Tillhandahålls av"
+  },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Månatliga API-förfrågningar, i genomsnitt",
+      "hqData": "Ökning av data av hög kvalitet per år",
       "items": "Objekt",
+      "networkMembers": "Nätverksmedlemmar",
       "providingInstitutions": "Tillhandahållande institutioner",
       "visits": "Besök per dag"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} berättelser hittades",
     "title": "Berättelser"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Bildgrupp {page}"
   },
   "themes": {
     "description": "Bläddra efter tema",
