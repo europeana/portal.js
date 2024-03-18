@@ -208,6 +208,9 @@ export default {
     "left": "Xellug",
     "right": "Lemin"
   },
+  "ds4ch": {
+    "broughtBy": "Miġjuba lilek minn"
+  },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Talbiet API ta' kull xahar, bħala medja",
+      "hqData": "Żieda fl-data ta' kwalità għolja kull sena",
       "items": "Oġġetti",
+      "networkMembers": "Membri tan-netwerk",
       "providingInstitutions": "Istituzzjonijiet fornitriċi",
       "visits": "Żjarat kuljum"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} stejjer misjuba",
     "title": "Stejjer"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Grupp ta' slides {page}"
   },
   "themes": {
     "description": "Ibbrawżja skont it-tema",

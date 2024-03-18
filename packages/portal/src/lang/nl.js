@@ -208,6 +208,9 @@ export default {
     "left": "Links",
     "right": "Rechts"
   },
+  "ds4ch": {
+    "broughtBy": "Aangeboden door"
+  },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Gemiddeld maandelijkse API-verzoeken",
+      "hqData": "Toename van hoogwaardige data per jaar",
       "items": "Objecten",
+      "networkMembers": "Netwerk leden",
       "providingInstitutions": "Deelnemende erfgoedorganisaties",
       "visits": "Bezoeken per dag"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} verhalen gevonden",
     "title": "Verhalen"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slide groep {pagina}"
   },
   "themes": {
     "description": "Blader op thema",

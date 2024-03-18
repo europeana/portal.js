@@ -208,6 +208,9 @@ export default {
     "left": "Ar chlé",
     "right": "Ar dheis"
   },
+  "ds4ch": {
+    "broughtBy": "Arna thabhairt duit ag"
+  },
   "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Iarratais API míosúla, ar an meán",
+      "hqData": "Méadú ar shonraí ardchaighdeáin in aghaidh an bliana",
       "items": "Míreanna",
+      "networkMembers": "Baill líonra",
       "providingInstitutions": "Institiúidí soláthartha",
       "visits": "Cuairteanna in aghaidh an lae"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} scéalta aimsithe",
     "title": "Scéalta"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Grúpa sleamhnán {page}"
   },
   "themes": {
     "description": "Brabhsáil de réir téama",

@@ -208,6 +208,9 @@ export default {
     "left": "Izquierda",
     "right": "Derecha"
   },
+  "ds4ch": {
+    "broughtBy": "Presentado por"
+  },
   "edmIsShownAtLinkAlt": "Ver en el sitio web del proveedor",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Solicitudes API mensuales, en promedio",
+      "hqData": "Aumento de datos de alta calidad por año",
       "items": "Ítems",
+      "networkMembers": "Miembros de la red",
       "providingInstitutions": "Proveedores de datos",
       "visits": "Visitas por día"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} historias encontradas",
     "title": "Historias"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Grupo de diapositivas {page}"
   },
   "themes": {
     "description": "Navegar por materias",

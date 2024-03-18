@@ -208,6 +208,9 @@ export default {
     "left": "Kairė",
     "right": "Dešinė"
   },
+  "ds4ch": {
+    "broughtBy": "Jums atnešė"
+  },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Mėnesio API užklausos, vidutiniškai",
+      "hqData": "Aukštos kokybės duomenų padidėjimas per metus",
       "items": "Skaitmeniniai objektai",
+      "networkMembers": "Tinklo nariai",
       "providingInstitutions": "Teikėjai",
       "visits": "Apsilankymai per dieną"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} rastos istorijos",
     "title": "Istorijos"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Skaidrių grupė {page}"
   },
   "themes": {
     "description": "Naršyti pagal temą",

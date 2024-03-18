@@ -208,6 +208,9 @@ export default {
     "left": "Vasak",
     "right": "Parem"
   },
+  "ds4ch": {
+    "broughtBy": "Teieni toodud"
+  },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Igakuised API taotlused keskmiselt",
+      "hqData": "Kõrgekvaliteediliste andmete kasv aastas",
       "items": "Üksused",
+      "networkMembers": "Võrgustiku liikmed",
       "providingInstitutions": "Pakkuja institutsioon",
       "visits": "Külastused päevas"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "Leiti {0} lugu",
     "title": "Lood"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slaidirühm {page}"
   },
   "themes": {
     "description": "Sirvi teemade kaupa",

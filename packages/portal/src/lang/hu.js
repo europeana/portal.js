@@ -208,6 +208,9 @@ export default {
     "left": "Bal",
     "right": "Jobb"
   },
+  "ds4ch": {
+    "broughtBy": "Hozta neked"
+  },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Átlagosan havi API kérések",
+      "hqData": "Évente növekvő magas minőségű adatmennyiség",
       "items": "Tárgyak",
+      "networkMembers": "Hálózati tagok",
       "providingInstitutions": "Szolgáltató intézmény",
       "visits": "Napi látogatások"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} történet található",
     "title": "Történetek"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Diacsoport {page}"
   },
   "themes": {
     "description": "Böngésszen téma szerint",
