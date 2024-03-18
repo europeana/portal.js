@@ -48,7 +48,7 @@
 
     data() {
       return {
-        klaroServices: ['auth-strategy', 'i18n']
+        klaroServices: ['auth-strategy', 'i18n', 'matomo']
       };
     },
 
