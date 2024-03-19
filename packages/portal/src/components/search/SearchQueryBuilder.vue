@@ -108,14 +108,11 @@
         this.validations.push(true);
       },
       clearRule(index) {
-        console.log('SearchQueryBuilder clearRule', index);
         this.queryRules.splice(index, 1);
         this.validations.splice(index, 1);
         if (this.queryRules.length === 0) {
           this.addNewRule();
         }
-        console.log('queryRules', this.queryRules);
-        console.log('validations', this.validations);
         this.handleSubmitForm('clearRule');
       },
       handleChangeRule(index, formField, value) {
@@ -129,7 +126,6 @@
         if (this.submittingForm) {
           return;
         }
-        console.log('handleSubmitForm', caller);
         this.submittingForm = true;
         // let v-model changes percolate down to child components first, required
         // for validation during form submission
@@ -177,7 +173,6 @@
           // Instruct the SearchQueryBuilderRule components to stop validating,
           // so that they only revalidate when the form is next submitted.
           this.validatingRules = false;
-          console.log('validateRules', this.validations);
           callback(this.validations.every((validation) => validation));
         });
       }

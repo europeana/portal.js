@@ -192,7 +192,6 @@
       value: {
         deep: true,
         handler(newVal) {
-          console.log('SearchQueryBuilderRule watch value', newVal);
           this.rule = newVal;
         }
       }
