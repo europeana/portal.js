@@ -13,7 +13,7 @@
             <b-form
               data-qa="search query builder form"
               autocomplete="off"
-              @submit.prevent="handleSubmitForm('template')"
+              @submit.prevent="handleSubmitForm()"
             >
               <transition-group
                 name="fade"
@@ -112,11 +112,11 @@
         if (this.queryRules.length === 0) {
           this.addNewRule();
         }
-        this.handleSubmitForm('clearRule');
+        this.handleSubmitForm();
       },
       handleChangeRule(index, formField, value) {
         this.queryRules[index][formField] = value;
-        this.handleSubmitForm(`handleChangeRule ${index}`);
+        this.handleSubmitForm();
       },
       handleInvalidRule(index) {
         this.validations[index] = false;
