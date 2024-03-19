@@ -2,7 +2,7 @@ import camelCase from 'lodash/camelCase';
 import escapeRegExp from 'lodash/escapeRegExp';
 import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils.js';
 
-const FIELD_TYPE_FULLTEXT = 'fulltext';
+export const FIELD_TYPE_FULLTEXT = 'fulltext';
 const FIELD_TYPE_STRING = 'string';
 const FIELD_TYPE_TEXT = 'text';
 const FIELD_TYPES = [FIELD_TYPE_FULLTEXT, FIELD_TYPE_STRING, FIELD_TYPE_TEXT];

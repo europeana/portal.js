@@ -82,7 +82,6 @@
     data() {
       return {
         queryRules: [],
-        submittingForm: false,
         validatingRules: false,
         validations: []
       };
@@ -122,11 +121,7 @@
       handleInvalidRule(index) {
         this.validations[index] = false;
       },
-      handleSubmitForm(caller) {
-        if (this.submittingForm) {
-          return;
-        }
-        this.submittingForm = true;
+      handleSubmitForm() {
         // let v-model changes percolate down to child components first, required
         // for validation during form submission
         this.$nextTick(() => {
@@ -136,7 +131,6 @@
               this.$store.commit('search/setLoggableInteraction', true);
               this.$router.push(this.advancedSearchRouteQueryFromRules(this.nonEmptyQueryRules));
             }
-            this.submittingForm = false;
           });
         });
       },

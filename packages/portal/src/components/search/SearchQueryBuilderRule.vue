@@ -77,7 +77,7 @@
 <script>
   import SearchQueryBuilderRuleDropdown from './SearchQueryBuilderRuleDropdown';
   import SearchQueryBuilderRuleTermInput from './SearchQueryBuilderRuleTermInput';
-  import advancedSearchMixin from '@/mixins/advancedSearch.js';
+  import advancedSearchMixin, { FIELD_TYPE_FULLTEXT } from '@/mixins/advancedSearch.js';
 
   export default {
     name: 'SearchQueryBuilderRule',
@@ -124,8 +124,6 @@
 
     data() {
       return {
-        aggregatedFieldNames: ['who', 'where', 'when', 'what'],
-        fulltextFieldName: 'fulltext',
         rule: this.value,
         validations: {
           field: { state: null },
@@ -136,16 +134,15 @@
     },
 
     computed: {
-      aggregatedFieldOptions() {
-        return this.fieldOptions
-          .filter((field) => this.aggregatedFieldNames.includes(field.value));
+      aggregatedFields() {
+        return this.advancedSearchFields.filter((field) => field.aggregated);
       },
       dropdownSections() {
         return {
           field: [
-            { options: this.fulltextFieldOption },
-            { header: this.$t('search.advanced.header.aggregated'), options: this.aggregatedFieldOptions },
-            { header: this.$t('search.advanced.header.individual'), options: this.individualFieldOptions }
+            { options: this.fieldOption(this.fulltextField) },
+            { header: this.$t('search.advanced.header.aggregated'), options: this.fieldOptionGroup(this.aggregatedFields) },
+            { header: this.$t('search.advanced.header.individual'), options: this.fieldOptionGroup(this.individualFields) }
           ],
           modifier: [
             { options: this.modifierOptions }
@@ -154,17 +151,17 @@
       },
       fieldOptions() {
         return this.advancedSearchFields.map((field) => ({
-          value: field.name,
-          text: this.advancedSearchFieldLabel(field.name)
+          text: this.advancedSearchFieldLabel(field.name),
+          value: field.name
         }))
           .sort((a, b) => a.text.localeCompare(b.text));
       },
-      fulltextFieldOption() {
-        return this.fieldOptions.find((field) => field.value === this.fulltextFieldName);
+      fulltextField() {
+        return this.advancedSearchFields.find((field) => field.type === FIELD_TYPE_FULLTEXT);
       },
-      individualFieldOptions() {
-        return this.fieldOptions
-          .filter((field) => !this.aggregatedFieldNames.includes(field.value) && (field.value !== this.fulltextFieldName));
+      individualFields() {
+        return this.advancedSearchFields
+          .filter((field) => !this.aggregatedFields.concat(this.fulltextField).includes(field));
       },
       modifierOptions() {
         const modifiers = this.rule.field ?
@@ -172,8 +169,8 @@
           this.advancedSearchModifiersForAllFields;
 
         return modifiers.map((mod) => ({
-          value: mod.name,
-          text: this.$t(`search.advanced.modifiers.${mod.name}`)
+          text: this.$t(`search.advanced.modifiers.${mod.name}`),
+          value: mod.name
         }));
       },
       ruleControls() {
@@ -201,6 +198,15 @@
       clearRule() {
         this.$emit('clear');
       },
+      fieldOptionGroup(fields) {
+        return fields.map(this.fieldOption).sort((a, b) => a.text.localeCompare(b.text));
+      },
+      fieldOption(field) {
+        return {
+          text: this.advancedSearchFieldLabel(field.name),
+          value: field.name
+        };
+      },
       forEveryRuleControl(callback) {
         for (const control of this.ruleControls) {
           callback(control);
@@ -212,9 +218,9 @@
       validateRuleControls() {
         // If any rule control has a value, all are required. If none have a value, the
         // rule will be ignored and none are required.
-        const noRuleControlHasValue = !Object.values(this.value).some((value) => !!value);
+        const noRuleControlHasValue = !Object.values(this.rule).some((value) => !!value);
         this.forEveryRuleControl((control) => {
-          if (noRuleControlHasValue || this.value[control]) {
+          if (noRuleControlHasValue || this.rule[control]) {
             this.validations[control] = { state: true };
           } else {
             this.validations[control] = { state: false, text: this.$t('statuses.required') };
