@@ -28,7 +28,7 @@
                     v-model="queryRules[index]"
                     :tooltips="index === 0"
                     :validate="validatingRules"
-                    @change="(formField, value) => handleChangeRule(index, formField, value)"
+                    @change="(control, value) => handleChangeRule(index, control, value)"
                     @clear="clearRule(index)"
                     @invalid="handleInvalidRule(index)"
                     @valid="handleValidRule(index)"
@@ -114,8 +114,8 @@
         }
         this.handleSubmitForm();
       },
-      handleChangeRule(index, formField, value) {
-        this.queryRules[index][formField] = value;
+      handleChangeRule(index, control, value) {
+        this.queryRules[index][control] = value;
         this.handleSubmitForm();
       },
       handleInvalidRule(index) {
