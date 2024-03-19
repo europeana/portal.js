@@ -984,10 +984,11 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
+        "description": "Explore the institutions which share digital cultural heritage items on Europeana.eu.",
         "table": {
           "name": "Name"
         },
-        "title": "Organisations"
+        "title": "Institutions"
       },
       "persons": {
         "title": "Persons"
