@@ -5,6 +5,7 @@ import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/european
 const FIELD_TYPE_FULLTEXT = 'fulltext';
 const FIELD_TYPE_STRING = 'string';
 const FIELD_TYPE_TEXT = 'text';
+const FIELD_TYPES = [FIELD_TYPE_FULLTEXT, FIELD_TYPE_STRING, FIELD_TYPE_TEXT];
 
 const FIELD_SUGGEST_AGENT = 'agent';
 const FIELD_SUGGEST_TIMESPAN = 'timespan';
@@ -45,7 +46,8 @@ const advancedSearchFields = [
   { name: 'YEAR', type: FIELD_TYPE_STRING }
 ];
 
-const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field => field.suggestEntityType && !field.aggregated);
+const advancedSearchFieldsForEntityLookUp = advancedSearchFields
+  .filter((field) => field.suggestEntityType && !field.aggregated);
 
 const advancedSearchFieldNames = advancedSearchFields.map((field) => field.name);
 
@@ -83,6 +85,9 @@ for (const mod of advancedSearchModifiers) {
   }
 }
 
+const advancedSearchModifiersForAllFields = advancedSearchModifiers
+  .filter((mod) => FIELD_TYPES.every((type) => !!mod.query[type]));
+
 export default {
   data() {
     return {
@@ -90,6 +95,7 @@ export default {
       advancedSearchFieldsForEntityLookUp,
       advancedSearchFieldNames,
       advancedSearchModifiers,
+      advancedSearchModifiersForAllFields,
       advancedSearchRouteQueryKey: 'qa'
     };
   },
@@ -101,13 +107,13 @@ export default {
   },
 
   methods: {
-    advancedSearchFieldByName(name) {
-      return this.advancedSearchFields.find((field) => field.name === name);
+    advancedSearchModifiersForField(name) {
+      const field = this.advancedSearchFieldByName(name);
+      return advancedSearchModifiers.filter((mod) => !!mod.query[field?.type]);
     },
 
-    advancedSearchFieldSupportsExact(field) {
-      const fieldType = this.advancedSearchFieldByName(field)?.type;
-      return !!advancedSearchModifiers.find((modifier) => modifier.name === 'exact')?.query[fieldType];
+    advancedSearchFieldByName(name) {
+      return this.advancedSearchFields.find((field) => field.name === name);
     },
 
     advancedSearchFieldLabel(fieldName, locale) {
@@ -149,7 +155,6 @@ export default {
               return {
                 field: field.name,
                 modifier: modifier.name,
-                ...(field.suggestEntityType && { suggestEntityType: field.suggestEntityType }),
                 term: unescapeLuceneSpecials(match.groups.term, { spaces: true })
               };
             }

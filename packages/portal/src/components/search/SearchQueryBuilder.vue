@@ -13,7 +13,7 @@
             <b-form
               data-qa="search query builder form"
               autocomplete="off"
-              @submit.prevent="handleSubmitForm"
+              @submit.prevent="handleSubmitForm('template')"
             >
               <transition-group
                 name="fade"
@@ -82,14 +82,15 @@
     data() {
       return {
         queryRules: [],
+        submittingForm: false,
         validatingRules: false,
         validations: []
       };
     },
 
     computed: {
-      validQueryRules() {
-        return this.queryRules.filter(this.checkIfValidRule);
+      nonEmptyQueryRules() {
+        return this.queryRules.filter((rule) => Object.values(rule).every((value) => !!value));
       }
     },
 
@@ -103,33 +104,44 @@
 
     methods: {
       addNewRule() {
-        this.queryRules.push({});
+        this.queryRules.push({ field: null, modifier: null, term: null });
+        this.validations.push(true);
       },
       clearRule(index) {
+        console.log('SearchQueryBuilder clearRule', index);
         this.queryRules.splice(index, 1);
         this.validations.splice(index, 1);
         if (this.queryRules.length === 0) {
           this.addNewRule();
         }
-        this.handleSubmitForm();
+        console.log('queryRules', this.queryRules);
+        console.log('validations', this.validations);
+        this.handleSubmitForm('clearRule');
       },
       handleChangeRule(index, formField, value) {
         this.queryRules[index][formField] = value;
-        const validRule = this.checkIfValidRule(this.queryRules[index]);
-        if (validRule || formField === 'term') {
-          this.handleSubmitForm();
-        }
+        this.handleSubmitForm(`handleChangeRule ${index}`);
       },
       handleInvalidRule(index) {
         this.validations[index] = false;
       },
-      handleSubmitForm() {
-        this.validateRules((valid) => {
-          if (valid) {
-            this.trackAdvancedSearch();
-            this.$store.commit('search/setLoggableInteraction', true);
-            this.$router.push(this.advancedSearchRouteQueryFromRules(this.validQueryRules));
-          }
+      handleSubmitForm(caller) {
+        if (this.submittingForm) {
+          return;
+        }
+        console.log('handleSubmitForm', caller);
+        this.submittingForm = true;
+        // let v-model changes percolate down to child components first, required
+        // for validation during form submission
+        this.$nextTick(() => {
+          this.validateRules((valid) => {
+            if (valid) {
+              this.trackAdvancedSearch();
+              this.$store.commit('search/setLoggableInteraction', true);
+              this.$router.push(this.advancedSearchRouteQueryFromRules(this.nonEmptyQueryRules));
+            }
+            this.submittingForm = false;
+          });
         });
       },
       handleValidRule(index) {
@@ -143,18 +155,12 @@
           this.$emit('show', true);
         }
       },
-      checkIfValidRule(rule) {
-        if (!this.advancedSearchFieldSupportsExact(rule.field) && rule.modifier === 'exact') {
-          rule.modifier = null;
-        }
-        return Boolean(rule.field && rule.modifier && rule.term);
-      },
       trackAdvancedSearch() {
         if (!this.$matomo) {
           return;
         }
 
-        for (const rule of this.validQueryRules) {
+        for (const rule of this.nonEmptyQueryRules) {
           const fieldLabel = this.advancedSearchFieldLabel(rule.field, 'en');
           const modifierLabel = this.$t(`search.advanced.modifiers.${rule.modifier}`, 'en');
           const eventName = `Adv search: ${fieldLabel} ${modifierLabel}`;
@@ -171,7 +177,7 @@
           // Instruct the SearchQueryBuilderRule components to stop validating,
           // so that they only revalidate when the form is next submitted.
           this.validatingRules = false;
-
+          console.log('validateRules', this.validations);
           callback(this.validations.every((validation) => validation));
         });
       }

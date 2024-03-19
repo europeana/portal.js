@@ -37,20 +37,20 @@
           <SearchQueryBuilderRuleTermInput
             v-if="control === 'term'"
             :id="`${id}-${control}`"
-            v-model="term"
+            v-model="rule[control]"
             :placeholder="$t('search.advanced.placeholder.term')"
-            :state="validations.term.state"
+            :state="validations[control].state"
             :suggest-entity-type="suggestEntityTypeForTerm"
-            :advanced-search-field="field"
-            @change="(value) => handleRuleChange('term', value)"
+            :advanced-search-field="rule.field"
+            @change="(value) => handleRuleChange(control, value)"
           />
           <SearchQueryBuilderRuleDropdown
             v-else
             :id="`${id}-${control}`"
+            v-model="rule[control]"
             :name="control"
             :options="dropdownSections[control]"
             :state="validations[control].state"
-            :text="dropdownText[control]"
             @change="(value) => handleRuleChange(control, value)"
           />
         </div>
@@ -125,11 +125,8 @@
     data() {
       return {
         aggregatedFieldNames: ['who', 'where', 'when', 'what'],
-        field: null,
         fulltextFieldName: 'fulltext',
-        modifier: null,
-        ruleControls: ['field', 'modifier', 'term'],
-        term: null,
+        rule: this.value,
         validations: {
           field: { state: null },
           modifier: { state: null },
@@ -151,24 +148,8 @@
             { header: this.$t('search.advanced.header.individual'), options: this.individualFieldOptions }
           ],
           modifier: [
-            {
-              options: this.advancedSearchModifiers.map((mod) => {
-                if (mod.name === 'exact' && !(this.advancedSearchFieldSupportsExact(this.field))) {
-                  return null;
-                }
-                return {
-                  value: mod.name,
-                  text: this.$t(`search.advanced.modifiers.${mod.name}`)
-                };
-              }).filter((mod) => mod !== null)
-            }
+            { options: this.modifierOptions }
           ]
-        };
-      },
-      dropdownText() {
-        return {
-          field: this.field && this.advancedSearchFieldLabel(this.field),
-          modifier: this.modifier && this.$t(`search.advanced.modifiers.${this.modifier}`)
         };
       },
       fieldOptions() {
@@ -185,26 +166,36 @@
         return this.fieldOptions
           .filter((field) => !this.aggregatedFieldNames.includes(field.value) && (field.value !== this.fulltextFieldName));
       },
+      modifierOptions() {
+        const modifiers = this.rule.field ?
+          this.advancedSearchModifiersForField(this.rule.field) :
+          this.advancedSearchModifiersForAllFields;
+
+        return modifiers.map((mod) => ({
+          value: mod.name,
+          text: this.$t(`search.advanced.modifiers.${mod.name}`)
+        }));
+      },
+      ruleControls() {
+        return Object.keys(this.rule);
+      },
       suggestEntityTypeForTerm() {
-        return this.advancedSearchFields.filter(field => field.name === this.field)[0]?.suggestEntityType;
+        return this.advancedSearchFields.find((field) => field.name === this.rule.field)?.suggestEntityType;
       }
     },
 
     watch: {
-      value: {
-        deep: true,
-        handler() {
-          this.initData();
-        }
-      },
       validate: {
         deep: true,
-        handler: 'validateRules'
+        handler: 'validateRuleControls'
+      },
+      value: {
+        deep: true,
+        handler(newVal) {
+          console.log('SearchQueryBuilderRule watch value', newVal);
+          this.rule = newVal;
+        }
       }
-    },
-
-    created() {
-      this.initData();
     },
 
     methods: {
@@ -217,20 +208,14 @@
         }
       },
       handleRuleChange(key, value) {
-        this[key] = value;
         this.$emit('change', key, value);
       },
-      initData() {
-        this.forEveryRuleControl((control) => {
-          this[control] = this.value[control] || null;
-        });
-      },
-      validateRules() {
+      validateRuleControls() {
         // If any rule control has a value, all are required. If none have a value, the
         // rule will be ignored and none are required.
-        const noRuleControlHasValue = ![this.term, this.field, this.modifier].some((value) => !!value);
+        const noRuleControlHasValue = !Object.values(this.value).some((value) => !!value);
         this.forEveryRuleControl((control) => {
-          if (noRuleControlHasValue || this[control]) {
+          if (noRuleControlHasValue || this.value[control]) {
             this.validations[control] = { state: true };
           } else {
             this.validations[control] = { state: false, text: this.$t('statuses.required') };
