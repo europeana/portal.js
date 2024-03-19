@@ -22,12 +22,14 @@
       />
     </b-form>
     <b-table
+      id="entity-table"
       :fields="fields"
       :items="collections"
       :sort-by.sync="sortBy"
       :busy="$fetchState.pending"
       :filter="filter"
-      :per-page="20"
+      :current-page="currentPage"
+      :per-page="perPage"
       striped
       class="borderless"
       @filtered="onFiltered"
@@ -67,12 +69,19 @@
         </span>
       </template>
     </b-table>
+    <PaginationNavInput
+      :total-results="totalResults"
+      :per-page="perPage"
+      aria-controls="entity-table"
+      data-qa="entity table pagination"
+    />
   </div>
 </template>
 
 <script>
   import { BTable } from 'bootstrap-vue';
   import LoadingSpinner from '../generic/LoadingSpinner';
+  import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import SmartLink from '../generic/SmartLink';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import { langMapValueForLocale } from '@/plugins/europeana/utils';
@@ -83,6 +92,7 @@
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
       LoadingSpinner,
+      PaginationNavInput,
       SmartLink
     },
     mixins: [
@@ -113,7 +123,10 @@
             class: 'text-right'
           }
         ],
-        typeSingular: this.type.slice(0, -1)
+        typeSingular: this.type.slice(0, -1),
+        currentPage: Number(this.$route?.query?.page) || 1,
+        totalResults: this.collections?.length || 0,
+        perPage: 40
       };
     },
     async fetch() {
@@ -144,7 +157,14 @@
 
     watch: {
       '$route.query.query'() {
-        this.filter = this.$route?.query?.query || null;
+        this.filter = this.$route.query.query;
+        this.updateRouteQuery({ page: 1 });
+      },
+      '$route.query.page'() {
+        this.currentPage = Number(this.$route?.query?.page) || 1;
+      },
+      'collections.length'() {
+        this.totalResults  = this.collections.length;
       }
     },
 
@@ -166,8 +186,12 @@
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;
       },
-      onFiltered() {
-        this.$router.push({ ...this.$route, query: { query: this.filter } });
+      onFiltered(filteredItems) {
+        this.totalResults = filteredItems.length;
+        this.updateRouteQuery({ query: this.filter });
+      },
+      updateRouteQuery(newQuery) {
+        this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
       }
     }
   };

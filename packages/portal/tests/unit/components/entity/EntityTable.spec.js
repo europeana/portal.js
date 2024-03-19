@@ -19,7 +19,9 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
       get: $axiosGetStub
     },
     $t: (val) => val,
-    $i18n: { locale: 'en' }
+    $i18n: { locale: 'en' },
+    $route: { query: { page: 1, query: null } },
+    $router: { push: () => {} }
   }
 });
 
@@ -96,6 +98,62 @@ describe('components/entity/EntityTable', () => {
       const wrapper = factory({ type: 'organisations' }, { error: true });
 
       expect(wrapper.find('[data-qa="error notice"]')).toBeDefined();
+    });
+  });
+
+  describe('when the route query updates', () => {
+    const newQuery = 'museum';
+    it('filters the table on the query', async() => {
+      const wrapper = factory();
+
+      wrapper.vm.$route.query.query = newQuery;
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.vm.filter).toEqual(newQuery);
+    });
+    it('resets the page to 1', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm, 'updateRouteQuery');
+
+      wrapper.vm.$route.query.query = newQuery;
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.vm.updateRouteQuery.calledWith({ page: 1 })).toBe(true);
+    });
+  });
+
+  describe('when the route query page updates', () => {
+    it('updates the current table page', async() => {
+      const wrapper = factory();
+
+      wrapper.vm.$route.query.page = 4;
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.vm.currentPage).toEqual(4);
+    });
+    describe('when falsy value', () => {
+      it('falls back to current table page 1', async() => {
+        const wrapper = factory();
+
+        wrapper.vm.$route.query.page = null;
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.currentPage).toEqual(1);
+      });
+    });
+  });
+
+  describe('when the table is filtered', () => {
+    it('updates total results and updates the route query', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm, 'updateRouteQuery');
+
+      wrapper.vm.filter = 'museum';
+      wrapper.vm.onFiltered([organisations[0]]);
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.vm.totalResults).toEqual(1);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ query: 'museum' })).toBe(true);
     });
   });
 });
