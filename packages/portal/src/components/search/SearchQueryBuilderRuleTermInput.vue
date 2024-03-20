@@ -135,13 +135,13 @@
         const valueToEmit = this.selectedValue || this.term;
 
         if (!this.selectedValue) {
-          // Set submitting state to track the no autosuggest option selected in SearchQueryOptions
+          // Set submitting state to track the no autosuggest option selected in
+          // SearchQueryOptions
           this.submitting = valueToEmit;
         }
 
+        this.term = valueToEmit;
         this.$emit('change', valueToEmit);
-        // update term to update in case of selecting the already selected option
-        this.term = this.value;
         this.showSearchOptions = false;
         this.selectedValue = null; // reset for next query
       },
@@ -150,7 +150,9 @@
         this.selectedValue = option.query;
         this.handleChange();
         if (this.fieldNeedsEntityLookUp) {
-          this.$store.commit('search/addQasWithSelectedEntityValue', { field: this.advancedSearchField, qa: option.query, id: option.entityId });
+          this.$store.commit('search/addQasWithSelectedEntityValue',
+            { field: this.advancedSearchField, qa: option.query, id: option.entityId }
+          );
         }
       },
       handleHideOptions(submit) {

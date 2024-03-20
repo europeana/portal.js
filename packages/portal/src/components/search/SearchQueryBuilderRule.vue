@@ -111,14 +111,18 @@
        */
       validation: {
         type: Object,
-        required: true
+        default: () => ({})
       },
       /**
        * Value of the rule
        */
       value: {
         type: Object,
-        required: true
+        default: () => ({
+          field: null,
+          modifier: null,
+          term: null
+        })
       }
     },
 
@@ -187,6 +191,11 @@
 
     methods: {
       clearRule() {
+        this.rule = {
+          field: null,
+          modifier: null,
+          term: null
+        };
         this.$emit('clear');
       },
       fieldOptionGroup(fields) {
@@ -204,6 +213,7 @@
         }
       },
       handleRuleChange(key, value) {
+        this.rule[key] = value;
         this.$emit('change', key, value);
       }
     }

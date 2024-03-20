@@ -24,7 +24,7 @@
           v-for="(sectionOption, sectionOptionIndex) in [].concat(section.options)"
           :key="`${name}-section-${sectionIndex}-options-${sectionOptionIndex}`"
           :data-qa="`advanced search query builder: ${sectionOption.value} ${name} option`"
-          @click="handleClickDropdownItemButton(sectionOption.value)"
+          @click="handleChange(sectionOption.value)"
         >
           {{ sectionOption.text }}
           <b-button
@@ -85,6 +85,12 @@
       }
     },
 
+    data() {
+      return {
+        selected: this.value
+      }
+    },
+
     computed: {
       displayText() {
         return this.selectedOption?.text || this.$t(`search.advanced.placeholder.${this.name}`);
@@ -95,7 +101,7 @@
       },
 
       selectedOption() {
-        return this.flattenedOptions.find((opt) => opt.value === this.value);
+        return this.flattenedOptions.find((opt) => opt.value === this.selected);
       }
     },
 
@@ -103,15 +109,16 @@
       flattenedOptions: {
         deep: true,
         handler(newVal) {
-          if (!newVal.find((opt) => opt.value === this.value)) {
-            this.$emit('change', null);
+          if (!newVal.find((opt) => opt.value === this.selected)) {
+            this.handleChange(null);
           }
         }
       }
     },
 
     methods: {
-      handleClickDropdownItemButton(value) {
+      handleChange(value) {
+        this.selected = value;
         this.$emit('change', value);
       }
     }
