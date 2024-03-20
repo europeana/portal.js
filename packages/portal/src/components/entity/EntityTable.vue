@@ -116,6 +116,13 @@
             label: this.$t('pages.collections.table.name')
           },
           this.type === 'organisations' && {
+            key: 'countryPrefLabel',
+            sortable: true,
+            sortDirection: 'desc',
+            label: this.$t('pages.collections.organisations.table.country'),
+            class: 'text-center'
+          },
+          this.type === 'organisations' && {
             key: 'recordCount',
             sortable: true,
             sortDirection: 'desc',
@@ -174,13 +181,15 @@
         const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
         const englishName = this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' });
         const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
+        const countryPrefLabelLangMap = langMapValueForLocale(org.countryPrefLabel, this.$i18n.locale);
 
         return {
           ...org,
           prefLabel: nativeNameLangMapValue.values[0],
           prefLabelLang: nativeNameLangMapValue.code,
           altLabel: englishNameLangMapValue?.values[0],
-          altLabelLang: englishNameLangMapValue?.code
+          altLabelLang: englishNameLangMapValue?.code,
+          countryPrefLabel: countryPrefLabelLangMap.values[0]
         };
       },
       entityRoute(slug) {
