@@ -11,6 +11,7 @@
       </b-col>
     </b-row>
     <b-form
+      class="search-form position-relative mb-4"
       inline
       @submit.stop.prevent="() => {}"
     >
@@ -210,4 +211,8 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icons';
   @import '@europeana/style/scss/table';
+
+  .search-form {
+    border: 1px solid $bodygrey;
+  }
 </style>
