@@ -73,7 +73,7 @@
         default: null
       },
       /**
-       * Enitty type(s) to look up suggestions for the term
+       * Entity type(s) to look up suggestions for the term
        * @values agent,concept,organization,place,timespan
        */
       suggestEntityType: {
@@ -129,11 +129,7 @@
 
     methods: {
       handleInput(input) {
-        if (input.length > 0) {
-          this.showSearchOptions = true;
-        } else {
-          this.showSearchOptions = false;
-        }
+        this.showSearchOptions = (input.length > 0);
       },
       handleChange() {
         const valueToEmit = this.selectedValue || this.term;
@@ -158,7 +154,8 @@
         }
       },
       handleHideOptions(submit) {
-        // When hiding options should not trigger a submit, reset the query to prevent submission and to show the applied query in the input field
+        // When hiding options should not trigger a submit, reset the query to
+        // prevent submission and to show the applied query in the input field
         if (!submit) {
           this.term = this.value;
         }

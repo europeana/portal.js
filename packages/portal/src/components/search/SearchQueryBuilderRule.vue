@@ -39,7 +39,7 @@
             :id="`${id}-${control}`"
             v-model="rule[control]"
             :placeholder="$t('search.advanced.placeholder.term')"
-            :state="validations[control].state"
+            :state="validation[control]?.state"
             :suggest-entity-type="suggestEntityTypeForTerm"
             :advanced-search-field="rule.field"
             @change="(value) => handleRuleChange(control, value)"
@@ -50,15 +50,15 @@
             v-model="rule[control]"
             :name="control"
             :options="dropdownSections[control]"
-            :state="validations[control].state"
+            :state="validation[control]?.state"
             @change="(value) => handleRuleChange(control, value)"
           />
         </div>
         <b-form-invalid-feedback
-          v-show="validate"
-          :state="validations[control].state"
+          v-show="!validation[control]?.state"
+          :state="validation[control]?.state"
         >
-          {{ validations[control].text }}
+          {{ validation[control]?.text }}
         </b-form-invalid-feedback>
       </b-form-group>
     </b-input-group>
@@ -107,29 +107,24 @@
         default: true
       },
       /**
-       * If `true`, triggers the validation of the rule
+       * For each rule control, holds a `state` boolean and `text` msg if invalid
        */
-      validate: {
-        type: Boolean,
-        default: false
+      validation: {
+        type: Object,
+        required: true
       },
       /**
        * Value of the rule
        */
       value: {
         type: Object,
-        default: () => ({})
+        required: true
       }
     },
 
     data() {
       return {
-        rule: this.value,
-        validations: {
-          field: { state: null },
-          modifier: { state: null },
-          term: { state: null }
-        }
+        rule: this.value
       };
     },
 
@@ -182,10 +177,6 @@
     },
 
     watch: {
-      validate: {
-        deep: true,
-        handler: 'validateRuleControls'
-      },
       value: {
         deep: true,
         handler(newVal) {
@@ -214,19 +205,6 @@
       },
       handleRuleChange(key, value) {
         this.$emit('change', key, value);
-      },
-      validateRuleControls() {
-        // If any rule control has a value, all are required. If none have a value, the
-        // rule will be ignored and none are required.
-        const noRuleControlHasValue = !Object.values(this.rule).some((value) => !!value);
-        this.forEveryRuleControl((control) => {
-          if (noRuleControlHasValue || this.rule[control]) {
-            this.validations[control] = { state: true };
-          } else {
-            this.validations[control] = { state: false, text: this.$t('statuses.required') };
-          }
-        });
-        this.$emit(Object.values(this.validations).some((validation) => !validation.state) ? 'invalid' : 'valid');
       }
     }
   };

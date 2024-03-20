@@ -144,6 +144,31 @@ export default {
       return { ...this.$route, query: newRouteQuery };
     },
 
+    advancedSearchRuleIsValid(rule) {
+      return this.advancedSearchRuleValidationsPass(this.advancedSearchRuleValidations(rule));
+    },
+
+    advancedSearchRuleValidationsPass(validations) {
+      return Object.values(validations).every((validation) => validation.state);
+    },
+
+    // If any rule control has a value, all are required. If none have a value, the
+    // rule will be ignored and none are required.
+    advancedSearchRuleValidations(rule) {
+      const validations = {};
+
+      const noRuleControlHasValue = !Object.values(rule).some((value) => !!value);
+      for (const control in rule) {
+        if (noRuleControlHasValue || rule[control]) {
+          validations[control] = { state: true };
+        } else {
+          validations[control] = { state: false, text: this.$t('statuses.required') };
+        }
+      }
+
+      return validations;
+    },
+
     advancedSearchRulesFromRouteQuery(routeQuery) {
       return [].concat(routeQuery || this.advancedSearchRouteQuery || []).map((qa) => {
         for (const modifier of this.advancedSearchModifiers) {

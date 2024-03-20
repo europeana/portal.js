@@ -27,11 +27,9 @@
                     :id="`${id}-rule-${index}`"
                     v-model="queryRules[index]"
                     :tooltips="index === 0"
-                    :validate="validatingRules"
+                    :validation="validations[index]"
                     @change="(control, value) => handleChangeRule(index, control, value)"
                     @clear="clearRule(index)"
-                    @invalid="handleInvalidRule(index)"
-                    @valid="handleValidRule(index)"
                   />
                 </div>
               </transition-group>
@@ -82,7 +80,6 @@
     data() {
       return {
         queryRules: [],
-        validatingRules: false,
         validations: []
       };
     },
@@ -104,7 +101,7 @@
     methods: {
       addNewRule() {
         this.queryRules.push({ field: null, modifier: null, term: null });
-        this.validations.push(true);
+        this.validations.push({ state: true });
       },
       clearRule(index) {
         this.queryRules.splice(index, 1);
@@ -116,14 +113,18 @@
       },
       handleChangeRule(index, control, value) {
         this.queryRules[index][control] = value;
-        this.handleSubmitForm();
+        const controlIsTerm = control === 'term';
+        if (controlIsTerm || this.advancedSearchRuleIsValid(this.queryRules[index])) {
+          this.handleSubmitForm();
+        }
       },
       handleInvalidRule(index) {
         this.validations[index] = false;
       },
       handleSubmitForm() {
         // let v-model changes percolate down to child components first, required
-        // for validation during form submission
+        // for validation during form submission, e.g. when modifiers change
+        // based on term selection
         this.$nextTick(() => {
           this.validateRules((valid) => {
             if (valid) {
@@ -142,6 +143,7 @@
         if (this.queryRules.length === 0) {
           this.addNewRule();
         } else {
+          this.validations = Array(this.queryRules.length).fill({ state: true });
           this.$emit('show', true);
         }
       },
@@ -158,17 +160,8 @@
         }
       },
       validateRules(callback) {
-        // Instruct the SearchQueryBuilderRule components to validate themselves
-        this.validatingRules = true;
-
-        // Give the SearchQueryBuilderRule components time to validate and emit
-        // validation statuses which will be stored in `this.validations`
-        this.$nextTick(() => {
-          // Instruct the SearchQueryBuilderRule components to stop validating,
-          // so that they only revalidate when the form is next submitted.
-          this.validatingRules = false;
-          callback(this.validations.every((validation) => validation));
-        });
+        this.validations = this.queryRules.map(this.advancedSearchRuleValidations);
+        callback(this.validations.every(this.advancedSearchRuleValidationsPass));
       }
     }
   };

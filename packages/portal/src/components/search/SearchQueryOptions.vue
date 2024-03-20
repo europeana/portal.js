@@ -248,7 +248,6 @@
             return memo;
           }, {});
         } catch (error) {
-          console.error(error);
           this.fetchFailed = true;
         } finally {
           this.gettingSuggestions = false;
