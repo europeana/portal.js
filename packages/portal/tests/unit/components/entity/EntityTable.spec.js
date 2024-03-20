@@ -20,7 +20,7 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
     },
     $t: (val) => val,
     $i18n: { locale: 'en' },
-    $route: { query: { page: 1, query: null } },
+    $route: { query: { page: 1, query: null, sort: null } },
     $router: { push: () => {} }
   }
 });
@@ -122,7 +122,7 @@ describe('components/entity/EntityTable', () => {
     });
   });
 
-  describe('when the route query page updates', () => {
+  describe('when the route page query updates', () => {
     it('updates the current table page', async() => {
       const wrapper = factory();
 
@@ -143,17 +143,57 @@ describe('components/entity/EntityTable', () => {
     });
   });
 
+  describe('when the route sort query updates', () => {
+    it('updates the current table sort order and field', async() => {
+      const wrapper = factory();
+      const sortField = 'countryPrefLabel';
+      const sortDirection = 'desc';
+
+      wrapper.vm.$route.query.sort = `${sortField} ${sortDirection}`;
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.vm.sortBy).toEqual(sortField);
+      expect(wrapper.vm.sortDesc).toEqual(true);
+    });
+    describe('when falsy value', () => {
+      it('falls back to sorting on the name in asc order', async() => {
+        const wrapper = factory();
+
+        wrapper.vm.$route.query.sort = null;
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.sortBy).toEqual('prefLabel');
+        expect(wrapper.vm.sortDesc).toEqual(false);
+      });
+    });
+  });
+
   describe('when the table is filtered', () => {
     it('updates total results and updates the route query', async() => {
+      const newQuery = 'museum';
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      wrapper.vm.filter = 'museum';
+      wrapper.vm.filter = newQuery;
       wrapper.vm.onFiltered([organisations[0]]);
       await wrapper.vm.$nextTick();
 
       expect(wrapper.vm.totalResults).toEqual(1);
-      expect(wrapper.vm.updateRouteQuery.calledWith({ query: 'museum' })).toBe(true);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ query: newQuery })).toBe(true);
+    });
+  });
+
+  describe('when the table is sorted', () => {
+    it('updates the route query', async() => {
+      const newSortField = 'recordCount';
+      const newSortDirection = 'desc';
+      const wrapper = factory();
+      sinon.spy(wrapper.vm, 'updateRouteQuery');
+
+      wrapper.vm.onSortchanged({ sortBy: newSortField, sortDesc: true });
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: `${newSortField} ${newSortDirection}` })).toBe(true);
     });
   });
 });

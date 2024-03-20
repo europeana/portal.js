@@ -27,6 +27,7 @@
       :fields="fields"
       :items="collections"
       :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
       :busy="$fetchState.pending"
       :filter="filter"
       :current-page="currentPage"
@@ -34,6 +35,7 @@
       striped
       class="borderless"
       @filtered="onFiltered"
+      @sort-changed="onSortchanged"
     >
       <template #table-busy>
         <div class="text-center my-2">
@@ -108,7 +110,8 @@
     data() {
       return {
         collections: null,
-        sortBy: 'prefLabel',
+        sortBy: this.$route?.query?.sort?.split(' ')[0] || 'prefLabel',
+        sortDesc: this.$route?.query?.sort?.split(' ')[1] === 'desc',
         filter: this.$route?.query?.query || null,
         fields: [
           {
@@ -119,14 +122,12 @@
           this.type === 'organisations' && {
             key: 'countryPrefLabel',
             sortable: true,
-            sortDirection: 'desc',
             label: this.$t('pages.collections.organisations.table.country'),
             class: 'text-center'
           },
           this.type === 'organisations' && {
             key: 'recordCount',
             sortable: true,
-            sortDirection: 'desc',
             label: this.$t('pages.collections.table.items'),
             class: 'text-right'
           }
@@ -171,6 +172,10 @@
       '$route.query.page'() {
         this.currentPage = Number(this.$route?.query?.page) || 1;
       },
+      '$route.query.sort'() {
+        this.sortBy = this.$route.query.sort.split(' ')[0];
+        this.sortDesc = this.$route.query.sort.split(' ')[1] === 'desc';
+      },
       'collections.length'() {
         this.totalResults  = this.collections.length;
       }
@@ -199,6 +204,9 @@
       onFiltered(filteredItems) {
         this.totalResults = filteredItems.length;
         this.updateRouteQuery({ query: this.filter });
+      },
+      onSortchanged(ctx) {
+        this.updateRouteQuery({ sort: `${ctx.sortBy} ${ctx.sortDesc ? 'desc' : 'asc'}` });
       },
       updateRouteQuery(newQuery) {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
