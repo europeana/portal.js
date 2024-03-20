@@ -255,7 +255,16 @@
 </style>
 
 <docs lang="md">
+  Blank rule:
   ```jsx
     <SearchQueryBuilderRule />
+  ```
+
+  Rule with invalid modifier control, indicated via `validation`:
+  ```jsx
+    <SearchQueryBuilderRule
+      :v-model="{ field: 'title', modifier: null, term: 'forest' }"
+      :validation="{ field: { state: true }, modifier: { state: false, text: 'Required' }, term: { state: true } }"
+    />
   ```
 </docs>

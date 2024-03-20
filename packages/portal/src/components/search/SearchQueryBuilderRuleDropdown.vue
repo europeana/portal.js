@@ -88,7 +88,7 @@
     data() {
       return {
         selected: this.value
-      }
+      };
     },
 
     computed: {
@@ -140,7 +140,7 @@
           }]
         }
       ]"
-      :text="this.$t('search.advanced.placeholder.modifier')"
+      text="Select a modifier"
     />
   ```
 </docs>

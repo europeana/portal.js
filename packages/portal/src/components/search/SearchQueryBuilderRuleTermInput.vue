@@ -151,7 +151,7 @@
         this.handleChange();
         if (this.fieldNeedsEntityLookUp) {
           this.$store.commit('search/addQasWithSelectedEntityValue',
-            { field: this.advancedSearchField, qa: option.query, id: option.entityId }
+                             { field: this.advancedSearchField, qa: option.query, id: option.entityId }
           );
         }
       },
@@ -232,7 +232,7 @@
   With suggestions
   ```jsx
     <SearchQueryBuilderRuleTermInput
-      suggestEntityType="concept"
+      suggest-entity-type="concept"
       advanced-search-field="what"
     />
   ```
