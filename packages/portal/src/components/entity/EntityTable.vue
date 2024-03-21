@@ -20,6 +20,7 @@
         role="searchbox"
         :placeholder="$t('pages.collections.table.searchPlaceholder')"
         :aria-label="$t('search.title')"
+        data-qa="entity table filter"
       />
     </b-form>
     <b-table
@@ -52,6 +53,7 @@
             <span
               v-if="data.item.altLabel"
               :lang="data.item.altLabelLang"
+              class="subtitle"
             >
               {{ data.item.altLabel }}
             </span>
@@ -70,6 +72,23 @@
         <span>
           {{ data.item.recordCount | localise }}
         </span>
+      </template>
+      <template
+        v-if="type === 'organisations'"
+        #cell(showDetails)="row"
+      >
+        <b-button
+          class="button-toggle button-icon-only icon-chevron"
+          :class="{'show': row.detailsShowing}"
+          variant="light-flat"
+          @click="row.toggleDetails"
+        />
+      </template>
+      <template
+        v-if="type === 'organisations'"
+        #row-details="row"
+      >
+        <span>{{ row.item.countryPrefLabel }}</span>
       </template>
     </b-table>
     <PaginationNavInput
@@ -117,19 +136,24 @@
           {
             key: 'prefLabel',
             sortable: true,
-            label: this.$t('pages.collections.table.name')
+            label: this.$t('pages.collections.table.name'),
+            class: 'table-name-cell'
           },
           this.type === 'organisations' && {
             key: 'countryPrefLabel',
             sortable: true,
             label: this.$t('pages.collections.organisations.table.country'),
-            class: 'text-center'
+            class: 'text-center d-none d-md-table-cell'
           },
           this.type === 'organisations' && {
             key: 'recordCount',
             sortable: true,
             label: this.$t('pages.collections.table.items'),
             class: 'text-right'
+          },
+          this.type === 'organisations' && {
+            key: 'showDetails',
+            class: 'table-toggle-cell d-md-none'
           }
         ],
         typeSingular: this.type.slice(0, -1),
@@ -144,8 +168,10 @@
         let collections = response.data[this.cacheKey];
         if (this.type === 'organisations') {
           collections = collections.map(this.organisationData);
+          this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
+        } else {
+          this.collections = collections.map(Object.freeze);
         }
-        this.collections = collections.map(Object.freeze);
       } catch (e) {
         // TODO: set fetch state error from message
         console.error({ statusCode: 500, message: e.toString() });
@@ -222,5 +248,24 @@
 
   .search-form {
     border: 1px solid $bodygrey;
+  }
+
+  td.table-name-cell {
+    overflow-wrap: anywhere;
+  }
+
+  th.table-toggle-cell {
+    display: none;
+  }
+
+  .button-toggle {
+    background-color: transparent;
+    &::before {
+      font-size: 0.5rem;
+    }
+
+    &.show::before {
+      transform: rotateX(180deg);
+    }
   }
 </style>

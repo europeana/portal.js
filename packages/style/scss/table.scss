@@ -18,6 +18,7 @@ table,
 
     div {
       display: inline-block;
+      white-space: nowrap; // prevents the sort toggle from wrapping under the label
     }
   }
 
@@ -46,14 +47,14 @@ table,
       display: block;
     }
 
-    strong + span {
+    strong + .subtitle {
       font-size: $font-size-extrasmall;
       line-height: 1.25rem;
       color: $mediumgrey;
       text-transform: uppercase;
     }
 
-    a:hover strong + span {
+    a:hover strong + .subtitle {
       color: inherit;
     }
   }

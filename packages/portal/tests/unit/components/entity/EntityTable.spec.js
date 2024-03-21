@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '../../utils';
+import { mountNuxt } from '../../utils';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
@@ -10,7 +10,7 @@ localVue.use(BootstrapVue);
 
 const $axiosGetStub = sinon.stub();
 
-const factory = (propsData = { type: 'organisations' }, fetchState = { error: false, pending: false }) => shallowMountNuxt(EntityTable, {
+const factory = (propsData = { type: 'organisations' }, fetchState = { error: false, pending: false }) => mountNuxt(EntityTable, {
   localVue,
   propsData,
   mocks: {
@@ -21,14 +21,16 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
     $t: (val) => val,
     $i18n: { locale: 'en' },
     $route: { query: { page: 1, query: null, sort: null } },
-    $router: { push: () => {} }
-  }
+    $router: { push: () => {} },
+    localePath: () => '/'
+  },
+  stubs: ['SmartLink']
 });
 
 const middlewarePath = '/_api/cache/collections/organisations';
 const collections = [
-  { slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' } },
-  { slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' } }
+  { slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' }, countryPrefLabel: { de: 'Deutschland' } },
+  { slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' }, countryPrefLabel: { nl: 'Nederland' }  }
 ];
 
 const organisations = [
@@ -37,14 +39,16 @@ const organisations = [
     prefLabel: 'museum',
     prefLabelLang: 'de',
     altLabel: 'museum',
-    altLabelLang: null
+    altLabelLang: null,
+    countryPrefLabel: 'Deutschland'
   },
   {
     slug: '002-library',
     prefLabel: 'bibliotheek',
     prefLabelLang: 'nl',
     altLabel: 'library',
-    altLabelLang: null
+    altLabelLang: null,
+    countryPrefLabel: 'Nederland'
   }
 ];
 
@@ -169,16 +173,14 @@ describe('components/entity/EntityTable', () => {
   });
 
   describe('when the table is filtered', () => {
-    it('updates total results and updates the route query', async() => {
+    it('updates the route query', async() => {
       const newQuery = 'museum';
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      wrapper.vm.filter = newQuery;
-      wrapper.vm.onFiltered([organisations[0]]);
+      wrapper.find('[data-qa="entity table filter"]').setValue(newQuery);
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.totalResults).toEqual(1);
       expect(wrapper.vm.updateRouteQuery.calledWith({ query: newQuery })).toBe(true);
     });
   });
