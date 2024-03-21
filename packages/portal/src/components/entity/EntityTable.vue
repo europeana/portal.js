@@ -131,7 +131,7 @@
         collections: null,
         sortBy: this.$route?.query?.sort?.split(' ')[0] || 'prefLabel',
         sortDesc: this.$route?.query?.sort?.split(' ')[1] === 'desc',
-        filter: this.$route?.query?.query || null,
+        filter: this.$route?.query?.filter || null,
         fields: [
           {
             key: 'prefLabel',
@@ -191,8 +191,8 @@
     },
 
     watch: {
-      '$route.query.query'() {
-        this.filter = this.$route.query.query;
+      '$route.query.filter'() {
+        this.filter = this.$route.query.filter;
         this.updateRouteQuery({ page: 1 });
       },
       '$route.query.page'() {
@@ -229,7 +229,7 @@
       },
       onFiltered(filteredItems) {
         this.totalResults = filteredItems.length;
-        this.updateRouteQuery({ query: this.filter });
+        this.updateRouteQuery({ filter: this.filter });
       },
       onSortchanged(ctx) {
         this.updateRouteQuery({ sort: `${ctx.sortBy} ${ctx.sortDesc ? 'desc' : 'asc'}` });

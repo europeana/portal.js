@@ -20,7 +20,7 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
     },
     $t: (val) => val,
     $i18n: { locale: 'en' },
-    $route: { query: { page: 1, query: null, sort: null } },
+    $route: { query: { page: 1, filter: null, sort: null } },
     $router: { push: () => {} },
     localePath: () => '/'
   },
@@ -110,7 +110,7 @@ describe('components/entity/EntityTable', () => {
     it('filters the table on the query', async() => {
       const wrapper = factory();
 
-      wrapper.vm.$route.query.query = newQuery;
+      wrapper.vm.$route.query.filter = newQuery;
       await wrapper.vm.$nextTick();
 
       expect(wrapper.vm.filter).toEqual(newQuery);
@@ -119,7 +119,7 @@ describe('components/entity/EntityTable', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      wrapper.vm.$route.query.query = newQuery;
+      wrapper.vm.$route.query.filter = newQuery;
       await wrapper.vm.$nextTick();
 
       expect(wrapper.vm.updateRouteQuery.calledWith({ page: 1 })).toBe(true);
@@ -181,7 +181,7 @@ describe('components/entity/EntityTable', () => {
       wrapper.find('[data-qa="entity table filter"]').setValue(newQuery);
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.updateRouteQuery.calledWith({ query: newQuery })).toBe(true);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ filter: newQuery })).toBe(true);
     });
   });
 
