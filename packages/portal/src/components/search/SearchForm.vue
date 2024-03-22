@@ -266,12 +266,13 @@
           isActive
         };
       },
-      handleClickOutside(e) {
+      handleClickOutside() {
         this.setClickOutsideConfigIsActive(false);
         this.submitForm();
       },
+
       handleFocusin() {
-        console.log('SearchForm handleFocusin');
+        this.setClickOutsideConfigIsActive(true);
       },
 
       initQuery() {

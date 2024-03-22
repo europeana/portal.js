@@ -147,7 +147,7 @@
           isActive
         };
       },
-      handleClickOutside(e) {
+      handleClickOutside() {
         this.setClickOutsideConfigIsActive(false);
         this.handleChange();
       },
