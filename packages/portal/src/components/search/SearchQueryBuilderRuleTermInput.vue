@@ -1,13 +1,16 @@
 <template>
   <div
     ref="searchdropdown"
+    v-click-outside="clickOutsideConfig"
     class="input-wrapper"
     :class="{ 'open': showSearchOptions }"
+    @focusin="handleFocusin"
   >
     <b-form-input
       :id="id"
       ref="searchinput"
       v-model="term"
+      :name="name"
       :data-qa="`advanced search query builder: ${name} control`"
       :placeholder="$t('search.advanced.placeholder.term')"
       :state="state"
@@ -17,12 +20,14 @@
       :aria-expanded="showSearchOptions"
       :aria-controls="showSearchOptions ? optionsId : null"
       @input="handleInput"
+      @blur="handleBlur"
       @keydown.enter="handleChange"
     />
     <SearchQueryOptions
       v-show="showSearchOptions"
       :id="optionsId"
       ref="searchoptions"
+      v-model="selectedOption"
       class="auto-suggest-dropdown"
       :text="term"
       :type="suggestEntityType"
@@ -31,13 +36,15 @@
       :advanced-search-field="advancedSearchField"
       :show-search-options="showSearchOptions"
       :submitting="submitting"
-      @select="(option) => handleSelect(option)"
-      @hideOptions="(submit) => handleHideOptions(submit)"
+      @input="handleSelectedOptionInput"
+      @hideOptions="handleHideOptions"
     />
   </div>
 </template>
 
 <script>
+  import vClickOutside from 'v-click-outside';
+
   import SearchQueryOptions from './SearchQueryOptions';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
@@ -46,6 +53,10 @@
 
     components: {
       SearchQueryOptions
+    },
+
+    directives: {
+      clickOutside: vClickOutside.directive
     },
 
     mixins: [advancedSearchMixin],
@@ -98,10 +109,16 @@
 
     data() {
       return {
-        term: this.value,
+        // https://www.npmjs.com/package/v-click-outside
+        clickOutsideConfig: {
+          events: ['click', 'dblclick', 'focusout', 'touchstart'],
+          handler: this.handleClickOutside,
+          isActive: false
+        },
+        selectedOption: null,
         showSearchOptions: false,
-        selectedValue: null,
-        submitting: null
+        submitting: null,
+        term: this.value
       };
     },
 
@@ -110,58 +127,58 @@
         return `${this.id}-options`;
       },
       fieldNeedsEntityLookUp() {
-        return this.advancedSearchFieldsForEntityLookUp.map(field => field?.name).includes(this.advancedSearchField);
+        return this.advancedSearchFieldsForEntityLookUp.map(field => field?.name)
+          .includes(this.advancedSearchField);
       }
     },
 
     watch: {
       value() {
         this.term = this.value;
-      },
-      showSearchOptions(newVal) {
-        if (newVal === false) {
-          if (this.term !== this.value) {
-            this.handleChange();
-          }
-        }
       }
     },
 
     methods: {
-      handleInput(input) {
-        this.showSearchOptions = (input.length > 0);
+      setClickOutsideConfigIsActive(isActive) {
+        // need to do this instead of just setting isActive due to
+        // https://github.com/ndelvalle/v-click-outside/issues/143
+        this.clickOutsideConfig = {
+          ...this.clickOutsideConfig,
+          isActive
+        };
+      },
+      handleClickOutside(e) {
+        this.setClickOutsideConfigIsActive(false);
+        this.handleChange();
+      },
+      handleFocusin() {
+        this.setClickOutsideConfigIsActive(true);
+      },
+      handleBlur() {
+        !this.showSearchOptions && this.handleChange();
       },
       handleChange() {
-        const valueToEmit = this.selectedValue || this.term;
-
-        if (!this.selectedValue) {
-          // Set submitting state to track the no autosuggest option selected in
-          // SearchQueryOptions
-          this.submitting = valueToEmit;
-        }
-
-        this.term = valueToEmit;
-        this.$emit('change', valueToEmit);
+        this.$emit('change', this.term);
         this.showSearchOptions = false;
-        this.selectedValue = null; // reset for next query
+        this.selectedOption = null;
       },
-      handleSelect(option) {
+      handleInput(value) {
+        this.showSearchOptions = (value.length > 0);
+        this.$emit('input', value);
+      },
+      handleHideOptions() {
         this.showSearchOptions = false;
-        this.selectedValue = option.query;
+        this.selectedOption = null;
+        this.handleBlur();
+      },
+      handleSelectedOptionInput(option) {
+        this.$emit('input', option.query);
         this.handleChange();
-        if (this.fieldNeedsEntityLookUp) {
-          this.$store.commit('search/addQasWithSelectedEntityValue',
-                             { field: this.advancedSearchField, qa: option.query, id: option.entityId }
-          );
-        }
-      },
-      handleHideOptions(submit) {
-        // When hiding options should not trigger a submit, reset the query to
-        // prevent submission and to show the applied query in the input field
-        if (!submit) {
-          this.term = this.value;
-        }
-        this.showSearchOptions = false;
+
+        this.fieldNeedsEntityLookUp && this.$store.commit(
+          'search/addQasWithSelectedEntityValue',
+          { field: this.advancedSearchField, qa: option.query, id: option.entityId }
+        );
       }
     }
   };

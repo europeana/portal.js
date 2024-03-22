@@ -24,7 +24,7 @@
           v-for="(sectionOption, sectionOptionIndex) in [].concat(section.options)"
           :key="`${name}-section-${sectionIndex}-options-${sectionOptionIndex}`"
           :data-qa="`advanced search query builder: ${sectionOption.value} ${name} option`"
-          @click="handleChange(sectionOption.value)"
+          @click="handleClick(sectionOption.value)"
         >
           {{ sectionOption.text }}
           <b-button
@@ -85,12 +85,6 @@
       }
     },
 
-    data() {
-      return {
-        selected: this.value
-      };
-    },
-
     computed: {
       displayText() {
         return this.selectedOption?.text || this.$t(`search.advanced.placeholder.${this.name}`);
@@ -101,7 +95,7 @@
       },
 
       selectedOption() {
-        return this.flattenedOptions.find((opt) => opt.value === this.selected);
+        return this.flattenedOptions.find((opt) => opt.value === this.value);
       }
     },
 
@@ -109,16 +103,17 @@
       flattenedOptions: {
         deep: true,
         handler(newVal) {
-          if (!newVal.find((opt) => opt.value === this.selected)) {
-            this.handleChange(null);
+          if (!newVal.find((opt) => opt.value === this.value)) {
+            this.$emit('input', null);
+            this.$emit('change', null);
           }
         }
       }
     },
 
     methods: {
-      handleChange(value) {
-        this.selected = value;
+      handleClick(value) {
+        this.$emit('input', value);
         this.$emit('change', value);
       }
     }

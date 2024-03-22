@@ -181,7 +181,7 @@ describe('components/search/SearchQueryBuilder', () => {
         form.trigger('submit.prevent');
         await wrapper.vm.$nextTick();
 
-        console.log('wrapper.vm.$matomo.trackEvent', wrapper.vm.$matomo.trackEvent.getCalls()[0].args)
+        console.log('wrapper.vm.$matomo.trackEvent', wrapper.vm.$matomo.trackEvent.getCalls()[0].args);
         expect(wrapper.vm.$matomo.trackEvent.called).toBe(false);
       });
     });

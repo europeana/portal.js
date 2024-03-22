@@ -28,7 +28,7 @@
                     v-model="queryRules[index]"
                     :tooltips="index === 0"
                     :validation="validations[index]"
-                    @change="(control, value) => handleChangeRule(index, control, value)"
+                    @change="handleRuleChange"
                     @clear="clearRule(index)"
                   />
                 </div>
@@ -91,7 +91,15 @@
     },
 
     watch: {
-      '$route.query.qa': 'initRulesFromRouteQuery'
+      '$route.query.qa': 'initRulesFromRouteQuery',
+
+      queryRules: {
+        deep: true,
+        handler(newVal) {
+          // FIXME: this gets called too often when changing one rule control
+          console.log('SearchQueryBuilder watch queryRules', newVal);
+        }
+      }
     },
 
     created() {
@@ -111,10 +119,8 @@
         }
         this.handleSubmitForm();
       },
-      handleChangeRule(index, control, value) {
-        this.queryRules[index][control] = value;
-        const controlIsTerm = control === 'term';
-        if (controlIsTerm || this.advancedSearchRuleIsValid(this.queryRules[index])) {
+      handleRuleChange(newVal) {
+        if (this.advancedSearchRuleIsValid(newVal)) {
           this.handleSubmitForm();
         }
       },
@@ -139,6 +145,8 @@
         this.validations[index] = true;
       },
       initRulesFromRouteQuery() {
+        // FIXME: this gets called too often on 1st load
+        console.log('SearchQueryBuilder initRulesFromRouteQuery');
         this.queryRules = this.advancedSearchRulesFromRouteQuery();
         if (this.queryRules.length === 0) {
           this.addNewRule();

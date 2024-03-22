@@ -2,12 +2,14 @@
   <div
     v-show="showForm"
     ref="searchdropdown"
+    v-click-outside="clickOutsideConfig"
     class="search-dropdown open"
     :class="{
       'home-search-form': inHomeHero,
       'page-header-form': inPageHeader,
       'suggestions-open': showSearchOptions
     }"
+    @focusin="handleFocusin"
   >
     <transition
       appear
@@ -76,11 +78,12 @@
       <SearchQueryOptions
         :id="searchFormOptionsId"
         ref="searchoptions"
+        v-model="selectedOption"
         :suggest="suggestSearchOptions && (inPageHeader || inSearchSidebar) && !onSearchableCollectionPage"
         :text="query"
         :submitting="submitting"
         :show-search-options="showSearchOptions"
-        @select="(option) => handleSelect(option)"
+        @input="handleSelectedOptionInput"
         @hideForm="handleHide"
         @hideOptions="(submit) => handleHideOptions(submit)"
       />
@@ -93,6 +96,8 @@
 </template>
 
 <script>
+  import vClickOutside from 'v-click-outside';
+
   import SearchQueryOptions from './SearchQueryOptions';
 
   export default {
@@ -101,6 +106,10 @@
     components: {
       SearchQueryOptions,
       SearchThemeBadges: () => import('@/components/search/SearchThemeBadges')
+    },
+
+    directives: {
+      clickOutside: vClickOutside.directive
     },
 
     props: {
@@ -133,6 +142,12 @@
 
     data() {
       return {
+        // https://www.npmjs.com/package/v-click-outside
+        clickOutsideConfig: {
+          events: ['click', 'dblclick', 'focusout', 'touchstart'],
+          handler: this.handleClickOutside,
+          isActive: false
+        },
         showSearchOptions: false,
         showForm: this.show,
         suggestSearchOptions: false,
@@ -142,6 +157,7 @@
     },
 
     computed: {
+      // TODO: this should use v-model
       query: {
         get() {
           return this.$store.state.search.queryInputValue;
@@ -242,6 +258,22 @@
     },
 
     methods: {
+      setClickOutsideConfigIsActive(isActive) {
+        // need to do this instead of just setting isActive due to
+        // https://github.com/ndelvalle/v-click-outside/issues/143
+        this.clickOutsideConfig = {
+          ...this.clickOutsideConfig,
+          isActive
+        };
+      },
+      handleClickOutside(e) {
+        this.setClickOutsideConfigIsActive(false);
+        this.submitForm();
+      },
+      handleFocusin() {
+        console.log('SearchForm handleFocusin');
+      },
+
       initQuery() {
         this.$store.commit('search/setQueryInputValue', this.$route.query.query);
       },
@@ -266,6 +298,7 @@
         this.initQuery();
         // Hide search options after initQuery to prevent watcher being called and form resubmitted
         this.showSearchOptions = false;
+        this.selectedOption = null;
       },
 
       clearQuery() {
@@ -277,11 +310,12 @@
         });
       },
 
-      handleSelect(option) {
-        this.selectedOption = option;
+      handleSelectedOptionInput(option) {
+        this.query = option.query;
+        this.$emit('input', option.query);
         this.submitForm();
-        this.selectedOption = null;
       },
+
       handleHide() {
         this.blurInput();
         if (this.hidableForm) {
@@ -289,10 +323,12 @@
           this.$store.commit('search/setShowSearchBar', false);
         }
       },
+
       blurInput() {
         this.$refs.searchinput.$el?.blur();
         this.showSearchOptions = false;
       },
+
       handleHideOptions(submit) {
         // When hiding options should not trigger a submit, reset the query to prevent submission and to show the applied query in the input field
         if (!submit) {

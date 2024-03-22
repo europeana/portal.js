@@ -126,11 +126,19 @@
       showSearchOptions: {
         type: Boolean,
         default: false
+      },
+      /**
+       * v-model value
+       */
+      value: {
+        type: Object,
+        default: null
       }
     },
 
     data() {
       return {
+        // TODO: replace this with use of v-model value?
         activeSuggestionsQueryTerm: null,
         fetchFailed: false,
         gettingSuggestions: false,
@@ -147,6 +155,7 @@
         return {
           link: this.searchInCollectionLinkGen(this.text),
           qa: 'search in collection button',
+          query: this.text,
           i18n: {
             path: this.text ? 'header.inCollection' : 'header.searchForEverythingInCollection',
             slots: [
@@ -161,6 +170,7 @@
         const globalSearchOption = {
           link: this.linkGen(this.text),
           qa: 'search entire collection button',
+          query: this.text,
           i18n: {
             slots: this.text ? [
               { name: 'query', value: { highlight: true, text: this.text } }
@@ -200,12 +210,8 @@
     watch: {
       showSearchOptions(newVal) {
         if (newVal === true) {
-          window.addEventListener('click', this.handleClickOrFocusOutside);
-          window.addEventListener('focusin', this.handleClickOrFocusOutside);
           this.$parent.$refs.searchdropdown.addEventListener('keydown', this.handleKeyDown);
         } else {
-          window.removeEventListener('click', this.handleClickOrFocusOutside);
-          window.removeEventListener('focusin', this.handleClickOrFocusOutside);
           this.$parent.$refs.searchdropdown.removeEventListener('keydown', this.handleKeyDown);
         }
       },
@@ -264,7 +270,7 @@
       },
 
       handleClick(index, option) {
-        this.$emit('select', option);
+        this.$emit('input', option);
         this.trackSuggestionClick(option.query, index);
         this.suggestions = {};
         this.activeSuggestionsQueryTerm = null;
@@ -339,23 +345,6 @@
           this.$emit('hideOptions');
           this.$emit('hideForm');
         }
-      },
-
-      handleClickOrFocusOutside(event) {
-        const targetOutsideSearchDropdown = this.checkIftargetOutsideSearchDropdown(event);
-        if (targetOutsideSearchDropdown) {
-          if  (['A', 'BUTTON', 'INPUT'].includes(event.target?.tagName) ||
-            event.target?.role === 'menu'
-          ) {
-            this.$emit('hideOptions');
-          } else {
-            this.$emit('hideOptions', true);
-          }
-        }
-      },
-
-      checkIftargetOutsideSearchDropdown(event) {
-        return event.target?.id !== 'show-search-button' && this.$parent.$refs.searchdropdown && !this.$parent.$refs.searchdropdown.contains(event.target);
       },
 
       navigateWithArrowKeys(event) {

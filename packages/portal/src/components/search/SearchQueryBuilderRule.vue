@@ -41,8 +41,8 @@
             :placeholder="$t('search.advanced.placeholder.term')"
             :state="validation[control]?.state"
             :suggest-entity-type="suggestEntityTypeForTerm"
-            :advanced-search-field="rule.field"
-            @change="(value) => handleRuleChange(control, value)"
+            :advanced-search-field="value.field"
+            @change="handleChange"
           />
           <SearchQueryBuilderRuleDropdown
             v-else
@@ -51,7 +51,7 @@
             :name="control"
             :options="dropdownSections[control]"
             :state="validation[control]?.state"
-            @change="(value) => handleRuleChange(control, value)"
+            @change="handleChange"
           />
         </div>
         <b-form-invalid-feedback
@@ -181,21 +181,18 @@
     },
 
     watch: {
-      value: {
-        deep: true,
-        handler(newVal) {
-          this.rule = newVal;
-        }
+      value() {
+        this.rule = this.value;
       }
     },
 
     methods: {
       clearRule() {
-        this.rule = {
+        this.$emit('input', {
           field: null,
           modifier: null,
           term: null
-        };
+        });
         this.$emit('clear');
       },
       fieldOptionGroup(fields) {
@@ -212,9 +209,8 @@
           callback(control);
         }
       },
-      handleRuleChange(key, value) {
-        this.rule[key] = value;
-        this.$emit('change', key, value);
+      handleChange() {
+        this.$emit('change', this.rule);
       }
     }
   };
