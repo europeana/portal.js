@@ -19,7 +19,7 @@
         <EntityTable
           :type="$route.params.type"
           data-qa="collections table"
-          class="mt-4"
+          class="mt-3 mt-md-4"
         />
       </client-only>
     </b-container>

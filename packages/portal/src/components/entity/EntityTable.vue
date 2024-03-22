@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="entity-table">
     <b-row
       v-if="$fetchState.error"
       class="flex-md-row py-4"
@@ -11,7 +11,7 @@
       </b-col>
     </b-row>
     <b-form
-      class="search-form position-relative mb-4"
+      class="search-form position-relative"
       inline
       @submit.stop.prevent="() => {}"
     >
@@ -246,26 +246,33 @@
   @import '@europeana/style/scss/icons';
   @import '@europeana/style/scss/table';
 
-  .search-form {
-    border: 1px solid $bodygrey;
-  }
+  .entity-table {
 
-  td.table-name-cell {
-    overflow-wrap: anywhere;
-  }
+    .search-form {
+      margin-bottom: 1rem;
 
-  th.table-toggle-cell {
-    display: none;
-  }
-
-  .button-toggle {
-    background-color: transparent;
-    &::before {
-      font-size: 0.5rem;
+      @media (min-width: $bp-medium) {
+        margin-bottom: 2rem;
+      }
     }
 
-    &.show::before {
-      transform: rotateX(180deg);
+    td.table-name-cell {
+      overflow-wrap: anywhere;
+    }
+
+    th.table-toggle-cell {
+      display: none;
+    }
+
+    .button-toggle {
+      background-color: transparent;
+      &::before {
+        font-size: 0.5rem;
+      }
+
+      &.show::before {
+        transform: rotateX(180deg);
+      }
     }
   }
 </style>
