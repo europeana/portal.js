@@ -16,8 +16,14 @@
           class="col-lg-8"
         >
           <article>
-            <ShareButton class="mb-4" />
-            <ShareSocialModal />
+            <div class="d-flex flex-wrap align-items-center">
+              <ShareButton class="mr-4 mb-4" />
+              <ShareSocialModal />
+              <StaticAutomatedTranslationLabel
+                v-if="automatedTranslation"
+                class="mb-4"
+              />
+            </div>
             <BrowseSections
               :sections="hasPartCollection.items"
               :rich-text-is-card="false"
@@ -56,7 +62,8 @@
       ShareSocialModal,
       ShareButton,
       BrowseSections,
-      LinkList: () => import('../generic/LinkList')
+      LinkList: () => import('../generic/LinkList'),
+      StaticAutomatedTranslationLabel: () => import('@/components/static/StaticAutomatedTranslationLabel')
     },
     props: {
       name: {
@@ -66,6 +73,10 @@
       description: {
         type: String,
         default: null
+      },
+      automatedTranslation: {
+        type: Boolean,
+        default: false
       },
       hasPartCollection: {
         type: Object,
