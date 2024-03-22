@@ -8,10 +8,11 @@
     <b-container
       v-else
     >
+      <!-- Replace media URL when available or a default placeholder is implemented -->
       <ContentHeader
         :title="pageMeta.title"
         :description="pageMeta.description"
-        :media-url="pageMeta.image"
+        :media-url="'/'"
         button-variant="secondary"
         class="half-col"
       />
@@ -56,8 +57,7 @@
       pageMeta() {
         return {
           title: this.$t(`pages.collections.${this.$route.params.type}.title`),
-          description: this.description,
-          image: require('@europeana/style/img/logo.svg')
+          description: this.description
         };
       }
     },
