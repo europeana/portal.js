@@ -987,7 +987,8 @@ export default {
         "description": "Explore the institutions which share digital cultural heritage items on Europeana.eu.",
         "table": {
           "country": "Country",
-          "name": "Name"
+          "name": "Name",
+          "showMoreData": "Show more data for {organisation}"
         },
         "title": "Institutions"
       },

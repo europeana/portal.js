@@ -82,7 +82,11 @@
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
           @click="row.toggleDetails"
-        />
+        >
+          <span class="visually-hidden">
+            {{ $t('pages.collections.organisations.table.showMoreData', { organisation:row.item.prefLabel }) }}
+          </span>
+        </b-button>
       </template>
       <template
         v-if="type === 'organisations'"
