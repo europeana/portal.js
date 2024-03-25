@@ -6,7 +6,8 @@ import uniq from 'lodash/uniq.js';
 import countryCodes from 'i18n-iso-countries';
 import localeCodes from '../../plugins/i18n/codes.js';
 
-const PICK = ['slug', 'recordCount', 'prefLabel', 'country', 'countryPrefLabel'];
+const PICK = ['slug', 'recordCount', 'prefLabel', 'countryPrefLabel'];
+const LOCALISE = 'countryPrefLabel';
 
 let axiosClient;
 let axiosClientEntity;
@@ -47,7 +48,7 @@ const data = async(config = {}) => {
       organisationCountriesPrefLabels[country] = await getCountryPrefLabel(`/place/${entityId}.json`);
     } else if (country) {
       // Production Entity API returns country code. This as in between solution. No support for Maltese (mt)
-      // TODO: remove when deprecated afte API released with place references for countries
+      // TODO: remove when deprecated after API released with place references for countries
       const countryPrefLabelForLocale = {};
       for (const locale of localeCodes) {
         const countryNameFromCode = countryCodes.getName(country, locale, { select: 'official' });
@@ -76,5 +77,6 @@ const data = async(config = {}) => {
 
 export {
   data,
+  LOCALISE,
   PICK
 };

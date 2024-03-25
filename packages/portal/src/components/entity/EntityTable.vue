@@ -187,10 +187,7 @@
         return `/_api/cache/${this.cacheKey}`;
       },
       cacheKey() {
-        // For organisations, get unlocalised labels, for both English and native.
-        return this.type === 'organisations' ?
-          'collections/organisations' :
-          `${this.$i18n.locale}/collections/${this.type}`;
+        return `${this.$i18n.locale}/collections/${this.type}`;
       }
     },
 
@@ -217,15 +214,14 @@
         const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
         const englishName = this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' });
         const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
-        const countryPrefLabelLangMap = langMapValueForLocale(org.countryPrefLabel, this.$i18n.locale);
+        // const countryPrefLabelLangMap = langMapValueForLocale(org.countryPrefLabel, this.$i18n.locale);
 
         return {
           ...org,
           prefLabel: nativeNameLangMapValue.values[0],
           prefLabelLang: nativeNameLangMapValue.code,
           altLabel: englishNameLangMapValue?.values[0],
-          altLabelLang: englishNameLangMapValue?.code,
-          countryPrefLabel: countryPrefLabelLangMap.values[0]
+          altLabelLang: englishNameLangMapValue?.code
         };
       },
       entityRoute(slug) {

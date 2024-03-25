@@ -27,10 +27,10 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
   stubs: ['SmartLink']
 });
 
-const middlewarePath = '/_api/cache/collections/organisations';
+const middlewarePath = '/_api/cache/en/collections/organisations';
 const collections = [
-  { slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' }, countryPrefLabel: { de: 'Deutschland' } },
-  { slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' }, countryPrefLabel: { nl: 'Nederland' }  }
+  { slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' }, countryPrefLabel: 'Deutschland' },
+  { slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' }, countryPrefLabel: 'Nederland' }
 ];
 
 const organisations = [
@@ -55,7 +55,7 @@ const organisations = [
 describe('components/entity/EntityTable', () => {
   describe('fetch()', () => {
     beforeEach(() => {
-      $axiosGetStub.withArgs(middlewarePath).resolves({ data: { 'collections/organisations': collections } });
+      $axiosGetStub.withArgs(middlewarePath).resolves({ data: { 'en/collections/organisations': collections } });
     });
 
     afterEach(() => {
