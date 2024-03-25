@@ -213,7 +213,6 @@
         const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
         const englishName = this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' });
         const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
-        // const countryPrefLabelLangMap = langMapValueForLocale(org.countryPrefLabel, this.$i18n.locale);
 
         return {
           ...org,

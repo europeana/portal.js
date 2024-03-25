@@ -2,7 +2,7 @@ import baseData from './index.js';
 import { createEuropeanaApiClient } from '../utils.js';
 import { isEntityUri } from '../../plugins/europeana/entity.js';
 import uniq from 'lodash/uniq.js';
-// TODO: remove and uninstall when deprecated afte API released with place references for countries
+// TODO: remove and uninstall when deprecated after API released with place references for countries
 import countryCodes from 'i18n-iso-countries';
 import localeCodes from '../../plugins/i18n/codes.js';
 
