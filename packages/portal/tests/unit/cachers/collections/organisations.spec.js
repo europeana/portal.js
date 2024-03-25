@@ -80,11 +80,11 @@ describe('@/cachers/collections/organisations', () => {
   });
 
   it('picks slug, recordCount and prefLabel', () => {
-    expect(cacher.PICK).toEqual(['slug', 'recordCount', 'prefLabel', 'country', 'countryPrefLabel']);
+    expect(cacher.PICK).toEqual(['slug', 'recordCount', 'prefLabel', 'countryPrefLabel']);
   });
 
-  it('localises nothing', () => {
-    expect(cacher.LOCALISE).toBeUndefined();
+  it('localises countryPrefLabel', () => {
+    expect(cacher.LOCALISE).toEqual('countryPrefLabel');
   });
 
   describe('when there is no fields on the facets response', () => {
