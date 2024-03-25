@@ -985,11 +985,6 @@ export default {
     "collections": {
       "organisations": {
         "description": "Explore the institutions which share digital cultural heritage items on Europeana.eu.",
-        "table": {
-          "country": "Country",
-          "name": "Name",
-          "showMoreData": "Show more data for {organisation}"
-        },
         "title": "Institutions"
       },
       "persons": {
@@ -999,9 +994,11 @@ export default {
         "title": "Places"
       },
       "table": {
+        "country": "Country",
         "items": "Items",
         "name": "Name",
-        "searchPlaceholder": "Search within table"
+        "searchPlaceholder": "Search within table",
+        "showMoreData": "Show more data for {entity}"
       },
       "times": {
         "title": "Centuries"

@@ -13,7 +13,7 @@
     >
       <b-form
         class="search-form"
-        :class="{ 'show': showDropdown}"
+        :class="{ 'show': showDropdown }"
         inline
         @submit.stop.prevent="() => {}"
       >

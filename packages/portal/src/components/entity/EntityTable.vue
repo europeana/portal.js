@@ -84,7 +84,7 @@
           @click="row.toggleDetails"
         >
           <span class="visually-hidden">
-            {{ $t('pages.collections.organisations.table.showMoreData', { organisation:row.item.prefLabel }) }}
+            {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
           </span>
         </b-button>
       </template>
@@ -144,7 +144,7 @@
           this.type === 'organisations' && {
             key: 'countryPrefLabel',
             sortable: true,
-            label: this.$t('pages.collections.organisations.table.country'),
+            label: this.$t('pages.collections.table.country'),
             class: 'text-center d-none d-md-table-cell'
           },
           this.type === 'organisations' && {
