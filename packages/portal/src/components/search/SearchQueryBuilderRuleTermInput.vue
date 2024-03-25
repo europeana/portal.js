@@ -112,7 +112,7 @@
         // https://www.npmjs.com/package/v-click-outside
         clickOutsideConfig: {
           capture: true,
-          events: ['click', 'dblclick', 'focusout', 'touchstart'],
+          events: ['click', 'dblclick', 'focusin', 'touchstart'],
           handler: this.handleClickOutside,
           isActive: false
         },
