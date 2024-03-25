@@ -70,6 +70,12 @@ table,
       font-size: 1rem;
       margin-left: 0.5rem;
       display: inline-block;
+      transition: $standard-transition;
+    }
+
+    &[aria-sort='ascending'] div::after,
+    &[aria-sort='descending'] div::after {
+      color: $innovationblue;
     }
 
     &[aria-sort='descending'] div::after {
@@ -77,7 +83,7 @@ table,
     }
 
     &:hover div::after {
-      color: $innovationblue;
+      color: $black;
     }
   }
 
