@@ -133,8 +133,6 @@
     data() {
       return {
         collections: null,
-        sortBy: this.$route?.query?.sort?.split(' ')[0] || 'prefLabel',
-        sortDesc: this.$route?.query?.sort?.split(' ')[1] === 'desc',
         filter: this.$route?.query?.filter || null,
         fields: [
           {
@@ -161,7 +159,6 @@
           }
         ],
         typeSingular: this.type.slice(0, -1),
-        currentPage: Number(this.$route?.query?.page) || 1,
         totalResults: this.collections?.length || 0,
         perPage: 40
       };
@@ -188,6 +185,15 @@
       },
       cacheKey() {
         return `${this.$i18n.locale}/collections/${this.type}`;
+      },
+      currentPage() {
+        return Number(this.$route?.query?.page) || 1;
+      },
+      sortBy() {
+        return this.$route?.query?.sort?.split(' ')[0] || 'prefLabel';
+      },
+      sortDesc() {
+        return this.$route?.query?.sort?.split(' ')[1] === 'desc';
       }
     },
 
@@ -195,13 +201,6 @@
       '$route.query.filter'() {
         this.filter = this.$route.query.filter;
         this.updateRouteQuery({ page: 1 });
-      },
-      '$route.query.page'() {
-        this.currentPage = Number(this.$route?.query?.page) || 1;
-      },
-      '$route.query.sort'() {
-        this.sortBy = this.$route.query.sort.split(' ')[0];
-        this.sortDesc = this.$route.query.sort.split(' ')[1] === 'desc';
       },
       'collections.length'() {
         this.totalResults  = this.collections.length;
