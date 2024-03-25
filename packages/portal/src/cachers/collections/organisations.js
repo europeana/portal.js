@@ -47,7 +47,7 @@ const data = async(config = {}) => {
       const entityId = country.split('/').pop();
       organisationCountriesPrefLabels[country] = await getCountryPrefLabel(`/place/${entityId}.json`);
     } else if (country) {
-      // Production Entity API returns country code. This as in between solution. No support for Maltese (mt)
+      // Production Entity API returns country code. This as in between solution.
       // TODO: remove when deprecated after API released with place references for countries
       const countryPrefLabelForLocale = {};
       for (const locale of localeCodes) {
