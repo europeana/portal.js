@@ -25,7 +25,7 @@
               />
             </div>
             <BrowseSections
-              :sections="hasPartCollection.items"
+              :sections="hasPartCollection?.items"
               :rich-text-is-card="false"
               class="authored-section"
               data-qa="browse sections"
@@ -42,8 +42,8 @@
           class="mt-3 col-lg-8"
         >
           <LinkList
-            :title="relatedLinks.name"
-            :items="relatedLinks.links.items"
+            :title="relatedLinks?.name"
+            :items="relatedLinks?.links?.items"
           />
         </b-col>
       </b-row>
