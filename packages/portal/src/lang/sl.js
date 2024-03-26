@@ -208,6 +208,9 @@ export default {
     "left": "Levo",
     "right": "Desno"
   },
+  "ds4ch": {
+    "broughtBy": "Prinesel vam"
+  },
   "edmIsShownAtLinkAlt": "Ogled na spletni strani ponudnika",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Mesečne zahteve API, v povprečju",
+      "hqData": "Povečanje kakovostnih podatkov na leto",
       "items": "Enote",
+      "networkMembers": "Člani mreže",
       "providingInstitutions": "Ponudniki podatkov",
       "visits": "Obiski na dan"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} zgodbe najdene",
     "title": "Zgodbe"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Skupina diapozitivov {page}"
   },
   "themes": {
     "description": "Brskajte po temi",

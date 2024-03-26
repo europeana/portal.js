@@ -208,6 +208,9 @@ export default {
     "left": "Stânga",
     "right": "Dreapta"
   },
+  "ds4ch": {
+    "broughtBy": "Adus vouă de"
+  },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Solicitări API lunare, în medie",
+      "hqData": "Creșterea numărului de date de înaltă calitate pe an",
       "items": "Resurse culturale",
+      "networkMembers": "Membrii rețelei",
       "providingInstitutions": "Instituții furnizoare",
       "visits": "Vizite pe zi"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} narațiuni găsite",
     "title": "Narațiuni"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Grup de diapozitive {page}"
   },
   "themes": {
     "description": "Răsfoiți după temă",

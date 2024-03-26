@@ -152,7 +152,7 @@
   @import '@europeana/style/scss/variables';
 
   .image-card {
-    margin-bottom: 2.375rem;
+    margin-bottom: 3rem;
     margin-left: auto;
     margin-right: auto;
 
@@ -162,7 +162,7 @@
 
     @media (min-width: $bp-large) {
       max-width: 1250px;
-      margin-bottom: 8rem;
+      margin-bottom: 6rem;
 
       &:nth-child(even),
       &.image-card-even {
@@ -180,6 +180,7 @@
 
     @media (min-width: $bp-4k) {
       max-width: calc(1.5 * 1250px);
+      margin-bottom: 15rem;
     }
 
     .image-wrapper {
@@ -215,8 +216,24 @@
       }
     }
 
-    &.bg-color-alternate {
+    &.bg-color-alternate,
+    .image-card-container-wrapper &.bg-color-alternate {
       background-color: $bodygrey;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+
+      @media (min-width: $bp-large) {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        padding-top: 15rem;
+        padding-bottom: 15rem;
+      }
 
       .text-wrapper {
         background-color: $bodygrey;
@@ -275,23 +292,10 @@
   .ds4ch.image-card {
     max-width: 100%;
     text-align: center;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    margin-bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
-
     @media (min-width: $bp-large) {
       text-align: left;
       align-items: center;
-      padding-top: 6rem;
-      padding-bottom: 6rem;
       padding-right: 0;
-    }
-
-    @media (min-width: $bp-4k) {
-      padding-top: 15rem;
-      padding-bottom: 15rem;
     }
 
     .image-wrapper {
@@ -374,9 +378,11 @@
     &:nth-child(even),
     &.image-card-even {
       .text-wrapper {
-        order: -1;
-        padding-right: 3.625rem;
-        padding-left: 2rem;
+        @media (min-width: $bp-large) {
+          order: -1;
+          padding-right: 3.625rem;
+          padding-left: 2rem;
+        }
 
         @media (min-width: $bp-extralarge) {
           padding-left: 6rem;

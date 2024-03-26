@@ -208,6 +208,9 @@ export default {
     "left": "Venstre",
     "right": "Højre"
   },
+  "ds4ch": {
+    "broughtBy": "Bragt til dig af"
+  },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
   "entity": {
     "actions": {
@@ -875,7 +878,9 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Månedlige API-anmodninger i gennemsnit",
+      "hqData": "Forøgelse af data af høj kvalitet om året",
       "items": "Genstande",
+      "networkMembers": "Netværksmedlemmer",
       "providingInstitutions": "Ejerinstitutioner",
       "visits": "Besøg pr. dag"
     },
@@ -1179,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} historier fundet",
     "title": "Historier"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slide gruppe {page}"
   },
   "themes": {
     "description": "Gennemse efter tema",

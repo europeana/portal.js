@@ -208,6 +208,9 @@ export default {
     "left": "Vľavo",
     "right": "Vpravo"
   },
+  "ds4ch": {
+    "broughtBy": "Priniesol vám"
+  },
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Mesačné API požiadavky, v priemere",
+      "hqData": "Nárast kvalitných údajov za rok",
       "items": "Objekty",
+      "networkMembers": "Členovia siete",
       "providingInstitutions": "Správcovské inštitúcie",
       "visits": "Návštevy za deň"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} nájdených príbehov",
     "title": "Príbehy"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Skupina snímok {page}"
   },
   "themes": {
     "description": "Prehľadávať podľa kategórie",

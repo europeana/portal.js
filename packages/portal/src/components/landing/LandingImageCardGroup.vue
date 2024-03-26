@@ -78,10 +78,14 @@
   .header {
     background-color: $blue;
     color: $white;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
 
     @media (min-width: $bp-large) {
-      margin-bottom: 4.625rem;
+      margin-bottom: 6rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: 15rem;
     }
 
     h2 {

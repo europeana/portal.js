@@ -13,6 +13,7 @@
     <ContentCardSection
       v-else
       :section="contentCardSection"
+      class="mb-5"
     />
   </div>
 </template>

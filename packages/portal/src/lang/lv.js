@@ -208,6 +208,9 @@ export default {
     "left": "Kreisais",
     "right": "Labais"
   },
+  "ds4ch": {
+    "broughtBy": "Jums atnesa"
+  },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "entity": {
     "actions": {
@@ -874,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Vidēji ikmēneša API pieprasījumi",
+      "hqData": "Augstas kvalitātes datu pieaugums gadā",
       "items": "Digitālie objekti",
+      "networkMembers": "Tīkla dalībnieki",
       "providingInstitutions": "Piegādājošās iestādes",
       "visits": "Apmeklējumi dienā"
     },
@@ -1178,6 +1184,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} atrasti stāsti",
     "title": "Stāsti"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slaidu grupa {page}"
   },
   "themes": {
     "description": "Pārlūkojiet pēc tēmas",
