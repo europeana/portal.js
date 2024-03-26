@@ -3,6 +3,7 @@
     v-if="useRouterLink"
     :to="path"
     :class="linkClass"
+    :disabled="disabled"
     @click.capture.native="logSearchLink && setLoggableInteraction()"
   >
     <slot />
@@ -12,6 +13,7 @@
     :href="path"
     :target="isExternalLink ? '_blank' : '_self'"
     :class="[{ 'is-external-link' : isExternalLink && !hideExternalIcon }, linkClass]"
+    :disabled="disabled"
   >
     <slot /><!-- This comment removes white space which gets underlined
  --><span
@@ -36,13 +38,15 @@
         type: [String, Object],
         default: ''
       },
-
       linkClass: {
         type: String,
         default: ''
       },
-
       hideExternalIcon: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
         type: Boolean,
         default: false
       }
