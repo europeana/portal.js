@@ -200,7 +200,8 @@
           return this.sort[0] || 'prefLabel';
         },
         set(value) {
-          this.sort = { sortBy: value, sortDesc: this.sortDesc };
+          // Switching to another column always resets ordering to ascending
+          this.sort = { sortBy: value, sortDesc: false };
         }
       },
       sortDesc: {
