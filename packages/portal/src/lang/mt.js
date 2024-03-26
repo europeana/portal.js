@@ -100,7 +100,7 @@ export default {
     "by": "ta'",
     "categories": "Kategoriji",
     "category": "Kategorija",
-    "posts": "Blog posts",
+    "posts": "Blog post | Postijiet tal-blog",
     "published": "Ippubblikat {date}",
     "relatedPosts": "Posts relatati"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "ħallieqa",
-      "name": "Kreatur | Kreaturi",
+      "name": "Kreatur",
       "select": "Agħżel ħallieqa"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Agħżel istituzzjonijiet fornitriċi"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orjentazzjoni tal-istampa | Orjentazzjonijiet tal-istampa",
+      "name": "Orjentazzjoni tal-immaġni",
       "options": {
         "landscape": "Pajsaġġ",
         "portrait": "Ritratt"
@@ -552,7 +552,7 @@ export default {
       "select": "Agħżel l-orjentazzjonijiet tal-immaġni"
     },
     "IMAGE_SIZE": {
-      "name": "Daqs tal-istampa | Daqsijiet tal-istampa",
+      "name": "Daqs tal-immaġni",
       "options": {
         "extra_large": "Kbar Ħafna 4MP+ (eż. 2688 x 1520px)",
         "large": "Kbar 1-4MP (eż. 1920x1080px)",
@@ -562,7 +562,7 @@ export default {
       "select": "Agħżel daqsijiet tal-immaġni"
     },
     "LANGUAGE": {
-      "name": "Lingwa | Lingwi",
+      "name": "Lingwa",
       "options": {
         "ar": "Għarbi",
         "bg": "Bulgaru",
@@ -621,7 +621,7 @@ export default {
       "select": "Agħżel aggregaturi"
     },
     "proxy_dc_format": {
-      "name": "Format | Formati",
+      "name": "Format",
       "select": "Agħżel formati"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Servizzi li nixtiequ nużaw."
       },
       "consentNotice": {
-        "description": "Aħna nieħdu ħsieb il-privatezza tiegħek u nużaw biss id-dejta biex intejbu l-esperjenza tiegħek. Aħna ma nużaw l-ebda informazzjoni personali għar-reklamar. Tista 'tbiddel il-kunsens tiegħek kull 15-il jum.",
+        "description": "Hi! Nistgħu jekk jogħġbok nippermettu xi servizzi addizzjonali għall-analiżi u s-sigurtà? Tista' dejjem tibdel jew tirtira l-kunsens tiegħek aktar tard.",
         "learnMore": "Ħa nagħżel"
       },
       "decline": "Jien niċħad",
@@ -947,10 +947,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Isem"
-        },
-        "title": "Organizzazzjonijiet"
+        "description": "Esplora l-istituzzjonijiet li jaqsmu l-oġġetti ta' wirt kulturali diġitali fuq Europeana.eu.",
+        "title": "Istituzzjonijiet"
       },
       "persons": {
         "title": "Persuni"
@@ -959,8 +957,11 @@ export default {
         "title": "Postijiet"
       },
       "table": {
+        "country": "Pajjiż",
         "items": "Oġġetti",
-        "name": "Isem"
+        "name": "Isem",
+        "searchPlaceholder": "Fittex fit-tabella",
+        "showMoreData": "Uri aktar dejta għal {entity}"
       },
       "times": {
         "title": "Sekli"
