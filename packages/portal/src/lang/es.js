@@ -100,7 +100,7 @@ export default {
     "by": "por",
     "categories": "Categorías",
     "category": "Categoría",
-    "posts": "Publicaciones del blog",
+    "posts": "Publicación de blog | Publicaciones de blog",
     "published": "Publicado el {date}",
     "relatedPosts": "Publicaciones relacionadas"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "creadores",
-      "name": "Creador | Creadores",
+      "name": "Creador",
       "select": "Seleccionar creadores"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Seleccionar proveedores de datos"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientación de la imagen | Orientaciones de la imagen",
+      "name": "Orientación de la imagen",
       "options": {
         "landscape": "Horizontal",
         "portrait": "Vertical"
@@ -552,7 +552,7 @@ export default {
       "select": "Seleccionar orientaciones de imagen"
     },
     "IMAGE_SIZE": {
-      "name": "Tamaño de imagen | Tamaños de imagen",
+      "name": "Tamaño de la imagen",
       "options": {
         "extra_large": "Extragrande, 4 MP o más (por ejemplo, 2688 × 1520 px) ",
         "large": "Grande, entre 1 y 4 MP (por ejemplo, 1920 × 1080 px)",
@@ -621,7 +621,7 @@ export default {
       "select": "Seleccionar agregadores"
     },
     "proxy_dc_format": {
-      "name": "Formato | Formatos",
+      "name": "Formato",
       "select": "Seleccionar formatos"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Servicios que nos gustaría utilizar."
       },
       "consentNotice": {
-        "description": "Nos preocupamos por su privacidad y solo usamos los datos para mejorar su experiencia. No utilizamos ninguna información personal para publicidad. Puede cambiar su consentimiento cada 15 días.",
+        "description": "¡Hola! ¿Podríamos habilitar algunos servicios adicionales para análisis y seguridad? Siempre podrás cambiar o retirar tu consentimiento más adelante.",
         "learnMore": "Dejame elegir"
       },
       "decline": "Me niego",
@@ -947,10 +947,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nombre"
-        },
-        "title": "Organizaciones"
+        "description": "Explora las instituciones que comparten elementos del patrimonio cultural digital en Europeana.eu.",
+        "title": "Instituciones"
       },
       "persons": {
         "title": "Personas"
@@ -959,8 +957,11 @@ export default {
         "title": "Lugares"
       },
       "table": {
+        "country": "País",
         "items": "Ítems",
-        "name": "Nombre"
+        "name": "Nombre",
+        "searchPlaceholder": "Buscar dentro de la tabla",
+        "showMoreData": "Muestra más datos para {entity}"
       },
       "times": {
         "title": "Siglos"

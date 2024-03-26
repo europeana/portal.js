@@ -100,7 +100,7 @@ export default {
     "by": "par",
     "categories": "Catégories",
     "category": "Catégorie",
-    "posts": "Articles de blog",
+    "posts": "Article de blog | Articles de blog",
     "published": "Publié le {date}",
     "relatedPosts": "Publications Similaires"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "créateurs",
-      "name": "Créateur | Créateurs",
+      "name": "Créateur",
       "select": "Sélectionnez les créateurs"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Sélectionnez l'institution partenaires"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientation de l'image | Orientations de l'image",
+      "name": "Orientation de l'image",
       "options": {
         "landscape": "Paysage",
         "portrait": "Portrait"
@@ -552,7 +552,7 @@ export default {
       "select": "Sélectionnez les orientations de l'image"
     },
     "IMAGE_SIZE": {
-      "name": "Taille d'image | Tailles d'image",
+      "name": "Taille de l'image",
       "options": {
         "extra_large": "Extra Large 4MP+ (par exemple 2 688 x 1 520 px)",
         "large": "Grand 1-4MP (par exemple 1 920 x 1 080 px)",
@@ -621,7 +621,7 @@ export default {
       "select": "Sélectionnez les agrégateurs"
     },
     "proxy_dc_format": {
-      "name": "Format | Formats",
+      "name": "Format",
       "select": "Sélectionnez les formats"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Services que nous aimerions utiliser."
       },
       "consentNotice": {
-        "description": "Nous nous soucions de votre vie privée et n'utilisons les données que pour améliorer votre expérience. Nous n'utilisons aucune information personnelle à des fins publicitaires. Vous pouvez modifier votre consentement tous les 15 jours.",
+        "description": "Salut! Pourrions-nous s'il vous plaît activer certains services supplémentaires pour l'analyse et la sécurité ? Vous pouvez toujours modifier ou retirer votre consentement ultérieurement.",
         "learnMore": "Laisse-moi choisir"
       },
       "decline": "Je décline",
@@ -947,10 +947,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nom"
-        },
-        "title": "Organisations"
+        "description": "Explorez les institutions qui partagent des items de patrimoine culturel numérique sur Europeana.eu.",
+        "title": "Institutions"
       },
       "persons": {
         "title": "Personnes"
@@ -959,8 +957,11 @@ export default {
         "title": "Des endroits"
       },
       "table": {
+        "country": "Pays",
         "items": "Items",
-        "name": "Nom"
+        "name": "Nom",
+        "searchPlaceholder": "Rechercher dans la table",
+        "showMoreData": "Afficher plus de données pour {entity}"
       },
       "times": {
         "title": "Des siècles"
