@@ -12,8 +12,8 @@ describe('@/cachers/collections/topics', () => {
     sinon.resetHistory();
   });
 
-  it('picks slug and prefLabel', () => {
-    expect(cacher.PICK).toEqual(['slug', 'prefLabel']);
+  it('picks slug and prefLabel and recordCount', () => {
+    expect(cacher.PICK).toEqual(['slug', 'prefLabel', 'recordCount']);
   });
 
   it('localises prefLabel', () => {

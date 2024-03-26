@@ -29,8 +29,8 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
 
 const middlewarePath = '/_api/cache/en/collections/organisations';
 const collections = [
-  { slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' }, countryPrefLabel: 'Deutschland' },
-  { slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' }, countryPrefLabel: 'Nederland' }
+  { slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' }, countryPrefLabel: 'Deutschland', recordCount: 1 },
+  { slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' }, countryPrefLabel: 'Nederland', recordCount: 2 }
 ];
 
 const organisations = [
@@ -40,7 +40,8 @@ const organisations = [
     prefLabelLang: 'de',
     altLabel: 'museum',
     altLabelLang: null,
-    countryPrefLabel: 'Deutschland'
+    countryPrefLabel: 'Deutschland',
+    recordCount: 1
   },
   {
     slug: '002-library',
@@ -48,7 +49,8 @@ const organisations = [
     prefLabelLang: 'nl',
     altLabel: 'library',
     altLabelLang: null,
-    countryPrefLabel: 'Nederland'
+    countryPrefLabel: 'Nederland',
+    recordCount: 2
   }
 ];
 
@@ -188,6 +190,7 @@ describe('components/entity/EntityTable', () => {
   describe('when the table is sorted', () => {
     it('updates the route query', async() => {
       const wrapper = factory();
+      await wrapper.setData({ collections });
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
       const recordCountTh = wrapper.find('[aria-colindex="3"]');

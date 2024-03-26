@@ -6,36 +6,20 @@ import uniq from 'lodash/uniq.js';
 import countryCodes from 'i18n-iso-countries';
 import localeCodes from '../../plugins/i18n/codes.js';
 
-const PICK = ['slug', 'recordCount', 'prefLabel', 'countryPrefLabel'];
 const LOCALISE = 'countryPrefLabel';
+const PICK = ['slug', 'recordCount', 'prefLabel', 'countryPrefLabel'];
 
-let axiosClient;
-let axiosClientEntity;
-
-async function getRecordCounts() {
-  const params = {
-    profile: 'facets',
-    query: 'foaf_organization:*data.europeana.eu*',
-    facet: 'foaf_organization',
-    ['f.foaf_organization.facet.limit']: 10000,
-    rows: 0
-  };
-  const response = await axiosClient.get('/search.json', { params });
-  return response.data?.facets?.[0]?.fields || [];
-}
+let entityApiClient;
 
 async function getCountryPrefLabel(entityUrl) {
-  const response = await axiosClientEntity.get(entityUrl);
+  const response = await entityApiClient.get(entityUrl);
   return response.data.prefLabel;
 }
 
 const data = async(config = {}) => {
-  const organisationData = await baseData({ type: 'organization' }, config);
+  const organisationData = await baseData({ type: 'organization' }, config, { recordCounts: 'foaf_organization' });
 
-  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.record);
-  axiosClientEntity = createEuropeanaApiClient(config.europeana?.apis?.entity);
-
-  const recordCounts = await getRecordCounts();
+  entityApiClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
 
   // Get array with all unique countries to only have to request prefLabels once
   const organisationCountries = uniq(organisationData.map(organisation => organisation.country));
@@ -60,19 +44,12 @@ const data = async(config = {}) => {
     }
   }
 
-  return organisationData.map(
-    organisation => {
-      // Add recordCount
-      const organisationId = organisation.id;
-      const organisationWithCount = recordCounts.find(facet => facet.label === organisationId);
-      const recordCount = organisationWithCount?.count || 0;
-      organisation.recordCount = recordCount;
+  return organisationData.map((organisation) => {
+    // Add countryPrefLabel with langmap prefLabel
+    organisation.countryPrefLabel = organisationCountriesPrefLabels[organisation.country] || organisation.country;
 
-      // Add countryPrefLabel with langmap prefLabel
-      organisation.countryPrefLabel = organisationCountriesPrefLabels[organisation.country] || organisation.country;
-
-      return organisation;
-    });
+    return organisation;
+  });
 };
 
 export {

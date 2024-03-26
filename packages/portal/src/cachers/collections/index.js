@@ -1,16 +1,17 @@
 import { createEuropeanaApiClient } from '../utils.js';
 import { getLabelledSlug } from '../../plugins/europeana/utils.js';
 
-let axiosClient;
+let entityApiClient;
+let recordApiClient;
 
 const pageSize = 100;
 
 export const countEntities = async(params = {}, config = {}) => {
-  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
+  entityApiClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
 
-  const response = await axiosClient.get('/search', {
+  const response = await entityApiClient.get('/search', {
     params: {
-      ...axiosClient.defaults.config,
+      ...entityApiClient.defaults.config,
       query: '*:*',
       scope: 'europeana',
       pageSize: 0,
@@ -21,9 +22,9 @@ export const countEntities = async(params = {}, config = {}) => {
 };
 
 const pageOfEntityResults = (page, params = {}) => {
-  return axiosClient.get('/search', {
+  return entityApiClient.get('/search', {
     params: {
-      ...axiosClient.defaults.config,
+      ...entityApiClient.defaults.config,
       query: '*:*',
       scope: 'europeana',
       sort: 'id',
@@ -56,8 +57,39 @@ const allEntityResults = async(params) => {
   return allResults;
 };
 
-export default (params = {}, config = {}) => {
-  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
+const getRecordCounts = async(recordLinkField) => {
+  const params = {
+    profile: 'facets',
+    query: `${recordLinkField}:*data.europeana.eu*`,
+    facet: recordLinkField,
+    [`f.${recordLinkField}.facet.limit`]: 10000,
+    rows: 0
+  };
+  const response = await recordApiClient.get('/search.json', { params });
+  return response.data?.facets?.[0]?.fields || [];
+};
 
-  return allEntityResults(params);
+const withRecordCounts = async(entities, recordLinkField) => {
+  const recordCounts = await getRecordCounts(recordLinkField);
+
+  for (const entity of entities) {
+    // Add recordCount
+    const entityId = entity.id;
+    const entityWithCount = recordCounts.find(facet => facet.label === entityId);
+    const recordCount = entityWithCount?.count || 0;
+    entity.recordCount = recordCount;
+  }
+
+  return entities;
+};
+
+export default async(params = {}, config = {}, options = {}) => {
+  entityApiClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
+  recordApiClient = createEuropeanaApiClient(config.europeana?.apis?.record);
+
+  let results = await allEntityResults(params);
+  if (options.recordCounts) {
+    results = await withRecordCounts(results, options.recordCounts);
+  }
+  return results;
 };
