@@ -257,25 +257,6 @@ describe('components/search/SearchForm', () => {
     });
   });
 
-  describe('when the search options are hidden and on a searchable page', () => {
-    describe('and there is a new query', () => {
-      it('submits the form', async() => {
-        const state = {
-          search: {
-            active: true,
-            queryInputValue: 'art'
-          }
-        };
-        const wrapper = factory({ data: { showSearchOptions: true }, mocks: { $store: { state } } });
-        sinon.spy(wrapper.vm, 'submitForm');
-
-        await wrapper.setData({ showSearchOptions: false });
-
-        expect(wrapper.vm.submitForm.called).toBe(true);
-      });
-    });
-  });
-
   it('re-shows the form when prop updates', async() => {
     const wrapper = factory({ propsData: { show: false } });
 
@@ -364,25 +345,10 @@ describe('components/search/SearchForm', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'submitForm');
 
-      wrapper.vm.handleSelect();
+      const searchFormOptions = wrapper.find(`#${wrapper.vm.searchFormOptionsId}`);
+      await searchFormOptions.vm.$emit('input', { query: 'fish' });
 
       expect(wrapper.vm.submitForm.called).toBe(true);
-    });
-  });
-
-  describe('handleHideOptions()', () => {
-    describe('when hiding options should not trigger a submit', () => {
-      it('resets the query', async() => {
-        const query = 'nature';
-
-        const wrapper = factory({ data: { showSearchOptions: true },
-          mocks: { $store: { state: { search: { queryInputValue: query } } } } });
-
-        wrapper.vm.query = 'art';
-        wrapper.vm.handleHideOptions(undefined);
-
-        expect(wrapper.vm.query).toEqual(query);
-      });
     });
   });
 });

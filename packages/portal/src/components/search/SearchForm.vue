@@ -84,8 +84,7 @@
         :submitting="submitting"
         :show-search-options="showSearchOptions"
         @input="handleSelectedOptionInput"
-        @hideForm="handleHide"
-        @hideOptions="(submit) => handleHideOptions(submit)"
+        @hide="handleHide"
       />
       <SearchThemeBadges
         v-show="showSearchThemeBadges"
@@ -145,7 +144,7 @@
         // https://www.npmjs.com/package/v-click-outside
         clickOutsideConfig: {
           capture: true,
-          events: ['click', 'dblclick', 'focusout', 'touchstart'],
+          events: ['click', 'dblclick', 'focusin', 'touchstart'],
           handler: this.handleClickOutside,
           isActive: false
         },
@@ -161,7 +160,7 @@
       // TODO: this should use v-model
       query: {
         get() {
-          return this.$store.state.search.queryInputValue;
+          return this.$store.state.search.queryInputValue || null;
         },
         // Store the query so that other instances of SearchForm rendered at
         // the same time also have it.
@@ -169,6 +168,7 @@
           this.$store.commit('search/setQueryInputValue', value);
         }
       },
+
       view() {
         return this.$store.getters['search/activeView'];
       },
@@ -203,17 +203,33 @@
           return 'search-form-options';
         }
       },
+
       transition() {
         return this.onSearchablePage && this.query;
       },
+
       inPageHeader() {
         return this.parent === 'page-header';
       },
+
       inSearchSidebar() {
         return this.parent === 'search-sidebar';
       },
+
       inHomeHero() {
         return this.parent === 'home-hero';
+      },
+
+      queryToSubmit() {
+        return this.selectedOption?.query || this.query;
+      },
+
+      queryChanged() {
+        return this.queryToSubmit !== this.routeQuery;
+      },
+
+      routeQuery() {
+        return this.$route.query.query || null;
       }
     },
 
@@ -236,17 +252,10 @@
       },
       // Prevent opening dropdown when navigating back to a search page with query
       onSearchablePage(newVal, oldVal) {
-        if (this.$route.query.query && oldVal !== newVal) {
+        if (this.routeQuery && oldVal !== newVal) {
           this.$nextTick(() => {
             this.blurInput();
           });
-        }
-      },
-      showSearchOptions(newVal) {
-        if (newVal === false && this.onSearchablePage) {
-          if (this.query !== this.$route.query.query) {
-            this.submitForm();
-          }
         }
       }
     },
@@ -267,9 +276,20 @@
           isActive
         };
       },
+
       handleClickOutside() {
         this.setClickOutsideConfigIsActive(false);
-        this.submitForm();
+
+        if (this.queryChanged) {
+          this.submitForm();
+        } else {
+          this.resetSearchOptions();
+        }
+      },
+
+      resetSearchOptions() {
+        this.showSearchOptions = false;
+        this.selectedOption = null;
       },
 
       handleFocusin() {
@@ -277,11 +297,11 @@
       },
 
       initQuery() {
-        this.$store.commit('search/setQueryInputValue', this.$route.query.query);
+        this.query = this.routeQuery;
       },
 
       async submitForm() {
-        const queryToSubmit = this.selectedOption?.query || this.query;
+        this.setClickOutsideConfigIsActive(false);
 
         if (!this.selectedOption?.query) {
           // Set submitting state to track the no autosuggest option selected in SearchQueryOptions
@@ -291,7 +311,7 @@
         const baseQuery = this.onSearchablePage ? this.$route.query : {};
         // `query` must fall back to blank string to ensure inclusion in URL,
         // which is required for analytics site search tracking
-        const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: queryToSubmit || '' } };
+        const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: this.queryToSubmit || '' } };
         const newRoute = this.selectedOption?.link || { path: this.routePath, query: newRouteQuery };
 
         this.$store.commit('search/setLoggableInteraction', true);
@@ -299,12 +319,11 @@
         // init query to update in case of selecting the already selected option
         this.initQuery();
         // Hide search options after initQuery to prevent watcher being called and form resubmitted
-        this.showSearchOptions = false;
-        this.selectedOption = null;
+        this.resetSearchOptions();
       },
 
       clearQuery() {
-        this.$store.commit('search/setQueryInputValue', '');
+        this.query = null;
         this.suggestions = {};
         this.onSearchablePage && this.submitForm();
         this.$nextTick(() => {
@@ -319,6 +338,8 @@
       },
 
       handleHide() {
+        this.query = this.routeQuery;
+        this.resetSearchOptions();
         this.blurInput();
         if (this.hidableForm) {
           this.showForm = false;
@@ -328,14 +349,6 @@
 
       blurInput() {
         this.$refs.searchinput.$el?.blur();
-        this.showSearchOptions = false;
-      },
-
-      handleHideOptions(submit) {
-        // When hiding options should not trigger a submit, reset the query to prevent submission and to show the applied query in the input field
-        if (!submit) {
-          this.initQuery();
-        }
         this.showSearchOptions = false;
       }
     }

@@ -91,15 +91,7 @@
     },
 
     watch: {
-      '$route.query.qa': 'initRulesFromRouteQuery',
-
-      queryRules: {
-        deep: true,
-        handler(newVal) {
-          // FIXME: this gets called too often when changing one rule control
-          console.log('SearchQueryBuilder watch queryRules', newVal);
-        }
-      }
+      '$route.query.qa': 'initRulesFromRouteQuery'
     },
 
     created() {
@@ -132,13 +124,13 @@
         // for validation during form submission, e.g. when modifiers change
         // based on term selection
         this.$nextTick(() => {
-          this.validateRules((valid) => {
-            if (valid) {
-              this.trackAdvancedSearch();
-              this.$store.commit('search/setLoggableInteraction', true);
-              this.$router.push(this.advancedSearchRouteQueryFromRules(this.nonEmptyQueryRules));
-            }
-          });
+          this.validateRules();
+          const allRulesValid = this.validations.every(this.advancedSearchRuleValidationsPass);
+          if (allRulesValid) {
+            this.trackAdvancedSearch();
+            this.$store.commit('search/setLoggableInteraction', true);
+            this.$router.push(this.advancedSearchRouteQueryFromRules(this.nonEmptyQueryRules));
+          }
         });
       },
       handleValidRule(index) {
@@ -146,7 +138,7 @@
       },
       initRulesFromRouteQuery() {
         // FIXME: this gets called too often on 1st load
-        console.log('SearchQueryBuilder initRulesFromRouteQuery');
+        // console.log('SearchQueryBuilder initRulesFromRouteQuery');
         this.queryRules = this.advancedSearchRulesFromRouteQuery();
         if (this.queryRules.length === 0) {
           this.addNewRule();
@@ -167,9 +159,8 @@
           this.$matomo.trackEvent('Adv search', 'Apply adv search', eventName);
         }
       },
-      validateRules(callback) {
+      validateRules() {
         this.validations = this.queryRules.map(this.advancedSearchRuleValidations);
-        callback(this.validations.every(this.advancedSearchRuleValidationsPass));
       }
     }
   };

@@ -342,8 +342,7 @@
           this.navigateWithArrowKeys(event);
         }
         if (event.key === 'Escape') {
-          this.$emit('hideOptions');
-          this.$emit('hideForm');
+          this.$emit('hide');
         }
       },
 

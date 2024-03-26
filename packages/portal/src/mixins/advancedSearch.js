@@ -126,7 +126,7 @@ export default {
       const modifier = this.advancedSearchModifiers.find((modifier) => modifier.name === rule.modifier);
       const escapedTerm = escapeLuceneSpecials(rule.term, { spaces: true });
       const term = escaped ? escapedTerm : rule.term;
-      return modifier.query[field.type].replace('<field>', field.name).replace('<term>', term);
+      return modifier?.query[field.type].replace('<field>', field.name).replace('<term>', term);
     },
 
     advancedSearchRouteQueryFromRules(rules) {

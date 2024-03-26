@@ -8,7 +8,6 @@
   >
     <b-form-input
       :id="id"
-      ref="searchinput"
       v-model="term"
       :name="name"
       :data-qa="`advanced search query builder: ${name} control`"
@@ -21,13 +20,12 @@
       :aria-controls="showSearchOptions ? optionsId : null"
       @input="handleInput"
       @blur="handleBlur"
-      @keydown.enter="handleChange"
     />
     <SearchQueryOptions
       v-show="showSearchOptions"
       :id="optionsId"
-      ref="searchoptions"
       v-model="selectedOption"
+      :data-qa="`advanced search query builder: ${name} search options`"
       class="auto-suggest-dropdown"
       :text="term"
       :type="suggestEntityType"
@@ -37,7 +35,7 @@
       :show-search-options="showSearchOptions"
       :submitting="submitting"
       @input="handleSelectedOptionInput"
-      @hideOptions="handleHideOptions"
+      @hide="handleChange"
     />
   </div>
 </template>
@@ -166,11 +164,6 @@
       handleInput(value) {
         this.showSearchOptions = (value.length > 0);
         this.$emit('input', value);
-      },
-      handleHideOptions() {
-        this.showSearchOptions = false;
-        this.selectedOption = null;
-        this.handleBlur();
       },
       handleSelectedOptionInput(option) {
         this.$emit('input', option.query);
