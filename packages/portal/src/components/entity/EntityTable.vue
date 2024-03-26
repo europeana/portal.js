@@ -36,7 +36,6 @@
       striped
       class="borderless"
       @filtered="onFiltered"
-      @sort-changed="onSortchanged"
     >
       <template #table-busy>
         <div class="text-center my-2">
@@ -114,6 +113,7 @@
 
   export default {
     name: 'EntityTable',
+
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
@@ -121,15 +121,18 @@
       PaginationNavInput,
       SmartLink
     },
+
     mixins: [
       europeanaEntitiesOrganizationsMixin
     ],
+
     props: {
       type: {
         type: String,
         required: true
       }
     },
+
     data() {
       return {
         collections: null,
@@ -163,6 +166,7 @@
         perPage: 40
       };
     },
+
     async fetch() {
       try {
         const response = await this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin });
@@ -178,7 +182,9 @@
         console.error({ statusCode: 500, message: e.toString() });
       }
     },
+
     fetchOnServer: false,
+
     computed: {
       apiEndpoint() {
         return `/_api/cache/${this.cacheKey}`;
@@ -189,11 +195,29 @@
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
       },
-      sortBy() {
-        return this.$route?.query?.sort?.split(' ')[0] || 'prefLabel';
+      sortBy: {
+        get() {
+          return this.sort[0] || 'prefLabel';
+        },
+        set(value) {
+          this.sort = { sortBy: value, sortDesc: this.sortDesc };
+        }
       },
-      sortDesc() {
-        return this.$route?.query?.sort?.split(' ')[1] === 'desc';
+      sortDesc: {
+        get() {
+          return this.sort[1] === 'desc';
+        },
+        set(value) {
+          this.sort = { sortBy: this.sortBy, sortDesc: value };
+        }
+      },
+      sort: {
+        get() {
+          return this.$route?.query?.sort?.split(' ') || [null, null];
+        },
+        set({ sortBy, sortDesc }) {
+          this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` });
+        }
       }
     },
 
@@ -228,9 +252,6 @@
       onFiltered(filteredItems) {
         this.totalResults = filteredItems.length;
         this.updateRouteQuery({ filter: this.filter });
-      },
-      onSortchanged(ctx) {
-        this.updateRouteQuery({ sort: `${ctx.sortBy} ${ctx.sortDesc ? 'desc' : 'asc'}` });
       },
       updateRouteQuery(newQuery) {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });

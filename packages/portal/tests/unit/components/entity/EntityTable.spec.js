@@ -187,15 +187,13 @@ describe('components/entity/EntityTable', () => {
 
   describe('when the table is sorted', () => {
     it('updates the route query', async() => {
-      const newSortField = 'recordCount';
-      const newSortDirection = 'desc';
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      wrapper.vm.onSortchanged({ sortBy: newSortField, sortDesc: true });
-      await wrapper.vm.$nextTick();
+      const recordCountTh = wrapper.find('[aria-colindex="3"]');
+      await recordCountTh.trigger('click');
 
-      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: `${newSortField} ${newSortDirection}` })).toBe(true);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'recordCount asc' })).toBe(true);
     });
   });
 });
