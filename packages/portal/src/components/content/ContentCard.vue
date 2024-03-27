@@ -82,12 +82,12 @@
             </SmartLink>
           </b-card-title>
           <b-card-text
-            v-if="hitsText"
+            v-if="hitText"
             text-tag="div"
             data-qa="highlighted search term"
           >
             <p>
-              {{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}
+              {{ hitTextPrefix }}<strong class="has-text-highlight">{{ hitText.exact }}</strong>{{ hitTextSuffix }}
             </p>
           </b-card-text>
           <template v-if="displayTexts.length > 0">
@@ -123,6 +123,8 @@
   import SmartLink from '../generic/SmartLink';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+
+  const HIT_TEXT_AFFIX_MAX_WORDS = 15;
 
   export default {
     name: 'ContentCard',
@@ -164,9 +166,9 @@
         default: () => []
       },
       /**
-       * Hits from a search to highlight in the card texts
+       * Hit from a search to highlight in the card texts
        */
-      hitsText: {
+      hitText: {
         type: Object,
         default: null
       },
@@ -307,10 +309,13 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections'
+        displayLabelTypes: 'exhibitions|galleries|blog|collections',
+        // hit prefix & suffix can be overly long for our display purposes;
+        // limit to max num of words each
+        hitTextPrefix: this.hitText?.prefix?.split(/\s/).slice(-HIT_TEXT_AFFIX_MAX_WORDS).join(' '),
+        hitTextSuffix: this.hitText?.suffix?.split(/\s/).slice(0, HIT_TEXT_AFFIX_MAX_WORDS).join(' ')
       };
     },
-
     computed: {
       cardClass() {
         return `${this.variant}-card`;
@@ -478,7 +483,7 @@
       class="mr-3 mb-3"
       title="Title of a list variant content card"
       :image-url="thumbnails[3]"
-      :hitsText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
+      :hitText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
       url="/"
     />
     <ContentCard

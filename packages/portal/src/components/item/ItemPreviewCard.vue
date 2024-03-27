@@ -5,7 +5,7 @@
     :url="url"
     :image-url="imageUrl"
     :texts="texts"
-    :hits-text="hitsText"
+    :hit-text="hitText"
     :limit-values-within-each-text="3"
     :omit-all-uris="true"
     :blank-image-height="280"
@@ -94,7 +94,7 @@
         required: true
       },
       /**
-       * Hits from a search to highlight in the item description
+       * Hit from a search to highlight in the item description
        * Only used on list variant
        */
       hitSelector: {
@@ -213,7 +213,7 @@
         return texts;
       },
 
-      hitsText() {
+      hitText() {
         return this.variant === 'list' ? this.hitSelector : null;
       },
 

@@ -186,7 +186,7 @@ describe('components/search/SearchQueryOptions', () => {
             const option = wrapper.find('[data-qa="search entire collection button"]');
             option.trigger('click');
 
-            expect(wrapper.vm.$matomo.trackEvent.calledWith('Advanced search autosuggest', 'Advanced search autosuggest option is not selected', 'what: undefined')).toBe(true);
+            expect(wrapper.vm.$matomo.trackEvent.calledWith('Advanced search autosuggest', 'Advanced search autosuggest option is not selected', 'what: null')).toBe(true);
           });
         });
         describe('and not the first option', () => {
@@ -223,7 +223,7 @@ describe('components/search/SearchQueryOptions', () => {
             const option = wrapper.find('[data-qa="search entire collection button"]');
             option.trigger('click');
 
-            expect(wrapper.vm.$matomo.trackEvent.calledWith('Autosuggest_option_not_selected', 'Autosuggest option is not selected', undefined)).toBe(true);
+            expect(wrapper.vm.$matomo.trackEvent.calledWith('Autosuggest_option_not_selected', 'Autosuggest option is not selected', null)).toBe(true);
           });
         });
         describe('and not the first option', () => {
@@ -250,38 +250,6 @@ describe('components/search/SearchQueryOptions', () => {
                 'suggestion_rank': 1
               }
             })).toBe(true);
-          });
-        });
-      });
-    });
-
-    describe('handleClickOrFocusOutside', () => {
-      const wrapper = parentFactory();
-      const searchOptionsComponent = wrapper.find('[data-qa="search query options"]');
-      describe('when user clicks outside the search form dropdown', () => {
-        it('hides the search options', async() => {
-          const handleClickEvent = new Event('click');
-
-          searchOptionsComponent.vm.handleClickOrFocusOutside(handleClickEvent);
-
-          expect(searchOptionsComponent.emitted('hideOptions').length).toBe(1);
-        });
-
-        describe('and clicks an interactive element', () => {
-          it('hides the search options, without submitting the query', async() => {
-            const handleClickButtonEvent = { target: { id: 'button', tagName: 'BUTTON' } };
-            searchOptionsComponent.vm.checkIftargetOutsideSearchDropdown = () => true;
-            searchOptionsComponent.vm.handleClickOrFocusOutside(handleClickButtonEvent);
-
-            expect(searchOptionsComponent.emitted('hideOptions').length).toBe(2);
-            expect(searchOptionsComponent.emitted('hideOptions')[2]).toEqual(undefined);
-
-            const handleClickMenuEvent = { target: { id: 'button', role: 'menu' } };
-
-            searchOptionsComponent.vm.handleClickOrFocusOutside(handleClickMenuEvent);
-
-            expect(searchOptionsComponent.emitted('hideOptions').length).toBe(3);
-            expect(searchOptionsComponent.emitted('hideOptions')[3]).toEqual(undefined);
           });
         });
       });
@@ -326,22 +294,7 @@ describe('components/search/SearchQueryOptions', () => {
 
           searchOptionsComponent.vm.handleKeyDown(handleKeyDownEvent);
 
-          expect(searchOptionsComponent.emitted('hideOptions').length).toBe(1);
-          expect(searchOptionsComponent.emitted('hideForm').length).toBe(1);
-        });
-      });
-    });
-
-    describe('checkIftargetOutsideSearchDropdown', () => {
-      const wrapper = parentFactory();
-      const searchOptionsComponent = wrapper.find('[data-qa="search query options"]');
-      describe('when user clicks the show search button', () => {
-        it('returns false', async() => {
-          const handleClickEvent = { target: { id: 'show-search-button' } };
-
-          const check = searchOptionsComponent.vm.checkIftargetOutsideSearchDropdown(handleClickEvent);
-
-          expect(check).toBe(false);
+          expect(searchOptionsComponent.emitted('hide').length).toBe(1);
         });
       });
     });
