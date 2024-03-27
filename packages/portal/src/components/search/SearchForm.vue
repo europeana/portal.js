@@ -278,16 +278,11 @@
       },
 
       handleClickOutside() {
-        this.setClickOutsideConfigIsActive(false);
-
-        if (this.queryChanged) {
-          this.submitForm();
-        } else {
-          this.resetSearchOptions();
-        }
+        this.queryChanged ? this.submitForm() : this.resetSearchOptions();
       },
 
       resetSearchOptions() {
+        this.setClickOutsideConfigIsActive(false);
         this.showSearchOptions = false;
         this.selectedOption = null;
       },
