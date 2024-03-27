@@ -82,8 +82,11 @@ table,
       transform: rotate(180deg);
     }
 
-    &:hover div::after {
-      color: $black;
+    // prevents hover style overriding the active sort style on touch devices
+    @media (hover: hover) and (pointer: fine) {
+      &:hover div::after {
+        color: $black;
+      }
     }
   }
 
