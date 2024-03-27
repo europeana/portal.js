@@ -919,6 +919,7 @@ export default {
   },
   "multilingual": {
     "automated": "Автоматизиран превод",
+    "automatedPageTranslations": "Тази страница използва автоматично генерирани преводи от английски.",
     "enrichment": "Обогатяване по партньорски проекти",
     "loginToTranslate": "{login}, за да видите тази обект на други езици",
     "other": "други езици",

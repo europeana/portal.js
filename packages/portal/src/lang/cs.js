@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizovaný překlad",
+    "automatedPageTranslations": "Tato stránka používá automaticky generované překlady z angličtiny.",
     "enrichment": "Obohacení partnerskými projekty",
     "loginToTranslate": "{login} pro zobrazení této položky v jiných jazycích",
     "other": "jiné jazyky",

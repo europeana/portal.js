@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automātiskā tulkošana",
+    "automatedPageTranslations": "Šī lapa izmanto automātiski ģenerētus tulkojumus no angļu valodas.",
     "enrichment": "Bagātināšana ar partneru projektiem",
     "loginToTranslate": "{login}, lai skatītu šo digitālo objektu citās valodās",
     "other": "citas valodas",

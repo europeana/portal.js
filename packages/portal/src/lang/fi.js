@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatisoitu käännös",
+    "automatedPageTranslations": "Tämä sivu käyttää automaattisesti luotuja käännöksiä englannista.",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
     "loginToTranslate": "{login} nähdäksesi tämän aineisto muilla kielillä",
     "other": "muut kielet",

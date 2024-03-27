@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiseeritud tõlge",
+    "automatedPageTranslations": "See lehekülg kasutab automaatselt genereeritud tõlkeid inglise keelest.",
     "enrichment": "Rikastamine partner projektide kaudu",
     "loginToTranslate": "{login} et näha seda üksust teistes keeltes",
     "other": "muud keeled",

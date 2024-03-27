@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Traduzzjoni awtomatizzata",
+    "automatedPageTranslations": "Din il-paġna tuża traduzzjonijiet iġġenerati awtomatikament mill-Ingliż.",
     "enrichment": "Arrikkiment minn proġetti msieħba",
     "loginToTranslate": "{login} biex tara dan l-oġġett f'lingwi oħra",
     "other": "lingwi oħra",

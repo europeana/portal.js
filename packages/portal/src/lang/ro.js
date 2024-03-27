@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Traducere automată",
+    "automatedPageTranslations": "Această pagină utilizează traduceri generate automat din engleză.",
     "enrichment": "Îmbogățirea prin proiecte partenere",
     "loginToTranslate": "{login} pentru a vedea acest resursă culturală în alte limbi",
     "other": "alte limbi",

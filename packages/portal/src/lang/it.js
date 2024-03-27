@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Traduzione automatica",
+    "automatedPageTranslations": "Questa pagina utilizza traduzioni generate automaticamente dall'inglese.",
     "enrichment": "Arricchimento da parte dei progetti partner",
     "loginToTranslate": "{login} per vedere questo oggetto in altre lingue",
     "other": "altre lingue",

@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatinis vertimas",
+    "automatedPageTranslations": "Šiame puslapyje naudojami automatiškai sugeneruoti vertimai iš anglų kalbos.",
     "enrichment": "Praturtinimas partnerių projektais",
     "loginToTranslate": "{login} kad pamatytumėte šį skaitmeninį objektą kitomis kalbomis",
     "other": "kitos kalbos",
