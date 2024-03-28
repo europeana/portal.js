@@ -913,6 +913,16 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "apiDemo": "API demo",
+          "europeanaApis": "Europeana APIs",
+          "findInspiration": "Find inspiration",
+          "faq": "FAQ"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Monthly API requests, on average",
       "hqData": "Increase in high-quality data per year",

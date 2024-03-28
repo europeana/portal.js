@@ -7,7 +7,7 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader
+    <LandingPageHeader
       ref="pageHeader"
     />
     <main
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import PageHeader from '@/components/page/PageHeader';
+  import LandingPageHeader from '@/components/landing/LandingPageHeader';
   import LandingPageFooter from '@/components/landing/LandingPageFooter';
   import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
@@ -36,7 +36,7 @@
     name: 'LandingLayout',
 
     components: {
-      PageHeader,
+      LandingPageHeader,
       LandingPageFooter,
       PageCookieConsent: () => import('@/components/page/PageCookieConsent')
     },
