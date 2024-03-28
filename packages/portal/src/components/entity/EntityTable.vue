@@ -65,7 +65,7 @@
         </SmartLink>
       </template>
       <template
-        v-if="type === 'organisations'"
+        v-if="hasField('recordCount')"
         #cell(recordCount)="data"
       >
         <span>
@@ -88,7 +88,7 @@
         </b-button>
       </template>
       <template
-        v-if="type === 'organisations'"
+        v-if="hasField('countryPrefLabel')"
         #row-details="row"
       >
         <span>{{ row.item.countryPrefLabel }}</span>
@@ -137,30 +137,6 @@
       return {
         collections: null,
         filter: this.$route?.query?.filter || null,
-        fields: [
-          {
-            key: 'prefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.table.name'),
-            class: 'table-name-cell'
-          },
-          this.type === 'organisations' && {
-            key: 'countryPrefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.table.country'),
-            class: 'text-center d-none d-md-table-cell'
-          },
-          this.type === 'organisations' && {
-            key: 'recordCount',
-            sortable: true,
-            label: this.$t('pages.collections.table.items'),
-            class: 'text-right'
-          },
-          this.type === 'organisations' && {
-            key: 'showDetails',
-            class: 'table-toggle-cell d-md-none'
-          }
-        ],
         typeSingular: this.type.slice(0, -1),
         totalResults: this.collections?.length || 0,
         perPage: 40
@@ -173,10 +149,8 @@
         let collections = response.data[this.cacheKey];
         if (this.type === 'organisations') {
           collections = collections.map(this.organisationData);
-          this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
-        } else {
-          this.collections = collections.map(Object.freeze);
         }
+        this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
       } catch (e) {
         // TODO: set fetch state error from message
         console.error({ statusCode: 500, message: e.toString() });
@@ -194,6 +168,32 @@
       },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
+      },
+      fields() {
+        return [
+          {
+            key: 'prefLabel',
+            sortable: true,
+            label: this.$t('pages.collections.table.name'),
+            class: 'table-name-cell'
+          },
+          this.type === 'organisations' && {
+            key: 'countryPrefLabel',
+            sortable: true,
+            label: this.$t('pages.collections.table.country'),
+            class: 'text-center d-none d-md-table-cell'
+          },
+          (this.collections?.[0]?.recordCount !== undefined) && {
+            key: 'recordCount',
+            sortable: true,
+            label: this.$t('pages.collections.table.items'),
+            class: 'text-right'
+          },
+          this.type === 'organisations' && {
+            key: 'showDetails',
+            class: 'table-toggle-cell d-md-none'
+          }
+        ];
       },
       sortBy: {
         get() {
@@ -233,6 +233,9 @@
     },
 
     methods: {
+      hasField(name) {
+        return this.fields.some((field) => field.key === name);
+      },
       organisationData(org) {
         const nativeName = this.organizationEntityNativeName({ ...org, type: 'Organization' });
         const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
