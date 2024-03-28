@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiserad översättning",
+    "automatedPageTranslations": "Den här sidan använder automatiskt genererade översättningar från engelska.",
     "enrichment": "Berikning genom partnerprojekt",
     "loginToTranslate": "{login} för att se detta objekt på andra språk",
     "other": "andra språk",

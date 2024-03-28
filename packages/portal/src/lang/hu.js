@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizált fordítás",
+    "automatedPageTranslations": "Ez az oldal automatikusan generált fordításokat használ az angolból.",
     "enrichment": "Gazdagodás partnerprojektek által",
     "loginToTranslate": "{login} hogy ezt a tárgyat más nyelveken is megtekinthesse.",
     "other": "egyéb nyelvek",

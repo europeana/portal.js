@@ -923,6 +923,7 @@ export default {
   },
   "multilingual": {
     "automated": "Itzulpen automatizatua",
+    "automatedPageTranslations": "Orrialde honek ingelesetik automatikoki sortutako itzulpenak erabiltzen ditu.",
     "enrichment": "Bazkide proiektuen aberastea",
     "loginToTranslate": "{login} elementu hau beste hizkuntza batzuetan ikusteko",
     "other": "beste hizkuntza batzuk",

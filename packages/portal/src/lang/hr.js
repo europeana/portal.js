@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizirani prijevod",
+    "automatedPageTranslations": "Ova stranica koristi automatski generirane prijevode s engleskog.",
     "enrichment": "Obogaćivanje partnerskim projektima",
     "loginToTranslate": "{login} za pregled ovog predmeta na drugim jezicima",
     "other": "drugi jezici",

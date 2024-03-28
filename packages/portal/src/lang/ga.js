@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Aistriúchán uathoibrithe",
+    "automatedPageTranslations": "Úsáideann an leathanach seo aistriúcháin uathghinte ón mBéarla.",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
     "loginToTranslate": "{login} chun an mhír seo a fheiceáil i dteangacha eile",
     "other": "teangacha eile",
