@@ -23,9 +23,6 @@ export const truncate = (text, length, ellipsis = '…') => {
 };
 Vue.filter('truncate', truncate);
 
-export const wordLength = text => text?.trim()?.match(/\w+/g)?.length || 0;
-Vue.filter('wordLength', wordLength);
-
 /**
  * Convert new lines to <br/>
  * @param {string} val text value
