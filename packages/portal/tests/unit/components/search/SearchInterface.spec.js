@@ -144,7 +144,7 @@ describe('components/search/SearchInterface', () => {
 
         expect(wrapper.vm.$error.calledWith(
           sinon.match.has('code', 'searchPaginationLimitExceeded'),
-          { tValues: { description: { limit: 5000 } } }
+          { tValues: { description: { limit: '5,000' } } }
         )).toBe(true);
       });
     });

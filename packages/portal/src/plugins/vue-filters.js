@@ -8,13 +8,6 @@
 
 import Vue from 'vue';
 
-Vue.filter('localise', val => {
-  if (typeof val === 'undefined' || val === null) {
-    return val;
-  }
-  return val.toLocaleString('en');
-});
-
 export const truncate = (text, length, ellipsis = '…') => {
   if (!text) {
     return null;
