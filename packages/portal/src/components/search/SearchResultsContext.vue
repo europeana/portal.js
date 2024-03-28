@@ -147,7 +147,7 @@
         }
       },
       totalResultsLocalised() {
-        return this.$options.filters.localise(this.totalResults);
+        return this.totalResults?.toLocaleString('en');
       },
       hasQuery() {
         return this.query && this.query !== '';

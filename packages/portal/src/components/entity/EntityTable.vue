@@ -69,7 +69,7 @@
         #cell(recordCount)="data"
       >
         <span>
-          {{ data.item.recordCount | localise }}
+          {{ data.item.recordCount?.toLocaleString('en') }}
         </span>
       </template>
       <template
