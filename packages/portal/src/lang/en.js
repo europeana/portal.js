@@ -913,7 +913,6 @@ export default {
     }
   },
   "landing": {
-    "europeanaNumbers": "Europeana.eu in numbers",
     "counts": {
       "apiRequests": "Monthly API requests, on average",
       "hqData": "Increase in high-quality data per year",
@@ -921,6 +920,15 @@ export default {
       "networkMembers": "Network members",
       "providingInstitutions": "Providing institutions",
       "visits": "Visits per day"
+    },
+    "europeanaNumbers": "Europeana.eu in numbers",
+    "footer": {
+      "navigation": {
+        "apiDocumentation": "API Documentation",
+        "contactUs": "Contact us",
+        "requestApiKey": "Request an API key",
+        "resourcesLabel": "Resources"
+      }
     }
   },
   "layout": {

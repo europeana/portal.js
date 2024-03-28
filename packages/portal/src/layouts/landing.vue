@@ -17,7 +17,7 @@
         id="main"
       />
     </main>
-    <PageFooter />
+    <LandingPageFooter />
     <client-only>
       <PageCookieConsent
         v-if="cookieConsentRequired"
@@ -28,7 +28,7 @@
 
 <script>
   import PageHeader from '@/components/page/PageHeader';
-  import PageFooter from '@/components/page/PageFooter';
+  import LandingPageFooter from '@/components/landing/LandingPageFooter';
   import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
 
@@ -37,7 +37,7 @@
 
     components: {
       PageHeader,
-      PageFooter,
+      LandingPageFooter,
       PageCookieConsent: () => import('@/components/page/PageCookieConsent')
     },
 

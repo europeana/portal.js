@@ -24,7 +24,7 @@ const factory = ({ mocks = {} } = {}) => shallowMount(PageFooter, {
   }
 });
 
-describe('components/PageFooter', () => {
+describe('components/page/PageFooter', () => {
   it('contains the language selector', async() => {
     const wrapper = factory();
     await wrapper.setProps({
