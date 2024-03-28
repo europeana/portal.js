@@ -177,28 +177,6 @@
       }
     }
   }
-
-  .dropdown {
-    .dropdown-toggle {
-      color: $blue;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      font-weight: 400;
-      text-transform: none;
-
-      &::before {
-        content: '\e905';
-        margin-right: 0.5rem;
-
-        @extend %icon-font;
-      }
-    }
-
-    .dropdown-menu {
-      max-height: 50vh;
-      overflow: auto;
-    }
-  }
 }
 
 .footer-margin {

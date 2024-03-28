@@ -199,17 +199,7 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icons';
   @import '@europeana/style/scss/footer';
-
-  .dropdown {
-    .btn-light,
-    .dropdown-menu {
-      @media (min-width: $bp-wqhd) {
-        font-size: 1.125rem;
-      }
-    }
-  }
 </style>
 
 <docs lang="md">
