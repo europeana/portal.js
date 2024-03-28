@@ -5,9 +5,27 @@ import middleware from '@/middleware/l10n';
 describe('middleware/l10n', () => {
   afterEach(sinon.resetHistory);
 
-  const app = { $cookies: { set: sinon.spy() } };
+  const app = { $cookies: { get: sinon.spy(), set: sinon.spy() } };
   const redirect = sinon.spy();
   const req = {};
+
+  describe('if route path should be ignored for l10n', () => {
+    describe('because it is an auth callback', () => {
+      const route = { path: '/account/callback' };
+
+      it('is is not stored in the cookie', () => {
+        middleware({ app, route, redirect, req });
+
+        expect(app.$cookies.set.called).toBe(false);
+      });
+
+      it('does not redirect', () => {
+        middleware({ app, route, redirect, req });
+
+        expect(redirect.called).toBe(false);
+      });
+    });
+  });
 
   describe('if route path seems to include a locale', () => {
     describe('and that locale is supported', () => {

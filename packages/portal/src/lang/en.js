@@ -47,12 +47,12 @@ export default {
     "download": "Download",
     "edit": "Edit",
     "explore": "Explore",
-    "feedback": "Feedback",
     "filter": "Filter",
     "goHome": "Go to the homepage",
     "hide": "Hide",
     "learnMore": "Learn more",
     "like": "Like",
+    "login": "Log in",
     "move": "Move",
     "next": "Next",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Reject",
     "requestDepublication": "Request depublication",
     "save": "Save",
-    "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
     "show": "Show",
     "showLess": "Show less",
     "showMore": "Show more",
-    "skipSend": "Skip and send",
     "submitForPublication": "Submit for publication",
     "submittedForPublication": "Submitted for publication",
     "transcribe": "Transcribe",
@@ -82,6 +80,7 @@ export default {
     "creator": "Creator:",
     "date": "Date:",
     "institution": "Institution:",
+    "show": "Show attribution",
     "title": "Title:"
   },
   "automatedCardGroup": {
@@ -212,6 +211,19 @@ export default {
   "directions": {
     "left": "Left",
     "right": "Right"
+  },
+  "ds4ch": {
+    "broughtBy": "Brought to you by",
+    "footer": {
+      "disclaimerLine1": "The common European data space for cultural heritage is an initiative of the European Union, financed by the European Union’s Digital Europe Programme. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission."
+    },
+    "header": {
+      "navigation": {
+        "about": "About the data space",
+        "explore": "Explore the data",
+        "partners": "Partners"
+      }
+    }
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
@@ -535,6 +547,7 @@ export default {
         "en": "English",
         "es": "Spanish",
         "et": "Estonian",
+        "eu": "Basque",
         "fi": "Finnish",
         "fr": "French",
         "ga": "Irish",
@@ -681,25 +694,6 @@ export default {
       "select": "Select media"
     }
   },
-  "feedback": {
-    "emailOptional": "We may wish to follow up. Enter your email if you're happy for us to contact you.",
-    "failed": "The request failed. Please try again.",
-    "faq": "Go to frequently asked questions",
-    "form": {
-      "placeholders": {
-        "email": "Enter your email address",
-        "feedback": "Enter your feedback here"
-      }
-    },
-    "policies": "By continuing, you agree to our {0} and acknowledge our {1}.",
-    "privacyPolicy": "Privacy Policy",
-    "success": "Your feedback has been sent.",
-    "termsOfService": "Terms of Service",
-    "thankYou": "Thank you!",
-    "title": "Send feedback",
-    "validEmail": "Enter a valid email address",
-    "validFeedback": "Your feedback has to consist of 5 words at minimum"
-  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Contributors",
@@ -776,19 +770,20 @@ export default {
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
     "findUsElsewhere": "Find us elsewhere",
+    "footer": "Footer",
     "imageDescription": "Funded by the European Union",
     "navigation": {
       "MoreInfoLabel": "More Info",
       "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
-      "faq": "Frequently asked questions",
+      "faq": "Frequently Asked Questions (FAQ)",
       "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
       "provide": "Become a providing institution",
       "subscribe": "Subscribe to our newsletter",
-      "terms": "Terms of use"
+      "terms": "Terms & Policies"
     },
     "ourMission": "Our mission",
     "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation."
@@ -920,9 +915,12 @@ export default {
   "landing": {
     "europeanaNumbers": "Europeana.eu in numbers",
     "counts": {
-      "visits": "Visits per day",
+      "apiRequests": "Monthly API requests, on average",
+      "hqData": "Increase in high-quality data per year",
       "items": "Items",
-      "providingInstitutions": "Providing institutions"
+      "networkMembers": "Network members",
+      "providingInstitutions": "Providing institutions",
+      "visits": "Visits per day"
     }
   },
   "layout": {
@@ -953,7 +951,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automated translation",
+    "automatedPageTranslations": "This page uses auto-generated translations from English.",
     "enrichment": "Enrichment by partner projects",
+    "loginToTranslate": "{login} to see this item in other languages",
     "other": "other languages",
     "stopTranslating": "Stop translating this item to {0}.",
     "translateLanguage": "Would you like to see this item in {0}?",
@@ -985,10 +985,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Name"
-        },
-        "title": "Organisations"
+        "description": "Explore the institutions which share digital cultural heritage items on Europeana.eu.",
+        "title": "Institutions"
       },
       "persons": {
         "title": "Persons"
@@ -997,8 +995,11 @@ export default {
         "title": "Places"
       },
       "table": {
+        "country": "Country",
         "items": "Items",
-        "name": "Name"
+        "name": "Name",
+        "searchPlaceholder": "Search within table",
+        "showMoreData": "Show more data for {entity}"
       },
       "times": {
         "title": "Centuries"
@@ -1111,6 +1112,9 @@ export default {
     },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
+      "loginToSeeMore": "{login} to see more results",
+      "loginToSeeMultilingualResults": "Log in to search across the entire collection, and get results not limited to the language of your search term.",
+      "showingMultilingualResults": "Showing results across the entire collection and all languages.",
       "withinCollection": "{count} results within {type} {collection}",
       "withinCollectionWithQuery": "{count} results within {type} {collection} for {query}",
       "withoutQuery": "{count} results",
@@ -1219,6 +1223,9 @@ export default {
   "storiesPage": {
     "title": "Stories",
     "storiesHaveLoaded": "{0} stories found"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slide group {page}"
   },
   "themes": {
     "themes": "Themes",

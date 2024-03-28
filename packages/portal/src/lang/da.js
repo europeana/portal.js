@@ -47,12 +47,12 @@ export default {
     "download": "Hent",
     "edit": "Rediger",
     "explore": "Udforske",
-    "feedback": "Feedback",
     "filter": "Filter",
     "goHome": "Gå til hjemmesiden",
     "hide": "Skjul",
     "learnMore": "Lær mere",
     "like": "Synes om",
+    "login": "Log ind",
     "move": "Bevæge sig",
     "next": "Næste",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Afvise",
     "requestDepublication": "Anmodning om afpublicering",
     "save": "Gem",
-    "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
     "show": "Vis",
     "showLess": "Vis mindre",
     "showMore": "Vis mere",
-    "skipSend": "Spring over og send",
     "submitForPublication": "Indsend til offentliggørelse",
     "submittedForPublication": "Indsendt til offentliggørelse",
     "transcribe": "Transskriber",
@@ -82,6 +80,7 @@ export default {
     "creator": "Oprettet af:",
     "date": "Dato:",
     "institution": "Institution:",
+    "show": "Vis tilskrivning",
     "title": "Titel:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "af",
     "categories": "Kategorier",
     "category": "Kategori",
-    "posts": "Blogindlæg",
+    "posts": "Blogindlæg | Blogindlæg",
     "published": "Offentliggjort {date}",
     "relatedPosts": "Relaterede indlæg"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Venstre",
     "right": "Højre"
+  },
+  "ds4ch": {
+    "broughtBy": "Bragt til dig af"
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "skabere",
-      "name": "Skaber | Skaberne",
+      "name": "Skaberen",
       "select": "Vælg skabere"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Vælg ejerinstitutioner"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Billedretning | Billedretninger",
+      "name": "Billedorientering",
       "options": {
         "landscape": "Landskab",
         "portrait": "Portræt"
@@ -550,7 +552,7 @@ export default {
       "select": "Vælg billedorienteringer"
     },
     "IMAGE_SIZE": {
-      "name": "Billedstørrelse | Billedstørrelser",
+      "name": "Billedestørrelse",
       "options": {
         "extra_large": "Ekstra stor 4MP + (f.eks. 2688 x 1520px)",
         "large": "Stor 1-4MP (f.eks 1920x1080px)",
@@ -574,6 +576,7 @@ export default {
         "en": "Engelsk",
         "es": "Spansk",
         "et": "Estisk",
+        "eu": "Baskisk",
         "fi": "Finsk",
         "fr": "Fransk",
         "ga": "Irsk",
@@ -618,7 +621,7 @@ export default {
       "select": "Vælg aggregatorer"
     },
     "proxy_dc_format": {
-      "name": "Format | Formater",
+      "name": "Format",
       "select": "Vælg formater"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Vælg typer af medier"
     }
-  },
-  "feedback": {
-    "emailOptional": "Vi ønsker måske at følge op. Indtast din e-mail, hvis du er glad for, at vi kontakter dig.",
-    "failed": "Anmodningen mislykkedes. Prøv igen.",
-    "faq": "Gå til ofte stillede spørgsmål",
-    "form": {
-      "placeholders": {
-        "email": "Indtast din e-mailadresse",
-        "feedback": "Indtast din feedback her"
-      }
-    },
-    "policies": "Ved at fortsætte accepterer du vores {0} og anerkender vores {1} .",
-    "privacyPolicy": "Fortrolighedspolitik",
-    "success": "Din feedback er sendt.",
-    "termsOfService": "Vilkår for brug",
-    "thankYou": "Tak!",
-    "title": "Send feedback",
-    "validEmail": "Indtast en gyldig email addresse",
-    "validFeedback": "Din feedback skal mindst bestå af 5 ord"
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana er et initiativ fra Den Europæiske Union, der finansieres af EU's Connecting Europe-facilitet og EU's medlemsstater. Europeana-tjenesterne, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen.",
     "disclaimerLine2": "Europa-Kommissionen garanterer ikke nøjagtigheden af informationen og påtager sig intet ansvar over for informationen på dette websted. Hverken Europa-Kommissionen eller nogen person, der handler på Europa-Kommissionens vegne, er ansvarlig eller ansvarlig for nøjagtigheden eller brugen af oplysningerne på dette websted.",
     "findUsElsewhere": "Find os et andet sted",
+    "footer": "Sidefod",
     "imageDescription": "Finansieret af Den Europæiske Union",
     "navigation": {
       "about": "Om",
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
-      "faq": "Ofte stillede spørgsmål",
+      "faq": "Ofte stillede spørgsmål (FAQ)",
       "forDevelopers": "Til udviklere",
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
       "privacy": "Fortrolighedspolitik",
       "provide": "Bliv en ejerinstiution",
       "subscribe": "Abonner på vores nyhedsbrev",
-      "terms": "Vilkår for brug"
+      "terms": "Vilkår og politikker"
     },
     "ourMission": "Vores mission",
     "ourMissionQuote": "Europeana styrker kulturarvsektoren i sin digitale transformation. Vi udvikler ekspertise, værktøjer og politikker til at omfatte digitale forandringer og tilskynde til partnerskaber, der fremmer innovation."
@@ -829,7 +814,7 @@ export default {
         "title": "Tjenester, vi gerne vil bruge."
       },
       "consentNotice": {
-        "description": "Vi holder af dit privatliv og bruger kun data til at forbedre din oplevelse. Vi bruger ingen personlige oplysninger til reklame. Du kan ændre dit samtykke hver 15. dag.",
+        "description": "Hej! Kan vi venligst aktivere nogle yderligere tjenester til analyse og sikkerhed? Du kan altid ændre eller trække dit samtykke tilbage senere.",
         "learnMore": "Lad mig vælge"
       },
       "decline": "Jeg afviser",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Månedlige API-anmodninger i gennemsnit",
+      "hqData": "Forøgelse af data af høj kvalitet om året",
       "items": "Genstande",
+      "networkMembers": "Netværksmedlemmer",
       "providingInstitutions": "Ejerinstitutioner",
       "visits": "Besøg pr. dag"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiseret oversættelse",
+    "automatedPageTranslations": "Denne side bruger autogenererede oversættelser fra engelsk.",
     "enrichment": "Berigelse ved partnerprojekter",
+    "loginToTranslate": "{login} for at se denne genstand på andre sprog.",
     "other": "andre sprog",
     "stopTranslating": "Stop med at oversætte dette element til {0}.",
     "translateLanguage": "Vil du gerne se dette element i {0} ?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Navn"
-        },
-        "title": "Organisationer"
+        "description": "Udforsk de institutioner, der deler digitale kulturarvsgenstande på Europeana.eu.",
+        "title": "Institutioner"
       },
       "persons": {
         "title": "Personer"
@@ -970,8 +958,11 @@ export default {
         "title": "Steder"
       },
       "table": {
+        "country": "Land",
         "items": "Genstande",
-        "name": "Navn"
+        "name": "Navn",
+        "searchPlaceholder": "Søg i tabel",
+        "showMoreData": "Vis flere data for {entity}"
       },
       "times": {
         "title": "Århundreder"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at justere din søgning.",
+      "loginToSeeMore": "{login} for at se flere resultater",
+      "loginToSeeMultilingualResults": "Log ind for at søge på tværs af hele samlingen og få resultater, der ikke er begrænset til sproget i dit søgeord.",
+      "showingMultilingualResults": "Viser resultater på tværs af hele samlingen og alle sprog.",
       "withinCollection": "{count} resultater inden for {type} {collection}",
       "withinCollectionWithQuery": "{count} resultater inden for {type} {collection} for {query}",
       "withoutQuery": "{count} resultater",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} historier fundet",
     "title": "Historier"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slide gruppe {page}"
   },
   "themes": {
     "description": "Gennemse efter tema",

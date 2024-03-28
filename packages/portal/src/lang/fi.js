@@ -47,12 +47,12 @@ export default {
     "download": "Lataa",
     "edit": "Muokkaa",
     "explore": "Tutustu",
-    "feedback": "Palaute",
     "filter": "Suodattaa",
     "goHome": "Siirry kotisivulle",
     "hide": "Piilota",
     "learnMore": "Opi lisää",
     "like": "Tykkää",
+    "login": "Kirjaudu sisään",
     "move": "Liikkua",
     "next": "Seuraava",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Hylätä",
     "requestDepublication": "Pyydä julkaisun poistamista",
     "save": "Tallenna",
-    "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
     "show": "Näytä",
     "showLess": "Näytä vähemmän",
     "showMore": "Näytä lisää",
-    "skipSend": "Ohita ja lähetä",
     "submitForPublication": "Lähetä julkaistavaksi",
     "submittedForPublication": "Lähetetty julkaistavaksi",
     "transcribe": "Transkribeerida",
@@ -82,6 +80,7 @@ export default {
     "creator": "Luoja:",
     "date": "Päivämäärä:",
     "institution": "kulttuuriperintölaitos:",
+    "show": "Näytä attribuutio",
     "title": "Nimi:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "laatija",
     "categories": "Luokat",
     "category": "Kategoria",
-    "posts": "Blogijulkaisut",
+    "posts": "Blogiviesti | Blogikirjoituksia",
     "published": "Julkaistu {date}",
     "relatedPosts": "Aiheeseen liittyvät julkaisut"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Vasen",
     "right": "Oikea"
+  },
+  "ds4ch": {
+    "broughtBy": "Tuotu sinulle"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "luojat",
-      "name": "Tekijä  |  Tekijät",
+      "name": "Luoja",
       "select": "Valitse tekijät"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Valitse aineiston tarjoajat"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Kuvan suunta | Kuvan suunnat",
+      "name": "Kuvan suunta",
       "options": {
         "landscape": "Maisema",
         "portrait": "Muotokuva"
@@ -550,7 +552,7 @@ export default {
       "select": "Valitse kuvan suunnat"
     },
     "IMAGE_SIZE": {
-      "name": "Kuvakoko | Kuvien koot",
+      "name": "Kuvan koko",
       "options": {
         "extra_large": "Erittäin suuri, 4 megapikseliä + (esim. 2688 x 1520 pikseliä)",
         "large": "Suuri, 1-4 megapikseliä (esim. 1920 x 1080 pikseliä)",
@@ -574,6 +576,7 @@ export default {
         "en": "Englanti",
         "es": "Espanjan",
         "et": "Viron",
+        "eu": "Baski",
         "fi": "Suomalainen",
         "fr": "Ranskan",
         "ga": "Irlantilainen",
@@ -618,7 +621,7 @@ export default {
       "select": "Valitse aggregaattorit"
     },
     "proxy_dc_format": {
-      "name": "Muoto | Muodot",
+      "name": "Muoto",
       "select": "Valitse formaatit"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Valitse mediatyypit"
     }
-  },
-  "feedback": {
-    "emailOptional": "Saatamme haluta seurata asiaa. Kirjoita sähköpostiosoitteesi, jos olet iloinen siitä, että voimme ottaa sinuun yhteyttä.",
-    "failed": "Pyyntö epäonnistui. Yritä uudelleen.",
-    "faq": "Siirry usein kysyttyihin kysymyksiin",
-    "form": {
-      "placeholders": {
-        "email": "Syötä sähköpostiosoitteesi",
-        "feedback": "Kirjoita palautteesi tähän"
-      }
-    },
-    "policies": "Jatkamalla hyväksyt {0} ja tunnustamme {1} .",
-    "privacyPolicy": "Tietosuojakäytäntö",
-    "success": "Palautteesi on lähetetty.",
-    "termsOfService": "Käyttöehdot",
-    "thankYou": "Kiitos!",
-    "title": "Lähetä palautetta",
-    "validEmail": "syötä voimassa oleva sähköpostiosoite",
-    "validFeedback": "Palautteen tulee koostua vähintään viidestä sanasta"
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
     "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
+    "footer": "Alatunniste",
     "imageDescription": "Euroopan unionin rahoittama",
     "navigation": {
       "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
-      "faq": "Usein kysytyt kysymykset",
+      "faq": "Usein kysytyt kysymykset (FAQ)",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojakäytäntö",
       "provide": "Ryhdy aineiston tarjoaja",
       "subscribe": "Tilaa uutiskirjeemme",
-      "terms": "Käyttöehdot"
+      "terms": "Ehdot ja käytännöt"
     },
     "ourMission": "Tehtävämme",
     "ourMissionQuote": "Europeana edesauttaa kulttuuriperinnön digitaalista muodonmuutosta. Kehitämme asiantuntemusta, välineitä ja menettelytapoja digitaalisen muutoksen omaksumiseksi ja kannustamme innovaatioita edistäviä kumppanuuksia."
@@ -829,7 +814,7 @@ export default {
         "title": "Palvelut, joita haluaisimme käyttää."
       },
       "consentNotice": {
-        "description": "Välitämme yksityisyydestäsi ja käytämme tietoja vain kokemuksesi parantamiseen. Emme käytä henkilökohtaisia tietoja mainostamiseen. Voit muuttaa suostumustasi 15 päivän välein.",
+        "description": "Hei! Voisimmeko ottaa käyttöön joitain lisäpalveluita analytiikkaa ja turvallisuutta varten? Voit aina muuttaa tai peruuttaa suostumuksesi myöhemmin.",
         "learnMore": "Anna minun valita"
       },
       "decline": "kieltäydyn",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Keskimäärin kuukausittaiset API-pyynnöt",
+      "hqData": "Korkealaatuisten tietojen lisääntyminen vuodessa",
       "items": "Aineistot",
+      "networkMembers": "Verkoston jäsenet",
       "providingInstitutions": "Aineiston tarjoajat",
       "visits": "Käyntejä päivässä"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatisoitu käännös",
+    "automatedPageTranslations": "Tämä sivu käyttää automaattisesti luotuja käännöksiä englannista.",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
+    "loginToTranslate": "{login} nähdäksesi tämän aineisto muilla kielillä",
     "other": "muut kielet",
     "stopTranslating": "Lopeta tämän aineisto kääntäminen kielelle {0}.",
     "translateLanguage": "Haluaisitko nähdä tämän aineisto {0}?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nimi"
-        },
-        "title": "Organisaatiot"
+        "description": "Tutustu laitoksiin, jotka jakavat digitaalisia kulttuuriperintöaineistoja Europeana.eu:ssa.",
+        "title": "Toimielimet"
       },
       "persons": {
         "title": "Henkilöt"
@@ -970,8 +958,11 @@ export default {
         "title": "Paikat"
       },
       "table": {
+        "country": "Maa",
         "items": "Aineistot",
-        "name": "Nimi"
+        "name": "Nimi",
+        "searchPlaceholder": "Etsi taulukosta",
+        "showMoreData": "Näytä lisää tietoja kohteelle {entity}"
       },
       "times": {
         "title": "Vuosisadat"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",
+      "loginToSeeMore": "{login} nähdäksesi lisää tuloksia",
+      "loginToSeeMultilingualResults": "Kirjaudu sisään tehdäksesi hakuja koko kokoelmasta ja saat tuloksia, jotka eivät rajoitu hakusanasi kieleen.",
+      "showingMultilingualResults": "Näytetään tulosta koko kokoelmasta ja kaikilla kielillä.",
       "withinCollection": "{count} tulokset sisällä {type} {collection}",
       "withinCollectionWithQuery": "{count} tulokset sisällä {type} {collection} for {query}",
       "withoutQuery": "{count} tulokset",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} tarinaa löydetty",
     "title": "Tarinat"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Dia-ryhmä {page}"
   },
   "themes": {
     "description": "Selaa teemoittain",

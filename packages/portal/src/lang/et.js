@@ -47,12 +47,12 @@ export default {
     "download": "Lae alla",
     "edit": "Muuda",
     "explore": "Uurige",
-    "feedback": "Tagasiside",
     "filter": "Filter",
     "goHome": "Minge avalehele",
     "hide": "Peida",
     "learnMore": "Lisateave",
     "like": "Meeldib",
+    "login": "Logi sisse",
     "move": "Liiguta",
     "next": "Järgmine",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Tagasi lükata",
     "requestDepublication": "Taotlus mitte avaldada",
     "save": "Salvesta",
-    "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
     "show": "Näita",
     "showLess": "Näita vähem",
     "showMore": "Näita rohkem",
-    "skipSend": "Jäta vahele ja saada",
     "submitForPublication": "Esitage avaldamiseks",
     "submittedForPublication": "Esitatud avaldamiseks",
     "transcribe": "Transkribeeri",
@@ -82,6 +80,7 @@ export default {
     "creator": "Looja:",
     "date": "Kuupäev:",
     "institution": "Institutsioon:",
+    "show": "Kuva atribuutika",
     "title": "Pealkiri:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "poolt",
     "categories": "Kategooriad",
     "category": "Kategooria",
-    "posts": "Blogipostitused",
+    "posts": "Blogi postitus | Blogi postitused",
     "published": "Avaldatud {date}",
     "relatedPosts": "Seonduvad postitused"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Vasak",
     "right": "Parem"
+  },
+  "ds4ch": {
+    "broughtBy": "Teieni toodud"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "loojad",
-      "name": "Looja | Loojad",
+      "name": "Looja",
       "select": "Valige loojad"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Valige pakkuvad asutused"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Kujutise orientatsioon | Kujutise orientatsioonid",
+      "name": "Pildi orientatsioon",
       "options": {
         "landscape": "Maastik",
         "portrait": "Portree"
@@ -550,7 +552,7 @@ export default {
       "select": "Valige pildi orientatsioon"
     },
     "IMAGE_SIZE": {
-      "name": "Pildi suurus | Pildi suurused",
+      "name": "Pildi suurus",
       "options": {
         "extra_large": "Eriti suur 4MP + (nt 2688 x 1520 pikslit)",
         "large": "Suur 1–4 MP (nt 1920x1080 pikslit)",
@@ -574,6 +576,7 @@ export default {
         "en": "Inglise",
         "es": "Hispaania",
         "et": "Eesti",
+        "eu": "Baski",
         "fi": "Soome",
         "fr": "Prantsuse",
         "ga": "Iiri",
@@ -618,7 +621,7 @@ export default {
       "select": "Valige agregaatorid"
     },
     "proxy_dc_format": {
-      "name": "Vorming | Vormingud",
+      "name": "Formaat",
       "select": "Valige vormingud"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Valige kandja tüübid"
     }
-  },
-  "feedback": {
-    "emailOptional": "Võime soovida jätkata. Sisestage oma e-posti aadress, kui olete rahul, et meiega ühendust võtame.",
-    "failed": "Taotlus nurjus. Palun proovi uuesti.",
-    "faq": "Minge korduma kippuvate küsimuste juurde",
-    "form": {
-      "placeholders": {
-        "email": "Sisestage oma e-posti aadress",
-        "feedback": "Sisestage oma tagasiside siia"
-      }
-    },
-    "policies": "Jätkates nõustute meie {0} ja kinnitate meie {1} .",
-    "privacyPolicy": "Privaatsuspoliitika",
-    "success": "Teie tagasiside on saadetud.",
-    "termsOfService": "Kasutustingimused",
-    "thankYou": "Aitäh!",
-    "title": "Saada tagasisidet",
-    "validEmail": "Sisestage kehtiv e-posti aadress",
-    "validFeedback": "Teie tagasiside peab koosnema vähemalt 5 sõnast"
   },
   "fieldLabels": {
     "default": {
@@ -739,7 +723,7 @@ export default {
       "about": "RDF kohta",
       "dcDescription": "Kirjeldus",
       "ebucoreHasMimeType": "Ebucore MIME tüüp",
-      "edmRights": "Selle meediumiressursi litsents",
+      "edmRights": "Selle meediaressursi õiguste avaldus",
       "rdfAbout": "RDF kohta"
     }
   },
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
     "disclaimerLine2": "Euroopa Komisjon ei taga teabe õigsust ega võta mingit vastutust sellel veebisaidil oleva teabe eest. Euroopa Komisjon ega ükski Euroopa Komisjoni nimel tegutsev isik ei vastuta ega vastuta sellel veebisaidil oleva teabe õigsuse ega kasutamise eest.",
     "findUsElsewhere": "Leidke meid mujalt",
+    "footer": "Jalus",
     "imageDescription": "Rahastab Euroopa Liit",
     "navigation": {
       "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
-      "faq": "Korduma kippuvad küsimused",
+      "faq": "Korduma kippuvad küsimused  (FAQ)",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
       "provide": "Hakka pakkuvaks asutuseks",
       "subscribe": "Telli meie uudiskiri",
-      "terms": "Kasutustingimused"
+      "terms": "Tingimused ja eeskirjad"
     },
     "ourMission": "Meie missioon",
     "ourMissionQuote": "Europeana annab kultuuripärandisektorile digitaalse ümberkujundamise võimaluse. Arendame teadmisi, tööriistu ja poliitikaid, et omaks võtta digitaalsed muutused ja julgustada partnerlussuhteid, mis edendavad innovatsiooni."
@@ -829,7 +814,7 @@ export default {
         "title": "Teenused, mida sooviksime kasutada."
       },
       "consentNotice": {
-        "description": "Me hoolime teie privaatsusest ja kasutame andmeid ainult teie kogemuste parandamiseks. Me ei kasuta reklaamimiseks isiklikke andmeid. Oma nõusolekut saate muuta iga 15 päeva tagant.",
+        "description": "Tere! Kas saaksime lubada analüüsi ja turvalisuse jaoks mõned lisateenused? Saate oma nõusolekut hiljem alati muuta või tagasi võtta.",
         "learnMore": "Las ma valin"
       },
       "decline": "ma keeldun",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Igakuised API taotlused keskmiselt",
+      "hqData": "Kõrgekvaliteediliste andmete kasv aastas",
       "items": "Üksused",
+      "networkMembers": "Võrgustiku liikmed",
       "providingInstitutions": "Pakkuja institutsioon",
       "visits": "Külastused päevas"
     },
@@ -910,8 +898,8 @@ export default {
   },
   "modal": {
     "download": {
-      "clickToCopy": "Selle kopeerimiseks klõpsake omistusel",
-      "modalIntro": "Kui kasutate seda üksust veebis või mujal, ärge unustage selle kõrval kuvada järgmist omistust:",
+      "clickToCopy": "Kopeerimiseks klõpsa atribuuti",
+      "modalIntro": "Kui kasutate seda objekti veebis või mujal, ärge unustage selle kõrval avaldada järgmist atribuuti:",
       "modalTitle": "Ütle aitäh"
     },
     "downloadFailed": {
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiseeritud tõlge",
+    "automatedPageTranslations": "See lehekülg kasutab automaatselt genereeritud tõlkeid inglise keelest.",
     "enrichment": "Rikastamine partner projektide kaudu",
+    "loginToTranslate": "{login} et näha seda üksust teistes keeltes",
     "other": "muud keeled",
     "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
     "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nimi"
-        },
-        "title": "Organisatsioonid"
+        "description": "Uurige asutusi, mis jagavad digitaalse kultuuripärandi objekte Europeana.eu-s.",
+        "title": "Institutsioonid"
       },
       "persons": {
         "title": "Isikud"
@@ -970,8 +958,11 @@ export default {
         "title": "Kohad"
       },
       "table": {
+        "country": "Riik",
         "items": "Üksused",
-        "name": "Nimi"
+        "name": "Nimi",
+        "searchPlaceholder": "Otsige tabelist",
+        "showMoreData": "Kuva rohkem andmeid {entity} jaoks"
       },
       "times": {
         "title": "Sajandeid"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
+      "loginToSeeMore": "{login} , et näha rohkem tulemusi",
+      "loginToSeeMultilingualResults": "Logige sisse, et otsida kogu kollektsioonist ja saada tulemusi, mis ei piirdu teie otsingutermini keelega.",
+      "showingMultilingualResults": "Kuvatakse tulemusi kogu kogumiku ja kõigi keelte lõikes.",
       "withinCollection": "{count} tulemust jaotises {type} {collection}",
       "withinCollectionWithQuery": "{count} tulemust jaotises {type} {collection} jaoks {query}",
       "withoutQuery": "{count} tulemust",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "Leiti {0} lugu",
     "title": "Lood"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slaidirühm {page}"
   },
   "themes": {
     "description": "Sirvi teemade kaupa",

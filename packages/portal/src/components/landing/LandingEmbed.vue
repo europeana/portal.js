@@ -1,11 +1,9 @@
 <template>
   <div
-    :id="containerId"
     class="landing-embed"
   >
     <div
-      class="header responsive-backround-image"
-      :style="imageCSSVars"
+      class="header"
     >
       <b-container>
         <b-col class="header-content col-lg-8 px-0 text-center mx-auto">
@@ -27,6 +25,7 @@
       class="embed-container"
     >
       <EmbedHTML
+        :title="title"
         :html="embed.embed"
       />
     </b-container>
@@ -34,20 +33,8 @@
 </template>
 
 <script>
-  import kebabCase from 'lodash/kebabCase';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import EmbedHTML from '@/components/embed/EmbedHTML';
-
-  const SRCSET_PRESETS = {
-    small: { w: 576, h: 360, fit: 'fill' },
-    medium: { w: 768, h: 270, fit: 'fill' },
-    large: { w: 992, h: 480, fit: 'fill' },
-    xl: { w: 1200, h: 480, fit: 'fill' },
-    xxl: { w: 1440, h: 480, fit: 'fill' },
-    xxxl: { w: 1920, h: 480, fit: 'fill' },
-    wqhd: { w: 2560, h: 480, fit: 'fill' },
-    '4k': { w: 3840, h: 480, fit: 'fill' }
-  };
 
   export default {
     name: 'LandingEmbed',
@@ -59,10 +46,6 @@
     mixins: [parseMarkdownHtmlMixin],
 
     props: {
-      englishTitle: {
-        type: String,
-        default: null
-      },
       title: {
         type: String,
         default: null
@@ -71,27 +54,9 @@
         type: String,
         default: null
       },
-      backgroundImage: {
-        type: Object,
-        default: null
-      },
       embed: {
         type: Object,
         default: null
-      }
-    },
-
-    data() {
-      return {
-        containerId: kebabCase(this.englishTitle)
-      };
-    },
-
-    computed: {
-      imageCSSVars() {
-        return this.backgroundImage?.image &&
-          this.$contentful.assets.responsiveBackgroundImageCSSVars(
-            this.backgroundImage.image, SRCSET_PRESETS);
       }
     }
   };
@@ -99,10 +64,17 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/responsive-background-image';
 
   .landing-embed {
-    border-bottom: 1px solid $white;
+    margin-bottom: 3rem;
+
+    @media (min-width: $bp-large) {
+      margin-bottom: 6rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: 15rem;
+    }
   }
 
   .header {
@@ -115,17 +87,6 @@
 
     @media (min-width: $bp-medium) {
       padding: 4rem 0 17rem;
-    }
-
-    &::before {
-      content: '';
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(0deg, #0b60aa, #0b60aa);
-      mix-blend-mode: multiply;
-      position: absolute;
     }
 
     .container {

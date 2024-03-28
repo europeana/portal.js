@@ -47,12 +47,12 @@ export default {
     "download": "Download",
     "edit": "Bewerken",
     "explore": "Ontdekken",
-    "feedback": "Feedback",
     "filter": "Filter",
     "goHome": "Ga naar de homepage",
     "hide": "Verbergen",
     "learnMore": "Leer meer",
     "like": "Liken",
+    "login": "Inloggen",
     "move": "Verplaats",
     "next": "Volgende",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Afwijzen",
     "requestDepublication": "Depublicatie aanvragen",
     "save": "Opslaan",
-    "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
     "show": "Weergeven",
     "showLess": "Minder weergeven",
     "showMore": "Meer weergeven",
-    "skipSend": "Overslaan en verzenden",
     "submitForPublication": "Indienen voor publicatie",
     "submittedForPublication": "Ingezonden voor publicatie",
     "transcribe": "Transcriberen",
@@ -82,6 +80,7 @@ export default {
     "creator": "Maker:",
     "date": "Datum:",
     "institution": "Instelling:",
+    "show": "Toon toeschrijving",
     "title": "Titel:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "door",
     "categories": "Categorieën",
     "category": "Categorie",
-    "posts": "Blogberichten",
+    "posts": "Blogbericht | Blogberichten",
     "published": "Gepubliceerd op {date}",
     "relatedPosts": "Gerelateerde berichten"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Links",
     "right": "Rechts"
+  },
+  "ds4ch": {
+    "broughtBy": "Aangeboden door"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "Makers",
-      "name": "Maker | Makers",
+      "name": "Maker",
       "select": "Selecteer makers"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Selecteer deelnemende erfgoedorganisaties"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Beeldoriëntatie | Beeldoriëntaties",
+      "name": "Beeldoriëntatie",
       "options": {
         "landscape": "Landschap",
         "portrait": "Portret"
@@ -550,7 +552,7 @@ export default {
       "select": "Selecteer beeldoriëntaties"
     },
     "IMAGE_SIZE": {
-      "name": "Afbeeldingsgrootte | Afbeeldingsgroottes",
+      "name": "Afbeeldingsgrootte",
       "options": {
         "extra_large": "Extra groot 4MP+ (bijv. 2688 x 1520px)",
         "large": "Groot 1-4 MP (bijv. 1920x1080px)",
@@ -560,7 +562,7 @@ export default {
       "select": "Selecteer afbeeldingsformaten"
     },
     "LANGUAGE": {
-      "name": "Taal | Talen",
+      "name": "Taal",
       "options": {
         "ar": "Arabisch",
         "bg": "Bulgaars",
@@ -574,6 +576,7 @@ export default {
         "en": "Engels",
         "es": "Spaans",
         "et": "Ests",
+        "eu": "Baskisch",
         "fi": "Fins",
         "fr": "Frans",
         "ga": "Iers",
@@ -618,7 +621,7 @@ export default {
       "select": "Selecteer informatienetwerken"
     },
     "proxy_dc_format": {
-      "name": "Formaat | Formaten",
+      "name": "Vorm",
       "select": "Selecteer formaten"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Selecteer soorten media"
     }
-  },
-  "feedback": {
-    "emailOptional": "We willen hier misschien een vervolg aan geven. Voer uw e-mailadres in als u het niet erg vindt als wij contact met u opnemen.",
-    "failed": "Het verzoek is mislukt. Probeer het opnieuw.",
-    "faq": "Ga naar veelgestelde vragen",
-    "form": {
-      "placeholders": {
-        "email": "Voer uw e-mailadres in",
-        "feedback": "Vul hier uw feedback in"
-      }
-    },
-    "policies": "Door verder te gaan, gaat u akkoord met onze {0} en erkent u onze {1} .",
-    "privacyPolicy": "Privacybeleid",
-    "success": "Uw feedback is verzonden.",
-    "termsOfService": "Servicevoorwaarden",
-    "thankYou": "Dank u!",
-    "title": "Feedback verzenden",
-    "validEmail": "Voer een geldig e-mailadres in",
-    "validFeedback": "Je feedback moet minimaal uit 5 woorden bestaan"
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
     "disclaimerLine2": "De Europese Commissie staat niet in voor de juistheid van de informatie en aanvaardt geen enkele verantwoordelijkheid of aansprakelijkheid met betrekking tot de informatie op deze website. Noch de Europese Commissie, noch enige persoon die namens de Europese Commissie handelt, is verantwoordelijk of aansprakelijk voor de juistheid of het gebruik van de informatie op deze website.",
     "findUsElsewhere": "Vind ons ergens anders",
+    "footer": "Voettekst",
     "imageDescription": "Gefinancierd door de Europese Unie",
     "navigation": {
       "about": "Over ons",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
-      "faq": "Veelgestelde vragen",
+      "faq": "Veelgestelde vragen (FAQ)",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacybeleid",
       "provide": "Word een deelnemende erfgoedorganisatie",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
-      "terms": "Gebruiksvoorwaarden"
+      "terms": "Voorwaarden en beleid"
     },
     "ourMission": "Onze missie",
     "ourMissionQuote": "Europeana ondersteunt de sector cultureel erfgoed bij haar digitale transformatie. We ontwikkelen expertise, tools en beleid om digitale verandering te omarmen en partnerschappen aan te moedigen die innovatie stimuleren."
@@ -829,7 +814,7 @@ export default {
         "title": "Diensten waar we graag gebruik van willen maken."
       },
       "consentNotice": {
-        "description": "We geven om uw privacy en gebruiken gegevens alleen om uw ervaring te verbeteren. We gebruiken geen persoonlijke informatie voor advertenties. U kunt uw toestemming elke 15 dagen wijzigen.",
+        "description": "Hallo! Kunnen we alstublieft enkele aanvullende services inschakelen voor analyse en beveiliging? U kunt uw toestemming later altijd nog wijzigen of intrekken.",
         "learnMore": "Laat me kiezen"
       },
       "decline": "ik weiger",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Gemiddeld maandelijkse API-verzoeken",
+      "hqData": "Toename van hoogwaardige data per jaar",
       "items": "Objecten",
+      "networkMembers": "Netwerk leden",
       "providingInstitutions": "Deelnemende erfgoedorganisaties",
       "visits": "Bezoeken per dag"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Geautomatiseerde vertaling",
+    "automatedPageTranslations": "Deze pagina maakt gebruik van automatisch gegenereerde vertalingen uit het Engels.",
     "enrichment": "Verrijking door partnerprojecten",
+    "loginToTranslate": "{login} om dit object in andere talen te zien",
     "other": "andere talen",
     "stopTranslating": "Stop met het vertalen van dit item naar {0}.",
     "translateLanguage": "Wilt u dit item in {0} zien?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Naam"
-        },
-        "title": "Organisaties"
+        "description": "Ontdek de instellingen die digitale culturele erfgoed objecten delen op Europeana.eu.",
+        "title": "Instellingen"
       },
       "persons": {
         "title": "Personen"
@@ -970,8 +958,11 @@ export default {
         "title": "Plaatsen"
       },
       "table": {
+        "country": "Land",
         "items": "Objecten",
-        "name": "Naam"
+        "name": "Naam",
+        "searchPlaceholder": "Zoeken binnen tabel",
+        "showMoreData": "Toon meer data voor {entity}"
       },
       "times": {
         "title": "Eeuwen"
@@ -1075,7 +1066,7 @@ export default {
         "fields": {
           "fulltext": "Volledige tekst omvat transcripties, gesloten ondertiteling, ondertitels en documenttekst."
         },
-        "modifier": "Selecteer een modificatie om op het veld toe te passen.",
+        "modifier": "Kies hoe dit veld de zoekopdracht moet wijzigen.",
         "term": "Voer de term(en) in die het gekozen veld wel of niet bevat."
       }
     },
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Aanvullende resultaten worden niet getoond, omdat alleen de eerste 1000 meest relevante resultaten worden getoond. Als u niet heeft gevonden wat u zocht, kunt u overwegen uw zoekopdracht te verfijnen.",
+      "loginToSeeMore": "{login} om meer resultaten te zien",
+      "loginToSeeMultilingualResults": "Log in om in de hele collectie te zoeken en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm.",
+      "showingMultilingualResults": "Resultaten weergeven voor de gehele collectie en alle talen.",
       "withinCollection": "{count} resultaten binnen {type} {collection}",
       "withinCollectionWithQuery": "{count} resultaten binnen {type} {collection} voor {query}",
       "withoutQuery": "{count} resultaten",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} verhalen gevonden",
     "title": "Verhalen"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slide groep {page}"
   },
   "themes": {
     "description": "Blader op thema",

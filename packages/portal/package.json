@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.137.0",
+  "version": "1.144.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -29,6 +29,7 @@
     "bootstrap-vue": "2.22.0",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.19.1",
+    "cors": "^2.8.5",
     "dateformat": "^4.6.3",
     "deepmerge": "^4.2.2",
     "defu": "^5.0.0",
@@ -36,6 +37,7 @@
     "elastic-apm-node": "^3.24.0",
     "express": "^4.17.1",
     "http-errors": "^2.0.0",
+    "i18n-iso-countries": "^7.11.0",
     "isbot": "^3.7.0",
     "lodash": "^4.17.21",
     "marked": "^4.0.10",
@@ -54,11 +56,9 @@
     "weighted-random": "^0.1.0"
   },
   "devDependencies": {
-    "@europeana/mirador": "^1.128.1",
-    "@europeana/style": "^1.135.0",
+    "@europeana/style": "^1.144.0",
     "@lokalise/node-api": "^8.0.0",
     "@vue-a11y/announcer": "^2.1.0",
-    "camelcase": "^6.2.1",
     "css-loader": "^4.2.0",
     "nock": "^13.2.7",
     "nuxt": "2.17.2",
@@ -74,6 +74,9 @@
     "vue-matomo": "^4.2.0",
     "vue-scrollto": "^2.20.0",
     "vuedraggable": "^2.24.3"
+  },
+  "peerDependencies": {
+    "@europeana/mirador": "^1.128.1"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",

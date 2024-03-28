@@ -1,11 +1,13 @@
 import Vue from 'vue';
 
 Vue.directive('visible-on-scroll', {
-  inserted: (el) => {
-    el.scrolledVisible = true;
+  inserted: (el, binding, vnode) => {
+    const routeHWithHash = vnode.context.$route.hash;
+    el.scrolledVisible = !routeHWithHash;
     if (process.browser) {
       window.addEventListener('scroll', () => handleScroll(el));
       window.addEventListener('orientationchange', () => handleOrientationChange(el));
+      window.addEventListener('hashchange', () => el.scrolledVisible = false);
     }
   }
 });

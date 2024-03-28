@@ -12,8 +12,9 @@ import versions from './pkg-versions.js';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
+import { exclude as i18nRoutesExclude } from './src/plugins/i18n/routes.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled, featureNotificationExpiration, valueIsTruthy } from './src/features/index.js';
+import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
@@ -69,14 +70,16 @@ export default {
       },
       featureNotification: process.env.APP_FEATURE_NOTIFICATION,
       featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
+      feedback: {
+        cors: {
+          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
+        }
+      },
+      homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       siteName: APP_SITE_NAME,
       search: {
-        collections: {
-          clientOnly: valueIsTruthy(process.env.APP_SEARCH_COLLECTIONS_CLIENT_ONLY),
-          doNotTranslate: valueIsTruthy(process.env.APP_SEARCH_COLLECTIONS_DO_NOT_TRANSLATE)
-        },
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }
     },
@@ -335,10 +338,7 @@ export default {
       },
       // Disable redirects to account pages
       parsePages: false,
-      pages: {
-        'account/callback': false,
-        'account/logout': false
-      },
+      pages: i18nRoutesExclude.reduce((memo, route) => ({ ...memo, [route.slice(1)]: false }), {}),
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
       // Set to false to disable
@@ -407,13 +407,6 @@ export default {
       'redirects'
     ],
     extendRoutes(routes) {
-      const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
-      routes[nuxtHomeRouteIndex] = {
-        name: 'home',
-        path: '/',
-        component: 'src/pages/home/index.vue'
-      };
-
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
       routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
 
@@ -492,9 +485,9 @@ export default {
   ** Render configuration
    */
   render: {
-    // Disable compression: leave it to a gateway/reverse proxy like NGINX or
-    // Cloudflare.
-    compressor: false,
+    // Compression disabled by default, to leave it to a gateway/reverse proxy
+    // like NGINX or Cloudflare.
+    ...(featureIsEnabled('nuxtRenderCompressor') ? {} : { compressor: false }),
 
     static: {
       maxAge: '1d'

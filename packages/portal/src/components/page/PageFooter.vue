@@ -5,15 +5,18 @@
   >
     <div class="footer-wrapper py-5">
       <b-container>
+        <h2 class="visually-hidden">
+          {{ $t('footer.footer') }}
+        </h2>
         <b-row>
           <b-col
             lg="5"
             class="left-col pb-4 order-lg-1"
           >
             <div class="pr-5 pr-lg-3">
-              <div class="group-title text-uppercase font-weight-bold">
+              <h3 class="group-title text-uppercase font-weight-bold">
                 {{ $t('footer.ourMission') }}
-              </div>
+              </h3>
               <p class="mission font-italic mb-0">
                 {{ $t('footer.ourMissionQuote') }}
               </p>
@@ -24,11 +27,12 @@
             class="left-col pb-4 order-lg-4"
           >
             <LinkGroup
-              list-class="footer-link-list social-links"
-              link-class="footer-link mt-1"
-              :caption="$t('footer.findUsElsewhere')"
+              class="social-links"
+              :title="$t('footer.findUsElsewhere')"
               :links="social"
+              variant="social"
             />
+            <hr class="mt-4 mb-1 w-100 d-lg-none">
           </b-col>
           <b-col
             sm="6"
@@ -37,9 +41,7 @@
           >
             <LinkGroup
               v-if="footerMoreInfo"
-              list-class="footer-link-list"
-              link-class="footer-link"
-              :caption="footerMoreInfo.name"
+              :title="footerMoreInfo.name"
               :links="footerMoreInfo.links"
             />
           </b-col>
@@ -50,9 +52,7 @@
           >
             <LinkGroup
               v-if="footerHelp"
-              list-class="footer-link-list"
-              link-class="footer-link"
-              :caption="footerHelp.name"
+              :title="footerHelp.name"
               :links="footerHelp.links"
             />
           </b-col>
@@ -61,30 +61,28 @@
             lg="3"
             class="right-col pb-4  order-sm-2 order-lg-3"
           >
-            <div class="group-title text-uppercase font-weight-bold pr-2">
+            <h3 class="group-title text-uppercase font-weight-bold pr-2">
               {{ $t('footer.customiseWebsiteLanguage') }}
-            </div>
+            </h3>
             <LangSelector
               class="mt-1"
               data-qa="language selector"
             />
           </b-col>
           <b-col
+            v-if="showDebugLinkGroup"
             sm="6"
             lg="3"
             class="right-col pb-4  order-sm-4 order-lg-6"
           >
             <LinkGroup
-              v-if="showDebugLinkGroup"
-              list-class="footer-link-list"
-              link-class="footer-link"
-              :caption="debugLinkGroup.name"
+              :title="debugLinkGroup.name"
               :links="debugLinkGroup.links"
               data-qa="debug link group"
             />
           </b-col>
         </b-row>
-        <hr class="my-5">
+        <hr>
         <b-row>
           <b-col lg="6">
             <div class="sub-footer">
@@ -99,13 +97,7 @@
         </b-row>
       </b-container>
     </div>
-    <client-only
-      v-if="feedbackEnabled"
-    >
-      <FeedbackWidget
-        data-qa="feedback widget"
-      />
-    </client-only>
+    <FeedbackWidget />
   </footer>
 </template>
 
@@ -113,13 +105,14 @@
   import LangSelector from '../generic/LanguageSelector';
   import LinkGroup from '../generic/LinkGroup';
   import EULogo from '../image/ImageEULogo';
+  import FeedbackWidget from '../feedback/FeedbackWidget.vue';
 
   export default {
     components: {
-      LangSelector,
-      LinkGroup,
       EULogo,
-      FeedbackWidget: () => import('../feedback/FeedbackWidget')
+      FeedbackWidget,
+      LangSelector,
+      LinkGroup
     },
 
     data() {
@@ -160,9 +153,6 @@
     },
 
     computed: {
-      feedbackEnabled() {
-        return this.$features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
-      },
       debugSettings() {
         return this.$store.getters['debug/settings'];
       },

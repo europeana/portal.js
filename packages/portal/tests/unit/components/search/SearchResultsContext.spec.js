@@ -16,13 +16,19 @@ const i18n = new VueI18n({
 
 const factory = (options = {}) => mount(SearchResultsContext, {
   localVue,
+  directives: { 'b-tooltip': () => {} },
   propsData: options.propsData,
-  i18n,
+  i18n: options.i18n || i18n,
   mocks: {
+    $config: { app: { search: { translateLocales: 'es', ...options.searchConfig } } },
     $apis: {
       entity: {
         imageUrl: (entity) => entity.logo || entity.isShownBy
       }
+    },
+    $auth: {
+      loggedIn: false,
+      ...options.auth
     },
     $contentful: {
       assets: {
@@ -46,7 +52,7 @@ const factory = (options = {}) => mount(SearchResultsContext, {
     },
     $t: (key) => key
   },
-  stubs: ['SearchRemovalChip']
+  stubs: ['SearchRemovalChip', 'b-button']
 });
 
 const fixtures = {
@@ -230,6 +236,123 @@ describe('SearchResultsContext', () => {
         expect(criteria.qf).toBe('qf');
         expect(criteria.reusability).toBe('reusability');
         expect(criteria.page).toBe(undefined);
+      });
+    });
+  });
+
+  describe('when multilingual search is enabled for the selected UI language', () => {
+    describe('and not logged in', () => {
+      describe('searching on keyword', () => {
+        const wrapper = factory({
+          i18n: new VueI18n({
+            locale: 'es',
+            messages: {
+              es: { 'search.results.withoutQuery': 'search.results.withoutQuery',
+                'search.results.loginToSeeMore': 'search.results.loginToSeeMore' }
+            }
+          }),
+          route: { query: { query: 'casa' } }
+        });
+        it('suggests to log in to see more results', () => {
+          const suggestion = wrapper.find('[data-qa="results more link"]');
+
+          expect(suggestion.text()).toContain('search.results.loginToSeeMore');
+        });
+        it('displays a tooltip explaining the multilingual results', () => {
+          const tooltip = wrapper.find('[data-qa="results more tooltip"]');
+
+          expect(tooltip.exists()).toBe(true);
+        });
+      });
+      describe('when multilingual search is disabled for collections', () => {
+        describe('searching on keyword inside a collection', () => {
+          const wrapper = factory({
+            propsData: { entity: fixtures.thematicCollectionTopicEntity },
+            i18n: new VueI18n({
+              locale: 'es',
+              messages: {
+                es: { 'search.results.loginToSeeMore': 'search.results.loginToSeeMore',
+                  'search.results.withinCollection': 'search.results.withinCollection',
+                  'search.results.withoutQuery': 'search.results.withoutQuery' }
+              }
+            }),
+            route: { query: { query: 'casa' } },
+            searchConfig: { collections: { doNotTranslate: true } }
+          });
+          it('suggests to log in to see more results', () => {
+            const suggestion = wrapper.find('[data-qa="results more link"]');
+
+            expect(suggestion.exists()).toBe(true);
+          });
+          it('displays a tooltip explaining the multilingual results', () => {
+            const tooltip = wrapper.find('[data-qa="results more tooltip"]');
+
+            expect(tooltip.exists()).toBe(true);
+          });
+        });
+      });
+      describe('searching without keyword', () => {
+        it('suggests to log in to see more results', () => {
+          const wrapper = factory({
+            i18n: new VueI18n({
+              locale: 'es',
+              messages: {
+                es: { 'search.results.withoutQuery': 'search.results.withoutQuery',
+                  'search.results.loginToSeeMore': 'search.results.loginToSeeMore' }
+              }
+            })
+          });
+
+          const suggestion = wrapper.find('[data-qa="results more link"]');
+
+          expect(suggestion.text()).toContain('search.results.loginToSeeMore');
+        });
+      });
+    });
+    describe('and logged in', () => {
+      describe('searching on keyword', () => {
+        const wrapper = factory({
+          auth: { loggedIn: true },
+          i18n: new VueI18n({
+            locale: 'es',
+            messages: {
+              es: { 'search.results.withoutQuery': 'search.results.withoutQuery',
+                'search.results.loginToSeeMore': 'search.results.loginToSeeMore' }
+            }
+          }),
+          route: { query: { query: 'casa' } }
+        });
+
+        it('does not suggest to log in to see more results', () => {
+          const suggestion = wrapper.find('[data-qa="results more link"]');
+
+          expect(suggestion.exists()).toBe(false);
+        });
+        it('displays a tooltip explaining the multilingual results', () => {
+          const tooltip = wrapper.find('[data-qa="results more tooltip"]');
+
+          expect(tooltip.exists()).toBe(true);
+        });
+      });
+    });
+  });
+
+  describe('when on the English portal', () => {
+    describe('and not logged in', () => {
+      describe('searching on keyword', () => {
+        const wrapper = factory({
+          route: { query: { query: 'casa' } }
+        });
+        it('does not suggest to log in to see more results', () => {
+          const suggestion = wrapper.find('[data-qa="results more link"]');
+
+          expect(suggestion.exists()).toBe(false);
+        });
+        it('does not display a tooltip explaining the multilingual results', () => {
+          const tooltip = wrapper.find('[data-qa="results more tooltip"]');
+
+          expect(tooltip.exists()).toBe(false);
+        });
       });
     });
   });

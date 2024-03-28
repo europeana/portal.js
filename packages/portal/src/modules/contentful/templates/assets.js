@@ -1,3 +1,14 @@
+// TODO: remove if unused
+// Defaults for custom `imageDisplayProfile` content type
+// const CONTENTFUL_IMAGE_DISPLAY_PROFILE_DEFAULTS = {
+//   crop: true,
+//   fit: null,
+//   focus: 'center',
+//   name: null,
+//   overlay: true,
+//   quality: 40,
+//   sizes: ['small', 'medium', 'large', 'xl', 'xxl', 'xxxl', 'wqhd', '4k', '4k+']
+// };
 const CONTENTFUL_IMAGES_ASSET_HOST = 'images.ctfassets.net';
 const CONTENTFUL_IMAGES_PARAMS_FL_PROGRESSIVE = 'progressive';
 const CONTENTFUL_IMAGES_PARAMS_FM_WEBP = 'webp';
@@ -5,14 +16,42 @@ const CONTENTFUL_IMAGES_PARAMS_FM_JPEG = 'jpg';
 const MEDIA_TYPE_JPEG = 'image/jpeg';
 const MEDIA_TYPE_SVG = 'image/svg+xml';
 const MEDIA_TYPE_WEBP = 'image/webp';
-const RESPONSIVE_IMAGE_SIZES = [
-  'small', 'medium', 'large', 'xl', 'xxl', 'xxxl', 'wqhd', '4k'
-];
 
 export default ({ store } = {}) => ({
   acceptedMediaTypes() {
     return store?.state?.contentful?.acceptedMediaTypes || [];
   },
+
+  imageApiParamsForImageDisplayProfile(profile) {
+    return {
+      ...profile?.focus && { f: profile.focus },
+      ...profile?.fit && { fit: profile.fit },
+      ...profile?.quality && { q: profile.quality }
+    };
+  },
+
+  imageDisplayProfileResponsiveSizes(sizes, profile) {
+    const deleteHeight = profile?.fit === 'pad' && !profile?.crop;
+
+    return Object.keys(sizes).reduce((memo, size) => {
+      if (!profile || profile.sizes.includes(size)) {
+        memo[size] = { ...sizes[size] };
+
+        if (deleteHeight) {
+          delete memo[size].h;
+        }
+      }
+      return memo;
+    }, {});
+  },
+
+  // TODO: remove if unused
+  // imageDisplayProfileWithDefaults(entryProfile = {}) {
+  //   return {
+  //     ...CONTENTFUL_IMAGE_DISPLAY_PROFILE_DEFAULTS,
+  //     ...entryProfile
+  //   };
+  // },
 
   isValidUrl(url) {
     try {
@@ -22,13 +61,15 @@ export default ({ store } = {}) => ({
     }
   },
 
-  optimisedSrc(asset, options = {}) {
+  optimisedSrc(asset, options = {}, profile = {}) {
     // TODO: use isValidUrl here?
     if (!asset?.url) {
       return null;
     }
     const imageUrl = new URL(asset.url);
-    const params = { ...options };
+    const profileParams = this.imageApiParamsForImageDisplayProfile(profile);
+
+    const params = { ...options, ...profileParams };
 
     if (!params.fm && (asset.contentType !== MEDIA_TYPE_SVG) && this.acceptedMediaTypes().includes(MEDIA_TYPE_WEBP)) {
       params.fm = CONTENTFUL_IMAGES_PARAMS_FM_WEBP;
@@ -52,20 +93,28 @@ export default ({ store } = {}) => ({
     return imageUrl.toString();
   },
 
-  responsiveImageSrcset(image, params) {
-    if (this.isValidUrl(image?.url) && params) {
-      return RESPONSIVE_IMAGE_SIZES
-        .map((size) => `${this.optimisedSrc(image, params[size])} ${params[size].w}w`)
+  responsiveImageSrcset(image, sizes, profile) {
+    if (this.isValidUrl(image?.url) && sizes) {
+      const profileSizes = this.imageDisplayProfileResponsiveSizes(sizes, profile);
+
+      return Object.keys(profileSizes)
+        .map((size) => {
+          const url = this.optimisedSrc(image, profileSizes[size], profile);
+          return `${url} ${profileSizes[size].w}w`;
+        })
         .join(',');
     } else {
       return null;
     }
   },
 
-  responsiveBackgroundImageCSSVars(image, params) {
-    if (image?.url && this.isValidUrl(image.url) && params) {
-      return RESPONSIVE_IMAGE_SIZES.reduce((memo, size) => {
-        memo[`--bg-img-${size}`] = `url('${this.optimisedSrc(image, params[size])}')`;
+  responsiveBackgroundImageCSSVars(image, sizes, profile) {
+    if (this.isValidUrl(image?.url) && sizes) {
+      const profileSizes = this.imageDisplayProfileResponsiveSizes(sizes, profile);
+
+      return Object.keys(profileSizes).reduce((memo, size) => {
+        const url = this.optimisedSrc(image, profileSizes[size], profile);
+        memo[`--bg-img-${size}`] = `url('${url}')`;
         return memo;
       }, {});
     } else if (image?.url) {

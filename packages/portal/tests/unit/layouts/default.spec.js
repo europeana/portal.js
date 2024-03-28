@@ -34,7 +34,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
         breadcrumb: {}
       }
     },
-    $t: key => key,
+    $t: (key) => key,
     $auth: {
       $storage: {
         getUniversal: sinon.spy()
@@ -50,9 +50,6 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
       query: {},
       fullPath: '/fr',
       path: '/fr'
-    },
-    $matomo: {
-      trackEvent: () => {}
     },
     $i18n: {
       locale: 'fr',
@@ -81,114 +78,6 @@ describe('layouts/default.vue', () => {
     it('is enabled', () => {
       const wrapper = factory();
       expect(wrapper.find('#announcer').exists()).toBe(true);
-    });
-  });
-
-  describe('route hash handling', () => {
-    it('scrolls to element from route hash, offset by header', () => {
-      const $route = { hash: '#trending-items' };
-      const $scrollTo = sinon.spy();
-
-      factory({ mocks: { $route, $scrollTo } });
-
-      expect($scrollTo.calledWith(
-        '#trending-items', { duration: 0, easing: 'linear', offset: -0 }
-      )).toBe(true);
-    });
-  });
-
-  describe('Klaro', () => {
-    const klaroManagerStub = {
-      watch: sinon.spy()
-    };
-    const klaroMock = {
-      getManager: sinon.stub().returns(klaroManagerStub),
-      render: sinon.spy()
-    };
-
-    describe('when Matomo plugin is installed', () => {
-      it('waits for Matomo to be ready first', async() => {
-        const $waitForMatomo = sinon.stub().resolves();
-
-        factory({ mocks: { $waitForMatomo } });
-
-        expect($waitForMatomo.called).toBe(true);
-      });
-
-      it('renders Klaro if Matomo becomes ready', () => {
-        const $waitForMatomo = sinon.stub().resolves();
-
-        factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
-
-        expect(klaroMock.render.called).toBe(true);
-      });
-
-      it('renders Klaro if Matomo does not become ready', () => {
-        const $waitForMatomo = sinon.stub().rejects();
-
-        factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
-
-        expect(klaroMock.render.called).toBe(true);
-      });
-    });
-
-    describe('renderKlaro', () => {
-      it('renders Klaro', async() => {
-        const wrapper = factory();
-        await wrapper.setData({ klaro: klaroMock });
-
-        await wrapper.vm.renderKlaro();
-
-        expect(klaroMock.render.called).toBe(true);
-      });
-
-      it('registers Klaro manager update watcher', async() => {
-        const wrapper = factory();
-        await wrapper.setData({ klaro: klaroMock });
-
-        await wrapper.vm.renderKlaro();
-
-        expect(klaroManagerStub.watch.calledWith({ update: wrapper.vm.watchKlaroManagerUpdate })).toBe(true);
-      });
-    });
-
-    describe('watchKlaroManagerUpdate', () => {
-      const wrapper = factory({ data: { klaro: klaroMock } });
-      wrapper.vm.trackKlaroClickEvent = sinon.spy();
-      const manager = null;
-
-      describe('with event type "saveConsents"', () => {
-        const eventType = 'saveConsents';
-
-        const clickEvents = {
-          accept: 'Okay/Accept all',
-          decline: 'Decline',
-          save: 'Accept selected'
-        };
-        for (const dataType in clickEvents) {
-          describe(`and data type "${dataType}"`, () => {
-            const data = { type: dataType };
-            const eventName = clickEvents[dataType];
-            it(`tracks Klaro click event with name "${eventName}"`, () => {
-              wrapper.vm.watchKlaroManagerUpdate(manager, eventType, data);
-
-              expect(wrapper.vm.trackKlaroClickEvent.calledWith(eventName)).toBe(true);
-            });
-          });
-        }
-      });
-    });
-
-    describe('trackKlaroClickEvent', () => {
-      it('tracks Klaro clicks with Matomo', () => {
-        const wrapper = factory({ data: { klaro: klaroMock } });
-        wrapper.vm.$matomo.trackEvent = sinon.spy();
-
-        const eventName = 'Saved';
-        wrapper.vm.trackKlaroClickEvent(eventName);
-
-        expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', eventName)).toBe(true);
-      });
     });
   });
 

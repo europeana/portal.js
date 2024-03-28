@@ -47,12 +47,12 @@ export default {
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "explore": "Preskúmať",
-    "feedback": "Spätná väzba",
     "filter": "Filter",
     "goHome": "Prejsť na domovskú stránku",
     "hide": "Skryť",
     "learnMore": "Uč sa viac",
     "like": "Označenie Páči sa mi",
+    "login": "Prihlásiť sa",
     "move": "Hýbať",
     "next": "Ďalšie",
     "pin": "Kolík",
@@ -63,13 +63,11 @@ export default {
     "reject": "Odmietnuť",
     "requestDepublication": "Žiadosť zrušiť zverejnenie",
     "save": "Uložiť",
-    "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
     "show": "Zobraziť",
     "showLess": "Zobraziť menej",
     "showMore": "Zobraziť viac",
-    "skipSend": "Preskočiť a odoslať",
     "submitForPublication": "Odoslať na zverejnenie",
     "submittedForPublication": "Predložené na zverejnenie",
     "transcribe": "Prepísať",
@@ -82,6 +80,7 @@ export default {
     "creator": "Autor:",
     "date": "Dátum:",
     "institution": "Inštitúcia:",
+    "show": "Zobraziť atribút",
     "title": "Názov:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "od autora",
     "categories": "Kategórie",
     "category": "Kategória",
-    "posts": "Blogové príspevky",
+    "posts": "Blogový príspevok | Blogové príspevky",
     "published": "Zverejnené {date}",
     "relatedPosts": "Súvisiace príspevky"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Vľavo",
     "right": "Vpravo"
+  },
+  "ds4ch": {
+    "broughtBy": "Priniesol vám"
   },
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "tvorcovia",
-      "name": "Tvorca | Tvorcovia",
+      "name": "Tvorca",
       "select": "Vyberte tvorcov"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Vyberte správcovské inštitúcie"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientácia obrázka | Orientácie obrázkov",
+      "name": "Orientácia obrazu",
       "options": {
         "landscape": "Na šírku",
         "portrait": "Na výšku"
@@ -550,7 +552,7 @@ export default {
       "select": "Vyberte orientáciu obrázka"
     },
     "IMAGE_SIZE": {
-      "name": "Veľkosť obrázka | Veľkosti obrázkov",
+      "name": "Veľkosť obrazu",
       "options": {
         "extra_large": "Extra veľký, 4 MP + (napr. 2688 x 1520 pixelov)",
         "large": "Veľký,  1 – 4 MP (napr. 1920 x 1080 pixelov)",
@@ -574,6 +576,7 @@ export default {
         "en": "Angličtina",
         "es": "Španielčina",
         "et": "Estónčina",
+        "eu": "Baskický",
         "fi": "Fínsky",
         "fr": "Francúzsky",
         "ga": "Írsky",
@@ -618,7 +621,7 @@ export default {
       "select": "Vyberte agregátori"
     },
     "proxy_dc_format": {
-      "name": "Formát | Formáty",
+      "name": "Formát",
       "select": "Vyberte formáty"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Vyberte typy médií"
     }
-  },
-  "feedback": {
-    "emailOptional": "Možno budeme chcieť nadviazať ďalšie kroky. Ak chcete, aby sme vás kontaktovali, zadajte svoj e-mail.",
-    "failed": "Žiadosť zlyhala. Prosím skúste znova.",
-    "faq": "Prejdite na často kladené otázky",
-    "form": {
-      "placeholders": {
-        "email": "Zadajte svoju e-mailovú adresu",
-        "feedback": "Sem zadajte svoju spätnú väzbu"
-      }
-    },
-    "policies": "Pokračovaním súhlasíte s našimi {0} a beriete na vedomie naše {1}.",
-    "privacyPolicy": "Zásady ochrany osobných údajov",
-    "success": "Vaša spätná väzba bola odoslaná.",
-    "termsOfService": "Podmienky služby",
-    "thankYou": "Ďakujeme!",
-    "title": "Odoslať spätnú väzbu",
-    "validEmail": "Zadajte platnú e-mailovú adresu",
-    "validFeedback": "Vaša spätná väzba musí obsahovať minimálne 5 slov"
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
     "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
+    "footer": "Pätička",
     "imageDescription": "Financované Európskou úniou",
     "navigation": {
       "about": "O nás",
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
-      "faq": "Často kladené otázky",
+      "faq": "Často kladené otázky (FAQ)",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Zásady ochrany osobných údajov",
       "provide": "Staňte sa správcovská inštitúcia",
       "subscribe": "Prihláste sa k odberu nášho newslettera",
-      "terms": "Podmienky používania"
+      "terms": "Podmienky a zásady"
     },
     "ourMission": "Náš cieľ",
     "ourMissionQuote": "Europeana posilňuje digitálnu transformáciu odvetvia kultúrneho dedičstva. Rozvíjame odborné znalosti, nástroje a zásady na prijímanie digitálnych zmien a nadväzujeme partnerstvá, ktoré sú založené na inovácii."
@@ -829,7 +814,7 @@ export default {
         "title": "Služby, ktoré by sme chceli využiť."
       },
       "consentNotice": {
-        "description": "Záleží nám na vašom súkromí a údaje používame iba na zlepšenie vášho zážitku. Na reklamu nepoužívame žiadne osobné informácie. Svoj súhlas môžete zmeniť každých 15 dní.",
+        "description": "Ahoj! Mohli by sme povoliť nejaké ďalšie služby pre analýzu a bezpečnosť? Svoj súhlas môžete kedykoľvek zmeniť alebo odvolať.",
         "learnMore": "Nechaj ma vybrať si"
       },
       "decline": "zamietam",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Mesačné API požiadavky, v priemere",
+      "hqData": "Nárast kvalitných údajov za rok",
       "items": "Objekty",
+      "networkMembers": "Členovia siete",
       "providingInstitutions": "Správcovské inštitúcie",
       "visits": "Návštevy za deň"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizovaný preklad",
+    "automatedPageTranslations": "Táto stránka používa automaticky generované preklady z angličtiny.",
     "enrichment": "Obohatenie o partnerské projekty",
+    "loginToTranslate": "{login}, aby sa táto objekt zobrazila v iných jazykoch",
     "other": "iné jazyky",
     "stopTranslating": "Zastaviť preklad tejto objekt do jazyka {0}.",
     "translateLanguage": "Chceli by ste túto objekt vidieť v položke {0}?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Názov"
-        },
-        "title": "Organizácie"
+        "description": "Preskúmajte inštitúcie, ktoré zdieľajú objekty digitálneho kultúrneho dedičstva na Europeana.eu.",
+        "title": "Inštitúcie"
       },
       "persons": {
         "title": "Osoby"
@@ -970,8 +958,11 @@ export default {
         "title": "Miesta"
       },
       "table": {
+        "country": "Krajina",
         "items": "Objekty",
-        "name": "Meno"
+        "name": "Meno",
+        "searchPlaceholder": "Hľadať v tabuľke",
+        "showMoreData": "Zobraziť ďalšie údaje pre {entity}"
       },
       "times": {
         "title": "Storočia"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Ďalšie výsledky sa nezobrazujú, pretože je zobrazených iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli to, čo ste hľadali, zvážte spresnenie vyhľadávania.",
+      "loginToSeeMore": "{login} pre zobrazenie viac výsledkov",
+      "loginToSeeMultilingualResults": "Prihláste sa a vyhľadávajte v celej zbierke a získajte výsledky, ktoré nie sú obmedzené na jazyk vyhľadávaného výrazu.",
+      "showingMultilingualResults": "Zobrazujú sa výsledky z celej kolekcie a vo všetkých jazykoch.",
       "withinCollection": "{count} výsledkov v rámci {type} {collection}",
       "withinCollectionWithQuery": "{count} výsledkov v rámci {type} {collection} pre {query}",
       "withoutQuery": "{count} výsledkov",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} nájdených príbehov",
     "title": "Príbehy"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Skupina snímok {page}"
   },
   "themes": {
     "description": "Prehľadávať podľa kategórie",

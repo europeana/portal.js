@@ -47,12 +47,12 @@ export default {
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
     "explore": "Izpētīt",
-    "feedback": "Atsauksmes",
     "filter": "Filtrs",
     "goHome": "Dodieties uz sākumlapu",
     "hide": "Slēpt",
     "learnMore": "Apgūt vairāk",
     "like": "Patīk",
+    "login": "Pieteikties",
     "move": "Pārvietot",
     "next": "Nākamais",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Noraidīt",
     "requestDepublication": "Pieprasīt depublikāciju",
     "save": "Glābt",
-    "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
     "show": "Rādīt",
     "showLess": "Rādīt mazāk",
     "showMore": "Rādīt vairāk",
-    "skipSend": "Izlaist un nosūtīt",
     "submitForPublication": "Iesniegt publicēšanai",
     "submittedForPublication": "Iesniegts publicēšanai",
     "transcribe": "Transkribēt",
@@ -82,6 +80,7 @@ export default {
     "creator": "Autors:",
     "date": "Datums",
     "institution": "Iestāde:",
+    "show": "Rādīt attiecinājumu",
     "title": "Nosaukums:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "autors",
     "categories": "Kategorijas",
     "category": "Kategorija",
-    "posts": "Emuāra ziņas",
+    "posts": "Bloga ieraksts | Bloga ieraksti",
     "published": "Publicēts {date}",
     "relatedPosts": "Saistītās ziņas"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Kreisais",
     "right": "Labais"
+  },
+  "ds4ch": {
+    "broughtBy": "Jums atnesa"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "radītāji",
-      "name": "Radītājs | Radītāji",
+      "name": "Autors:",
       "select": "Atlasīt radītāji"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Izvēlieties piegādājošās iestādes"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Attēla orientācija | Attēla orientācijas",
+      "name": "Attēla orientācija",
       "options": {
         "landscape": "Ainava",
         "portrait": "Portrets"
@@ -550,7 +552,7 @@ export default {
       "select": "Atlasīt attēlu orientācijas"
     },
     "IMAGE_SIZE": {
-      "name": "Attēla izmērs | Attēlu izmēri",
+      "name": "Attēla izmērs",
       "options": {
         "extra_large": "Īpaši liels 4MP + (piemēram, 2688 x 1520 pikseļi)",
         "large": "Liels 1-4 MP (piemēram, 1920x1080px)",
@@ -560,7 +562,7 @@ export default {
       "select": "Atlasīt attēlu izmērus"
     },
     "LANGUAGE": {
-      "name": "Valoda | Valodas",
+      "name": "Valoda",
       "options": {
         "ar": "Arābu valodā",
         "bg": "Bulgāru",
@@ -574,6 +576,7 @@ export default {
         "en": "Angļu",
         "es": "Spāņu",
         "et": "Igauņu",
+        "eu": "Basku",
         "fi": "Somu",
         "fr": "Franču",
         "ga": "Īru",
@@ -618,7 +621,7 @@ export default {
       "select": "Atlasīt agregatori"
     },
     "proxy_dc_format": {
-      "name": "Formāts | Formāti",
+      "name": "Formāts",
       "select": "Atlasīt formātus"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Atlasīt multivides veidus"
     }
-  },
-  "feedback": {
-    "emailOptional": "Mēs varētu vēlēties sekot. Ievadiet savu e-pasta adresi, ja esat priecīgs, ka mēs ar jums sazināsimies.",
-    "failed": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
-    "faq": "Dodieties uz bieži uzdotajiem jautājumiem",
-    "form": {
-      "placeholders": {
-        "email": "ievadiet savu e-pasta adresi",
-        "feedback": "Ievadiet atsauksmes šeit"
-      }
-    },
-    "policies": "Turpinot jūs piekrītat mūsu {0} un atzīstat mūsu {1} .",
-    "privacyPolicy": "Privātuma politika",
-    "success": "Jūsu atsauksmes ir nosūtītas.",
-    "termsOfService": "Pakalpojuma noteikumi",
-    "thankYou": "Paldies!",
-    "title": "Sūtīt atsauksmes",
-    "validEmail": "ievadiet derīgu epasta adresi",
-    "validFeedback": "Jūsu atsauksmēm jābūt vismaz 5 vārdiem."
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
     "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
+    "footer": "Kājene",
     "imageDescription": "Finansē Eiropas Savienība",
     "navigation": {
       "about": "Par Europeana",
       "accessibility": "Pieejamība",
       "cookies": "Sīkdatnes",
-      "faq": "Bieži uzdotie jautājumi",
+      "faq": "Bieži uzdotie jautājumi (FAQ)",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Privātuma politika",
       "provide": "Kļūsti piegādājošā iestāde",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
-      "terms": "Lietošanas noteikumi"
+      "terms": "Noteikumi un politikas"
     },
     "ourMission": "Mūsu misija",
     "ourMissionQuote": "Europeana nodrošina iespējas kultūras mantojuma nozarei tās digitālajā pārveidē. Mēs izstrādājam zināšanas, instrumentus un politikas virzienus, lai atbalstītu digitālās izmaiņas un veicinātu partnerības, kas veicina jauninājumus."
@@ -829,7 +814,7 @@ export default {
         "title": "Pakalpojumi, kurus mēs vēlētos izmantot."
       },
       "consentNotice": {
-        "description": "Mēs rūpējamies par jūsu privātumu un izmantojam datus tikai jūsu pieredzes uzlabošanai. Mēs reklamēšanai neizmantojam personisku informāciju. Jūs varat mainīt savu piekrišanu ik pēc 15 dienām.",
+        "description": "Sveiki! Vai mēs, lūdzu, varētu iespējot dažus papildu pakalpojumus analīzei un drošībai? Jūs vienmēr varat mainīt vai atsaukt savu piekrišanu vēlāk.",
         "learnMore": "Ļaujiet man izvēlēties"
       },
       "decline": "Es noraidu",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Vidēji ikmēneša API pieprasījumi",
+      "hqData": "Augstas kvalitātes datu pieaugums gadā",
       "items": "Digitālie objekti",
+      "networkMembers": "Tīkla dalībnieki",
       "providingInstitutions": "Piegādājošās iestādes",
       "visits": "Apmeklējumi dienā"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automātiskā tulkošana",
+    "automatedPageTranslations": "Šī lapa izmanto automātiski ģenerētus tulkojumus no angļu valodas.",
     "enrichment": "Bagātināšana ar partneru projektiem",
+    "loginToTranslate": "{login}, lai skatītu šo digitālo objektu citās valodās",
     "other": "citas valodas",
     "stopTranslating": "Pārtrauciet šī digitālais objekts tulkošanu uz {0}.",
     "translateLanguage": "Vai jūs vēlētos redzēt šo digitālais objekts {0}?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Vārds"
-        },
-        "title": "Organizācijas"
+        "description": "Izpētiet iestādes, kas dalās ar digitālajiem kultūras mantojuma objekti Europeana.eu.",
+        "title": "Lestādes"
       },
       "persons": {
         "title": "Personas"
@@ -970,8 +958,11 @@ export default {
         "title": "Vietas"
       },
       "table": {
+        "country": "Valsts",
         "items": "Digitālie objekti",
-        "name": "Vārds"
+        "name": "Vārds",
+        "searchPlaceholder": "Meklēt tabulā",
+        "showMoreData": "Rādīt vairāk datu par {entity}"
       },
       "times": {
         "title": "Gadsimtiem"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Papildu rezultāti netiek rādīti, jo tiek rādīti tikai pirmie 1000 visatbilstošākie rezultāti. Ja neatradāt to, ko meklējat, lūdzu, apsveriet iespēju uzlabot meklēšanu.",
+      "loginToSeeMore": "{login} lai redzētu vairāk rezultātu",
+      "loginToSeeMultilingualResults": "Piesakieties, lai meklētu visā kolekcijā un saņemiet rezultātus ne tikai jūsu meklēšanas vienuma valodā.",
+      "showingMultilingualResults": "Rāda rezultātus visā kolekcijā un visās valodās.",
       "withinCollection": "{count} rezultāti sadaļā {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultāti sadaļā {type} {collection} par {query}",
       "withoutQuery": "{count} rezultāti",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} atrasti stāsti",
     "title": "Stāsti"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slaidu grupa {page}"
   },
   "themes": {
     "description": "Pārlūkojiet pēc tēmas",

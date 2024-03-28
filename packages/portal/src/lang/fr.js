@@ -47,12 +47,12 @@ export default {
     "download": "Télécharger",
     "edit": "Modifier",
     "explore": "Explorer",
-    "feedback": "Commentaires",
     "filter": "Filtre",
     "goHome": "Aller à la page d'accueil",
     "hide": "Cacher",
     "learnMore": "Apprendre encore plus",
     "like": "Mention J'aime",
+    "login": "Connexion",
     "move": "Déplacer",
     "next": "Suivant",
     "pin": "Épingler",
@@ -63,13 +63,11 @@ export default {
     "reject": "Rejeter",
     "requestDepublication": "Demander la dépublication",
     "save": "Sauvegarder",
-    "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
     "show": "Afficher",
     "showLess": "Afficher moins",
     "showMore": "Afficher plus",
-    "skipSend": "Ignorer et envoyer",
     "submitForPublication": "Soumettre pour publication",
     "submittedForPublication": "Soumis pour publication",
     "transcribe": "Transcrire",
@@ -82,6 +80,7 @@ export default {
     "creator": "Créateur :",
     "date": "Date :",
     "institution": "Institution :",
+    "show": "Afficher l'attribution",
     "title": "Titre :"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "par",
     "categories": "Catégories",
     "category": "Catégorie",
-    "posts": "Articles de blog",
+    "posts": "Article de blog | Articles de blog",
     "published": "Publié le {date}",
     "relatedPosts": "Publications Similaires"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Gauche",
     "right": "Droite"
+  },
+  "ds4ch": {
+    "broughtBy": "Présenté par"
   },
   "edmIsShownAtLinkAlt": "Vue sur le site internet du prestataire",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "créateurs",
-      "name": "Créateur | Créateurs",
+      "name": "Créateur",
       "select": "Sélectionnez les créateurs"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Sélectionnez l'institution partenaires"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientation de l'image | Orientations de l'image",
+      "name": "Orientation de l'image",
       "options": {
         "landscape": "Paysage",
         "portrait": "Portrait"
@@ -550,7 +552,7 @@ export default {
       "select": "Sélectionnez les orientations de l'image"
     },
     "IMAGE_SIZE": {
-      "name": "Taille d'image | Tailles d'image",
+      "name": "Taille de l'image",
       "options": {
         "extra_large": "Extra Large 4MP+ (par exemple 2 688 x 1 520 px)",
         "large": "Grand 1-4MP (par exemple 1 920 x 1 080 px)",
@@ -574,6 +576,7 @@ export default {
         "en": "Anglais",
         "es": "Espagnol",
         "et": "Estonien",
+        "eu": "Basque",
         "fi": "Finlandais",
         "fr": "Français",
         "ga": "Irlandais",
@@ -618,7 +621,7 @@ export default {
       "select": "Sélectionnez les agrégateurs"
     },
     "proxy_dc_format": {
-      "name": "Format | Formats",
+      "name": "Format",
       "select": "Sélectionnez les formats"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Sélectionnez les types de médias"
     }
-  },
-  "feedback": {
-    "emailOptional": "Nous souhaiterions peut-être faire un suivi. Entrez votre e-mail si vous souhaitez que nous vous contactions.",
-    "failed": "La demande a échoué. Veuillez réessayer.",
-    "faq": "Aller à la foire aux questions",
-    "form": {
-      "placeholders": {
-        "email": "Entrez votre adresse email",
-        "feedback": "Entrez vos commentaires ici"
-      }
-    },
-    "policies": "En continuant, vous acceptez notre {0} et reconnaissez notre {1} .",
-    "privacyPolicy": "Politique de confidentialité",
-    "success": "Votre commentaire a été envoyé.",
-    "termsOfService": "Conditions d'utilisation",
-    "thankYou": "Merci!",
-    "title": "Envoyer des commentaires",
-    "validEmail": "Entrez une adresse mail valide",
-    "validFeedback": "Vos commentaires doivent comprendre au moins 5 mots"
   },
   "fieldLabels": {
     "default": {
@@ -739,7 +723,7 @@ export default {
       "about": "À propos de RDF",
       "dcDescription": "Description",
       "ebucoreHasMimeType": "Type Ebucore MIME",
-      "edmRights": "Licence pour cette ressource média",
+      "edmRights": "Mentions de droit pour cette ressource médiatique",
       "rdfAbout": "À propos de RDF"
     }
   },
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana est une initiative de l'Union européenne, financée par le Connecting Europe Facility de l'Union européenne et les États membres de l'Union européenne. Les services Europeana, y compris ce site Web, sont exploités par un consortium dirigé par la Fondation Europeana dans le cadre d'un contrat de service avec la Commission européenne.",
     "disclaimerLine2": "La Commission européenne ne garantit pas l'exactitude des informations et n'accepte aucune responsabilité ou obligation quelle qu'elle soit en ce qui concerne les informations sur ce site. Ni la Commission européenne, ni aucune personne agissant au nom de la Commission européenne, n'est responsable de l'exactitude ou de l'utilisation des informations sur ce site Web.",
     "findUsElsewhere": "Nous trouver ailleurs",
+    "footer": "Pied de page",
     "imageDescription": "Financé par l'Union européenne",
     "navigation": {
       "about": "À propos d'Europeana",
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
-      "faq": "Foire aux questions",
+      "faq": "Foire aux questions (FAQ)",
       "forDevelopers": "Pour les développeurs",
       "help": "Aide",
       "MoreInfoLabel": "Plus d'informations",
       "privacy": "Politique de confidentialité",
       "provide": "Devenir une institution partenaire",
       "subscribe": "Abonnez-vous à notre newsletter",
-      "terms": "Conditions d'utilisation"
+      "terms": "Conditions et politiques"
     },
     "ourMission": "Notre mission",
     "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les strategies pour adopter le changement numérique et encourageons les partenariats qui favorisent l'innovation."
@@ -829,7 +814,7 @@ export default {
         "title": "Services que nous aimerions utiliser."
       },
       "consentNotice": {
-        "description": "Nous nous soucions de votre vie privée et n'utilisons les données que pour améliorer votre expérience. Nous n'utilisons aucune information personnelle à des fins publicitaires. Vous pouvez modifier votre consentement tous les 15 jours.",
+        "description": "Salut! Pourrions-nous s'il vous plaît activer certains services supplémentaires pour l'analyse et la sécurité ? Vous pouvez toujours modifier ou retirer votre consentement ultérieurement.",
         "learnMore": "Laisse-moi choisir"
       },
       "decline": "Je décline",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Requêtes API mensuelles, en moyenne",
+      "hqData": "Augmentation des données de haute qualité par an",
       "items": "Items",
+      "networkMembers": "Membres du réseau",
       "providingInstitutions": "Institutions partenaires",
       "visits": "Visites par jour"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Traduction automatisée",
+    "automatedPageTranslations": "Cette page utilise des traductions générées automatiquement à partir de l’anglais.",
     "enrichment": "Enrichissement par des projets partenaires",
+    "loginToTranslate": "{login} pour voir cet item dans d'autres langues",
     "other": "autres langues",
     "stopTranslating": "Arrêtez de traduire cet item en {0}.",
     "translateLanguage": "Souhaitez-vous voir cet item dans {0} ?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nom"
-        },
-        "title": "Organisations"
+        "description": "Explorez les institutions qui partagent des items de patrimoine culturel numérique sur Europeana.eu.",
+        "title": "Institutions"
       },
       "persons": {
         "title": "Personnes"
@@ -970,8 +958,11 @@ export default {
         "title": "Des endroits"
       },
       "table": {
+        "country": "Pays",
         "items": "Items",
-        "name": "Nom"
+        "name": "Nom",
+        "searchPlaceholder": "Rechercher dans la table",
+        "showMoreData": "Afficher plus de données pour {entity}"
       },
       "times": {
         "title": "Des siècles"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Les résultats supplémentaires ne sont pas affichés car seuls les 1000 premiers résultats les plus pertinents sont affichés. Si vous n'avez pas trouvé ce que vous cherchez, pensez à affiner votre recherche.",
+      "loginToSeeMore": "{login} pour voir plus de résultats",
+      "loginToSeeMultilingualResults": "Connectez-vous pour effectuer une recherche dans l'ensemble de la collection et obtenez des résultats qui ne se limitent pas à la langue de votre terme de recherche.",
+      "showingMultilingualResults": "Affichage des résultats sur l'ensemble de la collection et dans toutes les langues.",
       "withinCollection": "{count} résultats dans {type} {collection}",
       "withinCollectionWithQuery": "{count} résultats dans {type} {collection} pour {query}",
       "withoutQuery": "{count} résultats",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} histoires trouvées",
     "title": "Histoires"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Groupe de diapositives {page}"
   },
   "themes": {
     "description": "Parcourir par thème",

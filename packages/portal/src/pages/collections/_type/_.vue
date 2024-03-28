@@ -9,13 +9,11 @@
       data-qa="error message container"
       :error="$fetchState.error"
     />
-    <component
-      :is="$config.app.search.collections.clientOnly ? 'client-only' : 'div'"
+    <div
       v-else
     >
       <SearchInterface
         v-if="!$fetchState.pending"
-        :do-not-translate="$config.app.search.collections.doNotTranslate"
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
@@ -64,7 +62,7 @@
           </client-only>
         </template>
       </SearchInterface>
-    </component>
+    </div>
   </div>
 </template>
 
@@ -296,6 +294,7 @@
           const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
           labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
         }
+        // TODO: Update to use API country field?
         if (this.entity?.hasAddress?.countryName)  {
           labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
         }

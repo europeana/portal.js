@@ -11,8 +11,6 @@ localVue.component('SmartLink', SmartLink);
 const factory = ({ mocks = {} } = {}) => shallowMount(PageFooter, {
   localVue,
   mocks: {
-    $config: { app: { baseUrl: 'https://www.example.eu' } },
-    $features: {},
     $store: {
       getters: {
         'debug/settings': { enabled: false }
@@ -57,28 +55,6 @@ describe('components/PageFooter', () => {
       wrapper.vm.$store.getters['debug/settings'] = { enabled: true };
 
       expect(wrapper.vm.showDebugLinkGroup).toBe(true);
-    });
-  });
-
-  describe('FeedbackWidget', () => {
-    describe('when feedback toggle disabled', () => {
-      it('is not loaded', () => {
-        const wrapper = factory();
-
-        const feedbackWidget = wrapper.find('[data-qa="feedback widget"]');
-
-        expect(feedbackWidget.exists()).toBe(false);
-      });
-    });
-
-    describe('when feedback toggle enabled', () => {
-      it('is rendered', () => {
-        const wrapper = factory({ mocks: { $features: { jiraServiceDeskFeedbackForm: true } } });
-
-        const feedbackWidget = wrapper.find('[data-qa="feedback widget"]');
-
-        expect(feedbackWidget.exists()).toBe(true);
-      });
     });
   });
 });

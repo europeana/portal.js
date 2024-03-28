@@ -43,7 +43,7 @@ describe('components/home/HomeHero', () => {
   });
 
   describe('beforeDestroy', () => {
-    it('unmounts the Mirador viewer instance', () => {
+    it('removes the scroll event listener', () => {
       sinon.spy(window, 'removeEventListener');
       const wrapper = factory();
 

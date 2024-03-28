@@ -47,12 +47,12 @@ export default {
     "download": "Prenos",
     "edit": "Uredi",
     "explore": "Raziščite",
-    "feedback": "Povratne informacije",
     "filter": "Filter",
     "goHome": "Pojdite na domačo stran",
     "hide": "Skrij",
     "learnMore": "Nauči se več",
     "like": "Všeč mi je",
+    "login": "Vpis",
     "move": "Premakni se",
     "next": "Naslednji",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Zavrne",
     "requestDepublication": "Zahtevaj deublikacijo",
     "save": "Shrani",
-    "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
     "show": "Prikaži",
     "showLess": "Prikaži manj",
     "showMore": "Prikaži več",
-    "skipSend": "Preskoči in pošlji",
     "submitForPublication": "Oddaj za objavo",
     "submittedForPublication": "Oddano v objavo",
     "transcribe": "Prepisujte",
@@ -82,6 +80,7 @@ export default {
     "creator": "Ustvarjalec:",
     "date": "Datum:",
     "institution": "Ustanova:",
+    "show": "Prikaži pripis",
     "title": "Naslov:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "avtor",
     "categories": "Kategorije",
     "category": "Kategorija",
-    "posts": "Objave v blogih",
+    "posts": "Objava na blogu | Objave na spletnem dnevniku",
     "published": "Objavljeno {date}",
     "relatedPosts": "Sorodne objave"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Levo",
     "right": "Desno"
+  },
+  "ds4ch": {
+    "broughtBy": "Prinesel vam"
   },
   "edmIsShownAtLinkAlt": "Ogled na spletni strani ponudnika",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "ustvarjalci",
-      "name": "Ustvarjalec | Ustvarjalci",
+      "name": "Kreatur",
       "select": "Izberite ustvarjalce"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Izberite ponudniki podatkov"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Usmerjenost slike | Usmerjenosti slik",
+      "name": "Usmerjenost slike",
       "options": {
         "landscape": "Ležeče",
         "portrait": "Pokončno"
@@ -550,7 +552,7 @@ export default {
       "select": "Izberite usmeritve slike"
     },
     "IMAGE_SIZE": {
-      "name": "Velikost slike | Velikosti slik",
+      "name": "Velikost slike",
       "options": {
         "extra_large": "Zelo velika 4MP+ (npr. 2688 x 1520px)",
         "large": "Velika 1-4MP (npr. 1920x1080px)",
@@ -574,6 +576,7 @@ export default {
         "en": "Angleščina",
         "es": "Španščina",
         "et": "Estonski",
+        "eu": "Baskovščina",
         "fi": "Finska",
         "fr": "Francoski",
         "ga": "Irski",
@@ -618,7 +621,7 @@ export default {
       "select": "Izberite agregatorji"
     },
     "proxy_dc_format": {
-      "name": "Format | Formati",
+      "name": "Oblika",
       "select": "Izberite formate"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Izberite vrste medijev"
     }
-  },
-  "feedback": {
-    "emailOptional": "Morda bi želeli slediti. Vnesite svojo e-pošto, če ste veseli, da vas kontaktiramo.",
-    "failed": "Zahteva ni uspela. Prosim poskusite ponovno.",
-    "faq": "Pojdite na pogosto zastavljena vprašanja",
-    "form": {
-      "placeholders": {
-        "email": "Vnesite svoj e-poštni naslov",
-        "feedback": "Tukaj vnesite svoje povratne informacije"
-      }
-    },
-    "policies": "Z nadaljevanjem se strinjate z našimi {0} in potrjujete naše {1} .",
-    "privacyPolicy": "Pravilnik o zasebnosti",
-    "success": "Vaše povratne informacije so bile poslane.",
-    "termsOfService": "Pogoji storitve",
-    "thankYou": "Hvala!",
-    "title": "Pošlji povratno informacijo",
-    "validEmail": "Vnesite veljaven e-poštni naslov",
-    "validFeedback": "Vaše povratne informacije morajo biti sestavljene iz 5 besed najmanj"
   },
   "fieldLabels": {
     "default": {
@@ -739,7 +723,7 @@ export default {
       "about": "RDF o",
       "dcDescription": "Opis",
       "ebucoreHasMimeType": "Vrsta Ebucore MIME",
-      "edmRights": "Licenca za ta medijski vir",
+      "edmRights": "Pravice za ta medijski vir",
       "rdfAbout": "RDF o"
     }
   },
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
     "disclaimerLine2": "Evropska komisija ne zagotavlja točnosti informacij in ne sprejema nobene odgovornosti ali odgovornosti v zvezi z informacijami na tej spletni strani. Niti Evropska komisija niti nobena oseba, ki deluje v imenu Evropske komisije, ni odgovorna ali odgovorna za točnost ali uporabo informacij na tej spletni strani.",
     "findUsElsewhere": "Najdite nas drugje",
+    "footer": "Noga",
     "imageDescription": "Financira Evropska unija",
     "navigation": {
       "about": "O nas",
       "accessibility": "Dostopnost",
       "cookies": "Piškotki",
-      "faq": "Pogosto zastavljena vprašanja",
+      "faq": "Pogosto zastavljena vprašanja (FAQ)",
       "forDevelopers": "Za razvijalce",
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
       "privacy": "Pravilnik o zasebnosti",
       "provide": "Postanite ponudnik podatkov",
       "subscribe": "Naročite se na naše novice",
-      "terms": "Pogoji uporabe"
+      "terms": "Pogoji in pravilniki"
     },
     "ourMission": "Naša misija",
     "ourMissionQuote": "Europeana krepi panogo kulturne dediščine pri njeni digitalni preobrazbi. Razvijamo strokovno znanje, orodja in politike za sprejemanje digitalnih sprememb ter spodbujamo partnerstva, ki negujejo inovacije."
@@ -829,7 +814,7 @@ export default {
         "title": "Storitve, ki jih želimo uporabljati."
       },
       "consentNotice": {
-        "description": "Skrbimo za vašo zasebnost in podatke uporabljamo le za izboljšanje vaše izkušnje. Osebnih podatkov ne uporabljamo za oglaševanje. Svoje soglasje lahko spremenite vsakih 15 dni.",
+        "description": "Živjo! Ali lahko prosim omogočimo nekaj dodatnih storitev za analitiko in varnost? Soglasje lahko kadar koli spremenite ali prekličete pozneje.",
         "learnMore": "Naj izberem"
       },
       "decline": "Zavrnem.",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Mesečne zahteve API, v povprečju",
+      "hqData": "Povečanje kakovostnih podatkov na leto",
       "items": "Enote",
+      "networkMembers": "Člani mreže",
       "providingInstitutions": "Ponudniki podatkov",
       "visits": "Obiski na dan"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Avtomatizirano prevajanje",
+    "automatedPageTranslations": "Ta stran uporablja samodejno ustvarjene prevode iz angleščine.",
     "enrichment": "Obogatitev s partnerskimi projekti",
+    "loginToTranslate": "{login} za ogled tega enote v drugih jezikih",
     "other": "drugi jeziki",
     "stopTranslating": "Prenehajte prevajati ta enota v {0}.",
     "translateLanguage": "Želite ta enota videti v {0}?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Ime"
-        },
-        "title": "Organizacije"
+        "description": "Raziščite ustanove, ki delijo enote digitalne kulturne dediščine na Europeana.eu.",
+        "title": "Institucije"
       },
       "persons": {
         "title": "Osebe"
@@ -970,8 +958,11 @@ export default {
         "title": "Krajev"
       },
       "table": {
+        "country": "Država",
         "items": "Enote",
-        "name": "Ime"
+        "name": "Ime",
+        "searchPlaceholder": "Išči znotraj tabele",
+        "showMoreData": "Prikaži več podatkov za {entity}"
       },
       "times": {
         "title": "Stoletja"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Dodatni rezultati niso prikazani, saj je prikazanih le prvih 1000 najpomembnejših rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
+      "loginToSeeMore": "{login} za ogled več rezultatov",
+      "loginToSeeMultilingualResults": "Prijavite se za iskanje po celotni zbirki in dobite rezultate, ki niso omejeni na jezik vašega iskalnega izraza.",
+      "showingMultilingualResults": "Prikaz rezultatov po celotni zbirki in vseh jezikih.",
       "withinCollection": "{count} rezultatov znotraj {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultatov znotraj {type} {collection} za {query}",
       "withoutQuery": "{count} rezultatov",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} zgodbe najdene",
     "title": "Zgodbe"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Skupina diapozitivov {page}"
   },
   "themes": {
     "description": "Brskajte po temi",

@@ -76,8 +76,8 @@
 
   .group-title {
     font-size: $font-size-small;
-    color: $paper;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
 
     @media (min-width: $bp-wqhd) {
       font-size: 1.125rem;
@@ -94,6 +94,13 @@
 
   hr {
     border-top-color: $white;
+    margin-top: 0.75rem;
+    margin-bottom: 2.25rem;
+
+    @media (min-width: $bp-large) {
+      margin-top: 1.5rem;
+      margin-bottom: 3rem;
+    }
 
     @media (min-width: $bp-wqhd) {
       border-top-width: 2px;
@@ -110,69 +117,60 @@
     }
   }
 
-  .footer-link-list {
-    list-style-type: none;
-
+  .link-group-list {
     li {
       @media (min-width: $bp-xxxl) {
         font-size: $font-size-base;
       }
 
-      .footer-link {
-        color: $white;
-        font-size: $font-size-small;
-        text-decoration: none;
-
+      a {
         @media (min-width: $bp-wqhd) {
           font-size: 1.375rem;
         }
-
-        &:hover {
-          text-decoration: underline;
-        }
       }
     }
+  }
 
-    &.social-links {
-      display: flex;
+  .link-group-social .link-group-list {
+    display: flex;
 
-      li {
-        &:not(:last-child) {
-          margin-right: 0.5rem;
+    li {
+      &:not(:last-child) {
+        margin-right: 0.75rem;
 
-          @media (min-width: $bp-wqhd) {
-            margin-right: 0.5em;
-          }
+        @media (min-width: $bp-wqhd) {
+          margin-right: 0.75em;
+        }
+      }
+
+      a {
+        align-items: center;
+        background: $white;
+        border-radius: 50%;
+        display: flex;
+        height: 2.5rem;
+        justify-content: center;
+        transition: background 0.25s;
+        width: 2.5rem;
+        color: $black;
+        margin-top: 0.25rem;
+
+        &:hover {
+          background: rgb(255 255 255 / 75%);
+          text-decoration: none;
         }
 
-        .footer-link {
-          align-items: center;
-          background: $white;
-          border-radius: 50%;
-          display: flex;
-          height: 2.5rem;
-          justify-content: center;
-          transition: background 0.25s;
-          width: 2.5rem;
-          color: $black;
+        .footer-link-icon {
+          font-size: 1.5rem;
 
-          &:hover {
-            background: rgb(255 255 255 / 75%);
-            text-decoration: none;
-          }
+          &.icon-facebook,
+          &.icon-pinterest {
+            color: $white;
+            font-size: 2.5rem;
+            background-color: $black;
 
-          .footer-link-icon {
-            font-size: 1.5rem;
-
-            &.icon-facebook,
-            &.icon-pinterest {
-              color: $white;
-              font-size: 2.5rem;
-              background-color: $black;
-
-              &:hover {
-                color: rgb(255 255 255 / 75%);
-              }
+            &:hover {
+              color: rgb(255 255 255 / 75%);
             }
           }
         }

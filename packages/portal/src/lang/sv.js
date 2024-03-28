@@ -47,12 +47,12 @@ export default {
     "download": "Ladda ner",
     "edit": "Redigera",
     "explore": "Utforska",
-    "feedback": "Feedback",
     "filter": "Filtrera",
     "goHome": "Gå till hemsidan",
     "hide": "Dölj",
     "learnMore": "Läs mer",
     "like": "Gilla",
+    "login": "Logga in",
     "move": "Flytta",
     "next": "Nästa",
     "pin": "Stift",
@@ -63,13 +63,11 @@ export default {
     "reject": "Avvisa",
     "requestDepublication": "Begär avpublicering",
     "save": "Spara",
-    "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
     "show": "Visa",
     "showLess": "Visa mindre",
     "showMore": "Visa mer",
-    "skipSend": "Hoppa över och skicka",
     "submitForPublication": "Skicka in för publicering",
     "submittedForPublication": "Inlämnad för publicering",
     "transcribe": "Transkribera",
@@ -82,6 +80,7 @@ export default {
     "creator": "Upphovsperson:",
     "date": "Datum:",
     "institution": "Institution:",
+    "show": "Visa attribution",
     "title": "Titel:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "av",
     "categories": "Kategorier",
     "category": "Kategori",
-    "posts": "Blogginlägg",
+    "posts": "Blogginlägg | Blogginlägg",
     "published": "Publicerad {date}",
     "relatedPosts": "Relaterade inlägg"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Vänster",
     "right": "Höger"
+  },
+  "ds4ch": {
+    "broughtBy": "Tillhandahålls av"
   },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "skapare",
-      "name": "Skapare | Skapare",
+      "name": "Upphovsman",
       "select": "Välj skapare"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Välj tillhandahållande institutioner"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Bildorientering | Bildorienteringar",
+      "name": "Bildorientering",
       "options": {
         "landscape": "Landskap",
         "portrait": "Porträtt"
@@ -550,7 +552,7 @@ export default {
       "select": "Välj bildorienteringar"
     },
     "IMAGE_SIZE": {
-      "name": "Bildstorlek | Bildstorlekar",
+      "name": "Bildstorlek",
       "options": {
         "extra_large": "Extra stor 4MP + (t.ex. 2688 x 1520 px)",
         "large": "Stor 1-4MP (t.ex. 1920x1080px)",
@@ -574,6 +576,7 @@ export default {
         "en": "Engelska",
         "es": "Spanska",
         "et": "Estniska",
+        "eu": "Baskiska",
         "fi": "Finska",
         "fr": "Franska",
         "ga": "Irländska",
@@ -618,7 +621,7 @@ export default {
       "select": "Välj aggregatorer"
     },
     "proxy_dc_format": {
-      "name": "Format | Format",
+      "name": "Format",
       "select": "Välj format"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Välj typer av media"
     }
-  },
-  "feedback": {
-    "emailOptional": "Vi kanske vill följa upp detta. Ange din e-postadress om du vill att vi ska kontakta dig.",
-    "failed": "Begäran misslyckades. Var god försök igen.",
-    "faq": "Gå till vanliga frågor",
-    "form": {
-      "placeholders": {
-        "email": "Ange din e-postadress",
-        "feedback": "Ange din feedback här"
-      }
-    },
-    "policies": "Genom att fortsätta godkänner du vår {0} och godkänner vår {1} .",
-    "privacyPolicy": "Integritetspolicy",
-    "success": "Din feedback har skickats.",
-    "termsOfService": "Användarvillkor",
-    "thankYou": "Tack!",
-    "title": "Skicka feedback",
-    "validEmail": "Ange en giltig e-postadress",
-    "validFeedback": "Din feedback måste bestå av minst 5 ord"
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
     "disclaimerLine2": "Europeiska kommissionen garanterar inte att informationen är korrekt och tar inget ansvar för informationen på denna webbplats. Varken Europeiska kommissionen eller någon person som agerar på Europeiska kommissionens vägnar är ansvarig för att informationen på denna webbplats är korrekt eller används.",
     "findUsElsewhere": "Hitta oss någon annanstans",
+    "footer": "Sidfot",
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
       "about": "Om",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
-      "faq": "Vanliga frågor",
+      "faq": "Vanliga frågor (FAQ)",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
       "provide": "Bli en tillhandahållande institution",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
-      "terms": "Användarvillkor"
+      "terms": "Villkor och policyer"
     },
     "ourMission": "Vårt uppdrag",
     "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omvandlingen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
@@ -829,7 +814,7 @@ export default {
         "title": "Tjänster som vi skulle vilja använda."
       },
       "consentNotice": {
-        "description": "Vi bryr oss om din integritet och använder endast data för att förbättra din upplevelse. Vi använder ingen personlig information för reklam. Du kan ändra ditt samtycke var 15: e dag.",
+        "description": "Hej! Kan vi aktivera några ytterligare tjänster för analys och säkerhet? Du kan alltid ändra eller återkalla ditt samtycke senare.",
         "learnMore": "Låt mig välja"
       },
       "decline": "jag avböjer",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Månatliga API-förfrågningar, i genomsnitt",
+      "hqData": "Ökning av data av hög kvalitet per år",
       "items": "Objekt",
+      "networkMembers": "Nätverksmedlemmar",
       "providingInstitutions": "Tillhandahållande institutioner",
       "visits": "Besök per dag"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiserad översättning",
+    "automatedPageTranslations": "Den här sidan använder automatiskt genererade översättningar från engelska.",
     "enrichment": "Berikning genom partnerprojekt",
+    "loginToTranslate": "{login} för att se detta objekt på andra språk",
     "other": "andra språk",
     "stopTranslating": "Sluta översätta det här objektet till {0}.",
     "translateLanguage": "Vill du se det här objektet i {0} ?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Namn"
-        },
-        "title": "Organisationer"
+        "description": "Utforska de institutioner som delar digitala kulturarvsobjekt på Europeana.eu.",
+        "title": "institutioner"
       },
       "persons": {
         "title": "Personer"
@@ -970,8 +958,11 @@ export default {
         "title": "Platser"
       },
       "table": {
+        "country": "Land",
         "items": "Objekt",
-        "name": "Namn"
+        "name": "Namn",
+        "searchPlaceholder": "Sök inom tabell",
+        "showMoreData": "Visa mer data för {entity}"
       },
       "times": {
         "title": "Århundraden"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
+      "loginToSeeMore": "{login} för att se fler resultat",
+      "loginToSeeMultilingualResults": "Logga in för att söka i hela samlingen och få resultat som inte är begränsade till språket för din sökterm.",
+      "showingMultilingualResults": "Visar resultat över hela samlingen och alla språk.",
       "withinCollection": "{count} resultat inom {type} {collection}",
       "withinCollectionWithQuery": "{count} resultat inom {type} {collection} för {query}",
       "withoutQuery": "{count} resultat",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} berättelser hittades",
     "title": "Berättelser"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Bildgrupp {page}"
   },
   "themes": {
     "description": "Bläddra efter tema",

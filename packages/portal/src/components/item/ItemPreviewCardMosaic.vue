@@ -108,6 +108,7 @@
 
   .mosaic-column-3 {
     @media (min-width: $bp-large) {
+      width: 0;
       flex: 0 0 calc(50%);
     }
 
@@ -133,6 +134,7 @@
 
     img {
       object-position: 50% 20%;
+      max-width: none;
     }
   }
 

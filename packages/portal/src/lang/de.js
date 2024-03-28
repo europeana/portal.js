@@ -47,12 +47,12 @@ export default {
     "download": "Herunterladen",
     "edit": "Bearbeiten",
     "explore": "Erkunden",
-    "feedback": "Feedback",
     "filter": "Filter",
     "goHome": "Zur Startseite gehen",
     "hide": "Verstecken",
     "learnMore": "Mehr erfahren",
     "like": "Like",
+    "login": "Anmelden",
     "move": "Verschieben",
     "next": "Weiter",
     "pin": "Stift",
@@ -63,13 +63,11 @@ export default {
     "reject": "Ablehnen",
     "requestDepublication": "Depublikation anfordern",
     "save": "Speichern",
-    "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
     "show": "Anzeigen",
     "showLess": "Weniger anzeigen",
     "showMore": "Mehr anzeigen",
-    "skipSend": "Überspringen und senden",
     "submitForPublication": "Zur Veröffentlichung einreichen",
     "submittedForPublication": "Zur Veröffentlichung eingereicht",
     "transcribe": "Transkribieren",
@@ -82,6 +80,7 @@ export default {
     "creator": "Urheber:",
     "date": "Datum:",
     "institution": "Institution:",
+    "show": "Namensnennung anzeigen",
     "title": "Titel:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "von",
     "categories": "Kategorien",
     "category": "Kategorie",
-    "posts": "Blog-Beiträge",
+    "posts": "Blogbeitrag | Blogeinträge",
     "published": "Veröffentlicht am {date}",
     "relatedPosts": "Ähnliche Beiträge"
   },
@@ -209,6 +208,9 @@ export default {
     "left": "Links",
     "right": "Rechts"
   },
+  "ds4ch": {
+    "broughtBy": "Präsentiert von"
+  },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
   "entity": {
     "actions": {
@@ -314,7 +316,7 @@ export default {
         "sport": "Sport",
         "ww1": "Erster Weltkrieg"
       },
-      "select": "Ein thema auswählen"
+      "select": "Ein Thema auswählen"
     },
     "COLOURPALETTE": {
       "moreName": "Farben",
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "Ersteller",
-      "name": "Ersteller | Ersteller",
+      "name": "Urheber",
       "select": "Ersteller auswählen"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Auswählen der Datenpartner"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Bildausrichtung | Bildausrichtungen",
+      "name": "Bildausrichtung",
       "options": {
         "landscape": "Querformat",
         "portrait": "Hochformat"
@@ -550,7 +552,7 @@ export default {
       "select": "Bildausrichtungen auswählen"
     },
     "IMAGE_SIZE": {
-      "name": "Bildgröße | Bildgrößen",
+      "name": "Bildgröße",
       "options": {
         "extra_large": "Extra große 4MP+ (z.B. 2688 x 1520px)",
         "large": "Große 1-4MP (z. B. 1920x1080px)",
@@ -560,7 +562,7 @@ export default {
       "select": "Bildgrößen auswählen"
     },
     "LANGUAGE": {
-      "name": "Sprache | Sprachen",
+      "name": "Sprache",
       "options": {
         "ar": "Arabisch",
         "bg": "Bulgarisch",
@@ -574,6 +576,7 @@ export default {
         "en": "Englisch",
         "es": "Spanisch",
         "et": "Estnisch",
+        "eu": "Baskisch",
         "fi": "Finnisch",
         "fr": "Französisch",
         "ga": "Irisch",
@@ -618,7 +621,7 @@ export default {
       "select": "Aggregatoren auswählen"
     },
     "proxy_dc_format": {
-      "name": "Format | Formate",
+      "name": "Format",
       "select": "Formate auswählen"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Medientypen auswählen"
     }
-  },
-  "feedback": {
-    "emailOptional": "Möglicherweise möchten wir nachfassen. Geben Sie Ihre E-Mail-Adresse ein, wenn Sie damit einverstanden sind, dass wir Sie kontaktieren.",
-    "failed": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
-    "faq": "Gehen Sie zu den häufig gestellten Fragen",
-    "form": {
-      "placeholders": {
-        "email": "Geben sie ihre E-Mailadresse ein",
-        "feedback": "Geben Sie hier Ihr Feedback ein"
-      }
-    },
-    "policies": "Indem Sie fortfahren, stimmen Sie unseren {0} und erkennen unsere {1} .",
-    "privacyPolicy": "Datenschutz-Bestimmungen",
-    "success": "Ihr Feedback wurde gesendet.",
-    "termsOfService": "Nutzungsbedingungen",
-    "thankYou": "Vielen Dank!",
-    "title": "Feedback abschicken",
-    "validEmail": "Geben Sie eine gültige E-Mail Adresse ein",
-    "validFeedback": "Ihr Feedback muss aus mindestens 5 Wörtern bestehen"
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana ist eine Initiative der Europäischen Union, die von der \"Connecting Europe Facility“ der Europäischen Union und den Mitgliedstaaten der Europäischen Union finanziert wird. Die Europeana-Dienste, einschließlich dieser Website, werden von einem Konsortium betrieben, das von der Europeana Foundation im Rahmen eines Dienstleistungsvertrags mit der Europäischen Kommission geführt wird.",
     "disclaimerLine2": "Die Europäische Kommission übernimmt keine Gewähr für die Richtigkeit der Informationen und übernimmt keinerlei Verantwortung oder Haftung für die Informationen auf dieser Website. Weder die Europäische Kommission noch eine Person, die im Namen der Europäischen Kommission handelt, ist für die Richtigkeit oder Verwendung der Informationen auf dieser Website verantwortlich oder haftbar.",
     "findUsElsewhere": "Finden Sie uns anderswo",
+    "footer": "Fußzeile",
     "imageDescription": "Finanziert von der Europäischen Union",
     "navigation": {
       "about": "Über (uns)",
       "accessibility": "Barrierefreiheit",
       "cookies": "Cookies",
-      "faq": "Häufig gestellte Fragen",
+      "faq": "Häufig gestellte Fragen (FAQ)",
       "forDevelopers": "Für Entwickler",
       "help": "Hilfe",
       "MoreInfoLabel": "Mehr Infos",
       "privacy": "Datenschutz-Bestimmungen",
       "provide": "Werden Sie Datenpartner",
       "subscribe": "Abonnieren Sie unseren Newsletter",
-      "terms": "Nutzungsbedingungen"
+      "terms": "Bedingungen und Richtlinien"
     },
     "ourMission": "Unser Auftrag",
     "ourMissionQuote": "Europeana befähigt den Sektor des kulturellen Erbes bei seiner digitalen Transformation. Wir entwickeln Fachwissen, Tools und Richtlinien, um den digitalen Wandel zu nutzen und Partnerschaften zu fördern, die Innovationen fördern."
@@ -829,7 +814,7 @@ export default {
         "title": "Dienste, die wir gerne nutzen würden."
       },
       "consentNotice": {
-        "description": "Wir kümmern uns um Ihre Privatsphäre und verwenden Daten nur, um Ihre Erfahrung zu verbessern. Wir verwenden keine personenbezogenen Daten für Werbung. Sie können Ihre Einwilligung alle 15 Tage ändern.",
+        "description": "Hallo! Könnten wir bitte einige zusätzliche Dienste für Analyse und Sicherheit aktivieren? Sie können Ihre Einwilligung später jederzeit ändern oder widerrufen.",
         "learnMore": "Lass mich aussuchen"
       },
       "decline": "Ich lehne ab",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Monatliche API-Anfragen, im Durchschnitt",
+      "hqData": "Zunahme der hochwertigen Daten pro Jahr",
       "items": "Objekte",
+      "networkMembers": "Mitglieder des Netzwerks",
       "providingInstitutions": "Datenpartner",
       "visits": "Besuche pro Tag"
     },
@@ -911,7 +899,7 @@ export default {
   "modal": {
     "download": {
       "clickToCopy": "Klicken Sie auf die Namensnennung, um sie zu kopieren",
-      "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Attribution daneben anzuzeigen:",
+      "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Namensnennung daneben anzuzeigen:",
       "modalTitle": "Dank sagen"
     },
     "downloadFailed": {
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatisierte Übersetzung",
+    "automatedPageTranslations": "Diese Seite verwendet automatisch generierte Übersetzungen aus dem Englischen.",
     "enrichment": "Anreicherung durch Partnerprojekte",
+    "loginToTranslate": "{login} um dies Objekt in anderen Sprachen anzuzeigen",
     "other": "anderen Sprachen",
     "stopTranslating": "Beenden Sie die Übersetzung dieses Objektes ins {0}.",
     "translateLanguage": "Möchten Sie dieses Objekt in {0} sehen?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Name"
-        },
-        "title": "Organisationen"
+        "description": "Erkunden Sie die Institutionen, die digitale Kulturerbe-Objekte auf Europeana.eu teilen.",
+        "title": "Institutionen"
       },
       "persons": {
         "title": "Personen"
@@ -970,8 +958,11 @@ export default {
         "title": "Orte"
       },
       "table": {
+        "country": "Land",
         "items": "Objekte",
-        "name": "Name"
+        "name": "Name",
+        "searchPlaceholder": "Suche innerhalb der Tabelle",
+        "showMoreData": "Weitere Daten anzeigen für {entity}"
       },
       "times": {
         "title": "Jahrhunderte"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, verfeinern Sie bitte Ihre Suche.",
+      "loginToSeeMore": "{login} um mehr Ergebnisse zu sehen",
+      "loginToSeeMultilingualResults": "Melden Sie sich an, um die gesamte Sammlung zu durchsuchen, und erhalten Sie Ergebnisse, die nicht auf die Sprache Ihres Suchbegriffs beschränkt sind.",
+      "showingMultilingualResults": "Anzeige der Ergebnisse für die gesamte Sammlung und alle Sprachen.",
       "withinCollection": "{count} Ergebnisse innerhalb von {type} {collection}",
       "withinCollectionWithQuery": "{count} Ergebnisse innerhalb von {type} {collection} für {query}",
       "withoutQuery": "{count} Ergebnisse",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} Geschichten gefunden",
     "title": "Geschichten"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Foliengruppe {page}"
   },
   "themes": {
     "description": "Nach Themenbereiche durchsuchen",

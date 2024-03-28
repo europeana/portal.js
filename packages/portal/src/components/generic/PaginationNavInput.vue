@@ -20,7 +20,6 @@
           :disabled="prevDisabled"
           :aria-hidden="prevDisabled"
           class="page-link"
-          :tabindex="prevDisabled && '-1'"
         >
           <span class="icon-arrow-down mr-1" />
           {{ $t('actions.previous') }}
@@ -51,7 +50,6 @@
           :disabled="nextDisabled"
           :aria-hidden="nextDisabled"
           class="page-link"
-          :tabindex="nextDisabled && '-1'"
         >
           {{ $t('actions.next') }}
           <span class="icon-arrow-down ml-1" />

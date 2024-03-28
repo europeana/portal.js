@@ -47,12 +47,12 @@ export default {
     "download": "Niżżel",
     "edit": "Editja",
     "explore": "Esplora",
-    "feedback": "Feedback",
     "filter": "Filtru",
     "goHome": "Mur fil-homepage",
     "hide": "Aħbi",
     "learnMore": "Itagħllem iżjed",
     "like": "Like",
+    "login": "Illoggja",
     "move": "Nimxu",
     "next": "Li jmiss",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Irrifjuta",
     "requestDepublication": "Talba għal depubblikazzjoni",
     "save": "Tissejvja",
-    "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
     "show": "Uri",
     "showLess": "Uri inqas",
     "showMore": "Uri aktar",
-    "skipSend": "Aqbeż u ibgħat",
     "submitForPublication": "Ibgħat għall-pubblikazzjoni",
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
     "transcribe": "Traskrivi",
@@ -82,6 +80,7 @@ export default {
     "creator": "Kreatur:",
     "date": "Data:",
     "institution": "Istituzzjoni:",
+    "show": "Uri l-attribuzzjoni",
     "title": "Titlu:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "ta'",
     "categories": "Kategoriji",
     "category": "Kategorija",
-    "posts": "Blog posts",
+    "posts": "Blog post | Postijiet tal-blog",
     "published": "Ippubblikat {date}",
     "relatedPosts": "Posts relatati"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Xellug",
     "right": "Lemin"
+  },
+  "ds4ch": {
+    "broughtBy": "Miġjuba lilek minn"
   },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "ħallieqa",
-      "name": "Kreatur | Kreaturi",
+      "name": "Kreatur",
       "select": "Agħżel ħallieqa"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Agħżel istituzzjonijiet fornitriċi"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orjentazzjoni tal-istampa | Orjentazzjonijiet tal-istampa",
+      "name": "Orjentazzjoni tal-immaġni",
       "options": {
         "landscape": "Pajsaġġ",
         "portrait": "Ritratt"
@@ -550,7 +552,7 @@ export default {
       "select": "Agħżel l-orjentazzjonijiet tal-immaġni"
     },
     "IMAGE_SIZE": {
-      "name": "Daqs tal-istampa | Daqsijiet tal-istampa",
+      "name": "Daqs tal-immaġni",
       "options": {
         "extra_large": "Kbar Ħafna 4MP+ (eż. 2688 x 1520px)",
         "large": "Kbar 1-4MP (eż. 1920x1080px)",
@@ -560,7 +562,7 @@ export default {
       "select": "Agħżel daqsijiet tal-immaġni"
     },
     "LANGUAGE": {
-      "name": "Lingwa | Lingwi",
+      "name": "Lingwa",
       "options": {
         "ar": "Għarbi",
         "bg": "Bulgaru",
@@ -574,6 +576,7 @@ export default {
         "en": "Ingliż",
         "es": "Spanjol",
         "et": "Estonjan",
+        "eu": "Bask",
         "fi": "Fillandiż",
         "fr": "Franċiż",
         "ga": "Irlandiż",
@@ -618,7 +621,7 @@ export default {
       "select": "Agħżel aggregaturi"
     },
     "proxy_dc_format": {
-      "name": "Format | Formati",
+      "name": "Format",
       "select": "Agħżel formati"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Agħżel tipi ta 'midja"
     }
-  },
-  "feedback": {
-    "emailOptional": "Aħna jista 'jkun li nixtiequ nsegwu. Daħħal l-email tiegħek jekk int kuntent li aħna nikkuntattjawk.",
-    "failed": "It-talba falliet. Jekk jogħġbok erġa pprova.",
-    "faq": "Mur għall-mistoqsijiet frekwenti",
-    "form": {
-      "placeholders": {
-        "email": "Daħħal l-indirizz tal-email tiegħek",
-        "feedback": "Daħħal il-feedback tiegħek hawn"
-      }
-    },
-    "policies": "Billi tkompli, taqbel ma ' {0} tagħna u tirrikonoxxi lil {1} tagħna.",
-    "privacyPolicy": "Regoli tal-privatezza",
-    "success": "Il-feedback tiegħek intbagħat.",
-    "termsOfService": "Termini tas-Servizz",
-    "thankYou": "Grazzi!",
-    "title": "Ibgħat feedback",
-    "validEmail": "Daħħal indirizz tal-email validu",
-    "validFeedback": "Il-feedback tiegħek irid jikkonsisti f'minimu ta' 5 kelmiet"
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
     "disclaimerLine2": "Il-Kummissjoni Ewropea ma tiggarantix l-eżattezza tal-informazzjoni u ma taċċetta l-ebda responsabbiltà jew responsabbiltà fir-rigward tal-informazzjoni f'dan il-websajt. La l-Kummissjoni Ewropea, u lanqas kwalunkwe persuna li taġixxi f'isem il-Kummissjoni Ewropea, ma hija responsabbli jew responsabbli għall-eżattezza jew l-użu tal-informazzjoni f'dan il-websajt.",
     "findUsElsewhere": "Sibna x'imkien ieħor",
+    "footer": "Footer",
     "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
     "navigation": {
       "about": "Dwarna",
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
-      "faq": "Mistoqsijiet frekwenti",
+      "faq": "Mistoqsijiet Frekwenti (FAQ)",
       "forDevelopers": "Għall-iżviluppaturi",
       "help": "Għajnuna",
       "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Politika tar-privatezza",
       "provide": "Issir istituzzjoni fornitriċi",
       "subscribe": "Abbona għan-Newsletter tagħna",
-      "terms": "Termini tal-użu"
+      "terms": "Termini u Politiki"
     },
     "ourMission": "Il-missjoni tagħna",
     "ourMissionQuote": "Europeana tagħti s-setgħa lis-settur tal-wirt kulturali fit-trasformazzjoni diġitali tiegħu. Aħna niżviluppaw għarfien espert, għodod u politiki biex inħaddnu l-bidla diġitali u ninkoraġġixxu lis-sħubiji li jrawmu l-innovazzjoni."
@@ -829,7 +814,7 @@ export default {
         "title": "Servizzi li nixtiequ nużaw."
       },
       "consentNotice": {
-        "description": "Aħna nieħdu ħsieb il-privatezza tiegħek u nużaw biss id-dejta biex intejbu l-esperjenza tiegħek. Aħna ma nużaw l-ebda informazzjoni personali għar-reklamar. Tista 'tbiddel il-kunsens tiegħek kull 15-il jum.",
+        "description": "Hi! Nistgħu jekk jogħġbok nippermettu xi servizzi addizzjonali għall-analiżi u s-sigurtà? Tista' dejjem tibdel jew tirtira l-kunsens tiegħek aktar tard.",
         "learnMore": "Ħa nagħżel"
       },
       "decline": "Jien niċħad",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Talbiet API ta' kull xahar, bħala medja",
+      "hqData": "Żieda fl-data ta' kwalità għolja kull sena",
       "items": "Oġġetti",
+      "networkMembers": "Membri tan-netwerk",
       "providingInstitutions": "Istituzzjonijiet fornitriċi",
       "visits": "Żjarat kuljum"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Traduzzjoni awtomatizzata",
+    "automatedPageTranslations": "Din il-paġna tuża traduzzjonijiet iġġenerati awtomatikament mill-Ingliż.",
     "enrichment": "Arrikkiment minn proġetti msieħba",
+    "loginToTranslate": "{login} biex tara dan l-oġġett f'lingwi oħra",
     "other": "lingwi oħra",
     "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
     "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Isem"
-        },
-        "title": "Organizzazzjonijiet"
+        "description": "Esplora l-istituzzjonijiet li jaqsmu l-oġġetti ta' wirt kulturali diġitali fuq Europeana.eu.",
+        "title": "Istituzzjonijiet"
       },
       "persons": {
         "title": "Persuni"
@@ -970,8 +958,11 @@ export default {
         "title": "Postijiet"
       },
       "table": {
+        "country": "Pajjiż",
         "items": "Oġġetti",
-        "name": "Isem"
+        "name": "Isem",
+        "searchPlaceholder": "Fittex fit-tabella",
+        "showMoreData": "Uri aktar dejta għal {entity}"
       },
       "times": {
         "title": "Sekli"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Riżultati addizzjonali mhumiex murija peress li jintwerew biss l-ewwel 1000 riżultat l-aktar rilevanti. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina t-tfittxija tiegħek.",
+      "loginToSeeMore": "{login} biex tara aktar riżultati",
+      "loginToSeeMultilingualResults": "Illoggja biex tfittex madwar il-kollezzjoni kollha, u tikseb riżultati li mhumiex limitati għall-lingwa tat-terminu tat-tfittxija tiegħek.",
+      "showingMultilingualResults": "Li juru r-riżultati fil-kollezzjoni kollha u l-lingwi kollha.",
       "withinCollection": "{count} riżultati fi ħdan {type} {collection}",
       "withinCollectionWithQuery": "{count} riżultati fi ħdan {type} {collection} għal {query}",
       "withoutQuery": "{count} riżultati",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} stejjer misjuba",
     "title": "Stejjer"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Grupp ta' slides {page}"
   },
   "themes": {
     "description": "Ibbrawżja skont it-tema",

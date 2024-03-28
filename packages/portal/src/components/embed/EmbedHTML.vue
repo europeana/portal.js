@@ -8,6 +8,7 @@
     data-qa="responsive embed wrapper"
   >
     <div
+      ref="embedContainer"
       data-qa="html embed"
       class="mb-5 html-embed"
       :style="`padding-bottom:${heightAsPercentOfWidth}%`"
@@ -16,6 +17,7 @@
   </div>
   <div
     v-else
+    ref="embedContainer"
     data-qa="html embed"
     class="mb-5 html-embed"
     v-html="html"
@@ -40,6 +42,10 @@
         type: [Number, String],
         default: null
       },
+      title: {
+        type: String,
+        default: null
+      },
       responsive: {
         type: Boolean,
         default: false
@@ -61,6 +67,11 @@
     mounted() {
       this.setWidthWrapper();
       window.addEventListener('resize', this.setWidthWrapper);
+
+      if (this.title) {
+        const iframe = this.$refs.embedContainer.getElementsByTagName('iframe')?.[0];
+        iframe?.setAttribute('title', this.title);
+      }
     },
 
     methods: {

@@ -1,6 +1,5 @@
 <template>
   <img
-    width="304"
     height="64"
     :src="localisedEULogo"
     :alt="$t('footer.imageDescription')"
@@ -53,8 +52,7 @@
 
   img {
     @media (min-width: $bp-4k) {
-      width: 456px;
-      height: auto;
+      height: 96px;
     }
   }
 </style>

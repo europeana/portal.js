@@ -47,12 +47,12 @@ export default {
     "download": "Descarregar",
     "edit": "Editar",
     "explore": "Explorar",
-    "feedback": "Comentários",
     "filter": "Filtro",
     "goHome": "Vá para a página inicial",
     "hide": "Esconder",
     "learnMore": "Saiba mais",
     "like": "Gosto",
+    "login": "Inicie sessão",
     "move": "Jogada",
     "next": "Próximo",
     "pin": "Alfinete",
@@ -63,13 +63,11 @@ export default {
     "reject": "Rejeitar",
     "requestDepublication": "Solicitar despublicação",
     "save": "Salve",
-    "send": "Enviar",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
     "show": "Mostrar",
     "showLess": "Mostrar menos",
     "showMore": "Mostrar mais",
-    "skipSend": "Ignorar e enviar",
     "submitForPublication": "Enviar para publicação",
     "submittedForPublication": "Enviado para publicação",
     "transcribe": "Transcrever",
@@ -82,6 +80,7 @@ export default {
     "creator": "Criador:",
     "date": "Date:",
     "institution": "Instituição:",
+    "show": "Mostrar atribuição",
     "title": "Título:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "por",
     "categories": "Categorias",
     "category": "Categoria",
-    "posts": "Publicações do blogue",
+    "posts": "Publicação de blog | Publicações de blog",
     "published": "Publicado {date}",
     "relatedPosts": "Publicações relacionadas"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Esquerda",
     "right": "Direita"
+  },
+  "ds4ch": {
+    "broughtBy": "Trazido até si por"
   },
   "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "criadores",
-      "name": "Criador | Criadores",
+      "name": "Criador",
       "select": "Selecionar criadores"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Selecione instituições fornecedoras"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientação da imagem | Orientações da imagem",
+      "name": "Orientação da imagem",
       "options": {
         "landscape": "Panorama",
         "portrait": "Retrato"
@@ -550,7 +552,7 @@ export default {
       "select": "Selecionar orientações de imagem"
     },
     "IMAGE_SIZE": {
-      "name": "Tamanho da imagem | Tamanhos de imagem",
+      "name": "Tamanho da imagem",
       "options": {
         "extra_large": "Extra grande 4MP + (por exemplo, 2688 x 1520px)",
         "large": "1-4MP grande (por exemplo, 1920x1080px)",
@@ -560,7 +562,7 @@ export default {
       "select": "Selecionar tamanhos de imagem"
     },
     "LANGUAGE": {
-      "name": "Língua | Línguas",
+      "name": "Língua",
       "options": {
         "ar": "Árabe",
         "bg": "Búlgaro",
@@ -574,6 +576,7 @@ export default {
         "en": "Inglês",
         "es": "Espanhol",
         "et": "Estónio",
+        "eu": "Basco",
         "fi": "Finlandês",
         "fr": "Francês",
         "ga": "Irlandês",
@@ -618,7 +621,7 @@ export default {
       "select": "Selecionar agregadores"
     },
     "proxy_dc_format": {
-      "name": "Formato | Formatos",
+      "name": "Formato",
       "select": "Selecionar formatos"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Selecione os tipos de media"
     }
-  },
-  "feedback": {
-    "emailOptional": "Poderemos desejar fazer um seguimento. Introduza o seu e-mail se lhe agradar que entremos em contacto.",
-    "failed": "O pedido falhou. Por favor, tente novamente.",
-    "faq": "Ir para perguntas frequentes",
-    "form": {
-      "placeholders": {
-        "email": "Digite seu endereço de e-mail",
-        "feedback": "Insira aqui o seu comentário"
-      }
-    },
-    "policies": "Ao continuar, você concorda com nossos {0} e reconhece nossos {1} .",
-    "privacyPolicy": "Política de Privacidade",
-    "success": "Seu feedback foi enviado.",
-    "termsOfService": "Termos de serviço",
-    "thankYou": "Obrigado!",
-    "title": "Enviar comentários",
-    "validEmail": "Digite um endereço de e-mail válido",
-    "validFeedback": "Seu feedback deve consistir em no mínimo 5 palavras"
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana é uma iniciativa da União Europeia, financiada pelo Connecting Europe Facility da União Europeia e pelos Estados-Membros da União Europeia. Os serviços da Europeana, incluindo este site, são operados por um consórcio liderado pela Fundação Europeana ao abrigo de um contrato de serviços com a Comissão Europeia.",
     "disclaimerLine2": "A Comissão Europeia não garante a exactidão das informações e não aceita qualquer responsabilidade ou obrigação no que diz respeito às informações apresentadas neste site. Nem a Comissão Europeia, nem qualquer pessoa agindo em seu nome, é responsável pela exatidão ou pelo uso das informações contidas neste site.",
     "findUsElsewhere": "Encontre-nos em outro lugar",
+    "footer": "Rodapé",
     "imageDescription": "Financiado pela União Europeia",
     "navigation": {
       "about": "Acerca",
       "accessibility": "Acessibilidade",
       "cookies": "Cookies",
-      "faq": "Perguntas frequentes",
+      "faq": "Perguntas frequentes (FAQ)",
       "forDevelopers": "Para desenvolvedores",
       "help": "Ajuda",
       "MoreInfoLabel": "Mais informações",
       "privacy": "Política de Privacidade",
       "provide": "Torne-se uma instituição fornecedora",
       "subscribe": "Subscreva na nossa newsletter",
-      "terms": "Termos de uso"
+      "terms": "Termos e políticas"
     },
     "ourMission": "A Nossa missão",
     "ourMissionQuote": "A Europeana fortalece o setor do património cultural na sua transformação digital. Desenvolvemos conhecimento, ferramentas e políticas para abraçar a mudança digital e incentivar parcerias que promovam a inovação."
@@ -829,7 +814,7 @@ export default {
         "title": "Serviços que gostaríamos de usar."
       },
       "consentNotice": {
-        "description": "Preocupamo-nos com a sua privacidade e apenas usamos os dados para melhorar a sua experiência. Não usamos nenhuma informação pessoal para publicidade. Pode alterar o seu consentimento a cada 15 dias.",
+        "description": "Olá! Podemos ativar alguns serviços adicionais para análise e segurança? Pode sempre alterar ou retirar o seu consentimento mais tarde.",
         "learnMore": "Deixe-me escolher"
       },
       "decline": "Eu recuso",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Pedidos de API mensais, em média",
+      "hqData": "Aumento de dados de alta qualidade por ano",
       "items": "Itens",
+      "networkMembers": "Membros da rede",
       "providingInstitutions": "Instituições fornecedoras",
       "visits": "Visitas por dia"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Tradução automatizada",
+    "automatedPageTranslations": "Esta página usa traduções geradas automaticamente do inglês.",
     "enrichment": "Enriquecimento por projetos de parceiros",
+    "loginToTranslate": "{login} para ver este item em outros idiomas",
     "other": "outras línguas",
     "stopTranslating": "Pare de traduzir este item para {0}.",
     "translateLanguage": "Gostaria de ver este item em {0} ?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nome"
-        },
-        "title": "Organizações"
+        "description": "Explore as instituições que partilham itens do património cultural digital em Europeana.eu.",
+        "title": "Instituições"
       },
       "persons": {
         "title": "Pessoas"
@@ -970,8 +958,11 @@ export default {
         "title": "Lugares"
       },
       "table": {
+        "country": "País",
         "items": "Itens",
-        "name": "Nome"
+        "name": "Nome",
+        "searchPlaceholder": "Pesquisar na tabela",
+        "showMoreData": "Mostrar mais dados para {entity}"
       },
       "times": {
         "title": "Séculos"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Resultados adicionais não são mostrados como apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que está a procurar, por favor, considere refinar a sua pesquisa.",
+      "loginToSeeMore": "{login} para ver mais resultados",
+      "loginToSeeMultilingualResults": "Faça login para pesquisar em toda a coleção e obter resultados não limitados ao idioma do seu termo de pesquisa.",
+      "showingMultilingualResults": "Mostrando resultados em toda a coleção e em todos os idiomas.",
       "withinCollection": "{count} resultados dentro do {type} {collection}",
       "withinCollectionWithQuery": "{count} resultados em {type} {collection} para {query}",
       "withoutQuery": "{count} resultados",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} histórias encontradas",
     "title": "Histórias"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Grupo de slides {page}"
   },
   "themes": {
     "description": "Navegar por tema",

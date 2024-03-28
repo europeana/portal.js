@@ -1,6 +1,9 @@
 <template>
-  <b-container>
-    <b-col class="header col-lg-8 text-center mx-auto px-0 pb-4 pb-lg-5">
+  <b-container
+    class="landing-info-card-group text-center"
+    :class="variant"
+  >
+    <b-col class="header col-lg-8 text-center mx-auto px-0">
       <component :is="titleTag">
         {{ title }}
       </component>
@@ -14,7 +17,7 @@
     </b-col>
     <div
       v-if="infoCards.length"
-      class="cards-wrapper d-lg-flex flex-wrap justify-content-between mx-auto"
+      class="cards-wrapper d-lg-flex flex-wrap justify-content-between text-left mx-auto"
     >
       <LandingInfoCard
         v-for="(card, index) in infoCards"
@@ -22,17 +25,28 @@
         :card="card"
       />
     </div>
+    <SmartLink
+      v-if="link?.url"
+      :destination="link.url"
+      data-qa="call to action"
+      class="btn btn-cta btn-secondary icon-chevron"
+      hide-external-icon
+    >
+      {{ link.text }}
+    </SmartLink>
   </b-container>
 </template>
 
 <script>
+  import SmartLink from '../generic/SmartLink';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
     name: 'LandingInfoCardGroup',
 
     components: {
-      LandingInfoCard: () => import('@/components/landing/LandingInfoCard')
+      LandingInfoCard: () => import('@/components/landing/LandingInfoCard'),
+      SmartLink
     },
 
     mixins: [parseMarkdownHtmlMixin],
@@ -65,6 +79,18 @@
       infoCards: {
         type: Array,
         default: () => []
+      },
+      link: {
+        type: Object,
+        default: null
+      },
+      /**
+       * Variant to define layout and style
+       * @values pro, ds4ch
+       */
+      variant: {
+        type: String,
+        default: 'pro'
       }
     }
   };
@@ -74,19 +100,23 @@
   @import '@europeana/style/scss/variables';
 
   .container {
-    padding-top: 3.75rem;
-    padding-bottom: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 
     @media (min-width: $bp-large) {
-      padding-top: 4.5rem;
+      margin-top: 6rem;
+      margin-bottom: 6rem;
     }
 
     @media (min-width: $bp-4k) {
-      padding-bottom: 3rem;
+      margin-top: 15rem;
+      margin-bottom: 15rem;
     }
   }
 
   .header {
+    padding-bottom: 1rem;
+
     @media (min-width: $bp-xxl) {
       max-width: $max-text-column-width;
     }
@@ -132,6 +162,39 @@
 
     @media (min-width: $bp-4k) {
       max-width: 1760px;
+    }
+  }
+</style>
+
+<!-- Only DS4CH styles after this line! -->
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/variables';
+
+  .landing-info-card-group.ds4ch {
+
+    .header {
+      @media (min-width: $bp-4k) {
+        max-width: 1450px !important;
+        padding-bottom: 5rem;
+      }
+    }
+
+    h2 {
+      @extend %title-2;
+      margin-bottom: 0.75rem;
+
+      @media (min-width: $bp-4k) {
+        margin-bottom: 2rem;
+      }
+    }
+
+    .text {
+      color: $black;
+
+      @media (min-width: $bp-4k) {
+        font-size: 2.5rem;
+        margin-bottom: 3.125rem;
+      }
     }
   }
 </style>

@@ -47,12 +47,12 @@ export default {
     "download": "Letöltés",
     "edit": "Szerkesztés",
     "explore": "Felfedez",
-    "feedback": "Visszacsatolás",
     "filter": "Szűrő",
     "goHome": "Ugrás a kezdőlapra",
     "hide": "Elrejt",
     "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
+    "login": "Bejelentkezés",
     "move": "Mozgás",
     "next": "Következő",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Elutasít",
     "requestDepublication": "Közzététel megszüntetésének kérése",
     "save": "Mentse",
-    "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
     "show": "Mutat",
     "showLess": "Kevesebb megjelenítése",
     "showMore": "Továbbiak megjelenítése",
-    "skipSend": "Kihagyás és küldés",
     "submitForPublication": "Nyújtsa be közzétételre",
     "submittedForPublication": "Közzétételre benyújtva",
     "transcribe": "Átírni",
@@ -82,6 +80,7 @@ export default {
     "creator": "Alkotó:",
     "date": "Dátum:",
     "institution": "Intézmény:",
+    "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "írta",
     "categories": "Kategóriák",
     "category": "Kategória",
-    "posts": "Blog bejegyzések",
+    "posts": "Blogbejegyzés | Blogbejegyzések",
     "published": "Közzététel dátuma: {date}",
     "relatedPosts": "Kapcsolódó bejegyzések"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Bal",
     "right": "Jobb"
+  },
+  "ds4ch": {
+    "broughtBy": "Hozta neked"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "alkotók",
-      "name": "Alkotó | Alkotók",
+      "name": "Alkotó",
       "select": "Válasszon alkotókat"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Válassza ki a szolgáltató intézményeket"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Képtájolás | Képtájolások",
+      "name": "Kép tájolása",
       "options": {
         "landscape": "Fekvő",
         "portrait": "Álló"
@@ -550,7 +552,7 @@ export default {
       "select": "Válassza ki a kép tájolását"
     },
     "IMAGE_SIZE": {
-      "name": "Képméret | Képméretek",
+      "name": "Képméret",
       "options": {
         "extra_large": "Extra nagy, 4MP+ (pl. 2688 x 1520 képpont)",
         "large": "Nagy, 1-4 MP + (pl.1920 x 1080 képpont)",
@@ -574,6 +576,7 @@ export default {
         "en": "Angol",
         "es": "Spanyol",
         "et": "Észt",
+        "eu": "Baszk",
         "fi": "Finn",
         "fr": "Francia",
         "ga": "Ír",
@@ -618,7 +621,7 @@ export default {
       "select": "Válasszon aggregátorokat"
     },
     "proxy_dc_format": {
-      "name": "Formátum | formátumok",
+      "name": "Formátum",
       "select": "Formátumok kiválasztása"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Adathordozó-típusok kiválasztása"
     }
-  },
-  "feedback": {
-    "emailOptional": "Érdemes lehet utánajárnunk. Írja be az e-mail címét, ha örül, hogy kapcsolatba lépünk Önnel.",
-    "failed": "A kérés nem sikerült. Kérlek próbáld újra.",
-    "faq": "Ugrás a gyakran ismételt kérdésekre",
-    "form": {
-      "placeholders": {
-        "email": "Adja meg e-mail címét",
-        "feedback": "Írja be ide visszajelzését"
-      }
-    },
-    "policies": "A folytatással elfogadja {0} és a {1} .",
-    "privacyPolicy": "Adatvédelmi irányelvek",
-    "success": "Visszajelzését elküldtük.",
-    "termsOfService": "Szolgáltatás feltételei",
-    "thankYou": "Köszönöm!",
-    "title": "Visszajelzés küldése",
-    "validEmail": "Adjon meg egy érvényes email címet",
-    "validFeedback": "A visszajelzésnek legalább 5 szóból kell állnia"
   },
   "fieldLabels": {
     "default": {
@@ -739,7 +723,7 @@ export default {
       "about": "RDF Névjegy",
       "dcDescription": "Leírás",
       "ebucoreHasMimeType": "Ebucore MIME típus",
-      "edmRights": "Licenc ehhez a média-erőforráshoz",
+      "edmRights": "Jogokról szóló nyilatkozat ehhez a médiaforráshoz",
       "rdfAbout": "RDF Névjegy"
     }
   },
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Az Europeana az Európai Unió kezdeményezése, amelyet az Európai Unió Európai Uniót összekötő eszközének és az Európai Unió tagállamainak finanszíroz. Az Europeana szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium üzemelteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
     "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és semmilyen felelősséget nem vállal a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró személyek nem felelősek vagy felelősek a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Keressen minket máshol",
+    "footer": "Lábléc",
     "imageDescription": "Az Európai Unió által finanszírozott",
     "navigation": {
       "about": "Rólunk",
       "accessibility": "Hozzáférhetőség",
       "cookies": "Sütik",
-      "faq": "Gyakori kérdések",
+      "faq": "Gyakran Ismételt Kérdések (FAQ)",
       "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi irányelvek",
       "provide": "Legyen szolgáltató intézmény",
       "subscribe": "Iratkozzon fel hírlevelünkre",
-      "terms": "Szolgáltatás feltételei"
+      "terms": "Feltételek és szabályzatok"
     },
     "ourMission": "Küldetésünk",
     "ourMissionQuote": "Az Europeana segíti a kulturális örökség ágazatát a digitális átalakulásban. Szakértelmet, eszközöket és irányelveket dolgozunk ki a digitális változások befogadására és az innovációt elősegítő partnerségek ösztönzésére."
@@ -829,7 +814,7 @@ export default {
         "title": "Szolgáltatások, amelyeket szeretnénk igénybe venni."
       },
       "consentNotice": {
-        "description": "Törődünk az adatvédelemmel, és csak az élmény javítása érdekében használunk adatokat. Nem használunk személyes adatokat reklámozásra. 15 naponta módosíthatja beleegyezését.",
+        "description": "Szia! Engedélyezhetnénk néhány további szolgáltatást az elemzéshez és a biztonsághoz? Hozzájárulását később bármikor módosíthatja vagy visszavonhatja.",
         "learnMore": "Hadd válasszam"
       },
       "decline": "Elutasítom",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Átlagosan havi API kérések",
+      "hqData": "Évente növekvő magas minőségű adatmennyiség",
       "items": "Tárgyak",
+      "networkMembers": "Hálózati tagok",
       "providingInstitutions": "Szolgáltató intézmény",
       "visits": "Napi látogatások"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizált fordítás",
+    "automatedPageTranslations": "Ez az oldal automatikusan generált fordításokat használ az angolból.",
     "enrichment": "Gazdagodás partnerprojektek által",
+    "loginToTranslate": "{login} hogy ezt a tárgyat más nyelveken is megtekinthesse.",
     "other": "egyéb nyelvek",
     "stopTranslating": "Állítsa le ennek az tárgynak a fordítását {0}-ra.",
     "translateLanguage": "Szeretné megtekinteni ezt az tárgyat itt: {0}?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Név"
-        },
-        "title": "Szervezetek"
+        "description": "Fedezze fel azokat az intézményeket, amelyek digitális kulturális örökségi tárgyak osztanak meg az Europeana.eu-n.",
+        "title": "Intézmények"
       },
       "persons": {
         "title": "Személyek"
@@ -970,8 +958,11 @@ export default {
         "title": "Helyek"
       },
       "table": {
+        "country": "Ország",
         "items": "Tárgyak",
-        "name": "Név"
+        "name": "Név",
+        "searchPlaceholder": "Keresés a táblázatban",
+        "showMoreData": "További adatok megjelenítése a következőhöz {entity}"
       },
       "times": {
         "title": "Századok"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "A további eredmények nem jelennek meg, mivel csak az első 1000 legrelevánsabb eredmény jelenik meg. Ha nem találta meg, amit keres, kérjük, fontolja meg a keresés finomítását.",
+      "loginToSeeMore": "{login} további eredmények megtekintéséhez",
+      "loginToSeeMultilingualResults": "Jelentkezzen be, ha a teljes gyűjteményben szeretne keresni, és nem korlátozódik a keresett kifejezés nyelvére.",
+      "showingMultilingualResults": "Eredmények megjelenítése a teljes gyűjteményben és az összes nyelven.",
       "withinCollection": "{count} eredmények a belül {type} {collection}",
       "withinCollectionWithQuery": "{count} eredmények a {type} belül {collection} a {query} számára",
       "withoutQuery": "{count} eredmények",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} történet található",
     "title": "Történetek"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Diacsoport {page}"
   },
   "themes": {
     "description": "Böngésszen téma szerint",

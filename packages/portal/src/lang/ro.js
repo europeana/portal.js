@@ -47,12 +47,12 @@ export default {
     "download": "Descarcă",
     "edit": "Editare",
     "explore": "Explora",
-    "feedback": "Feedback",
     "filter": "Filtru",
     "goHome": "Mergeți la pagina de pornire",
     "hide": "Ascunde",
     "learnMore": "Află mai multe",
     "like": "Apreciere",
+    "login": "Autentificare",
     "move": "Muta",
     "next": "Următorul",
     "pin": "Pin",
@@ -63,13 +63,11 @@ export default {
     "reject": "Respinge",
     "requestDepublication": "Solicitați depublicarea",
     "save": "Salva",
-    "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
     "show": "Afișare",
     "showLess": "Afișează mai puțin",
     "showMore": "Afișează mai multe",
-    "skipSend": "Săriți și trimiteți",
     "submitForPublication": "Trimiteți spre publicare",
     "submittedForPublication": "Trimis spre publicare",
     "transcribe": "Transcrie",
@@ -82,6 +80,7 @@ export default {
     "creator": "Creator:",
     "date": "Dată:",
     "institution": "Instituție:",
+    "show": "Arată atribuirea",
     "title": "Titlu:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "de",
     "categories": "Categorii",
     "category": "Categorie",
-    "posts": "Postări de pe blog",
+    "posts": "Postare pe blog | Postări pe blog",
     "published": "Publicat la {date}",
     "relatedPosts": "Postări similare"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Stânga",
     "right": "Dreapta"
+  },
+  "ds4ch": {
+    "broughtBy": "Adus vouă de"
   },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "creatori",
-      "name": "Creator | Creatori",
+      "name": "Creator",
       "select": "Selectați creatori"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Selectați instituții furnizoare"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientare imagine | Orientări imagine",
+      "name": "Orientarea imaginii",
       "options": {
         "landscape": "Peisaj",
         "portrait": "Portret"
@@ -550,7 +552,7 @@ export default {
       "select": "Selectați orientările imaginii"
     },
     "IMAGE_SIZE": {
-      "name": "Dimensiune imagine | Dimensiuni imagine",
+      "name": "Dimensiunea imaginii",
       "options": {
         "extra_large": "Foarte mare 4 MP + (de ex. 2688 x 1520 px)",
         "large": "Mare 1-4 MP (de ex. 1920 x 1080 px)",
@@ -574,6 +576,7 @@ export default {
         "en": "Engleză",
         "es": "Spaniolă",
         "et": "Estonă",
+        "eu": "Bască",
         "fi": "Finlandeză",
         "fr": "Franceză",
         "ga": "Irlandeză",
@@ -618,7 +621,7 @@ export default {
       "select": "Selectați agregatori"
     },
     "proxy_dc_format": {
-      "name": "Format | Formate",
+      "name": "Format",
       "select": "Selectați formate"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Selectați tipurile de media"
     }
-  },
-  "feedback": {
-    "emailOptional": "S-ar putea să dorim să urmărim acest lucru. Introduceți adresa dvs. de e-mail dacă sunteți de acord să vă contactăm.",
-    "failed": "Solicitarea nu a reușit. Încercați din nou.",
-    "faq": "Accesați întrebările frecvente",
-    "form": {
-      "placeholders": {
-        "email": "Introduceți adresa de e-mail",
-        "feedback": "Introduceți feedback-ul aici"
-      }
-    },
-    "policies": "Continuând, sunteți de acord cu {0} și acceptați {1}.",
-    "privacyPolicy": "Politica de Confidențialitate",
-    "success": "Feedbackul dvs. a fost trimis.",
-    "termsOfService": "Termenii serviciului",
-    "thankYou": "Mulțumesc!",
-    "title": "Trimite feedback",
-    "validEmail": "Introduceți o adresă de email validă",
-    "validFeedback": "Feedback-ul tău trebuie să fie format din minim 5 cuvinte."
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "Europeana este o inițiativă a Uniunii Europene, finanțată de Connecting Europe Facility al Uniunii Europene și de statele membre ale Uniunii Europene. Serviciile Europeana, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în temeiul unui contract de servicii cu Comisia Europeană.",
     "disclaimerLine2": "Comisia Europeană nu garantează acuratețea informațiilor și nu își asumă nicio răspundere sau răspundere cu privire la informațiile de pe acest site web. Nici Comisia Europeană, nici nicio persoană care acționează în numele Comisiei Europene, nu este responsabilă sau răspunzătoare pentru acuratețea sau utilizarea informațiilor de pe acest site web.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
+    "footer": "Subsol",
     "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
       "about": "Despre",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
-      "faq": "Întrebări frecvente",
+      "faq": "Întrebări frecvente (FAQ)",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
       "provide": "Devino instituție furnizoare",
       "subscribe": "Abonează-te la buletinul nostru de știri",
-      "terms": "Termeni de utilizare"
+      "terms": "Termeni și politici"
     },
     "ourMission": "Misiunea noastră",
     "ourMissionQuote": "Europeana sprijină sectorul patrimoniului cultural în transformarea sa digitală. Dezvoltăm expertiza, uneltele și politicile pentru a adopta schimbările digitale și încurajăm parteneriate care stau la baza inovației."
@@ -829,7 +814,7 @@ export default {
         "title": "Servicii pe care am dori să le folosim."
       },
       "consentNotice": {
-        "description": "Ne pasă de confidențialitatea dvs. și folosim doar date pentru a vă îmbunătăți experiența. Nu folosim nicio informație personală pentru publicitate. Vă puteți schimba consimțământul la fiecare 15 zile.",
+        "description": "Bună! Putem activa unele servicii suplimentare pentru analiză și securitate? Puteți oricând să vă schimbați sau să vă retrageți consimțământul ulterior.",
         "learnMore": "Lasa-ma sa aleg"
       },
       "decline": "Refuz",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Solicitări API lunare, în medie",
+      "hqData": "Creșterea numărului de date de înaltă calitate pe an",
       "items": "Resurse culturale",
+      "networkMembers": "Membrii rețelei",
       "providingInstitutions": "Instituții furnizoare",
       "visits": "Vizite pe zi"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Traducere automată",
+    "automatedPageTranslations": "Această pagină utilizează traduceri generate automat din engleză.",
     "enrichment": "Îmbogățirea prin proiecte partenere",
+    "loginToTranslate": "{login} pentru a vedea acest resursă culturală în alte limbi",
     "other": "alte limbi",
     "stopTranslating": "Opriți traducerea acestui resursă culturală în {0}.",
     "translateLanguage": "Ați dori să vedeți acest resursă culturală în {0}?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nume"
-        },
-        "title": "Organizații"
+        "description": "Explorați instituțiile care partajează resurse culturale din patrimoniul cultural digital pe Europeana.eu.",
+        "title": "Instituții"
       },
       "persons": {
         "title": "Persoane"
@@ -970,8 +958,11 @@ export default {
         "title": "Locuri"
       },
       "table": {
+        "country": "Țara",
         "items": "Resurse culturale",
-        "name": "Nume"
+        "name": "Nume",
+        "searchPlaceholder": "Căutați în tabel",
+        "showMoreData": "Afișează mai multe date pentru {entity}"
       },
       "times": {
         "title": "Secole"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
+      "loginToSeeMore": "{login} pentru a vedea mai multe rezultate",
+      "loginToSeeMultilingualResults": "Conectați-vă pentru a căuta în întreaga colecție și pentru a obține rezultate care nu se limitează la limba termenului dvs. de căutare.",
+      "showingMultilingualResults": "Afișare rezultate din întreaga colecție și toate limbile.",
       "withinCollection": "{count} rezultate în cadrul {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultate în {type} {collection} pentru {query}",
       "withoutQuery": "{count} rezultate",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} narațiuni găsite",
     "title": "Narațiuni"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Grup de diapozitive {page}"
   },
   "themes": {
     "description": "Răsfoiți după temă",

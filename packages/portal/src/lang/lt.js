@@ -47,12 +47,12 @@ export default {
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "explore": "Naršyti",
-    "feedback": "Atsiliepimas",
     "filter": "Filtras",
     "goHome": "Eikite į pagrindinį puslapį",
     "hide": "Slėpti",
     "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
+    "login": "Prisijungti",
     "move": "Perkelti",
     "next": "Kitas",
     "pin": "Kaištis",
@@ -63,13 +63,11 @@ export default {
     "reject": "Atmesti",
     "requestDepublication": "Prašymas neskelbti",
     "save": "Išsaugoti",
-    "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
     "show": "Rodyti",
     "showLess": "Rodyti mažiau",
     "showMore": "Rodyti daugiau",
-    "skipSend": "Praleisti ir siųsti",
     "submitForPublication": "Pateikti publikavimui",
     "submittedForPublication": "Pateikta publikuoti",
     "transcribe": "Transkribuoti",
@@ -82,6 +80,7 @@ export default {
     "creator": "Autorius:",
     "date": "Data:",
     "institution": "Įstaiga:",
+    "show": "Rodyti priskyrimą",
     "title": "Pavadinimas:"
   },
   "automatedCardGroup": {
@@ -101,7 +100,7 @@ export default {
     "by": "autorius",
     "categories": "Kategorijos",
     "category": "Kategorija",
-    "posts": "Tinklaraščio įrašai",
+    "posts": "Tinklaraščio įrašas | Tinklaraščio įrašai",
     "published": "Paskelbta {date}",
     "relatedPosts": "Susiję įrašai"
   },
@@ -208,6 +207,9 @@ export default {
   "directions": {
     "left": "Kairė",
     "right": "Dešinė"
+  },
+  "ds4ch": {
+    "broughtBy": "Jums atnešė"
   },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
   "entity": {
@@ -533,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "kūrėjai",
-      "name": "Autorius | Autoriai",
+      "name": "Autorius",
       "select": "Pasirinkite kūrėjus"
     },
     "DATA_PROVIDER": {
@@ -542,7 +544,7 @@ export default {
       "select": "Pasirinkite teikėjai"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Vaizdo orientacija | Vaizdo orientacijos",
+      "name": "Vaizdo orientacija",
       "options": {
         "landscape": "Gulsčias",
         "portrait": "Statmenas"
@@ -550,7 +552,7 @@ export default {
       "select": "Pasirinkite vaizdo orientaciją"
     },
     "IMAGE_SIZE": {
-      "name": "Vaizdo dydis | Vaizdo dydžiai",
+      "name": "Vaizdo dydis",
       "options": {
         "extra_large": "Ypač didelis 4MP + (pvz., 2688 x 1520 pikselių)",
         "large": "Didelis 1–4 MP (pvz., 1920 x 1080 pikselių)",
@@ -574,6 +576,7 @@ export default {
         "en": "Anglų",
         "es": "Ispanų",
         "et": "Estų",
+        "eu": "Baskų",
         "fi": "Suomių",
         "fr": "Prancūzų",
         "ga": "Airių",
@@ -618,7 +621,7 @@ export default {
       "select": "Pasirinkite agregatorius"
     },
     "proxy_dc_format": {
-      "name": "Formatas | Formatai",
+      "name": "Formatas",
       "select": "Pasirinkite formatus"
     },
     "proxy_dc_type": {
@@ -653,25 +656,6 @@ export default {
       },
       "select": "Pasirinkite laikmenos tipus"
     }
-  },
-  "feedback": {
-    "emailOptional": "Galbūt norėsime tęsti. Įveskite savo el. Pašto adresą, jei džiaugiatės, kad susisieksime su jumis.",
-    "failed": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
-    "faq": "Eikite į dažniausiai užduodamus klausimus",
-    "form": {
-      "placeholders": {
-        "email": "Įveskite savo elektroninio pašto adresą",
-        "feedback": "Čia įveskite savo atsiliepimą"
-      }
-    },
-    "policies": "Tęsdami sutinkate su mūsų {0} ir patvirtinate mūsų {1} .",
-    "privacyPolicy": "Privatumo politika",
-    "success": "Jūsų atsiliepimas išsiųstas.",
-    "termsOfService": "Paslaugų teikimo sąlygos",
-    "thankYou": "Ačiū!",
-    "title": "Siųsti atsiliepimą",
-    "validEmail": "Įveskite galiojantį el. Pašto adresą",
-    "validFeedback": "Jūsų atsiliepimą turi sudaryti mažiausiai 5 žodžiai"
   },
   "fieldLabels": {
     "default": {
@@ -749,19 +733,20 @@ export default {
     "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
     "disclaimerLine2": "Europos Komisija negarantuoja informacijos tikslumo ir neprisiima jokios atsakomybės ar atsakomybės už šioje svetainėje pateiktą informaciją. Nei Europos Komisija, nei joks asmuo, veikiantis Europos Komisijos vardu, nėra atsakingas už šioje svetainėje esančios informacijos tikslumą ar naudojimą.",
     "findUsElsewhere": "Raskite mus kitur",
+    "footer": "Poraštė",
     "imageDescription": "Finansuoja Europos Sąjunga",
     "navigation": {
       "about": "Apie mus",
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
-      "faq": "Dažnai užduodami klausimai",
+      "faq": "Dažnai užduodami klausimai (FAQ)",
       "forDevelopers": "Programuotojams",
       "help": "Pagalba",
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
       "provide": "Tapkite teikėjas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
-      "terms": "Naudotojo sąlygos"
+      "terms": "Sąlygos ir politika"
     },
     "ourMission": "Mūsų misija",
     "ourMissionQuote": "„Europeana“ suteikia kultūros paveldo sektoriui skaitmeninimo galimybes. Rengiame žinias, įrankius ir politikas, skatinančias skaitmeninius pokyčius bei partnerystes, kurios spartina inovacijas."
@@ -829,7 +814,7 @@ export default {
         "title": "Paslaugos, kuriomis norėtume naudotis."
       },
       "consentNotice": {
-        "description": "Mes rūpinamės jūsų privatumu ir naudojame duomenis tik tam, kad pagerintume jūsų patirtį. Reklamai nenaudojame jokios asmeninės informacijos. Savo sutikimą galite pakeisti kas 15 dienų.",
+        "description": "Sveiki! Ar galėtume įgalinti keletą papildomų analizės ir saugos paslaugų? Savo sutikimą visada galėsite pakeisti arba atšaukti vėliau.",
         "learnMore": "Leisk man pasirinkti"
       },
       "decline": "Aš atsisakau",
@@ -892,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Mėnesio API užklausos, vidutiniškai",
+      "hqData": "Aukštos kokybės duomenų padidėjimas per metus",
       "items": "Skaitmeniniai objektai",
+      "networkMembers": "Tinklo nariai",
       "providingInstitutions": "Teikėjai",
       "visits": "Apsilankymai per dieną"
     },
@@ -926,7 +914,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatinis vertimas",
+    "automatedPageTranslations": "Šiame puslapyje naudojami automatiškai sugeneruoti vertimai iš anglų kalbos.",
     "enrichment": "Praturtinimas partnerių projektais",
+    "loginToTranslate": "{login} kad pamatytumėte šį skaitmeninį objektą kitomis kalbomis",
     "other": "kitos kalbos",
     "stopTranslating": "Nustokite versti šį skaitmeninį objektą į {0}.",
     "translateLanguage": "Ar norėtumėte pamatyti šį skaitmeninį objektą {0}?",
@@ -958,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Vardas"
-        },
-        "title": "Organizacijos"
+        "description": "Tyrinėkite institucijas, kurios dalijasi skaitmeniniais kultūros paveldo objektais Europeana.eu.",
+        "title": "Institucijos"
       },
       "persons": {
         "title": "Asmenys"
@@ -970,8 +958,11 @@ export default {
         "title": "Vietos"
       },
       "table": {
+        "country": "Šalis",
         "items": "Skaitmeniniai objektai",
-        "name": "Vardas"
+        "name": "Vardas",
+        "searchPlaceholder": "Ieškoti lentelėje",
+        "showMoreData": "Rodyti daugiau duomenų apie {entity}"
       },
       "times": {
         "title": "Šimtmečiai"
@@ -1084,6 +1075,9 @@ export default {
     },
     "results": {
       "limitWarning": "Papildomi rezultatai nerodomi, nes rodomi tik pirmieji 1000 aktualiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
+      "loginToSeeMore": "{login} kad pamatytumėte daugiau rezultatų",
+      "loginToSeeMultilingualResults": "Prisijunkite, kad galėtumėte ieškoti visoje kolekcijoje ir gauti rezultatus, neribotus jūsų paieškos termino kalba.",
+      "showingMultilingualResults": "Rodomi rezultatai iš visos kolekcijos ir visomis kalbomis.",
       "withinCollection": "{count} rezultatų pagal {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultatų pagal {type} {collection} dėl {query}",
       "withoutQuery": "{count} rezultatai",
@@ -1192,6 +1186,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} rastos istorijos",
     "title": "Istorijos"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Skaidrių grupė {page}"
   },
   "themes": {
     "description": "Naršyti pagal temą",
