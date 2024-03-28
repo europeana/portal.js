@@ -100,7 +100,7 @@ export default {
     "by": "de",
     "categories": "Categorii",
     "category": "Categorie",
-    "posts": "Postări de pe blog",
+    "posts": "Postare pe blog | Postări pe blog",
     "published": "Publicat la {date}",
     "relatedPosts": "Postări similare"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "creatori",
-      "name": "Creator | Creatori",
+      "name": "Creator",
       "select": "Selectați creatori"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Selectați instituții furnizoare"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientare imagine | Orientări imagine",
+      "name": "Orientarea imaginii",
       "options": {
         "landscape": "Peisaj",
         "portrait": "Portret"
@@ -552,7 +552,7 @@ export default {
       "select": "Selectați orientările imaginii"
     },
     "IMAGE_SIZE": {
-      "name": "Dimensiune imagine | Dimensiuni imagine",
+      "name": "Dimensiunea imaginii",
       "options": {
         "extra_large": "Foarte mare 4 MP + (de ex. 2688 x 1520 px)",
         "large": "Mare 1-4 MP (de ex. 1920 x 1080 px)",
@@ -621,7 +621,7 @@ export default {
       "select": "Selectați agregatori"
     },
     "proxy_dc_format": {
-      "name": "Format | Formate",
+      "name": "Format",
       "select": "Selectați formate"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Servicii pe care am dori să le folosim."
       },
       "consentNotice": {
-        "description": "Ne pasă de confidențialitatea dvs. și folosim doar date pentru a vă îmbunătăți experiența. Nu folosim nicio informație personală pentru publicitate. Vă puteți schimba consimțământul la fiecare 15 zile.",
+        "description": "Bună! Putem activa unele servicii suplimentare pentru analiză și securitate? Puteți oricând să vă schimbați sau să vă retrageți consimțământul ulterior.",
         "learnMore": "Lasa-ma sa aleg"
       },
       "decline": "Refuz",
@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Traducere automată",
+    "automatedPageTranslations": "Această pagină utilizează traduceri generate automat din engleză.",
     "enrichment": "Îmbogățirea prin proiecte partenere",
     "loginToTranslate": "{login} pentru a vedea acest resursă culturală în alte limbi",
     "other": "alte limbi",
@@ -947,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nume"
-        },
-        "title": "Organizații"
+        "description": "Explorați instituțiile care partajează resurse culturale din patrimoniul cultural digital pe Europeana.eu.",
+        "title": "Instituții"
       },
       "persons": {
         "title": "Persoane"
@@ -959,8 +958,11 @@ export default {
         "title": "Locuri"
       },
       "table": {
+        "country": "Țara",
         "items": "Resurse culturale",
-        "name": "Nume"
+        "name": "Nume",
+        "searchPlaceholder": "Căutați în tabel",
+        "showMoreData": "Afișează mai multe date pentru {entity}"
       },
       "times": {
         "title": "Secole"

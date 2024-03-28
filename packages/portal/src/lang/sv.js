@@ -100,7 +100,7 @@ export default {
     "by": "av",
     "categories": "Kategorier",
     "category": "Kategori",
-    "posts": "Blogginlägg",
+    "posts": "Blogginlägg | Blogginlägg",
     "published": "Publicerad {date}",
     "relatedPosts": "Relaterade inlägg"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "skapare",
-      "name": "Skapare | Skapare",
+      "name": "Upphovsman",
       "select": "Välj skapare"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Välj tillhandahållande institutioner"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Bildorientering | Bildorienteringar",
+      "name": "Bildorientering",
       "options": {
         "landscape": "Landskap",
         "portrait": "Porträtt"
@@ -552,7 +552,7 @@ export default {
       "select": "Välj bildorienteringar"
     },
     "IMAGE_SIZE": {
-      "name": "Bildstorlek | Bildstorlekar",
+      "name": "Bildstorlek",
       "options": {
         "extra_large": "Extra stor 4MP + (t.ex. 2688 x 1520 px)",
         "large": "Stor 1-4MP (t.ex. 1920x1080px)",
@@ -621,7 +621,7 @@ export default {
       "select": "Välj aggregatorer"
     },
     "proxy_dc_format": {
-      "name": "Format | Format",
+      "name": "Format",
       "select": "Välj format"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Tjänster som vi skulle vilja använda."
       },
       "consentNotice": {
-        "description": "Vi bryr oss om din integritet och använder endast data för att förbättra din upplevelse. Vi använder ingen personlig information för reklam. Du kan ändra ditt samtycke var 15: e dag.",
+        "description": "Hej! Kan vi aktivera några ytterligare tjänster för analys och säkerhet? Du kan alltid ändra eller återkalla ditt samtycke senare.",
         "learnMore": "Låt mig välja"
       },
       "decline": "jag avböjer",
@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiserad översättning",
+    "automatedPageTranslations": "Den här sidan använder automatiskt genererade översättningar från engelska.",
     "enrichment": "Berikning genom partnerprojekt",
     "loginToTranslate": "{login} för att se detta objekt på andra språk",
     "other": "andra språk",
@@ -947,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Namn"
-        },
-        "title": "Organisationer"
+        "description": "Utforska de institutioner som delar digitala kulturarvsobjekt på Europeana.eu.",
+        "title": "institutioner"
       },
       "persons": {
         "title": "Personer"
@@ -959,8 +958,11 @@ export default {
         "title": "Platser"
       },
       "table": {
+        "country": "Land",
         "items": "Objekt",
-        "name": "Namn"
+        "name": "Namn",
+        "searchPlaceholder": "Sök inom tabell",
+        "showMoreData": "Visa mer data för {entity}"
       },
       "times": {
         "title": "Århundraden"

@@ -100,7 +100,7 @@ export default {
     "by": "avtor",
     "categories": "Kategorije",
     "category": "Kategorija",
-    "posts": "Objave v blogih",
+    "posts": "Objava na blogu | Objave na spletnem dnevniku",
     "published": "Objavljeno {date}",
     "relatedPosts": "Sorodne objave"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "ustvarjalci",
-      "name": "Ustvarjalec | Ustvarjalci",
+      "name": "Kreatur",
       "select": "Izberite ustvarjalce"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Izberite ponudniki podatkov"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Usmerjenost slike | Usmerjenosti slik",
+      "name": "Usmerjenost slike",
       "options": {
         "landscape": "Ležeče",
         "portrait": "Pokončno"
@@ -552,7 +552,7 @@ export default {
       "select": "Izberite usmeritve slike"
     },
     "IMAGE_SIZE": {
-      "name": "Velikost slike | Velikosti slik",
+      "name": "Velikost slike",
       "options": {
         "extra_large": "Zelo velika 4MP+ (npr. 2688 x 1520px)",
         "large": "Velika 1-4MP (npr. 1920x1080px)",
@@ -621,7 +621,7 @@ export default {
       "select": "Izberite agregatorji"
     },
     "proxy_dc_format": {
-      "name": "Format | Formati",
+      "name": "Oblika",
       "select": "Izberite formate"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Storitve, ki jih želimo uporabljati."
       },
       "consentNotice": {
-        "description": "Skrbimo za vašo zasebnost in podatke uporabljamo le za izboljšanje vaše izkušnje. Osebnih podatkov ne uporabljamo za oglaševanje. Svoje soglasje lahko spremenite vsakih 15 dni.",
+        "description": "Živjo! Ali lahko prosim omogočimo nekaj dodatnih storitev za analitiko in varnost? Soglasje lahko kadar koli spremenite ali prekličete pozneje.",
         "learnMore": "Naj izberem"
       },
       "decline": "Zavrnem.",
@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Avtomatizirano prevajanje",
+    "automatedPageTranslations": "Ta stran uporablja samodejno ustvarjene prevode iz angleščine.",
     "enrichment": "Obogatitev s partnerskimi projekti",
     "loginToTranslate": "{login} za ogled tega enote v drugih jezikih",
     "other": "drugi jeziki",
@@ -947,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Ime"
-        },
-        "title": "Organizacije"
+        "description": "Raziščite ustanove, ki delijo enote digitalne kulturne dediščine na Europeana.eu.",
+        "title": "Institucije"
       },
       "persons": {
         "title": "Osebe"
@@ -959,8 +958,11 @@ export default {
         "title": "Krajev"
       },
       "table": {
+        "country": "Država",
         "items": "Enote",
-        "name": "Ime"
+        "name": "Ime",
+        "searchPlaceholder": "Išči znotraj tabele",
+        "showMoreData": "Prikaži več podatkov za {entity}"
       },
       "times": {
         "title": "Stoletja"

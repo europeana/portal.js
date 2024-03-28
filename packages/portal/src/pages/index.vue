@@ -41,6 +41,7 @@
         v-else-if="staticPage"
         :name="page.name"
         :description="page.description"
+        :automated-translation="page.automatedTranslation"
         :has-part-collection="page.hasPartCollection"
         :related-links="page.relatedLinks"
       />

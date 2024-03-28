@@ -969,6 +969,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automated translation",
+    "automatedPageTranslations": "This page uses auto-generated translations from English.",
     "enrichment": "Enrichment by partner projects",
     "loginToTranslate": "{login} to see this item in other languages",
     "other": "other languages",

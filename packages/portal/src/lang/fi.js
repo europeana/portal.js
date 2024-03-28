@@ -100,7 +100,7 @@ export default {
     "by": "laatija",
     "categories": "Luokat",
     "category": "Kategoria",
-    "posts": "Blogijulkaisut",
+    "posts": "Blogiviesti | Blogikirjoituksia",
     "published": "Julkaistu {date}",
     "relatedPosts": "Aiheeseen liittyvät julkaisut"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "luojat",
-      "name": "Tekijä  |  Tekijät",
+      "name": "Luoja",
       "select": "Valitse tekijät"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Valitse aineiston tarjoajat"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Kuvan suunta | Kuvan suunnat",
+      "name": "Kuvan suunta",
       "options": {
         "landscape": "Maisema",
         "portrait": "Muotokuva"
@@ -552,7 +552,7 @@ export default {
       "select": "Valitse kuvan suunnat"
     },
     "IMAGE_SIZE": {
-      "name": "Kuvakoko | Kuvien koot",
+      "name": "Kuvan koko",
       "options": {
         "extra_large": "Erittäin suuri, 4 megapikseliä + (esim. 2688 x 1520 pikseliä)",
         "large": "Suuri, 1-4 megapikseliä (esim. 1920 x 1080 pikseliä)",
@@ -621,7 +621,7 @@ export default {
       "select": "Valitse aggregaattorit"
     },
     "proxy_dc_format": {
-      "name": "Muoto | Muodot",
+      "name": "Muoto",
       "select": "Valitse formaatit"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Palvelut, joita haluaisimme käyttää."
       },
       "consentNotice": {
-        "description": "Välitämme yksityisyydestäsi ja käytämme tietoja vain kokemuksesi parantamiseen. Emme käytä henkilökohtaisia tietoja mainostamiseen. Voit muuttaa suostumustasi 15 päivän välein.",
+        "description": "Hei! Voisimmeko ottaa käyttöön joitain lisäpalveluita analytiikkaa ja turvallisuutta varten? Voit aina muuttaa tai peruuttaa suostumuksesi myöhemmin.",
         "learnMore": "Anna minun valita"
       },
       "decline": "kieltäydyn",
@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatisoitu käännös",
+    "automatedPageTranslations": "Tämä sivu käyttää automaattisesti luotuja käännöksiä englannista.",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
     "loginToTranslate": "{login} nähdäksesi tämän aineisto muilla kielillä",
     "other": "muut kielet",
@@ -947,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nimi"
-        },
-        "title": "Organisaatiot"
+        "description": "Tutustu laitoksiin, jotka jakavat digitaalisia kulttuuriperintöaineistoja Europeana.eu:ssa.",
+        "title": "Toimielimet"
       },
       "persons": {
         "title": "Henkilöt"
@@ -959,8 +958,11 @@ export default {
         "title": "Paikat"
       },
       "table": {
+        "country": "Maa",
         "items": "Aineistot",
-        "name": "Nimi"
+        "name": "Nimi",
+        "searchPlaceholder": "Etsi taulukosta",
+        "showMoreData": "Näytä lisää tietoja kohteelle {entity}"
       },
       "times": {
         "title": "Vuosisadat"

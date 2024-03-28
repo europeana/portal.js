@@ -46,6 +46,7 @@ query BrowseStaticPage(
       identifier
       name
       description
+      automatedTranslation
       image {
         ...imageFields
       }
@@ -87,7 +88,6 @@ query BrowseStaticPage(
       }
     }
   }
-
 }
 fragment imageFields on Asset {
   url
