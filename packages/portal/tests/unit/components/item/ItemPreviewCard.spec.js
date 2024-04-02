@@ -71,7 +71,7 @@ describe('components/item/ItemPreviewCard', () => {
         const wrapper = factory({ item, variant: 'list', hitSelector });
 
         expect(wrapper.vm.texts).toEqual([]);
-        expect(wrapper.vm.hitsText).toEqual(hitSelector);
+        expect(wrapper.vm.hitText).toEqual(hitSelector);
       });
     });
     describe('when no hit-selector is present, but there is a description', () => {

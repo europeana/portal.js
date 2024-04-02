@@ -227,7 +227,7 @@
         this.$emit('endItemDrag', this.cards.filter(card => ![this.relatedGalleries, this.relatedCollections].includes(card)));
       },
       itemHitSelector(item) {
-        return this.hits?.find((hit) => item.id === hit.scope)?.selectors?.[0];
+        return this.hits?.find((hit) => item.id === hit.scope)?.selectors?.[0] || null;
       },
       redrawMasonry() {
         this.$nextTick(() => {
