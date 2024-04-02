@@ -34,5 +34,3 @@ Vue.filter('wordLength', wordLength);
 Vue.filter('convertNewLine', (val) => {
   return val.replace(/\n/g, '<br/>');
 });
-
-Vue.filter('urlWithProtocol', (url) => url.startsWith('//') ? `https:${url}` : url);
