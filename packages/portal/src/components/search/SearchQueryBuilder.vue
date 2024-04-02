@@ -116,9 +116,6 @@
           this.handleSubmitForm();
         }
       },
-      handleInvalidRule(index) {
-        this.validations[index] = false;
-      },
       handleSubmitForm() {
         // let v-model changes percolate down to child components first, required
         // for validation during form submission, e.g. when modifiers change
@@ -132,9 +129,6 @@
             this.$router.push(this.advancedSearchRouteQueryFromRules(this.nonEmptyQueryRules));
           }
         });
-      },
-      handleValidRule(index) {
-        this.validations[index] = true;
       },
       initRulesFromRouteQuery() {
         // FIXME: this gets called too often on 1st load
