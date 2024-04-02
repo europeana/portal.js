@@ -112,7 +112,10 @@
           capture: true,
           events: ['click', 'dblclick', 'focusin', 'touchstart'],
           handler: this.handleClickOutside,
-          isActive: false
+          isActive: false,
+          middleware(event) {
+            return event.target?.tagName !== 'A';
+          }
         },
         selectedOption: null,
         showSearchOptions: false,

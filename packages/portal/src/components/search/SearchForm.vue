@@ -146,7 +146,10 @@
           capture: true,
           events: ['click', 'dblclick', 'focusin', 'touchstart'],
           handler: this.handleClickOutside,
-          isActive: false
+          isActive: false,
+          middleware(event) {
+            return event.target?.tagName !== 'A';
+          }
         },
         showSearchOptions: false,
         showForm: this.show,
