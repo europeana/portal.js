@@ -40,13 +40,13 @@
           v-if="index === 0"
           :lang="description.code"
           class="description-text-paragraph"
-          v-html="$options.filters.convertNewLine(showAll ? value : truncatedDescription)"
+          v-html="convertNewLine(showAll ? value : truncatedDescription)"
         />
         <p
           v-else-if="showAll"
           :lang="description.code"
           class="description-text-paragraph"
-          v-html="$options.filters.convertNewLine(value)"
+          v-html="convertNewLine(value)"
         />
         <!-- eslint-enable vue/no-v-html -->
         <MetadataOriginLabel
@@ -116,6 +116,14 @@
       }
     },
     methods: {
+      /**
+       * Convert new lines to <br/>
+       * @param {string} val text value
+       * @return {string} text value with HTML breaks
+       */
+      convertNewLine(val) {
+        return val.replace(/\n/g, '<br/>');
+      },
       toggleMoreDescription() {
         this.showAll = !this.showAll;
       }

@@ -26,13 +26,4 @@ Vue.filter('truncate', truncate);
 export const wordLength = text => text?.trim()?.match(/\w+/g)?.length || 0;
 Vue.filter('wordLength', wordLength);
 
-/**
- * Convert new lines to <br/>
- * @param {string} val text value
- * @return {String} text value with HTML breaks
- */
-Vue.filter('convertNewLine', (val) => {
-  return val.replace(/\n/g, '<br/>');
-});
-
 Vue.filter('urlWithProtocol', (url) => url.startsWith('//') ? `https:${url}` : url);
