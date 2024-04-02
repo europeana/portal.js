@@ -86,6 +86,10 @@ query LandingPage(
             embed {
               embed
             }
+            link {
+              url
+              text
+            }
           }
           ... on PrimaryCallToAction {
             ...primaryCallToActionFields
@@ -136,6 +140,10 @@ fragment infoCardFields on InfoCard {
   text
   image {
     ...imageFields
+  }
+  link {
+    url
+    text
   }
 }
 fragment illustrationGroupFields on IllustrationGroup {
