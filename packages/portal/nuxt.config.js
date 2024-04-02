@@ -297,7 +297,6 @@ export default {
     '~/plugins/error',
     '~/plugins/link',
     '~/plugins/axios.server',
-    '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
