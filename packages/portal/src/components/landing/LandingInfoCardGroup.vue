@@ -17,12 +17,18 @@
     </b-col>
     <div
       v-if="infoCards.length"
-      class="cards-wrapper d-lg-flex flex-wrap justify-content-between text-left mx-auto"
+      class="cards-wrapper d-lg-flex flex-wrap mx-auto"
+      :class="{
+        'justify-content-between text-left': !hasCardWithLink,
+        'justify-content-center': hasCardWithLink
+      }"
+      data-qa="landing info card group cards wrapper"
     >
       <LandingInfoCard
         v-for="(card, index) in infoCards"
         :key="index"
         :card="card"
+        :column-card="hasCardWithLink"
       />
     </div>
     <SmartLink
@@ -92,6 +98,12 @@
         type: String,
         default: 'pro'
       }
+    },
+
+    computed: {
+      hasCardWithLink() {
+        return this.infoCards.some(card => card.link);
+      }
     }
   };
 </script>
@@ -101,21 +113,28 @@
 
   .container {
     margin-top: 3rem;
-    margin-bottom: 3rem;
 
     @media (min-width: $bp-large) {
       margin-top: 6rem;
-      margin-bottom: 6rem;
+      margin-bottom: 2rem;
     }
 
     @media (min-width: $bp-4k) {
       margin-top: 15rem;
-      margin-bottom: 15rem;
+      margin-bottom: 7rem;
     }
   }
 
   .header {
-    padding-bottom: 1rem;
+    margin-bottom: 3rem;
+
+    @media (min-width: $bp-large) {
+      margin-bottom: 4rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: 8rem;
+    }
 
     @media (min-width: $bp-xxl) {
       max-width: $max-text-column-width;
@@ -125,7 +144,7 @@
       font-family: $font-family-ubuntu;
       font-size: $font-size-large;
       font-weight: 500;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
 
       @media (min-width: $bp-medium) {
         font-size: $font-size-xl;
@@ -228,6 +247,51 @@
         image: {
           url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
           contentType: 'image/svg+xml', description: '', width: 111, height: 111
+        }
+      }]"
+    />
+  ```
+  Card group that contains cards with links
+  ```jsx
+    <LandingInfoCardGroup
+      title="This is a title for an info card group"
+      text="A __description__ what this section is all about"
+      :info-cards="[{
+        __typename: 'InfoCard',
+        name: 'Title for an info card',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        image: {
+          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+          contentType: 'image/svg+xml', description: '', width: 111, height: 111
+        },
+        link: {
+          url: '/',
+          text: 'Read more link'
+        }
+      }, {
+        __typename: 'InfoCard',
+        name: 'Title for an info card',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        image: {
+          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+          contentType: 'image/svg+xml', description: '', width: 111, height: 111
+        },
+        link: {
+          url: '/',
+          text: 'Read more link'
+        }
+      },
+        {
+        __typename: 'InfoCard',
+        name: 'Title for an info card',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        image: {
+          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+          contentType: 'image/svg+xml', description: '', width: 111, height: 111
+        },
+        link: {
+          url: '/',
+          text: 'Read more link'
         }
       }]"
     />

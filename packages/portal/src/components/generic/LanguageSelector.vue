@@ -59,7 +59,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';;
+  @import '@europeana/style/scss/variables';
 
   .dropdown {
     ::v-deep .btn-light,
