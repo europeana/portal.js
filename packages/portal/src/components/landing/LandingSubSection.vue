@@ -285,7 +285,7 @@
         }
         @media(min-width: $bp-4k) {
           font-size: 5.625rem;
-          max-width: $max-text-column-width-4k;
+          max-width: $max-text-column-width-landing-4k;
         }
       }
 
@@ -297,7 +297,7 @@
 
         @media (min-width: $bp-4k) {
           font-size: 2.5rem;
-          max-width: $max-text-column-width-4k;
+          max-width: $max-text-column-width-landing-4k;
         }
       }
     }

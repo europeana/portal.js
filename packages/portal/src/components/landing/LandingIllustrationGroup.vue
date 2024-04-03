@@ -370,7 +370,7 @@
 
     .header {
       @media (min-width: $bp-4k) {
-        max-width: $max-text-column-width-4k !important;
+        max-width: $max-text-column-width-landing-4k !important;
         padding-bottom: 5rem;
       }
     }

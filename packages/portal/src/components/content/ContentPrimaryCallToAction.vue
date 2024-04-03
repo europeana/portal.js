@@ -15,7 +15,8 @@
     <SmartLink
       :destination="link.url"
       data-qa="call to action"
-      class="btn btn-cta btn-primary"
+      class="btn btn-cta"
+      :class="buttonVariant"
       hide-external-icon
     >
       {{ link.text }}
@@ -48,6 +49,10 @@
       link: {
         type: Object,
         default: null
+      },
+      buttonVariant: {
+        type: String,
+        default: 'btn-primary'
       }
     }
   };

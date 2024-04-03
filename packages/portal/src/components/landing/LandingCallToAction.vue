@@ -10,11 +10,14 @@
       :class="backgroundImageClasses"
       :style="imageCSSVars"
     />
-    <b-container>
+    <b-container
+      :class="backgroundImage?.profile ? 'text-white' : ''"
+    >
       <ContentPrimaryCallToAction
-        :title="displayTitle"
+        :title="title"
         :text="text"
         :link="link"
+        :button-variant="variant === 'ds4ch' ? 'btn-primary': 'btn-outline-primary'"
       />
     </b-container>
   </div>
@@ -88,7 +91,6 @@
           'bg-position-y-center': ['left', 'right'].includes(this.backgroundImage?.profile?.focus),
           'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
         },
-        displayTitle: this.variant === 'ds4ch' ? this.title : null,
         imageCSSVars: this.$contentful.assets.responsiveBackgroundImageCSSVars(
           this.backgroundImage?.image,
           CSS_VARS_PRESETS,
@@ -102,15 +104,84 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
+  .landing-cta {
+    background-color: $bodygrey;
+    position: relative;
+  }
+
+  .background-image {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &::after {
+      content: '';
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background-image: linear-gradient(0deg, rgba(25, 24, 23, 0.6), rgba(25, 24, 23, 0.6));
+      mix-blend-mode: multiply;
+      position: absolute;
+    }
+
+    &.no-overlay::after {
+      content: none;
+    }
+
+    &.bg-position-y-center {
+      background-position-y: center;
+    }
+
+    &.bg-color-highlight {
+      background-color: $blue;
+    }
+  }
+
   .container {
+    padding-top: 3.625rem;
+    padding-bottom: 2rem;
+    position: relative;
+
+    @media (min-width: $bp-4k) {
+      padding-top: 7rem;
+      padding-bottom: 5rem;
+    }
+
+    h2 {
+      @media (min-width: $bp-4k) {
+        margin-bottom: 4rem;
+      }
+    }
 
     .primary-cta {
       margin-left: auto !important;
       margin-right: auto !important;
+      background-color: transparent !important;
+      padding: 0;
+      max-width: 535px !important;
 
       @media (min-width: $bp-large) {
         width: 100% !important;
         max-width: 960px;
+      }
+
+      @media (min-width: $bp-4k) {
+        max-width: $max-text-column-width-landing-4k !important;
+      }
+    }
+
+    ::v-deep .primary-cta-rich-text {
+      text-align: center !important;
+      margin-bottom: 2rem;
+
+      @media (min-width: $bp-4k) {
+        font-size: 2.5rem;
+        margin-bottom: 3.125rem;
       }
     }
   }
@@ -123,77 +194,6 @@
 
   .landing-cta.ds4ch {
     background-color: $black;
-    position: relative;
     color: $white;
-
-    .background-image {
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      position: absolute;
-      background-size: cover;
-      background-repeat: no-repeat;
-
-      &::after {
-        content: '';
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        background-image: linear-gradient(0deg, rgba(25, 24, 23, 0.6), rgba(25, 24, 23, 0.6));
-        mix-blend-mode: multiply;
-        position: absolute;
-      }
-
-      &.no-overlay::after {
-        content: none;
-      }
-
-      &.bg-position-y-center {
-        background-position-y: center;
-      }
-
-      &.bg-color-highlight {
-        background-color: $blue;
-      }
-    }
-
-    .container {
-      padding-top: 3.625rem;
-      padding-bottom: 2rem;
-      position: relative;
-
-      @media (min-width: $bp-4k) {
-        padding-top: 7rem;
-        padding-bottom: 5rem;
-      }
-
-      h2 {
-        @media (min-width: $bp-4k) {
-          margin-bottom: 4rem;
-        }
-      }
-
-      .primary-cta {
-        background-color: transparent !important;
-        padding: 0;
-        max-width: 535px !important;
-
-        @media (min-width: $bp-4k) {
-          max-width: $max-text-column-width-4k !important;
-        }
-      }
-
-      ::v-deep .primary-cta-rich-text {
-        text-align: center !important;
-        margin-bottom: 2rem;
-
-        @media (min-width: $bp-4k) {
-          font-size: 2.5rem;
-          margin-bottom: 3.125rem;
-        }
-      }
-    }
   }
 </style>
