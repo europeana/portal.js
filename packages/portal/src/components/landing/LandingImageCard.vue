@@ -260,25 +260,6 @@
       }
     }
 
-    h3.title {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-medium;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: 1.75rem;
-      }
-
-      @media (min-width: $bp-large) {
-        margin-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.75rem);
-      }
-    }
-
     .text {
       color: $mediumgrey;
     }
@@ -349,14 +330,6 @@
         }
       }
 
-      h2.title {
-        @extend %title-2;
-      }
-
-      h3.title {
-        @extend %title-3;
-      }
-
       .text {
         color: $black;
         text-align: left;
@@ -398,13 +371,14 @@
 
 <docs lang="md">
   ```jsx
-      <LandingImageCard
-        :card="{
-          __typename: 'ImageCard',
-          name: 'Card title',
-          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          image: imagesWithAttribution[0]
-        }"
-      />
+    import '@europeana/style/scss/landing.scss';
+    <LandingImageCard
+      :card="{
+        __typename: 'ImageCard',
+        name: 'Card title',
+        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        image: imagesWithAttribution[0]
+      }"
+    />
   ```
 </docs>

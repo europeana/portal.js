@@ -172,10 +172,9 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/mixins';
-  @import '@europeana/style/scss/transitions';
+  @import '@europeana/style/scss/landing';
 
   .page {
     margin-top: -1rem;
@@ -183,45 +182,6 @@
 
     @media (min-width: $bp-4k) {
       margin-top: -1.5rem;
-    }
-
-    ::v-deep .container {
-      @media (max-width: $bp-small) {
-        padding-right: 2rem;
-        padding-left: 2rem;
-      }
-    }
-
-    .bg-color-alternate {
-      background-color: $bodygrey;
-    }
-
-    .image-card-container-wrapper {
-      + .image-card-container-wrapper {
-
-        @media (min-width: $bp-large) {
-          margin-top: -2rem;
-        }
-
-        @media (min-width: $bp-4k) {
-          margin-top: -5rem;
-        }
-      }
-
-      .image-card {
-        margin-top: 3rem;
-        margin-bottom: 3rem;
-
-        @media (min-width: $bp-large) {
-          margin-top: 6rem;
-          margin-bottom: 6rem;
-        }
-
-        @media (min-width: $bp-4k) {
-          margin-top: 15rem;
-          margin-bottom: 15rem;
-        }
-      }
     }
 
     .scroll-margin-top {

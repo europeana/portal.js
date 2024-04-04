@@ -142,9 +142,8 @@
       max-width: 650px;
     }
 
-    .title {
-      font-family: $font-family-ubuntu;
-      font-weight: 500;
+    h3.title {
+      font-size: $font-size-medium;
     }
 
     .text {
@@ -160,6 +159,7 @@
 
 <docs lang="md">
   ```jsx
+    import '@europeana/style/scss/landing.scss';
     <LandingInfoCard
       :card="{
         __typename: 'InfoCard',
@@ -174,6 +174,7 @@
   ```
   Column card layout (for when card group contains cards with links)
   ```jsx
+    import '@europeana/style/scss/landing.scss';
     <LandingInfoCard
       :card="{
         __typename: 'InfoCard',

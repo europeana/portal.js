@@ -98,22 +98,6 @@
         max-width: $max-text-column-width;
       }
     }
-
-    h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
-      }
-    }
   }
 
   .embed-container {

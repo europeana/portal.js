@@ -3,7 +3,7 @@
     class="landing-sub-section"
     :class="variant"
   >
-    <b-container>
+    <b-container class="landing-sub-section-container">
       <div class="header mx-auto">
         <h2>
           {{ title }}
@@ -116,7 +116,7 @@
     background-color: $bodygrey;
   }
 
-  .container {
+  .landing-sub-section-container {
     padding-top: 3rem;
     border-bottom: 1px solid transparent; // fix for when any margin of the last child component causes different bg to display
 
@@ -147,20 +147,7 @@
     }
 
     h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
       max-width: $max-text-column-width;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
-      }
     }
   }
 
@@ -335,6 +322,7 @@
 
 <docs lang="md">
   ```jsx
+    import '@europeana/style/scss/landing.scss';
     <LandingSubSection
       title="This is a title for a sub section"
       text="A __description__ what this section is all about"

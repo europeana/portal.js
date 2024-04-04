@@ -87,22 +87,6 @@
     @media (min-width: $bp-4k) {
       margin-bottom: 15rem;
     }
-
-    h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
-      }
-    }
   }
 
   .header-content {
@@ -114,6 +98,7 @@
 
 <docs lang="md">
   ```jsx
+    import '@europeana/style/scss/landing.scss';
     <LandingImageCardGroup
       title="This is a title for an image card group"
       text="A __description__ what this section is all about"

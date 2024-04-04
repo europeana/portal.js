@@ -1,0 +1,48 @@
+@import '@europeana/style/scss/variables';
+
+h2 {
+  @extend %title-2;
+}
+
+h3 {
+  @extend %title-3;
+}
+
+.container {
+  @media (max-width: $bp-small) {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+}
+
+.bg-color-alternate {
+  background-color: $bodygrey;
+}
+
+.image-card-container-wrapper {
+  + .image-card-container-wrapper {
+
+    @media (min-width: $bp-large) {
+      margin-top: -2rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      margin-top: -5rem;
+    }
+  }
+
+  .image-card {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+
+    @media (min-width: $bp-large) {
+      margin-top: 6rem;
+      margin-bottom: 6rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      margin-top: 15rem;
+      margin-bottom: 15rem;
+    }
+  }
+}

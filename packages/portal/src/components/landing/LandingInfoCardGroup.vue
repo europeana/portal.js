@@ -126,49 +126,8 @@
   }
 
   .header {
-    margin-bottom: 3rem;
-
-    @media (min-width: $bp-large) {
-      margin-bottom: 4rem;
-    }
-
-    @media (min-width: $bp-4k) {
-      margin-bottom: 8rem;
-    }
-
     @media (min-width: $bp-xxl) {
       max-width: $max-text-column-width;
-    }
-
-    h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      margin-bottom: 1rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
-      }
-    }
-
-    h3 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-medium;
-      font-weight: 500;
-
-      @media (min-width: $bp-medium) {
-        font-size: 1.75rem;
-        margin-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.75rem);
-      }
     }
   }
 
@@ -178,9 +137,27 @@
 
   .cards-wrapper {
     max-width: 1250px;
+    margin-top: 3rem;
+
+    @media (min-width: $bp-large) {
+      margin-top: 4rem;
+    }
 
     @media (min-width: $bp-4k) {
+      margin-top: 8rem;
       max-width: 1760px;
+    }
+  }
+
+  .btn {
+    margin-bottom: 3rem;
+
+    @media (min-width: $bp-large) {
+      margin-bottom: 4rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: 8rem;
     }
   }
 </style>
@@ -220,6 +197,7 @@
 
 <docs lang="md">
   ```jsx
+    import '@europeana/style/scss/landing.scss';
     <LandingInfoCardGroup
       title="This is a title for an info card group"
       text="A __description__ what this section is all about"
@@ -253,6 +231,7 @@
   ```
   Card group that contains cards with links
   ```jsx
+    import '@europeana/style/scss/landing.scss';
     <LandingInfoCardGroup
       title="This is a title for an info card group"
       text="A __description__ what this section is all about"

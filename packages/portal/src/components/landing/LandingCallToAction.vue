@@ -152,12 +152,6 @@
       padding-bottom: 5rem;
     }
 
-    h2 {
-      @media (min-width: $bp-4k) {
-        margin-bottom: 4rem;
-      }
-    }
-
     .primary-cta {
       margin-left: auto !important;
       margin-right: auto !important;

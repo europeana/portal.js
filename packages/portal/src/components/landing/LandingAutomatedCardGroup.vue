@@ -166,21 +166,6 @@
     }
   }
 
-  .title {
-    font-family: $font-family-ubuntu;
-    font-size: $font-size-medium;
-    font-weight: 500;
-
-    @media (min-width: $bp-medium) {
-      font-size: 1.75rem;
-      margin-bottom: 1rem;
-    }
-
-    @media (min-width: $bp-4k) {
-      font-size: calc(1.5 * 1.75rem);
-    }
-  }
-
   ::v-deep .info-card {
     .card-title {
       font-family: $font-family-ubuntu;

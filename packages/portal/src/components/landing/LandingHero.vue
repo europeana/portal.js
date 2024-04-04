@@ -128,6 +128,7 @@
   .landing-hero {
     background-color: $bodygrey;
     position: relative;
+
     .container {
       @media (min-width: $bp-xxl) {
         max-width: 1250px;

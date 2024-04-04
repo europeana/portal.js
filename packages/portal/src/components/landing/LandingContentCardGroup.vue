@@ -101,19 +101,6 @@
 
     ::v-deep h2.card-group-title {
       color: $black;
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
-      }
     }
 
     ::v-deep .browse-section .text {
@@ -163,7 +150,6 @@
     }
 
     ::v-deep h2.card-group-title {
-      @extend %title-2;
       color: $black;
     }
 
