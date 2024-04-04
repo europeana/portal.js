@@ -6,7 +6,6 @@
     <div
       class="header"
       :class="backgroundImageClasses"
-      :style="imageCSSVars"
     >
       <b-container>
         <b-col class="header-content col-lg-8 px-0 text-center mx-auto">
@@ -46,18 +45,6 @@
 <script>
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import EmbedHTML from '@/components/embed/EmbedHTML';
-
-  const CSS_VARS_PRESETS = {
-    small: { w: 576, h: 270, fit: 'fill' },
-    medium: { w: 768, h: 270, fit: 'fill' },
-    large: { w: 992, h: 500, fit: 'fill' },
-    xl: { w: 1200, h: 500, fit: 'fill' },
-    xxl: { w: 1400, h: 500, fit: 'fill' },
-    xxxl: { w: 1880, h: 500, fit: 'fill' },
-    wqhd: { w: 2520, h: 500, fit: 'fill' },
-    '4k': { w: 3020, h: 500, fit: 'fill' },
-    '4k+': { w: 3840, h: 680, fit: 'fill' }
-  };
 
   export default {
     name: 'LandingEmbed',
@@ -110,16 +97,8 @@
     data() {
       return {
         backgroundImageClasses: {
-          'background-image responsive-backround-image': this.backgroundImage,
-          'no-overlay': this.backgroundImage?.profile && !this.backgroundImage.profile.overlay,
-          'bg-position-y-center': ['left', 'right'].includes(this.backgroundImage?.profile?.focus),
           'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
-        },
-        imageCSSVars: this.backgroundImage?.image && this.$contentful.assets.responsiveBackgroundImageCSSVars(
-          this.backgroundImage?.image,
-          CSS_VARS_PRESETS,
-          this.backgroundImage?.profile
-        )
+        }
       };
     }
   };
@@ -165,35 +144,6 @@
 
     @media (min-width: $bp-4k) {
       padding-top: 15rem;
-    }
-
-    &.background-image::before {
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      position: absolute;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-
-    &.background-image::after {
-      content: '';
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background-image: linear-gradient(0deg, rgba(25, 24, 23, 0.6), rgba(25, 24, 23, 0.6));
-      mix-blend-mode: multiply;
-      position: absolute;
-    }
-
-    &.no-overlay::after {
-      content: none;
-    }
-
-    &.bg-position-y-center {
-      background-position-y: center;
     }
 
     &.bg-color-highlight {

@@ -38,7 +38,11 @@
         v-if="card.link"
         :destination="card.link.url"
         data-qa="call to action"
-        class="btn btn-secondary icon-chevron"
+        class="btn"
+        :class="{
+          'btn-secondary icon-chevron': variant === 'ds4ch',
+          'btn-outline-primary': variant !== 'ds4ch'
+        }"
         hide-external-icon
       >
         {{ card.link.text }}
@@ -155,12 +159,14 @@
     margin-bottom: 3rem;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 
     @media (min-width: $bp-medium) {
-      align-items: flex-end;
+      align-items: center;
     }
 
     @media (min-width: $bp-large) {
+      text-align: left;
       max-width: 1250px;
       margin-bottom: 6rem;
 
@@ -195,9 +201,6 @@
     .text-wrapper {
       @media (min-width: $bp-large) {
         flex: 0 0 51%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
         background-color: $white;
         padding-left: 3.625rem;
         padding-right: 2rem;
@@ -205,14 +208,6 @@
 
       @media (min-width: $bp-extralarge) {
         padding-right: 6rem;
-      }
-
-      @media (min-width: $bp-xxl) {
-        padding-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        padding-bottom: 3rem;
       }
     }
 
@@ -260,8 +255,17 @@
       }
     }
 
+    .title {
+      text-align: center;
+
+      @media (min-width: $bp-large) {
+        text-align: left;
+      }
+    }
+
     .text {
       color: $mediumgrey;
+      text-align: left;
     }
   }
 </style>
@@ -272,10 +276,8 @@
 
   .ds4ch.image-card {
     max-width: 100%;
-    text-align: center;
+
     @media (min-width: $bp-large) {
-      text-align: left;
-      align-items: center;
       padding-right: 0;
     }
 
@@ -296,8 +298,6 @@
 
     .text-wrapper {
       padding-right: 0;
-      display: block;
-      padding-bottom: 0;
 
       @media (min-width: $bp-large) {
         padding-right: 2rem;
@@ -322,17 +322,8 @@
         flex-basis: 1500px;
       }
 
-      .title {
-        text-align: center;
-
-        @media (min-width: $bp-large) {
-          text-align: left;
-        }
-      }
-
       .text {
         color: $black;
-        text-align: left;
 
         @media(min-width: $bp-4k) {
           font-size: 2.5rem;

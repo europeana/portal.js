@@ -1,6 +1,9 @@
 <template>
   <div class="image-card-group">
-    <div class="header pt-5 pb-4 pb-lg-5">
+    <div
+      class="header"
+      :class="backgroundImageClasses"
+    >
       <b-container>
         <b-col class="header-content col-lg-8 px-0 text-center mx-auto">
           <h2>
@@ -58,12 +61,27 @@
         default: null
       },
       /**
+       * Background image Object
+       */
+      backgroundImage: {
+        type: Object,
+        default: () => {}
+      },
+      /**
        * List of image cards
        */
       imageCards: {
         type: Array,
         default: () => []
       }
+    },
+
+    data() {
+      return {
+        backgroundImageClasses: {
+          'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
+        }
+      };
     }
   };
 </script>
@@ -76,16 +94,28 @@
   }
 
   .header {
-    background-color: $blue;
-    color: $white;
-    margin-bottom: 3rem;
+    padding: 3rem 0 2rem;
 
-    @media (min-width: $bp-large) {
-      margin-bottom: 6rem;
+    @media (min-width: $bp-medium) {
+      padding: 6rem 0 5rem;
     }
 
     @media (min-width: $bp-4k) {
-      margin-bottom: 15rem;
+      padding: 15rem 0 14rem;
+    }
+
+    &.bg-color-highlight {
+      background-color: $blue;
+      color: $white;
+      margin-bottom: 1rem;
+
+      @media (min-width: $bp-medium) {
+        margin-bottom: 2rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        margin-bottom: 4rem;
+      }
     }
   }
 
