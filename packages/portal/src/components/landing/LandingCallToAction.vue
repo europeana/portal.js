@@ -91,7 +91,7 @@
           'bg-position-y-center': ['left', 'right'].includes(this.backgroundImage?.profile?.focus),
           'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
         },
-        imageCSSVars: this.$contentful.assets.responsiveBackgroundImageCSSVars(
+        imageCSSVars: this.backgroundImage?.image && this.$contentful.assets.responsiveBackgroundImageCSSVars(
           this.backgroundImage?.image,
           CSS_VARS_PRESETS,
           this.backgroundImage?.profile

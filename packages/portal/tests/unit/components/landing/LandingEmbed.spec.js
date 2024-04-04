@@ -7,6 +7,13 @@ const localVue = createLocalVue();
 const factory = (propsData) => shallowMount(LandingEmbed, {
   localVue,
   propsData,
+  mocks: {
+    $contentful: {
+      assets: {
+        responsiveBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
+      }
+    }
+  },
   stubs: ['b-container', 'b-col']
 });
 

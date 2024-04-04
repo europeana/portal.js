@@ -44,7 +44,6 @@
 </template>
 
 <script>
-  import SmartLink from '../generic/SmartLink';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
 
   export default {
@@ -52,7 +51,7 @@
 
     components: {
       LandingInfoCard: () => import('@/components/landing/LandingInfoCard'),
-      SmartLink
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [parseMarkdownHtmlMixin],

@@ -29,7 +29,7 @@ describe('components/landing/LandingIllustrationGroup', () => {
   });
 
   it('passes a srcset for responsive images', () => {
-    const illustrations = [{ image: { url: 'https://images.ctfassets.net/example.png' } }];
+    const illustrations = [{ image: { url: 'https://images.ctfassets.net/example.png', width: 100, height: 100 } }];
     const wrapper = factory({ illustrations });
 
     const imageStub = wrapper.find('imageoptimised-stub');

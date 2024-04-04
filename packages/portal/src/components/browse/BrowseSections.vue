@@ -23,6 +23,7 @@
         v-else-if="contentfulEntryHasContentType(section, 'Embed')"
         :html="section.embed"
         :title="section.title"
+        class="mb-5"
       />
       <ImageComparisonSlider
         v-else-if="contentfulEntryHasContentType(section, 'ImageComparison')"

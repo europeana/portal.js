@@ -10,7 +10,7 @@
     <div
       ref="embedContainer"
       data-qa="html embed"
-      class="mb-5 html-embed"
+      class="html-embed"
       :style="`padding-bottom:${heightAsPercentOfWidth}%`"
       v-html="html"
     />
@@ -19,7 +19,7 @@
     v-else
     ref="embedContainer"
     data-qa="html embed"
-    class="mb-5 html-embed"
+    class="html-embed"
     v-html="html"
   />
   <!-- eslint-enable vue/no-v-html -->
