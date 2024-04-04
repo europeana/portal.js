@@ -60,6 +60,7 @@
         :title="section.name"
         :text="section.text"
         :image-cards="section.hasPartCollection && section.hasPartCollection.items"
+        :background-image="section.image"
       />
       <LandingSubSection
         v-else-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
@@ -74,6 +75,7 @@
         :text="section.text"
         :background-image="section.image"
         :embed="section.embed"
+        :link="section.link"
       />
       <LandingCallToAction
         v-else-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"

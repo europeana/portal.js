@@ -45,6 +45,9 @@ query LandingPage(
             name
             nameEN: name(locale: "en-GB")
             text
+            image {
+              ...illustrationFields
+            }
             hasPartCollection(limit: 6) {
               items {
                 __typename
@@ -89,6 +92,9 @@ query LandingPage(
             link {
               url
               text
+            }
+            image {
+              ...illustrationFields
             }
           }
           ... on PrimaryCallToAction {
