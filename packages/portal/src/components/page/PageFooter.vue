@@ -3,8 +3,8 @@
     data-qa="footer"
     class="page-footer"
   >
-    <div class="footer-wrapper py-5">
-      <b-container>
+    <div class="footer-wrapper xxl-page py-5">
+      <b-container class="xxl-container">
         <h2 class="visually-hidden">
           {{ $t('footer.footer') }}
         </h2>

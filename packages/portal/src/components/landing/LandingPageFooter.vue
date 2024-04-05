@@ -1,7 +1,7 @@
 <template>
   <footer
     data-qa="footer"
-    class="page-footer"
+    class="page-footer landing-page-footer"
   >
     <div class="footer-wrapper xxl-page py-5">
       <b-container class="xxl-container">
@@ -28,7 +28,7 @@
           </b-col>
           <b-col
             lg="5"
-            class="left-col pb-4 order-lg-4"
+            class="left-col pb-4 order-lg-3"
             data-qa="footer social links"
           >
             <LinkGroup
@@ -41,7 +41,7 @@
           </b-col>
           <b-col
             sm="6"
-            lg="4"
+            lg="5"
             class="middle-col pb-4  order-sm-1 order-lg-2"
             data-qa="footer recourses"
           >
@@ -140,6 +140,106 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/footer';
+
+  .landing-page-footer {
+
+    .container {
+      padding-top: 3.5rem;
+      padding-bottom: 3.5rem;
+
+      @media (max-width: ($bp-medium)) {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+
+      @media (min-width: $bp-large) {
+        padding-top: 3.5rem;
+        padding-bottom: 6rem ;
+      }
+
+      @media (min-width: $bp-4k) {
+        padding-top: 16.5rem;
+        padding-bottom: 16.5rem;
+      }
+    }
+
+    .left-col,
+    .middle-col {
+      @media (min-width: $bp-wqhd) {
+        order: unset !important;
+        flex: 0 0 33.3333%;
+        max-width: 33.3333%;
+      }
+    }
+
+    .group-title {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl;
+        margin-bottom: 1rem;
+      }
+    }
+
+    p.mission,
+    .link-group-list li a {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl;
+      }
+    }
+
+    .link-group-social .link-group-list li {
+      @media (min-width: $bp-4k) {
+        a {
+          width: 4rem;
+          height: 4rem;
+
+          .footer-link-icon {
+            font-size: 2rem;
+
+            &.icon-facebook,
+            &.icon-pinterest {
+              font-size: 4rem;
+            }
+          }
+        }
+
+        &:not(:last-child) {
+          margin-right: 1rem;
+        }
+      }
+    }
+
+    hr {
+      @media (min-width: $bp-4k) {
+        margin-top: 3rem;
+        margin-bottom: 6rem;
+      }
+    }
+
+    .col-lg-6 {
+      @media (min-width: $bp-4k) {
+        flex: 0 0 75%;
+        max-width: 75%;
+      }
+    }
+
+    .sub-footer {
+      .eu-logo {
+        @media (min-width: $bp-4k) {
+          width: 810px;
+          height: auto;
+          margin-bottom: 2.625rem !important;
+        }
+      }
+
+      p {
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-large;
+          margin-bottom: $font-size-large !important;
+          max-width: 90rem;
+        }
+      }
+    }
+  }
 </style>
 
 <docs lang="md">

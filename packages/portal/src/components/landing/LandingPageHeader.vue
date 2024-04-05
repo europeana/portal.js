@@ -119,12 +119,6 @@
     font-size: $font-size-extrasmall;
     padding: 0;
 
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-extrasmall-4k;
-      }
-    }
-
     span {
       transition: $standard-transition;
     }

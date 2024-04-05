@@ -143,17 +143,26 @@
     }
 
     @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 1250px);
+      max-width: 2500px;
+      padding-bottom: 8rem;
     }
 
     h2 {
       max-width: $max-text-column-width;
+
+      @media (min-width: $bp-4k) {
+        max-width: $max-text-column-width-landing-4k;
+      }
     }
   }
 
   .text {
     color: $mediumgrey;
     max-width: $max-text-column-width;
+
+    @media (min-width: $bp-4k) {
+      max-width: $max-text-column-width-landing-4k;
+    }
   }
 
   ::v-deep .landing-content-card-group .container {
@@ -172,7 +181,7 @@
       }
 
       @media (min-width: $bp-4k) {
-        margin-bottom: 3rem;
+        margin-bottom: 15rem;
       }
     }
 

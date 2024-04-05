@@ -38,14 +38,6 @@
 
     @media (min-width: $bp-xxxl) {
       clip-path: polygon(0 -100vh, calc(100% - calc(95 / 16 * 1vw)) -100vh, calc(100% - calc(95 / 16 * 1vw)) 0, 100% calc(209 / 16 * 1vw), 100% 100%, 0 100%);
-      padding-left: 18vw !important;
-      padding-right: 18vw !important;
-    }
-  }
-
-  .container {
-    @media (min-width: $bp-xxxl) {
-      max-width: none;
     }
   }
 

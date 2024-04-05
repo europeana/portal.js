@@ -57,7 +57,7 @@
       color: $black;
       text-decoration: none;
       text-transform: uppercase;
-      font-size: $font-size-small;
+      font-size: $font-size-extrasmall;
       font-weight: 600;
       text-align: left;
       padding-top: 1rem;
@@ -69,7 +69,7 @@
       }
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-small-4k;
+        font-size: $font-size-large;
         padding: 1rem;
       }
 

@@ -128,6 +128,10 @@
     @media (min-width: $bp-xxl) {
       max-width: $max-text-column-width;
     }
+
+    @media (min-width: $bp-4k) {
+      max-width: $max-text-column-width-landing-4k;
+    }
   }
 
   .text {
@@ -144,7 +148,7 @@
 
     @media (min-width: $bp-4k) {
       margin-top: 8rem;
-      max-width: 1760px;
+      max-width: 2500px;
     }
   }
 

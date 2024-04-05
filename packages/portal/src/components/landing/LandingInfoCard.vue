@@ -27,7 +27,7 @@
         'mb-3': columnCard }"
     >
       <h3
-        class="title mb-2 text-center"
+        class="title text-center"
         :class="{ 'text-lg-left': !columnCard }"
       >
         {{ card.name }}
@@ -116,6 +116,10 @@
         flex: 0 1 calc(33% - 2rem);
         padding: 0 2rem;
       }
+
+      @media (min-width: $bp-4k) {
+        max-width: none;
+      }
     }
 
     .image-wrapper {
@@ -131,6 +135,7 @@
       @media (min-width: $bp-4k) {
         flex: 0 0 calc(1.5 * 80px);
         max-width: calc(1.5 * 80px);
+        margin-bottom: 1.5rem;
       }
 
       img {
@@ -140,10 +145,21 @@
 
     .text-wrapper {
       max-width: 650px;
+
+      @media (min-width: $bp-4k) {
+        margin-bottom: 2rem !important;
+        max-width: $max-text-column-width-landing-4k;
+      }
     }
 
     h3.title {
       font-size: $font-size-medium;
+      margin-bottom: 0.5rem;
+
+      @media (min-width: $bp-4k) {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
     }
 
     .text {

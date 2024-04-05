@@ -137,7 +137,7 @@
       }
 
       @media (min-width: $bp-4k) {
-        max-width: calc(1.5 * 1250px);
+        max-width: 2500px;
       }
     }
   }
@@ -168,7 +168,7 @@
     max-width: 443px;
 
     @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 443px);
+      max-width: calc(2 * 443px);
     }
 
     ::v-deep h1 {
@@ -183,7 +183,7 @@
       }
 
       @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 2.875rem);
+        font-size: 6rem;
         margin-bottom: calc(1.5 * 0.75rem);
       }
 

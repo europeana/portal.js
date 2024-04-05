@@ -174,7 +174,6 @@
       margin-bottom: 2rem;
 
       @media (min-width: $bp-4k) {
-        font-size: 2.5rem;
         margin-bottom: 3.125rem;
       }
     }
