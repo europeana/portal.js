@@ -341,9 +341,13 @@
           event.preventDefault();
           this.navigateWithArrowKeys(event);
         }
-        if (event.key === 'Escape') {
+        if (event.key === 'Escape' || this.advancedSearchDirectEnter(event)) {
           this.$emit('hide');
         }
+      },
+
+      advancedSearchDirectEnter(event) {
+        return this.advancedSearch && (event.key === 'Enter' && this.$refs.options.map(option => option.$el || option).indexOf(event.target) === -1);
       },
 
       navigateWithArrowKeys(event) {

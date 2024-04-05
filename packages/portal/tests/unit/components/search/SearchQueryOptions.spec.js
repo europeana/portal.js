@@ -46,7 +46,7 @@ const factory = (options = {}) => shallowMount(SearchQueryOptions, {
   stubs
 });
 
-const component = {
+const defaultComponent = {
   template: `<div>
       <div ref="searchdropdown">
         <input ref="searchinput"/>
@@ -57,7 +57,7 @@ const component = {
   components: { SearchQueryOptions }
 };
 
-const parentFactory = () => mount(component, {
+const parentFactory = (component = defaultComponent) => mount(component, {
   localVue,
   data() {
     return { showSearchOptions: false };
@@ -295,6 +295,44 @@ describe('components/search/SearchQueryOptions', () => {
           searchOptionsComponent.vm.handleKeyDown(handleKeyDownEvent);
 
           expect(searchOptionsComponent.emitted('hide').length).toBe(1);
+        });
+      });
+
+      describe('when using the Enter key', () => {
+        describe('when outside the Advanced search context', () => {
+          it('does not hide itself', () => {
+            const handleKeyDownEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+            const wrapper = parentFactory();
+            const searchOptionsComponent = wrapper.find('[data-qa="search query options"]');
+
+            searchOptionsComponent.vm.handleKeyDown(handleKeyDownEvent);
+
+            expect(searchOptionsComponent.emitted('hide')).toBe(undefined);
+          });
+        });
+
+        describe('when in the Advanced search', () => {
+          const advancedSearchComponent = {
+            template: `<div>
+                <div ref="searchdropdown">
+                  <input ref="searchinput"/>
+                  <SearchQueryOptions v-show="true" ref="searchoptions" :show-search-options="showSearchOptions" :advanced-search="true" advanced-search-field="what"></SearchQueryOptions>
+                </div>
+              </div>`,
+            components: { SearchQueryOptions }
+          };
+
+          describe('when on the term input (outside the suggestions)', () => {
+            it('hides the search query options and the form (when hidable)', () => {
+              const handleKeyDownEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+              const parentWrapper = parentFactory(advancedSearchComponent);
+              const searchOptionsComponent = parentWrapper.find('[data-qa="search query options"]');
+
+              searchOptionsComponent.vm.handleKeyDown(handleKeyDownEvent);
+
+              expect(searchOptionsComponent.emitted('hide').length).toBe(1);
+            });
+          });
         });
       });
     });

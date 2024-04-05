@@ -44,6 +44,10 @@
                   {{ $t('actions.add') }}
                 </b-button>
               </div>
+              <input
+                type="submit"
+                hidden
+              >
             </b-form>
           </section>
         </b-col>
