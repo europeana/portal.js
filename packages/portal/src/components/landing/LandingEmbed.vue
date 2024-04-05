@@ -175,6 +175,10 @@
     ::v-deep iframe {
       max-width: 920px;
       width: 100%;
+
+      @media (min-width: $bp-4k) {
+        max-width: $max-text-column-width-landing-4k;
+      }
     }
 
     .btn {
