@@ -60,6 +60,7 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
+          // FIXME: replace fullPath with full URL
           { hid: 'og:url', property: 'og:url', content: this.$route.fullPath }
         ],
         script: [

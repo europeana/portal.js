@@ -29,6 +29,7 @@
 <script>
   import LandingPageHeader from '@/components/landing/LandingPageHeader';
   import LandingPageFooter from '@/components/landing/LandingPageFooter';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
 
@@ -42,6 +43,7 @@
     },
 
     mixins: [
+      canonicalUrlMixin,
       klaroMixin
     ],
 
@@ -59,7 +61,7 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
-          { hid: 'og:url', property: 'og:url', content: this.$route.fullPath }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true }) }
         ],
         script: [
           this.klaroHeadScript
