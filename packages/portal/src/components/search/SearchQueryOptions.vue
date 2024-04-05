@@ -222,6 +222,9 @@
         if (newVal) {
           this.trackSuggestionClick(newVal);
         }
+      },
+      onSearchablePage() {
+        return this.$store.state.search.active;
       }
     },
 
@@ -289,10 +292,9 @@
       },
 
       linkGen(queryTerm, path) {
-        const query = {
-          ...this.$route.query,
-          query: queryTerm || ''
-        };
+        const query = this.onSearchablePage ? { ...this.$route.query } : {};
+        query.query = queryTerm || '';
+
         return {
           path: path || this.localePath({
             name: 'search'

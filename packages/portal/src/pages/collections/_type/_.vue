@@ -294,6 +294,7 @@
           const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
           labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
         }
+        // TODO: Update to use API country field?
         if (this.entity?.hasAddress?.countryName)  {
           labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
         }

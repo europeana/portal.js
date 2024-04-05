@@ -100,7 +100,7 @@ export default {
     "by": "autorstwa",
     "categories": "Kategorie",
     "category": "Kategoria",
-    "posts": "Posty na blogu",
+    "posts": "Wpis na blogu | Posty na blogu",
     "published": "Opublikowano w dniu {date}",
     "relatedPosts": "Powiązane posty"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "twórcy",
-      "name": "Twórca | Twórcy",
+      "name": "Twórca",
       "select": "Wybierz twórców"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Wybierz dostawcy danych"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Układ obrazu",
+      "name": "Orientacja obrazu",
       "options": {
         "landscape": "Poziomy",
         "portrait": "Pionowy"
@@ -552,7 +552,7 @@ export default {
       "select": "Wybierz orientacje obrazu"
     },
     "IMAGE_SIZE": {
-      "name": "Rozmiar obrazu | Rozmiary obrazu",
+      "name": "Rozmiar obrazu",
       "options": {
         "extra_large": "Bardzo duży 4MP+ (np. 2688 x 1520 px)",
         "large": "Duży 1-4 MP (np. 1920 x 1080 px)",
@@ -562,7 +562,7 @@ export default {
       "select": "Wybierz rozmiary obrazu"
     },
     "LANGUAGE": {
-      "name": "Język | Języki",
+      "name": "Język",
       "options": {
         "ar": "Arabski",
         "bg": "Bułgarski",
@@ -621,7 +621,7 @@ export default {
       "select": "Wybierz agregatorów"
     },
     "proxy_dc_format": {
-      "name": "Format | Formaty",
+      "name": "Format",
       "select": "Wybierz formaty"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Usługi, z których chcielibyśmy skorzystać."
       },
       "consentNotice": {
-        "description": "Dbamy o Twoją prywatność i wykorzystujemy dane tylko po to, aby poprawić Twoje doświadczenia. Nie wykorzystujemy żadnych danych osobowych do celów reklamowych. Możesz zmienić swoją zgodę co 15 dni.",
+        "description": "Cześć! Czy moglibyśmy włączyć dodatkowe usługi analityczne i zabezpieczające? Zawsze możesz zmienić lub wycofać swoją zgodę później.",
         "learnMore": "Pozwól mi wybrać"
       },
       "decline": "Odmawiam",
@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Tłumaczenie zautomatyzowane",
+    "automatedPageTranslations": "Na tej stronie zastosowano automatycznie wygenerowane tłumaczenia z języka angielskiego.",
     "enrichment": "Rozszerzenie w ramach projektów partnerskich",
     "loginToTranslate": "{login} aby zobaczyć ten obiekt cyfrowy w innych językach",
     "other": "inne języki",
@@ -947,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nazwa"
-        },
-        "title": "Organizacje"
+        "description": "Poznaj instytucje udostępniające cyfrowe obiekty dziedzictwa kulturowego na Europeana.eu.",
+        "title": "Instytucje"
       },
       "persons": {
         "title": "Osoby"
@@ -959,8 +958,11 @@ export default {
         "title": "Miejsca"
       },
       "table": {
+        "country": "Kraj",
         "items": "Obiekty cyfrowe",
-        "name": "Nazwa"
+        "name": "Nazwa",
+        "searchPlaceholder": "Szukaj w tabeli",
+        "showMoreData": "Pokaż więcej danych dla {entity}"
       },
       "times": {
         "title": "Wieki"

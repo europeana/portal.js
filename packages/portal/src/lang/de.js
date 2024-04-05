@@ -100,7 +100,7 @@ export default {
     "by": "von",
     "categories": "Kategorien",
     "category": "Kategorie",
-    "posts": "Blog-Beiträge",
+    "posts": "Blogbeitrag | Blogeinträge",
     "published": "Veröffentlicht am {date}",
     "relatedPosts": "Ähnliche Beiträge"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "Ersteller",
-      "name": "Ersteller | Ersteller",
+      "name": "Urheber",
       "select": "Ersteller auswählen"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Auswählen der Datenpartner"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Bildausrichtung | Bildausrichtungen",
+      "name": "Bildausrichtung",
       "options": {
         "landscape": "Querformat",
         "portrait": "Hochformat"
@@ -552,7 +552,7 @@ export default {
       "select": "Bildausrichtungen auswählen"
     },
     "IMAGE_SIZE": {
-      "name": "Bildgröße | Bildgrößen",
+      "name": "Bildgröße",
       "options": {
         "extra_large": "Extra große 4MP+ (z.B. 2688 x 1520px)",
         "large": "Große 1-4MP (z. B. 1920x1080px)",
@@ -562,7 +562,7 @@ export default {
       "select": "Bildgrößen auswählen"
     },
     "LANGUAGE": {
-      "name": "Sprache | Sprachen",
+      "name": "Sprache",
       "options": {
         "ar": "Arabisch",
         "bg": "Bulgarisch",
@@ -621,7 +621,7 @@ export default {
       "select": "Aggregatoren auswählen"
     },
     "proxy_dc_format": {
-      "name": "Format | Formate",
+      "name": "Format",
       "select": "Formate auswählen"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Dienste, die wir gerne nutzen würden."
       },
       "consentNotice": {
-        "description": "Wir kümmern uns um Ihre Privatsphäre und verwenden Daten nur, um Ihre Erfahrung zu verbessern. Wir verwenden keine personenbezogenen Daten für Werbung. Sie können Ihre Einwilligung alle 15 Tage ändern.",
+        "description": "Hallo! Könnten wir bitte einige zusätzliche Dienste für Analyse und Sicherheit aktivieren? Sie können Ihre Einwilligung später jederzeit ändern oder widerrufen.",
         "learnMore": "Lass mich aussuchen"
       },
       "decline": "Ich lehne ab",
@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatisierte Übersetzung",
+    "automatedPageTranslations": "Diese Seite verwendet automatisch generierte Übersetzungen aus dem Englischen.",
     "enrichment": "Anreicherung durch Partnerprojekte",
     "loginToTranslate": "{login} um dies Objekt in anderen Sprachen anzuzeigen",
     "other": "anderen Sprachen",
@@ -947,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Name"
-        },
-        "title": "Organisationen"
+        "description": "Erkunden Sie die Institutionen, die digitale Kulturerbe-Objekte auf Europeana.eu teilen.",
+        "title": "Institutionen"
       },
       "persons": {
         "title": "Personen"
@@ -959,8 +958,11 @@ export default {
         "title": "Orte"
       },
       "table": {
+        "country": "Land",
         "items": "Objekte",
-        "name": "Name"
+        "name": "Name",
+        "searchPlaceholder": "Suche innerhalb der Tabelle",
+        "showMoreData": "Weitere Daten anzeigen für {entity}"
       },
       "times": {
         "title": "Jahrhunderte"

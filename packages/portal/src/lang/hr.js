@@ -100,7 +100,7 @@ export default {
     "by": "autora",
     "categories": "Kategorije",
     "category": "Kategorija",
-    "posts": "Objave na blogu",
+    "posts": "Post na blogu | Postovi na blogu",
     "published": "Objavljeno {date}",
     "relatedPosts": "Vezane objave"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "kreatori",
-      "name": "Tvorac | tvorci",
+      "name": "Stvoritelj",
       "select": "Odaberite kreatore"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Odaberite Institucije"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orijentacija slike | Orijentacije slika",
+      "name": "Orijentacija slike",
       "options": {
         "landscape": "Vodoravno",
         "portrait": "Uspravno"
@@ -552,7 +552,7 @@ export default {
       "select": "Odaberite orijentaciju slike"
     },
     "IMAGE_SIZE": {
-      "name": "Veličina slike | Veličine slika",
+      "name": "Veličina slike",
       "options": {
         "extra_large": "Iznimno velika 4MP+ (npr. 2688 x 1520px)",
         "large": "Velika 1-4MP (npr. 1920x1080px)",
@@ -621,7 +621,7 @@ export default {
       "select": "Odaberite agregatori"
     },
     "proxy_dc_format": {
-      "name": "Format | formati",
+      "name": "Format",
       "select": "Odaberite formate"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Usluge koje bismo željeli koristiti."
       },
       "consentNotice": {
-        "description": "Stalo nam je do vaše privatnosti i podatke koristimo samo za poboljšanje vašeg iskustva. Ne koristimo nikakve osobne podatke za oglašavanje. Privolu možete promijeniti svakih 15 dana.",
+        "description": "Bok! Možemo li omogućiti neke dodatne usluge za analitiku i sigurnost? Svoj pristanak uvijek možete promijeniti ili povući kasnije.",
         "learnMore": "Pusti me da izaberem"
       },
       "decline": "Odbijam",
@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizirani prijevod",
+    "automatedPageTranslations": "Ova stranica koristi automatski generirane prijevode s engleskog.",
     "enrichment": "Obogaćivanje partnerskim projektima",
     "loginToTranslate": "{login} za pregled ovog predmeta na drugim jezicima",
     "other": "drugi jezici",
@@ -947,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Ime"
-        },
-        "title": "Organizacije"
+        "description": "Istražite institucije koje dijele predmete digitalne kulturne baštine na Europeana.eu.",
+        "title": "Institucije"
       },
       "persons": {
         "title": "Osobe"
@@ -959,8 +958,11 @@ export default {
         "title": "Mjesta"
       },
       "table": {
+        "country": "Država",
         "items": "Predmeti",
-        "name": "Ime"
+        "name": "Ime",
+        "searchPlaceholder": "Pretraživanje unutar tablice",
+        "showMoreData": "Prikaži više podataka za {entity}"
       },
       "times": {
         "title": "Stoljeća"

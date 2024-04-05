@@ -100,7 +100,7 @@ export default {
     "by": "autorius",
     "categories": "Kategorijos",
     "category": "Kategorija",
-    "posts": "Tinklaraščio įrašai",
+    "posts": "Tinklaraščio įrašas | Tinklaraščio įrašai",
     "published": "Paskelbta {date}",
     "relatedPosts": "Susiję įrašai"
   },
@@ -535,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "kūrėjai",
-      "name": "Autorius | Autoriai",
+      "name": "Autorius",
       "select": "Pasirinkite kūrėjus"
     },
     "DATA_PROVIDER": {
@@ -544,7 +544,7 @@ export default {
       "select": "Pasirinkite teikėjai"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Vaizdo orientacija | Vaizdo orientacijos",
+      "name": "Vaizdo orientacija",
       "options": {
         "landscape": "Gulsčias",
         "portrait": "Statmenas"
@@ -552,7 +552,7 @@ export default {
       "select": "Pasirinkite vaizdo orientaciją"
     },
     "IMAGE_SIZE": {
-      "name": "Vaizdo dydis | Vaizdo dydžiai",
+      "name": "Vaizdo dydis",
       "options": {
         "extra_large": "Ypač didelis 4MP + (pvz., 2688 x 1520 pikselių)",
         "large": "Didelis 1–4 MP (pvz., 1920 x 1080 pikselių)",
@@ -621,7 +621,7 @@ export default {
       "select": "Pasirinkite agregatorius"
     },
     "proxy_dc_format": {
-      "name": "Formatas | Formatai",
+      "name": "Formatas",
       "select": "Pasirinkite formatus"
     },
     "proxy_dc_type": {
@@ -814,7 +814,7 @@ export default {
         "title": "Paslaugos, kuriomis norėtume naudotis."
       },
       "consentNotice": {
-        "description": "Mes rūpinamės jūsų privatumu ir naudojame duomenis tik tam, kad pagerintume jūsų patirtį. Reklamai nenaudojame jokios asmeninės informacijos. Savo sutikimą galite pakeisti kas 15 dienų.",
+        "description": "Sveiki! Ar galėtume įgalinti keletą papildomų analizės ir saugos paslaugų? Savo sutikimą visada galėsite pakeisti arba atšaukti vėliau.",
         "learnMore": "Leisk man pasirinkti"
       },
       "decline": "Aš atsisakau",
@@ -914,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatinis vertimas",
+    "automatedPageTranslations": "Šiame puslapyje naudojami automatiškai sugeneruoti vertimai iš anglų kalbos.",
     "enrichment": "Praturtinimas partnerių projektais",
     "loginToTranslate": "{login} kad pamatytumėte šį skaitmeninį objektą kitomis kalbomis",
     "other": "kitos kalbos",
@@ -947,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Vardas"
-        },
-        "title": "Organizacijos"
+        "description": "Tyrinėkite institucijas, kurios dalijasi skaitmeniniais kultūros paveldo objektais Europeana.eu.",
+        "title": "Institucijos"
       },
       "persons": {
         "title": "Asmenys"
@@ -959,8 +958,11 @@ export default {
         "title": "Vietos"
       },
       "table": {
+        "country": "Šalis",
         "items": "Skaitmeniniai objektai",
-        "name": "Vardas"
+        "name": "Vardas",
+        "searchPlaceholder": "Ieškoti lentelėje",
+        "showMoreData": "Rodyti daugiau duomenų apie {entity}"
       },
       "times": {
         "title": "Šimtmečiai"
