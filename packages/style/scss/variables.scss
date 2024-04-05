@@ -121,3 +121,15 @@ $max-text-column-width-landing-4k: 1450px;
     margin-bottom: 2rem;
   }
 }
+
+%title-5 {
+  font-size: $font-size-small;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  text-transform: uppercase;
+
+  @media(min-width: $bp-4k) {
+    font-size: $font-size-xl;
+  }
+}

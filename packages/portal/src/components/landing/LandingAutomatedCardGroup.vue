@@ -20,7 +20,6 @@
         :key="index"
         :info="item.info"
         :label="item.label"
-        class="px-1 px-md-3"
         :variant="cardVariant"
       />
     </div>
@@ -156,6 +155,7 @@
     margin-bottom: 2rem;
     margin-right: auto;
     margin-left: auto;
+    max-width: $max-text-column-width;
 
     @media (min-width: $bp-large) {
       margin-bottom: 4rem;
@@ -163,52 +163,20 @@
 
     @media (min-width: $bp-4k) {
       margin-bottom: 13rem;
-    }
-  }
-
-  ::v-deep .info-card {
-    .card-title {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      line-height: 1.5;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
-      }
-    }
-
-    .card-text {
-      font-size: $font-size-small;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: $mediumgrey;
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-small-4k;
-      }
-    }
-  }
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-
-  .landing-automated-card-group.ds4ch {
-    max-width: $max-text-column-width;
-
-    @media (min-width: $bp-4k) {
-      max-width: 1640px;
+      max-width: 2000px;
     }
 
     ::v-deep .info-card {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+
       @media (min-width: $bp-small) {
         flex-basis: 50%;
+      }
+
+      @media (min-width: $bp-medium) {
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
 
       @media (min-width: $bp-large) {
@@ -217,6 +185,32 @@
 
       @media (min-width: $bp-4k) {
         max-width: none;
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+
+      .card-title {
+        @extend %title-2;
+        margin-bottom: 0.875rem;
+
+        @media (min-width: $bp-medium) {
+          margin-bottom: 1rem;
+          white-space: nowrap;
+        }
+      }
+
+      .card-text {
+        @extend %title-5;
+        color: $mediumgrey;
+        max-width: 145px;
+
+        @media (min-width: $bp-small) {
+          max-width: 200px;
+        }
+
+        @media (min-width: $bp-4k) {
+          max-width: 510px;
+        }
       }
 
       .card-body {
@@ -233,27 +227,24 @@
           padding: 2rem;
         }
       }
+    }
+  }
+
+</style>
+
+<!-- Only DS4CH styles after this line! -->
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/DS4CH/variables';
+
+  .landing-automated-card-group.ds4ch {
+    ::v-deep .info-card {
       .card-title {
         @extend %title-2;
         color: $black;
-        margin-bottom: 0.875rem;
-
-        @media (min-width: $bp-medium) {
-          margin-bottom: 1rem;
-        }
       }
 
       .card-text {
         @extend %title-5;
-        max-width: 145px;
-
-        @media (min-width: $bp-small) {
-          max-width: 200px;
-        }
-
-        @media (min-width: $bp-4k) {
-          max-width: 510px;
-        }
       }
     }
   }
