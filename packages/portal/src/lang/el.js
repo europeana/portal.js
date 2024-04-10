@@ -1056,7 +1056,8 @@ export default {
       },
       "modifiers": {
         "contains": "περιέχει",
-        "doesNotContain": "δεν περιέχει"
+        "doesNotContain": "δεν περιέχει",
+        "exact": "περιέχει τη φράση"
       },
       "placeholder": {
         "field": "Επιλέξτε ένα πεδίο",

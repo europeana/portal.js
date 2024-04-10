@@ -1057,7 +1057,8 @@ export default {
       },
       "modifiers": {
         "contains": "съдържа",
-        "doesNotContain": "не съдържа"
+        "doesNotContain": "не съдържа",
+        "exact": "съдържа фразата"
       },
       "placeholder": {
         "field": "Изберете поле",

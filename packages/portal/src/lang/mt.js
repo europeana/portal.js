@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "jikkontenuta",
-        "doesNotContain": "ma fihx"
+        "doesNotContain": "ma fihx",
+        "exact": "fih il-frażi"
       },
       "placeholder": {
         "field": "Agħżel qasam",
