@@ -28,7 +28,7 @@
         v-for="(card, index) in infoCards"
         :key="index"
         :card="card"
-        :column-card="hasCardWithLink"
+        :centered-content="hasCardWithLink"
       />
     </div>
     <SmartLink

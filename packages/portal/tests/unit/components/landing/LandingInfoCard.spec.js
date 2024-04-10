@@ -60,9 +60,9 @@ describe('components/landing/LandingInfoCard', () => {
     expect(linkElement.isVisible()).toBe(true);
   });
 
-  describe('when the columnCard prop is passed', () => {
-    it('displays the card content in a column display', () => {
-      const wrapper = factory({ ...fullPropsData, columnCard: true });
+  describe('when the centeredContent prop is passed', () => {
+    it('displays the card content centered', () => {
+      const wrapper = factory({ ...fullPropsData, centeredContent: true });
 
       const cardElement = wrapper.find('[data-qa="landing info card"]');
 

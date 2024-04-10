@@ -1,7 +1,7 @@
 <template>
   <div
     class="info-card d-inline-flex flex-wrap flex-lg-nowrap"
-    :class="{ 'column flex-column align-items-center text-center': columnCard }"
+    :class="{ 'column flex-column align-items-center text-center': centeredContent }"
     data-qa="landing info card"
   >
     <div
@@ -23,12 +23,12 @@
     <div
       class="text-wrapper"
       :class="{
-        'ml-lg-3': !columnCard,
-        'mb-3': columnCard }"
+        'ml-lg-3': !centeredContent,
+        'mb-3': centeredContent }"
     >
       <h3
         class="title text-center"
-        :class="{ 'text-lg-left': !columnCard }"
+        :class="{ 'text-lg-left': !centeredContent }"
       >
         {{ card.name }}
       </h3>
@@ -77,7 +77,7 @@
       /**
        * Defines the layout of the card
        */
-      columnCard: {
+      centeredContent: {
         type: Boolean,
         default: false
       }

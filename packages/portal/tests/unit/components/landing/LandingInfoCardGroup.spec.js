@@ -43,12 +43,12 @@ describe('components/landing/LandingInfoCardGroup', () => {
 
       expect(cardWrapperElement.classes().includes('justify-content-center')).toBe(true);
     });
-    it('passes the column-card prop', () => {
+    it('passes the centered-content prop', () => {
       const wrapper = factory({ ...minimalPropsData, infoCards: infoCardsWithLinks });
 
       const cardWrapperElement = wrapper.find('landinginfocard-stub');
 
-      expect(cardWrapperElement.attributes('column-card')).toBe('true');
+      expect(cardWrapperElement.attributes('centered-content')).toBe('true');
     });
   });
 });
