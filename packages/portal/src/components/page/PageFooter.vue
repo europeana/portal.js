@@ -5,13 +5,17 @@
   >
     <div class="footer-wrapper xxl-page py-5">
       <b-container class="xxl-container">
-        <h2 class="visually-hidden">
+        <h2
+          class="visually-hidden"
+          data-qa="footer heading"
+        >
           {{ $t('footer.footer') }}
         </h2>
         <b-row>
           <b-col
             lg="5"
             class="left-col pb-4 order-lg-1"
+            data-qa="footer mission statement"
           >
             <div class="pr-5 pr-lg-3">
               <h3 class="group-title text-uppercase font-weight-bold">
@@ -22,9 +26,11 @@
               </p>
             </div>
           </b-col>
+          <!-- TODO: LandingPageFooter had order-lg-3, not order-lg-4 -->
           <b-col
             lg="5"
             class="left-col pb-4 order-lg-4"
+            data-qa="footer social links"
           >
             <LinkGroup
               class="social-links"
@@ -34,29 +40,32 @@
             />
             <hr class="mt-4 mb-1 w-100 d-lg-none">
           </b-col>
+          <!-- TODO: LandingPageFooter had lg="5", not lg="4" -->
           <b-col
+            v-if="moreInfo"
             sm="6"
             lg="4"
             class="middle-col pb-4  order-sm-1 order-lg-2"
+            data-qa="footer resources"
           >
             <LinkGroup
-              v-if="footerMoreInfo"
-              :title="footerMoreInfo.name"
-              :links="footerMoreInfo.links"
+              :title="moreInfo.name"
+              :links="moreInfo.links"
             />
           </b-col>
           <b-col
+            v-if="help"
             sm="6"
             lg="4"
             class="middle-col pb-4 order-sm-3 order-lg-5 order-wqhd-3"
           >
             <LinkGroup
-              v-if="footerHelp"
-              :title="footerHelp.name"
-              :links="footerHelp.links"
+              :title="help.name"
+              :links="help.links"
             />
           </b-col>
           <b-col
+            v-if="enableLangSelector"
             sm="6"
             lg="3"
             class="right-col pb-4  order-sm-2 order-lg-3"
@@ -84,7 +93,10 @@
         </b-row>
         <hr>
         <b-row>
-          <b-col lg="6">
+          <b-col
+            lg="6"
+            data-qa="footer disclaimer"
+          >
             <div class="sub-footer">
               <EULogo
                 class="mb-3"
@@ -97,7 +109,9 @@
         </b-row>
       </b-container>
     </div>
-    <FeedbackWidget />
+    <FeedbackWidget
+      :faq-url="feedbackWidgetFaqUrl"
+    />
   </footer>
 </template>
 
@@ -113,6 +127,51 @@
       FeedbackWidget,
       LangSelector,
       LinkGroup
+    },
+
+    props: {
+      enableDebugMenu: {
+        type: Boolean,
+        default: true
+      },
+      enableLangSelector: {
+        type: Boolean,
+        default: true
+      },
+      feedbackWidgetFaqUrl: {
+        type: String,
+        default: '/faq'
+      },
+      help: {
+        type: Object,
+        default() {
+          return {
+            name: this.$t('footer.navigation.help'),
+            links: [
+              { url: '/help', text: this.$t('footer.navigation.help') },
+              { url: '/rights', text: this.$t('footer.navigation.terms') },
+              { url: '/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
+              { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
+              { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') },
+              { url: '/faq', text: this.$t('footer.navigation.faq') }
+            ]
+          };
+        }
+      },
+      moreInfo: {
+        type: Object,
+        default() {
+          return {
+            name: this.$t('footer.navigation.MoreInfoLabel'),
+            links: [
+              { url: '/about-us', text: this.$t('footer.navigation.about') },
+              { url: '/for-developers', text: this.$t('footer.navigation.forDevelopers') },
+              { url: 'https://pro.europeana.eu/services/data-publication-services', text: this.$t('footer.navigation.provide') },
+              { url: 'https://zcv4-zcmp.maillist-manage.eu/ua/Optin?od=12ba7e82b5aa&zx=14ad17d982&sD=119ffcbc10c08987', text: this.$t('footer.navigation.subscribe') }
+            ]
+          };
+        }
+      }
     },
 
     data() {
@@ -157,31 +216,7 @@
         return this.$store.getters['debug/settings'];
       },
       showDebugLinkGroup() {
-        return !!this.debugSettings.enabled;
-      },
-      footerMoreInfo() {
-        return {
-          name: this.$t('footer.navigation.MoreInfoLabel'),
-          links: [
-            { url: '/about-us', text: this.$t('footer.navigation.about') },
-            { url: '/for-developers', text: this.$t('footer.navigation.forDevelopers') },
-            { url: 'https://pro.europeana.eu/services/data-publication-services', text: this.$t('footer.navigation.provide') },
-            { url: 'https://zcv4-zcmp.maillist-manage.eu/ua/Optin?od=12ba7e82b5aa&zx=14ad17d982&sD=119ffcbc10c08987', text: this.$t('footer.navigation.subscribe') }
-          ]
-        };
-      },
-      footerHelp() {
-        return {
-          name: this.$t('footer.navigation.help'),
-          links: [
-            { url: '/help', text: this.$t('footer.navigation.help') },
-            { url: '/rights', text: this.$t('footer.navigation.terms') },
-            { url: '/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
-            { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
-            { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') },
-            { url: '/faq', text: this.$t('footer.navigation.faq') }
-          ]
-        };
+        return this.enableDebugMenu && !!this.debugSettings.enabled;
       },
       debugLinkGroup() {
         return {

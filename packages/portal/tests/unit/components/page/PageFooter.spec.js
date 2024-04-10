@@ -37,7 +37,7 @@ describe('components/page/PageFooter', () => {
 
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
-    const links = wrapper.vm.footerMoreInfo.links;
+    const links = wrapper.vm.moreInfo.links;
 
     expect(links.some(link => link.text === 'footer.navigation.about')).toBe(true);
   });
