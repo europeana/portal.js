@@ -72,8 +72,11 @@
     mixins: [landingPageMixin, pageMetaMixin],
 
     layout(ctx) {
-      // eslint-disable-next-line no-nested-ternary
-      return ds4chLayout(ctx) ? 'ds4ch' : landingLayout(ctx) ? 'landing' : 'default';
+      if (ds4chLayout(ctx)) {
+        return 'ds4ch';
+      } else {
+        return landingLayout(ctx) ? 'landing' : 'default';
+      }
     },
 
     data() {

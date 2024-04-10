@@ -26,7 +26,6 @@
               </p>
             </div>
           </b-col>
-          <!-- TODO: LandingPageFooter had order-lg-3, not order-lg-4 -->
           <b-col
             lg="5"
             class="left-col pb-4 order-lg-4"
@@ -40,7 +39,6 @@
             />
             <hr class="mt-4 mb-1 w-100 d-lg-none">
           </b-col>
-          <!-- TODO: LandingPageFooter had lg="5", not lg="4" -->
           <b-col
             v-if="moreInfo"
             sm="6"

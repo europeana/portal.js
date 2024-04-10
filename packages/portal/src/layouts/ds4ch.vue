@@ -30,6 +30,7 @@
 <script>
   import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
   import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
+  import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
 
@@ -43,6 +44,7 @@
     },
 
     mixins: [
+      canonicalUrlMixin,
       klaroMixin
     ],
 
@@ -60,8 +62,7 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
-          // FIXME: replace fullPath with full URL
-          { hid: 'og:url', property: 'og:url', content: this.$route.fullPath }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true, locale: true }) }
         ],
         script: [
           this.klaroHeadScript
