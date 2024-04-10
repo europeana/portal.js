@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "tartalmaz",
-        "doesNotContain": "nem tartalmaz"
+        "doesNotContain": "nem tartalmaz",
+        "exact": "tartalmazza a kifejezést"
       },
       "placeholder": {
         "field": "Válasszon egy mezőt",

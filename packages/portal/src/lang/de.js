@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "enthält",
-        "doesNotContain": "enthält nicht"
+        "doesNotContain": "enthält nicht",
+        "exact": "enthält die Phrase"
       },
       "placeholder": {
         "field": "Wählen Sie ein Feld aus",
