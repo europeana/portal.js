@@ -914,6 +914,14 @@ export default {
   },
   "landing": {
     "apis": {
+      "footer": {
+        "name": "Resources",
+        "navigation": {
+          "apiDocumentation": "API Documentation",
+          "contactUs": "Contact us",
+          "requestApiKey": "Request an API key"
+        }
+      },
       "header": {
         "navigation": {
           "apiDemo": "API demo",
@@ -931,15 +939,7 @@ export default {
       "providingInstitutions": "Providing institutions",
       "visits": "Visits per day"
     },
-    "europeanaNumbers": "Europeana.eu in numbers",
-    "footer": {
-      "navigation": {
-        "apiDocumentation": "API Documentation",
-        "contactUs": "Contact us",
-        "requestApiKey": "Request an API key",
-        "resourcesLabel": "Resources"
-      }
-    }
+    "europeanaNumbers": "Europeana.eu in numbers"
   },
   "layout": {
     "skipToMain": "Skip to page contents"

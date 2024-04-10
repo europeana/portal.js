@@ -22,12 +22,12 @@
     data() {
       return {
         moreInfo: {
-          name: this.$t('landing.footer.navigation.resourcesLabel'),
+          name: this.$t('landing.apis.footer.name'),
           links: [
-            { url: 'https://europeana.atlassian.net/wiki/external/MGU4MjI4ZjA2MmM0NDg3M2JjODQ2ZTZjYzBhZWNhZTg', text: this.$t('landing.footer.navigation.apiDocumentation') },
-            { url: 'https://pro.europeana.eu/pages/get-api', text: this.$t('landing.footer.navigation.requestApiKey') },
+            { url: 'https://europeana.atlassian.net/wiki/external/MGU4MjI4ZjA2MmM0NDg3M2JjODQ2ZTZjYzBhZWNhZTg', text: this.$t('landing.apis.footer.navigation.apiDocumentation') },
+            { url: 'https://pro.europeana.eu/pages/get-api', text: this.$t('landing.apis.footer.navigation.requestApiKey') },
             { url: 'https://europeana.atlassian.net/wiki/spaces/EF/pages/2360508417/Europeana+API+FAQ', text: this.$t('footer.navigation.faq') },
-            { url: 'mailto:api@europeana.eu', text: this.$t('landing.footer.navigation.contactUs') },
+            { url: 'mailto:api@europeana.eu', text: this.$t('landing.apis.footer.navigation.contactUs') },
             { url: 'https://www.europeana.eu/rights', text: this.$t('footer.navigation.terms') },
             { url: 'https://www.europeana.eu/rights/privacy-policy', text: this.$t('footer.navigation.privacy') }
           ]
