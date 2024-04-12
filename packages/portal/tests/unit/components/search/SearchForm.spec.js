@@ -45,7 +45,21 @@ const factory = ({ propsData, data, stubs, mocks } = {}) => shallowMount(SearchF
 });
 
 describe('components/search/SearchForm', () => {
-  beforeEach(sinon.resetHistory);
+  afterEach(sinon.resetHistory);
+
+  describe('wrapper', () => {
+    describe('on focusin event', () => {
+      const event = 'focusin';
+
+      it('makes the click outside handler active', async() => {
+        const wrapper = factory();
+
+        await wrapper.trigger(event);
+
+        expect(wrapper.vm.clickOutsideConfig.isActive).toBe(true);
+      });
+    });
+  });
 
   describe('initQuery', () => {
     it('sets the query read from the route', () => {
@@ -109,6 +123,16 @@ describe('components/search/SearchForm', () => {
   describe('form submission', () => {
     const query = 'trees';
 
+    it('makes the click outside handler inactive', async() => {
+      const wrapper = factory();
+      await wrapper.trigger('focusin');
+      expect(wrapper.vm.clickOutsideConfig.isActive).toBe(true);
+
+      wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
+
+      expect(wrapper.vm.clickOutsideConfig.isActive).toBe(false);
+    });
+
     describe('when on a search page', () => {
       const state = {
         search: {
@@ -121,7 +145,7 @@ describe('components/search/SearchForm', () => {
       it('stores that the interaction is loggable', () => {
         const wrapper = factory({ mocks: { $store: { state } } });
 
-        wrapper.vm.submitForm();
+        wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
 
         expect(wrapper.vm.$store.commit.calledWith('search/setLoggableInteraction', true)).toBe(true);
       });
@@ -129,7 +153,7 @@ describe('components/search/SearchForm', () => {
       it('updates current route', async() => {
         const wrapper = factory({ mocks: { $store: { state } } });
 
-        wrapper.vm.submitForm();
+        wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
 
         const newRouteParams = {
           path: wrapper.vm.$route.path,
@@ -143,7 +167,7 @@ describe('components/search/SearchForm', () => {
           state.search.queryInputValue = undefined;
           const wrapper = factory({ mocks: { $store: { state } } });
 
-          wrapper.vm.submitForm();
+          wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
 
           const newRouteParams = {
             path: wrapper.vm.$route.path,
@@ -162,7 +186,7 @@ describe('components/search/SearchForm', () => {
           await wrapper.setData({
             selectedOption: { link }
           });
-          wrapper.vm.submitForm();
+          wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
 
           expect(wrapper.vm.$router.push.calledWith(link)).toBe(true);
         });
@@ -184,7 +208,7 @@ describe('components/search/SearchForm', () => {
       it('reroutes to search', async() => {
         const wrapper = factory({ mocks: { $store } });
 
-        wrapper.vm.submitForm();
+        wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
 
         const newRouteParams = {
           path: '/search',
@@ -196,7 +220,7 @@ describe('components/search/SearchForm', () => {
       it('does not carry non-search query params', async() => {
         const wrapper = factory({ mocks: { $store, $route: { query: { lang: 'it' } } } });
 
-        wrapper.vm.submitForm();
+        wrapper.find('[data-qa="search form"]').trigger('submit.prevent');
 
         const newRouteParams = {
           path: '/search',
@@ -253,25 +277,6 @@ describe('components/search/SearchForm', () => {
         await wrapper.vm.$nextTick();
 
         expect(wrapper.vm.blurInput.called).toBe(true);
-      });
-    });
-  });
-
-  describe('when the search options are hidden and on a searchable page', () => {
-    describe('and there is a new query', () => {
-      it('submits the form', async() => {
-        const state = {
-          search: {
-            active: true,
-            queryInputValue: 'art'
-          }
-        };
-        const wrapper = factory({ data: { showSearchOptions: true }, mocks: { $store: { state } } });
-        sinon.spy(wrapper.vm, 'submitForm');
-
-        await wrapper.setData({ showSearchOptions: false });
-
-        expect(wrapper.vm.submitForm.called).toBe(true);
       });
     });
   });
@@ -364,25 +369,10 @@ describe('components/search/SearchForm', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'submitForm');
 
-      wrapper.vm.handleSelect();
+      const searchFormOptions = wrapper.find(`#${wrapper.vm.searchFormOptionsId}`);
+      await searchFormOptions.vm.$emit('input', { query: 'fish' });
 
       expect(wrapper.vm.submitForm.called).toBe(true);
-    });
-  });
-
-  describe('handleHideOptions()', () => {
-    describe('when hiding options should not trigger a submit', () => {
-      it('resets the query', async() => {
-        const query = 'nature';
-
-        const wrapper = factory({ data: { showSearchOptions: true },
-          mocks: { $store: { state: { search: { queryInputValue: query } } } } });
-
-        wrapper.vm.query = 'art';
-        wrapper.vm.handleHideOptions(undefined);
-
-        expect(wrapper.vm.query).toEqual(query);
-      });
     });
   });
 });

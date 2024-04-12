@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "ina bhfuil",
-        "doesNotContain": "nach bhfuil"
+        "doesNotContain": "nach bhfuil",
+        "exact": "ina bhfuil an frása"
       },
       "placeholder": {
         "field": "Roghnaigh réimse",

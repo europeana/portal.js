@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "vsebuje",
-        "doesNotContain": "ne vsebuje"
+        "doesNotContain": "ne vsebuje",
+        "exact": "vsebuje frazo"
       },
       "placeholder": {
         "field": "Izberite polje",

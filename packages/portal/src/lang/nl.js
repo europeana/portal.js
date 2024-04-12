@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "bevat",
-        "doesNotContain": "bevat geen"
+        "doesNotContain": "bevat geen",
+        "exact": "bevat de zin"
       },
       "placeholder": {
         "field": "Selecteer een veld",

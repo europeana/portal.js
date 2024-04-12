@@ -8,14 +8,6 @@
 
 import Vue from 'vue';
 
-export const truncate = (text, length, ellipsis = '…') => {
-  if (!text) {
-    return null;
-  }
-  return text.length > length ? text.substring(0, length) + ellipsis : text;
-};
-Vue.filter('truncate', truncate);
-
 export const wordLength = text => text?.trim()?.match(/\w+/g)?.length || 0;
 Vue.filter('wordLength', wordLength);
 

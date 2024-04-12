@@ -7,7 +7,7 @@ import pick from 'lodash/pick.js';
 import {
   escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
 } from './utils.js';
-import { truncate } from '../vue-filters.js';
+import { truncate } from '../../mixins/truncate.js';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
