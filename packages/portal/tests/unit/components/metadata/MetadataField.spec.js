@@ -120,7 +120,7 @@ describe('components/metadata/MetadataField', () => {
 
         const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
         expect(fieldValues.at(0).text()).toBe(props.fieldData.def[0]);
-        expect(fieldValues.at(1).text()).toBe('formatting.ellipsis');
+        expect(fieldValues.at(1).text()).toBe('…');
       });
 
       describe('URIs', () => {

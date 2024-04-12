@@ -49,7 +49,7 @@
           v-if="displayTitle"
           :lang="displayTitle.code"
         >
-          {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
+          {{ truncate(displayTitle.value, 90) }}
         </span>
       </SmartLink>
       <b-card-body
@@ -77,7 +77,7 @@
               :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
             >
               <span>
-                {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
+                {{ truncate(displayTitle.value, 90) }}
               </span>
             </SmartLink>
           </b-card-title>
@@ -122,6 +122,7 @@
   import ClientOnly from 'vue-client-only';
   import SmartLink from '../generic/SmartLink';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
+  import truncateMixin from '@/mixins/truncate';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   const HIT_TEXT_AFFIX_MAX_WORDS = 15;
@@ -136,7 +137,8 @@
     },
 
     mixins: [
-      stripMarkdownMixin
+      stripMarkdownMixin,
+      truncateMixin
     ],
 
     props: {
@@ -419,11 +421,11 @@
       cardText(values) {
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
         if (values.length > limited.length) {
-          limited.push(this.$t('formatting.ellipsis'));
+          limited.push('…');
         }
-        const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
+        const joined = limited.join('; ');
         const stripped = this.stripMarkdown(joined);
-        return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));
+        return this.truncate(stripped, 255);
       },
 
       redrawMasonry() {
