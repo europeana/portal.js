@@ -8,7 +8,7 @@
     <span
       class="icon-ic-view"
     />
-    {{ $tc('views.count', viewCount, { count: viewCount?.toLocaleString('en') }) }}
+    {{ $tc('views.count', viewCount, { count: $n(viewCount) }) }}
   </div>
 </template>
 

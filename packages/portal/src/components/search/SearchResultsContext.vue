@@ -147,7 +147,7 @@
         }
       },
       totalResultsLocalised() {
-        return this.totalResults?.toLocaleString('en');
+        return this.$i18n.n(this.totalResults);
       },
       hasQuery() {
         return this.query && this.query !== '';

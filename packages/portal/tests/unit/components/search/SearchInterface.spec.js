@@ -46,7 +46,8 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     },
     $auth: {},
     $i18n: {
-      locale: 'en'
+      locale: 'en',
+      n: (num) => num
     },
     $config: mocks.$config,
     ...mocks,
@@ -144,7 +145,7 @@ describe('components/search/SearchInterface', () => {
 
         expect(wrapper.vm.$error.calledWith(
           sinon.match.has('code', 'searchPaginationLimitExceeded'),
-          { tValues: { description: { limit: '5,000' } } }
+          { tValues: { description: { limit: 5000 } } }
         )).toBe(true);
       });
     });
