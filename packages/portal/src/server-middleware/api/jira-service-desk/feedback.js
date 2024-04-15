@@ -2,7 +2,7 @@ import axios from 'axios';
 import createHttpError from 'http-errors';
 
 import { errorHandler } from '../utils.js';
-import { truncate } from '../../../plugins/vue-filters';
+import { truncate } from '../../../mixins/truncate.js';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
 const JSON_CONTENT_TYPE = 'application/json';

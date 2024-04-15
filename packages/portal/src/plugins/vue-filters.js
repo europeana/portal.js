@@ -15,14 +15,6 @@ Vue.filter('localise', val => {
   return val.toLocaleString('en');
 });
 
-export const truncate = (text, length, ellipsis = '…') => {
-  if (!text) {
-    return null;
-  }
-  return text.length > length ? text.substring(0, length) + ellipsis : text;
-};
-Vue.filter('truncate', truncate);
-
 /**
  * Convert new lines to <br/>
  * @param {string} val text value

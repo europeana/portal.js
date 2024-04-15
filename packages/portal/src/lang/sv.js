@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "innehåller",
-        "doesNotContain": "innehåller inte"
+        "doesNotContain": "innehåller inte",
+        "exact": "innehåller frasen"
       },
       "placeholder": {
         "field": "Välj ett fält",
