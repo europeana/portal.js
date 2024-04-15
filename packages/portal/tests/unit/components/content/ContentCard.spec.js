@@ -56,7 +56,7 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ title: 'The Milkmaid by Vermeer' });
 
-        const title =  wrapper.find('[data-qa="content card"] .card-title');
+        const title = wrapper.find('[data-qa="content card"] .card-title');
         expect(title.text()).toBe('The Milkmaid by Vermeer');
       });
 
@@ -64,7 +64,7 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ title: { en: 'Art', es: 'Arte' } });
 
-        const title =  wrapper.find('[data-qa="content card"] .card-title');
+        const title = wrapper.find('[data-qa="content card"] .card-title');
         expect(title.text()).toBe('Art');
       });
     });
@@ -82,7 +82,7 @@ describe('components/content/ContentCard', () => {
             const wrapper = factory();
             await wrapper.setProps({ url });
 
-            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
+            const subtitle = wrapper.find('[data-qa="content card"] .card-subtitle');
 
             expect(subtitle.text()).toBe('blog.posts');
           });
@@ -100,7 +100,7 @@ describe('components/content/ContentCard', () => {
             const wrapper = factory();
             await wrapper.setProps({ url });
 
-            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
+            const subtitle = wrapper.find('[data-qa="content card"] .card-subtitle');
 
             expect(subtitle.text()).toBe('exhibitions.exhibitions');
           });
@@ -118,7 +118,7 @@ describe('components/content/ContentCard', () => {
             const wrapper = factory();
             await wrapper.setProps({ url });
 
-            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
+            const subtitle = wrapper.find('[data-qa="content card"] .card-subtitle');
 
             expect(subtitle.text()).toBe('galleries.galleries');
           });
@@ -136,7 +136,7 @@ describe('components/content/ContentCard', () => {
             const wrapper = factory();
             await wrapper.setProps({ url });
 
-            const subtitle =  wrapper.find('[data-qa="content card"] .card-subtitle');
+            const subtitle = wrapper.find('[data-qa="content card"] .card-subtitle');
 
             expect(subtitle.text()).toBe('cardLabels.topic');
           });
@@ -149,7 +149,7 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ texts: ['The Milkmaid by Vermeer'] });
 
-        const body =  wrapper.find('[data-qa="content card"] .card-body');
+        const body = wrapper.find('[data-qa="content card"] .card-body');
         expect(body.text()).toBe('The Milkmaid by Vermeer');
       });
 
@@ -157,7 +157,7 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ texts: [{ en: 'Art', es: 'Arte' }] });
 
-        const body =  wrapper.find('[data-qa="content card"] .card-body');
+        const body = wrapper.find('[data-qa="content card"] .card-body');
         expect(body.text()).toBe('Art');
       });
 
@@ -167,7 +167,7 @@ describe('components/content/ContentCard', () => {
           '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
         ] });
 
-        const body =  wrapper.find('[data-qa="content card"] .card-body');
+        const body = wrapper.find('[data-qa="content card"] .card-body');
         expect(body.text().length).toBe(256);
         expect(body.text().endsWith('…')).toBe(true);
       });
@@ -176,7 +176,7 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ texts: [['A', 'B', 'C', 'D', 'E', 'F']], limitValuesWithinEachText: 3 });
 
-        const body =  wrapper.find('[data-qa="content card"] .card-body');
+        const body = wrapper.find('[data-qa="content card"] .card-body');
         expect(body.text()).toBe('A; B; C; …');
       });
 
@@ -184,7 +184,7 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ texts: ['Edvard Munch', 'Munchmuseet (The Munch Museum)'] });
 
-        const body =  wrapper.find('[data-qa="content card"] .card-body');
+        const body = wrapper.find('[data-qa="content card"] .card-body');
         expect(body.text()).toContain('Edvard Munch');
         expect(body.text()).toContain('Munchmuseet');
       });
@@ -195,7 +195,7 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ url: 'https://example.org' });
 
-        const link =  wrapper.find('[data-qa="content card"] .card-link');
+        const link = wrapper.find('[data-qa="content card"] .card-link');
         expect(link.attributes().href).toBe('https://example.org');
       });
     });
@@ -229,7 +229,7 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ imageUrl: null, variant: 'mini' });
 
-        const image =  wrapper.find('[data-qa="content card"] .card-img');
+        const image = wrapper.find('[data-qa="content card"] .card-img');
         expect(image.exists()).toBe(false);
       });
 
@@ -237,7 +237,7 @@ describe('components/content/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ imageUrl: 'https://example.org', variant: 'mini' });
 
-        const image =  wrapper.find('[data-qa="content card"] .card-img');
+        const image = wrapper.find('[data-qa="content card"] .card-img');
         expect(image.exists()).toBe(true);
       });
 
@@ -255,18 +255,32 @@ describe('components/content/ContentCard', () => {
     });
 
     describe('highlighted search term', () => {
-      it('highlights the search term if found', async() => {
+      it('highlights the search term', async() => {
         const wrapper = factory();
         await wrapper.setProps({
-          hitsText: {
+          hitText: {
             prefix: 'The quick brown ',
             exact: 'fox',
             suffix: ' jumps over the lazy dog'
           }
         });
 
-        const body =  wrapper.find('[data-qa="highlighted search term"] strong');
+        const body = wrapper.find('[data-qa="highlighted search term"] strong');
         expect(body.text()).toBe('fox');
+      });
+
+      it('limits the hit prefix and suffix word count if needed', () => {
+        const wrapper = factory({ propsData: {
+          hitText: {
+            prefix: 'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen ',
+            exact: 'fox',
+            suffix: ' sixteen fifteen fourteen thirteen twelve eleven ten nine eight seven six five four three two one'
+          }
+        } });
+
+        const body = wrapper.find('[data-qa="highlighted search term"]');
+
+        expect(body.text()).toBe('three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen fox sixteen fifteen fourteen thirteen twelve eleven ten nine eight seven six five four three');
       });
     });
 
@@ -280,7 +294,7 @@ describe('components/content/ContentCard', () => {
           await wrapper.setProps({ title: 'Work of art',
             texts: ['Museum'] });
 
-          const tooltipTitle =  wrapper.vm.tooltipTitle;
+          const tooltipTitle = wrapper.vm.tooltipTitle;
           expect(tooltipTitle).toEqual('Work of art - Museum');
         });
       });
@@ -289,7 +303,7 @@ describe('components/content/ContentCard', () => {
         it('there is a tooltip title', async() => {
           await wrapper.setProps({ title: 'Work of art', texts: [] });
 
-          const tooltipTitle =  wrapper.vm.tooltipTitle;
+          const tooltipTitle = wrapper.vm.tooltipTitle;
           expect(tooltipTitle).toEqual('Work of art');
         });
       });
@@ -298,7 +312,7 @@ describe('components/content/ContentCard', () => {
         it('there is a tooltip title', async() => {
           await wrapper.setProps({ title: null, texts: ['Museum', 'Europe'] });
 
-          const tooltipTitle =  wrapper.vm.tooltipTitle;
+          const tooltipTitle = wrapper.vm.tooltipTitle;
           expect(tooltipTitle).toEqual('Museum - Europe');
         });
       });

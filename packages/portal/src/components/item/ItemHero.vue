@@ -186,7 +186,7 @@
           if (this.$nuxt.context.from.query.qa) {
             const advSearchRules = this.advancedSearchRulesFromRouteQuery(this.$nuxt.context.from.query.qa);
             query = advSearchRules
-              .filter((rule) => (rule.field === 'fulltext') && (rule.modifier === 'contains'))
+              .filter((rule) => (rule.field === 'fulltext') && (['contains', 'exact'].includes(rule.modifier)))
               .map((rule) => rule.term);
           }
         }

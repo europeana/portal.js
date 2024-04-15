@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "conține",
-        "doesNotContain": "nu conține"
+        "doesNotContain": "nu conține",
+        "exact": "conţine fraza"
       },
       "placeholder": {
         "field": "Selectați un câmp",

@@ -46,7 +46,8 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
     },
     $auth: {},
     $i18n: {
-      locale: 'en'
+      locale: 'en',
+      n: (num) => num
     },
     $config: mocks.$config,
     ...mocks,

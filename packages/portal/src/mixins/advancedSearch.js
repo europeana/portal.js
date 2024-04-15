@@ -2,9 +2,10 @@ import camelCase from 'lodash/camelCase';
 import escapeRegExp from 'lodash/escapeRegExp';
 import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils.js';
 
-const FIELD_TYPE_FULLTEXT = 'fulltext';
+export const FIELD_TYPE_FULLTEXT = 'fulltext';
 const FIELD_TYPE_STRING = 'string';
 const FIELD_TYPE_TEXT = 'text';
+const FIELD_TYPES = [FIELD_TYPE_FULLTEXT, FIELD_TYPE_STRING, FIELD_TYPE_TEXT];
 
 const FIELD_SUGGEST_AGENT = 'agent';
 const FIELD_SUGGEST_TIMESPAN = 'timespan';
@@ -45,11 +46,18 @@ const advancedSearchFields = [
   { name: 'YEAR', type: FIELD_TYPE_STRING }
 ];
 
-const advancedSearchFieldsForEntityLookUp = advancedSearchFields.filter(field => field.suggestEntityType && !field.aggregated);
+const advancedSearchFieldsForEntityLookUp = advancedSearchFields
+  .filter((field) => field.suggestEntityType && !field.aggregated);
 
 const advancedSearchFieldNames = advancedSearchFields.map((field) => field.name);
 
 const advancedSearchModifiers = [
+  {
+    name: 'exact',
+    query: {
+      [FIELD_TYPE_FULLTEXT]: '<field>:"<term>"'
+    }
+  },
   {
     name: 'contains',
     query: {
@@ -77,6 +85,9 @@ for (const mod of advancedSearchModifiers) {
   }
 }
 
+const advancedSearchModifiersForAllFields = advancedSearchModifiers
+  .filter((mod) => FIELD_TYPES.every((type) => !!mod.query[type]));
+
 export default {
   data() {
     return {
@@ -84,6 +95,7 @@ export default {
       advancedSearchFieldsForEntityLookUp,
       advancedSearchFieldNames,
       advancedSearchModifiers,
+      advancedSearchModifiersForAllFields,
       advancedSearchRouteQueryKey: 'qa'
     };
   },
@@ -95,13 +107,22 @@ export default {
   },
 
   methods: {
+    advancedSearchModifiersForField(name) {
+      const field = this.advancedSearchFieldByName(name);
+      return advancedSearchModifiers.filter((mod) => !!mod.query[field?.type]);
+    },
+
+    advancedSearchFieldByName(name) {
+      return this.advancedSearchFields.find((field) => field.name === name);
+    },
+
     advancedSearchFieldLabel(fieldName, locale) {
       const fieldKey = fieldName === 'YEAR' ? 'year' : camelCase(fieldName.replace('proxy_', ''));
       return this.$t(`fieldLabels.default.${fieldKey}`, locale);
     },
 
     advancedSearchQueryFromRule(rule, escaped) {
-      const field = this.advancedSearchFields.find((field) => field.name === rule.field);
+      const field = this.advancedSearchFieldByName(rule.field);
       const modifier = this.advancedSearchModifiers.find((modifier) => modifier.name === rule.modifier);
       const escapedTerm = escapeLuceneSpecials(rule.term, { spaces: true });
       const term = escaped ? escapedTerm : rule.term;
@@ -123,6 +144,31 @@ export default {
       return { ...this.$route, query: newRouteQuery };
     },
 
+    advancedSearchRuleIsValid(rule) {
+      return this.advancedSearchRuleValidationsPass(this.advancedSearchRuleValidations(rule));
+    },
+
+    advancedSearchRuleValidationsPass(validations) {
+      return Object.values(validations).every((validation) => validation.state);
+    },
+
+    // If any rule control has a value, all are required. If none have a value, the
+    // rule will be ignored and none are required.
+    advancedSearchRuleValidations(rule) {
+      const validations = {};
+
+      const noRuleControlHasValue = !Object.values(rule).some((value) => !!value);
+      for (const control in rule) {
+        if (noRuleControlHasValue || rule[control]) {
+          validations[control] = { state: true };
+        } else {
+          validations[control] = { state: false, text: this.$t('statuses.required') };
+        }
+      }
+
+      return validations;
+    },
+
     advancedSearchRulesFromRouteQuery(routeQuery) {
       return [].concat(routeQuery || this.advancedSearchRouteQuery || []).map((qa) => {
         for (const modifier of this.advancedSearchModifiers) {
@@ -134,7 +180,6 @@ export default {
               return {
                 field: field.name,
                 modifier: modifier.name,
-                ...(field.suggestEntityType && { suggestEntityType: field.suggestEntityType }),
                 term: unescapeLuceneSpecials(match.groups.term, { spaces: true })
               };
             }

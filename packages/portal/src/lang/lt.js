@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "turi",
-        "doesNotContain": "sudėtyje nėra"
+        "doesNotContain": "sudėtyje nėra",
+        "exact": "yra frazė"
       },
       "placeholder": {
         "field": "Pasirinkite lauką",

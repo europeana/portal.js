@@ -40,13 +40,13 @@
           v-if="index === 0"
           :lang="description.code"
           class="description-text-paragraph"
-          v-html="$options.filters.convertNewLine(showAll ? value : truncatedDescription)"
+          v-html="convertNewLine(showAll ? value : truncatedDescription)"
         />
         <p
           v-else-if="showAll"
           :lang="description.code"
           class="description-text-paragraph"
-          v-html="$options.filters.convertNewLine(value)"
+          v-html="convertNewLine(value)"
         />
         <!-- eslint-enable vue/no-v-html -->
         <MetadataOriginLabel
@@ -76,6 +76,7 @@
 
 <script>
   import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
+  import truncateMixin from '@/mixins/truncate';
 
   export default {
     name: 'ItemSummaryInfo',
@@ -83,6 +84,10 @@
     components: {
       MetadataOriginLabel
     },
+
+    mixins: [
+      truncateMixin
+    ],
 
     props: {
       description: {
@@ -107,7 +112,7 @@
       },
       truncatedDescription() {
         if (this.description?.values) {
-          return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
+          return this.truncate(this.description.values[0], this.limitCharacters);
         }
         return false;
       },
@@ -116,6 +121,14 @@
       }
     },
     methods: {
+      /**
+       * Convert new lines to <br/>
+       * @param {string} val text value
+       * @return {string} text value with HTML breaks
+       */
+      convertNewLine(val) {
+        return val.replace(/\n/g, '<br/>');
+      },
       toggleMoreDescription() {
         this.showAll = !this.showAll;
       }

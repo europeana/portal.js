@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "indeholder",
-        "doesNotContain": "indeholder ikke"
+        "doesNotContain": "indeholder ikke",
+        "exact": "indeholder sætningen"
       },
       "placeholder": {
         "field": "Vælg et felt",

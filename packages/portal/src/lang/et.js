@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "sisaldab",
-        "doesNotContain": "ei sisalda"
+        "doesNotContain": "ei sisalda",
+        "exact": "sisaldab fraasi"
       },
       "placeholder": {
         "field": "Valige väli",

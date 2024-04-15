@@ -788,10 +788,6 @@ export default {
     "ourMission": "Our mission",
     "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Explore our galleries",
     "galleries": "Gallery | Galleries",
@@ -1088,6 +1084,7 @@ export default {
         "individual": "Individual fields"
       },
       "modifiers": {
+        "exact": "contains the phrase",
         "contains": "contains",
         "doesNotContain": "does not contain"
       },
