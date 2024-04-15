@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "satur",
-        "doesNotContain": "nesatur"
+        "doesNotContain": "nesatur",
+        "exact": "satur frāzi"
       },
       "placeholder": {
         "field": "Izvēlieties lauku",

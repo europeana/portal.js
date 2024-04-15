@@ -94,6 +94,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+  import truncateMixin from '@/mixins/truncate';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
   import ShareButton from '@/components/share/ShareButton';
   import ShareSocialModal from '@/components/share/ShareSocialModal';
@@ -108,6 +109,10 @@
       EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
       EntityInformationModal: () => import('@/components/entity/EntityInformationModal')
     },
+
+    mixins: [
+      truncateMixin
+    ],
 
     props: {
       /**
@@ -190,7 +195,7 @@
 
     computed: {
       truncatedDescription() {
-        return this.$options.filters.truncate(this.fullDescription, this.limitCharacters, this.$t('formatting.ellipsis'));
+        return this.truncate(this.fullDescription, this.limitCharacters);
       },
       hasDescription() {
         return (this.description?.values?.length || 0) >= 1;
