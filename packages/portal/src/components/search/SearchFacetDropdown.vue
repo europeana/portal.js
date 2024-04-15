@@ -109,7 +109,7 @@
                 <span>
                   {{ tFacetOption(name, option.label, { collection }) }}
                 </span>
-                <span>({{ option.count | localise }})</span>
+                <span>({{ $n(option.count) }})</span>
               </template>
             </b-dropdown-item-button>
             <template v-if="truncated">
@@ -124,7 +124,7 @@
                   tag="span"
                 >
                   <span class="font-weight-bold">
-                    {{ truncatedAmount | localise }}
+                    {{ $n(truncatedAmount) }}
                   </span>
                   {{ moreOptionsName }}<!-- This comment removes white space-->
                 </i18n>

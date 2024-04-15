@@ -69,7 +69,7 @@
         #cell(recordCount)="data"
       >
         <span>
-          {{ data.item.recordCount | localise }}
+          {{ $n(data.item.recordCount) }}
         </span>
       </template>
       <template

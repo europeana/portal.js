@@ -8,11 +8,4 @@
 
 import Vue from 'vue';
 
-Vue.filter('localise', val => {
-  if (typeof val === 'undefined' || val === null) {
-    return val;
-  }
-  return val.toLocaleString('en');
-});
-
 Vue.filter('urlWithProtocol', (url) => url.startsWith('//') ? `https:${url}` : url);
