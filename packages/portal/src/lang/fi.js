@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "sisältää",
-        "doesNotContain": "ei sisällä"
+        "doesNotContain": "ei sisällä",
+        "exact": "sisältää lauseen"
       },
       "placeholder": {
         "field": "Valitse kenttä",

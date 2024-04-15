@@ -10,7 +10,7 @@
     :toggle-class="{
       'form-name': true,
       'is-invalid': state === false,
-      'option-selected': text }"
+      'option-selected': value }"
   >
     <div
       v-for="(section, sectionIndex) in options"
@@ -24,7 +24,7 @@
           v-for="(sectionOption, sectionOptionIndex) in [].concat(section.options)"
           :key="`${name}-section-${sectionIndex}-options-${sectionOptionIndex}`"
           :data-qa="`advanced search query builder: ${sectionOption.value} ${name} option`"
-          @click="$emit('change', sectionOption.value)"
+          @click="handleClick(sectionOption.value)"
         >
           {{ sectionOption.text }}
           <b-button
@@ -77,9 +77,9 @@
         default: null
       },
       /**
-       * Text to place in the toggle button
+       * v-model value
        */
-      text: {
+      value: {
         type: String,
         default: null
       }
@@ -87,7 +87,34 @@
 
     computed: {
       displayText() {
-        return this.text || this.$t(`search.advanced.placeholder.${this.name}`);
+        return this.selectedOption?.text || this.$t(`search.advanced.placeholder.${this.name}`);
+      },
+
+      flattenedOptions() {
+        return this.options.map((opt) => opt.options).flat();
+      },
+
+      selectedOption() {
+        return this.flattenedOptions.find((opt) => opt.value === this.value);
+      }
+    },
+
+    watch: {
+      flattenedOptions: {
+        deep: true,
+        handler(newVal) {
+          if (!newVal.find((opt) => opt.value === this.value)) {
+            this.$emit('input', null);
+            this.$emit('change', null);
+          }
+        }
+      }
+    },
+
+    methods: {
+      handleClick(value) {
+        this.$emit('input', value);
+        this.$emit('change', value);
       }
     }
   };
@@ -108,7 +135,7 @@
           }]
         }
       ]"
-      :text="this.$t('search.advanced.placeholder.modifier')"
+      text="Select a modifier"
     />
   ```
 </docs>

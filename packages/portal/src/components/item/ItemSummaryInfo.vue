@@ -76,6 +76,7 @@
 
 <script>
   import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
+  import truncateMixin from '@/mixins/truncate';
 
   export default {
     name: 'ItemSummaryInfo',
@@ -83,6 +84,10 @@
     components: {
       MetadataOriginLabel
     },
+
+    mixins: [
+      truncateMixin
+    ],
 
     props: {
       description: {
@@ -107,7 +112,7 @@
       },
       truncatedDescription() {
         if (this.description?.values) {
-          return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
+          return this.truncate(this.description.values[0], this.limitCharacters);
         }
         return false;
       },

@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "obsahuje",
-        "doesNotContain": "neobsahuje"
+        "doesNotContain": "neobsahuje",
+        "exact": "obsahuje frázu"
       },
       "placeholder": {
         "field": "Vyberte pole",
