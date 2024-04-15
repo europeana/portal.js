@@ -7,9 +7,7 @@ const localVue = createLocalVue();
 localVue.filter('truncate', (val) => {
   return val.length > 20 ? val.substring(0, 20) + '...' : val;
 });
-localVue.filter('convertNewLine', (val) => {
-  return val.replace('/n', '<br/>');
-});
+
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
