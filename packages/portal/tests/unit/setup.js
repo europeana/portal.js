@@ -5,8 +5,6 @@ axios.defaults.adapter = httpAdapter;
 
 import sinon from 'sinon';
 
-import '@/plugins/vue-filters';
-
 // Required for pg-dependent code
 import { TextEncoder, TextDecoder } from 'util';
 Object.assign(global, { TextDecoder, TextEncoder });
