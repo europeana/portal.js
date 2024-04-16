@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-cta"
-    :class="variant"
+    :class="[variant, {'bg-bodygrey': defaultBackground }]"
   >
     <div
       v-if="backgroundImage"
@@ -95,7 +95,8 @@
           this.backgroundImage?.image,
           CSS_VARS_PRESETS,
           this.backgroundImage?.profile
-        )
+        ),
+        defaultBackground: this.variant === 'pro' && !this.backgroundImage?.profile && !this.backgroundImage?.image
       };
     }
   };

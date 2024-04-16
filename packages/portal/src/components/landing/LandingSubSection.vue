@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-sub-section"
-    :class="variant"
+    :class="[variant, { 'bg-bodygrey': variant === 'pro' }]"
   >
     <b-container class="landing-sub-section-container">
       <div class="header mx-auto">

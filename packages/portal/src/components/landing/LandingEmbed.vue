@@ -1,7 +1,10 @@
 <template>
   <div
     class="landing-embed"
-    :class="{ 'background-applied': backgroundImage}"
+    :class="{
+      'background-applied': backgroundImage,
+      'bg-bodygrey': !backgroundImage
+    }"
   >
     <div
       class="header"

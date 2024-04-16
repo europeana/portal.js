@@ -176,6 +176,7 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/mixins';
   @import '@europeana/style/scss/landing';
 
   .page {
@@ -191,6 +192,20 @@
 
       @media (min-width: $bp-4k) {
         scroll-margin-top: 5rem;
+      }
+    }
+
+    &.pro-page {
+      div:last-child {
+        .bg-color-alternate,
+        .bg-bodygrey {
+          @include white-cutout;
+
+          &:after {
+            border-top-color: $bodygrey;
+            z-index: 1;
+          }
+        }
       }
     }
   }

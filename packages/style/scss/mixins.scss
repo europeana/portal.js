@@ -17,6 +17,15 @@
   }
 }
 
+@mixin grey-cutout {
+  @include white-cutout;
+
+  &:after {
+    border-top-color: $bodygrey;
+    z-index: 1;
+  }
+}
+
 @mixin min-page-height {
   @media (min-width: $bp-medium) {
     min-height: 30rem;

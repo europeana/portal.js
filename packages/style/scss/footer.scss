@@ -12,6 +12,7 @@
     bottom: 0;
     background-color: $innovationblue;
     clip-path: polygon(0 0, calc(100% - 77px) 0, 100% 170px, 100% 100%, 0 100%);
+    z-index: 2;
 
     @media (min-width: $bp-xxxl) {
       top: 0.75vw;
@@ -28,7 +29,7 @@
     color: $white;
     position: relative;
     clip-path: polygon(0 -100vh, calc(100% - 95px) -100vh, calc(100% - 95px) 0, 100% 209px, 100% 100%, 0 100%);
-    z-index: 2;
+    z-index: 3;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 

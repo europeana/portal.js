@@ -90,7 +90,7 @@
   @import '@europeana/style/scss/variables';
 
   .image-card-group {
-    border-bottom: 1px solid $bodygrey;
+    border-bottom: 1px solid transparent;
   }
 
   .header {
