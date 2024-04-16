@@ -21,10 +21,10 @@
       />
     </div>
     <div
-      class="text-wrapper"
+      class="text-wrapper mx-auto"
       :class="{
         'ml-lg-3': !centeredContent,
-        'mb-3': centeredContent }"
+        'd-flex flex-column align-items-center h-100 mb-3': centeredContent }"
     >
       <h3
         class="title text-center"
@@ -36,20 +36,21 @@
       <div
         v-if="card.text"
         class="text"
+        :class="{ 'mb-3': card.link }"
         data-qa="landing info card text"
         v-html="parseMarkdownHtml(card.text)"
       />
-    <!-- eslint-enable vue/no-v-html -->
+      <!-- eslint-enable vue/no-v-html -->
+      <SmartLink
+        v-if="card.link"
+        :destination="card.link.url"
+        class="btn btn-outline-primary mt-auto"
+        hide-external-icon
+        data-qa="landing info card link"
+      >
+        {{ card.link.text }}
+      </SmartLink>
     </div>
-    <SmartLink
-      v-if="card.link"
-      :destination="card.link.url"
-      class="btn btn-outline-primary mt-auto"
-      hide-external-icon
-      data-qa="landing info card link"
-    >
-      {{ card.link.text }}
-    </SmartLink>
   </div>
 </template>
 

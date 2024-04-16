@@ -8,7 +8,7 @@ const title = 'Title for an info card group';
 
 const minimalPropsData = { title };
 
-const infoCardsWithLinks = [{}, { link: {} }];
+const sixInfoCards = [{}, {}, {}, {}, {}, {}];
 
 const factory = (propsData = minimalPropsData) => shallowMount(LandingInfoCardGroup, {
   localVue,
@@ -35,16 +35,16 @@ describe('components/landing/LandingInfoCardGroup', () => {
     });
   });
 
-  describe('when any of the cards has a link', () => {
+  describe('when the amount of cards is divisible by three', () => {
     it('center aligns the group of cards', () => {
-      const wrapper = factory({ ...minimalPropsData, infoCards: infoCardsWithLinks });
+      const wrapper = factory({ ...minimalPropsData, infoCards: sixInfoCards });
 
       const cardWrapperElement = wrapper.find('[data-qa="landing info card group cards wrapper"]');
 
       expect(cardWrapperElement.classes().includes('justify-content-center')).toBe(true);
     });
     it('passes the centered-content prop', () => {
-      const wrapper = factory({ ...minimalPropsData, infoCards: infoCardsWithLinks });
+      const wrapper = factory({ ...minimalPropsData, infoCards: sixInfoCards });
 
       const cardWrapperElement = wrapper.find('landinginfocard-stub');
 

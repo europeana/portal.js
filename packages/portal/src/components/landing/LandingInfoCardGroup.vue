@@ -19,8 +19,8 @@
       v-if="infoCards.length"
       class="cards-wrapper d-lg-flex flex-wrap mx-auto"
       :class="{
-        'justify-content-between text-left': !hasCardWithLink,
-        'justify-content-center': hasCardWithLink
+        'justify-content-between text-lg-left': twoColCardsLayout,
+        'justify-content-center': threeColCardsLayout
       }"
       data-qa="landing info card group cards wrapper"
     >
@@ -28,7 +28,7 @@
         v-for="(card, index) in infoCards"
         :key="index"
         :card="card"
-        :centered-content="hasCardWithLink"
+        :centered-content="threeColCardsLayout"
       />
     </div>
     <SmartLink
@@ -100,8 +100,11 @@
     },
 
     computed: {
-      hasCardWithLink() {
-        return this.infoCards.some(card => card.link);
+      twoColCardsLayout() {
+        return this.infoCards.length % 3 !== 0;
+      },
+      threeColCardsLayout() {
+        return this.infoCards.length % 3 === 0;
       }
     }
   };
