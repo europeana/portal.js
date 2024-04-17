@@ -135,7 +135,6 @@ module.exports = async() => {
     assetsDir: '../packages/style',
     skipComponentsWithoutExample: true,
     require: [
-      resolve(__dirname, '../packages/portal/src/plugins/vue-filters.js'),
       resolve(__dirname, '../packages/style/scss/style.scss'),
       resolve(__dirname, './style.scss')
     ],
