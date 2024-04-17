@@ -214,6 +214,7 @@ export default {
   },
   "ds4ch": {
     "broughtBy": "Brought to you by",
+    "homeLinkAlt": "The common European data space for cultural heritage home",
     "footer": {
       "disclaimerLine1": "The common European data space for cultural heritage is an initiative of the European Union, financed by the European Union’s Digital Europe Programme. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission."
     },

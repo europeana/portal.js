@@ -249,7 +249,7 @@
           right: 4rem;
         }
 
-        @media (min-width: ($bp-wqhd)) {
+        @media (min-width: ($bp-4k)) {
           left: 8rem;
           right: 8rem;
         }
@@ -258,7 +258,7 @@
       &::after {
         content: '';
         position: absolute;
-        top: 5.5rem;
+        top: 7.25rem;
         left: 0;
         right: 0;
         bottom: 2rem;
@@ -266,12 +266,12 @@
         border-bottom: 1px solid $grey;
 
         @media (min-width: ($bp-medium)) {
-          top: 7.5rem;
+          top: 9.25rem;
           bottom: 4rem;
         }
 
-        @media (min-width: ($bp-wqhd)) {
-          top: 13.125rem;
+        @media (min-width: ($bp-4k)) {
+          top: 18.625rem;
           bottom: 8rem;
         }
       }

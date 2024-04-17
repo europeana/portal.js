@@ -15,6 +15,14 @@ const factory = () => shallowMount(DS4CHPageHeader, {
 
 describe('components/DS4CH/DS4CHPageHeader', () => {
   describe('template', () => {
+    it('contains the logo', () => {
+      const wrapper = factory();
+
+      const logo = wrapper.find('[data-qa="logo"]');
+
+      expect(logo.attributes().src).toBe('logo.svg');
+    });
+
     it('contains the top navigation', () => {
       const wrapper = factory();
 

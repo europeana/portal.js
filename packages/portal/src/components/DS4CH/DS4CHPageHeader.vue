@@ -2,10 +2,20 @@
   <header
     id="header"
     v-visible-on-scroll
-    class="page-header ds4ch-page-header show xxl-page"
+    class="page-header ds4ch-page-header show xxl-page d-flex justify-content-between align-items-center"
     role="banner"
     data-qa="header"
   >
+    <SmartLink
+      :destination="{ name: 'index' }"
+      class="logo d-inline-flex"
+    >
+      <img
+        :src="logoSrc"
+        :alt="$t('ds4ch.homeLinkAlt')"
+        data-qa="logo"
+      >
+    </SmartLink>
     <b-navbar
       role="navigation"
       class="d-flex align-items-center justify-content-end"
@@ -53,12 +63,20 @@
 
 <script>
   import DS4CHPageNavigation from './DS4CHPageNavigation';
+  import SmartLink from '@/components/generic/SmartLink';
 
   export default {
     name: 'DS4CHPageHeader',
 
     components: {
-      DS4CHPageNavigation
+      DS4CHPageNavigation,
+      SmartLink
+    },
+
+    data() {
+      return {
+        logoSrc: require('@europeana/style/img/DS4CH/logo.svg')
+      };
     }
   };
 </script>
@@ -119,11 +137,18 @@
   }
 
   .logo {
-    height: 2.4375rem;
+    height: 4rem;
     width: auto;
+    margin: 0.625rem auto 0.625rem 1.5rem;
+    flex-shrink: 0;
+
+    @media (min-width: $bp-medium) {
+      margin-left: 3.5rem;
+    }
 
     @media (min-width: $bp-4k) {
-      height: calc(1.5 * 2.4375rem);
+      height: 8rem;
+      margin: 1.25rem auto 1.25rem 7rem;
     }
 
     img {
