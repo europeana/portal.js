@@ -20,7 +20,7 @@
         </header>
       </div>
       <ImageWithAttribution
-        class="hero-image px-sm-3 mb-5 mb-lg-0 p-lg-0"
+        class="hero-image px-sm-3 mb-4 mb-lg-0 p-lg-0"
         :class="{ 'svg-image': isSVG }"
         :alt="heroImage.image.description || ''"
         :src="heroImage.image.url"
@@ -146,14 +146,6 @@
     background-color: $bodygrey;
     padding: 3rem 1rem 1rem;
 
-    @media (min-width: ($bp-medium + 1px)) {
-      width: 65%;
-      position: relative;
-      z-index: 10;
-      padding: 6.25rem 6.25rem 6.25rem 0;
-      clip-path: polygon(0% 0%, 100% 0, 100% calc(100% - 209px), calc(100% - 95px) 100%, 0 100%);
-    }
-
     @media (min-width: $bp-large) {
       width: 50%;
       padding: 6.25rem 4rem 6.25rem 0;
@@ -204,6 +196,14 @@
 
     @media (min-width: $bp-large) {
       width: 50%;
+    }
+
+    ::v-deep img {
+      margin-bottom: 2rem;
+
+      @media (min-width: $bp-large) {
+        margin-top: 2rem;
+      }
     }
   }
 </style>
