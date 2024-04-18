@@ -28,6 +28,8 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
+
   import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
   import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
   import klaroMixin from '@/mixins/klaro.js';
@@ -37,6 +39,7 @@
     name: 'DS4CHLayout',
 
     components: {
+      ClientOnly,
       DS4CHPageHeader,
       DS4CHPageFooter,
       PageCookieConsent: () => import('@/components/page/PageCookieConsent')

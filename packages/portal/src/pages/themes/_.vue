@@ -149,6 +149,8 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
+
   import ContentHeader from '@/components/content/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -158,16 +160,17 @@
     name: 'ThemePage',
 
     components: {
-      ContentHeader,
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
+      ClientOnly,
+      ContentHeader,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       EntityCardGroup: () => import('@/components/entity/EntityCardGroup'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
+      LoadingSpinner,
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SetCardGroup: () => import('@/components/set/SetCardGroup'),
-      SmartLink: () => import('@/components/generic/SmartLink'),
-      ErrorMessage: () => import('@/components/error/ErrorMessage'),
-      LoadingSpinner
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [pageMetaMixin],

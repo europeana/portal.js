@@ -160,6 +160,7 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
@@ -174,11 +175,12 @@
     name: 'AccountIndexPage',
 
     components: {
-      BNav,
-      ItemPreviewCardGroup,
-      UserSets,
       AlertMessage,
-      LoadingSpinner
+      BNav,
+      ClientOnly,
+      ItemPreviewCardGroup,
+      LoadingSpinner,
+      UserSets
     },
 
     mixins: [

@@ -1,58 +1,60 @@
 <template>
-  <b-container data-qa="debug page">
-    <ContentHeader
-      :title="pageMeta.title"
-    />
-    <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
-        <b-form
-          @submit.stop.prevent="submitForm"
-        >
-          <b-form-group
-            :description="$t('debug.settings.form.enabled.description')"
+  <div class="page white-page">
+    <b-container data-qa="debug page">
+      <ContentHeader
+        :title="pageMeta.title"
+      />
+      <b-row class="flex-md-row pb-5">
+        <b-col cols="12">
+          <b-form
+            @submit.stop.prevent="submitForm"
           >
-            <b-form-checkbox
-              v-model="settings.enabled"
-              switch
-              data-qa="enable debug menu switch"
+            <b-form-group
+              :description="$t('debug.settings.form.enabled.description')"
             >
-              {{ $t('debug.settings.form.enabled.label') }}
-            </b-form-checkbox>
-          </b-form-group>
-          <b-form-group
-            v-if="fieldBoostingFeature"
-            :description="$t('debug.settings.form.boosting.description')"
-          >
-            <b-form-checkbox
-              v-model="settings.boosting"
-              switch
-              data-qa="enable boosting form switch"
+              <b-form-checkbox
+                v-model="settings.enabled"
+                switch
+                data-qa="enable debug menu switch"
+              >
+                {{ $t('debug.settings.form.enabled.label') }}
+              </b-form-checkbox>
+            </b-form-group>
+            <b-form-group
+              v-if="fieldBoostingFeature"
+              :description="$t('debug.settings.form.boosting.description')"
             >
-              {{ $t('debug.settings.form.boosting.label') }}
-            </b-form-checkbox>
-          </b-form-group>
-          <b-form-group
-            :label="$t('debug.settings.form.apiKey.label')"
-            label-for="debug-input-api-key"
-            :description="$t('debug.settings.form.apiKey.description')"
-          >
-            <b-form-input
-              id="debug-input-api-key"
-              v-model="settings.apiKey"
-            />
-          </b-form-group>
+              <b-form-checkbox
+                v-model="settings.boosting"
+                switch
+                data-qa="enable boosting form switch"
+              >
+                {{ $t('debug.settings.form.boosting.label') }}
+              </b-form-checkbox>
+            </b-form-group>
+            <b-form-group
+              :label="$t('debug.settings.form.apiKey.label')"
+              label-for="debug-input-api-key"
+              :description="$t('debug.settings.form.apiKey.description')"
+            >
+              <b-form-input
+                id="debug-input-api-key"
+                v-model="settings.apiKey"
+              />
+            </b-form-group>
 
-          <b-button
-            type="submit"
-            variant="primary"
-            data-qa="save debug settings button"
-          >
-            {{ $t('actions.save') }}
-          </b-button>
-        </b-form>
-      </b-col>
-    </b-row>
-  </b-container>
+            <b-button
+              type="submit"
+              variant="primary"
+              data-qa="save debug settings button"
+            >
+              {{ $t('actions.save') }}
+            </b-button>
+          </b-form>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -100,3 +102,11 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .page {
+    padding: 3rem 0 7rem;
+  }
+</style>

@@ -72,10 +72,10 @@ describe('pages/debug/oembed', () => {
         expect(endpointInput.attributes('value')).toBe(endpoint);
       });
 
-      it('renders OEmbed component', async() => {
+      it('renders OEmbed component, client-side', async() => {
         const wrapper = await factory({ mocks: { $route: { query } } });
 
-        const oEmbedComponent = wrapper.find('embedoembed-stub');
+        const oEmbedComponent = wrapper.find('client-only-stub embedoembed-stub');
         expect(oEmbedComponent.exists()).toBe(true);
         expect(oEmbedComponent.vm.url).toBe(url);
         expect(oEmbedComponent.vm.endpoint).toBe(endpoint);

@@ -46,6 +46,8 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
+
   import pageMetaMixin from '@/mixins/pageMeta';
   import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
@@ -58,6 +60,7 @@
 
     components: {
       CallToActionBanner,
+      ClientOnly,
       HomeHero,
       HomeLatestGalleries,
       HomeLatestStories,

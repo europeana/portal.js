@@ -136,6 +136,7 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import isEmpty from 'lodash/isEmpty';
 
   import ItemDataProvider from '@/components/item/ItemDataProvider';
@@ -157,15 +158,16 @@
   export default {
     name: 'ItemPage',
     components: {
+      ClientOnly,
+      EntityBadges: () => import('@/components/entity/EntityBadges'),
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemDataProvider,
       ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
+      ItemSummaryInfo: () => import('@/components/item/ItemSummaryInfo'),
       LoadingSpinner,
-      MetadataBox,
-      EntityBadges: () => import('@/components/entity/EntityBadges'),
-      ItemSummaryInfo: () => import('@/components/item/ItemSummaryInfo')
+      MetadataBox
     },
 
     mixins: [
