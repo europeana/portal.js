@@ -1,5 +1,8 @@
 <template>
-  <b-container data-qa="debug page">
+  <b-container
+    class="bg-white"
+    data-qa="debug page"
+  >
     <ContentHeader
       :title="pageMeta.title"
     />
