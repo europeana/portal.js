@@ -41,7 +41,7 @@ const factory = ({ $fetchState = {}, mocks = {}, propsData = {}, data = {} } = {
         search: sinon.stub().resolves(searchResult)
       },
       fulltext: {
-        baseURL: 'https://newspapers.eanadev.org/api/v2'
+        baseURL: 'https://api.europeana.eu/fulltext'
       }
     },
     $auth: {},
