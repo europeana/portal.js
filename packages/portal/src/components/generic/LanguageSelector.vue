@@ -82,4 +82,8 @@
       text-transform: none;
     }
   }
+
+  .icon-language {
+    line-height: 1;
+  }
 </style>
