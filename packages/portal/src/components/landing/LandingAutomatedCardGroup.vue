@@ -75,7 +75,7 @@
         data.keys = [
           'items/type-counts',
           'dataspace/network-members',
-          'collections/organisations/count',
+          'dataspace/data-providers',
           'dataspace/hq-data',
           'dataspace/api-requests'
         ];
@@ -97,8 +97,6 @@
           if (key === 'items/type-counts') {
             entry.label = 'items';
             entry.info = cachedData[key]?.map(data => data.count).reduce((a, b) => a + b);
-          } else if (key === 'collections/organisations/count') {
-            entry.label = 'providingInstitutions';
           }
           this.entries.push(entry);
         }

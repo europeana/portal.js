@@ -45,7 +45,7 @@ describe('components/landing/LandingAutomatedCardGroup', () => {
 
       describe('for Data space numbers', () => {
         const propsData = { genre: DS4CH_NUMBERS };
-        const axiosArgs = '/_api/cache?id=items/type-counts&id=dataspace/network-members&id=collections/organisations/count&id=dataspace/hq-data&id=dataspace/api-requests';
+        const axiosArgs = '/_api/cache?id=items/type-counts&id=dataspace/network-members&id=dataspace/data-providers&id=dataspace/hq-data&id=dataspace/api-requests';
         beforeEach(() => {
           axiosGetStub.withArgs(axiosArgs).resolves({ data: 2000 });
         });
