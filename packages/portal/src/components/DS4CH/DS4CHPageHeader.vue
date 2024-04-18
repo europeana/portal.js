@@ -122,17 +122,20 @@
   .navbar {
     height: 3.5rem;
     margin-left: 2rem;
-    margin-right: 2rem;
+    margin-right: 0.8752rem;
+
+    @media (min-width: $bp-medium) {
+      margin-right: 2.875rem;
+    }
 
     @media (min-width: $bp-large) {
       margin-left: 4rem;
-      margin-right: 3.5rem;
     }
 
     @media (min-width: $bp-4k) {
       height: 5rem;
       margin-left: 10.625rem;
-      margin-right: 9.8125rem;
+      margin-right: 7rem;
     }
   }
 
