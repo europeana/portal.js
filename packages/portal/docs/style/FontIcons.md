@@ -45,6 +45,11 @@ Example:
           <td><span class="icon icon-arrow-down" /></td>
         </tr>
         <tr>
+          <td>Automated</td>
+          <td><code>icon-automated</code></td>
+          <td><span class="icon icon-automated" /></td>
+        </tr>
+        <tr>
           <td>Back</td>
           <td><code>icon-back</code></td>
           <td><span class="icon icon-back" /></td>
@@ -83,6 +88,11 @@ Example:
           <td>Edit</td>
           <td><code>icon-edit</code></td>
           <td><span class="icon icon-edit" /></td>
+        </tr>
+        <tr>
+          <td>Enrichment</td>
+          <td><code>icon-enrichment</code></td>
+          <td><span class="icon icon-enrichment" /></td>
         </tr>
         <tr>
           <td>External link</td>
@@ -188,6 +198,11 @@ Example:
           <td>Logout</td>
           <td><code>icon-logout</code></td>
           <td><span class="icon icon-logout" /></td>
+        </tr>
+        <tr>
+          <td>Original</td>
+          <td><code>icon-original</code></td>
+          <td><span class="icon icon-original" /></td>
         </tr>
         <tr>
           <td>Pinterest</td>

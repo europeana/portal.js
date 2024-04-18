@@ -1,6 +1,5 @@
 <template>
   <div
-    :id="containerId"
     class="landing-embed"
   >
     <div
@@ -26,6 +25,7 @@
       class="embed-container"
     >
       <EmbedHTML
+        :title="title"
         :html="embed.embed"
       />
     </b-container>
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-  import kebabCase from 'lodash/kebabCase';
   import parseMarkdownHtmlMixin from '@/mixins/parseMarkdownHtml';
   import EmbedHTML from '@/components/embed/EmbedHTML';
 
@@ -47,10 +46,6 @@
     mixins: [parseMarkdownHtmlMixin],
 
     props: {
-      englishTitle: {
-        type: String,
-        default: null
-      },
       title: {
         type: String,
         default: null
@@ -63,12 +58,6 @@
         type: Object,
         default: null
       }
-    },
-
-    data() {
-      return {
-        containerId: kebabCase(this.englishTitle)
-      };
     }
   };
 </script>
@@ -77,7 +66,15 @@
   @import '@europeana/style/scss/variables';
 
   .landing-embed {
-    border-bottom: 1px solid $white;
+    margin-bottom: 3rem;
+
+    @media (min-width: $bp-large) {
+      margin-bottom: 6rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: 15rem;
+    }
   }
 
   .header {

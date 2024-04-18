@@ -40,6 +40,10 @@
   content: '\e93b';
 }
 
+.icon-automated::before {
+  content: '\e941';
+}
+
 .icon-back::before {
   content: '\ea40';
 }
@@ -70,6 +74,10 @@
 
 .icon-edit::before {
   content: '\e94c';
+}
+
+.icon-enrichment::before {
+  content: '\e940';
 }
 
 .icon-external-link::before {
@@ -154,6 +162,10 @@
 
 .icon-logout::before {
   content: '\e950';
+}
+
+.icon-original::before {
+  content: '\e93f';
 }
 
 .icon-pinterest::before {

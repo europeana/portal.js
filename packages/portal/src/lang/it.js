@@ -80,6 +80,7 @@ export default {
     "creator": "Creatore:",
     "date": "Data:",
     "institution": "Istituzione:",
+    "show": "Mostra attribuzione",
     "title": "Titolo:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "di",
     "categories": "Categorie",
     "category": "Categoria",
-    "posts": "Articoli del blog",
+    "posts": "Post del blog | I post del blog",
     "published": "Pubblicato il giorno {date}",
     "relatedPosts": "Articoli correlati"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Destra"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Spazio dati per il patrimonio culturale",
-    "header": {
-      "contributors": "Collaboratori",
-      "dataOffer": "Offerta dati",
-      "stayInTouch": "Rimani in contatto"
-    },
-    "logoAlt": "Spazio dati per la pagina principale del patrimonio culturale"
+    "broughtBy": "Portato a te da"
   },
   "edmIsShownAtLinkAlt": "Visualizza sul sito web del fornitore",
   "entity": {
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "creatori",
-      "name": "Creatore | Creatori",
+      "name": "Creatore",
       "select": "Seleziona i creatori"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Selezionare fornitori di contenuti"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientamento immagine | Orientamenti immagini",
+      "name": "Orientamento dell'immagine",
       "options": {
         "landscape": "Paesaggio",
         "portrait": "Ritratto"
@@ -557,7 +552,7 @@ export default {
       "select": "Seleziona gli orientamenti dell'immagine"
     },
     "IMAGE_SIZE": {
-      "name": "Dimensioni immagine | Dimensioni immagini",
+      "name": "Dimensione dell'immagine",
       "options": {
         "extra_large": "Molto grande > 4 MP (es. 1920x1080 px)",
         "large": "Grande 1-4 MP (es. 1920x1080 px)",
@@ -626,7 +621,7 @@ export default {
       "select": "Seleziona aggregatori"
     },
     "proxy_dc_format": {
-      "name": "Formato | Formati",
+      "name": "Formato",
       "select": "Seleziona i formati"
     },
     "proxy_dc_type": {
@@ -651,7 +646,7 @@ export default {
       "select": "Selezionare se è possibile utilizzarlo"
     },
     "TYPE": {
-      "name": "Tipo di supporto",
+      "name": "Tipo di Media",
       "options": {
         "3D": "3D",
         "IMAGE": "Immagine",
@@ -819,7 +814,7 @@ export default {
         "title": "Servizi che vorremmo utilizzare."
       },
       "consentNotice": {
-        "description": "Teniamo molto alla tua privacy e utilizziamo i dati solo per migliorare la tua esperienza. Non utilizziamo alcuna informazione personale per la pubblicità. Puoi modificare il tuo consenso ogni 15 giorni.",
+        "description": "CIAO! Possiamo abilitare alcuni servizi aggiuntivi per l'analisi e la sicurezza? Potrai sempre modificare o revocare il tuo consenso in un secondo momento.",
         "learnMore": "Fammi scegliere"
       },
       "decline": "Rifiuto",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Richieste API mensili, in media",
+      "hqData": "Aumento di dati di alta qualità ogni anno",
       "items": "Oggetti",
+      "networkMembers": "Membri della rete",
       "providingInstitutions": "Fornitori di contenuti",
       "visits": "Visite al giorno"
     },
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Traduzione automatica",
+    "automatedPageTranslations": "Questa pagina utilizza traduzioni generate automaticamente dall'inglese.",
     "enrichment": "Arricchimento da parte dei progetti partner",
     "loginToTranslate": "{login} per vedere questo oggetto in altre lingue",
     "other": "altre lingue",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nome"
-        },
-        "title": "Organizzazioni"
+        "description": "Esplora le istituzioni che condividono oggetti del patrimonio culturale digitale su Europeana.eu.",
+        "title": "Istituzioni"
       },
       "persons": {
         "title": "Persone"
@@ -961,8 +958,11 @@ export default {
         "title": "Posti"
       },
       "table": {
+        "country": "Paese",
         "items": "Oggetti",
-        "name": "Nome"
+        "name": "Nome",
+        "searchPlaceholder": "Cerca all'interno della tabella",
+        "showMoreData": "Mostra più dati per {entity}"
       },
       "times": {
         "title": "Secoli"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "contiene",
-        "doesNotContain": "non contiene"
+        "doesNotContain": "non contiene",
+        "exact": "contiene la frase"
       },
       "placeholder": {
         "field": "Seleziona un campo",
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} storie trovate",
     "title": "Storie"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Gruppo di diapositive {page}"
   },
   "themes": {
     "description": "Sfoglia per tema",

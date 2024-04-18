@@ -80,6 +80,7 @@ export default {
     "creator": "Alkotó:",
     "date": "Dátum:",
     "institution": "Intézmény:",
+    "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "írta",
     "categories": "Kategóriák",
     "category": "Kategória",
-    "posts": "Blog bejegyzések",
+    "posts": "Blogbejegyzés | Blogbejegyzések",
     "published": "Közzététel dátuma: {date}",
     "relatedPosts": "Kapcsolódó bejegyzések"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Jobb"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kulturális örökség adattere",
-    "header": {
-      "contributors": "Közreműködők",
-      "dataOffer": "Adat ajánlat",
-      "stayInTouch": "Maradjunk kapcsolatban"
-    },
-    "logoAlt": "Adattér a kulturális örökség kezdőlapjához"
+    "broughtBy": "Hozta neked"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
   "entity": {
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "alkotók",
-      "name": "Alkotó | Alkotók",
+      "name": "Alkotó",
       "select": "Válasszon alkotókat"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Válassza ki a szolgáltató intézményeket"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Képtájolás | Képtájolások",
+      "name": "Kép tájolása",
       "options": {
         "landscape": "Fekvő",
         "portrait": "Álló"
@@ -557,7 +552,7 @@ export default {
       "select": "Válassza ki a kép tájolását"
     },
     "IMAGE_SIZE": {
-      "name": "Képméret | Képméretek",
+      "name": "Képméret",
       "options": {
         "extra_large": "Extra nagy, 4MP+ (pl. 2688 x 1520 képpont)",
         "large": "Nagy, 1-4 MP + (pl.1920 x 1080 képpont)",
@@ -626,7 +621,7 @@ export default {
       "select": "Válasszon aggregátorokat"
     },
     "proxy_dc_format": {
-      "name": "Formátum | formátumok",
+      "name": "Formátum",
       "select": "Formátumok kiválasztása"
     },
     "proxy_dc_type": {
@@ -819,7 +814,7 @@ export default {
         "title": "Szolgáltatások, amelyeket szeretnénk igénybe venni."
       },
       "consentNotice": {
-        "description": "Törődünk az adatvédelemmel, és csak az élmény javítása érdekében használunk adatokat. Nem használunk személyes adatokat reklámozásra. 15 naponta módosíthatja beleegyezését.",
+        "description": "Szia! Engedélyezhetnénk néhány további szolgáltatást az elemzéshez és a biztonsághoz? Hozzájárulását később bármikor módosíthatja vagy visszavonhatja.",
         "learnMore": "Hadd válasszam"
       },
       "decline": "Elutasítom",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Átlagosan havi API kérések",
+      "hqData": "Évente növekvő magas minőségű adatmennyiség",
       "items": "Tárgyak",
+      "networkMembers": "Hálózati tagok",
       "providingInstitutions": "Szolgáltató intézmény",
       "visits": "Napi látogatások"
     },
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizált fordítás",
+    "automatedPageTranslations": "Ez az oldal automatikusan generált fordításokat használ az angolból.",
     "enrichment": "Gazdagodás partnerprojektek által",
     "loginToTranslate": "{login} hogy ezt a tárgyat más nyelveken is megtekinthesse.",
     "other": "egyéb nyelvek",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Név"
-        },
-        "title": "Szervezetek"
+        "description": "Fedezze fel azokat az intézményeket, amelyek digitális kulturális örökségi tárgyak osztanak meg az Europeana.eu-n.",
+        "title": "Intézmények"
       },
       "persons": {
         "title": "Személyek"
@@ -961,8 +958,11 @@ export default {
         "title": "Helyek"
       },
       "table": {
+        "country": "Ország",
         "items": "Tárgyak",
-        "name": "Név"
+        "name": "Név",
+        "searchPlaceholder": "Keresés a táblázatban",
+        "showMoreData": "További adatok megjelenítése a következőhöz {entity}"
       },
       "times": {
         "title": "Századok"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "tartalmaz",
-        "doesNotContain": "nem tartalmaz"
+        "doesNotContain": "nem tartalmaz",
+        "exact": "tartalmazza a kifejezést"
       },
       "placeholder": {
         "field": "Válasszon egy mezőt",
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} történet található",
     "title": "Történetek"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Diacsoport {page}"
   },
   "themes": {
     "description": "Böngésszen téma szerint",

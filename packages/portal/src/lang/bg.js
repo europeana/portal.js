@@ -80,6 +80,7 @@ export default {
     "creator": "Създател:",
     "date": "Дата:",
     "institution": "Институция:",
+    "show": "Покажи атрибуция",
     "title": "Заглавие:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "от",
     "categories": "Категории",
     "category": "Категория",
-    "posts": "Публикации в блогове",
+    "posts": "Публикация в блог | Публикации в блогове",
     "published": "Публикувано на {date}",
     "relatedPosts": "Подобни публикации"
   },
@@ -208,13 +209,12 @@ export default {
     "right": "Дясно"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Пространство за данни за културно наследство",
+    "broughtBy": "Донесено ви от",
     "header": {
-      "contributors": "Сътрудници",
-      "dataOffer": "Оферта за данни",
-      "stayInTouch": "Поддържате връзка"
-    },
-    "logoAlt": "Пространство за данни за началната страница на културното наследство"
+      "navigation": {
+        "partners": "Партньори"
+      }
+    }
   },
   "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
   "entity": {
@@ -540,7 +540,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "създатели",
-      "name": "Създател | Създатели",
+      "name": "Създател",
       "select": "Изберете създатели"
     },
     "DATA_PROVIDER": {
@@ -549,7 +549,7 @@ export default {
       "select": "Изберете доставчици на данни"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Ориентация на изображението | Ориентации на изображенията",
+      "name": "Ориентация на изображението",
       "options": {
         "landscape": "Хоризонтална",
         "portrait": "Портрет"
@@ -557,7 +557,7 @@ export default {
       "select": "Изберете ориентации на изображението"
     },
     "IMAGE_SIZE": {
-      "name": "Размер на изображението | Размери на изображенията",
+      "name": "Размер на изображението",
       "options": {
         "extra_large": "По-голям 4 MP+ (например 2688 x 1520px)",
         "large": "Голям 1-4 MP (напр. 1920x1080px)",
@@ -626,7 +626,7 @@ export default {
       "select": "Изберете агрегатори"
     },
     "proxy_dc_format": {
-      "name": "Формат | Формати",
+      "name": "Формат",
       "select": "Изберете формати"
     },
     "proxy_dc_type": {
@@ -819,7 +819,7 @@ export default {
         "title": "Услуги, които бихме искали да използваме."
       },
       "consentNotice": {
-        "description": "Ние се грижим за вашата поверителност и използваме данни само за подобряване на вашето изживяване. Ние не използваме лична информация за реклама. Можете да промените съгласието си на всеки 15 дни.",
+        "description": "здрасти Можем ли да активираме някои допълнителни услуги за анализ и сигурност? Винаги можете да промените или оттеглите съгласието си по-късно.",
         "learnMore": "Позволете ми да избера"
       },
       "decline": "Отказвам",
@@ -882,7 +882,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Средно месечни заявки за API",
+      "hqData": "Увеличаване на висококачествените данни на година",
       "items": "обекта",
+      "networkMembers": "Членове на мрежата",
       "providingInstitutions": "Доставчици на данни",
       "visits": "Посещения на ден"
     },
@@ -916,6 +919,7 @@ export default {
   },
   "multilingual": {
     "automated": "Автоматизиран превод",
+    "automatedPageTranslations": "Тази страница използва автоматично генерирани преводи от английски.",
     "enrichment": "Обогатяване по партньорски проекти",
     "loginToTranslate": "{login}, за да видите тази обект на други езици",
     "other": "други езици",
@@ -949,10 +953,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Име"
-        },
-        "title": "Организации"
+        "description": "Разгледайте институциите, които споделят обекта на цифровото културно наследство на Europeana.eu.",
+        "title": "институции"
       },
       "persons": {
         "title": "Лица"
@@ -961,8 +963,11 @@ export default {
         "title": "Места"
       },
       "table": {
+        "country": "Държава:",
         "items": "обекта",
-        "name": "Име"
+        "name": "Име",
+        "searchPlaceholder": "Търсене в таблицата",
+        "showMoreData": "Покажи повече данни за {entity}"
       },
       "times": {
         "title": "Векове"
@@ -1052,7 +1057,8 @@ export default {
       },
       "modifiers": {
         "contains": "съдържа",
-        "doesNotContain": "не съдържа"
+        "doesNotContain": "не съдържа",
+        "exact": "съдържа фразата"
       },
       "placeholder": {
         "field": "Изберете поле",
@@ -1186,6 +1192,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} намерени истории",
     "title": "Истории"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Група слайдове {page}"
   },
   "themes": {
     "description": "Преглед по тема",

@@ -80,6 +80,7 @@ export default {
     "creator": "Looja:",
     "date": "Kuupäev:",
     "institution": "Institutsioon:",
+    "show": "Kuva atribuutika",
     "title": "Pealkiri:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "poolt",
     "categories": "Kategooriad",
     "category": "Kategooria",
-    "posts": "Blogipostitused",
+    "posts": "Blogi postitus | Blogi postitused",
     "published": "Avaldatud {date}",
     "relatedPosts": "Seonduvad postitused"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Parem"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kultuuripärandi andmeruum",
-    "header": {
-      "contributors": "Panustajad",
-      "dataOffer": "Andmepakkumine",
-      "stayInTouch": "Hoidke ühendust"
-    },
-    "logoAlt": "Andmepaik kultuuripärandi avaleht"
+    "broughtBy": "Teieni toodud"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "entity": {
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "loojad",
-      "name": "Looja | Loojad",
+      "name": "Looja",
       "select": "Valige loojad"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Valige pakkuvad asutused"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Kujutise orientatsioon | Kujutise orientatsioonid",
+      "name": "Pildi orientatsioon",
       "options": {
         "landscape": "Maastik",
         "portrait": "Portree"
@@ -557,7 +552,7 @@ export default {
       "select": "Valige pildi orientatsioon"
     },
     "IMAGE_SIZE": {
-      "name": "Pildi suurus | Pildi suurused",
+      "name": "Pildi suurus",
       "options": {
         "extra_large": "Eriti suur 4MP + (nt 2688 x 1520 pikslit)",
         "large": "Suur 1–4 MP (nt 1920x1080 pikslit)",
@@ -626,7 +621,7 @@ export default {
       "select": "Valige agregaatorid"
     },
     "proxy_dc_format": {
-      "name": "Vorming | Vormingud",
+      "name": "Formaat",
       "select": "Valige vormingud"
     },
     "proxy_dc_type": {
@@ -819,7 +814,7 @@ export default {
         "title": "Teenused, mida sooviksime kasutada."
       },
       "consentNotice": {
-        "description": "Me hoolime teie privaatsusest ja kasutame andmeid ainult teie kogemuste parandamiseks. Me ei kasuta reklaamimiseks isiklikke andmeid. Oma nõusolekut saate muuta iga 15 päeva tagant.",
+        "description": "Tere! Kas saaksime lubada analüüsi ja turvalisuse jaoks mõned lisateenused? Saate oma nõusolekut hiljem alati muuta või tagasi võtta.",
         "learnMore": "Las ma valin"
       },
       "decline": "ma keeldun",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Igakuised API taotlused keskmiselt",
+      "hqData": "Kõrgekvaliteediliste andmete kasv aastas",
       "items": "Üksused",
+      "networkMembers": "Võrgustiku liikmed",
       "providingInstitutions": "Pakkuja institutsioon",
       "visits": "Külastused päevas"
     },
@@ -900,8 +898,8 @@ export default {
   },
   "modal": {
     "download": {
-      "clickToCopy": "Selle kopeerimiseks klõpsake omistusel",
-      "modalIntro": "Kui kasutate seda üksust veebis või mujal, ärge unustage selle kõrval kuvada järgmist omistust:",
+      "clickToCopy": "Kopeerimiseks klõpsa atribuuti",
+      "modalIntro": "Kui kasutate seda objekti veebis või mujal, ärge unustage selle kõrval avaldada järgmist atribuuti:",
       "modalTitle": "Ütle aitäh"
     },
     "downloadFailed": {
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiseeritud tõlge",
+    "automatedPageTranslations": "See lehekülg kasutab automaatselt genereeritud tõlkeid inglise keelest.",
     "enrichment": "Rikastamine partner projektide kaudu",
     "loginToTranslate": "{login} et näha seda üksust teistes keeltes",
     "other": "muud keeled",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nimi"
-        },
-        "title": "Organisatsioonid"
+        "description": "Uurige asutusi, mis jagavad digitaalse kultuuripärandi objekte Europeana.eu-s.",
+        "title": "Institutsioonid"
       },
       "persons": {
         "title": "Isikud"
@@ -961,8 +958,11 @@ export default {
         "title": "Kohad"
       },
       "table": {
+        "country": "Riik",
         "items": "Üksused",
-        "name": "Nimi"
+        "name": "Nimi",
+        "searchPlaceholder": "Otsige tabelist",
+        "showMoreData": "Kuva rohkem andmeid {entity} jaoks"
       },
       "times": {
         "title": "Sajandeid"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "sisaldab",
-        "doesNotContain": "ei sisalda"
+        "doesNotContain": "ei sisalda",
+        "exact": "sisaldab fraasi"
       },
       "placeholder": {
         "field": "Valige väli",
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "Leiti {0} lugu",
     "title": "Lood"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slaidirühm {page}"
   },
   "themes": {
     "description": "Sirvi teemade kaupa",

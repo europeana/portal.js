@@ -80,6 +80,7 @@ export default {
     "creator": "Oprettet af:",
     "date": "Dato:",
     "institution": "Institution:",
+    "show": "Vis tilskrivning",
     "title": "Titel:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "af",
     "categories": "Kategorier",
     "category": "Kategori",
-    "posts": "Blogindlæg",
+    "posts": "Blogindlæg | Blogindlæg",
     "published": "Offentliggjort {date}",
     "relatedPosts": "Relaterede indlæg"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Højre"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Data plads for kulturarv",
-    "header": {
-      "contributors": "Bidragsydere",
-      "dataOffer": "Data tilbud",
-      "stayInTouch": "Hold kontakten"
-    },
-    "logoAlt": "Dataplads til kulturarvens hjemmeside"
+    "broughtBy": "Bragt til dig af"
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
   "entity": {
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "skabere",
-      "name": "Skaber | Skaberne",
+      "name": "Skaberen",
       "select": "Vælg skabere"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Vælg ejerinstitutioner"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Billedretning | Billedretninger",
+      "name": "Billedorientering",
       "options": {
         "landscape": "Landskab",
         "portrait": "Portræt"
@@ -557,7 +552,7 @@ export default {
       "select": "Vælg billedorienteringer"
     },
     "IMAGE_SIZE": {
-      "name": "Billedstørrelse | Billedstørrelser",
+      "name": "Billedestørrelse",
       "options": {
         "extra_large": "Ekstra stor 4MP + (f.eks. 2688 x 1520px)",
         "large": "Stor 1-4MP (f.eks 1920x1080px)",
@@ -626,7 +621,7 @@ export default {
       "select": "Vælg aggregatorer"
     },
     "proxy_dc_format": {
-      "name": "Format | Formater",
+      "name": "Format",
       "select": "Vælg formater"
     },
     "proxy_dc_type": {
@@ -819,7 +814,7 @@ export default {
         "title": "Tjenester, vi gerne vil bruge."
       },
       "consentNotice": {
-        "description": "Vi holder af dit privatliv og bruger kun data til at forbedre din oplevelse. Vi bruger ingen personlige oplysninger til reklame. Du kan ændre dit samtykke hver 15. dag.",
+        "description": "Hej! Kan vi venligst aktivere nogle yderligere tjenester til analyse og sikkerhed? Du kan altid ændre eller trække dit samtykke tilbage senere.",
         "learnMore": "Lad mig vælge"
       },
       "decline": "Jeg afviser",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Månedlige API-anmodninger i gennemsnit",
+      "hqData": "Forøgelse af data af høj kvalitet om året",
       "items": "Genstande",
+      "networkMembers": "Netværksmedlemmer",
       "providingInstitutions": "Ejerinstitutioner",
       "visits": "Besøg pr. dag"
     },
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiseret oversættelse",
+    "automatedPageTranslations": "Denne side bruger autogenererede oversættelser fra engelsk.",
     "enrichment": "Berigelse ved partnerprojekter",
     "loginToTranslate": "{login} for at se denne genstand på andre sprog.",
     "other": "andre sprog",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Navn"
-        },
-        "title": "Organisationer"
+        "description": "Udforsk de institutioner, der deler digitale kulturarvsgenstande på Europeana.eu.",
+        "title": "Institutioner"
       },
       "persons": {
         "title": "Personer"
@@ -961,8 +958,11 @@ export default {
         "title": "Steder"
       },
       "table": {
+        "country": "Land",
         "items": "Genstande",
-        "name": "Navn"
+        "name": "Navn",
+        "searchPlaceholder": "Søg i tabel",
+        "showMoreData": "Vis flere data for {entity}"
       },
       "times": {
         "title": "Århundreder"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "indeholder",
-        "doesNotContain": "indeholder ikke"
+        "doesNotContain": "indeholder ikke",
+        "exact": "indeholder sætningen"
       },
       "placeholder": {
         "field": "Vælg et felt",
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} historier fundet",
     "title": "Historier"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slide gruppe {page}"
   },
   "themes": {
     "description": "Gennemse efter tema",

@@ -80,6 +80,7 @@ export default {
     "creator": "Maker:",
     "date": "Datum:",
     "institution": "Instelling:",
+    "show": "Toon toeschrijving",
     "title": "Titel:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "door",
     "categories": "Categorieën",
     "category": "Categorie",
-    "posts": "Blogberichten",
+    "posts": "Blogbericht | Blogberichten",
     "published": "Gepubliceerd op {date}",
     "relatedPosts": "Gerelateerde berichten"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Rechts"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Dataruimte voor cultureel erfgoed",
-    "header": {
-      "contributors": "Bijdragers",
-      "dataOffer": "Data-aanbod",
-      "stayInTouch": "Houd contact"
-    },
-    "logoAlt": "Data ruimte voor cultureel erfgoed homepagina"
+    "broughtBy": "Aangeboden door"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
   "entity": {
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "Makers",
-      "name": "Maker | Makers",
+      "name": "Maker",
       "select": "Selecteer makers"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Selecteer deelnemende erfgoedorganisaties"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Beeldoriëntatie | Beeldoriëntaties",
+      "name": "Beeldoriëntatie",
       "options": {
         "landscape": "Landschap",
         "portrait": "Portret"
@@ -557,7 +552,7 @@ export default {
       "select": "Selecteer beeldoriëntaties"
     },
     "IMAGE_SIZE": {
-      "name": "Afbeeldingsgrootte | Afbeeldingsgroottes",
+      "name": "Afbeeldingsgrootte",
       "options": {
         "extra_large": "Extra groot 4MP+ (bijv. 2688 x 1520px)",
         "large": "Groot 1-4 MP (bijv. 1920x1080px)",
@@ -567,7 +562,7 @@ export default {
       "select": "Selecteer afbeeldingsformaten"
     },
     "LANGUAGE": {
-      "name": "Taal | Talen",
+      "name": "Taal",
       "options": {
         "ar": "Arabisch",
         "bg": "Bulgaars",
@@ -626,7 +621,7 @@ export default {
       "select": "Selecteer informatienetwerken"
     },
     "proxy_dc_format": {
-      "name": "Formaat | Formaten",
+      "name": "Vorm",
       "select": "Selecteer formaten"
     },
     "proxy_dc_type": {
@@ -819,7 +814,7 @@ export default {
         "title": "Diensten waar we graag gebruik van willen maken."
       },
       "consentNotice": {
-        "description": "We geven om uw privacy en gebruiken gegevens alleen om uw ervaring te verbeteren. We gebruiken geen persoonlijke informatie voor advertenties. U kunt uw toestemming elke 15 dagen wijzigen.",
+        "description": "Hallo! Kunnen we alstublieft enkele aanvullende services inschakelen voor analyse en beveiliging? U kunt uw toestemming later altijd nog wijzigen of intrekken.",
         "learnMore": "Laat me kiezen"
       },
       "decline": "ik weiger",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Gemiddeld maandelijkse API-verzoeken",
+      "hqData": "Toename van hoogwaardige data per jaar",
       "items": "Objecten",
+      "networkMembers": "Netwerk leden",
       "providingInstitutions": "Deelnemende erfgoedorganisaties",
       "visits": "Bezoeken per dag"
     },
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Geautomatiseerde vertaling",
+    "automatedPageTranslations": "Deze pagina maakt gebruik van automatisch gegenereerde vertalingen uit het Engels.",
     "enrichment": "Verrijking door partnerprojecten",
     "loginToTranslate": "{login} om dit object in andere talen te zien",
     "other": "andere talen",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Naam"
-        },
-        "title": "Organisaties"
+        "description": "Ontdek de instellingen die digitale culturele erfgoed objecten delen op Europeana.eu.",
+        "title": "Instellingen"
       },
       "persons": {
         "title": "Personen"
@@ -961,8 +958,11 @@ export default {
         "title": "Plaatsen"
       },
       "table": {
+        "country": "Land",
         "items": "Objecten",
-        "name": "Naam"
+        "name": "Naam",
+        "searchPlaceholder": "Zoeken binnen tabel",
+        "showMoreData": "Toon meer data voor {entity}"
       },
       "times": {
         "title": "Eeuwen"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "bevat",
-        "doesNotContain": "bevat geen"
+        "doesNotContain": "bevat geen",
+        "exact": "bevat de zin"
       },
       "placeholder": {
         "field": "Selecteer een veld",
@@ -1066,7 +1067,7 @@ export default {
         "fields": {
           "fulltext": "Volledige tekst omvat transcripties, gesloten ondertiteling, ondertitels en documenttekst."
         },
-        "modifier": "Selecteer een modificatie om op het veld toe te passen.",
+        "modifier": "Kies hoe dit veld de zoekopdracht moet wijzigen.",
         "term": "Voer de term(en) in die het gekozen veld wel of niet bevat."
       }
     },
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} verhalen gevonden",
     "title": "Verhalen"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slide groep {page}"
   },
   "themes": {
     "description": "Blader op thema",

@@ -80,6 +80,7 @@ export default {
     "creator": "Δημιουργός:",
     "date": "Ημερομηνία:",
     "institution": "Ίδρυμα:",
+    "show": "Εμφάνιση απόδοσης",
     "title": "Τίτλος:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "από τον/την",
     "categories": "Κατηγορίες",
     "category": "Κατηγορία",
-    "posts": "Ανάρτηση στο blog | Αναρτήσεις στο blog ",
+    "posts": "Δημοσίευση στο blog | Δημοσιεύσεις στο blog",
     "published": "Δημοσιεύτηκε στις {date}",
     "relatedPosts": "Σχετικές αναρτήσεις"
   },
@@ -212,13 +213,7 @@ export default {
     "right": "Δεξιά"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Χώρος δεδομένων για την πολιτιστική κληρονομιά",
-    "header": {
-      "contributors": "Συνεισφέροντες",
-      "dataOffer": "Προσφορά δεδομένων",
-      "stayInTouch": "Μείνετε σε επαφή"
-    },
-    "logoAlt": "Χώρος δεδομένων για την αρχική σελίδα πολιτιστικής κληρονομιάς"
+    "broughtBy": "Έφερε σε σας από"
   },
   "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
   "entity": {
@@ -544,7 +539,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "δημιουργοί",
-      "name": "Δημιουργός | Δημιουργοί",
+      "name": "Δημιουργός",
       "select": "Επιλέξτε δημιουργούς"
     },
     "DATA_PROVIDER": {
@@ -553,7 +548,7 @@ export default {
       "select": "Επιλέξτε φορείς προέλευσης"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Προσανατολισμός εικόνας | Προσανατολισμοί εικόνας",
+      "name": "Προσανατολισμός εικόνας",
       "options": {
         "landscape": "Οριζόντιος",
         "portrait": "Κάθετος"
@@ -561,7 +556,7 @@ export default {
       "select": "Επιλέξτε προσανατολισμούς εικόνας"
     },
     "IMAGE_SIZE": {
-      "name": "Μέγεθος εικόνας | Μεγέθη εικόνων",
+      "name": "Μέγεθος εικόνας",
       "options": {
         "extra_large": "Πολύ μεγάλο 4 MP+ (π.χ. 2688 x 1520 px)",
         "large": "Μεγάλο 1-4 MP (π.χ. 1920 x 1080 px)",
@@ -571,7 +566,7 @@ export default {
       "select": "Επιλέξτε μεγέθη εικόνας"
     },
     "LANGUAGE": {
-      "name": "Γλώσσα | Γλώσσες",
+      "name": "Γλώσσα",
       "options": {
         "ar": "Αραβικά",
         "bg": "Βουλγαρική",
@@ -630,7 +625,7 @@ export default {
       "select": "Επιλέξτε συσσωρευτές"
     },
     "proxy_dc_format": {
-      "name": "Μορφή | Μορφές",
+      "name": "Μορφή",
       "select": "Επιλέξτε μορφές"
     },
     "proxy_dc_type": {
@@ -823,7 +818,7 @@ export default {
         "title": "Υπηρεσίες που θα θέλαμε να χρησιμοποιήσουμε."
       },
       "consentNotice": {
-        "description": "Νοιαζόμαστε για το απόρρητό σας και χρησιμοποιούμε μόνο δεδομένα για τη βελτίωση της εμπειρίας σας. Δεν χρησιμοποιούμε προσωπικές πληροφορίες για διαφήμιση. Μπορείτε να αλλάζετε τη συγκατάθεσή σας κάθε 15 ημέρες.",
+        "description": "Γεια! Θα μπορούσαμε να ενεργοποιήσουμε κάποιες πρόσθετες υπηρεσίες για αναλυτικά στοιχεία και ασφάλεια; Μπορείτε πάντα να αλλάξετε ή να αποσύρετε τη συγκατάθεσή σας αργότερα.",
         "learnMore": "Άσε με να διαλέξω"
       },
       "decline": "ΑΡΝΟΥΜΑΙ",
@@ -886,7 +881,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Μηνιαία αιτήματα API, κατά μέσο όρο",
+      "hqData": "Αύξηση σε υψηλής ποιότητας δεδομένα ανά έτος",
       "items": "Τεκμήρια",
+      "networkMembers": "Μέλη του δικτύου",
       "providingInstitutions": "Φορείς προέλευσης",
       "visits": "Επισκέψεις ανά ημέρα"
     },
@@ -920,6 +918,7 @@ export default {
   },
   "multilingual": {
     "automated": "Αυτοματοποιημένη μετάφραση",
+    "automatedPageTranslations": "Αυτή η σελίδα χρησιμοποιεί μεταφράσεις που δημιουργούνται αυτόματα από τα αγγλικά.",
     "enrichment": "Εμπλουτισμός με έργα συνεργατών",
     "loginToTranslate": "{login} για να δείτε αυτό το τεκμήριο σε άλλες γλώσσες",
     "other": "άλλες γλώσσες",
@@ -953,10 +952,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Ονομα"
-        },
-        "title": "Οργανισμοί"
+        "description": "Εξερευνήστε τους θεσμούς που μοιράζονται ψηφιακά τεκμήρια πολιτιστικής κληρονομιάς στο Europeana.eu.",
+        "title": "Ιδρύματα"
       },
       "persons": {
         "title": "Άτομα"
@@ -965,8 +962,11 @@ export default {
         "title": "Μέρη"
       },
       "table": {
+        "country": "Χώρα",
         "items": "Τεκμήρια",
-        "name": "Ονομα"
+        "name": "Ονομα",
+        "searchPlaceholder": "Αναζήτηση εντός του πίνακα",
+        "showMoreData": "Εμφάνιση περισσότερων δεδομένων για {entity}"
       },
       "times": {
         "title": "Αιώνες"
@@ -1056,7 +1056,8 @@ export default {
       },
       "modifiers": {
         "contains": "περιέχει",
-        "doesNotContain": "δεν περιέχει"
+        "doesNotContain": "δεν περιέχει",
+        "exact": "περιέχει τη φράση"
       },
       "placeholder": {
         "field": "Επιλέξτε ένα πεδίο",
@@ -1190,6 +1191,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} ιστορίες βρέθηκαν",
     "title": "Ιστορίες"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Ομάδα διαφανειών {page}"
   },
   "themes": {
     "description": "Περιήγηση ανά κατηγορίες.",

@@ -1,4 +1,10 @@
 export default {
+  data() {
+    return {
+      pageMetaSuffixTitle: undefined
+    };
+  },
+
   head() {
     return {
       title: this.headTitle,
@@ -8,7 +14,8 @@ export default {
 
   computed: {
     headTitle() {
-      return [this.pageTitle, this.$config.app.siteName].filter((part) => !!part).join(' | ');
+      const pageMetaSuffixTitle = (this.pageMetaSuffixTitle === undefined) ? this.$config.app.siteName : this.pageMetaSuffixTitle;
+      return [this.pageTitle, pageMetaSuffixTitle].filter((part) => !!part).join(' | ');
     },
 
     pageMeta() {

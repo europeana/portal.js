@@ -80,6 +80,7 @@ export default {
     "creator": "Tvůrce:",
     "date": "Datum:",
     "institution": "Instituce:",
+    "show": "Zobrazit atribuci",
     "title": "Název:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "od",
     "categories": "Kategorie",
     "category": "Kategorie",
-    "posts": "Příspěvky na blogu",
+    "posts": "Blogový příspěvek | Příspěvky na blogu",
     "published": "Publikováno {date}",
     "relatedPosts": "Související příspěvky"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Doprava"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Datový prostor pro kulturní dědictví",
-    "header": {
-      "contributors": "Přispěvatelé",
-      "dataOffer": "Nabídka dat",
-      "stayInTouch": "Zůstaňte v kontaktu"
-    },
-    "logoAlt": "Datový prostor pro domovskou stránku kulturního dědictví"
+    "broughtBy": "Vám přináší"
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
   "entity": {
@@ -286,7 +281,7 @@ export default {
   },
   "exhibitions": {
     "chapters": "Kapitoly",
-    "credits": "Přispěvky",
+    "credits": "Příspěvky",
     "currentChapter": "Aktuální kapitola",
     "description": "Prozkoumat výstavy",
     "exhibitions": "Výstava | Výstavy"
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "tvůrci",
-      "name": "Tvůrce | Tvůrci",
+      "name": "Tvůrce",
       "select": "Vyberte tvůrce"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Vyberte poskytující instituce"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientace obrázku | Orientace obrázků",
+      "name": "Orientace obrázku",
       "options": {
         "landscape": "Krajina",
         "portrait": "Portrét"
@@ -557,7 +552,7 @@ export default {
       "select": "Vyberte orientaci obrázku"
     },
     "IMAGE_SIZE": {
-      "name": "Velikost obrázku | Velikosti obrázků",
+      "name": "Velikost obrázku",
       "options": {
         "extra_large": "Extra velký > 4 Mpx (např. 2688 x 1520 px)",
         "large": "Velký 1–4 Mpx (např. 1920 x 1080 px)",
@@ -626,7 +621,7 @@ export default {
       "select": "Vyberte agregátory"
     },
     "proxy_dc_format": {
-      "name": "Formát | Formáty",
+      "name": "Formát",
       "select": "Vyberte formáty"
     },
     "proxy_dc_type": {
@@ -819,7 +814,7 @@ export default {
         "title": "Služby, které bychom rádi využili."
       },
       "consentNotice": {
-        "description": "Záleží nám na vašem soukromí a údaje používáme pouze ke zlepšení vašeho zážitku. Pro reklamu nepoužíváme žádné osobní údaje. Svůj souhlas můžete změnit každých 15 dní.",
+        "description": "Ahoj! Mohli bychom prosím povolit nějaké další služby pro analýzu a zabezpečení? Svůj souhlas můžete kdykoli změnit nebo odvolat.",
         "learnMore": "Nech mě vybrat"
       },
       "decline": "odmítám",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Průměrně měsíční požadavky API",
+      "hqData": "Nárůst vysoce kvalitních dat za rok",
       "items": "Položky",
+      "networkMembers": "Členové sítě",
       "providingInstitutions": "Poskytující instituce",
       "visits": "Návštěvy za den"
     },
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizovaný překlad",
+    "automatedPageTranslations": "Tato stránka používá automaticky generované překlady z angličtiny.",
     "enrichment": "Obohacení partnerskými projekty",
     "loginToTranslate": "{login} pro zobrazení této položky v jiných jazycích",
     "other": "jiné jazyky",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Název"
-        },
-        "title": "Organizace"
+        "description": "Prozkoumejte instituce, které sdílejí položky digitálního kulturního dědictví na Europeana.eu.",
+        "title": "Instituce"
       },
       "persons": {
         "title": "Osoby"
@@ -961,8 +958,11 @@ export default {
         "title": "Místa"
       },
       "table": {
+        "country": "Země",
         "items": "Položky",
-        "name": "Název"
+        "name": "Název",
+        "searchPlaceholder": "Hledat v tabulce",
+        "showMoreData": "Zobrazit více dat pro {entity}"
       },
       "times": {
         "title": "Století"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "obsahuje",
-        "doesNotContain": "neobsahuje"
+        "doesNotContain": "neobsahuje",
+        "exact": "obsahuje frázi"
       },
       "placeholder": {
         "field": "Vyberte pole",
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} nalezených příběhů",
     "title": "Příběhy"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Skupina snímků {page}"
   },
   "themes": {
     "description": "Procházet podle tématu",

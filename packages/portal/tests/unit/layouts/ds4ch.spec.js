@@ -18,13 +18,19 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
 });
 
 describe('layouts/ds4ch.vue', () => {
-  describe('head', () => {
-    describe('title', () => {
-      it('uses site name', () => {
-        const wrapper = factory();
+  it('renders the ds4ch header', () => {
+    const wrapper = factory();
 
-        expect(wrapper.vm.head().title).toBe('ds4ch.dataSpaceForCulturalHeritage');
-      });
-    });
+    const header = wrapper.find('ds4chpageheader-stub');
+
+    expect(header.isVisible()).toBe(true);
+  });
+
+  it('renders the ds4ch footer', () => {
+    const wrapper = factory();
+
+    const footer = wrapper.find('ds4chpagefooter-stub');
+
+    expect(footer.isVisible()).toBe(true);
   });
 });
