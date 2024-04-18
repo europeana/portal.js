@@ -912,6 +912,7 @@ export default {
     "europeanaNumbers": "Europeana.eu in numbers",
     "counts": {
       "apiRequests": "Monthly API requests, on average",
+      "dataProviders": "Data Providers",
       "hqData": "Increase in high-quality data per year",
       "items": "Items",
       "networkMembers": "Network members",

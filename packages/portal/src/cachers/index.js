@@ -17,6 +17,7 @@ const cacherNames = [
   'collections:topics',
   'collections:topics:featured',
   'dataspace:api-requests',
+  'dataspace:data-providers',
   'dataspace:hq-data',
   'dataspace:network-members',
   'items:recent',
