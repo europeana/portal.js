@@ -75,6 +75,7 @@ export default {
           origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
         }
       },
+      homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       siteName: APP_SITE_NAME,
@@ -296,7 +297,6 @@ export default {
     '~/plugins/error',
     '~/plugins/link',
     '~/plugins/axios.server',
-    '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
@@ -406,13 +406,6 @@ export default {
       'redirects'
     ],
     extendRoutes(routes) {
-      const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
-      routes[nuxtHomeRouteIndex] = {
-        name: 'home',
-        path: '/',
-        component: 'src/pages/home/index.vue'
-      };
-
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
       routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
 
@@ -491,9 +484,9 @@ export default {
   ** Render configuration
    */
   render: {
-    // Disable compression: leave it to a gateway/reverse proxy like NGINX or
-    // Cloudflare.
-    compressor: false,
+    // Compression disabled by default, to leave it to a gateway/reverse proxy
+    // like NGINX or Cloudflare.
+    ...(featureIsEnabled('nuxtRenderCompressor') ? {} : { compressor: false }),
 
     static: {
       maxAge: '1d'

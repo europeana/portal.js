@@ -80,6 +80,7 @@ export default {
     "creator": "Stvorio/la:",
     "date": "Datum:",
     "institution": "Institucija:",
+    "show": "Prikaži atribuciju",
     "title": "Naslov:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "autora",
     "categories": "Kategorije",
     "category": "Kategorija",
-    "posts": "Objave na blogu",
+    "posts": "Post na blogu | Postovi na blogu",
     "published": "Objavljeno {date}",
     "relatedPosts": "Vezane objave"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Desno"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Prostor podataka za kulturnu baštinu",
-    "header": {
-      "contributors": "Doprinositelji",
-      "dataOffer": "Ponuda podataka",
-      "stayInTouch": "Ostanite u kontaktu"
-    },
-    "logoAlt": "Podatkovni prostor za početnu stranicu kulturne baštine"
+    "broughtBy": "Predstavljeno vam od"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
   "entity": {
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "kreatori",
-      "name": "Tvorac | tvorci",
+      "name": "Stvoritelj",
       "select": "Odaberite kreatore"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Odaberite Institucije"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orijentacija slike | Orijentacije slika",
+      "name": "Orijentacija slike",
       "options": {
         "landscape": "Vodoravno",
         "portrait": "Uspravno"
@@ -557,7 +552,7 @@ export default {
       "select": "Odaberite orijentaciju slike"
     },
     "IMAGE_SIZE": {
-      "name": "Veličina slike | Veličine slika",
+      "name": "Veličina slike",
       "options": {
         "extra_large": "Iznimno velika 4MP+ (npr. 2688 x 1520px)",
         "large": "Velika 1-4MP (npr. 1920x1080px)",
@@ -626,7 +621,7 @@ export default {
       "select": "Odaberite agregatori"
     },
     "proxy_dc_format": {
-      "name": "Format | formati",
+      "name": "Format",
       "select": "Odaberite formate"
     },
     "proxy_dc_type": {
@@ -819,7 +814,7 @@ export default {
         "title": "Usluge koje bismo željeli koristiti."
       },
       "consentNotice": {
-        "description": "Stalo nam je do vaše privatnosti i podatke koristimo samo za poboljšanje vašeg iskustva. Ne koristimo nikakve osobne podatke za oglašavanje. Privolu možete promijeniti svakih 15 dana.",
+        "description": "Bok! Možemo li omogućiti neke dodatne usluge za analitiku i sigurnost? Svoj pristanak uvijek možete promijeniti ili povući kasnije.",
         "learnMore": "Pusti me da izaberem"
       },
       "decline": "Odbijam",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Mjesečni API zahtjevi, u prosjeku",
+      "hqData": "Povećanje visokokvalitetnih podataka godišnje",
       "items": "Predmeti",
+      "networkMembers": "Članovi mreže",
       "providingInstitutions": "Institucije",
       "visits": "Posjete po danu"
     },
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizirani prijevod",
+    "automatedPageTranslations": "Ova stranica koristi automatski generirane prijevode s engleskog.",
     "enrichment": "Obogaćivanje partnerskim projektima",
     "loginToTranslate": "{login} za pregled ovog predmeta na drugim jezicima",
     "other": "drugi jezici",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Ime"
-        },
-        "title": "Organizacije"
+        "description": "Istražite institucije koje dijele predmete digitalne kulturne baštine na Europeana.eu.",
+        "title": "Institucije"
       },
       "persons": {
         "title": "Osobe"
@@ -961,8 +958,11 @@ export default {
         "title": "Mjesta"
       },
       "table": {
+        "country": "Država",
         "items": "Predmeti",
-        "name": "Ime"
+        "name": "Ime",
+        "searchPlaceholder": "Pretraživanje unutar tablice",
+        "showMoreData": "Prikaži više podataka za {entity}"
       },
       "times": {
         "title": "Stoljeća"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "sadrži",
-        "doesNotContain": "ne sadrži"
+        "doesNotContain": "ne sadrži",
+        "exact": "sadrži frazu"
       },
       "placeholder": {
         "field": "Odaberite polje",
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "Broj pronađenih priča {0}",
     "title": "Priče"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Grupa slajdova {page}"
   },
   "themes": {
     "description": "Pregledajte po temi",

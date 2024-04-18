@@ -80,6 +80,7 @@ export default {
     "creator": "Autors:",
     "date": "Datums",
     "institution": "Iestāde:",
+    "show": "Rādīt attiecinājumu",
     "title": "Nosaukums:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "autors",
     "categories": "Kategorijas",
     "category": "Kategorija",
-    "posts": "Emuāra ziņas",
+    "posts": "Bloga ieraksts | Bloga ieraksti",
     "published": "Publicēts {date}",
     "relatedPosts": "Saistītās ziņas"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Labais"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kultūras mantojuma datu telpa",
-    "header": {
-      "contributors": "Līdzstrādātāji",
-      "dataOffer": "Datu piedāvājums",
-      "stayInTouch": "Saglabājiet kontaktu"
-    },
-    "logoAlt": "Datu telpa kultūras mantojuma mājas lapai"
+    "broughtBy": "Jums atnesa"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "entity": {
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "radītāji",
-      "name": "Radītājs | Radītāji",
+      "name": "Autors:",
       "select": "Atlasīt radītāji"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Izvēlieties piegādājošās iestādes"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Attēla orientācija | Attēla orientācijas",
+      "name": "Attēla orientācija",
       "options": {
         "landscape": "Ainava",
         "portrait": "Portrets"
@@ -557,7 +552,7 @@ export default {
       "select": "Atlasīt attēlu orientācijas"
     },
     "IMAGE_SIZE": {
-      "name": "Attēla izmērs | Attēlu izmēri",
+      "name": "Attēla izmērs",
       "options": {
         "extra_large": "Īpaši liels 4MP + (piemēram, 2688 x 1520 pikseļi)",
         "large": "Liels 1-4 MP (piemēram, 1920x1080px)",
@@ -567,7 +562,7 @@ export default {
       "select": "Atlasīt attēlu izmērus"
     },
     "LANGUAGE": {
-      "name": "Valoda | Valodas",
+      "name": "Valoda",
       "options": {
         "ar": "Arābu valodā",
         "bg": "Bulgāru",
@@ -626,7 +621,7 @@ export default {
       "select": "Atlasīt agregatori"
     },
     "proxy_dc_format": {
-      "name": "Formāts | Formāti",
+      "name": "Formāts",
       "select": "Atlasīt formātus"
     },
     "proxy_dc_type": {
@@ -819,7 +814,7 @@ export default {
         "title": "Pakalpojumi, kurus mēs vēlētos izmantot."
       },
       "consentNotice": {
-        "description": "Mēs rūpējamies par jūsu privātumu un izmantojam datus tikai jūsu pieredzes uzlabošanai. Mēs reklamēšanai neizmantojam personisku informāciju. Jūs varat mainīt savu piekrišanu ik pēc 15 dienām.",
+        "description": "Sveiki! Vai mēs, lūdzu, varētu iespējot dažus papildu pakalpojumus analīzei un drošībai? Jūs vienmēr varat mainīt vai atsaukt savu piekrišanu vēlāk.",
         "learnMore": "Ļaujiet man izvēlēties"
       },
       "decline": "Es noraidu",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Vidēji ikmēneša API pieprasījumi",
+      "hqData": "Augstas kvalitātes datu pieaugums gadā",
       "items": "Digitālie objekti",
+      "networkMembers": "Tīkla dalībnieki",
       "providingInstitutions": "Piegādājošās iestādes",
       "visits": "Apmeklējumi dienā"
     },
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automātiskā tulkošana",
+    "automatedPageTranslations": "Šī lapa izmanto automātiski ģenerētus tulkojumus no angļu valodas.",
     "enrichment": "Bagātināšana ar partneru projektiem",
     "loginToTranslate": "{login}, lai skatītu šo digitālo objektu citās valodās",
     "other": "citas valodas",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Vārds"
-        },
-        "title": "Organizācijas"
+        "description": "Izpētiet iestādes, kas dalās ar digitālajiem kultūras mantojuma objekti Europeana.eu.",
+        "title": "Lestādes"
       },
       "persons": {
         "title": "Personas"
@@ -961,8 +958,11 @@ export default {
         "title": "Vietas"
       },
       "table": {
+        "country": "Valsts",
         "items": "Digitālie objekti",
-        "name": "Vārds"
+        "name": "Vārds",
+        "searchPlaceholder": "Meklēt tabulā",
+        "showMoreData": "Rādīt vairāk datu par {entity}"
       },
       "times": {
         "title": "Gadsimtiem"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "satur",
-        "doesNotContain": "nesatur"
+        "doesNotContain": "nesatur",
+        "exact": "satur frāzi"
       },
       "placeholder": {
         "field": "Izvēlieties lauku",
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} atrasti stāsti",
     "title": "Stāsti"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Slaidu grupa {page}"
   },
   "themes": {
     "description": "Pārlūkojiet pēc tēmas",

@@ -1,39 +1,77 @@
 <template>
   <footer
     data-qa="footer"
-    class="page-footer xxl-page"
+    class="page-footer"
   >
-    <b-container class="xxl-container">
-      <div class="sub-footer">
-        <EULogo
-          class="eu-logo mb-3"
-        />
-        <p>{{ $t('footer.disclaimerLine1') }}</p>
-
-        <p>{{ $t('footer.disclaimerLine2') }}</p>
-      </div>
-    </b-container>
+    <div class="xxl-page">
+      <b-container class="xxl-container">
+        <h2 class="visually-hidden">
+          {{ $t('footer.footer') }}
+        </h2>
+        <b-row>
+          <b-col
+            class="disclaimer mb-4 mb-lg-0"
+            sm="12"
+            lg="9"
+          >
+            <EULogo
+              class="eu-logo mb-3"
+            />
+            <p>{{ $t('ds4ch.footer.disclaimerLine1') }}</p>
+          </b-col>
+          <b-col
+            sm="12"
+            lg="3"
+          >
+            <LinkGroup
+              :title="footerMoreInfo.name"
+              :links="footerMoreInfo.links"
+            />
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <FeedbackWidget
+      :faq-url="null"
+    />
   </footer>
 </template>
 
 <script>
   import EULogo from '../image/ImageEULogo';
+  import FeedbackWidget from '../feedback/FeedbackWidget';
+  import LinkGroup from '../generic/LinkGroup';
 
   export default {
     name: 'DS4CHPageFooter',
 
     components: {
-      EULogo
+      EULogo,
+      FeedbackWidget,
+      LinkGroup
+    },
+    data() {
+      return {
+        footerMoreInfo: {
+          name: this.$t('footer.navigation.MoreInfoLabel'),
+          links: [
+            { url: 'https://www.europeana.eu/rights', text: this.$t('footer.navigation.terms') },
+            { url: 'https://www.europeana.eu/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
+            { url: 'https://www.europeana.eu/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
+            { url: 'https://www.europeana.eu/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
+          ]
+        }
+      };
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/style';
   @import '@europeana/style/scss/DS4CH/variables';
 
   .page-footer {
     background-color: $black;
+    color: $white;
 
     // styleguide fix
     &::after {
@@ -41,42 +79,63 @@
     }
 
     .container {
-      padding-top: 6rem;
-      padding-bottom: 6.5rem;
+      padding-top: 3.5rem;
+      padding-bottom: 3.5rem;
+
+      @media (max-width: ($bp-medium)) {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
 
       @media (min-width: $bp-large) {
-        padding-bottom: 10rem ;
+        padding-top: 3.5rem;
+        padding-bottom: 6rem ;
       }
 
       @media (min-width: $bp-4k) {
-        padding-bottom: 26rem ;
+        padding-top: 16.5rem;
+        padding-bottom: 16.5rem;
       }
     }
   }
 
-  .sub-footer {
-    max-width: 39rem;
-
-    @media (min-width: $bp-4k) {
-      max-width: 90rem;
-    }
-
+  .disclaimer {
     .eu-logo {
       @media (min-width: $bp-4k) {
         width: 810px;
+        height: auto;
         margin-bottom: 2.625rem !important;
       }
     }
 
     p {
-      color: $white;
       font-size: $font-size-smallest;
+      max-width: 39rem;
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-large;
         margin-bottom: $font-size-large !important;
+        max-width: 90rem;
       }
     }
+  }
+
+  ::v-deep .link-group-light {
+    .link-group-list li a {
+      font-size: $font-size-base;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl;
+      }
+    }
+
+    .group-title {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-xl;
+        margin-bottom: 1rem;
+      }
+    }
+
   }
 </style>
 

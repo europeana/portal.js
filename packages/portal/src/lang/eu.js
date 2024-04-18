@@ -80,6 +80,7 @@ export default {
     "creator": "Sortzailea:",
     "date": "Data:",
     "institution": "Erakundea:",
+    "show": "Erakutsi atribuzioa",
     "title": "Izenburua:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "egilea",
     "categories": "Kategoriak",
     "category": "Kategoria",
-    "posts": "Blogeko argitalpenak",
+    "posts": "Blogeko mezua | Blogeko argitalpenak",
     "published": "Argitaratze data {date}",
     "relatedPosts": "Lotutako argitalpenak"
   },
@@ -212,13 +213,12 @@ export default {
     "right": "Eskuma"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Kultura ondarearen datu espazioa",
+    "broughtBy": "Zuretzat ekarrita",
     "header": {
-      "contributors": "Laguntzaileak",
-      "dataOffer": "Datu eskaintza",
-      "stayInTouch": "Kontaktuan jarraitu"
-    },
-    "logoAlt": "Kultura-ondarearen hasierako orrirako datu-espazioa"
+      "navigation": {
+        "partners": "Bazkideak"
+      }
+    }
   },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
   "entity": {
@@ -544,7 +544,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "sortzaileak",
-      "name": "Sortzailea | Sortzaileak",
+      "name": "Sortzailea",
       "select": "Hautatu agregatzaileak"
     },
     "DATA_PROVIDER": {
@@ -553,7 +553,7 @@ export default {
       "select": "Aukeratu erakunde hornitzaileak"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Irudiaren orientazioa | Irudiaren orientazioak",
+      "name": "Irudiaren orientazioa",
       "options": {
         "landscape": "Paisaia",
         "portrait": "Erretratua"
@@ -561,7 +561,7 @@ export default {
       "select": "Hautatu irudien orientazioak"
     },
     "IMAGE_SIZE": {
-      "name": "Irudiaren tamaina | Irudiaren tamainak",
+      "name": "Trudiaren tamaina",
       "options": {
         "extra_large": "4MP + estra handia (adibidez 2688 x 1520px)",
         "large": "1-4MP handia (adibidez 1920x1080px)",
@@ -571,7 +571,7 @@ export default {
       "select": "Hautatu irudien tamainak"
     },
     "LANGUAGE": {
-      "name": "Hizkuntza | Hizkuntzak",
+      "name": "Hizkuntza",
       "options": {
         "ar": "Arabiera",
         "bg": "Bulgariera",
@@ -630,7 +630,7 @@ export default {
       "select": "Hautatu agregatzaileak"
     },
     "proxy_dc_format": {
-      "name": "Formatua | Formatuak",
+      "name": "Formatua",
       "select": "Hautatu  formatuak"
     },
     "proxy_dc_type": {
@@ -823,7 +823,7 @@ export default {
         "title": "Erabili nahiko genituzkeen zerbitzuak."
       },
       "consentNotice": {
-        "description": "Zure pribatutasuna zaintzen dugu eta datuak soilik erabiltzen ditugu zure esperientzia hobetzeko. Ez dugu informazio pertsonalik erabiltzen publizitaterako. 15 egunez behin baimena alda dezakezu.",
+        "description": "Kaixo! Analitikarako eta segurtasunerako zerbitzu gehigarri batzuk gaitu al genituzke? Beti alda dezakezu zure baimena geroago edo ken dezakezu.",
         "learnMore": "Utzidazu aukeratzen"
       },
       "decline": "Gaitzetsi egiten dut",
@@ -886,7 +886,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Hileroko API eskaerak, batez beste",
+      "hqData": "Urtean kalitate handiko datuen gehikuntza",
       "items": "Elementuak",
+      "networkMembers": "Sareko kideak",
       "providingInstitutions": "Erakunde hornitzailea",
       "visits": "Eguneko bisitak"
     },
@@ -920,6 +923,7 @@ export default {
   },
   "multilingual": {
     "automated": "Itzulpen automatizatua",
+    "automatedPageTranslations": "Orrialde honek ingelesetik automatikoki sortutako itzulpenak erabiltzen ditu.",
     "enrichment": "Bazkide proiektuen aberastea",
     "loginToTranslate": "{login} elementu hau beste hizkuntza batzuetan ikusteko",
     "other": "beste hizkuntza batzuk",
@@ -953,9 +957,7 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Izena"
-        },
+        "description": "Arakatu kultur ondare digitalaren elementuak partekatzen dituzten erakundeak Europeana.eu.",
         "title": "Erakundeak"
       },
       "persons": {
@@ -965,8 +967,11 @@ export default {
         "title": "Lekuak"
       },
       "table": {
+        "country": "Herrialdea",
         "items": "Elementuak",
-        "name": "Izena"
+        "name": "Izena",
+        "searchPlaceholder": "Taula barruan bilatu",
+        "showMoreData": "Erakutsi datu gehiago {entity}rentzat"
       },
       "times": {
         "title": "Mendeak"
@@ -1056,7 +1061,8 @@ export default {
       },
       "modifiers": {
         "contains": "dauka",
-        "doesNotContain": "ez dauka"
+        "doesNotContain": "ez dauka",
+        "exact": "esaldia dauka"
       },
       "placeholder": {
         "field": "Hautatu eremu bat",
@@ -1190,6 +1196,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} istorio aurkitu dira",
     "title": "Istorioak"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Diapositiva taldea {page}"
   },
   "themes": {
     "description": "Arakatu gaiaren arabera",

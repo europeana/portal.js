@@ -31,6 +31,7 @@ const factory = ({ propsData = {} }) => {
           baseUrl
         }
       },
+      $n: (num) => num,
       $t: (key) => key,
       $tc: (key, count) => `${key} ${count}`,
       $features: { storiesViewCounts: true }

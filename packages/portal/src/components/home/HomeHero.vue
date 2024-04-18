@@ -42,6 +42,18 @@
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import EULogo from '@/components/image/ImageEULogo';
 
+  const CSS_VARS_PRESETS = {
+    small: { w: 576, h: 896, fit: 'fill' },
+    medium: { w: 768, h: 1080, fit: 'fill' },
+    large: { w: 992, h: 1080, fit: 'fill' },
+    xl: { w: 1200, h: 1080, fit: 'fill' },
+    xxl: { w: 1400, h: 1080, fit: 'fill' },
+    xxxl: { w: 1880, h: 1080, fit: 'fill' },
+    wqhd: { w: 2520, h: 1440, fit: 'fill' },
+    '4k': { w: 3020, h: 1440, fit: 'fill' },
+    '4k+': { w: 3840, h: 2160, fit: 'fill' }
+  };
+
   export default {
     name: 'HomeHero',
 
@@ -63,16 +75,7 @@
         return this.backgroundImage?.image &&
           this.$contentful.assets.responsiveBackgroundImageCSSVars(
             this.backgroundImage.image,
-            {
-              small: { w: 576, h: 896, fit: 'fill' },
-              medium: { w: 768, h: 1080, fit: 'fill' },
-              large: { w: 992, h: 1080, fit: 'fill' },
-              xl: { w: 1200, h: 1080, fit: 'fill' },
-              xxl: { w: 1440, h: 1080, fit: 'fill' },
-              xxxl: { w: 1920, h: 1080, fit: 'fill' },
-              wqhd: { w: 2560, h: 1440, fit: 'fill' },
-              '4k': { w: 3840, h: 2160, fit: 'fill' }
-            }
+            CSS_VARS_PRESETS
           );
       }
     },
@@ -142,6 +145,7 @@
       position: absolute;
       background-size: cover;
       background-repeat: no-repeat;
+      background-position: center;
       transition: transform 500ms ease-out;
 
       &::before {

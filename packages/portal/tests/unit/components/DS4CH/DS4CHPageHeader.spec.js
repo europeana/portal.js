@@ -20,7 +20,15 @@ describe('components/DS4CH/DS4CHPageHeader', () => {
 
       const logo = wrapper.find('[data-qa="logo"]');
 
-      expect(logo.attributes().src).toBe('DS4CHlogo.svg');
+      expect(logo.attributes().src).toBe('logo.svg');
+    });
+
+    it('contains the top navigation', () => {
+      const wrapper = factory();
+
+      const topNav = wrapper.find('[data-qa="top navigation"]');
+
+      expect(topNav.exists()).toBe(true);
     });
   });
 });

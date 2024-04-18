@@ -80,6 +80,7 @@ export default {
     "creator": "Criador:",
     "date": "Date:",
     "institution": "Instituição:",
+    "show": "Mostrar atribuição",
     "title": "Título:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "por",
     "categories": "Categorias",
     "category": "Categoria",
-    "posts": "Publicações do blogue",
+    "posts": "Publicação de blog | Publicações de blog",
     "published": "Publicado {date}",
     "relatedPosts": "Publicações relacionadas"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Direita"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Espaço de dados para património cultural",
-    "header": {
-      "contributors": "Contribuidores",
-      "dataOffer": "Oferta de dados",
-      "stayInTouch": "Mantenha contacto"
-    },
-    "logoAlt": "Espaço de dados para a página inicial do património cultural"
+    "broughtBy": "Trazido até si por"
   },
   "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
   "entity": {
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "criadores",
-      "name": "Criador | Criadores",
+      "name": "Criador",
       "select": "Selecionar criadores"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Selecione instituições fornecedoras"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientação da imagem | Orientações da imagem",
+      "name": "Orientação da imagem",
       "options": {
         "landscape": "Panorama",
         "portrait": "Retrato"
@@ -557,7 +552,7 @@ export default {
       "select": "Selecionar orientações de imagem"
     },
     "IMAGE_SIZE": {
-      "name": "Tamanho da imagem | Tamanhos de imagem",
+      "name": "Tamanho da imagem",
       "options": {
         "extra_large": "Extra grande 4MP + (por exemplo, 2688 x 1520px)",
         "large": "1-4MP grande (por exemplo, 1920x1080px)",
@@ -567,7 +562,7 @@ export default {
       "select": "Selecionar tamanhos de imagem"
     },
     "LANGUAGE": {
-      "name": "Língua | Línguas",
+      "name": "Língua",
       "options": {
         "ar": "Árabe",
         "bg": "Búlgaro",
@@ -626,7 +621,7 @@ export default {
       "select": "Selecionar agregadores"
     },
     "proxy_dc_format": {
-      "name": "Formato | Formatos",
+      "name": "Formato",
       "select": "Selecionar formatos"
     },
     "proxy_dc_type": {
@@ -819,7 +814,7 @@ export default {
         "title": "Serviços que gostaríamos de usar."
       },
       "consentNotice": {
-        "description": "Preocupamo-nos com a sua privacidade e apenas usamos os dados para melhorar a sua experiência. Não usamos nenhuma informação pessoal para publicidade. Pode alterar o seu consentimento a cada 15 dias.",
+        "description": "Olá! Podemos ativar alguns serviços adicionais para análise e segurança? Pode sempre alterar ou retirar o seu consentimento mais tarde.",
         "learnMore": "Deixe-me escolher"
       },
       "decline": "Eu recuso",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Pedidos de API mensais, em média",
+      "hqData": "Aumento de dados de alta qualidade por ano",
       "items": "Itens",
+      "networkMembers": "Membros da rede",
       "providingInstitutions": "Instituições fornecedoras",
       "visits": "Visitas por dia"
     },
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Tradução automatizada",
+    "automatedPageTranslations": "Esta página usa traduções geradas automaticamente do inglês.",
     "enrichment": "Enriquecimento por projetos de parceiros",
     "loginToTranslate": "{login} para ver este item em outros idiomas",
     "other": "outras línguas",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Nome"
-        },
-        "title": "Organizações"
+        "description": "Explore as instituições que partilham itens do património cultural digital em Europeana.eu.",
+        "title": "Instituições"
       },
       "persons": {
         "title": "Pessoas"
@@ -961,8 +958,11 @@ export default {
         "title": "Lugares"
       },
       "table": {
+        "country": "País",
         "items": "Itens",
-        "name": "Nome"
+        "name": "Nome",
+        "searchPlaceholder": "Pesquisar na tabela",
+        "showMoreData": "Mostrar mais dados para {entity}"
       },
       "times": {
         "title": "Séculos"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "contém",
-        "doesNotContain": "não contém"
+        "doesNotContain": "não contém",
+        "exact": "contém a frase"
       },
       "placeholder": {
         "field": "Selecione um campo",
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} histórias encontradas",
     "title": "Histórias"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Grupo de slides {page}"
   },
   "themes": {
     "description": "Navegar por tema",

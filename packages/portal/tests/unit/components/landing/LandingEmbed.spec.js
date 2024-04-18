@@ -7,24 +7,17 @@ const localVue = createLocalVue();
 const factory = (propsData) => shallowMount(LandingEmbed, {
   localVue,
   propsData,
-  mocks: {
-    $contentful: {
-      assets: {
-        responsiveBackgroundImageCSSVars: (img, sizes) => Object.keys(sizes)
-      }
-    }
-  },
   stubs: ['b-container', 'b-col']
 });
 
 describe('components/landing/LandingEmbed', () => {
   describe('template', () => {
-    it('has a container ID derived from the title', () => {
-      const wrapper = factory({ englishTitle: 'Embed this' });
+    it('displays the title in a heading', () => {
+      const wrapper = factory({ title: 'my embed' });
 
-      const containerId = wrapper.find('.landing-embed').attributes('id');
+      const h2 = wrapper.find('h2');
 
-      expect(containerId).toBe('embed-this');
+      expect(h2.text()).toBe('my embed');
     });
   });
 });

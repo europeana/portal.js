@@ -265,7 +265,7 @@
           error.code = 'searchPaginationLimitExceeded';
           error.message = 'Pagination limit exceeded';
           this.$error(error, {
-            tValues: { description: { limit: this.$options.filters.localise(Number(paginationError[1])) } }
+            tValues: { description: { limit: this.$i18n.n(Number(paginationError[1])) } }
           });
         } else {
           this.$error(error);

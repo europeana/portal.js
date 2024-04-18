@@ -80,6 +80,7 @@ export default {
     "creator": "Autor:",
     "date": "Dátum:",
     "institution": "Inštitúcia:",
+    "show": "Zobraziť atribút",
     "title": "Názov:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "od autora",
     "categories": "Kategórie",
     "category": "Kategória",
-    "posts": "Blogové príspevky",
+    "posts": "Blogový príspevok | Blogové príspevky",
     "published": "Zverejnené {date}",
     "relatedPosts": "Súvisiace príspevky"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Vpravo"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Dátový priestor pre kultúrne dedičstvo",
-    "header": {
-      "contributors": "Prispievatelia",
-      "dataOffer": "Ponuka dát",
-      "stayInTouch": "Zostať v kontakte"
-    },
-    "logoAlt": "Dátový priestor pre domovskú stránku kultúrneho dedičstva"
+    "broughtBy": "Priniesol vám"
   },
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
   "entity": {
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "tvorcovia",
-      "name": "Tvorca | Tvorcovia",
+      "name": "Tvorca",
       "select": "Vyberte tvorcov"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Vyberte správcovské inštitúcie"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientácia obrázka | Orientácie obrázkov",
+      "name": "Orientácia obrazu",
       "options": {
         "landscape": "Na šírku",
         "portrait": "Na výšku"
@@ -557,7 +552,7 @@ export default {
       "select": "Vyberte orientáciu obrázka"
     },
     "IMAGE_SIZE": {
-      "name": "Veľkosť obrázka | Veľkosti obrázkov",
+      "name": "Veľkosť obrazu",
       "options": {
         "extra_large": "Extra veľký, 4 MP + (napr. 2688 x 1520 pixelov)",
         "large": "Veľký,  1 – 4 MP (napr. 1920 x 1080 pixelov)",
@@ -626,7 +621,7 @@ export default {
       "select": "Vyberte agregátori"
     },
     "proxy_dc_format": {
-      "name": "Formát | Formáty",
+      "name": "Formát",
       "select": "Vyberte formáty"
     },
     "proxy_dc_type": {
@@ -819,7 +814,7 @@ export default {
         "title": "Služby, ktoré by sme chceli využiť."
       },
       "consentNotice": {
-        "description": "Záleží nám na vašom súkromí a údaje používame iba na zlepšenie vášho zážitku. Na reklamu nepoužívame žiadne osobné informácie. Svoj súhlas môžete zmeniť každých 15 dní.",
+        "description": "Ahoj! Mohli by sme povoliť nejaké ďalšie služby pre analýzu a bezpečnosť? Svoj súhlas môžete kedykoľvek zmeniť alebo odvolať.",
         "learnMore": "Nechaj ma vybrať si"
       },
       "decline": "zamietam",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Mesačné API požiadavky, v priemere",
+      "hqData": "Nárast kvalitných údajov za rok",
       "items": "Objekty",
+      "networkMembers": "Členovia siete",
       "providingInstitutions": "Správcovské inštitúcie",
       "visits": "Návštevy za deň"
     },
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizovaný preklad",
+    "automatedPageTranslations": "Táto stránka používa automaticky generované preklady z angličtiny.",
     "enrichment": "Obohatenie o partnerské projekty",
     "loginToTranslate": "{login}, aby sa táto objekt zobrazila v iných jazykoch",
     "other": "iné jazyky",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Názov"
-        },
-        "title": "Organizácie"
+        "description": "Preskúmajte inštitúcie, ktoré zdieľajú objekty digitálneho kultúrneho dedičstva na Europeana.eu.",
+        "title": "Inštitúcie"
       },
       "persons": {
         "title": "Osoby"
@@ -961,8 +958,11 @@ export default {
         "title": "Miesta"
       },
       "table": {
+        "country": "Krajina",
         "items": "Objekty",
-        "name": "Meno"
+        "name": "Meno",
+        "searchPlaceholder": "Hľadať v tabuľke",
+        "showMoreData": "Zobraziť ďalšie údaje pre {entity}"
       },
       "times": {
         "title": "Storočia"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "obsahuje",
-        "doesNotContain": "neobsahuje"
+        "doesNotContain": "neobsahuje",
+        "exact": "obsahuje frázu"
       },
       "placeholder": {
         "field": "Vyberte pole",
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} nájdených príbehov",
     "title": "Príbehy"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Skupina snímok {page}"
   },
   "themes": {
     "description": "Prehľadávať podľa kategórie",

@@ -80,6 +80,7 @@ export default {
     "creator": "Cruthaitheoir:",
     "date": "Dáta:",
     "institution": "Institiúid:",
+    "show": "Taispeáin sannadh",
     "title": "Teideal:"
   },
   "automatedCardGroup": {
@@ -99,7 +100,7 @@ export default {
     "by": "le",
     "categories": "Catagóirí",
     "category": "Catagóir",
-    "posts": "Poist bhlag",
+    "posts": "Blag phost | Postálacha blag",
     "published": "Foilsithe {date}",
     "relatedPosts": "Postálacha gaolmhara"
   },
@@ -208,13 +209,7 @@ export default {
     "right": "Ar dheis"
   },
   "ds4ch": {
-    "dataSpaceForCulturalHeritage": "Spás sonraí don oidhreacht chultúrtha",
-    "header": {
-      "contributors": "Rannpháirtithe",
-      "dataOffer": "Tairiscint Sonraí",
-      "stayInTouch": "Fan i dteagmháil"
-    },
-    "logoAlt": "Spás sonraí do leathanach baile oidhreachta cultúir"
+    "broughtBy": "Arna thabhairt duit ag"
   },
   "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
   "entity": {
@@ -540,7 +535,7 @@ export default {
     },
     "CREATOR": {
       "moreName": "cruthaitheoirí",
-      "name": "Cruthaitheoir | Cruthaitheoirí",
+      "name": "Cruthaitheoir",
       "select": "Roghnaigh cruthaitheoirí"
     },
     "DATA_PROVIDER": {
@@ -549,7 +544,7 @@ export default {
       "select": "Roghnaigh institiúidí soláthartha"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Treoshuíomh na híomhá | Treoshuímh na n-íomhánna",
+      "name": "Treoshuíomh íomhá",
       "options": {
         "landscape": "Tírdhreach",
         "portrait": "Portráid"
@@ -557,7 +552,7 @@ export default {
       "select": "Roghnaigh treoshuíomhanna íomhá"
     },
     "IMAGE_SIZE": {
-      "name": "Méid íomhá | Méideanna íomhá",
+      "name": "Méid an íomhá",
       "options": {
         "extra_large": "Rímhór 4MP+ (m.sh. 2688 x 1520px)",
         "large": "Mór 1-4MP (m.sh. 1920x1080px)",
@@ -567,7 +562,7 @@ export default {
       "select": "Roghnaigh méideanna íomhá"
     },
     "LANGUAGE": {
-      "name": "Teanga | Teangacha",
+      "name": "Teanga",
       "options": {
         "ar": "Araibis",
         "bg": "Bulgáiris",
@@ -626,7 +621,7 @@ export default {
       "select": "Roghnaigh comhbhailitheoirí"
     },
     "proxy_dc_format": {
-      "name": "Formáid | Formáidí",
+      "name": "Formáid",
       "select": "Roghnaigh formáidí"
     },
     "proxy_dc_type": {
@@ -815,11 +810,11 @@ export default {
       "acceptAll": "Glac le gach",
       "acceptSelected": "Glac leis roghnaithe",
       "consentModal": {
-        "description": "Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a fheiceáil agus a shaincheapadh. Chun tuilleadh a fhoghlaim léigh ár <a href='/rights/privacy-policy'> polasaí príobháideachais </a> .",
+        "description": "Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a fheiceáil agus a shaincheapadh. Chun tuillidh a fhoghlaim léigh ár <a href='/rights/privacy-policy'> polasaí príobháide achais </a> .",
         "title": "Seirbhísí ba mhaith linn a úsáid."
       },
       "consentNotice": {
-        "description": "Tugaimid aire do do phríobháideacht agus ní úsáidimid ach sonraí chun d'eispéireas a fheabhsú. Ní úsáidimid aon fhaisnéis phearsanta le haghaidh fógraíochta. Is féidir leat do thoiliú a athrú gach 15 lá.",
+        "description": "Haigh! An bhféadfaimis roinnt seirbhísí breise a chumasú le haghaidh anailíse agus slándála? Is féidir leat do thoiliú a athrú nó a tharraingt siar ar ball i gcónaí.",
         "learnMore": "Lig dom a roghnú"
       },
       "decline": "Meath mé",
@@ -882,7 +877,10 @@ export default {
   },
   "landing": {
     "counts": {
+      "apiRequests": "Iarratais API míosúla, ar an meán",
+      "hqData": "Méadú ar shonraí ardchaighdeáin in aghaidh an bliana",
       "items": "Míreanna",
+      "networkMembers": "Baill líonra",
       "providingInstitutions": "Institiúidí soláthartha",
       "visits": "Cuairteanna in aghaidh an lae"
     },
@@ -916,6 +914,7 @@ export default {
   },
   "multilingual": {
     "automated": "Aistriúchán uathoibrithe",
+    "automatedPageTranslations": "Úsáideann an leathanach seo aistriúcháin uathghinte ón mBéarla.",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
     "loginToTranslate": "{login} chun an mhír seo a fheiceáil i dteangacha eile",
     "other": "teangacha eile",
@@ -949,10 +948,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "table": {
-          "name": "Ainm"
-        },
-        "title": "Eagraíochtaí"
+        "description": "Déan iniúchadh ar na hinstitiúidí a roinneann míreanna digiteacha oidhreachta cultúrtha ar Europeana.eu.",
+        "title": "Institiúidí"
       },
       "persons": {
         "title": "Daoine"
@@ -961,8 +958,11 @@ export default {
         "title": "Áiteanna"
       },
       "table": {
+        "country": "Tír",
         "items": "Míreanna",
-        "name": "Ainm"
+        "name": "Ainm",
+        "searchPlaceholder": "Cuardaigh laistigh den tábla",
+        "showMoreData": "Taispeáin tuilleadh sonraí do {entity}"
       },
       "times": {
         "title": "Céadta"
@@ -1052,7 +1052,8 @@ export default {
       },
       "modifiers": {
         "contains": "ina bhfuil",
-        "doesNotContain": "nach bhfuil"
+        "doesNotContain": "nach bhfuil",
+        "exact": "ina bhfuil an frása"
       },
       "placeholder": {
         "field": "Roghnaigh réimse",
@@ -1186,6 +1187,9 @@ export default {
   "storiesPage": {
     "storiesHaveLoaded": "{0} scéalta aimsithe",
     "title": "Scéalta"
+  },
+  "swiper": {
+    "paginationBulletLabel": "Grúpa sleamhnán {page}"
   },
   "themes": {
     "description": "Brabhsáil de réir téama",
