@@ -5,13 +5,13 @@
   >
     <b-container class="landing-sub-section-container">
       <div class="header mx-auto">
-        <h2>
+        <h2 class="mx-auto">
           {{ title }}
         </h2>
         <!-- eslint-disable vue/no-v-html -->
         <div
           v-if="text"
-          class="text mb-3"
+          class="text mx-auto mb-3"
           v-html="parseMarkdownHtml(text)"
         />
         <!-- eslint-enable vue/no-v-html -->
@@ -138,10 +138,6 @@
       padding-bottom: 4rem;
     }
 
-    @media (min-width: $bp-large) {
-      text-align: left;
-    }
-
     @media (min-width: $bp-4k) {
       max-width: 2500px;
       padding-bottom: 8rem;
@@ -256,7 +252,6 @@
     }
 
     .header {
-      text-align: center;
       padding-bottom: 0;
 
       @media(min-width: $bp-medium) {
@@ -274,7 +269,6 @@
         line-height: 1.2;
         margin-left: auto;
         margin-right: auto;
-        text-align: center;
 
         @media(min-width: $bp-medium) {
           font-size: $font-size-xl;
