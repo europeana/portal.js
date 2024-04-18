@@ -107,14 +107,14 @@
     &.bg-color-highlight {
       background-color: $blue;
       color: $white;
-      margin-bottom: 1rem;
+      margin-bottom: 3rem;
 
       @media (min-width: $bp-medium) {
-        margin-bottom: 2rem;
+        margin-bottom: 6rem;
       }
 
       @media (min-width: $bp-4k) {
-        margin-bottom: 4rem;
+        margin-bottom: 15rem;
       }
     }
   }
