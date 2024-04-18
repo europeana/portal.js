@@ -3,6 +3,7 @@ These are the base definitions for font sizes and weights in the portal code. Pe
 1 rem = 16px
 
 For 4k viewports (3020px and up) the general rule is an 150% increase.
+
 ```jsx
 <template>
   <b-table
@@ -108,12 +109,14 @@ For 4k viewports (3020px and up) the general rule is an 150% increase.
         fontStyles: [
           { style: 'Title 1', font: 'Ubuntu', size: '2.875', weight: '700', case: 'none', responsive: [{ breakpoint: 'small', size: '2.125' }, { breakpoint: '4k', size: '4.3125' }],
             usedBy: [{ label: 'Home hero h1', hash: '/#/Components/Home?id=homehero' }, { label: 'Landing hero h1', hash: '/#/Components/Landing?id=landinghero' }] },
-          { style: 'Title 2', font: 'Ubuntu', size: '2.125', weight: '500', case: 'none', responsive: [{ breakpoint: 'small', size: '1.5' }, { breakpoint: '4k', size: '3.1875' }],
+          { style: 'Title 2', font: 'Ubuntu', size: '2.125', weight: '500', case: 'none', responsive: [{ breakpoint: 'small', size: '1.375' }, { breakpoint: '4k', size: '4.75' }],
             usedBy: [{ label: 'Landing page h2', hash: '/#/Components/Landing?id=landingsubsection' }] },
-          { style: 'Title 3', font: 'Ubuntu', size: '1.75', weight: '500', case: 'none', responsive: [{ breakpoint: 'small', size: '1.25' }, { breakpoint: '4k', size: '2.625' }],
+          { style: 'Title 3', font: 'Ubuntu', size: '1.75', weight: '500', case: 'none', responsive: [{ breakpoint: 'small', size: '1' }, { breakpoint: '4k', size: '4' }],
             usedBy: [{ label: 'Landing page h3', hash: '/#/Components/Landing?id=landingsubsection' }] },
           { style: 'Title 4', font: 'Ubuntu', size: '1.5', weight: '500', case: 'none', responsive: [{ breakpoint: 'small', size: '1.25' }, { breakpoint: '4k', size: '2.25' }],
             usedBy: [{ label: 'Entity header title', hash: '/#/Components/Entity?id=entityheader' }] },
+          { style: 'Title 5', font: 'Open Sans', size: '0.875', weight: '600', case: 'uppercase', responsive: [{ breakpoint:  'small', size: '0.875' }, { breakpoint: '4k', size: '2.125' }],
+            usedBy: [{ label: 'Landing automated card group', hash: '/#/Components/Landing?id=landingautomatedcardgroup' }] },
           { style: 'Subtitle 1', font: 'Open Sans', size: '2.375', weight: '400', case: 'none', color: '#4d4d4d', responsive: [{ breakpoint: 'small', size: '2' }, { breakpoint: '4k', size: '3.5625' }],
             usedBy: [{ label: 'Home page h2', hash: '/#/Components/Generic?id=stackedcardsswiper' }] },
           { style: 'Subtitle 2', font: 'Open Sans', size: '1.875', weight: '400', case: 'none',
