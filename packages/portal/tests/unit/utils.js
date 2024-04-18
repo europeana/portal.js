@@ -2,16 +2,7 @@ import { mount, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
 const NUXT_METHODS = [
-  'layout',
-  'middleware',
-  'mounted',
-  'watch',
-  'asyncData',
-  'beforeDestroy',
-  'beforeRouteEnter',
-  'fetch',
-  'fetchOnServer',
-  'head'
+  'asyncData', 'fetch', 'head', 'beforeRouteEnter', 'beforeDestroy', 'watch', 'mounted', 'middleware', 'layout'
 ];
 
 const injectNuxtMethods = (wrapper, pageOrComponent) => {

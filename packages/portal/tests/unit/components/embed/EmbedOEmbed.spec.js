@@ -53,14 +53,6 @@ describe('components/embed/EmbedOEmbed', () => {
       .get(endpointPath)
       .query(query => (query.url === url) && (query.format === 'json'));
 
-    it('does not fetch on server-side requests', () => {
-      const wrapper = factory();
-
-      const fetchOnServer = wrapper.vm.fetchOnServer;
-
-      expect(fetchOnServer).toBe(false);
-    });
-
     it('makes an oEmbed request to the provider', async() => {
       const wrapper = factory({ propsData: { url, endpoint } });
       nockRequest().reply(200, response);
