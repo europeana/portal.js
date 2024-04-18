@@ -26,7 +26,7 @@ services:
       - ENABLE_TRANSLATED_ITEMS=1
       - EUROPEANA_ANNOTATION_API_URL=https://nginx/api/annotation
       - EUROPEANA_ENTITY_API_URL=https://nginx/api/entity
-      - EUROPEANA_FULLTEXT_API_URL=https://nginx/api/newspapers/api/v2
+      - EUROPEANA_FULLTEXT_API_URL=https://nginx/api/fulltext
       - EUROPEANA_RECOMMENDATION_API_URL=https://nginx/api/recommendation
       - EUROPEANA_RECORD_API_URL=https://nginx/api/record
       - EUROPEANA_SET_API_URL=https://nginx/api/set
