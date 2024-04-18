@@ -24,13 +24,22 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
+
   export default {
+    name: 'FeedbackWidget',
+
+    components: {
+      ClientOnly
+    },
+
     props: {
       faqUrl: {
         type: String,
         default: '/faq'
       }
     },
+
     data() {
       return {
         feedbackEnabled: this.$features?.jiraServiceDeskFeedbackForm && !!this.$config?.app?.baseUrl

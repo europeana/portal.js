@@ -60,6 +60,8 @@
       }
     },
 
+    fetchOnServer: false,
+
     computed: {
       responsiveProvider() {
         return RESPONSIVE_PROVIDERS.includes(this.providerName);

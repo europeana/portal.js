@@ -41,17 +41,21 @@
     </b-row>
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <EmbedOEmbed
-          v-if="url && endpoint"
-          :url="url"
-          :endpoint="endpoint"
-        />
+        <client-only>
+          <EmbedOEmbed
+            v-if="url && endpoint"
+            :url="url"
+            :endpoint="endpoint"
+          />
+        </client-only>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
+
   import ContentHeader from '@/components/content/ContentHeader';
   import EmbedOEmbed from '@/components/embed/EmbedOEmbed';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -60,6 +64,7 @@
     name: 'DebugOEmbedPage',
 
     components: {
+      ClientOnly,
       ContentHeader,
       EmbedOEmbed
     },

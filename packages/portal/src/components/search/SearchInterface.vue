@@ -166,6 +166,7 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import merge from 'deepmerge';
   import isEqual from 'lodash/isEqual';
 
@@ -184,6 +185,7 @@
     name: 'SearchInterface',
 
     components: {
+      ClientOnly,
       ErrorMessage: () => import('../error/ErrorMessage'),
       SearchBoostingForm: () => import('./SearchBoostingForm'),
       SearchQueryBuilder: () => import('./SearchQueryBuilder'),

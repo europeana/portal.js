@@ -34,7 +34,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(EmbedOE
     $fetchState: {},
     $t: (key) => key
   },
-  stubs: ['EmbedHTML']
+  stubs: ['EmbedHTML', 'client-only']
 });
 
 describe('components/embed/EmbedOEmbed', () => {
@@ -52,6 +52,14 @@ describe('components/embed/EmbedOEmbed', () => {
     const nockRequest = () => nock(endpointOrigin)
       .get(endpointPath)
       .query(query => (query.url === url) && (query.format === 'json'));
+
+    it('does not fetch on server-side requests', () => {
+      const wrapper = factory();
+
+      const fetchOnServer = wrapper.vm.fetchOnServer;
+
+      expect(fetchOnServer).toBe(false);
+    });
 
     it('makes an oEmbed request to the provider', async() => {
       const wrapper = factory({ propsData: { url, endpoint } });
