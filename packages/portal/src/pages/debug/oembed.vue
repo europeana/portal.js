@@ -1,59 +1,58 @@
 <template>
-  <b-container
-    class="bg-white"
-    data-qa="debug page"
-  >
-    <ContentHeader
-      :title="pageMeta.title"
-    />
-    <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
-        <b-form
-          @submit.stop.prevent="handleSubmitForm"
-        >
-          <b-form-group
-            label="Endpoint"
-            label-for="debug-oembed-endpoint"
+  <div class="page white-page">
+    <b-container data-qa="debug page">
+      <ContentHeader
+        :title="pageMeta.title"
+      />
+      <b-row class="flex-md-row pb-5">
+        <b-col cols="12">
+          <b-form
+            @submit.stop.prevent="handleSubmitForm"
           >
-            <b-form-input
-              id="debug-oembed-endpoint"
-              v-model="formEndpoint"
-              name="endpoint"
-            />
-          </b-form-group>
+            <b-form-group
+              label="Endpoint"
+              label-for="debug-oembed-endpoint"
+            >
+              <b-form-input
+                id="debug-oembed-endpoint"
+                v-model="formEndpoint"
+                name="endpoint"
+              />
+            </b-form-group>
 
-          <b-form-group
-            label="URL"
-            label-for="debug-oembed-url"
-          >
-            <b-form-input
-              id="debug-oembed-url"
-              v-model="formUrl"
-              name="url"
-            />
-          </b-form-group>
+            <b-form-group
+              label="URL"
+              label-for="debug-oembed-url"
+            >
+              <b-form-input
+                id="debug-oembed-url"
+                v-model="formUrl"
+                name="url"
+              />
+            </b-form-group>
 
-          <b-button
-            type="submit"
-            variant="primary"
-          >
-            {{ $t('actions.preview') }}
-          </b-button>
-        </b-form>
-      </b-col>
-    </b-row>
-    <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
-        <client-only>
-          <EmbedOEmbed
-            v-if="url && endpoint"
-            :url="url"
-            :endpoint="endpoint"
-          />
-        </client-only>
-      </b-col>
-    </b-row>
-  </b-container>
+            <b-button
+              type="submit"
+              variant="primary"
+            >
+              {{ $t('actions.preview') }}
+            </b-button>
+          </b-form>
+        </b-col>
+      </b-row>
+      <b-row class="flex-md-row pb-5">
+        <b-col cols="12">
+          <client-only>
+            <EmbedOEmbed
+              v-if="url && endpoint"
+              :url="url"
+              :endpoint="endpoint"
+            />
+          </client-only>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -111,3 +110,11 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .page {
+    padding: 3rem 0 7rem;
+  }
+</style>
