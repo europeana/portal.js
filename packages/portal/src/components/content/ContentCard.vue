@@ -49,7 +49,7 @@
           v-if="displayTitle"
           :lang="displayTitle.code"
         >
-          {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
+          {{ truncate(displayTitle.value, 90) }}
         </span>
       </SmartLink>
       <b-card-body
@@ -77,17 +77,17 @@
               :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
             >
               <span>
-                {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
+                {{ truncate(displayTitle.value, 90) }}
               </span>
             </SmartLink>
           </b-card-title>
           <b-card-text
-            v-if="hitsText"
+            v-if="hitText"
             text-tag="div"
             data-qa="highlighted search term"
           >
             <p>
-              {{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}
+              {{ hitTextPrefix }}<strong class="has-text-highlight">{{ hitText.exact }}</strong>{{ hitTextSuffix }}
             </p>
           </b-card-text>
           <template v-if="displayTexts.length > 0">
@@ -122,7 +122,10 @@
   import ClientOnly from 'vue-client-only';
   import SmartLink from '../generic/SmartLink';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
+  import truncateMixin from '@/mixins/truncate';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+
+  const HIT_TEXT_AFFIX_MAX_WORDS = 15;
 
   export default {
     name: 'ContentCard',
@@ -134,7 +137,8 @@
     },
 
     mixins: [
-      stripMarkdownMixin
+      stripMarkdownMixin,
+      truncateMixin
     ],
 
     props: {
@@ -164,9 +168,9 @@
         default: () => []
       },
       /**
-       * Hits from a search to highlight in the card texts
+       * Hit from a search to highlight in the card texts
        */
-      hitsText: {
+      hitText: {
         type: Object,
         default: null
       },
@@ -307,10 +311,13 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections'
+        displayLabelTypes: 'exhibitions|galleries|blog|collections',
+        // hit prefix & suffix can be overly long for our display purposes;
+        // limit to max num of words each
+        hitTextPrefix: this.hitText?.prefix?.split(/\s/).slice(-HIT_TEXT_AFFIX_MAX_WORDS).join(' '),
+        hitTextSuffix: this.hitText?.suffix?.split(/\s/).slice(0, HIT_TEXT_AFFIX_MAX_WORDS).join(' ')
       };
     },
-
     computed: {
       cardClass() {
         return `${this.variant}-card`;
@@ -414,11 +421,11 @@
       cardText(values) {
         const limited = (this.limitValuesWithinEachText > -1) ? values.slice(0, this.limitValuesWithinEachText) : [].concat(values);
         if (values.length > limited.length) {
-          limited.push(this.$t('formatting.ellipsis'));
+          limited.push('…');
         }
-        const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
+        const joined = limited.join('; ');
         const stripped = this.stripMarkdown(joined);
-        return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));
+        return this.truncate(stripped, 255);
       },
 
       redrawMasonry() {
@@ -478,7 +485,7 @@
       class="mr-3 mb-3"
       title="Title of a list variant content card"
       :image-url="thumbnails[3]"
-      :hitsText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
+      :hitText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
       url="/"
     />
     <ContentCard

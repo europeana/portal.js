@@ -1061,7 +1061,8 @@ export default {
       },
       "modifiers": {
         "contains": "dauka",
-        "doesNotContain": "ez dauka"
+        "doesNotContain": "ez dauka",
+        "exact": "esaldia dauka"
       },
       "placeholder": {
         "field": "Hautatu eremu bat",
