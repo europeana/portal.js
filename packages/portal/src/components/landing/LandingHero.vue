@@ -224,10 +224,10 @@
         provider: null,
         url: null,
         image: {
-          contentType: 'image/jpeg',
+          contentType: 'image/svg+xml',
           description: null,
           height: 2694,
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1trzaYGwJsR79hW38lMpJO/465bdac6bb52df2f574c50dacdc74ef8/slantedimagecover_v1.jpg',
+          url: illustrations.audience,
           width: 4320
         }
       }"

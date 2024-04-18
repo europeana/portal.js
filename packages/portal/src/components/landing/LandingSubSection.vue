@@ -326,47 +326,50 @@
 <docs lang="md">
   ```jsx
     import '@europeana/style/scss/landing.scss';
-    <LandingSubSection
-      title="This is a title for a sub section"
-      text="A __description__ what this section is all about"
-      :sections="[
-        {
-          __typename: 'InfoCardGroup',
-          name: 'This is a title for an info card group',
-          text: 'A __description__ what this section is all about',
-          hasPartCollection: { items:
-            [ {
-              __typename: 'InfoCard',
-              name: 'Info card title',
-              text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
-              }
-            }, {
-              __typename: 'InfoCard',
-              name: 'Info card title',
-              text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
-              }
-            }, {
-              __typename: 'InfoCard',
-              name: 'Info card title',
-              text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
-              }
-            } ]
+    <div class="landing-page xxl-page">
+      <LandingSubSection
+        title="This is a title for a sub section"
+        text="A __description__ what this section is all about"
+        :sections="[
+                    {
+            __typename: 'AutomatedCardGroup',
+            genre: 'Europeana numbers',
+            staticItems:[ { info: '16,000 +', label: 'Visits per day' }, { info: '57,000,000 +', label: 'Items' }, { info: '2,600 +', label: 'Providing institutions' } ]
+          },
+          {
+            __typename: 'InfoCardGroup',
+            name: 'This is a title for an info card group',
+            text: 'A __description__ what this section is all about',
+            hasPartCollection: { items:
+              [ {
+                __typename: 'InfoCard',
+                name: 'Info card title',
+                text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+                image: {
+                  url: illustrations.support,
+                  contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
+                }
+              }, {
+                __typename: 'InfoCard',
+                name: 'Info card title',
+                text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+                image: {
+                  url: illustrations.support,
+                  contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
+                }
+              }, {
+                __typename: 'InfoCard',
+                name: 'Info card title',
+                text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+                image: {
+                  url: illustrations.support,
+                  contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
+                }
+              } ]
+            }
           }
-        },
-        {
-          __typename: 'AutomatedCardGroup',
-          staticItems:[ { info: '16,000 +', label: 'Visits per day' }, { info: '57,000,000 +', label: 'Items' }, { info: '2,600 +', label: 'Providing institutions' } ]
-        }
-      ]"
-    />
+        ]"
+      />
+    </div>
   ```
 </docs>

@@ -177,36 +177,67 @@
 <docs lang="md">
   ```jsx
     import '@europeana/style/scss/landing.scss';
-    <LandingInfoCard
-      :card="{
-        __typename: 'InfoCard',
-        name: 'Title for an info card',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        }
-    }"
-    />
+    <div class="landing-page xxl-page">
+      <LandingInfoCard
+        :card="{
+          __typename: 'InfoCard',
+          name: 'Title for an info card',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image',
+          image: {
+            url: illustrations.support,
+            contentType: 'image/svg+xml', description: '', width: 111, height: 111
+          }
+      }"
+      />
+      <LandingInfoCard
+        :card="{
+          __typename: 'InfoCard',
+          name: 'Title for an info card with a link',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image',
+          image: {
+            url: illustrations.support,
+            contentType: 'image/svg+xml', description: '', width: 111, height: 111
+          },
+          link: {
+            url: '/',
+            text: 'Read more link'
+          }
+      }"
+      />
+    </div>
   ```
-  Column card layout (for when card group contains cards with links)
+  Centered content card layout
   ```jsx
     import '@europeana/style/scss/landing.scss';
-    <LandingInfoCard
-      :card="{
-        __typename: 'InfoCard',
-        name: 'Title for an info card',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        },
-        link: {
-          url: '/',
-          text: 'Read more link'
-        }
-    }"
-    :column-card="true"
-    />
+    <div class="landing-page xxl-page">
+      <LandingInfoCard
+        :card="{
+          __typename: 'InfoCard',
+          name: 'Title for an info card',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image',
+          image: {
+            url: illustrations.support,
+            contentType: 'image/svg+xml', description: '', width: 111, height: 111
+          }
+      }"
+      :centered-content="true"
+      />
+      <LandingInfoCard
+        :card="{
+          __typename: 'InfoCard',
+          name: 'Title for an info card',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image',
+          image: {
+            url: illustrations.support,
+            contentType: 'image/svg+xml', description: '', width: 111, height: 111
+          },
+          link: {
+            url: '/',
+            text: 'Read more link'
+          }
+      }"
+      :centered-content="true"
+      />
+    </div>
   ```
 </docs>

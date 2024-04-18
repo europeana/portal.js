@@ -204,81 +204,76 @@
 <docs lang="md">
   ```jsx
     import '@europeana/style/scss/landing.scss';
-    <LandingInfoCardGroup
-      title="This is a title for an info card group"
-      text="A __description__ what this section is all about"
-      :info-cards="[{
-        __typename: 'InfoCard',
-        name: 'Title for an info card',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        }
-      }, {
-        __typename: 'InfoCard',
-        name: 'Title for an info card',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        }
-      },
-        {
-        __typename: 'InfoCard',
-        name: 'Title for an info card',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        }
-      }]"
-    />
+    <div class="landing-page xxl-page">
+      <LandingInfoCardGroup
+        title="This is a title for an info card group"
+        text="A __description__ what this section is all about"
+        :info-cards="[{
+          __typename: 'InfoCard',
+          name: 'Title for an info card',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+          image: {
+            url: illustrations.support,
+            contentType: 'image/svg+xml', description: '', width: 111, height: 111
+          }
+        }, {
+          __typename: 'InfoCard',
+          name: 'Title for an info card',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+          image: {
+            url: illustrations.support,
+            contentType: 'image/svg+xml', description: '', width: 111, height: 111
+          }
+        }]"
+      />
+    </div>
   ```
-  Card group that contains cards with links
+  Card group in 3 column layout
   ```jsx
     import '@europeana/style/scss/landing.scss';
-    <LandingInfoCardGroup
-      title="This is a title for an info card group"
-      text="A __description__ what this section is all about"
-      :info-cards="[{
-        __typename: 'InfoCard',
-        name: 'Title for an info card',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
+    <div class="landing-page xxl-page">
+      <LandingInfoCardGroup
+        title="This is a title for an info card group"
+        text="A __description__ what this section is all about"
+        :info-cards="[{
+          __typename: 'InfoCard',
+          name: 'Title for an info card',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+          image: {
+            url: illustrations.support,
+            contentType: 'image/svg+xml', description: '', width: 111, height: 111
+          },
+          link: {
+            url: '/',
+            text: 'Read more link'
+          }
+        }, {
+          __typename: 'InfoCard',
+          name: 'Title for an info card',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+          image: {
+            url: illustrations.support,
+            contentType: 'image/svg+xml', description: '', width: 111, height: 111
+          },
+          link: {
+            url: '/',
+            text: 'Read more link'
+          }
         },
-        link: {
-          url: '/',
-          text: 'Read more link'
-        }
-      }, {
-        __typename: 'InfoCard',
-        name: 'Title for an info card',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        },
-        link: {
-          url: '/',
-          text: 'Read more link'
-        }
-      },
-        {
-        __typename: 'InfoCard',
-        name: 'Title for an info card',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-          contentType: 'image/svg+xml', description: '', width: 111, height: 111
-        },
-        link: {
-          url: '/',
-          text: 'Read more link'
-        }
-      }]"
-    />
+          {
+          __typename: 'InfoCard',
+          name: 'Title for an info card',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+          image: {
+            url: illustrations.support,
+            contentType: 'image/svg+xml', description: '', width: 111, height: 111
+          },
+          link: {
+            url: '/',
+            text: 'Read more link'
+          }
+        }]"
+      />
+    </div>
   ```
 </docs>

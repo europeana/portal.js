@@ -367,13 +367,24 @@
 <docs lang="md">
   ```jsx
     import '@europeana/style/scss/landing.scss';
-    <LandingImageCard
-      :card="{
-        __typename: 'ImageCard',
-        name: 'Card title',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: imagesWithAttribution[0]
-      }"
-    />
+    <div class="landing-page xxl-page">
+      <LandingImageCard
+        :card="{
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0]
+        }"
+      />
+      <LandingImageCard
+        :card="{
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0],
+          link: { text: 'read more', url: '/'}
+        }"
+      />
+    </div>
   ```
 </docs>

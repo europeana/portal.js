@@ -3,7 +3,8 @@ export default {
     events: 'https://images.ctfassets.net/i01duvb6kq77/3o9KQ2GWTLnEdPkF1wNyPe/5a7d9a9e8c3d314e530e0c275ef152dd/illustration_events.svg',
     newsletter: 'https://images.ctfassets.net/i01duvb6kq77/1tvbbzdiq0sc0hBjbqlihZ/a60ff9eb7d24df0b0a1e54ae19d3c3d9/il_newsletter.svg',
     curate: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-    audience: 'https://images.ctfassets.net/i01duvb6kq77/B0VJ9of5sryy5n34hS93I/991133dbbc2dd0f48fd215e3aa1c3c75/Audience.svg'
+    audience: 'https://images.ctfassets.net/i01duvb6kq77/B0VJ9of5sryy5n34hS93I/991133dbbc2dd0f48fd215e3aa1c3c75/Audience.svg',
+    support: 'https://images.ctfassets.net/i01duvb6kq77/KIMCBhGmlm90mxG8hldb1/8339d01737e9456cd10715b40f6c1925/feedback.svg'
   },
   imagesWithAttribution: [
     {

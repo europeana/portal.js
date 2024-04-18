@@ -133,25 +133,27 @@
 <docs lang="md">
   ```jsx
     import '@europeana/style/scss/landing.scss';
-    <LandingImageCardGroup
-      title="This is a title for an image card group"
-      text="A __description__ what this section is all about"
-      :image-cards="[{
-        __typename: 'ImageCard',
-        name: 'Card title',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: imagesWithAttribution[0]
-      }, {
-        __typename: 'ImageCard',
-        name: 'Card title',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: imagesWithAttribution[0]
-      }, {
-        __typename: 'ImageCard',
-        name: 'Card title',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: imagesWithAttribution[0]
-      }]"
-    />
+    <div class="landing-page xxl-page">
+      <LandingImageCardGroup
+        title="This is a title for an image card group"
+        text="A __description__ what this section is all about"
+        :image-cards="[{
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0]
+        }, {
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0]
+        }, {
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0]
+        }]"
+      />
+    </div>
   ```
 </docs>
