@@ -1,5 +1,12 @@
 export default [
   {
+    name: 'EUreka3D',
+    endpoint: 'https://eureka3d.vm.fedcloud.eu/oembed',
+    schemes: [
+      'https://eureka3d.vm.fedcloud.eu/3d/*'
+    ]
+  },
+  {
     name: 'Europeana',
     endpoint: 'https://oembed.europeana.eu/',
     schemes: [
