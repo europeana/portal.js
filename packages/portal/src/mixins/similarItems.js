@@ -1,4 +1,4 @@
-import { escapeLuceneSpecials } from '../utils';
+import { escapeLuceneSpecials } from '@/plugins/europeana/utils.js';
 
 // Configuration for constructing similar items queries
 const SIMILAR_ITEMS_FIELDS = {
@@ -40,25 +40,27 @@ const queryTermsFromItemData = (item) => {
   }, {});
 };
 
-/**
- * Construct Record API similar items query
- * @param {string} about Europeana identifier of the current item
- * @param {Object} [item={}] Current item data
- * @return {string} Query to send to the Record API
- */
-const similarItemsQuery = (about, item = {}) => {
-  const queryTerms = queryTermsFromItemData(item);
+export default {
+  methods: {
+    /**
+     * Construct Record API similar items query
+     * @param {string} about Europeana identifier of the current item
+     * @param {Object} [item={}] Current item data
+     * @return {string} Query to send to the Record API
+     */
+    similarItemsQuery(about, item = {}) {
+      const queryTerms = queryTermsFromItemData(item);
 
-  const fieldQueries = fieldQueriesFromQueryTerms(queryTerms);
+      const fieldQueries = fieldQueriesFromQueryTerms(queryTerms);
 
-  let query = null;
-  // No queries, no query
-  if (fieldQueries.length > 0) {
-    // Combine fielded queries, and exclude the current item
-    query = '(' + fieldQueries.join(' OR ') + `) NOT europeana_id:"${about}"`;
+      let query = null;
+      // No queries, no query
+      if (fieldQueries.length > 0) {
+        // Combine fielded queries, and exclude the current item
+        query = '(' + fieldQueries.join(' OR ') + `) NOT europeana_id:"${about}"`;
+      }
+
+      return query;
+    }
   }
-
-  return query;
 };
-
-export default similarItemsQuery;

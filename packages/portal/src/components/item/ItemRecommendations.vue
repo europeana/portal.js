@@ -33,12 +33,12 @@
 </template>
 
 <script>
-  import similarItemsQuery from '@/plugins/europeana/record/similar-items';
   import { addContentTierFilter } from '@/plugins/europeana/search';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import keycloak from '@/mixins/keycloak';
+  import keycloakMixin from '@/mixins/keycloak';
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
+  import similarItemsMixin from '@/mixins/similarItems';
 
   const PORTAL_ALGORITHM = 'Portal similar items query';
   const RECOMMENDATION_ALGORITHM = 'Recommendation API';
@@ -51,7 +51,8 @@
 
     mixins: [
       elasticApmReporterMixin,
-      keycloak
+      keycloakMixin,
+      similarItemsMixin
     ],
 
     props: {
@@ -102,7 +103,7 @@
         this.similarItemsAlgorithm = RECOMMENDATION_ALGORITHM;
       } else {
         response = await this.$apis.record.search({
-          query: similarItemsQuery(this.identifier, this.similarItemsFields),
+          query: this.similarItemsQuery(this.identifier, this.similarItemsFields),
           qf: addContentTierFilter(),
           rows: 4,
           profile: 'minimal',
