@@ -751,10 +751,6 @@ export default {
     "ourMission": "Nuestra misión",
     "ourMissionQuote": "Europeana sostiene el sector del patrimonio cultural en su transformación digital. Desarrollamos competencias, herramientas y estrategias para adoptar el cambio digital y fomentar colaboraciones que promuevan la innovación."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Explora nuestras galerías",
     "galleries": "Galería | Galerías",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Solicitudes API mensuales, en promedio",
+      "dataProviders": "Proveedores de datos",
       "hqData": "Aumento de datos de alta calidad por año",
       "items": "Ítems",
       "networkMembers": "Miembros de la red",

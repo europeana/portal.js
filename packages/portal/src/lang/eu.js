@@ -218,7 +218,8 @@ export default {
       "navigation": {
         "partners": "Bazkideak"
       }
-    }
+    },
+    "homeLinkAlt": "Ondare kulturalaren egoitzarako Europako datu-espazio komuna"
   },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
   "entity": {
@@ -760,10 +761,6 @@ export default {
     "ourMission": "Gure eginkizuna",
     "ourMissionQuote": "Europeanak kultura ondarearen sektorea sendotzen du haren eraldaketa digitalean. Aldaketa digitalarekin bat egiteko esperientzia, tresnak eta politikak garatzen ditugu eta berrikuntza bultzatzen duten lankidetzak sustatzen ditugu."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Gure galeriak arakatu",
     "galleries": "Galeria | Galeriak",
@@ -887,6 +884,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Hileroko API eskaerak, batez beste",
+      "dataProviders": "Datu-hornitzaileak",
       "hqData": "Urtean kalitate handiko datuen gehikuntza",
       "items": "Elementuak",
       "networkMembers": "Sareko kideak",

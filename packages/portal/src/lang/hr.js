@@ -209,7 +209,8 @@ export default {
     "right": "Desno"
   },
   "ds4ch": {
-    "broughtBy": "Predstavljeno vam od"
+    "broughtBy": "Predstavljeno vam od",
+    "homeLinkAlt": "Zajednički europski prostor podataka za kulturnu baštinu"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
   "entity": {
@@ -751,10 +752,6 @@ export default {
     "ourMission": "Naša misija",
     "ourMissionQuote": "Europeana osnažuje sektor kulturne baštine u svojoj digitalnoj transformaciji. Razvijamo stručnost, alate i politike kako bismo prihvatili digitalne promjene i potaknuli partnerstva koja potiču inovacije."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Istražite naše galerije",
     "galleries": "Galerija | Galerije",
@@ -878,6 +875,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Mjesečni API zahtjevi, u prosjeku",
+      "dataProviders": "Davatelji podataka",
       "hqData": "Povećanje visokokvalitetnih podataka godišnje",
       "items": "Predmeti",
       "networkMembers": "Članovi mreže",

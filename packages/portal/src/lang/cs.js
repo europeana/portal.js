@@ -209,7 +209,8 @@ export default {
     "right": "Doprava"
   },
   "ds4ch": {
-    "broughtBy": "Vám přináší"
+    "broughtBy": "Vám přináší",
+    "homeLinkAlt": "Společný evropský datový prostor pro kulturní dědictví"
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
   "entity": {
@@ -751,10 +752,6 @@ export default {
     "ourMission": "Naše mise",
     "ourMissionQuote": "Europeana umožňuje převod předmětů kulturního dědictví do digitální podoby. Rozvíjíme odbornou způsobilost, nástroje a pravidla digitální přeměny a podporujeme partnerství, která urychlují inovace."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Prozkoumat naše galerie",
     "galleries": "Galerie | Galerie",
@@ -878,6 +875,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Průměrně měsíční požadavky API",
+      "dataProviders": "Poskytovatelé dat",
       "hqData": "Nárůst vysoce kvalitních dat za rok",
       "items": "Položky",
       "networkMembers": "Členové sítě",

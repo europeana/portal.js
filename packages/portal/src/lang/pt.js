@@ -751,10 +751,6 @@ export default {
     "ourMission": "A Nossa missão",
     "ourMissionQuote": "A Europeana fortalece o setor do património cultural na sua transformação digital. Desenvolvemos conhecimento, ferramentas e políticas para abraçar a mudança digital e incentivar parcerias que promovam a inovação."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Explorar as nossas galerias",
     "galleries": "Galeria | Galerias",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Pedidos de API mensais, em média",
+      "dataProviders": "Fornecedores de Dados",
       "hqData": "Aumento de dados de alta qualidade por ano",
       "items": "Itens",
       "networkMembers": "Membros da rede",

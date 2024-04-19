@@ -209,7 +209,8 @@ export default {
     "right": "Rechts"
   },
   "ds4ch": {
-    "broughtBy": "Aangeboden door"
+    "broughtBy": "Aangeboden door",
+    "homeLinkAlt": "De gemeenschappelijke Europese dataruimte voor cultureel erfgoed"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
   "entity": {
@@ -751,10 +752,6 @@ export default {
     "ourMission": "Onze missie",
     "ourMissionQuote": "Europeana ondersteunt de sector cultureel erfgoed bij haar digitale transformatie. We ontwikkelen expertise, tools en beleid om digitale verandering te omarmen en partnerschappen aan te moedigen die innovatie stimuleren."
   },
-  "formatting": {
-    "ellipsis": "...",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Ontdek onze galeries",
     "galleries": "Galerij | Galerijen",
@@ -878,6 +875,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Gemiddeld maandelijkse API-verzoeken",
+      "dataProviders": "Dataleveranciers",
       "hqData": "Toename van hoogwaardige data per jaar",
       "items": "Objecten",
       "networkMembers": "Netwerk leden",

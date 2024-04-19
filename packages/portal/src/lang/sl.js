@@ -751,10 +751,6 @@ export default {
     "ourMission": "Naša misija",
     "ourMissionQuote": "Europeana krepi panogo kulturne dediščine pri njeni digitalni preobrazbi. Razvijamo strokovno znanje, orodja in politike za sprejemanje digitalnih sprememb ter spodbujamo partnerstva, ki negujejo inovacije."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Razišči naše zbirke",
     "galleries": "Galerija | Galerije",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Mesečne zahteve API, v povprečju",
+      "dataProviders": "Ponudniki podatkov",
       "hqData": "Povečanje kakovostnih podatkov na leto",
       "items": "Enote",
       "networkMembers": "Člani mreže",

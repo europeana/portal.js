@@ -751,10 +751,6 @@ export default {
     "ourMission": "La nostra missione",
     "ourMissionQuote": "Europeana sostiene il settore dei beni culturali nella sua trasformazione digitale. Sviluppiamo competenze, strumenti e strategie per accogliere i cambiamenti del mondo digitale e incoraggiare collaborazioni che promuovano l'innovazione."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Esplora le gallerie",
     "galleries": "Galleria | Gallerie",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Richieste API mensili, in media",
+      "dataProviders": "Fornitori di dati",
       "hqData": "Aumento di dati di alta qualità ogni anno",
       "items": "Oggetti",
       "networkMembers": "Membri della rete",
