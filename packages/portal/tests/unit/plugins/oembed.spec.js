@@ -23,7 +23,7 @@ describe('oEmbed()', () => {
             .reply(200);
         };
 
-        it('sends GET request to provider oEmbed endpoint', async() => {
+        it(`sends GET request to provider oEmbed endpoint for ${scheme}`, async() => {
           nockRequest(embeddableUrl);
 
           await oEmbed(embeddableUrl);
