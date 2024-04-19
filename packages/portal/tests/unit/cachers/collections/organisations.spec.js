@@ -7,13 +7,14 @@ import nock from 'nock';
 const organisations = [
   { id: 'http://data.europeana.eu/organization/001', type: 'Organization', prefLabel: { en: 'Museum', es: 'Museo' }, country: 'ES' },
   { id: 'http://data.europeana.eu/organization/002', type: 'Organization', prefLabel: { en: 'Gallery' }, country: 'http://data.europeana.eu/place/001' },
-  { id: 'http://data.europeana.eu/organization/002', type: 'Organization', prefLabel: { en: 'Archive' } }
+  { id: 'http://data.europeana.eu/organization/003', type: 'Organization', prefLabel: { en: 'Archive' }, sameAs: ['http://data.europeana.eu/organization/004'] }
 ];
 
 const fields = [
   { label: 'http://data.europeana.eu/organization/001', count: 100 },
   { label: 'http://data.europeana.eu/organization/002', count: 200 },
-  { label: 'http://data.europeana.eu/organization/003', count: 150 }
+  { label: 'http://data.europeana.eu/organization/003', count: 150 },
+  { label: 'http://data.europeana.eu/organization/004', count: 50 }
 ];
 
 const apiFacetResponse = {
@@ -42,7 +43,7 @@ const config = {
   }
 };
 
-const mockFacetRequest = () => {
+const mockFacetRequest = (response = apiFacetResponse) => {
   nock(config.europeana.apis.record.url)
     .get('/search.json')
     .query(query => (
@@ -52,7 +53,7 @@ const mockFacetRequest = () => {
         query['f.foaf_organization.facet.limit'] === '10000' &&
         query.rows === '0'
     ))
-    .reply(200, apiFacetResponse);
+    .reply(200, response);
 };
 
 const mockPlaceRequest = () => {
@@ -87,14 +88,29 @@ describe('@/cachers/collections/organisations', () => {
     expect(cacher.LOCALISE).toEqual('countryPrefLabel');
   });
 
-  describe('when there is no fields on the facets response', () => {
-    it('recordCount falls back to 0', async() => {
-      apiFacetResponse.facets[0].fields = null;
-      mockApiRequests();
-      const organisationData = await cacher.data(config);
+  describe('recordCount', () => {
+    describe('when there are no fields on the facets response', () => {
+      it('falls back to 0', async() => {
+        mockFacetRequest({
+          facets: [{
+            name: 'foaf_organization',
+            fields: null
+          }]
+        });
+        mockPlaceRequest();
+        const organisationData = await cacher.data(config);
 
-      expect(organisationData[0].recordCount).toBe(0);
-      apiFacetResponse.fields = fields;
+        expect(organisationData[0].recordCount).toBe(0);
+      });
+    });
+
+    describe('when the entity has other entity IDs on sameAs', () => {
+      it('combines their counts', async() => {
+        mockApiRequests();
+        const organisationData = await cacher.data(config);
+
+        expect(organisationData[2].recordCount).toBe(200);
+      });
     });
   });
 
