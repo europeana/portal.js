@@ -99,13 +99,11 @@
       }
     },
 
-    computed: {
-      twoColCardsLayout() {
-        return this.infoCards.length % 3 !== 0;
-      },
-      threeColCardsLayout() {
-        return this.infoCards.length % 3 === 0;
-      }
+    data() {
+      return {
+        threeColCardsLayout: this.infoCards.length % 3 === 0,
+        twoColCardsLayout: this.infoCards.length % 3 !== 0
+      };
     }
   };
 </script>

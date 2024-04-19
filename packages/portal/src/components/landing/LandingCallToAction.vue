@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-cta"
-    :class="[variant, {'bg-bodygrey': defaultBackground }]"
+    :class="[variant, { 'bg-bodygrey': defaultBackground }]"
   >
     <div
       v-if="backgroundImage"
