@@ -751,10 +751,6 @@ export default {
     "ourMission": "Vårt uppdrag",
     "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omvandlingen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Utforska våra gallerier",
     "galleries": "Galleri | Gallerier",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Månatliga API-förfrågningar, i genomsnitt",
+      "dataProviders": "Dataleverantörer",
       "hqData": "Ökning av data av hög kvalitet per år",
       "items": "Objekt",
       "networkMembers": "Nätverksmedlemmar",

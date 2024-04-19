@@ -209,7 +209,8 @@ export default {
     "right": "Rechts"
   },
   "ds4ch": {
-    "broughtBy": "Präsentiert von"
+    "broughtBy": "Präsentiert von",
+    "homeLinkAlt": "Der gemeinsame europäische Datenraum für das heimische Kulturerbe"
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
   "entity": {
@@ -751,10 +752,6 @@ export default {
     "ourMission": "Unser Auftrag",
     "ourMissionQuote": "Europeana befähigt den Sektor des kulturellen Erbes bei seiner digitalen Transformation. Wir entwickeln Fachwissen, Tools und Richtlinien, um den digitalen Wandel zu nutzen und Partnerschaften zu fördern, die Innovationen fördern."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Erkunden Sie unsere Galerien",
     "galleries": "Galerie | Galerien",
@@ -878,6 +875,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Monatliche API-Anfragen, im Durchschnitt",
+      "dataProviders": "Datenanbieter",
       "hqData": "Zunahme der hochwertigen Daten pro Jahr",
       "items": "Objekte",
       "networkMembers": "Mitglieder des Netzwerks",

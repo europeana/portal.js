@@ -209,7 +209,8 @@ export default {
     "right": "Droite"
   },
   "ds4ch": {
-    "broughtBy": "Présenté par"
+    "broughtBy": "Présenté par",
+    "homeLinkAlt": "L'espace européen commun de données pour le patrimoine culturel"
   },
   "edmIsShownAtLinkAlt": "Vue sur le site internet du prestataire",
   "entity": {
@@ -751,10 +752,6 @@ export default {
     "ourMission": "Notre mission",
     "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les strategies pour adopter le changement numérique et encourageons les partenariats qui favorisent l'innovation."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Explorez nos galeries",
     "galleries": "Galerie | Galeries",
@@ -878,6 +875,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Requêtes API mensuelles, en moyenne",
+      "dataProviders": "Fournisseurs de données",
       "hqData": "Augmentation des données de haute qualité par an",
       "items": "Items",
       "networkMembers": "Membres du réseau",

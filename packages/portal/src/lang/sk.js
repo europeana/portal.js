@@ -751,10 +751,6 @@ export default {
     "ourMission": "Náš cieľ",
     "ourMissionQuote": "Europeana posilňuje digitálnu transformáciu odvetvia kultúrneho dedičstva. Rozvíjame odborné znalosti, nástroje a zásady na prijímanie digitálnych zmien a nadväzujeme partnerstvá, ktoré sú založené na inovácii."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Preskúmať naše galérie",
     "galleries": "Galéria | Galérie",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Mesačné API požiadavky, v priemere",
+      "dataProviders": "Poskytovatelia údajov",
       "hqData": "Nárast kvalitných údajov za rok",
       "items": "Objekty",
       "networkMembers": "Členovia siete",

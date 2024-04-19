@@ -751,10 +751,6 @@ export default {
     "ourMission": "Nasza misja",
     "ourMissionQuote": "Europeana wspiera sektor dziedzictwa kulturowego w jego transformacji cyfrowej. Rozwijamy wiedzę specjalistyczną, narzędzia i polityki, aby uwzględnić zmiany cyfrowe i zachęcać do partnerstwa wspierającego innowacje."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Przeglądaj nasze galerie",
     "galleries": "Galeria | Galerie",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Średnio miesięczne żądania API",
+      "dataProviders": "Dostawcy danych",
       "hqData": "Wzrost wysokiej jakości danych na rok",
       "items": "Obiekty cyfrowe",
       "networkMembers": "Członkowie sieci",

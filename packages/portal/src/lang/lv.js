@@ -751,10 +751,6 @@ export default {
     "ourMission": "Mūsu misija",
     "ourMissionQuote": "Europeana nodrošina iespējas kultūras mantojuma nozarei tās digitālajā pārveidē. Mēs izstrādājam zināšanas, instrumentus un politikas virzienus, lai atbalstītu digitālās izmaiņas un veicinātu partnerības, kas veicina jauninājumus."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Pārlūkot mūsu galerijas",
     "galleries": "Galerija | Galerijas",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Vidēji ikmēneša API pieprasījumi",
+      "dataProviders": "Datu sniedzēji",
       "hqData": "Augstas kvalitātes datu pieaugums gadā",
       "items": "Digitālie objekti",
       "networkMembers": "Tīkla dalībnieki",

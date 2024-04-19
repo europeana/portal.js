@@ -751,10 +751,6 @@ export default {
     "ourMission": "Il-missjoni tagħna",
     "ourMissionQuote": "Europeana tagħti s-setgħa lis-settur tal-wirt kulturali fit-trasformazzjoni diġitali tiegħu. Aħna niżviluppaw għarfien espert, għodod u politiki biex inħaddnu l-bidla diġitali u ninkoraġġixxu lis-sħubiji li jrawmu l-innovazzjoni."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Esplora d-direttorji tar-ritratti tagħna",
     "galleries": "Gallerija | Galleriji",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Talbiet API ta' kull xahar, bħala medja",
+      "dataProviders": "Fornituri tad-Data",
       "hqData": "Żieda fl-data ta' kwalità għolja kull sena",
       "items": "Oġġetti",
       "networkMembers": "Membri tan-netwerk",

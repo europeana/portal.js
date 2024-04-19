@@ -209,7 +209,8 @@ export default {
     "right": "Oikea"
   },
   "ds4ch": {
-    "broughtBy": "Tuotu sinulle"
+    "broughtBy": "Tuotu sinulle",
+    "homeLinkAlt": "Yhteinen eurooppalainen tietoalue kulttuuriperinnölle"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
   "entity": {
@@ -751,10 +752,6 @@ export default {
     "ourMission": "Tehtävämme",
     "ourMissionQuote": "Europeana edesauttaa kulttuuriperinnön digitaalista muodonmuutosta. Kehitämme asiantuntemusta, välineitä ja menettelytapoja digitaalisen muutoksen omaksumiseksi ja kannustamme innovaatioita edistäviä kumppanuuksia."
   },
-  "formatting": {
-    "ellipsis": "...",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Tutustu gallerioihimme",
     "galleries": "Galleria | Galleriat",
@@ -878,6 +875,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Keskimäärin kuukausittaiset API-pyynnöt",
+      "dataProviders": "Tietojen tarjoajat",
       "hqData": "Korkealaatuisten tietojen lisääntyminen vuodessa",
       "items": "Aineistot",
       "networkMembers": "Verkoston jäsenet",

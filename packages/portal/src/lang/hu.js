@@ -751,10 +751,6 @@ export default {
     "ourMission": "Küldetésünk",
     "ourMissionQuote": "Az Europeana segíti a kulturális örökség ágazatát a digitális átalakulásban. Szakértelmet, eszközöket és irányelveket dolgozunk ki a digitális változások befogadására és az innovációt elősegítő partnerségek ösztönzésére."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Fedezze fel galériáinkat",
     "galleries": "Galéria | Galériák",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Átlagosan havi API kérések",
+      "dataProviders": "Adatszolgáltatók",
       "hqData": "Évente növekvő magas minőségű adatmennyiség",
       "items": "Tárgyak",
       "networkMembers": "Hálózati tagok",

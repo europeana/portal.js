@@ -751,10 +751,6 @@ export default {
     "ourMission": "Misiunea noastră",
     "ourMissionQuote": "Europeana sprijină sectorul patrimoniului cultural în transformarea sa digitală. Dezvoltăm expertiza, uneltele și politicile pentru a adopta schimbările digitale și încurajăm parteneriate care stau la baza inovației."
   },
-  "formatting": {
-    "ellipsis": "...",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Explorează galeriile noastre",
     "galleries": "Galerie | Galeriile",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Solicitări API lunare, în medie",
+      "dataProviders": "Furnizorii de date",
       "hqData": "Creșterea numărului de date de înaltă calitate pe an",
       "items": "Resurse culturale",
       "networkMembers": "Membrii rețelei",

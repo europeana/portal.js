@@ -209,7 +209,8 @@ export default {
     "right": "Parem"
   },
   "ds4ch": {
-    "broughtBy": "Teieni toodud"
+    "broughtBy": "Teieni toodud",
+    "homeLinkAlt": "Ühine Euroopa andmeruum kultuuripärandi jaoks"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "entity": {
@@ -751,10 +752,6 @@ export default {
     "ourMission": "Meie missioon",
     "ourMissionQuote": "Europeana annab kultuuripärandisektorile digitaalse ümberkujundamise võimaluse. Arendame teadmisi, tööriistu ja poliitikaid, et omaks võtta digitaalsed muutused ja julgustada partnerlussuhteid, mis edendavad innovatsiooni."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Uurige meie galeriidega",
     "galleries": "Galerii | Galeriid",
@@ -878,6 +875,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Igakuised API taotlused keskmiselt",
+      "dataProviders": "Andmepakkujad",
       "hqData": "Kõrgekvaliteediliste andmete kasv aastas",
       "items": "Üksused",
       "networkMembers": "Võrgustiku liikmed",

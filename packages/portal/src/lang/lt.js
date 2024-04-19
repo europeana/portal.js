@@ -751,10 +751,6 @@ export default {
     "ourMission": "Mūsų misija",
     "ourMissionQuote": "„Europeana“ suteikia kultūros paveldo sektoriui skaitmeninimo galimybes. Rengiame žinias, įrankius ir politikas, skatinančias skaitmeninius pokyčius bei partnerystes, kurios spartina inovacijas."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Tyrinėti mūsų parodos",
     "galleries": "Paroda | parodos",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Mėnesio API užklausos, vidutiniškai",
+      "dataProviders": "Duomenų teikėjai",
       "hqData": "Aukštos kokybės duomenų padidėjimas per metus",
       "items": "Skaitmeniniai objektai",
       "networkMembers": "Tinklo nariai",

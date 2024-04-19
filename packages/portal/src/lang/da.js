@@ -209,7 +209,8 @@ export default {
     "right": "Højre"
   },
   "ds4ch": {
-    "broughtBy": "Bragt til dig af"
+    "broughtBy": "Bragt til dig af",
+    "homeLinkAlt": "Fælles europæisk data space for kulturarv"
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
   "entity": {
@@ -751,10 +752,6 @@ export default {
     "ourMission": "Vores mission",
     "ourMissionQuote": "Europeana styrker kulturarvsektoren i sin digitale transformation. Vi udvikler ekspertise, værktøjer og politikker til at omfatte digitale forandringer og tilskynde til partnerskaber, der fremmer innovation."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Udforsk vores gallerier",
     "galleries": "Galleri | Gallerier",
@@ -878,6 +875,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Månedlige API-anmodninger i gennemsnit",
+      "dataProviders": "Dataudbydere",
       "hqData": "Forøgelse af data af høj kvalitet om året",
       "items": "Genstande",
       "networkMembers": "Netværksmedlemmer",

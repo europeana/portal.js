@@ -751,10 +751,6 @@ export default {
     "ourMission": "Ár misean",
     "ourMissionQuote": "Tugann Europeana cumhacht don earnáil oidhreachta cultúrtha tabhairt faoin gclaochlú digiteach. Forbraímid saineolas, uirlisí agus beartais chun glacadh leis an athrú digiteach agus spreagaimid comhpháirtíochtaí a chothaíonn an nuálaíocht."
   },
-  "formatting": {
-    "ellipsis": "…",
-    "listSeperator": ";"
-  },
   "galleries": {
     "description": "Déan iniúchadh ar ár ngailearaithe",
     "galleries": "Gailearaí | Gailearaithe",
@@ -878,6 +874,7 @@ export default {
   "landing": {
     "counts": {
       "apiRequests": "Iarratais API míosúla, ar an meán",
+      "dataProviders": "Soláthraithe Sonraí",
       "hqData": "Méadú ar shonraí ardchaighdeáin in aghaidh an bliana",
       "items": "Míreanna",
       "networkMembers": "Baill líonra",
