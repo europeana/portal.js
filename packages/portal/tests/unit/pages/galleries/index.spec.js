@@ -98,7 +98,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     return {
       total: 0,
       galleries: [],
-      perPage: 20
+      perPage: 24
     };
   },
   mocks: {
@@ -171,7 +171,7 @@ describe('Gallery index page', () => {
         {
           query: 'visibility:published',
           qf: 'lang:fr',
-          pageSize: 20,
+          pageSize: 24,
           page: 0,
           profile: 'standard'
         },

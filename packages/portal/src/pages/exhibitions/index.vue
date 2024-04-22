@@ -66,7 +66,7 @@
         };
       },
       socialMediaImage() {
-        return this.exhibitions[0]?.primaryImageOfPage?.image;
+        return this.exhibitions?.[0]?.primaryImageOfPage?.image;
       }
     },
     watchQuery: ['page']

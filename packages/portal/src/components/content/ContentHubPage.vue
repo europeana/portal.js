@@ -31,7 +31,7 @@
           </b-card-group>
         </b-col>
       </b-row>
-      <b-row>
+      <b-row v-if="total > perPage">
         <b-col>
           <PaginationNavInput
             :total-results="total"
