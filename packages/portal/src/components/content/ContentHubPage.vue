@@ -16,16 +16,17 @@
             data-qa="hub page card group"
           >
             <ContentCard
-              v-for="item in items"
-              :key="item.identifier "
-              :title="item.name"
-              :url="{ name: cardUrlName, params: { pathMatch: item.identifier } }"
-              :image-url="imageUrl(item.primaryImageOfPage)"
+              v-for="(item, index) in items"
+              :key="item.identifier || item.slug"
+              :title="item.name || item.title"
+              :url="{ name: cardUrlName, params: { pathMatch: item.identifier || item.slug } }"
+              :image-url="item.thumbnail || imageUrl(item.primaryImageOfPage)"
               :image-content-type="imageContentType(item.primaryImageOfPage)"
               :image-optimisation-options="{ width: 510 }"
               :image-alt="imageAlt(item.primaryImageOfPage)"
               :texts="[item.description]"
               :show-subtitle="false"
+              :offset="index"
             />
           </b-card-group>
         </b-col>

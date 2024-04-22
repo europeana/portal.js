@@ -1,73 +1,18 @@
 <template>
-  <div class="page white-page xxl-page">
-    <b-container>
-      <ContentHeader
-        :title="pageMeta.title"
-        :description="$t('galleries.description')"
-        :media-url="pageMeta.ogImage"
-        button-variant="secondary"
-        class="half-col"
-      />
-      <b-row class="flex-md-row pb-5">
-        <b-col cols="12">
-          <b-container
-            v-if="$fetchState.pending"
-            data-qa="loading spinner container"
-          >
-            <b-row class="flex-md-row py-4 text-center">
-              <b-col cols="12">
-                <LoadingSpinner />
-              </b-col>
-            </b-row>
-          </b-container>
-          <b-container
-            v-else-if="$fetchState.error"
-            data-qa="alert message container"
-          >
-            <b-row class="flex-md-row py-4">
-              <b-col cols="12">
-                <AlertMessage
-                  :error="$fetchState.error.message"
-                />
-              </b-col>
-            </b-row>
-          </b-container>
-          <!-- TODO: Use SetCardGroup and clean up methods -->
-          <b-card-group
-            v-else
-            class="card-deck-4-cols"
-            deck
-            data-qa="gallery foyer"
-          >
-            <ContentCard
-              v-for="(gallery, index) in galleries"
-              :key="gallery.slug"
-              :title="gallery.title"
-              :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
-              :image-url="gallery.thumbnail"
-              :texts="[gallery.description]"
-              :show-subtitle="false"
-              :offset="index"
-            />
-          </b-card-group>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <PaginationNavInput
-            :total-results="total"
-            :per-page="perPage"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
-  </div>
+  <!-- TODO: Use SetCardGroup and clean up methods -->
+  <ContentHubPage
+    data-qa="galleries"
+    :page-meta="pageMeta"
+    :items="galleries"
+    :total="total"
+    :per-page="perPage"
+    card-url-name="exhibitions-exhibition"
+  />
 </template>
 
 <script>
   import { getLabelledSlug } from '@/plugins/europeana/utils';
-  import ContentHeader from '@/components/content/ContentHeader';
-  import ContentCard from '@/components/content/ContentCard';
+  import ContentHubPage from '@/components/content/ContentHubPage.vue';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   const PER_PAGE = 20;
@@ -75,11 +20,7 @@
   export default {
     name: 'GalleriesIndexPage',
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
-      ContentHeader,
-      ContentCard,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      PaginationNavInput: () => import('@/components/generic/PaginationNavInput')
+      ContentHubPage
     },
     mixins: [pageMetaMixin],
     middleware: 'sanitisePageQuery',
@@ -141,19 +82,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  .page {
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    margin-top: -1rem;
-
-    @media (min-width: $bp-4k) {
-      padding-bottom: 1.5rem;
-      padding-top: 1.5rem;
-      margin-top: -1.5rem;
-    }
-  }
-</style>
