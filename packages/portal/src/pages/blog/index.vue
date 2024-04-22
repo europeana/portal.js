@@ -14,7 +14,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import ContentHubPage from '@/components/content/ContentHubPage.vue';
 
-  const PER_PAGE = 20;
+  const PER_PAGE = 24;
 
   export default {
     name: 'BlogIndexPage',

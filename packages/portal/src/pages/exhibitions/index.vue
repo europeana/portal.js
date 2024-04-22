@@ -13,7 +13,7 @@
   import ContentHubPage from '@/components/content/ContentHubPage.vue';
   import pageMetaMixin from '@/mixins/pageMeta';
 
-  const PER_PAGE = 20;
+  const PER_PAGE = 24;
 
   export default {
     name: 'ExhibitionsIndexPage',
