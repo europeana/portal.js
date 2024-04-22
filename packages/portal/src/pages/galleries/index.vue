@@ -1,6 +1,29 @@
 <template>
+  <b-container
+    v-if="$fetchState.pending"
+    data-qa="loading spinner container"
+  >
+    <b-row class="flex-md-row py-4 text-center">
+      <b-col cols="12">
+        <LoadingSpinner />
+      </b-col>
+    </b-row>
+  </b-container>
+  <b-container
+    v-else-if="$fetchState.error"
+    data-qa="alert message container"
+  >
+    <b-row class="flex-md-row py-4">
+      <b-col cols="12">
+        <AlertMessage
+          :error="$fetchState.error.message"
+        />
+      </b-col>
+    </b-row>
+  </b-container>
   <!-- TODO: Use SetCardGroup and clean up methods -->
   <ContentHubPage
+    v-else
     data-qa="galleries"
     :page-meta="pageMeta"
     :items="galleries"
@@ -20,7 +43,9 @@
   export default {
     name: 'GalleriesIndexPage',
     components: {
-      ContentHubPage
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ContentHubPage,
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
     },
     mixins: [pageMetaMixin],
     middleware: 'sanitisePageQuery',
