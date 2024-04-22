@@ -3,7 +3,7 @@ Apply the icon's class to an element to have it prefixed with the icon.
 Example:
 
 ```jsx static
-<span class="icon-heart" />
+<span class="icon-heart-outlined" />
 ```
 
 ### Available icons
@@ -35,9 +35,9 @@ Example:
           <td><span class="icon icon-add" /></td>
         </tr>
         <tr>
-          <td>Add</td>
-          <td><code>icon-ic-add</code></td>
-          <td><span class="icon icon-ic-add" /></td>
+          <td>Add circle</td>
+          <td><code>icon-add-circle</code></td>
+          <td><span class="icon icon-add-circle" /></td>
         </tr>
         <tr>
           <td>Arrow down</td>
@@ -125,6 +125,11 @@ Example:
           <td><span class="icon icon-globe" /></td>
         </tr>
         <tr>
+          <td>Heart outlined</td>
+          <td><code>icon-heart-outlined</code></td>
+          <td><span class="icon icon-heart-outlined" /></td>
+        </tr>
+        <tr>
           <td>Heart</td>
           <td><code>icon-heart</code></td>
           <td><span class="icon icon-heart" /></td>
@@ -205,9 +210,14 @@ Example:
           <td><span class="icon icon-pinterest" /></td>
         </tr>
         <tr>
-          <td>Push pin</td>
-          <td><code>icon-push-pin</code></td>
-          <td><span class="icon icon-push-pin" /></td>
+          <td>Pin outlined</td>
+          <td><code>icon-pin-outlined</code></td>
+          <td><span class="icon icon-pin-outlined" /></td>
+        </tr>
+        <tr>
+          <td>Pin</td>
+          <td><code>icon-pin</code></td>
+          <td><span class="icon icon-pin" /></td>
         </tr>
         <tr>
           <td>Reject</td>

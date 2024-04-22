@@ -31,7 +31,7 @@
         />
         <span
           v-if="pinnedTo(entity.about)"
-          class="icon-push-pin d-inline-flex"
+          class="icon-pin d-inline-flex"
         />
       </span>
     </b-button>
@@ -288,7 +288,7 @@
       z-index: 10;
 
       &.icon-check-circle,
-      &.icon-push-pin {
+      &.icon-pin {
         margin-left: auto;
         font-size: $font-size-large;
       }

@@ -11,7 +11,7 @@
       :title="$t('set.actions.saveItemToLikes')"
       @click="toggleLiked"
     >
-      <span class="icon-heart" />
+      <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
       {{ likeButtonText }}
     </b-button>
     <!-- TODO: remove when 100-item like limit removed -->

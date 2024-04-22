@@ -189,7 +189,7 @@ describe('components/item/ItemPinModal', () => {
 
           const button = wrapper.find('button[data-qa="pin item to entity choice"]');
 
-          expect(button.find('span.icon-push-pin').exists()).toEqual(true);
+          expect(button.find('span.icon-pin').exists()).toEqual(true);
         });
       });
     });
