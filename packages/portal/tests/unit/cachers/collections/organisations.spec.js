@@ -7,7 +7,7 @@ import nock from 'nock';
 const organisations = [
   { id: 'http://data.europeana.eu/organization/001', type: 'Organization', prefLabel: { en: 'Museum', es: 'Museo' }, country: 'ES' },
   { id: 'http://data.europeana.eu/organization/002', type: 'Organization', prefLabel: { en: 'Gallery' }, country: 'http://data.europeana.eu/place/001' },
-  { id: 'http://data.europeana.eu/organization/003', type: 'Organization', prefLabel: { en: 'Archive' }, sameAs: ['http://data.europeana.eu/organization/004'] }
+  { id: 'http://data.europeana.eu/organization/003', type: 'Organization', prefLabel: { en: 'Archive' }, sameAs: ['http://data.europeana.eu/organization/004', 'http://example.org/404'] }
 ];
 
 const fields = [
