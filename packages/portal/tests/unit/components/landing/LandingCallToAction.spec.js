@@ -29,7 +29,7 @@ describe('components/landing/LandingCallToAction', () => {
 
     expect(ctaElement.attributes('text')).toBe('this is the text');
     expect(ctaElement.attributes('link')).toBe('[object Object]');
-    expect(ctaElement.attributes('title')).toBeFalsy();
+    expect(ctaElement.attributes('title')).toBe('This is the title');
   });
 
   describe('when there is no background image', () => {
@@ -56,14 +56,6 @@ describe('components/landing/LandingCallToAction', () => {
       ...testPropsWithBackground,
       variant: 'ds4ch'
     };
-
-    it('passes a title prop', () => {
-      const wrapper = factory(testPropsDs4ch);
-
-      const ctaElement = wrapper.find('contentprimarycalltoaction-stub');
-
-      expect(ctaElement.attributes('title')).toBe('This is the title');
-    });
 
     describe('and the image profile has "highlight" background', () => {
       const propsData = {

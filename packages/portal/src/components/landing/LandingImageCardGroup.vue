@@ -1,6 +1,9 @@
 <template>
   <div class="image-card-group">
-    <div class="header pt-5 pb-4 pb-lg-5">
+    <div
+      class="header"
+      :class="backgroundImageClasses"
+    >
       <b-container>
         <b-col class="header-content col-lg-8 px-0 text-center mx-auto">
           <h2>
@@ -58,12 +61,27 @@
         default: null
       },
       /**
+       * Background image Object
+       */
+      backgroundImage: {
+        type: Object,
+        default: () => {}
+      },
+      /**
        * List of image cards
        */
       imageCards: {
         type: Array,
         default: () => []
       }
+    },
+
+    data() {
+      return {
+        backgroundImageClasses: {
+          'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
+        }
+      };
     }
   };
 </script>
@@ -72,35 +90,31 @@
   @import '@europeana/style/scss/variables';
 
   .image-card-group {
-    border-bottom: 1px solid $bodygrey;
+    border-bottom: 1px solid transparent;
   }
 
   .header {
-    background-color: $blue;
-    color: $white;
-    margin-bottom: 3rem;
+    padding: 3rem 0 2rem;
 
-    @media (min-width: $bp-large) {
-      margin-bottom: 6rem;
+    @media (min-width: $bp-medium) {
+      padding: 6rem 0 5rem;
     }
 
     @media (min-width: $bp-4k) {
-      margin-bottom: 15rem;
+      padding: 15rem 0 14rem;
     }
 
-    h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
+    &.bg-color-highlight {
+      background-color: $blue;
+      color: $white;
+      margin-bottom: 3rem;
 
       @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
+        margin-bottom: 6rem;
       }
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
+        margin-bottom: 15rem;
       }
     }
   }
@@ -109,30 +123,37 @@
     @media (min-width: $bp-xxl) {
       max-width: $max-text-column-width;
     }
+
+    @media (min-width: $bp-4k) {
+      max-width: $max-text-column-width-landing-4k;
+    }
   }
 </style>
 
 <docs lang="md">
   ```jsx
-    <LandingImageCardGroup
-      title="This is a title for an image card group"
-      text="A __description__ what this section is all about"
-      :image-cards="[{
-        __typename: 'ImageCard',
-        name: 'Card title',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: imagesWithAttribution[0]
-      }, {
-        __typename: 'ImageCard',
-        name: 'Card title',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: imagesWithAttribution[0]
-      }, {
-        __typename: 'ImageCard',
-        name: 'Card title',
-        text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        image: imagesWithAttribution[0]
-      }]"
-    />
+    import '@europeana/style/scss/landing.scss';
+    <div class="landing-page xxl-page">
+      <LandingImageCardGroup
+        title="This is a title for an image card group"
+        text="A __description__ what this section is all about"
+        :image-cards="[{
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0]
+        }, {
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0]
+        }, {
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0]
+        }]"
+      />
+    </div>
   ```
 </docs>

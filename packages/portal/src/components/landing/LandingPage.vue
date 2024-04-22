@@ -1,6 +1,6 @@
 <template>
   <div
-    class="page white-page xxl-page"
+    class="page landing-page white-page xxl-page"
     :class="`${variant}-page`"
     data-qa="landing page"
   >
@@ -60,6 +60,7 @@
         :title="section.name"
         :text="section.text"
         :image-cards="section.hasPartCollection && section.hasPartCollection.items"
+        :background-image="section.image"
       />
       <LandingSubSection
         v-else-if="contentfulEntryHasContentType(section, 'LandingSubSection')"
@@ -74,6 +75,7 @@
         :text="section.text"
         :background-image="section.image"
         :embed="section.embed"
+        :link="section.link"
       />
       <LandingCallToAction
         v-else-if="contentfulEntryHasContentType(section, 'PrimaryCallToAction')"
@@ -172,10 +174,10 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/mixins';
-  @import '@europeana/style/scss/transitions';
+  @import '@europeana/style/scss/landing';
 
   .page {
     margin-top: -1rem;
@@ -185,50 +187,25 @@
       margin-top: -1.5rem;
     }
 
-    ::v-deep .container {
-      @media (max-width: $bp-small) {
-        padding-right: 2rem;
-        padding-left: 2rem;
-      }
-    }
-
-    .bg-color-alternate {
-      background-color: $bodygrey;
-    }
-
-    .image-card-container-wrapper {
-      + .image-card-container-wrapper {
-
-        @media (min-width: $bp-large) {
-          margin-top: -2rem;
-        }
-
-        @media (min-width: $bp-4k) {
-          margin-top: -5rem;
-        }
-      }
-
-      .image-card {
-        margin-top: 3rem;
-        margin-bottom: 3rem;
-
-        @media (min-width: $bp-large) {
-          margin-top: 6rem;
-          margin-bottom: 6rem;
-        }
-
-        @media (min-width: $bp-4k) {
-          margin-top: 15rem;
-          margin-bottom: 15rem;
-        }
-      }
-    }
-
     .scroll-margin-top {
       scroll-margin-top: 3.5rem;
 
       @media (min-width: $bp-4k) {
         scroll-margin-top: 5rem;
+      }
+    }
+
+    &.pro-page {
+      div:last-child {
+        .bg-color-alternate,
+        .bg-bodygrey {
+          @include white-cutout;
+
+          &:after {
+            border-top-color: $bodygrey;
+            z-index: 1;
+          }
+        }
       }
     }
   }

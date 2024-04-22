@@ -201,37 +201,6 @@
       max-width: $max-text-column-width;
     }
 
-    h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
-      }
-    }
-
-    h3 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-medium;
-      font-weight: 500;
-
-      @media (min-width: $bp-medium) {
-        font-size: 1.75rem;
-        margin-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.75rem);
-      }
-    }
-
     .text {
       color: $mediumgrey;
     }
@@ -370,14 +339,12 @@
 
     .header {
       @media (min-width: $bp-4k) {
-        max-width: $max-text-column-width-4k !important;
+        max-width: $max-text-column-width-landing-4k !important;
         padding-bottom: 5rem;
       }
     }
 
     h2 {
-      @extend %title-2;
-
       @media (min-width: $bp-4k) {
         margin-bottom: 2rem;
       }

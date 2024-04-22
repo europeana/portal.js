@@ -45,6 +45,9 @@ query LandingPage(
             name
             nameEN: name(locale: "en-GB")
             text
+            image {
+              ...illustrationFields
+            }
             hasPartCollection(limit: 6) {
               items {
                 __typename
@@ -85,6 +88,13 @@ query LandingPage(
             text
             embed {
               embed
+            }
+            link {
+              url
+              text
+            }
+            image {
+              ...illustrationFields
             }
           }
           ... on PrimaryCallToAction {
@@ -136,6 +146,10 @@ fragment infoCardFields on InfoCard {
   text
   image {
     ...imageFields
+  }
+  link {
+    url
+    text
   }
 }
 fragment illustrationGroupFields on IllustrationGroup {

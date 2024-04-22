@@ -10,7 +10,7 @@ const SRCSET_PRESETS = {
   large: { w: 690, h: 460, fit: 'fill' },
   xl: { w: 465, h: 310, fit: 'fill' },
   '4k': { w: 625, h: 417, fit: 'fill' },
-  '4k+': { w: 938, h: 625, fit: 'fill' }
+  '4k+': { w: 1225, h: 700, fit: 'fill' }
 }.toString();
 
 const SIZES_PRESETS = [
@@ -19,7 +19,7 @@ const SIZES_PRESETS = [
   '(max-width: 991px) 690px', // bp-large
   '(max-width: 1199px) 465px', // bp-xl
   '(max-width: 3019px) 625px', // bp-4k
-  '938px'
+  '1225px'
 ].join(',');
 
 const SRCSET_PRESETS_DS4CH = {

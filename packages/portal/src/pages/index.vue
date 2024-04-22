@@ -55,6 +55,7 @@
   import landingPageMixin from '@/mixins/landingPage';
 
   const ds4chLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'ds4ch';
+  const landingLayout = (ctx) => landingPageMixin.methods.landingPageIdForRoute(ctx) === 'apis';
 
   export default {
     name: 'IndexPage',
@@ -71,7 +72,11 @@
     mixins: [landingPageMixin, pageMetaMixin],
 
     layout(ctx) {
-      return ds4chLayout(ctx) ? 'ds4ch' : 'default';
+      if (ds4chLayout(ctx)) {
+        return 'ds4ch';
+      } else {
+        return landingLayout(ctx) ? 'landing' : 'default';
+      }
     },
 
     data() {

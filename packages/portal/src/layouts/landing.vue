@@ -1,5 +1,5 @@
 <template>
-  <div class="ds4ch-layout">
+  <div class="landing-layout">
     <a
       class="skip-main"
       href="#main"
@@ -7,18 +7,17 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <DS4CHPageHeader
+    <LandingPageHeader
       ref="pageHeader"
     />
     <main
-      id="ds4ch"
       role="main"
     >
       <nuxt
         id="main"
       />
     </main>
-    <DS4CHPageFooter />
+    <LandingPageFooter />
     <client-only>
       <PageCookieConsent
         v-if="cookieConsentRequired"
@@ -28,21 +27,18 @@
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
-
-  import DS4CHPageHeader from '@/components/DS4CH/DS4CHPageHeader';
-  import DS4CHPageFooter from '@/components/DS4CH/DS4CHPageFooter';
+  import LandingPageHeader from '@/components/landing/LandingPageHeader';
+  import LandingPageFooter from '@/components/landing/LandingPageFooter';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
 
   export default {
-    name: 'DS4CHLayout',
+    name: 'LandingLayout',
 
     components: {
-      ClientOnly,
-      DS4CHPageHeader,
-      DS4CHPageFooter,
+      LandingPageHeader,
+      LandingPageFooter,
       PageCookieConsent: () => import('@/components/page/PageCookieConsent')
     },
 
@@ -60,12 +56,12 @@
     head() {
       return {
         link: [
-          { rel: 'icon', href: require('@europeana/style/img/DS4CH/favicon.ico').default, type: 'image/x-icon' },
+          { rel: 'icon', href: require('@europeana/style/img/favicon.ico').default, type: 'image/x-icon' },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` }
         ],
         meta: [
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true, locale: true }) }
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl({ fullPath: true }) }
         ],
         script: [
           this.klaroHeadScript
@@ -74,3 +70,15 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  main {
+    margin-top: 70px;
+
+    @media (min-width: $bp-4k) {
+      margin-top: calc(1.5 * 70px);
+    }
+  }
+</style>

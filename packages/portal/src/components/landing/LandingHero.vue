@@ -20,7 +20,7 @@
         </header>
       </div>
       <ImageWithAttribution
-        class="hero-image px-sm-3 mb-5 mb-lg-0 p-lg-0"
+        class="hero-image px-sm-3 mb-4 mb-lg-0 p-lg-0"
         :class="{ 'svg-image': isSVG }"
         :alt="heroImage.image.description || ''"
         :src="heroImage.image.url"
@@ -128,6 +128,7 @@
   .landing-hero {
     background-color: $bodygrey;
     position: relative;
+
     .container {
       @media (min-width: $bp-xxl) {
         max-width: 1250px;
@@ -136,7 +137,7 @@
       }
 
       @media (min-width: $bp-4k) {
-        max-width: calc(1.5 * 1250px);
+        max-width: 2500px;
       }
     }
   }
@@ -144,14 +145,6 @@
   .hero-content-wrapper {
     background-color: $bodygrey;
     padding: 3rem 1rem 1rem;
-
-    @media (min-width: ($bp-medium + 1px)) {
-      width: 65%;
-      position: relative;
-      z-index: 10;
-      padding: 6.25rem 6.25rem 6.25rem 0;
-      clip-path: polygon(0% 0%, 100% 0, 100% calc(100% - 209px), calc(100% - 95px) 100%, 0 100%);
-    }
 
     @media (min-width: $bp-large) {
       width: 50%;
@@ -167,7 +160,7 @@
     max-width: 443px;
 
     @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 443px);
+      max-width: calc(2 * 443px);
     }
 
     ::v-deep h1 {
@@ -182,7 +175,7 @@
       }
 
       @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 2.875rem);
+        font-size: 6rem;
         margin-bottom: calc(1.5 * 0.75rem);
       }
 
@@ -204,6 +197,14 @@
     @media (min-width: $bp-large) {
       width: 50%;
     }
+
+    ::v-deep img {
+      margin-bottom: 2rem;
+
+      @media (min-width: $bp-large) {
+        margin-top: 2rem;
+      }
+    }
   }
 </style>
 
@@ -223,10 +224,10 @@
         provider: null,
         url: null,
         image: {
-          contentType: 'image/jpeg',
+          contentType: 'image/svg+xml',
           description: null,
           height: 2694,
-          url: 'https://images.ctfassets.net/i01duvb6kq77/1trzaYGwJsR79hW38lMpJO/465bdac6bb52df2f574c50dacdc74ef8/slantedimagecover_v1.jpg',
+          url: illustrations.audience,
           width: 4320
         }
       }"

@@ -1,9 +1,14 @@
 <template>
   <div
     class="landing-embed"
+    :class="{
+      'background-applied': backgroundImage,
+      'bg-bodygrey': !backgroundImage
+    }"
   >
     <div
       class="header"
+      :class="backgroundImageClasses"
     >
       <b-container>
         <b-col class="header-content col-lg-8 px-0 text-center mx-auto">
@@ -21,13 +26,21 @@
       </b-container>
     </div>
     <b-container
-      v-if="embed"
-      class="embed-container"
+      class="embed-container text-center"
     >
       <EmbedHTML
+        v-if="embed"
         :title="title"
         :html="embed.embed"
       />
+      <SmartLink
+        v-if="link?.url"
+        :destination="link.url"
+        class="btn btn-cta btn-outline-primary"
+        hide-external-icon
+      >
+        {{ link.text }}
+      </SmartLink>
     </b-container>
   </div>
 </template>
@@ -40,24 +53,56 @@
     name: 'LandingEmbed',
 
     components: {
-      EmbedHTML
+      EmbedHTML,
+      SmartLink: () => import('@/components/generic/SmartLink')
     },
 
     mixins: [parseMarkdownHtmlMixin],
 
     props: {
+      /**
+       * Title
+       */
       title: {
         type: String,
         default: null
       },
+      /**
+       * Text to display under title
+       */
       text: {
         type: String,
         default: null
       },
+      /**
+       * Link Object
+       */
+      link: {
+        type: Object,
+        default: () => {}
+      },
+      /**
+       * Embed Object
+       */
       embed: {
         type: Object,
         default: null
+      },
+      /**
+       * Background image Object
+       */
+      backgroundImage: {
+        type: Object,
+        default: () => {}
       }
+    },
+
+    data() {
+      return {
+        backgroundImageClasses: {
+          'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
+        }
+      };
     }
   };
 </script>
@@ -66,27 +111,47 @@
   @import '@europeana/style/scss/variables';
 
   .landing-embed {
-    margin-bottom: 3rem;
+    background-color: $bodygrey;
+    padding-bottom: 3rem;
 
     @media (min-width: $bp-large) {
-      margin-bottom: 6rem;
+      padding-bottom: 6rem;
     }
 
     @media (min-width: $bp-4k) {
-      margin-bottom: 15rem;
+      padding-bottom: 15rem;
+    }
+
+    &.background-applied {
+      background-color: $white;
+      padding-bottom: 0;
+      margin-bottom: 3rem;
+
+      @media (min-width: $bp-large) {
+        margin-bottom: 6rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        margin-bottom: 15rem;
+      }
     }
   }
 
   .header {
-    color: $white;
-    background-color: $blue;
-    background-size: cover;
-    background-repeat: no-repeat;
     position: relative;
-    padding: 3.5rem 0;
+    padding: 3rem 0 1rem;
 
     @media (min-width: $bp-medium) {
-      padding: 4rem 0 17rem;
+      padding: 6rem 0 17rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      padding-top: 15rem;
+    }
+
+    &.bg-color-highlight {
+      background-color: $blue;
+      color: $white;
     }
 
     .container {
@@ -97,21 +162,9 @@
       @media (min-width: $bp-xxl) {
         max-width: $max-text-column-width;
       }
-    }
-
-    h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
-      }
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
+        max-width: $max-text-column-width-landing-4k;
       }
     }
   }
@@ -125,7 +178,22 @@
     ::v-deep iframe {
       max-width: 920px;
       width: 100%;
-      min-height: 1440px;
+
+      @media (min-width: $bp-4k) {
+        max-width: $max-text-column-width-landing-4k;
+      }
+    }
+
+    .btn {
+      margin-top: 2rem;
+
+      @media (min-width: $bp-large) {
+        margin-top: 4rem;
+      }
+
+      @media (min-width: $bp-4k) {
+        margin-top: 8rem;
+      }
     }
   }
 

@@ -12,6 +12,7 @@
     bottom: 0;
     background-color: $innovationblue;
     clip-path: polygon(0 0, calc(100% - 77px) 0, 100% 170px, 100% 100%, 0 100%);
+    z-index: 2;
 
     @media (min-width: $bp-xxxl) {
       top: 0.75vw;
@@ -28,7 +29,7 @@
     color: $white;
     position: relative;
     clip-path: polygon(0 -100vh, calc(100% - 95px) -100vh, calc(100% - 95px) 0, 100% 209px, 100% 100%, 0 100%);
-    z-index: 2;
+    z-index: 3;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 
@@ -38,14 +39,6 @@
 
     @media (min-width: $bp-xxxl) {
       clip-path: polygon(0 -100vh, calc(100% - calc(95 / 16 * 1vw)) -100vh, calc(100% - calc(95 / 16 * 1vw)) 0, 100% calc(209 / 16 * 1vw), 100% 100%, 0 100%);
-      padding-left: 18vw !important;
-      padding-right: 18vw !important;
-    }
-  }
-
-  .container {
-    @media (min-width: $bp-xxxl) {
-      max-width: none;
     }
   }
 
@@ -175,28 +168,6 @@
           }
         }
       }
-    }
-  }
-
-  .dropdown {
-    .dropdown-toggle {
-      color: $blue;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      font-weight: 400;
-      text-transform: none;
-
-      &::before {
-        content: '\e905';
-        margin-right: 0.5rem;
-
-        @extend %icon-font;
-      }
-    }
-
-    .dropdown-menu {
-      max-height: 50vh;
-      overflow: auto;
     }
   }
 }

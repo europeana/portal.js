@@ -38,7 +38,11 @@
         v-if="card.link"
         :destination="card.link.url"
         data-qa="call to action"
-        class="btn btn-secondary icon-chevron"
+        class="btn"
+        :class="{
+          'btn-secondary icon-chevron': variant === 'ds4ch',
+          'btn-outline-primary': variant !== 'ds4ch'
+        }"
         hide-external-icon
       >
         {{ card.link.text }}
@@ -57,7 +61,7 @@
     large: { w: 690, h: 460, fit: 'fill' },
     xl: { w: 465, h: 310, fit: 'fill' },
     '4k': { w: 625, h: 417, fit: 'fill' },
-    '4k+': { w: 938, h: 625, fit: 'fill' }
+    '4k+': { w: 1225, h: 700, fit: 'fill' }
   };
 
   const SIZES_PRESETS = [
@@ -66,7 +70,7 @@
     '(max-width: 991px) 690px', // bp-large
     '(max-width: 1199px) 465px', // bp-xl
     '(max-width: 3019px) 625px', // bp-4k
-    '938px'
+    '1225px'
   ].join(',');
 
   const SRCSET_PRESETS_DS4CH = {
@@ -155,12 +159,14 @@
     margin-bottom: 3rem;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 
     @media (min-width: $bp-medium) {
-      align-items: flex-end;
+      align-items: center;
     }
 
     @media (min-width: $bp-large) {
+      text-align: left;
       max-width: 1250px;
       margin-bottom: 6rem;
 
@@ -174,12 +180,16 @@
           @media (min-width: $bp-extralarge) {
             padding-left: 6rem;
           }
+
+          @media (min-width: $bp-4k) {
+            padding-right: 6rem;
+          }
         }
       }
     }
 
     @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 1250px);
+      max-width: 2500px;
       margin-bottom: 15rem;
     }
 
@@ -195,9 +205,6 @@
     .text-wrapper {
       @media (min-width: $bp-large) {
         flex: 0 0 51%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
         background-color: $white;
         padding-left: 3.625rem;
         padding-right: 2rem;
@@ -207,12 +214,8 @@
         padding-right: 6rem;
       }
 
-      @media (min-width: $bp-xxl) {
-        padding-bottom: 1rem;
-      }
-
       @media (min-width: $bp-4k) {
-        padding-bottom: 3rem;
+        padding-left: 6rem;
       }
     }
 
@@ -242,12 +245,8 @@
 
     ::v-deep figure {
       margin: 0;
-      width: auto;
+      width: 100%;
       height: auto;
-
-      img {
-        width: auto;
-      }
     }
 
     figure.svg-image {
@@ -260,27 +259,17 @@
       }
     }
 
-    h3.title {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-medium;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-
-      @media (min-width: $bp-medium) {
-        font-size: 1.75rem;
-      }
+    .title {
+      text-align: center;
 
       @media (min-width: $bp-large) {
-        margin-bottom: 1rem;
-      }
-
-      @media (min-width: $bp-4k) {
-        font-size: calc(1.5 * 1.75rem);
+        text-align: left;
       }
     }
 
     .text {
       color: $mediumgrey;
+      text-align: left;
     }
   }
 </style>
@@ -291,10 +280,8 @@
 
   .ds4ch.image-card {
     max-width: 100%;
-    text-align: center;
+
     @media (min-width: $bp-large) {
-      text-align: left;
-      align-items: center;
       padding-right: 0;
     }
 
@@ -315,8 +302,6 @@
 
     .text-wrapper {
       padding-right: 0;
-      display: block;
-      padding-bottom: 0;
 
       @media (min-width: $bp-large) {
         padding-right: 2rem;
@@ -341,25 +326,8 @@
         flex-basis: 1500px;
       }
 
-      .title {
-        text-align: center;
-
-        @media (min-width: $bp-large) {
-          text-align: left;
-        }
-      }
-
-      h2.title {
-        @extend %title-2;
-      }
-
-      h3.title {
-        @extend %title-3;
-      }
-
       .text {
         color: $black;
-        text-align: left;
 
         @media(min-width: $bp-4k) {
           font-size: 2.5rem;
@@ -398,6 +366,8 @@
 
 <docs lang="md">
   ```jsx
+    import '@europeana/style/scss/landing.scss';
+    <div class="landing-page xxl-page">
       <LandingImageCard
         :card="{
           __typename: 'ImageCard',
@@ -406,5 +376,15 @@
           image: imagesWithAttribution[0]
         }"
       />
+      <LandingImageCard
+        :card="{
+          __typename: 'ImageCard',
+          name: 'Card title',
+          text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          image: imagesWithAttribution[0],
+          link: { text: 'read more', url: '/'}
+        }"
+      />
+    </div>
   ```
 </docs>

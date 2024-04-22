@@ -1,4 +1,5 @@
 const LANDING_PAGES = {
+  apis: 'apis',
   ds4ch: 'dataspace-culturalheritage',
   'share-your-data': 'share-your-data'
 };

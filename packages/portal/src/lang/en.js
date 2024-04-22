@@ -910,7 +910,24 @@ export default {
     }
   },
   "landing": {
-    "europeanaNumbers": "Europeana.eu in numbers",
+    "apis": {
+      "footer": {
+        "name": "Resources",
+        "navigation": {
+          "apiDocumentation": "API Documentation",
+          "contactUs": "Contact us",
+          "requestApiKey": "Request an API key"
+        }
+      },
+      "header": {
+        "navigation": {
+          "apiDemo": "API demo",
+          "europeanaApis": "Europeana APIs",
+          "findInspiration": "Find inspiration",
+          "faq": "FAQ"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Monthly API requests, on average",
       "dataProviders": "Data Providers",
@@ -919,7 +936,8 @@ export default {
       "networkMembers": "Network members",
       "providingInstitutions": "Providing institutions",
       "visits": "Visits per day"
-    }
+    },
+    "europeanaNumbers": "Europeana.eu in numbers"
   },
   "layout": {
     "skipToMain": "Skip to page contents"

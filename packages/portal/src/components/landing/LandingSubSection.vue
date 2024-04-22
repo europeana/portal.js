@@ -1,17 +1,17 @@
 <template>
   <div
     class="landing-sub-section"
-    :class="variant"
+    :class="[variant, { 'bg-bodygrey': variant === 'pro' }]"
   >
-    <b-container>
+    <b-container class="landing-sub-section-container">
       <div class="header mx-auto">
-        <h2>
+        <h2 class="mx-auto">
           {{ title }}
         </h2>
         <!-- eslint-disable vue/no-v-html -->
         <div
           v-if="text"
-          class="text mb-3"
+          class="text mx-auto mb-3"
           v-html="parseMarkdownHtml(text)"
         />
         <!-- eslint-enable vue/no-v-html -->
@@ -116,7 +116,7 @@
     background-color: $bodygrey;
   }
 
-  .container {
+  .landing-sub-section-container {
     padding-top: 3rem;
     border-bottom: 1px solid transparent; // fix for when any margin of the last child component causes different bg to display
 
@@ -138,28 +138,16 @@
       padding-bottom: 4rem;
     }
 
-    @media (min-width: $bp-large) {
-      text-align: left;
-    }
-
     @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 1250px);
+      max-width: 2500px;
+      padding-bottom: 8rem;
     }
 
     h2 {
-      font-family: $font-family-ubuntu;
-      font-size: $font-size-large;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
       max-width: $max-text-column-width;
 
-      @media (min-width: $bp-medium) {
-        font-size: $font-size-xl;
-        margin-bottom: 1rem;
-      }
-
       @media (min-width: $bp-4k) {
-        font-size: $font-size-xl-4k;
+        max-width: $max-text-column-width-landing-4k;
       }
     }
   }
@@ -167,6 +155,10 @@
   .text {
     color: $mediumgrey;
     max-width: $max-text-column-width;
+
+    @media (min-width: $bp-4k) {
+      max-width: $max-text-column-width-landing-4k;
+    }
   }
 
   ::v-deep .landing-content-card-group .container {
@@ -185,7 +177,7 @@
       }
 
       @media (min-width: $bp-4k) {
-        margin-bottom: 3rem;
+        margin-bottom: 15rem;
       }
     }
 
@@ -260,7 +252,6 @@
     }
 
     .header {
-      text-align: center;
       padding-bottom: 0;
 
       @media(min-width: $bp-medium) {
@@ -278,14 +269,13 @@
         line-height: 1.2;
         margin-left: auto;
         margin-right: auto;
-        text-align: center;
 
         @media(min-width: $bp-medium) {
           font-size: $font-size-xl;
         }
         @media(min-width: $bp-4k) {
           font-size: 5.625rem;
-          max-width: $max-text-column-width-4k;
+          max-width: $max-text-column-width-landing-4k;
         }
       }
 
@@ -297,7 +287,7 @@
 
         @media (min-width: $bp-4k) {
           font-size: 2.5rem;
-          max-width: $max-text-column-width-4k;
+          max-width: $max-text-column-width-landing-4k;
         }
       }
     }
@@ -335,47 +325,51 @@
 
 <docs lang="md">
   ```jsx
-    <LandingSubSection
-      title="This is a title for a sub section"
-      text="A __description__ what this section is all about"
-      :sections="[
-        {
-          __typename: 'InfoCardGroup',
-          name: 'This is a title for an info card group',
-          text: 'A __description__ what this section is all about',
-          hasPartCollection: { items:
-            [ {
-              __typename: 'InfoCard',
-              name: 'Info card title',
-              text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
-              }
-            }, {
-              __typename: 'InfoCard',
-              name: 'Info card title',
-              text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
-              }
-            }, {
-              __typename: 'InfoCard',
-              name: 'Info card title',
-              text: 'This text contains info. It can be __marked__ and accompanied by an image. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              image: {
-                url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
-                contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
-              }
-            } ]
+    import '@europeana/style/scss/landing.scss';
+    <div class="landing-page xxl-page">
+      <LandingSubSection
+        title="This is a title for a sub section"
+        text="A __description__ what this section is all about"
+        :sections="[
+                    {
+            __typename: 'AutomatedCardGroup',
+            genre: 'Europeana numbers',
+            staticItems:[ { info: '16,000 +', label: 'Visits per day' }, { info: '57,000,000 +', label: 'Items' }, { info: '2,600 +', label: 'Providing institutions' } ]
+          },
+          {
+            __typename: 'InfoCardGroup',
+            name: 'This is a title for an info card group',
+            text: 'A __description__ what this section is all about',
+            hasPartCollection: { items:
+              [ {
+                __typename: 'InfoCard',
+                name: 'Info card title',
+                text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+                image: {
+                  url: illustrations.support,
+                  contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
+                }
+              }, {
+                __typename: 'InfoCard',
+                name: 'Info card title',
+                text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+                image: {
+                  url: illustrations.support,
+                  contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
+                }
+              }, {
+                __typename: 'InfoCard',
+                name: 'Info card title',
+                text: 'This text contains info. It can be __marked__ and accompanied by an image.',
+                image: {
+                  url: illustrations.support,
+                  contentfulEntryHasContentType: 'image/svg+xml', description: '', width: 111, height: 111
+                }
+              } ]
+            }
           }
-        },
-        {
-          __typename: 'AutomatedCardGroup',
-          staticItems:[ { info: '16,000 +', label: 'Visits per day' }, { info: '57,000,000 +', label: 'Items' }, { info: '2,600 +', label: 'Providing institutions' } ]
-        }
-      ]"
-    />
+        ]"
+      />
+    </div>
   ```
 </docs>

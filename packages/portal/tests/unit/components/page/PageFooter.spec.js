@@ -24,7 +24,7 @@ const factory = ({ mocks = {} } = {}) => shallowMount(PageFooter, {
   }
 });
 
-describe('components/PageFooter', () => {
+describe('components/page/PageFooter', () => {
   it('contains the language selector', async() => {
     const wrapper = factory();
     await wrapper.setProps({
@@ -37,7 +37,7 @@ describe('components/PageFooter', () => {
 
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
-    const links = wrapper.vm.footerMoreInfo.links;
+    const links = wrapper.vm.moreInfo.links;
 
     expect(links.some(link => link.text === 'footer.navigation.about')).toBe(true);
   });
