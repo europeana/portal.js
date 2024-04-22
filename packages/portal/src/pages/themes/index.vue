@@ -1,57 +1,32 @@
 <template>
-  <div class="page white-page xxl-page">
-    <b-container
-      data-qa="themes"
-    >
-      <ContentHeader
-        :title="pageMeta.title"
-        :description="$t('themes.description')"
-        :media-url="pageMeta.ogImage"
-        button-variant="secondary"
-        class="half-col"
-      />
-      <b-row class="flex-md-row pb-5">
-        <b-col cols="12">
-          <b-card-group
-            class="card-deck-4-cols"
-            deck
-            data-qa="theme section"
-          >
-            <ContentCard
-              v-for="theme in themes"
-              :key="theme.identifier"
-              :title="theme.name"
-              :url="{ name: 'themes-all', params: { pathMatch: theme.identifier } }"
-              :image-url="imageUrl(theme.primaryImageOfPage)"
-              :image-content-type="imageContentType(theme.primaryImageOfPage)"
-              :image-optimisation-options="{ width: 510 }"
-              :image-alt="imageAlt(theme.primaryImageOfPage)"
-              :texts="[theme.description]"
-              :show-subtitle="false"
-            />
-          </b-card-group>
-        </b-col>
-      </b-row>
-    </b-container>
-  </div>
+  <ContentHubPage
+    data-qa="themes"
+    :page-meta="pageMeta"
+    :items="themes"
+    :total="total"
+    :per-page="perPage"
+    card-url-name="themes-all"
+  />
 </template>
 
 <script>
-  import ContentHeader from '@/components/content/ContentHeader';
-  import ContentCard from '@/components/content/ContentCard';
+  import ContentHubPage from '@/components/content/ContentHubPage.vue';
   import pageMetaMixin from '@/mixins/pageMeta';
+
+  const PER_PAGE = 20;
 
   export default {
     name: 'ThemesIndexPage',
     components: {
-      ContentHeader,
-      ContentCard
+      ContentHubPage
     },
     mixins: [pageMetaMixin],
 
     data() {
       return {
-        themes: []
+        themes: [],
+        total: 0,
+        perPage: PER_PAGE
       };
     },
 
@@ -62,6 +37,7 @@
       };
       const response = await this.$contentful.query('themes', variables);
       this.themes = response.data.data.themePageCollection.items;
+      this.total = response.data.data.themePageCollection.total;
     },
 
     computed: {
@@ -76,33 +52,6 @@
       socialMediaImage() {
         return this.themes[0]?.primaryImageOfPage?.image;
       }
-    },
-    methods: {
-      imageUrl(image) {
-        return image?.image?.url;
-      },
-      imageContentType(image) {
-        return image?.image?.contentType;
-      },
-      imageAlt(image) {
-        return image?.image?.description || '';
-      }
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-
-  .page {
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    margin-top: -1rem;
-
-    @media (min-width: $bp-4k) {
-      padding-bottom: 1.5rem;
-      padding-top: 1.5rem;
-      margin-top: -1.5rem;
-    }
-  }
-</style>

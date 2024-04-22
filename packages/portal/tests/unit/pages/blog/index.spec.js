@@ -41,12 +41,13 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('Blog post index page', () => {
-  describe('pagination', () => {
-    it('has a pagination nav', () => {
+  describe('head()', () => {
+    it('uses translated title', () => {
       const wrapper = factory();
 
-      const pagination = wrapper.find('paginationnavinput-stub');
-      expect(pagination.exists()).toBe(true);
+      const headMeta = wrapper.vm.pageMeta;
+
+      expect(headMeta.title).toBe('blog.blog');
     });
   });
 });
