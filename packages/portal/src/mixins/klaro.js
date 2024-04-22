@@ -90,7 +90,6 @@ export default {
         service('matomo', ['usage'], [/^_pk_/, 'mtm_cookie_consent']),
         // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
         service('hotjar', ['usage'], [/^_hj/]),
-        service('abTest', ['usage'], [/^eu-ab-/]),
         service('i18n', ['essential'], ['i18n_locale_code'], true),
         service('searchResultsView', ['essential'], ['searchResultsView'], true),
         service('debugSettings', ['essential'], ['debugSettings'], true),
