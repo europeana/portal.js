@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import * as plugin from '@/plugins/authScheme';
+import * as plugin from '@/auth/schemes/authScheme';
 
 let defaultExportPrototype;
 const defaultExportPrototypeStub = sinon.stub().callsFake();

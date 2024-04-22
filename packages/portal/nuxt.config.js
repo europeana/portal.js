@@ -371,7 +371,7 @@ export default {
         _scheme: 'oauth2'
       },
       keycloak: {
-        _scheme: '~/plugins/authScheme'
+        _scheme: '~/auth/schemes/authScheme'
       }
     },
     defaultStrategy: 'keycloak',
