@@ -297,7 +297,6 @@ export default {
     '~/plugins/error',
     '~/plugins/link',
     '~/plugins/axios.server',
-    '~/plugins/vue-directives',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
@@ -472,7 +471,7 @@ export default {
     publicPath: buildPublicPath(),
 
     // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
-    transpile: ['dom7', 'ssr-window', 'swiper']
+    transpile: ['dom7', '@europeana/v-visible-on-scroll', 'ssr-window', 'swiper']
   },
 
   /*

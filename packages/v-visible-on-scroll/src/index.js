@@ -1,6 +1,4 @@
-import Vue from 'vue';
-
-Vue.directive('visible-on-scroll', {
+export default {
   inserted: (el, binding, vnode) => {
     const routeHWithHash = vnode.context.$route.hash;
     el.scrolledVisible = !routeHWithHash;
@@ -10,7 +8,7 @@ Vue.directive('visible-on-scroll', {
       window.addEventListener('hashchange', () => el.scrolledVisible = false);
     }
   }
-});
+};
 
 const handleScroll = (el) => {
   const newPosition = window.scrollY;
