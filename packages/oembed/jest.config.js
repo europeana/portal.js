@@ -1,5 +1,5 @@
 export default {
-  displayName: '@europeana/vue-session',
+  displayName: '@europeana/oembed',
   moduleFileExtensions: [
     'js',
     'json',
@@ -14,8 +14,5 @@ export default {
   ],
   transform: {
     '^.+\\.(js|mjs)$': 'babel-jest'
-  },
-  transformIgnorePatterns: [
-    '/node_modules/(?!uuid)'
-  ]
+  }
 };
