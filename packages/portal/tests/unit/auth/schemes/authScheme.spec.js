@@ -1,18 +1,18 @@
 import sinon from 'sinon';
-import * as plugin from '@/auth/schemes/authScheme';
+import * as scheme from '@/auth/schemes/authScheme';
 
 let defaultExportPrototype;
 const defaultExportPrototypeStub = sinon.stub().callsFake();
 
-describe('plugins/authScheme', () => {
+describe('auth/schemes/authScheme', () => {
   describe('default', () => {
     beforeAll(() => {
-      defaultExportPrototype = Object.getPrototypeOf(plugin.default);
-      Object.setPrototypeOf(plugin.default, defaultExportPrototypeStub);
+      defaultExportPrototype = Object.getPrototypeOf(scheme.default);
+      Object.setPrototypeOf(scheme.default, defaultExportPrototypeStub);
     });
 
     afterAll(() => {
-      Object.setPrototypeOf(plugin.default, defaultExportPrototype);
+      Object.setPrototypeOf(scheme.default, defaultExportPrototype);
     });
 
     describe('constructor', () => {
@@ -49,13 +49,13 @@ describe('plugins/authScheme', () => {
           'end_session_endpoint': `${origin}/auth/realms/${realm}/protocol/openid-connect/logout`
         };
 
-        new plugin.default($auth, options);
+        new scheme.default($auth, options);
 
         expect(defaultExportPrototypeStub.calledWith($auth, expectedOptions)).toBe(true);
       });
 
       it('decorates $auth with userHasClientRole helper', () => {
-        new plugin.default($auth, options);
+        new scheme.default($auth, options);
 
         expect(typeof $auth.userHasClientRole).toBe('function');
       });
@@ -66,7 +66,7 @@ describe('plugins/authScheme', () => {
     it('is `false` if no user', () => {
       const auth = { user: undefined };
 
-      const userHasClientRole = plugin.userHasClientRole.call(auth, 'entities', 'editor');
+      const userHasClientRole = scheme.userHasClientRole.call(auth, 'entities', 'editor');
 
       expect(userHasClientRole).toBe(false);
     });
@@ -74,7 +74,7 @@ describe('plugins/authScheme', () => {
     it('is `false` if user has no resource access', () => {
       const auth = { user: { 'resource_access': undefined } };
 
-      const userHasClientRole = plugin.userHasClientRole.call(auth, 'entities', 'editor');
+      const userHasClientRole = scheme.userHasClientRole.call(auth, 'entities', 'editor');
 
       expect(userHasClientRole).toBe(false);
     });
@@ -82,7 +82,7 @@ describe('plugins/authScheme', () => {
     it('is `false` if user does not have specified client resource access', () => {
       const auth = { user: { 'resource_access': { usersets: { roles: ['editor'] } } } };
 
-      const userHasClientRole = plugin.userHasClientRole.call(auth, 'entities', 'editor');
+      const userHasClientRole = scheme.userHasClientRole.call(auth, 'entities', 'editor');
 
       expect(userHasClientRole).toBe(false);
     });
@@ -90,7 +90,7 @@ describe('plugins/authScheme', () => {
     it('is `false` if user does not have specified client resource access role', () => {
       const auth = { user: { 'resource_access': { entities: { roles: ['editor'] } } } };
 
-      const userHasClientRole = plugin.userHasClientRole.call(auth, 'entities', 'publisher');
+      const userHasClientRole = scheme.userHasClientRole.call(auth, 'entities', 'publisher');
 
       expect(userHasClientRole).toBe(false);
     });
@@ -98,7 +98,7 @@ describe('plugins/authScheme', () => {
     it('is `true` if user does have specified client resource access role', () => {
       const auth = { user: { 'resource_access': { entities: { roles: ['editor'] } } } };
 
-      const userHasClientRole = plugin.userHasClientRole.call(auth, 'entities', 'editor');
+      const userHasClientRole = scheme.userHasClientRole.call(auth, 'entities', 'editor');
 
       expect(userHasClientRole).toBe(true);
     });
