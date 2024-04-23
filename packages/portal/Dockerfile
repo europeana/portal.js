@@ -15,6 +15,7 @@ COPY packages/portal/package*.json ./packages/portal/
 COPY packages/mirador ./packages/mirador
 COPY packages/style ./packages/style
 COPY packages/vue-session ./packages/vue-session
+COPY packages/v-visible-on-scroll ./packages/v-visible-on-scroll
 
 RUN npm -w packages/portal ci
 
