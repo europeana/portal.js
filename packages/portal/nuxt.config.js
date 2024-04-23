@@ -302,7 +302,6 @@ export default {
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
-    '~/plugins/ab-testing',
     '~/plugins/features'
   ],
 
