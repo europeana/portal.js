@@ -18,7 +18,7 @@ import features, { featureIsEnabled, featureNotificationExpiration } from './src
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
-} from './src/plugins/europeana/apis/config/nuxt.js';
+} from './src/plugins/europeana-apis.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
@@ -375,7 +375,7 @@ export default {
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/europeana/apis', '~/plugins/user-likes.client']
+    plugins: ['~/plugins/europeana-apis', '~/plugins/user-likes.client']
   },
 
   axios: {

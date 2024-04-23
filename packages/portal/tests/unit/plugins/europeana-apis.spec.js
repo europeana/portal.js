@@ -1,8 +1,8 @@
 import sinon from 'sinon';
 
-import * as plugin from '@/plugins/europeana/apis/index.js';
+import * as plugin from '@/plugins/europeana-apis.js';
 
-describe('plugins/europeana/apis/index', () => {
+describe('plugins/europeana-apis', () => {
   afterEach(sinon.resetHistory);
 
   describe('default export', () => {
@@ -78,5 +78,33 @@ describe('plugins/europeana/apis/index', () => {
         });
       });
     });
+  });
+
+  describe('nuxtRuntimeConfig', () => {
+    let envWas;
+    beforeAll(() => {
+      envWas = { ...process.env };
+    });
+    afterEach(() => {
+      plugin.resetRuntimeConfig({ scope: 'public' });
+      plugin.resetRuntimeConfig({ scope: 'private' });
+      for (const key in process.env) {
+        if (key.startsWith('EUROPEANA_')) {
+          delete process.env[key];
+        }
+      }
+    });
+    afterAll(() => {
+      process.env = { ...envWas };
+    });
+
+    for (const id of plugin.API_IDS) {
+      it(`includes env config for ${id} API`, () => {
+        const nuxtRuntimeConfig = plugin.nuxtRuntimeConfig();
+
+        expect(Object.keys(nuxtRuntimeConfig).includes(id)).toBe(true);
+        expect(nuxtRuntimeConfig[id].constructor.name).toBe('EuropeanaApiEnvConfig');
+      });
+    }
   });
 });
