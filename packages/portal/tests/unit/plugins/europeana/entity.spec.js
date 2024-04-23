@@ -472,8 +472,15 @@ describe('plugins/europeana/entity', () => {
 
     describe('when entity is a place', () => {
       const uri = 'http://data.europeana.eu/place/12345';
-      it('queries on where', () => {
+      it('queries on edm_place', () => {
         expect(getEntityQuery(uri)).toBe(`edm_place:"${uri}"`);
+      });
+    });
+
+    describe('when multiple entity URIs supplied', () => {
+      const uris = ['http://data.europeana.eu/organization/12345', 'http://data.europeana.eu/organization/67890', 'https://www.example.org/404'];
+      it('queries on all Europeana entities, joined with OR', () => {
+        expect(getEntityQuery(uris)).toBe('foaf_organization:"http://data.europeana.eu/organization/12345" OR foaf_organization:"http://data.europeana.eu/organization/67890"');
       });
     });
 
