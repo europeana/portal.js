@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button
-      class="transcribe-button icon-transcribe button-icon-only"
+      class="transcribe-button icon-transcribe-outlined button-icon-only"
       data-qa="transcribe button"
       :aria-label="$t('actions.transcribe')"
       @click="$bvModal.show(modalId)"
