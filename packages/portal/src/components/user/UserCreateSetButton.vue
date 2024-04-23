@@ -65,6 +65,16 @@
   };
 </script>
 
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .create-card:hover {
+    .icon-add-circle-outlined::before {
+      content: '\e907';
+    }
+  }
+</style>
+
 <docs lang="md">
   ```jsx
   <UserCreateSetButton />

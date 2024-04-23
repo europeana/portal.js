@@ -113,3 +113,13 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .add-button:hover {
+    .icon-add-circle-outlined::before {
+      content: '\e907';
+    }
+  }
+</style>
