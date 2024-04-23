@@ -22,7 +22,8 @@ const apiResponse = {
         },
         isShownBy: 'http://www.example.eu'
       }
-    ]
+    ],
+    next: 'https://api.example.org/entity/search?wskey=entityApiKey&query=*:*&scope=europeana&sort=id&pageSize=100&type=timespan&page=2'
   },
   pageTwo: {
     items: [
@@ -34,8 +35,7 @@ const apiResponse = {
         isShownBy: 'http://www.example.eu'
       }
     ]
-  },
-  pageThree: {}
+  }
 };
 
 const dataToCache = [
@@ -89,19 +89,15 @@ describe('cachers/collections/index', () => {
     beforeEach(() => {
       nock(config.europeana.apis.entity.url)
         .get('/search')
-        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.page === '0')
+        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE)
         .reply(200, apiResponse.pageOne);
       nock(config.europeana.apis.entity.url)
         .get('/search')
-        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.page === '1')
-        .reply(200, apiResponse.pageTwo);
-      nock(config.europeana.apis.entity.url)
-        .get('/search')
         .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.page === '2')
-        .reply(200, apiResponse.pageThree);
+        .reply(200, apiResponse.pageTwo);
     });
 
-    it('paginates over data', async() => {
+    it('paginates over data via `next` in response', async() => {
       await cacher(params, config);
 
       expect(nock.isDone()).toBe(true);
