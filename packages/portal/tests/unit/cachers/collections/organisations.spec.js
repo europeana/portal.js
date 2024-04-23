@@ -7,14 +7,15 @@ import nock from 'nock';
 const organisations = [
   { id: 'http://data.europeana.eu/organization/001', type: 'Organization', prefLabel: { en: 'Museum', es: 'Museo' }, country: 'ES' },
   { id: 'http://data.europeana.eu/organization/002', type: 'Organization', prefLabel: { en: 'Gallery' }, country: 'http://data.europeana.eu/place/001' },
-  { id: 'http://data.europeana.eu/organization/003', type: 'Organization', prefLabel: { en: 'Archive' }, sameAs: ['http://data.europeana.eu/organization/004', 'http://example.org/404'] }
+  { id: 'http://data.europeana.eu/organization/003', type: 'Organization', prefLabel: { en: 'Archive' }, sameAs: ['http://data.europeana.eu/organization/005', 'http://example.org/404'] },
+  { id: 'http://data.europeana.eu/organization/004', type: 'Organization', prefLabel: { en: 'Library' }, country: { id: 'http://data.europeana.eu/place/002', prefLabel: { en: 'Germany' } } }
 ];
 
 const fields = [
   { label: 'http://data.europeana.eu/organization/001', count: 100 },
   { label: 'http://data.europeana.eu/organization/002', count: 200 },
   { label: 'http://data.europeana.eu/organization/003', count: 150 },
-  { label: 'http://data.europeana.eu/organization/004', count: 50 }
+  { label: 'http://data.europeana.eu/organization/005', count: 50 }
 ];
 
 const apiFacetResponse = {
@@ -114,30 +115,41 @@ describe('@/cachers/collections/organisations', () => {
     });
   });
 
-  describe('when the country on the organisation entity is an entity reference', () => {
-    it('fetches the place entity prefLabel', async() => {
-      mockApiRequests();
-      const organisationData = await cacher.data(config);
+  describe('countryPrefLabel', () => {
+    describe('when the country on the organisation entity is an entity reference', () => {
+      it('fetches the place entity prefLabel', async() => {
+        mockApiRequests();
+        const organisationData = await cacher.data(config);
 
-      expect(organisationData[1].countryPrefLabel).toEqual(apiPlaceResponse.prefLabel);
+        expect(organisationData[1].countryPrefLabel).toEqual(apiPlaceResponse.prefLabel);
+      });
     });
-  });
 
-  describe('when the country on the organisation entity is a language code', () => {
-    it('fetches the place entity prefLabel', async() => {
-      mockApiRequests();
-      const organisationData = await cacher.data(config);
+    describe('when the country on the organisation entity is a full entity', () => {
+      it('uses prefLabel from the entity', async() => {
+        mockApiRequests();
+        const organisationData = await cacher.data(config);
 
-      expect(organisationData[0].countryPrefLabel).toEqual({ en: 'Spain' });
+        expect(organisationData[3].countryPrefLabel).toEqual({ en: 'Germany' });
+      });
     });
-  });
 
-  describe('when there is no country on the organisation entity', () => {
-    it('does not include a countryPrefLabel', async() => {
-      mockApiRequests();
-      const organisationData = await cacher.data(config);
+    describe('when the country on the organisation entity is a language code', () => {
+      it('fetches the place entity prefLabel', async() => {
+        mockApiRequests();
+        const organisationData = await cacher.data(config);
 
-      expect(organisationData[2].countryPrefLabel).toEqual(undefined);
+        expect(organisationData[0].countryPrefLabel).toEqual({ en: 'Spain' });
+      });
+    });
+
+    describe('when there is no country on the organisation entity', () => {
+      it('does not include a countryPrefLabel', async() => {
+        mockApiRequests();
+        const organisationData = await cacher.data(config);
+
+        expect(organisationData[2].countryPrefLabel).toEqual(undefined);
+      });
     });
   });
 });
