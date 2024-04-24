@@ -1,23 +1,13 @@
 import sinon from 'sinon';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt, mountNuxt } from '../../utils';
-import VueI18n from 'vue-i18n';
 import BootstrapVue from 'bootstrap-vue';
 
 import SearchFacetDropdown from '@/components/search/SearchFacetDropdown.vue';
-import messages from '@/lang/en';
 
 const localVue = createLocalVue();
 
-localVue.use(VueI18n);
 localVue.use(BootstrapVue);
-
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: {
-    en: messages
-  }
-});
 
 const storeDispatchStub = sinon.stub();
 
@@ -103,6 +93,8 @@ const factory = (options = {}) => shallowMountNuxt(SearchFacetDropdown, {
     $route: {
       query: {}
     },
+    $i18n: { locale: 'en' },
+    $n: (num) => num,
     $t: (key) => key,
     $tc: (key, count) => `${key} - ${count}`,
     $te: () => true,
@@ -121,14 +113,14 @@ const factory = (options = {}) => shallowMountNuxt(SearchFacetDropdown, {
   stubs: {
     'b-form-tags': {
       template: '<div><slot /></div>'
-    }
+    },
+    i18n: true
   },
   propsData: {
     type: 'checkbox',
     name: 'COUNTRY',
     ...options.propsData
-  },
-  i18n
+  }
 });
 
 const fullFactory = (options = {}) => mountNuxt(SearchFacetDropdown, {
@@ -143,6 +135,8 @@ const fullFactory = (options = {}) => mountNuxt(SearchFacetDropdown, {
     $route: {
       query: {}
     },
+    $i18n: { locale: 'en' },
+    $n: (num) => num,
     $t: (key) => key,
     $tc: (key, count) => `${key} - ${count}`,
     $te: () => true,
@@ -158,13 +152,12 @@ const fullFactory = (options = {}) => mountNuxt(SearchFacetDropdown, {
       }
     }
   },
-  stubs: [],
+  stubs: ['i18n'],
   propsData: {
     type: 'checkbox',
     name: 'COUNTRY',
     ...options.propsData
   },
-  i18n,
   attachTo: document.body
 });
 

@@ -1,21 +1,10 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueI18n from 'vue-i18n';
 import EntityUpdateModal from '@/components/entity/EntityUpdateModal';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueI18n);
-
-import messages from '@/lang/en';
-
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: {
-    en: messages
-  }
-});
 
 const fixtures = {
   concept: {
@@ -79,14 +68,17 @@ const factory = ({ propsData = {}, data = {} }) => mount(EntityUpdateModal, {
   data() {
     return { ...data };
   },
-  i18n,
   mocks: {
     $apis: {
       entityManagement: {
         get: sinon.stub().resolves(fixtures.concept.profileInternalEntity),
         update: sinon.spy()
       }
-    }
+    },
+    $i18n: {
+      locale: 'en'
+    },
+    $t: (key) => key
   }
 });
 
@@ -119,7 +111,7 @@ describe('components/entity/EntityUpdateModal', () => {
         await wrapper.find('form').trigger('submit.stop.prevent');
         await wrapper.vm.$nextTick();
 
-        expect(rootBvToast.calledWith('The collection has been updated', sinon.match.any)).toBe(true);
+        expect(rootBvToast.calledWith('collections.notifications.update', sinon.match.any)).toBe(true);
       });
     });
 

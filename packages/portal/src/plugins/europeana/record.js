@@ -4,7 +4,7 @@ import merge from 'deepmerge';
 
 import EuropeanaApi from './apis/base.js';
 
-import undefinedLocaleCodes from '../i18n/undefined.js';
+import { undefinedLocaleCodes } from './utils.js';
 import {
   forEachLangMapValue, reduceLangMapsForLocale, isLangMap
 } from './utils.js';

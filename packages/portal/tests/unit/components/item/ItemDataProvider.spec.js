@@ -1,22 +1,10 @@
-
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueI18n from 'vue-i18n';
 import ItemDataProvider from '@/components/item/ItemDataProvider';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueI18n);
-
-import messages from '@/lang/en';
-
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: {
-    en: messages
-  }
-});
 
 const dataProvider = {
   en: ['Example organisation'],
@@ -38,24 +26,25 @@ const dataProviderEntity = {
 const factory = (propsData) => mount(ItemDataProvider, {
   localVue,
   propsData,
-  i18n,
   mocks: {
-    $t: (key) => key,
+    getPrefLanguage: sinon.stub(),
     localePath: () => 'localizedPath',
     $apis: {
       entity: {
         imageUrl: (entity) => entity.logo.id
       }
     },
+    $i18n: { locale: 'en' },
     $link: {
       to: route => route,
       href: () => null
     },
-    getPrefLanguage: sinon.stub(),
     $store: {
       commit: sinon.spy()
-    }
-  }
+    },
+    $t: (key) => key
+  },
+  stubs: ['i18n']
 });
 
 describe('components/item/ItemDataProvider', () => {

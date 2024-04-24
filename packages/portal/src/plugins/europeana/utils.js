@@ -1,7 +1,10 @@
 import kebabCase from 'lodash/kebabCase.js';
 
-import locales from '../i18n/locales.js';
-import undefinedLocaleCodes from '../i18n/undefined.js';
+// TODO: support supplying these at runtime
+import locales from '../../i18n/locales.js';
+
+// i18n codes used to designate undefined locale
+export const undefinedLocaleCodes = ['def', 'und'];
 
 export const uriRegex = /^https?:\/\//; // Used to determine if a value is a URI
 
