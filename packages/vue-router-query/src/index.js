@@ -5,7 +5,7 @@ export const parseQuery = (query) => qs.parse(query);
 // To ensure that `"query": ""` results in `?query=`, not `?query`
 export const stringifyQuery = (query) => {
   const stringified = qs.stringify(query, { arrayFormat: 'repeat' });
-  return stringified ? '?' + stringified : '';
+  return stringified ? `?${stringified}` : '';
 };
 
 export default {

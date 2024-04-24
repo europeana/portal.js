@@ -45,5 +45,13 @@ describe('VueRouterQuery', () => {
 
       expect(stringified).toEqual('?query=');
     });
+
+    it('equals "" if no params', () => {
+      const query = {};
+
+      const stringified = stringifyQuery(query);
+
+      expect(stringified).toEqual('');
+    });
   });
 });
