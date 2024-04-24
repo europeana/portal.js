@@ -117,7 +117,7 @@
         entityUri: this.entityUri,
         theme: this.theme,
         query: this.query,
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview',
         limit: this.limit
       };

@@ -137,7 +137,7 @@ const factory = ({ data = {}, $fetchState = {}, mocks = {} } = {}) => shallowMou
     },
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $route: {
       query: {

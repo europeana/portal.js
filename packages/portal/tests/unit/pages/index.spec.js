@@ -30,7 +30,7 @@ const factory = ({
     $error: sinon.spy(),
     $features: {},
     $fetchState: {},
-    $i18n: { isoLocale: () => 'en-GB' },
+    $i18n: { localeProperties: { iso: 'en-GB' } },
     $route: { params: { pathMatch: 'about' }, query: {} },
     $t: key => key,
     ...mocks

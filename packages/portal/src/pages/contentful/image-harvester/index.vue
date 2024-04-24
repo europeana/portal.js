@@ -79,7 +79,7 @@
       },
 
       async populateFields(item) {
-        const locale = this.$i18n.isoLocale();
+        const locale = this.$i18n.localeProperties.iso;
 
         const providerAggregation = item.aggregations.find(aggregation => aggregation.about.startsWith('/aggregation/provider/'));
         const providerProxy = item.proxies.find(proxy => proxy.about.startsWith('/proxy/provider/'));

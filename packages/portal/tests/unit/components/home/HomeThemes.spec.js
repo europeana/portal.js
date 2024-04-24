@@ -50,7 +50,7 @@ const factory = () => shallowMountNuxt(HomeThemes, {
       query: sinon.stub().resolves(contentfulQueryResponse)
     },
     $i18n: {
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $route: {
       query: {}

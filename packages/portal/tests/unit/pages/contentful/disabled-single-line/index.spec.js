@@ -13,7 +13,7 @@ const factory = () => shallowMountNuxt(page, {
     $t: key => key,
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     }
   }
 });

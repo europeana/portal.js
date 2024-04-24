@@ -33,7 +33,7 @@ const factory = () => shallowMountNuxt(page, {
   mocks: {
     $t: key => key,
     $i18n: {
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     }
   }
 });

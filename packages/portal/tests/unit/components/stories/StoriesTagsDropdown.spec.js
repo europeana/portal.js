@@ -34,7 +34,7 @@ const factory = (props) => shallowMountNuxt(StoriesTagsDropdown, {
     },
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $route: {
       query: {}

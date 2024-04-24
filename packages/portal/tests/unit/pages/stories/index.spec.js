@@ -44,7 +44,7 @@ const factory = ({ $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(Stor
     $fetchState,
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $route: { query: {} },
     $scrollTo: sinon.spy(),

@@ -153,7 +153,7 @@
         // Fetch minimal data for all stories to support ordering by datePublished
         // and filtering by categories.
         const storyIdsVariables = {
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
         const storyIdsResponse = await this.$contentful.query('storiesMinimal', storyIdsVariables);
@@ -179,7 +179,7 @@
 
         // Fetch full data for display of page of stories
         const storiesVariables = {
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview',
           limit: this.perPage,
           ids: storySysIds

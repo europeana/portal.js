@@ -292,7 +292,6 @@ export default {
   */
   plugins: [
     '~/plugins/vue-matomo.client',
-    '~/plugins/i18n-iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/error',
     '~/plugins/link',

@@ -155,7 +155,7 @@
 
         const variables = {
           identifier: this.identifier,
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
 
