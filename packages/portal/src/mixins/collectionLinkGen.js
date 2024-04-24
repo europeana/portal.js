@@ -10,13 +10,14 @@ export default {
         return null;
       }
 
-      return this.localePath({
+      return {
         name: 'collections-type-all', params: {
           type: getEntityTypeHumanReadable(uriMatch[1]),
           pathMatch: getLabelledSlug(collection.id, collection.prefLabel.en)
         }
-      });
+      };
     },
+
     entityRouterLink(uri, slug) {
       const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
       return {
