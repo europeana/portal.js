@@ -35,6 +35,11 @@ Example:
           <td><span class="icon icon-add" /></td>
         </tr>
         <tr>
+          <td>Add circle outlined</td>
+          <td><code>icon-add-circle-outlined</code></td>
+          <td><span class="icon icon-add-circle-outlined" /></td>
+        </tr>
+        <tr>
           <td>Add circle</td>
           <td><code>icon-add-circle</code></td>
           <td><span class="icon icon-add-circle" /></td>
@@ -258,6 +263,16 @@ Example:
           <td>Temporary tag</td>
           <td><code>icon-temporary-tag</code></td>
           <td><span class="icon icon-temporary-tag" /></td>
+        </tr>
+        <tr>
+          <td>Transcribe outlined</td>
+          <td><code>icon-transcribe-outlined</code></td>
+          <td><span class="icon icon-transcribe-outlined" /></td>
+        </tr>
+        <tr>
+          <td>Transcribe</td>
+          <td><code>icon-transcribe</code></td>
+          <td><span class="icon icon-transcribe" /></td>
         </tr>
         <tr>
           <td>Translate</td>
