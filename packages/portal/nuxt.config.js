@@ -18,7 +18,7 @@ import features, { featureIsEnabled, featureNotificationExpiration } from './src
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
-} from './src/plugins/europeana/apis/config/nuxt.js';
+} from './src/plugins/europeana-apis.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
@@ -302,7 +302,6 @@ export default {
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
-    '~/plugins/ab-testing',
     '~/plugins/features'
   ],
 
@@ -371,11 +370,11 @@ export default {
         _scheme: 'oauth2'
       },
       keycloak: {
-        _scheme: '~/plugins/authScheme'
+        _scheme: '~/auth/schemes/authScheme'
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/europeana/apis', '~/plugins/user-likes.client']
+    plugins: ['~/plugins/europeana-apis', '~/plugins/user-likes.client']
   },
 
   axios: {

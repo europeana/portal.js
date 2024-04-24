@@ -871,10 +871,6 @@ export default {
       }
     },
     'services': {
-      'abTest': {
-        'description': 'Helps to improve our website by occasionally applying experimental changes.',
-        'title': 'A/B testing'
-      },
       'auth-strategy': {
         'description': 'Remembers the authorization strategy to use to log in.',
         'title': 'Auth Strategy'
