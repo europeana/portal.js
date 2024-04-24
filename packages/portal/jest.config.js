@@ -1,7 +1,7 @@
 export default {
   coveragePathIgnorePatterns: [
-    '<rootDir>/src/plugins/i18n/locales.js',
-    '<rootDir>/src/lang/'
+    '<rootDir>/src/i18n/locales.js',
+    '<rootDir>/src/i18n/lang/'
   ],
   displayName: 'portal',
   moduleFileExtensions: [
