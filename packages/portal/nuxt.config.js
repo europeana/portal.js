@@ -41,9 +41,12 @@ const redisConfig = () => {
 };
 
 const postgresConfig = () => {
+  // see https://node-postgres.com/apis/pool
   const postgresOptions = {
     enabled: featureIsEnabled('eventLogging'),
     connectionString: process.env.POSTGRES_URL,
+    connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
+    idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),
     max: Number(process.env.POSTGRES_MAX || 10)
   };
 
