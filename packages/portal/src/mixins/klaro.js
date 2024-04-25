@@ -5,6 +5,7 @@ export default {
     return {
       cookieConsentRequired: false,
       klaro: null,
+      klaroConsents: {},
       klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
       // context-specific whitelist of services to declare in klaro, e.g.
       // `klaroServices: ['auth-strategy', 'i18n']`
@@ -38,6 +39,8 @@ export default {
 
         this.klaro.render(config, true);
         manager.watch({ update: this.watchKlaroManagerUpdate });
+
+        console.log('klaro man', manager)
 
         setTimeout(() => {
           this.setToastBottomOffset();
@@ -109,9 +112,10 @@ export default {
         mustConsent: false,
         acceptAll: true,
         callback: (consent, service) => {
-          if (service.name === 'hotjar' && consent) {
-            this.$initHotjar?.();
-          }
+          this.klaroConsents[service.name] = consent;
+          // if (service.name === 'hotjar' && consent) {
+          //   this.$initHotjar?.();
+          // }
           if (service.name === 'matomo' && consent) {
             this.$matomo?.rememberCookieConsentGiven();
           }

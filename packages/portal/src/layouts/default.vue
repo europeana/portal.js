@@ -65,6 +65,13 @@
       <PageCookieConsent
         v-if="cookieConsentRequired"
       />
+      <script
+        v-if="useHotjar"
+        async
+        :src="`https://static.hotjar.com/c/hotjar-${$config.hotjar.id}.js?sv=${$config.hotjar.sv}`"
+      >
+        <!-- prevent eslint closing this -->
+      </script>
     </client-only>
   </div>
 </template>
@@ -148,6 +155,10 @@
         return !!this.featureNotification &&
           (!this.featureNotificationExpiration || (this.dateNow < this.featureNotificationExpiration)) &&
           (!this.$cookies.get('new_feature_notification') || this.$cookies.get('new_feature_notification') !== this.featureNotification.name);
+      },
+
+      useHotjar() {
+        return this.klaroConsents.hotjar && this.$config.hotjar?.id && this.$config.hotjar?.sv;
       }
     },
 
