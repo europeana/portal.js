@@ -54,10 +54,6 @@ const factory = () => {
           isValidUrl: (url) => url.includes('images.ctfassets.net'),
           optimisedSrc: (img) => `${img.url}?optimised`
         }
-      },
-      $link: {
-        to: route => route,
-        href: () => null
       }
     }
   });

@@ -1,42 +1,49 @@
 <template>
-  <b-badge
-    :to="$link.to(linkTo)"
-    :href="$link.href(linkTo)"
-    pill
-    :variant="badgeVariant"
-    :class="{ 'img-chip': imageUrl }"
-    :data-qa="localisedTitle.values[0] + ' related chip'"
-    :lang="localisedTitle.code"
-    @click.capture.native="clickEventHandler && clickEventHandler()"
+  <SmartLink
+    :destination="linkTo"
   >
-    <div
-      v-if="imageUrl && type === 'Organization'"
-      class="organisation-logo mr-2"
-      data-qa="entity logo"
-      :style="`background-image: url(${imageUrl})`"
-    />
-    <b-img
-      v-else-if="imageUrl"
-      :src="imageUrl"
-      :srcset="imageSrcSet"
-      sizes="(max-width 1920px) 28w,
-      (max-width 2560) 45w,
-      (min-width 2561) 67w"
-      alt=""
-      rounded="circle"
-      class="mr-2"
-      @error="imageNotFound"
-    />
-    <span>{{ localisedTitle.values[0] }}</span>
-    <slot />
-  </b-badge>
+    <b-badge
+      pill
+      :variant="badgeVariant"
+      :class="{ 'img-chip': imageUrl }"
+      :data-qa="localisedTitle.values[0] + ' related chip'"
+      :lang="localisedTitle.code"
+      @click.capture="clickEventHandler?.()"
+    >
+      <div
+        v-if="imageUrl && type === 'Organization'"
+        class="organisation-logo mr-2"
+        data-qa="entity logo"
+        :style="`background-image: url(${imageUrl})`"
+      />
+      <b-img
+        v-else-if="imageUrl"
+        :src="imageUrl"
+        :srcset="imageSrcSet"
+        sizes="(max-width 1920px) 28w,
+        (max-width 2560) 45w,
+        (min-width 2561) 67w"
+        alt=""
+        rounded="circle"
+        class="mr-2"
+        @error="imageNotFound"
+      />
+      <span>{{ localisedTitle.values[0] }}</span>
+      <slot />
+    </b-badge>
+  </SmartLink>
 </template>
 
 <script>
+  import SmartLink from './SmartLink';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'LinkBadge',
+
+    components: {
+      SmartLink
+    },
 
     props: {
       linkTo: {

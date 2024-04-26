@@ -14,10 +14,6 @@ const mocks = {
   $apis: { entity: { suggest: suggestStub } },
   $route: { query: {} },
   $t: (key) => key,
-  $link: {
-    to: route => route,
-    href: () => null
-  },
   $matomo: {
     trackEvent: sinon.spy()
   },
