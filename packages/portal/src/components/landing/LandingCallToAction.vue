@@ -178,6 +178,10 @@
         margin-bottom: 3.125rem;
       }
     }
+
+    ::v-deep &.text-white .primary-cta-rich-text a {
+      color: $white;
+    }
   }
 </style>
 
