@@ -87,7 +87,7 @@ const run = async() => {
   }
 
   for (const lang in i18n) {
-    const langFilename = new URL(`../src/lang/${lang}.js`, import.meta.url);
+    const langFilename = new URL(`../src/i18n/lang/${lang}.js`, import.meta.url);
     console.log(`Writing ${langFilename}`);
     fs.writeFileSync(langFilename, stringify(i18n[lang], true));
   }
