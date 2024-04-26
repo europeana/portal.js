@@ -65,13 +65,6 @@
       <PageCookieConsent
         v-if="cookieConsentRequired"
       />
-      <script
-        v-if="useHotjar"
-        async
-        :src="`https://static.hotjar.com/c/hotjar-${$config.hotjar.id}.js?sv=${$config.hotjar.sv}`"
-      >
-        <!-- prevent eslint closing this -->
-      </script>
     </client-only>
   </div>
 </template>
@@ -83,6 +76,7 @@
   import ErrorModal from '../components/error/ErrorModal';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import makeToastMixin from '@/mixins/makeToast';
+  import hotjarMixin from '@/mixins/hotjar.js';
   import klaroMixin from '@/mixins/klaro.js';
   import versions from '../../pkg-versions';
   import featureNotifications from '@/features/notifications';
@@ -104,6 +98,7 @@
 
     mixins: [
       canonicalUrlMixin,
+      hotjarMixin,
       klaroMixin,
       makeToastMixin
     ],
@@ -111,10 +106,12 @@
     data() {
       return {
         dateNow: Date.now(),
-        linkGroups: {},
         enableAnnouncer: true,
         featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
         featureNotificationExpiration: this.$config.app.featureNotificationExpiration,
+        hotjarId: this.$config?.hotjar?.id,
+        hotjarSv: this.$config?.hotjar?.sv,
+        linkGroups: {},
         notificationBanner: this.$config?.app?.notificationBanner
       };
     },
@@ -155,10 +152,6 @@
         return !!this.featureNotification &&
           (!this.featureNotificationExpiration || (this.dateNow < this.featureNotificationExpiration)) &&
           (!this.$cookies.get('new_feature_notification') || this.$cookies.get('new_feature_notification') !== this.featureNotification.name);
-      },
-
-      useHotjar() {
-        return this.klaroConsents.hotjar && this.$config.hotjar?.id && this.$config.hotjar?.sv;
       }
     },
 

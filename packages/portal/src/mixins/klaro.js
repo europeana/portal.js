@@ -1,11 +1,54 @@
 export const version = '0.7.18';
 
+const klaroAllServices = [
+  {
+    cookies: ['auth.strategy'],
+    name: 'auth-strategy',
+    purposes: ['essential'],
+    required: true
+  },
+  {
+    cookies: ['debugSettings'],
+    name: 'debugSettings',
+    purposes: ['essential'],
+    required: true
+  },
+  {
+    // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
+    cookies: [/^_hj/],
+    name: 'hotjar',
+    purposes: ['usage']
+  },
+  {
+    cookies: ['i18n_locale_code'],
+    name: 'i18n',
+    purposes: ['essential'],
+    required: true
+  },
+  {
+    cookies: [/^_pk_/, 'mtm_cookie_consent'],
+    name: 'matomo',
+    purposes: ['usage']
+  },
+  {
+    cookies: ['new_feature_notification'],
+    name: 'newFeatureNotification',
+    purposes: ['essential'],
+    required: true
+  },
+  {
+    cookies: ['searchResultsView'],
+    name: 'searchResultsView',
+    purposes: ['essential'],
+    required: true
+  }
+];
+
 export default {
   data() {
     return {
       cookieConsentRequired: false,
       klaro: null,
-      klaroConsents: {},
       klaroHeadScript: { src: `https://cdn.jsdelivr.net/npm/klaro@${version}/dist/klaro-no-css.js`, defer: true },
       // context-specific whitelist of services to declare in klaro, e.g.
       // `klaroServices: ['auth-strategy', 'i18n']`
@@ -29,18 +72,44 @@ export default {
     renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
   },
 
+  computed: {
+    klaroConfig() {
+      const services = klaroAllServices
+        .filter((service) => !this.klaroServices || this.klaroServices.includes(service.name))
+        .map((service) => ({
+          ...service,
+          translations: {
+            [this.$i18n.locale]: this.$t(`klaro.services.${service.name}`)
+          }
+        }));
+
+      return {
+        acceptAll: true,
+        callback: this.klaroServiceConsentCallback,
+        cookieExpiresAfterDays: 15,
+        elementID: 'eu-klaro',
+        htmlTexts: true,
+        lang: this.$i18n.locale,
+        mustConsent: false,
+        services,
+        storageMethod: 'cookie',
+        testing: false,
+        translations: {
+          [this.$i18n.locale]: this.$t('klaro.main')
+        }
+      };
+    }
+  },
+
   methods: {
     renderKlaro() {
       if (this.klaro) {
-        const config = this.klaroConfig();
-        const manager = this.klaro.getManager(config);
+        const manager = this.klaro.getManager(this.klaroConfig);
 
         this.cookieConsentRequired = !manager.confirmed;
 
-        this.klaro.render(config, true);
+        this.klaro.render(this.klaroConfig, true);
         manager.watch({ update: this.watchKlaroManagerUpdate });
-
-        console.log('klaro man', manager)
 
         setTimeout(() => {
           this.setToastBottomOffset();
@@ -75,52 +144,13 @@ export default {
       this.$matomo?.trackEvent('Klaro', 'Clicked', eventName);
     },
 
-    klaroConfig() {
-      const locale = this.$i18n.locale;
-      const translations = key => ({
-        [locale]: this.$t(key)
-      });
-
-      const service = (name, purposes, cookies, required = false) => ({
-        name,
-        purposes,
-        cookies,
-        required,
-        translations: translations(`klaro.services.${name}`)
-      });
-
-      const services = [
-        service('matomo', ['usage'], [/^_pk_/, 'mtm_cookie_consent']),
-        // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
-        service('hotjar', ['usage'], [/^_hj/]),
-        service('i18n', ['essential'], ['i18n_locale_code'], true),
-        service('searchResultsView', ['essential'], ['searchResultsView'], true),
-        service('debugSettings', ['essential'], ['debugSettings'], true),
-        service('auth-strategy', ['essential'], ['auth.strategy'], true),
-        service('newFeatureNotification', ['essential'], ['new_feature_notification'], true)
-      ].filter((service) => !this.klaroServices || this.klaroServices.includes(service.name));
-
-      return {
-        testing: false,
-        elementID: 'eu-klaro',
-        storageMethod: 'cookie',
-        cookieExpiresAfterDays: 15,
-        lang: locale,
-        htmlTexts: true,
-        translations: translations('klaro.main'),
-        services,
-        mustConsent: false,
-        acceptAll: true,
-        callback: (consent, service) => {
-          this.klaroConsents[service.name] = consent;
-          // if (service.name === 'hotjar' && consent) {
-          //   this.$initHotjar?.();
-          // }
-          if (service.name === 'matomo' && consent) {
-            this.$matomo?.rememberCookieConsentGiven();
-          }
-        }
-      };
+    klaroServiceConsentCallback(consent, service) {
+      if (service.name === 'hotjar' && consent) {
+        this.initHotjar?.();
+      }
+      if (service.name === 'matomo' && consent) {
+        this.$matomo?.rememberCookieConsentGiven();
+      }
     }
   }
 };
