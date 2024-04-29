@@ -18,7 +18,7 @@ import features, { featureIsEnabled, featureNotificationExpiration } from './src
 
 import {
   nuxtRuntimeConfig as europeanaApisRuntimeConfig
-} from './src/plugins/europeana/apis/config/nuxt.js';
+} from './src/plugins/europeana-apis.js';
 
 const buildPublicPath = () => {
   return process.env.NUXT_BUILD_PUBLIC_PATH;
@@ -41,9 +41,12 @@ const redisConfig = () => {
 };
 
 const postgresConfig = () => {
+  // see https://node-postgres.com/apis/pool
   const postgresOptions = {
     enabled: featureIsEnabled('eventLogging'),
     connectionString: process.env.POSTGRES_URL,
+    connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
+    idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),
     max: Number(process.env.POSTGRES_MAX || 10)
   };
 
@@ -295,13 +298,11 @@ export default {
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/error',
-    '~/plugins/link',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/vue-scrollto.client',
-    '~/plugins/ab-testing',
     '~/plugins/features'
   ],
 
@@ -370,11 +371,11 @@ export default {
         _scheme: 'oauth2'
       },
       keycloak: {
-        _scheme: '~/plugins/authScheme'
+        _scheme: '~/auth/schemes/authScheme'
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/europeana/apis', '~/plugins/user-likes.client']
+    plugins: ['~/plugins/europeana-apis', '~/plugins/user-likes.client']
   },
 
   axios: {

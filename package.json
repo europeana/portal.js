@@ -35,6 +35,7 @@
   "resolutions": {
     "@europeana/contentful": "link:./packages/contentful",
     "@europeana/mirador": "link:./packages/mirador",
+    "@europeana/oembed": "link:./packages/oembed",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
     "@europeana/vue-session": "link:./packages/vue-session",
@@ -67,7 +68,7 @@
   ],
   "engines": {
     "node": "^18",
-    "npm": "^9"
+    "npm": "^9 || ^10"
   },
   "keywords": [
     "code4lib"

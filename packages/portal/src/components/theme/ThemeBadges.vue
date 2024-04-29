@@ -69,12 +69,12 @@
 
         this.themesData = contentfulResponse.data.data.themePageCollection.items.map(theme => ({
           prefLabel: theme.name,
-          url: this.localePath({
+          url: {
             name: 'themes-all',
             params: {
               pathMatch: theme.identifier
             }
-          }),
+          },
           primaryImageOfPage: theme.primaryImageOfPage
         }));
       }

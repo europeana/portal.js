@@ -47,10 +47,6 @@ const factory = (propsData) => mount(ItemDataProvider, {
         imageUrl: (entity) => entity.logo.id
       }
     },
-    $link: {
-      to: route => route,
-      href: () => null
-    },
     getPrefLanguage: sinon.stub(),
     $store: {
       commit: sinon.spy()

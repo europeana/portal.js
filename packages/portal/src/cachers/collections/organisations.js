@@ -21,6 +21,7 @@ async function getRecordCounts() {
     rows: 0
   };
   const response = await axiosClient.get('/search.json', { params });
+
   return response.data?.facets?.[0]?.fields || [];
 }
 
@@ -46,6 +47,8 @@ const data = async(config = {}) => {
     if (isEntityUri(country)) {
       const entityId = country.split('/').pop();
       organisationCountriesPrefLabels[country] = await getCountryPrefLabel(`/place/${entityId}.json`);
+    } else if (isEntityUri(country?.id) && country.prefLabel) {
+      organisationCountriesPrefLabels[country.id] = country.prefLabel;
     } else if (country) {
       // Production Entity API returns country code. This as in between solution.
       // TODO: remove when deprecated after API released with place references for countries
@@ -63,13 +66,14 @@ const data = async(config = {}) => {
   return organisationData.map(
     organisation => {
       // Add recordCount
-      const organisationId = organisation.id;
-      const organisationWithCount = recordCounts.find(facet => facet.label === organisationId);
-      const recordCount = organisationWithCount?.count || 0;
-      organisation.recordCount = recordCount;
+      const organisationIds = [organisation.id].concat(organisation.sameAs || []).filter((uri) => isEntityUri(uri));
+      organisation.recordCount = recordCounts
+        .filter((facet) => organisationIds.includes(facet.label))
+        .map((facet) => facet.count)
+        .reduce((a, b) => a + b, 0);
 
       // Add countryPrefLabel with langmap prefLabel
-      organisation.countryPrefLabel = organisationCountriesPrefLabels[organisation.country] || organisation.country;
+      organisation.countryPrefLabel = organisationCountriesPrefLabels[organisation.country?.id || organisation.country] || organisation.country;
 
       return organisation;
     });
