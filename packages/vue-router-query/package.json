@@ -1,0 +1,14 @@
+{
+  "name": "@europeana/vue-router-query",
+  "version": "1.148.0",
+  "description": "Vue Router query",
+  "license": "EUPL-1.2",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "main": "./src/index.js",
+  "dependencies": {
+    "qs": "^6.10.1"
+  }
+}
