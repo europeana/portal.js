@@ -296,7 +296,6 @@ export default {
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
     '~/plugins/i18n/iso-locale',
-    '~/plugins/hotjar.client',
     '~/plugins/error',
     '~/plugins/axios.server',
     '~/plugins/vue-directives',
