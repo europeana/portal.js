@@ -38,6 +38,7 @@
     "@europeana/oembed": "link:./packages/oembed",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
+    "@europeana/vue-router-query": "link:./packages/vue-router-query",
     "@europeana/vue-session": "link:./packages/vue-session",
     "@europeana/vue-visible-on-scroll": "link:./packages/vue-visible-on-scroll"
   },
