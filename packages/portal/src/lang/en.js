@@ -1114,7 +1114,18 @@ export default {
         "advancedSearch": "The advanced search allows you to build custom search queries.",
         "field": "Select the full-text or metadata field to search within.",
         "fields": {
-          "fulltext": "Full-text includes transcriptions, closed captions, subtitles and document text."
+          "fulltext": "Full-text includes transcriptions, closed captions, subtitles and document text.",
+          "proxy_dc_coverage": "Enter a term that refers to a place or a point/period in time. For example, ‘1995-­1996’ or ‘Berlin’ or ‘http://sws.geonames.org/2287781/’.",
+          "proxy_dc_date": "Enter a term that refers to a significant date related to the item(s). For example a date in the form ‘YYYY-­MM-DD’ or a single year, ‘1919’, or broader definitions like ‘Early 20th century’.",
+          "proxy_dc_rights": "Enter a term that refers to information about the rights or licences related to the item(s). For example ‘Copyright © British Library Board’. For filtering on reusability or a specific rights statement, use the ‘Can I use this?’ or ‘Rights statement’ filters.",
+          "proxy_dcterms_created": "Enter a term that refers to the date of creation of the item(s). For example, any date in the form ‘YYYY-­MM-DD’, a single year like ‘1919’, or broader definitions like ‘Early 20th century’. For other dates that could be of significance, search the Date, Issue date or Year fields.",
+          "proxy_dcterms_hasPart": "The item may have other resources included within it - enter a term that identifies part of the included resources. If the item itself is part of another resource, use the ‘Is part of’ field instead.",
+          "proxy_dcterms_isPartOf": "This item may be part of another related resource - enter a term for the resource that this item may be part of. If the item itself has related resources within it, use the ‘Consists of’ field instead.",
+          "proxy_dcterms_issued": "Enter a term that refers to the date of issue or publication of the item(s). For example any date in the form ‘YYYY-­MM-DD’, a single year like ‘1919’, or broader definitions like ‘Early 20th century’. For other dates that could be of significance, search the Date, Creation date or Year fields.",
+          "proxy_dcterms_medium": "Enter a term that refers to the materials used or the physical nature of the item. For example ‘metal’ or ‘paper’. For broader material definitions, such as ‘sculpture’ or ‘painting’, try the ‘Type of item’ field.",
+          "proxy_edm_hasMet": "Enter a term that refers to a person, a place, a time period or anything else to which the item(s) may have close connections. For example ‘William Shakespeare’.",
+          "proxy_dcterms_temporal": "Enter a term that refers to a period or point in time to which the item(s) relate, e.g. an image that depicts a city in 1930. Enter for example ‘Roman Empire’ or ‘Renaissance’. For specific dates, search the Date, Creation date, Issue date or Year fields.",
+          "YEAR": "Enter a year related to the item(s). For example, ‘1919’."
         },
         "modifier": "Choose how this field should modify the search.",
         "term": "Enter the term(s) that the chosen field contains or does not contain."
