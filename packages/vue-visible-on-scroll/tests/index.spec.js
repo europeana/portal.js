@@ -59,7 +59,7 @@ describe('VisibleOnScroll', () => {
               visibleOnScrollElement.element.scrolledVisible = true;
 
               window.scrollY = 140;
-              window.dispatchEvent(new CustomEvent('scroll', {}));
+              window.dispatchEvent(new CustomEvent('scroll'));
 
               expect(visibleOnScrollElement.element.scrollPosition).toBe(140);
             });
@@ -75,7 +75,7 @@ describe('VisibleOnScroll', () => {
               visibleOnScrollElement.element.scrolledVisible = true;
 
               window.scrollY = 20;
-              window.dispatchEvent(new CustomEvent('scroll', {}));
+              window.dispatchEvent(new CustomEvent('scroll'));
 
               expect(visibleOnScrollElement.element.scrollPosition).toBe(20);
             });
@@ -89,7 +89,7 @@ describe('VisibleOnScroll', () => {
               visibleOnScrollElement.element.scrolledVisible = false;
 
               window.scrollY = 20;
-              window.dispatchEvent(new CustomEvent('scroll', {}));
+              window.dispatchEvent(new CustomEvent('scroll'));
 
               expect(visibleOnScrollElement.attributes('style')).toBe('transform: translate3d(0, 0, 0)');
               expect(visibleOnScrollElement.classes('show')).toBe(true);
@@ -107,7 +107,7 @@ describe('VisibleOnScroll', () => {
             visibleOnScrollElement.element.scrollPosition = 160;
 
             window.scrollY = 170;
-            window.dispatchEvent(new CustomEvent('scroll', {}));
+            window.dispatchEvent(new CustomEvent('scroll'));
 
             expect(visibleOnScrollElement.attributes('style')).toBe('transform: translate3d(0, -100%, 0)');
             expect(visibleOnScrollElement.classes('show')).toBe(false);
@@ -125,7 +125,7 @@ describe('VisibleOnScroll', () => {
               visibleOnScrollElement.element.scrolledVisible = true;
 
               window.scrollY = 200;
-              window.dispatchEvent(new CustomEvent('scroll', {}));
+              window.dispatchEvent(new CustomEvent('scroll'));
 
               expect(visibleOnScrollElement.element.scrollPosition).toBe(200);
             });
@@ -139,7 +139,7 @@ describe('VisibleOnScroll', () => {
               visibleOnScrollElement.element.scrolledVisible = false;
 
               window.scrollY = 200;
-              window.dispatchEvent(new CustomEvent('scroll', {}));
+              window.dispatchEvent(new CustomEvent('scroll'));
 
               expect(visibleOnScrollElement.attributes('style')).toBe('transform: translate3d(0, 0, 0)');
               expect(visibleOnScrollElement.classes('show')).toBe(true);
@@ -163,7 +163,7 @@ describe('VisibleOnScroll', () => {
         const visibleOnScrollElement = wrapper.findComponent('p');
 
         window.scrollY = 200;
-        window.dispatchEvent(new CustomEvent('scroll', {}));
+        window.dispatchEvent(new CustomEvent('scroll'));
 
         expect(visibleOnScrollElement.element.scrollPosition).toBe(200);
       });
@@ -177,7 +177,7 @@ describe('VisibleOnScroll', () => {
       visibleOnScrollElement.element.scrolledVisible = false;
 
       window.orientation = 180;
-      window.dispatchEvent(new CustomEvent('orientationchange', {}));
+      window.dispatchEvent(new CustomEvent('orientationchange'));
 
       expect(visibleOnScrollElement.attributes('style')).toBe('transform: translate3d(0, 0, 0)');
       expect(visibleOnScrollElement.element.scrolledVisible).toBe(true);
