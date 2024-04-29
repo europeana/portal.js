@@ -298,7 +298,6 @@ export default {
     '~/plugins/i18n/iso-locale',
     '~/plugins/error',
     '~/plugins/axios.server',
-    '~/plugins/vue-directives',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
@@ -471,7 +470,7 @@ export default {
 
     // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
     // same with some of our custom packages
-    transpile: ['dom7', 'ssr-window', 'swiper', 'vue-router-query']
+    transpile: ['dom7', '@europeana/vue-visible-on-scroll', 'ssr-window', 'swiper', 'vue-router-query']
   },
 
   /*

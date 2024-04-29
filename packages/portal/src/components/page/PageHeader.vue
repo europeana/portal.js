@@ -105,6 +105,8 @@
 </template>
 
 <script>
+  import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
+
   import SmartLink from '../generic/SmartLink';
   import SearchForm from '../search/SearchForm';
   import PageNavigation from './PageNavigation';
@@ -118,6 +120,10 @@
       SearchForm,
       PageNavigation,
       SearchSidebarToggleButton
+    },
+
+    directives: {
+      'visible-on-scroll': visibleOnScrollDirective
     },
 
     data() {

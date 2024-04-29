@@ -62,6 +62,8 @@
 </template>
 
 <script>
+  import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
+
   import LandingPageNavigation from '@/components/landing/LandingPageNavigation';
   import SmartLink from '@/components/generic/SmartLink';
 
@@ -71,6 +73,10 @@
     components: {
       LandingPageNavigation,
       SmartLink
+    },
+
+    directives: {
+      'visible-on-scroll': visibleOnScrollDirective
     },
 
     data() {

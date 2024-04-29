@@ -4,11 +4,11 @@ import BootstrapVue from 'bootstrap-vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.directive('visible-on-scroll', () => { });
 
 const factory = () => shallowMount(LandingPageHeader, {
   localVue,
   mocks: {
+    $route: {},
     $t: (key) => key
   }
 });
