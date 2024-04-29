@@ -12,14 +12,20 @@ const themes = [{ name: 'art', identifier: 'art', primaryImageOfPage: {
   image: { url: 'https://images.ctfassets.net/example.jpg' }
 } }];
 
-const themesAfterFetch = [{ prefLabel: 'art',
+const themesAfterFetch = [{
+  prefLabel: 'art',
   primaryImageOfPage: {
     image: {
       url: 'https://images.ctfassets.net/example.jpg'
     }
   },
-  url: '/art' }];
-
+  url: {
+    name: 'themes-all',
+    params: {
+      pathMatch: 'art'
+    }
+  }
+}];
 const props = { title: 'themes' };
 
 const factory = ({ propsData = props, mocks } = {}) => {

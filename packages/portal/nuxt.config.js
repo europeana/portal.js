@@ -13,7 +13,6 @@ import versions from './pkg-versions.js';
 import i18nLocales from './src/i18n/locales.js';
 import i18nDateTime from './src/i18n/datetime.js';
 import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
-import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
 import {
@@ -41,9 +40,12 @@ const redisConfig = () => {
 };
 
 const postgresConfig = () => {
+  // see https://node-postgres.com/apis/pool
   const postgresOptions = {
     enabled: featureIsEnabled('eventLogging'),
     connectionString: process.env.POSTGRES_URL,
+    connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
+    idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),
     max: Number(process.env.POSTGRES_MAX || 10)
   };
 
@@ -291,10 +293,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
-    '~/plugins/hotjar.client',
     '~/plugins/error',
-    '~/plugins/link',
     '~/plugins/axios.server',
     '~/plugins/vue-directives',
     '~/plugins/vue-session.client',
@@ -425,9 +426,7 @@ export default {
         component: 'src/pages/index.vue'
       });
     },
-    linkExactActiveClass: 'exact-active-link',
-    parseQuery,
-    stringifyQuery
+    linkExactActiveClass: 'exact-active-link'
   },
 
   serverMiddleware: [
@@ -470,7 +469,8 @@ export default {
     publicPath: buildPublicPath(),
 
     // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
-    transpile: ['dom7', 'ssr-window', 'swiper']
+    // same with some of our custom packages
+    transpile: ['dom7', 'ssr-window', 'swiper', 'vue-router-query']
   },
 
   /*

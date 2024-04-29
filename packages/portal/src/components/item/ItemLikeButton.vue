@@ -121,3 +121,16 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .like-button:hover {
+    .icon-heart-outlined::before {
+      content: '\e918';
+    }
+    .icon-heart::before {
+      content: '\e9da';
+    }
+  }
+</style>

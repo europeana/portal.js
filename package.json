@@ -35,8 +35,10 @@
   "resolutions": {
     "@europeana/contentful": "link:./packages/contentful",
     "@europeana/mirador": "link:./packages/mirador",
+    "@europeana/oembed": "link:./packages/oembed",
     "@europeana/portal": "link:./packages/portal",
     "@europeana/style": "link:./packages/style",
+    "@europeana/vue-router-query": "link:./packages/vue-router-query",
     "@europeana/vue-session": "link:./packages/vue-session"
   },
   "devDependencies": {

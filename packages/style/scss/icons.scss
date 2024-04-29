@@ -33,6 +33,10 @@
 }
 
 .icon-add-circle::before {
+  content: '\e907';
+}
+
+.icon-add-circle-outlined::before {
   content: '\e923';
 }
 
@@ -212,8 +216,12 @@
   content: '\e93d';
 }
 
-.icon-transcribe::before {
+.icon-transcribe-outlined::before {
   content: '\e95b';
+}
+
+.icon-transcribe::before {
+  content: '\e916';
 }
 
 .icon-translate::before {

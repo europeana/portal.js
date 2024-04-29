@@ -35,10 +35,6 @@ const factory = (propsData) => mount(ItemDataProvider, {
       }
     },
     $i18n: { locale: 'en' },
-    $link: {
-      to: route => route,
-      href: () => null
-    },
     $store: {
       commit: sinon.spy()
     },
