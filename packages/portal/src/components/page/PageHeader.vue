@@ -105,7 +105,7 @@
 </template>
 
 <script>
-  import visibleOnScrollDirective from '@europeana/v-visible-on-scroll';
+  import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
 
   import SmartLink from '../generic/SmartLink';
   import SearchForm from '../search/SearchForm';

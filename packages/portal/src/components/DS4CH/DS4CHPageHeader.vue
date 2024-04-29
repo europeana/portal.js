@@ -62,7 +62,7 @@
 </template>
 
 <script>
-  import visibleOnScrollDirective from '@europeana/v-visible-on-scroll';
+  import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
 
   import DS4CHPageNavigation from './DS4CHPageNavigation';
   import SmartLink from '@/components/generic/SmartLink';

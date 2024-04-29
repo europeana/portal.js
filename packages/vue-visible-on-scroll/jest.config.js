@@ -1,5 +1,5 @@
 export default {
-  displayName: '@europeana/v-visible-on-scroll',
+  displayName: '@europeana/vue-visible-on-scroll',
   moduleFileExtensions: [
     'js',
     'json',

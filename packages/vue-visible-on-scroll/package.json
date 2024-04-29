@@ -1,5 +1,5 @@
 {
-  "name": "@europeana/v-visible-on-scroll",
+  "name": "@europeana/vue-visible-on-scroll",
   "version": "1.148.0",
   "description": "Vue visible-on-scroll directive",
   "license": "EUPL-1.2",

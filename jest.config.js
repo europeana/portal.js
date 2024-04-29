@@ -10,7 +10,7 @@ export default {
   ],
   projects: [
     '<rootDir>/packages/portal',
-    '<rootDir>/packages/v-visible-on-scroll',
-    '<rootDir>/packages/vue-session'
+    '<rootDir>/packages/vue-session',
+    '<rootDir>/packages/vue-visible-on-scroll'
   ]
 };
