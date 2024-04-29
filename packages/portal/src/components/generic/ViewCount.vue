@@ -52,7 +52,9 @@
       });
 
       this.viewCount = viewsResponse.data.viewCount;
-    }
+    },
+
+    fetchOnServer: false
   };
 </script>
 

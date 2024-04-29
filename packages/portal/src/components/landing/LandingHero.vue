@@ -20,6 +20,7 @@
         </header>
       </div>
       <ImageWithAttribution
+        v-if="heroImage?.image"
         class="hero-image px-sm-3 mb-4 mb-lg-0 p-lg-0"
         :class="{ 'svg-image': isSVG }"
         :alt="heroImage.image.description || ''"
@@ -116,7 +117,7 @@
         );
       },
       isSVG() {
-        return this.heroImage.image.contentType === 'image/svg+xml';
+        return this.heroImage?.image?.contentType === 'image/svg+xml';
       }
     }
   };

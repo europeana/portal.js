@@ -30,8 +30,6 @@
 </template>
 
 <script>
-// TODO: refactor to use $link.to and $link.href
-
   export default {
     props: {
       destination: {

@@ -50,12 +50,7 @@ const collections = [
 ];
 
 const factory = () => shallowMountNuxt(component, {
-  localVue,
-  mocks: {
-    localePath: (args) => {
-      return `${args.params.type} - ${args.params.pathMatch}`;
-    }
-  }
+  localVue
 });
 
 describe('mixins/collectionLinkGen', () => {
@@ -63,14 +58,18 @@ describe('mixins/collectionLinkGen', () => {
     describe('when the item has an identifier/it is a curated chip from contenful', () => {
       it('uses the identifier and english name for the slug', () => {
         const wrapper = factory();
-        expect(wrapper.vm.collectionLinkGen(collections[0])).toBe('person - 123-contentful-title-en');
+        expect(wrapper.vm.collectionLinkGen(collections[0])).toEqual({
+          name: 'collections-type-all', params: { pathMatch: '123-contentful-title-en', type: 'person' }
+        });
       });
     });
 
     describe('when the item has an id/it is a Europeana entity from a search request', () => {
       it('uses the id and the English prefLabel for the name', () => {
         const wrapper = factory();
-        expect(wrapper.vm.collectionLinkGen(collections[1])).toBe('topic - 194-visual-arts');
+        expect(wrapper.vm.collectionLinkGen(collections[1])).toEqual({
+          name: 'collections-type-all', params: { pathMatch: '194-visual-arts', type: 'topic' }
+        });
       });
     });
 

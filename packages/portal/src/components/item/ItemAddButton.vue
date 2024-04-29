@@ -10,7 +10,7 @@
       :title="$t('set.actions.addToGallery')"
       @click="addToSet"
     >
-      <span class="icon-add-circle" />
+      <span class="icon-add-circle-outlined" />
       {{ buttonText ? $t('actions.save') : '' }}
     </b-button>
     <template
@@ -113,3 +113,13 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .add-button:hover {
+    .icon-add-circle-outlined::before {
+      content: '\e907';
+    }
+  }
+</style>

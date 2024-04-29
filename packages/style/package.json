@@ -1,6 +1,6 @@
 {
   "name": "@europeana/style",
-  "version": "1.147.0",
+  "version": "1.149.0",
   "description": "Europeana website style assets",
   "license": "EUPL-1.2",
   "main": "scss/style.scss",

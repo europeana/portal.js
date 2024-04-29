@@ -175,21 +175,21 @@
         return this.entityParams.id;
       },
       queryRemovalLink() {
-        return this.localePath({
+        return {
           currentPath: this.$route.path,
           params: this.$route.params,
           query: {
             ...this.activeCriteria,
             query: null
           }
-        });
+        };
       },
       entityRemovalLink() {
-        return this.localePath({
+        return {
           name: 'search', query: {
             ...this.activeCriteria
           }
-        });
+        };
       },
       activeCriteria() {
         return {
@@ -249,7 +249,7 @@
     }
   }
 
-  .badge {
+  ::v-deep .badge {
     max-width: calc(100% - 2rem);
     text-transform: none;
   }

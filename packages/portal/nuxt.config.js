@@ -40,9 +40,12 @@ const redisConfig = () => {
 };
 
 const postgresConfig = () => {
+  // see https://node-postgres.com/apis/pool
   const postgresOptions = {
     enabled: featureIsEnabled('eventLogging'),
     connectionString: process.env.POSTGRES_URL,
+    connectionTimeoutMillis: Number(process.env.POSTGRES_POOL_CONNECTION_TIMEOUT || 0),
+    idleTimeoutMillis: Number(process.env.POSTGRES_POOL_IDLE_TIMEOUT || 10000),
     max: Number(process.env.POSTGRES_MAX || 10)
   };
 
@@ -295,7 +298,6 @@ export default {
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/error',
-    '~/plugins/link',
     '~/plugins/axios.server',
     '~/plugins/vue-directives',
     '~/plugins/vue-session.client',

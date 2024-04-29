@@ -279,7 +279,7 @@
     opacity: 0.7;
   }
 
-  .icon-add-circle {
+  .icon-add-circle-outlined {
     line-height: 1;
 
     &::before {
@@ -334,7 +334,7 @@
 
   .icon-pin,
   .icon-pin-outlined,
-  .icon-add-circle,
+  .icon-add-circle-outlined,
   .icon-heart,
   .icon-heart-outlined {
     font-size: $font-size-base;

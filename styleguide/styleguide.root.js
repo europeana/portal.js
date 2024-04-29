@@ -97,10 +97,6 @@ Object.assign(Vue.prototype, {
   },
   $features: {},
   $fetchState: {},
-  $link: {
-    to: route => route,
-    href: () => null
-  },
   $path: () => {
     return '/';
   },
