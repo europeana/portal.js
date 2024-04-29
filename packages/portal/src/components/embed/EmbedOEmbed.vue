@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import oEmbed from '@/plugins/oembed';
+  import oEmbed from '@europeana/oembed';
   import AlertMessage from '../generic/AlertMessage';
   import EmbedHTML from './EmbedHTML';
 

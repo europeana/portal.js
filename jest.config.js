@@ -9,6 +9,7 @@ export default {
     'text'
   ],
   projects: [
+    '<rootDir>/packages/oembed',
     '<rootDir>/packages/portal',
     '<rootDir>/packages/vue-session'
   ]
