@@ -37,30 +37,18 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
    * @param {string} europeanaId ID of Europeana record
    * @return {Object} record data
    */
-  async get(europeanaId, options = {}) {
+  async get(europeanaId, params = {}) {
     let path = '';
     if (!this.axios.defaults.baseURL.endsWith('/record')) {
       path = '/record';
     }
 
-    const params = { ...this.axios.defaults.params };
-    if (this.context?.$features?.translatedItems) {
-      if (options.metadataLanguage) {
-        params.profile = 'translate';
-        params.lang = options.metadataLanguage;
-      }
-    }
-
     try {
-      const response = await this.axios.get(`${path}${europeanaId}.json`, { params });
+      const response = await this.axios.get(`${path}${europeanaId}.json`, {
+        params: { ...this.axios.defaults.params, params }
+      });
       return response.data;
     } catch (error) {
-      const errorResponse = error.response;
-      if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
-        delete (options.metadataLanguage);
-        options.fromTranslationError = true;
-        return this.get(europeanaId, options);
-      }
       throw this.apiError(error);
     }
   }

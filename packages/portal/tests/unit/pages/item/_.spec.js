@@ -8,20 +8,61 @@ import page from '@/pages/item/_';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const apiResponse = {
+  object: {
+    about: '/123/abc',
+    aggregations: [
+      {
+        about: '/aggregation/provider/123/abc',
+        edmDataProvider: {
+          def: [
+            { about: 'http://data.europeana.eu/organization/01', prefLabel: { en: ['Data Provider'] } }
+          ]
+        },
+        edmProvider: {
+          def: [
+            { about: 'http://data.europeana.eu/organization/02', prefLabel: { en: ['Provider'] } }
+          ]
+        },
+        edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] }
+      }
+    ],
+    europeanaAggregation: {
+      about: '/aggregation/europeana/123/abc',
+      edmCountry: { def: ['Netherlands'] }
+    },
+    concepts: [
+      { about: 'http://data.europeana.eu/concept/47', prefLabel: { en: ['Painting'] } },
+      { about: 'http://data.europeana.eu/concept/01', prefLabel: { en: ['Fake'] } },
+      { about: 'http://data.europeana.eu/concept/02', prefLabel: { en: ['Concept'] } },
+      { about: 'http://data.europeana.eu/concept/03', prefLabel: { en: ['Entity'] } }
+    ],
+    organizations: [
+      { about: 'http://data.europeana.eu/organization/01', prefLabel: { en: ['Data Provider'] } },
+      { about: 'http://data.europeana.eu/organization/02', prefLabel: { en: ['Aggregator'] } }
+    ],
+    places: [
+      { about: 'https://example.com/provider/entity', prefLabel: { en: ['Manchester'] } }
+    ],
+    proxies: [
+      {
+        about: '/proxy/provider/123/abc',
+        dcTitle: { en: ['Item example'] }
+      }
+    ]
+  }
+};
+
 const record = {
   identifier: '/123/abc',
-  concepts: [
-    { 'about': 'http://data.europeana.eu/concept/47', 'prefLabel': { 'en': ['Painting'] } },
-    { 'about': 'http://data.europeana.eu/concept/01', 'prefLabel': { 'en': ['Fake'] } },
-    { 'about': 'http://data.europeana.eu/concept/02', 'prefLabel': { 'en': ['Concept'] } },
-    { 'about': 'http://data.europeana.eu/concept/03', 'prefLabel': { 'en': ['Entity'] } }
-  ],
-  organizations: [
-    { 'about': 'http://data.europeana.eu/organization/01', 'prefLabel': { 'en': ['Data Provider'] } },
-    { 'about': 'http://data.europeana.eu/organization/02', 'prefLabel': { 'en': ['Aggregator'] } }
-  ],
-  places: [
-    { 'about': 'https://example.com/provider/entity', 'prefLabel': { 'en': ['Manchester'] } }
+  entities: [
+    { about: 'http://data.europeana.eu/concept/47', prefLabel: { en: ['Painting'] } },
+    { about: 'http://data.europeana.eu/concept/01', prefLabel: { en: ['Fake'] } },
+    { about: 'http://data.europeana.eu/concept/02', prefLabel: { en: ['Concept'] } },
+    { about: 'http://data.europeana.eu/concept/03', prefLabel: { en: ['Entity'] } },
+    { about: 'http://data.europeana.eu/organization/01', prefLabel: { en: ['Data Provider'] } },
+    { about: 'http://data.europeana.eu/organization/02', prefLabel: { en: ['Aggregator'] } },
+    { about: 'https://example.com/provider/entity', prefLabel: { en: ['Manchester'] } }
   ],
   metadata: {
     edmCountry: { def: ['Netherlands'] },
@@ -73,10 +114,9 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
       fullPath: '/en/item/123/abc',
       path: '/en/item/123/abc'
     },
-    $t: key => key,
+    $t: (key) => key,
     $i18n: {
-      locale: 'en',
-      locales: ['en']
+      locale: 'en'
     },
     $auth: {
       loggedIn: false
@@ -89,7 +129,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
         find: entityFindStub
       },
       record: {
-        getRecord: sinon.stub().resolves({ record }),
+        get: sinon.stub().resolves(apiResponse),
         search: sinon.spy()
       }
     },
@@ -137,31 +177,31 @@ describe('pages/item/_.vue', () => {
         await wrapper.vm.fetch();
 
         expect(fetchMetadata.called).toBe(false);
-        expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(false);
+        expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(false);
       });
     });
   });
 
   describe('fetch', () => {
-    describe('when the page is loaded without a metadataLanguage', () => {
-      it('gets a record from the API for the ID in the route params pathMatch, for the current locale', async() => {
+    describe('when the page is loaded without a lang route query param', () => {
+      it('gets a record from the API for the ID in the route params pathMatch', async() => {
         const wrapper = factory();
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined })).toBe(true);
+        expect(wrapper.vm.$apis.record.get.calledWith('/123/abc')).toBe(true);
       });
     });
 
-    describe('when the page is loaded with a metadataLanguage', () => {
+    describe('when the page is loaded with a lang route query param', () => {
       describe('and the user is logged in', () => {
-        it('gets a record from the API for the ID in the params pathMatch, with metadataLanguage from `lang` query', async() => {
+        it('gets a record from the API for the ID in the params pathMatch, with translate and lang profiles', async() => {
           const wrapper = factory({ mocks: { $auth: { loggedIn: true } } });
           wrapper.vm.$route.query = { lang: 'fr' };
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
+          expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { lang: 'fr', profile: 'translate' })).toBe(true);
         });
       });
     });
@@ -172,7 +212,7 @@ describe('pages/item/_.vue', () => {
 
         await wrapper.vm.fetch();
 
-        expect(redirectSpy.calledWith({ params: { pathMatch: record.identifier.slice(1) } })).toBe(true);
+        expect(redirectSpy.calledWith({ params: { pathMatch: apiResponse.object.about.slice(1) } })).toBe(true);
       });
     });
 
@@ -181,14 +221,13 @@ describe('pages/item/_.vue', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.identifier).toBe(record.identifier);
-      expect(wrapper.vm.metadata).toEqual(record.metadata);
+      expect(wrapper.vm.identifier).toBe(apiResponse.object.about);
     });
 
     describe('on errors', () => {
       it('calls $error', async() => {
         const wrapper = factory();
-        wrapper.vm.$apis.record.getRecord = sinon.stub().throws(() => new Error('Internal Server Error'));
+        wrapper.vm.$apis.record.get = sinon.stub().throws(() => new Error('Internal Server Error'));
 
         await wrapper.vm.fetch();
 
@@ -273,10 +312,12 @@ describe('pages/item/_.vue', () => {
       it('fetches entities', () => {
         const wrapper = factory({
           data: {
-            agents: [{ about: 'http://data.europeana.eu/agent/1' }],
-            concepts: [{ about: 'http://data.europeana.eu/concept/1' }],
-            places: [{ about: 'http://data.europeana.eu/place/1' }],
-            timespans: [{ about: 'http://data.europeana.eu/timespan/1' }]
+            entities: [
+              { about: 'http://data.europeana.eu/agent/1' },
+              { about: 'http://data.europeana.eu/concept/1' },
+              { about: 'http://data.europeana.eu/place/1' },
+              { about: 'http://data.europeana.eu/timespan/1' }
+            ]
           },
           mocks: { $fetchState }
         });
@@ -285,8 +326,8 @@ describe('pages/item/_.vue', () => {
           [
             'http://data.europeana.eu/agent/1',
             'http://data.europeana.eu/concept/1',
-            'http://data.europeana.eu/timespan/1',
-            'http://data.europeana.eu/place/1'
+            'http://data.europeana.eu/place/1',
+            'http://data.europeana.eu/timespan/1'
           ],
           { fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo' }
         )).toBe(true);
@@ -437,8 +478,7 @@ describe('pages/item/_.vue', () => {
             const wrapper = factory({
               data: {
                 metadata: record.metadata,
-                organizations: record.organizations,
-                concepts: record.concepts
+                entities: record.entities
               }
             });
 
@@ -459,8 +499,7 @@ describe('pages/item/_.vue', () => {
               const wrapper = factory({
                 data: {
                   metadata: record.metadata,
-                  organizations: record.organizations,
-                  concepts: record.concepts
+                  entities: record.entities
                 }
               });
 
@@ -503,8 +542,7 @@ describe('pages/item/_.vue', () => {
                   nl: ['Voorbeeld organisatie']
                 }
               },
-              organizations: record.organizations,
-              concepts: record.concepts
+              entities: apiResponse.object.concepts.concat(apiResponse.object.organizations)
             }
           });
 
@@ -542,12 +580,12 @@ describe('pages/item/_.vue', () => {
         const wrapper = factory();
 
         await wrapper.vm.fetch();
-
         const pageMeta = wrapper.vm.pageMeta;
 
         expect(pageMeta.title).toBe('Item example');
       });
     });
+
     describe('dataProviderEntityUri', () => {
       it('gets the URI from the edmDataProvider attribute, if it conforms to the europeana entity URI spec', async() => {
         const wrapper = factory();
@@ -557,16 +595,19 @@ describe('pages/item/_.vue', () => {
         expect(uri).toBe('http://data.europeana.eu/organization/01');
       });
     });
+
     describe('relatedEntityUris', () => {
       it('limits the total to 5 and does not include the dataProvider entity', async() => {
         const wrapper = factory();
 
         await wrapper.vm.fetch();
         const entityUris = wrapper.vm.relatedEntityUris;
+
         expect(entityUris.length).toBe(5);
         expect(entityUris.includes('http://data.europeana.eu/organization/01')).toBe(false);
       });
     });
+
     describe('matomoOptions', () => {
       it('picks the english pref labels from the metadata', () => {
         const wrapper = factory({

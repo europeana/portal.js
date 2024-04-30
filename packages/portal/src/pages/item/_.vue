@@ -185,14 +185,13 @@
     data() {
       return {
         MAX_VALUES_PER_PROXY_FIELD: 10,
-        agents: [],
         allMediaUris: [],
         altTitle: null,
         annotations: [],
         cardGridClass: null,
-        concepts: [],
         dataProviderEntity: null,
         description: null,
+        entities: [],
         error: null,
         fromTranslationError: null,
         identifier: `/${this.$route.params.pathMatch}`,
@@ -200,12 +199,8 @@
         isShownAt: null,
         media: [],
         metadata: {},
-        metadataLanguage: null,
-        organizations: [],
-        places: [],
         relatedCollections: [],
         showItemLanguageSelector: true,
-        timespans: [],
         title: null,
         type: null,
         useProxy: true
@@ -255,12 +250,7 @@
         return this.metadata.edmRights?.def[0] || '';
       },
       europeanaEntities() {
-        return this.agents
-          .concat(this.concepts)
-          .concat(this.timespans)
-          .concat(this.organizations)
-          .concat(this.places)
-          .filter(entity => entity.about.startsWith(`${EUROPEANA_DATA_URL}/`));
+        return this.entities.filter((entity) => entity.about.startsWith(`${EUROPEANA_DATA_URL}/`));
       },
       europeanaEntityUris() {
         return this.europeanaEntities
@@ -312,7 +302,7 @@
         return this.canonicalUrl({ fullPath: true, locale: false });
       },
       relatedEntityUris() {
-        return this.europeanaEntityUris.filter(entityUri => entityUri !== this.dataProviderEntityUri).slice(0, 5);
+        return this.europeanaEntityUris.filter((entityUri) => entityUri !== this.dataProviderEntityUri).slice(0, 5);
       },
       translatedItemsEnabled() {
         return this.$features.translatedItems;
@@ -324,6 +314,9 @@
           dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
           dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
+      },
+      metadataLanguage() {
+        return this.$auth.loggedIn ? this.$route.query.lang : undefined;
       }
     },
 
@@ -361,39 +354,47 @@
       },
 
       async fetchMetadata() {
-        const options = { locale: this.$i18n.locale, metadataLanguage: this.$auth.loggedIn ? this.$route.query.lang : undefined };
+        const params = {};
+        if (this.$features?.translatedItems && this.metadataLanguage) {
+          params.profile = 'translate';
+          params.lang = this.metadataLanguage;
+        }
 
+        let data;
         try {
-          const data = await this.$apis.record.get(this.identifier, options);
-          let item = data.object;
-
-          console.log('fetchMetadata item', item);
-          if (this.identifier !== item.about) {
-            return this.redirectToAltRoute({ params: { pathMatch: item.about?.slice(1) } });
+          data = await this.$apis.record.get(this.identifier, params);
+        } catch (error) {
+          const errorResponse = error.response;
+          if (errorResponse?.status === 502 && errorResponse?.data?.code === '502-TS' && !this.fromTranslationError) {
+            this.fromTranslationError = true;
+            data = await this.$apis.record.get(this.identifier);
+          } else {
+            return this.$error(error, { scope: 'item' });
           }
+        }
 
-          const parsed = this.parseRecordDataFromApiResponse(item, options);
-          const reduced = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, { freeze: false });
+        this.storeMetadata(data);
+        process.client && this.trackCustomDimensions();
+      },
 
-          // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
-          for (const entityType of ['agents', 'concepts', 'organizations', 'places', 'timespans']) {
-            for (const reducedEntity of (reduced[entityType] || [])) {
-              const fullEntity = parsed[entityType].find(entity => entity.about === reducedEntity.about);
-              if (fullEntity.prefLabel?.en !== reducedEntity.prefLabel?.en) {
-                reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
-              }
-            }
-          }
+      storeMetadata(data) {
+        const item = data.object;
 
-          for (const key in reduced) {
-            this[key] = reduced[key];
-          }
+        if (this.identifier !== item.about) {
+          return this.redirectToAltRoute({ params: { pathMatch: item.about?.slice(1) } });
+        }
 
-          if (process.client) {
-            this.trackCustomDimensions();
-          }
-        } catch (e) {
-          this.$error(e, { scope: 'item' });
+        const parsed = this.parseRecordDataFromApiResponse(item);
+        const reduced = reduceLangMapsForLocale(parsed, this.metadataLanguage || this.$i18n.locale, { freeze: false });
+
+        // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
+        for (const reducedEntity of (reduced.entities || [])) {
+          const fullEntity = (parsed.entities || []).find((entity) => entity.about === reducedEntity.about);
+          reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
+        }
+
+        for (const key in reduced) {
+          this[key] = reduced[key];
         }
       },
 
@@ -416,25 +417,17 @@
        * @param {Object} edm data from API response
        * @return {Object} parsed data
        */
-      parseRecordDataFromApiResponse(edm, options = {}) {
+      parseRecordDataFromApiResponse(edm) {
         const providerAggregation = edm.aggregations[0];
 
-        const concepts = (edm.concepts || []).map(this.reduceEntity).map(Object.freeze);
-        const places = (edm.places || []).map(this.reduceEntity).map(Object.freeze);
-        const agents = (edm.agents || []).map(this.reduceEntity).map(Object.freeze);
-        const timespans = (edm.timespans || []).map(this.reduceEntity).map(Object.freeze);
-        const organizations = (edm.organizations || []).map(this.reduceEntity).map(Object.freeze);
-
-        const entities = [].concat(concepts, places, agents, timespans, organizations)
-          .filter((entity) => entity !== undefined)
-          .reduce((memo, entity) => {
-            memo[entity.about] = entity;
-            return memo;
-          }, {});
+        const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans, edm.organizations)
+          .filter((entity) => !!entity)
+          .map(this.reduceEntity)
+          .map(Object.freeze);
 
         // Europeana proxy only really needed for the translate profile
         const europeanaProxy = this.findProxy(edm.proxies, 'europeana');
-        if (!(this.$features?.translatedItems && options.metadataLanguage)) {
+        if (!(this.$features?.translatedItems && this.metadataLanguage)) {
           this.forEachLangMapValue(europeanaProxy, (europeanaProxy, field, locale) => {
             if (!undefinedLocaleCodes.includes(locale)) {
               delete europeanaProxy[field][locale];
@@ -454,9 +447,9 @@
 
         let prefLang;
         if (this.$features?.translatedItems) {
-          prefLang = options.metadataLanguage ? options.metadataLanguage : null;
+          prefLang = this.metadataLanguage ? this.metadataLanguage : null;
         }
-        const predictedUiLang = prefLang || options.locale;
+        const predictedUiLang = prefLang || this.$i18n.locale;
 
         for (const field in proxies) {
           if (aggregatorProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
@@ -484,19 +477,13 @@
           allMediaUris: item.providerAggregation.displayableWebResources.map((wr) => wr.about),
           altTitle: proxies.dctermsAlternative,
           description: proxies.dcDescription,
-          fromTranslationError: options.fromTranslationError,
           identifier: edm.about,
           type: edm.type, // TODO: Evaluate if this is used, if not remove.
           isShownAt: item.providerAggregation.edmIsShownAt,
           metadata: Object.freeze(metadata),
           media: item.providerAggregation.displayableWebResources,
-          agents,
-          concepts,
-          timespans,
-          organizations,
-          places,
+          entities,
           title: proxies.dcTitle,
-          metadataLanguage: prefLang,
           iiifPresentationManifest: item.iiifPresentationManifest
         };
       },
@@ -530,8 +517,9 @@
         // Only looks for entities in 'def'
         const values = (fields[key]['def'] || []);
         for (const [index, value] of values.entries()) {
-          if (entities[value]) {
-            fields[key]['def'][index] = entities[value];
+          const entity = entities.find((entity) => entity.about === value);
+          if (entity) {
+            fields[key]['def'][index] = entity;
           }
         }
       },
@@ -561,11 +549,9 @@
 
       proxyHasEntityForField(proxy, field, entities) {
         if (Array.isArray(proxy?.[field]?.def)) {
-          return proxy?.[field]?.def.some(key => {
-            return entities[key];
-          });
+          return proxy?.[field]?.def.some((def) => entities.find((entity) => entity.about === def));
         }
-        return entities[proxy?.[field]?.def];
+        return entities.find((entity) => entity.about === proxy?.[field]?.def);
       },
 
       proxyHasLanguageField(proxy, field, targetLanguage) {

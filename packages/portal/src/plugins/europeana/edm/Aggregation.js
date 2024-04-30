@@ -68,7 +68,7 @@ export default class Aggregation extends Base {
   }
 
   get iiifPresentationManifestWebResources() {
-    return this.webResources.filter((wr) => wr.isIIIFPresentationManifest);
+    return (this.webResources || []).filter((wr) => wr.isIIIFPresentationManifest);
   }
 
   // TODO: memoise
@@ -81,7 +81,7 @@ export default class Aggregation extends Base {
       uris.unshift(this.edmIsShownAt);
     }
 
-    const wrs = uris.map((uri) => this.webResources.find((wr) => wr.about === uri));
+    const wrs = uris.map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
 
     // Sort by isNextInSequence property if present
     return sortByIsNextInSequence(wrs);
