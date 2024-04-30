@@ -258,19 +258,19 @@
       },
       attributionFields() {
         return {
-          title: langMapValueForLocale(this.title, this.metadataLanguage || this.$i18n.locale).values[0],
-          creator: langMapValueForLocale(this.metadata.dcCreator, this.$i18n.locale).values[0],
-          year: langMapValueForLocale(this.metadata.year, this.$i18n.locale).values[0],
-          provider: langMapValueForLocale(this.metadata.edmDataProvider, this.$i18n.locale).values[0],
-          country: langMapValueForLocale(this.metadata.edmCountry, this.$i18n.locale).values[0],
+          title: langMapValueForLocale(this.title, this.metadataLanguage).values[0],
+          creator: langMapValueForLocale(this.metadata.dcCreator, this.metadataLanguage).values[0],
+          year: langMapValueForLocale(this.metadata.year, this.metadataLanguage).values[0],
+          provider: langMapValueForLocale(this.metadata.edmDataProvider, this.metadataLanguage).values[0],
+          country: langMapValueForLocale(this.metadata.edmCountry, this.metadataLanguage).values[0],
           url: this.shareUrl
         };
       },
       titlesInCurrentLanguage() {
         const titles = [];
 
-        const mainTitle = this.title ? langMapValueForLocale(this.title, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale }) : '';
-        const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.$i18n.locale, { uiLanguage: this.$i18n.locale }) : '';
+        const mainTitle = this.title ? langMapValueForLocale(this.title, this.metadataLanguage) : '';
+        const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.metadataLanguage) : '';
 
         const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
         for (const title of allTitles) {
@@ -284,7 +284,7 @@
         if (!this.description) {
           return null;
         }
-        return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
+        return langMapValueForLocale(this.description, this.metadataLanguage);
       },
       dataProviderEntityUri() {
         return this.metadata.edmDataProvider?.def?.[0].about || null;
@@ -316,7 +316,11 @@
         };
       },
       metadataLanguage() {
-        return this.$auth.loggedIn ? this.$route.query.lang : undefined;
+        if (!this.$features?.translatedItems || !this.$auth.loggedIn || !this.$route.query.lang) {
+          return this.$i18n.locale;
+        } else {
+          return this.$route.query.lang;
+        }
       }
     },
 
@@ -355,7 +359,7 @@
 
       async fetchMetadata() {
         const params = {};
-        if (this.$features?.translatedItems && this.metadataLanguage) {
+        if (this.$features?.translatedItems && (this.metadataLanguage !== this.$i18n.locale)) {
           params.profile = 'translate';
           params.lang = this.metadataLanguage;
         }
@@ -385,7 +389,7 @@
         }
 
         const parsed = this.parseRecordDataFromApiResponse(item);
-        const reduced = reduceLangMapsForLocale(parsed, this.metadataLanguage || this.$i18n.locale, { freeze: false });
+        const reduced = reduceLangMapsForLocale(parsed, this.metadataLanguage, { freeze: false });
 
         // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
         for (const reducedEntity of (reduced.entities || [])) {
@@ -427,7 +431,7 @@
 
         // Europeana proxy only really needed for the translate profile
         const europeanaProxy = this.findProxy(edm.proxies, 'europeana');
-        if (!(this.$features?.translatedItems && this.metadataLanguage)) {
+        if (!(this.$features?.translatedItems && (this.metadataLanguage !== this.$i18n.locale))) {
           this.forEachLangMapValue(europeanaProxy, (europeanaProxy, field, locale) => {
             if (!undefinedLocaleCodes.includes(locale)) {
               delete europeanaProxy[field][locale];
@@ -445,16 +449,10 @@
           }
         });
 
-        let prefLang;
-        if (this.$features?.translatedItems) {
-          prefLang = this.metadataLanguage ? this.metadataLanguage : null;
-        }
-        const predictedUiLang = prefLang || this.$i18n.locale;
-
         for (const field in proxies) {
-          if (aggregatorProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
+          if (aggregatorProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, this.metadataLanguage, entities)) {
             proxies[field].translationSource = 'enrichment';
-          } else if (europeanaProxy?.[field]?.[predictedUiLang] && this.$features?.translatedItems) {
+          } else if (europeanaProxy?.[field]?.[this.metadataLanguage] && this.$features?.translatedItems) {
             proxies[field].translationSource = 'automated';
           }
         }
@@ -532,14 +530,14 @@
       * @param {String} field the field name to check
       * @param {Object} aggregatorProxy the proxy with the enrichment data
       * @param {Object} providerProxy provider proxy, used to confirm whether preferable values exist outside the enriched data
-      * @param {String} predictedUiLang the two letter language code which will be the prefered UI language
+      * @param {String} lang the two letter language code which will be the prefered UI language
       * @return {Boolean} true if enriched data will be shown
       */
-      localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities) {
+      localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, lang, entities) {
         if (isLangMap(aggregatorProxy[field]) &&
           (this.proxyHasEntityForField(aggregatorProxy, field, entities) ||
-            this.proxyHasLanguageField(aggregatorProxy, field, predictedUiLang) ||
-            this.proxyHasFallbackField(providerProxy, aggregatorProxy, field, predictedUiLang)
+            this.proxyHasLanguageField(aggregatorProxy, field, lang) ||
+            this.proxyHasFallbackField(providerProxy, aggregatorProxy, field, lang)
           )
         ) {
           return true;
@@ -581,8 +579,8 @@
             const entities = await this.$apis.entity.find([...this.relatedEntityUris, this.dataProviderEntityUri], params);
 
             if (entities)  {
-              this.relatedCollections = entities.filter(entity => entity.id !== this.dataProviderEntityUri);
-              this.dataProviderEntity = entities.filter(entity => entity.id === this.dataProviderEntityUri)[0];
+              this.relatedCollections = entities.filter((entity) => entity.id !== this.dataProviderEntityUri);
+              this.dataProviderEntity = entities.find((entity) => entity.id === this.dataProviderEntityUri);
             }
           } catch {
             // don't fall over

@@ -27,7 +27,7 @@
           <li
             v-for="(nestedValue, nestedIndex) of value.values"
             :key="index + '_' + nestedIndex"
-            :lang="value.code"
+            :lang="langAttribute(value.code)"
             :data-qa="fieldData.url ? 'entity link' : 'entity value'"
           >
             <SmartLink
@@ -46,7 +46,7 @@
         <li
           v-else
           :key="index"
-          :lang="langMappedValues.code"
+          :lang="langAttribute(langMappedValues.code)"
           data-qa="literal value"
         >
           <SmartLink
@@ -170,6 +170,12 @@
 
       isValidFieldData() {
         return !this.timestampIsUnixEpochValue && (this.name !== 'edmUgc');
+      }
+    },
+
+    methods: {
+      langAttribute(lang) {
+        return lang === this.$i18n.locale ? null : lang;
       }
     }
   };

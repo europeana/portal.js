@@ -45,7 +45,7 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
 
     try {
       const response = await this.axios.get(`${path}${europeanaId}.json`, {
-        params: { ...this.axios.defaults.params, params }
+        params: { ...this.axios.defaults.params, ...params }
       });
       return response.data;
     } catch (error) {
