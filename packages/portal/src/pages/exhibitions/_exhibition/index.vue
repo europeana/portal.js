@@ -148,7 +148,7 @@
 
       const variables = {
         identifier: params.exhibition,
-        locale: app.i18n.isoLocale(),
+        locale: app.i18n.localeProperties.iso,
         preview: query.mode === 'preview'
       };
 

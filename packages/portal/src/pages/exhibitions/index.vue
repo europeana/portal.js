@@ -64,7 +64,7 @@
 
     asyncData({ query, error, app, store }) {
       const variables = {
-        locale: app.i18n.isoLocale(),
+        locale: app.i18n.localeProperties.iso,
         preview: query.mode === 'preview',
         limit: PER_PAGE,
         skip: (store.state.sanitised.page - 1) * PER_PAGE

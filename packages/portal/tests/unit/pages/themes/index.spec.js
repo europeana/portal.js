@@ -43,7 +43,7 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     },
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB'
+      localeProperties: { iso: 'en-GB' }
     },
     $route: { query: {} },
     $t: (key) => key,

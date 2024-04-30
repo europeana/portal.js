@@ -42,7 +42,7 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
       pending: false
     },
     localePath: () => 'mocked path',
-    $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, isoLocale: () => 'en-GB' },
+    $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
     $route: { query: {} },
     $axios: {
       get: $axiosGetStub

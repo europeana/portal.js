@@ -52,7 +52,7 @@
     asyncData({ params, query, error, app, store, redirect }) {
       const variables = {
         identifier: params.pathMatch,
-        locale: app.i18n.isoLocale(),
+        locale: app.i18n.localeProperties.iso,
         preview: query.mode === 'preview'
       };
 

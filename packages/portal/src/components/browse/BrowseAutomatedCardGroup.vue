@@ -204,7 +204,7 @@
       },
       async fetchContentfulData() {
         const variables = {
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
         const response = await this.$contentful.query(this.contentful.query, variables);

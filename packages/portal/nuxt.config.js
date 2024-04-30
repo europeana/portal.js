@@ -10,9 +10,9 @@ const APP_PKG_NAME = '@europeana/portal';
 
 import versions from './pkg-versions.js';
 
-import i18nLocales from './src/plugins/i18n/locales.js';
-import i18nDateTime from './src/plugins/i18n/datetime.js';
-import { exclude as i18nRoutesExclude } from './src/plugins/i18n/routes.js';
+import i18nLocales from './src/i18n/locales.js';
+import i18nDateTime from './src/i18n/datetime.js';
+import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
 import {
@@ -295,7 +295,6 @@ export default {
   plugins: [
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
-    '~/plugins/i18n/iso-locale',
     '~/plugins/error',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
@@ -327,7 +326,7 @@ export default {
       baseUrl: ({ $config }) => $config.app.baseUrl,
       defaultLocale: 'en',
       lazy: true,
-      langDir: 'lang/',
+      langDir: 'i18n/lang/',
       strategy: 'prefix',
       vueI18n: {
         fallbackLocale: 'en',

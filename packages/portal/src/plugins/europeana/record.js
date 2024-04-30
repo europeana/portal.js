@@ -4,9 +4,8 @@ import merge from 'deepmerge';
 
 import EuropeanaApi from './apis/base.js';
 
-import undefinedLocaleCodes from '../i18n/undefined.js';
 import {
-  forEachLangMapValue, reduceLangMapsForLocale, isLangMap
+  forEachLangMapValue, reduceLangMapsForLocale, isLangMap, undefinedLocaleCodes
 } from './utils.js';
 import search from './search.js';
 import Item from './edm/Item.js';

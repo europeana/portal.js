@@ -96,7 +96,7 @@
     methods: {
       async fetchContentfulEntry() {
         const variables = {
-          locale: this.$i18n.isoLocale(),
+          locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview',
           identifier: this.$route.query.identifier || null,
           date: (new Date()).toISOString()
