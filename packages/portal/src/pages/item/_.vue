@@ -137,7 +137,9 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import isEmpty from 'lodash/isEmpty';
+  import isEmpty from 'lodash/isEmpty.js';
+  import pick from 'lodash/pick.js';
+  import merge from 'deepmerge';
 
   import ItemDataProvider from '@/components/item/ItemDataProvider';
   import ItemHero from '@/components/item/ItemHero';
@@ -145,15 +147,17 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox from '@/components/metadata/MetadataBox';
 
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
+  import {
+    isLangMap, langMapValueForLocale, reduceLangMapsForLocale, undefinedLocaleCodes
+  } from  '@/plugins/europeana/utils';
+  import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/mixins/stringify';
   import logEventMixin from '@/mixins/logEvent';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import pageMetaMixin from '@/mixins/pageMeta';
   import redirectToMixin from '@/mixins/redirectTo';
-  import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
 
   export default {
     name: 'ItemPage',
@@ -180,6 +184,7 @@
 
     data() {
       return {
+        MAX_VALUES_PER_PROXY_FIELD: 10,
         agents: [],
         allMediaUris: [],
         altTitle: null,
@@ -356,19 +361,32 @@
       },
 
       async fetchMetadata() {
-        try {
-          const response = await this.$apis.record.getRecord(
-            this.identifier,
-            { locale: this.$i18n.locale, metadataLanguage: this.$auth.loggedIn ? this.$route.query.lang : undefined }
-          );
+        const options = { locale: this.$i18n.locale, metadataLanguage: this.$auth.loggedIn ? this.$route.query.lang : undefined };
 
-          const responseIdentifier = response.record.identifier;
-          if (this.identifier !== responseIdentifier) {
-            this.redirectToAltRoute({ params: { pathMatch: responseIdentifier.slice(1) } });
+        try {
+          const data = await this.$apis.record.get(this.identifier, options);
+          let item = data.object;
+
+          console.log('fetchMetadata item', item);
+          if (this.identifier !== item.about) {
+            return this.redirectToAltRoute({ params: { pathMatch: item.about?.slice(1) } });
           }
 
-          for (const key in response.record) {
-            this[key] = response.record[key];
+          const parsed = this.parseRecordDataFromApiResponse(item, options);
+          const reduced = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, { freeze: false });
+
+          // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
+          for (const entityType of ['agents', 'concepts', 'organizations', 'places', 'timespans']) {
+            for (const reducedEntity of (reduced[entityType] || [])) {
+              const fullEntity = parsed[entityType].find(entity => entity.about === reducedEntity.about);
+              if (fullEntity.prefLabel?.en !== reducedEntity.prefLabel?.en) {
+                reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
+              }
+            }
+          }
+
+          for (const key in reduced) {
+            this[key] = reduced[key];
           }
 
           if (process.client) {
@@ -377,6 +395,185 @@
         } catch (e) {
           this.$error(e, { scope: 'item' });
         }
+      },
+
+      forEachLangMapValue(langMapContainer, callback) {
+        for (const field in langMapContainer) {
+          if (isLangMap(langMapContainer[field])) {
+            for (const locale in langMapContainer[field]) {
+              callback(langMapContainer, field, locale);
+            }
+          }
+        }
+      },
+
+      findProxy(proxies, type) {
+        return proxies.find(proxy => proxy.about?.startsWith(`/proxy/${type}/`));
+      },
+
+      /**
+       * Parse the record data based on the data from the API response
+       * @param {Object} edm data from API response
+       * @return {Object} parsed data
+       */
+      parseRecordDataFromApiResponse(edm, options = {}) {
+        const providerAggregation = edm.aggregations[0];
+
+        const concepts = (edm.concepts || []).map(this.reduceEntity).map(Object.freeze);
+        const places = (edm.places || []).map(this.reduceEntity).map(Object.freeze);
+        const agents = (edm.agents || []).map(this.reduceEntity).map(Object.freeze);
+        const timespans = (edm.timespans || []).map(this.reduceEntity).map(Object.freeze);
+        const organizations = (edm.organizations || []).map(this.reduceEntity).map(Object.freeze);
+
+        const entities = [].concat(concepts, places, agents, timespans, organizations)
+          .filter((entity) => entity !== undefined)
+          .reduce((memo, entity) => {
+            memo[entity.about] = entity;
+            return memo;
+          }, {});
+
+        // Europeana proxy only really needed for the translate profile
+        const europeanaProxy = this.findProxy(edm.proxies, 'europeana');
+        if (!(this.$features?.translatedItems && options.metadataLanguage)) {
+          this.forEachLangMapValue(europeanaProxy, (europeanaProxy, field, locale) => {
+            if (!undefinedLocaleCodes.includes(locale)) {
+              delete europeanaProxy[field][locale];
+            }
+          });
+        }
+        const aggregatorProxy = this.findProxy(edm.proxies, 'aggregator');
+        const providerProxy = this.findProxy(edm.proxies, 'provider');
+
+        const proxies = merge.all([europeanaProxy, aggregatorProxy, providerProxy].filter((p) => !!p));
+
+        this.forEachLangMapValue(proxies, (proxies, field, locale) => {
+          if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > this.MAX_VALUES_PER_PROXY_FIELD) {
+            proxies[field][locale] = proxies[field][locale].slice(0, this.MAX_VALUES_PER_PROXY_FIELD).concat('…');
+          }
+        });
+
+        let prefLang;
+        if (this.$features?.translatedItems) {
+          prefLang = options.metadataLanguage ? options.metadataLanguage : null;
+        }
+        const predictedUiLang = prefLang || options.locale;
+
+        for (const field in proxies) {
+          if (aggregatorProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
+            proxies[field].translationSource = 'enrichment';
+          } else if (europeanaProxy?.[field]?.[predictedUiLang] && this.$features?.translatedItems) {
+            proxies[field].translationSource = 'automated';
+          }
+        }
+
+        const metadata = {
+          ...this.lookupEntities(
+            merge.all([proxies, providerAggregation, edm.europeanaAggregation]), entities
+          ),
+          europeanaCollectionName: edm.europeanaCollectionName ? {
+            url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
+            value: edm.europeanaCollectionName
+          } : null,
+          timestampCreated: edm.timestamp_created,
+          timestampUpdate: edm.timestamp_update
+        };
+
+        const item = new Item(edm);
+
+        return {
+          allMediaUris: item.providerAggregation.displayableWebResources.map((wr) => wr.about),
+          altTitle: proxies.dctermsAlternative,
+          description: proxies.dcDescription,
+          fromTranslationError: options.fromTranslationError,
+          identifier: edm.about,
+          type: edm.type, // TODO: Evaluate if this is used, if not remove.
+          isShownAt: item.providerAggregation.edmIsShownAt,
+          metadata: Object.freeze(metadata),
+          media: item.providerAggregation.displayableWebResources,
+          agents,
+          concepts,
+          timespans,
+          organizations,
+          places,
+          title: proxies.dcTitle,
+          metadataLanguage: prefLang,
+          iiifPresentationManifest: item.iiifPresentationManifest
+        };
+      },
+
+      reduceEntity(entity) {
+        return pick(entity, [
+          'about',
+          'latitude',
+          'longitude',
+          'prefLabel'
+        ]);
+      },
+
+      /**
+       * Update a set of fields, in order to find linked entity data.
+       * will match any literal values in  the 'def' key to about fields
+       * in any of the entities and return the related object instead of
+       * the plain string.
+       * @param fields Object representing the metadata fields
+       * @param entities key(URI) value(JSON object) map of entity objects for this record
+       * @return {Object[]} The fields with any entities as JSON objects
+       */
+      lookupEntities(fields, entities) {
+        for (const key in fields) {
+          this.setMatchingEntities(fields, key, entities);
+        }
+        return fields;
+      },
+
+      setMatchingEntities(fields, key, entities) {
+        // Only looks for entities in 'def'
+        const values = (fields[key]['def'] || []);
+        for (const [index, value] of values.entries()) {
+          if (entities[value]) {
+            fields[key]['def'][index] = entities[value];
+          }
+        }
+      },
+
+      /**
+      * Determine if a field will be displaying data from enrichment.
+      * Should only be called in the context of a aggregatorProxy being present.
+      * If the UI language is not in the enrichment, but also not in the default proxy,
+      * the enrichment will be checked for an english fallback value which would take precedence.
+      * @param {String} field the field name to check
+      * @param {Object} aggregatorProxy the proxy with the enrichment data
+      * @param {Object} providerProxy provider proxy, used to confirm whether preferable values exist outside the enriched data
+      * @param {String} predictedUiLang the two letter language code which will be the prefered UI language
+      * @return {Boolean} true if enriched data will be shown
+      */
+      localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities) {
+        if (isLangMap(aggregatorProxy[field]) &&
+          (this.proxyHasEntityForField(aggregatorProxy, field, entities) ||
+            this.proxyHasLanguageField(aggregatorProxy, field, predictedUiLang) ||
+            this.proxyHasFallbackField(providerProxy, aggregatorProxy, field, predictedUiLang)
+          )
+        ) {
+          return true;
+        }
+        return false;
+      },
+
+      proxyHasEntityForField(proxy, field, entities) {
+        if (Array.isArray(proxy?.[field]?.def)) {
+          return proxy?.[field]?.def.some(key => {
+            return entities[key];
+          });
+        }
+        return entities[proxy?.[field]?.def];
+      },
+
+      proxyHasLanguageField(proxy, field, targetLanguage) {
+        return proxy?.[field]?.[targetLanguage];
+      },
+
+      proxyHasFallbackField(proxy, fallbackProxy, field, targetLanguage) {
+        return (!proxy[field]?.[targetLanguage] && fallbackProxy[field]?.['en']);
       },
 
       async fetchAnnotations() {

@@ -139,16 +139,6 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
   return omitUrisIfOtherValues(withEntities);
 }
 
-export function forEachLangMapValue(langMapContainer, callback) {
-  for (const field in langMapContainer) {
-    if (isLangMap(langMapContainer[field])) {
-      for (const locale in langMapContainer[field]) {
-        callback(langMapContainer, field, locale);
-      }
-    }
-  }
-}
-
 function omitUrisIfOtherValues(localizedLangmap) {
   const withoutUris = localizedLangmap.values.filter((value) => !uriRegex.test(value));
   if (withoutUris.length > 0) {
