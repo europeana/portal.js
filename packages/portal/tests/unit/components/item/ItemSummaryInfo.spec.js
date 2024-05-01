@@ -58,7 +58,7 @@ describe('components/item/ItemSummaryInfo', () => {
     });
     it('shows a description', () => {
       const description = wrapper.find('div.description p');
-      
+
       expect(description.text()).toBe('The description');
     });
   });
