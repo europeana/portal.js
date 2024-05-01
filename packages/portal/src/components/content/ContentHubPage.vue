@@ -19,7 +19,7 @@
               v-for="(item, index) in items"
               :key="item.identifier || item.slug"
               :title="item.name || item.title"
-              :url="{ name: cardUrlName, params: { pathMatch: item.identifier || item.slug } }"
+              :url="{ name: cardUrlName, params: { pathMatch: item.identifier || item.slug, exhibition: item.identifier } }"
               :image-url="item.thumbnail || imageUrl(item.primaryImageOfPage)"
               :image-content-type="imageContentType(item.primaryImageOfPage)"
               :image-optimisation-options="{ width: 510 }"

@@ -29,7 +29,7 @@
     :items="galleries"
     :total="total"
     :per-page="perPage"
-    card-url-name="exhibitions-exhibition"
+    card-url-name="galleries-all"
   />
 </template>
 
