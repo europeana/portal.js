@@ -31,11 +31,14 @@ const apiResponse = {
       about: '/aggregation/europeana/123/abc',
       edmCountry: { def: ['Netherlands'] }
     },
+    europeanaCollectionName: [
+      '123_Collection'
+    ],
     concepts: [
-      { about: 'http://data.europeana.eu/concept/47', prefLabel: { en: ['Painting'] } },
-      { about: 'http://data.europeana.eu/concept/01', prefLabel: { en: ['Fake'] } },
-      { about: 'http://data.europeana.eu/concept/02', prefLabel: { en: ['Concept'] } },
-      { about: 'http://data.europeana.eu/concept/03', prefLabel: { en: ['Entity'] } }
+      { about: 'http://data.europeana.eu/concept/47', prefLabel: { en: ['Painting'] }, note: { en: ['About the painting'] } },
+      { about: 'http://data.europeana.eu/concept/01', prefLabel: { en: ['Fake'] }, note: { en: ['About the fake'] } },
+      { about: 'http://data.europeana.eu/concept/02', prefLabel: { en: ['Concept'] }, note: { en: ['About the concept'] } },
+      { about: 'http://data.europeana.eu/concept/03', prefLabel: { en: ['Entity'] }, note: { en: ['About the entity'] } }
     ],
     organizations: [
       { about: 'http://data.europeana.eu/organization/01', prefLabel: { en: ['Data Provider'] } },
@@ -53,6 +56,7 @@ const apiResponse = {
   }
 };
 
+// TODO: get rid of this as it's derived
 const record = {
   identifier: '/123/abc',
   entities: [
@@ -156,32 +160,6 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
 describe('pages/item/_.vue', () => {
   afterEach(sinon.resetHistory);
 
-  describe('when the page is loaded with a metadataLanguage', () => {
-    describe('and the user is not logged in', () => {
-      const wrapper = factory({ mocks: {
-        $auth: { loggedIn: false },
-        $route: { params: { pathMatch: '123/abc' },
-          query: { lang: 'fr' },
-          fullPath: '/en/item/123/abc',
-          path: '/en/item/123/abc' }
-      } });
-
-      it('redirects to the non-translated item page', async() => {
-        await wrapper.vm.fetch();
-
-        expect(redirectSpy.calledWith({ query: { lang: undefined } })).toBe(true);
-      });
-      it('does not fetch metadata with translate profile', async() => {
-        const fetchMetadata = sinon.spy(wrapper.vm, 'fetchMetadata');
-
-        await wrapper.vm.fetch();
-
-        expect(fetchMetadata.called).toBe(false);
-        expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(false);
-      });
-    });
-  });
-
   describe('fetch', () => {
     describe('when the page is loaded without a lang route query param', () => {
       it('gets a record from the API for the ID in the route params pathMatch', async() => {
@@ -194,14 +172,65 @@ describe('pages/item/_.vue', () => {
     });
 
     describe('when the page is loaded with a lang route query param', () => {
+      const $route = {
+        params: { pathMatch: '123/abc' },
+        query: { lang: 'fr' },
+        fullPath: '/en/item/123/abc',
+        path: '/en/item/123/abc'
+      };
+
+      describe('and the user is not logged in', () => {
+        const wrapper = factory({
+          mocks: {
+            $auth: { loggedIn: false },
+            $route
+          }
+        });
+
+        it('redirects to the non-translated item page', async() => {
+          await wrapper.vm.fetch();
+
+          expect(redirectSpy.calledWith({ query: { lang: undefined } })).toBe(true);
+        });
+
+        it('does not fetch metadata with translate profile', async() => {
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(false);
+        });
+      });
+
       describe('and the user is logged in', () => {
+        const $auth = { loggedIn: true };
+
         it('gets a record from the API for the ID in the params pathMatch, with translate and lang profiles', async() => {
-          const wrapper = factory({ mocks: { $auth: { loggedIn: true } } });
-          wrapper.vm.$route.query = { lang: 'fr' };
+          const wrapper = factory({ mocks: { $auth, $route } });
 
           await wrapper.vm.fetch();
 
           expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { lang: 'fr', profile: 'translate' })).toBe(true);
+        });
+
+        describe('but the API responds with a translation quota error', () => {
+          const error = new Error('Translation quota error');
+          error.response = {
+            data: {
+              code: '502-TS'
+            },
+            status: 502
+          };
+
+          it('refetches the record without translation', async() => {
+            const wrapper = factory({ mocks: { $auth, $route } });
+            wrapper.vm.$apis.record.get.withArgs('/123/abc', { lang: 'fr', profile: 'translate' }).rejects(error);
+            wrapper.vm.$apis.record.get.withArgs('/123/abc').resolves(apiResponse);
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$apis.record.get.getCalls().length).toBe(2);
+            expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { lang: 'fr', profile: 'translate' })).toBe(true);
+            expect(wrapper.vm.$apis.record.get.calledWith('/123/abc')).toBe(true);
+          });
         });
       });
     });
@@ -216,12 +245,50 @@ describe('pages/item/_.vue', () => {
       });
     });
 
-    it('stores the response', async() => {
-      const wrapper = factory();
+    describe('API response storage', () => {
+      describe('`identifier`', () => {
+        it('stores the item URI', async() => {
+          const wrapper = factory();
 
-      await wrapper.vm.fetch();
+          await wrapper.vm.fetch();
 
-      expect(wrapper.vm.identifier).toBe(apiResponse.object.about);
+          expect(wrapper.vm.identifier).toBe(apiResponse.object.about);
+        });
+      });
+
+      describe('`entities`', () => {
+        it('stores all entities in a single array', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.entities.length).toBe(7);
+        });
+
+        it('reduces entities to about and prefLabel', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.entities.every((entity) => entity.about)).toBe(true);
+          expect(wrapper.vm.entities.every((entity) => entity.prefLabel)).toBe(true);
+          expect(wrapper.vm.entities.some((entity) => entity.note)).toBe(false);
+        });
+      });
+
+      describe('`metadata`', () => {
+        it('stores europeanaCollectionName with link to search', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.metadata.europeanaCollectionName.value).toEqual(['123_Collection']);
+          expect(wrapper.vm.metadata.europeanaCollectionName.url).toEqual({
+            name: 'search',
+            query: { query: 'europeana_collectionName:"123_Collection"' }
+          });
+        });
+      });
     });
 
     describe('on errors', () => {
