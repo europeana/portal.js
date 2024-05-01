@@ -120,7 +120,7 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
     return returnVal;
   }
 
-  setLangMapValuesAndCode(returnVal, langMap, selectLocaleForLangMap(langMap, locale), locale);
+  setLangMapValuesAndCode(returnVal, langMap, selectLocaleForLangMap(langMap, locale));
 
   let withEntities = addEntityValues(returnVal, entityValues(langMap['def'], locale));
   // In case an entity resolves as only its URI as is the case in search responses
