@@ -27,7 +27,7 @@
       <ItemLanguageSelector
         v-if="!iiifPresentationManifest && translatedItemsEnabled && showItemLanguageSelector"
         :from-translation-error="fromTranslationError"
-        :metadata-language="metadataLanguage"
+        :translation-language="translationLanguage"
         @hidden="() => showItemLanguageSelector = false"
       />
       <b-container
@@ -50,7 +50,7 @@
             <ItemLanguageSelector
               v-if="translatedItemsEnabled && showItemLanguageSelector"
               :from-translation-error="fromTranslationError"
-              :metadata-language="metadataLanguage"
+              :translation-language="translationLanguage"
               @hidden="() => showItemLanguageSelector = false"
             />
           </template>
@@ -315,12 +315,14 @@
           dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
       },
+      translatingMetadata() {
+        return !!(this.$features?.translatedItems && this.$route.query.lang && this.$auth.loggedIn);
+      },
+      translationLanguage() {
+        return this.translatingMetadata ? this.$route.query.lang : null;
+      },
       metadataLanguage() {
-        if (!this.$features?.translatedItems || !this.$auth.loggedIn || !this.$route.query.lang) {
-          return this.$i18n.locale;
-        } else {
-          return this.$route.query.lang;
-        }
+        return this.translationLanguage || this.$i18n.locale;
       }
     },
 
@@ -359,7 +361,7 @@
 
       async fetchMetadata() {
         const params = {};
-        if (this.$features?.translatedItems && (this.metadataLanguage !== this.$i18n.locale)) {
+        if (this.translatingMetadata) {
           params.profile = 'translate';
           params.lang = this.metadataLanguage;
         }
@@ -394,7 +396,9 @@
         // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
         for (const reducedEntity of (reduced.entities || [])) {
           const fullEntity = (parsed.entities || []).find((entity) => entity.about === reducedEntity.about);
-          reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
+          if (fullEntity.prefLabel) {
+            reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
+          }
         }
 
         for (const key in reduced) {
@@ -431,7 +435,7 @@
 
         // Europeana proxy only really needed for the translate profile
         const europeanaProxy = this.findProxy(edm.proxies, 'europeana');
-        if (!(this.$features?.translatedItems && (this.metadataLanguage !== this.$i18n.locale))) {
+        if (!this.translatingMetadata) {
           this.forEachLangMapValue(europeanaProxy, (europeanaProxy, field, locale) => {
             if (!undefinedLocaleCodes.includes(locale)) {
               delete europeanaProxy[field][locale];
@@ -452,7 +456,7 @@
         for (const field in proxies) {
           if (aggregatorProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, this.metadataLanguage, entities)) {
             proxies[field].translationSource = 'enrichment';
-          } else if (europeanaProxy?.[field]?.[this.metadataLanguage] && this.$features?.translatedItems) {
+          } else if (europeanaProxy?.[field]?.[this.metadataLanguage] && this.translatingMetadata) {
             proxies[field].translationSource = 'automated';
           }
         }

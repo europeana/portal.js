@@ -32,7 +32,7 @@ const factory = (propsData = {}) => mount(ItemLanguageSelector, {
     $route: {
       path: 'item/example/123',
       query: {
-        lang: propsData.metadataLanguage
+        lang: propsData.translationLanguage
       }
     }
   },
@@ -62,7 +62,7 @@ describe('components/item/ItemLanguageSelector', () => {
     });
     describe('when tanslations are requested to a language other than the UI language', () => {
       it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
-        const wrapper = factory({ metadataLanguage: 'de', loggedIn: true });
+        const wrapper = factory({ translationLanguage: 'de', loggedIn: true });
 
         const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
         const removeButton = wrapper.find('[data-qa="remove item translation button"]');
@@ -73,7 +73,7 @@ describe('components/item/ItemLanguageSelector', () => {
     });
     describe('when tanslations are requested to the UI language', () => {
       it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
-        const wrapper = factory({ metadataLanguage: 'en', loggedIn: true  });
+        const wrapper = factory({ translationLanguage: 'en', loggedIn: true  });
 
         const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
         const removeButton = wrapper.find('[data-qa="remove item translation button"]');
