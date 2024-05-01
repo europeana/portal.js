@@ -71,7 +71,8 @@
   import ItemEntityField from '../item/ItemEntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
-  import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
+  import itemPrefLanguageMixin from '@/mixins/europeana/item/itemPrefLanguage';
+  import langAttributeMixin from '@/mixins/langAttribute';
 
   export default {
     name: 'MetadataField',
@@ -82,7 +83,10 @@
       SmartLink
     },
 
-    mixins: [itemPrefLanguage],
+    mixins: [
+      itemPrefLanguageMixin,
+      langAttributeMixin
+    ],
 
     props: {
       name: {
@@ -170,12 +174,6 @@
 
       isValidFieldData() {
         return !this.timestampIsUnixEpochValue && (this.name !== 'edmUgc');
-      }
-    },
-
-    methods: {
-      langAttribute(lang) {
-        return lang === this.$i18n.locale ? null : lang;
       }
     }
   };

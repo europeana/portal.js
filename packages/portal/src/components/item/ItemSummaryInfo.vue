@@ -9,7 +9,7 @@
         <h1
           v-if="index === 0"
           :key="index"
-          :lang="heading.code"
+          :lang="langAttribute(heading.code)"
           class="mb-0"
         >
           {{ heading.value }}
@@ -18,7 +18,7 @@
         <p
           v-else
           :key="index"
-          :lang="heading.code"
+          :lang="langAttribute(heading.code)"
           class="font-weight-bold mt-3 mb-0"
         >
           {{ heading.value }}
@@ -38,13 +38,13 @@
         <!-- eslint-disable vue/no-v-html -->
         <p
           v-if="index === 0"
-          :lang="description.code"
+          :lang="langAttribute(description.code)"
           class="description-text-paragraph"
           v-html="convertNewLine(showAll ? value : truncatedDescription)"
         />
         <p
           v-else-if="showAll"
-          :lang="description.code"
+          :lang="langAttribute(description.code)"
           class="description-text-paragraph"
           v-html="convertNewLine(value)"
         />
@@ -76,6 +76,7 @@
 
 <script>
   import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
+  import langAttributeMixin from '@/mixins/langAttribute';
   import truncateMixin from '@/mixins/truncate';
 
   export default {
@@ -86,6 +87,7 @@
     },
 
     mixins: [
+      langAttributeMixin,
       truncateMixin
     ],
 
