@@ -8,7 +8,7 @@
       :variant="buttonVariant"
       data-qa="like button"
       :aria-label="$t('actions.like')"
-      :title="$t('set.actions.saveItemToLikes')"
+      :title="liked ? $t('set.actions.removeItemFromLikes') : $t('set.actions.saveItemToLikes')"
       @click="toggleLiked"
     >
       <span :class="liked ? 'icon-heart' : 'icon-heart-outlined'" />
