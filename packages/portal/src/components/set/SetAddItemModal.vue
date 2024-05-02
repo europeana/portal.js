@@ -23,7 +23,6 @@
         v-for="(collection, index) in collections"
         :key="index"
         :set="collection"
-        :img="collectionPreview(collection)"
         :disabled="!fetched"
         :added="added.includes(collection.id)"
         :checked="collectionsWithItem.includes(collection.id)"
@@ -90,7 +89,7 @@
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
-          .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
+          .filter(collection => (collection.items || []).some(item => item.replace('http://data.europeana.eu/item', '') === this.itemId))
           .map(collection => collection.id);
       }
     },
@@ -117,7 +116,7 @@
           ]
         };
 
-        const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+        const searchResponse = await this.$apis.set.search(searchParams);
         this.collections = searchResponse.data.items || [];
         this.fetched = true;
       },
@@ -128,10 +127,6 @@
           this.added = [];
           this.$emit('hideModal');
         });
-      },
-
-      collectionPreview(set) {
-        return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
       },
 
       async toggleItem(setId) {
