@@ -96,6 +96,7 @@
         } else {
           this.keycloakLogin();
         }
+        this.$root.$emit('bv::hide::tooltip');
       },
       async like() {
         if (this.likesId === null) {
