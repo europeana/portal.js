@@ -11,10 +11,10 @@
       v-for="(entity, index) in entities"
       :key="index"
       :disabled="!fetched"
-      :pressed="selected === entity.about"
+      :pressed="selected === entity.id"
       :data-qa="`pin item to entity choice`"
       class="btn-collection w-100 text-left d-flex"
-      @click="selectEntity(entity.about)"
+      @click="selectEntity(entity.id)"
     >
       <span
         class="mr-auto"
@@ -26,11 +26,11 @@
         class="icons text-left d-flex justify-content-end"
       >
         <span
-          v-if="selected === entity.about"
+          v-if="selected === entity.id"
           class="icon-check-circle d-inline-flex ml-auto"
         />
         <span
-          v-if="pinnedTo(entity.about)"
+          v-if="pinnedTo(entity.id)"
           class="icon-pin d-inline-flex"
         />
       </span>
@@ -92,14 +92,9 @@
         required: true
       },
       /**
-       * Entities associated with the item, to which it may be pinned
-       * @example
-       *   [
-       *     { about: 'entityUri1', prefLabel: { en: 'entity en label 1' } },
-       *     { about: 'entityUri2', prefLabel: { en: 'entity en label 2' } }
-       *   ]
+       * URIs of entities to which item may be pinned
        */
-      entities: {
+      entityUris: {
         type: Array,
         required: true
       },
@@ -118,6 +113,7 @@
 
     data() {
       return {
+        entities: [],
         fetched: false,
         selected: null,
         /**
@@ -128,10 +124,7 @@
          *     'entityUri2': { id: 'setId2', pinned: ['itemUri1', 'itemUri2'] },
          *   }
          */
-        sets: this.entities.reduce((memo, entity) => {
-          memo[entity.about] = this.setFactory();
-          return memo;
-        }, {})
+        sets: []
       };
     },
 
@@ -161,7 +154,7 @@
         return this.selectedEntityPrefLabel?.values?.[0];
       },
       selectedEntity() {
-        return this.entities.find(entity => entity.about === this.selected);
+        return this.entities.find(entity => entity.id === this.selected);
       },
       selectedEntitySet() {
         return this.sets[this.selected];
@@ -181,13 +174,18 @@
           return;
         }
 
+        // Fetch the full entities first
+        this.entities = await this.$apis.entity.find(this.entityUris, {
+          fl: 'skos_prefLabel.*'
+        });
+
         const searchParams = {
           query: 'type:EntityBestItemsSet',
           profile: 'minimal',
           pageSize: 1
         };
         await Promise.all(this.entities.map(async(entity) => {
-          const entityUri = entity.about;
+          const entityUri = entity.id;
           // TODO: "OR" the ids to avoid multiple requests, but doesn't seem supported.
           const searchResponse = await this.$apis.set.search({
             ...searchParams,

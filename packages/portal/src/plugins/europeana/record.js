@@ -230,16 +230,6 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
         const parsed = this.parseRecordDataFromApiResponse(response.data, options);
         const reduced = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, { freeze: false });
 
-        // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
-        for (const entityType of ['agents', 'concepts', 'organizations', 'places', 'timespans']) {
-          for (const reducedEntity of (reduced[entityType] || [])) {
-            const fullEntity = parsed[entityType].find(entity => entity.about === reducedEntity.about);
-            if (fullEntity.prefLabel?.en !== reducedEntity.prefLabel?.en) {
-              reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
-            }
-          }
-        }
-
         return {
           record: reduced,
           error: null
