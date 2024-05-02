@@ -1,18 +1,29 @@
 <template>
   <div>
     <b-button
-      v-b-tooltip.bottom
+      :id="`item-add-button-${identifier}`"
+      ref="itemAddButton"
       class="add-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       data-qa="add button"
       :variant="buttonVariant"
       :aria-label="$t('set.actions.addTo')"
-      :title="$t('set.actions.addToGallery')"
       @click="addToSet"
+      @focus="showTooltip = true"
+      @mouseover="showTooltip = true"
     >
       <span class="icon-add-circle-outlined" />
       {{ buttonText ? $t('actions.save') : '' }}
     </b-button>
+    <b-tooltip
+      data-qa="add button tooltip"
+      :show.sync="showTooltip"
+      :target="`item-add-button-${identifier}`"
+      placement="bottom"
+      @show="(e) => { if (!showTooltip) { e.preventDefault() } } "
+    >
+      {{ $t('set.actions.addToGallery') }}
+    </b-tooltip>
     <template
       v-if="$auth.loggedIn"
     >
@@ -22,7 +33,7 @@
         :item-id="identifier"
         :new-set-created="newSetCreated"
         @clickCreateSet="clickCreateSet"
-        @hideModal="refreshSet"
+        @hideModal="handleHideModal"
       />
       <SetFormModal
         :modal-id="setFormModalId"
@@ -79,7 +90,8 @@
         addItemToSetModalId: `add-item-to-set-modal-${this.identifier}`,
         setFormModalId: `set-form-modal-${this.identifier}`,
         showFormModal: false,
-        newSetCreated: false
+        newSetCreated: false,
+        showTooltip: false
       };
     },
 
@@ -104,11 +116,19 @@
       },
       addToSet() {
         if (this.$auth.loggedIn) {
+          this.showTooltip = false; // Fix for touch devices that keep the tooltip open, overlaying the modal
           this.$bvModal.show(this.addItemToSetModalId);
           this.$matomo?.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
           this.keycloakLogin();
         }
+      },
+      async handleHideModal() {
+        this.refreshSet();
+        // Sets focus back to the toggle button, as this functionality is lost when opening the SetFormModal.
+        this.$refs.itemAddButton.focus();
+        // Do not show the tooltip when focus returns to button.
+        this.showTooltip = false;
       }
     }
   };

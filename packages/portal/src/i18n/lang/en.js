@@ -1165,6 +1165,7 @@ export default {
       'createNew': 'Create new gallery',
       'delete': 'Delete gallery',
       'edit': 'Edit gallery',
+      'removeItemFromLikes': 'Remove this item from your Likes.',
       'saveItemToLikes': 'Save this item to your Likes.',
       'update': 'Update gallery'
     },
