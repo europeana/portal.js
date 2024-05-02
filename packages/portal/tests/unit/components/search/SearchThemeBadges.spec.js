@@ -17,7 +17,7 @@ const factory = ({ propsData = {} } = {}) => shallowMountNuxt(SearchThemeBadges,
       query: sinon.stub().resolves({ data: { data: { themePageCollection: { items: themesOrOptions } } } })
     },
     $i18n: {
-      isoLocale: () => 'en-GB',
+      localeProperties: { iso: 'en-GB' },
       locale: 'en'
     },
     localePath: () => {},

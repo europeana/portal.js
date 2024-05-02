@@ -190,7 +190,7 @@
 
     async fetch() {
       const variables = {
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         identifier: this.$route.params.pathMatch,
         preview: this.$route.query.mode === 'preview'
       };

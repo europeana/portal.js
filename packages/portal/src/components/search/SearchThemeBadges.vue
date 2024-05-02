@@ -41,7 +41,7 @@
 
     async fetch() {
       const contentfulVariables = {
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
 
@@ -49,12 +49,12 @@
 
       this.themes = contentfulResponse.data?.data?.themePageCollection?.items.map(theme => ({
         prefLabel: theme.name,
-        url: this.localePath({
+        url: {
           name: 'search',
           query: {
             qf: `collection:${this.qf(theme.identifier)}`
           }
-        }),
+        },
         primaryImageOfPage: theme.primaryImageOfPage
       }));
     },

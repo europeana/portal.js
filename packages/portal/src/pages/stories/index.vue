@@ -75,7 +75,7 @@
       }
       const pageVariables = {
         identifier: 'stories',
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
       const pageResponse = await this.$contentful.query('storiesPage', pageVariables);

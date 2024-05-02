@@ -1,23 +1,12 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueI18n from 'vue-i18n';
 import SetDeleteModal from '@/components/set/SetDeleteModal';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueI18n);
 
 const storeDispatch = sinon.stub().resolves({});
-
-import messages from '@/lang/en';
-
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: {
-    en: messages
-  }
-});
 
 const factory = (propsData = {}, route = { name: '' }) => mount(SetDeleteModal, {
   localVue,
@@ -25,13 +14,13 @@ const factory = (propsData = {}, route = { name: '' }) => mount(SetDeleteModal, 
     modalStatic: true,
     ...propsData
   },
-  i18n,
   mocks: {
     $store: {
       dispatch: storeDispatch
     },
     $route: route,
     $router: { push: sinon.spy() },
+    $t: (key) => key,
     localePath: path => path
   }
 });
@@ -42,7 +31,7 @@ describe('components/set/SetDeleteModal', () => {
 
     const modalText = wrapper.text();
 
-    expect(modalText).toContain('Are you sure you want to delete this gallery?');
+    expect(modalText).toContain('set.actions.deleteset.prompts.delete');
   });
 
   describe('cancel button', () => {
@@ -88,7 +77,7 @@ describe('components/set/SetDeleteModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(rootBvToast.calledWith('Your gallery has been deleted.', sinon.match.any)).toBe(true);
+      expect(rootBvToast.calledWith('set.notifications.deleted', sinon.match.any)).toBe(true);
     });
 
     describe('when on the deleted gallery page', () => {

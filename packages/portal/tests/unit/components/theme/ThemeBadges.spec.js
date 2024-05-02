@@ -43,7 +43,7 @@ const factory = ({ propsData = props, mocks } = {}) => {
       },
       $i18n: {
         locale: 'de',
-        isoLocale: () => 'de-DE'
+        localeProperties: { iso: 'de-DE' }
       },
       $t: () => {},
       localePath: (path) => `/${path.params?.pathMatch || ''}`,

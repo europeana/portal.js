@@ -1,6 +1,5 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueI18n from 'vue-i18n';
 import ItemPinModal from '@/components/item/ItemPinModal';
 import sinon from 'sinon';
 
@@ -25,7 +24,6 @@ import sinon from 'sinon';
 // Maybe caused by the toast being registered on localVue?
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueI18n);
 
 const setSearchApiResponse = {
   data: {
@@ -99,15 +97,6 @@ const setApiSearchStub = sinon.stub().resolves({});
 const setApiCreateStub = sinon.stub().resolves({ id: '457' });
 const setApiModifyItemsStub = sinon.stub().resolves({});
 
-import messages from '@/lang/en';
-
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: {
-    en: messages
-  }
-});
-
 const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
   localVue,
   propsData: {
@@ -131,7 +120,6 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
     ...propsData
   },
   data,
-  i18n,
   mocks: {
     localePath: () => {},
     $apis: {
@@ -142,6 +130,7 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
         modifyItems: setApiModifyItemsStub
       }
     },
+    $i18n: { locale: 'en' },
     $store: {
       commit: sinon.spy(),
       state: {
@@ -149,7 +138,8 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
           pinned: []
         }
       }
-    }
+    },
+    $t: (key) => key
   }
 });
 
@@ -200,10 +190,10 @@ describe('components/item/ItemPinModal', () => {
           const wrapper = factory();
 
           await wrapper.setData({ selected: null });
-
           const helpSpan = wrapper.find('span.help');
+
           expect(helpSpan.exists()).toBe(true);
-          expect(helpSpan.text()).toBe('Select a related entity to pin/unpin the item to/from it.');
+          expect(helpSpan.text()).toBe('entity.notifications.select');
         });
       });
 
@@ -213,8 +203,9 @@ describe('components/item/ItemPinModal', () => {
             const wrapper = factory(fixtures.itemAlreadyPinned);
 
             const helpSpan = wrapper.find('span.help');
+
             expect(helpSpan.exists()).toBe(true);
-            expect(helpSpan.text()).toBe('This item will stop showing at the top of the "Agent entity" collection. We will notify you when this change will be visible on the collection page.');
+            expect(helpSpan.text()).toBe('entity.notifications.unpin');
           });
         });
 
@@ -223,8 +214,9 @@ describe('components/item/ItemPinModal', () => {
             const wrapper = factory(fixtures.itemNotPinned);
 
             const helpSpan = wrapper.find('span.help');
+
             expect(helpSpan.exists()).toBe(true);
-            expect(helpSpan.text()).toBe('This item will show at the top of the "Agent entity" collection. We will notify you when this change will be visible on the collection page.');
+            expect(helpSpan.text()).toBe('entity.notifications.pin');
           });
         });
 
@@ -234,8 +226,9 @@ describe('components/item/ItemPinModal', () => {
               const wrapper = factory(fixtures.itemAlreadyPinnedInFullSet);
 
               const helpSpan = wrapper.find('span.help');
+
               expect(helpSpan.exists()).toBe(true);
-              expect(helpSpan.text()).toBe('This item will stop showing at the top of the "Agent entity" collection. We will notify you when this change will be visible on the collection page.');
+              expect(helpSpan.text()).toBe('entity.notifications.unpin');
             });
           });
 
@@ -244,8 +237,9 @@ describe('components/item/ItemPinModal', () => {
               const wrapper = factory(fixtures.itemNotPinnedInFullSet);
 
               const helpSpan = wrapper.find('span.help');
+
               expect(helpSpan.exists()).toBe(true);
-              expect(helpSpan.text()).toBe('For now you can only pin 24 items. If you want to pin this item, make sure you unpin another one and try pinning this item again.');
+              expect(helpSpan.text()).toBe('entity.notifications.pinLimit.body');
             });
           });
         });
@@ -260,7 +254,8 @@ describe('components/item/ItemPinModal', () => {
 
             const button = wrapper.find('[data-qa="toggle pin button"]:enabled');
             expect(button.exists()).toBe(true);
-            expect(button.text()).toBe('Unpin item');
+
+            expect(button.text()).toBe('entity.actions.unpin');
           });
         });
 
@@ -281,7 +276,7 @@ describe('components/item/ItemPinModal', () => {
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
             await new Promise(process.nextTick);
 
-            expect(makeToast.calledWith('The item has been pinned. It will appear as the first item on the "Agent entity" collection. We will notify you when this change will be visible on the collection page.')).toBe(true);
+            expect(makeToast.calledWith('entity.notifications.pinned')).toBe(true);
           });
         });
 
@@ -292,7 +287,7 @@ describe('components/item/ItemPinModal', () => {
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-            expect(makeToast.calledWith('The item has been unpinned. We will notify you when this change will be visible on the collection page.')).toBe(true);
+            expect(makeToast.calledWith('entity.notifications.unpinned')).toBe(true);
           });
         });
       });
@@ -350,7 +345,8 @@ describe('components/item/ItemPinModal', () => {
 
             const button = wrapper.find('[data-qa="go to set link"]');
             expect(button.exists()).toBe(true);
-            expect(button.text()).toBe('See pinned items');
+
+            expect(button.text()).toBe('entity.actions.viewPinned');
           });
         });
       });

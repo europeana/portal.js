@@ -62,6 +62,8 @@
 </template>
 
 <script>
+  import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
+
   import DS4CHPageNavigation from './DS4CHPageNavigation';
   import SmartLink from '@/components/generic/SmartLink';
 
@@ -71,6 +73,10 @@
     components: {
       DS4CHPageNavigation,
       SmartLink
+    },
+
+    directives: {
+      'visible-on-scroll': visibleOnScrollDirective
     },
 
     data() {

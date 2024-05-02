@@ -53,7 +53,7 @@ const factory = (data = {}) => shallowMountNuxt(ThemePage, {
     $fetchState: {},
     $i18n: {
       locale: 'en',
-      isoLocale: () => 'en-GB',
+      localeProperties: { iso: 'en-GB' },
       t: (key) => key
     },
     $error: sinon.spy(),

@@ -85,7 +85,7 @@
 
     async fetch() {
       const categoriesVariables = {
-        locale: this.$i18n.isoLocale(),
+        locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
       const categoriesResponse = await this.$contentful.query('categories', categoriesVariables);

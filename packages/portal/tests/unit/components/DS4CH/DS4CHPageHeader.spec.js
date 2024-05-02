@@ -9,6 +9,7 @@ localVue.directive('visible-on-scroll', () => { });
 const factory = () => shallowMount(DS4CHPageHeader, {
   localVue,
   mocks: {
+    $route: {},
     $t: (key) => key
   }
 });
