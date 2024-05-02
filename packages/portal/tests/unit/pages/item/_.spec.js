@@ -49,8 +49,34 @@ const apiResponse = {
     ],
     proxies: [
       {
+        about: '/proxy/europeana/123/abc',
+        europeanaProxy: true,
+        dcFormat: {
+          def: ['http://data.europeana.eu/concept/47']
+        },
+        dcTitle: {
+          de: ['Deutscher Titel']
+        }
+      },
+      {
+        about: '/proxy/aggregator/123/abc',
+        europeanaProxy: false,
+        dcDescription: {
+          de: ['Deutsche Beschreibung']
+        },
+        edmIsRelatedTo: {
+          def: ['http://data.europeana.eu/concept/01']
+        }
+      },
+      {
         about: '/proxy/provider/123/abc',
-        dcTitle: { en: ['Item example'] }
+        europeanaProxy: false,
+        dcTitle: {
+          en: ['Provider title']
+        },
+        dcType: {
+          de: ['Deutscher Objekt Typ']
+        }
       }
     ]
   }
@@ -287,6 +313,117 @@ describe('pages/item/_.vue', () => {
             name: 'search',
             query: { query: 'europeana_collectionName:"123_Collection"' }
           });
+        });
+
+        describe('Europeana proxy', () => {
+          describe('when not translating', () => {
+            const $route = {
+              params: { pathMatch: '123/abc' },
+              fullPath: '/en/item/123/abc',
+              path: '/en/item/123/abc',
+              query: {}
+            };
+            const $auth = { loggedIn: false };
+
+            it('omits language-specific metadata from the Europeana proxy', async() => {
+              const wrapper = factory({ mocks: { $auth, $route } });
+
+              await wrapper.vm.fetch();
+              await wrapper.vm.$nextTick();
+
+              expect(wrapper.vm.metadata.dcTitle).toEqual({ en: ['Provider title'] });
+            });
+
+            it('includes non-language-specific metadata from the Europeana proxy', async() => {
+              const wrapper = factory({ mocks: { $auth, $route } });
+
+              await wrapper.vm.fetch();
+              await wrapper.vm.$nextTick();
+
+              expect(wrapper.vm.metadata.dcFormat.def).toEqual([{
+                about: 'http://data.europeana.eu/concept/47',
+                prefLabel: { en: ['Painting'] }
+              }]);
+            });
+          });
+
+          describe('when translating', () => {
+            const $route = {
+              params: { pathMatch: '123/abc' },
+              fullPath: '/en/item/123/abc',
+              path: '/en/item/123/abc',
+              query: { lang: 'de' }
+            };
+            const $auth = { loggedIn: true };
+
+            it('includes language-specific metadata from the Europeana proxy', async() => {
+              const wrapper = factory({ mocks: { $auth, $route } });
+
+              await wrapper.vm.fetch();
+              await wrapper.vm.$nextTick();
+              console.log('metadataLanguage', wrapper.vm.metadataLanguage);
+              console.log('translatingMetadata', wrapper.vm.translatingMetadata);
+              console.log('metadata', wrapper.vm.metadata);
+
+              expect(wrapper.vm.metadata.dcTitle).toEqual({ de: ['Deutscher Titel'] });
+            });
+
+            // it('includes non-language-specific metadata from the Europeana proxy', async() => {
+            //   const wrapper = factory({ mocks: { $auth, $route } });
+            //
+            //   await wrapper.vm.fetch();
+            //
+            //   expect(wrapper.vm.metadata.dcFormat.def).toEqual([{
+            //     about: 'http://data.europeana.eu/concept/47',
+            //     prefLabel: { de: ['Deutscher Titel'] }
+            //   }]);
+            // });
+          });
+        });
+
+        describe('translation source labels', () => {
+          const $route = {
+            params: { pathMatch: '123/abc' },
+            query: { lang: 'fr' },
+            fullPath: '/en/item/123/abc',
+            path: '/en/item/123/abc'
+          };
+          const $auth = { loggedIn: true };
+
+          describe('when there is a value in the Europeana proxy', () => {
+            it('is considered an automated translation', async() => {
+              const wrapper = factory({ mocks: { $auth, $route } });
+
+              await wrapper.vm.fetch();
+
+              // console.log(JSON.stringify(wrapper.vm.translatingMetadata, null, 2))
+              // expect(recordData.recordmetadata.dcTitle.translationSource).toBe('automated');
+            });
+          });
+          // describe('when there is a value in the aggregator proxy', () => {
+          //   describe('when the value is in a lang map', () => {
+          //     it('is considered an enrichment', async() => {
+          //
+          //       const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
+          //       expect(recordData.record.description.translationSource).toBe('enrichment');
+          //     });
+          //   });
+          //   describe('when the value refers to an entity', () => {
+          //     it('is considered an enrichment', async() => {
+          //
+          //       const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
+          //       expect(recordData.record.metadata.edmIsRelatedTo.translationSource).toBe('enrichment');
+          //     });
+          //   });
+          // });
+          // describe('when there is only a value in the default proxy', () => {
+          //   it('does not flag the field with a translation source', async() => {
+          //
+          //     const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
+          //
+          //     expect(recordData.record.metadata.dcType.translationSource === undefined).toBe(true);
+          //   });
+          // });
         });
       });
     });
@@ -649,7 +786,7 @@ describe('pages/item/_.vue', () => {
         await wrapper.vm.fetch();
         const pageMeta = wrapper.vm.pageMeta;
 
-        expect(pageMeta.title).toBe('Item example');
+        expect(pageMeta.title).toBe('Provider title');
       });
     });
 

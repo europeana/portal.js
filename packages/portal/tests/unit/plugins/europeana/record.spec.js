@@ -28,25 +28,6 @@ describe('plugins/europeana/record', () => {
   });
 
   describe('EuropeanaRecordApi().get()', () => {
-    // describe('when using the translation profile', () => {
-    //   const translateConf = { $features: { translatedItems: true } };
-    //
-    // it('ignores language-specific metadata from the europeana proxy', async() => {
-    //   const response = await (new EuropeanaRecordApi(translateConf)).get(europeanaId);
-    //
-    //   expect(response.record.title).toEqual({ en: ['Provider title'] });
-    // });
-    //
-    // it('includes non-language-specific metadata from the europeana proxy', async() => {
-    //   const response = await (new EuropeanaRecordApi(translateConf)).get(europeanaId);
-    //
-    //   expect(response.record.concepts[1]).toEqual({
-    //     about: 'http://data.europeana.eu/concept/221',
-    //     prefLabel: { de: 'Aquarell' }
-    //   });
-    // });
-    //   });
-    // });
     // describe('metadadataLanguage', () => {
     //   it('uses the edmLanguage', async() => {
     //     nock(EuropeanaRecordApi.BASE_URL)
@@ -58,60 +39,6 @@ describe('plugins/europeana/record', () => {
     //     expect(recordData.record.metadataLanguage).toBe('de');
     //     expect(nock.isDone()).toBe(true);
     //   });
-    // });
-    // describe('translation source labels', () => {
-    //   describe('when there is a value in the Europeana proxy', () => {
-    //     it('is considered an automated translation', async() => {
-    //       nock(EuropeanaRecordApi.BASE_URL)
-    //         .get(apiEndpoint)
-    //         .query(query => query.profile === 'translate' && query.lang === 'de')
-    //         .reply(200, translateProfileApiResponse);
-    //
-    //       const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
-    //       expect(recordData.record.title.translationSource).toBe('automated');
-    //       expect(nock.isDone()).toBe(true);
-    //     });
-    //   });
-    //   describe('when there is a value in the aggregator proxy', () => {
-    //     describe('when the value is in a lang map', () => {
-    //       it('is considered an enrichment', async() => {
-    //         nock(EuropeanaRecordApi.BASE_URL)
-    //           .get(apiEndpoint)
-    //           .query(query => query.profile === 'translate' && query.lang === 'de')
-    //           .reply(200, translateProfileApiResponse);
-    //
-    //         const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
-    //         expect(recordData.record.description.translationSource).toBe('enrichment');
-    //         expect(nock.isDone()).toBe(true);
-    //       });
-    //     });
-    //     describe('when the value refers to an entity', () => {
-    //       it('is considered an enrichment', async() => {
-    //         nock(EuropeanaRecordApi.BASE_URL)
-    //           .get(apiEndpoint)
-    //           .query(query => query.profile === 'translate' && query.lang === 'de')
-    //           .reply(200, translateProfileApiResponse);
-    //
-    //         const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
-    //         expect(recordData.record.metadata.edmIsRelatedTo.translationSource).toBe('enrichment');
-    //         expect(nock.isDone()).toBe(true);
-    //       });
-    //     });
-    //   });
-    //   describe('when there is only a value in the default proxy', () => {
-    //     it('does not flag the field with a translation source', async() => {
-    //       nock(EuropeanaRecordApi.BASE_URL)
-    //         .get(apiEndpoint)
-    //         .query(query => query.profile === 'translate' && query.lang === 'de')
-    //         .reply(200, translateProfileApiResponse);
-    //
-    //       const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
-    //
-    //       expect(recordData.record.metadata.dcType.translationSource === undefined).toBe(true);
-    //       expect(nock.isDone()).toBe(true);
-    //     });
-    //   });
-    // });
     // });
 
     it('makes an API request', async() => {

@@ -282,7 +282,7 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
   options = { ...defaults, ...options };
 
   if (Array.isArray(value)) {
-    return value.map(val => reduceLangMapsForLocale(val, locale, options));
+    return value.map((val) => reduceLangMapsForLocale(val, locale, options));
   } else if (typeof value === 'object') {
     if (Object.isFrozen(value)) {
       return value;

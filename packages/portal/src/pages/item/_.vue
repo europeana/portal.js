@@ -124,7 +124,7 @@
           -->
           <ItemRecommendations
             :identifier="identifier"
-            :dc-type="title"
+            :dc-type="metadata.dcTitle"
             :dc-subject="metadata.dcSubject"
             :dc-creator="metadata.dcCreator"
             :edm-data-provider="dataProviderEntityLabel"
@@ -184,13 +184,11 @@
 
     data() {
       return {
-        MAX_VALUES_PER_PROXY_FIELD: 10,
+        MAX_VALUES_PER_METADATA_FIELD: 10,
         allMediaUris: [],
-        altTitle: null,
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
-        description: null,
         entities: [],
         error: null,
         fromTranslationError: null,
@@ -201,7 +199,6 @@
         metadata: {},
         relatedCollections: [],
         showItemLanguageSelector: true,
-        title: null,
         type: null,
         useProxy: true
       };
@@ -258,7 +255,7 @@
       },
       attributionFields() {
         return {
-          title: langMapValueForLocale(this.title, this.metadataLanguage).values[0],
+          title: langMapValueForLocale(this.metadata.dcTitle, this.metadataLanguage).values[0],
           creator: langMapValueForLocale(this.metadata.dcCreator, this.metadataLanguage).values[0],
           year: langMapValueForLocale(this.metadata.year, this.metadataLanguage).values[0],
           provider: langMapValueForLocale(this.metadata.edmDataProvider, this.metadataLanguage).values[0],
@@ -269,8 +266,8 @@
       titlesInCurrentLanguage() {
         const titles = [];
 
-        const mainTitle = this.title ? langMapValueForLocale(this.title, this.metadataLanguage) : '';
-        const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.metadataLanguage) : '';
+        const mainTitle = this.metadata.dcTitle ? langMapValueForLocale(this.metadata.dcTitle, this.metadataLanguage) : '';
+        const alternativeTitle = this.metadata.dctermsAlternative ? langMapValueForLocale(this.metadata.dctermsAlternative, this.metadataLanguage) : '';
 
         const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
         for (const title of allTitles) {
@@ -281,10 +278,10 @@
         return titles;
       },
       descriptionInCurrentLanguage() {
-        if (!this.description) {
+        if (!this.metadata.dcDescription) {
           return null;
         }
-        return langMapValueForLocale(this.description, this.metadataLanguage);
+        return langMapValueForLocale(this.metadata.dcDescription, this.metadataLanguage);
       },
       dataProviderEntityUri() {
         return this.metadata.edmDataProvider?.def?.[0].about || null;
@@ -378,39 +375,34 @@
             return this.$error(error, { scope: 'item' });
           }
         }
+        const edm = data.object;
 
-        this.storeMetadata(data);
+        if (this.identifier !== edm.about) {
+          return this.redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } });
+        }
+
+        this.identifier = edm.about;
+        this.type = edm.type;
+
+        const item = new Item(edm);
+
+        this.allMediaUris = item.providerAggregation.displayableWebResources.map((wr) => wr.about);
+        this.iiifPresentationManifest = item.iiifPresentationManifest;
+        this.isShownAt = item.providerAggregation.edmIsShownAt;
+        this.media = item.providerAggregation.displayableWebResources;
+
+        this.entities = this.extractEntities(edm);
+
+        this.metadata = this.extractMetadata(edm);
+
         process.client && this.trackCustomDimensions();
-      },
-
-      storeMetadata(data) {
-        const item = data.object;
-
-        if (this.identifier !== item.about) {
-          return this.redirectToAltRoute({ params: { pathMatch: item.about?.slice(1) } });
-        }
-
-        const parsed = this.parseRecordDataFromApiResponse(item);
-        const reduced = reduceLangMapsForLocale(parsed, this.metadataLanguage, { freeze: false });
-
-        // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
-        for (const reducedEntity of (reduced.entities || [])) {
-          const fullEntity = (parsed.entities || []).find((entity) => entity.about === reducedEntity.about);
-          if (fullEntity.prefLabel) {
-            reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
-          }
-        }
-
-        for (const key in reduced) {
-          this[key] = reduced[key];
-        }
       },
 
       forEachLangMapValue(langMapContainer, callback) {
         for (const field in langMapContainer) {
           if (isLangMap(langMapContainer[field])) {
             for (const locale in langMapContainer[field]) {
-              callback(langMapContainer, field, locale);
+              callback(field, locale);
             }
           }
         }
@@ -420,83 +412,99 @@
         return proxies.find(proxy => proxy.about?.startsWith(`/proxy/${type}/`));
       },
 
-      /**
-       * Parse the record data based on the data from the API response
-       * @param {Object} edm data from API response
-       * @return {Object} parsed data
-       */
-      parseRecordDataFromApiResponse(edm) {
-        const providerAggregation = edm.aggregations[0];
+      extractEntities(edm) {
+        return [].concat(edm.concepts, edm.places, edm.agents, edm.timespans, edm.organizations)
+          .filter(Boolean)
+          .map((entity) => pick(entity, [
+            'about',
+            'latitude',
+            'longitude',
+            'prefLabel'
+          ]))
+          .map((entity) => reduceLangMapsForLocale(entity, this.metadataLanguage));
+      },
 
-        const entities = [].concat(edm.concepts, edm.places, edm.agents, edm.timespans, edm.organizations)
-          .filter((entity) => !!entity)
-          .map(this.reduceEntity)
-          .map(Object.freeze);
+      extractEuropeanaProxy(edm) {
+        const europeanaProxy = this.findProxy(edm.proxies, 'europeana') || {};
 
         // Europeana proxy only really needed for the translate profile
-        const europeanaProxy = this.findProxy(edm.proxies, 'europeana');
-        if (!this.translatingMetadata) {
-          this.forEachLangMapValue(europeanaProxy, (europeanaProxy, field, locale) => {
+        if (this.translatingMetadata) {
+          for (const field in europeanaProxy) {
+            if (europeanaProxy[field][this.metadataLanguage]) {
+              europeanaProxy[field].translationSource = 'automated';
+            }
+          }
+        } else {
+          this.forEachLangMapValue(europeanaProxy, (field, locale) => {
             if (!undefinedLocaleCodes.includes(locale)) {
               delete europeanaProxy[field][locale];
             }
           });
         }
-        const aggregatorProxy = this.findProxy(edm.proxies, 'aggregator');
-        const providerProxy = this.findProxy(edm.proxies, 'provider');
 
-        const proxies = merge.all([europeanaProxy, aggregatorProxy, providerProxy].filter((p) => !!p));
+        return europeanaProxy;
+      },
 
-        this.forEachLangMapValue(proxies, (proxies, field, locale) => {
-          if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > this.MAX_VALUES_PER_PROXY_FIELD) {
-            proxies[field][locale] = proxies[field][locale].slice(0, this.MAX_VALUES_PER_PROXY_FIELD).concat('…');
-          }
-        });
+      extractAggregatorProxy(edm) {
+        const aggregatorProxy = this.findProxy(edm.proxies, 'aggregator') || {};
+        const providerProxy = this.extractProviderProxy(edm);
 
-        for (const field in proxies) {
-          if (aggregatorProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, this.metadataLanguage, entities)) {
-            proxies[field].translationSource = 'enrichment';
-          } else if (europeanaProxy?.[field]?.[this.metadataLanguage] && this.translatingMetadata) {
-            proxies[field].translationSource = 'automated';
+        for (const field in aggregatorProxy) {
+          if (aggregatorProxy[field] && this.localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy)) {
+            aggregatorProxy[field].translationSource = 'enrichment';
           }
         }
 
+        return aggregatorProxy;
+      },
+
+      extractProviderProxy(edm) {
+        return this.findProxy(edm.proxies, 'provider') || {};
+      },
+
+      extractEuropeanaCollectionName(edm) {
+        return edm.europeanaCollectionName ? {
+          url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
+          value: edm.europeanaCollectionName
+        } : null;
+      },
+
+      /**
+       * Parse the record data based on the data from the API response
+       * @param {Object} edm data from API response
+       * @return {Object} parsed data
+       */
+      extractMetadata(edm) {
+        const providerAggregation = edm.aggregations[0];
+        const europeanaAggregation = edm.europeanaAggregation;
+        const providerProxy = this.extractProviderProxy(edm);
+        const aggregatorProxy = this.extractAggregatorProxy(edm);
+        const europeanaProxy = this.extractEuropeanaProxy(edm);
+
+        const metadataSources = merge.all([
+          providerAggregation,
+          europeanaAggregation,
+          providerProxy,
+          aggregatorProxy,
+          europeanaProxy
+        ]);
+
+        this.forEachLangMapValue(metadataSources, (field, locale) => {
+          if (Array.isArray(metadataSources[field][locale]) && metadataSources[field][locale].length > this.MAX_VALUES_PER_METADATA_FIELD) {
+            metadataSources[field][locale] = metadataSources[field][locale].slice(0, this.MAX_VALUES_PER_METADATA_FIELD).concat('…');
+          }
+        });
+
+        const europeanaCollectionName = this.extractEuropeanaCollectionName(edm);
+
         const metadata = {
-          ...this.lookupEntities(
-            merge.all([proxies, providerAggregation, edm.europeanaAggregation]), entities
-          ),
-          europeanaCollectionName: edm.europeanaCollectionName ? {
-            url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
-            value: edm.europeanaCollectionName
-          } : null,
+          ...this.lookupEntities(metadataSources),
+          europeanaCollectionName,
           timestampCreated: edm.timestamp_created,
           timestampUpdate: edm.timestamp_update
         };
 
-        const item = new Item(edm);
-
-        return {
-          allMediaUris: item.providerAggregation.displayableWebResources.map((wr) => wr.about),
-          altTitle: proxies.dctermsAlternative,
-          description: proxies.dcDescription,
-          identifier: edm.about,
-          type: edm.type, // TODO: Evaluate if this is used, if not remove.
-          isShownAt: item.providerAggregation.edmIsShownAt,
-          metadata: Object.freeze(metadata),
-          media: item.providerAggregation.displayableWebResources,
-          entities,
-          title: proxies.dcTitle,
-          iiifPresentationManifest: item.iiifPresentationManifest
-        };
-      },
-
-      reduceEntity(entity) {
-        return pick(entity, [
-          'about',
-          'latitude',
-          'longitude',
-          'prefLabel'
-        ]);
+        return reduceLangMapsForLocale(metadata, this.metadataLanguage);
       },
 
       /**
@@ -505,25 +513,20 @@
        * in any of the entities and return the related object instead of
        * the plain string.
        * @param fields Object representing the metadata fields
-       * @param entities key(URI) value(JSON object) map of entity objects for this record
        * @return {Object[]} The fields with any entities as JSON objects
        */
-      lookupEntities(fields, entities) {
+      lookupEntities(fields) {
         for (const key in fields) {
-          this.setMatchingEntities(fields, key, entities);
-        }
-        return fields;
-      },
-
-      setMatchingEntities(fields, key, entities) {
-        // Only looks for entities in 'def'
-        const values = (fields[key]['def'] || []);
-        for (const [index, value] of values.entries()) {
-          const entity = entities.find((entity) => entity.about === value);
-          if (entity) {
-            fields[key]['def'][index] = entity;
+          // Only looks for entities in 'def'
+          const values = (fields[key].def || []);
+          for (const [index, value] of values.entries()) {
+            const entity = this.entities.find((entity) => entity.about === value);
+            if (entity) {
+              fields[key].def[index] = entity;
+            }
           }
         }
+        return fields;
       },
 
       /**
@@ -534,14 +537,14 @@
       * @param {String} field the field name to check
       * @param {Object} aggregatorProxy the proxy with the enrichment data
       * @param {Object} providerProxy provider proxy, used to confirm whether preferable values exist outside the enriched data
-      * @param {String} lang the two letter language code which will be the prefered UI language
       * @return {Boolean} true if enriched data will be shown
       */
-      localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, lang, entities) {
+      localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy) {
         if (isLangMap(aggregatorProxy[field]) &&
-          (this.proxyHasEntityForField(aggregatorProxy, field, entities) ||
-            this.proxyHasLanguageField(aggregatorProxy, field, lang) ||
-            this.proxyHasFallbackField(providerProxy, aggregatorProxy, field, lang)
+          (
+            this.proxyHasEntityForField(aggregatorProxy, field) ||
+            this.proxyHasLanguageField(aggregatorProxy, field) ||
+            this.proxyHasFallbackField(providerProxy, aggregatorProxy, field)
           )
         ) {
           return true;
@@ -549,19 +552,16 @@
         return false;
       },
 
-      proxyHasEntityForField(proxy, field, entities) {
-        if (Array.isArray(proxy?.[field]?.def)) {
-          return proxy?.[field]?.def.some((def) => entities.find((entity) => entity.about === def));
-        }
-        return entities.find((entity) => entity.about === proxy?.[field]?.def);
+      proxyHasEntityForField(proxy, field) {
+        return [].concat(proxy?.[field]?.def).some((def) => this.entities.find((entity) => entity.about === def));
       },
 
-      proxyHasLanguageField(proxy, field, targetLanguage) {
-        return proxy?.[field]?.[targetLanguage];
+      proxyHasLanguageField(proxy, field) {
+        return proxy?.[field]?.[this.metadataLanguage];
       },
 
-      proxyHasFallbackField(proxy, fallbackProxy, field, targetLanguage) {
-        return (!proxy[field]?.[targetLanguage] && fallbackProxy[field]?.['en']);
+      proxyHasFallbackField(proxy, fallbackProxy, field) {
+        return (!proxy[field]?.[this.metadataLanguage] && fallbackProxy[field]?.en);
       },
 
       async fetchAnnotations() {
