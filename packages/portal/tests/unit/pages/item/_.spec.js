@@ -8,7 +8,7 @@ import page from '@/pages/item/_';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const apiResponse = {
+const apiResponse = () => ({
   object: {
     about: '/123/abc',
     aggregations: [
@@ -50,7 +50,6 @@ const apiResponse = {
     proxies: [
       {
         about: '/proxy/europeana/123/abc',
-        europeanaProxy: true,
         dcFormat: {
           def: ['http://data.europeana.eu/concept/47']
         },
@@ -60,7 +59,6 @@ const apiResponse = {
       },
       {
         about: '/proxy/aggregator/123/abc',
-        europeanaProxy: false,
         dcDescription: {
           de: ['Deutsche Beschreibung']
         },
@@ -70,7 +68,6 @@ const apiResponse = {
       },
       {
         about: '/proxy/provider/123/abc',
-        europeanaProxy: false,
         dcTitle: {
           en: ['Provider title']
         },
@@ -80,11 +77,10 @@ const apiResponse = {
       }
     ]
   }
-};
+});
 
-// TODO: get rid of this as it's derived
+// TODO: get rid of this as it's derived from apiResponse?
 const record = {
-  identifier: '/123/abc',
   entities: [
     { about: 'http://data.europeana.eu/concept/47', prefLabel: { en: ['Painting'] } },
     { about: 'http://data.europeana.eu/concept/01', prefLabel: { en: ['Fake'] } },
@@ -111,6 +107,31 @@ const record = {
   title: { en: ['Item example'] }
 };
 
+const fixtures = {
+  auth: {
+    loggedIn: { $auth: { loggedIn: true } },
+    notLoggedIn: { $auth: { loggedIn: false } }
+  },
+  route: {
+    standard: {
+      $route: {
+        params: { pathMatch: '123/abc' },
+        fullPath: '/en/item/123/abc',
+        path: '/en/item/123/abc',
+        query: {}
+      }
+    },
+    translating: {
+      $route: {
+        params: { pathMatch: '123/abc' },
+        fullPath: '/en/item/123/abc',
+        path: '/en/item/123/abc',
+        query: { lang: 'de' }
+      }
+    }
+  }
+};
+
 const entityFindStub = sinon.stub();
 const logEventSpy = sinon.spy();
 const redirectSpy = sinon.spy();
@@ -132,24 +153,17 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
     }
   ],
   mocks: {
-    $features: { translatedItems: true },
+    ...fixtures.auth.notLoggedIn,
+    ...fixtures.route.standard,
     $config: {
       app: {
         baseUrl: 'https://www.example.org'
       }
     },
-    $route: {
-      params: { pathMatch: '123/abc' },
-      query: {},
-      fullPath: '/en/item/123/abc',
-      path: '/en/item/123/abc'
-    },
+    $features: { translatedItems: true },
     $t: (key) => key,
     $i18n: {
       locale: 'en'
-    },
-    $auth: {
-      loggedIn: false
     },
     $apis: {
       annotation: {
@@ -159,7 +173,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
         find: entityFindStub
       },
       record: {
-        get: sinon.stub().resolves(apiResponse),
+        get: sinon.stub().resolves(apiResponse()),
         search: sinon.spy()
       }
     },
@@ -198,28 +212,23 @@ describe('pages/item/_.vue', () => {
     });
 
     describe('when the page is loaded with a lang route query param', () => {
-      const $route = {
-        params: { pathMatch: '123/abc' },
-        query: { lang: 'fr' },
-        fullPath: '/en/item/123/abc',
-        path: '/en/item/123/abc'
-      };
-
       describe('and the user is not logged in', () => {
-        const wrapper = factory({
-          mocks: {
-            $auth: { loggedIn: false },
-            $route
-          }
-        });
+        const mocks = {
+          ...fixtures.auth.notLoggedIn,
+          ...fixtures.route.translating
+        };
 
         it('redirects to the non-translated item page', async() => {
+          const wrapper = factory({ mocks });
+
           await wrapper.vm.fetch();
 
           expect(redirectSpy.calledWith({ query: { lang: undefined } })).toBe(true);
         });
 
         it('does not fetch metadata with translate profile', async() => {
+          const wrapper = factory({ mocks });
+
           await wrapper.vm.fetch();
 
           expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(false);
@@ -227,14 +236,17 @@ describe('pages/item/_.vue', () => {
       });
 
       describe('and the user is logged in', () => {
-        const $auth = { loggedIn: true };
+        const mocks = {
+          ...fixtures.auth.loggedIn,
+          ...fixtures.route.translating
+        };
 
         it('gets a record from the API for the ID in the params pathMatch, with translate and lang profiles', async() => {
-          const wrapper = factory({ mocks: { $auth, $route } });
+          const wrapper = factory({ mocks });
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { lang: 'fr', profile: 'translate' })).toBe(true);
+          expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { lang: 'de', profile: 'translate' })).toBe(true);
         });
 
         describe('but the API responds with a translation quota error', () => {
@@ -247,14 +259,15 @@ describe('pages/item/_.vue', () => {
           };
 
           it('refetches the record without translation', async() => {
-            const wrapper = factory({ mocks: { $auth, $route } });
-            wrapper.vm.$apis.record.get.withArgs('/123/abc', { lang: 'fr', profile: 'translate' }).rejects(error);
-            wrapper.vm.$apis.record.get.withArgs('/123/abc').resolves(apiResponse);
+            const wrapper = factory({ mocks });
+
+            wrapper.vm.$apis.record.get.withArgs('/123/abc', { lang: 'de', profile: 'translate' }).rejects(error);
+            wrapper.vm.$apis.record.get.withArgs('/123/abc').resolves(apiResponse());
 
             await wrapper.vm.fetch();
 
             expect(wrapper.vm.$apis.record.get.getCalls().length).toBe(2);
-            expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { lang: 'fr', profile: 'translate' })).toBe(true);
+            expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { lang: 'de', profile: 'translate' })).toBe(true);
             expect(wrapper.vm.$apis.record.get.calledWith('/123/abc')).toBe(true);
           });
         });
@@ -267,7 +280,7 @@ describe('pages/item/_.vue', () => {
 
         await wrapper.vm.fetch();
 
-        expect(redirectSpy.calledWith({ params: { pathMatch: apiResponse.object.about.slice(1) } })).toBe(true);
+        expect(redirectSpy.calledWith({ params: { pathMatch: apiResponse().object.about.slice(1) } })).toBe(true);
       });
     });
 
@@ -278,7 +291,7 @@ describe('pages/item/_.vue', () => {
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.identifier).toBe(apiResponse.object.about);
+          expect(wrapper.vm.identifier).toBe(apiResponse().object.about);
         });
       });
 
@@ -317,16 +330,13 @@ describe('pages/item/_.vue', () => {
 
         describe('Europeana proxy', () => {
           describe('when not translating', () => {
-            const $route = {
-              params: { pathMatch: '123/abc' },
-              fullPath: '/en/item/123/abc',
-              path: '/en/item/123/abc',
-              query: {}
+            const mocks = {
+              ...fixtures.auth.notLoggedIn,
+              ...fixtures.route.standard
             };
-            const $auth = { loggedIn: false };
 
             it('omits language-specific metadata from the Europeana proxy', async() => {
-              const wrapper = factory({ mocks: { $auth, $route } });
+              const wrapper = factory({ mocks });
 
               await wrapper.vm.fetch();
               await wrapper.vm.$nextTick();
@@ -335,7 +345,7 @@ describe('pages/item/_.vue', () => {
             });
 
             it('includes non-language-specific metadata from the Europeana proxy', async() => {
-              const wrapper = factory({ mocks: { $auth, $route } });
+              const wrapper = factory({ mocks });
 
               await wrapper.vm.fetch();
               await wrapper.vm.$nextTick();
@@ -348,82 +358,80 @@ describe('pages/item/_.vue', () => {
           });
 
           describe('when translating', () => {
-            const $route = {
-              params: { pathMatch: '123/abc' },
-              fullPath: '/en/item/123/abc',
-              path: '/en/item/123/abc',
-              query: { lang: 'de' }
+            const mocks = {
+              ...fixtures.auth.loggedIn,
+              ...fixtures.route.translating
             };
-            const $auth = { loggedIn: true };
 
             it('includes language-specific metadata from the Europeana proxy', async() => {
-              const wrapper = factory({ mocks: { $auth, $route } });
+              const wrapper = factory({ mocks });
 
               await wrapper.vm.fetch();
-              await wrapper.vm.$nextTick();
-              console.log('metadataLanguage', wrapper.vm.metadataLanguage);
-              console.log('translatingMetadata', wrapper.vm.translatingMetadata);
-              console.log('metadata', wrapper.vm.metadata);
 
-              expect(wrapper.vm.metadata.dcTitle).toEqual({ de: ['Deutscher Titel'] });
+              expect(wrapper.vm.metadata.dcTitle).toEqual({
+                de: ['Deutscher Titel'],
+                translationSource: 'automated'
+              });
             });
 
-            // it('includes non-language-specific metadata from the Europeana proxy', async() => {
-            //   const wrapper = factory({ mocks: { $auth, $route } });
-            //
-            //   await wrapper.vm.fetch();
-            //
-            //   expect(wrapper.vm.metadata.dcFormat.def).toEqual([{
-            //     about: 'http://data.europeana.eu/concept/47',
-            //     prefLabel: { de: ['Deutscher Titel'] }
-            //   }]);
-            // });
+            it('includes non-language-specific metadata from the Europeana proxy', async() => {
+              const wrapper = factory({ mocks });
+
+              await wrapper.vm.fetch();
+
+              expect(wrapper.vm.metadata.dcFormat.def).toEqual([{
+                about: 'http://data.europeana.eu/concept/47',
+                prefLabel: { en: ['Painting'] }
+              }]);
+            });
           });
         });
 
         describe('translation source labels', () => {
-          const $route = {
-            params: { pathMatch: '123/abc' },
-            query: { lang: 'fr' },
-            fullPath: '/en/item/123/abc',
-            path: '/en/item/123/abc'
+          const mocks = {
+            ...fixtures.auth.loggedIn,
+            ...fixtures.route.translating
           };
-          const $auth = { loggedIn: true };
 
           describe('when there is a value in the Europeana proxy', () => {
             it('is considered an automated translation', async() => {
-              const wrapper = factory({ mocks: { $auth, $route } });
+              const wrapper = factory({ mocks });
 
               await wrapper.vm.fetch();
 
-              // console.log(JSON.stringify(wrapper.vm.translatingMetadata, null, 2))
-              // expect(recordData.recordmetadata.dcTitle.translationSource).toBe('automated');
+              expect(wrapper.vm.metadata.dcTitle.translationSource).toBe('automated');
             });
           });
-          // describe('when there is a value in the aggregator proxy', () => {
-          //   describe('when the value is in a lang map', () => {
-          //     it('is considered an enrichment', async() => {
-          //
-          //       const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
-          //       expect(recordData.record.description.translationSource).toBe('enrichment');
-          //     });
-          //   });
-          //   describe('when the value refers to an entity', () => {
-          //     it('is considered an enrichment', async() => {
-          //
-          //       const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
-          //       expect(recordData.record.metadata.edmIsRelatedTo.translationSource).toBe('enrichment');
-          //     });
-          //   });
-          // });
-          // describe('when there is only a value in the default proxy', () => {
-          //   it('does not flag the field with a translation source', async() => {
-          //
-          //     const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
-          //
-          //     expect(recordData.record.metadata.dcType.translationSource === undefined).toBe(true);
-          //   });
-          // });
+
+          describe('when there is a value in the aggregator proxy', () => {
+            describe('when the value is in a lang map', () => {
+              it('is considered an enrichment', async() => {
+                const wrapper = factory({ mocks });
+
+                await wrapper.vm.fetch();
+
+                expect(wrapper.vm.metadata.dcDescription.translationSource).toBe('enrichment');
+              });
+            });
+            describe('when the value refers to an entity', () => {
+              it('is considered an enrichment', async() => {
+                const wrapper = factory({ mocks });
+
+                await wrapper.vm.fetch();
+
+                expect(wrapper.vm.metadata.edmIsRelatedTo.translationSource).toBe('enrichment');
+              });
+            });
+          });
+          describe('when there is only a value in the default proxy', () => {
+            it('does not flag the field with a translation source', async() => {
+              const wrapper = factory({ mocks });
+
+              await wrapper.vm.fetch();
+
+              expect(wrapper.vm.metadata.dcType.translationSource).toBeUndefined();
+            });
+          });
         });
       });
     });
@@ -746,7 +754,7 @@ describe('pages/item/_.vue', () => {
                   nl: ['Voorbeeld organisatie']
                 }
               },
-              entities: apiResponse.object.concepts.concat(apiResponse.object.organizations)
+              entities: apiResponse().object.concepts.concat(apiResponse().object.organizations)
             }
           });
 
