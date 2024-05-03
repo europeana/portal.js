@@ -28,19 +28,6 @@ describe('plugins/europeana/record', () => {
   });
 
   describe('EuropeanaRecordApi().get()', () => {
-    // describe('metadadataLanguage', () => {
-    //   it('uses the edmLanguage', async() => {
-    //     nock(EuropeanaRecordApi.BASE_URL)
-    //       .get(apiEndpoint)
-    //       .query(query => query.profile === 'translate')
-    //       .reply(200, translateProfileApiResponse);
-    //
-    //     const recordData = await (new EuropeanaRecordApi(translateConf)).get(europeanaId, { metadataLanguage: 'de' });
-    //     expect(recordData.record.metadataLanguage).toBe('de');
-    //     expect(nock.isDone()).toBe(true);
-    //   });
-    // });
-
     it('makes an API request', async() => {
       nock(EuropeanaRecordApi.BASE_URL)
         .get(apiEndpoint)
