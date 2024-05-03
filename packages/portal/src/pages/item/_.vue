@@ -540,16 +540,12 @@
       * @return {Boolean} true if enriched data will be shown
       */
       localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy) {
-        if (isLangMap(aggregatorProxy[field]) &&
+        return isLangMap(aggregatorProxy[field]) &&
           (
             this.proxyHasEntityForField(aggregatorProxy, field) ||
             this.proxyHasLanguageField(aggregatorProxy, field) ||
             this.proxyHasFallbackField(providerProxy, aggregatorProxy, field)
-          )
-        ) {
-          return true;
-        }
-        return false;
+          );
       },
 
       proxyHasEntityForField(proxy, field) {
