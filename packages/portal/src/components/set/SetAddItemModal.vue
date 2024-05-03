@@ -89,7 +89,7 @@
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
-          .filter(collection => (collection.items || []).some(item => item.replace('http://data.europeana.eu/item', '') === this.itemId))
+          .filter(collection => (collection.items || []).some(item => item.replace(ITEM_URL_PREFIX, '') === this.itemId))
           .map(collection => collection.id);
       }
     },
