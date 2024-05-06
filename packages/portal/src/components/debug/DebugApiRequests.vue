@@ -5,15 +5,15 @@
     <b-modal
       id="api-requests"
       size="xl"
-      :title="$t('debug.apiRequests.title')"
       hide-footer
       data-qa="API requests modal"
       @hide="hideModal"
     >
       <template #modal-header="{ close }">
         <SmartLink
-          :destination="{ name: 'index' }"
+          destination="https://apis.europeana.eu"
           class="logo"
+          hide-external-icon
         >
           <img
             :src="logoSrc"
@@ -35,11 +35,10 @@
         <b-form-group
           :label="$t('debug.apiRequests.form.apiKey.label')"
           label-for="debug-input-api-key"
-          :description="$t('debug.apiRequests.form.apiKey.description')"
         >
           <b-form-input
             id="debug-input-api-key"
-            v-model="settings.apiKey"
+            v-model="debugSettings.apiKey"
           />
           <template
             #description
@@ -52,7 +51,7 @@
             >
               <template #link>
                 <SmartLink
-                  destination="https://apis.europeana.eu"
+                  destination="https://pro.europeana.eu/pages/get-api"
                   hide-external-icon
                 >
                   {{ $t('debug.apiRequests.form.apiKey.here') }}<!-- This comment removes white space
@@ -96,32 +95,6 @@
             </code>
           </li>
         </ol>
-        <InfoMessage
-          v-if="!$store.getters['debug/settings'].apiKey"
-          variant="icon"
-        >
-          <i18n
-            path="debug.apiRequests.tip"
-            tag="p"
-          >
-            <template #apiKeyLink>
-              <b-link
-                href="https://pro.europeana.eu/pages/get-api"
-              >
-                {{ $t('debug.apiRequests.apiKeyLinkText') }}<!-- This comment removes white space
-                  -->
-              </b-link>
-            </template>
-            <template #settingsPageLink>
-              <b-link
-                to="/debug"
-              >
-                {{ $t('debug.apiRequests.settingsPageLinkText') }}<!-- This comment removes white space
-                  -->
-              </b-link>
-            </template>
-          </i18n>
-        </InfoMessage>
       </template>
       <InfoMessage
         v-else
@@ -149,7 +122,7 @@
       return {
         hash: '#api-requests',
         logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
-        settings: { ...this.$store.getters['debug/settings'] }
+        debugSettings: { ...this.$store.getters['debug/settings'] }
       };
     },
 

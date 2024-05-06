@@ -182,7 +182,6 @@ export default {
   },
   'debug': {
     'apiRequests': {
-      'apiKeyLinkText': 'Europeana API key',
       'form': {
         'apiKey': {
           'descriptionLine1': 'Enter your Europeana API key and it will be used in the links to API requests.',
@@ -191,10 +190,7 @@ export default {
           'label': 'API key'
         }
       },
-      'noRequests': 'No requests to Europeana APIs were used on this page.',
-      'settingsPageLinkText': 'settings page',
-      'tip': 'Tip: if you already have a {apiKeyLink}, you may enter it on the {settingsPageLink} and it will be included in these API request links.',
-      'title': 'API requests'
+      'noRequests': 'No requests to Europeana APIs were used on this page.'
     },
     'debug': 'Debug'
   },
