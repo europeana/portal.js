@@ -179,7 +179,7 @@
         }
       },
       saveApiKey() {
-        this.$store.commit('debug/updateSettings', this.settings);
+        this.$store.commit('debug/updateSettings', this.debugSettings);
       }
     }
   };

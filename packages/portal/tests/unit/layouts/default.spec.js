@@ -32,6 +32,9 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $store: {
       state: {
         breadcrumb: {}
+      },
+      getters: {
+        'debug/settings': {}
       }
     },
     $t: (key) => key,
