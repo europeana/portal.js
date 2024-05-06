@@ -183,29 +183,20 @@ export default {
   'debug': {
     'apiRequests': {
       'apiKeyLinkText': 'Europeana API key',
+      'form': {
+        'apiKey': {
+          'descriptionLine1': 'Enter your Europeana API key and it will be used in the links to API requests.',
+          'descriptionLine2': 'Need an API key? Register for one {link}.',
+          'here': 'here',
+          'label': 'API key'
+        }
+      },
       'noRequests': 'No requests to Europeana APIs were used on this page.',
       'settingsPageLinkText': 'settings page',
       'tip': 'Tip: if you already have a {apiKeyLink}, you may enter it on the {settingsPageLink} and it will be included in these API request links.',
       'title': 'API requests'
     },
-    'debug': 'Debug',
-    'settings': {
-      'form': {
-        'apiKey': {
-          'description': 'Enter your Europeana API key and it will be used in the links to API requests.',
-          'label': 'API key'
-        },
-        'boosting': {
-          'description': 'If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations.',
-          'label': 'Enable field boosting'
-        },
-        'enabled': {
-          'description': 'If enabled, the debug menu will be shown in the page footer.',
-          'label': 'Enable debug menu'
-        }
-      },
-      'title': 'Settings'
-    }
+    'debug': 'Debug'
   },
   'depiction': 'A depiction of {title}',
   'directions': {
@@ -916,6 +907,7 @@ export default {
         }
       },
       'header': {
+        'homeLinkAlt': 'Europeana APIs home',
         'navigation': {
           'apiDemo': 'API demo',
           'europeanaApis': 'Europeana APIs',

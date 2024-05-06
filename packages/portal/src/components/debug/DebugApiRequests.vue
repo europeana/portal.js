@@ -10,6 +10,66 @@
       data-qa="API requests modal"
       @hide="hideModal"
     >
+      <template #modal-header="{ close }">
+        <SmartLink
+          :destination="{ name: 'index' }"
+          class="logo"
+        >
+          <img
+            :src="logoSrc"
+            :alt="$t('landing.apis.header.homeLinkAlt')"
+            data-qa="logo"
+          >
+        </SmartLink>
+        <b-button
+          class="button-icon-only icon-clear"
+          variant="light-flat"
+          :aria-label="$t('actions.close')"
+          @click="close()"
+        />
+      </template>
+      <b-form
+        class="mb-5"
+        @submit.stop.prevent="saveApiKey"
+      >
+        <b-form-group
+          :label="$t('debug.apiRequests.form.apiKey.label')"
+          label-for="debug-input-api-key"
+          :description="$t('debug.apiRequests.form.apiKey.description')"
+        >
+          <b-form-input
+            id="debug-input-api-key"
+            v-model="settings.apiKey"
+          />
+          <template
+            #description
+          >
+            <span>{{ $t('debug.apiRequests.form.apiKey.descriptionLine1') }}</span>
+            <br>
+            <i18n
+              path="debug.apiRequests.form.apiKey.descriptionLine2"
+              tag="span"
+            >
+              <template #link>
+                <SmartLink
+                  destination="https://apis.europeana.eu"
+                  hide-external-icon
+                >
+                  {{ $t('debug.apiRequests.form.apiKey.here') }}<!-- This comment removes white space
+                  -->
+                </SmartLink>
+              </template>
+            </i18n>
+          </template>
+        </b-form-group>
+        <b-button
+          type="submit"
+          variant="primary"
+          data-qa="save api key button"
+        >
+          {{ $t('actions.save') }}
+        </b-button>
+      </b-form>
       <template
         v-if="requests && requests.length > 0"
       >
@@ -75,17 +135,21 @@
 
 <script>
   import InfoMessage from '../generic/InfoMessage';
+  import SmartLink from '@/components/generic/SmartLink';
 
   export default {
     name: 'DebugApiRequests',
 
     components: {
-      InfoMessage
+      InfoMessage,
+      SmartLink
     },
 
     data() {
       return {
-        hash: '#api-requests'
+        hash: '#api-requests',
+        logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
+        settings: { ...this.$store.getters['debug/settings'] }
       };
     },
 
@@ -140,6 +204,9 @@
         if (updateRoute) {
           this.$nuxt.context.app.router.push({ ...this.$route, hash: undefined });
         }
+      },
+      saveApiKey() {
+        this.$store.commit('debug/updateSettings', this.settings);
       }
     }
   };

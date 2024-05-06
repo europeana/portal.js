@@ -7,7 +7,7 @@ import DebugApiRequests from '@/components/debug/DebugApiRequests.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ requests = [] } = {}) => shallowMountNuxt(DebugApiRequests, {
+const factory = ({ settings = {}, requests = [] } = {}) => shallowMountNuxt(DebugApiRequests, {
   localVue,
   mocks: {
     $nuxt: {
@@ -28,7 +28,7 @@ const factory = ({ requests = [] } = {}) => shallowMountNuxt(DebugApiRequests, {
         }
       },
       getters: {
-        'debug/settings': {}
+        'debug/settings': settings || {}
       },
       commit: sinon.spy()
     }
@@ -217,6 +217,18 @@ describe('components/debug/DebugApiRequests', () => {
         wrapper.vm.hideModal();
 
         expect(wrapper.vm.$bvModal.hide.calledWith('api-requests')).toBe(true);
+      });
+
+      describe('saveApiKey', () => {
+        const settings = { enabled: true, apiKey: 'SECRET' };
+
+        it('commits settings to the store', () => {
+          const wrapper = factory({ settings });
+
+          wrapper.vm.saveApiKey();
+
+          expect(wrapper.vm.$store.commit.calledWith('debug/updateSettings', settings)).toBe(true);
+        });
       });
     });
   });
