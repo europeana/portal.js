@@ -766,10 +766,10 @@ export default {
       'accessibility': 'Accessibility',
       'cookies': 'Cookies',
       'faq': 'Frequently Asked Questions (FAQ)',
-      'forDevelopers': 'For developers',
       'help': 'Help',
       'privacy': 'Privacy policy',
       'provide': 'Become a providing institution',
+      'seeApiRequests': 'See requests to Europeana APIs',
       'subscribe': 'Subscribe to our newsletter',
       'terms': 'Terms & Policies'
     },
