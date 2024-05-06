@@ -76,18 +76,6 @@
               data-qa="language selector"
             />
           </b-col>
-          <b-col
-            v-if="showDebugLinkGroup"
-            sm="6"
-            lg="3"
-            class="right-col pb-4  order-sm-4 order-lg-6"
-          >
-            <LinkGroup
-              :title="debugLinkGroup.name"
-              :links="debugLinkGroup.links"
-              data-qa="debug link group"
-            />
-          </b-col>
         </b-row>
         <hr>
         <b-row>
@@ -128,10 +116,6 @@
     },
 
     props: {
-      enableDebugMenu: {
-        type: Boolean,
-        default: true
-      },
       enableLangSelector: {
         type: Boolean,
         default: true
@@ -207,25 +191,6 @@
           }
         ]
       };
-    },
-
-    computed: {
-      debugSettings() {
-        return this.$store.getters['debug/settings'];
-      },
-      showDebugLinkGroup() {
-        return this.enableDebugMenu && !!this.debugSettings.enabled;
-      },
-      debugLinkGroup() {
-        return {
-          name: this.$t('debug.debug'),
-          links: [
-            { url: '/debug', text: this.$t('debug.settings.title') },
-            { url: '#api-requests', text: this.$t('debug.apiRequests.title'), dataQa: 'API requests link' },
-            { url: '/debug/oembed', text: 'oEmbed' }
-          ]
-        };
-      }
     }
   };
 </script>
