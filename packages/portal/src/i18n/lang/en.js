@@ -191,8 +191,7 @@ export default {
         }
       },
       'noRequests': 'No requests to Europeana APIs were used on this page.'
-    },
-    'debug': 'Debug'
+    }
   },
   'depiction': 'A depiction of {title}',
   'directions': {

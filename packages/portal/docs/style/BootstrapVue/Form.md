@@ -7,6 +7,7 @@ Other available input fields:
 [datepicker](https://bootstrap-vue.org/docs/components/form-datepicker), [file](https://bootstrap-vue.org/docs/components/form-file), [rating](https://bootstrap-vue.org/docs/components/form-rating), [spinbutton](https://bootstrap-vue.org/docs/components/form-spinbutton), [timepicker](https://bootstrap-vue.org/docs/components/form-timepicker)
 
 Used by:
+
 - DownloadSuccessModal
 - [EntityUpdateModal](/#/Components/Entity?id=entityheader)
 - FeedbackWidget
@@ -17,7 +18,6 @@ Used by:
 - [SearchQueryBuilder](/#/Components/Search?id=searchquerybuilder)
 - SetFormModal
 - StoriesTagsDropdown
-- Debug page
 
 ```jsx
 <template>

@@ -338,15 +338,9 @@
       noResults() {
         return this.totalResults === 0 || !this.totalResults;
       },
-      debugSettings() {
-        return this.$store.getters['debug/settings'];
-      },
       showErrorMessage() {
         return !this.$fetchState.error?.code ||
           !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
-      },
-      showSearchBoostingForm() {
-        return !!this.debugSettings?.boosting;
       },
       routeQueryView() {
         return this.$route.query.view;
