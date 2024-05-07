@@ -19,6 +19,7 @@
           </SmartLink>
           <!-- eslint-disable vue/no-v-html -->
           <div
+            v-if="cta.description"
             class="btn-cta-helptext form-text text-muted mt-3"
             v-html="parseMarkdownHtml(cta.description)"
           />
