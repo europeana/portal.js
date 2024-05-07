@@ -60,20 +60,28 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
    * @param {Object} params additional parameters sent to the API
    * @return {Array} entity data
    */
-  async find(entityUris, params = {}) {
+  async find(entityUris, params = {}) { // eslint-disable-line no-unused-vars
     if (entityUris?.length === 0) {
       return Promise.resolve([]);
     }
-    const q = entityUris.join('" OR "');
-    const searchParams = {
-      ...params,
-      query: `entity_uri:("${q}")`,
-      pageSize: entityUris.length
-    };
 
-    const response = await this.search(searchParams);
+    // const q = entityUris.join('" OR "');
+    // const searchParams = {
+    //   ...params,
+    //   query: `entity_uri:("${q}")`,
+    //   pageSize: entityUris.length
+    // };
+    //
+    // const response = await this.search(searchParams);
+    // const entities = response.entities || [];
 
-    return (response.entities || [])
+    const responses = await Promise.all(entityUris.map((uri) => {
+      const { type, id } = entityParamsFromUri(uri);
+      return this.get(type, id);
+    }));
+    const entities = responses.map((response) => response.entity);
+
+    return entities.filter(Boolean)
       // Preserve original order from arg
       .sort((a, b) => {
         const indexForA = entityUris.findIndex((uri) => a.id === uri);

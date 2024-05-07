@@ -142,30 +142,47 @@ describe('plugins/europeana/entity', () => {
 
     describe('find', () => {
       const uris = ['http://data.europeana.eu/agent/123', 'http://data.europeana.eu/concept/456'];
-      const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/123" OR "http://data.europeana.eu/concept/456")';
-      const orderedEntitySearchResponse = {
-        items: [
-          { id: 'http://data.europeana.eu/agent/123' },
-          { id: 'http://data.europeana.eu/concept/456' }
-        ]
-      };
-      const unorderedEntitySearchResponse = {
-        items: [
-          { id: 'http://data.europeana.eu/concept/456' },
-          { id: 'http://data.europeana.eu/agent/123' }
-        ]
-      };
-      const searchEndpoint = '/search';
+      // const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/123" OR "http://data.europeana.eu/concept/456")';
+      // const orderedEntitySearchResponse = {
+      //   items: [
+      //     { id: 'http://data.europeana.eu/agent/123' },
+      //     { id: 'http://data.europeana.eu/concept/456' }
+      //   ]
+      // };
+      // const unorderedEntitySearchResponse = {
+      //   items: [
+      //     { id: 'http://data.europeana.eu/concept/456' },
+      //     { id: 'http://data.europeana.eu/agent/123' }
+      //   ]
+      // };
+      // const searchEndpoint = '/search';
 
-      it('searches the API by entity URIs', async() => {
+      // it('searches the API by entity URIs', async() => {
+      //   nock(api.BASE_URL)
+      //     .get(searchEndpoint)
+      //     .query(query => query.query === uriQuery)
+      //     .reply(200, orderedEntitySearchResponse);
+      //
+      //   await (new api).find(uris);
+      //
+      //   expect(nock.isDone()).toBe(true);
+      // });
+
+      it('retrieves each entity individually (AS A WORKAROUND)', async() => {
         nock(api.BASE_URL)
-          .get(searchEndpoint)
-          .query(query => query.query === uriQuery)
-          .reply(200, orderedEntitySearchResponse);
+          .get('/agent/123.json')
+          .reply(200, { id: 'http://data.europeana.eu/agent/123' });
+        nock(api.BASE_URL)
+          .get('/concept/456.json')
+          .reply(200, { id: 'http://data.europeana.eu/concept/456' });
 
-        await (new api).find(uris);
+        const entities = await (new api).find(uris);
 
         expect(nock.isDone()).toBe(true);
+        expect(entities).toEqual([
+          { id: 'http://data.europeana.eu/agent/123' },
+          { id: 'http://data.europeana.eu/concept/456' }
+        ]);
       });
 
       it('resolves with a blank array if there are no URIs', async() => {
@@ -174,27 +191,27 @@ describe('plugins/europeana/entity', () => {
         expect(result).toEqual([]);
       });
 
-      it('preserves the order of the supplied URIs', async() => {
-        nock(api.BASE_URL)
-          .get(searchEndpoint)
-          .query(query => query.query === uriQuery)
-          .reply(200, unorderedEntitySearchResponse);
-
-        const entities = await (new api).find(uris);
-
-        expect(entities).toEqual(orderedEntitySearchResponse.items);
-      });
-
-      it('allows filtering by fl via params', async() => {
-        nock(api.BASE_URL)
-          .get(searchEndpoint)
-          .query(query => query.query === uriQuery && query.fl === 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo')
-          .reply(200, unorderedEntitySearchResponse);
-
-        const entities = await (new api).find(uris, { fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo' });
-
-        expect(entities).toEqual(orderedEntitySearchResponse.items);
-      });
+      // it('preserves the order of the supplied URIs', async() => {
+      //   nock(api.BASE_URL)
+      //     .get(searchEndpoint)
+      //     .query(query => query.query === uriQuery)
+      //     .reply(200, unorderedEntitySearchResponse);
+      //
+      //   const entities = await (new api).find(uris);
+      //
+      //   expect(entities).toEqual(orderedEntitySearchResponse.items);
+      // });
+      //
+      // it('allows filtering by fl via params', async() => {
+      //   nock(api.BASE_URL)
+      //     .get(searchEndpoint)
+      //     .query(query => query.query === uriQuery && query.fl === 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo')
+      //     .reply(200, unorderedEntitySearchResponse);
+      //
+      //   const entities = await (new api).find(uris, { fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo' });
+      //
+      //   expect(entities).toEqual(orderedEntitySearchResponse.items);
+      // });
     });
 
     describe('suggest', () => {
