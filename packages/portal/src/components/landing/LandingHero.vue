@@ -17,6 +17,12 @@
           >
             {{ cta.text }}
           </SmartLink>
+          <!-- eslint-disable vue/no-v-html -->
+          <div
+            class="btn-cta-helptext form-text text-muted mt-3"
+            v-html="parseMarkdownHtml(cta.description)"
+          />
+          <!-- eslint-enable vue/no-v-html -->
         </header>
       </div>
       <ImageWithAttribution
@@ -188,6 +194,18 @@
 
     p {
       color: $mediumgrey;
+    }
+
+    .btn-cta-helptext {
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-large;
+        margin-top: 2rem !important;
+      }
+
+      ::v-deep p {
+        margin-bottom: 0;
+      }
     }
   }
 
