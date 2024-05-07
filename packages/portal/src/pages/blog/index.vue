@@ -1,56 +1,26 @@
 <template>
-  <b-container data-qa="blog">
-    <ContentHeader
-      :title="pageMeta.title"
-    />
-    <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
-        <b-card-group
-          class="card-deck-4-cols"
-          deck
-          data-qa="blog posts section"
-        >
-          <ContentCard
-            v-for="(post, index) in posts"
-            :key="index"
-            :title="post.name"
-            :url="{ name: 'blog-all', params: { pathMatch: post.identifier } }"
-            :image-url="imageUrl(post)"
-            :image-content-type="imageContentType(post)"
-            :image-optimisation-options="{ width: 510 }"
-            :image-alt="imageAlt(post)"
-            :texts="[post.description]"
-            :show-subtitle="false"
-          />
-        </b-card-group>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <PaginationNavInput
-          :total-results="total"
-          :per-page="perPage"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
+  <ContentHubPage
+    data-qa="blog"
+    :page-meta="pageMeta"
+    :items="posts"
+    :total="total"
+    :per-page="perPage"
+    card-url-name="blog-all"
+  />
 </template>
 
 <script>
-  import ContentHeader from '../../components/content/ContentHeader';
-  import ContentCard from '../../components/content/ContentCard';
-  import PaginationNavInput from '../../components/generic/PaginationNavInput';
-  import pageMetaMixin from '@/mixins/pageMeta';
 
-  const PER_PAGE = 20;
+  import pageMetaMixin from '@/mixins/pageMeta';
+  import ContentHubPage from '@/components/content/ContentHubPage.vue';
+
+  const PER_PAGE = 24;
 
   export default {
     name: 'BlogIndexPage',
 
     components: {
-      ContentHeader,
-      ContentCard,
-      PaginationNavInput
+      ContentHubPage
     },
 
     mixins: [pageMetaMixin],
@@ -90,23 +60,17 @@
     computed: {
       pageMeta() {
         return {
-          title: this.$t('blog.blog')
+          title: this.$t('blog.blog'),
+          ogImage: this.socialMediaImage?.url,
+          ogImageAlt: this.socialMediaImage?.description
         };
+      },
+      socialMediaImage() {
+        return this.posts[0]?.primaryImageOfPage?.image;
       }
     },
 
-    watchQuery: ['page'],
-
-    methods: {
-      imageUrl(post) {
-        return post.primaryImageOfPage?.image?.url || null;
-      },
-      imageContentType(post) {
-        return post.primaryImageOfPage?.image?.contentType || null;
-      },
-      imageAlt(post) {
-        return post.primaryImageOfPage?.image?.description || '';
-      }
-    }
+    watchQuery: ['page']
   };
 </script>
+
