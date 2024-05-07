@@ -42,6 +42,21 @@ const setGetApiResponseWithPinnedItem = {
   items: ['http://data.europeana.eu/item/123/abc']
 };
 
+const entityApiFindResponse = [
+  {
+    id: ENTITY_URI,
+    prefLabel: { en: ['Agent entity'] }
+  },
+  {
+    id: 'http://data.europeana.eu/topic/123',
+    prefLabel: { en: ['Topic entity'] }
+  },
+  {
+    id: 'http://data.europeana.eu/organisation/123456789',
+    prefLabel: { en: ['Organisation entity'] }
+  }
+];
+
 const fullPins = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
 
 const fixtures = {
@@ -92,6 +107,7 @@ const fixtures = {
   }
 };
 
+const entityApiFindStub = sinon.stub().resolves(entityApiFindResponse);
 const setApiGetStub = sinon.stub().resolves(setGetApiResponseWithPinnedItem);
 const setApiSearchStub = sinon.stub().resolves({});
 const setApiCreateStub = sinon.stub().resolves({ id: '457' });
@@ -103,19 +119,10 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
     identifier: '/123/abc',
     modalStatic: true,
     modalId: 'pin-modal-/123/abc',
-    entities: [
-      {
-        about: ENTITY_URI,
-        prefLabel: { en: ['Agent entity'] }
-      },
-      {
-        about: 'http://data.europeana.eu/topic/123',
-        prefLabel: { en: ['Topic entity'] }
-      },
-      {
-        about: 'http://data.europeana.eu/organisation/123456789',
-        prefLabel: { en: ['Organisation entity'] }
-      }
+    entityUris: [
+      ENTITY_URI,
+      'http://data.europeana.eu/topic/123',
+      'http://data.europeana.eu/organisation/123456789'
     ],
     ...propsData
   },
@@ -123,12 +130,19 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
   mocks: {
     localePath: () => {},
     $apis: {
+      entity: {
+        find: entityApiFindStub
+      },
       set: {
         get: setApiGetStub,
         search: setApiSearchStub,
         create: setApiCreateStub,
         modifyItems: setApiModifyItemsStub
       }
+    },
+    $error: (error) => {
+      console.error(error);
+      throw error;
     },
     $i18n: { locale: 'en' },
     $store: {
@@ -156,8 +170,9 @@ describe('components/item/ItemPinModal', () => {
     });
 
     describe('option buttons', () => {
-      it('show a button for each entity option', async() => {
+      it('shows a button for each entity option', async() => {
         const wrapper = factory();
+        await wrapper.vm.fetchEntityBestItemsSets();
 
         expect(wrapper.findAll('button[data-qa="pin item to entity choice"]').length).toEqual(3);
       });
@@ -165,6 +180,7 @@ describe('components/item/ItemPinModal', () => {
       describe('when an option is selected', () => {
         it('shows the check icon on the selected option', async() => {
           const wrapper = factory();
+          await wrapper.vm.fetchEntityBestItemsSets();
           await wrapper.setData({
             selected: ENTITY_URI
           });
@@ -174,8 +190,9 @@ describe('components/item/ItemPinModal', () => {
         });
       });
       describe('when an option is pinned', () => {
-        it('shows the pin icon on the pinned option', () => {
+        it('shows the pin icon on the pinned option', async() => {
           const wrapper = factory(fixtures.itemAlreadyPinned);
+          await wrapper.vm.fetchEntityBestItemsSets();
 
           const button = wrapper.find('button[data-qa="pin item to entity choice"]');
 
@@ -295,6 +312,7 @@ describe('components/item/ItemPinModal', () => {
       describe('when there is NO existing set', () => {
         it('creates a set and pins the item, updates the store', async() => {
           const wrapper = factory(fixtures.setDoesNotExist);
+          await wrapper.vm.fetchEntityBestItemsSets();
 
           await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
           await new Promise(process.nextTick);
@@ -371,6 +389,15 @@ describe('components/item/ItemPinModal', () => {
     describe('fetchEntityBestItemsSets', () => {
       afterEach(() => {
         setApiSearchStub.resolves(setSearchApiResponse);
+      });
+
+      it('fetches and stores the entities from the Entity API', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetchEntityBestItemsSets();
+
+        expect(entityApiFindStub.called).toBe(true);
+        expect(wrapper.vm.entities).toEqual(entityApiFindResponse);
       });
 
       it('iterates over all entityIds and searches the set API for relevant sets', async() => {
@@ -561,7 +588,7 @@ describe('components/item/ItemPinModal', () => {
     describe('entityDisplayLabel', () => {
       describe('when there is an english prefLabel', () => {
         const entityWithEnglishPrefLabel = {
-          about: ENTITY_URI,
+          id: ENTITY_URI,
           prefLabel: { en: ['English label', 'another Label'], fr: ['French label'] }
         };
         it('uses the first english pref label value', async() => {
@@ -575,7 +602,7 @@ describe('components/item/ItemPinModal', () => {
 
       describe('when there is NO english prefLabel', () => {
         const entityWithFrenchPrefLabel = {
-          about: ENTITY_URI,
+          id: ENTITY_URI,
           prefLabel: { fr: ['French label'] }
         };
         it('uses the first prefLabel value of an available language', async() => {
