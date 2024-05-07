@@ -26,12 +26,6 @@
         <b-container
           class="px-0 pb-3"
         >
-          <client-only>
-            <SearchBoostingForm
-              v-if="showSearchBoostingForm"
-              class="mb-3"
-            />
-          </client-only>
           <section>
             <div
               class="mb-3 d-flex flex-wrap align-items-center justify-content-between"
@@ -187,7 +181,6 @@
     components: {
       ClientOnly,
       ErrorMessage: () => import('../error/ErrorMessage'),
-      SearchBoostingForm: () => import('./SearchBoostingForm'),
       SearchQueryBuilder: () => import('./SearchQueryBuilder'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
@@ -338,15 +331,9 @@
       noResults() {
         return this.totalResults === 0 || !this.totalResults;
       },
-      debugSettings() {
-        return this.$store.getters['debug/settings'];
-      },
       showErrorMessage() {
         return !this.$fetchState.error?.code ||
           !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
-      },
-      showSearchBoostingForm() {
-        return !!this.debugSettings?.boosting;
       },
       routeQueryView() {
         return this.$route.query.view;

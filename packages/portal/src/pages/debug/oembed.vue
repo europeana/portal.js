@@ -1,6 +1,6 @@
 <template>
   <div class="page white-page">
-    <b-container data-qa="debug page">
+    <b-container data-qa="debug oembed page">
       <ContentHeader
         :title="pageMeta.title"
       />

@@ -36,7 +36,6 @@ const pages = {
   'Swedish home page': `${url}/sv`,
   'topics listing page': `${url}/en/collections/topics`,
   'times listing page': `${url}/en/collections/times`,
-  'debug page': `${url}/debug`,
   'static page': `${url}/en/about-us`
   // TODO: enable when linklist is actually present
   // 'static page with linklist': `${url}/en/rights`

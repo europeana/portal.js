@@ -182,29 +182,15 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API key",
-      "noRequests": "No requests to Europeana APIs were used on this page.",
-      "settingsPageLinkText": "settings page",
-      "tip": "Tip: if you already have a {apiKeyLink}, you may enter it on the {settingsPageLink} and it will be included in these API request links.",
-      "title": "API requests"
-    },
-    "debug": "Debug",
-    "settings": {
       "form": {
         "apiKey": {
-          "description": "Enter your Europeana API key and it will be used in the links to API requests.",
+          "descriptionLine1": "Enter your Europeana API key and it will be used in the links to API requests.",
+          "descriptionLine2": "Need an API key? Register for one {link}.",
+          "here": "here",
           "label": "API key"
-        },
-        "boosting": {
-          "description": "If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations.",
-          "label": "Enable field boosting"
-        },
-        "enabled": {
-          "description": "If enabled, the debug menu will be shown in the page footer.",
-          "label": "Enable debug menu"
         }
       },
-      "title": "Settings"
+      "noRequests": "No requests to Europeana APIs were used on this page."
     }
   },
   "depiction": "A depiction of {title}",
@@ -779,10 +765,10 @@ export default {
       "accessibility": "Accessibility",
       "cookies": "Cookies",
       "faq": "Frequently Asked Questions (FAQ)",
-      "forDevelopers": "For developers",
       "help": "Help",
       "privacy": "Privacy policy",
       "provide": "Become a providing institution",
+      "seeApiRequests": "See requests to Europeana APIs",
       "subscribe": "Subscribe to our newsletter",
       "terms": "Terms & Policies"
     },
@@ -916,6 +902,7 @@ export default {
         }
       },
       "header": {
+        "homeLinkAlt": "Europeana APIs home",
         "navigation": {
           "apiDemo": "API demo",
           "europeanaApis": "Europeana APIs",
@@ -1130,9 +1117,6 @@ export default {
         "modifier": "Choose how this field should modify the search.",
         "term": "Enter the term(s) that the chosen field contains or does not contain."
       }
-    },
-    "boost": {
-      "placeholder": "Enter field boosting query"
     },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
