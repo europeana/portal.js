@@ -586,13 +586,14 @@
             // don't fall over
           } finally {
             if (!this.dataProviderEntity) {
-              const prefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
-              if (prefLabel) {
-                Object.keys(prefLabel).forEach((key) => {
+              const dataProviderPrefLabel = this.metadata.edmDataProvider.def[0].prefLabel;
+              if (dataProviderPrefLabel) {
+                const prefLabel = { ...dataProviderPrefLabel };
+                for (const key in prefLabel) {
                   if (Array.isArray(prefLabel[key])) {
                     prefLabel[key] = prefLabel[key][0];
                   }
-                });
+                }
                 this.dataProviderEntity = { id: this.dataProviderEntityUri, prefLabel, type: 'Organization' };
               }
             }
