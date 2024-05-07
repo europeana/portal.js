@@ -64,21 +64,28 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
     if (entityUris?.length === 0) {
       return Promise.resolve([]);
     }
-    const q = entityUris.join('" OR "');
-    const searchParams = {
-      ...params,
-      query: `entity_uri:("${q}")`,
-      pageSize: entityUris.length
-    };
 
-    const response = await this.search(searchParams);
+    const entities = await this.retrieve(entityUris, params);
 
-    return (response.entities || [])
+    return (entities || [])
       // Preserve original order from arg
       .sort((a, b) => {
         const indexForA = entityUris.findIndex((uri) => a.id === uri);
         const indexForB = entityUris.findIndex((uri) => b.id === uri);
         return indexForA - indexForB;
+      });
+  }
+
+  retrieve(entityUris, params = {}) {
+    return this.axios.post('/retrieve', entityUris, {
+      params: {
+        ...this.axios.defaults.params,
+        ...params
+      }
+    })
+      .then((response) => response.data?.items)
+      .catch((error) => {
+        throw this.apiError(error);
       });
   }
 

@@ -82,8 +82,14 @@ const conceptEntitiesResponse = {
 };
 
 describe('plugins/europeana/entity', () => {
-  afterEach(() => {
-    nock.cleanAll();
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+
+  afterEach(nock.cleanAll);
+
+  afterAll(() => {
+    nock.enableNetConnect();
   });
 
   describe('default export', () => {
@@ -142,7 +148,6 @@ describe('plugins/europeana/entity', () => {
 
     describe('find', () => {
       const uris = ['http://data.europeana.eu/agent/123', 'http://data.europeana.eu/concept/456'];
-      const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/123" OR "http://data.europeana.eu/concept/456")';
       const orderedEntitySearchResponse = {
         items: [
           { id: 'http://data.europeana.eu/agent/123' },
@@ -155,12 +160,11 @@ describe('plugins/europeana/entity', () => {
           { id: 'http://data.europeana.eu/agent/123' }
         ]
       };
-      const searchEndpoint = '/search';
+      const retrieveEndpoint = '/retrieve';
 
-      it('searches the API by entity URIs', async() => {
+      it('uses the API retrieve method', async() => {
         nock(api.BASE_URL)
-          .get(searchEndpoint)
-          .query(query => query.query === uriQuery)
+          .post(retrieveEndpoint, uris)
           .reply(200, orderedEntitySearchResponse);
 
         await (new api).find(uris);
@@ -176,22 +180,10 @@ describe('plugins/europeana/entity', () => {
 
       it('preserves the order of the supplied URIs', async() => {
         nock(api.BASE_URL)
-          .get(searchEndpoint)
-          .query(query => query.query === uriQuery)
+          .post(retrieveEndpoint, uris)
           .reply(200, unorderedEntitySearchResponse);
 
         const entities = await (new api).find(uris);
-
-        expect(entities).toEqual(orderedEntitySearchResponse.items);
-      });
-
-      it('allows filtering by fl via params', async() => {
-        nock(api.BASE_URL)
-          .get(searchEndpoint)
-          .query(query => query.query === uriQuery && query.fl === 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo')
-          .reply(200, unorderedEntitySearchResponse);
-
-        const entities = await (new api).find(uris, { fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,logo' });
 
         expect(entities).toEqual(orderedEntitySearchResponse.items);
       });
