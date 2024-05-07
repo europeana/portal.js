@@ -1,5 +1,7 @@
+// TODO: deprecate if only used for the apiKey, which could be handled fully
+//       by DebugApiRequests component
 const defaults = {
-  enabled: false
+  apiKey: null
 };
 
 export const state = () => ({

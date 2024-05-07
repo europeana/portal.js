@@ -168,7 +168,6 @@
 
     methods: {
       showModal() {
-        this.$store.commit('debug/updateSettings', { ...this.$store.getters['debug/settings'], enabled: true });
         this.$bvModal.show('api-requests');
       },
 
