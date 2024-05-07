@@ -381,7 +381,6 @@
           return this.redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } });
         }
 
-        this.identifier = edm.about;
         this.type = edm.type;
 
         const item = new Item(edm);
