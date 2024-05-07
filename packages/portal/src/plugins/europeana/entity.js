@@ -75,6 +75,9 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
     // const response = await this.search(searchParams);
     // const entities = response.entities || [];
 
+    // NOTE: this is a temporary workaround to handle old entity organisation
+    //       IDs, because the Entity API will perform a redirect when the
+    //       individual entity is requested.
     const responses = await Promise.all(entityUris.map((uri) => {
       const { type, id } = entityParamsFromUri(uri);
       return this.get(type, id);
