@@ -19,7 +19,10 @@ export default [
   {
     name: 'EUscreen',
     endpoint: 'https://oembed.euscreen.eu/services/oembed',
-    schemes: ['http://www.euscreen.eu/item.html*']
+    schemes: [
+      'http://www.euscreen.eu/item.html*',
+      'https://www.euscreen.eu/item.html*'
+    ]
   },
   {
     name: 'SoundCloud',
