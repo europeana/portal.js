@@ -181,15 +181,6 @@ describe('components/debug/DebugApiRequests', () => {
 
   describe('methods', () => {
     describe('showModal', () => {
-      it('updates debug settings to ensure they are enabled', () => {
-        const wrapper = factory();
-        wrapper.vm.$store.getters['debug/settings'] = { enabled: false, apiKey: 'OVERRIDE' };
-
-        wrapper.vm.showModal();
-
-        expect(wrapper.vm.$store.commit.calledWith('debug/updateSettings', { enabled: true, apiKey: 'OVERRIDE' })).toBe(true);
-      });
-
       it('shows the modal', () => {
         const wrapper = factory();
         sinon.spy(wrapper.vm.$bvModal, 'show');
@@ -220,7 +211,7 @@ describe('components/debug/DebugApiRequests', () => {
       });
 
       describe('saveApiKey', () => {
-        const settings = { enabled: true, apiKey: 'SECRET' };
+        const settings = { apiKey: 'SECRET' };
 
         it('commits settings to the store', () => {
           const wrapper = factory({ settings });
