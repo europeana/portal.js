@@ -540,8 +540,7 @@ describe('pages/item/_.vue', () => {
             'http://data.europeana.eu/concept/1',
             'http://data.europeana.eu/place/1',
             'http://data.europeana.eu/timespan/1'
-          ],
-          { fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo' }
+          ]
         )).toBe(true);
       });
 
@@ -736,8 +735,7 @@ describe('pages/item/_.vue', () => {
               'http://data.europeana.eu/concept/02',
               'http://data.europeana.eu/concept/03',
               'http://data.europeana.eu/organization/01'
-            ],
-            { fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo' }
+            ]
           ];
           const successEntityResponse = [
             { id: 'http://data.europeana.eu/concept/47' },

@@ -569,19 +569,14 @@
       },
 
       async fetchEntities() {
-        const params = {
-          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo'
-        };
         if (this.dataProviderEntityUri) {
           // Fetch related entities and the dataProvider entity.
           // If the entities can't be fetched, use existing data from the record for the dataProvider section
           try {
-            const entities = await this.$apis.entity.find([...this.relatedEntityUris, this.dataProviderEntityUri], params);
-
-            if (entities)  {
-              this.relatedCollections = entities.filter((entity) => entity.id !== this.dataProviderEntityUri);
-              this.dataProviderEntity = entities.find((entity) => entity.id === this.dataProviderEntityUri);
-            }
+            let entities = await this.$apis.entity.find([...this.relatedEntityUris, this.dataProviderEntityUri]);
+            entities = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
+            this.relatedCollections = entities.filter((entity) => entity.id !== this.dataProviderEntityUri);
+            this.dataProviderEntity = entities.find((entity) => entity.id === this.dataProviderEntityUri) || null;
           } catch {
             // don't fall over
           } finally {
@@ -601,8 +596,8 @@
         } else if (this.relatedEntityUris.length > 0) {
           this.dataProviderEntity = null;
 
-          const entities  = await this.$apis.entity.find(this.relatedEntityUris, params);
-          this.relatedCollections = entities || [];
+          const entities = await this.$apis.entity.find(this.relatedEntityUris);
+          this.relatedCollections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
         } else {
           this.dataProviderEntity = null;
           this.relatedCollections = [];

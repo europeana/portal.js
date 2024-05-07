@@ -49,12 +49,12 @@
 
       this.themes = contentfulResponse.data?.data?.themePageCollection?.items.map(theme => ({
         prefLabel: theme.name,
-        url: this.localePath({
+        url: {
           name: 'search',
           query: {
             qf: `collection:${this.qf(theme.identifier)}`
           }
-        }),
+        },
         primaryImageOfPage: theme.primaryImageOfPage
       }));
     },

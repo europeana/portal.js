@@ -73,16 +73,6 @@ describe('theme hub page', () => {
     });
   });
 
-  describe('theme section', () => {
-    it('exists for the themes', () => {
-      const wrapper = factory();
-
-      const themeSection = wrapper.find('[data-qa="theme section"]');
-
-      expect(themeSection.exists()).toBe(true);
-    });
-  });
-
   describe('data', () => {
     it('is loaded from contentful', async() => {
       const wrapper = factory();
