@@ -17,15 +17,20 @@
           class="query-rule-field-label d-inline-flex align-items-center"
           :for="`${id}-${control}`"
         >
-          {{ $t(`search.advanced.input.${control}`) }}
+          <span
+            class="align-self-center"
+          >
+            {{ $t(`search.advanced.input.${control}`) }}
+          </span>
           <template v-if="tooltips">
             <b-button
               :id="`${id}-${control}-tooltip-btn`"
-              class="icon-info-outline py-0 px-1 tooltip-button"
+              class="icon-info-outline py-0 px-1 tooltip-button align-self-center"
               :aria-label="$t(`search.advanced.tooltip.${control}`)"
               variant="light-flat"
             />
             <b-tooltip
+              class="align-self-center"
               :target="`${id}-${control}-tooltip-btn`"
               :title="$t(`search.advanced.tooltip.${control}`)"
               boundary-padding="0"

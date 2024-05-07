@@ -27,10 +27,10 @@
 </template>
 
 <script>
+  import pick from 'lodash/pick.js';
+
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-
   import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
-
   import LinkBadge from '../generic/LinkBadge';
 
   export default {
@@ -84,13 +84,8 @@
 
     async fetch() {
       if (((this.entityUris?.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
-        const entities = await this.$apis.entity.find(this.entityUris, {
-          fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,foaf_logo'
-        });
-
-        if (entities)  {
-          this.collections = entities;
-        }
+        const entities = await this.$apis.entity.find(this.entityUris);
+        this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
         this.$emit('entitiesFromUrisFetched', this.collections);
       }
       this.$emit('fetched');

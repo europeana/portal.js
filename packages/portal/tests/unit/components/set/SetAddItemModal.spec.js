@@ -11,7 +11,7 @@ const storeDispatch = sinon.stub().resolves({});
 const sets = [
   {
     id: '001',
-    items: [{ id: '/000/aaa' }],
+    items: ['http://data.europeana.eu/item/000/aaa'],
     title: 'Test collection',
     total: 1,
     visibility: 'public'
@@ -30,8 +30,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
     $tc: () => {},
     $i18n: {},
     $apis: {
-      set: { search: sinon.stub().resolves({ data: { items: sets } }) },
-      thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
+      set: { search: sinon.stub().resolves({ data: { items: sets } }) }
     },
     $auth: { user: { sub: 'user-id' } },
     $store: {
@@ -101,7 +100,7 @@ describe('components/set/SetAddItemModal', () => {
           pageSize: 100,
           page: 0,
           qf: ['type:Collection']
-        }, { withMinimalItemPreviews: true })).toBe(true);
+        })).toBe(true);
       });
 
       it('stores sets from the Set API response', async() => {

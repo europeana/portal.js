@@ -1,58 +1,24 @@
 <template>
-  <b-container
+  <ContentHubPage
     data-qa="exhibitions"
-  >
-    <ContentHeader
-      :title="pageMeta.title"
-      :description="$t('exhibitions.description')"
-    />
-    <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
-        <b-card-group
-          class="card-deck-4-cols"
-          deck
-          data-qa="exhibitions section"
-        >
-          <ContentCard
-            v-for="exhibition in exhibitions"
-            :key="exhibition.identifier"
-            :title="exhibition.name"
-            :url="{ name: 'exhibitions-exhibition', params: { exhibition: exhibition.identifier } }"
-            :image-url="imageUrl(exhibition.primaryImageOfPage)"
-            :image-content-type="imageContentType(exhibition.primaryImageOfPage)"
-            :image-optimisation-options="{ width: 510 }"
-            :image-alt="imageAlt(exhibition.primaryImageOfPage)"
-            :texts="[exhibition.description]"
-            :show-subtitle="false"
-          />
-        </b-card-group>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <PaginationNavInput
-          :total-results="total"
-          :per-page="perPage"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
+    :page-meta="pageMeta"
+    :items="exhibitions"
+    :total="total"
+    :per-page="perPage"
+    card-url-name="exhibitions-exhibition"
+  />
 </template>
 
 <script>
-  import ContentHeader from '../../components/content/ContentHeader';
-  import ContentCard from '../../components/content/ContentCard';
-  import PaginationNavInput from '../../components/generic/PaginationNavInput';
+  import ContentHubPage from '@/components/content/ContentHubPage.vue';
   import pageMetaMixin from '@/mixins/pageMeta';
 
-  const PER_PAGE = 20;
+  const PER_PAGE = 24;
 
   export default {
     name: 'ExhibitionsIndexPage',
     components: {
-      ContentHeader,
-      ContentCard,
-      PaginationNavInput
+      ContentHubPage
     },
     mixins: [pageMetaMixin],
     beforeRouteLeave(to, from, next) {
@@ -93,21 +59,16 @@
     computed: {
       pageMeta() {
         return {
-          title: this.$tc('exhibitions.exhibitions', 2)
+          title: this.$tc('exhibitions.exhibitions', 2),
+          description: this.$t('exhibitions.description'),
+          ogImage: this.socialMediaImage?.url,
+          ogImageAlt: this.socialMediaImage?.description
         };
+      },
+      socialMediaImage() {
+        return this.exhibitions?.[0]?.primaryImageOfPage?.image;
       }
     },
-    watchQuery: ['page'],
-    methods: {
-      imageUrl(image) {
-        return image?.image?.url;
-      },
-      imageContentType(image) {
-        return image?.image?.contentType;
-      },
-      imageAlt(image) {
-        return image?.image?.description || '';
-      }
-    }
+    watchQuery: ['page']
   };
 </script>

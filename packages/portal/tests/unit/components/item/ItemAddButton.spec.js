@@ -1,4 +1,4 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import ItemAddButton from '@/components/item/ItemAddButton';
 import sinon from 'sinon';
@@ -9,7 +9,7 @@ localVue.use(BootstrapVue);
 const identifier = '/123/abc';
 const storeDispatchSuccess = sinon.spy();
 
-const factory = ({ $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemAddButton, {
+const factory = ({ $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => mount(ItemAddButton, {
   localVue,
   attachTo: document.body,
   propsData: { identifier },
@@ -34,7 +34,7 @@ describe('components/item/ItemAddButton', () => {
     it('is visible', () => {
       const wrapper = factory();
 
-      const addButton = wrapper.find('b-button-stub[data-qa="add button"]');
+      const addButton = wrapper.find('[data-qa="add button"]');
 
       expect(addButton.isVisible()).toBe(true);
     });
@@ -47,7 +47,7 @@ describe('components/item/ItemAddButton', () => {
           const wrapper = factory({ $auth });
           wrapper.vm.keycloakLogin = sinon.spy();
 
-          const addButton = wrapper.find('b-button-stub[data-qa="add button"]');
+          const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
           expect(wrapper.vm.keycloakLogin.called).toBe(true);
@@ -63,10 +63,34 @@ describe('components/item/ItemAddButton', () => {
           const wrapper = factory({ $auth });
           const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
-          const addButton = wrapper.find('b-button-stub[data-qa="add button"]');
+          const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
           expect(bvModalShow.calledWith(`add-item-to-set-modal-${identifier}`)).toBe(true);
+        });
+      });
+
+      describe('when the add item modal is closed', () => {
+        it('refreshes the set', () => {
+          const wrapper = factory({ $auth });
+
+          wrapper.vm.handleHideModal();
+
+          expect(storeDispatchSuccess.calledWith('set/refreshSet')).toBe(true);
+        });
+        it('sets focus on the item add button without showing the tooltip', async() => {
+          const wrapper = factory({ $auth });
+
+          const addButton = wrapper.find('[data-qa="add button"]');
+          addButton.trigger('focus');
+          wrapper.vm.handleHideModal();
+          await wrapper.vm.$nextTick();
+
+          const focusedAddButton = wrapper.find('[data-qa="add button"]:focus');
+          const tooltip = wrapper.find('[data-qa="add button tooltip"]');
+
+          expect(focusedAddButton.exists()).toBe(true);
+          expect(tooltip.exists()).toBe(false);
         });
       });
     });

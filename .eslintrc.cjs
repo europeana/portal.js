@@ -97,7 +97,7 @@ module.exports = {
     },
     {
       files: [
-        'packages/portal/src/lang/*.js'
+        'packages/portal/src/i18n/lang/*.js'
       ],
       rules: {
         quotes: [

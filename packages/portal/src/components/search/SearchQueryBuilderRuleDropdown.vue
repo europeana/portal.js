@@ -24,14 +24,19 @@
           v-for="(sectionOption, sectionOptionIndex) in [].concat(section.options)"
           :key="`${name}-section-${sectionIndex}-options-${sectionOptionIndex}`"
           :data-qa="`advanced search query builder: ${sectionOption.value} ${name} option`"
+          button-class="d-flex"
           @click="handleClick(sectionOption.value)"
         >
-          {{ sectionOption.text }}
+          <span
+            class="align-self-center"
+          >
+            {{ sectionOption.text }}
+          </span>
           <b-button
             v-if="$te(`search.advanced.tooltip.${name}s.${sectionOption.value}`)"
             v-b-tooltip.bottom
             :title="$t(`search.advanced.tooltip.${name}s.${sectionOption.value}`)"
-            class="icon-info-outline p-0 tooltip-button"
+            class="icon-info-outline px-1 tooltip-button align-self-center"
             variant="light-flat"
           />
         </b-dropdown-item-button>
