@@ -5,11 +5,70 @@
     <b-modal
       id="api-requests"
       size="xl"
-      :title="$t('debug.apiRequests.title')"
       hide-footer
       data-qa="API requests modal"
       @hide="hideModal"
     >
+      <template #modal-header="{ close }">
+        <SmartLink
+          destination="https://apis.europeana.eu"
+          class="logo"
+          hide-external-icon
+        >
+          <img
+            :src="logoSrc"
+            :alt="$t('landing.apis.header.homeLinkAlt')"
+            data-qa="logo"
+          >
+        </SmartLink>
+        <b-button
+          class="button-icon-only icon-clear"
+          variant="light-flat"
+          :aria-label="$t('actions.close')"
+          @click="close()"
+        />
+      </template>
+      <b-form
+        class="mb-5"
+        @submit.stop.prevent="saveApiKey"
+      >
+        <b-form-group
+          :label="$t('debug.apiRequests.form.apiKey.label')"
+          label-for="debug-input-api-key"
+        >
+          <b-form-input
+            id="debug-input-api-key"
+            v-model="debugSettings.apiKey"
+          />
+          <template
+            #description
+          >
+            <span>{{ $t('debug.apiRequests.form.apiKey.descriptionLine1') }}</span>
+            <br>
+            <i18n
+              path="debug.apiRequests.form.apiKey.descriptionLine2"
+              tag="span"
+            >
+              <template #link>
+                <SmartLink
+                  destination="https://pro.europeana.eu/pages/get-api"
+                  hide-external-icon
+                >
+                  {{ $t('debug.apiRequests.form.apiKey.here') }}<!-- This comment removes white space
+                  -->
+                </SmartLink>
+              </template>
+            </i18n>
+          </template>
+        </b-form-group>
+        <b-button
+          type="submit"
+          variant="primary"
+          data-qa="save api key button"
+        >
+          {{ $t('actions.save') }}
+        </b-button>
+      </b-form>
       <template
         v-if="requests && requests.length > 0"
       >
@@ -36,32 +95,6 @@
             </code>
           </li>
         </ol>
-        <InfoMessage
-          v-if="!$store.getters['debug/settings'].apiKey"
-          variant="icon"
-        >
-          <i18n
-            path="debug.apiRequests.tip"
-            tag="p"
-          >
-            <template #apiKeyLink>
-              <b-link
-                href="https://pro.europeana.eu/pages/get-api"
-              >
-                {{ $t('debug.apiRequests.apiKeyLinkText') }}<!-- This comment removes white space
-                  -->
-              </b-link>
-            </template>
-            <template #settingsPageLink>
-              <b-link
-                to="/debug"
-              >
-                {{ $t('debug.apiRequests.settingsPageLinkText') }}<!-- This comment removes white space
-                  -->
-              </b-link>
-            </template>
-          </i18n>
-        </InfoMessage>
       </template>
       <InfoMessage
         v-else
@@ -75,17 +108,21 @@
 
 <script>
   import InfoMessage from '../generic/InfoMessage';
+  import SmartLink from '@/components/generic/SmartLink';
 
   export default {
     name: 'DebugApiRequests',
 
     components: {
-      InfoMessage
+      InfoMessage,
+      SmartLink
     },
 
     data() {
       return {
-        hash: '#api-requests'
+        hash: '#api-requests',
+        logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
+        debugSettings: { ...this.$store.getters['debug/settings'] }
       };
     },
 
@@ -131,7 +168,6 @@
 
     methods: {
       showModal() {
-        this.$store.commit('debug/updateSettings', { ...this.$store.getters['debug/settings'], enabled: true });
         this.$bvModal.show('api-requests');
       },
 
@@ -140,6 +176,9 @@
         if (updateRoute) {
           this.$nuxt.context.app.router.push({ ...this.$route, hash: undefined });
         }
+      },
+      saveApiKey() {
+        this.$store.commit('debug/updateSettings', this.debugSettings);
       }
     }
   };

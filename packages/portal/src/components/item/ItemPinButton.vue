@@ -40,7 +40,7 @@
       v-if="identifier && entities.length > 0"
       :identifier="identifier"
       :modal-id="pinModalId"
-      :entities="entities"
+      :entity-uris="entityUris"
       data-qa="pin item to entities modal"
     />
   </div>
@@ -102,6 +102,9 @@
     },
 
     computed: {
+      entityUris() {
+        return this.entities.map((entity) => entity.about);
+      },
       pinned() {
         return this.$store.getters['entity/isPinned'](this.identifier);
       },

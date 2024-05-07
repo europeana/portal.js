@@ -16,7 +16,7 @@
       >
         <img
           :src="logoSrc"
-          :alt="$t('homeLinkAlt')"
+          :alt="$t('landing.apis.header.homeLinkAlt')"
           data-qa="logo"
         >
       </SmartLink>
