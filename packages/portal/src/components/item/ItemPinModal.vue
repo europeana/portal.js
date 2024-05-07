@@ -193,8 +193,8 @@
             ...searchParams,
             qf: `subject:${entityUri}`
           });
-          if (searchResponse.data?.total > 0) {
-            await this.getOneSet(searchResponse.data.items[0].split('/').pop());
+          if (searchResponse?.total > 0) {
+            await this.getOneSet(searchResponse.data?.items?.[0].split('/').pop());
           }
           // TODO: Should an else block actually be RESETTING the data to empty values?
         }));

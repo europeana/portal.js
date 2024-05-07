@@ -213,7 +213,7 @@ describe('@/plugins/europeana/set', () => {
 
       const response = await (new EuropeanaSetApi({ $config })).search(searchParams);
 
-      expect(response.data).toEqual('response');
+      expect(response).toEqual('response');
     });
 
     describe('options', () => {
@@ -268,13 +268,13 @@ describe('@/plugins/europeana/set', () => {
           it('stores the found items on the sets', async() => {
             const response = await (new EuropeanaSetApi(context)).search({}, options);
 
-            expect(response.data.items[0].items[0]).toEqual(recordSearchResponse.items[0]);
+            expect(response.items[0].items[0]).toEqual(recordSearchResponse.items[0]);
           });
 
           it('stores just the id for first set items not found', async() => {
             const response = await (new EuropeanaSetApi(context)).search({}, options);
 
-            expect(response.data.items[1].items[0]).toEqual({
+            expect(response.items[1].items[0]).toEqual({
               id: '/123/def'
             });
           });
@@ -282,7 +282,7 @@ describe('@/plugins/europeana/set', () => {
           it('stores just the id for non-first set items', async() => {
             const response = await (new EuropeanaSetApi(context)).search({}, options);
 
-            expect(response.data.items[0].items[1]).toEqual({
+            expect(response.items[0].items[1]).toEqual({
               id: '/123/ghi'
             });
           });
@@ -300,8 +300,8 @@ describe('@/plugins/europeana/set', () => {
           it('leaves the item URIs on the sets', async() => {
             const response = await (new EuropeanaSetApi(context)).search({}, options);
 
-            expect(response.data.items[0].items).toEqual(setSearchResponse.items[0].items);
-            expect(response.data.items[1].items).toEqual(setSearchResponse.items[1].items);
+            expect(response.items[0].items).toEqual(setSearchResponse.items[0].items);
+            expect(response.items[1].items).toEqual(setSearchResponse.items[1].items);
           });
         });
       });

@@ -23,14 +23,14 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
    * @return {Object[]} parsed entity data
    */
   get(type, id) {
-    return this.axios.get(getEntityUrl(type, id))
-      .then(response => ({
+    return this.request({
+      method: 'get',
+      url: getEntityUrl(type, id)
+    })
+      .then((response) => ({
         error: null,
-        entity: response.data
-      }))
-      .catch(error => {
-        throw this.apiError(error);
-      });
+        entity: response
+      }));
   }
 
   /**
@@ -39,19 +39,17 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
    * @param {Object} params additional parameters sent to the API
    */
   suggest(text, params = {}) {
-    return this.axios.get('/suggest', {
+    return this.request({
+      method: 'get',
+      url: '/suggest',
       params: {
-        ...this.axios.defaults.params,
         text,
         type: 'agent,concept,timespan,organization,place',
         scope: 'europeana',
         ...params
       }
     })
-      .then(response => response.data.items ? response.data.items : [])
-      .catch(error => {
-        throw this.apiError(error);
-      });
+      .then((response) => response.items || []);
   }
 
   /**
@@ -77,16 +75,13 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
   }
 
   retrieve(entityUris, params = {}) {
-    return this.axios.post('/retrieve', entityUris, {
-      params: {
-        ...this.axios.defaults.params,
-        ...params
-      }
+    return this.request({
+      method: 'post',
+      url: '/retrieve',
+      data: entityUris,
+      params
     })
-      .then((response) => response.data?.items)
-      .catch((error) => {
-        throw this.apiError(error);
-      });
+      .then((response) => response.items);
   }
 
   /**
@@ -94,21 +89,15 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
    * @param {Object} params additional parameters sent to the API
    */
   search(params = {}) {
-    return this.axios.get('/search', {
-      params: {
-        ...this.axios.defaults.params,
-        ...params
-      }
+    return this.request({
+      method: 'get',
+      url: '/search',
+      params
     })
-      .then((response) => {
-        return {
-          entities: response.data.items ? response.data.items : [],
-          total: response.data.partOf ? response.data.partOf.total : null
-        };
-      })
-      .catch((error) => {
-        throw this.apiError(error);
-      });
+      .then((response) => ({
+        entities: response.items || [],
+        total: response.partOf?.total || null
+      }));
   }
 
   imageUrl(entity) {
