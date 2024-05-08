@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API võti",
-      "noRequests": "Sellel lehel ei kasutatud Europeana API-de päringuid.",
-      "settingsPageLinkText": "seadete leht",
-      "tip": "Nõuanne: kui teil on juba {apiKeyLink} , võite selle sisestada lehel {settingsPageLink} ja see lisatakse nendele API päringu linkidele.",
-      "title": "API taotlused"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Sisestage oma Europeana API võti ja seda kasutatakse API taotluste linkides.",
-          "label": "API võti"
-        },
-        "enabled": {
-          "description": "Kui see on lubatud, kuvatakse lehe jaluses silumismenüü.",
-          "label": "Luba silumismenüü"
-        }
-      },
-      "title": "Seaded"
+      "noRequests": "Sellel lehel ei kasutatud Europeana API-de päringuid."
     }
   },
   "depiction": "{title} kujutis",
@@ -741,7 +723,6 @@ export default {
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
       "faq": "Korduma kippuvad küsimused  (FAQ)",
-      "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
@@ -1067,14 +1048,22 @@ export default {
         "advancedSearch": "Täpsem otsing võimaldab teil luua kohandatud otsingu päringuid.",
         "field": "Valige otsinguks täistekst või metaandmete väli.",
         "fields": {
-          "fulltext": "Täistekst sisaldab transkriptsioone, suletud pealdisi, subtiitreid ja dokumendi teksti."
+          "fulltext": "Täistekst sisaldab transkriptsioone, suletud pealdisi, subtiitreid ja dokumendi teksti.",
+          "proxy_dc_coverage": "Sisestage termin, mis viitab kohale või ajapunktile/perioodile. Näiteks „1995–1996” või „Berliin” või „http://sws.geonames.org/2287781/”.",
+          "proxy_dc_date": "Sisestage termin, mis viitab üksuse/üksuste jaoks olulisele kuupäevale. Näiteks kuupäev formaadis ‘AAAA-KK-PP’ või üksik aasta, ‘1919’, või laiemad määratlused nagu ‘Varajane 20. sajand’.",
+          "proxy_dc_rights": "Sisestage termin, mis viitab õiguste või litsentsidega seotud teabele üksuse/üksuste kohta. Näiteks ‘Copyright © British Library Board’. Taaskasutatavuse või konkreetse õiguste avalduse filtreerimiseks kasutage filtreid ‘Kas ma saan seda kasutada?’ või ‘Rights statement’.",
+          "proxy_dcterms_created": "Sisestage termin, mis viitab üksuse/üksuste loomise kuupäevale. Näiteks mis tahes kuupäev formaadis ‘AAAA-KK-PP’, üksik aasta nagu ‘1919’ või laiemad määratlused nagu ‘Varajane 20. sajand’. Muude oluliste kuupäevade otsimiseks vaadake välju Kuupäev, Väljaandmise kuupäev või Aasta.",
+          "proxy_dcterms_hasPart": "Üksus võib sisaldada teisi ressursse - sisestage termin, mis tuvastab osa kaasatud ressurssidest. Kui üksus ise on osa mõnest teisest ressursist, kasutage selle asemel välja ‘On osa’.",
+          "proxy_dcterms_isPartOf": "See üksus võib olla osa mõnest teisest seotud ressursist - sisestage termin ressursile, mille osa see üksus võib olla. Kui üksus ise sisaldab seotud ressursse, kasutage selle asemel välja ‘Koosneb’.",
+          "proxy_dcterms_issued": "Sisestage termin, mis viitab eseme(te) väljaandmise või avaldamise kuupäevale. Näiteks mis tahes kuupäev formaadis ‘AAAA-KK-PP’, üksik aasta nagu ‘1919’ või laiemad määratlused nagu ‘varajane 20. sajand’. Muude oluliste kuupäevade otsimiseks vaadake välju Kuupäev, Loomiskuupäev või Aasta.",
+          "proxy_dcterms_medium": "Sisestage termin, mis viitab kasutatud materjalidele või eseme füüsilisele olemusele. Näiteks ‘metall’ või ‘paber’. Laiemate materjalidefinitsioonide jaoks, nagu ‘skulptuur’ või ‘maal’, proovige välja ‘MEEDIUMITÜÜP’.",
+          "proxy_dcterms_temporal": "Sisestage termin, mis viitab perioodile või ajahetkele, millega ese/ esemed on seotud, näiteks pilt, mis kujutab linna 1930. aastal. Sisestage näiteks ‘Rooma Impeerium’ või ‘Renessanss’. Konkreetsete kuupäevade jaoks otsige väljadelt Kuupäev, Loomiskuupäev, Väljaandmiskuupäev või Aasta.",
+          "proxy_edm_hasMet": "Sisestage termin, mis viitab isikule, kohale, ajavahemikule või millelegi muule, millega üksus(ed) võivad olla tihedalt seotud. Näiteks \"William Shakespeare\".",
+          "YEAR": "Sisestage eseme(te)ga seotud aasta. Näiteks ‘1919’."
         },
         "modifier": "Valige, kuidas see väli peaks otsingut muutma.",
         "term": "Sisestage termin(id), mida valitud väli sisaldab või ei sisalda."
       }
-    },
-    "boost": {
-      "placeholder": "Sisestage välja võimendamise päring"
     },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
@@ -1118,6 +1107,7 @@ export default {
       "createNew": "Loo uus galerii",
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
+      "removeItemFromLikes": "Eemaldage see üksus meeldimistest.",
       "saveItemToLikes": "Salvestage see üksus oma meeldimiste hulka.",
       "update": "Värskenda galeriid"
     },

@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API kľúč",
-      "noRequests": "Na tejto stránke neboli použité žiadne požiadavky na rozhrania Europeana API.",
-      "settingsPageLinkText": "stránku nastavení",
-      "tip": "Tip: Ak už máte {apiKeyLink}, môžete ho zadať na stránke {settingsPageLink} a bude zahrnutý do týchto odkazov na žiadosti API.",
-      "title": "Požiadavky API"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Zadajte svoj kľúč Europeana API a použije sa v odkazoch na požiadavky API.",
-          "label": "API kľúč"
-        },
-        "enabled": {
-          "description": "Ak je povolená, ponuka ladenia sa zobrazí v päte stránky.",
-          "label": "Povoliť ponuku ladenia"
-        }
-      },
-      "title": "Nastavenia"
+      "noRequests": "Na tejto stránke neboli použité žiadne požiadavky na rozhrania Europeana API."
     }
   },
   "depiction": "Zobrazenie {title}",
@@ -740,7 +722,6 @@ export default {
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
       "faq": "Často kladené otázky (FAQ)",
-      "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "MoreInfoLabel": "Ďalšie informácie",
       "privacy": "Zásady ochrany osobných údajov",
@@ -1065,14 +1046,22 @@ export default {
         "advancedSearch": "Rozšírené vyhľadávanie vám umožňuje vytvárať vlastné vyhľadávacie dopyty.",
         "field": "Vyberte pole plného textu alebo metadát, v ktorom chcete vyhľadávať.",
         "fields": {
-          "fulltext": "Úplný text zahŕňa prepisy, uzavreté titulky, podtitulky a text dokumentu."
+          "fulltext": "Úplný text zahŕňa prepisy, uzavreté titulky, podtitulky a text dokumentu.",
+          "proxy_dc_coverage": "Zadajte termín, ktorý sa vzťahuje na miesto alebo bod/obdobie v čase. Napríklad, '1995-1996' alebo 'Berlín' alebo 'http://sws.geonames.org/2287781/'.",
+          "proxy_dc_date": "Zadajte termín, ktorý sa vzťahuje na významný dátum spojený s objektom/objektami. Napríklad dátum vo formáte ‘RRRR-MM-DD’ alebo jeden rok, ‘1919’, alebo širšie definície ako ‘Začiatok 20. storočia’.",
+          "proxy_dc_rights": "Zadajte termín, ktorý sa vzťahuje na informácie o právach alebo licenciách spojených s objektom/objektmi. Napríklad ‘Copyright © British Library Board’. Na filtrovanie podľa opakovanej použiteľnosti alebo konkrétneho vyhlásenia o právach použite filtre ‘Môžem to použiť?’ alebo ‘Rights statement’.",
+          "proxy_dcterms_created": "Zadajte termín, ktorý sa vzťahuje na dátum vytvorenia objektu/objektov. Napríklad akékoľvek dátum vo formáte ‘RRRR-MM-DD’, jeden rok ako ‘1919’, alebo širšie definície ako ‘Začiatok 20. storočia’. Pre ďalšie dátumy, ktoré by mohli byť dôležité, vyhľadajte v poliach Dátum, Dátum vydania alebo Rok.",
+          "proxy_dcterms_hasPart": "Tento objekt môže obsahovať ďalšie zdroje – zadajte termín, ktorý identifikuje časť zahrnutých zdrojov. Ak je objekt sám súčasťou iného zdroja, použite pole ‘Je súčasťou’.",
+          "proxy_dcterms_isPartOf": "Tento objekt môže byť súčasťou iného súvisiaceho zdroja – zadajte termín pre zdroj, ktorého súčasťou môže byť tento objekt. Ak objekt sám obsahuje súvisiace zdroje, namiesto toho použite pole ‘Pozostáva z’.",
+          "proxy_dcterms_issued": "Zadajte termín, ktorý sa vzťahuje na dátum vydania alebo publikácie objektu/objektov. Napríklad akékoľvek dátum vo formáte ‘RRRR-MM-DD’, jeden rok ako ‘1919’, alebo širšie definície ako ‘začiatok 20. storočia’. Pre ďalšie dátumy, ktoré by mohli byť dôležité, vyhľadajte v poliach Dátum, Dátum vytvorenia alebo Rok.",
+          "proxy_dcterms_medium": "Zadajte termín, ktorý sa vzťahuje na materiály použité alebo fyzickú povahu objektu. Napríklad ‘kov’ alebo ‘papier’. Pre širšie definície materiálov, ako sú ‘socha’ alebo ‘maľba’, skúste pole ‘TYP MÉDIA’.",
+          "proxy_dcterms_temporal": "Zadajte termín, ktorý sa vzťahuje na obdobie alebo časový bod, ku ktorému sa objekt/objekty vzťahujú, napríklad obraz znázorňujúci mesto v roku 1930. Zadajte napríklad 'Rímska ríša' alebo 'Renesancia'. Pre špecifické dátumy vyhľadajte v poliach Dátum, Dátum vytvorenia, Dátum vydania alebo Rok.",
+          "proxy_edm_hasMet": "Zadajte termín, ktorý sa vzťahuje na osobu, miesto, časové obdobie alebo čokoľvek iné, ku ktorému môže objekt/objekty mať úzke spojenia. Napríklad ‘William Shakespeare’.",
+          "YEAR": "Zadajte rok súvisiaci s objektami/objektmi. Napríklad ‘1919’."
         },
         "modifier": "Vyberte, ako má toto pole upraviť vyhľadávanie.",
         "term": "Zadajte výraz(y), ktoré zvolené pole obsahuje alebo neobsahuje."
       }
-    },
-    "boost": {
-      "placeholder": "Zadajte dopyt na zvýšenie poľa"
     },
     "results": {
       "limitWarning": "Ďalšie výsledky sa nezobrazujú, pretože je zobrazených iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli to, čo ste hľadali, zvážte spresnenie vyhľadávania.",
@@ -1116,6 +1105,7 @@ export default {
       "createNew": "Vytvoriť novú galériu",
       "delete": "Vymazať galériu",
       "edit": "Upraviť galériu",
+      "removeItemFromLikes": "Odstráňte tento objekt zo svojich hodnotení Páči sa mi.",
       "saveItemToLikes": "Uložte si túto objekt medzi obľúbené.",
       "update": "Aktualizovať galériu"
     },

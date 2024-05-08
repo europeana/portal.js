@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API nøgle",
-      "noRequests": "Der blev ikke brugt nogen anmodninger til Europeana API'er på denne side.",
-      "settingsPageLinkText": "indstillinger side",
-      "tip": "Tip: Hvis du allerede har en {apiKeyLink}, kan du indtaste den på {settingsPageLink} og den vil blive inkluderet i disse API-anmodningslinks.",
-      "title": "API-anmodninger"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Indtast din Europeana API-nøgle, og den vil blive brugt i links til API-anmodninger.",
-          "label": "API nøgle"
-        },
-        "enabled": {
-          "description": "Hvis den er aktiveret, vil fejlretningsmenuen blive vist i sidefoden.",
-          "label": "Aktiver fejlretningsmenu"
-        }
-      },
-      "title": "Indstillinger"
+      "noRequests": "Der blev ikke brugt nogen anmodninger til Europeana API'er på denne side."
     }
   },
   "depiction": "En skildring af {title}",
@@ -741,7 +723,6 @@ export default {
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
       "faq": "Ofte stillede spørgsmål (FAQ)",
-      "forDevelopers": "Til udviklere",
       "help": "Hjælp",
       "MoreInfoLabel": "Flere oplysninger",
       "privacy": "Fortrolighedspolitik",
@@ -1067,14 +1048,22 @@ export default {
         "advancedSearch": "Den avancerede søgning giver dig mulighed for at oprette tilpassede søgeforespørgsler.",
         "field": "Vælg fuldtekst eller metadata felt til søgning indenfor.",
         "fields": {
-          "fulltext": "Fuldtekst inkluderer transskriptioner, lukkede billedtekster, undertekster og dokumenttekst."
+          "fulltext": "Fuldtekst inkluderer transskriptioner, lukkede billedtekster, undertekster og dokumenttekst.",
+          "proxy_dc_coverage": "Indtast et udtryk, der refererer til et sted eller et tidspunkt/periode. For eksempel ‘1995-1996’ eller ‘Berlin’ eller ‘http://sws.geonames.org/2287781/’.",
+          "proxy_dc_date": "Indtast et udtryk, der refererer til en betydningsfuld dato relateret til genstanden/genstandene. For eksempel en dato i formatet ‘ÅÅÅÅ-MM-DD’ eller et enkelt år, ‘1919’, eller bredere definitioner som ‘Tidligt 20. århundrede’.",
+          "proxy_dc_rights": "Indtast et udtryk, der refererer til oplysninger om rettigheder eller licenser relateret til genstanden/genstandene. For eksempel ‘Copyright © British Library Board’. For at filtrere på genanvendelighed eller en specifik rettighedserklæring, brug filtrene ‘Kan jeg bruge dette?’ eller ‘Rights statement’.",
+          "proxy_dcterms_created": "Indtast et udtryk, der refererer til oprettelsesdatoen for genstanden/genstandene. For eksempel enhver dato i formatet ‘ÅÅÅÅ-MM-DD’, et enkelt år som ‘1919’, eller bredere definitioner som ‘Tidligt 20. århundrede’. For andre betydningsfulde datoer, søg i felterne Dato, Udgivelsesdato eller År.",
+          "proxy_dcterms_hasPart": "Genstanden kan have andre ressourcer inkluderet i sig - indtast et udtryk, der identificerer en del af de inkluderede ressourcer. Hvis genstanden selv er en del af en anden ressource, brug da feltet ‘Er en del af’.",
+          "proxy_dcterms_isPartOf": "Dette genstand kan være en del af en anden relateret ressource - indtast et udtryk for den ressource, som denne genstand kan være en del af. Hvis genstanden selv har relaterede ressourcer indeni, brug da ‘Består af’ feltet i stedet.",
+          "proxy_dcterms_issued": "Indtast et udtryk, der refererer til udgivelses- eller publiceringsdatoen for genstanden/genstandene. For eksempel enhver dato i formatet ‘ÅÅÅÅ-MM-DD’, et enkelt år som ‘1919’, eller bredere definitioner som ‘tidligt 20. århundrede’. For andre betydningsfulde datoer, søg i felterne Dato, Oprettelsesdato eller År.",
+          "proxy_dcterms_medium": "Indtast et udtryk, der refererer til de materialer, der er anvendt, eller genstandens fysiske beskaffenhed. For eksempel ‘metal’ eller ‘papir’. For bredere materialedefinitioner, såsom ‘skulptur’ eller ‘maleri’, prøv feltet ‘MEDIETYPE’.",
+          "proxy_dcterms_temporal": "Indtast et udtryk, der refererer til en periode eller et tidspunkt, som genstanden/genstandene relaterer til, f.eks. et billede der skildrer en by i 1930. Indtast for eksempel ‘Romerriget’ eller ‘Renæssancen’. For specifikke datoer, søg i felterne Dato, Oprettelsesdato, Udgivelsesdato eller År.",
+          "proxy_edm_hasMet": "Indtast et begreb, der refererer til en person, et sted, en tidsperiode eller noget andet, som genstanden/genstandene kan have tæt tilknytning til. For eksempel ‘William Shakespeare’.",
+          "YEAR": "Indtast et år relateret til genstand(en). For eksempel ‘1919’."
         },
         "modifier": "Vælg, hvordan dette felt skal ændre søgningen.",
         "term": "Indtast det eller de termer, som det valgte felt indeholder eller ikke indeholder."
       }
-    },
-    "boost": {
-      "placeholder": "Indtast feltforøgende forespørgsel"
     },
     "results": {
       "limitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at justere din søgning.",
@@ -1118,6 +1107,7 @@ export default {
       "createNew": "Opret nyt galleri",
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
+      "removeItemFromLikes": "Fjern denne genstand fra dine likes.",
       "saveItemToLikes": "Gem dette genstand til dine likes.",
       "update": "Opdater galleri"
     },

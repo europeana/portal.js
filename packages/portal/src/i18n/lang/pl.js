@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Klucz API Europeana",
-      "noRequests": "Na tej stronie nie użyto żadnych żądań do interfejsów API Europeana.",
-      "settingsPageLinkText": "strona ustawień",
-      "tip": "Wskazówka: jeśli masz już {apiKeyLink}, możesz wprowadzić go na {settingsPageLink} i zostanie on uwzględniony w tych linkach żądań API.",
-      "title": "Żądania API"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Wpisz swój klucz Europeana API, który będzie używany w linkach do żądań API.",
-          "label": "Klucz API"
-        },
-        "enabled": {
-          "description": "Jeśli ta opcja jest włączona, menu debugowania będzie wyświetlane w stopce strony.",
-          "label": "Włącz menu debugowania"
-        }
-      },
-      "title": "Ustawienia"
+      "noRequests": "Na tej stronie nie użyto żadnych żądań do interfejsów API Europeana."
     }
   },
   "depiction": "Obraz {title}",
@@ -740,7 +722,6 @@ export default {
       "accessibility": "Dostępność",
       "cookies": "Pliki cookie",
       "faq": "Często zadawane pytania (FAQ)",
-      "forDevelopers": "Dla deweloperów",
       "help": "Pomoc",
       "MoreInfoLabel": "Więcej informacji",
       "privacy": "Polityka prywatności",
@@ -1065,14 +1046,22 @@ export default {
         "advancedSearch": "Wyszukiwanie zaawansowane umożliwia tworzenie niestandardowych zapytań wyszukiwania.",
         "field": "Wybierz pole pełny tekstu lub metadanych do wyszukiwania.",
         "fields": {
-          "fulltext": "Tekst pełny obejmuje transkrypcje, napisy dla osób niesłyszących, napisy i tekst dokumentu."
+          "fulltext": "Tekst pełny obejmuje transkrypcje, napisy dla osób niesłyszących, napisy i tekst dokumentu.",
+          "proxy_dc_coverage": "Wprowadź termin odnoszący się do miejsca lub punktu/okresu w czasie. Na przykład \"1995-1996\" lub \"Berlin\" lub \"http://sws.geonames.org/2287781/\".",
+          "proxy_dc_date": "Wprowadź termin odnoszący się do znaczącej daty związanej z obiekt cyfrowy/obiektami cyfrowymi. Na przykład data w formacie ‘RRRR-MM-DD’ lub pojedynczy rok, ‘1919’, lub szersze definicje, takie jak ‘Początek XX wieku’.",
+          "proxy_dc_rights": "Wprowadź termin odnoszący się do informacji o prawach lub licencjach związanych z obiekt cyfrowy/obiektami cyfrowymi. Na przykład ‘Copyright © British Library Board’. Aby filtrować według możliwości ponownego użycia lub konkretnego oświadczenia praw, użyj filtrów ‘Mogę tego użyć?’ lub ‘Rights statement’.",
+          "proxy_dcterms_created": "Wprowadź termin odnoszący się do daty utworzenia obiektu cyfrowy/obiektów cyfrowych. Na przykład dowolna data w formacie ‘RRRR-MM-DD’, pojedynczy rok, jak ‘1919’, lub szersze definicje, takie jak ‘Początek XX wieku’. Dla innych dat, które mogą być istotne, wyszukaj w polach Data, Data wydania lub Rok.",
+          "proxy_dcterms_hasPart": "Obiekt cyfrowy może zawierać inne zasoby w sobie — wprowadź termin identyfikujący część dołączonych zasobów. Jeśli obiekt cyfrowy sam jest częścią innego zasobu, użyj pola ‘jest częścią’.",
+          "proxy_dcterms_isPartOf": "Ten obiekt cyfrowy może być częścią innego powiązanego zasobu — wprowadź termin dla zasobu, którego częścią może być ten obiekt cyfrowy. Jeśli obiekt cyfrowy sam zawiera powiązane zasoby, użyj pola ‘Składa się z’.",
+          "proxy_dcterms_issued": "Wprowadź termin odnoszący się do daty wydania lub publikacji obiektu cyfrowego/obiektów cyfrowych. Na przykład dowolna data w formacie ‘RRRR-MM-DD’, pojedynczy rok, jak ‘1919’, lub szersze definicje, takie jak ‘początek XX wieku’. Dla innych dat, które mogą być istotne, wyszukaj w polach Data, Data utworzenia lub Rok.",
+          "proxy_dcterms_medium": "Wprowadź termin odnoszący się do materiałów użytych lub fizycznej natury obiektu cyfrowego. Na przykład ‘metal’ lub ‘papier’. Dla szerszych definicji materiałów, takich jak ‘rzeźba’ lub ‘malarstwo’, spróbuj pola ‘RODZAJ MEDIÓW’.",
+          "proxy_dcterms_temporal": "Wprowadź termin odnoszący się do okresu lub punktu czasowego, z którym związany jest obiekt cyfrowy/obiekty cyfrowe, na przykład obraz przedstawiający miasto w 1930 roku. Wpisz na przykład 'Cesarstwo Rzymskie' lub 'Renesans'. W przypadku konkretnych dat wyszukaj w polach Data, Data utworzenia, Data wydania lub Rok.",
+          "proxy_edm_hasMet": "Wprowadź termin odnoszący się do osoby, miejsca, okresu lub czegokolwiek innego, z którym obiekt cyfrowy/obiekty cyfrowe mogą być ściśle związane. Na przykład ‘William Shakespeare’.",
+          "YEAR": "Wprowadź rok związany z obiektem/obiektami cyfrowymi. Na przykład ‘1919’."
         },
         "modifier": "Wybierz, jak to pole powinno modyfikować wyszukiwanie.",
         "term": "Wprowadź terminy, które zawiera lub nie zawiera wybrane pole."
       }
-    },
-    "boost": {
-      "placeholder": "Wpisz zapytanie zwiększające pole"
     },
     "results": {
       "limitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najtrafniejszych wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
@@ -1116,6 +1105,7 @@ export default {
       "createNew": "Utwórz nową galerię",
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
+      "removeItemFromLikes": "Usuń ten obiekt cyfrowy ze swoich polubień.",
       "saveItemToLikes": "Zapisz ten obiekt cyfrowy w swoich polubieniach.",
       "update": "Zaktualizuj galerię"
     },

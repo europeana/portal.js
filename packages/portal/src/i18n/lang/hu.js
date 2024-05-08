@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API kulcs",
-      "noRequests": "Ezen az oldalon nem használtak Europeana API-kra vonatkozó kéréseket.",
-      "settingsPageLinkText": "beállítások oldalon",
-      "tip": "Tipp: ha már rendelkezik {apiKeyLink} , megadhatja azt a {settingsPageLink} oldalon, és ez szerepelni fog ezekben az API-kérés hivatkozásokban.",
-      "title": "API kérések"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Adja meg Europeana API-kulcsát, és azt az API-kérésekre mutató hivatkozásokban fogja használni.",
-          "label": "API kulcs"
-        },
-        "enabled": {
-          "description": "Ha engedélyezve van, a hibakeresési menü megjelenik az oldal láblécében.",
-          "label": "Hibakeresési menü engedélyezése"
-        }
-      },
-      "title": "Beállítások"
+      "noRequests": "Ezen az oldalon nem használtak Europeana API-kra vonatkozó kéréseket."
     }
   },
   "depiction": "{title} ábrázolása",
@@ -740,7 +722,6 @@ export default {
       "accessibility": "Hozzáférhetőség",
       "cookies": "Sütik",
       "faq": "Gyakran Ismételt Kérdések (FAQ)",
-      "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi irányelvek",
@@ -1066,14 +1047,22 @@ export default {
         "advancedSearch": "A speciális keresés lehetővé teszi egyéni keresési lekérdezések létrehozását.",
         "field": "Válassza ki a teljes szöveges vagy metaadat-mezőt a kereséshez.",
         "fields": {
-          "fulltext": "A teljes szöveg tartalmazza a transzkripciókat, a zárt feliratokat, a feliratokat és a dokumentum szövegét."
+          "fulltext": "A teljes szöveg tartalmazza a transzkripciókat, a zárt feliratokat, a feliratokat és a dokumentum szövegét.",
+          "proxy_dc_coverage": "Adjon meg egy kifejezést, amely egy helyre vagy egy pontra/időszakra utal. Például „1995-1996” vagy „Berlin” vagy „http://sws.geonames.org/2287781/”.",
+          "proxy_dc_date": "Adjon meg egy kifejezést, amely az tárgy(ak)hoz kapcsolódó jelentős dátumra utal. Például egy dátum ‘ÉÉÉÉ-HH-NN’ formátumban vagy egy adott év, ‘1919’, vagy tágabb meghatározások, mint ‘A 20. század eleje’.",
+          "proxy_dc_rights": "Adjon meg egy kifejezést, amely az tárgy(ak)hoz kapcsolódó jogok vagy licencek információira utal. Például ‘Copyright © British Library Board’. Újrafelhasználhatóság vagy konkrét jogi nyilatkozat szűréséhez használja a ‘Használhatom ezt?’ vagy ‘Rights statement’ szűrőket.",
+          "proxy_dcterms_created": "Adjon meg egy kifejezést, amely az tárgy(ak) létrehozásának dátumára utal. Például bármely dátum ‘ÉÉÉÉ-HH-NN’ formátumban, egy adott év, mint ‘1919’, vagy tágabb meghatározások, mint ‘A 20. század eleje’. További jelentős dátumok esetén keressen a Dátum, Kiadási dátum vagy Év mezőkben.",
+          "proxy_dcterms_hasPart": "A tárgy más erőforrásokat is tartalmazhat magában - adja meg azt a kifejezést, amely azonosítja a belefoglalt erőforrások egy részét. Ha maga a tárgy egy másik erőforrás része, használja a ‘Része’ mezőt.",
+          "proxy_dcterms_isPartOf": "Ez a tárgy része lehet egy másik kapcsolódó erőforrásnak - adjon meg egy kifejezést az erőforráshoz, amelynek része ez a tárgy lehet. Ha a tárgy maga tartalmaz kapcsolódó erőforrásokat, használja helyette a ‘Tartalma’ mezőt.",
+          "proxy_dcterms_issued": "Adjon meg egy kifejezést, amely az tárgy(ak) kiadásának vagy közzétételének dátumára utal. Például bármely dátum ‘ÉÉÉÉ-HH-NN’ formátumban, egy adott év, mint ‘1919’, vagy tágabb meghatározások, mint ‘a 20. század eleje’. További jelentőségteljes dátumok esetén keressen a Dátum, Létrehozás dátuma vagy Év mezőkben.",
+          "proxy_dcterms_medium": "Adjon meg egy olyan kifejezést, amely az tárgy használt anyagaira vagy fizikai természetére utal. Például 'fémet' vagy 'papírt'. Szélesebb anyagmeghatározásokhoz, mint például 'szobor' vagy 'festmény', próbálja ki az 'ADATHORDOZÓ TÍPUSA' mezőt.",
+          "proxy_dcterms_temporal": "Adjon meg olyan kifejezést, amely egy időszakra vagy időpontra utal, amelyhez a tárgy(ak) kapcsolódnak, például egy kép, amely egy várost ábrázol 1930-ban. Írja be például a 'Római Birodalom' vagy a 'Reneszánsz'. Specifikus dátumok esetén keressen a Dátum, Létrehozás dátuma, Kiadás dátuma vagy Év mezőkben.",
+          "proxy_edm_hasMet": "Adjon meg egy kifejezést, amely személyre, helyre, időszakra vagy bármi másra utal, amellyel a tárgy/tárgyak szoros kapcsolatban állhatnak. Például ‘William Shakespeare’.",
+          "YEAR": "Adjon meg egy az tárgy(ak)hoz kapcsolódó évet. Például ‘1919’."
         },
         "modifier": "Válassza ki, hogy ez a mező hogyan módosítsa a keresést.",
         "term": "Adja meg a kifejezés(eke)t, amelyeket a kiválasztott mező tartalmaz vagy nem tartalmaz."
       }
-    },
-    "boost": {
-      "placeholder": "Adja meg a mezőt növelő lekérdezést"
     },
     "results": {
       "limitWarning": "A további eredmények nem jelennek meg, mivel csak az első 1000 legrelevánsabb eredmény jelenik meg. Ha nem találta meg, amit keres, kérjük, fontolja meg a keresés finomítását.",
@@ -1117,6 +1106,7 @@ export default {
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
+      "removeItemFromLikes": "Távolítsa el ezt az tárgyat a tetszésnyilvánítás közül.",
       "saveItemToLikes": "Mentsd el ezt a tárgyat a Kedvencek közé.",
       "update": "Galéria frissítése"
     },
