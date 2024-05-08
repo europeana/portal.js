@@ -727,6 +727,7 @@ export default {
       "MoreInfoLabel": "Rohkem infot",
       "privacy": "Privaatsuspoliitika",
       "provide": "Hakka pakkuvaks asutuseks",
+      "seeApiRequests": "Vaata päringuid Europeana API-dele",
       "subscribe": "Telli meie uudiskiri",
       "terms": "Tingimused ja eeskirjad"
     },

@@ -726,6 +726,7 @@ export default {
       "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Politika tar-privatezza",
       "provide": "Issir istituzzjoni fornitriċi",
+      "seeApiRequests": "Ara t-talbiet lill-APIs tal-Europeana",
       "subscribe": "Abbona għan-Newsletter tagħna",
       "terms": "Termini u Politiki"
     },

@@ -727,6 +727,7 @@ export default {
       "MoreInfoLabel": "Mehr Infos",
       "privacy": "Datenschutz-Bestimmungen",
       "provide": "Werden Sie Datenpartner",
+      "seeApiRequests": "Siehe Anfragen an Europeana APIs",
       "subscribe": "Abonnieren Sie unseren Newsletter",
       "terms": "Bedingungen und Richtlinien"
     },

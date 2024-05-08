@@ -727,6 +727,7 @@ export default {
       "MoreInfoLabel": "Více informací",
       "privacy": "Zásady ochrany osobních údajů",
       "provide": "Staňte se poskytující instituce",
+      "seeApiRequests": "Zobrazit požadavky na Europeana API",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
       "terms": "Podmínky a zásady"
     },
