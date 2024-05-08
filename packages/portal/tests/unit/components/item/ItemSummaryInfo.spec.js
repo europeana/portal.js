@@ -48,17 +48,17 @@ describe('components/item/ItemSummaryInfo', () => {
 
     it('shows a title', () => {
       const title = wrapper.find('h1');
-      expect(title.attributes().lang).toBe('en');
+
       expect(title.text()).toBe('The title');
     });
     it('shows a sub-title', () => {
       const subTitle = wrapper.find('header p');
-      expect(subTitle.attributes().lang).toBe('en');
+
       expect(subTitle.text()).toBe('The sub-title');
     });
     it('shows a description', () => {
       const description = wrapper.find('div.description p');
-      expect(description.attributes().lang).toBe('en');
+
       expect(description.text()).toBe('The description');
     });
   });

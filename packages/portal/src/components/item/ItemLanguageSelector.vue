@@ -70,7 +70,7 @@
               />
             </span>
             <b-link
-              v-if="metadataLanguage"
+              v-if="translationLanguage"
               :to="translateParams(null)"
               data-qa="remove item translation button"
             >
@@ -79,7 +79,7 @@
                 tag="span"
                 class="pr-1"
               >
-                <span>{{ metadataLanguageLabel }}</span>
+                <span>{{ translationLanguageLabel }}</span>
               </i18n>
             </b-link>
           </b-col>
@@ -111,7 +111,7 @@
         type: Boolean,
         default: false
       },
-      metadataLanguage: {
+      translationLanguage: {
         type: String,
         default: null
       }
@@ -124,8 +124,8 @@
       };
     },
     computed: {
-      metadataLanguageLabel() {
-        return this.$i18n.locales.find(locale => locale.code === this.metadataLanguage)?.name;
+      translationLanguageLabel() {
+        return this.$i18n.locales.find(locale => locale.code === this.translationLanguage)?.name;
       }
     },
     methods: {

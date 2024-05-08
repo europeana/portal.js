@@ -27,7 +27,7 @@
           <li
             v-for="(nestedValue, nestedIndex) of value.values"
             :key="index + '_' + nestedIndex"
-            :lang="value.code"
+            :lang="langAttribute(value.code)"
             :data-qa="fieldData.url ? 'entity link' : 'entity value'"
           >
             <SmartLink
@@ -46,7 +46,7 @@
         <li
           v-else
           :key="index"
-          :lang="langMappedValues.code"
+          :lang="langAttribute(langMappedValues.code)"
           data-qa="literal value"
         >
           <SmartLink
@@ -71,7 +71,8 @@
   import ItemEntityField from '../item/ItemEntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
-  import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
+  import itemPrefLanguageMixin from '@/mixins/europeana/item/itemPrefLanguage';
+  import langAttributeMixin from '@/mixins/langAttribute';
 
   export default {
     name: 'MetadataField',
@@ -82,7 +83,10 @@
       SmartLink
     },
 
-    mixins: [itemPrefLanguage],
+    mixins: [
+      itemPrefLanguageMixin,
+      langAttributeMixin
+    ],
 
     props: {
       name: {

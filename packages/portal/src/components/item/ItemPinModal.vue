@@ -18,7 +18,7 @@
     >
       <span
         class="mr-auto"
-        :lang="entityDisplayLabel(entity).code"
+        :lang="langAttribute(entityDisplayLabel(entity).code)"
       >
         {{ entityDisplayLabel(entity).values[0] }}
       </span>
@@ -71,8 +71,9 @@
 </template>
 
 <script>
-  import makeToastMixin from '@/mixins/makeToast';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
+  import langAttributeMixin from '@/mixins/langAttribute';
+  import makeToastMixin from '@/mixins/makeToast';
   import { langMapValueForLocale } from '@/plugins/europeana/utils';
 
   export default {
@@ -80,6 +81,7 @@
 
     mixins: [
       makeToastMixin,
+      langAttributeMixin,
       entityBestItemsSetMixin
     ],
 

@@ -469,7 +469,14 @@ export default {
 
     // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
     // same with some of our custom packages
-    transpile: ['dom7', '@europeana/vue-visible-on-scroll', 'ssr-window', 'swiper', 'vue-router-query']
+    transpile: [
+      'dom7',
+      '@europeana/oembed',
+      '@europeana/vue-visible-on-scroll',
+      'ssr-window',
+      'swiper',
+      'vue-router-query'
+    ]
   },
 
   /*
