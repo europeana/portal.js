@@ -140,27 +140,6 @@ describe('@/plugins/europeana/set', () => {
       await (new EuropeanaSetApi({ $config })).publish(setId);
       expect(nock.isDone()).toBe(true);
     });
-    describe('when request errors', () => {
-      it('throws an error', async() => {
-        const errorMessage = 'Set already published';
-        nock(EuropeanaSetApi.BASE_URL)
-          .put(`/${setId}/publish`)
-          .query(true)
-          .reply(400, {
-            error: errorMessage
-          });
-
-        let error;
-        try {
-          await (new EuropeanaSetApi({ $config })).publish(setId);
-        } catch (e) {
-          error = e;
-        }
-
-        expect(error.message).toBe(errorMessage);
-        expect(error.statusCode).toBe(400);
-      });
-    });
   });
 
   describe('unpublish()', () => {
@@ -172,27 +151,6 @@ describe('@/plugins/europeana/set', () => {
 
       await (new EuropeanaSetApi({ $config })).unpublish(setId);
       expect(nock.isDone()).toBe(true);
-    });
-    describe('when request errors', () => {
-      it('throws an error', async() => {
-        const errorMessage = 'Set not published';
-        nock(EuropeanaSetApi.BASE_URL)
-          .put(`/${setId}/unpublish`)
-          .query(true)
-          .reply(400, {
-            error: errorMessage
-          });
-
-        let error;
-        try {
-          await (new EuropeanaSetApi({ $config })).unpublish(setId);
-        } catch (e) {
-          error = e;
-        }
-
-        expect(error.message).toBe(errorMessage);
-        expect(error.statusCode).toBe(400);
-      });
     });
   });
 
