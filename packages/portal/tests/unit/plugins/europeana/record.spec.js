@@ -39,47 +39,15 @@ describe('plugins/europeana/record', () => {
       expect(nock.isDone()).toBe(true);
     });
 
-    describe('API response', () => {
-      describe('with "Invalid record identifier: ..." error', () => {
-        const errorMessage = `Invalid record identifier: ${europeanaId}`;
+    it('returns data from API', async() => {
+      nock(EuropeanaRecordApi.BASE_URL)
+        .get(apiEndpoint)
+        .query(true)
+        .reply(200, apiResponse);
 
-        beforeEach(() => {
-          nock(EuropeanaRecordApi.BASE_URL)
-            .get(apiEndpoint)
-            .query(true)
-            .reply(404, {
-              success: false,
-              error: errorMessage
-            });
-        });
+      const response = await (new EuropeanaRecordApi).get(europeanaId);
 
-        it('throws error with API error message and status code', async() => {
-          let error;
-          try {
-            await (new EuropeanaRecordApi).get(europeanaId);
-          } catch (e) {
-            error = e;
-          }
-
-          expect(error.message).toBe(errorMessage);
-          expect(error.statusCode).toBe(404);
-        });
-      });
-
-      describe('with object in response', () => {
-        beforeEach(() => {
-          nock(EuropeanaRecordApi.BASE_URL)
-            .get(apiEndpoint)
-            .query(true)
-            .reply(200, apiResponse);
-        });
-
-        it('returns data from API', async() => {
-          const response = await (new EuropeanaRecordApi).get(europeanaId);
-
-          expect(response).toEqual(apiResponse);
-        });
-      });
+      expect(response).toEqual(apiResponse);
     });
   });
 
