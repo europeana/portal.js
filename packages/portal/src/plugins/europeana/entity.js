@@ -26,11 +26,7 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
     return this.request({
       method: 'get',
       url: getEntityUrl(type, id)
-    })
-      .then((response) => ({
-        error: null,
-        entity: response
-      }));
+    });
   }
 
   /**

@@ -103,18 +103,18 @@ describe('plugins/europeana/entity', () => {
       });
 
       it('returns entity title', async() => {
-        const response = await (new api).get(entityType, entityId);
-        expect(response.entity.prefLabel.en).toBe('Architecture');
+        const entity = await (new api).get(entityType, entityId);
+        expect(entity.prefLabel.en).toBe('Architecture');
       });
 
       it('returns entity description', async() => {
-        const response = await (new api).get(entityType, entityId);
-        expect(response.entity.note.en[0]).toContain('Architecture is both the process and the product of planning');
+        const entity = await (new api).get(entityType, entityId);
+        expect(entity.note.en[0]).toContain('Architecture is both the process and the product of planning');
       });
 
       it('has a misspelled id and returns entity title', async() => {
-        const response = await (new api).get(entityType, entityIdMisspelled);
-        expect(response.entity.prefLabel.en).toBe('Architecture');
+        const entity = await (new api).get(entityType, entityIdMisspelled);
+        expect(entity.prefLabel.en).toBe('Architecture');
       });
     });
 
