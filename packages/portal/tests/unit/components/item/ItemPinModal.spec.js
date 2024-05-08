@@ -26,10 +26,8 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const setSearchApiResponse = {
-  data: {
-    total: 1,
-    items: ['http://data.europeana.eu/set/456']
-  }
+  total: 1,
+  items: ['http://data.europeana.eu/set/456']
 };
 
 const ENTITY_URI = 'http://data.europeana.eu/agent/123';
@@ -93,7 +91,7 @@ const fixtures = {
 };
 
 const setApiGetStub = sinon.stub().resolves(setGetApiResponseWithPinnedItem);
-const setApiSearchStub = sinon.stub().resolves({});
+const setApiSearchStub = sinon.stub().resolves(setSearchApiResponse);
 const setApiCreateStub = sinon.stub().resolves({ id: '457' });
 const setApiModifyItemsStub = sinon.stub().resolves({});
 
@@ -383,7 +381,7 @@ describe('components/item/ItemPinModal', () => {
 
       describe('when there are no sets for any of the entities', () => {
         it('does NOT call "getOneSet"', async() => {
-          setApiSearchStub.resolves({ data: { total: 0 } });
+          setApiSearchStub.resolves({ total: 0 });
           const wrapper = factory();
           const getOneSetMock = sinon.mock(wrapper.vm).expects('getOneSet').never();
 
@@ -396,7 +394,6 @@ describe('components/item/ItemPinModal', () => {
 
       describe('when an entity has an associated EntityBestItemsSet set', () => {
         it('calls "getOneSet" for the setId', async() => {
-          setApiSearchStub.resolves(setSearchApiResponse);
           const wrapper = factory();
           const getOneSetMock = sinon.mock(wrapper.vm).expects('getOneSet').thrice().withArgs('456');
 

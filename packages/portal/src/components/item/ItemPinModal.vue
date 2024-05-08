@@ -193,8 +193,9 @@
             ...searchParams,
             qf: `subject:${entityUri}`
           });
+          console.log('searchResponse', searchResponse);
           if (searchResponse?.total > 0) {
-            await this.getOneSet(searchResponse.data?.items?.[0].split('/').pop());
+            await this.getOneSet(searchResponse.items?.[0].split('/').pop());
           }
           // TODO: Should an else block actually be RESETTING the data to empty values?
         }));
@@ -203,6 +204,7 @@
       },
 
       async getOneSet(setId) {
+        console.log('getOneSet', setId);
         const options = {
           profile: 'standard',
           pageSize: 100

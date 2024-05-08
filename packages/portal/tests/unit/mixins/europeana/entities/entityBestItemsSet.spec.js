@@ -40,7 +40,7 @@ const factory = () => {
           create: sinon.stub().resolves({ id: fixtures.setId }),
           get: sinon.stub().resolves({ items: [fixtures.setId] }),
           modifyItems: sinon.spy(),
-          search: sinon.stub().resolves({ data: {} })
+          search: sinon.stub().resolves({})
         }
       },
       $bvModal: {
@@ -129,10 +129,10 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
 
       it('returns the set\'s numeric ID if found', async() => {
         const wrapper = factory();
-        wrapper.vm.$apis.set.search.resolves({ data: {
+        wrapper.vm.$apis.set.search.resolves({
           total: 1,
           items: [fixtures.setId]
-        } });
+        });
 
         const setNumber = await wrapper.vm.findEntityBestItemsSet(fixtures.entityId);
 
@@ -141,9 +141,9 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
 
       it('returns `null` if not found', async() => {
         const wrapper = factory();
-        wrapper.vm.$apis.set.search.resolves({ data: {
+        wrapper.vm.$apis.set.search.resolves({
           total: 0
-        } });
+        });
 
         const setNumber = await wrapper.vm.findEntityBestItemsSet(fixtures.entityId);
 
