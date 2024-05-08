@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API-sleutel",
-      "noRequests": "Op deze pagina zijn geen verzoeken aan Europeana API's gebruikt.",
-      "settingsPageLinkText": "instellingen pagina",
-      "tip": "Tip: als u al een {apiKeyLink} heeft, kunt u deze invoeren op de {settingsPageLink} en deze wordt dan opgenomen in deze API-verzoeklinks.",
-      "title": "API-verzoeken"
-    },
-    "debug": "Foutopsporing",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Voer uw Europeana API-sleutel in en deze wordt gebruikt in de links naar API-verzoeken.",
-          "label": "API sleutel"
-        },
-        "enabled": {
-          "description": "Wanneer ingeschakeld wordt het debug menu getoond in de footer van de pagina.",
-          "label": "Debug-menu inschakelen"
-        }
-      },
-      "title": "Instellingen"
+      "noRequests": "Op deze pagina zijn geen verzoeken aan Europeana API's gebruikt."
     }
   },
   "depiction": "Een afbeelding van {title}",
@@ -741,7 +723,6 @@ export default {
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
       "faq": "Veelgestelde vragen (FAQ)",
-      "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacybeleid",
@@ -1067,14 +1048,22 @@ export default {
         "advancedSearch": "Met geavanceerd zoeken kunt u aangepaste zoekopdrachten maken.",
         "field": "Selecteer de volledige tekst of het metadata veld om in te zoeken.",
         "fields": {
-          "fulltext": "Volledige tekst omvat transcripties, gesloten ondertiteling, ondertitels en documenttekst."
+          "fulltext": "Volledige tekst omvat transcripties, gesloten ondertiteling, ondertitels en documenttekst.",
+          "proxy_dc_coverage": "Voer een term in die verwijst naar een plaats of een punt/periode in de tijd. Bijvoorbeeld '1995-1996' of 'Berlijn' of 'http://sws.geonames.org/2287781/'.",
+          "proxy_dc_date": "Voer een term in die verwijst naar een belangrijke datum gerelateerd aan het object/de objecten. Bijvoorbeeld een datum in het formaat ‘JJJJ-MM-DD’ of alleen jaar, ‘1919’, of bredere definities zoals ‘Begin 20e eeuw’.",
+          "proxy_dc_rights": "Voer een term in die verwijst naar informatie over de rechten of licenties gerelateerd aan het object/de objecten. Bijvoorbeeld ‘Copyright © British Library Board’. Voor het filteren op herbruikbaarheid of een specifieke rechtenverklaring, gebruik de filters ‘Kan ik dit gebruiken?’ of ‘Rights statement’.",
+          "proxy_dcterms_created": "Voer een term in die verwijst naar de datum waarop het object/de objecten zijn gemaakt. Bijvoorbeeld elke datum in de vorm 'JJJJ-MM-DD', alleen jaar zoals '1919', of bredere definities zoals 'Begin 20e eeuw'. Voor andere datums die van belang kunnen zijn, zoekt u in de velden Datum, uitgiftedatum of Jaar.",
+          "proxy_dcterms_hasPart": "Het object kan andere bronnen bevatten - voer een term in die een deel van de opgenomen bronnen identificeert. Als het object zelf deel uitmaakt van een andere bron, gebruik dan het veld ‘Is onderdeel van’.",
+          "proxy_dcterms_isPartOf": "Dit object kan deel uitmaken van een andere gerelateerde bron - voer een term in voor de bron waarvan dit object deel kan uitmaken. Als het object zelf gerelateerde bronnen bevat, gebruik dan in plaats daarvan het veld ‘Bestaat uit’.",
+          "proxy_dcterms_issued": "Voer een term in die verwijst naar de datum van uitgifte of publicatie van het object/de objecten. Bijvoorbeeld elke datum in de vorm 'JJJJ-MM-DD', alleen jaar zoals '1919', of bredere definities zoals 'Begin 20e eeuw'. Voor andere datums die van belang kunnen zijn, zoekt u in de velden Datum, aanmaakdatum of Jaar.",
+          "proxy_dcterms_medium": "Voer een term in die verwijst naar de gebruikte materialen of de fysieke aard van het object. Bijvoorbeeld ‘metaal’ of ‘papier’. Voor bredere materiaaldefinities, zoals ‘beeldhouwwerk’ of ‘schilderij’, probeer het veld ‘SOORT MEDIA’.",
+          "proxy_dcterms_temporal": "Vul een term in die verwijst naar een periode of tijdstip waarop het object/de objecten betrekking hebben, bijvoorbeeld een afbeelding die een stad uitbeeldt in 1930. Vul bijvoorbeeld 'Romeinse Rijk' of 'Renaissance' in. Voor specifieke datums zoekt u in de velden Datum, Aanmaakdatum, Uitgiftedatum of Jaar.",
+          "proxy_edm_hasMet": "Voer een term in die verwijst naar een persoon, plaats, tijdperk of iets anders waarmee het object/de objecten nauw verbonden kunnen zijn. Bijvoorbeeld ‘William Shakespeare’.",
+          "YEAR": "Voer een jaartal in dat gerelateerd is aan het object of de objecten. Bijvoorbeeld '1919'."
         },
         "modifier": "Kies hoe dit veld de zoekopdracht moet wijzigen.",
         "term": "Voer de term(en) in die het gekozen veld wel of niet bevat."
       }
-    },
-    "boost": {
-      "placeholder": "Voer veldversterkende query in"
     },
     "results": {
       "limitWarning": "Aanvullende resultaten worden niet getoond, omdat alleen de eerste 1000 meest relevante resultaten worden getoond. Als u niet heeft gevonden wat u zocht, kunt u overwegen uw zoekopdracht te verfijnen.",
@@ -1118,6 +1107,7 @@ export default {
       "createNew": "Nieuwe galerij aanmaken",
       "delete": "Galerij verwijderen",
       "edit": "Galerij bewerken",
+      "removeItemFromLikes": "Verwijder dit object uit uw likes.",
       "saveItemToLikes": "Bewaar dit object in uw Likes.",
       "update": "Galerij bijwerken"
     },

@@ -182,29 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API gakoa",
-      "noRequests": "Orri honetan ez da Europeana APIetarako eskaerarik erabili.",
-      "settingsPageLinkText": "ezarpenen orria",
-      "tip": "Aholkua: dagoeneko {apiKeyLink} bat baduzu, {settingsPageLink} atalean sar dezakezu eta API eskaera-esteka hauetan sartuko da.",
-      "title": "API eskaerak"
-    },
-    "debug": "Araztu",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Sartu zure Europeana API gakoa eta API-eskaeretarako esteketan erabiliko da.",
-          "label": "API gakoa"
-        },
-        "boosting": {
-          "description": "Gaituta bazaude, aktibatu bilaketa-emaitzen orrietan bultzada-eremua, hainbat bultzada-konfigurazio ebaluatzeko.",
-          "label": "Gaitu eremua areagotzea"
-        },
-        "enabled": {
-          "description": "Gaituta badago, arazketa menua orri-oinean agertuko da.",
-          "label": "Gaitu arazketa-menua"
-        }
-      },
-      "title": "Ezarpenak"
+      "noRequests": "Orri honetan ez da Europeana APIetarako eskaerarik erabili."
     }
   },
   "depiction": "{title}-ren irudikapena",
@@ -686,7 +664,7 @@ export default {
       "dctermsAlternative": "Titulu alternatiboa",
       "dctermsCreated": "Sortze data",
       "dctermsExtent": "Hedadura",
-      "dctermsHasPart": "honetan datza",
+      "dctermsHasPart": "Honetan datza",
       "dctermsHasVersion": "honen bertsioa du",
       "dctermsIsFormatOf": "formatu bat da",
       "dctermsIsPartOf": "Honen parte da",
@@ -750,7 +728,6 @@ export default {
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
       "faq": "Maiz Egindako Galderak (FAQ)",
-      "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
@@ -1076,14 +1053,22 @@ export default {
         "advancedSearch": "Bilaketa aurreratuak bilaketa pertsonalizatuak sortzeko aukera ematen du.",
         "field": "Hautatu testu-osoa edo metadatu-eremua bilatzeko",
         "fields": {
-          "fulltext": "Testu osoak transkripzioak, epigrafe itxia, azpitituluak eta dokumentuaren testua biltzen ditu."
+          "fulltext": "Testu osoak transkripzioak, epigrafe itxia, azpitituluak eta dokumentuaren testua biltzen ditu.",
+          "proxy_dc_coverage": "Idatzi leku edo denbora-puntu/aldi bati erreferentzia egiten dion terminoa. Adibidez, '1995-1996' edo 'Berlin' edo 'http://sws.geonames.org/2287781/'.",
+          "proxy_dc_date": "Sartu elementuarekin erlazionatutako data esanguratsu bati erreferentzia egiten dion termino bat. Adibidez, data bat \"AAAA-MM-DD\" edo urte bakarrekoa, \"1919\", edo \"XX. mendearen hasiera\" bezalako definizio zabalagoak.",
+          "proxy_dc_rights": "Sartu elementuari lotutako eskubideei edo lizentziei buruzko informazioari erreferentzia egiten dion termino bat. Adibidez, 'Copyright © British Library Board'. Berrerabilgarritasunari edo eskubide-adierazpen zehatz bat iragazteko, erabili 'Hau erabili dezaket?' edo 'Rights statement' iragazkiak.",
+          "proxy_dcterms_created": "Sartu elementua(k) sortzeko datari erreferentzia egiten dion terminoa. Adibidez, \"AAAA-MM-DD\" formako edozein data, \"1919\" bezalako urte bakarra edo \"XX. mendearen hasiera\" bezalako definizio zabalagoak. Garrantzitsuak izan daitezkeen beste data batzuetarako, bilatu Data, Jaulkipen data edo Urtea eremuetan.",
+          "proxy_dcterms_hasPart": "Elementuak beste baliabide batzuk izan ditzake barnean. Sartu baliabideen zati bat identifikatzen duen terminoa. Elementua bera beste baliabide baten parte bada, erabili 'Honen parte da' eremua.",
+          "proxy_dcterms_isPartOf": "Elementu hau erlazionatutako beste baliabide baten parte izan daiteke - idatzi elementu hau parte izan daitekeen baliabiderako termino bat. Elementuak bere baitan erlazionatutako baliabideak baditu, erabili 'Honetan datza' eremua.",
+          "proxy_dcterms_issued": "Idatzi elementua(k) jaulkitze edo argitaratzeko datari erreferentzia egiten dion terminoa. Adibidez, \"AAAA-MM-DD\" formako edozein data, \"1919\" bezalako urte bakarra edo \"XX. mendearen hasiera\" bezalako definizio zabalagoak. Garrantzitsuak izan daitezkeen beste data batzuetarako, bilatu Data, Sorkuntza data edo Urtea eremuetan.",
+          "proxy_dcterms_medium": "Sartu erabilitako materialei edo elementuaren izaera fisikoari erreferentzia egiten dion terminoa. Adibidez, 'metal' edo 'paper'. Materialaren definizio zabalagoetarako, hala nola, \"eskultura\" edo \"pintura\", saiatu \"EUSKARRI MOTA\" eremua.",
+          "proxy_dcterms_temporal": "Idatzi elementua(k) erlazionatuta dagoen garai edo puntu bati erreferentzia egiten dion termino bat, adibidez, 1930eko hiri bat irudikatzen duen irudi bat. Sartu adibidez \"Erromatar Inperioa\" edo \"Errenazimentua\". Data zehatzetarako, bilatu Data, Sortze-data, Jaulkipen-data edo Urtea eremuetan.",
+          "proxy_edm_hasMet": "Idatzi elementuak lotura estua izan dezakeen pertsona, leku, denbora-tarte edo beste edozer aipatzen duen termino bat. Adibidez, 'William Shakespeare'.",
+          "YEAR": "Sartu elementuarekin erlazionatutako urtea. Adibidez, '1919'."
         },
         "modifier": "Aukeratu eremu honek bilaketa nola aldatu behar duen.",
         "term": "Idatzi aukeratutako eremuak dituen edo ez dituen terminoak."
       }
-    },
-    "boost": {
-      "placeholder": "Sartu eremua sustatzeko kontsulta"
     },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
@@ -1127,6 +1112,7 @@ export default {
       "createNew": "Sortu galeria berria",
       "delete": "Ezabatu galeria",
       "edit": "Editatu galeria",
+      "removeItemFromLikes": "Kendu elementu hau zure gustukoenetatik.",
       "saveItemToLikes": "Gorde elementu hau zure Maiteen artean.",
       "update": "Eguneratu galeria"
     },

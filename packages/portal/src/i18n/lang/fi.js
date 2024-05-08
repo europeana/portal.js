@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API avain",
-      "noRequests": "Tällä sivulla ei käytetty Europeanan API-pyyntöjä.",
-      "settingsPageLinkText": "asetukset-sivu",
-      "tip": "Vinkki: jos sinulla on jo {apiKeyLink} , voit kirjoittaa sen {settingsPageLink} -sivulle ja se sisällytetään näihin API-pyyntölinkkeihin.",
-      "title": "API-pyynnöt"
-    },
-    "debug": "Virheenkorjaus",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Anna Europeana API -avaimesi, niin sitä käytetään API-pyyntöjen linkeissä.",
-          "label": "API-avain"
-        },
-        "enabled": {
-          "description": "Jos käytössä, virheenkorjausvalikko näkyy sivun alatunnisteessa.",
-          "label": "Ota virheenkorjausvalikko käyttöön"
-        }
-      },
-      "title": "Asetukset"
+      "noRequests": "Tällä sivulla ei käytetty Europeanan API-pyyntöjä."
     }
   },
   "depiction": "Kuvaus kohteesta {title}",
@@ -680,7 +662,7 @@ export default {
       "dctermsHasPart": "Koostuu seuraavista:",
       "dctermsHasVersion": "-kohteessa on versio",
       "dctermsIsFormatOf": "on formaatti kohteelle",
-      "dctermsIsPartOf": "On osa kohdetta",
+      "dctermsIsPartOf": "On osa",
       "dctermsIsReferencedBy": "-kohteeseen viittaa",
       "dctermsIsReplacedBy": "-kohteen vaihtaa",
       "dctermsIsRequiredBy": "Edellyttää kohteen",
@@ -741,7 +723,6 @@ export default {
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
       "faq": "Usein kysytyt kysymykset (FAQ)",
-      "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojakäytäntö",
@@ -1067,14 +1048,22 @@ export default {
         "advancedSearch": "Tarkennetun haun avulla voit luoda mukautettuja hakukyselyitä.",
         "field": "Valitse koko teksti tai metatietokenttä haettavaksi.",
         "fields": {
-          "fulltext": "Täysi teksti sisältää transkriptiot, suljetut kuvatekstit, tekstitykset ja asiakirjan tekstin."
+          "fulltext": "Täysi teksti sisältää transkriptiot, suljetut kuvatekstit, tekstitykset ja asiakirjan tekstin.",
+          "proxy_dc_coverage": "Kirjoita termi, joka viittaa paikkaan tai pisteeseen/ajanjaksoon. Esimerkiksi \"1995-1996\" tai \"Berliini\" tai \"http://sws.geonames.org/2287781/\".",
+          "proxy_dc_date": "Syötä termi, joka viittaa aineiston kannalta merkittävään päivämäärään. Esimerkiksi päivämäärä muodossa ‘VVVV-KK-PP’ tai yksittäinen vuosi, ‘1919’, tai laajemmat määritelmät kuten ‘Varhainen 20. vuosisata’.",
+          "proxy_dc_rights": "Syötä termi, joka viittaa aineiston oikeuksiin tai lisensseihin liittyviin tietoihin. Esimerkiksi ‘Copyright © British Library Board’. Uudelleenkäytettävyyden tai tietyn oikeuslausekkeen suodattamiseksi käytä ‘Voinko käyttää tätä?’ tai ‘Rights statement’ suodattimia.",
+          "proxy_dcterms_created": "Syötä termi, joka viittaa aineiston luontipäivämäärään. Esimerkiksi mikä tahansa päivämäärä muodossa ‘VVVV-KK-PP’, yksittäinen vuosi kuten ‘1919’, tai laajemmat määritelmät kuten ‘Varhainen 20. vuosisata’. Muiden merkityksellisten päivämäärien etsimiseksi katso Päivämäärä, Julkaisupäivä tai Vuosi -kentät.",
+          "proxy_dcterms_hasPart": "Aineisto voi sisältää muita resursseja - syötä termi, joka tunnistaa osan sisältyvistä resursseista. Jos aineisto itse on osa toisesta resurssista, käytä ‘On osa’ -kenttää.",
+          "proxy_dcterms_isPartOf": "Tämä aineisto voi olla osa jostakin muusta liittyvästä resurssista - syötä termi resurssille, jonka osa tämä aineisto voi olla. Jos aineisto itse sisältää liittyviä resursseja, käytä sen sijaan ‘Koostuu seuraavista:’-kenttää.",
+          "proxy_dcterms_issued": "Syötä termi, joka viittaa aineiston julkaisu- tai ilmestymispäivään. Esimerkiksi mikä tahansa päivämäärä muodossa ‘VVVV-KK-PP’, yksittäinen vuosi kuten ‘1919’, tai laajemmat määritelmät kuten ‘varhainen 20. vuosisata’. Muiden merkityksellisten päivämäärien etsimiseksi katso kentät Päivämäärä, Luontipäivämäärä tai Vuosi.",
+          "proxy_dcterms_medium": "Syötä termi, joka viittaa käytettyihin materiaaleihin tai aineiston fyysiseen luonteeseen. Esimerkiksi ‘metalli’ tai ‘paperi’. Laajempien materiaalimääritelmien osalta, kuten ‘veistos’ tai ‘maalaus’, kokeile ‘MEDIATYYPPI’ -kenttää.",
+          "proxy_dcterms_temporal": "Syötä termi, joka viittaa aikakauteen tai hetkeen, johon aineisto/aineistot liittyvät, esimerkiksi kuva, joka esittää kaupunkia vuonna 1930. Anna esimerkiksi 'Rooman valtakunta' tai 'Renessanssi'. Tarkkoja päivämääriä varten etsi Päivämäärä, Luontipäivämäärä, Julkaisupäivämäärä tai Vuosi -kentistä.",
+          "proxy_edm_hasMet": "Syötä termi, joka viittaa henkilöön, paikkaan, aikakauteen tai muuhun, johon aineisto voi olla läheisesti yhteydessä. Esimerkiksi ‘William Shakespeare’.",
+          "YEAR": "Syötä vuosi, joka liittyy kohteeseen/kohteisiin. Esimerkiksi ‘1919’."
         },
         "modifier": "Valitse, kuinka tämän kentän tulee muokata hakua.",
         "term": "Kirjoita termi (termit), jonka (jotka) valittu kenttä sisältää tai ei sisällä."
       }
-    },
-    "boost": {
-      "placeholder": "Syötä kentän tehostamiskysely"
     },
     "results": {
       "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",
@@ -1118,6 +1107,7 @@ export default {
       "createNew": "Luo uusi galleria",
       "delete": "Poista galleria",
       "edit": "Muokkaa galleriaa",
+      "removeItemFromLikes": "Poista tämä kohde tykkäyksistäsi.",
       "saveItemToLikes": "Tallenna tämä aineisto tykkäyksiisi.",
       "update": "Päivitä galleria"
     },

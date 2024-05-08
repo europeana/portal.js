@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Cheia API Europeana",
-      "noRequests": "Pe această pagină nu au fost folosite solicitări către API-urile Europeana.",
-      "settingsPageLinkText": "pagina de setări",
-      "tip": "Sfat: dacă aveți deja un {apiKeyLink}, îl puteți introduce în {settingsPageLink} și va fi inclus în aceste linkuri de solicitare API.",
-      "title": "Solicitări API"
-    },
-    "debug": "Depanare",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Introduceți cheia API Europeana și va fi folosită în linkurile către solicitările API.",
-          "label": "Cheia API"
-        },
-        "enabled": {
-          "description": "Dacă este activat, meniul de depanare va fi afișat în subsolul paginii.",
-          "label": "Activați meniul de depanare"
-        }
-      },
-      "title": "Setări"
+      "noRequests": "Pe această pagină nu au fost folosite solicitări către API-urile Europeana."
     }
   },
   "depiction": "O reprezentare a {title}",
@@ -740,7 +722,6 @@ export default {
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
       "faq": "Întrebări frecvente (FAQ)",
-      "forDevelopers": "Pentru dezvoltatori",
       "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
@@ -1065,14 +1046,22 @@ export default {
         "advancedSearch": "Căutarea avansată vă permite să creați interogări de căutare personalizate.",
         "field": "Selectați câmpul de text integral sau câmpul de metadate în care doriți să căutați.",
         "fields": {
-          "fulltext": "Textul integral include transcripții, subtitrări închise, subtitrări și textul documentului."
+          "fulltext": "Textul integral include transcripții, subtitrări închise, subtitrări și textul documentului.",
+          "proxy_dc_coverage": "Introduceți un termen care se referă la un loc sau un punct/perioadă în timp. De exemplu, „1995-1996” sau „Berlin” sau „http://sws.geonames.org/2287781/”.",
+          "proxy_dc_date": "Introduceți un termen care se referă la o dată semnificativă legată de resursa culturală/resursele culturale. De exemplu, orice dată în formatul ‘AAAA-LL-ZZ’, un an singular ca ‘1919’, sau definiții mai largi cum ar fi ‘Începutul secolului 20’.",
+          "proxy_dc_rights": "Introduceți un termen care se referă la informații despre drepturile sau licențele legate de resursa culturală/resursele culturale. De exemplu, ‘Copyright © British Library Board’. Pentru filtrarea în funcție de reutilizabilitate sau o anumită declarație de drepturi, utilizați filtrele ‘Pot folosi asta?’ sau ‘Rights statement’.",
+          "proxy_dcterms_created": "Introduceți un termen care se referă la data creării resursei culturale/resurselor culturale. De exemplu, orice dată în formatul ‘AAAA-LL-ZZ’, un an singular ca ‘1919’, sau definiții mai largi cum ar fi ‘Începutul secolului 20’. Pentru alte date care ar putea fi semnificative, căutați în câmpurile Dată, Data emiterii sau An.",
+          "proxy_dcterms_hasPart": "Această resursă culturală poate avea alte resurse incluse în ea - introduceți un termen care identifică o parte din resursele incluse. Dacă resursa culturală în sine este parte dintr-o altă resursă, folosiți câmpul ‘Face parte din’.",
+          "proxy_dcterms_isPartOf": "Acest obiect poate face parte dintr-o altă resursă culturală înrudită - introduceți un termen pentru resursa culturală din care acest obiect poate face parte. Dacă obiectul în sine conține resurse culturale înrudite, folosiți în schimb câmpul ‘Este format din’.",
+          "proxy_dcterms_issued": "Introduceți un termen care se referă la data emiterii sau publicării resursei culturale/resurselor culturale. De exemplu, orice dată în formatul ‘AAAA-LL-ZZ’, un an singular ca ‘1919’, sau definiții mai largi cum ar fi ‘începutul secolului 20’. Pentru alte date care ar putea fi semnificative, căutați în câmpurile Dată, Data creării sau An.",
+          "proxy_dcterms_medium": "Introduceți un termen care se referă la materialele utilizate sau la natura fizică a resursei culturale. De exemplu, ‘metal’ sau ‘hârtie’. Pentru definiții mai largi ale materialelor, cum ar fi ‘sculptură’ sau ‘pictură’, încercați câmpul ‘TIP DE MEDIA’.",
+          "proxy_dcterms_temporal": "Introduceți un termen care se referă la o perioadă sau un punct în timp cu care resursa culturală/resursele culturale sunt legate, de exemplu o imagine care înfățișează un oraș în 1930. Introduceți de exemplu ‘Imperiul Roman’ sau ‘Renașterea’. Pentru date specifice, căutați în câmpurile Dată, Data creării, Data emiterii sau An.",
+          "proxy_edm_hasMet": "Introduceți un termen care se referă la o persoană, un loc, o perioadă sau orice altceva cu care resursa culturală/resursele culturale pot avea legături strânse. De exemplu, ‘William Shakespeare’.",
+          "YEAR": "Introduceți un an legat de resursa/resursele culturale. De exemplu, ‘1919’."
         },
         "modifier": "Alegeți modul în care acest câmp ar trebui să modifice căutarea.",
         "term": "Introduceți termenii pe care le conține sau nu câmpul ales."
       }
-    },
-    "boost": {
-      "placeholder": "Introduceți interogarea de creștere a câmpului"
     },
     "results": {
       "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
@@ -1116,6 +1105,7 @@ export default {
       "createNew": "Creare galerie nouă",
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
+      "removeItemFromLikes": "Eliminați această resursă culturală din preferințele dumneavoastră.",
       "saveItemToLikes": "Salvați acest resursă culturală în Like-urile dvs.",
       "update": "Actualizare galerie"
     },

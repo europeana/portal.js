@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API klíč",
-      "noRequests": "Na této stránce nebyly použity žádné požadavky na rozhraní API Europeany.",
-      "settingsPageLinkText": "stránka nastavení",
-      "tip": "Tip: Pokud již {apiKeyLink} máte, můžete jej zadat na stránce {settingsPageLink} a bude zahrnut do těchto odkazů na požadavky API.",
-      "title": "Požadavky API"
-    },
-    "debug": "Ladit",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Zadejte svůj klíč Europeana API a bude použit v odkazech na požadavky API.",
-          "label": "API klíč"
-        },
-        "enabled": {
-          "description": "Pokud je povoleno, v zápatí stránky se zobrazí nabídka ladění.",
-          "label": "Povolit nabídku ladění"
-        }
-      },
-      "title": "Nastavení"
+      "noRequests": "Na této stránce nebyly použity žádné požadavky na rozhraní API Europeany."
     }
   },
   "depiction": "Znázornění {title}",
@@ -741,7 +723,6 @@ export default {
       "accessibility": "Přístupnost",
       "cookies": "Cookies",
       "faq": "Často kladené dotazy (FAQ)",
-      "forDevelopers": "Pro vývojáře",
       "help": "Nápověda",
       "MoreInfoLabel": "Více informací",
       "privacy": "Zásady ochrany osobních údajů",
@@ -1067,14 +1048,22 @@ export default {
         "advancedSearch": "Pokročilé vyhledávání umožňuje vytvářet vlastní vyhledávací dotazy.",
         "field": "Vyberte plný text nebo pole metadat pro vyhledávání.",
         "fields": {
-          "fulltext": "Úplný text zahrnuje transkripce, uzavřené titulky, titulky a text dokumentu."
+          "fulltext": "Úplný text zahrnuje transkripce, uzavřené titulky, titulky a text dokumentu.",
+          "proxy_dc_coverage": "Zadejte termín, který se vztahuje na místo nebo bod/období v čase. Například ‘1995-1996’ nebo ‘Berlín’ nebo ‘http://sws.geonames.org/2287781/’.",
+          "proxy_dc_date": "Zadejte termín, který se vztahuje na významné datum spojené s položkou/položkami. Například datum ve formátu ‘RRRR-MM-DD’ nebo jednotlivý rok, ‘1919’, nebo širší definice jako ‘Počátek 20. století’.",
+          "proxy_dc_rights": "Zadejte termín, který se vztahuje na informace o právech nebo licencích spojených s položkou/položkami. Například ‘Copyright © British Library Board’. Pro filtrování podle opětovné použitelnosti nebo konkrétního prohlášení o právech použijte filtry ‘Mohu použít toto?’ nebo ‘Rights statement’.",
+          "proxy_dcterms_created": "Zadejte termín, který se vztahuje na datum vytvoření položky/položek. Například jakékoli datum ve formátu ‘RRRR-MM-DD’, jednotlivý rok jako ‘1919’ nebo širší definice jako ‘Počátek 20. století’. Pro další důležitá data vyhledejte v polích Datum, Datum vydání nebo Rok.",
+          "proxy_dcterms_hasPart": "Položka může obsahovat další zdroje uvnitř - zadejte termín, který identifikuje část zahrnutých zdrojů. Pokud je položka sama součástí jiného zdroje, použijte pole ‘je součástí’.",
+          "proxy_dcterms_isPartOf": "Tato položka může být součástí jiného souvisejícího zdroje - zadejte termín pro zdroj, jehož součástí tato položka může být. Pokud položka sama obsahuje související zdroje uvnitř, použijte místo toho pole ‘se skládá z’.",
+          "proxy_dcterms_issued": "Zadejte termín, který se vztahuje na datum vydání nebo publikace položky/položek. Například jakékoli datum ve formátu ‘RRRR-MM-DD’, jednotlivý rok jako ‘1919’ nebo širší definice jako ‘začátek 20. století’. Pro další důležitá data vyhledejte v polích Datum, Datum vytvoření nebo Rok.",
+          "proxy_dcterms_medium": "Zadejte termín, který odkazuje na materiály použité nebo fyzickou povahu položky. Například ‘kov’ nebo ‘papír’. Pro širší definice materiálů, jako je ‘socha’ nebo ‘malba’, vyzkoušejte pole ‘DRUH MÉDIA’.",
+          "proxy_dcterms_temporal": "Zadejte termín, který odkazuje na období nebo časový bod, ke kterému se položka(y) vztahují, např. obrázek, který zobrazuje město v roce 1930. Zadejte například ‘Římská říše’ nebo ‘Renesance’. Pro konkrétní data vyhledejte pole Datum, Datum vytvoření, Datum vydání nebo Rok.",
+          "proxy_edm_hasMet": "Zadejte termín, který se vztahuje na osobu, místo, časové období nebo cokoli jiného, s čím může položka/položky mít úzké spojení. Například ‘William Shakespeare’.",
+          "YEAR": "Zadejte rok související s položkou/položkami. Například ‘1919’."
         },
         "modifier": "Zvolte, jak má toto pole upravit vyhledávání.",
         "term": "Zadejte termín(y), které zvolené pole obsahuje nebo neobsahuje."
       }
-    },
-    "boost": {
-      "placeholder": "Zadejte dotaz pro posílení pole"
     },
     "results": {
       "limitWarning": "Další výsledky nejsou zobrazeny, protože je zobrazeno pouze prvních 1000 nejrelevantnějších výsledků. Pokud jste nenašli, co jste hledali, zvažte prosím upřesnění vyhledávání.",
@@ -1118,6 +1107,7 @@ export default {
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
+      "removeItemFromLikes": "Odeberte tuto položku ze svých lajků.",
       "saveItemToLikes": "Uložte si tuto položku do seznamu Líbí se vám.",
       "update": "Aktualizovat galerii"
     },

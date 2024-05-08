@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Chiave API Europeana",
-      "noRequests": "In questa pagina non sono state utilizzate richieste alle API di Europeana.",
-      "settingsPageLinkText": "pagina delle impostazioni",
-      "tip": "Suggerimento: se hai già un {apiKeyLink} , puoi inserirlo in {settingsPageLink} e sarà incluso in questi link di richiesta API.",
-      "title": "Richieste API"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Inserisci la tua chiave API Europeana e verrà utilizzata nei link alle richieste API.",
-          "label": "Chiave API"
-        },
-        "enabled": {
-          "description": "Se abilitato, il menu di debug verrà mostrato nel piè di pagina della pagina.",
-          "label": "Abilita menu di debug"
-        }
-      },
-      "title": "Impostazioni"
+      "noRequests": "In questa pagina non sono state utilizzate richieste alle API di Europeana."
     }
   },
   "depiction": "Una rappresentazione di {title}",
@@ -740,7 +722,6 @@ export default {
       "accessibility": "Accessibilità",
       "cookies": "Cookie",
       "faq": "Domande frequenti (FAQ)",
-      "forDevelopers": "Per sviluppatori",
       "help": "Aiuto",
       "MoreInfoLabel": "Maggiori informazioni",
       "privacy": "Informativa sulla privacy",
@@ -1065,14 +1046,22 @@ export default {
         "advancedSearch": "La ricerca avanzata ti consente di creare query di ricerca personalizzate.",
         "field": "Seleziona il campo di testo completo o di metadati in cui eseguire la ricerca.",
         "fields": {
-          "fulltext": "Il testo completo include trascrizioni, didascalie chiuse, sottotitoli e testo del documento."
+          "fulltext": "Il testo completo include trascrizioni, didascalie chiuse, sottotitoli e testo del documento.",
+          "proxy_dc_coverage": "Inserisci un termine che si riferisca a un luogo o a un punto/periodo di tempo. Ad esempio, \"1995-1996\" o \"Berlin\" o \"http://sws.geonames.org/2287781/\".",
+          "proxy_dc_date": "Inserisci un termine che si riferisce a una data significativa relativa all'oggetto/gli oggetti. Ad esempio, una data nel formato ‘AAAA-MM-GG’ o un singolo anno, ‘1919’, o definizioni più ampie come ‘Inizio del 20° secolo’.",
+          "proxy_dc_rights": "Inserisci un termine che si riferisce alle informazioni sui diritti o le licenze relative all'oggetto/gli oggetti. Per esempio ‘Copyright © British Library Board’. Per filtrare sulla riutilizzabilità o una dichiarazione di diritti specifica, utilizza i filtri ‘Posso usare questo?’ o ‘Rights statement’.",
+          "proxy_dcterms_created": "Inserisci un termine che si riferisce alla data di creazione dell'oggetto/gli oggetti. Per esempio, qualsiasi data nel formato ‘AAAA-MM-GG’, un singolo anno come ‘1919’, o definizioni più ampie come ‘Inizio del 20° secolo’. Per altre date che potrebbero essere significative, cerca nei campi Data, Data di emissione o Anno.",
+          "proxy_dcterms_hasPart": "L'oggetto può includere altre risorse al suo interno - inserisci un termine che identifichi una parte delle risorse incluse. Se l'oggetto stesso è parte di un'altra risorsa, utilizza il campo ‘È parte di’.",
+          "proxy_dcterms_isPartOf": "Questo oggetto potrebbe far parte di un'altra risorsa correlata - inserisci un termine per la risorsa di cui questo oggetto potrebbe far parte. Se l'oggetto stesso contiene risorse correlate, utilizza invece il campo ‘Si compone di’.",
+          "proxy_dcterms_issued": "Inserisci un termine che si riferisce alla data di emissione o pubblicazione dell'oggetto/gli oggetti. Per esempio, qualsiasi data nel formato ‘AAAA-MM-GG’, un singolo anno come ‘1919’, o definizioni più ampie come ‘inizio del 20° secolo’. Per altre date che potrebbero essere significative, cerca nei campi Data, Data di creazione o Anno.",
+          "proxy_dcterms_medium": "Inserisci un termine che si riferisce ai materiali utilizzati o alla natura fisica dell'oggetto. Per esempio ‘metallo’ o ‘carta’. Per definizioni più ampie dei materiali, come ‘scultura’ o ‘pittura’, prova il campo ‘TIPO DI MEDIA’.",
+          "proxy_dcterms_temporal": "Inserisci un termine che si riferisce a un periodo o a un momento specifico a cui l'oggetto/gli oggetti sono correlati, ad esempio un'immagine che ritrae una città nel 1930. Inserisci, per esempio, ‘Impero Romano’ o ‘Rinascimento’. Per date specifiche, cerca nei campi Data, Data di creazione, Data di emissione o Anno.",
+          "proxy_edm_hasMet": "Inserisci un termine che si riferisce a una persona, un luogo, un periodo di tempo o altro a cui l'oggetto/gli oggetti possono essere strettamente connessi. Ad esempio ‘William Shakespeare’.",
+          "YEAR": "Inserisci un anno relativo all'oggetto/gli oggetti. Ad esempio, ‘1919’."
         },
         "modifier": "Scegli come questo campo dovrebbe modificare la ricerca.",
         "term": "Immettere i termini che il campo scelto contiene o non contiene."
       }
-    },
-    "boost": {
-      "placeholder": "Immettere la query di potenziamento del campo"
     },
     "results": {
       "limitWarning": "I risultati aggiuntivi non vengono visualizzati, in quanto vengono mostrati solo i primi 1000 risultati più rilevanti. Se non avete trovato quello che cercate, potete affinare la vostra ricerca.",
@@ -1116,6 +1105,7 @@ export default {
       "createNew": "Crea una nuova galleria",
       "delete": "Elimina galleria",
       "edit": "Modifica galleria",
+      "removeItemFromLikes": "Rimuovi questo oggetto dai tuoi Mi piace.",
       "saveItemToLikes": "Salva questo oggetto nei tuoi Mi piace.",
       "update": "Aggiorna galleria"
     },

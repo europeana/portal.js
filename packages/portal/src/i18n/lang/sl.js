@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API ključ",
-      "noRequests": "Na tej strani ni bila uporabljena nobena zahteva za API-je Europeana.",
-      "settingsPageLinkText": "stran z nastavitvami",
-      "tip": "Nasvet: če že imate {apiKeyLink}, ga lahko vnesete na {settingsPageLink} in vključen bo v te povezave zahtev API.",
-      "title": "Zahteve API"
-    },
-    "debug": "Debug",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Vnesite svoj Europeana API ključ in uporabljen bo v povezavah do zahtev API.",
-          "label": "API ključ"
-        },
-        "enabled": {
-          "description": "Če je omogočeno, bo meni za odpravljanje napak prikazan v nogi strani.",
-          "label": "Omogoči meni za odpravljanje napak"
-        }
-      },
-      "title": "Nastavitve"
+      "noRequests": "Na tej strani ni bila uporabljena nobena zahteva za API-je Europeana."
     }
   },
   "depiction": "Upodobitev {title}",
@@ -740,7 +722,6 @@ export default {
       "accessibility": "Dostopnost",
       "cookies": "Piškotki",
       "faq": "Pogosto zastavljena vprašanja (FAQ)",
-      "forDevelopers": "Za razvijalce",
       "help": "Pomoč",
       "MoreInfoLabel": "Več informacij",
       "privacy": "Pravilnik o zasebnosti",
@@ -1065,14 +1046,22 @@ export default {
         "advancedSearch": "Napredno iskanje vam omogoča ustvarjanje iskalnih poizvedb po meri.",
         "field": "Izberite polje polnega besedila ali metapodatkov, v katerem želite iskati.",
         "fields": {
-          "fulltext": "Polno besedilo vključuje prepise, zaprte napise, podnapise in besedilo dokumenta."
+          "fulltext": "Polno besedilo vključuje prepise, zaprte napise, podnapise in besedilo dokumenta.",
+          "proxy_dc_coverage": "Vnesite izraz, ki se nanaša na kraj ali točko/obdobje v času. Na primer '1995-1996' ali 'Berlin' ali 'http://sws.geonames.org/2287781/'.",
+          "proxy_dc_date": "Vnesite izraz, ki se nanaša na pomemben datum, povezan z enoto/enotami. Na primer, datum v obliki ‘LLLL-MM-DD’ ali posamezno leto, ‘1919’, ali širše definicije, kot je ‘Zgodnje 20. stoletje’.",
+          "proxy_dc_rights": "Vnesite izraz, ki se nanaša na informacije o pravicah ali licencah, povezanih z enoto/enotami. Na primer, ‘Copyright © British Library Board’. Za filtriranje glede na možnost ponovne uporabe ali specifično izjavo o pravicah uporabite filtre ‘Ali lahko uporabim to?’ ali ‘Rights statement’.",
+          "proxy_dcterms_created": "Vnesite izraz, ki se nanaša na datum ustvarjanja enote/enot. Na primer, kateri koli datum v obliki ‘LLLL-MM-DD’, posamezno leto, kot je ‘1919’, ali širše definicije, kot je ‘Zgodnje 20. stoletje’. Za druge pomembne datume poiščite v poljih Datum, Datum izdaje ali Leto.",
+          "proxy_dcterms_hasPart": "Ta enota lahko vsebuje druge vire – vnesite izraz, ki identificira del vključenih virov. Če je enota sama del drugega vira, uporabite polje ‘Je del’.",
+          "proxy_dcterms_isPartOf": "Ta enota je lahko del drugega sorodnega vira – vnesite izraz za vir, katerega del je lahko ta enota. Če enota sam povezane vire v sebi, namesto tega uporabite polje 'Je sestavljen iz;.",
+          "proxy_dcterms_issued": "Vnesite izraz, ki se nanaša na datum izdaje ali objave enote/enot. Na primer, kateri koli datum v obliki ‘LLLL-MM-DD’, posamezno leto, kot je ‘1919’, ali širše definicije, kot je ‘zgodnje 20. stoletje’. Za druge pomembne datume poiščite v poljih Datum, Datum ustvarjanja ali Leto.",
+          "proxy_dcterms_medium": "Vnesite izraz, ki se nanaša na materiale, uporabljene ali fizično naravo enote. Na primer ‘kovina’ ali ‘papir’. Za širše definicije materialov, kot so ‘kiparstvo’ ali ‘slikarstvo’, poskusite polje ‘VRSTA MEDIJA’.",
+          "proxy_dcterms_temporal": "Vnesite izraz, ki se nanaša na obdobje ali točko v času, na katero se enota/enote nanašajo, na primer slika, ki prikazuje mesto leta 1930. Na primer vnesite 'Rimski imperij' ali 'Renesansa'. Za specifične datume poiščite v poljih Datum, Datum ustvarjanja, Datum izdaje ali Leto.",
+          "proxy_edm_hasMet": "Vnesite izraz, ki se nanaša na osebo, kraj, časovno obdobje ali karkoli drugega, s čimer je enota/enote tesno povezana. Na primer ‘William Shakespeare’.",
+          "YEAR": "Vnesite leto, povezano z enoto/enotami. Na primer, ‘1919’."
         },
         "modifier": "Izberite, kako naj to polje spremeni iskanje.",
         "term": "Vnesite termin(e), ki jih izbrano polje vsebuje ali ne vsebuje."
       }
-    },
-    "boost": {
-      "placeholder": "Vnesite poizvedbo za povečanje polja"
     },
     "results": {
       "limitWarning": "Dodatni rezultati niso prikazani, saj je prikazanih le prvih 1000 najpomembnejših rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
@@ -1116,6 +1105,7 @@ export default {
       "createNew": "Ustvari novo zbirko",
       "delete": "Izbriši zbirko",
       "edit": "Uredi zbirko",
+      "removeItemFromLikes": "Odstranite to enoto iz všečkov.",
       "saveItemToLikes": "Shranite ta enota med svoje všečke.",
       "update": "Posodobi zbirko"
     },
