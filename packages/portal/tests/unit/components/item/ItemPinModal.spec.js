@@ -61,6 +61,7 @@ const fixtures = {
   itemAlreadyPinned: {
     propsData: { identifier: '/123/abc' },
     data: () => ({
+      entities: [{ id: ENTITY_URI }],
       selected: ENTITY_URI,
       sets: {
         [ENTITY_URI]: { id: '456', pinned: ['/123/abc'] }
@@ -70,6 +71,7 @@ const fixtures = {
   itemNotPinned: {
     propsData: { identifier: '/123/abc' },
     data: () => ({
+      entities: [{ id: ENTITY_URI }],
       selected: ENTITY_URI,
       sets: {
         [ENTITY_URI]: { id: '456', pinned: [] }
@@ -79,6 +81,7 @@ const fixtures = {
   itemAlreadyPinnedInFullSet: {
     propsData: { identifier: fullPins[0] },
     data: () => ({
+      entities: [{ id: ENTITY_URI }],
       selected: ENTITY_URI,
       sets: {
         [ENTITY_URI]: { id: '456', pinned: fullPins }
@@ -88,6 +91,7 @@ const fixtures = {
   itemNotPinnedInFullSet: {
     propsData: { identifier: '/123/abc' },
     data: () => ({
+      entities: [{ id: ENTITY_URI }],
       selected: ENTITY_URI,
       sets: {
         [ENTITY_URI]: { id: '456', pinned: fullPins }
@@ -97,6 +101,7 @@ const fixtures = {
   setDoesNotExist: {
     propsData: { identifier: '/123/abc' },
     data: () => ({
+      entities: [{ id: ENTITY_URI }],
       selected: ENTITY_URI,
       sets: {
         [ENTITY_URI]: { id: null, pinned: [] }
@@ -282,6 +287,7 @@ describe('components/item/ItemPinModal', () => {
           });
         });
       });
+
       describe('when clicked', () => {
         describe('when pinning', () => {
           it('makes a toast', async() => {
@@ -308,12 +314,12 @@ describe('components/item/ItemPinModal', () => {
       });
 
       describe('when there is NO existing set', () => {
-        it('creates a set and pins the item, updates the store', async() => {
+        it('creates a set and pins the item', async() => {
           const wrapper = factory(fixtures.setDoesNotExist);
-          await wrapper.vm.fetchEntityBestItemsSets();
 
           await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
           await new Promise(process.nextTick);
+
           expect(setApiCreateStub.called).toBe(true);
           expect(setApiModifyItemsStub.called).toBe(true);
         });
@@ -326,6 +332,7 @@ describe('components/item/ItemPinModal', () => {
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
             await new Promise(process.nextTick);
+
             expect(setApiModifyItemsStub.called).toBe(true);
             expect(setApiCreateStub.called).toBe(false);
           });

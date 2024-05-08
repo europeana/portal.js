@@ -71,6 +71,8 @@
 </template>
 
 <script>
+  import pick from 'lodash/pick.js';
+
   import makeToastMixin from '@/mixins/makeToast';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import { langMapValueForLocale } from '@/plugins/europeana/utils';
@@ -154,7 +156,7 @@
         return this.selectedEntityPrefLabel?.values?.[0];
       },
       selectedEntity() {
-        return this.entities.find(entity => entity.id === this.selected);
+        return this.entities.find((entity) => entity.id === this.selected);
       },
       selectedEntitySet() {
         return this.sets[this.selected];
@@ -175,9 +177,8 @@
         }
 
         // Fetch the full entities first
-        this.entities = await this.$apis.entity.find(this.entityUris, {
-          fl: 'skos_prefLabel.*'
-        });
+        const entities = await this.$apis.entity.find(this.entityUris);
+        this.entities = entities.map((entity) => pick(entity, 'id', 'prefLabel'));
 
         const searchParams = {
           query: 'type:EntityBestItemsSet',
@@ -191,7 +192,7 @@
             ...searchParams,
             qf: `subject:${entityUri}`
           });
-          console.log('searchResponse', searchResponse);
+
           if (searchResponse?.total > 0) {
             await this.getOneSet(searchResponse.items?.[0].split('/').pop());
           }
@@ -202,7 +203,6 @@
       },
 
       async getOneSet(setId) {
-        console.log('getOneSet', setId);
         const options = {
           profile: 'standard',
           pageSize: 100
