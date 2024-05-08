@@ -182,25 +182,7 @@ export default {
   },
   "debug": {
     "apiRequests": {
-      "apiKeyLinkText": "Europeana API ključ",
-      "noRequests": "Na ovoj stranici nisu korišteni zahtjevi za API-je Europeane.",
-      "settingsPageLinkText": "stranicu postavki",
-      "tip": "Savjet: ako već imate {apiKeyLink} , možete ga unijeti na {settingsPageLink} i on će biti uključen u ove veze zahtjeva za API.",
-      "title": "API zahtjevi"
-    },
-    "debug": "Otklanjanje pogrešaka",
-    "settings": {
-      "form": {
-        "apiKey": {
-          "description": "Unesite svoj Europeana API ključ i on će se koristiti u poveznicama na API zahtjeve.",
-          "label": "API ključ"
-        },
-        "enabled": {
-          "description": "Ako je omogućeno, izbornik za otklanjanje pogrešaka bit će prikazan u podnožju stranice.",
-          "label": "Omogući izbornik za otklanjanje pogrešaka"
-        }
-      },
-      "title": "Postavke"
+      "noRequests": "Na ovoj stranici nisu korišteni zahtjevi za API-je Europeane."
     }
   },
   "depiction": "Prikaz {title}",
@@ -741,7 +723,6 @@ export default {
       "accessibility": "Pristupačnost",
       "cookies": "Kolačići",
       "faq": "Često postavljana pitanja (FAQ)",
-      "forDevelopers": "Za programere",
       "help": "Pomoć",
       "MoreInfoLabel": "Više informacija",
       "privacy": "Pravila o privatnosti",
@@ -1067,14 +1048,22 @@ export default {
         "advancedSearch": "Napredno pretraživanje omogućuje vam izradu prilagođenih upita za pretraživanje.",
         "field": "Odaberite cjeloviti tekst ili metapodatkovno polje za pretraživanje.",
         "fields": {
-          "fulltext": "Puni tekst uključuje transkripcije, zatvorene titlove, podnaslove i tekst dokumenta."
+          "fulltext": "Puni tekst uključuje transkripcije, zatvorene titlove, podnaslove i tekst dokumenta.",
+          "proxy_dc_coverage": "Unesite pojam koji se odnosi na mjesto ili točku/razdoblje vremena. Na primjer, ‘1995-1996’ ili ‘Berlin’ ili ‘http://sws.geonames.org/2287781/’.",
+          "proxy_dc_date": "Unesite pojam koji se odnosi na značajan datum povezan s predmetom/predmetima. Na primjer, datum u obliku ‘GGGG-MM-DD’ ili jedna godina, ‘1919’, ili šire definicije poput ‘Početak 20. stoljeća’.",
+          "proxy_dc_rights": "Unesite pojam koji se odnosi na informacije o pravima ili licencama vezanim za predmet(e). Na primjer ‘Copyright © British Library Board’. Za filtriranje prema ponovnoj upotrebljivosti ili specifičnoj izjavi o pravima, koristite filtre ‘Mogu li ovo koristiti?’ ili ‘Rights statement’.",
+          "proxy_dcterms_created": "Unesite pojam koji se odnosi na datum stvaranja predmeta. Na primjer, bilo koji datum u obliku ‘GGGG-MM-DD’, pojedinačna godina kao ‘1919’ ili šire definicije kao ‘Rani 20. stoljeće’. Za druge datume koji bi mogli biti značajni, pretražite polja Datum, Datum izdanja ili Godina.",
+          "proxy_dcterms_hasPart": "Predmet može sadržavati druge resurse unutar sebe - unesite pojam koji identificira dio uključenih resursa. Ako je sam predmet dio drugog resursa, umjesto toga koristite polje ‘Dio je’.",
+          "proxy_dcterms_isPartOf": "Ovaj predmet može biti dio nekog drugog povezanog resursa - unesite pojam za resurs kojem ovaj predmet može pripadati. Ako sam predmet sadrži povezane resurse unutar sebe, umjesto toga koristite polje ‘Sastoji se od’.",
+          "proxy_dcterms_issued": "Unesite pojam koji se odnosi na datum izdanja ili objavljivanja predmeta/predmeta. Na primjer, bilo koji datum u obliku ‘GGGG-MM-DD’, pojedinačna godina kao ‘1919’, ili šira definicija poput ‘Početak 20. stoljeća’. Za ostale datume koji bi mogli biti značajni, pretražite polja Datum, Datum stvaranja ili Godina.",
+          "proxy_dcterms_medium": "Unesite pojam koji se odnosi na materijale korištene ili fizičku prirodu predmeta. Na primjer ‘metal’ ili ‘papir’. Za šira definiranja materijala, kao što su ‘skulptura’ ili ‘slika’, isprobajte polje ‘VRSTA MEDIJA’.",
+          "proxy_dcterms_temporal": "Unesite pojam koji se odnosi na razdoblje ili točku u vremenu na koje se predmet(i) odnose, npr. slika koja prikazuje grad u 1930. godini. Unesite na primjer ‘Rimsko Carstvo’ ili ‘Renesansa’. Za specifične datume pretražite polja Datum, Datum stvaranja, Datum izdanja ili Godina.",
+          "proxy_edm_hasMet": "Unesite pojam koji se odnosi na osobu, mjesto, vremensko razdoblje ili bilo što drugo s čime predmet(i) mogu imati usku povezanost. Na primjer ‘William Shakespeare’.",
+          "YEAR": "Unesite godinu vezanu uz predmet(e). Na primjer, ‘1919’."
         },
         "modifier": "Odaberite kako ovo polje treba izmijeniti pretraživanje.",
         "term": "Unesite pojmove koje odabrano polje sadrži ili ne sadrži."
       }
-    },
-    "boost": {
-      "placeholder": "Unesite upit za povećanje polja"
     },
     "results": {
       "limitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o suženju pretraživanja.",
@@ -1118,6 +1107,7 @@ export default {
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
+      "removeItemFromLikes": "Uklonite ovu predmet iz svojih lajkova.",
       "saveItemToLikes": "Spremite ovu predmet u svoje lajkove.",
       "update": "Ažuriraj galeriju"
     },
