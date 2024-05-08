@@ -727,6 +727,7 @@ export default {
       "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacybeleid",
       "provide": "Word een deelnemende erfgoedorganisatie",
+      "seeApiRequests": "Zie verzoeken aan Europeana API's",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
       "terms": "Voorwaarden en beleid"
     },

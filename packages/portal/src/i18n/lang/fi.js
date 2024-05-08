@@ -727,6 +727,7 @@ export default {
       "MoreInfoLabel": "Lisätietoja",
       "privacy": "Tietosuojakäytäntö",
       "provide": "Ryhdy aineiston tarjoaja",
+      "seeApiRequests": "Katso Europeana-sovellusliittymien pyynnöt",
       "subscribe": "Tilaa uutiskirjeemme",
       "terms": "Ehdot ja käytännöt"
     },

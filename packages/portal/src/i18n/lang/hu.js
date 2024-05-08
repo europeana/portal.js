@@ -726,6 +726,7 @@ export default {
       "MoreInfoLabel": "További információ",
       "privacy": "Adatvédelmi irányelvek",
       "provide": "Legyen szolgáltató intézmény",
+      "seeApiRequests": "Lásd az Europeana API-khoz intézett kérelmeket",
       "subscribe": "Iratkozzon fel hírlevelünkre",
       "terms": "Feltételek és szabályzatok"
     },

@@ -726,6 +726,7 @@ export default {
       "MoreInfoLabel": "Tuilleadh eolais",
       "privacy": "Beartas Príobháideachais",
       "provide": "Bí i d'institiúid sholáthartha",
+      "seeApiRequests": "Féach ar iarratais ar Europeana APIs",
       "subscribe": "Liostáil lenár Nuachtlitir",
       "terms": "Téarmaí & Beartais"
     },
