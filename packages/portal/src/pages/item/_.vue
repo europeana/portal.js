@@ -360,7 +360,7 @@
         const params = {};
         if (this.translatingMetadata) {
           params.profile = 'translate';
-          params.lang = this.metadataLanguage;
+          params.lang = this.translationLanguage;
         }
 
         let data;
@@ -429,7 +429,7 @@
         // Europeana proxy only really needed for the translate profile
         if (this.translatingMetadata) {
           for (const field in europeanaProxy) {
-            if (europeanaProxy[field][this.metadataLanguage]) {
+            if (europeanaProxy[field][this.translationLanguage]) {
               europeanaProxy[field].translationSource = 'automated';
             }
           }
