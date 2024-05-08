@@ -47,7 +47,7 @@
       >
         <span
           v-if="displayTitle"
-          :lang="displayTitle.code"
+          :lang="langAttribute(displayTitle.code)"
         >
           {{ truncate(displayTitle.value, 90) }}
         </span>
@@ -69,7 +69,7 @@
             v-if="displayTitle"
             title-tag="div"
             data-qa="card title"
-            :lang="displayTitle.code"
+            :lang="langAttribute(displayTitle.code)"
           >
             <SmartLink
               :destination="url"
@@ -94,7 +94,7 @@
             <b-card-text
               v-for="(text, index) in displayTexts"
               :key="index"
-              :lang="text.code"
+              :lang="langAttribute(text.code)"
               text-tag="div"
             >
               <!-- eslint-disable vue/no-v-html -->
@@ -121,6 +121,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import SmartLink from '../generic/SmartLink';
+  import langAttributeMixin from '@/mixins/langAttribute';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
   import truncateMixin from '@/mixins/truncate';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
@@ -137,6 +138,7 @@
     },
 
     mixins: [
+      langAttributeMixin,
       stripMarkdownMixin,
       truncateMixin
     ],

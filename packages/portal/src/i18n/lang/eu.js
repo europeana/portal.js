@@ -732,6 +732,7 @@ export default {
       "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
       "provide": "Bihurtu erakunde hornitzaile bat",
+      "seeApiRequests": "Ikusi Europeana APIei egindako eskaerak",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "terms": "Baldintzak eta politikak"
     },

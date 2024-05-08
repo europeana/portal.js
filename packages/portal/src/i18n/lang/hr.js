@@ -727,6 +727,7 @@ export default {
       "MoreInfoLabel": "Više informacija",
       "privacy": "Pravila o privatnosti",
       "provide": "Postanite pružanje institucija",
+      "seeApiRequests": "Pogledajte zahtjeve za Europeana API-je",
       "subscribe": "Pretplatite se na naš bilten",
       "terms": "Uvjeti i pravila"
     },

@@ -18,7 +18,8 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
     $axios: {
       get: $axiosGetStub
     },
-    $t: (val) => val,
+    $n: (num) => num,
+    $t: (key) => key,
     $i18n: { locale: 'en' },
     $route: { query: { page: 1, filter: null, sort: null } },
     $router: { push: () => {} },
@@ -39,7 +40,7 @@ const organisations = [
     prefLabel: 'museum',
     prefLabelLang: 'de',
     altLabel: 'museum',
-    altLabelLang: null,
+    altLabelLang: 'en',
     countryPrefLabel: 'Deutschland'
   },
   {
@@ -47,7 +48,7 @@ const organisations = [
     prefLabel: 'bibliotheek',
     prefLabelLang: 'nl',
     altLabel: 'library',
-    altLabelLang: null,
+    altLabelLang: 'en',
     countryPrefLabel: 'Nederland'
   }
 ];

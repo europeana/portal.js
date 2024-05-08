@@ -726,6 +726,7 @@ export default {
       "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
       "provide": "Bli en tillhandahållande institution",
+      "seeApiRequests": "Se förfrågningar till Europeana API:er",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
       "terms": "Villkor och policyer"
     },

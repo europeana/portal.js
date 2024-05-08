@@ -38,13 +38,13 @@
                     {{ $tc('galleries.galleries', 1) }}
                   </div>
                   <h1
-                    :lang="displayTitle.code"
+                    :lang="langAttribute(displayTitle.code)"
                   >
                     {{ displayTitle.values[0] }}
                   </h1>
                   <p
                     class="usergallery-description mb-3 w-75"
-                    :lang="displayDescription.code"
+                    :lang="langAttribute(displayDescription.code)"
                   >
                     {{ displayDescription.values[0] }}
                   </p>
@@ -197,8 +197,9 @@
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import redirectToMixin from '@/mixins/redirectTo';
+  import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import redirectToMixin from '@/mixins/redirectTo';
 
   export default {
     name: 'GalleryPage',
@@ -217,6 +218,7 @@
     },
     mixins: [
       entityBestItemsSetMixin,
+      langAttributeMixin,
       redirectToMixin,
       pageMetaMixin
     ],

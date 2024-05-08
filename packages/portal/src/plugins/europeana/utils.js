@@ -108,11 +108,10 @@ export const selectLocaleForLangMap = (langMap, locale) => {
  * With the setting omitUrisIfOtherValues set to true URI values will be removed if any plain text value is available.
  * With the setting omitAllUris set to true, when no other values were found all values matching the URI pattern will be
  * omitted.
- * @param {Object} The LangMap
+ * @param {Object} langMap The LangMap
  * @param {String} locale Preferred locale as a 2 letter code
  * @param {Boolean} options.omitUrisIfOtherValues Setting to prefer any value over URIs
  * @param {Boolean} options.omitAllUris Setting to remove all URIs
- * @param {Boolean} options.uiLanguage Setting to override the UI language, if it differs from the locale
  * @return {{Object[]{language: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
  */
 export function langMapValueForLocale(langMap, locale, options = {}) {
@@ -121,7 +120,7 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
     return returnVal;
   }
 
-  setLangMapValuesAndCode(returnVal, langMap, selectLocaleForLangMap(langMap, locale), options.uiLanguage || locale);
+  setLangMapValuesAndCode(returnVal, langMap, selectLocaleForLangMap(langMap, locale));
 
   let withEntities = addEntityValues(returnVal, entityValues(langMap['def'], locale));
   // In case an entity resolves as only its URI as is the case in search responses
@@ -137,16 +136,6 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
     return withEntities;
   }
   return omitUrisIfOtherValues(withEntities);
-}
-
-export function forEachLangMapValue(langMapContainer, callback) {
-  for (const field in langMapContainer) {
-    if (isLangMap(langMapContainer[field])) {
-      for (const locale in langMapContainer[field]) {
-        callback(langMapContainer, field, locale);
-      }
-    }
-  }
 }
 
 function omitUrisIfOtherValues(localizedLangmap) {
@@ -194,28 +183,28 @@ function langMapValueFromJSONLD(value, locale) {
   return forCurrentLang?.['@value'];
 }
 
-function setLangMapValuesAndCode(returnValue, langMap, key, locale) {
+function setLangMapValuesAndCode(returnValue, langMap, key) {
   if (langMap[key]) {
-    langMapValueAndCodeFromMap(returnValue, langMap, key, locale);
+    langMapValueAndCodeFromMap(returnValue, langMap, key);
   } else if (isJSONLDExpanded(langMap)) {
-    langMapValueAndCodeFromJSONLD(returnValue, langMap, key, locale);
+    langMapValueAndCodeFromJSONLD(returnValue, langMap, key);
   }
 }
 
-function langMapValueAndCodeFromMap(returnValue, langMap, key, locale) {
+function langMapValueAndCodeFromMap(returnValue, langMap, key) {
   setLangMapValues(returnValue, langMap, key);
-  setLangCode(returnValue, key, locale);
+  setLangCode(returnValue, key);
   if (undefinedLocaleCodes.includes(key)) {
     filterEntities(returnValue);
   }
 }
 
-function langMapValueAndCodeFromJSONLD(returnValue, langMap, key, locale) {
+function langMapValueAndCodeFromJSONLD(returnValue, langMap, key) {
   const matchedValue = langMapValueFromJSONLD(langMap, key);
   if (matchedValue) {
     returnValue.values = [matchedValue];
   }
-  setLangCode(returnValue, key, locale);
+  setLangCode(returnValue, key);
 }
 
 function addEntityValues(localizedLangmap, localizedEntities) {
@@ -227,13 +216,8 @@ function setLangMapValues(returnValues, langMap, key) {
   returnValues.values = [].concat(langMap[key]);
 }
 
-function setLangCode(map, key, locale) {
-  if (undefinedLocaleCodes.includes(key)) {
-    map['code'] = '';
-  } else {
-    const langCode = normalizedLangCode(key);
-    map['code'] = locale === langCode ? null : langCode; // output if different from UI language
-  }
+function setLangCode(map, key) {
+  map.code = undefinedLocaleCodes.includes(key) ? '' : normalizedLangCode(key);
 }
 
 function normalizedLangCode(key) {
@@ -298,7 +282,7 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
   options = { ...defaults, ...options };
 
   if (Array.isArray(value)) {
-    return value.map(val => reduceLangMapsForLocale(val, locale, options));
+    return value.map((val) => reduceLangMapsForLocale(val, locale, options));
   } else if (typeof value === 'object') {
     if (Object.isFrozen(value)) {
       return value;

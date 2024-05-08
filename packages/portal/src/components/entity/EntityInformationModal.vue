@@ -6,7 +6,7 @@
     hide-header-close
   >
     <template #modal-title>
-      <span :lang="title.code">
+      <span :lang="langAttribute(title.code)">
         {{ title.values[0] }}
       </span>
     </template>
@@ -22,7 +22,7 @@
         </span>
         <span
           class="semibold"
-          :lang="info.lang"
+          :lang="langAttribute(info.lang)"
         >
           <b-link
             v-if="isUrl(info.value)"
@@ -47,9 +47,12 @@
 </template>
 
 <script>
+  import langAttributeMixin from '@/mixins/langAttribute';
 
   export default {
     name: 'EntityInformationModal',
+
+    mixins: [langAttributeMixin],
 
     props: {
       modalStatic: {

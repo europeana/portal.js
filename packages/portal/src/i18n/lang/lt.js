@@ -726,6 +726,7 @@ export default {
       "MoreInfoLabel": "Daugiau informacijos",
       "privacy": "Privatumo politika",
       "provide": "Tapkite teikėjas",
+      "seeApiRequests": "Žr. Europeana API užklausas",
       "subscribe": "Užsiprenumeruokite mūsų Naujienlaiškį",
       "terms": "Sąlygos ir politika"
     },

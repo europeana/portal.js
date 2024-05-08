@@ -726,6 +726,7 @@ export default {
       "MoreInfoLabel": "Περισσότερες πληροφορίες",
       "privacy": "Πολιτική απορρήτου",
       "provide": "Γίνετε φορέας προέλευσης",
+      "seeApiRequests": "Δείτε αιτήματα προς Europeana API",
       "subscribe": "Εγγραφείτε στο ενημερωτικό μας δελτίο",
       "terms": "Όροι & Πολιτικές"
     },

@@ -726,6 +726,7 @@ export default {
       "MoreInfoLabel": "Papildinformācija",
       "privacy": "Privātuma politika",
       "provide": "Kļūsti piegādājošā iestāde",
+      "seeApiRequests": "Skatiet pieprasījumus Europeana API",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
       "terms": "Noteikumi un politikas"
     },

@@ -726,6 +726,7 @@ export default {
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Politica de Confidențialitate",
       "provide": "Devino instituție furnizoare",
+      "seeApiRequests": "Vedeți solicitările către API-urile Europeana",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "terms": "Termeni și politici"
     },
