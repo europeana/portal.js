@@ -1,4 +1,4 @@
-import codes from './codes.js';
+import codes from '@europeana/i18n/codes.js';
 
 const defaults = {
   short: {

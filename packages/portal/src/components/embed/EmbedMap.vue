@@ -29,7 +29,7 @@
 
 <script>
   import langAttributeMixin from '@/mixins/langAttribute';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n/langMap.js';
 
   export default {
     name: 'EmbedMap',

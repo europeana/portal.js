@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n/langMap.js';
   import { recordIdFromUrl } from '@/plugins/europeana/record';
 
   export default {

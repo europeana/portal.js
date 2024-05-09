@@ -1,4 +1,4 @@
-import { getLabelledSlug } from '@/plugins/europeana/utils';
+import { getLabelledSlug } from '@/plugins/europeana/utils.js';
 
 export default {
   methods: {
