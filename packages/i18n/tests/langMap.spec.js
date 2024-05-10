@@ -348,9 +348,7 @@ describe('i18n/langMap', () => {
           });
         });
       });
-    });
 
-    describe('options', () => {
       describe('omitUrisIfOtherValues', () => {
         it('omits URIs if other values', () => {
           const options = { omitUrisIfOtherValues: true };
