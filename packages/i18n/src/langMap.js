@@ -41,6 +41,8 @@ const languageKeyMap = locales.reduce((memo, locale) => {
   return memo;
 }, {});
 
+const localeFallbackKeys = undefinedLocaleCodes.concat(languageKeyMap.en);
+
 const languageKeysWithFallbacks = locales.reduce((memo, locale) => {
   memo[locale.code] = languageKeyMap[locale.code] || [];
 
@@ -55,7 +57,6 @@ const languageKeysWithFallbacks = locales.reduce((memo, locale) => {
 }, {});
 
 const languageKeys = (locale) => {
-  const localeFallbackKeys = undefinedLocaleCodes.concat(languageKeyMap.en);
   return languageKeysWithFallbacks[locale] || localeFallbackKeys;
 };
 
@@ -96,7 +97,7 @@ export const selectLocaleForLangMap = (langMap, locale) => {
  * @param {String} locale Preferred locale as a 2 letter code
  * @param {Boolean} options.omitUrisIfOtherValues Setting to prefer any value over URIs
  * @param {Boolean} options.omitAllUris Setting to remove all URIs
- * @return {{Object[]{language: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
+ * @return {{Object[]{code: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
  */
 export const langMapValueForLocale = (langMap, locale, options = {}) => {
   const returnVal = { values: [] };
@@ -106,7 +107,7 @@ export const langMapValueForLocale = (langMap, locale, options = {}) => {
 
   setLangMapValuesAndCode(returnVal, langMap, selectLocaleForLangMap(langMap, locale));
 
-  let withEntities = addEntityValues(returnVal, entityValues(langMap['def'], locale));
+  let withEntities = addEntityValues(returnVal, entityValues(langMap.def, locale));
   // In case an entity resolves as only its URI as is the case in search responses
   // as no linked entity data is returned so the prefLabel can't be retrieved.
   if (onlyUriValues(withEntities.values) && returnVal.code === '' && hasNonDefValues(langMap)) {

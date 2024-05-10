@@ -1,7 +1,9 @@
+import sinon from 'sinon';
+
 import * as langMapImports from '@/langMap';
 
 describe('i18n/langMap', () => {
-  describe('isLangMap()', () => {
+  describe('isLangMap', () => {
     it('accepts 2-letter codes', () => {
       const value = {
         en: 'English',
@@ -47,7 +49,7 @@ describe('i18n/langMap', () => {
     });
   });
 
-  describe('selectLocaleForLangMap()', () => {
+  describe('selectLocaleForLangMap', () => {
     const locale = 'en';
 
     it('first selects 2-letter code if present', () => {
@@ -186,6 +188,126 @@ describe('i18n/langMap', () => {
       const reduced = langMapImports.reduceLangMapsForLocale(value, locale);
 
       expect(reduced).toBe(value);
+    });
+  });
+
+  describe('langMapValueForLocale', () => {
+    it('first picks the two-letter language code value', () => {
+      const data = {
+        'fr-FR': 'two-letter with country',
+        def: 'default',
+        de: 'german',
+        en: 'english',
+        fr: 'two-letter',
+        fra: 'three-letter'
+      };
+
+      const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'fr');
+
+      expect(langMapValueForLocale).toEqual({
+        code: 'fr',
+        values: ['two-letter']
+      });
+    });
+
+    it('second picks the three-letter language code value', () => {
+      const data = {
+        'fr-FR': 'two-letter with country',
+        def: 'default',
+        de: 'german',
+        en: 'english',
+        fra: 'three-letter'
+      };
+
+      const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'fr');
+
+      expect(langMapValueForLocale).toEqual({
+        code: 'fr',
+        values: ['three-letter']
+      });
+    });
+
+    it('third picks the two-letter with country language code value', () => {
+      const data = {
+        'fr-FR': 'two-letter with country',
+        def: 'default',
+        de: 'german',
+        en: 'english'
+      };
+
+      const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'fr');
+
+      expect(langMapValueForLocale).toEqual({
+        // TODO: why isn't this also normalised to "fr"?
+        code: 'fr-FR',
+        values: ['two-letter with country']
+      });
+    });
+
+    it('fourth picks the English language code value', () => {
+      const data = {
+        def: 'default',
+        de: 'german',
+        en: 'english'
+      };
+
+      const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'fr');
+
+      expect(langMapValueForLocale).toEqual({
+        code: 'en',
+        values: ['english']
+      });
+    });
+
+    it('fifth picks the "undefined" language code value', () => {
+      const data = {
+        def: 'default',
+        de: 'german'
+      };
+
+      const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'fr');
+
+      expect(langMapValueForLocale).toEqual({
+        code: '',
+        values: ['default']
+      });
+    });
+
+    it('finally picks any available language code value', () => {
+      const data = {
+        de: 'german'
+      };
+
+      const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'fr');
+
+      expect(langMapValueForLocale).toEqual({
+        code: 'de',
+        values: ['german']
+      });
+    });
+  });
+
+  describe('forEachLangMapValue', () => {
+    it('calls the callback for each LangMap field and locale', () => {
+      const callback = sinon.spy();
+      const data = {
+        description: {
+          en: 'English description',
+          fr: 'French description'
+        },
+        title: {
+          en: 'English title',
+          fr: 'French title'
+        }
+      };
+
+      langMapImports.forEachLangMapValue(data, callback);
+
+      expect(callback.callCount).toBe(4);
+      expect(callback.calledWith('description', 'en')).toBe(true);
+      expect(callback.calledWith('description', 'fr')).toBe(true);
+      expect(callback.calledWith('title', 'en')).toBe(true);
+      expect(callback.calledWith('title', 'fr')).toBe(true);
     });
   });
 });
