@@ -30,7 +30,7 @@ const factory = ({ propsData = {}, data = {} } = {}) => mount(SetAddItemModal, {
     $tc: () => {},
     $i18n: {},
     $apis: {
-      set: { search: sinon.stub().resolves({ data: { items: sets } }) }
+      set: { search: sinon.stub().resolves({ items: sets }) }
     },
     $auth: { user: { sub: 'user-id' } },
     $store: {

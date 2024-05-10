@@ -200,28 +200,6 @@ describe('plugins/europeana/search', () => {
     });
 
     describe('API response', () => {
-      describe('with error', () => {
-        it('returns API error message and status code', async() => {
-          const errorMessage = 'Invalid query parameter.';
-          baseRequest()
-            .query(true)
-            .reply(400, {
-              success: false,
-              error: errorMessage
-            });
-
-          let error;
-          try {
-            await search.bind(new EuropeanaApi)({ query: 'NOT ' });
-          } catch (e) {
-            error = e;
-          }
-
-          expect(error.message).toBe(errorMessage);
-          expect(error.statusCode).toBe(400);
-        });
-      });
-
       describe('with `items`', () => {
         function searchResponse(options = {}) {
           return search.bind(new EuropeanaApi)({ query: 'painting' }, options);

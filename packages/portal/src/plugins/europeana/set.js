@@ -22,31 +22,31 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @param {Boolean} options.withMinimalItemPreviews retrieve minimal item metadata from Record API for first item in each set
    */
   async search(params, options = {}) {
-    try {
-      const response = await this.axios.get('/search', { params: { ...this.axios.defaults.params, ...params } });
+    const response = await this.request({
+      method: 'get',
+      url: '/search',
+      params
+    });
 
-      if (options.withMinimalItemPreviews && response.data.items) {
-        const itemUris = response.data.items.filter(set => set.items).map(set => set.items[0]);
+    if (options.withMinimalItemPreviews && response.items) {
+      const itemUris = response.items.filter((set) => set.items).map((set) => set.items[0]);
 
-        const minimalItemPreviews = await this.context.$apis.record.find(itemUris, {
-          profile: 'minimal',
-          rows: params.perPage ? params.perPage : 100
-        });
+      const minimalItemPreviews = await this.context.$apis.record.find(itemUris, {
+        profile: 'minimal',
+        rows: params.perPage ? params.perPage : 100
+      });
 
-        for (const set of response.data.items) {
-          if (set.items) {
-            set.items = set.items.map(uri => {
-              const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
-              return minimalItemPreviews.items.find(item => item.id === itemId) || { id: itemId };
-            });
-          }
+      for (const set of response.items) {
+        if (set.items) {
+          set.items = set.items.map((uri) => {
+            const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
+            return minimalItemPreviews.items.find(item => item.id === itemId) || { id: itemId };
+          });
         }
       }
-
-      return response;
-    } catch (error) {
-      throw this.apiError(error);
     }
+
+    return response;
   }
 
   /**
@@ -56,7 +56,7 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    */
   getLikes(creator) {
     return this.search({ query: `creator:${creator} type:BookmarkFolder` })
-      .then(response => response.data.items ? response.data.items[0] : null)
+      .then((response) => response.items?.[0] || null)
       .catch(error => {
         throw this.apiError(error);
       });
@@ -74,14 +74,13 @@ export default class EuropeanaSetApi extends EuropeanaApi {
     const defaults = {
       profile: 'standard'
     };
-    const paramsWithDefaults = { ...this.axios.defaults.params, ...defaults, ...params };
+    const paramsWithDefaults = { ...defaults, ...params };
 
-    try {
-      const response = await this.axios.get(`/${setIdFromUri(id)}`, { params: paramsWithDefaults });
-      return response.data;
-    } catch (error) {
-      throw this.apiError(error);
-    }
+    return this.request({
+      method: 'get',
+      url: `/${setIdFromUri(id)}`,
+      params: paramsWithDefaults
+    });
   }
 
   /**
@@ -100,36 +99,30 @@ export default class EuropeanaSetApi extends EuropeanaApi {
 
   /**
    * Create a set
-   * @param {Object} body Set body
+   * @param {Object} data Set body
    * @return {Object} API response data
    */
-  create(body) {
-    return this.axios.post(
-      '/',
-      body
-    )
-      .then(response => response.data)
-      .catch(error => {
-        throw this.apiError(error);
-      });
+  create(data) {
+    return this.request({
+      method: 'post',
+      url: '/',
+      data
+    });
   }
 
   /**
    * Update a set
    * @param {string} id the set's id
-   * @param {Object} body Set body
+   * @param {Object} data Set body
    * @return {Object} API response data
    */
-  update(id, body, params = {}) {
-    return this.axios.put(
-      `/${setIdFromUri(id)}`,
-      body,
-      { params }
-    )
-      .then(response => response.data)
-      .catch(error => {
-        throw this.apiError(error);
-      });
+  update(id, data, params = {}) {
+    return this.request({
+      method: 'put',
+      url: `/${setIdFromUri(id)}`,
+      data,
+      params
+    });
   }
 
   /**
@@ -138,13 +131,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   publish(id = '') {
-    return this.axios.put(
-      `/${setIdFromUri(id)}/publish`
-    )
-      .then(response => response.data)
-      .catch(error => {
-        throw this.apiError(error);
-      });
+    return this.request({
+      method: 'put',
+      url: `/${setIdFromUri(id)}/publish`
+    });
   }
 
   /**
@@ -153,13 +143,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   unpublish(id = '') {
-    return this.axios.put(
-      `/${setIdFromUri(id)}/unpublish`
-    )
-      .then(response => response.data)
-      .catch(error => {
-        throw this.apiError(error);
-      });
+    return this.request({
+      method: 'put',
+      url: `/${setIdFromUri(id)}/unpublish`
+    });
   }
 
   /**
@@ -168,13 +155,10 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   delete(id) {
-    return this.axios.delete(
-      `/${setIdFromUri(id)}`
-    )
-      .then(response => response.data)
-      .catch(error => {
-        throw this.apiError(error);
-      });
+    return this.request({
+      method: 'delete',
+      url: `/${setIdFromUri(id)}`
+    });
   }
 
   /**
@@ -186,12 +170,12 @@ export default class EuropeanaSetApi extends EuropeanaApi {
    * @return {Object} API response data
    */
   async modifyItems(action, setId, itemId, pin) {
-    const apiCall = action === 'add' ? this.axios.put : this.axios.delete;
+    const method = (action === 'add') ? 'put' : 'delete';
     const pinPos = pin ? '?position=pin' : '';
-    return apiCall(`/${setIdFromUri(setId)}${itemId}${pinPos}`)
-      .then(response => response.data)
-      .catch(error => {
-        throw this.apiError(error);
-      });
+
+    return this.request({
+      method,
+      url: `/${setIdFromUri(setId)}${itemId}${pinPos}`
+    });
   }
 }

@@ -73,6 +73,20 @@ export default class EuropeanaApi {
     return axiosInstance;
   }
 
+  request(config) {
+    return this.axios({
+      ...config,
+      params: {
+        ...this.axios.defaults.params,
+        ...config.params || {}
+      }
+    })
+      .then((response) => response.data)
+      .catch((error) => {
+        throw this.apiError(error);
+      });
+  }
+
   rewriteAxiosRequestUrl(requestConfig) {
     if (this.config.urlRewrite) {
       requestConfig.baseURL = this.config.urlRewrite;

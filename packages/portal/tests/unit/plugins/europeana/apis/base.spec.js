@@ -1,7 +1,16 @@
+import nock from 'nock';
+
 import EuropeanaApi from '@/plugins/europeana/apis/base.js';
 import EuropeanaApiEnvConfig from '@/plugins/europeana/apis/config/env.js';
 
 describe('EuropeanaApi', () => {
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+  });
+
   describe('baseURL', () => {
     let envWas;
     beforeAll(() => {
@@ -131,6 +140,49 @@ describe('EuropeanaApi', () => {
       api.rewriteAxiosRequestUrl(requestConfig);
 
       expect(requestConfig.baseURL).toEqual(urlRewrite);
+    });
+  });
+
+  describe('request', () => {
+    it('makes the http request with supplied config', async() => {
+      nock(EuropeanaApi.BASE_URL)
+        .get('/search')
+        .query((query) => query.page === '1')
+        .reply(200);
+
+      const api = new EuropeanaApi;
+      await api.request({
+        method: 'get',
+        url: '/search',
+        params: { page: '1' }
+      });
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    describe('when it errors', () => {
+      it('throws an error', async() => {
+        const errorMessage = 'Invalid syntax';
+        nock(EuropeanaApi.BASE_URL)
+          .get('/')
+          .reply(400, {
+            error: errorMessage
+          });
+
+        let error;
+        try {
+          const api = new EuropeanaApi;
+          await api.request({
+            method: 'get',
+            url: '/'
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.message).toBe(errorMessage);
+        expect(error.statusCode).toBe(400);
+      });
     });
   });
 });

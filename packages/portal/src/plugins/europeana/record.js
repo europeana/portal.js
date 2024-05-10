@@ -43,14 +43,11 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
       path = '/record';
     }
 
-    try {
-      const response = await this.axios.get(`${path}${europeanaId}.json`, {
-        params: { ...this.axios.defaults.params, ...params }
-      });
-      return response.data;
-    } catch (error) {
-      throw this.apiError(error);
-    }
+    return this.request({
+      method: 'get',
+      url: `${path}${europeanaId}.json`,
+      params
+    });
   }
 
   // TODO: move to media-proxy.js

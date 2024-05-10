@@ -52,8 +52,8 @@ export default {
         qf: `subject:${entityId}`
       });
 
-      if (searchResponse.data.total > 0) {
-        return searchResponse.data.items[0].split('/').pop();
+      if (searchResponse.total > 0) {
+        return searchResponse.items[0].split('/').pop();
       } else {
         return null;
       }
