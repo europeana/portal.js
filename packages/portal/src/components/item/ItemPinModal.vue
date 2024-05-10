@@ -223,7 +223,6 @@
 
       async pin() {
         this.selectedEntitySet.id = await this.ensureEntityBestItemsSetExists(this.selectedEntitySet?.id, this.selectedEntity);
-        console.log
         await this.pinItemToEntityBestItemsSet(this.identifier, this.selectedEntitySet.id, this.selectedEntityPrefLabelValue);
         this.selectedEntitySet.pinned.push(this.identifier);
         this.hide();
