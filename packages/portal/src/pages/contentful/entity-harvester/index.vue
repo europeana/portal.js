@@ -77,16 +77,16 @@
           return;
         }
 
-        let entityResponse;
+        let entity;
         try {
-          entityResponse = await this.$apis.entity.get(type, id);
+          entity = await this.$apis.entity.get(type, id);
         } catch (error) {
           this.showError(`Unable to harvest: ${entityUrl} Please make sure the entity can be accessed on the entity API.`);
           return;
         }
 
         try {
-          this.populateFields(entityResponse.entity, id);
+          this.populateFields(entity, id);
           this.message = 'Success';
         } catch (error) {
           this.showError(`There was a problem updating the entry. ${error.message}`);

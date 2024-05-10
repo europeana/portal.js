@@ -199,42 +199,44 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
     describe('when the section is from the set API', () => {
       const propsData = { sectionType: LATEST_GALLERIES };
       const setResponse = {
-        data: {
-          items: [
-            {
-              title: { en: 'gallery I' },
-              items: [
-                {
-                  identifier: 'item ID'
-                }
-              ]
-            },
-            {
-              title: { en: 'gallery II' },
-              items: [
-                {
-                  identifier: 'item ID'
-                }
-              ]
-            },
-            {
-              title: { en: 'gallery III' },
-              items: [
-                {
-                  identifier: 'item ID'
-                }
-              ]
-            },
-            {
-              title: { en: 'gallery IV' },
-              items: [
-                {
-                  identifier: 'item ID'
-                }
-              ]
-            }
-          ]
-        }
+        items: [
+          {
+            id: 'http://data.europeana.eu/set/1',
+            title: { en: 'gallery I' },
+            items: [
+              {
+                identifier: 'item ID'
+              }
+            ]
+          },
+          {
+            id: 'http://data.europeana.eu/set/2',
+            title: { en: 'gallery II' },
+            items: [
+              {
+                identifier: 'item ID'
+              }
+            ]
+          },
+          {
+            id: 'http://data.europeana.eu/set/3',
+            title: { en: 'gallery III' },
+            items: [
+              {
+                identifier: 'item ID'
+              }
+            ]
+          },
+          {
+            id: 'http://data.europeana.eu/set/4',
+            title: { en: 'gallery IV' },
+            items: [
+              {
+                identifier: 'item ID'
+              }
+            ]
+          }
+        ]
       };
 
       it('fetches from the set API with "withMinimalItemPreviews" and stores response items in entries', async() => {
@@ -252,7 +254,7 @@ describe('components/browse/BrowseAutomatedCardGroup', () => {
           },
           { withMinimalItemPreviews: sinon.match.truthy }
         )).toBe(true);
-        expect(wrapper.vm.entries).toEqual(setResponse.data.items);
+        expect(wrapper.vm.entries).toEqual(setResponse.items);
       });
     });
 

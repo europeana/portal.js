@@ -103,7 +103,6 @@ export default function(params, options = {}) {
   const query = params.query || '*:*';
 
   const searchParams = {
-    ...this.axios.defaults.params,
     ...localParams,
     profile: localParams.profile || '',
     qf: localParams.qf,
@@ -124,18 +123,16 @@ export default function(params, options = {}) {
     }
   }
 
-  return this.axios.get(`${options.url || ''}/search.json`, {
+  return this.request({
+    method: 'get',
+    url: `${options.url || ''}/search.json`,
     params: searchParams
   })
-    .then(response => response.data)
-    .then(data => ({
+    .then((data) => ({
       ...data,
-      items: data.items?.map(item => reduceFieldsForItem(item, localOptions)),
+      items: data.items?.map((item) => reduceFieldsForItem(item, localOptions)),
       lastAvailablePage: start + perPage > maxResults
-    }))
-    .catch((error) => {
-      throw this.apiError(error);
-    });
+    }));
 }
 
 const reduceFieldsForItem = (item, options = {}) => {

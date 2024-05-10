@@ -94,55 +94,27 @@ describe('plugins/europeana/entity', () => {
 
   describe('default export', () => {
     describe('get', () => {
-      describe('API response', () => {
-        describe('with "No resource found with ID: ..." error', () => {
-          const errorMessage = 'No resource found with ID:';
+      const apiResponse = entitiesResponse.items[0];
 
-          beforeEach(() => {
-            baseRequest()
-              .query(true)
-              .reply(404, {
-                error: errorMessage
-              });
-          });
+      beforeEach(() => {
+        baseRequest()
+          .query(true)
+          .reply(200, apiResponse);
+      });
 
-          it('throws error with API error message and status code', async() => {
-            let error;
-            try {
-              await (new api).get(entityType, entityId);
-            } catch (e) {
-              error = e;
-            }
+      it('returns entity title', async() => {
+        const entity = await (new api).get(entityType, entityId);
+        expect(entity.prefLabel.en).toBe('Architecture');
+      });
 
-            expect(error.message).toBe(errorMessage);
-            expect(error.statusCode).toBe(404);
-          });
-        });
+      it('returns entity description', async() => {
+        const entity = await (new api).get(entityType, entityId);
+        expect(entity.note.en[0]).toContain('Architecture is both the process and the product of planning');
+      });
 
-        describe('with object in response', () => {
-          const apiResponse = entitiesResponse.items[0];
-
-          beforeEach(() => {
-            baseRequest()
-              .query(true)
-              .reply(200, apiResponse);
-          });
-
-          it('returns entity title', async() => {
-            const response = await (new api).get(entityType, entityId);
-            expect(response.entity.prefLabel.en).toBe('Architecture');
-          });
-
-          it('returns entity description', async() => {
-            const response = await (new api).get(entityType, entityId);
-            expect(response.entity.note.en[0]).toContain('Architecture is both the process and the product of planning');
-          });
-
-          it('has a misspelled id and returns entity title', async() => {
-            const response = await (new api).get(entityType, entityIdMisspelled);
-            expect(response.entity.prefLabel.en).toBe('Architecture');
-          });
-        });
+      it('has a misspelled id and returns entity title', async() => {
+        const entity = await (new api).get(entityType, entityIdMisspelled);
+        expect(entity.prefLabel.en).toBe('Architecture');
       });
     });
 

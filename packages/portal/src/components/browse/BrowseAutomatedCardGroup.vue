@@ -219,7 +219,7 @@
           qf: `lang:${this.$i18n.locale}`
         };
         const response = await this.$apis.set.search(params, { withMinimalItemPreviews: true });
-        return response.data.items || [];
+        return response.items || [];
       },
       infoImageFromType(itemType) {
         return `ic-${itemType.toLowerCase()}`;

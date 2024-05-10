@@ -66,8 +66,8 @@
       };
 
       const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-      this.galleries = setResponse.data.items && this.parseSets(setResponse.data.items);
-      this.total = setResponse.data.partOf.total;
+      this.galleries = setResponse.items && this.parseSets(setResponse.items);
+      this.total = setResponse.partOf.total;
       this.perPage = PER_PAGE;
 
       this.$scrollTo?.('#header');

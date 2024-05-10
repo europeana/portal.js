@@ -117,7 +117,7 @@
         };
 
         const searchResponse = await this.$apis.set.search(searchParams);
-        this.collections = searchResponse.data.items || [];
+        this.collections = searchResponse.items || [];
         this.fetched = true;
       },
 
