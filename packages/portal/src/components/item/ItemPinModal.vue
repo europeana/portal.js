@@ -128,7 +128,10 @@
          *     'entityUri2': { id: 'setId2', pinned: ['itemUri1', 'itemUri2'] },
          *   }
          */
-        sets: []
+        sets: this.entityUris.reduce((memo, uri) => {
+          memo[uri] = this.setFactory();
+          return memo;
+        }, {})
       };
     },
 
