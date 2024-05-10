@@ -331,6 +331,56 @@ describe('i18n/langMap', () => {
         });
       });
     });
+
+    describe('options', () => {
+      describe('omitAllUris', () => {
+        it('omits all URIs from values', () => {
+          const options = { omitAllUris: true };
+          const data = {
+            def: ['http://data.europeana.eu/agent/1', 'http://data.europeana.eu/agent/2']
+          };
+
+          const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'en', options);
+
+          expect(langMapValueForLocale).toEqual({
+            code: '',
+            values: []
+          });
+        });
+      });
+    });
+
+    describe('options', () => {
+      describe('omitUrisIfOtherValues', () => {
+        it('omits URIs if other values', () => {
+          const options = { omitUrisIfOtherValues: true };
+          const data = {
+            def: ['http://data.europeana.eu/agent/1', 'other']
+          };
+
+          const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'en', options);
+
+          expect(langMapValueForLocale).toEqual({
+            code: '',
+            values: ['other']
+          });
+        });
+
+        it('keeps URIs if no other values', () => {
+          const options = { omitUrisIfOtherValues: true };
+          const data = {
+            def: ['http://data.europeana.eu/agent/1', 'http://data.europeana.eu/agent/2']
+          };
+
+          const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'en', options);
+
+          expect(langMapValueForLocale).toEqual({
+            code: '',
+            values: ['http://data.europeana.eu/agent/1', 'http://data.europeana.eu/agent/2']
+          });
+        });
+      });
+    });
   });
 
   describe('forEachLangMapValue', () => {
