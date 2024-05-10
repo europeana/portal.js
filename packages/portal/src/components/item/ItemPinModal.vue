@@ -128,7 +128,10 @@
          *     'entityUri2': { id: 'setId2', pinned: ['itemUri1', 'itemUri2'] },
          *   }
          */
-        sets: []
+        sets: this.entityUris.reduce((memo, uri) => {
+          memo[uri] = this.setFactory();
+          return memo;
+        }, {})
       };
     },
 
@@ -220,6 +223,7 @@
 
       async pin() {
         this.selectedEntitySet.id = await this.ensureEntityBestItemsSetExists(this.selectedEntitySet?.id, this.selectedEntity);
+        console.log
         await this.pinItemToEntityBestItemsSet(this.identifier, this.selectedEntitySet.id, this.selectedEntityPrefLabelValue);
         this.selectedEntitySet.pinned.push(this.identifier);
         this.hide();
