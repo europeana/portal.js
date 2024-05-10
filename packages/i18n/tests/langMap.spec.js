@@ -285,6 +285,52 @@ describe('i18n/langMap', () => {
         values: ['german']
       });
     });
+
+    describe('entity handling', () => {
+      it('uses prefLabel if present', () => {
+        const data = {
+          def: [{ about: 'http://data.europeana.eu/agent/1', prefLabel: { en: 'english label', es: 'spanish label' } }],
+          en: 'english',
+          es: 'spanish'
+        };
+
+        const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'en');
+
+        expect(langMapValueForLocale).toEqual({
+          code: 'en',
+          values: [
+            'english',
+            {
+              about: 'http://data.europeana.eu/agent/1',
+              code: 'en',
+              values: ['english label']
+            }
+          ]
+        });
+      });
+
+      it('uses URI in `about` if no prefLabel present', () => {
+        const data = {
+          def: [{ about: 'http://data.europeana.eu/agent/1' }],
+          en: 'english',
+          es: 'spanish'
+        };
+
+        const langMapValueForLocale = langMapImports.langMapValueForLocale(data, 'en');
+
+        expect(langMapValueForLocale).toEqual({
+          code: 'en',
+          values: [
+            'english',
+            {
+              about: 'http://data.europeana.eu/agent/1',
+              code: '',
+              values: ['http://data.europeana.eu/agent/1']
+            }
+          ]
+        });
+      });
+    });
   });
 
   describe('forEachLangMapValue', () => {
