@@ -149,8 +149,8 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
   import {
-    isLangMap, langMapValueForLocale, reduceLangMapsForLocale, undefinedLocaleCodes
-  } from  '@/plugins/europeana/utils';
+    forEachLangMapValue, isLangMap, langMapValueForLocale, reduceLangMapsForLocale, undefinedLocaleCodes
+  } from  '@europeana/i18n/src/langMap.js';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/mixins/stringify';
@@ -397,16 +397,6 @@
         process.client && this.trackCustomDimensions();
       },
 
-      forEachLangMapValue(langMapContainer, callback) {
-        for (const field in langMapContainer) {
-          if (isLangMap(langMapContainer[field])) {
-            for (const locale in langMapContainer[field]) {
-              callback(field, locale);
-            }
-          }
-        }
-      },
-
       findProxy(proxies, type) {
         return proxies.find(proxy => proxy.about?.startsWith(`/proxy/${type}/`));
       },
@@ -434,7 +424,7 @@
             }
           }
         } else {
-          this.forEachLangMapValue(europeanaProxy, (field, locale) => {
+          forEachLangMapValue(europeanaProxy, (field, locale) => {
             if (!undefinedLocaleCodes.includes(locale)) {
               delete europeanaProxy[field][locale];
             }
@@ -488,7 +478,7 @@
           europeanaProxy
         ]);
 
-        this.forEachLangMapValue(metadataSources, (field, locale) => {
+        forEachLangMapValue(metadataSources, (field, locale) => {
           if (Array.isArray(metadataSources[field][locale]) && metadataSources[field][locale].length > this.MAX_VALUES_PER_METADATA_FIELD) {
             metadataSources[field][locale] = metadataSources[field][locale].slice(0, this.MAX_VALUES_PER_METADATA_FIELD).concat('…');
           }

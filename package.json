@@ -34,6 +34,7 @@
   },
   "resolutions": {
     "@europeana/contentful": "link:./packages/contentful",
+    "@europeana/i18n": "link:./packages/i18n",
     "@europeana/mirador": "link:./packages/mirador",
     "@europeana/oembed": "link:./packages/oembed",
     "@europeana/portal": "link:./packages/portal",

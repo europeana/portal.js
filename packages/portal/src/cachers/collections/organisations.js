@@ -4,7 +4,7 @@ import { isEntityUri } from '../../plugins/europeana/entity.js';
 import uniq from 'lodash/uniq.js';
 // TODO: remove and uninstall when deprecated after API released with place references for countries
 import countryCodes from 'i18n-iso-countries';
-import localeCodes from '../../i18n/codes.js';
+import localeCodes from '@europeana/i18n/src/codes.js';
 
 const PICK = ['slug', 'recordCount', 'prefLabel', 'countryPrefLabel'];
 const LOCALISE = 'countryPrefLabel';

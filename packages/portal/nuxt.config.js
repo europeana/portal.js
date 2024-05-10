@@ -10,7 +10,7 @@ const APP_PKG_NAME = '@europeana/portal';
 
 import versions from './pkg-versions.js';
 
-import i18nLocales from './src/i18n/locales.js';
+import i18nLocales from '@europeana/i18n/src/locales.js';
 import i18nDateTime from './src/i18n/datetime.js';
 import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
@@ -322,7 +322,7 @@ export default {
     // WARN: do not move this to buildModules, else custom transaction naming
     //       by elastic-apm module won't be applied.
     ['@nuxtjs/i18n', {
-      locales: i18nLocales,
+      locales: i18nLocales.map((locale) => ({ ...locale, file: `${locale.code}.js` })),
       baseUrl: ({ $config }) => $config.app.baseUrl,
       defaultLocale: 'en',
       lazy: true,
@@ -471,6 +471,7 @@ export default {
     // same with some of our custom packages
     transpile: [
       'dom7',
+      '@europeana/i18n',
       '@europeana/oembed',
       '@europeana/vue-visible-on-scroll',
       'ssr-window',

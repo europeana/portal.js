@@ -37,7 +37,7 @@
 <script>
   import SmartLink from './SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
 
   export default {
     name: 'LinkBadge',

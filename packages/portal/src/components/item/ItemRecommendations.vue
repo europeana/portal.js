@@ -34,7 +34,7 @@
 
 <script>
   import { addContentTierFilter } from '@/plugins/europeana/search';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import keycloakMixin from '@/mixins/keycloak';
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';

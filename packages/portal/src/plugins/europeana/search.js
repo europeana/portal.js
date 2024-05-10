@@ -1,12 +1,11 @@
 /**
- * @file Interface to Europeana Record Search API
+ * @file Interface to Europeana Record API search method
  */
 
 import pick from 'lodash/pick.js';
 
-import {
-  escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
-} from './utils.js';
+import { isLangMap, reduceLangMapsForLocale } from '@europeana/i18n/src/langMap.js';
+import { escapeLuceneSpecials } from './utils.js';
 import { truncate } from '../../mixins/truncate.js';
 
 // Some facets do not support enquoting of their field values.
