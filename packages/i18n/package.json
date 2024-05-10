@@ -4,12 +4,6 @@
   "description": "Europeana i18n",
   "license": "EUPL-1.2",
   "type": "module",
-  "exports": {
-    ".": "./src/index.js",
-    "./codes.js": "./src/codes.js",
-    "./langMap.js": "./src/langMap.js",
-    "./locales.js": "./src/locales.js"
-  },
   "main": "./src/index.js",
   "dependencies": {}
 }

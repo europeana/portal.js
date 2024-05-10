@@ -110,7 +110,7 @@
   import SmartLink from '../generic/SmartLink';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import { langMapValueForLocale } from '@europeana/i18n/langMap.js';
+  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
 
   export default {
     name: 'EntityTable',

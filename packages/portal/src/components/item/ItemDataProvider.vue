@@ -47,7 +47,7 @@
 
 <script>
   import { isEntityUri } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale } from '@europeana/i18n/langMap.js';
+  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';

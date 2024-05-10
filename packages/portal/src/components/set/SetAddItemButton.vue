@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from '@europeana/i18n/langMap.js';
+  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
 
   export default {
     name: 'SetAddItemButton',
