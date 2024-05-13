@@ -59,7 +59,8 @@
     "stylelint": "^14.1.0",
     "stylelint-config-recommended-scss": "^7.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",
-    "vue": "^2.7.10"
+    "vue": "^2.7.16",
+    "webpack": "^4.47.0"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
