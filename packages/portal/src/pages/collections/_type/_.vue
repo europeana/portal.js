@@ -78,7 +78,7 @@
 
   import {
     getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
-  } from '@/plugins/europeana/entity';
+  } from '@europeana/apis/src/apis/entity/index.js';
   import { langMapValueForLocale, uriRegex } from  '@europeana/i18n/src/langMap.js';
 
   export default {

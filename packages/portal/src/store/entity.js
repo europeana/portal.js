@@ -1,4 +1,4 @@
-import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from '@/plugins/europeana/data.js';
+import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from '@europeana/apis/src/apis/data.js';
 
 const itemUri = (itemId) => {
   return itemId.startsWith(EUROPEANA_DATA_URL_ITEM_PREFIX) ? itemId : `${EUROPEANA_DATA_URL_ITEM_PREFIX}${itemId}`;

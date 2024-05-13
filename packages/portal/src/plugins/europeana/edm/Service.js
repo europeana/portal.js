@@ -1,4 +1,4 @@
-import { IIIF_IMAGE_API_URL } from '../iiif/index.js';
+import { IIIF_PRESENTATION_API_URL } from '@europeana/apis/src/apis/iiif/index.js';
 import Base from './Base.js';
 
 export default class Service extends Base {

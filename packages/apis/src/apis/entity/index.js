@@ -1,7 +1,7 @@
 import md5 from 'md5';
 
-import EuropeanaApi from './apis/base.js';
-import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
+import EuropeanaApi from '../base.js';
+import { BASE_URL as EUROPEANA_DATA_URL } from '../data.js';
 
 export const ENTITY_TYPES = [
   { id: 'agent', qf: 'edm_agent', slug: 'person' },

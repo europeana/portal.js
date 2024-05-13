@@ -101,7 +101,7 @@
     EUROPEANA_SET_VISIBILITY_PRIVATE,
     EUROPEANA_SET_VISIBILITY_PUBLIC,
     EUROPEANA_SET_VISIBILITY_PUBLISHED
-  } from '@/plugins/europeana/set';
+  } from '@europeana/apis/src/apis/set.js';
 
   export default {
     name: 'SetFormModal',

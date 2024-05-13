@@ -1,3 +1,4 @@
+import EuropeanaApi from './base.js';
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 
 // TODO: move to static properties of class?
@@ -6,8 +7,6 @@ export const EUROPEANA_SET_VISIBILITY_PUBLIC = 'public';
 export const EUROPEANA_SET_VISIBILITY_PUBLISHED = 'published';
 
 const setIdFromUri = (uri) => uri.split('/').pop();
-
-import EuropeanaApi from './apis/base.js';
 
 export default class EuropeanaSetApi extends EuropeanaApi {
   static ID = 'set';

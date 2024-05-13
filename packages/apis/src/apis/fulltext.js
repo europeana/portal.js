@@ -1,4 +1,4 @@
-import EuropeanaApi from './apis/base.js';
+import EuropeanaApi from './base.js';
 
 export default class EuropeanaFulltextApi extends EuropeanaApi {
   static ID = 'fulltext';

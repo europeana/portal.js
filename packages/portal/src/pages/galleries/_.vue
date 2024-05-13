@@ -191,7 +191,7 @@
   import {
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
     SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
-  } from '@/plugins/europeana/data';
+  } from '@europeana/apis/src/apis/data.js';
   import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import ShareButton from '@/components/share/ShareButton.vue';

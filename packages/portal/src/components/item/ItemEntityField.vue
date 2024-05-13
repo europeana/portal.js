@@ -17,7 +17,7 @@
 <script>
   import SmartLink from '../generic/SmartLink';
 
-  import { isEntityUri, entityParamsFromUri } from '@/plugins/europeana/entity';
+  import { isEntityUri, entityParamsFromUri } from '@europeana/apis/src/apis/entity/index.js';
 
   export default {
     name: 'ItemEntityField',

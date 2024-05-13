@@ -88,7 +88,7 @@
   import LoadingSpinner from '../generic/LoadingSpinner';
   import ContentCard from '../content/ContentCard';
   import PaginationNavInput from '../generic/PaginationNavInput';
-  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import { getLabelledSlug } from '@europeana/utils';
 
   export default {
     name: 'UserSets',

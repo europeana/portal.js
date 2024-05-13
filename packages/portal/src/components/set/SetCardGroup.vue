@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import { getLabelledSlug } from '@europeana/utils';
 
   export default {
     name: 'SetCardGroup',

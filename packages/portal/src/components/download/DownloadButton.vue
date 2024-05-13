@@ -23,7 +23,7 @@
   import LoadingSpinner from '../generic/LoadingSpinner';
   import canonicalUrlMixin from '@/mixins/canonicalUrl';
   import logEventMixin from '@/mixins/logEvent';
-  import { ITEM_URL_PREFIX } from '@/plugins/europeana/data.js';
+  import { ITEM_URL_PREFIX } from '@europeana/apis/src/apis/data.js';
 
   export default {
     name: 'DownloadButton',

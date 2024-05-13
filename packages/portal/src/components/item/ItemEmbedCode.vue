@@ -28,7 +28,7 @@
 
 <script>
   import { oEmbedForEndpoint } from '@europeana/oembed';
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@europeana/apis/src/apis/data.js';
 
   export default {
     name: 'ItemEmbedCode',

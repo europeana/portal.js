@@ -1,8 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import { keycloakResponseErrorHandler } from '../auth.js';
-import EuropeanaApiContextConfig from './config/context.js';
+import { keycloakResponseErrorHandler } from '../utils/auth.js';
+import EuropeanaApiContextConfig from '../config/context.js';
 
 export default class EuropeanaApi {
   static ID;

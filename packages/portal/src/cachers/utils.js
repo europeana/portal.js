@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { createClient } from 'redis';
 import _pick from 'lodash/pick.js';
-import { daily } from '../plugins/europeana/utils.js';
+import { daily } from '@europeana/utils';
 import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
-import EuropeanaRecordApi from '../plugins/europeana/record.js';
-import EuropeanaEntityApi from '../plugins/europeana/entity.js';
+import EuropeanaRecordApi from '@europeana/apis/src/apis/record/index.js';
+import EuropeanaEntityApi from '@europeana/apis/src/apis/entity/index.js';
 
 const createRedisClient = (config = {}) => {
   const redisClient = createClient(config);

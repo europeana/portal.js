@@ -1,5 +1,6 @@
 import kebabCase from 'lodash/kebabCase.js';
 
+// TODO: this is all very nuxt-specific
 export default class EuropeanaApiContextConfig {
   constructor(id, context = {}) {
     this.id = id;

@@ -22,8 +22,7 @@
   import ContentCardSection from '../content/ContentCardSection';
   import ItemTrendingItems from '@/components/item/ItemTrendingItems';
   import BrowseInfoCardSection from './BrowseInfoCardSection';
-  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
-  import { daily } from '@/plugins/europeana/utils';
+  import { daily, getLabelledSlug } from '@europeana/utils';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';

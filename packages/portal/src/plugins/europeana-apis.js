@@ -1,33 +1,11 @@
 // TODO: refactor to not be a plugin, to reduce the weight of pages not using
 //       it, e.g. the homepage?
 
-import EuropeanaApiEnvConfig from './europeana/apis/config/env.js';
+import EuropeanaApiEnvConfig from '@europeana/apis/src/config/env.js';
 
-import annotation from './europeana/annotation.js';
-import entity from './europeana/entity.js';
-import entityManagement from './europeana/entity-management.js';
-import fulltext from './europeana/fulltext.js';
-import iiifPresentation from './europeana/iiif/presentation.js';
-import mediaProxy from './europeana/media-proxy.js';
-import recommendation from './europeana/recommendation.js';
-import record from './europeana/record.js';
-import set from './europeana/set.js';
-import thumbnail from './europeana/thumbnail.js';
+import APIS from '@europeana/apis';
 
 const MODULE_NAME = 'apis';
-
-export const APIS = {
-  annotation,
-  entity,
-  entityManagement,
-  fulltext,
-  iiifPresentation,
-  mediaProxy,
-  recommendation,
-  record,
-  set,
-  thumbnail
-};
 
 export const API_IDS = Object.keys(APIS);
 

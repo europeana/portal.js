@@ -4,9 +4,3 @@ export const truncate = (text, length = 30) => {
   }
   return text.length > length ? text.substring(0, length) + '…' : text;
 };
-
-export default {
-  methods: {
-    truncate
-  }
-};

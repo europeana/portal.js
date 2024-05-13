@@ -123,7 +123,7 @@
   import SmartLink from '../generic/SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
-  import truncateMixin from '@/mixins/truncate';
+  import { truncate } from '@europeana/utils';
   import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
 
   const HIT_TEXT_AFFIX_MAX_WORDS = 15;
@@ -139,8 +139,7 @@
 
     mixins: [
       langAttributeMixin,
-      stripMarkdownMixin,
-      truncateMixin
+      stripMarkdownMixin
     ],
 
     props: {
@@ -428,6 +427,10 @@
         const joined = limited.join('; ');
         const stripped = this.stripMarkdown(joined);
         return this.truncate(stripped, 255);
+      },
+
+      truncate() {
+        return truncate(...arguments);
       },
 
       redrawMasonry() {

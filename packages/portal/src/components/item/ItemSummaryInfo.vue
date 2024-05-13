@@ -76,8 +76,8 @@
 
 <script>
   import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
+  import { truncate } from '@europeana/utils';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import truncateMixin from '@/mixins/truncate';
 
   export default {
     name: 'ItemSummaryInfo',
@@ -87,8 +87,7 @@
     },
 
     mixins: [
-      langAttributeMixin,
-      truncateMixin
+      langAttributeMixin
     ],
 
     props: {
@@ -114,7 +113,7 @@
       },
       truncatedDescription() {
         if (this.description?.values) {
-          return this.truncate(this.description.values[0], this.limitCharacters);
+          return truncate(this.description.values[0], this.limitCharacters);
         }
         return false;
       },

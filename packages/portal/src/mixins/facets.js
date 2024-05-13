@@ -1,5 +1,5 @@
 import themes from '@/plugins/europeana/themes';
-import { unescapeLuceneSpecials } from '@/plugins/europeana/utils';
+import { unescapeLuceneSpecials } from '@europeana/utils';
 
 const translateWithFallbackOrNull = (scope, key, callback) => {
   let translation = null;

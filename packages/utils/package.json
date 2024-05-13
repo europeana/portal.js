@@ -1,0 +1,14 @@
+{
+  "name": "@europeana/utils",
+  "version": "1.149.4",
+  "description": "Europeana utilities",
+  "license": "EUPL-1.2",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

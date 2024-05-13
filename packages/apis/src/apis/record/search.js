@@ -5,8 +5,7 @@
 import pick from 'lodash/pick.js';
 
 import { isLangMap, reduceLangMapsForLocale } from '@europeana/i18n/src/langMap.js';
-import { escapeLuceneSpecials } from './utils.js';
-import { truncate } from '../../mixins/truncate.js';
+import { escapeLuceneSpecials, truncate } from '@europeana/utils';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [

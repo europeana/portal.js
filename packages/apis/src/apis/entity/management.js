@@ -1,6 +1,6 @@
-import EuropeanaApi from './apis/base.js';
-import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
-import EuropeanaEntityApi from './entity.js';
+import EuropeanaApi from '../base.js';
+import EuropeanaEntityApi from './index.js';
+import { BASE_URL as EUROPEANA_DATA_URL } from '../data.js';
 
 export default class EuropeanaEntityManagementApi extends EuropeanaApi {
   static ID = 'entityManagement';

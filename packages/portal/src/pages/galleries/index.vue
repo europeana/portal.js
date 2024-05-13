@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import { getLabelledSlug } from '@europeana/utils';
   import ContentHubPage from '@/components/content/ContentHubPage.vue';
   import pageMetaMixin from '@/mixins/pageMeta';
 

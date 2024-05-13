@@ -34,7 +34,7 @@
 
 <script>
   import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
-  import { recordIdFromUrl } from '@/plugins/europeana/record';
+  import { recordIdFromUrl } from '@europeana/apis/src/apis/record/index.js';
 
   export default {
     name: 'ContentfulRecordHarvesterPage',

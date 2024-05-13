@@ -8,8 +8,8 @@
 </template>
 
 <script>
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import { getEntityUri, getEntityQuery, getEntityTypeApi, normalizeEntityId } from '@/plugins/europeana/entity';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@europeana/apis/src/apis/data.js';
+  import { getEntityUri, getEntityQuery, getEntityTypeApi, normalizeEntityId } from '@europeana/apis/src/apis/entity/index.js';
 
   import RelatedCollectionsCard from '@/components/related/RelatedCollectionsCard';
 

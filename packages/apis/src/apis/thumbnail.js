@@ -1,6 +1,6 @@
 import md5 from 'md5';
 
-import EuropeanaApi from './apis/base.js';
+import EuropeanaApi from './base.js';
 
 export default class EuropeanaThumbnailApi extends EuropeanaApi {
   static ID = 'thumbnail';

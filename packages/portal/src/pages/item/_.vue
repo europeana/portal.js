@@ -147,7 +147,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox from '@/components/metadata/MetadataBox';
 
-  import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
+  import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@europeana/apis/src/apis/data.js';
   import {
     forEachLangMapValue, isLangMap, langMapValueForLocale, reduceLangMapsForLocale, undefinedLocaleCodes
   } from  '@europeana/i18n/src/langMap.js';

@@ -1,11 +1,9 @@
 import md5 from 'md5';
 
-import EuropeanaApi from './apis/base.js';
-
+import EuropeanaApi from '../base.js';
 import search from './search.js';
-
-import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
-import EuropeanaMediaProxyApi from './media-proxy.js';
+import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from '../data.js';
+import EuropeanaMediaProxyApi from '../mediaProxy.js';
 
 export default class EuropeanaRecordApi extends EuropeanaApi {
   static ID = 'record';

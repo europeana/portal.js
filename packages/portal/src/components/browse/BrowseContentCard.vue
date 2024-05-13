@@ -17,9 +17,9 @@
 
 <script>
   import ContentCard from '../content/ContentCard';
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import { isEuropeanaRecordId } from '@/plugins/europeana/record';
-  import { getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@europeana/apis/src/apis/data.js';
+  import { isEuropeanaRecordId } from '@europeana/apis/src/apis/record/index.js';
+  import { getEntityTypeHumanReadable } from '@europeana/apis/src/apis/entity/index.js';
 
   export default {
     components: {
