@@ -11,7 +11,6 @@ export {
   uriRegex
 } from './langMap.js';
 
-
 export {
   codes,
   locales
