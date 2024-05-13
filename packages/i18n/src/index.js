@@ -1,9 +1,18 @@
 import codes from './codes.js';
-import langMap from './langMap.js';
 import locales from './locales.js';
 
-export default {
+export {
+  forEachLangMapValue,
+  isLangMap,
+  langMapValueForLocale,
+  reduceLangMapsForLocale,
+  selectLocaleForLangMap,
+  undefinedLocaleCodes,
+  uriRegex
+} from './langMap.js';
+
+
+export {
   codes,
-  langMap,
   locales
 };

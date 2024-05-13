@@ -14,7 +14,7 @@
 
 <script>
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
-  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
+  import { langMapValueForLocale } from '@europeana/i18n';
   import { recordIdFromUrl } from '@/plugins/europeana/record';
   import { BASE_URL } from '@/plugins/europeana/data';
 

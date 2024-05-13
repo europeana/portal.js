@@ -5,5 +5,8 @@
   "license": "EUPL-1.2",
   "type": "module",
   "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
   "dependencies": {}
 }

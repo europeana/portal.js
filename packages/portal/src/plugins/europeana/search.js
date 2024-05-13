@@ -4,7 +4,7 @@
 
 import pick from 'lodash/pick.js';
 
-import { isLangMap, reduceLangMapsForLocale } from '@europeana/i18n/src/langMap.js';
+import { isLangMap, reduceLangMapsForLocale } from '@europeana/i18n';
 import { escapeLuceneSpecials } from './utils.js';
 import { truncate } from '../../mixins/truncate.js';
 

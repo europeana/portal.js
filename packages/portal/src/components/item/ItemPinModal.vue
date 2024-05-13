@@ -76,7 +76,7 @@
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
   import makeToastMixin from '@/mixins/makeToast';
-  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemPinModal',
