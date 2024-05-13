@@ -103,7 +103,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
+  import { langMapValueForLocale } from '@europeana/i18n';
   import axios from 'axios';
 
   export default {

@@ -10,7 +10,7 @@ const APP_PKG_NAME = '@europeana/portal';
 
 import versions from './pkg-versions.js';
 
-import i18nLocales from '@europeana/i18n/src/locales.js';
+import { locales as i18nLocales } from '@europeana/i18n';
 import i18nDateTime from './src/i18n/datetime.js';
 import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
