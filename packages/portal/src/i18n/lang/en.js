@@ -1164,9 +1164,6 @@ export default {
       "saveItemToLikes": "Save this item to your Likes.",
       "update": "Update gallery"
     },
-    "entityBestBets": {
-      "title": "{entity} Page"
-    },
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
