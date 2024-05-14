@@ -2,7 +2,7 @@
 
 import qs from 'qs';
 
-import { unquotableFacets } from '@europeana/apis/src/apis/record/search.js';
+import { unquotableFacets } from '@/utils/europeana/search.js';
 import { escapeLuceneSpecials } from '@europeana/utils';
 
 export const collectionToThemeMap = {

@@ -17,7 +17,7 @@
 
 <script>
   import ContentCard from '../content/ContentCard';
-  import { isEuropeanaRecordId } from '@europeana/apis/src/apis/record/index.js';
+  import { isEuropeanaRecordId } from '@/utils/europeana/record.js';
   import { getEntityTypeHumanReadable } from '@/utils/europeana/entity.js';
 
   export default {

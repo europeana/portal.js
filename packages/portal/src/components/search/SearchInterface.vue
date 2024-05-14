@@ -172,7 +172,7 @@
 
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import makeToastMixin from '@/mixins/makeToast';
-  import { addContentTierFilter, filtersFromQf } from '@europeana/apis/src/apis/record/search.js';
+  import { addContentTierFilter, filtersFromQf } from '@/utils/europeana/search.js';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
 
   export default {

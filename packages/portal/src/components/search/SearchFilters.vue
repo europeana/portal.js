@@ -112,7 +112,7 @@
 <script>
   import { BAlert } from 'bootstrap-vue';
   import isEqual from 'lodash/isEqual';
-  import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@europeana/apis/src/apis/record/search.js';
+  import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/utils/europeana/search.js';
   import themes from '@/plugins/europeana/themes';
   import SearchFacetDropdown from './SearchFacetDropdown';
 

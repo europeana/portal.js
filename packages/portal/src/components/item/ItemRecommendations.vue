@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import { addContentTierFilter } from '@europeana/apis/src/apis/record/search.js';
+  import { addContentTierFilter } from '@/utils/europeana/search.js';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import keycloakMixin from '@/mixins/keycloak';
