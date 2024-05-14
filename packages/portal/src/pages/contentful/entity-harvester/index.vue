@@ -101,7 +101,7 @@
       },
 
       entityParamsFromUrl(url) {
-        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, this.$apis.data.BASE_URL);
+        url = url.replace(/^https?:\/\/api\.europeana\.eu\/entity/, this.$apis.data.constructor.BASE_URL);
         if (isEntityUri(url)) {
           return entityParamsFromUri(url);
         }

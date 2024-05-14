@@ -88,7 +88,7 @@
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
-          .filter(collection => (collection.items || []).some(item => item.replace(this.$apis.data.ITEM_URL_PREFIX, '') === this.itemId))
+          .filter(collection => (collection.items || []).some(item => item.replace(this.$apis.data.constructor.ITEM_URL_PREFIX, '') === this.itemId))
           .map(collection => collection.id);
       }
     },
@@ -135,7 +135,7 @@
             this.added = this.added.filter(id => id !== setId);
           } else {
             await this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
-            this.logEvent('add', `${this.$apis.data.ITEM_URL_PREFIX}${this.itemId}`);
+            this.logEvent('add', `${this.$apis.data.constructor.ITEM_URL_PREFIX}${this.itemId}`);
             this.added.push(setId);
           }
         } catch (e) {

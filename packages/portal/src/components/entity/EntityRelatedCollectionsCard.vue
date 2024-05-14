@@ -61,7 +61,7 @@
           return memo;
         }, [])
         .filter(uri => {
-          if (!uri.startsWith(this.$apis.data.BASE_URL)) {
+          if (!uri.startsWith(this.$apis.data.constructor.BASE_URL)) {
             return false;
           }
           return uri !== this.entityUri;

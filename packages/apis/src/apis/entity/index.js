@@ -3,18 +3,17 @@ import md5 from 'md5';
 import EuropeanaApi from '../base.js';
 import EuropeanaDataApi from '../data.js';
 
-export const ENTITY_TYPES = [
-  { id: 'agent', qf: 'edm_agent', slug: 'person' },
-  { id: 'concept', qf: 'skos_concept', slug: 'topic' },
-  { id: 'organization', qf: 'foaf_organization', slug: 'organisation' },
-  { id: 'place', qf: 'edm_place', slug: 'place' },
-  { id: 'timespan', qf: 'edm_timespan', slug: 'time' }
-];
-
 export default class EuropeanaEntityApi extends EuropeanaApi {
   static ID = 'entity';
   static BASE_URL = 'https://api.europeana.eu/entity';
   static AUTHENTICATING = true;
+  static ENTITY_TYPES = [
+    { id: 'agent', qf: 'edm_agent', slug: 'person' },
+    { id: 'concept', qf: 'skos_concept', slug: 'topic' },
+    { id: 'organization', qf: 'foaf_organization', slug: 'organisation' },
+    { id: 'place', qf: 'edm_place', slug: 'place' },
+    { id: 'timespan', qf: 'edm_timespan', slug: 'time' }
+  ];
 
   /**
    * Get data for one entity from the API
@@ -135,7 +134,7 @@ export function getEntityQuery(uri) {
       .join(' OR ');
   }
 
-  const type = ENTITY_TYPES.find((type) => uri.includes(`/${type.id}/`));
+  const type = EuropeanaEntityApi.ENTITY_TYPES.find((type) => uri.includes(`/${type.id}/`));
 
   if (type) {
     return `${type.qf}:"${uri}"`;
@@ -152,7 +151,7 @@ export function getEntityQuery(uri) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri) {
-  const types = ENTITY_TYPES.map((type) => type.id);
+  const types = EuropeanaEntityApi.ENTITY_TYPES.map((type) => type.id);
   return RegExp(`^${EuropeanaDataApi.BASE_URL}/(${types.join('|')})/\\d+$`).test(uri);
 }
 
@@ -162,7 +161,7 @@ export function isEntityUri(uri) {
  * @return {string} retrieved API name of type
  */
 export function getEntityTypeApi(slug) {
-  return ENTITY_TYPES.find((type) => type.slug === slug)?.id || null;
+  return EuropeanaEntityApi.ENTITY_TYPES.find((type) => type.slug === slug)?.id || null;
 }
 
 /**
@@ -171,7 +170,7 @@ export function getEntityTypeApi(slug) {
  * @return {string} retrieved human readable name of type
  */
 export function getEntityTypeHumanReadable(id) {
-  return ENTITY_TYPES.find((type) => type.id === id.toLowerCase())?.slug || null;
+  return EuropeanaEntityApi.ENTITY_TYPES.find((type) => type.id === id.toLowerCase())?.slug || null;
 }
 
 /**

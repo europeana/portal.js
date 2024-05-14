@@ -246,7 +246,7 @@
         return this.metadata.edmRights?.def[0] || '';
       },
       europeanaEntities() {
-        return this.entities.filter((entity) => entity.about.startsWith(`${this.$apis.data.BASE_URL}/`));
+        return this.entities.filter((entity) => entity.about.startsWith(`${this.$apis.data.constructor.BASE_URL}/`));
       },
       europeanaEntityUris() {
         return this.europeanaEntities
@@ -334,7 +334,7 @@
     mounted() {
       this.fetchEntities();
       this.fetchAnnotations();
-      this.logEvent('view', `${this.$apis.data.ITEM_URL_PREFIX}${this.identifier}`);
+      this.logEvent('view', `${this.$apis.data.constructor.ITEM_URL_PREFIX}${this.identifier}`);
       if (!this.$fetchState.error && !this.$fetchState.pending) {
         this.trackCustomDimensions();
       }

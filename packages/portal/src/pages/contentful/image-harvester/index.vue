@@ -101,7 +101,7 @@
 
         const license = edmIsShownByWebResource?.webResourceEdmRights?.def?.[0] || providerAggregation.edmRights.def?.[0];
 
-        const url = `${this.$apis.data.BASE_URL}/item${item.about}`;
+        const url = `${this.$apis.data.constructor.BASE_URL}/item${item.about}`;
 
         this.entry.fields.name?.setValue(name, locale);
         this.entry.fields.creator?.setValue(creator, locale);

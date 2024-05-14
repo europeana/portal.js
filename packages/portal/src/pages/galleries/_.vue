@@ -352,13 +352,13 @@
       async reorderItems(items) {
         try {
           await this.$store.dispatch('set/update', {
-            id: `${this.$apis.data.SET_URL_PREFIX}/${this.setId}`,
+            id: `${this.$apis.data.constructor.SET_URL_PREFIX}/${this.setId}`,
             body: {
               type: this.set.type,
               title: this.set.title,
               description: this.set.description,
               visibility: this.set.visibility,
-              items: items.map(item => `${this.$apis.data.ITEM_URL_PREFIX}${item.id}`)
+              items: items.map(item => `${this.$apis.data.constructor.ITEM_URL_PREFIX}${item.id}`)
             },
             params: { profile: 'standard' }
           });

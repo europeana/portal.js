@@ -104,7 +104,7 @@
 
         try {
           await this.$store.dispatch('set/like', this.identifier);
-          this.logEvent('like', `${this.$apis.data.ITEM_URL_PREFIX}${this.identifier}`);
+          this.logEvent('like', `${this.$apis.data.constructor.ITEM_URL_PREFIX}${this.identifier}`);
           this.$matomo?.trackEvent('Item_like', 'Click like item button', this.identifier);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
