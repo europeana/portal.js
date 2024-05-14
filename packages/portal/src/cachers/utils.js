@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { createClient } from 'redis';
 import _pick from 'lodash/pick.js';
+
 import { daily } from '@europeana/utils';
-import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
+import { langMapValueForLocale } from '@europeana/i18n';
 import EuropeanaRecordApi from '@europeana/apis/src/apis/record/index.js';
 import EuropeanaEntityApi from '@europeana/apis/src/apis/entity/index.js';
 

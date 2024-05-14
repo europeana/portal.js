@@ -4,7 +4,7 @@
 
 import pick from 'lodash/pick.js';
 
-import { isLangMap, reduceLangMapsForLocale } from '@europeana/i18n/src/langMap.js';
+import { isLangMap, reduceLangMapsForLocale } from '@europeana/i18n';
 import { escapeLuceneSpecials, truncate } from '@europeana/utils';
 
 // Some facets do not support enquoting of their field values.

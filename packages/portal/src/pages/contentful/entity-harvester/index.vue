@@ -32,7 +32,7 @@
   } from '@europeana/apis/src/apis/entity/index.js';
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
   import { getLabelledSlug } from '@europeana/utils';
-  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
+  import { langMapValueForLocale } from '@europeana/i18n';
   import { BASE_URL } from '@europeana/apis/src/apis/data.js';
 
   export default {

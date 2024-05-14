@@ -5,7 +5,7 @@ import { VueMasonryPlugin } from 'vue-masonry';
 import VueI18n from 'vue-i18n';
 
 import contentfulModuleAssets from '@europeana/portal/src/modules/contentful/templates/assets.js';
-import messages from '@europeana/portal/src/lang/en.js';
+import messages from '@europeana/portal/src/i18n/lang/en.js';
 import sampleData from '@europeana/portal/docs/sample-data.js';
 
 Vue.use(VueI18n);

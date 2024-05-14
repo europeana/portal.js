@@ -1,9 +1,11 @@
 {
   "name": "@europeana/i18n",
-  "version": "1.149.4",
+  "version": "1.150.0",
   "description": "Europeana i18n",
   "license": "EUPL-1.2",
   "type": "module",
   "main": "./src/index.js",
-  "dependencies": {}
+  "exports": {
+    ".": "./src/index.js"
+  }
 }

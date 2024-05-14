@@ -10,7 +10,7 @@
 const COOKIE_NAME = 'i18n_locale_code';
 
 // Codes of all languages supported by the app
-import localeCodes from '@europeana/i18n/src/codes.js';
+import { codes as localeCodes } from '@europeana/i18n';
 import { exclude as i18nRoutesExclude } from '../i18n/routes.js';
 
 function appSupportsLocale(locale) {

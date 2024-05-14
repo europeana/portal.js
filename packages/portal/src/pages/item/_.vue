@@ -150,7 +150,7 @@
   import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@europeana/apis/src/apis/data.js';
   import {
     forEachLangMapValue, isLangMap, langMapValueForLocale, reduceLangMapsForLocale, undefinedLocaleCodes
-  } from  '@europeana/i18n/src/langMap.js';
+  } from  '@europeana/i18n';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
   import stringify from '@/mixins/stringify';

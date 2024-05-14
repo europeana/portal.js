@@ -124,7 +124,7 @@
   import langAttributeMixin from '@/mixins/langAttribute';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
   import { truncate } from '@europeana/utils';
-  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   const HIT_TEXT_AFFIX_MAX_WORDS = 15;
 

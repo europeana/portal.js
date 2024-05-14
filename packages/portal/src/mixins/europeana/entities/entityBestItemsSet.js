@@ -24,7 +24,7 @@ export default {
 
     entitySetTitle(entity) {
       return Object.entries(entity?.prefLabel || {}).reduce((memo, [lang, value]) => {
-        memo[lang] = this.$t('set.entityBestBets.title', { entity: Array.isArray(value) ? value[0] : value });
+        memo[lang] = Array.isArray(value) ? value[0] : value;
         return memo;
       }, {});
     },

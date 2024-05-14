@@ -27,8 +27,8 @@ fixtures.entityPrefLabelArrays = {
   en: [fixtures.englishPrefLabel]
 };
 fixtures.setTitle = {
-  de: 'set.entityBestBets.title Deutsch',
-  en: 'set.entityBestBets.title English'
+  de: 'Deutsch',
+  en: 'English'
 };
 
 const factory = () => {

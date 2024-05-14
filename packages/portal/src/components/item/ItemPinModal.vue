@@ -76,7 +76,7 @@
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
   import makeToastMixin from '@/mixins/makeToast';
-  import { langMapValueForLocale } from '@europeana/i18n/src/langMap.js';
+  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemPinModal',
@@ -128,10 +128,7 @@
          *     'entityUri2': { id: 'setId2', pinned: ['itemUri1', 'itemUri2'] },
          *   }
          */
-        sets: this.entityUris.reduce((memo, uri) => {
-          memo[uri] = this.setFactory();
-          return memo;
-        }, {})
+        sets: {}
       };
     },
 
@@ -184,6 +181,12 @@
         // Fetch the full entities first
         const entities = await this.$apis.entity.find(this.entityUris);
         this.entities = entities.map((entity) => pick(entity, 'id', 'prefLabel'));
+
+        // Initialise empty set objects
+        this.sets = this.entities.reduce((memo, entity) => {
+          memo[entity.id] = this.setFactory();
+          return memo;
+        }, {});
 
         const searchParams = {
           query: 'type:EntityBestItemsSet',
